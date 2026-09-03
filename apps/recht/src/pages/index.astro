@@ -1,58 +1,29 @@
 ---
 import LawLayout from '../layouts/LawLayout.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
-import {
-  formatDate,
-  formatNormType,
-  getAdministrativeRulesUrl,
-  getIndexUrl,
-  getLawDevelopmentOverviewUrl,
-  getLawPortalUrl,
-  getLawsUrl,
-  getNormHistoryUrl,
-  getNormUrl,
-  getPublicationLabel,
-  getPublicationUrl,
-  getPublicationsUrl,
-  getReferencesUrl,
-  getRegulationsUrl,
-  getSearchUrl,
-  getSubjectAreaGroups,
-  getSubjectsUrl,
-  getSubjectSlug,
-  getBerlinCalendarDate,
-  getApplicableVersion,
-  getNormVersionIdentity,
-  loadAllVerkuendungen,
-  partitionDatedEntries,
-  toDisplayText,
-} from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { formatDate, formatNormType, getAdministrativeRulesUrl, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getLawsUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getRegulationsUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, getBerlinCalendarDate, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormStore } from '../lib/runtime/context.ts';
 
-const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
-const subjectAreas = getSubjectAreaGroups(norms).slice(0, 6);
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+export const prerender = false;
+
+const store = await getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+// Startseite: nur Bestandszahlen, Hauptbereiche, die jüngsten Historieneinträge (Index auf
+// change_date) und die neuesten Ausgaben – kein Laden des Normenbestands.
 const homeCalendarDate = getBerlinCalendarDate();
 const HOME_CHANGE_CANDIDATE_LIMIT = 12;
 const HOME_CURRENT_CHANGE_LIMIT = 5;
 const HOME_FUTURE_CHANGE_LIMIT = 3;
-const changeEntries = norms
-  .flatMap((norm) => norm.history.entries
-    .filter((entry) => entry.type === 'amendment' || entry.type === 'repeal')
-    .map((entry) => ({ norm, entry })))
-  .sort((left, right) => right.entry.date.localeCompare(left.entry.date));
-const { current: currentChangeCandidates, future: futureChangeCandidates } = partitionDatedEntries(
-  changeEntries.map(({ norm, entry }) => ({ norm, entry, date: entry.date })),
-  homeCalendarDate,
-);
-const latestChanges = currentChangeCandidates.slice(0, HOME_CHANGE_CANDIDATE_LIMIT);
-const futureChanges = futureChangeCandidates
-  .sort((left, right) => left.date.localeCompare(right.date))
-  .slice(0, HOME_CHANGE_CANDIDATE_LIMIT);
-const latestPublications = [...publications]
-  .sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'))
-  .slice(0, 4);
-const homeSearchTypes = [...new Set(norms.map((norm) => norm.meta.type))]
+const [stats, subjectAreas, latestChanges, futureChanges, latestPublications] = await Promise.all([
+  store.getCorpusStats(),
+  store.listSubjectAreas().then((areas) => areas.slice(0, 6)),
+  store.listChanges({ changeTypes: ['amendment', 'repeal'], until: homeCalendarDate, order: 'desc', limit: HOME_CHANGE_CANDIDATE_LIMIT }),
+  store.listChanges({ changeTypes: ['amendment', 'repeal'], after: homeCalendarDate, order: 'asc', limit: HOME_CHANGE_CANDIDATE_LIMIT }),
+  store.listPublications({ limit: 4 }),
+]);
+const homeSearchTypes = [...stats.types]
   .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
 const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 const quickAccess = [
@@ -98,7 +69,7 @@ const quickAccess = [
         <a href={getPublicationsUrl()}>Verkündungsblätter</a>
         <a href={getSearchUrl()}>Mehr Filter</a>
       </nav>
-      <p class="law-home-hero__inventory">{currentNorms.length} geltende Vorschriften und {publications.length} erschlossene Ausgaben im Bestand.</p>
+      <p class="law-home-hero__inventory">{stats.inForceCount} geltende Vorschriften und {stats.publicationCount} erschlossene Ausgaben im Bestand.</p>
     </div>
   </section>
 
@@ -120,26 +91,23 @@ const quickAccess = [
           <a href={getLawDevelopmentOverviewUrl()}>Alle anzeigen</a>
         </header>
         <ol class="law-dashboard-list" data-law-current-change-list>
-          {latestChanges.map(({ norm, entry }, index) => {
-            const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
-            return (
+          {latestChanges.map((change, index) => (
             <li
               data-law-change
-              data-effective-date={entry.date}
-              data-current-label={formatNormType(norm.meta.type)}
+              data-effective-date={change.date}
+              data-current-label={formatNormType(change.type)}
               data-future-label="tritt künftig in Kraft"
               hidden={index >= HOME_CURRENT_CHANGE_LIMIT}
             >
-              <time datetime={entry.date}>{formatDate(entry.date)}</time>
-              <span class="law-type-label" data-law-change-label>{formatNormType(norm.meta.type)}</span>
+              <time datetime={change.date}>{formatDate(change.date)}</time>
+              <span class="law-type-label" data-law-change-label>{formatNormType(change.type)}</span>
               <div>
-                <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
-                <p>{toDisplayText(entry.title)}</p>
-                <a class="law-row-link" href={getNormHistoryUrl(norm.meta.slug)}>Änderungsverlauf</a>
+                <h3><a href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a></h3>
+                <p>{toDisplayText(change.title)}</p>
+                <a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a>
               </div>
             </li>
-            );
-          })}
+          ))}
         </ol>
       </section>
 
@@ -150,26 +118,23 @@ const quickAccess = [
           </header>
           <p class="law-dashboard-card__future-intro">Vorschriften, die nach dem aktuellen Rechtsstand in Kraft treten.</p>
           <ol class="law-dashboard-list law-dashboard-list--future" data-law-future-change-list>
-            {futureChanges.map(({ norm, entry }, index) => {
-              const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
-              return (
+            {futureChanges.map((change, index) => (
               <li
                 data-law-change
-                data-effective-date={entry.date}
-                data-current-label={formatNormType(norm.meta.type)}
+                data-effective-date={change.date}
+                data-current-label={formatNormType(change.type)}
                 data-future-label="tritt künftig in Kraft"
                 hidden={index >= HOME_FUTURE_CHANGE_LIMIT}
               >
-                <time datetime={entry.date}>{formatDate(entry.date)}</time>
+                <time datetime={change.date}>{formatDate(change.date)}</time>
                 <span class="law-type-label law-type-label--future" data-law-change-label>tritt künftig in Kraft</span>
                 <div>
-                  <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
-                  <p>{toDisplayText(entry.title)}</p>
-                  <a class="law-row-link" href={getNormHistoryUrl(norm.meta.slug)}>Änderungsverlauf</a>
+                  <h3><a href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a></h3>
+                  <p>{toDisplayText(change.title)}</p>
+                  <a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a>
                 </div>
               </li>
-              );
-            })}
+            ))}
           </ol>
         </section>
       ) : null}

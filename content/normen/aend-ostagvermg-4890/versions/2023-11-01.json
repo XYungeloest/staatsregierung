@@ -1,0 +1,74 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Gesetzes zur Ausführung des Vermögensgesetzes",
+  "shortTitle": "Änd. OstAGVermG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Gesetzes zur Ausführung des Vermögensgesetzes vom 28. Juni 2001 (SächsGVBl. S. 426)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 6 der Mantelvorschrift 3629, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 4890 (Bestandteil der Vorschrift 3629)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/4890.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4890",
+      "retrievedAt": "2026-09-03",
+      "sha256": "8febb458de3b4f3b92b290666172706c90417867afd910f6385dd9c2f2312566",
+      "lawId": "4890",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3629, Artikel 6 (Zweites Gesetz zur Euro-bedingten und weiteren Änderung des sächsischen Landesrechts)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3629.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3629#a6",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bfb48b196d6fa024bfd8768ad6ff89b141e9b96c28876b25a112369f6a4ce627",
+      "lawId": "3629",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
+      "children": [
+        {
+          "type": "article",
+          "label": "Artikel 6",
+          "title": "Änderung des Ostdeutschen Gesetzes zur Ausführung des Vermögensgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 2 Abs. 2 des Ostdeutschen Gesetzes zur Ausführung des Vermögensgesetzes (OstAGVermG) vom 24. August 2000 (SächsGVBl. S. 360) wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Satz 2 wird die Angabe „1 500 DM“ durch die Angabe „766,94 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Satz 3 wird die Angabe „1 900 DM“ durch die Angabe „971,45 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

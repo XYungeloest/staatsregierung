@@ -164,3 +164,12 @@ export function formatVersionTemporalLabel(
   if (kind === 'unknown-effective') return 'Veröffentlicht; Inkrafttreten nicht belegt';
   return `Zum Stichtag geltende Fassung ab ${version.validFrom}`;
 }
+
+/** Die am redaktionellen Stichtag geltende Fassung (siehe getApplicableVersion). */
+export function getCurrentVersion(record: NormRecord): NormVersion {
+  return getApplicableVersion(record);
+}
+
+export function getVersionById(record: NormRecord, versionId: string): NormVersion | undefined {
+  return record.versions.find((version) => version.versionId === versionId);
+}

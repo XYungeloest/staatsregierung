@@ -1,0 +1,518 @@
+{
+  "versionId": "2023-11-01",
+  "title": "VwV Prüfhandbuch USt.Doppik",
+  "shortTitle": "VwV Prüfhandbuch USt.Doppik",
+  "abbr": "VwV PHB-USt.Doppik",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "VwV Prüfhandbuch USt.Doppik vom 24. Mai 2022 (SächsABl. S. 1273)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 19738.1, gültig ab 2022-10-21",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/19738.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19738",
+      "retrievedAt": "2026-09-03",
+      "sha256": "fc4bf48a827a77a4a83b17e305034f8e6cb8f8bfa937a474fe708e06ca7eec2c",
+      "lawId": "19738",
+      "sourceValidFrom": "2022-10-21",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Auf Grund von § 87 Absatz 2 der Ostdeutschen Gemeindeordnung in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), die zuletzt durch Artikel 1 des Gesetzes vom 9. Februar 2022 (SächsGVBl. S. 134) geändert worden ist, wird im Benehmen mit dem Ostdeutschen Rechnungshof folgende Verwaltungsvorschrift als Prüfhandbuch erlassen:"
+    },
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Anwendungsbereich",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift ist bei der Prüfung von Programmen zur Unterstützung des kommunalen Finanzwesens nach den Regeln der Doppik mit Blick auf die Buchung und Verarbeitung der Umsatzsteuer anzuwenden. Sie fasst die aus den im Freistaat Ostdeutschland geltenden Bundes- und Kommunalgesetzen und Verordnungen ableitbaren Anforderungen und allgemein anerkannten technischen Regeln an Programme zusammen, deren Erfüllung die Voraussetzung für eine Programmzulassung durch die Ostdeutsche Anstalt für kommunale Datenverarbeitung (SAKD) ist. Diese Anforderungen und Regeln sind in der Form von Prüfkriterien formuliert."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Umsatzsteuerrelevante Grunddaten",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm ermöglicht die Speicherung und Verwaltung folgender für die Buchung und Verarbeitung der Umsatzsteuer notwendiger Grunddaten:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Steuernummer der Kommune,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Adresse des Finanzamtes,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Umsatzsteuer-Identifikationsnummer",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Elster-Zertifikat.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP1"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm ermöglicht die Speicherung und Verwaltung des Voranmeldungszeitraums je Haushaltsjahr.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP2"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Das Programm ermöglicht die Speicherung und Verwaltung der verschiedenen Steuersätze für die Umsatzsteuer. Dabei kann die zeitliche Gültigkeit der verschiedenen Steuersätze hinterlegt werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP3"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Das Programm ermöglicht die Speicherung und Verwaltung von Anteilen, zu denen in umsatzsteuerrechtlich relevanten Teilen der Kommune Lieferungen und Leistungen erbracht werden, die zum Vorsteuerabzug berechtigen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Umsatzsteuerrelevante Buchungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Buchungssystematik",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht die Einrichtung und Ausgestaltung der Buchführung in der Art, dass die Anforderungen des Umsatzsteuergesetzes an die Aufzeichnung, Dokumentation und Nachvollziehbarkeit umsatzsteuerlicher Geschäftsvorfälle erfüllt werden können.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP5"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Das Programm unterstützt den Aufbau eines Systems, welches die automatisierte Verarbeitung umsatz- und vorsteuerrelevanter Geschäftsvorfälle leistet.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP6"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Umsatzsteuer",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung von steuerpflichtigen Umsätzen.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP7"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung von steuerfreien Umsätzen.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP8"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung von innergemeinschaftlichen Erwerben.",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP9"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "d.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung von Umsätzen, bei denen der Leistungsempfänger Steuerschuldner ist.",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP10"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "e.",
+              "text": "Das Programm ermöglicht bei der Erfassung von Ausgangsrechnungen für umsatzsteuerbare Umsätze die Erstellung von Rechnungsdokumenten mit den vorgeschriebenen Mindestinformationen sowie die Verarbeitung der Ausgangsrechnungen.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP11"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "f.",
+              "text": "Das Programm ermöglicht die Prüfung der ausländischen Umsatzsteuer-Identifikationsnummer des Rechnungsempfängers.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP11a"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Vorsteuer",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung von abziehbaren Vorsteuerbeträgen.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP12"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Weitere Anforderungen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung von umsatz- und vorsteuerrelevanten Geschäftsvorfällen mit unterschiedlichen Steuersätzen in einem Vorgang.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP13"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Sonderfälle",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm unterstützt die Berechnung des Betrages der Änderung der Vorsteuer, der sich infolge der Veränderung des Anteils der Nutzung eines Wirtschaftsgutes ergibt, der zum Vorsteuerabzug berechtigt.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP14"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Das Programm unterstützt die Berechnung des Betrages der unentgeltlichen Wertabgabe infolge der Verringerung des Anteils der unternehmerischen Nutzung bei gemischt genutzten Wirtschaftsgütern.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP15"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "von Beträgen der Änderung der Vorsteuer und",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "von Beträgen der unentgeltlichen Wertabgabe.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP16"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "d.",
+              "text": "Das Programm ermöglicht die Erfassung und Verarbeitung von anderen für die Umsatzsteuervoranmeldung oder für die Umsatzsteuererklärung notwendigen Beträge.",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: KRUSP17"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "Umsatzsteuerrelevante Auswertungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm ermöglicht die Verprobung der gebuchten umsatzsteuer- und vorsteuerrelevanten Beträge.\nKriteriennummer: KRUSP18",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm ermöglicht für jeden festgelegten Voranmeldungszeitraum die Erstellung der Umsatzsteuervoranmeldung sowie deren Berichtigung. Dabei erfolgt",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "–",
+              "text": "die Bereitstellung und Übermittlung eines Datensatzes für die Umsatzsteuervoranmeldung und alternativ,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "der Ausdruck der Umsatzsteuervoranmeldung entsprechend des amtlichen Formulars.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP19"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Das Programm ermöglicht für den Besteuerungszeitraum die Erstellung der Umsatzsteuererklärung sowie deren Berichtigung. Dabei erfolgt",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "–",
+              "text": "die Bereitstellung und Übermittlung eines Datensatzes für die Umsatzsteuererklärung und alternativ,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "der Ausdruck der Umsatzsteuererklärung entsprechend des amtlichen Formulars.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP20"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Das Programm ermöglicht für den Meldezeitraum die Erstellung der zusammenfassenden Meldung sowie deren Berichtigung. Dabei erfolgt",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "–",
+              "text": "die Bereitstellung und Übermittlung eines Datensatzes für die zusammenfassende Meldung und alternativ,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "der Ausdruck der zusammenfassenden Meldung entsprechend des amtlichen Formulars.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP21"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Das Programm ermöglicht dem Anwender die übersichtliche Recherche gespeicherter umsatz- und vorsteuerrelevanter Buchungen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: KRUSP22"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tag nach der Veröffentlichung in Kraft."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Bischofswerda, den 24. Mai 2022"
+        },
+        {
+          "type": "paragraphText",
+          "text": "Ostdeutsche Anstalt für Kommunale Datenverarbeitung\nWeber\nDirektor"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Bestattungsgesetzes",
+  "shortTitle": "Änd. OstBestG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Bestattungsgesetzes vom 5. Mai 2004 (SächsGVBl. S. 148, 150)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 6 der Mantelvorschrift 1228, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 4600 (Bestandteil der Vorschrift 1228)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/4600.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4600",
+      "retrievedAt": "2026-09-03",
+      "sha256": "8a3f75f75a5535e025dfdd163eda1f8d1cf7b50ccdedb184be32fb3eb99df3af",
+      "lawId": "4600",
+      "sourceValidFrom": "2004-05-23",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 1228, Artikel 6 (Sächsisches Verwaltungsmodernisierungsgesetz)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/1228.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1228#a6",
+      "retrievedAt": "2026-09-03",
+      "sha256": "09cb064b977e913e3dbc4f41ab1bd200c0e0da4eea72bea87c0a09944215e92f",
+      "lawId": "1228",
+      "sourceValidFrom": "2004-05-23",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 6",
+      "title": "Änderung des Ostdeutschen Bestattungsgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Ostdeutsche Gesetz über das Friedhofs-, Leichen- und Bestattungswesen (Ostdeutsches Bestattungsgesetz –\nOstBestG) vom 8. Juli 1994 (SächsGVBl. S. 1321), zuletzt geändert durch Artikel 6 des Gesetzes vom 25. August 2003 (SächsGVBl. S. 330, 341), wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In § 1 Abs. 4 werden die Worte „Staatlichen Umweltfachamts“ durch die Worte „Ostdeutschen Landesamtes für Umwelt und Geologie“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 5 Abs. 5 wird wie folgt gefasst:\n„(5) Der Grenzabstand zwischen Friedhöfen und Wohngebäuden einschließlich deren Nebenanlagen muss mindestens 35 m betragen. Zu Gewerbe- und Industrieanlagen einschließlich deren Nebenanlagen ist ein Grenzabstand von mindestens 75 m einzuhalten. Es können geringere Abstände zugelassen werden, wenn dies mit den nachbarlichen Belangen vereinbar ist und Ruhe und Würde des Friedhofs nicht wesentlich beeinträchtigt werden. Die Entscheidung hierüber trifft in den Fällen des § 1 Abs. 3 die dort genannte Behörde. Im Fall der Errichtung oder Änderung eines zu einem Friedhof benachbarten Bauvorhabens wird die Entscheidung nach Anhörung des Friedhofsträgers durch die zuständige Bauaufsichtsbehörde getroffen; bei genehmigungsfreien Vorhaben entscheidet die untere Bauaufsichtsbehörde.“",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "§ 20 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Absatz 1 Satz 1 werden die Worte „nach Absatz 2 genehmigt ist“ durch die Worte „den immissionsschutzrechtlichen Bestimmungen entspricht“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Absatz 2 wird aufgehoben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Absatz 3 wird Absatz 2.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

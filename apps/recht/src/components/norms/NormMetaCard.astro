@@ -52,6 +52,12 @@ const temporalStatus = temporalKind === 'current'
           <dd>{toDisplayText(norm.meta.enactingBody)}</dd>
         </div>
       ) : null}
+      {norm.meta.originEnactingBody ? (
+        <div>
+          <dt>Ursprungsorgan der übernommenen Quelle</dt>
+          <dd>{toDisplayText(norm.meta.originEnactingBody)}</dd>
+        </div>
+      ) : null}
       {norm.meta.responsibleMinistry ? (
         <div>
           <dt>Zuständiger Geschäftsbereich</dt>

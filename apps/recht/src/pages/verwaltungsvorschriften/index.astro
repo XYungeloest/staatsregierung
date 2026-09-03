@@ -1,8 +1,15 @@
 ---
 import NormDirectory from '../../components/norms/NormDirectory.astro';
 import { getAdministrativeRulesUrl } from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-const norms = (await loadAllNorms()).filter((norm) => norm.meta.type === 'verwaltungsvorschrift');
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+export const prerender = false;
+
+const store = await getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+// SQL-Filter über den Typindex; nur Übersichtszeilen, keine Fassungs-JSONs.
+const norms = await store.listNormSummariesByType('verwaltungsvorschrift');
 ---
 <NormDirectory title="Verwaltungsvorschriften" lead="Allgemeine Verwaltungsvorschriften des Ostdeutschen Freistaates strukturiert recherchieren." href={getAdministrativeRulesUrl()} {norms} />

@@ -12,53 +12,37 @@ import {
   getPublicationUrl,
   getPublicationsUrl,
   getReferencesUrl,
-  loadAllVerkuendungen,
   toDisplayText,
-  classifyNormVersion,
-  buildNormRelations,
-  getApplicableVersion,
-  getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import type { NormRelation } from '@ostrecht/shared/lib/norms/relations.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const publications = await loadAllVerkuendungen();
+// Verkündungsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
+export const prerender = false;
 
-  return publications.map((publication) => ({
-    params: { slug: publication.slug },
-    props: { publication },
-  }));
-}
-
-const { publication } = Astro.props;
-const norms = await loadAllNorms();
-const normBySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
-const relationLookup = buildNormRelations(norms);
+const store = await getNormStore(Astro.locals);
+const publication = await store.getPublication(Astro.params.slug ?? '');
+if (!publication) return Astro.rewrite('/404');
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+// Nur die in dieser Ausgabe zitierten Normen: ihre Fassungsübersicht und ihre in D1
+// vorberechneten Rechtsbeziehungen (law_norm_derived) statt des gesamten Bestands.
+const citedSlugs = [...new Set(publication.entries.map((entry) => entry.normSlug).filter((slug): slug is string => Boolean(slug)))];
+const [versionSummaries, derivedEntries] = await Promise.all([
+  store.listVersionSummaries({ slugs: citedSlugs }),
+  Promise.all(citedSlugs.map(async (slug) => [slug, await store.getDerived(slug)] as const)),
+]);
+const knownSlugs = new Set(versionSummaries.map((version) => version.slug));
+const versionKinds = new Map(versionSummaries.map((version) => [`${version.slug}:${version.versionId}`, version.temporalKind]));
+const relationLookup = new Map(derivedEntries.map(([slug, derived]) => [slug, derived?.relations ?? []]));
 
 function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
-  if (!normSlug) {
+  if (!normSlug || !knownSlugs.has(normSlug)) {
     return undefined;
   }
 
-  const norm = normBySlug.get(normSlug);
-  if (!norm) {
-    return undefined;
-  }
-
-  const version = versionId ? norm.versions.find((entry) => entry.versionId === versionId) : undefined;
-  return !version || classifyNormVersion(norm, version) === 'current'
+  const kind = versionId ? versionKinds.get(`${normSlug}:${versionId}`) : undefined;
+  return !kind || kind === 'current'
     ? getNormUrl(normSlug)
-    : getNormVersionUrl(normSlug, version.versionId);
-}
-
-function getResultingVersionUrl(relation: NormRelation): string | undefined {
-  if (!relation.resultingNorm || !relation.resultingVersionId) return undefined;
-  const version = relation.resultingNorm.versions.find((entry) => entry.versionId === relation.resultingVersionId);
-  if (!version) return undefined;
-  return classifyNormVersion(relation.resultingNorm, version) === 'current'
-    ? getNormUrl(relation.resultingNorm.meta.slug)
-    : getNormVersionUrl(relation.resultingNorm.meta.slug, version.versionId);
+    : getNormVersionUrl(normSlug, versionId as string);
 }
 ---
 
@@ -134,12 +118,11 @@ function getResultingVersionUrl(relation: NormRelation): string | undefined {
                       {legalRelations.length > 0 ? (
                         <ul class="publication-relation-list">
                           {legalRelations.map((relation) => {
-                            const resultingUrl = getResultingVersionUrl(relation);
-                            const relationIdentity = getNormVersionIdentity(relation.norm, getApplicableVersion(relation.norm));
+                            const resultingUrl = relation.resultingVersionUrl;
                             return (
                               <li>
                                 {relation.kind === 'repeals' ? 'Hebt auf: ' : 'Ändert: '}
-                                <a class="inline-link" href={getNormUrl(relation.norm.meta.slug)}>{toDisplayText(relationIdentity.shortTitle)}</a>
+                                <a class="inline-link" href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle)}</a>
                                 {resultingUrl ? <> · <a class="inline-link" href={resultingUrl}>entstandene Fassung</a></> : null}
                               </li>
                             );

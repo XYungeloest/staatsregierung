@@ -204,3 +204,147 @@ test('historische Zitierungen erkennen Abkürzungspunkte und trennen spätere Se
     context: 'SächsVwOrgG',
   }), /historischem Rechtsstand/u);
 });
+
+test('Buchstabengliederung, generische Wrapper und betitelte Abschnitte werden strukturtreu erfasst', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="Verwaltungsvorschrift"><h3>Verwaltungsvorschrift</h3>
+      <p>Die VwV Test wird wie folgt geändert:</p>
+    </section>
+    <section title="A. Geltungsbereich"><h3>A. Geltungsbereich</h3>
+      <p>Diese Verwaltungsvorschrift gilt für alle Behörden.</p>
+    </section>
+    <section title="I. Begriffe"><h3>I. Begriffe</h3>
+      <p>Behörde ist jede Stelle.</p>
+    </section>
+    <section title="1. Sachliche Zuständigkeit"><h3>1. Sachliche Zuständigkeit</h3>
+      <p>(1) Zuständig ist die Landesdirektion.</p>
+    </section>
+    <section title="B Inkrafttreten"><h3>B Inkrafttreten</h3>
+      <p>Diese Vorschrift tritt am 1. Januar 2020 in Kraft.</p>
+    </section>
+    <section title="Übereinkommen"><h3>Übereinkommen</h3>
+      <p>Das Übereinkommen wird nachstehend veröffentlicht.</p>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+
+  // Der erste Block stammt aus dem Seitenkopf der Testvorlage; danach folgt der
+  // aus dem Wrapper „Verwaltungsvorschrift“ auf die Dokumentebene gehobene Einleitungssatz.
+  const body = parsed.body.slice(1);
+  assert.deepEqual(body.map((block) => [block.type, block.label ?? null, block.title ?? null]), [
+    ['paragraphText', null, null],
+    ['section', 'A.', 'Geltungsbereich'],
+    ['section', 'B.', 'Inkrafttreten'],
+    ['section', null, 'Übereinkommen'],
+  ]);
+  assert.equal(body[0].text, 'Die VwV Test wird wie folgt geändert:');
+  const letterA = body[1];
+  assert.deepEqual(letterA.children.map((block) => [block.type, block.label ?? null]), [['paragraphText', null], ['section', 'I.']]);
+  const roman = letterA.children[1];
+  assert.deepEqual(roman.children.map((block) => [block.type, block.label ?? null]), [['paragraphText', null], ['section', '1.']]);
+  assert.equal(roman.children[1].children[0].type, 'subparagraph');
+  assert.deepEqual(parsed.structureNotes, [
+    { kind: 'hoisted-wrapper', title: 'Verwaltungsvorschrift' },
+    { kind: 'generic-section', title: 'Übereinkommen' },
+  ]);
+});
+
+test('bekannte Gliederungen bleiben ohne Strukturhinweise und ohne Buchstabenfehlinterpretation', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="Erster Teil Allgemeines"><h3>Erster Teil<br>Allgemeines</h3></section>
+    <section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Zweck.</p></section>
+    <section title="Anlage 1"><h3>Anlage 1</h3><p>Muster.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+  assert.equal(parsed.structureNotes, undefined);
+  const body = parsed.body.filter((block) => block.type !== 'paragraphText');
+  assert.deepEqual(body.map((block) => block.type), ['part']);
+  assert.deepEqual(body[0].children.map((block) => [block.type, block.label]), [['paragraph', '§ 1'], ['annex', 'Anlage 1']]);
+});
+
+test('Alt-Layout ohne Gliederungscontainer, HTML-Listen und Wrapper mit alleinigem Text werden erfasst', () => {
+  const legacy = parseRevosaxSnapshot(`<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>Änderung der Alarmierungsrichtlinie</h1>
+    <p>Vollzitat: Änderung der Alarmierungsrichtlinie vom 1. Dezember 2000 (SächsABl. 2001 S. 4)</p>
+    <article id="lesetext"><nav data-level="1" title="Verwaltungsvorschrift"><div id="lesetext">
+      <h3 class="centre">Verwaltungsvorschrift</h3>
+      <p class="centre"><strong>Vom 1. Dezember 2000</strong></p>
+      <ol><li>In Nr. 1.3 wird der 2. Halbsatz ersetzt.<ol><li>Unterpunkt.</li></ol></li><li>Diese Verwaltungsvorschrift tritt am 1. Januar 2001 in Kraft.</li></ol>
+      <p class="gauche">Dresden, 1. Dezember 2000</p>
+      <p class="gauche"><strong>Sächsisches Staatsministerium des Innern</strong></p>
+    </div></nav></article>
+    <div id="quickbar"><p>Fassung gültig ab: 1. Januar 2001</p></div>
+  </div></div></body></html>`, { url: 'https://www.revosax.sachsen.de/vorschrift/1643' });
+  assert.deepEqual(legacy.body.map((block) => [block.type, block.label, block.text.slice(0, 20)]), [
+    ['item', '1.', 'In Nr. 1.3 wird der '],
+    ['item', '2.', 'Diese Verwaltungsvor'],
+  ]);
+  assert.deepEqual(legacy.body[0].children, [{ type: 'item', label: '1.', text: 'Unterpunkt.', level: 1, numberingStyle: 'decimal', children: [] }]);
+  assert.deepEqual(legacy.structureNotes, [{ kind: 'legacy-layout' }, { kind: 'no-provisions' }]);
+
+  const consent = parseRevosaxSnapshot(snapshot(`
+    <section title="Gesetz"><h2 class="centre">Gesetz</h2><h4 class="centre">= Artikel 1 des Gesetzes</h4>
+      <p class="gauche">Dem Fünften Staatsvertrag wird zugestimmt.</p>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1894' });
+  assert.deepEqual(consent.body.at(-1), { type: 'paragraphText', text: 'Dem Fünften Staatsvertrag wird zugestimmt.' });
+  assert.deepEqual(consent.structureNotes, [{ kind: 'hoisted-wrapper', title: 'Gesetz' }, { kind: 'no-provisions' }]);
+
+  const numbered = parseRevosaxSnapshot(snapshot(`
+    <section title="Teil A Aufnahme"><h3>Teil A Aufnahme</h3></section>
+    <section title="1."><h3>1.</h3><p>Erster Punkt.</p></section>
+    <section title="Inhaltsverzeichnis"><h3>Inhaltsverzeichnis</h3><p>§ 1 Zweck</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/2' });
+  const structural = numbered.body.filter((block) => block.type !== 'paragraphText');
+  assert.deepEqual(structural.map((block) => [block.type, block.label, block.title]), [['part', 'Teil A', 'Aufnahme']]);
+  assert.deepEqual(structural[0].children.map((block) => [block.type, block.label]), [['section', '1.']]);
+  assert.equal(numbered.structureNotes, undefined);
+  // Ein Wrapper „Gesetz“ neben echten Gliederungseinheiten bleibt wie bisher unberücksichtigt.
+  const mixed = parseRevosaxSnapshot(snapshot(`
+    <section title="Gesetz"><h2>Gesetz</h2><p>Präsentationstext.</p></section>
+    <section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Zweck.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/3' });
+  assert.doesNotMatch(JSON.stringify(mixed.body), /Präsentationstext/u);
+});
+
+test('Bekanntmachungen als eigene Vorschrift und Abschnitte außerhalb von .sections werden gelesen', () => {
+  const notice = parseRevosaxSnapshot(snapshot(`
+    <section title="Bekanntmachung"><h3 class="centre">Bekanntmachung</h3><p class="centre"><strong>Vom 14. Juni 2005</strong></p>
+      <p class="gauche">Das Staatsministerium gibt bekannt, dass die Aufgabe übertragen wurde.</p>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1266' });
+  assert.deepEqual(notice.body.at(-1), { type: 'paragraphText', text: 'Das Staatsministerium gibt bekannt, dass die Aufgabe übertragen wurde.' });
+  assert.deepEqual(notice.structureNotes, [{ kind: 'hoisted-wrapper', title: 'Bekanntmachung' }, { kind: 'no-provisions' }]);
+
+  const modern = parseRevosaxSnapshot(`<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>VwV Religion und Ethik</h1><p>Vollzitat: VwV Religion und Ethik vom 26. März 2026 (MBl. SMK S. 38)</p>
+    <article id="lesetext"><header title="Eingangsformel"><h3 class="centre">Verwaltungsvorschrift</h3><p class="centre"><b>Vom 26. März 2026</b></p></header>
+      <div id="_idContainer000" class="Einfacher-Textrahmen">
+        <section data-level="1" title="I. Geltungsbereich"><h4 class="centre">I.<br>Geltungsbereich</h4><p class="FLIESSTEXT">Diese Verwaltungsvorschrift gilt für alle Schulen.</p></section>
+        <section data-level="1" title="II. Religionsunterricht"><h4 class="centre">II.<br>Religionsunterricht</h4></section>
+        <section data-level="2" title="1. Rechtsgrundlagen"><dl class="cf"><dt class="td_1">1.</dt><dd class="last">Rechtsgrundlagen</dd></dl></section>
+      </div></article>
+    <div id="quickbar"><p>Fassung gültig ab: 1. August 2026</p></div>
+  </div></div></body></html>`, { url: 'https://www.revosax.sachsen.de/vorschrift/2405' });
+  const sections = modern.body.filter((block) => block.type === 'section');
+  assert.deepEqual(sections.map((block) => [block.label, block.title]), [['I.', 'Geltungsbereich'], ['II.', 'Religionsunterricht']]);
+  assert.deepEqual(sections[1].children.map((block) => [block.type, block.label, block.title]), [['section', '1.', 'Rechtsgrundlagen']]);
+  assert.equal(modern.sourceValidFrom, '2026-08-01');
+});
+
+test('unbetitelte technische Abschnitte werden auf die aktuelle Ebene gehoben', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="Artikel 1 Grundsätze"><h4>Artikel 1 Grundsätze</h4><p>(1) Der Freistaat ist ein Land.</p></section>
+    <section data-satzzahl="manuell" id="x1"><p>(2) Ergänzender Absatz ohne eigene Gliederung.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/3975' });
+  const article = parsed.body.find((block) => block.type === 'article');
+  assert.deepEqual(article.children.map((block) => block.label), ['(1)', '(2)']);
+  assert.deepEqual(parsed.structureNotes, [{ kind: 'untitled-wrapper' }]);
+});
+
+test('historische Zitierung entfernt spätere Änderungsklauseln auch bei gleichem Erlassjahr', () => {
+  const citation = 'RL preisgünstiger Mietwohnraum vom 31. Mai 2023 (SächsABl. S. 677), die durch Großbuchstabe B der Richtlinie vom 20. Dezember 2023 (SächsABl. 2024 S. 110) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)';
+  assert.equal(
+    historicalBaselineCitation({ pageFullCitation: citation, sourceValidTo: '2023-11-30' }),
+    'RL preisgünstiger Mietwohnraum vom 31. Mai 2023 (SächsABl. S. 677)',
+  );
+  assert.equal(
+    historicalBaselineCitation({
+      pageFullCitation: 'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931), die durch die Richtlinie vom 27.11.2023 (SächsABl. S. 1568) geändert worden ist',
+      sourceValidTo: '2023-12-14',
+      citationValidAt: '2023-11-01',
+    }),
+    'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931)',
+  );
+});

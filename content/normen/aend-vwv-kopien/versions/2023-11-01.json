@@ -1,0 +1,82 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung der VwV Kopien",
+  "shortTitle": "Änd. VwV Kopien",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung der VwV Kopien vom 15. November 2001 (SächsJMBl. S. 157)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: VII. der Mantelvorschrift 3297, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 3724 (Bestandteil der Vorschrift 3297)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3724.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3724",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bd72e612a3e6389d8378a8acc2cb9927c1113c405e6d25cd05bda8fd068b39a0",
+      "lawId": "3724",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3297, VII. (Verwaltungsvorschrift des Sächsischen Staatsministeriums der Justiz zur Euro-bedingten Änderung im Sächsischen Justizministerialblatt veröffentlichter Verwaltungsvorschriften)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/envelope-3297.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3297#roemVII",
+      "retrievedAt": "2026-09-03",
+      "sha256": "e83cdae4936eef9df4779ffac49165a0bb9573fe59fb4b12a572407e09fbe218",
+      "lawId": "3297",
+      "sourceValidFrom": "2002-01-01",
+      "sourceValidTo": "2013-12-31",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "title": "Eingangsformel",
+      "children": [
+        {
+          "type": "section",
+          "label": "VII.",
+          "title": "Änderung der VwV Kopien",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Erhebung von Entgelten für privat gefertigte Kopien (VwV Kopien) vom 9. Juli 1999 (SächsJMBl. S. 118) wird mit Einwilligung des Staatsministeriums der Finanzen und nach Anhörung des Rechnungshofes wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Nummer 1 Buchst. a wird die Angabe „0,10 DM” durch die Angabe „5 Cent” ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Nummer 1 Buchst. b wird die Angabe „0,50 DM” durch die Angabe „25 Cent” ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In Nummer 2 Satz 2 wird die Angabe „25 DM” durch die Angabe „12,50 EUR” ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -62,7 +62,7 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - Rechtsportal: `recht.freistaat-ostdeutschland.de`, Build `npm run build:recht`, Worker `ostrecht-recht`
 - öffentliche Rechtsrouten liegen auf der Rechtsdomain ohne zusätzliches `/recht/`-Präfix
 - Cross-Site-Links werden über `packages/shared/src/lib/portal/routes.ts` und `packages/shared/src/lib/norms/routes.ts` erzeugt; die Origins stammen aus `PORTAL_SITE_URL` und `LAW_SITE_URL`
-- keine aktiven D1/R2-Bindings im aktuellen Portalstand
+- OstRecht liest Rechtsdaten zur Laufzeit aus Cloudflare D1 (`ostrecht_recht`, Projektion aus `content/` per `npm run norms:runtime:d1-sync`); R2 (`ostrecht_recht_quellen`) archiviert nur unveränderte Rohquellen; das Staatsportal hat keine D1/R2-Bindings
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
 - Build- und Content-Checks vor Abschluss ausführen, sofern möglich
 
@@ -161,7 +161,33 @@ Ein späterer sächsischer Zwischenstand darf nur übernommen werden, wenn ihn e
 zusätzlichen Snapshot gespeichert. Gleichzeitige Änderungen brauchen eine explizite Reihenfolge
 und führen zu einer gemeinsamen Folgefassung mit getrennten Historieneinträgen.
 Konsolidierung und Build bleiben offline. Quellkonflikte erhalten einen Sperrstatus; sie werden
-nicht heuristisch aufgelöst.
+nicht heuristisch aufgelöst. Die Konsolidierung wendet Patch-Rezepte auf den unveränderten
+sächsischen Ausgangstext an und leitet erst das Ergebnis mit dem Rechtsüberleitungsadapter über;
+`npm run norms:ost:residual-audit` verlangt 0 Reststellen im übergeleiteten Recht und lässt
+Sachsen-Bezüge in eigenen ostdeutschen Erlassen nur zu, wenn sie wörtlich in der amtlichen Quelle
+unter `Gesetze/` stehen oder eine an den PDF-Hash gebundene Prüfung in
+`data/recht/ost-residual-backlog.json` dokumentiert ist.
+
+Mantelbestandteile aus REVOSax werden zweistufig zugeordnet: fail-closed heuristisch
+(`scripts/classify-revosax-envelopes.mjs`) und über geprüfte Entscheidungen in
+`data/recht/revosax-envelope-decisions.json` (`scripts/resolve-revosax-envelope-defers.mjs`;
+jede Entscheidung nennt Zielgesetz, Fundstelle, Beleg und Methode und wird gegen den Artikeltext
+verifiziert). Kein blindes Mapping.
+
+D1 ist die Runtime-Projektion (Schema `data/recht/d1/`, Sync `scripts/sync-recht-d1.mjs`):
+Löschungen laufen nur über Indizes (nie ein Vollscan des FTS5-Index), die Vollprojektion ist ein
+bewusster Sondermodus mit einmaligem Reset, die Projektionsidentität (Fingerabdruck plus Scope
+`full`/`fixture:…`) macht einen Sync bei unverändertem Stand zum No-op – ein Fixture gilt nie als
+Vollbestand –, ein `--git-diff`-Sync schreibt nur mit verifizierter Basisidentität (sonst
+fail-closed oder markierte Recovery mit `--recover`), und Remote-Läufe tragen immer ein Budgetprofil
+aus `data/recht/d1-sync-budgets.json` (`--budget …`; Vorabschätzung und Laufzeitabbruch). Kein
+produktiver `--full`-Sync ohne zwingenden Grund; Lasttests nur lokal oder gegen
+`ostrecht-recht-staging`; Migrationen lokal → Staging → Produktion, nie automatisch. Die
+OstRecht-Laufzeit lädt nie den vollständigen Korpus: Übersichten lesen `NormSummary`-Zeilen mit
+SQL-Filtern, A–Z und Rechtsentwicklung paginieren serverseitig (`queryNormSummaries`), korpusweite
+Zahlen kommen aus vorberechneten Metadatenzeilen. Pull-Request-Smoke läuft gegen
+`data/recht/runtime-fixture.json`; der Vollbestand ist Release-Gate (`full_runtime_smoke`, einmal
+geseedet) und wöchentlicher Lauf.
 
 Verkündungen liegen unter:
 

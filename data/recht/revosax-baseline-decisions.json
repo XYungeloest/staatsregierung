@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "baselineDate": "2023-11-01",
+  "description": "Dokumentierte Entscheidungen zu REVIEW-Fällen des Materialisierungsplans (scripts/plan-revosax-materialization.mjs). Schlüssel ist die REVOSax-Quellkennung (<lawId>[.<Fassung>]). Aktionen: SKIP (begründeter Ausschluss), MATCH/PROTECT/CREATE (Auflösung mit canonicalSlug), DEFER (bewusst offen gehaltener Reviewfall: bleibt REVIEW im Plan und im Import-Audit, blockiert den Schreibmodus nicht).",
+  "decisions": {
+    "1018": {
+      "action": "SKIP",
+      "reason": "Europäisches Übereinkommen über das grenzüberschreitende Fernsehen: REVOSax hält den Text nur als PDF-Anlagen vor. Das Übereinkommen selbst (Anlage 12287, 25 Seiten, revosax/2023-11-01/attachments/1018/12287-01_93_1160a_UEK.pdf) ist ein Scan ohne Textebene (pdftotext liefert keinen Text) und dürfte nur per OCR erschlossen werden; das Änderungsprotokoll (Anlage 12285, Textebene vorhanden) ist ohne den Haupttext nicht sinnvoll. Beide PDFs sind hashverifiziert in R2 archiviert; Materialisierung bleibt ein Reviewfall.",
+      "decidedAt": "2026-09-03"
+    },
+    "17114": {
+      "action": "SKIP",
+      "reason": "Der REVOSax-Lesetext besteht ausschließlich aus dem Verweis auf die Anlage 29063 (revosax/2023-11-01/attachments/17114/29063-02_17_0115a_anl.pdf, 8 Seiten, Textebene vorhanden). Die Anlage ist ein Fragebogenformular (Anlage zu Ziffer I mit Anhang), kein strukturierbarer Normtext; eine automatische Umsetzung in Normblöcke wäre irreführend. PDF hashverifiziert archiviert; Materialisierung bleibt ein Reviewfall.",
+      "decidedAt": "2026-09-03"
+    }
+  }
+}

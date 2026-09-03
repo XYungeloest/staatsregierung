@@ -1,0 +1,34 @@
+name: D1-Token prüfen
+
+# Prüft mit dem Repository-Secret CLOUDFLARE_API_TOKEN, ob der API-Transport des D1-Syncs
+# funktioniert: lesend gegen die produktive Datenbank (nur Fingerabdruck, --dry-run, kein
+# Schreibzugriff) und schreibend gegen ostrecht-recht-staging (Verkündungen des Testfixtures,
+# idempotente Upserts). Manuell auslösbar; die produktive Datenbank wird nie beschrieben.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  d1_token_check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Produktive D1 lesen (Fingerabdruck, kein Schreibzugriff)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run norms:runtime:d1-sync -- --transport api --dry-run --git-diff "${GITHUB_SHA}~1" "${GITHUB_SHA}"
+      - name: Staging-D1 schreiben (Verkündungen des Testfixtures)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          OSTRECHT_D1_DATABASE_ID: ba9c0e0b-ba18-4aec-b28e-fe65c8b69674
+        run: npm run norms:runtime:d1-sync -- --transport api --publications --budget incremental --max-rows-read 5000 --max-rows-written 5000

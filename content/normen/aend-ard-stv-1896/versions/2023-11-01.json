@@ -1,0 +1,61 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des ARD-Staatsvertrages",
+  "shortTitle": "Änd. ARD-StV",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des ARD-Staatsvertrages vom 24. August 1999 (SächsGVBl. 2000 S. 93, 102)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 2 der Mantelvorschrift 2324, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 1896 (Bestandteil der Vorschrift 2324)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/1896.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1896",
+      "retrievedAt": "2026-09-03",
+      "sha256": "c1968d2773b8956751982bdc4b22e6323530a554e179fb1866308ca5b4ff376f",
+      "lawId": "1896",
+      "sourceValidFrom": "2000-04-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 2324, Artikel 2 (Vierter Rundfunkänderungsstaatsvertrag)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/2324.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2324#a2",
+      "retrievedAt": "2026-09-03",
+      "sha256": "14df29a833a0587ad72a2bf480ec43a01aea37f7a913232d86ff7d3c2355fe57",
+      "lawId": "2324",
+      "sourceValidFrom": "2000-04-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "title": "Staatsvertrag",
+      "children": [
+        {
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des ARD-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 4 des\nARD-Staatsvertrages vom 31. August 1991, geändert durch den Dritten Rundfunkänderungsstaatsvertrag vom 26. August bis 11. September 1996, wird folgender Absatz 3 angefügt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": "„(3) Die in der ARD zusammengeschlossenen Landesrundfunkanstalten sind berechtigt, gemeinsam im Rahmen ihrer Aufgabenerfüllung Mediendienste im Sinne von § 2 Abs. 2 Nr. 4 Mediendienste-Staatsvertrag mit vorwiegend programmbezogenem Inhalt anzubieten. Werbung und Sponsoring finden in diesen Mediendiensten nicht statt.“"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

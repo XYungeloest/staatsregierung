@@ -16,11 +16,13 @@ if (selectedSiteTargets.includes('portal')) {
   });
 }
 if (selectedSiteTargets.includes('law')) {
+  // OstRecht liest Normen zur Laufzeit aus D1: der gebaute Worker läuft lokal mit
+  // einer aus content/ projizierten Miniflare-D1 (scripts/serve-law-worker.mjs).
   webServer.push({
-    command: 'node scripts/serve-site.mjs apps/recht/dist/client 4322',
-    url: lawURL,
+    command: 'node scripts/serve-law-worker.mjs --port 4322',
+    url: `${lawURL}/hilfe/`,
     reuseExistingServer: !process.env.CI,
-    timeout: 30_000,
+    timeout: 600_000,
   });
 }
 

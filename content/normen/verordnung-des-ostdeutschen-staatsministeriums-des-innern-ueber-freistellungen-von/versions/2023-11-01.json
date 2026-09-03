@@ -1,0 +1,330 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Kommunalfreistellungsverordnung",
+  "shortTitle": "Kommunalfreistellungsverordnung",
+  "abbr": "KomFreiVO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Kommunalfreistellungsverordnung vom 12. Dezember 1996 (SächsGVBl. S. 499), die zuletzt durch die Verordnung vom 19. April 2015 (SächsGVBl. S. 375) geändert worden ist",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 3942.4, gültig ab 2015-06-16",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3942.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3942",
+      "retrievedAt": "2026-09-03",
+      "sha256": "a8692df5c2a7e7db060cdfbb1579b3b8ee40fb94dea9ba70a73d2a98d9598704",
+      "lawId": "3942",
+      "sourceValidFrom": "2015-06-16",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "§ 1 geändert durch der Verordnung vom 19. April 2015 (SächsGVBl. S. 375)"
+    },
+    {
+      "label": "2",
+      "text": "§ 1 geändert durch Artikel 8 der Verordnung vom 12. Dezember 2001 (SächsGVBl. 2002 S. 3, 4), durch Verordnung vom 31. August 2009 (SächsGVBl. S. 506) und durch Verordnung vom 19. April 2015 (SächsGVBl. S. 375)"
+    },
+    {
+      "label": "3",
+      "text": "§§ 3 und 4 aufgehoben, bisheriger § 5 wird § 3 und geändert durch Verordnung vom 19. April 2015 (SächsGVBl. S. 375)"
+    },
+    {
+      "label": "4",
+      "text": "bisheriger § 6 wird § 4 durch Verordnung vom 19. April 2015 (SächsGVBl. S. 375)"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Es wird verordnet aufgrund von"
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 1",
+      "title": "Anwendungsbereich",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Vorschriften dieser Verordnung sind auf Leasingverträge der Gemeinden, Landkreise, Verwaltungsverbände und Zweckverbände anzuwenden."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 2",
+      "title": "Genehmigungsfreistellung von Leasingverträgen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Abschluß eines Leasingvertrages bedarf der Genehmigung der Rechtsaufsichtsbehörde nach § 82 Abs. 5 Satz 1\nOstGemO, sofern er nicht lediglich eine Zahlungsverpflichtung im Rahmen der Geschäfte der laufenden Verwaltung begründet.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Abschluss eines Leasingvertrages über bewegliche Sachen bedarf keiner Genehmigung nach § 82 Abs. 5 Satz 1\nOstGemO, wenn der Neuwert des Leasingobjektes folgende Beträge ohne Mehrwertsteuer nicht übersteigt:",
+          "children": []
+        },
+        {
+          "type": "table",
+          "columns": 4,
+          "children": [
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Einwohner",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Beträge",
+                  "scope": "col",
+                  "colspan": 3
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "1."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "bei Gemeinden",
+                  "colspan": 3
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": ""
+                },
+                {
+                  "type": "tableCell",
+                  "text": "bis"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "5 000 Einwohnern"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "33 000 EUR,"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": ""
+                },
+                {
+                  "type": "tableCell",
+                  "text": "von"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "5 001 bis 10 000 Einwohnern"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "46 000 EUR,"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": ""
+                },
+                {
+                  "type": "tableCell",
+                  "text": "von"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "10 001 bis 20 000 Einwohnern"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "65 000 EUR,"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": ""
+                },
+                {
+                  "type": "tableCell",
+                  "text": "von"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "20 001 bis 50 000 Einwohnern"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "98 000 EUR,"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": ""
+                },
+                {
+                  "type": "tableCell",
+                  "text": "von"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "50 001 bis 250 000 Einwohnern"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "163 000 EUR,"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": ""
+                },
+                {
+                  "type": "tableCell",
+                  "text": "von"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "mehr als 250 000 Einwohnern"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "325 000 EUR,"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "2."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "bei Landkreisen",
+                  "colspan": 2
+                },
+                {
+                  "type": "tableCell",
+                  "text": "325 000 EUR."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraphText",
+          "text": "Satz 1 Nr. 1 gilt für Verwaltungsverbände und Zweckverbände entsprechend; maßgebend ist die Summe der Einwohnerzahlen der Verbandsmitglieder, soweit es sich um Gebietskörperschaften handelt."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Bei mehreren sachlich oder wirtschaftlich zusammenhängenden Leasingverträgen ist der gesamte Wert der Leasingobjekte maßgebend.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Abschluß eines nach Absatz 2 von der Genehmigungspflicht freigestellten Leasingvertrages ist der Rechtsaufsichtsbehörde anzuzeigen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 3",
+      "title": "Ausschluß von Freistellungen",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Freistellung nach § 2 gilt nicht, wenn der Vertragspartner"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Bediensteter der beteiligten Körperschaft, Mitglied ihres Hauptorgans oder eines seiner Ausschüsse, eines Ortschaftsrates oder eines Beirates ist,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "zum Bürgermeister, zum Landrat, zu einem Beigeordneten, zum Verbandsvorsitzenden oder zu dem Bediensteten, der die Körperschaft beim Abschluß des Rechtsgeschäftes vertritt, in einem die Befangenheit nach § 20 Abs. 1 Nr. 1 bis 3\nOstGemO oder § 18 Abs. 1 Nr. 1 bis 3\nOstLKrO begründenden Verhältnis steht,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "in der Angelegenheit bereits in anderer Eigenschaft, zum Beispiel als Gutachter, tätig geworden ist oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "eine Eigengesellschaft oder Beteiligungsgesellschaft der an dem Rechtsgeschäft beteiligten Körperschaft ist.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verordnung tritt am Tage nach ihrer Verkündung in Kraft."
+        }
+      ]
+    }
+  ]
+}

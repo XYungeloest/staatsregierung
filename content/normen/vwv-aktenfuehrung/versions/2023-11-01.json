@@ -1,0 +1,908 @@
+{
+  "versionId": "2023-11-01",
+  "title": "VwV Aktenführung",
+  "shortTitle": "VwV Aktenführung",
+  "abbr": "VwV Aktenführung",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "VwV Aktenführung vom 31. Mai 2013 (SächsABl. S. 624), zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2025 (SächsABl. SDr. S. S 212)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 12824.1, gültig ab 2013-06-28",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/12824.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/12824",
+      "retrievedAt": "2026-09-03",
+      "sha256": "3820836e4f47bd6f01c9235cd898e3503762c7140ddf32356c4e19dc38240616",
+      "lawId": "12824",
+      "sourceValidFrom": "2013-06-28",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Inhaltsübersicht"
+    },
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Anwendungsbereich",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift gilt für die Behörden des Freistaates Ostdeutschland und alle sonstigen staatlichen Einrichtungen. Sie gilt nicht für die Justizverwaltung, die Organe der Rechtspflege, den Verfassungsgerichtshof des Freistaates Ostdeutschland, den Rechnungshof und die Verwaltung des Landtages."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Begriffsbestimmungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Ein Dokument ist die kleinste Einheit eines Vorgangs. Es entsteht bei der Bearbeitung eines Geschäftsvorfalls. Es kann von außen eingehen, nach außen gerichtet sein oder internen Charakter haben. Ein Dokument ist zum Beispiel ein Schreiben, ein Vermerk, ein Fax, eine E-Mail oder ein Foto, einschließlich aller ergänzenden Anlagen. Ein Dokument ist aktenrelevant, wenn es für die Dokumentation des Geschäftsvorfalls von Bedeutung ist.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Ein Vorgang ist eine geordnete Zusammenstellung von Dokumenten, die bei der Bearbeitung eines Geschäftsvorfalls entstehen. Ein Vorgang hat einen eigenen Betreff.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Eine Akte ist eine geordnete Zusammenstellung von Vorgängen, die im sachlichen und zeitlichen Zusammenhang stehen. Eine Akte hat einen eigenen Betreff.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Akten, Vorgänge und Dokumente werden als hybrid bezeichnet, wenn sie teilweise in Papier- und teilweise in elektronischer Form vorliegen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Akten, Vorgänge und Dokumente werden insgesamt als Unterlagen bezeichnet. Unterlagen im Sinne dieser Verwaltungsvorschrift sind Unterlagen nach § 2 Abs. 2 des Archivgesetzes für den Freistaat Ostdeutschland (OstArchivG) vom 17. Mai 1993 (SächsGVBl. S. 449), das zuletzt durch Artikel 2 des Gesetzes vom 5. Mai 2004 (SächsGVBl. S. 148) geändert worden ist, in der jeweils geltenden Fassung.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Metainformationen sind beschreibende inhaltliche Merkmale, zum Beispiel Betreff, oder Ordnungsmerkmale, zum Beispiel Erstelldatum, Geschäftszeichen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Aktenführung umfasst das Registrieren, Ordnen, Ablegen, Aufbewahren, Bereitstellen, Abgeben von Unterlagen bei Aufgabenverlagerung auf andere Dienststellen und Aussondern.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Ein Aktenverzeichnis ist eine Übersicht über alle Akten der Dienststelle nach der Ordnung des Aktenbestandes.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Zuständigkeiten, Zusammenarbeit",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Für die Dokumentation der Geschäftsvorfälle nach Ziffer VI Nr. 22 der Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Regelung des Dienstbetriebes für die Behörden des Freistaates Ostdeutschland (VwV Dienstordnung) vom 6. September 2010 (SächsABl. S. 1316, 1532), die durch Verwaltungsvorschrift vom 1. März 2012 (SächsABl. S. 287) geändert worden ist, enthalten in der Verwaltungsvorschrift vom 19. Dezember 2011 (SächsABl. SDr. S. S 1642), sind die Bearbeiter verantwortlich.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Aktenführung obliegt grundsätzlich einer mit der Aktenführung beauftragten Stelle (Registratur). Die Aufgaben Registrieren, Ordnen und Bereitstellen von Unterlagen können auf die Bearbeiter übertragen werden. Die Entscheidung hierüber trifft die Dienststelle.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Bearbeiter und Registratur unterstützen sich gegenseitig.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "Landeseinheitlicher Aktenplan",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Den Rahmen für die Ordnung der Akten bildet der Landeseinheitliche Aktenplan des Freistaates Ostdeutschland (LEAP). Ergänzungen und Berichtigungen zum LEAP beantragen die Behörden und sonstigen Einrichtungen auf dem Dienstweg beim Staatsministerium des Innern.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Bestehen bundeseinheitliche Regelungen, kann die oberste Staatsbehörde entscheiden, ob der LEAP oder die bundeseinheitlichen Regelungen anzuwenden sind.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Registrieren",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Alle aktenrelevanten Dokumente, einschließlich E-Mails, sind mit einem Geschäftszeichen und bei elektronischer Aktenführung zusätzlich mit einer Dokumentennummer zu kennzeichnen und in einem Aktenverzeichnis nachzuweisen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Geschäftszeichen enthält",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "das Organisationskennzeichen als organisatorisches Merkmal,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "das Aktenplankennzeichen als sachliches Merkmal,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "die Aktennummer als Ordnungsmerkmal und",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "die Vorgangsnummer als weiteres Ordnungsmerkmal.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Das Aktenplankennzeichen und die Aktennummer bilden das Aktenzeichen."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Alle zu einem Vorgang gehörenden Dokumente sind mit demselben Geschäftszeichen zu kennzeichnen. Alle zu einer Akte gehörenden Vorgänge sind mit demselben Aktenzeichen und dem Organisationskennzeichen der federführend für den jeweiligen Vorgang zuständigen Organisationseinheit zu kennzeichnen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Wird ein neuer Vorgang oder eine neue Akte gebildet, ist eine neue Vorgangs- oder Aktennummer zu vergeben.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Der Bearbeiter ist für die Richtigkeit des Geschäftszeichens verantwortlich. Er hat das Geschäftszeichen zu prüfen und, falls erforderlich, die Änderung zu veranlassen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "In das Aktenverzeichnis sind mindestens die Metainformationen über die gebildeten Akten und Vorgänge aufzunehmen, die für das Aussondern von Unterlagen benötigt werden, sowie mindestens folgende Metainformationen über Dokumente:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Geschäftszeichen der eigenen Behörde,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "gegebenenfalls Name oder Bezeichnung des Einsenders oder Absenders,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Datum des Dokuments,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Betreff des Dokuments,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Art der Ablageverfügung,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "f)",
+              "text": "Datum der Ablageverfügung.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Nicht zu registrieren sind nicht aktenrelevante Dokumente, insbesondere",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "unaufgefordert eingesandte Angebote von Büchern, Bürogegenständen und Ähnlichem,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Werbesendungen,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Amtsblätter und Ähnliches,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Zeitungsausschnitte und",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "statistische Berichte allgemeiner Art.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VI.",
+      "title": "Ordnen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Alle aktenrelevanten Dokumente sind gemäß ihrem sachlichen Zusammenhang zu Vorgängen, diese wiederum zu Akten zusammenzufassen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Dokumente sollen innerhalb eines Vorgangs in zeitlicher Reihenfolge und bei Papieraktenführung zusätzlich in kaufmännischer Heftung geordnet werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Bezieht sich ein Dokument auf mehrere Vorgänge, so ist es zu dem seinem Hauptinhalt entsprechenden Vorgang zu nehmen. Die anderen Vorgänge sind jeweils mit einem Querverweis zu versehen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VII.",
+      "title": "Ablegen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Dokumente werden erst dann im Vorgang abgelegt, wenn",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "alle Geschäftsverfügungen erledigt sind und",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "die Ablageverfügung „zum Vorgang“ abgezeichnet ist.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Bei elektronischer Aktenführung kann die Ablageverfügung „zum Vorgang“ entfallen."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Dokumente in nicht elektronisch geführten Akten sollen geheftet werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Das Entfernen von aktenrelevanten Dokumenten ist unzulässig.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Dokumente, die mit „weglegen“ und der Angabe für den Vernichtungszeitpunkt verfügt sind, sind nicht im Vorgang abzulegen und zum angegebenen Vernichtungszeitpunkt zu vernichten.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Für Akten und Vorgänge mit vertraulichem Inhalt, insbesondere personenbezogene oder durch Berufs- oder besondere Amtsgeheimnisse geschützte Daten, sind besondere Sicherheitsmaßnahmen zu treffen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VIII.",
+      "title": "Aufbewahren",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Soweit Rechtsvorschriften nichts anderes bestimmen, sind die Akten und Vorgänge zehn Jahre aufzubewahren. Die Aufbewahrungsfristen beginnen mit Ablauf des Kalenderjahres, in dem die Akten oder Vorgänge geschlossen wurden."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IX.",
+      "title": "Bereitstellen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Wiedervorlagen sind grundsätzlich durch die Registratur zu überwachen und zum verfügten Zeitpunkt dem Bearbeiter für die weitere Bearbeitung vorzulegen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Registratur darf Auskünfte aus Unterlagen und Aktenverzeichnissen nur an Beschäftigte der eigenen Dienststelle erteilen. Bei Zweifeln über die Berechtigung der Auskunftsersuchenden ist das Einvernehmen des zuständigen Bearbeiters oder dessen Vorgesetzten einzuholen. Entsprechendes gilt bei der Einsichtnahme in Unterlagen und für die Ausgabe von Unterlagen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "An Dritte, wie Behörden oder Privatpersonen, dürfen Unterlagen nur ausgegeben werden, wenn ein berechtigtes Interesse glaubhaft gemacht wird und eine schriftliche Anweisung des zuständigen Bearbeiters oder seines Vorgesetzten vorliegt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die vollständige Rückgabe der Unterlagen ist zu überwachen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "X.",
+      "title": "Abgeben von Unterlagen bei Aufgabenverlagerung auf andere Dienststellen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Bei der Übertragung von Aufgaben sind alle Unterlagen, deren Aufbewahrungsfrist noch nicht läuft, einschließlich eines Aktenverzeichnisses an die nunmehr zuständige Stelle abzugeben.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Unterlagen, deren Aufbewahrungsfrist noch nicht abgelaufen ist, sind einschließlich eines Aktenverzeichnisses an die nunmehr zuständige Stelle abzugeben, wenn auf sie nach Einschätzung der abgebenden Stelle mit hoher Wahrscheinlichkeit während der Aufbewahrungsdauer zurückgegriffen wird. Die übrigen Unterlagen kann die abgebende Stelle dem Staatsarchiv vorfristig anbieten, sofern es sich nicht um Unterlagen handelt, für die eine generelle Vernichtungsgenehmigung vorliegt. Lehnt das Staatsarchiv die vorfristige Übernahme ab oder werden die Unterlagen als nicht archivwürdig bewertet, verbleiben die Unterlagen bei der abgebenden Stelle.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Dem Staatsarchiv sind der Wechsel der Zuständigkeit und die Abgabe der Unterlagen mitzuteilen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XI.",
+      "title": "Aussondern",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Vorgänge sind gemäß § 5\nOstArchivG dem Staatsarchiv aktenweise zur Übernahme anzubieten. Dazu sind die anzubietenden Unterlagen in einem Aussonderungsverzeichnis mit folgenden Angaben laufend nummeriert je Akte aufzuführen:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Bezeichnung des Aktenplankennzeichens,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Aktenbetreff,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Umfang,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Jahr der Bildung der Akte,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Geschäftszeichen aller der Akte zugeordneten Vorgänge,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "f)",
+              "text": "Betreffs aller der Akte zugeordneten Vorgänge,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "g)",
+              "text": "jeweiliges Jahr der Bildung aller der Akte zugeordneten Vorgänge,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "h)",
+              "text": "jeweiliges Jahr der Abschlussverfügung aller der Akte zugeordneten Vorgänge,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "i)",
+              "text": "Tag der Abschlussverfügung der Akte,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "j)",
+              "text": "Ablaufdatum der Aufbewahrungsfrist der Akte.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Bei elektronischer Aktenführung kann die Angabe nach Buchstabe c entfallen. In Ausnahmefällen können dem Staatsarchiv nach dessen vorheriger Zustimmung Akten vorgangsweise zur Übernahme angeboten werden."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Bei Verfilmung und Digitalisierung von Vorgängen und Akten in Papierform sind die Akten in Papierform sowie die Filme und Digitalisate dem Staatsarchiv nach Nummer 1 anzubieten.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die Dienststelle kann einen Vorschlag zur Archivwürdigkeit von Unterlagen unterbreiten. Dazu ist ein Vermerk im Aussonderungsverzeichnis zu ergänzen. Der Vermerk kann lauten:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "archivwürdig,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "vernichten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Archivwürdigkeit richtet sich nach § 2 Abs. 3\nOstArchivG . Wie der Vorschlag zur Archivwürdigkeit lautet, soll mit der Schlussverfügung festgelegt werden."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die Entscheidung über die Archivwürdigkeit obliegt dem Staatsarchiv. Es teilt seine Entscheidung nach Abschluss des Bewertungsverfahrens der Dienststelle mit. Mit der Entscheidung über die Archivwürdigkeit ist die Festlegung des Aussonderungsweges, Abgabe an das Staatsarchiv oder Vernichtung, verbunden. Die Registratur vermerkt den Aussonderungsweg im Aussonderungsverzeichnis und übermittelt es dem Staatsarchiv.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Die archivwürdigen Unterlagen sind innerhalb eines Jahres nach Abschluss des Bewertungsverfahrens an das Staatsarchiv abzugeben. Die Kosten für die Abgabe archivwürdiger Unterlagen trägt die abgebende Stelle.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Unterlagen, die das Staatsarchiv als nicht archivwürdig bewertet hat, sind durch die Registratur zu vernichten, wenn weder Rechtsvorschriften noch schutzwürdige Belange Betroffener entgegenstehen. Dabei ist sicherzustellen, dass jeder Missbrauch ausgeschlossen ist. Die Vernichtung ist durch die Registratur im Aussonderungsverzeichnis zu vermerken.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "In besonderen Einzelfällen kann mit Genehmigung des Staatsarchivs von den Vorgaben zu den im Aussonderungsverzeichnis enthaltenen Angaben abgewichen werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Das Aussonderungsverzeichnis ist dauerhaft von der Dienststelle aufzubewahren.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XII.",
+      "title": "Einsatz von IT-Systemen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Bei Einsatz von IT-Systemen zur Führung des Aktenverzeichnisses ist systemseitig mindestens sicherzustellen, dass",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "alle aktenrelevanten Dokumente registriert werden können,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "die Ordnung von Akten, Vorgängen und Dokumenten angezeigt werden kann und",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "das Aussonderungsverzeichnis elektronisch erstellt und in einem Standardformat ausgegeben werden kann.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Bei Einsatz von IT-Systemen zur elektronischen Aktenführung ist über die Anforderung nach Nummer 1 hinaus systemseitig, bei Bedarf mittels weiterer das System unterstützender Programme, mindestens sicherzustellen, dass",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "elektronische Dokumente abgelegt werden können,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "die Wiedervorlage von Dokumenten sowie die Möglichkeit zur Einsichtnahme und Auskunft nach entsprechenden Zugriffsbefugnissen möglich ist,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Dokumente im Original oder in einer diesem bildlich und inhaltlich vollständig übereinstimmenden Version aufbewahrt und während der gesamten Aufbewahrungsdauer unverzüglich lesbar gemacht werden können sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "die Unterlagen elektronisch in einem Standardformat ausgesondert werden können.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Bei Einsatz von IT-Systemen zur elektronischen Aktenführung und Bearbeitung von Geschäftsvorfällen ist über die Anforderungen nach den Nummern 1 und 2 hinaus systemseitig mindestens sicherzustellen, dass",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "der Nachweis der Dokumente, der Verfügungen sowie der Zeichnungen und",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "der Nachweis über den Laufweg der Dokumente",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "geführt werden kann."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Wird in der Dienststelle ein IT-System zur elektronischen Aktenführung und Bearbeitung von Geschäftsvorfällen eingesetzt, ist das Führen von Hybridakten nur zulässig, wenn",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "das Digitalisieren von Dokumenten unverhältnismäßig aufwendig,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "die elektronische Form rechtlich ausgeschlossen oder",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "die Papierform rechtlich vorgeschrieben ist.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Bei der Einführung von IT-Systemen nach den Nummern 1 bis 3 oder bei wesentlichen Änderungen bestehender IT-Systeme nach den Nummern 1 bis 3 ist das Staatsarchiv im Rahmen seiner Beratungsfunktion nach § 4 Abs. 5 Satz 1\nOstArchivG zu beteiligen. Bei der Einführung von IT-Systemen oder bei wesentlichen Änderungen bestehender IT-Systeme, die Bezüge zur Archivierung elektronischer Unterlagen enthalten, ist das Staatsarchiv anzuhören.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Für den Austausch von Daten zwischen verschiedenen IT-Systemen ist ein sicherer Übertragungsweg zu wählen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XIII.",
+      "title": "Übergangsbestimmung",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Bis zur Einführung eines IT-Systems zur elektronischen Aktenführung, längstens aber bis zum 31. Dezember 2016, können Unterlagen abweichend von den Ziffern V bis XI nach den Ziffern III und VI bis XVI der Gemeinsamen Verwaltungsvorschrift der Ostdeutschen Staatskanzlei, des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst, des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit, des Ostdeutschen Staatsministeriums für Soziales und des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über die Verwaltung von Unterlagen (VwV Registraturordnung – VwVRegO) vom 21. November 2008 (SächsABl. S. 1671), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2011 (SächsABl. SDr. S. S 1648), geführt werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Unterlagen, die nach der\nVwV Registraturordnung vom 21. November 2008 geführt wurden, können dem Staatsarchiv abweichend von Ziffer XI Nr. 1 Satz 1 vorgangsweise zur Übernahme angeboten werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XIV.",
+      "title": "Inkrafttreten, Außerkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Gemeinsame Verwaltungsvorschrift der Ostdeutschen Staatskanzlei, des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst, des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit, des Ostdeutschen Staatsministeriums für Soziales und des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über die Verwaltung von Unterlagen (VwV Registraturordnung – VwVRegO) vom 21. November 2008 (SächsABl. S. 1671), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2011 (SächsABl. SDr. S. S 1648), außer Kraft."
+        }
+      ]
+    }
+  ]
+}

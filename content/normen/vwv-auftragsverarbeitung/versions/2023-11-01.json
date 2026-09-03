@@ -1,0 +1,664 @@
+{
+  "versionId": "2023-11-01",
+  "title": "VwV Auftragsverarbeitung",
+  "shortTitle": "VwV Auftragsverarbeitung",
+  "abbr": "VwV Auftragsverarbeitung",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "VwV Auftragsverarbeitung vom 24. April 2019 (SächsJMBl. S. 119)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 18143.1, gültig 2019-05-01 bis 2024-10-31",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/18143.1.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/18143.1",
+      "retrievedAt": "2026-09-03",
+      "sha256": "c983d689183ebc538791f10621251e19a22dea82bad30600f5e343be527738d9",
+      "lawId": "18143",
+      "sourceValidFrom": "2019-05-01",
+      "sourceValidTo": "2024-10-31",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Gegenstand der Verarbeitung",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Leitstelle für Informationstechnologie der ostdeutschen Justiz verarbeitet im Rahmen der Wahrnehmung ihrer Aufgaben die personenbezogenen Daten, die in den Geschäftsprozessen des Staatsministeriums der Justiz sowie der Gerichte, Staatsanwaltschaften und Justizvollzugsanstalten anfallen und dort mittels Informationstechnik verarbeitet werden. Dies erfolgt auf unbestimmte Zeit auf der Grundlage dieser Verwaltungsvorschrift durch die Leitstelle für Informationstechnologie der ostdeutschen Justiz (Auftragsverarbeiter) im Auftrag des Staatsministeriums der Justiz, der Gerichte, Staatsanwaltschaften und Justizvollzugsanstalten (Verantwortliche) gemäß",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG (ABl. L 119 vom 4.5.2016, S. 1, L 314 vom 22.11.2016, S. 72), in der jeweils geltenden Fassung (Datenschutz-Grundverordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "des Ostdeutschen Datenschutzgesetzes vom 25. August 2003 (SächsGVBl. S. 330), das zuletzt durch Artikel 46 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) geändert worden ist, sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "der für den Justizvollzug geltenden Datenschutzvorschriften.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Diese Verwaltungsvorschrift gilt nicht in den Fällen, in denen Verantwortliche nicht den Auftragsverarbeiter, sondern den Staatsbetrieb Ostdeutsche Informatik Dienste (SID) mit der Verarbeitung personenbezogener Daten, die in ihren Geschäftsprozessen anfallen, beauftragen, zum Beispiel für die Bereitstellung und den Betrieb von VIS.SAX für das Staatsministerium der Justiz und die Generalstaatsanwaltschaft. Eine solche Auftragsverarbeitung ist Gegenstand gesonderter Rechtsverhältnisse unmittelbar zwischen den betroffenen Verantwortlichen und dem SID.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die Vorgaben der VwV IT – Justiz vom 13. Dezember 2018 (SächsJMBl. S. 138) bleiben unberührt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Art und Zweck der Verarbeitung",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Verarbeitung personenbezogener Daten im Sinne dieser Verwaltungsvorschrift ist jeder Vorgang im Zusammenhang mit personenbezogenen Daten, die in den Geschäftsprozessen der Verantwortlichen anfallen, wie das Erheben, das Erfassen, die Organisation, das Ordnen, die Speicherung, die Anpassung oder Veränderung, das Auslesen, das Abfragen, die Verwendung, die Offenlegung durch Übermittlung, Verbreitung oder eine andere Form der Bereitstellung, den Abgleich oder die Verknüpfung, die Einschränkung, das Löschen oder die Vernichtung.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Verarbeitung personenbezogener Daten durch den Auftragsverarbeiter im Auftrag der Verantwortlichen erfolgt zum Zweck der Erfüllung der den Verantwortlichen obliegenden gesetzlichen Aufgaben.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Darüber hinaus erfolgt die Verarbeitung personenbezogener Daten durch den Auftragsverarbeiter im Auftrag der Verantwortlichen zu Test-, Support- und Entwicklungszwecken, soweit dafür zwingend nicht anonymisierte Echtdaten erforderlich sind. Dies ist dann der Fall, wenn sich der jeweilige Zweck der Verarbeitung personenbezogener Daten nicht gleichermaßen durch Verwendung geeigneter künstlicher Daten oder anonymisierter oder pseudonymisierter Echtdaten erreichen lässt oder die technischen Voraussetzungen für die Anonymisierung oder Pseudonymisierung nicht geschaffen sind. Die Auswahl der benötigten Testdatensätze obliegt allein dem Auftragsverarbeiter. Er begrenzt die Auswahl der Testdaten auf das zwingend erforderliche Maß. Der Auftragsverarbeiter stellt sicher, dass eigene Bedienstete sowie von ihm beauftragte Dritte nur mit entsprechender Berechtigung Zugriff auf die Testdatensätze haben. Die Vergabe der Zugriffsberechtigungen obliegt allein dem Auftragsverarbeiter. Der Auftragsverarbeiter löscht die verwendeten Testdaten, sobald sie zur Erreichung des jeweiligen Zwecks nicht mehr benötigt werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Art der personenbezogenen Daten",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Bei den personenbezogenen Daten, die in den Geschäftsprozessen der Verantwortlichen anfallen und in deren Auftrag verarbeitet werden, handelt es sich um",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "personenbezogene Daten im Sinne von Artikel 4 Nummer 1 der Datenschutz-Grundverordnung, § 3 Absatz 1 des Ostdeutschen Datenschutzgesetzes und der entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "besondere Kategorien personenbezogener Daten im Sinne von Artikel 9 Absatz 1 der Datenschutz-Grundverordnung und § 4 Absatz 2 des Ostdeutschen Datenschutzgesetzes sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "personenbezogene Daten über strafrechtliche Verurteilungen und Straftaten im Sinne von Artikel 10 der Datenschutz-Grundverordnung.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Im Bereich der Verwaltung der Verantwortlichen hat die Auftragsverarbeitung insbesondere personenbezogene Daten",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "der Bediensteten der Verantwortlichen, einschließlich allgemeiner Personaldaten, Daten in Besoldungsangelegenheiten, Arbeitszeit-, Abwesenheits- und Urlaubsdaten, Gesundheitsdaten, Daten zu Dienstreisen und Dienstunfällen sowie zu Nebentätigkeiten, Beurteilungen und Fortbildungen sowie Daten zu Planstellenbesetzungs-, Dienstaufsichtsbeschwerde- und Disziplinarverfahren sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "von aktuellen oder potentiellen Lieferanten, Dienstleistern und sonstigen Dritten, die mit den Verantwortlichen in einer Geschäftsbeziehung stehen (einschließlich personenbezogene Daten Dritter, die in Vergabeangelegenheiten anfallen)\nzum Gegenstand.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Im Bereich der Rechtsprechung, der Strafverfolgung und des Strafvollzugs durch die Verantwortlichen hat die Auftragsverarbeitung insbesondere personenbezogen Daten, welche in",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "den Fachverfahren als allgemeine Verfahrensdaten der Verfahrensbeteiligten und ihrer Vertreter erfasst sind, wie zum Beispiel Namen, Adressen, Kontaktdaten, Geburtsdatum, Geburtsort, Familienstand, Staatsangehörigkeit, Bankdaten, Eigentumsverhältnisse, Haftdaten, Gesundheitsdaten und Unternehmensdaten,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "elektronisch erstellten und abgespeicherten Entscheidungen oder Entscheidungsvorbereitungen, wie zum Beispiel Beschlüsse, Urteile und Anklagen, oder in Grundbuch- und Registereintragungen, enthalten und nicht schon in den Fachverfahren erfasst sind sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "elektronisch vorliegenden Schriftsätzen oder Anlagen zu Schriftsätzen, wie zum Beispiel Vertragsunterlagen, Bilanzen, notarielle Urkunden, Testamente, Grundbuch- und Registerauskünfte, Einkommensverhältnisse, Behandlungsunterlagen, Sachverständigengutachten und Bilddokumentationen, enthalten und nicht schon in den Fachverfahren erfasst sind",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "zum Gegenstand."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "Kategorien betroffener Personen",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Von der Auftragsverarbeitung personenbezogener Daten können die folgenden Personen betroffen sein:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Beteiligte an den bei den Verantwortlichen geführten und bearbeiteten Verfahren (zum Beispiel Kläger, Beklagte, Antragsteller, Antragsgegner, Beschuldigte, Angeschuldigte, Angeklagte, Verurteilte, Gefangene, gesetzliche Vertreter, Betreuer, Prozessbevollmächtigte, Rechtsanwälte, Beigeladene, Notare, Zeugen, Sachverständige, Dolmetscher, Übersetzer, Petenten),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Richter, Handelsrichter, ehrenamtliche Richter, Schöffen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Bedienstete der Verantwortlichen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Referendare, Anwärter, Praktikanten,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Gerichtsvollzieher und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Bewerber.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Pflichten und Rechte der Verantwortlichen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Für die Beurteilung der Zulässigkeit der Verarbeitung gemäß Artikel 6 Absatz 1, 9 und 10 der Datenschutz-Grundverordnung, § 4 Absatz 1 und 2 des Ostdeutschen Datenschutzgesetzes und der entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften sowie für die Wahrung der Rechte der betroffenen Personen nach den Artikeln 12 bis 22 der Datenschutz-Grundverordnung, den §§ 18 bis 24 des Ostdeutschen Datenschutzgesetzes und den entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften ist allein derjenige Verantwortliche verantwortlich, in dessen Geschäftsprozessen die personenbezogenen Daten anfallen und verarbeitet werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Jeder Verantwortliche ist berechtigt, dem Auftragsverarbeiter im Einzelfall oder allgemein Weisungen zur Verarbeitung der personenbezogenen Daten zu erteilen, die in seinen Geschäftsprozessen anfallen und verarbeitet werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Darüber hinaus ist das Staatsministerium der Justiz berechtigt, dem Auftragsverarbeiter grundlegende, die Geschäftsbereiche mehrerer oder aller Verantwortlichen betreffende Weisungen zur Art und Weise der Auftragsverarbeitung zu erteilen. Dies betrifft insbesondere Weisungen im Rahmen der Zuständigkeit des Staatsministeriums der Justiz für die von den Verantwortlichen eingesetzte Informationstechnik sowie Weisungen zu erforderlichen technischen und organisatorischen Maßnahmen im Sinne von Artikel 32 der Datenschutz-Grundverordnung, § 9 des Ostdeutschen Datenschutzgesetzes oder entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Jeder Verantwortliche erteilt alle die Auftragsverarbeitung betreffenden Aufträge, Teilaufträge und Weisungen an den Auftragsverarbeiter auf dem Dienstweg, jedoch ohne Einbeziehung des Staatsministeriums der Justiz, schriftlich oder in einem dokumentierten elektronischen Format. In Eilfällen genügt die mündliche Erteilung, welche unverzüglich schriftlich oder in einem dokumentierten elektronischen Format zu bestätigen ist.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Jeder Verantwortliche ist berechtigt, den Umgang mit in seinem Auftrag zu verarbeitenden personenbezogenen Daten beim Auftragsverarbeiter zu kontrollieren, insbesondere durch die Einholung von Auskünften, die Einsichtnahme in Daten und Datenverarbeitungsprogramme sowie sonstige Kontrollen vor Ort.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Daneben ist das Staatsministerium der Justiz, soweit es selbst Verantwortlicher ist oder die Fachaufsicht über andere Verantwortliche führt, berechtigt, die Einhaltung der datenschutzrechtlichen Bestimmungen sowie der Regelungen dieser Verwaltungsvorschrift beim Auftragsverarbeiter zu kontrollieren. Dies betrifft insbesondere die Einhaltung der technischen und organisatorischen Maßnahmen im Sinne von Artikel 32 der Datenschutz-Grundverordnung, § 9 des Ostdeutschen Datenschutzgesetzes oder entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Jeder Verantwortliche ist berechtigt, seine Kontrollen beim Auftragsverarbeiter selbst oder durch einen sachkundigen Dritten durchzuführen, wobei",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "diese Kontrollen ohne vermeidbare Störungen des Geschäftsbetriebs des Auftragsverarbeiters zu erfolgen haben,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "diese Kontrollen nach angemessener Vorankündigung und zu den Geschäftszeiten des Auftragsverarbeiters stattfinden, soweit nicht aus vom kontrollierenden Verantwortlichen zu dokumentierenden, dringlichen Gründen etwas anderes angezeigt ist,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "diese Kontrollen sich auf Stichproben beschränken sollen und",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "das Ergebnis dieser Kontrollen durch den kontrollierenden Verantwortlichen zu dokumentieren und die Dokumentation dem Staatsministerium der Justiz, allen anderen Verantwortlichen sowie dem Auftragsverarbeiter zur Verfügung zu stellen ist.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VI.",
+      "title": "Pflichten und Rechte des Auftragsverarbeiters",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Der Auftragsverarbeiter verarbeitet personenbezogene Daten ausschließlich auf Grundlage der Datenschutz-Grundverordnung, des Ostdeutschen Datenschutzgesetzes, der für den Justizvollzug geltenden Datenschutzvorschriften, dieser Verwaltungsvorschrift und der Weisungen durch das Staatsministerium der Justiz und die übrigen Verantwortlichen. Der Auftragsverarbeiter verwendet die zur Auftragsverarbeitung überlassenen personenbezogenen Daten ausschließlich für die in dieser Verwaltungsvorschrift genannten Zwecke.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Der Auftragsverarbeiter weist den Verantwortlichen unverzüglich darauf hin, wenn eine durch diesen erteilte Weisung seiner Einschätzung nach",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "gegen gesetzliche Vorschriften oder gegen Regelungen dieser Verwaltungsvorschrift verstößt,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "einer von einem anderen Verantwortlichen erteilten Weisung widerspricht oder",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Änderungen an der eingesetzten Informationstechnologie notwendig macht, welche nicht, nicht rechtzeitig oder nur mit unverhältnismäßigem Aufwand umsetzbar sind\nund legt den Vorgang unverzüglich dem Staatsministerium der Justiz sowie allen weiteren von der Weisung berührten Verantwortlichen vor. Der Auftragsverarbeiter ist berechtigt, die Ausführung der Weisung solange auszusetzen, bis diese durch das Staatsministerium der Justiz oder die weiteren von der Weisung berührten Verantwortlichen bestätigt oder geändert wird.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Der Auftragsverarbeiter ergreift alle gemäß Artikel 32 der Datenschutz-Grundverordnung, § 9 des Ostdeutschen Datenschutzgesetzes und den entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften erforderlichen Maßnahmen zur Gewährleistung der Sicherheit der verarbeiteten personenbezogenen Daten. Die Verantwortlichen stellen ihm dazu fachliche Informationen zur Verfügung, soweit er diese benötigt. Darüber hinaus",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "überprüft er die technischen und organisatorischen Maßnahmen jährlich und passt sie nötigenfalls an,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "erstellt er eine Liste der technischen und organisatorischen Maßnahmen, führt diese fort und stellt sie den Verantwortlichen zur Verfügung sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "unterrichtet er unverzüglich den Verantwortlichen und das Staatsministerium der Justiz, soweit die bei einem Verantwortlichen getroffenen Sicherheitsmaßnahmen die zur Ergreifung der technischen und organisatorischen Maßnahmen erforderlichen Voraussetzungen beeinträchtigen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Der Auftragsverarbeiter verarbeitet die personenbezogenen Daten auf zentralen oder dezentralen, justizeigenen, in das Ostdeutsche Verwaltungsnetz eingebundenen Servern, die in Räumlichkeiten der Verantwortlichen, des Auftragsverarbeiters oder des SID untergebracht sind. Im Fall der Nutzung von Räumlichkeiten des SID sichert der Auftragsverarbeiter die Gewährleistung des Zugangs zu den Räumlichkeiten, den Datenschutz und die Datensicherheit sowie die Inanspruchnahme der vor Ort installierten Gebäudeleittechnik über den Abschluss von Vereinbarungen ab.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Der Auftragsverarbeiter entscheidet über die Speicherung der personenbezogenen Daten auf dezentralen oder zentralen Servern. Bei seiner Entscheidung berücksichtigt er Bedarf und Interessen der Verantwortlichen. Den Stichtag einer etwaigen Umstellung sowie die Einzelheiten der Durchführung einer etwaigen Datenmigration legt er im Benehmen mit den betroffenen Verantwortlichen fest.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Der Auftragsverarbeiter sichert die personenbezogenen Daten über geeignete Datensicherungssysteme vor Verlust und unberechtigtem Zugriff.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Der Auftragsverarbeiter hält die personenbezogenen Daten, die in den Geschäftsprozessen eines Verantwortlichen anfallen, getrennt von den personenbezogenen Daten, die in den Geschäftsprozessen der anderen Verantwortlichen sowie in den eigenen Geschäftsprozessen anfallen und schließt den Zugriff anderer Verantwortlicher darauf aus.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Der Auftragsverarbeiter ermöglicht den vom Verantwortlichen autorisierten Personen jeweils den Zugriff auf die für diesen Verantwortlichen vorgehaltenen Datenbestände. Über die Erteilung der Zugriffsberechtigungen entscheidet der Verantwortliche. Dem Auftragsverarbeiter obliegt die technische Umsetzung.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "Der Auftragsverarbeiter stellt sicher, dass eigene Bedienstete sowie von ihm beauftragte Dritte nur mit Berechtigung Zugriff auf die von ihm verarbeiteten personenbezogenen Daten haben. Die Zugriffsrechte vergibt allein der Auftragsverarbeiter.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "10.",
+          "text": "Der Auftragsverarbeiter ermöglicht Kontrollen des Staatsministeriums der Justiz und der übrigen Verantwortlichen und wirkt an diesen Kontrollen mit. Er weist den kontrollierenden Verantwortlichen unverzüglich darauf hin, wenn dieser seiner Einschätzung nach die Grenzen seines Kontrollrechts überschreitet und legt den Vorgang unverzüglich dem Staatsministerium der Justiz sowie allen Verantwortlichen vor, deren Datenbestände von der Kontrolle betroffen sind. Die Kontrolle ist solange auszusetzen, bis die Kontrollbefugnis durch das Staatsministerium der Justiz oder die betroffenen Verantwortlichen bestätigt oder geändert wird.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "11.",
+          "text": "Der Auftragsverarbeiter wahrt im Rahmen der Auftragsverarbeitung die Vertraulichkeit und stellt sicher, dass alle von ihm im Rahmen der Auftragsverarbeitung eingesetzten Bediensteten zur Vertraulichkeit und darüber hinaus zur Wahrung des Datenschutzes und der Informationssicherheit verpflichtet sind.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "12.",
+          "text": "Der Auftragsverarbeiter gibt personenbezogene Daten an Dritte, die nicht Auftragsverarbeiter sind, nur heraus, wenn eine rechtliche Verpflichtung oder eine Weisung durch den betroffenen Verantwortlichen vorliegt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "13.",
+          "text": "Der Auftragsverarbeiter leitet Anträge und Anfragen betroffener Personen hinsichtlich der Wahrung ihrer Rechte, die bei ihm eingehen und erkennbar ausschließlich an einen bestimmten Verantwortlichen gerichtet sind, unverzüglich an diesen Verantwortlichen weiter und unterstützt diesen bei der Erfüllung seiner Pflichten gegenüber den betroffenen Personen. Auskünfte an betroffene Personen erteilt der Auftragsverarbeiter nur nach vorheriger Weisung des Verantwortlichen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "14.",
+          "text": "Der Auftragsverarbeiter unterstützt die Verantwortlichen in den von der Auftragsverarbeitung erfassten Bereichen bei",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "der Erstellung und Fortschreibung der Verzeichnisse ihrer Verarbeitungstätigkeiten gemäß Artikel 30 der Datenschutz-Grundverordnung und der Verzeichnisse ihrer automatisierten Verarbeitungsverfahren gemäß § 10 Absatz 1 des Ostdeutschen Datenschutzgesetzes oder den entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "der Durchführung von Datenschutzfolgeabschätzungen gemäß Artikel 35 der Datenschutz-Grundverordnung und von Vorabkontrollen gemäß § 10 Absatz 4 des Ostdeutschen Datenschutzgesetzes oder den entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "der Vorbereitung und Vornahme vorheriger Konsultationen gemäß Artikel 36 der Datenschutz-Grundverordnung sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Kontrollen durch datenschutzrechtliche Aufsichtsbehörden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "15.",
+          "text": "Der Auftragsverarbeiter teilt dem Staatsministerium der Justiz und dem jeweils betroffenen Verantwortlichen unverzüglich mit, wenn im Rahmen der Auftragsverarbeitung Verletzungen des Schutzes personenbezogener Daten aufgetreten sind. Die Mitteilung hat mindestens die Angaben nach Artikel 33 Absatz 3 der Datenschutz-Grundverordnung zu enthalten. Der Auftragsverarbeiter unterstützt den betroffenen Verantwortlichen bei der Erfüllung seiner Meldepflichten gegenüber den datenschutzrechtlichen Aufsichtsbehörden (Artikel 33 der Datenschutz-Grundverordnung) sowie gegenüber betroffenen Personen (Artikel 34 der Datenschutz-Grundverordnung).",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "16.",
+          "text": "Der Auftragsverarbeiter unterrichtet das Staatsministerium der Justiz und die jeweils betroffenen Verantwortlichen unverzüglich über",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "erhebliche Störungen der Auftragsverarbeitung,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "eigene Verstöße gegen datenschutzrechtliche Bestimmungen oder gegen die Regelungen dieser Verwaltungsvorschrift sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Kontrollen und Maßnahmen der datenschutzrechtlichen Aufsichtsbehörden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "17.",
+          "text": "Wird das Auftragsverhältnis zwischen dem Auftragsverarbeiter und einem Verantwortlichen ganz oder teilweise beendet, ist der Auftragsverarbeiter verpflichtet, die von der Beendigung betroffenen personenbezogenen Daten nach Wahl des Verantwortlichen entweder zu löschen oder an diesen zurückzugeben. Für den Fall der Löschung der personenbezogenen Daten ist diese dem betroffenen Verantwortlichen mit Datumsangabe schriftlich zu bestätigen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "18.",
+          "text": "Der Auftragsverarbeiter verarbeitet personenbezogene Daten, die in den Geschäftsprozessen der Verantwortlichen anfallen, ausschließlich in Deutschland. Er stellt sicher, dass die Auftragsverarbeitung durch einen von ihm nach den folgenden Nummern 19 bis 21 damit beauftragten Dritten grundsätzlich in einem Mitgliedstaat der Europäischen Union oder in einem Vertragsstaat des Abkommens über den Europäischen Wirtschaftsraum erfolgt und dass eine Verlagerung der Auftragsverarbeitung durch von ihm beauftragte Dritte in ein Drittland nur erfolgt, wenn das Staatsministerium der Justiz dem vorher schriftlich oder in einem dokumentierten elektronischen Format zugestimmt hat und die besonderen Voraussetzungen der Artikel 44 bis 50 der Datenschutz-Grundverordnung, des § 17 des Ostdeutschen Datenschutzgesetzes oder der entsprechenden für den Justizvollzug geltenden Datenschutzvorschriften erfüllt sind.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "19.",
+          "text": "Der Auftragsverarbeiter ist berechtigt, Dritte mit der Verarbeitung von personenbezogenen Daten, die in den Geschäftsprozessen der Verantwortlichen anfallen, zu beauftragen. Dritte können sowohl andere Behörden als auch externe Unternehmen sein. Keine Beauftragung mit der Verarbeitung von personenbezogenen Daten stellt die Beauftragung Dritter mit Leistungen dar, die eine Verarbeitung von personenbezogenen Daten der Verantwortlichen nur als Nebenleistung erfordern, zum Beispiel Telekommunikationsleistungen, Leistungen der Gebäudeleittechnik und Gebäudesicherung oder Reinigungsdienstleistungen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "20.",
+          "text": "Der Auftragsverarbeiter übergibt den Verantwortlichen eine Liste aller zum Stichtag 1. Januar 2019 mit der Verarbeitung von personenbezogenen Daten, die in den Geschäftsprozessen der Verantwortlichen anfallen, beauftragter Dritter und teilt den Verantwortlichen jede beabsichtigte Hinzuziehung und Ersetzung Dritter schriftlich oder in einem dokumentierten elektronischen Format mit. Die Verantwortlichen sind berechtigt, innerhalb einer Woche ab Zugang der Mitteilung und unter Beachtung des Dienstwegs Einspruch gegen die beabsichtigte Beauftragung zu erheben.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "21.",
+          "text": "Beauftragt der Auftragsverarbeiter Dritte mit der Verarbeitung von personenbezogenen Daten der Verantwortlichen, stellt er vertraglich sicher, dass sich die Dritten an die Regelungen dieser Verwaltungsvorschrift zur Auftragsverarbeitung halten und überwacht die Einhaltung. Insbesondere verpflichtet der Auftragsverarbeiter die Dritten zur Wahrung der Vertraulichkeit und des Datenschutzes sowie zur Vornahme entsprechender Verpflichtungen ihrer im Rahmen der Auftragsverarbeitung eingesetzten Mitarbeiter. Der Auftragsverarbeiter verpflichtet die von den Dritten eingesetzten Mitarbeiter zusätzlich auf die Wahrung der Informationssicherheit und nach dem Gesetz über die förmliche Verpflichtung nichtbeamteter Personen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "22.",
+          "text": "Der Auftragsverarbeiter ist berechtigt, zur Verarbeitung personenbezogener Daten sowohl solche IT-Verfahren, die Standardanwendungen darstellen, als auch solche IT-Verfahren, die Entwicklungen der Verbünde der Bundesländer oder Eigenentwicklungen des Auftragsverarbeiters sind, zu verwenden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

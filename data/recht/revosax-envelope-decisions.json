@@ -1,0 +1,1905 @@
+{
+  "schemaVersion": 1,
+  "description": "Geprüfte Zuordnungen zurückgestellter Mantelbestandteile (Klasse D der Klassifizierung) zu Gliederungseinheiten ihrer Mantelvorschrift: automatisch über Zielgesetz im Eröffnungssatz/Überschrift/Anker (scripts/resolve-revosax-envelope-defers.mjs) oder redaktionell (manual-reviewed). textLawId nennt die Vorschrift, die den Artikeltext tatsächlich führt; envelopeVersion die historische Fassung. Der Klassifizierer verifiziert jede Zuordnung gegen den Text.",
+  "decisions": {
+    "3712": {
+      "action": "MAP",
+      "envelopeLawId": "3297",
+      "method": "anchor-opening-sentence",
+      "article": "IX.",
+      "blockPath": [
+        0,
+        9
+      ],
+      "reason": "IX.: REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.34",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift des Sächsischen Staatsministeriums der Justiz über die Höhe der Aufwandsentschädigung der Beiratsmitglieder in den Justizvollzugsansta",
+        "heading": "Änderung der Verwaltungsvorschrift über die Höhe der Aufwandsentschädigung der Beiratsmitglieder in den Justizvollzugsanstalten",
+        "score": 0.63,
+        "margin": 0.34,
+        "target": "Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern über die Aufwandsentschädigung bei Einsätzen und Übungen der Polizei"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern über die Aufwandsentschädigung bei Einsätzen und Übungen der Polizei",
+      "decidedAt": "2026-09-03"
+    },
+    "3950": {
+      "action": "MAP",
+      "envelopeLawId": "5479",
+      "method": "opening-sentence",
+      "article": "Neunter Abschnitt § 37 Absatz 2",
+      "blockPath": [
+        9,
+        7,
+        1
+      ],
+      "reason": "Neunter Abschnitt § 37 Absatz 2: Text nennt das Zielgesetz „Sächsischen Aussiedlereingliederungsgesetzes“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "In § 7 Abs. 1 des Sächsischen Gesetzes über die Eingliederung von Aussiedlern und zur Durchführung des Bundesvertriebenengesetzes sowie anderer Kriegsfolgengese",
+        "score": 1,
+        "margin": 0.67,
+        "target": "Sächsischen Aussiedlereingliederungsgesetzes"
+      },
+      "envelopeVersion": "1",
+      "envelopeVersionReason": "Finanzausgleichsgesetz 1996 in der Fassung vom 1. Januar 1996 (5479.1); spätere Fassungen enthalten den Änderungsparagraphen nicht mehr.",
+      "sourceTitle": "Änderung des Sächsischen Aussiedlereingliederungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "3967": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 12",
+      "blockPath": [
+        0,
+        12
+      ],
+      "reason": "§ 1 Nummer 12: Text nennt das Zielgesetz „Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.50",
+      "evidence": {
+        "openingText": "§§ 1 und 3 des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung vom 24. April 1996 (SächsGVBl. S. 161),",
+        "score": 1,
+        "margin": 0.5,
+        "target": "Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung",
+      "decidedAt": "2026-09-03"
+    },
+    "4131": {
+      "action": "MAP",
+      "envelopeLawId": "3542",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Gesetzes zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.20",
+      "evidence": {
+        "openingText": "Das Gesetz zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen (SächsAG G 10) vom 16. Oktober 1992 (SächsGVBl. S. 464) wird wie folgt geä",
+        "heading": "Änderung des Gesetzes zur Ausführung",
+        "score": 1.2,
+        "margin": 0.2,
+        "target": "Gesetzes zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung des Gesetzes zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "4265": {
+      "action": "MAP",
+      "envelopeLawId": "5082",
+      "method": "opening-sentence",
+      "article": "Artikel 1",
+      "blockPath": [
+        1
+      ],
+      "reason": "Artikel 1: Text nennt das Zielgesetz „Finanzausgleichsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.20",
+      "evidence": {
+        "openingText": "Nach § 2 Abs. 1 Satz 2 des Gesetzes über den Finanzausgleich mit den Gemeinden und Landkreisen im Freistaat Sachsen (Finanzausgleichsgesetz – FAG) in der Fassun",
+        "score": 1.2,
+        "margin": 1.2,
+        "target": "Finanzausgleichsgesetzes"
+      },
+      "sourceTitle": "Änderung des Finanzausgleichsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "4395": {
+      "action": "MAP",
+      "envelopeLawId": "2932",
+      "envelopeVersion": "1",
+      "article": "§ 11 Nummer 2",
+      "blockPath": [
+        11,
+        2
+      ],
+      "method": "manual-reviewed",
+      "envelopeVersionReason": "Kommunalbekanntmachungsverordnung vom 19. Dezember 1997 in der Erstfassung (2932.1, gültig 1998-02-01 bis 2015-12-31); die aktuelle Fassung (16777) enthält den Änderungsbefehl nicht mehr.",
+      "reason": "§ 11 Nummer 2 der Erstfassung ändert „§ 1 der Verordnung des Staatsministeriums des Innern zur Durchführung der Landkreisordnung für den Freistaat Sachsen (DVO SächsLKrO)“ – genau das Zielgesetz des Komponententitels; Nummer 1 betrifft die Durchführungsverordnung zur Gemeindeordnung. Die Komponentenseite trägt keinen Anker; Erlassdatum (19. Dezember 1997) und Fundstelle (SächsGVBl. 1998 S. 19) stimmen mit der Verordnung überein.",
+      "evidence": {
+        "openingText": "Verordnung des Staatsministeriums des Innern zur Durchführung der Landkreisordnung",
+        "target": "Verordnung des Sächsischen Staatsministeriums des Innern zur Durchführung der Landkreisordnung für den Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung der Verordnung des Sächsischen Staatsministeriums des Innern zur Durchführung der Landkreisordnung für den Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "4399": {
+      "action": "MAP",
+      "envelopeLawId": "3393",
+      "method": "opening-sentence",
+      "article": "Teil 10 § 73 Absatz 1",
+      "blockPath": [
+        10,
+        2,
+        0
+      ],
+      "reason": "Teil 10 § 73 Absatz 1: Text nennt das Zielgesetz „Sächsischen Gemeindeordnung“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "§ 122 Abs. 4 der Gemeindeordnung für den Freistaat Sachsen (SächsGemO) in der Fassung der Bekanntmachung vom 14. Juni 1999 (SächsGVBl. S. 345) wird aufgehoben.",
+        "score": 1,
+        "margin": 0.67,
+        "target": "Sächsischen Gemeindeordnung"
+      },
+      "sourceTitle": "Änderung der Sächsischen Gemeindeordnung",
+      "decidedAt": "2026-09-03"
+    },
+    "4443": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 6",
+      "blockPath": [
+        0,
+        6
+      ],
+      "reason": "§ 1 Nummer 6: Text nennt das Zielgesetz „Gesetzes zur Umsetzung der Richtlinie 94/80/EG des Rates der Europäischen Union“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.89",
+      "evidence": {
+        "openingText": "Artikel 4 des Gesetzes zur Umsetzung der Richtlinie 94/80/EG des Rates der Europäischen Union vom 19. Dezember 1994 über die Einzelheiten der Ausübung des aktiv",
+        "score": 1,
+        "margin": 0.89,
+        "target": "Gesetzes zur Umsetzung der Richtlinie 94/80/EG des Rates der Europäischen Union"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Gesetzes zur Umsetzung der Richtlinie 94/80/EG des Rates der Europäischen Union",
+      "decidedAt": "2026-09-03"
+    },
+    "4570": {
+      "action": "MAP",
+      "envelopeLawId": "2956",
+      "method": "opening-sentence",
+      "article": "Teil 9 § 128 Absatz 2",
+      "blockPath": [
+        9,
+        4,
+        3
+      ],
+      "reason": "Teil 9 § 128 Absatz 2: Text nennt das Zielgesetz „Gesetzes über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.50",
+      "evidence": {
+        "openingText": "§ 1 Abs. 3 des Gesetzes über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen (SächsS",
+        "score": 1,
+        "margin": 0.5,
+        "target": "Gesetzes über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen"
+      },
+      "envelopeVersion": "1",
+      "envelopeVersionReason": "Sächsisches Hochschulgesetz vom 11. Juni 1999 in der Erstfassung (2956.1); die Vorschrift leitet heute auf die Nachfolgevorschrift 19986 weiter.",
+      "sourceTitle": "Änderung des Gesetzes über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "4574": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 15",
+      "blockPath": [
+        0,
+        15
+      ],
+      "reason": "§ 1 Nummer 15: Text nennt das Zielgesetz „Gesetz über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.83",
+      "evidence": {
+        "openingText": "§ 7 Satz 2 des Gesetzes über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen (SächsS",
+        "score": 1,
+        "margin": 0.83,
+        "target": "Gesetz über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Gesetz über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "4603": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 11",
+      "blockPath": [
+        0,
+        11
+      ],
+      "reason": "§ 1 Nummer 11: Text nennt das Zielgesetz „Sächsischen Bestattungsgesetzes“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.90",
+      "evidence": {
+        "openingText": "§ 26 Abs. 1 Satz 2 und 3 des Sächsischen Gesetzes über das Friedhofs-, Leichen- und Bestattungswesen (Sächsisches Bestattungsgesetz – SächsBestG) vom 8. Juli 19",
+        "score": 1,
+        "margin": 0.9,
+        "target": "Sächsischen Bestattungsgesetzes"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Sächsischen Bestattungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "4709": {
+      "action": "MAP",
+      "envelopeLawId": "2324",
+      "method": "opening-sentence",
+      "article": "Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen",
+      "blockPath": [
+        2
+      ],
+      "reason": "Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen: Text nennt das Zielgesetz „Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen“ (Recall 1.00); Überschrift entspricht dem Komponententitel (1.00); Abstand zum nächsten Kandidaten 0.33",
+      "evidence": {
+        "heading": "Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen",
+        "score": 1,
+        "margin": 0.33,
+        "target": "Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen"
+      },
+      "sourceTitle": "Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen",
+      "decidedAt": "2026-09-03"
+    },
+    "4758": {
+      "action": "MAP",
+      "envelopeLawId": "4525",
+      "method": "opening-sentence",
+      "article": "II.",
+      "blockPath": [
+        0,
+        3
+      ],
+      "reason": "II.: Text nennt das Zielgesetz „Verwaltungsvorschrift des SMK über die Vergütung der Prüfer bei Feststellungsprüfungen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.45",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift des Sächsischen Staatsministeriums für Kultus über die Vergütung der Prüfer bei Feststellungsprüfungen vom 6. August 1998 (MBl.SMK S. ",
+        "score": 1.2,
+        "margin": 0.45,
+        "target": "Verwaltungsvorschrift des SMK über die Vergütung der Prüfer bei Feststellungsprüfungen"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift des SMK über die Vergütung der Prüfer bei Feststellungsprüfungen",
+      "decidedAt": "2026-09-03"
+    },
+    "4784": {
+      "action": "MAP",
+      "envelopeLawId": "3750",
+      "method": "opening-sentence",
+      "article": "Artikel 8",
+      "blockPath": [
+        8
+      ],
+      "reason": "Artikel 8: Text nennt das Zielgesetz „Sächsischen Straßengesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.70",
+      "evidence": {
+        "openingText": "Das Straßengesetz für den Freistaat Sachsen (Sächsisches Straßengesetz – SächsStrG) vom 21. Januar 1993 (SächsGVBl. S. 93) wird wie folgt geändert: § 10 Abs. 3 ",
+        "heading": "Änderungsgesetz zum Straßengesetz für den Freistaat Sachsen",
+        "score": 1.2,
+        "margin": 0.7,
+        "target": "Sächsischen Straßengesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Straßengesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "4787": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 2",
+      "blockPath": [
+        0,
+        2
+      ],
+      "reason": "§ 1 Nummer 2: Text nennt das Zielgesetz „Aufbaubeschleunigungsgesetzes“ (Recall 1.00); Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Artikel 13 des Gesetzes zur Beschleunigung des Aufbaus im Freistaat Sachsen (Sächsisches Aufbaubeschleunigungsgesetz – SächsAufbauG) vom 4. Juli 1994 (SächsGVBl",
+        "score": 1,
+        "margin": 1,
+        "target": "Aufbaubeschleunigungsgesetzes"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Aufbaubeschleunigungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "4849": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 19",
+      "blockPath": [
+        0,
+        19
+      ],
+      "reason": "§ 1 Nummer 19: Text nennt das Zielgesetz „Sonderurlaubsgesetzes“ (Recall 1.00); Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "§ 5 des Gesetzes des Freistaates Sachsen über die Erteilung von Sonderurlaub an Mitarbeiter in der Jugendhilfe (Sonderurlaubsgesetz) vom 27. August 1991 (SächsG",
+        "score": 1,
+        "margin": 1,
+        "target": "Sonderurlaubsgesetzes"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Sonderurlaubsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "5092": {
+      "action": "SKIP",
+      "envelopeLawId": "4371",
+      "method": "manual-reviewed",
+      "reason": "Artikel 2 der Mantelvorschrift 4371 ist das Sächsische Gesetz zur Ausführung des Sozialgesetzbuches selbst (REVOSax-Vorschrift 5209, materialisiert als ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches); die Mantelvorschrift führt den Artikel nur als Überschrift, ein eigener Änderungstext existiert weder dort noch im Zweiten Rechtsbereinigungsgesetz (3382). Die Komponentenseite ist ein technischer Alias der Stammnorm.",
+      "aliasOfSlug": "ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches",
+      "sourceTitle": "Änderung des Sächsisches Gesetz zur Ausführung des Sozialgesetzbuches",
+      "decidedAt": "2026-09-03"
+    },
+    "5094": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 20",
+      "blockPath": [
+        0,
+        20
+      ],
+      "reason": "§ 1 Nummer 20: Text nennt das Zielgesetz „Gesetzes zur Durchführung der Kriegsopferfürsorge“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "§ 8 des Gesetzes zur Durchführung der Kriegsopferfürsorge (DG-KOF) vom 19. November 1992 (SächsGVBl. S. 557),",
+        "score": 1,
+        "margin": 0.67,
+        "target": "Gesetzes zur Durchführung der Kriegsopferfürsorge"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Gesetzes zur Durchführung der Kriegsopferfürsorge",
+      "decidedAt": "2026-09-03"
+    },
+    "9483": {
+      "action": "MAP",
+      "envelopeLawId": "2876",
+      "method": "opening-sentence",
+      "article": "Neunter Teil § 55",
+      "blockPath": [
+        9,
+        7
+      ],
+      "reason": "Neunter Teil § 55: Text nennt das Zielgesetz „Abgeordnetengesetzes“ (Recall 1.00); Überschrift entspricht dem Komponententitel (1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.70",
+      "evidence": {
+        "openingText": "Das Gesetz über die Rechtsverhältnisse der Mitglieder des Sächsischen Landtages ( Abgeordnetengesetz) vom 26. Februar 1991 (SächsGVBl. S. 44), zuletzt geändert ",
+        "heading": "Änderung des Abgeordnetengesetzes",
+        "score": 1.2,
+        "margin": 0.7,
+        "target": "Abgeordnetengesetzes"
+      },
+      "envelopeVersion": "1",
+      "envelopeVersionReason": "Sächsisches Wahlgesetz vom 5. August 1993 in der Erstfassung (2876.1); die Vorschrift leitet heute auf die Nachfolgevorschrift 20176 weiter.",
+      "sourceTitle": "Änderung des Abgeordnetengesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "9508": {
+      "action": "MAP",
+      "envelopeLawId": "1255",
+      "method": "opening-sentence",
+      "article": "Artikel 1",
+      "blockPath": [
+        0
+      ],
+      "reason": "Artikel 1: Text nennt das Zielgesetz „Zustimmung zum Vierten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge“ (Recall 0.83); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.70",
+      "evidence": {
+        "openingText": "Dem Vierten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge (Vierter Rundfunkänderungsstaatsvertrag) zwischen den Ländern der Bundesrepublik Deuts",
+        "score": 1.03,
+        "margin": 0.7,
+        "target": "Zustimmung zum Vierten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge"
+      },
+      "sourceTitle": "Zustimmung zum Vierten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge",
+      "decidedAt": "2026-09-03"
+    },
+    "10266": {
+      "action": "MAP",
+      "envelopeLawId": "10264",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Ausbildungs- und Prüfungsordnung für den mittleren allgemeinen Verwaltungsdienst“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.40",
+      "evidence": {
+        "openingText": "Die Verordnung des Sächsischen Staatsministeriums des Innern über die Ausbildung und Prüfung für den mittleren allgemeinen Verwaltungsdienst im Freistaat Sachse",
+        "score": 1.2,
+        "margin": 0.4,
+        "target": "Ausbildungs- und Prüfungsordnung für den mittleren allgemeinen Verwaltungsdienst"
+      },
+      "sourceTitle": "Änderung der Ausbildungs- und Prüfungsordnung für den mittleren allgemeinen Verwaltungsdienst",
+      "decidedAt": "2026-09-03"
+    },
+    "10267": {
+      "action": "MAP",
+      "envelopeLawId": "10264",
+      "method": "opening-sentence",
+      "article": "Artikel 3",
+      "blockPath": [
+        3
+      ],
+      "reason": "Artikel 3: Text nennt das Zielgesetz „Sächsische Ausführungsverordnung zum Berufsbildungsgesetz“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Die Gemeinsame Verordnung der Sächsischen Staatsregierung und der Sächsischen Staatsministerien des Innern, der Finanzen, der Justiz, für Kultus, für Wissenscha",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsische Ausführungsverordnung zum Berufsbildungsgesetz"
+      },
+      "sourceTitle": "Änderung der Sächsische Ausführungsverordnung zum Berufsbildungsgesetz",
+      "decidedAt": "2026-09-03"
+    },
+    "10350": {
+      "action": "MAP",
+      "envelopeLawId": "10338",
+      "method": "opening-sentence",
+      "article": "Artikel 11",
+      "blockPath": [
+        11
+      ],
+      "reason": "Artikel 11: Text nennt das Zielgesetz „Verordnung über die Zuständigkeiten nach dem Schutzbereichgesetz und dem Landbeschaffungsgesetz“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.60",
+      "evidence": {
+        "openingText": "In den §§ 1 und 2 Abs. 1 der Verordnung der Sächsischen Staatsregierung über die Zuständigkeiten nach dem Schutzbereichgesetz und dem Landbeschaffungsgesetz vom",
+        "heading": "Änderung der Verordnung über die Zuständigkeiten nach dem <a href='http://www.gesetze-im-internet.de/schberg/' class='bundesgesetz' target='_blank' title='Schutzbereichsgesetz' data-name='SchutzbereichsG' data-id='344'>Schutzbereichgesetz</a> und dem Landbeschaffungsgesetz",
+        "score": 1.2,
+        "margin": 0.6,
+        "target": "Verordnung über die Zuständigkeiten nach dem Schutzbereichgesetz und dem Landbeschaffungsgesetz"
+      },
+      "sourceTitle": "Änderung der Verordnung über die Zuständigkeiten nach dem Schutzbereichgesetz und dem Landbeschaffungsgesetz",
+      "decidedAt": "2026-09-03"
+    },
+    "11326": {
+      "action": "MAP",
+      "envelopeLawId": "11324",
+      "article": "Artikel 1",
+      "method": "manual-reviewed",
+      "reason": "Zustimmungsartikel: Artikel 1 der Mantelvorschrift 11324 stimmt dem Dreizehnten Rundfunkänderungsstaatsvertrag zu („Dem Dreizehnten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge … wird zugestimmt“); der Komponententitel „Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag“ bezeichnet diesen Zustimmungsartikel, der REVOSax-Anker #a1 zeigt darauf. Der automatische Textvergleich hatte den Bekanntmachungsabsatz in Artikel 3 bevorzugt.",
+      "evidence": {
+        "openingText": "Dem Dreizehnten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge",
+        "target": "Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag"
+      },
+      "sourceTitle": "Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag",
+      "decidedAt": "2026-09-03"
+    },
+    "11327": {
+      "action": "MAP",
+      "envelopeLawId": "11324",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Sächsischen Privatrundfunkgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Das Gesetz über den privaten Rundfunk und neue Medien in Sachsen (Sächsisches Privatrundfunkgesetz – SächsPRG) in der Fassung der Bekanntmachung vom 9. Januar 2",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Privatrundfunkgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Privatrundfunkgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11329": {
+      "action": "MAP",
+      "envelopeLawId": "11325",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        0,
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Jugendmedienschutz-Staatsvertrages“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.20",
+      "evidence": {
+        "openingText": "§ 6 des Jugendmedienschutz-Staatsvertrages vom 10. bis 27. September 2002, zuletzt geändert durch den Elften Rundfunkänderungsstaatvertrag vom 12. Juni 2008, wi",
+        "score": 1.2,
+        "margin": 0.2,
+        "target": "Jugendmedienschutz-Staatsvertrages"
+      },
+      "sourceTitle": "Änderung des Jugendmedienschutz-Staatsvertrages",
+      "decidedAt": "2026-09-03"
+    },
+    "11331": {
+      "action": "MAP",
+      "envelopeLawId": "11330",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Zuständigkeitsübertragungsverordnung Justiz“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "§ 1 der Verordnung der Sächsischen Staatsregierung über die Übertragung von Zuständigkeiten zum Erlass von Rechtsverordnungen im Bereich der Rechtspflege auf da",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Zuständigkeitsübertragungsverordnung Justiz"
+      },
+      "sourceTitle": "Änderung der Zuständigkeitsübertragungsverordnung Justiz",
+      "decidedAt": "2026-09-03"
+    },
+    "11380": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 3",
+      "blockPath": [
+        2,
+        2
+      ],
+      "reason": "Artikel 2 Absatz 3: Text nennt das Zielgesetz „Sächsischen Disziplinargesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "In § 3 des Sächsischen Disziplinargesetzes (SächsDG) vom 10. April 2007 (SächsGVBl. S. 54), das durch Artikel 2 des Gesetzes vom 12. März 2009 (SächsGVBl. S. 10",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Disziplinargesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Disziplinargesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11381": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 4",
+      "blockPath": [
+        2,
+        3
+      ],
+      "reason": "Artikel 2 Absatz 4: Text nennt das Zielgesetz „Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.33",
+      "evidence": {
+        "openingText": "In § 10 Abs. 3 Satz 1 des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Sachsen (SächsGDG) vom 11. Dezember 1991 (SächsGVBl. S. 413), zuletzt ge",
+        "score": 1.2,
+        "margin": 0.33,
+        "target": "Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "11384": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 7",
+      "blockPath": [
+        2,
+        6
+      ],
+      "reason": "Artikel 2 Absatz 7: Text nennt das Zielgesetz „Gesetzes über den einheitlichen Ansprechpartner im Freistaat Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "In § 1 Satz 2 des Gesetzes über den einheitlichen Ansprechpartner im Freistaat Sachsen (SächsEAG) vom 13. August 2009 (SächsGVBl. S. 446) wird die Angabe „§ 1 d",
+        "score": 1.2,
+        "margin": 0.67,
+        "target": "Gesetzes über den einheitlichen Ansprechpartner im Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung des Gesetzes über den einheitlichen Ansprechpartner im Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "11385": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 8",
+      "blockPath": [
+        2,
+        7
+      ],
+      "reason": "Artikel 2 Absatz 8: Text nennt das Zielgesetz „Sächsischen Bauordnung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Die Sächsische Bauordnung (SächsBO) vom 28. Mai 2004 (SächsGVBl. S. 200), zuletzt geändert durch Artikel 2 des Gesetzes vom 13. August 2009 (SächsGVBl. S. 438) ",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Bauordnung"
+      },
+      "sourceTitle": "Änderung der Sächsischen Bauordnung",
+      "decidedAt": "2026-09-03"
+    },
+    "11386": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 9",
+      "blockPath": [
+        2,
+        10
+      ],
+      "reason": "Artikel 2 Absatz 9: Text nennt das Zielgesetz „Landesjugendhilfegesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "In § 27 Abs. 5 des Landesjugendhilfegesetzes (LJHG) in der Fassung der Bekanntmachung vom 4. September 2008 (SächsGVBl. S. 578), zuletzt geändert durch Artikel ",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Landesjugendhilfegesetzes"
+      },
+      "sourceTitle": "Änderung des Landesjugendhilfegesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11387": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 10",
+      "blockPath": [
+        2,
+        11
+      ],
+      "reason": "Artikel 2 Absatz 10: Text nennt das Zielgesetz „Schulgesetzes für den Freistaat Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.91",
+      "evidence": {
+        "openingText": "§ 50a Abs. 2 des Schulgesetzes für den Freistaat Sachsen (SchulG) in der Fassung der Bekanntmachung vom 16. Juli 2004 (SächsGVBl. S. 298), das zuletzt durch Art",
+        "score": 1.2,
+        "margin": 0.91,
+        "target": "Schulgesetzes für den Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung des Schulgesetzes für den Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "11388": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 11",
+      "blockPath": [
+        2,
+        14
+      ],
+      "reason": "Artikel 2 Absatz 11: Text nennt das Zielgesetz „Befähigungs-Anerkennungsgesetzes Lehrer“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "In § 7a Abs. 1 des Gesetzes zur Anerkennung beruflicher Befähigungsnachweise für Lehrer aus dem europäischen Ausland (Befähigungs-Anerkennungsgesetz Lehrer – Be",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Befähigungs-Anerkennungsgesetzes Lehrer"
+      },
+      "sourceTitle": "Änderung des Befähigungs-Anerkennungsgesetzes Lehrer",
+      "decidedAt": "2026-09-03"
+    },
+    "11389": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 12",
+      "blockPath": [
+        2,
+        15
+      ],
+      "reason": "Artikel 2 Absatz 12: Text nennt das Zielgesetz „Weiterbildungsgesetzes Gesundheitsfachberufe“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "In § 3a Abs. 1 Satz 1 des Gesetzes über die Weiterbildung in den Gesundheitsfachberufen im Freistaat Sachsen (Weiterbildungsgesetz Gesundheitsfachberufe – Sächs",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Weiterbildungsgesetzes Gesundheitsfachberufe"
+      },
+      "sourceTitle": "Änderung des Weiterbildungsgesetzes Gesundheitsfachberufe",
+      "decidedAt": "2026-09-03"
+    },
+    "11390": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 13",
+      "blockPath": [
+        2,
+        16
+      ],
+      "reason": "Artikel 2 Absatz 13: Text nennt das Zielgesetz „Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.80",
+      "evidence": {
+        "openingText": "§ 7a Abs. 1 des Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im",
+        "score": 1.2,
+        "margin": 0.8,
+        "target": "Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung des Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "11391": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 14",
+      "blockPath": [
+        2,
+        17
+      ],
+      "reason": "Artikel 2 Absatz 14: Text nennt das Zielgesetz „Sächsischen Kommunalabgabengesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "§ 3 Abs. 1 des Sächsischen Kommunalabgabengesetzes (SächsKAG) in der Fassung der Bekanntmachung vom 26. August 2004 (SächsGVBl. S. 418, 2005 S. 306), das zuletz",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Kommunalabgabengesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Kommunalabgabengesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11393": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 16",
+      "blockPath": [
+        2,
+        23
+      ],
+      "reason": "Artikel 2 Absatz 16: Text nennt das Zielgesetz „Sächsischen Rechtsanwaltsversorgungsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "§ 15 des Gesetzes über das Versorgungswerk der Rechtsanwälte im Freistaat Sachsen (Sächsisches Rechtsanwaltsversorgungsgesetz – SächsRAVG) vom 16. Juni 1994 (Sä",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Rechtsanwaltsversorgungsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Rechtsanwaltsversorgungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11397": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 20",
+      "blockPath": [
+        2,
+        29
+      ],
+      "reason": "Artikel 2 Absatz 20: Text nennt das Zielgesetz „Sächsischen Markscheidergesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "In § 3 Abs. 1 Satz 3 des Gesetzes über die Anerkennung als Markscheider im Freistaat Sachsen (Sächsisches Markscheidergesetz – SächsMarkG) vom 13. August 2009 (",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Markscheidergesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Markscheidergesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11399": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 22",
+      "blockPath": [
+        2,
+        31
+      ],
+      "reason": "Artikel 2 Absatz 22: Text nennt das Zielgesetz „Landeseisenbahngesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "§ 11 Satz 3 des Eisenbahngesetzes für den Freistaat Sachsen (Landeseisenbahngesetz – LEisenbG) vom 12. März 1998 (SächsGVBl. S. 97), das zuletzt durch Artikel 1",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Landeseisenbahngesetzes"
+      },
+      "sourceTitle": "Ändeurng des Landeseisenbahngesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11400": {
+      "action": "MAP",
+      "envelopeLawId": "11376",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 23",
+      "blockPath": [
+        2,
+        32
+      ],
+      "reason": "Artikel 2 Absatz 23: Text nennt das Zielgesetz „Landesseilbahngesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "§ 6 Abs. 2 des Gesetzes über Seilbahnen im Freistaat Sachsen (Landesseilbahngesetz – LSeilbG) vom 12. März 1998 (SächsGVBl. S. 97, 102), das zuletzt durch Artik",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Landesseilbahngesetzes"
+      },
+      "sourceTitle": "Änderung des Landesseilbahngesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "11644": {
+      "action": "MAP",
+      "envelopeLawId": "11643",
+      "method": "opening-sentence",
+      "article": "I.",
+      "blockPath": [
+        0
+      ],
+      "reason": "I.: Text nennt das Zielgesetz „RL Hochwasserschäden Wohngebäude 2010“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.45",
+      "evidence": {
+        "openingText": "Die Richtlinie des Sächsischen Staatsministeriums des Innern zur Beseitigung von Schäden an Wohngebäuden vom Hochwasser im August 2010 (RL Hochwasserschäden Woh",
+        "score": 1.2,
+        "margin": 0.45,
+        "target": "RL Hochwasserschäden Wohngebäude 2010"
+      },
+      "sourceTitle": "Änderung RL Hochwasserschäden Wohngebäude 2010",
+      "decidedAt": "2026-09-03"
+    },
+    "11645": {
+      "action": "MAP",
+      "envelopeLawId": "11643",
+      "method": "opening-sentence",
+      "article": "II.",
+      "blockPath": [
+        1
+      ],
+      "reason": "II.: Text nennt das Zielgesetz „RL Vorfinanzierung Hochwasser 2010“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.45",
+      "evidence": {
+        "openingText": "Die Richtlinie des Sächsischen Staatsministeriums des Innern zur Vorfinanzierung von Ausgaben zur Beseitigung von Schäden an Grundstücken und Gebäuden vom Hochw",
+        "score": 1.2,
+        "margin": 0.45,
+        "target": "RL Vorfinanzierung Hochwasser 2010"
+      },
+      "sourceTitle": "Änderung RL Vorfinanzierung Hochwasser 2010",
+      "decidedAt": "2026-09-03"
+    },
+    "11647": {
+      "action": "MAP",
+      "envelopeLawId": "11643",
+      "method": "opening-sentence",
+      "article": "IV.",
+      "blockPath": [
+        3
+      ],
+      "reason": "IV.: Text nennt das Zielgesetz „Auffangrichtlinie Hochwasserschäden 2010“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.53",
+      "evidence": {
+        "openingText": "Die Richtlinie des Sächsischen Staatsministeriums des Innern zur Beseitigung von Schäden vom Hochwasser im August 2010, die nicht von Förderprogrammen abgedeckt",
+        "score": 1.2,
+        "margin": 0.53,
+        "target": "Auffangrichtlinie Hochwasserschäden 2010"
+      },
+      "sourceTitle": "Änderung Auffangrichtlinie Hochwasserschäden 2010",
+      "decidedAt": "2026-09-03"
+    },
+    "11648": {
+      "action": "MAP",
+      "envelopeLawId": "11643",
+      "method": "opening-sentence",
+      "article": "V.",
+      "blockPath": [
+        4
+      ],
+      "reason": "V.: Text nennt das Zielgesetz „VwV SMI Aufbauhilfe Sommerhochwasser 2010“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.75",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern zur Behebung von Schäden infolge des Sommerhochwassers 2010 (VwV SMI Aufbauhilfe Sommerh",
+        "score": 1.2,
+        "margin": 0.75,
+        "target": "VwV SMI Aufbauhilfe Sommerhochwasser 2010"
+      },
+      "sourceTitle": "Änderung VwV SMI Aufbauhilfe Sommerhochwasser 2010",
+      "decidedAt": "2026-09-03"
+    },
+    "11678": {
+      "action": "MAP",
+      "envelopeLawId": "3051",
+      "method": "opening-sentence",
+      "article": "Artikel 1",
+      "blockPath": [
+        0,
+        2
+      ],
+      "reason": "Artikel 1: Text nennt das Zielgesetz „Zustimmung zum Staatsvertrag“ (Recall 1.00); Überschrift entspricht dem Komponententitel (1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.70",
+      "evidence": {
+        "openingText": "Dem am 24. März 1994 unterzeichneten Staatsvertrag zwischen dem Freistaat Sachsen und den evangelischen Landeskirchen im Freistaat Sachsen (Evangelischer Kirche",
+        "heading": "Zustimmung zum Staatsvertrag",
+        "score": 1.2,
+        "margin": 0.7,
+        "target": "Zustimmung zum Staatsvertrag"
+      },
+      "sourceTitle": "Zustimmung zum Staatsvertrag [Vertrag mit den evangelischen Landeskirchen im Freistaat Sachsen ]",
+      "decidedAt": "2026-09-03"
+    },
+    "12306": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 1",
+      "blockPath": [
+        0
+      ],
+      "reason": "Artikel 1: Text nennt das Zielgesetz „Verwaltungsvorschrift zur Regelung des Großraum- und Schwerlastverkehrs für überbreite land- oder forstwirtschaftlich genutzte Arbeitsmaschinen und Zugmaschinen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift zur Regelung des Großraum- und Schwerlastverkehrs für überbreite land- oder forstwirtschaftlich genutzte Arbeitsmaschinen und Zugmasch",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Verwaltungsvorschrift zur Regelung des Großraum- und Schwerlastverkehrs für überbreite land- oder forstwirtschaftlich genutzte Arbeitsmaschinen und Zugmaschinen"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift zur Regelung des Großraum- und Schwerlastverkehrs für überbreite land- oder forstwirtschaftlich genutzte Arbeitsmaschinen und Zugmaschinen",
+      "decidedAt": "2026-09-03"
+    },
+    "12310": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 5",
+      "blockPath": [
+        4
+      ],
+      "reason": "Artikel 5: Text nennt das Zielgesetz „Richtlinien für die rechtliche Behandlung von Ortsdurchfahrten“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.95",
+      "evidence": {
+        "openingText": "Die Richtlinien für die rechtliche Behandlung von Ortsdurchfahrten vom 19. Januar 2009 (nicht veröffentlicht), zuletzt enthalten in der Verwaltungsvorschrift vo",
+        "score": 1.2,
+        "margin": 0.95,
+        "target": "Richtlinien für die rechtliche Behandlung von Ortsdurchfahrten"
+      },
+      "sourceTitle": "Änderung der Richtlinien für die rechtliche Behandlung von Ortsdurchfahrten",
+      "decidedAt": "2026-09-03"
+    },
+    "12312": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 7",
+      "blockPath": [
+        6
+      ],
+      "reason": "Artikel 7: Text nennt das Zielgesetz „Verwaltungsvorschrift „Straßenunterhaltungs- und Betriebsdienst im Gemeinschaftsaufwand – Beschaffung von Fahrzeugen und Geräten““ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.06",
+      "evidence": {
+        "openingText": "In Satz 2 der Verwaltungsvorschrift „Straßenunterhaltungs- und Betriebsdienst im Gemeinschaftsaufwand – Beschaffung von Fahrzeugen und Geräten“ vom 30. Juli 200",
+        "score": 1.2,
+        "margin": 1.06,
+        "target": "Verwaltungsvorschrift „Straßenunterhaltungs- und Betriebsdienst im Gemeinschaftsaufwand – Beschaffung von Fahrzeugen und Geräten“"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift „Straßenunterhaltungs- und Betriebsdienst im Gemeinschaftsaufwand – Beschaffung von Fahrzeugen und Geräten“",
+      "decidedAt": "2026-09-03"
+    },
+    "12313": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 8",
+      "blockPath": [
+        7
+      ],
+      "reason": "Artikel 8: Text nennt das Zielgesetz „Verwaltungsvorschrift zur Durchführung der Verordnung des Sächsischen Staatsministeriums für Wirtschaft und Arbeit zur Bestimmung der den Landkreisen und kreisfreien Städten obliegenden Unterhaltungs- und Instandsetzungsaufgaben an Staats- und Bundesstraßen im Freistaat Sachsen (Verwaltungsvorschrift zur Sächsischen Unterhaltungs- und Instandsetzungsverordnung – VwVSächsUIVO)“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.91",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift zur Durchführung der Verordnung des Sächsischen Staatsministeriums für Wirtschaft und Arbeit zur Bestimmung der den Landkreisen und kr",
+        "score": 1.2,
+        "margin": 0.91,
+        "target": "Verwaltungsvorschrift zur Durchführung der Verordnung des Sächsischen Staatsministeriums für Wirtschaft und Arbeit zur Bestimmung der den Landkreisen und kreisfreien Städten obliegenden Unterhaltungs- und Instandsetzungsaufgaben an Staats- und Bundesstraßen im Freistaat Sachsen (Verwaltungsvorschrift zur Sächsischen Unterhaltungs- und Instandsetzungsverordnung – VwVSächsUIVO)"
+      },
+      "sourceTitle": "Verwaltungsvorschrift zur Durchführung der Verordnung des Sächsischen Staatsministeriums für Wirtschaft und Arbeit zur Bestimmung der den Landkreisen und kreisfreien Städten obliegenden Unterhaltungs- und Instandsetzungsaufgaben an Staats- und Bundesstraßen im Freistaat Sachsen (Verwaltungsvorschrift zur Sächsischen Unterhaltungs- und Instandsetzungsverordnung – VwVSächsUIVO)",
+      "decidedAt": "2026-09-03"
+    },
+    "12314": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 9",
+      "blockPath": [
+        8
+      ],
+      "reason": "Artikel 9: Text nennt das Zielgesetz „Verwaltungsvorschrift des Sächsisches Staatsministeriums für Wirtschaft und Arbeit zur Einführung der „Richtlinie zur Ermittlung und Verrechnung von Kosten im Straßenbetriebsdienst an Bundesfernstraßen“ in der sächsischen Straßenbauverwaltung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.70",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift des Sächsisches Staatsministeriums für Wirtschaft und Arbeit zur Einführung der „Richtlinie zur Ermittlung und Verrechnung von Kosten ",
+        "score": 1.2,
+        "margin": 0.7,
+        "target": "Verwaltungsvorschrift des Sächsisches Staatsministeriums für Wirtschaft und Arbeit zur Einführung der „Richtlinie zur Ermittlung und Verrechnung von Kosten im Straßenbetriebsdienst an Bundesfernstraßen“ in der sächsischen Straßenbauverwaltung"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift des Sächsisches Staatsministeriums für Wirtschaft und Arbeit zur Einführung der „Richtlinie zur Ermittlung und Verrechnung von Kosten im Straßenbetriebsdienst an Bundesfernstraßen“ in der sächsischen Straßenbauverwaltung",
+      "decidedAt": "2026-09-03"
+    },
+    "12315": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 10",
+      "blockPath": [
+        9
+      ],
+      "reason": "Artikel 10: Text nennt das Zielgesetz „Verwaltungsvorschrift „Merkblatt für den Straßenbetriebsdienst – Teil: Grünpflege – Ausgabe 2006““ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.91",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift „Merkblatt für den Straßenbetriebsdienst – Teil: Grünpflege – Ausgabe 2006“ vom 16. Januar 2007 (nicht veröffentlicht), zuletzt enthal",
+        "score": 1.2,
+        "margin": 0.91,
+        "target": "Verwaltungsvorschrift „Merkblatt für den Straßenbetriebsdienst – Teil: Grünpflege – Ausgabe 2006“"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift „Merkblatt für den Straßenbetriebsdienst – Teil: Grünpflege – Ausgabe 2006“",
+      "decidedAt": "2026-09-03"
+    },
+    "12316": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 11",
+      "blockPath": [
+        10
+      ],
+      "reason": "Artikel 11: Text nennt das Zielgesetz „Verwaltungsvorschrift „Betriebstechnische Ausstattung von Straßentunneln (Allgemeines Rundschreiben Straßenbau Nr. 10/2006)““ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.90",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift „Betriebstechnische Ausstattung von Straßentunneln (Allgemeines Rundschreiben Straßenbau Nr. 10/2006)“ vom 3. Juli 2006 (nicht veröffe",
+        "score": 1.2,
+        "margin": 0.9,
+        "target": "Verwaltungsvorschrift „Betriebstechnische Ausstattung von Straßentunneln (Allgemeines Rundschreiben Straßenbau Nr. 10/2006)“"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift „Betriebstechnische Ausstattung von Straßentunneln (Allgemeines Rundschreiben Straßenbau Nr. 10/2006)“",
+      "decidedAt": "2026-09-03"
+    },
+    "12317": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 12",
+      "blockPath": [
+        11
+      ],
+      "reason": "Artikel 12: Text nennt das Zielgesetz „Verwaltungsvorschrift „Verordnung über Sicherheit und Gesundheitsschutz auf Baustellen (Baustellenverordnung – BaustellV vom 10.06.1998); Regeln zum Arbeitsschutz auf Baustellen (RAB)““ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.91",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift „Verordnung über Sicherheit und Gesundheitsschutz auf Baustellen (Baustellenverordnung – BaustellV vom 10.06.1998); Regeln zum Arbeits",
+        "score": 1.2,
+        "margin": 0.91,
+        "target": "Verwaltungsvorschrift „Verordnung über Sicherheit und Gesundheitsschutz auf Baustellen (Baustellenverordnung – BaustellV vom 10.06.1998); Regeln zum Arbeitsschutz auf Baustellen (RAB)“"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift „Verordnung über Sicherheit und Gesundheitsschutz auf Baustellen (Baustellenverordnung – BaustellV vom 10.06.1998); Regeln zum Arbeitsschutz auf Baustellen (RAB)“",
+      "decidedAt": "2026-09-03"
+    },
+    "12318": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 13",
+      "blockPath": [
+        12
+      ],
+      "reason": "Artikel 13: Text nennt das Zielgesetz „Verwaltungsvorschrift „Merkblatt über Rahmenbedingungen für erforderliche Fachkenntnisse zur Verkehrssicherung von Arbeitsstellen an Straßen (MVAS 1999)““ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Die Verwaltungsvorschrift „Merkblatt über Rahmenbedingungen für erforderliche Fachkenntnisse zur Verkehrssicherung von Arbeitsstellen an Straßen (MVAS 1999)“ vo",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Verwaltungsvorschrift „Merkblatt über Rahmenbedingungen für erforderliche Fachkenntnisse zur Verkehrssicherung von Arbeitsstellen an Straßen (MVAS 1999)“"
+      },
+      "sourceTitle": "Änderung der Verwaltungsvorschrift „Merkblatt über Rahmenbedingungen für erforderliche Fachkenntnisse zur Verkehrssicherung von Arbeitsstellen an Straßen (MVAS 1999)“",
+      "decidedAt": "2026-09-03"
+    },
+    "12319": {
+      "action": "MAP",
+      "envelopeLawId": "12305",
+      "method": "opening-sentence",
+      "article": "Artikel 14",
+      "blockPath": [
+        13
+      ],
+      "reason": "Artikel 14: Text nennt das Zielgesetz „Richtlinie des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Gewährung von Fördermitteln im öffentlichen Personennahverkehr (RL-ÖPNV)“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.70",
+      "evidence": {
+        "openingText": "Die Richtlinie des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Gewährung von Fördermitteln im öffentlichen Personennahverkehr (RL",
+        "score": 1.2,
+        "margin": 0.7,
+        "target": "Richtlinie des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Gewährung von Fördermitteln im öffentlichen Personennahverkehr (RL-ÖPNV)"
+      },
+      "sourceTitle": "Änderung der Richtlinie des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Gewährung von Fördermitteln im öffentlichen Personennahverkehr (RL-ÖPNV)",
+      "decidedAt": "2026-09-03"
+    },
+    "12492": {
+      "action": "MAP",
+      "envelopeLawId": "12491",
+      "method": "opening-sentence",
+      "article": "Artikel 1",
+      "blockPath": [
+        1
+      ],
+      "reason": "Artikel 1: Text nennt das Zielgesetz „Artikel 1“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Komponententitel nennt den Artikel; Abstand zum nächsten Kandidaten 0.30",
+      "evidence": {
+        "openingText": "Das Gesetz über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe vom 13. Dezember 2002 (SächsGVBl. S. 333), zuletzt ",
+        "score": 1.5,
+        "margin": 0.3,
+        "target": "Artikel 1"
+      },
+      "sourceTitle": "Artikel 1 [Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe]",
+      "decidedAt": "2026-09-03"
+    },
+    "12493": {
+      "action": "MAP",
+      "envelopeLawId": "12491",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Artikel 2“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Komponententitel nennt den Artikel; Abstand zum nächsten Kandidaten 0.50",
+      "evidence": {
+        "openingText": "Das Gesetz über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe, zuletzt geändert durch Artikel 1 dieses Gesetzes, ",
+        "score": 1.5,
+        "margin": 0.5,
+        "target": "Artikel 2"
+      },
+      "sourceTitle": "Artikel 2 [Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe]",
+      "decidedAt": "2026-09-03"
+    },
+    "12703": {
+      "action": "MAP",
+      "envelopeLawId": "12679",
+      "method": "opening-sentence",
+      "article": "Artikel 24",
+      "blockPath": [
+        25
+      ],
+      "reason": "Artikel 24: Text nennt das Zielgesetz „Sächsischen Chemikalienrecht-Zuständigkeitsverordnung“ (Recall 1.00); Überschrift entspricht dem Komponententitel (0.50); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.53",
+      "evidence": {
+        "openingText": "Die Gemeinsame Verordnung des Sächsischen Staatsministeriums für Umwelt und Landwirtschaft und des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Ver",
+        "heading": "Änderung der Sächsischen Chemikalienrecht–Zuständigkeitsverordnung",
+        "score": 1.2,
+        "margin": 0.53,
+        "target": "Sächsischen Chemikalienrecht-Zuständigkeitsverordnung"
+      },
+      "sourceTitle": "Änderung der Sächsischen Chemikalienrecht-Zuständigkeitsverordnung",
+      "decidedAt": "2026-09-03"
+    },
+    "14075": {
+      "action": "MAP",
+      "envelopeLawId": "14069",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Das Gesetz über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung (SAKDG) vom 15. Juli 1994 (SächsGVBl. S. 1432), zuletzt geändert durch Ar",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung"
+      },
+      "sourceTitle": "Änderung des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung",
+      "decidedAt": "2026-09-03"
+    },
+    "14084": {
+      "action": "MAP",
+      "envelopeLawId": "14073",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        2
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Abendgymnasien- und Kollegverordnung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Die Verordnung des Sächsischen Staatsministeriums für Kultus über die Ausbildung und die Abiturprüfung an Abendgymnasien und Kollegs im Freistaat Sachsen (Abend",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Abendgymnasien- und Kollegverordnung"
+      },
+      "sourceTitle": "Änderung der Abendgymnasien- und Kollegverordnung",
+      "decidedAt": "2026-09-03"
+    },
+    "14121": {
+      "action": "MAP",
+      "envelopeLawId": "14120",
+      "method": "opening-sentence",
+      "article": "I.",
+      "blockPath": [
+        0
+      ],
+      "reason": "I.: Text nennt das Zielgesetz „Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung der energetischen Sanierung von Wohnraum“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.63",
+      "evidence": {
+        "openingText": "Die Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung der energetischen Sanierung von Wohnraum (RL Energetische Sanierung) vom 19. Januar 2",
+        "score": 1.2,
+        "margin": 0.63,
+        "target": "Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung der energetischen Sanierung von Wohnraum"
+      },
+      "sourceTitle": "Änderung der Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung der energetischen Sanierung von Wohnraum",
+      "decidedAt": "2026-09-03"
+    },
+    "14122": {
+      "action": "MAP",
+      "envelopeLawId": "14120",
+      "method": "opening-sentence",
+      "article": "II.",
+      "blockPath": [
+        1
+      ],
+      "reason": "II.: Text nennt das Zielgesetz „Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung von Wohnraumanpassungen für generationenübergreifendes Wohnen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.63",
+      "evidence": {
+        "openingText": "Die Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung von Wohnraumanpassungen für generationenübergreifendes Wohnen (RL Mehrgenerationenwoh",
+        "score": 1.2,
+        "margin": 0.63,
+        "target": "Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung von Wohnraumanpassungen für generationenübergreifendes Wohnen"
+      },
+      "sourceTitle": "Änderung der Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung von Wohnraumanpassungen für generationenübergreifendes Wohnen",
+      "decidedAt": "2026-09-03"
+    },
+    "16012": {
+      "action": "MAP",
+      "envelopeLawId": "16011",
+      "method": "opening-sentence",
+      "article": "Änderung des Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze",
+      "blockPath": [
+        1
+      ],
+      "reason": "Änderung des Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze: Text nennt das Zielgesetz „Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze“ (Recall 1.00); Überschrift entspricht dem Komponententitel (1.00); Abstand zum nächsten Kandidaten 0.40",
+      "evidence": {
+        "openingText": "Das Gesetz zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze vom 9. Juli 2014 (SächsGVBl. S. 376) wird wie folgt geändert: In Artikel 1 w",
+        "heading": "Änderung des Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze",
+        "score": 1,
+        "margin": 0.4,
+        "target": "Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze"
+      },
+      "sourceTitle": "Änderung des Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze",
+      "decidedAt": "2026-09-03"
+    },
+    "16833": {
+      "action": "MAP",
+      "envelopeLawId": "3393",
+      "method": "opening-sentence",
+      "article": "Teil 10 § 73 Absatz 3",
+      "blockPath": [
+        10,
+        2,
+        2
+      ],
+      "reason": "Teil 10 § 73 Absatz 3: Text nennt das Zielgesetz „Sächsischen Privatrundfunkgesetzes“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "§ 27 Abs. 2 Satz 2 des Gesetzes über den privaten Rundfunk und neue Medien in Sachsen (Sächsisches Privatrundfunkgesetz – SächsPRG) in der Fassung der Bekanntma",
+        "score": 1,
+        "margin": 0.67,
+        "target": "Sächsischen Privatrundfunkgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Privatrundfunkgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "17022": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 1",
+      "blockPath": [
+        0,
+        1
+      ],
+      "reason": "§ 1 Nummer 1: Text nennt das Zielgesetz „Gesetzes zur Ausführung des Betreuungsgesetzes“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "Artikel 6 § 1 des Gesetzes zur Ausführung des Betreuungsgesetzes (AGBtG) vom 10. November 1992 (SächsGVBl. S. 539),",
+        "score": 1,
+        "margin": 0.67,
+        "target": "Gesetzes zur Ausführung des Betreuungsgesetzes"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Gesetzes zur Ausführung des Betreuungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "17023": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 12",
+      "blockPath": [
+        0,
+        12
+      ],
+      "reason": "§ 1 Nummer 12: Text nennt das Zielgesetz „Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.50",
+      "evidence": {
+        "openingText": "§§ 1 und 3 des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung vom 24. April 1996 (SächsGVBl. S. 161),",
+        "score": 1,
+        "margin": 0.5,
+        "target": "Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung",
+      "decidedAt": "2026-09-03"
+    },
+    "17024": {
+      "action": "MAP",
+      "envelopeLawId": "4371",
+      "method": "opening-sentence",
+      "article": "§ 1 Nummer 13",
+      "blockPath": [
+        0,
+        13
+      ],
+      "reason": "§ 1 Nummer 13: Text nennt das Zielgesetz „Ausführungsgesetzes zum Sozialgesetzbuch Achtes Buch (SGB VIII) – Kinder- und Jugendhilfe – und anderer Gesetze zum Schutz der Jugend für den Freistaat Sachsen“ (Recall 1.00); Abstand zum nächsten Kandidaten 0.83",
+      "evidence": {
+        "openingText": "Artikel 3 des Ausführungsgesetzes zum Sozialgesetzbuch Achtes Buch (SGB VIII) – Kinder- und Jugendhilfe – und anderer Gesetze zum Schutz der Jugend für den Frei",
+        "score": 1,
+        "margin": 0.83,
+        "target": "Ausführungsgesetzes zum Sozialgesetzbuch Achtes Buch (SGB VIII) – Kinder- und Jugendhilfe – und anderer Gesetze zum Schutz der Jugend für den Freistaat Sachsen"
+      },
+      "textLawId": "3382",
+      "textCarrierReason": "Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift; der Artikeltext wird in der eigenständigen Vorschrift 3382 geführt.",
+      "sourceTitle": "Änderung des Ausführungsgesetzes zum Sozialgesetzbuch Achtes Buch (SGB VIII) – Kinder- und Jugendhilfe – und anderer Gesetze zum Schutz der Jugend für den Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "17038": {
+      "action": "MAP",
+      "envelopeLawId": "17036",
+      "method": "opening-sentence",
+      "article": "Artikel 2",
+      "blockPath": [
+        3
+      ],
+      "reason": "Artikel 2: Text nennt das Zielgesetz „Sächsischen Gesetzes zur Ausführung des Bundesmeldegesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "§ 10 des Sächsischen Gesetzes zur Ausführung des Bundesmeldegesetzes vom 9. Juli 2014 (SächsGVBl. S. 376), das durch Artikel 1 des Gesetzes vom 30. März 2015 (S",
+        "heading": "Folgeänderungen",
+        "score": 1.2,
+        "margin": 0.67,
+        "target": "Sächsischen Gesetzes zur Ausführung des Bundesmeldegesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Gesetzes zur Ausführung des Bundesmeldegesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "17092": {
+      "action": "MAP",
+      "envelopeLawId": "17089",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 1",
+      "blockPath": [
+        4,
+        0
+      ],
+      "reason": "Artikel 3 Absatz 1: Text nennt das Zielgesetz „Sächsischen Gesetzes über kommunale Zusammenarbeit“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.33",
+      "evidence": {
+        "openingText": "Das Sächsische Gesetz über kommunale Zusammenarbeit in der Fassung der Bekanntmachung vom 3. März 2014 (SächsGVBl. S. 196) wird wie folgt geändert:",
+        "score": 1.2,
+        "margin": 0.33,
+        "target": "Sächsischen Gesetzes über kommunale Zusammenarbeit"
+      },
+      "sourceTitle": "Änderung des Sächsischen Gesetzes über kommunale Zusammenarbeit",
+      "decidedAt": "2026-09-03"
+    },
+    "17093": {
+      "action": "MAP",
+      "envelopeLawId": "17089",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 2",
+      "blockPath": [
+        4,
+        3
+      ],
+      "reason": "Artikel 3 Absatz 2: Text nennt das Zielgesetz „Sächsischen Landkreisordnung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.53",
+      "evidence": {
+        "openingText": "Die Sächsische Landkreisordnung in der Fassung der Bekanntmachung vom 3. März 2014 (SächsGVBl. S. 180), die zuletzt durch Artikel 19 des Gesetzes vom 29. April ",
+        "score": 1.2,
+        "margin": 0.53,
+        "target": "Sächsischen Landkreisordnung"
+      },
+      "sourceTitle": "Änderung der Sächsischen Landkreisordnung",
+      "decidedAt": "2026-09-03"
+    },
+    "17094": {
+      "action": "MAP",
+      "envelopeLawId": "17089",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 3",
+      "blockPath": [
+        4,
+        6
+      ],
+      "reason": "Artikel 3 Absatz 3: Text nennt das Zielgesetz „Gesetzes über den Kommunalen Sozialverband Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.33",
+      "evidence": {
+        "openingText": "§ 21 Absatz 1 Satz 2 des Gesetzes über den Kommunalen Sozialverband Sachsen vom 14. Juli 2005 (SächsGVBl. S. 167, 171), das zuletzt durch Artikel 6 des Gesetzes",
+        "score": 1.2,
+        "margin": 0.33,
+        "target": "Gesetzes über den Kommunalen Sozialverband Sachsen"
+      },
+      "sourceTitle": "Änderung des Gesetzes über den Kommunalen Sozialverband Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "17096": {
+      "action": "MAP",
+      "envelopeLawId": "17089",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 5",
+      "blockPath": [
+        4,
+        8
+      ],
+      "reason": "Artikel 3 Absatz 5: Text nennt das Zielgesetz „Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.60",
+      "evidence": {
+        "openingText": "§ 10 Absatz 3 Satz 2 des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung vom 15. Juli 1994 (SächsGVBl. S. 1432), das zuletz",
+        "score": 1.2,
+        "margin": 0.6,
+        "target": "Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung"
+      },
+      "sourceTitle": "Änderung des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung",
+      "decidedAt": "2026-09-03"
+    },
+    "17097": {
+      "action": "MAP",
+      "envelopeLawId": "17089",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 6",
+      "blockPath": [
+        4,
+        9
+      ],
+      "reason": "Artikel 3 Absatz 6: Text nennt das Zielgesetz „Sächsischen Kulturraumgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.53",
+      "evidence": {
+        "openingText": "In § 7 Absatz 2 Satz 1 des Sächsischen Kulturraumgesetzes in der Fassung der Bekanntmachung vom 18. August 2008 (SächsGVBl. S. 539), das zuletzt durch Artikel 1",
+        "score": 1.2,
+        "margin": 0.53,
+        "target": "Sächsischen Kulturraumgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Kulturraumgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "17867": {
+      "action": "MAP",
+      "envelopeLawId": "17866",
+      "method": "opening-sentence",
+      "article": "I.",
+      "blockPath": [
+        1
+      ],
+      "reason": "I.: Text nennt das Zielgesetz „RL gebundener Mietwohnraum“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "Die RL gebundener Mietwohnraum vom 22. November 2016 (SächsABl. S. 1471), die durch die Richtlinie vom 8. März 2017 (SächsABl. S. 446) geändert worden ist, enth",
+        "score": 1.2,
+        "margin": 0.67,
+        "target": "RL gebundener Mietwohnraum"
+      },
+      "sourceTitle": "Änderung der RL gebundener Mietwohnraum",
+      "decidedAt": "2026-09-03"
+    },
+    "17868": {
+      "action": "MAP",
+      "envelopeLawId": "17866",
+      "method": "opening-sentence",
+      "article": "II.",
+      "blockPath": [
+        2
+      ],
+      "reason": "II.: Text nennt das Zielgesetz „RL Seniorengerecht Umbauen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.87",
+      "evidence": {
+        "openingText": "Der Ziffer IV Nummer 3 der RL Seniorengerecht Umbauen vom 9. Januar 2018 (SächsABl. S. 126) werden folgende Sätze angefügt: „Ist aufgrund der baulichen Gegebenh",
+        "score": 1.2,
+        "margin": 0.87,
+        "target": "RL Seniorengerecht Umbauen"
+      },
+      "sourceTitle": "Änderung der RL Seniorengerecht Umbauen",
+      "decidedAt": "2026-09-03"
+    },
+    "17869": {
+      "action": "MAP",
+      "envelopeLawId": "17866",
+      "method": "opening-sentence",
+      "article": "III.",
+      "blockPath": [
+        3
+      ],
+      "reason": "III.: Text nennt das Zielgesetz „RL Wohnraumanpassung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.70",
+      "evidence": {
+        "openingText": "Der Ziffer VI Nummer 3 der RL Wohnraumanpassung vom 17. Mai 2017 (SächsABl. S. 758), enthalten in der Verwaltungsvorschrift vom 4. Dezember 2017 (SächsABl. SDr.",
+        "score": 1.2,
+        "margin": 0.7,
+        "target": "RL Wohnraumanpassung"
+      },
+      "sourceTitle": "Änderung der RLWohnraumanpassung",
+      "decidedAt": "2026-09-03"
+    },
+    "18453": {
+      "action": "MAP",
+      "envelopeLawId": "18452",
+      "method": "opening-sentence",
+      "article": "I.",
+      "blockPath": [
+        0
+      ],
+      "reason": "I.: Text nennt das Zielgesetz „RL gebundener Mietwohnraum“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.87",
+      "evidence": {
+        "openingText": "Die RL gebundener Mietwohnraum vom 22. November 2016 (SächsABl. S. 1471), die zuletzt durch Ziffer I der Richtlinie vom 22. Oktober 2018 (SächsABl. S. 1294) geä",
+        "score": 1.2,
+        "margin": 0.87,
+        "target": "RL gebundener Mietwohnraum"
+      },
+      "sourceTitle": "Änderung der RL gebundener Mietwohnraum",
+      "decidedAt": "2026-09-03"
+    },
+    "18454": {
+      "action": "MAP",
+      "envelopeLawId": "18452",
+      "method": "opening-sentence",
+      "article": "II.",
+      "blockPath": [
+        1
+      ],
+      "reason": "II.: Text nennt das Zielgesetz „RL Wohnraumanpassung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.50",
+      "evidence": {
+        "openingText": "Die RL Wohnraumanpassung vom 17. Mai 2017 (SächsABl. S. 758), die zuletzt durch die Richtlinie vom 7. Februar 2019 (SächsABl. S. 366) geändert worden ist, entha",
+        "score": 1.2,
+        "margin": 0.5,
+        "target": "RL Wohnraumanpassung"
+      },
+      "sourceTitle": "Änder der RL Wohnraumanpassung",
+      "decidedAt": "2026-09-03"
+    },
+    "18513": {
+      "action": "MAP",
+      "envelopeLawId": "18512",
+      "method": "opening-sentence",
+      "article": "I.",
+      "blockPath": [
+        0
+      ],
+      "reason": "I.: Text nennt das Zielgesetz „Richtlinie gebundener Mietwohnraum“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.87",
+      "evidence": {
+        "openingText": "Die Richtlinie gebundener Mietwohnraum vom 22. November 2016 (SächsABl. S. 1471), die zuletzt durch Ziffer I der Richtlinie vom 25. Oktober 2019 (SächsABl. S. 1",
+        "score": 1.2,
+        "margin": 0.87,
+        "target": "Richtlinie gebundener Mietwohnraum"
+      },
+      "sourceTitle": "Änderung der Richtlinie gebundener Mietwohnraum",
+      "decidedAt": "2026-09-03"
+    },
+    "18515": {
+      "action": "MAP",
+      "envelopeLawId": "18512",
+      "method": "opening-sentence",
+      "article": "III.",
+      "blockPath": [
+        2
+      ],
+      "reason": "III.: Text nennt das Zielgesetz „Richtlinie Wohnraumanpassung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.50",
+      "evidence": {
+        "openingText": "Die Richtlinie Wohnraumanpassung vom 17. Mai 2017 (SächsABl. S. 758), die zuletzt durch Ziffer II der Richtlinie vom 25. Oktober 2019 (SächsABl. S. 1606) geände",
+        "score": 1.2,
+        "margin": 0.5,
+        "target": "Richtlinie Wohnraumanpassung"
+      },
+      "sourceTitle": "Änderung der Richtlinie Wohnraumanpassung",
+      "decidedAt": "2026-09-03"
+    },
+    "18516": {
+      "action": "MAP",
+      "envelopeLawId": "18512",
+      "method": "opening-sentence",
+      "article": "IV.",
+      "blockPath": [
+        3
+      ],
+      "reason": "IV.: Text nennt das Zielgesetz „Richtlinie Seniorengerecht Umbauen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.67",
+      "evidence": {
+        "openingText": "Die Richtlinie Seniorengerecht Umbauen vom 9. Januar 2018 (SächsABl. S. 126), die durch Ziffer II der Richtlinie vom 22. Oktober 2018 (SächsABl. S. 1294) geände",
+        "score": 1.2,
+        "margin": 0.67,
+        "target": "Richtlinie Seniorengerecht Umbauen"
+      },
+      "sourceTitle": "Änderung der Richtlinie Seniorengerecht Umbauen",
+      "decidedAt": "2026-09-03"
+    },
+    "18517": {
+      "action": "MAP",
+      "envelopeLawId": "18512",
+      "method": "opening-sentence",
+      "article": "V.",
+      "blockPath": [
+        4
+      ],
+      "reason": "V.: Text nennt das Zielgesetz „Richtlinie Wohneigentum ländlicher Raum“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.95",
+      "evidence": {
+        "openingText": "Die Richtlinie Wohneigentum ländlicher Raum vom 4. Dezember 2018 (SächsABl. S. 1463), die durch Ziffer IV der Richtlinie vom 25. Oktober 2019 (SächsABl. S. 1606",
+        "score": 1.2,
+        "margin": 0.95,
+        "target": "Richtlinie Wohneigentum ländlicher Raum"
+      },
+      "sourceTitle": "Änderung der Richtlinie Wohneigentum ländlicher Raum",
+      "decidedAt": "2026-09-03"
+    },
+    "19095": {
+      "action": "MAP",
+      "envelopeLawId": "19094",
+      "method": "opening-sentence",
+      "article": "I.",
+      "blockPath": [
+        0
+      ],
+      "reason": "I.: Text nennt das Zielgesetz „VwV Stundentafeln berufsbildende Schulen“ (Recall 1.00); Überschrift entspricht dem Komponententitel (0.80); Abstand zum nächsten Kandidaten 0.25",
+      "evidence": {
+        "openingText": "Die VwV Stundentafeln berufsbildende Schulen vom 27. Juni 2017 (MBl. SMK S. 186), die zuletzt durch Ziffer I der Verwaltungsvorschrift vom 14. August 2020 (MBl.",
+        "heading": "VwV Stundentafeln berufsbildende Schulen",
+        "score": 1,
+        "margin": 0.25,
+        "target": "VwV Stundentafeln berufsbildende Schulen"
+      },
+      "sourceTitle": "Änderung der VwV Stundentafeln berufsbildende Schulen",
+      "decidedAt": "2026-09-03"
+    },
+    "19096": {
+      "action": "MAP",
+      "envelopeLawId": "19094",
+      "method": "opening-sentence",
+      "article": "II.",
+      "blockPath": [
+        1
+      ],
+      "reason": "II.: Text nennt das Zielgesetz „VwV Zeugnisse berufsbildende Schulen“ (Recall 1.00); Überschrift entspricht dem Komponententitel (0.80); Abstand zum nächsten Kandidaten 0.25",
+      "evidence": {
+        "openingText": "Die VwV Zeugnisse berufsbildende Schulen vom 7. Dezember 2017 (MBl. SMK S. 466), die zuletzt durch Ziffer II der Verwaltungsvorschrift vom 14. August 2020 (MBl.",
+        "heading": "VwV Zeugnisse berufsbildende Schulen",
+        "score": 1,
+        "margin": 0.25,
+        "target": "VwV Zeugnisse berufsbildende Schulen"
+      },
+      "sourceTitle": "Änderung der VwV Zeugnisse berufsbildende Schulen",
+      "decidedAt": "2026-09-03"
+    },
+    "19265": {
+      "action": "MAP",
+      "envelopeLawId": "19262",
+      "method": "opening-sentence",
+      "article": "Artikel 1",
+      "blockPath": [
+        1
+      ],
+      "reason": "Artikel 1: Überschrift entspricht dem Komponententitel (0.50); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.20",
+      "evidence": {
+        "openingText": "Die Schwangerschafts- und Schwangerschaftskonfliktberatungsstellenförderverordnung vom 23. Dezember 2008 (SächsGVBl. 2009 S. 15), die zuletzt durch Artikel 2 de",
+        "heading": "Änderung der Schwangerschafts- und Schwangerschaftskonfliktberatungsstellenförderverordnung",
+        "score": 0.7,
+        "margin": 0.2,
+        "target": "Schwangerschafts- und Schwangerschaftskonfliktberatungs­stellenförderverordnung"
+      },
+      "sourceTitle": "Änderung der Schwangerschafts- und Schwangerschaftskonfliktberatungs­stellenförderverordnung",
+      "decidedAt": "2026-09-03"
+    },
+    "19700": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 1",
+      "blockPath": [
+        2,
+        0
+      ],
+      "reason": "Artikel 2 Absatz 1: Text nennt das Zielgesetz „Sächsischen Normenkontrollratsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Dem § 6 Absatz 1 des Sächsischen Normenkontrollratsgesetzes vom 3. Juli 2014 (SächsGVBl. S. 384), das zuletzt durch das Gesetz vom 16. Dezember 2020 (SächsGVBl.",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Normenkontrollratsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Normenkontrollratsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "19701": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 2",
+      "blockPath": [
+        2,
+        1
+      ],
+      "reason": "Artikel 2 Absatz 2: Text nennt das Zielgesetz „Zehnten Sächsischen Kostenverzeichnisses“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.50",
+      "evidence": {
+        "openingText": "Die laufende Nummer 55 der Anlage 1 des Zehnten Sächsischen Kostenverzeichnisses vom 16. August 2021 (SächsGVBl. S. 898) wird wie folgt geändert:",
+        "score": 1.2,
+        "margin": 0.5,
+        "target": "Zehnten Sächsischen Kostenverzeichnisses"
+      },
+      "sourceTitle": "Änderung des Zehnten Sächsischen Kostenverzeichnisses",
+      "decidedAt": "2026-09-03"
+    },
+    "19702": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 3",
+      "blockPath": [
+        2,
+        5
+      ],
+      "reason": "Artikel 2 Absatz 3: Text nennt das Zielgesetz „Archivgesetzes für den Freistaat Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.80",
+      "evidence": {
+        "openingText": "In § 10 Absatz 2 Satz 1 des Archivgesetzes für den Freistaat Sachsen vom 17. Mai 1993 (SächsGVBl. S. 449), das zuletzt durch Artikel 25 des Gesetzes vom 26. Apr",
+        "score": 1.2,
+        "margin": 0.8,
+        "target": "Archivgesetzes für den Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung des Archivgesetzes für den Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "19703": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 4",
+      "blockPath": [
+        2,
+        6
+      ],
+      "reason": "Artikel 2 Absatz 4: Text nennt das Zielgesetz „Sächsischen Jugendstrafvollzugsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Das Sächsische Jugendstrafvollzugsgesetz vom 12. Dezember 2007 (SächsGVBl. S. 558), das zuletzt durch Artikel 3 des Gesetzes vom 22. August 2019 (SächsGVBl. S. ",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Jugendstrafvollzugsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Jugendstrafvollzugsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "19704": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 5",
+      "blockPath": [
+        2,
+        9
+      ],
+      "reason": "Artikel 2 Absatz 5: Text nennt das Zielgesetz „Sächsischen Untersuchungshaftvollzugsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Das Sächsische Untersuchungshaftvollzugsgesetz vom 14. Dezember 2010 (SächsGVBl. S. 414), das zuletzt durch Artikel 5 des Gesetzes vom 22. August 2019 (SächsGVB",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Untersuchungshaftvollzugsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Untersuchungshaftvollzugsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "19705": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 6",
+      "blockPath": [
+        2,
+        12
+      ],
+      "reason": "Artikel 2 Absatz 6: Text nennt das Zielgesetz „Sächsischen Strafvollzugsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Das Sächsische Strafvollzugsgesetz vom 16. Mai 2013 (SächsGVBl. S. 250), das zuletzt durch Artikel 2 des Gesetzes vom 22. August 2019 (SächsGVBl. S. 663) geände",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Strafvollzugsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Strafvollzugsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "19706": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 7",
+      "blockPath": [
+        2,
+        15
+      ],
+      "reason": "Artikel 2 Absatz 7: Text nennt das Zielgesetz „Sächsischen Sicherungsverwahrungsvollzugsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "Das Sächsische Sicherungsverwahrungsvollzugsgesetz vom 16. Mai 2013 (SächsGVBl. S. 294), das zuletzt durch Artikel 4 des Gesetzes vom 22. August 2019 (SächsGVBl",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Sicherungsverwahrungsvollzugsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Sicherungsverwahrungsvollzugsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "19707": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 8",
+      "blockPath": [
+        2,
+        18
+      ],
+      "reason": "Artikel 2 Absatz 8: Text nennt das Zielgesetz „Sächsischen Jugendarrestvollzugsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "In § 30 Absatz 1 Satz 3 des Sächsischen Jugendarrestvollzugsgesetzes vom 5. März 2019 (SächsGVBl. S. 158), das durch Artikel 6 des Gesetzes vom 22. August 2019 ",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Jugendarrestvollzugsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Jugendarrestvollzugsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "19708": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 9",
+      "blockPath": [
+        2,
+        19
+      ],
+      "reason": "Artikel 2 Absatz 9: Text nennt das Zielgesetz „Waldgesetzes für den Freistaat Sachsen“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.80",
+      "evidence": {
+        "openingText": "§ 43 Absatz 3 Satz 2 des Waldgesetzes für den Freistaat Sachsen vom 10. April 1992 (SächsGVBl. S. 137), das zuletzt durch Artikel 21 des Gesetzes vom 11. Mai 20",
+        "score": 1.2,
+        "margin": 0.8,
+        "target": "Waldgesetzes für den Freistaat Sachsen"
+      },
+      "sourceTitle": "Änderung des Waldgesetzes für den Freistaat Sachsen",
+      "decidedAt": "2026-09-03"
+    },
+    "19709": {
+      "action": "MAP",
+      "envelopeLawId": "19698",
+      "method": "opening-sentence",
+      "article": "Artikel 2 Absatz 10",
+      "blockPath": [
+        2,
+        20
+      ],
+      "reason": "Artikel 2 Absatz 10: Text nennt das Zielgesetz „Sächsischen Umweltinformationsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 1.00",
+      "evidence": {
+        "openingText": "In § 2 Satz 3 des Sächsischen Umweltinformationsgesetzes vom 1. Juni 2006 (SächsGVBl. S. 146), das zuletzt durch Artikel 2 Absatz 25 des Gesetzes vom 5. April 2",
+        "score": 1.2,
+        "margin": 1,
+        "target": "Sächsischen Umweltinformationsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Umweltinformationsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "20112": {
+      "action": "MAP",
+      "envelopeLawId": "20109",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 1",
+      "blockPath": [
+        3,
+        0
+      ],
+      "reason": "Artikel 3 Absatz 1: Text nennt das Zielgesetz „Sächsischen Personalvertretungsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.87",
+      "evidence": {
+        "openingText": "§ 69 Absatz 6 Satz 1 Nummer 2 des Sächsischen Personalvertretungsgesetzes in der Fassung der Bekanntmachung vom 29. August 2018 (SächsGVBl. S. 570), das durch A",
+        "score": 1.2,
+        "margin": 0.87,
+        "target": "Sächsischen Personalvertretungsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Personalvertretungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "20113": {
+      "action": "MAP",
+      "envelopeLawId": "20109",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 2",
+      "blockPath": [
+        3,
+        2
+      ],
+      "reason": "Artikel 3 Absatz 2: Text nennt das Zielgesetz „Sächsischen Besoldungsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.87",
+      "evidence": {
+        "openingText": "In § 65 Absatz 1 Satz 1 des Sächsischen Besoldungsgesetzes vom 18. Dezember 2013 (SächsGVBl. S. 970, 1005), das zuletzt durch Artikel 3 des Gesetzes vom 16. Jun",
+        "score": 1.2,
+        "margin": 0.87,
+        "target": "Sächsischen Besoldungsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Besoldungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "20114": {
+      "action": "MAP",
+      "envelopeLawId": "20109",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 3",
+      "blockPath": [
+        3,
+        3
+      ],
+      "reason": "Artikel 3 Absatz 3: Text nennt das Zielgesetz „Sächsischen Beamtenversorgungsgesetzes“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.87",
+      "evidence": {
+        "openingText": "Das Sächsische Beamtenversorgungsgesetz vom 18. Dezember 2013 (SächsGVBl. S. 970, 1045), das zuletzt durch Artikel 12 des Gesetzes vom 31. Mai 2023 (SächsGVBl. ",
+        "score": 1.2,
+        "margin": 0.87,
+        "target": "Sächsischen Beamtenversorgungsgesetzes"
+      },
+      "sourceTitle": "Änderung des Sächsischen Beamtenversorgungsgesetzes",
+      "decidedAt": "2026-09-03"
+    },
+    "20115": {
+      "action": "MAP",
+      "envelopeLawId": "20109",
+      "method": "opening-sentence",
+      "article": "Artikel 3 Absatz 4",
+      "blockPath": [
+        3,
+        6
+      ],
+      "reason": "Artikel 3 Absatz 4: Text nennt das Zielgesetz „Sächsischen Dienstrechtszuständigkeitsverordnung“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.87",
+      "evidence": {
+        "openingText": "In § 6 Absatz 2 Satz 1 Satzteil vor Nummer 1 der Sächsischen Dienstrechtszuständigkeitsverordnung vom 22. Januar 2015 (SächsGVBl. S. 194), die zuletzt durch die",
+        "score": 1.2,
+        "margin": 0.87,
+        "target": "Sächsischen Dienstrechtszuständigkeitsverordnung"
+      },
+      "sourceTitle": "Änderung der Sächsischen Dienstrechtszuständigkeitsverordnung",
+      "decidedAt": "2026-09-03"
+    },
+    "11646.1": {
+      "action": "MAP",
+      "envelopeLawId": "11643",
+      "method": "opening-sentence",
+      "article": "III.",
+      "blockPath": [
+        2
+      ],
+      "reason": "III.: Text nennt das Zielgesetz „RL Kommunaldarlehen Hochwasser 2010“ (Recall 1.00); REVOSax-Anker zeigt auf diese Einheit; Abstand zum nächsten Kandidaten 0.45",
+      "evidence": {
+        "openingText": "Die Richtlinie des Sächsischen Staatsministeriums des Innern zur Beseitigung von Schäden an öffentlichen Einrichtungen vom Hochwasser im August 2010 (RL Kommuna",
+        "score": 1.2,
+        "margin": 0.45,
+        "target": "RL Kommunaldarlehen Hochwasser 2010"
+      },
+      "sourceTitle": "Änderung RL Kommunaldarlehen Hochwasser 2010",
+      "decidedAt": "2026-09-03"
+    }
+  }
+}

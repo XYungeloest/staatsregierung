@@ -3816,3 +3816,74 @@
   .law-help-card { grid-template-columns: 1fr; }
   .law-publication-entries > ol > li { grid-template-columns: 1fr; }
 }
+
+/* Seitennavigation der serverseitig paginierten Übersichten (A–Z, Rechtsentwicklung). */
+.letter-nav a[aria-current='page'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary, #fff);
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination__list a,
+.pagination__gap {
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: 700;
+}
+
+.pagination__gap {
+  border-color: transparent;
+  background: transparent;
+}
+
+.pagination__list a:hover {
+  border-color: var(--color-primary);
+  background: var(--color-info-blue);
+  text-decoration: none;
+}
+
+.pagination__list a[aria-current='page'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary, #fff);
+}
+
+.pagination__link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: 700;
+}
+
+.pagination__link--disabled {
+  color: var(--color-text-muted, #6b6b6b);
+  border-style: dashed;
+}

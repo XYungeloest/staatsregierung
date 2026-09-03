@@ -1,0 +1,84 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Besoldungsgesetzes",
+  "shortTitle": "Änd. OstBesG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Besoldungsgesetzes vom 30. Juni 2022 (SächsGVBl. S. 450)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 2 der Mantelvorschrift 19673, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 19677 (Bestandteil der Vorschrift 19673)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/19677.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19677",
+      "retrievedAt": "2026-09-03",
+      "sha256": "e4fbd7d2d6ea2a453551c8ff012a8d8fccfdb70c506a5d12e08d70b99c7c97bc",
+      "lawId": "19677",
+      "sourceValidFrom": "2022-08-13",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 19673, Artikel 2 (Gesetz zur Umsetzung der Ausbildungsoffensive an der Hochschule Meißen (FH) und Fortbildungszentrum)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/19673.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19673#a2",
+      "retrievedAt": "2026-09-03",
+      "sha256": "790e62d99f5083a09fd3fc04eb4a63bad42159a0ac73758f4f1342597f110a2b",
+      "lawId": "19673",
+      "sourceValidFrom": "2022-08-13",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Änderung des Ostdeutschen Besoldungsgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Anlage 1 zum Ostdeutschen Besoldungsgesetz vom 18. Dezember 2013 (SächsGVBl. S. 970, 1005), das zuletzt durch Artikel 6 des Gesetzes vom 9. Februar 2022 (SächsGVBl. S. 134) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Ziffer I wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In der Besoldungsgruppe A 7 werden vor den Wörtern „Obersekretär im Justizvollzugsdienst1)“ die Wörter „Obersekretär im Abschiebungshaft- und Ausreisegewahrsamsvollzugsdienst1)“ und ein Zeilenumbruch eingefügt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In der Besoldungsgruppe A 15 werden die Wörter „Kanzler der Hochschule für öffentliche Verwaltung und Rechtspflege (FH), Fortbildungszentrum des Freistaates Ostdeutschland“ gestrichen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In Ziffer II werden nach dem Wort „Gewerbe-“ ein Zeilenumbruch und die Wörter „im Abschiebungshaft- und Ausreisegewahrsamsvollzugsdienst“ eingefügt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

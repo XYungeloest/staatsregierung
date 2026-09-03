@@ -1,0 +1,92 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Justizgesetzes",
+  "shortTitle": "Änd. OstJG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Justizgesetzes vom 15. Dezember 2016 (SächsGVBl. S. 630)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 7 der Mantelvorschrift 17065, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 17072 (Bestandteil der Vorschrift 17065)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/17072.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/17072",
+      "retrievedAt": "2026-09-03",
+      "sha256": "dddbcb4ee6c23087147461ade6557e04c653c8152ae05cb1b782248a5a2d3f5d",
+      "lawId": "17072",
+      "sourceValidFrom": "2017-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 17065, Artikel 7 (Haushaltsbegleitgesetz 2017/2018)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/17065.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/17065#a7",
+      "retrievedAt": "2026-09-03",
+      "sha256": "c8bfd4e367eb1081ce082254ef7195331dac3b766c2d7b0045e087814b4ba441",
+      "lawId": "17065",
+      "sourceValidFrom": "2017-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 7",
+      "title": "Änderung des Ostdeutschen Justizgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Ostdeutsche Justizgesetz vom 24. November 2000 (SächsGVBl. S. 482; 2001 S. 704), das zuletzt durch das Gesetz vom 9. Juli 2014 (SächsGVBl. S. 405) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In der Inhaltsübersicht wird in der Angabe zu § 27 die Angabe „Aufstiegsfortbildungsförderungs-,“ gestrichen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 27 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In der Überschrift wird die Angabe „Aufstiegsfortbildungsförderungs-,“ gestrichen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Absatz 4 wird aufgehoben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Die bisherigen Absätze 5 bis 8 werden die Absätze 4 bis 7.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

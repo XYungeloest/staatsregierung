@@ -1,4 +1,4 @@
-import { glob, readFile } from 'node:fs/promises';
+import { access, glob, readFile } from 'node:fs/promises';
 import { normalizeSiteTargets } from './lib/site-targets.mjs';
 
 const allSites = [
@@ -93,8 +93,15 @@ for (const site of sites) {
   const searchHtml = await readFile(`${site.root}/suche/index.html`, 'utf8');
   if (!/<meta\s+name="robots"\s+content="noindex, follow"/iu.test(searchHtml)) failures.push(`${site.root}/suche/index.html: noindex, follow fehlt`);
 
-  const sitemap = await readFile(`${site.root}/sitemap.xml`, 'utf8');
   const robots = await readFile(`${site.root}/robots.txt`, 'utf8');
+  const sitemapPath = `${site.root}/sitemap.xml`;
+  if (!(await access(sitemapPath).then(() => true, () => false))) {
+    // OstRecht erzeugt die Sitemap zur Laufzeit aus D1; ihre Inhalte prüft der Deployment-Smoke.
+    if (!robots.includes(`Sitemap: ${site.origin}/sitemap.xml`)) failures.push(`${site.root}/robots.txt: falsche Sitemap-URL`);
+    console.log(`${site.name}: Sitemap wird zur Laufzeit erzeugt; statische Sitemap-Prüfung übersprungen.`);
+    continue;
+  }
+  const sitemap = await readFile(sitemapPath, 'utf8');
   if (!sitemap.includes('<lastmod>')) failures.push(`${site.root}/sitemap.xml: lastmod fehlt vollständig`);
   if (sitemap.includes('/suche/')) failures.push(`${site.root}/sitemap.xml: nicht indexierbare Suche enthalten`);
   if ([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].some((match) => !match[1].startsWith(`${site.origin}/`))) failures.push(`${site.root}/sitemap.xml: fremde Origin enthalten`);

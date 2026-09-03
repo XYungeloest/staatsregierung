@@ -46,7 +46,6 @@ if (target === 'portal') {
     `/recht/verfassung/ ${lawSiteUrl}/norm/staatsverfassung-des-freistaates-ostdeutschland/ 301`,
     `/recht/rechtsentwicklung/ ${lawSiteUrl}/rechtsentwicklung/ 301`,
     `/recht/hilfe/ ${lawSiteUrl}/hilfe/ 301`,
-    `/recht/search-index.json ${lawSiteUrl}/search-index.json 301`,
     `/recht/verkuendungen/index.json ${lawSiteUrl}/verkuendungen/index.json 301`,
     `/recht/norm/sachsische-landkreisordnung/ ${lawSiteUrl}/norm/saechsische-landkreisordnung/ 301`,
     `/recht/norm/* ${lawSiteUrl}/norm/:splat 301`,

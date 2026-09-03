@@ -1,0 +1,84 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Schulgesetzes",
+  "shortTitle": "Änd. OstSchulG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Schulgesetzes vom 14. Dezember 2018 (SächsGVBl. S. 782)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 14 der Mantelvorschrift 17932, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 17946 (Bestandteil der Vorschrift 17932)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/17946.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/17946",
+      "retrievedAt": "2026-09-03",
+      "sha256": "a8a4552f52e39f6237938d78d073efdbb1bf00fbdb92e8784fd3358bf088b5d9",
+      "lawId": "17946",
+      "sourceValidFrom": "2019-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 17932, Artikel 14 (Haushaltsbegleitgesetz 2019/2020)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/17932.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/17932#a14",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bddf42ad123acf7e1d6f73432f9ad7d5b1544676660d9c73b70945faf3ab6dbd",
+      "lawId": "17932",
+      "sourceValidFrom": "2019-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 14",
+      "title": "Änderung des Ostdeutschen Schulgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Ostdeutsche Schulgesetz in der Fassung der Bekanntmachung vom 27. September 2018 (SächsGVBl. S. 648) wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "§ 3b Absatz 2 Satz 1 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Vor dem Wort „Schulträgern“ werden die Wörter „öffentlichen und freien“ eingefügt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Wörter „gemäß § 3 Absatz 2 Satz 1 Nummer 1“ werden gestrichen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In § 63b Absatz 5 Satz 1 werden die Wörter „im Jahr 2018“ durch die Wörter „in den Jahren 2018, 2020 sowie 2021“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

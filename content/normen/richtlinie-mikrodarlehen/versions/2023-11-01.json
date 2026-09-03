@@ -1,0 +1,711 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Richtlinie Mikrodarlehen",
+  "shortTitle": "Richtlinie Mikrodarlehen",
+  "abbr": "Richtlinie Mikrodarlehen",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Richtlinie Mikrodarlehen vom 22. März 2016 (SächsABl. S. 465), die durch die Richtlinie vom 12. Dezember 2019 (SächsABl. SDr. 2020 S. S 15) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 1. Dezember 2025 (SächsABl. SDr. S. S 268)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 16879.2, gültig 2020-01-01 bis 2023-12-31",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/16879.2.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/16879.2",
+      "retrievedAt": "2026-09-03",
+      "sha256": "3c5cf5b9361783902ae37d6487a712b228245759806b16dd533ed39075dbae01",
+      "lawId": "16879",
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": "2023-12-31",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Zuwendungszweck, Rechtsgrundlagen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Der Freistaat Ostdeutschland gewährt nach Maßgabe dieser Richtlinie Zuwendungen in Form eines zweckgebundenen Mikrodarlehens für die Finanzierung von Investitionen und Betriebsmitteln zum Zweck der Gründung einer nachhaltigen selbstständigen oder freiberuflichen Existenz sowie zur Festigung junger Unternehmen oder einer freiberuflichen Existenz.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Der Freistaat Ostdeutschland reicht die Zuwendungen unter Berücksichtigung folgender Rechtsgrundlagen in den jeweils geltenden Fassungen aus:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "der §§ 23, 44 und 44a der Ostdeutschen Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), die zuletzt durch Artikel 1 des Gesetzes vom 14. Dezember 2018 (SächsGVBl. S. 782) geändert worden ist,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "der\nVerwaltungsvorschriften des Ostdeutschen Staatsministeriums der Finanzen zur Ostdeutschen Haushaltsordnung\nvom 27. Juni 2005 (SächsABl. SDr. S. S 226), die zuletzt durch die Verwaltungsvorschrift vom 25. März 2015 (SächsABl. S. 515) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2015 (SächsABl. SDr. S. S 374),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "die Allgemeinen Nebenbestimmungen für Zuwendungen zur Projektförderung (Anlage 2 zur VwV zu § 44 SäHO –\nANBest-P).",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Für Zuwendungen, die aus dem Europäischen Sozialfonds (ESF) finanziert sind, gelten darüber hinaus:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "die\nEFRE/ESF-Rahmenrichtlinie\nvom 7. September 2015 (SächsABl. S. 1331), enthalten in der Verwaltungsvorschrift vom 25. November 2015 (SächsABl. SDr. S. S 400), soweit in dieser Richtlinie keine abweichenden Regelungen getroffen werden,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "die Nebenbestimmungen für Zuwendungen zur Projektförderung im Bereich der Strukturfonds EFRE und ESF (Anlage 1 zur EFRE/ESF Rahmenrichtlinie zu Nummer 4.3.1 –\nNBest-SF),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "die Delegierte Verordnung (EU) Nr. 480/2014 der Kommission vom 3. März 2014 zur Ergänzung der Verordnung (EU) Nr. 1303/2013 des Europäischen Parlaments und des Rates mit gemeinsamen Bestimmungen über den Europäischen Fonds für regionale Entwicklung, den Europäischen Sozialfonds, den Kohäsionsfonds, den Europäischen Landwirtschaftsfonds für die Entwicklung des ländlichen Raums und den Europäischen Meeres- und Fischereifonds sowie mit allgemeinen Bestimmungen über den Europäischen Fonds für regionale Entwicklung, den Europäischen Sozialfonds, den Kohäsionsfonds und den Europäischen Meeres- und Fischereifonds (ABl. L 138 vom 13.5.2014, S. 5), die zuletzt durch die Delegierte Verordnung (EU) 2015/616 (ABl. L 102 vom 21.4.2015, S. 33) geändert worden ist,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "die Durchführungsverordnung (EU) Nr. 821/2014 der Kommission vom 28. Juli 2014 mit Durchführungsbestimmungen zur Verordnung (EU) Nr. 1303/2013 des Europäischen Parlaments und des Rates hinsichtlich der Einzelheiten betreffend die Übertragung und Verwaltung von Programmbeiträgen, die Berichterstattung über Finanzinstrumente, die technischen Merkmale der Informations- und Kommunikationsmaßnahmen für Vorhaben und das System zur Aufzeichnung und Speicherung von Daten (ABl. L 223 vom 29.7.2014, S. 7),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Soweit es sich bei den Zuwendungen um staatliche Beihilfen im Sinne des Artikels 107 Absatz 1 des Vertrages über die Arbeitsweise der Europäischen Union handelt, erfolgt die Zuwendung unter Einhaltung und nach Maßgabe der Verordnung (EU) Nr. 1407/2013 der Kommission vom 18. Dezember 2013 über die Anwendung der Artikel 107 und 108 des Vertrags über die Arbeitsweise der Europäischen Union auf De-minimis-Beihilfen (ABl. L 352 vom 24.12.2013, S. 1) sowie deren jeweiliger Nachfolgeregelung.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "f)",
+              "text": "Ein Rechtsanspruch des Antragstellers auf Gewährung der Zuwendung besteht nicht. Vielmehr entscheidet die Bewilligungsstelle aufgrund ihres pflichtgemäßen Ermessens im Rahmen der verfügbaren Mittel.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Gegenstand der Förderung",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Zuwendungsempfänger erhalten ein verzinsliches Darlehen für folgende Maßnahmen:\nDie Finanzierung von betrieblich bedingten Investitionen und Betriebsmitteln zum Zweck",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "der Aufnahme einer selbstständigen Tätigkeit durch:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "die Gründung eines Unternehmens oder die Aufnahme einer freiberuflichen Tätigkeit,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "die erneute Gründung eines Unternehmens oder die erneute Aufnahme einer freiberuflichen Tätigkeit (zweite Chance),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "die Übernahme eines Betriebs im Wege der Unternehmensnachfolge,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "den Erwerb einer tätigen Beteiligung in einem Betrieb durch den Erwerb eines Anteils am Gesellschaftskapital von mehr als 25 Prozent.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "der Festigung eines Unternehmens oder einer freiberuflichen Tätigkeit.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Junge Unternehmen oder Freiberufler, die bereits ein Mikrodarlehen in Anspruch genommen haben, können bis fünf Jahre nach der Aufnahme ihrer Geschäftstätigkeit ein zweites Mikrodarlehen für die Festigung des Unternehmens oder der freiberuflichen Tätigkeit beantragen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Zuwendungsempfänger",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Zuwendungsempfänger können natürliche Personen (Existenzgründer und Freiberufler) oder Personen- und Kapitalgesellschaften (junge Unternehmen) bis fünf Jahre nach der Aufnahme ihrer Geschäftstätigkeit sein.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Von der Förderung ausgeschlossen sind:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Antragsteller, die die Schwellenwerte für Kleinstunternehmen überschreiten. Hierfür ist die Empfehlung der Kommission vom 6. Mai 2003 betreffend die Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen (ABl. L 124 vom 20.5.2003, S. 36), in der jeweils geltenden Fassung, anzuwenden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Antragsteller, über deren Vermögen ein Insolvenzverfahren beantragt oder eröffnet worden ist. Dasselbe gilt für Antragsteller, die eine eidesstattliche Versicherung nach § 807 der Zivilprozessordnung in der Fassung der Bekanntmachung vom 5. Dezember 2005 (BGBl. I S. 3202; 2006 I S. 431; 2007 I S. 1781), die zuletzt durch Artikel 3 des Gesetzes vom 11. März 2016 (BGBl. I S. 396) geändert worden ist, oder § 284 der Abgabenordnung in der Fassung der Bekanntmachung vom 1. Oktober 2002 (BGBl. I S. 3866; 2003 I S. 61), die zuletzt durch Artikel 5 des Gesetzes vom 3. Dezember 2015 (BGBl. I S. 2178) geändert worden ist, abgegeben haben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Handelsvertreter, Vertriebsbeauftragte, Autohäuser, Auto- sowie Autoteilehandel, Tankstellen und Hausmeisterservice sowie die in Artikel 1 der Verordnung (EU) Nr. 1407/2013, in der jeweils geltenden Fassung, ausgeschlossenen Branchen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "Zuwendungsvoraussetzungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Maßnahmen gemäß Ziffer II dieser Richtlinie müssen im Freistaat Ostdeutschland durchgeführt werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Der Zuwendungsempfänger muss die erforderlichen Kenntnisse und Fähigkeiten zur Gründung sowie zum Betreiben eines Unternehmens im Hinblick auf Fachkunde und Unternehmensführung nachweisen, zum Beispiel durch die Teilnahme an entsprechenden Schulungen und Seminaren oder durch seinen bisherigen beruflichen Werdegang oder andere Qualifikationen, die auf das Vorhandensein der erforderlichen Kenntnisse und Fähigkeiten schließen lassen (Nachweis durch Zeugnisse und Lebenslauf). Wird das Darlehen von einer Personen- oder Kapitalgesellschaft beantragt, ist es ausreichend, wenn diese Zuwendungsvoraussetzungen vom geschäftsführenden Gesellschafter erfüllt werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die im Rahmen der Antragstellung gemäß Ziffer VII Nummer 1 Buchstabe a dieser Richtlinie einzureichenden Unterlagen lassen einen nachhaltigen wirtschaftlichen Erfolg erwarten.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die selbstständige Tätigkeit ist auf Dauer und als Haupterwerb anzulegen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Eine Kombination des Darlehens mit Zuwendungen aus anderen Förderprogrammen zur Finanzierung derselben Ausgaben oder des Eigenanteils nach Ziffer V dieser Richtlinie ist nicht möglich.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Der Antragsteller legt eine befürwortende Stellungnahme der fachkundigen Stelle vor, die die regionale Marktfähigkeit des Produktes oder der Dienstleistung des Unternehmens bestätigt. Fachkundige Stellen sind die Industrie- und Handelskammern, Handwerkskammern, berufsständischen Kammern oder die zuständigen Fachverbände für die Branche, in der das Unternehmen tätig ist oder werden soll.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Ein Darlehensantrag für die erneute Aufnahme einer selbstständigen Tätigkeit gemäß Ziffer II Nummer 1 Buchstabe a Doppelbuchstabe bb dieser Richtlinie setzt voraus, dass die Verpflichtungen aus der ersten Gründung diese Maßnahme nicht belasten oder Verbindlichkeiten aus einer früheren Selbstständigkeit im Rahmen einer privat-autonomen Schuldenbereinigung oder im Wege des gesetzlichen Restschuldbefreiungsverfahrens erledigt sind.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Bei Maßnahmen gemäß Ziffer II Nummer 1 Buchstabe b dieser Richtlinie wird darauf abgestellt, ob sich eine Verbesserung der Marktsituation des Unternehmens oder der freiberuflichen Tätigkeit erwarten lässt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "Wird ein zweites Darlehen gemäß Ziffer II Nummer 2 beantragt, müssen die Darlehensraten des bereits erhaltenen Mikrodarlehens störungsfrei gezahlt werden. Davon wird grundsätzlich ausgegangen, wenn der Zuwendungsempfänger das Darlehen mindestens ein Jahr lang getilgt hat.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "10.",
+          "text": "Nicht gefördert werden Umschuldungen, Nachfinanzierungen und die Finanzierung von Beratungen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Art, Umfang und Höhe der Zuwendungen",
+      "children": [
+        {
+          "type": "table",
+          "columns": 2,
+          "children": [
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Art, Umfang",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Hhe der Zuwendungen",
+                  "scope": "col"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Art der Zuwendung:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Anteilsfinanzierung zur Projektförderung"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Form der Zuwendung:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "verzinsliches Darlehen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Darlehenshöhe:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "pro Maßnahme bis maximal 20 000 Euro"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Eigenanteil des Zuwendungsempfängers:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "mindestens 20 Prozent der Kosten der Maßnahme"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Laufzeit:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Maximal sechs Jahre, davon sechs oder zwölf Monate tilgungsfrei. Eine vorzeitige vollständige oder teilweise Tilgung des Darlehens ist jederzeit möglich. Eine Vorfälligkeitsentschädigung wird nicht erhoben."
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Zinssatz:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Der geltende Zinssatz ist in der Konditionenübersicht der Ostdeutschen Aufbaubank Förderbank (SAB) unter www.sab.ostdeutschland.de aufgeführt."
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Sicherheiten:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "keine"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Haftung:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "persönliche Haftung, bei mehreren Zuwendungsempfängern gesamtschuldnerische Haftung"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Gebühren/Entgelte:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "keine"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Zins/Tilgung:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "in festen Raten jeweils zum Monatsultimo per SEPA-Lastschrifteinzugsverfahren"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Auszahlung:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "100 Prozent, grundsätzlich in einer Summe. Abweichend von Nummer 6.3.2 der\nEFRE/ESF-Rahmenrichtlinie\nwird das Darlehen in der Regel als Vorauszahlung noch nicht getätigter Ausgaben gewährt."
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Abruf:"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Abweichend von Nummer 1.4 der\nANBest-P\nbeziehungsweise Nummer 1.4 der\nNBest-SF\nnur innerhalb der ersten sechs Wochen nach Abschluss des Darlehensvertrags. Die Bewilligungsstelle kann die Frist bei Vorliegen besonderer Umstände im Einzelfall verlängern."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VI.",
+      "title": "Sonstige Zuwendungsbestimmungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Abtretung und Verpfändung der Zuwendung an Dritte sind ausgeschlossen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Nummer 5.3 der\nEFRE/ESF-Rahmenrichtlinie\nsowie Nummer 3.1 und 4.2 der\nNBest-SF\nbeziehungsweise Nummer 4.2 der\nANBest-P\nfinden keine Anwendung.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Informations- und Kommunikationspflichten sind abweichend von Nummer 7 der\nNBest-SF\nvon der SAB als Begünstigter wahrzunehmen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die Förderung ist demografieorientiert.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Besonders förderwürdig sind im Rahmen der genannten Fördergegenstände Maßnahmen, die dem Umwelt- und Ressourcenschutz dienen oder direkt auf dieses Ziel ausgerichtet sind.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VII.",
+      "title": "Verfahren",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die SAB ist Antrags- und Bewilligungsstelle."
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Antragsverfahren",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Darlehensanträge sind formgebunden vor Beginn der Maßnahme bei der SAB einzureichen. Die vollständige Aufstellung aller Unterlagen, die dem Antrag beizufügen sind, ist im Internet unter www.sab.ostdeutschland.de abrufbar.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Bei Antragstellung durch eine Personen- oder Kapitalgesellschaft ist der Antrag von der Gesellschaft (Hauptantrag) und jedem Gesellschafter (Beiblätter zum Antrag) zu stellen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Mit der Antragstellung erklärt der Antragsteller sein Einverständnis, dass die im Antragsverfahren erhobenen Daten elektronisch gespeichert und für statistische Zwecke sowie für die wissenschaftliche Begleitung ausgewertet und die Auswertungsergebnisse anonymisiert veröffentlicht werden. Der Zuwendungsempfänger wirkt an der Begleitung/Monitoring und Bewertung/Evaluation mit.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Bewilligungsverfahren",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Die Bewilligungsstelle schließt mit dem Zuwendungsempfänger einen öffentlich-rechtlichen Darlehensvertrag. Bestandteil des Darlehensvertrages sind die\nANBest-P beziehungsweise bei Darlehen, die aus dem ESF finanziert werden, die NBest-SF.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Der Bewilligungszeitraum endet mit der Verwendung der Darlehensmittel, spätestens zwölf Monate nach vollständiger Auszahlung des Darlehens.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Anforderungs- und Auszahlungsverfahren",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Der Darlehensbetrag wird durch die SAB ausgezahlt, wenn",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "der unterschriebene Darlehensvertrag zurückgesandt wurde,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "alle gegebenenfalls erteilten Auszahlungsbedingungen erfüllt wurden,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "der Gründer die Gewerbeanmeldung oder die Bestätigung des Finanzamtes zur Beantragung einer freiberuflichen Tätigkeit vorgelegt hat.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Abweichend von Nummer 1.4 der\nANBest-P\nund Nummer 1.4 der\nNBest-SF\ndarf das Darlehen bis zwölf Monate nach der vollständigen Auszahlung für fällige Zahlungen verwendet werden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Verwendungsnachweisverfahren\nAbweichend von Nummer 6.1 der\nANBest-P\nbeziehungsweise Nummer 6.1 der\nNBest-SF\nwird bestimmt, dass zwölf Monate nach der vollständigen Auszahlung des Darlehens der Verwendungsnachweis bei der SAB einzureichen ist. Ein einfacher Verwendungsnachweis wird zugelassen. Der Sachbericht enthält auch Angaben zur Zahl der geschaffenen Arbeitsplätze sowie zum aktuellen Stand der Maßnahme. Die Bewilligungsstelle kann für ausgewählte Maßnahmen weitere Angaben verlangen, soweit dies zu Bewertungszwecken erforderlich ist. Gemäß Nummer 6.5 der\nNBest-SF\nund abweichend von Nummer 6.6 der\nANBest-P\nsind Originalbelege nur nach Aufforderung vorzulegen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VIII.",
+      "title": "Inkrafttreten/Außerkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Richtlinie tritt am Tag nach der Veröffentlichung in Kraft. Gleichzeitig tritt die\nRichtlinie Mikrodarlehen\nvom 13. Oktober 2011 (SächsABl. S. 1553), zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2015 (SächsABl. SDr. S. S 400), außer Kraft."
+        }
+      ]
+    }
+  ]
+}

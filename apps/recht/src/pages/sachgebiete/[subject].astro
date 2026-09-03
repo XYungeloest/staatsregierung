@@ -7,33 +7,26 @@ import {
   getLawPortalUrl,
   getSearchUrl,
   getNormUrl,
-  getSubjectAreaGroups,
   getSubjectsUrl,
-  getSubjectGroups,
-  getApplicableVersion,
-  getNormVersionIdentity,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
 import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const norms = await loadAllNorms();
-  const groups = getSubjectGroups(norms);
-  const areaGroups = getSubjectAreaGroups(norms);
+// Sachgebietsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
+export const prerender = false;
 
-  return groups.map((group) => ({
-    params: { subject: group.slug },
-    props: {
-      group,
-      area: areaGroups.find((area) => area.subjects.some((subject) => subject.slug === group.slug)),
-    },
-  }));
-}
-
-const { group, area } = Astro.props;
+const store = await getNormStore(Astro.locals);
+// Sachgebiet und Hauptbereich aus den Metadatenzeilen, die Normen des Sachgebiets per SQL-Filter.
+const subjectSlug = Astro.params.subject ?? '';
+const [subjects, areaGroups] = await Promise.all([store.listSubjectSummaries(), store.listSubjectAreas()]);
+const subject = subjects.find((entry) => entry.slug === subjectSlug);
+if (!subject) return Astro.rewrite('/404');
+const group = { name: subject.name, slug: subject.slug, norms: await store.listNormSummaries({ subjectSlug }) };
+const area = areaGroups.find((entry) => entry.subjects.some((entry) => entry.slug === group.slug));
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
-  map.set(norm.meta.type, (map.get(norm.meta.type) ?? 0) + 1);
+  map.set(norm.type, (map.get(norm.type) ?? 0) + 1);
   return map;
 }, new Map<string, number>()).entries()].sort(([left], [right]) => left.localeCompare(right, 'de'));
 ---
@@ -97,22 +90,19 @@ const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
       <a class="button button--secondary" href={`${getSearchUrl()}?subject=${encodeURIComponent(group.name)}`}>Ergebnisse filtern</a>
     </div>
     <ul class="law-subject-record-list">
-      {group.norms.map((norm) => {
-        const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
-        return (
+      {group.norms.map((norm) => (
         <li>
           <div class="law-subject-record-list__type">
-            <span>{formatNormType(norm.meta.type)}</span>
-            {identity.abbr ? <strong>{toDisplayText(identity.abbr)}</strong> : null}
+            <span>{formatNormType(norm.type)}</span>
+            {norm.abbr ? <strong>{toDisplayText(norm.abbr)}</strong> : null}
           </div>
           <div class="law-subject-record-list__content">
-            <a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
-            <span>{toDisplayText(norm.meta.responsibleMinistry)}</span>
+            <a href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a>
+            <span>{toDisplayText(norm.responsibleMinistry)}</span>
           </div>
           <span class="law-subject-record-list__arrow" aria-hidden="true">→</span>
         </li>
-        );
-      })}
+      ))}
     </ul>
   </section>
 </LawLayout>

@@ -1,0 +1,53 @@
+{
+  "id": "aend-haushaltsordnung",
+  "slug": "aend-haushaltsordnung",
+  "title": "Änderung der Ostdeutschen Haushaltsordnung",
+  "shortTitle": "Änd. Haushaltsordnung",
+  "shortTitleSource": "official",
+  "type": "aenderungsvorschrift",
+  "originEnactingBody": "Sächsischer Landtag",
+  "subjects": [
+    "Haushaltsrecht"
+  ],
+  "keywords": [
+    "Änd. Haushaltsordnung",
+    "Änderung",
+    "Haushaltsordnung"
+  ],
+  "initialCitation": "Änderung der Ostdeutschen Haushaltsordnung vom 13. Dezember 2002 (SächsGVBl. S. 333, 352)",
+  "predecessor": null,
+  "successor": null,
+  "containedIn": "g-oeffentlich-rechtliches-kreditwesen",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Haushaltsordnung“.",
+  "status": "one-time-act",
+  "documentDate": "2002-12-13",
+  "effectiveDate": "2003-09-01",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 1536 (Bestandteil der Vorschrift 3293)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/1536.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1536",
+      "retrievedAt": "2026-09-03",
+      "sha256": "0368392f54f171673be827ab3f6ea74686130c3d307bbe67aa9f4afd7596f7e0",
+      "lawId": "1536",
+      "sourceValidFrom": "2003-09-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3293, Artikel 10 (Gesetz über das öffentlich-rechtliche Kreditwesen im Freistaat Sachsen)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3293.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3293#a10",
+      "retrievedAt": "2026-09-03",
+      "sha256": "0256cdfb7b07acdc24125882ddb0177f9c93fddd7e525f72df4b34baa7dcfdbe",
+      "lawId": "3293",
+      "sourceValidFrom": "2002-12-31",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ]
+}

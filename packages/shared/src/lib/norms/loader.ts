@@ -144,10 +144,6 @@ export async function loadAllNorms(): Promise<NormRecord[]> {
   return records.sort((left, right) => left.meta.title.localeCompare(right.meta.title));
 }
 
-export function getCurrentVersion(record: NormRecord): NormVersion {
-  return getApplicableVersion(record);
-}
-
-export function getVersionById(record: NormRecord, versionId: string): NormVersion | undefined {
-  return record.versions.find((version) => version.versionId === versionId);
-}
+// Die reinen Fassungshelfer liegen in versions.ts, damit Worker-Code sie ohne
+// die Dateiloader (node:fs) importieren kann; hier nur zur Kompatibilität.
+export { getCurrentVersion, getVersionById } from '@ostrecht/shared/lib/norms/versions.ts';

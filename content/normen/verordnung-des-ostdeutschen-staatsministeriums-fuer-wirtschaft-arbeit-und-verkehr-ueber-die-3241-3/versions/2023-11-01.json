@@ -1,0 +1,644 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Straßen- und Bestandsverzeichnisse",
+  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Straßen- und Bestandsverzeichnisse",
+  "abbr": "StraBeVerzVO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Straßen- und Bestandsverzeichnisse vom 4. Januar 1995 (SächsGVBl. S. 57), die zuletzt durch Artikel 2 der Verordnung vom 2. März 2012 (SächsGVBl. S. 163) geändert worden ist",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 3241.3, gültig ab 2012-03-01",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3241.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3241",
+      "retrievedAt": "2026-09-03",
+      "sha256": "067a40908dd52dc10c59d3c31dce478849ee93941824a91765c0d12e09240e5f",
+      "lawId": "3241",
+      "sourceValidFrom": "2012-03-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "Überschrift geändert durch Artikel 2 der Verordnung vom 2. März 2012 (SächsGVBl. S. 163, 164)"
+    },
+    {
+      "label": "2",
+      "text": "§ 8 geändert durch Verordnung vom 15. Januar 2009 (SächsGVBl. S. 93)"
+    },
+    {
+      "label": "3",
+      "text": "§ 10 Absatz 3 aufgehoben durch Artikel 2 der Verordnung vom 2. März 2012 (SächsGVBl. S. 163, 164)"
+    },
+    {
+      "label": "4",
+      "text": "§ 12 geändert durch Verordnung vom 15. Januar 2009 (SächsGVBl. S. 93) und durch Artikel 2 der Verordnung vom 2. März 2012 (SächsGVBl. S. 163, 164)"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Aufgrund von § 4 Satz 5 des Straßengesetzes für den Freistaat Ostdeutschland (Ostdeutsches Straßengesetz –\nOstStrG) vom 21. Januar 1993 (SächsGVBl. S. 93), zuletzt geändert durch Artikel 8 des Gesetzes vom 4. Juli 1994 (SächsGVBl. S. 1261), wird verordnet:"
+    },
+    {
+      "type": "part",
+      "label": "Erster Teil",
+      "title": "Gemeinsame Vorschriften",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 1",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Straßen- und Bestandsverzeichnisse können als Karteien oder in automatisierter Form geführt werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Für jede Straßenklasse wird ein besonderes Verzeichnis geführt. Gemeindeverbindungsstraßen und Ortsstraßen werden getrennt je in einem Verzeichnis erfaßt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Ein Verzeichnis besteht aus dem Übersichtsplan (Anlage 1), dem Übersichtsblatt (Anlage 2.1 oder 2.2) und den Karteiblättern oder bei automatisiert geführten Verzeichnissen aus Datengruppen mit Netzknotenkarte. In den Übersichtsplan werden alle Straßenklassen eingetragen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 2",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "1Die Übersichts- und Karteiblätter haben die Größe DIN A4. Sie weisen folgende Farben auf für die",
+              "children": []
+            },
+            {
+              "type": "table",
+              "columns": 2,
+              "children": [
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Art der Straße",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Farbe",
+                      "scope": "col"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "1. Bundesautobahnen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "violett,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "2. Bundesstraßen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "hellblau,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "3. Staatsstraßen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "hellgrün,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "4. Kreisstraßen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "hellgelb,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "5. Gemeindestraßen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "hellrot,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "6. öffentlichen Feld- und Waldwege"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "hellgrau,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "7. beschränkt-öffentlichen Wege"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "orange,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "8. Eigentümerwege"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "hellbraun."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraphText",
+              "text": "2Bei automatisiert geführten Verzeichnissen erfolgt die Ausgabe auf weißem Papier. 3Die Datengruppen haben bestimmte Buchstabenkennungen (Anlage 1)."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Einteilung der Karteiblätter im einzelnen ergibt sich aus den Anlagen 3 bis 8. Die Datengruppen sind entsprechend aufzubauen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 3",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Jede Eintragung in das Straßen- und Bestandsverzeichnis wird von der verzeichnisführenden Behörde (§ 4 Satz 4\nOstStrG) schriftlich verfügt. Die Erstanlegung kann als eine Sammeleintragung erfolgen. In der Verfügung sind die einzutragenden Sachverhalte und ihre rechtlichen Grundlagen kurz, aber erschöpfend und eindeutig anzugeben. Eintragungen in die Verzeichnisse sind nach den Mustern der Anlagen 9.1 bis 9.3 zu verfügen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 4",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei manueller Führung wird mit dokumentenechter schwarzer Schrift eingetragen. Für Löschungen und Hinweise wird dokumentenechte rote Schrift verwendet. Jede Eintragung ist unter Beifügung des Datums zu unterzeichnen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Vor einer Änderung des in automatisierter Form geführten Verzeichnisses sind die ursprünglichen Daten in einer Archivdatei zu speichern.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 5",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Vor Abschluß einer Eintragung können Berichtigungen, insbesondere Verbesserungen, Einschaltungen und Ausstreichungen, vorgenommen werden. Es darf nicht radiert werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Müssen abgeschlossene Eintragungen über Tatsachen oder Rechtsverhältnisse berichtigt, ergänzt oder sonst geändert werden, so ist die Änderung nach § 3 dieser Verordnung zu verfügen und einzutragen. Soweit die frühere Eintragung geändert wird, ist sie rot so durchzustreichen, daß die bisherige Eintragung leserlich bleibt. Es darf nicht radiert werden. In der Spalte „Bemerkungen“ des Karteiblattes ist mit rot auf den neuen Eintrag hinzuweisen, wenn er sich nicht unmittelbar neben, unter oder über der bisherigen Eintragung befindet. Die Fortführung kann auch durch Neuschreiben eines Karteiblattes oder eines Datensatzes erfolgen. Alte Datensätze sind in Archivdateien zu speichern.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Berichtigungen nach Absatz 2 sind nur bei wichtigen Veränderungen vorzunehmen, so insbesondere, wenn sich der Träger der Straßenbaulast, die Kilometerlänge der Straße oder die Länge der von einem Träger der Straßenbaulast zu unterhaltenden Straßenstrecke ändern.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Wird der ganze Straßenzug umgestuft, so ist das Karteiblatt, auf dem er eingetragen ist, oder der Datensatz abzuschließen und in der Spalte „Bemerkungen“ anzugeben, welcher Straßenklasse der Straßenzug nunmehr zugehört. Am Kopf des Karteiblattes ist der Vermerk „gelöscht“ anzubringen. Für Umstufungsvereinbarungen gilt das Muster nach Anlage 10. Der neue Träger der Straßenbaulast stellt den Antrag auf Berichtigung des Grundbuches gemäß Anlage 11. Wird der Straßenzug als öffentliche Straße eingezogen, sind die Sätze 1 und 2 entsprechend anzuwenden.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 6",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "In jeder Straßenklasse sollen die Straßen in Straßenzüge eingeteilt werden. Zusammenhängende, in einer Hauptrichtung verlaufende Straßen sollen als einheitlicher Straßenzug behandelt werden. Jeder Straßenzug wird mit einem Anfangs- und einem Endpunkt abgegrenzt und bezeichnet. Längere Straßenzüge können in Abschnitte eingeteilt werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Verläuft der Straßenzug von Süd nach Nord, so ist als Anfangspunkt der südliche und als Endpunkt der nördliche Punkt zu wählen. Verläuft der Straßenzug in anderer Richtung, so ist als Anfang der westlich und als Ende der östlich gelegene Punkt zu wählen. Maßgebend ist die vorherrschende Richtung des Straßenzuges.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Anfangs- und der Endpunkt sind knapp, aber eindeutig anzugeben, zum Beispiel durch Netzknotenangabe. Als Bezeichnung sind die Orte zu wählen, die der Straßenzug verbindet; bei Gemeindestraßen und sonstigen öffentlichen Straßen kann auch der Straßenname verwendet oder die Bezeichnung den örtlichen Verhältnissen entnommen werden. Die Bezeichnung muß so gewählt sein, daß der Straßenzug mit keinem anderen verwechselt werden kann. Staatsstraßen und Kreisstraßen erhalten eine Nummer.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Für jeden Straßenzug wird ein Karteiblatt angelegt, das aus mehreren Einzelblättern bestehen kann. Das Karteiblatt erhält als Kennzeichnen die Bezeichnung und Nummer des Straßenzuges. Bei der automatisierten Führung der Straßenverzeichnisse wird für jede Straße eine Datengruppe angelegt, die aus den entsprechenden Datensätzen besteht. Das Ordnungssystem ist die Kennzeichnung und die Nummer des jeweiligen Straßenzuges.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Bezeichnung und Nummer des Straßenzuges setzt die verzeichnisführende Behörde fest.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 7",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Treffen mehrere Straßenzüge auf einer gewissen Strecke zusammen, so ist die gemeinsame Strecke dem Straßenzug der höheren Straßenklasse zuzuordnen; der andere Straßenzug wird unterbrochen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Treffen Straßenzüge derselben Straßenklasse zusammen, so ist die gemeinsame Strecke in der Regel dem Straßenzug mit der niedrigen Nummer zuzuordnen; der andere Straßenzug wird unterbrochen. Hat einer dieser Straßenzüge keine Nummer, so wird er unterbrochen. Haben beide Straßenzüge keine Nummer, so ist in der Eintragungsverfügung festzulegen, welcher Straßenzug unterbrochen wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Unterbrechung beginnt und endet am Schnittpunkt der Achsen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Auf dem Karteiblatt beziehungsweise in der Datengruppe des unterbrochenen Straßenzuges ist die Unterbrechung in der dafür vorgesehenen Spalte, sonst in der Spalte „Bemerkungen“, zu vermerken.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 8",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Wer ein berechtigtes Interesse nachweist, kann das Straßen- oder Bestandsverzeichnis einsehen und einfache oder beglaubigte Auszüge erhalten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Den Straßenaufsichtsbehörden sind auf Verlangen beglaubigte Auszüge zu erteilen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 9",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die aus Anlaß der Eintragungen anfallenden Schriftstücke sind als Anlage zum Straßen- oder Bestandsverzeichnis in Akten (Verzeichnisakten) zu sammeln."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "Zweiter Teil",
+      "title": "Besondere Vorschriften für die Straßenverzeichnisse",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 10",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Im Straßenverzeichnis erhalten die Eintragungen fortlaufende Nummern. In der Regel erhält jede besonders verfügte Eintragung eine besondere Nummer, doch können auch mehrere Verfügungen in einer Eintragung zusammengefaßt werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Bundes-, Staats- und Kreisstraßen können in Abschnitte eingeteilt werden. Für größere Abschnitte ist in der Regel ein Einzelblatt (§ 6 Abs. 4 Satz 1) anzulegen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 11",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Das Straßenverzeichnis für die Kreisstraßen wird nach Landkreisen und Kreisfreien Städten geordnet. Führt eine Kreisstraße über das Gebiet eines Landkreises oder einer Kreisfreien Stadt hinaus, so ist sie von der Grenze an als eigener Straßenzug mit besonderer Bezeichnung und Nummer zu behandeln."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 12",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Werden Karteiblätter oder Datengruppen angelegt, so sind Kopien davon von der verzeichnisführenden Behörde den beteiligten Trägern der Straßenbaulast und dem Landesamt für Straßenbau und Verkehr zu übersenden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Diese Stellen sind von jeder sie betreffenden weiteren Eintragung oder Löschung nach dem Muster der Anlage 12 zu benachrichtigen.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "Dritter Teil",
+      "title": "Besondere Vorschriften für die Bestandsverzeichnisse",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 13",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Gemeinden haben für Gemeindestraßen und für alle sonstigen öffentlichen Straßen jeweils ein eigenes Bestandsverzeichnis zu führen, in das die Straßenzüge aufzunehmen sind, die in ihrem Amtsbereich liegen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Führt eine Straße über das Gemeindegebiet hinaus, so ist sie von der Grenze an als eigener Straßenzug mit besonderer Bezeichnung und Nummer zu behandeln.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Karteiblätter oder Datensätze sind fortlaufend zu numerieren.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 14",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Gemeinde hat aufgrund der von ihr zu führenden Bestandsverzeichnisse auf einem Übersichtsplan M 1 : 25 000 (Meßtischblatt) oder auf Ortsplänen in einem Maßstab, der die Eintragung der Straßenzüge gestattet, die Gemeindestraßen und sonstigen öffentlichen Straßen einzutragen, und zwar je in der Farbe, die das Karteiblatt der Straße hat. Der Übersichtsplan soll einen Überblick über die im Gemeindegebiet vorhandenen öffentlichen Straßen und Wege vermitteln, die im Range unter den Kreisstraßen stehen. Bezeichnung und Nummer der Straßenzüge müssen aus dem Übersichtsplan hervorgehen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 15",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Soweit Gemeinden für die in ihrer Baulast stehenden Straßen bereits bisher Straßenkataster oder ähnliche Verzeichnisse geführt haben und diese die für die Bestandsverzeichnisse geforderten Angaben im wesentlichen enthalten, können sie bestimmen, daß diese Verzeichnisse als Bestandsverzeichnisse weitergeführt werden. § 14 dieser Verordnung bleibt unberührt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "Vierter Teil",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 16",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Verordnung tritt mit Wirkung vom 16. Februar 1993 in Kraft."
+            }
+          ]
+        },
+        {
+          "type": "annex",
+          "label": "Anlage",
+          "title": "nverzeichnis",
+          "children": [
+            {
+              "type": "item",
+              "label": "1",
+              "text": "Übersichtsplan 1 : 10 000 – Farbgebung und Signatur –",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.1",
+              "text": "Übersichtsblatt – Straßenverzeichnis –",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.2",
+              "text": "Übersichtsblatt – Bestandsverzeichnissse –",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.1",
+              "text": "Straßenverzeichnis Bundesautobahnen",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.2",
+              "text": "Straßenverzeichnis Bundesautobahnen – Äste –",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.1",
+              "text": "Straßenverzeichnis Bundes-/Staats-/Kreisstraßen",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.2",
+              "text": "Straßenverzeichnis Bundesstraßen – Äste –",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5",
+              "text": "Bestandsverzeichnis Gemeindestraßen",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6",
+              "text": "Bestandsverzeichnis öffentliche Feld- und Waldwege",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7",
+              "text": "Bestandsverzeichnis beschränkt-öffentliche Wege und Plätze",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8",
+              "text": "Bestandsverzeichnis Eigentümerwege",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.1",
+              "text": "Beabsichtigte Einziehung einer Straße",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.2",
+              "text": "Verfügung für Widmung, Umstufung oder Einziehung öffentlicher Straßen",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.3",
+              "text": "Eintragungsverfügung für Bestandsverzeichnisse",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10",
+              "text": "Umstufungsvereinbarung",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11",
+              "text": "Grundbuchberichtigungsantrag",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "12",
+              "text": "Änderungsmitteilung",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

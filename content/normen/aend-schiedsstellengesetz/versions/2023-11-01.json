@@ -1,0 +1,99 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Schiedsstellengesetzes",
+  "shortTitle": "Änd. Schiedsstellengesetz",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Schiedsstellengesetzes vom 28. Juni 2001 (SächsGVBl. S. 426, 429)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 39 der Mantelvorschrift 3629, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 4324 (Bestandteil der Vorschrift 3629)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/4324.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4324",
+      "retrievedAt": "2026-09-03",
+      "sha256": "5440ddcecbb141764aac2d5f2f0367beb66858518f0b94ac90927f18e8773e1b",
+      "lawId": "4324",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3629, Artikel 39 (Zweites Gesetz zur Euro-bedingten und weiteren Änderung des sächsischen Landesrechts)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3629.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3629#a39",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bfb48b196d6fa024bfd8768ad6ff89b141e9b96c28876b25a112369f6a4ce627",
+      "lawId": "3629",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
+      "children": [
+        {
+          "type": "article",
+          "label": "Artikel 39",
+          "title": "Änderung des Ostdeutschen Schiedsstellengesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Das Gesetz über die Schiedsstellen in den Gemeinden des Freistaates Ostdeutschland (Ostdeutsches Schiedsstellengesetz –\nOstSchiedsStG) vom 27. Mai 1999 (SächsGVBl. S. 247) wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In § 26 Abs. 1 Satz 1 wird die Angabe „20 bis 200 DM“ durch die Angabe „10 bis 100 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 45 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Satz 1 wird die Angabe „20 DM“ durch die Angabe „10 EUR“ und die Angabe „100 DM“ durch die Angabe „50 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Satz 2 wird die Angabe „40 DM“ durch die Angabe „20 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In § 46 Nr. 1 wird die Angabe „1 DM“ durch die Angabe „0,50 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

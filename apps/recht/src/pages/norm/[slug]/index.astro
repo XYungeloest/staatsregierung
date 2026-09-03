@@ -13,13 +13,7 @@ import NormPrintSources from '../../../components/norms/NormPrintSources.astro';
 import NormVersionNavigation from '../../../components/norms/NormVersionNavigation.astro';
 import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
 import NormHistorySummary from '../../../components/norms/NormHistorySummary.astro';
-import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
-import {
-  getPressReleaseIndexUrl,
-  getPressReleaseUrl,
-  getTopicUrl,
-  getTopicsUrl,
-} from '@ostrecht/shared/lib/portal/routes.ts';
+import { getPressReleaseIndexUrl, getTopicsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import {
   buildNormOutline,
   formatDate,
@@ -31,49 +25,28 @@ import {
   getLawPortalUrl,
   getNormUrl,
   getPublicationUrl,
-  buildNormTextLinkReferences,
-  buildNormFullCitation,
-  buildNormPublicationReferenceLookup,
-  buildNormRecordLookup,
-  buildNormRelations,
-  getNormOriginInfo,
   getNormVersionIdentity,
-  getRelatedNormRecommendations,
-  loadAllVerkuendungen,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion, loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { buildLegislationJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
+import { getNormStore } from '../../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-  const publicationReferences = buildNormPublicationReferenceLookup(publications);
-  const normLookup = buildNormRecordLookup(norms);
-  const relationLookup = buildNormRelations(norms);
+// Normseiten werden zur Laufzeit aus der D1-Projektion ausgeliefert; sie werden
+// nicht mehr für jede Norm beim Build vorgerendert.
+export const prerender = false;
 
-  return norms.map((norm) => {
-    const currentVersion = getCurrentVersion(norm);
-    return {
-      params: { slug: norm.meta.slug },
-      props: {
-        norm,
-        currentVersion,
-        fullCitation: buildNormFullCitation(norm, currentVersion, normLookup),
-        textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
-        relatedNorms: getRelatedNormRecommendations(norm, norms),
-        publicationReferences,
-        publications,
-        origin: getNormOriginInfo(norm, norms),
-        relations: relationLookup.get(norm.meta.slug) ?? [],
-      },
-    };
-  });
-}
-
-const { norm, currentVersion, fullCitation, textReferences, relatedNorms, publicationReferences, publications, origin, relations } = Astro.props;
-const publicationReference = publicationReferences.get(`${norm.meta.slug}:${currentVersion.versionId}`);
-const publication = publicationReference
-  ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
-  : undefined;
+const slug = Astro.params.slug ?? '';
+const store = await getNormStore(Astro.locals);
+const norm = await store.getNorm(slug, 'current');
+if (!norm) return Astro.rewrite('/404');
+const currentVersion = getCurrentVersion(norm);
+const [derived, fullCitation, publicationReference] = await Promise.all([
+  store.getDerived(slug),
+  store.getFullCitation(slug, currentVersion.versionId),
+  store.getPublicationReference(slug, currentVersion.versionId),
+]);
+if (!derived) return Astro.rewrite('/404');
+const publication = publicationReference ? await store.getPublication(publicationReference.publicationSlug) : null;
 const currentReference = publicationReference
   ? `${toDisplayText(publicationReference.publication)} ${publicationReference.publicationDate.slice(0, 4)} Nr. ${toDisplayText(publicationReference.issue)}${
       publicationReference.pages
@@ -94,7 +67,7 @@ const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeu
 const structuredData = buildLegislationJsonLd({
   name: normTitle,
   alternateName: toDisplayText(identity.shortTitle),
-  identifier: toDisplayText(fullCitation),
+  identifier: toDisplayText(fullCitation ?? currentVersion.citation),
   description: toDisplayText(identity.summary),
   url: getNormUrl(norm.meta.slug),
   legislationType: formatNormType(norm.meta.type),
@@ -102,13 +75,10 @@ const structuredData = buildLegislationJsonLd({
   datePublished: norm.meta.publicationDate,
   effectiveDate: norm.meta.effectiveDate,
 });
-const [topics, pressReleases] = await Promise.all([loadTopics(), loadPressReleases()]);
-const relatedTopics = topics.filter((topic) =>
-  topic.rechtsgrundlagen.some((entry) => entry.normSlug === norm.meta.slug),
-);
-const relatedPressReleases = pressReleases
-  .filter((release) => release.relatedNormSlugs?.includes(norm.meta.slug))
-  .slice(0, 3);
+const relatedNorms = derived.recommendations;
+const relatedTopics = derived.portalLinks.topics;
+const relatedPressReleases = derived.portalLinks.pressReleases;
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 ---
 
 <LawLayout
@@ -148,23 +118,23 @@ const relatedPressReleases = pressReleases
 
     <article class="norm-document-column">
       <NormStatusNotice norm={norm} version={currentVersion} />
-      <NormOriginNotice norm={norm} version={currentVersion} origin={origin} />
+      <NormOriginNotice norm={norm} version={currentVersion} origin={derived.origin} />
       <section class="section" id="normtext" data-visual-section="norm-text">
         <div class="section-header">
           <h2>Vorschriftentext</h2>
           <p>{toDisplayText(currentVersion.changeNote)}</p>
         </div>
         <NormDocumentTools norm={norm} />
-        <NormBody blocks={currentVersion.body} references={textReferences} />
+        <NormBody blocks={currentVersion.body} references={derived.textReferences} />
       </section>
       <NormPrintSources
         norm={norm}
         version={currentVersion}
-        fullCitation={fullCitation}
+        fullCitation={fullCitation ?? currentVersion.citation}
         publicationReference={publicationReference}
-        publication={publication}
+        publication={publication ?? undefined}
       />
-      <NormLegalRelations norm={norm} relations={relations} />
+      <NormLegalRelations norm={norm} relations={derived.relations} />
     </article>
 
     <aside class="norm-info-column" data-visual-section="norm-sidebar">
@@ -174,7 +144,7 @@ const relatedPressReleases = pressReleases
           <NormCitationBlock
             norm={norm}
             version={currentVersion}
-            fullCitation={fullCitation}
+            fullCitation={fullCitation ?? currentVersion.citation}
             publicationReference={publicationReference}
           />
           <NormMetaCard
@@ -192,17 +162,14 @@ const relatedPressReleases = pressReleases
             <>
               <h3 id="normverwandt">Verwandte Vorschriften</h3>
               <ul class="norm-sidebar__link-list">
-                {relatedNorms.map(({ norm: entry, relation }) => {
-                  const relatedIdentity = getNormVersionIdentity(entry, getCurrentVersion(entry));
-                  return (
-                    <li>
-                      <a class="inline-link" href={getNormUrl(entry.meta.slug)}>
-                        {toDisplayText(relatedIdentity.shortTitle || relatedIdentity.title)}
-                      </a>
-                      <span>{relation}</span>
-                    </li>
-                  );
-                })}
+                {relatedNorms.map((entry) => (
+                  <li>
+                    <a class="inline-link" href={getNormUrl(entry.slug)}>
+                      {toDisplayText(entry.shortTitle || entry.title)}
+                    </a>
+                    <span>{entry.relation}</span>
+                  </li>
+                ))}
               </ul>
             </>
           ) : null}
@@ -213,7 +180,7 @@ const relatedPressReleases = pressReleases
               <ul class="norm-sidebar__link-list">
                 {relatedTopics.map((topic) => (
                   <li>
-                    <a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a>
+                    <a class="inline-link" href={topic.url}>{topic.title}</a>
                   </li>
                 ))}
               </ul>
@@ -228,7 +195,7 @@ const relatedPressReleases = pressReleases
               <ul class="norm-sidebar__link-list">
                 {relatedPressReleases.map((release) => (
                   <li>
-                    <a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a>
+                    <a class="inline-link" href={release.url}>{release.title}</a>
                     <time datetime={release.date}>{formatDate(release.date)}</time>
                   </li>
                 ))}

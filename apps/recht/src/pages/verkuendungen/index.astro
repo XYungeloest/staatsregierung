@@ -2,19 +2,16 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import {
-  formatDate,
-  formatPublicationEntryType,
-  getLawPortalUrl,
-  getPublicationLabel,
-  getPublicationSearchAliases,
-  getPublicationUrl,
-  getPublicationsUrl,
-  loadAllVerkuendungen,
-  toDisplayText,
-} from '@ostrecht/shared/lib/norms/index.ts';
+import { formatDate, formatPublicationEntryType, getLawPortalUrl, getPublicationLabel, getPublicationSearchAliases, getPublicationUrl, getPublicationsUrl, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-const publications = await loadAllVerkuendungen();
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+export const prerender = false;
+
+const store = await getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+const publications = await store.listPublications();
 const entryCount = publications.reduce((sum, publication) => sum + publication.entries.length, 0);
 const years = [...new Set(publications.map((publication) => publication.year))].sort((left, right) => right - left);
 const publicationNames = [...new Set(publications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));

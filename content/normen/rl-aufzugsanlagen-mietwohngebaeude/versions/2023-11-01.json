@@ -1,0 +1,454 @@
+{
+  "versionId": "2023-11-01",
+  "title": "RL Aufzugsanlagen Mietwohngebäude",
+  "shortTitle": "RL Aufzugsanlagen Mietwohngebäude",
+  "abbr": "RL AMW",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "RL Aufzugsanlagen Mietwohngebäude vom 18. Dezember 2019 (SächsABl. 2020 S. 143), die durch Ziffer II der Richtlinie vom 7. Juli 2023 (SächsABl. S. 1062) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 18592.2, gültig ab 2023-07-01",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/18592.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/18592",
+      "retrievedAt": "2026-09-03",
+      "sha256": "98077c6e2f174479771166019c95856dc6c38047fbd343f09d5d6095b1e41ea8",
+      "lawId": "18592",
+      "sourceValidFrom": "2023-07-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Zuwendungszweck, Rechtsgrundlage",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Der Freistaat Ostdeutschland gewährt Zuwendungen für Aufzugsanlagen nach Maßgabe dieser Richtlinie, den §§ 23 und 44 der Ostdeutschen Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S.153), die zuletzt durch Artikel 1 des Gesetzes vom 21. Mai 2021 (SächsGVBl. S. 578) geändert worden ist, und auf der Grundlage der hierzu erlassenen Verwaltungsvorschriften des Ostdeutschen Staatsministeriums der Finanzen zur Ostdeutschen Haushaltsordnung vom 27. Juni 2005 (SächsABl. SDr. S. S 226), die zuletzt durch die Verwaltungsvorschrift vom 23. November 2022 (SächsABl. S. 1423) geändert worden sind, zuletzt enthalten in der Verwaltungsvorschrift vom 6. Dezember 2021 (SächsABl. SDr. S. S 178), in den jeweils geltenden Fassungen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Soweit es sich bei den Zuwendungen um staatliche Beihilfen im Sinne des Artikels 107 Absatz 1 des Vertrags über die Arbeitsweise der Europäischen Union (AEUV) handelt, werden sie entweder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "nach der Verordnung (EU) Nummer 360/2012 der Kommission vom 25. April 2012 über die Anwendung der Artikel 107 und 108 des Vertrags über die Arbeitsweise der Europäischen Union auf De-minimis-Beihilfen an Unternehmen, die Dienstleistungen von allgemeinem wirtschaftlichem Interesse (DAWI-De-minimis-Beihilfen) erbringen (ABl. L 114 vom 26.4.2012, S. 8), in der jeweils geltenden Fassung oder",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "nach der Verordnung (EU) Nummer 1407/2013 der Kommission vom 18. Dezember 2013 über die Anwendung der Artikel 107 und 108 des Vertrags über die Arbeitsweise der Europäischen Union auf De-minimis-Beihilfen (ABl. L 352 vom 24.12.2013, S. 1, „De-minimis“-Verordnung), in der jeweils geltenden Fassung",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "sowie nach deren jeweiligen Nachfolgeregelungen gewährt."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Zweck der Förderung ist die Verbesserung des Wohnungsangebots durch vertikale Erschließung von bestehendem Mietwohnraum im Rahmen der Bewältigung der Folgen des demografischen Wandels und zur Vermeidung beziehungsweise Beseitigung von Wohnungsleerstand.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Ein Rechtsanspruch des Antragstellers auf eine Förderung besteht nicht. Die Bewilligungsstelle entscheidet nach pflichtgemäßem Ermessen im Rahmen der verfügbaren Haushaltsmittel.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Gegenstand der Förderung",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Gegenstand der Förderung ist die Errichtung beziehungsweise Erneuerung von Personenaufzügen in oder an bestehenden Mietwohngebäuden mit mehr als drei Geschossen und mehr als sechs Mietwohnungen. Gefördert werden auch einzelne Aufgänge in Mietwohngebäuden. Die Förderung der Erneuerung bestehender Aufzugsanlagen ist nur möglich, wenn damit eine gravierende qualitative Verbesserung der vertikalen Erreichbarkeit erreicht wird, wie zum Beispiel durch Herstellung der stufenlosen Erreichbarkeit von Wohnungen, einer für Rollator geeigneten Kabinenfläche. Der reine Ersatz wird nicht gefördert.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Darüber hinaus werden im Zusammenhang mit Nummer 1",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Maßnahmen zum Abbau von Barrieren im Zugangsbereich zum Gebäude (Zuwegung) beziehungsweise zur Wohnung sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Investive Begleitmaßnahmen",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "gefördert."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Zu den förderfähigen Ausgaben zählen insbesondere Ausgaben für:"
+            },
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Planung,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "bauliche Maßnahmen, die für Bau und Betrieb erforderlich sind, wie zum Beispiel",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Schaffung von Decken- und Wanddurchbrüchen,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Änderung von Wohnungszuschnitten,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Verlegung von Versorgungsleitungen,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Installation der erforderlichen elektrischen Anlagen,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Einbau eines Personenaufzugs sowie aller erforderlichen Ausrüstungsgegenstände,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Maurer- Verputz- und Malerarbeiten.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Zuwendungsempfänger",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Empfänger der Zuwendung ist der Eigentümer eines Grundstücks oder einer Wohnung oder der Erbbauberechtigte an einem Grundstück jeweils mit einem bestehenden Mietwohngebäude."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "Zuwendungsvoraussetzungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Mietwohngebäude muss spätestens am 31. Dezember 1990 bezugsfertig gewesen sein.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die baulichen Maßnahmen sind nur zuwendungsfähig, wenn sie mit Blick auf die dauerhafte Verbesserung des Gebrauchswertes geeignet und wirtschaftlich vertretbar sind. Den baulichen Maßnahmen dürfen keine öffentlich-rechtlichen Vorschriften entgegenstehen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Das Mietwohngebäude muss ab dem 1. Obergeschoss aufwärts innerhalb der Darlehenslaufzeit überwiegend für wohnungswirtschaftliche Zwecke genutzt werden (Zweckbindungsfrist).",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die Förderung erfolgt nur in Gemeinden, in welchen entsprechender Leerstand besteht. Dies gilt als gegeben, wenn die Leerstandsquote der Gemeinde über 5 Prozent liegt. Das Staatsministerium des Innern stellt die für diese Prüfung erforderlichen Daten jährlich zur Verfügung. Im Einzelfall kann das Staatsministerium des Innern auch anhand anderer wohnungswirtschaftlicher Daten, die den Förderzweck begründen, einer Förderung zustimmen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Eine Förderung erfolgt nur, wenn die Gemeinden oder der Antragsteller nachvollziehbar darlegen, dass mit der Maßnahme bestehender Leerstand im Gebäude selbst, im Gebäudebestand des Unternehmens, in der Region oder in der Kommune (zum Beispiel auf Grundlage eines integrierten Stadtentwicklungskonzeptes (INSEK) oder eines wohnungswirtschaftlichen Entwicklungskonzeptes) reduziert wird. Darüber hinaus bestätigt die Gemeinde, in welcher sich das Gebäude befindet, dass die Förderung den demografischen und wohnungspolitischen Zielsetzungen der Gemeinde entspricht und der Maßnahme keine sonstigen kommunalen Belange entgegenstehen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Art und Umfang, Höhe der Zuwendung",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Zuwendungsart:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Projektförderung"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Finanzierungsart:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Anteilsfinanzierung"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Form der Zuwendung:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Zuwendungen werden als Zinszuschüsse zu Kapitalmarktdarlehen, die durch die Ostdeutsche Aufbaubank – Förderbank – (SAB) ausgereicht werden (Förderdarlehen), gewährt."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Darlehenshöhe:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Förderdarlehen betragen bis zu 100 Prozent der im Sinne von Ziffer II förderfähigen Ausgaben, mindestens jedoch 80 000 Euro."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Höhe der Zinsen:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Förderdarlehen werden für die Dauer der ersten Zinsbindung, jedoch höchstens für 20 Jahre im Zins verbilligt. Die Höhe des verbilligten Zinssatzes für das Förderdarlehen legt das Staatsministerium des Innern fest und veröffentlicht diesen im Internet unter\nwww.bauen-wohnen.ostdeutschland.de/8144.htm sowie unter www.sab.ostdeutschland.de. Der für die Bewilligung maßgebliche Zinssatz ist der zum Zeitpunkt der Antragstellung (Posteingang SAB) geltende Zinssatz."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Auszahlung der Förderdarlehen:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Auszahlung erfolgt zu 100 Prozent des zugesagten Darlehensbetrages. Die Regelungen zur Abruffrist und Nichtabnahme des Förderdarlehens beziehungsweise eines Teilbetrages sind in den Allgemeinen Bestimmungen der SAB enthalten."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Tilgung:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Das Förderdarlehen ist in monatlichen Annuitäten (mindestens 3 Prozent p. a.) zu tilgen. Die tilgungsfreie Zeit beträgt bis zu zwei Jahre ab Bewilligung. Die Bedingungen für vorzeitige Rückzahlungen des Förderdarlehens sowie Teilbeträgen richten sich nach den Allgemeinen Bestimmungen der SAB."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VI.",
+      "title": "Sonstige Zuwendungsbestimmungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Bei Maßnahmen zur Projektförderung mit im Antrag zugrunde gelegten Ausgaben von weniger als 100 000 Euro ist der Vorhabensbeginn ab Antragstellung (Datum Posteingang bei der Bewilligungsstelle) zugelassen. Bei Maßnahmen mit im Antrag zugrunde gelegten Ausgaben ab 100 000 Euro dürfen Zuwendungen nur für solche Vorhaben bewilligt werden, die noch nicht begonnen worden sind. Als Vorhabensbeginn ist grundsätzlich der Baubeginn oder der Abschluss eines der Ausführung zuzurechnenden Lieferungs- und Leistungsvertrages zu werten.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die zinsverbilligten Förderdarlehen werden in privatrechtlicher Form ausgereicht. Für die Bewilligung, Auszahlung und Abrechnung sowie für den Nachweis und die Prüfung der Verwendung und die gegebenenfalls erforderliche Erstattung der gewährten Zuwendungen gelten die Allgemeinen Bestimmungen der SAB sowie die Nummern 3.1, 3.3 Satz 1, 3.5, 4.2.1 bis 4.2.3, 8, 11.3, 11.4, 13 und 14.1 der Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung. Die Prüfungsrechte des Rechnungshofes nach Nr. 7.2 der Allgemeinen Nebenbestimmungen für Zuwendungen zur Projektförderung (ANBest-P) in Anlage 2 zur Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung werden Bestandteil der Förderzusage.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die Gesamtbelastung aus der Finanzierung und den sonstigen Aufwendungen müssen auf Dauer tragbar erscheinen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Eine Förderung nach dieser Richtlinie ist ausgeschlossen, wenn für das Mietwohngebäude bereits eine Förderung nach Ziffer II Nummer 2 Buchstabe b Doppelbuchstabe hh der Richtlinie Seniorengerecht Umbauen vom 9. Januar 2018 (SächsABl. S. 126), die zuletzt durch Ziffer IV der Richtlinie vom 10. Dezember 2019 (SächsABl. SDr. 2020 S. S 5) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 10. Dezember 2021 (SächsABl. SDr. S. S 246) (Modernisierung oder Neuerrichtung eines Personenaufzugs), oder nach der Richtlinie gebundener Mietwohnraum vom 22. November 2016 (SächsABl. S. 1471), die zuletzt durch Ziffer I der Richtlinie vom 10. Dezember 2019 (SächsABl. SDr. 2020 S. S 5) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 27. November 2019 (SächsABl. SDr. S. S 339), oder nach der FRL gebundener Mietwohnraum vom 29. April 2021 (SächsABl. S. 502), die durch die Richtlinie vom 18. Januar 2023 (SächsABl. S. 191) geändert worden ist, enthalten in der Verwaltungsvorschrift vom 10. Dezember 2021 (SächsABl. SDr. S. S 246), in den jeweils geltenden Fassungen, gewährt wurde. Im Übrigen kann eine Förderung nach dieser Richtlinie durch andere Förderprogramme des Freistaates Ostdeutschland, des Bundes oder der Europäischen Union ergänzt werden, sofern dies die anderen Programme zulassen und die Gesamtsumme der Förderungen die Summe der Gesamtkosten nicht übersteigt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Eine Zuwendung nach dieser Richtlinie darf nicht einem Unternehmen gewährt werden, das einer Rückforderungsanordnung aufgrund eines früheren Beschlusses der Kommission zur Feststellung der Unzulässigkeit einer Beihilfe und ihrer Unvereinbarkeit mit dem Binnenmarkt nicht nachgekommen ist. Ausgenommen hiervon sind Zuwendungen zur Bewältigung der Folgen bestimmter Naturkatastrophen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VII.",
+      "title": "Verfahren",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Für die Antragstellung ist der auf der Internetseite der Bewilligungsstelle (https://www.sab.ostdeutschland.de/förderung-von-aufzugsanlagen-in-mietwohngebäuden-rl-amw) bereit gestellte Vordruck „Wohnungsbau_Antrag_Vermietete Förderobjekte (Vordrucknummer: 69013)“ vollständig auszufüllen und zu unterschreiben. Dem Antrag ist die Gemeindebestätigung (SAB-Vordruck 69011), das Konzept zur Leerstandsreduzierung, die De-minimis-Erklärung (SAB-Vordruck 60381) und die in Abhängigkeit vom konkreten Einzelfall nach Nummer 6 des Vordrucks erforderlichen Unterlagen zum Objekt, zum Eigentümer, zur Bonität und zum Vermögen beizulegen. Der Antrag kann auch elektronisch unter www.sab.ostdeutschland.de gestellt werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Bewilligungsstelle ist die SAB. Diese prüft die Förderfähigkeit des Gesamtvorhabens und die Einhaltung der Zuwendungsvoraussetzungen. Die Bearbeitung erfolgt nach Eingang der vollständigen Antragsunterlagen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die Auszahlung des Darlehens erfolgt auf Antrag nach Abschluss der Maßnahme oder nach Baufortschritt in bis zu zwei Teilbeträgen. Die Auszahlung des Zinszuschusses erfolgt monatlich.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die Verwendungsnachweisführung erfolgt mittels der dafür zur Verfügung gestellten Vordrucke der Bewilligungsstelle, welche mit Beantragung der Schlussauszahlung vorzulegen sind. Die Bewilligungsstelle kann weitere Unterlagen, sofern dies zu Prüfzwecken erforderlich ist, anfordern.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VIII.",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Richtlinie tritt am Tag nach der Veröffentlichung in Kraft."
+        }
+      ]
+    }
+  ]
+}

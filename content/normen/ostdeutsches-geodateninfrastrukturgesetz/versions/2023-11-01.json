@@ -1,0 +1,1586 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Ostdeutsches Geodateninfrastrukturgesetz",
+  "shortTitle": "Ostdeutsches Geodateninfrastrukturgesetz",
+  "abbr": "OstGDIG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Ostdeutsches Geodateninfrastrukturgesetz vom 19. Mai 2010 (SächsGVBl. S. 134)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 11375.3, gültig 2021-05-13 bis 2024-07-29",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/11375.3.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/11375.3",
+      "retrievedAt": "2026-09-03",
+      "sha256": "aace7e795408f257d5b07e19b2be5c85516a46daebd8d664ce211ec582e3248e",
+      "lawId": "11375",
+      "sourceValidFrom": "2021-05-13",
+      "sourceValidTo": "2024-07-29",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "Dieses Gesetz dient der Umsetzung der Richtlinie 2007/2/EG des Europäischen Parlaments und des Rates vom 14. März 2007 zur Schaffung einer Geodateninfrastruktur in der Europäischen Gemeinschaft (INSPIRE) (ABl. EU Nr. L 108 S. 1)."
+    },
+    {
+      "label": "2",
+      "text": "§ 4 geändert durch Artikel 2 des Gesetzes vom 26. Oktober 2016 (SächsGVBl. S. 507, 508)"
+    },
+    {
+      "label": "3",
+      "text": "§ 7 geändert durch Artikel 18 der Verordnung vom 12. April 2021 (SächsGVBl. S. 517)"
+    },
+    {
+      "label": "4",
+      "text": "§ 8 geändert durch Artikel 2 des Gesetzes vom 26. Oktober 2016 (SächsGVBl. S. 507, 508)"
+    },
+    {
+      "label": "5",
+      "text": "§ 10 geändert durch Artikel 18 der Verordnung vom 12. April 2021 (SächsGVBl. S. 517)"
+    },
+    {
+      "label": "6",
+      "text": "§ 12 eingefügt durch Artikel 2 des Gesetzes vom 26. Oktober 2016 (SächsGVBl. S. 507, 508)"
+    },
+    {
+      "label": "7",
+      "text": "(ABl. EG L 228 vom 9. September 1996 S. 1), zuletzt geändert durch die Verordnung (EG) Nummer 1791/2006 des Rates vom 20. November 2006 (ABl. EU L 363 S. 1)"
+    },
+    {
+      "label": "8",
+      "text": "(ABl. EG L 327 vom 22. Dezember 2000 S. 1), geändert durch Entscheidung Nummer 2455/2001/EGesetz vom 20. November 2001 (ABl. EG L 331 S. 1)"
+    },
+    {
+      "label": "9",
+      "text": "(ABl. L 257 vom 10. Oktober 1996, S. 26) zuletzt geändert durch die Verordnung (EG) Nummer 166/2006 des Europäischen Parlaments und des Rates vom 18. Januar 2006 (ABl. L 33 vom 4. Februar 2006, S. 1)"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraph",
+      "label": "§ 1",
+      "title": "Zweck des Gesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Dieses Gesetz schafft den rechtlichen Rahmen für den Betrieb der Geodateninfrastruktur im Freistaat Ostdeutschland (GDI Ostdeutschland) und regelt deren Beziehungen zur nationalen Geodateninfrastruktur. Es dient insbesondere Zwecken der Umweltpolitik der Europäischen Gemeinschaft."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 2",
+      "title": "Begriffsbestimmungen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Geodaten sind Daten mit direktem oder indirektem Raumbezug.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Netzdienste sind computernetzwerkgestützte Anwendungen zur Kommunikation, Transaktion und Interaktion. Geodatendienste sind Netzdienste, die die Nutzung von Informationen aus Geodatenbeständen ermöglichen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Metadaten sind Daten über Geodaten und Geodatendienste, die deren Inhalte und Eigenschaften beschreiben und es ermöglichen, die Geodaten und Geodatendienste zu ermitteln, in Verzeichnisse aufzunehmen und zu nutzen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Interoperabilität ist die Fähigkeit zur Kombination und Interaktion verschiedener Systeme, Techniken oder Daten unter Einhaltung gemeinsamer Standards.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Eine Geodateninfrastruktur ist die Gesamtheit aller",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Geodaten, Metadaten und Netzdienste, insbesondere Geodatendienste, und Netztechnologien,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Vereinbarungen über deren gemeinsame Nutzung, den Zugang und die Verwendung sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Koordinierungs- sowie Überwachungsmechanismen, -prozesse und -verfahren",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "mit dem Ziel, verteilt liegende Geodaten interoperabel verfügbar zu machen."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(6)",
+          "text": "Ein Geoportal ist eine Kommunikations-, Transaktions- und Interaktionsplattform, die den Zugang zu den Geodaten, Geodatendiensten und Metadaten sowie weiteren Netzdiensten ermöglicht.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Die Geodatendienste im Sinne von Absatz 2 Satz 2 sind",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "der Suchdienst, der es ermöglicht, auf der Grundlage des Inhalts entsprechender Metadaten nach Geodaten und Geodatendiensten zu suchen und den Inhalt der Metadaten anzuzeigen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Darstellungsdienste, die es zumindest ermöglichen, Geodaten anzuzeigen, in ihnen zu navigieren, sie zu vergrößern und zu verkleinern, zu verschieben, Daten zu überlagern sowie Informationen aus Legenden und sonstige relevante Inhalte von Metadaten anzuzeigen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Downloaddienste, die das Herunterladen von und, wenn durchführbar, einen direkten Zugriff auf Replikationen von Geodaten ermöglichen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Transformationsdienste zur Umwandlung von Geodaten, um Interoperabilität zu erreichen, sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Dienste zum Aufrufen von Geodatendiensten, die es erlauben, Anforderungen an Geodaten zu bestimmen und verschiedene Geodatendienste miteinander zu verbinden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 3",
+      "title": "Anwendungsbereich",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Dieses Gesetz gilt für geodatenhaltende Stellen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Geodatenhaltende Stellen sind die Behörden des Freistaates Ostdeutschland und die seiner Aufsicht unterstehenden Körperschaften, Anstalten und Stiftungen des öffentlichen Rechts, soweit sie zur Erfüllung öffentlicher Aufgaben Geodaten im Sinne des § 2 Absatz 1 erfassen, verwalten oder bereitstellen. Die der Aufsicht des Freistaates Ostdeutschland unterstehenden Körperschaften, Anstalten und Stiftungen des öffentlichen Rechts haben dieses Gesetz anzuwenden, soweit sie aufgrund anderer Rechtsvorschriften verpflichtet sind, Geodaten im Sinne des § 2 Absatz 1 zu erfassen, zu verwalten oder bereitzustellen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Geodatenhaltende Stellen im Sinne dieses Gesetzes sind natürliche und juristische Personen des Privatrechts, soweit sie zur Wahrnehmung öffentlicher Aufgaben oder der Erbringung öffentlicher Dienstleistungen, insbesondere der öffentlichen Daseinsvorsorge, Geodaten im Sinne des § 2 Absatz 1 in Verbindung mit § 3 Absatz 4 erfassen, verwalten oder bereitstellen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Dieses Gesetz ist auf Geodaten anzuwenden, die",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "noch verwendet werden,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "einen oder mehrere der in der Anlage genannten Themenbereiche betreffen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "sich auf das Gebiet des Freistaates Ostdeutschland beziehen sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "in elektronischer Form vorliegen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Geodaten, an denen Urheberrechte oder verwandte Schutzrechte Dritter bestehen, unterliegen diesem Gesetz nur, soweit die Dritten zugestimmt haben."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Sind identische Kopien der Geodaten (Replikationen) bei verschiedenen geodatenhaltenden Stellen vorhanden oder werden für diese bereitgehalten, so gilt dieses Gesetz nur für den Primärdatensatz, von dem diese Kopien abgeleitet wurden. Die Bestimmungen zum Schutze öffentlicher und sonstiger Belange nach § 8 bleiben unberührt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(6)",
+          "text": "Dieses Gesetz gilt auch für Geodatendienste, die Informationen bereitstellen, die in Geodaten enthalten sind, auf die dieses Gesetz Anwendung findet.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4",
+      "title": "Erfassung und Verwaltung von Geodaten",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Bei der Erfassung von Geofachdaten sind die amtlichen Geobasisdaten im Sinne von § 8 Absatz 2 des Ostdeutschen Vermessungs- und Katastergesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 148), das zuletzt durch das Gesetz vom 19. Juni 2013 (SächsGVBl. S. 482) geändert worden ist, in der jeweils geltenden Fassung, zu nutzen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Soweit sich Geodaten auch auf einen Standort oder ein geografisches Gebiet beziehen, das sich auf dem Gebiet eines anderen Landes, der Tschechischen Republik oder der Republik Polen befindet, stimmen die geodatenhaltenden Stellen Darstellung und Position des Standorts oder des geografischen Gebiets mit den zuständigen Stellen des jeweiligen Landes, der Bundesrepublik Deutschland, der Tschechischen Republik oder der Republik Polen ab.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 5",
+      "title": "Netzdienste und Geoportal der GDI Ostdeutschland",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Dezentrale Netzdienste der GDI Ostdeutschland sind Geodatendienste nach § 2 Absatz 7 Nummer 2 bis 5 und Netzdienste zur Abwicklung des elektronischen Geschäftsverkehrs. Netzdienste zur Abwicklung des elektronischen Geschäftsverkehrs gewährleisten insbesondere die Ermittlung und den Einzug von privatrechtlichen Entgelten sowie Gebühren und Auslagen sowie eine automatisierte Erteilung der Lizenz und der öffentlich-rechtlichen Erlaubnis.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Zentrale Netzdienste der GDI Ostdeutschland sind",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "der Suchdienst,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Netzdienste, die im Rahmen der nationalen Geodateninfrastruktur und der europäischen Geodateninfrastruktur über die in § 2 Absatz 7 genannten Geodatendienste hinaus den Zugang zu den Geodaten und Metadaten der geodatenhaltenden Stellen sicherstellen, sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Netzdienste zur automatisierten Überwachung und Steuerung der Geodatendienste.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Netzdienste nach den Absätzen 1 und 2 sollen Nutzeranforderungen berücksichtigen sowie einfach zu nutzen sein und müssen über computergestützte Netzwerke öffentlich verfügbar sein. Sie müssen die Vorgaben der nationalen Geodateninfrastruktur erfüllen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Suchdienst muss eine Verknüpfung folgender Suchkriterien gewährleisten:",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Schlüsselwörter,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Klassifizierung von Geodaten und Geodatendiensten,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Qualität und Validität von Geodaten,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Übereinstimmung der Geodaten mit den Vorgaben aus den Durchführungsbestimmungen gemäß Artikel 7 Absatz 1 der Richtlinie 2007/2/EG des Europäischen Parlaments und des Rates vom 14. März 2007 zur Schaffung einer Geodateninfrastruktur in der Europäischen Gemeinschaft (INSPIRE) (ABl. EU Nr. L 108 S. 1),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "geografischer Standort,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Bedingungen für den Zugang zu Geodaten und Geodatendiensten sowie deren Nutzung und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "die für die Erfassung, Verwaltung und Bereitstellung zuständigen geodatenhaltenden Stellen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Das Geoportal Ostdeutschland ermöglicht einen Zugang zu den Geodaten, Geodatendiensten und Metadaten der GDI Ostdeutschland. Auf Anfrage wird im Geoportal der Zugang zu den Geodaten, Geodatendiensten und Metadaten Dritter ermöglicht, wenn deren Geodaten, Geodatendienste und Metadaten die Vorgaben aus den Durchführungsbestimmungen gemäß Artikel 5 Absatz 4, Artikel 7 Absatz 1 und Artikel 16 der Richtlinie 2007/2/EG erfüllen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 6",
+      "title": "Erfassung und Verwaltung von Metadaten",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die geodatenhaltenden Stellen, die Geodaten und Geodatendienste bereitstellen, haben die zugehörigen Metadaten zu erfassen und zu verwalten. Insbesondere haben sie die Metadaten in Übereinstimmung mit ihren Geodaten und Geodatendiensten zu halten. Sie haben sicherzustellen, dass die Metadaten die Anforderungen an die nationale Geodateninfrastruktur erfüllen. Die Metadaten werden über das landesweite Metadateninformationssystem bereitgestellt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "In den Metadaten zu den Geodaten müssen insbesondere folgende Informationen verfügbar sein:",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Schlüsselwörter,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Klassifizierung,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "geografischer Standort,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Übereinstimmung der Geodaten mit den Vorgaben aus den Durchführungsbestimmungen gemäß Artikel 7 Absatz 1 der Richtlinie 2007/2/EG,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Qualität und Validität der Geodaten,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "die für die Erfassung, Verwaltung und Bereitstellung zuständige geodatenhaltende Stelle sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "die Bedingungen für den Zugang und die Nutzung, einschließlich bestehender Beschränkungen und deren Gründe, sowie gegebenenfalls anfallende privatrechtliche Entgelte oder Gebühren und Auslagen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "In den Metadaten zu den Geodatendiensten und den weiteren Netzdiensten müssen insbesondere folgende Informationen verfügbar sein:",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Qualitätsmerkmale,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die für die Bereitstellung des Geodatendienstes zuständige geodatenhaltende Stelle,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Bedingungen für den Zugang und die Nutzung, einschließlich bestehender Beschränkungen und deren Gründe, sowie gegebenenfalls anfallende privatrechtliche Entgelte oder Gebühren und Auslagen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 7",
+      "title": "Betrieb der GDI Ostdeutschland",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die geodatenhaltenden Stellen stellen sicher, dass die von ihnen verwalteten Geodaten über dezentrale Geodatendienste zugänglich sind. Wenn",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "für den Zugang zu Geodatendiensten oder deren Nutzung ein privatrechtliches Entgelt oder Gebühren und Auslagen gefordert oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Nutzung der Geodatendienste von der Erteilung einer Lizenz oder einer öffentlich-rechtlichen Erlaubnis abhängig gemacht",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "wird, stellen die geodatenhaltenden Stellen sicher, dass Netzdienste zur Abwicklung des elektronischen Geschäftsverkehrs zur Verfügung stehen. Soweit Landkreise und Gemeinden geodatenhaltende Stellen sind, unterliegen sie dem Weisungsrecht des Staatsministeriums für Regionalentwicklung. Das Weisungsrecht ist auf allgemeine Weisungen beschränkt."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Dem Staatsministerium für Regionalentwicklung obliegt die Koordination des Betriebs der GDI Ostdeutschland. Unter Koordination des Betriebs werden organisatorische und konzeptionelle Aufgaben verstanden. Das Staatsministerium für Regionalentwicklung vertritt den Freistaat Ostdeutschland im Lenkungsgremium der nationalen Geodateninfrastruktur. Das Staatsministerium für Regionalentwicklung kann Verwaltungsvorschriften erlassen, die die erforderlichen technischen und organisatorischen Maßnahmen für den Betrieb der GDI Ostdeutschland näher bestimmen. Es hat dabei die geodatenhaltenden Stellen rechtzeitig zu beteiligen und deren Belange zu berücksichtigen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland unterstützt das Staatsministerium für Regionalentwicklung bei der Koordination des Betriebs der GDI Ostdeutschland. Darüber hinaus obliegen dem Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Steuerung und Überwachung der technischen Funktionsfähigkeit der GDI Ostdeutschland,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Bereitstellung des landesweiten Metadateninformationssystems und der zentralen Netzdienste sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "der Betrieb des Geoportals Ostdeutschland.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Im Rahmen der Überwachung hat der Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland regelmäßig zu prüfen, ob die von den geodatenhaltenden Stellen bereitgestellten Netzdienste die Anforderungen der Richtlinie 2007/2/EG und ihrer Durchführungsbestimmungen, der nationalen Geodateninfrastruktur und der GDI Ostdeutschland erfüllen. Der Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland hat dem Staatsministerium für Regionalentwicklung regelmäßig über das Ergebnis der Prüfung zu berichten."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland stellt für geodatenhaltende Stellen dezentrale Netzdienste bereit, wenn die geodatenhaltenden Stellen selbst keine oder keine geeigneten Netzdienste zur Erfüllung ihrer Verpflichtungen nach Absatz 1 betreiben.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Die geodatenhaltenden Stellen übermitteln dem Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland die Metadaten nach § 6 Absatz 1 Satz 1. Für die Übermittlung der Metadaten stellt der Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland den geodatenhaltenden Stellen ein computernetzwerkgestütztes Verfahren kostenfrei zur Verfügung. Verfügt eine geodatenhaltende Stelle über ein eigenes Metadateninformationssystem und nutzt das Verfahren des Staatsbetriebs Geobasisinformation und Vermessung Ostdeutschland zur Übermittlung nicht, hat sie den automatisierten Abruf ihrer Metadaten durch den Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland über eine geeignete Schnittstelle zu gewährleisten.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 8",
+      "title": "Zugang zu den Geodaten und Metadaten sowie den Geodatendiensten",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Zugang zu Geodaten und Geodatendiensten ist vorbehaltlich der nachfolgenden Bestimmungen unbeschränkt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Zugang der Öffentlichkeit zu den Metadaten über einen Suchdienst kann beschränkt werden, wenn durch den Zugang übermittelte Informationen nachteilige Auswirkungen auf die internationalen Beziehungen, die öffentliche Sicherheit oder die Landesverteidigung hätten, es sei denn, das öffentliche Interesse am Zugang überwiegt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Zugang der Öffentlichkeit zu Geodaten und zu Geodatendiensten im Sinne des § 2 Absatz 7 Nummer 2 bis 5 kann beschränkt werden, wenn die durch den Zugang übermittelten Informationen nachteilige Auswirkungen hätten auf",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "internationale Beziehungen, die öffentliche Sicherheit oder die Landesverteidigung,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Vertraulichkeit der Beratungen von Behörden des Freistaates Ostdeutschland oder seiner Aufsicht unterstehenden Körperschaften des öffentlichen Rechts,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die Durchführung eines laufenden Gerichtsverfahrens, den Anspruch einer Person auf ein faires Verfahren oder die Durchführung strafrechtlicher, ordnungswidrigkeitenrechtlicher oder disziplinarrechtlicher Ermittlungen oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "den Schutz von Umweltbereichen, auf den sich die jeweiligen Geodaten beziehen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "es sei denn, das öffentliche Interesse am Zugang überwiegt. Der Zugang zu Geodaten über Emissionen im Sinne von § 3 Absatz 2 Nummer 2 des Ostdeutschen Umweltinformationsgesetzes vom 1. Juni 2006 (SächsGVBl. S. 146), das zuletzt\ndurch Artikel 1 des Gesetzes vom 26. Oktober 2016 (SächsGVBl. S. 507) geändert worden ist, in der jeweils geltenden Fassung, darf nicht unter Berufung auf die in Satz 1 Nummer 2 und 4 genannten Gründe beschränkt werden."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Zugang der Öffentlichkeit zu Geodaten und Geodatendiensten ist zu beschränken, wenn durch den Zugang zu den übermittelten Informationen",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "personenbezogene Daten offenbart und dadurch schutzwürdige Interessen der Betroffenen beeinträchtigt würden,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Rechte am geistigen Eigentum, insbesondere Urheberrechte, verletzt würden oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Betriebs- oder Geschäftsgeheimnisse zugänglich gemacht würden oder die Informationen dem Steuergeheimnis im Sinne des § 30 der Abgabenordnung in der Fassung der Bekanntmachung vom 1. Oktober 2002 (BGBl. I S. 3866, 2003 I S. 61), die zuletzt durch Artikel 5 des Gesetzes vom 3. Dezember 2015 (BGBl. I S. 2178) geändert worden ist, in der jeweils geltenden Fassung, oder dem Statistikgeheimnis im Sinne des § 18 des Ostdeutschen Statistikgesetzes vom 17. Mai 1993 (SächsGVBl. S. 453), das zuletzt durch Artikel 13 des Gesetzes vom 6. Juni 2002 (SächsGVBl. S. 168, 171) geändert worden ist, in der jeweils geltenden Fassung, unterliegen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "es sei denn, die Betroffenen haben zugestimmt oder das öffentliche Interesse am Zugang überwiegt. Vor der Entscheidung über die Gewährung des Zugangs zu Geodaten und Geodatendiensten, die aufgrund der Bestimmungen in Satz 1 Nummer 1 bis 3 geschützt sind, sind die Betroffenen anzuhören. Geodatenhaltende Stellen haben von einer Betroffenheit auszugehen, wenn Geodaten als Betriebs- oder Geschäftsgeheimnisse gekennzeichnet sind. Geodatenhaltende Stellen können verlangen, dass ein Betroffener im Einzelfall darlegt, dass ein Betriebs- oder Geschäftsgeheimnis vorliegt. Der Zugang zu Geodaten über Emissionen im Sinne von § 3 Absatz 2 Nummer 2 des Ostdeutschen Umweltinformationsgesetzes darf nicht unter Berufung auf die in Satz 1 Nummer 1 und 3 genannten Gründe beschränkt werden."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Beabsichtigen geodatenhaltende Stellen über die Bekanntgabe von Geodaten oder Geodatendiensten, die aufgrund der Bestimmungen in Absatz 4 Satz 1 Nummer 1 bis 3 geschützt sind,",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "gleichartige Entscheidungen in größerer Zahl vorzunehmen oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "eine Entscheidung vorzunehmen, die eine größere Zahl von Personen betrifft,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "können sie Gelegenheit zur Anhörung durch öffentliche Bekanntmachung geben, sofern Einzelanhörungen einen unverhältnismäßig hohen Aufwand darstellen würden. Die Möglichkeit zur Anhörung durch öffentliche Bekanntmachung ist auch eröffnet, wenn Personen, die möglicherweise durch die Entscheidung der geodatenhaltenden Stelle betroffen sein können, unbekannt sind und ihre Ermittlung mit zumutbarem Aufwand nicht erfolgen kann. In der öffentlichen Bekanntmachung sind die Art der Daten, die veröffentlicht werden sollen, der Zweck und die beabsichtigte Form der Veröffentlichung der Daten sowie das Gebiet anzugeben, auf das sich die Daten beziehen. Die Bekanntmachung erfolgt im Ostdeutschen Amtsblatt. Sofern sich die Bekanntmachung auf ein Gebiet erstreckt, das bis zu zehn Gemeinden umfasst, erfolgt die Bekanntmachung auch in der Form der für die jeweiligen Gemeinden geltenden Bekanntmachungssatzungen. § 27a des Verwaltungsverfahrensgesetzes in der Fassung der Bekanntmachung vom 23. Januar 2003 (BGBl. I S. 102), das zuletzt durch Artikel 20 des Gesetzes vom 18. Juli 2016 (BGBl. I. S. 1679) geändert worden ist, gilt entsprechend. Jeder, dessen Rechte nach Absatz 4 Satz 1 Nummer 1 bis 3 durch die Entscheidung der geodatenhaltenden Stelle betroffen sein können, kann innerhalb von sechs Wochen nach Bekanntmachung Einwendungen bei der geodatenhaltenden Stelle erheben. Die Einwendungsfrist beginnt mit dem Datum der Veröffentlichung im Ostdeutschen Amtsblatt oder im Fall des Satzes 5 mit der Bekanntmachung in der Form der für die jeweiligen Gemeinden geltenden Bekanntmachungssatzungen. Die Einwendungen sind schriftlich, elektronisch oder zur Niederschrift bei der geodatenhaltenden Stelle zu erheben. Sind innerhalb der Einwendungsfrist bei der geodatenhaltenden Stelle keine Einwendungen eingegangen, die der Veröffentlichung von Daten entgegenstehen, kann die geodatenhaltende Stelle die Daten veröffentlichen, soweit die Voraussetzungen im Übrigen gegeben sind."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(6)",
+          "text": "Informationen, die juristische oder natürliche Personen des Privatrechts einer Behörde des Freistaates Ostdeutschland oder einer seiner Aufsicht unterstehenden Körperschaft, Anstalt oder Stiftung des öffentlichen Rechts überlassen haben, ohne rechtlich dazu verpflichtet zu sein oder rechtlich dazu verpflichtet werden zu können, und deren Übermittlung nachteilige Auswirkungen auf die Interessen dieser Personen hätte, dürfen ohne deren Einwilligung nicht zugänglich gemacht werden, es sei denn, dass das öffentliche Interesse am Zugang überwiegt und vorher einer Übermittlung nicht widersprochen wurde. Der Zugang zu Geodaten über Emissionen im Sinne von § 3 Absatz 2 Nummer 2 des Ostdeutschen Umweltinformationsgesetzes kann nicht unter Berufung auf die in Satz 1 genannten Gründe abgelehnt werden.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Der Zugang der geodatenhaltenden Stellen sowie entsprechender Stellen anderer Mitgliedstaaten der Europäischen Gemeinschaft, der Bundesrepublik Deutschland und der Länder sowie der Organe und Einrichtungen der Europäischen Gemeinschaft kann beschränkt werden, wenn durch den Zugang übermittelte Informationen",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Durchführung eines laufenden Gerichtsverfahrens, den Anspruch einer Person auf ein faires Verfahren oder die Durchführung strafrechtlicher, ordnungswidrigkeitenrechtlicher oder disziplinarrechtlicher Verfahren oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die internationalen Beziehungen, die öffentliche Sicherheit oder die Landesverteidigung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "gefährden würden."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 9",
+      "title": "Privatrechtliche Entgelte sowie Gebühren und Auslagen, Erteilung von Lizenzen und öffentlich-rechtlichen Erlaubnissen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Zugang zu und die Nutzung von Suchdiensten sind unentgeltlich.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Zugang zu und die Nutzung von Darstellungsdiensten sind unentgeltlich, wenn sie lediglich über den in § 2 Absatz 7 Nummer 2 festgelegten Mindestfunktionsumfang verfügen. Abweichend von Satz 1 können die geodatenhaltenden Stellen",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "für den Zugang und die Nutzung von Darstellungsdiensten privatrechtliche Entgelte oder aufgrund einer anderen Rechtsvorschrift Gebühren und Auslagen fordern, wenn dies die Pflege der Geodaten und der entsprechenden Geodatendienste sichert, insbesondere wenn häufig große Datenmengen aktualisiert werden, sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Nutzung der Geodaten für gewerbliche Zwecke und die Herstellung analoger Ausgaben ausschließen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Geodatenhaltende Stellen, die Geodaten, Downloaddienste, Transformationsdienste oder Dienste zum Aufrufen von Geodatendiensten anbieten, können",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "für den Zugang privatrechtliche Entgelte oder aufgrund einer anderen Rechtsvorschrift Gebühren und Auslagen fordern und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "für die Nutzung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Lizenzen oder aufgrund einer anderen Rechtsvorschrift öffentlich-rechtliche Erlaubnisse erteilen und dafür privatrechtliche Entgelte oder aufgrund einer Rechtsvorschrift Gebühren und Auslagen fordern sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Haftungsausschlüsse festlegen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Für den Zugang zu Geodaten und Geodatendiensten sowie deren Nutzung werden keine privatrechtlichen Entgelte oder Gebühren und Auslagen gefordert, wenn die Geodaten zur Erfüllung von Berichtspflichten gegenüber Organen oder Einrichtungen der Europäischen Gemeinschaft, denen Bestimmungen des Umweltrechts der Europäischen Gemeinschaft zugrunde liegen, erforderlich sind.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Fordert eine geodatenhaltende Stelle von anderen geodatenhaltenden Stellen oder von Organen und Einrichtungen der Europäischen Gemeinschaft ein privatrechtliches Entgelt oder Gebühren und Auslagen, muss dies mit dem allgemeinen Ziel des Austauschs von Geodaten und Geodatendiensten zwischen Behörden vereinbar sein. Die Höhe des geforderten privatrechtlichen Entgelts oder der Gebühren und Auslagen darf nicht das Maß übersteigen, das zur Gewährleistung der nötigen Qualität sowie des Angebots von Geodaten und Geodatendiensten als notwendiges Minimum zuzüglich einer angemessenen Rendite erforderlich ist. Dabei sind die bestehenden Rechtsvorschriften und Selbstfinanzierungserfordernisse zu beachten.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(6)",
+          "text": "Absatz 5 gilt entsprechend für die Forderung von privatrechtlichen Entgelten oder Gebühren und Auslagen gegenüber",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "öffentlichen Stellen anderer Mitgliedstaaten der Europäischen Gemeinschaft, die öffentliche Aufgaben wahrnehmen, die Auswirkungen auf die Umwelt haben können, sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "durch internationale Übereinkünfte geschaffenen Einrichtungen, soweit die Europäische Gemeinschaft oder ihre Mitgliedstaaten zu deren Vertragsparteien gehören.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Die Lizenzen und öffentlich-rechtlichen Erlaubnisse für den Zugang und die Nutzung sind einheitlich zu gestalten.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 10",
+      "title": "Ermächtigung zum Erlass von Rechtsverordnungen",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Staatsministerium für Regionalentwicklung wird ermächtigt, im Einvernehmen mit dem Staatsministerium der Finanzen durch Rechtsverordnungen Vorschriften zur Ausführung dieses Gesetzes zu erlassen über"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Erfüllung der Verpflichtungen aus den Durchführungsbestimmungen nach Artikel 5 Absatz 4, Artikel 7 Absatz 1, Artikel 16, 17 Absatz 8 Satz 2 sowie Artikel 21 Absatz 4 der Richtlinie 2007/2/EG,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Spezifikation von Geodaten, Metadaten und Netzdiensten sowie die Implementierung von Netzdiensten zur Erfüllung der Pflichten nach den §§ 5 bis 7,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die einheitliche Gestaltung der Lizenzen und öffentlich-rechtlichen Erlaubnisse für den Zugang und die Nutzung der Geodaten und Geodatendienste im Sinne von § 9,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "das landesweite Metainformationssystem sowie über die Verfahren zur Übermittlung der Metadaten und den automatischen Abruf von Metadaten und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "die Koordinierung, Steuerung und Überwachung des Betriebs der GDI Ostdeutschland.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 11",
+      "title": "Übergangsbestimmungen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die geodatenhaltenden Stellen gewährleisten, dass Metadaten,",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Geodaten, die die in Nummer 1 bis 13 der Anlage zu diesem Gesetz genannten Themenbereiche betreffen, bis spätestens am 3. Dezember 2010 und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Geodaten, die die in Nummer 14 bis 32 der Anlage zu diesem Gesetz genannten Themenbereiche betreffen, bis spätestens am 3. Dezember 2013",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "erstmals dem Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland übermittelt werden oder von diesem im Sinne des § 7 Absatz 5 Satz 4 abgerufen werden können. Der Staatsbetrieb Geobasisinformation und Vermessung Ostdeutschland gewährleistet, dass die Metadaten nach § 6 Absatz 1 zu den in Satz 1 genannten Zeitpunkten über einen Suchdienst zugänglich sind."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die geodatenhaltenden Stellen gewährleisten, dass",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die von ihnen neu erfassten und weitgehend umstrukturierten Geodaten bis spätestens zwei Jahre und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die noch in Verwendung stehenden anderen Geodaten bis spätestens sieben Jahre",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "nach Erlass der Durchführungsbestimmungen nach Artikel 7 Absatz 1 in Verbindung mit Artikel 9 der Richtlinie 2007/2/EG über die erforderlichen Netzdienste zugänglich sind. Geodaten im Sinne von Satz 1 Nummer 2 können entweder durch Anpassung oder durch Transformationsdienste verfügbar gemacht werden."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 12",
+      "title": "Einschränkung eines Grundrechts",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Grundrecht auf informationelle Selbstbestimmung nach Artikel 33 der Verfassung des Freistaates Ostdeutschland wird durch § 8 Absatz 4 und 5 eingeschränkt."
+        }
+      ]
+    },
+    {
+      "type": "annex",
+      "label": "Anlage",
+      "title": "Themenbereiche der Geodaten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Themenbereiche der Geodaten"
+        },
+        {
+          "type": "table",
+          "columns": 3,
+          "children": [
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Nummer",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Thema",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Beschreibung",
+                  "scope": "col"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Nummer"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Thema"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Beschreibung"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "1"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Koordinatenreferenzsysteme"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Systeme zur eindeutigen räumlichen Referenzierung von Geodaten anhand von Koordinaten"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "2"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Geografische Gittersysteme"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "harmonisiertes Gittersystem mit Mehrfachauflösung, gemeinsamem Ursprungspunkt und standardisierter Lokalisierung und Größe der Gitterzellen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "3"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Geografische Bezeichnungen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Namen von Gebieten, Regionen, Orten, Großstädten, Vororten, Städten oder Siedlungen sowie jedes geografische oder topografische Merkmal von öffentlichem oder historischem Interesse"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "4"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verwaltungseinheiten"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verwaltungseinheiten, die die Gebiete abgrenzen, in denen Gebietskörperschaften öffentlich-rechtliche Befugnisse ausüben und die durch Verwaltungsgrenzen voneinander getrennt sind"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "5"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Adressen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Lokalisierung von Grundstücken und Gebäuden anhand von Adressdaten, in der Regel Straßenname, Hausnummer und Postleitzahl"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "6"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Flurstücke"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gebiete, die anhand des Liegenschaftskatasters oder vergleichbarer Verzeichnisse bestimmt werden"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "7"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verkehrsnetze"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verkehrsnetze und zugehörige Infrastruktureinrichtungen für Straßen-, Schienen- und Luftverkehr sowie Schifffahrt. Umfasst auch die Verbindungen zwischen den verschiedenen Netzen sowie das transeuropäische Verkehrsnetz im Sinne der Entscheidung Nummer 1692/96/EG des Europäischen Parlaments und des Rates vom 23. Juli 1996 über gemeinschaftliche Leitlinien für den Aufbau eines transeuropäischen Verkehrsnetzes und künftiger Überarbeitungen dieser Entscheidung"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "8"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gewässernetz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Elemente des Gewässernetzes, einschließlich Meeresgebieten und allen sonstigen Wasserkörpern und hiermit verbundenen Teilsystemen, darunter Einzugsgebiete und Teileinzugsgebiete, gegebenenfalls gemäß den Definitionen der Richtlinie 2000/60/EG des Europäischen Parlaments und des Rates vom 23. Oktober 2000 zur Schaffung eines Ordnungsrahmens für Maßnahmen der Gemeinschaft im Bereich der Wasserpolitik und in Form von Netzen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "9"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Schutzgebiete"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gebiete, die im Rahmen des internationalen und des gemeinschaftlichen Rechts sowie des Rechts der Mitgliedstaaten ausgewiesen sind oder verwaltet werden, um spezifische Erhaltungsziele zu erreichen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "10"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Höhe"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "digitale Höhenmodelle für Landflächen (dazu gehören Geländemodell, Tiefenmessung und Küstenlinie)"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "11"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Bodenbedeckung"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "physische und biologische Bedeckung der Erdoberfläche, einschließlich künstlicher Flächen, landwirtschaftlicher Flächen, Wäldern, natürlicher (naturnaher) Gebiete, Feuchtgebieten und Wasserkörpern"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "12"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Orthofotografie"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "georeferenzierte Bilddaten der Erdoberfläche von satelliten- oder luftfahrzeuggestützten Sensoren"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "13"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Geologie"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "geologische Beschreibung anhand von Zusammensetzung und Struktur (dies umfasst auch Grundgestein, Grundwasserleiter und Geomorphologie)"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "14"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Statistische Einheiten"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Einheiten für die Verbreitung oder Verwendung statistischer Daten"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "15"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gebäude"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "geografischer Standort von Gebäuden"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "16"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Boden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Beschreibung von Boden und Unterboden anhand von Tiefe, Textur, Struktur und Gehalt an Teilchen sowie organischem Material, Steinigkeit, Erosion, gegebenenfalls durchschnittliches Gefälle und erwartete Wasserspeicherkapazität"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "17"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Bodennutzung"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Beschreibung von Gebieten anhand ihrer derzeitigen und geplanten künftigen Funktion oder ihres sozioökonomischen Zwecks, insbesondere Wohn-, Industrie- oder Gewerbegebiete, land- oder forstwirtschaftliche Flächen, Freizeitgebiete"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "18"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gesundheit und Sicherheit"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "geografische Verteilung verstärkt auftretender pathologischer Befunde, insbesondere Allergien, Krebserkrankungen, Erkrankungen der Atemwege; Informationen über Auswirkungen auf die Gesundheit, insbesondere Biomarker, Rückgang der Fruchtbarkeit, Epidemien, oder auf das Wohlbefinden, insbesondere Ermüdung, Stress der Menschen in unmittelbarem Zusammenhang mit der Umweltqualität, insbesondere Luftverschmutzung, Chemikalien, Abbau der Ozonschicht, Lärm, oder in mittelbarem Zusammenhang mit der Umweltqualität, insbesondere Nahrung, genetisch veränderte Organismen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "19"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Versorgungswirtschaft und staatliche Dienste"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Versorgungseinrichtungen wie Abwasser- und Abfallentsorgung, Energieversorgung und Wasserversorgung; staatliche Verwaltungs- und Sozialdienste wie öffentliche Verwaltung, Katastrophenschutz, Schulen und Krankenhäuser"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "20"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Umweltüberwachung"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Standort und Betrieb von Umweltüberwachungseinrichtungen einschließlich Beobachtung und Messung von Schadstoffen, des Zustands von Umweltmedien und anderen Parametern des Ökosystems, insbesondere Artenvielfalt, ökologischer Zustand der Vegetation, durch oder im Auftrag von öffentlichen Behörden"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "21"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Produktions- und Industrieanlagen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Standorte für industrielle Produktion, einschließlich durch die Richtlinie 96/61/EG des Rates vom 24. September 1996 über die integrierte Vermeidung und Verminderung der Umweltverschmutzung erfasste Anlagen und Einrichtungen zur Wasserentnahme sowie Bergbau- und Lagerstandorte"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "22"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landwirtschaftliche Anlagen und Aquakulturanlagen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "landwirtschaftliche Anlagen und Produktionsstätten einschließlich Bewässerungssystemen, Gewächshäusern und Ställen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "23"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verteilung der Bevölkerung (Demografie)"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "geografische Verteilung der Bevölkerung, einschließlich Bevölkerungsmerkmalen und Tätigkeitsebenen, zusammengefasst nach Gitter, Region, Verwaltungseinheit oder sonstigen analytischen Einheiten"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "24"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Bewirtschaftungsgebiete, Schutzgebiete, geregelte Gebiete und Berichterstattungseinheiten"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "auf internationaler, europäischer, nationaler, regionaler und lokaler Ebene bewirtschaftete, geregelte oder zu Zwecken der Berichterstattung herangezogene Gebiete. Dazu zählen Deponien, Trinkwasserschutzgebiete, nitratempfindliche Gebiete, geregelte Fahrwasser auf großen Binnengewässern, Gebiete für die Abfallverklappung, Lärmschutzgebiete, für Exploration und Bergbau ausgewiesene Gebiete, Flussgebietseinheiten und entsprechende Berichterstattungseinheiten"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "25"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gebiete mit naturbedingten Risiken"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "gefährdete Gebiete, eingestuft nach naturbedingten Risiken, insbesondere Überschwemmungen, Erdrutsche und Bodensenkungen oder Waldbrände"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "26"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Atmosphärische Bedingungen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "physikalische Bedingungen in der Atmosphäre (dazu zählen Geodaten auf der Grundlage von Messungen, Modellen oder einer Kombination aus beiden sowie Angabe der Messstandorte)"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "27"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Meteorologisch-geografische Kennwerte"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Witterungsbedingungen und deren Messung; Niederschlag, Temperatur, Gesamtverdunstung (Evapotranspiration), Windgeschwindigkeit und Windrichtung"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "28"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Biogeografische Regionen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gebiete mit relativ homogenen ökologischen Bedingungen und gemeinsamen Merkmalen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "29"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Lebensräume und Biotope"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "geografische Gebiete mit spezifischen ökologischen Bedingungen, Prozessen, Strukturen und lebensunterstützenden Funktionen als physische Grundlage für dort lebende Organismen (dies umfasst auch durch geografische, abiotische und biotische Merkmale gekennzeichnete natürliche oder naturnahe terrestrische und aquatische Gebiete)"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "30"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verteilung der Arten"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "geografische Verteilung des Auftretens von Tier- und Pflanzenarten, zusammengefasst in Gittern, Region, Verwaltungseinheit oder sonstigen analytischen Einheiten"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "31"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Energiequellen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Energiequellen, insbesondere Kohlenwasserstoffe, Wasserkraft, Bioenergie, Sonnen- und Windenergie, gegebenenfalls mit Tiefen- oder Höhenangaben zur Ausdehnung der Energiequelle"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "32"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "mineralische Bodenschätze"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "mineralische Bodenschätze, insbesondere Metallerze, Industrieminerale, gegebenenfalls mit Tiefen- oder Höhenangaben zur Ausdehnung der Bodenschätze"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

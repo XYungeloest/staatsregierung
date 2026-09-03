@@ -278,3 +278,166 @@ export function getRelatedNormRecommendations(
     )
     .slice(0, limit);
 }
+
+interface ReferenceMatcher<T extends { label: string }> {
+  byPrefix: Map<string, T[]>;
+  minLength: number;
+}
+
+const PREFIX_LENGTH = 3;
+
+function buildReferenceMatcher<T extends { label: string }>(references: T[]): ReferenceMatcher<T> {
+  const byPrefix = new Map<string, T[]>();
+  let minLength = Number.POSITIVE_INFINITY;
+  for (const reference of references) {
+    if (reference.label.length < PREFIX_LENGTH) continue;
+    const key = reference.label.slice(0, PREFIX_LENGTH);
+    const list = byPrefix.get(key) ?? [];
+    list.push(reference);
+    byPrefix.set(key, list);
+    minLength = Math.min(minLength, reference.label.length);
+  }
+  for (const list of byPrefix.values()) list.sort((left, right) => right.label.length - left.label.length);
+  return { byPrefix, minLength };
+}
+
+function isWordDelimited(text: string, start: number, length: number): boolean {
+  const before = start > 0 ? text[start - 1] : '';
+  const after = text[start + length] ?? '';
+  const isWordChar = (value: string): boolean => /[\p{L}\p{N}]/u.test(value);
+  return !(before && isWordChar(before)) && !(after && isWordChar(after));
+}
+
+/**
+ * Ermittelt, welche Verweislabels in einem Text vorkommen. Die Prüfung entspricht
+ * `renderLinkedDisplayText` (exakte Schreibweise, wortbegrenzt), skaliert aber über
+ * einen Präfixindex auch für mehrere tausend Labels.
+ */
+export function selectMatchingTextLinkReferences(
+  references: TextLinkReference[],
+  texts: Iterable<string>,
+  { delimited = true }: { delimited?: boolean } = {},
+): TextLinkReference[] {
+  const matcher = buildReferenceMatcher(references);
+  const matched = new Map<string, TextLinkReference>();
+  for (const rawText of texts) {
+    const text = toDisplayText(rawText);
+    for (let index = 0; index + PREFIX_LENGTH <= text.length; index += 1) {
+      const candidates = matcher.byPrefix.get(text.slice(index, index + PREFIX_LENGTH));
+      if (!candidates) continue;
+      for (const candidate of candidates) {
+        if (matched.has(candidate.label)) continue;
+        if (!text.startsWith(candidate.label, index)) continue;
+        if (delimited && !isWordDelimited(text, index, candidate.label.length)) continue;
+        matched.set(candidate.label, candidate);
+      }
+    }
+  }
+  return references.filter((reference) => matched.has(reference.label));
+}
+
+export function collectNormBodyText(norm: NormRecord): string {
+  return collectBodyText(norm);
+}
+
+export interface RelatedNormRecommendationIndexEntry {
+  slug: string;
+  relation: NormRelationKind;
+  score: number;
+}
+
+/**
+ * Berechnet die Empfehlungen für alle Normen mit denselben Regeln wie
+ * `getRelatedNormRecommendations`, aber in einem Durchlauf über den Bestand:
+ * Texterwähnungen werden einmal je Norm über einen Präfixindex ermittelt statt
+ * paarweise. Das Ergebnis ist je Norm eine sortierte Liste von Slugs.
+ */
+export function buildRelatedNormRecommendationIndex(
+  norms: NormRecord[],
+  { limit = 5, bodyTextFor = collectBodyText }: { limit?: number; bodyTextFor?: (norm: NormRecord) => string } = {},
+): Map<string, RelatedNormRecommendationIndexEntry[]> {
+  const bySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+  const titleFor = new Map(norms.map((norm) => [
+    norm.meta.slug,
+    getNormVersionIdentity(norm, getApplicableVersion(norm)).title,
+  ]));
+  const explicit = new Map(norms.map((norm) => [norm.meta.slug, explicitRelatedSlugs(norm)]));
+  const subjectFrequency = new Map<string, number>();
+  for (const entry of norms) {
+    for (const subject of entry.meta.subjects) {
+      subjectFrequency.set(subject, (subjectFrequency.get(subject) ?? 0) + 1);
+    }
+  }
+
+  // Erwähnungen: Text der Norm enthält einen Alias einer anderen Norm (Teilstring, wie bisher).
+  const aliasReferences = norms.flatMap((norm) => aliases(norm).map((label) => ({ label, slug: norm.meta.slug })));
+  const matcher = buildReferenceMatcher(aliasReferences);
+  const mentions = new Map<string, Set<string>>();
+  const mentionedBy = new Map<string, Set<string>>();
+  for (const norm of norms) {
+    const text = bodyTextFor(norm);
+    const found = new Set<string>();
+    for (let index = 0; index + PREFIX_LENGTH <= text.length; index += 1) {
+      const candidates = matcher.byPrefix.get(text.slice(index, index + PREFIX_LENGTH));
+      if (!candidates) continue;
+      for (const candidate of candidates) {
+        if (candidate.slug === norm.meta.slug || found.has(candidate.slug)) continue;
+        if (text.startsWith(candidate.label, index)) found.add(candidate.slug);
+      }
+    }
+    mentions.set(norm.meta.slug, found);
+    for (const slug of found) {
+      const reverse = mentionedBy.get(slug) ?? new Set<string>();
+      reverse.add(norm.meta.slug);
+      mentionedBy.set(slug, reverse);
+    }
+  }
+
+  const index = new Map<string, RelatedNormRecommendationIndexEntry[]>();
+  for (const norm of norms) {
+    const sourceExplicit = explicit.get(norm.meta.slug)!;
+    const sourceMentions = mentions.get(norm.meta.slug)!;
+    const sourceMentionedBy = mentionedBy.get(norm.meta.slug) ?? new Set<string>();
+    const entries: RelatedNormRecommendationIndexEntry[] = [];
+    for (const candidate of norms) {
+      if (candidate.meta.slug === norm.meta.slug) continue;
+      const candidateExplicit = explicit.get(candidate.meta.slug)!;
+      let entry: RelatedNormRecommendationIndexEntry | null = null;
+      if (norm.meta.predecessor === candidate.meta.slug) entry = { slug: candidate.meta.slug, relation: 'Vorgängerregelung', score: 100 };
+      else if (norm.meta.successor === candidate.meta.slug) entry = { slug: candidate.meta.slug, relation: 'Nachfolgeregelung', score: 100 };
+      else if (candidate.meta.predecessor === norm.meta.slug) entry = { slug: candidate.meta.slug, relation: 'Nachfolgeregelung', score: 100 };
+      else if (candidate.meta.successor === norm.meta.slug) entry = { slug: candidate.meta.slug, relation: 'Vorgängerregelung', score: 100 };
+      else if (candidateExplicit.has(norm.meta.slug)) {
+        entry = { slug: candidate.meta.slug, relation: candidate.meta.type === 'aenderungsvorschrift' ? 'ändert' : 'verweist auf', score: 95 };
+      } else if (sourceExplicit.has(candidate.meta.slug)) entry = { slug: candidate.meta.slug, relation: 'verweist auf', score: 92 };
+      else if ([...candidateExplicit].some((slug) => sourceExplicit.has(slug))) {
+        entry = { slug: candidate.meta.slug, relation: 'gemeinsame Rechtsgrundlage', score: 85 };
+      } else if (sourceMentions.has(candidate.meta.slug)) entry = { slug: candidate.meta.slug, relation: 'verweist auf', score: 80 };
+      else if (sourceMentionedBy.has(candidate.meta.slug)) {
+        entry = {
+          slug: candidate.meta.slug,
+          relation: candidate.meta.type === 'aenderungsvorschrift'
+            ? 'ändert'
+            : candidate.meta.type === 'verordnung' || candidate.meta.type === 'verwaltungsvorschrift'
+              ? 'führt aus'
+              : 'verweist auf',
+          score: 75,
+        };
+      } else {
+        const sharedSpecificSubjects = candidate.meta.subjects.filter(
+          (subject) => norm.meta.subjects.includes(subject) && (subjectFrequency.get(subject) ?? Infinity) <= 4,
+        );
+        if (sharedSpecificSubjects.length > 0) {
+          entry = { slug: candidate.meta.slug, relation: 'gleiches Sachgebiet', score: 50 + sharedSpecificSubjects.length };
+        }
+      }
+      if (entry) entries.push(entry);
+    }
+    entries.sort((left, right) =>
+      right.score - left.score
+      || titleFor.get(left.slug)!.localeCompare(titleFor.get(right.slug)!, 'de'));
+    index.set(norm.meta.slug, entries.slice(0, limit));
+  }
+  void bySlug;
+  return index;
+}

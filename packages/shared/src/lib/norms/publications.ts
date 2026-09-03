@@ -1,9 +1,6 @@
 import type { Dirent } from 'node:fs';
-import { readdir, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 
 import { ContentValidationError } from '@ostrecht/shared/lib/norms/schema.ts';
-import { resolveRepositoryRoot } from '@ostrecht/shared/lib/repository-root.ts';
 
 export const PUBLICATION_ENTRY_TYPES = [
   'gesetz',
@@ -17,7 +14,20 @@ export const PUBLICATION_ENTRY_TYPES = [
   'sonstiges',
 ] as const;
 
-const CONTENT_ROOT = join(resolveRepositoryRoot(), 'content', 'verkuendungen');
+/**
+ * Dateizugriff nur bei Bedarf laden: Dieses Modul wird auch im Cloudflare-Worker
+ * von OstRecht gebündelt (Verkündungsmodell, Fundstellen-Lookup), wo es weder
+ * `node:fs` noch ein Repository gibt. Die Loader unten sind Node-Werkzeugen und
+ * der Dateivariante der Website vorbehalten.
+ */
+async function fileSystem() {
+  const [{ readdir, readFile }, { join }, { resolveRepositoryRoot }] = await Promise.all([
+    import('node:fs/promises'),
+    import('node:path'),
+    import('@ostrecht/shared/lib/repository-root.ts'),
+  ]);
+  return { readdir, readFile, join, contentRoot: join(resolveRepositoryRoot(), 'content', 'verkuendungen') };
+}
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 export type PublicationEntryType = (typeof PUBLICATION_ENTRY_TYPES)[number];
@@ -321,6 +331,7 @@ export function parseVerkuendung(value: unknown, path = 'verkuendung.json'): Ver
 
 async function readJsonFile(filePath: string): Promise<unknown> {
   try {
+    const { readFile } = await fileSystem();
     const raw = await readFile(filePath, 'utf8');
     return JSON.parse(raw) as unknown;
   } catch (error) {
@@ -334,6 +345,7 @@ async function readJsonFile(filePath: string): Promise<unknown> {
 
 async function listJsonFiles(directoryPath: string): Promise<string[]> {
   try {
+    const { readdir } = await fileSystem();
     const entries = await readdir(directoryPath, { withFileTypes: true });
 
     return entries
@@ -434,7 +446,8 @@ export function listPublicationEntries(publications: Verkuendung[]): Publication
 }
 
 export async function loadVerkuendung(slug: string): Promise<Verkuendung> {
-  const filePath = join(CONTENT_ROOT, `${slug}.json`);
+  const { join, contentRoot } = await fileSystem();
+  const filePath = join(contentRoot, `${slug}.json`);
   const json = await readJsonFile(filePath);
   const publication = parseVerkuendung(json, `content/verkuendungen/${slug}.json`);
 
@@ -448,7 +461,8 @@ export async function loadVerkuendung(slug: string): Promise<Verkuendung> {
 }
 
 export async function loadAllVerkuendungen(): Promise<Verkuendung[]> {
-  const fileNames = await listJsonFiles(CONTENT_ROOT);
+  const { contentRoot } = await fileSystem();
+  const fileNames = await listJsonFiles(contentRoot);
   const publications = await Promise.all(
     fileNames.map((fileName) => loadVerkuendung(fileName.replace(/\.json$/u, ''))),
   );

@@ -15,7 +15,7 @@ import {
   type SortKey,
   type VersionScope,
 } from '@ostrecht/recht-search/search-query.ts';
-import type { SearchIndexDocument, SearchIndexPayload, SearchPublication } from '@ostrecht/recht-search/search.ts';
+import type { SearchIndexDocument, SearchPublication } from '@ostrecht/recht-search/search.ts';
 
 const PAGE_SIZE = 20;
 const INPUT_DEBOUNCE_MS = 120;
@@ -32,7 +32,15 @@ const activeFilters = document.querySelector<HTMLElement>('[data-search-active-f
 const activeFilterList = document.querySelector<HTMLElement>('[data-search-active-list]');
 const clearFiltersButton = document.querySelector<HTMLButtonElement>('[data-search-clear-filters]');
 const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
-const indexUrl = root?.dataset.indexUrl ?? '';
+const searchApiUrl = root?.dataset.searchApi ?? '';
+const REQUEST_DEBOUNCE_MS = 250;
+let activeRequest: AbortController | undefined;
+let loadedDocuments: PreparedSearchDocument[] = [];
+let loadedPublications: SearchPublication[] = [];
+let lastOffset = 0;
+let lastLimit = 0;
+let lastTotal = 0;
+let lastQueryKey = '';
 let visibleGroups = PAGE_SIZE;
 let lastResults: ScoredSearchResult[] = [];
 let lastState: NormSearchState | undefined;
@@ -544,79 +552,147 @@ function renderResults(results: ScoredSearchResult[], state: NormSearchState, pu
   if (!moreButton.hidden) moreButton.textContent = `Weitere Treffer laden (${groups.length - visible.length} verbleibend)`;
 }
 
-async function setupSearch(): Promise<void> {
-  if (!root || !form || !queryInput || !summary || !resultsContainer || !moreButton || !indexUrl) return;
-  applyStateToForm(readStateFromUrl());
-  let payload: SearchIndexPayload;
-  try {
-    const response = await fetch(indexUrl);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    payload = await response.json() as SearchIndexPayload;
-  } catch {
-    summary.textContent = 'Der Suchindex konnte nicht geladen werden.';
-    return;
-  }
-  const documents: PreparedSearchDocument[] = prepareSearchDocuments(payload.documents);
+function candidateQueryKey(state: NormSearchState): string {
+  return JSON.stringify([state.q, state.exact, state.citation, state.types]);
+}
 
-  const run = (push = false) => {
+function buildCandidateUrl(state: NormSearchState, offset: number): string {
+  const params = new URLSearchParams();
+  if (state.q) params.set('q', state.q);
+  if (state.exact) params.set('exact', state.exact);
+  if (state.citation) params.set('citation', state.citation);
+  for (const type of state.types) params.append('type', type);
+  if (offset > 0) params.set('offset', String(offset));
+  const query = params.toString();
+  return query ? `${searchApiUrl}?${query}` : searchApiUrl;
+}
+
+interface CandidatePayload {
+  total: number;
+  offset: number;
+  limit: number;
+  documents: SearchIndexDocument[];
+  publications: SearchPublication[];
+}
+
+/**
+ * Lädt die Kandidaten der Anfrage aus der D1-gestützten Such-API. Die
+ * feldbewusste Bewertung und Filterung läuft anschließend wie bisher lokal
+ * über runNormSearch, jetzt aber nur über die gelieferte Kandidatenmenge.
+ */
+async function loadCandidates(state: NormSearchState, offset: number, append: boolean): Promise<boolean> {
+  activeRequest?.abort();
+  const controller = new AbortController();
+  activeRequest = controller;
+  try {
+    const response = await fetch(buildCandidateUrl(state, offset), { signal: controller.signal, headers: { accept: 'application/json' } });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json() as CandidatePayload;
+    if (controller.signal.aborted) return false;
+    const prepared = prepareSearchDocuments(payload.documents);
+    loadedDocuments = append ? [...loadedDocuments, ...prepared] : prepared;
+    loadedPublications = payload.publications ?? [];
+    lastOffset = payload.offset;
+    lastLimit = payload.limit;
+    lastTotal = payload.total;
+    lastQueryKey = candidateQueryKey(state);
+    return true;
+  } catch (error) {
+    if ((error as Error).name === 'AbortError') return false;
+    if (summary) summary.textContent = 'Die Suche konnte nicht geladen werden. Bitte versuchen Sie es erneut.';
+    return false;
+  }
+}
+
+function hasMoreCandidates(): boolean {
+  return lastOffset + lastLimit < lastTotal;
+}
+
+async function setupSearch(): Promise<void> {
+  if (!root || !form || !queryInput || !summary || !resultsContainer || !moreButton || !searchApiUrl) return;
+  applyStateToForm(readStateFromUrl());
+
+  const evaluate = (state: NormSearchState) => {
+    lastResults = runNormSearch(loadedDocuments, state);
+    lastState = state;
+    updateFacetCounts(lastResults);
+    const typeIntent = getDetectedNormTypeIntent(loadedDocuments, state.q);
+    updateActiveFilterControls(typeIntent);
+    renderResults(lastResults, state, findPublicationDirectHit(loadedPublications, state.q));
+    if (hasMoreCandidates()) {
+      moreButton.hidden = false;
+      const remaining = lastTotal - (lastOffset + lastLimit);
+      moreButton.textContent = `Weitere Treffer laden (${remaining} weitere Vorschriften)`;
+    }
+  };
+
+  const run = async (push = false) => {
     const state = getFormState();
     const sortInput = form.querySelector<HTMLSelectElement>('select[name="sort"]');
     if (sortInput && !state.sortExplicit) sortInput.value = state.sort;
     writeStateToUrl(state, push);
     visibleGroups = PAGE_SIZE;
-    lastResults = runNormSearch(documents, state);
-    lastState = state;
-    updateFacetCounts(lastResults);
-    const typeIntent = getDetectedNormTypeIntent(documents, state.q);
-    updateActiveFilterControls(typeIntent);
-    renderResults(lastResults, state, findPublicationDirectHit(payload.publications ?? [], state.q));
+    if (candidateQueryKey(state) !== lastQueryKey || loadedDocuments.length === 0) {
+      summary.textContent = 'Treffer werden geladen.';
+      if (!(await loadCandidates(state, 0, false))) return;
+    }
+    evaluate(state);
   };
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     if (inputTimer) window.clearTimeout(inputTimer);
-    run(true);
+    void run(true);
   });
   for (const input of filterInputs) {
     input.addEventListener('change', () => {
       if (input.name === 'sort') setSortExplicit(true);
       if (input.name === 'versionScope') setVersionScopeExplicit(true);
-      run(true);
+      void run(true);
     });
   }
   queryInput.addEventListener('input', () => {
     if (inputTimer) window.clearTimeout(inputTimer);
-    inputTimer = window.setTimeout(() => run(false), INPUT_DEBOUNCE_MS);
+    inputTimer = window.setTimeout(() => void run(false), REQUEST_DEBOUNCE_MS);
   });
   activeFilterList?.addEventListener('click', (event) => {
     if (!(event.target instanceof HTMLButtonElement)) return;
     if (event.target.dataset.searchRemoveIntent === 'type') {
-      const intent = getDetectedNormTypeIntent(documents, queryInput.value);
+      const intent = getDetectedNormTypeIntent(loadedDocuments, queryInput.value);
       if (intent) queryInput.value = removeDetectedTypeIntent(queryInput.value, intent);
-      run(true);
+      void run(true);
       return;
     }
     const name = event.target.dataset.searchRemoveFilter;
     const value = event.target.dataset.searchRemoveValue;
     if (!name || value === undefined) return;
     clearFilter(name, value);
-    run(true);
+    void run(true);
   });
   clearFiltersButton?.addEventListener('click', () => {
     clearAllFilters();
-    run(true);
+    void run(true);
   });
   moreButton.addEventListener('click', () => {
-    visibleGroups += PAGE_SIZE;
-    if (lastState) renderResults(lastResults, lastState, findPublicationDirectHit(payload.publications ?? [], lastState.q));
+    void (async () => {
+      const groups = groupNormSearchResults(lastResults, lastState ?? getFormState());
+      if (visibleGroups < groups.length) {
+        visibleGroups += PAGE_SIZE;
+      } else if (hasMoreCandidates() && lastState) {
+        summary.textContent = 'Weitere Treffer werden geladen.';
+        if (!(await loadCandidates(lastState, lastOffset + lastLimit, true))) return;
+        visibleGroups += PAGE_SIZE;
+      }
+      if (lastState) evaluate(lastState);
+    })();
   });
   window.addEventListener('popstate', () => {
     applyStateToForm(readStateFromUrl());
     openPanelsWithActiveFilters();
-    run();
+    void run();
   });
   openPanelsWithActiveFilters();
-  run();
+  void run();
 }
 
 void setupSearch();

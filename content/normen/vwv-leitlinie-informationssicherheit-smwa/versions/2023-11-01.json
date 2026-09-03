@@ -1,0 +1,669 @@
+{
+  "versionId": "2023-11-01",
+  "title": "VwV Leitlinie Informationssicherheit SMWA",
+  "shortTitle": "VwV Leitlinie Informationssicherheit SMWA",
+  "abbr": "VwV Leitlinie Informationssicherheit SMWA",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "VwV Leitlinie Informationssicherheit SMWA vom 14. Mai 2012 (SächsABl. S. 743), zuletzt enthalten in der Verwaltungsvorschrift vom 1. Dezember 2025 (SächsABl. SDr. S. S 268)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 12485.1, gültig 2012-06-29 bis 2025-01-02",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/12485.1.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/12485.1",
+      "retrievedAt": "2026-09-03",
+      "sha256": "7f98914ee375b2c61eef3642cf5debf98d266c2d9e9ffaea91dd5b7a8b63b4c4",
+      "lawId": "12485",
+      "sourceValidFrom": "2012-06-29",
+      "sourceValidTo": "2025-01-02",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Regelungsgegenstand",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verwaltungsvorschrift regelt die Strategien und Organisationsstrukturen, die für die Initiierung und Etablierung eines ganzheitlichen Informationssicherheitsprozesses im Geschäftsbereich des Staatsministeriums für Wirtschaft, Arbeit und Verkehr erforderlich sind. Die allgemeinen Grundsätze und Ziele der Informationssicherheit, die Verantwortlichkeiten und die Informationssicherheitsorganisation sind in der Anlage ausgeführt."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Geltungsbereich",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verwaltungsvorschrift gilt für alle Behörden des Geschäftsbereichs des Staatsministeriums für Wirtschaft, Arbeit und Verkehr. Die Vorgaben der Anlage sind entsprechend der jeweiligen Aufgabenverantwortung umzusetzen und auszugestalten."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft."
+        }
+      ]
+    },
+    {
+      "type": "annex",
+      "label": "Anlage",
+      "title": "Leitlinie Informationssicherheit SMWA",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Einleitung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Möglichkeiten der Informationstechnik (IT) bilden im Geschäftsbereich des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr (SMWA) zunehmend die Grundlage für die Bewältigung der zu erfüllenden Fachaufgaben und der behördlichen Abläufe. Ohne den Einsatz der IT-Technik ist ein effizienter Verwaltungsbetrieb heute nicht mehr denkbar."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Mit der Nutzung der Informationstechnologie gehen jedoch auch neue Gefährdungen einher. Jede Störung des IT-Betriebes kann Geschäftsprozesse behindern und die Leistungsfähigkeit der Verwaltung negativ beeinflussen. Beeinträchtigungen können sich zum Beispiel durch vorsätzliche Angriffe von innen und außen, fahrlässiges Handeln, Nachlässigkeiten, Ignoranz und Unkenntnis ergeben."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Vor diesem Hintergrund muss es das Ziel sein, alle IT-unterstützten Geschäftsprozesse sowie alle im Geschäftsbereich SMWA vorhandenen Informationen vor den genannten Gefährdungen zu schützen. Nur durch die Gewährleistung eines funktionierenden und sicheren IT-Betriebes können die dem SMWA und seinen Behörden aufgetragenen Aufgaben in der erforderlichen Qualität erfüllt werden. Hierfür sind die Initiierung und Etablierung eines ganzheitlichen Informationssicherheitsprozesses erforderlich. Dieser erstreckt sich nicht nur auf die Rahmenbedingungen elektronischer Datenverarbeitungsprozesse, sondern auch auf organisatorische Maßnahmen und die Ausgestaltung fachlich-inhaltlicher Geschäftsprozesse."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die vorliegende Leitlinie beschreibt die vom SMWA angestrebten Informationssicherheitsziele, die Organisationsstrukturen und die verfolgte Sicherheitsstrategie, die für die Initiierung und Etablierung eines ganzheitlichen Informationssicherheitsprozesses erforderlich sind. Sie gilt in allen Behörden des Geschäftsbereichs SMWA."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Regelungen dieser Leitlinie folgen den Standards des Bundesamtes für Sicherheit in der Informationstechnik (BSI). Sie entsprechen zudem den Vorgaben der Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Gewährleistung der Informationssicherheit in der Landesverwaltung (\nVwV Informationssicherheit) vom 7. September 2011 (SächsABl. S. 1294)."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Hausleitung des SMWA hat diese Leitlinie beschlossen. Sie bekennt sich zu ihrer Gesamtverantwortung und unterstützt die Maßnahmen zur Informationssicherheit."
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Begriffsbestimmungen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Informationssicherheit bezeichnet einen Zustand, in dem die Risiken für die Sicherheitsziele Vertraulichkeit, Integrität und Verfügbarkeit von Informationen und IT durch angemessene Maßnahmen auf ein tragbares Maß reduziert sind. Die Informationssicherheit umfasst neben der Sicherheit der IT-Systeme und der darin gespeicherten Daten auch die Sicherheit von nicht elektronisch verarbeiteten und gespeicherten Daten und Informationen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Dabei bedeuten:\nVerfügbarkeit: Die Funktionen der Hard- und Software im System- und Netzbereich sowie notwendige Informationen stehen dem Anwender zum geforderten Zeitpunkt zur Verfügung."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Vertraulichkeit: Vertrauliche Daten, Informationen und Programme sind vor unberechtigten Zugriffen und unbefugter Preisgabe zu schützen. Zu den Schutzobjekten gehören die gespeicherten oder transportierten Nachrichteninhalte, die näheren Informationen über den Kommunikationsvorgang sowie die Daten über den Sende- und Empfangsvorgang."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Integrität: Der Begriff der Integrität bezieht sich sowohl auf Informationen und Daten als auch auf das gesamte IT-System. Integrität der Informationen bedeutet deren Vollständigkeit und Korrektheit. Vollständigkeit bedeutet, dass alle Teile der Information verfügbar sind. Korrekt sind Informationen, wenn sie den bezeichneten Sachverhalt unverfälscht wiedergeben. Das gilt entsprechend für die Integrität von Daten. Zum anderen bezieht sich der Begriff Integrität auch auf IT-Systeme, da die Integrität der Informationen und Daten nur bei ordnungsgemäßer Verarbeitung und Übertragung sichergestellt werden kann."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Beschäftigte im Sinne dieser Leitlinie sind alle im Geschäftsbereich SMWA tätigen Beamtinnen/Beamten, Tarifbeschäftigten (m/w), Auszubildenden (m/w) und Praktikantinnen/Praktikanten."
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Grundsätze",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.1",
+          "text": "Bedeutung der Informationssicherheit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Im Geschäftsbereich SMWA ist es das Ziel, dass alle Einrichtungen, die der Erstellung, Speicherung und Übertragung von Daten dienen, so ausgewählt, integriert und konfiguriert sind, dass für die auf ihnen verarbeiteten Daten zu jeder Zeit und unter allen Umständen das angemessene Maß an Vertraulichkeit, Integrität und Verfügbarkeit sichergestellt ist. Dies gilt auch für die Orte zur Aufbewahrung der Medien zur Datensicherung. Die Einhaltung dieser Anforderungen ist unabdingbarer Bestandteil jedes Einsatzes von Informations- und Kommunikationstechnik im Geschäftsbereich SMWA und ist durch geeignete Maßnahmen sicherzustellen."
+        },
+        {
+          "type": "item",
+          "label": "3.2",
+          "text": "Standards des Bundesamtes für Sicherheit in der Informationstechnik",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Zur Erreichung und Aufrechterhaltung eines angemessenen und ausreichenden Informationssicherheitsniveaus sind für die Behörden des Geschäftsbereichs SMWA die Handlungsanweisungen des Bundesamtes für Sicherheit in der Informationstechnik (BSI) maßgeblich. Diese umfassen insbesondere die Anwendung der aktuellen BSI-Standards sowie der IT-Grundschutz-Kataloge."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Sicherheitskonzepte sind entsprechend der IT-Grundschutz-Vorgehensweise (BSI Standard 100-2) zu erstellen. Zeichnet sich im Rahmen der Prüfung ein über den Grundschutz hinausgehender Schutzbedarf ab, ist dieser anschließend mit einer Risikoanalyse auf der Basis von IT-Grundschutz gemäß BSI Standard 100-3 zu ermitteln und mit geeigneten Sicherheitsmaßnahmen zu gewährleisten."
+        },
+        {
+          "type": "item",
+          "label": "3.3",
+          "text": "Informationssicherheit als Leistungsmerkmal",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Bei sämtlichen IT-Verfahren ist sicherzustellen, dass Belange der Informationssicherheit in jedem Stand des Verfahrens (zum Beispiel Entwicklung, Einführung, Betrieb) hinreichend Berücksichtigung finden. Gleiches gilt für den Umgang (zum Beispiel Beschaffung, Aufbewahrung, Beseitigung, Entsorgung) mit IT-Produkten."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Belange der Informationssicherheit sind ferner zu berücksichtigen insbesondere bei:"
+        },
+        {
+          "type": "item",
+          "label": "a)",
+          "text": "der Gestaltung der Organisation,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "der Zuweisung von Verantwortlichkeiten,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "der Führung von Beschäftigten,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "dem Bereich Aus- und Weiterbildung,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "e)",
+          "text": "der Gestaltung von Arbeitsabläufen,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "f)",
+          "text": "der Zusammenarbeit mit anderen Behörden und Externen und",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "g)",
+          "text": "der Auswahl und dem Einsatz von Hilfsmitteln.",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Geschäftsprozesse sind so zu gestalten, dass sich Sicherheitsmaßnahmen harmonisch in diese einfügen."
+        },
+        {
+          "type": "item",
+          "label": "3.4",
+          "text": "Wirtschaftlichkeit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Sicherheitsmaßnahmen müssen in einem wirtschaftlich vertretbaren Verhältnis zum Schaden stehen, der durch Sicherheitsvorfälle verursacht werden kann. Dieser wird durch den Wert der zu schützenden Informationen und der IT-Systeme definiert. Zu bewerten sind dabei in der Regel die Auswirkungen auf die körperliche und seelische Unversehrtheit von Menschen, das Recht auf informationelle Selbstbestimmung, finanzielle Schäden innerhalb und außerhalb der Verwaltung, Beeinträchtigungen des Ansehens der Behörden des Geschäftsbereichs SMWA und die Folgen von Gesetzesverstößen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das Kriterium der wirtschaftlichen Angemessenheit ist nicht anwendbar, soweit Sicherheitsmaßnahmen erforderlich sind, um rechtliche Anforderungen oder Vorgaben erfüllen zu können."
+        },
+        {
+          "type": "item",
+          "label": "3.5",
+          "text": "Subsidiarität",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Vorgaben des SMWA zu Sicherheitszielen können von den nachgeordneten Behörden im Geschäftsbereich SMWA entsprechend den individuellen Anforderungen präzisiert und ergänzt werden. Sie dürfen aber nicht im Widerspruch zu den Vorgaben des SMWA stehen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Behörden sind grundsätzlich frei in der Auswahl der Mittel, mit denen sie ihre Sicherheitsziele erreichen wollen. Angemessene Sicherheitsmaßnahmen können eigenständig geplant und umgesetzt werden."
+        },
+        {
+          "type": "item",
+          "label": "3.6",
+          "text": "Information der Beschäftigten",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Beschäftigten sind bezüglich der Informationssicherheit im erforderlichen Umfang zu sensibilisieren und zu qualifizieren. Hierfür werden sämtliche Dokumente, die im Zuge des Informationssicherheitsprozesses beschlossen wurden, allen Beschäftigten des Geschäftsbereichs SMWA bekannt gemacht."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Neuen Beschäftigten wird diese Leitlinie bekannt gemacht, bevor sie Zugang zu geschäftsrelevanten Informationen erhalten."
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Informationssicherheitsziele",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.1",
+          "text": "Verfügbarkeit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Für alle IT-Verfahren sind die Zeiten, in denen sie verfügbar sein sollen, zu bestimmen. Für regelmäßige Betriebsunterbrechungen, die aus technischen, organisatorischen oder sicherheits- relevanten Gründen notwendig sind, sind Zeiten festzulegen."
+        },
+        {
+          "type": "item",
+          "label": "4.2",
+          "text": "Vertraulichkeit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Sämtliche Daten, die erhoben, gespeichert oder verarbeitet werden, sind vertraulich zu behandeln und jederzeit vor unbefugtem Zugriff zu schützen. Informationen dürfen nur den Berechtigten zur Verfügung stehen. Berechtigt ist jeder Beschäftigte, soweit er den Zugriff auf die Informationen zur Erfüllung seiner dienstlichen Aufgaben benötigt."
+        },
+        {
+          "type": "item",
+          "label": "4.3",
+          "text": "Integrität",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Informationen sind gegen unbeabsichtigte Veränderung und vorsätzliche Verfälschung zu schützen. Alle IT-Verfahren sollen stets aktuelle und vollständige Informationen liefern, eventuelle verfahrens- oder informationsverarbeitungsbedingte Einschränkungen sind zu dokumentieren."
+        },
+        {
+          "type": "item",
+          "label": "4.4",
+          "text": "Weitere Informationssicherheitsziele",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die einzelnen Behörden können über Verfügbarkeit, Vertraulichkeit und Integrität hinaus weitere Sicherheitsziele formulieren."
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Verantwortlichkeiten",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.1",
+          "text": "Behördenleitung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Behördenleitung trägt für ihren Bereich die Gesamtverantwortung hinsichtlich der Gewährleistung eines angemessenen Informationssicherheitsniveaus. Sie stellt sicher, dass diese Leitlinie in allen Punkten zielführend umgesetzt wird. Sie erlässt hierfür verbindliche Regeln zur Informationssicherheit, deren Geltungsbereich sich auch auf die nachgeordneten Behörden erstrecken kann, und gibt sie allen Beschäftigten bekannt."
+        },
+        {
+          "type": "item",
+          "label": "5.2",
+          "text": "Führungskräfte",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Führungskräfte haben im Rahmen ihrer Leitungsaufgabe darauf zu achten, dass sich die Beschäftigten ihres Zuständigkeitsbereichs sicherheitskonform verhalten. Durch Sensibilisierung fördern sie das Sicherheitsbewusstsein der Beschäftigten."
+        },
+        {
+          "type": "item",
+          "label": "5.3",
+          "text": "Beschäftigte",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Alle Beschäftigten tragen die Verantwortung, bestimmungsgemäß und sachgerecht mit den von ihnen genutzten Informationen umzugehen. Sie befolgen die für die Informationssicherheit relevanten Vorschriften und vertraglichen Verpflichtungen."
+        },
+        {
+          "type": "item",
+          "label": "5.4",
+          "text": "Beschäftigung externer Leistungserbringer",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Personen, Behörden und Unternehmen, die nicht dem Geschäftsbereich SMWA angehören, für diesen aber Leistungen erbringen, haben die Vorgaben des Auftraggebers zur Einhaltung der Informationssicherheitsziele gemäß dieser Leitlinie einzuhalten. Der Auftraggeber informiert den Auftragnehmer über diese Regeln und verpflichtet ihn in geeigneter Weise zur Einhaltung. Dazu gehört, dass der Auftragnehmer bei erkennbaren Mängeln und Risiken eingesetzter Sicherheitsmaßnahmen den Auftraggeber zu informieren hat."
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Informationssicherheitsorganisation",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Zur Erreichung der Informationssicherheitsziele wird eine Sicherheitsorganisation nach Maßgabe der folgenden Festlegungen eingerichtet."
+        },
+        {
+          "type": "item",
+          "label": "6.1",
+          "text": "Beauftragter für Informationssicherheit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Hausleitung des SMWA delegiert im Rahmen ihrer Gesamtverantwortung die Wahrnehmung der Aufgaben der Informationssicherheit auf den Beauftragten für Informationssicherheit (BfIS). Der BfIS berät und unterstützt die Hausleitung in allen Angelegenheiten der Informationssicherheit."
+        },
+        {
+          "type": "paragraphText",
+          "text": "In den nachgeordneten Behörden soll von der Behördenleitung jeweils ein BfIS benannt werden. Solange keine Bestellung erfolgte, wird die Aufgabe vom Behördenleiter wahrgenommen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Zu den Aufgaben des BfIS gehören:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Steuerung des Informationssicherheitsprozesses und Mitwirkung bei allen damit zusammenhängenden Aufgaben,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Überprüfung der Umsetzung der Vorgaben zur Informationssicherheit,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Erstellung, Fortschreibung und Umsetzung des Sicherheitskonzeptes,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Vorschlag von neuen Sicherheitsmaßnahmen und -strategien,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Vertretung der Behörde oder Einrichtung in den Angelegenheiten der Informationssicherheit,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Ansprechpartner für die Beschäftigten in den Fragen der Informationssicherheit,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Koordination von Sensibilisierungs- und Schulungsmaßnahmen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Zusammenfassung von bereichs-, projekt- oder systemspezifischen Informationen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Meldung von besonders sicherheitsrelevanten Zwischenfällen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Beteiligung des BfIS an sicherheitsrelevanten Vorgängen ist in den Behörden sicherzustellen."
+        },
+        {
+          "type": "item",
+          "label": "6.2",
+          "text": "IS-Management-Team",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Im SMWA wird ein Management-Team für Informationssicherheit (IS-Management-Team) gebildet."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das IS-Management-Team setzt sich zusammen aus:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "dem BfIS, der den Vorsitz hat, und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "den für den IT-Service zuständigen Beschäftigten des Referates 14",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "als ständige Mitglieder sowie – soweit eine Fachanwendung betroffen ist –"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "mindestens einem vom BfIS zugezogenen Vertreter der betroffenen Fachreferate",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "als nichtständiges Mitglied."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das IS-Management-Team unterstützt den BfIS bei der Wahrnehmung seiner Aufgaben."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Durch die Hinzuziehung von Fachanwendern wird gewährleistet, dass sich die Sicherheitsmaßnahmen als integraler Bestandteil der Geschäftsprozesse und nicht als deren Effizienz senkender Annex darstellen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "In den nachgeordneten Behörden können ebenfalls IS-Management-Teams gebildet werden."
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Sicherheitskonzeption",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Jede Behörde entwickelt ein Sicherheitskonzept. Es wird auf Grundlage der BSI-Standards und der BSI-Grundschutz-Kataloge sowie der Festlegungen dieser Leitlinie erstellt."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das Sicherheitskonzept ist stets auf dem aktuellen Stand zu halten und den sich verändernden Rahmenbedingungen anzupassen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das Sicherheitskonzept umfasst mindestens folgende Aspekte:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "IT-Strukturanalyse,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Feststellung und Dokumentation des Schutzbedarfs,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "IT-Grundschutzanalyse,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Ergänzende Sicherheitsanalyse ab einem hohen Schutzbedarf,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Festlegung zweckdienlicher Maßnahmen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Regelmäßige Überprüfung des Sicherheitskonzepts.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Verstöße gegen die Informationssicherheitsleitlinie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Verhalten, das die Sicherheit von Daten, Informationen, IT-Systemen oder der Netze gefährdet, kann disziplinar- oder arbeitsrechtlich geahndet werden. Bei Vorliegen der jeweiligen Voraussetzungen kann das Verhalten zudem als Ordnungswidrigkeit oder Straftat verfolgt werden."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Beschäftigte, die die Sicherheit von Daten, Informationen, IT-Systemen oder des Netzes gefährden und einen Schaden für den Freistaat oder einen Dritten verursachen, können darüber hinaus nach den gesetzlichen Regelungen zum Schadenersatz herangezogen werden oder einem Rückgriffanspruch ausgesetzt sein."
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "Revision",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das Gesamtkonzept der Informationssicherheit wird regelmäßig auf seine Aktualität, Angemessenheit und Wirksamkeit geprüft."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Durch eine kontinuierliche Revision der zum Zwecke der Informationssicherheit erlassenen Regelungen und getroffenen Maßnahmen sowie deren Einhaltung wird das angestrebte Sicherheitsniveau gewährleistet."
+        }
+      ]
+    }
+  ]
+}

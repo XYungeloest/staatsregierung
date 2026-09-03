@@ -1,0 +1,61 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung der Ostdeutschen Gemeindeordnung",
+  "shortTitle": "Änd. OstGemO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung der Ostdeutschen Gemeindeordnung vom 24. November 2000 (SächsGVBl. S. 482, 492), das durch das Gesetz vom 24. November 2000 (SächsGVBl. S. 482; 2001 S. 704) geändert worden ist",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Teil 10 § 73 Absatz 1 der Mantelvorschrift 3393, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 4399 (Bestandteil der Vorschrift 3393)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/4399.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4399",
+      "retrievedAt": "2026-09-03",
+      "sha256": "517ea8a29885b44f470e361e5c7713492be1f786f8360e9a3bd783e41757df6f",
+      "lawId": "4399",
+      "sourceValidFrom": "2001-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3393, Teil 10 § 73 Absatz 1 (Sächsisches Justizgesetz)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3393.23.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3393.23#abs1",
+      "retrievedAt": "2026-09-03",
+      "sha256": "7ab88728f0e48a58bc02e728e889fbae61fbda72322c9e72b5d13e6ead4a97ed",
+      "lawId": "3393",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2023-12-31",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "part",
+      "label": "Teil 10",
+      "title": "Schlussvorschriften",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 73",
+          "title": "Änderung anderer Rechtsvorschriften",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "§ 122 Abs. 4 der Gemeindeordnung für den Freistaat Ostdeutschland (OstGemO) in der Fassung der Bekanntmachung vom 14. Juni 1999 (SächsGVBl. S. 345) wird aufgehoben.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
