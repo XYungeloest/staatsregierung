@@ -413,7 +413,11 @@ function parseSections(container, notes = [], { hoistTextBearingWrappers = false
         continue;
       }
       if (!sectionTitle) {
-        throw new RevosaxParseError('REVOSax-Abschnitt ohne Überschrift und ohne erkennbare Gliederung');
+        // Unbetitelte technische Container (z. B. für manuelle Satznummerierung) sind
+        // keine Gliederungseinheit; ihr unmittelbarer Inhalt wird auf der aktuellen Ebene übernommen.
+        stack.at(-1).children.push(...sectionContent(section));
+        notes.push({ kind: 'untitled-wrapper' });
+        continue;
       }
       // Überschrift ohne Gliederungskennzeichen (z. B. „Übereinkommen“, „Schlussbestimmungen“):
       // Die Struktur bleibt als betitelter Abschnitt erhalten und wird im Staging ausgewiesen.

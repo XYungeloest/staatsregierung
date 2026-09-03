@@ -56,6 +56,11 @@ export function adaptSaxonText(value) {
   }
 
   text = text
+    // Grundform des Adjektivs, auch in Bindestrichkomposita („sächsisch-tschechisch“,
+    // „Sächsisch-Thüringische …“); der Fremdbezug „-anhaltisch“ bleibt unverändert.
+    .replace(/\bSächsisch(?![\p{L}])(?!-[Aa]nhalt)/gu, 'Ostdeutsch')
+    .replace(/\bsächsisch(?![\p{L}])(?!-[Aa]nhalt)/gu, 'ostdeutsch')
+    .replace(/\bSachsens\b/gu, 'Ostdeutschlands')
     .replace(/\bSachsen\b(?!-Anhalt)/gu, 'Ostdeutschland')
     .replace(/\bsachsen\b(?!-anhalt)/gu, 'ostdeutschland')
     // amtliche Abkürzungen wie SächsBG, SächsSchulG, SächsBO usw.
@@ -132,6 +137,6 @@ export function auditAdaptedRevosaxSnapshot(parsed) {
   };
   return collectStrings(normative).filter(({ value }) => {
     const auditableValue = stripProtectedSourceTokens(value);
-    return /(?:\bSachsen\b(?!-Anhalt)|\bsachsen\b(?!-anhalt)|\bSächs(?:isch|[A-ZÄÖÜ])|\bsächs(?:isch|[A-ZÄÖÜ]))/u.test(auditableValue);
+    return /(?:\bSachsens?\b(?!-Anhalt)|\bsachsens?\b(?!-anhalt)|\bSächs(?:isch|[A-ZÄÖÜ])|\bsächs(?:isch|[A-ZÄÖÜ]))/u.test(auditableValue);
   });
 }

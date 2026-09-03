@@ -323,3 +323,12 @@ test('Bekanntmachungen als eigene Vorschrift und Abschnitte außerhalb von .sect
   assert.deepEqual(sections[1].children.map((block) => [block.type, block.label, block.title]), [['section', '1.', 'Rechtsgrundlagen']]);
   assert.equal(modern.sourceValidFrom, '2026-08-01');
 });
+
+test('unbetitelte technische Abschnitte werden auf die aktuelle Ebene gehoben', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="Artikel 1 Grundsätze"><h4>Artikel 1 Grundsätze</h4><p>(1) Der Freistaat ist ein Land.</p></section>
+    <section data-satzzahl="manuell" id="x1"><p>(2) Ergänzender Absatz ohne eigene Gliederung.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/3975' });
+  const article = parsed.body.find((block) => block.type === 'article');
+  assert.deepEqual(article.children.map((block) => block.label), ['(1)', '(2)']);
+  assert.deepEqual(parsed.structureNotes, [{ kind: 'untitled-wrapper' }]);
+});

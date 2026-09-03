@@ -248,7 +248,8 @@ async function loadVersion(hit, url, sourceId, options, { allowRedirect = false,
   const rawHtml = source.bytes.toString('utf8');
   const envelope = detectEnvelopeComponent(rawHtml, source.meta.url);
   if (envelope) return { ...source, sourceId, envelope, original: null, versions: [], active: null };
-  if (detectMissingText(rawHtml)) return { ...source, sourceId, missingText: true, original: null, versions: [], active: null };
+  const missingText = detectMissingText(rawHtml);
+  if (missingText) return { ...source, sourceId, missingText, original: null, versions: [], active: null };
   const versions = extractVersionLinks(rawHtml, source.meta.url);
   const attachments = extractAttachmentLinks(rawHtml, source.meta.url);
   const active = versions.find((version) => version.active) ?? null;
@@ -293,24 +294,42 @@ async function loadMatchingVersion(hit, options) {
   if (hit.versionSuffix) throw new StageFailure('validity', problem);
 
   // Dynamische Seite zeigt eine spätere Fassung: passende historische Fassung aus dem Menü laden.
-  const candidates = requested.versions.filter((version) =>
-    !version.active && version.validFrom && (hit.validFrom ? version.validFrom === hit.validFrom
-      : (version.validFrom <= options.date && (!version.validTo || options.date <= version.validTo))));
-  if (candidates.length !== 1) {
+  const covering = (version) => version.validFrom <= options.date && (!version.validTo || options.date <= version.validTo);
+  let candidates = requested.versions.filter((version) =>
+    !version.active && version.validFrom && (hit.validFrom ? version.validFrom === hit.validFrom : covering(version)));
+  // Mehrere Fassungen mit demselben Beginn: nur die den Stichtag abdeckende Fassung ist gemeint.
+  if (candidates.length > 1) candidates = candidates.filter(covering);
+  if (candidates.length === 0) {
     throw new StageFailure(
       'validity',
-      `${problem}; im Fassungsmenü ${candidates.length === 0 ? 'keine' : `${candidates.length}`} passende historische Fassung(en) ` +
+      `${problem}; im Fassungsmenü keine passende historische Fassung ` +
       `(${requested.versions.map((version) => `${version.versionSuffix}: ${version.label}`).join('; ')})`,
     );
   }
-  const [candidate] = candidates;
-  const fallback = await loadVersion(hit, candidate.url, `${hit.lawId}.${candidate.versionSuffix}`, options);
-  if (fallback.active.versionSuffix !== candidate.versionSuffix) {
-    throw new StageFailure('validity', `Fassung ${candidate.versionSuffix} angefordert, Seite zeigt ${fallback.active.versionSuffix}`);
+  const loadedCandidates = [];
+  for (const candidate of candidates) {
+    const fallback = await loadVersion(hit, candidate.url, `${hit.lawId}.${candidate.versionSuffix}`, options);
+    if (fallback.active.versionSuffix !== candidate.versionSuffix) {
+      throw new StageFailure('validity', `Fassung ${candidate.versionSuffix} angefordert, Seite zeigt ${fallback.active.versionSuffix}`);
+    }
+    const fallbackProblem = validityProblem(hit, fallback.original, options.date);
+    if (fallbackProblem) throw new StageFailure('validity', `historische Fassung ${candidate.versionSuffix}: ${fallbackProblem}`);
+    loadedCandidates.push(fallback);
   }
-  const fallbackProblem = validityProblem(hit, fallback.original, options.date);
-  if (fallbackProblem) throw new StageFailure('validity', `historische Fassung ${candidate.versionSuffix}: ${fallbackProblem}`);
-  return { ...fallback, resolvedFrom: redirectedFrom ?? requested.meta.url };
+  if (loadedCandidates.length > 1) {
+    // Identische Fassungsdatensätze (gleiches Intervall, gleicher Text) werden deterministisch auf die
+    // höchste Fassungsnummer aufgelöst; abweichender Text bleibt ein Gültigkeitsfehler.
+    const texts = new Set(loadedCandidates.map((entry) => hash(JSON.stringify(entry.original.body))));
+    if (texts.size > 1) {
+      throw new StageFailure(
+        'validity',
+        `${problem}; ${loadedCandidates.length} historische Fassungen mit gleichem Intervall, aber abweichendem Text ` +
+        `(${loadedCandidates.map((entry) => entry.active.versionSuffix).join(', ')})`,
+      );
+    }
+  }
+  const chosen = loadedCandidates.sort((left, right) => Number(right.active.versionSuffix) - Number(left.active.versionSuffix))[0];
+  return { ...chosen, resolvedFrom: redirectedFrom ?? requested.meta.url, duplicateIntervalVersions: loadedCandidates.length > 1 ? loadedCandidates.map((entry) => entry.active.versionSuffix) : undefined };
 }
 
 /** Kurzbezeichnungen, die nur aus einem Kürzel bestehen, ergeben keinen lesbaren Slug. */
@@ -359,7 +378,7 @@ function envelopeEntry({ hit, index, loaded, classification, manifestLawIds }) {
 
 function missingTextEntry({ hit, index, loaded, classification }) {
   const { meta, sourceId } = loaded;
-  console.log(`[${index + 1}] ${sourceId}: REVOSax hält keinen Text vor („Datei nicht im Datenbestand“)`);
+  console.log(`[${index + 1}] ${sourceId}: REVOSax hält keinen Text vor („${loaded.missingText}“)`);
   return {
     index,
     revosaxLawId: String(hit.lawId),
@@ -386,6 +405,7 @@ function missingTextEntry({ hit, index, loaded, classification }) {
     blockCount: 0,
     reviewFlags: [],
     skipReason: 'no-text-in-revosax',
+    missingTextNotice: loaded.missingText,
     rawCacheFile: relative(loaded.rawPath),
     parsedCacheFile: null,
   };
@@ -429,6 +449,7 @@ async function stageHit({ hit, index, total }, options) {
   const slug = count === 1 ? baseSlug : `${baseSlug}-${hit.lawId}${active.versionSuffix ? `-${active.versionSuffix}` : ''}`;
   const flags = reviewFlags(hit, original, { resolvedTitle: loaded.resolvedTitle });
   if (loaded.resolvedFrom) flags.push('resolved-historical-version');
+  if (loaded.duplicateIntervalVersions) flags.push('duplicate-interval-versions');
   if (loaded.attachments.length > 0 && bodyTextLength(adapted.body) < 300) {
     // Der Lesetext besteht praktisch nur aus Verweisen auf PDF-Anhänge; der Normtext liegt in den Anlagen.
     flags.push('attachment-only-content');

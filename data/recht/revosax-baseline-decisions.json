@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "baselineDate": "2023-11-01",
+  "description": "Dokumentierte Entscheidungen zu REVIEW-Fällen des Materialisierungsplans (scripts/plan-revosax-materialization.mjs). Schlüssel ist die REVOSax-Quellkennung (<lawId>[.<Fassung>]). Jede Entscheidung braucht eine Begründung; sie löst nur REVIEW-Fälle auf oder erzwingt SKIP.",
+  "decisions": {
+    "1018": {
+      "action": "SKIP",
+      "reason": "Europäisches Übereinkommen über das grenzüberschreitende Fernsehen: REVOSax hält den Text nur als PDF-Anlagen vor (Übereinkommen, Änderungsprotokoll); die Anlagenarchivierung ist als Folgeaufgabe im README dokumentiert.",
+      "decidedAt": "2026-09-03"
+    },
+    "17114": {
+      "action": "SKIP",
+      "reason": "Der REVOSax-Lesetext besteht ausschließlich aus Verweisen auf PDF-Anlagen; ohne Anlagenimport gäbe es keinen Normtext. Anlagenarchivierung ist als Folgeaufgabe dokumentiert.",
+      "decidedAt": "2026-09-03"
+    }
+  }
+}

@@ -49,3 +49,12 @@ test('adapts structure labels that carry Saxon abbreviations', () => {
   assert.equal(parsed.body[0].label, 'Anlage 1 (zu § 8 OstRKVO)');
   assert.deepEqual(auditAdaptedRevosaxSnapshot(parsed), []);
 });
+
+test('adapts the bare adjective, hyphenated compounds and the genitive but not Sachsen-Anhalt', () => {
+  assert.equal(adaptSaxonText('Auf das Wort „Sächsisch“ soll verzichtet werden.'), 'Auf das Wort „Ostdeutsch“ soll verzichtet werden.');
+  assert.equal(adaptSaxonText('die Sächsisch-Thüringische Apothekerversorgung'), 'die Ostdeutsch-Thüringische Apothekerversorgung');
+  assert.equal(adaptSaxonText('im sächsisch-tschechischen Grenzraum'), 'im ostdeutsch-tschechischen Grenzraum');
+  assert.equal(adaptSaxonText('sächsisch-anhaltische Behörden in Sachsen-Anhalt'), 'sächsisch-anhaltische Behörden in Sachsen-Anhalt');
+  assert.equal(adaptSaxonText('die Haushaltsordnung Sachsens'), 'die Haushaltsordnung Ostdeutschlands');
+  assert.deepEqual(auditAdaptedRevosaxSnapshot({ sourceTitle: 'x', shortTitle: 'x', fullCitation: 'x', body: [{ type: 'paragraphText', text: 'Sachsens Landtag' }] }).length, 1);
+});

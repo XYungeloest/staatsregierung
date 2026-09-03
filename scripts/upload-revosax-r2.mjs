@@ -42,6 +42,8 @@ Optionen:
   --no-verify            Objekte nach dem Upload nicht erneut lesen
   --limit <n>            nur die ersten n archivierbaren Einträge
   --law-id <id>          nur diese lawId (mehrfach möglich)
+  --plan <Pfad>          nur Einträge mit Aktion CREATE oder MATCH des Materialisierungsplans
+  --concurrency <n>      parallele Uploads (Standard: 1; Wrangler-Transport verträgt 4–6)
   --allow-failures       Stagingbericht mit Fehlern zulassen (nur erfolgreiche Einträge)
   --help                 Diese Hilfe`;
 
@@ -178,14 +180,29 @@ async function main() {
   if (manifest.bucket !== bucket) throw new Error(`R2-Manifest gehört zum Bucket ${manifest.bucket}, angefordert ist ${bucket}`);
 
   let candidates = report.entries.filter((entry) => !entry.skipReason);
+  const planPath = valueAfter(args, '--plan');
+  if (planPath) {
+    const plan = await readJson(resolve(planPath));
+    if (plan.baselineDate !== report.baselineDate) throw new Error('Plan und Stagingbericht gehören zu verschiedenen Stichtagen');
+    const wanted = new Set(plan.entries.filter((entry) => ['CREATE', 'MATCH'].includes(entry.action)).map((entry) => entry.sourceId));
+    candidates = candidates.filter((entry) => wanted.has(entry.sourceId));
+  }
   if (lawIds.length > 0) candidates = candidates.filter((entry) => lawIds.includes(String(entry.revosaxLawId)));
   if (limit !== null) candidates = candidates.slice(0, limit);
   if (candidates.length === 0) throw new Error('keine archivierbaren Einträge');
+  const concurrency = Math.max(1, Number.parseInt(valueAfter(args, '--concurrency') ?? '1', 10) || 1);
 
   const results = [];
   let uploaded = 0;
   let unchanged = 0;
-  for (const [index, entry] of candidates.entries()) {
+  let manifestDirty = false;
+  const persistManifest = async () => {
+    if (!manifestDirty) return;
+    manifestDirty = false;
+    await writeFile(MANIFEST_PATH, `${JSON.stringify(sortManifest(manifest), null, 2)}\n`, 'utf8');
+  };
+
+  const processEntry = async (entry, index) => {
     const objectKey = objectKeyFor(report.baselineDate, entry);
     const bytes = await readFile(resolve(ROOT, entry.rawCacheFile));
     const localHash = sha256(bytes);
@@ -196,8 +213,7 @@ async function main() {
     if (existing && existing.sha256 === localHash && !dryRun) {
       unchanged += 1;
       results.push({ objectKey, status: 'bereits archiviert' });
-      console.log(`[${index + 1}/${candidates.length}] ${objectKey}: bereits archiviert`);
-      continue;
+      return;
     }
     if (existing && existing.sha256 !== localHash) {
       throw new Error(`${objectKey}: im R2-Manifest ist bereits ein Objekt mit anderem SHA-256 verzeichnet; Rohquellen werden nie überschrieben`);
@@ -218,8 +234,7 @@ async function main() {
     };
     if (dryRun) {
       results.push({ objectKey, status: 'geprüft (dry-run)', ...record });
-      console.log(`[${index + 1}/${candidates.length}] ${objectKey}: ${bytes.length} Byte geprüft`);
-      continue;
+      return;
     }
     const putResult = await transport.put(objectKey, bytes, 'text/html; charset=utf-8', resolve(ROOT, entry.rawCacheFile));
     record.uploadedAt = new Date().toISOString();
@@ -234,12 +249,32 @@ async function main() {
     }
     manifest.objects[objectKey] = record;
     manifest.updatedAt = record.uploadedAt;
+    manifestDirty = true;
     uploaded += 1;
     results.push({ objectKey, status: 'hochgeladen', ...record });
-    console.log(`[${index + 1}/${candidates.length}] ${objectKey}: hochgeladen${record.verified ? ' und verifiziert' : ''}`);
-    // Manifest nach jedem Objekt fortschreiben, damit ein Abbruch keinen Fortschritt verliert.
-    await writeFile(MANIFEST_PATH, `${JSON.stringify(sortManifest(manifest), null, 2)}\n`, 'utf8');
-  }
+    if ((index + 1) % 25 === 0 || index === candidates.length - 1) {
+      console.log(`[${index + 1}/${candidates.length}] ${objectKey}: hochgeladen${record.verified ? ' und verifiziert' : ''} (${uploaded} neu, ${unchanged} vorhanden)`);
+      // Manifest regelmäßig fortschreiben, damit ein Abbruch keinen Fortschritt verliert.
+      await persistManifest();
+    }
+  };
+
+  let nextIndex = 0;
+  let failure = null;
+  const worker = async () => {
+    while (nextIndex < candidates.length && !failure) {
+      const index = nextIndex;
+      nextIndex += 1;
+      try {
+        await processEntry(candidates[index], index);
+      } catch (error) {
+        failure = error;
+      }
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(concurrency, candidates.length) }, () => worker()));
+  await persistManifest();
+  if (failure) throw failure;
 
   const runManifestPath = resolve(cacheDir, 'r2-manifest.json');
   await writeFile(runManifestPath, `${JSON.stringify({

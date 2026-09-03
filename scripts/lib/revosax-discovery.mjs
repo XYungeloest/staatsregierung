@@ -596,13 +596,18 @@ export function detectEnvelopeComponent(html, pageUrl = REVOSAX_ORIGIN) {
   };
 }
 
-/** Seiten, für die REVOSax ausdrücklich keinen Text vorhält („Datei nicht im Datenbestand“). */
+/**
+ * Seiten, für die REVOSax ausdrücklich keinen Text vorhält („Datei nicht im
+ * Datenbestand“, „Datei befindet sich in Bearbeitung“). Liefert den Hinweistext
+ * oder null.
+ */
 export function detectMissingText(html) {
   const document = parse(html);
   const lawShow = first(document, (node) => hasClass(node, 'law_show'));
-  if (!lawShow) return false;
-  if (first(lawShow, (node) => node.tagName === 'article' && attrs(node).id === 'lesetext')) return false;
-  return /Datei nicht im Datenbestand/u.test(cleanText(lawShow));
+  if (!lawShow) return null;
+  if (first(lawShow, (node) => node.tagName === 'article' && attrs(node).id === 'lesetext')) return null;
+  const match = cleanText(lawShow).match(/Datei nicht im Datenbestand|Datei befindet sich in Bearbeitung/u);
+  return match ? match[0] : null;
 }
 
 /** Anlagenverweise (PDF-Anhänge) innerhalb des Lesetexts. */
