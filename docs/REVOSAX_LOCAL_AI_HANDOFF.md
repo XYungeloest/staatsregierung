@@ -250,13 +250,13 @@ R2-Verweise gegen `data/recht/revosax-r2-manifest.json` (Objektschlüssel und SH
 | B Staging | erledigt: 20 → 100 → 5.089/5.089 ohne Fehler; Bericht `.cache/revosax-baseline/2023-11-01/report.json`, versionierter Import-Audit unter `data/recht/revosax-import-audit/` |
 | C R2-Provenienz, Plan, Materializer | erledigt: 3.346 Stammfassungen/Änderungsakte + 1.620 Artikel und Absätze von Mantelvorschriften (Klassifizierung A/B/C/D plus zweite Stufe `data/recht/revosax-envelope-decisions.json`, `containedIn`/`part-of` auch für MATCH), `PROTECT` 52, `REVIEW` 0, `SKIP` 64 begründet; Bilanz in `data/recht/revosax-import-audit/summary.json` |
 | D R2 und Git | erledigt: HTML-Rohquellen (Fassungsseiten, Komponentenseiten, 20 nachgeladene Mantelseiten inkl. vier historischer Fassungen) und 890 PDF-Anlagen hashverifiziert in `ostrecht-recht-quellen`; 5.207 Normen unter `content/normen/`; Korpus-Audit `npm run norms:ost:residual-audit` mit 0 Reststellen im übergeleiteten Recht und leerem Rückstand (Altbestand über `scripts/consolidate-norms.mjs` übergeleitet) |
-| E D1 | erledigt: Schema 0001–0005 (0005: relationale `law_search_units` + FTS5 mit externem Inhalt und Triggern, Übersichtsspalten, `law_norm_subjects`, `law_norm_history`); Sync mit einmaligem Reset im Vollpfad, indexierten Löschungen, Projektionsfingerabdruck (No-op), Kostenzählern und Budgets; auf Staging gemessen (Fixture-Vollprojektion 151/9.507 Zeilen, Einzelsync 155/289, No-op 8/0); produktive D1 noch auf 0004-Stand (Release-Gate) |
+| E D1 | erledigt: Schema 0001–0005 (0005: relationale `law_search_units` + FTS5 mit externem Inhalt und Triggern, Übersichtsspalten, `law_norm_subjects`, `law_norm_history`); Sync mit einmaligem Reset im Vollpfad, indexierten Löschungen, Projektionsfingerabdruck (No-op), Kostenzählern und Budgets; auf Staging gemessen (Fixture-Vollprojektion 151/9.507 Zeilen, Einzelsync 155/289, No-op 8/0); produktive D1 migriert (0005) und mit dem neuen Pfad neu projiziert (103.403 gelesene / 465.926 geschriebene Zeilen), verifiziert, Folgesync No-op |
 | F OstRecht-Runtime | erledigt: On-demand-Routen aus D1 ohne Korpusaufbau (NormSummary, Metadatenzeilen, Historienindex), Vergleich nur für das angefragte Paar, Sitemap/Suchvorschläge aus schmalen Spalten; aufzeichnende D1-Tests je Route |
 | G CI/CD | erledigt: `scripts/classify-change-scope.mjs` mit `run_d1_sync`, Job `d1_sync` mit `--git-diff` in `deploy.yml`; PR-Smoke gegen das Testfixture (`OSTRECHT_D1_FIXTURE`, 38 Normen), Vollbestand als Release-Gate und in `full-corpus-smoke.yml`; `serve-law-worker.mjs` mit Inhaltshash statt mtime; Staging mit eigenen Bindings; Token braucht D1 Read/Write |
 
 Die genauen Befehle je Phase stehen im Runbook `docs/REVOSAX_BULK_IMPORT.md`; offene Punkte
-(Migration 0005 und Neuprojektion der produktiven D1, PDF-only-Vorschriften, Sichtung der
-Prüfmarken, generische Metadaten) im README-Backlog.
+(PDF-only-Vorschriften, Sichtung der Prüfmarken, generische Metadaten, Cloudflare-Plan und CI-Token)
+im README-Backlog.
 
 ## 10. Nicht tun
 
@@ -312,10 +312,10 @@ Anlagenarchiv, versionierter Import-Audit), die D1-gestützte OstRecht-Laufzeit,
 D1-Sync, getrennte Staging-Ressourcen und die CI-Trennung. Die produktive Website wird erst mit dem
 Merge auf `main` umgestellt.
 
-Release-Gates (siehe README): Migration 0005 und Neuprojektion der produktiven D1 mit dem
-kostensicheren Vollpfad samt Projektionsfingerabdruck (damit der `d1_sync`-Job nach dem Merge ein
-No-op ist), Produktions-Smoke nach dem ersten Deployment, Workers Paid für den Betrieb mit dem
-Vollbestand, Repository-Secret `CLOUDFLARE_API_TOKEN` mit D1 Read/Write. Die verbliebenen
+Release-Gates (siehe README): Produktions-Smoke nach dem ersten Deployment, Workers Paid für den
+Betrieb mit dem Vollbestand, Repository-Secret `CLOUDFLARE_API_TOKEN` mit D1 Read/Write. Die
+produktive D1 ist migriert (0005), mit dem kostensicheren Pfad neu projiziert, verifiziert und trägt
+den Projektionsfingerabdruck; der `d1_sync`-Job nach dem Merge ist damit ein No-op. Die verbliebenen
 redaktionellen Restarbeiten (PDF-only-Vorschriften, Prüfmarken, generische Metadaten) sind mit
 lawId, sourceId, URL, Titel, Slug und Grund unter `data/recht/revosax-import-audit/` versioniert;
 Mantelbestandteile sind über `data/recht/revosax-envelope-decisions.json` vollständig entschieden,

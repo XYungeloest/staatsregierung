@@ -349,11 +349,17 @@ Fixture von 38 Normen; der Vollbestand läuft als Release-Gate und manuell/wöch
 
 Release-Gates vor dem Merge (PR bleibt Draft):
 
-- [ ] **Migration 0005 und Neuprojektion der produktiven D1.** Die produktive Datenbank trägt den
-  Stand vor Migration 0005 (Vollsync vom 3. September 2026, gegen Git verifiziert). Vor dem Merge
-  werden Migration 0005 (lokal und auf `ostrecht-recht-staging` geprüft) und die Neuprojektion mit
-  dem kostensicheren Vollpfad kontrolliert eingespielt und der Projektionsfingerabdruck geschrieben,
-  damit der `d1_sync`-Job nach dem Merge als No-op endet („D1-Projektion ist bereits exakt aktuell“).
+- [x] **Migration 0005 und Neuprojektion der produktiven D1 (3. September 2026, 19:26 UTC).**
+  Nach Prüfung lokal und auf `ostrecht-recht-staging`: Migration 0005 auf `ostrecht-recht`
+  (76.856 gelesene / 152.920 geschriebene Zeilen: Übernahme der 38.223 Suchzeilen und Neuaufbau des
+  Index), anschließend die Vollprojektion des Endbestands mit dem kostensicheren Pfad (5.207 Normen,
+  103.127 Anweisungen, 70 SQL-Dateien, 809 s; **103.403 gelesene** statt zuvor über 300 Mio. und
+  465.926 geschriebene Zeilen, Budgets `--max-rows-read 2000000 --max-rows-written 800000` nicht
+  berührt). `npm run norms:runtime:d1-verify --fts-integrity` bestätigt alle Zähler (5.207 Normen,
+  5.287 Fassungen, 24.543 Blöcke, 6.789 Quellen, 38.561 Suchzeilen, 6.760 Sachgebiets- und 5.317
+  Historienzeilen), `corpus_hash`, Projektionsfingerabdruck, FTS5-Integrität und 16 Stichproben; ein
+  erneuter Sync endet als No-op (8 gelesene, 0 geschriebene Zeilen) – der `d1_sync`-Job nach dem
+  Merge projiziert nichts erneut, solange Rechtsbestand und Projektionslogik unverändert bleiben.
 - [ ] **Cloudflare-Plan.** Der frühere Vollsync und der kalte Korpusaufbau haben das
   D1-Free-Tier-Leselimit (5 Mio. Zeilen/Tag) am 3. September 2026 zweimal erschöpft. Mit Migration
   0005 liest ein Normsync nur noch die Zeilen der Norm, die Laufzeit keinen Korpus mehr; Workers Paid

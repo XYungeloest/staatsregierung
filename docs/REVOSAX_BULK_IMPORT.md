@@ -539,13 +539,13 @@ Fassungen, eine übernommene Änderungsvorschrift, ein Mantelbestandteil, die gr
 Titel/Typ/Status, Fassungen mit Blöcken, Suchzeilen und absoluten Portalverweisen.
 `--local` prüft die Miniflare-Projektion, `--database` eine andere Zieldatenbank.
 
-Stand der produktiven Datenbank: Vollsync des Endbestands mit dem alten Pfad am 3. September 2026
-(5.108 Normen, 115.390 Operationen, 975 s; `d1-verify` grün, Schema 0001–0004). Sie trägt noch
-keine Migration 0005 und keinen Projektionsfingerabdruck; beides wird vor dem Merge kontrolliert
-nachgezogen (Release-Gate im README), damit der nächste `d1_sync` ein No-op ist. Eine lokale
-Vollprojektion des Endbestands (5.207 Normen, 101.874 Anweisungen, 70 SQL-Dateien) läuft in rund
-16 Minuten; `d1-verify --local --fts-integrity` bestätigt Zähler, Fingerabdruck, FTS5-Integrität
-und Stichproben.
+Stand der produktiven Datenbank (3. September 2026, 19:26 UTC): Migration 0005 eingespielt
+(76.856 gelesene / 152.920 geschriebene Zeilen), danach die Vollprojektion des Endbestands mit dem
+kostensicheren Pfad – 5.207 Normen, 103.127 Anweisungen, 70 SQL-Dateien, 809 s, 103.403 gelesene
+und 465.926 geschriebene Zeilen (der alte Pfad las am selben Tag über 300 Mio. Zeilen). `d1-verify
+--fts-integrity` bestätigt Zähler, `corpus_hash`, Projektionsfingerabdruck, FTS5-Integrität und 16
+Stichproben; der erneute Sync ist ein No-op (8 gelesene, 0 geschriebene Zeilen). Eine lokale
+Vollprojektion desselben Bestands läuft in rund 16 Minuten (Wrangler-Overhead je Datei).
 
 Limits: D1 Free zählt 5 Mio. Zeilenlesevorgänge und 100.000 Schreibvorgänge je Tag. Der alte
 Vollsync und der kalte Korpusaufbau der Laufzeit haben das Leselimit am 3. September 2026 zweimal
