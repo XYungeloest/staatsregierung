@@ -5,13 +5,15 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
+import { projectionFingerprint } from './lib/d1-projection-fingerprint.mjs';
+
 /**
  * Prüft die D1-Projektion von OstRecht gegen den Git-Bestand: Tabellenzähler
  * (Normen, Fassungen, Verkündungen, Suchindexabdeckung) und Stichproben je Norm
  * (Titel, Typ, Status, Fassungen mit Blöcken, Suchzeilen).
  *
  * Aufruf:
- *   node scripts/verify-recht-d1.mjs [--local [--persist-to .cache/wrangler-local]] [--database <Name>] [slug ...]
+ *   node scripts/verify-recht-d1.mjs [--local [--persist-to .cache/wrangler-local]] [--database <Name>] [--fts-integrity] [slug ...]
  *
  * Ohne --local wird die produktive Datenbank über die Wrangler-Anmeldung gelesen;
  * mit --local die Miniflare-Datenbank von scripts/serve-law-worker.mjs.
@@ -47,12 +49,16 @@ const counts = query(`SELECT
   (SELECT COUNT(*) FROM law_norm_derived) AS derived,
   (SELECT COUNT(*) FROM law_publications) AS publications,
   (SELECT COUNT(*) FROM law_search_documents) AS search_documents,
-  (SELECT COUNT(*) FROM law_search) AS search_rows,
-  (SELECT COUNT(DISTINCT slug) FROM law_search) AS search_norms,
+  (SELECT COUNT(*) FROM law_search_units) AS search_rows,
+  (SELECT COUNT(DISTINCT slug) FROM law_search_units) AS search_norms,
+  (SELECT COUNT(*) FROM law_norm_subjects) AS subject_rows,
+  (SELECT COUNT(*) FROM law_norm_history) AS history_rows,
   (SELECT value FROM law_runtime_meta WHERE key='last_sync_at') AS last_sync_at,
   (SELECT value FROM law_runtime_meta WHERE key='norm_count') AS norm_count_meta,
   (SELECT value FROM law_runtime_meta WHERE key='publication_count') AS publication_count_meta,
-  (SELECT value FROM law_runtime_meta WHERE key='corpus_hash') AS corpus_hash`)[0];
+  (SELECT value FROM law_runtime_meta WHERE key='corpus_hash') AS corpus_hash,
+  (SELECT value FROM law_runtime_meta WHERE key='projection_fingerprint') AS projection_fingerprint,
+  (SELECT value FROM law_runtime_meta WHERE key='sync_mode') AS sync_mode`)[0];
 console.log(`D1 (${local ? 'lokal' : 'remote'}):`, JSON.stringify(counts));
 
 const normDir = join(ROOT, 'content', 'normen');
@@ -94,6 +100,16 @@ if (Number(counts.derived) !== slugs.length) problems.push(`law_norm_derived ${c
 if (Number(counts.search_documents) !== gitVersions) problems.push(`law_search_documents ${counts.search_documents} ≠ Fassungen ${gitVersions}`);
 if (Number(counts.r2_sources) !== gitR2Sources) problems.push(`R2-Quellen: D1 ${counts.r2_sources} ≠ Git ${gitR2Sources}`);
 if (counts.corpus_hash !== gitHash) problems.push(`corpus_hash: D1 ${counts.corpus_hash ?? '(fehlt)'} ≠ Git ${gitHash}`);
+const expectedFingerprint = await projectionFingerprint(ROOT);
+console.log('Projektionsfingerabdruck:', JSON.stringify({ d1: counts.projection_fingerprint ?? null, git: expectedFingerprint.fingerprint, sync_mode: counts.sync_mode ?? null }));
+if (counts.projection_fingerprint !== expectedFingerprint.fingerprint) {
+  problems.push(`projection_fingerprint: D1 ${counts.projection_fingerprint ?? '(fehlt)'} ≠ Git ${expectedFingerprint.fingerprint} (Sync würde erneut projizieren)`);
+}
+if (args.includes('--fts-integrity')) {
+  // FTS5-Integritätsprüfung des Index mit externem Inhalt (liest den gesamten Index; nur auf Wunsch).
+  query("INSERT INTO law_search(law_search) VALUES ('integrity-check')");
+  console.log('FTS5-Integritätsprüfung: OK');
+}
 
 // Stichproben: übergebene Slugs oder deterministische Auswahl über den Bestand plus
 // gezielte Fälle: übernommene REVOSax-Normen, eine Ost-Norm mit späteren Fassungen,
@@ -114,7 +130,7 @@ const inList = sample.map((slug) => `'${slug.replaceAll("'", "''")}'`).join(',')
 const rows = query(`SELECT n.slug, n.title, n.type, n.status,
   (SELECT COUNT(*) FROM law_versions v WHERE v.norm_id = n.id) AS versions,
   (SELECT COUNT(DISTINCT b.version_id) FROM law_version_blocks b WHERE b.norm_id = n.id) AS versions_with_blocks,
-  (SELECT COUNT(*) FROM law_search s WHERE s.norm_id = n.id) AS search_rows,
+  (SELECT COUNT(*) FROM law_search_units s WHERE s.norm_id = n.id) AS search_rows,
   (SELECT d.portal_links_json FROM law_norm_derived d WHERE d.norm_id = n.id) AS portal_links_json
   FROM law_norms n WHERE n.slug IN (${inList}) ORDER BY n.slug`);
 for (const row of rows) {

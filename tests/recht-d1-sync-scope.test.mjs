@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { deleteNormQueries, derivedQueries, renderStatement, staleRowCleanupQueries } from '../scripts/sync-recht-d1.mjs';
+import { deleteNormQueries, derivedQueries, fullResetQueries, renderStatement } from '../scripts/sync-recht-d1.mjs';
 import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
 
 const existingSlugs = new Set(['foo', 'bar', 'baz']);
@@ -72,7 +72,7 @@ test('Identitätsvergleich beachtet nur identitätsrelevante Metadatenfelder', (
 
 test('Löschanweisungen entfernen alle abhängigen Tabellen einer Norm', () => {
   const statements = deleteNormQueries('foo').map(renderStatement);
-  for (const table of ['law_search', 'law_search_documents', 'law_norm_derived', 'law_source_objects', 'law_version_blocks', 'law_versions', 'law_norms']) {
+  for (const table of ['law_search_units', 'law_norm_subjects', 'law_norm_history', 'law_search_documents', 'law_norm_derived', 'law_source_objects', 'law_version_blocks', 'law_versions', 'law_norms']) {
     assert.ok(statements.some((statement) => statement.includes(`DELETE FROM ${table}`)), table);
   }
   assert.equal(statements.at(-1), "DELETE FROM law_norms WHERE slug = 'foo';");
@@ -103,13 +103,19 @@ test('Derived-Anweisungen schreiben nur die abgeleiteten Daten einer Norm', () =
     assert.match(error.message, /\w/u);
     return;
   }
-  assert.equal(statements.length, 2);
-  assert.ok(statements.every((statement) => statement.includes('law_norm_derived')));
+  assert.equal(statements.length, 3);
+  assert.ok(statements.slice(0, 2).every((statement) => statement.includes('law_norm_derived')));
+  assert.match(statements[2], /^UPDATE law_norms SET origin_kind = /u);
 });
 
-test('die Vollprojektion räumt Zeilen entfernter Normen auch aus Tabellen ohne Fremdschlüssel', () => {
-  const statements = staleRowCleanupQueries().map(renderStatement);
-  for (const table of ['law_search', 'law_norm_derived', 'law_search_documents', 'law_versions', 'law_version_blocks', 'law_source_objects']) {
-    assert.ok(statements.some((statement) => statement === `DELETE FROM ${table} WHERE norm_id NOT IN (SELECT id FROM law_norms);`), table);
-  }
+test('die Vollprojektion leert alle Tabellen einmalig in fremdschlüsselsicherer Reihenfolge, ohne NOT-IN-Aufräumläufe', () => {
+  const statements = fullResetQueries().map(renderStatement);
+  assert.ok(statements.includes("INSERT INTO law_search(law_search) VALUES ('delete-all');"), 'FTS5 delete-all fehlt');
+  assert.ok(statements.indexOf('DROP TRIGGER IF EXISTS law_search_units_ad;') < statements.indexOf('DELETE FROM law_search_units;'), 'Löschtrigger muss vor dem Leeren entfernt sein');
+  assert.ok(statements.findIndex((statement) => statement.startsWith('CREATE TRIGGER IF NOT EXISTS law_search_units_ad')) > statements.indexOf('DELETE FROM law_search_units;'), 'Löschtrigger wird danach wieder angelegt');
+  const order = ['law_norm_history', 'law_norm_subjects', 'law_search_documents', 'law_norm_derived', 'law_source_objects', 'law_version_blocks', 'law_versions', 'law_norms', 'law_publications'].map((table) => statements.indexOf(`DELETE FROM ${table};`));
+  assert.ok(order.every((index) => index >= 0), 'jede Tabelle wird geleert');
+  assert.deepEqual(order, [...order].sort((left, right) => left - right), 'Kindtabellen vor law_norms');
+  assert.ok(statements.every((statement) => !/NOT IN \(SELECT/u.test(statement)), 'keine NOT-IN-Scans');
+  assert.ok(statements.some((statement) => statement.startsWith('DELETE FROM law_runtime_meta WHERE key IN')), 'Laufzeitmetadaten werden bis zum Ende entfernt');
 });

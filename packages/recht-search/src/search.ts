@@ -288,7 +288,7 @@ export function isAmendmentRecord(record: Pick<NormRecord, 'meta'>): boolean {
   );
 }
 
-function getNormAliases(record: NormRecord, currentIdentity: ReturnType<typeof getNormVersionIdentity>): string[] {
+export function getNormAliases(record: NormRecord, currentIdentity: ReturnType<typeof getNormVersionIdentity>): string[] {
   const currentValues = new Set([
     currentIdentity.title,
     currentIdentity.shortTitle,
