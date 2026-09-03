@@ -197,7 +197,14 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
       envelopeMaterialized: component.envelopeMaterialized ?? null,
       anchor: component.anchor,
       articleLabel: component.articleLabel ?? null,
+      articleBlockPath: component.articleBlockPath ?? null,
       anchorResolution: component.anchorResolution ?? null,
+      // Zweite Stufe (data/recht/revosax-envelope-decisions.json): Entscheidung, historische
+      // Mantelfassung, textführende Vorschrift und ursprüngliche Mantelvorschrift.
+      ...(component.decision ? { decision: component.decision } : {}),
+      ...(component.envelopeVersion ? { envelopeVersion: component.envelopeVersion } : {}),
+      ...(component.envelopeParentLawId ? { envelopeParentLawId: component.envelopeParentLawId } : {}),
+      ...(component.heuristicReason ? { heuristicReason: component.heuristicReason } : {}),
       class: component.class,
       reason: component.reason,
       slug: planned?.canonicalSlug ?? component.proposedSlug ?? null,

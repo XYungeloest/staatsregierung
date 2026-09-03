@@ -37,102 +37,108 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 1",
-      "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nRundfunkfinanzierungsstaatsvertrag vom 31. August 1991, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 8 wird wie folgt gefasst:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 1",
+          "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
           "children": [
             {
               "type": "paragraphText",
-              "text": "„§ 8\nHöhe der Rundfunkgebühr"
-            },
-            {
-              "type": "paragraphText",
-              "text": "Die Höhe der Rundfunkgebühr wird monatlich wie folgt festgesetzt:"
+              "text": "Der\nRundfunkfinanzierungsstaatsvertrag vom 31. August 1991, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006, wird wie folgt geändert:"
             },
             {
               "type": "item",
               "label": "1.",
-              "text": "Die Grundgebühr: 5,76 Euro",
-              "level": 1,
+              "text": "§ 8 wird wie folgt gefasst:",
+              "level": 0,
               "numberingStyle": "decimal",
-              "children": []
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 8\nHöhe der Rundfunkgebühr"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Höhe der Rundfunkgebühr wird monatlich wie folgt festgesetzt:"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Die Grundgebühr: 5,76 Euro",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Die Fernsehgebühr: 12,22 Euro.“",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
               "label": "2.",
-              "text": "Die Fernsehgebühr: 12,22 Euro.“",
-              "level": 1,
+              "text": "§ 9 wird wie folgt geändert:",
+              "level": 0,
               "numberingStyle": "decimal",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 9 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "In Absatz 1 wird die Prozentzahl „93,1373“ durch die Prozentzahl „93,0219“ und die Prozentzahl „6,8627“ durch die Prozentzahl „6,9781“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Absatz 1 wird die Prozentzahl „93,1373“ durch die Prozentzahl „93,0219“ und die Prozentzahl „6,8627“ durch die Prozentzahl „6,9781“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Absatz 2 wird die Prozentzahl „61,0994“ durch die Prozentzahl „60,5086“ und die Prozentzahl „38,9006“ durch die Prozentzahl „39,4914“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "In Absatz 3 Satz 3 wird der Betrag „145,96 Mio. Euro“ ersetzt durch den Betrag „163,71 Mio. Euro“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Absatz 2 wird die Prozentzahl „61,0994“ durch die Prozentzahl „60,5086“ und die Prozentzahl „38,9006“ durch die Prozentzahl „39,4914“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "In Absatz 3 Satz 3 wird der Betrag „145,96 Mio. Euro“ ersetzt durch den Betrag „163,71 Mio. Euro“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "§ 17 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "In Satz 3 wird das Datum „31. Dezember 2008“ ersetzt durch das Datum „31. Dezember 2012“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "In Satz 4 wird das Datum „31. Dezember 2008“ ersetzt durch das Datum „31. Dezember 2012“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "3.",
+              "text": "§ 17 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Satz 3 wird das Datum „31. Dezember 2008“ ersetzt durch das Datum „31. Dezember 2012“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Satz 4 wird das Datum „31. Dezember 2008“ ersetzt durch das Datum „31. Dezember 2012“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

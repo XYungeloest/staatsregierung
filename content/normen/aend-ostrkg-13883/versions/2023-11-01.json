@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 13",
-      "title": "Änderung des Ostdeutschen Reisekostengesetzes",
+      "type": "part",
+      "label": "Teil 5",
+      "title": "Anpassungen im Bereich des Staatsministeriums der Finanzen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 15 Abs. 2 Satz 3 des Ostdeutschen Gesetzes über die Reisekostenvergütung der Beamten und Richter (Ostdeutsches Reisekostengesetz – OstRKG vom 12. Dezember 2008 (SächsGVBl. S. 866, 876) wird nach den Wörtern „Verheirateten oder diesen gleichgestellten Beamten“ die Angabe „sowie bei Lebenspartnern“ eingefügt."
+          "type": "article",
+          "label": "Artikel 13",
+          "title": "Änderung des Ostdeutschen Reisekostengesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 15 Abs. 2 Satz 3 des Ostdeutschen Gesetzes über die Reisekostenvergütung der Beamten und Richter (Ostdeutsches Reisekostengesetz – OstRKG vom 12. Dezember 2008 (SächsGVBl. S. 866, 876) wird nach den Wörtern „Verheirateten oder diesen gleichgestellten Beamten“ die Angabe „sowie bei Lebenspartnern“ eingefügt."
+            }
+          ]
         }
       ]
     }

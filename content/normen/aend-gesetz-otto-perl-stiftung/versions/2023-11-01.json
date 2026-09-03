@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 32",
-      "title": "Änderung des Gesetzes zur Errichtung einer „Stiftung Ostdeutsche Behindertenselbsthilfe – Otto Perl“",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 3 Abs. 1 des\nGesetzes zur Errichtung einer „Stiftung Ostdeutsche Behindertenselbsthilfe – Otto Perl“ vom 24. November 1993 (SächsGVBl. S. 1101) wird die Angabe „7 500 000 DM“ durch die Angabe „3 834 689,11 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 32",
+          "title": "Änderung des Gesetzes zur Errichtung einer „Stiftung Ostdeutsche Behindertenselbsthilfe – Otto Perl“",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 3 Abs. 1 des\nGesetzes zur Errichtung einer „Stiftung Ostdeutsche Behindertenselbsthilfe – Otto Perl“ vom 24. November 1993 (SächsGVBl. S. 1101) wird die Angabe „7 500 000 DM“ durch die Angabe „3 834 689,11 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

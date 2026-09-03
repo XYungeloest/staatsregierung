@@ -37,46 +37,53 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 14",
-      "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Die Gemeindeordnung für den Freistaat Ostdeutschland (OstGemO) in der Fassung der Bekanntmachung vom 18. März 2003 (SächsGVBl. S. 55, 159), zuletzt geändert durch Artikel 2 des Gesetzes vom 26. Juni 2009 (SächsGVBl. S. 323, 325), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 13 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 14",
+          "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
           "children": [
             {
-              "type": "item",
-              "label": "a)",
-              "text": "In Absatz 1 Satz 1 werden die Wörter „die Landesdirektion“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "type": "paragraphText",
+              "text": "Die Gemeindeordnung für den Freistaat Ostdeutschland (OstGemO) in der Fassung der Bekanntmachung vom 18. März 2003 (SächsGVBl. S. 55, 159), zuletzt geändert durch Artikel 2 des Gesetzes vom 26. Juni 2009 (SächsGVBl. S. 323, 325), wird wie folgt geändert:"
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Absatz 2 Satz 1 werden die Wörter „bei der Landesdirektion“ durch die Wörter „bei der Landesdirektion Ostdeutschland“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "§ 13 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Absatz 1 Satz 1 werden die Wörter „die Landesdirektion“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Absatz 2 Satz 1 werden die Wörter „bei der Landesdirektion“ durch die Wörter „bei der Landesdirektion Ostdeutschland“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 112 Abs. 1 wird wie folgt gefasst:\n„(1) Rechtsaufsichtsbehörde für kreisangehörige Gemeinden ist das Landratsamt, für Kreisfreie Städte die Landesdirektion Ostdeutschland. Obere Rechtsaufsichtsbehörde ist für alle Gemeinden die Landesdirektion Ostdeutschland. Oberste Rechtsaufsichtsbehörde ist das Staatsministerium des Innern.“",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 112 Abs. 1 wird wie folgt gefasst:\n„(1) Rechtsaufsichtsbehörde für kreisangehörige Gemeinden ist das Landratsamt, für Kreisfreie Städte die Landesdirektion Ostdeutschland. Obere Rechtsaufsichtsbehörde ist für alle Gemeinden die Landesdirektion Ostdeutschland. Oberste Rechtsaufsichtsbehörde ist das Staatsministerium des Innern.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

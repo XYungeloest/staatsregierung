@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Änderung des Fraktionsrechtsstellungsgesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 4 Satz 2 des Gesetzes zur Rechtsstellung und Finanzierung der Fraktionen des Ostdeutschen Landtages (Fraktionsrechtsstellungsgesetz) vom 24. August 1998 (SächsGVBl. S. 459, 1999 S. 130) wird die Angabe „800 DM“ durch die Angabe „400 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des Fraktionsrechtsstellungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 4 Satz 2 des Gesetzes zur Rechtsstellung und Finanzierung der Fraktionen des Ostdeutschen Landtages (Fraktionsrechtsstellungsgesetz) vom 24. August 1998 (SächsGVBl. S. 459, 1999 S. 130) wird die Angabe „800 DM“ durch die Angabe „400 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

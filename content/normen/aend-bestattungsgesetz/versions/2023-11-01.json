@@ -37,29 +37,36 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 53",
-      "title": "Änderung des Ostdeutschen Bestattungsgesetzes",
+      "type": "part",
+      "label": "Teil 10",
+      "title": "Anpassungen im Bereich des Staatsministeriums für Soziales",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 1 des Ostdeutschen Gesetzes über das Friedhofs-, Leichen- und Bestattungswesen (Ostdeutsches Bestattungsgesetz –\nOstBestG) vom 8. Juli 1994 (SächsGVBl. S. 1321), das zuletzt durch Artikel 6 des Gesetzes vom 5. Mai 2004 (SächsGVBl. S. 148, 150) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Absatz 3 Satz 3 Nr. 2 werden die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 4 werden die Wörter „Umwelt und Geologie“ durch die Wörter „Umwelt, Landwirtschaft und Geologie“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 53",
+          "title": "Änderung des Ostdeutschen Bestattungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 1 des Ostdeutschen Gesetzes über das Friedhofs-, Leichen- und Bestattungswesen (Ostdeutsches Bestattungsgesetz –\nOstBestG) vom 8. Juli 1994 (SächsGVBl. S. 1321), das zuletzt durch Artikel 6 des Gesetzes vom 5. Mai 2004 (SächsGVBl. S. 148, 150) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Absatz 3 Satz 3 Nr. 2 werden die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 4 werden die Wörter „Umwelt und Geologie“ durch die Wörter „Umwelt, Landwirtschaft und Geologie“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

@@ -37,44 +37,51 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 34",
-      "title": "Änderung des Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Ostdeutschland",
+      "type": "part",
+      "label": "Teil 5",
+      "title": "Anpassungen im Bereich des Staatsministeriums für Kultus und Sport",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Gesetz über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Ostdeutschland (OstSozAnerkG) vom 13. Dezember 1996 (SächsGVBl. S. 501), zuletzt geändert durch Artikel 2 Abs. 13 des Gesetzes vom 19. Mai 2010 (SächsGVBl. S. 142, 144), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 2 Abs. 7 Satz 1 und 3 wird die Angabe „§ 5 Abs. 3“ jeweils durch die Angabe „§ 5 Abs. 1“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 5 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 34",
+          "title": "Änderung des Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Ostdeutschland",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Das Gesetz über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Ostdeutschland (OstSozAnerkG) vom 13. Dezember 1996 (SächsGVBl. S. 501), zuletzt geändert durch Artikel 2 Abs. 13 des Gesetzes vom 19. Mai 2010 (SächsGVBl. S. 142, 144), wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "Absatz 1 wird wie folgt gefasst:\n„(1) Zuständig für die staatliche Anerkennung und für die Verfolgung von Ordnungswidrigkeiten ist die Landesdirektion Ostdeutschland.“",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "In § 2 Abs. 7 Satz 1 und 3 wird die Angabe „§ 5 Abs. 3“ jeweils durch die Angabe „§ 5 Abs. 1“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Die Absätze 3 und 4 werden aufgehoben.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "2.",
+              "text": "§ 5 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Absatz 1 wird wie folgt gefasst:\n„(1) Zuständig für die staatliche Anerkennung und für die Verfolgung von Ordnungswidrigkeiten ist die Landesdirektion Ostdeutschland.“",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Die Absätze 3 und 4 werden aufgehoben.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

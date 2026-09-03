@@ -199,6 +199,8 @@ function attachmentOnly(block) {
 }
 
 async function fetchEnvelope(lawId, { offline, delayMs, state }) {
+  // lawId darf eine historische Fassung bezeichnen (z. B. 2956.1); Cache und R2-Schlüssel
+  // tragen dann denselben Suffix.
   const rawPath = join(CACHE_ROOT, 'raw', `envelope-${lawId}.html`);
   const metaPath = join(CACHE_ROOT, 'raw', `envelope-${lawId}.meta.json`);
   try {
@@ -220,8 +222,13 @@ async function fetchEnvelope(lawId, { offline, delayMs, state }) {
   return { bytes: response.bytes, meta, rawPath };
 }
 
-export async function classifyEnvelopeComponents(report, { offline = false, delayMs = 400, existingSlugs = new Set(), log = () => {} } = {}) {
-  const bySource = new Map(report.entries.map((entry) => [entry.sourceId, entry]));
+/**
+ * Lädt Mantelvorschriften: gestagte Fassungen aus dem Baseline-Cache (Parse aus
+ * parsed/<sourceId>.json), sonst die Mantelseite aus .cache/revosax-baseline/…/raw
+ * (bei Bedarf nachgeladen). Gemeinsam für den Klassifizierer und den Auflöser der
+ * zurückgestellten Fälle (scripts/resolve-revosax-envelope-defers.mjs).
+ */
+export function createEnvelopeLoader(report, { offline = false, delayMs = 400 } = {}) {
   const byLawId = new Map();
   for (const entry of report.entries) {
     if (entry.skipReason || !entry.parsedCacheFile) continue;
@@ -229,26 +236,28 @@ export async function classifyEnvelopeComponents(report, { offline = false, dela
     list.push(entry);
     byLawId.set(String(entry.revosaxLawId), list);
   }
-  const components = report.entries.filter((entry) => entry.skipReason?.startsWith('part-of-envelope:'));
   const envelopeCache = new Map();
   const extraSources = new Map();
   const state = { fetched: 0 };
 
-  const loadEnvelope = async (lawId) => {
-    if (envelopeCache.has(lawId)) return envelopeCache.get(lawId);
+  const loadEnvelope = async (lawId, version = null) => {
+    const key = version ? `${lawId}.${version}` : String(lawId);
+    if (envelopeCache.has(key)) return envelopeCache.get(key);
     let loaded;
-    const staged = (byLawId.get(lawId) ?? []).find((entry) => !entry.versionSuffix) ?? (byLawId.get(lawId) ?? [])[0];
+    const staged = version
+      ? (byLawId.get(String(lawId)) ?? []).find((entry) => String(entry.versionSuffix ?? '') === String(version)) ?? null
+      : (byLawId.get(lawId) ?? []).find((entry) => !entry.versionSuffix) ?? (byLawId.get(lawId) ?? [])[0];
     if (staged) {
       const html = await readFile(join(ROOT, staged.rawCacheFile), 'utf8');
       const parsed = await readJson(join(ROOT, staged.parsedCacheFile));
       loaded = { html, body: parsed.original.body, citation: parsed.original.fullCitation, title: parsed.original.sourceTitle, sourceId: staged.sourceId, entry: staged, materialized: true, objectKey: `revosax/2023-11-01/${staged.sourceId}.html`, sha256: staged.sourceSha256, url: staged.sourceUrl, retrievedAt: staged.retrievedAt, sourceValidFrom: staged.sourceValidFrom, sourceValidTo: staged.sourceValidTo ?? null };
     } else {
-      const fetched = await fetchEnvelope(lawId, { offline, delayMs, state });
+      const fetched = await fetchEnvelope(key, { offline, delayMs, state });
       const html = fetched.bytes.toString('utf8');
       let parsed = null;
       let parseError = null;
-      const finalLawId = fetched.meta.url.match(/\/vorschrift\/(\d+)/u)?.[1] ?? null;
-      if (finalLawId && finalLawId !== String(lawId)) {
+      const finalLawId = fetched.meta.url.match(/\/vorschrift\/(\d+(?:\.\d+)?)/u)?.[1] ?? null;
+      if (finalLawId && finalLawId !== key) {
         // Die Mantelvorschrift leitet auf eine Nachfolgevorschrift weiter; deren Text ist
         // nicht der historische Artikel der Komponente.
         parseError = `Mantelvorschrift ${lawId} leitet auf die Vorschrift ${finalLawId} weiter (${fetched.meta.url})`;
@@ -259,12 +268,196 @@ export async function classifyEnvelopeComponents(report, { offline = false, dela
           parseError = error.message;
         }
       }
-      loaded = { html, body: parsed?.body ?? [], citation: parsed?.fullCitation ?? null, title: parsed?.sourceTitle ?? null, sourceId: `envelope-${lawId}`, entry: null, materialized: false, parseError, objectKey: `revosax/2023-11-01/envelope-${lawId}.html`, sha256: fetched.meta.sha256, url: fetched.meta.url, retrievedAt: fetched.meta.retrievedAt, sourceValidFrom: parsed?.sourceValidFrom ?? null, sourceValidTo: parsed?.sourceValidTo ?? null, rawCacheFile: fetched.rawPath.replace(`${ROOT}/`, ''), byteLength: fetched.meta.byteLength };
-      extraSources.set(lawId, loaded);
+      loaded = { html, body: parsed?.body ?? [], citation: parsed?.fullCitation ?? null, title: parsed?.sourceTitle ?? null, sourceId: `envelope-${key}`, entry: null, materialized: false, parseError, objectKey: `revosax/2023-11-01/envelope-${key}.html`, sha256: fetched.meta.sha256, url: fetched.meta.url, retrievedAt: fetched.meta.retrievedAt, sourceValidFrom: parsed?.sourceValidFrom ?? null, sourceValidTo: parsed?.sourceValidTo ?? null, rawCacheFile: fetched.rawPath.replace(`${ROOT}/`, ''), byteLength: fetched.meta.byteLength };
+      extraSources.set(key, loaded);
     }
-    envelopeCache.set(lawId, loaded);
+    envelopeCache.set(key, loaded);
     return loaded;
   };
+  return { load: loadEnvelope, cache: envelopeCache, extraSources };
+}
+
+/** Artikelblöcke einer Mantelvorschrift (Artikel n, Art. n, römische Abschnitte) samt Pfad. */
+export function listArticleBlocks(body) {
+  const articles = [];
+  walkBlocks(body, (block, path) => {
+    if (/^(?:Artikel|Art\.)\s*\d+|^[IVXLC]+\.$/u.test(normalizeLabel(block.label))) articles.push({ block, path });
+  });
+  return articles;
+}
+
+/** Block samt Vorfahrenkette zu einem Pfad. */
+export function blockChainAtPath(body, path) {
+  const chain = [];
+  let blocks = body;
+  for (const index of path) {
+    const block = blocks?.[index];
+    if (!block) return null;
+    chain.push(block);
+    blocks = block.children ?? [];
+  }
+  return chain;
+}
+
+/**
+ * Lesbare Bezeichnung eines (auch verschachtelten) Blocks: „Artikel 2 Absatz 3“,
+ * „§ 11 Nummer 2“, „IX.“ – aus den Kennzeichen der Vorfahrenkette.
+ */
+export function describeBlockPath(body, path) {
+  const chain = blockChainAtPath(body, path);
+  if (!chain) return null;
+  const parts = [];
+  for (const block of chain) {
+    const label = normalizeLabel(block.label);
+    if (!label) continue;
+    const absatz = label.match(/^\((\d+[a-z]?)\)$/u);
+    const nummer = label.match(/^(\d+[a-z]?)\.$/u);
+    if (absatz) parts.push(`Absatz ${absatz[1]}`);
+    else if (nummer && parts.length > 0) parts.push(`Nummer ${nummer[1]}`);
+    else parts.push(label);
+  }
+  return parts.join(' ') || null;
+}
+
+/** Erster Fließtext eines Blocks (Eröffnungssatz eines Änderungsartikels). */
+export function openingText(block, maxChars = 400) {
+  const texts = [];
+  const visit = (node) => {
+    if (texts.join(' ').length >= maxChars) return;
+    if (typeof node.text === 'string' && node.text.trim()) texts.push(node.text.trim());
+    for (const child of node.children ?? []) visit(child);
+  };
+  for (const child of block.children ?? []) visit(child);
+  return normalizeLabel(texts.join(' ')).slice(0, maxChars);
+}
+
+/**
+ * Wendet eine geprüfte Zuordnungsentscheidung (data/recht/revosax-envelope-decisions.json)
+ * an: der benannte Artikel muss genau einmal vorkommen und den dokumentierten
+ * Eröffnungsbeleg enthalten; sonst bleibt der Fall zurückgestellt (fail-closed).
+ */
+export function applyEnvelopeDecision(decision, envelope, record) {
+  if (!decision || decision.action !== 'MAP') return null;
+  if (String(decision.envelopeLawId) !== String(record.envelopeParentLawId ?? record.envelopeLawId)) {
+    throw new Error(`Entscheidung nennt Mantelvorschrift ${decision.envelopeLawId}, die Komponente gehört zu ${record.envelopeParentLawId ?? record.envelopeLawId}`);
+  }
+  let located;
+  if (decision.blockPath) {
+    // Pfad in der Mantelvorschrift (auch verschachtelt: Absatz eines Folgeänderungsartikels,
+    // Nummer eines Paragraphen); das Kennzeichen des Blocks muss zur Entscheidung passen.
+    const chain = blockChainAtPath(envelope.body, decision.blockPath);
+    if (!chain) throw new Error(`Entscheidung ${decision.article}: Blockpfad ${JSON.stringify(decision.blockPath)} nicht in der Mantelvorschrift ${record.envelopeLawId}`);
+    const block = chain.at(-1);
+    const described = describeBlockPath(envelope.body, decision.blockPath);
+    if (normalizeLabel(block.label) && described !== decision.article && labelKey(block.label) !== labelKey(decision.article)) {
+      throw new Error(`Entscheidung ${decision.article}: Block am Pfad heißt „${described}“`);
+    }
+    located = [{ block, path: decision.blockPath }];
+  } else {
+    located = listArticleBlocks(envelope.body).filter(({ block }) => labelKey(block.label) === labelKey(decision.article));
+  }
+  if (located.length !== 1) {
+    throw new Error(`Entscheidung ${decision.article}: ${located.length} statt genau einem Artikelblock in der Mantelvorschrift ${record.envelopeLawId}`);
+  }
+  const block = located[0].block;
+  const evidenceText = String(decision.evidence?.openingText ?? '').trim();
+  const evidenceHeading = String(decision.evidence?.heading ?? '').trim();
+  if (!evidenceText && !evidenceHeading) throw new Error(`Entscheidung ${decision.article}: evidence.openingText oder evidence.heading fehlt`);
+  if (evidenceText) {
+    const opening = normalizeLabel(`${block.text ?? ''} ${openingText(block, 600)}`).toLocaleLowerCase('de');
+    if (!opening.includes(normalizeLabel(evidenceText).toLocaleLowerCase('de'))) {
+      throw new Error(`Entscheidung ${decision.article}: Eröffnungsbeleg „${evidenceText.slice(0, 60)}“ nicht im Artikeltext`);
+    }
+  }
+  if (evidenceHeading && normalizeLabel(block.title ?? '').toLocaleLowerCase('de') !== normalizeLabel(evidenceHeading).toLocaleLowerCase('de')) {
+    throw new Error(`Entscheidung ${decision.article}: Überschrift „${normalizeLabel(block.title ?? '')}“ entspricht nicht dem Beleg „${evidenceHeading}“`);
+  }
+  return {
+    section: { label: describeBlockPath(envelope.body, located[0].path) ?? decision.article, heading: normalizeLabel(block.title ?? '') },
+    located: { blocks: [located[0]], reason: null },
+    resolution: `decision:${decision.method ?? 'manual-reviewed'}`,
+  };
+}
+
+
+/**
+ * Heuristische Lokalisierung des Artikels (Anker mit Überschriftsprüfung, Paragraphenanker,
+ * Titelvergleich, Artikelnummer ohne Ankerschema). Wirft bei Unsicherheit.
+ */
+function locateByHeuristics(record, entry, envelope, anchor) {
+  record.envelopeSourceId = envelope.sourceId;
+  record.envelopeObjectKey = envelope.objectKey;
+  record.envelopeMaterialized = envelope.materialized;
+  if (envelope.parseError) throw new Error(`Mantelvorschrift nicht parsebar: ${envelope.parseError}`);
+  let section = findAnchorSection(envelope.html, anchor);
+  let located = section ? locateArticleBlocks(envelope.body, section) : null;
+  record.anchorResolution = section ? 'anchor' : null;
+  // Der Anker der Komponentenseite ist nicht verlässlich: manche Mantelvorschriften
+  // verlinken alle Bestandteile auf #a1. Ein Anker gilt nur, wenn die Überschrift des
+  // angesprungenen Artikels zum eigenen Titel der Komponente passt.
+  const componentNames = [record.sourceTitle, entry.listing?.label, entry.listing?.title].filter(Boolean);
+  const paragraphAnchor = anchor.match(/^p(\d+[a-z]?)$/u)?.[1] ?? null;
+  if (section && !located.reason && paragraphAnchor) {
+    // Paragraphenanker (#p21 → „§ 21“) verweisen auf die ändernde Vorschrift innerhalb einer
+    // Stammnorm; die Paragraphenüberschrift ist naturgemäß nicht der Komponententitel. Der
+    // Anker gilt, wenn das Kennzeichen des Blocks zur Nummer passt.
+    const label = normalizeLabel(located.blocks[0].block.label);
+    if (!new RegExp(`^§\\s*${paragraphAnchor}\\b`, 'u').test(label)) {
+      record.anchorMismatch = { anchorHeading: section.heading, componentTitle: record.sourceTitle, similarity: 0 };
+      section = null;
+      located = null;
+    } else {
+      record.anchorResolution = 'paragraph-anchor';
+      record.headingUnverified = true;
+    }
+  } else if (section && !located.reason && record.sourceTitle) {
+    const heading = section.heading || located.blocks[0].block.title || '';
+    const similarity = Math.max(...componentNames.map((name) => headingSimilarity(name, heading)));
+    record.anchorSimilarity = Number(similarity.toFixed(2));
+    if (similarity < ANCHOR_MIN_SIMILARITY) {
+      record.anchorMismatch = { anchorHeading: section.heading, componentTitle: record.sourceTitle, similarity: record.anchorSimilarity };
+      section = null;
+      located = null;
+    }
+  }
+  if (!section || located.reason) {
+    // Ersatzweise, deterministisch und nur bei genau einem Treffer: Artikelüberschrift
+    // der Mantelvorschrift gleich dem eigenen Titel der Komponentenseite, sonst
+    // Artikelnummer aus dem Anker (#a2 → „Artikel 2“) bei Seiten ohne Ankermarkup.
+    const byTitle = locateBlocksByTitle(envelope.body, record.sourceTitle, componentNames.slice(1));
+    // Die Artikelnummer aus dem Anker (#a2 → „Artikel 2“) gilt nur, wenn die Seite
+    // das a-Schema gar nicht verwendet (kein Ankermarkup oder abweichende ids wie x2).
+    const numeric = anchor.match(/^a(\d+)$/u)?.[1] ?? null;
+    const usesAnchorScheme = /\sid="a\d+"/u.test(envelope.html);
+    const byNumber = numeric && !usesAnchorScheme
+      ? locateArticleBlocks(envelope.body, { label: `Artikel ${numeric}` })
+      : { blocks: [], reason: null };
+    if (byTitle.blocks.length === 1) {
+      located = byTitle;
+      section = { label: normalizeLabel(byTitle.blocks[0].block.label), heading: normalizeLabel(byTitle.blocks[0].block.title) };
+      record.anchorResolution = 'article-title';
+      record.titleSimilarity = Number(byTitle.similarity.toFixed(2));
+    } else if (byNumber.blocks.length === 1) {
+      located = byNumber;
+      section = { label: `Artikel ${numeric}`, heading: normalizeLabel(byNumber.blocks[0].block.title) };
+      record.anchorResolution = 'article-number';
+    } else if (record.anchorMismatch) {
+      throw new Error(`Anker #${anchor} zeigt auf „${record.anchorMismatch.anchorHeading}“, die Komponente heißt „${record.sourceTitle}“; ${byTitle.reason}`);
+    } else if (!section) {
+      throw new Error(`Anker #${anchor} nicht in der Mantelvorschrift gefunden${byTitle.reason ? `; ${byTitle.reason}` : ''}`);
+    } else {
+      throw new Error(located.reason);
+    }
+  }
+  return { section, located };
+}
+
+export async function classifyEnvelopeComponents(report, { offline = false, delayMs = 400, existingSlugs = new Set(), decisions = {}, log = () => {} } = {}) {
+  const components = report.entries.filter((entry) => entry.skipReason?.startsWith('part-of-envelope:'));
+  const loader = createEnvelopeLoader(report, { offline, delayMs });
+  const loadEnvelope = loader.load;
+  const envelopeCache = loader.cache;
+  const extraSources = loader.extraSources;
 
   const results = [];
   const slugCounts = new Map();
@@ -293,72 +486,47 @@ export async function classifyEnvelopeComponents(report, { offline = false, dela
       class: 'D',
       reason: null,
     };
+    const decision = decisions[record.sourceId] ?? decisions[String(entry.revosaxLawId)] ?? null;
+    if (decision?.action === 'SKIP' || decision?.action === 'DEFER') {
+      // SKIP: geprüft kein eigener Änderungstext (z. B. Artikel ist eine eigenständig
+      // materialisierte Vorschrift) → dokumentierter Alias; DEFER: bleibt Reviewfall.
+      record.class = decision.action === 'SKIP' ? 'B' : 'D';
+      record.reason = `Entscheidung ${decision.action}: ${decision.reason ?? 'ohne Begründung'}`;
+      record.decision = decision.action;
+      results.push(record);
+      continue;
+    }
     try {
-      if (!anchor) throw new Error('Komponentenseite ohne Anker auf die Mantelvorschrift');
-      const envelope = await loadEnvelope(envelopeLawId);
+      // Textträger: eine Entscheidung darf auf die Vorschrift verweisen, die den Artikeltext
+      // tatsächlich führt (textLawId, z. B. das als Artikel 1 eingebettete Rechtsbereinigungs-
+      // gesetz), oder auf eine historische Fassung der Mantelvorschrift (envelopeVersion).
+      if (decision?.textLawId) {
+        record.envelopeParentLawId = envelopeLawId;
+        record.envelopeLawId = String(decision.textLawId);
+        record.envelopeTextCarrier = decision.textCarrierReason ?? null;
+      }
+      const envelope = await loadEnvelope(record.envelopeLawId, decision?.envelopeVersion ?? null);
+      if (decision?.envelopeVersion) record.envelopeVersion = String(decision.envelopeVersion);
+      if (decision?.textLawId) record.envelopeTitle = envelope.title ?? record.envelopeTitle;
       record.envelopeSourceId = envelope.sourceId;
       record.envelopeObjectKey = envelope.objectKey;
       record.envelopeMaterialized = envelope.materialized;
       if (envelope.parseError) throw new Error(`Mantelvorschrift nicht parsebar: ${envelope.parseError}`);
-      let section = findAnchorSection(envelope.html, anchor);
-      let located = section ? locateArticleBlocks(envelope.body, section) : null;
-      record.anchorResolution = section ? 'anchor' : null;
-      // Der Anker der Komponentenseite ist nicht verlässlich: manche Mantelvorschriften
-      // verlinken alle Bestandteile auf #a1. Ein Anker gilt nur, wenn die Überschrift des
-      // angesprungenen Artikels zum eigenen Titel der Komponente passt.
-      const componentNames = [record.sourceTitle, entry.listing?.label, entry.listing?.title].filter(Boolean);
-      const paragraphAnchor = anchor.match(/^p(\d+[a-z]?)$/u)?.[1] ?? null;
-      if (section && !located.reason && paragraphAnchor) {
-        // Paragraphenanker (#p21 → „§ 21“) verweisen auf die ändernde Vorschrift innerhalb einer
-        // Stammnorm; die Paragraphenüberschrift ist naturgemäß nicht der Komponententitel. Der
-        // Anker gilt, wenn das Kennzeichen des Blocks zur Nummer passt.
-        const label = normalizeLabel(located.blocks[0].block.label);
-        if (!new RegExp(`^§\\s*${paragraphAnchor}\\b`, 'u').test(label)) {
-          record.anchorMismatch = { anchorHeading: section.heading, componentTitle: record.sourceTitle, similarity: 0 };
-          section = null;
-          located = null;
-        } else {
-          record.anchorResolution = 'paragraph-anchor';
-          record.headingUnverified = true;
-        }
-      } else if (section && !located.reason && record.sourceTitle) {
-        const heading = section.heading || located.blocks[0].block.title || '';
-        const similarity = Math.max(...componentNames.map((name) => headingSimilarity(name, heading)));
-        record.anchorSimilarity = Number(similarity.toFixed(2));
-        if (similarity < ANCHOR_MIN_SIMILARITY) {
-          record.anchorMismatch = { anchorHeading: section.heading, componentTitle: record.sourceTitle, similarity: record.anchorSimilarity };
-          section = null;
-          located = null;
-        }
-      }
-      if (!section || located.reason) {
-        // Ersatzweise, deterministisch und nur bei genau einem Treffer: Artikelüberschrift
-        // der Mantelvorschrift gleich dem eigenen Titel der Komponentenseite, sonst
-        // Artikelnummer aus dem Anker (#a2 → „Artikel 2“) bei Seiten ohne Ankermarkup.
-        const byTitle = locateBlocksByTitle(envelope.body, record.sourceTitle, componentNames.slice(1));
-        // Die Artikelnummer aus dem Anker (#a2 → „Artikel 2“) gilt nur, wenn die Seite
-        // das a-Schema gar nicht verwendet (kein Ankermarkup oder abweichende ids wie x2).
-        const numeric = anchor.match(/^a(\d+)$/u)?.[1] ?? null;
-        const usesAnchorScheme = /\sid="a\d+"/u.test(envelope.html);
-        const byNumber = numeric && !usesAnchorScheme
-          ? locateArticleBlocks(envelope.body, { label: `Artikel ${numeric}` })
-          : { blocks: [], reason: null };
-        if (byTitle.blocks.length === 1) {
-          located = byTitle;
-          section = { label: normalizeLabel(byTitle.blocks[0].block.label), heading: normalizeLabel(byTitle.blocks[0].block.title) };
-          record.anchorResolution = 'article-title';
-          record.titleSimilarity = Number(byTitle.similarity.toFixed(2));
-        } else if (byNumber.blocks.length === 1) {
-          located = byNumber;
-          section = { label: `Artikel ${numeric}`, heading: normalizeLabel(byNumber.blocks[0].block.title) };
-          record.anchorResolution = 'article-number';
-        } else if (record.anchorMismatch) {
-          throw new Error(`Anker #${anchor} zeigt auf „${record.anchorMismatch.anchorHeading}“, die Komponente heißt „${record.sourceTitle}“; ${byTitle.reason}`);
-        } else if (!section) {
-          throw new Error(`Anker #${anchor} nicht in der Mantelvorschrift gefunden${byTitle.reason ? `; ${byTitle.reason}` : ''}`);
-        } else {
-          throw new Error(located.reason);
-        }
+      let section = null;
+      let located = null;
+      try {
+        if (!anchor) throw new Error('Komponentenseite ohne Anker auf die Mantelvorschrift');
+        ({ section, located } = locateByHeuristics(record, entry, envelope, anchor));
+      } catch (heuristicError) {
+        if (!decision) throw heuristicError;
+        // Zweite Stufe: geprüfte Zuordnung aus der Entscheidungsdatei (fail-closed verifiziert).
+        const applied = applyEnvelopeDecision(decision, envelope, record);
+        if (!applied) throw heuristicError;
+        section = applied.section;
+        located = applied.located;
+        record.anchorResolution = applied.resolution;
+        record.decision = 'MAP';
+        record.heuristicReason = heuristicError.message;
       }
       record.articleLabel = section.label;
       record.articleHeading = section.heading;
@@ -451,7 +619,12 @@ async function main() {
   const report = await readJson(reportPath);
   const { readdir } = await import('node:fs/promises');
   const existingSlugs = new Set((await readdir(CONTENT_ROOT, { withFileTypes: true })).filter((entry) => entry.isDirectory()).map((entry) => entry.name));
-  const result = await classifyEnvelopeComponents(report, { offline: args.includes('--offline'), existingSlugs, log: (message) => console.log(message) });
+  const decisionsPath = resolve(ROOT, 'data', 'recht', 'revosax-envelope-decisions.json');
+  const decisions = await readJson(decisionsPath).then((file) => file.decisions ?? {}).catch((error) => {
+    if (error.code !== 'ENOENT') throw error;
+    return {};
+  });
+  const result = await classifyEnvelopeComponents(report, { offline: args.includes('--offline'), existingSlugs, decisions, log: (message) => console.log(message) });
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, 'utf8');
   console.log(`Komponenten: ${result.componentCount} (A=${result.counts.A}, B=${result.counts.B}, C=${result.counts.C}, D=${result.counts.D}); nachgeladene Mantelvorschriften: ${result.fetchedEnvelopes.length}`);

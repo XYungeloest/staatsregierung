@@ -37,17 +37,24 @@
   ],
   "body": [
     {
-      "type": "paragraph",
-      "label": "§ 58",
-      "title": "Änderung des Eingliederungsgesetzes Zwickau",
+      "type": "part",
+      "label": "Dritter Teil",
+      "title": "Schlußbestimmungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 19 Satz 2 des Gesetzes zur Eingliederung von Gemeinden und Gemeindeteilen in die Stadt Zwickau (Eingliederungsgesetzes Zwickau) vom 24. August 1998 (SächsGVBl. S. 468) wird wie folgt gefaßt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Im übrigen tritt dieses Gesetz am 1. Januar 1999 in Kraft.“"
+          "type": "paragraph",
+          "label": "§ 58",
+          "title": "Änderung des Eingliederungsgesetzes Zwickau",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 19 Satz 2 des Gesetzes zur Eingliederung von Gemeinden und Gemeindeteilen in die Stadt Zwickau (Eingliederungsgesetzes Zwickau) vom 24. August 1998 (SächsGVBl. S. 468) wird wie folgt gefaßt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": "„Im übrigen tritt dieses Gesetz am 1. Januar 1999 in Kraft.“"
+            }
+          ]
         }
       ]
     }

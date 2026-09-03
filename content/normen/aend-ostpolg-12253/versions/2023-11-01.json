@@ -37,69 +37,76 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 20a",
-      "title": "Weitere Änderung des Polizeigesetzes des Freistaates Ostdeutschland",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 74 des Polizeigesetzes des Freistaates Ostdeutschland (OstPolG) in der Fassung der Bekanntmachung vom 13. August 1999 (SächsGVBl. S. 466), zuletzt geändert durch Artikel 20 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130, 141), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Absatz 1 wird wie folgt gefasst:\n„(1) Die Dienstaufsicht über das Landeskriminalamt, das Präsidium der Bereitschaftspolizei, das Polizeiverwaltungsamt und die Polizeidirektionen übt das Staatsministerium des Innern aus.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 2 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 20a",
+          "title": "Weitere Änderung des Polizeigesetzes des Freistaates Ostdeutschland",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "§ 74 des Polizeigesetzes des Freistaates Ostdeutschland (OstPolG) in der Fassung der Bekanntmachung vom 13. August 1999 (SächsGVBl. S. 466), zuletzt geändert durch Artikel 20 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130, 141), wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "Satz 1 wird wie folgt geändert:",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "Absatz 1 wird wie folgt gefasst:\n„(1) Die Dienstaufsicht über das Landeskriminalamt, das Präsidium der Bereitschaftspolizei, das Polizeiverwaltungsamt und die Polizeidirektionen übt das Staatsministerium des Innern aus.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Absatz 2 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
                 {
                   "type": "item",
-                  "label": "aa)",
-                  "text": "In Nummer 1 werden die Wörter „die Landespolizeidirektion Zentrale Dienste“ durch die Wörter „das Polizeiverwaltungsamt“ ersetzt.",
-                  "level": 2,
+                  "label": "a)",
+                  "text": "Satz 1 wird wie folgt geändert:",
+                  "level": 1,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "aa)",
+                      "text": "In Nummer 1 werden die Wörter „die Landespolizeidirektion Zentrale Dienste“ durch die Wörter „das Polizeiverwaltungsamt“ ersetzt.",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "bb)",
+                      "text": "Nummer 2 wird gestrichen.",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "cc)",
+                      "text": "Die bisherige Nummer 3 wird Nummer 2.",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    }
+                  ]
                 },
                 {
                   "type": "item",
-                  "label": "bb)",
-                  "text": "Nummer 2 wird gestrichen.",
-                  "level": 2,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "cc)",
-                  "text": "Die bisherige Nummer 3 wird Nummer 2.",
-                  "level": 2,
+                  "label": "b)",
+                  "text": "In Satz 2 wird die Angabe „Nr. 3“ durch die Angabe „Nr. 2“ ersetzt.",
+                  "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
                 }
               ]
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "In Satz 2 wird die Angabe „Nr. 3“ durch die Angabe „Nr. 2“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
             }
           ]
         }

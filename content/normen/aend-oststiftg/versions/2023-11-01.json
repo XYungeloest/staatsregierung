@@ -37,37 +37,44 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 18",
-      "title": "Änderung des Ostdeutschen Stiftungsgesetzes",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 3 des Ostdeutschen Stiftungsgesetzes (OstStiftG) vom 7. August 2007 (SächsGVBl. S. 386), das durch Artikel 15 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 159) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Absatz 1 Satz 1 wird wie folgt gefasst:\n„Stiftungsbehörde ist die Landesdirektion Ostdeutschland.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 3 wird aufgehoben.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Der bisherige Absatz 4 wird Absatz 3.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 18",
+          "title": "Änderung des Ostdeutschen Stiftungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 3 des Ostdeutschen Stiftungsgesetzes (OstStiftG) vom 7. August 2007 (SächsGVBl. S. 386), das durch Artikel 15 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 159) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Absatz 1 Satz 1 wird wie folgt gefasst:\n„Stiftungsbehörde ist die Landesdirektion Ostdeutschland.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Absatz 3 wird aufgehoben.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Der bisherige Absatz 4 wird Absatz 3.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

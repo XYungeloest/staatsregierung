@@ -37,37 +37,44 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 28",
-      "title": "Änderung des Verwaltungskostengesetzes des Freistaates Ostdeutschland",
+      "type": "part",
+      "label": "Teil 5",
+      "title": "Anpassungen im Bereich des Staatsministeriums der Finanzen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Verwaltungskostengesetz des Freistaates Ostdeutschland (OstVwKG) in der Fassung der Bekanntmachung vom 17. September 2003 (SächsGVBl. S. 698) wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 3 Abs. 1 Satz 2 wird gestrichen.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 4 Abs. 1 Satz 3 wird gestrichen.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In § 28 Abs. 7 Satz 2 werden die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 28",
+          "title": "Änderung des Verwaltungskostengesetzes des Freistaates Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Das Verwaltungskostengesetz des Freistaates Ostdeutschland (OstVwKG) in der Fassung der Bekanntmachung vom 17. September 2003 (SächsGVBl. S. 698) wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "§ 3 Abs. 1 Satz 2 wird gestrichen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 4 Abs. 1 Satz 3 wird gestrichen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In § 28 Abs. 7 Satz 2 werden die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

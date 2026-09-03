@@ -37,13 +37,19 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 4",
-      "title": "Änderung des ZDF-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 29 des\nZDF-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Zwölften Rundfunkänderungsstaatsvertrag vom 18. Dezember 2008, werden die Wörter „der Fernsehgebühr“ durch die Wörter „dem Rundfunkbeitrag“ ersetzt."
+          "type": "article",
+          "label": "Artikel 4",
+          "title": "Änderung des ZDF-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 29 des\nZDF-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Zwölften Rundfunkänderungsstaatsvertrag vom 18. Dezember 2008, werden die Wörter „der Fernsehgebühr“ durch die Wörter „dem Rundfunkbeitrag“ ersetzt."
+            }
+          ]
         }
       ]
     }

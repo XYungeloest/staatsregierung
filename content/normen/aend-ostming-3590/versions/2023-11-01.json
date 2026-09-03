@@ -37,37 +37,44 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 3",
-      "title": "Änderung des Ostdeutschen Ministergesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 8 Abs. 2 Satz 1 Buchst. c des Gesetzes über die Rechtsverhältnisse der Mitglieder der Staatsregierung (Ostdeutsches Ministergesetz –\nOstMinG) in der Fassung der Bekanntmachung vom 4. Juli 2000 (SächsGVBl. S. 322) wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Doppelbuchstabe aa wird die Angabe „2 000 DM“ durch die Angabe „1 022,58 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Doppelbuchstabe bb wird die Angabe „1 000 DM“ durch die Angabe „511,29 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In Doppelbuchstabe cc wird die Angabe „500 DM“ durch die Angabe „255,65 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 3",
+          "title": "Änderung des Ostdeutschen Ministergesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 8 Abs. 2 Satz 1 Buchst. c des Gesetzes über die Rechtsverhältnisse der Mitglieder der Staatsregierung (Ostdeutsches Ministergesetz –\nOstMinG) in der Fassung der Bekanntmachung vom 4. Juli 2000 (SächsGVBl. S. 322) wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Doppelbuchstabe aa wird die Angabe „2 000 DM“ durch die Angabe „1 022,58 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Doppelbuchstabe bb wird die Angabe „1 000 DM“ durch die Angabe „511,29 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In Doppelbuchstabe cc wird die Angabe „500 DM“ durch die Angabe „255,65 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

@@ -37,54 +37,60 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 3",
-      "title": "Änderung des Jugendmedienschutz-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nJugendmedienschutz-Staatsvertrag vom 10. bis 27. September 2002, zuletzt geändert durch den Achten Rundfunkänderungsstaatsvertrag vom 8. bis 15. Oktober 2004, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 2 Abs. 2 und 3 werden wie folgt neu gefasst:\n„(2) Dieser Staatsvertrag gilt nicht für elektronische Informations- und Kommunikationsdienste soweit sie Telekommunikationsdienste nach § 3 Nr. 24 des Telekommunikationsgesetzes sind, die ganz in der Übertragung von Signalen über Telekommunikationsnetze bestehen oder telekommunikationsgestützte Dienste nach § 3 Nr. 25 des Telekommunikationsgesetzes sind.\n(3) Das Telemediengesetz und die für Telemedien anwendbaren Bestimmungen des Rundfunkstaatsvertrages bleiben unberührt.”",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 3 Abs. 2 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 3",
+          "title": "Änderung des Jugendmedienschutz-Staatsvertrages",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Der\nJugendmedienschutz-Staatsvertrag vom 10. bis 27. September 2002, zuletzt geändert durch den Achten Rundfunkänderungsstaatsvertrag vom 8. bis 15. Oktober 2004, wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "Nummer 1 wird gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "§ 2 Abs. 2 und 3 werden wie folgt neu gefasst:\n„(2) Dieser Staatsvertrag gilt nicht für elektronische Informations- und Kommunikationsdienste soweit sie Telekommunikationsdienste nach § 3 Nr. 24 des Telekommunikationsgesetzes sind, die ganz in der Übertragung von Signalen über Telekommunikationsnetze bestehen oder telekommunikationsgestützte Dienste nach § 3 Nr. 25 des Telekommunikationsgesetzes sind.\n(3) Das Telemediengesetz und die für Telemedien anwendbaren Bestimmungen des Rundfunkstaatsvertrages bleiben unberührt.”",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Die bisherigen Nummern 2 und 3 werden die Nummern 1 und 2.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "2.",
+              "text": "§ 3 Abs. 2 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Nummer 1 wird gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Die bisherigen Nummern 2 und 3 werden die Nummern 1 und 2.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "§ 20 Abs. 4 wird wie folgt gefasst:\n„(4) Für Anbieter von Telemedien trifft die zuständige Landesmedienanstalt durch die KJM entsprechend § 59 Abs. 2 bis 4 des Rundfunkstaatsvertrages unter Beachtung der Regelungen zur Verantwortlichkeit nach den §§ 7 bis 10 des Telemediengesetzes die jeweilige Entscheidung.”",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "§ 20 Abs. 4 wird wie folgt gefasst:\n„(4) Für Anbieter von Telemedien trifft die zuständige Landesmedienanstalt durch die KJM entsprechend § 59 Abs. 2 bis 4 des Rundfunkstaatsvertrages unter Beachtung der Regelungen zur Verantwortlichkeit nach den §§ 7 bis 10 des Telemediengesetzes die jeweilige Entscheidung.”",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

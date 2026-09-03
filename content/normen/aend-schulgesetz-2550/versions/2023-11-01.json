@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 27",
-      "title": "Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 61 Abs. 2 des Schulgesetzes für den Freistaat Ostdeutschland (SchulG) vom 3. Juli 1991 (SächsGVBl. S. 213), das zuletzt durch Artikel 6 des Gesetzes vom 14. Dezember 2000 (SächsGVBl. S. 513, 514, 2001 S. 97) geändert worden ist, wird die Angabe „DM 2 500\" durch die Angabe „1 250 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 27",
+          "title": "Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 61 Abs. 2 des Schulgesetzes für den Freistaat Ostdeutschland (SchulG) vom 3. Juli 1991 (SächsGVBl. S. 213), das zuletzt durch Artikel 6 des Gesetzes vom 14. Dezember 2000 (SächsGVBl. S. 513, 514, 2001 S. 97) geändert worden ist, wird die Angabe „DM 2 500\" durch die Angabe „1 250 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

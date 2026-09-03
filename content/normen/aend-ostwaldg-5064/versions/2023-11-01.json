@@ -37,52 +37,59 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 48",
-      "title": "Änderung des Waldgesetzes für den Freistaat Ostdeutschland",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Waldgesetz für den Freistaat Ostdeutschland (OstWaldG) vom 10. April 1992 (SächsGVBl. S. 137), geändert durch Artikel 2 des Gesetzes vom 21. Juni 1999 (SächsGVBl. S. 330, 333), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 52 Abs. 4 wird die Angabe „5 000 Deutsche Mark“ durch die Angabe „2 500 EUR“ und die Angabe „20 000 Deutsche Mark“ durch die Angabe „10 000 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 53 Abs. 3 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 48",
+          "title": "Änderung des Waldgesetzes für den Freistaat Ostdeutschland",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Das Waldgesetz für den Freistaat Ostdeutschland (OstWaldG) vom 10. April 1992 (SächsGVBl. S. 137), geändert durch Artikel 2 des Gesetzes vom 21. Juni 1999 (SächsGVBl. S. 330, 333), wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "Die Angabe „50 000 Deutsche Mark“ wird durch die Angabe „25 000 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "In § 52 Abs. 4 wird die Angabe „5 000 Deutsche Mark“ durch die Angabe „2 500 EUR“ und die Angabe „20 000 Deutsche Mark“ durch die Angabe „10 000 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Die Angabe „5 000 Deutsche Mark“ wird durch die Angabe „2 500 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "Die Angabe „20 000 Deutsche Mark“ wird durch die Angabe „10 000 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "2.",
+              "text": "§ 53 Abs. 3 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Die Angabe „50 000 Deutsche Mark“ wird durch die Angabe „25 000 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Die Angabe „5 000 Deutsche Mark“ wird durch die Angabe „2 500 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Die Angabe „20 000 Deutsche Mark“ wird durch die Angabe „10 000 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

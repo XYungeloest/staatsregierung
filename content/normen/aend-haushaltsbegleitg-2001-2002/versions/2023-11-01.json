@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 56",
-      "title": "Änderung des Haushaltsbegleitgesetzes 2001 und 2002",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In Artikel 5 Nr. 2 des Gesetzes über Maßnahmen zur Sicherung der öffentlichen Haushalte 2001 und 2002 im Freistaat Ostdeutschland (Haushaltsbegleitgesetz 2001 und 2002) und zur Änderung der Vorläufigen Haushaltsordnung des Freistaates Ostdeutschland vom 14. Dezember 2000 (SächsGVBl. S. 513, 514, 2001 S. 97) wird in dem neu eingefügten § 48 Abs. 8 Satz 2 Nr. 1 OstWG die Angabe „100 DM“ durch die Angabe „50 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 56",
+          "title": "Änderung des Haushaltsbegleitgesetzes 2001 und 2002",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In Artikel 5 Nr. 2 des Gesetzes über Maßnahmen zur Sicherung der öffentlichen Haushalte 2001 und 2002 im Freistaat Ostdeutschland (Haushaltsbegleitgesetz 2001 und 2002) und zur Änderung der Vorläufigen Haushaltsordnung des Freistaates Ostdeutschland vom 14. Dezember 2000 (SächsGVBl. S. 513, 514, 2001 S. 97) wird in dem neu eingefügten § 48 Abs. 8 Satz 2 Nr. 1 OstWG die Angabe „100 DM“ durch die Angabe „50 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

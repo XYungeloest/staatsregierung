@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 15",
-      "title": "Änderung des Ostdeutschen Stiftungsgesetzes",
+      "type": "part",
+      "label": "Teil 4",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 3 Abs. 1 Satz 1 des Ostdeutschen Stiftungsgesetzes (OstStiftG) vom 7. August 2007 (SächsGVBl. S. 386) wird das Wort „Regierungspräsidien“ durch das Wort „Landesdirektionen“ ersetzt."
+          "type": "article",
+          "label": "Artikel 15",
+          "title": "Änderung des Ostdeutschen Stiftungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 3 Abs. 1 Satz 1 des Ostdeutschen Stiftungsgesetzes (OstStiftG) vom 7. August 2007 (SächsGVBl. S. 386) wird das Wort „Regierungspräsidien“ durch das Wort „Landesdirektionen“ ersetzt."
+            }
+          ]
         }
       ]
     }

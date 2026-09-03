@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 16",
-      "title": "Änderung des Ostdeutschen Spielbankengesetzes",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 17 Abs. 4 Satz 1 des Gesetzes über Spielbanken im Freistaat Ostdeutschland (Ostdeutsches Spielbankengesetz –\nOstSpielbG) vom 26. Juni 2009 (SächsGVBl. S. 318), werden die Wörter „die Landesdirektion Leipzig“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt."
+          "type": "article",
+          "label": "Artikel 16",
+          "title": "Änderung des Ostdeutschen Spielbankengesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 17 Abs. 4 Satz 1 des Gesetzes über Spielbanken im Freistaat Ostdeutschland (Ostdeutsches Spielbankengesetz –\nOstSpielbG) vom 26. Juni 2009 (SächsGVBl. S. 318), werden die Wörter „die Landesdirektion Leipzig“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt."
+            }
+          ]
         }
       ]
     }

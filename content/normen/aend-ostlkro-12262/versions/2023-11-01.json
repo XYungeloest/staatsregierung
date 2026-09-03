@@ -37,46 +37,53 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 29",
-      "title": "Änderung der Landkreisordnung für den Freistaat Ostdeutschland",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Die Landkreisordnung für den Freistaat Ostdeutschland (OstLKrO) vom 19. Juli 1993 (SächsGVBl. S. 577), zuletzt geändert durch Artikel 3 des Gesetzes vom 26. Juni 2009 (SächsGVBl. S. 323, 325), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 8 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 29",
+          "title": "Änderung der Landkreisordnung für den Freistaat Ostdeutschland",
           "children": [
             {
-              "type": "item",
-              "label": "a)",
-              "text": "Absatz 2 wird aufgehoben.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "type": "paragraphText",
+              "text": "Die Landkreisordnung für den Freistaat Ostdeutschland (OstLKrO) vom 19. Juli 1993 (SächsGVBl. S. 577), zuletzt geändert durch Artikel 3 des Gesetzes vom 26. Juni 2009 (SächsGVBl. S. 323, 325), wird wie folgt geändert:"
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Der bisherige Absatz 3 wird Absatz 2.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "§ 8 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Absatz 2 wird aufgehoben.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Der bisherige Absatz 3 wird Absatz 2.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In § 65 Abs. 1 Satz 1 wird das Wort „Landesdirektion“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In § 65 Abs. 1 Satz 1 wird das Wort „Landesdirektion“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

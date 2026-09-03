@@ -37,17 +37,23 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 8",
-      "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 10 Abs. 2 des\nRundfunkfinanzierungsstaatsvertrages vom 31. August 1991, zuletzt geändert durch den 8. Rundfunkänderungsstaatsvertrag vom 8. bis 15. Oktober 2004, werden folgende neue Sätze 2 und 3 angefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Für Landesmedienanstalten, die bis zum 29. Februar 2012 fusionieren, gilt unbeschadet des Satzes 1, dass im vierten Jahr nach der Zusammenlegung der zweite und jeder weitere Sockelbetrag ebenfalls 100 vom Hundert betragen. Der zweite und jeder weitere Sockelbetrag betragen im fünften Jahr 75 vom Hundert, im sechsten Jahr 50 vom Hundert und im siebten Jahr 25 vom Hundert des ursprünglichen zweiten oder weiteren Sockelbetrages und entfallen mit Beginn des achten Jahres.”"
+          "type": "article",
+          "label": "Artikel 8",
+          "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 10 Abs. 2 des\nRundfunkfinanzierungsstaatsvertrages vom 31. August 1991, zuletzt geändert durch den 8. Rundfunkänderungsstaatsvertrag vom 8. bis 15. Oktober 2004, werden folgende neue Sätze 2 und 3 angefügt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": "„Für Landesmedienanstalten, die bis zum 29. Februar 2012 fusionieren, gilt unbeschadet des Satzes 1, dass im vierten Jahr nach der Zusammenlegung der zweite und jeder weitere Sockelbetrag ebenfalls 100 vom Hundert betragen. Der zweite und jeder weitere Sockelbetrag betragen im fünften Jahr 75 vom Hundert, im sechsten Jahr 50 vom Hundert und im siebten Jahr 25 vom Hundert des ursprünglichen zweiten oder weiteren Sockelbetrages und entfallen mit Beginn des achten Jahres.”"
+            }
+          ]
         }
       ]
     }

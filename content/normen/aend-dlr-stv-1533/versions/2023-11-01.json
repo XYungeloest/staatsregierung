@@ -37,185 +37,191 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 4",
-      "title": "Änderung des Deutschlandradio-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nDeutschlandradio-Staatsvertrag vom 17. Juni 1993, zuletzt geändert durch den Siebten Rundfunkänderungsstaatsvertrag vom 23. bis 26. September 2003, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Das Inhaltsverzeichnis wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 4",
+          "title": "Änderung des Deutschlandradio-Staatsvertrages",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Der\nDeutschlandradio-Staatsvertrag vom 17. Juni 1993, zuletzt geändert durch den Siebten Rundfunkänderungsstaatsvertrag vom 23. bis 26. September 2003, wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
+              "label": "1.",
+              "text": "Das Inhaltsverzeichnis wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Die §§ 34 und 35 werden gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Der bisherige § 36 wird § 34.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Der bisherige § 37 wird § 35.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Absatz 2 wird gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Absatz 3 wird Absatz 2.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Absatz 4 wird Absatz 3 und in Satz 3 werden die Worte „einschließlich der dazugehörigen jeweiligen Programmdirektionen“ gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "§ 5 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Es wird folgender neuer Absatz 3 eingefügt:\n„(3) Die Programme und Angebote der Körperschaft und ihrer Mitglieder sind auf der Grundlage einer Vereinbarung wechselseitig in den jeweiligen Programmen und Angeboten unentgeltlich zu bewerben.“",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Der bisherige Absatz 3 wird Absatz 4.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "§ 21 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Buchstabe l werden die Worte „Reichsbundes der Kriegsopfer, Behinderten, Sozialrentner und Hinterbliebenen“ ersetzt durch die Worte „Sozialverbandes Deutschland e.V.“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Buchstabe r werden die Worte „der IG Medien/Fachgruppe Journalismus, Landesbezirk Rheinland-Pfalz/Saar“ ersetzt durch die Worte „von ver.di – Vereinte Dienstleistungsgewerkschaft e.V. – Landesbezirk Rheinland-Pfalz – aus dem Fachbereich Medien“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "§ 27 Abs. 2 wird wie folgt neu gefasst:\n„(2) Der Intendant beruft im Einvernehmen mit dem Verwaltungsrat die Direktoren und aus deren Mitte seine Stellvertretung.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "In § 28 Nr. 6 wird das Wort „leitenden“ durch das Wort „außertariflichen“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "In § 29 Satz 1 werden die Worte „von ihren Mitgliedern“ durch die Worte „aus Mitteln der Rundfunkgebühr“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "In § 33 Abs. 2 Satz 1 werden hinter dem Wort „Fassung“ die Worte „nach Maßgabe der für die „Deutsche Welle“ geltenden Vorschriften“ eingefügt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
               "text": "Die §§ 34 und 35 werden gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Der bisherige § 36 wird § 34.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "10.",
+              "text": "Der bisherige § 36 wird der neue § 34 und in Absatz 1 Satz 3 wird das Datum „31. Dezember 2004“ ersetzt durch das Datum „31. Dezember 2008“.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "c)",
-              "text": "Der bisherige § 37 wird § 35.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "11.",
+              "text": "Der bisherige § 37 wird § 35 und wie folgt neu gefasst:\n„§ 35\nIn-Kraft-Treten Dieser Staatsvertrag tritt am 1. Januar 1994 in Kraft.“",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Absatz 2 wird gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Absatz 3 wird Absatz 2.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "Absatz 4 wird Absatz 3 und in Satz 3 werden die Worte „einschließlich der dazugehörigen jeweiligen Programmdirektionen“ gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "§ 5 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Es wird folgender neuer Absatz 3 eingefügt:\n„(3) Die Programme und Angebote der Körperschaft und ihrer Mitglieder sind auf der Grundlage einer Vereinbarung wechselseitig in den jeweiligen Programmen und Angeboten unentgeltlich zu bewerben.“",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Der bisherige Absatz 3 wird Absatz 4.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "§ 21 Abs. 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "In Buchstabe l werden die Worte „Reichsbundes der Kriegsopfer, Behinderten, Sozialrentner und Hinterbliebenen“ ersetzt durch die Worte „Sozialverbandes Deutschland e.V.“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "In Buchstabe r werden die Worte „der IG Medien/Fachgruppe Journalismus, Landesbezirk Rheinland-Pfalz/Saar“ ersetzt durch die Worte „von ver.di – Vereinte Dienstleistungsgewerkschaft e.V. – Landesbezirk Rheinland-Pfalz – aus dem Fachbereich Medien“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "§ 27 Abs. 2 wird wie folgt neu gefasst:\n„(2) Der Intendant beruft im Einvernehmen mit dem Verwaltungsrat die Direktoren und aus deren Mitte seine Stellvertretung.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "In § 28 Nr. 6 wird das Wort „leitenden“ durch das Wort „außertariflichen“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "In § 29 Satz 1 werden die Worte „von ihren Mitgliedern“ durch die Worte „aus Mitteln der Rundfunkgebühr“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "In § 33 Abs. 2 Satz 1 werden hinter dem Wort „Fassung“ die Worte „nach Maßgabe der für die „Deutsche Welle“ geltenden Vorschriften“ eingefügt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Die §§ 34 und 35 werden gestrichen.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "Der bisherige § 36 wird der neue § 34 und in Absatz 1 Satz 3 wird das Datum „31. Dezember 2004“ ersetzt durch das Datum „31. Dezember 2008“.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "11.",
-          "text": "Der bisherige § 37 wird § 35 und wie folgt neu gefasst:\n„§ 35\nIn-Kraft-Treten Dieser Staatsvertrag tritt am 1. Januar 1994 in Kraft.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

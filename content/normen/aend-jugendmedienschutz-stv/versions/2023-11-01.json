@@ -37,87 +37,93 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 7",
-      "title": "Änderung des Jugendmedienschutz-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nJugendmedienschutz-Staatsvertrag vom 10. bis 27. September 2002 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 14 Abs. 9 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 7",
+          "title": "Änderung des Jugendmedienschutz-Staatsvertrages",
           "children": [
             {
-              "type": "item",
-              "label": "a)",
-              "text": "In Satz 1 werden die Worte „,soweit die Aufsicht über Rundfunk betroffen ist,“ gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "type": "paragraphText",
+              "text": "Der\nJugendmedienschutz-Staatsvertrag vom 10. bis 27. September 2002 wird wie folgt geändert:"
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Die Sätze 2 bis 4 werden gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "1.",
+              "text": "§ 14 Abs. 9 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Satz 1 werden die Worte „,soweit die Aufsicht über Rundfunk betroffen ist,“ gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Die Sätze 2 bis 4 werden gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Die bisherigen Sätze 5 und 6 werden die Sätze 2 und 3.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
-              "label": "c)",
-              "text": "Die bisherigen Sätze 5 und 6 werden die Sätze 2 und 3.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "2.",
+              "text": "§ 18 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Es wird folgender neuer Satz 2 eingefügt:\n„Die Stelle „jugendschutz.net“ wird von den Landesmedienanstalten und den Ländern bis zum 31. Dezember 2008 gemeinsam finanziert.“",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Der bisherige Satz 2 wird Satz 3 und es werden nach dem Wort „Stelle“ die Worte „durch die Länder“ eingefügt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Der bisherige Satz 3 wird Satz 4.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In § 26 Abs. 1 Sätze 3 und 4 wird das Datum „31. Dezember 2006“ jeweils ersetzt durch das Datum „31. Dezember 2008“.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 18 Abs. 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Es wird folgender neuer Satz 2 eingefügt:\n„Die Stelle „jugendschutz.net“ wird von den Landesmedienanstalten und den Ländern bis zum 31. Dezember 2008 gemeinsam finanziert.“",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Der bisherige Satz 2 wird Satz 3 und es werden nach dem Wort „Stelle“ die Worte „durch die Länder“ eingefügt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "Der bisherige Satz 3 wird Satz 4.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In § 26 Abs. 1 Sätze 3 und 4 wird das Datum „31. Dezember 2006“ jeweils ersetzt durch das Datum „31. Dezember 2008“.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

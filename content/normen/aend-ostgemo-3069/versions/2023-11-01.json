@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "paragraph",
-      "label": "§ 64",
-      "title": "Einschränkung von Grundrechten",
+      "type": "part",
+      "label": "Vierter Teil",
+      "title": "Sonstige Vorschriften",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Recht auf informationelle Selbstbestimmung (Artikel 2 Absatz 1 in Verbindung mit Artikel 1 Absatz 1 des Grundgesetzes für die Bundesrepublik Deutschland, Artikel 33 der Verfassung des Freistaates Ostdeutschland) wird durch dieses Gesetz eingeschränkt."
+          "type": "paragraph",
+          "label": "§ 64",
+          "title": "Einschränkung von Grundrechten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Das Recht auf informationelle Selbstbestimmung (Artikel 2 Absatz 1 in Verbindung mit Artikel 1 Absatz 1 des Grundgesetzes für die Bundesrepublik Deutschland, Artikel 33 der Verfassung des Freistaates Ostdeutschland) wird durch dieses Gesetz eingeschränkt."
+            }
+          ]
         }
       ]
     }

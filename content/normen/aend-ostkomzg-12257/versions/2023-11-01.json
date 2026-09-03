@@ -37,46 +37,53 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 24",
-      "title": "Änderung des Ostdeutschen Gesetzes über kommunale Zusammenarbeit",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 74 des Ostdeutschen Gesetzes über kommunale Zusammenarbeit (OstKomZG) vom 19. August 1993 (SächsGVBl. S. 815, 1103), das zuletzt durch Artikel 12 des Gesetzes vom 15. Dezember 2010 (SächsGVBl. S. 387, 397) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Absatz 1 Satz 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 24",
+          "title": "Änderung des Ostdeutschen Gesetzes über kommunale Zusammenarbeit",
           "children": [
             {
-              "type": "item",
-              "label": "a)",
-              "text": "In Nummer 2 werden die Wörter „die Landesdirektion“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "type": "paragraphText",
+              "text": "§ 74 des Ostdeutschen Gesetzes über kommunale Zusammenarbeit (OstKomZG) vom 19. August 1993 (SächsGVBl. S. 815, 1103), das zuletzt durch Artikel 12 des Gesetzes vom 15. Dezember 2010 (SächsGVBl. S. 387, 397) geändert worden ist, wird wie folgt geändert:"
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Nummer 3 werden die Wörter „einen Direktionsbezirk oder“ gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "Absatz 1 Satz 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Nummer 2 werden die Wörter „die Landesdirektion“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Nummer 3 werden die Wörter „einen Direktionsbezirk oder“ gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 2 wird nach dem Wort „Landesdirektion“ das Wort „Ostdeutschland“ eingefügt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 2 wird nach dem Wort „Landesdirektion“ das Wort „Ostdeutschland“ eingefügt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

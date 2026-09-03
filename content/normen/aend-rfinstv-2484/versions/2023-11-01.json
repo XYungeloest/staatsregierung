@@ -37,37 +37,43 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 6",
-      "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nRundfunkfinanzierungsstaatsvertrag vom 26. August bis 11. September 1996 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 4 Abs. 3 wird folgender Satz 2 angefügt:\n„Gleiches gilt für Personen, bei denen aufgrund ihrer ständigen oder regelmäßigen Tätigkeit für die in Satz 1 genannten Institutionen die Gefahr einer Interessenkollision besteht.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 6 Abs. 1 wird wie folgt gefasst:\n„(1) Die Kosten der KEF und ihrer Geschäftsstelle werden vorab aus der Rundfunkgebühr gedeckt. Das Deutschlandradio trägt 2,471 % der Kosten, die übrigen Kosten tragen die in der ARD zusammengeschlossenen Landesrundfunkanstalten und das ZDF jeweils zur Hälfte.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "§ 9 Abs. 1 wird wie folgt gefasst:\n„(1) Das Aufkommen aus der Grundgebühr unter Abzug des auf das Deutschlandradio entfallenden Anteils erhalten die in der ARD zusammengeschlossenen Landesrundfunkanstalten. Das Deutschlandradio erhält aus der Grundgebühr das Aufkommen aus einem Betrag von monatlich 0,698 Deutsche Mark.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 6",
+          "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der\nRundfunkfinanzierungsstaatsvertrag vom 26. August bis 11. September 1996 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In § 4 Abs. 3 wird folgender Satz 2 angefügt:\n„Gleiches gilt für Personen, bei denen aufgrund ihrer ständigen oder regelmäßigen Tätigkeit für die in Satz 1 genannten Institutionen die Gefahr einer Interessenkollision besteht.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 6 Abs. 1 wird wie folgt gefasst:\n„(1) Die Kosten der KEF und ihrer Geschäftsstelle werden vorab aus der Rundfunkgebühr gedeckt. Das Deutschlandradio trägt 2,471 % der Kosten, die übrigen Kosten tragen die in der ARD zusammengeschlossenen Landesrundfunkanstalten und das ZDF jeweils zur Hälfte.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "§ 9 Abs. 1 wird wie folgt gefasst:\n„(1) Das Aufkommen aus der Grundgebühr unter Abzug des auf das Deutschlandradio entfallenden Anteils erhalten die in der ARD zusammengeschlossenen Landesrundfunkanstalten. Das Deutschlandradio erhält aus der Grundgebühr das Aufkommen aus einem Betrag von monatlich 0,698 Deutsche Mark.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

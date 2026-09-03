@@ -236,6 +236,30 @@ function blockAtPath(body, path) {
  * Beide amtlichen Seiten sind als R2-Quellen belegt (official-snapshot der
  * Komponente, envelope-snapshot der Mantelvorschrift mit Anker).
  */
+/**
+ * Normkörper eines Mantelbestandteils. Verweist der Pfad auf einen verschachtelten Block
+ * (Absatz eines Folgeänderungsartikels, Nummer eines Paragraphen), bleibt die
+ * Vorfahrenkette als Rahmen erhalten – ohne die übrigen Geschwister –, damit die
+ * Fundstelle innerhalb der Mantelvorschrift (Artikel 2 Absatz 3) im Text lesbar bleibt.
+ */
+export function componentBodyAtPath(envelopeBody, path) {
+  if (path.length <= 1) return [blockAtPath(envelopeBody, path)];
+  let blocks = envelopeBody;
+  const chain = [];
+  for (const index of path) {
+    const block = blocks[index];
+    if (!block) throw new Error(`Blockpfad ${JSON.stringify(path)} nicht in der Mantelvorschrift`);
+    chain.push(block);
+    blocks = block.children ?? [];
+  }
+  let current = chain.at(-1);
+  for (const ancestor of chain.slice(0, -1).reverse()) {
+    const { children, text, ...frame } = ancestor;
+    current = { ...frame, children: [current] };
+  }
+  return [current];
+}
+
 export function buildEnvelopeComponentRecord({ entry, component, envelopeSource, envelopeBody, slug, containedIn, objectRecords, baselineDate = BASELINE_DATE }) {
   const context = `${entry.sourceId} (${slug})`;
   const componentKey = objectKeyFor(baselineDate, entry.sourceId);
@@ -251,7 +275,7 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
     sourceTitle: component.sourceTitle ?? entry.listing?.title ?? '',
     shortTitle: entry.listing?.label ?? component.sourceTitle ?? '',
     fullCitation: component.sourceCitation ?? entry.listing?.citation ?? '',
-    body: [block],
+    body: componentBodyAtPath(envelopeBody, component.articleBlockPath ?? []),
   });
   const title = adapted.sourceTitle;
   const shortTitle = adapted.shortTitle || title;

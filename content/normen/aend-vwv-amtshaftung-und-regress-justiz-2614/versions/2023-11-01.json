@@ -39,12 +39,18 @@
   "body": [
     {
       "type": "section",
-      "label": "V.",
-      "title": "Änderung der VwV Amtshaftung und Regress Justiz",
+      "title": "Eingangsformel",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In Ziffer II Nr. 2 Satz 1 der Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Inanspruchnahme von Bediensteten sowie über die Behandlung von Amtshaftungsansprüchen (VwV Amtshaftung und Regress Justiz) vom 19. Januar 1999 (SächsJMBl. S. 23) wird die Angabe „10000 DM” durch die Angabe „5 000 EUR” ersetzt."
+          "type": "section",
+          "label": "V.",
+          "title": "Änderung der VwV Amtshaftung und Regress Justiz",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In Ziffer II Nr. 2 Satz 1 der Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Inanspruchnahme von Bediensteten sowie über die Behandlung von Amtshaftungsansprüchen (VwV Amtshaftung und Regress Justiz) vom 19. Januar 1999 (SächsJMBl. S. 23) wird die Angabe „10000 DM” durch die Angabe „5 000 EUR” ersetzt."
+            }
+          ]
         }
       ]
     }

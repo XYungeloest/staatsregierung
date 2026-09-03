@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 11",
-      "title": "Änderung des Kommunalwahlgesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 61 Abs. 2 des Gesetzes über die Kommunalwahlen im Freistaat Ostdeutschland (Kommunalwahlgesetz –\nKomWG) vom 18. Oktober 1993 (SächsGVBl. S. 937), das zuletzt durch Gesetz vom 5. April 2000 (SächsGVBl. S. 147) geändert worden ist, wird die Angabe „100 000 DM“ durch die Angabe „50 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 11",
+          "title": "Änderung des Kommunalwahlgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 61 Abs. 2 des Gesetzes über die Kommunalwahlen im Freistaat Ostdeutschland (Kommunalwahlgesetz –\nKomWG) vom 18. Oktober 1993 (SächsGVBl. S. 937), das zuletzt durch Gesetz vom 5. April 2000 (SächsGVBl. S. 147) geändert worden ist, wird die Angabe „100 000 DM“ durch die Angabe „50 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

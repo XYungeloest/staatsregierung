@@ -37,29 +37,36 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 7",
-      "title": "Änderung des Verwaltungsvollstreckungsgesetzes für den Freistaat Ostdeutschland",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 22 Abs. 1 des Verwaltungsvollstreckungsgesetzes für den Freistaat Ostdeutschland (OstVwVG) vom 17. Juli 1992 (SächsGVBl. S. 327), das zuletzt durch Artikel 1 des Gesetzes vom 19. Oktober 1998 (SächsGVBl. S. 505) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Die Angabe „10 DM“ wird durch die Angabe „5 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Die Angabe „50 000 DM“ wird durch die Angabe „25 000 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 7",
+          "title": "Änderung des Verwaltungsvollstreckungsgesetzes für den Freistaat Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 22 Abs. 1 des Verwaltungsvollstreckungsgesetzes für den Freistaat Ostdeutschland (OstVwVG) vom 17. Juli 1992 (SächsGVBl. S. 327), das zuletzt durch Artikel 1 des Gesetzes vom 19. Oktober 1998 (SächsGVBl. S. 505) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Die Angabe „10 DM“ wird durch die Angabe „5 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Die Angabe „50 000 DM“ wird durch die Angabe „25 000 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

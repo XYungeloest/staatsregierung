@@ -37,29 +37,36 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 10",
-      "title": "Änderung der Landkreisordnung für den Freistaat Ostdeutschland",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Die Landkreisordnung für den Freistaat Ostdeutschland (OstLKrO) vom 19. Juli 1993 (SächsGVBl. S. 577), zuletzt geändert durch Artikel 2 des Gesetzes vom 20. Februar 1997 (SächsGVBl. S. 105), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 16 Abs. 3 wird die Angabe „1 000 DM“ durch die Angabe „500 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In § 17 Abs. 4 wird die Angabe „1 000 DM“ durch die Angabe „500 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 10",
+          "title": "Änderung der Landkreisordnung für den Freistaat Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Landkreisordnung für den Freistaat Ostdeutschland (OstLKrO) vom 19. Juli 1993 (SächsGVBl. S. 577), zuletzt geändert durch Artikel 2 des Gesetzes vom 20. Februar 1997 (SächsGVBl. S. 105), wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In § 16 Abs. 3 wird die Angabe „1 000 DM“ durch die Angabe „500 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In § 17 Abs. 4 wird die Angabe „1 000 DM“ durch die Angabe „500 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

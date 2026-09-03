@@ -39,36 +39,42 @@
   "body": [
     {
       "type": "section",
-      "label": "VII.",
-      "title": "Änderung der VwV Kopien",
+      "title": "Eingangsformel",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Erhebung von Entgelten für privat gefertigte Kopien (VwV Kopien) vom 9. Juli 1999 (SächsJMBl. S. 118) wird mit Einwilligung des Staatsministeriums der Finanzen und nach Anhörung des Rechnungshofes wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Nummer 1 Buchst. a wird die Angabe „0,10 DM” durch die Angabe „5 Cent” ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Nummer 1 Buchst. b wird die Angabe „0,50 DM” durch die Angabe „25 Cent” ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In Nummer 2 Satz 2 wird die Angabe „25 DM” durch die Angabe „12,50 EUR” ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "section",
+          "label": "VII.",
+          "title": "Änderung der VwV Kopien",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Erhebung von Entgelten für privat gefertigte Kopien (VwV Kopien) vom 9. Juli 1999 (SächsJMBl. S. 118) wird mit Einwilligung des Staatsministeriums der Finanzen und nach Anhörung des Rechnungshofes wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Nummer 1 Buchst. a wird die Angabe „0,10 DM” durch die Angabe „5 Cent” ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Nummer 1 Buchst. b wird die Angabe „0,50 DM” durch die Angabe „25 Cent” ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In Nummer 2 Satz 2 wird die Angabe „25 DM” durch die Angabe „12,50 EUR” ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

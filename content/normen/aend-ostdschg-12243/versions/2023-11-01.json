@@ -37,52 +37,59 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 11",
-      "title": "Änderung des Ostdeutschen Denkmalschutzgesetzes",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Gesetz zum Schutz und zur Pflege der Kulturdenkmale im Freistaat Ostdeutschland (Ostdeutsches Denkmalschutzgesetz –\nOstDSchG) vom 3. März 1993 (SächsGVBl. S. 229), zuletzt geändert durch Artikel 6 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 146), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 3 Abs. 1 Nr. 2 werden die Wörter „Landesdirektionen als obere Denkmalschutzbehörden“ durch die Wörter „Landesdirektion Ostdeutschland als obere Denkmalschutzbehörde“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In § 8 Abs. 2 Satz 3 werden die Wörter „sind die Landesdirektionen Bewilligungsbehörde“ durch die Wörter „ist die Landesdirektion Ostdeutschland Bewilligungsbehörde“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In § 10 Abs. 4 werden die Wörter „den oberen Denkmalschutzbehörden“ durch die Wörter „der oberen Denkmalschutzbehörde“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "§ 32 wird wie folgt gefasst:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 11",
+          "title": "Änderung des Ostdeutschen Denkmalschutzgesetzes",
           "children": [
             {
               "type": "paragraphText",
-              "text": "„§ 32\nEnteignungsbehörde und Enteignungsantrag"
+              "text": "Das Gesetz zum Schutz und zur Pflege der Kulturdenkmale im Freistaat Ostdeutschland (Ostdeutsches Denkmalschutzgesetz –\nOstDSchG) vom 3. März 1993 (SächsGVBl. S. 229), zuletzt geändert durch Artikel 6 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 146), wird wie folgt geändert:"
             },
             {
-              "type": "paragraphText",
-              "text": "Die Enteignung wird von der oberen Denkmalschutzbehörde (Enteignungsbehörde) durchgeführt. Bei ihr ist der Enteignungsantrag zu stellen.“"
+              "type": "item",
+              "label": "1.",
+              "text": "In § 3 Abs. 1 Nr. 2 werden die Wörter „Landesdirektionen als obere Denkmalschutzbehörden“ durch die Wörter „Landesdirektion Ostdeutschland als obere Denkmalschutzbehörde“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In § 8 Abs. 2 Satz 3 werden die Wörter „sind die Landesdirektionen Bewilligungsbehörde“ durch die Wörter „ist die Landesdirektion Ostdeutschland Bewilligungsbehörde“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In § 10 Abs. 4 werden die Wörter „den oberen Denkmalschutzbehörden“ durch die Wörter „der oberen Denkmalschutzbehörde“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "§ 32 wird wie folgt gefasst:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 32\nEnteignungsbehörde und Enteignungsantrag"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Enteignung wird von der oberen Denkmalschutzbehörde (Enteignungsbehörde) durchgeführt. Bei ihr ist der Enteignungsantrag zu stellen.“"
+                }
+              ]
             }
           ]
         }

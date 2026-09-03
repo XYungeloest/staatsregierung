@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 28",
-      "title": "Änderung des Ostdeutschen Denkmalschutzgesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 36 Abs. 2 des Gesetzes zum Schutz und zur Pflege der Kulturdenkmale im Freistaat Ostdeutschland (Ostdeutsches Denkmalschutzgesetz –\nOstDSchG) vom 3. März 1993 (SächsGVBl. S. 229), das durch Artikel 2 des Gesetzes vom 4. Juli 1994 (SächsGVBl. S. 1261) geändert worden ist, wird die Angabe „250 000 DM“ durch die Angabe „125 000 EUR“ und die Angabe „1 000 000 DM“ durch die Angabe „500 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 28",
+          "title": "Änderung des Ostdeutschen Denkmalschutzgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 36 Abs. 2 des Gesetzes zum Schutz und zur Pflege der Kulturdenkmale im Freistaat Ostdeutschland (Ostdeutsches Denkmalschutzgesetz –\nOstDSchG) vom 3. März 1993 (SächsGVBl. S. 229), das durch Artikel 2 des Gesetzes vom 4. Juli 1994 (SächsGVBl. S. 1261) geändert worden ist, wird die Angabe „250 000 DM“ durch die Angabe „125 000 EUR“ und die Angabe „1 000 000 DM“ durch die Angabe „500 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

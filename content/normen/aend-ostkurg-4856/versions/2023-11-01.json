@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 20",
-      "title": "Änderung des Ostdeutschen Kurortegesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 8 Abs. 2 des Ostdeutschen Gesetzes über die staatliche Anerkennung von Kurorten und Erholungsorten im Freistaat Ostdeutschland (Ostdeutsches Kurortegesetz –\nOstKurG) vom 9. Juni 1994 (SächsGVBl. S. 1022) werden die Worte „zehntausend Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 20",
+          "title": "Änderung des Ostdeutschen Kurortegesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 8 Abs. 2 des Ostdeutschen Gesetzes über die staatliche Anerkennung von Kurorten und Erholungsorten im Freistaat Ostdeutschland (Ostdeutsches Kurortegesetz –\nOstKurG) vom 9. Juni 1994 (SächsGVBl. S. 1022) werden die Worte „zehntausend Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

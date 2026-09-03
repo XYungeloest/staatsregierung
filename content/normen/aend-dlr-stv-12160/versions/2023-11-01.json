@@ -37,13 +37,19 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 5",
-      "title": "Änderung des Deutschlandradio-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 29 Satz 1 des\nDeutschlandradio-Staatsvertrages vom 17. Juni 1993, zuletzt geändert durch den Vierzehnten Rundfunkänderungsstaatsvertrag vom 10. Juni 2010, werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt."
+          "type": "article",
+          "label": "Artikel 5",
+          "title": "Änderung des Deutschlandradio-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 29 Satz 1 des\nDeutschlandradio-Staatsvertrages vom 17. Juni 1993, zuletzt geändert durch den Vierzehnten Rundfunkänderungsstaatsvertrag vom 10. Juni 2010, werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt."
+            }
+          ]
         }
       ]
     }

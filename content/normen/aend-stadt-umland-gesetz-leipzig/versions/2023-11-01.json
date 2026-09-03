@@ -37,17 +37,24 @@
   ],
   "body": [
     {
-      "type": "paragraph",
-      "label": "§ 60",
-      "title": "Änderung des Stadt-Umland-Gesetzes Leipzig",
+      "type": "part",
+      "label": "Dritter Teil",
+      "title": "Schlußbestimmungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Artikel 8 Satzes des Gesetzes zur Regulierung der Stadt-Umland Verhältnisse im Bereich der Kreisfreien Stadt Leipzig (Stadt-Umland-Gesetzes Leipzig) vom 24. August 1998 (SächsGVBl. S. 475) wird wie folgt gefaßt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Im übrigen tritt dieses Gesetz am 1. Januar 1999 in Kraft.“"
+          "type": "paragraph",
+          "label": "§ 60",
+          "title": "Änderung des Stadt-Umland-Gesetzes Leipzig",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Artikel 8 Satzes des Gesetzes zur Regulierung der Stadt-Umland Verhältnisse im Bereich der Kreisfreien Stadt Leipzig (Stadt-Umland-Gesetzes Leipzig) vom 24. August 1998 (SächsGVBl. S. 475) wird wie folgt gefaßt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": "„Im übrigen tritt dieses Gesetz am 1. Januar 1999 in Kraft.“"
+            }
+          ]
         }
       ]
     }

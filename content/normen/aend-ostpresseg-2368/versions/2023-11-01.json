@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 30",
-      "title": "Änderung des Ostdeutschen Gesetzes über die Presse",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 13 Abs. 2 des Ostdeutschen Gesetzes über die Presse (OstPresseG) vom 3. April 1992 (SächsGVBl. S. 125) wird die Angabe „DM 100 000,-“ durch die Angabe „50 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 30",
+          "title": "Änderung des Ostdeutschen Gesetzes über die Presse",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 13 Abs. 2 des Ostdeutschen Gesetzes über die Presse (OstPresseG) vom 3. April 1992 (SächsGVBl. S. 125) wird die Angabe „DM 100 000,-“ durch die Angabe „50 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

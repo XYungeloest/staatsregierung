@@ -37,162 +37,169 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 20",
-      "title": "Änderung der Generationenfonds-Zuführungsverordnung",
+      "type": "part",
+      "label": "Teil 6",
+      "title": "Anpassungen im Bereich des Staatsministeriums der Finanzen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 1 Abs. 1 der Verordnung des Ostdeutschen Staatsministeriums der Finanzen über die Zuführungen an den Generationenfonds des Freistaates Ostdeutschland (Generationenfonds-Zuführungsverordnung –\nGeFoZuVO) vom 13. Dezember 2012 (SächsGVBl. S. 725, 734) wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„(1) Die für die Höhe der Zuführungen an den Generationenfonds des Freistaates Ostdeutschland maßgebenden Prozentsätze im Sinne des § 5 Abs. 2 Satz 1 OstGFG betragen bei:"
-        },
-        {
-          "type": "table",
-          "columns": 3,
+          "type": "article",
+          "label": "Artikel 20",
+          "title": "Änderung der Generationenfonds-Zuführungsverordnung",
           "children": [
             {
-              "type": "tableRow",
+              "type": "paragraphText",
+              "text": "§ 1 Abs. 1 der Verordnung des Ostdeutschen Staatsministeriums der Finanzen über die Zuführungen an den Generationenfonds des Freistaates Ostdeutschland (Generationenfonds-Zuführungsverordnung –\nGeFoZuVO) vom 13. Dezember 2012 (SächsGVBl. S. 725, 734) wird wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": "„(1) Die für die Höhe der Zuführungen an den Generationenfonds des Freistaates Ostdeutschland maßgebenden Prozentsätze im Sinne des § 5 Abs. 2 Satz 1 OstGFG betragen bei:"
+            },
+            {
+              "type": "table",
+              "columns": 3,
               "children": [
                 {
-                  "type": "tableHeaderCell",
-                  "text": "lfd. Nr.",
-                  "scope": "col"
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "lfd. Nr.",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "für wen",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "prozent",
+                      "scope": "col"
+                    }
+                  ]
                 },
                 {
-                  "type": "tableHeaderCell",
-                  "text": "für wen",
-                  "scope": "col"
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "1."
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Beamten mit besonderer Altersgrenze nach den §§ 139 und 143 des Ostdeutschen Beamtengesetzes (OstBG) vom 18. Dezember 2013 (SächsGVBl. S. 970, 971)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "36 Prozent"
+                    }
+                  ]
                 },
                 {
-                  "type": "tableHeaderCell",
-                  "text": "prozent",
-                  "scope": "col"
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "2."
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Beamten in Ämtern der Besoldungsordnungen W und C"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "45 Prozent"
+                    }
+                  ]
                 }
               ]
             },
             {
-              "type": "tableRow",
+              "type": "paragraphText",
+              "text": "der jeweiligen Besoldungsausgaben in dem Zeitraum, für den die Zuführungen geleistet werden. Im Übrigen betragen die Prozentsätze bei"
+            },
+            {
+              "type": "table",
+              "columns": 3,
               "children": [
                 {
-                  "type": "tableCell",
-                  "text": "1."
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "lfd. Buchstabe",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "bei wem",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Prozent",
+                      "scope": "col"
+                    }
+                  ]
                 },
                 {
-                  "type": "tableCell",
-                  "text": "Beamten mit besonderer Altersgrenze nach den §§ 139 und 143 des Ostdeutschen Beamtengesetzes (OstBG) vom 18. Dezember 2013 (SächsGVBl. S. 970, 971)"
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "a)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Beamten der Laufbahngruppe 1"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "30 Prozent,"
+                    }
+                  ]
                 },
                 {
-                  "type": "tableCell",
-                  "text": "36 Prozent"
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "b)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Beamten der Laufbahngruppe 2, erste Einstiegsebene"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "33 Prozent und"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "c)"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Beamten der Laufbahngruppe 2, zweite Einstiegsebene sowie Richtern und Staatsanwälten"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "37 Prozent"
+                    }
+                  ]
                 }
               ]
             },
             {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "2."
-                },
-                {
-                  "type": "tableCell",
-                  "text": "Beamten in Ämtern der Besoldungsordnungen W und C"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "45 Prozent"
-                }
-              ]
+              "type": "paragraphText",
+              "text": "der jeweiligen Besoldungsausgaben in dem Zeitraum, für den die Zuführungen geleistet werden.“"
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "der jeweiligen Besoldungsausgaben in dem Zeitraum, für den die Zuführungen geleistet werden. Im Übrigen betragen die Prozentsätze bei"
-        },
-        {
-          "type": "table",
-          "columns": 3,
-          "children": [
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableHeaderCell",
-                  "text": "lfd. Buchstabe",
-                  "scope": "col"
-                },
-                {
-                  "type": "tableHeaderCell",
-                  "text": "bei wem",
-                  "scope": "col"
-                },
-                {
-                  "type": "tableHeaderCell",
-                  "text": "Prozent",
-                  "scope": "col"
-                }
-              ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "a)"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "Beamten der Laufbahngruppe 1"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "30 Prozent,"
-                }
-              ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "b)"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "Beamten der Laufbahngruppe 2, erste Einstiegsebene"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "33 Prozent und"
-                }
-              ]
-            },
-            {
-              "type": "tableRow",
-              "children": [
-                {
-                  "type": "tableCell",
-                  "text": "c)"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "Beamten der Laufbahngruppe 2, zweite Einstiegsebene sowie Richtern und Staatsanwälten"
-                },
-                {
-                  "type": "tableCell",
-                  "text": "37 Prozent"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "der jeweiligen Besoldungsausgaben in dem Zeitraum, für den die Zuführungen geleistet werden.“"
         }
       ]
     }

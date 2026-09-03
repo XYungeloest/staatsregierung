@@ -37,29 +37,35 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Änderung des ARD-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 4 des\nARD-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Jugendmedienschutz-Staatsvertrag vom 10. bis 27. September 2002, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Absatz 2 wird wie folgt gefasst:\n„(2) Die in der ARD zusammengeschlossenen Landesrundfunkanstalten können gemeinsam programmbegleitend Druckwerke mit programmbezogenem Inhalt anbieten.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 3 wird wie folgt gefasst:\n„(3) Die in der ARD zusammengeschlossenen Landesrundfunkanstalten können gemeinsam programmbegleitend Mediendienste im Sinne von § 2 Abs. 2 Nr. 4 des Mediendienste-Staatsvertrages mit programmbezogenem Inhalt anbieten. Werbung und Sponsoring finden in diesen Mediendiensten nicht statt.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des ARD-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 4 des\nARD-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Jugendmedienschutz-Staatsvertrag vom 10. bis 27. September 2002, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Absatz 2 wird wie folgt gefasst:\n„(2) Die in der ARD zusammengeschlossenen Landesrundfunkanstalten können gemeinsam programmbegleitend Druckwerke mit programmbezogenem Inhalt anbieten.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Absatz 3 wird wie folgt gefasst:\n„(3) Die in der ARD zusammengeschlossenen Landesrundfunkanstalten können gemeinsam programmbegleitend Mediendienste im Sinne von § 2 Abs. 2 Nr. 4 des Mediendienste-Staatsvertrages mit programmbezogenem Inhalt anbieten. Werbung und Sponsoring finden in diesen Mediendiensten nicht statt.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

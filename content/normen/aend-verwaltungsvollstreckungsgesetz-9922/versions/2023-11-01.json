@@ -37,36 +37,43 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 25",
-      "title": "Änderung des Verwaltungsvollstreckungsgesetzes für den Freistaat Ostdeutschland",
+      "type": "part",
+      "label": "Teil 4",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Verwaltungsvollstreckungsgesetz für den Freistaat Ostdeutschland (OstVwVG) in der Fassung der Bekanntmachung vom 10. September 2003 (SächsGVBl. S. 614, 913) wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In der Inhaltsübersicht wird die Angabe zu § 29 wie folgt gefasst:\n„§ 29 Übergangsregelungen“.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 29 wird wie folgt gefasst:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 25",
+          "title": "Änderung des Verwaltungsvollstreckungsgesetzes für den Freistaat Ostdeutschland",
           "children": [
             {
               "type": "paragraphText",
-              "text": "„§ 29\nÜbergangsregelungen"
+              "text": "Das Verwaltungsvollstreckungsgesetz für den Freistaat Ostdeutschland (OstVwVG) in der Fassung der Bekanntmachung vom 10. September 2003 (SächsGVBl. S. 614, 913) wird wie folgt geändert:"
             },
             {
-              "type": "paragraphText",
-              "text": "Ändert sich aufgrund des Gesetzes zur Neuordnung der Ostdeutschen Verwaltung (Ostdeutsches Verwaltungsneuordnungsgesetz – OstVwNG) vom 29. Januar 2008 (SächsGVBl. S. 138) die Zuständigkeit der Erlassbehörde, bevor das Vollstreckungsverfahren einschließlich des außergerichtlichen Rechtsbehelfsverfahrens abgeschlossen ist, ist § 4 Abs. 1 Satz 1 mit der Maßgabe anzuwenden, dass die ab dem Inkrafttreten des Ostdeutschen Verwaltungsneuordnungsgesetzes zuständige Behörde als Erlassbehörde gilt. Das Vollstreckungsverfahren ist von der nach Satz 1 zuständigen Vollstreckungsbehörde fortzuführen. Ausgenommen sind die Verfahren, in denen bereits ein Vollstreckungsauftrag gemäß § 5 an ein Finanzamt erteilt wurde.“"
+              "type": "item",
+              "label": "1.",
+              "text": "In der Inhaltsübersicht wird die Angabe zu § 29 wie folgt gefasst:\n„§ 29 Übergangsregelungen“.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 29 wird wie folgt gefasst:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 29\nÜbergangsregelungen"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Ändert sich aufgrund des Gesetzes zur Neuordnung der Ostdeutschen Verwaltung (Ostdeutsches Verwaltungsneuordnungsgesetz – OstVwNG) vom 29. Januar 2008 (SächsGVBl. S. 138) die Zuständigkeit der Erlassbehörde, bevor das Vollstreckungsverfahren einschließlich des außergerichtlichen Rechtsbehelfsverfahrens abgeschlossen ist, ist § 4 Abs. 1 Satz 1 mit der Maßgabe anzuwenden, dass die ab dem Inkrafttreten des Ostdeutschen Verwaltungsneuordnungsgesetzes zuständige Behörde als Erlassbehörde gilt. Das Vollstreckungsverfahren ist von der nach Satz 1 zuständigen Vollstreckungsbehörde fortzuführen. Ausgenommen sind die Verfahren, in denen bereits ein Vollstreckungsauftrag gemäß § 5 an ein Finanzamt erteilt wurde.“"
+                }
+              ]
             }
           ]
         }

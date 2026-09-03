@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 9",
-      "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 19 Abs. 4 der Gemeindeordnung für den Freistaat Ostdeutschland (OstGemO) in der Fassung der Bekanntmachung vom 14. Juni 1999 (SächsGVBl. S. 345), die durch § 73 Abs. 1 des Gesetzes vom 24. November 2000 (SächsGVBl. S. 482, 492) geändert worden ist, wird die Angabe „1 000 DM“ durch die Angabe „500 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 9",
+          "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 19 Abs. 4 der Gemeindeordnung für den Freistaat Ostdeutschland (OstGemO) in der Fassung der Bekanntmachung vom 14. Juni 1999 (SächsGVBl. S. 345), die durch § 73 Abs. 1 des Gesetzes vom 24. November 2000 (SächsGVBl. S. 482, 492) geändert worden ist, wird die Angabe „1 000 DM“ durch die Angabe „500 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

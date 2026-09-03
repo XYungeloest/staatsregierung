@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 19",
-      "title": "Änderung des Ostdeutschen Bestattungsgesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 23 Abs. 3 des Ostdeutschen Gesetzes über das Friedhofs-, Leichen- und Bestattungswesen (Ostdeutsches Bestattungsgesetz –\nOstBestG) vom 8. Juli 1994 (SächsGVBl. S. 1321), das durch Artikel 2 des Gesetzes vom 18. März 1999 (SächsGVBl. S. 86, 115) geändert worden ist, wird die Angabe „10 000 Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 19",
+          "title": "Änderung des Ostdeutschen Bestattungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 23 Abs. 3 des Ostdeutschen Gesetzes über das Friedhofs-, Leichen- und Bestattungswesen (Ostdeutsches Bestattungsgesetz –\nOstBestG) vom 8. Juli 1994 (SächsGVBl. S. 1321), das durch Artikel 2 des Gesetzes vom 18. März 1999 (SächsGVBl. S. 86, 115) geändert worden ist, wird die Angabe „10 000 Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

@@ -37,44 +37,51 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 18",
-      "title": "Änderung des Ostdeutschen Sicherheitsüberprüfungsgesetzes",
+      "type": "part",
+      "label": "Teil 4",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Ostdeutschland (Ostdeutsches Sicherheitsüberprüfungsgesetz – OstSÜG) vom 19. Februar 2004 (SächsGVBl. S. 44) wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 3 Abs. 2 Satz 1 Nr. 2 werden die Wörter „Regierungspräsidenten und die Regierungsvizepräsidenten“ durch die Wörter „Präsidenten und Vizepräsidenten der Landesdirektionen“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 26 Abs. 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 18",
+          "title": "Änderung des Ostdeutschen Sicherheitsüberprüfungsgesetzes",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Das Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Ostdeutschland (Ostdeutsches Sicherheitsüberprüfungsgesetz – OstSÜG) vom 19. Februar 2004 (SächsGVBl. S. 44) wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "In den Sätzen 1 und 3 werden jeweils die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "In § 3 Abs. 2 Satz 1 Nr. 2 werden die Wörter „Regierungspräsidenten und die Regierungsvizepräsidenten“ durch die Wörter „Präsidenten und Vizepräsidenten der Landesdirektionen“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Satz 2 werden die Wörter „Das Regierungspräsidium“ durch die Wörter „Die Landesdirektion“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "2.",
+              "text": "§ 26 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In den Sätzen 1 und 3 werden jeweils die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Satz 2 werden die Wörter „Das Regierungspräsidium“ durch die Wörter „Die Landesdirektion“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

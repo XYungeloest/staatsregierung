@@ -37,13 +37,19 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 4",
-      "title": "Änderung des Jugendmedienschutz-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 14 Abs. 8 bis 10 des\nJugendmedienschutz-Staatsvertrages vom 10. bis 27. September 2002, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006, wird gestrichen."
+          "type": "article",
+          "label": "Artikel 4",
+          "title": "Änderung des Jugendmedienschutz-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 14 Abs. 8 bis 10 des\nJugendmedienschutz-Staatsvertrages vom 10. bis 27. September 2002, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006, wird gestrichen."
+            }
+          ]
         }
       ]
     }

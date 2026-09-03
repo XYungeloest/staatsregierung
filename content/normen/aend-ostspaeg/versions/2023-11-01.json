@@ -37,29 +37,36 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 34",
-      "title": "Änderung des Ostdeutschen Spätaussiedlereingliederungsgesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 7 Abs. 2 des Ostdeutschen Gesetzes über die Eingliederung von Spätaussiedlern und zur Durchführung des Bundesvertriebenengesetzes sowie anderer Kriegsfolgengesetze (Ostdeutsches Spätaussiedlereingliederungsgesetz –\nOstSpAEG) vom 28. Februar 1994 (SächsGVBl. S. 359), das zuletzt durch Artikel 2 des Gesetzes vom 14. Dezember 2000 (SächsGVBl. S. 513, 2001 S. 97) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Satz 1 wird die Angabe „5 000 DM“ durch die Angabe „2 556,46 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Satz 2 wird die Angabe „6 DM“ durch die Angabe „3,07 EUR“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 34",
+          "title": "Änderung des Ostdeutschen Spätaussiedlereingliederungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 7 Abs. 2 des Ostdeutschen Gesetzes über die Eingliederung von Spätaussiedlern und zur Durchführung des Bundesvertriebenengesetzes sowie anderer Kriegsfolgengesetze (Ostdeutsches Spätaussiedlereingliederungsgesetz –\nOstSpAEG) vom 28. Februar 1994 (SächsGVBl. S. 359), das zuletzt durch Artikel 2 des Gesetzes vom 14. Dezember 2000 (SächsGVBl. S. 513, 2001 S. 97) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Satz 1 wird die Angabe „5 000 DM“ durch die Angabe „2 556,46 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Satz 2 wird die Angabe „6 DM“ durch die Angabe „3,07 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

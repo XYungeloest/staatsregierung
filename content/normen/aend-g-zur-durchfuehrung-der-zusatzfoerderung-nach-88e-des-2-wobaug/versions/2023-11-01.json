@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 8",
-      "title": "Änderung des Gesetzes zur Durchführung der Zusatzförderung nach § 88e des Zweiten Wohnungsbaugesetzes",
+      "type": "part",
+      "label": "Teil 4",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 2 des\nGesetzes zur Durchführung der Zusatzförderung nach § 88e des Zweiten Wohnungsbaugesetzes vom 13. Mai 1997 (SächsGVBl. S. 413) wird das Wort „Regierungspräsidien“ durch das Wort „Landesdirektionen“ ersetzt."
+          "type": "article",
+          "label": "Artikel 8",
+          "title": "Änderung des Gesetzes zur Durchführung der Zusatzförderung nach § 88e des Zweiten Wohnungsbaugesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 2 des\nGesetzes zur Durchführung der Zusatzförderung nach § 88e des Zweiten Wohnungsbaugesetzes vom 13. Mai 1997 (SächsGVBl. S. 413) wird das Wort „Regierungspräsidien“ durch das Wort „Landesdirektionen“ ersetzt."
+            }
+          ]
         }
       ]
     }

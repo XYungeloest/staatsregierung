@@ -37,13 +37,19 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Änderung des ARD-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 9 Satz 3 des\nARD-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Siebten Rundfunkänderungsstaatsvertrag vom 23. bis 26. September 2003, wird das Datum „31. Dezember 2004“ ersetzt durch das Datum „31. Dezember 2008“."
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des ARD-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 9 Satz 3 des\nARD-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Siebten Rundfunkänderungsstaatsvertrag vom 23. bis 26. September 2003, wird das Datum „31. Dezember 2004“ ersetzt durch das Datum „31. Dezember 2008“."
+            }
+          ]
         }
       ]
     }

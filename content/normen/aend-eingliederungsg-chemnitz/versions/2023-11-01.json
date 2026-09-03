@@ -37,17 +37,24 @@
   ],
   "body": [
     {
-      "type": "paragraph",
-      "label": "§ 59",
-      "title": "Änderung des Eingliederungsgesetzes Chemnitz",
+      "type": "part",
+      "label": "Dritter Teil",
+      "title": "Schlußbestimmungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 17 Satz 2 des Gesetzes zur Eingliederung von Gemeinden in die Stadt Chemnitz (Eingliederungsgesetzes Chemnitz) vom 24. August 1998 (SächsGVBl. S. 472) wird wie folgt gefaßt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Im übrigen tritt dieses Gesetz am 1. Januar 1999 in Kraft.“"
+          "type": "paragraph",
+          "label": "§ 59",
+          "title": "Änderung des Eingliederungsgesetzes Chemnitz",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 17 Satz 2 des Gesetzes zur Eingliederung von Gemeinden in die Stadt Chemnitz (Eingliederungsgesetzes Chemnitz) vom 24. August 1998 (SächsGVBl. S. 472) wird wie folgt gefaßt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": "„Im übrigen tritt dieses Gesetz am 1. Januar 1999 in Kraft.“"
+            }
+          ]
         }
       ]
     }

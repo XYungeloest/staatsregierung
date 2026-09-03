@@ -37,44 +37,51 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 43",
-      "title": "Änderung des Heilberufezuständigkeitsgesetzes",
+      "type": "part",
+      "label": "Teil 8",
+      "title": "Anpassungen im Bereich des Staatsministeriums für Soziales und Verbraucherschutz",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 1 des Gesetzes über den Vollzug des Berufsrechts der akademischen Heilberufe und der Gesundheitsfachberufe sowie der arzneimittel- und apothekenrechtlichen Vorschriften (Heilberufezuständigkeitsgesetz –\nHeilbZuG) vom 9. Februar 2004 (SächsGVBl. S. 41), das zuletzt durch Artikel 61 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 180) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Absatz 1 werden nach dem Wort „Soziales“ die Wörter „und Verbraucherschutz“ eingefügt und wird das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 2 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 43",
+          "title": "Änderung des Heilberufezuständigkeitsgesetzes",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "§ 1 des Gesetzes über den Vollzug des Berufsrechts der akademischen Heilberufe und der Gesundheitsfachberufe sowie der arzneimittel- und apothekenrechtlichen Vorschriften (Heilberufezuständigkeitsgesetz –\nHeilbZuG) vom 9. Februar 2004 (SächsGVBl. S. 41), das zuletzt durch Artikel 61 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 180) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "In Satz 1 werden nach dem Wort „Kultus“ die Wörter „und Sport“ und nach dem Wort „Soziales“ die Wörter „und Verbraucherschutz“ eingefügt sowie das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "In Absatz 1 werden nach dem Wort „Soziales“ die Wörter „und Verbraucherschutz“ eingefügt und wird das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Satz 2 wird das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "2.",
+              "text": "Absatz 2 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Satz 1 werden nach dem Wort „Kultus“ die Wörter „und Sport“ und nach dem Wort „Soziales“ die Wörter „und Verbraucherschutz“ eingefügt sowie das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Satz 2 wird das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

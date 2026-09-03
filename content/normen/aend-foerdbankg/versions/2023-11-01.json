@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Änderung des Gesetzes zur Errichtung der Ostdeutschen Aufbaubank – Förderbank –",
+      "type": "part",
+      "label": "Teil 1",
+      "title": "Standort- und Strukturentscheidungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 1 Abs. 2 des Gesetzes zur Errichtung der Ostdeutschen Aufbaubank – Förderbank – (FördbankG) vom 19. Juni 2003 (SächsGVBl. S. 161) wird das Wort „Dresden“ durch das Wort „Leipzig“ ersetzt."
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des Gesetzes zur Errichtung der Ostdeutschen Aufbaubank – Förderbank –",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 1 Abs. 2 des Gesetzes zur Errichtung der Ostdeutschen Aufbaubank – Förderbank – (FördbankG) vom 19. Juni 2003 (SächsGVBl. S. 161) wird das Wort „Dresden“ durch das Wort „Leipzig“ ersetzt."
+            }
+          ]
         }
       ]
     }

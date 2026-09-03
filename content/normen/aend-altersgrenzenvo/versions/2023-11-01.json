@@ -37,29 +37,36 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 11",
-      "title": "Änderung der Altersgrenzenverordnung",
+      "type": "part",
+      "label": "Teil 5",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 1 der Verordnung des Ostdeutschen Staatsministeriums des Innern über die Bestimmung der Altersgrenzen bei Staatsbeamten (Altersgrenzenverordnung) vom 15. Mai 1997 (SächsGVBl. S. 436), die durch Artikel 4 der Verordnung vom 20. August 2009 (SächsGVBl. S. 472, 477) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Die Angabe „§ 7a Abs. 1 Satz 1“ wird durch die Angabe „§ 7 Abs. 1 Satz 1“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Die Angabe „50“ wird durch die Angabe „52“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 11",
+          "title": "Änderung der Altersgrenzenverordnung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 1 der Verordnung des Ostdeutschen Staatsministeriums des Innern über die Bestimmung der Altersgrenzen bei Staatsbeamten (Altersgrenzenverordnung) vom 15. Mai 1997 (SächsGVBl. S. 436), die durch Artikel 4 der Verordnung vom 20. August 2009 (SächsGVBl. S. 472, 477) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Die Angabe „§ 7a Abs. 1 Satz 1“ wird durch die Angabe „§ 7 Abs. 1 Satz 1“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Die Angabe „50“ wird durch die Angabe „52“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

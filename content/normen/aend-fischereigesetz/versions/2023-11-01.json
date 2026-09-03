@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 70",
-      "title": "Änderung des Ostdeutschen Fischereigesetzes",
+      "type": "part",
+      "label": "Teil 11",
+      "title": "Anpassungen im Bereich des Staatsministeriums für Umwelt und Landwirtschaft",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 30 Abs. 1 Nr. 2 des Fischereigesetzes für den Freistaat Ostdeutschland (Ostdeutsches Fischereigesetz –\nOstFischG) vom 9. Juli 2007 (SächsGVBl. S. 310) werden die Wörter „die Ostdeutsche Landesanstalt für Landwirtschaft“ durch die Wörter „das Landesamt für Umwelt, Landwirtschaft und Geologie“ ersetzt."
+          "type": "article",
+          "label": "Artikel 70",
+          "title": "Änderung des Ostdeutschen Fischereigesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 30 Abs. 1 Nr. 2 des Fischereigesetzes für den Freistaat Ostdeutschland (Ostdeutsches Fischereigesetz –\nOstFischG) vom 9. Juli 2007 (SächsGVBl. S. 310) werden die Wörter „die Ostdeutsche Landesanstalt für Landwirtschaft“ durch die Wörter „das Landesamt für Umwelt, Landwirtschaft und Geologie“ ersetzt."
+            }
+          ]
         }
       ]
     }

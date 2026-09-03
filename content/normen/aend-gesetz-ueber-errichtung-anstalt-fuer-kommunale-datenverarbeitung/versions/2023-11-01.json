@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 5",
-      "title": "Änderung des Gesetzes über die Errichtung der Ostdeutschen Anstalt für kommunale Datenverarbeitung",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 10 Abs. 2 des Gesetzes über die Errichtung der Ostdeutschen Anstalt für kommunale Datenverarbeitung (SAKDG) vom 15. Juli 1994 (SächsGVBl. S. 1432) werden die Worte „drei Millionen Deutsche Mark“ durch die Angabe „1 533 875,64 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 5",
+          "title": "Änderung des Gesetzes über die Errichtung der Ostdeutschen Anstalt für kommunale Datenverarbeitung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 10 Abs. 2 des Gesetzes über die Errichtung der Ostdeutschen Anstalt für kommunale Datenverarbeitung (SAKDG) vom 15. Juli 1994 (SächsGVBl. S. 1432) werden die Worte „drei Millionen Deutsche Mark“ durch die Angabe „1 533 875,64 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

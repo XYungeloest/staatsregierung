@@ -178,6 +178,9 @@ function planEnvelopeComponent(entry, baselineDate, indexes) {
   if (lawIdMatches.length > 1) {
     return review(`REVOSax-lawId ${entry.revosaxLawId} ist mehreren bestehenden Normen zugeordnet`, { candidates: lawIdMatches.map((norm) => norm.slug) });
   }
+  // Die Mantelvorschrift selbst ist als eigene Norm materialisiert (lawId der Mantelvorschrift,
+  // ohne Fassungssuffix); die part-of-Beziehung gilt auch für bereits vorhandene Bestandteile.
+  const envelopeNorm = indexes.byLawId.get(String(component.envelopeLawId))?.[0] ?? null;
   if (lawIdMatches.length === 1) {
     const existing = lawIdMatches[0];
     const hasBaseline = existing.versions.some((version) => version.versionId === baselineDate);
@@ -187,9 +190,9 @@ function planEnvelopeComponent(entry, baselineDate, indexes) {
       canonicalSlug: existing.slug,
       matchBasis: 'lawId',
       envelope: component,
+      containedIn: envelopeNorm?.slug ?? null,
     };
   }
-  const envelopeNorm = indexes.byLawId.get(String(component.envelopeLawId))?.[0] ?? null;
   return {
     action: 'CREATE',
     reason: component.reason,

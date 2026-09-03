@@ -37,37 +37,43 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Änderung des ARD-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nARD-Staatsvertrag vom 31. August 1991, zuletzt geändert durch den Vierten Rundfunkänderungsstaatsvertrag vom 16. Juli bis 31. August 1999, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 4 Abs. 1 wird folgender Satz 2 angefügt:\n„Werbung und Sponsoring finden im Fernsehtext der ARD nicht statt.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 8 wird wie folgt gefasst:\n„§ 8\nGegendarstellung\n(1) Soweit Gegendarstellungsansprüche zu Sendungen in Fernseh-Gemeinschaftsprogrammen, die allein von den in der ARD zusammengeschlossenen Landesrundfunkanstalten gestaltet werden, geltend gemacht werden, ist die Sendung ausschließlich von derjenigen Landesrundfunkanstalt zu verantworten, die die Sendung in das Gemeinschaftsprogramm eingebracht hat. Maßgeblich ist das für diese Landesrundfunkanstalt geltende Gegendarstellungsrecht.\n(2) Eine gegen eine einbringende Landesrundfunkanstalt erwirkte Gegendarstellung ist von allen beteiligten Landesrundfunkanstalten in dem jeweiligen Fernseh-Gemeinschaftsprogramm zu verbreiten.\n(3) Wer eine Gegendarstellung gegen eine Sendung eines Fernseh-Gemeinschaftsprogramms der in der ARD zusammengeschlossenen Landesrundfunkanstalten geltend machen will, kann von jeder Landesrundfunkanstalt Auskunft verlangen, welche Landesrundfunkanstalt die Sendung in das Fernseh-Gemeinschaftsprogramm eingebracht hat. Die Auskunft ist unverzüglich zu erteilen.“",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Der bisherige § 8 wird § 9 und in Satz 3 das Datum „31. Dezember 2000“ ersetzt durch das Datum „31. Dezember 2004“.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des ARD-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der\nARD-Staatsvertrag vom 31. August 1991, zuletzt geändert durch den Vierten Rundfunkänderungsstaatsvertrag vom 16. Juli bis 31. August 1999, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In § 4 Abs. 1 wird folgender Satz 2 angefügt:\n„Werbung und Sponsoring finden im Fernsehtext der ARD nicht statt.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 8 wird wie folgt gefasst:\n„§ 8\nGegendarstellung\n(1) Soweit Gegendarstellungsansprüche zu Sendungen in Fernseh-Gemeinschaftsprogrammen, die allein von den in der ARD zusammengeschlossenen Landesrundfunkanstalten gestaltet werden, geltend gemacht werden, ist die Sendung ausschließlich von derjenigen Landesrundfunkanstalt zu verantworten, die die Sendung in das Gemeinschaftsprogramm eingebracht hat. Maßgeblich ist das für diese Landesrundfunkanstalt geltende Gegendarstellungsrecht.\n(2) Eine gegen eine einbringende Landesrundfunkanstalt erwirkte Gegendarstellung ist von allen beteiligten Landesrundfunkanstalten in dem jeweiligen Fernseh-Gemeinschaftsprogramm zu verbreiten.\n(3) Wer eine Gegendarstellung gegen eine Sendung eines Fernseh-Gemeinschaftsprogramms der in der ARD zusammengeschlossenen Landesrundfunkanstalten geltend machen will, kann von jeder Landesrundfunkanstalt Auskunft verlangen, welche Landesrundfunkanstalt die Sendung in das Fernseh-Gemeinschaftsprogramm eingebracht hat. Die Auskunft ist unverzüglich zu erteilen.“",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Der bisherige § 8 wird § 9 und in Satz 3 das Datum „31. Dezember 2000“ ersetzt durch das Datum „31. Dezember 2004“.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

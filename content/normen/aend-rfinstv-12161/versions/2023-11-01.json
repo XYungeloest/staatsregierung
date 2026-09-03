@@ -37,115 +37,87 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 6",
-      "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nRundfunkfinanzierungsstaatsvertrag vom 26. August bis 11. September 1996, zuletzt geändert durch den Zwölften Rundfunkänderungsstaatsvertrag vom 18. Dezember 2008, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Das Inhaltsverzeichnis wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 6",
+          "title": "Änderung des Rundfunkfinanzierungsstaatsvertrages",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Der\nRundfunkfinanzierungsstaatsvertrag vom 26. August bis 11. September 1996, zuletzt geändert durch den Zwölften Rundfunkänderungsstaatsvertrag vom 18. Dezember 2008, wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
+              "label": "1.",
+              "text": "Das Inhaltsverzeichnis wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In der Überschrift des I. Abschnitts werden die Wörter „zur Rundfunkgebühr“ durch die Wörter „zum Rundfunkbeitrag“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In der Überschrift des II. Abschnitts werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "§ 8 wird wie folgt neu gefasst:\n„Höhe des Rundfunkbeitrags“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
               "text": "In der Überschrift des I. Abschnitts werden die Wörter „zur Rundfunkgebühr“ durch die Wörter „zum Rundfunkbeitrag“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In der Überschrift des II. Abschnitts werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "§ 8 wird wie folgt neu gefasst:\n„Höhe des Rundfunkbeitrags“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In der Überschrift des I. Abschnitts werden die Wörter „zur Rundfunkgebühr“ durch die Wörter „zum Rundfunkbeitrag“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "§ 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "In Absatz 2 Satz 1 wird das Wort „Gebührenfestsetzung“ durch das Wort „Beitragsfestsetzung“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "In Absatz 3 Satz 3 werden die Wörter „der Rundfunkgebühren“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "In Absatz 4 wird das Wort „Gebühreneinnahmen“ durch das Wort „Beitragseinnahmen“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "§ 3 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Absatz 2 wird wie folgt geändert:",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "3.",
+              "text": "§ 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
                 {
                   "type": "item",
-                  "label": "aa)",
-                  "text": "In Satz 2 wird das Wort „Gebühren“ durch das Wort „Beiträgen“ ersetzt.",
-                  "level": 2,
+                  "label": "a)",
+                  "text": "In Absatz 2 Satz 1 wird das Wort „Gebührenfestsetzung“ durch das Wort „Beitragsfestsetzung“ ersetzt.",
+                  "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "bb)",
-                  "text": "In Satz 3 wird das Wort „Gebührenperiode“ jeweils durch das Wort „Beitragsperiode“ ersetzt.",
-                  "level": 2,
+                  "label": "b)",
+                  "text": "In Absatz 3 Satz 3 werden die Wörter „der Rundfunkgebühren“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "In Absatz 4 wird das Wort „Gebühreneinnahmen“ durch das Wort „Beitragseinnahmen“ ersetzt.",
+                  "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
                 }
@@ -153,154 +125,188 @@
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Absatz 8 wird wie folgt geändert:",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "4.",
+              "text": "§ 3 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
                 {
                   "type": "item",
-                  "label": "aa)",
-                  "text": "In Satz 4 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
-                  "level": 2,
+                  "label": "a)",
+                  "text": "Absatz 2 wird wie folgt geändert:",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "aa)",
+                      "text": "In Satz 2 wird das Wort „Gebühren“ durch das Wort „Beiträgen“ ersetzt.",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "bb)",
+                      "text": "In Satz 3 wird das Wort „Gebührenperiode“ jeweils durch das Wort „Beitragsperiode“ ersetzt.",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Absatz 8 wird wie folgt geändert:",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "aa)",
+                      "text": "In Satz 4 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "bb)",
+                      "text": "In Satz 6 wird das Wort „Gebühren“ durch das Wort „Beiträge“ ersetzt.",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "§ 6 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Satz 1 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „dem Rundfunkbeitrag“ ersetzt.",
+                  "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "bb)",
-                  "text": "In Satz 6 wird das Wort „Gebühren“ durch das Wort „Beiträge“ ersetzt.",
-                  "level": 2,
+                  "label": "b)",
+                  "text": "In Satz 2 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
+                  "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
                 }
               ]
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "§ 6 Abs. 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
+            },
             {
               "type": "item",
-              "label": "a)",
-              "text": "In Satz 1 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „dem Rundfunkbeitrag“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "6.",
+              "text": "In § 7 Abs. 2 Satz 1 wird das Wort „Gebührenvorschlag“ durch das Wort „Beitragsvorschlag“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Satz 2 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "In § 7 Abs. 2 Satz 1 wird das Wort „Gebührenvorschlag“ durch das Wort „Beitragsvorschlag“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "In der Überschrift zum II. Abschnitt werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "§ 8 wird wie folgt neu gefasst:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "„§ 8\nHöhe des Rundfunkbeitrags"
-            },
-            {
-              "type": "paragraphText",
-              "text": "Die Höhe des Rundfunkbeitrags ist vorbehaltlich einer Neufestsetzung im Verfahren nach § 3 auf monatlich 17,98 Euro festgesetzt.“"
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "§ 9 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Absatz 1 wird wie folgt neu gefasst:\n„(1) Von dem Aufkommen aus dem Rundfunkbeitrag erhalten vorbehaltlich einer Neufestsetzung im Verfahren nach § 3 die in der ARD zusammengeschlossenen Landesrundfunkanstalten einen Anteil von 72,6295 vom Hundert, das ZDF einen Anteil von 24,7579 vom Hundert und die Körperschaft des öffentlichen Rechts „Deutschlandradio“ einen Anteil von 2,6126 vom Hundert.“",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "7.",
+              "text": "In der Überschrift zum II. Abschnitt werden die Wörter „der Rundfunkgebühr“ durch die Wörter „des Rundfunkbeitrags“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Absatz 2 wird gestrichen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "8.",
+              "text": "§ 8 wird wie folgt neu gefasst:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 8\nHöhe des Rundfunkbeitrags"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Höhe des Rundfunkbeitrags ist vorbehaltlich einer Neufestsetzung im Verfahren nach § 3 auf monatlich 17,98 Euro festgesetzt.“"
+                }
+              ]
             },
             {
               "type": "item",
-              "label": "c)",
-              "text": "Der bisherige Absatz 3 wird der neue Absatz 2 und in Satz 1 wird das Wort „Fernsehgebührenaufkommen“ durch das Wort „Rundfunkbeitragsaufkommen“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "§ 10 Abs. 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Satz 1 wird wie folgt neu gefasst:\n„Die Höhe des Anteils der Landesmedienanstalten beträgt 1,8989 vom Hundert des Rundfunkbeitragsaufkommens.“",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "9.",
+              "text": "§ 9 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Absatz 1 wird wie folgt neu gefasst:\n„(1) Von dem Aufkommen aus dem Rundfunkbeitrag erhalten vorbehaltlich einer Neufestsetzung im Verfahren nach § 3 die in der ARD zusammengeschlossenen Landesrundfunkanstalten einen Anteil von 72,6295 vom Hundert, das ZDF einen Anteil von 24,7579 vom Hundert und die Körperschaft des öffentlichen Rechts „Deutschlandradio“ einen Anteil von 2,6126 vom Hundert.“",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Absatz 2 wird gestrichen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Der bisherige Absatz 3 wird der neue Absatz 2 und in Satz 1 wird das Wort „Fernsehgebührenaufkommen“ durch das Wort „Rundfunkbeitragsaufkommen“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Satz 3 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „dem Rundfunkbeitrag“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "10.",
+              "text": "§ 10 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Satz 1 wird wie folgt neu gefasst:\n„Die Höhe des Anteils der Landesmedienanstalten beträgt 1,8989 vom Hundert des Rundfunkbeitragsaufkommens.“",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Satz 3 werden die Wörter „der Rundfunkgebühr“ durch die Wörter „dem Rundfunkbeitrag“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "In § 14 Satz 1 wird das Wort „ARD-Nettogebührenaufkommens“ durch das Wort „ARD-Nettobeitragsaufkommens“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "11.",
-          "text": "In § 14 Satz 1 wird das Wort „ARD-Nettogebührenaufkommens“ durch das Wort „ARD-Nettobeitragsaufkommens“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

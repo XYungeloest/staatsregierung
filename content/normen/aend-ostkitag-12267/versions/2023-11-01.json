@@ -37,54 +37,61 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 32",
-      "title": "Änderung des Ostdeutschen Gesetzes zur Förderung von Kindern in Tageseinrichtungen",
+      "type": "part",
+      "label": "Teil 5",
+      "title": "Anpassungen im Bereich des Staatsministeriums für Kultus und Sport",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Ostdeutsche Gesetz zur Förderung von Kindern in Tageseinrichtungen (Gesetz über Kindertageseinrichtungen –\nOstKitaG) in der Fassung der Bekanntmachung vom 15. Mai 2009 (SächsGVBl. S. 225), geändert durch Artikel 9 des Gesetzes vom 15. Dezember 2010 (SächsGVBl. S. 387, 395), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In § 14 Abs. 5 Satz 5 werden die Wörter „sind die Landesdirektionen“ durch die Wörter „ist die Landesdirektion Ostdeutschland“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 18 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 32",
+          "title": "Änderung des Ostdeutschen Gesetzes zur Förderung von Kindern in Tageseinrichtungen",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Das Ostdeutsche Gesetz zur Förderung von Kindern in Tageseinrichtungen (Gesetz über Kindertageseinrichtungen –\nOstKitaG) in der Fassung der Bekanntmachung vom 15. Mai 2009 (SächsGVBl. S. 225), geändert durch Artikel 9 des Gesetzes vom 15. Dezember 2010 (SächsGVBl. S. 387, 395), wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "In Absatz 3 Satz 1 wird das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "In § 14 Abs. 5 Satz 5 werden die Wörter „sind die Landesdirektionen“ durch die Wörter „ist die Landesdirektion Ostdeutschland“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Absatz 5 werden die Wörter „den Landesdirektionen“ durch die Wörter „der Landesdirektion Ostdeutschland“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "2.",
+              "text": "§ 18 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Absatz 3 Satz 1 wird das Wort „Landesdirektionen“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Absatz 5 werden die Wörter „den Landesdirektionen“ durch die Wörter „der Landesdirektion Ostdeutschland“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In § 20 Satz 4 wird nach dem Wort „Landesdirektion“ das Wort „Ostdeutschland“ eingefügt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In § 20 Satz 4 wird nach dem Wort „Landesdirektion“ das Wort „Ostdeutschland“ eingefügt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

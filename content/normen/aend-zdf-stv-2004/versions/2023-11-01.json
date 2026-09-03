@@ -37,62 +37,68 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 3",
-      "title": "Änderung des ZDF-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der\nZDF-Staatsvertrag vom 31. August 1991, zuletzt geändert durch den Siebten Rundfunkänderungsstaatsvertrag vom 23. bis 26. September 2003, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 21 Abs. 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 3",
+          "title": "Änderung des ZDF-Staatsvertrages",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Der\nZDF-Staatsvertrag vom 31. August 1991, zuletzt geändert durch den Siebten Rundfunkänderungsstaatsvertrag vom 23. bis 26. September 2003, wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "a)",
-              "text": "In Buchstabe g werden die Worte „der Deutschen Angestelltengewerkschaft“ ersetzt durch die Worte „von ver.di – Vereinte Dienstleistungsgewerkschaft e.V. –“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "§ 21 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Buchstabe g werden die Worte „der Deutschen Angestelltengewerkschaft“ ersetzt durch die Worte „von ver.di – Vereinte Dienstleistungsgewerkschaft e.V. –“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Buchstabe h wird das Wort „Handelstages“ ersetzt durch das Wort „Handelskammertages“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "In Buchstabe j werden die Worte „Industriegewerkschaft Medien, Druck und Papier, Publizistik und Kunst“ ersetzt durch die Worte „ver.di – Vereinte Dienstleistungsgewerkschaft e.V. – aus dem Fachbereich für Medien“.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In § 28 Nr. 6 wird zweimal das Wort „leitenden“ durch das Wort „außertariflichen“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Buchstabe h wird das Wort „Handelstages“ ersetzt durch das Wort „Handelskammertages“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "In Buchstabe j werden die Worte „Industriegewerkschaft Medien, Druck und Papier, Publizistik und Kunst“ ersetzt durch die Worte „ver.di – Vereinte Dienstleistungsgewerkschaft e.V. – aus dem Fachbereich für Medien“.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "3.",
+              "text": "In § 33 Abs. 1 Satz 3 wird das Datum „31. Dezember 2004“ ersetzt durch das Datum „31. Dezember 2008“.",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In § 28 Nr. 6 wird zweimal das Wort „leitenden“ durch das Wort „außertariflichen“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In § 33 Abs. 1 Satz 3 wird das Datum „31. Dezember 2004“ ersetzt durch das Datum „31. Dezember 2008“.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }

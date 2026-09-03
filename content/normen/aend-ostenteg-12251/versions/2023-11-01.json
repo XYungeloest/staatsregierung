@@ -37,29 +37,36 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 19",
-      "title": "Änderung des Ostdeutschen Enteignungs- und Entschädigungsgesetzes",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 5 Abs. 1 des Ostdeutschen Enteignungs- und Entschädigungsgesetzes (OstEntEG) vom 18. Juli 2001 (SächsGVBl. S. 453), das durch Artikel 16 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 159) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Satz 1 werden die Wörter „die Landesdirektion“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Die Sätze 2 und 3 werden gestrichen.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 19",
+          "title": "Änderung des Ostdeutschen Enteignungs- und Entschädigungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 5 Abs. 1 des Ostdeutschen Enteignungs- und Entschädigungsgesetzes (OstEntEG) vom 18. Juli 2001 (SächsGVBl. S. 453), das durch Artikel 16 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 159) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Satz 1 werden die Wörter „die Landesdirektion“ durch die Wörter „die Landesdirektion Ostdeutschland“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Die Sätze 2 und 3 werden gestrichen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

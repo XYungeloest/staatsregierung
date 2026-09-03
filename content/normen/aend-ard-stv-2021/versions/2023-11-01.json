@@ -37,36 +37,42 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Änderung des ARD-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Der ARD-Staatsvertrag vom 31. August 1991 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Die Bezeichnung wird wie folgt gefaßt:\n„ARD-Staatsvertrag (ARD-StV)“ .",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 8 wird wie folgt gefaßt:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des ARD-Staatsvertrages",
           "children": [
             {
               "type": "paragraphText",
-              "text": "„§ 8\nKündigung"
+              "text": "Der ARD-Staatsvertrag vom 31. August 1991 wird wie folgt geändert:"
             },
             {
-              "type": "paragraphText",
-              "text": "Dieser Staatsvertrag gilt für unbestimmte Zeit. Er kann von jedem der vertragsschließenden Länder zum Schluß des Kalenderjahres mit einer Frist von einem Jahr gekündigt werden. Die Kündigung kann erstmals zum 31. Dezember 2000 erfolgen. Wird der Staatsvertrag zu diesem Zeitpunkt nicht gekündigt, kann die Kündigung mit gleicher Frist jeweils zu einem zwei Jahre späteren Zeitpunkt erfolgen. Die Kündigung ist gegenüber dem Vorsitzenden der Ministerpräsidentenkonferenz schriftlich zu erklären. Die Kündigung eines Landes läßt das Vertragsverhältnis der übrigen Länder zueinander unberührt, jedoch kann jedes der übrigen Länder den Vertrag binnen einer Frist von drei Monaten nach Eingang der Kündigungserklärung zum gleichen Zeitpunkt kündigen.“"
+              "type": "item",
+              "label": "1.",
+              "text": "Die Bezeichnung wird wie folgt gefaßt:\n„ARD-Staatsvertrag (ARD-StV)“ .",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 8 wird wie folgt gefaßt:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 8\nKündigung"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Dieser Staatsvertrag gilt für unbestimmte Zeit. Er kann von jedem der vertragsschließenden Länder zum Schluß des Kalenderjahres mit einer Frist von einem Jahr gekündigt werden. Die Kündigung kann erstmals zum 31. Dezember 2000 erfolgen. Wird der Staatsvertrag zu diesem Zeitpunkt nicht gekündigt, kann die Kündigung mit gleicher Frist jeweils zu einem zwei Jahre späteren Zeitpunkt erfolgen. Die Kündigung ist gegenüber dem Vorsitzenden der Ministerpräsidentenkonferenz schriftlich zu erklären. Die Kündigung eines Landes läßt das Vertragsverhältnis der übrigen Länder zueinander unberührt, jedoch kann jedes der übrigen Länder den Vertrag binnen einer Frist von drei Monaten nach Eingang der Kündigungserklärung zum gleichen Zeitpunkt kündigen.“"
+                }
+              ]
             }
           ]
         }

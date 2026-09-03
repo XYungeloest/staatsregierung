@@ -37,61 +37,68 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 4",
-      "title": "Änderung des Gesetzes über Volksantrag, Volksbegehren und Volksentscheid",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Gesetz über Volksantrag, Volksbegehren und Volksentscheid (VVVG) vom 19. Oktober 1993 (SächsGVBl. S. 949), geändert durch Gesetz vom 1. Juni 1999 (SächsGVBl. S. 275), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 24 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 4",
+          "title": "Änderung des Gesetzes über Volksantrag, Volksbegehren und Volksentscheid",
           "children": [
             {
-              "type": "item",
-              "label": "a)",
-              "text": "In Absatz 2 Halbsatz 1 wird die Angabe „1 DM“ durch die Angabe „0,51 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "type": "paragraphText",
+              "text": "Das Gesetz über Volksantrag, Volksbegehren und Volksentscheid (VVVG) vom 19. Oktober 1993 (SächsGVBl. S. 949), geändert durch Gesetz vom 1. Juni 1999 (SächsGVBl. S. 275), wird wie folgt geändert:"
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Absatz 5 Satz 1 wird die Angabe „4 000 DM“ durch die Angabe „2 000 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 47 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "In Absatz 2 wird die Angabe „2 DM“ durch die Angabe „1,02 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "1.",
+              "text": "§ 24 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Absatz 2 Halbsatz 1 wird die Angabe „1 DM“ durch die Angabe „0,51 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Absatz 5 Satz 1 wird die Angabe „4 000 DM“ durch die Angabe „2 000 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Absatz 3 Satz 3 wird die Angabe „9 000 DM“ durch die Angabe „4 500 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "2.",
+              "text": "§ 47 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Absatz 2 wird die Angabe „2 DM“ durch die Angabe „1,02 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Absatz 3 Satz 3 wird die Angabe „9 000 DM“ durch die Angabe „4 500 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

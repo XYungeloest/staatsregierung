@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "baselineDate": "2023-11-01",
-  "total": 62,
+  "total": 64,
   "byCategory": {
     "manual-decision": 2,
     "no-text-in-revosax": 9,
-    "envelope-alias": 40,
+    "envelope-alias": 42,
     "duplicate-source": 1,
     "same-version-alias": 8,
     "identical-text-alias": 2
@@ -203,6 +203,22 @@
         "envelopeUrl": "https://www.revosax.sachsen.de/vorschrift/4371-Gesetz-Aufhebung-Aenderung-Rechtsvorschriften#a19"
       },
       {
+        "lawId": "5092",
+        "sourceId": "5092",
+        "versionSuffix": null,
+        "category": "ÄG",
+        "normType": "aenderungsvorschrift",
+        "title": "Änderung des Ostdeutsches Gesetz zur Ausführung des Sozialgesetzbuches",
+        "shortTitle": "Änd. OstAGSGB",
+        "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/5092",
+        "canonicalVersionUrl": null,
+        "slug": null,
+        "action": "SKIP",
+        "reason": "envelope-alias-of:4371 – Entscheidung SKIP: Artikel 2 der Mantelvorschrift 4371 ist das Sächsische Gesetz zur Ausführung des Sozialgesetzbuches selbst (REVOSax-Vorschrift 5209, materialisiert als ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches); die Mantelvorschrift führt den Artikel nur als Überschrift, ein eigener Änderungstext existiert weder dort noch im Zweiten Rechtsbereinigungsgesetz (3382). Die Komponentenseite ist ein technischer Alias der Stammnorm.",
+        "envelopeLawId": "4371",
+        "envelopeUrl": "https://www.revosax.sachsen.de/vorschrift/4371-Gesetz-Aufhebung-Aenderung-Rechtsvorschriften#a1"
+      },
+      {
         "lawId": "5181",
         "sourceId": "5181",
         "versionSuffix": null,
@@ -233,6 +249,22 @@
         "reason": "envelope-alias-of:5067 – gleicher Artikel Artikel 3 der Mantelvorschrift 5067 wie Vorschrift 2794 (REVOSax-Doppelerfassung)",
         "envelopeLawId": "5067",
         "envelopeUrl": "https://www.revosax.sachsen.de/vorschrift/5067-Kommunalrechtsaenderungsgesetz#a3"
+      },
+      {
+        "lawId": "17023",
+        "sourceId": "17023",
+        "versionSuffix": null,
+        "category": "ÄG",
+        "normType": "aenderungsvorschrift",
+        "title": "Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung",
+        "shortTitle": "Änd. EnergieeinsparungsZuG",
+        "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/17023",
+        "canonicalVersionUrl": null,
+        "slug": null,
+        "action": "SKIP",
+        "reason": "envelope-alias-of:3382 – gleicher Artikel § 1 Nummer 12 der Mantelvorschrift 3382 wie Vorschrift 3967 (REVOSax-Doppelerfassung)",
+        "envelopeLawId": "4371",
+        "envelopeUrl": "https://www.revosax.sachsen.de/vorschrift/4371-Gesetz-Aufhebung-Aenderung-Rechtsvorschriften#a1"
       },
       {
         "lawId": "17034",

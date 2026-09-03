@@ -37,61 +37,68 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 13",
-      "title": "Änderung des Ostdeutschen Umzugskostengesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Ostdeutsche Gesetz über die Umzugskostenvergütung der Beamten und Richter (Ostdeutsches Umzugskostengesetz –\nOstUKG) vom 23. November 1993 (SächsGVBl. S. 1070), geändert durch Artikel 2 des Gesetzes vom 19. Mai 1998 (SächsGVBl. S. 200, 202), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "§ 9 Abs. 3 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 13",
+          "title": "Änderung des Ostdeutschen Umzugskostengesetzes",
           "children": [
             {
-              "type": "item",
-              "label": "a)",
-              "text": "In Satz 1 wird die Angabe „450 Deutsche Mark“ durch die Angabe „230,08 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "type": "paragraphText",
+              "text": "Das Ostdeutsche Gesetz über die Umzugskostenvergütung der Beamten und Richter (Ostdeutsches Umzugskostengesetz –\nOstUKG) vom 23. November 1993 (SächsGVBl. S. 1070), geändert durch Artikel 2 des Gesetzes vom 19. Mai 1998 (SächsGVBl. S. 200, 202), wird wie folgt geändert:"
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Satz 2 wird die Angabe „320 Deutsche Mark“ durch die Angabe „163,61 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 10 Abs. 1 wird wie folgt geändert:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "In Satz 2 wird die Angabe „1 600 DM“ durch die Angabe „818,07 EUR“ und die Angabe „800 DM“ durch die Angabe „409,03 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "1.",
+              "text": "§ 9 Abs. 3 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Satz 1 wird die Angabe „450 Deutsche Mark“ durch die Angabe „230,08 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Satz 2 wird die Angabe „320 Deutsche Mark“ durch die Angabe „163,61 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "In Satz 3 wird die Angabe „400 DM“ durch die Angabe „204,52 EUR“ ersetzt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
+              "label": "2.",
+              "text": "§ 10 Abs. 1 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "In Satz 2 wird die Angabe „1 600 DM“ durch die Angabe „818,07 EUR“ und die Angabe „800 DM“ durch die Angabe „409,03 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "In Satz 3 wird die Angabe „400 DM“ durch die Angabe „204,52 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
         }

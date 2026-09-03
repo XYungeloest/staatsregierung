@@ -37,36 +37,43 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 38",
-      "title": "Änderung des Gesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz",
+      "type": "part",
+      "label": "Teil 7",
+      "title": "Anpassungen im Bereich des Staatsministeriums für Wirtschaft, Arbeit und Verkehr",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 2 Abs. 1 des\nGesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz vom 5. Mai 2004 (SächsGVBl. S.148), das durch Artikel 21 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 160) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Nummer 1 werden das Wort „Ostdeutsche“ gestrichen und die Wörter „und Arbeit“ durch die Wörter „, Arbeit und Verkehr“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Nummer 2 wird wie folgt gefasst:",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "article",
+          "label": "Artikel 38",
+          "title": "Änderung des Gesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "§ 2 Abs. 1 des\nGesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz vom 5. Mai 2004 (SächsGVBl. S.148), das durch Artikel 21 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 160) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
               "type": "item",
-              "label": "„2.",
-              "text": "die Landesdirektion Ostdeutschland als obere Verwaltungsbehörde,“.",
-              "level": 1,
+              "label": "1.",
+              "text": "In Nummer 1 werden das Wort „Ostdeutsche“ gestrichen und die Wörter „und Arbeit“ durch die Wörter „, Arbeit und Verkehr“ ersetzt.",
+              "level": 0,
               "numberingStyle": "decimal",
               "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Nummer 2 wird wie folgt gefasst:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "„2.",
+                  "text": "die Landesdirektion Ostdeutschland als obere Verwaltungsbehörde,“.",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
             }
           ]
         }

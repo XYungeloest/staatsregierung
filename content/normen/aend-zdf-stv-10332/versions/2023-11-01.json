@@ -37,13 +37,19 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Änderung des ZDF-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 21 Abs. 1 Buchst. m des\nZDF-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006, werden die Worte „des Deutschen Sportbundes“ ersetzt durch die Worte „des Deutschen Olympischen Sportbundes“."
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Änderung des ZDF-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 21 Abs. 1 Buchst. m des\nZDF-Staatsvertrages vom 31. August 1991, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006, werden die Worte „des Deutschen Sportbundes“ ersetzt durch die Worte „des Deutschen Olympischen Sportbundes“."
+            }
+          ]
         }
       ]
     }

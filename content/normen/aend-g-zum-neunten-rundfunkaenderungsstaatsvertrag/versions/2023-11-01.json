@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 9",
-      "title": "Änderung des Gesetzes zum Neunten Rundfunkänderungsstaatsvertrag",
+      "type": "part",
+      "label": "Teil 2",
+      "title": "Anpassungen im Bereich der Ostdeutschen Staatskanzlei",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In Absatz 2\ndes Gesetzes zum Neunten Rundfunkänderungsstaatsvertrag vom 24. Januar 2007 (SächsGVBl. S. 17), das durch Artikel 5 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 146) geändert worden ist, wird das Wort „Dresden“ durch das Wort „Ostdeutschland“ ersetzt."
+          "type": "article",
+          "label": "Artikel 9",
+          "title": "Änderung des Gesetzes zum Neunten Rundfunkänderungsstaatsvertrag",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In Absatz 2\ndes Gesetzes zum Neunten Rundfunkänderungsstaatsvertrag vom 24. Januar 2007 (SächsGVBl. S. 17), das durch Artikel 5 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 146) geändert worden ist, wird das Wort „Dresden“ durch das Wort „Ostdeutschland“ ersetzt."
+            }
+          ]
         }
       ]
     }

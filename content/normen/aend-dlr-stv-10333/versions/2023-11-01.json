@@ -37,13 +37,19 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 3",
-      "title": "Änderung des Deutschlandradio-Staatsvertrages",
+      "type": "section",
+      "title": "Staatsvertrag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 21 Abs. 1 Buchst. m des\nDeutschlandradio-Staatsvertrages vom 17. Juni 1993, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006 wird die Bezeichnung „Deutsche Angestelltengewerkschaft, Landesverband Hamburg“ ersetzt durch die Bezeichnung „ver.di – Vereinte Dienstleistungsgewerkschaft e.V., Landesbezirk Hamburg“."
+          "type": "article",
+          "label": "Artikel 3",
+          "title": "Änderung des Deutschlandradio-Staatsvertrages",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 21 Abs. 1 Buchst. m des\nDeutschlandradio-Staatsvertrages vom 17. Juni 1993, zuletzt geändert durch den Neunten Rundfunkänderungsstaatsvertrag vom 31. Juli bis 10. Oktober 2006 wird die Bezeichnung „Deutsche Angestelltengewerkschaft, Landesverband Hamburg“ ersetzt durch die Bezeichnung „ver.di – Vereinte Dienstleistungsgewerkschaft e.V., Landesbezirk Hamburg“."
+            }
+          ]
         }
       ]
     }

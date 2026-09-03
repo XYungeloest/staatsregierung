@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 36",
-      "title": "Änderung des Ostdeutschen Statistikgesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 22 Abs. 3 des Ostdeutschen Statistikgesetzes (OstStatG) vom 17. Mai 1993 (SächsGVBl. S. 453), das durch Artikel 2 des Gesetzes vom 12. Februar 1999 (SächsGVBl. S. 49, 51) geändert worden ist, wird die Angabe „10 000 Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 36",
+          "title": "Änderung des Ostdeutschen Statistikgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 22 Abs. 3 des Ostdeutschen Statistikgesetzes (OstStatG) vom 17. Mai 1993 (SächsGVBl. S. 453), das durch Artikel 2 des Gesetzes vom 12. Februar 1999 (SächsGVBl. S. 49, 51) geändert worden ist, wird die Angabe „10 000 Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

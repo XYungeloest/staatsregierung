@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 16",
-      "title": "Änderung des Ostdeutschen Enteignungs- und Entschädigungsgesetzes",
+      "type": "part",
+      "label": "Teil 4",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 5 Abs. 1 Satz 1 des Ostdeutschen Enteignungs- und Entschädigungsgesetzes (OstEntEG) vom 18. Juli 2001 (SächsGVBl. S. 453) werden die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt."
+          "type": "article",
+          "label": "Artikel 16",
+          "title": "Änderung des Ostdeutschen Enteignungs- und Entschädigungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 5 Abs. 1 Satz 1 des Ostdeutschen Enteignungs- und Entschädigungsgesetzes (OstEntEG) vom 18. Juli 2001 (SächsGVBl. S. 453) werden die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt."
+            }
+          ]
         }
       ]
     }

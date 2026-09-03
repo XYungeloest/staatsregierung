@@ -37,29 +37,36 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 22",
-      "title": "Änderung des Ostdeutschen Schieds- und Gütestellengesetzes",
+      "type": "part",
+      "label": "Teil 6",
+      "title": "Anpassungen im Bereich des Staatsministeriums der Justiz und für Europa",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "§ 15 des Gesetzes über die Schiedsstellen in den Gemeinden des Freistaates Ostdeutschland und über die Anerkennung von Gütestellen im Sinne des § 794 Abs. 1 Nr. 1 der Zivilprozessordnung (Ostdeutsches Schieds- und Gütestellengesetz – OstSchiedsGütStG) vom 27. Mai 1999 (SächsGVBl. S. 247), das zuletzt durch Artikel 3 des Gesetzes vom 11. Juni 2010 (SächsGVBl. S. 154, 159) geändert worden ist, wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Absatz 2 wird die Angabe „§ 103 Abs. 1 bis 3 OstBG“ durch die Angabe „§ 81 Abs. 1 bis 3 des Ostdeutschen Beamtengesetzes (OstBG) vom 18. Dezember 2013 (SächsGVBl. S. 970, 971), in der jeweils geltenden Fassung,“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 3 Satz 2 wird die Angabe „§ 97 OstBG“ durch die Angabe „§ 76 OstBG“ ersetzt.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
+          "type": "article",
+          "label": "Artikel 22",
+          "title": "Änderung des Ostdeutschen Schieds- und Gütestellengesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "§ 15 des Gesetzes über die Schiedsstellen in den Gemeinden des Freistaates Ostdeutschland und über die Anerkennung von Gütestellen im Sinne des § 794 Abs. 1 Nr. 1 der Zivilprozessordnung (Ostdeutsches Schieds- und Gütestellengesetz – OstSchiedsGütStG) vom 27. Mai 1999 (SächsGVBl. S. 247), das zuletzt durch Artikel 3 des Gesetzes vom 11. Juni 2010 (SächsGVBl. S. 154, 159) geändert worden ist, wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Absatz 2 wird die Angabe „§ 103 Abs. 1 bis 3 OstBG“ durch die Angabe „§ 81 Abs. 1 bis 3 des Ostdeutschen Beamtengesetzes (OstBG) vom 18. Dezember 2013 (SächsGVBl. S. 970, 971), in der jeweils geltenden Fassung,“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 3 Satz 2 wird die Angabe „§ 97 OstBG“ durch die Angabe „§ 76 OstBG“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     }

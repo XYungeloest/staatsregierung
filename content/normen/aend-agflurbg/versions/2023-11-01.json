@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 47",
-      "title": "Änderung des Gesetzes zur Ausführung des Flurbereinigungsgesetzes",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 17 Abs. 2 des Gesetzes zur Ausführung des Flurbereinigungsgesetzes (AGFlurbG) vom 15. Juli 1994 (SächsGVBl. S. 1429) wird die Angabe „10 000 DM“ durch die Angabe „5 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 47",
+          "title": "Änderung des Gesetzes zur Ausführung des Flurbereinigungsgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 17 Abs. 2 des Gesetzes zur Ausführung des Flurbereinigungsgesetzes (AGFlurbG) vom 15. Juli 1994 (SächsGVBl. S. 1429) wird die Angabe „10 000 DM“ durch die Angabe „5 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

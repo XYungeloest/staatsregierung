@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 21",
-      "title": "Änderung des Gesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz",
+      "type": "part",
+      "label": "Teil 4",
+      "title": "Anpassungen im Bereich des Staatsministeriums des Innern",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 2 Abs. 1 Nr. 2 des\nGesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz vom 5. Mai 2004 (SächsGVBl. S. 148, 155) werden die Wörter „Regierungspräsidien als höhere“ durch die Wörter „Landesdirektionen als obere“ ersetzt."
+          "type": "article",
+          "label": "Artikel 21",
+          "title": "Änderung des Gesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 2 Abs. 1 Nr. 2 des\nGesetzes zur Übertragung der Aufgaben nach dem Energieverbrauchskennzeichnungsgesetz vom 5. Mai 2004 (SächsGVBl. S. 148, 155) werden die Wörter „Regierungspräsidien als höhere“ durch die Wörter „Landesdirektionen als obere“ ersetzt."
+            }
+          ]
         }
       ]
     }

@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 15",
-      "title": "Änderung des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland",
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In § 14 Abs. 2 des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland (OstGDG) vom 11. Dezember 1991 (SächsGVBl. S. 413) werden die Worte „zehntausend Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+          "type": "article",
+          "label": "Artikel 15",
+          "title": "Änderung des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 14 Abs. 2 des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland (OstGDG) vom 11. Dezember 1991 (SächsGVBl. S. 413) werden die Worte „zehntausend Deutsche Mark“ durch die Angabe „5 000 EUR“ ersetzt."
+            }
+          ]
         }
       ]
     }

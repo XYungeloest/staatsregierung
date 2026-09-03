@@ -37,13 +37,20 @@
   ],
   "body": [
     {
-      "type": "article",
-      "label": "Artikel 5",
-      "title": "Änderung des Gesetzes zum Neunten Rundfunkänderungsstaatsvertrag",
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Anpassungen im Bereich der Ostdeutschen Staatskanzlei",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "In Absatz 2 des\nGesetzes zum Neunten Rundfunkänderungsstaatsvertrag vom 24. Januar 2007 (SächsGVBl. S. 17) werden die Wörter „Das Regierungspräsidium“ durch die Wörter „Die Landesdirektion“ ersetzt."
+          "type": "article",
+          "label": "Artikel 5",
+          "title": "Änderung des Gesetzes zum Neunten Rundfunkänderungsstaatsvertrag",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In Absatz 2 des\nGesetzes zum Neunten Rundfunkänderungsstaatsvertrag vom 24. Januar 2007 (SächsGVBl. S. 17) werden die Wörter „Das Regierungspräsidium“ durch die Wörter „Die Landesdirektion“ ersetzt."
+            }
+          ]
         }
       ]
     }

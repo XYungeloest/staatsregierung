@@ -38,62 +38,69 @@
   ],
   "body": [
     {
-      "type": "paragraph",
-      "label": "§ 35",
-      "title": "Änderung des Schulgesetzes",
+      "type": "section",
+      "label": "Neunter Abschnitt",
+      "title": "Gemeinsame Vorschriften, Verfahren und Inkrafttreten",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "Das Schulgesetz für den Freistaat Ostdeutschland (SchulG) vom 3. Juli 1991 (SächsGVBl. S. 213), zuletzt geändert durch Gesetz vom 15. Juli 1994 (SächsGVBl. S. 1434), wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "nach § 23 Abs. 2 wird folgender Absatz 3 eingefügt:\n„(3) Träger der notwendigen Beförderung der Schüler auf dem Schulweg bei öffentlichen und staatlich genehmigten Ersatzschulen freier Träger sind der Landkreis oder die Kreisfreie Stadt, in deren Gebiet sich die Schule befindet. Er regelt Einzelheiten durch Satzung, insbesondere hinsichtlich",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "type": "paragraph",
+          "label": "§ 35",
+          "title": "Änderung des Schulgesetzes",
           "children": [
+            {
+              "type": "paragraphText",
+              "text": "Das Schulgesetz für den Freistaat Ostdeutschland (SchulG) vom 3. Juli 1991 (SächsGVBl. S. 213), zuletzt geändert durch Gesetz vom 15. Juli 1994 (SächsGVBl. S. 1434), wird wie folgt geändert:"
+            },
             {
               "type": "item",
               "label": "1.",
-              "text": "Umfang und Abgrenzung der notwendigen Beförderungskosten einschließlich der Festsetzung von Mindestentfernungen,",
-              "level": 1,
+              "text": "nach § 23 Abs. 2 wird folgender Absatz 3 eingefügt:\n„(3) Träger der notwendigen Beförderung der Schüler auf dem Schulweg bei öffentlichen und staatlich genehmigten Ersatzschulen freier Träger sind der Landkreis oder die Kreisfreie Stadt, in deren Gebiet sich die Schule befindet. Er regelt Einzelheiten durch Satzung, insbesondere hinsichtlich",
+              "level": 0,
               "numberingStyle": "decimal",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Umfang und Abgrenzung der notwendigen Beförderungskosten einschließlich der Festsetzung von Mindestentfernungen,",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Höhe und Verfahren der Erhebung eines Eigenanteils des Schülers oder der Erziehungsberechtigten,",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Pauschalen oder Höchstbeiträge für die Kostenerstattung sowie Ausschlußfristen für die Geltendmachung von Erstattungsansprüchen,",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Verfahren der Kostenerstattung zwischen den Schülern beziehungsweise Erziehungsberechtigten und Schulträgern sowie zwischen verschiedenen Schulträgern.“",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
               "label": "2.",
-              "text": "Höhe und Verfahren der Erhebung eines Eigenanteils des Schülers oder der Erziehungsberechtigten,",
-              "level": 1,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Pauschalen oder Höchstbeiträge für die Kostenerstattung sowie Ausschlußfristen für die Geltendmachung von Erstattungsansprüchen,",
-              "level": 1,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Verfahren der Kostenerstattung zwischen den Schülern beziehungsweise Erziehungsberechtigten und Schulträgern sowie zwischen verschiedenen Schulträgern.“",
-              "level": 1,
+              "text": "§ 23 Abs. 3 wird Absatz 4.",
+              "level": 0,
               "numberingStyle": "decimal",
               "children": []
             }
           ]
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "§ 23 Abs. 3 wird Absatz 4.",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
         }
       ]
     }
