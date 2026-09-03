@@ -4,6 +4,7 @@ import test from 'node:test';
 import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
+import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
 
 import { assembleBlocks, createFileNormStore, selectedVersionIds } from '../apps/recht/src/lib/runtime/store.ts';
 
@@ -102,4 +103,36 @@ test('Body-Blöcke werden aus Teilen in Reihenfolge zusammengesetzt', () => {
   assert.deepEqual([...selectedVersionIds(record, 'all')], ['a', 'b']);
   assert.deepEqual([...selectedVersionIds(record, ['a'])], ['a']);
   assert.deepEqual([...selectedVersionIds(record, 'none')], []);
+});
+
+test('Dateivariante: seitenweise Übersichten mit Buchstaben-, Freitext-, Herkunfts- und Sachgebietsfilter sowie Aggregate', async () => {
+  const letters = await store.listIndexLetters();
+  assert.ok(letters.some((entry) => entry.letter === 'O' && entry.count > 0));
+  assert.equal(letters.reduce((sum, entry) => sum + entry.count, 0), (await store.listNormSummaries()).length);
+  const first = await store.queryNormSummaries({ letter: 'O', page: 1, pageSize: 5 });
+  assert.equal(first.pageSize, 5);
+  assert.ok(first.items.length <= 5);
+  assert.ok(first.items.every((summary) => getGermanIndexLetter(summary.title) === 'O'));
+  assert.equal(first.total, letters.find((entry) => entry.letter === 'O')?.count);
+  assert.equal(first.pageCount, Math.ceil(first.total / 5));
+  const second = await store.queryNormSummaries({ letter: 'O', page: 2, pageSize: 5 });
+  assert.ok(second.items.every((summary) => !first.items.some((entry) => entry.slug === summary.slug)), 'Seiten überschneiden sich nicht');
+  const beyond = await store.queryNormSummaries({ letter: 'O', page: 999, pageSize: 5 });
+  assert.equal(beyond.page, beyond.pageCount, 'zu große Seite fällt auf die letzte zurück');
+  const text = await store.queryNormSummaries({ q: 'gemeindeordnung' });
+  assert.ok(text.items.some((summary) => summary.slug === 'saechsische-gemeindeordnung'));
+  assert.ok(text.items.every((summary) => [summary.title, summary.shortTitle, summary.abbr ?? '', ...summary.keywords].join(' ').toLocaleLowerCase('de-DE').includes('gemeindeordnung')));
+  const origin = await store.queryNormSummaries({ originKind: 'ostdeutsch-original', pageSize: 100 });
+  assert.ok(origin.total > 0);
+  assert.ok(origin.items.every((summary) => summary.originKind === 'ostdeutsch-original'));
+  const counts = await store.countByOriginKind();
+  assert.equal(counts['ostdeutsch-original'], origin.total);
+  const subject = (await store.listNormSummaries())[0].subjects[0];
+  const bySubject = await store.queryNormSummaries({ subject, pageSize: 100 });
+  assert.ok(bySubject.total > 0);
+  assert.ok(bySubject.items.every((summary) => summary.subjects.includes(subject)));
+  const keywords = await store.listKeywordIndex('O');
+  assert.ok(keywords.length > 0);
+  assert.ok(keywords.every((entry) => getGermanIndexLetter(entry.keyword) === 'O' && entry.norms.length > 0));
+  assert.deepEqual(keywords.map((entry) => entry.keyword), [...keywords.map((entry) => entry.keyword)].sort((left, right) => left.localeCompare(right, 'de')));
 });

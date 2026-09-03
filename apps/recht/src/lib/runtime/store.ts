@@ -20,7 +20,7 @@ import {
 } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getNormOriginInfo, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
-import { getNormUrl, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
+import { getGermanIndexLetter, getNormUrl, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
 import {
@@ -84,6 +84,56 @@ export interface NormSummaryQuery {
   types?: string[];
   statuses?: string[];
   subjectSlug?: string;
+}
+
+/** Seitenweise Übersichtsabfrage (A–Z, Rechtsentwicklung): alle Filter laufen serverseitig. */
+export interface NormPageQuery extends NormSummaryQuery {
+  /** Buchstabengruppe des Titels (A–Z oder '#', siehe getGermanIndexLetter). */
+  letter?: string;
+  /** Freitext über Titel, Kurzbezeichnung, Abkürzung und Stichwörter (Teilstring, groß/klein egal). */
+  q?: string;
+  originKind?: NormOriginKind;
+  /** Sachgebiet (Anzeigename). */
+  subject?: string;
+  /** 1-basierte Seite. */
+  page?: number;
+  pageSize?: number;
+}
+
+export interface NormPage {
+  items: NormSummary[];
+  total: number;
+  page: number;
+  pageSize: number;
+  pageCount: number;
+}
+
+export interface IndexLetterCount {
+  letter: string;
+  count: number;
+}
+
+export interface KeywordIndexEntry {
+  keyword: string;
+  norms: Array<{ slug: string; shortTitle: string }>;
+}
+
+export const DEFAULT_PAGE_SIZE = 50;
+export const MAX_PAGE_SIZE = 100;
+
+/** Seitenparameter absichern: ganze Zahlen, Seite ≥ 1, Größe 1–MAX_PAGE_SIZE. */
+export function normalizePage(page: unknown, pageSize: unknown = DEFAULT_PAGE_SIZE): { page: number; pageSize: number } {
+  const parsedPage = Number.parseInt(String(page ?? '1'), 10);
+  const parsedSize = Number.parseInt(String(pageSize ?? DEFAULT_PAGE_SIZE), 10);
+  return {
+    page: Number.isFinite(parsedPage) && parsedPage >= 1 ? parsedPage : 1,
+    pageSize: Number.isFinite(parsedSize) && parsedSize >= 1 ? Math.min(parsedSize, MAX_PAGE_SIZE) : DEFAULT_PAGE_SIZE,
+  };
+}
+
+/** Freitext für den Vergleich: getrimmt, deutsch kleingeschrieben, Mehrfachleerraum reduziert. */
+export function normalizeQueryText(value: unknown): string {
+  return String(value ?? '').trim().toLocaleLowerCase('de-DE').replace(/\s+/gu, ' ');
 }
 
 export interface SubjectSummary {
@@ -161,6 +211,14 @@ export interface NormStore {
   /** Übersichtszeilen; Filter laufen als SQL (Typ, Status, Sachgebiet). Liest nur law_norms(+aktuelle Fassungszeile). */
   listNormSummaries(query?: NormSummaryQuery): Promise<NormSummary[]>;
   listNormSummariesByType(type: NormType): Promise<NormSummary[]>;
+  /** Eine Seite Übersichtszeilen mit Gesamtzahl; Filter (Buchstabe, Freitext, Herkunft, Typ, Status, Sachgebiet) laufen als SQL mit LIMIT/OFFSET. */
+  queryNormSummaries(query: NormPageQuery): Promise<NormPage>;
+  /** Buchstabengruppen mit Zählern (GROUP BY index_letter; höchstens 27 Zeilen). */
+  listIndexLetters(): Promise<IndexLetterCount[]>;
+  /** Stichwortindex einer Buchstabengruppe (Abkürzungen, Kurzbezeichnungen, Schlagwörter). */
+  listKeywordIndex(letter: string): Promise<KeywordIndexEntry[]>;
+  /** Normen je Herkunftsart (GROUP BY origin_kind; vier Zeilen). */
+  countByOriginKind(): Promise<Partial<Record<NormOriginKind, number>>>;
   /** Übersichtszeilen einer Slug-Liste (Verkündungs- und Fundstellenseiten). */
   getNormSummaries(slugs: string[]): Promise<Map<string, NormSummary>>;
   /** Fassungsübersicht (Slug, Fassung, Beginn, zeitliche Einordnung); optional auf Slugs eingeschränkt. */
@@ -432,11 +490,80 @@ export function createD1NormStore(db: D1Database): NormStore {
     return rows.results.map(summaryFromRow);
   };
 
+  /** WHERE-Klausel einer Seitenabfrage; alle Bedingungen sind indexgestützt oder scannen nur law_norms (schmale Zeilen). */
+  const pageConditions = (query: NormPageQuery): { where: string; params: unknown[] } => {
+    const conditions: string[] = [];
+    const params: unknown[] = [];
+    if (query.letter) {
+      conditions.push('n.index_letter = ?');
+      params.push(query.letter);
+    }
+    if (query.types?.length) {
+      conditions.push(`n.type IN (${query.types.map(() => '?').join(', ')})`);
+      params.push(...query.types);
+    }
+    if (query.statuses?.length) {
+      conditions.push(`n.status IN (${query.statuses.map(() => '?').join(', ')})`);
+      params.push(...query.statuses);
+    }
+    if (query.originKind) {
+      conditions.push('n.origin_kind = ?');
+      params.push(query.originKind);
+    }
+    if (query.subjectSlug) {
+      conditions.push('n.id IN (SELECT s.norm_id FROM law_norm_subjects s WHERE s.subject_slug = ?)');
+      params.push(query.subjectSlug);
+    }
+    if (query.subject) {
+      conditions.push('n.id IN (SELECT s.norm_id FROM law_norm_subjects s WHERE s.subject = ?)');
+      params.push(query.subject);
+    }
+    const text = normalizeQueryText(query.q);
+    if (text) {
+      const pattern = `%${text.replaceAll('\\', '\\\\').replaceAll('%', '\\%').replaceAll('_', '\\_')}%`;
+      conditions.push("(n.sort_title LIKE ? ESCAPE '\\' OR lower(n.short_title) LIKE ? ESCAPE '\\' OR lower(n.abbr) LIKE ? ESCAPE '\\' OR n.id IN (SELECT k.norm_id FROM law_norm_keywords k WHERE lower(k.keyword) LIKE ? ESCAPE '\\'))");
+      params.push(pattern, pattern, pattern, pattern);
+    }
+    return { where: conditions.length ? ` WHERE ${conditions.join(' AND ')}` : '', params };
+  };
+
+  const pageSummaries = async (query: NormPageQuery): Promise<NormPage> => {
+    const { page, pageSize } = normalizePage(query.page, query.pageSize);
+    const { where, params } = pageConditions(query);
+    const total = Number((await db.prepare(`SELECT COUNT(*) AS total FROM law_norms n${where}`).bind(...params).first<{ total: number }>())?.total ?? 0);
+    const pageCount = Math.max(1, Math.ceil(total / pageSize));
+    const current = Math.min(page, pageCount);
+    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY n.sort_title, n.slug LIMIT ? OFFSET ?`).bind(...params, pageSize, (current - 1) * pageSize).all<SummaryRow>();
+    return { items: rows.results.map(summaryFromRow), total, page: current, pageSize, pageCount };
+  };
+
   return {
     kind: 'd1',
     listNormSummaries: listSummaries,
     async listNormSummariesByType(type) {
       return listSummaries({ types: [type] });
+    },
+    queryNormSummaries: pageSummaries,
+    async listIndexLetters() {
+      return cachedMeta('index_letters', async () =>
+        (await db.prepare('SELECT index_letter AS letter, COUNT(*) AS count FROM law_norms GROUP BY index_letter ORDER BY index_letter').all<{ letter: string; count: number }>()).results
+          .map((row) => ({ letter: row.letter, count: Number(row.count) })));
+    },
+    async listKeywordIndex(letter) {
+      const rows = await db.prepare('SELECT k.keyword, n.slug, n.short_title FROM law_norm_keywords k JOIN law_norms n ON n.id = k.norm_id WHERE k.index_letter = ? ORDER BY k.keyword, n.sort_title, n.slug').bind(letter).all<{ keyword: string; slug: string; short_title: string }>();
+      const entries = new Map<string, KeywordIndexEntry>();
+      for (const row of rows.results) {
+        const entry = entries.get(row.keyword) ?? { keyword: row.keyword, norms: [] };
+        if (!entry.norms.some((norm) => norm.slug === row.slug)) entry.norms.push({ slug: row.slug, shortTitle: row.short_title });
+        entries.set(row.keyword, entry);
+      }
+      return [...entries.values()].sort((left, right) => left.keyword.localeCompare(right.keyword, 'de'));
+    },
+    async countByOriginKind() {
+      return cachedMeta('origin_counts', async () =>
+        Object.fromEntries((await db.prepare('SELECT origin_kind, COUNT(*) AS count FROM law_norms GROUP BY origin_kind').all<{ origin_kind: NormOriginKind | null; count: number }>()).results
+          .filter((row) => row.origin_kind)
+          .map((row) => [row.origin_kind as NormOriginKind, Number(row.count)])) as Partial<Record<NormOriginKind, number>>);
     },
     async getNormSummaries(slugs) {
       const summaries = new Map<string, NormSummary>();
@@ -689,11 +816,55 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       && (!query.statuses?.length || query.statuses.includes(summary.status))
       && (!query.subjectSlug || summary.subjects.some((subject) => getSubjectSlug(subject) === query.subjectSlug)));
 
+  const keywordEntriesOf = (summary: NormSummary): string[] =>
+    [...new Set([summary.abbr, summary.shortTitle, ...summary.keywords].map((value) => (typeof value === 'string' ? value.trim() : '')).filter((value) => value.length >= 2))];
+  const matchesText = (summary: NormSummary, text: string): boolean =>
+    [summary.title, summary.shortTitle, summary.abbr ?? '', ...keywordEntriesOf(summary)].some((value) => value.toLocaleLowerCase('de-DE').includes(text));
+
   return {
     kind: 'files',
     listNormSummaries: filterSummaries,
     async listNormSummariesByType(type) {
       return filterSummaries({ types: [type] });
+    },
+    async queryNormSummaries(query) {
+      const { page, pageSize } = normalizePage(query.page, query.pageSize);
+      const text = normalizeQueryText(query.q);
+      const all = (await filterSummaries(query)).filter((summary) =>
+        (!query.letter || getGermanIndexLetter(summary.title) === query.letter)
+        && (!query.originKind || summary.originKind === query.originKind)
+        && (!query.subject || summary.subjects.includes(query.subject))
+        && (!text || matchesText(summary, text)));
+      const pageCount = Math.max(1, Math.ceil(all.length / pageSize));
+      const current = Math.min(page, pageCount);
+      return { items: all.slice((current - 1) * pageSize, current * pageSize), total: all.length, page: current, pageSize, pageCount };
+    },
+    async listIndexLetters() {
+      const counts = new Map<string, number>();
+      for (const summary of await summaries()) {
+        const letter = getGermanIndexLetter(summary.title);
+        counts.set(letter, (counts.get(letter) ?? 0) + 1);
+      }
+      return [...counts.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([letter, count]) => ({ letter, count }));
+    },
+    async listKeywordIndex(letter) {
+      const entries = new Map<string, KeywordIndexEntry>();
+      for (const summary of await summaries()) {
+        for (const keyword of keywordEntriesOf(summary)) {
+          if (getGermanIndexLetter(keyword) !== letter) continue;
+          const entry = entries.get(keyword) ?? { keyword, norms: [] };
+          if (!entry.norms.some((norm) => norm.slug === summary.slug)) entry.norms.push({ slug: summary.slug, shortTitle: summary.shortTitle });
+          entries.set(keyword, entry);
+        }
+      }
+      return [...entries.values()].sort((left, right) => left.keyword.localeCompare(right.keyword, 'de'));
+    },
+    async countByOriginKind() {
+      const counts: Partial<Record<NormOriginKind, number>> = {};
+      for (const summary of await summaries()) {
+        if (summary.originKind) counts[summary.originKind] = (counts[summary.originKind] ?? 0) + 1;
+      }
+      return counts;
     },
     async getNormSummaries(slugs) {
       const wanted = new Set(slugs);

@@ -132,3 +132,49 @@ test('getNorm liest genau die Zeilen der angefragten Norm und die Körper der ge
   assert.deepEqual(log.map((query) => query.params), [['x'], ['x'], ['x', '2023-11-01']]);
   assert.ok(log.every((query) => /WHERE slug = \?|WHERE norm_id = \?/u.test(query.sql)));
 });
+
+test('seitenweise Übersichten laufen als SQL mit COUNT(*) und LIMIT/OFFSET; Buchstabe, Freitext, Herkunft und Sachgebiet sind Bedingungen', async () => {
+  const { db, log } = recordingDatabase({ 'COUNT(*) AS total': [{ total: 120 }] });
+  const store = createD1NormStore(db);
+  const page = await store.queryNormSummaries({ letter: 'B', page: 3, pageSize: 50 });
+  assert.equal(page.total, 120);
+  assert.equal(page.page, 3);
+  assert.equal(page.pageCount, 3);
+  assert.equal(log.length, 2);
+  assert.match(log[0].sql, /^SELECT COUNT\(\*\) AS total FROM law_norms n WHERE n\.index_letter = \?$/u);
+  assert.deepEqual(log[0].params, ['B']);
+  assert.match(log[1].sql, /WHERE n\.index_letter = \? ORDER BY n\.sort_title, n\.slug LIMIT \? OFFSET \?$/u);
+  assert.deepEqual(log[1].params, ['B', 50, 100]);
+  assert.ok(!/meta_json|version_json|history_json/u.test(log[1].sql));
+
+  const filtered = recordingDatabase({ 'COUNT(*) AS total': [{ total: 0 }] });
+  const empty = await createD1NormStore(filtered.db).queryNormSummaries({ q: 'Gemeinde%ordnung', originKind: 'inherited-amended', types: ['gesetz'], statuses: ['in-force'], subject: 'Kommunales', page: 9 });
+  assert.equal(empty.total, 0);
+  assert.equal(empty.page, 1, 'Seite fällt auf die letzte vorhandene Seite zurück');
+  assert.equal(empty.pageCount, 1);
+  const sql = filtered.log[0].sql;
+  assert.match(sql, /n\.type IN \(\?\)/u);
+  assert.match(sql, /n\.status IN \(\?\)/u);
+  assert.match(sql, /n\.origin_kind = \?/u);
+  assert.match(sql, /law_norm_subjects s WHERE s\.subject = \?/u);
+  assert.match(sql, /n\.sort_title LIKE \? ESCAPE '\\' OR lower\(n\.short_title\) LIKE \? ESCAPE '\\' OR lower\(n\.abbr\) LIKE \? ESCAPE '\\' OR n\.id IN \(SELECT k\.norm_id FROM law_norm_keywords k WHERE lower\(k\.keyword\) LIKE \? ESCAPE '\\'\)/u);
+  assert.deepEqual(filtered.log[0].params, ['gesetz', 'in-force', 'inherited-amended', 'Kommunales', '%gemeinde\\%ordnung%', '%gemeinde\\%ordnung%', '%gemeinde\\%ordnung%', '%gemeinde\\%ordnung%']);
+  assert.deepEqual(filtered.log[1].params.slice(-2), [50, 0]);
+});
+
+test('Buchstabengruppen, Stichwortindex und Herkunftszähler lesen nur Aggregat- bzw. Indexzeilen', async () => {
+  const { db, log } = recordingDatabase({
+    'GROUP BY index_letter': [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }],
+    'FROM law_norm_keywords k JOIN law_norms n': [{ keyword: 'Abgaben', slug: 'a', short_title: 'A-Gesetz' }, { keyword: 'Abgaben', slug: 'b', short_title: 'B-Gesetz' }, { keyword: 'Abgaben', slug: 'a', short_title: 'A-Gesetz' }],
+    'GROUP BY origin_kind': [{ origin_kind: 'ostdeutsch-original', count: 5 }, { origin_kind: null, count: 1 }],
+  });
+  const store = createD1NormStore(db);
+  assert.deepEqual(await store.listIndexLetters(), [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }]);
+  assert.deepEqual(await store.listKeywordIndex('A'), [{ keyword: 'Abgaben', norms: [{ slug: 'a', shortTitle: 'A-Gesetz' }, { slug: 'b', shortTitle: 'B-Gesetz' }] }]);
+  assert.deepEqual(await store.countByOriginKind(), { 'ostdeutsch-original': 5 });
+  const keywordQuery = log.find((query) => query.sql.includes('FROM law_norm_keywords k'));
+  assert.ok(keywordQuery);
+  assert.match(keywordQuery.sql, /WHERE k\.index_letter = \? ORDER BY k\.keyword/u);
+  assert.deepEqual(keywordQuery.params, ['A']);
+  assert.ok(log.every((query) => !loadsCorpus(query)));
+});

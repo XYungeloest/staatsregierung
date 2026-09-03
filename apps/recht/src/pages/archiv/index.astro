@@ -4,68 +4,47 @@ import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
   formatNormType,
-  getGermanIndexLetter,
   getLawPortalUrl,
   getNormUrl,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
-import { groupSummariesByLetter } from '../../lib/runtime/overview.ts';
+import { DEFAULT_PAGE_SIZE, normalizePage } from '../../lib/runtime/store.ts';
+import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
 
-// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion – seitenweise und
+// je Buchstabengruppe (serverseitige Filter), nie den gesamten Bestand in einer Antwort.
 export const prerender = false;
 
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-// Übersichtszeilen (Bezeichnungen, Abkürzungen, Schlagwörter); keine Fassungs-JSONs.
-const norms = await store.listNormSummaries();
-const groups = groupSummariesByLetter(norms);
-const keywordEntries = new Map<string, typeof norms>();
-
-for (const norm of norms) {
-  for (const rawKeyword of [norm.abbr, norm.shortTitle, ...norm.keywords].filter(Boolean)) {
-    const keyword = toDisplayText(rawKeyword).trim();
-    if (!keyword || keyword.length < 2) {
-      continue;
-    }
-
-    const existing = keywordEntries.get(keyword) ?? [];
-    if (!existing.some((entry) => entry.slug === norm.slug)) {
-      keywordEntries.set(keyword, [...existing, norm]);
-    }
-  }
-}
-
-const keywordGroups = [...keywordEntries.entries()]
-  .sort(([left], [right]) => left.localeCompare(right, 'de'))
-  .reduce<Array<{ letter: string; entries: Array<{ keyword: string; norms: typeof norms }> }>>(
-    (result, [keyword, keywordNorms]) => {
-      const key = getGermanIndexLetter(keyword);
-      const group = result.find((entry) => entry.letter === key);
-      const entry = { keyword, norms: keywordNorms.sort((left, right) => left.title.localeCompare(right.title, 'de')) };
-
-      if (group) {
-        group.entries.push(entry);
-      } else {
-        result.push({ letter: key, entries: [entry] });
-      }
-
-      return result;
-    },
-    [],
-  );
-const availableLetters = [...new Set([...groups.map((group) => group.letter), ...keywordGroups.map((group) => group.letter)])]
-  .sort((left, right) => left.localeCompare(right, 'de'));
+const basePath = getLawPortalUrl() + 'archiv/';
+const letters = await store.listIndexLetters();
+const requestedLetter = (Astro.url.searchParams.get('buchstabe') ?? '').trim().toLocaleUpperCase('de-DE').slice(0, 1);
+const availableLetters = letters.map((entry) => entry.letter);
+const letter = availableLetters.includes(requestedLetter) ? requestedLetter : (availableLetters.includes('A') ? 'A' : availableLetters[0] ?? 'A');
+const { page: requestedPage } = normalizePage(Astro.url.searchParams.get('seite'));
+const result = await store.queryNormSummaries({ letter, page: requestedPage, pageSize: DEFAULT_PAGE_SIZE });
+const totalNorms = letters.reduce((sum, entry) => sum + entry.count, 0);
+const keywords = await store.listKeywordIndex(letter);
+const pagination = buildPagination({ page: result.page, pageCount: result.pageCount, basePath, params: { buchstabe: letter } });
+const heading = letter === '#' ? 'Ziffern und Sonderzeichen' : `Buchstabe ${letter}`;
+const pageTitle = `Alphabetischer Index – ${heading}${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
+const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
+const lastIndex = Math.min(result.page * result.pageSize, result.total);
 ---
 
 <LawLayout
-  title="Alphabetischer Index"
-  description="Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen."
+  title={pageTitle}
+  description={`Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen: ${heading}.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Alphabetischer Index', href: getLawPortalUrl() + 'archiv/' },
+    { label: 'Alphabetischer Index', href: basePath },
   ]}
+  canonical={pageUrl(basePath, { buchstabe: letter, seite: result.page > 1 ? String(result.page) : '' })}
+  prev={pagination.prev}
+  next={pagination.next}
 >
   <Breadcrumbs
     items={[
@@ -77,50 +56,77 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
   <SectionHero
     eyebrow="Rechtsportal"
     title="Alphabetischer Index"
-    lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z."
+    lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z – je Buchstabengruppe seitenweise."
     variant="law"
-    facts={[{ label: 'Normen', value: String(norms.length) }, { label: 'Buchstabengruppen', value: String(groups.length) }]}
+    facts={[{ label: 'Normen', value: String(totalNorms) }, { label: 'Buchstabengruppen', value: String(letters.length) }, { label: heading, value: String(result.total) }]}
   />
   <section class="section" aria-label="Buchstabenauswahl">
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
-      {availableLetters.map((letter) => (
-        <a href={`#${encodeURIComponent(letter)}`} data-index-letter={letter}>{letter}</a>
+      {letters.map((entry) => (
+        <a
+          href={pageUrl(basePath, { buchstabe: entry.letter })}
+          data-index-letter={entry.letter}
+          aria-current={entry.letter === letter ? 'page' : undefined}
+          title={`${entry.count} Normen`}
+        >{entry.letter}</a>
       ))}
     </nav>
   </section>
 
-  {groups.map((group) => (
-    <section class="section" id={group.letter}>
-      <div class="section-header">
-        <h2>{group.letter}</h2>
-      </div>
-      <ul class="record-list">
-        {group.norms.map((norm) => (
+  <section class="section" id={letter} aria-labelledby="index-letter-heading">
+    <div class="section-header">
+      <h2 id="index-letter-heading">{heading}</h2>
+      <p data-index-count>
+        {result.total === 0
+          ? 'In dieser Buchstabengruppe sind keine Normen verzeichnet.'
+          : `${result.total} ${result.total === 1 ? 'Norm' : 'Normen'}; angezeigt ${firstIndex}–${lastIndex}.`}
+      </p>
+    </div>
+    {result.items.length > 0 ? (
+      <ul class="record-list" data-index-list>
+        {result.items.map((norm) => (
           <li class="record-list__item">
             <a class="inline-link" href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a>
             <span>{[norm.abbr, formatNormType(norm.type)].filter(Boolean).join(' · ')}</span>
           </li>
         ))}
       </ul>
-    </section>
-  ))}
+    ) : null}
+    {pagination.pages.length > 1 ? (
+      <nav class="pagination" aria-label={`Seiten der Buchstabengruppe ${letter}`}>
+        {pagination.prev ? <a class="pagination__link" rel="prev" href={pagination.prev}>Vorherige Seite</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Vorherige Seite</span>}
+        <ol class="pagination__list">
+          {pagination.pages.map((entry) => (
+            <li>
+              {entry.kind === 'gap'
+                ? <span class="pagination__gap" aria-hidden="true">…</span>
+                : <a href={entry.href} aria-current={entry.current ? 'page' : undefined} aria-label={`Seite ${entry.page}`}>{entry.page}</a>}
+            </li>
+          ))}
+        </ol>
+        {pagination.next ? <a class="pagination__link" rel="next" href={pagination.next}>Nächste Seite</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Nächste Seite</span>}
+      </nav>
+    ) : null}
+  </section>
 
-  <section class="section section-muted">
+  <section class="section section-muted" aria-labelledby="keyword-index-heading">
     <div class="section-header">
-      <h2>Stichwortindex</h2>
-      <p>Abkürzungen, Kurztitel und redaktionelle Stichwörter führen zusätzlich in den Normenbestand.</p>
+      <h2 id="keyword-index-heading">Stichwortindex {heading}</h2>
+      <p>Abkürzungen, Kurztitel und redaktionelle Stichwörter dieser Buchstabengruppe führen zusätzlich in den Normenbestand.</p>
     </div>
     <label class="search-field law-index-filter">
       <span>Stichwörter lokal filtern</span>
       <input type="search" autocomplete="off" data-index-filter placeholder="z. B. Kultur, Energie, Verwaltung" />
     </label>
     <p class="search-feedback" aria-live="polite" data-index-filter-status></p>
-    <div class="content-grid content-grid--wide">
-      {keywordGroups.map((group) => (
-        <section class="panel" id={groups.some((entry) => entry.letter === group.letter) ? undefined : group.letter} data-index-group={group.letter}>
-          <h3>{group.letter}</h3>
+    {keywords.length === 0 ? (
+      <p data-index-empty>Für diese Buchstabengruppe sind keine Stichwörter verzeichnet.</p>
+    ) : (
+      <div class="content-grid content-grid--wide">
+        <section class="panel" data-index-group={letter}>
+          <h3>{letter}</h3>
           <ul class="record-list">
-            {group.entries.map((entry) => (
+            {keywords.map((entry) => (
               <li class="record-list__item" data-index-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
                 <strong>{entry.keyword}</strong>
                 <span>
@@ -137,32 +143,19 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
             ))}
           </ul>
         </section>
-      ))}
-    </div>
+      </div>
+    )}
   </section>
   <script>
     const input = document.querySelector<HTMLInputElement>('[data-index-filter]');
     const status = document.querySelector<HTMLElement>('[data-index-filter-status]');
     const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-index-entry]'));
-    const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-index-group]'));
-    const letters = Array.from(document.querySelectorAll<HTMLElement>('[data-index-letter]'));
     input?.addEventListener('input', () => {
       const query = input.value.trim().toLocaleLowerCase('de-DE');
       let visible = 0;
       entries.forEach((entry) => {
         entry.hidden = Boolean(query) && !(entry.dataset.indexEntry ?? '').includes(query);
         if (!entry.hidden) visible += 1;
-      });
-      const visibleLetters = new Set<string>();
-      groups.forEach((group) => {
-        const hasVisibleEntry = Array.from(group.querySelectorAll<HTMLElement>('[data-index-entry]')).some((entry) => !entry.hidden);
-        group.hidden = !hasVisibleEntry;
-        if (hasVisibleEntry && group.dataset.indexGroup) visibleLetters.add(group.dataset.indexGroup);
-      });
-      letters.forEach((letter) => {
-        const value = letter.dataset.indexLetter ?? '';
-        const belongsToNormGroup = document.getElementById(value)?.matches('.section');
-        letter.hidden = !belongsToNormGroup && !visibleLetters.has(value);
       });
       if (status) status.textContent = query ? `${visible} Stichwörter passen zum Filter.` : '';
     });

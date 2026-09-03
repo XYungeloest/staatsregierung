@@ -15,39 +15,71 @@ import {
   type NormOriginKind,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
+import { DEFAULT_PAGE_SIZE, normalizePage } from '../../lib/runtime/store.ts';
+import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
 
-// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion: Filter und Seiten
+// laufen serverseitig (GET-Formular), die Antwort enthält nie den gesamten Bestand.
 export const prerender = false;
 
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-// Übersichtszeilen mit vorberechneter Herkunft (origin_kind) statt Fassungs-JSONs.
-const norms = await store.listNormSummaries();
+const basePath = getLawDevelopmentOverviewUrl();
 const originKinds: NormOriginKind[] = [
   'ostdeutsch-original',
   'inherited-amended',
   'inherited-unchanged',
   'origin-unresolved',
 ];
-const counts = Object.fromEntries(originKinds.map((kind) => [
-  kind,
-  norms.filter((norm) => norm.originKind === kind).length,
-]));
-const types = [...new Set(norms.map((norm) => norm.type))]
-  .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
-const subjects = [...new Set(norms.flatMap((norm) => norm.subjects))].sort((left, right) => left.localeCompare(right, 'de'));
-const statuses = [...new Set(norms.map((norm) => norm.status))]
-  .sort((left, right) => formatNormStatus(left).localeCompare(formatNormStatus(right), 'de'));
+const [{ filters }, originCounts] = await Promise.all([store.getSearchFilters(), store.countByOriginKind()]);
+const types = filters.types;
+const statuses = filters.statuses;
+const subjects = filters.subjects;
+
+const params = Astro.url.searchParams;
+const clean = (value: string | null, allowed?: string[]): string => {
+  const text = (value ?? '').trim();
+  if (!text) return '';
+  return allowed && !allowed.includes(text) ? '' : text;
+};
+const state = {
+  q: clean(params.get('q')).slice(0, 200),
+  origin: clean(params.get('origin'), originKinds) as NormOriginKind | '',
+  type: clean(params.get('type'), types.map((entry) => entry.value)),
+  subject: clean(params.get('subject'), subjects),
+  status: clean(params.get('status'), statuses.map((entry) => entry.value)),
+};
+const { page: requestedPage } = normalizePage(params.get('seite'));
+const result = await store.queryNormSummaries({
+  q: state.q || undefined,
+  originKind: state.origin || undefined,
+  types: state.type ? [state.type] : undefined,
+  statuses: state.status ? [state.status] : undefined,
+  subject: state.subject || undefined,
+  page: requestedPage,
+  pageSize: DEFAULT_PAGE_SIZE,
+});
+const filterParams = { q: state.q, origin: state.origin, type: state.type, subject: state.subject, status: state.status };
+const pagination = buildPagination({ page: result.page, pageCount: result.pageCount, basePath, params: filterParams });
+const filtered = Object.values(filterParams).some(Boolean);
+const totalNorms = originKinds.reduce((sum, kind) => sum + (originCounts[kind] ?? 0), 0);
+const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
+const lastIndex = Math.min(result.page * result.pageSize, result.total);
+const pageTitle = `Rechtsentwicklung seit 1. November 2023${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
 ---
 
 <LawLayout
-  title="Rechtsentwicklung seit 1. November 2023"
+  title={pageTitle}
   description="Übersicht über eigenständig geschaffenes, übernommenes und fortentwickeltes Landesrecht."
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Rechtsentwicklung', href: getLawDevelopmentOverviewUrl() },
+    { label: 'Rechtsentwicklung', href: basePath },
   ]}
+  canonical={pageUrl(basePath, { ...filterParams, seite: result.page })}
+  noindex={filtered}
+  prev={pagination.prev}
+  next={pagination.next}
 >
   <Breadcrumbs items={[
     { label: 'OstRecht', href: getLawPortalUrl() },
@@ -60,92 +92,106 @@ const statuses = [...new Set(norms.map((norm) => norm.status))]
     titleSize="long"
     lead="Ausgangspunkt für übernommenes sächsisches Landesrecht ist grundsätzlich der am 1. November 2023 geltende Rechtsstand. Seitdem wird der Rechtsbestand des Freistaates eigenständig fortentwickelt."
     variant="law"
-    facts={originKinds.map((kind) => ({ label: formatNormOriginKind(kind), value: String(counts[kind]) }))}
+    facts={originKinds.map((kind) => ({ label: formatNormOriginKind(kind), value: String(originCounts[kind] ?? 0) }))}
   />
 
   <section class="section law-development" data-law-development>
     <div class="section-header">
       <h2>Vorschriften recherchieren</h2>
-      <p>Die Einordnung wird aus gespeicherten Fassungen, Quellen und Rechtsbeziehungen abgeleitet.</p>
+      <p>Die Einordnung wird aus gespeicherten Fassungen, Quellen und Rechtsbeziehungen abgeleitet. Filter und Seiten laufen serverseitig; die Adresse dieser Seite enthält die gewählte Auswahl.</p>
     </div>
-    <form class="law-list-filter law-development__filters" data-development-filter-form>
+    <form class="law-list-filter law-development__filters" method="get" action={basePath} data-development-filter-form>
       <div class="search-form__filters">
         <label class="search-field">
           <span>Freitext</span>
-          <input type="search" name="q" autocomplete="off" placeholder="Titel, Abkürzung oder Sachgebiet" data-development-filter="q" />
+          <input type="search" name="q" value={state.q} autocomplete="off" maxlength="200" placeholder="Titel, Abkürzung oder Stichwort" data-development-filter="q" />
         </label>
         <label class="search-field">
           <span>Rechtsentwicklung</span>
           <select name="origin" data-development-filter="origin">
-            <option value="">Alle Kategorien</option>
-            {originKinds.map((kind) => <option value={kind}>{formatNormOriginKind(kind)}</option>)}
+            <option value="" selected={!state.origin}>Alle Kategorien</option>
+            {originKinds.map((kind) => <option value={kind} selected={state.origin === kind}>{formatNormOriginKind(kind)}</option>)}
           </select>
         </label>
         <label class="search-field">
           <span>Normtyp</span>
           <select name="type" data-development-filter="type">
-            <option value="">Alle Normtypen</option>
-            {types.map((type) => <option value={type}>{formatNormType(type)}</option>)}
+            <option value="" selected={!state.type}>Alle Normtypen</option>
+            {types.map((type) => <option value={type.value} selected={state.type === type.value}>{type.label}</option>)}
           </select>
         </label>
         <label class="search-field">
           <span>Sachgebiet</span>
           <select name="subject" data-development-filter="subject">
-            <option value="">Alle Sachgebiete</option>
-            {subjects.map((subject) => <option value={subject}>{subject}</option>)}
+            <option value="" selected={!state.subject}>Alle Sachgebiete</option>
+            {subjects.map((subject) => <option value={subject} selected={state.subject === subject}>{subject}</option>)}
           </select>
         </label>
         <label class="search-field">
           <span>Status</span>
           <select name="status" data-development-filter="status">
-            <option value="">Alle Status</option>
-            {statuses.map((status) => <option value={status}>{formatNormStatus(status)}</option>)}
+            <option value="" selected={!state.status}>Alle Status</option>
+            {statuses.map((status) => <option value={status.value} selected={state.status === status.value}>{status.label}</option>)}
           </select>
         </label>
       </div>
       <div class="search-form__actions">
         <button class="button-link" type="submit">Filtern</button>
-        <a class="button-link button-link--secondary" href={getLawDevelopmentOverviewUrl()}>Zurücksetzen</a>
+        <a class="button-link button-link--secondary" href={basePath}>Zurücksetzen</a>
       </div>
     </form>
 
-    <p class="search-feedback" aria-live="polite" data-development-count>{norms.length} Vorschriften werden angezeigt.</p>
-    <ol class="record-list law-development__list">
-      {norms.map((norm) => {
-        const originKind = norm.originKind ?? 'origin-unresolved';
-        const compareUrl = norm.originBaselineVersionId && norm.originBaselineVersionId !== norm.currentVersionId
-          ? getNormCompareSelectionUrl(norm.slug, norm.originBaselineVersionId, norm.currentVersionId)
-          : undefined;
-        return (
-          <li
-            class="record-list__item law-development__item"
-            data-development-item
-            data-origin={originKind}
-            data-type={norm.type}
-            data-status={norm.status}
-            data-subjects={norm.subjects.join('|')}
-            data-search={[norm.title, norm.shortTitle, norm.abbr, ...norm.subjects, ...norm.keywords].filter(Boolean).join(' ').toLocaleLowerCase('de-DE')}
-          >
-            <div class="law-development__item-heading">
-              <h3><a class="inline-link" href={getNormUrl(norm.slug)}>{norm.title}</a></h3>
-              <span class="status-badge status-badge--blue">{formatNormOriginKind(originKind)}</span>
-            </div>
-            {norm.abbr ? <p class="detail-line">Abkürzung: {norm.abbr}</p> : null}
-            <dl class="law-development__facts">
-              <div><dt>Normtyp</dt><dd>{formatNormType(norm.type)}</dd></div>
-              <div><dt>Status</dt><dd>{formatNormStatus(norm.status)}</dd></div>
-              <div><dt>Fassungsstand</dt><dd><time datetime={norm.currentValidFrom}>{formatDate(norm.currentValidFrom)}</time></dd></div>
-              {norm.originLastOwnChangeDate ? <div><dt>Letzte eigene Rechtsänderung</dt><dd><time datetime={norm.originLastOwnChangeDate}>{formatDate(norm.originLastOwnChangeDate)}</time></dd></div> : null}
-            </dl>
-            <nav class="link-list link-list--inline" aria-label={`Recherchewege zu ${norm.shortTitle}`}>
-              <a href={getNormUrl(norm.slug)}>Vorschrift öffnen</a>
-              {compareUrl ? <a href={compareUrl}>Mit Ausgangsrecht vergleichen</a> : null}
-            </nav>
-          </li>
-        );
-      })}
-    </ol>
-    <p data-development-empty hidden>Für die gewählte Filterkombination wurden keine Vorschriften gefunden.</p>
+    <p class="search-feedback" aria-live="polite" data-development-count>
+      {result.total === 0
+        ? 'Für die gewählte Filterkombination wurden keine Vorschriften gefunden.'
+        : `${result.total} ${result.total === 1 ? 'Vorschrift' : 'Vorschriften'}${filtered ? ' passen zur Auswahl' : ` im Bestand (${totalNorms} insgesamt)`}; angezeigt ${firstIndex}–${lastIndex}.`}
+    </p>
+    {result.items.length > 0 ? (
+      <ol class="record-list law-development__list" start={firstIndex}>
+        {result.items.map((norm) => {
+          const originKind = norm.originKind ?? 'origin-unresolved';
+          const compareUrl = norm.originBaselineVersionId && norm.originBaselineVersionId !== norm.currentVersionId
+            ? getNormCompareSelectionUrl(norm.slug, norm.originBaselineVersionId, norm.currentVersionId)
+            : undefined;
+          return (
+            <li class="record-list__item law-development__item" data-development-item data-origin={originKind} data-type={norm.type} data-status={norm.status}>
+              <div class="law-development__item-heading">
+                <h3><a class="inline-link" href={getNormUrl(norm.slug)}>{norm.title}</a></h3>
+                <span class="status-badge status-badge--blue">{formatNormOriginKind(originKind)}</span>
+              </div>
+              {norm.abbr ? <p class="detail-line">Abkürzung: {norm.abbr}</p> : null}
+              <dl class="law-development__facts">
+                <div><dt>Normtyp</dt><dd>{formatNormType(norm.type)}</dd></div>
+                <div><dt>Status</dt><dd>{formatNormStatus(norm.status)}</dd></div>
+                <div><dt>Fassungsstand</dt><dd><time datetime={norm.currentValidFrom}>{formatDate(norm.currentValidFrom)}</time></dd></div>
+                {norm.originLastOwnChangeDate ? <div><dt>Letzte eigene Rechtsänderung</dt><dd><time datetime={norm.originLastOwnChangeDate}>{formatDate(norm.originLastOwnChangeDate)}</time></dd></div> : null}
+              </dl>
+              <nav class="link-list link-list--inline" aria-label={`Recherchewege zu ${norm.shortTitle}`}>
+                <a href={getNormUrl(norm.slug)}>Vorschrift öffnen</a>
+                {compareUrl ? <a href={compareUrl}>Mit Ausgangsrecht vergleichen</a> : null}
+              </nav>
+            </li>
+          );
+        })}
+      </ol>
+    ) : (
+      <p data-development-empty>Passen Sie die Filter an oder <a class="inline-link" href={basePath}>setzen Sie die Auswahl zurück</a>.</p>
+    )}
+    {pagination.pages.length > 1 ? (
+      <nav class="pagination" aria-label="Seiten der Trefferliste">
+        {pagination.prev ? <a class="pagination__link" rel="prev" href={pagination.prev}>Vorherige Seite</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Vorherige Seite</span>}
+        <ol class="pagination__list">
+          {pagination.pages.map((entry) => (
+            <li>
+              {entry.kind === 'gap'
+                ? <span class="pagination__gap" aria-hidden="true">…</span>
+                : <a href={entry.href} aria-current={entry.current ? 'page' : undefined} aria-label={`Seite ${entry.page}`}>{entry.page}</a>}
+            </li>
+          ))}
+        </ol>
+        {pagination.next ? <a class="pagination__link" rel="next" href={pagination.next}>Nächste Seite</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Nächste Seite</span>}
+      </nav>
+    ) : null}
   </section>
 
   <section class="section section-muted">
@@ -159,57 +205,11 @@ const statuses = [...new Set(norms.map((norm) => norm.status))]
   </section>
 
   <script>
-    const root = document.querySelector<HTMLElement>('[data-law-development]');
-    const form = root?.querySelector<HTMLFormElement>('[data-development-filter-form]');
-    const inputs = Array.from(root?.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-development-filter]') ?? []);
-    const items = Array.from(root?.querySelectorAll<HTMLElement>('[data-development-item]') ?? []);
-    const count = root?.querySelector<HTMLElement>('[data-development-count]');
-    const empty = root?.querySelector<HTMLElement>('[data-development-empty]');
-    const read = () => {
-      if (!form) return { q: '', origin: '', type: '', subject: '', status: '' };
-      const data = new FormData(form);
-      return {
-        q: String(data.get('q') ?? '').trim().toLocaleLowerCase('de-DE'),
-        origin: String(data.get('origin') ?? ''),
-        type: String(data.get('type') ?? ''),
-        subject: String(data.get('subject') ?? ''),
-        status: String(data.get('status') ?? ''),
-      };
-    };
-    const updateUrl = (state: ReturnType<typeof read>, push = false) => {
-      const params = new URLSearchParams();
-      Object.entries(state).forEach(([key, value]) => { if (value) params.set(key, value); });
-      const target = params.size ? `${window.location.pathname}?${params}` : window.location.pathname;
-      window.history[push ? 'pushState' : 'replaceState']({}, '', target);
-    };
-    const apply = (push = false) => {
-      if (!form) return;
-      const state = read();
-      let visible = 0;
-      items.forEach((item) => {
-        const show = (!state.q || item.dataset.search?.includes(state.q))
-          && (!state.origin || item.dataset.origin === state.origin)
-          && (!state.type || item.dataset.type === state.type)
-          && (!state.subject || item.dataset.subjects?.split('|').includes(state.subject))
-          && (!state.status || item.dataset.status === state.status);
-        item.hidden = !show;
-        if (show) visible += 1;
-      });
-      if (count) count.textContent = `${visible} ${visible === 1 ? 'Vorschrift wird' : 'Vorschriften werden'} angezeigt.`;
-      if (empty) empty.hidden = visible !== 0;
-      updateUrl(state, push);
-    };
-    const applyUrl = () => {
-      if (!form) return;
-      const params = new URLSearchParams(window.location.search);
-      inputs.forEach((input) => { input.value = params.get(input.name) ?? ''; });
-    };
-    if (form) {
-      applyUrl();
-      apply();
-      form.addEventListener('submit', (event) => { event.preventDefault(); apply(true); });
-      inputs.forEach((input) => input.addEventListener('change', () => apply()));
-      window.addEventListener('popstate', () => { applyUrl(); apply(); });
-    }
+    // Komfort ohne Pflicht: Auswahländerungen senden das GET-Formular sofort ab; ohne
+    // JavaScript wirkt die Schaltfläche „Filtern“.
+    const form = document.querySelector<HTMLFormElement>('[data-development-filter-form]');
+    form?.querySelectorAll<HTMLSelectElement>('select[data-development-filter]').forEach((select) => {
+      select.addEventListener('change', () => form.requestSubmit());
+    });
   </script>
 </LawLayout>

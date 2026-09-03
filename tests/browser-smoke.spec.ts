@@ -649,13 +649,64 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
 });
 
-siteTest(['law'])('A–Z-Stichwortindex ist nicht leer und lässt sich lokal filtern', async ({ page }) => {
+siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet einen lokal filterbaren Stichwortindex', async ({ page }) => {
   await page.goto(lawUrl('/archiv/'));
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('A');
+  expect(await page.locator('[data-index-list] li').count()).toBeGreaterThan(0);
+  expect(await page.locator('[data-index-list] li').count()).toBeLessThanOrEqual(50);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/archiv\/\?buchstabe=A$/u);
+
+  // Buchstabenwechsel über die URL (ohne JavaScript nutzbar): nur Normen dieser Gruppe.
+  await page.locator('.letter-nav a[data-index-letter="O"]').click();
+  await expect(page).toHaveURL(/buchstabe=O/u);
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('O');
+  const titles = await page.locator('[data-index-list] li a').allTextContents();
+  expect(titles.length).toBeGreaterThan(0);
+  expect(titles.every((title) => /^[OÖ]/u.test(title.trim()))).toBe(true);
+
+  // Stichwortindex der Gruppe, lokal filterbar.
+  await page.goto(lawUrl('/archiv/?buchstabe=K'));
   const entries = page.locator('[data-index-entry]');
   expect(await entries.count()).toBeGreaterThan(0);
   await page.locator('[data-index-filter]').fill('Kultur');
   await expect(page.locator('[data-index-filter-status]')).toContainText('Stichwörter');
   expect(await entries.evaluateAll((nodes) => nodes.filter((node) => !(node as HTMLElement).hidden).length)).toBeGreaterThan(0);
+
+  // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
+  const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));
+  expect(response?.status()).toBe(200);
+  await expect(page.locator('[data-index-count]')).toContainText('angezeigt');
+});
+
+siteTest(['law'])('Rechtsentwicklung filtert und paginiert serverseitig über GET-Parameter', async ({ page }) => {
+  await page.goto(lawUrl('/rechtsentwicklung/'));
+  await expect(page.locator('[data-development-count]')).toContainText('im Bestand');
+  const total = await page.locator('[data-development-item]').count();
+  expect(total).toBeGreaterThan(0);
+  expect(total).toBeLessThanOrEqual(50);
+
+  // Auswahländerung sendet das GET-Formular; die URL trägt die Auswahl.
+  await page.locator('select[name="origin"]').selectOption('inherited-amended');
+  await expect(page).toHaveURL(/origin=inherited-amended/u);
+  await expect(page.locator('select[name="origin"]')).toHaveValue('inherited-amended');
+  const origins = await page.locator('[data-development-item]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.origin));
+  expect(origins.length).toBeGreaterThan(0);
+  expect(origins.every((origin) => origin === 'inherited-amended')).toBe(true);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
+
+  // Freitext per Formular, Zurück-Navigation stellt den vorherigen Zustand wieder her.
+  await page.locator('input[name="q"]').fill('Gemeindeordnung');
+  await page.locator('[data-development-filter-form] button[type="submit"]').click();
+  await expect(page).toHaveURL(/q=Gemeindeordnung/u);
+  await expect(page.locator('[data-development-item]').first()).toContainText('Gemeindeordnung');
+  await page.goBack();
+  await expect(page).toHaveURL(/origin=inherited-amended/u);
+  await expect(page).not.toHaveURL(/q=/u);
+
+  // Leere Treffermenge zeigt einen Hinweis statt einer Liste.
+  await page.goto(lawUrl('/rechtsentwicklung/?q=xyzzy-nicht-vorhanden'));
+  await expect(page.locator('[data-development-count]')).toContainText('keine Vorschriften');
+  await expect(page.locator('[data-development-empty]')).toBeVisible();
 });
 
 siteTest(['portal'])('Wappen kennzeichnet die Wortmarke in Kopf und Fuß', async ({ page }) => {
