@@ -670,8 +670,26 @@ mit dieser erzeugten Konfiguration.
   serverseitig über GET-Parameter (Buchstabenleiste mit `aria-current`, Seitennavigation mit
   `rel="prev"/"next"`, Titel „… (Seite N von M)“, kanonische Adresse mit Auswahl, gefilterte
   Rechtsentwicklungsseiten `noindex`, leere Treffermengen mit Hinweis, ohne JavaScript nutzbar –
-  Auswahländerungen senden das Formular nur zusätzlich sofort ab); Messwerte nach der Umstellung
-  siehe Release-Hardening unten.
+  Auswahländerungen senden das Formular nur zusätzlich sofort ab). Der Stichwortindex je
+  Buchstabengruppe hat ein eigenes GET-Formular (`stichwort`, `stichwortseite`, 100 Stichwörter je
+  Seite; `COUNT(DISTINCT keyword)`, `GROUP BY … LIMIT/OFFSET`, Normen der Seite über
+  `BETWEEN` – D1 erlaubt höchstens 100 Parameter je Anweisung). Gemessen lokal (Miniflare,
+  Vollbestand, erste / zweite Anfrage): `/archiv/` 118 KB, 152 / 15 ms (vorher 8,2 MB, ≈ 1,4 s;
+  50 Normen + 100 Stichwörter je Seite), `/archiv/?buchstabe=G` 118 KB, 54 / 14 ms,
+  `/archiv/?buchstabe=K&stichwort=Kultur` 37 KB, `/rechtsentwicklung/` 72 KB, 47 / 8 ms (vorher
+  7,3 MB, ≈ 0,7 s), gefiltert nach Herkunft und Typ 54 KB, Freitext „Polizei“ 73 KB, 327 / 33 ms
+  (`LIKE` über 5.207 schmale Zeilen und die Stichworttabelle), leere Treffermenge 20 KB; ungültige
+  Seitenzahlen fallen auf die letzte vorhandene Seite zurück (HTTP 200).
+- Suchantwort `/api/suche.json?q=Polizei` (1,85 MB unkomprimiert, lokal 68 / 88 ms): 120
+  Kandidatennormen, 132 Suchdokumente (120 geltende, 12 historische Fassungen) und 708 passende
+  Provisionen; 1,61 MB davon sind die Provisionstexte (`hitUnits[].text`, 166 Provisionen über
+  2.000 Zeichen, Maximum 40.000 – Tabellen und Anlagen großer Verwaltungsvorschriften), 229 KB
+  Dokumentmetadaten, 40 KB Verkündungsdaten. Die Texte werden im Browser für Bewertung und
+  Snippets benötigt (`prepareSearchDocuments`: Treffer- und Phrasenbewertung über
+  `unit.text`); eine Kürzung auf Ausschnitte würde die Bewertung verändern und ist deshalb nicht
+  umgesetzt. Die Antwort wird von Cloudflare komprimiert übertragen (Text mit hoher Redundanz);
+  eine kompressionsfreie Reduktion ohne Qualitätsverlust gibt es nur bei den 66 KB Metadaten
+  (Zitierungen, Schlagwörter), die bewusst erhalten bleiben.
 - Öffentliche URLs sind unverändert; `scripts/check-links.mjs` und `scripts/check-seo.mjs` erkennen
   On-demand-Routen aus den Seitenquellen und prüfen die Sitemap im Deployment-Smoke.
 

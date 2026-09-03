@@ -71,6 +71,14 @@ Deployment wieder unter `apps/` her. Die unveränderten Worker `ostrecht-portal`
    nur die tatsächlich veröffentlichten Ziele; der Portal-Altpfad-Redirect wird bei einer
    Portalprüfung zusätzlich gegen den bestehenden Rechtsorigin kontrolliert.
 
+Staging von OstRecht: der Cloudflare-Adapter schreibt nach dem Build eine aufgelöste Konfiguration
+(`apps/recht/dist/server/wrangler.json`) ohne `env`-Abschnitt; `wrangler deploy --env staging` fiele
+damit stillschweigend auf den produktiven Worker zurück. `npm run deploy:recht:staging` erzeugt deshalb
+mit `scripts/write-staging-wrangler-config.mjs` aus der gebauten Konfiguration und `env.staging` der
+Quellkonfiguration eine eigenständige `wrangler.staging.json` (Worker `ostrecht-recht-staging`, D1
+`ostrecht-recht-staging`, R2 `ostrecht-recht-quellen-staging`, keine Custom-Domain-Route) und bricht
+ab, wenn der Abschnitt fehlt oder eine produktive Ressource nennt (`tests/staging-wrangler-config.test.mjs`).
+
 Ein manuell gestarteter Workflow bietet die Ziele `portal`, `law` und `both` (Standard). Er verwendet
 standardmäßig `staging`; dafür müssen vollständige `portal_site_url` und `law_site_url` angegeben
 werden. `production` ist nur für eine bewusst freigegebene Veröffentlichung zu wählen. Die
