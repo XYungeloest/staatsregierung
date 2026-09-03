@@ -84,7 +84,7 @@ function apiTransport({ accountId, apiToken, bucket }) {
   const base = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${encodeURIComponent(bucket)}/objects/`;
   return {
     name: 'api',
-    async put(objectKey, bytes, contentType) {
+    async put(objectKey, bytes, contentType, _localPath) {
       const response = await fetch(base + encodeObjectKey(objectKey), {
         method: 'PUT',
         headers: { authorization: `Bearer ${apiToken}`, 'content-type': contentType },
@@ -118,8 +118,7 @@ function wranglerTransport({ bucket, cacheDir }) {
   };
   return {
     name: 'wrangler',
-    async put(objectKey, bytes, contentType) {
-      const localPath = resolve(cacheDir, 'raw', basename(objectKey));
+    async put(objectKey, bytes, contentType, localPath) {
       const output = await run(['r2', 'object', 'put', `${bucket}/${objectKey}`, '--file', localPath, '--content-type', contentType, '--remote']);
       if (!/Upload complete|Creating object/u.test(output)) throw new Error(`wrangler r2 object put ${objectKey}: ${output.trim().slice(-300)}`);
       return { etag: null };
@@ -222,7 +221,7 @@ async function main() {
       console.log(`[${index + 1}/${candidates.length}] ${objectKey}: ${bytes.length} Byte geprüft`);
       continue;
     }
-    const putResult = await transport.put(objectKey, bytes, 'text/html; charset=utf-8');
+    const putResult = await transport.put(objectKey, bytes, 'text/html; charset=utf-8', resolve(ROOT, entry.rawCacheFile));
     record.uploadedAt = new Date().toISOString();
     record.etag = putResult.etag;
     if (verify) {

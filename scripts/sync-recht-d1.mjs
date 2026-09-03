@@ -1,14 +1,34 @@
 #!/usr/bin/env node
 
-import { readFile, readdir } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { promisify } from 'node:util';
+
+/**
+ * Spiegelt content/normen nach Cloudflare D1 (abgeleitete Runtime-Projektion).
+ *
+ * Transport:
+ *   --transport api       D1-REST-API mit parametrisierten Batches (CLOUDFLARE_API_TOKEN)
+ *   --transport wrangler  SQL-Dateien unter .cache/d1-sync/ und
+ *                         `wrangler d1 execute ostrecht-recht --remote --file` mit der lokalen
+ *                         Wrangler-Anmeldung; Parameter werden als SQL-Literale gerendert.
+ * Ohne Angabe wird die API verwendet, wenn ein Token gesetzt ist, sonst Wrangler.
+ * `--dry-run` validiert alle Normen und schreibt beim Wrangler-Transport die SQL-Dateien
+ * zur Kontrolle, ohne sie auszuführen.
+ */
 
 const ROOT = resolve(process.cwd());
 const CONTENT_ROOT = join(ROOT, 'content', 'normen');
 const MAX_D1_TEXT_BYTES = 1_800_000;
 const DEFAULT_BATCH_SIZE = 40;
+const DEFAULT_SQL_FILE_STATEMENTS = 1500;
+const DEFAULT_SQL_FILE_BYTES = 6_000_000;
 const DEFAULT_CLOUDFLARE_ACCOUNT_ID = '28871b9b1c6753235a331544f7c68460';
 const DEFAULT_D1_DATABASE_ID = '2491f200-de20-4a45-b028-d00a4fd57840';
+const D1_DATABASE_NAME = 'ostrecht-recht';
+const execFileAsync = promisify(execFile);
 
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
@@ -194,9 +214,73 @@ async function sendBatches(config, queries, batchSize) {
   }
 }
 
+export function sqlLiteral(value) {
+  if (value === null || value === undefined) return 'NULL';
+  if (typeof value === 'number') return Number.isFinite(value) ? String(value) : 'NULL';
+  if (typeof value === 'boolean') return value ? '1' : '0';
+  return `'${String(value).replace(/'/gu, "''")}'`;
+}
+
+/** Rendert eine parametrisierte Abfrage als eigenständige SQL-Anweisung. */
+export function renderStatement({ sql, params = [] }) {
+  let index = 0;
+  const rendered = sql.replace(/\?/gu, () => {
+    if (index >= params.length) throw new Error('SQL-Anweisung hat mehr Platzhalter als Parameter');
+    const literal = sqlLiteral(params[index]);
+    index += 1;
+    return literal;
+  });
+  if (index !== params.length) throw new Error('SQL-Anweisung hat weniger Platzhalter als Parameter');
+  return `${rendered.trim().replace(/;+$/u, '')};`;
+}
+
+/** Fasst Anweisungen normweise zu SQL-Dateien zusammen, ohne eine Norm zu zerteilen. */
+export function groupStatementFiles(normStatements, { maxStatements = DEFAULT_SQL_FILE_STATEMENTS, maxBytes = DEFAULT_SQL_FILE_BYTES } = {}) {
+  const files = [];
+  let current = { statements: [], bytes: 0, slugs: [] };
+  const flush = () => {
+    if (current.statements.length > 0) files.push(current);
+    current = { statements: [], bytes: 0, slugs: [] };
+  };
+  for (const { slug, statements } of normStatements) {
+    const bytes = statements.reduce((sum, statement) => sum + Buffer.byteLength(statement, 'utf8') + 1, 0);
+    if (current.statements.length > 0 && (current.statements.length + statements.length > maxStatements || current.bytes + bytes > maxBytes)) {
+      flush();
+    }
+    current.statements.push(...statements);
+    current.bytes += bytes;
+    current.slugs.push(slug);
+  }
+  flush();
+  return files;
+}
+
+async function runWrangler(args) {
+  const { stdout, stderr } = await execFileAsync('npx', ['wrangler', ...args], {
+    cwd: join(ROOT, 'apps', 'recht'),
+    maxBuffer: 256 * 1024 * 1024,
+    env: { ...process.env, WRANGLER_SEND_METRICS: 'false' },
+  });
+  return { stdout, stderr };
+}
+
+async function executeSqlFile(filePath) {
+  const { stdout, stderr } = await runWrangler(['d1', 'execute', D1_DATABASE_NAME, '--remote', '--yes', '--json', '--file', filePath]);
+  const jsonStart = stdout.indexOf('[');
+  const payload = jsonStart >= 0 ? JSON.parse(stdout.slice(jsonStart)) : null;
+  if (!Array.isArray(payload) || payload.some((result) => result.success === false)) {
+    throw new Error(`wrangler d1 execute ${filePath}: ${(stderr || stdout).trim().slice(-400)}`);
+  }
+  return payload;
+}
+
+function valuesAfter(args, flag) {
+  return args.flatMap((entry, index) => (entry === flag && args[index + 1] ? [args[index + 1]] : []));
+}
+
 async function main() {
   const args = process.argv.slice(2);
-  const requestedSlug = valueAfter(args, '--slug');
+  const requestedSlugs = valuesAfter(args, '--slug');
   const dryRun = args.includes('--dry-run');
   const batchSize = Number.parseInt(valueAfter(args, '--batch-size') ?? String(DEFAULT_BATCH_SIZE), 10);
   const config = {
@@ -204,29 +288,56 @@ async function main() {
     databaseId: process.env.OSTRECHT_D1_DATABASE_ID ?? DEFAULT_D1_DATABASE_ID,
     apiToken: process.env.CLOUDFLARE_API_TOKEN,
   };
-  if (!dryRun && !config.apiToken) {
-    throw new Error('CLOUDFLARE_API_TOKEN ist für den Remote-D1-Sync erforderlich');
+  const transport = valueAfter(args, '--transport') ?? (config.apiToken ? 'api' : 'wrangler');
+  if (!['api', 'wrangler'].includes(transport)) throw new Error(`Unbekannter Transport ${transport}`);
+  if (!dryRun && transport === 'api' && !config.apiToken) {
+    throw new Error('CLOUDFLARE_API_TOKEN ist für --transport api erforderlich');
   }
 
-  const slugs = requestedSlug ? [requestedSlug] : await listSlugs();
+  const slugs = requestedSlugs.length > 0 ? requestedSlugs : await listSlugs();
   const now = new Date().toISOString();
+  const totalNormCount = requestedSlugs.length > 0 ? (await listSlugs()).length : slugs.length;
   let queryCount = 0;
+  const normStatements = [];
   for (const [index, slug] of slugs.entries()) {
     const norm = await loadNorm(slug);
     const queries = normQueries(norm, now);
     queryCount += queries.length;
-    if (!dryRun) await sendBatches(config, queries, batchSize);
-    console.log(`[${index + 1}/${slugs.length}] ${slug}: ${queries.length} D1-Operationen${dryRun ? ' geprüft' : ' synchronisiert'}`);
+    if (transport === 'api') {
+      if (!dryRun) await sendBatches(config, queries, batchSize);
+    } else {
+      normStatements.push({ slug, statements: queries.map(renderStatement) });
+    }
+    console.log(`[${index + 1}/${slugs.length}] ${slug}: ${queries.length} D1-Operationen${dryRun ? ' geprüft' : transport === 'api' ? ' synchronisiert' : ' vorbereitet'}`);
   }
 
   const metadataQueries = [
     q(`INSERT INTO law_runtime_meta (key, value) VALUES ('last_sync_at', ?)
        ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [now]),
     q(`INSERT INTO law_runtime_meta (key, value) VALUES ('norm_count', ?)
-       ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [String(slugs.length)]),
+       ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [String(totalNormCount)]),
   ];
-  if (!dryRun) await sendBatches(config, metadataQueries, batchSize);
+
+  if (transport === 'api') {
+    if (!dryRun) await sendBatches(config, metadataQueries, batchSize);
+  } else {
+    normStatements.push({ slug: '(runtime-meta)', statements: metadataQueries.map(renderStatement) });
+    const files = groupStatementFiles(normStatements);
+    const runDirectory = join(ROOT, '.cache', 'd1-sync', now.replace(/[:.]/gu, '-'));
+    await mkdir(runDirectory, { recursive: true });
+    for (const [index, file] of files.entries()) {
+      const filePath = join(runDirectory, `batch-${String(index + 1).padStart(4, '0')}.sql`);
+      await writeFile(filePath, `${file.statements.join('\n')}\n`, 'utf8');
+      if (!dryRun) {
+        await executeSqlFile(filePath);
+        console.log(`SQL-Datei ${index + 1}/${files.length} (${file.slugs.length} Normen, ${file.statements.length} Anweisungen) ausgeführt`);
+      }
+    }
+    console.log(`${files.length} SQL-Datei(en) unter ${runDirectory.replace(`${ROOT}/`, '')}${dryRun ? ' geschrieben (nicht ausgeführt)' : ' ausgeführt'}`);
+  }
   console.log(`${slugs.length} Normen, ${queryCount} Inhaltsoperationen${dryRun ? ' validiert' : ' nach D1 übertragen'}.`);
 }
 
-await main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await main();
+}

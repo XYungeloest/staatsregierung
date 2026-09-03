@@ -38,3 +38,14 @@ test('adapts normative body but leaves source notes unchanged', () => {
   assert.equal(parsed.sourceNotes[0].text, 'Sachsen, SächsGVBl.');
   assert.deepEqual(auditAdaptedRevosaxSnapshot(parsed), []);
 });
+
+test('adapts structure labels that carry Saxon abbreviations', () => {
+  const parsed = adaptParsedRevosaxSnapshot({
+    sourceTitle: 'Sächsische Reisekostenverordnung',
+    shortTitle: 'Sächsische Reisekostenverordnung',
+    fullCitation: 'Sächsische Reisekostenverordnung (SächsGVBl. S. 1)',
+    body: [{ type: 'annex', label: 'Anlage 1 (zu § 8 SächsRKVO)', children: [{ type: 'paragraphText', text: 'Text.' }] }],
+  });
+  assert.equal(parsed.body[0].label, 'Anlage 1 (zu § 8 OstRKVO)');
+  assert.deepEqual(auditAdaptedRevosaxSnapshot(parsed), []);
+});

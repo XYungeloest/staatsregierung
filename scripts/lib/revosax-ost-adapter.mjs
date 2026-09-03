@@ -67,7 +67,8 @@ export function adaptSaxonText(value) {
 
 function adaptBodyBlock(block) {
   const result = { ...block };
-  for (const field of ['title', 'text']) {
+  // Gliederungskennzeichen wie „Anlage 1 (zu § 8 SächsRKVO)“ tragen ebenfalls amtliche Kürzel.
+  for (const field of ['label', 'title', 'text']) {
     if (typeof result[field] === 'string') result[field] = adaptSaxonText(result[field]);
   }
   if (Array.isArray(result.children)) result.children = result.children.map(adaptBodyBlock);
