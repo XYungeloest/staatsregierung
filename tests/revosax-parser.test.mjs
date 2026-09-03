@@ -204,3 +204,56 @@ test('historische Zitierungen erkennen Abkürzungspunkte und trennen spätere Se
     context: 'SächsVwOrgG',
   }), /historischem Rechtsstand/u);
 });
+
+test('Buchstabengliederung, generische Wrapper und betitelte Abschnitte werden strukturtreu erfasst', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="Verwaltungsvorschrift"><h3>Verwaltungsvorschrift</h3>
+      <p>Die VwV Test wird wie folgt geändert:</p>
+    </section>
+    <section title="A. Geltungsbereich"><h3>A. Geltungsbereich</h3>
+      <p>Diese Verwaltungsvorschrift gilt für alle Behörden.</p>
+    </section>
+    <section title="I. Begriffe"><h3>I. Begriffe</h3>
+      <p>Behörde ist jede Stelle.</p>
+    </section>
+    <section title="1. Sachliche Zuständigkeit"><h3>1. Sachliche Zuständigkeit</h3>
+      <p>(1) Zuständig ist die Landesdirektion.</p>
+    </section>
+    <section title="B Inkrafttreten"><h3>B Inkrafttreten</h3>
+      <p>Diese Vorschrift tritt am 1. Januar 2020 in Kraft.</p>
+    </section>
+    <section title="Übereinkommen"><h3>Übereinkommen</h3>
+      <p>Das Übereinkommen wird nachstehend veröffentlicht.</p>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+
+  // Der erste Block stammt aus dem Seitenkopf der Testvorlage; danach folgt der
+  // aus dem Wrapper „Verwaltungsvorschrift“ auf die Dokumentebene gehobene Einleitungssatz.
+  const body = parsed.body.slice(1);
+  assert.deepEqual(body.map((block) => [block.type, block.label ?? null, block.title ?? null]), [
+    ['paragraphText', null, null],
+    ['section', 'A.', 'Geltungsbereich'],
+    ['section', 'B.', 'Inkrafttreten'],
+    ['section', null, 'Übereinkommen'],
+  ]);
+  assert.equal(body[0].text, 'Die VwV Test wird wie folgt geändert:');
+  const letterA = body[1];
+  assert.deepEqual(letterA.children.map((block) => [block.type, block.label ?? null]), [['paragraphText', null], ['section', 'I.']]);
+  const roman = letterA.children[1];
+  assert.deepEqual(roman.children.map((block) => [block.type, block.label ?? null]), [['paragraphText', null], ['section', '1.']]);
+  assert.equal(roman.children[1].children[0].type, 'subparagraph');
+  assert.deepEqual(parsed.structureNotes, [
+    { kind: 'hoisted-wrapper', title: 'Verwaltungsvorschrift' },
+    { kind: 'generic-section', title: 'Übereinkommen' },
+  ]);
+});
+
+test('bekannte Gliederungen bleiben ohne Strukturhinweise und ohne Buchstabenfehlinterpretation', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="Erster Teil Allgemeines"><h3>Erster Teil<br>Allgemeines</h3></section>
+    <section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Zweck.</p></section>
+    <section title="Anlage 1"><h3>Anlage 1</h3><p>Muster.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+  assert.equal(parsed.structureNotes, undefined);
+  const body = parsed.body.filter((block) => block.type !== 'paragraphText');
+  assert.deepEqual(body.map((block) => block.type), ['part']);
+  assert.deepEqual(body[0].children.map((block) => [block.type, block.label]), [['paragraph', '§ 1'], ['annex', 'Anlage 1']]);
+});

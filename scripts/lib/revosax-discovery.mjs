@@ -566,6 +566,54 @@ export function extractActiveVersion(html, pageUrl = REVOSAX_ORIGIN) {
   return extractVersionLinks(html, pageUrl).find((link) => link.active) ?? null;
 }
 
+/**
+ * Erkennt Seiten, die keinen eigenen Lesetext besitzen, weil die Vorschrift
+ * Bestandteil einer Mantelvorschrift ist („Bestandteil der Vorschrift …“ mit
+ * Link auf den Artikel der Mantelvorschrift). Solche Treffer sind keine
+ * eigenständigen Textquellen; der Text liegt in der verlinkten Vorschrift.
+ */
+export function detectEnvelopeComponent(html, pageUrl = REVOSAX_ORIGIN) {
+  const document = parse(html);
+  const lawShow = first(document, (node) => hasClass(node, 'law_show'));
+  if (!lawShow) return null;
+  if (first(lawShow, (node) => node.tagName === 'article' && attrs(node).id === 'lesetext')) return null;
+  const text = cleanText(lawShow);
+  if (!/Bestandteil der Vorschrift/u.test(text)) return null;
+  const anchor = walk(lawShow, (node) => node.tagName === 'a').map((node) => ({ node, link: parseHitLink(node, pageUrl) }))
+    .find(({ link }) => link);
+  if (!anchor) return null;
+  let fragment = null;
+  try {
+    fragment = new URL(attrs(anchor.node).href ?? '', pageUrl).hash.replace(/^#/u, '') || null;
+  } catch {
+    fragment = null;
+  }
+  return {
+    envelopeLawId: anchor.link.lawId,
+    envelopeUrl: anchor.link.url,
+    envelopeTitle: cleanText(anchor.node),
+    envelopeAnchor: fragment,
+  };
+}
+
+/** Anlagenverweise (PDF-Anhänge) innerhalb des Lesetexts. */
+export function extractAttachmentLinks(html, pageUrl = REVOSAX_ORIGIN) {
+  const document = parse(html);
+  const article = first(document, (node) => node.tagName === 'article' && attrs(node).id === 'lesetext') ?? document;
+  const links = new Map();
+  for (const anchor of walk(article, (node) => node.tagName === 'a')) {
+    let url;
+    try {
+      url = new URL(attrs(anchor).href ?? '', pageUrl);
+    } catch {
+      continue;
+    }
+    if (!/^\/attachments\/\d+/u.test(url.pathname)) continue;
+    if (!links.has(url.toString())) links.set(url.toString(), { url: url.toString(), label: cleanText(anchor) });
+  }
+  return [...links.values()];
+}
+
 // ---------------------------------------------------------------------------
 // Integritätsprüfung und Manifest
 // ---------------------------------------------------------------------------

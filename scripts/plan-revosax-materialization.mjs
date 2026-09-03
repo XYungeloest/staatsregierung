@@ -162,7 +162,7 @@ export function planEntry(entry, baselineDate, indexes) {
     return { action: 'SKIP', reason: `Staging: ${entry.skipReason}` };
   }
   const blockingFlags = (entry.reviewFlags ?? []).filter((flag) =>
-    flag === 'multi-version-text-differs' || flag === 'multi-version-sibling-not-staged');
+    ['multi-version-text-differs', 'multi-version-sibling-not-staged', 'attachment-only-content'].includes(flag));
   if (blockingFlags.length > 0) {
     return review(`Staging-Reviewfall: ${blockingFlags.join(', ')}`);
   }

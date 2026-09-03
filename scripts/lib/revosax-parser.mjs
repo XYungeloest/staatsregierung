@@ -7,6 +7,17 @@ const DATE_DOTTED_GLOBAL = /(\d{1,2})\.(\d{1,2})\.(\d{4})/gu;
 const FOOTNOTE_LINK = /^#FNID_/u;
 const SIGNATURE_START = /^(?:Dresden|Leipzig|Chemnitz),\s+den\s+/iu;
 const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung|Inhaltsübersicht)$/iu;
+// Generische Dokument-Wrapper, die REVOSax um den eigentlichen Text legt (etwa
+// „Vorschrift“ oder „Zustimmungsgesetz“). Sie sind keine Gliederungseinheit;
+// ihr unmittelbarer Inhalt wird auf der aktuellen Ebene übernommen.
+const HOISTED_WRAPPER_SECTION = /^(?:Vorschrift|Verwaltungsvorschrift|Gemeinsame Verwaltungsvorschrift|Zustimmungsgesetz|Richtlinie|Förderrichtlinie|Verwaltungsvereinbarung)$/iu;
+// Buchstabengliederung von Verwaltungsvorschriften („A. Geltungsbereich“, „B Inkrafttreten“).
+const LETTER_OUTLINE = /^([A-Z])\.?\s+(\p{Lu}.*)$/u;
+const LETTER_OUTLINE_RANK = 2.5;
+// Römische Gliederung („I.“, „II.“) liegt zwischen Buchstaben- und Ziffernebene.
+const ROMAN_OUTLINE_RANK = 2.75;
+// Überschriften ohne Gliederungskennzeichen gelten als eigenständige Abschnitte auf Dokumentebene.
+const GENERIC_SECTION_RANK = 2.5;
 const SATZZAHL_MARKER = '\uE000';
 const STRUCTURE_RANK = {
   part: 1,
@@ -120,9 +131,15 @@ function directHeading(section) {
 function markerFromSection(section) {
   const source = attributes(section).title ?? textOf(directHeading(section), { breaks: true });
   const parsed = parseStructureMarker(source);
-  if (parsed) return parsed;
+  if (parsed) {
+    return /^[IVXLCDM]+\.$/u.test(parsed.label ?? '') && parsed.type === 'section'
+      ? { ...parsed, rank: ROMAN_OUTLINE_RANK }
+      : parsed;
+  }
   const numeric = normalizeText(source).replace(/\n+/gu, ' ').match(/^(\d+(?:\.\d+)*\.?)\s+(.+)$/u);
   if (numeric) return { type: 'section', label: numeric[1], title: numeric[2] };
+  const letter = normalizeText(source).replace(/\n+/gu, ' ').match(LETTER_OUTLINE);
+  if (letter) return { type: 'section', label: `${letter[1]}.`, title: letter[2], rank: LETTER_OUTLINE_RANK };
   const match = normalizeText(source)
     .replace(/\n+/gu, ' ')
     .match(/^((?:Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Siebenter|Achter|Neunter|Zehnter|Elfter|Zwölfter)\s+(?:Teil|Kapitel|Abschnitt|Unterabschnitt))\s*(?:[–—:-])?\s*(.*)$/iu);
@@ -346,29 +363,40 @@ function sectionContent(section) {
   return blocks;
 }
 
-function parseSections(container) {
+function parseSections(container, notes = []) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
   const sections = descendants(container, (node) => node.tagName === 'section');
   for (const section of sections) {
-    const marker = markerFromSection(section);
+    let marker = markerFromSection(section);
     if (!marker) {
       const sectionTitle = normalizeText(
         attributes(section).title ?? textOf(directHeading(section), { breaks: true }),
-      );
+      ).replace(/\n+/gu, ' ');
       // REVOSax stellt Bekanntmachungs- und Identitätsblöcke im selben Container
       // wie den Normkörper bereit. Sie gehören zur unveränderten Rohquelle und
       // zur Fundstellenprüfung, sind aber keine Gliederungseinheit der Lesefassung.
       if (NON_NORM_SECTION.test(sectionTitle)) continue;
-      throw new RevosaxParseError(`REVOSax-Abschnitt ohne erkennbare Gliederung: „${sectionTitle.slice(0, 120)}“`);
+      if (HOISTED_WRAPPER_SECTION.test(sectionTitle)) {
+        stack.at(-1).children.push(...sectionContent(section));
+        notes.push({ kind: 'hoisted-wrapper', title: sectionTitle });
+        continue;
+      }
+      if (!sectionTitle) {
+        throw new RevosaxParseError('REVOSax-Abschnitt ohne Überschrift und ohne erkennbare Gliederung');
+      }
+      // Überschrift ohne Gliederungskennzeichen (z. B. „Übereinkommen“, „Schlussbestimmungen“):
+      // Die Struktur bleibt als betitelter Abschnitt erhalten und wird im Staging ausgewiesen.
+      marker = { type: 'section', title: sectionTitle, rank: GENERIC_SECTION_RANK };
+      notes.push({ kind: 'generic-section', title: sectionTitle });
     }
     const block = {
       type: marker.type,
-      label: marker.label,
+      ...(marker.label ? { label: marker.label } : {}),
       ...(marker.title ? { title: marker.title } : {}),
       children: sectionContent(section),
     };
-    const rank = STRUCTURE_RANK[block.type];
+    const rank = marker.rank ?? STRUCTURE_RANK[block.type];
     while (stack.length > 1 && stack.at(-1).rank >= rank) stack.pop();
     stack.at(-1).children.push(block);
     stack.push({ rank, children: block.children });
@@ -443,7 +471,8 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
     : [];
   const sectionsContainer = findElement(article, (node) => hasClass(node, 'sections'));
   if (!sectionsContainer) throw new RevosaxParseError('REVOSax-Gliederungscontainer .sections fehlt');
-  const body = [...entryFormula, ...parseSections(sectionsContainer)];
+  const structureNotes = [];
+  const body = [...entryFormula, ...parseSections(sectionsContainer, structureNotes)];
   const provisionLabels = body
     .flatMap(function flatten(block) {
       return [block, ...(block.children ?? []).flatMap(flatten)];
@@ -467,5 +496,6 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
     sourceUrl: url,
     body,
     sourceNotes: parseSourceNotes(article),
+    ...(structureNotes.length > 0 ? { structureNotes } : {}),
   };
 }

@@ -538,3 +538,26 @@ test('reproduzierbare REVOSax-Duplikatzeilen werden nach zwei identischen Durchl
   const rowManifest = await discoverBaseline({ date: '2023-11-01', fetchImpl: fakeSite({ formHtml, pages: rowFacetPages }).fetchImpl, sleep: async () => {} });
   assert.equal(rowManifest.typeCountBasis, 'rows');
 });
+
+test('Bestandteile von Mantelvorschriften ohne eigenen Lesetext werden erkannt', async () => {
+  const { detectEnvelopeComponent } = await import('../scripts/lib/revosax-discovery.mjs');
+  const component = '<html><body><div id="content"><div class="law_show"><h1>Änderung des Testgesetzes</h1><p>Vollzitat: Änderung des Testgesetzes vom 5. Mai 2004 (SächsGVBl. S. 148, 171)</p> Bestandteil der Vorschrift <a href="/vorschrift/1228-Testmodernisierungsgesetz#a44">Testmodernisierungsgesetz</a></div></div></body></html>';
+  assert.deepEqual(detectEnvelopeComponent(component, 'https://www.revosax.sachsen.de/vorschrift/1003'), {
+    envelopeLawId: '1228',
+    envelopeUrl: 'https://www.revosax.sachsen.de/vorschrift/1228-Testmodernisierungsgesetz#a44',
+    envelopeTitle: 'Testmodernisierungsgesetz',
+    envelopeAnchor: 'a44',
+  });
+  const regular = '<html><body><div id="content"><div class="law_show"><h1>Testgesetz</h1><article id="lesetext"><div class="sections"></div></article> Bestandteil der Vorschrift <a href="/vorschrift/1">x</a></div></div></body></html>';
+  assert.equal(detectEnvelopeComponent(regular), null);
+  assert.equal(detectEnvelopeComponent('<html><body><div class="law_show"><h1>x</h1></div></body></html>'), null);
+});
+
+test('Anlagenverweise im Lesetext werden gesammelt', async () => {
+  const { extractAttachmentLinks } = await import('../scripts/lib/revosax-discovery.mjs');
+  const html = '<html><body><article id="lesetext"><div class="sections"><section title="Übereinkommen"><p><a href="/attachments/12287">Übereinkommen</a> <a href="#FNID_1">1</a></p><p><a href="/attachments/12285">Änderungsprotokoll</a><a href="/attachments/12287">nochmal</a></p></section></div></article><a href="/attachments/999">außerhalb</a></body></html>';
+  assert.deepEqual(extractAttachmentLinks(html, 'https://www.revosax.sachsen.de/vorschrift/1018'), [
+    { url: 'https://www.revosax.sachsen.de/attachments/12287', label: 'Übereinkommen' },
+    { url: 'https://www.revosax.sachsen.de/attachments/12285', label: 'Änderungsprotokoll' },
+  ]);
+});
