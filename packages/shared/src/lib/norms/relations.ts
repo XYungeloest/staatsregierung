@@ -133,3 +133,51 @@ export function buildNormRelations(records: NormRecord[]): NormRelationLookup {
 
   return relations;
 }
+
+/** Serialisierbare Sicht einer Normbeziehung für die Runtime-Projektion. */
+export interface NormRelationView {
+  kind: NormRelationKind;
+  slug: string;
+  title: string;
+  shortTitle: string;
+  type: string;
+  date?: string;
+  citation?: string;
+  resultingSlug?: string;
+  resultingVersionId?: string;
+  resultingVersionValidFrom?: string;
+  resultingVersionUrl?: string;
+}
+
+export function toNormRelationViews(
+  relations: NormRelation[],
+  {
+    identityFor,
+    versionUrlFor,
+  }: {
+    identityFor: (norm: NormRecord) => { title: string; shortTitle: string };
+    versionUrlFor: (norm: NormRecord, versionId: string) => string | undefined;
+  },
+): NormRelationView[] {
+  return relations.map((relation) => {
+    const identity = identityFor(relation.norm);
+    const resultingVersion = relation.resultingNorm && relation.resultingVersionId
+      ? relation.resultingNorm.versions.find((entry) => entry.versionId === relation.resultingVersionId)
+      : undefined;
+    return {
+      kind: relation.kind,
+      slug: relation.norm.meta.slug,
+      title: identity.title,
+      shortTitle: identity.shortTitle,
+      type: relation.norm.meta.type,
+      ...(relation.date ? { date: relation.date } : {}),
+      ...(relation.citation ? { citation: relation.citation } : {}),
+      ...(relation.resultingNorm ? { resultingSlug: relation.resultingNorm.meta.slug } : {}),
+      ...(relation.resultingVersionId ? { resultingVersionId: relation.resultingVersionId } : {}),
+      ...(resultingVersion ? { resultingVersionValidFrom: resultingVersion.validFrom } : {}),
+      ...(relation.resultingNorm && resultingVersion
+        ? { resultingVersionUrl: versionUrlFor(relation.resultingNorm, resultingVersion.versionId) }
+        : {}),
+    };
+  });
+}

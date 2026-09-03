@@ -147,7 +147,7 @@ export interface SearchPublication {
   issue: string;
 }
 
-interface CollectedBodyContent {
+export interface CollectedBodyContent {
   supplementalTextParts: string[];
   hitUnits: SearchHitUnit[];
 }
@@ -183,7 +183,7 @@ function getHitUnitReferences(block: NormBodyBlock): SearchHitUnit['references']
   return undefined;
 }
 
-function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
+export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   const supplementalTextParts: string[] = [];
   const hitUnits: SearchHitUnit[] = [];
   const anchors = buildNormAnchorMap(blocks);
@@ -309,7 +309,7 @@ function getNormAliases(record: NormRecord, currentIdentity: ReturnType<typeof g
   return [...aliases].sort(compareStrings);
 }
 
-function buildSearchDocument(
+export function buildSearchDocument(
   record: NormRecord,
   version: NormVersion,
   recordsBySlug: NormRecordLookup,
