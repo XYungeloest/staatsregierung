@@ -4,6 +4,7 @@ import test from 'node:test';
 import {
   applyDecision,
   buildPlan,
+  findDuplicateSources,
   normalizeIdentity,
   planEntry,
   buildIndexes,
@@ -195,4 +196,25 @@ test('übernommene, unveränderte REVOSax-Akte erzeugen keine Konsolidierungszie
   assert.equal(isInheritedBaselineAct({ ...baselineAct, meta: { ...baselineAct.meta, sourceReferences: [{ kind: 'revosax-snapshot' }] } }), false);
   assert.equal(isInheritedBaselineAct({ ...baselineAct, meta: { ...baselineAct.meta, effectiveDate: '2024-01-01' } }), false);
   assert.equal(isInheritedBaselineAct({ meta: {}, history: { entries: [] }, versions: [{ validFrom: '2023-11-01' }] }), false);
+});
+
+test('REVOSax-Doppelerfassungen mit identischem Text und gleicher Zitierung werden nur einmal übernommen', () => {
+  const citation = 'Gesetz zur Änderung des Schulgesetzes vom 15. Juli 1994 (SächsGVBl. S. 1434)';
+  const entries = [
+    staged({ revosaxLawId: '9501', sourceId: '9501', adaptedBodyHash: 'abc', fullCitation: citation, proposedSlug: 'aend-schulg-b' }),
+    staged({ revosaxLawId: '4476', sourceId: '4476', adaptedBodyHash: 'abc', fullCitation: citation, proposedSlug: 'aend-schulg-a' }),
+    // gleicher Text, andere Zitierung: eigenständig (z. B. gleichlautende VwV je Beruf)
+    staged({ revosaxLawId: '4994', sourceId: '4994', adaptedBodyHash: 'def', fullCitation: 'VwV Pferdewirt vom 1. Januar 2000 (SächsABl. S. 1)', proposedSlug: 'vwv-pferdewirt' }),
+    staged({ revosaxLawId: '4995', sourceId: '4995', adaptedBodyHash: 'def', fullCitation: 'VwV Fischwirt vom 1. Januar 2000 (SächsABl. S. 2)', proposedSlug: 'vwv-fischwirt' }),
+  ];
+  const duplicates = findDuplicateSources(entries);
+  assert.deepEqual([...duplicates.entries()], [['9501', '4476']]);
+
+  const plan = buildPlan({ report: { baselineDate: BASELINE, entries }, existing: [] });
+  const bySource = new Map(plan.entries.map((entry) => [entry.sourceId, entry]));
+  assert.equal(bySource.get('9501').action, 'SKIP');
+  assert.match(bySource.get('9501').reason, /4476/u);
+  assert.equal(bySource.get('4476').action, 'CREATE');
+  assert.equal(bySource.get('4994').action, 'CREATE');
+  assert.equal(bySource.get('4995').action, 'CREATE');
 });

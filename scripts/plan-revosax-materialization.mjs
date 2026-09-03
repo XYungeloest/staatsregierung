@@ -302,8 +302,39 @@ export function applyDecision(planned, entry, decisions, baselineDate) {
   return { action: 'SKIP', reason: `Entscheidung: ${decision.reason}`, decided: true };
 }
 
+/**
+ * REVOSax führt vereinzelt dieselbe Vorschrift unter zwei lawIds (identischer
+ * angepasster Text und identische Zitierung). Nur die niedrigste lawId wird
+ * übernommen; gleiche Texte mit abweichender Zitierung (etwa gleichlautende
+ * Verwaltungsvorschriften verschiedener Berufe) bleiben eigenständig.
+ */
+export function findDuplicateSources(entries) {
+  const groups = new Map();
+  for (const entry of entries) {
+    if (entry.skipReason || !entry.adaptedBodyHash || !entry.fullCitation) continue;
+    const key = `${entry.adaptedBodyHash}|${entry.fullCitation}`;
+    const group = groups.get(key) ?? [];
+    group.push(entry);
+    groups.set(key, group);
+  }
+  const duplicates = new Map();
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const sorted = [...group].sort((left, right) => Number(left.revosaxLawId) - Number(right.revosaxLawId) || String(left.sourceId).localeCompare(String(right.sourceId)));
+    for (const entry of sorted.slice(1)) {
+      if (String(entry.revosaxLawId) === String(sorted[0].revosaxLawId)) continue;
+      duplicates.set(entry.sourceId, sorted[0].sourceId);
+    }
+  }
+  return duplicates;
+}
+
 export function buildPlan({ report, existing, decisions = {}, baselineDate = report.baselineDate }) {
   const indexes = buildIndexes(existing);
+  const duplicates = findDuplicateSources(report.entries);
+  const planFor = (entry) => (duplicates.has(entry.sourceId)
+    ? { action: 'SKIP', reason: `identischer Text und gleiche Zitierung wie ${duplicates.get(entry.sourceId)} (REVOSax-Doppelerfassung)` }
+    : applyDecision(planEntry(entry, baselineDate, indexes), entry, decisions, baselineDate));
   const entries = report.entries.map((entry) => ({
     revosaxLawId: String(entry.revosaxLawId),
     versionSuffix: entry.versionSuffix ?? null,
@@ -317,7 +348,7 @@ export function buildPlan({ report, existing, decisions = {}, baselineDate = rep
     inferredType: entry.inferredType,
     proposedSlug: entry.proposedSlug,
     reviewFlags: entry.reviewFlags ?? [],
-    ...applyDecision(planEntry(entry, baselineDate, indexes), entry, decisions, baselineDate),
+    ...planFor(entry),
   }));
 
   // Zwei CREATE-Einträge dürfen nie denselben Slug erhalten.

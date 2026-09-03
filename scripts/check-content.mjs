@@ -268,11 +268,21 @@ function validateGenderedLanguage(file, rel, json) {
 
 function validateEmailDomains(file, json) {
   const emailPattern = /\b[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,})\b/giu;
+  // Amtliche REVOSax-Fassungen enthalten die im Original genannten Adressen (auch
+  // ausländischer Behörden); dort ist nur ein unangepasster Sachsen-Rest ein Fehler.
+  const officialSnapshot = Array.isArray(json?.sourceReferences)
+    && json.sourceReferences.some((reference) => reference?.kind === 'revosax-snapshot');
 
   for (const entry of collectStrings(json)) {
     emailPattern.lastIndex = 0;
     for (const match of entry.value.matchAll(emailPattern)) {
       const domain = match[1].toLocaleLowerCase('de');
+      if (officialSnapshot) {
+        if (domain === 'sachsen.de' || domain.endsWith('.sachsen.de')) {
+          addProblem(file, `${entry.path} enthält eine nicht angepasste sächsische E-Mail-Domain: ${domain}`);
+        }
+        continue;
+      }
       if (!allowedEmailDomains.has(domain)) {
         addProblem(file, `${entry.path} enthält eine nicht zugelassene E-Mail-Domain: ${domain}`);
       }
@@ -1073,7 +1083,13 @@ function normalizeDuplicateTitle(value) {
 }
 
 function citationFundstelle(value) {
-  return typeof value === 'string' ? value.match(/\(([^)]+)\)/u)?.[1]?.trim() ?? value.trim() : '';
+  if (typeof value !== 'string') return '';
+  // Die Fundstelle ist die letzte Klammergruppe mit Seiten- oder Nummernangabe; eine
+  // vorangestellte Abkürzungsklammer wie „(VwV-SäHO)“ ist keine Fundstelle.
+  const groups = [...value.matchAll(/\(([^)]+)\)/gu)].map((match) => match[1].trim());
+  const fundstelle = [...groups].reverse().find((group) => /\b(?:S\.|Nr\.)\s*\S/u.test(group)) ?? groups.at(-1);
+  const issued = value.match(/\bvom\s+(\d{1,2}\.\s*[\p{L}]+\s+\d{4}|\d{1,2}\.\d{1,2}\.\d{4})/u)?.[1]?.replace(/\s+/gu, ' ') ?? '';
+  return `${fundstelle ?? value.trim()}${issued ? ` vom ${issued}` : ''}`;
 }
 
 const possibleDuplicateNorms = new Map();
