@@ -5,7 +5,8 @@
  */
 import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import { buildNormRecordLookup } from '@ostrecht/shared/lib/norms/citation.ts';
-import { buildNormPublicationReferenceLookup, loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
+import { buildNormPublicationReferenceLookup, loadAllVerkuendungen, type Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
+import type { NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
 
 import {
   buildFilterOptions,
@@ -27,6 +28,11 @@ export async function buildSearchSuggestionPayload(): Promise<SearchSuggestionPa
 
 export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
   const [records, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  return buildSearchIndexPayloadFrom({ records, publications });
+}
+
+/** Suchindex für einen übergebenen (z. B. gesampelten) Bestand. */
+export function buildSearchIndexPayloadFrom({ records, publications }: { records: NormRecord[]; publications: Verkuendung[] }): SearchIndexPayload {
   const recordsBySlug = buildNormRecordLookup(records);
   const publicationReferences = buildNormPublicationReferenceLookup(publications);
   const documents = records

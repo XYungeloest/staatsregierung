@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
+import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
 import {
   buildNormTextLinkReferences,
   buildRelatedNormRecommendationIndex,

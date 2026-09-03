@@ -48,7 +48,7 @@
     "check:portal": "npm run check --workspace @ostrecht/portal",
     "check:recht": "npm run check --workspace @ostrecht/recht",
     "check": "npm run check:portal && npm run check:recht",
-    "test:unit": "node --experimental-strip-types --test tests/*.test.ts tests/*.test.mjs",
+    "test:unit": "node --experimental-strip-types --max-old-space-size=4096 --test tests/*.test.ts tests/*.test.mjs",
     "build:portal": "npm run build --workspace @ostrecht/portal",
     "build:recht": "npm run build --workspace @ostrecht/recht",
     "build": "npm run build:portal && npm run build:recht && npm run deploy:assets:check",

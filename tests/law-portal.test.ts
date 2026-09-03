@@ -24,14 +24,15 @@ import {
   runNormSearch,
   type NormSearchState,
 } from '@ostrecht/recht-search/search-query.ts';
-import { buildSearchSuggestionPayload, loadSearchIndexPayloadOnce } from '@ostrecht/recht-search/search-files.ts';
+import { buildSearchSuggestionPayload } from '@ostrecht/recht-search/search-files.ts';
+import { loadSearchIndexSampleOnce } from './helpers/corpus.ts';
 import { isAmendmentRecord, type SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
 import {
   findPublicationByDesignation,
   getLatestPublication,
   loadAllVerkuendungen,
 } from '@ostrecht/shared/lib/norms/publications.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
+import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
 import {
   ContentValidationError,
   parseNormMeta,
@@ -734,7 +735,7 @@ test('Fundstellenparser unterstützt Bindestrich, Gedankenstriche und Schrägstr
 test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung', async () => {
   const publications = await loadAllVerkuendungen();
   const latest = getLatestPublication(publications);
-  const searchIndex = await loadSearchIndexPayloadOnce();
+  const searchIndex = await loadSearchIndexSampleOnce();
   assert.ok(latest);
   assert.deepEqual(searchIndex.latestPublication, {
     slug: latest.slug,
@@ -743,15 +744,14 @@ test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung',
     year: latest.year,
     issue: latest.issue,
   });
-  assert.ok(
-    Buffer.byteLength(JSON.stringify(searchIndex)) < 20 * 1024 * 1024,
-    'Der Suchindex muss ausreichend Abstand zur Cloudflare-Grenze von 25 MiB halten.',
-  );
+  // Der Suchindex ist kein statisches Asset mehr (Cloudflare-Grenze 25 MiB):
+  // /api/suche.json liefert Kandidaten aus D1, die Größe des Gesamtindex ist
+  // deshalb keine Auslieferungsgrenze mehr.
 });
 
 test('historische Verkündungsbezeichnung bleibt ein Such- und Lookupalias', async () => {
   const publications = await loadAllVerkuendungen();
-  const searchIndex = await loadSearchIndexPayloadOnce();
+  const searchIndex = await loadSearchIndexSampleOnce();
 
   for (const designation of ['OABl. 2026 Nr. 2', 'StAnzO. 2026 Nr. 2']) {
     assert.equal(findPublicationByDesignation(publications, designation)?.slug, 'stanzo-2026-02');
@@ -764,7 +764,7 @@ test('historische Verkündungsbezeichnung bleibt ein Such- und Lookupalias', asy
 });
 
 test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorschriften und Fundstellen', async () => {
-  const searchIndex = await loadSearchIndexPayloadOnce();
+  const searchIndex = await loadSearchIndexSampleOnce();
   const documents = prepareSearchDocuments(searchIndex.documents);
   const search = (q: string, overrides: Partial<NormSearchState> = {}) => runNormSearch(documents, searchState({
     q,

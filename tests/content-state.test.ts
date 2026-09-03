@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
+import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { loadLegislativeProcedures } from '@ostrecht/shared/lib/portal/legislation.ts';
 import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
