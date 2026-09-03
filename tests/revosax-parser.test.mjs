@@ -257,3 +257,45 @@ test('bekannte Gliederungen bleiben ohne Strukturhinweise und ohne Buchstabenfeh
   assert.deepEqual(body.map((block) => block.type), ['part']);
   assert.deepEqual(body[0].children.map((block) => [block.type, block.label]), [['paragraph', '§ 1'], ['annex', 'Anlage 1']]);
 });
+
+test('Alt-Layout ohne Gliederungscontainer, HTML-Listen und Wrapper mit alleinigem Text werden erfasst', () => {
+  const legacy = parseRevosaxSnapshot(`<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>Änderung der Alarmierungsrichtlinie</h1>
+    <p>Vollzitat: Änderung der Alarmierungsrichtlinie vom 1. Dezember 2000 (SächsABl. 2001 S. 4)</p>
+    <article id="lesetext"><nav data-level="1" title="Verwaltungsvorschrift"><div id="lesetext">
+      <h3 class="centre">Verwaltungsvorschrift</h3>
+      <p class="centre"><strong>Vom 1. Dezember 2000</strong></p>
+      <ol><li>In Nr. 1.3 wird der 2. Halbsatz ersetzt.<ol><li>Unterpunkt.</li></ol></li><li>Diese Verwaltungsvorschrift tritt am 1. Januar 2001 in Kraft.</li></ol>
+      <p class="gauche">Dresden, 1. Dezember 2000</p>
+      <p class="gauche"><strong>Sächsisches Staatsministerium des Innern</strong></p>
+    </div></nav></article>
+    <div id="quickbar"><p>Fassung gültig ab: 1. Januar 2001</p></div>
+  </div></div></body></html>`, { url: 'https://www.revosax.sachsen.de/vorschrift/1643' });
+  assert.deepEqual(legacy.body.map((block) => [block.type, block.label, block.text.slice(0, 20)]), [
+    ['item', '1.', 'In Nr. 1.3 wird der '],
+    ['item', '2.', 'Diese Verwaltungsvor'],
+  ]);
+  assert.deepEqual(legacy.body[0].children, [{ type: 'item', label: '1.', text: 'Unterpunkt.', level: 1, numberingStyle: 'decimal', children: [] }]);
+  assert.deepEqual(legacy.structureNotes, [{ kind: 'legacy-layout' }, { kind: 'no-provisions' }]);
+
+  const consent = parseRevosaxSnapshot(snapshot(`
+    <section title="Gesetz"><h2 class="centre">Gesetz</h2><h4 class="centre">= Artikel 1 des Gesetzes</h4>
+      <p class="gauche">Dem Fünften Staatsvertrag wird zugestimmt.</p>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1894' });
+  assert.deepEqual(consent.body.at(-1), { type: 'paragraphText', text: 'Dem Fünften Staatsvertrag wird zugestimmt.' });
+  assert.deepEqual(consent.structureNotes, [{ kind: 'hoisted-wrapper', title: 'Gesetz' }, { kind: 'no-provisions' }]);
+
+  const numbered = parseRevosaxSnapshot(snapshot(`
+    <section title="Teil A Aufnahme"><h3>Teil A Aufnahme</h3></section>
+    <section title="1."><h3>1.</h3><p>Erster Punkt.</p></section>
+    <section title="Inhaltsverzeichnis"><h3>Inhaltsverzeichnis</h3><p>§ 1 Zweck</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/2' });
+  const structural = numbered.body.filter((block) => block.type !== 'paragraphText');
+  assert.deepEqual(structural.map((block) => [block.type, block.label, block.title]), [['part', 'Teil A', 'Aufnahme']]);
+  assert.deepEqual(structural[0].children.map((block) => [block.type, block.label]), [['section', '1.']]);
+  assert.equal(numbered.structureNotes, undefined);
+  // Ein Wrapper „Gesetz“ neben echten Gliederungseinheiten bleibt wie bisher unberücksichtigt.
+  const mixed = parseRevosaxSnapshot(snapshot(`
+    <section title="Gesetz"><h2>Gesetz</h2><p>Präsentationstext.</p></section>
+    <section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Zweck.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/3' });
+  assert.doesNotMatch(JSON.stringify(mixed.body), /Präsentationstext/u);
+});

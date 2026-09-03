@@ -561,3 +561,10 @@ test('Anlagenverweise im Lesetext werden gesammelt', async () => {
     { url: 'https://www.revosax.sachsen.de/attachments/12285', label: 'Änderungsprotokoll' },
   ]);
 });
+
+test('Seiten ohne Text im REVOSax-Datenbestand werden erkannt', async () => {
+  const { detectMissingText } = await import('../scripts/lib/revosax-discovery.mjs');
+  assert.equal(detectMissingText('<html><body><div class="law_show"><h1>x</h1><p>Vollzitat: x</p> Datei nicht im Datenbestand. </div></body></html>'), true);
+  assert.equal(detectMissingText('<html><body><div class="law_show"><h1>x</h1><article id="lesetext">Datei nicht im Datenbestand.</article></div></body></html>'), false);
+  assert.equal(detectMissingText('<html><body><div class="law_show"><h1>x</h1></div></body></html>'), false);
+});
