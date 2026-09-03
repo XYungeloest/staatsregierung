@@ -323,8 +323,15 @@ async function validateNormSourceReference(file, source, sourcePath) {
     addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
     return;
   }
+  if (source.availability === 'r2-archived') {
+    await validateArchivedNormSourceReference(file, source, sourcePath);
+    return;
+  }
   if (source.availability !== 'versioned') {
-    addProblem(file, `${sourcePath}.availability muss versioned sein`);
+    addProblem(file, `${sourcePath}.availability muss versioned oder r2-archived sein`);
+  }
+  if (source.objectKey !== undefined || source.bucket !== undefined) {
+    addProblem(file, `${sourcePath}.objectKey ist nur für eine in R2 archivierte Quelle zulässig`);
   }
   if (typeof source.localSource !== 'string' || !extensionPattern.test(source.localSource)) {
     addProblem(file, `${sourcePath}.localSource besitzt kein für ${source.kind} zulässiges Quellformat`);
@@ -382,7 +389,27 @@ async function validateNormSourceReference(file, source, sourcePath) {
   }
 
   if (source.kind !== 'revosax-snapshot') return;
-  if (typeof source.url !== 'string' || !/^https:\/\/www\.revosax\.sachsen\.de\/vorschrift\/\d+(?:\.\d+)?$/u.test(source.url)) {
+  validateRevosaxProvenanceFields(file, source, sourcePath);
+}
+
+const REVOSAX_VERSION_URL = /^https:\/\/www\.revosax\.sachsen\.de\/vorschrift\/(\d+)(?:\.(\d+))?$/u;
+const R2_REVOSAX_OBJECT_KEY = /^revosax\/\d{4}-\d{2}-\d{2}\/(\d+)(?:\.(\d+))?\.html$/u;
+const R2_MANIFEST_PATH = join(root, 'data', 'recht', 'revosax-r2-manifest.json');
+let r2ManifestCache;
+
+async function loadR2Manifest() {
+  if (r2ManifestCache !== undefined) return r2ManifestCache;
+  try {
+    r2ManifestCache = JSON.parse(await readFile(R2_MANIFEST_PATH, 'utf8'));
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    r2ManifestCache = null;
+  }
+  return r2ManifestCache;
+}
+
+function validateRevosaxProvenanceFields(file, source, sourcePath) {
+  if (typeof source.url !== 'string' || !REVOSAX_VERSION_URL.test(source.url)) {
     addProblem(file, `${sourcePath}.url muss eine konkrete amtliche REVOSax-Fassungs-URL sein`);
   }
   if (typeof source.lawId !== 'string' || !/^\d+$/u.test(source.lawId)) {
@@ -396,6 +423,64 @@ async function validateNormSourceReference(file, source, sourcePath) {
   if (source.sourceValidTo !== undefined &&
       (typeof source.sourceValidTo !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source.sourceValidTo))) {
     addProblem(file, `${sourcePath}.sourceValidTo muss als ISO-Datum dokumentiert sein`);
+  }
+}
+
+/**
+ * Eine in R2 archivierte Quelle ist derselbe unveränderte amtliche Snapshot an
+ * einem anderen Speicherort. Statt der lokalen Datei wird der Objektschlüssel
+ * gegen das versionierte R2-Manifest geprüft; Hash, amtliche Fassungs-URL und
+ * Gültigkeitsdaten bleiben in gleicher Strenge Pflicht.
+ */
+async function validateArchivedNormSourceReference(file, source, sourcePath) {
+  if (source.kind !== 'revosax-snapshot') {
+    addProblem(file, `${sourcePath}.availability r2-archived ist nur für revosax-snapshot zulässig`);
+    return;
+  }
+  if (source.localSource !== undefined) {
+    addProblem(file, `${sourcePath}.localSource darf bei einer in R2 archivierten Quelle nicht gesetzt sein`);
+  }
+  const keyMatch = typeof source.objectKey === 'string' ? source.objectKey.match(R2_REVOSAX_OBJECT_KEY) : null;
+  if (!keyMatch) {
+    addProblem(file, `${sourcePath}.objectKey muss dem Muster revosax/<Stichtag>/<lawId>[.<Fassung>].html entsprechen`);
+  }
+  if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
+    addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
+  }
+  if (source.sourceRole !== 'official-snapshot') {
+    addProblem(file, `${sourcePath}.sourceRole muss für eine in R2 archivierte REVOSax-Quelle official-snapshot sein`);
+  }
+  if (source.mediaType !== 'text/html') {
+    addProblem(file, `${sourcePath}.mediaType muss für eine in R2 archivierte REVOSax-Quelle text/html sein`);
+  }
+  validateRevosaxProvenanceFields(file, source, sourcePath);
+  if (!keyMatch) return;
+
+  if (keyMatch[1] !== source.lawId) {
+    addProblem(file, `${sourcePath}.objectKey nennt die lawId ${keyMatch[1]}, die Quelle ${source.lawId}`);
+  }
+  const urlMatch = typeof source.url === 'string' ? source.url.match(REVOSAX_VERSION_URL) : null;
+  if (urlMatch && (urlMatch[1] !== keyMatch[1] || (urlMatch[2] ?? null) !== (keyMatch[2] ?? null))) {
+    addProblem(file, `${sourcePath}.objectKey passt nicht zur amtlichen Fassungs-URL ${source.url}`);
+  }
+  const manifest = await loadR2Manifest();
+  if (!manifest) {
+    addProblem(file, `${sourcePath}.objectKey kann ohne data/recht/revosax-r2-manifest.json nicht gegen das R2-Archiv geprüft werden`);
+    return;
+  }
+  const entry = manifest.objects?.[source.objectKey];
+  if (!entry) {
+    addProblem(file, `${sourcePath}.objectKey ${source.objectKey} ist im R2-Manifest nicht verzeichnet`);
+    return;
+  }
+  if (entry.sha256 !== source.sha256) {
+    addProblem(file, `${sourcePath}.sha256 stimmt nicht mit dem im R2-Manifest verzeichneten Objekt überein`);
+  }
+  if (entry.url !== undefined && entry.url !== source.url) {
+    addProblem(file, `${sourcePath}.url weicht von der im R2-Manifest verzeichneten amtlichen URL ab`);
+  }
+  if (source.bucket !== undefined && manifest.bucket !== undefined && source.bucket !== manifest.bucket) {
+    addProblem(file, `${sourcePath}.bucket ${source.bucket} entspricht nicht dem R2-Manifest (${manifest.bucket})`);
   }
 }
 
