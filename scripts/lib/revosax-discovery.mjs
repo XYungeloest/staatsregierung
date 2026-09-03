@@ -31,11 +31,16 @@ import { parseGermanDate } from './norm-html-parser.mjs';
  *    (`/vorschrift/<lawId>.<n>`) oder – wenn die am Geltungstag geltende
  *    Fassung die aktuelle ist – die dynamische Stammnorm-URL
  *    (`/vorschrift/<lawId>-<slug>`). Jeder Treffer nennt „Fassung gültig ab“.
- * 7. Die Reihenfolge der Trefferliste ist zwischen zwei Seitenabrufen nicht
- *    vollständig stabil (Beobachtung 3. September 2026: 3 von 5092 Treffern
- *    doppelt, 3 fehlend). Die Discovery führt deshalb bei Bedarf weitere
- *    vollständige Durchläufe aus und vereinigt die Treffer nach URL, bis die
- *    Zahl eindeutiger Treffer exakt der gemeldeten Trefferzahl entspricht.
+ * 7. REVOSax zählt Trefferzeilen, nicht eindeutige Vorschriften: Einzelne
+ *    Vorschriften erscheinen reproduzierbar zweimal in der Liste (3. September
+ *    2026: 5092 gemeldete Zeilen, 5089 eindeutige URLs; eine enge Titelsuche
+ *    zeigt dieselbe URL zweimal auf einer Seite). Zusätzlich kann die
+ *    Reihenfolge zwischen Seitenabrufen schwanken. Die Discovery führt deshalb
+ *    bei Abweichung weitere vollständige Durchläufe aus, vereinigt nach URL
+ *    und akzeptiert Duplikate nur, wenn zwei aufeinanderfolgende Durchläufe
+ *    dieselben doppelten URLs liefern, keine neuen Treffer mehr auftauchen
+ *    und eindeutige Treffer plus Duplikatzeilen exakt der Trefferzahl
+ *    entsprechen.
  * 8. REVOSax kann für dieselbe lawId zwei Fassungen mit identischem
  *    „Fassung gültig ab“ liefern (nachträglich eingestellte Fassung ohne
  *    Enddatum neben der befristeten). Solche Mehrfachfassungen bleiben im
@@ -523,6 +528,45 @@ export function extractResultPage(html, pageUrl = SEARCH_URL) {
 }
 
 // ---------------------------------------------------------------------------
+// Fassungsmenü einer Vorschriftenseite
+// ---------------------------------------------------------------------------
+
+/**
+ * Liest das Fassungsmenü einer REVOSax-Vorschriftenseite. Jede Seite – auch die
+ * dynamische Stammnorm-URL – markiert die angezeigte konkrete Fassung als
+ * `a.law_version_link.linkactive` (z. B. /vorschrift/20247.1); die Liste
+ * „Historische Fassungen“ nennt je Fassung den Gültigkeitszeitraum.
+ */
+export function extractVersionLinks(html, pageUrl = REVOSAX_ORIGIN) {
+  const document = parse(html);
+  const links = [];
+  for (const anchor of walk(document, (node) => node.tagName === 'a' && hasClass(node, 'law_version_link'))) {
+    const link = parseHitLink(anchor, pageUrl);
+    if (!link || !link.versionSuffix) continue;
+    const label = cleanText(anchor);
+    const dates = [...label.matchAll(/(\d{1,2})\.(\d{1,2})\.(\d{4})/gu)]
+      .map((match) => `${match[3]}-${match[2].padStart(2, '0')}-${match[1].padStart(2, '0')}`);
+    const active = hasClass(anchor, 'linkactive');
+    const existing = links.find((entry) => entry.url === link.url);
+    if (existing) {
+      existing.active = existing.active || active;
+      if (dates.length > 0 && !existing.validFrom) {
+        existing.validFrom = dates[0];
+        existing.validTo = dates[1] ?? null;
+        existing.label = label;
+      }
+      continue;
+    }
+    links.push({ ...link, label, validFrom: dates[0] ?? null, validTo: dates[1] ?? null, active });
+  }
+  return links.sort((left, right) => Number(left.versionSuffix) - Number(right.versionSuffix));
+}
+
+export function extractActiveVersion(html, pageUrl = REVOSAX_ORIGIN) {
+  return extractVersionLinks(html, pageUrl).find((link) => link.active) ?? null;
+}
+
+// ---------------------------------------------------------------------------
 // Integritätsprüfung und Manifest
 // ---------------------------------------------------------------------------
 
@@ -544,19 +588,68 @@ export function verifySearchEcho(echo, { date, categories, includeEnvelopes = tr
   }
 }
 
-export function verifyDiscovery({ reportedCount, pageCount, hitsPerPage, pagesVisited, hits, typeFacet }) {
+function duplicateOccurrences(pass) {
+  return (pass?.duplicateUrls ?? []).reduce((sum, entry) => sum + (entry.occurrences - 1), 0);
+}
+
+function sameDuplicates(left, right) {
+  return JSON.stringify(left?.duplicateUrls ?? []) === JSON.stringify(right?.duplicateUrls ?? []);
+}
+
+/**
+ * Prüft die Facettenzahlen der Marginalspalte gegen die Treffer. REVOSax
+ * dokumentiert nicht, ob die Facette Zeilen (mit Duplikaten) oder eindeutige
+ * Vorschriften zählt; akzeptiert wird nur eine über alle Typen konsistente
+ * Lesart.
+ */
+export function matchTypeFacet(typeFacet, hits, lastPass) {
+  const entries = Object.entries(typeFacet ?? {});
+  if (entries.length === 0) return { basis: null, problems: [] };
+  const duplicateByUrl = new Map((lastPass?.duplicateUrls ?? []).map((entry) => [entry.url, entry.occurrences]));
+  const uniqueCounts = {};
+  const rowCounts = {};
+  for (const hit of hits) {
+    const type = hit.documentType;
+    uniqueCounts[type] = (uniqueCounts[type] ?? 0) + 1;
+    rowCounts[type] = (rowCounts[type] ?? 0) + (duplicateByUrl.get(hit.url) ?? 1);
+  }
+  const mismatches = (counts) => entries
+    .filter(([label, count]) => (counts[label] ?? 0) !== count)
+    .map(([label, count]) => `Typfacette „${label}“ meldet ${count}, gefunden wurden ${counts[label] ?? 0}`);
+  const uniqueProblems = mismatches(uniqueCounts);
+  if (uniqueProblems.length === 0) return { basis: 'unique', problems: [] };
+  const rowProblems = mismatches(rowCounts);
+  if (rowProblems.length === 0) return { basis: 'rows', problems: [] };
+  return { basis: null, problems: uniqueProblems };
+}
+
+export function verifyDiscovery({ reportedCount, pageCount, hitsPerPage, pagesVisited, hits, typeFacet, passes = [] }) {
   const problems = [];
   if (reportedCount === null || reportedCount === undefined) problems.push('REVOSax hat keine Trefferzahl gemeldet');
   if (reportedCount === 0 || hits.length === 0) problems.push('REVOSax-Suche lieferte keine Treffer');
 
   const byUrl = new Map();
   for (const hit of hits) byUrl.set(hit.url, (byUrl.get(hit.url) ?? 0) + 1);
-  const duplicateUrls = [...byUrl.entries()].filter(([, count]) => count > 1).map(([url]) => url);
-  if (duplicateUrls.length > 0) {
-    problems.push(`${duplicateUrls.length} Treffer-URL(s) mehrfach geliefert (Pagination instabil?): ${duplicateUrls.slice(0, 5).join(', ')}`);
+  const repeated = [...byUrl.entries()].filter(([, count]) => count > 1).map(([url]) => url);
+  if (repeated.length > 0) {
+    problems.push(`Trefferliste enthält ${repeated.length} nicht vereinigte Duplikat-URL(s): ${repeated.slice(0, 5).join(', ')}`);
   }
+
+  const lastPass = passes.at(-1) ?? null;
+  const previousPass = passes.at(-2) ?? null;
   if (reportedCount !== null && reportedCount !== undefined && byUrl.size !== reportedCount) {
-    problems.push(`REVOSax meldet ${reportedCount} Treffer, der Crawler hat aber ${byUrl.size} eindeutige Vorschriftenlinks gefunden`);
+    const duplicates = duplicateOccurrences(lastPass);
+    if (!lastPass || duplicates === 0 || byUrl.size + duplicates !== reportedCount) {
+      problems.push(`REVOSax meldet ${reportedCount} Treffer, der Crawler hat aber ${byUrl.size} eindeutige Vorschriftenlinks gefunden`);
+    } else if (!previousPass || lastPass.newHits !== 0 || !sameDuplicates(previousPass, lastPass)) {
+      problems.push(
+        `REVOSax meldet ${reportedCount} Treffer; ${byUrl.size} eindeutige Links und ${duplicates} Duplikatzeile(n) sind erst nach zwei ` +
+        'übereinstimmenden vollständigen Durchläufen belastbar',
+      );
+    }
+  }
+  if (lastPass && reportedCount && lastPass.rows !== undefined && lastPass.rows !== reportedCount) {
+    problems.push(`letzter Durchlauf lieferte ${lastPass.rows} Trefferzeilen statt ${reportedCount}`);
   }
 
   if (pageCount !== null && pageCount !== undefined && pagesVisited !== pageCount) {
@@ -573,16 +666,13 @@ export function verifyDiscovery({ reportedCount, pageCount, hitsPerPage, pagesVi
   const missingValidity = hits.filter((hit) => !hit.validFrom).length;
   if (missingValidity > 0) problems.push(`${missingValidity} Treffer ohne „Fassung gültig ab“`);
 
-  for (const [label, count] of Object.entries(typeFacet ?? {})) {
-    const discovered = hits.filter((hit) => hit.documentType === label).length;
-    if (discovered !== count) {
-      problems.push(`Typfacette „${label}“ meldet ${count}, gefunden wurden ${discovered}`);
-    }
-  }
+  const facet = matchTypeFacet(typeFacet, hits, lastPass);
+  problems.push(...facet.problems);
 
   if (problems.length > 0) {
     throw new RevosaxDiscoveryError(`Discovery unvollständig oder inkonsistent; Manifest wird nicht geschrieben:\n- ${problems.join('\n- ')}`);
   }
+  return { facetBasis: facet.basis, duplicateListings: lastPass?.duplicateUrls ?? [] };
 }
 
 export function compareHits(left, right) {
@@ -619,10 +709,14 @@ export function buildManifest({
   hitsPerPage,
   typeFacet,
   passes = [],
+  duplicateListings = [],
+  facetBasis = null,
   discoveredAt = new Date().toISOString(),
 }) {
   const multiVersionLawIds = groupVersionsByLawId(hits);
-  const sortedHits = [...hits].sort(compareHits).map((hit) => (
+  // Der vollständige Trefferlistentext ist für die Extraktion nützlich, aber im
+  // versionierten Manifest redundant (Titel, Fundstelle, Typ und Daten sind Felder).
+  const sortedHits = [...hits].sort(compareHits).map(({ context, ...hit }) => (
     multiVersionLawIds[hit.lawId]
       ? { ...hit, alternativeVersionUrls: multiVersionLawIds[hit.lawId].filter((url) => url !== hit.url) }
       : hit
@@ -645,11 +739,13 @@ export function buildManifest({
     discoveredAt,
     reportedCount,
     discoveredCount: sortedHits.length,
+    duplicateListings,
     pageCount,
     hitsPerPage,
     pagesVisited: pageCount,
     passes,
     typeCounts: typeFacet ?? {},
+    typeCountBasis: facetBasis,
     categoryCounts,
     lawIdCount: new Set(sortedHits.map((hit) => hit.lawId)).size,
     multiVersionLawIds,
@@ -711,9 +807,12 @@ export async function discoverBaseline({
       );
     }
 
-    const summary = { pass, pagesVisited: 1, newHits: 0, repeatedHits: 0 };
+    const summary = { pass, pagesVisited: 1, rows: 0, newHits: 0, repeatedHits: 0, duplicateUrls: [] };
+    const seenInPass = new Map();
     const absorb = (hits) => {
       for (const hit of hits) {
+        summary.rows += 1;
+        seenInPass.set(hit.url, (seenInPass.get(hit.url) ?? 0) + 1);
         if (collected.has(hit.url)) summary.repeatedHits += 1;
         else {
           collected.set(hit.url, hit);
@@ -723,7 +822,6 @@ export async function discoverBaseline({
     };
     absorb(firstPage.hits);
     for (let page = 2; page <= pageCount; page += 1) {
-      if (pass > 1 && collected.size >= reportedCount) break;
       await sleep(delayMs);
       const response = await requestWithRetry(buildResultPageUrl(page), requestOptions);
       const extracted = extractResultPage(response.text, response.url);
@@ -738,16 +836,29 @@ export async function discoverBaseline({
       summary.pagesVisited = page;
       if (page % 50 === 0 || page === pageCount) log(`Durchlauf ${pass}, Seite ${page}/${pageCount}: ${collected.size} eindeutige Treffer`);
     }
+    summary.duplicateUrls = [...seenInPass.entries()]
+      .filter(([, occurrences]) => occurrences > 1)
+      .map(([url, occurrences]) => ({ url, occurrences }))
+      .sort((left, right) => left.url.localeCompare(right.url));
     summary.uniqueTotal = collected.size;
     passes.push(summary);
-    log(`Durchlauf ${pass}: ${summary.newHits} neue, ${summary.repeatedHits} wiederholte Treffer; ${collected.size} von ${reportedCount} eindeutig`);
+    log(
+      `Durchlauf ${pass}: ${summary.rows} Zeilen, ${summary.newHits} neue Treffer, ${summary.duplicateUrls.length} doppelt gelistete URL(s); ` +
+      `${collected.size} von ${reportedCount} eindeutig`,
+    );
     if (collected.size >= reportedCount) break;
-    if (pass < maxPasses) log('REVOSax-Pagination war nicht stabil; weiterer vollständiger Durchlauf');
+    const previous = passes.at(-2);
+    if (previous && summary.newHits === 0 && sameDuplicates(previous, summary)) {
+      log('Duplikate sind über zwei Durchläufe stabil und stammen aus der REVOSax-Trefferliste selbst');
+      break;
+    }
+    if (pass < maxPasses) log('Trefferbestand noch nicht bestätigt; weiterer vollständiger Durchlauf');
   }
 
   const hits = [...collected.values()];
+  let verification;
   try {
-    verifyDiscovery({ reportedCount, pageCount, hitsPerPage, pagesVisited: pageCount, hits, typeFacet });
+    verification = verifyDiscovery({ reportedCount, pageCount, hitsPerPage, pagesVisited: pageCount, hits, typeFacet, passes });
   } catch (error) {
     if (error instanceof RevosaxDiscoveryError) {
       error.details = { date, searchRequest, reportedCount, pageCount, hitsPerPage, passes, typeFacet, hits: [...hits].sort(compareHits) };
@@ -765,6 +876,8 @@ export async function discoverBaseline({
     hitsPerPage,
     typeFacet,
     passes,
+    duplicateListings: verification.duplicateListings,
+    facetBasis: verification.facetBasis,
     discoveredAt: now().toISOString(),
   });
 }

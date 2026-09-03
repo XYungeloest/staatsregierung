@@ -282,7 +282,7 @@ test('verifyDiscovery ist fail-closed bei Count-Mismatch, Duplikaten, Facetten u
   verifyDiscovery(consistent);
 
   assert.throws(() => verifyDiscovery({ ...consistent, reportedCount: 11 }), /meldet 11 Treffer, der Crawler hat aber 10 eindeutige/u);
-  assert.throws(() => verifyDiscovery({ ...consistent, hits: [...hits, hits[0]], reportedCount: 11 }), /mehrfach geliefert/u);
+  assert.throws(() => verifyDiscovery({ ...consistent, hits: [...hits, hits[0]], reportedCount: 11 }), /nicht vereinigte Duplikat-URL/u);
   // Zwei Fassungen derselben lawId sind ein realer REVOSax-Zustand und kein Zählfehler.
   verifyDiscovery({
     ...consistent,
@@ -489,10 +489,52 @@ test('instabile Pagination wird durch weitere Durchläufe fail-closed vervollst�
   await assert.rejects(
     discoverBaseline({ date: '2023-11-01', fetchImpl: single.fetchImpl, sleep: async () => {}, maxPasses: 1 }),
     (error) => {
-      assert.match(error.message, /meldet 5 Treffer, der Crawler hat aber 4 eindeutige/u);
+      assert.match(error.message, /4 eindeutige Links und 1 Duplikatzeile\(n\) sind erst nach zwei übereinstimmenden vollständigen Durchläufen belastbar/u);
       assert.equal(error.details.hits.length, 4);
       assert.equal(error.details.passes.length, 1);
       return true;
     },
   );
+});
+
+test('Fassungsmenü liefert konkrete Fassungskennungen samt Gültigkeitszeiträumen', async () => {
+  const { extractActiveVersion, extractVersionLinks } = await import('../scripts/lib/revosax-discovery.mjs');
+  const html = await fixture('vorschrift-20250.1-menu.html');
+  const versions = extractVersionLinks(html, 'https://www.revosax.sachsen.de/vorschrift/20250.1');
+  assert.deepEqual(versions.map((version) => [version.versionSuffix, version.validFrom, version.validTo, version.active]), [
+    ['1', '2023-10-31', '2024-08-16', true],
+    ['2', '2024-08-17', '2024-09-17', false],
+    ['3', '2024-09-18', null, false],
+  ]);
+  assert.equal(versions[0].url, 'https://www.revosax.sachsen.de/vorschrift/20250.1');
+  assert.equal(extractActiveVersion(html).url, 'https://www.revosax.sachsen.de/vorschrift/20250.1');
+  assert.equal(extractActiveVersion('<html><body><a class="law_version_link" href="/vorschrift/1.1">x</a></body></html>'), null);
+});
+
+test('reproduzierbare REVOSax-Duplikatzeilen werden nach zwei identischen Durchläufen akzeptiert', async () => {
+  const formHtml = await fixture('vorschriftensuche.html');
+  // REVOSax listet lawId 3000 auf Seite 1 und erneut auf Seite 3; die gemeldete Zahl zählt beide Zeilen.
+  const pages = [
+    resultPage({ count: 6, page: 1, pageCount: 3, hits: SAMPLE_HITS.slice(0, 2), facet: SAMPLE_FACET }),
+    resultPage({ count: 6, page: 2, pageCount: 3, hits: SAMPLE_HITS.slice(2, 4), facet: SAMPLE_FACET }),
+    resultPage({ count: 6, page: 3, pageCount: 3, hits: [SAMPLE_HITS[4], SAMPLE_HITS[0]], facet: SAMPLE_FACET }),
+  ];
+  const site = fakeSite({ formHtml, pages });
+  const manifest = await discoverBaseline({ date: '2023-11-01', fetchImpl: site.fetchImpl, sleep: async () => {} });
+  assert.equal(manifest.reportedCount, 6);
+  assert.equal(manifest.discoveredCount, 5);
+  assert.deepEqual(manifest.duplicateListings, [{ url: 'https://www.revosax.sachsen.de/vorschrift/3000-Vorschrift', occurrences: 2 }]);
+  assert.equal(manifest.passes.length, 2);
+  assert.deepEqual(manifest.passes.map((pass) => [pass.rows, pass.newHits, pass.duplicateUrls.length]), [[6, 5, 1], [6, 0, 1]]);
+  assert.equal(manifest.typeCountBasis, 'unique');
+
+  await assert.rejects(
+    discoverBaseline({ date: '2023-11-01', fetchImpl: fakeSite({ formHtml, pages }).fetchImpl, sleep: async () => {}, maxPasses: 1 }),
+    /erst nach zwei übereinstimmenden vollständigen Durchläufen/u,
+  );
+
+  // Facette zählt Zeilen statt eindeutiger Vorschriften: ebenfalls konsistent akzeptiert.
+  const rowFacetPages = pages.map((page) => page.replace('<div class="txt_right">(1)</div></button><input type="hidden" name="authenticity_token" value="FIXTURE-TOKEN" autocomplete="off" /></form></div></li>', '<div class="txt_right">(2)</div></button><input type="hidden" name="authenticity_token" value="FIXTURE-TOKEN" autocomplete="off" /></form></div></li>'));
+  const rowManifest = await discoverBaseline({ date: '2023-11-01', fetchImpl: fakeSite({ formHtml, pages: rowFacetPages }).fetchImpl, sleep: async () => {} });
+  assert.equal(rowManifest.typeCountBasis, 'rows');
 });
