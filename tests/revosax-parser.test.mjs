@@ -332,3 +332,19 @@ test('unbetitelte technische Abschnitte werden auf die aktuelle Ebene gehoben', 
   assert.deepEqual(article.children.map((block) => block.label), ['(1)', '(2)']);
   assert.deepEqual(parsed.structureNotes, [{ kind: 'untitled-wrapper' }]);
 });
+
+test('historische Zitierung entfernt spätere Änderungsklauseln auch bei gleichem Erlassjahr', () => {
+  const citation = 'RL preisgünstiger Mietwohnraum vom 31. Mai 2023 (SächsABl. S. 677), die durch Großbuchstabe B der Richtlinie vom 20. Dezember 2023 (SächsABl. 2024 S. 110) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)';
+  assert.equal(
+    historicalBaselineCitation({ pageFullCitation: citation, sourceValidTo: '2023-11-30' }),
+    'RL preisgünstiger Mietwohnraum vom 31. Mai 2023 (SächsABl. S. 677)',
+  );
+  assert.equal(
+    historicalBaselineCitation({
+      pageFullCitation: 'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931), die durch die Richtlinie vom 27.11.2023 (SächsABl. S. 1568) geändert worden ist',
+      sourceValidTo: '2023-12-14',
+      citationValidAt: '2023-11-01',
+    }),
+    'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931)',
+  );
+});

@@ -92,6 +92,42 @@ test('Titel, Kurzbezeichnung und Abkürzung matchen nur exakt; Abkürzung allein
   assert.match(collision.reason, /Slug irgendwas ist bereits/u);
 });
 
+test('gleiche Kurzbezeichnung mit widersprechender REVOSax-lawId ist eine andere Vorschrift', () => {
+  // Änderungsvorschriften tragen oft dieselbe Kurzbezeichnung („Änd OstAZVO“);
+  // eine bestehende Norm mit anderer lawId darf weder MATCH noch REVIEW auslösen.
+  const earlierAmendment = existing('aend-ostazvo', { title: 'Zweite Verordnung zur Änderung der OstAZVO', shortTitle: 'Änd OstAZVO', lawId: '1747', versions: [BASELINE] });
+  const legacyWithoutLawId = existing('aend-ostazvo-alt', { title: 'Änd OstAZVO (Altbestand)', shortTitle: 'Änd OstAZVO alt', versions: [BASELINE] });
+  const indexes = buildIndexes([earlierAmendment, legacyWithoutLawId]);
+
+  const later = planEntry(staged({
+    revosaxLawId: '2229', sourceId: '2229', category: 'ÄVO',
+    sourceUrl: 'https://www.revosax.sachsen.de/vorschrift/2229', canonicalVersionUrl: 'https://www.revosax.sachsen.de/vorschrift/2229.1', requestedUrl: 'https://www.revosax.sachsen.de/vorschrift/2229',
+    adaptedTitle: 'Fünfte Verordnung zur Änderung der OstAZVO', adaptedShortTitle: 'Änd OstAZVO', adaptedAbbr: null, sourceAbbr: null,
+    listing: { label: 'Änd OstAZVO' }, proposedSlug: 'aend-ostazvo-2229',
+  }), BASELINE, indexes);
+  assert.equal(later.action, 'CREATE');
+
+  // Ohne widersprechende lawId bleibt der exakte Titelabgleich wirksam.
+  const legacyMatch = planEntry(staged({
+    revosaxLawId: '2230', sourceId: '2230',
+    adaptedTitle: 'Änd OstAZVO (Altbestand)', adaptedShortTitle: 'Änd OstAZVO alt', adaptedAbbr: null, sourceAbbr: null,
+    listing: { label: 'Änd OstAZVO alt' },
+  }), BASELINE, indexes);
+  assert.equal(legacyMatch.canonicalSlug, 'aend-ostazvo-alt');
+  assert.notEqual(legacyMatch.action, 'CREATE');
+
+  // Eine spätere Ost-Norm (andere lawId, keine Stichtagsfassung) mit gleichem Titel
+  // bleibt ein Widerspruch: PROTECT statt eines stillen Doppels.
+  const successor = existing('ost-apopol', { title: 'Ostdeutsche APOPol', abbr: 'OstAPOPol', lawId: '21006', versions: ['2025-09-01'] });
+  const predecessor = planEntry(staged({
+    revosaxLawId: '16264', sourceId: '16264.3',
+    adaptedTitle: 'Ostdeutsche APOPol', adaptedShortTitle: 'Ostdeutsche APOPol', adaptedAbbr: 'OstAPOPol', sourceAbbr: 'SächsAPOPol',
+    listing: { label: 'Ostdeutsche APOPol' },
+  }), BASELINE, buildIndexes([successor]));
+  assert.equal(predecessor.action, 'PROTECT');
+  assert.equal(predecessor.canonicalSlug, 'ost-apopol');
+});
+
 test('mehrdeutige Identitäten, Mehrfachfassungen und Staging-Skips werden nie automatisch geschrieben', () => {
   const first = existing('a', { title: 'Doppeltes Gesetz', versions: [BASELINE] });
   const second = existing('b', { title: 'Doppeltes Gesetz', versions: [BASELINE] });

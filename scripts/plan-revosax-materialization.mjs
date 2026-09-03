@@ -189,9 +189,20 @@ export function planEntry(entry, baselineDate, indexes) {
     const titleKeys = [...new Set([entry.adaptedTitle, entry.adaptedShortTitle, entry.sourceTitle, entry.listing?.label]
       .map(normalizeIdentity)
       .filter(Boolean))];
-    const titleMatches = titleKeys.flatMap((key) => indexes.byTitle.get(key) ?? []);
+    // Eine bestehende Norm, die selbst aus derselben Baseline stammt (Fassung zum
+    // Stichtag) und eine andere REVOSax-lawId trägt, ist nachweislich eine andere
+    // Vorschrift – auch bei gleichem Titel, gleicher Kurzbezeichnung oder Abkürzung
+    // (typisch für Änderungsvorschriften wie „Änd. OstAZVO“). Solche Geschwister
+    // werden übergangen. Eine bestehende Norm mit anderer lawId, aber ohne
+    // Stichtagsfassung (späterer Ost-Import, Vorgänger/Nachfolger) bleibt Kandidat,
+    // damit der Widerspruch PROTECT oder REVIEW ergibt statt eines stillen Doppels.
+    const entryLawId = String(entry.revosaxLawId);
+    const isBaselineSibling = (norm) => norm.lawIds.length > 0
+      && !norm.lawIds.includes(entryLawId)
+      && norm.versions.some((version) => version.versionId === baselineDate);
+    const titleMatches = titleKeys.flatMap((key) => indexes.byTitle.get(key) ?? []).filter((norm) => !isBaselineSibling(norm));
     const abbrKey = normalizedAbbr(entry.adaptedAbbr ?? entry.sourceAbbr);
-    const abbrMatches = abbrKey ? (indexes.byAbbr.get(abbrKey) ?? []) : [];
+    const abbrMatches = (abbrKey ? (indexes.byAbbr.get(abbrKey) ?? []) : []).filter((norm) => !isBaselineSibling(norm));
     candidates = uniqueCandidates([...titleMatches, ...abbrMatches]);
     if (candidates.length === 1) {
       const candidate = candidates[0];
