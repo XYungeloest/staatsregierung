@@ -318,30 +318,47 @@ Der vollständige technische Ablauf und die Cloudflare-Schritte stehen in
 **Stand 4. September 2026 (Branch `revosax-bulk-import-d1-r2`, Draft-PR #18):** Discovery
 (5.092 Listenzeilen, 5.089 eindeutige Fassungen, fail-closed verifiziert), Vollstaging
 (5.089/5.089 ohne Parser-, Adapter- oder Reststellenfehler), Rechtsüberleitungsanpassung mit
-korpusweitem End-Audit (0 Reststellen im übernommenen Recht), R2-Provenienz im Normschema,
-Materialisierungsplan mit Klassifizierung der Mantelbestandteile, R2-Archivierung der Rohquellen
-und aller 890 PDF-Anlagen, Materialisierung (3.346 Stammfassungen und Änderungsakte plus 1.521
-Artikel von Mantelvorschriften als eigene Änderungsvorschriften; 4.867 übernommene Normen, 5.108
-Normen insgesamt), versionierter Import-Audit,
-D1-Schema, inkrementeller D1-Sync, die D1-gestützte OstRecht-Laufzeit, getrennte Staging-Ressourcen
-und die CI-Trennung sind umgesetzt. Die vollständige Bilanz steht in
-`data/recht/revosax-import-audit/summary.json` und geht exakt auf: 5.089 eindeutige Treffer =
-4.867 eigene Normen + 7 redaktionell vorhandene (MATCH) + 52 geschützte Ost-Normen + 101 zurückgestellte
-Reviewfälle + 62 begründete SKIPs (40 Doppelerfassungen desselben Artikels einer Mantelvorschrift,
-8 Aliasse derselben Fassung, 2 identische Vorgängertexte, 9 in REVOSax textlose Einträge,
-1 Doppelerfassung, 2 PDF-only-Entscheidungen).
+korpusweitem End-Audit (0 Reststellen im übergeleiteten Recht, leerer Rückstand), R2-Provenienz im
+Normschema, Materialisierungsplan mit zweistufiger Klassifizierung der Mantelbestandteile
+(Heuristik plus geprüfte Zuordnungen in `data/recht/revosax-envelope-decisions.json`),
+R2-Archivierung der Rohquellen und aller 890 PDF-Anlagen, Materialisierung (3.346 Stammfassungen
+und Änderungsakte plus 1.620 Artikel bzw. Absätze von Mantelvorschriften als eigene
+Änderungsvorschriften; 4.966 übernommene Normen, 5.207 Normen insgesamt), versionierter
+Import-Audit, D1-Schema mit indexierbarem Suchindex (Migration 0005), kostenbegrenzter D1-Sync mit
+Projektionsfingerabdruck, die D1-gestützte OstRecht-Laufzeit ohne Korpusaufbau, getrennte
+Staging-Ressourcen und die CI-Trennung mit Testfixture sind umgesetzt. Die vollständige Bilanz steht
+in `data/recht/revosax-import-audit/summary.json` und geht exakt auf: 5.089 eindeutige Treffer =
+4.966 eigene Normen + 7 redaktionell vorhandene (MATCH) + 52 geschützte Ost-Normen + 0 Reviewfälle
++ 64 begründete SKIPs (42 Aliasse desselben Artikels einer Mantelvorschrift, 8 Aliasse derselben
+Fassung, 2 identische Vorgängertexte, 9 in REVOSax textlose Einträge, 1 Doppelerfassung, 2
+PDF-only-Entscheidungen).
+
+**D1-Kosten (Stand 4. September 2026).** Bis Migration 0004 war `law_search` eine FTS5-Tabelle
+mit `norm_id` als UNINDEXED-Spalte; jedes `DELETE FROM law_search WHERE norm_id = ?` scannte den
+gesamten Volltextindex (EXPLAIN QUERY PLAN: `SCAN law_search VIRTUAL TABLE INDEX 0:`, rund 38.000
+Zeilen je Norm, bei einer Vollprojektion ≈ 195 Mio. gelesene Zeilen). Seit Migration 0005 liegen
+die Provisionen relational in `law_search_units` (Indizes auf `norm_id`, `slug`,
+`(norm_id, version_id)`), der FTS5-Index ist ein Index mit externem Inhalt, den Trigger rowid-genau
+führen (`SEARCH law_search_units USING COVERING INDEX`). Die Vollprojektion leert die Tabellen
+einmalig (FTS5 `delete-all`) und schreibt ohne normweise Löschungen; ein Projektionsfingerabdruck
+aus reinen Inhaltshashes macht einen Sync bei unverändertem Stand zum No-op; der Sync summiert
+`rows_read`/`rows_written` und bricht bei `--max-rows-read`/`--max-rows-written` ab. Die
+Laufzeit lädt keinen Korpus mehr: Übersichten lesen schmale Zeilen mit SQL-Filtern, Start-,
+Sachgebiets- und Suchseiten vorberechnete Metadatenzeilen. Pull Requests testen gegen ein
+Fixture von 38 Normen; der Vollbestand läuft als Release-Gate und manuell/wöchentlich.
 
 Release-Gates vor dem Merge (PR bleibt Draft):
 
-- [x] **Remote-D1 gegen Git verifiziert.** Der einmalige Vollsync der neuen Materialisierung
-  (`--full`, 115.390 Operationen, 16 Minuten) ist durch; `npm run norms:runtime:d1-verify` gegen die
-  produktive Datenbank bestätigt Zähler (5.108 Normen, 5.188 Fassungen, 24.444 Blöcke, 6.591 Quellen,
-  5.108 abgeleitete Zeilen, 137 Verkündungen, 38.223 Suchzeilen), `corpus_hash` und 15 Stichproben.
-- [ ] **Cloudflare-Plan.** Vollsync und Laufzeit haben das D1-Free-Tier-Leselimit (5 Mio.
-  Zeilen/Tag) am 3. September 2026 zweimal erschöpft (Fehler 7500 bis Mitternacht UTC); der kalte
-  Korpusaufbau der Übersichten liegt über dem CPU-Limit von Workers Free. Für den Betrieb mit dem
-  Vollbestand ist Workers Paid nötig; der inkrementelle Sync (`--git-diff`) hält den laufenden
-  Betrieb klein.
+- [ ] **Migration 0005 und Neuprojektion der produktiven D1.** Die produktive Datenbank trägt den
+  Stand vor Migration 0005 (Vollsync vom 3. September 2026, gegen Git verifiziert). Vor dem Merge
+  werden Migration 0005 (lokal und auf `ostrecht-recht-staging` geprüft) und die Neuprojektion mit
+  dem kostensicheren Vollpfad kontrolliert eingespielt und der Projektionsfingerabdruck geschrieben,
+  damit der `d1_sync`-Job nach dem Merge als No-op endet („D1-Projektion ist bereits exakt aktuell“).
+- [ ] **Cloudflare-Plan.** Der frühere Vollsync und der kalte Korpusaufbau haben das
+  D1-Free-Tier-Leselimit (5 Mio. Zeilen/Tag) am 3. September 2026 zweimal erschöpft. Mit Migration
+  0005 liest ein Normsync nur noch die Zeilen der Norm, die Laufzeit keinen Korpus mehr; Workers Paid
+  bleibt für den Betrieb mit dem Vollbestand vorgesehen (Schreibvorgänge einer Vollprojektion,
+  CPU-Zeit großer Normen).
 - [ ] **Produktions-Smoke** (`npm run test:deployment:production`) nach dem ersten Deployment mit
   D1-Laufzeit; bis dahin ist die Runtime nur lokal (Miniflare) und per `wrangler dev --remote`
   geprüft.
@@ -351,11 +368,19 @@ Release-Gates vor dem Merge (PR bleibt Draft):
 
 Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identifiziert):
 
-- [ ] **Zurückgestellte Mantelbestandteile** (`DEFER` in `data/recht/revosax-baseline-decisions.json`,
-  Details in `data/recht/revosax-import-audit/envelopes.json`): 101 Artikel, deren Zuordnung nicht
-  maschinell gesichert ist – der REVOSax-Anker zeigt auf einen anderen Artikel und keine
-  Artikelüberschrift entspricht dem eigenen Titel, kein Anker, kein Artikelkennzeichen oder eine
-  weiterleitende Mantelvorschrift. Jeder Fall nennt Mantelvorschrift, Anker und Grund.
+- [x] **Zurückgestellte Mantelbestandteile.** Alle 101 Fälle sind in
+  `data/recht/revosax-envelope-decisions.json` entschieden (98 deterministisch über das Zielgesetz im
+  Eröffnungssatz, Anker und Überschrift durch `scripts/resolve-revosax-envelope-defers.mjs`, 3
+  manuell geprüft; 100 zugeordnet, 1 dokumentierter Alias der Stammnorm), vom Klassifizierer gegen den
+  Artikeltext verifiziert und materialisiert – auch Absätze von Folgeänderungsartikeln, Paragraphen
+  historischer Mantelfassungen (2956.1, 2876.1, 2932.1, 5479.1) und Nummern des in Vorschrift 3382
+  geführten Rechtsbereinigungsgesetzes.
+- [x] **Altbestand mit sächsischen Bezeichnungen.** Die 54 konsolidierten Altbestandsnormen sind
+  über `scripts/consolidate-norms.mjs` (Rechtsüberleitung des konsolidierten Ergebnisses, Rezepte
+  weiter gegen den amtlichen Ausgangstext) übergeleitet; `data/recht/ost-residual-backlog.json` ist
+  leer. Sachsen-Bezüge in eigenen ostdeutschen Erlassen gelten nur, wenn sie wörtlich in der
+  amtlichen Quelle unter `Gesetze/` stehen (193 belegte Bezüge in 48 Erlassen, eine dokumentierte
+  PDF-Prüfung).
 - [ ] **PDF-only-Vorschriften.** 1018 (Europäisches Übereinkommen über das grenzüberschreitende
   Fernsehen: Haupttext nur als Scan ohne Textebene) und 17114 (Fragebogen-Anlage); Anlagen sind
   hashverifiziert in R2, Materialisierung bleibt Reviewfall.
@@ -364,11 +389,6 @@ Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identi
   Rechtsänderung ohne Wirkung für Ostdeutschland), 7 × Typ B (Befristung im übernommenen Text,
   möglicherweise ostdeutsch wirksam – Review) und 2 × unklar. 249 Fassungen tragen das Erlassdatum
   aus der amtlichen REVOSax-Trefferliste, eine (1018) hat keines.
-- [ ] **Altbestand mit sächsischen Bezeichnungen.** Der Korpus-Audit führt die vor dem
-  Rechtsüberleitungsadapter aus `Gesetze/` übernommenen Normen (z. B. `landesbeamtengesetz`,
-  Titel „Sächsisches Beamtengesetz“) als versionierten Rückstand in
-  `data/recht/ost-residual-backlog.json`; jede Abweichung lässt `content:check` fehlschlagen.
-  Nachziehen über die Konsolidierung aus `Gesetze/`.
 - [ ] **Abgeleitete Metadaten nachschärfen.** Sachgebiete, Schlagwörter und Kurzfassung der
   übernommenen Normen sind deterministisch aus Typ, Ressort und Titel abgeleitet und generisch;
   `originEnactingBody` nennt bewusst das sächsische Ursprungsorgan als Provenienz.

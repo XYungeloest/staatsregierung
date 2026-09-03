@@ -345,14 +345,46 @@ Artikelblock der Mantelvorschrift. Beide amtlichen Seiten sind R2-Quellen: die K
 trägt die Komponente `containedIn` und die Website zeigt die Beziehung „Bestandteil von“ /
 „Enthält als Artikel“ (`part-of`/`contains` in `relations.ts`). 18 Mantelvorschriften, die zum
 Stichtag nicht mehr gelistet sind, wurden einmalig nachgeladen und archiviert, damit der
-Artikeltext aus derselben unveränderten Quelle stammt. Ergebnis: 1.521 Artikel (A), 40 Aliasse
-(B), 101 Reviewfälle (D, zurückgestellt). `--prune-baseline` entfernt zusammen mit `--regenerate`
-Baseline-Normen, deren Quelle nach neuer Einordnung nicht mehr übernommen wird.
+Artikeltext aus derselben unveränderten Quelle stammt (20 nachgeladene Mantelseiten, darunter vier
+historische Fassungen `<lawId>.<Fassung>`). `--prune-baseline` entfernt zusammen mit
+`--regenerate` Baseline-Normen, deren Quelle nach neuer Einordnung nicht mehr übernommen wird.
+
+Zweite Stufe für die 101 zunächst zurückgestellten Bestandteile (Klasse D): die Komponentenseite
+trägt keinen Artikeltext, nur Titel, Vollzitat und den Verweis auf die Mantelvorschrift; der Artikel
+muss deshalb in der Mantelvorschrift bestimmt werden. `scripts/resolve-revosax-envelope-defers.mjs`
+vergleicht den aus dem Komponententitel abgeleiteten Namen des Zielgesetzes („Änderung des Gesetzes
+über Zuständigkeiten …“ → „Gesetz über Zuständigkeiten …“) als Wortstammmenge mit Überschrift und
+Eröffnungssatz jeder Gliederungseinheit in beliebiger Tiefe („Das Gesetz über … vom … (SächsGVBl.
+…) wird wie folgt geändert“, „In § 3 des Sächsischen Disziplinargesetzes …“) – also auch mit den
+Absätzen eines Folgeänderungsartikels und den Nummern eines Aufhebungsparagraphen –, zieht das
+amtliche Klammerkürzel aus dem Kurztitel der Trefferliste, den REVOSax-Anker (#a2, #roemIII, #p55),
+einen im Titel genannten Artikel („Artikel 1 [Änderung …]“) und den Ausschluss bereits zugeordneter
+Geschwister hinzu und ordnet nur bei genau einem besten Kandidaten mit deutlichem Abstand zu. Zwei
+dokumentierte Sonderfälle der Textlage: Artikel 1 der Mantelvorschrift 4371 (Zweites Sächsisches
+Rechtsbereinigungsgesetz) steht in REVOSax nur als Überschrift, der Text in der eigenen Vorschrift
+3382 (`textLawId`); für Stammgesetze, deren aktuelle Fassung den Änderungsparagraphen nicht mehr
+enthält oder auf eine Nachfolgevorschrift weiterleitet, gilt die historische Fassung zum Erlassdatum
+(`envelopeVersion`: Finanzausgleichsgesetz 1996 = 5479.1, Hochschulgesetz 1999 = 2956.1,
+Wahlgesetz 1993 = 2876.1, Kommunalbekanntmachungsverordnung 1997 = 2932.1). Ergebnis in
+`data/recht/revosax-envelope-decisions.json`: 101 Entscheidungen (98 deterministisch, 3 manuell
+geprüft: der Zustimmungsartikel zum Dreizehnten Rundfunkänderungsstaatsvertrag, § 11 Nummer 2 der
+Kommunalbekanntmachungsverordnung 1997 sowie ein `SKIP`, weil Artikel 2 der Mantelvorschrift 4371
+das Sächsische Gesetz zur Ausführung des Sozialgesetzbuches selbst ist – bereits als eigene Norm
+vorhanden). Der Klassifizierer verifiziert jede Entscheidung fail-closed gegen den Text
+(`applyEnvelopeDecision`: Blockpfad, Kennzeichen, dokumentierter Eröffnungsbeleg oder Überschrift)
+und nennt verschachtelte Fundstellen lesbar („Artikel 2 Absatz 3“, „§ 128 Absatz 2“, „§ 1 Nummer
+12“); der Materializer materialisiert einen verschachtelten Block mit seiner Vorfahrenkette als
+Rahmen (`componentBodyAtPath`), damit die Fundstelle im Text lesbar bleibt. `containedIn` wird
+auch für bereits vorhandene Bestandteile (MATCH) gesetzt und per `--regenerate` nachgezogen.
+Ergebnis: 1.620 Artikel und Absätze (A, davon 99 aus der zweiten Stufe), 42 Aliasse (B),
+0 Reviewfälle. Tests: `tests/revosax-envelope-decisions.test.mjs`.
 
 `REVIEW`-Fälle werden in `data/recht/revosax-baseline-decisions.json` entschieden: `SKIP` mit
 Begründung, Auflösung mit `canonicalSlug` oder `DEFER` (bewusst offen gehaltener Reviewfall; bleibt
 `REVIEW` im Plan und im Import-Audit, blockiert den Schreibmodus aber nicht). Der Plan ist nur
-schreibbar, wenn kein nicht zurückgestellter `REVIEW`-Fall existiert.
+schreibbar, wenn kein nicht zurückgestellter `REVIEW`-Fall existiert. Stand 4. September 2026 sind
+dort nur noch die zwei PDF-only-`SKIP`s verzeichnet; die Mantelbestandteile entscheidet
+`data/recht/revosax-envelope-decisions.json`.
 
 `scripts/materialize-revosax-baseline.mjs` schreibt `CREATE`-Einträge: `meta.json`, `history.json`
 und `versions/2023-11-01.json` (`versionId` und `validFrom` = `2023-11-01`, `validTo` offen,
@@ -371,9 +403,9 @@ Adapter- oder Regeländerungen. Normen mit weiteren Fassungen oder anderen Quell
 ändert sich der Slug durch die Anpassung (z. B. `aend-saechsverfghg → aend-ostverfghg`), wird das
 alte Verzeichnis ersetzt.
 
-Umfang im Repository: 4.867 übernommene Normverzeichnisse (3.346 Stammfassungen und Änderungsakte,
-1.521 Artikel von Mantelvorschriften), 5.108 Normen insgesamt, rund 15.400 JSON-Dateien und 195 MB
-(unkomprimiert); das Git-Pack wächst dadurch um etwa 90 MB. Rohquellen (5.028 HTML-Seiten, 890
+Umfang im Repository: 4.966 übernommene Normverzeichnisse (3.346 Stammfassungen und Änderungsakte,
+1.620 Artikel und Absätze von Mantelvorschriften), 5.207 Normen insgesamt, rund 15.700 JSON-Dateien
+und 195 MB (unkomprimiert); das Git-Pack wächst dadurch um etwa 90 MB. Rohquellen (5.028 HTML-Seiten, 890
 PDF-Anlagen) liegen nur in R2. `npm run content:check` braucht mit dem Vollbestand rund anderthalb
 Minuten, `npm run test:unit` rund eine Minute.
 
@@ -420,8 +452,9 @@ entfiel – sonst nur für die geänderte Norm. Eine Löschung entfernt `law_sea
 `norm_count`, `publication_count`, `corpus_hash` = Fingerabdruck über Slugs, Fassungen und
 Verkündungen des Git-Bestands, den `d1-verify` gegen das Repository prüft).
 
-Schema: `data/recht/d1/0001_rechtsbestand.sql` bis `0004_search_references.sql` (manuell mit
-`wrangler d1 execute <Datenbank> --remote --file …` anwenden; lokal `--apply-schema`). Tabellen:
+Schema: `data/recht/d1/0001_rechtsbestand.sql` bis `0005_search_units.sql` (manuell mit
+`wrangler d1 execute <Datenbank> --remote --file …` anwenden – zuerst lokal, dann Staging, dann
+Produktion; lokal `--apply-schema`). Tabellen:
 
 | Tabelle | Inhalt |
 | --- | --- |
@@ -432,8 +465,57 @@ Schema: `data/recht/d1/0001_rechtsbestand.sql` bis `0004_search_references.sql` 
 | `law_norm_derived` | Beziehungen, Empfehlungen, Herkunft, im Text vorkommende Verweise, Portalbezüge |
 | `law_publications` | Verkündungen als JSON |
 | `law_search_documents` | Suchdokument-Metadaten je Fassung |
-| `law_search` | FTS5 der geltenden Fassung, provisionsgenau mit Anker und Strukturadresse |
-| `law_runtime_meta` | `last_sync_at`, `norm_count`, `publication_count`, `corpus_hash` |
+| `law_search_units` | Provisionen der geltenden Fassung, relational (`id` INTEGER PRIMARY KEY, Indizes auf `norm_id`, `slug`, `(norm_id, version_id)`) |
+| `law_search` | FTS5-Index mit externem Inhalt über `law_search_units` (`content_rowid = id`), per Trigger rowid-genau geführt |
+| `law_norm_subjects` | Sachgebietszuordnung je Norm (`subject_slug`, indiziert) |
+| `law_norm_history` | Historieneinträge je Norm, Index auf `(change_type, change_date)` |
+| `law_runtime_meta` | `last_sync_at`, `norm_count`, `publication_count`, `corpus_hash`, `projection_fingerprint`, `sync_mode`, `search_filters_json`, `search_document_count`, `search_publications_json`, `subject_groups_json`, `subject_areas_json`, `corpus_stats_json` |
+
+Seit Migration 0005 trägt `law_norms` zusätzlich schmale Übersichtsspalten (`subjects_json`,
+`primary_subject`, `keywords_json`, `aliases_json`, `origin_kind`, `origin_baseline_version_id`,
+`origin_last_own_change_date`, `version_count`, `last_change_date`); die Migration übernimmt die
+bisherigen Suchzeilen einmalig in die relationale Tabelle und baut den Index neu (`rebuild`).
+
+**Kostenpfad (Migration 0005).** Bis 0004 scannte `DELETE FROM law_search WHERE norm_id = ?` den
+gesamten Volltextindex, weil `norm_id` in einer FTS5-Tabelle UNINDEXED ist – lokal mit Miniflare
+belegt: `EXPLAIN QUERY PLAN` → `SCAN law_search VIRTUAL TABLE INDEX 0:`; bei 38.223 Suchzeilen sind
+das rund 38.000 gelesene Zeilen je Norm und ≈ 195 Mio. je Vollprojektion (die beobachteten
+> 300 Mio. gelesenen Zeilen). Jetzt: `DELETE FROM law_search_units WHERE norm_id = ?` →
+`SEARCH law_search_units USING COVERING INDEX idx_law_search_units_norm (norm_id=?)`; der
+AFTER-DELETE-Trigger entfernt genau diese rowids per FTS5-`delete`-Befehl. Die Vollprojektion
+(`--full`) leert alle Tabellen einmalig in fremdschlüsselsicherer Reihenfolge (Suchindex per FTS5
+`delete-all` und DELETE ohne Trigger, Trigger danach neu angelegt), schreibt den gesamten Bestand
+ohne normweise Löschungen und ohne `NOT IN`-Aufräumläufe und setzt `law_runtime_meta` erst am
+erfolgreichen Ende (ein abgebrochener Lauf gilt nicht als aktuell; Wiederholung repariert ihn).
+Inkrementell werden je Norm nur ihre eigenen Zeilen über Indizes gelöscht. Messwerte auf
+`ostrecht-recht-staging` (Wrangler-Transport, D1-`meta`): Migration 0005 auf leerer Datenbank
+411 gelesene / 28 geschriebene Zeilen; Vollprojektion des Testfixtures (38 Normen, 137
+Verkündungen, 1.266 Provisionen, 2.551 Anweisungen) 151 gelesene / 9.507 geschriebene Zeilen in
+26 s; ein einzelner Normsync (Feiertagsgesetz, 3 Fassungen, 14 Provisionen, 91 Anweisungen) 155
+gelesene / 289 geschriebene Zeilen; der erneute Lauf bei unverändertem Stand 8 gelesene / 0
+geschriebene Zeilen (No-op).
+
+**Projektionsfingerabdruck.** `scripts/lib/d1-projection-fingerprint.mjs` bildet aus reinen
+Inhaltshashes (SHA-256 je Datei, sortierte Pfade; keine Änderungszeiten) den Fingerabdruck der
+Projektionslogik (Migrationen, Sync, Umfangsbestimmung, `packages/shared/src/lib/norms/**`,
+Portalbezüge, Konfiguration, `packages/recht-search/src/**`), des Rechtsbestands (`content/normen`,
+`content/verkuendungen`) und der Portalgrundlagen (`content/themen`, `content/presse`). Der Sync
+schreibt ihn als `projection_fingerprint` und liest ihn vor jedem Lauf (eine Zeile): bei
+Gleichheit endet er ohne Schreibzugriff mit „D1-Projektion ist bereits exakt aktuell; kein Sync
+erforderlich.“ – so bleibt der `d1_sync`-Job nach dem Merge ein No-op, wenn die produktive
+Datenbank zuvor kontrolliert auf den Endstand gebracht wurde. `--ignore-fingerprint` erzwingt den
+Lauf; `d1-verify` vergleicht den Fingerabdruck mit dem Repository.
+
+**Kostenzähler und Budgets.** Beide Transporte summieren aus den D1-Antworten Abfragen, Batches
+bzw. Dateien, `rows_read`, `rows_written` und Dauer („D1-Kosten: …“). `--max-rows-read <n>` und
+`--max-rows-written <n>` brechen den Lauf ab, sobald das Budget überschritten ist (Fehler mit
+Zählern; Laufzeitmetadaten werden dann nicht geschrieben). `--dry-run` schätzt Umfang und Kosten:
+Normen, Anweisungen je Tabelle, Modus, Derived-Rebuild, Suchprovisionen, geschätzte
+`rows_written` (Spanne wegen der FTS5-Schattentabellen) und `rows_read`.
+
+**Testfixture.** `--corpus-filter data/recht/runtime-fixture.json` (nur lokal oder gegen Staging,
+nie gegen `ostrecht-recht`) beschränkt den Bestand auf die 38 Fixture-Normen; Ableitungen und
+Übersichtsmetadaten beziehen sich dann auf das Fixture.
 
 Der Sync lädt den gesamten Bestand über den gemeinsamen Loader (validiert also jede Norm), berechnet
 die korpusweiten Ableitungen mit `packages/shared/src/lib/norms/derived.ts` (derselbe Code wie die
@@ -457,16 +539,19 @@ Fassungen, eine übernommene Änderungsvorschrift, ein Mantelbestandteil, die gr
 Titel/Typ/Status, Fassungen mit Blöcken, Suchzeilen und absoluten Portalverweisen.
 `--local` prüft die Miniflare-Projektion, `--database` eine andere Zieldatenbank.
 
-Stand der produktiven Datenbank: Vollsync des Endbestands am 3. September 2026 (5.108 Normen,
-115.390 Operationen, 79 SQL-Dateien, 975 s, ohne Wiederholungen); `d1-verify` bestätigt alle Zähler,
-`corpus_hash` und 15 Stichproben. Eine Vollprojektion räumt Zeilen entfernter oder umbenannter Normen
-auch aus Tabellen ohne Fremdschlüssel (`law_search`, `law_norm_derived`) auf; beim ersten Vollsync
-blieben 36 FTS-Zeilen der neun umbenannten Slugs stehen und wurden nachgeräumt.
+Stand der produktiven Datenbank: Vollsync des Endbestands mit dem alten Pfad am 3. September 2026
+(5.108 Normen, 115.390 Operationen, 975 s; `d1-verify` grün, Schema 0001–0004). Sie trägt noch
+keine Migration 0005 und keinen Projektionsfingerabdruck; beides wird vor dem Merge kontrolliert
+nachgezogen (Release-Gate im README), damit der nächste `d1_sync` ein No-op ist. Eine lokale
+Vollprojektion des Endbestands (5.207 Normen, 101.874 Anweisungen, 70 SQL-Dateien) läuft in rund
+16 Minuten; `d1-verify --local --fts-integrity` bestätigt Zähler, Fingerabdruck, FTS5-Integrität
+und Stichproben.
 
-Limits: D1 Free zählt 5 Mio. Zeilenlesevorgänge und 100.000 Schreibvorgänge je Tag. Vollsyncs und
-die Laufzeitzugriffe des Workers haben das Leselimit am 3. September 2026 zweimal erschöpft; danach
-antwortet die Datenbank bis Mitternacht UTC mit Fehler 7500. Vor dem produktiven Betrieb mit dem
-Vollbestand ist Workers Paid einzuplanen; der inkrementelle Sync hält den laufenden Betrieb klein.
+Limits: D1 Free zählt 5 Mio. Zeilenlesevorgänge und 100.000 Schreibvorgänge je Tag. Der alte
+Vollsync und der kalte Korpusaufbau der Laufzeit haben das Leselimit am 3. September 2026 zweimal
+erschöpft (Fehler 7500 bis Mitternacht UTC). Mit Migration 0005 liest ein Normsync nur noch die
+Zeilen der Norm und die Laufzeit keinen Korpus; eine Vollprojektion bleibt schreibintensiv
+(≈ 100.000 Anweisungen plus FTS5-Schattenzeilen) und ist deshalb ein bewusster Sondermodus.
 
 Lokale Kontrolle des Worker-Standes gegen die reale Datenbank:
 
@@ -492,8 +577,19 @@ mit dieser erzeugten Konfiguration.
   dieselben Ableitungen. `getNormStore(Astro.locals)` wählt je nach vorhandenem Binding.
 - Normkörper werden nur für die angezeigte Fassung geladen; ein Fassungsvergleich lädt genau die
   beiden angefragten Fassungen (`/norm/[slug]/vergleich/[von]/[bis].json`).
-- Übersichten arbeiten mit einem im Worker gecachten Metadatenbestand (ohne Körper), der bei
-  geändertem `last_sync_at` neu geladen wird.
+- Keine Route lädt den Korpus. Übersichten arbeiten mit `NormSummary`-Zeilen (schmale Spalten von
+  `law_norms` plus Kurzfassung der geltenden Fassung; `listNormSummaries({ types, statuses,
+  subjectSlug })` filtert per SQL über die Indizes, `listNormSummariesByType` ebenso); die
+  Startseite liest Bestandszahlen, Hauptbereiche (`corpus_stats_json`, `subject_areas_json`) und
+  die jüngsten bzw. künftigen Historieneinträge über `law_norm_history` (`listChanges`, Index auf
+  Datum, `LIMIT`) sowie vier Verkündungen; Sachgebietsseiten die Metadatenzeile der Sachgebiete und
+  die Normen eines Sachgebiets per `law_norm_subjects`; die Suchhülle Filteroptionen und
+  Dokumentzahl aus `law_runtime_meta`; Fundstellen- und Verkündungsseiten nur die Fassungsübersicht
+  und die in D1 vorberechneten Beziehungen der zitierten Normen; Sitemap und Vorschlagsliste
+  schmale Spalten (`listVersionSummaries`, `listSearchSuggestions`). `listPublications()` liest
+  ausschließlich `law_publications`. Kleine korpusweite Metadatenzeilen werden je Sync-Stand im
+  Isolate gecacht (`last_sync_at`-Prüfung, eine Zeile). `tests/recht-runtime-d1-queries.test.ts`
+  protokolliert mit einem aufzeichnenden D1-Ersatz die Abfrageformen jeder Route.
 - Die Suchseite bleibt eine statische Hülle. `/api/suche.json` wählt über den FTS5-Index Kandidaten
   (Wortpräfixe der Anfrage, ODER-verknüpft, Typfilter), liefert je Kandidatennorm alle Fassungen als
   Suchdokumente und nur die passenden Provisionen der geltenden Fassung; Bewertung, Filterung und
@@ -508,18 +604,19 @@ mit dieser erzeugten Konfiguration.
   werden deshalb nur lazy importiert; reine Helfer wie `getCurrentVersion` liegen in
   `norms/versions.ts`. Ein Worker ohne D1-Binding antwortet mit einem klaren Fehler statt eines
   Dateizugriffs.
-- Lastverhalten (lokal gemessen, Miniflare mit dem Vollbestand von 5.108 Normen; Cloudflare-Messung
-  steht wegen des D1-Leselimits aus): `listNorms()` lädt bei kaltem Isolate alle `law_norms`- und
-  `law_versions`-Zeilen (rund 10.400 Zeilen, ohne Körper) und rekonstruiert die Datensätze – erste
-  Antwort der Startseite ≈ 1 s, danach ≈ 20 ms aus dem Isolate-Cache (`last_sync_at`-Prüfung, 1
-  Zeile je Anfrage). Übersichten 25 ms, Sitemap (1,5 MB) 27 ms, Normdetail 40 ms, größte Norm
-  (1 MB HTML) 220 ms, Fassungsvergleich 18 ms, Änderungsvorschrift 6 ms, 404 3 ms; die Suche
-  „Polizei“ liefert 120 Kandidaten mit allen Fassungen und passenden Provisionen (1,9 MB) in 140 ms
-  kalt / 35 ms warm. Auf Workers Free (10 ms CPU je Anfrage) ist der kalte Korpusaufbau nicht
-  haltbar; der Betrieb mit dem Vollbestand setzt Workers Paid voraus. Eine leichtere Listenprojektion
-  (nur Slug, Titel, Kurzbezeichnung, Abkürzung, Typ, Status, Sachgebiete, geltende Fassung) und ein
-  kleineres Suchantwortformat sind als Folgearbeit vorgemerkt, sobald reale D1-Messwerte
-  (`rows_read`, CPU) vorliegen.
+- Gelesene Zeilen je Route (D1 zählt Zeilen; aus den SQL-Formen der Store-Methoden, mit dem
+  Vollbestand von 5.207 Normen): Startseite ≈ 1 (`last_sync_at`) + 3 Metadatenzeilen + 2 × 12
+  Historieneinträge + 4 Verkündungen; Typübersichten (`/gesetze/` usw.) genau die Zeilen des Typs
+  (Index `type`) plus je eine Fassungszeile; A–Z und Rechtsentwicklung alle 5.207
+  Übersichtszeilen (schmal, ohne Fassungs- und Körper-JSON) – vorher 10.400 Zeilen mit
+  `meta_json`, `history_json` und allen `version_json`; Sachgebietsseite die Normen des Sachgebiets
+  über `law_norm_subjects`; Suche „Polizei“ FTS-Treffer (`MATCH`, `GROUP BY slug`, 120 Kandidaten)
+  + Suchdokumente der Kandidaten + passende Provisionen (`MATCH … AND slug IN (…)`) + 1
+  Metadatenzeile für die Verkündungsdaten – vorher zusätzlich alle 137 Verkündungs-JSONs über den
+  Korpusaufbau; Normdetail die Zeilen der Norm und die Blöcke der angezeigten Fassung; Sitemap
+  5.207 + 5.287 schmale Zeilen (edge-gecacht 6 h). Cold/warm-Zeiten lokal (Miniflare, Vollbestand):
+  Startseite ≈ 60 ms kalt, Übersichten ≈ 25 ms, Normdetail 40 ms, größte Norm 220 ms, Suche
+  „Polizei“ 140 ms kalt / 35 ms warm; ein kalter Korpusaufbau (≈ 1 s) findet nicht mehr statt.
 - Öffentliche URLs sind unverändert; `scripts/check-links.mjs` und `scripts/check-seo.mjs` erkennen
   On-demand-Routen aus den Seitenquellen und prüfen die Sitemap im Deployment-Smoke.
 
@@ -555,10 +652,16 @@ Seeding: `npm run norms:runtime:d1-sync -- --full --database ostrecht-recht-stag
 Browser-Smoke- und Barrierefreiheitstests (`tests/browser-smoke.spec.ts`, `tests/accessibility.spec.ts`)
 laufen für OstRecht gegen den gebauten Worker: `scripts/serve-law-worker.mjs` projiziert `content/`
 mit `npm run norms:runtime:d1-sync -- --full --local --apply-schema` in eine lokale Miniflare-D1
-unter `.cache/wrangler-local` (Migrationen aus `data/recht/d1/`, Fingerabdruck-Marker verhindert
-unnötige Neuaufbauten) und startet `wrangler dev --local` auf Port 4322. In CI übernimmt der Schritt
-`npm run norms:runtime:d1-local` das Seeding vor Playwright; die produktive Datenbank wird dabei
-nicht berührt. Das vollständige Seeding dauert lokal rund acht Minuten, in CI 14 bis 16 Minuten.
+unter `.cache/wrangler-local` (Migrationen aus `data/recht/d1/`; Marker mit dem Inhaltshash der
+Projektion – keine Änderungszeiten – verhindert unnötige Neuaufbauten; `OSTRECHT_D1_PERSIST_TO`
+wählt ein anderes Verzeichnis) und startet `wrangler dev --local` auf Port 4322. Pull Requests
+projizieren nur das repräsentative Testfixture `data/recht/runtime-fixture.json` (38 Normen:
+Stammnormen mit mehreren und historischen Fassungen, Änderungsakte, Mantelbestandteil samt
+Mantelvorschrift, größte Norm mit Tabellen, Anlagen, Status- und Sachgebietsfälle, alle
+Verkündungen; jede Zeile begründet) – `OSTRECHT_D1_FIXTURE` in der Job-Umgebung beider Smoke-Jobs,
+Seeding in rund einer Minute statt 14 bis 16 Minuten je Job. Der Vollbestand läuft als Release-Gate
+in `deploy.yml`, manuell und wöchentlich in `.github/workflows/full-corpus-smoke.yml`
+(`workflow_dispatch`, Montag 03:30 UTC). Die produktive Datenbank wird dabei nie berührt.
 
 Unit-Tests (`npm run test:unit`, Heap 4 GB) laden den Bestand über `tests/helpers/corpus.ts` nur
 einmal je Testprozess; der Suchindex für die browserseitige Suchlogik wird aus dem redaktionellen
@@ -579,18 +682,35 @@ Der paarweise Empfehlungsvergleich prüft eine deterministische Stichprobe.
 - D1 und R2 sind veröffentlichte Laufzeitspeicher, nicht der alleinige fachliche Wissensbestand.
 - Geheimnisse, Account-IDs mit Sicherheitsrelevanz und API-Tokens werden nicht in Git gespeichert.
 
+## Rechtsüberleitung des Altbestands
+
+Die 54 redaktionell konsolidierten Altbestandsnormen (`data/recht/consolidation-sources.json`)
+entstanden vor dem Rechtsüberleitungsadapter und trugen 3.916 sächsische Bezeichnungen. Seit dem
+4. September 2026 wendet `scripts/consolidate-norms.mjs` die Patch-Rezepte weiterhin auf den
+unveränderten sächsischen Ausgangstext an (Hashes und Erwartungswerte beziehen sich auf die amtliche
+Quelle) und leitet erst das Ergebnis über (`applyRechtsueberleitung`): alle Fassungen (Titel,
+Kurzbezeichnung, Abkürzung, Zitierung, Änderungsvermerk, Normkörper), Historie und redaktionelle
+Metadaten mit demselben Adapter wie der REVOSax-Vollbestand; Provenienz (`sourceReferences`,
+`sourceNotes`, `enactingBody`, `editorialResolutions`) und geschützte Fundstellenkürzel bleiben.
+Gesperrte Ziele ohne nutzbare Rezepte werden aus der Ausgangsfassung fortgeschrieben; der
+Snapshot-Audit vergleicht die gespeicherte Zitierung mit der übergeleiteten erwarteten.
+`scripts/audit-ost-residuals.mjs` unterscheidet seitdem zwei Provenienzklassen: übergeleitetes Recht
+(irgendeine REVOSax-Quelle) muss in allen Fassungen reststellenfrei sein; eigene ostdeutsche Erlasse
+(nur amtliche Quellen unter `Gesetze/`) dürfen Sachsen-Bezüge nur tragen, wenn die Stelle wörtlich in
+der amtlichen HTML-/Markdown-Quelle steht (Buchstabenfenster um den Treffer) oder – bei reinen
+PDF-Quellen – eine dokumentierte, an den SHA-256 des PDF gebundene Prüfung in
+`data/recht/ost-residual-backlog.json` (`pdfVerifications`) vorliegt. Ergebnis: 0 Reststellen im
+übergeleiteten Recht, leerer Rückstand (0 Normen / 0 Stellen), 193 amtlich belegte Sachsen-Bezüge
+in 48 eigenen Erlassen (nachrichtlich), eine PDF-Prüfung.
+
 ## Noch offene Schritte (Release-Gates)
 
-- Produktions-Smoke nach dem ersten Deployment mit D1-Laufzeit; Workers Paid für den Betrieb mit
-  dem Vollbestand (Release-Gates im README). Remote-D1 ist gegen Git verifiziert.
-- Zurückgestellte Reviewfälle (`DEFER` in `data/recht/revosax-baseline-decisions.json`, Details in
-  `data/recht/revosax-import-audit/envelopes.json`): Mantelbestandteile, deren Artikel nicht
-  maschinell zuzuordnen ist.
+- Migration 0005 und Neuprojektion der produktiven D1 mit dem kostensicheren Vollpfad, danach
+  `d1-verify` und Projektionsfingerabdruck (Release-Gate im README); Produktions-Smoke nach dem
+  ersten Deployment mit D1-Laufzeit; Workers Paid für den Betrieb mit dem Vollbestand.
 - PDF-only-Vorschriften 1018 (Übereinkommen als Scan ohne Textebene) und 17114 (Fragebogen-Anlage):
   Anlagen sind archiviert, Materialisierung bleibt Reviewfall.
 - Prüfmarken sichten: Typ-B- und unklare „Quelle endet ohne Nachfolger“-Fälle sowie Fassungen ohne
   Erlassdatum in `data/recht/revosax-import-audit/review-flags.json`.
-- Altbestand mit sächsischen Bezeichnungen (`data/recht/ost-residual-backlog.json`) über die
-  Konsolidierung aus `Gesetze/` nachziehen.
 - Sachgebiete, Schlagwörter und Kurzfassungen der übernommenen Normen sind deterministisch
   abgeleitet und generisch; redaktionelle Verfeinerung offen.
