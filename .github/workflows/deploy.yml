@@ -54,6 +54,7 @@ jobs:
       run_content_check: ${{ steps.scope.outputs.run_content_check }}
       run_knowledge_check: ${{ steps.scope.outputs.run_knowledge_check }}
       run_unit_tests: ${{ steps.scope.outputs.run_unit_tests }}
+      run_d1_sync: ${{ steps.scope.outputs.run_d1_sync }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
       run_full_ui_smoke: ${{ steps.scope.outputs.run_full_ui_smoke }}
     steps:
@@ -122,6 +123,7 @@ jobs:
             echo "- OstRecht-Prüfung: $(yes_no "$(output_value check_law)")"
             echo "- Content-Prüfung: $(yes_no "$(output_value run_content_check)")"
             echo "- Unit-Tests: $(yes_no "$(output_value run_unit_tests)")"
+            echo "- D1-Projektion (OstRecht-Laufzeitdaten): $(yes_no "$(output_value run_d1_sync)")"
             echo "- UI-Smoke: $(target_label "$UI_TARGETS")"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -346,13 +348,38 @@ jobs:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
         run: npm run test:browsers:ci
 
+  # OstRecht liest Normen, Fassungen, Verkündungen und den Suchindex zur Laufzeit
+  # aus Cloudflare D1. Änderungen an content/normen und content/verkuendungen
+  # brauchen deshalb kein OstRecht-Deployment, sondern eine neue Projektion.
+  # Schema-Migrationen (data/recht/d1/*.sql) werden bewusst manuell eingespielt,
+  # siehe docs/REVOSAX_BULK_IMPORT.md.
+  d1_sync:
+    needs:
+      - classify
+      - build
+    if: ${{ github.event_name == 'push' && needs.classify.outputs.run_d1_sync == 'true' && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Rechtsdaten nach Cloudflare D1 projizieren
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run norms:runtime:d1-sync -- --transport api
+
   deploy:
     needs:
       - classify
       - build
       - accessibility_smoke
       - browser_smoke
-    if: ${{ always() && needs.classify.outputs.deploy_targets != '' && needs.build.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
+      - d1_sync
+    if: ${{ always() && needs.classify.outputs.deploy_targets != '' && needs.build.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') && (needs.d1_sync.result == 'success' || needs.d1_sync.result == 'skipped') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

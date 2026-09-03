@@ -49,6 +49,7 @@ function documentationImpact() {
     runContentCheck: false,
     runKnowledgeCheck: false,
     runUnitTests: false,
+    runD1Sync: false,
   };
 }
 
@@ -58,6 +59,7 @@ function verificationImpact({
   unit = true,
   build = [],
   ui = [],
+  d1Sync = false,
 } = {}) {
   return {
     documentation: false,
@@ -68,10 +70,11 @@ function verificationImpact({
     runContentCheck: content,
     runKnowledgeCheck: knowledge,
     runUnitTests: unit,
+    runD1Sync: d1Sync,
   };
 }
 
-function runtimeImpact(runtimeTargets, { content = false } = {}) {
+function runtimeImpact(runtimeTargets, { content = false, d1Sync = false } = {}) {
   const selectedTargets = targets(runtimeTargets);
   return {
     documentation: false,
@@ -82,7 +85,37 @@ function runtimeImpact(runtimeTargets, { content = false } = {}) {
     runContentCheck: content,
     runKnowledgeCheck: false,
     runUnitTests: true,
+    runD1Sync: d1Sync,
   };
+}
+
+/**
+ * Rechtsdaten, die OstRecht zur Laufzeit aus der D1-Projektion liest. Eine
+ * Änderung braucht Content-Prüfung und D1-Sync, aber kein OstRecht-Deployment;
+ * das Staatsportal rendert aus denselben Dateien weiterhin statisch.
+ */
+function isLawContentPath(path) {
+  return path.startsWith('content/normen/')
+    || path.startsWith('content/verkuendungen/');
+}
+
+/**
+ * Portalinhalte, die in die abgeleiteten D1-Daten einfließen (Themen- und
+ * Presseempfehlungen der Normen).
+ */
+function isDerivedPortalContentPath(path) {
+  return path.startsWith('content/themen/')
+    || path.startsWith('content/presse/');
+}
+
+/**
+ * Code, der die D1-Projektion bestimmt: Sync-Skript, Normbibliothek und
+ * Suchdokumente. Nach einer Änderung muss die Projektion neu geschrieben werden.
+ */
+function isD1ProjectionCodePath(path) {
+  return path === 'scripts/sync-recht-d1.mjs'
+    || path.startsWith('packages/shared/src/lib/norms/')
+    || path.startsWith('packages/recht-search/');
 }
 
 function isRootDocumentation(path) {
@@ -120,8 +153,6 @@ function isPortalRuntimePath(path) {
 
 function isSharedRuntimePath(path) {
   return path.startsWith('packages/')
-    || path.startsWith('content/normen/')
-    || path.startsWith('content/verkuendungen/')
     || RUNTIME_BUILD_SCRIPTS.has(path)
     || path === 'public/_headers'
     || path === 'public/favicon.ico'
@@ -158,6 +189,7 @@ function isCiOnlyRootPath(path) {
 
 function scriptImpact(path) {
   if (RUNTIME_BUILD_SCRIPTS.has(path)) return runtimeImpact(SITE_TARGETS);
+  if (isD1ProjectionCodePath(path)) return verificationImpact({ content: true, d1Sync: true });
   if (UI_TEST_SUPPORT_SCRIPTS.has(path)) {
     return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS });
   }
@@ -179,10 +211,19 @@ function pathImpact(path) {
     return documentationImpact();
   }
 
-  if (isLawRuntimePath(path)) return runtimeImpact(['law']);
-  if (isPortalRuntimePath(path)) return runtimeImpact(['portal'], { content: path.startsWith('content/') });
+  if (isLawContentPath(path)) return runtimeImpact(['portal'], { content: true, d1Sync: true });
+  if (isLawRuntimePath(path)) return runtimeImpact(['law'], { d1Sync: isD1ProjectionCodePath(path) });
+  if (isPortalRuntimePath(path)) {
+    return runtimeImpact(['portal'], {
+      content: path.startsWith('content/'),
+      d1Sync: isDerivedPortalContentPath(path),
+    });
+  }
   if (isSharedRuntimePath(path)) {
-    return runtimeImpact(SITE_TARGETS, { content: path.startsWith('content/') });
+    return runtimeImpact(SITE_TARGETS, {
+      content: path.startsWith('content/'),
+      d1Sync: isD1ProjectionCodePath(path),
+    });
   }
 
   if (isPortalPublicAsset(path)) return runtimeImpact(['portal']);
@@ -244,6 +285,7 @@ function resultFor(impacts, paths) {
     runContentCheck: impacts.some((impact) => impact.runContentCheck),
     runKnowledgeCheck: impacts.some((impact) => impact.runKnowledgeCheck),
     runUnitTests: impacts.some((impact) => impact.runUnitTests),
+    runD1Sync: impacts.some((impact) => impact.runD1Sync),
     runUiSmoke: uiTargets.length > 0,
     runFullUiSmoke: uiTargets.length === SITE_TARGETS.length,
   };
@@ -261,7 +303,7 @@ export function classifyChangedPath(value) {
 
 export function classifyChangeScope(values = []) {
   const paths = values.map(normalizeChangedPath).filter(Boolean);
-  if (paths.length === 0) return resultFor([runtimeImpact(SITE_TARGETS, { content: true })], paths);
+  if (paths.length === 0) return resultFor([runtimeImpact(SITE_TARGETS, { content: true, d1Sync: true })], paths);
   return resultFor(paths.map(pathImpact), paths);
 }
 
@@ -277,7 +319,9 @@ export function classifyManualDeploy(target = 'both') {
     throw new Error('Manuelles Ziel muss portal, law oder both sein.');
   }
   // A manual deployment remains a normal release: content, type and browser
-  // checks still run for exactly the selected target(s).
+  // checks still run for exactly the selected target(s). The D1 projection is
+  // not rewritten by a manual release; run `npm run norms:runtime:d1-sync`
+  // deliberately when the legal data changed.
   return resultFor([runtimeImpact(runtimeTargets, { content: true })], []);
 }
 
@@ -321,6 +365,7 @@ async function main() {
       `run_content_check=${result.runContentCheck}`,
       `run_knowledge_check=${result.runKnowledgeCheck}`,
       `run_unit_tests=${result.runUnitTests}`,
+      `run_d1_sync=${result.runD1Sync}`,
       `run_ui_smoke=${result.runUiSmoke}`,
       `run_full_ui_smoke=${result.runFullUiSmoke}`,
     ];
