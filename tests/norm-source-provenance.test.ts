@@ -85,7 +85,9 @@ test('R2-Quelle ohne Object-Key oder mit unvollständiger amtlicher Provenienz w
   assert.throws(() => version([withoutValidity]), /sourceValidFrom: ist für eine in R2 archivierte REVOSax-Quelle erforderlich/u);
   const { retrievedAt, ...withoutRetrievedAt } = r2RevosaxSource;
   assert.throws(() => version([withoutRetrievedAt]), /retrievedAt: ist für eine in R2 archivierte Quelle erforderlich/u);
-  assert.throws(() => version([{ ...r2RevosaxSource, sourceRole: 'visual-control' }]), /sourceRole: muss für eine in R2 archivierte REVOSax-Quelle official-snapshot sein/u);
+  assert.throws(() => version([{ ...r2RevosaxSource, sourceRole: 'visual-control' }]), /sourceRole: muss für eine in R2 archivierte REVOSax-Quelle official-snapshot oder envelope-snapshot sein/u);
+  // Die Mantelvorschrift eines eigenständig geführten Artikels ist als envelope-snapshot zulässig.
+  assert.equal(version([{ ...r2RevosaxSource, sourceRole: 'envelope-snapshot' }]).sourceReferences?.[0]?.sourceRole, 'envelope-snapshot');
   assert.throws(() => version([{ ...r2RevosaxSource, mediaType: 'application/pdf' }]), /mediaType: muss für eine in R2 archivierte REVOSax-Quelle text\/html sein/u);
 });
 

@@ -9,6 +9,8 @@ export const NORM_RELATION_KINDS = [
   'repealed-by',
   'predecessor',
   'successor',
+  'part-of',
+  'contains',
 ] as const;
 
 export type NormRelationKind = (typeof NORM_RELATION_KINDS)[number];
@@ -68,6 +70,12 @@ export function buildNormRelations(records: NormRecord[]): NormRelationLookup {
     for (const targetSlug of [record.meta.enactedNorm, ...(record.meta.enactedNorms ?? [])].filter(Boolean) as string[]) {
       const target = recordsBySlug.get(targetSlug);
       if (target) addPair(record, 'enacts', target, 'enacted-by', { resultingNorm: target });
+    }
+
+    if (record.meta.containedIn) {
+      // Artikel einer Mantelvorschrift, den REVOSax als eigene Vorschrift führt.
+      const envelope = recordsBySlug.get(record.meta.containedIn);
+      if (envelope) addPair(record, 'part-of', envelope, 'contains');
     }
 
     if (record.meta.predecessorSlug) {

@@ -240,7 +240,10 @@ export function isInheritedBaselineAct(record, baselineDate = BASELINE_DATE) {
     ...record.versions.flatMap((version) => version.sourceReferences ?? []),
   ];
   if (references.length === 0) return false;
-  if (!references.every((source) => source.kind === 'revosax-snapshot' && source.sourceRole === 'official-snapshot')) {
+  // Übernommene Akte belegen ihre eigene Fassungsseite (official-snapshot); Artikel von
+  // Mantelvorschriften zusätzlich die Mantelvorschrift (envelope-snapshot). Beides ist
+  // Baseline-Provenienz: die Änderungen sind im sächsischen Rechtsstand bereits enthalten.
+  if (!references.every((source) => source.kind === 'revosax-snapshot' && ['official-snapshot', 'envelope-snapshot'].includes(source.sourceRole))) {
     return false;
   }
   if (record.versions.some((version) => version.validFrom > baselineDate)) return false;

@@ -20,6 +20,8 @@ const sections: Array<{ kind: NormRelationKind; heading: string; empty?: string 
   { kind: 'repeals', heading: 'Hebt auf' },
   { kind: 'predecessor', heading: 'Vorgänger' },
   { kind: 'successor', heading: 'Nachfolger' },
+  { kind: 'part-of', heading: 'Bestandteil von' },
+  { kind: 'contains', heading: 'Enthält als Artikel' },
 ];
 const visibleSections = sections
   .map((section) => ({ ...section, entries: relations.filter((entry) => entry.kind === section.kind) }))

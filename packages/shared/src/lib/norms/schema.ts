@@ -94,7 +94,7 @@ export interface NormSourceReference {
   pageCount?: number;
   pageRange?: string;
   verifiedAt?: string;
-  sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot' | 'amendment-evidence';
+  sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot' | 'amendment-evidence' | 'envelope-snapshot';
   derivedSource?: string;
 }
 
@@ -163,7 +163,13 @@ export interface NormMeta {
   type: NormType;
   /** Bestandsfeld; neue Datensätze trennen Organ und fachliche Zuständigkeit. */
   ministry?: string;
+  /** Erlassendes Organ der Norm im Sinne des ostdeutschen Rechtsbestands. */
   enactingBody?: string;
+  /**
+   * Historisches Ursprungsorgan der übernommenen Quelle (Rechtsüberleitung), z. B.
+   * „Sächsischer Landtag“. Provenienzangabe; kein Erlassorgan der ostdeutschen Norm.
+   */
+  originEnactingBody?: string;
   responsibleMinistry?: string;
   subjects: string[];
   primarySubject?: string;
@@ -176,6 +182,11 @@ export interface NormMeta {
   enactingNorm?: string;
   enactedNorm?: string;
   enactedNorms?: string[];
+  /**
+   * Mantelvorschrift, deren Artikel diese eigenständig geführte Änderungsvorschrift
+   * ist (REVOSax: „Bestandteil der Vorschrift“). Ergibt die Beziehung part-of/contains.
+   */
+  containedIn?: string;
   affectedNorms?: string[];
   affectedByNorms?: string[];
   relatedNorms?: string[];
@@ -408,7 +419,10 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
     if (!retrievedAt) fail(`${path}.retrievedAt`, 'ist für eine in R2 archivierte Quelle erforderlich');
     if (!lawId) fail(`${path}.lawId`, 'ist für eine in R2 archivierte REVOSax-Quelle erforderlich');
     if (!sourceValidFrom) fail(`${path}.sourceValidFrom`, 'ist für eine in R2 archivierte REVOSax-Quelle erforderlich');
-    if (sourceRole !== 'official-snapshot') fail(`${path}.sourceRole`, 'muss für eine in R2 archivierte REVOSax-Quelle official-snapshot sein');
+    // official-snapshot: die eigene amtliche Fassungsseite; envelope-snapshot: die
+    // Mantelvorschrift, aus deren Artikel der Text einer eigenständig geführten
+    // Änderungsvorschrift stammt (REVOSax „Bestandteil der Vorschrift“).
+    if (sourceRole !== 'official-snapshot' && sourceRole !== 'envelope-snapshot') fail(`${path}.sourceRole`, 'muss für eine in R2 archivierte REVOSax-Quelle official-snapshot oder envelope-snapshot sein');
     if (mediaType !== 'text/html') fail(`${path}.mediaType`, 'muss für eine in R2 archivierte REVOSax-Quelle text/html sein');
   }
 
@@ -793,6 +807,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     type: normalizedTypeMap[rawType],
     ministry: expectOptionalString(object.ministry, `${path}.ministry`),
     enactingBody: expectOptionalString(object.enactingBody, `${path}.enactingBody`),
+    originEnactingBody: expectOptionalString(object.originEnactingBody, `${path}.originEnactingBody`),
     responsibleMinistry: expectOptionalString(object.responsibleMinistry, `${path}.responsibleMinistry`),
     subjects,
     primarySubject,
@@ -816,6 +831,9 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
       object.enactedNorms === undefined
         ? undefined
         : expectSlugArray(object.enactedNorms, `${path}.enactedNorms`),
+    containedIn: object.containedIn === undefined
+      ? undefined
+      : expectSlug(object.containedIn, `${path}.containedIn`),
     affectedNorms:
       object.affectedNorms === undefined
         ? undefined

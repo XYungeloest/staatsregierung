@@ -5,6 +5,8 @@ import {
   adaptParsedRevosaxSnapshot,
   adaptSaxonText,
   auditAdaptedRevosaxSnapshot,
+  findSaxonResidual,
+  hasSaxonResidual,
 } from '../scripts/lib/revosax-ost-adapter.mjs';
 
 test('adapts state names, adjectives and abbreviations', () => {
@@ -57,4 +59,44 @@ test('adapts the bare adjective, hyphenated compounds and the genitive but not S
   assert.equal(adaptSaxonText('sächsisch-anhaltische Behörden in Sachsen-Anhalt'), 'sächsisch-anhaltische Behörden in Sachsen-Anhalt');
   assert.equal(adaptSaxonText('die Haushaltsordnung Sachsens'), 'die Haushaltsordnung Ostdeutschlands');
   assert.deepEqual(auditAdaptedRevosaxSnapshot({ sourceTitle: 'x', shortTitle: 'x', fullCitation: 'x', body: [{ type: 'paragraphText', text: 'Sachsens Landtag' }] }).length, 1);
+});
+
+test('Gesetzes- und Institutionskürzel mit Sächs-Präfix werden übergeleitet, Fundstellen nicht', () => {
+  assert.equal(adaptSaxonText('SächsVerfGHG'), 'OstVerfGHG');
+  assert.equal(adaptSaxonText('Änd. SächsVerfGHG'), 'Änd. OstVerfGHG');
+  assert.equal(adaptSaxonText('nach dem SächsVerfGHG'), 'nach dem OstVerfGHG');
+  assert.equal(adaptSaxonText('Entscheidung des SächsVerfGH vom 1. Januar 2000'), 'Entscheidung des OstVerfGH vom 1. Januar 2000');
+  assert.equal(
+    adaptSaxonText('Gesetz über den Verfassungsgerichtshof (SächsVerfGHG) vom 18. Februar 1993 (SächsGVBl. S. 177), SächsABl. S. 5, SächsJMBl. S. 7, SächsSMBl. S. 9, SächsMBl. S. 11'),
+    'Gesetz über den Verfassungsgerichtshof (OstVerfGHG) vom 18. Februar 1993 (SächsGVBl. S. 177), SächsABl. S. 5, SächsJMBl. S. 7, SächsSMBl. S. 9, SächsMBl. S. 11',
+  );
+});
+
+test('Reststellen-Audit findet absichtlich verbliebene normative Sachsen-Bezüge', () => {
+  // Ein nicht angepasster Text darf den Audit nie passieren – auch nicht neben geschützten Fundstellen.
+  const stale = {
+    sourceTitle: 'Gesetz zur Änderung des Gesetzes über den Verfassungsgerichtshof',
+    shortTitle: 'Änd. SächsVerfGHG',
+    fullCitation: 'Änd. SächsVerfGHG vom 1. Januar 2000 (SächsGVBl. S. 1)',
+    body: [{ type: 'paragraphText', text: 'Das SächsVerfGHG wird wie folgt geändert:' }],
+  };
+  const residuals = auditAdaptedRevosaxSnapshot(stale);
+  assert.deepEqual(residuals.map((entry) => entry.path).sort(), ['$.body[0].text', '$.fullCitation', '$.shortTitle']);
+  assert.equal(hasSaxonResidual('Fundstelle (SächsGVBl. S. 1) ohne weiteren Bezug'), false);
+  assert.equal(hasSaxonResidual('zuständig ist der Sächsische Landtag'), true);
+  assert.equal(hasSaxonResidual('Behörden in Sachsen-Anhalt'), false);
+  assert.deepEqual(findSaxonResidual('nach dem SächsVerfGHG'), { token: 'SächsV', context: 'nach dem SächsVerfGHG' });
+  // Nach der Anpassung ist derselbe Datensatz reststellenfrei.
+  assert.deepEqual(auditAdaptedRevosaxSnapshot(adaptParsedRevosaxSnapshot(stale)), []);
+});
+
+test('zusammengesetzte Kürzel und Schreibvarianten werden erfasst', () => {
+  assert.equal(adaptSaxonText('DVOSächsBO und VwVSächsLZPolB'), 'DVOOstBO und VwVOstLZPolB');
+  assert.equal(adaptSaxonText('Lebensmittelkontrolldienst (SächsmLkdAPVO)'), 'Lebensmittelkontrolldienst (OstmLkdAPVO)');
+  assert.equal(adaptSaxonText('Verordnung der Sächsichen Staatsregierung'), 'Verordnung der Ostdeutschen Staatsregierung');
+  assert.equal(adaptSaxonText('Gesetz zur Änderung sächsicher Rechtsvorschriften'), 'Gesetz zur Änderung ostdeutscher Rechtsvorschriften');
+  assert.equal(adaptSaxonText('Niedersächsisches Recht und Niedersachsen bleiben unberührt'), 'Niedersächsisches Recht und Niedersachsen bleiben unberührt');
+  assert.equal(hasSaxonResidual('DVOSächsBO'), true);
+  assert.equal(hasSaxonResidual('sächsicher Rechtsvorschriften'), true);
+  assert.equal(hasSaxonResidual('Niedersächsisches Recht'), false);
 });

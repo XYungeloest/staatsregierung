@@ -403,7 +403,8 @@ async function validateNormSourceReference(file, source, sourcePath) {
 }
 
 const REVOSAX_VERSION_URL = /^https:\/\/www\.revosax\.sachsen\.de\/vorschrift\/(\d+)(?:\.(\d+))?$/u;
-const R2_REVOSAX_OBJECT_KEY = /^revosax\/\d{4}-\d{2}-\d{2}\/(\d+)(?:\.(\d+))?\.html$/u;
+// Fassungsseiten (<lawId>[.<Fassung>].html) und nachgeladene Mantelvorschriften (envelope-<lawId>.html).
+const R2_REVOSAX_OBJECT_KEY = /^revosax\/\d{4}-\d{2}-\d{2}\/(?:envelope-)?(\d+)(?:\.(\d+))?\.html$/u;
 const R2_MANIFEST_PATH = join(root, 'data', 'recht', 'revosax-r2-manifest.json');
 let r2ManifestCache;
 
@@ -419,7 +420,9 @@ async function loadR2Manifest() {
 }
 
 function validateRevosaxProvenanceFields(file, source, sourcePath) {
-  if (typeof source.url !== 'string' || !REVOSAX_VERSION_URL.test(source.url)) {
+  // Die Mantelvorschrift einer Komponente wird mit dem Artikelanker zitiert (…#a44).
+  const officialUrl = source.sourceRole === 'envelope-snapshot' && typeof source.url === 'string' ? source.url.replace(/#[A-Za-z0-9_-]+$/u, '') : source.url;
+  if (typeof officialUrl !== 'string' || !REVOSAX_VERSION_URL.test(officialUrl)) {
     addProblem(file, `${sourcePath}.url muss eine konkrete amtliche REVOSax-Fassungs-URL sein`);
   }
   if (typeof source.lawId !== 'string' || !/^\d+$/u.test(source.lawId)) {
@@ -457,8 +460,10 @@ async function validateArchivedNormSourceReference(file, source, sourcePath) {
   if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
     addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
   }
-  if (source.sourceRole !== 'official-snapshot') {
-    addProblem(file, `${sourcePath}.sourceRole muss für eine in R2 archivierte REVOSax-Quelle official-snapshot sein`);
+  // official-snapshot: eigene amtliche Fassungsseite; envelope-snapshot: Mantelvorschrift,
+  // aus deren Artikel der Text einer eigenständig geführten Änderungsvorschrift stammt.
+  if (source.sourceRole !== 'official-snapshot' && source.sourceRole !== 'envelope-snapshot') {
+    addProblem(file, `${sourcePath}.sourceRole muss für eine in R2 archivierte REVOSax-Quelle official-snapshot oder envelope-snapshot sein`);
   }
   if (source.mediaType !== 'text/html') {
     addProblem(file, `${sourcePath}.mediaType muss für eine in R2 archivierte REVOSax-Quelle text/html sein`);
@@ -469,7 +474,7 @@ async function validateArchivedNormSourceReference(file, source, sourcePath) {
   if (keyMatch[1] !== source.lawId) {
     addProblem(file, `${sourcePath}.objectKey nennt die lawId ${keyMatch[1]}, die Quelle ${source.lawId}`);
   }
-  const urlMatch = typeof source.url === 'string' ? source.url.match(REVOSAX_VERSION_URL) : null;
+  const urlMatch = typeof source.url === 'string' ? source.url.replace(/#[A-Za-z0-9_-]+$/u, '').match(REVOSAX_VERSION_URL) : null;
   if (urlMatch && (urlMatch[1] !== keyMatch[1] || (urlMatch[2] ?? null) !== (keyMatch[2] ?? null))) {
     addProblem(file, `${sourcePath}.objectKey passt nicht zur amtlichen Fassungs-URL ${source.url}`);
   }
@@ -486,7 +491,9 @@ async function validateArchivedNormSourceReference(file, source, sourcePath) {
   if (entry.sha256 !== source.sha256) {
     addProblem(file, `${sourcePath}.sha256 stimmt nicht mit dem im R2-Manifest verzeichneten Objekt überein`);
   }
-  if (entry.url !== undefined && entry.url !== source.url) {
+  // Die Mantelvorschrift einer Komponente wird mit Artikelanker zitiert; das Manifest kennt die Seite ohne Anker.
+  const manifestComparableUrl = source.sourceRole === 'envelope-snapshot' && typeof source.url === 'string' ? source.url.replace(/#[A-Za-z0-9_-]+$/u, '') : source.url;
+  if (entry.url !== undefined && entry.url !== manifestComparableUrl) {
     addProblem(file, `${sourcePath}.url weicht von der im R2-Manifest verzeichneten amtlichen URL ab`);
   }
   if (source.bucket !== undefined && manifest.bucket !== undefined && source.bucket !== manifest.bucket) {
@@ -615,6 +622,9 @@ for (const { file, json } of records) {
       addProblem(file, `fachliche Zuständigkeit ist nicht als Norm-Ressort zugelassen: ${responsibility}`);
     }
 
+    if (json.originEnactingBody && !allowedEnactingBodies.has(json.originEnactingBody)) {
+      addProblem(file, `originEnactingBody ist nicht als Ursprungsorgan zugelassen: ${json.originEnactingBody}`);
+    }
     if (json.enactingBody && !allowedEnactingBodies.has(json.enactingBody)) {
       addProblem(file, `enactingBody ist nicht als erlassendes Organ zugelassen: ${json.enactingBody}`);
     }
@@ -956,7 +966,7 @@ for (const { file, json } of normMetaRecords) {
     addProblem(file, 'repealed setzt ein Außerkrafttreten am oder vor dem Stichtag voraus');
   }
 
-  for (const relation of ['enactedNorm', 'enactingNorm']) {
+  for (const relation of ['enactedNorm', 'enactingNorm', 'containedIn']) {
     const targetSlug = json[relation];
     if (!targetSlug) continue;
     const target = normMetaBySlug.get(targetSlug);
@@ -1094,10 +1104,14 @@ function citationFundstelle(value) {
 
 const possibleDuplicateNorms = new Map();
 for (const { file, json } of normMetaRecords) {
+  // Artikel derselben Mantelvorschrift können gleichlautende Titel und dieselbe Fundstelle
+  // tragen (mehrere Artikel ändern dasselbe Gesetz); der Artikelanker unterscheidet sie.
+  const envelopeAnchor = (json.sourceReferences ?? []).find((source) => source.sourceRole === 'envelope-snapshot')?.url ?? '';
   const duplicateKey = [
     normalizeDuplicateTitle(json.title ?? ''),
     citationFundstelle(json.initialCitation),
     json.effectiveDate ?? '',
+    envelopeAnchor,
   ].join('|');
   const candidates = possibleDuplicateNorms.get(duplicateKey) ?? [];
   candidates.push({ file, json });
@@ -1110,6 +1124,7 @@ for (const candidates of possibleDuplicateNorms.values()) {
       candidate.json.enactedNorm,
       ...(candidate.json.enactedNorms ?? []),
       candidate.json.enactingNorm,
+      candidate.json.containedIn,
     ].filter(Boolean));
     const unrelated = candidates.filter((other) => other !== candidate && !relatedSlugs.has(other.json.slug));
     if (unrelated.length > 0) {
