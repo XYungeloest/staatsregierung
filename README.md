@@ -315,38 +315,60 @@ D1-Sync aus (`scripts/classify-change-scope.mjs`).
 Der vollständige technische Ablauf und die Cloudflare-Schritte stehen in
 [`docs/REVOSAX_BULK_IMPORT.md`](docs/REVOSAX_BULK_IMPORT.md).
 
-**Stand 3. September 2026 (Branch `revosax-bulk-import-d1-r2`, Draft-PR #18):** Discovery
+**Stand 4. September 2026 (Branch `revosax-bulk-import-d1-r2`, Draft-PR #18):** Discovery
 (5.092 Listenzeilen, 5.089 eindeutige Fassungen, fail-closed verifiziert), Vollstaging
-(5.089/5.089 ohne Parser-, Adapter- oder Reststellenfehler), Rechtsüberleitungsanpassung,
-R2-Provenienz im Normschema, Materialisierungsplan (`CREATE` 3.346, `MATCH` 7, `PROTECT` 52,
-`REVIEW` 0, `SKIP` 1.684), R2-Archivierung (3.354 Objekte), Materialisierung (3.587 Normen in
-`content/normen`), D1-Schema und -Sync, die
-D1-gestützte OstRecht-Laufzeit (Norm-, Fassungs-, Historien-, Vergleichs-, Such-, Verkündungs- und
-Sitemap-Routen on demand, Vergleiche nur für das angefragte Paar) und die CI-Trennung sind
-umgesetzt. Offen bleiben:
+(5.089/5.089 ohne Parser-, Adapter- oder Reststellenfehler), Rechtsüberleitungsanpassung mit
+korpusweitem End-Audit (0 Reststellen im übernommenen Recht), R2-Provenienz im Normschema,
+Materialisierungsplan mit Klassifizierung der Mantelbestandteile, R2-Archivierung der Rohquellen
+und aller 890 PDF-Anlagen, Materialisierung (3.346 Stammfassungen und Änderungsakte plus 1.521
+Artikel von Mantelvorschriften als eigene Änderungsvorschriften; 4.867 übernommene Normen, 5.108
+Normen insgesamt), versionierter Import-Audit,
+D1-Schema, inkrementeller D1-Sync, die D1-gestützte OstRecht-Laufzeit, getrennte Staging-Ressourcen
+und die CI-Trennung sind umgesetzt. Die vollständige Bilanz steht in
+`data/recht/revosax-import-audit/summary.json` und geht exakt auf: 5.089 eindeutige Treffer =
+4.867 eigene Normen + 7 redaktionell vorhandene (MATCH) + 52 geschützte Ost-Normen + 101 zurückgestellte
+Reviewfälle + 62 begründete SKIPs (40 Doppelerfassungen desselben Artikels einer Mantelvorschrift,
+8 Aliasse derselben Fassung, 2 identische Vorgängertexte, 9 in REVOSax textlose Einträge,
+1 Doppelerfassung, 2 PDF-only-Entscheidungen).
 
-- [ ] **Anlagen archivieren.** 230 der übernommenen Normen verweisen auf 890 REVOSax-Anlagen (PDF).
-  Die Verweise stehen im Stagingbericht; die Dateien sind noch nicht in `ostrecht-recht-quellen`
-  archiviert und nicht als Quellen verzeichnet.
-- [ ] **`MATCH`-Fälle redaktionell nachziehen.** Sieben vorhandene Normen (z. B. `wappenverordnung`)
-  haben keine Fassung zum 1. November 2023; die REVOSax-Fassung liegt archiviert in R2, die
-  Ergänzung der Fassungshistorie bleibt Handarbeit mit Prüfung der bestehenden Fassungen.
-- [ ] **Prüfmarken des Stagings sichten.** Vor allem 287 × „Quelle endet ohne Nachfolger“ und
-  250 × „kein Erlassdatum“ sind informativ und sollten redaktionell durchgesehen werden.
-- [ ] **Abgeleitete Metadaten nachschärfen.** Sachgebiete, Schlagwörter, Kurzfassung und Erlassorgan
-  der übernommenen Normen sind deterministisch aus Typ, Ressort und Titel abgeleitet
-  (`scripts/lib/revosax-metadata.mjs`) und bestehen die Content-Regeln, bleiben aber generisch
-  (z. B. Sachgebiet „Landesrecht“); eine redaktionelle Verfeinerung ist offen.
+Release-Gates vor dem Merge (PR bleibt Draft):
+
+- [ ] **Remote-D1 gegen Git verifizieren.** `npm run norms:runtime:d1-verify` (Zähler,
+  `corpus_hash`, Stichproben) ist nur lokal gegen die Miniflare-Projektion grün; die produktive
+  Datenbank antwortet nach dem Vollsync mit Fehler 7500, weil das D1-Free-Tier-Leselimit (5 Mio.
+  Zeilen/Tag) erschöpft ist. Für den Betrieb mit dem Vollbestand ist Workers Paid nötig; der
+  inkrementelle Sync (`--git-diff`) hält den laufenden Betrieb klein, der einmalige Vollsync nach
+  dieser Materialisierung steht noch aus.
+- [ ] **Produktions-Smoke** (`npm run test:deployment:production`) nach dem ersten Deployment mit
+  D1-Laufzeit; bis dahin ist die Runtime nur lokal (Miniflare) und per `wrangler dev --remote`
+  geprüft.
 - [ ] **CI-Token erweitern.** Der Job `d1_sync` braucht für `CLOUDFLARE_API_TOKEN` zusätzlich
   `D1 Read`/`D1 Write` für `ostrecht-recht`; Migrationen unter `data/recht/d1/` werden bewusst
   manuell mit `wrangler d1 execute` eingespielt.
-- [ ] **Staging-Umgebung trennen.** `wrangler.jsonc` bindet in `staging` und Produktion dieselbe
-  D1-Datenbank und denselben R2-Bucket; ein getrenntes Staging braucht eigene Ressourcen.
-- [ ] **Cloudflare-Plan für D1 klären.** Der Vollsync des Stichtagsbestands hat am 3. September
-  2026 das Tageslimit des D1-Free-Tiers für Zeilenlesevorgänge (5 Mio./Tag) erschöpft; die
-  abschließende Remote-Prüfung (`npm run norms:runtime:d1-verify`) konnte an diesem Tag nur gegen
-  die lokale Projektion laufen. Für den produktiven Betrieb mit 3.587 Normen und wiederkehrende
-  Vollsyncs ist Workers Paid nötig oder der Sync muss inkrementell werden.
+
+Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identifiziert):
+
+- [ ] **Zurückgestellte Mantelbestandteile** (`DEFER` in `data/recht/revosax-baseline-decisions.json`,
+  Details in `data/recht/revosax-import-audit/envelopes.json`): 101 Artikel, deren Zuordnung nicht
+  maschinell gesichert ist – der REVOSax-Anker zeigt auf einen anderen Artikel und keine
+  Artikelüberschrift entspricht dem eigenen Titel, kein Anker, kein Artikelkennzeichen oder eine
+  weiterleitende Mantelvorschrift. Jeder Fall nennt Mantelvorschrift, Anker und Grund.
+- [ ] **PDF-only-Vorschriften.** 1018 (Europäisches Übereinkommen über das grenzüberschreitende
+  Fernsehen: Haupttext nur als Scan ohne Textebene) und 17114 (Fragebogen-Anlage); Anlagen sind
+  hashverifiziert in R2, Materialisierung bleibt Reviewfall.
+- [ ] **Prüfmarken sichten.** „Quelle endet ohne Nachfolger“ ist in `review-flags.json` eingeordnet:
+  275 × Typ A (Gültigkeitsende nach dem Stichtag ohne Befristung im Text, spätere sächsische
+  Rechtsänderung ohne Wirkung für Ostdeutschland), 7 × Typ B (Befristung im übernommenen Text,
+  möglicherweise ostdeutsch wirksam – Review) und 2 × unklar. 249 Fassungen tragen das Erlassdatum
+  aus der amtlichen REVOSax-Trefferliste, eine (1018) hat keines.
+- [ ] **Altbestand mit sächsischen Bezeichnungen.** Der Korpus-Audit führt die vor dem
+  Rechtsüberleitungsadapter aus `Gesetze/` übernommenen Normen (z. B. `landesbeamtengesetz`,
+  Titel „Sächsisches Beamtengesetz“) als versionierten Rückstand in
+  `data/recht/ost-residual-backlog.json`; jede Abweichung lässt `content:check` fehlschlagen.
+  Nachziehen über die Konsolidierung aus `Gesetze/`.
+- [ ] **Abgeleitete Metadaten nachschärfen.** Sachgebiete, Schlagwörter und Kurzfassung der
+  übernommenen Normen sind deterministisch aus Typ, Ressort und Titel abgeleitet und generisch;
+  `originEnactingBody` nennt bewusst das sächsische Ursprungsorgan als Provenienz.
 
 ### Sitzungsmediathek der Volkskammer
 
