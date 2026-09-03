@@ -427,15 +427,15 @@ Das Repository wird als Runtime-Projektion nach D1 gespiegelt; genau eine Umfang
 ein Aufruf ohne Umfang bricht ab:
 
 ```sh
-npm run norms:runtime:d1-sync -- --stamp-fingerprint          # nur Fingerabdruck neu schreiben (fail-closed, s. u.)
-npm run norms:runtime:d1-sync -- --full                       # Initialimport, Recovery, bewusste Vollprojektion
-npm run norms:runtime:d1-sync -- --slug foo --slug bar        # gezielte Normen
+npm run norms:runtime:d1-sync -- --stamp-fingerprint          # nur Identität neu schreiben (fail-closed, s. u.)
+npm run norms:runtime:d1-sync -- --full --budget full         # Initialimport, bewusste Vollprojektion
+npm run norms:runtime:d1-sync -- --slug foo --slug bar        # gezielte Normen (Teilsync, Identität bleibt)
 npm run norms:runtime:d1-sync -- --delete alt-slug            # aus Git entfernte Normen samt abhängiger Zeilen löschen
 npm run norms:runtime:d1-sync -- --publications               # Verkündungstabelle neu schreiben
-npm run norms:runtime:d1-sync -- --git-diff <base> <head>     # Umfang aus dem Git-Diff (CI)
-npm run norms:runtime:d1-sync -- --changed-paths pfade.txt    # Umfang aus einer Pfadliste
-npm run norms:runtime:d1-sync -- --full --database ostrecht-recht-staging   # Staging-Datenbank (Wrangler)
-npm run norms:runtime:d1-verify                               # Git ↔ D1 (Zähler, Fingerabdruck, Stichproben)
+npm run norms:runtime:d1-sync -- --git-diff <base> <head> --budget incremental --recover   # CI (Base-State-Guard)
+npm run norms:runtime:d1-sync -- --changed-paths pfade.txt    # Umfang aus einer Pfadliste (Teilsync)
+npm run norms:runtime:d1-sync -- --full --budget full --database ostrecht-recht-staging   # Staging-Datenbank (Wrangler)
+npm run norms:runtime:d1-verify -- --fts-integrity            # Git ↔ D1 (Zähler, Identität, Scope, Stichproben)
 ```
 
 Umfangslogik (`scripts/lib/d1-sync-scope.mjs`, `tests/recht-d1-sync-scope.test.mjs`): Pfade unter
@@ -453,7 +453,7 @@ entfiel – sonst nur für die geänderte Norm. Eine Löschung entfernt `law_sea
 `norm_count`, `publication_count`, `corpus_hash` = Fingerabdruck über Slugs, Fassungen und
 Verkündungen des Git-Bestands, den `d1-verify` gegen das Repository prüft).
 
-Schema: `data/recht/d1/0001_rechtsbestand.sql` bis `0005_search_units.sql` (manuell mit
+Schema: `data/recht/d1/0001_rechtsbestand.sql` bis `0006_index_letter_keywords.sql` (manuell mit
 `wrangler d1 execute <Datenbank> --remote --file …` anwenden – zuerst lokal, dann Staging, dann
 Produktion; lokal `--apply-schema`). Tabellen:
 
@@ -470,12 +470,19 @@ Produktion; lokal `--apply-schema`). Tabellen:
 | `law_search` | FTS5-Index mit externem Inhalt über `law_search_units` (`content_rowid = id`), per Trigger rowid-genau geführt |
 | `law_norm_subjects` | Sachgebietszuordnung je Norm (`subject_slug`, indiziert) |
 | `law_norm_history` | Historieneinträge je Norm, Index auf `(change_type, change_date)` |
-| `law_runtime_meta` | `last_sync_at`, `norm_count`, `publication_count`, `corpus_hash`, `projection_fingerprint`, `sync_mode`, `search_filters_json`, `search_document_count`, `search_publications_json`, `subject_groups_json`, `subject_areas_json`, `corpus_stats_json` |
+| `law_norm_keywords` | Stichwortindex (Abkürzung, Kurzbezeichnung, Schlagwörter) je Norm mit Buchstabengruppe, Index `(index_letter, keyword, norm_id)` (0006) |
+| `law_runtime_meta` | `last_sync_at`, `norm_count`, `publication_count`, `corpus_hash`, `projection_fingerprint`, `projection_scope`, `projection_logic_hash`, `corpus_content_hash`, `portal_content_hash`, `sync_state`, `sync_mode`, `search_filters_json`, `search_document_count`, `search_publications_json`, `subject_groups_json`, `subject_areas_json`, `corpus_stats_json` |
 
 Seit Migration 0005 trägt `law_norms` zusätzlich schmale Übersichtsspalten (`subjects_json`,
 `primary_subject`, `keywords_json`, `aliases_json`, `origin_kind`, `origin_baseline_version_id`,
 `origin_last_own_change_date`, `version_count`, `last_change_date`); die Migration übernimmt die
 bisherigen Suchzeilen einmalig in die relationale Tabelle und baut den Index neu (`rebuild`).
+Migration 0006 ergänzt `law_norms.index_letter` (A–Z oder `#`, dieselbe Regel wie
+`getGermanIndexLetter`: erstes Zeichen des Titels, Ä/Ö/Ü wie A/O/U) mit Index
+`(index_letter, sort_title)`, Indizes `(origin_kind, sort_title)`, `(status, sort_title)`,
+`(type, sort_title)` sowie die Tabelle `law_norm_keywords`; bestehende Zeilen füllt sie per SQL
+(`json_each` über `keywords_json`), der Sync schreibt dieselben Werte je Norm, und `PRAGMA optimize`
+aktualisiert die Planerstatistik.
 
 **Kostenpfad (Migration 0005).** Bis 0004 scannte `DELETE FROM law_search WHERE norm_id = ?` den
 gesamten Volltextindex, weil `norm_id` in einer FTS5-Tabelle UNINDEXED ist – lokal mit Miniflare
@@ -496,32 +503,59 @@ Verkündungen, 1.266 Provisionen, 2.551 Anweisungen) 151 gelesene / 9.507 geschr
 gelesene / 289 geschriebene Zeilen; der erneute Lauf bei unverändertem Stand 8 gelesene / 0
 geschriebene Zeilen (No-op).
 
-**Projektionsfingerabdruck.** `scripts/lib/d1-projection-fingerprint.mjs` bildet aus reinen
-Inhaltshashes (SHA-256 je Datei, sortierte Pfade; keine Änderungszeiten; nur Dateien, die Git
-kennt – ignorierte Dateien wie `.DS_Store` zählen nicht, sonst wichen lokaler Arbeitsbaum und
-CI-Checkout voneinander ab) den Fingerabdruck der
-Projektionslogik (Migrationen, Sync, Umfangsbestimmung, `packages/shared/src/lib/norms/**`,
-Portalbezüge, Konfiguration, `packages/recht-search/src/**`), des Rechtsbestands (`content/normen`,
-`content/verkuendungen`) und der Portalgrundlagen (`content/themen`, `content/presse`). Der Sync
-schreibt ihn als `projection_fingerprint` und liest ihn vor jedem Lauf (eine Zeile): bei
-Gleichheit endet er ohne Schreibzugriff mit „D1-Projektion ist bereits exakt aktuell; kein Sync
-erforderlich.“ – so bleibt der `d1_sync`-Job nach dem Merge ein No-op, wenn die produktive
-Datenbank zuvor kontrolliert auf den Endstand gebracht wurde. `--ignore-fingerprint` erzwingt den
-Lauf; `d1-verify` vergleicht den Fingerabdruck mit dem Repository. Ändert sich nur die
-Berechnung des Fingerabdrucks, nicht die Projektion, schreibt `--stamp-fingerprint` die drei
-Metadatenzeilen neu – ausschließlich, wenn `corpus_hash`, `norm_count` und `publication_count`
-in D1 exakt dem Repository entsprechen.
+**Projektionsidentität (Fingerabdruck plus Scope).** `scripts/lib/d1-projection-fingerprint.mjs`
+bildet aus Git-Blob-Kennungen (SHA-1 über Inhalt, keine Änderungszeiten; Arbeitsbaum über
+`git ls-files --cached --others --exclude-standard` und `git hash-object --stdin-paths`, ein Git-Ref
+über `git ls-tree -r`, ohne den Arbeitsbaum umzuschalten) die Hashes der Projektionslogik
+(Migrationen, Sync, Umfangsbestimmung, `packages/shared/src/lib/norms/**`, Portalbezüge,
+Konfiguration, `packages/recht-search/src/**`), des Rechtsbestands (`content/normen`,
+`content/verkuendungen`) und der Portalgrundlagen (`content/themen`, `content/presse`). Der
+Fingerabdruck ist der SHA-256 über diese drei Hashes **und den Scope**: `full` für den gesamten
+Bestand, `fixture:<Pfad>@<Inhaltshash>` für ein Testfixture (`--corpus-filter`). Ein Fixture kann
+deshalb nie dieselbe Identität wie der Vollbestand behaupten, und zwei Fixtures unterscheiden sich
+(`tests/d1-projection-fingerprint.test.mjs`, `tests/recht-d1-sync-guard.test.mjs`, Fälle A–E).
+Der Sync legt `projection_fingerprint`, `projection_scope`, die Teilhashes und `sync_state =
+complete` in `law_runtime_meta` ab und liest sie vor jedem Lauf (eine Abfrage). No-op nur, wenn
+Fingerabdruck **und** Scope übereinstimmen und der Zustand vollständig ist: „D1-Projektion ist
+bereits exakt aktuell; kein Sync erforderlich.“ `--ignore-fingerprint` erzwingt eine Vollprojektion;
+`d1-verify` vergleicht Fingerabdruck, Scope (`--corpus-filter` für Fixture-Datenbanken) und
+`sync_state`. Ändert sich nur die Berechnung der Identität, nicht die Projektion, schreibt
+`--stamp-fingerprint` die Identitätszeilen neu – ausschließlich für den Vollbestand und nur, wenn
+`corpus_hash`, `norm_count` und `publication_count` in D1 exakt dem Repository entsprechen.
+
+**Base-State-Guard für inkrementelle Läufe.** Ein `--git-diff <base> <head>`-Sync projiziert nur
+den Diff; das ist nur korrekt, wenn D1 vorher genau den Stand von `<base>` trägt. Deshalb berechnet
+der Sync die erwartete Identität des Basis-Refs (`projectionIdentityAtRef`) und schreibt erst, wenn
+`projection_fingerprint` in D1 gleich dieser Basisidentität, der Scope `full` und der Zustand
+`complete` ist (`decideSyncAction`). Sonst fail-closed mit klarer Fehlermeldung – oder, mit
+`--recover`, eine ausdrücklich als Recovery markierte Vollprojektion mit dem Budgetprofil
+`recovery`. Eine leere, teilweise projizierte (`sync_state = incremental-in-progress`), mit einem
+Fixture bespielte oder fremde Datenbank wird nie als Basis anerkannt; ein identischer Head ist ein
+echter No-op; geänderte Projektionslogik erzwingt die Vollprojektion. Der inkrementelle Lauf
+entwertet die Identität vor dem ersten Schreibzugriff (Fingerabdruck entfernt, `sync_state` auf
+in-progress) und schreibt sie erst am erfolgreichen Ende; ein abgebrochener Lauf hinterlässt damit
+einen Zustand, den der nächste automatische Lauf erkennt und per Recovery repariert. Manuelle
+Teilsyncs (`--slug`, `--delete`, `--publications`, `--changed-paths`) verlangen eine vollständige
+Identität im selben Scope, schreiben aber keine neue Identität (nur `last_sync_at` und
+`sync_mode = manual-partial`), weil sie D1 nicht nachweisbar auf den Stand des Arbeitsbaums bringen.
 
 **Kostenzähler und Budgets.** Beide Transporte summieren aus den D1-Antworten Abfragen, Batches
-bzw. Dateien, `rows_read`, `rows_written` und Dauer („D1-Kosten: …“). `--max-rows-read <n>` und
-`--max-rows-written <n>` brechen den Lauf ab, sobald das Budget überschritten ist (Fehler mit
-Zählern; Laufzeitmetadaten werden dann nicht geschrieben). `--dry-run` schätzt Umfang und Kosten:
-Normen, Anweisungen je Tabelle, Modus, Derived-Rebuild, Suchprovisionen, geschätzte
-`rows_written` (Spanne wegen der FTS5-Schattentabellen) und `rows_read`.
+bzw. Dateien, `rows_read`, `rows_written` und Dauer („D1-Kosten: …“). Budgets stehen zentral in
+`data/recht/d1-sync-budgets.json` (Profile `incremental` 60.000 / 120.000, `full` und
+`recovery` 500.000 / 900.000, `fixture` 20.000 / 40.000 gelesene / geschriebene Zeilen; abgeleitet
+aus der produktiven Vollprojektion mit 103.403 / 465.926 Zeilen und dem Einzelsync mit 155 / 289).
+`--budget <Profil>` wählt ein Profil, `--max-rows-read`/`--max-rows-written` überschreiben einzelne
+Grenzen. Vor dem ersten Schreibzugriff prüft der Sync die kalibrierte Planschätzung (rows_written ≈
+Anweisungen × 1,25 + Suchprovisionen × 14 für die FTS5-Schattentabellen; rows_read ≈ Anweisungen,
+inkrementell × 2) gegen das Budget und bricht mit 0 Schreibzugriffen ab, wenn sie darüber liegt;
+während des Laufs bricht er ab, sobald die realen Zähler das Budget überschreiten (Identität und
+Laufzeitmetadaten werden dann nicht geschrieben, der Base-State-Guard erkennt den Teilzustand
+beim nächsten Lauf). `--dry-run` zeigt Umfang, Anweisungen je Tabelle, Modus, Derived-Rebuild,
+Suchprovisionen, Schätzung und Budget.
 
 **Testfixture.** `--corpus-filter data/recht/runtime-fixture.json` (nur lokal oder gegen Staging,
 nie gegen `ostrecht-recht`) beschränkt den Bestand auf die 38 Fixture-Normen; Ableitungen und
-Übersichtsmetadaten beziehen sich dann auf das Fixture.
+Übersichtsmetadaten beziehen sich dann auf das Fixture, und die Identität trägt den Fixture-Scope.
 
 Der Sync lädt den gesamten Bestand über den gemeinsamen Loader (validiert also jede Norm), berechnet
 die korpusweiten Ableitungen mit `packages/shared/src/lib/norms/derived.ts` (derselbe Code wie die
@@ -613,9 +647,13 @@ mit dieser erzeugten Konfiguration.
 - Gelesene Zeilen je Route (D1 zählt Zeilen; aus den SQL-Formen der Store-Methoden, mit dem
   Vollbestand von 5.207 Normen): Startseite ≈ 1 (`last_sync_at`) + 3 Metadatenzeilen + 2 × 12
   Historieneinträge + 4 Verkündungen; Typübersichten (`/gesetze/` usw.) genau die Zeilen des Typs
-  (Index `type`) plus je eine Fassungszeile; A–Z und Rechtsentwicklung alle 5.207
-  Übersichtszeilen (schmal, ohne Fassungs- und Körper-JSON) – vorher 10.400 Zeilen mit
-  `meta_json`, `history_json` und allen `version_json`; Sachgebietsseite die Normen des Sachgebiets
+  (Index `type`) plus je eine Fassungszeile; A–Z und Rechtsentwicklung eine Seite von höchstens
+  50 Übersichtszeilen (`queryNormSummaries`: `COUNT(*)` plus `LIMIT`/`OFFSET` über die Indizes
+  `index_letter`, `origin_kind`, `type`, `status` und `law_norm_subjects`; Freitext als
+  `LIKE` über die schmalen Spalten und `law_norm_keywords`), dazu 27 Buchstabenzähler
+  (`GROUP BY index_letter`, je Sync-Stand zwischengespeichert) bzw. vier Herkunftszähler und der
+  Stichwortindex der gewählten Buchstabengruppe – vorher alle 5.207 Übersichtszeilen und davor
+  10.400 Zeilen mit `meta_json`, `history_json` und allen `version_json`; Sachgebietsseite die Normen des Sachgebiets
   über `law_norm_subjects`; Suche „Polizei“ FTS-Treffer (`MATCH`, `GROUP BY slug`, 120 Kandidaten)
   + Suchdokumente der Kandidaten + passende Provisionen (`MATCH … AND slug IN (…)`) + 1
   Metadatenzeile für die Verkündungsdaten – vorher zusätzlich alle 137 Verkündungs-JSONs über den
@@ -627,10 +665,13 @@ mit dieser erzeugten Konfiguration.
   Sachgebiete 11 / 8 ms, Sachgebiet Kommunal- und Verwaltungsrecht 26 ms (146 KB), Fundstellen
   42 ms, Verkündung 8 ms, Sitemap 202 ms (1,5 MB), Vorschlagsliste 180 ms (1,9 MB), Suche „Polizei“
   76 / 73 ms (1,9 MB), Gemeindeordnung 113 / 92 ms, größte Norm (Kostenverzeichnis, 1 MB HTML)
-  679 / 650 ms, Mantelbestandteil 13 ms. Die Seiten A–Z (`/archiv/`, 8,2 MB, ≈ 1,4 s) und
-  Rechtsentwicklung (7,3 MB, ≈ 0,7 s) rendern weiterhin den gesamten Bestand in eine Seite; ihre
-  Datenzugriffe sind schmal, die Seitengröße ist eine offene Folgearbeit (Aufteilung nach
-  Buchstaben bzw. Paginierung).
+  679 / 650 ms, Mantelbestandteil 13 ms. A–Z (`/archiv/?buchstabe=A`) und Rechtsentwicklung
+  (`/rechtsentwicklung/?origin=…&type=…&subject=…&status=…&q=…&seite=N`) filtern und paginieren
+  serverseitig über GET-Parameter (Buchstabenleiste mit `aria-current`, Seitennavigation mit
+  `rel="prev"/"next"`, Titel „… (Seite N von M)“, kanonische Adresse mit Auswahl, gefilterte
+  Rechtsentwicklungsseiten `noindex`, leere Treffermengen mit Hinweis, ohne JavaScript nutzbar –
+  Auswahländerungen senden das Formular nur zusätzlich sofort ab); Messwerte nach der Umstellung
+  siehe Release-Hardening unten.
 - Öffentliche URLs sind unverändert; `scripts/check-links.mjs` und `scripts/check-seo.mjs` erkennen
   On-demand-Routen aus den Seitenquellen und prüfen die Sitemap im Deployment-Smoke.
 
@@ -650,18 +691,24 @@ mit dieser erzeugten Konfiguration.
 
 Der Workflow `.github/workflows/deploy.yml` führt den Job `d1_sync` (nur bei `push`, nach dem
 Build, mit `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` aus den Repository-Secrets) vor dem
-Deployment aus: `npm run norms:runtime:d1-sync -- --transport api --git-diff <before> <sha>`, also nur
-die im Push geänderten Normen und Verkündungen; eine Vollprojektion nur bei geänderter
-Projektionslogik oder ohne bekannten Vorgängerstand. Ein manuelles `workflow_dispatch`-Deployment
-schreibt die Projektion nicht. Der Token braucht dafür zusätzlich `D1 Read`/`D1 Write` für die
-Datenbank `ostrecht-recht`.
+Deployment aus: `npm run norms:runtime:d1-sync -- --transport api --git-diff <before> <sha>
+--budget incremental --recover`, also nur die im Push geänderten Normen und Verkündungen; eine
+Vollprojektion bei geänderter Projektionslogik, ohne bekannten Vorgängerstand (`--full --budget
+full`) oder – als markierte Recovery mit dem Profil `recovery` – wenn D1 nicht die Identität des
+Vorgänger-Commits trägt. Bei unverändertem Stand (Identität und Scope identisch) ist der Lauf ein
+No-op; Budgetüberschreitungen brechen vor bzw. während des Schreibens ab und lassen das Deployment
+fehlschlagen. Ein manuelles `workflow_dispatch`-Deployment schreibt die Projektion nicht. Der Token
+braucht dafür `D1 Read`/`D1 Write` für die Datenbank `ostrecht-recht`.
 
 Staging: `apps/recht/wrangler.jsonc` bindet unter `env.staging` ausdrücklich eigene Ressourcen
-(D1 `ostrecht-recht-staging`, R2 `ostrecht-recht-quellen-staging`; beide angelegt, Schema
-0001–0004 eingespielt, Datenbank noch leer). Wrangler-Environments erben Bindings nicht; ohne diese
-Angaben hätte staging keine Datenbank. Die produktive Datenbank wird von staging nie beschrieben;
-Seeding: `npm run norms:runtime:d1-sync -- --full --database ostrecht-recht-staging`
-(Wrangler-Transport). `tests/wrangler-config.test.mjs` prüft die Konfiguration.
+(D1 `ostrecht-recht-staging`, R2 `ostrecht-recht-quellen-staging`; Schema 0001–0006 eingespielt).
+Wrangler-Environments erben Bindings nicht; ohne diese Angaben hätte staging keine Datenbank. Die
+produktive Datenbank wird von staging nie beschrieben; Seeding des Vollbestands:
+`npm run norms:runtime:d1-sync -- --full --budget full --database ostrecht-recht-staging`
+(Wrangler-Transport), Worker: `npm run deploy:recht:staging`. Staging ist das Release-Gate mit dem
+Vollbestand: Migration, Vollprojektion, `d1-verify --fts-integrity`, Worker-Deployment und
+Routenprüfung laufen dort, bevor die produktive Datenbank berührt wird.
+`tests/wrangler-config.test.mjs` prüft die Konfiguration.
 
 Browser-Smoke- und Barrierefreiheitstests (`tests/browser-smoke.spec.ts`, `tests/accessibility.spec.ts`)
 laufen für OstRecht gegen den gebauten Worker: `scripts/serve-law-worker.mjs` projiziert `content/`
@@ -672,16 +719,20 @@ wählt ein anderes Verzeichnis) und startet `wrangler dev --local` auf Port 4322
 projizieren nur das repräsentative Testfixture `data/recht/runtime-fixture.json` (38 Normen:
 Stammnormen mit mehreren und historischen Fassungen, Änderungsakte, Mantelbestandteil samt
 Mantelvorschrift, größte Norm mit Tabellen, Anlagen, Status- und Sachgebietsfälle, alle
-Verkündungen; jede Zeile begründet) – `OSTRECHT_D1_FIXTURE` in der Job-Umgebung beider Smoke-Jobs,
-Seeding in rund einer Minute statt 14 bis 16 Minuten je Job. Der Vollbestand läuft als Release-Gate
-in `deploy.yml`, manuell und wöchentlich in `.github/workflows/full-corpus-smoke.yml`
-(`workflow_dispatch`, Montag 03:30 UTC). Die produktive Datenbank wird dabei nie berührt.
+Verkündungen; jede Zeile begründet) – `OSTRECHT_D1_FIXTURE` in der Job-Umgebung beider
+PR-Smoke-Jobs, Seeding in rund einer Minute statt 14 bis 16 Minuten je Job; die Identität der
+Fixture-Projektion trägt den Scope `fixture:…`. Der Vollbestand läuft als Release-Gate in
+`deploy.yml` in genau einem Job `full_runtime_smoke` (ein einziges Seeding, danach
+`d1-verify --fts-integrity`, A11y- und Browser-Smoke gegen denselben Worker) sowie manuell und
+wöchentlich in `.github/workflows/full-corpus-smoke.yml` (`workflow_dispatch`, Montag 03:30 UTC).
+Die produktive Datenbank wird dabei nie berührt.
 
 Berührt ein Pull Request die D1-Projektion (`run_d1_sync`), prüft der Job `d1_token_check` das
 Repository-Secret `CLOUDFLARE_API_TOKEN` mit dem API-Transport: lesend gegen die produktive
-Datenbank (nur Fingerabdruck, `--dry-run`, kein Schreibzugriff) und schreibend gegen
-`ostrecht-recht-staging` (Verkündungen des Testfixtures, idempotent). Forks erhalten keine Secrets
-und überspringen den Job; `d1-token-check.yml` bietet dieselbe Prüfung manuell.
+Datenbank (nur Identität, `--dry-run`, kein Schreibzugriff) und schreibend gegen
+`ostrecht-recht-staging` (Verkündungstabelle als Teilsync im Scope `full`, idempotent, ohne
+Änderung der gespeicherten Identität). Forks erhalten keine Secrets und überspringen den Job;
+`d1-token-check.yml` bietet dieselbe Prüfung manuell.
 
 Unit-Tests (`npm run test:unit`, Heap 4 GB) laden den Bestand über `tests/helpers/corpus.ts` nur
 einmal je Testprozess; der Suchindex für die browserseitige Suchlogik wird aus dem redaktionellen
@@ -719,18 +770,42 @@ Snapshot-Audit vergleicht die gespeicherte Zitierung mit der übergeleiteten erw
 (nur amtliche Quellen unter `Gesetze/`) dürfen Sachsen-Bezüge nur tragen, wenn die Stelle wörtlich in
 der amtlichen HTML-/Markdown-Quelle steht (Buchstabenfenster um den Treffer) oder – bei reinen
 PDF-Quellen – eine dokumentierte, an den SHA-256 des PDF gebundene Prüfung in
-`data/recht/ost-residual-backlog.json` (`pdfVerifications`) vorliegt. Ergebnis: 0 Reststellen im
-übergeleiteten Recht, leerer Rückstand (0 Normen / 0 Stellen), 193 amtlich belegte Sachsen-Bezüge
-in 48 eigenen Erlassen (nachrichtlich), eine PDF-Prüfung.
+`data/recht/ost-residual-backlog.json` (`pdfVerifications`) vorliegt. Der Scanner
+(`findSaxonResiduals` in `scripts/lib/revosax-ost-adapter.mjs`) meldet jede Fundstelle jedes
+Strings einzeln (Token, Index, Kontext, Buchstabenfenster, Art) – zwei Sachsen-Bezüge in einem Satz
+sind zwei Fundstellen, die getrennt belegt sein müssen; geschützte Fundstellenkürzel
+(`SächsGVBl.`, `SächsABl.` …), „Sachsen-Anhalt“ sowie Web- und E-Mail-Adressen zählen nicht,
+`SächsVerfGHG` und Adapterartefakte wie „Niederostdeutsch…“ werden erkannt. Ergebnis: 0 Reststellen
+im übergeleiteten Recht, leerer Rückstand (0 Normen / 0 Stellen), 228 amtlich belegte
+Sachsen-Bezüge in 48 eigenen Erlassen (nachrichtlich; mit dem früheren Scanner, der nur die erste
+Fundstelle je Feld zählte, waren es 193), eine PDF-Prüfung.
 
-## Noch offene Schritte (Release-Gates)
+## Befristungen aus dem übernommenen Text
 
-- Migration 0005 und Neuprojektion der produktiven D1 mit dem kostensicheren Vollpfad, danach
-  `d1-verify` und Projektionsfingerabdruck (Release-Gate im README); Produktions-Smoke nach dem
-  ersten Deployment mit D1-Laufzeit; Workers Paid für den Betrieb mit dem Vollbestand.
-- PDF-only-Vorschriften 1018 (Übereinkommen als Scan ohne Textebene) und 17114 (Fragebogen-Anlage):
-  Anlagen sind archiviert, Materialisierung bleibt Reviewfall.
-- Prüfmarken sichten: Typ-B- und unklare „Quelle endet ohne Nachfolger“-Fälle sowie Fassungen ohne
-  Erlassdatum in `data/recht/revosax-import-audit/review-flags.json`.
+Die Prüfmarke `source-ended-without-successor` (Quelle endet in REVOSax nach dem Stichtag ohne
+Nachfolgefassung) wird im Import-Audit eingeordnet: Typ A (kein Befristungsdatum im Text) ist eine
+spätere rein sächsische Rechtsänderung ohne Wirkung in Ostdeutschland; Typ B (Befristung im
+übernommenen Text, die zum Quellenende passt) gilt in Ostdeutschland fort. Die Entscheidungen
+stehen mit wörtlichem Beleg in `data/recht/revosax-sunset-decisions.json` (Schlüssel: sourceId):
+`sunset-applies` lässt `scripts/materialize-revosax-baseline.mjs` (`applySunsetDecision`)
+`expiryDate`, `validTo` der Ausgangsfassung, den Status (`repealed`, sobald das Datum verstrichen
+ist; sonst `in-force` mit künftigem Ende) und einen Historieneintrag „Außer Kraft getreten durch
+Befristung im übernommenen Text“ schreiben – deterministisch, auch bei `--regenerate`; `open`
+lässt die Norm unverändert und hält den Fall dokumentiert. Stand: 7 Förderrichtlinien mit
+Außerkrafttreten zum 31. Dezember 2023 (`repealed`), der Maßnahmekatalog Bienen mit Befristung auf
+den 31. Dezember 2027 (künftiges Ende; das sächsische Quellenende 2024 ist Typ A) und ein offener
+Fall (14011.1: Text befristet auf 2015, Quelle bis 2023 geführt). `review-flags.json` trägt je Fall
+`sunsetDecision`, `summary.json` die Zähler `sourceEndingResolutions` und `sunsetDecisions`.
+
+## Noch offene Schritte
+
+- Produktions-Smoke nach dem ersten Deployment mit D1-Laufzeit; Workers Paid für den Betrieb mit
+  dem Vollbestand.
+- PDF-only-Vorschriften 1018 (Übereinkommen als Scan ohne Textebene; keine OCR ohne manuelle
+  Prüfung) und 17114 (nur eine Fragebogen-Anlage, kein Normtext): Anlagen sind archiviert, beide
+  bleiben dokumentierte SKIPs.
+- Ein widersprüchlicher Befristungsfall (14011.1) bleibt offen, bis eine weitere amtliche Quelle
+  vorliegt.
 - Sachgebiete, Schlagwörter und Kurzfassungen der übernommenen Normen sind deterministisch
-  abgeleitet und generisch; redaktionelle Verfeinerung offen.
+  abgeleitet, generisch und im Import-Audit als solche gekennzeichnet (`derivedMetadata`);
+  redaktionelle Verfeinerung offen.

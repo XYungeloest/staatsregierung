@@ -7,6 +7,24 @@ Diese Datei enthält ausschließlich Quellenlücken, Quellenkonflikte und notwen
 die im aktuellen Repository noch offen sind. Der maschinenlesbare Einzelstand der
 Normkonsolidierung steht in `data/recht/consolidation-manifest.json`.
 
+## REVOSax-Übernahme (Ausgangsbestand 1. November 2023)
+
+Die Bilanz der Übernahme steht maschinenlesbar in `data/recht/revosax-import-audit/summary.json`;
+offen bleiben drei Quellenfragen:
+
+- **Europäisches Übereinkommen über das grenzüberschreitende Fernsehen (REVOSax 1018)** —
+  REVOSax hält den Text nur als PDF-Anlagen vor; das Übereinkommen selbst ist ein Scan ohne
+  Textebene. Ohne manuell geprüfte Texterkennung wird kein Normtext erzeugt; die Anlagen sind
+  hashverifiziert in R2 archiviert (dokumentierter SKIP).
+- **Änderungs-VwV mit reiner Fragebogen-Anlage (REVOSax 17114)** — die einzige Anlage hat eine
+  Textebene, ist aber ein Formular und kein Normtext; sie wird nicht als Paragraphentext
+  umgedeutet (dokumentierter SKIP, Anlage in R2).
+- **Richtlinie Hilfe Wohngebäude und Unternehmen 2014 (REVOSax 14011.1)** — der übernommene Text
+  befristet die Richtlinie auf den 31. Dezember 2015, REVOSax führt die Fassung jedoch bis zum
+  31. Dezember 2023 als geltend. Ohne weitere amtliche Quelle ist nicht entscheidbar, ob eine
+  Verlängerung vorlag; die Norm bleibt unverändert, der Fall ist in
+  `data/recht/revosax-sunset-decisions.json` als offen dokumentiert.
+
 ## Rechtskonsolidierung
 
 Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Fünf Fälle bleiben offen:

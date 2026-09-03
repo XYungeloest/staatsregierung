@@ -176,14 +176,18 @@ verifiziert). Kein blindes Mapping.
 
 D1 ist die Runtime-Projektion (Schema `data/recht/d1/`, Sync `scripts/sync-recht-d1.mjs`):
 Löschungen laufen nur über Indizes (nie ein Vollscan des FTS5-Index), die Vollprojektion ist ein
-bewusster Sondermodus mit einmaligem Reset, der Projektionsfingerabdruck macht einen Sync bei
-unverändertem Stand zum No-op, Kostenzähler und `--max-rows-read`/`--max-rows-written` sind
-Pflicht bei Remote-Läufen. Kein produktiver `--full`-Sync ohne zwingenden Grund; Lasttests nur
-lokal oder gegen `ostrecht-recht-staging`; Migrationen lokal → Staging → Produktion, nie
-automatisch. Die OstRecht-Laufzeit lädt nie den vollständigen Korpus: Übersichten lesen
-`NormSummary`-Zeilen mit SQL-Filtern, korpusweite Zahlen kommen aus vorberechneten
-Metadatenzeilen. Pull-Request-Smoke läuft gegen `data/recht/runtime-fixture.json`; der Vollbestand
-ist Release-Gate und manueller Lauf.
+bewusster Sondermodus mit einmaligem Reset, die Projektionsidentität (Fingerabdruck plus Scope
+`full`/`fixture:…`) macht einen Sync bei unverändertem Stand zum No-op – ein Fixture gilt nie als
+Vollbestand –, ein `--git-diff`-Sync schreibt nur mit verifizierter Basisidentität (sonst
+fail-closed oder markierte Recovery mit `--recover`), und Remote-Läufe tragen immer ein Budgetprofil
+aus `data/recht/d1-sync-budgets.json` (`--budget …`; Vorabschätzung und Laufzeitabbruch). Kein
+produktiver `--full`-Sync ohne zwingenden Grund; Lasttests nur lokal oder gegen
+`ostrecht-recht-staging`; Migrationen lokal → Staging → Produktion, nie automatisch. Die
+OstRecht-Laufzeit lädt nie den vollständigen Korpus: Übersichten lesen `NormSummary`-Zeilen mit
+SQL-Filtern, A–Z und Rechtsentwicklung paginieren serverseitig (`queryNormSummaries`), korpusweite
+Zahlen kommen aus vorberechneten Metadatenzeilen. Pull-Request-Smoke läuft gegen
+`data/recht/runtime-fixture.json`; der Vollbestand ist Release-Gate (`full_runtime_smoke`, einmal
+geseedet) und wöchentlicher Lauf.
 
 Verkündungen liegen unter:
 

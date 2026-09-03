@@ -324,9 +324,11 @@ Normschema, Materialisierungsplan mit zweistufiger Klassifizierung der Mantelbes
 R2-Archivierung der Rohquellen und aller 890 PDF-Anlagen, Materialisierung (3.346 Stammfassungen
 und Änderungsakte plus 1.620 Artikel bzw. Absätze von Mantelvorschriften als eigene
 Änderungsvorschriften; 4.966 übernommene Normen, 5.207 Normen insgesamt), versionierter
-Import-Audit, D1-Schema mit indexierbarem Suchindex (Migration 0005), kostenbegrenzter D1-Sync mit
-Projektionsfingerabdruck, die D1-gestützte OstRecht-Laufzeit ohne Korpusaufbau, getrennte
-Staging-Ressourcen und die CI-Trennung mit Testfixture sind umgesetzt. Die vollständige Bilanz steht
+Import-Audit, D1-Schema mit indexierbarem Suchindex und Buchstabenindex (Migrationen 0005 und 0006),
+kostenbegrenzter D1-Sync mit Projektionsidentität (Fingerabdruck plus Scope), Base-State-Guard und
+zentralen Budgets, die D1-gestützte OstRecht-Laufzeit ohne Korpusaufbau mit serverseitig
+paginierten Übersichten, getrennte Staging-Ressourcen und die CI-Trennung mit Testfixture sind
+umgesetzt. Die vollständige Bilanz steht
 in `data/recht/revosax-import-audit/summary.json` und geht exakt auf: 5.089 eindeutige Treffer =
 4.966 eigene Normen + 7 redaktionell vorhandene (MATCH) + 52 geschützte Ost-Normen + 0 Reviewfälle
 + 64 begründete SKIPs (42 Aliasse desselben Artikels einer Mantelvorschrift, 8 Aliasse derselben
@@ -340,12 +342,19 @@ Zeilen je Norm, bei einer Vollprojektion ≈ 195 Mio. gelesene Zeilen). Seit Mig
 die Provisionen relational in `law_search_units` (Indizes auf `norm_id`, `slug`,
 `(norm_id, version_id)`), der FTS5-Index ist ein Index mit externem Inhalt, den Trigger rowid-genau
 führen (`SEARCH law_search_units USING COVERING INDEX`). Die Vollprojektion leert die Tabellen
-einmalig (FTS5 `delete-all`) und schreibt ohne normweise Löschungen; ein Projektionsfingerabdruck
-aus reinen Inhaltshashes macht einen Sync bei unverändertem Stand zum No-op; der Sync summiert
-`rows_read`/`rows_written` und bricht bei `--max-rows-read`/`--max-rows-written` ab. Die
-Laufzeit lädt keinen Korpus mehr: Übersichten lesen schmale Zeilen mit SQL-Filtern, Start-,
-Sachgebiets- und Suchseiten vorberechnete Metadatenzeilen. Pull Requests testen gegen ein
-Fixture von 38 Normen; der Vollbestand läuft als Release-Gate und manuell/wöchentlich.
+einmalig (FTS5 `delete-all`) und schreibt ohne normweise Löschungen. Die Projektionsidentität
+(`scripts/lib/d1-projection-fingerprint.mjs`: Git-Blob-Kennungen von Projektionslogik, Rechtsbestand
+und Portalgrundlagen plus Scope `full` oder `fixture:<Datei>@<Hash>`) macht einen Sync bei
+unverändertem Stand zum No-op; ein Testfixture kann nie die Identität des Vollbestands behaupten.
+Ein inkrementeller `--git-diff`-Sync schreibt erst, wenn D1 nachweislich die Identität des
+Basis-Commits trägt (Base-State-Guard, sonst fail-closed oder markierte Recovery-Vollprojektion mit
+`--recover`); Budgets kommen aus `data/recht/d1-sync-budgets.json` (`--budget incremental|full|
+recovery|fixture`), werden vor dem ersten Schreibzugriff gegen die Planschätzung und laufend gegen
+die realen Zähler geprüft. Die Laufzeit lädt keinen Korpus mehr: Übersichten lesen schmale Zeilen
+mit SQL-Filtern, A–Z und Rechtsentwicklung filtern und paginieren serverseitig (Buchstabenindex,
+`LIMIT`/`OFFSET`, `COUNT(*)`), Start-, Sachgebiets- und Suchseiten lesen vorberechnete
+Metadatenzeilen. Pull Requests testen gegen ein Fixture von 38 Normen; der Vollbestand läuft als
+einmalig geseedeter Release-Gate-Job in `deploy.yml` und wöchentlich.
 
 Release-Gates vor dem Merge (PR bleibt Draft):
 
@@ -370,9 +379,15 @@ Release-Gates vor dem Merge (PR bleibt Draft):
   geprüft.
 - [x] **CI-Token geprüft.** Das Repository-Secret `CLOUDFLARE_API_TOKEN` (Template „Cloudflare
   Workers bearbeiten“, enthält `D1: Edit`) ist für den API-Transport des Syncs ausreichend: der
-  PR-Job `d1_token_check` liest die produktive Datenbank (Fingerabdruck, `--dry-run`) und schreibt
-  die Verkündungen des Testfixtures nach `ostrecht-recht-staging` (Lauf 33802773965, beide Schritte
-  grün). Migrationen unter `data/recht/d1/` werden weiterhin bewusst manuell eingespielt.
+  PR-Job `d1_token_check` liest die produktive Datenbank (Identität, `--dry-run`) und schreibt
+  die Verkündungstabelle nach `ostrecht-recht-staging` (Teilsync ohne Identitätsänderung).
+  Migrationen unter `data/recht/d1/` werden weiterhin bewusst manuell eingespielt.
+- [x] **Release-Hardening (Stand dieses Branches).** Projektionsidentität mit Scope (ein Fixture
+  kann nie den Vollbestand vortäuschen), Base-State-Guard für `--git-diff`, Budgets im automatischen
+  `d1_sync` (`--budget incremental --recover`), globaler Reststellen-Scanner (jede Fundstelle),
+  ein einziger Vollbestand-Smoke-Job im Deployment, serverseitig paginierte A–Z- und
+  Rechtsentwicklungsseiten (Migration 0006: Buchstabenindex, Stichworttabelle) und die
+  Befristungsentscheidungen der Prüfmarken (`data/recht/revosax-sunset-decisions.json`).
 
 Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identifiziert):
 
@@ -387,19 +402,27 @@ Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identi
   über `scripts/consolidate-norms.mjs` (Rechtsüberleitung des konsolidierten Ergebnisses, Rezepte
   weiter gegen den amtlichen Ausgangstext) übergeleitet; `data/recht/ost-residual-backlog.json` ist
   leer. Sachsen-Bezüge in eigenen ostdeutschen Erlassen gelten nur, wenn sie wörtlich in der
-  amtlichen Quelle unter `Gesetze/` stehen (193 belegte Bezüge in 48 Erlassen, eine dokumentierte
-  PDF-Prüfung).
+  amtlichen Quelle unter `Gesetze/` stehen (`scripts/audit-ost-residuals.mjs` prüft jede
+  Fundstelle einzeln: 228 belegte Bezüge in 48 Erlassen, eine dokumentierte PDF-Prüfung).
+- [x] **Prüfmarken „Quelle endet ohne Nachfolger“.** 275 × Typ A (Gültigkeitsende nach dem
+  Stichtag ohne Befristung im Text: spätere sächsische Rechtsänderung ohne Wirkung für
+  Ostdeutschland, keine Entscheidung nötig). Die 7 Typ-B-Fälle (Förderrichtlinien mit „tritt mit
+  Ablauf des 31. Dezember 2023 außer Kraft“ im übernommenen Text) und der Maßnahmekatalog Bienen
+  (Befristung 31. Dezember 2027 im Text; das sächsische Quellenende 2024 ist eine spätere
+  Rechtsänderung) sind in `data/recht/revosax-sunset-decisions.json` mit wörtlichem Beleg
+  entschieden und modelliert (`expiryDate`, `validTo`, Status `repealed` bzw. künftiges
+  Außerkrafttreten, Historieneintrag); ein Fall bleibt begründet offen (14011.1: Text befristet auf
+  2015, REVOSax führt die Fassung bis 2023 – widersprüchliche Belege). 249 Fassungen tragen das
+  Erlassdatum aus der amtlichen REVOSax-Trefferliste, eine (1018) hat keines.
 - [ ] **PDF-only-Vorschriften.** 1018 (Europäisches Übereinkommen über das grenzüberschreitende
-  Fernsehen: Haupttext nur als Scan ohne Textebene) und 17114 (Fragebogen-Anlage); Anlagen sind
-  hashverifiziert in R2, Materialisierung bleibt Reviewfall.
-- [ ] **Prüfmarken sichten.** „Quelle endet ohne Nachfolger“ ist in `review-flags.json` eingeordnet:
-  275 × Typ A (Gültigkeitsende nach dem Stichtag ohne Befristung im Text, spätere sächsische
-  Rechtsänderung ohne Wirkung für Ostdeutschland), 7 × Typ B (Befristung im übernommenen Text,
-  möglicherweise ostdeutsch wirksam – Review) und 2 × unklar. 249 Fassungen tragen das Erlassdatum
-  aus der amtlichen REVOSax-Trefferliste, eine (1018) hat keines.
+  Fernsehen: Haupttext nur als Scan ohne Textebene, keine OCR ohne manuelle Prüfung) und 17114
+  (nur eine Fragebogen-Anlage mit Textebene, kein Normtext, der als Paragraphentext dargestellt
+  werden dürfte); Anlagen sind hashverifiziert in R2, beide bleiben dokumentierte SKIPs.
 - [ ] **Abgeleitete Metadaten nachschärfen.** Sachgebiete, Schlagwörter und Kurzfassung der
-  übernommenen Normen sind deterministisch aus Typ, Ressort und Titel abgeleitet und generisch;
-  `originEnactingBody` nennt bewusst das sächsische Ursprungsorgan als Provenienz.
+  4.966 übernommenen Normen sind deterministisch aus Typ, Ressort und Titel abgeleitet und im
+  Import-Audit als solche gekennzeichnet (`summary.json` → `derivedMetadata`);
+  `originEnactingBody` nennt bewusst das sächsische Ursprungsorgan als Provenienz („Ursprungsorgan
+  der übernommenen Quelle“ in der Normansicht).
 
 ### Sitzungsmediathek der Volkskammer
 

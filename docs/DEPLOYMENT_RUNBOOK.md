@@ -48,12 +48,26 @@ Deployment wieder unter `apps/` her. Die unveränderten Worker `ostrecht-portal`
    und SEO-Prüfung. Der Content-Audit läuft nur bei Inhalts-, Quellen- oder Validatoränderungen. Bei
    `shared` werden beide Anwendungen gebaut und geprüft.
 4. Für `portal` und `law` laufen Accessibility- und Browser-Smokes nur gegen das jeweils betroffene
-   Ziel; bei `shared` laufen beide Zielgruppen. Bei `docs-only` und üblichen `ci-only`-Läufen gibt es
-   keine UI-Smokes. Die manuelle Releaseprüfung bleibt für jede Produktionsfreigabe erforderlich.
-5. Bei beiden Zielen veröffentlicht der Workflow zuerst OstRecht und danach das Staatsportal. So
+   Ziel; bei `shared` laufen beide Zielgruppen. Im Main-Workflow erledigt das ein einziger Job
+   `full_runtime_smoke`: er projiziert den gesamten Rechtsbestand genau einmal in eine lokale
+   Miniflare-D1 (kein Zugriff auf die Cloudflare-D1), verifiziert die Projektion
+   (`norms:runtime:d1-verify --local --fts-integrity`) und führt danach A11y- und Browser-Smoke gegen
+   denselben Worker aus; Pull Requests prüfen stattdessen zwei parallele Fixture-Jobs. Bei
+   `docs-only` und üblichen `ci-only`-Läufen gibt es keine UI-Smokes. Die manuelle Releaseprüfung
+   bleibt für jede Produktionsfreigabe erforderlich.
+5. Bei `run_d1_sync` projiziert der Job `d1_sync` die Rechtsdaten vor dem Deployment nach
+   Cloudflare D1: `--git-diff <before> <sha> --budget incremental --recover`. Der Lauf ist ein No-op,
+   wenn D1 bereits die Projektionsidentität des Commits trägt; er schreibt inkrementell nur, wenn D1
+   nachweislich den Stand des Vorgänger-Commits trägt (Base-State-Guard), und fällt sonst auf eine
+   als Recovery markierte Vollprojektion mit dem Profil `recovery` zurück. Budgets aus
+   `data/recht/d1-sync-budgets.json` werden vor dem ersten Schreibzugriff (Planschätzung, dann
+   0 Schreibzugriffe) und laufend gegen die realen Zähler geprüft; bei Überschreitung schlägt das
+   Deployment fehl und verlangt eine bewusste Entscheidung (Budget prüfen, `--full --budget full`
+   manuell). Schema-Migrationen (`data/recht/d1/*.sql`) spielt der Workflow nie ein.
+6. Bei beiden Zielen veröffentlicht der Workflow zuerst OstRecht und danach das Staatsportal. So
    verweist die Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den
    neuen Stand.
-6. Den im Workflow ausgewiesenen vollständigen Commit notieren. Die Produktionsnachkontrolle prüft
+7. Den im Workflow ausgewiesenen vollständigen Commit notieren. Die Produktionsnachkontrolle prüft
    nur die tatsächlich veröffentlichten Ziele; der Portal-Altpfad-Redirect wird bei einer
    Portalprüfung zusätzlich gegen den bestehenden Rechtsorigin kontrolliert.
 

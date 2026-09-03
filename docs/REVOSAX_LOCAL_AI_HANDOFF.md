@@ -250,13 +250,13 @@ R2-Verweise gegen `data/recht/revosax-r2-manifest.json` (Objektschlüssel und SH
 | B Staging | erledigt: 20 → 100 → 5.089/5.089 ohne Fehler; Bericht `.cache/revosax-baseline/2023-11-01/report.json`, versionierter Import-Audit unter `data/recht/revosax-import-audit/` |
 | C R2-Provenienz, Plan, Materializer | erledigt: 3.346 Stammfassungen/Änderungsakte + 1.620 Artikel und Absätze von Mantelvorschriften (Klassifizierung A/B/C/D plus zweite Stufe `data/recht/revosax-envelope-decisions.json`, `containedIn`/`part-of` auch für MATCH), `PROTECT` 52, `REVIEW` 0, `SKIP` 64 begründet; Bilanz in `data/recht/revosax-import-audit/summary.json` |
 | D R2 und Git | erledigt: HTML-Rohquellen (Fassungsseiten, Komponentenseiten, 20 nachgeladene Mantelseiten inkl. vier historischer Fassungen) und 890 PDF-Anlagen hashverifiziert in `ostrecht-recht-quellen`; 5.207 Normen unter `content/normen/`; Korpus-Audit `npm run norms:ost:residual-audit` mit 0 Reststellen im übergeleiteten Recht und leerem Rückstand (Altbestand über `scripts/consolidate-norms.mjs` übergeleitet) |
-| E D1 | erledigt: Schema 0001–0005 (0005: relationale `law_search_units` + FTS5 mit externem Inhalt und Triggern, Übersichtsspalten, `law_norm_subjects`, `law_norm_history`); Sync mit einmaligem Reset im Vollpfad, indexierten Löschungen, Projektionsfingerabdruck (No-op), Kostenzählern und Budgets; auf Staging gemessen (Fixture-Vollprojektion 151/9.507 Zeilen, Einzelsync 155/289, No-op 8/0); produktive D1 migriert (0005) und mit dem neuen Pfad neu projiziert (103.403 gelesene / 465.926 geschriebene Zeilen), verifiziert, Folgesync No-op |
-| F OstRecht-Runtime | erledigt: On-demand-Routen aus D1 ohne Korpusaufbau (NormSummary, Metadatenzeilen, Historienindex), Vergleich nur für das angefragte Paar, Sitemap/Suchvorschläge aus schmalen Spalten; aufzeichnende D1-Tests je Route |
-| G CI/CD | erledigt: `scripts/classify-change-scope.mjs` mit `run_d1_sync`, Job `d1_sync` mit `--git-diff` in `deploy.yml`; PR-Smoke gegen das Testfixture (`OSTRECHT_D1_FIXTURE`, 38 Normen), Vollbestand als Release-Gate und in `full-corpus-smoke.yml`; `serve-law-worker.mjs` mit Inhaltshash statt mtime; Staging mit eigenen Bindings; Token braucht D1 Read/Write |
+| E D1 | erledigt: Schema 0001–0006 (0005: relationale `law_search_units` + FTS5 mit externem Inhalt und Triggern, Übersichtsspalten, `law_norm_subjects`, `law_norm_history`; 0006: Buchstabenindex, Stichworttabelle, Listenindizes); Sync mit einmaligem Reset im Vollpfad, indexierten Löschungen, Projektionsidentität (Fingerabdruck + Scope, No-op nur bei beidem), Base-State-Guard für `--git-diff` (fail-closed / `--recover`), zentralen Budgets (`data/recht/d1-sync-budgets.json`) mit Vorabschätzung und Laufzeitabbruch; produktive D1 migriert (0005) und mit dem neuen Pfad neu projiziert (103.403 gelesene / 465.926 geschriebene Zeilen), verifiziert, Folgesync No-op |
+| F OstRecht-Runtime | erledigt: On-demand-Routen aus D1 ohne Korpusaufbau (NormSummary, Metadatenzeilen, Historienindex), A–Z und Rechtsentwicklung serverseitig gefiltert und paginiert (GET-Parameter, ohne JavaScript nutzbar), Vergleich nur für das angefragte Paar, Sitemap/Suchvorschläge aus schmalen Spalten; aufzeichnende D1-Tests je Route |
+| G CI/CD | erledigt: `scripts/classify-change-scope.mjs` mit `run_d1_sync`, Job `d1_sync` mit `--git-diff … --budget incremental --recover` in `deploy.yml`; PR-Smoke gegen das Testfixture (`OSTRECHT_D1_FIXTURE`, 38 Normen, zwei parallele Jobs), Vollbestand als einmalig geseedeter Job `full_runtime_smoke` (Verifikation, A11y, Browser) vor dem Deployment und wöchentlich in `full-corpus-smoke.yml`; `serve-law-worker.mjs` mit Projektionsidentität statt mtime; Staging mit eigenen Bindings; Token geprüft (D1 Read/Write) |
 
 Die genauen Befehle je Phase stehen im Runbook `docs/REVOSAX_BULK_IMPORT.md`; offene Punkte
-(PDF-only-Vorschriften, Sichtung der Prüfmarken, generische Metadaten, Cloudflare-Plan und CI-Token)
-im README-Backlog.
+(PDF-only-Vorschriften 1018/17114, ein widersprüchlicher Befristungsfall 14011.1, generische
+Metadaten, Cloudflare-Plan) im README-Backlog.
 
 ## 10. Nicht tun
 
@@ -277,7 +277,11 @@ im README-Backlog.
   `ostrecht-recht-staging` mit kleinem Umfang und protokollierten `rows_read`/`rows_written`.
 - Migrationen unter `data/recht/d1/` nie ungeprüft automatisch einspielen: lokal, dann Staging,
   dann Produktion.
-- `--corpus-filter` (Testfixture) nie gegen die produktive Datenbank.
+- `--corpus-filter` (Testfixture) nie gegen die produktive Datenbank; ein Fixture trägt immer seinen
+  eigenen Scope in der Projektionsidentität und gilt nie als Basiszustand des Vollbestands.
+- Keinen inkrementellen Sync ohne verifizierte Basis erzwingen: `--git-diff` schreibt nur, wenn D1
+  die Identität des Basis-Commits trägt; sonst `--recover` (markierte Recovery) oder `--full`.
+- Keinen Remote-Lauf ohne Budgetprofil (`--budget …` aus `data/recht/d1-sync-budgets.json`).
 
 ## 11. Qualitäts- und Abnahmekriterien
 
@@ -313,10 +317,12 @@ D1-Sync, getrennte Staging-Ressourcen und die CI-Trennung. Die produktive Websit
 Merge auf `main` umgestellt.
 
 Release-Gates (siehe README): Produktions-Smoke nach dem ersten Deployment, Workers Paid für den
-Betrieb mit dem Vollbestand, Repository-Secret `CLOUDFLARE_API_TOKEN` mit D1 Read/Write. Die
-produktive D1 ist migriert (0005), mit dem kostensicheren Pfad neu projiziert, verifiziert und trägt
-den Projektionsfingerabdruck; der `d1_sync`-Job nach dem Merge ist damit ein No-op. Die verbliebenen
-redaktionellen Restarbeiten (PDF-only-Vorschriften, Prüfmarken, generische Metadaten) sind mit
-lawId, sourceId, URL, Titel, Slug und Grund unter `data/recht/revosax-import-audit/` versioniert;
-Mantelbestandteile sind über `data/recht/revosax-envelope-decisions.json` vollständig entschieden,
-der Rückstand `data/recht/ost-residual-backlog.json` ist leer.
+Betrieb mit dem Vollbestand; das Repository-Secret `CLOUDFLARE_API_TOKEN` ist geprüft. Die
+produktive D1 ist migriert, mit dem kostensicheren Pfad projiziert, verifiziert und trägt die
+Projektionsidentität (Scope `full`); der `d1_sync`-Job nach dem Merge ist damit ein No-op, und ein
+späterer inkrementeller Lauf schreibt nur mit verifizierter Basis. Die Befristungsfälle der
+Prüfmarken sind in `data/recht/revosax-sunset-decisions.json` entschieden (8 modelliert, 1
+begründet offen); PDF-only-Vorschriften und generische Metadaten sind mit lawId, sourceId, URL,
+Titel, Slug und Grund unter `data/recht/revosax-import-audit/` versioniert (abgeleitete Metadaten
+als solche gekennzeichnet); Mantelbestandteile sind über `data/recht/revosax-envelope-decisions.json`
+vollständig entschieden, der Rückstand `data/recht/ost-residual-backlog.json` ist leer.
