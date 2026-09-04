@@ -955,7 +955,7 @@
   text-decoration: underline;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 80rem) {
   .portal-access-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -985,7 +985,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 64rem) {
   .home-hero,
   .home-hero__inner {
     min-height: 30rem;
@@ -1035,7 +1035,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 48rem) {
   .home-band {
     padding: 2.4rem 0;
   }
@@ -1170,7 +1170,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   .home-hero-search__control input {
     font-size: 0.92rem;
   }

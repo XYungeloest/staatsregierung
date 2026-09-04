@@ -297,70 +297,6 @@
   text-underline-offset: 0.16em;
 }
 
-@media (max-width: 78rem) {
-  .law-main-nav,
-  .law-header-search {
-    display: none;
-  }
-
-  .law-mobile-nav {
-    display: block;
-    position: relative;
-  }
-
-  .law-mobile-nav summary {
-    display: flex;
-    min-height: 3.75rem;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-1) var(--space-3) var(--space-4);
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .law-mobile-nav__panel {
-    position: absolute;
-    inset-block-start: 100%;
-    inset-inline-end: 0;
-    width: min(28rem, calc(100vw - 2rem));
-    padding: var(--space-4);
-    border: 1px solid var(--color-border-strong);
-    background: var(--color-surface);
-    color: var(--color-text);
-    box-shadow: var(--shadow-soft);
-  }
-
-  .law-mobile-nav__panel form,
-  .law-mobile-nav__panel nav {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .law-mobile-nav__panel form > div {
-    display: flex;
-  }
-
-  .law-mobile-nav__panel input,
-  .law-mobile-nav__panel button,
-  .law-mobile-nav__panel nav a {
-    min-height: 2.75rem;
-    padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    font: inherit;
-  }
-
-  .law-mobile-nav__panel input {
-    min-width: 0;
-    flex: 1;
-  }
-
-  .law-mobile-nav__panel nav {
-    margin-top: var(--space-4);
-  }
-}
-
 @media (max-width: 48rem) {
   .law-wordmark img {
     width: 2.65rem;
@@ -1511,7 +1447,7 @@
   text-decoration: none;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 48rem) {
   .norm-citation-status,
   .norm-citation-status__facts {
     grid-template-columns: minmax(0, 1fr);
@@ -1557,7 +1493,16 @@
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 30rem) {
+  /* Erst auf dem kleinsten Bildschirm weicht auch die Kopfsuche in das Menü. */
+  .law-header-search {
+    display: none;
+  }
+
+  .law-header__bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
   .law-development__facts {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -3298,19 +3243,18 @@
   font-size: var(--text-xs);
 }
 
-@media (max-width: 88rem) {
+
+/* Kleiner Desktop: Nur die Navigationsliste klappt in das Menü. Wortmarke, Kopfsuche und
+   Menüknopf bleiben sichtbar; die Suche ist der wichtigste Einstieg und weicht zuletzt. */
+@media (max-width: 80rem) {
   .law-header__bar {
-    grid-template-columns: minmax(12rem, 0.75fr) minmax(0, 2.8fr) auto;
-    gap: var(--space-2);
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    min-height: 4.8rem;
+    align-items: center;
   }
 
-  .law-header__utilities a[data-law-accessibility-link] {
+  .law-main-nav {
     display: none;
-  }
-
-  .law-main-nav a {
-    padding-inline: var(--space-2);
-    font-size: var(--text-xs);
   }
 
   .law-home-dashboard {
@@ -3320,19 +3264,6 @@
   .law-home-dashboard__side {
     grid-column: 1 / -1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-}
-
-@media (max-width: 74rem) {
-  .law-header__bar {
-    grid-template-columns: minmax(0, 1fr) auto;
-    min-height: 4.8rem;
-  }
-
-  .law-main-nav,
-  .law-header__utilities {
-    display: none;
   }
 
   .law-mobile-nav {
@@ -3499,7 +3430,12 @@
   .norm-history-panel--data { grid-column: 1; grid-row: auto; position: static; }
 }
 
-@media (max-width: 56rem) {
+@media (max-width: 64rem) {
+  /* Die beiden Servicewege stehen im geöffneten Menü; im Kopf bleibt die Suche. */
+  .law-header__utilities a {
+    display: none;
+  }
+
   .law-main {
     width: min(calc(100% - 1.5rem), var(--content-width));
   }
@@ -3626,7 +3562,7 @@
   }
 }
 
-@media (max-width: 36rem) {
+@media (max-width: 48rem) {
   .law-site .site-notice__inner p {
     font-size: var(--text-2xs);
   }
@@ -3796,7 +3732,7 @@
   }
 }
 
-@media (max-width: 56rem) {
+@media (max-width: 64rem) {
   .law-subject-overview,
   .law-help-layout,
   .law-publication-detail { grid-template-columns: 1fr; }
@@ -3807,7 +3743,7 @@
   .law-subject-record-list li { grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr) auto; }
 }
 
-@media (max-width: 36rem) {
+@media (max-width: 48rem) {
   .law-subject-overview { padding: var(--space-4); }
   .law-subject-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .law-subject-stats__total { grid-column: 1 / -1; }
@@ -3825,7 +3761,7 @@
   .law-publication-entries > ol > li { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 24rem) {
+@media (max-width: 30rem) {
   /* Schmale Geräte: Normtyp-Kacheln einspaltig, damit lange Bezeichnungen nicht überlaufen. */
   .law-subject-stats { grid-template-columns: minmax(0, 1fr); }
 }

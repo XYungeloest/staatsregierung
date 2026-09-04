@@ -418,7 +418,7 @@ summary:focus-visible {
   flex: 0 0 auto;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 80rem) {
   .site-header__main {
     grid-template-columns: minmax(0, 1fr) auto;
     min-height: 5rem;
@@ -537,7 +537,7 @@ summary:focus-visible {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 48rem) {
   .site-notice__inner {
     flex-direction: row;
     align-items: flex-start;
