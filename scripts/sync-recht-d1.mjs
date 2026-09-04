@@ -15,10 +15,10 @@ import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts
 import { buildDerivedContext, deriveNorm, fullCitationFor } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
-import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
-import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases } from '@ostrecht/recht-search/search.ts';
+import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases, isAmendmentRecord } from '@ostrecht/recht-search/search.ts';
 
 import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths } from './lib/d1-sync-scope.mjs';
 import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
@@ -35,7 +35,7 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  * vollständigen Bestand berechnet und je Norm gespeichert, damit die Website zur
  * Laufzeit nur die Zeilen der angefragten Norm lesen muss.
  *
- * Schema: data/recht/d1/0001_rechtsbestand.sql … 0005_search_units.sql.
+ * Schema: data/recht/d1/0001_rechtsbestand.sql … 0007_search_candidate_filters.sql.
  *
  * Kostenmodell (D1 rechnet gelesene und geschriebene Zeilen ab):
  *   - Inkrementell werden je Norm nur ihre eigenen Zeilen gelöscht und neu geschrieben.
@@ -229,11 +229,19 @@ function searchUnits(record, version, context) {
 }
 
 /**
- * Jüngstes Rechtsereignis bis zum Stichtag (Fassungsbeginne und Historie, keine künftigen
- * Ereignisse): Standardsortierung der Übersichten ohne Suchbegriff und Sitemap-lastmod.
- * Zentrale Definition in packages/shared/src/lib/norms/versions.ts.
+ * Jüngste Rechtsänderung bis zum Stichtag (Fassungsbeginne, Erlass, Änderung, Aufhebung; keine
+ * bloßen Hinweise, keine künftigen Ereignisse): Standardsortierung der Übersichten und der Suche
+ * ohne Suchbegriff. Zentrale Definition in packages/shared/src/lib/norms/versions.ts.
  */
 export function lastChangeDate(norm) {
+  return getNormLastChangeDate(norm, EDITORIAL_REFERENCE_DATE);
+}
+
+/**
+ * Jüngstes dokumentiertes Ereignis bis zum Stichtag einschließlich reiner Hinweise: Grundlage
+ * für lastmod in der Sitemap. Zentrale Definition in packages/shared/src/lib/norms/versions.ts.
+ */
+export function lastActivityDate(norm) {
   return getNormLastActivityDate(norm, EDITORIAL_REFERENCE_DATE);
 }
 
@@ -241,7 +249,7 @@ const NORM_COLUMNS = [
   'id', 'slug', 'title', 'short_title', 'abbr', 'type', 'status', 'revosax_law_id', 'current_version_id',
   'document_date', 'publication_date', 'effective_date', 'expiry_date', 'initial_citation', 'summary',
   'responsible_ministry', 'enacting_body', 'source_kind', 'updated_at', 'meta_json', 'history_json', 'sort_title', 'current_valid_from',
-  'subjects_json', 'primary_subject', 'keywords_json', 'aliases_json', 'origin_kind', 'origin_baseline_version_id', 'origin_last_own_change_date', 'version_count', 'last_change_date',
+  'subjects_json', 'primary_subject', 'keywords_json', 'aliases_json', 'origin_kind', 'origin_baseline_version_id', 'origin_last_own_change_date', 'version_count', 'last_change_date', 'last_activity_date', 'is_amendment',
   'index_letter',
 ];
 
@@ -288,6 +296,7 @@ export function normQueries(norm, context, now, { full = false } = {}) {
     JSON.stringify(meta), JSON.stringify(history), currentIdentity.title.toLocaleLowerCase('de'), current.validFrom,
     JSON.stringify(meta.subjects), meta.primarySubject ?? null, JSON.stringify(meta.keywords), JSON.stringify(getNormAliases(norm, currentIdentity)),
     derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, versions.length, lastChangeDate(norm),
+    lastActivityDate(norm), isAmendmentRecord(norm) ? 1 : 0,
     getGermanIndexLetter(currentIdentity.title),
   ]));
 
@@ -297,14 +306,16 @@ export function normQueries(norm, context, now, { full = false } = {}) {
     queries.push(q(`INSERT INTO law_versions (
       norm_id, version_id, valid_from, valid_to, is_current, title, short_title, abbr, summary,
       citation, change_note, source_sha256, source_url, source_retrieved_at, source_object_key, updated_at,
-      version_json, full_citation, publication_ref_json, temporal_kind
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+      version_json, full_citation, publication_ref_json, temporal_kind, publication_source, publication_year
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
       meta.id, version.versionId, version.validFrom, version.validTo ?? null, version.isCurrent ? 1 : 0,
       version.title ?? null, version.shortTitle ?? null, version.abbr ?? null, version.summary ?? null,
       version.citation, version.changeNote, primarySource?.sha256 ?? null, primarySource?.url ?? null,
       primarySource?.retrievedAt ?? null, primarySource?.objectKey ?? null, now,
       JSON.stringify(stripBody(version)), fullCitationFor(norm, version, context),
       publicationReference ? JSON.stringify(publicationReference) : null, classifyNormVersion(norm, version, asOf),
+      // Schmale Filterspalten der Kandidatenabfrage (Verkündungsblatt, Jahr) je Fassung.
+      publicationReference?.publication ?? null, publicationReference?.publicationDate?.slice(0, 4) ?? null,
     ]));
 
     for (const [blockIndex, block] of version.body.entries()) {
@@ -420,7 +431,7 @@ export function derivedQueries(norm, context, now) {
     ]),
     // Abgeleitete Spalten von law_norms (Herkunft, jüngstes Rechtsereignis) gehören zur
     // Ableitung: ein Derived-Rebuild hält sie mit law_norm_derived zusammen aktuell.
-    q('UPDATE law_norms SET origin_kind = ?, origin_baseline_version_id = ?, origin_last_own_change_date = ?, last_change_date = ? WHERE id = ?', [derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, lastChangeDate(norm), norm.meta.id]),
+    q('UPDATE law_norms SET origin_kind = ?, origin_baseline_version_id = ?, origin_last_own_change_date = ?, last_change_date = ?, last_activity_date = ? WHERE id = ?', [derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, lastChangeDate(norm), lastActivityDate(norm), norm.meta.id]),
   ];
 }
 
@@ -644,10 +655,7 @@ export function decideSyncAction({ requested, stored, identity, baseIdentity = n
   else if (!complete) problems.push(`D1 meldet einen unvollständigen Zustand (${storedState})`);
   if (storedFingerprint && storedScope !== identity.scope) problems.push(`Scope in D1 ist ${storedScope}, erwartet ${identity.scope}`);
   if (baseIdentity) {
-    // Übergang: eine vor der projektionsrelevanten Portalhash-Berechnung geschriebene Identität
-    // desselben Basis-Refs gilt als verifizierte Basis (legacyFingerprint, siehe Fingerprint-Modul).
-    const acceptedBases = [baseIdentity.fingerprint, baseIdentity.legacyFingerprint].filter(Boolean);
-    if (storedFingerprint && !acceptedBases.includes(storedFingerprint)) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
+    if (storedFingerprint && storedFingerprint !== baseIdentity.fingerprint) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
   } else if (requiresBase) {
     problems.push('kein Basis-Ref zur Verifikation des Ausgangszustands');
   }

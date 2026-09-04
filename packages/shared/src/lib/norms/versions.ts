@@ -1,5 +1,5 @@
 import editorialConfig from '@ostrecht/shared/config/editorial.json' with { type: 'json' };
-import { ContentValidationError, type NormRecord, type NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+import { ContentValidationError, type HistoryEntryType, type NormRecord, type NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 
 export const EDITORIAL_REFERENCE_DATE = editorialConfig.referenceDate;
 export const EDITORIAL_TIME_ZONE = 'Europe/Berlin';
@@ -46,22 +46,50 @@ export function partitionDatedEntries<T extends { date: string }>(
 }
 
 /**
- * Jüngstes Rechtsereignis einer Norm bis zum Stichtag: Historieneinträge (Erlass, Änderung,
- * Aufhebung, Hinweis) und Fassungsbeginne, die nicht nach dem Stichtag liegen. Künftige
- * Ereignisse zählen nicht; technische Zeitpunkte (Import, Git) spielen keine Rolle. Grundlage
- * für „zuletzt geändert“ (D1 `law_norms.last_change_date`, Übersichten ohne Suchbegriff,
- * Sitemap-lastmod). Für übernommene, seitdem unveränderte Normen ist das der Rechtsüberleitungs-
- * stichtag ihrer Ausgangsfassung.
+ * Rechtsstandsrelevante Historieneinträge: Erlass, Änderung und Aufhebung. Ein Hinweis oder
+ * Berichtigungshinweis (`notice`) verändert den Rechtsstand nicht und zählt deshalb nicht als
+ * Rechtsänderung.
+ */
+export const LEGAL_CHANGE_ENTRY_TYPES: readonly HistoryEntryType[] = ['initial', 'amendment', 'repeal'];
+
+function latestDateUpTo(dates: Array<string | null | undefined>, asOf: string): string | null {
+  const known = dates.filter((date): date is string => typeof date === 'string' && date !== '' && date <= asOf);
+  return known.length > 0 ? known.sort().at(-1) ?? null : null;
+}
+
+/**
+ * Jüngste Rechtsänderung einer Norm bis zum Stichtag: Fassungsbeginne und die
+ * rechtsstandsrelevanten Historieneinträge (Erlass, Änderung, Aufhebung). Hinweise und
+ * Berichtigungshinweise bleiben außen vor – sie ändern den Rechtsstand nicht. Künftige
+ * Ereignisse zählen nicht; technische Zeitpunkte (Import, Git) spielen keine Rolle.
+ * Grundlage für „Neueste Rechtsänderung“ (D1 `law_norms.last_change_date`, Sortierung der
+ * Suche und der Übersichten ohne Suchbegriff). Für übernommene, seitdem unveränderte Normen
+ * ist das der Rechtsüberleitungsstichtag ihrer Ausgangsfassung.
+ */
+export function getNormLastChangeDate(
+  record: Pick<NormRecord, 'versions' | 'history'>,
+  asOf = EDITORIAL_REFERENCE_DATE,
+): string | null {
+  return latestDateUpTo([
+    ...record.versions.map((version) => version.validFrom),
+    ...record.history.entries.filter((entry) => LEGAL_CHANGE_ENTRY_TYPES.includes(entry.type)).map((entry) => entry.date),
+  ], asOf);
+}
+
+/**
+ * Jüngstes dokumentiertes Ereignis einer Norm bis zum Stichtag, einschließlich reiner Hinweise
+ * und Berichtigungshinweise: alles, was die veröffentlichte Darstellung der Norm verändert.
+ * Grundlage für `lastmod` in der Sitemap (D1 `law_norms.last_activity_date`), nicht für die
+ * Sortierung nach Rechtsänderung – dafür gilt {@link getNormLastChangeDate}.
  */
 export function getNormLastActivityDate(
   record: Pick<NormRecord, 'versions' | 'history'>,
   asOf = EDITORIAL_REFERENCE_DATE,
 ): string | null {
-  const dates = [
+  return latestDateUpTo([
     ...record.versions.map((version) => version.validFrom),
     ...record.history.entries.map((entry) => entry.date),
-  ].filter((date): date is string => Boolean(date) && date <= asOf);
-  return dates.length > 0 ? dates.sort().at(-1) ?? null : null;
+  ], asOf);
 }
 
 export const VERSION_TEMPORAL_KINDS = [

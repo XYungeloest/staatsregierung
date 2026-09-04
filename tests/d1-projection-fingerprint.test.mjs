@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
-import { FULL_SCOPE, combineFingerprint, fixtureScope, hashRoots, legacyPortalContentHash, listFingerprintFiles, portalContentHash, portalProjectionChangedSince, portalProjectionOf, projectionFingerprint, projectionIdentity, projectionIdentityAtRef } from '../scripts/lib/d1-projection-fingerprint.mjs';
+import { FULL_SCOPE, PORTAL_CONTENT_ROOTS, combineFingerprint, fixtureScope, hashRoots, listFingerprintFiles, portalContentHash, portalProjectionChangedSince, portalProjectionOf, projectionFingerprint, projectionIdentity, projectionIdentityAtRef } from '../scripts/lib/d1-projection-fingerprint.mjs';
 
 async function temporaryRepository() {
   const root = await mkdtemp(join(tmpdir(), 'fingerprint-'));
@@ -112,18 +112,18 @@ test('Portalgrundlagen zählen nur projektionsrelevant: Hervorhebung, Teaser und
   execFileSync('git', ['add', '.'], { cwd: root });
   execFileSync('git', ['commit', '-q', '-m', 'portal'], { cwd: root });
   const base = await portalContentHash(root);
-  const legacyBase = await legacyPortalContentHash(root);
+  // Vergleichsmaß: Hash über die vollständigen Dateien – er ändert sich auch bei reinen Portalfeldern.
+  const fileBase = await hashRoots(root, PORTAL_CONTENT_ROOTS);
   assert.equal(await portalContentHash(root, { ref: 'HEAD' }), base, 'Ref und Arbeitsbaum stimmen überein');
 
-  // Reine Portalfelder: Identität gleich, früherer Blob-Hash verschieden, Auszug unverändert.
+  // Reine Portalfelder: Identität gleich, Hash über die ganzen Dateien verschieden, Auszug unverändert.
   await writeFile(topicPath, `${topic({ highlightFrom: '2026-09-02', highlightUntil: '2026-10-02', teaser: 'Neu', priority: 99, featured: true })}\n`);
   assert.equal(await portalContentHash(root), base);
-  assert.notEqual(await legacyPortalContentHash(root), legacyBase);
+  assert.notEqual(await hashRoots(root, PORTAL_CONTENT_ROOTS), fileBase);
   assert.equal(await portalProjectionChangedSince(root, 'HEAD', 'content/themen/bildung.json'), false);
   const identity = await projectionIdentity({ root });
   const baseIdentity = await projectionIdentityAtRef('HEAD', { root });
   assert.equal(identity.fingerprint, baseIdentity.fingerprint, 'Projektionsidentität unverändert');
-  assert.notEqual(identity.legacyFingerprint, baseIdentity.legacyFingerprint, 'die frühere Identität hätte sich geändert');
 
   // Normbezug, Titel oder Slug: Identität ändert sich, Auszug gilt als geändert.
   await writeFile(topicPath, `${topic({ rechtsgrundlagen: [{ normSlug: 'schulgesetz' }, { normSlug: 'kindertagesbetreuungsgesetz' }] })}\n`);

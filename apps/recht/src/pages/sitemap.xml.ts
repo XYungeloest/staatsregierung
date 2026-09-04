@@ -50,7 +50,9 @@ export const GET: APIRoute = async ({ site, locals }) => {
   const lastmodByPath = new Map<string, string>();
   for (const publication of publications) lastmodByPath.set(getPublicationUrl(publication.slug), publication.date);
   for (const norm of norms) {
-    const lastmod = norm.lastChangeDate;
+    // lastmod meint die zuletzt geänderte Darstellung, nicht die Rechtsänderung: ein reiner
+    // Hinweis erscheint auf der Norm- und Historienseite und zählt deshalb mit.
+    const lastmod = norm.lastActivityDate ?? norm.lastChangeDate;
     if (!lastmod) continue;
     lastmodByPath.set(getNormUrl(norm.slug), lastmod);
     lastmodByPath.set(getNormHistoryUrl(norm.slug), lastmod);

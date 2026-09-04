@@ -1,5 +1,7 @@
 import {
+  buildSearchCandidateParams,
   buildSearchVariants,
+  candidateTotalMatchesResults,
   formatSearchResultLabel,
   getActiveSearchSort,
   getDefaultSearchSort,
@@ -42,9 +44,9 @@ let loadedDocuments: PreparedSearchDocument[] = [];
 let loadedPublications: SearchPublication[] = [];
 // Redaktioneller Stichtag der Anzeige; die Such-API liefert ihn mit jeder Antwort.
 let referenceDate = EDITORIAL_REFERENCE_DATE;
-let lastOffset = 0;
-let lastLimit = 0;
 let lastTotal = 0;
+/** Kandidatenvorschriften, die die Antwort bislang abgedeckt hat (nie mehr als `lastTotal`). */
+let checkedCandidates = 0;
 let lastQueryKey = '';
 let visibleGroups = PAGE_SIZE;
 let lastResults: ScoredSearchResult[] = [];
@@ -191,7 +193,8 @@ function readStateFromUrl(): NormSearchState {
     ministries: params.getAll('ministry'),
     subjects: params.getAll('subject'),
     statuses: params.getAll('status'),
-    origins: params.getAll('origin'),
+    // Wie die Such-API: unbekannte Herkunftsarten werden verworfen, nicht als leerer Filter gezählt.
+    origins: params.getAll('origin').filter((value) => (NORM_ORIGIN_KINDS as readonly string[]).includes(value)),
     versionScope: normalizeVersionScope(params.get('versionScope') ?? 'current'),
     versionScopeExplicit: params.has('versionScope'),
     includeAmendments: params.get('includeAmendments') === '1',
@@ -551,19 +554,75 @@ function sortLabel(state: NormSearchState): string {
   return labels[getActiveSearchSort(state)];
 }
 
+interface ResultCount {
+  /** Angezeigte Vorschriften. */
+  shown: number;
+  /** Geladene und bewertete Vorschriften mit Treffer. */
+  loaded: number;
+  /** Gesamtzahl der Treffer, sofern sie feststeht; sonst null. */
+  total: number | null;
+  /** Geprüfte Kandidatenvorschriften. */
+  checked: number;
+  /** Kandidatenvorschriften, die noch nicht geladen und bewertet sind. */
+  unchecked: number;
+}
+
+/**
+ * Einzige Stelle, an der Trefferzahl und Nachladezähler entstehen. Überschrift und Nachladeknopf
+ * lesen ausschließlich hieraus, damit sie nie zwei verschiedene Mengen beschreiben.
+ *
+ * Die Gesamtzahl steht fest, wenn entweder alle Kandidaten geladen und bewertet sind (dann ist die
+ * geladene Menge die vollständige) oder die Kandidatenabfrage genau dieselbe Menge zählt wie die
+ * Anzeige (candidateTotalMatchesResults). Sonst bleibt sie offen und die Texte sprechen über die
+ * geprüfte Menge – eine falsche Gesamtzahl wird in keinem Fall behauptet.
+ */
+function countResults(groupCount: number, state: NormSearchState): ResultCount {
+  const unchecked = Math.max(0, lastTotal - checkedCandidates);
+  const shown = Math.min(visibleGroups, groupCount);
+  const total = unchecked === 0
+    ? groupCount
+    : candidateTotalMatchesResults(state) ? lastTotal : null;
+  return { shown, loaded: groupCount, total, checked: checkedCandidates, unchecked };
+}
+
+/** Überschrift der Trefferliste; nennt eine Gesamtzahl nur, wenn sie feststeht. */
+function summaryText(count: ResultCount, versionCount: number, state: NormSearchState): string {
+  const sorted = `Sortiert nach ${sortLabel(state)}.`;
+  // Offene Gesamtzahl: die Texte sprechen über die geprüfte Menge, nie über den ganzen Bestand.
+  if (count.total === null) {
+    const scope = `${count.checked} geprüften von ${count.checked + count.unchecked} Vorschriften`;
+    return count.loaded === 0 ? `Keine Treffer in ${scope}.` : `${count.loaded} Treffer in ${scope}. ${sorted}`;
+  }
+  if (count.total === 0) return 'Keine Treffer für die aktuelle Suchanfrage.';
+  if (count.total > count.loaded) return `${count.total} Treffer, davon ${count.loaded} geladen. ${sorted}`;
+  const versionLabel = versionCount === 1 ? '1 passende Fassung' : `${versionCount} passende Fassungen`;
+  const normLabel = count.loaded === 1 ? 'einer Vorschrift' : `${count.loaded} Vorschriften`;
+  return `${count.total} Treffer: ${versionLabel} in ${normLabel}. ${sorted}`;
+}
+
+/** Beschriftung des Nachladeknopfs aus derselben Zählung; null verbirgt den Knopf. */
+function moreButtonLabel(count: ResultCount): string | null {
+  if (count.total !== null) {
+    const remaining = count.total - count.shown;
+    return remaining > 0 ? `Weitere Treffer laden (${remaining} verbleibend)` : null;
+  }
+  if (count.shown < count.loaded) return `Weitere Treffer laden (${count.loaded - count.shown} geladen, ${count.unchecked} Vorschriften ungeprüft)`;
+  return `Weitere Vorschriften prüfen (${count.unchecked} noch nicht geprüft)`;
+}
+
 function renderResults(results: ScoredSearchResult[], state: NormSearchState, publication?: SearchPublication): void {
   if (!summary || !resultsContainer || !moreButton) return;
   const groups = groupNormSearchResults(results, state);
-  const visible = groups.slice(0, visibleGroups);
+  const count = countResults(groups.length, state);
+  const visible = groups.slice(0, count.shown);
+  const label = moreButtonLabel(count);
+  summary.textContent = summaryText(count, results.length, state);
+  moreButton.hidden = label === null;
+  if (label !== null) moreButton.textContent = label;
   if (groups.length === 0) {
-    summary.textContent = 'Keine Treffer für die aktuelle Suchanfrage.';
     resultsContainer.innerHTML = renderPublicationDirectHit(publication);
-    moreButton.hidden = true;
     return;
   }
-  const versionLabel = results.length === 1 ? '1 passende Fassung' : `${results.length} passende Fassungen`;
-  const normLabel = groups.length === 1 ? 'einer Vorschrift' : `${groups.length} Vorschriften`;
-  summary.textContent = `${groups.length} Treffer: ${versionLabel} in ${normLabel}. Sortiert nach ${sortLabel(state)}.`;
   resultsContainer.innerHTML = `${renderPublicationDirectHit(publication)}<ol class="record-list search-results__list">${visible.map((group) => {
     const [primary, ...others] = group.entries;
     return `<li class="record-list__item search-result-group">
@@ -571,25 +630,37 @@ function renderResults(results: ScoredSearchResult[], state: NormSearchState, pu
       ${others.length > 0 ? `<details class="search-result-group__versions"><summary>${others.length} weitere passende ${others.length === 1 ? 'Fassung' : 'Fassungen'}</summary>${others.map((entry) => renderVersion(entry, false)).join('')}</details>` : ''}
     </li>`;
   }).join('')}</ol>`;
-  moreButton.hidden = visible.length >= groups.length;
-  if (!moreButton.hidden) moreButton.textContent = `Weitere Treffer laden (${groups.length - visible.length} verbleibend)`;
 }
 
+/** Kennung der Kandidatenanfrage: ändert sie sich, muss die Kandidatenmenge neu geladen werden. */
 function candidateQueryKey(state: NormSearchState): string {
-  return JSON.stringify([state.q, state.exact, state.citation, state.types, state.origins]);
+  return JSON.stringify(buildSearchCandidateParams(state));
 }
 
-/** Kandidatenanfrage an /api/suche.json; Normtyp und Rechtsherkunft filtern dort bereits serverseitig. */
+/**
+ * Kandidatenanfrage an /api/suche.json. Alle Filter, die die D1-Projektion trägt, gehen mit,
+ * damit `total` dieselbe Menge zählt wie die Trefferliste (buildSearchCandidateParams).
+ */
 function buildCandidateUrl(state: NormSearchState, offset: number): string {
+  const filters = buildSearchCandidateParams(state);
   const params = new URLSearchParams();
-  if (state.q) params.set('q', state.q);
-  if (state.exact) params.set('exact', state.exact);
-  if (state.citation) params.set('citation', state.citation);
-  for (const type of state.types) params.append('type', type);
-  for (const origin of state.origins) params.append('origin', origin);
+  if (filters.q) params.set('q', filters.q);
+  if (filters.exact) params.set('exact', filters.exact);
+  if (filters.citation) params.set('citation', filters.citation);
+  const lists: Array<[string, string[]]> = [
+    ['type', filters.types],
+    ['origin', filters.origins],
+    ['ministry', filters.ministries],
+    ['subject', filters.subjects],
+    ['status', filters.statuses],
+    ['publicationSource', filters.publicationSources],
+    ['publicationYear', filters.publicationYears],
+  ];
+  for (const [name, values] of lists) for (const value of values) params.append(name, value);
+  if (filters.versionScope !== 'all') params.set('versionScope', filters.versionScope);
+  params.set('includeAmendments', filters.includeAmendments ? '1' : '0');
   if (offset > 0) params.set('offset', String(offset));
-  const query = params.toString();
-  return query ? `${searchApiUrl}?${query}` : searchApiUrl;
+  return `${searchApiUrl}?${params.toString()}`;
 }
 
 interface CandidatePayload {
@@ -619,9 +690,9 @@ async function loadCandidates(state: NormSearchState, offset: number, append: bo
     loadedDocuments = append ? [...loadedDocuments, ...prepared] : prepared;
     loadedPublications = payload.publications ?? [];
     if (payload.referenceDate) referenceDate = payload.referenceDate;
-    lastOffset = payload.offset;
-    lastLimit = payload.limit;
     lastTotal = payload.total;
+    // Geprüft ist alles bis zum Ende dieser Seite, höchstens aber die Kandidatenmenge selbst.
+    checkedCandidates = Math.min(payload.offset + payload.limit, payload.total);
     lastQueryKey = candidateQueryKey(state);
     return true;
   } catch (error) {
@@ -632,7 +703,7 @@ async function loadCandidates(state: NormSearchState, offset: number, append: bo
 }
 
 function hasMoreCandidates(): boolean {
-  return lastOffset + lastLimit < lastTotal;
+  return checkedCandidates < lastTotal;
 }
 
 async function setupSearch(): Promise<void> {
@@ -645,12 +716,8 @@ async function setupSearch(): Promise<void> {
     updateFacetCounts(lastResults);
     const typeIntent = getDetectedNormTypeIntent(loadedDocuments, state.q);
     updateActiveFilterControls(typeIntent);
+    // Zahl und Beschriftung entstehen ausschließlich in renderResults (countResults).
     renderResults(lastResults, state, findPublicationDirectHit(loadedPublications, state.q));
-    if (hasMoreCandidates()) {
-      moreButton.hidden = false;
-      const remaining = lastTotal - (lastOffset + lastLimit);
-      moreButton.textContent = `Weitere Treffer laden (${remaining} weitere Vorschriften)`;
-    }
   };
 
   const run = async (push = false) => {
@@ -707,7 +774,7 @@ async function setupSearch(): Promise<void> {
         visibleGroups += PAGE_SIZE;
       } else if (hasMoreCandidates() && lastState) {
         summary.textContent = 'Weitere Treffer werden geladen.';
-        if (!(await loadCandidates(lastState, lastOffset + lastLimit, true))) return;
+        if (!(await loadCandidates(lastState, checkedCandidates, true))) return;
         visibleGroups += PAGE_SIZE;
       }
       if (lastState) evaluate(lastState);
