@@ -15,17 +15,24 @@ Prioritäten:
 
 ## Dokumentationsstand
 
-Primäre Projektdokumentation ist jetzt:
+Kanonische Dokumentation (Übersicht in `README.md`, Abschnitt „Dokumentation“):
 
-- `README.md`
-- `AGENTS.md`
-- `CONTENT.md`
-- `DESIGN.md`
+- `README.md` – Einstieg und Struktur
+- `AGENTS.md` – Arbeits- und Redaktionsregeln
+- `CONTENT.md` – Inhaltsformate und Pflegewege
+- `CONTENT_GAPS.md` – nur tatsächlich offene Quellenlücken
+- `TODO.md` – nur offene technische Arbeiten
+- `DESIGN.md` – dauerhafte Gestaltungsregeln
+- `docs/` – Runbooks (Deployment, Normworkflow, REVOSax-Import und D1, Kreisreform-Karte, Zuarbeit)
 - `knowledge/README.md` für den internen Wissenshub
 - der tatsächliche Code- und Content-Zustand
 - `context/` als erhaltenes Ausgangs- und Simulationsmaterial
 
-Alte Root-Spezifikationen und Zwischenpläne sind nicht mehr kanonisch.
+Git ist die Historie: Markdown beschreibt den aktuellen Zustand, dauerhafte Architektur, Bedienung,
+Betriebsregeln und tatsächlich offene Arbeiten. Erledigte Aufgaben, gelöste Konflikte, Handoffs,
+Zwischenstände und alte Bestandszahlen werden entfernt, nicht als „erledigt“ archiviert; aktuelle
+Zahlen liefern Befehle und Audits. `npm run docs:check` prüft kanonische Dokumente, Links und die
+TODO-Hygiene.
 
 ## Interner Wissenshub
 
@@ -50,7 +57,8 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - Bei Strukturfragen konservativ an bestehenden Routen, Komponenten und Content-Modellen orientieren.
 - Keine großen Refactorings starten, wenn eine direkte, robuste Änderung reicht.
 - Nicht verwandte Änderungen im Working Tree nicht zurücksetzen.
-- Neue zentrale Entscheidungen knapp in `README.md` oder hier dokumentieren.
+- Neue zentrale Regeln knapp hier oder im passenden Runbook unter `docs/` dokumentieren; keine
+  Projektchroniken oder Statusberichte in Markdown anlegen.
 
 ## Technik
 
@@ -174,20 +182,15 @@ Mantelbestandteile aus REVOSax werden zweistufig zugeordnet: fail-closed heurist
 jede Entscheidung nennt Zielgesetz, Fundstelle, Beleg und Methode und wird gegen den Artikeltext
 verifiziert). Kein blindes Mapping.
 
-D1 ist die Runtime-Projektion (Schema `data/recht/d1/`, Sync `scripts/sync-recht-d1.mjs`):
-Löschungen laufen nur über Indizes (nie ein Vollscan des FTS5-Index), die Vollprojektion ist ein
-bewusster Sondermodus mit einmaligem Reset, die Projektionsidentität (Fingerabdruck plus Scope
-`full`/`fixture:…`) macht einen Sync bei unverändertem Stand zum No-op – ein Fixture gilt nie als
-Vollbestand –, ein `--git-diff`-Sync schreibt nur mit verifizierter Basisidentität (sonst
-fail-closed oder markierte Recovery mit `--recover`), und Remote-Läufe tragen immer ein Budgetprofil
-aus `data/recht/d1-sync-budgets.json` (`--budget …`; Vorabschätzung und Laufzeitabbruch). Kein
-produktiver `--full`-Sync ohne zwingenden Grund; Lasttests nur lokal oder gegen
-`ostrecht-recht-staging`; Migrationen lokal → Staging → Produktion, nie automatisch. Die
-OstRecht-Laufzeit lädt nie den vollständigen Korpus: Übersichten lesen `NormSummary`-Zeilen mit
-SQL-Filtern, A–Z und Rechtsentwicklung paginieren serverseitig (`queryNormSummaries`), korpusweite
-Zahlen kommen aus vorberechneten Metadatenzeilen. Pull-Request-Smoke läuft gegen
-`data/recht/runtime-fixture.json`; der Vollbestand ist Release-Gate (`full_runtime_smoke`, einmal
-geseedet) und wöchentlicher Lauf.
+D1 ist die Runtime-Projektion (Schema `data/recht/d1/`, Sync `scripts/sync-recht-d1.mjs`); die
+verbindlichen Regeln stehen in `docs/REVOSAX_BULK_IMPORT.md`: Projektionsidentität und
+Base-State-Guard, Budgetprofile für jeden Remote-Lauf, kein produktiver `--full`-Sync ohne
+zwingenden Grund, Lasttests nur lokal oder gegen `ostrecht-recht-staging`, Migrationen lokal →
+Staging → Produktion, nie automatisch, und Expand/Contract bei jeder Änderung der Datenform
+(`docs/DEPLOYMENT_RUNBOOK.md`). Die OstRecht-Laufzeit lädt nie den vollständigen Korpus. Tests
+laufen gegen einen lokalen SQLite-Seed (`scripts/d1-runtime-seed.mjs`): Pull Requests gegen
+`data/recht/runtime-fixture.json`, der Vollbestand bei Laufzeit- und Projektionsänderungen, als
+gecachter Seed auch wöchentlich und manuell.
 
 Verkündungen liegen unter:
 
@@ -211,8 +214,8 @@ für jede übernommene Normquelle der kanonische Ablauf aus `docs/NORM_WORKFLOW.
 `npm run norms:workflow -- --file "…html" --write` auszuführen. Er verbindet den gezielten
 Import, die Konsolidierungs- und Metadatenprüfungen, den Wissenshub sowie die technische
 Content-, Build-, Link- und SEO-QA. Repräsentative Browser- und Accessibility-Smokes gehören
-zum Release-Gate; breite Browsermatrizen und Screenshot-Vergleiche werden bei betroffenen
-Designänderungen gezielt manuell ausgeführt. `--quick` ist nur für Zwischenprüfungen zulässig.
+zum Release-Gate; die Screenshot-Suite läuft in CI bei Oberflächenänderungen und lokal gezielt,
+breite Browsermatrizen bleiben manuelle Werkzeuge. `--quick` ist nur für Zwischenprüfungen zulässig.
 Geänderte Screenshot-Baselines werden nur nach Sichtprüfung übernommen. Widersprüchliche oder
 fehlerhafte Bildmotive werden nicht als amtliche Darstellung veröffentlicht. `temp-neu/` bleibt
 unverändert als Benutzereingang bestehen.
@@ -232,9 +235,12 @@ unverändert als Benutzereingang bestehen.
 - Die Kreisreform-Suche muss ohne geöffnete Karte ein textliches Ergebnis liefern; die Karte startet
   auf kleinen Bildschirmen nur nach ausdrücklichem Öffnen.
 - Statistik bleibt freiwillig: Nur notwendige Funktionen sind Standard, Webanalyse startet erst nach ausdrücklicher Zustimmung.
-- Das Release-Gate verwendet repräsentative Chromium- und Accessibility-Smoke-Tests. Screenshot-
-  Baselines und die breite Browsermatrix sind gezielte manuelle Design- und Kompatibilitätswerkzeuge;
-  reine Pixelabweichungen blockieren kein Deployment.
+- Das Release-Gate verwendet repräsentative Chromium- und Accessibility-Smoke-Tests. Die
+  Screenshot-Suite und die breite Browsermatrix sind Design- und Kompatibilitätswerkzeuge; reine
+  Pixelabweichungen blockieren kein Deployment.
+- Hervorhebungen von Themen (`highlightFrom`/`highlightUntil`) sind redaktionelle Entscheidungen
+  und werden nicht gesetzt, um ein Layout zu füllen; die Startseite funktioniert mit einer, zwei
+  und drei aktiven Hervorhebungen.
 
 ## Bei Unsicherheit
 

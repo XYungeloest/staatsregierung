@@ -1,7 +1,6 @@
 # Quellenhierarchie des internen Wissenshubs
 
 **Redaktioneller Stichtag:** zentral in `../packages/shared/src/config/editorial.json`
-**Repositoryprüfung:** 29. August 2026
 
 ## Grundsatz
 

@@ -6,7 +6,7 @@ Diese Datei beschreibt den aktuellen kanonischen Weg, Inhalte der Website einzup
 
 Öffentliche Website-Inhalte werden in der Regel dateibasiert als JSON unter `content/` gepflegt. Eine Inhaltsdatei ist immer ein JSON-Objekt, kein Markdown-Dokument und keine Liste als Wurzelwert. Textabsätze werden meist als String-Arrays gepflegt.
 
-Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffentliche Inhaltsauslieferung angebunden; Inhalte werden über validierte JSON-Dateien und Bilddateien unter `public/images/` bereitgestellt. Änderungen an diesen kanonischen Dateien werden über Branches und Pull Requests geprüft; es gibt keine zweite Inhaltsquelle.
+Das Portal wird dateibasiert gepflegt: Inhalte werden über validierte JSON-Dateien und Bilddateien unter `public/images/` bereitgestellt. Das Staatsportal liest ausschließlich `content/`; OstRecht liest zur Laufzeit die aus `content/normen` und `content/verkuendungen` projizierte Cloudflare-D1-Datenbank (eine abgeleitete Projektion, keine zweite Inhaltsquelle; siehe `docs/REVOSAX_BULK_IMPORT.md`). R2 archiviert nur unveränderte Rohquellen. Änderungen an den kanonischen Dateien werden über Branches und Pull Requests geprüft.
 
 ## Allgemeine Regeln
 
@@ -924,11 +924,11 @@ Regeln:
 
 - `/norm/[slug]/` auf der OstRecht-Origin ist der dynamische Hauptlink.
 - `/norm/[slug]/version/[versionId]/` auf der OstRecht-Origin ist der unveränderliche Fassungslink.
-- Die Fassungsnavigation erscheint auf Normtext, statischer Fassung, Historie und Vergleich.
+- Die Fassungsnavigation erscheint auf Normtext, gespeicherter Fassung, Historie und Vergleich.
 - Der Vergleich speichert die Auswahl in `von` und `bis`; ohne JavaScript bleibt der voreingestellte
   Vergleich zur vorherigen Fassung lesbar. Bei übernommenem Recht wird zusätzlich ein direkter
-  Vergleich mit der belegten Ausgangsfassung angeboten. Weitere Paarungen werden aus statisch
-  erzeugten Vergleichsdaten geladen; die Normseiten betten nicht alle Fassungs-Paare ein.
+  Vergleich mit der belegten Ausgangsfassung angeboten. Weitere Paarungen werden erst beim Abruf für
+  genau das angefragte Paar berechnet; die Normseiten betten nicht alle Fassungs-Paare ein.
 - `/rechtsentwicklung/` auf der OstRecht-Origin bündelt Herkunft, Ausgangsfassung, eigene Änderungen und den
   anwendbaren Stand. Filter für Suchtext, Herkunft, Normtyp, Sachgebiet und Status bleiben in der
   Adresse erhalten.
@@ -938,8 +938,11 @@ Regeln:
 - `origin` unterstützt `ostdeutsch-original`, `inherited-unchanged`, `inherited-amended` und
   `origin-unresolved` und verwendet dieselbe zentrale Einordnung wie die Normseiten.
 - Ein Stern am Wortende ist ein Präfix-Platzhalter; die normale Teilwortsuche bleibt bestehen.
-- Ohne ausdrücklichen `sort`-Parameter werden Treffer nach dem maßgeblichen Verkündungsdatum
-  absteigend sortiert. `relevance`, `title` und `rechtsstand` bleiben wählbare Sortierungen.
+- Ohne ausdrücklichen `sort`-Parameter gilt: mit Suchanfrage Relevanz, ohne Suchanfrage (auch mit
+  Filtern) `activity` – das jüngste Rechtsereignis der Norm zuerst (Erlass, Änderung, Aufhebung,
+  Fassungsbeginn bis zum Stichtag; dieselbe Definition wie `law_norms.last_change_date`), sodass
+  neue und geänderte Vorschriften vor unverändert übernommenem Recht stehen. `publication`,
+  `relevance`, `title` und `rechtsstand` bleiben wählbare Sortierungen.
 - Druckansichten sind Portalansichten. Ein PDF- oder Anlagenlink wird nur aus einem belegten
   Quellenfeld erzeugt.
 - Mehrere `subjects` bleiben zulässig. `primarySubject` kann optional eine primäre Zuordnung

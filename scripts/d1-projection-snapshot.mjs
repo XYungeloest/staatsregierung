@@ -3,9 +3,10 @@
 // Muss vor allen @ostrecht-Importen stehen (SITE_TARGET=law für die Routenhelfer).
 import './lib/law-site-env.mjs';
 
-import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+
+import { checkSearchIndexIntegrity, executePlan, openDatabase } from './lib/d1-sqlite.mjs';
 
 /**
  * Lokaler Nachweis für gezielte D1-Projektionen ohne Cloudflare-Zugriff.
@@ -42,42 +43,6 @@ function valueAfter(args, flag) {
   return index >= 0 ? args[index + 1] : undefined;
 }
 
-async function openDatabase(path, { create }) {
-  const { DatabaseSync } = await import('node:sqlite');
-  const db = new DatabaseSync(path);
-  if (create) {
-    const schemaDir = join(ROOT, 'data', 'recht', 'd1');
-    for (const name of (await readdir(schemaDir)).filter((file) => /^\d{4}_.*\.sql$/u.test(file)).sort()) {
-      db.exec(await readFile(join(schemaDir, name), 'utf8'));
-    }
-  }
-  return db;
-}
-
-function bindable(value) {
-  if (value === undefined) return null;
-  if (typeof value === 'boolean') return value ? 1 : 0;
-  return value;
-}
-
-function executePlan(db, plan) {
-  let count = 0;
-  db.exec('BEGIN');
-  try {
-    for (const group of plan.groups) {
-      for (const query of group.queries) {
-        db.prepare(query.sql).run(...(query.params ?? []).map(bindable));
-        count += 1;
-      }
-    }
-    db.exec('COMMIT');
-  } catch (error) {
-    db.exec('ROLLBACK');
-    throw error;
-  }
-  return count;
-}
-
 async function project(args) {
   const out = valueAfter(args, '--out');
   const into = valueAfter(args, '--into');
@@ -101,9 +66,9 @@ async function project(args) {
   const now = valueAfter(args, '--now') ?? '2026-01-01T00:00:00.000Z';
   const plan = sync.buildSyncPlan({ scope, norms, publications, context, now, fingerprint: identity, identity, writeIdentity: true });
   console.log(`Plan: ${plan.selected.length} Normen, ${plan.derivedCount} abgeleitete Datensätze, ${plan.documentRefreshCount ?? 0} Normen mit erneuerten Suchdokumenten, ${plan.publicationCount} Verkündungen, ${plan.statementCount} Anweisungen (${Math.round((Date.now() - startedAt) / 1000)} s)`);
-  const db = await openDatabase(out ?? into, { create: Boolean(out) });
+  const db = await openDatabase(out ?? into, { create: Boolean(out), root: ROOT });
   const executed = executePlan(db, plan);
-  db.exec("INSERT INTO law_search(law_search) VALUES ('integrity-check')");
+  checkSearchIndexIntegrity(db);
   db.close();
   console.log(`${executed} Anweisungen nach ${out ?? into} geschrieben; FTS5-Integrität geprüft (${Math.round((Date.now() - startedAt) / 1000)} s).`);
 }
@@ -126,8 +91,8 @@ async function compare(args) {
   const [left, right] = args.filter((value) => value !== 'compare' && !value.startsWith('--'));
   if (!left || !right) throw new Error('compare braucht zwei SQLite-Dateien');
   const { createHash } = await import('node:crypto');
-  const a = await openDatabase(left, { create: false });
-  const b = await openDatabase(right, { create: false });
+  const a = await openDatabase(left, { create: false, readOnly: true });
+  const b = await openDatabase(right, { create: false, readOnly: true });
   let differences = 0;
   for (const table of TABLES) {
     const rowsA = dumpTable(a, table);

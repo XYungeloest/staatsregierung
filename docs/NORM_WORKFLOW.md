@@ -74,7 +74,9 @@ npm run knowledge:build && npm run knowledge:check
 
 Der Lauf zeigt jede Norm, deren Status wechselt, jede Fassung, deren zeitliche Einordnung
 wechselt, sowie ablaufende Themen-Hervorhebungen; er verändert weder Quellen noch Fassungen,
-Historie oder Verkündungen. Für die D1-Projektion ist die Stichtagsänderung kein Full-Trigger:
+Historie oder Verkündungen. Der Stichtag wird nur vorwärts geschrieben: ein Zielstichtag vor dem
+bisherigen wird fail-closed abgelehnt, bevor etwas gelesen oder geschrieben wird (die Statuslogik
+ist nicht reversibel); derselbe Stichtag ist ein erlaubter No-op. Für die D1-Projektion ist die Stichtagsänderung kein Full-Trigger:
 der automatische `--git-diff`-Sync liest den alten Stichtag aus dem Basis-Commit und projiziert
 nur die stichtagsabhängig betroffenen Normen samt abgeleiteten Daten aller Normen
 (`scripts/lib/d1-reference-date.mjs`; Gleichheit mit einer frischen Vollprojektion wird in
@@ -89,5 +91,6 @@ prüfen. Bestätigtes Kontextwissen wird mit Quellen und Gültigkeitszeitraum in
 
 Der vollständige Lauf prüft Content, Wissenshub, Unit-Tests und Astro/TypeScript, baut beide
 Anwendungen einmal und prüft danach Links, SEO sowie repräsentative Chromium- und
-Accessibility-Smokes gegen diesen Build. Visuelle Baselines werden bei betroffenen Oberflächen
-separat und erst nach Sichtprüfung aktualisiert.
+Accessibility-Smokes gegen diesen Build (OstRecht mit dem lokalen D1-Seed aus
+`scripts/d1-runtime-seed.mjs`). Visuelle Baselines werden bei betroffenen Oberflächen separat und
+erst nach Sichtprüfung aktualisiert.

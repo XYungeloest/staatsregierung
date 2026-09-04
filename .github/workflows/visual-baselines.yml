@@ -1,0 +1,72 @@
+name: Screenshot-Baselines erneuern
+
+# Erzeugt die Linux-Baselines der Screenshot-Suite (tests/visual.spec.ts-snapshots/*-linux.png) im
+# festen Playwright-Container gegen das Testfixture – nur auf Anforderung. Die Baselines werden
+# als Artefakt bereitgestellt, gesichtet und dann committet; die Jobs `visual` in Pull Requests
+# und auf main vergleichen strikt und erzeugen nie selbst Baselines.
+
+on:
+  workflow_dispatch:
+    inputs:
+      site_targets:
+        description: Websites, deren Baselines erneuert werden (portal, law oder portal,law)
+        required: true
+        default: portal,law
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    outputs:
+      playwright_version: ${{ steps.version.outputs.playwright_version }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Playwright-Version aus package-lock.json lesen (Container muss ihr entsprechen)
+        id: version
+        run: echo "playwright_version=$(node -e 'console.log(require("./package-lock.json").packages["node_modules/@playwright/test"].version)')" >> "$GITHUB_OUTPUT"
+
+  baselines:
+    needs: lockfile
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs.lockfile.outputs.playwright_version }}-noble
+    env:
+      OSTRECHT_D1_FIXTURE: data/recht/runtime-fixture.json
+      HOME: /root
+    steps:
+      - name: Git im Container sicherstellen
+        run: command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends git)
+      - uses: actions/checkout@v7
+      - name: Arbeitsbaum für Git im Container freigeben
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Abhängigkeiten (Node.js des Containers)
+        uses: ./.github/actions/setup-node-modules
+        with:
+          node-version: ''
+      - name: Websites bauen
+        env:
+          PORTAL_BUILD_COMMIT: ${{ github.sha }}
+        run: npm run build
+      - name: OstRecht-Worker mit dem Testfixture vorbereiten
+        uses: ./.github/actions/d1-seed
+        with:
+          fixture: data/recht/runtime-fixture.json
+          cache: 'false'
+      - name: Baselines erzeugen
+        env:
+          SITE_TARGETS: ${{ github.event.inputs.site_targets }}
+        run: |
+          rm -f tests/visual.spec.ts-snapshots/*-linux.png
+          npm run test:visual:run -- --update-snapshots
+          ls tests/visual.spec.ts-snapshots/*-linux.png | wc -l
+      - name: Baselines bereitstellen (sichten, dann committen)
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-baselines-linux-${{ github.sha }}
+          path: tests/visual.spec.ts-snapshots/*-linux.png
+          retention-days: 14
+          if-no-files-found: error

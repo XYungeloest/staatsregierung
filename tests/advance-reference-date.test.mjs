@@ -45,3 +45,38 @@ test('Stichtagsfortschreibung ohne Datumswechsel oder mit ungültigem Datum', ()
   assert.deepEqual(planReferenceDateAdvance({ norms: [], from: '2026-09-04', to: '2026-09-04' }), { from: '2026-09-04', to: '2026-09-04', statusChanges: [], versionChanges: [] });
   assert.throws(() => planReferenceDateAdvance({ norms: [], from: '2026-09-01', to: '4.9.2026' }), /ISO-Datum/u);
 });
+
+test('Stichtagsfortschreibung ist fail-closed nur vorwärts: gleicher Stichtag erlaubt, späterer erlaubt, früherer abgelehnt', async () => {
+  const { mkdtemp, mkdir, readFile, writeFile } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const { assertForwardOnly, main, ReferenceDateRegressionError } = await import('../scripts/advance-reference-date.mjs');
+
+  assert.doesNotThrow(() => assertForwardOnly('2026-09-04', '2026-09-04'));
+  assert.doesNotThrow(() => assertForwardOnly('2026-09-04', '2026-09-05'));
+  assert.throws(() => assertForwardOnly('2026-09-04', '2026-09-01'), ReferenceDateRegressionError);
+  assert.throws(() => planReferenceDateAdvance({ norms: [], from: '2026-09-04', to: '2026-09-01' }), /Rückdatierung abgelehnt/u);
+
+  // Bei Ablehnung wird auch mit --write nichts geschrieben.
+  const root = await mkdtemp(join(tmpdir(), 'reference-date-'));
+  const normDir = join(root, 'content', 'normen', 'zukunft');
+  await mkdir(join(normDir, 'versions'), { recursive: true });
+  await mkdir(join(root, 'content', 'themen'), { recursive: true });
+  await mkdir(join(root, 'content', 'organisation', 'snapshots'), { recursive: true });
+  await mkdir(join(root, 'packages', 'shared', 'src', 'config'), { recursive: true });
+  const meta = `${JSON.stringify({ slug: 'zukunft', status: 'future-effective', effectiveDate: '2026-09-02' }, null, 2)}\n`;
+  const editorial = `${JSON.stringify({ referenceDate: '2026-09-04' }, null, 2)}\n`;
+  await writeFile(join(normDir, 'meta.json'), meta);
+  await writeFile(join(normDir, 'versions', '2026-09-02.json'), `${JSON.stringify({ versionId: '2026-09-02', validFrom: '2026-09-02', validTo: null })}\n`);
+  await writeFile(join(root, 'packages', 'shared', 'src', 'config', 'editorial.json'), editorial);
+  await assert.rejects(main(['--to', '2026-09-01', '--write'], root), ReferenceDateRegressionError);
+  assert.equal(await readFile(join(normDir, 'meta.json'), 'utf8'), meta, 'meta.json unverändert');
+  assert.equal(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'editorial.json'), 'utf8'), editorial, 'editorial.json unverändert');
+  // Gleicher Stichtag: No-op ohne Änderung, späterer Stichtag: schreibt.
+  const same = await main(['--to', '2026-09-04', '--write', '--json'], root);
+  assert.equal(same.statusChanges.length, 0);
+  assert.equal(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'editorial.json'), 'utf8'), editorial);
+  const later = await main(['--to', '2026-09-05', '--write', '--json'], root);
+  assert.equal(later.written, true);
+  assert.match(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'editorial.json'), 'utf8'), /2026-09-05/u);
+});

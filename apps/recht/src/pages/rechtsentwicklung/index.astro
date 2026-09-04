@@ -60,6 +60,8 @@ const result = await store.queryNormSummaries({
   subject: state.subject || undefined,
   page: requestedPage,
   pageSize: DEFAULT_PAGE_SIZE,
+  // Jüngstes Rechtsereignis zuerst: neue und geänderte Vorschriften vor unverändert übernommenem Recht.
+  sort: 'activity',
 });
 const filterParams = { q: state.q, origin: state.origin, type: state.type, subject: state.subject, status: state.status };
 const pagination = buildPagination({ page: result.page, pageCount: result.pageCount, basePath, params: filterParams });

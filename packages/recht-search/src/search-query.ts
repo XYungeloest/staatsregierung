@@ -22,7 +22,8 @@ export function formatSearchResultLabel(
 
 export type SearchScope = 'all' | 'title' | 'metadata' | 'body';
 export type VersionScope = VersionTemporalKind | 'all';
-export type SortKey = 'publication' | 'relevance' | 'title' | 'rechtsstand';
+/** `activity` = jüngstes Rechtsereignis zuerst (Standard ohne Suchbegriff), `publication` = neueste Verkündung. */
+export type SortKey = 'activity' | 'publication' | 'relevance' | 'title' | 'rechtsstand';
 
 export interface NormSearchState {
   q: string;
@@ -156,7 +157,8 @@ const TYPE_INTENT_DEFINITIONS = NORM_TYPES.map((type) => ({ type, ...TYPE_INTENT
 const REFERENCE_PATTERN = /§{1,2}\s*([0-9]+[a-z]?(?:\s*(?:,|und)\s*[0-9]+[a-z]?)*)(?:\s+(?:Abs(?:atz)?\.?)\s*([0-9]+))?/giu;
 const ARTICLE_PATTERN = /(?:Artikel|Art\.)\s*([0-9]+[a-z]?)(?:\s+(?:Abs(?:atz)?\.?)\s*([0-9]+))?/giu;
 const SUBSECTION_PATTERN = /(?:Absatz|Abs\.?)\s*([0-9]+)/giu;
-const PUBLICATION_REFERENCE_PATTERN = /\b(?:OGVBl\.?|OABl\.?|StAnzO\.?|GMBl\.?|SächsGVBl\.?|BGBl\.?)\s+\d{4}(?:\s+[IVX]+)?\s+Nr\.?\s*[\p{L}\p{N}./\-–—]+(?:\s+S\.?\s*[\p{L}\p{N}./\-–—]+)?/giu;
+/** Fundstellen der eigenen Verkündungsorgane (OGVBl., OABl., StAnzO., OVertrBl., GMBl.) sowie SächsGVBl. und BGBl. */
+const PUBLICATION_REFERENCE_PATTERN = /\b(?:OGVBl\.?|OABl\.?|StAnzO\.?|OVertrBl\.?|GMBl\.?|SächsGVBl\.?|BGBl\.?)\s+\d{4}(?:\s+[IVX]+)?\s+Nr\.?\s*[\p{L}\p{N}./\-–—]+(?:\s+S\.?\s*[\p{L}\p{N}./\-–—]+)?/giu;
 
 /**
  * Normiert Interpunktion, Groß-/Kleinschreibung und ß. Umlaut- und
@@ -439,10 +441,15 @@ export function removeDetectedTypeIntent(value: string, intent: NormTypeIntent):
   return value.replace(new RegExp(`(?:^|\\s)(?:${alternatives})(?=\\s|$)`, 'iu'), ' ').trim();
 }
 
+/**
+ * Standardsortierung: mit Suchanfrage nach Relevanz, ohne Suchanfrage (Stöbern, auch mit
+ * Filtern) nach jüngstem Rechtsereignis – neue ostdeutsche Gesetze und aktuelle Änderungen
+ * stehen vor unverändert übernommenem Recht.
+ */
 export function getDefaultSearchSort(state: Pick<NormSearchState, 'q' | 'exact' | 'citation' | 'exclude'>): SortKey {
   return state.q.trim() || state.exact.trim() || state.citation.trim() || state.exclude.trim()
     ? 'relevance'
-    : 'publication';
+    : 'activity';
 }
 
 export function getActiveSearchSort(state: NormSearchState): SortKey {
@@ -761,7 +768,9 @@ function evaluateDocument(
   const titleStarts = queryStartsTitle(prepared, query);
   const strongRawTitlePrefix = hasSpecificRawTitleQuery(query) && Boolean(titleStarts);
   const strongRawTitlePhrase = fullSpecificQueryAppearsInTitle(prepared, query);
-  const amendmentDirectMatch = Boolean(identity || strongRawTitlePrefix || strongRawTitlePhrase);
+  // Eine Fundstellensuche trifft die Vorschrift unmittelbar (publicationSlug ist hier bereits
+  // auf dieses Dokument geprüft): Änderungsvorschriften der zitierten Ausgabe bleiben sichtbar.
+  const amendmentDirectMatch = Boolean(identity || strongRawTitlePrefix || strongRawTitlePhrase || publicationSlug);
   const amendmentExplicitlyRequested = state.types.includes('aenderungsvorschrift')
     || query.typeIntent?.type === 'aenderungsvorschrift';
   if (documentEntry.isAmendment && !state.includeAmendments && !amendmentExplicitlyRequested && !amendmentDirectMatch) return undefined;
@@ -886,6 +895,16 @@ export function compareNormSearchResults(
   right: ScoredSearchResult,
   sort: SortKey,
 ): number {
+  if (sort === 'activity') {
+    // Fehlt das Feld (ältere Suchdokumente), zählt der Fassungsbeginn.
+    const leftDate = left.documentEntry.lastActivityDate ?? left.documentEntry.validFrom;
+    const rightDate = right.documentEntry.lastActivityDate ?? right.documentEntry.validFrom;
+    return rightDate.localeCompare(leftDate)
+      || compareRank(left.rank, right.rank)
+      || left.documentEntry.title.localeCompare(right.documentEntry.title, 'de')
+      || right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom)
+      || left.documentEntry.slug.localeCompare(right.documentEntry.slug);
+  }
   if (sort === 'publication') {
     const leftDate = left.documentEntry.publicationDate ?? left.documentEntry.validFrom;
     const rightDate = right.documentEntry.publicationDate ?? right.documentEntry.validFrom;
@@ -931,8 +950,8 @@ export function groupNormSearchResults(
   }
 
   const preferCurrentBrowseVersion = state.versionScope === 'all'
-    && getDefaultSearchSort(state) === 'publication'
-    && getActiveSearchSort(state) === 'publication';
+    && getDefaultSearchSort(state) === 'activity'
+    && ['activity', 'publication'].includes(getActiveSearchSort(state));
 
   return [...groups.entries()].map(([slug, entries]) => {
     if (preferCurrentBrowseVersion) {

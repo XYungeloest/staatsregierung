@@ -11,7 +11,10 @@ import { resolve } from 'node:path';
  *     Umfangsbestimmung, korpusweite Ableitungen unter packages/shared/src/lib/norms/,
  *     Portalbezüge, Konfiguration, Suchprojektion in packages/recht-search/src/),
  *   - dem Inhaltshash des Rechtsbestands (content/normen, content/verkuendungen),
- *   - dem Inhaltshash der Portalgrundlagen (content/themen, content/presse),
+ *   - dem Inhaltshash der projektionsrelevanten Portalgrundlagen (content/themen,
+ *     content/presse: nur die Felder, die in law_norm_derived einfließen – Slug, Titel,
+ *     Rechtsgrundlagen bzw. Datum und Normbezüge; Hervorhebungen, Teaser, Prioritäten und
+ *     andere reine Portalfelder ändern die Identität nicht),
  *   - dem Projektionsumfang (Scope): `full` für den gesamten Bestand oder
  *     `fixture:<Pfad>@<Inhaltshash>` für ein Testfixture (--corpus-filter).
  * Der Fingerabdruck ist der SHA-256 über diese vier Bestandteile; ein Fixture kann deshalb
@@ -122,9 +125,64 @@ export async function projectionLogicHash(root = process.cwd(), options = {}) {
   return hashRoots(root, PROJECTION_LOGIC_ROOTS, PROJECTION_LOGIC_FILES, options);
 }
 
-/** Inhaltshash der Portalgrundlagen (Themen, Presse), die in law_norm_derived einfließen. */
+/**
+ * Projektionsrelevanter Auszug einer Portaldatei – genau die Felder, die
+ * packages/shared/src/lib/norms/derived.ts (PortalTopicLike, PortalPressReleaseLike) liest.
+ * Themen: Slug, Titel (bestimmt auch die Reihenfolge der Themenliste) und die Normbezüge der
+ * Rechtsgrundlagen; Presse: Slug, Titel, Datum (Reihenfolge) und Normbezüge. Alles andere
+ * (Hervorhebungen, Teaser, Prioritäten, Module, Texte) ist reine Portaldarstellung.
+ * Wird derived.ts um weitere Portalfelder erweitert, muss dieser Auszug mitziehen.
+ */
+export function portalProjectionOf(path, json) {
+  if (!json || typeof json !== 'object') return null;
+  if (path.startsWith('content/themen/')) {
+    const normSlugs = [...new Set((Array.isArray(json.rechtsgrundlagen) ? json.rechtsgrundlagen : [])
+      .map((reference) => (reference && typeof reference === 'object' ? reference.normSlug : null))
+      .filter((slug) => typeof slug === 'string' && slug))].sort();
+    return { kind: 'thema', slug: json.slug ?? null, title: json.title ?? null, normSlugs };
+  }
+  if (path.startsWith('content/presse/')) {
+    const normSlugs = Array.isArray(json.relatedNormSlugs) ? json.relatedNormSlugs.filter((slug) => typeof slug === 'string') : [];
+    return { kind: 'presse', slug: json.slug ?? null, title: json.title ?? null, date: json.date ?? null, normSlugs };
+  }
+  return null;
+}
+
+async function readPortalJson(root, path, ref) {
+  const text = ref ? await git(root, ['show', `${ref}:${path}`]) : await readFile(resolve(root, path), 'utf8');
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
+/** Projektionsauszüge aller Portaldateien als Zeilen „Pfad\tJSON“ (Arbeitsbaum oder Git-Ref). */
+export async function portalProjectionLines(root = process.cwd(), { ref = null } = {}) {
+  const paths = ref
+    ? (await refLines(root, ref, PORTAL_CONTENT_ROOTS, [])).map((line) => line.split('\t')[0])
+    : (await workingTreeLines(root, PORTAL_CONTENT_ROOTS, [])).map((line) => line.split('\t')[0]);
+  const lines = [];
+  for (const path of paths.filter((entry) => entry.endsWith('.json')).sort()) {
+    const projection = portalProjectionOf(path, await readPortalJson(root, path, ref));
+    // Nicht lesbare oder unbekannte Dateien zählen konservativ mit ihrem vollständigen Inhalt.
+    lines.push(`${path}\t${projection ? JSON.stringify(projection) : createHash('sha256').update(ref ? await git(root, ['show', `${ref}:${path}`]) : await readFile(resolve(root, path), 'utf8')).digest('hex')}`);
+  }
+  return lines;
+}
+
+/** Inhaltshash der projektionsrelevanten Portalgrundlagen (Themen, Presse), die in law_norm_derived einfließen. */
 export async function portalContentHash(root = process.cwd(), options = {}) {
-  return hashRoots(root, PORTAL_CONTENT_ROOTS, [], options);
+  return hashLines(await portalProjectionLines(root, options));
+}
+
+/** Vergleicht den Projektionsauszug einer Portaldatei zwischen einem Git-Ref und dem Arbeitsbaum. */
+export async function portalProjectionChangedSince(root, ref, path) {
+  const [previous, current] = await Promise.all([
+    readPortalJson(root, path, ref).catch(() => null),
+    readPortalJson(root, path, null).catch(() => null),
+  ]);
+  return JSON.stringify(portalProjectionOf(path, previous)) !== JSON.stringify(portalProjectionOf(path, current));
 }
 
 /** Scope-Kennung eines Testfixtures: Pfad und Inhaltshash der Fixture-Datei. */
@@ -143,8 +201,27 @@ export function combineFingerprint({ logic, corpus, portal, scope = FULL_SCOPE }
  */
 export async function projectionIdentity({ root = process.cwd(), scope = FULL_SCOPE, ref = null } = {}) {
   const options = { ref };
-  const [logic, corpus, portal] = await Promise.all([projectionLogicHash(root, options), corpusContentHash(root, options), portalContentHash(root, options)]);
-  return { fingerprint: combineFingerprint({ logic, corpus, portal, scope }), scope, logic, corpus, portal, ref };
+  const [logic, corpus, portal, legacyPortal] = await Promise.all([
+    projectionLogicHash(root, options), corpusContentHash(root, options), portalContentHash(root, options), legacyPortalContentHash(root, options),
+  ]);
+  return {
+    fingerprint: combineFingerprint({ logic, corpus, portal, scope }),
+    scope,
+    logic,
+    corpus,
+    portal,
+    ref,
+    // Übergang: Identität derselben Eingaben mit dem früheren Portalhash über ganze Dateien.
+    // Eine D1, die vor der projektionsrelevanten Berechnung geschrieben wurde, trägt diesen Wert
+    // als Basiszustand; der Base-State-Guard akzeptiert ihn, bis alle Datenbanken die neue
+    // Identität tragen (TODO.md).
+    legacyFingerprint: combineFingerprint({ logic, corpus, portal: legacyPortal, scope }),
+  };
+}
+
+/** Früherer Portalhash über die vollständigen Dateien (Git-Blobs); nur für den Übergang des Base-State-Guards. */
+export async function legacyPortalContentHash(root = process.cwd(), options = {}) {
+  return hashRoots(root, PORTAL_CONTENT_ROOTS, [], options);
 }
 
 /** Kompatibler Kurzzugriff: Identität des Arbeitsbaums im Vollbestands-Scope. */

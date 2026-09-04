@@ -19,8 +19,9 @@ import { getNormUrl, getNormVersionUrl, getPublicationUrl } from '@ostrecht/shar
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import type { NormBodyBlock, NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import {
-  classifyNormVersion,
   EDITORIAL_REFERENCE_DATE,
+  classifyNormVersion,
+  getNormLastActivityDate,
   type VersionTemporalKind,
 } from '@ostrecht/shared/lib/norms/versions.ts';
 import {
@@ -69,6 +70,12 @@ export interface SearchIndexDocument {
   changeNote: string;
   validFrom: string;
   validTo: string | null;
+  /**
+   * Jüngstes Rechtsereignis der Norm bis zum Stichtag (Erlass, Änderung, Aufhebung, Fassungsbeginn;
+   * dieselbe Definition wie law_norms.last_change_date). Standardsortierung ohne Suchbegriff;
+   * fehlt in älteren Suchdokumenten (Expand/Contract).
+   */
+  lastActivityDate?: string;
   bodySupplement: string;
   hitUnits: SearchHitUnit[];
 }
@@ -373,6 +380,7 @@ export function buildSearchDocument(
     changeNote: toDisplayText(version.changeNote),
     validFrom: version.validFrom,
     validTo: version.validTo,
+    lastActivityDate: getNormLastActivityDate(record, asOf) ?? undefined,
     bodySupplement: [...agreementText, ...supplementalTextParts].join('\n\n'),
     hitUnits,
   };

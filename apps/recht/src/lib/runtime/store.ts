@@ -9,7 +9,7 @@ import {
   type NormType,
   type NormVersion,
 } from '@ostrecht/shared/lib/norms/schema.ts';
-import { classifyNormVersion, getApplicableVersion, validateVersionIntervals } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, validateVersionIntervals } from '@ostrecht/shared/lib/norms/versions.ts';
 import {
   buildDerivedContext,
   deriveNorm,
@@ -86,6 +86,12 @@ export interface NormSummaryQuery {
   subjectSlug?: string;
 }
 
+/**
+ * Sortierung von Übersichten: `activity` = jüngstes Rechtsereignis zuerst
+ * (law_norms.last_change_date, dann Titel), `title` = alphabetisch (A–Z-Index).
+ */
+export type NormSummarySort = 'activity' | 'title';
+
 /** Seitenweise Übersichtsabfrage (A–Z, Rechtsentwicklung): alle Filter laufen serverseitig. */
 export interface NormPageQuery extends NormSummaryQuery {
   /** Buchstabengruppe des Titels (A–Z oder '#', siehe getGermanIndexLetter). */
@@ -98,6 +104,8 @@ export interface NormPageQuery extends NormSummaryQuery {
   /** 1-basierte Seite. */
   page?: number;
   pageSize?: number;
+  /** Standard `title` (A–Z); Übersichten ohne Buchstabenbezug sortieren nach `activity`. */
+  sort?: NormSummarySort;
 }
 
 export interface NormPage {
@@ -206,6 +214,8 @@ export interface ChangeQuery {
   after?: string;
   order: 'asc' | 'desc';
   limit: number;
+  /** Je Norm nur das jeweils jüngste (desc) bzw. nächste (asc) Ereignis der gewählten Typen. */
+  distinctNorms?: boolean;
 }
 
 export interface SearchUnitRow {
@@ -267,7 +277,8 @@ export interface NormStore {
   /** Suchdokumente der gewünschten Normen (alle Fassungen) samt Provisionen der geltenden Fassung. */
   /** `unitsMatch`: FTS-Ausdruck, auf den die gelieferten Provisionen eingeschränkt werden; null = alle Provisionen; undefined = keine. */
   getSearchDocuments(slugs: string[], unitsMatch: string | null | undefined): Promise<SearchCandidate[]>;
-  searchCandidates(query: { match: string | null; limit: number; offset: number; types?: string[] }): Promise<{ slugs: string[]; total: number }>;
+  /** Kandidatenmenge der Suche; Normtyp und Rechtsherkunft (`origins`, law_norms.origin_kind) filtern bereits serverseitig, damit total und Pagination den Filter berücksichtigen. */
+  searchCandidates(query: { match: string | null; limit: number; offset: number; types?: string[]; origins?: NormOriginKind[] }): Promise<{ slugs: string[]; total: number }>;
   getRuntimeMeta(key: string): Promise<string | null>;
   /** Anzeigebezeichnungen (geltende Fassung) für eine Slug-Liste, z. B. Bezüge in Historieneinträgen. */
   getNormLabels(slugs: string[]): Promise<Map<string, { title: string; shortTitle: string }>>;
@@ -292,12 +303,30 @@ function getCurrentVersionId(record: NormRecord): string | undefined {
   return record.versions.find((version) => version.isCurrent)?.versionId ?? record.versions.at(-1)?.versionId;
 }
 
+/** ORDER BY einer Übersicht: jüngstes Rechtsereignis zuerst (fehlende Werte zuletzt) oder Titel. */
+export function summaryOrderBy(sort: NormSummarySort = 'title'): string {
+  return sort === 'activity'
+    ? '(n.last_change_date IS NULL), n.last_change_date DESC, n.sort_title, n.slug'
+    : 'n.sort_title, n.slug';
+}
+
+/** Vergleich für `activity`-Sortierung in der Dateivariante (identische Reihenfolge wie summaryOrderBy). */
+export function compareByActivity(left: NormSummary, right: NormSummary): number {
+  const leftDate = left.lastChangeDate ?? '';
+  const rightDate = right.lastChangeDate ?? '';
+  return (leftDate === '' ? 1 : 0) - (rightDate === '' ? 1 : 0)
+    || rightDate.localeCompare(leftDate)
+    || left.title.toLocaleLowerCase('de').localeCompare(right.title.toLocaleLowerCase('de'), 'de')
+    || left.slug.localeCompare(right.slug);
+}
+
 /** Übersichtszeile aus einem vollständigen Datensatz (Dateivariante, Tests, Sync-Vergleich). */
 export function summarizeNormRecord(record: NormRecord, records: NormRecord[] = [record]): NormSummary {
   const current = getApplicableVersion(record);
   const identity = getNormVersionIdentity(record, current);
   const origin = getNormOriginInfo(record, records);
-  const lastChangeDate = [...record.versions.map((version) => version.validFrom), ...record.history.entries.map((entry) => entry.date)].sort().at(-1);
+  // Jüngstes Rechtsereignis bis zum Stichtag (dieselbe Definition wie law_norms.last_change_date).
+  const lastChangeDate = getNormLastActivityDate(record);
   return {
     id: record.meta.id,
     slug: record.meta.slug,
@@ -552,7 +581,7 @@ export function createD1NormStore(db: D1Database): NormStore {
     const total = Number((await db.prepare(`SELECT COUNT(*) AS total FROM law_norms n${where}`).bind(...params).first<{ total: number }>())?.total ?? 0);
     const pageCount = Math.max(1, Math.ceil(total / pageSize));
     const current = Math.min(page, pageCount);
-    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY n.sort_title, n.slug LIMIT ? OFFSET ?`).bind(...params, pageSize, (current - 1) * pageSize).all<SummaryRow>();
+    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY ${summaryOrderBy(query.sort)} LIMIT ? OFFSET ?`).bind(...params, pageSize, (current - 1) * pageSize).all<SummaryRow>();
     return { items: rows.results.map(summaryFromRow), total, page: current, pageSize, pageCount };
   };
 
@@ -622,7 +651,7 @@ export function createD1NormStore(db: D1Database): NormStore {
       }
       return summaries;
     },
-    async listChanges({ changeTypes, until, after, order, limit }) {
+    async listChanges({ changeTypes, until, after, order, limit, distinctNorms = false }) {
       if (changeTypes.length === 0 || limit <= 0) return [];
       const conditions = [`h.change_type IN (${changeTypes.map(() => '?').join(', ')})`];
       const params: unknown[] = [...changeTypes];
@@ -634,9 +663,15 @@ export function createD1NormStore(db: D1Database): NormStore {
         conditions.push('h.change_date > ?');
         params.push(after);
       }
-      const rows = await db.prepare(`SELECT n.slug, n.title, n.short_title, n.type, n.origin_kind, h.change_date, h.change_type, h.title AS entry_title, h.citation, h.note, h.affecting_version_id, h.related_norm
-        FROM law_norm_history h JOIN law_norms n ON n.id = h.norm_id WHERE ${conditions.join(' AND ')}
-        ORDER BY h.change_date ${order === 'asc' ? 'ASC' : 'DESC'}, n.sort_title LIMIT ?`).bind(...params, limit).all<Record<string, string | null>>();
+      const direction = order === 'asc' ? 'ASC' : 'DESC';
+      const select = `SELECT n.slug, n.title, n.short_title, n.type, n.origin_kind, n.sort_title, h.change_date, h.change_type, h.title AS entry_title, h.citation, h.note, h.affecting_version_id, h.related_norm
+        FROM law_norm_history h JOIN law_norms n ON n.id = h.norm_id WHERE ${conditions.join(' AND ')}`;
+      // Je Norm nur ein Ereignis: Fensterfunktion über den Datumsindex, deterministisch nach
+      // Datum, Ereignistyp und Titel; die Liste bleibt nach Ereignisdatum und Titel sortiert.
+      const sql = distinctNorms
+        ? `SELECT * FROM (${select.replace('h.related_norm', `h.related_norm, row_number() OVER (PARTITION BY h.norm_id ORDER BY h.change_date ${direction}, h.change_type, h.title) AS rn`)}) WHERE rn = 1 ORDER BY change_date ${direction}, sort_title, slug LIMIT ?`
+        : `${select} ORDER BY h.change_date ${direction}, n.sort_title, n.slug LIMIT ?`;
+      const rows = await db.prepare(sql).bind(...params, limit).all<Record<string, string | null>>();
       return rows.results.map((row) => ({
         slug: row.slug as string,
         normTitle: row.title as string,
@@ -783,15 +818,19 @@ export function createD1NormStore(db: D1Database): NormStore {
         units: (unitsByKey.get(`${row.norm_id}:${row.version_id}`) ?? []).sort((left, right) => left.unitIndex - right.unitIndex),
       }));
     },
-    async searchCandidates({ match, limit, offset, types = [] }) {
+    async searchCandidates({ match, limit, offset, types = [], origins = [] }) {
+      // Typ- und Herkunftsfilter laufen über die schmalen, indizierten Spalten von law_norms.
       const typeFilter = types.length > 0 ? ` AND n.type IN (${types.map(() => '?').join(', ')})` : '';
+      const originFilter = origins.length > 0 ? ` AND n.origin_kind IN (${origins.map(() => '?').join(', ')})` : '';
+      const filterParams = [...types, ...origins];
       if (match) {
-        const rows = await db.prepare(`SELECT s.slug, min(s.rank) AS best FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter} GROUP BY s.slug ORDER BY best LIMIT ? OFFSET ?`).bind(match, ...types, limit, offset).all<{ slug: string }>();
-        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}`).bind(match, ...types).first<{ total: number }>();
+        const rows = await db.prepare(`SELECT s.slug, min(s.rank) AS best FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}${originFilter} GROUP BY s.slug ORDER BY best LIMIT ? OFFSET ?`).bind(match, ...filterParams, limit, offset).all<{ slug: string }>();
+        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}${originFilter}`).bind(match, ...filterParams).first<{ total: number }>();
         return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
       }
-      const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${typeFilter} ORDER BY n.current_valid_from DESC, n.sort_title LIMIT ? OFFSET ?`).bind(...types, limit, offset).all<{ slug: string }>();
-      const total = await db.prepare(`SELECT count(*) AS total FROM law_norms n WHERE 1 = 1${typeFilter}`).bind(...types).first<{ total: number }>();
+      // Ohne Suchausdruck: jüngstes Rechtsereignis zuerst (law_norms.last_change_date), dann Titel.
+      const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${typeFilter}${originFilter} ORDER BY ${summaryOrderBy('activity')} LIMIT ? OFFSET ?`).bind(...filterParams, limit, offset).all<{ slug: string }>();
+      const total = await db.prepare(`SELECT count(*) AS total FROM law_norms n WHERE 1 = 1${typeFilter}${originFilter}`).bind(...filterParams).first<{ total: number }>();
       return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
     },
     async getRuntimeMeta(key) {
@@ -873,6 +912,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         && (!query.originKind || summary.originKind === query.originKind)
         && (!query.subject || summary.subjects.includes(query.subject))
         && (!text || matchesText(summary, text)));
+      if (query.sort === 'activity') all.sort(compareByActivity);
       const pageCount = Math.max(1, Math.ceil(all.length / pageSize));
       const current = Math.min(page, pageCount);
       return { items: all.slice((current - 1) * pageSize, current * pageSize), total: all.length, page: current, pageSize, pageCount };
@@ -919,7 +959,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         .filter((record) => !wanted || wanted.has(record.meta.slug))
         .flatMap((record) => record.versions.map((version) => ({ slug: record.meta.slug, versionId: version.versionId, validFrom: version.validFrom, temporalKind: classifyNormVersion(record, version) })));
     },
-    async listChanges({ changeTypes, until, after, order, limit }) {
+    async listChanges({ changeTypes, until, after, order, limit, distinctNorms = false }) {
       const wanted = new Set(changeTypes);
       const originBySlug = new Map((await summaries()).map((summary) => [summary.slug, summary.originKind]));
       const entries = (await context()).norms.flatMap((record) => {
@@ -942,8 +982,16 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
             relatedNorm: entry.relatedNorm ?? null,
           }));
       });
-      entries.sort((left, right) => (order === 'asc' ? left.date.localeCompare(right.date) : right.date.localeCompare(left.date)) || left.normTitle.localeCompare(right.normTitle, 'de'));
-      return entries.slice(0, limit);
+      entries.sort((left, right) => (order === 'asc' ? left.date.localeCompare(right.date) : right.date.localeCompare(left.date))
+        || left.changeType.localeCompare(right.changeType)
+        || left.title.localeCompare(right.title, 'de')
+        || left.normTitle.localeCompare(right.normTitle, 'de')
+        || left.slug.localeCompare(right.slug));
+      const selected = distinctNorms ? entries.filter((entry, index) => entries.findIndex((candidate) => candidate.slug === entry.slug) === index) : entries;
+      selected.sort((left, right) => (order === 'asc' ? left.date.localeCompare(right.date) : right.date.localeCompare(left.date))
+        || left.normTitle.localeCompare(right.normTitle, 'de')
+        || left.slug.localeCompare(right.slug));
+      return selected.slice(0, limit);
     },
     async listSubjectSummaries() {
       return getSubjectGroups((await context()).norms).map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length }));
@@ -1023,15 +1071,22 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         });
       });
     },
-    async searchCandidates({ match, limit, offset, types = [] }) {
+    async searchCandidates({ match, limit, offset, types = [], origins = [] }) {
       const ctx = await context();
+      const originBySlug = origins.length > 0 ? new Map((await summaries()).map((summary) => [summary.slug, summary.originKind])) : null;
       const terms = (match ?? '').toLocaleLowerCase('de').replace(/[()"*]/gu, '').split(/\s+(?:OR|AND)\s+|\s+/u).filter(Boolean);
       const matching = ctx.norms.filter((record) => {
         if (types.length > 0 && !types.includes(record.meta.type)) return false;
+        if (originBySlug && !origins.includes(originBySlug.get(record.meta.slug) as NormOriginKind)) return false;
         if (terms.length === 0) return true;
         const haystack = [record.meta.title, record.meta.shortTitle, record.meta.abbr ?? '', ...record.versions.flatMap((version) => [version.title ?? '', version.shortTitle ?? ''])].join(' ').toLocaleLowerCase('de');
         return terms.some((term) => haystack.includes(term));
       });
+      if (terms.length === 0) {
+        // Ohne Suchausdruck wie die D1-Variante: jüngstes Rechtsereignis zuerst, dann Titel.
+        const summaryBySlug = new Map((await summaries()).map((summary) => [summary.slug, summary]));
+        matching.sort((left, right) => compareByActivity(summaryBySlug.get(left.meta.slug) as NormSummary, summaryBySlug.get(right.meta.slug) as NormSummary));
+      }
       return { slugs: matching.slice(offset, offset + limit).map((record) => record.meta.slug), total: matching.length };
     },
     async getRuntimeMeta() {

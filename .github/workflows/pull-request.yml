@@ -1,5 +1,11 @@
 name: Pull Request prüfen und Vorschau erzeugen
 
+# Pull Requests prüfen schnell gegen das repräsentative Testfixture (zwei parallele Jobs,
+# Pflichtchecks des Rulesets: classify, quality, accessibility_smoke, browser_smoke). Berührt
+# die Änderung Laufzeit, Projektion oder den Bestand in größerem Umfang, läuft zusätzlich der
+# Vollbestand-Smoke mit dem gecachten D1-Seed (Job d1_seed parallel zu quality). Die
+# Screenshot-Suite läuft nur bei Oberflächenänderungen und ist kein Pflichtcheck.
+
 on:
   pull_request:
     branches:
@@ -36,6 +42,9 @@ jobs:
       run_unit_tests: ${{ steps.scope.outputs.run_unit_tests }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
       run_d1_sync: ${{ steps.scope.outputs.run_d1_sync }}
+      run_full_corpus_smoke: ${{ steps.scope.outputs.run_full_corpus_smoke }}
+      run_visual: ${{ steps.scope.outputs.run_visual }}
+      playwright_version: ${{ steps.scope.outputs.playwright_version }}
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
@@ -50,6 +59,7 @@ jobs:
           CHANGED_PATHS="${RUNNER_TEMP}/changed-paths.txt"
           git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$CHANGED_PATHS"
           node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"
+          echo "playwright_version=$(node -e 'console.log(require("./package-lock.json").packages["node_modules/@playwright/test"].version)')" >> "$GITHUB_OUTPUT"
 
           output_value() {
             grep "^$1=" "$GITHUB_OUTPUT" | tail -n 1 | cut -d '=' -f 2-
@@ -79,7 +89,9 @@ jobs:
             echo "- OstRecht-Prüfung: $(yes_no "$(output_value check_law)")"
             echo "- Content-Prüfung: $(yes_no "$(output_value run_content_check)")"
             echo "- Unit-Tests: $(yes_no "$(output_value run_unit_tests)")"
-            echo "- UI-Smoke: $(target_label "$(output_value ui_targets)")"
+            echo "- UI-Smoke (Fixture): $(target_label "$(output_value ui_targets)")"
+            echo "- Vollbestand-Smoke zusätzlich: $(yes_no "$(output_value run_full_corpus_smoke)")"
+            echo "- Screenshot-Suite: $(yes_no "$(output_value run_visual)")"
           } >> "$GITHUB_STEP_SUMMARY"
 
   d1_token_check:
@@ -87,6 +99,10 @@ jobs:
     # Secret geprüft: lesend gegen die produktive Datenbank (nur Fingerabdruck, --dry-run) und
     # schreibend gegen ostrecht-recht-staging (Verkündungen des Testfixtures, idempotent). Die
     # produktive Datenbank wird nie beschrieben; Forks erhalten keine Secrets und überspringen.
+    # Der Remote-State-Check (Sekunden, kein Sync-Plan) sagt vorher, wie der automatische Sync
+    # auf main nach dem Merge entscheiden würde: No-op oder inkrementell sind grün; eine nötige
+    # Vollprojektion ist rot (Exit 3) – dann zuerst das D1-Release-Gate ausführen
+    # (docs/DEPLOYMENT_RUNBOOK.md) und den Check erneut starten.
     needs: classify
     if: ${{ needs.classify.outputs.run_d1_sync == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
@@ -96,20 +112,18 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - name: Node.js einrichten
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - name: Abhängigkeiten installieren
-        run: npm ci
-      - name: Produktive D1 lesen (Fingerabdruck, kein Schreibzugriff)
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
+      - name: Produktive D1 lesen (Remote-State, kein Schreibzugriff, kein Sync-Plan)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: npm run norms:runtime:d1-sync -- --transport api --dry-run --git-diff "$BASE_SHA" "$HEAD_SHA"
+        run: |
+          START=$(date +%s)
+          npm run norms:runtime:d1-sync -- --transport api --remote-state --git-diff "$BASE_SHA" "$HEAD_SHA" --budget incremental
+          echo "Remote-State-Check: $(( $(date +%s) - START )) s" >> "$GITHUB_STEP_SUMMARY"
       - name: Staging-D1 schreiben (Verkündungstabelle, Teilsync ohne Identitätsänderung)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -129,11 +143,17 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+      - name: Node.js einrichten
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
       - name: Dokumentationsänderung auf Whitespace- und Patchfehler prüfen
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: git diff --check "$BASE_SHA...$HEAD_SHA"
+      - name: Dokumentationsstruktur prüfen (kanonische Dokumente, Links, TODO)
+        run: node scripts/check-docs.mjs
 
   quality:
     needs: classify
@@ -142,20 +162,20 @@ jobs:
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
-      - name: Node.js einrichten
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - name: Abhängigkeiten installieren
-        run: npm ci
-      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen
-        run: npm audit --audit-level=high
-      - name: Inhalte und Wissenshub prüfen
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
+      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen (Registryfehler werden wiederholt, Befunde nicht)
+        run: |
+          START=$(date +%s)
+          node scripts/npm-audit-retry.mjs --audit-level high
+          echo "audit=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Dokumentationsstruktur, Inhalte und Wissenshub prüfen
         env:
           RUN_CONTENT_CHECK: ${{ needs.classify.outputs.run_content_check }}
           RUN_KNOWLEDGE_CHECK: ${{ needs.classify.outputs.run_knowledge_check }}
         run: |
+          START=$(date +%s)
+          node scripts/check-docs.mjs
           if [ "$RUN_CONTENT_CHECK" = "true" ]; then
             npm run content:check
           fi
@@ -164,12 +184,14 @@ jobs:
             git diff --exit-code -- knowledge/generated
             npm run knowledge:check
           fi
+          echo "content=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
       - name: TypeScript und Unit-Tests prüfen
         env:
           CHECK_PORTAL: ${{ needs.classify.outputs.check_portal }}
           CHECK_LAW: ${{ needs.classify.outputs.check_law }}
           RUN_UNIT_TESTS: ${{ needs.classify.outputs.run_unit_tests }}
         run: |
+          START=$(date +%s)
           if [ "$CHECK_PORTAL" = "true" ]; then
             npm run check:portal
           fi
@@ -179,12 +201,14 @@ jobs:
           if [ "$RUN_UNIT_TESTS" = "true" ]; then
             npm run test:unit
           fi
+          echo "types_unit=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
       - name: Öffentliche Website bauen
         if: ${{ needs.classify.outputs.build_targets != '' }}
         env:
           BUILD_TARGETS: ${{ needs.classify.outputs.build_targets }}
           PORTAL_BUILD_COMMIT: ${{ github.event.pull_request.head.sha }}
         run: |
+          START=$(date +%s)
           case "$BUILD_TARGETS" in
             portal,law) npm run build ;;
             portal) npm run build:portal ;;
@@ -195,6 +219,7 @@ jobs:
               ;;
           esac
           DEPLOY_TARGETS="$BUILD_TARGETS" npm run deploy:assets:check
+          echo "build=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
       - name: Links und SEO prüfen
         if: ${{ needs.classify.outputs.build_targets != '' }}
         env:
@@ -211,6 +236,19 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 1
+      - name: Laufzeiten festhalten
+        if: ${{ always() }}
+        run: |
+          {
+            echo '### Laufzeiten quality'
+            echo
+            echo '| Schritt | Sekunden |'
+            echo '| --- | --- |'
+            if [ -f "$RUNNER_TEMP/timings.txt" ]; then
+              sed -E 's/^([^=]+)=(.*)$/| \1 | \2 |/' "$RUNNER_TEMP/timings.txt"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          [ -f "$RUNNER_TEMP/timings.txt" ] && echo "Laufzeiten: $(paste -sd ',' "$RUNNER_TEMP/timings.txt")" || true
 
   accessibility_smoke:
     if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
@@ -224,13 +262,8 @@ jobs:
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
-      - name: Node.js einrichten
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - name: Abhängigkeiten installieren
-        run: npm ci
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
       - uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
@@ -239,9 +272,10 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: OstRecht-Worker mit lokaler D1-Projektion (Testfixture) vorbereiten
         if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
-        # Nur das Fixture (Job-Umgebung OSTRECHT_D1_FIXTURE); der Vollbestand läuft als Release-Gate
-        # in deploy.yml und in full-corpus-smoke.yml.
-        run: npm run norms:runtime:d1-local
+        uses: ./.github/actions/d1-seed
+        with:
+          fixture: data/recht/runtime-fixture.json
+          cache: 'false'
       - name: Zentrale Seiten barrierefrei prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
@@ -259,13 +293,8 @@ jobs:
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
-      - name: Node.js einrichten
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - name: Abhängigkeiten installieren
-        run: npm ci
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
       - uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
@@ -274,13 +303,134 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: OstRecht-Worker mit lokaler D1-Projektion (Testfixture) vorbereiten
         if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
-        # Nur das Fixture (Job-Umgebung OSTRECHT_D1_FIXTURE); der Vollbestand läuft als Release-Gate
-        # in deploy.yml und in full-corpus-smoke.yml.
-        run: npm run norms:runtime:d1-local
+        uses: ./.github/actions/d1-seed
+        with:
+          fixture: data/recht/runtime-fixture.json
+          cache: 'false'
       - name: Zentrale Nutzerwege in Chromium prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
         run: npm run test:browsers:ci
+
+  # Vollbestand-Seed parallel zu quality, nur bei Laufzeit-/Projektions-/Bestandsänderungen:
+  # Cache-Treffer → Verifikation, Cache-Miss → genau eine Projektion und neuer Cache-Eintrag.
+  d1_seed:
+    needs: classify
+    if: ${{ needs.classify.outputs.scope != 'docs-only' && needs.classify.outputs.run_full_corpus_smoke == 'true' && contains(needs.classify.outputs.ui_targets, 'law') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    outputs:
+      status: ${{ steps.seed.outputs.status }}
+      fingerprint: ${{ steps.seed.outputs.fingerprint }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
+      - name: Vollbestand-Seed bereitstellen (Cache oder einmalige Projektion)
+        id: seed
+        uses: ./.github/actions/d1-seed
+        with:
+          cache: 'true'
+
+  # Vollbestand-Smoke des Pull Requests (kein Pflichtcheck): Verifikation, A11y und Browser gegen
+  # den gebauten Worker mit dem gecachten Seed. Läuft nur, wenn die Änderung ihn verlangt.
+  full_corpus_smoke:
+    needs:
+      - classify
+      - quality
+      - d1_seed
+    if: ${{ needs.classify.outputs.run_full_corpus_smoke == 'true' && contains(needs.classify.outputs.ui_targets, 'law') && needs.quality.result == 'success' && needs.d1_seed.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
+      - uses: actions/download-artifact@v8
+        with:
+          name: pr-site-build-${{ github.event.pull_request.head.sha }}
+          path: apps
+      - name: Chromium installieren
+        run: npx playwright install --with-deps chromium
+      - name: OstRecht-Worker mit dem Vollbestand vorbereiten (Seed aus dem Cache)
+        id: seed
+        uses: ./.github/actions/d1-seed
+        with:
+          cache: 'true'
+      - name: Vollbestand gegen den Git-Bestand verifizieren
+        run: npm run norms:runtime:d1-verify -- --local --fts-integrity
+      - name: Zentrale Seiten barrierefrei prüfen (Vollbestand)
+        env:
+          SITE_TARGETS: law
+        run: npm run test:a11y:ci
+      - name: Zentrale Nutzerwege in Chromium prüfen (Vollbestand)
+        env:
+          SITE_TARGETS: law
+        run: npm run test:browsers:ci
+      - name: Seed-Status festhalten
+        if: ${{ always() }}
+        env:
+          SEED_STATUS: ${{ steps.seed.outputs.status }}
+          SEED_BUILD: ${{ steps.seed.outputs.build-seconds }}
+        run: |
+          echo "Vollbestand-Seed: ${SEED_STATUS:-unbekannt} (Projektion ${SEED_BUILD:-0} s)"
+
+  # Screenshot-Suite bei Oberflächenänderungen im festen Playwright-Container, strikt gegen die
+  # committeten Linux-Baselines (Fixture-Bestand). Kein Pflichtcheck des Rulesets; Baselines
+  # werden nur über den Workflow „Screenshot-Baselines erneuern“ erzeugt.
+  visual:
+    needs:
+      - classify
+      - quality
+    if: ${{ needs.classify.outputs.run_visual == 'true' && needs.classify.outputs.build_targets != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs.classify.outputs.playwright_version }}-noble
+    env:
+      OSTRECHT_D1_FIXTURE: data/recht/runtime-fixture.json
+      HOME: /root
+    steps:
+      - name: Git im Container sicherstellen (Seed-Fingerabdruck liest Git-Blob-Kennungen)
+        run: command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends git)
+      - uses: actions/checkout@v7
+      - name: Arbeitsbaum für Git im Container freigeben (Checkout gehört einem anderen Benutzer)
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Abhängigkeiten (Node.js des Containers)
+        uses: ./.github/actions/setup-node-modules
+        with:
+          node-version: ''
+      - uses: actions/download-artifact@v8
+        with:
+          name: pr-site-build-${{ github.event.pull_request.head.sha }}
+          path: apps
+      - name: OstRecht-Worker mit dem Testfixture vorbereiten
+        if: ${{ contains(needs.classify.outputs.build_targets, 'law') }}
+        uses: ./.github/actions/d1-seed
+        with:
+          fixture: data/recht/runtime-fixture.json
+          cache: 'false'
+      - name: Screenshot-Suite strikt gegen die committeten Linux-Baselines prüfen
+        env:
+          SITE_TARGETS: ${{ needs.classify.outputs.build_targets }}
+        run: |
+          # Kein Bootstrap: fehlende Baselines sind ein Fehler. Neue oder geänderte Linux-Baselines
+          # entstehen nur bewusst über den Workflow „Screenshot-Baselines erneuern“ (Artefakt,
+          # Sichtprüfung, Commit).
+          if ! ls tests/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
+            echo "::error::Keine Linux-Screenshot-Baselines im Repository (tests/visual.spec.ts-snapshots/*-linux.png). Baselines mit dem Workflow „Screenshot-Baselines erneuern“ erzeugen, sichten und committen."
+            exit 1
+          fi
+          npm run test:visual:run
+      - name: Testbericht bereitstellen
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-report-${{ github.event.pull_request.head.sha }}
+          path: |
+            playwright-report
+            test-results
+          retention-days: 14
 
   preview:
     if: ${{ always() && github.actor != 'dependabot[bot]' && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && needs.classify.outputs.deploy_portal == 'true' && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
@@ -293,13 +443,8 @@ jobs:
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
-      - name: Node.js einrichten
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - name: Abhängigkeiten installieren
-        run: npm ci
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
       - name: Geprüften PR-Build laden
         uses: actions/download-artifact@v8
         with:

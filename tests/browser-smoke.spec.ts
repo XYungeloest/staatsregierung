@@ -367,6 +367,18 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
   await page.goto(lawUrl('/'));
   await expect(page.locator('[data-law-current-change-list] [data-law-change][data-effective-date="2026-09-03"]').first()).toBeVisible();
   await expect(page.locator('[data-law-future-change-list] [data-law-change][data-effective-date="2026-09-03"]')).toHaveCount(0);
+  // Letzte Rechtsereignisse: nach Ereignisdatum absteigend, Erlass neuer Vorschriften eingeschlossen,
+  // je Norm ein Eintrag; die am 1. September 2026 geänderte Schulverwaltungsvorschrift steht hinter den
+  // am 2./3. September erlassenen Gesetzen und Bekanntmachungen.
+  const currentEntries = page.locator('[data-law-current-change-list] [data-law-change]:visible');
+  const currentDates = await currentEntries.evaluateAll((entries) => entries.map((entry) => entry.getAttribute('data-effective-date') ?? ''));
+  expect(currentDates.length).toBeGreaterThanOrEqual(3);
+  expect(currentDates[0]).toBe('2026-09-03');
+  expect(currentDates.every((date, index) => index === 0 || currentDates[index - 1] >= date)).toBeTruthy();
+  const currentLinks = await currentEntries.locator('h3 a').evaluateAll((links) => links.map((link) => link.getAttribute('href') ?? ''));
+  expect(new Set(currentLinks).size).toBe(currentLinks.length);
+  expect(currentLinks.some((href) => href.includes('/norm/bekanntmachung-') || href.includes('/norm/interflug-gesetz/'))).toBeTruthy();
+  expect(currentLinks.some((href) => href.includes('/norm/vwv-schulformulare/'))).toBeFalsy();
   const futureDates = await page
     .locator('[data-law-future-change-list] [data-law-change]:visible')
     .evaluateAll((entries) => entries
@@ -636,8 +648,29 @@ siteTest(['law'])('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Pl
 
 siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahrt eine ausdrückliche Auswahl', async ({ page }) => {
   await page.goto(lawUrl('/suche/'));
-  await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
+  await expect(page.locator('select[name="sort"]')).toHaveValue('activity');
   await expect(page).not.toHaveURL(/sort=/u);
+  // Ohne Suchbegriff: jüngstes Rechtsereignis zuerst – die Kandidaten kommen bereits in dieser
+  // Reihenfolge aus D1, der erste Treffer ist eine im September 2026 erlassene Vorschrift.
+  await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
+  const browseApi = await page.request.get(lawUrl('/api/suche.json'));
+  const browsePayload = await browseApi.json() as { documents: Array<{ slug: string; lastActivityDate?: string; isCurrent: boolean }> };
+  const browseDates = browsePayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastActivityDate ?? '');
+  expect(browseDates.length).toBeGreaterThan(5);
+  expect(browseDates[0] >= '2026-09-02').toBeTruthy();
+  expect(browseDates.every((date, index) => index === 0 || browseDates[index - 1] >= date)).toBeTruthy();
+  await expect(page.locator('[data-search-results] .search-hit h3').first()).toContainText(/Interflug|Haushaltsordnung|Bekanntmachung/u);
+
+  // Filter ohne Suchbegriff: innerhalb des Filters ebenfalls jüngstes Rechtsereignis zuerst.
+  await page.goto(lawUrl('/suche/?type=gesetz'));
+  await expect(page.locator('select[name="sort"]')).toHaveValue('activity');
+  await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
+  await expect(page.locator('[data-search-results] .search-hit .law-type-label').first()).toHaveText('Gesetz');
+  const filteredApi = await page.request.get(lawUrl('/api/suche.json?type=gesetz'));
+  const filteredPayload = await filteredApi.json() as { documents: Array<{ type: string; lastActivityDate?: string; isCurrent: boolean }> };
+  const filteredDates = filteredPayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastActivityDate ?? '');
+  expect(filteredPayload.documents.every((entry) => entry.type === 'gesetz')).toBeTruthy();
+  expect(filteredDates.every((date, index) => index === 0 || filteredDates[index - 1] >= date)).toBeTruthy();
 
   await page.goto(lawUrl('/suche/?q=Landesbaukindergeld'));
   await expect(page.locator('select[name="sort"]')).toHaveValue('relevance');
@@ -647,6 +680,13 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await page.locator('select[name="sort"]').selectOption('publication');
   await expect(page).toHaveURL(/sort=publication/u);
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
+});
+
+siteTest(['law'])('Fundstellen des Ostdeutschen Vertragsblatts werden in der Rechtssuche erkannt', async ({ page }) => {
+  await page.goto(lawUrl('/suche/?q=OVertrBl.%202026%20Nr.%204'));
+  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  await expect(page.locator('[data-search-results] .search-hit').first()).toContainText(/Staatsvertrag|NDR/u);
+  await expect(page.locator('[data-search-results] .search-hit').first()).toContainText(/Vertragsblatt 2026 Nr\. 4|OVertrBl\. 2026 Nr\. 4/u);
 });
 
 siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet einen lokal filterbaren Stichwortindex', async ({ page }) => {
@@ -714,6 +754,27 @@ siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften u
   await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsche Neuregelung');
   await page.goto(lawUrl('/suche/?q=Interflug&origin=inherited-unchanged'));
   await expect(page.locator('[data-search-summary]')).toContainText('Keine Treffer');
+  // Die Kandidaten-API filtert die Herkunft bereits serverseitig: total, Kandidatenmenge und
+  // Dokumente tragen nur die gewünschte Herkunft; unbekannte Werte werden ignoriert.
+  const filtered = await page.request.get(lawUrl('/api/suche.json?q=Gesetz&origin=inherited-amended'));
+  expect(filtered.ok()).toBe(true);
+  const filteredPayload = await filtered.json() as { total: number; candidateCount: number; query: { origins: string[] }; documents: Array<{ origin: string }> };
+  expect(filteredPayload.query.origins).toEqual(['inherited-amended']);
+  expect(filteredPayload.total).toBeGreaterThan(0);
+  expect(filteredPayload.candidateCount).toBeLessThanOrEqual(filteredPayload.total);
+  expect(filteredPayload.documents.length).toBeGreaterThan(0);
+  expect(filteredPayload.documents.every((entry) => entry.origin === 'inherited-amended')).toBe(true);
+  const unfiltered = await page.request.get(lawUrl('/api/suche.json?q=Gesetz'));
+  const unfilteredPayload = await unfiltered.json() as { total: number };
+  expect(unfilteredPayload.total).toBeGreaterThan(filteredPayload.total);
+  const ignored = await page.request.get(lawUrl('/api/suche.json?q=Gesetz&origin=bogus'));
+  const ignoredPayload = await ignored.json() as { total: number; query: { origins: string[] } };
+  expect(ignoredPayload.query.origins).toEqual([]);
+  expect(ignoredPayload.total).toBe(unfilteredPayload.total);
+  const none = await page.request.get(lawUrl('/api/suche.json?q=Interflug&origin=inherited-unchanged'));
+  const nonePayload = await none.json() as { total: number; documents: unknown[] };
+  expect(nonePayload.total).toBe(0);
+  expect(nonePayload.documents).toEqual([]);
   // Autovervollständigung kennt die geltenden Gesetze.
   const suggestions = await page.request.get(lawUrl('/search-suggestions.json'));
   const payload = await suggestions.json() as { suggestions: Array<{ slug: string; abbr: string }> };
@@ -759,6 +820,16 @@ siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält Norm- 
   await page.locator('.letter-nav a[data-index-letter="G"]').click();
   await expect(page).toHaveURL(/buchstabe=G/u);
   await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
+});
+
+siteTest(['law'])('A–Z hält Norm- und Stichwortseite unabhängig (mehrseitige Buchstabengruppe)', async ({ page }) => {
+  // Zwei gleichzeitig paginierte Dimensionen gibt es erst ab 50 Normen und 100 Stichwörtern je
+  // Buchstabe – also nur mit dem Vollbestand. Das Fixture prüft den Rückfall auf die letzte
+  // vorhandene Seite an anderer Stelle; hier wird ohne zweite Seite übersprungen statt geraten.
+  await page.goto(lawUrl('/archiv/?buchstabe=G'));
+  const indexPages = await page.locator('[data-index-pagination] a[aria-label^="Seite "]').count();
+  const keywordPages = await page.locator('[data-keyword-pagination] a[aria-label^="Stichwortseite "]').count();
+  test.skip(indexPages < 2 || keywordPages < 2, `Buchstabe G hat ${indexPages} Norm- und ${keywordPages} Stichwortseiten; die Unabhängigkeit beider Paginierungen wird mit dem Vollbestand geprüft.`);
 
   // Beide Paginierungen derselben Seite behalten den jeweils anderen Zustand.
   await page.goto(lawUrl('/archiv/?buchstabe=G&seite=2&stichwortseite=2'));

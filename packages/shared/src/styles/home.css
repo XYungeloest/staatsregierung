@@ -612,6 +612,48 @@
   gap: 1rem;
 }
 
+/* Genau eine aktuelle Hervorhebung: das Leitvorhaben füllt die Zeile allein und ordnet
+   Text und Fakten nebeneinander, statt eine leere zweite Spalte zu hinterlassen. */
+.home-priority-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.home-lead-feature--wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+  column-gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.home-lead-feature--wide > * {
+  grid-column: 1;
+}
+
+.home-lead-feature--wide .home-lead-feature__icon {
+  grid-column: auto;
+}
+
+.home-lead-feature--wide h3 {
+  max-width: 26ch;
+}
+
+.home-lead-feature--wide .home-lead-feature__facts {
+  grid-column: 2;
+  grid-row: 2 / span 4;
+  align-self: center;
+  grid-template-columns: 1fr;
+  margin: 0;
+}
+
+.home-lead-feature--wide .home-lead-feature__facts div {
+  padding: 0.9rem 0 0.9rem 0.9rem;
+  border-left-width: 4px;
+}
+
+.home-lead-feature--wide .home-lead-feature__facts div + div {
+  margin-top: 0.4rem;
+}
+
 .home-lead-feature {
   position: relative;
   min-height: 100%;
@@ -962,6 +1004,28 @@
     grid-template-columns: 1fr;
   }
 
+  .home-lead-feature--wide {
+    display: block;
+  }
+
+  .home-lead-feature--wide h3 {
+    max-width: 20ch;
+  }
+
+  .home-lead-feature--wide .home-lead-feature__facts {
+    grid-template-columns: minmax(10rem, 0.65fr) minmax(0, 1.35fr);
+    margin: 1.2rem 0;
+  }
+
+  .home-lead-feature--wide .home-lead-feature__facts div {
+    padding: 0 0 0 0.7rem;
+    border-left-width: 3px;
+  }
+
+  .home-lead-feature--wide .home-lead-feature__facts div + div {
+    margin-top: 0;
+  }
+
   .home-resource-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1083,7 +1147,8 @@
     padding-right: 3.8rem;
   }
 
-  .home-lead-feature__facts {
+  .home-lead-feature__facts,
+  .home-lead-feature--wide .home-lead-feature__facts {
     grid-template-columns: 1fr;
   }
 

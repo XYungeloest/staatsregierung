@@ -10,10 +10,9 @@ Das Portal wirkt wie eine sachliche Regierungswebsite: ruhig, verlässlich, vers
 barrierearm. Die Gestaltung priorisiert Orientierung, Zuständigkeiten und aktuelle Informationen.
 Sie vermeidet Kampagnenästhetik, unnötige Effekte und den Eindruck einer Entwicklerdemo.
 
-Die visuelle Richtung der Startseite übersetzt die bereitgestellte Referenz in das vorhandene
-Portal: ein klarer Behördenkopf, eine bildgestützte Suche, kompakte Direkteinstiege, ein sichtbares
-Hinweisband und geordnete Informationsbereiche. Inhalte und Funktionen bleiben dabei vollständig
-aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
+Die Startseite besteht aus einem klaren Behördenkopf, einer bildgestützten Suche, kompakten
+Direkteinstiegen, einem sichtbaren Hinweisband und geordneten Informationsbereichen. Inhalte und
+Funktionen bleiben vollständig aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
 
 ## Stylesheet-Struktur
 
@@ -112,6 +111,13 @@ Die Startseite folgt einer festen Informationshierarchie:
 Suchvorschläge, Karten, Hinweise und Listen verweisen ausschließlich auf vorhandene Seiten. Die
 Direkteinstiege sind keine erfundenen Onlinedienste.
 
+Der Bereich „Aktuelles Regierungshandeln“ zeigt die aktiven Hervorhebungen aus den Themendaten
+(höchstens drei): ein Leitvorhaben als dunkle Karte mit Status, Termin und nächstem Schritt sowie
+bis zu zwei weitere Vorhaben als kompakte Karten daneben. Bei genau einer aktiven Hervorhebung
+füllt das Leitvorhaben die Zeile allein und ordnet Text und Fakten nebeneinander; auf kleinen
+Bildschirmen stapeln sich beide. Hervorhebungen sind redaktionelle Entscheidungen und werden nicht
+aus Layoutgründen gesetzt.
+
 ## Komponenten
 
 Wiederkehrende Startseitenmuster liegen als kleine Astro-Komponenten unter
@@ -192,8 +198,7 @@ Normverzeichnisse sowie die Änderungslisten der Startseite zeigen die kompakte 
 fasst Rechtsstand und Herkunft in einem gemeinsamen Hinweis „Rechtsstand und Herkunft“
 (`NormLegalStatusPanel.astro`) zusammen: Statuszeile zur angezeigten Fassung, Herkunftsbadge,
 Herkunftssatz, letzte ostdeutsche Änderung und die Quellenwege (Ausgangsfassung, Vergleich,
-amtliche sächsische Quelle, Änderungsvorschrift) – statt zweier großer aufeinanderfolgender
-Hinweiskästen. A–Z bietet zusätzlich eine Übersicht „Rechtsherkunft“ mit Zählern aus dem Bestand
+amtliche sächsische Quelle, Änderungsvorschrift). A–Z bietet zusätzlich eine Übersicht „Rechtsherkunft“ mit Zählern aus dem Bestand
 und einen Herkunftsfilter; Suche und Rechtsentwicklung filtern über dieselben internen Werte.
 
 Fassungsvergleiche stellen Änderungen als gegliederte Liste dar. `ins` und `del`, Klartextlabels
@@ -274,8 +279,7 @@ Bei Regierungsmitgliedern bilden Porträt, Name, Amt, Ressort, Status und Kontak
 Profilkopf. Ressortseiten verbinden Titel und Zuständigkeit mit einem vorhandenen Ressortbild oder
 einem kompakten Kontaktzugang. Bilder besitzen stabile Seitenverhältnisse und verschwinden nicht
 in leeren Spalten. Die Freistaat-Seite verwendet die vorhandene, 1920 Pixel breite Flagge und
-formatoptimierte responsive Varianten bis 960 Pixel Breite. Für das 960 Pixel breite
-Staatskanzlei-Hero liegt weiterhin kein größeres redaktionelles Original vor.
+formatoptimierte responsive Varianten bis 960 Pixel Breite.
 
 Bildnachweise gehören unmittelbar zur jeweiligen Medienfläche. `SectionHero.astro` gibt Bilder
 mit belastbarem Nachweis als `figure` mit direkt zugeordnetem `figcaption` aus; der Alternativtext
@@ -317,9 +321,16 @@ Automatisierte Tests ergänzen den manuellen Tastatur-, Zoom- und Screenreader-K
 
 ## Qualitätssicherung
 
-Die visuellen Baselines unterstützen die gezielte Prüfung zentraler Seiten bei Smartphone-, Tablet-
-und Desktopbreiten. Änderungen an Header, Startseite oder globalen Komponenten werden erst nach
-manueller Sichtprüfung in die Baselines übernommen. Sie sind kein Deployment-Gate. Die automatische
+Die visuellen Baselines (`tests/visual.spec.ts`) prüfen zentrale Seiten und Module in drei
+Viewports (1440, 768 und 390 px; `npm run test:visual:run`). Sie laufen immer gegen das
+Testfixture des Rechtsbestands (`data/recht/runtime-fixture.json`, lokal `scripts/serve-law-worker.mjs
+--fixture …`): lokal unter macOS mit `-darwin`-Baselines, in CI bei Oberflächenänderungen im festen
+Playwright-Container mit den committeten `-linux`-Baselines im strikten Vergleich (`SITE_TARGETS`
+begrenzt die Suite auf die gebauten Websites). Änderungen an Header, Startseite oder globalen
+Komponenten werden erst nach manueller Sichtprüfung in die Baselines übernommen; Linux-Baselines
+entstehen nur im Playwright-Container über den manuellen Workflow „Screenshot-Baselines erneuern“
+(`.github/workflows/visual-baselines.yml`, Artefakt sichten und committen), nie stillschweigend.
+Sie sind kein Deployment-Gate. Die automatische
 Produktions-QA konzentriert sich auf deterministische Content-, Type-, Unit-, Build-, Link- und
 SEO-Prüfungen sowie repräsentative Chromium- und Accessibility-Smokes.
 
