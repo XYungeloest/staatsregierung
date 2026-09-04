@@ -302,6 +302,20 @@ const componentVisualPages = [
   },
 ] as const;
 
+/**
+ * Seiten mit nachgeladenem Inhalt erst im Endzustand aufnehmen: Der Fassungsvergleich lädt das
+ * in der Adresse gewählte Paar nach dem Seitenaufbau nach; die Aufnahme wartet, bis genau dieses
+ * Paar angezeigt und die Statuszeile leer ist (sonst zeigt die Baseline einen Zwischenstand).
+ */
+async function awaitSettled(page: Page, path: string): Promise<void> {
+  if (!path.includes('/vergleich/')) return;
+  const url = new URL(path, 'http://127.0.0.1');
+  const from = url.searchParams.get('von');
+  const to = url.searchParams.get('bis');
+  if (from && to) await expect(page.locator('[data-compare-output]')).toHaveAttribute('data-compare-pair', `${from}::${to}`);
+  await expect(page.locator('[data-compare-feedback]')).toHaveText('');
+}
+
 for (const entry of visualPages) {
   if (!isSelected(entry.path)) continue;
   test(`visuelle Basislinie: ${entry.name}`, async ({ page }) => {
@@ -310,6 +324,7 @@ for (const entry of visualPages) {
     await page.evaluate(async () => {
       await document.fonts.ready;
     });
+    await awaitSettled(page, entry.path);
     await verifyViewport(page);
     await expect(page).toHaveScreenshot(`${entry.name}.png`);
   });
@@ -332,6 +347,7 @@ for (const entry of componentVisualPages) {
     await page.evaluate(async () => {
       await document.fonts.ready;
     });
+    await awaitSettled(page, entry.path);
 
     if (entry.name === 'rechtssuche-module') {
       await page.locator('.law-search-filters-panel').evaluate((element) => {
