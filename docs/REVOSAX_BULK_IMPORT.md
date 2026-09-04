@@ -255,6 +255,11 @@ Provenienz-Semantik der Metadaten: `originEnactingBody` nennt das historische Ur
 Erlassorgan der ostdeutschen Norm; das Feld `enactingBody` bleibt übernommenen Normen leer und die
 Normseite zeigt `originEnactingBody` als „Ursprungsorgan der übernommenen Quelle“. Historische
 Fundstellen und Quellenbezeichnungen bleiben sächsisch, der operative Normtext ist ostdeutsch.
+`scripts/audit-norm-metadata.mjs` (Teil von `content:check`) und `tests/norm-origin-metadata.test.ts`
+lehnen ein sächsisches Organ in `enactingBody` bei REVOSax-Provenienz sowie ein
+`originEnactingBody` ohne Provenienzbeleg ab; Altbestände migriert
+`npm run norms:migrate-origin-bodies -- --write` nur bei belegter Herkunft und nur, wenn die
+Herkunftsklasse (`getNormOriginInfo`) dadurch unverändert bleibt (50 Normen am 4. September 2026).
 
 ### 4. R2-Archivierung
 
@@ -443,7 +448,33 @@ Umfangslogik (`scripts/lib/d1-sync-scope.mjs`, `tests/recht-d1-sync-scope.test.m
 `content/verkuendungen/*.json` ergibt die Verkündung und die Normen, deren Fassungen sie zitieren
 (`publication_ref_json`, Vollzitat). Änderungen an der Projektionslogik (`scripts/sync-recht-d1.mjs`,
 `packages/shared/src/lib/norms/**`, `packages/recht-search/**`, `data/recht/d1/`, Themen und Presse
-als Grundlage der Portalbezüge) erzwingen die Vollprojektion. Abgeleitete Daten (`law_norm_derived`:
+als Grundlage der Portalbezüge) erzwingen die Vollprojektion. Der redaktionelle Stichtag
+(`packages/shared/src/config/editorial.json`) ist davon ausgenommen: bei `--git-diff` liest der Sync
+den bisherigen Stichtag aus dem Basis-Ref und projiziert nur die Normen, deren geltende Fassung
+oder Fassungseinordnung sich zwischen altem und neuem Stichtag unterscheidet
+(`scripts/lib/d1-reference-date.mjs`), dazu die abgeleiteten Daten aller Normen; bei
+`--changed-paths` nennt `--reference-date-from <Datum>` den alten Stichtag, sonst bleibt die
+Stichtagsänderung ein Full-Trigger. `tests/recht-d1-reference-date.test.mjs` weist mit den echten
+Migrationen in einer In-Memory-SQLite nach, dass die gezielte Fortschreibung tabellenweise
+dieselbe Projektion wie eine frische Vollprojektion erzeugt. Die Suchdokumente
+(`law_search_documents`) betten seit September 2026 keinen Stichtag mehr ein; die
+Fassungsbezeichnung eines Treffers bildet der Browser aus `versionKind`, `validFrom` und dem
+`referenceDate` der Such-API, die Herkunftsbezeichnung aus `origin` (zentrale Semantik aus
+`origin.ts`).
+
+**Enge Logikänderung statt Vollprojektion.** Ändert sich Projektionslogik, kann die Umfangslogik
+nicht wissen, welche Zeilen betroffen sind; der Standard bleibt die Vollprojektion. Für den
+nachgewiesenen Sonderfall, dass eine Logikänderung ausschließlich Suchdokumente
+(`law_search_documents`), abgeleitete Daten (`law_norm_derived`) und Laufzeitmetadaten berührt,
+schreibt `--git-diff <base> <head> --assume-narrow-logic-change` diese Zeilen für alle Normen neu
+und projiziert die im Diff geänderten Normen vollständig – mit Base-State-Guard, Budget und neuer
+Identität wie jeder inkrementelle Lauf; Schemaänderungen unter `data/recht/d1/` bleiben immer ein
+Full-Trigger. Der Nachweis läuft lokal ohne Cloudflare-Zugriff mit
+`scripts/d1-projection-snapshot.mjs`: Vollprojektion des Basisstands (Worktree des
+Produktionscommits) in eine SQLite-Datei, gezielter Lauf hinein, frische Vollprojektion des
+Zielstands, tabellenweiser Vergleich (`compare`, ohne Zeitstempel, Laufmodus und Suchzeilen-rowid).
+Erst wenn der Vergleich identisch ist, wird derselbe gezielte Lauf gegen Staging und danach gegen
+Produktion ausgeführt; der anschließende Main-Workflow endet als Fingerabdruck-No-op. Abgeleitete Daten (`law_norm_derived`:
 Beziehungen, Empfehlungen, Textverweise, Portalbezüge) hängen von der Identität *anderer* Normen ab;
 sie werden für alle Normen neu geschrieben (ohne Fassungen und Körper), wenn sich identitätsrelevante
 Metadaten einer Norm geändert haben (`meta.json` im Git-Diff verglichen), eine Norm hinzukam oder

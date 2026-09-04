@@ -352,7 +352,7 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
 
   await page.addInitScript(() => {
     const NativeDate = Date;
-    const fixedTime = new NativeDate('2026-09-01T10:00:00+02:00').valueOf();
+    const fixedTime = new NativeDate('2026-09-04T10:00:00+02:00').valueOf();
     class FixedDate extends NativeDate {
       constructor(...args: unknown[]) {
         super(args.length === 0 ? fixedTime : (Reflect.construct(NativeDate, args) as Date).valueOf());
@@ -365,14 +365,14 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
     Object.defineProperty(window, 'Date', { configurable: true, value: FixedDate });
   });
   await page.goto(lawUrl('/'));
-  await expect(page.locator('[data-law-current-change-list] [data-law-change][data-effective-date="2026-09-01"]').first()).toBeVisible();
-  await expect(page.locator('[data-law-future-change-list] [data-law-change][data-effective-date="2026-09-01"]')).toHaveCount(0);
+  await expect(page.locator('[data-law-current-change-list] [data-law-change][data-effective-date="2026-09-03"]').first()).toBeVisible();
+  await expect(page.locator('[data-law-future-change-list] [data-law-change][data-effective-date="2026-09-03"]')).toHaveCount(0);
   const futureDates = await page
     .locator('[data-law-future-change-list] [data-law-change]:visible')
     .evaluateAll((entries) => entries
       .map((entry) => entry.getAttribute('data-effective-date'))
       .filter((date): date is string => Boolean(date)));
-  expect(futureDates.every((date) => date > '2026-09-01')).toBeTruthy();
+  expect(futureDates.every((date) => date > '2026-09-04')).toBeTruthy();
 });
 
 siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page }) => {
@@ -684,6 +684,101 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   await expect(page.locator('[data-index-count]')).toContainText('angezeigt');
 });
 
+siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften und kennzeichnet ihre Herkunft', async ({ page }) => {
+  // Die zum 2./3. September 2026 in Kraft getretenen Gesetze müssen ohne Fassungsfilter (versionScope=current) erscheinen.
+  for (const [query, expectedTitle] of [
+    ['Zinnwald', /Zinnwald/u],
+    ['ZinnVG', /Zinnwald/u],
+    ['Lithiumprojekt Zinnwald', /Zinnwald/u],
+    ['Interflug', /Interflug/u],
+    ['Interflug-Gesetz', /Interflug/u],
+    ['OstDVG', /Daseinsvorsorge/u],
+    ['Daseinsvorsorge', /Daseinsvorsorge/u],
+    ['OHzG', /Hoheitszeichen/u],
+    ['Hoheitszeichen', /Hoheitszeichen/u],
+    ['Gründungsvorstand Interflug', /Gründungsvorstand/u],
+    ['Anfangsflotte', /Anfangsflotte/u],
+  ] as const) {
+    await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(query)}`));
+    await expect(page.locator('[data-search-summary]'), query).toContainText('Treffer');
+    await expect(page.locator('select[name="versionScope"]'), query).toHaveValue('current');
+    const hits = page.locator('[data-search-results] .search-hit');
+    await expect(hits.first(), query).toBeVisible();
+    await expect(page.locator('[data-search-results] .search-hit h3').first(), query).toHaveText(expectedTitle);
+    await expect(hits.first().locator('.status-badge'), query).toContainText('Geltende Fassung zum 4. September 2026');
+    await expect(hits.first().locator('.search-hit__meta-line .origin-badge'), query).toBeVisible();
+  }
+  // Der Herkunftsfacet arbeitet mit der zentralen Herkunftssemantik der Suchdokumente.
+  await page.goto(lawUrl('/suche/?q=Interflug&origin=ostdeutsch-original'));
+  await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
+  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsche Neuregelung');
+  await page.goto(lawUrl('/suche/?q=Interflug&origin=inherited-unchanged'));
+  await expect(page.locator('[data-search-summary]')).toContainText('Keine Treffer');
+  // Autovervollständigung kennt die geltenden Gesetze.
+  const suggestions = await page.request.get(lawUrl('/search-suggestions.json'));
+  const payload = await suggestions.json() as { suggestions: Array<{ slug: string; abbr: string }> };
+  for (const slug of ['zinnwald-vergesellschaftungsgesetz', 'interflug-gesetz', 'ostdeutsches-daseinsvorsorgegesetz', 'ostdeutsches-hoheitszeichengesetz']) {
+    expect(payload.suggestions.some((entry) => entry.slug === slug), slug).toBe(true);
+  }
+});
+
+siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsamen Hinweis', async ({ page }) => {
+  await page.goto(lawUrl('/norm/zinnwald-vergesellschaftungsgesetz/'));
+  const panel = page.locator('[data-visual-section="norm-legal-status"]');
+  await expect(panel.getByRole('heading', { name: 'Rechtsstand und Herkunft' })).toBeVisible();
+  await expect(panel.locator('.origin-badge')).toHaveText(/Ostdeutsche Neuregelung/u);
+  await expect(panel).toContainText('Geltende Fassung mit Rechtsstand vom 2. September 2026');
+  await expect(page.locator('.norm-page-header__status')).toContainText('in Kraft seit 2. September 2026');
+  await expect(page.locator('.status-notice')).toHaveCount(0);
+
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/'));
+  const amended = page.locator('[data-visual-section="norm-legal-status"]');
+  await expect(amended.locator('.origin-badge')).toHaveText(/Übernommen · ostdeutsch geändert/u);
+  await expect(amended).toContainText('Zuletzt ostdeutsch geändert');
+  await expect(amended.getByRole('link', { name: /Ausgangsfassung vom 1. November 2023/u })).toBeVisible();
+  await expect(amended.getByRole('link', { name: 'Mit Ausgangsrecht vergleichen' })).toBeVisible();
+
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'));
+  const baseline = page.locator('[data-visual-section="norm-legal-status"]');
+  await expect(baseline).toContainText('Historische Fassung');
+  await expect(baseline).toContainText('übernommene sächsische Ausgangsrechtsstand');
+  await expect(baseline.getByRole('link', { name: 'Amtliche sächsische Quelle' })).toBeVisible();
+});
+
+siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält Norm- und Stichwortseite unabhängig', async ({ page }) => {
+  await page.goto(lawUrl('/archiv/'));
+  const overview = page.locator('[data-origin-overview] a');
+  expect(await overview.count()).toBeGreaterThanOrEqual(3);
+  await expect(page.locator('[data-index-list] .origin-badge').first()).toBeVisible();
+  await overview.filter({ hasText: 'Übernommen · unverändert' }).click();
+  await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
+  await expect(page.locator('select[name="herkunft"]')).toHaveValue('inherited-unchanged');
+  const origins = await page.locator('[data-index-list] li').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.origin));
+  expect(origins.length).toBeGreaterThan(0);
+  expect(origins.every((origin) => origin === 'inherited-unchanged')).toBe(true);
+  await page.locator('.letter-nav a[data-index-letter="G"]').click();
+  await expect(page).toHaveURL(/buchstabe=G/u);
+  await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
+
+  // Beide Paginierungen derselben Seite behalten den jeweils anderen Zustand.
+  await page.goto(lawUrl('/archiv/?buchstabe=G&seite=2&stichwortseite=2'));
+  await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
+  await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
+  const normLinks = await page.locator('[data-index-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
+  expect(normLinks.length).toBeGreaterThan(0);
+  expect(normLinks.every((href) => href.includes('stichwortseite=2'))).toBe(true);
+  const keywordLinks = await page.locator('[data-keyword-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
+  expect(keywordLinks.length).toBeGreaterThan(0);
+  expect(keywordLinks.every((href) => /[?&]seite=2/u.test(href))).toBe(true);
+  await page.locator('[data-keyword-pagination] a[rel], [data-keyword-pagination] a').filter({ hasText: 'Nächste Stichwörter' }).click();
+  await expect(page).toHaveURL(/seite=2/u);
+  await expect(page).toHaveURL(/stichwortseite=3/u);
+  await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
+  await page.goBack();
+  await expect(page).toHaveURL(/stichwortseite=2/u);
+  await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
+});
+
 siteTest(['law'])('Rechtsentwicklung filtert und paginiert serverseitig über GET-Parameter', async ({ page }) => {
   await page.goto(lawUrl('/rechtsentwicklung/'));
   await expect(page.locator('[data-development-count]')).toContainText('im Bestand');
@@ -751,4 +846,20 @@ siteTest(['portal', 'law'])('Kalender, Sitemaps und strukturierte Termindaten si
     expect(lawSitemap.ok()).toBe(true);
     expect(await lawSitemap.text()).toContain('<urlset');
   }
+});
+
+siteTest(['law'])('unbekannte OstRecht-Pfade liefern die eigene deutsche Fehlerseite mit Status 404', async ({ page, request }) => {
+  for (const path of ['/gibt-es-nicht/', '/norm/gibt-es-nicht/', '/verkuendungen/gibt-es-nicht/', '/sachgebiete/gibt-es-nicht/']) {
+    const response = await request.get(lawUrl(path));
+    expect(response.status(), path).toBe(404);
+    const html = await response.text();
+    expect(html, path).toContain('<html lang="de"');
+    expect(html, path).toContain('Seite nicht gefunden');
+    expect(html, path).not.toContain('404: Not Found');
+  }
+  const response = await page.goto(lawUrl('/norm/gibt-es-nicht/'));
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Seite nicht gefunden');
+  await expect(page.getByRole('link', { name: 'Zur Rechtssuche' })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
 });

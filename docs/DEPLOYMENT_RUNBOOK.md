@@ -200,9 +200,18 @@ Diese Punkte sind wiederkehrende Pflegeanforderungen, keine erledigbaren Feature
 
 - Der redaktionelle Stichtag bleibt ein fachlich gepflegter Wert. Er wird nicht aus dem Builddatum
   oder automatisch aus dem aktuellen Kalendertag abgeleitet und wird nur einmal in
-  `packages/shared/src/config/editorial.json` gesetzt. Beim Fortschreiben werden Termine,
-  Stellen, Hervorhebungen, Verfahren, Normfassungen, Regierungszuordnungen, Gebietsstände,
-  Timeline und Suchindex gemeinsam geprüft.
+  `packages/shared/src/config/editorial.json` gesetzt – über
+  `npm run norms:advance-reference-date -- --to <Datum> --write`, das die Statusfelder der
+  betroffenen Normen mitzieht. Beim Fortschreiben werden Termine, Stellen, Hervorhebungen,
+  Verfahren, Normfassungen, Regierungszuordnungen, Gebietsstände, Timeline und Suchindex gemeinsam
+  geprüft. Für die D1-Projektion ist die Stichtagsänderung kein Full-Trigger: der automatische
+  `--git-diff`-Sync projiziert nur die stichtagsabhängig betroffenen Normen und die abgeleiteten
+  Daten aller Normen.
+- Der manuelle Workflow `D1-Token prüfen` liest die produktive Datenbank nur (`--dry-run`) und
+  beweist den Schreibzugriff mit einer isolierten Probe gegen `ostrecht-recht-staging`
+  (`scripts/d1-write-probe.mjs`: eigene Tabelle `law_ci_write_probe`, Schreiben, Lesen, Löschen);
+  Rechtsbestand, Suchindex und Projektionsidentität bleiben unberührt, die Produktionsdatenbank
+  wird fail-closed abgelehnt.
 - Vor jeder Produktionsfreigabe erfolgt zusätzlich zu den automatisierten Prüfungen ein kurzer
   manueller Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-,
   Tablet- und Desktopbreiten. Das Ergebnis wird im Release- bzw. Pull-Request-Kontext festgehalten;
