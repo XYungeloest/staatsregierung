@@ -5,8 +5,7 @@ import NormBody from '../../../components/norms/NormBody.astro';
 import NormCitationBlock from '../../../components/norms/NormCitationBlock.astro';
 import NormMetaCard from '../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../components/norms/NormOutline.astro';
-import NormStatusNotice from '../../../components/norms/NormStatusNotice.astro';
-import NormOriginNotice from '../../../components/norms/NormOriginNotice.astro';
+import NormLegalStatusPanel from '../../../components/norms/NormLegalStatusPanel.astro';
 import NormLegalRelations from '../../../components/norms/NormLegalRelations.astro';
 import NormDocumentTools from '../../../components/norms/NormDocumentTools.astro';
 import NormPrintSources from '../../../components/norms/NormPrintSources.astro';
@@ -117,8 +116,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
     <aside class="norm-toc-column" id="norm-inhalt"><NormOutline items={outline} /></aside>
 
     <article class="norm-document-column">
-      <NormStatusNotice norm={norm} version={currentVersion} />
-      <NormOriginNotice norm={norm} version={currentVersion} origin={derived.origin} />
+      <NormLegalStatusPanel norm={norm} version={currentVersion} origin={derived.origin} />
       <section class="section" id="normtext" data-visual-section="norm-text">
         <div class="section-header">
           <h2>Vorschriftentext</h2>

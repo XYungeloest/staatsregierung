@@ -27,9 +27,15 @@ const auditPages = [
     lawUrl('/norm/sero-verordnung/history/'),
     lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'),
     lawUrl('/suche/'),
+    lawUrl('/suche/?q=Interflug'),
+    lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged'),
+    lawUrl('/rechtsentwicklung/'),
+    lawUrl('/norm/zinnwald-vergesellschaftungsgesetz/'),
+    lawUrl('/norm/bekanntmachung-bestellung-gruendungsvorstand-interflug/'),
     lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/'),
     lawUrl('/verkuendungen/stanzo-2026-33/'),
     lawUrl('/hilfe/'),
+    lawUrl('/gibt-es-nicht/'),
   ] : []),
 ];
 
