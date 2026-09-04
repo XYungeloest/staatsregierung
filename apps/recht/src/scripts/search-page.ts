@@ -657,6 +657,9 @@ function buildCandidateUrl(state: NormSearchState, offset: number): string {
     ['publicationYear', filters.publicationYears],
   ];
   for (const [name, values] of lists) for (const value of values) params.append(name, value);
+  for (const [name, value] of [['geltungstag', filters.geltungstag], ['validFrom', filters.validFrom], ['validTo', filters.validTo]] as const) {
+    if (value) params.set(name, value);
+  }
   if (filters.versionScope !== 'all') params.set('versionScope', filters.versionScope);
   params.set('includeAmendments', filters.includeAmendments ? '1' : '0');
   if (offset > 0) params.set('offset', String(offset));

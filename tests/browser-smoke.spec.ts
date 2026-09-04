@@ -728,6 +728,8 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
     { label: 'alle Fassungen', query: '?versionScope=all' },
     { label: 'Normtyp Gesetz', query: '?type=gesetz' },
     { label: 'Status und Normtyp', query: '?type=gesetz&status=in-force' },
+    { label: 'Geltungstag', query: '?geltungstag=2026-09-01' },
+    { label: 'Gültigkeitszeitraum', query: '?validFrom=2026-01-01&validTo=2026-12-31&versionScope=all' },
   ];
 
   for (const { label, query } of serverSideCases) {
@@ -743,12 +745,13 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
     if (counts.moreVisible) expect(counts.remaining, label).not.toBeNull();
   }
 
-  // Ein clientseitig wirkender Filter (Geltungstag) darf die serverseitige Gesamtzahl nicht als
-  // Trefferzahl behaupten; die Überschrift spricht dann über die tatsächlich angezeigte Menge.
-  const narrowed = await loadSearchPage(page, '?geltungstag=2026-09-01');
+  // Ein nur im Browser wirkender Filter (Ausgabennummer, normalisierter Textvergleich) darf die
+  // serverseitige Gesamtzahl nicht als Trefferzahl behaupten; die Überschrift bleibt bei der
+  // Menge, die die Liste zeigt.
+  const narrowed = await loadSearchPage(page, '?publicationIssue=33&versionScope=all&includeAmendments=1');
   const narrowedCounts = await readSearchCounts(page);
   expect(narrowedCounts.headline).not.toBeNull();
-  expect(narrowedCounts.headline ?? 0).toBeLessThanOrEqual(narrowed.total);
+  expect(narrowedCounts.headline ?? 0).toBeLessThan(narrowed.total);
   expect(narrowedCounts.shown + (narrowedCounts.remaining ?? 0)).toBe(narrowedCounts.headline);
 
   // Auch mit Suchbegriff bleibt die Überschrift bei der Menge, die die Liste zeigt.

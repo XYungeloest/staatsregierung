@@ -20,11 +20,12 @@ import { getNormStore } from '../../lib/runtime/context.ts';
  * Rechtsherkunft (`origin`, nur die vier Werte aus origin.ts; andere werden
  * ignoriert), Ressort (`ministry`), Sachgebiet (`subject`), Status (`status`),
  * Fassungsart (`versionScope`), Verkündungsblatt (`publicationSource`), Jahr
- * (`publicationYear`) und Änderungsvorschriften (`includeAmendments`). Dadurch
+ * (`publicationYear`), Geltungstag (`geltungstag`), Gültigkeitszeitraum
+ * (`validFrom`, `validTo`) und Änderungsvorschriften (`includeAmendments`). Dadurch
  * zählt `total` dieselbe Menge, die die Trefferliste anzeigt, solange die
  * Anfrage keinen Freitext und keinen rein clientseitigen Filter enthält
- * (candidateTotalMatchesResults in search-query.ts). Geltungstag,
- * Gültigkeitszeitraum, Ausgabennummer und Seite bleiben clientseitig.
+ * (candidateTotalMatchesResults in search-query.ts). Ausgabennummer und Seite
+ * der Fundstelle bleiben clientseitig: sie vergleichen normalisierten Text.
  *
  * Für jede Kandidatennorm werden alle Fassungen als Suchdokumente geliefert,
  * die Provisionen jedoch nur für die geltende Fassung und nur, soweit sie zur
@@ -48,6 +49,11 @@ export function parseOriginFilter(values: string[]): NormOriginKind[] {
 /** Freitextwerte eines Mehrfachfilters: entdoppelt, begrenzt und ohne leere Einträge. */
 export function parseListFilter(values: string[], { limit = 40, maxLength = 120 } = {}): string[] {
   return [...new Set(values.map((value) => value.trim()).filter(Boolean).map((value) => value.slice(0, maxLength)))].slice(0, limit);
+}
+
+/** Kalenderdatum der Anfrage (ISO); alles andere schränkt nicht ein. */
+export function parseDateFilter(value: string | null): string | undefined {
+  return value && /^\d{4}-\d{2}-\d{2}$/u.test(value) ? value : undefined;
 }
 
 /** Fassungsart der Anfrage; unbekannte Werte schränken nicht ein. */
@@ -101,6 +107,9 @@ export const GET: APIRoute = async ({ url, locals }) => {
   const statuses = url.searchParams.getAll('status').filter((value) => (NORM_STATUSES as readonly string[]).includes(value));
   const publicationSources = parseListFilter(url.searchParams.getAll('publicationSource'));
   const publicationYears = parseListFilter(url.searchParams.getAll('publicationYear'), { limit: 60, maxLength: 4 });
+  const validOn = parseDateFilter(url.searchParams.get('geltungstag'));
+  const validFrom = parseDateFilter(url.searchParams.get('validFrom'));
+  const validTo = parseDateFilter(url.searchParams.get('validTo'));
   const versionScope = parseVersionScope(url.searchParams.get('versionScope'));
   // `includeAmendments=0` blendet Änderungsvorschriften aus; ohne Parameter bleibt der bisherige
   // Umfang, in dem sie Kandidaten sind (die Suchseite setzt den Wert immer ausdrücklich).
@@ -122,6 +131,9 @@ export const GET: APIRoute = async ({ url, locals }) => {
       statuses,
       publicationSources,
       publicationYears,
+      ...(validOn ? { validOn } : {}),
+      ...(validFrom ? { validFrom } : {}),
+      ...(validTo ? { validTo } : {}),
       ...(versionScope ? { versionScope } : {}),
       includeAmendments,
     }),
@@ -157,7 +169,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
     generatedAt: new Date().toISOString(),
     // Redaktioneller Stichtag der Anzeige: Fassungsbezeichnungen werden erst im Browser gebildet.
     referenceDate: EDITORIAL_REFERENCE_DATE,
-    query: { q, exact, citation, types, origins, ministries, subjects, statuses, publicationSources, publicationYears, versionScope: versionScope ?? 'all', includeAmendments },
+    query: { q, exact, citation, types, origins, ministries, subjects, statuses, publicationSources, publicationYears, validOn, validFrom, validTo, versionScope: versionScope ?? 'all', includeAmendments },
     total,
     offset,
     limit: CANDIDATE_LIMIT,

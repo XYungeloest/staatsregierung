@@ -752,8 +752,16 @@ test('Kandidatenanfrage trägt jeden serverseitig ausdrückbaren Filter; nur dan
   // Ausdrücklich gefilterte Änderungsvorschriften bleiben Kandidaten (amendmentExplicitlyRequested).
   assert.equal(buildSearchCandidateParams(searchState({ types: ['aenderungsvorschrift'] })).includeAmendments, true);
 
-  // Filter, die nur im Browser wirken: Geltungstag, Zeitraum, Ausgabennummer, Seite.
-  for (const state of [searchState({ geltungstag: '2026-01-01' }), searchState({ validFrom: '2026-01-01' }), searchState({ validTo: '2026-01-01' }), searchState({ publicationIssue: '16' }), searchState({ publicationPage: '12' })]) {
+  // Geltungstag und Gültigkeitszeitraum trägt die Projektion je Fassung: sie gehen serverseitig mit.
+  const dated = searchState({ geltungstag: '2026-01-01', validFrom: '2026-01-01', validTo: '2026-12-31' });
+  assert.equal(candidateTotalMatchesResults(dated), true);
+  assert.deepEqual(
+    [buildSearchCandidateParams(dated).geltungstag, buildSearchCandidateParams(dated).validFrom, buildSearchCandidateParams(dated).validTo],
+    ['2026-01-01', '2026-01-01', '2026-12-31'],
+  );
+
+  // Ausgabennummer und Seite vergleichen normalisierten Text und bleiben im Browser.
+  for (const state of [searchState({ publicationIssue: '16' }), searchState({ publicationPage: '12' })]) {
     assert.equal(candidateTotalMatchesResults(state), false);
   }
 });
