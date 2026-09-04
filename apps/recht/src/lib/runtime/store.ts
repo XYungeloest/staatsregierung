@@ -294,9 +294,9 @@ export interface NormStore {
 
 /**
  * Serverseitig ausgedrückte Kandidatenfilter der Rechtssuche. Normebene: Typ, Herkunft, Ressort,
- * Status, Sachgebiet, Änderungsvorschriften. Fassungsebene: Fassungsart, Verkündungsblatt und Jahr
- * müssen von derselben Fassung erfüllt sein – genau wie in der clientseitigen Bewertung, die je
- * Fassungsdokument filtert.
+ * Status, Sachgebiet, Änderungsvorschriften. Fassungsebene: Fassungsart, Verkündungsblatt, Jahr
+ * und Gültigkeit müssen von derselben Fassung erfüllt sein – genau wie in der clientseitigen
+ * Bewertung, die je Fassungsdokument filtert.
  */
 export interface SearchCandidateQuery {
   match: string | null;
@@ -310,6 +310,11 @@ export interface SearchCandidateQuery {
   statuses?: string[];
   publicationSources?: string[];
   publicationYears?: string[];
+  /** Tag, an dem die Fassung gelten muss (Geltungstag). */
+  validOn?: string;
+  /** Gültigkeitszeitraum: die Fassung muss ihn schneiden. */
+  validFrom?: string;
+  validTo?: string;
   /** Fassungsart; `all` oder nicht gesetzt schränkt nicht ein. */
   versionScope?: VersionTemporalKind | 'all';
   /** `false` blendet Änderungsvorschriften aus (law_norms.is_amendment). */
@@ -376,6 +381,20 @@ export function candidateFilterSql(query: SearchCandidateQuery): { sql: string; 
     if (!values || values.length === 0) continue;
     versionClauses.push(`${column} IN (${values.map(() => '?').join(', ')})`);
     versionParams.push(...values);
+  }
+  // Datumsbedingungen wie isDateInRange in der clientseitigen Bewertung: der Geltungstag liegt im
+  // Gültigkeitsintervall, ein Zeitraum muss es schneiden (offenes Ende zählt als laufend).
+  if (query.validOn) {
+    versionClauses.push('v.valid_from <= ? AND (v.valid_to IS NULL OR v.valid_to >= ?)');
+    versionParams.push(query.validOn, query.validOn);
+  }
+  if (query.validFrom) {
+    versionClauses.push('(v.valid_to IS NULL OR v.valid_to >= ?)');
+    versionParams.push(query.validFrom);
+  }
+  if (query.validTo) {
+    versionClauses.push('v.valid_from <= ?');
+    versionParams.push(query.validTo);
   }
   if (versionClauses.length > 0) {
     clauses.push(` AND EXISTS (SELECT 1 FROM law_versions v WHERE v.norm_id = n.id AND ${versionClauses.join(' AND ')})`);
@@ -1151,19 +1170,22 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       });
     },
     async searchCandidates(query) {
-      const { match, limit, offset, types = [], origins = [], ministries = [], subjectSlugs = [], statuses = [], publicationSources = [], publicationYears = [], versionScope, includeAmendments } = query;
+      const { match, limit, offset, types = [], origins = [], ministries = [], subjectSlugs = [], statuses = [], publicationSources = [], publicationYears = [], validOn, validFrom, validTo, versionScope, includeAmendments } = query;
       const ctx = await context();
       const originBySlug = origins.length > 0 ? new Map((await summaries()).map((summary) => [summary.slug, summary.originKind])) : null;
       const terms = (match ?? '').toLocaleLowerCase('de').replace(/[()"*]/gu, '').split(/\s+(?:OR|AND)\s+|\s+/u).filter(Boolean);
       // Dieselben Bedingungen wie candidateFilterSql; die Fassungsbedingungen muss eine Fassung
       // gemeinsam erfüllen.
       const versionMatches = (record: NormRecord): boolean => {
-        if (!versionScope && publicationSources.length === 0 && publicationYears.length === 0) return true;
+        if (!versionScope && !validOn && !validFrom && !validTo && publicationSources.length === 0 && publicationYears.length === 0) return true;
         return record.versions.some((version) => {
           if (versionScope && versionScope !== 'all' && classifyNormVersion(record, version, ctx.asOf) !== versionScope) return false;
           const reference = ctx.publicationReferences.get(`${record.meta.slug}:${version.versionId}`);
           if (publicationSources.length > 0 && !publicationSources.includes(reference?.publication ?? '')) return false;
           if (publicationYears.length > 0 && !publicationYears.includes(reference?.publicationDate?.slice(0, 4) ?? '')) return false;
+          if (validOn && !(version.validFrom <= validOn && (!version.validTo || version.validTo >= validOn))) return false;
+          if (validFrom && version.validTo && version.validTo < validFrom) return false;
+          if (validTo && version.validFrom > validTo) return false;
           return true;
         });
       };

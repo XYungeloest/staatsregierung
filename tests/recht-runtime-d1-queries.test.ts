@@ -189,6 +189,7 @@ test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und
     statuses: ['in-force'],
     publicationSources: ['OGVBl.'],
     publicationYears: ['2026'],
+    validOn: '2026-09-04',
     versionScope: 'current',
     includeAmendments: false,
   });
@@ -201,7 +202,7 @@ test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und
   assert.match(page.sql, /AND n\.is_amendment = 0/u);
   assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_norm_subjects sub WHERE sub\.norm_id = n\.id AND sub\.subject_slug IN \(\?\)\)/u);
   // Fassungsart, Verkündungsblatt und Jahr muss dieselbe Fassung erfüllen: genau ein EXISTS.
-  assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_versions v WHERE v\.norm_id = n\.id AND v\.temporal_kind = \? AND v\.publication_source IN \(\?\) AND v\.publication_year IN \(\?\)\)/u);
+  assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_versions v WHERE v\.norm_id = n\.id AND v\.temporal_kind = \? AND v\.publication_source IN \(\?\) AND v\.publication_year IN \(\?\) AND v\.valid_from <= \? AND \(v\.valid_to IS NULL OR v\.valid_to >= \?\)\)/u);
   assert.equal((page.sql.match(/FROM law_versions v/gu) ?? []).length, 1);
   // Die Zählung darf keine andere Menge beschreiben als die Seite.
   assert.match(count.sql, /^SELECT count\(\*\) AS total FROM law_norms n WHERE 1 = 1/u);

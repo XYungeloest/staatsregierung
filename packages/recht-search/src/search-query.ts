@@ -68,6 +68,9 @@ export interface SearchCandidateParams {
   statuses: string[];
   publicationSources: string[];
   publicationYears: string[];
+  geltungstag: string;
+  validFrom: string;
+  validTo: string;
   versionScope: VersionScope;
   includeAmendments: boolean;
 }
@@ -82,12 +85,12 @@ export function hasFreeTextQuery(state: Pick<NormSearchState, 'q' | 'exact' | 'c
 }
 
 /**
- * Filter, die ausschließlich im Browser wirken, weil die D1-Projektion sie nicht trägt:
- * Geltungstag und Gültigkeitszeitraum je Fassung sowie Ausgabennummer und Seite der Fundstelle
- * (Teilstringvergleich auf normalisiertem Text).
+ * Filter, die ausschließlich im Browser wirken: Ausgabennummer und Seite der Fundstelle. Beide
+ * vergleichen normalisierten Text (normalizeSearchText, bei der Seite als Teilstring); die
+ * Projektion trägt nur die unveränderten Werte, ein SQL-Vergleich träfe deshalb eine andere Menge.
  */
 export function hasClientOnlyFilters(state: NormSearchState): boolean {
-  return Boolean(state.geltungstag || state.validFrom || state.validTo || state.publicationIssue || state.publicationPage);
+  return Boolean(state.publicationIssue || state.publicationPage);
 }
 
 /**
@@ -116,6 +119,9 @@ export function buildSearchCandidateParams(state: NormSearchState): SearchCandid
     statuses: state.statuses,
     publicationSources: state.publicationSources,
     publicationYears: state.publicationYears,
+    geltungstag: state.geltungstag,
+    validFrom: state.validFrom,
+    validTo: state.validTo,
     // Eine Fundstellensuche hebt den impliziten Standard auf alle Fassungen an (siehe evaluateDocument).
     versionScope: freeText && state.versionScopeExplicit !== true ? 'all' : state.versionScope,
     includeAmendments: state.includeAmendments || freeText || state.types.includes('aenderungsvorschrift'),
