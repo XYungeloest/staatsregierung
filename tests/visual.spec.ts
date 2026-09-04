@@ -1,6 +1,11 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
+import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+
 const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+// SITE_TARGETS (portal, law) begrenzt die Suite auf die gebauten Websites; ohne Angabe laufen beide.
+const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
+const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith('http://127.0.0.1:4322') ? 'law' : 'portal');
 
 const visualPages = [
   { name: 'startseite', path: '/' },
@@ -296,6 +301,7 @@ const componentVisualPages = [
 ] as const;
 
 for (const entry of visualPages) {
+  if (!isSelected(entry.path)) continue;
   test(`visuelle Basislinie: ${entry.name}`, async ({ page }) => {
     await preparePage(page);
     await page.goto(entry.path);
@@ -317,6 +323,7 @@ test('Komponenten-Basislinie: mobile OstRecht-Navigation', async ({ page }, test
 });
 
 for (const entry of componentVisualPages) {
+  if (!isSelected(entry.path)) continue;
   test(`Komponenten-Basislinien: ${entry.name}`, async ({ page }) => {
     await preparePage(page);
     await page.goto(entry.path);

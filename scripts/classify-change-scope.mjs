@@ -33,7 +33,28 @@ const RELEASE_VALIDATOR_SCRIPTS = new Set([
 const CI_ONLY_SCRIPTS = new Set([
   'scripts/classify-change-scope.mjs',
   'scripts/check-deployment.mjs',
+  'scripts/check-docs.mjs',
+  'scripts/npm-audit-retry.mjs',
 ]);
+
+/**
+ * Skripte der lokalen D1-Laufzeit (Seed, Verifikation, Worker-Start): eine Änderung wird
+ * nur mit dem gesamten Rechtsbestand bewiesen, nicht mit dem Testfixture.
+ */
+const RUNTIME_CORPUS_SCRIPTS = new Set([
+  'scripts/sync-recht-d1.mjs',
+  'scripts/d1-projection-snapshot.mjs',
+  'scripts/d1-runtime-seed.mjs',
+  'scripts/serve-law-worker.mjs',
+  'scripts/verify-recht-d1.mjs',
+]);
+
+/**
+ * Ab dieser Zahl geänderter Normen gilt eine Bestandsänderung als umfangreich: der
+ * Vollbestand-Smoke läuft dann zusätzlich zum Fixture, weil das Fixture eine so breite
+ * Änderung nicht mehr repräsentativ abdeckt (Bulk-Import, Massenkorrektur).
+ */
+export const LARGE_CORPUS_CHANGE_THRESHOLD = 25;
 
 function targets(...values) {
   const selected = new Set(values.flat(Infinity));
@@ -51,6 +72,8 @@ function documentationImpact() {
     runKnowledgeCheck: false,
     runUnitTests: false,
     runD1Sync: false,
+    fullCorpus: false,
+    visual: false,
   };
 }
 
@@ -61,6 +84,8 @@ function verificationImpact({
   build = [],
   ui = [],
   d1Sync = false,
+  fullCorpus = false,
+  visual = false,
 } = {}) {
   return {
     documentation: false,
@@ -72,10 +97,12 @@ function verificationImpact({
     runKnowledgeCheck: knowledge,
     runUnitTests: unit,
     runD1Sync: d1Sync,
+    fullCorpus,
+    visual,
   };
 }
 
-function runtimeImpact(runtimeTargets, { content = false, d1Sync = false } = {}) {
+function runtimeImpact(runtimeTargets, { content = false, d1Sync = false, fullCorpus = false, visual = true } = {}) {
   const selectedTargets = targets(runtimeTargets);
   return {
     documentation: false,
@@ -87,6 +114,8 @@ function runtimeImpact(runtimeTargets, { content = false, d1Sync = false } = {})
     runKnowledgeCheck: false,
     runUnitTests: true,
     runD1Sync: d1Sync,
+    fullCorpus,
+    visual,
   };
 }
 
@@ -117,6 +146,38 @@ function isD1ProjectionCodePath(path) {
   return path === 'scripts/sync-recht-d1.mjs'
     || path.startsWith('packages/shared/src/lib/norms/')
     || path.startsWith('packages/recht-search/');
+}
+
+/**
+ * Änderungen, deren Wirkung auf die OstRecht-Laufzeit nur mit dem gesamten Rechtsbestand
+ * bewiesen werden kann (D1-Schema, Projektions-, Such-, Ableitungs-, Fassungs-, Herkunfts-
+ * und Stichtagslogik, Runtime-Store und Routen mit Datenbankzugriff, Seed-Werkzeuge,
+ * Laufzeitkonfiguration und Abhängigkeiten). Rein visuelle Änderungen (Komponenten,
+ * Layouts, Styles, Browserskripte, statische Hilfe- und Fehlerseite) genügen dem Fixture.
+ */
+export function isFullCorpusPath(path) {
+  if (path.startsWith('data/recht/d1/')) return true;
+  if (RUNTIME_CORPUS_SCRIPTS.has(path) || path.startsWith('scripts/lib/d1-')) return true;
+  if (path.startsWith('apps/recht/src/lib/runtime/') || path === 'apps/recht/src/middleware.ts') return true;
+  if (path.startsWith('apps/recht/src/pages/')) {
+    return !(path.startsWith('apps/recht/src/pages/hilfe/')
+      || path === 'apps/recht/src/pages/404.astro'
+      || path === 'apps/recht/src/pages/robots.txt.ts');
+  }
+  if (path.startsWith('packages/shared/src/lib/norms/') || path.startsWith('packages/shared/src/config/')) return true;
+  if (/^packages\/shared\/src\/lib\/portal\/(?:content|routes|loader|legislation)\.ts$/u.test(path)) return true;
+  if (path.startsWith('packages/recht-search/src/')) return true;
+  return path === 'apps/recht/wrangler.jsonc'
+    || path === 'apps/recht/astro.config.mjs'
+    || path === 'apps/recht/package.json'
+    || path === 'package-lock.json';
+}
+
+/** Rein visuelle Oberflächen- und Testdateien, für die die Screenshot-Suite läuft. */
+function isVisualTestPath(path) {
+  return path === 'tests/visual.spec.ts'
+    || path.startsWith('tests/visual.spec.ts-snapshots/')
+    || path === 'playwright.config.ts';
 }
 
 function isRootDocumentation(path) {
@@ -190,7 +251,11 @@ function isCiOnlyRootPath(path) {
 
 function scriptImpact(path) {
   if (RUNTIME_BUILD_SCRIPTS.has(path)) return runtimeImpact(SITE_TARGETS);
-  if (isD1ProjectionCodePath(path)) return verificationImpact({ content: true, d1Sync: true });
+  if (isD1ProjectionCodePath(path)) return verificationImpact({ content: true, d1Sync: true, fullCorpus: true });
+  if (isFullCorpusPath(path)) {
+    // Seed-, Verifikations- und Worker-Werkzeuge: der Vollbestand-Smoke beweist sie.
+    return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS, fullCorpus: true });
+  }
   if (UI_TEST_SUPPORT_SCRIPTS.has(path)) {
     return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS });
   }
@@ -212,8 +277,10 @@ function pathImpact(path) {
     return documentationImpact();
   }
 
-  if (isLawContentPath(path)) return runtimeImpact(['portal'], { content: true, d1Sync: true });
-  if (isLawRuntimePath(path)) return runtimeImpact(['law'], { d1Sync: isD1ProjectionCodePath(path) });
+  // Rechtsinhalte laufen über D1; die Screenshot-Suite arbeitet mit dem Fixture und wird
+  // von reinem Normcontent nicht angestoßen.
+  if (isLawContentPath(path)) return runtimeImpact(['portal'], { content: true, d1Sync: true, visual: false });
+  if (isLawRuntimePath(path)) return runtimeImpact(['law'], { d1Sync: isD1ProjectionCodePath(path), fullCorpus: isFullCorpusPath(path) });
   if (isPortalRuntimePath(path)) {
     return runtimeImpact(['portal'], {
       content: path.startsWith('content/'),
@@ -224,21 +291,23 @@ function pathImpact(path) {
     return runtimeImpact(SITE_TARGETS, {
       content: path.startsWith('content/'),
       d1Sync: isD1ProjectionCodePath(path),
+      fullCorpus: isFullCorpusPath(path),
     });
   }
 
   if (isPortalPublicAsset(path)) return runtimeImpact(['portal']);
 
   if (path.startsWith('tests/')) {
-    return isUiSmokeSpec(path)
-      ? verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS })
-      : verificationImpact();
+    if (isUiSmokeSpec(path)) return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS });
+    if (isVisualTestPath(path)) return verificationImpact({ build: SITE_TARGETS, visual: true });
+    return verificationImpact();
   }
 
   if (path.startsWith('scripts/')) return scriptImpact(path);
 
   if (path.startsWith('.github/')) return verificationImpact();
   if (isCiOnlyRootPath(path)) {
+    if (path === 'playwright.config.ts') return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS, visual: true });
     return /^playwright[^/]*\.[^/]+$/u.test(path)
       ? verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS })
       : verificationImpact();
@@ -246,6 +315,10 @@ function pathImpact(path) {
 
   if (path.startsWith('knowledge/')) {
     return verificationImpact({ content: true, knowledge: true });
+  }
+  if (path.startsWith('data/recht/d1/')) {
+    // Migrationen werden manuell eingespielt; ihre Wirkung beweist der Vollbestand-Smoke.
+    return verificationImpact({ content: true, build: ['law'], ui: ['law'], fullCorpus: true });
   }
   if (isContentVerificationPath(path)) return verificationImpact({ content: true });
 
@@ -263,11 +336,25 @@ function scopeForTargets(runtimeTargets, documentation = false) {
   return documentation ? 'docs-only' : 'ci-only';
 }
 
-function resultFor(impacts, paths) {
+/** Zahl der Normen, deren Verzeichnis unter content/normen berührt ist. */
+export function changedNormSlugs(paths) {
+  const slugs = new Set();
+  for (const path of paths) {
+    const match = normalizeChangedPath(path).match(/^content\/normen\/([^/]+)\//u);
+    if (match) slugs.add(match[1]);
+  }
+  return [...slugs].sort();
+}
+
+function resultFor(impacts, paths, { forceFullCorpus = false } = {}) {
   const runtimeTargets = targets(impacts.map((impact) => impact.runtimeTargets));
   const checkTargets = targets(impacts.map((impact) => impact.checkTargets));
-  const buildTargets = targets(impacts.map((impact) => impact.buildTargets));
-  const uiTargets = targets(impacts.map((impact) => impact.uiTargets));
+  const largeCorpusChange = changedNormSlugs(paths).length >= LARGE_CORPUS_CHANGE_THRESHOLD;
+  const runFullCorpusSmoke = forceFullCorpus || largeCorpusChange || impacts.some((impact) => impact.fullCorpus);
+  // Der Vollbestand-Smoke braucht den gebauten OstRecht-Worker, auch wenn die Änderung selbst
+  // (z. B. ein Bulk-Import unter content/normen) kein OstRecht-Deployment auslöst.
+  const buildTargets = targets(impacts.map((impact) => impact.buildTargets), runFullCorpusSmoke ? ['law'] : []);
+  const uiTargets = targets(impacts.map((impact) => impact.uiTargets), runFullCorpusSmoke ? ['law'] : []);
   const documentationOnly = impacts.length > 0 && impacts.every((impact) => impact.documentation);
   const scope = scopeForTargets(runtimeTargets, documentationOnly);
 
@@ -289,6 +376,12 @@ function resultFor(impacts, paths) {
     runD1Sync: impacts.some((impact) => impact.runD1Sync),
     runUiSmoke: uiTargets.length > 0,
     runFullUiSmoke: uiTargets.length === SITE_TARGETS.length,
+    // Vollbestand-Smoke (Seed aus dem Cache) statt Fixture: Laufzeit-, Projektions- oder
+    // umfangreiche Bestandsänderung. Alles andere prüft das repräsentative Fixture.
+    runFullCorpusSmoke,
+    largeCorpusChange,
+    // Screenshot-Suite nur bei Oberflächen-, Layout-, Style- oder Portalinhaltsänderungen.
+    runVisual: buildTargets.length > 0 && impacts.some((impact) => impact.visual),
   };
 }
 
@@ -304,7 +397,8 @@ export function classifyChangedPath(value) {
 
 export function classifyChangeScope(values = []) {
   const paths = values.map(normalizeChangedPath).filter(Boolean);
-  if (paths.length === 0) return resultFor([runtimeImpact(SITE_TARGETS, { content: true, d1Sync: true })], paths);
+  // Ohne bekannte Änderungsliste (z. B. erster Commit) konservativ: alles einschließlich Vollbestand.
+  if (paths.length === 0) return resultFor([runtimeImpact(SITE_TARGETS, { content: true, d1Sync: true, fullCorpus: true })], paths);
   return resultFor(paths.map(pathImpact), paths);
 }
 
@@ -320,10 +414,11 @@ export function classifyManualDeploy(target = 'both') {
     throw new Error('Manuelles Ziel muss portal, law oder both sein.');
   }
   // A manual deployment remains a normal release: content, type and browser
-  // checks still run for exactly the selected target(s). The D1 projection is
-  // not rewritten by a manual release; run `npm run norms:runtime:d1-sync`
+  // checks still run for exactly the selected target(s), and a manual OstRecht
+  // release is verified against the full corpus. The D1 projection is not
+  // rewritten by a manual release; run `npm run norms:runtime:d1-sync`
   // deliberately when the legal data changed.
-  return resultFor([runtimeImpact(runtimeTargets, { content: true })], []);
+  return resultFor([runtimeImpact(runtimeTargets, { content: true })], [], { forceFullCorpus: runtimeTargets.includes('law') });
 }
 
 function argumentValue(args, name) {
@@ -369,6 +464,8 @@ async function main() {
       `run_d1_sync=${result.runD1Sync}`,
       `run_ui_smoke=${result.runUiSmoke}`,
       `run_full_ui_smoke=${result.runFullUiSmoke}`,
+      `run_full_corpus_smoke=${result.runFullCorpusSmoke}`,
+      `run_visual=${result.runVisual}`,
     ];
     await appendFile(outputPath, `${lines.join('\n')}\n`, 'utf8');
   }
