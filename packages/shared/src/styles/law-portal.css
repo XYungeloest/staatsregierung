@@ -1590,7 +1590,7 @@
   top: 0;
   z-index: 40;
   border-bottom: 1px solid #d8e1ec;
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--color-surface);
   box-shadow: 0 4px 18px rgba(8, 47, 97, 0.06);
 }
 
@@ -2386,7 +2386,10 @@
 }
 
 .law-search-filters .search-filter-group__options {
-  max-height: 10rem;
+  /* Reicht fuer die elf Normtypen ohne Scrollen; laengere Gruppen behalten
+     einen sichtbaren Rollbalken statt eines unbemerkten Abschnitts. */
+  max-height: 26rem;
+  scrollbar-width: auto;
 }
 
 .law-search-filters .search-filter-option {
@@ -4088,4 +4091,59 @@
 .pagination__link--disabled {
   color: var(--color-text-muted, #6b6b6b);
   border-style: dashed;
+}
+
+/* ---------------------------------------------------------------------------
+   Sofortkorrekturen aus der Designpruefung:
+   sichtbares Aufklappzeichen und sichtbarer aktiver Menuepunkt.
+   --------------------------------------------------------------------------- */
+
+/* `display: flex` bzw. `display: grid` auf einem <summary> unterdrueckt die
+   Aufklappmarke des Browsers. Diese Aufklappbereiche sahen dadurch wie
+   unbedienbare Zwischenueberschriften aus und bekommen ein eigenes Zeichen. */
+.search-filter-panel > summary,
+.law-search-filters-panel > summary,
+.norm-version-picker summary {
+  position: relative;
+  padding-inline-end: 2.25rem;
+}
+
+.search-filter-panel > summary::after,
+.law-search-filters-panel > summary::after,
+.norm-version-picker summary::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 1rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  opacity: 0.75;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.search-filter-panel[open] > summary::after,
+.law-search-filters-panel[open] > summary::after,
+.norm-version-picker[open] summary::after {
+  transform: translateY(-25%) rotate(-135deg);
+}
+
+/* In der Filterspalte laufen die Aufklappzeilen randlos bis an die Spaltenkante. */
+.law-search-filters .search-filter-panel > summary {
+  padding-inline-end: 1.4rem;
+}
+
+.law-search-filters .search-filter-panel > summary::after {
+  inset-inline-end: 0.2rem;
+}
+
+/* Der aktive Punkt war im geoeffneten Menue nur ueber `aria-current` erkennbar,
+   optisch aber nicht von den uebrigen zu unterscheiden. */
+.law-mobile-nav__panel nav a[aria-current] {
+  border-color: var(--law-blue);
+  background: var(--law-blue-light);
+  color: var(--law-blue-dark);
+  font-weight: 650;
 }

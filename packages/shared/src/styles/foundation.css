@@ -44,6 +44,8 @@
   --font-sans: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --content-width: 84rem;
   --content-width-narrow: 60rem;
+  --lh-display: 1.12;
+  --lh-heading: 1.28;
   --rule-gradient: var(--color-primary);
   --section-rule-gap: 0.95rem;
   --space-section: clamp(2.5rem, 5vw, 4.5rem);
@@ -112,6 +114,17 @@ dd {
   overflow-wrap: anywhere;
 }
 
+/* Listenelemente tragen im Portal ueberwiegend Layout (Karten, Raster,
+   Trefferzeilen). Dort gilt die Lesebreite des Fliesstexts nicht; sonst
+   endet jede Verzeichniskarte bei 78ch statt an der Spaltenkante. */
+.law-directory-group li,
+.law-dashboard-list > li,
+.law-subject-record-list > li,
+.record-list > li,
+.norm-version-picker__content ul > li {
+  max-width: none;
+}
+
 button,
 input,
 select,
@@ -128,8 +141,14 @@ h5 {
   font-family: var(--font-display);
   font-weight: 760;
   letter-spacing: 0;
+  line-height: var(--lh-heading);
   overflow-wrap: anywhere;
   text-wrap: balance;
+}
+
+h1,
+h2 {
+  line-height: var(--lh-display);
 }
 
 .skip-link {
