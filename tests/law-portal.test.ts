@@ -457,7 +457,38 @@ test('Rechtsherkunft trennt neue, unveränderte, geänderte und ungeklärte Norm
   unresolved.versions[0].citation = 'Ausgangsquelle nicht belegt';
   unresolved.history.entries = [];
 
+  // Ein älteres Übereinkommen, das erst durch ein ostdeutsches Zustimmungsgesetz gilt: keine
+  // sächsische Quelle, Verkündung im Ostdeutschen Vertragsblatt, Geltungsbeginn nach dem
+  // Stichtag – die Herkunft ist belegt, obwohl der erste Historieneintrag vor dem Stichtag liegt.
+  const treaty = record([version('1992-07-14', '2026-01-27', null)]);
+  treaty.meta.slug = 'altes-uebereinkommen';
+  treaty.meta.id = treaty.meta.slug;
+  treaty.meta.type = 'staatsvertrag';
+  treaty.meta.initialCitation = 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)';
+  treaty.meta.effectiveDate = '2026-01-27';
+  treaty.versions[0].citation = 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)';
+  treaty.history.initialVersionId = '1992-07-14';
+  treaty.history.entries = [{
+    date: '1992-07-14',
+    type: 'initial',
+    title: 'Übereinkommen',
+    citation: 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)',
+    affectingVersionId: '1992-07-14',
+  }];
+  // Dieselbe Norm ohne eigenes Verkündungsorgan bleibt ungeklärt; eine vor dem Stichtag
+  // geltende Fassung ebenfalls.
+  const treatyWithoutEvidence = structuredClone(treaty);
+  treatyWithoutEvidence.meta.initialCitation = 'Übereinkommen vom 9. April 1992';
+  treatyWithoutEvidence.versions[0].citation = 'Übereinkommen vom 9. April 1992';
+  treatyWithoutEvidence.history.entries[0].citation = 'Übereinkommen vom 9. April 1992';
+  const treatyBeforeBaseline = structuredClone(treaty);
+  treatyBeforeBaseline.versions[0].validFrom = '1994-01-01';
+  treatyBeforeBaseline.meta.effectiveDate = '1994-01-01';
+
   assert.equal(getNormOriginInfo(original, [original]).kind, 'ostdeutsch-original');
+  assert.equal(getNormOriginInfo(treaty, [treaty]).kind, 'ostdeutsch-original');
+  assert.equal(getNormOriginInfo(treatyWithoutEvidence, [treatyWithoutEvidence]).kind, 'origin-unresolved');
+  assert.equal(getNormOriginInfo(treatyBeforeBaseline, [treatyBeforeBaseline]).kind, 'origin-unresolved');
   assert.equal(getNormOriginInfo(inherited, [inherited]).kind, 'inherited-unchanged');
   assert.equal(getNormOriginInfo(amended, [amended, amendmentAct]).kind, 'inherited-amended');
   assert.equal(getNormOriginInfo(unresolved, [unresolved]).kind, 'origin-unresolved');
