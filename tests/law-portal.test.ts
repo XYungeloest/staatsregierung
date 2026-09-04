@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
+import { getNormLastActivityDate } from '@ostrecht/shared/lib/norms/versions.ts';
+
 import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
 import {
@@ -457,7 +459,38 @@ test('Rechtsherkunft trennt neue, unveränderte, geänderte und ungeklärte Norm
   unresolved.versions[0].citation = 'Ausgangsquelle nicht belegt';
   unresolved.history.entries = [];
 
+  // Ein älteres Übereinkommen, das erst durch ein ostdeutsches Zustimmungsgesetz gilt: keine
+  // sächsische Quelle, Verkündung im Ostdeutschen Vertragsblatt, Geltungsbeginn nach dem
+  // Stichtag – die Herkunft ist belegt, obwohl der erste Historieneintrag vor dem Stichtag liegt.
+  const treaty = record([version('1992-07-14', '2026-01-27', null)]);
+  treaty.meta.slug = 'altes-uebereinkommen';
+  treaty.meta.id = treaty.meta.slug;
+  treaty.meta.type = 'staatsvertrag';
+  treaty.meta.initialCitation = 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)';
+  treaty.meta.effectiveDate = '2026-01-27';
+  treaty.versions[0].citation = 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)';
+  treaty.history.initialVersionId = '1992-07-14';
+  treaty.history.entries = [{
+    date: '1992-07-14',
+    type: 'initial',
+    title: 'Übereinkommen',
+    citation: 'Übereinkommen vom 9. April 1992 (OVertrBl. 2026 Nr. 1)',
+    affectingVersionId: '1992-07-14',
+  }];
+  // Dieselbe Norm ohne eigenes Verkündungsorgan bleibt ungeklärt; eine vor dem Stichtag
+  // geltende Fassung ebenfalls.
+  const treatyWithoutEvidence = structuredClone(treaty);
+  treatyWithoutEvidence.meta.initialCitation = 'Übereinkommen vom 9. April 1992';
+  treatyWithoutEvidence.versions[0].citation = 'Übereinkommen vom 9. April 1992';
+  treatyWithoutEvidence.history.entries[0].citation = 'Übereinkommen vom 9. April 1992';
+  const treatyBeforeBaseline = structuredClone(treaty);
+  treatyBeforeBaseline.versions[0].validFrom = '1994-01-01';
+  treatyBeforeBaseline.meta.effectiveDate = '1994-01-01';
+
   assert.equal(getNormOriginInfo(original, [original]).kind, 'ostdeutsch-original');
+  assert.equal(getNormOriginInfo(treaty, [treaty]).kind, 'ostdeutsch-original');
+  assert.equal(getNormOriginInfo(treatyWithoutEvidence, [treatyWithoutEvidence]).kind, 'origin-unresolved');
+  assert.equal(getNormOriginInfo(treatyBeforeBaseline, [treatyBeforeBaseline]).kind, 'origin-unresolved');
   assert.equal(getNormOriginInfo(inherited, [inherited]).kind, 'inherited-unchanged');
   assert.equal(getNormOriginInfo(amended, [amended, amendmentAct]).kind, 'inherited-amended');
   assert.equal(getNormOriginInfo(unresolved, [unresolved]).kind, 'origin-unresolved');
@@ -660,14 +693,81 @@ test('Standardsortierung richtet sich nach Suchkontext und respektiert eine ausd
   const newer = searchDocument({
     id: 'neu:1', slug: 'neu', title: 'Zukunftsgesetz', publicationDate: '2026-08-20', validFrom: '2026-08-20',
   });
-  assert.equal(getDefaultSearchSort(searchState()), 'publication');
+  // Ohne Suchbegriff (auch mit Filtern) zählt das jüngste Rechtsereignis, nicht Titel oder Ausgangsfassung.
+  assert.equal(getDefaultSearchSort(searchState()), 'activity');
+  assert.equal(getDefaultSearchSort(searchState({ types: ['gesetz'], origins: ['inherited-amended'] })), 'activity');
   assert.equal(getDefaultSearchSort(searchState({ q: 'Allgemeinverfügung' })), 'relevance');
-  const browseResults = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'publication', sortExplicit: false }));
+  assert.equal(getDefaultSearchSort(searchState({ citation: 'OVertrBl. 2026 Nr. 4' })), 'relevance');
+  const browseResults = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'activity', sortExplicit: false }));
   assert.deepEqual(browseResults.map((entry) => entry.documentEntry.slug), ['neu', 'alt']);
+  const explicitPublication = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'publication', sortExplicit: true }));
+  assert.deepEqual(explicitPublication.map((entry) => entry.documentEntry.slug), ['neu', 'alt']);
   const explicitResults = runNormSearch([olderAlphabetical, newer], searchState({
     q: 'verfügung', sort: 'publication', sortExplicit: true,
   }));
   assert.equal(explicitResults[0]?.documentEntry.slug, 'alt');
+});
+
+test('Sortierung nach jüngstem Rechtsereignis: neues Gesetz 2026 und 2026 geänderte Übernahme vor unverändert übernommenem Recht, künftige Ereignisse zählen nicht', () => {
+  const inheritedUnchanged = searchDocument({
+    id: 'alt:1', slug: 'archivgesetz', title: 'Archivgesetz', publicationDate: '1993-05-17', validFrom: '2023-11-01', lastActivityDate: '2023-11-01',
+  });
+  const amendedInherited = searchDocument({
+    id: 'gemo:1', slug: 'gemeindeordnung', title: 'Gemeindeordnung', publicationDate: '2018-03-09', validFrom: '2026-08-01', lastActivityDate: '2026-08-01',
+  });
+  const newLaw = searchDocument({
+    id: 'zinn:1', slug: 'zinnwald', title: 'Zinnwald-Vergesellschaftungsgesetz', publicationDate: '2026-09-02', validFrom: '2026-09-02', lastActivityDate: '2026-09-02',
+  });
+  // Ältere Suchdokumente ohne das Feld ordnen sich über den Fassungsbeginn ein (Expand/Contract).
+  const legacyDocument = searchDocument({ id: 'legacy:1', slug: 'legacy', title: 'Ältere Projektion', validFrom: '2024-01-01' });
+  delete (legacyDocument as Partial<SearchIndexDocument>).lastActivityDate;
+  const results = runNormSearch([inheritedUnchanged, legacyDocument, amendedInherited, newLaw], searchState({ sort: 'activity', sortExplicit: false }));
+  assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['zinnwald', 'gemeindeordnung', 'legacy', 'archivgesetz']);
+  // Gleichstand: Titel, dann Slug – deterministisch.
+  const tieA = searchDocument({ id: 'a:1', slug: 'b-slug', title: 'Alpha', validFrom: '2026-01-01', lastActivityDate: '2026-05-01' });
+  const tieB = searchDocument({ id: 'b:1', slug: 'a-slug', title: 'Alpha', validFrom: '2026-01-01', lastActivityDate: '2026-05-01' });
+  assert.deepEqual(runNormSearch([tieA, tieB], searchState({ sort: 'activity', sortExplicit: false })).map((entry) => entry.documentEntry.slug), ['a-slug', 'b-slug']);
+});
+
+test('jüngstes Rechtsereignis einer Norm: Erlass zählt, künftige Fassungen und Ereignisse nicht', () => {
+  const norm = record([version('2026-01-01', '2026-01-01', '2026-09-30'), version('2026-10-01', '2026-10-01', null)]);
+  norm.history.entries = [
+    { type: 'initial', date: '2026-01-01', title: 'Stammfassung', citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)', affectingVersionId: '2026-01-01' },
+    { type: 'amendment', date: '2026-10-01', title: 'Künftige Änderung', citation: 'Gesetz vom 1. Oktober 2026 (OGVBl. 2026 Nr. 80)', affectingVersionId: '2026-10-01' },
+  ] as typeof norm.history.entries;
+  assert.equal(getNormLastActivityDate(norm, '2026-09-04'), '2026-01-01');
+  assert.equal(getNormLastActivityDate(norm, '2026-10-01'), '2026-10-01');
+  const untouched = record([version('2023-11-01', '2023-11-01', null)]);
+  untouched.history.entries = [];
+  assert.equal(getNormLastActivityDate(untouched, '2026-09-04'), '2023-11-01');
+  const onlyFuture = record([version('2027-01-01', '2027-01-01', null)]);
+  onlyFuture.history.entries = [];
+  assert.equal(getNormLastActivityDate(onlyFuture, '2026-09-04'), null);
+});
+
+test('eine Fundstellensuche zeigt auch Änderungsvorschriften der zitierten Ausgabe, ohne den Standardfilter zu berühren', () => {
+  const treatyAmendment = searchDocument({
+    id: 'ndr:1', slug: 'staatsvertrag-ndr-aenderung', title: 'Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk',
+    shortTitle: 'NDR-Änderungsstaatsvertrag', abbr: '', isAmendment: true, type: 'staatsvertrag', typeLabel: 'Staatsvertrag',
+    citation: 'Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)', publication: 'OVertrBl. 2026 Nr. 4', publicationSlug: 'overtrbl-2026-04',
+    publicationTitle: 'Ostdeutsches Vertragsblatt 2026 Nr. 4', publicationSource: 'OVertrBl.', publicationYear: '2026', publicationIssue: '4', publicationPage: '2',
+  });
+  const other = searchDocument({ id: 'other:1', slug: 'other', publicationSlug: 'ogvbl-2026-01' });
+  const byCitation = runNormSearch([treatyAmendment, other], searchState({ q: 'OVertrBl. 2026 Nr. 4' }));
+  assert.deepEqual(byCitation.map((entry) => entry.documentEntry.slug), ['staatsvertrag-ndr-aenderung']);
+  assert.equal(byCitation[0]?.matchKind, 'publication');
+  // Ohne Fundstelle bleibt die Änderungsvorschrift beim Stöbern ausgeblendet.
+  assert.deepEqual(runNormSearch([treatyAmendment, other], searchState()).map((entry) => entry.documentEntry.slug), ['other']);
+});
+
+test('Fundstellen des Ostdeutschen Vertragsblatts werden wie die anderen Verkündungsorgane erkannt', () => {
+  for (const query of ['OVertrBl. 2026 Nr. 4', 'OVertrBl 2026 Nr 4', 'Staatsvertrag OVertrBl. 2026 Nr. 4 S. 2', 'OGVBl. 2026 Nr. 1', 'StAnzO. 2026 Nr. 39']) {
+    const parsed = parseNormSearchQuery(query);
+    assert.equal(parsed.hasPublicationReference, true, query);
+  }
+  for (const query of ['Vertragsblatt 2026', 'OVertrBl.', 'Nr. 4', 'Ostdeutsches Vertragsblatt Nr. 4', 'ABC 2026 Nr. 4']) {
+    assert.equal(parseNormSearchQuery(query).hasPublicationReference, false, query);
+  }
 });
 
 test('Änderungsvorschriften werden auch bei historisch grobem Normtyp erkannt', () => {

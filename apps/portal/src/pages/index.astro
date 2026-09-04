@@ -159,9 +159,9 @@ const importantItems = homeContent.importantItems.map((item) => ({
           </div>
           <a href={getTopicsUrl()}>Alle Themen und Reformen <span aria-hidden="true">→</span></a>
         </header>
-        <div class="home-priority-grid">
+        <div class:list={['home-priority-grid', homeSecondaryTopics.length === 0 && 'home-priority-grid--single']}>
           {homeLeadTopic ? (
-            <article class="home-lead-feature">
+            <article class:list={['home-lead-feature', homeSecondaryTopics.length === 0 && 'home-lead-feature--wide']}>
               <div class="home-lead-feature__icon"><PortalIcon name="topics" /></div>
               <div class="home-lead-feature__status"><StatusBadge status={homeLeadTopic.status} /><span>Fachstand {siteConfig.date.formatLong(homeLeadTopic.updatedAt)}</span></div>
               <p class="eyebrow">Aktuelles Vorhaben</p>
@@ -174,6 +174,7 @@ const importantItems = homeContent.importantItems.map((item) => ({
               <a class="button-link" href={getTopicUrl(homeLeadTopic.slug)}>{homeLeadTopic.title} öffnen <PortalIcon name="arrow" /></a>
             </article>
           ) : null}
+          {homeSecondaryTopics.length > 0 ? (
           <div class="home-topic-list">
             {homeSecondaryTopics.map((topic) => {
               const nextDate = getNextTopicDate(topic, PORTAL_REFERENCE_DATE);
@@ -188,6 +189,7 @@ const importantItems = homeContent.importantItems.map((item) => ({
               );
             })}
           </div>
+          ) : null}
         </div>
       </div>
     </section>

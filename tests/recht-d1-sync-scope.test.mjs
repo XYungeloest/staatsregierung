@@ -50,8 +50,8 @@ test('eine reine Verkündungsänderung projiziert die Verkündung und die zitier
   assert.deepEqual(removed.deletedPublications, ['ogvbl-2020-01']);
 });
 
-test('Änderungen an Projektionslogik, Schema oder Portalbezügen erzwingen die Vollprojektion', () => {
-  for (const path of ['scripts/sync-recht-d1.mjs', 'packages/shared/src/lib/norms/derived.ts', 'data/recht/d1/0005_x.sql', 'content/themen/bildung.json', 'packages/recht-search/src/search.ts']) {
+test('Änderungen an Projektionslogik oder Schema erzwingen die Vollprojektion', () => {
+  for (const path of ['scripts/sync-recht-d1.mjs', 'packages/shared/src/lib/norms/derived.ts', 'data/recht/d1/0005_x.sql', 'packages/recht-search/src/search.ts', 'packages/shared/src/lib/norms/origin.ts']) {
     const scope = scopeFromChangedPaths([path, 'content/normen/foo/meta.json'], { existingSlugs, existingPublications });
     assert.equal(scope.mode, 'full', path);
     assert.equal(scope.derivedRebuild, false, path);
@@ -60,6 +60,25 @@ test('Änderungen an Projektionslogik, Schema oder Portalbezügen erzwingen die 
   assert.equal(unrelated.mode, 'incremental');
   assert.deepEqual(unrelated.slugs, []);
   assert.equal(unrelated.ignoredPaths, 2);
+});
+
+test('Portalgrundlagen (Themen, Presse) erneuern nur die abgeleiteten Daten – nie Fassungen, nie Vollprojektion', () => {
+  const topics = scopeFromChangedPaths(['content/themen/bildung.json', 'content/presse/2026-09-04-interflug.json'], { existingSlugs, existingPublications });
+  assert.equal(topics.mode, 'incremental');
+  assert.deepEqual(topics.slugs, []);
+  assert.equal(topics.derivedRebuild, true);
+  assert.equal(topics.refreshSearchDocuments, false);
+  assert.match(topics.reasons.join(' '), /2 Portalgrundlage\(n\)/u);
+  // Nur Hervorhebung, Teaser oder Priorität geändert: der projektionsrelevante Auszug ist gleich, nichts zu tun.
+  const highlightOnly = scopeFromChangedPaths(['content/themen/bildung.json', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, portalProjectionChanged: () => false });
+  assert.equal(highlightOnly.mode, 'incremental');
+  assert.deepEqual(highlightOnly.slugs, ['foo']);
+  assert.equal(highlightOnly.derivedRebuild, false);
+  assert.deepEqual(highlightOnly.reasons, []);
+  // Ein geänderter Normbezug erneuert die abgeleiteten Daten zusammen mit der Normänderung.
+  const legalBasisChanged = scopeFromChangedPaths(['content/themen/bildung.json', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, portalProjectionChanged: (path) => path === 'content/themen/bildung.json' });
+  assert.equal(legalBasisChanged.derivedRebuild, true);
+  assert.deepEqual(legalBasisChanged.slugs, ['foo']);
 });
 
 test('Identitätsvergleich beachtet nur identitätsrelevante Metadatenfelder', () => {

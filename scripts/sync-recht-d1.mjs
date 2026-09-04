@@ -15,7 +15,7 @@ import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts
 import { buildDerivedContext, deriveNorm, fullCitationFor } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
-import { classifyNormVersion, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases } from '@ostrecht/recht-search/search.ts';
@@ -23,7 +23,8 @@ import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNo
 import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths } from './lib/d1-sync-scope.mjs';
 import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
-import { FULL_SCOPE, fixtureScope, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
+import { FULL_SCOPE, fixtureScope, portalProjectionChangedSince, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
+import { PORTAL_CONTENT_PATTERN } from './lib/d1-sync-scope.mjs';
 import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search-schema.mjs';
 
 /**
@@ -55,6 +56,9 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *   - Der API-Transport summiert Abfragen, Batches, rows_read, rows_written und Dauer
  *     aus den D1-Antworten; --max-rows-read / --max-rows-written brechen den Lauf ab,
  *     sobald das Budget überschritten ist. --dry-run schätzt Umfang und Anweisungen.
+ *   - --remote-state liest nur die gespeicherte Identität, bestimmt Umfang und Entscheidung und
+ *     endet vor Ableitungen und Planbau (Sekunden; PR-Check d1_token_check). Exit-Code 3, wenn
+ *     der automatische Sync eine nicht budgetierte Vollprojektion bräuchte (Release-Gate).
  *   - --stamp-fingerprint schreibt nur den Fingerabdruck neu (drei Metadatenzeilen), wenn
  *     sich ausschließlich seine Berechnung geändert hat, die Projektion aber unverändert ist:
  *     erlaubt nur, wenn corpus_hash, norm_count und publication_count in D1 exakt dem
@@ -125,6 +129,8 @@ const RUNTIME_META_KEYS = ['last_sync_at', 'norm_count', 'publication_count', 'c
 const IDENTITY_META_KEYS = ['projection_fingerprint', 'projection_scope', 'projection_logic_hash', 'corpus_content_hash', 'portal_content_hash', 'sync_state'];
 const BUDGETS_PATH = join(ROOT, 'data', 'recht', 'd1-sync-budgets.json');
 const PRODUCTION_DATABASE_NAME = 'ostrecht-recht';
+/** Exit-Code von --remote-state, wenn der automatische Sync eine Vollprojektion bräuchte (Release-Gate). */
+export const REMOTE_STATE_GATE_EXIT_CODE = 3;
 const execFileAsync = promisify(execFile);
 
 function valueAfter(args, flag) {
@@ -222,9 +228,13 @@ function searchUnits(record, version, context) {
   return { metadata, units };
 }
 
-/** Jüngstes Datum aus Fassungsbeginn und Historie (Sitemap-lastmod, Übersichten). */
+/**
+ * Jüngstes Rechtsereignis bis zum Stichtag (Fassungsbeginne und Historie, keine künftigen
+ * Ereignisse): Standardsortierung der Übersichten ohne Suchbegriff und Sitemap-lastmod.
+ * Zentrale Definition in packages/shared/src/lib/norms/versions.ts.
+ */
 export function lastChangeDate(norm) {
-  return [...norm.versions.map((version) => version.validFrom), ...norm.history.entries.map((entry) => entry.date)].sort().at(-1) ?? null;
+  return getNormLastActivityDate(norm, EDITORIAL_REFERENCE_DATE);
 }
 
 const NORM_COLUMNS = [
@@ -408,7 +418,9 @@ export function derivedQueries(norm, context, now) {
       norm.meta.id, JSON.stringify(derived.relations), JSON.stringify(derived.recommendations), JSON.stringify(derived.origin),
       JSON.stringify(derived.textReferences), JSON.stringify(derived.portalLinks), now,
     ]),
-    q('UPDATE law_norms SET origin_kind = ?, origin_baseline_version_id = ?, origin_last_own_change_date = ? WHERE id = ?', [derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, norm.meta.id]),
+    // Abgeleitete Spalten von law_norms (Herkunft, jüngstes Rechtsereignis) gehören zur
+    // Ableitung: ein Derived-Rebuild hält sie mit law_norm_derived zusammen aktuell.
+    q('UPDATE law_norms SET origin_kind = ?, origin_baseline_version_id = ?, origin_last_own_change_date = ?, last_change_date = ? WHERE id = ?', [derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, lastChangeDate(norm), norm.meta.id]),
   ];
 }
 
@@ -632,13 +644,42 @@ export function decideSyncAction({ requested, stored, identity, baseIdentity = n
   else if (!complete) problems.push(`D1 meldet einen unvollständigen Zustand (${storedState})`);
   if (storedFingerprint && storedScope !== identity.scope) problems.push(`Scope in D1 ist ${storedScope}, erwartet ${identity.scope}`);
   if (baseIdentity) {
-    if (storedFingerprint && storedFingerprint !== baseIdentity.fingerprint) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
+    // Übergang: eine vor der projektionsrelevanten Portalhash-Berechnung geschriebene Identität
+    // desselben Basis-Refs gilt als verifizierte Basis (legacyFingerprint, siehe Fingerprint-Modul).
+    const acceptedBases = [baseIdentity.fingerprint, baseIdentity.legacyFingerprint].filter(Boolean);
+    if (storedFingerprint && !acceptedBases.includes(storedFingerprint)) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
   } else if (requiresBase) {
     problems.push('kein Basis-Ref zur Verifikation des Ausgangszustands');
   }
   if (problems.length === 0) return { action: 'incremental', reason: `Basiszustand verifiziert (${baseIdentity ? baseIdentity.fingerprint.slice(0, 16) : storedFingerprint.slice(0, 16)}…, Scope ${identity.scope})` };
   if (recover) return { action: 'recovery', reason: `Recovery-Vollprojektion: ${problems.join('; ')}` };
   throw new SyncBaseMismatch(`Inkrementeller Sync abgelehnt (fail-closed): ${problems.join('; ')}. Abhilfe: Vollprojektion mit --full --budget full oder automatische Recovery mit --recover.`);
+}
+
+/**
+ * Prüft vor dem Planbau, ob Entscheidung und Budgetprofil zusammenpassen. Ein Profil, das keine
+ * Vollprojektion trägt (incremental), darf einen `full`-Beschluss nie ausführen: der Lauf endet
+ * hier fail-closed, ohne Ableitungen zu rechnen oder Anweisungen zu bauen. Der automatische Sync
+ * auf `main` erwartet No-op oder verifizierten inkrementellen Lauf; eine erforderliche
+ * Vollprojektion ist ein Release-Gate vor dem Merge (docs/DEPLOYMENT_RUNBOOK.md).
+ * @returns {{ ok: boolean, code: 'noop' | 'incremental' | 'recovery' | 'full-gate', message: string }}
+ */
+export function assessSyncDecision({ decision, scope, budgetProfile = null, limits = {} }) {
+  if (decision.action === 'noop') return { ok: true, code: 'noop', message: 'No-op: D1 trägt bereits die Zielidentität; der automatische Sync schreibt nichts.' };
+  if (decision.action === 'incremental') {
+    const parts = [`${scope.slugs.length} Norm(en)`, `${scope.deletedSlugs.length} Löschung(en)`, `${scope.publicationSlugs.length} Verkündung(en)`];
+    if (scope.derivedRebuild) parts.push('abgeleitete Daten aller Normen');
+    if (scope.refreshSearchDocuments) parts.push('Suchdokumente aller Normen');
+    return { ok: true, code: 'incremental', message: `Inkrementell mit verifizierter Basis: ${parts.join(', ')}.` };
+  }
+  if (decision.action === 'recovery') return { ok: true, code: 'recovery', message: `Recovery-Vollprojektion mit eigenem Budget (${decision.reason}).` };
+  const fullAllowed = budgetProfile === 'full' || budgetProfile === 'recovery' || (!budgetProfile && limits.maxRowsWritten === undefined);
+  if (fullAllowed) return { ok: true, code: 'full', message: `Vollprojektion (${decision.reason}); Budget ${budgetProfile ?? 'ohne Grenze'}.` };
+  return {
+    ok: false,
+    code: 'full-gate',
+    message: `Vollprojektion erforderlich (${decision.reason}), aber das Budgetprofil ${budgetProfile ?? 'explizit'} trägt keine Vollprojektion. Der automatische Sync führt keine Vollprojektion aus (Tabellen würden geleert). Release-Gate: die Zielprojektion vor dem Merge lokal nachweisen (scripts/d1-projection-snapshot.mjs), dann Staging und Produktion mit --git-diff … --assume-narrow-logic-change (bewiesene enge Änderung) oder bewusst mit --full --budget full auf den Zielstand bringen; danach ist dieser Lauf ein No-op (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt D1-Release-Gate).`,
+  };
 }
 
 /** Vorabprüfung der Planschätzung gegen das Budget; wirft, bevor irgendetwas geschrieben wird. */
@@ -687,7 +728,18 @@ function parseWranglerJson(stdout) {
   return jsonStart >= 0 ? JSON.parse(stdout.slice(jsonStart)) : null;
 }
 
-const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code: 10000\]|ETIMEDOUT|ECONNRESET|socket hang up|fetch failed|\b5\d\d\b/u;
+/**
+ * Vorübergehende Transport- und Plattformfehler, die je SQL-Datei wiederholt werden: Netzabbrüche,
+ * Anmeldelatenz, HTTP 5xx/429 sowie die Wrangler-Meldungen beim Hochladen einer SQL-Datei
+ * (Cloudflare antwortet gelegentlich mit ServiceUnavailable). Echte SQL- oder Budgetfehler
+ * werden nie wiederholt.
+ */
+export const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code: 10000\]|ETIMEDOUT|ECONNRESET|ECONNREFUSED|EAI_AGAIN|socket hang up|fetch failed|could not be uploaded|Please retry|ServiceUnavailable|Service Unavailable|InternalError|Internal error|Too Many Requests|\b(?:429|5\d\d)\b/u;
+export const D1_FILE_ATTEMPTS = 6;
+
+export function isTransientD1Error(message) {
+  return TRANSIENT_D1_ERROR.test(String(message ?? ''));
+}
 
 /**
  * Führt eine SQL-Datei aus. Inkrementelle Dateien schreiben ihre Normen vollständig
@@ -696,7 +748,7 @@ const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code:
  * werden. Vorübergehende Netz- oder Anmeldefehler der Cloudflare-API werden mit
  * Backoff erneut versucht.
  */
-async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4, databaseName = D1_DATABASE_NAME } = {}) {
+async function executeSqlFile(filePath, { local = false, persistTo, attempts = D1_FILE_ATTEMPTS, databaseName = D1_DATABASE_NAME } = {}) {
   const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
   for (let attempt = 1; ; attempt += 1) {
     try {
@@ -708,8 +760,8 @@ async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4
       return payload;
     } catch (error) {
       const message = error instanceof Error ? `${error.message}\n${error.stdout ?? ''}\n${error.stderr ?? ''}` : String(error);
-      if (local || attempt >= attempts || !TRANSIENT_D1_ERROR.test(message)) throw error;
-      const delayMs = 5_000 * attempt;
+      if (local || attempt >= attempts || !isTransientD1Error(message)) throw error;
+      const delayMs = Math.min(5_000 * attempt, 30_000);
       console.warn(`${filePath.replace(`${ROOT}/`, '')}: vorübergehender Fehler (Versuch ${attempt}/${attempts}), neuer Versuch in ${delayMs / 1000} s`);
       await new Promise((resolveDelay) => setTimeout(resolveDelay, delayMs));
     }
@@ -717,25 +769,50 @@ async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4
 }
 
 /** Liest die gespeicherten Fingerabdrücke aus law_runtime_meta (null, wenn nicht lesbar). */
-async function readStoredIdentity({ transport, config, local, persistTo, databaseName, stats }) {
+/**
+ * Einordnung eines Fehlers beim Lesen der gespeicherten Identität: nur eine noch nicht
+ * migrierte Datenbank (fehlende Tabelle) gilt als „keine Identität“. Vorübergehende Transport-
+ * fehler werden wiederholt, alles andere bricht ab – ein Lesefehler darf nie als leere Datenbank
+ * gelten, sonst würde der automatische Sync eine Recovery-Vollprojektion auslösen.
+ * @returns {'missing-table' | 'transient' | 'fatal'}
+ */
+export function classifyStoredIdentityError(message) {
+  const text = String(message ?? '');
+  if (/no such table|SQLITE_ERROR.*law_runtime_meta|D1_ERROR: no such table/iu.test(text)) return 'missing-table';
+  if (isTransientD1Error(text)) return 'transient';
+  return 'fatal';
+}
+
+async function readStoredIdentity({ transport, config, local, persistTo, databaseName, stats, attempts = D1_FILE_ATTEMPTS }) {
   const sql = "SELECT key, value FROM law_runtime_meta WHERE key IN ('projection_fingerprint', 'projection_scope', 'sync_state', 'corpus_hash', 'sync_mode', 'last_sync_at', 'norm_count', 'publication_count')";
-  try {
-    let results;
-    if (transport === 'api') {
-      const payload = await cloudflareQuery(config, [q(sql)]);
-      recordResults(stats, payload.result ?? [], { queries: 1, batches: 1 });
-      results = payload.result?.[0]?.results ?? [];
-    } else {
-      const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
-      const { stdout } = await runWrangler(['d1', 'execute', databaseName, ...target, '--json', '--command', sql]);
-      const payload = parseWranglerJson(stdout);
-      recordResults(stats, payload ?? [], { queries: 1, batches: 1 });
-      results = payload?.[0]?.results ?? [];
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      let results;
+      if (transport === 'api') {
+        const payload = await cloudflareQuery(config, [q(sql)]);
+        recordResults(stats, payload.result ?? [], { queries: 1, batches: 1 });
+        results = payload.result?.[0]?.results ?? [];
+      } else {
+        const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
+        const { stdout } = await runWrangler(['d1', 'execute', databaseName, ...target, '--json', '--command', sql]);
+        const payload = parseWranglerJson(stdout);
+        recordResults(stats, payload ?? [], { queries: 1, batches: 1 });
+        results = payload?.[0]?.results ?? [];
+      }
+      return Object.fromEntries(results.map((row) => [row.key, row.value]));
+    } catch (error) {
+      if (error instanceof SyncBudgetExceeded) throw error;
+      const message = error instanceof Error ? error.message : String(error);
+      const kind = classifyStoredIdentityError(message);
+      if (kind === 'missing-table') return null;
+      if (kind === 'transient' && attempt < attempts) {
+        const delayMs = Math.min(5_000 * attempt, 30_000);
+        console.warn(`Gespeicherte Identität konnte nicht gelesen werden (Versuch ${attempt}/${attempts}), neuer Versuch in ${delayMs / 1000} s: ${message.trim().slice(-200)}`);
+        await new Promise((resolveDelay) => setTimeout(resolveDelay, delayMs));
+        continue;
+      }
+      throw new Error(`Gespeicherte Identität in D1 nicht lesbar (fail-closed, keine Entscheidung ohne Zustand): ${message.trim().slice(-300)}`);
     }
-    return Object.fromEntries(results.map((row) => [row.key, row.value]));
-  } catch (error) {
-    if (error instanceof SyncBudgetExceeded) throw error;
-    return null;
   }
 }
 
@@ -784,6 +861,7 @@ export async function resolveScope(args, { norms, publications }) {
   }
   let paths;
   let identityChanged = () => true;
+  let portalProjectionChanged = () => true;
   // Bisheriger Stichtag für eine Stichtagsfortschreibung: aus dem Basis-Ref (--git-diff) oder
   // ausdrücklich (--reference-date-from); ohne Angabe bleibt editorial.json ein Full-Trigger.
   let previousReferenceDate = valueAfter(args, '--reference-date-from') ?? null;
@@ -802,6 +880,13 @@ export async function resolveScope(args, { norms, publications }) {
       metaCache.set(slug, metaIdentityChanged(previous, currentMeta(slug)));
     }
     identityChanged = (slug) => metaCache.get(slug) ?? true;
+    // Themen und Presse: nur ein geänderter projektionsrelevanter Auszug (Slug, Titel, Datum,
+    // Normbezüge) erneuert die abgeleiteten Daten; Hervorhebungen, Teaser usw. lösen nichts aus.
+    const portalCache = new Map();
+    for (const path of paths.filter((entry) => PORTAL_CONTENT_PATTERN.test(entry))) {
+      portalCache.set(path, await portalProjectionChangedSince(ROOT, base, path));
+    }
+    portalProjectionChanged = (path) => portalCache.get(path) ?? true;
     if (!previousReferenceDate && paths.includes(REFERENCE_DATE_PATH)) {
       previousReferenceDate = (await gitShowJson(base, REFERENCE_DATE_PATH))?.referenceDate ?? null;
     }
@@ -814,7 +899,7 @@ export async function resolveScope(args, { norms, publications }) {
     ? () => referenceDateAffectedSlugs(norms, previousReferenceDate, EDITORIAL_REFERENCE_DATE)
     : null;
   const narrowLogicChange = args.includes('--assume-narrow-logic-change');
-  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, narrowLogicChange });
+  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, narrowLogicChange, portalProjectionChanged });
   if (narrowLogicChange && scope.mode === 'full') throw new Error(`--assume-narrow-logic-change: die Änderung erzwingt trotzdem eine Vollprojektion (${scope.reasons.join('; ')})`);
   if (referenceDateSlugs && paths.includes(REFERENCE_DATE_PATH)) scope.referenceDate = { from: previousReferenceDate, to: EDITORIAL_REFERENCE_DATE };
   if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) {
@@ -901,7 +986,10 @@ export function estimatePlanCost(plan, estimate = DEFAULT_ESTIMATE) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const dryRun = args.includes('--dry-run');
+  // --remote-state: nur Identität, gespeicherte Identität, Umfang und Entscheidung – ohne
+  // Ableitungen und ohne Sync-Plan (Sekunden statt Minuten); schreibt nie.
+  const remoteState = args.includes('--remote-state');
+  const dryRun = args.includes('--dry-run') || remoteState;
   const batchSize = Number.parseInt(valueAfter(args, '--batch-size') ?? String(DEFAULT_BATCH_SIZE), 10);
   const config = {
     accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? DEFAULT_CLOUDFLARE_ACCOUNT_ID,
@@ -1009,6 +1097,19 @@ async function main() {
     return;
   }
   console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
+  // Entscheidung gegen das Budgetprofil prüfen, bevor Ableitungen gerechnet oder Anweisungen
+  // gebaut werden: eine nicht tragbare Vollprojektion endet hier, nicht nach dem Planbau.
+  const assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
+  if (remoteState) {
+    console.log(`Remote-State: ${assessment.message}`);
+    console.log(`Kosten dieser Prüfung: ${formatStats(stats)}`);
+    if (!assessment.ok) {
+      console.error(`Remote-State: der automatische Sync würde fehlschlagen (${assessment.code}).`);
+      process.exitCode = REMOTE_STATE_GATE_EXIT_CODE;
+    }
+    return;
+  }
+  if (!assessment.ok) throw new Error(assessment.message);
   if (decision.action === 'noop') {
     console.log(`D1-Projektion ist bereits exakt aktuell (letzter Sync ${stored?.last_sync_at ?? '?'}, Modus ${stored?.sync_mode ?? '?'}); kein Sync erforderlich.`);
     console.log(`Kosten dieser Prüfung: ${formatStats(stats)}`);

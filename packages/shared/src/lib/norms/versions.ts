@@ -45,6 +45,25 @@ export function partitionDatedEntries<T extends { date: string }>(
   return { current, future };
 }
 
+/**
+ * Jüngstes Rechtsereignis einer Norm bis zum Stichtag: Historieneinträge (Erlass, Änderung,
+ * Aufhebung, Hinweis) und Fassungsbeginne, die nicht nach dem Stichtag liegen. Künftige
+ * Ereignisse zählen nicht; technische Zeitpunkte (Import, Git) spielen keine Rolle. Grundlage
+ * für „zuletzt geändert“ (D1 `law_norms.last_change_date`, Übersichten ohne Suchbegriff,
+ * Sitemap-lastmod). Für übernommene, seitdem unveränderte Normen ist das der Rechtsüberleitungs-
+ * stichtag ihrer Ausgangsfassung.
+ */
+export function getNormLastActivityDate(
+  record: Pick<NormRecord, 'versions' | 'history'>,
+  asOf = EDITORIAL_REFERENCE_DATE,
+): string | null {
+  const dates = [
+    ...record.versions.map((version) => version.validFrom),
+    ...record.history.entries.map((entry) => entry.date),
+  ].filter((date): date is string => Boolean(date) && date <= asOf);
+  return dates.length > 0 ? dates.sort().at(-1) ?? null : null;
+}
+
 export const VERSION_TEMPORAL_KINDS = [
   'current',
   'future',

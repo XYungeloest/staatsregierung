@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
 import { spawn } from 'node:child_process';
-import { mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { stat } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
-
-import { FULL_SCOPE, fixtureScope, projectionIdentity } from './lib/d1-projection-fingerprint.mjs';
 
 /**
  * Startet den gebauten OstRecht-Worker lokal (`wrangler dev --local`) mit einer aus
@@ -22,14 +20,15 @@ import { FULL_SCOPE, fixtureScope, projectionIdentity } from './lib/d1-projectio
  * Fixture: mit `--fixture <Datei>` oder der Umgebungsvariable OSTRECHT_D1_FIXTURE wird
  * nur der repräsentative Testbestand (data/recht/runtime-fixture.json) projiziert –
  * dieselbe D1-Runtimearchitektur, aber wenige Dutzend statt tausender Normen. Pull-
- * Request-Smoke nutzt das Fixture; der Vollbestand bleibt Release-Gate und manuellem
- * Lauf vorbehalten (.github/workflows/full-corpus-smoke.yml).
+ * Request-Smoke nutzt das Fixture; der Vollbestand läuft, wenn die Änderung die Laufzeit
+ * oder die Projektion berührt, sowie wöchentlich (.github/workflows/full-corpus-smoke.yml).
  *
- * Die lokale Projektion wird nur neu geschrieben, wenn sich der Fingerabdruck der
- * Projektion (scripts/lib/d1-projection-fingerprint.mjs: reine Inhaltshashes von
- * Rechtsbestand, Migrationen und Projektionslogik – keine Änderungszeiten) oder das
- * Fixture geändert hat (`--force` erzwingt es). Voraussetzung ist ein vorhandener
- * Build unter apps/recht/dist.
+ * Der Seed kommt aus scripts/d1-runtime-seed.mjs: ein portabler SQLite-Snapshot mit
+ * deterministischem Seed-Fingerabdruck (Projektionsidentität, Seed-Werkzeuge, Wrangler-/
+ * Miniflare-Version; keine Änderungszeiten). Ein passender Snapshot unter .cache/d1-seed
+ * (lokal oder aus dem CI-Cache) wird verifiziert und eingesetzt; nur ohne Snapshot wird
+ * genau einmal projiziert. `--force` erzwingt Neuaufbau und Einsatz. Voraussetzung ist
+ * ein vorhandener Build unter apps/recht/dist.
  */
 
 const ROOT = resolve(process.cwd());
@@ -40,7 +39,6 @@ const seedOnly = args.includes('--seed-only');
 const force = args.includes('--force');
 const fixture = valueAfter('--fixture') ?? (process.env.OSTRECHT_D1_FIXTURE || undefined);
 const workerConfig = join(ROOT, 'apps', 'recht', 'dist', 'server', 'wrangler.json');
-const markerPath = join(persistTo, 'ostrecht-recht.seed.json');
 
 function valueAfter(flag) {
   const index = args.indexOf(flag);
@@ -56,13 +54,6 @@ async function exists(path) {
   }
 }
 
-/** Identität der zu erzeugenden Projektion im Ziel-Scope (Vollbestand oder Fixture mit Inhaltshash). */
-async function seedFingerprint() {
-  const scope = fixture ? await fixtureScope(ROOT, fixture) : FULL_SCOPE;
-  const { fingerprint } = await projectionIdentity({ root: ROOT, scope });
-  return { fingerprint, mode: scope };
-}
-
 function run(command, commandArgs, options = {}) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, commandArgs, { cwd: ROOT, stdio: 'inherit', ...options });
@@ -74,35 +65,16 @@ function run(command, commandArgs, options = {}) {
   });
 }
 
+/** Seed sicherstellen: aktueller Marker → nichts, Snapshot → verifizieren und einsetzen, sonst einmal bauen. */
 async function seed() {
-  const current = await seedFingerprint();
-  if (!force && (await exists(markerPath))) {
-    const marker = JSON.parse(await readFile(markerPath, 'utf8'));
-    if (marker.fingerprint === current.fingerprint) {
-      console.log(`Lokale D1-Projektion ist aktuell (${marker.seededAt}, ${marker.normCount ?? '?'} Normen, ${marker.mode ?? 'full'}).`);
-      return;
-    }
-  }
-  console.log(`Lokale D1-Projektion wird neu aufgebaut (${current.mode}) …`);
-  // Nur der lokale Miniflare-Zustand unter dem Persist-Verzeichnis wird verworfen.
-  await rm(join(persistTo, 'v3', 'd1'), { recursive: true, force: true });
-  await mkdir(persistTo, { recursive: true });
   await run(process.execPath, [
     '--experimental-strip-types',
-    'scripts/sync-recht-d1.mjs',
-    '--full',
-    '--transport', 'wrangler',
-    '--local',
+    'scripts/d1-runtime-seed.mjs',
+    'ensure',
     '--persist-to', persistTo,
-    '--apply-schema',
-    '--ignore-fingerprint',
-    ...(fixture ? ['--corpus-filter', fixture] : []),
-  ], { env: { ...process.env, SITE_TARGET: 'law' } });
-  const normCount = fixture
-    ? JSON.parse(await readFile(resolve(ROOT, fixture), 'utf8')).slugs.length
-    : (await readdir(join(ROOT, 'content', 'normen'), { withFileTypes: true })).filter((entry) => entry.isDirectory()).length;
-  await writeFile(markerPath, `${JSON.stringify({ fingerprint: current.fingerprint, mode: current.mode, seededAt: new Date().toISOString(), normCount }, null, 2)}\n`, 'utf8');
-  console.log(`Lokale D1-Projektion unter ${relative(ROOT, persistTo)} geschrieben (${normCount} Normen, ${current.mode}).`);
+    ...(fixture ? ['--fixture', fixture] : []),
+    ...(force ? ['--force'] : []),
+  ]);
 }
 
 if (!(await exists(workerConfig))) {

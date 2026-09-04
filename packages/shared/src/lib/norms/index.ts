@@ -118,6 +118,7 @@ export {
   classifyNormVersions,
   formatVersionTemporalLabel,
   getApplicableVersion,
+  getNormLastActivityDate,
   validateVersionIntervals,
   type ClassifiedNormVersion,
   type VersionTemporalKind,

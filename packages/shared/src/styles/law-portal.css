@@ -1990,7 +1990,9 @@
 
 .law-dashboard-list > li {
   display: grid;
-  grid-template-columns: 5.5rem 5.8rem minmax(0, 1fr);
+  /* Typspalte wächst mit der längsten Bezeichnung (Bekanntmachung, Verwaltungsvorschrift),
+     statt ein Wort mitten zu trennen. */
+  grid-template-columns: 5.5rem minmax(5.8rem, max-content) minmax(0, 1fr);
   gap: 0.65rem;
   padding: 0.8rem 0;
   border-top: 1px solid #e1e7ee;
@@ -2005,6 +2007,7 @@
   color: #52677d;
   font-size: 0.72rem;
   font-weight: 650;
+  overflow-wrap: normal;
 }
 
 .law-type-label {

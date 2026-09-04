@@ -1,5 +1,18 @@
 name: Deploy to Cloudflare Workers
 
+# Release-Pfad von main. Die Prüfungen richten sich nach dem Änderungsscope
+# (scripts/classify-change-scope.mjs, docs/DEPLOYMENT_RUNBOOK.md):
+#
+#   classify ─┬─ build ───────────────┬─ runtime_smoke ─┬─ deploy
+#             └─ d1_seed (Vollbestand)┘                 │
+#             └─ d1_sync (Cloudflare D1, inkrementell) ─┘
+#             └─ visual (Screenshots, kein Gate)
+#
+# Der lokale D1-Seed des Vollbestands entsteht parallel zum Build (Job d1_seed) und nur,
+# wenn die Änderung Laufzeit, Projektion oder den Bestand in größerem Umfang berührt;
+# ein bereits vorhandener Seed mit demselben Fingerabdruck kommt aus dem Actions-Cache
+# (Verifikation statt Projektion). Rein visuelle Änderungen laufen gegen das Fixture.
+
 on:
   push:
     branches:
@@ -56,7 +69,9 @@ jobs:
       run_unit_tests: ${{ steps.scope.outputs.run_unit_tests }}
       run_d1_sync: ${{ steps.scope.outputs.run_d1_sync }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
-      run_full_ui_smoke: ${{ steps.scope.outputs.run_full_ui_smoke }}
+      run_full_corpus_smoke: ${{ steps.scope.outputs.run_full_corpus_smoke }}
+      run_visual: ${{ steps.scope.outputs.run_visual }}
+      playwright_version: ${{ steps.scope.outputs.playwright_version }}
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
@@ -66,7 +81,6 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-          cache: npm
       - name: Änderungsscope bestimmen
         id: scope
         env:
@@ -85,6 +99,7 @@ jobs:
             git diff-tree --root --no-commit-id --name-only -r "$EVENT_SHA" > "$CHANGED_PATHS"
             node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"
           fi
+          echo "playwright_version=$(node -e 'console.log(require("./package-lock.json").packages["node_modules/@playwright/test"].version)')" >> "$GITHUB_OUTPUT"
 
           output_value() {
             grep "^$1=" "$GITHUB_OUTPUT" | tail -n 1 | cut -d '=' -f 2-
@@ -102,6 +117,9 @@ jobs:
           }
           yes_no() {
             if [ "$1" = "true" ]; then printf 'ja'; else printf 'nein'; fi
+          }
+          corpus_label() {
+            if [ "$1" = "true" ]; then printf 'Vollbestand (Seed aus dem Cache)'; else printf 'Fixture'; fi
           }
 
           DEPLOY_TARGETS="$(output_value deploy_targets)"
@@ -123,8 +141,10 @@ jobs:
             echo "- OstRecht-Prüfung: $(yes_no "$(output_value check_law)")"
             echo "- Content-Prüfung: $(yes_no "$(output_value run_content_check)")"
             echo "- Unit-Tests: $(yes_no "$(output_value run_unit_tests)")"
-            echo "- D1-Projektion (OstRecht-Laufzeitdaten): $(yes_no "$(output_value run_d1_sync)")"
+            echo "- D1-Projektion (Cloudflare, OstRecht-Laufzeitdaten): $(yes_no "$(output_value run_d1_sync)")"
             echo "- UI-Smoke: $(target_label "$UI_TARGETS")"
+            echo "- OstRecht-Smoke-Bestand: $(corpus_label "$(output_value run_full_corpus_smoke)")"
+            echo "- Screenshot-Suite: $(yes_no "$(output_value run_visual)")"
           } >> "$GITHUB_STEP_SUMMARY"
 
   docs_check:
@@ -136,6 +156,10 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+      - name: Node.js einrichten
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
       - name: Dokumentationsänderung auf Whitespace- und Patchfehler prüfen
         env:
           EVENT_BEFORE: ${{ github.event.before }}
@@ -146,6 +170,8 @@ jobs:
           else
             git diff-tree --root --check --no-commit-id -r "$EVENT_SHA"
           fi
+      - name: Dokumentationsstruktur prüfen (kanonische Dokumente, Links, TODO)
+        run: node scripts/check-docs.mjs
 
   build:
     needs: classify
@@ -160,17 +186,14 @@ jobs:
       - name: Repository auschecken
         uses: actions/checkout@v7
 
-      - name: Node.js einrichten
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
 
-      - name: Abhängigkeiten installieren
-        run: npm ci
-
-      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen
-        run: npm audit --audit-level=high
+      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen (Registryfehler werden wiederholt, Befunde nicht)
+        run: |
+          START=$(date +%s)
+          node scripts/npm-audit-retry.mjs --audit-level high
+          echo "audit=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
 
       - name: Deployment-Metadaten ermitteln
         id: deployment_meta
@@ -232,7 +255,7 @@ jobs:
           echo "portal_site_url=$PORTAL_SITE_URL" >> "$GITHUB_OUTPUT"
           echo "law_site_url=$LAW_SITE_URL" >> "$GITHUB_OUTPUT"
 
-      - name: Quellen, Inhalte, Typen und Unit-Tests prüfen
+      - name: Quellen, Inhalte, Typen, Unit-Tests und Dokumentationsstruktur prüfen
         env:
           CHECK_PORTAL: ${{ needs.classify.outputs.check_portal }}
           CHECK_LAW: ${{ needs.classify.outputs.check_law }}
@@ -240,6 +263,8 @@ jobs:
           RUN_KNOWLEDGE_CHECK: ${{ needs.classify.outputs.run_knowledge_check }}
           RUN_UNIT_TESTS: ${{ needs.classify.outputs.run_unit_tests }}
         run: |
+          START=$(date +%s)
+          node scripts/check-docs.mjs
           if [ "$RUN_CONTENT_CHECK" = "true" ]; then
             npm run content:check
           fi
@@ -257,6 +282,7 @@ jobs:
           if [ "$RUN_UNIT_TESTS" = "true" ]; then
             npm run test:unit
           fi
+          echo "checks=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
 
       - name: Einmaligen Release-Build erzeugen
         if: ${{ needs.classify.outputs.build_targets != '' }}
@@ -266,6 +292,7 @@ jobs:
           LAW_SITE_URL: ${{ steps.deployment_meta.outputs.law_site_url }}
           PORTAL_BUILD_COMMIT: ${{ github.sha }}
         run: |
+          START=$(date +%s)
           case "$BUILD_TARGETS" in
             portal,law) npm run build ;;
             portal) npm run build:portal ;;
@@ -275,6 +302,7 @@ jobs:
               exit 1
               ;;
           esac
+          echo "build=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
 
       - name: Deployment-Assets des Zielbuilds prüfen
         if: ${{ needs.classify.outputs.build_targets != '' }}
@@ -300,45 +328,174 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  # Release-Gate mit dem gesamten Rechtsbestand: die lokale D1-Projektion wird genau
-  # einmal aufgebaut (Vollbestand, ≈ 15 min), dann laufen Verifikation, A11y- und
-  # Browser-Smoke gegen denselben Worker. Pull Requests prüfen stattdessen zwei parallele
-  # Fixture-Jobs (pull-request.yml); der Vollbestand läuft außerdem wöchentlich in
-  # full-corpus-smoke.yml. Es entstehen keine Kosten auf der Cloudflare-D1.
-  full_runtime_smoke:
+      - name: Laufzeiten festhalten
+        if: ${{ always() }}
+        run: |
+          {
+            echo '### Laufzeiten build'
+            echo
+            echo '| Schritt | Sekunden |'
+            echo '| --- | --- |'
+            if [ -f "$RUNNER_TEMP/timings.txt" ]; then
+              sed -E 's/^([^=]+)=(.*)$/| \1 | \2 |/' "$RUNNER_TEMP/timings.txt"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          [ -f "$RUNNER_TEMP/timings.txt" ] && echo "Laufzeiten: $(paste -sd ',' "$RUNNER_TEMP/timings.txt")" || true
+
+  # Vollständiger lokaler D1-Seed des Rechtsbestands – parallel zum Build, nur wenn die Änderung
+  # den Vollbestand-Smoke verlangt. Cache-Treffer: Snapshot wiederherstellen und verifizieren;
+  # Cache-Miss: genau eine Projektion, danach Snapshot im Cache für spätere Läufe.
+  d1_seed:
+    needs: classify
+    if: ${{ needs.classify.outputs.scope != 'docs-only' && needs.classify.outputs.run_full_corpus_smoke == 'true' && contains(needs.classify.outputs.ui_targets, 'law') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    outputs:
+      status: ${{ steps.seed.outputs.status }}
+      fingerprint: ${{ steps.seed.outputs.fingerprint }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
+      - name: Vollbestand-Seed bereitstellen (Cache oder einmalige Projektion)
+        id: seed
+        uses: ./.github/actions/d1-seed
+        with:
+          cache: 'true'
+
+  # Release-Gate: Verifikation, Barrierefreiheits- und Browser-Smoke gegen den gebauten Worker.
+  # Vollbestand (Seed aus d1_seed bzw. Cache) bei Laufzeit-/Projektionsänderungen, sonst Fixture.
+  # Ein fehlender Cache-Eintrag führt hier zu einer Projektion als Rückfall, nie zu einem Abbruch.
+  runtime_smoke:
     needs:
       - classify
       - build
-    if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
+      - d1_seed
+    if: ${{ always() && needs.classify.outputs.run_ui_smoke == 'true' && needs.build.result == 'success' && (needs.d1_seed.result == 'success' || needs.d1_seed.result == 'skipped') }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      # Leer = Vollbestand (Seed aus dem Cache); sonst das Testfixture. (Ein leerer String ist im
+      # Ausdruck falsy, deshalb die Bedingung in dieser Reihenfolge.)
+      OSTRECHT_D1_FIXTURE: ${{ needs.classify.outputs.run_full_corpus_smoke != 'true' && 'data/recht/runtime-fixture.json' || '' }}
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
       - uses: actions/download-artifact@v8
         with:
           name: site-build-${{ github.sha }}
           path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
-      - name: OstRecht-Worker mit lokaler D1-Vollprojektion vorbereiten (einmalig)
+      - name: OstRecht-Worker mit lokaler D1-Projektion vorbereiten
+        id: seed
         if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
-        run: npm run norms:runtime:d1-local
-      - name: Lokale Vollprojektion verifizieren
+        uses: ./.github/actions/d1-seed
+        with:
+          fixture: ${{ env.OSTRECHT_D1_FIXTURE }}
+          cache: ${{ needs.classify.outputs.run_full_corpus_smoke == 'true' && 'true' || 'false' }}
+      - name: Lokale D1-Projektion gegen den Git-Bestand verifizieren
         if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
-        run: npm run norms:runtime:d1-verify -- --local --fts-integrity
+        run: |
+          START=$(date +%s)
+          if [ -n "$OSTRECHT_D1_FIXTURE" ]; then
+            npm run norms:runtime:d1-verify -- --local --fts-integrity --corpus-filter "$OSTRECHT_D1_FIXTURE"
+          else
+            npm run norms:runtime:d1-verify -- --local --fts-integrity
+          fi
+          echo "verify=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
       - name: Zentrale Seiten barrierefrei prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
-        run: npm run test:a11y:ci
+        run: |
+          START=$(date +%s)
+          npm run test:a11y:ci
+          echo "a11y=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
       - name: Zentrale Nutzerwege in Chromium prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
-        run: npm run test:browsers:ci
+        run: |
+          START=$(date +%s)
+          npm run test:browsers:ci
+          echo "browser=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Laufzeiten festhalten
+        if: ${{ always() }}
+        env:
+          SEED_STATUS: ${{ steps.seed.outputs.status }}
+          SEED_BUILD: ${{ steps.seed.outputs.build-seconds }}
+          SEED_VERIFY: ${{ steps.seed.outputs.verify-seconds }}
+          SEED_INSTALL: ${{ steps.seed.outputs.install-seconds }}
+          CORPUS: ${{ needs.classify.outputs.run_full_corpus_smoke == 'true' && 'Vollbestand' || 'Fixture' }}
+        run: |
+          {
+            echo "### Laufzeiten runtime_smoke (${CORPUS})"
+            echo
+            echo '| Schritt | Wert |'
+            echo '| --- | --- |'
+            echo "| Seed | ${SEED_STATUS:-übersprungen} (Projektion ${SEED_BUILD:-0} s, Verifikation ${SEED_VERIFY:-0} s, Einsetzen ${SEED_INSTALL:-0} s) |"
+            if [ -f "$RUNNER_TEMP/timings.txt" ]; then
+              sed -E 's/^([^=]+)=(.*)$/| \1 | \2 s |/' "$RUNNER_TEMP/timings.txt"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Laufzeiten: seed=${SEED_STATUS:-übersprungen}/${SEED_BUILD:-0}s $( [ -f "$RUNNER_TEMP/timings.txt" ] && paste -sd ',' "$RUNNER_TEMP/timings.txt" )"
+
+  # Screenshot-Suite bei Oberflächenänderungen im festen Playwright-Container, strikt gegen die
+  # committeten Linux-Baselines (Fixture-Bestand). Kein Deployment-Gate; Baselines werden nur
+  # über den Workflow „Screenshot-Baselines erneuern“ erzeugt.
+  visual:
+    needs:
+      - classify
+      - build
+    if: ${{ needs.classify.outputs.run_visual == 'true' && needs.classify.outputs.build_targets != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs.classify.outputs.playwright_version }}-noble
+    env:
+      OSTRECHT_D1_FIXTURE: data/recht/runtime-fixture.json
+      HOME: /root
+    steps:
+      - name: Git im Container sicherstellen (Seed-Fingerabdruck liest Git-Blob-Kennungen)
+        run: command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends git)
+      - uses: actions/checkout@v7
+      - name: Arbeitsbaum für Git im Container freigeben (Checkout gehört einem anderen Benutzer)
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Abhängigkeiten (Node.js des Containers)
+        uses: ./.github/actions/setup-node-modules
+        with:
+          node-version: ''
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-build-${{ github.sha }}
+          path: apps
+      - name: OstRecht-Worker mit dem Testfixture vorbereiten
+        if: ${{ contains(needs.classify.outputs.build_targets, 'law') }}
+        uses: ./.github/actions/d1-seed
+        with:
+          fixture: data/recht/runtime-fixture.json
+          cache: 'false'
+      - name: Screenshot-Suite strikt gegen die committeten Linux-Baselines prüfen
+        env:
+          SITE_TARGETS: ${{ needs.classify.outputs.build_targets }}
+        run: |
+          # Kein Bootstrap: fehlende Baselines sind ein Fehler. Neue oder geänderte Linux-Baselines
+          # entstehen nur bewusst über den Workflow „Screenshot-Baselines erneuern“ (Artefakt,
+          # Sichtprüfung, Commit).
+          if ! ls tests/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
+            echo "::error::Keine Linux-Screenshot-Baselines im Repository (tests/visual.spec.ts-snapshots/*-linux.png). Baselines mit dem Workflow „Screenshot-Baselines erneuern“ erzeugen, sichten und committen."
+            exit 1
+          fi
+          npm run test:visual:run
+      - name: Testbericht bereitstellen
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-report-${{ github.sha }}
+          path: |
+            playwright-report
+            test-results
+          retention-days: 14
 
   # OstRecht liest Normen, Fassungen, Verkündungen und den Suchindex zur Laufzeit
   # aus Cloudflare D1. Änderungen an content/normen und content/verkuendungen
@@ -355,11 +512,8 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
       - name: Rechtsdaten inkrementell nach Cloudflare D1 projizieren
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -384,17 +538,14 @@ jobs:
     needs:
       - classify
       - build
-      - full_runtime_smoke
+      - runtime_smoke
       - d1_sync
-    if: ${{ always() && needs.classify.outputs.deploy_targets != '' && needs.build.result == 'success' && (needs.full_runtime_smoke.result == 'success' || needs.full_runtime_smoke.result == 'skipped') && (needs.d1_sync.result == 'success' || needs.d1_sync.result == 'skipped') }}
+    if: ${{ always() && needs.classify.outputs.deploy_targets != '' && needs.build.result == 'success' && (needs.runtime_smoke.result == 'success' || needs.runtime_smoke.result == 'skipped') && (needs.d1_sync.result == 'success' || needs.d1_sync.result == 'skipped') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
       - name: Geprüften Release-Build laden
         uses: actions/download-artifact@v8
         with:

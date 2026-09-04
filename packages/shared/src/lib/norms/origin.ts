@@ -44,7 +44,12 @@ export interface NormOriginInfo {
   ownChanges: OwnNormChange[];
 }
 
-const OWN_PUBLICATION_PATTERN = /(?:^|[^\p{L}\p{N}])(?:OGVBl\.|OABl\.|StAnzO\.|VBlO\.|GMBl\.)/iu;
+/**
+ * Eigene ostdeutsche Verkündungsorgane: Gesetz- und Verordnungsblatt (OGVBl.), Amtsblatt
+ * (OABl.), Staatsanzeiger (StAnzO.), Vertragsblatt (OVertrBl.), Verordnungsblatt (VBlO.) sowie
+ * das Gemeinsame Ministerialblatt für Verwaltungsabkommen mit dem Bund (GMBl.).
+ */
+const OWN_PUBLICATION_PATTERN = /(?:^|[^\p{L}\p{N}])(?:OGVBl\.|OABl\.|StAnzO\.|OVertrBl\.|VBlO\.|GMBl\.)/iu;
 const SAXON_SOURCE_PATTERN = /(?:Sächs|Sachsen|SächsGVBl\.|REVOSax)/iu;
 
 function sourceCoversBaseline(source: NormSourceReference): boolean {
@@ -127,8 +132,16 @@ function isProvenOwnOriginal(record: NormRecord, records: NormRecord[]): boolean
     ? record.versions.find((version) => version.versionId === record.history.initialVersionId)
     : record.versions[0];
   const initialEntry = record.history.entries.find((entry) => entry.type === 'initial');
-  const initialDate = initialEntry?.date ?? initialVersion?.validFrom ?? record.meta.effectiveDate;
-  if (!initialDate || initialDate <= LEGAL_BASELINE_DATE) return false;
+  // Maßgeblich ist der Eintritt in die ostdeutsche Rechtsordnung: das Datum des ersten
+  // Historieneintrags oder, wenn die erste Fassung erst später gilt (etwa ein älteres
+  // Übereinkommen, das durch ein ostdeutsches Zustimmungsgesetz in Kraft gesetzt wird),
+  // der Geltungsbeginn dieser Fassung. Liegt beides auf oder vor dem Stichtag, bleibt die
+  // Herkunft ungeklärt.
+  const entryDate = [initialEntry?.date, initialVersion?.validFrom, record.meta.effectiveDate]
+    .filter((value): value is string => Boolean(value))
+    .sort()
+    .at(-1);
+  if (!entryDate || entryDate <= LEGAL_BASELINE_DATE) return false;
 
   const normLookup = new Map(records.map((entry) => [entry.meta.slug, entry]));
   const enactingNorm = record.meta.enactingNorm

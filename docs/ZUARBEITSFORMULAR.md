@@ -1,11 +1,9 @@
 # Zuarbeitsformular für offene Portalaufgaben
 
-**Redaktioneller Stichtag:** zentral in `../packages/shared/src/config/editorial.json`
-**Repositoryprüfung:** 2. September 2026
-
 Dieses Formular enthält ausschließlich Punkte, für die aktuell externe Unterlagen oder eine
-inhaltliche Entscheidung benötigt werden. Der verbindliche Aufgabenstatus steht in der
-`README.md`.
+inhaltliche Entscheidung benötigt werden. Offene technische Arbeiten stehen in `../TODO.md`,
+offene Quellenfragen in `../CONTENT_GAPS.md`; der redaktionelle Stichtag steht zentral in
+`../packages/shared/src/config/editorial.json`.
 
 ## Sichere Übergabe
 
