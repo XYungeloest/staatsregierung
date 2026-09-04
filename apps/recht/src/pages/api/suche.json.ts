@@ -69,7 +69,11 @@ export const GET: APIRoute = async ({ url, locals }) => {
     store.searchCandidates({ match, limit: CANDIDATE_LIMIT, offset, types, origins }),
     store.listSearchPublications(),
   ]);
-  const candidates = await store.getSearchDocuments(slugs, match ?? undefined);
+  // Reihenfolge der Kandidaten bewahren (Relevanz bei Suchausdruck, sonst jüngstes Rechtsereignis):
+  // getSearchDocuments liefert in Speicherreihenfolge, die Antwort trägt die Kandidatenreihenfolge.
+  const candidateRank = new Map(slugs.map((slug, index) => [slug, index]));
+  const candidates = (await store.getSearchDocuments(slugs, match ?? undefined))
+    .sort((left, right) => (candidateRank.get(left.document.slug) ?? 0) - (candidateRank.get(right.document.slug) ?? 0) || left.document.validFrom.localeCompare(right.document.validFrom));
   const documents: SearchIndexDocument[] = candidates.map(({ document, units }) => ({
     ...document,
     hitUnits: units

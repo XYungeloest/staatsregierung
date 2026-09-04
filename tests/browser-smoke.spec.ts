@@ -367,6 +367,18 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
   await page.goto(lawUrl('/'));
   await expect(page.locator('[data-law-current-change-list] [data-law-change][data-effective-date="2026-09-03"]').first()).toBeVisible();
   await expect(page.locator('[data-law-future-change-list] [data-law-change][data-effective-date="2026-09-03"]')).toHaveCount(0);
+  // Letzte Rechtsereignisse: nach Ereignisdatum absteigend, Erlass neuer Vorschriften eingeschlossen,
+  // je Norm ein Eintrag; die am 1. September 2026 geänderte Schulverwaltungsvorschrift steht hinter den
+  // am 2./3. September erlassenen Gesetzen und Bekanntmachungen.
+  const currentEntries = page.locator('[data-law-current-change-list] [data-law-change]:visible');
+  const currentDates = await currentEntries.evaluateAll((entries) => entries.map((entry) => entry.getAttribute('data-effective-date') ?? ''));
+  expect(currentDates.length).toBeGreaterThanOrEqual(3);
+  expect(currentDates[0]).toBe('2026-09-03');
+  expect(currentDates.every((date, index) => index === 0 || currentDates[index - 1] >= date)).toBeTruthy();
+  const currentLinks = await currentEntries.locator('h3 a').evaluateAll((links) => links.map((link) => link.getAttribute('href') ?? ''));
+  expect(new Set(currentLinks).size).toBe(currentLinks.length);
+  expect(currentLinks.some((href) => href.includes('/norm/bekanntmachung-') || href.includes('/norm/interflug-gesetz/'))).toBeTruthy();
+  expect(currentLinks.some((href) => href.includes('/norm/vwv-schulformulare/'))).toBeFalsy();
   const futureDates = await page
     .locator('[data-law-future-change-list] [data-law-change]:visible')
     .evaluateAll((entries) => entries
@@ -636,8 +648,29 @@ siteTest(['law'])('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Pl
 
 siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahrt eine ausdrückliche Auswahl', async ({ page }) => {
   await page.goto(lawUrl('/suche/'));
-  await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
+  await expect(page.locator('select[name="sort"]')).toHaveValue('activity');
   await expect(page).not.toHaveURL(/sort=/u);
+  // Ohne Suchbegriff: jüngstes Rechtsereignis zuerst – die Kandidaten kommen bereits in dieser
+  // Reihenfolge aus D1, der erste Treffer ist eine im September 2026 erlassene Vorschrift.
+  await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
+  const browseApi = await page.request.get(lawUrl('/api/suche.json'));
+  const browsePayload = await browseApi.json() as { documents: Array<{ slug: string; lastActivityDate?: string; isCurrent: boolean }> };
+  const browseDates = browsePayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastActivityDate ?? '');
+  expect(browseDates.length).toBeGreaterThan(5);
+  expect(browseDates[0] >= '2026-09-02').toBeTruthy();
+  expect(browseDates.every((date, index) => index === 0 || browseDates[index - 1] >= date)).toBeTruthy();
+  await expect(page.locator('[data-search-results] .search-hit h3').first()).toContainText(/Interflug|Haushaltsordnung|Bekanntmachung/u);
+
+  // Filter ohne Suchbegriff: innerhalb des Filters ebenfalls jüngstes Rechtsereignis zuerst.
+  await page.goto(lawUrl('/suche/?type=gesetz'));
+  await expect(page.locator('select[name="sort"]')).toHaveValue('activity');
+  await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
+  await expect(page.locator('[data-search-results] .search-hit .law-type-label').first()).toHaveText('Gesetz');
+  const filteredApi = await page.request.get(lawUrl('/api/suche.json?type=gesetz'));
+  const filteredPayload = await filteredApi.json() as { documents: Array<{ type: string; lastActivityDate?: string; isCurrent: boolean }> };
+  const filteredDates = filteredPayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastActivityDate ?? '');
+  expect(filteredPayload.documents.every((entry) => entry.type === 'gesetz')).toBeTruthy();
+  expect(filteredDates.every((date, index) => index === 0 || filteredDates[index - 1] >= date)).toBeTruthy();
 
   await page.goto(lawUrl('/suche/?q=Landesbaukindergeld'));
   await expect(page.locator('select[name="sort"]')).toHaveValue('relevance');
@@ -647,6 +680,13 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await page.locator('select[name="sort"]').selectOption('publication');
   await expect(page).toHaveURL(/sort=publication/u);
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
+});
+
+siteTest(['law'])('Fundstellen des Ostdeutschen Vertragsblatts werden in der Rechtssuche erkannt', async ({ page }) => {
+  await page.goto(lawUrl('/suche/?q=OVertrBl.%202026%20Nr.%204'));
+  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  await expect(page.locator('[data-search-results] .search-hit').first()).toContainText(/Staatsvertrag|NDR/u);
+  await expect(page.locator('[data-search-results] .search-hit').first()).toContainText(/Vertragsblatt 2026 Nr\. 4|OVertrBl\. 2026 Nr\. 4/u);
 });
 
 siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet einen lokal filterbaren Stichwortindex', async ({ page }) => {

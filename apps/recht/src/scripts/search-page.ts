@@ -95,7 +95,7 @@ function normalizeVersionScope(value: string): VersionScope {
 }
 
 function normalizeSort(value: string): SortKey {
-  return value === 'relevance' || value === 'title' || value === 'rechtsstand' ? value : 'publication';
+  return value === 'relevance' || value === 'title' || value === 'rechtsstand' || value === 'publication' ? value : 'activity';
 }
 
 function formValues(data: FormData, name: string): string[] {
@@ -148,7 +148,7 @@ function emptyState(): NormSearchState {
     publicationYears: [],
     publicationIssue: '',
     publicationPage: '',
-    sort: 'publication',
+    sort: 'activity',
     sortExplicit: false,
   };
 }
@@ -177,7 +177,7 @@ function getFormState(): NormSearchState {
     publicationYears: formValues(data, 'publicationYear'),
     publicationIssue: String(data.get('publicationIssue') ?? '').trim(),
     publicationPage: String(data.get('publicationPage') ?? '').trim(),
-  }, sortIsExplicit(), String(data.get('sort') ?? 'publication'));
+  }, sortIsExplicit(), String(data.get('sort') ?? 'activity'));
 }
 
 function readStateFromUrl(): NormSearchState {
@@ -203,7 +203,7 @@ function readStateFromUrl(): NormSearchState {
     publicationYears: params.getAll('publicationYear'),
     publicationIssue: params.get('publicationIssue') ?? '',
     publicationPage: params.get('publicationPage') ?? '',
-  }, params.has('sort'), params.get('sort') ?? 'publication');
+  }, params.has('sort'), params.get('sort') ?? 'activity');
 }
 
 function applyStateToForm(state: NormSearchState): void {
@@ -542,6 +542,7 @@ function renderPublicationDirectHit(publication: SearchPublication | undefined):
 
 function sortLabel(state: NormSearchState): string {
   const labels: Record<SortKey, string> = {
+    activity: 'jüngster Rechtsänderung',
     relevance: 'Relevanz',
     publication: 'neuester Verkündung',
     title: 'Titel A–Z',

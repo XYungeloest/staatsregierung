@@ -15,7 +15,7 @@ import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts
 import { buildDerivedContext, deriveNorm, fullCitationFor } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
-import { classifyNormVersion, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases } from '@ostrecht/recht-search/search.ts';
@@ -222,9 +222,13 @@ function searchUnits(record, version, context) {
   return { metadata, units };
 }
 
-/** Jüngstes Datum aus Fassungsbeginn und Historie (Sitemap-lastmod, Übersichten). */
+/**
+ * Jüngstes Rechtsereignis bis zum Stichtag (Fassungsbeginne und Historie, keine künftigen
+ * Ereignisse): Standardsortierung der Übersichten ohne Suchbegriff und Sitemap-lastmod.
+ * Zentrale Definition in packages/shared/src/lib/norms/versions.ts.
+ */
 export function lastChangeDate(norm) {
-  return [...norm.versions.map((version) => version.validFrom), ...norm.history.entries.map((entry) => entry.date)].sort().at(-1) ?? null;
+  return getNormLastActivityDate(norm, EDITORIAL_REFERENCE_DATE);
 }
 
 const NORM_COLUMNS = [
@@ -408,7 +412,9 @@ export function derivedQueries(norm, context, now) {
       norm.meta.id, JSON.stringify(derived.relations), JSON.stringify(derived.recommendations), JSON.stringify(derived.origin),
       JSON.stringify(derived.textReferences), JSON.stringify(derived.portalLinks), now,
     ]),
-    q('UPDATE law_norms SET origin_kind = ?, origin_baseline_version_id = ?, origin_last_own_change_date = ? WHERE id = ?', [derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, norm.meta.id]),
+    // Abgeleitete Spalten von law_norms (Herkunft, jüngstes Rechtsereignis) gehören zur
+    // Ableitung: ein Derived-Rebuild hält sie mit law_norm_derived zusammen aktuell.
+    q('UPDATE law_norms SET origin_kind = ?, origin_baseline_version_id = ?, origin_last_own_change_date = ?, last_change_date = ? WHERE id = ?', [derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, lastChangeDate(norm), norm.meta.id]),
   ];
 }
 

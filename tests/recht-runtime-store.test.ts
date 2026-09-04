@@ -78,6 +78,52 @@ test('Übersichtsdaten der Dateivariante: Änderungen, Sachgebiete, Bestandszahl
   assert.equal(searchPublications.length, (await store.listPublications()).length);
 });
 
+test('Aktuelle Änderungen: Erlass neuer Vorschriften zählt, je Norm nur das jüngste Ereignis, künftige Ereignisse bleiben draußen, neue Gesetze vor alten Schulverordnungen', async () => {
+  const asOf = '2026-09-04';
+  const latest = await store.listChanges({ changeTypes: ['initial', 'amendment', 'repeal'], until: asOf, order: 'desc', limit: 20, distinctNorms: true });
+  assert.ok(latest.length > 0);
+  assert.ok(latest.every((change) => change.date <= asOf), 'kein künftiges Ereignis in der aktuellen Liste');
+  assert.ok(latest.every((change, index) => index === 0 || latest[index - 1].date >= change.date), 'absteigend nach Ereignisdatum');
+  assert.equal(new Set(latest.map((change) => change.slug)).size, latest.length, 'jede Norm höchstens einmal');
+  const slugs = latest.map((change) => change.slug);
+  // Die am 2./3. September 2026 erlassenen ostdeutschen Gesetze stehen vor den am 1. September 2026 geänderten Schulverordnungen.
+  for (const slug of ['interflug-gesetz', 'zinnwald-vergesellschaftungsgesetz', 'ostdeutsches-daseinsvorsorgegesetz', 'ostdeutsches-hoheitszeichengesetz']) {
+    assert.ok(slugs.includes(slug), `${slug} unter den jüngsten Rechtsereignissen`);
+    assert.equal(latest.find((change) => change.slug === slug)?.changeType, 'initial');
+  }
+  assert.equal(latest[0].date, '2026-09-03');
+  const schoolIndex = slugs.indexOf('pruefungsverordnung-waldorfschulen');
+  const interflugIndex = slugs.indexOf('interflug-gesetz');
+  assert.ok(schoolIndex === -1 || schoolIndex > interflugIndex, 'Schulverordnung vom 1. September 2026 nach dem Interflug-Gesetz');
+  const upcoming = await store.listChanges({ changeTypes: ['initial', 'amendment', 'repeal'], after: asOf, order: 'asc', limit: 12, distinctNorms: true });
+  assert.ok(upcoming.every((change) => change.date > asOf));
+  assert.ok(upcoming.every((change, index) => index === 0 || upcoming[index - 1].date <= change.date));
+  assert.equal(new Set(upcoming.map((change) => change.slug)).size, upcoming.length);
+  // Ohne distinctNorms bleiben mehrere Ereignisse derselben Norm erhalten.
+  const all = await store.listChanges({ changeTypes: ['initial', 'amendment', 'repeal'], until: asOf, order: 'desc', limit: 400 });
+  assert.ok(all.length > new Set(all.map((change) => change.slug)).size);
+});
+
+test('Übersichten ohne Suchbegriff: jüngstes Rechtsereignis zuerst (Dateivariante wie D1), A–Z alphabetisch', async () => {
+  const page = await store.queryNormSummaries({ sort: 'activity', page: 1, pageSize: 50 });
+  const dates = page.items.map((item) => item.lastChangeDate ?? '');
+  assert.ok(dates.every((date, index) => index === 0 || dates[index - 1] >= date), 'absteigend nach jüngstem Rechtsereignis');
+  assert.ok(dates[0] >= '2026-09-01', `jüngstes Ereignis ${dates[0]} auf der ersten Seite`);
+  assert.ok(page.items.every((item) => !item.lastChangeDate || item.lastChangeDate <= '2026-09-04'), 'keine künftigen Ereignisse als bereits erfolgt');
+  const unchanged = page.items.find((item) => item.originKind === 'inherited-unchanged');
+  assert.equal(unchanged, undefined, 'unverändert übernommene Normen stehen nicht auf der ersten Seite');
+  const filtered = await store.queryNormSummaries({ sort: 'activity', types: ['gesetz'], page: 1, pageSize: 20 });
+  assert.ok(filtered.items.every((item) => item.type === 'gesetz'));
+  assert.ok(filtered.items.every((item, index) => index === 0 || (filtered.items[index - 1].lastChangeDate ?? '') >= (item.lastChangeDate ?? '')));
+  const alphabetical = await store.queryNormSummaries({ letter: 'G', page: 1, pageSize: 20 });
+  assert.ok(alphabetical.items.every((item, index) => index === 0 || alphabetical.items[index - 1].title.toLocaleLowerCase('de').localeCompare(item.title.toLocaleLowerCase('de'), 'de') <= 0));
+  const candidates = await store.searchCandidates({ match: null, limit: 20, offset: 0 });
+  const summaries = await store.getNormSummaries(candidates.slugs);
+  const candidateDates = candidates.slugs.map((slug) => summaries.get(slug)?.lastChangeDate ?? '');
+  assert.ok(candidateDates.every((date, index) => index === 0 || candidateDates[index - 1] >= date), 'Kandidaten ohne Suchausdruck nach jüngstem Rechtsereignis');
+  assert.ok(candidateDates[0] >= '2026-09-01');
+});
+
 test('Suchkandidaten und Suchdokumente der Dateivariante entsprechen dem Suchindexformat', async () => {
   const { slugs, total } = await store.searchCandidates({ match: '("feiertag"*)', limit: 10, offset: 0 });
   assert.ok(slugs.includes('ostdeutsches-feiertagsgesetz'));

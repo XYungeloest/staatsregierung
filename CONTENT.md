@@ -938,8 +938,11 @@ Regeln:
 - `origin` unterstützt `ostdeutsch-original`, `inherited-unchanged`, `inherited-amended` und
   `origin-unresolved` und verwendet dieselbe zentrale Einordnung wie die Normseiten.
 - Ein Stern am Wortende ist ein Präfix-Platzhalter; die normale Teilwortsuche bleibt bestehen.
-- Ohne ausdrücklichen `sort`-Parameter werden Treffer nach dem maßgeblichen Verkündungsdatum
-  absteigend sortiert. `relevance`, `title` und `rechtsstand` bleiben wählbare Sortierungen.
+- Ohne ausdrücklichen `sort`-Parameter gilt: mit Suchanfrage Relevanz, ohne Suchanfrage (auch mit
+  Filtern) `activity` – das jüngste Rechtsereignis der Norm zuerst (Erlass, Änderung, Aufhebung,
+  Fassungsbeginn bis zum Stichtag; dieselbe Definition wie `law_norms.last_change_date`), sodass
+  neue und geänderte Vorschriften vor unverändert übernommenem Recht stehen. `publication`,
+  `relevance`, `title` und `rechtsstand` bleiben wählbare Sortierungen.
 - Druckansichten sind Portalansichten. Ein PDF- oder Anlagenlink wird nur aus einem belegten
   Quellenfeld erzeugt.
 - Mehrere `subjects` bleiben zulässig. `primarySubject` kann optional eine primäre Zuordnung

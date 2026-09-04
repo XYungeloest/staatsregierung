@@ -130,13 +130,49 @@ test('Startseiten- und Übersichtsabfragen lesen Metadatenzeilen, Historie über
   assert.ok(log.every((query) => !loadsCorpus(query)), `Korpusabfrage gefunden: ${log.map((query) => query.sql).join(' | ')}`);
   const history = log.filter((query) => query.sql.includes('FROM law_norm_history h'));
   assert.equal(history.length, 2);
-  assert.match(history[0].sql, /h\.change_date <= \?\s+ORDER BY h\.change_date DESC, n\.sort_title LIMIT \?/u);
+  assert.match(history[0].sql, /h\.change_date <= \? ORDER BY h\.change_date DESC, n\.sort_title, n\.slug LIMIT \?/u);
   assert.deepEqual(history[0].params, ['amendment', 'repeal', '2026-09-03', 12]);
-  assert.match(history[1].sql, /h\.change_date > \?\s+ORDER BY h\.change_date ASC/u);
+  assert.match(history[1].sql, /h\.change_date > \? ORDER BY h\.change_date ASC/u);
   const metaReads = log.filter((query) => query.sql === 'SELECT value FROM law_runtime_meta WHERE key = ?').map((query) => query.params[0]);
   for (const key of ['corpus_stats_json', 'subject_areas_json', 'subject_groups_json', 'search_filters_json']) assert.ok(metaReads.includes(key), key);
   assert.ok(log.some((query) => query.sql.startsWith('SELECT slug, title, short_title, abbr, aliases_json, type FROM law_norms')));
   assert.ok(log.some((query) => query.sql.startsWith('SELECT n.slug, v.version_id, v.valid_from, v.temporal_kind FROM law_versions v')));
+});
+
+test('Aktuelle Änderungen der Startseite: je Norm ein Ereignis über eine Fensterfunktion, Erlass eingeschlossen, nach Ereignisdatum absteigend', async () => {
+  const { db, log } = recordingDatabase();
+  const store = createD1NormStore(db);
+  await store.listChanges({ changeTypes: ['initial', 'amendment', 'repeal'], until: '2026-09-04', order: 'desc', limit: 12, distinctNorms: true });
+  await store.listChanges({ changeTypes: ['initial', 'amendment', 'repeal'], after: '2026-09-04', order: 'asc', limit: 12, distinctNorms: true });
+  const [latest, upcoming] = log.filter((query) => query.sql.includes('FROM law_norm_history h'));
+  assert.match(latest.sql, /row_number\(\) OVER \(PARTITION BY h\.norm_id ORDER BY h\.change_date DESC, h\.change_type, h\.title\) AS rn/u);
+  assert.match(latest.sql, /WHERE rn = 1 ORDER BY change_date DESC, sort_title, slug LIMIT \?/u);
+  assert.match(latest.sql, /h\.change_date <= \?/u);
+  assert.deepEqual(latest.params, ['initial', 'amendment', 'repeal', '2026-09-04', 12]);
+  assert.match(upcoming.sql, /PARTITION BY h\.norm_id ORDER BY h\.change_date ASC/u);
+  assert.match(upcoming.sql, /h\.change_date > \?/u);
+  assert.ok(log.every((query) => !loadsCorpus(query)));
+});
+
+test('Übersichten ohne Suchbegriff sortieren nach jüngstem Rechtsereignis (last_change_date), A–Z alphabetisch; die Volltextsuche bleibt nach Rang', async () => {
+  const { db, log } = recordingDatabase({ 'count(*)': [{ total: 0 }], 'COUNT(*)': [{ total: 0 }] });
+  const store = createD1NormStore(db);
+  await store.searchCandidates({ match: null, limit: 120, offset: 0 });
+  await store.searchCandidates({ match: null, limit: 120, offset: 0, types: ['gesetz'], origins: ['inherited-amended'] });
+  await store.searchCandidates({ match: '"Zinnwald"', limit: 120, offset: 0 });
+  await store.queryNormSummaries({ sort: 'activity', page: 1, pageSize: 50 });
+  await store.queryNormSummaries({ letter: 'G', page: 1, pageSize: 50 });
+  const browse = log.filter((query) => query.sql.startsWith('SELECT n.slug FROM law_norms n'));
+  assert.equal(browse.length, 2);
+  for (const query of browse) assert.match(query.sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT \? OFFSET \?/u);
+  assert.deepEqual(browse[1].params, ['gesetz', 'inherited-amended', 120, 0]);
+  assert.ok(browse.every((query) => !query.sql.includes('current_valid_from')));
+  const fulltext = log.find((query) => query.sql.includes('law_search MATCH ?') && query.sql.includes('LIMIT'));
+  assert.match(fulltext?.sql ?? '', /ORDER BY best LIMIT \? OFFSET \?/u);
+  const pages = log.filter((query) => query.sql.includes('LIMIT ? OFFSET ?') && query.sql.includes('n.sort_title') && !query.sql.startsWith('SELECT n.slug FROM law_norms n'));
+  assert.equal(pages.length, 2);
+  assert.match(pages[0].sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT/u);
+  assert.match(pages[1].sql, /WHERE n\.index_letter = \? ORDER BY n\.sort_title, n\.slug LIMIT/u);
 });
 
 test('getNorm liest genau die Zeilen der angefragten Norm und die Körper der gewünschten Fassungen', async () => {

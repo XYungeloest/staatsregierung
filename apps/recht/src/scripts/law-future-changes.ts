@@ -1,4 +1,4 @@
-import { getBerlinCalendarDate, partitionDatedEntries } from '@ostrecht/shared/lib/norms/versions.ts';
+import { EDITORIAL_REFERENCE_DATE, partitionDatedEntries } from '@ostrecht/shared/lib/norms/versions.ts';
 
 const currentChanges = document.querySelector<HTMLElement>('[data-visual-section="law-latest-status"]');
 const currentList = document.querySelector<HTMLOListElement>('[data-law-current-change-list]');
@@ -11,7 +11,8 @@ if (currentChanges && currentList) {
       const date = element.dataset.effectiveDate;
       return date ? [{ date, element }] : [];
     });
-  const { current, future } = partitionDatedEntries(entries, getBerlinCalendarDate());
+  // Maßgeblich ist der redaktionelle Stichtag (Rechtsstand), nicht die Uhr des Browsers.
+  const { current, future } = partitionDatedEntries(entries, EDITORIAL_REFERENCE_DATE);
   const placeEntries = (
     candidates: typeof entries,
     list: HTMLOListElement,
