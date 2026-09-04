@@ -254,7 +254,7 @@ vollständige technische Releaseabfolge steht im Deployment-Runbook.
 
 ## TODO
 
-**Zuletzt abgeglichen:** 3. September 2026
+**Zuletzt abgeglichen:** 4. September 2026
 
 Diese Liste ist der zentrale Projektbacklog. Jede noch offene Aufgabe muss hier mindestens als
 Sammelpunkt erscheinen. Quellenlocators, Einzelkonflikte und maschinenlesbare Zustände werden
@@ -379,9 +379,32 @@ Release-Gates vor dem Merge (PR bleibt Draft):
   geprüft.
 - [x] **CI-Token geprüft.** Das Repository-Secret `CLOUDFLARE_API_TOKEN` (Template „Cloudflare
   Workers bearbeiten“, enthält `D1: Edit`) ist für den API-Transport des Syncs ausreichend: der
-  PR-Job `d1_token_check` liest die produktive Datenbank (Identität, `--dry-run`) und schreibt
-  die Verkündungstabelle nach `ostrecht-recht-staging` (Teilsync ohne Identitätsänderung).
-  Migrationen unter `data/recht/d1/` werden weiterhin bewusst manuell eingespielt.
+  manuelle Workflow `D1-Token prüfen` liest die produktive Datenbank (Identität, `--dry-run`),
+  schreibt die Verkündungstabelle nach `ostrecht-recht-staging` (Teilsync ohne
+  Identitätsänderung) und beweist den Schreibzugriff mit einer isolierten Probe
+  (`scripts/d1-write-probe.mjs`: eigene Tabelle `law_ci_write_probe`, Schreiben, Lesen,
+  Löschen – ohne Rechtsbestand, Suchindex oder Projektionsidentität zu berühren; die
+  Produktionsdatenbank wird fail-closed abgelehnt). Migrationen unter `data/recht/d1/` werden
+  weiterhin bewusst manuell eingespielt.
+- [x] **Stichtagsfortschreibung ohne Vollprojektion (4. September 2026).** Der redaktionelle
+  Stichtag wird mit `npm run norms:advance-reference-date -- --to <Datum> --write` fortgeschrieben
+  (Audit ohne `--write`; schreibt nur `status` betroffener Normen und `referenceDate`; der datierte Organisations-Snapshot unter `content/organisation/snapshots/` wird gesondert angelegt). Für D1
+  ist die Stichtagsänderung kein Full-Trigger mehr: der `--git-diff`-Sync projiziert nur die
+  stichtagsabhängig betroffenen Normen und die abgeleiteten Daten aller Normen
+  (`scripts/lib/d1-reference-date.mjs`, Gleichheitsnachweis mit einer frischen Vollprojektion in
+  `tests/recht-d1-reference-date.test.mjs`). Suchdokumente betten keinen Stichtag mehr ein.
+- [x] **Rechtsherkunft sichtbar und filterbar (4. September 2026).** Die vier Herkunftsklassen
+  (`ostdeutsch-original`, `inherited-unchanged`, `inherited-amended`, `origin-unresolved`) werden
+  über eine zentrale Kennzeichnung (`NormOriginBadge.astro`) in A–Z, Suchtreffern,
+  Rechtsentwicklung, Sachgebiets- und Normverzeichnissen sowie auf der Startseite gezeigt; die
+  Normseite fasst Rechtsstand und Herkunft in einem Hinweis zusammen; A–Z bietet Herkunftsfilter
+  und -übersicht mit Zählern aus D1. Sächsische Organe in `enactingBody` übernommener Normen wurden
+  nach `originEnactingBody` migriert (`npm run norms:migrate-origin-bodies`), abgesichert durch
+  `norms:metadata:audit` und `tests/norm-origin-metadata.test.ts`.
+- [x] **Eigene OstRecht-Fehlerseite (4. September 2026).** Unbekannte Pfade und die
+  `Astro.rewrite('/404')`-Fälle der Laufzeitrouten liefern `apps/recht/src/pages/404.astro`
+  (deutsch, `noindex`, Status 404, ohne D1-Zugriff) statt der englischen Astro-Standardseite;
+  abgesichert in `tests/browser-smoke.spec.ts`, Barrierefreiheits- und Visualsuite.
 - [x] **Release-Hardening (4. September 2026).** Projektionsidentität mit Scope (ein Fixture
   kann nie den Vollbestand vortäuschen), Base-State-Guard für `--git-diff`, Budgets im automatischen
   `d1_sync` (`--budget incremental --recover`), globaler Reststellen-Scanner (jede Fundstelle),
