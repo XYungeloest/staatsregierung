@@ -29,6 +29,7 @@ import {
 import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { buildLegislationJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
+import { normHeaderState } from '../../../lib/norm-header.ts';
 
 // Normseiten werden zur Laufzeit aus der D1-Projektion ausgeliefert; sie werden
 // nicht mehr für jede Norm beim Build vorgerendert.
@@ -60,7 +61,6 @@ const identity = getNormVersionIdentity(norm, currentVersion);
 const normTitle = toDisplayText(identity.title);
 const normLabel = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
 const normStatusLabel = formatNormStatus(norm.meta.status);
-const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
 const responsibility = toDisplayText(norm.meta.responsibleMinistry);
 const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${normStatusLabel}.${responsibility ? ` Zuständiger Geschäftsbereich: ${responsibility}.` : ''}`;
 const structuredData = buildLegislationJsonLd({
@@ -78,6 +78,7 @@ const relatedNorms = derived.recommendations;
 const relatedTopics = derived.portalLinks.topics;
 const relatedPressReleases = derived.portalLinks.pressReleases;
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+const header = normHeaderState(norm, currentVersion);
 ---
 
 <LawLayout
@@ -99,14 +100,8 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
   <NormPageHeader
     norm={norm}
     version={currentVersion}
-    eyebrow={norm.meta.status === 'in-force' ? 'Aktuelle Fassung' : 'Veröffentlichte Fassung'}
-    status={norm.meta.status === 'future-effective'
-      ? `Verkündet · Inkrafttreten am ${formatDate(statusDate)}`
-      : norm.meta.status === 'pending-effective'
-        ? 'Verkündet · Inkrafttreten noch nicht belegt'
-      : norm.meta.status === 'repealed' || norm.meta.status === 'historical'
-        ? `${normStatusLabel}${norm.meta.expiryDate ? ` seit ${formatDate(norm.meta.expiryDate)}` : ''}`
-        : `${normStatusLabel} seit ${formatDate(statusDate)}`}
+    eyebrow={header.eyebrow}
+    status={header.status}
     reference={currentReference}
     referenceUrl={publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined}
     publicationPdf={publication?.pdf}

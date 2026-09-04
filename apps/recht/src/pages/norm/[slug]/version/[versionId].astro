@@ -20,6 +20,7 @@ import {
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../../../../lib/runtime/context.ts';
+import { versionHeaderState } from '../../../../lib/norm-header.ts';
 
 // Konkrete Fassungen werden zur Laufzeit aus D1 gelesen; nur der angefragte
 // Normkörper wird geladen.
@@ -46,6 +47,7 @@ const normTitle = toDisplayText(identity.title);
 const normSeoTitle = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
 const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : temporalKind === 'historical' ? 'Historische' : 'Veröffentlichte'} Fassung von ${normTitle} mit Stand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+const header = versionHeaderState(norm, version);
 ---
 
 <LawLayout
@@ -68,8 +70,8 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
   <NormPageHeader
     norm={norm}
     version={version}
-    eyebrow={temporalKind === 'future' ? 'Zukünftige Fassung' : temporalKind === 'historical' ? 'Historische Fassung' : 'Veröffentlichte Fassung'}
-    status={`Gültig ab ${formatDate(version.validFrom)}${version.validTo ? ` bis ${formatDate(version.validTo)}` : temporalKind === 'historical' ? '; Gültigkeitsende nicht gespeichert' : ''}`}
+    eyebrow={header.eyebrow}
+    status={header.status}
     reference={toDisplayText(version.citation)}
     referenceUrl={publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined}
     publicationPdf={publication?.pdf}
