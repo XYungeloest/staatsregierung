@@ -1,21 +1,18 @@
 # Offene Quellenfragen
 
-**Repositoryprüfung:** 4. September 2026
-**Redaktioneller Stichtag:** zentral in `packages/shared/src/config/editorial.json`
-
 Diese Datei enthält ausschließlich Quellenlücken, Quellenkonflikte und notwendige Quellenarbeiten,
-die im aktuellen Repository noch offen sind. Der maschinenlesbare Einzelstand der
-Normkonsolidierung steht in `data/recht/consolidation-manifest.json`.
+die im aktuellen Repository offen sind. Jeder Eintrag nennt Fundstelle, Grund und das, was zur
+Lösung fehlt. Gelöste Fälle werden entfernt; der maschinenlesbare Einzelstand der
+Normkonsolidierung steht in `data/recht/consolidation-manifest.json`, die Bilanz der
+REVOSax-Übernahme in `data/recht/revosax-import-audit/summary.json`.
 
 ## REVOSax-Übernahme (Ausgangsbestand 1. November 2023)
-
-Die Bilanz der Übernahme steht maschinenlesbar in `data/recht/revosax-import-audit/summary.json`;
-offen bleiben drei Quellenfragen:
 
 - **Europäisches Übereinkommen über das grenzüberschreitende Fernsehen (REVOSax 1018)** —
   REVOSax hält den Text nur als PDF-Anlagen vor; das Übereinkommen selbst ist ein Scan ohne
   Textebene. Ohne manuell geprüfte Texterkennung wird kein Normtext erzeugt; die Anlagen sind
-  hashverifiziert in R2 archiviert (dokumentierter SKIP).
+  hashverifiziert in R2 archiviert (dokumentierter SKIP in
+  `data/recht/revosax-baseline-decisions.json`).
 - **Änderungs-VwV mit reiner Fragebogen-Anlage (REVOSax 17114)** — die einzige Anlage hat eine
   Textebene, ist aber ein Formular und kein Normtext; sie wird nicht als Paragraphentext
   umgedeutet (dokumentierter SKIP, Anlage in R2).
@@ -24,6 +21,33 @@ offen bleiben drei Quellenfragen:
   31. Dezember 2023 als geltend. Ohne weitere amtliche Quelle ist nicht entscheidbar, ob eine
   Verlängerung vorlag; die Norm bleibt unverändert, der Fall ist in
   `data/recht/revosax-sunset-decisions.json` als offen dokumentiert.
+
+## Rechtsherkunft nicht belegbar (`origin-unresolved`)
+
+Die Herkunftsklasse wird aus Quellen, Fundstellen und Historie abgeleitet
+(`packages/shared/src/lib/norms/origin.ts`); `npm run test:unit -- tests/norm-origin-metadata.test.ts`
+zählt die Klassen. Vier Normen lassen sich nach den geltenden Regeln nicht zuordnen, weil das
+Herkunftsmodell nur die Übernahme des sächsischen Rechtsstands zum 1. November 2023 und die eigene
+ostdeutsche Setzung kennt:
+
+- **Ostdeutsches Zweckentfremdungsverbotsgesetz** (`zweckentfremdungsverbotsgesetz`) — sächsisches
+  Gesetz vom 14. Februar 2024 (SächsGVBl. S. 167, REVOSax 20743.1, gültig ab 19. März 2024), also
+  nach dem Stichtag erlassen und dennoch übernommen; ostdeutsche Änderung durch OGVBl. 2026
+  Nr. 29. Es fehlt eine belegte Regel, ob und wie nach dem Stichtag erlassenes sächsisches Recht in
+  den ostdeutschen Bestand gelangt (Adoptionsakt oder redaktionelle Entscheidung).
+- **Ostdeutsches Gleichstellungsgesetz** (`saechsisches-gleichstellungsgesetz`) — sächsisches
+  Gesetz vom 19. Oktober 2023 (SächsGVBl. S. 850, REVOSax 20283.1), am Stichtag verkündet, aber
+  erst am 1. Januar 2024 in Kraft; ostdeutsche Änderung durch OGVBl. 2026 Nr. 35. Offen ist, ob
+  am Stichtag verkündetes, noch nicht geltendes Recht als übernommen gilt.
+- **Ausbildungs- und Prüfungsordnung Polizei** (`ausbildungs-und-pruefungsordnung-polizei`) —
+  sächsische Verordnung vom 6. August 2024, Fassung ab 1. September 2025 (REVOSax 21006.2),
+  ostdeutsche Änderung durch OGVBl. 2026 Nr. 12; derselbe offene Adoptionsfall wie beim
+  Zweckentfremdungsverbotsgesetz.
+- **Oberstufen- und Abiturprüfungsverordnung** (`oberstufenund-abiturprufungsverordnung`) — die
+  2024 geänderte Verordnung war bereits seit dem 1. August 2008 außer Kraft
+  (`knowledge/clarifications/2026-08-27-zuarbeit-pdfnachtrag.md`); der Datensatz trägt weder eine
+  REVOSax-Quelle noch eine eigene Ausgangsfassung. Ohne amtliche Quelle der 1996er Verordnung bleibt
+  die Herkunft ungeklärt.
 
 ## Bekanntmachungen zur Interflug (StAnzO. 2026 Nr. 39 und 40)
 
@@ -38,7 +62,8 @@ offen bleiben drei Quellenfragen:
 
 ## Rechtskonsolidierung
 
-Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Fünf Fälle bleiben offen:
+`npm run norms:consolidation:audit` erzeugt `data/recht/consolidation-report.md` mit den offenen
+Zielnormen. Derzeit blockieren vier Quellenkonflikte und eine fehlende Ausgangsfassung:
 
 - **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
   Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
@@ -46,7 +71,7 @@ Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Fünf Fälle
 - **NDR-Staatsvertrag** — `missing-baseline`: Die maßgebliche Ausgangsfassung ist durch die
   korrigierte Ausgabe als NDR-Staatsvertrag vom 4./9. März 2021 (GVOBl. M-V S. 797) eindeutig
   bezeichnet; sie ist jedoch noch nicht unverändert im Repository versioniert und damit noch keine
-  Konsolidierungsbaseline.
+  Konsolidierungsbaseline (Zuarbeit Q-01 in `docs/ZUARBEITSFORMULAR.md`).
 - **Ostdeutsche Gemeindeordnung** — `blocked-source-conflict`: Artikel 1 des Gesetzes zur
   Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die ausdrücklich
   als zuletzt geändert bezeichnete Fassung vom 20. Juli 2026 enthält jedoch bereits § 71b bis § 71g;
@@ -58,18 +83,13 @@ Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Fünf Fälle
   Tarifplatz 3 widerspricht dem vorhandenen Ausgangsbestand; der Zieltext ist nicht eindeutig
   ableitbar.
 
-## Noch notwendige Quellenarbeit
+## Legacy-Transkriptionen
 
-### Legacy-Transkriptionen
-
-3 produktive SourceReferences aus 2 unterschiedlichen Markdownquellen verbleiben als
-`legacy-markdown-transcription`. Davon betrifft eine Quelle einen echten Quellenkonflikt zwischen
-Markdown und PDF (OGVBl. 2025 Nr. 10); bei der zweiten fehlt eine ausreichende Kontrollquelle für
-die vollständige Fassung (OGVBl. 2024 Nr. 2 S. 2). Die elf übrigen Quellen wurden nach
-Strukturprüfung und PDF-Gegenkontrolle über die bestehende Pipeline in strukturtragende
-HTML-Quellen überführt. Ihre Roh-Markdowndateien bleiben ausschließlich als ergänzende
-Provenienz-/Regressionsquellen erhalten. Die Einzelklassifikationen und konkreten Blockierungsgründe
-stehen in `data/recht/alt-source-inventory.json`.
+Drei produktive Quellenreferenzen aus zwei Markdownquellen verbleiben als
+`legacy-markdown-transcription`: OGVBl. 2025 Nr. 10 ist wegen eines Konflikts zwischen Markdown
+und PDF blockiert, für OGVBl. 2024 Nr. 2 S. 2 fehlt eine ausreichende Kontrollquelle für die
+vollständige Fassung. Klassifikation und Blockierungsgründe stehen in
+`data/recht/alt-source-inventory.json`.
 
 ## Dauerhafte Quellenbegrenzung
 

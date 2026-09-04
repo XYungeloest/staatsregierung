@@ -1,132 +1,175 @@
 # Betriebsrunbook für Veröffentlichungen
 
 Staatsportal und OstRecht werden ausschließlich über den Workflow `Deploy to Cloudflare Workers`
-aus dem geprüften Commit veröffentlicht. Der Workflow bestimmt aus den geänderten Pfaden, welche
-Anwendung neu gebaut und veröffentlicht werden muss. Ein manuelles Überschreiben eines produktiven
-Workers ist kein Wiederherstellungsweg.
+aus dem geprüften Commit auf `main` veröffentlicht. Der Workflow bestimmt aus den geänderten
+Pfaden, was gebaut, geprüft und veröffentlicht wird. Ein manuelles Überschreiben eines produktiven
+Workers ist kein Wiederherstellungsweg. `main` ist durch das Ruleset „main geschützt“ nur über Pull
+Requests mit den Pflichtchecks `classify`, `quality`, `accessibility_smoke` und `browser_smoke`
+veränderbar.
 
 ## Änderungsscope
 
-Die zentrale Zuordnung liegt in `scripts/classify-change-scope.mjs`. Sie trennt Runtime-Deploymentziele
-von Verifikationsflags. Unbekannte Laufzeitpfade und gemeinsame Quellen werden vorsorglich als
-`shared` behandelt.
+Die zentrale Zuordnung liegt in `scripts/classify-change-scope.mjs`
+(`tests/change-scope.test.mjs` dokumentiert die Fälle). Sie trennt Deploymentziele von
+Verifikationsumfang; unbekannte Laufzeitpfade werden vorsorglich als `shared` behandelt.
 
 | Scope | Typische Pfade | Produktion |
 | --- | --- | --- |
-| `docs-only` | Root-Dokumentation, `docs/` sowie interne Knowledge-Markdown-Dateien | kein Build und kein Deployment |
-| `ci-only` | Tests, Workflowdateien, Validatoren, Audits, Importer, `Gesetze/`, `data/recht/` und interne Knowledge-Daten | kein Produktionsdeployment |
-| `portal` | `apps/portal/`, portalbezogene Inhalte, Kreisreform und portalbezogene Daten | nur Staatsportal |
-| `law` | `apps/recht/`, `packages/recht-*` und `public/assets/recht/` | nur OstRecht |
-| `shared` | `packages/shared/`, `content/normen/`, `content/verkuendungen/`, gemeinsame Buildskripte, Root-Buildkonfiguration und Abhängigkeiten | beide Anwendungen |
+| `docs-only` | Root-Dokumentation, `docs/`, interne Knowledge-Markdown-Dateien | kein Build, kein Deployment; Whitespace- und Dokumentationsstrukturprüfung |
+| `ci-only` | Tests, Workflows, Validatoren, Audits, Importer, `Gesetze/`, `data/recht/`, interne Knowledge-Daten | kein Deployment; nur die angeforderten Prüfungen |
+| `portal` | `apps/portal/`, portalbezogene Inhalte, Kreisreform, portalbezogene Daten | nur Staatsportal |
+| `law` | `apps/recht/`, `packages/recht-*`, `public/assets/recht/` | nur OstRecht |
+| `shared` | `packages/shared/`, `content/normen/`, `content/verkuendungen/`, gemeinsame Buildskripte, Root-Konfiguration, Abhängigkeiten | beide Anwendungen |
 
-`ci-only` führt die erforderlichen Content-, Knowledge-, Unit- oder Buildprüfungen aus, veröffentlicht
-aber nie eine Website. Ein Astro-Build findet dabei nur statt, wenn die geänderte Prüfung selbst einen
-Build benötigt, etwa bei Browser-Smokes oder Link- und SEO-Validatoren. Tests und Prüfscripts setzen
-kein Deploymentziel.
+Zwei weitere Flags bestimmen den Prüfumfang von OstRecht unabhängig vom Deploymentziel:
 
-Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie unter
-anderem für Suche, Fundstellen und die Rechtsbrücke einliest. Die PDF-Assets unter
-`public/assets/recht/` werden dagegen nur vom Rechtsportal ausgeliefert.
+- **`run_full_corpus_smoke`** – der Smoke läuft gegen den gesamten Rechtsbestand statt gegen das
+  Fixture, wenn die Änderung D1-Schema oder Migrationen, Sync-, Scope-, Stichtags- oder
+  Seed-Werkzeuge (`scripts/sync-recht-d1.mjs`, `scripts/lib/d1-*`, `scripts/d1-runtime-seed.mjs`,
+  `scripts/serve-law-worker.mjs`, `scripts/verify-recht-d1.mjs`), den Runtime-Store und die
+  Routen mit Datenbankzugriff (`apps/recht/src/lib/runtime/`, `apps/recht/src/pages/` außer
+  Hilfe, 404 und robots), die Normbibliothek und Konfiguration (`packages/shared/src/lib/norms/`,
+  `packages/shared/src/config/` einschließlich Stichtag), die Portalbezüge der Projektion, die
+  Suchlogik (`packages/recht-search/src/`), die OstRecht-Laufzeitkonfiguration oder
+  `package-lock.json` berührt – oder wenn mindestens 25 Normverzeichnisse geändert sind
+  (`LARGE_CORPUS_CHANGE_THRESHOLD`). Ein manuelles OstRecht-Release prüft immer den Vollbestand.
+  Rein visuelle Änderungen (Komponenten, Layouts, Styles, Browserskripte, Hilfe- und Fehlerseite)
+  laufen gegen das Fixture.
+- **`run_visual`** – die Screenshot-Suite läuft bei Oberflächen-, Layout-, Style- und
+  Portalinhaltsänderungen, nicht bei reinem Normcontent, Dokumentation oder Workflows.
 
-`packages/recht-search/` enthält die ausschließlich von OstRecht verwendete Suchlogik. Die
-Klassifikation behandelt `packages/portal-*` und `packages/recht-*` als app-spezifisch; sie lösen
-ausschließlich den jeweiligen Websitebuild aus.
+Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie für Suche,
+Fundstellen und die Rechtsbrücke einliest; ihre Änderung löst kein OstRecht-Deployment aus,
+sondern eine D1-Projektion. Die Buildartefakte liegen unter `apps/portal/dist/` und
+`apps/recht/dist/`; sie werden einmal gebaut, als Artefakt hochgeladen und vor Smokes und
+Deployment wieder unter `apps/` hergestellt.
 
-Die Buildartefakte liegen unter `apps/portal/dist/` und `apps/recht/dist/`. GitHub Actions lädt
-diese app-lokalen Verzeichnisse als gemeinsames Artefakt hoch und stellt sie vor UI-Smokes und
-Deployment wieder unter `apps/` her. Die unveränderten Worker `ostrecht-portal` und
-`ostrecht-recht` verwenden `apps/portal/wrangler.jsonc` beziehungsweise
-`apps/recht/wrangler.jsonc`.
+## Regulärer Ablauf auf `main`
 
-## Regulärer Ablauf
+```text
+classify ─┬─ build ───────────────┬─ runtime_smoke ─┬─ deploy
+          ├─ d1_seed (Vollbestand)┘                 │
+          ├─ d1_sync (Cloudflare D1) ───────────────┘
+          └─ visual (Screenshots, kein Gate)
+```
 
-1. Änderung über einen geprüften Pull Request nach `main` übernehmen.
-2. Der Main-Workflow ermittelt Deployment- und Verifikationswirkung. Bei `docs-only` endet der Lauf
-   nach dem leichten Dokumentationscheck; bei `ci-only` nach den angeforderten Prüfungen, jeweils ohne
-   Produktionsdeployment.
-3. Für `portal` oder `law` laufen nur der betroffene Build, dessen Typprüfungen sowie dessen Link-
-   und SEO-Prüfung. Der Content-Audit läuft nur bei Inhalts-, Quellen- oder Validatoränderungen. Bei
-   `shared` werden beide Anwendungen gebaut und geprüft.
-4. Für `portal` und `law` laufen Accessibility- und Browser-Smokes nur gegen das jeweils betroffene
-   Ziel; bei `shared` laufen beide Zielgruppen. Im Main-Workflow erledigt das ein einziger Job
-   `full_runtime_smoke`: er projiziert den gesamten Rechtsbestand genau einmal in eine lokale
-   Miniflare-D1 (kein Zugriff auf die Cloudflare-D1), verifiziert die Projektion
-   (`norms:runtime:d1-verify --local --fts-integrity`) und führt danach A11y- und Browser-Smoke gegen
-   denselben Worker aus; Pull Requests prüfen stattdessen zwei parallele Fixture-Jobs. Bei
-   `docs-only` und üblichen `ci-only`-Läufen gibt es keine UI-Smokes. Die manuelle Releaseprüfung
-   bleibt für jede Produktionsfreigabe erforderlich.
-5. Bei `run_d1_sync` projiziert der Job `d1_sync` die Rechtsdaten vor dem Deployment nach
-   Cloudflare D1: `--git-diff <before> <sha> --budget incremental --recover`. Der Lauf ist ein No-op,
-   wenn D1 bereits die Projektionsidentität des Commits trägt; er schreibt inkrementell nur, wenn D1
-   nachweislich den Stand des Vorgänger-Commits trägt (Base-State-Guard), und fällt sonst auf eine
-   als Recovery markierte Vollprojektion mit dem Profil `recovery` zurück. Budgets aus
-   `data/recht/d1-sync-budgets.json` werden vor dem ersten Schreibzugriff (Planschätzung, dann
-   0 Schreibzugriffe) und laufend gegen die realen Zähler geprüft; bei Überschreitung schlägt das
-   Deployment fehl und verlangt eine bewusste Entscheidung (Budget prüfen, `--full --budget full`
-   manuell). Schema-Migrationen (`data/recht/d1/*.sql`) spielt der Workflow nie ein.
-6. Bei beiden Zielen veröffentlicht der Workflow zuerst OstRecht und danach das Staatsportal. So
-   verweist die Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den
-   neuen Stand.
-7. Den im Workflow ausgewiesenen vollständigen Commit notieren. Die Produktionsnachkontrolle prüft
-   nur die tatsächlich veröffentlichten Ziele; der Portal-Altpfad-Redirect wird bei einer
-   Portalprüfung zusätzlich gegen den bestehenden Rechtsorigin kontrolliert.
+1. `classify` bestimmt Deployment- und Verifikationswirkung.
+2. `build` stellt `node_modules` aus dem Actions-Cache her (`.github/actions/setup-node-modules`,
+   Schlüssel aus Betriebssystem, Node-Version und `package-lock.json`; ohne Treffer `npm ci`), führt
+   `npm audit` mit Wiederholung bei Registryfehlern aus (`scripts/npm-audit-retry.mjs`: nur
+   HTTP 5xx, 429 und Netzfehler werden bis zu dreimal wiederholt; ein Befund ab Stufe `high` schlägt
+   sofort fehl), prüft Dokumentationsstruktur, Inhalte, Wissenshub, Typen und Unit-Tests je Scope,
+   baut einmal, prüft Assets, Links und SEO und lädt den Build als Artefakt hoch.
+3. `d1_seed` läuft parallel zum Build, nur bei `run_full_corpus_smoke`: Seed-Fingerabdruck
+   bestimmen, Snapshot aus dem Actions-Cache (`d1-seed-<Fingerabdruck>`) wiederherstellen und
+   verifizieren; ohne Treffer genau eine Projektion, danach Snapshot im Cache speichern.
+4. `runtime_smoke` lädt den Build, setzt den Seed ein (Vollbestand aus dem Cache oder Fixture; ein
+   fehlender Cache-Eintrag führt zu einer Projektion als Rückfall, nie zu einem Abbruch),
+   verifiziert die Projektion gegen Git (`norms:runtime:d1-verify --local --fts-integrity`) und
+   führt Barrierefreiheits- und Browser-Smoke gegen denselben Worker aus.
+5. `d1_sync` projiziert bei `run_d1_sync` die Rechtsdaten nach Cloudflare D1:
+   `--git-diff <before> <sha> --budget incremental --recover`. Der Lauf ist ein No-op, wenn D1
+   bereits die Projektionsidentität des Commits trägt; er schreibt inkrementell nur mit
+   verifizierter Basis (Base-State-Guard) und fällt sonst auf eine markierte Recovery zurück. Eine
+   durch Projektionslogik oder Themen/Presse ausgelöste Vollprojektion überschreitet das Profil
+   `incremental` und lässt das Deployment bewusst fehlschlagen; sie wird manuell ausgeführt
+   (`docs/REVOSAX_BULK_IMPORT.md`), danach wird der Workflow erneut gestartet. Migrationen spielt
+   der Workflow nie ein.
+6. `deploy` veröffentlicht zuerst OstRecht, danach das Staatsportal, und prüft den
+   Produktionsstand (`npm run test:deployment:production`).
+7. `visual` läuft bei `run_visual` im Playwright-Container gegen das Fixture; es ist kein Gate.
 
-Staging von OstRecht: der Cloudflare-Adapter schreibt nach dem Build eine aufgelöste Konfiguration
-(`apps/recht/dist/server/wrangler.json`) ohne `env`-Abschnitt; `wrangler deploy --env staging` fiele
-damit stillschweigend auf den produktiven Worker zurück. `npm run deploy:recht:staging` erzeugt deshalb
-mit `scripts/write-staging-wrangler-config.mjs` aus der gebauten Konfiguration und `env.staging` der
-Quellkonfiguration eine eigenständige `wrangler.staging.json` (Worker `ostrecht-recht-staging`, D1
-`ostrecht-recht-staging`, R2 `ostrecht-recht-quellen-staging`, keine Custom-Domain-Route) und bricht
-ab, wenn der Abschnitt fehlt oder eine produktive Ressource nennt (`tests/staging-wrangler-config.test.mjs`).
-
-Ein manuell gestarteter Workflow bietet die Ziele `portal`, `law` und `both` (Standard). Er verwendet
-standardmäßig `staging`; dafür müssen vollständige `portal_site_url` und `law_site_url` angegeben
-werden. `production` ist nur für eine bewusst freigegebene Veröffentlichung zu wählen. Die
-zielbezogenen Prüfungen bleiben auch beim manuellen Deployment aktiv.
+Bei `docs-only` endet der Lauf nach `docs_check`, bei `ci-only` nach den angeforderten Prüfungen.
+Ein manuell gestarteter Workflow bietet die Ziele `portal`, `law` und `both` und verwendet
+standardmäßig `staging` (vollständige `portal_site_url` und `law_site_url` erforderlich);
+`production` ist nur für eine bewusst freigegebene Veröffentlichung zu wählen. Staging von
+OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
+`wrangler.staging.json` (`scripts/write-staging-wrangler-config.mjs`).
 
 ## Pull-Request-Prüfung
 
-Der Pull-Request-Workflow verwendet dieselbe Trennung. `docs-only` erhält nur den leichten
-Dokumentationscheck; `ci-only` nur die angeforderten Prüfungen ohne Produktionsartefakt oder
-Cloudflare-Vorschau. Bei `portal` oder `law` werden nur der jeweilige Typecheck, Build, Link- und
-SEO-Lauf sowie zielbezogene UI-Smokes ausgeführt. `shared` führt den vollständigen Lauf für beide
-Anwendungen aus. Die bestehende Cloudflare-PR-Vorschau bleibt auf Pull Requests mit
-Staatsportal-Runtimewirkung beschränkt; bei einem reinen `law`-Scope wird sie wegen der bestehenden
-portalbezogenen Previewarchitektur nicht gestartet.
+`classify`, `quality` (wie `build`, mit PR-Artefakt), `accessibility_smoke` und `browser_smoke`
+(zwei parallele Fixture-Jobs) sind die Pflichtchecks des Rulesets; bei `docs-only` werden sie
+übersprungen und `docs_check` läuft. Zusätzlich:
 
-### Cloudflare-PR-Vorschau einrichten
+- `d1_seed` und `full_corpus_smoke` bei `run_full_corpus_smoke` (Seed aus dem Cache, Verifikation,
+  A11y und Browser gegen den Vollbestand);
+- `visual` bei `run_visual` im Playwright-Container;
+- `d1_token_check` bei `run_d1_sync` (lesend gegen Produktion, schreibend nur gegen Staging);
+- `preview` für Pull Requests mit Staatsportal-Wirkung, wenn `CLOUDFLARE_PREVIEWS_ENABLED=true`,
+  `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` gesetzt sind (Worker-Version mit
+  PR-Alias, durch Cloudflare Access zu schützen; Versionen werden beim Schließen gelöscht).
 
-In den GitHub-Repository-Einstellungen müssen die Variable
-`CLOUDFLARE_PREVIEWS_ENABLED=true` sowie die Secrets `CLOUDFLARE_API_TOKEN` und
-`CLOUDFLARE_ACCOUNT_ID` gesetzt sein. Das Token benötigt nur die Rechte zum Hochladen und Löschen
-von Worker-Versionen.
+Actions-Caches eines PR-Branches sind nur für diesen Branch sichtbar; `main` liest eigene und
+Standardbranch-Caches. Nach dem Merge einer Änderung an den Seed-Eingaben projiziert `main` deshalb
+einmal neu und speichert den Snapshot für alle folgenden Läufe und Branches.
 
-Der Workflow lädt mit `wrangler versions upload --config apps/portal/wrangler.jsonc` eine
-unveröffentlichte Worker-Version mit PR-spezifischem Preview-Alias hoch. Diese Version wird nicht
-nach Produktion deployt. Da Cloudflare Preview URLs standardmäßig öffentlich sind, müssen Alias-
-und Versions-Preview-Domain durch eine eigene Cloudflare-Access-Anwendung geschützt werden. Die
-konkrete Domain steht nach dem ersten manuellen Preview-Upload fest.
+## D1-Seed-Cache
 
-Ohne `CLOUDFLARE_PREVIEWS_ENABLED=true` wird nur der Preview-Job übersprungen; die übrigen
-Qualitätsprüfungen laufen weiter. Der Workflow merkt sich die erzeugten Versions-IDs im technischen
-Teil des PR-Kommentars und löscht sie beim Schließen oder Mergen des Pull Requests. Fehlende
-Preview-Secrets führen nicht zu einem Ersatz- oder Produktionsdeployment.
+Der lokale D1-Seed ist ein SQLite-Snapshot mit deterministischem Fingerabdruck
+(`scripts/d1-runtime-seed.mjs`, Details in `docs/REVOSAX_BULK_IMPORT.md`):
+
+| Fall | Ablauf |
+| --- | --- |
+| Cache-Treffer | Fingerabdruck bestimmen → Snapshot wiederherstellen → Manifest, Tabellen, Identität, Scope, `sync_state`, Zähler und FTS5-Integrität prüfen → in Miniflare einsetzen → Wrangler liest die Identität → Smoke. Keine Projektion. |
+| Cache-Miss | Fingerabdruck bestimmen → genau eine Projektion (`node:sqlite`) → dieselbe Verifikation → Snapshot im Cache speichern → einsetzen → Smoke. |
+
+Der Fingerabdruck ändert sich nur, wenn Projektionslogik, Migrationen, Rechtsbestand,
+Portalgrundlagen, Stichtag, Seed-Werkzeuge oder die Versionen von wrangler, miniflare und workerd
+sich ändern; CSS, Komponenten, Tests oder Dokumentation ändern ihn nicht. Der Job-Summary jedes
+Laufs zeigt Status (`restored`/`built`), Projektions-, Verifikations- und Einsetzdauer sowie die
+Laufzeiten von Build, Verifikation, A11y und Browser. Der Workflow `OstRecht-Vollbestand-Smoke`
+läuft wöchentlich und manuell mit demselben Cache; `refresh_seed` erzwingt die Projektion.
+
+Laufzeitziele (Richtwerte, keine harten Grenzen):
+
+| Szenario | Ziel |
+| --- | --- |
+| Pull Request mit Fixture | unter 15 Minuten bis zu den Pflichtchecks |
+| Release auf `main`, Fixture | unter 20 Minuten bis zum Deployment |
+| Release auf `main`, Vollbestand mit Cache-Treffer | Seed unter 1 Minute; Gesamtlauf unter 25 Minuten |
+| Release auf `main`, Vollbestand mit Cache-Miss | Projektion parallel zum Build; Gesamtlauf unter 30 Minuten |
+
+## Datenform der D1-Projektion ändern (Expand/Contract)
+
+Die Projektion nach Cloudflare D1 läuft vor dem Worker-Deployment; für die Dauer bis zum
+Deployment liest der bereits veröffentlichte Worker die neue Projektion. Ein Worker, der neue
+Felder oder Formate noch nicht kennt, zeigt in diesem Fenster fehlende Werte. Deshalb gilt für jede
+Änderung an Suchdokumenten, Metadatenzeilen, Spalten oder JSON-Feldern der Projektion:
+
+1. **Expand:** Der Worker versteht alte und neue Datenform; neue Felder werden additiv gelesen,
+   fehlende Werte fail-safe dargestellt (Beispiel: unbekannte Rechtsherkunft wird als „Herkunft
+   ungeklärt“ gezeigt, `apps/recht/src/scripts/search-page.ts`). Dieses Release enthält noch
+   keine Projektionsänderung.
+2. **Migrate:** Die Projektion wird auf die neue Form umgestellt (bei Umbenennungen als
+   Übergangsprojektion, die alte und neue Felder parallel schreibt). Schema-Migrationen zuerst
+   lokal, dann Staging, dann Produktion.
+3. **Contract:** Erst nach erfolgreichem Rollout beider Seiten wird die Altkompatibilität entfernt.
+
+Ein Release darf nie gleichzeitig eine neue Datenform einführen und einen Worker voraussetzen, der
+sie erst mit demselben Release lesen kann. Der Vollbestand-Smoke prüft den neuen Worker gegen die
+neue Projektion, nicht den alten Worker; die Übergangsregel ersetzt er nicht.
 
 ## Fehlerklasse bestimmen
 
 | Fehlerklasse | Erkennbar an | Nächster Schritt |
 | --- | --- | --- |
 | Inhalt oder Wissenshub | `content:check`, Normaudit, Knowledge-Check oder generierte Dateien schlagen fehl | Daten und Quelle im PR korrigieren; Validator nicht abschwächen |
+| Dokumentation | `docs:check` meldet fehlende kanonische Dokumente, tote Links oder erledigte TODO-Einträge | Verweise korrigieren, Erledigtes entfernen |
 | Typen oder Build | `astro check`, Unit-Test oder Build schlägt fehl | Fehler im selben Branch reproduzieren und über Korrektur-PR beheben |
+| npm audit | Befund ab Stufe `high` | Abhängigkeit aktualisieren; eine vorübergehend nicht behebbare Ausnahme mit Advisory, Nutzung, Risiko und Prüftermin in `TODO.md` |
+| npm audit (Registry) | Wrapper meldet nach drei Versuchen „Registry nicht erreichbar“ | Lauf erneut starten; kein Codefehler |
+| D1-Seed | Seed-Verifikation lehnt einen Snapshot ab | Snapshot wird verworfen und neu projiziert; bei wiederholter Ablehnung Seed-Werkzeuge und Migrationen prüfen |
 | Browser oder Barrierefreiheit | Link-, SEO-, Accessibility- oder Browser-Test schlägt fehl | betroffene Route und Viewport aus dem Testbericht prüfen |
-| Visuelle Regression | gezielter Visual-Lauf schlägt fehl | Artefakt und Baseline einzeln sichten; Baselines nur nach Abnahme ändern |
+| Visuelle Regression | `visual` schlägt fehl | Artefakt und Baseline sichten; Baselines nur nach Abnahme ändern (kein Gate) |
+| D1-Sync | Budget überschritten oder Basis nicht verifiziert | bewusste Entscheidung: `--full --budget full` zuerst gegen Staging, dann Produktion; Workflow erneut starten |
 | Cloudflare-Upload | alle Prüfungen grün, aber `deploy` schlägt fehl | Token, Account-ID, Worker-Konfiguration und Wrangler-Ausgabe prüfen; keine lokale Ersatzveröffentlichung |
 | Nachkontrolle | Workflow grün, aber Commitkennung oder Route stimmt nicht | letzte tatsächlich ausgelieferte Kennung feststellen und Deployment erst nach Ursachenklärung erneut anstoßen |
 
 ## Letzten ausgelieferten Commit feststellen
 
 Die HTML-Seiten tragen `meta[name="build-commit"]`; alle ausgelieferten Routen tragen zusätzlich
-`X-Portal-Commit`. Für eine erste Prüfung:
+`X-Portal-Commit`:
 
 ```sh
 curl -fsSI https://freistaat-ostdeutschland.de/ | sed -n '/^x-portal-commit:/Ip'
@@ -135,9 +178,8 @@ curl -fsSI https://recht.freistaat-ostdeutschland.de/ | sed -n '/^x-portal-commi
 curl -fsS https://recht.freistaat-ostdeutschland.de/ | grep -o 'meta name="build-commit" content="[0-9a-f]\{40\}"'
 ```
 
-Die ermittelte Kennung mit dem freigegebenen Commit auf `main` und dem letzten erfolgreichen
-Deployment-Job vergleichen. Der öffentliche Stand gilt erst dann als bestätigt, wenn Header und
-HTML dieselbe vollständige Kennung ausgeben.
+Der öffentliche Stand gilt erst dann als bestätigt, wenn Header und HTML dieselbe vollständige
+Kennung ausgeben und sie dem freigegebenen Commit auf `main` entspricht.
 
 ## Korrektur und Wiederanlauf
 
@@ -146,16 +188,14 @@ HTML dieselbe vollständige Kennung ausgeben.
 3. Vollständige für den Änderungstyp relevante CI abwarten.
 4. Korrektur nach `main` übernehmen; der normale Main-Workflow veröffentlicht sie.
 5. Einen abgebrochenen Lauf nur dann erneut starten, wenn die Ursache außerhalb des Codes lag und
-   unverändert behoben ist, etwa ein vorübergehender Cloudflare-Ausfall.
+   unverändert behoben ist, etwa ein vorübergehender Cloudflare- oder Registry-Ausfall.
 
 Produktionsdateien, Worker-Versionen und Content werden nicht direkt in Cloudflare korrigiert.
 Dadurch bleibt jeder ausgelieferte Stand einem Git-Commit zuordenbar.
 
 ## Nachkontrolle
 
-In Produktion führt der Workflow `npm run test:deployment:production` aus. Der Test wiederholt die
-Prüfung während der kurzen Ausbreitungsphase und schlägt mit Route, HTTP-Status oder abweichender
-Commitkennung fehl. Manuell kann derselbe Test so gestartet werden:
+In Produktion führt der Workflow `npm run test:deployment:production` aus; manuell:
 
 ```sh
 PORTAL_SITE_URL=https://freistaat-ostdeutschland.de \
@@ -181,51 +221,38 @@ https://recht.freistaat-ostdeutschland.de/sitemap.xml
 https://recht.freistaat-ostdeutschland.de/robots.txt
 ```
 
-Zusätzlich kurz prüfen:
+Zusätzlich kurz prüfen: Startseite, Themenübersicht und aktuelles Leitthema; Rechtssuche und eine
+geltende Normfassung auf OstRecht; `robots.txt`, Sitemap und Suchindex beider Origins; einen alten
+Portalpfad unter `/recht/norm/...` auf den permanenten Cross-Origin-Redirect; auf Mobilbreite
+Navigation, Suche und Einwilligungsentscheidung; dass keine Webanalyse ohne Zustimmung geladen
+wird. Bei `portal`- oder `law`-Läufen beschränkt sich die automatische Nachkontrolle auf das
+jeweilige Ziel (`DEPLOY_TARGETS=portal|law` für einen manuellen Einzelcheck).
 
-- Startseite, Themenübersicht und aktuelles Leitthema,
-- Rechtssuche und eine geltende Normfassung auf OstRecht,
-- `robots.txt`, Sitemap und Suchindex beider Origins,
-- einen alten Portalpfad unter `/recht/norm/...` auf den permanenten Cross-Origin-Redirect,
-- auf Mobilbreite Navigation, Suche und die Einwilligungsentscheidung,
-- dass keine Webanalyse ohne Zustimmung geladen wird.
+## Pflege- und Releaseregeln
 
-Bei `portal`- oder `law`-Läufen beschränkt sich die automatische Nachkontrolle auf das jeweilige
-Ziel. Für einen manuellen Einzelcheck kann `DEPLOY_TARGETS=portal` oder `DEPLOY_TARGETS=law`
-gesetzt werden; ohne diese Variable werden beide Ziele geprüft.
+Diese Punkte sind wiederkehrende Pflegeanforderungen, keine erledigbaren Aufgaben:
 
-## Pflege- und Release-Regeln
-
-Diese Punkte sind wiederkehrende Pflegeanforderungen, keine erledigbaren Feature-TODOs:
-
-- Der redaktionelle Stichtag bleibt ein fachlich gepflegter Wert. Er wird nicht aus dem Builddatum
-  oder automatisch aus dem aktuellen Kalendertag abgeleitet und wird nur einmal in
-  `packages/shared/src/config/editorial.json` gesetzt – über
-  `npm run norms:advance-reference-date -- --to <Datum> --write`, das die Statusfelder der
-  betroffenen Normen mitzieht. Beim Fortschreiben werden Termine, Stellen, Hervorhebungen,
-  Verfahren, Normfassungen, Regierungszuordnungen, Gebietsstände, Timeline und Suchindex gemeinsam
-  geprüft. Für die D1-Projektion ist die Stichtagsänderung kein Full-Trigger: der automatische
-  `--git-diff`-Sync projiziert nur die stichtagsabhängig betroffenen Normen und die abgeleiteten
-  Daten aller Normen.
-- Der manuelle Workflow `D1-Token prüfen` liest die produktive Datenbank nur (`--dry-run`) und
-  beweist den Schreibzugriff mit einer isolierten Probe gegen `ostrecht-recht-staging`
-  (`scripts/d1-write-probe.mjs`: eigene Tabelle `law_ci_write_probe`, Schreiben, Lesen, Löschen);
-  Rechtsbestand, Suchindex und Projektionsidentität bleiben unberührt, die Produktionsdatenbank
-  wird fail-closed abgelehnt.
+- Der redaktionelle Stichtag bleibt ein fachlich gepflegter Wert in
+  `packages/shared/src/config/editorial.json`. Er wird nur vorwärts fortgeschrieben
+  (`npm run norms:advance-reference-date -- --to <Datum> --write`; eine Rückdatierung lehnt das
+  Werkzeug fail-closed ab) und zieht die Statusfelder betroffener Normen mit. Beim Fortschreiben
+  werden Termine, Stellen, Hervorhebungen, Verfahren, Normfassungen, Regierungszuordnungen,
+  Gebietsstände, Timeline und Suchindex gemeinsam geprüft. Für D1 ist die Stichtagsänderung kein
+  Full-Trigger.
+- Hervorhebungen auf Startseite und Themenübersicht sind redaktionelle Entscheidungen in den
+  Themendaten (`highlightFrom`/`highlightUntil`); sie werden nicht gesetzt oder verlängert, um ein
+  Layout zu füllen. Die Startseite ist für eine, zwei und drei aktive Hervorhebungen gestaltet;
+  `content/portal/topic-coverage.json` legt die Mindestzahl fest.
 - Vor jeder Produktionsfreigabe erfolgt zusätzlich zu den automatisierten Prüfungen ein kurzer
   manueller Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-,
-  Tablet- und Desktopbreiten. Das Ergebnis wird im Release- bzw. Pull-Request-Kontext festgehalten;
-  die Dokumentation ersetzt den Test nicht.
-- Nach abgeschlossenen Arbeiten werden README, `CONTENT.md`, `CONTENT_GAPS.md`, `DESIGN.md`,
-  `docs/` und `knowledge/` auf veraltete Aufgaben und Aussagen geprüft. Generierte Wissensdateien
-  werden ausschließlich mit `npm run knowledge:build` aktualisiert.
-
-## Abhängigkeiten und Actions
-
-Dependabot öffnet wöchentlich reviewpflichtige Pull Requests für npm- und GitHub-Actions-
-Aktualisierungen. Jeder Pull Request führt `npm audit --audit-level=high` aus. Ein hoher oder
-kritischer Befund wird behoben, bevor die Änderung nach `main` gelangt. Eine vorübergehend nicht
-behebbare Ausnahme muss mit Advisory, betroffener Nutzung, Risikobewertung und Prüftermin im
-zentralen TODO der README dokumentiert werden. Major-Upgrades von Astro, Cloudflare-Adapter oder
-Wrangler benötigen die vollständige Testmatrix einschließlich Build, Browser-, Accessibility- und
-Visual-Tests.
+  Tablet- und Desktopbreiten.
+- Nach abgeschlossenen Arbeiten werden `README.md`, `CONTENT.md`, `CONTENT_GAPS.md`, `TODO.md`,
+  `DESIGN.md`, `docs/` und `knowledge/` auf veraltete Aussagen geprüft; Erledigtes wird entfernt,
+  nicht archiviert. Generierte Dateien (`knowledge/generated/`, `data/recht/consolidation-report.md`)
+  werden nur durch die Build-Befehle aktualisiert; `npm run docs:check` prüft Links und Struktur.
+- Dependabot öffnet wöchentlich reviewpflichtige Pull Requests für npm- und Actions-Updates. Ein
+  hoher oder kritischer Auditbefund wird behoben, bevor die Änderung nach `main` gelangt.
+  Major-Upgrades von Astro, Cloudflare-Adapter, Wrangler oder Playwright benötigen die vollständige
+  Testmatrix einschließlich Build, Vollbestand-, Browser-, Accessibility- und Visual-Tests; ein
+  Wrangler- oder Miniflare-Upgrade ändert den Seed-Fingerabdruck und erzeugt einmalig einen neuen
+  Seed.
