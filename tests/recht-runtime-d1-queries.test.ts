@@ -154,7 +154,7 @@ test('Aktuelle Änderungen der Startseite: je Norm ein Ereignis über eine Fenst
   assert.ok(log.every((query) => !loadsCorpus(query)));
 });
 
-test('Übersichten ohne Suchbegriff sortieren nach jüngstem Rechtsereignis (last_change_date), A–Z alphabetisch; die Volltextsuche bleibt nach Rang', async () => {
+test('Übersichten ohne Suchbegriff sortieren nach jüngster Rechtsänderung (last_change_date), A–Z alphabetisch; die Volltextsuche bleibt nach Rang', async () => {
   const { db, log } = recordingDatabase({ 'count(*)': [{ total: 0 }], 'COUNT(*)': [{ total: 0 }] });
   const store = createD1NormStore(db);
   await store.searchCandidates({ match: null, limit: 120, offset: 0 });
@@ -173,6 +173,47 @@ test('Übersichten ohne Suchbegriff sortieren nach jüngstem Rechtsereignis (las
   assert.equal(pages.length, 2);
   assert.match(pages[0].sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT/u);
   assert.match(pages[1].sql, /WHERE n\.index_letter = \? ORDER BY n\.sort_title, n\.slug LIMIT/u);
+});
+
+test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und Seite verwenden dieselben Bedingungen', async () => {
+  const { db, log } = recordingDatabase({ 'count(*)': [{ total: 0 }] });
+  const store = createD1NormStore(db);
+  await store.searchCandidates({
+    match: null,
+    limit: 120,
+    offset: 0,
+    types: ['gesetz'],
+    origins: ['ostdeutsch-original'],
+    ministries: ['Staatskanzlei des Freistaates Ostdeutschland'],
+    subjectSlugs: ['bildung-und-schule'],
+    statuses: ['in-force'],
+    publicationSources: ['OGVBl.'],
+    publicationYears: ['2026'],
+    versionScope: 'current',
+    includeAmendments: false,
+  });
+  const [page, count] = log;
+  // Normebene über die schmalen Spalten, Sachgebiet über die Zuordnungstabelle.
+  assert.match(page.sql, /AND n\.type IN \(\?\)/u);
+  assert.match(page.sql, /AND n\.origin_kind IN \(\?\)/u);
+  assert.match(page.sql, /AND n\.responsible_ministry IN \(\?\)/u);
+  assert.match(page.sql, /AND n\.status IN \(\?\)/u);
+  assert.match(page.sql, /AND n\.is_amendment = 0/u);
+  assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_norm_subjects sub WHERE sub\.norm_id = n\.id AND sub\.subject_slug IN \(\?\)\)/u);
+  // Fassungsart, Verkündungsblatt und Jahr muss dieselbe Fassung erfüllen: genau ein EXISTS.
+  assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_versions v WHERE v\.norm_id = n\.id AND v\.temporal_kind = \? AND v\.publication_source IN \(\?\) AND v\.publication_year IN \(\?\)\)/u);
+  assert.equal((page.sql.match(/FROM law_versions v/gu) ?? []).length, 1);
+  // Die Zählung darf keine andere Menge beschreiben als die Seite.
+  assert.match(count.sql, /^SELECT count\(\*\) AS total FROM law_norms n WHERE 1 = 1/u);
+  const conditions = (sql: string): string => sql.replace(/^.*WHERE 1 = 1/su, '').replace(/ ORDER BY.*$/su, '');
+  assert.equal(conditions(count.sql), conditions(page.sql));
+  assert.deepEqual(count.params, page.params.slice(0, -2));
+
+  // Ohne Filter bleibt die Abfrage unverändert schmal.
+  const { db: plainDb, log: plainLog } = recordingDatabase({ 'count(*)': [{ total: 0 }] });
+  await createD1NormStore(plainDb).searchCandidates({ match: null, limit: 120, offset: 0, includeAmendments: true });
+  assert.equal(plainLog[0].sql, 'SELECT n.slug FROM law_norms n WHERE 1 = 1 ORDER BY (n.last_change_date IS NULL), n.last_change_date DESC, n.sort_title, n.slug LIMIT ? OFFSET ?');
+  assert.deepEqual(plainLog[0].params, [120, 0]);
 });
 
 test('getNorm liest genau die Zeilen der angefragten Norm und die Körper der gewünschten Fassungen', async () => {

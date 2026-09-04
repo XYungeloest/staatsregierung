@@ -351,14 +351,14 @@ npm run norms:runtime:d1-verify -- --local --fts-integrity  # eingesetzte Projek
 
 ## Schema
 
-`data/recht/d1/0001_rechtsbestand.sql` bis `0006_index_letter_keywords.sql`; produktiv manuell mit
+`data/recht/d1/0001_rechtsbestand.sql` bis `0007_search_candidate_filters.sql`; produktiv manuell mit
 `wrangler d1 execute <Datenbank> --remote --file …` einspielen – zuerst lokal (`--apply-schema`),
 dann Staging, dann Produktion, nie automatisch.
 
 | Tabelle | Inhalt |
 | --- | --- |
-| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabenindex, `last_change_date` = jüngstes Rechtsereignis bis zum Stichtag: Standardsortierung der Übersichten ohne Suchbegriff) sowie `meta_json`, `history_json` |
-| `law_versions` | Fassungen ohne Körper (`version_json`), Vollzitat, Verkündungsbezug, zeitliche Einordnung |
+| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabenindex, `is_amendment`, `last_change_date` = jüngste Rechtsänderung bis zum Stichtag ohne bloße Hinweise: Standardsortierung der Übersichten und der Suche ohne Suchbegriff, `last_activity_date` = jüngstes Ereignis einschließlich Hinweisen für `lastmod`) sowie `meta_json`, `history_json` |
+| `law_versions` | Fassungen ohne Körper (`version_json`), Vollzitat, Verkündungsbezug (`publication_ref_json` sowie `publication_source` und `publication_year` als Filterspalten), zeitliche Einordnung (`temporal_kind`) |
 | `law_version_blocks` | äußere Body-Blöcke als JSON; große Blöcke in Teile (`part_index`) zerlegt |
 | `law_source_objects` | Quellenreferenzen je Fassung, bei R2 mit `object_key` |
 | `law_norm_derived` | Beziehungen, Empfehlungen, Herkunft, Textverweise, Portalbezüge |
@@ -374,8 +374,30 @@ ein Vollscan des FTS5-Index); die Vollprojektion leert die Tabellen einmalig (FT
 schreibt ohne normweise Löschungen und setzt die Laufzeitmetadaten erst am erfolgreichen Ende.
 Die Laufzeit lädt nie den Korpus: Übersichten lesen `NormSummary`-Zeilen mit SQL-Filtern, A–Z und
 Rechtsentwicklung paginieren serverseitig, korpusweite Zahlen kommen aus Metadatenzeilen, die
-Suche wählt Kandidaten über den FTS5-Index (Typ- und Herkunftsfilter bereits in SQL).
+Suche wählt Kandidaten über den FTS5-Index; jeder Filter, den die Projektion trägt, läuft bereits
+in SQL (Typ, Herkunft, Ressort, Sachgebiet, Status, Fassungsart, Verkündungsblatt, Jahr,
+Änderungsvorschriften), damit `total` dieselbe Menge zählt wie die Trefferliste.
 `tests/recht-runtime-d1-queries.test.ts` protokolliert die Abfrageformen jeder Route.
+
+### Bedeutung von `last_change_date` (Migration 0007)
+
+`law_norms.last_change_date` behält Name und Spalte, meint aber ab Migration 0007 ausschließlich
+die **Rechtsänderung** (Erlass, Änderung, Aufhebung, Fassungsbeginn) und nicht mehr jedes
+dokumentierte Ereignis: ein reiner Hinweis oder Berichtigungshinweis (`notice`) zählt nicht mehr
+mit. Die alte Bedeutung steht in der neuen Spalte `last_activity_date` und trägt `lastmod` der
+Sitemap. Zentrale Definitionen: `getNormLastChangeDate` und `getNormLastActivityDate` in
+`packages/shared/src/lib/norms/versions.ts`.
+
+Folge für den nächsten Sync: Die Projektionslogik hat sich geändert, damit auch die
+Projektionsidentität. Der automatische inkrementelle Sync lehnt den Lauf fail-closed ab; nötig ist
+eine **Vollprojektion** (`--full --budget full`), zuerst lokal, dann gegen
+`ostrecht-recht-staging`, dann produktiv – kein produktiver `--full`-Sync ohne diesen Grund und
+nie ohne Budgetprofil. Reihenfolge wie immer: Migration einspielen, dann projizieren. Die
+Migration füllt `last_activity_date`, `is_amendment`, `publication_source` und `publication_year`
+für vorhandene Zeilen bereits richtig, damit zwischen Migration und Vollprojektion weder die
+Trefferzählung noch `lastmod` falsch wird; erst die Vollprojektion zieht `last_change_date` auf
+die neue Bedeutung nach. Betroffen sind wenige Normen – nur solche, deren jüngstes Ereignis ein
+Hinweis ist.
 
 ## Datenform ändern: Expand/Contract
 

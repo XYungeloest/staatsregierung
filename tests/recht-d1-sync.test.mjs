@@ -162,6 +162,51 @@ test('Migration 0005 führt genau die Trigger und Indizes des Schemamoduls', asy
   }
 });
 
+test('Migration 0007 ergänzt die Filterspalten der Kandidatenabfrage und füllt sie für vorhandene Zeilen', async () => {
+  const migration = await readFile(new URL('../data/recht/d1/0007_search_candidate_filters.sql', import.meta.url), 'utf8');
+  for (const column of ['last_activity_date', 'is_amendment']) {
+    assert.ok(migration.includes(`ALTER TABLE law_norms ADD COLUMN ${column}`), column);
+  }
+  for (const column of ['publication_source', 'publication_year']) {
+    assert.ok(migration.includes(`ALTER TABLE law_versions ADD COLUMN ${column}`), column);
+  }
+  // Backfill: Altzeilen tragen sofort den richtigen Wert, sonst zählt die Suche zwischen
+  // Migration und Sync eine falsche Menge und die Sitemap meldet ein falsches lastmod.
+  assert.match(migration, /UPDATE law_norms SET last_activity_date = last_change_date/u);
+  assert.match(migration, /UPDATE law_norms SET is_amendment = COALESCE\(\(\s*SELECT max\(CASE WHEN json_extract\(d\.document_json, '\$\.isAmendment'\)/u);
+  assert.match(migration, /UPDATE law_versions SET\s+publication_source = json_extract\(publication_ref_json, '\$\.publication'\)/u);
+  assert.match(migration, /CREATE INDEX IF NOT EXISTS idx_law_versions_candidate ON law_versions\(norm_id, temporal_kind, publication_source, publication_year\)/u);
+});
+
+test('die Projektion schreibt Rechtsänderung, Aktivität, Änderungskennzeichen und Fundstellenspalten je Norm', async () => {
+  const { norms, context } = await fixture();
+  const amendment = norms.find((norm) => norm.meta.type === 'aenderungsvorschrift');
+  const statute = norms.find((norm) => norm.meta.slug === 'ostdeutsches-feiertagsgesetz');
+  const normInsert = (norm) => normQueries(norm, context, NOW, { full: true })
+    .find((query) => query.sql.startsWith('INSERT INTO law_norms'));
+  const versionInsert = (norm) => normQueries(norm, context, NOW, { full: true })
+    .find((query) => query.sql.startsWith('INSERT INTO law_versions'));
+
+  for (const [norm, expected] of [[amendment, 1], [statute, 0]]) {
+    const insert = normInsert(norm);
+    const columns = insert.sql.slice(insert.sql.indexOf('(') + 1, insert.sql.indexOf(')')).split(',').map((name) => name.trim());
+    assert.equal(columns.length, insert.params.length, 'Spalten und Werte müssen sich decken');
+    assert.equal(insert.params[columns.indexOf('is_amendment')], expected, norm.meta.slug);
+    const change = insert.params[columns.indexOf('last_change_date')];
+    const activity = insert.params[columns.indexOf('last_activity_date')];
+    // Die Rechtsänderung liegt nie nach der Aktivität; ein Hinweis kann die Aktivität anheben.
+    assert.ok(!change || !activity || change <= activity, `${norm.meta.slug}: ${change} > ${activity}`);
+  }
+
+  const versions = versionInsert(statute);
+  const versionColumns = versions.sql.slice(versions.sql.indexOf('(') + 1, versions.sql.indexOf(')')).split(',').map((name) => name.trim());
+  assert.equal(versionColumns.length, versions.params.length);
+  const source = versions.params[versionColumns.indexOf('publication_source')];
+  const year = versions.params[versionColumns.indexOf('publication_year')];
+  assert.equal(year === null, source === null, 'Verkündungsblatt und Jahr kommen aus derselben Fundstelle');
+  if (year !== null) assert.match(year, /^\d{4}$/u);
+});
+
 test('Budgetgrenzen für gelesene und geschriebene Zeilen brechen den Lauf ab', () => {
   const stats = createStats({ maxRowsRead: 100, maxRowsWritten: 50 });
   recordResults(stats, [{ meta: { rows_read: 60, rows_written: 10, duration: 2 } }], { queries: 3, batches: 1 });
