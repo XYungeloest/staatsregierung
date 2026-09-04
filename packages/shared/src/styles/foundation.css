@@ -51,6 +51,10 @@
   --space-section: clamp(2.5rem, 5vw, 4.5rem);
   --header-height: 6.25rem;
   --focus-ring: 0 0 0 5px rgba(255, 255, 255, 0.9);
+  /* Fokusschein: standardmäßig aus. Dunkle Flächen setzen ihn neben ihrem Hintergrund auf
+     `var(--focus-ring)`; er vererbt sich damit an ihre Bedienelemente. Auf hellem Grund trägt
+     die Outline allein, dort wäre der weiße Schein wirkungslos. */
+  --focus-halo: none;
 }
 
 * {
@@ -105,6 +109,7 @@ textarea:focus-visible,
 summary:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
+  box-shadow: var(--focus-halo);
 }
 
 p,

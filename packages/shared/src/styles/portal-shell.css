@@ -13,11 +13,23 @@ summary:focus-visible {
   outline-color: var(--color-focus);
 }
 
-/* Der weiße Fokusschein trennt den Fokusrahmen nur auf dunklen Flächen sichtbar ab; auf hellem
-   Grund bleibt er wirkungslos und wird deshalb nicht gesetzt. */
-:is(.site-notice, .service-band, .site-footer, .law-notice, .law-footer)
-  :is(a, button, input, select, textarea, summary):focus-visible {
-  box-shadow: var(--focus-ring);
+/* Dunkle Flächen: dort verschwindet die blaue Outline im Hintergrund, erst der weiße Schein
+   trennt den Fokusrahmen ab. Das Token gehört zur Fläche, nicht zu einer Aufzählung von
+   Vorfahren – eine neue dunkle Fläche setzt es neben ihrem `background` mit. */
+.site-notice,
+.service-band,
+.site-footer,
+.law-notice,
+.law-footer,
+.home-hero,
+.home-lead-feature,
+.law-service-card,
+.law-subject-stats__total,
+.topic-comparison__head,
+.home-freestate-card__mark span:nth-child(1),
+.home-hero-search__control button:hover,
+.header-search--mobile button:hover {
+  --focus-halo: var(--focus-ring);
 }
 
 .skip-link {
