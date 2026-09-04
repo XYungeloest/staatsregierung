@@ -308,12 +308,21 @@ const componentVisualPages = [
  * Paar angezeigt und die Statuszeile leer ist (sonst zeigt die Baseline einen Zwischenstand).
  */
 async function awaitSettled(page: Page, path: string): Promise<void> {
-  if (!path.includes('/vergleich/')) return;
   const url = new URL(path, 'http://127.0.0.1');
-  const from = url.searchParams.get('von');
-  const to = url.searchParams.get('bis');
-  if (from && to) await expect(page.locator('[data-compare-output]')).toHaveAttribute('data-compare-pair', `${from}::${to}`);
-  await expect(page.locator('[data-compare-feedback]')).toHaveText('');
+  if (path.includes('/vergleich/')) {
+    const from = url.searchParams.get('von');
+    const to = url.searchParams.get('bis');
+    if (from && to) await expect(page.locator('[data-compare-output]')).toHaveAttribute('data-compare-pair', `${from}::${to}`);
+    await expect(page.locator('[data-compare-feedback]')).toHaveText('');
+  }
+  // Die Rechtssuche lädt Kandidaten und Treffer nach dem Seitenaufbau; erst der fertige
+  // Trefferstand („n Treffer“ oder „Keine Treffer“) ist die Baseline.
+  if (path.startsWith('http://127.0.0.1:4322') && url.pathname === '/suche/') {
+    const summary = page.locator('[data-search-summary]');
+    await expect(summary).toBeVisible();
+    await expect(summary).not.toContainText(/werden geladen/u);
+    await expect(summary).toContainText(/Treffer/u);
+  }
 }
 
 for (const entry of visualPages) {
