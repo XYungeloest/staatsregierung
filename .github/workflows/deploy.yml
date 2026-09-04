@@ -458,6 +458,8 @@ jobs:
       - name: Git im Container sicherstellen (Seed-Fingerabdruck liest Git-Blob-Kennungen)
         run: command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends git)
       - uses: actions/checkout@v7
+      - name: Arbeitsbaum für Git im Container freigeben (Checkout gehört einem anderen Benutzer)
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Abhängigkeiten (Node.js des Containers)
         uses: ./.github/actions/setup-node-modules
         with:
