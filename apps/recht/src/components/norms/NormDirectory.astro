@@ -2,6 +2,7 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import NormOriginBadge from './NormOriginBadge.astro';
 import {
   formatDate,
   formatNormStatus,
@@ -73,9 +74,10 @@ const subjects = [...new Set(norms.flatMap((norm) => norm.subjects.map(toDisplay
                   data-q={`${norm.title} ${norm.shortTitle} ${norm.abbr ?? ''}`}
                   data-subject={norm.subjects.join(' ')}
                   data-status={norm.status}
+                  data-origin={norm.originKind ?? 'origin-unresolved'}
                 >
                   <div>
-                    <span class="law-type-label">{formatNormType(norm.type)}</span>
+                    <span class="record-list__meta"><span class="law-type-label">{formatNormType(norm.type)}</span><NormOriginBadge kind={norm.originKind} /></span>
                     <h3><a href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a></h3>
                     {norm.abbr ? <p class="law-directory-group__abbr">{toDisplayText(norm.abbr)}</p> : null}
                     <p>{toDisplayText(norm.summary)}</p>

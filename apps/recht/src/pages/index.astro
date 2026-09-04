@@ -1,6 +1,7 @@
 ---
 import LawLayout from '../layouts/LawLayout.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
 import { formatDate, formatNormType, getAdministrativeRulesUrl, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getLawsUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getRegulationsUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, getBerlinCalendarDate, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
 
@@ -104,7 +105,7 @@ const quickAccess = [
               <div>
                 <h3><a href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a></h3>
                 <p>{toDisplayText(change.title)}</p>
-                <a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a>
+                <p class="record-list__meta"><NormOriginBadge kind={change.originKind} /><a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a></p>
               </div>
             </li>
           ))}

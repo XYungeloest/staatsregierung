@@ -570,7 +570,6 @@ function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchInd
     versionKind: 'current',
     isAmendment: false,
     origin: 'ostdeutsch-original',
-    originLabel: 'Eigenständig neu geschaffen',
     title: 'Straßen- und Krankenhausgesetz',
     shortTitle: 'Straßengesetz',
     abbr: 'StrG',
@@ -600,7 +599,6 @@ function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchInd
       text: 'Die Straße dient der Krankenhausversorgung.',
       anchor: 'paragraf-1',
     }],
-    resultLabel: 'Geltende Fassung',
     ...overrides,
   };
 }

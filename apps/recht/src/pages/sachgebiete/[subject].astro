@@ -2,6 +2,7 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import NormOriginBadge from '../../components/norms/NormOriginBadge.astro';
 import {
   formatNormType,
   getLawPortalUrl,
@@ -98,7 +99,7 @@ const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
           </div>
           <div class="law-subject-record-list__content">
             <a href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a>
-            <span>{toDisplayText(norm.responsibleMinistry)}</span>
+            <span class="record-list__meta">{norm.responsibleMinistry ? <span>{toDisplayText(norm.responsibleMinistry)}</span> : null}<NormOriginBadge kind={norm.originKind} /></span>
           </div>
           <span class="law-subject-record-list__arrow" aria-hidden="true">→</span>
         </li>

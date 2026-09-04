@@ -184,9 +184,41 @@ export function classifyNormOriginVersion(
   return 'inherited-amended';
 }
 
+/**
+ * Öffentliche Bezeichnungen der Rechtsherkunft. Alle Oberflächen (Filter, Listen,
+ * Suchtreffer, Normseite) verwenden diese Funktionen; es gibt keine zweite
+ * Herkunftsbezeichnung im Browser.
+ *
+ * - `formatNormOriginKind`: ausgeschriebene Bezeichnung für Filter, Zähler und Erläuterungen
+ * - `formatNormOriginBadge('compact')`: kurze Kennzeichnung in Listen und Trefferzeilen
+ * - `formatNormOriginBadge('full')`: Kennzeichnung auf der Normseite und im Suchtreffer
+ */
 export function formatNormOriginKind(kind: NormOriginKind): string {
-  if (kind === 'ostdeutsch-original') return 'Eigenständig neu geschaffen';
-  if (kind === 'inherited-amended') return 'Übernommen und geändert';
+  if (kind === 'ostdeutsch-original') return 'Ostdeutsch neu geschaffen';
+  if (kind === 'inherited-amended') return 'Übernommen und ostdeutsch geändert';
   if (kind === 'inherited-unchanged') return 'Übernommen und unverändert';
-  return 'Herkunft nicht abschließend belegt';
+  return 'Herkunft ungeklärt';
+}
+
+export type NormOriginBadgeVariant = 'compact' | 'full';
+
+export function formatNormOriginBadge(kind: NormOriginKind, variant: NormOriginBadgeVariant = 'compact'): string {
+  if (variant === 'full') {
+    if (kind === 'ostdeutsch-original') return 'Ostdeutsche Neuregelung';
+    if (kind === 'inherited-amended') return 'Übernommen · ostdeutsch geändert';
+    if (kind === 'inherited-unchanged') return 'Übernommen · unverändert';
+    return 'Herkunft noch nicht abschließend belegt';
+  }
+  if (kind === 'ostdeutsch-original') return 'Ostdeutsch neu';
+  if (kind === 'inherited-amended') return 'Übernommen · geändert';
+  if (kind === 'inherited-unchanged') return 'Übernommen · unverändert';
+  return 'Herkunft ungeklärt';
+}
+
+/** Kurze, für Tooltips und Screenreader geeignete Erläuterung der Herkunftsart. */
+export function describeNormOriginKind(kind: NormOriginKind): string {
+  if (kind === 'ostdeutsch-original') return 'Erst im Freistaat Ostdeutschland geschaffen.';
+  if (kind === 'inherited-amended') return 'Aus dem sächsischen Rechtsstand vom 1. November 2023 übernommen und seitdem ostdeutsch geändert.';
+  if (kind === 'inherited-unchanged') return 'Aus dem sächsischen Rechtsstand vom 1. November 2023 übernommen und seitdem nicht geändert.';
+  return 'Die Herkunft dieser Vorschrift ist noch nicht abschließend belegt.';
 }

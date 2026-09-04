@@ -1,5 +1,6 @@
 import {
   buildSearchVariants,
+  formatSearchResultLabel,
   getActiveSearchSort,
   getDefaultSearchSort,
   getDetectedNormTypeIntent,
@@ -16,6 +17,8 @@ import {
   type VersionScope,
 } from '@ostrecht/recht-search/search-query.ts';
 import type { SearchIndexDocument, SearchPublication } from '@ostrecht/recht-search/search.ts';
+import { describeNormOriginKind, formatNormOriginBadge } from '@ostrecht/shared/lib/norms/origin.ts';
+import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 
 const PAGE_SIZE = 20;
 const INPUT_DEBOUNCE_MS = 120;
@@ -37,6 +40,8 @@ const REQUEST_DEBOUNCE_MS = 250;
 let activeRequest: AbortController | undefined;
 let loadedDocuments: PreparedSearchDocument[] = [];
 let loadedPublications: SearchPublication[] = [];
+// Redaktioneller Stichtag der Anzeige; die Such-API liefert ihn mit jeder Antwort.
+let referenceDate = EDITORIAL_REFERENCE_DATE;
 let lastOffset = 0;
 let lastLimit = 0;
 let lastTotal = 0;
@@ -423,6 +428,11 @@ function badgeClass(entry: SearchIndexDocument): string {
   return 'status-badge--amber';
 }
 
+/** Kompakte Metazeile unter dem Titel: Normtyp und Rechtsherkunft (zentrale Semantik aus origin.ts). */
+function originBadgeMarkup(entry: SearchIndexDocument): string {
+  return `<span class="origin-badge origin-badge--${escapeHtml(entry.origin)} origin-badge--full" data-origin-kind="${escapeHtml(entry.origin)}" title="${escapeHtml(describeNormOriginKind(entry.origin))}"><span class="origin-badge__dot" aria-hidden="true"></span><span class="origin-badge__label">${escapeHtml(formatNormOriginBadge(entry.origin, 'full'))}</span></span>`;
+}
+
 function validityLabel(entry: SearchIndexDocument): string {
   const from = formatDate(entry.validFrom);
   if (entry.validTo) return `${from} bis ${formatDate(entry.validTo)}`;
@@ -443,14 +453,17 @@ function renderVersion(result: ScoredSearchResult, heading = true): string {
   const identity = heading
     ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>${secondaryTitle}${entry.abbr ? `<p class="search-hit__abbr">${escapeHtml(entry.abbr)}</p>` : ''}`
     : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`;
+  const metaLine = heading
+    ? `<p class="search-hit__meta-line"><span class="law-type-label">${escapeHtml(entry.typeLabel)}</span><span class="search-hit__meta-separator" aria-hidden="true">·</span>${originBadgeMarkup(entry)}</p>`
+    : '';
   return `
     <article class="search-hit">
       <div class="search-hit__header">
         <div class="search-hit__title">
-          <span class="law-type-label">${escapeHtml(entry.typeLabel)}</span>
           ${identity}
+          ${metaLine}
         </div>
-        <span class="status-badge ${badgeClass(entry)}">${escapeHtml(entry.resultLabel)}</span>
+        <span class="status-badge ${badgeClass(entry)}">${escapeHtml(formatSearchResultLabel(entry, referenceDate))}</span>
       </div>
       <p class="search-hit__match" data-search-match-kind="${escapeHtml(result.matchKind)}">${escapeHtml(result.matchLabel)}</p>
       ${bestHitMarkup(result)}
@@ -461,7 +474,6 @@ function renderVersion(result: ScoredSearchResult, heading = true): string {
         <dl class="search-hit__facts">
           <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
           <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
-          <div><dt>Rechtsherkunft</dt><dd>${escapeHtml(entry.originLabel)}</dd></div>
           <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>
         </dl>
       </details>
@@ -568,6 +580,7 @@ function buildCandidateUrl(state: NormSearchState, offset: number): string {
 }
 
 interface CandidatePayload {
+  referenceDate?: string;
   total: number;
   offset: number;
   limit: number;
@@ -592,6 +605,7 @@ async function loadCandidates(state: NormSearchState, offset: number, append: bo
     const prepared = prepareSearchDocuments(payload.documents);
     loadedDocuments = append ? [...loadedDocuments, ...prepared] : prepared;
     loadedPublications = payload.publications ?? [];
+    if (payload.referenceDate) referenceDate = payload.referenceDate;
     lastOffset = payload.offset;
     lastLimit = payload.limit;
     lastTotal = payload.total;
