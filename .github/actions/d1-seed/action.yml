@@ -1,0 +1,90 @@
+name: Lokaler D1-Seed von OstRecht
+description: >-
+  Stellt die lokale D1-Projektion für den OstRecht-Worker bereit (scripts/d1-runtime-seed.mjs):
+  Seed-Fingerabdruck bestimmen, passenden SQLite-Snapshot aus dem Actions-Cache wiederherstellen,
+  verifizieren (Identität, Zustand, Zähler, FTS5-Integrität) und in den Miniflare-Zustand einsetzen.
+  Nur ohne verwendbaren Snapshot wird genau einmal projiziert; der neue Snapshot wird danach für
+  spätere Läufe im Cache gespeichert. Ein Cache-Treffer wird nie blind übernommen.
+inputs:
+  fixture:
+    description: Pfad des Testfixtures (leer = gesamter Rechtsbestand)
+    required: false
+    default: ''
+  persist-to:
+    description: Miniflare-Persist-Verzeichnis des Workers
+    required: false
+    default: .cache/wrangler-local
+  cache:
+    description: Snapshot über den Actions-Cache teilen (true für den Vollbestand)
+    required: false
+    default: 'true'
+  force:
+    description: Vorhandene Snapshots ignorieren und neu projizieren (Nachweis des Cache-Miss-Pfads)
+    required: false
+    default: 'false'
+outputs:
+  status:
+    description: current | restored (Snapshot aus dem Cache, keine Projektion) | built (genau eine Projektion)
+    value: ${{ steps.ensure.outputs.seed_status }}
+  fingerprint:
+    description: Seed-Fingerabdruck
+    value: ${{ steps.fingerprint.outputs.fingerprint }}
+  cache-hit:
+    description: true, wenn der Snapshot aus dem Cache kam
+    value: ${{ steps.restore.outputs.cache-hit }}
+  build-seconds:
+    description: Dauer der Projektion (0 bei Cache-Treffer)
+    value: ${{ steps.ensure.outputs.seed_build_seconds }}
+  verify-seconds:
+    description: Dauer der Verifikation
+    value: ${{ steps.ensure.outputs.seed_verify_seconds }}
+  install-seconds:
+    description: Dauer des Einsetzens in Miniflare
+    value: ${{ steps.ensure.outputs.seed_install_seconds }}
+  total-seconds:
+    description: Gesamtdauer des Seeds
+    value: ${{ steps.ensure.outputs.seed_total_seconds }}
+runs:
+  using: composite
+  steps:
+    - name: Seed-Fingerabdruck bestimmen
+      id: fingerprint
+      shell: bash
+      env:
+        OSTRECHT_D1_FIXTURE: ${{ inputs.fixture }}
+      run: |
+        node --experimental-strip-types scripts/d1-runtime-seed.mjs fingerprint --json > "$RUNNER_TEMP/d1-seed-fingerprint.json"
+        FINGERPRINT="$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1], "utf8")).fingerprint)' "$RUNNER_TEMP/d1-seed-fingerprint.json")"
+        SNAPSHOT="$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1], "utf8")).snapshot)' "$RUNNER_TEMP/d1-seed-fingerprint.json")"
+        echo "fingerprint=$FINGERPRINT" >> "$GITHUB_OUTPUT"
+        echo "snapshot=$SNAPSHOT" >> "$GITHUB_OUTPUT"
+        echo "Seed-Fingerabdruck $FINGERPRINT → $SNAPSHOT"
+    - name: Seed-Snapshot aus dem Cache wiederherstellen
+      id: restore
+      if: ${{ inputs.cache == 'true' && inputs.force != 'true' }}
+      uses: actions/cache/restore@v6
+      with:
+        path: |
+          ${{ steps.fingerprint.outputs.snapshot }}
+          ${{ steps.fingerprint.outputs.snapshot }}.json
+        key: d1-seed-${{ steps.fingerprint.outputs.fingerprint }}
+    - name: "Seed verifizieren und einsetzen (nur ohne Snapshot: einmal projizieren)"
+      id: ensure
+      shell: bash
+      env:
+        OSTRECHT_D1_FIXTURE: ${{ inputs.fixture }}
+        OSTRECHT_D1_PERSIST_TO: ${{ inputs.persist-to }}
+      run: |
+        if [ "${{ inputs.force }}" = "true" ]; then
+          node --experimental-strip-types scripts/d1-runtime-seed.mjs ensure --force
+        else
+          node --experimental-strip-types scripts/d1-runtime-seed.mjs ensure
+        fi
+    - name: Neuen Seed-Snapshot im Cache speichern
+      if: ${{ inputs.cache == 'true' && steps.ensure.outputs.seed_status == 'built' }}
+      uses: actions/cache/save@v6
+      with:
+        path: |
+          ${{ steps.fingerprint.outputs.snapshot }}
+          ${{ steps.fingerprint.outputs.snapshot }}.json
+        key: d1-seed-${{ steps.fingerprint.outputs.fingerprint }}

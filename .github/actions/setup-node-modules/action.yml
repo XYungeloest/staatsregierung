@@ -1,0 +1,46 @@
+name: Node.js und Abhängigkeiten
+description: >-
+  Richtet Node.js ein und stellt node_modules aus dem Actions-Cache wieder her (Schlüssel: Betriebssystem,
+  Node-Version, package-lock.json). Nur ohne Cache-Treffer läuft npm ci. Der Cache ist ein reiner
+  Beschleuniger – jeder Job kann ihn jederzeit verlieren und fällt dann auf npm ci zurück.
+inputs:
+  node-version:
+    description: Node.js-Version (leer = Node.js des Runners bzw. Containers verwenden)
+    required: false
+    default: '22'
+outputs:
+  cache-hit:
+    description: true, wenn node_modules aus dem Cache kam
+    value: ${{ steps.cache.outputs.cache-hit }}
+runs:
+  using: composite
+  steps:
+    - name: Node.js einrichten
+      if: ${{ inputs.node-version != '' }}
+      uses: actions/setup-node@v7
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Node-Version für den Cache-Schlüssel ermitteln
+      id: node
+      shell: bash
+      run: echo "version=$(node --version)" >> "$GITHUB_OUTPUT"
+    - name: node_modules aus dem Cache wiederherstellen
+      id: cache
+      uses: actions/cache@v6
+      with:
+        path: |
+          node_modules
+          apps/*/node_modules
+          packages/*/node_modules
+        key: node-modules-${{ runner.os }}-${{ runner.arch }}-${{ steps.node.outputs.version }}-${{ hashFiles('package-lock.json') }}
+    - name: Abhängigkeiten installieren (nur ohne Cache-Treffer)
+      if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+      shell: bash
+      run: |
+        START=$(date +%s)
+        npm ci
+        echo "npm ci: $(( $(date +%s) - START )) s (kein node_modules-Cache-Treffer)"
+    - name: Cache-Treffer melden
+      if: ${{ steps.cache.outputs.cache-hit == 'true' }}
+      shell: bash
+      run: echo "node_modules aus dem Cache (Schlüssel node-modules-${{ runner.os }}-${{ runner.arch }}-${{ steps.node.outputs.version }}-…); npm ci übersprungen."
