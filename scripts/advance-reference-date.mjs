@@ -18,10 +18,16 @@ import { pathToFileURL } from 'node:url';
  *   node scripts/advance-reference-date.mjs --to 2026-09-04 --write    # Stichtag und Status schreiben
  *   Optionen: --from <Datum> (Standard: bisheriger Stichtag), --json (maschinenlesbarer Bericht)
  *
+ * Das Werkzeug schreibt den Stichtag nur vorwärts (fail-closed): ein Zielstichtag vor dem
+ * Ausgangsstichtag wird abgelehnt, bevor irgendetwas gelesen oder geschrieben wird, weil die
+ * Statuslogik keine reversible Zeitreise ist (ein einmal auf `in-force` oder `repealed`
+ * gesetzter Status ließe sich nicht verlässlich zurückrechnen). Derselbe Stichtag ist ein
+ * erlaubter No-op.
+ *
  * Es werden ausschließlich `status` in meta.json und `referenceDate` in editorial.json
  * geschrieben; Quellen, Fassungen, Historie und Verkündungen bleiben unverändert. Themen mit
- * ablaufender Hervorhebung werden gemeldet; die Content-Prüfung verlangt weiterhin mindestens
- * eine laufende Hervorhebung am neuen Stichtag.
+ * ablaufender Hervorhebung werden gemeldet; die Content-Prüfung verlangt die in
+ * content/portal/topic-coverage.json festgelegte Mindestzahl laufender Hervorhebungen.
  */
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/u;
@@ -31,6 +37,17 @@ export const EDITORIAL_CONFIG_PATH = 'packages/shared/src/config/editorial.json'
 function assertIsoDate(value, label) {
   if (typeof value !== 'string' || !ISO_DATE.test(value)) throw new Error(`${label} muss ein ISO-Datum (YYYY-MM-DD) sein, erhalten: ${String(value)}`);
   return value;
+}
+
+export class ReferenceDateRegressionError extends Error {}
+
+/** Fail-closed: der Stichtag wird nur fortgeschrieben, nie zurückdatiert (gleicher Stichtag ist erlaubt). */
+export function assertForwardOnly(from, to) {
+  assertIsoDate(from, 'Ausgangsstichtag');
+  assertIsoDate(to, 'Zielstichtag');
+  if (to < from) {
+    throw new ReferenceDateRegressionError(`Rückdatierung abgelehnt: Zielstichtag ${to} liegt vor dem Ausgangsstichtag ${from}. Das Werkzeug schreibt den Stichtag nur vorwärts; die Statuslogik ist nicht reversibel. Es wurde nichts geschrieben.`);
+  }
 }
 
 /** Status einer Norm zu einem Stichtag – dieselben Regeln wie scripts/check-content.mjs und der Importer. */
@@ -58,8 +75,7 @@ function versionKindAt(version, asOf) {
  * @param {{ norms: Array<{ slug: string, meta: object, versions: Array<{ versionId: string, validFrom: string, validTo: string | null }> }>, from: string, to: string }} input
  */
 export function planReferenceDateAdvance({ norms, from, to }) {
-  assertIsoDate(from, 'Ausgangsstichtag');
-  assertIsoDate(to, 'Zielstichtag');
+  assertForwardOnly(from, to);
   const statusChanges = [];
   const versionChanges = [];
   for (const norm of [...norms].sort((left, right) => left.slug.localeCompare(right.slug))) {
@@ -128,6 +144,8 @@ export async function main(argv = process.argv.slice(2), root = resolve(process.
   const to = valueAfter('--to');
   if (!to) throw new Error('Verwendung: node scripts/advance-reference-date.mjs --to <YYYY-MM-DD> [--from <YYYY-MM-DD>] [--write] [--json]');
   assertIsoDate(to, '--to');
+  // Vor jedem Lesen des Bestands und vor jedem Schreiben: nur vorwärts.
+  assertForwardOnly(from, to);
 
   const norms = await loadNormsForPlan(root);
   const plan = planReferenceDateAdvance({ norms, from, to });

@@ -17,7 +17,7 @@ import {
   type VersionScope,
 } from '@ostrecht/recht-search/search-query.ts';
 import type { SearchIndexDocument, SearchPublication } from '@ostrecht/recht-search/search.ts';
-import { describeNormOriginKind, formatNormOriginBadge } from '@ostrecht/shared/lib/norms/origin.ts';
+import { NORM_ORIGIN_KINDS, describeNormOriginKind, formatNormOriginBadge, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 
 const PAGE_SIZE = 20;
@@ -56,7 +56,7 @@ const FACET_VALUE_GETTERS: Record<string, (entry: SearchIndexDocument) => readon
   ministry: (entry) => [entry.ministry],
   subject: (entry) => entry.subjects,
   status: (entry) => [entry.status],
-  origin: (entry) => [entry.origin],
+  origin: (entry) => [originOf(entry)],
   publicationSource: (entry) => entry.publicationSource ? [entry.publicationSource] : [],
   publicationYear: (entry) => entry.publicationYear ? [entry.publicationYear] : [],
 };
@@ -428,9 +428,19 @@ function badgeClass(entry: SearchIndexDocument): string {
   return 'status-badge--amber';
 }
 
+/**
+ * Rechtsherkunft eines Suchdokuments fail-safe lesen. Während eines Rollouts kann ein älterer
+ * Worker kurzzeitig neuere Suchdokumente lesen (Expand/Contract, docs/DEPLOYMENT_RUNBOOK.md):
+ * ein fehlender oder unbekannter Wert wird als „ungeklärt“ dargestellt, nie als leerer Text.
+ */
+function originOf(entry: SearchIndexDocument): NormOriginKind {
+  return (NORM_ORIGIN_KINDS as readonly string[]).includes(entry.origin) ? entry.origin : 'origin-unresolved';
+}
+
 /** Kompakte Metazeile unter dem Titel: Normtyp und Rechtsherkunft (zentrale Semantik aus origin.ts). */
 function originBadgeMarkup(entry: SearchIndexDocument): string {
-  return `<span class="origin-badge origin-badge--${escapeHtml(entry.origin)} origin-badge--full" data-origin-kind="${escapeHtml(entry.origin)}" title="${escapeHtml(describeNormOriginKind(entry.origin))}"><span class="origin-badge__dot" aria-hidden="true"></span><span class="origin-badge__label">${escapeHtml(formatNormOriginBadge(entry.origin, 'full'))}</span></span>`;
+  const origin = originOf(entry);
+  return `<span class="origin-badge origin-badge--${escapeHtml(origin)} origin-badge--full" data-origin-kind="${escapeHtml(origin)}" title="${escapeHtml(describeNormOriginKind(origin))}"><span class="origin-badge__dot" aria-hidden="true"></span><span class="origin-badge__label">${escapeHtml(formatNormOriginBadge(origin, 'full'))}</span></span>`;
 }
 
 function validityLabel(entry: SearchIndexDocument): string {
@@ -454,7 +464,7 @@ function renderVersion(result: ScoredSearchResult, heading = true): string {
     ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>${secondaryTitle}${entry.abbr ? `<p class="search-hit__abbr">${escapeHtml(entry.abbr)}</p>` : ''}`
     : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`;
   const metaLine = heading
-    ? `<p class="search-hit__meta-line"><span class="law-type-label">${escapeHtml(entry.typeLabel)}</span><span class="search-hit__meta-separator" aria-hidden="true">·</span>${originBadgeMarkup(entry)}</p>`
+    ? `<p class="search-hit__meta-line"><span class="law-type-label">${escapeHtml(entry.typeLabel ?? '')}</span><span class="search-hit__meta-separator" aria-hidden="true">·</span>${originBadgeMarkup(entry)}</p>`
     : '';
   return `
     <article class="search-hit">
@@ -565,15 +575,17 @@ function renderResults(results: ScoredSearchResult[], state: NormSearchState, pu
 }
 
 function candidateQueryKey(state: NormSearchState): string {
-  return JSON.stringify([state.q, state.exact, state.citation, state.types]);
+  return JSON.stringify([state.q, state.exact, state.citation, state.types, state.origins]);
 }
 
+/** Kandidatenanfrage an /api/suche.json; Normtyp und Rechtsherkunft filtern dort bereits serverseitig. */
 function buildCandidateUrl(state: NormSearchState, offset: number): string {
   const params = new URLSearchParams();
   if (state.q) params.set('q', state.q);
   if (state.exact) params.set('exact', state.exact);
   if (state.citation) params.set('citation', state.citation);
   for (const type of state.types) params.append('type', type);
+  for (const origin of state.origins) params.append('origin', origin);
   if (offset > 0) params.set('offset', String(offset));
   const query = params.toString();
   return query ? `${searchApiUrl}?${query}` : searchApiUrl;

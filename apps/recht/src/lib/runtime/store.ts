@@ -267,7 +267,8 @@ export interface NormStore {
   /** Suchdokumente der gewünschten Normen (alle Fassungen) samt Provisionen der geltenden Fassung. */
   /** `unitsMatch`: FTS-Ausdruck, auf den die gelieferten Provisionen eingeschränkt werden; null = alle Provisionen; undefined = keine. */
   getSearchDocuments(slugs: string[], unitsMatch: string | null | undefined): Promise<SearchCandidate[]>;
-  searchCandidates(query: { match: string | null; limit: number; offset: number; types?: string[] }): Promise<{ slugs: string[]; total: number }>;
+  /** Kandidatenmenge der Suche; Normtyp und Rechtsherkunft (`origins`, law_norms.origin_kind) filtern bereits serverseitig, damit total und Pagination den Filter berücksichtigen. */
+  searchCandidates(query: { match: string | null; limit: number; offset: number; types?: string[]; origins?: NormOriginKind[] }): Promise<{ slugs: string[]; total: number }>;
   getRuntimeMeta(key: string): Promise<string | null>;
   /** Anzeigebezeichnungen (geltende Fassung) für eine Slug-Liste, z. B. Bezüge in Historieneinträgen. */
   getNormLabels(slugs: string[]): Promise<Map<string, { title: string; shortTitle: string }>>;
@@ -783,15 +784,18 @@ export function createD1NormStore(db: D1Database): NormStore {
         units: (unitsByKey.get(`${row.norm_id}:${row.version_id}`) ?? []).sort((left, right) => left.unitIndex - right.unitIndex),
       }));
     },
-    async searchCandidates({ match, limit, offset, types = [] }) {
+    async searchCandidates({ match, limit, offset, types = [], origins = [] }) {
+      // Typ- und Herkunftsfilter laufen über die schmalen, indizierten Spalten von law_norms.
       const typeFilter = types.length > 0 ? ` AND n.type IN (${types.map(() => '?').join(', ')})` : '';
+      const originFilter = origins.length > 0 ? ` AND n.origin_kind IN (${origins.map(() => '?').join(', ')})` : '';
+      const filterParams = [...types, ...origins];
       if (match) {
-        const rows = await db.prepare(`SELECT s.slug, min(s.rank) AS best FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter} GROUP BY s.slug ORDER BY best LIMIT ? OFFSET ?`).bind(match, ...types, limit, offset).all<{ slug: string }>();
-        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}`).bind(match, ...types).first<{ total: number }>();
+        const rows = await db.prepare(`SELECT s.slug, min(s.rank) AS best FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}${originFilter} GROUP BY s.slug ORDER BY best LIMIT ? OFFSET ?`).bind(match, ...filterParams, limit, offset).all<{ slug: string }>();
+        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}${originFilter}`).bind(match, ...filterParams).first<{ total: number }>();
         return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
       }
-      const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${typeFilter} ORDER BY n.current_valid_from DESC, n.sort_title LIMIT ? OFFSET ?`).bind(...types, limit, offset).all<{ slug: string }>();
-      const total = await db.prepare(`SELECT count(*) AS total FROM law_norms n WHERE 1 = 1${typeFilter}`).bind(...types).first<{ total: number }>();
+      const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${typeFilter}${originFilter} ORDER BY n.current_valid_from DESC, n.sort_title LIMIT ? OFFSET ?`).bind(...filterParams, limit, offset).all<{ slug: string }>();
+      const total = await db.prepare(`SELECT count(*) AS total FROM law_norms n WHERE 1 = 1${typeFilter}${originFilter}`).bind(...filterParams).first<{ total: number }>();
       return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
     },
     async getRuntimeMeta(key) {
@@ -1023,11 +1027,13 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         });
       });
     },
-    async searchCandidates({ match, limit, offset, types = [] }) {
+    async searchCandidates({ match, limit, offset, types = [], origins = [] }) {
       const ctx = await context();
+      const originBySlug = origins.length > 0 ? new Map((await summaries()).map((summary) => [summary.slug, summary.originKind])) : null;
       const terms = (match ?? '').toLocaleLowerCase('de').replace(/[()"*]/gu, '').split(/\s+(?:OR|AND)\s+|\s+/u).filter(Boolean);
       const matching = ctx.norms.filter((record) => {
         if (types.length > 0 && !types.includes(record.meta.type)) return false;
+        if (originBySlug && !origins.includes(originBySlug.get(record.meta.slug) as NormOriginKind)) return false;
         if (terms.length === 0) return true;
         const haystack = [record.meta.title, record.meta.shortTitle, record.meta.abbr ?? '', ...record.versions.flatMap((version) => [version.title ?? '', version.shortTitle ?? ''])].join(' ').toLocaleLowerCase('de');
         return terms.some((term) => haystack.includes(term));

@@ -87,6 +87,17 @@ test('Suchkandidaten und Suchdokumente der Dateivariante entsprechen dem Suchind
   assert.ok(candidate.units.length > 0 || candidate.document.versionKind !== 'current');
   const typed = await store.searchCandidates({ match: null, limit: 5, offset: 0, types: ['verordnung'] });
   assert.ok(typed.slugs.length > 0);
+  // Herkunftsfilter: Kandidatenmenge und Gesamtzahl berücksichtigen die Rechtsherkunft bereits serverseitig.
+  const all = await store.searchCandidates({ match: null, limit: 1000, offset: 0 });
+  const originals = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['ostdeutsch-original'] });
+  const inherited = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['inherited-unchanged', 'inherited-amended'] });
+  assert.ok(originals.total > 0 && originals.total < all.total);
+  assert.equal(originals.slugs.length, originals.total);
+  const summariesBySlug = new Map((await store.listNormSummaries()).map((summary) => [summary.slug, summary]));
+  assert.ok(originals.slugs.every((slug) => summariesBySlug.get(slug)?.originKind === 'ostdeutsch-original'));
+  assert.ok(inherited.slugs.every((slug) => summariesBySlug.get(slug)?.originKind?.startsWith('inherited-')));
+  const searched = await store.searchCandidates({ match: '("feiertag"*)', limit: 10, offset: 0, origins: ['ostdeutsch-original'] });
+  assert.ok(!searched.slugs.includes('ostdeutsches-feiertagsgesetz'), 'übernommene Norm fällt beim Filter auf ostdeutsch-original heraus');
 });
 
 test('Body-Blöcke werden aus Teilen in Reihenfolge zusammengesetzt', () => {

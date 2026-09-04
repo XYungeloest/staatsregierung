@@ -95,6 +95,25 @@ test('Suche lädt keinen Korpus: FTS-Kandidaten, Suchdokumente der Kandidaten, E
   assert.ok(log.some((query) => query.sql.includes("key = ?") && query.params.includes('search_publications_json')));
 });
 
+test('Herkunftsfilter der Suche läuft serverseitig über law_norms.origin_kind – für Kandidaten und Gesamtzahl, mit und ohne Suchausdruck', async () => {
+  const { db, log } = recordingDatabase({ 'min(s.rank)': [{ slug: 'a' }], 'count(DISTINCT s.slug)': [{ total: 1 }] });
+  const store = createD1NormStore(db);
+  await store.searchCandidates({ match: '("gesetz"*)', limit: 120, offset: 0, types: ['gesetz'], origins: ['inherited-amended', 'ostdeutsch-original'] });
+  const [candidates, total] = log;
+  assert.match(candidates.sql, /WHERE law_search MATCH \? AND n\.type IN \(\?\) AND n\.origin_kind IN \(\?, \?\) GROUP BY s\.slug/u);
+  assert.deepEqual(candidates.params, ['("gesetz"*)', 'gesetz', 'inherited-amended', 'ostdeutsch-original', 120, 0]);
+  assert.match(total.sql, /count\(DISTINCT s\.slug\).*AND n\.origin_kind IN \(\?, \?\)$/u);
+  assert.deepEqual(total.params, ['("gesetz"*)', 'gesetz', 'inherited-amended', 'ostdeutsch-original']);
+  const browse = recordingDatabase();
+  await createD1NormStore(browse.db).searchCandidates({ match: null, limit: 50, offset: 100, origins: ['inherited-unchanged'] });
+  assert.match(browse.log[0].sql, /FROM law_norms n WHERE 1 = 1 AND n\.origin_kind IN \(\?\) ORDER BY/u);
+  assert.deepEqual(browse.log[0].params, ['inherited-unchanged', 50, 100]);
+  assert.match(browse.log[1].sql, /count\(\*\).*AND n\.origin_kind IN \(\?\)$/u);
+  const unfiltered = recordingDatabase();
+  await createD1NormStore(unfiltered.db).searchCandidates({ match: null, limit: 50, offset: 0 });
+  assert.ok(unfiltered.log.every((query) => !query.sql.includes('origin_kind')), 'ohne Herkunftsfilter keine Herkunftsbedingung');
+});
+
 test('Startseiten- und Übersichtsabfragen lesen Metadatenzeilen, Historie über den Datumsindex und begrenzte Listen', async () => {
   const { db, log } = recordingDatabase({
     "key = ?": [{ value: '[]' }],

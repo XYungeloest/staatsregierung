@@ -714,6 +714,27 @@ siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften u
   await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsche Neuregelung');
   await page.goto(lawUrl('/suche/?q=Interflug&origin=inherited-unchanged'));
   await expect(page.locator('[data-search-summary]')).toContainText('Keine Treffer');
+  // Die Kandidaten-API filtert die Herkunft bereits serverseitig: total, Kandidatenmenge und
+  // Dokumente tragen nur die gewünschte Herkunft; unbekannte Werte werden ignoriert.
+  const filtered = await page.request.get(lawUrl('/api/suche.json?q=Gesetz&origin=inherited-amended'));
+  expect(filtered.ok()).toBe(true);
+  const filteredPayload = await filtered.json() as { total: number; candidateCount: number; query: { origins: string[] }; documents: Array<{ origin: string }> };
+  expect(filteredPayload.query.origins).toEqual(['inherited-amended']);
+  expect(filteredPayload.total).toBeGreaterThan(0);
+  expect(filteredPayload.candidateCount).toBeLessThanOrEqual(filteredPayload.total);
+  expect(filteredPayload.documents.length).toBeGreaterThan(0);
+  expect(filteredPayload.documents.every((entry) => entry.origin === 'inherited-amended')).toBe(true);
+  const unfiltered = await page.request.get(lawUrl('/api/suche.json?q=Gesetz'));
+  const unfilteredPayload = await unfiltered.json() as { total: number };
+  expect(unfilteredPayload.total).toBeGreaterThan(filteredPayload.total);
+  const ignored = await page.request.get(lawUrl('/api/suche.json?q=Gesetz&origin=bogus'));
+  const ignoredPayload = await ignored.json() as { total: number; query: { origins: string[] } };
+  expect(ignoredPayload.query.origins).toEqual([]);
+  expect(ignoredPayload.total).toBe(unfilteredPayload.total);
+  const none = await page.request.get(lawUrl('/api/suche.json?q=Interflug&origin=inherited-unchanged'));
+  const nonePayload = await none.json() as { total: number; documents: unknown[] };
+  expect(nonePayload.total).toBe(0);
+  expect(nonePayload.documents).toEqual([]);
   // Autovervollständigung kennt die geltenden Gesetze.
   const suggestions = await page.request.get(lawUrl('/search-suggestions.json'));
   const payload = await suggestions.json() as { suggestions: Array<{ slug: string; abbr: string }> };
@@ -759,6 +780,16 @@ siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält Norm- 
   await page.locator('.letter-nav a[data-index-letter="G"]').click();
   await expect(page).toHaveURL(/buchstabe=G/u);
   await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
+});
+
+siteTest(['law'])('A–Z hält Norm- und Stichwortseite unabhängig (mehrseitige Buchstabengruppe)', async ({ page }) => {
+  // Zwei gleichzeitig paginierte Dimensionen gibt es erst ab 50 Normen und 100 Stichwörtern je
+  // Buchstabe – also nur mit dem Vollbestand. Das Fixture prüft den Rückfall auf die letzte
+  // vorhandene Seite an anderer Stelle; hier wird ohne zweite Seite übersprungen statt geraten.
+  await page.goto(lawUrl('/archiv/?buchstabe=G'));
+  const indexPages = await page.locator('[data-index-pagination] a[aria-label^="Seite "]').count();
+  const keywordPages = await page.locator('[data-keyword-pagination] a[aria-label^="Stichwortseite "]').count();
+  test.skip(indexPages < 2 || keywordPages < 2, `Buchstabe G hat ${indexPages} Norm- und ${keywordPages} Stichwortseiten; die Unabhängigkeit beider Paginierungen wird mit dem Vollbestand geprüft.`);
 
   // Beide Paginierungen derselben Seite behalten den jeweils anderen Zustand.
   await page.goto(lawUrl('/archiv/?buchstabe=G&seite=2&stichwortseite=2'));
