@@ -769,25 +769,50 @@ async function executeSqlFile(filePath, { local = false, persistTo, attempts = D
 }
 
 /** Liest die gespeicherten Fingerabdrücke aus law_runtime_meta (null, wenn nicht lesbar). */
-async function readStoredIdentity({ transport, config, local, persistTo, databaseName, stats }) {
+/**
+ * Einordnung eines Fehlers beim Lesen der gespeicherten Identität: nur eine noch nicht
+ * migrierte Datenbank (fehlende Tabelle) gilt als „keine Identität“. Vorübergehende Transport-
+ * fehler werden wiederholt, alles andere bricht ab – ein Lesefehler darf nie als leere Datenbank
+ * gelten, sonst würde der automatische Sync eine Recovery-Vollprojektion auslösen.
+ * @returns {'missing-table' | 'transient' | 'fatal'}
+ */
+export function classifyStoredIdentityError(message) {
+  const text = String(message ?? '');
+  if (/no such table|SQLITE_ERROR.*law_runtime_meta|D1_ERROR: no such table/iu.test(text)) return 'missing-table';
+  if (isTransientD1Error(text)) return 'transient';
+  return 'fatal';
+}
+
+async function readStoredIdentity({ transport, config, local, persistTo, databaseName, stats, attempts = D1_FILE_ATTEMPTS }) {
   const sql = "SELECT key, value FROM law_runtime_meta WHERE key IN ('projection_fingerprint', 'projection_scope', 'sync_state', 'corpus_hash', 'sync_mode', 'last_sync_at', 'norm_count', 'publication_count')";
-  try {
-    let results;
-    if (transport === 'api') {
-      const payload = await cloudflareQuery(config, [q(sql)]);
-      recordResults(stats, payload.result ?? [], { queries: 1, batches: 1 });
-      results = payload.result?.[0]?.results ?? [];
-    } else {
-      const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
-      const { stdout } = await runWrangler(['d1', 'execute', databaseName, ...target, '--json', '--command', sql]);
-      const payload = parseWranglerJson(stdout);
-      recordResults(stats, payload ?? [], { queries: 1, batches: 1 });
-      results = payload?.[0]?.results ?? [];
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      let results;
+      if (transport === 'api') {
+        const payload = await cloudflareQuery(config, [q(sql)]);
+        recordResults(stats, payload.result ?? [], { queries: 1, batches: 1 });
+        results = payload.result?.[0]?.results ?? [];
+      } else {
+        const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
+        const { stdout } = await runWrangler(['d1', 'execute', databaseName, ...target, '--json', '--command', sql]);
+        const payload = parseWranglerJson(stdout);
+        recordResults(stats, payload ?? [], { queries: 1, batches: 1 });
+        results = payload?.[0]?.results ?? [];
+      }
+      return Object.fromEntries(results.map((row) => [row.key, row.value]));
+    } catch (error) {
+      if (error instanceof SyncBudgetExceeded) throw error;
+      const message = error instanceof Error ? error.message : String(error);
+      const kind = classifyStoredIdentityError(message);
+      if (kind === 'missing-table') return null;
+      if (kind === 'transient' && attempt < attempts) {
+        const delayMs = Math.min(5_000 * attempt, 30_000);
+        console.warn(`Gespeicherte Identität konnte nicht gelesen werden (Versuch ${attempt}/${attempts}), neuer Versuch in ${delayMs / 1000} s: ${message.trim().slice(-200)}`);
+        await new Promise((resolveDelay) => setTimeout(resolveDelay, delayMs));
+        continue;
+      }
+      throw new Error(`Gespeicherte Identität in D1 nicht lesbar (fail-closed, keine Entscheidung ohne Zustand): ${message.trim().slice(-300)}`);
     }
-    return Object.fromEntries(results.map((row) => [row.key, row.value]));
-  } catch (error) {
-    if (error instanceof SyncBudgetExceeded) throw error;
-    return null;
   }
 }
 

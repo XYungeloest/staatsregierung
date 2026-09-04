@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
-  D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, decideSyncAction, estimatePlanCost,
+  D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, classifyStoredIdentityError, decideSyncAction, estimatePlanCost,
   identityMetaValues, incrementalStartQueries, isTransientD1Error, renderStatement, resolveBudget, runtimeMetaQueries,
 } from '../scripts/sync-recht-d1.mjs';
 
@@ -183,4 +183,13 @@ test('vorübergehende Cloudflare-Fehler beim Hochladen einer SQL-Datei werden er
     'D1_ERROR: near "SELEC": syntax error at offset 0', 'Lesebudget überschritten: 70000 gelesene Zeilen > Budget 60000', 'Unknown database ostrecht-recht-x', 'no such table: law_norms',
   ]) assert.equal(isTransientD1Error(message), false, message);
   assert.ok(D1_FILE_ATTEMPTS >= 6);
+});
+
+test('ein Lesefehler der gespeicherten Identität gilt nie als leere Datenbank: nur eine fehlende Tabelle ist „keine Identität“, Transportfehler werden wiederholt, alles andere bricht ab', () => {
+  assert.equal(classifyStoredIdentityError('D1_ERROR: no such table: law_runtime_meta'), 'missing-table');
+  assert.equal(classifyStoredIdentityError('File could not be uploaded. Please retry. ServiceUnavailable'), 'transient');
+  assert.equal(classifyStoredIdentityError('fetch failed'), 'transient');
+  assert.equal(classifyStoredIdentityError('Authentication error [code: 10000]'), 'transient');
+  assert.equal(classifyStoredIdentityError('wrangler d1 execute lieferte kein JSON'), 'fatal');
+  assert.equal(classifyStoredIdentityError('Unknown database'), 'fatal');
 });
