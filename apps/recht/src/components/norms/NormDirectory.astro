@@ -2,96 +2,54 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import NormOriginBadge from './NormOriginBadge.astro';
-import {
-  formatDate,
-  formatNormStatus,
-  formatNormType,
-  getLawPortalUrl,
-  getNormUrl,
-  getSearchUrl,
-  toDisplayText,
-} from '@ostrecht/shared/lib/norms/index.ts';
-import { groupSummariesByLetter } from '../../lib/runtime/overview.ts';
-import type { NormSummary } from '../../lib/runtime/store.ts';
+import NormDirectoryListing from '../directory/NormDirectoryListing.astro';
+import { getLawPortalUrl, getSearchUrl } from '@ostrecht/shared/lib/norms/index.ts';
+import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
+import { loadNormDirectory } from '../../lib/runtime/directory.ts';
 
+/**
+ * Normtyp-Verzeichnis (Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien):
+ * Bereichskopf mit Volltextsuche, darunter das gemeinsame Verzeichnismuster. Filter und Seiten
+ * laufen serverseitig; ein Aufruf liefert höchstens eine Seite.
+ */
 interface Props {
   title: string;
   lead: string;
   href: string;
-  /** Übersichtszeilen (NormSummary) des Normtyps; kein vollständiger Datensatz. */
-  norms: NormSummary[];
+  type: NormType;
 }
 
-const { title, lead, href, norms } = Astro.props;
-const groups = groupSummariesByLetter(norms);
-const groupLookup = new Map(groups.map((group) => [group.letter, group]));
-const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '#'];
-const subjects = [...new Set(norms.flatMap((norm) => norm.subjects.map(toDisplayText)))].sort((left, right) => left.localeCompare(right, 'de'));
+const { title, lead, href, type } = Astro.props;
+const store = await getNormStore(Astro.locals);
+const { filters } = await store.getSearchFilters();
+const view = await loadNormDirectory(store, {
+  basePath: href,
+  scope: { types: [type] },
+  searchParams: Astro.url.searchParams,
+  fields: ['q', 'subject', 'status', 'origin'],
+  filterOptions: { subjects: filters.subjects },
+});
+const pageTitle = view.result.page > 1 ? `${title} (Seite ${view.result.page} von ${view.result.pageCount})` : title;
 ---
 
 <LawLayout
-  title={title}
-  description={`${title} des Ostdeutschen Freistaates alphabetisch und nach Sachgebiet recherchieren.`}
+  title={pageTitle}
+  description={`${title} des Ostdeutschen Freistaates alphabetisch, nach Sachgebiet und Rechtsstand recherchieren.`}
   breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: title, href }]}
+  canonical={view.canonical}
+  noindex={view.noindex}
+  prev={view.pagination.prev}
+  next={view.pagination.next}
 >
   <Breadcrumbs items={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: title }]} />
-  <SectionHero eyebrow="Rechtsportal" title={title} lead={lead} variant="law" facts={[{ label: 'Vorschriften', value: String(norms.length) }]}>
+  <SectionHero eyebrow="Rechtsportal" title={title} lead={lead} variant="law">
     <form class="law-directory-search" action={getSearchUrl()} method="get">
-      <input type="hidden" name="type" value={norms[0]?.type ?? ''} />
+      <input type="hidden" name="type" value={type} />
       <label class="search-field"><span>Volltextsuche in diesem Normtyp</span><input type="search" name="q" placeholder={`${title} durchsuchen`} autocomplete="off" data-law-norm-autocomplete data-law-suggestions-url={`${import.meta.env.BASE_URL}search-suggestions.json`} /></label>
       <button class="button-link" type="submit">Suchen</button>
     </form>
   </SectionHero>
 
-  <div data-law-list-filter>
-    <section class="law-directory-tools" aria-labelledby="directory-filter-title">
-      <div>
-        <h2 id="directory-filter-title">Alphabet und Filter</h2>
-        <nav class="letter-nav" aria-label="Buchstaben-Navigation">
-          {alphabet.map((letter) => groupLookup.has(letter)
-            ? <a href={`#directory-${letter}`} data-law-filter-letter={letter}>{letter}</a>
-            : <span aria-disabled="true" data-law-filter-letter={letter}>{letter}</span>)}
-        </nav>
-      </div>
-      <form class="law-directory-filters" data-law-filter-form>
-        <label class="search-field"><span>Titel oder Abkürzung</span><input type="search" name="q" /></label>
-        <label class="search-field"><span>Sachgebiet</span><select name="subject"><option value="">Alle Sachgebiete</option>{subjects.map((subject) => <option value={subject}>{subject}</option>)}</select></label>
-        <label class="search-field"><span>Rechtsstand</span><select name="status"><option value="">Alle Rechtsstände</option><option value="in-force">Geltend</option><option value="future-effective">Zukünftig</option><option value="historical|repealed">Historisch oder aufgehoben</option></select></label>
-        <button class="button-link" type="submit">Filtern</button>
-      </form>
-      <p class="search-feedback" aria-live="polite" data-law-filter-summary></p>
-    </section>
-
-    <div class="law-directory-list">
-      {groups.map((group) => (
-        <section id={`directory-${group.letter}`} class="law-directory-group" data-law-filter-group={group.letter}>
-          <h2>{group.letter}</h2>
-          <ol>
-            {group.norms.map((norm) => (
-                <li
-                  data-law-filter-entry
-                  data-q={`${norm.title} ${norm.shortTitle} ${norm.abbr ?? ''}`}
-                  data-subject={norm.subjects.join(' ')}
-                  data-status={norm.status}
-                  data-origin={norm.originKind ?? 'origin-unresolved'}
-                >
-                  <div>
-                    <span class="record-list__meta"><span class="law-type-label">{formatNormType(norm.type)}</span><NormOriginBadge kind={norm.originKind} /></span>
-                    <h3><a href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a></h3>
-                    {norm.abbr ? <p class="law-directory-group__abbr">{toDisplayText(norm.abbr)}</p> : null}
-                    <p>{toDisplayText(norm.summary)}</p>
-                  </div>
-                  <dl>
-                    <div><dt>Rechtsstand</dt><dd>{formatNormStatus(norm.status)}</dd></div>
-                    <div><dt>Fassung seit</dt><dd><time datetime={norm.currentValidFrom}>{formatDate(norm.currentValidFrom)}</time></dd></div>
-                  </dl>
-                </li>
-            ))}
-          </ol>
-        </section>
-      ))}
-    </div>
-  </div>
-  <script>import '../../scripts/law-list-filter.ts';</script>
+  <NormDirectoryListing view={view} heading={`${title} im Verzeichnis`} filterLabel={`${title} filtern`} />
 </LawLayout>

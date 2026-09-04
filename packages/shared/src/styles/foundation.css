@@ -148,9 +148,8 @@ dd {
 /* Listenelemente tragen im Portal ueberwiegend Layout (Karten, Raster,
    Trefferzeilen). Dort gilt die Lesebreite des Fliesstexts nicht; sonst
    endet jede Verzeichniskarte bei 78ch statt an der Spaltenkante. */
-.law-directory-group li,
+.directory-list > li,
 .law-dashboard-list > li,
-.law-subject-record-list > li,
 .record-list > li,
 .norm-version-picker__content ul > li {
   max-width: none;

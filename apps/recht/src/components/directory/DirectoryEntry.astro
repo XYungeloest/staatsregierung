@@ -1,0 +1,101 @@
+---
+import NormOriginBadge from '../norms/NormOriginBadge.astro';
+import type { NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+
+/**
+ * Gemeinsamer Verzeichniseintrag aller Übersichten (Gesetze, Verordnungen,
+ * Verwaltungsvorschriften, Verkündungen, Fundstellen, Förderrichtlinien, Rechtsentwicklung,
+ * Sachgebiete): links Datum oder Buchstabe, Mitte Titel mit Kurzbeschreibung, rechts Metadaten
+ * als Definitionsliste, darunter die Badgezeile. Vorlage war NormDirectory.astro.
+ */
+export interface DirectoryFact {
+  label: string;
+  value: string;
+  datetime?: string;
+  href?: string;
+}
+
+export interface DirectoryAction {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  href: string;
+  /** Linke Spalte: Datum (mit `datetime`) oder Buchstabe/Kurztext. */
+  lead?: { text: string; datetime?: string };
+  /** Abkürzung oder Kurzbezeichnung unter dem Titel. */
+  subtitle?: string;
+  description?: string;
+  facts?: DirectoryFact[];
+  /** Rechtsherkunft in der Badgezeile; `null` zeigt „ungeklärt“, `undefined` lässt die Kennzeichnung weg. */
+  originKind?: NormOriginKind | null;
+  /** Normtyp oder vergleichbares Etikett am Anfang der Badgezeile. */
+  typeLabel?: string;
+  actions?: DirectoryAction[];
+  headingLevel?: 2 | 3;
+  /** Kompakte Zeile (Titel und Fakten nebeneinander), z. B. für Sachgebiete. */
+  compact?: boolean;
+  /** Zusätzliche Attribute (data-*) am Listenelement. */
+  attrs?: Record<string, string | undefined>;
+}
+
+const {
+  title,
+  href,
+  lead,
+  subtitle,
+  description,
+  facts = [],
+  originKind,
+  typeLabel,
+  actions = [],
+  headingLevel = 3,
+  compact = false,
+  attrs = {},
+} = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+const hasBadges = Boolean(typeLabel) || originKind !== undefined || Astro.slots.has('badges');
+---
+
+<li class:list={['directory-entry', { 'directory-entry--compact': compact }]} {...attrs}>
+  {lead ? (
+    <div class="directory-entry__lead">
+      {lead.datetime ? <time datetime={lead.datetime}>{lead.text}</time> : <span>{lead.text}</span>}
+    </div>
+  ) : null}
+  <div class="directory-entry__main">
+    <Heading class="directory-entry__title"><a href={href}>{title}</a></Heading>
+    {subtitle ? <p class="directory-entry__subtitle">{subtitle}</p> : null}
+    {description ? <p class="directory-entry__description">{description}</p> : null}
+    {hasBadges ? (
+      <p class="directory-entry__badges">
+        {typeLabel ? <span class="law-type-label">{typeLabel}</span> : null}
+        {originKind !== undefined ? <NormOriginBadge kind={originKind} /> : null}
+        <slot name="badges" />
+      </p>
+    ) : null}
+    {actions.length > 0 ? (
+      <nav class="directory-entry__actions" aria-label={`Wege zu ${title}`}>
+        {actions.map((action) => <a href={action.href}>{action.label}</a>)}
+      </nav>
+    ) : null}
+  </div>
+  {facts.length > 0 ? (
+    <dl class="directory-entry__facts">
+      {facts.map((fact) => (
+        <div>
+          <dt>{fact.label}</dt>
+          <dd>
+            {fact.href
+              ? <a href={fact.href}>{fact.value}</a>
+              : fact.datetime
+                ? <time datetime={fact.datetime}>{fact.value}</time>
+                : fact.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  ) : null}
+</li>
