@@ -339,7 +339,11 @@ for (const entry of visualPages) {
   });
 }
 
-test('Komponenten-Basislinie: mobile OstRecht-Navigation', async ({ page }, testInfo) => {
+/** Portal-Seiten nur prüfen, wenn das Staatsportal ausgewählt ist (SITE_TARGETS); OstRecht-Läufe überspringen sie. */
+const portalTest = isSelected('/') ? test : test.skip;
+const lawTest = isSelected('http://127.0.0.1:4322/') ? test : test.skip;
+
+lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-390', 'Die geöffnete mobile Navigation wird einmal bei 390 Pixeln geprüft.');
   await preparePage(page);
   await page.goto(lawUrl('/'));
@@ -382,7 +386,7 @@ for (const entry of componentVisualPages) {
   });
 }
 
-test('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabellenzugang', async ({ page }) => {
+portalTest('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabellenzugang', async ({ page }) => {
   await preparePage(page);
   await page.goto('/kreisreform/');
   await page.locator('[data-kreisreform-search-input]').fill('Abtsbessingen');
@@ -396,7 +400,7 @@ test('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabellenzugan
   await verifyViewport(page);
 });
 
-test('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
+portalTest('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
   await preparePage(page);
   await page.goto('/kreisreform/');
 
@@ -408,7 +412,7 @@ test('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
   await expect(page.locator('[data-kreisreform-search-detail]')).toBeVisible();
 });
 
-test('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) => {
+portalTest('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) => {
   await preparePage(page);
   await page.goto('/suche/');
 
@@ -434,7 +438,7 @@ test('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) 
   await expect(error).toBeHidden();
 });
 
-test('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
+portalTest('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
   await preparePage(page);
   await page.goto('/haushalt/');
 
@@ -456,7 +460,7 @@ test('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', asyn
   await verifyViewport(page);
 });
 
-test('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ page }) => {
+portalTest('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ page }) => {
   await preparePage(page);
   await page.goto('/haushalt/');
 
@@ -469,7 +473,7 @@ test('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ pag
   expect((headingBox?.x ?? 0) - (headerBox?.x ?? 0)).toBeGreaterThanOrEqual(24);
 });
 
-test('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) => {
+portalTest('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) => {
   await preparePage(page);
   await page.goto('/kreisreform/');
 
@@ -482,7 +486,7 @@ test('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) 
   await expect(gate).toHaveScreenshot('kreisreform-karte.png');
 });
 
-test('Consent-Hinweis ist lesbar und ablehnbar', async ({ page }) => {
+portalTest('Consent-Hinweis ist lesbar und ablehnbar', async ({ page }) => {
   await preparePage(page, '');
   await page.goto('/');
 
