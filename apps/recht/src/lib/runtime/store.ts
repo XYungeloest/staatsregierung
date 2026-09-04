@@ -187,6 +187,8 @@ export interface NormChange {
   normTitle: string;
   normShortTitle: string;
   type: NormType;
+  /** Rechtsherkunft der geänderten Norm (law_norms.origin_kind). */
+  originKind?: NormOriginKind;
   date: string;
   changeType: HistoryEntryType;
   title: string;
@@ -632,7 +634,7 @@ export function createD1NormStore(db: D1Database): NormStore {
         conditions.push('h.change_date > ?');
         params.push(after);
       }
-      const rows = await db.prepare(`SELECT n.slug, n.title, n.short_title, n.type, h.change_date, h.change_type, h.title AS entry_title, h.citation, h.note, h.affecting_version_id, h.related_norm
+      const rows = await db.prepare(`SELECT n.slug, n.title, n.short_title, n.type, n.origin_kind, h.change_date, h.change_type, h.title AS entry_title, h.citation, h.note, h.affecting_version_id, h.related_norm
         FROM law_norm_history h JOIN law_norms n ON n.id = h.norm_id WHERE ${conditions.join(' AND ')}
         ORDER BY h.change_date ${order === 'asc' ? 'ASC' : 'DESC'}, n.sort_title LIMIT ?`).bind(...params, limit).all<Record<string, string | null>>();
       return rows.results.map((row) => ({
@@ -640,6 +642,7 @@ export function createD1NormStore(db: D1Database): NormStore {
         normTitle: row.title as string,
         normShortTitle: row.short_title as string,
         type: row.type as NormType,
+        ...(row.origin_kind ? { originKind: row.origin_kind as NormOriginKind } : {}),
         date: row.change_date as string,
         changeType: row.change_type as HistoryEntryType,
         title: row.entry_title as string,
@@ -918,8 +921,10 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     },
     async listChanges({ changeTypes, until, after, order, limit }) {
       const wanted = new Set(changeTypes);
+      const originBySlug = new Map((await summaries()).map((summary) => [summary.slug, summary.originKind]));
       const entries = (await context()).norms.flatMap((record) => {
         const identity = identityFor(record);
+        const originKind = originBySlug.get(record.meta.slug);
         return record.history.entries
           .filter((entry) => wanted.has(entry.type) && (!until || entry.date <= until) && (!after || entry.date > after))
           .map((entry): NormChange => ({
@@ -927,6 +932,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
             normTitle: identity.title,
             normShortTitle: identity.shortTitle,
             type: record.meta.type,
+            ...(originKind ? { originKind } : {}),
             date: entry.date,
             changeType: entry.type,
             title: entry.title,

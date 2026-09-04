@@ -2,11 +2,16 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import NormOriginBadge from '../../components/norms/NormOriginBadge.astro';
 import {
+  describeNormOriginKind,
+  formatNormOriginKind,
   formatNormType,
+  getLawDevelopmentOverviewUrl,
   getLawPortalUrl,
   getNormUrl,
   toDisplayText,
+  type NormOriginKind,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { DEFAULT_PAGE_SIZE, KEYWORD_PAGE_SIZE, normalizePage } from '../../lib/runtime/store.ts';
@@ -20,41 +25,66 @@ const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
 const basePath = getLawPortalUrl() + 'archiv/';
-const letters = await store.listIndexLetters();
+// Reihenfolge der Herkunftsarten in Filter und Übersicht: übernommen (unverändert, geändert), neu, ungeklärt.
+const originKinds: NormOriginKind[] = ['inherited-unchanged', 'inherited-amended', 'ostdeutsch-original', 'origin-unresolved'];
+const [letters, originCounts] = await Promise.all([store.listIndexLetters(), store.countByOriginKind()]);
 const requestedLetter = (Astro.url.searchParams.get('buchstabe') ?? '').trim().toLocaleUpperCase('de-DE').slice(0, 1);
 const availableLetters = letters.map((entry) => entry.letter);
 const letter = availableLetters.includes(requestedLetter) ? requestedLetter : (availableLetters.includes('A') ? 'A' : availableLetters[0] ?? 'A');
+// Herkunftsfilter (`herkunft`): dieselben internen Werte wie Suche und Rechtsentwicklung.
+const requestedOrigin = (Astro.url.searchParams.get('herkunft') ?? '').trim();
+const originKind: NormOriginKind | '' = (originKinds as string[]).includes(requestedOrigin) ? (requestedOrigin as NormOriginKind) : '';
 const { page: requestedPage } = normalizePage(Astro.url.searchParams.get('seite'));
-const result = await store.queryNormSummaries({ letter, page: requestedPage, pageSize: DEFAULT_PAGE_SIZE });
+const result = await store.queryNormSummaries({ letter, originKind: originKind || undefined, page: requestedPage, pageSize: DEFAULT_PAGE_SIZE });
 const totalNorms = letters.reduce((sum, entry) => sum + entry.count, 0);
 // Stichwortindex der Buchstabengruppe: serverseitiger Teilstringfilter (`stichwort`) und eigene
 // Seiten (`stichwortseite`, 100 Stichwörter je Seite); der lokale Filter wirkt zusätzlich auf die
-// geladene Seite.
+// geladene Seite. Norm- und Stichwortseiten sind unabhängige Zustände derselben Adresse.
 const keywordFilter = (Astro.url.searchParams.get('stichwort') ?? '').trim().slice(0, 100);
 const { page: requestedKeywordPage } = normalizePage(Astro.url.searchParams.get('stichwortseite'), KEYWORD_PAGE_SIZE);
 const keywords = await store.listKeywordIndex(letter, { q: keywordFilter || undefined, page: requestedKeywordPage, pageSize: KEYWORD_PAGE_SIZE });
-const stateParams = { buchstabe: letter, seite: result.page > 1 ? String(result.page) : '', stichwort: keywordFilter, stichwortseite: keywords.page > 1 ? String(keywords.page) : '' };
-const pagination = buildPagination({ page: result.page, pageCount: result.pageCount, basePath, params: { buchstabe: letter, stichwort: keywordFilter, stichwortseite: stateParams.stichwortseite } });
-const keywordPagination = buildPagination({ page: keywords.page, pageCount: keywords.pageCount, basePath, params: { buchstabe: letter, seite: stateParams.seite, stichwort: keywordFilter } });
-// buildPagination schreibt `seite`; für den Stichwortindex heißt der Parameter `stichwortseite`.
-const keywordPageHref = (href: string): string => href.replace(/([?&])seite=(\d+)/u, (_match, separator: string, page: string) => `${separator}stichwortseite=${page}`);
+const stateParams = {
+  buchstabe: letter,
+  herkunft: originKind,
+  seite: result.page > 1 ? String(result.page) : '',
+  stichwort: keywordFilter,
+  stichwortseite: keywords.page > 1 ? String(keywords.page) : '',
+};
+const pagination = buildPagination({
+  page: result.page,
+  pageCount: result.pageCount,
+  basePath,
+  params: { buchstabe: letter, herkunft: originKind, stichwort: keywordFilter, stichwortseite: stateParams.stichwortseite },
+  pageParam: 'seite',
+});
+const keywordPagination = buildPagination({
+  page: keywords.page,
+  pageCount: keywords.pageCount,
+  basePath,
+  params: { buchstabe: letter, herkunft: originKind, seite: stateParams.seite, stichwort: keywordFilter },
+  pageParam: 'stichwortseite',
+});
 const heading = letter === '#' ? 'Ziffern und Sonderzeichen' : `Buchstabe ${letter}`;
-const pageTitle = `Alphabetischer Index – ${heading}${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
+const originHeading = originKind ? ` · ${formatNormOriginKind(originKind)}` : '';
+const pageTitle = `Alphabetischer Index – ${heading}${originHeading}${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
 const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
 const lastIndex = Math.min(result.page * result.pageSize, result.total);
 const firstKeyword = keywords.total === 0 ? 0 : (keywords.page - 1) * keywords.pageSize + 1;
 const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
+const originOverview = originKinds
+  .map((kind) => ({ kind, count: originCounts[kind] ?? 0 }))
+  .filter((entry) => entry.kind !== 'origin-unresolved' || entry.count > 0);
 ---
 
 <LawLayout
   title={pageTitle}
-  description={`Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen: ${heading}.`}
+  description={`Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen: ${heading}${originHeading}.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
     { label: 'Alphabetischer Index', href: basePath },
   ]}
   canonical={pageUrl(basePath, stateParams)}
-  noindex={Boolean(keywordFilter)}
+  noindex={Boolean(keywordFilter) || Boolean(originKind)}
   prev={pagination.prev}
   next={pagination.next}
 >
@@ -68,44 +98,83 @@ const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
   <SectionHero
     eyebrow="Rechtsportal"
     title="Alphabetischer Index"
-    lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z – je Buchstabengruppe seitenweise."
+    lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z – je Buchstabengruppe seitenweise, auf Wunsch nach Rechtsherkunft eingegrenzt."
     variant="law"
     facts={[{ label: 'Normen', value: String(totalNorms) }, { label: 'Buchstabengruppen', value: String(letters.length) }, { label: heading, value: String(result.total) }]}
   />
-  <section class="section" aria-label="Buchstabenauswahl">
+
+  <section class="section" aria-labelledby="origin-overview-heading" data-visual-section="law-origin-overview">
+    <div class="section-header">
+      <h2 id="origin-overview-heading">Rechtsherkunft</h2>
+      <p>Der Rechtsbestand des Freistaates besteht aus übernommenem sächsischem Recht mit Stand vom 1. November 2023 und seitdem eigenständig geschaffenen Vorschriften. Die Zahlen führen in die entsprechend eingegrenzte A–Z-Übersicht.</p>
+    </div>
+    <ul class="law-origin-overview" data-origin-overview>
+      {originOverview.map((entry) => (
+        <li>
+          <a href={pageUrl(basePath, { buchstabe: letter, herkunft: entry.kind })} aria-current={originKind === entry.kind ? 'page' : undefined} data-origin-kind={entry.kind}>
+            <NormOriginBadge kind={entry.kind} />
+            <strong>{entry.count}</strong>
+            <span>{entry.count === 1 ? 'Vorschrift' : 'Vorschriften'} · {describeNormOriginKind(entry.kind)}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="section-link-row">
+      <a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Rechtsentwicklung mit weiteren Filtern</a>
+    </p>
+  </section>
+
+  <section class="section" aria-label="Buchstabenauswahl und Herkunftsfilter">
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
       {letters.map((entry) => (
         <a
-          href={pageUrl(basePath, { buchstabe: entry.letter })}
+          href={pageUrl(basePath, { buchstabe: entry.letter, herkunft: originKind })}
           data-index-letter={entry.letter}
           aria-current={entry.letter === letter ? 'page' : undefined}
           title={`${entry.count} Normen`}
         >{entry.letter}</a>
       ))}
     </nav>
+    <form class="law-list-filter law-index-filter law-index-origin-filter" method="get" action={basePath} data-origin-filter-form>
+      <input type="hidden" name="buchstabe" value={letter} />
+      <label class="search-field">
+        <span>Rechtsherkunft</span>
+        <select name="herkunft" data-origin-filter>
+          <option value="" selected={!originKind}>Alle Herkunftsarten</option>
+          {originKinds.map((kind) => <option value={kind} selected={originKind === kind}>{formatNormOriginKind(kind)}</option>)}
+        </select>
+      </label>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Eingrenzen</button>
+        {originKind ? <a class="button-link button-link--secondary" href={pageUrl(basePath, { buchstabe: letter })}>Alle Herkunftsarten</a> : null}
+      </div>
+    </form>
   </section>
 
   <section class="section" id={letter} aria-labelledby="index-letter-heading">
     <div class="section-header">
-      <h2 id="index-letter-heading">{heading}</h2>
+      <h2 id="index-letter-heading">{heading}{originKind ? <span class="section-header__qualifier"> · {formatNormOriginKind(originKind)}</span> : null}</h2>
       <p data-index-count>
         {result.total === 0
-          ? 'In dieser Buchstabengruppe sind keine Normen verzeichnet.'
+          ? (originKind ? 'In dieser Buchstabengruppe sind keine Normen dieser Herkunftsart verzeichnet.' : 'In dieser Buchstabengruppe sind keine Normen verzeichnet.')
           : `${result.total} ${result.total === 1 ? 'Norm' : 'Normen'}; angezeigt ${firstIndex}–${lastIndex}.`}
       </p>
     </div>
     {result.items.length > 0 ? (
       <ul class="record-list" data-index-list>
         {result.items.map((norm) => (
-          <li class="record-list__item">
+          <li class="record-list__item" data-origin={norm.originKind ?? 'origin-unresolved'}>
             <a class="inline-link" href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a>
-            <span>{[norm.abbr, formatNormType(norm.type)].filter(Boolean).join(' · ')}</span>
+            <span class="record-list__meta">
+              <span>{[norm.abbr, formatNormType(norm.type)].filter(Boolean).join(' · ')}</span>
+              <NormOriginBadge kind={norm.originKind} />
+            </span>
           </li>
         ))}
       </ul>
     ) : null}
     {pagination.pages.length > 1 ? (
-      <nav class="pagination" aria-label={`Seiten der Buchstabengruppe ${letter}`}>
+      <nav class="pagination" aria-label={`Seiten der Buchstabengruppe ${letter}`} data-index-pagination>
         {pagination.prev ? <a class="pagination__link" rel="prev" href={pagination.prev}>Vorherige Seite</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Vorherige Seite</span>}
         <ol class="pagination__list">
           {pagination.pages.map((entry) => (
@@ -128,6 +197,7 @@ const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
     </div>
     <form class="law-list-filter law-index-filter" method="get" action={basePath} data-keyword-filter-form>
       <input type="hidden" name="buchstabe" value={letter} />
+      {originKind ? <input type="hidden" name="herkunft" value={originKind} /> : null}
       {result.page > 1 ? <input type="hidden" name="seite" value={String(result.page)} /> : null}
       <label class="search-field">
         <span>Stichwörter filtern</span>
@@ -135,7 +205,7 @@ const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
       </label>
       <div class="search-form__actions">
         <button class="button-link" type="submit">Filtern</button>
-        {keywordFilter ? <a class="button-link button-link--secondary" href={pageUrl(basePath, { buchstabe: letter, seite: stateParams.seite })}>Filter zurücksetzen</a> : null}
+        {keywordFilter ? <a class="button-link button-link--secondary" href={pageUrl(basePath, { buchstabe: letter, herkunft: originKind, seite: stateParams.seite })}>Filter zurücksetzen</a> : null}
       </div>
     </form>
     <p class="search-feedback" aria-live="polite" data-index-filter-status>
@@ -170,18 +240,18 @@ const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
       </div>
     )}
     {keywordPagination.pages.length > 1 ? (
-      <nav class="pagination" aria-label={`Seiten des Stichwortindex ${letter}`}>
-        {keywordPagination.prev ? <a class="pagination__link" href={keywordPageHref(keywordPagination.prev)}>Vorherige Stichwörter</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Vorherige Stichwörter</span>}
+      <nav class="pagination" aria-label={`Seiten des Stichwortindex ${letter}`} data-keyword-pagination>
+        {keywordPagination.prev ? <a class="pagination__link" href={keywordPagination.prev}>Vorherige Stichwörter</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Vorherige Stichwörter</span>}
         <ol class="pagination__list">
           {keywordPagination.pages.map((entry) => (
             <li>
               {entry.kind === 'gap'
                 ? <span class="pagination__gap" aria-hidden="true">…</span>
-                : <a href={keywordPageHref(entry.href)} aria-current={entry.current ? 'page' : undefined} aria-label={`Stichwortseite ${entry.page}`}>{entry.page}</a>}
+                : <a href={entry.href} aria-current={entry.current ? 'page' : undefined} aria-label={`Stichwortseite ${entry.page}`}>{entry.page}</a>}
             </li>
           ))}
         </ol>
-        {keywordPagination.next ? <a class="pagination__link" href={keywordPageHref(keywordPagination.next)}>Nächste Stichwörter</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Nächste Stichwörter</span>}
+        {keywordPagination.next ? <a class="pagination__link" href={keywordPagination.next}>Nächste Stichwörter</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Nächste Stichwörter</span>}
       </nav>
     ) : null}
   </section>
@@ -190,12 +260,17 @@ const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
     // GET-Formular liefert die vollständige, serverseitig gefilterte Liste.
     const input = document.querySelector<HTMLInputElement>('[data-index-filter]');
     const keywordForm = document.querySelector<HTMLFormElement>('[data-keyword-filter-form]');
+    const originForm = document.querySelector<HTMLFormElement>('[data-origin-filter-form]');
     // Leere Felder nicht in die Adresse übernehmen.
-    keywordForm?.addEventListener('submit', () => {
-      keywordForm.querySelectorAll<HTMLInputElement>('input[name]').forEach((field) => {
-        if (!field.value.trim()) field.disabled = true;
+    for (const form of [keywordForm, originForm]) {
+      form?.addEventListener('submit', () => {
+        form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[name], select[name]').forEach((field) => {
+          if (!field.value.trim()) field.disabled = true;
+        });
       });
-    });
+    }
+    // Auswahl der Herkunftsart sendet das GET-Formular sofort; ohne JavaScript wirkt die Schaltfläche.
+    originForm?.querySelector<HTMLSelectElement>('[data-origin-filter]')?.addEventListener('change', () => originForm.requestSubmit());
     const status = document.querySelector<HTMLElement>('[data-index-filter-status]');
     const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-index-entry]'));
     const initialStatus = status?.textContent ?? '';

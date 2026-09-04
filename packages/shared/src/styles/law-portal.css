@@ -1187,16 +1187,209 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-.norm-origin-notice {
-  margin-top: 1rem;
+/* Rechtsherkunft: zentrale Kennzeichnung (Statuspunkt plus Text) in Listen, Treffern und auf der Normseite. */
+.origin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 1.55rem;
+  padding: 0.1rem 0.6rem 0.1rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.76rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
 }
 
-.norm-origin-notice--origin-unresolved {
+.origin-badge--full {
+  font-size: 0.84rem;
+  min-height: 1.85rem;
+  padding-inline: 0.7rem 0.85rem;
+}
+
+.origin-badge__dot {
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.origin-badge--inherited-unchanged {
+  border-color: #b3c7dc;
+  background: #eef4fa;
+  color: #1f4b78;
+}
+
+.origin-badge--inherited-amended {
+  border-color: #a4cfd2;
+  background: #e5f2f3;
+  color: #0f5459;
+}
+
+.origin-badge--ostdeutsch-original {
+  border-color: #a7cdb1;
+  background: #e8f3ea;
+  color: #245c33;
+}
+
+.origin-badge--origin-unresolved {
+  border-color: #d9c68f;
+  background: #faf3de;
+  color: #6b5216;
+}
+
+/* Gemeinsamer Hinweis „Rechtsstand und Herkunft“ auf Normseiten. */
+.norm-legal-status {
+  margin-top: 1rem;
+  padding: 0.95rem 1.15rem 1rem;
+  border: 1px solid var(--color-border);
+  border-inline-start: 4px solid var(--law-blue);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.norm-legal-status--future {
   border-inline-start-color: var(--color-gold);
 }
 
-.norm-origin-notice__links {
+.norm-legal-status--historical,
+.norm-legal-status--unknown-effective {
+  border-inline-start-color: var(--color-border-strong);
+  background: var(--color-surface-alt);
+}
+
+.norm-legal-status__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.norm-legal-status__head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.norm-legal-status__status,
+.norm-legal-status__origin,
+.norm-legal-status__change {
+  margin: 0.55rem 0 0;
+  line-height: 1.5;
+}
+
+.norm-legal-status__term {
+  display: inline-block;
+  margin-inline-end: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.norm-legal-status__term::after {
+  content: ':';
+}
+
+.norm-legal-status__links {
   margin-top: 0.7rem;
+}
+
+.search-hit__meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0.4rem 0 0;
+}
+
+.search-hit__meta-separator {
+  color: var(--color-text-muted);
+}
+
+.law-origin-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.law-origin-overview li {
+  min-width: 0;
+}
+
+.law-origin-overview a {
+  display: grid;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.law-origin-overview a:hover,
+.law-origin-overview a:focus-visible {
+  border-color: var(--law-blue);
+  background: var(--law-blue-light, var(--color-info-blue));
+}
+
+.law-origin-overview strong {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--law-blue-dark);
+}
+
+.law-origin-overview span:last-child {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.record-list__item .origin-badge,
+.law-directory-group .origin-badge,
+.law-subject-record-list .origin-badge,
+.law-dashboard-list .origin-badge {
+  margin-top: 0.15rem;
+}
+
+.record-list__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+}
+
+.section-header__qualifier {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.law-index-origin-filter {
+  margin-top: 1rem;
+  max-width: 34rem;
+}
+
+.law-dashboard-list .record-list__meta {
+  margin: 0.35rem 0 0;
+}
+
+.law-dashboard-list .record-list__meta .law-row-link {
+  margin-top: 0;
 }
 
 .norm-relations__groups {
@@ -2684,7 +2877,7 @@
 
 .norm-document-column > .section,
 .norm-document-column > .status-notice,
-.norm-document-column > .norm-origin-notice {
+.norm-document-column > .norm-legal-status {
   margin-top: 0.8rem;
 }
 
@@ -3054,7 +3247,7 @@
 .law-subject-record-list { margin: 0; padding: 0; list-style: none; }
 .law-subject-record-list li {
   display: grid;
-  grid-template-columns: 10rem minmax(0, 1fr) auto;
+  grid-template-columns: minmax(10rem, max-content) minmax(0, 1fr) auto;
   gap: 1rem;
   align-items: center;
   padding: 1rem 1.4rem;
@@ -3063,7 +3256,7 @@
 .law-subject-record-list li:first-child { border-top: 0; }
 .law-subject-record-list li:hover { background: #f7fafc; }
 .law-subject-record-list__type { display: grid; gap: 0.2rem; }
-.law-subject-record-list__type span { color: #56697b; font-size: 0.67rem; font-weight: 750; text-transform: uppercase; letter-spacing: 0.05em; }
+.law-subject-record-list__type span { color: #56697b; font-size: 0.67rem; font-weight: 750; text-transform: uppercase; letter-spacing: 0.05em; overflow-wrap: normal; }
 .law-subject-record-list__type strong { color: var(--law-blue-dark); }
 .law-subject-record-list__content { display: grid; gap: 0.2rem; }
 .law-subject-record-list__content a { color: var(--law-blue-dark); font-size: 1rem; font-weight: 720; text-decoration-thickness: 0.08em; }
@@ -3797,13 +3990,14 @@
   .law-help-aside,
   .law-publication-sources { position: static; }
   .law-help-paths { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .law-subject-record-list li { grid-template-columns: 8rem minmax(0, 1fr) auto; }
+  .law-subject-record-list li { grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr) auto; }
 }
 
 @media (max-width: 36rem) {
   .law-subject-overview { padding: 1rem; }
   .law-subject-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .law-subject-stats__total { grid-column: 1 / -1; }
+  .law-subject-stats dt { overflow-wrap: anywhere; }
   .law-subject-records__header { align-items: stretch; flex-direction: column; }
   .law-subject-records__header .button { width: 100%; }
   .law-subject-record-list li { grid-template-columns: minmax(0, 1fr) auto; }
@@ -3815,6 +4009,11 @@
   .law-help-paths a { min-height: 0; }
   .law-help-card { grid-template-columns: 1fr; }
   .law-publication-entries > ol > li { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 24rem) {
+  /* Schmale Geräte: Normtyp-Kacheln einspaltig, damit lange Bezeichnungen nicht überlaufen. */
+  .law-subject-stats { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* Seitennavigation der serverseitig paginierten Übersichten (A–Z, Rechtsentwicklung). */

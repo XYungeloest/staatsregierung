@@ -14,6 +14,9 @@ const forbiddenResponsibilities = new Set([
   'Sächsischer Landtag',
 ]);
 const summaryFragment = /^(?:§|Abschnitt\b|Artikel\b|OABl\.|OGVBl\.|StAnzO\.|GVBl\.|Aufgrund\b|Auf Grund\b|\d+\.)|(?:\.\.\.|…)$/u;
+// Provenienz-Semantik: enactingBody ist das erlassende Organ im ostdeutschen Rechtsbestand,
+// originEnactingBody das Ursprungsorgan der übernommenen sächsischen Quelle (REVOSax-Snapshot).
+const saxonBody = /Sächs|Sachsen/u;
 
 function report(slug, message) {
   problems.push(`${slug}: ${message}`);
@@ -39,6 +42,14 @@ for (const entry of await readdir(normRoot, { withFileTypes: true })) {
   versions.sort((left, right) => left.validFrom.localeCompare(right.validFrom));
 
   if (meta.ministry !== undefined) report(slug, 'verwendet noch das unspezifische Feld ministry');
+  const hasRevosaxProvenance = [...(meta.sourceReferences ?? []), ...versions.flatMap((version) => version.sourceReferences ?? [])]
+    .some((reference) => reference.kind === 'revosax-snapshot');
+  if (hasRevosaxProvenance && saxonBody.test(meta.enactingBody ?? '')) {
+    report(slug, `übernommene Norm führt ein sächsisches Organ als enactingBody: ${meta.enactingBody} (gehört in originEnactingBody)`);
+  }
+  if (!hasRevosaxProvenance && meta.originEnactingBody) {
+    report(slug, `originEnactingBody ohne REVOSax-Herkunftsbeleg: ${meta.originEnactingBody}`);
+  }
   if (forbiddenResponsibilities.has(meta.responsibleMinistry)) {
     report(slug, `führt ein erlassendes Organ als zuständiges Ressort: ${meta.responsibleMinistry}`);
   }
