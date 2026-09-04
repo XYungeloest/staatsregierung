@@ -1,18 +1,108 @@
 {
-  "asOf": "2026-09-02",
+  "asOf": "2026-09-04",
   "proceedings": [
     {
-      "id": "proceeding-federal-president-dreyer-impeachment", "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": null, "asOf": "2026-08-01",
+      "id": "proceeding-federal-president-dreyer-impeachment",
+      "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-07-09",
+      "validTo": null,
+      "asOf": "2026-08-01",
       "summary": "Nach dem Antrag vom 9. Juli beschloss der Bundestag am 12. Juli 2026 die Präsidentenanklage und reichte sie beim Bundesverfassungsgericht ein. Dreyer trat am 16. Juli zurück; der formelle Verfahrensausgang ist nicht belegt.",
-      "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage und Rücktritt", "role": "primary"}],
-      "relatedIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "person-karl-honecker", "person-mateo-delgado", "inst-deutscher-bundestag", "inst-bundesverfassungsgericht", "inst-bundesrat", "inst-bundespraesident"],
-      "tags": ["proceeding", "federal", "constitutional-law"], "notes": ["Aktenzeichen und Abstimmungsdetails sind redaktionell bestätigt, aber nicht durch die Anklageschrift als Primärquelle belegt."], "aliases": [],
-      "proceedingType": "federal-constitutional-proceeding", "stage": "formal-outcome-unresolved", "participantIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "person-karl-honecker", "person-mateo-delgado", "inst-deutscher-bundestag", "inst-bundesverfassungsgericht", "inst-bundesrat", "inst-bundespraesident"], "normRefs": [],
-      "decision": "Der Bundestag erreichte am 12. Juli 2026 die erforderliche Zweidrittelmehrheit; die Anklageschrift wurde beim Bundesverfassungsgericht eingereicht.", "nextAction": null, "openQuestionIds": [],
-      "motionDate": "2026-07-09", "parliamentaryDecisionDate": "2026-07-12", "indictmentFiledDate": "2026-07-12", "caseNumber": "7 BvD 001-26", "caseNumberEvidence": "editorially-confirmed", "hearingOriginallyScheduledOn": "2026-07-16", "hearingStatus": "postponed", "resignationDate": "2026-07-16"
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Präsidentenanklage und Rücktritt",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer",
+        "person-liam-fluesterbein",
+        "person-liam-von-starnberg",
+        "person-felix-von-luxemburg-vorarlberg",
+        "person-karl-honecker",
+        "person-mateo-delgado",
+        "inst-deutscher-bundestag",
+        "inst-bundesverfassungsgericht",
+        "inst-bundesrat",
+        "inst-bundespraesident"
+      ],
+      "tags": [
+        "proceeding",
+        "federal",
+        "constitutional-law"
+      ],
+      "notes": [
+        "Aktenzeichen und Abstimmungsdetails sind redaktionell bestätigt, aber nicht durch die Anklageschrift als Primärquelle belegt."
+      ],
+      "aliases": [],
+      "proceedingType": "federal-constitutional-proceeding",
+      "stage": "formal-outcome-unresolved",
+      "participantIds": [
+        "person-manuela-dreyer",
+        "person-liam-fluesterbein",
+        "person-liam-von-starnberg",
+        "person-felix-von-luxemburg-vorarlberg",
+        "person-karl-honecker",
+        "person-mateo-delgado",
+        "inst-deutscher-bundestag",
+        "inst-bundesverfassungsgericht",
+        "inst-bundesrat",
+        "inst-bundespraesident"
+      ],
+      "normRefs": [],
+      "decision": "Der Bundestag erreichte am 12. Juli 2026 die erforderliche Zweidrittelmehrheit; die Anklageschrift wurde beim Bundesverfassungsgericht eingereicht.",
+      "nextAction": null,
+      "openQuestionIds": [],
+      "motionDate": "2026-07-09",
+      "parliamentaryDecisionDate": "2026-07-12",
+      "indictmentFiledDate": "2026-07-12",
+      "caseNumber": "7 BvD 001-26",
+      "caseNumberEvidence": "editorially-confirmed",
+      "hearingOriginallyScheduledOn": "2026-07-16",
+      "hearingStatus": "postponed",
+      "resignationDate": "2026-07-16"
     },
     {
-      "id": "proceeding-eighth-volkskammer-election", "title": "Wahl zur achten Volkskammer", "status": "editorially-confirmed", "validFrom": "2026-08-01", "validTo": null, "asOf": "2026-08-01", "summary": "Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl zur achten Volkskammer", "role": "primary"}], "relatedIds": ["inst-volkskammer", "event-volkskammer-election-2026"], "tags": ["proceeding", "election", "parliament"], "notes": [], "aliases": ["Wahl zur 8. Volkskammer"], "proceedingType": "election", "stage": "scheduled", "participantIds": ["inst-volkskammer"], "normRefs": [], "decision": "Wahltage sind der 5. und 6. September 2026.", "nextAction": "Durchführung der Wahl an den festgelegten Wahltagen.", "openQuestionIds": [], "electionStartDate": "2026-09-05", "electionEndDate": "2026-09-06"
+      "id": "proceeding-eighth-volkskammer-election",
+      "title": "Wahl zur achten Volkskammer",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-08-01",
+      "summary": "Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Wahl zur achten Volkskammer",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "event-volkskammer-election-2026"
+      ],
+      "tags": [
+        "proceeding",
+        "election",
+        "parliament"
+      ],
+      "notes": [],
+      "aliases": [
+        "Wahl zur 8. Volkskammer"
+      ],
+      "proceedingType": "election",
+      "stage": "scheduled",
+      "participantIds": [
+        "inst-volkskammer"
+      ],
+      "normRefs": [],
+      "decision": "Wahltage sind der 5. und 6. September 2026.",
+      "nextAction": "Durchführung der Wahl an den festgelegten Wahltagen.",
+      "openQuestionIds": [],
+      "electionStartDate": "2026-09-05",
+      "electionEndDate": "2026-09-06"
     },
     {
       "id": "proceeding-volksbefragung-2026",
@@ -277,11 +367,11 @@
     {
       "id": "proceeding-ndr-ratification",
       "title": "Inkrafttreten des NDR-Änderungs- und Überleitungsstaatsvertrags",
-      "status": "confirmed-primary",
+      "status": "historical",
       "validFrom": "2026-09-03",
       "validTo": "2026-09-03",
-      "asOf": "2026-09-02",
-      "summary": "Die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten des Staatsvertrags nach Austausch der Ratifikationsurkunden zum 3. September 2026 fest.",
+      "asOf": "2026-09-04",
+      "summary": "Die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten des Staatsvertrags nach Austausch der Ratifikationsurkunden zum 3. September 2026 fest; der Staatsvertrag ist seit diesem Tag in Kraft.",
       "sourceRefs": [
         {
           "sourceId": "source-overtrbl-2026-05",
@@ -295,13 +385,12 @@
       "tags": [
         "proceeding",
         "treaty",
-        "media",
-        "future"
+        "media"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "ratification",
-      "stage": "scheduled",
+      "stage": "completed",
       "participantIds": [
         "inst-sek-rechtsstaat-kultur"
       ],
@@ -312,7 +401,7 @@
         }
       ],
       "decision": "Die Bekanntmachung stellt das Inkrafttreten nach Austausch der Ratifikationsurkunden zum 3. September 2026 fest.",
-      "nextAction": "Inkrafttreten und praktische Überleitung ab dem 3. September 2026 dokumentieren.",
+      "nextAction": "Praktische Überleitung der NDR-Strukturen nur mit datierter Quelle dokumentieren.",
       "openQuestionIds": []
     },
     {
@@ -731,7 +820,12 @@
         "person-claus-weselsky",
         "person-mateo-delgado"
       ],
-      "tags": ["proceeding", "international", "helcom", "ratification"],
+      "tags": [
+        "proceeding",
+        "international",
+        "helcom",
+        "ratification"
+      ],
       "notes": [
         "Die Pressemitteilung spricht von Vertretung mit eigener Stimme; der vorgelegte Änderungsentwurf schließt ein eigenes Stimmrecht aus. Ohne endgültige Änderungsurkunde wird kein allgemeines eigenes Stimmrecht modelliert.",
         "Die Vertragsfassung stammt aus dem Jahr 1992; der ostdeutsche Beitritt wurde am 27. Januar 2026 wirksam."
@@ -739,7 +833,10 @@
       "aliases": [],
       "proceedingType": "treaty-participation",
       "stage": "in-force",
-      "participantIds": ["inst-helcom", "inst-staatskanzlei"],
+      "participantIds": [
+        "inst-helcom",
+        "inst-staatskanzlei"
+      ],
       "normRefs": [
         {
           "normSlug": "gesetz-zu-dem-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
@@ -754,11 +851,31 @@
       "nextAction": "Praktische HELCOM-Mitwirkung und spätere Änderungen fortlaufend dokumentieren.",
       "openQuestionIds": [],
       "stages": [
-        {"date": "2025-10-04", "title": "Verhandlungen mit der Bundesregierung abgeschlossen", "status": "confirmed-official"},
-        {"date": "2025-10-06", "title": "Änderungsurkunde beziehungsweise Übereinkommen unterzeichnet", "status": "confirmed-primary"},
-        {"date": "2025-10-06", "title": "Politische und institutionelle HELCOM-Mitwirkung laut Pressemitteilung", "status": "confirmed-official"},
-        {"date": "2026-01-26", "title": "Zustimmung des Ostdeutschen Landtags", "status": "confirmed-primary"},
-        {"date": "2026-01-27", "title": "Beitritt mit Verkündung im Ostdeutschen Vertragsblatt in Kraft", "status": "confirmed-primary"}
+        {
+          "date": "2025-10-04",
+          "title": "Verhandlungen mit der Bundesregierung abgeschlossen",
+          "status": "confirmed-official"
+        },
+        {
+          "date": "2025-10-06",
+          "title": "Änderungsurkunde beziehungsweise Übereinkommen unterzeichnet",
+          "status": "confirmed-primary"
+        },
+        {
+          "date": "2025-10-06",
+          "title": "Politische und institutionelle HELCOM-Mitwirkung laut Pressemitteilung",
+          "status": "confirmed-official"
+        },
+        {
+          "date": "2026-01-26",
+          "title": "Zustimmung des Ostdeutschen Landtags",
+          "status": "confirmed-primary"
+        },
+        {
+          "date": "2026-01-27",
+          "title": "Beitritt mit Verkündung im Ostdeutschen Vertragsblatt in Kraft",
+          "status": "confirmed-primary"
+        }
       ]
     },
     {
@@ -781,17 +898,33 @@
           "role": "context"
         }
       ],
-      "relatedIds": ["project-ovv-ticket", "inst-db-fernverkehr", "question-ovv-ticket-chain"],
-      "tags": ["proceeding", "transport", "agreement", "fare"],
-      "notes": ["Geltungsbeginn, Tarifbestimmungen und Abrechnung sind nicht in einem gesonderten Vertragsdokument belegt."],
+      "relatedIds": [
+        "project-ovv-ticket",
+        "inst-db-fernverkehr",
+        "question-ovv-ticket-chain"
+      ],
+      "tags": [
+        "proceeding",
+        "transport",
+        "agreement",
+        "fare"
+      ],
+      "notes": [
+        "Geltungsbeginn, Tarifbestimmungen und Abrechnung sind nicht in einem gesonderten Vertragsdokument belegt."
+      ],
       "aliases": [],
       "proceedingType": "operational-agreement",
       "stage": "deal-confirmed-details-unresolved",
-      "participantIds": ["inst-db-fernverkehr", "inst-sek-mobilitaet-regionen"],
+      "participantIds": [
+        "inst-db-fernverkehr",
+        "inst-sek-mobilitaet-regionen"
+      ],
       "normRefs": [],
       "decision": "Ticketanerkennung für 57 Millionen Euro vereinbart.",
       "nextAction": "Tarif- oder Vertragsdokument mit Geltungsbeginn beschaffen; Reaktivierungen getrennt halten.",
-      "openQuestionIds": ["question-ovv-ticket-chain"]
+      "openQuestionIds": [
+        "question-ovv-ticket-chain"
+      ]
     },
     {
       "id": "proceeding-ohlinger-traffic",
@@ -808,9 +941,17 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["question-eag-outcomes-completion"],
-      "tags": ["proceeding", "traffic", "simulation-adjudication"],
-      "notes": ["„Erledigt“ belegt die Bearbeitung, nicht einen bestimmten Sanktionstenor."],
+      "relatedIds": [
+        "question-eag-outcomes-completion"
+      ],
+      "tags": [
+        "proceeding",
+        "traffic",
+        "simulation-adjudication"
+      ],
+      "notes": [
+        "„Erledigt“ belegt die Bearbeitung, nicht einen bestimmten Sanktionstenor."
+      ],
       "aliases": [],
       "proceedingType": "traffic-enforcement",
       "stage": "processed-outcome-details-missing",
@@ -818,7 +959,9 @@
       "normRefs": [],
       "decision": "Bearbeitung erledigt; genauer Ausgang unbekannt.",
       "nextAction": "Bescheid oder anderweitigen Nachweis des konkreten Ausgangs beschaffen.",
-      "openQuestionIds": ["question-eag-outcomes-completion"]
+      "openQuestionIds": [
+        "question-eag-outcomes-completion"
+      ]
     },
     {
       "id": "proceeding-israel-cooperation-end",
@@ -841,13 +984,26 @@
         }
       ],
       "relatedIds": [],
-      "tags": ["proceeding", "international", "cooperation"],
-      "notes": ["Der Umfang wird nicht über die drei ausdrücklich genannten Bereiche hinaus erweitert."],
+      "tags": [
+        "proceeding",
+        "international",
+        "cooperation"
+      ],
+      "notes": [
+        "Der Umfang wird nicht über die drei ausdrücklich genannten Bereiche hinaus erweitert."
+      ],
       "aliases": [],
       "proceedingType": "international-cooperation",
       "stage": "in-force",
-      "participantIds": ["inst-sek-voelkerfreundschaft"],
-      "normRefs": [{"normSlug": "verwaltungsvorschrift-der-staatsregierung-des-freistaates-ostdeutschland-uber-die-aussetzung-und-beendigung-la", "versionId": "2026-05-07"}],
+      "participantIds": [
+        "inst-sek-voelkerfreundschaft"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "verwaltungsvorschrift-der-staatsregierung-des-freistaates-ostdeutschland-uber-die-aussetzung-und-beendigung-la",
+          "versionId": "2026-05-07"
+        }
+      ],
       "decision": "Umfang und Ausnahmen richten sich nach der in StAnzO. 2026 Nr. 12 veröffentlichten Verwaltungsvorschrift.",
       "nextAction": null,
       "openQuestionIds": []

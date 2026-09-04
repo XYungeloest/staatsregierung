@@ -77,6 +77,7 @@ const allowedEnactingBodies = new Set([
   'Verwaltungsrat der Landesenergiewerke Ost',
   'Verwaltungsrat der Ostdeutschen Eisenbahn',
   'Verbandsversammlung des Ostdeutschen Verkehrsverbundes',
+  'Gründungsvorstand der Interflug',
   'Staatssekretariat für Mobilität und regionale Entwicklung',
   'Ministerium für freistaatliche Sicherheit',
 ]);

@@ -7,10 +7,11 @@ import {
   HISTORICAL_PUBLICATION_PAGE_RANGE_MAP,
   pageRangeForPublication,
   pdfPageCount,
+  preserveVerifiedAt,
   publicationIdentityKey,
   publicationSourceReferences,
-  retainUnrelatedPublicationSourceReferences,
   resolvePublicationPdf,
+  retainUnrelatedPublicationSourceReferences,
 } from './lib/publication-pdf.mjs';
 
 const ROOT = process.cwd();
@@ -106,14 +107,14 @@ for (const fileName of publicationFiles.filter((name) => name.endsWith('.json'))
       ['structured-html-transcription', 'primary-pdf'].includes(reference.kind) &&
       reference.verifiedAt
     )?.verifiedAt;
-  const modernReferences = publicationSourceReferences({
+  const modernReferences = preserveVerifiedAt(publicationSourceReferences({
     htmlFileName,
     htmlBytes,
     pdfFileName: resolved.fileName,
     pdfBytes,
     pageRange,
     ...(verifiedAt ? { verifiedAt } : {}),
-  });
+  }), publication.sourceReferences);
   const updated = {
     ...publicationWithCorrectedEntries,
     pdf: `/assets/recht/${resolved.fileName}`,
@@ -140,13 +141,16 @@ for (const fileName of publicationFiles.filter((name) => name.endsWith('.json'))
       try {
         const meta = JSON.parse(await readFile(metaPath, 'utf8'));
         const entryRange = entry.pages ?? entry.startPage ?? pageRange;
-        const normReferences = publicationSourceReferences({
+        // Das Prüfdatum der Ausgabe wird übernommen; ein späteres, bereits an der Norm
+        // dokumentiertes Prüfdatum derselben Datei bleibt erhalten.
+        const normReferences = preserveVerifiedAt(publicationSourceReferences({
           htmlFileName,
           htmlBytes,
           pdfFileName: resolved.fileName,
           pdfBytes,
           pageRange: entryRange,
-        });
+          ...(verifiedAt ? { verifiedAt } : {}),
+        }), meta.sourceReferences);
         await writeJson(metaPath, {
           ...meta,
           sourceReferences: [

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-01",
+  "asOf": "2026-09-04",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -99,6 +99,62 @@
         {
           "normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt",
           "versionId": "2026-08-24"
+        }
+      ]
+    },
+    {
+      "id": "state-current-interflug-2026",
+      "title": "Interflug: Errichtung, Gründungsvorstand und Anfangsflotte",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "asOf": "2026-09-04",
+      "summary": "Die Interflug besteht seit 3. September 2026 als Anstalt des öffentlichen Rechts. Der Gründungsvorstand (Joachim Hunold als Vorsitzender, Ralf Teckentrup, Klaus Wowereit) ist mit Wirkung vom 3. September 2026 bestellt und hat die Anfangsflotte aus zehn Löschflugzeugen mit einem Beschaffungsprogramm von bis zu 105,5 Millionen Euro beschafft; ein erster Verwaltungsrat und Vorstand sind noch nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1, §§ 1, 21 und 23",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-39",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-40",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-interflug",
+        "inst-interflug",
+        "event-interflug-law-effective-2026",
+        "event-interflug-founding-board-appointed-2026",
+        "event-interflug-initial-fleet-procured-2026"
+      ],
+      "tags": [
+        "current-state",
+        "aviation",
+        "civil-protection",
+        "public-economy"
+      ],
+      "notes": [
+        "Die Bekanntmachung über den Gründungsvorstand zitiert § 24 Absatz 3 und 4 sowie § 10 Absatz 2 des Interflug-Gesetzes; im verkündeten Gesetz stehen die Gründungsphase in § 23 und die Vorstandsbestellung in § 14. Der Wortlaut wird nicht redaktionell angepasst."
+      ],
+      "normRefs": [
+        {
+          "normSlug": "interflug-gesetz",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "bekanntmachung-bestellung-gruendungsvorstand-interflug",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "bekanntmachung-beschaffung-anfangsflotte-interflug",
+          "versionId": "2026-09-03"
         }
       ]
     },
@@ -302,7 +358,7 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-09-01",
+      "asOf": "2026-09-04",
       "summary": "Freistaat Ostdeutschland; der redaktionelle Stichtag wird aus packages/shared/src/config/editorial.json übernommen; Regierungssitz Dresden.",
       "sourceRefs": [
         {
@@ -662,8 +718,8 @@
       "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-09-01",
-      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich des neuen öffentlichen Mobilitätspakets, der gemeinwirtschaftlichen Energie- und Wärmetarife, der extern betriebenen Transparenz- und Zuständigkeitsangebote, der schrittweisen 50Hertz-Übernahme und der angenommenen NVIDIA-Ansiedlung, ohne Normvolltexte zu duplizieren.",
+      "asOf": "2026-09-04",
+      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich des neuen öffentlichen Mobilitätspakets, der gemeinwirtschaftlichen Energie- und Wärmetarife, der extern betriebenen Transparenz- und Zuständigkeitsangebote, der schrittweisen 50Hertz-Übernahme und der angenommenen NVIDIA-Ansiedlung, der seit 2. und 3. September 2026 geltenden Gesetze zu Hoheitszeichen, Zinnwald-Vergesellschaftung, öffentlicher Daseinsvorsorge und Interflug sowie des in Kraft getretenen NDR-Überleitungsstaatsvertrags, ohne Normvolltexte zu duplizieren.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -719,6 +775,36 @@
           "sourceId": "source-editorial-clarification-zuarbeit-2026-08-27",
           "locator": "Umsetzungsstand von Transparenzportal und Zuständigkeitsfinder",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-70",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-71",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-73",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-39",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-40",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -740,7 +826,11 @@
         "project-nvidia-settlement",
         "project-transparenz",
         "project-haushalt-2025-2026",
-        "project-zustaendigkeitsfinder"
+        "project-zustaendigkeitsfinder",
+        "project-hoheitszeichen",
+        "project-zinnwald-lithium",
+        "project-daseinsvorsorge",
+        "project-interflug"
       ],
       "tags": [
         "current-state",
@@ -766,7 +856,11 @@
         "project-nvidia-settlement",
         "project-transparenz",
         "project-haushalt-2025-2026",
-        "project-zustaendigkeitsfinder"
+        "project-zustaendigkeitsfinder",
+        "project-hoheitszeichen",
+        "project-zinnwald-lithium",
+        "project-daseinsvorsorge",
+        "project-interflug"
       ]
     },
     {

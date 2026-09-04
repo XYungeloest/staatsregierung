@@ -136,6 +136,24 @@ export function publicationSourceReferences({
   return references;
 }
 
+// Prüfdaten dürfen bei einer Neuableitung nie hinter einen bereits dokumentierten
+// Stand zurückfallen: Trägt der Bestand für dieselbe Datei (gleicher Pfad und –
+// falls beidseitig vorhanden – gleicher Hash) ein späteres verifiedAt, bleibt es
+// erhalten. Sonst würde jeder Sync-Lauf das Audit-Datum auf die Konstante zurücksetzen.
+export function preserveVerifiedAt(references, existingReferences = []) {
+  const existing = (existingReferences ?? []).filter((reference) => reference?.localSource && reference.verifiedAt);
+  return (references ?? []).map((reference) => {
+    if (!reference?.localSource) return reference;
+    const match = existing.find((candidate) =>
+      candidate.localSource === reference.localSource &&
+      (!candidate.sha256 || !reference.sha256 || candidate.sha256 === reference.sha256)
+    );
+    if (!match) return reference;
+    if (reference.verifiedAt && reference.verifiedAt >= match.verifiedAt) return reference;
+    return { ...reference, verifiedAt: match.verifiedAt };
+  });
+}
+
 export function retainUnrelatedPublicationSourceReferences(references, {
   htmlFileName,
   pdfFileName,

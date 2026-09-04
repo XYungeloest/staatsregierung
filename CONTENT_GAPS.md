@@ -1,6 +1,6 @@
 # Offene Quellenfragen
 
-**Repositoryprüfung:** 2. September 2026
+**Repositoryprüfung:** 4. September 2026
 **Redaktioneller Stichtag:** zentral in `packages/shared/src/config/editorial.json`
 
 Diese Datei enthält ausschließlich Quellenlücken, Quellenkonflikte und notwendige Quellenarbeiten,
@@ -24,6 +24,17 @@ offen bleiben drei Quellenfragen:
   31. Dezember 2023 als geltend. Ohne weitere amtliche Quelle ist nicht entscheidbar, ob eine
   Verlängerung vorlag; die Norm bleibt unverändert, der Fall ist in
   `data/recht/revosax-sunset-decisions.json` als offen dokumentiert.
+
+## Bekanntmachungen zur Interflug (StAnzO. 2026 Nr. 39 und 40)
+
+- **Bekanntmachung des Staatsrates über die Bestellung des Gründungsvorstandes der Interflug
+  (StAnzO. 2026 Nr. 39)** — der amtliche Text zitiert „§ 24 Absatz 3“, „§ 24 Absatz 4“ und
+  „§ 10 Absatz 2 des Interflug-Gesetzes“. Im verkündeten Interflug-Gesetz (OGVBl. 2026 Nr. 74)
+  regeln § 23 Absatz 3 und 4 den Gründungsvorstand und § 14 Absatz 2 die Bestellung des Vorstandes
+  durch den Verwaltungsrat; § 24 existiert nicht, § 10 betrifft das betriebsnotwendige Vermögen.
+  Der Wortlaut der Bekanntmachung wird unverändert wiedergegeben; die Abweichung ist im
+  Datierungshinweis der Norm dokumentiert und wird nicht redaktionell korrigiert, solange keine
+  amtliche Berichtigung vorliegt. HTML und PDF beider Ausgaben stimmen überein.
 
 ## Rechtskonsolidierung
 

@@ -2,7 +2,7 @@
 
 > **Arbeitsübersicht für die nächste Wahlperiode.** Kanonische strukturierte Planungsdaten stehen in `knowledge/agenda.json`. Für den geltenden Rechtsstand sind ausschließlich `content/normen/`, `content/verkuendungen/`, `knowledge/current-state.json` und förmliche Verfahren in `knowledge/proceedings.json` maßgeblich.
 
-Stand: 31. August 2026
+Stand: 4. September 2026
 
 ## Politischer Rahmen
 
@@ -32,12 +32,12 @@ Der vollständige Programmtext liegt unter `context/programme/roter-aufbruch-202
 
 | Vorhaben | Arbeitsstand | Grober Inhalt / Ziel |
 | --- | --- | --- |
-| **Interfluggesetz** | Konzept | Wiedererrichtung der Interflug als öffentliches Luftverkehrsunternehmen; staatliche Lösch- und Katastrophenschutzflugstaffel; später möglicher kommerzieller Luftverkehr; Kapitalausstattung und gegebenenfalls Nachtragshaushalt. |
+| **Interfluggesetz** | verkündet und seit 3. September 2026 in Kraft (OGVBl. 2026 Nr. 74) | Interflug als Anstalt des öffentlichen Rechts für Lösch-, Katastrophenschutz- und Hilfsflüge; Gründungsvorstand bestellt und Anfangsflotte beschafft (StAnzO. 2026 Nr. 39 und 40); später möglicher kommerzieller Luftverkehr, Kapitalausstattung und Nachtragshaushalt bleiben Folgevorhaben. |
 | **Errichtungs- und Neuordnungsgesetz Duale Hochschule Ostdeutschland** | Konzept | Zusammenführung dualer Hochschulstrukturen; Rechtsnachfolge; einheitliche Hochschulordnung; dezentrale Studienakademien und spätere Studienzentren. |
 | **Rohstoffwirtschafts- und Generationenfondsgesetz** | Konzept | Ostdeutsche Rohstoffholding; öffentliches Bergbauunternehmen; Beteiligungen an strategischen Rohstoffvorhaben; langfristiger Zukunfts-/Generationenfonds aus gemeinwirtschaftlichen Rohstofferträgen. Das Zinnwaldgesetz bleibt gesondert. |
 | **Neuordnung des Sparkassen- und Landesbankwesens** | Konzept | Ostdeutsche Gesamtordnung des Sparkassenrechts; Landesbank an der Elbe als Landesbank, Sparkassenzentralbank, Girozentrale und Kommunalbank; Fortentwicklung des Ostdeutschen Sparkassenverbands; Bereinigung überkommener Mehrländerstrukturen. |
 | **Nachrichtendienst- und Staatsschutzreform** | Konzept | Neuordnung des Nachrichtendienstrechts; parlamentarische, gerichtliche und demokratische Kontrolle; klare Aufgabenabgrenzung zum polizeilichen Staatsschutz; Sabotage- und Spionageabwehr; Sicherheitsüberprüfungsrecht. |
-| **Kommunales Hinweisgebermeldestellengesetz** | Entwurfsarbeit | Meldestellen bei Gemeinden, Bezirken, Zweckverbänden und kommunalen Unternehmen; Beschäftigtenschwelle; gemeinsame Meldestellen; Verweisung auf Bundesrecht im Übrigen. |
+| **Kommunales Hinweisgebermeldestellengesetz** | verkündet (OGVBl. 2026 Nr. 72), Inkrafttreten 1. Oktober 2026 | Meldestellen bei Gemeinden, Bezirken, Zweckverbänden und kommunalen Unternehmen; Beschäftigtenschwelle; gemeinsame Meldestellen; Verweisung auf Bundesrecht im Übrigen. |
 | **Waldschutz- und Waldumbau-Novelle** | Idee/Konzept | Novelle des bestehenden Ostdeutschen Waldgesetzes: klimaresilienter Waldumbau; Mischwald; natürliche Waldentwicklung; Kohlenstoffsenken; Verbindung zu Klimaanpassung und Schutz des Naturvermögens. |
 | **Waldorf- und Privatschulreform** | Konzept | Überprüfung von Waldorf-Sonderregelungen; Privatschulfreiheit erhalten; Sonderungsverbot stärken; soziale Schulgeldregeln; Transparenz und soziale Zugänglichkeit. |
 | **Klimaschutz-/Klimarahmengesetz** | Programmauftrag, Normtechnik offen | Verbindliche Klimaschutz- und Anpassungsplanung; kommunale Klimaanpassungspläne; Hitzevorsorge; Renaturierung; Hochwasser-/Küstenschutz; Entsiegelung; Schwammstadt/-dorf; Netto-Null-Pfad bei Flächenversiegelung. |
