@@ -11,6 +11,12 @@ select:focus-visible,
 textarea:focus-visible,
 summary:focus-visible {
   outline-color: var(--color-focus);
+}
+
+/* Der weiße Fokusschein trennt den Fokusrahmen nur auf dunklen Flächen sichtbar ab; auf hellem
+   Grund bleibt er wirkungslos und wird deshalb nicht gesetzt. */
+:is(.site-notice, .service-band, .site-footer, .law-notice, .law-footer)
+  :is(a, button, input, select, textarea, summary):focus-visible {
   box-shadow: var(--focus-ring);
 }
 
