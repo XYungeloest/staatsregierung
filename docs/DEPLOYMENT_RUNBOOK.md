@@ -191,7 +191,7 @@ neue Projektion, nicht den alten Worker; die Übergangsregel ersetzt er nicht.
 | npm audit (Registry) | Wrapper meldet nach drei Versuchen „Registry nicht erreichbar“ | Lauf erneut starten; kein Codefehler |
 | D1-Seed | Seed-Verifikation lehnt einen Snapshot ab | Snapshot wird verworfen und neu projiziert; bei wiederholter Ablehnung Seed-Werkzeuge und Migrationen prüfen |
 | Browser oder Barrierefreiheit | Link-, SEO-, Accessibility- oder Browser-Test schlägt fehl | betroffene Route und Viewport aus dem Testbericht prüfen |
-| Visuelle Regression | `visual` schlägt fehl | Testbericht (Artefakt `visual-report`) sichten; Linux-Baselines nur nach Abnahme mit dem Playwright-Container erneuern (`npm run test:visual:run -- --update-snapshots` im Job), nie stillschweigend |
+| Visuelle Regression | `visual` schlägt fehl | Testbericht (Artefakt `visual-report`) sichten; bei beabsichtigter Änderung Linux-Baselines mit dem Workflow „Screenshot-Baselines erneuern“ (`visual-baselines.yml`, Artefakt) erzeugen, sichten und committen, nie stillschweigend |
 | D1-Sync | Remote-State meldet Release-Gate, Budget überschritten oder Basis nicht verifiziert | D1-Release-Gate vor dem Merge ausführen (enge Projektion mit Nachweis, sonst bewusste Vollprojektion zuerst gegen Staging); Workflow erst nach No-op mergen |
 | Cloudflare-Upload | alle Prüfungen grün, aber `deploy` schlägt fehl | Token, Account-ID, Worker-Konfiguration und Wrangler-Ausgabe prüfen; keine lokale Ersatzveröffentlichung |
 | Nachkontrolle | Workflow grün, aber Commitkennung oder Route stimmt nicht | letzte tatsächlich ausgelieferte Kennung feststellen und Deployment erst nach Ursachenklärung erneut anstoßen |

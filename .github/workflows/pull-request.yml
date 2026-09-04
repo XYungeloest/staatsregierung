@@ -375,8 +375,9 @@ jobs:
         run: |
           echo "Vollbestand-Seed: ${SEED_STATUS:-unbekannt} (Projektion ${SEED_BUILD:-0} s)"
 
-  # Screenshot-Suite bei Oberflächenänderungen im festen Playwright-Container (Linux-Baselines,
-  # Fixture-Bestand). Kein Pflichtcheck: fehlende Baselines werden als Artefakt bereitgestellt.
+  # Screenshot-Suite bei Oberflächenänderungen im festen Playwright-Container, strikt gegen die
+  # committeten Linux-Baselines (Fixture-Bestand). Kein Pflichtcheck des Rulesets; Baselines
+  # werden nur über den Workflow „Screenshot-Baselines erneuern“ erzeugt.
   visual:
     needs:
       - classify
@@ -409,36 +410,18 @@ jobs:
         with:
           fixture: data/recht/runtime-fixture.json
           cache: 'false'
-      - name: Screenshot-Suite ausführen (ohne Linux-Baselines im Repository nur Bootstrap)
+      - name: Screenshot-Suite strikt gegen die committeten Linux-Baselines prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.build_targets }}
         run: |
-          # Playwright meldet fehlende Baselines als Fehler. Solange das Repository keine
-          # Linux-Baselines trägt, erzeugt der Lauf sie (Bootstrap) und stellt sie als Artefakt
-          # bereit; sobald Baselines committet sind, vergleicht er strikt.
-          if ls tests/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
-            npm run test:visual:run
-          else
-            echo "::warning::Keine Linux-Screenshot-Baselines im Repository: Bootstrap-Lauf erzeugt sie (Artefakt visual-baselines-linux), ein Vergleich findet noch nicht statt."
-            npm run test:visual:run -- --update-snapshots
+          # Kein Bootstrap: fehlende Baselines sind ein Fehler. Neue oder geänderte Linux-Baselines
+          # entstehen nur bewusst über den Workflow „Screenshot-Baselines erneuern“ (Artefakt,
+          # Sichtprüfung, Commit).
+          if ! ls tests/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
+            echo "::error::Keine Linux-Screenshot-Baselines im Repository (tests/visual.spec.ts-snapshots/*-linux.png). Baselines mit dem Workflow „Screenshot-Baselines erneuern“ erzeugen, sichten und committen."
+            exit 1
           fi
-      - name: Neue Baselines melden
-        if: ${{ always() }}
-        id: baselines
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          NEW="$(git ls-files --others --exclude-standard tests/visual.spec.ts-snapshots | wc -l | tr -d ' ')"
-          echo "new=$NEW" >> "$GITHUB_OUTPUT"
-          if [ "$NEW" != "0" ]; then
-            echo "::warning::${NEW} Linux-Screenshot-Baselines fehlen im Repository und wurden in diesem Lauf erzeugt (Artefakt visual-baselines-linux). Nach Sichtprüfung committen."
-          fi
-      - name: Erzeugte Baselines bereitstellen
-        if: ${{ always() && steps.baselines.outputs.new != '0' }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: visual-baselines-linux-${{ github.event.pull_request.head.sha }}
-          path: tests/visual.spec.ts-snapshots/*-linux.png
-          retention-days: 14
+          npm run test:visual:run
       - name: Testbericht bereitstellen
         if: ${{ failure() }}
         uses: actions/upload-artifact@v7

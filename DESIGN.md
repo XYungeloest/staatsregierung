@@ -328,8 +328,9 @@ Testfixture des Rechtsbestands (`data/recht/runtime-fixture.json`, lokal `script
 Playwright-Container mit den committeten `-linux`-Baselines im strikten Vergleich (`SITE_TARGETS`
 begrenzt die Suite auf die gebauten Websites). Änderungen an Header, Startseite oder globalen
 Komponenten werden erst nach manueller Sichtprüfung in die Baselines übernommen; Linux-Baselines
-entstehen nur im Playwright-Container (Artefakt des CI-Laufs mit `--update-snapshots`), nie
-stillschweigend. Sie sind kein Deployment-Gate. Die automatische
+entstehen nur im Playwright-Container über den manuellen Workflow „Screenshot-Baselines erneuern“
+(`.github/workflows/visual-baselines.yml`, Artefakt sichten und committen), nie stillschweigend.
+Sie sind kein Deployment-Gate. Die automatische
 Produktions-QA konzentriert sich auf deterministische Content-, Type-, Unit-, Build-, Link- und
 SEO-Prüfungen sowie repräsentative Chromium- und Accessibility-Smokes.
 
