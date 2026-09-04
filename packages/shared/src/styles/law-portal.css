@@ -1484,21 +1484,8 @@
   padding: clamp(2rem, 4vw, 4rem) max(calc((100vw - var(--content-width)) / 2), 1.25rem);
   border-bottom: 1px solid var(--color-border);
   overflow: hidden;
-  background:
-    radial-gradient(circle at 88% 46%, rgba(11, 63, 127, 0.14), transparent 27%),
-    linear-gradient(110deg, var(--law-blue-light) 0%, var(--color-surface-alt) 58%, var(--law-blue-light) 100%);
-}
-
-.law-home-hero::after {
-  content: '§';
-  position: absolute;
-  inset-inline-end: max(calc((100vw - var(--content-width)) / 2), 2rem);
-  inset-block-end: -4.5rem;
-  color: rgba(11, 63, 127, 0.06);
-  font-family: var(--law-serif);
-  font-size: 19rem;
-  line-height: 1;
-  pointer-events: none;
+  /* Ruhige Fläche (Befund F3): kein Verlauf, kein Dekor-„§“ hinter Chipzeile und Bestandshinweis. */
+  background: var(--law-blue-light);
 }
 
 .law-home-hero__intro,
@@ -2932,7 +2919,7 @@
   margin: var(--space-5) 0;
   padding: var(--space-5);
   border-left: 0.3rem solid var(--law-blue);
-  background: linear-gradient(105deg, var(--law-blue-light), var(--color-surface-alt));
+  background: var(--law-blue-light);
 }
 
 .law-help-paths {
