@@ -103,8 +103,8 @@ npm run norms:advance-reference-date -- --to <Datum> --write
 Pull Requests laufen gegen das repräsentative Testfixture (`data/recht/runtime-fixture.json`);
 der vollständige Rechtsbestand wird als gecachter D1-Seed nur dann geprüft, wenn eine Änderung
 Laufzeit, Projektion oder den Bestand in größerem Umfang berührt, sowie wöchentlich und manuell.
-Screenshot-Baselines laufen bei Oberflächenänderungen im Playwright-Container und sind kein
-Deployment-Gate. Veröffentlicht wird ausschließlich über den Workflow `Deploy to Cloudflare Workers`
+Screenshot-Baselines laufen bei Oberflächenänderungen im Playwright-Container gegen das Testfixture
+und vergleichen strikt mit den committeten Linux-Baselines; sie sind kein Deployment-Gate. Veröffentlicht wird ausschließlich über den Workflow `Deploy to Cloudflare Workers`
 aus dem geprüften Commit auf `main`.
 
 ## Dokumentation

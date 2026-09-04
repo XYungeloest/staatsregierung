@@ -482,10 +482,10 @@ jobs:
           # Linux-Baselines trägt, erzeugt der Lauf sie (Bootstrap) und stellt sie als Artefakt
           # bereit; sobald Baselines committet sind, vergleicht er strikt.
           if ls tests/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
-            npx playwright test tests/visual.spec.ts
+            npm run test:visual:run
           else
             echo "::warning::Keine Linux-Screenshot-Baselines im Repository: Bootstrap-Lauf erzeugt sie (Artefakt visual-baselines-linux), ein Vergleich findet noch nicht statt."
-            npx playwright test tests/visual.spec.ts --update-snapshots
+            npm run test:visual:run -- --update-snapshots
           fi
       - name: Neue Baselines melden
         if: ${{ always() }}

@@ -7,15 +7,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## OstRecht
 
-- [ ] Linux-Baselines der Screenshot-Suite committen. Der CI-Job `visual` erzeugt fehlende
-  `*-linux.png` im Playwright-Container und stellt sie als Artefakt bereit. Fertig, wenn
-  `tests/visual.spec.ts-snapshots/` für jede Seite und jedes Projekt eine Linux-Baseline enthält und
-  der Job ohne Warnung „Baselines fehlen“ durchläuft.
-- [ ] Fundstellensuche um das Ostdeutsche Vertragsblatt erweitern: `PUBLICATION_REFERENCE_PATTERN`
-  in `packages/recht-search/src/search-query.ts` kennt `OVertrBl.` nicht, eine Suche nach
-  „OVertrBl. 2026 Nr. 1“ wird deshalb nicht als Fundstelle erkannt. Fertig, wenn ein Unit-Test in
-  `tests/law-portal.test.ts` den Fundstellentreffer für ein Vertragsblatt nachweist (Änderung an der
-  Suchlogik löst eine Vollprojektion aus, siehe `docs/REVOSAX_BULK_IMPORT.md`).
 - [ ] Abgeleitete Metadaten der übernommenen Normen nachschärfen: Sachgebiete, Schlagwörter und
   Kurzfassungen der REVOSax-Baseline sind deterministisch aus Typ, Ressort und Titel abgeleitet und
   im Import-Audit als `derivedMetadata` gekennzeichnet. Fertig, wenn redaktionell geprüfte Werte
@@ -23,6 +14,13 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 - [ ] Cloudflare-Plan festlegen: Workers Paid ist für den Betrieb mit dem Vollbestand vorgesehen
   (Schreibvorgänge einer Vollprojektion, CPU-Zeit großer Normen). Fertig, wenn der Plan aktiv ist
   und `docs/DEPLOYMENT_RUNBOOK.md` die geltenden D1-Limits nennt.
+
+- [ ] Übergangsregel des Base-State-Guards entfernen: `projectionIdentity` liefert neben dem
+  Fingerabdruck einen `legacyFingerprint` (Portalhash über ganze Dateien), den
+  `decideSyncAction` als Basiszustand akzeptiert, damit eine vor der projektionsrelevanten
+  Portalhash-Berechnung geschriebene D1 noch als Basis gilt. Fertig, wenn Produktion und Staging
+  eine Identität der neuen Berechnung tragen (`npm run norms:runtime:d1-sync -- --remote-state …`
+  meldet No-op) und `legacyFingerprint` samt Test in `tests/recht-d1-sync-guard.test.mjs` gelöscht ist.
 
 ## Sitzungsmediathek der Volkskammer
 

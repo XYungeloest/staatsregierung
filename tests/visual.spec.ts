@@ -192,7 +192,9 @@ const componentVisualPages = [
   },
   {
     name: 'rechtsentwicklung-module',
-    path: lawUrl('/rechtsentwicklung/'),
+    // Die Liste sortiert nach jüngstem Rechtsereignis; das Archivgesetz (übernommen, unverändert)
+    // wird über den Freitextfilter auf die erste Seite geholt.
+    path: lawUrl('/rechtsentwicklung/?q=Archivgesetz'),
     shots: [
       ['rechtsentwicklung-kennzahlen', '.section-hero__facts'],
       ['rechtsentwicklung-filter', '[data-development-filter-form]'],

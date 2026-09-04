@@ -321,12 +321,15 @@ Automatisierte Tests ergänzen den manuellen Tastatur-, Zoom- und Screenreader-K
 
 ## Qualitätssicherung
 
-Die visuellen Baselines (`tests/visual.spec.ts`) prüfen zentrale Seiten und Module bei
-Smartphone-, Tablet- und Desktopbreiten. Lokal laufen sie unter macOS gegen den Vollbestand
-(`-darwin`-Baselines); in CI laufen sie bei Oberflächenänderungen im festen Playwright-Container
-gegen das Testfixture (`-linux`-Baselines, `SITE_TARGETS` begrenzt die Suite auf die gebauten
-Websites). Änderungen an Header, Startseite oder globalen Komponenten werden erst nach manueller
-Sichtprüfung in die Baselines übernommen. Sie sind kein Deployment-Gate. Die automatische
+Die visuellen Baselines (`tests/visual.spec.ts`) prüfen zentrale Seiten und Module in drei
+Viewports (1440, 768 und 390 px; `npm run test:visual:run`). Sie laufen immer gegen das
+Testfixture des Rechtsbestands (`data/recht/runtime-fixture.json`, lokal `scripts/serve-law-worker.mjs
+--fixture …`): lokal unter macOS mit `-darwin`-Baselines, in CI bei Oberflächenänderungen im festen
+Playwright-Container mit den committeten `-linux`-Baselines im strikten Vergleich (`SITE_TARGETS`
+begrenzt die Suite auf die gebauten Websites). Änderungen an Header, Startseite oder globalen
+Komponenten werden erst nach manueller Sichtprüfung in die Baselines übernommen; Linux-Baselines
+entstehen nur im Playwright-Container (Artefakt des CI-Laufs mit `--update-snapshots`), nie
+stillschweigend. Sie sind kein Deployment-Gate. Die automatische
 Produktions-QA konzentriert sich auf deterministische Content-, Type-, Unit-, Build-, Link- und
 SEO-Prüfungen sowie repräsentative Chromium- und Accessibility-Smokes.
 
