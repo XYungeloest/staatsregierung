@@ -1,0 +1,36 @@
+---
+import type { Pagination } from '../../lib/runtime/pagination.ts';
+
+/** Seitennavigation der serverseitig paginierten Verzeichnisse (ein Muster für alle). */
+interface Props {
+  pagination: Pagination;
+  label: string;
+  /** Beschriftung der Seitenlinks für Hilfstechnik, Standard „Seite“. */
+  pageWord?: string;
+  prevLabel?: string;
+  nextLabel?: string;
+  attrs?: Record<string, string | undefined>;
+}
+
+const { pagination, label, pageWord = 'Seite', prevLabel = 'Vorherige Seite', nextLabel = 'Nächste Seite', attrs = {} } = Astro.props;
+---
+
+{pagination.pages.length > 1 ? (
+  <nav class="pagination" aria-label={label} {...attrs}>
+    {pagination.prev
+      ? <a class="pagination__link" rel="prev" href={pagination.prev}>{prevLabel}</a>
+      : <span class="pagination__link pagination__link--disabled" aria-disabled="true">{prevLabel}</span>}
+    <ol class="pagination__list">
+      {pagination.pages.map((entry) => (
+        <li>
+          {entry.kind === 'gap'
+            ? <span class="pagination__gap" aria-hidden="true">…</span>
+            : <a href={entry.href} aria-current={entry.current ? 'page' : undefined} aria-label={`${pageWord} ${entry.page}`}>{entry.page}</a>}
+        </li>
+      ))}
+    </ol>
+    {pagination.next
+      ? <a class="pagination__link" rel="next" href={pagination.next}>{nextLabel}</a>
+      : <span class="pagination__link pagination__link--disabled" aria-disabled="true">{nextLabel}</span>}
+  </nav>
+) : null}

@@ -175,6 +175,17 @@ test('Übersichten ohne Suchbegriff sortieren nach jüngstem Rechtsereignis (las
   assert.match(pages[1].sql, /WHERE n\.index_letter = \? ORDER BY n\.sort_title, n\.slug LIMIT/u);
 });
 
+test('Buchstabenzähler eines Verzeichnisses laufen als GROUP BY über dieselben Bedingungen wie die Seitenabfrage', async () => {
+  const { db, log } = recordingDatabase({ 'GROUP BY n.index_letter': [{ letter: 'G', count: 4 }] });
+  const store = createD1NormStore(db);
+  assert.deepEqual(await store.listIndexLetters({ types: ['gesetz'] }), [{ letter: 'G', count: 4 }]);
+  assert.match(log[0].sql, /^SELECT n\.index_letter AS letter, COUNT\(\*\) AS count FROM law_norms n WHERE n\.type IN \(\?\) GROUP BY n\.index_letter ORDER BY n\.index_letter$/u);
+  assert.deepEqual(log[0].params, ['gesetz']);
+  await store.listIndexLetters({ subjectSlug: 'bildung-und-schule', originKind: 'ostdeutsch-original' });
+  assert.match(log[1].sql, /n\.origin_kind = \? AND n\.id IN \(SELECT s\.norm_id FROM law_norm_subjects s WHERE s\.subject_slug = \?\) GROUP BY n\.index_letter/u);
+  assert.ok(log.every((query) => !/meta_json|version_json|history_json/u.test(query.sql)));
+});
+
 test('getNorm liest genau die Zeilen der angefragten Norm und die Körper der gewünschten Fassungen', async () => {
   const meta = { id: 'x', slug: 'x', title: 'X', shortTitle: 'X', type: 'gesetz', status: 'in-force', subjects: ['A'], keywords: [], initialCitation: 'X (OGVBl. S. 1)', predecessor: null, successor: null, summary: 'S' };
   const version = { versionId: '2023-11-01', validFrom: '2023-11-01', validTo: null, isCurrent: true, citation: 'X', changeNote: 'N' };

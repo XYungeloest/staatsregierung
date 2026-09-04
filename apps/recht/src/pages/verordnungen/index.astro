@@ -1,15 +1,10 @@
 ---
 import NormDirectory from '../../components/norms/NormDirectory.astro';
 import { getRegulationsUrl } from '@ostrecht/shared/lib/norms/index.ts';
-import { getNormStore } from '../../lib/runtime/context.ts';
 
-// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion – seitenweise, nie vollständig.
 export const prerender = false;
 
-const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
-
-// SQL-Filter über den Typindex; nur Übersichtszeilen, keine Fassungs-JSONs.
-const norms = await store.listNormSummariesByType('verordnung');
 ---
-<NormDirectory title="Verordnungen" lead="Rechtsverordnungen des Ostdeutschen Freistaates mit geltenden und gespeicherten historischen Fassungen." href={getRegulationsUrl()} {norms} />
+<NormDirectory title="Verordnungen" lead="Rechtsverordnungen des Ostdeutschen Freistaates mit geltenden und gespeicherten historischen Fassungen." href={getRegulationsUrl()} type="verordnung" />

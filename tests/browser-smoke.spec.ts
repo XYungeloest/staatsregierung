@@ -319,25 +319,53 @@ siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilt
   await expect(page.locator('[data-search-results] .search-hit h3').first()).toHaveText(/^Erstes Gesetz/u);
 });
 
-siteTest(['law'])('Normverzeichnis stellt Filter, leere Buchstaben und Browserverlauf gemeinsam wieder her', async ({ page }) => {
+siteTest(['law'])('Normverzeichnis filtert und paginiert serverseitig; die Buchstabenleiste zeigt alle Buchstaben', async ({ page }) => {
   await page.goto(lawUrl('/gesetze/'));
-  const query = page.locator('[data-law-filter-form] input[name="q"]');
-  await query.fill('Kulturpass');
-  await page.locator('[data-law-filter-form]').getByRole('button', { name: 'Filtern' }).click();
-  await expect(page).toHaveURL(/q=kulturpass/u);
-  await expect(page.locator('[data-law-filter-summary]')).toContainText(/Eintr(?:ag|äge)/u);
-  await expect(page.locator('[data-law-filter-entry]:visible').first()).toContainText('Kulturpass');
-  const state = await page.evaluate(() => ({
-    groups: [...document.querySelectorAll<HTMLElement>('[data-law-filter-group]')].filter((entry) => !entry.hidden).map((entry) => entry.dataset.lawFilterGroup),
-    letters: [...document.querySelectorAll<HTMLElement>('[data-law-filter-letter]')].filter((entry) => !entry.hidden).map((entry) => entry.dataset.lawFilterLetter),
-  }));
-  expect(state.letters).toEqual(state.groups);
+  // Ohne Filter: Ergebniszahl unter der Leiste, „Zurücksetzen“ vorhanden, aber inaktiv.
+  await expect(page.locator('[data-directory-count]')).toContainText(/Vorschrift/u);
+  await expect(page.locator('[data-directory-reset]')).toHaveAttribute('aria-disabled', 'true');
+  expect(await page.locator('[data-directory-entry]').count()).toBeLessThanOrEqual(50);
+  // Alle 27 Buchstabengruppen sind sichtbar; unbelegte sind inaktiv statt entfernt.
+  const letters = page.locator('.letter-nav [data-index-letter]:not([data-index-letter=""])');
+  await expect(letters).toHaveCount(27);
+  expect(await page.locator('.letter-nav span[aria-disabled="true"]').count()).toBeGreaterThan(0);
 
-  await query.fill('Verfassung');
-  await page.locator('[data-law-filter-form]').getByRole('button', { name: 'Filtern' }).click();
+  const query = page.locator('[data-directory-filter] input[name="q"]');
+  await query.fill('Kulturpass');
+  await page.locator('[data-directory-filter]').getByRole('button', { name: 'Filtern' }).click();
+  await expect(page).toHaveURL(/q=Kulturpass/u);
+  await expect(page.locator('[data-directory-count]')).toContainText(/passen zur Auswahl/u);
+  await expect(page.locator('[data-directory-entry]').first()).toContainText('Kulturpass');
+  await expect(page.locator('a[data-directory-reset]')).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
+
+  // Sprung in eine Buchstabengruppe behält den Filter; Zurück stellt den vorherigen Zustand wieder her.
+  const letter = page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').first();
+  const letterValue = await letter.getAttribute('data-index-letter');
+  await letter.click();
+  await expect(page).toHaveURL(new RegExp(`buchstabe=${letterValue}`, 'u'));
+  await expect(page).toHaveURL(/q=Kulturpass/u);
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText(letterValue ?? '');
   await page.goBack();
-  await expect(query).toHaveValue('kulturpass');
-  await expect(page.locator('[data-law-filter-entry]:visible').first()).toContainText('Kulturpass');
+  await expect(query).toHaveValue('Kulturpass');
+  await expect(page.locator('[data-directory-entry]').first()).toContainText('Kulturpass');
+
+  // Zurücksetzen führt auf das ungefilterte Verzeichnis.
+  await page.locator('a[data-directory-reset]').click();
+  await expect(page).toHaveURL(lawUrl('/gesetze/'));
+  await expect(page.locator('[data-directory-reset]')).toHaveAttribute('aria-disabled', 'true');
+});
+
+siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und dieselbe Filterleiste', async ({ page }) => {
+  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/fundstellen/', '/rechtsentwicklung/', '/archiv/', '/sachgebiete/kommunal-und-verwaltungsrecht/']) {
+    await page.goto(lawUrl(path));
+    await expect(page.locator('[data-directory-filter]').first(), path).toBeVisible();
+    await expect(page.locator('[data-directory-count]').first(), path).toBeVisible();
+    await expect(page.locator('[data-directory-reset]').first(), path).toBeVisible();
+    const entries = await page.locator('.directory-entry').count();
+    expect(entries, path).toBeGreaterThan(0);
+    expect(entries, path).toBeLessThanOrEqual(50);
+  }
 });
 
 siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen folgen dem redaktionellen Stichtag', async ({ page }) => {
@@ -545,7 +573,7 @@ siteTest(['law'])('Rechtsportal verwendet auf Übersichten und Suchindex dieselb
   await expect(latestHomePublication).toContainText(latestPublicationLabel);
 
   await page.goto(lawUrl('/verkuendungen/'));
-  await expect(page.locator('[data-law-filter-entry]').first()).toContainText(latestPublicationLabel);
+  await expect(page.locator('[data-directory-entry]').first()).toContainText(latestPublicationLabel);
 
   const recheckResponse = await request.get(lawUrl('/verkuendungen/index.json'));
   expect(recheckResponse).toBeOK();
@@ -764,7 +792,7 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
   const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));
   expect(response?.status()).toBe(200);
-  await expect(page.locator('[data-index-count]')).toContainText('angezeigt');
+  await expect(page.locator('[data-index-count]')).toContainText(/\d+ Norm/u);
 });
 
 siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften und kennzeichnet ihre Herkunft', async ({ page }) => {
