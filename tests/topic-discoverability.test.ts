@@ -19,19 +19,34 @@ test('Discoverability-Regel ist datiert und verhindert einen unbemerkten leeren 
   });
   assert.deepEqual(current.problems, []);
 
+  // Der erste Tag nach dem spätesten befristeten Hervorhebungsfenster wird aus den
+  // Themendaten abgeleitet, damit neue Fenster den Test nicht stillschweigend entwerten.
+  const windowEnds = topics
+    .filter((topic) => topic.highlightFrom)
+    .map((topic) => topic.highlightUntil ?? '9999-12-31')
+    .sort();
+  const lastWindowEnd = windowEnds.at(-1);
+  assert.ok(lastWindowEnd && lastWindowEnd < '9999-12-31', 'alle Hervorhebungen sind befristet');
+  const dayAfterAllWindows = new Date(Date.parse(`${lastWindowEnd}T00:00:00Z`) + 86_400_000)
+    .toISOString()
+    .slice(0, 10);
+  const successorWindowEnd = new Date(Date.parse(`${dayAfterAllWindows}T00:00:00Z`) + 19 * 86_400_000)
+    .toISOString()
+    .slice(0, 10);
+
   const afterAllCurrentWindows = validateDiscoverability({
     topics,
-    referenceDate: '2026-09-11',
+    referenceDate: dayAfterAllWindows,
     policy: coverage.discoverability,
   });
   assert.match(afterAllCurrentWindows.problems.join(' '), /mindestens 1 aktuelle Vorhaben/u);
 
   const successorTopics = topics.map((topic) => topic.slug === 'bildungsreform'
-    ? { ...topic, highlightFrom: '2026-09-11', highlightUntil: '2026-09-30' }
+    ? { ...topic, highlightFrom: dayAfterAllWindows, highlightUntil: successorWindowEnd }
     : topic);
   const withSuccessor = validateDiscoverability({
     topics: successorTopics,
-    referenceDate: '2026-09-11',
+    referenceDate: dayAfterAllWindows,
     policy: coverage.discoverability,
   });
   assert.deepEqual(withSuccessor.problems, []);

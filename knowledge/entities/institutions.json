@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-01",
+  "asOf": "2026-09-04",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -2084,6 +2084,54 @@
       "notes": [],
       "aliases": [],
       "type": "government",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-interflug",
+      "title": "Interflug",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "asOf": "2026-09-04",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Schönefeld für öffentliche Spezialflugaufgaben (Wald- und Vegetationsbrandbekämpfung, Katastrophenschutz, Hilfs- und Beobachtungsflüge). Errichtet durch das Interflug-Gesetz vom 2. September 2026; seit 3. September 2026 führt ein vom Staatsrat bestellter Gründungsvorstand die Anstalt und hat die Anfangsflotte aus zehn Löschflugzeugen beschafft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1, §§ 1, 2, 21 und 23 des Interflug-Gesetzes",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-39",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-40",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-interflug",
+        "inst-staatsrat",
+        "inst-sek-wirtschaft-arbeit"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "aviation",
+        "civil-protection",
+        "public-economy"
+      ],
+      "notes": [
+        "Gründungsvorstand: Joachim Hunold (Vorsitzender), Ralf Teckentrup, Klaus Wowereit; die Bestellung endet mit dem Amtsantritt des ersten vom Verwaltungsrat bestellten Vorstandes, spätestens mit Ablauf des 3. März 2027."
+      ],
+      "aliases": [
+        "Interflug AöR",
+        "Interflug Anstalt des öffentlichen Rechts"
+      ],
+      "type": "public-law-institution",
       "predecessorId": null,
       "successorId": null
     }

@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-02",
-  "editorialAsOf": "2026-09-01",
-  "count": 1151,
+  "generatedAt": "2026-09-04",
+  "editorialAsOf": "2026-09-04",
+  "count": 1170,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -276,6 +276,20 @@
       ],
       "validFrom": "2026-03-24",
       "validTo": "2026-03-24",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-daseinsvorsorgegesetz-effective-2026",
+      "title": "Ostdeutsches Daseinsvorsorgegesetz in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "public-services",
+        "law"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
       "target": "knowledge/timeline.json"
     },
     {
@@ -580,6 +594,20 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-hoheitszeichengesetz-ohzg-effective-2026",
+      "title": "Ostdeutsches Hoheitszeichengesetz verkündet und in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "symbols",
+        "law"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": "2026-09-02",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-holdings-succession-2023",
       "title": "Beteiligungs- und Trägerpositionen der sechs Vorgängerländer gehen über",
       "type": "timeline-event",
@@ -696,6 +724,50 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-interflug-founding-board-appointed-2026",
+      "title": "Gründungsvorstand der Interflug bestellt",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "aviation",
+        "appointments"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-interflug-initial-fleet-procured-2026",
+      "title": "Anfangsflotte der Interflug beschafft",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "aviation",
+        "procurement",
+        "civil-protection"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-interflug-law-effective-2026",
+      "title": "Interflug-Gesetz in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "aviation",
+        "civil-protection",
+        "law"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-luxemburg-liebknecht-memorial-approved",
       "title": "Luxemburg-Liebknecht-Denkmal wird genehmigt",
       "type": "timeline-event",
@@ -754,8 +826,7 @@
       "type": "timeline-event",
       "aliases": [],
       "tags": [
-        "timeline",
-        "future"
+        "timeline"
       ],
       "validFrom": "2026-09-03",
       "validTo": "2026-09-03",
@@ -1063,6 +1134,21 @@
       ],
       "validFrom": "2025-10-06",
       "validTo": "2025-10-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-zinnwald-socialisation-law-effective-2026",
+      "title": "Zinnwald-Vergesellschaftungsgesetz verkündet und in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "mining",
+        "socialisation",
+        "law"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": "2026-09-02",
       "target": "knowledge/timeline.json"
     },
     {
@@ -10537,6 +10623,25 @@
       "target": "knowledge/entities/institutions.json"
     },
     {
+      "id": "inst-interflug",
+      "title": "Interflug",
+      "type": "institution",
+      "aliases": [
+        "Interflug AöR",
+        "Interflug Anstalt des öffentlichen Rechts"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "aviation",
+        "civil-protection",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-investitionsbank-brandenburg",
       "title": "Investitionsbank des Landes Brandenburg AöR",
       "type": "institution",
@@ -11821,8 +11926,7 @@
       "tags": [
         "proceeding",
         "treaty",
-        "media",
-        "future"
+        "media"
       ],
       "validFrom": "2026-09-03",
       "validTo": "2026-09-03",
@@ -11988,6 +12092,21 @@
       "target": "knowledge/projects.json"
     },
     {
+      "id": "project-daseinsvorsorge",
+      "title": "Öffentliche Daseinsvorsorge",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "public-services",
+        "public-economy",
+        "planning"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "project-e-jura-procurement",
       "title": "Elektronisches juristisches Prüfungssystem",
       "type": "project",
@@ -12098,7 +12217,7 @@
         "symbols",
         "law"
       ],
-      "validFrom": null,
+      "validFrom": "2026-09-02",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -12114,6 +12233,21 @@
         "defence"
       ],
       "validFrom": "2025-12-21",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-interflug",
+      "title": "Interflug und öffentlicher Spezialflug",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "aviation",
+        "civil-protection",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-03",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -12308,6 +12442,21 @@
         "aviation"
       ],
       "validFrom": "2025-12-21",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-zinnwald-lithium",
+      "title": "Vergesellschaftung des Lithiumprojekts Zinnwald",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "mining",
+        "socialisation",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-02",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -13969,6 +14118,91 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-ogvbl-2026-69",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 69",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security"
+      ],
+      "validFrom": "2026-08-31",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-70",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 70",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "symbols",
+        "state"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-71",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 71",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "public-services"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-72",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 72",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "municipal",
+        "whistleblowing"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-73",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 73",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "mining",
+        "socialisation"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-74",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 74",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "aviation",
+        "civil-protection"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-ogvbl-53",
       "title": "OGVBl. 2026 Nr. 53",
       "type": "source",
@@ -14861,6 +15095,37 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-stanzo-2026-39",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 39",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "aviation",
+        "appointments"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-40",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 40",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "aviation",
+        "procurement",
+        "civil-protection"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-steelworks-valuation-2026-03-14",
       "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
       "type": "source",
@@ -15092,6 +15357,21 @@
         "state"
       ],
       "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-interflug-2026",
+      "title": "Interflug: Errichtung, Gründungsvorstand und Anfangsflotte",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "aviation",
+        "civil-protection",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-03",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

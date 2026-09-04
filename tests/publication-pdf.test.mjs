@@ -7,6 +7,7 @@ import test from 'node:test';
 import { findMissingPublicationPdfAssets } from '../scripts/check-deploy-assets.mjs';
 import {
   pdfPageCount,
+  preserveVerifiedAt,
   publicationIdentityKey,
   publicationIdentityFromPdfFileName,
   retainUnrelatedPublicationSourceReferences,
@@ -105,4 +106,22 @@ test('StAnzO. 2026 Nr. 5 verweist nicht mehr fälschlich auf ein unverfügbares 
   assert.equal(primaryPdf?.localSource, 'Gesetze/StAnzO 2026 Nr 5.pdf');
   assert.equal(publication.sourceReferences.some((reference) => /nicht Bestandteil des Repositorys/i.test(reference.note || '')), false);
   await access(new URL('../public/assets/recht/StAnzO 2026 Nr 5.pdf', import.meta.url));
+});
+
+test('Neuableitung setzt ein dokumentiertes Prüfdatum derselben Datei nie zurück', () => {
+  const existing = [
+    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.html', sha256: 'abc', verifiedAt: '2026-09-02' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.pdf', sha256: 'def', verifiedAt: '2026-09-02' },
+  ];
+  const rebuilt = preserveVerifiedAt([
+    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.html', sha256: 'abc', verifiedAt: '2026-08-28' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.pdf', sha256: 'def', verifiedAt: '2026-09-04' },
+    { kind: 'primary-pdf', localSource: 'Gesetze/OGVBl. 2026 Nr. 74.pdf', sha256: 'ghi', verifiedAt: '2026-08-28' },
+    { kind: 'structured-html-transcription', localSource: 'Gesetze/OGVBl. 2026 Nr. 73.html', sha256: 'geaendert', verifiedAt: '2026-08-28' },
+  ], existing);
+  assert.equal(rebuilt[0].verifiedAt, '2026-09-02', 'älteres Datum wird auf den dokumentierten Stand gehoben');
+  assert.equal(rebuilt[1].verifiedAt, '2026-09-04', 'ein späteres neues Datum bleibt');
+  assert.equal(rebuilt[2].verifiedAt, '2026-08-28', 'fremde Dateien bleiben unberührt');
+  assert.equal(rebuilt[3].verifiedAt, '2026-08-28', 'geänderter Hash übernimmt kein altes Prüfdatum');
+  assert.deepEqual(preserveVerifiedAt([{ kind: 'original', label: 'ohne Datei' }], existing), [{ kind: 'original', label: 'ohne Datei' }]);
 });

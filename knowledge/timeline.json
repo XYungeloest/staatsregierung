@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-02",
+  "asOf": "2026-09-04",
   "events": [
     {
       "id": "event-off-holdings-succession-2026",
@@ -1794,11 +1794,11 @@
     {
       "id": "event-ndr-treaty-effective",
       "title": "NDR-Änderungs- und Überleitungsstaatsvertrag tritt in Kraft",
-      "status": "editorially-confirmed",
+      "status": "confirmed-primary",
       "validFrom": "2026-09-03",
       "validTo": "2026-09-03",
-      "asOf": "2026-09-02",
-      "summary": "Die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten des Staatsvertrags zum 3. September 2026 fest.",
+      "asOf": "2026-09-04",
+      "summary": "Der Staatsvertrag ist am 3. September 2026 in Kraft getreten; die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten nach Austausch der Ratifikationsurkunden fest.",
       "sourceRefs": [
         {
           "sourceId": "source-overtrbl-2026-05",
@@ -1811,8 +1811,7 @@
         "proceeding-ndr-ratification"
       ],
       "tags": [
-        "timeline",
-        "future"
+        "timeline"
       ],
       "notes": [],
       "aliases": [],
@@ -2658,6 +2657,224 @@
         {
           "normSlug": "abschiebe-aussetzungsverordnung",
           "versionId": "2024-03-01"
+        }
+      ]
+    },
+    {
+      "id": "event-hoheitszeichengesetz-ohzg-effective-2026",
+      "title": "Ostdeutsches Hoheitszeichengesetz verkündet und in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-02",
+      "validTo": "2026-09-02",
+      "asOf": "2026-09-04",
+      "summary": "Das Besondere Gesetz zur Neuregelung des Hoheitszeichenrechts führt das Ostdeutsche Hoheitszeichengesetz (OHzG) ein; es tritt am Tag seiner Verkündung in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-70",
+          "locator": "Artikel 1 bis 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-hoheitszeichen",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "timeline",
+        "symbols",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-02",
+      "eventType": "law-enacted",
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-hoheitszeichengesetz",
+          "versionId": "2026-09-02"
+        }
+      ]
+    },
+    {
+      "id": "event-zinnwald-socialisation-law-effective-2026",
+      "title": "Zinnwald-Vergesellschaftungsgesetz verkündet und in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-02",
+      "validTo": "2026-09-02",
+      "asOf": "2026-09-04",
+      "summary": "Das Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald (ZinnVG) überführt die Geschäftsanteile des Projektunternehmens gegen Entschädigung in Gemeineigentum und tritt am Tag seiner Verkündung in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-73",
+          "locator": "Artikel 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-zinnwald-lithium",
+        "inst-sek-wirtschaft-arbeit"
+      ],
+      "tags": [
+        "timeline",
+        "mining",
+        "socialisation",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-02",
+      "eventType": "socialisation",
+      "normRefs": [
+        {
+          "normSlug": "zinnwald-vergesellschaftungsgesetz",
+          "versionId": "2026-09-02"
+        }
+      ]
+    },
+    {
+      "id": "event-daseinsvorsorgegesetz-effective-2026",
+      "title": "Ostdeutsches Daseinsvorsorgegesetz in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "asOf": "2026-09-04",
+      "summary": "Das am 2. September 2026 verkündete Besondere Gesetz über die öffentliche Daseinsvorsorge (OstDVG) tritt am Tag nach seiner Verkündung in Kraft und ändert zugleich die Haushaltsordnung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-71",
+          "locator": "Artikel 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-daseinsvorsorge",
+        "inst-sek-wirtschaft-arbeit"
+      ],
+      "tags": [
+        "timeline",
+        "public-services",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-03",
+      "eventType": "law-enacted",
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-daseinsvorsorgegesetz",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "saechsische-haushaltsordnung",
+          "versionId": "2026-09-03"
+        }
+      ]
+    },
+    {
+      "id": "event-interflug-law-effective-2026",
+      "title": "Interflug-Gesetz in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "asOf": "2026-09-04",
+      "summary": "Das am 2. September 2026 verkündete Gesetz zur Errichtung der Interflug tritt am Tag nach seiner Verkündung in Kraft; die Interflug entsteht als Anstalt des öffentlichen Rechts mit Sitz in Schönefeld.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-interflug",
+        "inst-interflug"
+      ],
+      "tags": [
+        "timeline",
+        "aviation",
+        "civil-protection",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-03",
+      "eventType": "institution-created",
+      "normRefs": [
+        {
+          "normSlug": "interflug-gesetz",
+          "versionId": "2026-09-03"
+        }
+      ]
+    },
+    {
+      "id": "event-interflug-founding-board-appointed-2026",
+      "title": "Gründungsvorstand der Interflug bestellt",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "asOf": "2026-09-04",
+      "summary": "Der Staatsrat bestellt Joachim Hunold (Vorsitzender), Ralf Teckentrup und Klaus Wowereit mit Wirkung vom 3. September 2026 zu Mitgliedern des Gründungsvorstandes der Interflug; die Bestellung endet spätestens mit Ablauf des 3. März 2027.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-39",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-interflug",
+        "inst-interflug",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "timeline",
+        "aviation",
+        "appointments"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-03",
+      "eventType": "appointment",
+      "normRefs": [
+        {
+          "normSlug": "bekanntmachung-bestellung-gruendungsvorstand-interflug",
+          "versionId": "2026-09-03"
+        }
+      ]
+    },
+    {
+      "id": "event-interflug-initial-fleet-procured-2026",
+      "title": "Anfangsflotte der Interflug beschafft",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "asOf": "2026-09-04",
+      "summary": "Der Gründungsvorstand macht die Beschaffung von sechs AT-802F Fire Boss, zwei Dash 8-400AT und zwei Boeing 737-700 FireLiner bekannt; das Beschaffungsprogramm umfasst bis zu 105,5 Millionen Euro einschließlich Erstausstattung und Risikovorsorge.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-40",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-interflug",
+        "inst-interflug"
+      ],
+      "tags": [
+        "timeline",
+        "aviation",
+        "procurement",
+        "civil-protection"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-03",
+      "eventType": "procurement-payment",
+      "normRefs": [
+        {
+          "normSlug": "bekanntmachung-beschaffung-anfangsflotte-interflug",
+          "versionId": "2026-09-03"
         }
       ]
     }

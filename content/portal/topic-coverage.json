@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-25",
+  "asOf": "2026-09-04",
   "discoverability": {
     "minimumActiveHighlights": 1,
     "editorialLead": {
@@ -11,108 +11,321 @@
   "currentStateCoverage": [
     {
       "id": "state-current-public-holdings-2026",
-      "topicSlugs": ["oeffentliche-wirtschaft-und-strukturwandel"],
-      "publicPaths": ["/staatsregierung/beteiligungen/"]
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ],
+      "publicPaths": [
+        "/staatsregierung/beteiligungen/"
+      ]
     },
     {
       "id": "state-current-public-mobility-program-2026",
-      "topicSlugs": ["oepnv-und-mobilitaet"],
-      "publicPaths": ["/presse/pressemitteilungen/sofortprogramm-oeffentliche-mobilitaet/"]
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ],
+      "publicPaths": [
+        "/presse/pressemitteilungen/sofortprogramm-oeffentliche-mobilitaet/"
+      ]
     },
     {
       "id": "state-current-energy-heat-tariffs-2026",
-      "topicSlugs": ["energie-und-klima"],
-      "publicPaths": ["/presse/pressemitteilungen/gemeineigentum-senkt-mieten-strom-und-waermekosten/"]
+      "topicSlugs": [
+        "energie-und-klima"
+      ],
+      "publicPaths": [
+        "/presse/pressemitteilungen/gemeineigentum-senkt-mieten-strom-und-waermekosten/"
+      ]
     },
     {
       "id": "state-current-state-awards-2026",
-      "publicPaths": ["/presse/pressemitteilungen/einsatzmedaille-monschau-2026-gestiftet/"]
+      "publicPaths": [
+        "/presse/pressemitteilungen/einsatzmedaille-monschau-2026-gestiftet/"
+      ]
     },
     {
       "id": "state-current-federal-president-representation",
-      "publicPaths": ["/staatsregierung/mitglieder/karl-honecker/"]
+      "publicPaths": [
+        "/staatsregierung/mitglieder/karl-honecker/"
+      ]
     },
     {
       "id": "state-current-identity",
-      "publicPaths": ["/freistaat/"]
+      "publicPaths": [
+        "/freistaat/"
+      ]
     },
     {
       "id": "state-current-constitution",
-      "topicSlugs": ["staatsreform-und-verfassung"],
-      "publicPaths": ["/recht/verfassung/"]
+      "topicSlugs": [
+        "staatsreform-und-verfassung"
+      ],
+      "publicPaths": [
+        "/recht/verfassung/"
+      ]
     },
     {
       "id": "state-current-organs",
-      "publicPaths": ["/freistaat/staatsaufbau/"]
+      "publicPaths": [
+        "/freistaat/staatsaufbau/"
+      ]
     },
     {
       "id": "state-current-government",
-      "publicPaths": ["/staatsregierung/"]
+      "publicPaths": [
+        "/staatsregierung/"
+      ]
     },
     {
       "id": "state-current-volksbefragung-2026",
-      "topicSlugs": ["volksbefragung-2026"]
+      "topicSlugs": [
+        "volksbefragung-2026"
+      ]
     },
     {
       "id": "state-current-parliament",
-      "topicSlugs": ["volksbefragung-2026", "staatsreform-und-verfassung"],
-      "publicPaths": ["/presse/termine/wahl-achte-volkskammer-2026/"]
+      "topicSlugs": [
+        "volksbefragung-2026",
+        "staatsreform-und-verfassung"
+      ],
+      "publicPaths": [
+        "/presse/termine/wahl-achte-volkskammer-2026/"
+      ]
     },
     {
       "id": "state-current-territory",
-      "topicSlugs": ["kommunen-regionen-und-berlin"],
-      "publicPaths": ["/kreisreform/"]
+      "topicSlugs": [
+        "kommunen-regionen-und-berlin"
+      ],
+      "publicPaths": [
+        "/kreisreform/"
+      ]
     },
     {
       "id": "state-current-projects",
-      "publicPaths": ["/themen/"]
+      "publicPaths": [
+        "/themen/"
+      ]
     },
     {
       "id": "state-current-grenzpolizei-agreement",
-      "topicSlugs": ["demokratie-und-sicherheit"]
+      "topicSlugs": [
+        "demokratie-und-sicherheit"
+      ]
     },
     {
       "id": "state-current-helsinki-participation",
-      "topicSlugs": ["nachbarschaft-und-europa", "energie-und-klima"]
+      "topicSlugs": [
+        "nachbarschaft-und-europa",
+        "energie-und-klima"
+      ]
     },
     {
       "id": "state-current-school-law-package-2026",
-      "topicSlugs": ["bildungsreform"]
+      "topicSlugs": [
+        "bildungsreform"
+      ]
     },
     {
       "id": "state-current-open-proceedings",
       "reviewedWithoutDedicatedSurface": true,
       "reason": "Interne Sammelübersicht offener Quellen- und Wirksamkeitsfragen; die belastbaren Einzelverfahren erscheinen bei den jeweiligen Themen."
+    },
+    {
+      "id": "state-current-interflug-2026",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ]
     }
   ],
   "projectCoverage": [
-    { "id": "project-state-awards", "publicPaths": ["/presse/pressemitteilungen/einsatzmedaille-monschau-2026-gestiftet/"] },
-    { "id": "project-staatsreform", "topicSlugs": ["staatsreform-und-verfassung"] },
-    { "id": "project-kreisreform", "topicSlugs": ["kommunen-regionen-und-berlin"], "publicPaths": ["/kreisreform/"] },
-    { "id": "project-sero", "topicSlugs": ["kreislaufwirtschaft", "energie-und-klima"] },
-    { "id": "project-eisenbahn-verkehr", "topicSlugs": ["oepnv-und-mobilitaet"] },
-    { "id": "project-ovv-ticket", "topicSlugs": ["oepnv-und-mobilitaet"] },
-    { "id": "project-energie-waerme", "topicSlugs": ["energie-und-klima"] },
-    { "id": "project-wohnen", "topicSlugs": ["wohnen-und-vergesellschaftung"] },
-    { "id": "project-boden-volksacker", "topicSlugs": ["oeffentliche-wirtschaft-und-strukturwandel"] },
-    { "id": "project-krankenhausfonds", "topicSlugs": ["krankenhausfonds"] },
-    { "id": "project-grenzpolizei", "topicSlugs": ["demokratie-und-sicherheit"] },
-    { "id": "project-schulreform", "topicSlugs": ["bildungsreform"] },
-    { "id": "project-rundfunk", "topicSlugs": ["rundfunkreform"] },
-    { "id": "project-kulturpass", "topicSlugs": ["kulturpass"] },
-    { "id": "project-boom-europe", "topicSlugs": ["oeffentliche-wirtschaft-und-strukturwandel", "oepnv-und-mobilitaet"] },
-    { "id": "project-transparenz", "topicSlugs": ["transparenz-und-lobbyregister"] },
-    { "id": "project-zustaendigkeitsfinder", "reviewedWithoutDedicatedSurface": true, "reason": "Kanonisch umgesetzt, aber nach redaktioneller Klarstellung außerhalb dieses Website-Repositories betrieben; keine unbelegte Route oder URL anlegen." },
-    { "id": "project-haushalt-2025-2026", "topicSlugs": ["haushalt-und-finanzen"], "publicPaths": ["/haushalt/"] },
-    { "id": "project-hoheitszeichen", "publicPaths": ["/freistaat/landesfarben-und-hoheitszeichen/"], "reason": "Quellenkonflikt wird auf der fachlich zuständigen Freistaatsseite ausgewiesen." },
-    { "id": "project-feiertage", "reviewedWithoutDedicatedSurface": true, "reason": "Unverifizierter Kandidat; keine öffentliche Tatsachendarstellung bis zur Quellenklärung." },
-    { "id": "project-50hertz-acquisition", "topicSlugs": ["energie-und-klima", "oeffentliche-wirtschaft-und-strukturwandel"] },
-    { "id": "project-e-jura-procurement", "reviewedWithoutDedicatedSurface": true, "reason": "Bestätigte Einzelbeschaffung, deren Liefer- und Betriebsstand ungeklärt ist; kein eigenes Großthema." },
-    { "id": "project-hovercraft-procurement", "reviewedWithoutDedicatedSurface": true, "reason": "Bestätigte Einzelbeschaffung mit ungeklärtem Lieferstand; kein eigenes Großthema." },
-    { "id": "project-nvidia-settlement", "topicSlugs": ["oeffentliche-wirtschaft-und-strukturwandel"] },
-    { "id": "project-zeppelin-nt", "reviewedWithoutDedicatedSurface": true, "reason": "Ein Exemplar vereinbart, Lieferung ungeklärt; kein eigenes Großthema." },
-    { "id": "project-airport-carl-ulbricht-name", "reviewedWithoutDedicatedSurface": true, "reason": "Bestätigte Einzelentscheidung ohne eigenständigen Reform- oder Umsetzungsverbund." },
-    { "id": "project-luxemburg-liebknecht-memorial", "topicSlugs": ["kultur-erinnerung-und-medien"] },
-    { "id": "project-heckler-koch-settlement", "reviewedWithoutDedicatedSurface": true, "reason": "Abgelehntes und historisch abgeschlossenes Ansiedlungsvorhaben." }
+    {
+      "id": "project-state-awards",
+      "publicPaths": [
+        "/presse/pressemitteilungen/einsatzmedaille-monschau-2026-gestiftet/"
+      ]
+    },
+    {
+      "id": "project-staatsreform",
+      "topicSlugs": [
+        "staatsreform-und-verfassung"
+      ]
+    },
+    {
+      "id": "project-kreisreform",
+      "topicSlugs": [
+        "kommunen-regionen-und-berlin"
+      ],
+      "publicPaths": [
+        "/kreisreform/"
+      ]
+    },
+    {
+      "id": "project-sero",
+      "topicSlugs": [
+        "kreislaufwirtschaft",
+        "energie-und-klima"
+      ]
+    },
+    {
+      "id": "project-eisenbahn-verkehr",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ]
+    },
+    {
+      "id": "project-ovv-ticket",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ]
+    },
+    {
+      "id": "project-energie-waerme",
+      "topicSlugs": [
+        "energie-und-klima"
+      ]
+    },
+    {
+      "id": "project-wohnen",
+      "topicSlugs": [
+        "wohnen-und-vergesellschaftung"
+      ]
+    },
+    {
+      "id": "project-boden-volksacker",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ]
+    },
+    {
+      "id": "project-krankenhausfonds",
+      "topicSlugs": [
+        "krankenhausfonds"
+      ]
+    },
+    {
+      "id": "project-grenzpolizei",
+      "topicSlugs": [
+        "demokratie-und-sicherheit"
+      ]
+    },
+    {
+      "id": "project-schulreform",
+      "topicSlugs": [
+        "bildungsreform"
+      ]
+    },
+    {
+      "id": "project-rundfunk",
+      "topicSlugs": [
+        "rundfunkreform"
+      ]
+    },
+    {
+      "id": "project-kulturpass",
+      "topicSlugs": [
+        "kulturpass"
+      ]
+    },
+    {
+      "id": "project-boom-europe",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel",
+        "oepnv-und-mobilitaet"
+      ]
+    },
+    {
+      "id": "project-transparenz",
+      "topicSlugs": [
+        "transparenz-und-lobbyregister"
+      ]
+    },
+    {
+      "id": "project-zustaendigkeitsfinder",
+      "reviewedWithoutDedicatedSurface": true,
+      "reason": "Kanonisch umgesetzt, aber nach redaktioneller Klarstellung außerhalb dieses Website-Repositories betrieben; keine unbelegte Route oder URL anlegen."
+    },
+    {
+      "id": "project-haushalt-2025-2026",
+      "topicSlugs": [
+        "haushalt-und-finanzen"
+      ],
+      "publicPaths": [
+        "/haushalt/"
+      ]
+    },
+    {
+      "id": "project-hoheitszeichen",
+      "publicPaths": [
+        "/freistaat/landesfarben-und-hoheitszeichen/"
+      ],
+      "reason": "Quellenkonflikt wird auf der fachlich zuständigen Freistaatsseite ausgewiesen."
+    },
+    {
+      "id": "project-feiertage",
+      "reviewedWithoutDedicatedSurface": true,
+      "reason": "Unverifizierter Kandidat; keine öffentliche Tatsachendarstellung bis zur Quellenklärung."
+    },
+    {
+      "id": "project-50hertz-acquisition",
+      "topicSlugs": [
+        "energie-und-klima",
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ]
+    },
+    {
+      "id": "project-e-jura-procurement",
+      "reviewedWithoutDedicatedSurface": true,
+      "reason": "Bestätigte Einzelbeschaffung, deren Liefer- und Betriebsstand ungeklärt ist; kein eigenes Großthema."
+    },
+    {
+      "id": "project-hovercraft-procurement",
+      "reviewedWithoutDedicatedSurface": true,
+      "reason": "Bestätigte Einzelbeschaffung mit ungeklärtem Lieferstand; kein eigenes Großthema."
+    },
+    {
+      "id": "project-nvidia-settlement",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ]
+    },
+    {
+      "id": "project-zeppelin-nt",
+      "reviewedWithoutDedicatedSurface": true,
+      "reason": "Ein Exemplar vereinbart, Lieferung ungeklärt; kein eigenes Großthema."
+    },
+    {
+      "id": "project-airport-carl-ulbricht-name",
+      "reviewedWithoutDedicatedSurface": true,
+      "reason": "Bestätigte Einzelentscheidung ohne eigenständigen Reform- oder Umsetzungsverbund."
+    },
+    {
+      "id": "project-luxemburg-liebknecht-memorial",
+      "topicSlugs": [
+        "kultur-erinnerung-und-medien"
+      ]
+    },
+    {
+      "id": "project-heckler-koch-settlement",
+      "reviewedWithoutDedicatedSurface": true,
+      "reason": "Abgelehntes und historisch abgeschlossenes Ansiedlungsvorhaben."
+    },
+    {
+      "id": "project-interflug",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ]
+    },
+    {
+      "id": "project-zinnwald-lithium",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ]
+    },
+    {
+      "id": "project-daseinsvorsorge",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ]
+    }
   ]
 }

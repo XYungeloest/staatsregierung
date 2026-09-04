@@ -6,9 +6,23 @@
   "cluster": "wirtschaft-arbeit",
   "priority": 84,
   "featured": true,
-  "updatedAt": "2026-07-21",
-  "relatedTopicSlugs": ["energie-und-klima", "oepnv-und-mobilitaet", "wohnen-und-vergesellschaftung"],
-  "knowledgeProjectRefs": ["project-boom-europe", "project-50hertz-acquisition", "project-nvidia-settlement", "project-boden-volksacker"],
+  "highlightFrom": "2026-09-02",
+  "highlightUntil": "2026-10-02",
+  "updatedAt": "2026-09-04",
+  "relatedTopicSlugs": [
+    "energie-und-klima",
+    "oepnv-und-mobilitaet",
+    "wohnen-und-vergesellschaftung"
+  ],
+  "knowledgeProjectRefs": [
+    "project-boom-europe",
+    "project-50hertz-acquisition",
+    "project-nvidia-settlement",
+    "project-boden-volksacker",
+    "project-interflug",
+    "project-zinnwald-lithium",
+    "project-daseinsvorsorge"
+  ],
   "hero": "Der Freistaat will Strukturwandel aktiv gestalten. Öffentliche Beteiligungen, Gemeinwohlkriterien, Anwendungsgesetze und regionale Transformationspakete sollen wirtschaftliche Souveränität stärken.",
   "beschlossen": [
     "Der Koalitionsvertrag legt öffentliche Wirtschaft und strategische Industriepolitik als Kerninstrumente fest.",
@@ -22,7 +36,8 @@
     "Landesbank, Vergesellschaftungsrahmen und Vergaberecht bilden vorhandene finanz- und wirtschaftspolitische Grundlagen.",
     "Die Gesetze zur Ostdeutschen Eisenbahn sowie zur Energie- und Wärmeinfrastruktur haben weitere Anwendungsbereiche gemeinwirtschaftlicher Ordnung geschaffen.",
     "Die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz ist für 3,8 Milliarden Euro vereinbart; die einzelnen Jahresraten und Eigentumsübergänge werden nur nach Vollzugsnachweis fortgeschrieben.",
-    "Die Zuständigkeit liegt im Staatssekretariat für Wirtschaft und Arbeit mit enger finanzpolitischer, mobilitäts- und energiepolitischer Begleitung."
+    "Die Zuständigkeit liegt im Staatssekretariat für Wirtschaft und Arbeit mit enger finanzpolitischer, mobilitäts- und energiepolitischer Begleitung.",
+    "Seit 2. und 3. September 2026 gelten das Zinnwald-Vergesellschaftungsgesetz, das Ostdeutsche Daseinsvorsorgegesetz und das Interflug-Gesetz; der Gründungsvorstand der Interflug ist bestellt und hat die Anfangsflotte aus zehn Löschflugzeugen beschafft."
   ],
   "naechsteSchritte": [
     "Ressortübergreifende Umsetzung der neuen Anwendungsgesetze zum Vergesellschaftungsrahmen und Dokumentation der tatsächlichen Überführungen.",
@@ -84,6 +99,18 @@
     {
       "label": "Ostdeutsches Tariftreue- und Vergabegesetz",
       "normSlug": "ostdeutsches-tariftreueund-vergabegesetz"
+    },
+    {
+      "label": "Ostdeutsches Daseinsvorsorgegesetz",
+      "normSlug": "ostdeutsches-daseinsvorsorgegesetz"
+    },
+    {
+      "label": "Zinnwald-Vergesellschaftungsgesetz",
+      "normSlug": "zinnwald-vergesellschaftungsgesetz"
+    },
+    {
+      "label": "Interflug-Gesetz",
+      "normSlug": "interflug-gesetz"
     }
   ],
   "faq": [

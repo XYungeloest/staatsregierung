@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-02",
+  "asOf": "2026-09-04",
   "projects": [
     {
       "id": "project-state-awards",
@@ -1090,8 +1090,8 @@
       "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-09-02",
-      "summary": "Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung. Der NDR-Änderungs- und Überleitungsstaatsvertrag wurde am 24. März 2026 veröffentlicht; sein Inkrafttreten ist zum 3. September 2026 bekannt gemacht.",
+      "asOf": "2026-09-04",
+      "summary": "Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung. Der NDR-Änderungs- und Überleitungsstaatsvertrag wurde am 24. März 2026 veröffentlicht; er ist am 3. September 2026 in Kraft getreten (Bekanntmachung vom 2. September 2026).",
       "sourceRefs": [
         {
           "sourceId": "source-broadcast-law",
@@ -1411,10 +1411,10 @@
       "id": "project-hoheitszeichen",
       "title": "Hoheitszeichenreform",
       "status": "confirmed-primary",
-      "validFrom": null,
+      "validFrom": "2026-09-02",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Das am 23. März 2026 beschlossene Hoheitszeichengesetz und die Hoheitszeichenverordnung vom 28. März 2026 bilden den geltenden Bestand. Ein weiteres besonderes Gesetz im parlamentarischen Verfahren ist nicht in Kraft.",
+      "asOf": "2026-09-04",
+      "summary": "Das Besondere Gesetz zur Neuregelung des Hoheitszeichenrechts vom 2. September 2026 führt das Ostdeutsche Hoheitszeichengesetz (OHzG) mit Staatswappen, Flaggen, Standarten, Staatssiegeln und Amtsschildern ein und löst das bisherige Hoheitszeichengesetz ab; es ist seit 2. September 2026 in Kraft. Die Hoheitszeichenverordnung vom 28. März 2026 gilt fort.",
       "sourceRefs": [
         {
           "sourceId": "source-constitution-current",
@@ -1422,13 +1422,18 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-hoheitszeichenrecht-current",
-          "locator": "verkündete Fassung",
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-23",
+          "locator": "Abschnitt Rechtsstand und Organisation",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-70",
+          "locator": "gesamte Ausgabe",
           "role": "primary"
         },
         {
-          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-23",
-          "locator": "Abschnitt Rechtsstand und Organisation",
+          "sourceId": "source-hoheitszeichenrecht-current",
+          "locator": "verkündete Fassung",
           "role": "corroborating"
         }
       ],
@@ -1442,11 +1447,19 @@
       ],
       "notes": [],
       "aliases": [],
-      "projectStage": "in-implementation",
+      "projectStage": "in-force",
       "responsibleInstitutionIds": [
         "inst-staatsrat"
       ],
       "normRefs": [
+        {
+          "normSlug": "ostdeutsches-hoheitszeichengesetz",
+          "versionId": "2026-09-02"
+        },
+        {
+          "normSlug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
+          "versionId": "2026-09-02"
+        },
         {
           "normSlug": "gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes",
           "versionId": null
@@ -1456,9 +1469,18 @@
           "versionId": null
         }
       ],
-      "milestones": [],
+      "milestones": [
+        {
+          "date": "2026-03-23",
+          "title": "Erstes Hoheitszeichengesetz beschlossen"
+        },
+        {
+          "date": "2026-09-02",
+          "title": "Ostdeutsches Hoheitszeichengesetz (OHzG) verkündet und in Kraft getreten"
+        }
+      ],
       "nextSteps": [
-        "Ein späteres besonderes Gesetz erst nach seiner Verkündung übernehmen"
+        "Anpassung der Hoheitszeichenverordnung nur nach Verkündung übernehmen"
       ],
       "dependencies": [],
       "openQuestionIds": []
@@ -1950,6 +1972,198 @@
       "normRefs": [],
       "milestones": [],
       "nextSteps": [],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-interflug",
+      "title": "Interflug und öffentlicher Spezialflug",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "asOf": "2026-09-04",
+      "summary": "Das Interflug-Gesetz vom 2. September 2026 errichtet die Interflug als Anstalt des öffentlichen Rechts für Löschflug-, Katastrophenschutz- und Hilfsaufgaben. Seit 3. September 2026 ist das Gesetz in Kraft; der Staatsrat hat den Gründungsvorstand bestellt, der die Anfangsflotte aus zehn Löschflugzeugen (Beschaffungsprogramm bis zu 105,5 Millionen Euro) beschafft hat.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-39",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-40",
+          "locator": "Bekanntmachung vom 3. September 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-interflug",
+        "inst-sek-wirtschaft-arbeit",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "project",
+        "aviation",
+        "civil-protection",
+        "public-economy"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-interflug"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "interflug-gesetz",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "gesetz-zur-errichtung-der-interflug",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "bekanntmachung-bestellung-gruendungsvorstand-interflug",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "bekanntmachung-beschaffung-anfangsflotte-interflug",
+          "versionId": "2026-09-03"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-09-02",
+          "title": "Gesetz zur Errichtung der Interflug verkündet"
+        },
+        {
+          "date": "2026-09-03",
+          "title": "Interflug-Gesetz in Kraft; Gründungsvorstand bestellt; Beschaffung der Anfangsflotte bekannt gemacht"
+        }
+      ],
+      "nextSteps": [
+        "Bestellung des ersten Verwaltungsrates und Vorstandes nur mit datierter Quelle fortschreiben",
+        "Lieferung und Betriebsaufnahme der Löschflugzeuge nur nach Vollzugsnachweis dokumentieren"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-zinnwald-lithium",
+      "title": "Vergesellschaftung des Lithiumprojekts Zinnwald",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "asOf": "2026-09-04",
+      "summary": "Das Zinnwald-Vergesellschaftungsgesetz vom 2. September 2026 überführt die Geschäftsanteile des Zinnwald-Projektunternehmens gegen Entschädigung in Gemeineigentum des Freistaates; es ist seit 2. September 2026 in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-73",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "project",
+        "mining",
+        "socialisation",
+        "public-economy"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-wirtschaft-arbeit"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "zinnwald-vergesellschaftungsgesetz",
+          "versionId": "2026-09-02"
+        },
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes",
+          "versionId": "2026-09-02"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-09-02",
+          "title": "Zinnwald-Vergesellschaftungsgesetz verkündet und in Kraft getreten"
+        }
+      ],
+      "nextSteps": [
+        "Festsetzung und Leistung der Entschädigung nur mit amtlicher Quelle fortschreiben"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-daseinsvorsorge",
+      "title": "Öffentliche Daseinsvorsorge",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "asOf": "2026-09-04",
+      "summary": "Das Ostdeutsche Daseinsvorsorgegesetz vom 2. September 2026 legt Gewährleistungsverantwortung, Vorrang öffentlicher Aufgabenerfüllung, Mindestgrundsätze der Leistungserbringung, Landesrahmenplan und Bestandssicherung fest; es ist seit 3. September 2026 in Kraft und ändert zugleich die Haushaltsordnung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-71",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "project",
+        "public-services",
+        "public-economy",
+        "planning"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-wirtschaft-arbeit"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-daseinsvorsorgegesetz",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "saechsische-haushaltsordnung",
+          "versionId": "2026-09-03"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-09-02",
+          "title": "Daseinsvorsorgegesetz verkündet"
+        },
+        {
+          "date": "2026-09-03",
+          "title": "Daseinsvorsorgegesetz und Änderung der Haushaltsordnung in Kraft"
+        }
+      ],
+      "nextSteps": [
+        "Landesrahmenplan der öffentlichen Daseinsvorsorge nur nach Vorlage dokumentieren"
+      ],
       "dependencies": [],
       "openQuestionIds": []
     }
