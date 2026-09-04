@@ -182,6 +182,20 @@ bezeichnet. Normtextwerkzeuge stehen unmittelbar vor dem Text. Paragraphen, Arti
 verwenden sprechende, deterministische Anker; kompatible alte Anker bleiben unsichtbare
 Sprungziele. Einzeldruck und kopierbare Stellenlinks gehören zur jeweiligen Gliederungseinheit.
 
+Rechtsherkunft ist auf allen Rechtsseiten mit derselben Kennzeichnung sichtbar
+(`NormOriginBadge.astro`, CSS-Klasse `origin-badge`): ein Statuspunkt plus Text mit den vier
+Klassen „Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“ und „Herkunft
+ungeklärt“ (auf Normseiten und in Suchtreffern in der ausführlichen Form). Farbe ist dabei nur
+unterstützend; jede Klasse trägt Text, die Bezeichnungen kommen ausschließlich aus
+`packages/shared/src/lib/norms/origin.ts`. A–Z, Suchtreffer, Rechtsentwicklung, Sachgebiets- und
+Normverzeichnisse sowie die Änderungslisten der Startseite zeigen die kompakte Form. Die Normseite
+fasst Rechtsstand und Herkunft in einem gemeinsamen Hinweis „Rechtsstand und Herkunft“
+(`NormLegalStatusPanel.astro`) zusammen: Statuszeile zur angezeigten Fassung, Herkunftsbadge,
+Herkunftssatz, letzte ostdeutsche Änderung und die Quellenwege (Ausgangsfassung, Vergleich,
+amtliche sächsische Quelle, Änderungsvorschrift) – statt zweier großer aufeinanderfolgender
+Hinweiskästen. A–Z bietet zusätzlich eine Übersicht „Rechtsherkunft“ mit Zählern aus dem Bestand
+und einen Herkunftsfilter; Suche und Rechtsentwicklung filtern über dieselben internen Werte.
+
 Fassungsvergleiche stellen Änderungen als gegliederte Liste dar. `ins` und `del`, Klartextlabels
 und unterschiedliche Flächen ergänzen sich, sodass Farbe nie die einzige Unterscheidung ist.
 Schnelleinstiege führen zur vorherigen und, soweit belegt, zur übernommenen Ausgangsfassung; eine
@@ -219,6 +233,11 @@ Normale Seitentitel verwenden ungefähr `clamp(2.2rem, 4vw, 3.25rem)`. Eine eige
 reduziert sehr lange Norm- und Ressorttitel und erlaubt sichere Umbrüche. Im Einstieg gibt es
 höchstens eine primäre Aktion. Suche oder ein anderer primärer Arbeitsauftrag steht vor ergänzenden
 Fakten und Aktionen.
+
+Fehlerseiten sind Teil der Bereichsidentität: Staatsportal (`apps/portal/src/pages/404.astro`)
+und OstRecht (`apps/recht/src/pages/404.astro`) zeigen jeweils im eigenen Layout „Seite nicht
+gefunden“ mit Suche und Verzeichniszugängen; die englische Astro-Standardseite darf nie
+ausgeliefert werden.
 
 ## Lokale Navigation und Orientierung
 

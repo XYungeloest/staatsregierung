@@ -19,23 +19,33 @@ export interface Pagination {
   pages: PaginationEntry[];
 }
 
-/** URL mit Query-Parametern; leere Werte entfallen, `seite=1` wird nicht geschrieben. */
-export function pageUrl(basePath: string, params: Record<string, string | number | undefined>): string {
+export const DEFAULT_PAGE_PARAM = 'seite';
+
+/**
+ * URL mit Query-Parametern; leere Werte entfallen. Die erste Seite wird nicht geschrieben –
+ * für jeden Seitenparameter (`seite`, `stichwortseite`), damit unabhängige Paginierungen
+ * derselben Seite ihren jeweiligen Zustand behalten.
+ */
+export function pageUrl(basePath: string, params: Record<string, string | number | undefined>, pageParams: readonly string[] = [DEFAULT_PAGE_PARAM, 'stichwortseite']): string {
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     const text = value === undefined ? '' : String(value).trim();
-    if (!text || (key === 'seite' && text === '1')) continue;
+    if (!text || (pageParams.includes(key) && text === '1')) continue;
     search.set(key, text);
   }
   const query = search.toString();
   return query ? `${basePath}?${query}` : basePath;
 }
 
-/** Seitenliste mit Auslassungen: erste, letzte, aktuelle ± 2 Seiten. */
-export function buildPagination({ page, pageCount, basePath, params = {} }: { page: number; pageCount: number; basePath: string; params?: Record<string, string | number | undefined> }): Pagination {
+/**
+ * Seitenliste mit Auslassungen: erste, letzte, aktuelle ± 2 Seiten. `pageParam` benennt den
+ * Query-Parameter dieser Paginierung; alle übrigen Parameter (auch eine zweite Paginierung
+ * wie `stichwortseite`) bleiben in `params` unverändert erhalten.
+ */
+export function buildPagination({ page, pageCount, basePath, params = {}, pageParam = DEFAULT_PAGE_PARAM }: { page: number; pageCount: number; basePath: string; params?: Record<string, string | number | undefined>; pageParam?: string }): Pagination {
   const total = Math.max(1, pageCount);
   const current = Math.min(Math.max(1, page), total);
-  const href = (target: number): string => pageUrl(basePath, { ...params, seite: target });
+  const href = (target: number): string => pageUrl(basePath, { ...params, [pageParam]: target });
   const wanted = new Set<number>([1, total]);
   for (let offset = -2; offset <= 2; offset += 1) {
     const candidate = current + offset;

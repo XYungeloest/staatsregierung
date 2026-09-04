@@ -1,0 +1,68 @@
+---
+import LawLayout from '../layouts/LawLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import {
+  getHelpUrl,
+  getIndexUrl,
+  getLawDevelopmentOverviewUrl,
+  getLawPortalUrl,
+  getPublicationsUrl,
+  getSearchUrl,
+  getSubjectsUrl,
+} from '@ostrecht/shared/lib/norms/index.ts';
+
+// Die Fehlerseite läuft wie die Norm- und Übersichtsrouten im Worker, damit
+// `Astro.rewrite('/404')` aus den Laufzeitrouten und unbekannte Pfade dieselbe
+// Seite mit Status 404 erhalten. Sie liest keine Daten aus D1.
+export const prerender = false;
+
+Astro.response.status = 404;
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+
+<LawLayout
+  title="Seite nicht gefunden"
+  description="Die angeforderte Adresse ist im Rechtsportal OstRecht nicht vorhanden."
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Seite nicht gefunden' },
+  ]}
+  noindex={true}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'OstRecht', href: getLawPortalUrl() },
+      { label: 'Seite nicht gefunden' },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Fehler 404"
+    title="Seite nicht gefunden"
+    lead="Die angeforderte Adresse ist nicht vorhanden, wurde verschoben oder die Vorschrift wird unter einer anderen Kennung geführt. Bitte nutzen Sie die Rechtssuche oder die Verzeichnisse."
+    variant="law"
+    actions={[
+      { label: 'Zur Rechtssuche', href: getSearchUrl(), primary: true },
+      { label: 'Zur OstRecht-Startseite', href: getLawPortalUrl() },
+    ]}
+  />
+
+  <section class="section error-page" aria-labelledby="error-paths-title">
+    <div class="section-header section-header--compact">
+      <p class="eyebrow">Weitere Zugänge</p>
+      <h2 id="error-paths-title">So finden Sie die gesuchte Vorschrift</h2>
+      <p>
+        Vorschriften sind über Titel, Abkürzung und Stichwörter erschlossen. Verkündungen führen
+        zu den amtlichen Ausgaben, die Rechtsentwicklung ordnet den Bestand nach Herkunft.
+      </p>
+    </div>
+    <ul class="record-list">
+      <li class="record-list__item"><a class="inline-link" href={getIndexUrl()}>Alphabetischer Index A–Z</a></li>
+      <li class="record-list__item"><a class="inline-link" href={getSubjectsUrl()}>Sachgebiete</a></li>
+      <li class="record-list__item"><a class="inline-link" href={getPublicationsUrl()}>Verkündungen und Fundstellen</a></li>
+      <li class="record-list__item"><a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Rechtsentwicklung seit dem 1. November 2023</a></li>
+      <li class="record-list__item"><a class="inline-link" href={getHelpUrl()}>Hilfe zur Nutzung von OstRecht</a></li>
+    </ul>
+  </section>
+</LawLayout>

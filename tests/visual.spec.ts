@@ -35,12 +35,20 @@ const visualPages = [
   { name: 'ostrecht-verkuendung-detail', path: lawUrl('/verkuendungen/stanzo-2026-33/') },
   { name: 'ostrecht-sachgebiet-detail', path: lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/') },
   { name: 'ostrecht-hilfe', path: lawUrl('/hilfe/') },
+  { name: 'ostrecht-404', path: lawUrl('/gibt-es-nicht/') },
   { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/') },
   { name: 'norm-gemeindeordnung-historisch', path: lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/') },
   { name: 'norm-sero-historie', path: lawUrl('/norm/sero-verordnung/history/') },
   { name: 'norm-gemeindeordnung-vergleich', path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01') },
   { name: 'norm-staatsverfassung', path: lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/') },
   { name: 'norm-sero-verordnung', path: lawUrl('/norm/sero-verordnung/') },
+  // Rechtsherkunft: übernommen und unverändert, übernommen und ostdeutsch geändert, ostdeutsch neu geschaffen.
+  { name: 'norm-uebernommen-unveraendert', path: lawUrl('/norm/vwv-polizeibekleidungswirtschaft/') },
+  { name: 'norm-uebernommen-geaendert', path: lawUrl('/norm/saechsische-gemeindeordnung/') },
+  { name: 'norm-ostdeutsch-neu', path: lawUrl('/norm/zinnwald-vergesellschaftungsgesetz/') },
+  { name: 'norm-bekanntmachung', path: lawUrl('/norm/bekanntmachung-bestellung-gruendungsvorstand-interflug/') },
+  { name: 'ostrecht-suche-herkunft', path: lawUrl('/suche/?q=Gesetz') },
+  { name: 'ostrecht-archiv-herkunft', path: lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
   { name: 'service', path: '/service/' },
@@ -206,6 +214,35 @@ const componentVisualPages = [
     ],
   },
   {
+    name: 'norm-herkunft-module',
+    path: lawUrl('/norm/saechsische-gemeindeordnung/'),
+    shots: [
+      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-legal-status"]'],
+    ],
+  },
+  {
+    name: 'norm-herkunft-unveraendert-module',
+    path: lawUrl('/norm/vwv-polizeibekleidungswirtschaft/'),
+    shots: [
+      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-legal-status"]'],
+    ],
+  },
+  {
+    name: 'rechtssuche-herkunft-module',
+    path: lawUrl('/suche/?q=Interflug'),
+    shots: [
+      ['rechtssuche-treffer-herkunft', '[data-search-results] .search-result-group:first-child > .search-hit'],
+    ],
+  },
+  {
+    name: 'archiv-herkunft-module',
+    path: lawUrl('/archiv/'),
+    shots: [
+      ['archiv-rechtsherkunft', '[data-visual-section="law-origin-overview"]'],
+      ['archiv-liste-herkunft', '[data-index-list] > li:first-child'],
+    ],
+  },
+  {
     name: 'norm-module',
     path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'),
     shots: [
@@ -290,6 +327,11 @@ for (const entry of componentVisualPages) {
     if (entry.name === 'rechtssuche-module') {
       await page.locator('.law-search-filters-panel').evaluate((element) => {
         (element as HTMLDetailsElement).open = true;
+      });
+      // Die aufklappbaren Filtergruppen (Norm und Zuständigkeit, Zeitraum und Fundstelle)
+      // werden für die Basislinie geöffnet, damit auch der Herkunftsfacet sichtbar ist.
+      await page.locator('[data-search-filter-panel]').evaluateAll((elements) => {
+        for (const element of elements) (element as HTMLDetailsElement).open = true;
       });
     }
 

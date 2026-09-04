@@ -35,3 +35,22 @@ test('Seitenparameter und Freitext werden abgesichert', () => {
   assert.equal(normalizeQueryText('  Gemeinde   Ordnung '), 'gemeinde ordnung');
   assert.equal(normalizeQueryText(undefined), '');
 });
+
+test('Norm- und Stichwortpaginierung derselben Seite behalten ihren jeweils anderen Seitenparameter', () => {
+  // A–Z: `seite` blättert die Normen, `stichwortseite` den Stichwortindex – unabhängig voneinander.
+  const norms = buildPagination({ page: 3, pageCount: 5, basePath: '/archiv/', params: { buchstabe: 'A', stichwortseite: '2', herkunft: 'inherited-unchanged' }, pageParam: 'seite' });
+  assert.equal(norms.next, '/archiv/?buchstabe=A&stichwortseite=2&herkunft=inherited-unchanged&seite=4');
+  assert.equal(norms.prev, '/archiv/?buchstabe=A&stichwortseite=2&herkunft=inherited-unchanged&seite=2');
+  assert.ok(norms.pages.every((entry) => entry.href.includes('stichwortseite=2')), 'die Stichwortseite bleibt in jedem Normseitenlink erhalten');
+
+  const keywords = buildPagination({ page: 2, pageCount: 4, basePath: '/archiv/', params: { buchstabe: 'A', seite: '3', stichwort: 'Kultur' }, pageParam: 'stichwortseite' });
+  assert.equal(keywords.next, '/archiv/?buchstabe=A&seite=3&stichwort=Kultur&stichwortseite=3');
+  assert.equal(keywords.prev, '/archiv/?buchstabe=A&seite=3&stichwort=Kultur');
+  assert.ok(keywords.pages.every((entry) => entry.href.includes('seite=3')), 'die Normseite bleibt in jedem Stichwortseitenlink erhalten');
+  assert.ok(keywords.pages.every((entry) => !/stichwortseite=1\b/u.test(entry.href)), 'die erste Stichwortseite wird nicht geschrieben');
+  assert.equal(keywords.pages.find((entry) => entry.current)?.href, '/archiv/?buchstabe=A&seite=3&stichwort=Kultur&stichwortseite=2');
+
+  // Ohne expliziten Parameter bleibt das bisherige Verhalten (`seite`).
+  assert.equal(buildPagination({ page: 1, pageCount: 2, basePath: '/x/' }).next, '/x/?seite=2');
+  assert.equal(pageUrl('/archiv/', { buchstabe: 'A', seite: 1, stichwortseite: 1 }), '/archiv/?buchstabe=A');
+});
