@@ -728,7 +728,18 @@ function parseWranglerJson(stdout) {
   return jsonStart >= 0 ? JSON.parse(stdout.slice(jsonStart)) : null;
 }
 
-const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code: 10000\]|ETIMEDOUT|ECONNRESET|socket hang up|fetch failed|\b5\d\d\b/u;
+/**
+ * Vorübergehende Transport- und Plattformfehler, die je SQL-Datei wiederholt werden: Netzabbrüche,
+ * Anmeldelatenz, HTTP 5xx/429 sowie die Wrangler-Meldungen beim Hochladen einer SQL-Datei
+ * (Cloudflare antwortet gelegentlich mit ServiceUnavailable). Echte SQL- oder Budgetfehler
+ * werden nie wiederholt.
+ */
+export const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code: 10000\]|ETIMEDOUT|ECONNRESET|ECONNREFUSED|EAI_AGAIN|socket hang up|fetch failed|could not be uploaded|Please retry|ServiceUnavailable|Service Unavailable|InternalError|Internal error|Too Many Requests|\b(?:429|5\d\d)\b/u;
+export const D1_FILE_ATTEMPTS = 6;
+
+export function isTransientD1Error(message) {
+  return TRANSIENT_D1_ERROR.test(String(message ?? ''));
+}
 
 /**
  * Führt eine SQL-Datei aus. Inkrementelle Dateien schreiben ihre Normen vollständig
@@ -737,7 +748,7 @@ const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code:
  * werden. Vorübergehende Netz- oder Anmeldefehler der Cloudflare-API werden mit
  * Backoff erneut versucht.
  */
-async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4, databaseName = D1_DATABASE_NAME } = {}) {
+async function executeSqlFile(filePath, { local = false, persistTo, attempts = D1_FILE_ATTEMPTS, databaseName = D1_DATABASE_NAME } = {}) {
   const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
   for (let attempt = 1; ; attempt += 1) {
     try {
@@ -749,8 +760,8 @@ async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4
       return payload;
     } catch (error) {
       const message = error instanceof Error ? `${error.message}\n${error.stdout ?? ''}\n${error.stderr ?? ''}` : String(error);
-      if (local || attempt >= attempts || !TRANSIENT_D1_ERROR.test(message)) throw error;
-      const delayMs = 5_000 * attempt;
+      if (local || attempt >= attempts || !isTransientD1Error(message)) throw error;
+      const delayMs = Math.min(5_000 * attempt, 30_000);
       console.warn(`${filePath.replace(`${ROOT}/`, '')}: vorübergehender Fehler (Versuch ${attempt}/${attempts}), neuer Versuch in ${delayMs / 1000} s`);
       await new Promise((resolveDelay) => setTimeout(resolveDelay, delayMs));
     }

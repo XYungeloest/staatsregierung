@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
-  SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, decideSyncAction, estimatePlanCost,
-  identityMetaValues, incrementalStartQueries, renderStatement, resolveBudget, runtimeMetaQueries,
+  D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, decideSyncAction, estimatePlanCost,
+  identityMetaValues, incrementalStartQueries, isTransientD1Error, renderStatement, resolveBudget, runtimeMetaQueries,
 } from '../scripts/sync-recht-d1.mjs';
 
 const full = { fingerprint: 'f'.repeat(64), scope: 'full', logic: 'l', corpus: 'c', portal: 'p' };
@@ -171,4 +171,16 @@ test('Vorabschätzung über dem Budget → Abbruch vor dem ersten Schreibzugriff
   assert.throws(() => assertEstimateWithinBudget(fullCost, resolveBudget('incremental', budgets)), (error) => error instanceof SyncBudgetExceeded && /es wurde nichts geschrieben/u.test(error.message));
   const incrementalCost = estimatePlanCost(planLike(300, 40, false), budgets.estimate);
   assert.doesNotThrow(() => assertEstimateWithinBudget(incrementalCost, resolveBudget('incremental', budgets)));
+});
+
+test('vorübergehende Cloudflare-Fehler beim Hochladen einer SQL-Datei werden erkannt und wiederholt, SQL- und Budgetfehler nicht', () => {
+  for (const message of [
+    'File could not be uploaded. Please retry.\nGot response: <?xml version="1.0"?><Error><Code>ServiceUnavailable</Code><Message>Please look at https://www.cloudflarestatus.com</Message></Error>',
+    'wrangler d1 execute batch-0007.sql: Network connection lost',
+    'fetch failed', 'ETIMEDOUT', 'HTTP 503 Service Unavailable', 'Too Many Requests (429)', 'InternalError: internal error; reference = abc',
+  ]) assert.equal(isTransientD1Error(message), true, message);
+  for (const message of [
+    'D1_ERROR: near "SELEC": syntax error at offset 0', 'Lesebudget überschritten: 70000 gelesene Zeilen > Budget 60000', 'Unknown database ostrecht-recht-x', 'no such table: law_norms',
+  ]) assert.equal(isTransientD1Error(message), false, message);
+  assert.ok(D1_FILE_ATTEMPTS >= 6);
 });
