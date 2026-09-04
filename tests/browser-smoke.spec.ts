@@ -707,7 +707,8 @@ async function readSearchCounts(page: Page): Promise<{ headline: number | null; 
   const more = page.locator('[data-search-more]');
   const moreVisible = await more.isVisible();
   const moreText = moreVisible ? (await more.textContent()) ?? '' : '';
-  const headline = summary.match(/^(\d+) Treffer/u)?.[1];
+  // „1739 Treffer …“ bei feststehender Gesamtzahl, „Mindestens 6 Treffer …“, solange sie offen ist.
+  const headline = summary.match(/^(?:Mindestens )?(\d+) Treffer/u)?.[1];
   const remaining = moreText.match(/\((\d+) verbleibend\)/u)?.[1];
   return {
     headline: headline === undefined ? null : Number(headline),
