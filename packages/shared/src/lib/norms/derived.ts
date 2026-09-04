@@ -21,7 +21,7 @@ import {
 } from '@ostrecht/shared/lib/norms/relations.ts';
 import { getNormUrl, getNormVersionUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
-import { classifyNormVersion, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, EDITORIAL_REFERENCE_DATE, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 
 /**
  * Korpusweite Ableitungen je Norm. Sie werden vom D1-Sync aus dem vollständigen
@@ -67,6 +67,8 @@ export interface PortalPressReleaseLike {
 export interface DerivedContext {
   norms: NormRecord[];
   publications: Verkuendung[];
+  /** Redaktioneller Stichtag, zu dem geltende Fassungen und Fassungslinks bestimmt werden. */
+  asOf: string;
   lookup: NormRecordLookup;
   relations: NormRelationLookup;
   recommendations: ReturnType<typeof buildRelatedNormRecommendationIndex>;
@@ -75,16 +77,16 @@ export interface DerivedContext {
   pressByNorm: Map<string, NormPortalLinks['pressReleases']>;
 }
 
-export function versionUrlFor(norm: NormRecord, versionId: string): string | undefined {
+export function versionUrlFor(norm: NormRecord, versionId: string, asOf = EDITORIAL_REFERENCE_DATE): string | undefined {
   const version = norm.versions.find((entry) => entry.versionId === versionId);
   if (!version) return undefined;
-  return classifyNormVersion(norm, version) === 'current'
+  return classifyNormVersion(norm, version, asOf) === 'current'
     ? getNormUrl(norm.meta.slug)
     : getNormVersionUrl(norm.meta.slug, versionId);
 }
 
-export function identityFor(norm: NormRecord): { title: string; shortTitle: string } {
-  const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+export function identityFor(norm: NormRecord, asOf = EDITORIAL_REFERENCE_DATE): { title: string; shortTitle: string } {
+  const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, asOf));
   return { title: identity.title, shortTitle: identity.shortTitle };
 }
 
@@ -109,6 +111,7 @@ export function buildDerivedContext({
   pressReleases = [],
   topicUrl = (slug: string) => `/themen/${slug}/`,
   pressReleaseUrl = (slug: string) => `/presse/${slug}/`,
+  asOf = EDITORIAL_REFERENCE_DATE,
 }: {
   norms: NormRecord[];
   publications: Verkuendung[];
@@ -116,6 +119,8 @@ export function buildDerivedContext({
   pressReleases?: PortalPressReleaseLike[];
   topicUrl?: (slug: string) => string;
   pressReleaseUrl?: (slug: string) => string;
+  /** Redaktioneller Stichtag der Projektion; Standard ist der zentrale Stichtag aus editorial.json. */
+  asOf?: string;
 }): DerivedContext {
   const topicsByNorm = new Map<string, NormPortalLinks['topics']>();
   for (const topic of topics) {
@@ -139,9 +144,10 @@ export function buildDerivedContext({
   return {
     norms,
     publications,
+    asOf,
     lookup: buildNormRecordLookup(norms),
     relations: buildNormRelations(norms),
-    recommendations: buildRelatedNormRecommendationIndex(norms),
+    recommendations: buildRelatedNormRecommendationIndex(norms, { asOf }),
     publicationReferences: buildNormPublicationReferenceLookup(publications),
     topicsByNorm,
     pressByNorm,
@@ -149,14 +155,18 @@ export function buildDerivedContext({
 }
 
 export function deriveNorm(norm: NormRecord, context: DerivedContext): NormDerivedData {
+  const asOf = context.asOf ?? EDITORIAL_REFERENCE_DATE;
   const textReferences = selectMatchingTextLinkReferences(
-    buildNormTextLinkReferences(context.norms, norm.meta.slug),
+    buildNormTextLinkReferences(context.norms, norm.meta.slug, asOf),
     collectVersionTexts(norm),
   );
-  const relations = toNormRelationViews(context.relations.get(norm.meta.slug) ?? [], { identityFor, versionUrlFor });
+  const relations = toNormRelationViews(context.relations.get(norm.meta.slug) ?? [], {
+    identityFor: (related) => identityFor(related, asOf),
+    versionUrlFor: (related, versionId) => versionUrlFor(related, versionId, asOf),
+  });
   const recommendations = (context.recommendations.get(norm.meta.slug) ?? []).map((entry) => {
     const related = context.lookup.get(entry.slug);
-    const identity = related ? identityFor(related) : { title: entry.slug, shortTitle: entry.slug };
+    const identity = related ? identityFor(related, asOf) : { title: entry.slug, shortTitle: entry.slug };
     return { slug: entry.slug, relation: entry.relation, score: entry.score, ...identity };
   });
   return {

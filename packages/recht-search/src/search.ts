@@ -5,7 +5,6 @@ import {
 } from '@ostrecht/shared/lib/norms/citation.ts';
 import {
   buildNormAnchorMap,
-  formatDate,
   formatNormStatus,
   formatNormType,
   getResolvedBlockAnchorId,
@@ -39,8 +38,8 @@ export interface SearchIndexDocument {
   isCurrent: boolean;
   versionKind: VersionTemporalKind;
   isAmendment: boolean;
+  /** Rechtsherkunft (zentrale Semantik aus origin.ts); Bezeichnungen leiten die Oberflächen daraus ab. */
   origin: NormOriginKind;
-  originLabel: string;
   title: string;
   shortTitle: string;
   abbr: string;
@@ -72,7 +71,6 @@ export interface SearchIndexDocument {
   validTo: string | null;
   bodySupplement: string;
   hitUnits: SearchHitUnit[];
-  resultLabel: string;
 }
 
 export interface SearchHitUnit {
@@ -312,6 +310,7 @@ export function buildSearchDocument(
   version: NormVersion,
   recordsBySlug: NormRecordLookup,
   publicationReference?: NormPublicationReference,
+  asOf = EDITORIAL_REFERENCE_DATE,
 ): SearchIndexDocument {
   const identity = getNormVersionIdentity(record, version);
   const aliases = getNormAliases(record, identity);
@@ -328,16 +327,9 @@ export function buildSearchDocument(
         record.meta.agreementDetails.signedAt,
       ].map(toDisplayText)
     : [];
-  const versionKind = classifyNormVersion(record, version);
+  const versionKind = classifyNormVersion(record, version, asOf);
   const origin = getNormOriginInfo(record, [...recordsBySlug.values()]);
   const isApplicableCurrentVersion = versionKind === 'current';
-  const resultLabel = versionKind === 'future'
-    ? `Zukünftige Fassung ab ${formatDate(version.validFrom)}`
-    : versionKind === 'unknown-effective'
-      ? 'Veröffentlicht; Inkrafttreten noch nicht belegt'
-      : versionKind === 'historical'
-        ? `Historische Fassung vom ${formatDate(version.validFrom)}`
-        : `Geltende Fassung zum ${formatDate(EDITORIAL_REFERENCE_DATE)}`;
 
   return {
     id: `${record.meta.slug}:${version.versionId}`,
@@ -351,7 +343,6 @@ export function buildSearchDocument(
     versionKind,
     isAmendment: isAmendmentRecord(record),
     origin: origin.kind,
-    originLabel: formatNormOriginKind(origin.kind),
     title: toDisplayText(identity.title),
     shortTitle: toDisplayText(identity.shortTitle),
     abbr: toDisplayText(identity.abbr),
@@ -384,13 +375,12 @@ export function buildSearchDocument(
     validTo: version.validTo,
     bodySupplement: [...agreementText, ...supplementalTextParts].join('\n\n'),
     hitUnits,
-    resultLabel,
   };
 }
 
-export function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
+export function buildSearchSuggestions(records: NormRecord[], asOf = EDITORIAL_REFERENCE_DATE): SearchSuggestion[] {
   return records.flatMap((record) => {
-    const version = record.versions.find((entry) => classifyNormVersion(record, entry) === 'current');
+    const version = record.versions.find((entry) => classifyNormVersion(record, entry, asOf) === 'current');
     if (!version) return [];
     const identity = getNormVersionIdentity(record, version);
     return [{

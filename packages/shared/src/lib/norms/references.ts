@@ -1,7 +1,7 @@
 import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import type { NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
 import { toDisplayText, type TextLinkReference } from '@ostrecht/shared/lib/norms/presentation.ts';
-import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { EDITORIAL_REFERENCE_DATE, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 
 const FEDERAL_REFERENCES: TextLinkReference[] = [
@@ -86,6 +86,7 @@ function addUniqueReference(
 export function buildNormTextLinkReferences(
   norms: NormRecord[],
   currentSlug: string,
+  asOf = EDITORIAL_REFERENCE_DATE,
 ): TextLinkReference[] {
   const references = new Map<string, TextLinkReference | null>();
 
@@ -99,7 +100,7 @@ export function buildNormTextLinkReferences(
       url: getNormUrl(norm.meta.slug),
     };
 
-    const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+    const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, asOf));
 
     if (identity.abbr) addUniqueReference(references, identity.abbr, reference);
     addUniqueReference(references, identity.shortTitle, reference);
@@ -146,8 +147,8 @@ export interface RelatedNormRecommendation {
   score: number;
 }
 
-function collectBodyText(norm: NormRecord): string {
-  const currentVersion = getApplicableVersion(norm);
+function collectBodyText(norm: NormRecord, asOf = EDITORIAL_REFERENCE_DATE): string {
+  const currentVersion = getApplicableVersion(norm, asOf);
   const parts: string[] = [];
 
   const visit = (blocks: typeof currentVersion.body): void => {
@@ -163,8 +164,8 @@ function collectBodyText(norm: NormRecord): string {
   return parts.join(' ').normalize('NFKC').toLocaleLowerCase('de');
 }
 
-function aliases(norm: NormRecord): string[] {
-  const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+function aliases(norm: NormRecord, asOf = EDITORIAL_REFERENCE_DATE): string[] {
+  const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, asOf));
   return [identity.abbr, identity.shortTitle, identity.title]
     .filter((value): value is string => Boolean(value))
     .map((value) => value.trim().normalize('NFKC').toLocaleLowerCase('de'))
@@ -354,12 +355,12 @@ export interface RelatedNormRecommendationIndexEntry {
  */
 export function buildRelatedNormRecommendationIndex(
   norms: NormRecord[],
-  { limit = 5, bodyTextFor = collectBodyText }: { limit?: number; bodyTextFor?: (norm: NormRecord) => string } = {},
+  { limit = 5, asOf = EDITORIAL_REFERENCE_DATE, bodyTextFor = (norm: NormRecord) => collectBodyText(norm, asOf) }: { limit?: number; asOf?: string; bodyTextFor?: (norm: NormRecord) => string } = {},
 ): Map<string, RelatedNormRecommendationIndexEntry[]> {
   const bySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
   const titleFor = new Map(norms.map((norm) => [
     norm.meta.slug,
-    getNormVersionIdentity(norm, getApplicableVersion(norm)).title,
+    getNormVersionIdentity(norm, getApplicableVersion(norm, asOf)).title,
   ]));
   const explicit = new Map(norms.map((norm) => [norm.meta.slug, explicitRelatedSlugs(norm)]));
   const subjectFrequency = new Map<string, number>();
@@ -370,7 +371,7 @@ export function buildRelatedNormRecommendationIndex(
   }
 
   // Erwähnungen: Text der Norm enthält einen Alias einer anderen Norm (Teilstring, wie bisher).
-  const aliasReferences = norms.flatMap((norm) => aliases(norm).map((label) => ({ label, slug: norm.meta.slug })));
+  const aliasReferences = norms.flatMap((norm) => aliases(norm, asOf).map((label) => ({ label, slug: norm.meta.slug })));
   const matcher = buildReferenceMatcher(aliasReferences);
   const mentions = new Map<string, Set<string>>();
   const mentionedBy = new Map<string, Set<string>>();

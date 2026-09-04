@@ -119,3 +119,34 @@ test('die Vollprojektion leert alle Tabellen einmalig in fremdschlüsselsicherer
   assert.ok(statements.every((statement) => !/NOT IN \(SELECT/u.test(statement)), 'keine NOT-IN-Scans');
   assert.ok(statements.some((statement) => statement.startsWith('DELETE FROM law_runtime_meta WHERE key IN')), 'Laufzeitmetadaten werden bis zum Ende entfernt');
 });
+
+test('eine Stichtagsfortschreibung projiziert nur die stichtagsabhängig betroffenen Normen und alle abgeleiteten Daten', async () => {
+  const { REFERENCE_DATE_PATH } = await import('../scripts/lib/d1-sync-scope.mjs');
+  const existingSlugs = new Set(['a', 'b', 'c']);
+  const scope = scopeFromChangedPaths([REFERENCE_DATE_PATH, 'content/normen/a/meta.json'], {
+    existingSlugs,
+    identityChanged: () => false,
+    referenceDateSlugs: () => ['c', 'nicht-mehr-vorhanden'],
+  });
+  assert.equal(scope.mode, 'incremental');
+  assert.deepEqual(scope.slugs, ['a', 'c']);
+  assert.equal(scope.derivedRebuild, true);
+  assert.ok(scope.reasons.some((reason) => reason.includes('Stichtag fortgeschrieben')));
+  // Ohne bekannten alten Stichtag bleibt editorial.json konservativ ein Full-Trigger.
+  assert.equal(scopeFromChangedPaths([REFERENCE_DATE_PATH], { existingSlugs }).mode, 'full');
+  // Zusammen mit echter Projektionslogik bleibt es eine Vollprojektion.
+  assert.equal(scopeFromChangedPaths([REFERENCE_DATE_PATH, 'packages/shared/src/lib/norms/versions.ts'], { existingSlugs, referenceDateSlugs: () => ['c'] }).mode, 'full');
+});
+
+test('eine angenommene enge Logikänderung erneuert Suchdokumente und abgeleitete Daten aller Normen, Schemaänderungen bleiben Vollprojektion', () => {
+  const narrow = scopeFromChangedPaths(['packages/recht-search/src/search.ts', 'scripts/sync-recht-d1.mjs', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, narrowLogicChange: true });
+  assert.equal(narrow.mode, 'incremental');
+  assert.deepEqual(narrow.slugs, ['foo']);
+  assert.equal(narrow.derivedRebuild, true);
+  assert.equal(narrow.refreshSearchDocuments, true);
+  const schema = scopeFromChangedPaths(['data/recht/d1/0007_x.sql', 'packages/recht-search/src/search.ts'], { existingSlugs, existingPublications, narrowLogicChange: true });
+  assert.equal(schema.mode, 'full');
+  const plain = scopeFromChangedPaths(['content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, narrowLogicChange: true });
+  assert.equal(plain.refreshSearchDocuments, false);
+  assert.equal(plain.derivedRebuild, false);
+});

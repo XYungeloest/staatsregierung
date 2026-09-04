@@ -8,6 +8,23 @@
  * Verkündungen zitieren. Änderungen an der Ableitungslogik, dem Schema oder den
  * korpusweiten Portalbezügen (Themen, Presse) erfordern eine Vollprojektion.
  *
+ * Eine geänderte Projektionslogik erzwingt die Vollprojektion, weil die Umfangslogik nicht wissen
+ * kann, welche Zeilen eine Codeänderung berührt. Für den nachgewiesenen Sonderfall einer engen
+ * Logikänderung (`narrowLogicChange`, CLI `--assume-narrow-logic-change`) – die Änderung berührt
+ * ausschließlich Suchdokumente (law_search_documents), abgeleitete Daten (law_norm_derived) und
+ * Laufzeitmetadaten – werden stattdessen die Suchdokumente und abgeleiteten Daten aller Normen neu
+ * geschrieben; Schemaänderungen unter data/recht/d1/ bleiben immer ein Full-Trigger. Der Nachweis
+ * (tabellenweiser Vergleich mit einer frischen Vollprojektion, scripts/d1-projection-snapshot.mjs)
+ * liegt beim Aufrufer.
+ *
+ * Der redaktionelle Stichtag (packages/shared/src/config/editorial.json) ist ein Sonderfall:
+ * Seine Fortschreibung ändert die Projektion nur bei Normen, deren Fassungseinordnung oder
+ * geltende Fassung zwischen altem und neuem Stichtag verschieden ist (scripts/lib/
+ * d1-reference-date.mjs). Der Aufrufer liefert diese Slugs über `referenceDateSlugs`; ohne
+ * diese Angabe bleibt die Stichtagsänderung konservativ ein Full-Trigger. Betroffene Normen
+ * werden vollständig neu geschrieben, die abgeleiteten Daten aller Normen ebenfalls, weil sie
+ * auf die geltende Fassung anderer Normen verweisen.
+ *
  * Abhängigkeiten der abgeleiteten Daten (law_norm_derived): Beziehungen,
  * Empfehlungen, Textverweise und Portalbezüge einer Norm hängen von der Identität
  * (Slug, Titel, Kurzbezeichnung, Abkürzung, Typ, Status, Sachgebiete, Schlagwörter,
@@ -17,9 +34,14 @@
  * Fassungen, Historie oder sonstige Metadaten, genügt die Norm selbst.
  */
 
+export const REFERENCE_DATE_PATH = 'packages/shared/src/config/editorial.json';
+/** Schemaänderungen erzwingen auch bei angenommener enger Logikänderung die Vollprojektion. */
+export const SCHEMA_TRIGGER_PATTERN = /^data\/recht\/d1\//u;
+
 export const GLOBAL_TRIGGER_PATTERNS = [
   /^scripts\/sync-recht-d1\.mjs$/u,
   /^scripts\/lib\/d1-sync-scope\.mjs$/u,
+  /^scripts\/lib\/d1-reference-date\.mjs$/u,
   /^data\/recht\/d1\//u,
   /^packages\/shared\/src\/lib\/norms\//u,
   /^packages\/shared\/src\/lib\/portal\/(?:content|routes|loader|legislation)\.ts$/u,
@@ -52,9 +74,12 @@ function publicationSlugFromPath(path) {
 
 /**
  * @param {string[]} paths geänderte Pfade (relativ zum Repository)
- * @param {{ existingSlugs: Set<string>, existingPublications?: Set<string>, identityChanged?: (slug: string) => boolean }} options
+ * @param {{ existingSlugs: Set<string>, existingPublications?: Set<string>, identityChanged?: (slug: string) => boolean, referenceDateSlugs?: (() => string[]) | null }} options
+ *   `referenceDateSlugs` liefert die stichtagsabhängig betroffenen Normen, wenn sich nur der
+ *   redaktionelle Stichtag geändert hat (scripts/lib/d1-reference-date.mjs); ohne Angabe bleibt
+ *   eine Änderung von editorial.json ein Full-Trigger.
  */
-export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false } = {}) {
+export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false, referenceDateSlugs = null, narrowLogicChange = false } = {}) {
   const normalized = paths.map(normalizeChangedPath).filter(Boolean);
   const reasons = [];
   const slugs = new Set();
@@ -63,9 +88,20 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
   const deletedPublications = new Set();
   let full = false;
   let unknown = 0;
+  let referenceDateChanged = false;
+  let narrowLogic = false;
 
   for (const path of normalized) {
+    if (path === REFERENCE_DATE_PATH && referenceDateSlugs) {
+      referenceDateChanged = true;
+      continue;
+    }
     if (GLOBAL_TRIGGER_PATTERNS.some((pattern) => pattern.test(path))) {
+      if (narrowLogicChange && !SCHEMA_TRIGGER_PATTERN.test(path)) {
+        narrowLogic = true;
+        reasons.push(`${path}: enge Logikänderung angenommen – Suchdokumente und abgeleitete Daten aller Normen neu`);
+        continue;
+      }
       full = true;
       reasons.push(`${path}: Projektionslogik oder korpusweite Grundlage geändert`);
       continue;
@@ -92,6 +128,12 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
   }
 
   let derivedRebuild = false;
+  if (!full && referenceDateChanged) {
+    const affected = referenceDateSlugs().filter((slug) => existingSlugs.has(slug));
+    for (const slug of affected) slugs.add(slug);
+    derivedRebuild = true;
+    reasons.push(`${REFERENCE_DATE_PATH}: Stichtag fortgeschrieben, ${affected.length} stichtagsabhängige Norm(en) und abgeleitete Daten aller Normen neu`);
+  }
   if (!full) {
     if (deletedSlugs.size > 0) {
       derivedRebuild = true;
@@ -111,7 +153,8 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
     deletedSlugs: [...deletedSlugs].sort(),
     publicationSlugs: [...publicationSlugs].sort(),
     deletedPublications: [...deletedPublications].sort(),
-    derivedRebuild: full ? false : derivedRebuild,
+    derivedRebuild: full ? false : (derivedRebuild || narrowLogic),
+    refreshSearchDocuments: !full && narrowLogic,
     ignoredPaths: unknown,
     reasons,
   };
