@@ -700,8 +700,19 @@ async function loadSearchPage(page: Page, query: string): Promise<CandidatePaylo
   return await response.json() as CandidatePayload;
 }
 
+interface SearchCounts {
+  /** Zahl in der Überschrift; bei „Mindestens …“ nur eine Untergrenze. */
+  headline: number | null;
+  /** Nennt die Überschrift eine feststehende Gesamtzahl? */
+  exactTotal: boolean;
+  shown: number;
+  remaining: number | null;
+  moreVisible: boolean;
+  summary: string;
+}
+
 /** Zahlen der Oberfläche: Überschrift, angezeigte Treffer und Nachladezähler. */
-async function readSearchCounts(page: Page): Promise<{ headline: number | null; shown: number; remaining: number | null; moreVisible: boolean; summary: string }> {
+async function readSearchCounts(page: Page): Promise<SearchCounts> {
   const summary = (await page.locator('[data-search-summary]').textContent()) ?? '';
   const shown = await page.locator('[data-search-results] .search-result-group').count();
   const more = page.locator('[data-search-more]');
@@ -712,11 +723,35 @@ async function readSearchCounts(page: Page): Promise<{ headline: number | null; 
   const remaining = moreText.match(/\((\d+) verbleibend\)/u)?.[1];
   return {
     headline: headline === undefined ? null : Number(headline),
+    exactTotal: !summary.startsWith('Mindestens '),
     shown,
     remaining: remaining === undefined ? null : Number(remaining),
     moreVisible,
     summary,
   };
+}
+
+/**
+ * Widerspruchsfreiheit von Überschrift, Nachladezähler und serverseitigem `total` – unabhängig
+ * davon, ob die Kandidatenmenge in eine Seite passt (Testfixture) oder nicht (Vollbestand).
+ */
+function expectConsistentCounts(counts: SearchCounts, payload: CandidatePayload, label: string): void {
+  const where = `${label}: ${counts.summary}`;
+  expect(counts.headline, where).not.toBeNull();
+  // Die Überschrift behauptet nie mehr Treffer, als die Kandidatenmenge überhaupt hergibt.
+  expect(counts.headline ?? 0, where).toBeLessThanOrEqual(payload.total);
+  if (counts.exactTotal) {
+    // Angezeigte und verbleibende Treffer ergeben zusammen die genannte Gesamtzahl.
+    expect(counts.shown + (counts.remaining ?? 0), where).toBe(counts.headline);
+    // Der Nachladeknopf erscheint genau dann, wenn noch Treffer fehlen.
+    expect(counts.moreVisible, where).toBe(counts.shown < (counts.headline ?? 0));
+    if (counts.moreVisible) expect(counts.remaining, where).not.toBeNull();
+    return;
+  }
+  // Offene Gesamtzahl: die Überschrift bleibt eine Untergrenze, der Knopf nennt keine Trefferzahl.
+  expect(counts.headline ?? 0, where).toBeGreaterThanOrEqual(counts.shown);
+  expect(counts.remaining, where).toBeNull();
+  expect(counts.moreVisible, where).toBe(true);
 }
 
 siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschreiben dieselbe Ergebnismenge', async ({ page }) => {
@@ -736,14 +771,10 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
   for (const { label, query } of serverSideCases) {
     const payload = await loadSearchPage(page, query);
     const counts = await readSearchCounts(page);
-    // Das Fixture passt in eine Kandidatenseite; nur dann ist die geladene Menge vollständig.
-    expect(payload.offset + payload.limit, label).toBeGreaterThanOrEqual(payload.total);
+    // Serverseitig ausdrückbar: die Überschrift nennt genau das `total` der Such-API.
+    expect(counts.exactTotal, `${label}: ${counts.summary}`).toBe(true);
     expect(counts.headline, `${label}: ${counts.summary}`).toBe(payload.total);
-    // Angezeigte und verbleibende Treffer ergeben zusammen die genannte Gesamtzahl.
-    expect(counts.shown + (counts.remaining ?? 0), label).toBe(counts.headline);
-    // Der Nachladeknopf erscheint genau dann, wenn noch Treffer fehlen.
-    expect(counts.moreVisible, label).toBe(counts.shown < (counts.headline ?? 0));
-    if (counts.moreVisible) expect(counts.remaining, label).not.toBeNull();
+    expectConsistentCounts(counts, payload, label);
   }
 
   // Ein nur im Browser wirkender Filter (Ausgabennummer, normalisierter Textvergleich) darf die
@@ -751,15 +782,12 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
   // Menge, die die Liste zeigt.
   const narrowed = await loadSearchPage(page, '?publicationIssue=33&versionScope=all&includeAmendments=1');
   const narrowedCounts = await readSearchCounts(page);
-  expect(narrowedCounts.headline).not.toBeNull();
-  expect(narrowedCounts.headline ?? 0).toBeLessThan(narrowed.total);
-  expect(narrowedCounts.shown + (narrowedCounts.remaining ?? 0)).toBe(narrowedCounts.headline);
+  expect(narrowedCounts.headline ?? 0, narrowedCounts.summary).toBeLessThan(narrowed.total);
+  expectConsistentCounts(narrowedCounts, narrowed, 'Ausgabennummer');
 
   // Auch mit Suchbegriff bleibt die Überschrift bei der Menge, die die Liste zeigt.
   const searched = await loadSearchPage(page, '?q=Kulturpass');
-  const searchedCounts = await readSearchCounts(page);
-  expect(searchedCounts.headline ?? 0).toBeLessThanOrEqual(searched.total);
-  expect(searchedCounts.shown + (searchedCounts.remaining ?? 0)).toBe(searchedCounts.headline);
+  expectConsistentCounts(await readSearchCounts(page), searched, 'Suchbegriff');
 
   // Nachladen bleibt widerspruchsfrei: mehr angezeigt, dieselbe Gesamtzahl, kleinerer Restwert.
   const paged = await loadSearchPage(page, '?includeAmendments=1&versionScope=all');
