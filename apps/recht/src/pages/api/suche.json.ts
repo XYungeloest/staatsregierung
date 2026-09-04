@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 
 import { buildSearchVariants, parseQueryTokens } from '@ostrecht/recht-search/search-query.ts';
 import type { SearchHitUnit, SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
+import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 
 import { getNormStore } from '../../lib/runtime/context.ts';
 
@@ -75,6 +76,8 @@ export const GET: APIRoute = async ({ url, locals }) => {
 
   return new Response(JSON.stringify({
     generatedAt: new Date().toISOString(),
+    // Redaktioneller Stichtag der Anzeige: Fassungsbezeichnungen werden erst im Browser gebildet.
+    referenceDate: EDITORIAL_REFERENCE_DATE,
     query: { q, exact, citation, types },
     total,
     offset,

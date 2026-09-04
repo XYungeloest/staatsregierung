@@ -38,7 +38,9 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
    `npm run norms:publications:pdf-sync -- --write` den Verkündungen zugeordnet und als
    deploybare Rechtsassets bereitgestellt. HTML bleibt die strukturtragende Transkription,
    PDF die amtliche visuelle Kontrollquelle; abweichende historische Dateinamen brauchen eine
-   eindeutige, geprüfte Zuordnung.
+   eindeutige, geprüfte Zuordnung. Der Lauf übernimmt das Prüfdatum (`verifiedAt`) der Ausgabe
+   auf die zugeordneten Normen und setzt ein bereits dokumentiertes späteres Prüfdatum derselben
+   Datei nie zurück (`preserveVerifiedAt` in `scripts/lib/publication-pdf.mjs`).
 7. Den gezielten Schreib- und vollständigen QA-Lauf ausführen:
 
    ```sh
@@ -55,6 +57,28 @@ erkannt wird, ein notwendiger REVOSax-Snapshot fehlt, ein Patch keinen eindeutig
 Gültigkeitsintervalle überlappen, eine fassungsspezifische Bezeichnung widersprüchlich ist oder
 die Konsolidierung einen Sperrstatus meldet. Vorhandene Fassungsdateien werden nicht nachträglich
 umgeschrieben; jede neue Rechtslage erhält eine neue, unveränderliche Fassung.
+
+## Redaktionellen Stichtag fortschreiben
+
+Der redaktionelle Stichtag steht ausschließlich in `packages/shared/src/config/editorial.json`.
+Er entscheidet, welche gespeicherte Fassung als geltend gilt und welchen Status eine Norm im
+Gitbestand trägt (`future-effective` nur bis zum Inkrafttreten, `in-force` nur bis zum
+Außerkrafttreten). Die Fortschreibung läuft deterministisch:
+
+```sh
+npm run norms:advance-reference-date -- --to 2026-09-04           # Audit: Status- und Fassungsübergänge
+npm run norms:advance-reference-date -- --to 2026-09-04 --write   # schreibt nur status (meta.json) und referenceDate
+npm run content:check
+npm run knowledge:build && npm run knowledge:check
+```
+
+Der Lauf zeigt jede Norm, deren Status wechselt, jede Fassung, deren zeitliche Einordnung
+wechselt, sowie ablaufende Themen-Hervorhebungen; er verändert weder Quellen noch Fassungen,
+Historie oder Verkündungen. Für die D1-Projektion ist die Stichtagsänderung kein Full-Trigger:
+der automatische `--git-diff`-Sync liest den alten Stichtag aus dem Basis-Commit und projiziert
+nur die stichtagsabhängig betroffenen Normen samt abgeleiteten Daten aller Normen
+(`scripts/lib/d1-reference-date.mjs`; Gleichheit mit einer frischen Vollprojektion wird in
+`tests/recht-d1-reference-date.test.mjs` geprüft).
 
 ## Redaktionelle Nacharbeit
 

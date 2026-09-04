@@ -38,6 +38,7 @@ export const PROJECTION_LOGIC_ROOTS = [
 export const PROJECTION_LOGIC_FILES = [
   'scripts/sync-recht-d1.mjs',
   'scripts/lib/d1-sync-scope.mjs',
+  'scripts/lib/d1-reference-date.mjs',
   'scripts/lib/d1-search-schema.mjs',
   'scripts/lib/d1-projection-fingerprint.mjs',
   'packages/shared/src/lib/portal/content.ts',

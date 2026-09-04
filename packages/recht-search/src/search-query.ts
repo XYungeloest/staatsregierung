@@ -1,6 +1,24 @@
 import type { SearchHitUnit, SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
+import { formatNormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/presentation.ts';
 import { NORM_TYPES, type NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
+
+/**
+ * Bezeichnung der Fassungsart eines Suchtreffers. Sie wird erst bei der Anzeige mit dem
+ * redaktionellen Stichtag gebildet (die Such-API liefert `referenceDate`), damit das
+ * gespeicherte Suchdokument keinen Stichtag einbettet und eine Stichtagsfortschreibung nur
+ * die tatsächlich betroffenen Fassungen berührt. Dieses Modul ist browsertauglich.
+ */
+export function formatSearchResultLabel(
+  entry: Pick<SearchIndexDocument, 'versionKind' | 'validFrom'>,
+  referenceDate: string,
+): string {
+  if (entry.versionKind === 'future') return `Zukünftige Fassung ab ${formatDate(entry.validFrom)}`;
+  if (entry.versionKind === 'unknown-effective') return 'Veröffentlicht; Inkrafttreten noch nicht belegt';
+  if (entry.versionKind === 'historical') return `Historische Fassung vom ${formatDate(entry.validFrom)}`;
+  return `Geltende Fassung zum ${formatDate(referenceDate)}`;
+}
 
 export type SearchScope = 'all' | 'title' | 'metadata' | 'body';
 export type VersionScope = VersionTemporalKind | 'all';
@@ -259,7 +277,7 @@ function prepareSearchDocument(documentEntry: SearchIndexDocument): PreparedSear
     ...documentEntry.subjects,
     ...documentEntry.keywords,
     documentEntry.statusLabel,
-    documentEntry.originLabel,
+    formatNormOriginKind(documentEntry.origin),
     documentEntry.summary,
     documentEntry.initialCitation,
     documentEntry.citation,

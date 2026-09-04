@@ -20,7 +20,9 @@ import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/rou
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases } from '@ostrecht/recht-search/search.ts';
 
-import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from './lib/d1-sync-scope.mjs';
+import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths } from './lib/d1-sync-scope.mjs';
+import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
+import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { FULL_SCOPE, fixtureScope, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
 import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search-schema.mjs';
 
@@ -79,10 +81,23 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *                               abgeleitete Daten aller Normen werden nur neu geschrieben, wenn
  *                               sich die Identität einer Norm geändert hat oder Normen hinzukamen
  *                               bzw. entfielen (Beziehungen, Empfehlungen und Textverweise
- *                               anderer Normen hängen davon ab)
+ *                               anderer Normen hängen davon ab). Eine Fortschreibung des
+ *                               redaktionellen Stichtags (editorial.json) ist kein Full-Trigger:
+ *                               der alte Stichtag wird aus dem Basis-Ref gelesen, projiziert werden
+ *                               nur die stichtagsabhängig betroffenen Normen und die abgeleiteten
+ *                               Daten aller Normen (scripts/lib/d1-reference-date.mjs)
  *   --changed-paths <Datei>     wie --git-diff, mit einer Pfadliste (eine Zeile je Pfad; gelöschte
  *                               Normen werden am fehlenden Verzeichnis erkannt, Identitäts-
- *                               änderungen gelten als gegeben)
+ *                               änderungen gelten als gegeben); enthält die Liste editorial.json,
+ *                               nennt --reference-date-from <Datum> den bisherigen Stichtag, sonst
+ *                               bleibt die Stichtagsänderung ein Full-Trigger
+ *   --assume-narrow-logic-change  nur mit --git-diff/--changed-paths: eine geänderte Projektionslogik
+ *                               erzwingt keine Vollprojektion; stattdessen werden die Suchdokumente
+ *                               (law_search_documents) und abgeleiteten Daten (law_norm_derived)
+ *                               aller Normen neu geschrieben. Nur für Logikänderungen, deren Wirkung
+ *                               vorher tabellenweise mit einer frischen Vollprojektion verglichen
+ *                               wurde (scripts/d1-projection-snapshot.mjs); Schemaänderungen unter
+ *                               data/recht/d1/ bleiben immer ein Full-Trigger
  *   --database <Name>           Zieldatenbank des Wrangler-Transports (Standard ostrecht-recht;
  *                               Staging: ostrecht-recht-staging)
  *   --corpus-filter <Datei>     nur lokal oder Staging: beschränkt den geladenen Bestand auf die Slugs der
@@ -189,7 +204,7 @@ function stripBody(version) {
 
 function searchUnits(record, version, context) {
   const publicationReference = context.publicationReferences.get(`${record.meta.slug}:${version.versionId}`);
-  const document = buildSearchDocument(record, version, context.lookup, publicationReference);
+  const document = buildSearchDocument(record, version, context.lookup, publicationReference, context.asOf ?? EDITORIAL_REFERENCE_DATE);
   const { hitUnits, bodySupplement, ...metadata } = document;
   const units = hitUnits.map((unit, index) => ({
     unitIndex: index,
@@ -235,7 +250,9 @@ export function keywordEntries(norm, identity) {
  */
 export function normQueries(norm, context, now, { full = false } = {}) {
   const { meta, history, versions } = norm;
-  const current = getApplicableVersion(norm);
+  // Der Stichtag der Projektion kommt aus dem Ableitungskontext (Standard: editorial.json).
+  const asOf = context.asOf ?? EDITORIAL_REFERENCE_DATE;
+  const current = getApplicableVersion(norm, asOf);
   const currentIdentity = getNormVersionIdentity(norm, current);
   const derived = deriveNorm(norm, context);
   const sourceOf = (version) => (version.sourceReferences ?? []).find((source) => source.kind === 'revosax-snapshot') ?? (version.sourceReferences ?? [])[0] ?? null;
@@ -277,7 +294,7 @@ export function normQueries(norm, context, now, { full = false } = {}) {
       version.citation, version.changeNote, primarySource?.sha256 ?? null, primarySource?.url ?? null,
       primarySource?.retrievedAt ?? null, primarySource?.objectKey ?? null, now,
       JSON.stringify(stripBody(version)), fullCitationFor(norm, version, context),
-      publicationReference ? JSON.stringify(publicationReference) : null, classifyNormVersion(norm, version),
+      publicationReference ? JSON.stringify(publicationReference) : null, classifyNormVersion(norm, version, asOf),
     ]));
 
     for (const [blockIndex, block] of version.body.entries()) {
@@ -333,10 +350,7 @@ export function normQueries(norm, context, now, { full = false } = {}) {
   // Fassungen weiterhin über Titel, Fundstelle und Metadaten auffindbar bleiben.
   for (const version of versions) {
     const { metadata, units } = searchUnits(norm, version, context);
-    queries.push(q(
-      'INSERT INTO law_search_documents (norm_id, version_id, document_json, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(norm_id, version_id) DO UPDATE SET document_json=excluded.document_json, updated_at=excluded.updated_at',
-      [meta.id, version.versionId, JSON.stringify(metadata), now],
-    ));
+    queries.push(searchDocumentQuery(meta.id, version.versionId, metadata, now));
     if (version.versionId !== current.versionId) continue;
     for (const unit of units) {
       // Der Volltextindex folgt per Trigger (scripts/lib/d1-search-schema.mjs).
@@ -348,6 +362,22 @@ export function normQueries(norm, context, now, { full = false } = {}) {
   }
 
   return queries;
+}
+
+function searchDocumentQuery(normId, versionId, metadata, now) {
+  return q(
+    'INSERT INTO law_search_documents (norm_id, version_id, document_json, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(norm_id, version_id) DO UPDATE SET document_json=excluded.document_json, updated_at=excluded.updated_at',
+    [normId, versionId, JSON.stringify(metadata), now],
+  );
+}
+
+/**
+ * Nur die Suchdokumente (Metadaten je Fassung) einer Norm neu schreiben – für Logikänderungen,
+ * die ausschließlich das Suchdokument betreffen (--assume-narrow-logic-change). Provisionen,
+ * Normzeilen und Fassungen bleiben unberührt; die Upserts sind idempotent.
+ */
+export function searchDocumentQueries(norm, context, now) {
+  return norm.versions.map((version) => searchDocumentQuery(norm.meta.id, version.versionId, searchUnits(norm, version, context).metadata, now));
 }
 
 /** Entfernt eine Norm mit allen abhängigen Zeilen; jede Löschung läuft über den Index norm_id. */
@@ -754,6 +784,10 @@ export async function resolveScope(args, { norms, publications }) {
   }
   let paths;
   let identityChanged = () => true;
+  // Bisheriger Stichtag für eine Stichtagsfortschreibung: aus dem Basis-Ref (--git-diff) oder
+  // ausdrücklich (--reference-date-from); ohne Angabe bleibt editorial.json ein Full-Trigger.
+  let previousReferenceDate = valueAfter(args, '--reference-date-from') ?? null;
+  if (previousReferenceDate) assertIsoDate(previousReferenceDate, '--reference-date-from');
   if (args.includes('--git-diff')) {
     const index = args.indexOf('--git-diff');
     const [base, head] = [args[index + 1], args[index + 2]];
@@ -768,12 +802,21 @@ export async function resolveScope(args, { norms, publications }) {
       metaCache.set(slug, metaIdentityChanged(previous, currentMeta(slug)));
     }
     identityChanged = (slug) => metaCache.get(slug) ?? true;
+    if (!previousReferenceDate && paths.includes(REFERENCE_DATE_PATH)) {
+      previousReferenceDate = (await gitShowJson(base, REFERENCE_DATE_PATH))?.referenceDate ?? null;
+    }
   } else {
     const file = valueAfter(args, '--changed-paths');
     if (!file) throw new Error('--changed-paths braucht eine Datei');
     paths = (await readFile(resolve(ROOT, file), 'utf8')).split(/\r?\n/u).filter(Boolean);
   }
-  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged });
+  const referenceDateSlugs = previousReferenceDate && typeof previousReferenceDate === 'string'
+    ? () => referenceDateAffectedSlugs(norms, previousReferenceDate, EDITORIAL_REFERENCE_DATE)
+    : null;
+  const narrowLogicChange = args.includes('--assume-narrow-logic-change');
+  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, narrowLogicChange });
+  if (narrowLogicChange && scope.mode === 'full') throw new Error(`--assume-narrow-logic-change: die Änderung erzwingt trotzdem eine Vollprojektion (${scope.reasons.join('; ')})`);
+  if (referenceDateSlugs && paths.includes(REFERENCE_DATE_PATH)) scope.referenceDate = { from: previousReferenceDate, to: EDITORIAL_REFERENCE_DATE };
   if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) {
     for (const slug of normsCitingPublications(publications, scope.publicationSlugs)) {
       if (existingSlugs.has(slug) && !scope.slugs.includes(slug)) scope.slugs.push(slug);
@@ -803,11 +846,17 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
     groups.push({ slug: norm.meta.slug, queries });
   }
   let derivedCount = 0;
-  if (!full && scope.derivedRebuild) {
+  let documentRefreshCount = 0;
+  if (!full && (scope.derivedRebuild || scope.refreshSearchDocuments)) {
     for (const norm of norms) {
       if (selectedSlugs.has(norm.meta.slug)) continue;
-      groups.push({ slug: `(abgeleitet ${norm.meta.slug})`, queries: derivedQueries(norm, context, now) });
-      derivedCount += 1;
+      const queries = [
+        ...(scope.derivedRebuild ? derivedQueries(norm, context, now) : []),
+        ...(scope.refreshSearchDocuments ? searchDocumentQueries(norm, context, now) : []),
+      ];
+      groups.push({ slug: `(abgeleitet ${norm.meta.slug})`, queries });
+      if (scope.derivedRebuild) derivedCount += 1;
+      if (scope.refreshSearchDocuments) documentRefreshCount += 1;
     }
   }
   const publicationSelection = full ? publications : publications.filter((publication) => scope.publicationSlugs.includes(publication.slug));
@@ -823,6 +872,7 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
     groups,
     selected,
     derivedCount,
+    documentRefreshCount,
     publicationCount: publicationSelection.length,
     searchUnitCount,
     statementCount: all.length,
@@ -973,8 +1023,9 @@ async function main() {
   const full = scope.mode === 'full';
   console.log(full
     ? 'Umfang: Vollprojektion (Tabellen werden einmalig geleert, keine normweisen Löschungen)'
-    : `Umfang: ${scope.slugs.length} Norm(en), ${scope.deletedSlugs.length} Löschung(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.reasons.length ? ` – ${scope.reasons.slice(0, 3).join('; ')}` : ''}`);
-  const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl });
+    : `Umfang: ${scope.slugs.length} Norm(en), ${scope.deletedSlugs.length} Löschung(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.refreshSearchDocuments ? ', Suchdokumente aller Normen' : ''}${scope.reasons.length ? ` – ${scope.reasons.slice(0, 3).join('; ')}` : ''}`);
+  if (scope.referenceDate) console.log(`Stichtag: ${scope.referenceDate.from} → ${scope.referenceDate.to}; betroffene Normen: ${scope.slugs.join(', ') || '(keine)'}`);
+  const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE });
   console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
   const now = new Date().toISOString();
   // Identität nur bei Vollprojektion und verifiziertem Git-Diff schreiben; manuelle Teilsyncs
@@ -982,7 +1033,7 @@ async function main() {
   const writeIdentity = full || Boolean(gitDiffBase);
   const plan = buildSyncPlan({ scope, norms, publications, context, now, identity: fingerprint, writeIdentity });
   const cost = estimatePlanCost(plan, budgets.estimate ?? DEFAULT_ESTIMATE);
-  console.log(`Plan: ${plan.selected.length} Normen, ${scope.deletedSlugs.length} Löschungen, ${plan.derivedCount} abgeleitete Datensätze, ${plan.publicationCount} Verkündungen, ${plan.searchUnitCount} Suchprovisionen, ${plan.statementCount} Anweisungen`);
+  console.log(`Plan: ${plan.selected.length} Normen, ${scope.deletedSlugs.length} Löschungen, ${plan.derivedCount} abgeleitete Datensätze, ${plan.documentRefreshCount} Normen mit erneuerten Suchdokumenten, ${plan.publicationCount} Verkündungen, ${plan.searchUnitCount} Suchprovisionen, ${plan.statementCount} Anweisungen`);
   console.log(`Anweisungen je Tabelle: ${JSON.stringify(plan.byStatement)}`);
   console.log(`Schätzung: rows_written ≈ ${cost.rowsWrittenMin}–${cost.rowsWrittenMax}, rows_read ≈ ${cost.rowsReadApprox}; Budget ${stats.limits.profile ?? (stats.limits.maxRowsWritten ? 'explizit' : 'keins')}: rows_read ≤ ${stats.limits.maxRowsRead ?? '∞'}, rows_written ≤ ${stats.limits.maxRowsWritten ?? '∞'}`);
   if (!dryRun) assertEstimateWithinBudget(cost, stats.limits);
