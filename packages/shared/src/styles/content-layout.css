@@ -77,7 +77,7 @@
   color: var(--color-primary);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 48rem) {
   .page-header {
     padding-inline: 0;
   }

@@ -682,6 +682,49 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
 });
 
+siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, zuletzt die Suche', async ({ page }) => {
+  // Zwischen kleinem und großem Desktop klappt nur die Navigationsliste zusammen; Wortmarke,
+  // Suchfeld und Menüknopf bleiben sichtbar (Befund N1).
+  const readHeader = async (width: number) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(lawUrl('/gesetze/'));
+    return {
+      wordmark: await page.locator('.law-wordmark').isVisible(),
+      search: await page.locator('.law-header-search input').isVisible(),
+      menu: await page.locator('.law-mobile-nav summary').isVisible(),
+      navigation: await page.locator('.law-main-nav').isVisible(),
+    };
+  };
+
+  const wide = await readHeader(1440);
+  expect(wide, 'großer Desktop: volle Navigation ohne Menüknopf').toMatchObject({ wordmark: true, search: true, navigation: true, menu: false });
+
+  for (const width of [1280, 1180, 1100, 1024]) {
+    const header = await readHeader(width);
+    expect(header, `Zwischenstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: true, navigation: false });
+  }
+
+  // Erst auf dem kleinsten Bildschirm weicht auch die Suche in das Menü; erreichbar bleibt sie dort.
+  const small = await readHeader(375);
+  expect(small).toMatchObject({ wordmark: true, menu: true, search: false });
+  await page.locator('.law-mobile-nav summary').click();
+  await expect(page.locator('.law-mobile-nav__panel input')).toBeVisible();
+  await page.setViewportSize({ width: 1280, height: 900 });
+});
+
+siteTest(['law'])('Keine Seite erzeugt horizontalen Dokumentüberlauf', async ({ page }) => {
+  const paths = ['/', '/suche/', '/archiv/', '/verkuendungen/', '/sachgebiete/', '/rechtsentwicklung/', '/hilfe/', '/norm/saechsische-gemeindeordnung/', '/norm/saechsische-gemeindeordnung/history/', '/norm/saechsische-gemeindeordnung/vergleich/'];
+  for (const width of [375, 768, 1024, 1180, 1280, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of paths) {
+      await page.goto(lawUrl(path));
+      const size = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+      expect(size.scroll, `${path} bei ${width} px`).toBeLessThanOrEqual(size.client + 1);
+    }
+  }
+  await page.setViewportSize({ width: 1280, height: 900 });
+});
+
 siteTest(['law'])('Fundstellen des Ostdeutschen Vertragsblatts werden in der Rechtssuche erkannt', async ({ page }) => {
   await page.goto(lawUrl('/suche/?q=OVertrBl.%202026%20Nr.%204'));
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');

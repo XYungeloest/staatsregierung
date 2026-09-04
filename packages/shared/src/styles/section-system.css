@@ -1402,7 +1402,7 @@
   margin: 0.25rem 0 0;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 64rem) {
   .topic-lead-grid,
   .service-entry-grid,
   .press-service-grid,
@@ -1480,7 +1480,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 48rem) {
   .section-hero__inner {
     padding: 1.4rem 0;
   }
@@ -1647,7 +1647,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   .site-title {
     font-size: 1.16rem;
     line-height: 1.08;
