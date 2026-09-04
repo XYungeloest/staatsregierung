@@ -561,9 +561,9 @@ interface ResultCount {
   loaded: number;
   /** Gesamtzahl der Treffer, sofern sie feststeht; sonst null. */
   total: number | null;
-  /** Geprüfte Kandidatenvorschriften. */
+  /** Bereits bewertete Kandidatenvorschriften; nur Rechengröße, nicht Teil der Anzeigetexte. */
   checked: number;
-  /** Kandidatenvorschriften, die noch nicht geladen und bewertet sind. */
+  /** Noch nicht bewertete Kandidatenvorschriften; entscheidet, ob `total` feststeht. */
   unchecked: number;
 }
 
@@ -573,8 +573,8 @@ interface ResultCount {
  *
  * Die Gesamtzahl steht fest, wenn entweder alle Kandidaten geladen und bewertet sind (dann ist die
  * geladene Menge die vollständige) oder die Kandidatenabfrage genau dieselbe Menge zählt wie die
- * Anzeige (candidateTotalMatchesResults). Sonst bleibt sie offen und die Texte sprechen über die
- * geprüfte Menge – eine falsche Gesamtzahl wird in keinem Fall behauptet.
+ * Anzeige (candidateTotalMatchesResults). Sonst bleibt sie offen und die Oberfläche sagt
+ * „mindestens“ – eine falsche Gesamtzahl wird in keinem Fall behauptet.
  */
 function countResults(groupCount: number, state: NormSearchState): ResultCount {
   const unchecked = Math.max(0, lastTotal - checkedCandidates);
@@ -585,16 +585,18 @@ function countResults(groupCount: number, state: NormSearchState): ResultCount {
   return { shown, loaded: groupCount, total, checked: checkedCandidates, unchecked };
 }
 
-/** Überschrift der Trefferliste; nennt eine Gesamtzahl nur, wenn sie feststeht. */
+/**
+ * Überschrift der Trefferliste. Eine Gesamtzahl steht nur dort, wo sie feststeht; ist sie offen,
+ * trägt „mindestens“ die Unvollständigkeit. Die Texte sprechen über Treffer und Vorschriften,
+ * nicht über das Abrufverfahren.
+ */
 function summaryText(count: ResultCount, versionCount: number, state: NormSearchState): string {
   const sorted = `Sortiert nach ${sortLabel(state)}.`;
-  // Offene Gesamtzahl: die Texte sprechen über die geprüfte Menge, nie über den ganzen Bestand.
   if (count.total === null) {
-    const scope = `${count.checked} geprüften von ${count.checked + count.unchecked} Vorschriften`;
-    return count.loaded === 0 ? `Keine Treffer in ${scope}.` : `${count.loaded} Treffer in ${scope}. ${sorted}`;
+    return count.loaded === 0 ? 'Bisher keine Treffer.' : `Mindestens ${count.loaded} Treffer. ${sorted}`;
   }
   if (count.total === 0) return 'Keine Treffer für die aktuelle Suchanfrage.';
-  if (count.total > count.loaded) return `${count.total} Treffer, davon ${count.loaded} geladen. ${sorted}`;
+  if (count.total > count.loaded) return `${count.total} Treffer. ${sorted}`;
   const versionLabel = versionCount === 1 ? '1 passende Fassung' : `${versionCount} passende Fassungen`;
   const normLabel = count.loaded === 1 ? 'einer Vorschrift' : `${count.loaded} Vorschriften`;
   return `${count.total} Treffer: ${versionLabel} in ${normLabel}. ${sorted}`;
@@ -606,8 +608,8 @@ function moreButtonLabel(count: ResultCount): string | null {
     const remaining = count.total - count.shown;
     return remaining > 0 ? `Weitere Treffer laden (${remaining} verbleibend)` : null;
   }
-  if (count.shown < count.loaded) return `Weitere Treffer laden (${count.loaded - count.shown} geladen, ${count.unchecked} Vorschriften ungeprüft)`;
-  return `Weitere Vorschriften prüfen (${count.unchecked} noch nicht geprüft)`;
+  // Offene Gesamtzahl: erst die schon gefundenen Treffer zeigen, dann weitersuchen.
+  return count.shown < count.loaded ? 'Weitere Treffer anzeigen' : 'Weitere Vorschriften durchsuchen';
 }
 
 function renderResults(results: ScoredSearchResult[], state: NormSearchState, publication?: SearchPublication): void {

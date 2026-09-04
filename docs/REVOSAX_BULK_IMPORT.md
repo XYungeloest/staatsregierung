@@ -399,6 +399,17 @@ Trefferzählung noch `lastmod` falsch wird; erst die Vollprojektion zieht `last_
 die neue Bedeutung nach. Betroffen sind wenige Normen – nur solche, deren jüngstes Ereignis ein
 Hinweis ist.
 
+**Reihenfolge zwingend, nicht nur empfohlen.** Migration 0007 und die Vollprojektion müssen in der
+Zielumgebung abgeschlossen sein, bevor der Worker dieses Releases dort deployt wird. Der Worker
+liest `law_norms.last_activity_date` bedingungslos (`SUMMARY_SELECT` in
+`apps/recht/src/lib/runtime/store.ts`); gegen eine Datenbank ohne 0007 beantwortet er jede
+Rechtsroute mit 500. Umgekehrt ist der Ablauf unkritisch: 0007 ist rein additiv, der alte Worker
+liest die migrierte Datenbank unverändert weiter. Produktiv werden Migrationen manuell
+eingespielt – zuerst lokal, dann Staging, dann Produktion. Gemergt wird erst, wenn
+`d1_token_check` No-op meldet (Schritt 4 des D1-Release-Gates in `docs/DEPLOYMENT_RUNBOOK.md`);
+`d1_sync` auf `main` ist dann ein No-op und das Deployment folgt der bereits hergestellten
+Projektion.
+
 ## Datenform ändern: Expand/Contract
 
 Der Sync läuft vor dem Worker-Deployment; zwischen beiden liest der alte Worker die neue
