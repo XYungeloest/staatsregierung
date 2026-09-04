@@ -71,13 +71,15 @@ classify ─┬─ build ───────────────┬─ run
    `--git-diff <before> <sha> --budget incremental --recover`. Der Lauf ist ein No-op, wenn D1
    bereits die Projektionsidentität des Commits trägt; er schreibt inkrementell nur mit
    verifizierter Basis (Base-State-Guard) und fällt sonst auf eine markierte Recovery zurück. Eine
-   durch Projektionslogik oder Themen/Presse ausgelöste Vollprojektion überschreitet das Profil
-   `incremental` und lässt das Deployment bewusst fehlschlagen; sie wird manuell ausgeführt
-   (`docs/REVOSAX_BULK_IMPORT.md`), danach wird der Workflow erneut gestartet. Migrationen spielt
-   der Workflow nie ein.
+   Vollprojektion führt der automatische Sync nie aus: Entscheidung und Budgetprofil werden vor
+   dem Planbau abgeglichen, ein `full`-Beschluss endet sofort fail-closed. Dass er auf `main`
+   nicht eintritt, stellt das D1-Release-Gate vor dem Merge sicher (siehe unten). Migrationen
+   spielt der Workflow nie ein.
 6. `deploy` veröffentlicht zuerst OstRecht, danach das Staatsportal, und prüft den
    Produktionsstand (`npm run test:deployment:production`).
-7. `visual` läuft bei `run_visual` im Playwright-Container gegen das Fixture; es ist kein Gate.
+7. `visual` läuft bei `run_visual` im Playwright-Container gegen das Fixture und vergleicht strikt
+   mit den committeten Linux-Baselines (drei Viewports: 1440, 768, 390); es ist kein
+   Deployment-Gate, ein Fehlschlag wird aber wie eine Regression behandelt.
 
 Bei `docs-only` endet der Lauf nach `docs_check`, bei `ci-only` nach den angeforderten Prüfungen.
 Ein manuell gestarteter Workflow bietet die Ziele `portal`, `law` und `both` und verwendet
@@ -95,7 +97,11 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
 - `d1_seed` und `full_corpus_smoke` bei `run_full_corpus_smoke` (Seed aus dem Cache, Verifikation,
   A11y und Browser gegen den Vollbestand);
 - `visual` bei `run_visual` im Playwright-Container;
-- `d1_token_check` bei `run_d1_sync` (lesend gegen Produktion, schreibend nur gegen Staging);
+- `d1_token_check` bei `run_d1_sync`: `--remote-state` gegen Produktion (Identität, gespeicherte
+  Identität, Umfang und Entscheidung des künftigen Main-Syncs in Sekunden, kein Sync-Plan, kein
+  Schreibzugriff) – grün bei No-op oder verifiziertem inkrementellem Lauf, rot (Exit 3), wenn der
+  Sync nach dem Merge eine Vollprojektion bräuchte; dazu ein Teilsync der Verkündungen gegen
+  Staging als Schreibnachweis des Tokens;
 - `preview` für Pull Requests mit Staatsportal-Wirkung, wenn `CLOUDFLARE_PREVIEWS_ENABLED=true`,
   `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` gesetzt sind (Worker-Version mit
   PR-Alias, durch Cloudflare Access zu schützen; Versionen werden beim Schließen gelöscht).
@@ -103,6 +109,30 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
 Actions-Caches eines PR-Branches sind nur für diesen Branch sichtbar; `main` liest eigene und
 Standardbranch-Caches. Nach dem Merge einer Änderung an den Seed-Eingaben projiziert `main` deshalb
 einmal neu und speichert den Snapshot für alle folgenden Läufe und Branches.
+
+## D1-Release-Gate
+
+Ein grüner Pull Request muss nach dem Merge einen grünen Main-Workflow ergeben. Ändert ein PR die
+Projektionsidentität (Projektionslogik, Schema, Stichtag, Normbezüge von Themen/Presse), zeigt
+`d1_token_check` mit `--remote-state`, wie `d1_sync` auf `main` entscheiden würde. Meldet er das
+Gate (Exit 3), wird die Zielprojektion vor dem Merge hergestellt, nie danach:
+
+1. Lokal nachweisen, dass eine enge Projektion dem Zielstand entspricht
+   (`scripts/d1-projection-snapshot.mjs`: Basisstand als SQLite, gezielter Lauf hinein, frische
+   Vollprojektion, `compare` tabellenweise identisch). Ohne Nachweis bleibt nur die bewusste
+   Vollprojektion (`--full --budget full`, Tabellen werden geleert: Staging zuerst, Produktion nur
+   außerhalb der Nutzungszeiten und mit anschließender Verifikation).
+2. Staging auf den Zielstand bringen (`--git-diff <main> <head> --assume-narrow-logic-change
+   --budget incremental --database ostrecht-recht-staging`), `d1-verify --fts-integrity`, Staging-
+   Worker deployen und die Kernrouten prüfen.
+3. Produktion mit demselben Lauf auf den Zielstand bringen und verifizieren; der alte Worker liest
+   die neue Projektion bis zum Deployment nur, wenn die Datenform nach Expand/Contract abwärts-
+   kompatibel ist.
+4. `d1_token_check` erneut starten: er meldet No-op. Erst dann mergen; `d1_sync` auf `main` ist
+   ein No-op, das Deployment folgt ohne manuellen Reparaturschritt.
+
+Ein Squash-Merge behält die Projektionsidentität des PR-Heads, weil sie nur aus Dateiinhalten
+berechnet wird.
 
 ## D1-Seed-Cache
 
@@ -161,8 +191,8 @@ neue Projektion, nicht den alten Worker; die Übergangsregel ersetzt er nicht.
 | npm audit (Registry) | Wrapper meldet nach drei Versuchen „Registry nicht erreichbar“ | Lauf erneut starten; kein Codefehler |
 | D1-Seed | Seed-Verifikation lehnt einen Snapshot ab | Snapshot wird verworfen und neu projiziert; bei wiederholter Ablehnung Seed-Werkzeuge und Migrationen prüfen |
 | Browser oder Barrierefreiheit | Link-, SEO-, Accessibility- oder Browser-Test schlägt fehl | betroffene Route und Viewport aus dem Testbericht prüfen |
-| Visuelle Regression | `visual` schlägt fehl | Artefakt und Baseline sichten; Baselines nur nach Abnahme ändern (kein Gate) |
-| D1-Sync | Budget überschritten oder Basis nicht verifiziert | bewusste Entscheidung: `--full --budget full` zuerst gegen Staging, dann Produktion; Workflow erneut starten |
+| Visuelle Regression | `visual` schlägt fehl | Testbericht (Artefakt `visual-report`) sichten; Linux-Baselines nur nach Abnahme mit dem Playwright-Container erneuern (`npm run test:visual:run -- --update-snapshots` im Job), nie stillschweigend |
+| D1-Sync | Remote-State meldet Release-Gate, Budget überschritten oder Basis nicht verifiziert | D1-Release-Gate vor dem Merge ausführen (enge Projektion mit Nachweis, sonst bewusste Vollprojektion zuerst gegen Staging); Workflow erst nach No-op mergen |
 | Cloudflare-Upload | alle Prüfungen grün, aber `deploy` schlägt fehl | Token, Account-ID, Worker-Konfiguration und Wrangler-Ausgabe prüfen; keine lokale Ersatzveröffentlichung |
 | Nachkontrolle | Workflow grün, aber Commitkennung oder Route stimmt nicht | letzte tatsächlich ausgelieferte Kennung feststellen und Deployment erst nach Ursachenklärung erneut anstoßen |
 

@@ -5,8 +5,12 @@
  * content/normen/<slug>/ ergeben genau diesen Slug (gelöschte Verzeichnisse
  * ergeben eine Löschung). Änderungen unter content/verkuendungen/ ergeben eine
  * Neuprojektion der Verkündungen und der Normen, deren Fassungen die geänderten
- * Verkündungen zitieren. Änderungen an der Ableitungslogik, dem Schema oder den
- * korpusweiten Portalbezügen (Themen, Presse) erfordern eine Vollprojektion.
+ * Verkündungen zitieren. Änderungen an der Ableitungslogik oder dem Schema erfordern eine
+ * Vollprojektion. Portalgrundlagen (content/themen, content/presse) fließen ausschließlich in
+ * die Portalbezüge von law_norm_derived ein: ihre Änderung erneuert die abgeleiteten Daten
+ * aller Normen (`derivedRebuild`), keine Fassungen oder Normkörper; ist der projektions-
+ * relevante Auszug der Datei unverändert (`portalProjectionChanged`, z. B. nur eine
+ * Hervorhebung oder ein Teaser), löst sie nichts aus.
  *
  * Eine geänderte Projektionslogik erzwingt die Vollprojektion, weil die Umfangslogik nicht wissen
  * kann, welche Zeilen eine Codeänderung berührt. Für den nachgewiesenen Sonderfall einer engen
@@ -47,9 +51,10 @@ export const GLOBAL_TRIGGER_PATTERNS = [
   /^packages\/shared\/src\/lib\/portal\/(?:content|routes|loader|legislation)\.ts$/u,
   /^packages\/shared\/src\/config\//u,
   /^packages\/recht-search\/src\//u,
-  /^content\/themen\//u,
-  /^content\/presse\//u,
 ];
+
+/** Portalgrundlagen, die nur die Portalbezüge in law_norm_derived beeinflussen. */
+export const PORTAL_CONTENT_PATTERN = /^content\/(?:themen|presse)\//u;
 
 /** Felder von meta.json, deren Änderung die abgeleiteten Daten anderer Normen berührt. */
 export const IDENTITY_FIELDS = [
@@ -74,12 +79,14 @@ function publicationSlugFromPath(path) {
 
 /**
  * @param {string[]} paths geänderte Pfade (relativ zum Repository)
- * @param {{ existingSlugs: Set<string>, existingPublications?: Set<string>, identityChanged?: (slug: string) => boolean, referenceDateSlugs?: (() => string[]) | null }} options
+ * @param {{ existingSlugs: Set<string>, existingPublications?: Set<string>, identityChanged?: (slug: string) => boolean, referenceDateSlugs?: (() => string[]) | null, narrowLogicChange?: boolean, portalProjectionChanged?: (path: string) => boolean }} options
  *   `referenceDateSlugs` liefert die stichtagsabhängig betroffenen Normen, wenn sich nur der
  *   redaktionelle Stichtag geändert hat (scripts/lib/d1-reference-date.mjs); ohne Angabe bleibt
- *   eine Änderung von editorial.json ein Full-Trigger.
+ *   eine Änderung von editorial.json ein Full-Trigger. `portalProjectionChanged` sagt für eine
+ *   Themen- oder Pressedatei, ob sich ihr projektionsrelevanter Auszug geändert hat (Standard:
+ *   ja, konservativ).
  */
-export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false, referenceDateSlugs = null, narrowLogicChange = false } = {}) {
+export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false, referenceDateSlugs = null, narrowLogicChange = false, portalProjectionChanged = () => true } = {}) {
   const normalized = paths.map(normalizeChangedPath).filter(Boolean);
   const reasons = [];
   const slugs = new Set();
@@ -90,10 +97,15 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
   let unknown = 0;
   let referenceDateChanged = false;
   let narrowLogic = false;
+  let portalChanged = 0;
 
   for (const path of normalized) {
     if (path === REFERENCE_DATE_PATH && referenceDateSlugs) {
       referenceDateChanged = true;
+      continue;
+    }
+    if (PORTAL_CONTENT_PATTERN.test(path)) {
+      if (portalProjectionChanged(path)) portalChanged += 1;
       continue;
     }
     if (GLOBAL_TRIGGER_PATTERNS.some((pattern) => pattern.test(path))) {
@@ -128,6 +140,10 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
   }
 
   let derivedRebuild = false;
+  if (!full && portalChanged > 0) {
+    derivedRebuild = true;
+    reasons.push(`${portalChanged} Portalgrundlage(n) (Themen/Presse) mit geänderten Normbezügen: abgeleitete Daten aller Normen neu`);
+  }
   if (!full && referenceDateChanged) {
     const affected = referenceDateSlugs().filter((slug) => existingSlugs.has(slug));
     for (const slug of affected) slugs.add(slug);

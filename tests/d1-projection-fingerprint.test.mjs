@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
 
-import { FULL_SCOPE, combineFingerprint, fixtureScope, hashRoots, listFingerprintFiles, projectionFingerprint, projectionIdentity, projectionIdentityAtRef } from '../scripts/lib/d1-projection-fingerprint.mjs';
+import { FULL_SCOPE, combineFingerprint, fixtureScope, hashRoots, legacyPortalContentHash, listFingerprintFiles, portalContentHash, portalProjectionChangedSince, portalProjectionOf, projectionFingerprint, projectionIdentity, projectionIdentityAtRef } from '../scripts/lib/d1-projection-fingerprint.mjs';
 
 async function temporaryRepository() {
   const root = await mkdtemp(join(tmpdir(), 'fingerprint-'));
@@ -98,4 +98,50 @@ test('der Scope ist Teil der Identität: Fixture ≠ Vollbestand, zwei Fixtures 
   await writeFile(join(root, 'data', 'recht', 'fixture-a.json'), '{"slugs":["b"]}\n');
   assert.notEqual(await fixtureScope(root, 'data/recht/fixture-a.json'), scopeA);
   assert.notEqual(combineFingerprint({ logic: 'l', corpus: 'c', portal: 'p', scope: 'full' }), combineFingerprint({ logic: 'l', corpus: 'c', portal: 'p', scope: 'fixture:x@1' }));
+});
+
+test('Portalgrundlagen zählen nur projektionsrelevant: Hervorhebung, Teaser und Priorität ändern die Identität nicht, Normbezüge und Titel schon', async () => {
+  const root = await temporaryRepository();
+  await mkdir(join(root, 'content', 'themen'), { recursive: true });
+  await mkdir(join(root, 'content', 'presse'), { recursive: true });
+  const topicPath = join(root, 'content', 'themen', 'bildung.json');
+  const pressPath = join(root, 'content', 'presse', '2026-09-04-interflug.json');
+  const topic = (extra) => JSON.stringify({ slug: 'bildung', title: 'Bildung', teaser: 'Alt', priority: 10, featured: false, rechtsgrundlagen: [{ normSlug: 'schulgesetz', label: 'SchulG' }], ...extra });
+  await writeFile(topicPath, `${topic({})}\n`);
+  await writeFile(pressPath, '{"slug":"interflug","title":"Interflug gegründet","date":"2026-09-04","relatedNormSlugs":["interflug-gesetz"],"body":"Text"}\n');
+  execFileSync('git', ['add', '.'], { cwd: root });
+  execFileSync('git', ['commit', '-q', '-m', 'portal'], { cwd: root });
+  const base = await portalContentHash(root);
+  const legacyBase = await legacyPortalContentHash(root);
+  assert.equal(await portalContentHash(root, { ref: 'HEAD' }), base, 'Ref und Arbeitsbaum stimmen überein');
+
+  // Reine Portalfelder: Identität gleich, früherer Blob-Hash verschieden, Auszug unverändert.
+  await writeFile(topicPath, `${topic({ highlightFrom: '2026-09-02', highlightUntil: '2026-10-02', teaser: 'Neu', priority: 99, featured: true })}\n`);
+  assert.equal(await portalContentHash(root), base);
+  assert.notEqual(await legacyPortalContentHash(root), legacyBase);
+  assert.equal(await portalProjectionChangedSince(root, 'HEAD', 'content/themen/bildung.json'), false);
+  const identity = await projectionIdentity({ root });
+  const baseIdentity = await projectionIdentityAtRef('HEAD', { root });
+  assert.equal(identity.fingerprint, baseIdentity.fingerprint, 'Projektionsidentität unverändert');
+  assert.notEqual(identity.legacyFingerprint, baseIdentity.legacyFingerprint, 'die frühere Identität hätte sich geändert');
+
+  // Normbezug, Titel oder Slug: Identität ändert sich, Auszug gilt als geändert.
+  await writeFile(topicPath, `${topic({ rechtsgrundlagen: [{ normSlug: 'schulgesetz' }, { normSlug: 'kindertagesbetreuungsgesetz' }] })}\n`);
+  assert.notEqual(await portalContentHash(root), base);
+  assert.equal(await portalProjectionChangedSince(root, 'HEAD', 'content/themen/bildung.json'), true);
+  await writeFile(topicPath, `${topic({ title: 'Bildung und Schule' })}\n`);
+  assert.notEqual(await portalContentHash(root), base);
+  await writeFile(topicPath, `${topic({})}\n`);
+  assert.equal(await portalContentHash(root), base);
+
+  // Presse: Datum und Normbezüge zählen, der Fließtext nicht.
+  await writeFile(pressPath, '{"slug":"interflug","title":"Interflug gegründet","date":"2026-09-04","relatedNormSlugs":["interflug-gesetz"],"body":"Anderer Text"}\n');
+  assert.equal(await portalContentHash(root), base);
+  await writeFile(pressPath, '{"slug":"interflug","title":"Interflug gegründet","date":"2026-09-05","relatedNormSlugs":["interflug-gesetz"],"body":"Text"}\n');
+  assert.notEqual(await portalContentHash(root), base);
+  assert.equal(await portalProjectionChangedSince(root, 'HEAD', 'content/presse/2026-09-04-interflug.json'), true);
+
+  // Der Auszug selbst: sortierte, eindeutige Normbezüge; unbekannte Pfade liefern nichts.
+  assert.deepEqual(portalProjectionOf('content/themen/x.json', { slug: 'x', title: 'X', rechtsgrundlagen: [{ normSlug: 'b' }, { normSlug: 'a' }, { normSlug: 'b' }, { label: 'ohne Slug' }] }), { kind: 'thema', slug: 'x', title: 'X', normSlugs: ['a', 'b'] });
+  assert.equal(portalProjectionOf('content/normen/a/meta.json', { slug: 'a' }), null);
 });

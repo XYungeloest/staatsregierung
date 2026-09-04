@@ -99,6 +99,10 @@ jobs:
     # Secret geprüft: lesend gegen die produktive Datenbank (nur Fingerabdruck, --dry-run) und
     # schreibend gegen ostrecht-recht-staging (Verkündungen des Testfixtures, idempotent). Die
     # produktive Datenbank wird nie beschrieben; Forks erhalten keine Secrets und überspringen.
+    # Der Remote-State-Check (Sekunden, kein Sync-Plan) sagt vorher, wie der automatische Sync
+    # auf main nach dem Merge entscheiden würde: No-op oder inkrementell sind grün; eine nötige
+    # Vollprojektion ist rot (Exit 3) – dann zuerst das D1-Release-Gate ausführen
+    # (docs/DEPLOYMENT_RUNBOOK.md) und den Check erneut starten.
     needs: classify
     if: ${{ needs.classify.outputs.run_d1_sync == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
@@ -110,13 +114,16 @@ jobs:
           fetch-depth: 0
       - name: Node.js und Abhängigkeiten
         uses: ./.github/actions/setup-node-modules
-      - name: Produktive D1 lesen (Fingerabdruck, kein Schreibzugriff)
+      - name: Produktive D1 lesen (Remote-State, kein Schreibzugriff, kein Sync-Plan)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: npm run norms:runtime:d1-sync -- --transport api --dry-run --git-diff "$BASE_SHA" "$HEAD_SHA"
+        run: |
+          START=$(date +%s)
+          npm run norms:runtime:d1-sync -- --transport api --remote-state --git-diff "$BASE_SHA" "$HEAD_SHA" --budget incremental
+          echo "Remote-State-Check: $(( $(date +%s) - START )) s" >> "$GITHUB_STEP_SUMMARY"
       - name: Staging-D1 schreiben (Verkündungstabelle, Teilsync ohne Identitätsänderung)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

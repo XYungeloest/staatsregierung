@@ -232,6 +232,7 @@ npm run norms:runtime:d1-sync -- --slug foo --slug bar        # gezielte Normen 
 npm run norms:runtime:d1-sync -- --delete alt-slug            # aus Git entfernte Normen samt abhängiger Zeilen löschen
 npm run norms:runtime:d1-sync -- --publications               # Verkündungstabelle neu schreiben
 npm run norms:runtime:d1-sync -- --git-diff <base> <head> --budget incremental --recover   # CI (Base-State-Guard)
+npm run norms:runtime:d1-sync -- --remote-state --git-diff <base> <head> --budget incremental   # nur Identität, Umfang, Entscheidung (Sekunden; Exit 3 = Release-Gate nötig)
 npm run norms:runtime:d1-sync -- --changed-paths pfade.txt    # Umfang aus einer Pfadliste (Teilsync)
 npm run norms:runtime:d1-sync -- --stamp-fingerprint          # nur Identität neu schreiben (fail-closed)
 npm run norms:runtime:d1-sync -- --full --budget full --database ostrecht-recht-staging   # Staging (Wrangler)
@@ -242,8 +243,12 @@ npm run norms:runtime:d1-verify -- --fts-integrity            # Git ↔ D1 (Zäh
 genau diesen Slug (fehlendes Verzeichnis: Löschung); `content/verkuendungen/*.json` ergibt die
 Verkündung und die Normen, deren Fassungen sie zitieren. Änderungen an der Projektionslogik
 (`scripts/sync-recht-d1.mjs`, `packages/shared/src/lib/norms/**`, `packages/recht-search/**`,
-`data/recht/d1/`, Portalbezüge in `packages/shared/src/lib/portal/`, Themen und Presse als
-Grundlage der Portalbezüge) erzwingen die Vollprojektion. Der redaktionelle Stichtag
+`data/recht/d1/`, Portalbezüge in `packages/shared/src/lib/portal/`) erzwingen die
+Vollprojektion. Themen und Presse (`content/themen/`, `content/presse/`) fließen nur in die
+Portalbezüge von `law_norm_derived` ein: Ändert sich ihr projektionsrelevanter Auszug (Slug, Titel,
+Rechtsgrundlagen-Normbezüge bzw. Datum und Normbezüge), werden die abgeleiteten Daten aller Normen
+neu geschrieben – keine Fassungen, keine Vollprojektion; Hervorhebungen, Teaser, Prioritäten oder
+Texte lösen nichts aus. Der redaktionelle Stichtag
 (`packages/shared/src/config/editorial.json`) ist ausgenommen: bei `--git-diff` liest der Sync den
 bisherigen Stichtag aus dem Basis-Ref und projiziert nur die stichtagsabhängig betroffenen Normen
 und die abgeleiteten Daten aller Normen (`scripts/lib/d1-reference-date.mjs`; Gleichheit mit einer
@@ -262,14 +267,16 @@ Erst bei identischem Vergleich wird der gezielte Lauf gegen Staging und danach g
 ausgeführt.
 
 **Projektionsidentität.** `scripts/lib/d1-projection-fingerprint.mjs` bildet aus
-Git-Blob-Kennungen (nie aus Änderungszeiten) die Hashes der Projektionslogik, des Rechtsbestands
-und der Portalgrundlagen; der Fingerabdruck ist der SHA-256 über diese Hashes und den Scope (`full`
-oder `fixture:<Pfad>@<Hash>`). Der Sync legt Fingerabdruck, Scope und `sync_state = complete` in
+Git-Blob-Kennungen (nie aus Änderungszeiten) die Hashes der Projektionslogik und des Rechtsbestands
+sowie den Hash der projektionsrelevanten Auszüge von Themen und Presse (`portalProjectionOf`; die
+Auszüge müssen die in `derived.ts` gelesenen Felder abbilden); der Fingerabdruck ist der SHA-256
+über diese Hashes und den Scope (`full` oder `fixture:<Pfad>@<Hash>`). Der Sync legt Fingerabdruck, Scope und `sync_state = complete` in
 `law_runtime_meta` ab; ein Lauf bei identischer Identität ist ein No-op. Ein Fixture kann nie die
 Identität des Vollbestands behaupten. `--stamp-fingerprint` schreibt die Identität nur neu, wenn
-`corpus_hash`, `norm_count` und `publication_count` exakt dem Repository entsprechen. Jede Datei in
-den Fingerabdruck-Eingaben, die produktiv verändert wird, führt beim nächsten Push zu einer
-Vollprojektion – Änderungen an Projektionslogik oder Themen/Presse sind deshalb bewusst zu planen.
+`corpus_hash`, `norm_count` und `publication_count` exakt dem Repository entsprechen. Jede Änderung
+an der Projektionslogik ist bewusst zu planen: sie ändert die Identität und verlangt vor dem Merge
+das D1-Release-Gate (`docs/DEPLOYMENT_RUNBOOK.md`), damit der automatische Sync auf `main` ein
+No-op bleibt.
 
 **Base-State-Guard.** Ein `--git-diff`-Sync schreibt erst, wenn D1 genau die Identität des
 Basis-Refs trägt (Scope `full`, Zustand `complete`); sonst fail-closed oder mit `--recover` eine
@@ -283,12 +290,15 @@ im selben Scope, schreiben aber keine neue Identität.
 (`--budget incremental|full|recovery|fixture`; `--max-rows-read`/`--max-rows-written`
 überschreiben einzelne Grenzen). Der Sync prüft die Planschätzung vor dem ersten Schreibzugriff
 (0 Schreibzugriffe bei Überschreitung) und bricht während des Laufs ab, sobald die realen Zähler das
-Budget überschreiten. Der automatische Sync nach einem Push verwendet `incremental`; eine
-Vollprojektion, die durch geänderte Projektionslogik oder Themen/Presse ausgelöst wird, überschreitet
-dieses Profil und lässt das Deployment bewusst fehlschlagen – die Vollprojektion ist dann eine
-manuelle Entscheidung (`--full --budget full`, zuerst Staging), danach wird der Workflow erneut
-gestartet und endet als No-op. `--dry-run` zeigt Umfang, Anweisungen je Tabelle, Schätzung und
-Budget.
+Budget überschreiten. Entscheidung und Profil werden vor dem Planbau abgeglichen
+(`assessSyncDecision`): No-op, verifizierter inkrementeller Lauf und markierte Recovery sind mit
+`incremental` tragbar; ein `full`-Beschluss endet mit `incremental` sofort fail-closed (keine
+Ableitungen, kein Plan, kein Schreibzugriff), weil eine Vollprojektion die produktiven Tabellen
+zunächst leert. Der automatische Sync nach einem Push verwendet `incremental`; eine erforderliche
+Vollprojektion ist deshalb ein Release-Gate vor dem Merge (`docs/DEPLOYMENT_RUNBOOK.md`), nie ein
+erwarteter Fehler auf `main`. `--remote-state` liefert Identität, gespeicherte Identität, Umfang
+und Entscheidung in Sekunden (Exit 3, wenn das Gate nötig ist); `--dry-run` baut zusätzlich den
+vollständigen Plan mit Anweisungen je Tabelle, Schätzung und Budget.
 
 **Transport.** Mit `CLOUDFLARE_API_TOKEN` (D1 Read/Write) läuft der Sync über die REST-API mit
 parametrisierten Batches (`--transport api`, so in CI); ohne Token über die lokale
@@ -347,7 +357,7 @@ dann Staging, dann Produktion, nie automatisch.
 
 | Tabelle | Inhalt |
 | --- | --- |
-| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabenindex) sowie `meta_json`, `history_json` |
+| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabenindex, `last_change_date` = jüngstes Rechtsereignis bis zum Stichtag: Standardsortierung der Übersichten ohne Suchbegriff) sowie `meta_json`, `history_json` |
 | `law_versions` | Fassungen ohne Körper (`version_json`), Vollzitat, Verkündungsbezug, zeitliche Einordnung |
 | `law_version_blocks` | äußere Body-Blöcke als JSON; große Blöcke in Teile (`part_index`) zerlegt |
 | `law_source_objects` | Quellenreferenzen je Fassung, bei R2 mit `object_key` |

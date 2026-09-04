@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
-  SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, buildSyncPlan, decideSyncAction, estimatePlanCost,
+  SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, decideSyncAction, estimatePlanCost,
   identityMetaValues, incrementalStartQueries, renderStatement, resolveBudget, runtimeMetaQueries,
 } from '../scripts/sync-recht-d1.mjs';
 
@@ -99,6 +99,30 @@ test('7: Fixture-Metadaten werden nie als Vollbestands-Basis anerkannt', () => {
   const fixtureAsBase = stored({ ...fixtureA, fingerprint: base.fingerprint });
   assert.throws(() => decideSyncAction({ requested: 'incremental', stored: fixtureAsBase, identity: head, baseIdentity: base }), /Scope in D1 ist fixture:/u);
   assert.equal(decideSyncAction({ requested: 'incremental', stored: fixtureAsBase, identity: head, baseIdentity: base, recover: true }).action, 'recovery');
+});
+
+test('Übergang: eine mit dem früheren Portalhash geschriebene Basisidentität wird als Basis anerkannt, andere Werte nicht', () => {
+  const head = { ...full, fingerprint: '9'.repeat(64) };
+  const base = { ...full, fingerprint: '8'.repeat(64), legacyFingerprint: '7'.repeat(64), ref: 'main' };
+  assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '8'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
+  assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
+  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
+});
+
+test('Entscheidung gegen Budgetprofil: No-op und verifizierter inkrementeller Lauf sind tragbar, eine Vollprojektion nur mit Full-/Recovery-Budget (Release-Gate)', () => {
+  const scope = { mode: 'incremental', slugs: ['a'], deletedSlugs: [], publicationSlugs: [], derivedRebuild: true, refreshSearchDocuments: true };
+  assert.equal(assessSyncDecision({ decision: { action: 'noop', reason: 'gleich' }, scope, budgetProfile: 'incremental' }).ok, true);
+  const incremental = assessSyncDecision({ decision: { action: 'incremental', reason: 'Basis verifiziert' }, scope, budgetProfile: 'incremental' });
+  assert.equal(incremental.ok, true);
+  assert.match(incremental.message, /abgeleitete Daten aller Normen, Suchdokumente aller Normen/u);
+  assert.equal(assessSyncDecision({ decision: { action: 'recovery', reason: 'Basis fehlt' }, scope: { ...scope, mode: 'full' }, budgetProfile: 'incremental' }).ok, true);
+  const gate = assessSyncDecision({ decision: { action: 'full', reason: 'Identität weicht ab' }, scope: { ...scope, mode: 'full' }, budgetProfile: 'incremental', limits: { maxRowsWritten: 120000 } });
+  assert.equal(gate.ok, false);
+  assert.equal(gate.code, 'full-gate');
+  assert.match(gate.message, /Release-Gate/u);
+  assert.equal(assessSyncDecision({ decision: { action: 'full', reason: '--full' }, scope: { ...scope, mode: 'full' }, budgetProfile: 'full', limits: { maxRowsWritten: 800000 } }).ok, true);
+  assert.equal(assessSyncDecision({ decision: { action: 'full', reason: '--full' }, scope: { ...scope, mode: 'full' }, budgetProfile: null, limits: {} }).ok, true);
+  assert.equal(assessSyncDecision({ decision: { action: 'full', reason: '--full' }, scope: { ...scope, mode: 'full' }, budgetProfile: null, limits: { maxRowsWritten: 5000 } }).ok, false);
 });
 
 test('manuelle Auswahl ohne Basis-Ref verlangt eine vollständige Identität im selben Scope', () => {
