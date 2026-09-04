@@ -13,6 +13,8 @@
   --color-surface: #ffffff;
   --color-surface-alt: #f7f9fa;
   --color-surface-muted: #edf3f5;
+  /* Drei Rahmenstärken: `soft` für Innentrenner, `border` für Gruppierung, `strong` für Abgrenzung. */
+  --color-border-soft: #e3e9f0;
   --color-border: #d1dbe2;
   --color-border-strong: #8799a8;
   --color-text: #23364a;
