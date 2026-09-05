@@ -70,10 +70,14 @@ ausgeliefert (Zeichenumfang, Werkzeuge und Kommandos: `README.md` im selben Ordn
 | `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, OFL) | wght 400–700, opsz 12–48 | 86 KB | Dokument im Rechtsportal |
 
 Budget für die gesamte Schriftübertragung: 270 KB; Stand 120 KB. Keine Kursive (der Bestand enthält
-keine). `font-display: swap` mit metrikangeglichenen Rückfallschnitten (`Jost Fallback` auf Arial,
-`Source Serif 4 Fallback` auf Georgia, `size-adjust` und Overrides aus den Schriftmetriken), damit der
-Wechsel keine Sprünge erzeugt. `PageHead.astro` lädt Jost auf jeder Seite vor, die Serife auf den
-Normseiten (`documentFont`). Die Optical-Size-Achse folgt der Schriftgröße automatisch.
+keine). `font-display: swap`. `PageHead.astro` lädt Jost auf jeder Seite vor; in jeder Messung (lokal
+und gegen die Produktion auf Cloudflare, bis Slow 3G) war Jost vor dem ersten Anstrich fertig, deshalb
+folgt auf Jost direkt `system-ui`, ohne Rückfallschnitt. Source Serif 4 wird nur auf den Normseiten
+vorgeladen (`documentFont`) und kommt dort bei Fast 3G rund 170 ms, bei Slow 3G rund 1 s nach dem
+ersten Anstrich; bis dahin setzt ein metrikangeglichener Rückfallschnitt je Plattformfamilie (Georgia
+für Windows, macOS und iOS; Noto Serif für Android; DejaVu Serif und Liberation Serif für Linux) mit im
+Browser gemessenen `size-adjust`- und Override-Werten (Herleitung, Zahlen und Messskript: `README.md`
+im Schriftordner). Die Optical-Size-Achse folgt der Schriftgröße automatisch.
 
 Tokens: `--font-sans` (Jost), `--font-display` (Alias von `--font-sans`), `--font-document`
 (Source Serif 4). Der Wechsel der Dokumentschrift ist eine Änderung an `--font-document`.
