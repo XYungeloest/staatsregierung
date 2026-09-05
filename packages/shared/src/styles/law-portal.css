@@ -1974,6 +1974,32 @@
   font-weight: 650;
 }
 
+/* Bedienziele außerhalb der Startseite mindestens 24 px hoch (Befund A1) – über Polsterung,
+   nicht über Schriftgröße, damit der vertikale Rhythmus bleibt. */
+.norm-unit__summary {
+  min-height: 1.5rem;
+}
+
+.law-card-footer-link,
+.law-search-filters__heading a,
+.law-search-tips nav a {
+  display: inline-flex;
+  min-height: 1.5rem;
+  align-items: center;
+}
+
+.search-hit__details > summary {
+  display: flex;
+  min-height: 1.5rem;
+  align-items: center;
+}
+
+.norm-history__version-date a,
+.norm-history__event-list .inline-link {
+  display: inline-block;
+  padding-block: var(--space-hairline);
+}
+
 .law-card-footer-link {
   display: inline-flex;
   align-items: center;
@@ -2726,6 +2752,9 @@ a.search-hit__context-prefix {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: var(--space-xs);
+  /* Bedienziel mindestens 24 px (Befund A1): Mindesthöhe statt größerer Schrift. */
+  min-height: 1.5rem;
+  align-items: center;
   padding: var(--space-1) var(--space-xs);
   border-radius: var(--radius-sm);
   color: #314d6a;
