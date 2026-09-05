@@ -144,9 +144,10 @@ export interface KeywordIndexPage {
   pageCount: number;
 }
 
-export const KEYWORD_PAGE_SIZE = 100;
-
 export const DEFAULT_PAGE_SIZE = 50;
+/** Stichwortseiten des A–Z: dieselbe Seitengröße wie die Vorschriften, damit ein Aufruf nie mehr als
+ *  50 Einträge je Liste rendert (Befund P4); beide Paginierungen bleiben unabhängig. */
+export const KEYWORD_PAGE_SIZE = DEFAULT_PAGE_SIZE;
 export const MAX_PAGE_SIZE = 100;
 
 /** Seitenparameter absichern: ganze Zahlen, Seite ≥ 1, Größe 1–MAX_PAGE_SIZE. */

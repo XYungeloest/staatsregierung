@@ -45,7 +45,7 @@ const { page: requestedPage } = normalizePage(Astro.url.searchParams.get('seite'
 const result = await store.queryNormSummaries({ letter, originKind: originKind || undefined, page: requestedPage, pageSize: DEFAULT_PAGE_SIZE });
 const totalNorms = letters.reduce((sum, entry) => sum + entry.count, 0);
 // Stichwortindex der Buchstabengruppe: serverseitiger Teilstringfilter (`stichwort`) und eigene
-// Seiten (`stichwortseite`, 100 Stichwörter je Seite); der lokale Filter wirkt zusätzlich auf die
+// Seiten (`stichwortseite`, 50 Stichwörter je Seite wie bei den Vorschriften); der lokale Filter wirkt zusätzlich auf die
 // geladene Seite. Norm- und Stichwortseiten sind unabhängige Zustände derselben Adresse.
 const keywordFilter = (Astro.url.searchParams.get('stichwort') ?? '').trim().slice(0, 100);
 const { page: requestedKeywordPage } = normalizePage(Astro.url.searchParams.get('stichwortseite'), KEYWORD_PAGE_SIZE);
