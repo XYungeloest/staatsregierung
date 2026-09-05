@@ -13,7 +13,6 @@
   --law-blue-light: #eaf2fc;
   --law-red: #b51f32;
   --law-green: #2e7d45;
-  --law-serif: Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
   --content-width: 96rem;
 }
 
@@ -728,6 +727,11 @@
   font: inherit;
 }
 
+/* Vollzitat: Dokumentschrift. */
+.norm-citation-copy textarea {
+  font-family: var(--font-document);
+}
+
 .norm-citation-copy input,
 .norm-citation-copy textarea {
   min-width: 0;
@@ -967,7 +971,7 @@
   gap: var(--space-hairline);
   margin: 0;
   color: var(--law-blue-dark);
-  font-family: var(--law-serif);
+  font-family: var(--font-document);
   font-size: var(--text-base);
   line-height: 1.35;
 }
@@ -1607,7 +1611,6 @@
   max-width: 17ch;
   margin: var(--space-xs) 0 var(--space-3);
   color: var(--law-blue-dark);
-  font-family: var(--law-serif);
   font-size: clamp(2.15rem, 3.4vw, 3.5rem);
   font-weight: 700;
   line-height: 1.05;
@@ -2046,7 +2049,6 @@
 
 .law-search-intro h1 {
   margin: var(--space-1) 0 var(--space-xs);
-  font-family: var(--law-serif);
   font-size: clamp(2rem, 3vw, 3rem);
 }
 
@@ -2131,7 +2133,6 @@
 }
 
 .law-norm-suggestions__option strong {
-  font-family: var(--law-serif);
   font-size: var(--text-sm);
   line-height: 1.25;
 }
@@ -2292,7 +2293,6 @@
 
 .search-hit__title h3 {
   margin-top: var(--space-xs);
-  font-family: var(--law-serif);
   font-size: var(--text-md);
 }
 
@@ -2417,7 +2417,6 @@ a.search-hit__context-prefix {
 }
 
 .search-publication-direct-hit h3 {
-  font-family: var(--law-serif);
   font-size: var(--text-base);
 }
 
@@ -2522,7 +2521,7 @@ a.search-hit__context-prefix {
   max-width: 35ch;
   margin: var(--space-2) 0 0;
   color: var(--law-blue-dark);
-  font-family: var(--law-serif);
+  font-family: var(--font-document);
   font-size: clamp(2.15rem, 3.15vw, 3.05rem);
   font-weight: 700;
   line-height: 1.05;
@@ -2748,7 +2747,6 @@ a.search-hit__context-prefix {
 }
 
 .norm-document-column #normtext > .section-header h2 {
-  font-family: var(--law-serif);
 }
 
 .norm-document-column .norm-unit {
@@ -2773,15 +2771,15 @@ a.search-hit__context-prefix {
 
 .norm-document-column .norm-division__header .norm-division__heading {
   color: var(--law-blue-dark);
-  font-family: var(--law-serif);
+  font-family: var(--font-document);
   font-size: var(--text-xl);
 }
 
-/* Nur wenn ein Titel folgt; ein Label ohne Titel („Präambel“, „Artikel 5“) bleibt die Überschrift. */
+/* Nur wenn ein Titel folgt; ein Label ohne Titel („Präambel“, „Artikel 5“) bleibt die Überschrift.
+   Die Nummernzeile gehört zum Dokument und bleibt in der Dokumentschrift. */
 .norm-document-column .norm-division__header .norm-label:not(:only-child),
 .norm-document-column .norm-unit__summary .norm-unit__label:not(:only-child) {
   color: var(--color-text-muted);
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -2789,15 +2787,28 @@ a.search-hit__context-prefix {
 
 .norm-document-column .norm-unit__summary .norm-unit__heading {
   color: var(--law-blue-dark);
-  font-family: var(--law-serif);
+  font-family: var(--font-document);
   font-size: var(--text-md);
 }
 
-/* Normtext: 16 px, 70 Zeichen Zeilenlänge, Zeilenhöhe 1,65 (Befund T5). */
+/* Dokumentschrift (Befund T2, Weg b): der Vorschriftentext samt Gliederung, Anlagen und Tabellen
+   läuft in der Lese-Serife; die Werkzeuge davor und je Einheit bleiben Oberfläche. */
+.norm-document-column #normtext {
+  font-family: var(--font-document);
+}
+
+.norm-document-column #normtext > .section-header,
+.norm-document-tools,
+.norm-unit__tools {
+  font-family: var(--font-sans);
+}
+
+/* Normtext: 16 px, 68–72 Zeichen je Zeile – gemessen 68 bei 70ch, 72ch trifft die Mitte; ch folgt der
+   Serife (Befund T5), Zeilenhöhe 1,65. */
 .norm-document-column .norm-text,
 .norm-document-column .norm-subparagraph,
 .norm-document-column .norm-amendment-item {
-  max-width: 70ch;
+  max-width: 72ch;
   font-size: var(--text-base);
   line-height: 1.65;
 }
@@ -3310,7 +3321,6 @@ a.search-hit__context-prefix {
 
 .directory-entry__title {
   margin: 0;
-  font-family: var(--law-serif);
   font-size: var(--text-md);
   line-height: var(--lh-heading);
 }

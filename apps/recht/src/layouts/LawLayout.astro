@@ -31,6 +31,8 @@ interface Props {
   canonical?: string;
   prev?: string;
   next?: string;
+  /** Normseiten: Dokumentschrift vorladen. */
+  documentFont?: boolean;
 }
 
 const {
@@ -46,6 +48,7 @@ const {
   canonical,
   prev,
   next,
+  documentFont = false,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -83,7 +86,7 @@ const footerStateLinks = [
 <!doctype html>
 <html lang="de">
   <head>
-    <PageHead {title} {description} {breadcrumbs} {structuredData} {noindex} {ogType} {ogImage} {canonical} {prev} {next} />
+    <PageHead {title} {description} {breadcrumbs} {structuredData} {noindex} {ogType} {ogImage} {canonical} {prev} {next} {documentFont} />
   </head>
   <body class="law-site">
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
