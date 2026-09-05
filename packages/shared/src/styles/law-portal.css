@@ -93,6 +93,9 @@
 }
 
 .law-main-nav a {
+  /* Die Links reichen bis an die dunkle Hinweisleiste heran; der Fokusschein trägt den Umriss
+     dort über das Band (Befund A3), ohne die Kopfleiste zu verschieben. */
+  --focus-halo: var(--focus-ring);
   display: inline-flex;
   min-height: 5.6rem;
   flex: 0 0 auto;
@@ -120,6 +123,11 @@
 .law-header__utilities {
   display: flex;
   align-items: center;
+}
+
+/* Die Servicelinks stoßen an den Suchknopf: innen liegender Umriss auf der eigenen Fläche. */
+.law-header__utilities a:focus-visible {
+  outline-offset: -3px;
 }
 
 .law-header__utilities a {
@@ -158,6 +166,13 @@
   min-width: 0;
   flex: 1;
   padding-block: var(--space-2);
+}
+
+/* Zusammengesetzte Bedienelemente ohne Zwischenraum: außen läge der Fokusumriss auf dem dunklen
+   Suchknopf. Innen liegend zeichnet er sich auf der eigenen hellen Fläche ab (Befund A3). */
+.law-header-search input:focus-visible,
+.law-global-search__control :is(input, select):focus-visible {
+  outline-offset: -3px;
 }
 
 .law-header-search button {
@@ -1048,6 +1063,12 @@
 .search-form__primary--law {
   grid-template-columns: minmax(0, 1.6fr) minmax(14rem, 0.8fr) auto;
   align-items: end;
+}
+
+/* Eingabe und Auswahl stoßen in der Suchpille an den dunklen Suchknopf: innen liegender Umriss
+   auf der eigenen hellen Fläche (Befund A3). */
+.law-search-form .search-form__primary :is(input, select):focus-visible {
+  outline-offset: -3px;
 }
 
 .search-form__actions--primary .button-link {
@@ -3437,6 +3458,8 @@ a.search-hit__context-prefix {
   }
 
   .law-mobile-nav summary {
+    /* Wie die Navigationsliste: Fokusschein über der Hinweisleiste (Befund A3). */
+    --focus-halo: var(--focus-ring);
     display: flex;
     min-height: 4.8rem;
     align-items: center;
