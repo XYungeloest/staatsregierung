@@ -74,15 +74,20 @@ async function preparePage(page: Page, consent = 'rejected'): Promise<void> {
 
 interface OverflowEntry {
   index: number;
+  leaf: boolean;
   tag: string;
   classes: string;
   left: number;
   right: number;
   width: number;
+  scrollWidth: number;
   minWidth: string;
   whiteSpace: string;
   overflowWrap: string;
   fontFamily: string;
+  control: string;
+  widestToken: string;
+  widestTokenWidth: number;
   text: string;
   clippedBy: string;
 }
@@ -92,19 +97,22 @@ interface OverflowReport {
   documentWidth: number;
   bodyWidth: number;
   total: number;
+  leaves: number;
   entries: OverflowEntry[];
   fontsStatus: string;
   fonts: string[];
 }
 
-const OVERFLOW_REPORT_LIMIT = 30;
+const OVERFLOW_REPORT_LEAVES = 20;
+const OVERFLOW_REPORT_ANCESTORS = 10;
 
 /**
  * Kein horizontaler Überlauf: Dokument und body dürfen den Viewport um höchstens 1 px überschreiten.
  * Schlägt die Prüfung fehl, nennt die Meldung jedes Element, dessen rechte Kante über den Viewport
- * hinausragt – Kanten, Breite, Umbruchregeln, berechnete Schriftfamilie, tatsächlich gesetzte
- * Plattformschrift und Textanfang – sowie den Ladezustand aller Schriftschnitte. Eine
- * Überlaufmeldung ohne das überlaufende Element ist nutzlos.
+ * hinausragt – zuerst die ohne überlaufendes Kind (dort entsteht die Breite), dann die Vorfahren –
+ * mit Kanten, Breite, scrollWidth, Umbruchregeln, berechneter Schriftfamilie, tatsächlich gesetzter
+ * Plattformschrift, Formularattributen, dem längsten unbrechbaren Wort und dem Textanfang, sowie den
+ * Ladezustand aller Schriftschnitte. Eine Überlaufmeldung ohne das überlaufende Element ist nutzlos.
  */
 async function verifyViewport(page: Page): Promise<void> {
   const dimensions = await page.evaluate(() => ({
@@ -124,12 +132,12 @@ async function verifyViewport(page: Page): Promise<void> {
 }
 
 /**
- * Überlaufende Elemente samt Schriftzustand beschreiben. Die Elemente werden für die Abfrage der
- * tatsächlich gesetzten Plattformschrift (Chromium-DevTools-Protokoll) kurz markiert und danach
- * wieder freigegeben.
+ * Überlaufende Elemente samt Schriftzustand beschreiben. Die gelisteten Elemente werden für die
+ * Abfrage der tatsächlich gesetzten Plattformschrift (Chromium-DevTools-Protokoll) kurz markiert
+ * und danach wieder freigegeben.
  */
 async function describeOverflow(page: Page): Promise<string> {
-  const data = await page.evaluate((limit): OverflowReport => {
+  const data = await page.evaluate(([maxLeaves, maxAncestors]): OverflowReport => {
     const viewportWidth = window.innerWidth;
     const round = (value: number): number => Math.round(value * 10) / 10;
     const describe = (element: Element): string => {
@@ -143,6 +151,42 @@ async function describeOverflow(page: Page): Promise<string> {
       }
       return '';
     };
+    const controlInfo = (element: HTMLElement): string => {
+      const tag = element.tagName.toLowerCase();
+      if (element instanceof HTMLInputElement) {
+        return `input[type=${element.type}]${element.hasAttribute('size') ? ` size=${element.getAttribute('size')}` : ''}${element.placeholder ? ` placeholder „${element.placeholder.slice(0, 40)}“` : ''}`;
+      }
+      if (element instanceof HTMLSelectElement) {
+        const longest = Array.from(element.options).map((option) => option.text).sort((a, b) => b.length - a.length)[0] ?? '';
+        return `select, längste Option „${longest.slice(0, 40)}“`;
+      }
+      if (element instanceof HTMLTextAreaElement) return `textarea cols=${element.cols}`;
+      if (element instanceof HTMLImageElement) return `img natürlich ${element.naturalWidth}×${element.naturalHeight}, width-Attribut ${element.getAttribute('width') ?? '–'}`;
+      if (['svg', 'canvas', 'video', 'iframe', 'table', 'pre'].includes(tag)) return `${tag}, width-Attribut ${element.getAttribute('width') ?? '–'}`;
+      return '';
+    };
+    const widestToken = (element: HTMLElement): { token: string; width: number } => {
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+      const best = { token: '', width: 0 };
+      let scanned = 0;
+      for (let node = walker.nextNode(); node && scanned < 500; node = walker.nextNode()) {
+        const text = node.textContent ?? '';
+        const pattern = /\S+/gu;
+        for (let match = pattern.exec(text); match && scanned < 500; match = pattern.exec(text)) {
+          scanned += 1;
+          const range = document.createRange();
+          range.setStart(node, match.index);
+          range.setEnd(node, match.index + match[0].length);
+          const width = range.getBoundingClientRect().width;
+          if (width > best.width) {
+            best.token = match[0].slice(0, 40);
+            best.width = round(width);
+          }
+        }
+      }
+      return best;
+    };
+
     const found: Array<{ element: HTMLElement; entry: OverflowEntry }> = [];
     for (const element of Array.from(document.body.querySelectorAll<HTMLElement>('*'))) {
       const rect = element.getBoundingClientRect();
@@ -152,22 +196,37 @@ async function describeOverflow(page: Page): Promise<string> {
         element,
         entry: {
           index: 0,
+          leaf: true,
           tag: element.tagName.toLowerCase(),
           classes: typeof element.className === 'string' ? element.className.trim() : '',
           left: round(rect.left),
           right: round(rect.right),
           width: round(rect.width),
+          scrollWidth: element.scrollWidth,
           minWidth: style.minWidth,
           whiteSpace: style.whiteSpace,
           overflowWrap: style.overflowWrap,
           fontFamily: style.fontFamily,
+          control: controlInfo(element),
+          widestToken: '',
+          widestTokenWidth: 0,
           text: (element.innerText || element.textContent || '').replace(/\s+/gu, ' ').trim().slice(0, 40),
           clippedBy: clippingAncestor(element),
         },
       });
     }
-    found.sort((a, b) => b.entry.right - a.entry.right || a.entry.left - b.entry.left);
-    const kept = found.slice(0, limit);
+    const overflowing = new Set(found.map((item) => item.element));
+    for (const item of found) {
+      item.entry.leaf = !Array.from(item.element.querySelectorAll<HTMLElement>('*')).some((descendant) => overflowing.has(descendant));
+      if (item.entry.leaf) {
+        const token = widestToken(item.element);
+        item.entry.widestToken = token.token;
+        item.entry.widestTokenWidth = token.width;
+      }
+    }
+    const leaves = found.filter((item) => item.entry.leaf).sort((a, b) => b.entry.right - a.entry.right || b.entry.width - a.entry.width);
+    const ancestors = found.filter((item) => !item.entry.leaf).sort((a, b) => b.entry.right - a.entry.right || a.entry.left - b.entry.left);
+    const kept = [...leaves.slice(0, maxLeaves), ...ancestors.slice(0, maxAncestors)];
     kept.forEach(({ element, entry }, position) => {
       entry.index = position + 1;
       element.setAttribute('data-overflow-report', String(entry.index));
@@ -177,11 +236,12 @@ async function describeOverflow(page: Page): Promise<string> {
       documentWidth: document.documentElement.scrollWidth,
       bodyWidth: document.body.scrollWidth,
       total: found.length,
+      leaves: leaves.length,
       entries: kept.map(({ entry }) => entry),
       fontsStatus: document.fonts.status,
       fonts: Array.from(document.fonts).map((face) => `${face.family} ${face.weight} ${face.style}: ${face.status}`),
     };
-  }, OVERFLOW_REPORT_LIMIT);
+  }, [OVERFLOW_REPORT_LEAVES, OVERFLOW_REPORT_ANCESTORS] as const);
 
   const platformFonts = new Map<number, string>();
   try {
@@ -203,12 +263,15 @@ async function describeOverflow(page: Page): Promise<string> {
     document.querySelectorAll('[data-overflow-report]').forEach((element) => element.removeAttribute('data-overflow-report'));
   });
 
-  const header = `Horizontaler Überlauf bei ${data.viewportWidth} px Viewport: Dokument ${data.documentWidth} px, body ${data.bodyWidth} px; ${data.total} Element(e) ragen über den rechten Rand${data.total > data.entries.length ? ` (die ${data.entries.length} äußersten)` : ''}:`;
+  const listedLeaves = data.entries.filter((entry) => entry.leaf).length;
+  const header = `Horizontaler Überlauf bei ${data.viewportWidth} px Viewport: Dokument ${data.documentWidth} px, body ${data.bodyWidth} px; ${data.total} Element(e) ragen über den rechten Rand, davon ${data.leaves} ohne überlaufendes Kind (dort entsteht die Breite); gelistet ${listedLeaves} Ursache(n) und ${data.entries.length - listedLeaves} Vorfahr(en):`;
   const lines = data.entries.map((entry) => [
-    `  ${entry.index}. <${entry.tag}${entry.classes ? ` class="${entry.classes}"` : ''}>`,
-    `links ${entry.left} · rechts ${entry.right} · Breite ${entry.width} · min-width ${entry.minWidth} · white-space ${entry.whiteSpace} · overflow-wrap ${entry.overflowWrap}`,
+    `  ${entry.index}. [${entry.leaf ? 'Ursache' : 'Vorfahr'}] <${entry.tag}${entry.classes ? ` class="${entry.classes}"` : ''}>`,
+    `links ${entry.left} · rechts ${entry.right} · Breite ${entry.width} · scrollWidth ${entry.scrollWidth} · min-width ${entry.minWidth} · white-space ${entry.whiteSpace} · overflow-wrap ${entry.overflowWrap}`,
     `font-family ${entry.fontFamily}`,
     `gesetzt: ${platformFonts.get(entry.index) ?? 'unbekannt'}`,
+    entry.control,
+    entry.widestToken ? `längstes Wort „${entry.widestToken}“ ${entry.widestTokenWidth} px` : '',
     entry.clippedBy ? `abgeschnitten durch ${entry.clippedBy}` : '',
     entry.text ? `Text „${entry.text}“` : '',
   ].filter(Boolean).join(' · '));
