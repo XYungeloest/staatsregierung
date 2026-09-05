@@ -795,7 +795,7 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
   const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));
   expect(response?.status()).toBe(200);
-  await expect(page.locator('[data-index-count]')).toContainText(/\d+ Norm/u);
+  await expect(page.locator('[data-index-count]')).toContainText(/\d+ Vorschrift/u);
 });
 
 siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften und kennzeichnet ihre Herkunft', async ({ page }) => {
@@ -828,7 +828,7 @@ siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften u
   // Der Herkunftsfacet arbeitet mit der zentralen Herkunftssemantik der Suchdokumente.
   await page.goto(lawUrl('/suche/?q=Interflug&origin=ostdeutsch-original'));
   await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
-  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsche Neuregelung');
+  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsch neu geschaffen');
   await page.goto(lawUrl('/suche/?q=Interflug&origin=inherited-unchanged'));
   await expect(page.locator('[data-search-summary]')).toContainText('Keine Treffer');
   // Echter Leerzustand: Überschrift, zitierte Anfrage und Auswege mit Filterzahl.
@@ -871,14 +871,14 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
   await page.goto(lawUrl('/norm/zinnwald-vergesellschaftungsgesetz/'));
   const panel = page.locator('[data-visual-section="norm-legal-status"]');
   await expect(panel.getByRole('heading', { name: 'Rechtsstand und Herkunft' })).toBeVisible();
-  await expect(panel.locator('.origin-badge')).toHaveText(/Ostdeutsche Neuregelung/u);
+  await expect(panel.locator('.origin-badge')).toHaveText(/Ostdeutsch neu geschaffen/u);
   await expect(panel).toContainText('Geltende Fassung mit Rechtsstand vom 2. September 2026');
   await expect(page.locator('.norm-page-header__status')).toContainText('in Kraft seit 2. September 2026');
   await expect(page.locator('.status-notice')).toHaveCount(0);
 
   await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/'));
   const amended = page.locator('[data-visual-section="norm-legal-status"]');
-  await expect(amended.locator('.origin-badge')).toHaveText(/Übernommen · ostdeutsch geändert/u);
+  await expect(amended.locator('.origin-badge')).toHaveText(/Übernommen und ostdeutsch geändert/u);
   await expect(amended).toContainText('Zuletzt ostdeutsch geändert');
   await expect(amended.getByRole('link', { name: /Ausgangsfassung vom 1. November 2023/u })).toBeVisible();
   await expect(amended.getByRole('link', { name: 'Mit Ausgangsrecht vergleichen' })).toBeVisible();

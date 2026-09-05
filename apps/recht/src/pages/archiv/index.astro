@@ -1,4 +1,5 @@
 ---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
@@ -72,12 +73,12 @@ const keywordPagination = buildPagination({
 });
 const heading = letter === '#' ? 'Ziffern und Sonderzeichen' : `Buchstabe ${letter}`;
 const originHeading = originKind ? ` · ${formatNormOriginKind(originKind)}` : '';
-const pageTitle = `Alphabetischer Index – ${heading}${originHeading}${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
+const pageTitle = `${lawSiteConfig.targetLabels.index} – ${heading}${originHeading}${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
 const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
 const lastIndex = Math.min(result.page * result.pageSize, result.total);
 const indexCount = result.total === 0
-  ? (originKind ? 'In dieser Buchstabengruppe sind keine Normen dieser Herkunftsart verzeichnet.' : 'In dieser Buchstabengruppe sind keine Normen verzeichnet.')
-  : `${result.total} ${result.total === 1 ? 'Norm' : 'Normen'}${originKind ? ` dieser Herkunftsart` : ''}${result.total > result.pageSize ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
+  ? (originKind ? 'In dieser Buchstabengruppe sind keine Vorschriften dieser Herkunftsart verzeichnet.' : 'In dieser Buchstabengruppe sind keine Vorschriften verzeichnet.')
+  : `${result.total} ${result.total === 1 ? 'Vorschrift' : 'Vorschriften'}${originKind ? ` dieser Herkunftsart` : ''}${result.total > result.pageSize ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
 const firstKeyword = keywords.total === 0 ? 0 : (keywords.page - 1) * keywords.pageSize + 1;
 const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
 const originOverview = originKinds
@@ -87,10 +88,10 @@ const originOverview = originKinds
 
 <LawLayout
   title={pageTitle}
-  description={`Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen: ${heading}${originHeading}.`}
+  description={`Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Vorschriften: ${heading}${originHeading}.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Alphabetischer Index', href: basePath },
+    { label: lawSiteConfig.targetLabels.index, href: basePath },
   ]}
   canonical={pageUrl(basePath, stateParams)}
   noindex={Boolean(keywordFilter) || Boolean(originKind)}
@@ -100,16 +101,16 @@ const originOverview = originKinds
   <Breadcrumbs
     items={[
       { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: 'Alphabetischer Index' },
+      { label: lawSiteConfig.targetLabels.index },
     ]}
   />
 
   <SectionHero
     eyebrow="Rechtsportal"
-    title="Alphabetischer Index"
+    title={lawSiteConfig.targetLabels.index}
     lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z – je Buchstabengruppe seitenweise, auf Wunsch nach Rechtsherkunft eingegrenzt."
     variant="law"
-    facts={[{ label: 'Normen', value: String(totalNorms) }, { label: 'Buchstabengruppen', value: String(letters.length) }, { label: heading, value: String(result.total) }]}
+    facts={[{ label: 'Vorschriften im Bestand', value: String(totalNorms) }, { label: 'Buchstabengruppen', value: String(letters.length) }, { label: heading, value: String(result.total) }]}
   />
 
   <section class="section" aria-labelledby="origin-overview-heading" data-visual-section="law-origin-overview">
@@ -144,7 +145,7 @@ const originOverview = originKinds
         </select>
       </label>
     </DirectoryFilterBar>
-    <LetterNav letters={letters} current={letter} hrefFor={(target) => pageUrl(basePath, { buchstabe: target || letter, herkunft: originKind })} withAll={false} unit="Normen" />
+    <LetterNav letters={letters} current={letter} hrefFor={(target) => pageUrl(basePath, { buchstabe: target || letter, herkunft: originKind })} withAll={false} unit="Vorschriften" />
     {result.items.length > 0 ? (
       <ol class="directory-list" start={firstIndex} data-index-list data-directory-list>
         {result.items.map((norm) => (

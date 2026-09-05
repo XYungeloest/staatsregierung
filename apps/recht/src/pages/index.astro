@@ -1,4 +1,5 @@
 ---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../layouts/LawLayout.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
@@ -33,11 +34,11 @@ const homeSearchTypes = [...stats.types]
   .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
 const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 const quickAccess = [
-  { title: 'Gesetze A–Z', text: 'Alphabetische Übersicht', href: getIndexUrl(), icon: 'law' as const },
+  { title: lawSiteConfig.targetLabels.index, text: 'Alphabetische Übersicht', href: getIndexUrl(), icon: 'law' as const },
   { title: 'Neue Regelungen', text: 'Nach Rechtsstand sortiert', href: `${getSearchUrl()}?sort=rechtsstand`, icon: 'calendar' as const },
   { title: 'Änderungen', text: 'Rechtsentwicklung nachvollziehen', href: getLawDevelopmentOverviewUrl(), icon: 'arrow' as const },
   { title: 'Verkündungsblätter', text: 'Ausgaben und Fundstellen', href: getPublicationsUrl(), icon: 'law' as const },
-  { title: 'Themen', text: 'Recht nach Sachgebieten', href: getSubjectsUrl(), icon: 'topics' as const },
+  { title: lawSiteConfig.targetLabels.subjects, text: 'Recht nach Themen geordnet', href: getSubjectsUrl(), icon: 'topics' as const },
 ];
 ---
 
@@ -167,7 +168,7 @@ const quickAccess = [
 
       <section class="law-dashboard-card law-topic-card">
         <header class="law-dashboard-card__header">
-          <div><PortalIcon name="topics" /><h2>Themen</h2></div>
+          <div><PortalIcon name="topics" /><h2>{lawSiteConfig.targetLabels.subjects}</h2></div>
           <a href={getSubjectsUrl()}>Alle anzeigen</a>
         </header>
         <ul>
@@ -175,6 +176,7 @@ const quickAccess = [
             <li><a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.name}<span>{area.normCount}</span></a></li>
           ))}
         </ul>
+        <p class="law-topic-card__note">Eine Vorschrift kann mehreren Sachgebieten zugeordnet sein; die Zahlen summieren sich deshalb nicht zum Bestand.</p>
       </section>
 
       <section class="law-service-card">
@@ -182,7 +184,7 @@ const quickAccess = [
         <a href={`${getSearchUrl()}?versionScope=current`}><strong>Konsolidierte Fassungen</strong><span>Zum Stichtag geltende Normtexte</span></a>
         <a href={getLawDevelopmentOverviewUrl()}><strong>Änderungsverlauf</strong><span>Fassungen und Änderungen im Zeitverlauf</span></a>
         <a href={getReferencesUrl()}><strong>PDF und HTML</strong><span>Fundstellen und aufbereitete Normtexte</span></a>
-        <a href={getIndexUrl()}><strong>Alphabetischer Index</strong><span>Vorschriften, Abkürzungen und Stichwörter von A bis Z</span></a>
+        <a href={getIndexUrl()}><strong>{lawSiteConfig.targetLabels.index}</strong><span>Vorschriften, Abkürzungen und Stichwörter von A bis Z</span></a>
       </section>
     </div>
   </div>
