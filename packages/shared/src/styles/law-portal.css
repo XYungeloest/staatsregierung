@@ -2356,14 +2356,18 @@
   font-weight: 700;
 }
 
-/* Treffer in drei Zeilen (Befund Q5): Kurztitel mit Abkürzung, Langtitel klein, eine Metazeile. */
+/* Treffer in drei Zeilen (Befund Q5): Kurztitel mit Abkürzung, Langtitel klein, eine Metazeile.
+   Die Abkürzung ist datengetrieben und kann mehrere Wörter lang sein („Ostdeutsches
+   Zweckentfremdungsverbotsgesetz“, 330 px fett bei 14,7 px); als nowrap-Zeile trieb sie das
+   Min-Content der Trefferspalte bei 390 px im Linux-Chromium (breitere Textmaße) auf 396 px.
+   Deshalb umbrechen wie Text: an Wortgrenzen, im Notfall überall (overflow-wrap: anywhere aus
+   dem Treffer). */
 .search-hit__title .search-hit__abbr {
   margin-inline-start: var(--space-xs);
   color: var(--law-blue);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 700;
-  white-space: nowrap;
 }
 
 .search-hit__title .search-hit__long-title {

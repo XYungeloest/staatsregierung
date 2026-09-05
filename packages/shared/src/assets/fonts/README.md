@@ -38,3 +38,55 @@ pyftsubset Jost-Variable.ttf --unicodes="$UNI" --layout-features="$FEAT" --flavo
 
 Budget: gesamte Schriftübertragung höchstens 270 KB (das Doppelte der früheren 135 KB TTF);
 Stand: 120 KB.
+
+## Rückfallschnitte
+
+Gemessen am 5. September 2026 mit `scripts/measure-font-fallbacks.mjs` (Chromium aus Playwright,
+16 px, Kerning an). Kandidatendateien: Arial und Georgia aus macOS (metrisch gleich Windows und iOS),
+Liberation 2.1.5 und DejaVu 2.37 aus den Ubuntu-noble-Paketen `fonts-liberation` und
+`fonts-dejavu-core` (der Stand des Playwright-Containers), Roboto 3.005 und Noto Serif 1.07 aus dem
+AOSP-Quellbaum (`platform/external/roboto-fonts`, `platform/external/noto-fonts`). Die Dateien liegen
+nicht im Repository.
+
+### Wird ein Rückfallschnitt gebraucht?
+
+Tauschphase = Ende der Schriftübertragung (`responseEnd`) minus erster Anstrich (FCP), kalter Cache,
+Netz per DevTools-Protokoll gedrosselt, 390 px, je zwei Läufe pro Seite (Startseite Staatsportal,
+OstRecht-Suche, Normseite), lokal gegen `serve-site`/`serve-law-worker` und gegen die Produktion auf
+Cloudflare (HTTP/2):
+
+| Schrift | Preload | lokal | 4G | Fast 3G | Slow 3G |
+| --- | --- | --- | --- | --- | --- |
+| Jost, 33 KB | jede Seite | 0 ms | 0 ms | 0 ms | 0 ms (72 von 72 Läufen fertig vor dem ersten Anstrich) |
+| Source Serif 4, 86 KB | Normseiten | 0 ms | 0–5 ms | 157–179 ms | 1027–1093 ms (Produktion) |
+
+Entscheidung: Jost ohne Rückfallschnitt – nach Jost folgt direkt `system-ui`; ein Schnitt hätte in
+keiner Messung etwas zu tun bekommen und würde im Fehlerfall (Schrift blockiert) den Text dauerhaft
+verkleinern. Source Serif 4 mit einem Schnitt je Plattformfamilie.
+
+### Herleitung
+
+- `size-adjust` = Breite eines deutschen Fließtexts in Source Serif 4 ÷ Breite desselben Texts in der
+  Kandidatenschrift (16 px, mit Kerning). Die Optical-Size-Achse macht das Verhältnis größenabhängig:
+  bei 24 px liegt es rund 4,5 % niedriger; maßgeblich ist die Lesegröße des Normtexts (16 px).
+- `ascent-override` = 1,036 ÷ size-adjust, `descent-override` = 0,335 ÷ size-adjust,
+  `line-gap-override` 0 (Source Serif 4: hhea, typo und win gleich 1036/335 je 1000 Einheiten, kein
+  Zeilenabstand). Damit misst die Zeilenbox des Rückfallschnitts bei 16 px genau wie Source Serif 4
+  (22,00 px), und die Grundlinie liegt an derselben Stelle.
+- Gegenprobe im Browser: Restabweichung der Fließtextbreite ≤ 0,1 %, Zeilenbox 22,00 px, Ascent
+  1,036 em und Descent 0,335 em in allen vier Schnitten.
+
+| Kandidat (`local()`) | Plattform | Breitenverhältnis 16 px | `size-adjust` | `ascent-override` | `descent-override` |
+| --- | --- | --- | --- | --- | --- |
+| Georgia | Windows, macOS, iOS | 1,0423 | 104,2 % | 99,4 % | 32,1 % |
+| Noto Serif 1.07 (`Noto Serif`, `NotoSerif`) | Android | 0,9673 | 96,7 % | 107,1 % | 34,6 % |
+| DejaVu Serif 2.37 (`DejaVu Serif`, `DejaVuSerif`) | Linux | 0,8989 | 89,9 % | 115,2 % | 37,3 % |
+| Liberation Serif 2.1.5 (`Liberation Serif`, `LiberationSerif`) | Linux ohne DejaVu | 1,1454 | 114,5 % | 90,5 % | 29,3 % |
+
+Reihenfolge im Token `--font-document`: Georgia, Noto Serif, DejaVu Serif, Liberation Serif, `serif`.
+Jeder Schnitt trägt einen eigenen Familiennamen; eine Familie, deren `local()`-Quellen fehlen, fällt
+aus dem Stapel heraus, die nächste greift.
+
+Zum Vergleich die gemessenen, **nicht eingesetzten** Werte für Jost (Oberfläche, Ascent/Descent
+1070/375 je 1000): Arial und Liberation Sans 94,6 % / 113,1 % / 39,6 %; Roboto 3.005 95,0 % / 112,6 % /
+39,5 %; DejaVu Sans 2.37 83,9 % / 127,5 % / 44,7 % (Mittel aus Oberflächentexten und Fließtext).

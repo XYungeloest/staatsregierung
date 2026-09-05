@@ -20,24 +20,49 @@
   font-display: swap;
 }
 
-/* Rückfallschnitte mit angeglichenen Metriken: bis die Webfont da ist, setzen Arial bzw. Georgia
-   in derselben Breite und Zeilenbox (size-adjust und Overrides aus den Schriftmetriken gerechnet),
-   damit der Wechsel keinen Sprung erzeugt. */
+/* Rückfallschnitte nur für die Dokumentschrift. Jost (33 KB) wird auf jeder Seite vorgeladen und
+   war in jeder Messung – lokal wie gegen die Produktion auf Cloudflare, bis Slow 3G – vor dem
+   ersten Anstrich fertig; ein Rückfallschnitt hätte dort nichts zu tun, deshalb folgt system-ui
+   direkt. Source Serif 4 (86 KB, Preload nur auf den Normseiten) kommt bei Fast 3G rund 170 ms und
+   bei Slow 3G rund 1 s nach dem ersten Anstrich; bis dahin setzt je Plattformfamilie eine dort
+   vorhandene Serife in gleicher Breite und Zeilenbox. Ein Schnitt je Familie, weil local() nur
+   tatsächlich vorhandene Namen auflöst und ein size-adjust nicht für Georgia und DejaVu Serif
+   zugleich stimmen kann. Werte im Browser gemessen (Fließtextbreite bei 16 px mit Kerning,
+   Ascent/Descent des Webfonts 1036/335 je 1000 durch size-adjust); Herleitung, Zahlen und
+   Messskript: assets/fonts/README.md. */
 @font-face {
-  font-family: 'Jost Fallback';
-  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
-  size-adjust: 95.9%;
-  ascent-override: 107%;
-  descent-override: 37.5%;
+  font-family: 'Source Serif 4 Fallback Georgia'; /* Windows, macOS, iOS */
+  src: local('Georgia');
+  size-adjust: 104.2%;
+  ascent-override: 99.4%;
+  descent-override: 32.1%;
   line-gap-override: 0%;
 }
 
 @font-face {
-  font-family: 'Source Serif 4 Fallback';
-  src: local('Georgia');
-  size-adjust: 100.2%;
-  ascent-override: 103.6%;
-  descent-override: 33.5%;
+  font-family: 'Source Serif 4 Fallback Noto'; /* Android */
+  src: local('Noto Serif'), local('NotoSerif');
+  size-adjust: 96.7%;
+  ascent-override: 107.1%;
+  descent-override: 34.6%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Source Serif 4 Fallback DejaVu'; /* Linux */
+  src: local('DejaVu Serif'), local('DejaVuSerif');
+  size-adjust: 89.9%;
+  ascent-override: 115.2%;
+  descent-override: 37.3%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Source Serif 4 Fallback Liberation'; /* Linux ohne DejaVu */
+  src: local('Liberation Serif'), local('LiberationSerif');
+  size-adjust: 114.5%;
+  ascent-override: 90.5%;
+  descent-override: 29.3%;
   line-gap-override: 0%;
 }
 
@@ -79,9 +104,9 @@
   /* Jost trägt die Oberfläche (beide Portale), Source Serif 4 das Dokument (Normtext, Normkopf,
      Vergleich, Vollzitat). Der Familienwechsel der Dokumentschrift ist eine Änderung an
      --font-document; --font-display bleibt ein Alias der Oberflächenschrift. */
-  --font-sans: 'Jost', 'Jost Fallback', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: var(--font-sans);
-  --font-document: 'Source Serif 4', 'Source Serif 4 Fallback', Georgia, serif;
+  --font-document: 'Source Serif 4', 'Source Serif 4 Fallback Georgia', 'Source Serif 4 Fallback Noto', 'Source Serif 4 Fallback DejaVu', 'Source Serif 4 Fallback Liberation', serif;
   --content-width: 84rem;
   --content-width-narrow: 60rem;
   --lh-display: 1.12;
