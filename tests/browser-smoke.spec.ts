@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
 
@@ -685,8 +685,8 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   // Reihenfolge aus D1, der erste Treffer ist eine im September 2026 erlassene Vorschrift.
   await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
   const browseApi = await page.request.get(lawUrl('/api/suche.json'));
-  const browsePayload = await browseApi.json() as { documents: Array<{ slug: string; lastActivityDate?: string; isCurrent: boolean }> };
-  const browseDates = browsePayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastActivityDate ?? '');
+  const browsePayload = await browseApi.json() as { documents: Array<{ slug: string; lastChangeDate?: string; isCurrent: boolean }> };
+  const browseDates = browsePayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastChangeDate ?? '');
   expect(browseDates.length).toBeGreaterThan(5);
   expect(browseDates[0] >= '2026-09-02').toBeTruthy();
   expect(browseDates.every((date, index) => index === 0 || browseDates[index - 1] >= date)).toBeTruthy();
@@ -698,8 +698,8 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
   await expect(page.locator('[data-search-results] .search-hit .law-type-label').first()).toHaveText('Gesetz');
   const filteredApi = await page.request.get(lawUrl('/api/suche.json?type=gesetz'));
-  const filteredPayload = await filteredApi.json() as { documents: Array<{ type: string; lastActivityDate?: string; isCurrent: boolean }> };
-  const filteredDates = filteredPayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastActivityDate ?? '');
+  const filteredPayload = await filteredApi.json() as { documents: Array<{ type: string; lastChangeDate?: string; isCurrent: boolean }> };
+  const filteredDates = filteredPayload.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastChangeDate ?? '');
   expect(filteredPayload.documents.every((entry) => entry.type === 'gesetz')).toBeTruthy();
   expect(filteredDates.every((date, index) => index === 0 || filteredDates[index - 1] >= date)).toBeTruthy();
 
@@ -711,6 +711,156 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await page.locator('select[name="sort"]').selectOption('publication');
   await expect(page).toHaveURL(/sort=publication/u);
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
+});
+
+interface CandidatePayload {
+  total: number;
+  offset: number;
+  limit: number;
+  candidateCount: number;
+  documents: Array<{ slug: string; isCurrent: boolean; lastChangeDate?: string }>;
+}
+
+/** Suchseite laden und die Kandidatenantwort mitlesen, die die Seite selbst angefordert hat. */
+async function loadSearchPage(page: Page, query: string): Promise<CandidatePayload> {
+  const [response] = await Promise.all([
+    page.waitForResponse((entry) => entry.url().includes('/api/suche.json') && entry.status() === 200),
+    page.goto(lawUrl(`/suche/${query}`)),
+  ]);
+  await expect(page.locator('[data-search-summary]')).toContainText(/Treffer/u);
+  return await response.json() as CandidatePayload;
+}
+
+interface SearchCounts {
+  /** Zahl in der Überschrift; bei „Mindestens …“ nur eine Untergrenze. */
+  headline: number | null;
+  /** Nennt die Überschrift eine feststehende Gesamtzahl? */
+  exactTotal: boolean;
+  shown: number;
+  remaining: number | null;
+  moreVisible: boolean;
+  summary: string;
+}
+
+/** Zahlen der Oberfläche: Überschrift, angezeigte Treffer und Nachladezähler. */
+async function readSearchCounts(page: Page): Promise<SearchCounts> {
+  const summary = (await page.locator('[data-search-summary]').textContent()) ?? '';
+  const shown = await page.locator('[data-search-results] .search-result-group').count();
+  const more = page.locator('[data-search-more]');
+  const moreVisible = await more.isVisible();
+  const moreText = moreVisible ? (await more.textContent()) ?? '' : '';
+  // „1739 Treffer …“ bei feststehender Gesamtzahl, „Mindestens 6 Treffer …“, solange sie offen ist.
+  const headline = summary.match(/^(?:Mindestens )?(\d+) Treffer/u)?.[1];
+  const remaining = moreText.match(/\((\d+) verbleibend\)/u)?.[1];
+  return {
+    headline: headline === undefined ? null : Number(headline),
+    exactTotal: !summary.startsWith('Mindestens '),
+    shown,
+    remaining: remaining === undefined ? null : Number(remaining),
+    moreVisible,
+    summary,
+  };
+}
+
+/**
+ * Widerspruchsfreiheit von Überschrift, Nachladezähler und serverseitigem `total` – unabhängig
+ * davon, ob die Kandidatenmenge in eine Seite passt (Testfixture) oder nicht (Vollbestand).
+ */
+function expectConsistentCounts(counts: SearchCounts, payload: CandidatePayload, label: string): void {
+  const where = `${label}: ${counts.summary}`;
+  expect(counts.headline, where).not.toBeNull();
+  // Die Überschrift behauptet nie mehr Treffer, als die Kandidatenmenge überhaupt hergibt.
+  expect(counts.headline ?? 0, where).toBeLessThanOrEqual(payload.total);
+  if (counts.exactTotal) {
+    // Angezeigte und verbleibende Treffer ergeben zusammen die genannte Gesamtzahl.
+    expect(counts.shown + (counts.remaining ?? 0), where).toBe(counts.headline);
+    // Der Nachladeknopf erscheint genau dann, wenn noch Treffer fehlen.
+    expect(counts.moreVisible, where).toBe(counts.shown < (counts.headline ?? 0));
+    if (counts.moreVisible) expect(counts.remaining, where).not.toBeNull();
+    return;
+  }
+  // Offene Gesamtzahl: die Überschrift bleibt eine Untergrenze, der Knopf nennt keine Trefferzahl.
+  expect(counts.headline ?? 0, where).toBeGreaterThanOrEqual(counts.shown);
+  expect(counts.remaining, where).toBeNull();
+  expect(counts.moreVisible, where).toBe(true);
+}
+
+siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschreiben dieselbe Ergebnismenge', async ({ page }) => {
+  // Filterkombinationen, die die Kandidatenabfrage vollständig serverseitig ausdrückt: hier muss
+  // die Überschrift genau die Zahl nennen, die die Such-API als total liefert.
+  const serverSideCases = [
+    { label: 'ohne Suchbegriff', query: '' },
+    { label: 'Änderungsvorschriften einbezogen', query: '?includeAmendments=1' },
+    { label: 'nur geltende Fassungen', query: '?versionScope=current' },
+    { label: 'alle Fassungen', query: '?versionScope=all' },
+    { label: 'Normtyp Gesetz', query: '?type=gesetz' },
+    { label: 'Status und Normtyp', query: '?type=gesetz&status=in-force' },
+    { label: 'Geltungstag', query: '?geltungstag=2026-09-01' },
+    { label: 'Gültigkeitszeitraum', query: '?validFrom=2026-01-01&validTo=2026-12-31&versionScope=all' },
+  ];
+
+  for (const { label, query } of serverSideCases) {
+    const payload = await loadSearchPage(page, query);
+    const counts = await readSearchCounts(page);
+    // Serverseitig ausdrückbar: die Überschrift nennt genau das `total` der Such-API.
+    expect(counts.exactTotal, `${label}: ${counts.summary}`).toBe(true);
+    expect(counts.headline, `${label}: ${counts.summary}`).toBe(payload.total);
+    expectConsistentCounts(counts, payload, label);
+  }
+
+  // Ein nur im Browser wirkender Filter (Ausgabennummer, normalisierter Textvergleich) darf die
+  // serverseitige Gesamtzahl nicht als Trefferzahl behaupten; die Überschrift bleibt bei der
+  // Menge, die die Liste zeigt.
+  const narrowed = await loadSearchPage(page, '?publicationIssue=33&versionScope=all&includeAmendments=1');
+  const narrowedCounts = await readSearchCounts(page);
+  expect(narrowedCounts.headline ?? 0, narrowedCounts.summary).toBeLessThan(narrowed.total);
+  expectConsistentCounts(narrowedCounts, narrowed, 'Ausgabennummer');
+
+  // Auch mit Suchbegriff bleibt die Überschrift bei der Menge, die die Liste zeigt.
+  const searched = await loadSearchPage(page, '?q=Kulturpass');
+  expectConsistentCounts(await readSearchCounts(page), searched, 'Suchbegriff');
+
+  // Nachladen bleibt widerspruchsfrei: mehr angezeigt, dieselbe Gesamtzahl, kleinerer Restwert.
+  const paged = await loadSearchPage(page, '?includeAmendments=1&versionScope=all');
+  const before = await readSearchCounts(page);
+  if (before.moreVisible) {
+    await page.locator('[data-search-more]').click();
+    await expect.poll(async () => (await readSearchCounts(page)).shown).toBeGreaterThan(before.shown);
+    const after = await readSearchCounts(page);
+    expect(after.headline).toBe(paged.total);
+    expect(after.shown + (after.remaining ?? 0)).toBe(after.headline);
+    expect(after.remaining ?? 0).toBeLessThan(before.remaining ?? 0);
+  }
+});
+
+siteTest(['law'])('Rechtsänderung und Aktivität bleiben getrennt: ein Hinweis hebt lastmod, nicht die Sortierung', async ({ page, request }) => {
+  const payload = await (await request.get(lawUrl('/api/suche.json?includeAmendments=1&versionScope=current'))).json() as CandidatePayload;
+  const changeBySlug = new Map(payload.documents.filter((entry) => entry.isCurrent).map((entry) => [entry.slug, entry.lastChangeDate ?? '']));
+  expect(changeBySlug.size).toBeGreaterThan(5);
+
+  const sitemap = await (await request.get(lawUrl('/sitemap.xml'))).text();
+  const lastmodBySlug = new Map<string, string>();
+  for (const [, slug, lastmod] of sitemap.matchAll(/<loc>[^<]*\/norm\/([^/<]+)\/<\/loc><lastmod>([^<]+)<\/lastmod>/gu)) {
+    lastmodBySlug.set(slug, lastmod);
+  }
+  expect(lastmodBySlug.size).toBeGreaterThan(5);
+
+  // lastmod meint die zuletzt geänderte Darstellung und liegt nie vor der Rechtsänderung.
+  const compared = [...changeBySlug].filter(([slug, change]) => change && lastmodBySlug.has(slug));
+  expect(compared.length).toBeGreaterThan(5);
+  for (const [slug, change] of compared) {
+    expect((lastmodBySlug.get(slug) ?? '') >= change, `${slug}: lastmod ${lastmodBySlug.get(slug)} < Rechtsänderung ${change}`).toBeTruthy();
+  }
+  // Mindestens eine Vorschrift trägt einen reinen Hinweis: dort ist lastmod jünger als die
+  // Rechtsänderung. Fielen beide Begriffe wieder zusammen, gäbe es diesen Fall nicht mehr.
+  expect(compared.some(([slug, change]) => (lastmodBySlug.get(slug) ?? '') > change)).toBeTruthy();
+
+  // Die Sortierung folgt der Rechtsänderung, nicht dem Hinweis.
+  await page.goto(lawUrl('/suche/'));
+  await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
+  const browse = await (await request.get(lawUrl('/api/suche.json'))).json() as CandidatePayload;
+  const dates = browse.documents.filter((entry) => entry.isCurrent).map((entry) => entry.lastChangeDate ?? '');
+  expect(dates.every((date, index) => index === 0 || dates[index - 1] >= date)).toBeTruthy();
 });
 
 siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, zuletzt die Suche', async ({ page }) => {

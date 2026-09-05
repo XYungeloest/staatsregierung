@@ -201,8 +201,8 @@ export function combineFingerprint({ logic, corpus, portal, scope = FULL_SCOPE }
  */
 export async function projectionIdentity({ root = process.cwd(), scope = FULL_SCOPE, ref = null } = {}) {
   const options = { ref };
-  const [logic, corpus, portal, legacyPortal] = await Promise.all([
-    projectionLogicHash(root, options), corpusContentHash(root, options), portalContentHash(root, options), legacyPortalContentHash(root, options),
+  const [logic, corpus, portal] = await Promise.all([
+    projectionLogicHash(root, options), corpusContentHash(root, options), portalContentHash(root, options),
   ]);
   return {
     fingerprint: combineFingerprint({ logic, corpus, portal, scope }),
@@ -211,17 +211,7 @@ export async function projectionIdentity({ root = process.cwd(), scope = FULL_SC
     corpus,
     portal,
     ref,
-    // Übergang: Identität derselben Eingaben mit dem früheren Portalhash über ganze Dateien.
-    // Eine D1, die vor der projektionsrelevanten Berechnung geschrieben wurde, trägt diesen Wert
-    // als Basiszustand; der Base-State-Guard akzeptiert ihn, bis alle Datenbanken die neue
-    // Identität tragen (TODO.md).
-    legacyFingerprint: combineFingerprint({ logic, corpus, portal: legacyPortal, scope }),
   };
-}
-
-/** Früherer Portalhash über die vollständigen Dateien (Git-Blobs); nur für den Übergang des Base-State-Guards. */
-export async function legacyPortalContentHash(root = process.cwd(), options = {}) {
-  return hashRoots(root, PORTAL_CONTENT_ROOTS, [], options);
 }
 
 /** Kompatibler Kurzzugriff: Identität des Arbeitsbaums im Vollbestands-Scope. */

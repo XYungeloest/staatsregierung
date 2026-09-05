@@ -3,7 +3,7 @@ import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../layouts/LawLayout.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
-import { formatDate, formatNormType, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, toDisplayText, type HistoryEntryType } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatDate, formatNormType, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
@@ -19,8 +19,8 @@ const HOME_CHANGE_CANDIDATE_LIMIT = 12;
 const HOME_CURRENT_CHANGE_LIMIT = 4;
 const HOME_FUTURE_CHANGE_LIMIT = 4;
 const HOME_PUBLICATION_LIMIT = 3;
-/** Rechtsereignisse der Startseite: Erlass, Änderung, Aufhebung (Hinweise zählen nicht). */
-const HOME_CHANGE_TYPES: HistoryEntryType[] = ['initial', 'amendment', 'repeal'];
+/** Rechtsereignisse der Startseite: dieselbe Definition wie die Rechtsänderung (ohne Hinweise). */
+const HOME_CHANGE_TYPES = [...LEGAL_CHANGE_ENTRY_TYPES];
 const [stats, subjectAreas, latestChanges, futureChanges, latestPublications] = await Promise.all([
   store.getCorpusStats(),
   store.listSubjectAreas().then((areas) => areas.slice(0, 6)),

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { getNormLastActivityDate } from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared/lib/norms/versions.ts';
 
 import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
@@ -18,6 +18,8 @@ import {
   parseCitation,
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
+  buildSearchCandidateParams,
+  candidateTotalMatchesResults,
   getDefaultSearchSort,
   groupNormSearchResults,
   normalizeSearchText,
@@ -708,28 +710,79 @@ test('Standardsortierung richtet sich nach Suchkontext und respektiert eine ausd
   assert.equal(explicitResults[0]?.documentEntry.slug, 'alt');
 });
 
-test('Sortierung nach jüngstem Rechtsereignis: neues Gesetz 2026 und 2026 geänderte Übernahme vor unverändert übernommenem Recht, künftige Ereignisse zählen nicht', () => {
+test('Sortierung nach jüngster Rechtsänderung: neues Gesetz 2026 und 2026 geänderte Übernahme vor unverändert übernommenem Recht, künftige Ereignisse zählen nicht', () => {
   const inheritedUnchanged = searchDocument({
-    id: 'alt:1', slug: 'archivgesetz', title: 'Archivgesetz', publicationDate: '1993-05-17', validFrom: '2023-11-01', lastActivityDate: '2023-11-01',
+    id: 'alt:1', slug: 'archivgesetz', title: 'Archivgesetz', publicationDate: '1993-05-17', validFrom: '2023-11-01', lastChangeDate: '2023-11-01',
   });
   const amendedInherited = searchDocument({
-    id: 'gemo:1', slug: 'gemeindeordnung', title: 'Gemeindeordnung', publicationDate: '2018-03-09', validFrom: '2026-08-01', lastActivityDate: '2026-08-01',
+    id: 'gemo:1', slug: 'gemeindeordnung', title: 'Gemeindeordnung', publicationDate: '2018-03-09', validFrom: '2026-08-01', lastChangeDate: '2026-08-01',
   });
   const newLaw = searchDocument({
-    id: 'zinn:1', slug: 'zinnwald', title: 'Zinnwald-Vergesellschaftungsgesetz', publicationDate: '2026-09-02', validFrom: '2026-09-02', lastActivityDate: '2026-09-02',
+    id: 'zinn:1', slug: 'zinnwald', title: 'Zinnwald-Vergesellschaftungsgesetz', publicationDate: '2026-09-02', validFrom: '2026-09-02', lastChangeDate: '2026-09-02',
   });
   // Ältere Suchdokumente ohne das Feld ordnen sich über den Fassungsbeginn ein (Expand/Contract).
   const legacyDocument = searchDocument({ id: 'legacy:1', slug: 'legacy', title: 'Ältere Projektion', validFrom: '2024-01-01' });
-  delete (legacyDocument as Partial<SearchIndexDocument>).lastActivityDate;
+  delete (legacyDocument as Partial<SearchIndexDocument>).lastChangeDate;
   const results = runNormSearch([inheritedUnchanged, legacyDocument, amendedInherited, newLaw], searchState({ sort: 'activity', sortExplicit: false }));
   assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['zinnwald', 'gemeindeordnung', 'legacy', 'archivgesetz']);
   // Gleichstand: Titel, dann Slug – deterministisch.
-  const tieA = searchDocument({ id: 'a:1', slug: 'b-slug', title: 'Alpha', validFrom: '2026-01-01', lastActivityDate: '2026-05-01' });
-  const tieB = searchDocument({ id: 'b:1', slug: 'a-slug', title: 'Alpha', validFrom: '2026-01-01', lastActivityDate: '2026-05-01' });
+  const tieA = searchDocument({ id: 'a:1', slug: 'b-slug', title: 'Alpha', validFrom: '2026-01-01', lastChangeDate: '2026-05-01' });
+  const tieB = searchDocument({ id: 'b:1', slug: 'a-slug', title: 'Alpha', validFrom: '2026-01-01', lastChangeDate: '2026-05-01' });
   assert.deepEqual(runNormSearch([tieA, tieB], searchState({ sort: 'activity', sortExplicit: false })).map((entry) => entry.documentEntry.slug), ['a-slug', 'b-slug']);
 });
 
-test('jüngstes Rechtsereignis einer Norm: Erlass zählt, künftige Fassungen und Ereignisse nicht', () => {
+test('Kandidatenanfrage trägt jeden serverseitig ausdrückbaren Filter; nur dann darf die Überschrift eine Gesamtzahl nennen', () => {
+  // Stöbern: alles serverseitig ausdrückbar, die Gesamtzahl der API beschreibt dieselbe Menge.
+  const browse = searchState({ types: ['gesetz'], subjects: ['Bildung und Schule'], statuses: ['in-force'], versionScope: 'current' });
+  assert.equal(candidateTotalMatchesResults(browse), true);
+  const browseParams = buildSearchCandidateParams(browse);
+  assert.deepEqual(browseParams.types, ['gesetz']);
+  assert.deepEqual(browseParams.subjects, ['Bildung und Schule']);
+  assert.equal(browseParams.versionScope, 'current');
+  assert.equal(browseParams.includeAmendments, false, 'ohne Suchbegriff verengt der Server auch die Änderungsvorschriften');
+
+  // Freitext: die Kandidaten sind großzügig, die Bewertung läuft im Browser – keine Gesamtzahl.
+  for (const state of [searchState({ q: 'Kulturpass' }), searchState({ exact: 'Kulturpass' }), searchState({ citation: 'OGVBl. 2026 Nr. 16' }), searchState({ exclude: 'Änderung' })]) {
+    assert.equal(candidateTotalMatchesResults(state), false);
+    assert.equal(buildSearchCandidateParams(state).includeAmendments, true, 'mit Suchbegriff bleiben Änderungsvorschriften Kandidaten');
+    assert.equal(buildSearchCandidateParams(state).versionScope, 'all', 'eine Fundstellensuche darf Fassungen nicht vorab ausschließen');
+  }
+  // Ausdrücklich gewählte Fassungsart bleibt auch mit Suchbegriff erhalten.
+  assert.equal(buildSearchCandidateParams(searchState({ q: 'Kulturpass', versionScope: 'historical', versionScopeExplicit: true })).versionScope, 'historical');
+  // Ausdrücklich gefilterte Änderungsvorschriften bleiben Kandidaten (amendmentExplicitlyRequested).
+  assert.equal(buildSearchCandidateParams(searchState({ types: ['aenderungsvorschrift'] })).includeAmendments, true);
+
+  // Geltungstag und Gültigkeitszeitraum trägt die Projektion je Fassung: sie gehen serverseitig mit.
+  const dated = searchState({ geltungstag: '2026-01-01', validFrom: '2026-01-01', validTo: '2026-12-31' });
+  assert.equal(candidateTotalMatchesResults(dated), true);
+  assert.deepEqual(
+    [buildSearchCandidateParams(dated).geltungstag, buildSearchCandidateParams(dated).validFrom, buildSearchCandidateParams(dated).validTo],
+    ['2026-01-01', '2026-01-01', '2026-12-31'],
+  );
+
+  // Ausgabennummer und Seite vergleichen normalisierten Text und bleiben im Browser.
+  for (const state of [searchState({ publicationIssue: '16' }), searchState({ publicationPage: '12' })]) {
+    assert.equal(candidateTotalMatchesResults(state), false);
+  }
+});
+
+test('Rechtsänderung und Aktivität sind getrennt: ein bloßer Hinweis zählt nur als Aktivität', () => {
+  const norm = record([version('2024-05-01', '2024-05-01', null)]);
+  norm.history.entries = [
+    { type: 'initial', date: '2024-05-01', title: 'Stammfassung', citation: 'Verordnung vom 1. Mai 2024 (OGVBl. 2024 Nr. 12)', affectingVersionId: '2024-05-01' },
+    { type: 'notice', date: '2026-08-27', title: 'Berichtigungshinweis', citation: 'Hinweis vom 27. August 2026 (OGVBl. 2026 Nr. 70)' },
+  ] as typeof norm.history.entries;
+  assert.equal(getNormLastChangeDate(norm, '2026-09-04'), '2024-05-01', 'ein Hinweis ist keine Rechtsänderung');
+  assert.equal(getNormLastActivityDate(norm, '2026-09-04'), '2026-08-27', 'als Aktivität zählt er weiterhin');
+
+  // Sortierung: die Norm mit der jüngeren echten Änderung steht vor der nur hinweisberührten.
+  const noticeOnly = searchDocument({ id: 'hinweis:1', slug: 'hinweis-norm', title: 'Hinweisnorm', validFrom: '2024-05-01', lastChangeDate: '2024-05-01' });
+  const reallyChanged = searchDocument({ id: 'echt:1', slug: 'geaenderte-norm', title: 'Geänderte Norm', validFrom: '2026-08-01', lastChangeDate: '2026-08-01' });
+  const order = runNormSearch([noticeOnly, reallyChanged], searchState({ sort: 'activity', sortExplicit: false }));
+  assert.deepEqual(order.map((entry) => entry.documentEntry.slug), ['geaenderte-norm', 'hinweis-norm']);
+});
+
+test('jüngste Aktivität einer Norm: Erlass zählt, künftige Fassungen und Ereignisse nicht', () => {
   const norm = record([version('2026-01-01', '2026-01-01', '2026-09-30'), version('2026-10-01', '2026-10-01', null)]);
   norm.history.entries = [
     { type: 'initial', date: '2026-01-01', title: 'Stammfassung', citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)', affectingVersionId: '2026-01-01' },

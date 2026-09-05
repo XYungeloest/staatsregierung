@@ -9,7 +9,7 @@ import {
   type NormType,
   type NormVersion,
 } from '@ostrecht/shared/lib/norms/schema.ts';
-import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, validateVersionIntervals } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, getNormLastChangeDate, validateVersionIntervals, type VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
 import {
   buildDerivedContext,
   deriveNorm,
@@ -27,6 +27,7 @@ import {
   buildFilterOptions,
   buildSearchPublications,
   getNormAliases,
+  isAmendmentRecord,
   type SearchFilterOptions,
   type SearchIndexDocument,
   type SearchPublication,
@@ -77,7 +78,10 @@ export interface NormSummary {
   originBaselineVersionId?: string;
   originLastOwnChangeDate?: string;
   versionCount: number;
+  /** Jüngste Rechtsänderung bis zum Stichtag (ohne bloße Hinweise); Sortierung `activity`. */
   lastChangeDate?: string;
+  /** Jüngstes dokumentiertes Ereignis einschließlich Hinweisen; Sitemap-`lastmod`. */
+  lastActivityDate?: string;
 }
 
 export interface NormSummaryQuery {
@@ -87,7 +91,7 @@ export interface NormSummaryQuery {
 }
 
 /**
- * Sortierung von Übersichten: `activity` = jüngstes Rechtsereignis zuerst
+ * Sortierung von Übersichten: `activity` = jüngste Rechtsänderung zuerst
  * (law_norms.last_change_date, dann Titel), `title` = alphabetisch (A–Z-Index).
  */
 export type NormSummarySort = 'activity' | 'title';
@@ -285,11 +289,44 @@ export interface NormStore {
   /** Suchdokumente der gewünschten Normen (alle Fassungen) samt Provisionen der geltenden Fassung. */
   /** `unitsMatch`: FTS-Ausdruck, auf den die gelieferten Provisionen eingeschränkt werden; null = alle Provisionen; undefined = keine. */
   getSearchDocuments(slugs: string[], unitsMatch: string | null | undefined): Promise<SearchCandidate[]>;
-  /** Kandidatenmenge der Suche; Normtyp und Rechtsherkunft (`origins`, law_norms.origin_kind) filtern bereits serverseitig, damit total und Pagination den Filter berücksichtigen. */
-  searchCandidates(query: { match: string | null; limit: number; offset: number; types?: string[]; origins?: NormOriginKind[] }): Promise<{ slugs: string[]; total: number }>;
+  /**
+   * Kandidatenmenge der Suche. Alle hier übergebenen Filter wirken serverseitig, damit `total`
+   * dieselbe Menge zählt, die die Trefferliste anzeigt (buildSearchCandidateParams in
+   * packages/recht-search/src/search-query.ts bestimmt sie aus dem Suchzustand).
+   */
+  searchCandidates(query: SearchCandidateQuery): Promise<{ slugs: string[]; total: number }>;
   getRuntimeMeta(key: string): Promise<string | null>;
   /** Anzeigebezeichnungen (geltende Fassung) für eine Slug-Liste, z. B. Bezüge in Historieneinträgen. */
   getNormLabels(slugs: string[]): Promise<Map<string, { title: string; shortTitle: string }>>;
+}
+
+/**
+ * Serverseitig ausgedrückte Kandidatenfilter der Rechtssuche. Normebene: Typ, Herkunft, Ressort,
+ * Status, Sachgebiet, Änderungsvorschriften. Fassungsebene: Fassungsart, Verkündungsblatt, Jahr
+ * und Gültigkeit müssen von derselben Fassung erfüllt sein – genau wie in der clientseitigen
+ * Bewertung, die je Fassungsdokument filtert.
+ */
+export interface SearchCandidateQuery {
+  match: string | null;
+  limit: number;
+  offset: number;
+  types?: string[];
+  origins?: NormOriginKind[];
+  ministries?: string[];
+  /** Sachgebiete als Slug (getSubjectSlug), damit Schreibweisen nicht auseinanderlaufen. */
+  subjectSlugs?: string[];
+  statuses?: string[];
+  publicationSources?: string[];
+  publicationYears?: string[];
+  /** Tag, an dem die Fassung gelten muss (Geltungstag). */
+  validOn?: string;
+  /** Gültigkeitszeitraum: die Fassung muss ihn schneiden. */
+  validFrom?: string;
+  validTo?: string;
+  /** Fassungsart; `all` oder nicht gesetzt schränkt nicht ein. */
+  versionScope?: VersionTemporalKind | 'all';
+  /** `false` blendet Änderungsvorschriften aus (law_norms.is_amendment). */
+  includeAmendments?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -311,11 +348,67 @@ function getCurrentVersionId(record: NormRecord): string | undefined {
   return record.versions.find((version) => version.isCurrent)?.versionId ?? record.versions.at(-1)?.versionId;
 }
 
-/** ORDER BY einer Übersicht: jüngstes Rechtsereignis zuerst (fehlende Werte zuletzt) oder Titel. */
+/** ORDER BY einer Übersicht: jüngste Rechtsänderung zuerst (fehlende Werte zuletzt) oder Titel. */
 export function summaryOrderBy(sort: NormSummarySort = 'title'): string {
   return sort === 'activity'
     ? '(n.last_change_date IS NULL), n.last_change_date DESC, n.sort_title, n.slug'
     : 'n.sort_title, n.slug';
+}
+
+/**
+ * WHERE-Zusatz der Kandidatenabfrage aus SearchCandidateQuery. Normebene filtert direkt auf
+ * law_norms; die Fassungsbedingungen stehen zusammen in einem EXISTS, weil die clientseitige
+ * Bewertung je Fassungsdokument prüft: eine Fassung muss Fassungsart, Verkündungsblatt und Jahr
+ * zugleich erfüllen. Die Norm heißt in beiden Abfragen `n`.
+ */
+export function candidateFilterSql(query: SearchCandidateQuery): { sql: string; params: Array<string | number> } {
+  const clauses: string[] = [];
+  const params: Array<string | number> = [];
+  const inList = (column: string, values: readonly string[] = []): void => {
+    if (values.length === 0) return;
+    clauses.push(` AND ${column} IN (${values.map(() => '?').join(', ')})`);
+    params.push(...values);
+  };
+  inList('n.type', query.types);
+  inList('n.origin_kind', query.origins);
+  inList('n.responsible_ministry', query.ministries);
+  inList('n.status', query.statuses);
+  if (query.includeAmendments === false) clauses.push(' AND n.is_amendment = 0');
+  if ((query.subjectSlugs ?? []).length > 0) {
+    const slugs = query.subjectSlugs as string[];
+    clauses.push(` AND EXISTS (SELECT 1 FROM law_norm_subjects sub WHERE sub.norm_id = n.id AND sub.subject_slug IN (${slugs.map(() => '?').join(', ')}))`);
+    params.push(...slugs);
+  }
+  const versionClauses: string[] = [];
+  const versionParams: Array<string | number> = [];
+  if (query.versionScope && query.versionScope !== 'all') {
+    versionClauses.push('v.temporal_kind = ?');
+    versionParams.push(query.versionScope);
+  }
+  for (const [column, values] of [['v.publication_source', query.publicationSources], ['v.publication_year', query.publicationYears]] as const) {
+    if (!values || values.length === 0) continue;
+    versionClauses.push(`${column} IN (${values.map(() => '?').join(', ')})`);
+    versionParams.push(...values);
+  }
+  // Datumsbedingungen wie isDateInRange in der clientseitigen Bewertung: der Geltungstag liegt im
+  // Gültigkeitsintervall, ein Zeitraum muss es schneiden (offenes Ende zählt als laufend).
+  if (query.validOn) {
+    versionClauses.push('v.valid_from <= ? AND (v.valid_to IS NULL OR v.valid_to >= ?)');
+    versionParams.push(query.validOn, query.validOn);
+  }
+  if (query.validFrom) {
+    versionClauses.push('(v.valid_to IS NULL OR v.valid_to >= ?)');
+    versionParams.push(query.validFrom);
+  }
+  if (query.validTo) {
+    versionClauses.push('v.valid_from <= ?');
+    versionParams.push(query.validTo);
+  }
+  if (versionClauses.length > 0) {
+    clauses.push(` AND EXISTS (SELECT 1 FROM law_versions v WHERE v.norm_id = n.id AND ${versionClauses.join(' AND ')})`);
+    params.push(...versionParams);
+  }
+  return { sql: clauses.join(''), params };
 }
 
 /** Vergleich für `activity`-Sortierung in der Dateivariante (identische Reihenfolge wie summaryOrderBy). */
@@ -333,8 +426,10 @@ export function summarizeNormRecord(record: NormRecord, records: NormRecord[] = 
   const current = getApplicableVersion(record);
   const identity = getNormVersionIdentity(record, current);
   const origin = getNormOriginInfo(record, records);
-  // Jüngstes Rechtsereignis bis zum Stichtag (dieselbe Definition wie law_norms.last_change_date).
-  const lastChangeDate = getNormLastActivityDate(record);
+  // Rechtsänderung und Aktivität getrennt (dieselben Definitionen wie law_norms.last_change_date
+  // bzw. law_norms.last_activity_date): die Sortierung folgt der Rechtsänderung, die Sitemap der Aktivität.
+  const lastChangeDate = getNormLastChangeDate(record);
+  const lastActivityDate = getNormLastActivityDate(record);
   return {
     id: record.meta.id,
     slug: record.meta.slug,
@@ -357,6 +452,7 @@ export function summarizeNormRecord(record: NormRecord, records: NormRecord[] = 
     ...(origin.lastOwnChangeDate ? { originLastOwnChangeDate: origin.lastOwnChangeDate } : {}),
     versionCount: record.versions.length,
     ...(lastChangeDate ? { lastChangeDate } : {}),
+    ...(lastActivityDate ? { lastActivityDate } : {}),
   };
 }
 
@@ -434,6 +530,7 @@ interface SummaryRow {
   origin_last_own_change_date: string | null;
   version_count: number;
   last_change_date: string | null;
+  last_activity_date: string | null;
 }
 
 export interface BlockRow {
@@ -444,7 +541,7 @@ export interface BlockRow {
 
 const SUMMARY_SELECT = `SELECT n.id, n.slug, n.title, n.short_title, n.abbr, n.summary, v.summary AS current_summary, n.type, n.status,
   n.subjects_json, n.primary_subject, n.keywords_json, n.aliases_json, n.responsible_ministry, n.current_version_id, n.current_valid_from,
-  n.document_date, n.origin_kind, n.origin_baseline_version_id, n.origin_last_own_change_date, n.version_count, n.last_change_date
+  n.document_date, n.origin_kind, n.origin_baseline_version_id, n.origin_last_own_change_date, n.version_count, n.last_change_date, n.last_activity_date
   FROM law_norms n LEFT JOIN law_versions v ON v.norm_id = n.id AND v.version_id = n.current_version_id`;
 
 function summaryFromRow(row: SummaryRow): NormSummary {
@@ -470,6 +567,7 @@ function summaryFromRow(row: SummaryRow): NormSummary {
     ...(row.origin_last_own_change_date ? { originLastOwnChangeDate: row.origin_last_own_change_date } : {}),
     versionCount: Number(row.version_count ?? 0),
     ...(row.last_change_date ? { lastChangeDate: row.last_change_date } : {}),
+    ...(row.last_activity_date ? { lastActivityDate: row.last_activity_date } : {}),
   };
 }
 
@@ -831,19 +929,19 @@ export function createD1NormStore(db: D1Database): NormStore {
         units: (unitsByKey.get(`${row.norm_id}:${row.version_id}`) ?? []).sort((left, right) => left.unitIndex - right.unitIndex),
       }));
     },
-    async searchCandidates({ match, limit, offset, types = [], origins = [] }) {
-      // Typ- und Herkunftsfilter laufen über die schmalen, indizierten Spalten von law_norms.
-      const typeFilter = types.length > 0 ? ` AND n.type IN (${types.map(() => '?').join(', ')})` : '';
-      const originFilter = origins.length > 0 ? ` AND n.origin_kind IN (${origins.map(() => '?').join(', ')})` : '';
-      const filterParams = [...types, ...origins];
+    async searchCandidates(query) {
+      const { match, limit, offset } = query;
+      // Alle Filter über die schmalen, indizierten Spalten der Projektion; nichts wird
+      // nachträglich verworfen, damit total dieselbe Menge zählt wie die Trefferliste.
+      const { sql: filterSql, params: filterParams } = candidateFilterSql(query);
       if (match) {
-        const rows = await db.prepare(`SELECT s.slug, min(s.rank) AS best FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}${originFilter} GROUP BY s.slug ORDER BY best LIMIT ? OFFSET ?`).bind(match, ...filterParams, limit, offset).all<{ slug: string }>();
-        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${typeFilter}${originFilter}`).bind(match, ...filterParams).first<{ total: number }>();
+        const rows = await db.prepare(`SELECT s.slug, min(s.rank) AS best FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${filterSql} GROUP BY s.slug ORDER BY best LIMIT ? OFFSET ?`).bind(match, ...filterParams, limit, offset).all<{ slug: string }>();
+        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${filterSql}`).bind(match, ...filterParams).first<{ total: number }>();
         return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
       }
-      // Ohne Suchausdruck: jüngstes Rechtsereignis zuerst (law_norms.last_change_date), dann Titel.
-      const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${typeFilter}${originFilter} ORDER BY ${summaryOrderBy('activity')} LIMIT ? OFFSET ?`).bind(...filterParams, limit, offset).all<{ slug: string }>();
-      const total = await db.prepare(`SELECT count(*) AS total FROM law_norms n WHERE 1 = 1${typeFilter}${originFilter}`).bind(...filterParams).first<{ total: number }>();
+      // Ohne Suchausdruck: jüngste Rechtsänderung zuerst (law_norms.last_change_date), dann Titel.
+      const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${filterSql} ORDER BY ${summaryOrderBy('activity')} LIMIT ? OFFSET ?`).bind(...filterParams, limit, offset).all<{ slug: string }>();
+      const total = await db.prepare(`SELECT count(*) AS total FROM law_norms n WHERE 1 = 1${filterSql}`).bind(...filterParams).first<{ total: number }>();
       return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
     },
     async getRuntimeMeta(key) {
@@ -1086,19 +1184,40 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         });
       });
     },
-    async searchCandidates({ match, limit, offset, types = [], origins = [] }) {
+    async searchCandidates(query) {
+      const { match, limit, offset, types = [], origins = [], ministries = [], subjectSlugs = [], statuses = [], publicationSources = [], publicationYears = [], validOn, validFrom, validTo, versionScope, includeAmendments } = query;
       const ctx = await context();
       const originBySlug = origins.length > 0 ? new Map((await summaries()).map((summary) => [summary.slug, summary.originKind])) : null;
       const terms = (match ?? '').toLocaleLowerCase('de').replace(/[()"*]/gu, '').split(/\s+(?:OR|AND)\s+|\s+/u).filter(Boolean);
+      // Dieselben Bedingungen wie candidateFilterSql; die Fassungsbedingungen muss eine Fassung
+      // gemeinsam erfüllen.
+      const versionMatches = (record: NormRecord): boolean => {
+        if (!versionScope && !validOn && !validFrom && !validTo && publicationSources.length === 0 && publicationYears.length === 0) return true;
+        return record.versions.some((version) => {
+          if (versionScope && versionScope !== 'all' && classifyNormVersion(record, version, ctx.asOf) !== versionScope) return false;
+          const reference = ctx.publicationReferences.get(`${record.meta.slug}:${version.versionId}`);
+          if (publicationSources.length > 0 && !publicationSources.includes(reference?.publication ?? '')) return false;
+          if (publicationYears.length > 0 && !publicationYears.includes(reference?.publicationDate?.slice(0, 4) ?? '')) return false;
+          if (validOn && !(version.validFrom <= validOn && (!version.validTo || version.validTo >= validOn))) return false;
+          if (validFrom && version.validTo && version.validTo < validFrom) return false;
+          if (validTo && version.validFrom > validTo) return false;
+          return true;
+        });
+      };
       const matching = ctx.norms.filter((record) => {
         if (types.length > 0 && !types.includes(record.meta.type)) return false;
         if (originBySlug && !origins.includes(originBySlug.get(record.meta.slug) as NormOriginKind)) return false;
+        if (ministries.length > 0 && !ministries.includes(record.meta.responsibleMinistry ?? record.meta.ministry ?? '')) return false;
+        if (statuses.length > 0 && !statuses.includes(record.meta.status)) return false;
+        if (includeAmendments === false && isAmendmentRecord(record)) return false;
+        if (subjectSlugs.length > 0 && !record.meta.subjects.some((subject) => subjectSlugs.includes(getSubjectSlug(subject)))) return false;
+        if (!versionMatches(record)) return false;
         if (terms.length === 0) return true;
         const haystack = [record.meta.title, record.meta.shortTitle, record.meta.abbr ?? '', ...record.versions.flatMap((version) => [version.title ?? '', version.shortTitle ?? ''])].join(' ').toLocaleLowerCase('de');
         return terms.some((term) => haystack.includes(term));
       });
       if (terms.length === 0) {
-        // Ohne Suchausdruck wie die D1-Variante: jüngstes Rechtsereignis zuerst, dann Titel.
+        // Ohne Suchausdruck wie die D1-Variante: jüngste Rechtsänderung zuerst, dann Titel.
         const summaryBySlug = new Map((await summaries()).map((summary) => [summary.slug, summary]));
         matching.sort((left, right) => compareByActivity(summaryBySlug.get(left.meta.slug) as NormSummary, summaryBySlug.get(right.meta.slug) as NormSummary));
       }

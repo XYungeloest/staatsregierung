@@ -52,6 +52,82 @@ export interface NormSearchState {
   sortExplicit?: boolean;
 }
 
+/**
+ * Filter, die die Kandidatenabfrage der Such-API serverseitig ausdrückt (Namen der
+ * Anfrageparameter von /api/suche.json und Felder von SearchCandidateQuery in
+ * apps/recht/src/lib/runtime/store.ts).
+ */
+export interface SearchCandidateParams {
+  q: string;
+  exact: string;
+  citation: string;
+  types: string[];
+  origins: string[];
+  ministries: string[];
+  subjects: string[];
+  statuses: string[];
+  publicationSources: string[];
+  publicationYears: string[];
+  geltungstag: string;
+  validFrom: string;
+  validTo: string;
+  versionScope: VersionScope;
+  includeAmendments: boolean;
+}
+
+/**
+ * Freitextanteil der Anfrage. D1 liefert dazu nur großzügige Kandidaten (ODER über alle
+ * Wortvarianten); die feldbewusste, verknüpfende Bewertung läuft im Browser. Eine serverseitige
+ * Gesamtzahl beschreibt deshalb nie genau die angezeigte Trefferliste.
+ */
+export function hasFreeTextQuery(state: Pick<NormSearchState, 'q' | 'exact' | 'citation' | 'exclude'>): boolean {
+  return Boolean(state.q.trim() || state.exact.trim() || state.citation.trim() || state.exclude.trim());
+}
+
+/**
+ * Filter, die ausschließlich im Browser wirken: Ausgabennummer und Seite der Fundstelle. Beide
+ * vergleichen normalisierten Text (normalizeSearchText, bei der Seite als Teilstring); die
+ * Projektion trägt nur die unveränderten Werte, ein SQL-Vergleich träfe deshalb eine andere Menge.
+ */
+export function hasClientOnlyFilters(state: NormSearchState): boolean {
+  return Boolean(state.publicationIssue || state.publicationPage);
+}
+
+/**
+ * Trifft die serverseitig gezählte Kandidatenmenge genau die angezeigte Ergebnismenge? Nur dann
+ * darf eine Überschrift das `total` der Such-API als Gesamtzahl der Treffer nennen.
+ */
+export function candidateTotalMatchesResults(state: NormSearchState): boolean {
+  return !hasFreeTextQuery(state) && !hasClientOnlyFilters(state);
+}
+
+/**
+ * Kandidatenanfrage aus dem Suchzustand. `includeAmendments` wird nur ohne Freitext
+ * serverseitig verengt: mit Suchbegriff bleiben Änderungsvorschriften Kandidaten, weil die
+ * Bewertung im Browser sie bei einem unmittelbaren Titel- oder Fundstellentreffer trotzdem zeigt.
+ */
+export function buildSearchCandidateParams(state: NormSearchState): SearchCandidateParams {
+  const freeText = hasFreeTextQuery(state);
+  return {
+    q: state.q,
+    exact: state.exact,
+    citation: state.citation,
+    types: state.types,
+    origins: state.origins,
+    ministries: state.ministries,
+    subjects: state.subjects,
+    statuses: state.statuses,
+    publicationSources: state.publicationSources,
+    publicationYears: state.publicationYears,
+    geltungstag: state.geltungstag,
+    validFrom: state.validFrom,
+    validTo: state.validTo,
+    // Eine Fundstellensuche hebt den impliziten Standard auf alle Fassungen an (siehe evaluateDocument).
+    versionScope: freeText && state.versionScopeExplicit !== true ? 'all' : state.versionScope,
+    includeAmendments: state.includeAmendments || freeText || state.types.includes('aenderungsvorschrift'),
+  };
+}
+
 export type SearchRankTier = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export type SearchMatchKind =
@@ -897,8 +973,8 @@ export function compareNormSearchResults(
 ): number {
   if (sort === 'activity') {
     // Fehlt das Feld (ältere Suchdokumente), zählt der Fassungsbeginn.
-    const leftDate = left.documentEntry.lastActivityDate ?? left.documentEntry.validFrom;
-    const rightDate = right.documentEntry.lastActivityDate ?? right.documentEntry.validFrom;
+    const leftDate = left.documentEntry.lastChangeDate ?? left.documentEntry.validFrom;
+    const rightDate = right.documentEntry.lastChangeDate ?? right.documentEntry.validFrom;
     return rightDate.localeCompare(leftDate)
       || compareRank(left.rank, right.rank)
       || left.documentEntry.title.localeCompare(right.documentEntry.title, 'de')
