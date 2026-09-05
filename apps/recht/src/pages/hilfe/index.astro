@@ -1,4 +1,5 @@
 ---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
@@ -30,7 +31,7 @@ import {
   />
 
   <SectionHero
-    eyebrow="OstRecht"
+    eyebrow="Rechtsportal"
     title="Hilfe"
     lead="Hinweise zur Recherche im Rechtsportal, zu aktuellen und historischen Fassungen sowie zur Einordnung nach Sachgebieten."
     variant="law"
@@ -152,8 +153,8 @@ import {
         <h2>Rechtsbestand erkunden</h2>
         <nav aria-label="Hilfenavigation">
           <a href={getSearchUrl()}>Normensuche</a>
-          <a href={getIndexUrl()}>Alphabetischer Index</a>
-          <a href={getSubjectsUrl()}>Sachgebiete</a>
+          <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
+          <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
           <a href={getReferencesUrl()}>Fundstellennachweise</a>
           <a href={getPublicationsUrl()}>Verkündungen</a>
           <a href={getFundingUrl()}>Förderrichtlinien</a>

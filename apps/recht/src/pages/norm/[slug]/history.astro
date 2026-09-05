@@ -3,7 +3,7 @@ import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
 import NormVersionNavigation from '../../../components/norms/NormVersionNavigation.astro';
-import { formatDate, formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   classifyNormVersion,
   getLawPortalUrl,
@@ -13,6 +13,7 @@ import {
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getCurrentVersion, getVersionById } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
+import { normHeaderState } from '../../../lib/norm-header.ts';
 
 // Historienseiten werden zur Laufzeit aus D1 gelesen; Normkörper werden nicht benötigt.
 export const prerender = false;
@@ -38,6 +39,7 @@ const fullCitations: Record<string, string> = Object.fromEntries(
   norm.versions.map((version, index) => [version.versionId, citations[index] ?? version.citation]),
 );
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+const header = normHeaderState(norm, currentVersion);
 const initialVersion = norm.history.initialVersionId
   ? getVersionById(norm, norm.history.initialVersionId)
   : undefined;
@@ -64,11 +66,10 @@ const repealEntries = norm.history.entries.filter((entry) => entry.type === 'rep
 const noticeEntries = norm.history.entries.filter((entry) => entry.type === 'notice');
 const predecessorSlug = norm.meta.predecessorSlug;
 const successorSlug = norm.meta.successorSlug;
-const normStatusLabel = formatNormStatus(norm.meta.status);
-const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
 ---
 
 <LawLayout
+  documentFont
   title={`${normSeoTitle} Historie`}
   description={historyDescription}
   breadcrumbs={[
@@ -88,14 +89,8 @@ const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
   <NormPageHeader
     norm={norm}
     version={currentVersion}
-    eyebrow={norm.meta.status === 'in-force' ? 'Aktuelle Fassung' : 'Veröffentlichte Fassung'}
-    status={norm.meta.status === 'future-effective'
-      ? `Verkündet · Inkrafttreten am ${formatDate(statusDate)}`
-      : norm.meta.status === 'pending-effective'
-        ? 'Verkündet · Inkrafttreten noch nicht belegt'
-        : norm.meta.status === 'repealed' || norm.meta.status === 'historical'
-          ? `${normStatusLabel}${norm.meta.expiryDate ? ` seit ${formatDate(norm.meta.expiryDate)}` : ''}`
-          : `${normStatusLabel} seit ${formatDate(statusDate)}`}
+    eyebrow={header.eyebrow}
+    status={header.status}
     reference={toDisplayText(currentVersion.citation)}
     htmlHref={getNormUrl(norm.meta.slug)}
   />
@@ -130,7 +125,9 @@ const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
                 <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
               )}
               </strong>
-              <span class="norm-history__version-title">{toDisplayText(getNormVersionIdentity(norm, version).title)}</span>
+              {toDisplayText(getNormVersionIdentity(norm, version).title) !== normTitle
+                ? <span class="norm-history__version-title">Damaliger Titel: {toDisplayText(getNormVersionIdentity(norm, version).title)}</span>
+                : null}
               <span class="norm-history__version-validity">
               Gültig ab <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
               {version.validTo

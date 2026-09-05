@@ -1,0 +1,70 @@
+---
+import DirectoryEntry from './DirectoryEntry.astro';
+import DirectoryFilterBar from './DirectoryFilterBar.astro';
+import DirectoryPagination from './DirectoryPagination.astro';
+import LetterNav from './LetterNav.astro';
+import { formatDate, formatNormStatus, formatNormType, getNormUrl, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import type { NormDirectoryView } from '../../lib/runtime/directory.ts';
+
+/**
+ * Verzeichnisabschnitt der Normübersichten: Filterleiste, Ergebniszahl, Buchstabenleiste,
+ * Einträge im gemeinsamen Listenmuster und Seitennavigation – auf allen Seiten in dieser Folge.
+ */
+interface Props {
+  view: NormDirectoryView;
+  heading?: string;
+  headingId?: string;
+  filterLabel?: string;
+}
+
+const { view, heading, headingId = 'directory-heading', filterLabel = 'Verzeichnis filtern' } = Astro.props;
+const { result } = view;
+---
+
+<section class="directory" aria-labelledby={heading ? headingId : undefined} aria-label={heading ? undefined : filterLabel} data-directory>
+  {heading ? <h2 id={headingId} class="directory__heading">{heading}</h2> : null}
+  <DirectoryFilterBar action={view.basePath} label={filterLabel} hidden={view.hidden} active={view.active} resetHref={view.resetHref} count={view.count}>
+    {view.fields.map((field) => (
+      <label class="search-field">
+        <span>{field.label}</span>
+        {field.options
+          ? (
+            <select name={field.name}>
+              <option value="" selected={!field.value}>{field.allLabel}</option>
+              {field.options.map((option) => <option value={option.value} selected={option.value === field.value}>{option.label}</option>)}
+            </select>
+          )
+          : <input type="search" name={field.name} value={field.value} autocomplete="off" maxlength="200" placeholder={field.placeholder} />}
+      </label>
+    ))}
+  </DirectoryFilterBar>
+
+  <LetterNav letters={view.letters} current={view.letter} hrefFor={view.hrefForLetter} />
+
+  {result.items.length > 0 ? (
+    <ol class="directory-list" start={view.firstIndex} data-directory-list>
+      {result.items.map((norm) => (
+        <DirectoryEntry
+          title={toDisplayText(norm.title)}
+          href={getNormUrl(norm.slug)}
+          lead={{ text: formatDate(norm.currentValidFrom), datetime: norm.currentValidFrom }}
+          subtitle={norm.abbr ? toDisplayText(norm.abbr) : undefined}
+          description={toDisplayText(norm.summary)}
+          typeLabel={formatNormType(norm.type)}
+          originKind={norm.originKind ?? null}
+          facts={[
+            { label: 'Rechtsstand', value: formatNormStatus(norm.status) },
+            ...(norm.responsibleMinistry ? [{ label: 'Ressort', value: toDisplayText(norm.responsibleMinistry) }] : []),
+          ]}
+          attrs={{ 'data-directory-entry': '', 'data-origin': norm.originKind ?? 'origin-unresolved', 'data-type': norm.type, 'data-status': norm.status }}
+        />
+      ))}
+    </ol>
+  ) : (
+    <p class="directory-empty" data-directory-empty>
+      Passen Sie die Filter an oder <a class="inline-link" href={view.resetHref}>setzen Sie die Auswahl zurück</a>.
+    </p>
+  )}
+
+  <DirectoryPagination pagination={view.pagination} label="Seiten des Verzeichnisses" attrs={{ 'data-directory-pagination': '' }} />
+</section>

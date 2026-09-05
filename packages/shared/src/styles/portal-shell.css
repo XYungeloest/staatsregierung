@@ -1,6 +1,6 @@
 /* Regierungsportal-Redesign 2026: globaler Rahmen */
 body {
-  font-size: 1rem;
+  font-size: var(--text-base);
   color: var(--color-text);
 }
 
@@ -11,7 +11,24 @@ select:focus-visible,
 textarea:focus-visible,
 summary:focus-visible {
   outline-color: var(--color-focus);
-  box-shadow: var(--focus-ring);
+}
+
+/* Dunkle Flächen: dort verschwindet die blaue Outline im Hintergrund, erst der weiße Schein
+   trennt den Fokusrahmen ab. Das Token gehört zur Fläche, nicht zu einer Aufzählung von
+   Vorfahren – eine neue dunkle Fläche setzt es neben ihrem `background` mit. */
+.site-notice,
+.service-band,
+.site-footer,
+.law-notice,
+.law-footer,
+.home-hero,
+.home-lead-feature,
+.law-service-card,
+.topic-comparison__head,
+.home-freestate-card__mark span:nth-child(1),
+.home-hero-search__control button:hover,
+.header-search--mobile button:hover {
+  --focus-halo: var(--focus-ring);
 }
 
 .skip-link {
@@ -33,7 +50,7 @@ summary:focus-visible {
 }
 
 .site-notice__inner p {
-  font-size: 0.86rem;
+  font-size: var(--text-xs);
 }
 
 .site-notice__flag img {
@@ -74,15 +91,15 @@ summary:focus-visible {
 
 .site-wordmark .site-title {
   color: var(--color-primary-hover);
-  font-size: 1.42rem;
-  line-height: 0.98;
+  font-size: var(--text-lg-plus);
+  line-height: var(--lh-display);
   letter-spacing: -0.01em;
 }
 
 .site-wordmark .site-kicker {
   color: var(--color-text-muted);
-  font-size: 0.58rem;
-  line-height: 1.25;
+  font-size: var(--text-2xs);
+  line-height: var(--lh-heading);
   letter-spacing: 0.075em;
 }
 
@@ -99,7 +116,7 @@ summary:focus-visible {
   padding: 0.55rem 0.45rem;
   border-bottom: 3px solid transparent;
   color: var(--color-primary-hover);
-  font-size: 0.88rem;
+  font-size: var(--text-sm);
   font-weight: 680;
   white-space: nowrap;
 }
@@ -152,7 +169,13 @@ summary:focus-visible {
   background: #fff;
   color: var(--color-text);
   font: inherit;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
+}
+
+/* Eingabefeld und Suchknopf stoßen aneinander: innen liegender Umriss auf der eigenen weißen
+   Fläche statt außen auf dem dunklen Knopf (Befund A3). */
+.site-header__tools .header-search input:focus-visible {
+  outline-offset: -3px;
 }
 
 .site-header__tools .header-search button,
@@ -192,9 +215,9 @@ summary:focus-visible {
   gap: 0.3rem;
   min-height: 2rem;
   color: var(--color-primary-hover);
-  font-size: 0.75rem;
+  font-size: var(--text-2xs);
   font-weight: 650;
-  line-height: 1.15;
+  line-height: var(--lh-display);
   text-decoration: none;
 }
 
@@ -226,7 +249,7 @@ summary:focus-visible {
 }
 
 .breadcrumbs__list {
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .breadcrumbs__item:not(:last-child)::after {
@@ -306,14 +329,14 @@ summary:focus-visible {
 }
 
 .service-band__item strong {
-  font-size: 0.98rem;
+  font-size: var(--text-base);
 }
 
 .service-band__item small {
   margin-top: 0.18rem;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 0.78rem;
-  line-height: 1.35;
+  font-size: var(--text-xs);
+  line-height: var(--lh-heading);
 }
 
 /* Kompakter Footer */
@@ -340,7 +363,7 @@ summary:focus-visible {
 .site-footer__section h2 {
   margin-bottom: 0.35rem;
   color: #fff;
-  font-size: 1rem;
+  font-size: var(--text-base);
 }
 
 .site-footer__wordmark {
@@ -348,9 +371,9 @@ summary:focus-visible {
   align-items: center;
   gap: 0.7rem;
   width: fit-content;
-  font-size: 1.2rem !important;
+  font-size: var(--text-md) !important;
   font-weight: 780;
-  line-height: 1.05 !important;
+  line-height: var(--lh-display) !important;
 }
 
 .site-footer__wordmark img {
@@ -393,14 +416,14 @@ summary:focus-visible {
 .site-footer__legal a,
 .site-footer__bottom .text-link-button {
   color: rgba(255, 255, 255, 0.84);
-  font-size: 0.82rem;
+  font-size: var(--text-xs);
 }
 
 .site-footer__bottom .text-link-button {
   flex: 0 0 auto;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 80rem) {
   .site-header__main {
     grid-template-columns: minmax(0, 1fr) auto;
     min-height: 5rem;
@@ -474,7 +497,7 @@ summary:focus-visible {
 
   .header-search--mobile > label {
     color: var(--color-heading);
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     font-weight: 700;
   }
 
@@ -519,7 +542,7 @@ summary:focus-visible {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 48rem) {
   .site-notice__inner {
     flex-direction: row;
     align-items: flex-start;
@@ -527,8 +550,8 @@ summary:focus-visible {
 
   .site-notice__inner p {
     width: auto;
-    font-size: 0.8rem;
-    line-height: 1.35;
+    font-size: var(--text-xs);
+    line-height: var(--lh-heading);
   }
 
   .site-header__main {
@@ -543,7 +566,7 @@ summary:focus-visible {
 
   .site-wordmark .site-title {
     width: auto;
-    font-size: 1.12rem;
+    font-size: var(--text-md);
   }
 
   .site-wordmark .site-kicker {
