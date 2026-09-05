@@ -101,11 +101,11 @@ test('7: Fixture-Metadaten werden nie als Vollbestands-Basis anerkannt', () => {
   assert.equal(decideSyncAction({ requested: 'incremental', stored: fixtureAsBase, identity: head, baseIdentity: base, recover: true }).action, 'recovery');
 });
 
-test('Übergang: eine mit dem früheren Portalhash geschriebene Basisidentität wird als Basis anerkannt, andere Werte nicht', () => {
+test('Base-State-Guard: nur die Identität des Basis-Refs wird als Ausgangszustand anerkannt', () => {
   const head = { ...full, fingerprint: '9'.repeat(64) };
-  const base = { ...full, fingerprint: '8'.repeat(64), legacyFingerprint: '7'.repeat(64), ref: 'main' };
+  const base = { ...full, fingerprint: '8'.repeat(64), ref: 'main' };
   assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '8'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
-  assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
+  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
   assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
 });
 

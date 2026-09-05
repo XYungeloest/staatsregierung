@@ -15,13 +15,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   (Schreibvorgänge einer Vollprojektion, CPU-Zeit großer Normen). Fertig, wenn der Plan aktiv ist
   und `docs/DEPLOYMENT_RUNBOOK.md` die geltenden D1-Limits nennt.
 
-- [ ] Übergangsregel des Base-State-Guards entfernen: `projectionIdentity` liefert neben dem
-  Fingerabdruck einen `legacyFingerprint` (Portalhash über ganze Dateien), den
-  `decideSyncAction` als Basiszustand akzeptiert, damit eine vor der projektionsrelevanten
-  Portalhash-Berechnung geschriebene D1 noch als Basis gilt. Fertig, wenn Produktion und Staging
-  eine Identität der neuen Berechnung tragen (`npm run norms:runtime:d1-sync -- --remote-state …`
-  meldet No-op) und `legacyFingerprint` samt Test in `tests/recht-d1-sync-guard.test.mjs` gelöscht ist.
-
 ## Sitzungsmediathek der Volkskammer
 
 Große Audio- oder Videodateien dürfen weder unter `public/` (Workers Static Assets: 25 MiB je
