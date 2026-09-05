@@ -101,6 +101,7 @@ interface OverflowReport {
   bodyWidth: number;
   total: number;
   leaves: number;
+  chains: string[];
   entries: OverflowEntry[];
   fontsStatus: string;
   fonts: string[];
@@ -172,12 +173,21 @@ async function describeOverflow(page: Page): Promise<string> {
     // Element, dessen Min-Content der Spaltenbreite entspricht, ist die Quelle der Breite; alles
     // andere ist nur auf die Spalte gestreckt.
     const minContentWidth = (element: HTMLElement): number => {
-      const previous = element.style.getPropertyValue('width');
-      const priority = element.style.getPropertyPriority('width');
+      const previousWidth = element.style.getPropertyValue('width');
+      const widthPriority = element.style.getPropertyPriority('width');
+      const previousDisplay = element.style.getPropertyValue('display');
+      const inline = getComputedStyle(element).display === 'inline';
+      // Inline-Elemente ignorieren width; als inline-block gemessen liefern sie ihr Min-Content
+      // (bei white-space: nowrap die ganze Zeile).
+      if (inline) element.style.setProperty('display', 'inline-block', 'important');
       element.style.setProperty('width', 'min-content', 'important');
       const width = element.getBoundingClientRect().width;
-      if (previous) element.style.setProperty('width', previous, priority);
+      if (previousWidth) element.style.setProperty('width', previousWidth, widthPriority);
       else element.style.removeProperty('width');
+      if (inline) {
+        if (previousDisplay) element.style.setProperty('display', previousDisplay);
+        else element.style.removeProperty('display');
+      }
       return round(width);
     };
     const layoutOf = (style: CSSStyleDeclaration): string => {
@@ -210,6 +220,26 @@ async function describeOverflow(page: Page): Promise<string> {
         }
       }
       return best;
+    };
+
+    // Absteigekette: von einer Quelle abwärts jeweils das Kind mit dem größten Min-Content, bis kein
+    // Kind mehr die Breite trägt – so erscheint das ursächliche Element auch dann, wenn es selbst
+    // innerhalb des Viewports bleibt (z. B. eine nowrap-Zeile hinter dem Innenabstand des Vorfahren).
+    const chainFrom = (start: HTMLElement): string => {
+      const steps: string[] = [];
+      let current: HTMLElement = start;
+      for (let level = 0; level < 12; level += 1) {
+        const children = Array.from(current.children).filter((child): child is HTMLElement => child instanceof HTMLElement);
+        if (children.length === 0) break;
+        const measured = children.map((child) => ({ child, width: minContentWidth(child) })).sort((a, b) => b.width - a.width);
+        const next = measured[0];
+        if (!next || next.width < minContentWidth(current) * 0.5) break;
+        const style = getComputedStyle(next.child);
+        const token = widestToken(next.child);
+        steps.push(`${describe(next.child)} [${next.width}${style.whiteSpace !== 'normal' ? `, white-space ${style.whiteSpace}` : ''}${style.overflowWrap !== 'normal' ? `, overflow-wrap ${style.overflowWrap}` : ''}${token.token ? `, längstes Wort „${token.token}“ ${token.width} px` : ''}]`);
+        current = next.child;
+      }
+      return steps.length > 0 ? `${describe(start)} [${minContentWidth(start)}] → ${steps.join(' → ')}` : '';
     };
 
     const found: Array<{ element: HTMLElement; entry: OverflowEntry }> = [];
@@ -262,12 +292,14 @@ async function describeOverflow(page: Page): Promise<string> {
       entry.index = position + 1;
       element.setAttribute('data-overflow-report', String(entry.index));
     });
+    const chains = [leaves[0], ancestors[0]].filter((item): item is { element: HTMLElement; entry: OverflowEntry } => Boolean(item)).map(({ element }) => chainFrom(element)).filter(Boolean);
     return {
       viewportWidth,
       documentWidth: document.documentElement.scrollWidth,
       bodyWidth: document.body.scrollWidth,
       total: found.length,
       leaves: leaves.length,
+      chains,
       entries: kept.map(({ entry }) => entry),
       fontsStatus: document.fonts.status,
       fonts: Array.from(document.fonts).map((face) => `${face.family} ${face.weight} ${face.style}: ${face.status}`),
@@ -306,7 +338,8 @@ async function describeOverflow(page: Page): Promise<string> {
     entry.clippedBy ? `abgeschnitten durch ${entry.clippedBy}` : '',
     entry.text ? `Text „${entry.text}“` : '',
   ].filter(Boolean).join(' · '));
-  return [header, ...lines, `Schriften (document.fonts.status ${data.fontsStatus}): ${data.fonts.join('; ') || 'keine @font-face-Regeln'}`].join('\n');
+  const chains = data.chains.map((chain) => `Kette (Min-Content je Ebene): ${chain}`);
+  return [header, ...lines, ...chains, `Schriften (document.fonts.status ${data.fontsStatus}): ${data.fonts.join('; ') || 'keine @font-face-Regeln'}`].join('\n');
 }
 
 async function prepareLocator(locator: Locator): Promise<void> {
