@@ -1,354 +1,373 @@
 # Design-System: Freistaat Ostdeutschland und OstRecht
 
-Dieses Dokument beschreibt die visuelle Leitlinie beider öffentlichen Anwendungen. Maßgeblich bleibt der tatsächliche
-Stand in `packages/shared/src/styles/global.css`; dieses Dokument hält die gestalterischen Entscheidungen und ihre
-Anwendung fest.
+Dieses Dokument beschreibt den gestalterischen Ist-Zustand beider öffentlichen Anwendungen und dient
+als Prüfmaßstab. Maßgeblich sind die Stylesheets unter `packages/shared/src/styles/`, die Tokens in
+`foundation.css` und die Tests unter `tests/`; jede Angabe hier ist dort nachweisbar. Was sich ändert,
+wird hier geändert, nicht als „früher“ ergänzt – die Historie liegt in Git.
 
 ## Grundhaltung
 
-Das Portal wirkt wie eine sachliche Regierungswebsite: ruhig, verlässlich, verständlich und
-barrierearm. Die Gestaltung priorisiert Orientierung, Zuständigkeiten und aktuelle Informationen.
-Sie vermeidet Kampagnenästhetik, unnötige Effekte und den Eindruck einer Entwicklerdemo.
-
-Die Startseite besteht aus einem klaren Behördenkopf, einer bildgestützten Suche, kompakten
-Direkteinstiegen, einem sichtbaren Hinweisband und geordneten Informationsbereichen. Inhalte und
-Funktionen bleiben vollständig aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
+Beide Portale wirken wie eine sachliche Regierungswebsite: ruhig, verlässlich, verständlich und
+barrierearm. Die Gestaltung priorisiert Orientierung, Zuständigkeiten und aktuelle Informationen und
+vermeidet Kampagnenästhetik, Effekte und den Eindruck einer Entwicklerdemo. Inhalte und Funktionen
+bleiben vollständig aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
 
 ## Stylesheet-Struktur
 
-`packages/shared/src/styles/global.css` hält nur die stabile Importreihenfolge. `packages/shared/src/styles/law-portal.css`
-ergänzt den eigenständigen OstRecht-Shell und die Normdarstellung. Die Kaskade ist nach Verantwortung
-gegliedert: `foundation.css` enthält Tokens, Basis-, Layout- und allgemeine Fachregeln,
-`section-system.css` die Bereichsheros und lokale Orientierung, `portal-shell.css` Behördenkopf,
-Serviceband und Footer, `home.css` die Startseite und `content-layout.css` die abschließende
-Verdichtung gemeinsamer Inhaltsseiten. Responsive und druckspezifische Regeln bleiben jeweils bei
-ihrem fachlichen Block; ihre Reihenfolge darf nicht ohne visuelle Regressionstests verändert werden.
+`packages/shared/src/styles/global.css` hält nur die Importreihenfolge: `foundation.css` (Tokens,
+Basis-, Layout- und allgemeine Fachregeln), `section-system.css` (Bereichsköpfe und lokale
+Orientierung), `portal-shell.css` (Behördenkopf, Serviceband, Footer), `home.css` (Startseite des
+Staatsportals), `content-layout.css` (Verdichtung gemeinsamer Inhaltsseiten), `holdings.css`
+(Beteiligungsseiten) und zuletzt `law-portal.css` (OstRecht-Shell, Verzeichnisse, Suche,
+Normdarstellung). Responsive und druckspezifische Regeln bleiben bei ihrem fachlichen Block; ihre
+Reihenfolge darf nicht ohne visuelle Regressionstests verändert werden.
 
-Gemeinsame Root-Regeln für `.page-header` und `.panel` besitzen jeweils eine Basisdefinition und
-höchstens eine bewusst spätere Inhaltsseiten-Verfeinerung; responsive Varianten bleiben getrennt.
+Je Selektor gibt es außerhalb von Media Queries eine Definition. Zulässig ist eine Gruppenregel mit
+unmittelbar folgender Verfeinerung desselben Selektors; zwei konkurrierende Stände sind es nicht.
+Größen, Abstände, Radien und Farben kommen aus den Tokens unten. Ein Einzelwert neben der Skala ist
+ein Hinweis auf eine fehlende Stufe: dann wird die Stufe ergänzt und im Commit begründet, nicht der
+Einzelwert behalten.
 
 ## Design-Tokens
 
-Die zentralen Werte liegen als CSS Custom Properties in `packages/shared/src/styles/global.css`.
+Die Tokens liegen in `foundation.css` unter `:root`; OstRecht überschreibt einzelne davon in
+`law-portal.css` unter `.law-site`. Die Tabelle nennt Tokens und Rollen, keine Werte – die Werte
+stehen im Stylesheet.
 
-| Rolle | Wert | Verwendung |
+| Rolle | Token | Verwendung |
 | --- | --- | --- |
-| Primärblau | `#173b6b` | Navigation, Links, primäre Orientierung |
-| Dunkelblau | `#0a2547` | Hero, Serviceband, Footer |
-| Sekundärgrün | `#2f7b3d` | ruhige Akzente und Status |
-| Warnrot | `#8f2e2f` | ausschließlich Fehler-, Warn- und Gefahrensituationen |
-| Gold | `#c39a3b` | sparsame Hervorhebung |
-| Text | `#20312d` | Fließtext |
-| Seitenfläche | `#edf1f0` | Seitenhintergrund |
-| Oberfläche | `#fffffb` | Karten und Inhaltsflächen |
-| Rahmen | `#c6d2cc` | Trennung und Gruppierung |
+| Seitenfläche | `--color-page`, `--color-page-deep` | Seitenhintergrund, abgesetzte Bänder |
+| Oberflächen | `--color-surface`, `--color-surface-alt`, `--color-surface-muted` | Karten, Formulare, ruhige Flächen |
+| Rahmen (genau drei) | `--color-border-soft`, `--color-border`, `--color-border-strong` | Innentrenner, Gruppierung, Abgrenzung |
+| Text | `--color-text`, `--color-text-muted`, `--color-heading` (= `--color-ink`) | Fließtext, Nebentext, Überschriften |
+| Primär und Akzent | `--color-primary`, `--color-primary-hover`, `--color-accent`, `--color-accent-hover`, `--color-accent-soft` | Links, Knöpfe, aktive Zustände; im Rechtsportal zeigt `--color-accent` auf `--law-blue` |
+| OstRecht-Marke | `--law-blue`, `--law-blue-dark`, `--law-blue-light`, `--law-green`, `--law-red` | Kopf, Hinweisleiste, Servicekarte, Statusflächen |
+| Sekundärgrün | `--color-secondary`, `--color-secondary-hover` | ruhige Akzente, geltende Fassungen, Einfügungen |
+| Warnrot | `--color-seal`, `--color-seal-hover` (Rechtsportal `--law-red`) | Aufhebung, Fehler, Warnungen (siehe Farbrollen) |
+| Gold | `--color-gold` | aktiver Navigationspunkt, Oberrand der Leitkarte |
+| Informationsflächen | `--color-info-blue`, `--color-info-green`, `--color-info-gold` | Hinweise, Status, künftige und entfallene Fassungen |
+| Fokus | `--color-focus`, `--focus-ring`, `--focus-halo` | Umriss, weißer Schein, Vererbung an dunkle Flächen |
+| Hinweisleiste | `--color-banner` | Simulationshinweis des Staatsportals |
+| Schatten | `--shadow-soft`, `--shadow-card` | Ebenentrennung, sparsam |
+| Radien | `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-pill` | 0,5 / 0,75 / 0,875 rem; Pillen ein Idiom |
+| Breiten | `--content-width` (Staatsportal 84 rem, OstRecht 96 rem), `--content-width-narrow`, `--space-section` | Inhaltscontainer, Lesespalte, Abstand zwischen Bändern |
 
-Ecken sind mit etwa 8 bis 14 Pixeln nur leicht gerundet. Schatten trennen Ebenen zurückhaltend;
-Rahmen und Abstände tragen die Struktur. Farbverläufe und dekorative Großformen sind kein
-Grundelement des Portals.
+Hexwerte stehen nur in den Token-Definitionen und als `#fff`, wo reines Weiß gemeint ist; Rahmen- und
+Flächenfarben kommen ausschließlich aus Tokens. Rahmen und Abstände tragen die Struktur, Schatten
+trennen Ebenen zurückhaltend. Farbverläufe gibt es nur noch am Fußbereich und an der Servicekarte
+des Rechtsportals, wo keine Kleinschrift darüber liegt; dekorative Großformen gibt es nicht.
 
 ## Typografie
 
-Das Portal verwendet Jost als lokal ausgelieferte Variable Font für Überschriften, Navigation und
-Fließtext. Schriftgrößen sind responsiv begrenzt und lange Ressort- oder Amtsbezeichnungen dürfen
-umbrechen.
+### Schriften
 
-- Überschriften sind kurz, sachlich und gut scannbar.
-- Fließtext arbeitet mit gut lesbarer Zeilenhöhe und begrenzter Zeilenlänge.
-- Karten verwenden keine unnötig kleinen Hilfstexte.
-- Negative Laufweiten werden vermieden.
-- Personenbezeichnungen verwenden einheitlich den Doppelpunkt.
+Beide Familien werden lokal aus `packages/shared/src/assets/fonts/` als untersetzte woff2
+ausgeliefert (Zeichenumfang, Werkzeuge und Kommandos: `README.md` im selben Ordner):
+
+| Datei | Familie | Achsen | Größe | Rolle |
+| --- | --- | --- | --- | --- |
+| `Jost-Variable.woff2` | Jost (OFL) | wght 100–900 | 34 KB | Oberfläche beider Portale |
+| `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, OFL) | wght 400–700, opsz 12–48 | 86 KB | Dokument im Rechtsportal |
+
+Budget für die gesamte Schriftübertragung: 270 KB; Stand 120 KB. Keine Kursive (der Bestand enthält
+keine). `font-display: swap` mit metrikangeglichenen Rückfallschnitten (`Jost Fallback` auf Arial,
+`Source Serif 4 Fallback` auf Georgia, `size-adjust` und Overrides aus den Schriftmetriken), damit der
+Wechsel keine Sprünge erzeugt. `PageHead.astro` lädt Jost auf jeder Seite vor, die Serife auf den
+Normseiten (`documentFont`). Die Optical-Size-Achse folgt der Schriftgröße automatisch.
+
+Tokens: `--font-sans` (Jost), `--font-display` (Alias von `--font-sans`), `--font-document`
+(Source Serif 4). Der Wechsel der Dokumentschrift ist eine Änderung an `--font-document`.
+Systemschriften kommen nur als Rückfall vor.
+
+### Rollen
+
+Die Serife trägt das Dokument, Jost die Oberfläche – nicht „Serife für Überschriften“.
+
+- Serife (`--font-document`): der Vorschriftentext (`#normtext`) samt Absätzen, Nummern, Buchstaben,
+  Tabellen und Anlagen; die Gliederungsüberschriften darin einschließlich der kleinen Nummernzeile
+  („I. Abschnitt“, „Artikel 1“); die H1 des Normkopfs in allen vier Normansichten; der verglichene
+  Text und seine Überschriften im Fassungsvergleich; das Vollzitat.
+- Jost (`--font-sans`): alles Übrige – Wortmarke, Navigation, Brotkrume, Fußbereich, alle übrigen
+  Seitentitel, Verzeichnisse und Trefferlisten einschließlich der Normtitel darin, Filter, Formulare,
+  Knöpfe, Etiketten, Badges, Statuszeilen, Metadaten, Fundstellen, Kennzahlen.
+- Grenzfälle: die Werkzeuge vor dem Text und je Einheit sowie die Überschrift „Vorschriftentext“
+  sind Oberfläche (Jost), obwohl sie im Dokumentbereich stehen; die Spaltenlabels „Fassung vom …“ des
+  Vergleichs sind Jost, der verglichene Text darunter Serife.
+
+### Skalen
+
+Typoskala (`foundation.css`): `--text-2xs` 0,72 rem (11,52 px), `--text-xs` 0,82 (13,12),
+`--text-sm` 0,92 (14,72), `--text-base` 1 (16), `--text-base-plus` 1,0625 (17), `--text-md` 1,15
+(18,4), `--text-lg` 1,3 (20,8), `--text-lg-plus` 1,5 (24), `--text-xl` 1,75 (28). Begründete
+Zusatzstufen: `--text-base-plus` für Kartentitel (zwischen 16 und 18,4 px), `--text-lg-plus` für die
+Abschnitts-H2 des Staatsportals (sonst 20,8 px). Die kleinste Stufe trägt Wortmarken-Untertitel und
+Kennzahl-Etiketten.
+
+Titelstufen, eine je Seitenfamilie in beiden Portalen: `--text-display` für den Startseiten-Hero,
+`--text-title` für Bereichs-, Such- und Hilfeseiten, `--text-title-long` für Langtitel (Normseiten,
+Rechtsentwicklung, Personen, Beteiligungen). Alle drei sind `clamp()`-Ausdrücke (bei 1440 px:
+50,4 / 52 / 42,4 px).
+
+Zeilenhöhen ausschließlich aus vier Tokens: `--lh-display` 1,12 (Titel), `--lh-heading` 1,28
+(Überschriften), `--lh-compact` 1,45 (Etiketten, Menü- und Bedienzeilen), `--lh-body` 1,65
+(Lesetext). Ausnahme ist `line-height: 1` auf Aufklappzeichen (`::before`/`::after`), der Wortmarke
+und dem Symbolknopf der Einheitenwerkzeuge – Geometrie, keine Typografie.
+
+Normtext: 16 px, `max-width: 72ch` (in der Serife rund 70 Zeichen je Zeile), Zeilenhöhe 1,65.
+Lange Ressort-, Amts- und Normtitel dürfen umbrechen; negative Laufweiten kommen nicht vor;
+Personenbezeichnungen verwenden den Doppelpunkt.
+
+## Abstände und Radien
+
+Abstandsskala: `--space-hairline` 2 px, `--space-1` 4, `--space-xs` 6, `--space-2` 8, `--space-3` 12,
+`--space-4` 16, `--space-5` 24, `--space-6` 32, `--space-7` 48, `--space-8` 64. `--space-hairline` und
+`--space-xs` sind ergänzte Zwischenstufen für Haarabstände und die häufigen 6-px-Lücken.
+`--space-section` (`clamp(2.5rem, 5vw, 4.5rem)`) trennt die Bänder einer Seite. Radien nur aus
+`--radius-sm`, `--radius-md`, `--radius-lg` und `--radius-pill`.
 
 ## Layoutsystem
 
-Das Staatsportal verwendet `apps/portal/src/layouts/BaseLayout.astro` mit zwei Hauptvarianten:
-
-- `contained` für Fach- und Inhaltsseiten mit einem begrenzten Hauptcontainer
-- `full` für die Startseite mit vollbreiten Farbbändern und jeweils innen begrenzten Containern
-
-Der maximale Inhaltscontainer ist 84 Rem breit. Vollbreite Bereiche behalten stets ausreichende
-Innenabstände. Wiederholte Einheiten nutzen Grid oder strukturierte Listen; ganze Fachabschnitte
-werden nicht ohne Grund in schwebende Karten verwandelt.
-
-OstRecht verwendet das getrennte `apps/recht/src/layouts/LawLayout.astro`. Es teilt Typografie, Tokens, Skip-Link,
-Fokusregeln und fachliche Normkomponenten mit dem Staatsportal, kontrolliert aber Header,
-OstRecht-Wortmarke, Recherche-Navigation, Suche, Breadcrumb-Kontext und Footer selbstständig.
+Das Staatsportal verwendet `apps/portal/src/layouts/BaseLayout.astro` mit den Hauptvarianten
+`contained` (begrenzter Hauptcontainer) und `full` (vollbreite Bänder mit innen begrenzten
+Containern). OstRecht verwendet `apps/recht/src/layouts/LawLayout.astro` mit denselben Varianten;
+es teilt Tokens, Schriften, Skip-Link, Fokusregeln und die Normkomponenten, kontrolliert aber Kopf,
+Wortmarke, Navigation, Suche, Brotkrume und Fußbereich selbst. Wiederholte Einheiten nutzen Grid oder
+strukturierte Listen; Fachabschnitte werden nicht ohne Grund zu schwebenden Karten.
 
 ## Kopfbereiche
 
-Der Header des Staatsportals besteht aus:
+Der Kopf des Staatsportals besteht aus Simulations-Hinweisleiste, Wortmarke mit Staatsflagge,
+Hauptnavigation mit `aria-current`, Portalsuche und den Einstiegen zu Leichter Sprache und
+Gebärdensprache. Ab 80 rem Breite wandern Navigation, Suche und Servicelinks gemeinsam in das native,
+tastaturbedienbare Menü.
 
-1. sichtbarer Simulations-Hinweisleiste,
-2. Wortmarke mit Staatsflagge,
-3. Hauptnavigation mit aktivem Zustand,
-4. realer Portalsuche,
-5. Einstiegen zu Leichter Sprache und Gebärdensprache.
+OstRecht führt eine dunkle Hinweisleiste (`.law-notice`), die Wortmarke „OstRecht – Rechtsportal des
+Ostdeutschen Freistaates“, die Hauptnavigation zu Gesetzen, Verordnungen, Verwaltungsvorschriften,
+Verfassung, Verkündungen und Sachgebieten, ein kompaktes Suchfeld und die Servicewege
+Barrierefreiheit und Staatsportal. Verkündungen bleiben ein eigener Navigationspunkt. Politische
+Teaser- und Pressenavigation gehören nicht in diese Navigation.
 
-Auf kleineren Bildschirmen bleiben Suche und Servicelinks direkt in der geöffneten
-Menünavigation erreichbar. Das Menü verwendet native, tastaturbedienbare Elemente. Der Skip-Link
-führt unmittelbar zum Hauptinhalt.
+## Responsives Verhalten
 
-OstRecht besitzt einen kompakteren Recherchekopf mit der Marke „OstRecht“, dem Untertitel
-„Rechtsportal des Ostdeutschen Freistaates“, einer eigenen Hauptnavigation und einem sichtbaren,
-portalweit verfügbaren kompakten Suchfeld sowie einem nachgeordneten Rückweg zum Staatsportal. Auf
-kleinen Bildschirmen bleibt die Suche im geöffneten OstRecht-Menü unmittelbar erreichbar. Politische Teaser- und Pressenavigation gehören nicht
-in seine Primärnavigation. Die Primärnavigation führt zu Gesetzen, Verordnungen,
-Verwaltungsvorschriften, Verfassung, Verkündungen und Themen. Verkündungen bleiben dabei ein eigenständiger,
-zentraler Portalweg und werden nicht unter einem allgemeinen Recherche- oder Servicepunkt verborgen.
+Es gibt vier Breakpoints, alle als `max-width` in rem: **80 rem**, **64 rem**, **48 rem**, **30 rem**.
 
-## Startseite
+- bis 80 rem (kleiner Desktop): im Rechtsportal klappt nur die Navigationsliste in das Menü;
+  Wortmarke, Suchfeld und Menüknopf bleiben sichtbar (Kopf-Zwischenstufe). Das Band der
+  Startseite geht auf zwei Spalten, die Funktionskarte nimmt die volle Breite.
+- bis 64 rem (Tablet quer): die beiden Servicewege stehen im geöffneten Menü, die Suche bleibt im
+  Kopf; Normarbeitsbereich und Startseitenbänder werden einspaltig, Inhaltsübersicht und
+  Vorschriftendaten werden zu nativen Aufklappbereichen.
+- bis 48 rem (Tablet hoch): Verzeichniseinträge, Filterleisten und Formularzeilen stapeln sich; die
+  Werkzeuge je Einheit sind dauerhaft sichtbar.
+- bis 30 rem (Smartphone): auch die Kopfsuche weicht in das Menü, dort bleibt sie erreichbar;
+  Kacheln werden einspaltig.
 
-Die Startseite folgt einer festen Informationshierarchie:
+Inhalte werden gestapelt, nicht abgeschnitten oder versteckt. Kein Seitenlayout erzeugt
+horizontalen Dokumentüberlauf (geprüft bei 375, 768, 1024, 1100, 1280 und 1440 px). Tabellen dürfen
+nur in einem gekennzeichneten Scrollbereich (`.table-wrap`) horizontal rollen; ihre wesentlichen
+Informationen bleiben außerhalb zugänglich.
 
-1. Hero mit redaktionellem Staatskanzlei-Bild, H1 und Portalsuche
-2. zentrale Portalpfade als kompakte Zugangskarten
-3. wichtiges Hinweisband aus vorhandenen Inhalten
-4. Presse, aktuelle Ministerien und Freistaat-Kurzprofil
-5. Kreisreform als hervorgehobener Portalweg und weitere Themen
-6. Recht, Haushalt, Regierungsprogramm, Karriere und weitere Serviceangebote
-7. globales 115-Serviceband und Footer
+## Farbrollen
 
-Suchvorschläge, Karten, Hinweise und Listen verweisen ausschließlich auf vorhandene Seiten. Die
-Direkteinstiege sind keine erfundenen Onlinedienste.
+- Rot: Im Rechtsportal ausschließlich Aufhebung (`--law-red` an `.norm-history__event--repeal`),
+  Fehler und Warnungen; aktiver Navigationspunkt, Fokus und Hilfe-Nummern tragen kein Rot. Im
+  Staatsportal ist `--color-seal` die Warnfarbe für Hinweise und Warnungen; darüber hinaus steht sie
+  in `foundation.css` noch an Zeitstrahl-Markern, dem Aufklappzeichen der FAQ, den Trennern der
+  Brotkrume, dem Startseiten-Hinweis und der Reform-Karte – das sind die einzigen nicht warnenden
+  Rotstellen.
+- Gold: aktiver Punkt der Hauptnavigation in beiden Portalen (`aria-current="page"`), Oberrand
+  der Leitkarte der Startseite, Informationsfläche `--color-info-gold`.
+- Grün: Sekundärakzent, geltende Fassungen, Einfügungen im Vergleich (`ins` auf
+  `--color-info-green`).
+- Fokus: `--color-focus` ist in beiden Portalen dieselbe Farbe; der Umriss ist 3 px breit mit 2 px
+  Versatz. In zusammengesetzten Bedienelementen, in denen der Umriss sonst auf einem dunklen Nachbarn
+  läge (Kopfsuchfelder, Auswahlfelder der Suchpillen, Servicelinks), liegt er innen
+  (`outline-offset: -3px`). Der weiße Fokusschein ist das vererbte Token `--focus-halo`: dunkle
+  Flächen und Bedienelemente setzen es auf `var(--focus-ring)` (Serviceband, Fußzeilen,
+  Hinweisleiste, Startseiten-Hero, Leitkarte, Servicekarte, Vergleichskopf, Sprunglink sowie
+  Hauptnavigation und Menüknopf des Rechtsportals, die bis an die Hinweisleiste reichen). Der Test
+  „Fokusindikator hebt sich von seiner Bezugsfläche ab“ in `tests/accessibility.spec.ts` fährt auf
+  sechs Seiten beider Portale jedes fokussierbare Element an und verlangt mindestens 3 : 1 gegen die
+  Fläche, auf der der Umriss tatsächlich liegt.
+- Farbe ist nie die einzige Unterscheidung: jede Statusklasse trägt Text.
 
-Der Bereich „Aktuelles Regierungshandeln“ zeigt die aktiven Hervorhebungen aus den Themendaten
-(höchstens drei): ein Leitvorhaben als dunkle Karte mit Status, Termin und nächstem Schritt sowie
-bis zu zwei weitere Vorhaben als kompakte Karten daneben. Bei genau einer aktiven Hervorhebung
-füllt das Leitvorhaben die Zeile allein und ordnet Text und Fakten nebeneinander; auf kleinen
-Bildschirmen stapeln sich beide. Hervorhebungen sind redaktionelle Entscheidungen und werden nicht
-aus Layoutgründen gesetzt.
+## Seitenfamilien des Rechtsportals
 
-## Komponenten
+### Verzeichnisse
 
-Wiederkehrende Startseitenmuster liegen als kleine Astro-Komponenten unter
-`apps/portal/src/components/portal/`. Anwendungsübergreifende Grundbausteine wie
-`PortalIcon.astro`, `ResponsivePicture.astro` und `SectionHero.astro` liegen unter
-`packages/shared/src/components/portal/`.
+Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien, Verkündungen, Fundstellen,
+Rechtsentwicklung, Sachgebiete und A–Z verwenden dieselben Bausteine aus
+`apps/recht/src/components/directory/`:
 
-- `PortalAccessCard.astro`: zentrale Portalpfade
-- `ImportantNoticeBand.astro`: kompakte wichtige Hinweise
-- `HomePressList.astro`: aktuelle Presseinformationen
-- `HomeMinistryList.astro`: aktuelle Ressortliste
-- `FreestateSummary.astro`: Freistaat-Kurzprofil
-- `ServiceBand.astro`: 115-, Kontakt-, Behördenfinder-, RSS- und Kalenderzugänge
+- `DirectoryEntry.astro`: links Datum oder Buchstabe, Mitte Titel mit Kurzbeschreibung, rechts
+  Fakten als Definitionsliste, darunter die Badgezeile (Normtyp, Rechtsherkunft). Verkündungen zeigen
+  die Herkunft der verkündeten Vorschriften.
+- `DirectoryFilterBar.astro`: Auto-Fit-Raster, Aktionen an derselben Stelle, „Zurücksetzen“ immer
+  vorhanden und ohne aktiven Filter ausgegraut (`aria-disabled`), die Ergebniszahl unter der Leiste;
+  der Bereichskopf nennt keine Bestandszahl mehr.
+- `LetterNav.astro`: Sprungnavigation mit allen 27 Buchstabengruppen, unbelegte sichtbar inaktiv.
+- `DirectoryPagination.astro`: serverseitige Seiten zu 50 Einträgen (`DEFAULT_PAGE_SIZE`) in allen
+  Verzeichnissen; im A–Z stehen Vorschriften und Stichwörter je zu 50 (`KEYWORD_PAGE_SIZE`) mit
+  unabhängigen Parametern `seite` und `stichwortseite`.
 
-Buttons, Links, Suchmasken und Karten besitzen gut erkennbare Hover- und Fokuszustände. Icons
-ergänzen Text, ersetzen ihn aber nicht. Breadcrumbs, Tabellen, Definitionen und Listen bleiben die
-bevorzugten Muster für Rechts- und Verwaltungsinhalte.
+Filter und Seiten laufen über GET-Parameter mit kanonischer Adresse; Seiten mit aktiven Filtern
+tragen `noindex`. Verkündungen und Fundstellen filtern ihre Metadatentabelle im Speicher, folgen aber
+demselben Adress- und Seitenmuster.
 
-## Bilder
+### Normkopf und Fassungsnavigation
 
-Bilder unterstützen Orientierung und Wiedererkennung. Die Startseite nutzt das vorhandene,
-redaktionell nachgewiesene Staatskanzlei-Motiv mit AVIF-, WebP- und JPEG-Varianten. Ein dunkler
-Overlay stellt die Lesbarkeit des Hero-Texts sicher.
+Fassung, Historie, Fassungsvergleich und Einzelfassung rendern denselben `NormPageHeader.astro`;
+Eyebrow und Statuszeile kommen aus `apps/recht/src/lib/norm-header.ts`: der Eyebrow lautet
+„Vorschrift“, die Statuszeile nennt Fassungsart und Rechtsstand („Aktuelle Fassung · in Kraft seit …“,
+„Historische Fassung · gültig ab … bis …“). Der Wechsel zwischen den Ansichten verändert den Kopf
+nicht. Die Werkzeugleiste hat drei feste Plätze: „Als PDF öffnen“ (ohne PDF ausgegraut mit
+Begründung), „Als HTML lesen“, „Link kopieren“; Fundstellen ohne Ziel sind Nur-Text. Die
+Fassungsnavigation ist ein Linkband gleichwertiger Links mit unterstrichenem aktivem Eintrag – kein
+Kasten, keine gefüllte Pille, kein Tab-Widget; die gespeicherten Fassungen stehen in einem ohne
+JavaScript bedienbaren `details`-Wähler, nach geltend, historisch, zukünftig und ungeklärtem
+Inkrafttreten gruppiert und immer zusätzlich textlich bezeichnet.
 
-- Bilder werden über absolute Pfade unter `/images/` referenziert.
-- Responsive Varianten liegen unter `public/images/generated/`.
-- Alternativtexte beschreiben den fachlichen Bildinhalt.
-- Bildnachweise werden nur bei belastbarer Quelle ausgegeben.
-- Ein-Pixel-Platzhalter werden nicht als sichtbare Pressebilder verwendet.
-- Unterhalb des sichtbaren Einstiegs werden Bilder nach Möglichkeit verzögert geladen.
+### Normtext
 
-## Fach- und Rechtsseiten
+Abschnittsüberschriften stehen in `--text-xl` mit Vorabstand (`--space-7`) und dünner Trennlinie, die
+Nummer als eigene Zeile in `--text-sm`; Artikel und Paragraphen in `--text-md`, ihr Label in derselben
+kleinen Zeile; ein Label ohne Titel („Präambel“) bleibt Überschrift. Zwischen Label und Titel bzw.
+Text steht ein echtes Leerzeichen, damit kopierter und vorgelesener Text „Artikel 1
+Verfassungsgrundsätze“ und „(1) Die Hauptstadt …“ lautet. Absatz-, Nummern- und
+Buchstabenkennzeichnungen gehören zum Fließtext mit fester Labelspalte.
 
-Die Fassungsnavigation trennt die dauerhaften Hauptansichten „Vorschrift“,
-„Normenhistorie“ und „Fassungsvergleich“ von den gespeicherten Fassungen. Die
-Fassungen stehen in einem kompakten, ohne JavaScript bedienbaren
-`details`-Wähler und sind nach geltend, historisch, zukünftig und ungeklärtem
-Inkrafttreten gruppiert. Der Fassungsvergleich stellt geänderte Einheiten auf breiten Bildschirmen
-nebeneinander als „Bisher“ und „Neu“ dar und stapelt beide Seiten auf kleinen Bildschirmen.
-Wortgenaue Hervorhebungen ergänzen die vollständigen Textseiten; Überschriftenänderungen bleiben
-gesondert sichtbar. Eine kompakte Zusammenfassung nennt geänderte, neue, entfallene und
-unveränderte Struktureinheiten.
+Vor dem Text stehen ein Umschalter „Alle Paragraphen öffnen/schließen“, dessen Beschriftung den
+nächsten Zustand nennt, „Inhaltsübersicht“ als Sprunglink und „Drucken“ als Symbolknopf. Je Einheit
+gibt es einen Symbolknopf am rechten Rand der Überschrift (Desktop bei Hover und Fokus, kleine
+Bildschirme dauerhaft) mit „Link zu dieser Stelle kopieren“ (springt und kopiert) und „Einzeldruck“.
+Paragraphen, Artikel und Anlagen tragen sprechende, deterministische Anker; alte Anker bleiben
+unsichtbare Sprungziele. Inhaltsübersicht und Informationsspalte haften neben dem Dokument; die
+Seitenspalten tragen dafür die volle Zeilenhöhe. Entscheidung gegen die ursprüngliche Empfehlung:
+Tabellen und Anlagen ragen nicht in die Informationsspalte hinein, weil sie unter der haftenden
+Fläche lägen; sie nutzen die volle Textspalte und rollen erst darüber hinaus in `.table-wrap`.
 
-Paragraphen- und Artikelüberschriften bleiben typografisch hervorgehoben.
-Absatz-, Nummern- und Buchstabenkennzeichnungen gehören dagegen zum Fließtext
-und verwenden normales Schriftgewicht bei fester Labelspalte.
+### Fassungsvergleich
 
-Fachseiten des Staatsportals verwenden dessen Kopf, Tokens und Servicezone. OstRecht bleibt durch
-gemeinsame Tokens gestalterisch verwandt, verwendet jedoch den eigenen Layoutkontext. Es priorisiert
-Lesbarkeit, Gliederung, zitierfähige Normtexte und stabile Verlinkung. Verkündungen, Fundstellen und
-Metadaten bleiben Listen, Tabellen oder Definitionen statt dekorativer Teaser.
+Geänderte Einheiten stehen auf breiten Bildschirmen nebeneinander als „Bisher“ und „Neu“, auf
+kleinen gestapelt; `ins`/`del`, Klartextlabels und unterschiedliche Flächen ergänzen sich. Der
+Vergleich zeigt dieselbe Gliederungstiefe, dieselben Leerzeichen und dieselbe Dokumentschrift wie die
+Normseite. Er wird von `packages/shared/src/lib/norms/diff-render.ts` erzeugt, einem eigenen Renderer
+neben `NormBody.astro`; beide bleiben bewusst getrennt, weil der eine Astro-Templates aus dem
+Normmodell, der andere Zeichenketten mit Änderungsläufen je Seite aus dem Diff-Modell baut – gemeinsam
+sind Klassen und Regeln, nicht der Code.
 
-OstRecht-Übersichten und Detailseiten verwenden denselben `SectionHero`-Einstieg, dieselbe
-Abstandslogik und dieselben Status-, Listen-, Tabellen- und Kartenmuster. Das gilt insbesondere für
-Normverzeichnisse, A–Z, Sachgebiete, Förderrichtlinien, Verkündungen, Fundstellen,
-Rechtsentwicklung sowie Historien-, Versions- und Vergleichsansichten.
+### Startseite
 
-Die OstRecht-Startseite verbindet die Volltextsuche mit einem horizontalen Schnellzugriff sowie
-aktuellen Änderungen und Verkündungen aus dem kanonischen Bestand. Die Rechtssuche verwendet auf
-breiten Bildschirmen die Abfolge Filter, Trefferliste und Suchhinweise; auf kleinen Bildschirmen
-werden die Filter als bedienbares `details`-Element vorangestellt. Normseiten gliedern sich in
-Inhaltsübersicht, lesbaren Normtext und Vorschriftendaten. Inhaltsübersicht und Vorschriftendaten
-werden mobil ebenfalls zu nativen, ohne JavaScript erreichbaren Aufklappbereichen.
+Ruhige Hero-Fläche (`--law-blue-light`, kein Verlauf, kein Dekorzeichen) mit Volltextsuche und
+Chips, die sämtlich Suchfilter sind (der letzte führt zur erweiterten Suche), darunter ein
+horizontaler Schnellzugriff. Zwei Bänder: oben „Aktuelle Änderungen“ und „Künftige Änderungen“ als
+gleich lange Spalten (je vier Einträge; eine leere Zukunftsspalte zeigt einen Hinweis), unten „Neu
+verkündet“, „Sachgebiete“ (mit Hinweis auf Mehrfachzuordnung) und die Funktionen des Rechtsportals;
+zwischen den Bändern `--space-section`. H2 in `--text-lg`, Kartentitel in `--text-base-plus`,
+Beschreibungen in `--text-sm`, Etiketten in `--text-xs`; kein Bedienziel unter 24 px.
 
-Die Fassungsnavigation ist ein kompaktes, umbrechendes Linkband und kein Tab-Widget. Geltende,
-zukünftige, historische und zeitlich ungeklärte Fassungen werden immer zusätzlich textlich
-bezeichnet. Normtextwerkzeuge stehen unmittelbar vor dem Text. Paragraphen, Artikel und Anlagen
-verwenden sprechende, deterministische Anker; kompatible alte Anker bleiben unsichtbare
-Sprungziele. Einzeldruck und kopierbare Stellenlinks gehören zur jeweiligen Gliederungseinheit.
+### Rechtssuche
+
+Filter, Trefferliste und Suchhinweise stehen auf breiten Bildschirmen nebeneinander; auf kleinen
+werden die Filter als `details` vorangestellt. Ein Treffer zeigt vor dem Auszug drei Zeilen:
+Kurztitel mit Abkürzung, Langtitel klein, eine Metazeile aus Typ, Herkunft und Fundstelle; der
+Auszug trägt die Trefferstelle als verlinktes Präfix; die Fassungspille erscheint nur, wenn sie vom
+aktiven Fassungsfilter abweicht. Der Leerzustand heißt „Keine Vorschrift gefunden“, zitiert die
+Anfrage und bietet drei Auswege (Filter zurücksetzen mit Anzahl, alle Fassungen, Vorschriften A–Z);
+Facetten ohne Treffer sind deaktiviert, außer innerhalb einer Gruppe mit eigener Auswahl. Filterzeilen
+haben die barrierearme Höhe von 2,75 rem.
+
+### Rechtsherkunft und Benennungen
 
 Rechtsherkunft ist auf allen Rechtsseiten mit derselben Kennzeichnung sichtbar
-(`NormOriginBadge.astro`, CSS-Klasse `origin-badge`): ein Statuspunkt plus Text mit den vier
-Klassen „Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“ und „Herkunft
-ungeklärt“; auf Normseiten und in Suchtreffern steht die erklärende Form („Übernommen und
-unverändert“, „Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft
-ungeklärt“), die auch Filter und Zähler verwenden. Es gibt genau diese zwei Formen. Farbe ist dabei nur
-unterstützend; jede Klasse trägt Text, die Bezeichnungen kommen ausschließlich aus
-`packages/shared/src/lib/norms/origin.ts`. A–Z, Suchtreffer, Rechtsentwicklung, Sachgebiets- und
-Normverzeichnisse sowie die Änderungslisten der Startseite zeigen die kompakte Form. Die Normseite
-fasst Rechtsstand und Herkunft in einem gemeinsamen Hinweis „Rechtsstand und Herkunft“
-(`NormLegalStatusPanel.astro`) zusammen: Statuszeile zur angezeigten Fassung, Herkunftsbadge,
-Herkunftssatz, letzte ostdeutsche Änderung und die Quellenwege (Ausgangsfassung, Vergleich,
-amtliche sächsische Quelle, Änderungsvorschrift). A–Z bietet zusätzlich eine Übersicht „Rechtsherkunft“ mit Zählern aus dem Bestand
-und einen Herkunftsfilter; Suche und Rechtsentwicklung filtern über dieselben internen Werte.
+(`NormOriginBadge.astro`, Klasse `origin-badge`, Texte ausschließlich aus
+`packages/shared/src/lib/norms/origin.ts`) in genau zwei Formen: kurz in Listen und Trefferzeilen
+(„Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“) und
+erklärend auf Normseite, in Suchtreffern, Filtern und Zählern („Übernommen und unverändert“,
+„Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft ungeklärt“). Die
+Normseite fasst Rechtsstand und Herkunft in `NormLegalStatusPanel.astro` zusammen.
 
-Fassungsvergleiche stellen Änderungen als gegliederte Liste dar. `ins` und `del`, Klartextlabels
-und unterschiedliche Flächen ergänzen sich, sodass Farbe nie die einzige Unterscheidung ist.
-Schnelleinstiege führen zur vorherigen und, soweit belegt, zur übernommenen Ausgangsfassung; eine
-freie Auswahl bleibt möglich. Herkunftshinweise und gerichtete Rechtsbeziehungen stehen sachlich
-bei den Fassungs- und Historienangaben und verwenden auf allen Rechtsseiten dieselbe Benennung.
-Quellen- und Druckangebote bilden einen eigenen sachlichen Abschnitt unter dem Normtext.
+Jedes Ziel hat genau eine Bezeichnung, gelesen aus `lawSiteConfig.targetLabels`
+(`packages/shared/src/config/site.ts`) von Navigation, Fußzeilen beider Portale, Startseitenkarten,
+Hilfe, Suche und Fehlerseite – etwa „Vorschriften A–Z“ und „Sachgebiete“; ein Unit-Test hält
+Navigation und Bezeichnungen zusammen. Der Eyebrow nennt den Bereich: „Rechtsportal“ auf
+Übersichten, Hilfe und Fehlerseite, „Rechtssuche“, „Vorschrift“, „Verkündung“, „Sachgebiet“ auf den
+Detailseiten; Zustände stehen in der Statuszeile oder im Text. Bestandszahlen heißen „geltende
+Vorschriften“ (Startseite) und „Vorschriften im Bestand“ (Übersichten); die Historie zeigt frühere
+Titel einer Vorschrift nur bei Abweichung, gekennzeichnet als „Damaliger Titel“.
 
-Breite Tabellen und Fachgrafiken erhalten klar abgegrenzte Scrollbereiche. Ihre wesentlichen
-Informationen müssen außerhalb der Tabelle oder Grafik zugänglich bleiben. Die Kreisreform-Suche
-liefert ein Textergebnis ohne gestartete Karte; die Karte wird auf kleinen Bildschirmen nur nach
-ausdrücklicher Freigabe geladen.
+## Staatsportal
 
-## Unterseiten und Bereichsidentitäten
+### Startseite
 
-Unterseiten folgen einer gemeinsamen, abgestuften Hierarchie: globaler Behördenkopf,
-bereichsbezogener Einstieg, lokale Orientierung, fachlich passende Inhaltsmodule sowie das
-gemeinsame Serviceband mit Footer. `SectionHero.astro` bildet den Einstieg der zentralen
-Seitenfamilien. Die Varianten `government`, `topics`,
-`law`, `budget`, `reform`, `press`, `service`, `freestate` und `plain` verwenden denselben Aufbau
-und unterscheiden sich nur durch zurückhaltende Akzentfarben, Medienanteil und fachliche
-Zusatzinhalte.
+Die Startseite folgt einer festen Hierarchie: Hero mit redaktionellem Staatskanzlei-Bild, H1 und
+Portalsuche; zentrale Portalpfade als Zugangskarten (`PortalAccessCard.astro`); wichtiges Hinweisband
+(`ImportantNoticeBand.astro`); Presse, aktuelle Ministerien und Freistaat-Kurzprofil
+(`HomePressList.astro`, `HomeMinistryList.astro`, `FreestateSummary.astro`); „Aktuelles
+Regierungshandeln“ mit einem Leitvorhaben als dunkler Karte (`home-lead-feature`) und bis zu zwei
+weiteren Vorhaben; Recht, Haushalt und weitere Serviceangebote; Serviceband und Footer. Suchvorschläge,
+Karten und Listen verweisen ausschließlich auf vorhandene Seiten. Hervorhebungen sind redaktionelle
+Entscheidungen aus den Themendaten; es gibt keine zweite manuelle Startseitenliste.
 
-- Staatsregierung nutzt Porträts, Leitung, Koalition und Ressortbezüge.
-- Themen zeigen direkt nach dem Bereichskopf fachlichen Stand, Status, wichtigen Termin,
-  Zuständigkeit, Beschlossenes, bereits Geltendes und den nächsten Schritt. Inhaltsspezifische
-  Fragen-, Zeitstrahl-, Fakten- und Vergleichsmodule ergänzen diesen gemeinsamen Überblick.
-- Recht stellt Suche, Rechtsstand und strukturierte Dokumente vor dekorative Flächen.
-- Haushalt priorisiert Jahre, echte Kennzahlen, Vergleiche und Tabellen.
-- Kreisreform beginnt mit der textlich nutzbaren Gebietssuche; die Karte bleibt nachgeordnet.
-- Presse trennt redaktionelle Meldungen, Termine, Kontakt und Abonnements.
-- Service gruppiert Kontakt, Orientierung, barrierearme Zugänge und rechtliche Informationen.
-- Freistaat verbindet Grunddaten, staatliche Struktur und die zentralen Landesbereiche.
+### Komponenten und Bilder
 
-Normale Seitentitel verwenden ungefähr `clamp(2.2rem, 4vw, 3.25rem)`. Eine eigene Langtitelklasse
-reduziert sehr lange Norm- und Ressorttitel und erlaubt sichere Umbrüche. Im Einstieg gibt es
-höchstens eine primäre Aktion. Suche oder ein anderer primärer Arbeitsauftrag steht vor ergänzenden
-Fakten und Aktionen.
+Wiederkehrende Muster liegen als kleine Astro-Komponenten unter `apps/portal/src/components/portal/`;
+anwendungsübergreifende Grundbausteine (`PortalIcon.astro`, `ResponsivePicture.astro`,
+`SectionHero.astro`) unter `packages/shared/src/components/portal/`. Icons ergänzen Text, ersetzen
+ihn nicht. Bilder werden über absolute Pfade unter `/images/` referenziert, responsive Varianten
+liegen unter `public/images/generated/`; Alternativtexte beschreiben den Bildinhalt, Bildnachweise
+werden nur bei belastbarer Quelle als `figcaption` direkt an der Medienfläche ausgegeben; unterhalb
+des sichtbaren Einstiegs werden Bilder verzögert geladen.
 
-Fehlerseiten sind Teil der Bereichsidentität: Staatsportal (`apps/portal/src/pages/404.astro`)
-und OstRecht (`apps/recht/src/pages/404.astro`) zeigen jeweils im eigenen Layout „Seite nicht
-gefunden“ mit Suche und Verzeichniszugängen; die englische Astro-Standardseite darf nie
-ausgeliefert werden.
+### Unterseiten und Bereichsidentitäten
 
-## Lokale Navigation und Orientierung
+Unterseiten folgen der Hierarchie Behördenkopf, bereichsbezogener Einstieg (`SectionHero.astro`
+mit den Varianten `government`, `topics`, `law`, `budget`, `reform`, `press`, `service`, `freestate`,
+`plain`), lokale Orientierung, fachliche Module, Serviceband und Footer. Die Varianten unterscheiden
+sich nur durch zurückhaltende Akzente, Medienanteil und Zusatzinhalte. Seitentitel stehen in
+`--text-title`, Langtitel in `--text-title-long`; im Einstieg gibt es höchstens eine primäre Aktion.
+Die Bereichsnavigation (`SectionNavigation`) bleibt ein semantisches `nav` mit echten Links und
+`aria-current`. Kennzahlenkarten sind echten Zahlenwerten vorbehalten; Karten bleiben wiederholten,
+gleichartigen Einheiten vorbehalten. Fehlerseiten beider Portale zeigen im eigenen Layout „Seite
+nicht gefunden“ mit Suche und Verzeichniszugängen; die englische Astro-Standardseite wird nie
+ausgeliefert.
 
-`SectionNavigation.astro` bildet die gemeinsame Bereichs- und Ankernavigation. Sie bleibt ein
-semantisches `nav` mit beschreibendem Label, echten Links und `aria-current`; sie täuscht keine
-Registerkartensteuerung vor. Auf großen Bildschirmen ist sie kompakt horizontal angeordnet, auf
-kleinen Bildschirmen bricht sie kontrolliert um. Dort wird sie nicht fixiert. Lange Themen- und
-Fachseiten ergänzen Anker zu Überblick, inhaltsspezifischen Modulen, Rechtsgrundlagen, aktuellen
-Bezügen, FAQ und Zuständigkeit. Das gemeinsame Themen-Briefing ersetzt mehrfach wiederholte
-Teaser- und Statusabschnitte.
-
-## Fakten, Status und wiederholte Einheiten
-
-Kennzahlenkarten sind echten Zahlenwerten vorbehalten. Kurze Fakten stehen als Definitionen im
-Bereichskopf oder in kompakten Faktenlisten; Statusangaben besitzen zusätzlich eine textliche
-Bezeichnung. Navigationszugänge sind Links oder Servicemodule und werden nicht als Statistik
-ausgegeben.
-
-Karten bleiben wiederholten, gleichartigen Einheiten vorbehalten, etwa Personen, Themen oder
-Servicezugängen. Ministerien werden als scanbares, datenbasiertes Verzeichnis dargestellt.
-Inhaltsabschnitte verwenden vorrangig Typografie, Listen und gezielte Hintergrundgruppen. Grün und
-Gold tragen normale Akzente; Rot ist Warnungen und kritischen Zuständen vorbehalten. Durchgehende
-Trennlinien, große Schatten und lange Leerräume werden vermieden.
-
-Die Themenübersicht gliedert sich in zeitlich begrenzte aktuelle Vorhaben, dauerhafte
-Schwerpunkte und ein vollständiges, fachlich gruppiertes Verzeichnis. Startseite und Übersicht
-verwenden dieselbe Hervorhebungslogik aus den Themendaten; es gibt keine zweite manuelle
-Startseitenliste. Fachliche Daten aus dem Wissenshub und redaktionelle Sichtbarkeit bleiben durch
-das Coverage-Register ausdrücklich voneinander getrennt.
-
-## Personen und Bilder auf Unterseiten
-
-Bei Regierungsmitgliedern bilden Porträt, Name, Amt, Ressort, Status und Kontakt einen gemeinsamen
-Profilkopf. Ressortseiten verbinden Titel und Zuständigkeit mit einem vorhandenen Ressortbild oder
-einem kompakten Kontaktzugang. Bilder besitzen stabile Seitenverhältnisse und verschwinden nicht
-in leeren Spalten. Die Freistaat-Seite verwendet die vorhandene, 1920 Pixel breite Flagge und
-formatoptimierte responsive Varianten bis 960 Pixel Breite.
-
-Bildnachweise gehören unmittelbar zur jeweiligen Medienfläche. `SectionHero.astro` gibt Bilder
-mit belastbarem Nachweis als `figure` mit direkt zugeordnetem `figcaption` aus; der Alternativtext
-beschreibt weiterhin unabhängig davon den Bildinhalt. Nachweise dürfen nicht als losgelöste Zeile
-hinter einer Bereichsnavigation erscheinen. Die Beschriftung bleibt auf kleinen Bildschirmen
-lesbar und verdeckt keine wesentlichen Bildinhalte.
-
-Die Behördennummer 115 ist ein Orientierungsbegriff, kein automatisch angebotener Telefonweg.
-Ihre Darstellung wird zentral konfiguriert und verweist auf den Kontaktbereich. Ein `tel:`-Link
-wird nur ausgegeben, wenn ein direkter Telefonweg ausdrücklich konfiguriert ist. Angaben zu
-Erreichbarkeiten dürfen nicht aus der bloßen Nummer abgeleitet werden.
-
-## Responsive Verhalten
-
-Die Gestaltung arbeitet inhaltlich mit vier Bereichen:
-
-- großer Desktop: volle Hauptnavigation und mehrspaltige Startseitenmodule
-- kleiner Desktop/Tablet quer: kompaktes Menü und reduzierte Spaltenzahl
-- Tablet hoch: überwiegend zwei Spalten
-- Smartphone: lineare Reihenfolge mit ausreichend großen Bedienzielen
-
-Inhalte werden gestapelt, nicht abgeschnitten oder versteckt. Kein Seitenlayout darf einen
-unkontrollierten horizontalen Dokumentüberlauf erzeugen. Tabellen dürfen in einem ausdrücklich
-gekennzeichneten Detailbereich horizontal scrollen.
+Die Kreisreform-Seite liefert die Gebietssuche als Text; die interaktive Karte wird erst nach
+ausdrücklicher Freigabe geladen. Die Behördennummer 115 ist ein Orientierungsbegriff aus der
+zentralen Konfiguration und verweist auf den Kontaktbereich; ein `tel:`-Link erscheint nur bei
+ausdrücklich konfiguriertem Telefonweg.
 
 ## Barrierefreiheit
 
-- genau eine H1 pro Seite
-- semantische Landmarken und nachvollziehbare Überschriftenfolge
-- Skip-Link und deutlich sichtbarer Tastaturfokus
-- `aria-current` für den aktiven Hauptnavigationspunkt
-- beschriftete Suchfelder und verständliche Schaltflächen
-- ausreichender Farbkontrast, auch auf Bildflächen
-- Statusausgaben der Suche werden zugänglich angekündigt
-- keine allein durch Farbe vermittelte Information
-- Rücksicht auf reduzierte Bewegung und Druckausgabe
-
-Automatisierte Tests ergänzen den manuellen Tastatur-, Zoom- und Screenreader-Kurztest.
+- genau eine H1 pro Seite, semantische Landmarken, nachvollziehbare Überschriftenfolge
+- Skip-Link, sichtbarer Tastaturfokus mit mindestens 3 : 1 gegen seine Bezugsfläche (siehe Farbrollen)
+- `aria-current` für den aktiven Hauptnavigationspunkt; native `details` für Menüs und Aufklappbereiche
+- beschriftete Suchfelder, Schaltflächen mit sichtbarem oder zugänglichem Namen
+- Bedienziele im Rechtsportal mindestens 24 × 24 px; die Fußzeile des Staatsportals liegt mit
+  19–21 px darunter
+- Statusausgaben der Suche werden zugänglich angekündigt; keine allein durch Farbe vermittelte
+  Information; Rücksicht auf reduzierte Bewegung und Druckausgabe
 
 ## Qualitätssicherung
 
-Die visuellen Baselines (`tests/visual.spec.ts`) prüfen zentrale Seiten und Module in drei
-Viewports (1440, 768 und 390 px; `npm run test:visual:run`). Sie laufen immer gegen das
-Testfixture des Rechtsbestands (`data/recht/runtime-fixture.json`, lokal `scripts/serve-law-worker.mjs
---fixture …`): lokal unter macOS mit `-darwin`-Baselines, in CI bei Oberflächenänderungen im festen
-Playwright-Container mit den committeten `-linux`-Baselines im strikten Vergleich (`SITE_TARGETS`
-begrenzt die Suite auf die gebauten Websites). Änderungen an Header, Startseite oder globalen
-Komponenten werden erst nach manueller Sichtprüfung in die Baselines übernommen; Linux-Baselines
-entstehen nur im Playwright-Container über den manuellen Workflow „Screenshot-Baselines erneuern“
-(`.github/workflows/visual-baselines.yml`, Artefakt sichten und committen), nie stillschweigend.
-Sie sind kein Deployment-Gate. Die automatische
-Produktions-QA konzentriert sich auf deterministische Content-, Type-, Unit-, Build-, Link- und
-SEO-Prüfungen sowie repräsentative Chromium- und Accessibility-Smokes.
-
-Ergänzend zu den vollständigen Seitenbaselines sichern kleine Locator-Screenshots wichtige
-Module unterhalb des ersten Viewports. Dazu gehören unter anderem Ministeriumsverzeichnisse,
-Profil- und Kontaktbereiche, Recherchewege, Rechtsstand, Haushaltskennzahlen, Reformzugänge,
-Pressekontakt, barrierearme Zugänge sowie das globale Serviceband und der Footer. Die Tests
-scrollen das jeweilige Modul kontrolliert in den sichtbaren Bereich und warten auf enthaltene
-Bilder.
+Die visuellen Baselines (`tests/visual.spec.ts`, `npm run test:visual:run`) prüfen zentrale Seiten
+und Module in drei Viewports (1440, 768, 390 px) gegen das Testfixture des Rechtsbestands
+(`data/recht/runtime-fixture.json`): lokal unter macOS mit `-darwin`-Baselines, in CI bei
+Oberflächenänderungen mit den committeten `-linux`-Baselines im festen Playwright-Container.
+Baselines werden nur nach Sichtprüfung übernommen; Linux-Baselines entstehen ausschließlich über den
+Workflow „Screenshot-Baselines erneuern“ (`.github/workflows/visual-baselines.yml`). Sie sind kein
+Deployment-Gate. `tests/accessibility.spec.ts` prüft alle repräsentativen Seiten mit Axe und den
+Fokusindikator gegen seine Bezugsfläche; `tests/browser-smoke.spec.ts` prüft Verzeichnisse,
+Suche, Normseiten und Kopfstufen funktional; `npm run docs:check` hält die Dokumente konsistent.
 
 ## Was vermieden wird
 
-- Marketing-Heroes ohne Verwaltungsnutzen
-- erfundene Bürgerdienste oder nicht vorhandene Kontenfunktionen
-- starke Farbverläufe und dekorative Formen ohne Informationswert
-- übertriebene Animationen
+- Marketing-Heroes, Farbverläufe und Dekorzeichen ohne Informationswert
+- Systemschriften als Gestaltungsmittel; Schrift kommt lokal als woff2
+- Einzelwerte neben den Skalen für Größen, Abstände, Radien, Zeilenhöhen oder Farben
+- zwei Definitionen derselben Eigenschaft für einen Selektor
+- Tab-Widgets, wo Links genügen; Karten für ganze Fachabschnitte
+- erfundene Bürgerdienste oder Kontenfunktionen
 - öffentliche Texte mit technischen Architekturbegriffen
 - wiederholte Erklärungen der politischen Simulation außerhalb der festgelegten Hinweise
 - Layouts mit abgeschnittenen Inhalten oder ungeplantem horizontalem Scrollen
