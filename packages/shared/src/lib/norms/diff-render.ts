@@ -110,7 +110,7 @@ function renderList(nodes: NormDiffBlock[], side: DiffSide, level: number, quote
     const label = renderValue(node, side, 'label');
     const text = renderValue(node, side, 'text');
     const children = renderRuns(node.children, side, level, quoted);
-    return `<li class="norm-amendment-item norm-diff-structure__list-item"><span class="norm-amendment-item__label">${label}</span><div class="norm-amendment-item__content"><span>${text}</span>${children ? `<div class="norm-amendment-item__children">${children}</div>` : ''}</div></li>`;
+    return `<li class="norm-amendment-item norm-diff-structure__list-item"><span class="norm-amendment-item__label">${label}</span> <div class="norm-amendment-item__content"><span>${text}</span>${children ? `<div class="norm-amendment-item__children">${children}</div>` : ''}</div></li>`;
   }).join('');
   return `<ol class="norm-amendment-list${quoted ? ' norm-amendment-list--quoted' : ''}">${items}</ol>`;
 }
@@ -155,12 +155,13 @@ function renderNode(node: NormDiffBlock, side: DiffSide, level: number, quoted: 
 
   if (node.type === 'paragraphText') {
     const label = renderValue(node, side, 'label');
-    return `<p class="norm-text">${label ? `<span class="norm-text__label">${label}</span>` : ''}${renderValue(node, side, 'text')}</p>${children ? `<div class="norm-text__children">${children}</div>` : ''}`;
+    // Leerzeichen zwischen Label und Text wie in NormBody.astro (kopierbarer, vorlesbarer Text).
+    return `<p class="norm-text">${label ? `<span class="norm-text__label">${label}</span> ` : ''}${renderValue(node, side, 'text')}</p>${children ? `<div class="norm-text__children">${children}</div>` : ''}`;
   }
 
   if (node.type === 'subparagraph') {
     const label = renderValue(node, side, 'label');
-    return `<div class="norm-subparagraph-wrap"><p class="norm-subparagraph">${label ? `<span class="norm-subparagraph__label">${label}</span>` : ''}<span>${renderValue(node, side, 'text')}</span></p>${children ? `<div class="norm-subparagraph__children">${children}</div>` : ''}</div>`;
+    return `<div class="norm-subparagraph-wrap"><p class="norm-subparagraph">${label ? `<span class="norm-subparagraph__label">${label}</span> ` : ''}<span>${renderValue(node, side, 'text')}</span></p>${children ? `<div class="norm-subparagraph__children">${children}</div>` : ''}</div>`;
   }
 
   if (node.type === 'table') return renderTable(node, side);

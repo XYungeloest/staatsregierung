@@ -915,20 +915,26 @@
   background: transparent;
 }
 
-.norm-diff__provision .norm-diff__side h3 {
+/* Spaltenlabel („Fassung vom …“, direktes Kind): Oberfläche, kein Dokumentteil. Die Paragraphen-
+   überschriften darunter sind ebenfalls h3 und dürfen nicht mitgefasst werden. */
+.norm-diff__provision .norm-diff__side > h3 {
   margin: 0;
   padding: 0 0 var(--space-2);
   border-bottom: 1px solid var(--color-border);
   color: #52677c;
-  font-size: var(--text-2xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
+/* Verglichener Text: Dokumentschrift, 16 px, Zeilenhöhe 1,65 wie auf der Normseite (Befund T5). */
 .norm-diff__provision .norm-diff__side p {
   margin: 0;
   padding: var(--space-3) 0;
   color: #263d55;
-  line-height: 1.75;
+  font-family: var(--font-document);
+  font-size: var(--text-base);
+  line-height: 1.65;
   white-space: pre-line;
 }
 
@@ -953,6 +959,7 @@
 .norm-diff-structure {
   min-width: 0;
   color: var(--color-ink);
+  font-family: var(--font-document);
 }
 
 .norm-diff-structure__provision {
@@ -965,6 +972,8 @@
   border-bottom: 1px solid rgba(23, 59, 107, 0.16);
 }
 
+/* Gliederungstiefe wie auf der Normseite (Befund T4): Abschnitte groß mit Nummernzeile,
+   Paragraphen und Artikel kleiner mit Label in derselben kleinen Zeile. */
 .norm-diff-structure__provision-heading,
 .norm-diff-structure .norm-division__heading {
   display: grid;
@@ -972,8 +981,23 @@
   margin: 0;
   color: var(--law-blue-dark);
   font-family: var(--font-document);
-  font-size: var(--text-base);
-  line-height: 1.35;
+  line-height: var(--lh-heading);
+}
+
+.norm-diff-structure .norm-division__heading {
+  font-size: var(--text-xl);
+}
+
+.norm-diff-structure__provision-heading {
+  font-size: var(--text-md);
+}
+
+.norm-diff-structure__provision-heading .norm-label:not(:only-child),
+.norm-diff-structure .norm-division__heading .norm-label:not(:only-child) {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .norm-diff-structure .norm-division {
@@ -993,8 +1017,8 @@
 .norm-diff-structure .norm-subparagraph,
 .norm-diff-structure .norm-amendment-item {
   max-width: none;
-  font-size: var(--text-sm);
-  line-height: 1.72;
+  font-size: var(--text-base);
+  line-height: 1.65;
 }
 
 .norm-diff-structure .norm-text {
