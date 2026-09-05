@@ -610,13 +610,15 @@ siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugäng
   await page.getByRole('button', { name: 'Drucken', exact: true }).click();
   await expect.poll(() => page.evaluate(() => (window as Window & { __printCalls?: number }).__printCalls)).toBe(1);
 
+  // Werkzeuge je Einheit: ein Symbolknopf öffnet das Menü mit Anker und Einzeldruck.
   const unitTools = firstUnit.getByRole('navigation', { name: /Werkzeuge für/u });
+  await unitTools.locator('summary').click();
   const singlePrint = unitTools.getByRole('button', { name: 'Einzeldruck' });
   await expect(singlePrint).toBeVisible();
   await singlePrint.click();
   await expect.poll(() => page.evaluate(() => (window as Window & { __printCalls?: number }).__printCalls)).toBe(2);
   await expect(page.locator('body')).not.toHaveClass(/print-single-norm-unit/u);
-  await expect(unitTools.getByRole('link', { name: 'Link zu dieser Stelle' })).toHaveAttribute('href', `#${semanticId}`);
+  await expect(unitTools.getByRole('link', { name: 'Link zu dieser Stelle kopieren' })).toHaveAttribute('href', `#${semanticId}`);
   await expect(page.getByRole('heading', { name: 'Drucken und Quellen' })).toBeVisible();
 });
 
