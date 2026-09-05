@@ -191,7 +191,9 @@ Sprungziele. Einzeldruck und kopierbare Stellenlinks gehören zur jeweiligen Gli
 Rechtsherkunft ist auf allen Rechtsseiten mit derselben Kennzeichnung sichtbar
 (`NormOriginBadge.astro`, CSS-Klasse `origin-badge`): ein Statuspunkt plus Text mit den vier
 Klassen „Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“ und „Herkunft
-ungeklärt“ (auf Normseiten und in Suchtreffern in der ausführlichen Form). Farbe ist dabei nur
+ungeklärt“; auf Normseiten und in Suchtreffern steht die erklärende Form („Übernommen und
+unverändert“, „Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft
+ungeklärt“), die auch Filter und Zähler verwenden. Es gibt genau diese zwei Formen. Farbe ist dabei nur
 unterstützend; jede Klasse trägt Text, die Bezeichnungen kommen ausschließlich aus
 `packages/shared/src/lib/norms/origin.ts`. A–Z, Suchtreffer, Rechtsentwicklung, Sachgebiets- und
 Normverzeichnisse sowie die Änderungslisten der Startseite zeigen die kompakte Form. Die Normseite

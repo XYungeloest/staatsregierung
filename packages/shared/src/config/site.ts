@@ -179,13 +179,32 @@ export const lawSiteConfig = {
     development: '/rechtsentwicklung/',
     help: '/hilfe/',
   },
+  /**
+   * Je Ziel genau eine öffentliche Bezeichnung. Navigation, Fußzeile, Startseitenkarten,
+   * Hilfe, Fehlerseite und Seitenköpfe lesen sie hier; niemand formuliert sie selbst.
+   */
+  targetLabels: {
+    home: 'Start',
+    search: 'Rechtssuche',
+    laws: 'Gesetze',
+    regulations: 'Verordnungen',
+    administrativeRules: 'Verwaltungsvorschriften',
+    index: 'Vorschriften A–Z',
+    subjects: 'Sachgebiete',
+    funding: 'Förderrichtlinien',
+    references: 'Fundstellennachweise',
+    publications: 'Verkündungen',
+    constitution: 'Verfassung',
+    development: 'Rechtsentwicklung',
+    help: 'Hilfe',
+  },
   mainNavigation: [
     { label: 'Gesetze', pathKey: 'laws' },
     { label: 'Verordnungen', pathKey: 'regulations' },
     { label: 'Verwaltungsvorschriften', pathKey: 'administrativeRules' },
     { label: 'Verfassung', pathKey: 'constitution' },
     { label: 'Verkündungen', pathKey: 'publications' },
-    { label: 'Themen', pathKey: 'subjects' },
+    { label: 'Sachgebiete', pathKey: 'subjects' },
   ],
 } as const;
 

@@ -67,10 +67,10 @@ const mainNavLinks = lawSiteConfig.mainNavigation.map((entry) => {
 });
 
 const footerResearchLinks = [
-  { href: getSearchUrl(), label: 'Rechtssuche', isActive: isActivePath(lawSiteConfig.paths.search) },
+  { href: getSearchUrl(), label: lawSiteConfig.targetLabels.search, isActive: isActivePath(lawSiteConfig.paths.search) },
   ...mainNavLinks,
-  { href: `${base}${lawSiteConfig.paths.index.replace(/^\//, '')}`, label: 'A–Z', isActive: isActivePath(lawSiteConfig.paths.index) },
-  { href: getHelpUrl(), label: 'Hilfe', isActive: isActivePath(lawSiteConfig.paths.help) },
+  { href: `${base}${lawSiteConfig.paths.index.replace(/^\//, '')}`, label: lawSiteConfig.targetLabels.index, isActive: isActivePath(lawSiteConfig.paths.index) },
+  { href: getHelpUrl(), label: lawSiteConfig.targetLabels.help, isActive: isActivePath(lawSiteConfig.paths.help) },
 ];
 const footerStateLinks = [
   { href: getHomeUrl(), label: 'Staatsportal' },

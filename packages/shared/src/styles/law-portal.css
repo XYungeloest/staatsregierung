@@ -2588,6 +2588,27 @@ a.search-hit__context-prefix {
   background: var(--law-blue-light);
 }
 
+/* Nicht belegter Werkzeugplatz: sichtbar, ausgegraut, mit Begründung im Titel. */
+.norm-page-header__actions > [aria-disabled='true'],
+.norm-page-header__actions > [aria-disabled='true']:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  cursor: default;
+}
+
+/* Fundstelle ohne Ziel ist Nur-Text und sieht auch so aus. */
+.norm-page-header__reference-text {
+  color: inherit;
+  text-decoration: none;
+}
+
+.law-topic-card__note {
+  margin: 0;
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
 .norm-page-header__feedback {
   grid-column: 2;
   margin: -0.7rem 0 0;

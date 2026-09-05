@@ -41,7 +41,7 @@ const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummarie
     title="Sachgebiete"
     lead="Vorschriften nach fachlicher Zuordnung und thematischen Hauptbereichen recherchieren."
     variant="law"
-    facts={[{ label: 'Hauptbereiche', value: String(areaGroups.length) }, { label: 'Vorschriften', value: String(stats.normCount) }]}
+    facts={[{ label: 'Hauptbereiche', value: String(areaGroups.length) }, { label: 'Vorschriften im Bestand', value: String(stats.normCount) }]}
   />
 
   <section class="section">

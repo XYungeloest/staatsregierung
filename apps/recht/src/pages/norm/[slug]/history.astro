@@ -124,7 +124,9 @@ const successorSlug = norm.meta.successorSlug;
                 <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
               )}
               </strong>
-              <span class="norm-history__version-title">{toDisplayText(getNormVersionIdentity(norm, version).title)}</span>
+              {toDisplayText(getNormVersionIdentity(norm, version).title) !== normTitle
+                ? <span class="norm-history__version-title">Damaliger Titel: {toDisplayText(getNormVersionIdentity(norm, version).title)}</span>
+                : null}
               <span class="norm-history__version-validity">
               Gültig ab <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
               {version.validTo
