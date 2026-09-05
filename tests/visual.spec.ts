@@ -72,15 +72,147 @@ async function preparePage(page: Page, consent = 'rejected'): Promise<void> {
   await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
 }
 
+interface OverflowEntry {
+  index: number;
+  tag: string;
+  classes: string;
+  left: number;
+  right: number;
+  width: number;
+  minWidth: string;
+  whiteSpace: string;
+  overflowWrap: string;
+  fontFamily: string;
+  text: string;
+  clippedBy: string;
+}
+
+interface OverflowReport {
+  viewportWidth: number;
+  documentWidth: number;
+  bodyWidth: number;
+  total: number;
+  entries: OverflowEntry[];
+  fontsStatus: string;
+  fonts: string[];
+}
+
+const OVERFLOW_REPORT_LIMIT = 30;
+
+/**
+ * Kein horizontaler Überlauf: Dokument und body dürfen den Viewport um höchstens 1 px überschreiten.
+ * Schlägt die Prüfung fehl, nennt die Meldung jedes Element, dessen rechte Kante über den Viewport
+ * hinausragt – Kanten, Breite, Umbruchregeln, berechnete Schriftfamilie, tatsächlich gesetzte
+ * Plattformschrift und Textanfang – sowie den Ladezustand aller Schriftschnitte. Eine
+ * Überlaufmeldung ohne das überlaufende Element ist nutzlos.
+ */
 async function verifyViewport(page: Page): Promise<void> {
   const dimensions = await page.evaluate(() => ({
     viewportWidth: window.innerWidth,
     documentWidth: document.documentElement.scrollWidth,
     bodyWidth: document.body.scrollWidth,
   }));
+  const limit = dimensions.viewportWidth + 1;
+  let report = '';
+  if (dimensions.documentWidth > limit || dimensions.bodyWidth > limit) {
+    report = await describeOverflow(page);
+    await test.info().attach('ueberlauf.txt', { body: report, contentType: 'text/plain' });
+    console.log(report);
+  }
+  expect(dimensions.documentWidth, report).toBeLessThanOrEqual(limit);
+  expect(dimensions.bodyWidth, report).toBeLessThanOrEqual(limit);
+}
 
-  expect(dimensions.documentWidth).toBeLessThanOrEqual(dimensions.viewportWidth + 1);
-  expect(dimensions.bodyWidth).toBeLessThanOrEqual(dimensions.viewportWidth + 1);
+/**
+ * Überlaufende Elemente samt Schriftzustand beschreiben. Die Elemente werden für die Abfrage der
+ * tatsächlich gesetzten Plattformschrift (Chromium-DevTools-Protokoll) kurz markiert und danach
+ * wieder freigegeben.
+ */
+async function describeOverflow(page: Page): Promise<string> {
+  const data = await page.evaluate((limit): OverflowReport => {
+    const viewportWidth = window.innerWidth;
+    const round = (value: number): number => Math.round(value * 10) / 10;
+    const describe = (element: Element): string => {
+      const classes = typeof element.className === 'string' ? element.className.trim() : '';
+      return `${element.tagName.toLowerCase()}${classes ? `.${classes.split(/\s+/u).join('.')}` : ''}`;
+    };
+    const clippingAncestor = (element: Element): string => {
+      for (let parent = element.parentElement; parent && parent !== document.documentElement; parent = parent.parentElement) {
+        const overflowX = getComputedStyle(parent).overflowX;
+        if (overflowX !== 'visible') return `${describe(parent)} (overflow-x ${overflowX})`;
+      }
+      return '';
+    };
+    const found: Array<{ element: HTMLElement; entry: OverflowEntry }> = [];
+    for (const element of Array.from(document.body.querySelectorAll<HTMLElement>('*'))) {
+      const rect = element.getBoundingClientRect();
+      if (rect.width === 0 || rect.right <= viewportWidth + 1) continue;
+      const style = getComputedStyle(element);
+      found.push({
+        element,
+        entry: {
+          index: 0,
+          tag: element.tagName.toLowerCase(),
+          classes: typeof element.className === 'string' ? element.className.trim() : '',
+          left: round(rect.left),
+          right: round(rect.right),
+          width: round(rect.width),
+          minWidth: style.minWidth,
+          whiteSpace: style.whiteSpace,
+          overflowWrap: style.overflowWrap,
+          fontFamily: style.fontFamily,
+          text: (element.innerText || element.textContent || '').replace(/\s+/gu, ' ').trim().slice(0, 40),
+          clippedBy: clippingAncestor(element),
+        },
+      });
+    }
+    found.sort((a, b) => b.entry.right - a.entry.right || a.entry.left - b.entry.left);
+    const kept = found.slice(0, limit);
+    kept.forEach(({ element, entry }, position) => {
+      entry.index = position + 1;
+      element.setAttribute('data-overflow-report', String(entry.index));
+    });
+    return {
+      viewportWidth,
+      documentWidth: document.documentElement.scrollWidth,
+      bodyWidth: document.body.scrollWidth,
+      total: found.length,
+      entries: kept.map(({ entry }) => entry),
+      fontsStatus: document.fonts.status,
+      fonts: Array.from(document.fonts).map((face) => `${face.family} ${face.weight} ${face.style}: ${face.status}`),
+    };
+  }, OVERFLOW_REPORT_LIMIT);
+
+  const platformFonts = new Map<number, string>();
+  try {
+    const client = await page.context().newCDPSession(page);
+    await client.send('DOM.enable');
+    await client.send('CSS.enable');
+    const { root } = await client.send('DOM.getDocument', { depth: 0 });
+    for (const entry of data.entries) {
+      const { nodeId } = await client.send('DOM.querySelector', { nodeId: root.nodeId, selector: `[data-overflow-report="${entry.index}"]` });
+      if (!nodeId) continue;
+      const { fonts } = await client.send('CSS.getPlatformFontsForNode', { nodeId });
+      platformFonts.set(entry.index, fonts.map((font) => `${font.familyName} (${font.isCustomFont ? 'Webfont' : 'System'}, ${font.glyphCount} Glyphen)`).join(', ') || '–');
+    }
+    await client.detach();
+  } catch {
+    // Ohne DevTools-Protokoll (anderer Browser) bleibt nur die berechnete Schriftfamilie.
+  }
+  await page.evaluate(() => {
+    document.querySelectorAll('[data-overflow-report]').forEach((element) => element.removeAttribute('data-overflow-report'));
+  });
+
+  const header = `Horizontaler Überlauf bei ${data.viewportWidth} px Viewport: Dokument ${data.documentWidth} px, body ${data.bodyWidth} px; ${data.total} Element(e) ragen über den rechten Rand${data.total > data.entries.length ? ` (die ${data.entries.length} äußersten)` : ''}:`;
+  const lines = data.entries.map((entry) => [
+    `  ${entry.index}. <${entry.tag}${entry.classes ? ` class="${entry.classes}"` : ''}>`,
+    `links ${entry.left} · rechts ${entry.right} · Breite ${entry.width} · min-width ${entry.minWidth} · white-space ${entry.whiteSpace} · overflow-wrap ${entry.overflowWrap}`,
+    `font-family ${entry.fontFamily}`,
+    `gesetzt: ${platformFonts.get(entry.index) ?? 'unbekannt'}`,
+    entry.clippedBy ? `abgeschnitten durch ${entry.clippedBy}` : '',
+    entry.text ? `Text „${entry.text}“` : '',
+  ].filter(Boolean).join(' · '));
+  return [header, ...lines, `Schriften (document.fonts.status ${data.fontsStatus}): ${data.fonts.join('; ') || 'keine @font-face-Regeln'}`].join('\n');
 }
 
 async function prepareLocator(locator: Locator): Promise<void> {
