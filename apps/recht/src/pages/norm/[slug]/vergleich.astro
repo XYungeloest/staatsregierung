@@ -1,7 +1,9 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
 import NormVersionNavigation from '../../../components/norms/NormVersionNavigation.astro';
+import { normHeaderState } from '../../../lib/norm-header.ts';
 import { buildProvisionVersionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
 import {
@@ -39,9 +41,13 @@ const normTitle = toDisplayText(currentIdentity.title);
 const normShortTitle = toDisplayText(currentIdentity.shortTitle || currentIdentity.title);
 const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
 const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
+// Kopf wie auf Fassungs- und Historienseite: die geltende Fassung ist maßgeblich, nicht das Vergleichspaar.
+const headerVersion = versions.find((version) => version.versionId === defaultToSkeleton.versionId) ?? defaultTo;
+const header = normHeaderState(norm, headerVersion);
 ---
 
 <LawLayout
+  documentFont
   title={`${normSeoTitle} vergleichen`}
   description={`Gespeicherte Fassungen von ${normTitle} paragraphenweise vergleichen.`}
   breadcrumbs={[
@@ -56,10 +62,14 @@ const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
     { label: 'Fassungsvergleich' },
   ]} />
 
-  <header class="norm-tool-heading">
-    <p class="eyebrow">Fassungsvergleich</p>
-    <h1>{normShortTitle}</h1>
-  </header>
+  <NormPageHeader
+    norm={norm}
+    version={headerVersion}
+    eyebrow={header.eyebrow}
+    status={header.status}
+    reference={toDisplayText(headerVersion.citation)}
+    htmlHref={getNormUrl(norm.meta.slug)}
+  />
   <NormVersionNavigation norm={norm} currentPage="compare" showPicker={false} />
 
   <section class="norm-compare" data-version-compare>

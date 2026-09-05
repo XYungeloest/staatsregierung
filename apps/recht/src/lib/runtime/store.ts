@@ -121,6 +121,9 @@ export interface IndexLetterCount {
   count: number;
 }
 
+/** Eingrenzung der Buchstabenzähler auf ein Verzeichnis (Normtyp, Sachgebiet, Herkunft). */
+export type IndexLetterQuery = Pick<NormPageQuery, 'types' | 'subjectSlug' | 'originKind'>;
+
 export interface KeywordIndexEntry {
   keyword: string;
   norms: Array<{ slug: string; shortTitle: string }>;
@@ -141,9 +144,10 @@ export interface KeywordIndexPage {
   pageCount: number;
 }
 
-export const KEYWORD_PAGE_SIZE = 100;
-
 export const DEFAULT_PAGE_SIZE = 50;
+/** Stichwortseiten des A–Z: dieselbe Seitengröße wie die Vorschriften, damit ein Aufruf nie mehr als
+ *  50 Einträge je Liste rendert (Befund P4); beide Paginierungen bleiben unabhängig. */
+export const KEYWORD_PAGE_SIZE = DEFAULT_PAGE_SIZE;
 export const MAX_PAGE_SIZE = 100;
 
 /** Seitenparameter absichern: ganze Zahlen, Seite ≥ 1, Größe 1–MAX_PAGE_SIZE. */
@@ -242,8 +246,12 @@ export interface NormStore {
   listNormSummariesByType(type: NormType): Promise<NormSummary[]>;
   /** Eine Seite Übersichtszeilen mit Gesamtzahl; Filter (Buchstabe, Freitext, Herkunft, Typ, Status, Sachgebiet) laufen als SQL mit LIMIT/OFFSET. */
   queryNormSummaries(query: NormPageQuery): Promise<NormPage>;
-  /** Buchstabengruppen mit Zählern (GROUP BY index_letter; höchstens 27 Zeilen). */
-  listIndexLetters(): Promise<IndexLetterCount[]>;
+  /**
+   * Buchstabengruppen mit Zählern (GROUP BY index_letter; höchstens 27 Zeilen). Ohne Filter aus
+   * der Metadatenzeile; mit Filter (Normtyp, Sachgebiet, Herkunft) die Zähler des jeweiligen
+   * Verzeichnisses, damit die Buchstabenleiste nur belegte Gruppen als Sprungziel anbietet.
+   */
+  listIndexLetters(query?: IndexLetterQuery): Promise<IndexLetterCount[]>;
   /** Stichwortindex einer Buchstabengruppe (Abkürzungen, Kurzbezeichnungen, Schlagwörter), seitenweise über Stichwörter. */
   listKeywordIndex(letter: string, query?: KeywordIndexQuery): Promise<KeywordIndexPage>;
   /** Normen je Herkunftsart (GROUP BY origin_kind; vier Zeilen). */
@@ -592,10 +600,15 @@ export function createD1NormStore(db: D1Database): NormStore {
       return listSummaries({ types: [type] });
     },
     queryNormSummaries: pageSummaries,
-    async listIndexLetters() {
-      return cachedMeta('index_letters', async () =>
-        (await db.prepare('SELECT index_letter AS letter, COUNT(*) AS count FROM law_norms GROUP BY index_letter ORDER BY index_letter').all<{ letter: string; count: number }>()).results
-          .map((row) => ({ letter: row.letter, count: Number(row.count) })));
+    async listIndexLetters(query = {}) {
+      const mapRows = (rows: Array<{ letter: string; count: number }>): IndexLetterCount[] => rows.map((row) => ({ letter: row.letter, count: Number(row.count) }));
+      if (!query.types?.length && !query.subjectSlug && !query.originKind) {
+        return cachedMeta('index_letters', async () =>
+          mapRows((await db.prepare('SELECT index_letter AS letter, COUNT(*) AS count FROM law_norms GROUP BY index_letter ORDER BY index_letter').all<{ letter: string; count: number }>()).results));
+      }
+      // Zähler eines Verzeichnisses: dieselben indexgestützten Bedingungen wie die Seitenabfrage.
+      const { where, params } = pageConditions({ types: query.types, subjectSlug: query.subjectSlug, originKind: query.originKind });
+      return mapRows((await db.prepare(`SELECT n.index_letter AS letter, COUNT(*) AS count FROM law_norms n${where} GROUP BY n.index_letter ORDER BY n.index_letter`).bind(...params).all<{ letter: string; count: number }>()).results);
     },
     async listKeywordIndex(letter, query = {}) {
       const { page, pageSize } = normalizePage(query.page, query.pageSize ?? KEYWORD_PAGE_SIZE);
@@ -917,9 +930,11 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       const current = Math.min(page, pageCount);
       return { items: all.slice((current - 1) * pageSize, current * pageSize), total: all.length, page: current, pageSize, pageCount };
     },
-    async listIndexLetters() {
+    async listIndexLetters(query = {}) {
       const counts = new Map<string, number>();
-      for (const summary of await summaries()) {
+      const scoped = (await filterSummaries({ types: query.types, subjectSlug: query.subjectSlug }))
+        .filter((summary) => !query.originKind || summary.originKind === query.originKind);
+      for (const summary of scoped) {
         const letter = getGermanIndexLetter(summary.title);
         counts.set(letter, (counts.get(letter) ?? 0) + 1);
       }

@@ -1,0 +1,36 @@
+---
+import type { IndexLetterCount } from '../../lib/runtime/store.ts';
+
+/**
+ * Buchstabenleiste als Sprungnavigation zwischen den Seiten eines Verzeichnisses. Sie zeigt
+ * immer alle Buchstaben; nicht belegte Gruppen sind sichtbar inaktiv statt entfernt (Befund A2).
+ */
+interface Props {
+  letters: IndexLetterCount[];
+  /** Aktuell gewählter Buchstabe; leer = alle Einträge. */
+  current?: string;
+  /** Adresse einer Buchstabengruppe; leerer Buchstabe = ungefilterte Liste. */
+  hrefFor: (letter: string) => string;
+  label?: string;
+  /** Link „Alle“ vor den Buchstaben anbieten. */
+  withAll?: boolean;
+  /** Einheit für den Titel-Hinweis, z. B. „Vorschriften“. */
+  unit?: string;
+}
+
+const { letters, current = '', hrefFor, label = 'Buchstaben-Navigation', withAll = true, unit = 'Vorschriften' } = Astro.props;
+const counts = new Map(letters.map((entry) => [entry.letter, entry.count]));
+const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '#'];
+const total = letters.reduce((sum, entry) => sum + entry.count, 0);
+---
+
+<nav class="letter-nav" aria-label={label}>
+  {withAll ? <a href={hrefFor('')} aria-current={current ? undefined : 'page'} data-index-letter="" title={`${total} ${unit}`}>Alle</a> : null}
+  {alphabet.map((letter) => {
+    const count = counts.get(letter) ?? 0;
+    const name = letter === '#' ? 'Ziffern und Sonderzeichen' : letter;
+    return count > 0
+      ? <a href={hrefFor(letter)} aria-current={letter === current ? 'page' : undefined} data-index-letter={letter} title={`${name}: ${count} ${unit}`}>{letter}</a>
+      : <span aria-disabled="true" data-index-letter={letter} title={`${name}: keine ${unit}`}>{letter}</span>;
+  })}
+</nav>

@@ -124,6 +124,21 @@ test('Übersichten ohne Suchbegriff: jüngstes Rechtsereignis zuerst (Dateivaria
   assert.ok(candidateDates[0] >= '2026-09-01');
 });
 
+test('Buchstabenzähler eines Verzeichnisses folgen dem Normtyp- bzw. Sachgebietsfilter (Dateivariante)', async () => {
+  const all = await store.listIndexLetters();
+  const laws = await store.listIndexLetters({ types: ['gesetz'] });
+  const lawSummaries = await store.listNormSummariesByType('gesetz');
+  assert.equal(laws.reduce((sum, entry) => sum + entry.count, 0), lawSummaries.length);
+  assert.ok(laws.every((entry) => (all.find((total) => total.letter === entry.letter)?.count ?? 0) >= entry.count));
+  for (const entry of laws) {
+    const page = await store.queryNormSummaries({ types: ['gesetz'], letter: entry.letter, pageSize: 100 });
+    assert.equal(page.total, entry.count, `Buchstabe ${entry.letter}`);
+  }
+  const subject = (await store.listSubjectSummaries())[0];
+  const bySubject = await store.listIndexLetters({ subjectSlug: subject.slug });
+  assert.equal(bySubject.reduce((sum, entry) => sum + entry.count, 0), subject.normCount);
+});
+
 test('Suchkandidaten und Suchdokumente der Dateivariante entsprechen dem Suchindexformat', async () => {
   const { slugs, total } = await store.searchCandidates({ match: '("feiertag"*)', limit: 10, offset: 0 });
   assert.ok(slugs.includes('ostdeutsches-feiertagsgesetz'));

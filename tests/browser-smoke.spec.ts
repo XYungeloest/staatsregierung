@@ -268,9 +268,10 @@ siteTest(['portal', 'law'])('Rechts- und Portalsuche liefern weiterhin Treffer',
 });
 
 siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf synchron', async ({ page }) => {
-  await page.goto(lawUrl('/suche/?q=Kulturpass&type=gesetz'));
+  // „Kultur“ trifft Gesetze und eine Verordnung: Facetten ohne Treffer sind nicht mehr wählbar.
+  await page.goto(lawUrl('/suche/?q=Kultur&type=gesetz'));
 
-  await expect(page.locator('[data-search-query]')).toHaveValue('Kulturpass');
+  await expect(page.locator('[data-search-query]')).toHaveValue('Kultur');
   await expect(page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' })).toBeVisible();
   await expect(page.getByLabel('Suchbereich')).toBeVisible();
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
@@ -307,7 +308,7 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
   await expect(inForce).toBeChecked();
 
   await page.getByRole('button', { name: 'Alle Filter löschen' }).click();
-  await expect(page).toHaveURL(`${lawUrl('/suche/')}?q=Kulturpass`);
+  await expect(page).toHaveURL(`${lawUrl('/suche/')}?q=Kultur`);
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
 });
 
@@ -316,28 +317,56 @@ siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilt
   await expect(page.locator('[data-search-filter="includeAmendments"]')).not.toBeChecked();
   await expect(page).not.toHaveURL(/includeAmendments=1/u);
   await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
-  await expect(page.locator('[data-search-results] .search-hit h3').first()).toHaveText(/^Erstes Gesetz/u);
+  await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first()).toContainText(/Erstes Gesetz/u);
 });
 
-siteTest(['law'])('Normverzeichnis stellt Filter, leere Buchstaben und Browserverlauf gemeinsam wieder her', async ({ page }) => {
+siteTest(['law'])('Normverzeichnis filtert und paginiert serverseitig; die Buchstabenleiste zeigt alle Buchstaben', async ({ page }) => {
   await page.goto(lawUrl('/gesetze/'));
-  const query = page.locator('[data-law-filter-form] input[name="q"]');
-  await query.fill('Kulturpass');
-  await page.locator('[data-law-filter-form]').getByRole('button', { name: 'Filtern' }).click();
-  await expect(page).toHaveURL(/q=kulturpass/u);
-  await expect(page.locator('[data-law-filter-summary]')).toContainText(/Eintr(?:ag|äge)/u);
-  await expect(page.locator('[data-law-filter-entry]:visible').first()).toContainText('Kulturpass');
-  const state = await page.evaluate(() => ({
-    groups: [...document.querySelectorAll<HTMLElement>('[data-law-filter-group]')].filter((entry) => !entry.hidden).map((entry) => entry.dataset.lawFilterGroup),
-    letters: [...document.querySelectorAll<HTMLElement>('[data-law-filter-letter]')].filter((entry) => !entry.hidden).map((entry) => entry.dataset.lawFilterLetter),
-  }));
-  expect(state.letters).toEqual(state.groups);
+  // Ohne Filter: Ergebniszahl unter der Leiste, „Zurücksetzen“ vorhanden, aber inaktiv.
+  await expect(page.locator('[data-directory-count]')).toContainText(/Vorschrift/u);
+  await expect(page.locator('[data-directory-reset]')).toHaveAttribute('aria-disabled', 'true');
+  expect(await page.locator('[data-directory-entry]').count()).toBeLessThanOrEqual(50);
+  // Alle 27 Buchstabengruppen sind sichtbar; unbelegte sind inaktiv statt entfernt.
+  const letters = page.locator('.letter-nav [data-index-letter]:not([data-index-letter=""])');
+  await expect(letters).toHaveCount(27);
+  expect(await page.locator('.letter-nav span[aria-disabled="true"]').count()).toBeGreaterThan(0);
 
-  await query.fill('Verfassung');
-  await page.locator('[data-law-filter-form]').getByRole('button', { name: 'Filtern' }).click();
+  const query = page.locator('[data-directory-filter] input[name="q"]');
+  await query.fill('Kulturpass');
+  await page.locator('[data-directory-filter]').getByRole('button', { name: 'Filtern' }).click();
+  await expect(page).toHaveURL(/q=Kulturpass/u);
+  await expect(page.locator('[data-directory-count]')).toContainText(/passen zur Auswahl/u);
+  await expect(page.locator('[data-directory-entry]').first()).toContainText('Kulturpass');
+  await expect(page.locator('a[data-directory-reset]')).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
+
+  // Sprung in eine Buchstabengruppe behält den Filter; Zurück stellt den vorherigen Zustand wieder her.
+  const letter = page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').first();
+  const letterValue = await letter.getAttribute('data-index-letter');
+  await letter.click();
+  await expect(page).toHaveURL(new RegExp(`buchstabe=${letterValue}`, 'u'));
+  await expect(page).toHaveURL(/q=Kulturpass/u);
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText(letterValue ?? '');
   await page.goBack();
-  await expect(query).toHaveValue('kulturpass');
-  await expect(page.locator('[data-law-filter-entry]:visible').first()).toContainText('Kulturpass');
+  await expect(query).toHaveValue('Kulturpass');
+  await expect(page.locator('[data-directory-entry]').first()).toContainText('Kulturpass');
+
+  // Zurücksetzen führt auf das ungefilterte Verzeichnis.
+  await page.locator('a[data-directory-reset]').click();
+  await expect(page).toHaveURL(lawUrl('/gesetze/'));
+  await expect(page.locator('[data-directory-reset]')).toHaveAttribute('aria-disabled', 'true');
+});
+
+siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und dieselbe Filterleiste', async ({ page }) => {
+  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/fundstellen/', '/rechtsentwicklung/', '/archiv/', '/sachgebiete/kommunal-und-verwaltungsrecht/']) {
+    await page.goto(lawUrl(path));
+    await expect(page.locator('[data-directory-filter]').first(), path).toBeVisible();
+    await expect(page.locator('[data-directory-count]').first(), path).toBeVisible();
+    await expect(page.locator('[data-directory-reset]').first(), path).toBeVisible();
+    const entries = await page.locator('.directory-entry').count();
+    expect(entries, path).toBeGreaterThan(0);
+    expect(entries, path).toBeLessThanOrEqual(50);
+  }
 });
 
 siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen folgen dem redaktionellen Stichtag', async ({ page }) => {
@@ -545,7 +574,7 @@ siteTest(['law'])('Rechtsportal verwendet auf Übersichten und Suchindex dieselb
   await expect(latestHomePublication).toContainText(latestPublicationLabel);
 
   await page.goto(lawUrl('/verkuendungen/'));
-  await expect(page.locator('[data-law-filter-entry]').first()).toContainText(latestPublicationLabel);
+  await expect(page.locator('[data-directory-entry]').first()).toContainText(latestPublicationLabel);
 
   const recheckResponse = await request.get(lawUrl('/verkuendungen/index.json'));
   expect(recheckResponse).toBeOK();
@@ -582,13 +611,15 @@ siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugäng
   await page.getByRole('button', { name: 'Drucken', exact: true }).click();
   await expect.poll(() => page.evaluate(() => (window as Window & { __printCalls?: number }).__printCalls)).toBe(1);
 
+  // Werkzeuge je Einheit: ein Symbolknopf öffnet das Menü mit Anker und Einzeldruck.
   const unitTools = firstUnit.getByRole('navigation', { name: /Werkzeuge für/u });
+  await unitTools.locator('summary').click();
   const singlePrint = unitTools.getByRole('button', { name: 'Einzeldruck' });
   await expect(singlePrint).toBeVisible();
   await singlePrint.click();
   await expect.poll(() => page.evaluate(() => (window as Window & { __printCalls?: number }).__printCalls)).toBe(2);
   await expect(page.locator('body')).not.toHaveClass(/print-single-norm-unit/u);
-  await expect(unitTools.getByRole('link', { name: 'Link zu dieser Stelle' })).toHaveAttribute('href', `#${semanticId}`);
+  await expect(unitTools.getByRole('link', { name: 'Link zu dieser Stelle kopieren' })).toHaveAttribute('href', `#${semanticId}`);
   await expect(page.getByRole('heading', { name: 'Drucken und Quellen' })).toBeVisible();
 });
 
@@ -659,7 +690,7 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   expect(browseDates.length).toBeGreaterThan(5);
   expect(browseDates[0] >= '2026-09-02').toBeTruthy();
   expect(browseDates.every((date, index) => index === 0 || browseDates[index - 1] >= date)).toBeTruthy();
-  await expect(page.locator('[data-search-results] .search-hit h3').first()).toContainText(/Interflug|Haushaltsordnung|Bekanntmachung/u);
+  await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first()).toContainText(/Interflug|Haushaltsordnung|Bekanntmachung/u);
 
   // Filter ohne Suchbegriff: innerhalb des Filters ebenfalls jüngstes Rechtsereignis zuerst.
   await page.goto(lawUrl('/suche/?type=gesetz'));
@@ -680,6 +711,49 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await page.locator('select[name="sort"]').selectOption('publication');
   await expect(page).toHaveURL(/sort=publication/u);
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
+});
+
+siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, zuletzt die Suche', async ({ page }) => {
+  // Zwischen kleinem und großem Desktop klappt nur die Navigationsliste zusammen; Wortmarke,
+  // Suchfeld und Menüknopf bleiben sichtbar (Befund N1).
+  const readHeader = async (width: number) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(lawUrl('/gesetze/'));
+    return {
+      wordmark: await page.locator('.law-wordmark').isVisible(),
+      search: await page.locator('.law-header-search input').isVisible(),
+      menu: await page.locator('.law-mobile-nav summary').isVisible(),
+      navigation: await page.locator('.law-main-nav').isVisible(),
+    };
+  };
+
+  const wide = await readHeader(1440);
+  expect(wide, 'großer Desktop: volle Navigation ohne Menüknopf').toMatchObject({ wordmark: true, search: true, navigation: true, menu: false });
+
+  for (const width of [1280, 1180, 1100, 1024]) {
+    const header = await readHeader(width);
+    expect(header, `Zwischenstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: true, navigation: false });
+  }
+
+  // Erst auf dem kleinsten Bildschirm weicht auch die Suche in das Menü; erreichbar bleibt sie dort.
+  const small = await readHeader(375);
+  expect(small).toMatchObject({ wordmark: true, menu: true, search: false });
+  await page.locator('.law-mobile-nav summary').click();
+  await expect(page.locator('.law-mobile-nav__panel input')).toBeVisible();
+  await page.setViewportSize({ width: 1280, height: 900 });
+});
+
+siteTest(['law'])('Keine Seite erzeugt horizontalen Dokumentüberlauf', async ({ page }) => {
+  const paths = ['/', '/suche/', '/archiv/', '/verkuendungen/', '/sachgebiete/', '/rechtsentwicklung/', '/hilfe/', '/norm/saechsische-gemeindeordnung/', '/norm/saechsische-gemeindeordnung/history/', '/norm/saechsische-gemeindeordnung/vergleich/'];
+  for (const width of [375, 768, 1024, 1180, 1280, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of paths) {
+      await page.goto(lawUrl(path));
+      const size = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+      expect(size.scroll, `${path} bei ${width} px`).toBeLessThanOrEqual(size.client + 1);
+    }
+  }
+  await page.setViewportSize({ width: 1280, height: 900 });
 });
 
 siteTest(['law'])('Fundstellen des Ostdeutschen Vertragsblatts werden in der Rechtssuche erkannt', async ({ page }) => {
@@ -721,7 +795,7 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
   const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));
   expect(response?.status()).toBe(200);
-  await expect(page.locator('[data-index-count]')).toContainText('angezeigt');
+  await expect(page.locator('[data-index-count]')).toContainText(/\d+ Vorschrift/u);
 });
 
 siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften und kennzeichnet ihre Herkunft', async ({ page }) => {
@@ -744,16 +818,26 @@ siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften u
     await expect(page.locator('select[name="versionScope"]'), query).toHaveValue('current');
     const hits = page.locator('[data-search-results] .search-hit');
     await expect(hits.first(), query).toBeVisible();
-    await expect(page.locator('[data-search-results] .search-hit h3').first(), query).toHaveText(expectedTitle);
-    await expect(hits.first().locator('.status-badge'), query).toContainText('Geltende Fassung zum 4. September 2026');
+    await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first(), query).toContainText(expectedTitle);
+    // Die Fassungspille erscheint nur, wenn sie vom aktiven Fassungsfilter abweicht.
+    await expect(hits.first().locator('.status-badge'), query).toHaveCount(0);
     await expect(hits.first().locator('.search-hit__meta-line .origin-badge'), query).toBeVisible();
   }
+  await page.goto(lawUrl('/suche/?q=Zinnwald&versionScope=all'));
+  await expect(page.locator('[data-search-results] .search-hit .status-badge').first()).toContainText('Geltende Fassung zum 4. September 2026');
   // Der Herkunftsfacet arbeitet mit der zentralen Herkunftssemantik der Suchdokumente.
   await page.goto(lawUrl('/suche/?q=Interflug&origin=ostdeutsch-original'));
   await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
-  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsche Neuregelung');
+  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsch neu geschaffen');
   await page.goto(lawUrl('/suche/?q=Interflug&origin=inherited-unchanged'));
   await expect(page.locator('[data-search-summary]')).toContainText('Keine Treffer');
+  // Echter Leerzustand: Überschrift, zitierte Anfrage und Auswege mit Filterzahl.
+  await expect(page.locator('[data-search-empty] h3')).toHaveText('Keine Vorschrift gefunden');
+  await expect(page.locator('[data-search-empty]')).toContainText('„Interflug“');
+  await expect(page.locator('[data-search-empty-clear]')).toContainText('(1)');
+  await page.locator('[data-search-empty-clear]').click();
+  await expect(page).not.toHaveURL(/origin=/u);
+  await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
   // Die Kandidaten-API filtert die Herkunft bereits serverseitig: total, Kandidatenmenge und
   // Dokumente tragen nur die gewünschte Herkunft; unbekannte Werte werden ignoriert.
   const filtered = await page.request.get(lawUrl('/api/suche.json?q=Gesetz&origin=inherited-amended'));
@@ -787,14 +871,14 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
   await page.goto(lawUrl('/norm/zinnwald-vergesellschaftungsgesetz/'));
   const panel = page.locator('[data-visual-section="norm-legal-status"]');
   await expect(panel.getByRole('heading', { name: 'Rechtsstand und Herkunft' })).toBeVisible();
-  await expect(panel.locator('.origin-badge')).toHaveText(/Ostdeutsche Neuregelung/u);
+  await expect(panel.locator('.origin-badge')).toHaveText(/Ostdeutsch neu geschaffen/u);
   await expect(panel).toContainText('Geltende Fassung mit Rechtsstand vom 2. September 2026');
   await expect(page.locator('.norm-page-header__status')).toContainText('in Kraft seit 2. September 2026');
   await expect(page.locator('.status-notice')).toHaveCount(0);
 
   await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/'));
   const amended = page.locator('[data-visual-section="norm-legal-status"]');
-  await expect(amended.locator('.origin-badge')).toHaveText(/Übernommen · ostdeutsch geändert/u);
+  await expect(amended.locator('.origin-badge')).toHaveText(/Übernommen und ostdeutsch geändert/u);
   await expect(amended).toContainText('Zuletzt ostdeutsch geändert');
   await expect(amended.getByRole('link', { name: /Ausgangsfassung vom 1. November 2023/u })).toBeVisible();
   await expect(amended.getByRole('link', { name: 'Mit Ausgangsrecht vergleichen' })).toBeVisible();

@@ -1,4 +1,5 @@
 ---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
@@ -38,9 +39,9 @@ Astro.response.headers.set('Cache-Control', 'no-store');
   />
 
   <SectionHero
-    eyebrow="Fehler 404"
+    eyebrow="Rechtsportal"
     title="Seite nicht gefunden"
-    lead="Die angeforderte Adresse ist nicht vorhanden, wurde verschoben oder die Vorschrift wird unter einer anderen Kennung geführt. Bitte nutzen Sie die Rechtssuche oder die Verzeichnisse."
+    lead="Fehler 404: Die angeforderte Adresse ist nicht vorhanden, wurde verschoben oder die Vorschrift wird unter einer anderen Kennung geführt. Bitte nutzen Sie die Rechtssuche oder die Verzeichnisse."
     variant="law"
     actions={[
       { label: 'Zur Rechtssuche', href: getSearchUrl(), primary: true },
@@ -58,8 +59,8 @@ Astro.response.headers.set('Cache-Control', 'no-store');
       </p>
     </div>
     <ul class="record-list">
-      <li class="record-list__item"><a class="inline-link" href={getIndexUrl()}>Alphabetischer Index A–Z</a></li>
-      <li class="record-list__item"><a class="inline-link" href={getSubjectsUrl()}>Sachgebiete</a></li>
+      <li class="record-list__item"><a class="inline-link" href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a></li>
+      <li class="record-list__item"><a class="inline-link" href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a></li>
       <li class="record-list__item"><a class="inline-link" href={getPublicationsUrl()}>Verkündungen und Fundstellen</a></li>
       <li class="record-list__item"><a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Rechtsentwicklung seit dem 1. November 2023</a></li>
       <li class="record-list__item"><a class="inline-link" href={getHelpUrl()}>Hilfe zur Nutzung von OstRecht</a></li>
