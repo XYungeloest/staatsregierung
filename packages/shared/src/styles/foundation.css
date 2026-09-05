@@ -182,6 +182,8 @@ h2 {
 }
 
 .skip-link {
+  /* Erscheint über der dunklen Hinweisleiste: der Fokusschein macht den Umriss dort sichtbar. */
+  --focus-halo: var(--focus-ring);
   position: absolute;
   top: -3rem;
   left: 1rem;

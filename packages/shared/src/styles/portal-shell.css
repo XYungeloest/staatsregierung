@@ -172,6 +172,12 @@ summary:focus-visible {
   font-size: 0.9rem;
 }
 
+/* Eingabefeld und Suchknopf stoßen aneinander: innen liegender Umriss auf der eigenen weißen
+   Fläche statt außen auf dem dunklen Knopf (Befund A3). */
+.site-header__tools .header-search input:focus-visible {
+  outline-offset: -3px;
+}
+
 .site-header__tools .header-search button,
 .header-search--mobile button {
   display: inline-flex;
