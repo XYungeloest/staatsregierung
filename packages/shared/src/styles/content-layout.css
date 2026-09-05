@@ -15,8 +15,8 @@
   max-width: 28ch;
   color: var(--color-primary-hover);
   font-family: var(--font-display);
-  line-height: 1.08;
-  font-size: clamp(2.1rem, 4vw, 3.15rem);
+  line-height: var(--lh-display);
+  font-size: var(--text-title);
 }
 
 .section {
@@ -45,7 +45,7 @@
 
 .home-hero h1 {
   max-width: 19ch;
-  font-size: clamp(2.5rem, 4vw, 3.6rem);
+  font-size: var(--text-display);
 }
 
 .home-hero__image {
@@ -83,7 +83,7 @@
   }
 
   .home-hero h1 {
-    font-size: clamp(2.05rem, 10vw, 2.8rem);
+    font-size: var(--text-display);
   }
 
   .home-hero__image {

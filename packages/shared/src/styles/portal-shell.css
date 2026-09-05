@@ -1,6 +1,6 @@
 /* Regierungsportal-Redesign 2026: globaler Rahmen */
 body {
-  font-size: 1rem;
+  font-size: var(--text-base);
   color: var(--color-text);
 }
 
@@ -50,7 +50,7 @@ summary:focus-visible {
 }
 
 .site-notice__inner p {
-  font-size: 0.86rem;
+  font-size: var(--text-xs);
 }
 
 .site-notice__flag img {
@@ -91,15 +91,15 @@ summary:focus-visible {
 
 .site-wordmark .site-title {
   color: var(--color-primary-hover);
-  font-size: 1.42rem;
-  line-height: 0.98;
+  font-size: var(--text-lg-plus);
+  line-height: var(--lh-display);
   letter-spacing: -0.01em;
 }
 
 .site-wordmark .site-kicker {
   color: var(--color-text-muted);
-  font-size: 0.58rem;
-  line-height: 1.25;
+  font-size: var(--text-2xs);
+  line-height: var(--lh-heading);
   letter-spacing: 0.075em;
 }
 
@@ -116,7 +116,7 @@ summary:focus-visible {
   padding: 0.55rem 0.45rem;
   border-bottom: 3px solid transparent;
   color: var(--color-primary-hover);
-  font-size: 0.88rem;
+  font-size: var(--text-sm);
   font-weight: 680;
   white-space: nowrap;
 }
@@ -169,7 +169,7 @@ summary:focus-visible {
   background: #fff;
   color: var(--color-text);
   font: inherit;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 /* Eingabefeld und Suchknopf stoßen aneinander: innen liegender Umriss auf der eigenen weißen
@@ -215,9 +215,9 @@ summary:focus-visible {
   gap: 0.3rem;
   min-height: 2rem;
   color: var(--color-primary-hover);
-  font-size: 0.75rem;
+  font-size: var(--text-2xs);
   font-weight: 650;
-  line-height: 1.15;
+  line-height: var(--lh-display);
   text-decoration: none;
 }
 
@@ -249,7 +249,7 @@ summary:focus-visible {
 }
 
 .breadcrumbs__list {
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .breadcrumbs__item:not(:last-child)::after {
@@ -329,14 +329,14 @@ summary:focus-visible {
 }
 
 .service-band__item strong {
-  font-size: 0.98rem;
+  font-size: var(--text-base);
 }
 
 .service-band__item small {
   margin-top: 0.18rem;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 0.78rem;
-  line-height: 1.35;
+  font-size: var(--text-xs);
+  line-height: var(--lh-heading);
 }
 
 /* Kompakter Footer */
@@ -363,7 +363,7 @@ summary:focus-visible {
 .site-footer__section h2 {
   margin-bottom: 0.35rem;
   color: #fff;
-  font-size: 1rem;
+  font-size: var(--text-base);
 }
 
 .site-footer__wordmark {
@@ -371,9 +371,9 @@ summary:focus-visible {
   align-items: center;
   gap: 0.7rem;
   width: fit-content;
-  font-size: 1.2rem !important;
+  font-size: var(--text-md) !important;
   font-weight: 780;
-  line-height: 1.05 !important;
+  line-height: var(--lh-display) !important;
 }
 
 .site-footer__wordmark img {
@@ -416,7 +416,7 @@ summary:focus-visible {
 .site-footer__legal a,
 .site-footer__bottom .text-link-button {
   color: rgba(255, 255, 255, 0.84);
-  font-size: 0.82rem;
+  font-size: var(--text-xs);
 }
 
 .site-footer__bottom .text-link-button {
@@ -497,7 +497,7 @@ summary:focus-visible {
 
   .header-search--mobile > label {
     color: var(--color-heading);
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     font-weight: 700;
   }
 
@@ -550,8 +550,8 @@ summary:focus-visible {
 
   .site-notice__inner p {
     width: auto;
-    font-size: 0.8rem;
-    line-height: 1.35;
+    font-size: var(--text-xs);
+    line-height: var(--lh-heading);
   }
 
   .site-header__main {
@@ -566,7 +566,7 @@ summary:focus-visible {
 
   .site-wordmark .site-title {
     width: auto;
-    font-size: 1.12rem;
+    font-size: var(--text-md);
   }
 
   .site-wordmark .site-kicker {
