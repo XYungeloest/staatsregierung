@@ -217,6 +217,17 @@ test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und
   assert.deepEqual(plainLog[0].params, [120, 0]);
 });
 
+test('Buchstabenzähler eines Verzeichnisses laufen als GROUP BY über dieselben Bedingungen wie die Seitenabfrage', async () => {
+  const { db, log } = recordingDatabase({ 'GROUP BY n.index_letter': [{ letter: 'G', count: 4 }] });
+  const store = createD1NormStore(db);
+  assert.deepEqual(await store.listIndexLetters({ types: ['gesetz'] }), [{ letter: 'G', count: 4 }]);
+  assert.match(log[0].sql, /^SELECT n\.index_letter AS letter, COUNT\(\*\) AS count FROM law_norms n WHERE n\.type IN \(\?\) GROUP BY n\.index_letter ORDER BY n\.index_letter$/u);
+  assert.deepEqual(log[0].params, ['gesetz']);
+  await store.listIndexLetters({ subjectSlug: 'bildung-und-schule', originKind: 'ostdeutsch-original' });
+  assert.match(log[1].sql, /n\.origin_kind = \? AND n\.id IN \(SELECT s\.norm_id FROM law_norm_subjects s WHERE s\.subject_slug = \?\) GROUP BY n\.index_letter/u);
+  assert.ok(log.every((query) => !/meta_json|version_json|history_json/u.test(query.sql)));
+});
+
 test('getNorm liest genau die Zeilen der angefragten Norm und die Körper der gewünschten Fassungen', async () => {
   const meta = { id: 'x', slug: 'x', title: 'X', shortTitle: 'X', type: 'gesetz', status: 'in-force', subjects: ['A'], keywords: [], initialCitation: 'X (OGVBl. S. 1)', predecessor: null, successor: null, summary: 'S' };
   const version = { versionId: '2023-11-01', validFrom: '2023-11-01', validTo: null, isCurrent: true, citation: 'X', changeNote: 'N' };
@@ -271,7 +282,7 @@ test('Buchstabengruppen, Stichwortindex und Herkunftszähler lesen nur Aggregat-
   assert.deepEqual(await store.listIndexLetters(), [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }]);
   const keywords = await store.listKeywordIndex('A', { q: 'abg', page: 2 });
   assert.deepEqual(keywords.entries, [{ keyword: 'Abgaben', norms: [{ slug: 'a', shortTitle: 'A-Gesetz' }, { slug: 'b', shortTitle: 'B-Gesetz' }] }]);
-  assert.deepEqual({ total: keywords.total, page: keywords.page, pageSize: keywords.pageSize, pageCount: keywords.pageCount }, { total: 250, page: 2, pageSize: 100, pageCount: 3 });
+  assert.deepEqual({ total: keywords.total, page: keywords.page, pageSize: keywords.pageSize, pageCount: keywords.pageCount }, { total: 250, page: 2, pageSize: 50, pageCount: 5 });
   assert.deepEqual(await store.countByOriginKind(), { 'ostdeutsch-original': 5 });
   const countQuery = log.find((query) => query.sql.includes('COUNT(DISTINCT k.keyword)'));
   assert.ok(countQuery);
@@ -279,7 +290,7 @@ test('Buchstabengruppen, Stichwortindex und Herkunftszähler lesen nur Aggregat-
   assert.deepEqual(countQuery.params, ['A', '%abg%']);
   const pageQuery = log.find((query) => query.sql.includes('GROUP BY k.keyword ORDER BY k.keyword LIMIT'));
   assert.ok(pageQuery);
-  assert.deepEqual(pageQuery.params, ['A', '%abg%', 100, 100]);
+  assert.deepEqual(pageQuery.params, ['A', '%abg%', 50, 50]);
   const joinQuery = log.find((query) => query.sql.includes('FROM law_norm_keywords k JOIN law_norms n'));
   assert.ok(joinQuery);
   assert.match(joinQuery.sql, /WHERE k\.index_letter = \? AND lower\(k\.keyword\) LIKE \? ESCAPE '\\' AND k\.keyword BETWEEN \? AND \? ORDER BY k\.keyword/u);

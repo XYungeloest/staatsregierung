@@ -72,15 +72,274 @@ async function preparePage(page: Page, consent = 'rejected'): Promise<void> {
   await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
 }
 
+interface OverflowEntry {
+  index: number;
+  leaf: boolean;
+  tag: string;
+  classes: string;
+  left: number;
+  right: number;
+  width: number;
+  scrollWidth: number;
+  minContentWidth: number;
+  depth: number;
+  layout: string;
+  minWidth: string;
+  whiteSpace: string;
+  overflowWrap: string;
+  fontFamily: string;
+  control: string;
+  widestToken: string;
+  widestTokenWidth: number;
+  text: string;
+  clippedBy: string;
+}
+
+interface OverflowReport {
+  viewportWidth: number;
+  documentWidth: number;
+  bodyWidth: number;
+  total: number;
+  leaves: number;
+  chains: string[];
+  entries: OverflowEntry[];
+  fontsStatus: string;
+  fonts: string[];
+}
+
+const OVERFLOW_REPORT_LEAVES = 20;
+const OVERFLOW_REPORT_ANCESTORS = 10;
+
+/**
+ * Kein horizontaler Überlauf: Dokument und body dürfen den Viewport um höchstens 1 px überschreiten.
+ * Schlägt die Prüfung fehl, nennt die Meldung jedes Element, dessen rechte Kante über den Viewport
+ * hinausragt – zuerst die ohne überlaufendes Kind (dort entsteht die Breite), dann die Vorfahren –
+ * mit Kanten, Breite, scrollWidth, Umbruchregeln, berechneter Schriftfamilie, tatsächlich gesetzter
+ * Plattformschrift, Formularattributen, dem längsten unbrechbaren Wort und dem Textanfang, sowie den
+ * Ladezustand aller Schriftschnitte. Eine Überlaufmeldung ohne das überlaufende Element ist nutzlos.
+ */
 async function verifyViewport(page: Page): Promise<void> {
   const dimensions = await page.evaluate(() => ({
     viewportWidth: window.innerWidth,
     documentWidth: document.documentElement.scrollWidth,
     bodyWidth: document.body.scrollWidth,
   }));
+  const limit = dimensions.viewportWidth + 1;
+  let report = '';
+  if (dimensions.documentWidth > limit || dimensions.bodyWidth > limit) {
+    report = await describeOverflow(page);
+    await test.info().attach('ueberlauf.txt', { body: report, contentType: 'text/plain' });
+    console.log(report);
+  }
+  expect(dimensions.documentWidth, report).toBeLessThanOrEqual(limit);
+  expect(dimensions.bodyWidth, report).toBeLessThanOrEqual(limit);
+}
 
-  expect(dimensions.documentWidth).toBeLessThanOrEqual(dimensions.viewportWidth + 1);
-  expect(dimensions.bodyWidth).toBeLessThanOrEqual(dimensions.viewportWidth + 1);
+/**
+ * Überlaufende Elemente samt Schriftzustand beschreiben. Die gelisteten Elemente werden für die
+ * Abfrage der tatsächlich gesetzten Plattformschrift (Chromium-DevTools-Protokoll) kurz markiert
+ * und danach wieder freigegeben.
+ */
+async function describeOverflow(page: Page): Promise<string> {
+  const data = await page.evaluate(([maxLeaves, maxAncestors]): OverflowReport => {
+    const viewportWidth = window.innerWidth;
+    const round = (value: number): number => Math.round(value * 10) / 10;
+    const describe = (element: Element): string => {
+      const classes = typeof element.className === 'string' ? element.className.trim() : '';
+      return `${element.tagName.toLowerCase()}${classes ? `.${classes.split(/\s+/u).join('.')}` : ''}`;
+    };
+    const clippingAncestor = (element: Element): string => {
+      for (let parent = element.parentElement; parent && parent !== document.documentElement; parent = parent.parentElement) {
+        const overflowX = getComputedStyle(parent).overflowX;
+        if (overflowX !== 'visible') return `${describe(parent)} (overflow-x ${overflowX})`;
+      }
+      return '';
+    };
+    const controlInfo = (element: HTMLElement): string => {
+      const tag = element.tagName.toLowerCase();
+      if (element instanceof HTMLInputElement) {
+        return `input[type=${element.type}]${element.hasAttribute('size') ? ` size=${element.getAttribute('size')}` : ''}${element.placeholder ? ` placeholder „${element.placeholder.slice(0, 40)}“` : ''}`;
+      }
+      if (element instanceof HTMLSelectElement) {
+        const longest = Array.from(element.options).map((option) => option.text).sort((a, b) => b.length - a.length)[0] ?? '';
+        return `select, längste Option „${longest.slice(0, 40)}“`;
+      }
+      if (element instanceof HTMLTextAreaElement) return `textarea cols=${element.cols}`;
+      if (element instanceof HTMLImageElement) return `img natürlich ${element.naturalWidth}×${element.naturalHeight}, width-Attribut ${element.getAttribute('width') ?? '–'}`;
+      if (['svg', 'canvas', 'video', 'iframe', 'table', 'pre'].includes(tag)) return `${tag}, width-Attribut ${element.getAttribute('width') ?? '–'}`;
+      return '';
+    };
+    // Min-Content-Maß direkt messen: kurz width: min-content setzen, messen, zurücksetzen. Ein
+    // Element, dessen Min-Content der Spaltenbreite entspricht, ist die Quelle der Breite; alles
+    // andere ist nur auf die Spalte gestreckt.
+    const minContentWidth = (element: HTMLElement): number => {
+      const previousWidth = element.style.getPropertyValue('width');
+      const widthPriority = element.style.getPropertyPriority('width');
+      const previousDisplay = element.style.getPropertyValue('display');
+      const inline = getComputedStyle(element).display === 'inline';
+      // Inline-Elemente ignorieren width; als inline-block gemessen liefern sie ihr Min-Content
+      // (bei white-space: nowrap die ganze Zeile).
+      if (inline) element.style.setProperty('display', 'inline-block', 'important');
+      element.style.setProperty('width', 'min-content', 'important');
+      const width = element.getBoundingClientRect().width;
+      if (previousWidth) element.style.setProperty('width', previousWidth, widthPriority);
+      else element.style.removeProperty('width');
+      if (inline) {
+        if (previousDisplay) element.style.setProperty('display', previousDisplay);
+        else element.style.removeProperty('display');
+      }
+      return round(width);
+    };
+    const layoutOf = (style: CSSStyleDeclaration): string => {
+      if (style.display.includes('grid')) return `${style.display} [${style.gridTemplateColumns}]`;
+      if (style.display.includes('flex')) return `${style.display} ${style.flexWrap}`;
+      return style.display;
+    };
+    const depthOf = (element: Element): number => {
+      let depth = 0;
+      for (let parent = element.parentElement; parent; parent = parent.parentElement) depth += 1;
+      return depth;
+    };
+    const widestToken = (element: HTMLElement): { token: string; width: number } => {
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+      const best = { token: '', width: 0 };
+      let scanned = 0;
+      for (let node = walker.nextNode(); node && scanned < 500; node = walker.nextNode()) {
+        const text = node.textContent ?? '';
+        const pattern = /\S+/gu;
+        for (let match = pattern.exec(text); match && scanned < 500; match = pattern.exec(text)) {
+          scanned += 1;
+          const range = document.createRange();
+          range.setStart(node, match.index);
+          range.setEnd(node, match.index + match[0].length);
+          const width = range.getBoundingClientRect().width;
+          if (width > best.width) {
+            best.token = match[0].slice(0, 40);
+            best.width = round(width);
+          }
+        }
+      }
+      return best;
+    };
+
+    // Absteigekette: von einer Quelle abwärts jeweils das Kind mit dem größten Min-Content, bis kein
+    // Kind mehr die Breite trägt – so erscheint das ursächliche Element auch dann, wenn es selbst
+    // innerhalb des Viewports bleibt (z. B. eine nowrap-Zeile hinter dem Innenabstand des Vorfahren).
+    const chainFrom = (start: HTMLElement): string => {
+      const steps: string[] = [];
+      let current: HTMLElement = start;
+      for (let level = 0; level < 12; level += 1) {
+        const children = Array.from(current.children).filter((child): child is HTMLElement => child instanceof HTMLElement);
+        if (children.length === 0) break;
+        const measured = children.map((child) => ({ child, width: minContentWidth(child) })).sort((a, b) => b.width - a.width);
+        const next = measured[0];
+        if (!next || next.width < minContentWidth(current) * 0.5) break;
+        const style = getComputedStyle(next.child);
+        const token = widestToken(next.child);
+        steps.push(`${describe(next.child)} [${next.width}${style.whiteSpace !== 'normal' ? `, white-space ${style.whiteSpace}` : ''}${style.overflowWrap !== 'normal' ? `, overflow-wrap ${style.overflowWrap}` : ''}${token.token ? `, längstes Wort „${token.token}“ ${token.width} px` : ''}]`);
+        current = next.child;
+      }
+      return steps.length > 0 ? `${describe(start)} [${minContentWidth(start)}] → ${steps.join(' → ')}` : '';
+    };
+
+    const found: Array<{ element: HTMLElement; entry: OverflowEntry }> = [];
+    for (const element of Array.from(document.body.querySelectorAll<HTMLElement>('*'))) {
+      const rect = element.getBoundingClientRect();
+      if (rect.width === 0 || rect.right <= viewportWidth + 1) continue;
+      const style = getComputedStyle(element);
+      found.push({
+        element,
+        entry: {
+          index: 0,
+          leaf: true,
+          tag: element.tagName.toLowerCase(),
+          classes: typeof element.className === 'string' ? element.className.trim() : '',
+          left: round(rect.left),
+          right: round(rect.right),
+          width: round(rect.width),
+          scrollWidth: element.scrollWidth,
+          minContentWidth: 0,
+          depth: depthOf(element),
+          layout: layoutOf(style),
+          minWidth: style.minWidth,
+          whiteSpace: style.whiteSpace,
+          overflowWrap: style.overflowWrap,
+          fontFamily: style.fontFamily,
+          control: controlInfo(element),
+          widestToken: '',
+          widestTokenWidth: 0,
+          text: (element.innerText || element.textContent || '').replace(/\s+/gu, ' ').trim().slice(0, 40),
+          clippedBy: clippingAncestor(element),
+        },
+      });
+    }
+    const overflowing = new Set(found.map((item) => item.element));
+    for (const item of found) {
+      item.entry.minContentWidth = minContentWidth(item.element);
+      item.entry.leaf = !Array.from(item.element.querySelectorAll<HTMLElement>('*')).some((descendant) => overflowing.has(descendant));
+      if (item.entry.leaf) {
+        const token = widestToken(item.element);
+        item.entry.widestToken = token.token;
+        item.entry.widestTokenWidth = token.width;
+      }
+    }
+    // Quelle zuerst: größtes Min-Content-Maß, bei Gleichstand das tiefere Element.
+    const bySource = (a: { entry: OverflowEntry }, b: { entry: OverflowEntry }): number => b.entry.minContentWidth - a.entry.minContentWidth || b.entry.depth - a.entry.depth || b.entry.right - a.entry.right;
+    const leaves = found.filter((item) => item.entry.leaf).sort(bySource);
+    const ancestors = found.filter((item) => !item.entry.leaf).sort(bySource);
+    const kept = [...leaves.slice(0, maxLeaves), ...ancestors.slice(0, maxAncestors)];
+    kept.forEach(({ element, entry }, position) => {
+      entry.index = position + 1;
+      element.setAttribute('data-overflow-report', String(entry.index));
+    });
+    const chains = [leaves[0], ancestors[0]].filter((item): item is { element: HTMLElement; entry: OverflowEntry } => Boolean(item)).map(({ element }) => chainFrom(element)).filter(Boolean);
+    return {
+      viewportWidth,
+      documentWidth: document.documentElement.scrollWidth,
+      bodyWidth: document.body.scrollWidth,
+      total: found.length,
+      leaves: leaves.length,
+      chains,
+      entries: kept.map(({ entry }) => entry),
+      fontsStatus: document.fonts.status,
+      fonts: Array.from(document.fonts).map((face) => `${face.family} ${face.weight} ${face.style}: ${face.status}`),
+    };
+  }, [OVERFLOW_REPORT_LEAVES, OVERFLOW_REPORT_ANCESTORS] as const);
+
+  const platformFonts = new Map<number, string>();
+  try {
+    const client = await page.context().newCDPSession(page);
+    await client.send('DOM.enable');
+    await client.send('CSS.enable');
+    const { root } = await client.send('DOM.getDocument', { depth: 0 });
+    for (const entry of data.entries) {
+      const { nodeId } = await client.send('DOM.querySelector', { nodeId: root.nodeId, selector: `[data-overflow-report="${entry.index}"]` });
+      if (!nodeId) continue;
+      const { fonts } = await client.send('CSS.getPlatformFontsForNode', { nodeId });
+      platformFonts.set(entry.index, fonts.map((font) => `${font.familyName} (${font.isCustomFont ? 'Webfont' : 'System'}, ${font.glyphCount} Glyphen)`).join(', ') || '–');
+    }
+    await client.detach();
+  } catch {
+    // Ohne DevTools-Protokoll (anderer Browser) bleibt nur die berechnete Schriftfamilie.
+  }
+  await page.evaluate(() => {
+    document.querySelectorAll('[data-overflow-report]').forEach((element) => element.removeAttribute('data-overflow-report'));
+  });
+
+  const listedLeaves = data.entries.filter((entry) => entry.leaf).length;
+  const header = `Horizontaler Überlauf bei ${data.viewportWidth} px Viewport: Dokument ${data.documentWidth} px, body ${data.bodyWidth} px; ${data.total} Element(e) ragen über den rechten Rand, davon ${data.leaves} ohne überlaufendes Kind; sortiert nach Min-Content-Maß (die Quelle der Breite zuerst), gelistet ${listedLeaves} Blatt/Blätter und ${data.entries.length - listedLeaves} Vorfahr(en):`;
+  const lines = data.entries.map((entry) => [
+    `  ${entry.index}. [${entry.leaf ? 'Blatt' : 'Vorfahr'} Tiefe ${entry.depth}] <${entry.tag}${entry.classes ? ` class="${entry.classes}"` : ''}>`,
+    `Min-Content ${entry.minContentWidth} · links ${entry.left} · rechts ${entry.right} · Breite ${entry.width} · scrollWidth ${entry.scrollWidth} · ${entry.layout} · min-width ${entry.minWidth} · white-space ${entry.whiteSpace} · overflow-wrap ${entry.overflowWrap}`,
+    `font-family ${entry.fontFamily}`,
+    `gesetzt: ${platformFonts.get(entry.index) ?? 'unbekannt'}`,
+    entry.control,
+    entry.widestToken ? `längstes Wort „${entry.widestToken}“ ${entry.widestTokenWidth} px` : '',
+    entry.clippedBy ? `abgeschnitten durch ${entry.clippedBy}` : '',
+    entry.text ? `Text „${entry.text}“` : '',
+  ].filter(Boolean).join(' · '));
+  const chains = data.chains.map((chain) => `Kette (Min-Content je Ebene): ${chain}`);
+  return [header, ...lines, ...chains, `Schriften (document.fonts.status ${data.fontsStatus}): ${data.fonts.join('; ') || 'keine @font-face-Regeln'}`].join('\n');
 }
 
 async function prepareLocator(locator: Locator): Promise<void> {

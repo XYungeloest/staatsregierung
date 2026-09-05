@@ -5,7 +5,7 @@ import PageHead from '@ostrecht/shared/components/PageHead.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import ServiceBand from '../components/portal/ServiceBand.astro';
 import { isAnalyticsEnabled } from '@ostrecht/shared/config/analytics.ts';
-import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import { lawSiteConfig, siteConfig } from '@ostrecht/shared/config/site.ts';
 import type { SeoBreadcrumbItem, SeoImage, StructuredData } from '@ostrecht/shared/lib/seo/index.ts';
 import {
   getHomeUrl,
@@ -128,10 +128,10 @@ const footerServiceLinks = [
 }));
 
 const footerLegalLinks = [
-  { href: getLawSearchUrl(), label: 'Rechtssuche' },
-  { href: getLawIndexUrl(), label: 'Alphabetischer Index' },
-  { href: getLawReferencesUrl(), label: 'Fundstellennachweise' },
-  { href: getLawPublicationsUrl(), label: 'Verkündungen' },
+  { href: getLawSearchUrl(), label: lawSiteConfig.targetLabels.search },
+  { href: getLawIndexUrl(), label: lawSiteConfig.targetLabels.index },
+  { href: getLawReferencesUrl(), label: lawSiteConfig.targetLabels.references },
+  { href: getLawPublicationsUrl(), label: lawSiteConfig.targetLabels.publications },
   { href: getSiteUrl('faq'), label: 'FAQ' },
   { href: getSiteUrl('imprint'), label: 'Impressum' },
   { href: getSiteUrl('privacy'), label: 'Datenschutz' },

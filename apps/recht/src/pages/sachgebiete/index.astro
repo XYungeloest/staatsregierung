@@ -2,6 +2,7 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import DirectoryEntry from '../../components/directory/DirectoryEntry.astro';
 import {
   getLawPortalUrl,
   getSubjectUrl,
@@ -40,31 +41,31 @@ const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummarie
     title="Sachgebiete"
     lead="Vorschriften nach fachlicher Zuordnung und thematischen Hauptbereichen recherchieren."
     variant="law"
-    facts={[{ label: 'Sachgebiete', value: String(groups.length) }, { label: 'Vorschriften', value: String(stats.normCount) }]}
+    facts={[{ label: 'Hauptbereiche', value: String(areaGroups.length) }, { label: 'Vorschriften im Bestand', value: String(stats.normCount) }]}
   />
 
   <section class="section">
     <div class="section-header">
       <h2>Systematische Übersicht</h2>
-      <p>Die Hauptbereiche fassen verwandte Sachgebiete für die Recherche zusammen.</p>
+      <p>Die Hauptbereiche fassen verwandte Sachgebiete für die Recherche zusammen. {groups.length} Sachgebiete in {areaGroups.length} Hauptbereichen.</p>
     </div>
-    <div class="content-grid content-grid--wide">
-      {areaGroups.map((area) => (
-        <section class="panel" id={`subject-area-${getSubjectSlug(area.name)}`}>
-          <h3>{area.name}</h3>
-          <p>{area.description}</p>
-          <p class="detail-line">{area.normCount} Vorschriften in {area.subjects.length} Sachgebieten</p>
-          <ul class="record-list">
-            {area.subjects.map((group) => (
-              <li class="record-list__item">
-                <a class="inline-link" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)}</a>
-                <span>{group.normCount} Normen</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
-    </div>
+    {areaGroups.map((area) => (
+      <section class="directory directory--area" id={`subject-area-${getSubjectSlug(area.name)}`} aria-labelledby={`subject-area-title-${getSubjectSlug(area.name)}`}>
+        <h3 id={`subject-area-title-${getSubjectSlug(area.name)}`} class="directory__heading">{area.name}</h3>
+        <p class="directory__lead">{area.description}</p>
+        <ol class="directory-list directory-list--grid">
+          {area.subjects.map((group) => (
+            <DirectoryEntry
+              title={toDisplayText(group.name)}
+              href={getSubjectUrl(group.name)}
+              compact
+              facts={[{ label: 'Vorschriften', value: String(group.normCount) }]}
+              attrs={{ 'data-directory-entry': '' }}
+            />
+          ))}
+        </ol>
+      </section>
+    ))}
   </section>
 
   <section class="section section-muted">
