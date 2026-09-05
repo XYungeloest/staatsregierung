@@ -5,9 +5,9 @@ import {
   buildNormFullCitation,
   buildNormRecordLookup,
 } from '@ostrecht/shared/lib/norms/citation.ts';
-import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
+import { loadNormsOnce as loadAllNorms } from '../helpers/corpus.ts';
 import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import { loadSearchIndexSampleOnce } from './helpers/corpus.ts';
+import { loadSearchIndexSampleOnce } from '../helpers/corpus.ts';
 import { NORM_TYPES } from '@ostrecht/shared/lib/norms/schema.ts';
 import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';

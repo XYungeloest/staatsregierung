@@ -1,16 +1,48 @@
 #!/usr/bin/env node
 
+import { readFileSync } from 'node:fs';
 import { appendFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
+import { isProjectionLogicPath } from './lib/d1-sync-scope.mjs';
+
 /**
+ * Änderungsscope: bestimmt aus geänderten Pfaden, was gebaut, geprüft und veröffentlicht wird.
+ *
  * `scope` remains the compact deployment-facing value used by the workflows.
  * Verification-only changes use `ci-only`; their checks are described by the
  * separate flags below and must never imply a production deployment.
+ *
+ * D1-Relevanz wird nicht aus Verzeichnissen geraten: Mit `logicPaths` (transitiver Code-Abschluss
+ * der Projektion, scripts/lib/d1-projection-closure.mjs, im Workflow über die CLI berechnet)
+ * zählt genau eine geänderte Datei dieses Abschlusses – oder das Schema – als Projektionscode.
+ * Reine Darstellung in denselben Verzeichnissen (z. B. norms/diff-render.ts) löst weder D1-Sync
+ * noch Vollbestand-Smoke aus. Ohne Abschluss (esbuild fehlt, unsicherer Abschluss) gilt
+ * fail-closed die konservative Obermenge aus scripts/lib/d1-sync-scope.mjs.
+ *
+ * Content-Pipeline-Skripte (Importer, Audits, Validatoren) werden aus package.json abgeleitet:
+ * jedes Skript, das ein content:-, knowledge:-, holdings:-, norms:-, kreisreform:- oder
+ * images:-Kommando aufruft, verlangt die Content-Prüfung; Bibliotheken unter scripts/lib/
+ * ebenfalls (konservativ). Ein Werkzeug, das kein npm-Skript aufruft, kann Build, Inhalte oder
+ * Laufzeit nicht beeinflussen und braucht nur die Unit-Tests.
  */
 export const CHANGE_SCOPES = ['docs-only', 'ci-only', 'portal', 'law', 'shared'];
 
 const SITE_TARGETS = ['portal', 'law'];
+const PACKAGE_SCRIPTS = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).scripts ?? {};
+const CONTENT_PIPELINE_PREFIXES = ['content:', 'knowledge:', 'holdings:', 'norms:', 'kreisreform:', 'images:'];
+
+/** Skripte, die ein npm-Kommando mit einem der Präfixe aufruft. */
+export function scriptsReferencedBy(prefixes, scripts = PACKAGE_SCRIPTS) {
+  const referenced = new Set();
+  for (const [name, command] of Object.entries(scripts)) {
+    if (!prefixes.some((prefix) => name.startsWith(prefix))) continue;
+    for (const match of String(command).matchAll(/scripts\/[\w./-]+\.(?:mjs|ts|js)/gu)) referenced.add(match[0]);
+  }
+  return referenced;
+}
+
+export const CONTENT_PIPELINE_SCRIPTS = scriptsReferencedBy(CONTENT_PIPELINE_PREFIXES);
 
 const RUNTIME_BUILD_SCRIPTS = new Set([
   'scripts/prepare-site-public.mjs',
@@ -34,7 +66,9 @@ const CI_ONLY_SCRIPTS = new Set([
   'scripts/classify-change-scope.mjs',
   'scripts/check-deployment.mjs',
   'scripts/check-docs.mjs',
+  'scripts/d1-write-probe.mjs',
   'scripts/npm-audit-retry.mjs',
+  'scripts/visual-baselines.mjs',
 ]);
 
 /**
@@ -73,6 +107,7 @@ function documentationImpact() {
     runUnitTests: false,
     runD1Sync: false,
     fullCorpus: false,
+    corpusTests: false,
     visual: false,
   };
 }
@@ -85,6 +120,7 @@ function verificationImpact({
   ui = [],
   d1Sync = false,
   fullCorpus = false,
+  corpusTests = false,
   visual = false,
 } = {}) {
   return {
@@ -98,11 +134,12 @@ function verificationImpact({
     runUnitTests: unit,
     runD1Sync: d1Sync,
     fullCorpus,
+    corpusTests: corpusTests || content || d1Sync || fullCorpus,
     visual,
   };
 }
 
-function runtimeImpact(runtimeTargets, { content = false, d1Sync = false, fullCorpus = false, visual = true } = {}) {
+function runtimeImpact(runtimeTargets, { content = false, d1Sync = false, fullCorpus = false, corpusTests = false, visual = true } = {}) {
   const selectedTargets = targets(runtimeTargets);
   return {
     documentation: false,
@@ -115,6 +152,7 @@ function runtimeImpact(runtimeTargets, { content = false, d1Sync = false, fullCo
     runUnitTests: true,
     runD1Sync: d1Sync,
     fullCorpus,
+    corpusTests: corpusTests || content || d1Sync || fullCorpus,
     visual,
   };
 }
@@ -139,23 +177,29 @@ function isDerivedPortalContentPath(path) {
 }
 
 /**
- * Code, der die D1-Projektion bestimmt: Sync-Skript, Normbibliothek und
- * Suchdokumente. Nach einer Änderung muss die Projektion neu geschrieben werden.
+ * Code, der die D1-Projektion bestimmt: genau der Code-Abschluss des Syncs (mit Schema); ohne
+ * bekannten Abschluss die konservative Obermenge. Nach einer Änderung muss die Projektion neu
+ * geschrieben oder ihre Äquivalenz nachgewiesen werden.
  */
-function isD1ProjectionCodePath(path) {
-  return path === 'scripts/sync-recht-d1.mjs'
-    || path.startsWith('packages/shared/src/lib/norms/')
-    || path.startsWith('packages/recht-search/');
+export function isD1ProjectionCodePath(path, logicPaths = null) {
+  return isProjectionLogicPath(path, logicPaths);
 }
 
 /**
- * Änderungen, deren Wirkung auf die OstRecht-Laufzeit nur mit dem gesamten Rechtsbestand
- * bewiesen werden kann (D1-Schema, Projektions-, Such-, Ableitungs-, Fassungs-, Herkunfts-
- * und Stichtagslogik, Runtime-Store und Routen mit Datenbankzugriff, Seed-Werkzeuge,
- * Laufzeitkonfiguration und Abhängigkeiten). Rein visuelle Änderungen (Komponenten,
- * Layouts, Styles, Browserskripte, statische Hilfe- und Fehlerseite) genügen dem Fixture.
+ * Laufzeitlogik von OstRecht, die keine Projektionslogik ist, aber gegen die Datenbank rechnet
+ * (Kandidatenabfragen der Suche). Ihre Wirkung zeigt sich erst im Vollbestand.
  */
-export function isFullCorpusPath(path) {
+const LAW_RUNTIME_QUERY_PATHS = new Set(['packages/recht-search/src/search-query.ts']);
+
+/**
+ * Änderungen, deren Wirkung auf die OstRecht-Laufzeit nur mit dem gesamten Rechtsbestand
+ * bewiesen werden kann (D1-Schema, Projektionscode, Runtime-Store und Routen mit
+ * Datenbankzugriff, Kandidatenabfragen der Suche, Seed-Werkzeuge, Laufzeitkonfiguration und
+ * Abhängigkeiten). Rein visuelle Änderungen (Komponenten, Layouts, Styles, Browserskripte,
+ * Darstellungslogik außerhalb des Abschlusses, statische Hilfe- und Fehlerseite) genügen dem
+ * Fixture.
+ */
+export function isFullCorpusPath(path, logicPaths = null) {
   if (path.startsWith('data/recht/d1/')) return true;
   if (RUNTIME_CORPUS_SCRIPTS.has(path) || path.startsWith('scripts/lib/d1-')) return true;
   if (path.startsWith('apps/recht/src/lib/runtime/') || path === 'apps/recht/src/middleware.ts') return true;
@@ -164,9 +208,7 @@ export function isFullCorpusPath(path) {
       || path === 'apps/recht/src/pages/404.astro'
       || path === 'apps/recht/src/pages/robots.txt.ts');
   }
-  if (path.startsWith('packages/shared/src/lib/norms/') || path.startsWith('packages/shared/src/config/')) return true;
-  if (/^packages\/shared\/src\/lib\/portal\/(?:content|routes|loader|legislation)\.ts$/u.test(path)) return true;
-  if (path.startsWith('packages/recht-search/src/')) return true;
+  if (isProjectionLogicPath(path, logicPaths) || LAW_RUNTIME_QUERY_PATHS.has(path)) return true;
   return path === 'apps/recht/wrangler.jsonc'
     || path === 'apps/recht/astro.config.mjs'
     || path === 'apps/recht/package.json'
@@ -249,10 +291,10 @@ function isCiOnlyRootPath(path) {
     || /^playwright[^/]*\.[^/]+$/u.test(path);
 }
 
-function scriptImpact(path) {
+function scriptImpact(path, logicPaths) {
   if (RUNTIME_BUILD_SCRIPTS.has(path)) return runtimeImpact(SITE_TARGETS);
-  if (isD1ProjectionCodePath(path)) return verificationImpact({ content: true, d1Sync: true, fullCorpus: true });
-  if (isFullCorpusPath(path)) {
+  if (isD1ProjectionCodePath(path, logicPaths)) return verificationImpact({ content: true, d1Sync: true, fullCorpus: true });
+  if (isFullCorpusPath(path, logicPaths)) {
     // Seed-, Verifikations- und Worker-Werkzeuge: der Vollbestand-Smoke beweist sie.
     return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS, fullCorpus: true });
   }
@@ -266,13 +308,15 @@ function scriptImpact(path) {
   }
   if (CI_ONLY_SCRIPTS.has(path)) return verificationImpact();
 
-  // Importers, generators, audits and content validators are deliberately
-  // verification-only. Their generated canonical files determine deployment
-  // impact when they are changed in the same commit.
-  return verificationImpact({ content: true });
+  // Importer, Generatoren, Audits und Content-Validatoren (aus package.json abgeleitet) sowie
+  // ihre Bibliotheken unter scripts/lib/ sind verification-only mit Content-Prüfung; ihre
+  // generierten kanonischen Dateien bestimmen die Deploymentwirkung, wenn sie im selben Commit
+  // geändert sind. Ein Werkzeug, das kein npm-Skript aufruft, braucht nur die Unit-Tests.
+  if (CONTENT_PIPELINE_SCRIPTS.has(path) || path.startsWith('scripts/lib/')) return verificationImpact({ content: true });
+  return verificationImpact();
 }
 
-function pathImpact(path) {
+function pathImpact(path, logicPaths = null) {
   if (isRootDocumentation(path) || isKnowledgeDocumentation(path)) {
     return documentationImpact();
   }
@@ -280,7 +324,7 @@ function pathImpact(path) {
   // Rechtsinhalte laufen über D1; die Screenshot-Suite arbeitet mit dem Fixture und wird
   // von reinem Normcontent nicht angestoßen.
   if (isLawContentPath(path)) return runtimeImpact(['portal'], { content: true, d1Sync: true, visual: false });
-  if (isLawRuntimePath(path)) return runtimeImpact(['law'], { d1Sync: isD1ProjectionCodePath(path), fullCorpus: isFullCorpusPath(path) });
+  if (isLawRuntimePath(path)) return runtimeImpact(['law'], { d1Sync: isD1ProjectionCodePath(path, logicPaths), fullCorpus: isFullCorpusPath(path, logicPaths) });
   if (isPortalRuntimePath(path)) {
     return runtimeImpact(['portal'], {
       content: path.startsWith('content/'),
@@ -290,8 +334,9 @@ function pathImpact(path) {
   if (isSharedRuntimePath(path)) {
     return runtimeImpact(SITE_TARGETS, {
       content: path.startsWith('content/'),
-      d1Sync: isD1ProjectionCodePath(path),
-      fullCorpus: isFullCorpusPath(path),
+      d1Sync: isD1ProjectionCodePath(path, logicPaths),
+      fullCorpus: isFullCorpusPath(path, logicPaths),
+      corpusTests: path === 'package.json' || path === 'package-lock.json',
     });
   }
 
@@ -300,10 +345,11 @@ function pathImpact(path) {
   if (path.startsWith('tests/')) {
     if (isUiSmokeSpec(path)) return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS });
     if (isVisualTestPath(path)) return verificationImpact({ build: SITE_TARGETS, visual: true });
+    if (path.startsWith('tests/corpus/') || path.startsWith('tests/helpers/') || path.startsWith('tests/fixtures/')) return verificationImpact({ corpusTests: true });
     return verificationImpact();
   }
 
-  if (path.startsWith('scripts/')) return scriptImpact(path);
+  if (path.startsWith('scripts/')) return scriptImpact(path, logicPaths);
 
   if (path.startsWith('.github/')) return verificationImpact();
   if (isCiOnlyRootPath(path)) {
@@ -346,7 +392,7 @@ export function changedNormSlugs(paths) {
   return [...slugs].sort();
 }
 
-function resultFor(impacts, paths, { forceFullCorpus = false } = {}) {
+function resultFor(impacts, paths, { forceFullCorpus = false, closureKnown = true } = {}) {
   const runtimeTargets = targets(impacts.map((impact) => impact.runtimeTargets));
   const checkTargets = targets(impacts.map((impact) => impact.checkTargets));
   const largeCorpusChange = changedNormSlugs(paths).length >= LARGE_CORPUS_CHANGE_THRESHOLD;
@@ -373,7 +419,11 @@ function resultFor(impacts, paths, { forceFullCorpus = false } = {}) {
     runContentCheck: impacts.some((impact) => impact.runContentCheck),
     runKnowledgeCheck: impacts.some((impact) => impact.runKnowledgeCheck),
     runUnitTests: impacts.some((impact) => impact.runUnitTests),
+    // Korpus-Tests (tests/corpus/: Vollbestand, Ableitungen, Projektion) nur, wenn Inhalte,
+    // Projektion, Laufzeit oder die Tests selbst berührt sind; die schnellen Unit-Tests laufen immer.
+    runCorpusTests: impacts.some((impact) => impact.corpusTests) || runFullCorpusSmoke,
     runD1Sync: impacts.some((impact) => impact.runD1Sync),
+    closureKnown,
     runUiSmoke: uiTargets.length > 0,
     runFullUiSmoke: uiTargets.length === SITE_TARGETS.length,
     // Vollbestand-Smoke (Seed aus dem Cache) statt Fixture: Laufzeit-, Projektions- oder
@@ -389,17 +439,40 @@ export function normalizeChangedPath(value) {
   return String(value ?? '').trim().replaceAll('\\', '/').replace(/^\.\//u, '');
 }
 
-export function classifyChangedPath(value) {
+export function classifyChangedPath(value, { logicPaths = null } = {}) {
   const path = normalizeChangedPath(value);
-  const impact = pathImpact(path);
+  const impact = pathImpact(path, logicPaths);
   return scopeForTargets(impact.runtimeTargets, impact.documentation);
 }
 
-export function classifyChangeScope(values = []) {
+/**
+ * @param {string[]} values geänderte Pfade
+ * @param {{ logicPaths?: Set<string> | null }} options Code-Abschluss der Projektion (null = unbekannt, fail-closed Obermenge)
+ */
+export function classifyChangeScope(values = [], { logicPaths = null } = {}) {
   const paths = values.map(normalizeChangedPath).filter(Boolean);
   // Ohne bekannte Änderungsliste (z. B. erster Commit) konservativ: alles einschließlich Vollbestand.
-  if (paths.length === 0) return resultFor([runtimeImpact(SITE_TARGETS, { content: true, d1Sync: true, fullCorpus: true })], paths);
-  return resultFor(paths.map(pathImpact), paths);
+  if (paths.length === 0) return resultFor([runtimeImpact(SITE_TARGETS, { content: true, d1Sync: true, fullCorpus: true })], paths, { closureKnown: Boolean(logicPaths) });
+  return resultFor(paths.map((path) => pathImpact(path, logicPaths)), paths, { closureKnown: Boolean(logicPaths) });
+}
+
+/**
+ * Code-Abschluss der Projektion für die CLI: Arbeitsbaum (bzw. --closure-ref <Ref>); bei jedem
+ * Problem null (konservative Obermenge) mit Hinweis auf stderr.
+ */
+export async function resolveLogicPaths({ ref = null, root = process.cwd() } = {}) {
+  try {
+    const { projectionClosure } = await import('./lib/d1-projection-closure.mjs');
+    const closure = await projectionClosure({ root, ref });
+    if (closure.uncertain) {
+      console.error(`Code-Abschluss der Projektion unsicher (${closure.reasons.join('; ')}); D1-Relevanz über die konservative Obermenge.`);
+      return null;
+    }
+    return new Set(closure.files);
+  } catch (error) {
+    console.error(`Code-Abschluss der Projektion nicht bestimmbar (${error instanceof Error ? error.message : String(error)}); D1-Relevanz über die konservative Obermenge.`);
+    return null;
+  }
 }
 
 export function classifyManualDeploy(target = 'both') {
@@ -434,19 +507,23 @@ async function readInput(args) {
   }
   const outputIndex = args.indexOf('--github-output');
   const manualTargetIndex = args.indexOf('--manual-target');
+  const closureRefIndex = args.indexOf('--closure-ref');
   return args.filter((arg, index) => {
     if (arg.startsWith('--')) return false;
     return (outputIndex < 0 || index !== outputIndex + 1)
-      && (manualTargetIndex < 0 || index !== manualTargetIndex + 1);
+      && (manualTargetIndex < 0 || index !== manualTargetIndex + 1)
+      && (closureRefIndex < 0 || index !== closureRefIndex + 1);
   });
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const manualTarget = argumentValue(args, '--manual-target') ?? (args.includes('--manual') ? 'both' : undefined);
+  // --no-closure: bewusst ohne Abschluss (konservativ); --closure-ref <Ref>: Abschluss eines Refs statt des Arbeitsbaums.
+  const logicPaths = manualTarget || args.includes('--no-closure') ? null : await resolveLogicPaths({ ref: argumentValue(args, '--closure-ref') ?? null });
   const result = manualTarget
     ? classifyManualDeploy(manualTarget)
-    : classifyChangeScope(await readInput(args));
+    : classifyChangeScope(await readInput(args), { logicPaths });
   const outputPath = argumentValue(args, '--github-output') ?? process.env.GITHUB_OUTPUT;
   if (outputPath) {
     const lines = [
@@ -461,6 +538,7 @@ async function main() {
       `run_content_check=${result.runContentCheck}`,
       `run_knowledge_check=${result.runKnowledgeCheck}`,
       `run_unit_tests=${result.runUnitTests}`,
+      `run_corpus_tests=${result.runCorpusTests}`,
       `run_d1_sync=${result.runD1Sync}`,
       `run_ui_smoke=${result.runUiSmoke}`,
       `run_full_ui_smoke=${result.runFullUiSmoke}`,

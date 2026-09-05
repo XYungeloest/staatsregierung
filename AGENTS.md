@@ -99,11 +99,19 @@ npm run content:check
 npm run knowledge:check
 npm run knowledge:build
 npm run check
+npm run test:fast      # schnelle Unit-Tests
+npm run test:pr        # lokale PR-Vorabprüfung: Typen, Unit-Tests, ein Build, Links, SEO, Smokes, kritische Screenshots
+npm run test:full      # vollständige Prüfung einschließlich Content, Korpus-Tests und breiter Screenshot-Inventur
 npm run build
 npm run links:check
 npm run test:visual
 npm run test:a11y
 ```
+
+Tests haben je eine Verantwortung (`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt Testkategorien):
+schnelle Unit-Tests unter `tests/`, Korpus-Tests unter `tests/corpus/`, Browser-, Barrierefreiheits-
+und Screenshot-Tests als Playwright-Specs. Innerhalb einer Sammelprüfung wird jede Website höchstens
+einmal gebaut; die `*:run`-Varianten arbeiten auf dem vorhandenen Build.
 
 ## Inhalt und Redaktion
 
@@ -183,11 +191,12 @@ jede Entscheidung nennt Zielgesetz, Fundstelle, Beleg und Methode und wird gegen
 verifiziert). Kein blindes Mapping.
 
 D1 ist die Runtime-Projektion (Schema `data/recht/d1/`, Sync `scripts/sync-recht-d1.mjs`); die
-verbindlichen Regeln stehen in `docs/REVOSAX_BULK_IMPORT.md`: Projektionsidentität und
-Base-State-Guard, Budgetprofile für jeden Remote-Lauf, kein produktiver `--full`-Sync ohne
-zwingenden Grund, Lasttests nur lokal oder gegen `ostrecht-recht-staging`, Migrationen lokal →
-Staging → Produktion, nie automatisch, und Expand/Contract bei jeder Änderung der Datenform
-(`docs/DEPLOYMENT_RUNBOOK.md`). Die OstRecht-Laufzeit lädt nie den vollständigen Korpus. Tests
+verbindlichen Regeln stehen in `docs/REVOSAX_BULK_IMPORT.md`: Projektionsidentität aus dem
+Code-Abschluss des Syncs und Base-State-Guard, Äquivalenznachweis statt Annahme bei geänderter
+Projektionslogik (kein frei setzbarer Bypass), Budgetprofile für jeden Remote-Lauf, kein
+produktiver `--full`-Sync ohne zwingenden Grund, Lasttests nur lokal oder gegen
+`ostrecht-recht-staging`, Migrationen lokal → Staging → Produktion, nie automatisch, und
+Expand/Contract bei jeder Änderung der Datenform (`docs/DEPLOYMENT_RUNBOOK.md`). Die OstRecht-Laufzeit lädt nie den vollständigen Korpus. Tests
 laufen gegen einen lokalen SQLite-Seed (`scripts/d1-runtime-seed.mjs`): Pull Requests gegen
 `data/recht/runtime-fixture.json`, der Vollbestand bei Laufzeit- und Projektionsänderungen, als
 gecachter Seed auch wöchentlich und manuell.

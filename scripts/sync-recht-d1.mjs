@@ -20,10 +20,11 @@ import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/rou
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases, isAmendmentRecord } from '@ostrecht/recht-search/search.ts';
 
-import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths } from './lib/d1-sync-scope.mjs';
+import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
 import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { FULL_SCOPE, fixtureScope, portalProjectionChangedSince, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
+import { describeProofResult, readProof, validateProof } from './lib/d1-projection-proof-format.mjs';
 import { PORTAL_CONTENT_PATTERN } from './lib/d1-sync-scope.mjs';
 import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search-schema.mjs';
 
@@ -50,19 +51,22 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *     die Laufzeitmetadaten erst am erfolgreichen Ende. Ein abgebrochener Lauf wird
  *     durch Wiederholung vollständig repariert.
  *   - Der Fingerabdruck der Projektion (scripts/lib/d1-projection-fingerprint.mjs:
- *     Projektionslogik + Rechtsbestand + Portalgrundlagen, reine Inhaltshashes) wird
- *     vor jedem Lauf mit law_runtime_meta verglichen; bei Gleichheit endet der Sync
- *     ohne Schreibzugriff (No-op). --ignore-fingerprint erzwingt den Lauf.
+ *     Code-Abschluss der Projektion + Schema + Rechtsbestand + Portalgrundlagen, reine
+ *     Inhaltshashes) wird vor jedem Lauf mit law_runtime_meta verglichen; bei Gleichheit endet
+ *     der Sync ohne Schreibzugriff (No-op). --ignore-fingerprint erzwingt den Lauf.
  *   - Der API-Transport summiert Abfragen, Batches, rows_read, rows_written und Dauer
  *     aus den D1-Antworten; --max-rows-read / --max-rows-written brechen den Lauf ab,
  *     sobald das Budget überschritten ist. --dry-run schätzt Umfang und Anweisungen.
  *   - --remote-state liest nur die gespeicherte Identität, bestimmt Umfang und Entscheidung und
  *     endet vor Ableitungen und Planbau (Sekunden; PR-Check d1_token_check). Exit-Code 3, wenn
  *     der automatische Sync eine nicht budgetierte Vollprojektion bräuchte (Release-Gate).
- *   - --stamp-fingerprint schreibt nur den Fingerabdruck neu (drei Metadatenzeilen), wenn
- *     sich ausschließlich seine Berechnung geändert hat, die Projektion aber unverändert ist:
- *     erlaubt nur, wenn corpus_hash, norm_count und publication_count in D1 exakt dem
- *     Repository entsprechen (fail-closed); sonst ist eine Projektion nötig.
+ *   - Verlangt ein --git-diff-Lauf eine Vollprojektion nur wegen geänderter Projektionslogik,
+ *     ersetzt der Äquivalenznachweis (scripts/lib/d1-projection-proof.mjs) die Annahme durch
+ *     Rechnung (scripts/d1-projection-snapshot.mjs prove): Basis- und Zielprojektion werden lokal
+ *     vollständig verglichen, und nur der nachgewiesene inkrementelle Umfang wird geschrieben – im Grenzfall nur Identität und
+ *     Laufzeitmetadaten (die neue Identität wird übernommen, ohne Daten neu zu schreiben). Der
+ *     Nachweis ist an gespeicherte und neue Identität, Scope, Comparator-Version und Umfang
+ *     gebunden; jede Abweichung ist fail-closed. Einen frei setzbaren Bypass gibt es nicht.
  *
  * Transport:
  *   --transport api       D1-REST-API mit parametrisierten Batches (CLOUDFLARE_API_TOKEN)
@@ -95,13 +99,10 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *                               änderungen gelten als gegeben); enthält die Liste editorial.json,
  *                               nennt --reference-date-from <Datum> den bisherigen Stichtag, sonst
  *                               bleibt die Stichtagsänderung ein Full-Trigger
- *   --assume-narrow-logic-change  nur mit --git-diff/--changed-paths: eine geänderte Projektionslogik
- *                               erzwingt keine Vollprojektion; stattdessen werden die Suchdokumente
- *                               (law_search_documents) und abgeleiteten Daten (law_norm_derived)
- *                               aller Normen neu geschrieben. Nur für Logikänderungen, deren Wirkung
- *                               vorher tabellenweise mit einer frischen Vollprojektion verglichen
- *                               wurde (scripts/d1-projection-snapshot.mjs); Schemaänderungen unter
- *                               data/recht/d1/ bleiben immer ein Full-Trigger
+ *   --equivalence-proof <Datei> nur mit --git-diff: validierter Äquivalenznachweis
+ *                               (scripts/d1-projection-snapshot.mjs prove --base <base>), der statt
+ *                               der Vollprojektion den nachgewiesenen Umfang erlaubt; mit
+ *                               --remote-state wird nur berichtet, wie der Lauf entscheiden würde
  *   --database <Name>           Zieldatenbank des Wrangler-Transports (Standard ostrecht-recht;
  *                               Staging: ostrecht-recht-staging)
  *   --corpus-filter <Datei>     nur lokal oder Staging: beschränkt den geladenen Bestand auf die Slugs der
@@ -393,9 +394,9 @@ function searchDocumentQuery(normId, versionId, metadata, now) {
 }
 
 /**
- * Nur die Suchdokumente (Metadaten je Fassung) einer Norm neu schreiben – für Logikänderungen,
- * die ausschließlich das Suchdokument betreffen (--assume-narrow-logic-change). Provisionen,
- * Normzeilen und Fassungen bleiben unberührt; die Upserts sind idempotent.
+ * Nur die Suchdokumente (Metadaten je Fassung) einer Norm neu schreiben – für nachgewiesen enge
+ * Logikänderungen (Äquivalenznachweis, logicChange `narrow`). Provisionen, Normzeilen und
+ * Fassungen bleiben unberührt; die Upserts sind idempotent.
  */
 export function searchDocumentQueries(norm, context, now) {
   return norm.versions.map((version) => searchDocumentQuery(norm.meta.id, version.versionId, searchUnits(norm, version, context).metadata, now));
@@ -514,11 +515,6 @@ export function identityMetaValues(identity) {
     portal_content_hash: identity.portal ?? '',
     sync_state: 'complete',
   };
-}
-
-/** Nur die Identitätszeilen (siehe --stamp-fingerprint). */
-export function fingerprintStampQueries(identity) {
-  return Object.entries(identityMetaValues(identity)).map(([key, value]) => q('INSERT INTO law_runtime_meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value', [key, value]));
 }
 
 /**
@@ -655,7 +651,10 @@ export function decideSyncAction({ requested, stored, identity, baseIdentity = n
   else if (!complete) problems.push(`D1 meldet einen unvollständigen Zustand (${storedState})`);
   if (storedFingerprint && storedScope !== identity.scope) problems.push(`Scope in D1 ist ${storedScope}, erwartet ${identity.scope}`);
   if (baseIdentity) {
-    if (storedFingerprint && storedFingerprint !== baseIdentity.fingerprint) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
+    // Übergang: eine vor dem Abschluss-Algorithmus geschriebene Identität desselben Basis-Refs
+    // gilt als verifizierte Basis (legacyFingerprint, siehe Fingerprint-Modul und TODO.md).
+    const acceptedBases = [baseIdentity.fingerprint, baseIdentity.legacyFingerprint].filter(Boolean);
+    if (storedFingerprint && !acceptedBases.includes(storedFingerprint)) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
   } else if (requiresBase) {
     problems.push('kein Basis-Ref zur Verifikation des Ausgangszustands');
   }
@@ -686,7 +685,7 @@ export function assessSyncDecision({ decision, scope, budgetProfile = null, limi
   return {
     ok: false,
     code: 'full-gate',
-    message: `Vollprojektion erforderlich (${decision.reason}), aber das Budgetprofil ${budgetProfile ?? 'explizit'} trägt keine Vollprojektion. Der automatische Sync führt keine Vollprojektion aus (Tabellen würden geleert). Release-Gate: die Zielprojektion vor dem Merge lokal nachweisen (scripts/d1-projection-snapshot.mjs), dann Staging und Produktion mit --git-diff … --assume-narrow-logic-change (bewiesene enge Änderung) oder bewusst mit --full --budget full auf den Zielstand bringen; danach ist dieser Lauf ein No-op (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt D1-Release-Gate).`,
+    message: `Vollprojektion erforderlich (${decision.reason}), aber das Budgetprofil ${budgetProfile ?? 'explizit'} trägt keine Vollprojektion. Der automatische Sync führt keine Vollprojektion aus (Tabellen würden geleert). Bei geänderter Projektionslogik ohne Schemaänderung entscheidet der Äquivalenznachweis (npm run norms:runtime:d1-prove -- --base <base>, dann --equivalence-proof <Datei>): nachgewiesen gleiche Daten werden ohne Rebuild übernommen, ein nachgewiesener inkrementeller Umfang wird geschrieben. Sonst Release-Gate: Staging und Produktion bewusst mit --full --budget full auf den Zielstand bringen; danach ist dieser Lauf ein No-op (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt D1-Release-Gate).`,
   };
 }
 
@@ -853,7 +852,7 @@ export function applyCorpusFilter(norms, fixture, label = 'Fixture') {
  * Bestimmt den Sync-Umfang aus den Kommandozeilenoptionen. Genau eine Umfangsangabe
  * ist erforderlich; ein Aufruf ohne Angabe löst keinen Vollsync mehr aus.
  */
-export async function resolveScope(args, { norms, publications }) {
+export async function resolveScope(args, { norms, publications, logicPaths = null, logicChange = 'full' }) {
   const existingSlugs = new Set(norms.map((norm) => norm.meta.slug));
   const existingPublications = new Set(publications.map((publication) => publication.slug));
   const requestedSlugs = valuesAfter(args, '--slug');
@@ -906,9 +905,8 @@ export async function resolveScope(args, { norms, publications }) {
   const referenceDateSlugs = previousReferenceDate && typeof previousReferenceDate === 'string'
     ? () => referenceDateAffectedSlugs(norms, previousReferenceDate, EDITORIAL_REFERENCE_DATE)
     : null;
-  const narrowLogicChange = args.includes('--assume-narrow-logic-change');
-  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, narrowLogicChange, portalProjectionChanged });
-  if (narrowLogicChange && scope.mode === 'full') throw new Error(`--assume-narrow-logic-change: die Änderung erzwingt trotzdem eine Vollprojektion (${scope.reasons.join('; ')})`);
+  if (args.includes('--assume-narrow-logic-change')) throw new Error('--assume-narrow-logic-change gibt es nicht mehr: eine enge Logikprojektion wird mit --prove-equivalence oder --equivalence-proof <Datei> nachgewiesen, nicht angenommen');
+  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, logicPaths, logicChange, portalProjectionChanged });
   if (referenceDateSlugs && paths.includes(REFERENCE_DATE_PATH)) scope.referenceDate = { from: previousReferenceDate, to: EDITORIAL_REFERENCE_DATE };
   if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) {
     for (const slug of normsCitingPublications(publications, scope.publicationSlugs)) {
@@ -1009,6 +1007,10 @@ async function main() {
   const ignoreFingerprint = args.includes('--ignore-fingerprint');
   const recover = args.includes('--recover');
   const budgetProfile = valueAfter(args, '--budget');
+  const proofFile = valueAfter(args, '--equivalence-proof');
+  if (args.includes('--stamp-fingerprint')) throw new Error('--stamp-fingerprint gibt es nicht mehr: eine unveränderte Projektion wird mit dem Äquivalenznachweis (scripts/d1-projection-snapshot.mjs prove, dann --git-diff … --equivalence-proof <Datei>) belegt und die Identität ohne Daten-Rebuild übernommen');
+  if (args.includes('--prove-equivalence')) throw new Error('--prove-equivalence gibt es nicht: den Nachweis erzeugt scripts/d1-projection-snapshot.mjs prove --base <base>; der Sync prüft ihn mit --equivalence-proof <Datei>');
+  if (proofFile && !args.includes('--git-diff')) throw new Error('--equivalence-proof gibt es nur mit --git-diff <base> <head>');
   const budgets = JSON.parse(await readFile(BUDGETS_PATH, 'utf8'));
   // Zieldatenbank des Wrangler-Transports (z. B. ostrecht-recht-staging); die API
   // adressiert über OSTRECHT_D1_DATABASE_ID.
@@ -1046,56 +1048,35 @@ async function main() {
   if (stored) console.log(`D1 trägt: Fingerabdruck ${stored.projection_fingerprint?.slice(0, 16) ?? '(keiner)'}…, Scope ${stored.projection_scope ?? '(keiner)'}, Zustand ${stored.sync_state ?? '(keiner)'}, Modus ${stored.sync_mode ?? '?'}, letzter Sync ${stored.last_sync_at ?? '?'}`);
   else console.log(canReadTarget ? 'D1 trägt keine lesbare Identität.' : 'Identität in D1 nicht geprüft (Dry-run ohne Zugang).');
 
-  if (args.includes('--stamp-fingerprint')) {
-    // Fingerabdruck neu schreiben, ohne zu projizieren: nur wenn D1 nachweislich den
-    // aktuellen Bestand trägt (corpus_hash und Zähler identisch).
-    if (dryRun) throw new Error('--stamp-fingerprint und --dry-run schließen sich aus');
-    if (corpusFilter) throw new Error('--stamp-fingerprint gilt nur für den Vollbestand');
-    const [stampNorms, stampPublications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-    const expected = { corpus_hash: corpusFingerprint(stampNorms, stampPublications), norm_count: String(stampNorms.length), publication_count: String(stampPublications.length) };
-    if (stored?.projection_scope && stored.projection_scope !== FULL_SCOPE) throw new Error(`Fingerabdruck wird nicht gesetzt: D1 trägt den Scope ${stored.projection_scope}, kein Vollbestand`);
-    const deviations = Object.entries(expected).filter(([key, value]) => stored?.[key] !== value).map(([key, value]) => `${key}: D1 ${stored?.[key] ?? '(fehlt)'} ≠ Git ${value}`);
-    if (deviations.length > 0) throw new Error(`Fingerabdruck wird nicht gesetzt, die Projektion entspricht nicht dem Bestand: ${deviations.join('; ')}`);
-    const queries = fingerprintStampQueries(fingerprint);
-    if (transport === 'api') {
-      await sendBatches(config, queries, batchSize, stats);
-    } else {
-      const runDirectory = join(ROOT, '.cache', 'd1-sync', `${new Date().toISOString().replace(/[:.]/gu, '-')}-stamp`);
-      await mkdir(runDirectory, { recursive: true });
-      const filePath = join(runDirectory, 'stamp.sql');
-      await writeFile(filePath, `${queries.map(renderStatement).join('\n')}\n`, 'utf8');
-      const payload = await executeSqlFile(filePath, { local, persistTo, databaseName });
-      recordResults(stats, payload, { queries: queries.length, batches: 1 });
-    }
-    console.log(`Projektionsidentität ${fingerprint.fingerprint.slice(0, 16)}… (Scope ${fingerprint.scope}) geschrieben (corpus_hash und Zähler identisch; zuvor ${stored?.projection_fingerprint?.slice(0, 16) ?? '(kein Wert)'}…).`);
-    console.log(`D1-Kosten: ${formatStats(stats)}`);
-    return;
-  }
-
   const [loadedNorms, publications, topics, pressReleases] = await Promise.all([
     loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(),
   ]);
   const norms = corpusFilter ? applyCorpusFilter(loadedNorms, JSON.parse(await readFile(resolve(ROOT, corpusFilter), 'utf8')), corpusFilter) : loadedNorms;
   console.log(`${loadedNorms.length} Normen und ${publications.length} Verkündungen geladen und validiert (${Math.round((Date.now() - startedAt) / 1000)} s)${corpusFilter ? `; Fixture ${corpusFilter}: ${norms.length} Normen` : ''}`);
-  let scope = await resolveScope(args, { norms, publications });
   // Entscheidung vor dem ersten Schreibzugriff: No-op, Vollprojektion, verifizierter
   // inkrementeller Lauf oder markierte Recovery (fail-closed bei abweichender Basis).
   const gitDiffBase = args.includes('--git-diff') ? args[args.indexOf('--git-diff') + 1] : null;
-  const baseIdentity = scope.mode === 'incremental' && gitDiffBase ? await projectionIdentityAtRef(gitDiffBase, { root: ROOT, scope: scopeId }) : null;
-  if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…`);
+  const baseIdentity = gitDiffBase ? await projectionIdentityAtRef(gitDiffBase, { root: ROOT, scope: scopeId }) : null;
+  if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…${baseIdentity.legacyFingerprint ? ` (frühere Berechnung ${baseIdentity.legacyFingerprint.slice(0, 16)}…)` : ''}`);
+  // Logikänderungen sind genau die geänderten Dateien des Code-Abschlusses von Basis oder Ziel;
+  // ist ein Abschluss unsicher, gilt fail-closed die konservative Obermenge.
+  const logicPaths = fingerprint.closureUncertain || Boolean(baseIdentity?.closureUncertain) ? null : new Set([...fingerprint.logicFiles, ...(baseIdentity?.logicFiles ?? [])]);
+  if (!logicPaths) console.log(`Code-Abschluss unsicher (${[...fingerprint.closureReasons, ...(baseIdentity?.closureReasons ?? [])].join('; ') || 'ohne Angabe'}); Logikänderungen zählen über die konservative Obermenge.`);
+  let scope = await resolveScope(args, { norms, publications, logicPaths });
+  const decide = (requested) => decideSyncAction({
+    requested,
+    stored,
+    identity: fingerprint,
+    baseIdentity,
+    recover,
+    ignoreFingerprint,
+    // Manuelle Auswahl (--slug/--publications/--changed-paths) kennt keinen Basis-Ref; sie
+    // verlangt trotzdem eine vollständige Identität im selben Scope.
+    requiresBase: Boolean(gitDiffBase),
+  });
   let decision;
   try {
-    decision = decideSyncAction({
-      requested: scope.mode,
-      stored,
-      identity: fingerprint,
-      baseIdentity,
-      recover,
-      ignoreFingerprint,
-      // Manuelle Auswahl (--slug/--publications/--changed-paths) kennt keinen Basis-Ref; sie
-      // verlangt trotzdem eine vollständige Identität im selben Scope.
-      requiresBase: Boolean(gitDiffBase),
-    });
+    decision = decide(scope.mode);
   } catch (error) {
     // Im Dry-run ist die Ablehnung das Ergebnis der Prüfung, kein Fehler: der Lauf schreibt
     // nichts und meldet, dass ein echter Lauf fail-closed abbrechen bzw. --recover brauchen würde.
@@ -1107,7 +1088,28 @@ async function main() {
   console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
   // Entscheidung gegen das Budgetprofil prüfen, bevor Ableitungen gerechnet oder Anweisungen
   // gebaut werden: eine nicht tragbare Vollprojektion endet hier, nicht nach dem Planbau.
-  const assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
+  let assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
+  if (!assessment.ok && assessment.code === 'full-gate' && gitDiffBase && proofFile) {
+    // Äquivalenznachweis statt Vollprojektion: jede Bindung wird geprüft, bevor der nachgewiesene
+    // Umfang gilt (scripts/lib/d1-projection-proof-format.mjs).
+    const proof = await readProof(resolve(ROOT, proofFile));
+    const validation = validateProof(proof, { storedFingerprint: stored?.projection_fingerprint ?? null, headIdentity: fingerprint, scope: scopeId });
+    if (!validation.ok) {
+      const message = `Äquivalenznachweis nicht anwendbar (fail-closed): ${validation.problems.join('; ')}`;
+      if (proof?.result === 'full') assessment = { ok: false, code: 'full-gate', message: `${assessment.message} Nachweis: ${describeProofResult(proof)}.` };
+      else assessment = { ok: false, code: 'proof-invalid', message };
+    } else {
+      scope = await resolveScope(args, { norms, publications, logicPaths, logicChange: proof.logicChange });
+      if (scope.mode !== 'incremental' || scopeSignature(scope) !== proof.scopeSignature) {
+        assessment = { ok: false, code: 'proof-scope-mismatch', message: `Äquivalenznachweis nicht anwendbar (fail-closed): der Umfang dieses Laufs entspricht nicht dem nachgewiesenen Umfang (${scope.mode}; ${scope.reasons.slice(0, 3).join('; ')})` };
+      } else {
+        decision = decide('incremental');
+        assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
+        console.log(`Äquivalenznachweis (${proof.head.commit.slice(0, 9)} gegen ${proof.base.commit.slice(0, 9)}): ${describeProofResult(proof)}`);
+        console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
+      }
+    }
+  }
   if (remoteState) {
     console.log(`Remote-State: ${assessment.message}`);
     console.log(`Kosten dieser Prüfung: ${formatStats(stats)}`);

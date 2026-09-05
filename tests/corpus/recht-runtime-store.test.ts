@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
+import { loadNormsOnce as loadAllNorms } from '../helpers/corpus.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
 import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
 
-import { assembleBlocks, createFileNormStore, selectedVersionIds } from '../apps/recht/src/lib/runtime/store.ts';
+import { assembleBlocks, createFileNormStore, selectedVersionIds } from '../../apps/recht/src/lib/runtime/store.ts';
 
 const store = createFileNormStore({ loadAllNorms, loadAllVerkuendungen, buildSearchDocument });
 

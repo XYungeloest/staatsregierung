@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-import { auditCorpus, auditNormRecord, isBaselineImport, isInheritedNorm, isSourceBacked, lettersOnly, loadCorpus, sourceTextOf } from '../scripts/audit-ost-residuals.mjs';
-import { adaptParsedRevosaxSnapshot } from '../scripts/lib/revosax-ost-adapter.mjs';
+import { auditCorpus, auditNormRecord, isBaselineImport, isInheritedNorm, isSourceBacked, lettersOnly, loadCorpus, sourceTextOf } from '../../scripts/audit-ost-residuals.mjs';
+import { adaptParsedRevosaxSnapshot } from '../../scripts/lib/revosax-ost-adapter.mjs';
 
 const r2Reference = {
   kind: 'revosax-snapshot',
@@ -127,7 +127,7 @@ test('eigene ostdeutsche Erlasse: Sachsen-Bezüge gelten nur, wenn sie wörtlich
 });
 
 test('der materialisierte Rechtsbestand enthält im übergeleiteten Recht keine Reststellen; eigene Erlasse sind belegt oder verzeichnet', async () => {
-  const backlog = JSON.parse(await readFile(new URL('../data/recht/ost-residual-backlog.json', import.meta.url), 'utf8'));
+  const backlog = JSON.parse(await readFile(new URL('../../data/recht/ost-residual-backlog.json', import.meta.url), 'utf8'));
   const norms = await loadCorpus();
   const result = await auditCorpus(norms, backlog);
   assert.deepEqual(result.inherited.map((entry) => `${entry.slug}: ${entry.findings[0]?.context}`), []);

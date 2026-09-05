@@ -7,10 +7,10 @@ import test from 'node:test';
 import {
   applyPatchRecipe,
   sha256,
-} from '../scripts/lib/consolidation-engine.mjs';
-import { applyCorrectionToRecord } from '../scripts/lib/correction-engine.mjs';
-import { parseRevosaxSnapshot } from '../scripts/lib/revosax-parser.mjs';
-import { adaptBodyBlocks } from '../scripts/lib/revosax-ost-adapter.mjs';
+} from '../../scripts/lib/consolidation-engine.mjs';
+import { applyCorrectionToRecord } from '../../scripts/lib/correction-engine.mjs';
+import { parseRevosaxSnapshot } from '../../scripts/lib/revosax-parser.mjs';
+import { adaptBodyBlocks } from '../../scripts/lib/revosax-ost-adapter.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
 

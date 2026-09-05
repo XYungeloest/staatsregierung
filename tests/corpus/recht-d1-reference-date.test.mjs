@@ -7,9 +7,9 @@ import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
 import { loadNorm } from '@ostrecht/shared/lib/norms/loader.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 
-import { REFERENCE_DATE_PATH, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
-import { referenceDateAffectedSlugs, referenceDateSignature } from '../scripts/lib/d1-reference-date.mjs';
-import { buildSyncPlan, estimatePlanCost } from '../scripts/sync-recht-d1.mjs';
+import { REFERENCE_DATE_PATH, scopeFromChangedPaths } from '../../scripts/lib/d1-sync-scope.mjs';
+import { referenceDateAffectedSlugs, referenceDateSignature } from '../../scripts/lib/d1-reference-date.mjs';
+import { buildSyncPlan, estimatePlanCost } from '../../scripts/sync-recht-d1.mjs';
 
 /**
  * Stichtagsfortschreibung in der D1-Projektion: Der gezielte inkrementelle Lauf (nur die
@@ -162,9 +162,9 @@ test('gezielte Stichtagsfortschreibung erzeugt dieselbe Projektion wie eine fris
   const cost = estimatePlanCost(incrementalPlan);
   assert.ok(cost.rowsWrittenMax > 0);
 
-  // Enge Logikänderung (--assume-narrow-logic-change): zusätzlich Suchdokumente aller Normen neu –
-  // ebenfalls identisch mit der frischen Vollprojektion und idempotent.
-  const narrowScope = scopeFromChangedPaths([REFERENCE_DATE_PATH, 'packages/recht-search/src/search.ts'], { existingSlugs: new Set(norms.map((norm) => norm.meta.slug)), existingPublications: new Set(publications.map((publication) => publication.slug)), referenceDateSlugs: () => affected, narrowLogicChange: true });
+  // Nachgewiesen enge Logikänderung (Äquivalenznachweis, logicChange narrow): zusätzlich
+  // Suchdokumente aller Normen neu – ebenfalls identisch mit der frischen Vollprojektion und idempotent.
+  const narrowScope = scopeFromChangedPaths([REFERENCE_DATE_PATH, 'packages/recht-search/src/search.ts'], { existingSlugs: new Set(norms.map((norm) => norm.meta.slug)), existingPublications: new Set(publications.map((publication) => publication.slug)), referenceDateSlugs: () => affected, logicChange: 'narrow' });
   assert.equal(narrowScope.refreshSearchDocuments, true);
   const narrowPlan = buildSyncPlan({ scope: narrowScope, norms, publications, context: contextNew, now: NOW, fingerprint: IDENTITY_NEW, writeIdentity: true });
   assert.equal(narrowPlan.documentRefreshCount, norms.length - affected.length);

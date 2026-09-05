@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { getNormOriginInfo, NORM_ORIGIN_KINDS, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 
-import { loadNormsOnce } from './helpers/corpus.ts';
+import { loadNormsOnce } from '../helpers/corpus.ts';
 
 const SAXON_BODY = /Sächs|Sachsen/u;
 

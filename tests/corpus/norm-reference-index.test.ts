@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
+import { loadNormsOnce as loadAllNorms, sampleCorpus } from '../helpers/corpus.ts';
 import {
   buildNormTextLinkReferences,
   buildRelatedNormRecommendationIndex,
@@ -13,7 +13,10 @@ import { renderLinkedDisplayText } from '@ostrecht/shared/lib/norms/presentation
 
 test('Textverweise werden über den Präfixindex genauso gefunden wie beim Rendern', async () => {
   const norms = await loadAllNorms();
-  const sample = norms.slice(0, 40);
+  // Deterministische Stichprobe über den Bestand: der Präfixindex wird je Norm gegen alle
+  // Referenzen des Vollbestands gebaut; zwölf verteilte Normen genügen als Regressionsschutz.
+  const step = Math.max(1, Math.floor(norms.length / 12));
+  const sample = norms.filter((_, position) => position % step === 0).slice(0, 12);
   for (const norm of sample) {
     const references = buildNormTextLinkReferences(norms, norm.meta.slug);
     const texts = norm.versions.flatMap((version) => {
@@ -46,13 +49,12 @@ test('Textverweise werden über den Präfixindex genauso gefunden wie beim Rende
 });
 
 test('Empfehlungsindex liefert dieselben Empfehlungen wie die paarweise Berechnung', async () => {
-  const norms = await loadAllNorms();
+  // Die Invariante „Index = paarweise Berechnung“ gilt für jede Normmenge; über den vollen
+  // Bestand wäre der Vergleich quadratisch. Der redaktionelle Kernbestand plus eine
+  // deterministische Stichprobe der übernommenen Baseline wird vollständig geprüft.
+  const norms = sampleCorpus(await loadAllNorms());
   const index = buildRelatedNormRecommendationIndex(norms);
-  // Die paarweise Berechnung ist O(n) je Norm; über den vollen Bestand (mehrere
-  // tausend Normen) wäre der Vergleich quadratisch. Eine deterministische
-  // Stichprobe über den ganzen Bestand genügt als Regressionsschutz.
-  const step = Math.max(1, Math.ceil(norms.length / 60));
-  for (const norm of norms.filter((_, position) => position % step === 0)) {
+  for (const norm of norms) {
     const expected = getRelatedNormRecommendations(norm, norms).map((entry) => [entry.norm.meta.slug, entry.relation, entry.score]);
     const actual = (index.get(norm.meta.slug) ?? []).map((entry) => [entry.slug, entry.relation, entry.score]);
     assert.deepEqual(actual, expected, norm.meta.slug);

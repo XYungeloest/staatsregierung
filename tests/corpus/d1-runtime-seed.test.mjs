@@ -16,7 +16,7 @@ import {
   seedFileName,
   seedManifestPath,
   verifySeedSnapshot,
-} from '../scripts/lib/d1-runtime-seed.mjs';
+} from '../../scripts/lib/d1-runtime-seed.mjs';
 
 const FIXTURE = 'data/recht/runtime-fixture.json';
 const LOCK = JSON.stringify({ packages: { 'node_modules/wrangler': { version: '4.128.0' }, 'node_modules/miniflare': { version: '5.0.0' }, 'node_modules/workerd': { version: '1.0.0' } } });

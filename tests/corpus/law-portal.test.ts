@@ -29,14 +29,14 @@ import {
   type NormSearchState,
 } from '@ostrecht/recht-search/search-query.ts';
 import { buildSearchSuggestionPayload } from '@ostrecht/recht-search/search-files.ts';
-import { loadSearchIndexSampleOnce } from './helpers/corpus.ts';
+import { loadSearchIndexSampleOnce } from '../helpers/corpus.ts';
 import { isAmendmentRecord, type SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
 import {
   findPublicationByDesignation,
   getLatestPublication,
   loadAllVerkuendungen,
 } from '@ostrecht/shared/lib/norms/publications.ts';
-import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
+import { loadNormsOnce as loadAllNorms } from '../helpers/corpus.ts';
 import {
   ContentValidationError,
   parseNormMeta,

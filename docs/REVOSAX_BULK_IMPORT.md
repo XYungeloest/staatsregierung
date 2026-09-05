@@ -234,17 +234,21 @@ npm run norms:runtime:d1-sync -- --publications               # Verkündungstabe
 npm run norms:runtime:d1-sync -- --git-diff <base> <head> --budget incremental --recover   # CI (Base-State-Guard)
 npm run norms:runtime:d1-sync -- --remote-state --git-diff <base> <head> --budget incremental   # nur Identität, Umfang, Entscheidung (Sekunden; Exit 3 = Release-Gate nötig)
 npm run norms:runtime:d1-sync -- --changed-paths pfade.txt    # Umfang aus einer Pfadliste (Teilsync)
-npm run norms:runtime:d1-sync -- --stamp-fingerprint          # nur Identität neu schreiben (fail-closed)
+npm run norms:runtime:d1-prove -- --base <base> [--head HEAD]  # Äquivalenznachweis Basis → Ziel (lokale Projektionen, Tabellenvergleich)
+npm run norms:runtime:d1-sync -- --git-diff <base> <head> --budget incremental --equivalence-proof .cache/d1-equivalence/proof-<…>.json   # nachgewiesenen Umfang schreiben
+npm run norms:runtime:d1-closure                              # Dateien des Code-Abschlusses (Teil der Projektionsidentität), --lines für den Logikhash
 npm run norms:runtime:d1-sync -- --full --budget full --database ostrecht-recht-staging   # Staging (Wrangler)
 npm run norms:runtime:d1-verify -- --fts-integrity            # Git ↔ D1 (Zähler, Identität, Scope, Stichproben)
 ```
 
 **Umfangslogik** (`scripts/lib/d1-sync-scope.mjs`): Pfade unter `content/normen/<slug>/` ergeben
 genau diesen Slug (fehlendes Verzeichnis: Löschung); `content/verkuendungen/*.json` ergibt die
-Verkündung und die Normen, deren Fassungen sie zitieren. Änderungen an der Projektionslogik
-(`scripts/sync-recht-d1.mjs`, `packages/shared/src/lib/norms/**`, `packages/recht-search/**`,
-`data/recht/d1/`, Portalbezüge in `packages/shared/src/lib/portal/`) erzwingen die
-Vollprojektion. Themen und Presse (`content/themen/`, `content/presse/`) fließen nur in die
+Verkündung und die Normen, deren Fassungen sie zitieren. Eine Logikänderung ist genau eine
+geänderte Datei des Code-Abschlusses der Projektion (Basis oder Ziel) oder eine Schemaänderung
+unter `data/recht/d1/`; sie erzwingt die Vollprojektion, sofern kein Äquivalenznachweis etwas
+anderes belegt. Ohne sicher bestimmbaren Abschluss zählt fail-closed die konservative Obermenge
+(`GLOBAL_TRIGGER_PATTERNS`: Sync und Scope-Bibliotheken, `packages/shared/src/lib/norms/**`,
+`packages/shared/src/config/**`, `packages/recht-search/src/**`, Portalbezüge). Themen und Presse (`content/themen/`, `content/presse/`) fließen nur in die
 Portalbezüge von `law_norm_derived` ein: Ändert sich ihr projektionsrelevanter Auszug (Slug, Titel,
 Rechtsgrundlagen-Normbezüge bzw. Datum und Normbezüge), werden die abgeleiteten Daten aller Normen
 neu geschrieben – keine Fassungen, keine Vollprojektion; Hervorhebungen, Teaser, Prioritäten oder
@@ -257,30 +261,53 @@ frischen Vollprojektion prüft `tests/recht-d1-reference-date.test.mjs`). Abgele
 geschrieben, wenn sich identitätsrelevante Metadaten einer Norm geändert haben oder Normen
 hinzukamen bzw. entfielen.
 
-**Enge Logikänderung statt Vollprojektion.** Berührt eine Logikänderung nachweislich nur
-Suchdokumente, abgeleitete Daten und Laufzeitmetadaten, schreibt
-`--git-diff <base> <head> --assume-narrow-logic-change` diese Zeilen für alle Normen neu;
-Schemaänderungen bleiben immer ein Full-Trigger. Der Nachweis läuft lokal ohne Cloudflare-Zugriff
-mit `scripts/d1-projection-snapshot.mjs`: Vollprojektion des Basisstands in eine SQLite-Datei,
-gezielter Lauf hinein, frische Vollprojektion des Zielstands, tabellenweiser Vergleich (`compare`).
-Erst bei identischem Vergleich wird der gezielte Lauf gegen Staging und danach gegen Produktion
-ausgeführt.
+**Äquivalenznachweis statt Vollprojektion** (`scripts/lib/d1-projection-proof.mjs`,
+`npm run norms:runtime:d1-prove`). Ändert sich die Projektionslogik, wird nicht angenommen,
+sondern gerechnet: Basis (Code und Bestand des Basis-Commits) und Ziel (Arbeitsbaum) werden
+vollständig projiziert – aus dem Seed-Cache (`.cache/d1-seed`, Manifest mit Projektionsidentität)
+oder lokal (Basis in einem temporären Worktree mit ihrem eigenen Code) – und semantisch verglichen
+(`scripts/lib/d1-projection-compare.mjs`: alle Projektionstabellen zeilenweise über den
+Primärschlüssel, Volltextstichproben; normalisiert werden nur `updated_at`, `last_sync_at`,
+`sync_mode`, `sync_state`, die Identitätszeilen und die rowid der Suchzeilen). Geprüft wird, ob
+der inkrementelle Umfang des Syncs – zuerst mit der Logikänderung als datenneutral (`ignore`),
+dann als enge Logikprojektion (`narrow`: Suchdokumente, abgeleitete Daten und abgeleitete
+Normspalten aller Normen) – auf die Basis angewendet exakt das Ziel ergibt. Ergebnis `identity`
+(nur Identität und Laufzeitmetadaten), `incremental` (nachgewiesener Umfang) oder `full`
+(abweichende Tabellen werden genannt; Schemaänderungen sind immer `full`). Die Nachweisdatei ist
+an Basis- und Ziel-Commit, alte und neue Identität, Scope, Comparator-Version und Umfangssignatur
+gebunden; `--equivalence-proof <Datei>` prüft jede Bindung gegen die gespeicherte Identität in D1
+und den Arbeitsbaum, bevor der Sync statt der Vollprojektion den nachgewiesenen Umfang schreibt.
+Einen frei setzbaren Bypass (Annahme einer engen Änderung, Neuschreiben der Identität ohne
+Vergleich) gibt es nicht. In CI rechnen `d1_token_check` (Pull Request) und `d1_sync` (`main`)
+den Nachweis selbst (`docs/DEPLOYMENT_RUNBOOK.md`).
 
 **Projektionsidentität.** `scripts/lib/d1-projection-fingerprint.mjs` bildet aus
-Git-Blob-Kennungen (nie aus Änderungszeiten) die Hashes der Projektionslogik und des Rechtsbestands
-sowie den Hash der projektionsrelevanten Auszüge von Themen und Presse (`portalProjectionOf`; die
-Auszüge müssen die in `derived.ts` gelesenen Felder abbilden); der Fingerabdruck ist der SHA-256
-über diese Hashes und den Scope (`full` oder `fixture:<Pfad>@<Hash>`). Der Sync legt Fingerabdruck, Scope und `sync_state = complete` in
-`law_runtime_meta` ab; ein Lauf bei identischer Identität ist ein No-op. Ein Fixture kann nie die
-Identität des Vollbestands behaupten. `--stamp-fingerprint` schreibt die Identität nur neu, wenn
-`corpus_hash`, `norm_count` und `publication_count` exakt dem Repository entsprechen. Jede Änderung
-an der Projektionslogik ist bewusst zu planen: sie ändert die Identität und verlangt vor dem Merge
-das D1-Release-Gate (`docs/DEPLOYMENT_RUNBOOK.md`), damit der automatische Sync auf `main` ein
-No-op bleibt.
+Git-Blob-Kennungen (nie aus Änderungszeiten) den Hash der Projektionslogik, den Hash des
+Rechtsbestands und den Hash der projektionsrelevanten Auszüge von Themen und Presse
+(`portalProjectionOf`; die Auszüge müssen die in `derived.ts` gelesenen Felder abbilden); der
+Fingerabdruck ist der SHA-256 über diese Hashes und den Scope (`full` oder
+`fixture:<Pfad>@<Hash>`). Die Projektionslogik ist der transitive Code-Abschluss des
+Einstiegspunkts `scripts/sync-recht-d1.mjs` (`scripts/lib/d1-projection-closure.mjs`, aufgelöst
+mit esbuild: statische und literale dynamische Importe, Re-Exports und Sammeldateien,
+JSON-Imports, Workspace-Pakete über ihre `exports`) plus das Schema unter `data/recht/d1/` und die
+Versionen externer Pakete im Abschluss; `npm run norms:runtime:d1-closure` zeigt die Dateien.
+Reine Darstellung in denselben Verzeichnissen (`norms/diff-render.ts`, `norms/diff.ts`,
+`recht-search/search-query.ts`, die Sammeldatei `norms/index.ts`) gehört nicht dazu, Dateien
+außerhalb der früheren Wurzeln, die der Sync erreicht (`portal/schema.ts`, `repository-root.ts`),
+schon. Ist der Abschluss unsicher – ein dynamischer Import mit nicht literalem Argument, eine
+esbuild-Warnung, ein fehlender Einstieg –, zählt fail-closed die konservative Obermenge. Der Sync
+legt Fingerabdruck, Scope und `sync_state = complete` in `law_runtime_meta` ab; ein Lauf bei
+identischer Identität ist ein No-op. Ein Fixture kann nie die Identität des Vollbestands behaupten.
+Eine geänderte Identität bei gleichen Daten wird nicht behauptet, sondern über den
+Äquivalenznachweis übernommen (Ergebnis `identity`: der Sync schreibt nur Identität und
+Laufzeitmetadaten).
 
 **Base-State-Guard.** Ein `--git-diff`-Sync schreibt erst, wenn D1 genau die Identität des
 Basis-Refs trägt (Scope `full`, Zustand `complete`); sonst fail-closed oder mit `--recover` eine
-markierte Recovery-Vollprojektion mit dem Profil `recovery`. Der inkrementelle Lauf entwertet die
+markierte Recovery-Vollprojektion mit dem Profil `recovery`. Während des Übergangs auf den
+Abschluss-Algorithmus gilt zusätzlich die frühere Identität des Basis-Refs (`legacyFingerprint`,
+Logikhash über ganze Verzeichnisse) als verifizierte Basis, damit eine vor dem Übergang
+geschriebene D1 keine Recovery auslöst (`TODO.md`). Der inkrementelle Lauf entwertet die
 Identität vor dem ersten Schreibzugriff und schreibt sie erst am erfolgreichen Ende; ein
 abgebrochener Lauf wird beim nächsten automatischen Lauf erkannt und repariert. Manuelle Teilsyncs
 (`--slug`, `--delete`, `--publications`, `--changed-paths`) verlangen eine vollständige Identität
@@ -341,7 +368,9 @@ npm run norms:runtime:d1-verify -- --local --fts-integrity  # eingesetzte Projek
   Portalgrundlagen, Stichtag, Scope), den Inhaltshash der Seed-Werkzeuge, die Versionen von
   wrangler, miniflare und workerd aus `package-lock.json` und die Seed-Formatversion – keine
   Änderungszeiten, keine Laufkennungen. Gleiche Eingaben ergeben denselben Snapshot
-  (`.cache/d1-seed/<Datenbank>-<full|fixture>-<Fingerabdruck>.sqlite` mit Manifest).
+  (`.cache/d1-seed/<Datenbank>-<full|fixture>-<Fingerabdruck>.sqlite` mit Manifest); der
+  Äquivalenznachweis liest Basis- und Zielprojektion daraus, wenn das Manifest ihre Identität
+  trägt (`fingerprint --json --ref <Commit>` nennt den Schlüssel eines Basis-Commits).
 - Ein vorhandener Snapshot wird nie blind übernommen: Manifest-Fingerabdruck, Tabellen,
   `projection_fingerprint`, Scope, `sync_state = complete`, Zähler gegen Git und FTS5-Integrität
   werden geprüft, bevor er in den Miniflare-Zustand eingesetzt wird; danach bestätigt eine
@@ -429,8 +458,9 @@ laufen dort, bevor die produktive Datenbank berührt wird (`tests/staging-wrangl
 Datenbank nur (`--dry-run`) und beweist den Schreibzugriff mit einer isolierten Probe gegen Staging
 (`scripts/d1-write-probe.mjs`).
 
-Recovery: Trägt D1 nicht die erwartete Basisidentität oder einen unvollständigen Zustand, führt der
-automatische Sync mit `--recover` eine markierte Vollprojektion mit dem Profil `recovery` aus.
+Recovery: Trägt D1 weder die erwartete Basisidentität (noch, im Übergang, deren frühere
+Berechnung) oder einen unvollständigen Zustand, führt der automatische Sync mit `--recover` eine
+markierte Vollprojektion mit dem Profil `recovery` aus.
 Bleibt ein Lauf wegen Budgetüberschreitung stehen, sind Identität und Laufzeitmetadaten nicht
 geschrieben; die Wiederholung (`--full --budget full`, zuerst Staging) repariert den Zustand
 vollständig. Lokale Kontrolle gegen die reale Datenbank:
@@ -454,8 +484,8 @@ cd apps/recht && npx wrangler dev --config dist/server/wrangler.json --remote --
   Mantelbestandteile werden nie blind zugeordnet.
 - Kein produktiver `--full`-Sync ohne zwingenden Grund; Lasttests nur lokal (Miniflare) oder gegen
   `ostrecht-recht-staging`; kein Remote-Lauf ohne Budgetprofil; kein inkrementeller Sync ohne
-  verifizierte Basis; kein `--stamp-fingerprint` als Abkürzung und kein
-  `--assume-narrow-logic-change` ohne lokalen Äquivalenznachweis.
+  verifizierte Basis; kein anderer Umfang für eine Logikänderung als der Vollprojektion oder der
+  vom Äquivalenznachweis gebundene – Annahmen, Stempel oder frei setzbare Bypässe gibt es nicht.
 - `--corpus-filter` nie gegen die produktive Datenbank; Migrationen nie automatisch.
 - Keine Cloudflare-Tokens oder anderen Secrets in Git; keine großen Binäranlagen in Git (R2).
 - D1 und R2 sind Laufzeit- bzw. Archivspeicher, nicht der alleinige fachliche Wissensbestand.

@@ -42,7 +42,9 @@ npm run content:check
 npm run knowledge:check
 npm run knowledge:build
 npm run check
-npm run test:unit
+npm run test:fast      # schnelle Unit-Tests (Sekunden)
+npm run test:pr        # was ein normaler PR lokal vorab prüft: Typen, Unit-Tests, ein Build, Links, SEO, Smokes, kritische Screenshots
+npm run test:full      # bewusst vollständig: zusätzlich Content, Korpus-Tests, breite Screenshot-Inventur
 npm run build
 npm run links:check
 npm run seo:check
@@ -75,7 +77,7 @@ context/         historische Ausgangstexte, Entwürfe, Programme und Simulations
 public/          gemeinsame Assets (Rechts-PDFs, Kartendaten, Bilder)
 docs/            Runbooks für Betrieb, Normworkflow, REVOSax-Import und Kreisreform-Karte
 scripts/         repo-weite Import-, Build-, Seed- und Prüfwerkzeuge
-tests/           Unit-, Routing-, Browser-, Accessibility- und Screenshot-Tests
+tests/           schnelle Unit-Tests, tests/corpus/ (Vollbestand, Projektion), Browser-, Accessibility- und Screenshot-Tests
 ```
 
 ## Inhalte und Recht
@@ -103,9 +105,14 @@ npm run norms:advance-reference-date -- --to <Datum> --write
 Pull Requests laufen gegen das repräsentative Testfixture (`data/recht/runtime-fixture.json`);
 der vollständige Rechtsbestand wird als gecachter D1-Seed nur dann geprüft, wenn eine Änderung
 Laufzeit, Projektion oder den Bestand in größerem Umfang berührt, sowie wöchentlich und manuell.
-Screenshot-Baselines laufen bei Oberflächenänderungen im Playwright-Container gegen das Testfixture
-und vergleichen strikt mit den committeten Linux-Baselines; sie sind kein Deployment-Gate. Veröffentlicht wird ausschließlich über den Workflow `Deploy to Cloudflare Workers`
-aus dem geprüften Commit auf `main`.
+Ob eine Datei die D1-Projektion betrifft, bestimmt der Code-Abschluss des Syncs, nicht ihr
+Verzeichnis; ändert sich die Projektionslogik, ersetzt ein vollständiger Vergleich von Basis- und
+Zielprojektion die Annahme (`docs/REVOSAX_BULK_IMPORT.md`). Die Screenshot-Suite läuft bei
+Oberflächenänderungen im Playwright-Container gegen das Testfixture und vergleicht strikt mit den
+committeten Linux-Baselines – in Pull Requests die kritische Auswahl, auf `main` die breite
+Inventur; sie ist kein Deployment-Gate (`docs/DEPLOYMENT_RUNBOOK.md`). Veröffentlicht wird
+ausschließlich über den Workflow `Deploy to Cloudflare Workers` aus dem geprüften Commit auf
+`main`.
 
 ## Dokumentation
 
