@@ -114,9 +114,13 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                       </HeadingTag>
                     </summary>
                     <nav class="norm-unit__tools" aria-label={`Werkzeuge für ${toDisplayText([block.label, block.title].filter(Boolean).join(' '))}`}>
-                      <button type="button" data-print-unit={anchorId}>Einzeldruck</button>
-                      <a href={`#${anchorId}`}>Link zu dieser Stelle</a>
-                      <button type="button" data-copy-anchor={anchorId}>Link kopieren</button>
+                      <details class="norm-unit__tools-menu" data-unit-tools>
+                        <summary aria-label="Werkzeuge" title="Werkzeuge"><span aria-hidden="true">···</span></summary>
+                        <div class="norm-unit__tools-list">
+                          <a href={`#${anchorId}`} data-copy-anchor={anchorId}>Link zu dieser Stelle kopieren</a>
+                          <button type="button" data-print-unit={anchorId}>Einzeldruck</button>
+                        </div>
+                      </details>
                     </nav>
                     {block.children && block.children.length > 0 ? (
                       <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} />

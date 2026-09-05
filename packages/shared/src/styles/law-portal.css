@@ -437,8 +437,7 @@
   grid-template-columns: 1fr;
 }
 
-.norm-document-tools > *,
-.norm-unit__tools > * {
+.norm-document-tools > * {
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
@@ -451,6 +450,21 @@
   font-weight: 650;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Inhaltsübersicht ist ein Sprunglink, Drucken ein sekundärer Symbolknopf (Befund D4). */
+.norm-document-tools > .norm-document-tools__jump {
+  padding-inline: var(--space-1);
+  border-color: transparent;
+  background: none;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.norm-document-tools > .norm-document-tools__print {
+  margin-inline-start: auto;
+  padding: var(--space-2);
+  background: var(--color-surface);
 }
 
 .norm-version-navigation__primary a {
@@ -551,17 +565,91 @@
   pointer-events: none;
 }
 
+/* Werkzeuge je Einheit (Befund D1): ein unauffälliger Symbolknopf am rechten Rand der
+   Überschrift, auf dem Desktop nur bei Hover und Fokus sichtbar; das Menü bündelt Anker
+   (springt und kopiert) und Einzeldruck. Auf kleinen Bildschirmen ist der Knopf immer sichtbar. */
 .norm-unit__tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin: 0 0 var(--space-3);
+  position: absolute;
+  /* Auf Höhe der Überschrift: die Einheit trägt in der Dokumentspalte --space-5 Innenabstand oben. */
+  inset-block-start: var(--space-5);
+  inset-inline-end: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 120ms ease;
 }
 
-.norm-unit__tools > * {
+.norm-unit:hover > .norm-unit__tools,
+.norm-unit:focus-within > .norm-unit__tools,
+.norm-unit__tools:has([open]) {
+  opacity: 1;
+}
+
+.norm-unit > .norm-unit__summary {
+  padding-inline-end: 3rem;
+}
+
+.norm-unit__tools-menu {
+  position: relative;
+}
+
+.norm-unit__tools-menu > summary {
+  display: inline-flex;
+  width: 2.5rem;
   min-height: 2.5rem;
-  padding: var(--space-xs) var(--space-3);
-  font-size: var(--text-xs);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  list-style: none;
+  cursor: pointer;
+}
+
+.norm-unit__tools-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.norm-unit__tools-menu > summary:hover,
+.norm-unit__tools-menu[open] > summary {
+  background: var(--color-surface-alt);
+}
+
+.norm-unit__tools-list {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: calc(100% + var(--space-1));
+  display: grid;
+  min-width: 15rem;
+  padding: var(--space-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.norm-unit__tools-list > * {
+  display: flex;
+  min-height: 2.5rem;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 650;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.norm-unit__tools-list > *:hover {
+  background: var(--color-surface-alt);
 }
 
 .norm-print-sources {
@@ -1419,16 +1507,16 @@
     padding-inline: var(--space-3);
   }
 
-  .norm-version-navigation__primary,
-  .norm-document-tools,
-  .norm-unit__tools {
+  .norm-version-navigation__primary {
     display: grid;
   }
 
-  .norm-version-navigation__primary a,
-  .norm-document-tools > *,
-  .norm-unit__tools > * {
+  .norm-version-navigation__primary a {
     width: 100%;
+  }
+
+  .norm-unit__tools {
+    opacity: 1;
   }
 
   .norm-citation-copy > div,

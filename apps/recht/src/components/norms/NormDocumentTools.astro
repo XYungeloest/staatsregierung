@@ -9,11 +9,14 @@ interface Props {
 const { outlineId = 'norm-inhalt' } = Astro.props;
 ---
 
+<!-- Ein Umschalter statt des Paares „öffnen/schließen“: die Beschriftung nennt den nächsten
+     Zustand. Inhaltsübersicht als Sprunglink, Drucken als sekundärer Symbolknopf (Befund D4). -->
 <nav class="norm-document-tools" aria-label="Werkzeuge für den Vorschriftentext">
-  <button type="button" data-norm-open-all>Alle Paragraphen öffnen</button>
-  <button type="button" data-norm-close-all>Alle Paragraphen schließen</button>
-  <a href={`#${outlineId}`}>Inhaltsübersicht</a>
-  <button type="button" data-print-page>Drucken</button>
+  <button type="button" data-norm-toggle-all data-open-label="Alle Paragraphen öffnen" data-close-label="Alle Paragraphen schließen">Alle Paragraphen schließen</button>
+  <a class="norm-document-tools__jump" href={`#${outlineId}`}>Inhaltsübersicht</a>
+  <button class="norm-document-tools__print" type="button" data-print-page aria-label="Drucken" title="Drucken">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 8V4h10v4M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M7 14h10v6H7z"/></svg>
+  </button>
 </nav>
 
 <script>
@@ -21,18 +24,32 @@ const { outlineId = 'norm-inhalt' } = Astro.props;
     return Array.from(document.querySelectorAll<HTMLDetailsElement>('#normtext details.norm-unit'));
   }
 
+  const toggleAll = document.querySelector<HTMLButtonElement>('[data-norm-toggle-all]');
+
+  /** Beschriftung nennt den nächsten Zustand: solange eine Einheit offen ist, „schließen“. */
+  function syncToggleLabel(): void {
+    if (!toggleAll) return;
+    const anyOpen = normDetails().some((entry) => entry.open);
+    toggleAll.textContent = (anyOpen ? toggleAll.dataset.closeLabel : toggleAll.dataset.openLabel) ?? '';
+  }
+  syncToggleLabel();
+  document.addEventListener('toggle', (event) => {
+    if (event.target instanceof HTMLDetailsElement && event.target.classList.contains('norm-unit')) syncToggleLabel();
+  }, true);
+
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) return;
-    if (event.target.closest('[data-norm-open-all]')) {
+    if (event.target.closest('[data-norm-toggle-all]')) {
+      const open = !normDetails().some((entry) => entry.open);
       normDetails().forEach((entry) => {
-        entry.open = true;
+        entry.open = open;
       });
+      syncToggleLabel();
     }
-    if (event.target.closest('[data-norm-close-all]')) {
-      normDetails().forEach((entry) => {
-        entry.open = false;
-      });
-    }
+    // Offene Werkzeugmenüs schließen, sobald außerhalb geklickt wird.
+    document.querySelectorAll<HTMLDetailsElement>('[data-unit-tools][open]').forEach((menu) => {
+      if (!menu.contains(event.target as Node)) menu.open = false;
+    });
     const printButton = event.target.closest<HTMLElement>('[data-print-unit]');
     if (printButton?.dataset.printUnit) {
       const target = document.getElementById(printButton.dataset.printUnit);
@@ -44,16 +61,17 @@ const { outlineId = 'norm-inhalt' } = Astro.props;
       target?.classList.remove('print-target');
     }
 
-    const copyButton = event.target.closest<HTMLElement>('[data-copy-anchor]');
-    if (copyButton?.dataset.copyAnchor) {
+    // Eine Aktion für Anker und Zwischenablage: der Link springt zur Stelle und kopiert die Adresse.
+    const copyLink = event.target.closest<HTMLElement>('[data-copy-anchor]');
+    if (copyLink?.dataset.copyAnchor) {
       const url = new URL(window.location.href);
-      url.hash = copyButton.dataset.copyAnchor;
+      url.hash = copyLink.dataset.copyAnchor;
       void navigator.clipboard?.writeText(url.toString()).then(
         () => {
-          copyButton.textContent = 'Link kopiert';
+          copyLink.textContent = 'Link kopiert';
         },
         () => {
-          window.location.hash = copyButton.dataset.copyAnchor ?? '';
+          copyLink.textContent = 'Link aus der Adresszeile kopieren';
         },
       );
     }
