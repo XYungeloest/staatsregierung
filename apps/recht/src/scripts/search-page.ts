@@ -36,6 +36,7 @@ const activeFilterList = document.querySelector<HTMLElement>('[data-search-activ
 const clearFiltersButton = document.querySelector<HTMLButtonElement>('[data-search-clear-filters]');
 const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
 const searchApiUrl = root?.dataset.searchApi ?? '';
+const indexUrl = root?.dataset.indexUrl ?? '';
 const REQUEST_DEBOUNCE_MS = 250;
 let activeRequest: AbortController | undefined;
 let loadedDocuments: PreparedSearchDocument[] = [];
@@ -414,12 +415,20 @@ function clipContext(source: string): string {
   return `${text.slice(0, 277).trimEnd()}…`;
 }
 
-function bestHitMarkup(result: ScoredSearchResult): string {
+/**
+ * Textauszug mit der Trefferstelle als Präfix statt eigener Versalzeile (Befund Q5). Ohne
+ * Trefferstelle im Text nennt das Präfix die Art des Treffers (z. B. „Treffer im Titel“).
+ */
+function contextMarkup(result: ScoredSearchResult): string {
+  const entry = result.documentEntry;
   const unit = result.bestHitUnit;
-  if (!unit) return '';
-  const label = [unit.label, unit.title].filter(Boolean).join(' ');
-  const href = `${result.documentEntry.url}#${unit.anchor}`;
-  return `<p class="search-hit__best"><strong>Beste Trefferstelle:</strong> <a class="inline-link" href="${escapeHtml(href)}">${escapeHtml(label || 'Vorschrift öffnen')}</a></p>`;
+  const text = clipContext(unit?.text || entry.summary || '');
+  const prefixLabel = unit ? [unit.label, unit.title].filter(Boolean).join(' ') || 'Trefferstelle' : result.matchLabel;
+  if (!text && !unit) return '';
+  const prefix = unit
+    ? `<a class="search-hit__context-prefix" href="${escapeHtml(`${entry.url}#${unit.anchor}`)}">${escapeHtml(prefixLabel)}</a>`
+    : `<span class="search-hit__context-prefix">${escapeHtml(prefixLabel)}</span>`;
+  return `<p class="search-hit__context" data-search-match-kind="${escapeHtml(result.matchKind)}">${prefix}${text ? `<span class="search-hit__context-separator" aria-hidden="true">:</span> <span>${escapeHtml(text)}</span>` : ''}</p>`;
 }
 
 function badgeClass(entry: SearchIndexDocument): string {
@@ -451,21 +460,25 @@ function validityLabel(entry: SearchIndexDocument): string {
   return `ab ${from}; Gültigkeitsende offen`;
 }
 
-function renderVersion(result: ScoredSearchResult, heading = true): string {
+function renderVersion(result: ScoredSearchResult, state: NormSearchState, heading = true): string {
   const entry = result.documentEntry;
   const publication = entry.publicationTitle && entry.publicationUrl
     ? `<a class="inline-link" href="${escapeHtml(entry.publicationUrl)}">${escapeHtml(entry.publicationTitle)}</a>`
     : escapeHtml(entry.publication);
-  const context = result.bestHitUnit?.text || entry.summary;
-  const secondaryTitle = entry.shortTitle && entry.shortTitle !== entry.title
-    ? `<p class="search-hit__short-title">${escapeHtml(entry.shortTitle)}</p>`
+  // Drei Zeilen vor dem Auszug (Befund Q5): Kurztitel mit Abkürzung, Langtitel klein darunter,
+  // dann Typ, Herkunft und Fundstelle als eine Metazeile.
+  const displayTitle = entry.shortTitle || entry.title;
+  const longTitle = entry.shortTitle && entry.shortTitle !== entry.title
+    ? `<p class="search-hit__long-title">${escapeHtml(entry.title)}</p>`
     : '';
   const identity = heading
-    ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>${secondaryTitle}${entry.abbr ? `<p class="search-hit__abbr">${escapeHtml(entry.abbr)}</p>` : ''}`
+    ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(displayTitle)}</a>${entry.abbr ? ` <span class="search-hit__abbr">${escapeHtml(entry.abbr)}</span>` : ''}</h3>${longTitle}`
     : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`;
   const metaLine = heading
-    ? `<p class="search-hit__meta-line"><span class="law-type-label">${escapeHtml(entry.typeLabel ?? '')}</span><span class="search-hit__meta-separator" aria-hidden="true">·</span>${originBadgeMarkup(entry)}</p>`
+    ? `<p class="search-hit__meta-line"><span class="law-type-label">${escapeHtml(entry.typeLabel ?? '')}</span><span class="search-hit__meta-separator" aria-hidden="true">·</span>${originBadgeMarkup(entry)}${entry.publication ? `<span class="search-hit__meta-separator" aria-hidden="true">·</span><span class="search-hit__publication"><span>Fundstelle</span> ${publication}</span>` : ''}</p>`
     : '';
+  // Die Fassungspille wiederholt sonst nur den aktiven Fassungsfilter: nur zeigen, wenn sie abweicht.
+  const showVersionBadge = state.versionScope === 'all' || entry.versionKind !== state.versionScope;
   return `
     <article class="search-hit">
       <div class="search-hit__header">
@@ -473,27 +486,39 @@ function renderVersion(result: ScoredSearchResult, heading = true): string {
           ${identity}
           ${metaLine}
         </div>
-        <span class="status-badge ${badgeClass(entry)}">${escapeHtml(formatSearchResultLabel(entry, referenceDate))}</span>
+        ${showVersionBadge ? `<span class="status-badge ${badgeClass(entry)}">${escapeHtml(formatSearchResultLabel(entry, referenceDate))}</span>` : ''}
       </div>
-      <p class="search-hit__match" data-search-match-kind="${escapeHtml(result.matchKind)}">${escapeHtml(result.matchLabel)}</p>
-      ${bestHitMarkup(result)}
-      ${context ? `<p class="search-hit__context">${escapeHtml(clipContext(context))}</p>` : ''}
-      ${entry.publication ? `<p class="search-hit__publication"><span>Fundstelle</span> ${publication}</p>` : ''}
+      ${contextMarkup(result)}
       <details class="search-hit__details">
         <summary>Weitere Angaben</summary>
         <dl class="search-hit__facts">
           <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
           <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
           <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>
+          <div><dt>Änderungsverlauf</dt><dd><a class="inline-link" href="${escapeHtml(`${entry.currentUrl}history/`)}">Fassungen und Änderungen</a></dd></div>
         </dl>
       </details>
-      <nav class="search-hit__actions" aria-label="Aktionen für ${escapeHtml(entry.shortTitle || entry.title)}">
-        <a href="${escapeHtml(entry.url)}">Öffnen</a>
-        ${entry.publicationUrl ? `<a href="${escapeHtml(entry.publicationUrl)}">Fundstelle</a>` : ''}
-        <a href="${escapeHtml(`${entry.currentUrl}history/`)}">Änderungen</a>
-      </nav>
     </article>
   `;
+}
+
+/** Echter Leerzustand im Ergebnisbereich (Befund Q4): Anfrage zitieren, drei konkrete Auswege. */
+function renderEmptyState(state: NormSearchState): string {
+  const activeCount = collectActiveFilters().length;
+  const query = state.q.trim();
+  const ways = [
+    activeCount > 0 ? `<li><button class="text-link-button" type="button" data-search-empty-clear>Aktive Filter zurücksetzen (${activeCount})</button></li>` : '',
+    state.versionScope !== 'all' ? `<li><button class="text-link-button" type="button" data-search-empty-all-versions>Suche auf alle Fassungen erweitern</button></li>` : '',
+    indexUrl ? `<li><a class="inline-link" href="${escapeHtml(indexUrl)}">Vorschriften A–Z öffnen</a></li>` : '',
+  ].join('');
+  const reason = query
+    ? `Zu „${escapeHtml(query)}“ passt keine Vorschrift${activeCount > 0 ? ' in der aktuellen Auswahl' : ''}.`
+    : 'Zur aktuellen Auswahl passt keine Vorschrift.';
+  return `<section class="search-empty" data-search-empty aria-labelledby="search-empty-title">
+    <h3 id="search-empty-title">Keine Vorschrift gefunden</h3>
+    <p>${reason}</p>
+    <ul class="search-empty__ways">${ways}</ul>
+  </section>`;
 }
 
 function updateFacetCounts(results: ScoredSearchResult[]): void {
@@ -510,6 +535,11 @@ function updateFacetCounts(results: ScoredSearchResult[]): void {
     }
   }
 
+  // Gruppen mit eigener Auswahl: die Zähler der Geschwister sind dort keine Vorschau (Normtyp
+  // und Herkunft grenzen die Kandidaten bereits serverseitig ein), also bleibt dort alles wählbar.
+  const groupsWithSelection = new Set(
+    Array.from(document.querySelectorAll<HTMLInputElement>('[data-search-facet]:checked')).map((input) => input.dataset.searchFacet ?? ''),
+  );
   document.querySelectorAll<HTMLInputElement>('[data-search-facet]').forEach((input) => {
     const counts = countsByFacet.get(input.dataset.searchFacet ?? '');
     if (!counts) return;
@@ -518,6 +548,9 @@ function updateFacetCounts(results: ScoredSearchResult[]): void {
     if (countElement) countElement.textContent = `(${count})`;
     const label = input.dataset.baseLabel ?? input.value;
     input.setAttribute('aria-label', `${label}, ${count} passende Fassungen in der aktuellen Auswahl`);
+    // Facetten ohne Treffer sind ausgegraut und nicht anklickbar (Befund Q4).
+    input.disabled = count === 0 && !input.checked && !groupsWithSelection.has(input.dataset.searchFacet ?? '');
+    input.closest('label')?.classList.toggle('search-filter-option--empty', input.disabled);
   });
 }
 
@@ -557,7 +590,7 @@ function renderResults(results: ScoredSearchResult[], state: NormSearchState, pu
   const visible = groups.slice(0, visibleGroups);
   if (groups.length === 0) {
     summary.textContent = 'Keine Treffer für die aktuelle Suchanfrage.';
-    resultsContainer.innerHTML = renderPublicationDirectHit(publication);
+    resultsContainer.innerHTML = `${renderPublicationDirectHit(publication)}${renderEmptyState(state)}`;
     moreButton.hidden = true;
     return;
   }
@@ -567,8 +600,8 @@ function renderResults(results: ScoredSearchResult[], state: NormSearchState, pu
   resultsContainer.innerHTML = `${renderPublicationDirectHit(publication)}<ol class="record-list search-results__list">${visible.map((group) => {
     const [primary, ...others] = group.entries;
     return `<li class="record-list__item search-result-group">
-      ${renderVersion(primary)}
-      ${others.length > 0 ? `<details class="search-result-group__versions"><summary>${others.length} weitere passende ${others.length === 1 ? 'Fassung' : 'Fassungen'}</summary>${others.map((entry) => renderVersion(entry, false)).join('')}</details>` : ''}
+      ${renderVersion(primary, state)}
+      ${others.length > 0 ? `<details class="search-result-group__versions"><summary>${others.length} weitere passende ${others.length === 1 ? 'Fassung' : 'Fassungen'}</summary>${others.map((entry) => renderVersion(entry, state, false)).join('')}</details>` : ''}
     </li>`;
   }).join('')}</ol>`;
   moreButton.hidden = visible.length >= groups.length;
@@ -699,6 +732,19 @@ async function setupSearch(): Promise<void> {
   clearFiltersButton?.addEventListener('click', () => {
     clearAllFilters();
     void run(true);
+  });
+  // Auswege des Leerzustands: Filter zurücksetzen oder auf alle Fassungen erweitern.
+  resultsContainer.addEventListener('click', (event) => {
+    if (!(event.target instanceof HTMLElement)) return;
+    if (event.target.closest('[data-search-empty-clear]')) {
+      clearAllFilters();
+      void run(true);
+    } else if (event.target.closest('[data-search-empty-all-versions]')) {
+      const scopeSelect = form.querySelector<HTMLSelectElement>('select[name="versionScope"]');
+      if (scopeSelect) scopeSelect.value = 'all';
+      setVersionScopeExplicit(true);
+      void run(true);
+    }
   });
   moreButton.addEventListener('click', () => {
     void (async () => {
