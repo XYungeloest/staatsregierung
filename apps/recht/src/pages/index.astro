@@ -66,14 +66,13 @@ const quickAccess = [
           <button type="submit">Suchen</button>
         </div>
       </form>
+      <!-- Jeder Chip ist ein Suchfilter; ein Chip führt zur vollständigen Suche (Befund Q7). -->
       <nav class="law-search-chips" aria-label="Direkte Suchfilter">
-        <a aria-current="page" href={getSearchUrl()}>Alle Inhalte</a>
         <a href={`${getSearchUrl()}?type=gesetz`}>Gesetze</a>
         <a href={`${getSearchUrl()}?type=verordnung`}>Verordnungen</a>
         <a href={`${getSearchUrl()}?type=verwaltungsvorschrift`}>Verwaltungsvorschriften</a>
         <a href={`${getSearchUrl()}?type=foerderrichtlinie`}>Förderrichtlinien</a>
-        <a href={getPublicationsUrl()}>Verkündungsblätter</a>
-        <a href={getSearchUrl()}>Mehr Filter</a>
+        <a href={getSearchUrl()}>Erweiterte Suche</a>
       </nav>
       <p class="law-home-hero__inventory">{stats.inForceCount} geltende Vorschriften und {stats.publicationCount} erschlossene Ausgaben im Bestand.</p>
     </div>

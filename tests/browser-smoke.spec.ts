@@ -268,9 +268,10 @@ siteTest(['portal', 'law'])('Rechts- und Portalsuche liefern weiterhin Treffer',
 });
 
 siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf synchron', async ({ page }) => {
-  await page.goto(lawUrl('/suche/?q=Kulturpass&type=gesetz'));
+  // „Kultur“ trifft Gesetze und eine Verordnung: Facetten ohne Treffer sind nicht mehr wählbar.
+  await page.goto(lawUrl('/suche/?q=Kultur&type=gesetz'));
 
-  await expect(page.locator('[data-search-query]')).toHaveValue('Kulturpass');
+  await expect(page.locator('[data-search-query]')).toHaveValue('Kultur');
   await expect(page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' })).toBeVisible();
   await expect(page.getByLabel('Suchbereich')).toBeVisible();
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
@@ -307,7 +308,7 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
   await expect(inForce).toBeChecked();
 
   await page.getByRole('button', { name: 'Alle Filter löschen' }).click();
-  await expect(page).toHaveURL(`${lawUrl('/suche/')}?q=Kulturpass`);
+  await expect(page).toHaveURL(`${lawUrl('/suche/')}?q=Kultur`);
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
 });
 
@@ -316,7 +317,7 @@ siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilt
   await expect(page.locator('[data-search-filter="includeAmendments"]')).not.toBeChecked();
   await expect(page).not.toHaveURL(/includeAmendments=1/u);
   await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
-  await expect(page.locator('[data-search-results] .search-hit h3').first()).toHaveText(/^Erstes Gesetz/u);
+  await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first()).toContainText(/Erstes Gesetz/u);
 });
 
 siteTest(['law'])('Normverzeichnis filtert und paginiert serverseitig; die Buchstabenleiste zeigt alle Buchstaben', async ({ page }) => {
@@ -689,7 +690,7 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   expect(browseDates.length).toBeGreaterThan(5);
   expect(browseDates[0] >= '2026-09-02').toBeTruthy();
   expect(browseDates.every((date, index) => index === 0 || browseDates[index - 1] >= date)).toBeTruthy();
-  await expect(page.locator('[data-search-results] .search-hit h3').first()).toContainText(/Interflug|Haushaltsordnung|Bekanntmachung/u);
+  await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first()).toContainText(/Interflug|Haushaltsordnung|Bekanntmachung/u);
 
   // Filter ohne Suchbegriff: innerhalb des Filters ebenfalls jüngstes Rechtsereignis zuerst.
   await page.goto(lawUrl('/suche/?type=gesetz'));
@@ -817,16 +818,26 @@ siteTest(['law'])('Standardsuche findet die am Stichtag geltenden Vorschriften u
     await expect(page.locator('select[name="versionScope"]'), query).toHaveValue('current');
     const hits = page.locator('[data-search-results] .search-hit');
     await expect(hits.first(), query).toBeVisible();
-    await expect(page.locator('[data-search-results] .search-hit h3').first(), query).toHaveText(expectedTitle);
-    await expect(hits.first().locator('.status-badge'), query).toContainText('Geltende Fassung zum 4. September 2026');
+    await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first(), query).toContainText(expectedTitle);
+    // Die Fassungspille erscheint nur, wenn sie vom aktiven Fassungsfilter abweicht.
+    await expect(hits.first().locator('.status-badge'), query).toHaveCount(0);
     await expect(hits.first().locator('.search-hit__meta-line .origin-badge'), query).toBeVisible();
   }
+  await page.goto(lawUrl('/suche/?q=Zinnwald&versionScope=all'));
+  await expect(page.locator('[data-search-results] .search-hit .status-badge').first()).toContainText('Geltende Fassung zum 4. September 2026');
   // Der Herkunftsfacet arbeitet mit der zentralen Herkunftssemantik der Suchdokumente.
   await page.goto(lawUrl('/suche/?q=Interflug&origin=ostdeutsch-original'));
   await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
   await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsche Neuregelung');
   await page.goto(lawUrl('/suche/?q=Interflug&origin=inherited-unchanged'));
   await expect(page.locator('[data-search-summary]')).toContainText('Keine Treffer');
+  // Echter Leerzustand: Überschrift, zitierte Anfrage und Auswege mit Filterzahl.
+  await expect(page.locator('[data-search-empty] h3')).toHaveText('Keine Vorschrift gefunden');
+  await expect(page.locator('[data-search-empty]')).toContainText('„Interflug“');
+  await expect(page.locator('[data-search-empty-clear]')).toContainText('(1)');
+  await page.locator('[data-search-empty-clear]').click();
+  await expect(page).not.toHaveURL(/origin=/u);
+  await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
   // Die Kandidaten-API filtert die Herkunft bereits serverseitig: total, Kandidatenmenge und
   // Dokumente tragen nur die gewünschte Herkunft; unbekannte Werte werden ignoriert.
   const filtered = await page.request.get(lawUrl('/api/suche.json?q=Gesetz&origin=inherited-amended'));

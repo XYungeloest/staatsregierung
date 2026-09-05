@@ -40,7 +40,7 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
     </div>
   </header>
 
-  <section class="search-shell" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl}>
+  <section class="search-shell" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl} data-index-url={getIndexUrl()}>
     <h2 class="visually-hidden" id="search-form-title">Suchanfrage und Filter</h2>
 
     <form class="search-form law-search-form" action={getSearchUrl()} method="get" data-search-form>
