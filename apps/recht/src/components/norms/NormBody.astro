@@ -82,6 +82,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                   <header class="norm-division__header">
                     <HeadingTag id={headingId} class="norm-division__heading">
                       {block.label ? <span class="norm-label">{toDisplayText(block.label)}</span> : null}
+                      {block.label && block.title ? ' ' : null}
                       {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                     </HeadingTag>
                   </header>
@@ -97,6 +98,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     <header class="norm-quoted-unit__header">
                       <HeadingTag id={headingId} class="norm-quoted-unit__heading">
                         {block.label ? <span class="norm-quoted-unit__label">{toDisplayText(block.label)}</span> : null}
+                        {block.label && block.title ? ' ' : null}
                         {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                       </HeadingTag>
                     </header>
@@ -110,6 +112,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     <summary class="norm-unit__summary">
                       <HeadingTag id={headingId} class="norm-unit__heading">
                         {block.label ? <span class="norm-unit__label">{toDisplayText(block.label)}</span> : null}
+                        {block.label && block.title ? ' ' : null}
                         {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                       </HeadingTag>
                     </summary>
@@ -143,6 +146,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                   <header class="norm-division__header">
                     <HeadingTag id={headingId} class="norm-division__heading">
                       {block.label ? <span class="norm-label">{toDisplayText(block.label)}</span> : null}
+                      {block.label && block.title ? ' ' : null}
                       {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                     </HeadingTag>
                   </header>
@@ -167,6 +171,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                 <div class="norm-subparagraph-wrap">
                   <p class="norm-subparagraph">
                     {block.label ? <span class="norm-subparagraph__label">{toDisplayText(block.label)}</span> : null}
+                    {block.label ? ' ' : null}
                     <span set:html={renderLinkedDisplayText(block.text, references)} />
                   </p>
                   {block.children && block.children.length > 0 ? (
@@ -213,6 +218,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
         {run.items.map(({ block, index }) => (
           <li class="norm-amendment-item">
             {block.label ? <span class="norm-amendment-item__label">{toDisplayText(block.label)}</span> : null}
+            {block.label ? ' ' : null}
             <div class="norm-amendment-item__content">
               <span set:html={renderLinkedDisplayText(block.text, references)} />
               {block.children && block.children.length > 0 ? (
