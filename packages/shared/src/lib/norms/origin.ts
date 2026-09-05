@@ -202,9 +202,9 @@ export function classifyNormOriginVersion(
  * Suchtreffer, Normseite) verwenden diese Funktionen; es gibt keine zweite
  * Herkunftsbezeichnung im Browser.
  *
- * - `formatNormOriginKind`: ausgeschriebene Bezeichnung für Filter, Zähler und Erläuterungen
- * - `formatNormOriginBadge('compact')`: kurze Kennzeichnung in Listen und Trefferzeilen
- * - `formatNormOriginBadge('full')`: Kennzeichnung auf der Normseite und im Suchtreffer
+ * Genau zwei Formen: kurz für Listen (`formatNormOriginBadge('compact')`) und erklärend für
+ * Detailseiten, Filter und Zähler (`formatNormOriginKind`, identisch mit
+ * `formatNormOriginBadge('full')`).
  */
 export function formatNormOriginKind(kind: NormOriginKind): string {
   if (kind === 'ostdeutsch-original') return 'Ostdeutsch neu geschaffen';
@@ -216,12 +216,7 @@ export function formatNormOriginKind(kind: NormOriginKind): string {
 export type NormOriginBadgeVariant = 'compact' | 'full';
 
 export function formatNormOriginBadge(kind: NormOriginKind, variant: NormOriginBadgeVariant = 'compact'): string {
-  if (variant === 'full') {
-    if (kind === 'ostdeutsch-original') return 'Ostdeutsche Neuregelung';
-    if (kind === 'inherited-amended') return 'Übernommen · ostdeutsch geändert';
-    if (kind === 'inherited-unchanged') return 'Übernommen · unverändert';
-    return 'Herkunft noch nicht abschließend belegt';
-  }
+  if (variant === 'full') return formatNormOriginKind(kind);
   if (kind === 'ostdeutsch-original') return 'Ostdeutsch neu';
   if (kind === 'inherited-amended') return 'Übernommen · geändert';
   if (kind === 'inherited-unchanged') return 'Übernommen · unverändert';

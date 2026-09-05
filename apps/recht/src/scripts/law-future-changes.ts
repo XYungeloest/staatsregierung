@@ -35,9 +35,11 @@ if (currentChanges && currentList) {
       });
   };
 
-  placeEntries(current, currentList, false, 5);
-  if (futureList) placeEntries(future, futureList, true, 3);
+  // Beide Spalten zeigen dieselbe Anzahl Einträge (Startseite: HOME_CURRENT_CHANGE_LIMIT/HOME_FUTURE_CHANGE_LIMIT).
+  placeEntries(current, currentList, false, 4);
+  if (futureList) placeEntries(future, futureList, true, 4);
 
   currentChanges.hidden = current.length === 0;
-  if (futureChanges) futureChanges.hidden = future.length === 0;
+  const futureEmpty = document.querySelector<HTMLElement>('[data-law-future-empty]');
+  if (futureEmpty) futureEmpty.hidden = future.length > 0;
 }

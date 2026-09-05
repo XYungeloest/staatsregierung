@@ -1,9 +1,44 @@
+/* Schriften: Jost trägt die Oberfläche, Source Serif 4 das Dokument. Beide liegen lokal als
+   untersetzte woff2 (Latin, Latin Extended-A, Interpunktion, § † ‡ – — „ “ ‚ ‘ » « › ‹ … · →,
+   ff-Ligaturen; Bestand geprüft). Source Serif 4: Gewichtsachse 400–700, Optical-Size-Achse
+   12–48 – Lesetext läuft mit opsz 16, Überschriften bis 48 automatisch mit der Titelform
+   (font-optical-sizing: auto). Erzeugt mit fonttools (pyftsubset, varLib.instancer), siehe
+   assets/fonts/README.md. Der Familienwechsel ist eine Änderung an --font-document. */
 @font-face {
   font-family: 'Jost';
-  src: url('../assets/fonts/Jost-Variable.ttf') format('truetype');
+  src: url('../assets/fonts/Jost-Variable.woff2') format('woff2');
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('../assets/fonts/SourceSerif4Variable-Roman.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* Rückfallschnitte mit angeglichenen Metriken: bis die Webfont da ist, setzen Arial bzw. Georgia
+   in derselben Breite und Zeilenbox (size-adjust und Overrides aus den Schriftmetriken gerechnet),
+   damit der Wechsel keinen Sprung erzeugt. */
+@font-face {
+  font-family: 'Jost Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 95.9%;
+  ascent-override: 107%;
+  descent-override: 37.5%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Source Serif 4 Fallback';
+  src: local('Georgia');
+  size-adjust: 100.2%;
+  ascent-override: 103.6%;
+  descent-override: 33.5%;
+  line-gap-override: 0%;
 }
 
 :root {
@@ -13,6 +48,8 @@
   --color-surface: #ffffff;
   --color-surface-alt: #f7f9fa;
   --color-surface-muted: #edf3f5;
+  /* Drei Rahmenstärken: `soft` für Innentrenner, `border` für Gruppierung, `strong` für Abgrenzung. */
+  --color-border-soft: #e3e9f0;
   --color-border: #d1dbe2;
   --color-border-strong: #8799a8;
   --color-text: #23364a;
@@ -39,16 +76,61 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 0.875rem;
-  --font-display: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-sans: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Jost trägt die Oberfläche (beide Portale), Source Serif 4 das Dokument (Normtext, Normkopf,
+     Vergleich, Vollzitat). Der Familienwechsel der Dokumentschrift ist eine Änderung an
+     --font-document; --font-display bleibt ein Alias der Oberflächenschrift. */
+  --font-sans: 'Jost', 'Jost Fallback', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: var(--font-sans);
+  --font-document: 'Source Serif 4', 'Source Serif 4 Fallback', Georgia, serif;
   --content-width: 84rem;
   --content-width-narrow: 60rem;
+  --lh-display: 1.12;
+  --lh-heading: 1.28;
+  /* Kompakte Bedienzeilen (Etiketten, Menüs) und Lesetext. */
+  --lh-compact: 1.45;
+  --lh-body: 1.65;
+  /* Abstandsskala: 4/8/12/16/24/32/48/64 px. `--space-hairline` (2 px) und `--space-xs` (6 px)
+     sind ergänzte Zwischenstufen; ohne sie wären Haarabstände und die zahlreichen 0.35rem-Lücken
+     nur sichtbar falsch abzubilden. */
+  --space-hairline: 0.125rem;
+  --space-1: 0.25rem;
+  --space-xs: 0.375rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  /* Typoskala für Fließ-, Bedien- und Hilfstexte. Seitentitel und Wortmarken bleiben
+     `clamp()`-Ausdrücke; sie skalieren mit dem Viewport und gehören nicht in eine feste Stufe. */
+  --text-2xs: 0.72rem;
+  --text-xs: 0.82rem;
+  --text-sm: 0.92rem;
+  --text-base: 1rem;
+  --text-md: 1.15rem;
+  --text-lg: 1.3rem;
+  --text-xl: 1.75rem;
+  /* Ergänzte Stufen (Phase 5): base-plus für Kartentitel (17 px, zwischen 16 und 18,4 px),
+     lg-plus für die Abschnitts-H2 des Staatsportals (24 px). */
+  --text-base-plus: 1.0625rem;
+  --text-lg-plus: 1.5rem;
+  /* Titelstufen – eine H1-Größe je Seitenfamilie: Startseiten-Hero, Bereichs- und Dokumentseiten,
+     Langtitel (Normen, Personen, Beteiligungen). */
+  --text-display: clamp(2.05rem, 4vw, 3.15rem);
+  --text-title: clamp(2rem, 4vw, 3.25rem);
+  --text-title-long: clamp(1.65rem, 3.2vw, 2.65rem);
+  /* Pillenform: ein Idiom statt 999px neben 99rem. */
+  --radius-pill: 999px;
   --rule-gradient: var(--color-primary);
   --section-rule-gap: 0.95rem;
   --space-section: clamp(2.5rem, 5vw, 4.5rem);
   --header-height: 6.25rem;
   --focus-ring: 0 0 0 5px rgba(255, 255, 255, 0.9);
+  /* Fokusschein: standardmäßig aus. Dunkle Flächen setzen ihn neben ihrem Hintergrund auf
+     `var(--focus-ring)`; er vererbt sich damit an ihre Bedienelemente. Auf hellem Grund trägt
+     die Outline allein, dort wäre der weiße Schein wirkungslos. */
+  --focus-halo: none;
 }
 
 * {
@@ -86,7 +168,7 @@ body {
   max-width: 100%;
   min-height: 100vh;
   background: var(--color-page);
-  line-height: 1.65;
+  line-height: var(--lh-body);
 }
 
 a {
@@ -103,6 +185,7 @@ textarea:focus-visible,
 summary:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
+  box-shadow: var(--focus-halo);
 }
 
 p,
@@ -110,6 +193,16 @@ li,
 dd {
   max-width: 78ch;
   overflow-wrap: anywhere;
+}
+
+/* Listenelemente tragen im Portal ueberwiegend Layout (Karten, Raster,
+   Trefferzeilen). Dort gilt die Lesebreite des Fliesstexts nicht; sonst
+   endet jede Verzeichniskarte bei 78ch statt an der Spaltenkante. */
+.directory-list > li,
+.law-dashboard-list > li,
+.record-list > li,
+.norm-version-picker__content ul > li {
+  max-width: none;
 }
 
 button,
@@ -128,11 +221,19 @@ h5 {
   font-family: var(--font-display);
   font-weight: 760;
   letter-spacing: 0;
+  line-height: var(--lh-heading);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
 
+h1,
+h2 {
+  line-height: var(--lh-display);
+}
+
 .skip-link {
+  /* Erscheint über der dunklen Hinweisleiste: der Fokusschein macht den Umriss dort sichtbar. */
+  --focus-halo: var(--focus-ring);
   position: absolute;
   top: -3rem;
   left: 1rem;
@@ -191,8 +292,8 @@ h5 {
   margin: 0;
   max-width: none;
   overflow-wrap: anywhere;
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
 }
 
 .site-notice__flag {
@@ -217,7 +318,7 @@ h5 {
   min-height: 1.55rem;
   padding: 0 0.35rem;
   border: 1px solid currentColor;
-  font-size: 0.75rem;
+  font-size: var(--text-2xs);
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -248,7 +349,7 @@ h5 {
   margin: 0;
   letter-spacing: 0.11em;
   text-transform: uppercase;
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
   font-weight: 760;
   color: var(--color-text-muted);
 }
@@ -289,8 +390,8 @@ h5 {
 }
 
 .module-card h3 {
-  font-size: 1.16rem;
-  line-height: 1.28;
+  font-size: var(--text-md);
+  line-height: var(--lh-heading);
 }
 
 .module-card__meta,
@@ -318,9 +419,9 @@ h5 {
   border-radius: var(--radius-sm);
   background: var(--color-info-green);
   color: var(--color-secondary-hover);
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
   font-weight: 600;
-  line-height: 1.35;
+  line-height: var(--lh-heading);
   overflow-wrap: anywhere;
 }
 
@@ -396,9 +497,9 @@ h5 {
 .timeline__date time {
   display: inline-block;
   max-width: 100%;
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
   color: var(--color-text-muted);
-  line-height: 1.45;
+  line-height: var(--lh-compact);
 }
 
 .timeline__body {
@@ -413,8 +514,8 @@ h5 {
 
 .timeline__body h3 {
   margin: 0.1rem 0 0.55rem;
-  font-size: 1.18rem;
-  line-height: 1.25;
+  font-size: var(--text-md);
+  line-height: var(--lh-heading);
 }
 
 .timeline__body p {
@@ -424,7 +525,7 @@ h5 {
 .timeline__type {
   margin: 0 0 0.3rem;
   color: var(--color-seal);
-  font-size: 0.84rem;
+  font-size: var(--text-xs);
   font-weight: 760;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -448,7 +549,7 @@ h5 {
   background: var(--color-surface-alt);
   color: var(--color-text-muted);
   text-align: center;
-  font-size: 0.84rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   overflow-wrap: anywhere;
 }
@@ -475,7 +576,7 @@ h5 {
 
 .search-field__label {
   color: var(--color-heading);
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
   font-weight: 600;
 }
 
@@ -561,7 +662,7 @@ h5 {
 .data-table th {
   background: var(--color-surface-alt);
   color: var(--color-primary);
-  font-size: 0.88rem;
+  font-size: var(--text-sm);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -577,7 +678,7 @@ h5 {
   display: block;
   margin-top: 0.25rem;
   color: var(--color-text-muted);
-  line-height: 1.45;
+  line-height: var(--lh-compact);
   overflow-wrap: anywhere;
 }
 
@@ -607,7 +708,7 @@ h5 {
 
 .budget-year-selector__label {
   color: var(--color-heading);
-  font-size: 0.86rem;
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
@@ -642,14 +743,14 @@ h5 {
   color: var(--color-primary);
   font-size: clamp(1.15rem, 2vw, 1.55rem);
   font-variant-numeric: tabular-nums;
-  line-height: 1.2;
+  line-height: var(--lh-display);
 }
 
 .budget-kpi-grid--six .budget-kpi-card .detail-line,
 .budget-plan-kpis article > span:last-child,
 .budget-comparison-grid article > span {
   margin: 0;
-  font-size: 0.84rem;
+  font-size: var(--text-xs);
 }
 
 .budget-kpi-grid--six .budget-kpi-card > * {
@@ -685,7 +786,7 @@ h5 {
 .budget-structure-card__total {
   margin: 0.2rem 0 0.85rem;
   color: var(--color-primary);
-  font-size: 1.5rem;
+  font-size: var(--text-lg-plus);
   font-weight: 750;
   font-variant-numeric: tabular-nums;
 }
@@ -743,7 +844,7 @@ h5 {
 
 .budget-category-grid strong {
   color: var(--color-primary);
-  font-size: 1.2rem;
+  font-size: var(--text-md);
   font-variant-numeric: tabular-nums;
 }
 
@@ -786,9 +887,9 @@ h5 {
   display: block;
   margin-top: 0.25rem;
   color: var(--color-text-muted);
-  font-size: 0.86rem;
+  font-size: var(--text-xs);
   font-weight: 400;
-  line-height: 1.4;
+  line-height: var(--lh-compact);
 }
 
 .budget-plan-kpis {
@@ -849,7 +950,7 @@ h5 {
   content: '+';
   float: right;
   color: var(--color-seal);
-  font-size: 1.15rem;
+  font-size: var(--text-md);
   line-height: 1;
 }
 
@@ -912,9 +1013,9 @@ h5 {
 .site-title {
   display: inline-block;
   font-family: var(--font-display);
-  font-size: 1.38rem;
+  font-size: var(--text-lg);
   font-weight: 820;
-  line-height: 1.04;
+  line-height: var(--lh-display);
   color: var(--color-ink);
   overflow-wrap: anywhere;
   text-decoration: none;
@@ -1050,7 +1151,7 @@ h5 {
 
 .mobile-nav__summary::after {
   content: '+';
-  font-size: 1.2rem;
+  font-size: var(--text-md);
   line-height: 1;
 }
 
@@ -1107,7 +1208,7 @@ h5 {
 .media-credit {
   margin: 0.7rem 0 0;
   color: var(--color-text-muted);
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
 }
 
 .consent-banner .inline-link {
@@ -1139,23 +1240,23 @@ h5 {
 .panel h3 {
   margin: 0;
   font-family: var(--font-display);
-  line-height: 1.15;
+  line-height: var(--lh-display);
 }
 
 .hero h1 {
   margin-top: 0.4rem;
   max-width: 18ch;
   color: var(--color-heading);
-  font-size: 2.75rem;
-  line-height: 1.08;
+  font-size: var(--text-title);
+  line-height: var(--lh-display);
 }
 
 .lead,
 .section-header p,
 .panel p {
   color: var(--color-text-muted);
-  font-size: 1.03rem;
-  line-height: 1.72;
+  font-size: var(--text-base);
+  line-height: var(--lh-body);
 }
 
 article.panel > p:last-child > a.inline-link {
@@ -1174,7 +1275,7 @@ article.panel > p:last-child > a.inline-link {
 
 article.panel > p:last-child > a.inline-link::after {
   content: '→';
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
 }
 
 article.panel > p:last-child > a.inline-link:hover {
@@ -1279,7 +1380,7 @@ article.panel > p:last-child > a.inline-link:hover {
   display: block;
   margin-top: 0.4rem;
   font-family: var(--font-display);
-  font-size: 1.22rem;
+  font-size: var(--text-md);
   color: var(--color-heading);
 }
 
@@ -1311,7 +1412,7 @@ article.panel > p:last-child > a.inline-link:hover {
   text-decoration: none;
   text-align: center;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: var(--lh-heading);
   overflow-wrap: anywhere;
   box-shadow: none;
   transition:
@@ -1371,7 +1472,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .consent-banner__title {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: var(--text-base);
   font-weight: 700;
 }
 
@@ -1379,7 +1480,7 @@ article.panel > p:last-child > a.inline-link:hover {
   margin: 0;
   max-width: 72ch;
   color: rgba(255, 255, 255, 0.88);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
 }
 
 .consent-banner__text a {
@@ -1426,7 +1527,7 @@ article.panel > p:last-child > a.inline-link:hover {
   padding: 0;
   margin: 0;
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
 }
 
 .breadcrumbs__item {
@@ -1511,7 +1612,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .section-header--compact h2 {
-  font-size: 1.18rem;
+  font-size: var(--text-md);
 }
 
 .card-grid {
@@ -1562,8 +1663,8 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .panel h3 {
-  font-size: 1.25rem;
-  line-height: 1.25;
+  font-size: var(--text-lg);
+  line-height: var(--lh-heading);
 }
 
 .panel p {
@@ -1580,10 +1681,10 @@ article.panel > p:last-child > a.inline-link:hover {
   padding: 0.25rem 0.7rem;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  font-size: 0.84rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.02em;
-  line-height: 1.35;
+  line-height: var(--lh-heading);
   overflow-wrap: anywhere;
 }
 
@@ -1619,8 +1720,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .fact-card strong {
   display: block;
   margin-top: 0.4rem;
-  font-family: var(--font-serif);
-  font-size: 1.22rem;
+  font-size: var(--text-md);
   color: var(--color-heading);
 }
 
@@ -1647,7 +1747,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .topic-card__meta {
   margin: 0;
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   overflow-wrap: anywhere;
 }
 
@@ -1749,7 +1849,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .portal-current-news h3,
 .portal-law-current h3 {
   margin: 0.25rem 0 0;
-  line-height: 1.25;
+  line-height: var(--lh-heading);
 }
 
 .portal-current-news p {
@@ -1780,7 +1880,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .reform-priority-card h2 {
   margin: 0.25rem 0 0;
   font-size: clamp(1.35rem, 2.6vw, 1.8rem);
-  line-height: 1.15;
+  line-height: var(--lh-display);
 }
 
 .reform-priority-card p:not(.eyebrow) {
@@ -1882,8 +1982,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .press-tile__body h3 {
   margin: 0.35rem 0 0;
-  font-family: var(--font-serif);
-  line-height: 1.18;
+  line-height: var(--lh-display);
 }
 
 .speech-card {
@@ -1983,7 +2082,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .detail-line {
   margin: 1rem 0 0;
   color: var(--color-text-muted);
-  line-height: 1.65;
+  line-height: var(--lh-body);
 }
 
 .content-grid {
@@ -2076,7 +2175,7 @@ article.panel > p:last-child > a.inline-link:hover {
   display: block;
   margin-top: 0.3rem;
   color: var(--color-text-muted);
-  line-height: 1.45;
+  line-height: var(--lh-compact);
 }
 
 .norm-meta-panel .tag-list {
@@ -2100,7 +2199,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .norm-sidebar__portal-links h3 {
   margin: 1rem 0 0.6rem;
-  font-size: 0.96rem;
+  font-size: var(--text-sm);
 }
 
 .section.norm-sidebar__portal-links {
@@ -2134,13 +2233,13 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .norm-sidebar__link-list time {
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .norm-sidebar__link-list span {
   color: var(--color-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
 }
 
 .meta-list {
@@ -2151,7 +2250,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .meta-panel h3 {
   margin: 1.25rem 0 0.7rem;
-  font-size: 0.96rem;
+  font-size: var(--text-sm);
   color: var(--color-heading);
 }
 
@@ -2161,7 +2260,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .meta-list dt {
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -2170,7 +2269,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .meta-list dd {
   margin: 0;
-  line-height: 1.5;
+  line-height: var(--lh-compact);
 }
 
 .tag-list {
@@ -2191,7 +2290,7 @@ article.panel > p:last-child > a.inline-link:hover {
   background: var(--color-info-green);
   color: var(--color-secondary);
   text-decoration: none;
-  line-height: 1.35;
+  line-height: var(--lh-heading);
   overflow-wrap: anywhere;
   white-space: normal;
   transition:
@@ -2242,12 +2341,12 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .status-notice h2 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: var(--text-base-plus);
 }
 
 .status-notice p {
   margin: 0.75rem 0 0;
-  line-height: 1.7;
+  line-height: var(--lh-body);
 }
 
 .inline-link,
@@ -2347,7 +2446,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .faq-list .panel h3 {
-  font-size: 1.12rem;
+  font-size: var(--text-md);
 }
 
 .education-path-nav {
@@ -2366,8 +2465,8 @@ article.panel > p:last-child > a.inline-link:hover {
   padding-top: 0.45rem;
   color: var(--color-heading);
   font-family: var(--font-display);
-  font-size: 1rem;
-  line-height: 1.25;
+  font-size: var(--text-base);
+  line-height: var(--lh-heading);
 }
 
 .education-path-nav ul {
@@ -2388,10 +2487,10 @@ article.panel > p:last-child > a.inline-link:hover {
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-primary);
-  font-size: 0.94rem;
+  font-size: var(--text-sm);
   font-weight: 650;
   text-decoration: none;
-  line-height: 1.35;
+  line-height: var(--lh-heading);
 }
 
 .education-path-nav a:hover,
@@ -2453,7 +2552,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .school-system-chart__summary {
   margin: 1rem 0 0;
   color: var(--color-text);
-  line-height: 1.65;
+  line-height: var(--lh-body);
 }
 
 .school-system-data-table {
@@ -2463,7 +2562,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .school-system-data-table tbody th {
   background: var(--color-surface);
   color: var(--color-heading);
-  font-size: 1rem;
+  font-size: var(--text-base);
   letter-spacing: 0;
   text-transform: none;
 }
@@ -2479,14 +2578,14 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .school-type-card h3 {
-  font-size: 1.18rem;
+  font-size: var(--text-md);
 }
 
 .school-system-facts {
   margin-top: 1.2rem;
 }
 
-@media (max-width: 47.99rem) {
+@media (max-width: 48rem) {
   .school-system-chart__desktop {
     display: none;
   }
@@ -2521,7 +2620,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .school-path-card__stage {
     color: var(--color-text-muted);
-    font-size: 0.82rem;
+    font-size: var(--text-xs);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -2563,7 +2662,7 @@ article.panel > p:last-child > a.inline-link:hover {
   .school-path-arrow {
     margin: -0.15rem 0;
     color: var(--color-primary);
-    font-size: 1.6rem;
+    font-size: var(--text-lg-plus);
     font-weight: 700;
     text-align: center;
   }
@@ -2622,7 +2721,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .search-field span {
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-heading);
 }
@@ -2652,7 +2751,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .search-feedback {
   margin-top: 1.25rem;
   color: var(--color-text-muted);
-  line-height: 1.6;
+  line-height: var(--lh-body);
 }
 
 .search-feedback--warning {
@@ -2668,7 +2767,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .search-feedback--examples {
   margin-top: 0.55rem;
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
 }
 
 .job-filter-card[hidden],
@@ -2715,15 +2814,14 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .search-hit__header h3 {
   margin: 0;
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: var(--text-lg);
   min-width: 0;
 }
 
 .search-hit__meta,
 .search-hit__context {
   margin: 0.65rem 0 0;
-  line-height: 1.7;
+  line-height: var(--lh-body);
 }
 
 .search-hit__facts {
@@ -2740,7 +2838,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .search-hit__facts dt {
   color: var(--color-text-muted);
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
   font-weight: 650;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -2748,7 +2846,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .search-hit__facts dd {
   margin: 0;
-  line-height: 1.45;
+  line-height: var(--lh-compact);
   min-width: 0;
   overflow-wrap: anywhere;
 }
@@ -2791,14 +2889,14 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .norm-outline .section-header h2 {
-  font-size: 1.2rem;
+  font-size: var(--text-md);
 }
 
 .outline-list a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  line-height: 1.5;
+  line-height: var(--lh-compact);
 }
 
 .outline-list .outline-list {
@@ -2853,8 +2951,8 @@ article.panel > p:last-child > a.inline-link:hover {
 .norm-unit__summary h5,
 .norm-unit__summary h6 {
   margin: 0;
-  font-family: var(--font-serif);
-  line-height: 1.28;
+  font-family: var(--font-document);
+  line-height: var(--lh-heading);
 }
 
 .norm-division__heading,
@@ -2893,7 +2991,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .norm-text {
   margin: 0.65rem 0 0;
-  line-height: 1.78;
+  line-height: var(--lh-body);
   max-width: 82ch;
   color: var(--color-ink);
 }
@@ -2916,7 +3014,7 @@ article.panel > p:last-child > a.inline-link:hover {
   max-width: 82ch;
   margin: 0.65rem 0 0;
   color: var(--color-ink);
-  line-height: 1.78;
+  line-height: var(--lh-body);
 }
 
 .norm-subparagraph__label {
@@ -2966,7 +3064,7 @@ article.panel > p:last-child > a.inline-link:hover {
   display: grid;
   grid-template-columns: 2.75rem minmax(0, 1fr);
   column-gap: 0.75rem;
-  line-height: 1.75;
+  line-height: var(--lh-body);
   max-width: 82ch;
   min-width: 0;
 }
@@ -3021,8 +3119,8 @@ article.panel > p:last-child > a.inline-link:hover {
 .norm-quoted-unit__header h5,
 .norm-quoted-unit__header h6 {
   margin: 0;
-  font-family: var(--font-serif);
-  line-height: 1.3;
+  font-family: var(--font-document);
+  line-height: var(--lh-heading);
 }
 
 .norm-quoted-unit__label {
@@ -3052,8 +3150,8 @@ article.panel > p:last-child > a.inline-link:hover {
 .site-footer p,
 .site-footer a {
   margin: 0;
-  font-size: 0.96rem;
-  line-height: 1.45;
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
 }
 
 .site-footer p {
@@ -3092,7 +3190,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .site-footer__section h2 {
   margin: 0 0 0.1rem;
-  font-family: var(--font-serif);
 }
 
 .site-footer__section .footer-nav {
@@ -3102,7 +3199,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .site-footer__small {
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .site-footer__settings {
@@ -3131,13 +3228,13 @@ article.panel > p:last-child > a.inline-link:hover {
 
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 80rem) {
   .norm-detail-layout {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 64rem) {
   .portal-path-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3192,10 +3289,10 @@ article.panel > p:last-child > a.inline-link:hover {
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 64rem) {
 }
 
-@media (max-width: 720px) {
+@media (max-width: 48rem) {
   .container {
     width: min(calc(100% - 1.2rem), var(--content-width));
   }
@@ -3226,8 +3323,8 @@ article.panel > p:last-child > a.inline-link:hover {
   }
 
   .site-title {
-    font-size: 1.32rem;
-    line-height: 1.08;
+    font-size: var(--text-lg);
+    line-height: var(--lh-display);
   }
 
   .site-wordmark__media img {
@@ -3258,8 +3355,8 @@ article.panel > p:last-child > a.inline-link:hover {
   }
 
   .hero h1 {
-    font-size: 1.72rem;
-    line-height: 1.06;
+    font-size: var(--text-xl);
+    line-height: var(--lh-display);
   }
 
   .section {

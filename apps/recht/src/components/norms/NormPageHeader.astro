@@ -32,16 +32,19 @@ const identity = getNormVersionIdentity(norm, version);
     <p class="norm-page-header__summary">{toDisplayText(identity.summary)}</p>
     <p class="norm-page-header__reference">
       <strong>Fundstelle:</strong>{' '}
-      {referenceUrl ? <a href={referenceUrl}>{reference}</a> : reference}
+      {referenceUrl ? <a href={referenceUrl}>{reference}</a> : <span class="norm-page-header__reference-text">{reference}</span>}
     </p>
     <dl class="norm-page-header__facts">
       <div><dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd></div>
       <div><dt>Fassungsstand</dt><dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd></div>
     </dl>
   </div>
+  <!-- Feste Plätze: PDF, HTML, Link. Ein nicht belegter Platz bleibt sichtbar und nennt den Grund. -->
   <nav class="norm-page-header__actions" aria-label="Werkzeuge zur Vorschrift">
-    {publicationPdf ? <a href={publicationPdf}>PDF</a> : null}
-    <a href={htmlHref}>HTML</a>
+    {publicationPdf
+      ? <a href={publicationPdf}>Als PDF öffnen</a>
+      : <span aria-disabled="true" title="Für diese Fassung ist keine amtliche PDF-Datei hinterlegt.">Als PDF öffnen · nicht hinterlegt</span>}
+    <a href={htmlHref}>Als HTML lesen</a>
     <button type="button" data-copy-page-url>Link kopieren</button>
   </nav>
   <p class="copy-feedback norm-page-header__feedback" aria-live="polite" data-copy-page-feedback></p>
