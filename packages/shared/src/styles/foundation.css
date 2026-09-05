@@ -1,9 +1,44 @@
+/* Schriften: Jost trägt die Oberfläche, Source Serif 4 das Dokument. Beide liegen lokal als
+   untersetzte woff2 (Latin, Latin Extended-A, Interpunktion, § † ‡ – — „ “ ‚ ‘ » « › ‹ … · →,
+   ff-Ligaturen; Bestand geprüft). Source Serif 4: Gewichtsachse 400–700, Optical-Size-Achse
+   12–48 – Lesetext läuft mit opsz 16, Überschriften bis 48 automatisch mit der Titelform
+   (font-optical-sizing: auto). Erzeugt mit fonttools (pyftsubset, varLib.instancer), siehe
+   assets/fonts/README.md. Der Familienwechsel ist eine Änderung an --font-document. */
 @font-face {
   font-family: 'Jost';
-  src: url('../assets/fonts/Jost-Variable.ttf') format('truetype');
+  src: url('../assets/fonts/Jost-Variable.woff2') format('woff2');
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('../assets/fonts/SourceSerif4Variable-Roman.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* Rückfallschnitte mit angeglichenen Metriken: bis die Webfont da ist, setzen Arial bzw. Georgia
+   in derselben Breite und Zeilenbox (size-adjust und Overrides aus den Schriftmetriken gerechnet),
+   damit der Wechsel keinen Sprung erzeugt. */
+@font-face {
+  font-family: 'Jost Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 95.9%;
+  ascent-override: 107%;
+  descent-override: 37.5%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Source Serif 4 Fallback';
+  src: local('Georgia');
+  size-adjust: 100.2%;
+  ascent-override: 103.6%;
+  descent-override: 33.5%;
+  line-gap-override: 0%;
 }
 
 :root {
@@ -41,9 +76,12 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 0.875rem;
-  --font-display: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-sans: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Jost trägt die Oberfläche (beide Portale), Source Serif 4 das Dokument (Normtext, Normkopf,
+     Vergleich, Vollzitat). Der Familienwechsel der Dokumentschrift ist eine Änderung an
+     --font-document; --font-display bleibt ein Alias der Oberflächenschrift. */
+  --font-sans: 'Jost', 'Jost Fallback', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: var(--font-sans);
+  --font-document: 'Source Serif 4', 'Source Serif 4 Fallback', Georgia, serif;
   --content-width: 84rem;
   --content-width-narrow: 60rem;
   --lh-display: 1.12;
@@ -1670,7 +1708,6 @@ article.panel > p:last-child > a.inline-link:hover {
 .fact-card strong {
   display: block;
   margin-top: 0.4rem;
-  font-family: var(--font-serif);
   font-size: 1.22rem;
   color: var(--color-heading);
 }
@@ -1933,7 +1970,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .press-tile__body h3 {
   margin: 0.35rem 0 0;
-  font-family: var(--font-serif);
   line-height: 1.18;
 }
 
@@ -2766,7 +2802,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .search-hit__header h3 {
   margin: 0;
-  font-family: var(--font-serif);
   font-size: 1.25rem;
   min-width: 0;
 }
@@ -2904,7 +2939,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .norm-unit__summary h5,
 .norm-unit__summary h6 {
   margin: 0;
-  font-family: var(--font-serif);
+  font-family: var(--font-document);
   line-height: 1.28;
 }
 
@@ -3072,7 +3107,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .norm-quoted-unit__header h5,
 .norm-quoted-unit__header h6 {
   margin: 0;
-  font-family: var(--font-serif);
+  font-family: var(--font-document);
   line-height: 1.3;
 }
 
@@ -3143,7 +3178,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .site-footer__section h2 {
   margin: 0 0 0.1rem;
-  font-family: var(--font-serif);
 }
 
 .site-footer__section .footer-nav {
