@@ -81,6 +81,9 @@ interface OverflowEntry {
   right: number;
   width: number;
   scrollWidth: number;
+  minContentWidth: number;
+  depth: number;
+  layout: string;
   minWidth: string;
   whiteSpace: string;
   overflowWrap: string;
@@ -165,6 +168,28 @@ async function describeOverflow(page: Page): Promise<string> {
       if (['svg', 'canvas', 'video', 'iframe', 'table', 'pre'].includes(tag)) return `${tag}, width-Attribut ${element.getAttribute('width') ?? '–'}`;
       return '';
     };
+    // Min-Content-Maß direkt messen: kurz width: min-content setzen, messen, zurücksetzen. Ein
+    // Element, dessen Min-Content der Spaltenbreite entspricht, ist die Quelle der Breite; alles
+    // andere ist nur auf die Spalte gestreckt.
+    const minContentWidth = (element: HTMLElement): number => {
+      const previous = element.style.getPropertyValue('width');
+      const priority = element.style.getPropertyPriority('width');
+      element.style.setProperty('width', 'min-content', 'important');
+      const width = element.getBoundingClientRect().width;
+      if (previous) element.style.setProperty('width', previous, priority);
+      else element.style.removeProperty('width');
+      return round(width);
+    };
+    const layoutOf = (style: CSSStyleDeclaration): string => {
+      if (style.display.includes('grid')) return `${style.display} [${style.gridTemplateColumns}]`;
+      if (style.display.includes('flex')) return `${style.display} ${style.flexWrap}`;
+      return style.display;
+    };
+    const depthOf = (element: Element): number => {
+      let depth = 0;
+      for (let parent = element.parentElement; parent; parent = parent.parentElement) depth += 1;
+      return depth;
+    };
     const widestToken = (element: HTMLElement): { token: string; width: number } => {
       const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
       const best = { token: '', width: 0 };
@@ -203,6 +228,9 @@ async function describeOverflow(page: Page): Promise<string> {
           right: round(rect.right),
           width: round(rect.width),
           scrollWidth: element.scrollWidth,
+          minContentWidth: 0,
+          depth: depthOf(element),
+          layout: layoutOf(style),
           minWidth: style.minWidth,
           whiteSpace: style.whiteSpace,
           overflowWrap: style.overflowWrap,
@@ -217,6 +245,7 @@ async function describeOverflow(page: Page): Promise<string> {
     }
     const overflowing = new Set(found.map((item) => item.element));
     for (const item of found) {
+      item.entry.minContentWidth = minContentWidth(item.element);
       item.entry.leaf = !Array.from(item.element.querySelectorAll<HTMLElement>('*')).some((descendant) => overflowing.has(descendant));
       if (item.entry.leaf) {
         const token = widestToken(item.element);
@@ -224,8 +253,10 @@ async function describeOverflow(page: Page): Promise<string> {
         item.entry.widestTokenWidth = token.width;
       }
     }
-    const leaves = found.filter((item) => item.entry.leaf).sort((a, b) => b.entry.right - a.entry.right || b.entry.width - a.entry.width);
-    const ancestors = found.filter((item) => !item.entry.leaf).sort((a, b) => b.entry.right - a.entry.right || a.entry.left - b.entry.left);
+    // Quelle zuerst: größtes Min-Content-Maß, bei Gleichstand das tiefere Element.
+    const bySource = (a: { entry: OverflowEntry }, b: { entry: OverflowEntry }): number => b.entry.minContentWidth - a.entry.minContentWidth || b.entry.depth - a.entry.depth || b.entry.right - a.entry.right;
+    const leaves = found.filter((item) => item.entry.leaf).sort(bySource);
+    const ancestors = found.filter((item) => !item.entry.leaf).sort(bySource);
     const kept = [...leaves.slice(0, maxLeaves), ...ancestors.slice(0, maxAncestors)];
     kept.forEach(({ element, entry }, position) => {
       entry.index = position + 1;
@@ -264,10 +295,10 @@ async function describeOverflow(page: Page): Promise<string> {
   });
 
   const listedLeaves = data.entries.filter((entry) => entry.leaf).length;
-  const header = `Horizontaler Überlauf bei ${data.viewportWidth} px Viewport: Dokument ${data.documentWidth} px, body ${data.bodyWidth} px; ${data.total} Element(e) ragen über den rechten Rand, davon ${data.leaves} ohne überlaufendes Kind (dort entsteht die Breite); gelistet ${listedLeaves} Ursache(n) und ${data.entries.length - listedLeaves} Vorfahr(en):`;
+  const header = `Horizontaler Überlauf bei ${data.viewportWidth} px Viewport: Dokument ${data.documentWidth} px, body ${data.bodyWidth} px; ${data.total} Element(e) ragen über den rechten Rand, davon ${data.leaves} ohne überlaufendes Kind; sortiert nach Min-Content-Maß (die Quelle der Breite zuerst), gelistet ${listedLeaves} Blatt/Blätter und ${data.entries.length - listedLeaves} Vorfahr(en):`;
   const lines = data.entries.map((entry) => [
-    `  ${entry.index}. [${entry.leaf ? 'Ursache' : 'Vorfahr'}] <${entry.tag}${entry.classes ? ` class="${entry.classes}"` : ''}>`,
-    `links ${entry.left} · rechts ${entry.right} · Breite ${entry.width} · scrollWidth ${entry.scrollWidth} · min-width ${entry.minWidth} · white-space ${entry.whiteSpace} · overflow-wrap ${entry.overflowWrap}`,
+    `  ${entry.index}. [${entry.leaf ? 'Blatt' : 'Vorfahr'} Tiefe ${entry.depth}] <${entry.tag}${entry.classes ? ` class="${entry.classes}"` : ''}>`,
+    `Min-Content ${entry.minContentWidth} · links ${entry.left} · rechts ${entry.right} · Breite ${entry.width} · scrollWidth ${entry.scrollWidth} · ${entry.layout} · min-width ${entry.minWidth} · white-space ${entry.whiteSpace} · overflow-wrap ${entry.overflowWrap}`,
     `font-family ${entry.fontFamily}`,
     `gesetzt: ${platformFonts.get(entry.index) ?? 'unbekannt'}`,
     entry.control,
