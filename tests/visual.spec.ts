@@ -698,66 +698,6 @@ portalTest('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabelle
   await verifyViewport(page);
 });
 
-portalTest('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/kreisreform/');
-
-  const input = page.locator('[data-kreisreform-search-input]');
-  await expect(input).toBeVisible();
-  await input.fill('Abtsbessingen');
-  await expect(page.locator('[data-kreisreform-search-result]')).toHaveCount(1, { timeout: 15_000 });
-  await page.locator('[data-kreisreform-search-result]').click();
-  await expect(page.locator('[data-kreisreform-search-detail]')).toBeVisible();
-});
-
-portalTest('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/suche/');
-
-  const status = page.locator('[data-portal-search-status]');
-  const input = page.locator('[data-portal-search-query]');
-  const noResults = page.locator('[data-portal-search-empty]');
-  const error = page.locator('[data-portal-search-error]');
-
-  await expect(status).toContainText('Wonach suchen Sie?');
-  await expect(noResults).toBeHidden();
-  await expect(error).toBeHidden();
-
-  await input.fill('Kreisreform');
-  await expect(status).toContainText('Treffer für „Kreisreform“');
-  await expect(page.locator('[data-portal-search-results] .search-hit')).not.toHaveCount(0);
-  await expect(noResults).toBeHidden();
-  await expect(error).toBeHidden();
-
-  await input.fill('zzzznichtvorhanden');
-  await expect(status).toContainText('Keine Treffer für');
-  await expect(page.locator('[data-portal-search-results] .search-hit')).toHaveCount(0);
-  await expect(noResults).toBeVisible();
-  await expect(error).toBeHidden();
-});
-
-portalTest('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/haushalt/');
-
-  const dashboard = page.locator('[data-budget-year-switcher]');
-  await expect(dashboard).toBeVisible();
-  await dashboard.getByRole('button', { name: 'Vergleich', exact: true }).click();
-  await expect(dashboard.locator('[data-budget-year-content="vergleich"]')).toBeVisible();
-  await expect(dashboard.locator('[data-budget-year-status]')).toContainText('Vergleich');
-
-  await page.goto('/haushalt/einzelplaene/');
-  const plans = page.locator('[data-budget-year-switcher]');
-  await plans.getByRole('button', { name: 'Vergleich', exact: true }).click();
-  const table = plans.locator('[data-budget-year-content="vergleich"] [data-budget-plan-table]');
-  await expect(table).toBeVisible();
-  await table.locator('[data-budget-plan-filter="query"]').fill('Bildung');
-  await expect(table.locator('[data-budget-plan-row]:visible')).toHaveCount(1);
-  await expect(table.locator('[data-budget-plan-status]')).toContainText('1 von 20 Einzelplänen');
-
-  await verifyViewport(page);
-});
-
 portalTest('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ page }) => {
   await preparePage(page);
   await page.goto('/haushalt/');

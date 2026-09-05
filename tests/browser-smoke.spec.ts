@@ -189,6 +189,78 @@ siteTest(['portal'])('Kreisreform bleibt ohne Karte nutzbar', async ({ page }) =
   await expect(page.locator('[data-kreisreform-table-status]')).toContainText('sichtbar');
 });
 
+
+/** Portal ohne Einwilligungsbanner und ohne externe Karten- oder Statistikrequests (wie die Screenshot-Suite). */
+async function prepareFunctionalPage(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    window.localStorage.setItem('ostrecht-portal-analytics-consent', 'rejected');
+  });
+  await page.route('**://*.tile.openstreetmap.org/**', (route) => route.abort());
+  await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
+}
+
+// Funktionale Portalwege, die zuvor in der Screenshot-Suite standen (dort bleiben Layout und Bild).
+siteTest(['portal'])('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  await page.goto('/kreisreform/');
+
+  const input = page.locator('[data-kreisreform-search-input]');
+  await expect(input).toBeVisible();
+  await input.fill('Abtsbessingen');
+  await expect(page.locator('[data-kreisreform-search-result]')).toHaveCount(1, { timeout: 15_000 });
+  await page.locator('[data-kreisreform-search-result]').click();
+  await expect(page.locator('[data-kreisreform-search-detail]')).toBeVisible();
+});
+
+siteTest(['portal'])('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  await page.goto('/suche/');
+
+  const status = page.locator('[data-portal-search-status]');
+  const input = page.locator('[data-portal-search-query]');
+  const noResults = page.locator('[data-portal-search-empty]');
+  const error = page.locator('[data-portal-search-error]');
+
+  await expect(status).toContainText('Wonach suchen Sie?');
+  await expect(noResults).toBeHidden();
+  await expect(error).toBeHidden();
+
+  await input.fill('Kreisreform');
+  await expect(status).toContainText('Treffer für „Kreisreform“');
+  await expect(page.locator('[data-portal-search-results] .search-hit')).not.toHaveCount(0);
+  await expect(noResults).toBeHidden();
+  await expect(error).toBeHidden();
+
+  await input.fill('zzzznichtvorhanden');
+  await expect(status).toContainText('Keine Treffer für');
+  await expect(page.locator('[data-portal-search-results] .search-hit')).toHaveCount(0);
+  await expect(noResults).toBeVisible();
+  await expect(error).toBeHidden();
+});
+
+siteTest(['portal'])('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  await page.goto('/haushalt/');
+
+  const dashboard = page.locator('[data-budget-year-switcher]');
+  await expect(dashboard).toBeVisible();
+  await dashboard.getByRole('button', { name: 'Vergleich', exact: true }).click();
+  await expect(dashboard.locator('[data-budget-year-content="vergleich"]')).toBeVisible();
+  await expect(dashboard.locator('[data-budget-year-status]')).toContainText('Vergleich');
+
+  await page.goto('/haushalt/einzelplaene/');
+  const plans = page.locator('[data-budget-year-switcher]');
+  await plans.getByRole('button', { name: 'Vergleich', exact: true }).click();
+  const table = plans.locator('[data-budget-year-content="vergleich"] [data-budget-plan-table]');
+  await expect(table).toBeVisible();
+  await table.locator('[data-budget-plan-filter="query"]').fill('Bildung');
+  await expect(table.locator('[data-budget-plan-row]:visible')).toHaveCount(1);
+  await expect(table.locator('[data-budget-plan-status]')).toContainText('1 von 20 Einzelplänen');
+
+  const widths = await page.evaluate(() => ({ viewport: document.documentElement.clientWidth, document: document.documentElement.scrollWidth }));
+  expect(widths.document).toBeLessThanOrEqual(widths.viewport);
+});
+
 siteTest(['portal'])('Lokale Bereichsnavigation und Ministeriumsverzeichnis sind vollständig zugänglich', async ({ page }) => {
   await page.goto('/staatsregierung/kabinett/');
 

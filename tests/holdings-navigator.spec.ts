@@ -1,6 +1,11 @@
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
+import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+
+// Beteiligungsnavigator des Staatsportals: nur mit gebautem Portal (SITE_TARGETS), sonst übersprungen.
+test.skip(!normalizeSiteTargets(process.env.SITE_TARGETS).includes('portal'), 'Beteiligungsnavigator gehört zum Staatsportal');
+
 async function openNavigator(page: Page, path = '/staatsregierung/beteiligungen/') {
   await page.goto(path);
   await expect(page.locator('[data-holdings-root]')).toHaveAttribute('data-holdings-ready', 'true');
