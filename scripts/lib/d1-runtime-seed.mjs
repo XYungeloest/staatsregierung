@@ -185,10 +185,15 @@ export async function buildSeedSnapshot({ root = process.cwd(), fixture = null, 
 
   const fixtureManifest = fixture ? await readFixtureManifest(root, fixture) : null;
   const { norms, publications, topics, pressReleases, fixtureSource } = await loadSeedInputs({ root, fixture, manifest: fixtureManifest, sync });
+  // Das Stichwortregister ist eine Eingabe der Projektion: es liefert die Stichworteinträge der
+  // Art `register` und geht in den Bestandsfingerabdruck ein. Ohne es trüge der Seed einen
+  // anderen corpus_hash als der Sync und als die Verifikation (scripts/verify-recht-d1.mjs).
+  const { loadKeywordRegister, registerKeywordsBySlug } = await import('@ostrecht/shared/lib/norms/register.ts');
+  const register = registerKeywordsBySlug(await loadKeywordRegister());
   log(`Seed ${seedIdentity.mode}${fixtureSource === 'synthetic' ? ' (synthetischer Bestand)' : ''}: ${norms.length} Normen und ${publications.length} Verkündungen geladen (${Math.round((Date.now() - startedAt) / 1000)} s); Seed-Fingerabdruck ${seedIdentity.fingerprint.slice(0, 16)}…`);
   const scope = await sync.resolveScope(['--full'], { norms, publications });
   const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE });
-  const plan = sync.buildSyncPlan({ scope, norms, publications, context, now: SEED_PROJECTION_NOW, fingerprint: seedIdentity.projection, identity: seedIdentity.projection, writeIdentity: true });
+  const plan = sync.buildSyncPlan({ scope, norms, publications, context, now: SEED_PROJECTION_NOW, fingerprint: seedIdentity.projection, identity: seedIdentity.projection, writeIdentity: true, register });
   log(`Plan: ${plan.selected.length} Normen, ${plan.publicationCount} Verkündungen, ${plan.statementCount} Anweisungen (${Math.round((Date.now() - startedAt) / 1000)} s)`);
 
   const target = resolve(root, out);
