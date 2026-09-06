@@ -13,7 +13,7 @@ import { promisify } from 'node:util';
 import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { buildDerivedContext, deriveNorm, fullCitationFor } from '@ostrecht/shared/lib/norms/derived.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
@@ -296,7 +296,9 @@ export function normQueries(norm, context, now, { full = false } = {}) {
     ON CONFLICT(id) DO UPDATE SET ${updates}`, [
     meta.id, meta.slug, currentIdentity.title, currentIdentity.shortTitle, currentIdentity.abbr ?? null, meta.type, meta.status,
     lawId, current.versionId, meta.documentDate ?? null, meta.publicationDate ?? null,
-    meta.effectiveDate ?? null, meta.expiryDate ?? null, meta.initialCitation, meta.summary,
+    meta.effectiveDate ?? null, meta.expiryDate ?? null, meta.initialCitation,
+    // Abgeleitete Formeln bleiben in meta_json erhalten, erscheinen aber nicht in den Übersichtsspalten.
+    getPublicNormSummary(currentIdentity) ?? '',
     meta.responsibleMinistry ?? meta.ministry ?? null, meta.enactingBody ?? null, sourceKind, now,
     JSON.stringify(meta), JSON.stringify(history), currentIdentity.title.toLocaleLowerCase('de'), current.validFrom,
     JSON.stringify(meta.subjects), meta.primarySubject ?? null, JSON.stringify(meta.keywords), JSON.stringify(getNormAliases(norm, currentIdentity)),
@@ -314,7 +316,8 @@ export function normQueries(norm, context, now, { full = false } = {}) {
       version_json, full_citation, publication_ref_json, temporal_kind, publication_source, publication_year
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
       meta.id, version.versionId, version.validFrom, version.validTo ?? null, version.isCurrent ? 1 : 0,
-      version.title ?? null, version.shortTitle ?? null, version.abbr ?? null, version.summary ?? null,
+      version.title ?? null, version.shortTitle ?? null, version.abbr ?? null,
+      version.summary === undefined ? null : (getPublicNormSummary(getNormVersionIdentity(norm, version)) ?? ''),
       version.citation, version.changeNote, primarySource?.sha256 ?? null, primarySource?.url ?? null,
       primarySource?.retrievedAt ?? null, primarySource?.objectKey ?? null, now,
       JSON.stringify(stripBody(version)), fullCitationFor(norm, version, context),

@@ -15,6 +15,11 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
 
 3. Importkonfiguration, Normtyp, Titel, Kurztitel, Abkürzung, Zusammenfassung,
    `enactingBody`, `responsibleMinistry`, Sachgebiete und Beziehungen redaktionell prüfen.
+   Dabei gilt das Titelmodell: `title` ist der amtliche Langtitel, `shortTitle` nur eine echte
+   Kurzbezeichnung, `abbr` nur eine echte Abkürzung; abkürzungsartige Bezeichnungen gehören in
+   `keywords`. Die Zusammenfassung ist eine redaktionelle Kurzbeschreibung; nur eine aus Typ und
+   Titel gebildete Formel des Massenimports trägt `summarySource: "derived"` und bleibt öffentlich
+   unsichtbar. Eigene Vorschriften brauchen immer eine echte Kurzbeschreibung.
 4. Bei der ersten ostdeutschen Änderung einer übernommenen Stammnorm die am 1. November 2023
    geltende REVOSax-Fassung mit `npm run norms:revosax:fetch` sichern und parsen. Die gespeicherte
    HTML-Datei unter `data/recht/sources/revosax/` ist unveränderliche Quellenbeweissicherung.

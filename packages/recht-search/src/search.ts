@@ -16,7 +16,7 @@ import {
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/publications.ts';
 import { getNormUrl, getNormVersionUrl, getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import type { NormBodyBlock, NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import {
   EDITORIAL_REFERENCE_DATE,
@@ -362,7 +362,8 @@ export function buildSearchDocument(
     keywords: record.meta.keywords.map((keyword) => toDisplayText(keyword)),
     status: record.meta.status,
     statusLabel: formatNormStatus(record.meta.status),
-    summary: toDisplayText(identity.summary),
+    // Abgeleitete Formeln sind kein Suchtext und kein Anrisstext.
+    summary: toDisplayText(getPublicNormSummary(identity) ?? ''),
     initialCitation: toDisplayText(record.meta.initialCitation),
     citation: buildNormFullCitation(record, version, recordsBySlug),
     publication: publicationReference

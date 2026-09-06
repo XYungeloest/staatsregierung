@@ -74,8 +74,9 @@ for (const entry of await readdir(normRoot, { withFileTypes: true })) {
   if (typeof meta.summary !== 'string' || meta.summary.trim().length < 24 || summaryFragment.test(meta.summary.trim())) {
     report(slug, 'summary ist leer, zu kurz oder ein typisches Importfragment');
   }
+  // Formelhafte Zusammenfassungen prüft scripts/check-content.mjs bestandsweit gegen
+  // summarySource und Herkunft; hier bleiben nur die stichtagsgebundenen Pflichtfelder.
   if ((meta.publicationDate ?? '') >= EDITORIAL_METADATA_SINCE) {
-    if (typeof meta.summary === 'string' && meta.summary.trim() === `Regelt ${meta.title}.`) report(slug, 'summary ist eine generische Formel statt einer redaktionellen Kurzbeschreibung');
     if (!meta.enactingBody) report(slug, `ab ${EDITORIAL_METADATA_SINCE} verkündete Normen führen das erlassende Organ (enactingBody)`);
     if (!meta.responsibleMinistry) report(slug, `ab ${EDITORIAL_METADATA_SINCE} verkündete Normen führen die fachliche Zuständigkeit (responsibleMinistry)`);
   }

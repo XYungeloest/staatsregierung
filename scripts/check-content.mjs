@@ -1,4 +1,11 @@
 import { access, readdir, readFile, stat } from 'node:fs/promises';
+import {
+  abbreviationProblem,
+  isAbbreviationLikeLabel,
+  isDerivedSummary,
+  isTitleFormulaSummary,
+  UNVERIFIED_GENERATED_ABBREVIATIONS as unverifiedGeneratedAbbreviations,
+} from './lib/norm-title-rules.mjs';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -80,11 +87,6 @@ const allowedEnactingBodies = new Set([
   'Gründungsvorstand der Interflug',
   'Staatssekretariat für Mobilität und regionale Entwicklung',
   'Ministerium für freistaatliche Sicherheit',
-]);
-const unverifiedGeneratedAbbreviations = new Set([
-  'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
-  'PsychVersStG', '1. StaatsreformG', '2. StaatsreformG', '3. StaatsreformG',
-  '4. StaatsreformG', 'ZweitVeröffG',
 ]);
 const execFileAsync = promisify(execFile);
 
@@ -666,8 +668,23 @@ for (const { file, json } of records) {
       }
     }
 
-    if (json.abbr && unverifiedGeneratedAbbreviations.has(json.abbr)) {
-      addProblem(file, `abbr ist nicht durch die Primärquelle belegt: ${json.abbr}`);
+    // Titelmodell: Kurzbezeichnung und Abkürzung nach der gemeinsamen Regel
+    // (scripts/lib/norm-title-rules.mjs); Prüfung über den Bestand statt im Einzelfall.
+    if (json.shortTitle !== undefined && typeof json.shortTitle !== 'string') {
+      addProblem(file, 'shortTitle muss eine Zeichenkette sein');
+    }
+    if (typeof json.shortTitle === 'string' && json.shortTitle.trim() === String(json.title ?? '').trim()) {
+      addProblem(file, 'shortTitle wiederholt den Titel; die Kurzbezeichnung entfällt dann');
+    }
+    if (typeof json.shortTitle === 'string' && isAbbreviationLikeLabel(json.shortTitle)) {
+      addProblem(file, `shortTitle ist eine Abkürzungsform und gehört in keywords: ${json.shortTitle}`);
+    }
+    if (json.shortTitleSource !== undefined && !json.shortTitle) {
+      addProblem(file, 'shortTitleSource ohne shortTitle');
+    }
+    const abbrProblem = abbreviationProblem(json.abbr, { title: json.title, shortTitle: json.shortTitle });
+    if (abbrProblem) {
+      addProblem(file, `abbr ${abbrProblem}: ${String(json.abbr).replace(/\s+/gu, ' ')}`);
     }
 
     if (!Array.isArray(json.subjects) || json.subjects.length === 0) {
@@ -1037,6 +1054,44 @@ for (const { file, json } of byPrefix('normen/').filter(({ file }) => basename(f
       addProblem(file, `entries[${index}].relatedNorm verweist auf unbekannte Norm: ${entry.relatedNorm}`);
     }
     if (entry.relatedNorm === normSlug) addProblem(file, `entries[${index}].relatedNorm darf nicht auf die Vorschrift selbst verweisen`);
+  }
+}
+
+// Titelmodell und Herkunft der Zusammenfassung über den ganzen Bestand: Fassungen spiegeln die
+// Bezeichnungen der Norm, Formeln aus Typ und Titel bleiben als abgeleitet gekennzeichnet und
+// werden öffentlich nicht ausgespielt (scripts/lib/norm-title-rules.mjs).
+for (const { file, json: meta } of normMetaRecords) {
+  const versionRecords = byPrefix(`normen/${meta.slug}/versions/`);
+  const hasRevosaxProvenance = [
+    ...(meta.sourceReferences ?? []),
+    ...versionRecords.flatMap(({ json }) => json.sourceReferences ?? []),
+  ].some((reference) => reference?.kind === 'revosax-snapshot');
+  const summary = String(meta.summary ?? '').trim();
+  const formula = isDerivedSummary(summary) || isTitleFormulaSummary(summary, meta.title);
+  if (formula && !hasRevosaxProvenance) {
+    addProblem(file, 'summary ist eine aus Typ und Titel gebildete Formel; eigene Vorschriften brauchen eine redaktionelle Kurzbeschreibung');
+  } else if (formula && meta.summarySource !== 'derived') {
+    addProblem(file, 'summary ist eine abgeleitete Formel und muss summarySource "derived" führen');
+  }
+  if (meta.summarySource === 'derived' && !formula) {
+    addProblem(file, 'summarySource "derived" ohne eine der abgeleiteten Formeln');
+  }
+
+  for (const { file: versionFile, json: version } of versionRecords) {
+    const versionTitle = String(version.title ?? meta.title ?? '').trim();
+    if (typeof version.shortTitle === 'string' && version.shortTitle.trim() === versionTitle) {
+      addProblem(versionFile, 'shortTitle wiederholt den Titel der Fassung; die Kurzbezeichnung entfällt dann');
+    }
+    if (typeof version.shortTitle === 'string' && isAbbreviationLikeLabel(version.shortTitle)) {
+      addProblem(versionFile, `shortTitle ist eine Abkürzungsform und gehört in keywords: ${version.shortTitle}`);
+    }
+    const versionAbbrProblem = abbreviationProblem(version.abbr, {
+      title: versionTitle,
+      shortTitle: version.shortTitle ?? meta.shortTitle,
+    });
+    if (versionAbbrProblem) {
+      addProblem(versionFile, `abbr ${versionAbbrProblem}: ${String(version.abbr).replace(/\s+/gu, ' ')}`);
+    }
   }
 }
 

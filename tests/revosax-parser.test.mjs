@@ -337,3 +337,68 @@ test('historische Zitierung entfernt spätere Änderungsklauseln auch bei gleich
     'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931)',
   );
 });
+
+function identitySnapshot(heading, pageTitle = 'Testgesetz') {
+  return `<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>${pageTitle}</h1>
+    <p>Vollzitat: Testgesetz vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)</p>
+    <article id="lesetext">
+      <header><h3>${heading}</h3><p>1. Januar 2020</p></header>
+      <div class="sections"><section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Das Gesetz regelt seinen Zweck.</p></section></div>
+    </article>
+    <div id="quickbar"><div class="box"><h3>Gültigkeitszeitraum</h3><p>Fassung gültig ab: 1. Januar 2020</p></div></div>
+  </div></div></body></html>`;
+}
+
+function parsedIdentity(heading, pageTitle) {
+  const parsed = parseRevosaxSnapshot(identitySnapshot(heading, pageTitle), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+  return { sourceTitle: parsed.sourceTitle, longTitle: parsed.longTitle, shortTitle: parsed.shortTitle, abbr: parsed.abbr };
+}
+
+test('die Kennzeile trennt Langtitel, Kurzbezeichnung und Abkürzung', () => {
+  assert.deepEqual(
+    parsedIdentity('Gesetz über die Prüfung von Testfällen (Testprüfgesetz – TestPrG)', 'Testprüfgesetz'),
+    {
+      sourceTitle: 'Testprüfgesetz',
+      longTitle: 'Gesetz über die Prüfung von Testfällen',
+      shortTitle: 'Testprüfgesetz',
+      abbr: 'TestPrG',
+    },
+  );
+});
+
+test('ein einteiliger Klammerzusatz wird als Abkürzung oder als Kurzbezeichnung eingeordnet', () => {
+  assert.deepEqual(parsedIdentity('Gesetz über Testfälle (TestG)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Gesetz über Testfälle',
+    shortTitle: 'Testgesetz',
+    abbr: 'TestG',
+  });
+  assert.deepEqual(parsedIdentity('Gesetz über Testfälle (VwV Formblätter Testwesen)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Gesetz über Testfälle',
+    shortTitle: 'VwV Formblätter Testwesen',
+    abbr: undefined,
+  });
+});
+
+test('Gedankenstriche ohne Leerzeichen trennen ebenfalls, Jahresspannen bleiben Titelbestandteil', () => {
+  assert.deepEqual(parsedIdentity('Gesetz über Testfälle (Testprüfgesetz –TestPrG)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Gesetz über Testfälle',
+    shortTitle: 'Testprüfgesetz',
+    abbr: 'TestPrG',
+  });
+  assert.deepEqual(parsedIdentity('Förderrichtlinie Testförderung 2014–2020'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Förderrichtlinie Testförderung 2014–2020',
+    shortTitle: 'Testgesetz',
+    abbr: undefined,
+  });
+  assert.deepEqual(parsedIdentity('Förderrichtlinie Testförderung (Testprogramm 2014–2020)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Förderrichtlinie Testförderung (Testprogramm 2014–2020)',
+    shortTitle: 'Testgesetz',
+    abbr: undefined,
+  });
+});

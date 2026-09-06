@@ -156,8 +156,11 @@ export interface NormEditorialResolution {
 export interface NormMeta {
   id: string;
   slug: string;
+  /** Amtlicher Langtitel der Vorschrift. */
   title: string;
-  shortTitle: string;
+  /** Echte Kurzbezeichnung; entfällt, wenn die Vorschrift nur den Langtitel führt. */
+  shortTitle?: string;
+  /** Echte Abkürzung; entfällt, wenn keine belegte Abkürzung besteht. */
   abbr?: string;
   shortTitleSource?: 'official' | 'editorial';
   /**
@@ -804,7 +807,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     id: expectString(object.id, `${path}.id`),
     slug: expectSlug(object.slug, `${path}.slug`),
     title: expectString(object.title, `${path}.title`),
-    shortTitle: expectString(object.shortTitle, `${path}.shortTitle`),
+    shortTitle: expectOptionalString(object.shortTitle, `${path}.shortTitle`),
     abbr: expectOptionalString(object.abbr, `${path}.abbr`),
     shortTitleSource: object.shortTitleSource === undefined
       ? undefined

@@ -18,7 +18,7 @@ import {
   type DerivedContext,
   type NormDerivedData,
 } from '@ostrecht/shared/lib/norms/derived.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getNormOriginInfo, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 import { getGermanIndexLetter, getNormUrl, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
@@ -442,7 +442,7 @@ export function summarizeNormRecord(record: NormRecord, records: NormRecord[] = 
     title: identity.title,
     shortTitle: identity.shortTitle,
     ...(identity.abbr ? { abbr: identity.abbr } : {}),
-    summary: identity.summary,
+    summary: getPublicNormSummary(identity) ?? '',
     type: record.meta.type,
     status: record.meta.status,
     subjects: [...record.meta.subjects],
@@ -1222,7 +1222,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         if (subjectSlugs.length > 0 && !record.meta.subjects.some((subject) => subjectSlugs.includes(getSubjectSlug(subject)))) return false;
         if (!versionMatches(record)) return false;
         if (terms.length === 0) return true;
-        const haystack = [record.meta.title, record.meta.shortTitle, record.meta.abbr ?? '', ...record.versions.flatMap((version) => [version.title ?? '', version.shortTitle ?? ''])].join(' ').toLocaleLowerCase('de');
+        const haystack = [record.meta.title, record.meta.shortTitle ?? '', record.meta.abbr ?? '', ...record.versions.flatMap((version) => [version.title ?? '', version.shortTitle ?? ''])].join(' ').toLocaleLowerCase('de');
         return terms.some((term) => haystack.includes(term));
       });
       if (terms.length === 0) {

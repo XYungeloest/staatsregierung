@@ -11,7 +11,7 @@ import {
 } from '@ostrecht/shared/lib/norms/origin.ts';
 import { classifyNormOriginVersion } from '@ostrecht/shared/lib/norms/origin-presentation.ts';
 import { buildNormRelations } from '@ostrecht/shared/lib/norms/relations.ts';
-import { getLegacyBlockAnchorId, parseCitation } from '@ostrecht/shared/lib/norms/display.ts';
+import { getLegacyBlockAnchorId, getNormTitleBlock, parseCitation } from '@ostrecht/shared/lib/norms/display.ts';
 import { getBlockAnchorId } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   buildSearchCandidateParams,
@@ -44,7 +44,7 @@ import {
   partitionDatedEntries,
   validateVersionIntervals,
 } from '@ostrecht/shared/lib/norms/versions.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
 
 import { FIXTURE_REFERENCE_DATE, fixtureCorpus } from './helpers/fixture-corpus.ts';
@@ -948,4 +948,48 @@ test('Autocomplete enthält eine kanonische Suggestion je geltender Norm', () =>
   assert.equal(amended?.url.endsWith('/norm/testgesetz/'), true);
   assert.ok(!suggestions.some((suggestion) => suggestion.slug === 'kuenftiges-gesetz'), 'ohne geltende Fassung kein Vorschlag');
   assert.ok(!suggestions.some((suggestion) => suggestion.slug === 'aufgehobene-verordnung'), 'aufgehobene Normen werden nicht vorgeschlagen');
+});
+test('der Titelblock zeigt die Kurzbezeichnung als Überschrift und den Langtitel darunter', () => {
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Gesetz über die Prüfung von Testfällen', shortTitle: 'Ostdeutsches Testprüfgesetz', abbr: 'TestPrG' }),
+    { heading: 'Ostdeutsches Testprüfgesetz', longTitle: 'Gesetz über die Prüfung von Testfällen', abbr: 'TestPrG' },
+  );
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Ostdeutsches Testprüfgesetz' }),
+    { heading: 'Ostdeutsches Testprüfgesetz' },
+    'ohne Kurzbezeichnung bleibt der Titel allein stehen',
+  );
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Ostdeutsches Testprüfgesetz', shortTitle: 'Ostdeutsches Testprüfgesetz', abbr: 'Ostdeutsches Testprüfgesetz' }),
+    { heading: 'Ostdeutsches Testprüfgesetz' },
+    'Wiederholungen erzeugen weder eine zweite Zeile noch eine Abkürzung',
+  );
+});
+
+test('die Identität einer Fassung kommt ohne Kurzbezeichnung der Norm aus', () => {
+  const norm = record([version('geltend', '2026-01-01', null)]);
+  const meta = { ...norm.meta, shortTitle: undefined, summary: 'Regelt die Prüfung von Testfällen.' };
+  const identity = getNormVersionIdentity({ meta }, norm.versions[0]);
+  assert.equal(identity.title, 'Testnorm');
+  assert.equal(identity.shortTitle, 'Testnorm', 'ohne Kurzbezeichnung tritt der Titel an ihre Stelle');
+  assert.equal(getNormTitleBlock(identity).longTitle, undefined);
+});
+
+test('abgeleitete Zusammenfassungen bleiben unveröffentlicht, redaktionelle nicht', () => {
+  const base = record([version('geltend', '2026-01-01', null)]);
+  const derived = {
+    meta: { ...base.meta, summary: 'Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Testnorm“.', summarySource: 'derived' as const },
+  };
+  assert.equal(getPublicNormSummary(getNormVersionIdentity(derived, base.versions[0])), undefined);
+  const editorial = { meta: { ...base.meta, summary: 'Regelt die Prüfung von Testfällen und das Verfahren der Prüfstellen.' } };
+  assert.equal(
+    getPublicNormSummary(getNormVersionIdentity(editorial, base.versions[0])),
+    'Regelt die Prüfung von Testfällen und das Verfahren der Prüfstellen.',
+  );
+  const overridden = { ...base.versions[0], summary: 'Beschreibt die Fassung dieser Vorschrift im Einzelnen.' };
+  assert.equal(
+    getPublicNormSummary(getNormVersionIdentity(derived, overridden)),
+    'Beschreibt die Fassung dieser Vorschrift im Einzelnen.',
+    'eine fassungseigene Zusammenfassung gilt als redaktionell',
+  );
 });

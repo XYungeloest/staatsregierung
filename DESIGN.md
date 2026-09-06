@@ -277,7 +277,8 @@ Beschreibungen in `--text-sm`, Etiketten in `--text-xs`; kein Bedienziel unter 2
 
 Filter, Trefferliste und Suchhinweise stehen auf breiten Bildschirmen nebeneinander; auf kleinen
 werden die Filter als `details` vorangestellt. Ein Treffer zeigt vor dem Auszug drei Zeilen:
-Kurztitel mit Abkürzung, Langtitel klein, eine Metazeile aus Typ, Herkunft und Fundstelle; der
+Kurztitel mit Abkürzung, Langtitel klein (beides aus dem gemeinsamen Titelblock, siehe
+„Rechtsherkunft und Benennungen“), eine Metazeile aus Typ, Herkunft und Fundstelle; der
 Auszug trägt die Trefferstelle als verlinktes Präfix; die Fassungspille erscheint nur, wenn sie vom
 aktiven Fassungsfilter abweicht. Der Leerzustand heißt „Keine Vorschrift gefunden“, zitiert die
 Anfrage und bietet drei Auswege (Filter zurücksetzen mit Anzahl, alle Fassungen, Vorschriften A–Z);
@@ -303,6 +304,15 @@ Navigation und Bezeichnungen zusammen. Der Eyebrow nennt den Bereich: „Rechtsp
 Detailseiten; Zustände stehen in der Statuszeile oder im Text. Bestandszahlen heißen „geltende
 Vorschriften“ (Startseite) und „Vorschriften im Bestand“ (Übersichten); die Historie zeigt frühere
 Titel einer Vorschrift nur bei Abweichung, gekennzeichnet als „Damaliger Titel“.
+
+Für die Benennung einer Vorschrift gilt überall derselbe Titelblock aus `getNormTitleBlock`
+(`packages/shared/src/lib/norms/display.ts`): Überschrift ist die Kurzbezeichnung, sonst der
+Langtitel; der Langtitel steht klein darunter, sobald er von der Überschrift abweicht; die
+Abkürzung steht neben der Überschrift, wenn sie sich von ihr unterscheidet. Normkopf, Suchtreffer,
+Verzeichniseinträge, Stichwortregister, Brotkrumen, Auswahllisten und Autocomplete verwenden diese
+eine Regel; keine Oberfläche bildet eigene Titelvarianten. Formelhafte Kurzbeschreibungen des
+Massenimports (`summarySource: "derived"`) werden nirgends als Beschreibung ausgespielt; ohne
+redaktionelle Kurzbeschreibung bleibt die Zeile leer.
 
 ## Staatsportal
 

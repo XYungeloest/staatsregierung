@@ -21,7 +21,8 @@ import {
   inferSummary,
   sourceReferenceLabel,
 } from './lib/revosax-metadata.mjs';
-import { adaptParsedRevosaxSnapshot, auditAdaptedRevosaxSnapshot } from './lib/revosax-ost-adapter.mjs';
+import { abbreviationProblem, isAbbreviationLikeLabel } from './lib/norm-title-rules.mjs';
+import { adaptParsedRevosaxSnapshot, adaptSaxonText, auditAdaptedRevosaxSnapshot } from './lib/revosax-ost-adapter.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
 /**
@@ -93,6 +94,16 @@ export function objectKeyFor(baselineDate, sourceId) {
   return `revosax/${baselineDate}/${sourceId}.html`;
 }
 
+/**
+ * Kurzbezeichnung nach dem Titelmodell: nur eine echte, vom Langtitel abweichende Kurzform;
+ * abkürzungsartige Bezeichnungen der Trefferliste („Änd. OstSFG“) bleiben Stichwort.
+ */
+function normalizedShortTitle(candidate, { title, label }) {
+  const value = (candidate ?? '').trim() || (label ?? '').trim();
+  if (!value || value === (title ?? '').trim()) return undefined;
+  return isAbbreviationLikeLabel(value) ? undefined : value;
+}
+
 function checkSummary(summary, context) {
   const trimmed = String(summary ?? '').trim();
   if (trimmed.length < 24) throw new Error(`${context}: summary ist zu kurz`);
@@ -161,9 +172,11 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     citationValidAt: baselineDate,
     context,
   });
-  const title = adapted.sourceTitle;
-  const shortTitle = adapted.shortTitle || title;
-  const abbr = adapted.abbr;
+  // Titelmodell (scripts/lib/norm-title-rules.mjs): der amtliche Langtitel steht in der Kennzeile
+  // beziehungsweise in der Trefferliste; die Überschrift der Seite trägt oft nur die Kurzbezeichnung.
+  const title = adapted.longTitle || adaptSaxonText(entry.listing?.title ?? '') || adapted.sourceTitle;
+  const shortTitle = normalizedShortTitle(adapted.shortTitle, { title, label: entry.listing?.label });
+  const abbr = abbreviationProblem(adapted.abbr, { title, shortTitle }) === null ? adapted.abbr : undefined;
   const normType = entry.inferredType;
   const isAmendment = normType === 'aenderungsvorschrift';
   const reference = {
@@ -195,17 +208,19 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     id: slug,
     slug,
     title,
-    shortTitle,
+    ...(shortTitle ? { shortTitle } : {}),
     ...(abbr ? { abbr } : {}),
-    shortTitleSource: 'official',
+    ...(shortTitle ? { shortTitleSource: 'official' } : {}),
     type: normType,
     ...(originEnactingBody ? { originEnactingBody } : {}),
     subjects: inferSubjects({ sourceTitle: original.sourceTitle, label: entry.listing?.label, category: entry.category }),
-    keywords: inferKeywords({ abbr, shortTitle, title }),
+    keywords: inferKeywords({ abbr, shortTitle, title, label: adaptSaxonText(entry.listing?.label ?? '') }),
     initialCitation: citation,
     predecessor: null,
     successor: null,
-    summary: inferSummary({ normType, shortTitle }),
+    summary: inferSummary({ normType, shortTitle: shortTitle || title }),
+    // Aus Typ und Bezeichnung abgeleitete Formel; sie wird öffentlich nicht ausgespielt.
+    summarySource: 'derived',
     status: isAmendment ? 'one-time-act' : 'in-force',
     ...(documentDate ? { documentDate } : {}),
     ...(isAmendment ? { effectiveDate: original.sourceValidFrom } : {}),
@@ -224,7 +239,7 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
   const version = {
     versionId: baselineDate,
     title,
-    shortTitle,
+    ...(shortTitle ? { shortTitle } : {}),
     ...(abbr ? { abbr } : {}),
     validFrom: baselineDate,
     validTo: null,
@@ -314,7 +329,9 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
     body: componentBodyAtPath(envelopeBody, component.articleBlockPath ?? []),
   });
   const title = adapted.sourceTitle;
-  const shortTitle = adapted.shortTitle || title;
+  // Die Trefferlistenbezeichnung eines Mantelbestandteils ist meist eine Abkürzungsform
+  // („Änd. OstSFG“); sie bleibt Stichwort statt Kurzbezeichnung.
+  const shortTitle = normalizedShortTitle(adapted.shortTitle, { title, label: entry.listing?.label });
   const citation = historicalBaselineCitation({
     pageFullCitation: adapted.fullCitation,
     sourceValidTo: null,
@@ -356,17 +373,19 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
     id: slug,
     slug,
     title,
-    shortTitle,
-    shortTitleSource: 'official',
+    ...(shortTitle ? { shortTitle } : {}),
+    ...(shortTitle ? { shortTitleSource: 'official' } : {}),
     type: 'aenderungsvorschrift',
     ...(originEnactingBody ? { originEnactingBody } : {}),
     subjects: inferSubjects({ sourceTitle: component.sourceTitle, label: entry.listing?.label, category: entry.category }),
-    keywords: inferKeywords({ abbr: undefined, shortTitle, title }),
+    keywords: inferKeywords({ abbr: undefined, shortTitle, title, label: adaptSaxonText(entry.listing?.label ?? '') }),
     initialCitation: citation,
     predecessor: null,
     successor: null,
     ...(containedIn ? { containedIn } : {}),
-    summary: inferSummary({ normType: 'aenderungsvorschrift', shortTitle }),
+    summary: inferSummary({ normType: 'aenderungsvorschrift', shortTitle: shortTitle || title }),
+    // Aus Typ und Bezeichnung abgeleitete Formel; sie wird öffentlich nicht ausgespielt.
+    summarySource: 'derived',
     status: 'one-time-act',
     ...(documentDate ? { documentDate } : {}),
     effectiveDate: validFrom,
@@ -385,7 +404,7 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
   const version = {
     versionId: baselineDate,
     title,
-    shortTitle,
+    ...(shortTitle ? { shortTitle } : {}),
     validFrom: baselineDate,
     validTo: null,
     isCurrent: true,

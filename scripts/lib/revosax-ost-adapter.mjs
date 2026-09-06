@@ -106,6 +106,7 @@ export function adaptParsedRevosaxSnapshot(parsed) {
   return {
     ...parsed,
     sourceTitle: adaptSaxonText(parsed.sourceTitle),
+    ...(parsed.longTitle ? { longTitle: adaptSaxonText(parsed.longTitle) } : {}),
     shortTitle: adaptSaxonText(parsed.shortTitle),
     ...(parsed.abbr ? { abbr: adaptSaxonText(parsed.abbr) } : {}),
     // Die Titelbestandteile des Vollzitats werden angepasst; SächsGVBl./SächsABl.
@@ -152,6 +153,7 @@ function stripProtectedSourceTokens(value) {
 export function auditAdaptedRevosaxSnapshot(parsed) {
   const normative = {
     sourceTitle: parsed.sourceTitle,
+    longTitle: parsed.longTitle,
     shortTitle: parsed.shortTitle,
     abbr: parsed.abbr,
     fullCitation: parsed.fullCitation,

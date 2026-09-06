@@ -31,15 +31,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   übernommene Änderungsvorschriften nur über den Normtyp-Filter oder die Herkunftsfacette
   erscheinen, jede Änderungsvorschrift aus der Historie ihrer Stammnorm verlinkt ist und alle
   Bestandszahlen dieselbe Grundmenge nennen („x Vorschriften, davon y geltend“).
-- [ ] Titelmodell Langtitel, Kurztitel, Abkürzung bereinigen: `abbr` dient im Import als
-  Titelspeicher (1408 Normen mit Abkürzung, davon 402 identisch mit dem Titel und 363 länger als
-  20 Zeichen, bis 393 Zeichen); 3465 Normen haben `shortTitle` gleich `title`. Suchtreffer und
-  Verzeichniseinträge zeigen den Titel deshalb doppelt (12 von 20 Treffern bei „Gemeinde“),
-  VwV-Einträge führen mal den Kurztitel („Abortprogramm“), mal den Langtitel als Überschrift.
-  Fertig, wenn `abbr` nur echte Abkürzungen enthält (höchstens 20 Zeichen, ungleich Titel und
-  Kurztitel), `shortTitle` nur bei abweichendem Kurztitel gesetzt ist, `content:check` beides
-  erzwingt und Suche, Verzeichnisse und Normkopf denselben Aufbau zeigen (Überschrift Kurztitel
-  oder Titel, darunter Langtitel, daneben Abkürzung).
 - [ ] Sachgebiete zu einer nummerierten Systematik zusammenführen: 43 flache Sachgebiete mit
   Nahdubletten (Bildung und Schule, Bildung und Weiterbildung, Bildung und Wissenschaft,
   Schulrecht; Grenzpolizei, Grenzschutz; Öffentlicher Dienst, Öffentliches Dienstrecht; Innere
@@ -267,15 +258,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   gesperrter Satz normalisiert ist (auch Hervorhebungen wie „s o l l“ in `vwv-zur-gvga-und-gvo`
   als Auszeichnung statt Leerzeichen) und `content:check` Folgen aus mindestens vier einzeln
   stehenden Buchstaben im Normtext ablehnt.
-- [ ] Zusammenfassungen ohne Formeln: 1690 übernommene Normen tragen „Enthält die Regelungen der
-  am 1. November 2023 übernommenen Ausgangsfassung „…““ (aus `inferSummary` in
-  `scripts/lib/revosax-metadata.mjs`), 28 ostdeutsche Normen die ältere Formel „Regelt
-  <Titel>.“ (etwa `gesetz-zur-einfuhrung-eines-bildungsfreistellungsgesetzes` und
-  `gesetz-zur-anderung-des-hochschulmedizingesetzes`); beide wiederholen nur den Titel und
-  erscheinen im Normkopf, in Verzeichnissen und in der Suche. Fertig, wenn die 28 ostdeutschen
-  Normen eine redaktionelle Zusammenfassung haben, abgeleitete Zusammenfassungen im Schema wie
-  `shortTitleSource` gekennzeichnet sind (`summarySource`) und nirgends gerendert werden und
-  `content:check` beide Formeln bei ostdeutschen Normen ablehnt.
 
 ### Übernommene Normen aus dem REVOSax-Import
 
