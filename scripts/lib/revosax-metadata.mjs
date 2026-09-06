@@ -272,28 +272,25 @@ export function inferSubjectAssignment({
   };
 }
 
-export function inferSummary({ normType, shortTitle }) {
-  const label = String(shortTitle ?? '').trim();
-  if (normType === 'aenderungsvorschrift') {
-    return `Übernommene Änderungsvorschrift des Rechtsbestands zum ${BASELINE_DATE_LABEL}: „${label}“.`;
-  }
-  return `Enthält die Regelungen der am ${BASELINE_DATE_LABEL} übernommenen Ausgangsfassung „${label}“.`;
-}
-
 /**
- * Stichwörter der Erschließung. `label` ist die Bezeichnung der amtlichen Trefferliste; sie
- * bleibt auch dann auffindbar, wenn sie als Abkürzungsform nicht als Kurzbezeichnung taugt
- * (Titelmodell: scripts/lib/norm-title-rules.mjs).
+ * Schlagwörter des Massenimports: ausschließlich die amtliche Bezeichnung der REVOSax-Trefferliste
+ * (`label`), soweit sie sich von Titel, Kurzbezeichnung und Abkürzung unterscheidet. Sie ist eine
+ * belegte Zweitbezeichnung, unter der die Vorschrift amtlich geführt wird — auch dort, wo sie als
+ * Abkürzungsform nicht als Kurzbezeichnung taugt (Titelmodell: scripts/lib/norm-title-rules.mjs).
+ *
+ * Titelwörter stehen hier nicht: Titel, Kurzbezeichnung und Abkürzung sind eigene Spalten des
+ * Volltextindex (`law_search`), Titelwörter wären dort doppelt, und als Nutzerbegriffe taugen
+ * „Erste“ oder „Oberbergamtes“ nicht. Bürgerbegriffe pflegt allein das redaktionelle
+ * Stichwortregister (`content/stichwortregister.json`); zwei konkurrierende Wortsysteme gibt es
+ * nicht. Eine sächsische Bezeichnung, die die Rechtsüberleitung nicht übersetzt hat, wird nicht
+ * als Schlagwort geführt (scripts/audit-ost-residuals.mjs); Titel und Zitierung behalten sie, wo
+ * die Quelle sie belegt.
  */
 export function inferKeywords({ abbr, shortTitle, title, label }) {
-  const words = String(title ?? '')
-    .split(/[^\p{L}\p{N}-]+/u)
-    .filter((word) => word.length >= 5 && !/^(?:sowie|einer|eines|eine|über|durch|gegen|nach|unter|zwischen|Verordnung|Gesetz|Gesetzes|Verwaltungsvorschrift|Richtlinie|Staatsministeriums|Staatsministerium|Staatsregierung|Ostdeutschen|Ostdeutsches|Ostdeutsche|Ostdeutschland|Freistaat|Freistaates)$/iu.test(word));
-  // Schlagwörter sind Erschließungshilfen, keine amtlichen Angaben: eine sächsische Bezeichnung,
-  // die die Rechtsüberleitung nicht übersetzt hat, wird nicht als eigenes Schlagwort geführt
-  // (scripts/audit-ost-residuals.mjs). Titel und Zitierung behalten sie, wo die Quelle sie belegt.
+  const designations = new Set([abbr, shortTitle, title].map((value) => String(value ?? '').trim()).filter(Boolean));
   const withoutSaxonResidue = (value) => !/(?:^|\s)(?:Sächs|Sachsen)/u.test(String(value));
-  return [...new Set([abbr, shortTitle, label, ...words].filter(Boolean))].filter(withoutSaxonResidue).slice(0, 16);
+  const candidate = String(label ?? '').trim();
+  return candidate && !designations.has(candidate) && withoutSaxonResidue(candidate) ? [candidate] : [];
 }
 
 export function sourceReferenceLabel({ lawId, versionNumber, sourceValidFrom, sourceValidTo }) {

@@ -18,7 +18,6 @@ import {
   inferEnactingBody,
   inferKeywords,
   inferSubjectAssignment,
-  inferSummary,
   sourceReferenceLabel,
 } from './lib/revosax-metadata.mjs';
 import { abbreviationProblem, isAbbreviationLikeLabel } from './lib/norm-title-rules.mjs';
@@ -111,9 +110,14 @@ function normalizedShortTitle(candidate, { title, label }) {
   return isAbbreviationLikeLabel(value) ? undefined : value;
 }
 
+/**
+ * Eine Kurzbeschreibung ist freiwillig; steht eine da, muss sie eine Beschreibung sein und kein
+ * Fragment des Normtexts. Der Massenimport schreibt keine (siehe buildBaselineRecord).
+ */
 function checkSummary(summary, context) {
+  if (summary === undefined) return;
   const trimmed = String(summary ?? '').trim();
-  if (trimmed.length < 24) throw new Error(`${context}: summary ist zu kurz`);
+  if (trimmed.length < 24) throw new Error(`${context}: summary ist gesetzt, aber zu kurz`);
   if (/^(?:§|Abschnitt\b|Artikel\b|OABl\.|OGVBl\.|StAnzO\.|GVBl\.|Aufgrund\b|Auf Grund\b|\d+\.)/u.test(trimmed)) {
     throw new Error(`${context}: summary beginnt mit einem Normtextfragment`);
   }
@@ -238,9 +242,8 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     initialCitation: citation,
     predecessor: null,
     successor: null,
-    summary: inferSummary({ normType, shortTitle: shortTitle || title }),
-    // Aus Typ und Bezeichnung abgeleitete Formel; sie wird öffentlich nicht ausgespielt.
-    summarySource: 'derived',
+    // Ohne redaktionelle Kurzbeschreibung bleibt das Feld leer: eine Formel, die den Titel
+    // wiederholt, ist keine Kurzfassung (data/recht/norm-summary-review.json führt den Vorrat).
     status: isAmendment ? 'one-time-act' : 'in-force',
     ...(documentDate ? { documentDate } : {}),
     ...(isAmendment ? { effectiveDate: original.sourceValidFrom } : {}),
@@ -412,9 +415,7 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
     predecessor: null,
     successor: null,
     ...(containedIn ? { containedIn } : {}),
-    summary: inferSummary({ normType: 'aenderungsvorschrift', shortTitle: shortTitle || title }),
-    // Aus Typ und Bezeichnung abgeleitete Formel; sie wird öffentlich nicht ausgespielt.
-    summarySource: 'derived',
+    // Ohne redaktionelle Kurzbeschreibung bleibt das Feld leer (siehe oben).
     status: 'one-time-act',
     ...(documentDate ? { documentDate } : {}),
     effectiveDate: validFrom,

@@ -210,7 +210,13 @@ export interface NormMeta {
   affectedNorms?: string[];
   affectedByNorms?: string[];
   relatedNorms?: string[];
-  summary: string;
+  /**
+   * Redaktionelle Kurzbeschreibung des Regelungsgegenstands. Sie ist freiwillig: für den
+   * übernommenen Massenbestand gibt es keine Quelle, aus der sich eine belastbare Kurzfassung
+   * ableiten ließe, und eine Formel, die den Titel wiederholt, ist keine. Fehlt sie, bleibt die
+   * Beschreibungszeile leer; der Arbeitsvorrat steht in `data/recht/norm-summary-review.json`.
+   */
+  summary?: string;
   status: NormStatus;
   documentDate?: string;
   publicationDate?: string;
@@ -897,7 +903,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
       object.relatedNorms === undefined
         ? undefined
         : expectSlugArray(object.relatedNorms, `${path}.relatedNorms`),
-    summary: expectString(object.summary, `${path}.summary`),
+    summary: expectOptionalString(object.summary, `${path}.summary`),
     status: normalizedStatusMap[rawStatus],
     documentDate:
       object.documentDate === undefined

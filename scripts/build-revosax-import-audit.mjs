@@ -400,19 +400,20 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
       skipped: postCutoffPlanned.filter((entry) => entry.action === 'SKIP').length,
       unchangedTargetsOfPostCutoffAmends: unchangedTargetsOfPostCutoffAmends,
     },
-    // Metadaten der übernommenen Normen, die nicht aus der amtlichen Quelle stammen, sondern
-    // automatisch abgeleitet sind (scripts/lib/revosax-metadata.mjs): Schlagwörter aus
-    // Abkürzung/Kurzbezeichnung/Titel, Kurzfassung aus Typ und Kurzbezeichnung. Sie sind
-    // Erschließungshilfen, keine amtlichen Angaben. Die Sachgebiete folgen der amtlichen
-    // Systematik; sie sind belegt, soweit die Fundstellennummer der Quelle sie trägt.
+    // Metadaten der übernommenen Normen, die nicht aus der amtlichen Quelle stammen. Schlagwörter
+    // und Kurzfassungen sind keine mehr: die Kurzfassungen des Massenimports waren zwei Formeln
+    // ohne Regelungsgegenstand und sind entfernt (scripts/refine-revosax-derived-metadata.mjs),
+    // die Schlagwörter tragen jetzt die amtliche Bezeichnung der REVOSax-Trefferliste. Offen
+    // bleiben die Sachgebiete: sie folgen der amtlichen Systematik, soweit die Fundstellennummer
+    // der Quelle sie trägt, und sonst der Ableitungskette.
     derivedMetadata: {
       norms: actions.CREATE + actions.MATCH - existingMatched,
-      fields: ['keywords', 'summary'],
+      fields: ['subjects'],
       subjects: {
         official: subjectCoverage.official,
         derived: subjectCoverage.derived,
       },
-      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferKeywords, inferSummary); die Kurzfassung trägt summarySource "derived" und wird öffentlich nicht ausgespielt; Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)',
+      source: 'Schlagwörter: amtliche Bezeichnung der REVOSax-Trefferliste (scripts/lib/revosax-metadata.mjs: inferKeywords). Kurzfassungen: keine; ohne redaktionelle Kurzbeschreibung bleibt das Feld leer, der Arbeitsvorrat steht in data/recht/norm-summary-review.json. Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)',
     },
     residualBacklog: residualBacklog ? { norms: residualBacklog.normCount, residuals: residualBacklog.residualCount } : null,
   };
