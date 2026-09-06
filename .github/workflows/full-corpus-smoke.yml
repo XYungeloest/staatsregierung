@@ -1,8 +1,13 @@
-name: OstRecht-Vollbestand-Smoke
+name: OstRecht-Vollbestand-Smoke und Korpus-Audit
 
-# Verifikation, Browser- und Barrierefreiheits-Smoke gegen den gebauten OstRecht-Worker mit der
-# vollständigen lokalen D1-Projektion (alle Normen), unabhängig vom Änderungsscope: manuell
-# (workflow_dispatch) und wöchentlich. Der Seed kommt aus dem Actions-Cache (Fingerabdruck aus
+# Wöchentlich und manuell, unabhängig vom Änderungsscope: (1) corpus_audit – die vollständigen
+# Content-Audits über den gesamten Rechtsbestand (content:check: Import-Audit, Konsolidierung,
+# Schemas, Metadaten, Ableitungen, Reststellen) und die Korpus-Tests (tests/corpus/:
+# Projektionsnachweis, Seed, Referenzindex); (2) full_corpus_smoke – Verifikation, Browser- und
+# Barrierefreiheits-Smoke gegen den gebauten OstRecht-Worker mit der vollständigen lokalen
+# D1-Projektion (alle Normen). Pull Requests laufen dieselben Audits nur bei Inhalts- und
+# Pipeline-Änderungen und die Smokes gegen das Testfixture (docs/DEPLOYMENT_RUNBOOK.md,
+# Testkategorien). Der Seed kommt aus dem Actions-Cache (Fingerabdruck aus
 # Projektionslogik, Bestand, Stichtag, Seed-Werkzeugen und Wrangler-Version); nur ohne passenden
 # Eintrag wird projiziert. `refresh_seed` erzwingt die Projektion und beweist damit den
 # Cache-Miss-Pfad. Es wird keine Cloudflare-Datenbank berührt.
@@ -23,6 +28,38 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  corpus_audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v7
+      - name: Node.js und Abhängigkeiten
+        uses: ./.github/actions/setup-node-modules
+      - name: Dokumentation und vollständige Content-Audits über den gesamten Rechtsbestand
+        run: |
+          START=$(date +%s)
+          node scripts/check-docs.mjs
+          npm run content:check
+          echo "content=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Korpus-Tests (Projektionsnachweis auf dem Fixture, Seed, Referenzindex)
+        run: |
+          START=$(date +%s)
+          npm run test:corpus
+          echo "corpus=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Laufzeiten festhalten
+        if: ${{ always() }}
+        run: |
+          {
+            echo '### Laufzeiten corpus_audit'
+            echo
+            echo '| Schritt | Sekunden |'
+            echo '| --- | --- |'
+            if [ -f "$RUNNER_TEMP/timings.txt" ]; then
+              sed -E 's/^([^=]+)=(.*)$/| \1 | \2 |/' "$RUNNER_TEMP/timings.txt"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
   full_corpus_smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 90
@@ -63,6 +100,14 @@ jobs:
           START=$(date +%s)
           npm run test:browsers:ci
           echo "browser=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Wrangler-Logs des lokalen Workers bereitstellen (nur bei Fehlern)
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: wrangler-logs-${{ github.job }}-${{ github.run_id }}
+          path: ~/.config/.wrangler/logs
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Laufzeiten festhalten
         if: ${{ always() }}
         env:

@@ -157,15 +157,25 @@ test('eine Stichtagsfortschreibung projiziert nur die stichtagsabhängig betroff
   assert.equal(scopeFromChangedPaths([REFERENCE_DATE_PATH, 'packages/shared/src/lib/norms/versions.ts'], { existingSlugs, referenceDateSlugs: () => ['c'] }).mode, 'full');
 });
 
-test('eine angenommene enge Logikänderung erneuert Suchdokumente und abgeleitete Daten aller Normen, Schemaänderungen bleiben Vollprojektion', () => {
-  const narrow = scopeFromChangedPaths(['packages/recht-search/src/search.ts', 'scripts/sync-recht-d1.mjs', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, narrowLogicChange: true });
+test('eine nachgewiesene enge Logikänderung erneuert Suchdokumente und abgeleitete Daten aller Normen, eine nachgewiesen datenneutrale nichts; Schemaänderungen bleiben Vollprojektion; ohne Nachweis gibt es keine Annahme', () => {
+  const narrow = scopeFromChangedPaths(['packages/recht-search/src/search.ts', 'scripts/sync-recht-d1.mjs', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, logicChange: 'narrow' });
   assert.equal(narrow.mode, 'incremental');
   assert.deepEqual(narrow.slugs, ['foo']);
   assert.equal(narrow.derivedRebuild, true);
   assert.equal(narrow.refreshSearchDocuments, true);
-  const schema = scopeFromChangedPaths(['data/recht/d1/0007_x.sql', 'packages/recht-search/src/search.ts'], { existingSlugs, existingPublications, narrowLogicChange: true });
-  assert.equal(schema.mode, 'full');
-  const plain = scopeFromChangedPaths(['content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, narrowLogicChange: true });
+  const neutral = scopeFromChangedPaths(['packages/recht-search/src/search.ts', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, logicChange: 'ignore' });
+  assert.equal(neutral.mode, 'incremental');
+  assert.deepEqual(neutral.slugs, ['foo']);
+  assert.equal(neutral.derivedRebuild, false);
+  assert.equal(neutral.refreshSearchDocuments, false);
+  for (const logicChange of ['narrow', 'ignore']) {
+    const schema = scopeFromChangedPaths(['data/recht/d1/0007_x.sql', 'packages/recht-search/src/search.ts'], { existingSlugs, existingPublications, logicChange });
+    assert.equal(schema.mode, 'full', logicChange);
+  }
+  const plain = scopeFromChangedPaths(['content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false, logicChange: 'narrow' });
   assert.equal(plain.refreshSearchDocuments, false);
   assert.equal(plain.derivedRebuild, false);
+  // Standard ohne Nachweis: Logikänderung = Vollprojektion; die frühere Annahmeoption gibt es nicht.
+  assert.equal(scopeFromChangedPaths(['packages/recht-search/src/search.ts'], { existingSlugs, existingPublications }).mode, 'full');
+  assert.equal(scopeFromChangedPaths(['packages/recht-search/src/search.ts'], { existingSlugs, existingPublications, narrowLogicChange: true }).mode, 'full');
 });

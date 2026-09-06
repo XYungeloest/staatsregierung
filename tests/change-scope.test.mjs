@@ -1,7 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { LARGE_CORPUS_CHANGE_THRESHOLD, changedNormSlugs, classifyChangeScope, classifyManualDeploy, isFullCorpusPath } from '../scripts/classify-change-scope.mjs';
+import { CONTENT_PIPELINE_SCRIPTS, LARGE_CORPUS_CHANGE_THRESHOLD, changedNormSlugs, classifyChangeScope, classifyManualDeploy, isFullCorpusPath, scriptsReferencedBy } from '../scripts/classify-change-scope.mjs';
+import { projectionClosure } from '../scripts/lib/d1-projection-closure.mjs';
+
+// Realer Code-Abschluss der Projektion (Arbeitsbaum); die Fälle unten hängen von ihm ab.
+const closure = await projectionClosure({ root: process.cwd() });
+assert.equal(closure.uncertain, false, closure.reasons.join('; '));
+const logicPaths = new Set(closure.files);
+const classify = (paths, options = {}) => classifyChangeScope(paths, { logicPaths, ...options });
 
 test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametrisiert', () => {
   const cases = [
@@ -73,7 +80,7 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
     },
     {
       label: 'J: Normdaten laufen über D1, nicht über ein OstRecht-Deployment',
-      paths: ['content/normen/sero-verordnung/meta.json'],
+      paths: ['content/normen/beispielnorm/meta.json'],
       scope: 'portal',
       targets: ['portal'],
       content: true,
@@ -190,7 +197,7 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
   for (const entry of cases) {
     const result = entry.manualTarget
       ? classifyManualDeploy(entry.manualTarget)
-      : classifyChangeScope(entry.paths);
+      : classify(entry.paths);
     assert.equal(result.scope, entry.scope, entry.label);
     assert.deepEqual(result.targets, entry.targets, entry.label);
     assert.deepEqual(result.deployTargets, entry.targets, entry.label);
@@ -220,10 +227,10 @@ test('Vollbestand-Smoke nur bei Laufzeit-, Projektions- oder umfangreichen Besta
     { label: 'Seed-Werkzeug: Vollbestand mit beiden Builds', paths: ['scripts/lib/d1-runtime-seed.mjs'], scope: 'ci-only', fullCorpus: true, buildTargets: ['portal', 'law'], uiTargets: ['portal', 'law'] },
     { label: 'Worker-Start: Vollbestand', paths: ['scripts/serve-law-worker.mjs'], scope: 'ci-only', fullCorpus: true, buildTargets: ['portal', 'law'], uiTargets: ['portal', 'law'] },
     { label: 'Normbibliothek (Herkunft): Vollbestand', paths: ['packages/shared/src/lib/norms/origin.ts'], scope: 'shared', fullCorpus: true, d1Sync: true },
-    { label: 'Stichtag: Vollbestand', paths: ['packages/shared/src/config/editorial.json'], scope: 'shared', fullCorpus: true },
-    { label: 'Suchlogik: Vollbestand', paths: ['packages/recht-search/src/search-query.ts'], scope: 'law', fullCorpus: true, d1Sync: true },
+    { label: 'Kandidatenabfragen der Suche: Vollbestand, aber keine Projektionslogik', paths: ['packages/recht-search/src/search-query.ts'], scope: 'law', fullCorpus: true, d1Sync: false },
+    { label: 'Stichtag: Vollbestand und D1-Projektion (im Abschluss)', paths: ['packages/shared/src/config/editorial.json'], scope: 'shared', fullCorpus: true, d1Sync: true },
     { label: 'Abhängigkeiten: Vollbestand', paths: ['package-lock.json'], scope: 'shared', fullCorpus: true },
-    { label: 'wenige Normen: Fixture genügt, keine Screenshots', paths: ['content/normen/a/meta.json', 'content/normen/b/versions/2026-01-01.json', 'content/verkuendungen/x.json'], scope: 'portal', fullCorpus: false, visual: false, content: true, d1Sync: true },
+    { label: 'wenige Normen: Fixture genügt, keine Screenshots, Content-Audits und D1-Sync statt Korpus-Tests', paths: ['content/normen/a/meta.json', 'content/normen/b/versions/2026-01-01.json', 'content/verkuendungen/x.json'], scope: 'portal', fullCorpus: false, visual: false, content: true, d1Sync: true, corpus: false },
     { label: 'Themenseite: Screenshots, kein Vollbestand', paths: ['content/themen/bildung.json'], scope: 'portal', fullCorpus: false, visual: true, content: true, d1Sync: true },
     { label: 'Dokumentation: weder Vollbestand noch Screenshots', paths: ['README.md', 'docs/DEPLOYMENT_RUNBOOK.md'], scope: 'docs-only', fullCorpus: false, visual: false, unit: false },
     { label: 'Workflow: weder Vollbestand noch Screenshots', paths: ['.github/workflows/deploy.yml'], scope: 'ci-only', fullCorpus: false, visual: false },
@@ -231,7 +238,7 @@ test('Vollbestand-Smoke nur bei Laufzeit-, Projektions- oder umfangreichen Besta
     { label: 'Screenshot-Baseline: Screenshots', paths: ['tests/visual.spec.ts-snapshots/ostrecht-desktop-wide-linux.png'], scope: 'ci-only', fullCorpus: false, visual: true, buildTargets: ['portal', 'law'], uiTargets: [] },
   ];
   for (const entry of cases) {
-    const result = classifyChangeScope(entry.paths);
+    const result = classify(entry.paths);
     assert.equal(result.scope, entry.scope, entry.label);
     assert.equal(result.runFullCorpusSmoke, entry.fullCorpus, `${entry.label}: Vollbestand-Smoke`);
     if (entry.visual !== undefined) assert.equal(result.runVisual, entry.visual, `${entry.label}: Screenshot-Suite`);
@@ -240,26 +247,83 @@ test('Vollbestand-Smoke nur bei Laufzeit-, Projektions- oder umfangreichen Besta
     if (entry.content !== undefined) assert.equal(result.runContentCheck, entry.content, `${entry.label}: Content-Prüfung`);
     if (entry.d1Sync !== undefined) assert.equal(result.runD1Sync, entry.d1Sync, `${entry.label}: D1-Sync`);
     if (entry.unit !== undefined) assert.equal(result.runUnitTests, entry.unit, `${entry.label}: Unit-Tests`);
+    if (entry.corpus !== undefined) assert.equal(result.runCorpusTests, entry.corpus, `${entry.label}: Korpus-Tests`);
   }
 
   // Umfangreiche Bestandsänderung: ab LARGE_CORPUS_CHANGE_THRESHOLD Normen läuft der Vollbestand
   // zusätzlich zum Fixture, und dafür wird OstRecht gebaut – ohne OstRecht-Deployment.
   const many = Array.from({ length: LARGE_CORPUS_CHANGE_THRESHOLD }, (_, index) => `content/normen/norm-${index}/meta.json`);
-  const bulk = classifyChangeScope(many);
+  const bulk = classify(many);
   assert.equal(bulk.runFullCorpusSmoke, true);
   assert.equal(bulk.largeCorpusChange, true);
   assert.deepEqual(bulk.deployTargets, ['portal']);
   assert.deepEqual(bulk.buildTargets, ['portal', 'law']);
   assert.deepEqual(bulk.uiTargets, ['portal', 'law']);
-  const few = classifyChangeScope(many.slice(0, LARGE_CORPUS_CHANGE_THRESHOLD - 1));
+  const few = classify(many.slice(0, LARGE_CORPUS_CHANGE_THRESHOLD - 1));
   assert.equal(few.runFullCorpusSmoke, false);
   assert.deepEqual(few.buildTargets, ['portal']);
   assert.deepEqual(changedNormSlugs(['content/normen/a/meta.json', 'content/normen/a/versions/x.json', 'content/verkuendungen/b.json']), ['a']);
 
   // Ohne Änderungsliste (erster Commit) und beim manuellen OstRecht-Release bleibt der Vollbestand Pflicht.
-  assert.equal(classifyChangeScope([]).runFullCorpusSmoke, true);
+  assert.equal(classify([]).runFullCorpusSmoke, true);
   assert.equal(classifyManualDeploy('law').runFullCorpusSmoke, true);
   assert.equal(classifyManualDeploy('portal').runFullCorpusSmoke, false);
-  assert.equal(isFullCorpusPath('apps/recht/src/pages/sitemap.xml.ts'), true);
-  assert.equal(isFullCorpusPath('apps/recht/src/components/norms/NormBody.astro'), false);
+  assert.equal(isFullCorpusPath('apps/recht/src/pages/sitemap.xml.ts', logicPaths), true);
+  assert.equal(isFullCorpusPath('apps/recht/src/components/norms/NormBody.astro', logicPaths), false);
+});
+
+test('Testscope: D1 und Vollbestand folgen dem Code-Abschluss, Darstellung nur der Oberfläche; ohne Abschluss fail-closed', () => {
+  const cases = [
+    { label: 'CSS Portal: kein OstRecht, kein D1', paths: ['apps/portal/src/styles/home.css'], scope: 'portal', targets: ['portal'], d1Sync: false, fullCorpus: false, visual: true, corpus: false, content: false },
+    { label: 'CSS OstRecht: Fixture genügt, kein Vollbestand-D1', paths: ['apps/recht/src/styles/law-portal.css'], scope: 'law', targets: ['law'], d1Sync: false, fullCorpus: false, visual: true, corpus: false },
+    { label: 'origin.ts: die Datei ist Projektionscode – der Nachweis entscheidet erst im Sync', paths: ['packages/shared/src/lib/norms/origin.ts'], scope: 'shared', d1Sync: true, fullCorpus: true, corpus: true },
+    { label: 'diff-render.ts reine Darstellung: kein D1, kein Vollbestand', paths: ['packages/shared/src/lib/norms/diff-render.ts'], scope: 'shared', d1Sync: false, fullCorpus: false, visual: true, corpus: false },
+    { label: 'site.ts: im Abschluss (Portalbezüge), also D1-relevant – der Nachweis belegt targetLabels als datenneutral', paths: ['packages/shared/src/config/site.ts'], scope: 'shared', d1Sync: true, fullCorpus: true },
+    { label: 'Search-Projektor: D1', paths: ['packages/recht-search/src/search.ts'], scope: 'law', d1Sync: true, fullCorpus: true, corpus: true },
+    { label: 'D1-Schema: Vollbestand, Content, kein Deployment', paths: ['data/recht/d1/0008_neu.sql'], scope: 'ci-only', d1Sync: false, fullCorpus: true, content: true, buildTargets: ['law'], uiTargets: ['law'] },
+    { label: 'Docs: docs-only', paths: ['docs/DEPLOYMENT_RUNBOOK.md', 'README.md'], scope: 'docs-only', unit: false, d1Sync: false, fullCorpus: false, visual: false },
+    { label: 'Visual-Test: Screenshot-Suite, keine Smokes', paths: ['tests/visual.spec.ts'], scope: 'ci-only', visual: true, buildTargets: ['portal', 'law'], uiTargets: [] },
+    { label: 'Baseline: Screenshot-Suite', paths: ['tests/visual.spec.ts-snapshots/ostrecht-desktop-wide-linux.png'], scope: 'ci-only', visual: true, buildTargets: ['portal', 'law'] },
+    { label: 'Korpus-Test: nur Korpus-Tests', paths: ['tests/corpus/d1-projection-equivalence.test.mjs'], scope: 'ci-only', corpus: true, d1Sync: false, fullCorpus: false, content: false },
+    { label: 'Testfixture: Smokes, Screenshots und Korpus-Tests, kein Deployment', paths: ['data/recht/runtime-fixture.json'], scope: 'ci-only', corpus: true, content: true, visual: true, buildTargets: ['portal', 'law'], uiTargets: ['portal', 'law'] },
+    { label: 'schneller Unit-Test: keine Korpus-Tests', paths: ['tests/norm-sections.test.ts'], scope: 'ci-only', corpus: false },
+    { label: 'Font-Messwerkzeug ohne npm-Skript: nur Unit-Tests', paths: ['scripts/measure-font-fallbacks.mjs'], scope: 'ci-only', content: false, corpus: false, buildTargets: [], uiTargets: [] },
+    { label: 'Content-Validator aus package.json: Content-Prüfung, keine Korpus-Tests', paths: ['scripts/check-content.mjs'], scope: 'ci-only', content: true, corpus: false },
+    { label: 'Importer aus package.json: Content-Prüfung', paths: ['scripts/import-normen.mjs'], scope: 'ci-only', content: true },
+    { label: 'Bibliothek unter scripts/lib: konservativ Content-Prüfung', paths: ['scripts/lib/revosax-parser.mjs'], scope: 'ci-only', content: true },
+    { label: 'Nachweiswerkzeug: Vollbestand mit OstRecht-Build (Seed-Werkzeug)', paths: ['scripts/d1-projection-snapshot.mjs'], scope: 'ci-only', fullCorpus: true, d1Sync: false },
+    { label: 'Abschlussbibliothek: im Abschluss, D1', paths: ['scripts/lib/d1-projection-closure.mjs'], scope: 'ci-only', d1Sync: true, fullCorpus: true },
+    { label: 'Abhängigkeiten: Vollbestand und Korpus-Tests', paths: ['package-lock.json'], scope: 'shared', fullCorpus: true, corpus: true },
+  ];
+  for (const entry of cases) {
+    const result = classify(entry.paths);
+    assert.equal(result.scope, entry.scope, entry.label);
+    if (entry.targets) assert.deepEqual(result.deployTargets, entry.targets, `${entry.label}: Deployment`);
+    if (entry.d1Sync !== undefined) assert.equal(result.runD1Sync, entry.d1Sync, `${entry.label}: D1-Sync`);
+    if (entry.fullCorpus !== undefined) assert.equal(result.runFullCorpusSmoke, entry.fullCorpus, `${entry.label}: Vollbestand-Smoke`);
+    if (entry.visual !== undefined) assert.equal(result.runVisual, entry.visual, `${entry.label}: Screenshot-Suite`);
+    if (entry.corpus !== undefined) assert.equal(result.runCorpusTests, entry.corpus, `${entry.label}: Korpus-Tests`);
+    if (entry.content !== undefined) assert.equal(result.runContentCheck, entry.content, `${entry.label}: Content-Prüfung`);
+    if (entry.unit !== undefined) assert.equal(result.runUnitTests, entry.unit, `${entry.label}: Unit-Tests`);
+    if (entry.buildTargets) assert.deepEqual(result.buildTargets, entry.buildTargets, `${entry.label}: Build-Ziele`);
+    if (entry.uiTargets) assert.deepEqual(result.uiTargets, entry.uiTargets, `${entry.label}: UI-Ziele`);
+    assert.equal(result.closureKnown, true);
+  }
+
+  // Unbekannte Datei im Projektionspfad: mit sicherem Abschluss keine Logik (nicht erreicht),
+  // ohne Abschluss fail-closed Projektionslogik – ebenso reine Darstellung.
+  const unknown = 'packages/shared/src/lib/norms/neue-datei.ts';
+  assert.equal(classify([unknown]).runD1Sync, false);
+  const conservative = classifyChangeScope([unknown], { logicPaths: null });
+  assert.equal(conservative.runD1Sync, true);
+  assert.equal(conservative.runFullCorpusSmoke, true);
+  assert.equal(conservative.closureKnown, false);
+  assert.equal(classifyChangeScope(['packages/shared/src/lib/norms/diff-render.ts'], { logicPaths: null }).runD1Sync, true);
+  assert.equal(classifyChangeScope(['packages/recht-search/src/search-query.ts'], { logicPaths: null }).runD1Sync, true);
+
+  // Content-Pipeline aus package.json: Importer, Audits und Validatoren, nicht die Testskripte.
+  assert.ok(CONTENT_PIPELINE_SCRIPTS.has('scripts/import-normen.mjs'));
+  assert.ok(CONTENT_PIPELINE_SCRIPTS.has('scripts/knowledge.mjs'));
+  assert.ok(!CONTENT_PIPELINE_SCRIPTS.has('scripts/measure-font-fallbacks.mjs'));
+  assert.deepEqual([...scriptsReferencedBy(['x:'], { 'x:a': 'node scripts/a.mjs --flag && node --experimental-strip-types scripts/lib/b.ts', 'y:b': 'node scripts/c.mjs' })].sort(), ['scripts/a.mjs', 'scripts/lib/b.ts']);
 });

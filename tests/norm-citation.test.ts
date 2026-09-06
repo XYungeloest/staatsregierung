@@ -1,45 +1,36 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import {
-  buildNormFullCitation,
-  buildNormRecordLookup,
-} from '@ostrecht/shared/lib/norms/citation.ts';
-import { loadNormsOnce as loadAllNorms } from './helpers/corpus.ts';
-import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import { loadSearchIndexSampleOnce } from './helpers/corpus.ts';
-import { NORM_TYPES } from '@ostrecht/shared/lib/norms/schema.ts';
-import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
+import { buildNormFullCitation, buildNormRecordLookup } from '@ostrecht/shared/lib/norms/citation.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { NORM_TYPES, type NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
+import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 
+import { fixtureCorpus, normOfType } from './helpers/fixture-corpus.ts';
+
+/**
+ * Vollzitat-Regeln auf dem synthetischen Bestand. Ob jedes Vollzitat des realen Bestands
+ * ausgeschrieben ist, prüft scripts/audit-norm-derivations.ts in content:check.
+ */
+const { norms } = fixtureCorpus();
+const lookup = buildNormRecordLookup(norms);
 const genericCitationLead =
   /^(?:Gesetz|Verordnung|Verfassung|Staatsvertrag|Verwaltungsabkommen|Verwaltungsvorschrift|Bekanntmachung|Organisationserlass|Dienstanordnung|Anordnung|Richtlinie|Allgemeinverfügung|Übereinkommen|Vereinbarung|Erlass)\s+vom\b/u;
 
-test('Vollzitate nennen die Vorschrift statt nur die abstrakte Normart', async () => {
-  const norms = await loadAllNorms();
-  const lookup = buildNormRecordLookup(norms);
-  const norm = lookup.get('ostdeutsches-bezirkseinfuehrungsgesetz');
+function fixtureNorm(slug: string): NormRecord {
+  const record = lookup.get(slug);
+  assert.ok(record, slug);
+  return record;
+}
 
-  assert.ok(norm);
-  assert.equal(
-    buildNormFullCitation(norm, getApplicableVersion(norm), lookup),
-    'Gesetz zur Einführung von Bezirken vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–14)',
-  );
-});
-
-test('Vollzitate ersetzen die generische Einleitung jedes zentralen Normtyps', async () => {
-  const norms = await loadAllNorms();
-  const lookup = buildNormRecordLookup(norms);
-
+test('Vollzitate nennen die Vorschrift statt nur die abstrakte Normart – für jeden Normtyp', () => {
+  const amendment = fixtureNorm('aenderungsgesetz-testgesetz');
+  assert.equal(buildNormFullCitation(amendment, getApplicableVersion(amendment), lookup), 'Gesetz zur Änderung des Testgesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2)');
   for (const type of NORM_TYPES) {
-    const norm = norms.find((candidate) => candidate.meta.type === type);
-    assert.ok(norm, `Testdatensatz für Normtyp ${type}`);
-    const version = {
-      ...norm.versions[0],
-      versionId: `citation-test-${type}`,
-      citation: `${formatNormType(type)} vom 1. Januar 2026 (OGVBl. 2026 Nr. 1 S. 1)`,
-    };
-
+    const norm = normOfType(type);
+    const version = { ...norm.versions[0], versionId: `citation-test-${type}`, citation: `${formatNormType(type)} vom 1. Januar 2026 (OGVBl. 2026 Nr. 1 S. 1)` };
     assert.equal(
       buildNormFullCitation(norm, version, lookup),
       `${toDisplayText(getNormVersionIdentity(norm, version).title)} vom 1. Januar 2026 (OGVBl. 2026 Nr. 1 S. 1)`,
@@ -48,119 +39,53 @@ test('Vollzitate ersetzen die generische Einleitung jedes zentralen Normtyps', a
   }
 });
 
-test('Vollzitate verwenden die letzte Änderung der ausgewählten Fassung', async () => {
-  const norms = await loadAllNorms();
-  const lookup = buildNormRecordLookup(norms);
-  const municipality = lookup.get('saechsische-gemeindeordnung');
-
-  assert.ok(municipality);
-  const historical = municipality.versions.find((version) => version.versionId === '2026-03-25');
-  const current = municipality.versions.find((version) => version.versionId === '2026-08-01');
-  assert.ok(historical);
-  assert.ok(current);
-
-  assert.match(
-    buildNormFullCitation(municipality, historical, lookup),
-    /die zuletzt durch das Gesetz vom 23\. März 2026 \(OGVBl\. 2026 Nr\. 26 S\. 2\) geändert worden ist$/u,
+test('Vollzitate nennen die letzte Änderung der ausgewählten Fassung mit Artikelbezug und amtlichem Satzbau', () => {
+  const law = fixtureNorm('testgesetz');
+  assert.equal(buildNormFullCitation(law, law.versions[0], lookup), 'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1)', 'die Ausgangsfassung trägt keine Änderungsklausel');
+  assert.equal(
+    buildNormFullCitation(law, law.versions[1], lookup),
+    'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), das zuletzt durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2) geändert worden ist',
   );
-  assert.match(
-    buildNormFullCitation(municipality, current, lookup),
-    /die zuletzt durch das Gesetz vom 20\. Juli 2026 \(OGVBl\. 2026 Nr\. 46 S\. 2\) geändert worden ist$/u,
+  const budget = fixtureNorm('stichtagsgesetz');
+  assert.equal(
+    buildNormFullCitation(budget, budget.versions[1], lookup),
+    'Sächsisches Haushaltsgesetz vom 10. April 2001 (SächsGVBl. S. 153), das zuletzt durch das Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2) geändert worden ist',
   );
+  // Relativpronomen folgt der Bezeichnung: Verordnungen „die“, Verträge „der“.
+  const regulation = structuredClone(fixtureNorm('testverordnung'));
+  regulation.versions[0].citation = 'Sächsische Bestattungsverordnung vom 3. März 2003 (SächsGVBl. S. 30), zuletzt geändert durch Artikel 2 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2)';
+  regulation.history.entries.push({ date: '2026-03-25', type: 'amendment', title: 'Änderung', citation: 'Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 1 S. 2)', affectingVersionId: '2023-11-01', relatedNorm: 'aenderungsgesetz-testgesetz' });
+  assert.match(buildNormFullCitation(regulation, regulation.versions[0], lookup), /\(SächsGVBl\. S\. 30\), die zuletzt durch Artikel 2 des Gesetzes vom 23\. März 2026 \(OGVBl\. 2026 Nr\. 1 S\. 2\) geändert worden ist$/u);
 });
 
-test('die letzte Änderung wird auch bei unsortierter Historie chronologisch bestimmt', async () => {
-  const norms = await loadAllNorms();
-  const lookup = buildNormRecordLookup(norms);
-  const municipality = lookup.get('saechsische-gemeindeordnung');
-
-  assert.ok(municipality);
-  const current = municipality.versions.find((version) => version.versionId === '2026-08-01');
-  const marchAmendment = municipality.history.entries.find((entry) =>
-    entry.type === 'amendment'
-    && entry.relatedNorm === 'gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb'
-  );
-  const julyAmendment = municipality.history.entries.find((entry) =>
-    entry.type === 'amendment' && entry.date === '2026-08-01'
-  );
-  assert.ok(current);
-  assert.ok(marchAmendment);
-  assert.ok(julyAmendment);
-
-  const unsortedMunicipality = structuredClone(municipality);
-  unsortedMunicipality.history.entries = [
-    {
-      ...julyAmendment,
-      affectingVersionId: current.versionId,
-    },
-    {
-      ...marchAmendment,
-      affectingVersionId: current.versionId,
-    },
+test('die letzte Änderung wird auch bei unsortierter Historie chronologisch bestimmt', () => {
+  const law = structuredClone(fixtureNorm('testgesetz'));
+  const secondAmendment = normOfType('aenderungsvorschrift', { title: 'Zweites Gesetz zur Änderung des Testgesetzes', shortTitle: 'Zweites Änderungsgesetz', initialCitation: 'Zweites Gesetz zur Änderung des Testgesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)' });
+  const extendedLookup = new Map([...lookup, [secondAmendment.meta.slug, secondAmendment]]);
+  law.versions[1].citation = 'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1), zuletzt geändert durch Artikel 2 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)';
+  law.history.entries = [
+    { date: '2026-08-01', type: 'amendment', title: 'Zweite Änderung', citation: 'Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)', affectingVersionId: '2026-03-25', relatedNorm: secondAmendment.meta.slug },
+    law.history.entries[1],
   ];
-
   assert.match(
-    buildNormFullCitation(unsortedMunicipality, current, lookup),
-    /die zuletzt durch das Gesetz vom 20\. Juli 2026/u,
+    buildNormFullCitation(law, law.versions[1], extendedLookup),
+    /, das zuletzt durch Artikel 2 des Zweiten Gesetzes zur Änderung des Testgesetzes vom 20\. Juli 2026/u,
   );
 });
 
-test('Artikelbezüge der letzten Änderung bleiben im Vollzitat erhalten', async () => {
-  const norms = await loadAllNorms();
-  const lookup = buildNormRecordLookup(norms);
-  const districts = lookup.get('ostdeutsche-bezirksordnung');
-
-  assert.ok(districts);
-  assert.equal(
-    buildNormFullCitation(districts, getApplicableVersion(districts), lookup),
-    'Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–13), die zuletzt durch Artikel 8 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 2) geändert worden ist',
-  );
+test('eine Fundstelle ohne Datum wird als Titel plus Fundstelle zitiert', () => {
+  const circular = normOfType('verwaltungsvorschrift', { initialCitation: 'Verwaltungsvorschrift (StAnzO. 2026 Nr. 13)' });
+  circular.versions[0].citation = 'Verwaltungsvorschrift (StAnzO. 2026 Nr. 13)';
+  assert.equal(buildNormFullCitation(circular, circular.versions[0], lookup), `${circular.meta.title} (StAnzO. 2026 Nr. 13)`);
 });
 
-test('Vollzitate geänderter Gesetze folgen dem amtlichen REVOSax-Satzbau', async () => {
-  const norms = await loadAllNorms();
-  const lookup = buildNormRecordLookup(norms);
-  const archives = lookup.get('archivgesetz');
-  assert.ok(archives);
-
-  assert.equal(
-    buildNormFullCitation(archives, getApplicableVersion(archives), lookup),
-    'Archivgesetz für den Freistaat Ostdeutschland vom 17. Mai 1993 (SächsGVBl. S. 449), das zuletzt durch Artikel 2 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 32) geändert worden ist',
-  );
-});
-
-test('alle gespeicherten Fassungen erhalten ein ausgeschriebenes und anzeigefähiges Vollzitat', async () => {
-  const norms = await loadAllNorms();
-  const lookup = buildNormRecordLookup(norms);
-
+test('jede Fassung des Bestands erhält ein ausgeschriebenes Vollzitat, und das Suchdokument trägt dasselbe', () => {
   for (const norm of norms) {
     for (const version of norm.versions) {
       const citation = buildNormFullCitation(norm, version, lookup);
       assert.doesNotMatch(citation, genericCitationLead, `${norm.meta.slug}:${version.versionId}`);
       assert.doesNotMatch(citation, /\\-/u, `${norm.meta.slug}:${version.versionId}`);
+      assert.equal(buildSearchDocument(norm, version, lookup).citation, citation, `${norm.meta.slug}:${version.versionId}`);
     }
   }
-
-  const disputedDate = lookup.get(
-    'verwaltungsvorschrift-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-einsatz-von-stroboskoplicht',
-  );
-  assert.ok(disputedDate);
-  assert.equal(
-    buildNormFullCitation(disputedDate, getApplicableVersion(disputedDate), lookup),
-    `${disputedDate.meta.title} (StAnzO. 2026 Nr. 13)`,
-  );
-});
-
-test('Rechtssuche gibt das Vollzitat statt der generischen Fundstellenform aus', async () => {
-  const payload = await loadSearchIndexSampleOnce();
-  const documentEntry = payload.documents.find((entry) =>
-    entry.slug === 'ostdeutsches-bezirkseinfuehrungsgesetz'
-    && entry.versionKind === 'current',
-  );
-
-  assert.ok(documentEntry);
-  assert.equal(
-    documentEntry.citation,
-    'Gesetz zur Einführung von Bezirken vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–14)',
-  );
 });

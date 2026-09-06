@@ -1,9 +1,12 @@
 name: Screenshot-Baselines erneuern
 
 # Erzeugt die Linux-Baselines der Screenshot-Suite (tests/visual.spec.ts-snapshots/*-linux.png) im
-# festen Playwright-Container gegen das Testfixture – nur auf Anforderung. Die Baselines werden
-# als Artefakt bereitgestellt, gesichtet und dann committet; die Jobs `visual` in Pull Requests
-# und auf main vergleichen strikt und erzeugen nie selbst Baselines.
+# festen Playwright-Container gegen das Testfixture – nur auf Anforderung, gezielt für eine Website,
+# eine Suite (kritisch oder breit) oder einzelne Tests (--grep). Direkt danach läuft dieselbe
+# Auswahl strikt gegen die neuen Baselines. Die Baselines werden als Artefakt bereitgestellt;
+# `npm run test:visual:baselines:apply -- --run <Lauf-ID>` übernimmt sie lokal, dann Sichtprüfung
+# und Commit. Mit Docker geht es ohne diesen Workflow: `npm run test:visual:update:linux`. Die
+# Jobs `visual` in Pull Requests und auf main vergleichen strikt und erzeugen nie selbst Baselines.
 
 on:
   workflow_dispatch:
@@ -12,6 +15,19 @@ on:
         description: Websites, deren Baselines erneuert werden (portal, law oder portal,law)
         required: true
         default: portal,law
+        type: string
+      suite:
+        description: Suite (critical = kritische Auswahl der Pull Requests, extended = breite Inventur)
+        required: true
+        default: extended
+        type: choice
+        options:
+          - critical
+          - extended
+      grep:
+        description: 'Nur Tests, deren Titel zu diesem Muster passt (optional, z. B. "Komponenten-Basislinien")'
+        required: false
+        default: ''
         type: string
 
 permissions:
@@ -56,14 +72,23 @@ jobs:
         with:
           fixture: data/recht/runtime-fixture.json
           cache: 'false'
-      - name: Baselines erzeugen
+      - name: Baselines erzeugen und dieselbe Auswahl strikt gegen die neuen Baselines prüfen
         env:
           SITE_TARGETS: ${{ github.event.inputs.site_targets }}
+          SUITE: ${{ github.event.inputs.suite }}
+          GREP: ${{ github.event.inputs.grep }}
         run: |
-          rm -f tests/visual.spec.ts-snapshots/*-linux.png
-          npm run test:visual:run -- --update-snapshots
-          ls tests/visual.spec.ts-snapshots/*-linux.png | wc -l
-      - name: Baselines bereitstellen (sichten, dann committen)
+          if [ "$SUITE" = "critical" ]; then SCRIPT=test:visual:critical; else SCRIPT=test:visual:extended; fi
+          if [ -n "$GREP" ]; then
+            npm run "$SCRIPT" -- --update-snapshots --grep "$GREP"
+            npm run "$SCRIPT" -- --grep "$GREP"
+          else
+            npm run "$SCRIPT" -- --update-snapshots
+            npm run "$SCRIPT"
+          fi
+          echo "Geänderte Baselines: $(git status --porcelain -- tests/visual.spec.ts-snapshots | wc -l)" >> "$GITHUB_STEP_SUMMARY"
+          git status --porcelain -- tests/visual.spec.ts-snapshots >> "$GITHUB_STEP_SUMMARY"
+      - name: Baselines bereitstellen (npm run test:visual:baselines:apply -- --run <Lauf-ID>, sichten, committen)
         uses: actions/upload-artifact@v7
         with:
           name: visual-baselines-linux-${{ github.sha }}

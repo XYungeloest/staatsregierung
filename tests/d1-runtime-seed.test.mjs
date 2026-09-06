@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -8,17 +8,13 @@ import test from 'node:test';
 import {
   SEED_FORMAT_VERSION,
   SEED_TOOL_FILES,
-  buildSeedSnapshot,
   combineSeedFingerprint,
   expectedNormCount,
   locateMiniflareDatabase,
   runtimeSeedIdentity,
   seedFileName,
-  seedManifestPath,
-  verifySeedSnapshot,
 } from '../scripts/lib/d1-runtime-seed.mjs';
 
-const FIXTURE = 'data/recht/runtime-fixture.json';
 const LOCK = JSON.stringify({ packages: { 'node_modules/wrangler': { version: '4.128.0' }, 'node_modules/miniflare': { version: '5.0.0' }, 'node_modules/workerd': { version: '1.0.0' } } });
 
 /** Minimales Repository mit Rechtsbestand, Projektionslogik, Seed-Werkzeugen und Lockfile. */
@@ -86,42 +82,6 @@ test('Seed-Fingerabdruck ist deterministisch und hängt genau von den seedreleva
   assert.equal(await expectedNormCount(root, null), 1);
   assert.notEqual(combineSeedFingerprint({ projectionFingerprint: 'p', seedToolHash: 's', toolVersions: { wrangler: '1' } }), combineSeedFingerprint({ projectionFingerprint: 'p', seedToolHash: 's', toolVersions: { wrangler: '1' }, format: 2 }));
   await rm(root, { recursive: true, force: true });
-});
-
-test('Fixture-Seed wird gebaut, verifiziert und bei abweichender Identität oder unvollständigem Zustand abgelehnt', async () => {
-  const root = process.cwd();
-  const workDir = await mkdtemp(join(tmpdir(), 'runtime-seed-build-'));
-  const snapshot = join(workDir, 'fixture.sqlite');
-  const log = () => {};
-  const identity = await runtimeSeedIdentity({ root, fixture: FIXTURE });
-  const built = await buildSeedSnapshot({ root, fixture: FIXTURE, out: snapshot, identity, log });
-  assert.equal(built.manifest.seedFingerprint, identity.fingerprint);
-  assert.equal(built.manifest.normCount, await expectedNormCount(root, FIXTURE));
-  assert.equal(built.manifest.scope, identity.scope);
-  const verified = await verifySeedSnapshot({ root, fixture: FIXTURE, snapshot, identity, log });
-  assert.equal(Number(verified.counts.norms), built.manifest.normCount);
-  assert.ok(Number(verified.counts.search_units) > 0);
-
-  // Der Seed-Fingerabdruck des Vollbestands passt nicht zu einem Fixture-Snapshot.
-  await assert.rejects(verifySeedSnapshot({ root, fixture: null, snapshot, log }), /abgelehnt/u);
-
-  // Manipulierter Zustand: unvollständiger Sync wird erkannt.
-  const { DatabaseSync } = await import('node:sqlite');
-  const tampered = join(workDir, 'tampered.sqlite');
-  await copyFile(snapshot, tampered);
-  await copyFile(seedManifestPath(snapshot), seedManifestPath(tampered));
-  const db = new DatabaseSync(tampered);
-  db.exec("UPDATE law_runtime_meta SET value = 'incremental-in-progress' WHERE key = 'sync_state'");
-  db.close();
-  await assert.rejects(verifySeedSnapshot({ root, fixture: FIXTURE, snapshot: tampered, identity, log }), /sync_state/u);
-
-  // Manifest mit fremdem Fingerabdruck wird abgelehnt.
-  const foreign = join(workDir, 'foreign.sqlite');
-  await copyFile(snapshot, foreign);
-  const manifest = JSON.parse(await readFile(seedManifestPath(snapshot), 'utf8'));
-  await writeFile(seedManifestPath(foreign), JSON.stringify({ ...manifest, seedFingerprint: 'f'.repeat(64) }));
-  await assert.rejects(verifySeedSnapshot({ root, fixture: FIXTURE, snapshot: foreign, identity, log }), /Manifest/u);
-  await rm(workDir, { recursive: true, force: true });
 });
 
 test('die lokale D1-Datei von Miniflare wird an ihrer Hex-Kennung erkannt, die Metadatendatei nicht', async () => {

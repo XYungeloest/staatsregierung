@@ -28,7 +28,8 @@ import { join, relative, resolve } from 'node:path';
  * Miniflare-Version; keine Änderungszeiten). Ein passender Snapshot unter .cache/d1-seed
  * (lokal oder aus dem CI-Cache) wird verifiziert und eingesetzt; nur ohne Snapshot wird
  * genau einmal projiziert. `--force` erzwingt Neuaufbau und Einsatz. Voraussetzung ist
- * ein vorhandener Build unter apps/recht/dist.
+ * ein vorhandener Build unter apps/recht/dist. Beendet sich wrangler dev unerwartet (abgebrochene
+ * Antwort eines Browsers), wird es begrenzt oft neu gestartet.
  */
 
 const ROOT = resolve(process.cwd());
@@ -83,20 +84,44 @@ if (!(await exists(workerConfig))) {
 await seed();
 if (seedOnly) process.exit(0);
 
-const wrangler = spawn('npx', [
-  'wrangler', 'dev',
-  '--config', workerConfig,
-  '--local',
-  '--port', port,
-  '--ip', '127.0.0.1',
-  '--persist-to', persistTo,
-  '--show-interactive-dev-session=false',
-], { cwd: ROOT, stdio: 'inherit', env: { ...process.env, WRANGLER_SEND_METRICS: 'false', CI: process.env.CI ?? '' } });
+// wrangler dev beendet sich lokal, wenn ein Browser eine laufende Antwort abbricht („Uncaught
+// Error: Network connection lost“ im Inspector-Protokoll) – in Produktion ist das folgenlos. Damit
+// ein einzelner Abbruch nicht jeden folgenden Browsertest scheitern lässt, wird der Dev-Server
+// begrenzt oft neu gestartet; die lokale D1 bleibt unter --persist-to erhalten.
+const MAX_RESTARTS = 5;
+let restarts = 0;
+let stopping = false;
+let wrangler = null;
+
+function spawnWrangler() {
+  wrangler = spawn('npx', [
+    'wrangler', 'dev',
+    '--config', workerConfig,
+    '--local',
+    '--port', port,
+    '--ip', '127.0.0.1',
+    '--persist-to', persistTo,
+    '--show-interactive-dev-session=false',
+  ], { cwd: ROOT, stdio: 'inherit', env: { ...process.env, WRANGLER_SEND_METRICS: 'false', CI: process.env.CI ?? '' } });
+  wrangler.on('exit', (code, signal) => {
+    if (stopping) {
+      process.exit(code ?? (signal ? 1 : 0));
+      return;
+    }
+    if (restarts >= MAX_RESTARTS) {
+      console.error(`OstRecht-Worker: wrangler dev beendet (${code ?? signal}); ${MAX_RESTARTS} Neustarts erschöpft.`);
+      process.exit(code ?? 1);
+      return;
+    }
+    restarts += 1;
+    console.error(`OstRecht-Worker: wrangler dev unerwartet beendet (${code ?? signal}); Neustart ${restarts}/${MAX_RESTARTS} in 2 s.`);
+    setTimeout(spawnWrangler, 2000);
+  });
+}
 
 const stop = (signal) => {
-  if (!wrangler.killed) wrangler.kill(signal);
+  stopping = true;
+  if (wrangler && !wrangler.killed) wrangler.kill(signal);
 };
 for (const signal of ['SIGINT', 'SIGTERM', 'SIGHUP']) process.on(signal, () => stop(signal));
-wrangler.on('exit', (code, signal) => {
-  process.exit(code ?? (signal ? 1 : 0));
-});
+spawnWrangler();

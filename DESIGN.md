@@ -354,13 +354,16 @@ ausdrücklich konfiguriertem Telefonweg.
 
 ## Qualitätssicherung
 
-Die visuellen Baselines (`tests/visual.spec.ts`, `npm run test:visual:run`) prüfen zentrale Seiten
-und Module in drei Viewports (1440, 768, 390 px) gegen das Testfixture des Rechtsbestands
-(`data/recht/runtime-fixture.json`): lokal unter macOS mit `-darwin`-Baselines, in CI bei
-Oberflächenänderungen mit den committeten `-linux`-Baselines im festen Playwright-Container.
-Baselines werden nur nach Sichtprüfung übernommen; Linux-Baselines entstehen ausschließlich über den
-Workflow „Screenshot-Baselines erneuern“ (`.github/workflows/visual-baselines.yml`). Sie sind kein
-Deployment-Gate. `tests/accessibility.spec.ts` prüft alle repräsentativen Seiten mit Axe und den
+Die visuellen Baselines (`tests/visual.spec.ts`) prüfen zentrale Seiten und Module gegen das
+Testfixture des Rechtsbestands (`data/recht/runtime-fixture.json`) in zwei Stufen: die kritische
+Auswahl (`npm run test:visual:critical`, Desktop und Mobil, Tablet nur bei eigenem Breakpoint) in
+Pull Requests und die breite Inventur (`npm run test:visual:extended`, 1440, 768 und 390 px) auf
+`main`, wöchentlich und manuell. Kanonische Plattform ist Linux: versioniert sind nur
+`-linux`-Baselines aus dem festen Playwright-Container; unter macOS laufen die Tests funktional
+ohne Pixelvergleich. Baselines werden nur nach Sichtprüfung übernommen und mit einem Vorgang
+erneuert – `npm run test:visual:update:linux -- --site law` (Docker) oder Workflow
+„Screenshot-Baselines erneuern“ plus `npm run test:visual:baselines:apply -- --run <Lauf-ID>`
+(`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt Screenshot-Suite). Sie sind kein Deployment-Gate. `tests/accessibility.spec.ts` prüft alle repräsentativen Seiten mit Axe und den
 Fokusindikator gegen seine Bezugsfläche; `tests/browser-smoke.spec.ts` prüft Verzeichnisse,
 Suche, Normseiten und Kopfstufen funktional; `npm run docs:check` hält die Dokumente konsistent.
 

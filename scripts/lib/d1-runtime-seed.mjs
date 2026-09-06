@@ -63,9 +63,24 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
 }
 
-/** Versionen der Werkzeuge, die das Format des Miniflare-Zustands bestimmen (deterministisch aus package-lock.json). */
-export async function seedToolVersions(root = process.cwd()) {
-  const lock = await readJson(join(root, 'package-lock.json'));
+function gitShow(root, ref, path) {
+  return new Promise((resolvePromise, reject) => {
+    const child = spawn('git', ['-C', root, 'show', `${ref}:${path}`], { stdio: ['ignore', 'pipe', 'pipe'] });
+    const stdout = [];
+    const stderr = [];
+    child.stdout.on('data', (chunk) => stdout.push(chunk));
+    child.stderr.on('data', (chunk) => stderr.push(chunk));
+    child.on('error', reject);
+    child.on('close', (code) => {
+      if (code === 0) resolvePromise(Buffer.concat(stdout).toString('utf8'));
+      else reject(new Error(`git show ${ref}:${path} schlug fehl (${code}): ${Buffer.concat(stderr).toString('utf8').trim()}`));
+    });
+  });
+}
+
+/** Versionen der Werkzeuge, die das Format des Miniflare-Zustands bestimmen (deterministisch aus package-lock.json des Arbeitsbaums oder eines Refs). */
+export async function seedToolVersions(root = process.cwd(), { ref = null } = {}) {
+  const lock = ref ? JSON.parse(await gitShow(root, ref, 'package-lock.json')) : await readJson(join(root, 'package-lock.json'));
   const versions = {};
   for (const name of SEED_TOOL_PACKAGES) {
     versions[name] = lock.packages?.[`node_modules/${name}`]?.version ?? 'unbekannt';
@@ -84,19 +99,24 @@ export function combineSeedFingerprint({ projectionFingerprint, seedToolHash, to
 }
 
 /**
- * Identität eines Seeds für den Arbeitsbaum: Projektionsidentität im Ziel-Scope plus
- * Seed-Werkzeuge und Werkzeugversionen.
- * @param {{ root?: string, fixture?: string | null }} options
+ * Identität eines Seeds für den Arbeitsbaum (oder einen Git-Ref, nur Vollbestand): Projektions-
+ * identität im Ziel-Scope plus Seed-Werkzeuge und Werkzeugversionen. `legacyFingerprint` ist der
+ * Seed-Fingerabdruck derselben Eingaben mit der früheren Projektionsidentität (Übergang: Cache-
+ * Einträge, die ein Basis-Commit mit dem früheren Algorithmus geschrieben hat, TODO.md).
+ * @param {{ root?: string, fixture?: string | null, ref?: string | null }} options
  */
-export async function runtimeSeedIdentity({ root = process.cwd(), fixture = null } = {}) {
+export async function runtimeSeedIdentity({ root = process.cwd(), fixture = null, ref = null } = {}) {
+  if (fixture && ref) throw new Error('Seed-Identität eines Git-Refs gibt es nur für den Vollbestand');
   const scope = fixture ? await fixtureScope(root, fixture) : FULL_SCOPE;
   const [projection, seedToolHash, toolVersions] = await Promise.all([
-    projectionIdentity({ root, scope }),
-    hashRoots(root, [], SEED_TOOL_FILES),
-    seedToolVersions(root),
+    projectionIdentity({ root, scope, ref }),
+    hashRoots(root, [], SEED_TOOL_FILES, { ref }),
+    seedToolVersions(root, { ref }),
   ]);
   return {
     fingerprint: combineSeedFingerprint({ projectionFingerprint: projection.fingerprint, seedToolHash, toolVersions }),
+    legacyFingerprint: projection.legacyFingerprint ? combineSeedFingerprint({ projectionFingerprint: projection.legacyFingerprint, seedToolHash, toolVersions }) : null,
+    ref,
     format: SEED_FORMAT_VERSION,
     scope,
     mode: fixture ? 'fixture' : 'full',
