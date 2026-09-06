@@ -185,13 +185,16 @@ export const siteConfig = {
    * Eine Wortliste für Stände und Stichtage. Dieselbe Sache heißt überall gleich, verschiedene
    * Sachen behalten verschiedene Wörter: `portalContentAsOf` ist der redaktionelle Stand einer
    * Portalseite, `dataAsOf` der Stand eines Datenbestands, `baselineDate` der Ausgangspunkt einer
-   * Zeitreihe. Der `legalStatusAsOf` des Rechtsportals steht in `lawSiteConfig.vocabulary`; er
-   * bezeichnet ein Datum der Rechtslage und wird hier bewusst nicht mit „Stand“ gleichgesetzt.
+   * Zeitreihe, `cutoffDate` der Bezugstag einer Erhebung. Der `legalStatusAsOf` des Rechtsportals
+   * steht in `lawSiteConfig.vocabulary`; er bezeichnet ein Datum der Rechtslage und wird hier
+   * bewusst nicht mit „Stand“ gleichgesetzt.
    */
   vocabulary: {
     portalContentAsOf: 'Stand',
     dataAsOf: 'Datenstand',
     baselineDate: 'Ausgangsstichtag',
+    /** Bezugstag einer Erhebung, etwa die Beteiligungshöhe am Stichtag. */
+    cutoffDate: 'Stichtag',
   },
   date: {
     formatLong: formatDate,

@@ -888,6 +888,7 @@ h2 {
 .budget-explanation-card h3,
 .budget-structure-card h3 {
   margin-top: 0;
+  font-size: var(--text-md);
 }
 
 .budget-explanation-card p:last-child {
@@ -1724,8 +1725,17 @@ article.panel > p:last-child > a.inline-link:hover {
   margin-bottom: 1rem;
 }
 
-.section-header--compact h2 {
+/* Der Abschnittskopf trägt seine Größe unabhängig von der Überschriftenebene: eine h3 in einem
+   Modul soll nicht auf die Browsergröße 1,17em zurückfallen. */
+.section-header--compact :is(h2, h3) {
   font-size: var(--text-md);
+}
+
+.section-header :is(h3, h4) {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg-plus);
+  line-height: var(--lh-display);
 }
 
 /* Der Modifikator legt die Spaltenzahl fest, nicht die Kartenzahl: `--two` bedeutet zwei
