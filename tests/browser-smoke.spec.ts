@@ -1051,7 +1051,9 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   }
   expect(keyword.length, 'Buchstabengruppe mit Stichwortindex').toBeGreaterThan(2);
   await page.goto(lawUrl(`/archiv/?buchstabe=${keywordLetter}&stichwort=${encodeURIComponent(keyword)}`));
-  await expect(page).toHaveURL(new RegExp(`stichwort=${encodeURIComponent(keyword)}`, 'u'));
+  // Verglichen wird der gelesene Parameter, nicht die Schreibweise der Adresse: das Formular
+  // schreibt Leerzeichen als `+`, eine gebaute Adresse als `%20`.
+  await expect.poll(() => new URL(page.url()).searchParams.get('stichwort')).toBe(keyword);
   const entries = page.locator('[data-index-entry]');
   expect(await entries.count()).toBeGreaterThan(0);
   expect(await entries.count()).toBeLessThanOrEqual(100);
@@ -1060,7 +1062,7 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   await expect(page.locator('[data-index-filter-status]')).toContainText('dieser Seite');
   expect(await entries.evaluateAll((nodes) => nodes.filter((node) => !(node as HTMLElement).hidden).length)).toBeGreaterThan(0);
   await page.locator('[data-keyword-filter-form] button[type="submit"]').click();
-  await expect(page).toHaveURL(new RegExp(`stichwort=${encodeURIComponent(keyword)}`, 'u'));
+  await expect.poll(() => new URL(page.url()).searchParams.get('stichwort')).toBe(keyword);
   await expect(page.locator('[data-index-filter-status]')).toContainText(`passen zu „${keyword}“`);
 
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
@@ -1076,7 +1078,11 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   const count = (values: string[]) => values.reduce((map, value) => map.set(value, (map.get(value) ?? 0) + 1), new Map<string, number>());
   const abbrCounts = count(all.map((entry) => entry.abbr));
   const shortTitleCounts = count(all.map((entry) => entry.shortTitle));
-  const unique = all.filter((entry) => entry.abbr && /^[A-Za-zÄÖÜäöü][\wÄÖÜäöüß-]{3,}$/u.test(entry.abbr) && abbrCounts.get(entry.abbr) === 1 && shortTitleCounts.get(entry.shortTitle) === 1);
+  // Gesucht wird nur nach Vorschriften mit geltender Fassung: die Autovervollständigung führt
+  // auch künftig geltende Vorschriften, die die Standardsuche (Fassungsfilter „geltend“) nicht
+  // zeigt. Die Eindeutigkeit wird weiter über den gesamten Bestand gezählt.
+  const current = await currentDocuments(request);
+  const unique = current.filter((entry) => entry.abbr && /^[A-Za-zÄÖÜäöü][\wÄÖÜäöüß-]{3,}$/u.test(entry.abbr) && abbrCounts.get(entry.abbr) === 1 && shortTitleCounts.get(entry.shortTitle) === 1);
   const known = [...unique.filter((entry) => entry.typeLabel === 'Gesetz'), ...unique.filter((entry) => entry.typeLabel !== 'Gesetz')].slice(0, 4);
   expect(known.length).toBeGreaterThan(0);
   const queries = known.flatMap((entry) => [[entry.abbr, entry], [entry.shortTitle, entry]] as const);
@@ -1174,6 +1180,15 @@ siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält den Bu
   await overview.filter({ hasText: 'Übernommen · unverändert' }).click();
   await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
   await expect(page.locator('select[name="herkunft"]')).toHaveValue('inherited-unchanged');
+  // Die Buchstabenleiste zählt den gesamten Bestand; unter dem Herkunftsfilter kann eine Gruppe
+  // leer sein. Geprüft wird die erste Gruppe, die Vorschriften dieser Herkunft führt.
+  const groups = await page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-index-letter') ?? ''));
+  let filledLetter = '';
+  for (const candidate of groups) {
+    await page.goto(lawUrl(`/archiv/?buchstabe=${candidate}&herkunft=inherited-unchanged`));
+    if (await page.locator('[data-index-list] li').count() > 0) { filledLetter = candidate; break; }
+  }
+  expect(filledLetter, 'Buchstabengruppe mit übernommenen, unveränderten Vorschriften').not.toBe('');
   const origins = await page.locator('[data-index-list] li').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.origin));
   expect(origins.length).toBeGreaterThan(0);
   expect(origins.every((origin) => origin === 'inherited-unchanged')).toBe(true);
