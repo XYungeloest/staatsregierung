@@ -69,8 +69,9 @@ test('der Import-Audit ist deterministisch und seine Bilanz geht exakt auf', asy
   assert.deepEqual(ended.sunsetDecision, { resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed', basis: 'Sie tritt mit Ablauf des 31. Dezember 2023 außer Kraft.', reason: 'Typ B' });
   assert.deepEqual(first.summary.sunsetDecisions, { '6.1': { slug: 'f', resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed' } });
   // Sachgebiete gelten als amtlich belegt, sobald die Fundstellennummer der Quelle sie trägt;
-  // abgeleitet bleiben nur Stichwörter und Kurzfassung.
-  assert.deepEqual(first.summary.derivedMetadata.fields, ['keywords', 'summary']);
+  // abgeleitet bleibt nur die Zuordnung ohne Fundstellennummer. Schlagwörter tragen die amtliche
+  // Bezeichnung der Trefferliste, Kurzfassungen schreibt der Massenimport keine mehr.
+  assert.deepEqual(first.summary.derivedMetadata.fields, ['subjects']);
   assert.equal(first.summary.derivedMetadata.norms, 3);
   assert.deepEqual(first.summary.derivedMetadata.subjects, { official: 0, derived: 0 }, 'ohne lesbare meta.json zählt der Audit keine Zuordnung');
   // Ohne nachstichtaglichen Rechtsakt bleiben alle Zähler auf null.

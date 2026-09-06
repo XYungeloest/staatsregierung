@@ -71,8 +71,12 @@ for (const entry of await readdir(normRoot, { withFileTypes: true })) {
   if (forbiddenResponsibilities.has(meta.responsibleMinistry)) {
     report(slug, `führt ein erlassendes Organ als zuständiges Ressort: ${meta.responsibleMinistry}`);
   }
-  if (typeof meta.summary !== 'string' || meta.summary.trim().length < 24 || summaryFragment.test(meta.summary.trim())) {
-    report(slug, 'summary ist leer, zu kurz oder ein typisches Importfragment');
+  // Eine Kurzbeschreibung ist freiwillig: der übernommene Massenbestand hat keine Quelle, aus der
+  // sich eine belastbare Kurzfassung ableiten ließe. Steht eine da, muss sie eine Beschreibung
+  // sein und kein Importfragment; der Arbeitsvorrat steht in data/recht/norm-summary-review.json.
+  if (meta.summary !== undefined
+    && (typeof meta.summary !== 'string' || meta.summary.trim().length < 24 || summaryFragment.test(meta.summary.trim()))) {
+    report(slug, 'summary ist gesetzt, aber zu kurz oder ein typisches Importfragment');
   }
   // Formelhafte Zusammenfassungen prüft scripts/check-content.mjs bestandsweit gegen
   // summarySource und Herkunft; hier bleiben nur die stichtagsgebundenen Pflichtfelder.

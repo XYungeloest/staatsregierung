@@ -1189,8 +1189,14 @@ function buildRecords(parsed) {
       responsibleMinistry,
       subjects: orderedSubjects(config.subjects ?? configuredSubjectsFor(parsed), config.primarySubject),
       primarySubject: orderedSubjects(config.subjects ?? configuredSubjectsFor(parsed), config.primarySubject)[0],
-      // Auch eine nicht übernommene Abkürzung oder Kurzbezeichnung bleibt auffindbar.
-      keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? []), ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)].filter(Boolean))].slice(0, 16),
+      // Schlagwörter sind Zweitbezeichnungen und redaktionelle Nutzerbegriffe. Titel,
+      // Kurzbezeichnung und Abkürzung stehen im Suchindex als eigene Spalten und gehören deshalb
+      // nicht zusätzlich hierher; eine vom Titelmodell *nicht* übernommene Abkürzung oder
+      // Kurzbezeichnung bleibt hier auffindbar.
+      keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? []), ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)]
+        .filter(Boolean)
+        .filter((keyword) => keyword !== officialTitle && keyword !== resultShortTitle && keyword !== resultAbbr))]
+        .slice(0, 16),
       initialCitation: citation,
       predecessor: config.predecessor ?? null,
       successor: config.successor ?? null,
@@ -1724,14 +1730,15 @@ function mergeWithExisting(record, existing) {
     keywords: [...new Set([
       ...(record.meta.keywords ?? []),
       ...(existing.meta.keywords ?? []).filter((keyword) => keyword !== existing.meta.abbr || keyword === record.meta.abbr),
-    ])].filter((keyword) => !UNVERIFIED_ABBREVIATIONS.has(keyword)),
+    ])]
+      .filter((keyword) => !UNVERIFIED_ABBREVIATIONS.has(keyword))
+      .filter((keyword) => keyword !== record.meta.title && keyword !== record.meta.shortTitle && keyword !== record.meta.abbr),
     // Eine gepflegte Kurzbeschreibung bleibt erhalten; ihre Herkunftskennzeichnung folgt ihr.
-    summary: existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary)
-      ? existing.meta.summary
-      : record.meta.summary,
-    ...(existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary) && existing.meta.summarySource
-      ? { summarySource: existing.meta.summarySource }
-      : {}),
+    ...(existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary)
+      ? { summary: existing.meta.summary, ...(existing.meta.summarySource ? { summarySource: existing.meta.summarySource } : {}) }
+      : record.meta.summary
+        ? { summary: record.meta.summary }
+        : {}),
     ...((existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm)
       ? { enactingNorm: existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm }
       : {}),

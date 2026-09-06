@@ -54,7 +54,10 @@ test('Ausgangsfassung wird mit R2-Provenienz, historischer Zitierung und Stichta
   // Sachgebiet aus der amtlichen Gliederungsnummer der Quellseite (230 → Untergruppe 23).
   assert.deepEqual(record.meta.subjects, ['Kommunalrecht']);
   assert.equal(record.meta.primarySubject, 'Kommunalrecht');
-  assert.ok(record.meta.keywords.includes('OstKomPauschVO'));
+  // Schlagwort ist allein die amtliche Bezeichnung der Trefferliste, und nur wenn sie sich von
+  // Titel, Kurzbezeichnung und Abkürzung unterscheidet. Hier ist sie die Abkürzung — die steht
+  // als eigene Spalte im Volltextindex und wird nicht wiederholt.
+  assert.deepEqual(record.meta.keywords, []);
   // Spätere sächsische Änderung wird aus dem Seiten-Vollzitat entfernt; die Fundstelle bleibt historisch.
   assert.equal(record.meta.initialCitation, 'Ostdeutsche Kommunalpauschalenverordnung vom 27. September 2023 (SächsGVBl. S. 837)');
   assert.equal(record.version.versionId, '2023-11-01');
@@ -86,7 +89,10 @@ test('Änderungsvorschriften bleiben eigenständige Rechtsakte mit historischem 
   assert.equal(amendment.meta.status, 'one-time-act');
   assert.equal(amendment.meta.effectiveDate, '2023-10-31');
   assert.equal(amendment.meta.abbr, undefined);
-  assert.match(amendment.meta.summary, /Übernommene Änderungsvorschrift/u);
+  // Der Massenimport schreibt keine Kurzfassung mehr: eine Formel, die den Titel wiederholt,
+  // beschreibt keinen Regelungsgegenstand (data/recht/norm-summary-review.json führt den Vorrat).
+  assert.equal(amendment.meta.summary, undefined);
+  assert.equal(amendment.meta.summarySource, undefined);
   assert.equal(amendment.meta.affectedNorms, undefined);
 });
 
@@ -109,7 +115,7 @@ test('Gesetze erhalten den historischen Landtag als Ursprungsorgan (Provenienz),
   });
   assert.equal(law.meta.originEnactingBody, 'Sächsischer Landtag');
   assert.equal(law.meta.enactingBody, undefined);
-  assert.equal(law.meta.summary, 'Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Testgesetz“.');
+  assert.equal(law.meta.summary, undefined);
 });
 
 test('Erlassdatum stammt ersatzweise aus der amtlichen Trefferliste, und das Ursprungsorgan ist Provenienz', () => {
@@ -151,8 +157,8 @@ test('ein Artikel einer Mantelvorschrift wird als eigene Änderungsvorschrift mi
   assert.equal(record.meta.title, 'Änderung des Ostdeutschen Personalvertretungsgesetzes');
   // Abkürzungsartige Trefferlistenbezeichnungen sind keine Kurzbezeichnung, bleiben aber auffindbar.
   assert.equal(record.meta.shortTitle, undefined);
-  assert.ok(record.meta.keywords.includes('Änd. OstPersVG'));
-  assert.equal(record.meta.summarySource, 'derived');
+  assert.deepEqual(record.meta.keywords, ['Änd. OstPersVG']);
+  assert.equal(record.meta.summarySource, undefined);
   assert.equal(record.meta.containedIn, 'ostdeutsches-verwaltungsmodernisierungsgesetz');
   assert.equal(record.meta.documentDate, '2004-05-05');
   assert.equal(record.meta.effectiveDate, '2004-05-15');
