@@ -2,14 +2,18 @@ import { defineConfig } from '@playwright/test';
 
 import { normalizeSiteTargets } from './scripts/lib/site-targets.mjs';
 
-const baseURL = 'http://127.0.0.1:4321';
-const lawURL = 'http://127.0.0.1:4322';
+// Ports frei wählbar (OSTRECHT_PORTAL_PORT/OSTRECHT_LAW_PORT), damit mehrere Arbeitsbäume
+// gleichzeitig prüfen können, ohne sich denselben Worker zu teilen.
+const portalPort = process.env.OSTRECHT_PORTAL_PORT ?? '4321';
+const lawPort = process.env.OSTRECHT_LAW_PORT ?? '4322';
+const baseURL = `http://127.0.0.1:${portalPort}`;
+const lawURL = `http://127.0.0.1:${lawPort}`;
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 const webServer = [];
 
 if (selectedSiteTargets.includes('portal')) {
   webServer.push({
-    command: 'node scripts/serve-site.mjs apps/portal/dist/client 4321',
+    command: `node scripts/serve-site.mjs apps/portal/dist/client ${portalPort}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,
@@ -19,7 +23,7 @@ if (selectedSiteTargets.includes('law')) {
   // OstRecht liest Normen zur Laufzeit aus D1: der gebaute Worker läuft lokal mit
   // einer aus content/ projizierten Miniflare-D1 (scripts/serve-law-worker.mjs).
   webServer.push({
-    command: 'node scripts/serve-law-worker.mjs --port 4322',
+    command: `node scripts/serve-law-worker.mjs --port ${lawPort}`,
     url: `${lawURL}/hilfe/`,
     reuseExistingServer: !process.env.CI,
     timeout: 600_000,

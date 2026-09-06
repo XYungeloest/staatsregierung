@@ -1,12 +1,12 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
-import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion } from './helpers/law-runtime.ts';
+import { LAW_ORIGIN, fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion } from './helpers/law-runtime.ts';
 
-const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+const lawUrl = (path: string) => new URL(path, LAW_ORIGIN).toString();
 // SITE_TARGETS (portal, law) begrenzt die Suite auf die gebauten Websites; ohne Angabe laufen beide.
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
-const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith('http://127.0.0.1:4322') ? 'law' : 'portal');
+const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith(LAW_ORIGIN) ? 'law' : 'portal');
 
 // OstRecht-Motive beschreiben Seitenrollen; welche Vorschrift sie zeigen, bestimmt das synthetische
 // Testfixture (data/recht/runtime-fixture.json, tests/helpers/fixture-corpus.ts) – keine realen Normen.
@@ -635,7 +635,7 @@ async function awaitSettled(page: Page, path: string): Promise<void> {
   }
   // Die Rechtssuche lädt Kandidaten und Treffer nach dem Seitenaufbau; erst der fertige
   // Trefferstand („n Treffer“ oder „Keine Treffer“) ist die Baseline.
-  if (path.startsWith('http://127.0.0.1:4322') && url.pathname === '/suche/') {
+  if (path.startsWith(LAW_ORIGIN) && url.pathname === '/suche/') {
     const summary = page.locator('[data-search-summary]');
     await expect(summary).toBeVisible();
     await expect(summary).not.toContainText(/werden geladen/u);
@@ -660,7 +660,7 @@ for (const entry of visualPages) {
 
 /** Portal-Seiten nur prüfen, wenn das Staatsportal ausgewählt ist (SITE_TARGETS); OstRecht-Läufe überspringen sie. */
 const portalTest = isSelected('/') ? test : test.skip;
-const lawTest = isSelected('http://127.0.0.1:4322/') ? test : test.skip;
+const lawTest = isSelected(`${LAW_ORIGIN}/`) ? test : test.skip;
 
 lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-390', 'Die geöffnete mobile Navigation wird einmal bei 390 Pixeln geprüft.');
