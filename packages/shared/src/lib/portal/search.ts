@@ -4,6 +4,7 @@ import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { getNormUrl, getPublicationUrl as getLawPublicationDetailUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { loadLegislativeProcedures } from '@ostrecht/shared/lib/portal/legislation.ts';
 import {
   loadBudgetPages,
@@ -343,10 +344,11 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       type: 'law',
       typeLabel: 'Recht',
       title: toDisplayText(norm.meta.title),
-      description: toDisplayText(norm.meta.summary),
+      // Abgeleitete Formeln bleiben unveröffentlicht; die Suche zeigt dann keinen Anrisstext.
+      description: toDisplayText(getPublicNormSummary(norm.meta) ?? ''),
       url: getNormUrl(norm.meta.slug),
       text: joinText([
-        toDisplayText(norm.meta.shortTitle),
+        toDisplayText(norm.meta.shortTitle ?? ''),
         toDisplayText(norm.meta.abbr),
         toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry),
         toDisplayText(norm.meta.enactingBody),

@@ -229,7 +229,8 @@ test('Buchstabenzähler eines Verzeichnisses laufen als GROUP BY über dieselben
 });
 
 test('getNorm liest genau die Zeilen der angefragten Norm und die Körper der gewünschten Fassungen', async () => {
-  const meta = { id: 'x', slug: 'x', title: 'X', shortTitle: 'X', type: 'gesetz', status: 'in-force', subjects: ['A'], keywords: [], initialCitation: 'X (OGVBl. S. 1)', predecessor: null, successor: null, summary: 'S' };
+  // Titelmodell: eine Norm ohne eigene Kurzbezeichnung führt nur den Langtitel.
+  const meta = { id: 'x', slug: 'x', title: 'X', type: 'gesetz', status: 'in-force', subjects: ['A'], keywords: [], initialCitation: 'X (OGVBl. S. 1)', predecessor: null, successor: null, summary: 'S' };
   const version = { versionId: '2023-11-01', validFrom: '2023-11-01', validTo: null, isCurrent: true, citation: 'X', changeNote: 'N' };
   const { db, log } = recordingDatabase({
     'FROM law_norms WHERE slug = ?': [{ id: 'x', slug: 'x', meta_json: JSON.stringify(meta), history_json: JSON.stringify({ initialVersionId: '2023-11-01', entries: [] }) }],
@@ -237,6 +238,7 @@ test('getNorm liest genau die Zeilen der angefragten Norm und die Körper der ge
   });
   const record = await createD1NormStore(db).getNorm('x', 'current');
   assert.equal(record?.meta.slug, 'x');
+  assert.equal(record?.meta.shortTitle, undefined);
   assert.deepEqual(log.map((query) => query.params), [['x'], ['x'], ['x', '2023-11-01']]);
   assert.ok(log.every((query) => /WHERE slug = \?|WHERE norm_id = \?/u.test(query.sql)));
 });

@@ -1,6 +1,7 @@
 import { parse } from 'parse5';
 
 import { parseGermanDate, parseStructureMarker } from './norm-html-parser.mjs';
+import { splitParentheticalTitle } from './norm-title-rules.mjs';
 
 const DATE_DOTTED = /(\d{1,2})\.(\d{1,2})\.(\d{4})/u;
 const DATE_DOTTED_GLOBAL = /(\d{1,2})\.(\d{1,2})\.(\d{4})/gu;
@@ -477,9 +478,13 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
   const articleHeader = elementChildren(article, 'header')[0];
   const identityHeading = articleHeader && findElement(articleHeader, (node) => node.tagName === 'h3');
   const identityText = textOf(identityHeading, { breaks: true });
-  const parenthetical = identityText.match(/\(([^()]+)\)\s*$/u);
-  const parentheticalText = parenthetical?.[1]?.trim();
-  const abbr = parentheticalText?.split(/\s+[–—-]\s+/u).at(-1)?.trim();
+  // Die Kennzeile trägt die amtliche Form „Langtitel (Kurzbezeichnung – Abkürzung)“. Beide Teile
+  // werden getrennt übernommen; ein einteiliger Klammerzusatz ist entweder Kurzbezeichnung oder
+  // Abkürzung, Jahresspannen bleiben Titelbestandteil (scripts/lib/norm-title-rules.mjs).
+  const identity = splitParentheticalTitle(identityText);
+  const longTitle = identity.title && identity.title !== sourceTitle ? identity.title : undefined;
+  const parentheticalShortTitle = identity.shortTitle;
+  const abbr = identity.abbr;
   const dateNode = articleHeader && descendants(articleHeader, (node) => node.tagName === 'p')
     .find((node) => parseFlexibleDate(textOf(node)));
   const documentDate = parseFlexibleDate(textOf(dateNode));
@@ -535,7 +540,10 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
 
   return {
     sourceTitle,
-    shortTitle: sourceTitle,
+    // Der Langtitel der Kennzeile ist Quelleninformation; die Materialisierer bevorzugen ihn
+    // gegenüber der Überschrift, die REVOSax auf die Kurzbezeichnung setzt.
+    ...(longTitle ? { longTitle } : {}),
+    shortTitle: parentheticalShortTitle ?? sourceTitle,
     ...(abbr ? { abbr } : {}),
     // REVOSax aktualisiert dieses Seiten-Vollzitat teilweise auch auf Seiten
     // historischer Fassungen. Es bleibt Quelleninformation; Materializer müssen

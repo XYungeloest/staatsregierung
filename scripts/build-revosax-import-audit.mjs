@@ -336,7 +336,7 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
     derivedMetadata: {
       norms: actions.CREATE + actions.MATCH - existingMatched,
       fields: ['subjects', 'keywords', 'summary'],
-      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz)',
+      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); die Kurzfassung trägt summarySource "derived" und wird öffentlich nicht ausgespielt; Erlassorgan der Quelle als originEnactingBody (Provenienz)',
     },
     residualBacklog: residualBacklog ? { norms: residualBacklog.normCount, residuals: residualBacklog.residualCount } : null,
   };

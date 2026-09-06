@@ -144,7 +144,10 @@ test('ein Artikel einer Mantelvorschrift wird als eigene Änderungsvorschrift mi
   assert.equal(record.meta.type, 'aenderungsvorschrift');
   assert.equal(record.meta.status, 'one-time-act');
   assert.equal(record.meta.title, 'Änderung des Ostdeutschen Personalvertretungsgesetzes');
-  assert.equal(record.meta.shortTitle, 'Änd. OstPersVG');
+  // Abkürzungsartige Trefferlistenbezeichnungen sind keine Kurzbezeichnung, bleiben aber auffindbar.
+  assert.equal(record.meta.shortTitle, undefined);
+  assert.ok(record.meta.keywords.includes('Änd. OstPersVG'));
+  assert.equal(record.meta.summarySource, 'derived');
   assert.equal(record.meta.containedIn, 'ostdeutsches-verwaltungsmodernisierungsgesetz');
   assert.equal(record.meta.documentDate, '2004-05-05');
   assert.equal(record.meta.effectiveDate, '2004-05-15');

@@ -103,6 +103,16 @@ blockieren die Materialisierung (`attachment-only-content`, `multi-version-text-
 `multi-version-sibling-not-staged`). `parseRevosaxSnapshot()` ist der einzige Parser; ein zweiter
 Parser oder ein Plaintext-Fallback ist unzulässig.
 
+Die Kennzeile der Vorschriftenseite trägt die amtliche Form „Langtitel (Kurzbezeichnung –
+Abkürzung)“. `parseRevosaxSnapshot()` trennt beide Teile: der Langtitel wird als `longTitle`
+geführt, die Kurzbezeichnung als `shortTitle`, die Abkürzung als `abbr`; ein einteiliger
+Klammerzusatz ist je nach Form Abkürzung oder Kurzbezeichnung, Jahresspannen bleiben
+Titelbestandteil. Die Überschrift der Seite bleibt als `sourceTitle` Provenienz, weil REVOSax dort
+häufig nur die Kurzbezeichnung zeigt. Die Materialisierer setzen `title` deshalb aus dem Langtitel
+der Kennzeile beziehungsweise der amtlichen Trefferliste und übernehmen `shortTitle` und `abbr` nur,
+wenn sie die gemeinsamen Regeln in `scripts/lib/norm-title-rules.mjs` bestehen; abkürzungsartige
+Trefferlistenbezeichnungen („Änd. OstSFG“) bleiben Stichwort.
+
 ### 3. Rechtsüberleitung (Sachsen → Ostdeutschland)
 
 `scripts/lib/revosax-ost-adapter.mjs` passt Titel, Kurzbezeichnung, Abkürzung, Vollzitat und den
@@ -171,7 +181,8 @@ npm run norms:revosax:import-audit                    # versionierter Import-Aud
 
 Identität wird in dieser Reihenfolge geprüft: REVOSax-`lawId` in den Quellenreferenzen (ohne
 `envelope-snapshot`) → Quellen-URL → exakter Titel → exakte Kurzbezeichnung → exakte Abkürzung.
-Kein Fuzzy-Matching.
+Kein Fuzzy-Matching. Die Rückfallstufen greifen nur, wenn keine `lawId` vorliegt; das Titelmodell
+(Langtitel statt Kurzbezeichnung in `title`) verändert die Zuordnung deshalb nicht.
 
 | Aktion | Bedeutung |
 | --- | --- |
@@ -211,7 +222,10 @@ und `versions/2023-11-01.json` mit R2-Provenienz (Objektschlüssel, amtliche URL
 Abrufzeit, SHA-256, Gültigkeitsintervall, `sourceRole: official-snapshot`); das Erlassdatum stammt
 von der Fassungsseite oder der amtlichen Trefferliste – nie geschätzt. Ursprungsorgan, Sachgebiete,
 Schlagwörter und Kurzfassung leitet `scripts/lib/revosax-metadata.mjs` deterministisch ab (im
-Import-Audit als `derivedMetadata` gekennzeichnet). Der Lauf schreibt nichts, solange ein Eintrag
+Import-Audit als `derivedMetadata` gekennzeichnet). Die abgeleitete Kurzfassung trägt im Datensatz
+`summarySource: "derived"`; sie ist eine Erschließungshilfe, wird öffentlich nicht ausgespielt und
+nicht als Suchtext indexiert. Die Schlagwörter enthalten zusätzlich die Bezeichnung der amtlichen
+Trefferliste, damit auch eine nicht als Kurztitel übernommene Kurzbezeichnung auffindbar bleibt. Der Lauf schreibt nichts, solange ein Eintrag
 nicht im R2-Manifest archiviert ist, ein Zielverzeichnis existiert oder ein Datensatz die Regeln
 verletzt. `--regenerate` schreibt reine Baseline-Normen nach Adapter- oder Regeländerungen neu;
 Normen mit weiteren Fassungen oder anderen Quellen sind geschützt.

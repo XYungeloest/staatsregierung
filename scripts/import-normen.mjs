@@ -24,6 +24,10 @@ import {
 } from './lib/norm-parser-contract.mjs';
 import { applyCorrectionsToRecord, loadCorrectionBundles } from './lib/correction-engine.mjs';
 import {
+  abbreviationProblem,
+  UNVERIFIED_GENERATED_ABBREVIATIONS as UNVERIFIED_ABBREVIATIONS,
+} from './lib/norm-title-rules.mjs';
+import {
   HISTORICAL_PUBLICATION_PAGE_RANGE_MAP,
   pageRangeForPublication,
   pdfPageCount,
@@ -743,13 +747,9 @@ const STANZO_HOUSING_SOURCE_REFERENCES = [
   },
 ];
 
-// Nur in Primärquellen belegte Kürzel dürfen als amtliche Suchbegriffe erscheinen.
+// Nur in Primärquellen belegte Kürzel dürfen als amtliche Suchbegriffe erscheinen; die Liste
+// führt scripts/lib/norm-title-rules.mjs gemeinsam mit den übrigen Regeln des Titelmodells.
 // Diese redaktionell gebildeten Werte werden beim Zusammenführen mit Bestandsdaten entfernt.
-const UNVERIFIED_GENERATED_ABBREVIATIONS = new Set([
-  'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
-  'PsychVersStG', '1. StaatsreformG', '2. StaatsreformG', '3. StaatsreformG',
-  '4. StaatsreformG', 'ZweitVeröffG',
-]);
 
 function formatGermanDate(isoDate) {
   return new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
@@ -1086,18 +1086,27 @@ function buildRecords(parsed) {
       ? norm.title.slice(0, -officialTitleSuffix.length).trim()
       : norm.title;
     const sourceReferences = officialIssueSourceReferences(parsed, config);
+    // Titelmodell (scripts/lib/norm-title-rules.mjs): Kurzbezeichnung nur, wenn sie sich vom
+    // Langtitel unterscheidet; Abkürzung nur, wenn sie die gemeinsame Regel besteht.
+    const resultShortTitle = shortTitle && shortTitle !== officialTitle ? shortTitle : undefined;
+    const resultAbbr = abbreviationProblem(abbr, { title: officialTitle, shortTitle: resultShortTitle }) === null
+      ? abbr
+      : undefined;
     const meta = {
       id: slug,
       slug,
       title: officialTitle,
-      shortTitle,
-      shortTitleSource: config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial',
-      ...(abbr ? { abbr } : {}),
+      ...(resultShortTitle ? { shortTitle: resultShortTitle } : {}),
+      ...(resultShortTitle
+        ? { shortTitleSource: config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial' }
+        : {}),
+      ...(resultAbbr ? { abbr: resultAbbr } : {}),
       type: recordType,
       ...(enactingBody ? { enactingBody } : {}),
       responsibleMinistry,
       subjects: config.subjects ?? configuredSubjectsFor(parsed),
       ...(config.primarySubject ? { primarySubject: config.primarySubject } : {}),
+      // Auch eine nicht übernommene Abkürzung oder Kurzbezeichnung bleibt auffindbar.
       keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? []), ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)].filter(Boolean))].slice(0, 16),
       initialCitation: citation,
       predecessor: config.predecessor ?? null,
@@ -1631,10 +1640,14 @@ function mergeWithExisting(record, existing) {
     keywords: [...new Set([
       ...(record.meta.keywords ?? []),
       ...(existing.meta.keywords ?? []).filter((keyword) => keyword !== existing.meta.abbr || keyword === record.meta.abbr),
-    ])].filter((keyword) => !UNVERIFIED_GENERATED_ABBREVIATIONS.has(keyword)),
+    ])].filter((keyword) => !UNVERIFIED_ABBREVIATIONS.has(keyword)),
+    // Eine gepflegte Kurzbeschreibung bleibt erhalten; ihre Herkunftskennzeichnung folgt ihr.
     summary: existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary)
       ? existing.meta.summary
       : record.meta.summary,
+    ...(existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary) && existing.meta.summarySource
+      ? { summarySource: existing.meta.summarySource }
+      : {}),
     ...((existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm)
       ? { enactingNorm: existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm }
       : {}),

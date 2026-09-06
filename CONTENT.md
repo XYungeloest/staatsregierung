@@ -172,8 +172,26 @@ nicht pauschal auf eingeführte Stammnormen übertragen werden. Auch im verknüp
 
 Normmetadaten trennen das erlassende Organ (`enactingBody`) vom fachlich zuständigen Geschäftsbereich
 (`responsibleMinistry`). Das frühere Sammelfeld `ministry` ist in Normmetadaten nicht mehr zulässig.
-`abbr` ist optional und darf ausschließlich aus einer Primärquelle übernommen werden. Redaktionelle
-Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht.
+Das Titelmodell trennt drei Bezeichnungen: `title` ist der amtliche Langtitel, `shortTitle` die
+echte Kurzbezeichnung und `abbr` die echte Abkürzung. `shortTitle` und `abbr` sind optional und
+entfallen, wenn es sie nicht gibt; sie wiederholen weder den Titel noch einander. Abkürzungsartige
+Bezeichnungen der Quelle („Änd. OstSFG“, „1. ÄndVO …“, reine Kürzelformen) sind kein Kurztitel und
+werden als Stichwort in `keywords` geführt. Eine Abkürzung ist höchstens 20 Zeichen lang oder,
+zusammengeschrieben, höchstens 30 Zeichen; sie enthält keinen Zeilenumbruch und ist keine aus dem
+Titel gebildete Initialenfolge. `abbr` darf ausschließlich aus einer Primärquelle übernommen werden.
+Redaktionelle Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht; ohne
+`shortTitle` entfällt auch dieses Feld. Die gemeinsamen Regeln stehen in
+`scripts/lib/norm-title-rules.mjs` und werden von Import, Materialisierung und `content:check` genutzt.
+
+Öffentlich gilt überall derselbe Titelblock (`getNormTitleBlock`): Überschrift ist die
+Kurzbezeichnung, sonst der Titel; der Langtitel steht darunter, wenn er von der Überschrift abweicht;
+die Abkürzung steht daneben, wenn sie sich von der Überschrift unterscheidet.
+
+`summary` ist eine redaktionelle Kurzbeschreibung. Ist sie nur eine aus Typ und Titel gebildete
+Formel des Massenimports, trägt sie `summarySource: "derived"`; solche Zusammenfassungen werden
+öffentlich nicht ausgespielt und nicht als Suchtext indexiert. Ohne Kennzeichnung gilt eine
+Zusammenfassung als redaktionell. Formeln ohne REVOSax-Herkunft sind unzulässig; eigene Vorschriften
+brauchen eine echte Kurzbeschreibung.
 
 Verwaltungsabkommen werden als eigener Normtyp `verwaltungsabkommen` geführt und nicht als
 Staatsvertrag oder Verwaltungsvorschrift klassifiziert. Vertragspartner, Unterzeichner,
@@ -764,7 +782,6 @@ Pflichtfelder:
 - `id`
 - `slug`
 - `title`
-- `shortTitle`
 - `type`
 - `subjects`
 - `keywords`
@@ -774,7 +791,8 @@ Pflichtfelder:
 - `summary`
 - `status`
 
-`abbr`, `enactingBody` und `responsibleMinistry` sind optional. Eine Abkürzung darf nur
+`shortTitle`, `abbr`, `shortTitleSource`, `summarySource`, `enactingBody` und `responsibleMinistry`
+sind optional. Kurzbezeichnung und Abkürzung folgen dem Titelmodell; eine Abkürzung darf nur
 bei belastbarer Quelle gepflegt werden. Neue Normen trennen das erlassende Organ von der fachlichen
 Zuständigkeit. `predecessorSlug` und `successorSlug` können zusätzlich gesetzt werden, wenn die
 Beziehung auf einen eindeutig geprüften Normdatensatz verweist; nur dann wird sie als Normlink
@@ -916,6 +934,9 @@ Regeln:
 - Ändern sich Titel, Kurztitel, Abkürzung oder Kurzbeschreibung, werden die neuen Werte in der
   betroffenen Fassung gespeichert. Historische Fassungen behalten ihre damalige Bezeichnung;
   `meta.json` dient nur als Rückfallwert.
+- Die fassungseigenen Bezeichnungen folgen demselben Titelmodell: `shortTitle` wiederholt nicht den
+  Titel der Fassung, `abbr` bleibt eine echte Abkürzung. Eine fassungseigene `summary` gilt immer
+  als redaktionell.
 - Das öffentliche Vollzitat wird ausschließlich zentral mit `buildNormFullCitation` für die
   konkret angezeigte Fassung erzeugt. Stammfundstelle, einzelne Verkündung und Vollzitat bleiben
   getrennte Angaben.
