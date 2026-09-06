@@ -1,16 +1,65 @@
 # Schriften
 
-Beide Familien werden lokal ausgeliefert, ohne Anfragen an Dritte.
+Alle Familien werden lokal ausgeliefert, ohne Anfragen an Dritte.
 
 | Datei | Familie | Achsen | Größe |
 | --- | --- | --- | --- |
 | `Jost-Variable.woff2` | Jost (OFL) | wght 100–900 | 34 KB |
 | `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, OFL, `LICENSE-SourceSerif4.md`) | wght 400–700, opsz 12–48 | 86 KB |
+| `OstGrotesk-Regular.woff` | Ost Grotesk (aus Neu5Land, OFL, `LICENSE-OstGrotesk.md`) | fester Schnitt 400 | 11 KB |
+| `OstGrotesk-Bold.woff` | Ost Grotesk | fester Schnitt 700 | 12 KB |
 
 Rollen: Jost trägt die Oberfläche (Navigation, Titel der Bereichsseiten, Verzeichnisse,
 Trefferlisten, Formulare, Metadaten), Source Serif 4 das Dokument (Normtext samt Gliederung,
-H1 der Normseiten, verglichener Text, Vollzitat). Token: `--font-sans` bzw. `--font-document`
-in `styles/foundation.css`.
+H1 der Normseiten, verglichener Text, Vollzitat), Ost Grotesk die Wegweiserebene (Wortzeichen
+beider Portale, Ordnungsnummern von Paragraphen und Artikeln, Buchstabenleiste, Abkürzungen und
+Verkündungssigel, Kennzahlen, Zugangskarten der Startseite, Ortsnamen der Gebietstabellen).
+Token: `--font-sans`, `--font-document` und `--font-sign` in `styles/foundation.css`; die
+Wegweiserstellen stehen dort als eine einzige Regel am Dateiende.
+
+## Ost Grotesk
+
+Abgeleitet aus **Neu5Land** von Uwe Borchert, einer Digitalisierung der Schmalen Erbar-Grotesk
+(Jakob Erbar, ab 1922). Die schmale Erbar war die verbreitete Schildschrift der DDR; dieselbe
+Familie steht auch hinter der West-Berliner Straßenbeschriftung. Zwei feste Schnitte, keine
+Gewichtsachse — Gewichte zwischen 400 und 700 gibt es nicht, Anwendungsstellen müssen mit den
+beiden auskommen.
+
+Ergänzt wurde eine **tz-Ligatur nach dem Vorbild der Berliner Straßenschilder**: das
+zusammengefügte tz, bei dem beide Buchstaben einen Balken teilen. In der Vorlage enden der
+Querbalken des t und der obere Balken des z beide an der x-Höhe und sind fast gleich dick; die
+Ligatur schiebt das z so weit unter den Querbalken, dass die zwei Balken zu einem durchgehenden
+waagerechten Strich werden, der links den t-Stamm und rechts den z-Abstrich trägt. Es wird nichts
+verbogen oder angehängt — die Buchstaben werden nur ineinandergeschoben; der Vorschub sinkt von
+556 auf 471 Einheiten (fett von 630 auf 545). Sie ist als *discretionary* Ligatur (`dlig`)
+registriert und greift deshalb nur, wo die Gestaltung sie ausdrücklich anfordert — nie im
+Fließtext, in Normtexten oder in Trefferlisten.
+
+```sh
+python3 scripts/build-sign-font.py Neu5Land_Norm.ttf \
+  --out packages/shared/src/assets/fonts/OstGrotesk-Regular.woff --style Regular
+python3 scripts/build-sign-font.py Neu5Land_Fett.ttf \
+  --out packages/shared/src/assets/fonts/OstGrotesk-Bold.woff --style Bold
+```
+
+Die Vorlagendateien liegen nicht im Repository. Ausgeliefert wird woff (zlib) statt woff2, weil
+`brotli` in der Bauumgebung nicht verfügbar war; mit brotli erzeugt dasselbe Werkzeug woff2, wenn
+die Endung `.woff2` lautet — rund 3 KB je Schnitt weniger. Wie eng die Buchstaben ineinander
+greifen, steuert `--overlap` (Standard 10 Einheiten je 1000); die Balkenmaße leitet das Werkzeug
+je Schnitt aus den Konturen ab, deshalb gilt derselbe Wert für beide. Weil die Unterkanten der
+zwei Balken um wenige Einheiten auseinanderliegen (3 im normalen, 17 im fetten Schnitt), führt
+ein flacher Keil die eine Kante in die andere über. Die Ligatur bleibt auf der Grundlinie und
+verändert die Zeilenbox nicht.
+
+### Lizenz
+
+Die Vorlagendateien selbst führen **keine** Lizenz in der Namenstabelle (name-ID 13 und 14 sind
+nicht gesetzt); die Lizenz steht in der `FONTLOG.txt` des Auslieferungspakets und lautet dort
+„OFL Open Font License“ mit Verweis auf `http://scripts.sil.org/OFL`. Wortlaut, Urheberzeile und
+der Lizenztext liegen in `LICENSE-OstGrotesk.md`. Einen Reserved Font Name erklärt die Vorlage
+nicht; die Umbenennung erfolgt trotzdem, damit die abgeleitete Schrift nicht mit Neu5Land
+verwechselt wird. Die Urheberzeile der Vorlage bleibt in beiden erzeugten Dateien erhalten und
+wird um den Hinweis auf die Ableitung ergänzt.
 
 ## Untersetzung
 
@@ -37,7 +86,7 @@ pyftsubset Jost-Variable.ttf --unicodes="$UNI" --layout-features="$FEAT" --flavo
 ```
 
 Budget: gesamte Schriftübertragung höchstens 270 KB (das Doppelte der früheren 135 KB TTF);
-Stand: 120 KB.
+Stand: 143 KB (Jost 34, Source Serif 4 86, Ost Grotesk 23).
 
 ## Rückfallschnitte
 

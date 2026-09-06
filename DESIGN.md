@@ -61,15 +61,16 @@ des Rechtsportals, wo keine Kleinschrift darüber liegt; dekorative Großformen 
 
 ### Schriften
 
-Beide Familien werden lokal aus `packages/shared/src/assets/fonts/` als untersetzte woff2
-ausgeliefert (Zeichenumfang, Werkzeuge und Kommandos: `README.md` im selben Ordner):
+Alle Familien werden lokal aus `packages/shared/src/assets/fonts/` untersetzt ausgeliefert
+(Zeichenumfang, Werkzeuge und Kommandos: `README.md` im selben Ordner):
 
 | Datei | Familie | Achsen | Größe | Rolle |
 | --- | --- | --- | --- | --- |
 | `Jost-Variable.woff2` | Jost (OFL) | wght 100–900 | 34 KB | Oberfläche beider Portale |
 | `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, OFL) | wght 400–700, opsz 12–48 | 86 KB | Dokument im Rechtsportal |
+| `OstGrotesk-Regular.woff`, `OstGrotesk-Bold.woff` | Ost Grotesk (aus Neu5Land, OFL), nach der Schmalen Erbar-Grotesk | feste Schnitte 400 und 700 | 23 KB | Wegweiserebene beider Portale |
 
-Budget für die gesamte Schriftübertragung: 270 KB; Stand 120 KB. Keine Kursive (der Bestand enthält
+Budget für die gesamte Schriftübertragung: 270 KB; Stand 143 KB. Keine Kursive (der Bestand enthält
 keine). `font-display: swap`. `PageHead.astro` lädt Jost auf jeder Seite vor; in jeder Messung (lokal
 und gegen die Produktion auf Cloudflare, bis Slow 3G) war Jost vor dem ersten Anstrich fertig, deshalb
 folgt auf Jost direkt `system-ui`, ohne Rückfallschnitt. Source Serif 4 wird nur auf den Normseiten
@@ -79,9 +80,15 @@ für Windows, macOS und iOS; Noto Serif für Android; DejaVu Serif und Liberatio
 Browser gemessenen `size-adjust`- und Override-Werten (Herleitung, Zahlen und Messskript: `README.md`
 im Schriftordner). Die Optical-Size-Achse folgt der Schriftgröße automatisch.
 
+Ost Grotesk wird als fetter Schnitt auf jeder Seite vorgeladen (Wortzeichen); der normale Schnitt
+trägt nur Abkürzungen und Sigel und lädt ohne Vorrang. Ein eigener Rückfallschnitt entfällt: bei
+11 KB je Schnitt gilt dieselbe Messung wie für Jost, und `--font-sign` fällt auf die
+Oberflächenschrift zurück, wenn die Datei ausbleibt. Die Familie hat keine Gewichtsachse — es gibt
+nur 400 und 700.
+
 Tokens: `--font-sans` (Jost), `--font-display` (Alias von `--font-sans`), `--font-document`
-(Source Serif 4). Der Wechsel der Dokumentschrift ist eine Änderung an `--font-document`.
-Systemschriften kommen nur als Rückfall vor.
+(Source Serif 4), `--font-sign` (Ost Grotesk, dann `--font-sans`). Der Wechsel der Dokumentschrift
+ist eine Änderung an `--font-document`. Systemschriften kommen nur als Rückfall vor.
 
 ### Rollen
 
@@ -97,6 +104,16 @@ Die Serife trägt das Dokument, Jost die Oberfläche – nicht „Serife für Ü
 - Grenzfälle: die Werkzeuge vor dem Text und je Einheit sowie die Überschrift „Vorschriftentext“
   sind Oberfläche (Jost), obwohl sie im Dokumentbereich stehen; die Spaltenlabels „Fassung vom …“ des
   Vergleichs sind Jost, der verglichene Text darunter Serife.
+- Ost Grotesk (`--font-sign`): die Wegweiserebene, also das, was orientiert statt zu erzählen —
+  die Wortzeichen beider Portale (nicht deren Unterzeile), die Ordnungsnummern der Einheiten
+  („§ 12“, „Artikel 7a“; Titel und Text der Einheit bleiben Serife), die Buchstabenleiste der
+  Verzeichnisse, Abkürzungen und Verkündungssigel („OstArchivG“, „OGVBl. 2026 Nr. 74“) in
+  Verzeichnissen, Trefferlisten und Normkopf, die Kennzahlen der Kopfbereiche, die Titel der
+  Zugangskarten auf der Startseite des Staatsportals und die Ortsnamen der Gebietstabellen. Alle
+  Stellen stehen als eine Regel am Ende von `foundation.css`; wer sie zurücknimmt, löscht dort
+  eine Zeile. Überschriften gehören ausdrücklich **nicht** dazu: eine schmale Grotesk über
+  geometrischem Fließtext liest sich als zusammengedrückte Oberflächenschrift, nicht als zweite
+  Stimme. Die tz-Ligatur (`dlig`) wird nur in dieser Regel angefordert.
 
 ### Skalen
 
