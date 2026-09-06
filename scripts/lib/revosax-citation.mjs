@@ -23,6 +23,10 @@ export function amendmentDatesFromCitation(citation) {
   const patterns = [
     new RegExp(`(?:zuletzt\\s+)?geändert\\s+durch.{0,420}?\\bvom\\s+(${DATE_SOURCE})`, 'giu'),
     new RegExp(`\\b(?:zuletzt\\s+)?durch.{0,420}?\\bvom\\s+(${DATE_SOURCE}).{0,300}?\\bgeändert(?:en|e|er|es)?\\b`, 'giu'),
+    // Innerhalb eines Satzglieds: „…, die zuletzt durch die Verordnung vom 16. Juli 2024
+    // (SächsGVBl. S. 748) geändert worden ist“. Der weit gefasste Ausdruck darüber beginnt
+    // sonst am Titelwort „Durchführungs…“ und verbraucht das Erlassdatum der Stammfassung.
+    new RegExp(`\\b(?:zuletzt\\s+)?durch\\s+[^,;]{0,200}?\\bvom\\s+(${DATE_SOURCE})[^,;]{0,200}?\\bgeändert(?:en|e|er|es)?\\b`, 'giu'),
   ];
   for (const pattern of patterns) {
     for (const match of normalized.matchAll(pattern)) {

@@ -78,7 +78,10 @@ for (const record of norms) {
     problems.push(`${slug}: ostdeutsch-original führt ein sächsisches Erlassorgan (${enactingBody})`);
   }
 
-  const adopted = postCutoffDecisions?.[slug]?.resolution === 'adopted';
+  // Dokumentierte Entscheidungen: „adopted“ belegt die ostdeutsche Übernahme, „open“ hält den
+  // Fall in CONTENT_GAPS.md begründet offen; beide sind von der Stichtagsregel ausgenommen.
+  const resolution = postCutoffDecisions?.[slug]?.resolution;
+  const adopted = resolution === 'adopted' || resolution === 'open';
   if (origin.kind === 'inherited-unchanged' && !adopted) {
     const citations = [
       ['meta.json initialCitation', record.meta.initialCitation],
@@ -100,8 +103,7 @@ for (const record of norms) {
       problems.push(`${slug}: übernommene, unveränderte Norm ist über „${relation.kind}“ mit dem übernommenen Rechtsakt ${related.meta.slug} vom ${relation.date} nach dem Überleitungsstichtag verbunden`);
     }
   }
-  if (origin.kind.startsWith('inherited-') && record.meta.documentDate && record.meta.documentDate > BASELINE_DATE && !adopted &&
-    postCutoffDecisions?.[slug]?.resolution !== 'open') {
+  if (origin.kind.startsWith('inherited-') && record.meta.documentDate && record.meta.documentDate > BASELINE_DATE && !adopted) {
     problems.push(`${slug}: übernommene Norm trägt das Erlassdatum ${record.meta.documentDate} nach dem Überleitungsstichtag ohne dokumentierte Übernahme (data/recht/revosax-post-cutoff-decisions.json)`);
   }
 }
