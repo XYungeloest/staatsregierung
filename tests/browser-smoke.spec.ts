@@ -1018,14 +1018,15 @@ siteTest(['law'])('Verzeichniszahlen und Suchtreffer zählen denselben Bestand',
     const found = await searchApi(request, `?type=${type}&versionScope=all&includeAmendments=1`);
     expect(found.total, `${path} gegen ?type=${type}`).toBe(listed);
   }
-  // Herkunftsübersicht des A–Z (eine eigene A–Z-Gesamtseite gibt es nicht; die Übersicht zählt
-  // den ganzen Bestand je Herkunftsart).
-  await page.goto(lawUrl('/archiv/'));
+  // Herkunftsübersicht des A–Z: Sie zählt die Grundmenge je Herkunftsart, also ohne die
+  // übernommenen Änderungsvorschriften. Die Suche zählt dieselbe Menge, solange sie nicht
+  // ausdrücklich um sie erweitert wird.
+  await page.goto(lawUrl('/a-z/'));
   for (const origin of ['inherited-unchanged', 'ostdeutsch-original']) {
     const listed = Number((await page.locator(`[data-origin-overview] a[data-origin-kind="${origin}"] strong`).textContent()) ?? '');
     expect(listed, origin).toBeGreaterThan(0);
-    const found = await searchApi(request, `?origin=${origin}&versionScope=all&includeAmendments=1`);
-    expect(found.total, `/archiv/ gegen ?origin=${origin}`).toBe(listed);
+    const found = await searchApi(request, `?origin=${origin}&versionScope=all`);
+    expect(found.total, `/a-z/ gegen ?origin=${origin}`).toBe(listed);
   }
 });
 
