@@ -270,6 +270,29 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   keine Wörter einer Sperrliste (gespeichert, Datenbestand, Anker, strukturtragend, Stichtag
   außerhalb der Hilfe) findet und Zähler Singular und Plural korrekt bilden.
 
+### Import aus den eigenen Verkündungen
+
+- [ ] Unterschriftenblöcke aus dem Normtext: In mindestens 22 ostdeutschen Normen (eine
+  PR-Prüfung zählte 27) steht der Schlussblock der Verkündung gesperrt gesetzt im Normtext
+  („D e r M I N I S T E R P R Ä S I D E N T“, „D i e S T A A T S M I N I S T E R I N D E S
+  I N N E R N“), etwa in `wohnvergesellschaftungs-durchfuhrungsverordnung`, `schulmilcherlass`
+  und `ostdeutsche-einkommensgrenzen-verordnung`; Vorleseprogramme lesen solche Folgen
+  buchstabenweise, die Suche zählt sie als Treffer-Einheit. Fertig, wenn
+  `scripts/import-normen.mjs` Ort, Datum und Unterzeichner als eigenen Block `signature`
+  ablegt, der als Unterschriftenzeile gerendert und nicht als Einheit indexiert wird,
+  gesperrter Satz normalisiert ist (auch Hervorhebungen wie „s o l l“ in `vwv-zur-gvga-und-gvo`
+  als Auszeichnung statt Leerzeichen) und `content:check` Folgen aus mindestens vier einzeln
+  stehenden Buchstaben im Normtext ablehnt.
+- [ ] Zusammenfassungen ohne Formeln: 1690 übernommene Normen tragen „Enthält die Regelungen der
+  am 1. November 2023 übernommenen Ausgangsfassung „…““ (aus `inferSummary` in
+  `scripts/lib/revosax-metadata.mjs`), 28 ostdeutsche Normen die ältere Formel „Regelt
+  <Titel>.“ (etwa `gesetz-zur-einfuhrung-eines-bildungsfreistellungsgesetzes` und
+  `gesetz-zur-anderung-des-hochschulmedizingesetzes`); beide wiederholen nur den Titel und
+  erscheinen im Normkopf, in Verzeichnissen und in der Suche. Fertig, wenn die 28 ostdeutschen
+  Normen eine redaktionelle Zusammenfassung haben, abgeleitete Zusammenfassungen im Schema wie
+  `shortTitleSource` gekennzeichnet sind (`summarySource`) und nirgends gerendert werden und
+  `content:check` beide Formeln bei ostdeutschen Normen ablehnt.
+
 ### Übernommene Normen aus dem REVOSax-Import
 
 - [ ] Überschrift im Nummerntext: In 259 Fassungen (1249 Einheiten, etwa `vwv-komminfra2009`
