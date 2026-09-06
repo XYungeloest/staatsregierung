@@ -552,7 +552,16 @@ siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und 
     await expect(page.locator('[data-directory-reset]').first(), path).toBeVisible();
     const entries = await page.locator('.directory-entry').count();
     expect(entries, path).toBeGreaterThan(0);
-    expect(entries, path).toBeLessThanOrEqual(50);
+    // Seitenweise Verzeichnisse zeigen höchstens eine Seite. Die Förderrichtlinien sind statt
+    // dessen nach den amtlichen Förderbereichen gegliedert: sie führen alle Einträge, aber in
+    // benannten Abschnitten mit Sprungzielen.
+    if (path === '/foerderrichtlinien/') {
+      expect(await page.locator('[data-funding-section]').count(), path).toBeGreaterThan(0);
+      const outside = await page.locator('.directory-entry:not([data-funding-section] .directory-entry)').count();
+      expect(outside, `${path}: Einträge außerhalb eines Förderbereichs`).toBe(0);
+    } else {
+      expect(entries, path).toBeLessThanOrEqual(50);
+    }
   }
 });
 
@@ -649,7 +658,10 @@ siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt
 siteTest(['law'])('Normkopf unterscheidet allgemeinen und fassungsspezifischen Link und kennzeichnet Staatsportal-Bezüge', async ({ page, request }) => {
   const [relatedSlug] = fixtureSlugsWithRole('portal-relations');
   expect(relatedSlug, 'Fixture-Rolle portal-relations').toBeTruthy();
-  await page.goto(lawUrl(`/norm/${relatedSlug}/`));
+  const relatedResponse = await page.goto(lawUrl(`/norm/${relatedSlug}/`));
+  // Die Rolle beschreibt eine Vorschrift des synthetischen Testbestands; gegen den Vollbestand
+  // gibt es sie nicht.
+  test.skip(relatedResponse?.status() === 404, `Der laufende Bestand führt ${relatedSlug} nicht.`);
   const facts = await openNormFacts(page);
   await expect(facts).toContainText('Vollzitat');
   await expect(facts).toContainText('Rechtsstand');
@@ -707,7 +719,8 @@ siteTest(['law'])('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inh
 siteTest(['law'])('Normtabellen geben nur belastbare Kopfzellen-Scope-Werte aus', async ({ page }) => {
   const [tableSlug] = fixtureSlugsWithRole('norm-table');
   expect(tableSlug, 'Fixture-Rolle norm-table').toBeTruthy();
-  await page.goto(lawUrl(`/norm/${tableSlug}/`));
+  const tableResponse = await page.goto(lawUrl(`/norm/${tableSlug}/`));
+  test.skip(tableResponse?.status() === 404, `Der laufende Bestand führt ${tableSlug} nicht.`);
 
   const headerCells = page.locator('.norm-table th');
   const headerCount = await headerCells.count();
@@ -1453,7 +1466,9 @@ siteTest(['law'])('Fassung als PDF wird im Worker erzeugt und für unbekannte Fa
  * prüfen die Bestandsaudits (`npm run content:check`), nicht dieser Test. Die Sperrliste bleibt
  * kurz: sie hält Systemwörter fern, ohne neue Formulierungen zu verbieten.
  */
-const CORPUS_TEXT_SELECTORS = '.norm-body, .directory-entry__description, .search-hit__context, .norm-side-history';
+// Bestandstext bleibt außen vor: Normtext samt Inhaltsübersicht (sie führt die Überschriften der
+// Einheiten), Beschreibungen der Verzeichniseinträge, Suchausschnitte und die Änderungsliste.
+const CORPUS_TEXT_SELECTORS = '.norm-document-column, .norm-outline, .norm-outline-mobile, .directory-entry__description, .search-hit__context, .norm-side-history';
 
 siteTest(['law'])('Öffentliche Texte ohne Systemsprache', async ({ page, request }) => {
   const norm = await multiVersionNorm(request);

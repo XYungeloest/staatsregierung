@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
-import { currentDocuments, currentNormOfOrigin, fixtureRole, fixtureSearchWord, lawUrl, multiVersionNorm, publicationIndex, suggestions, withWorkerRecovery } from './helpers/law-runtime.ts';
+import { currentDocuments, currentNormOfOrigin, fixtureRole, fixtureSearchWord, lawUrl, multiVersionNorm, publicationIndex, withWorkerRecovery } from './helpers/law-runtime.ts';
 
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 
@@ -17,6 +17,15 @@ interface AuditTarget { name: string; site: 'portal' | 'law'; resolve: Resolve }
 
 const staticPage = (path: string): Resolve => async () => path;
 const lawPage = (path: string): Resolve => async () => lawUrl(path);
+/**
+ * Suchadresse mit sicheren Treffern: Die Standardsuche zeigt nur geltende Fassungen, die
+ * Autovervollständigung führt darüber hinaus künftig geltende Vorschriften. Der Suchbegriff kommt
+ * deshalb aus einer Vorschrift mit geltender Fassung.
+ */
+const searchWithHits: Resolve = async (request) => {
+  const term = (await currentDocuments(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz';
+  return lawUrl(`/suche/?q=${encodeURIComponent(term)}`);
+};
 
 /** Erster interner Link eines Musters auf einer statischen Portalseite (z. B. erstes Ressort). */
 async function firstLink(request: APIRequestContext, path: string, pattern: RegExp): Promise<string> {
@@ -49,7 +58,7 @@ const auditTargets: AuditTarget[] = [
   { name: 'Historische Fassung', site: 'law', resolve: async (request) => lawUrl((await multiVersionNorm(request)).historical.url) },
   { name: 'Bekanntmachung', site: 'law', resolve: async (request) => { const [notice] = (await currentDocuments(request)).filter((document) => document.type === 'bekanntmachung'); expect(notice, 'geltende Bekanntmachung').toBeTruthy(); return lawUrl(notice.currentUrl); } },
   { name: 'Rechtssuche', site: 'law', resolve: lawPage('/suche/') },
-  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: searchWithHits },
   { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'Förderrichtlinien', site: 'law', resolve: lawPage('/foerderrichtlinien/') },
   { name: 'Verkündungen (Einträge)', site: 'law', resolve: lawPage('/verkuendungen/?ansicht=eintraege') },
@@ -65,7 +74,7 @@ const focusTargets: AuditTarget[] = [
   { name: 'Portalsuche mit Treffern', site: 'portal', resolve: staticPage('/suche/?q=Gesetz') },
   { name: 'OstRecht-Startseite', site: 'law', resolve: lawPage('/') },
   { name: 'Normseite', site: 'law', resolve: async (request) => lawUrl((await currentDocuments(request, '&type=gesetz'))[0].currentUrl) },
-  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: searchWithHits },
 ];
 
 const selected = (targets: AuditTarget[]) => targets.filter((target) => selectedSiteTargets.includes(target.site));
@@ -316,7 +325,7 @@ const targetSizeTargets: AuditTarget[] = [
   { name: 'Fassungen und Änderungen', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
   { name: 'Verkündung', site: 'law', resolve: async (request) => { const index = await publicationIndex(request); expect(index.latestPublication).toBeTruthy(); return lawUrl(`/verkuendungen/${index.latestPublication!.slug}/`); } },
   { name: 'Verkündungen (Einträge)', site: 'law', resolve: lawPage('/verkuendungen/?ansicht=eintraege') },
-  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: searchWithHits },
 ];
 
 for (const target of selected(targetSizeTargets)) {
