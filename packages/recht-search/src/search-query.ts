@@ -14,7 +14,7 @@ export function formatSearchResultLabel(
   entry: Pick<SearchIndexDocument, 'versionKind' | 'validFrom'>,
   referenceDate: string,
 ): string {
-  if (entry.versionKind === 'future') return `Zukünftige Fassung ab ${formatDate(entry.validFrom)}`;
+  if (entry.versionKind === 'future') return `Künftige Fassung ab ${formatDate(entry.validFrom)}`;
   if (entry.versionKind === 'unknown-effective') return 'Veröffentlicht; Inkrafttreten noch nicht belegt';
   if (entry.versionKind === 'historical') return `Historische Fassung vom ${formatDate(entry.validFrom)}`;
   // Wortlaut wie `referenceDateLabel()` in apps/recht/src/lib/vocabulary.ts (Literal, weil dieses

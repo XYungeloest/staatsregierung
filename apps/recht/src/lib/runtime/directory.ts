@@ -1,6 +1,9 @@
 import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import { NORM_ORIGIN_KINDS, formatNormOriginKind, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 
+import { formatCount } from '../counts.ts';
+import { VALIDITY_FIELD_LABEL, validityOptions } from '../vocabulary.ts';
 import { buildPagination, pageUrl, type Pagination } from './pagination.ts';
 import { DEFAULT_PAGE_SIZE, normalizePage, type IndexLetterCount, type NormPage, type NormStore } from './store.ts';
 
@@ -67,12 +70,12 @@ export interface NormDirectoryView {
   hrefForLetter(letter: string): string;
 }
 
-/** Rechtsstände der Filterauswahl; „Zukünftig“ umfasst verkündete Vorschriften ohne belegtes Inkrafttreten. */
-export const DIRECTORY_STATUS_OPTIONS: Array<DirectoryFieldOption & { statuses: string[] }> = [
-  { value: 'in-force', label: 'Geltend', statuses: ['in-force'] },
-  { value: 'future-effective', label: 'Zukünftig', statuses: ['future-effective', 'pending-effective'] },
-  { value: 'historical', label: 'Historisch oder aufgehoben', statuses: ['historical', 'repealed'] },
-];
+/**
+ * Geltung der Filterauswahl. Die Wörter stammen aus der gemeinsamen Wortliste
+ * (lawSiteConfig.vocabulary); gleich benannte Rechtsstände stehen in einer Auswahl.
+ */
+export const DIRECTORY_STATUS_OPTIONS: Array<DirectoryFieldOption & { statuses: string[] }> =
+  validityOptions(['in-force', 'future-effective', 'pending-effective', 'repealed', 'historical', 'one-time-act']);
 
 const ORIGIN_OPTIONS: DirectoryFieldOption[] = NORM_ORIGIN_KINDS.map((kind) => ({ value: kind, label: formatNormOriginKind(kind) }));
 
@@ -97,11 +100,10 @@ export function describeDirectoryCount(result: NormPage, unit: DirectoryUnit, { 
   if (result.total === 0) return active || letter ? `Keine ${unit.plural} passen zur Auswahl.` : `Keine ${unit.plural} vorhanden.`;
   const firstIndex = (result.page - 1) * result.pageSize + 1;
   const lastIndex = Math.min(result.page * result.pageSize, result.total);
-  const noun = result.total === 1 ? unit.singular : unit.plural;
   const scope = letter ? ` in der Buchstabengruppe ${letter === '#' ? 'Ziffern und Sonderzeichen' : letter}` : '';
   const qualifier = active ? ' passen zur Auswahl' : '';
   const shown = result.total > result.pageSize ? `; angezeigt ${firstIndex}–${lastIndex}` : '';
-  return `${result.total} ${noun}${qualifier}${scope}${shown}.`;
+  return `${formatCount(result.total, unit.singular, unit.plural)}${qualifier}${scope}${shown}.`;
 }
 
 export async function loadNormDirectory(store: NormStore, {
@@ -156,7 +158,7 @@ export async function loadNormDirectory(store: NormStore, {
     if (name === 'q') return { name, label: 'Titel, Abkürzung oder Stichwort', value: state.q, placeholder: 'z. B. Gemeindeordnung' };
     if (name === 'subject') return { name, label: 'Sachgebiet', value: state.subject, allLabel: 'Alle Sachgebiete', options: (filterOptions.subjects ?? []).map((entry) => ({ value: entry, label: formatSubjectLabel(entry, { withNumber: true, short: true }) })) };
     if (name === 'type') return { name, label: 'Normtyp', value: state.type, allLabel: 'Alle Normtypen', options: filterOptions.types ?? [] };
-    if (name === 'status') return { name, label: 'Rechtsstand', value: state.status, allLabel: 'Alle Rechtsstände', options: DIRECTORY_STATUS_OPTIONS.map(({ value, label }) => ({ value, label })) };
+    if (name === 'status') return { name, label: VALIDITY_FIELD_LABEL, value: state.status, allLabel: lawSiteConfig.vocabulary.validity.any, options: DIRECTORY_STATUS_OPTIONS.map(({ value, label }) => ({ value, label })) };
     if (name === 'aenderungen') return { name, ...INHERITED_AMENDMENT_FIELD, value: state.aenderungen };
     return { name, label: 'Rechtsherkunft', value: state.origin, allLabel: 'Alle Herkunftsarten', options: ORIGIN_OPTIONS };
   });

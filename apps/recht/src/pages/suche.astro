@@ -16,9 +16,12 @@ import {
   getSubjectsUrl,
   LEGAL_BASELINE_DATE,
   type NormOriginKind,
+  type NormStatus,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
+import { countNoun, NORM_UNIT } from '../lib/counts.ts';
+import { VALIDITY_FIELD_LABEL, VERSION_FIELD_LABEL, VERSION_SCOPE_OPTIONS, validityLabel } from '../lib/vocabulary.ts';
 import { pageUrl } from '../lib/runtime/pagination.ts';
 
 // Die Suchseite ist eine statische Hülle; Treffer liefert zur Laufzeit /api/suche.json aus D1.
@@ -50,7 +53,7 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
     <div>
       <p class="eyebrow">Rechtssuche</p>
       <h1>Gesetze und Vorschriften durchsuchen</h1>
-      <p>Titel, Fundstellen, Sachgebiete und die strukturierten Normtexte in {searchPayload.documentCount} gespeicherten Fassungen recherchieren.</p>
+      <p>Titel, Fundstellen, Sachgebiete und die gegliederten Normtexte in {searchPayload.documentCount} Fassungen recherchieren.</p>
     </div>
   </header>
 
@@ -96,7 +99,7 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
               <a href={pageUrl(getSearchUrl(), { origin: entry.kind })} data-origin-kind={entry.kind}>
                 <NormOriginBadge kind={entry.kind} />
                 <strong>{entry.count}</strong>
-                <span>{entry.count === 1 ? 'Vorschrift' : 'Vorschriften'} · {describeNormOriginKind(entry.kind)}</span>
+                <span>{countNoun(entry.count, NORM_UNIT.one, NORM_UNIT.many)} · {describeNormOriginKind(entry.kind)}</span>
               </a>
             </li>
           ))}
@@ -116,13 +119,11 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
               <div class="law-search-filter-basics">
             <SearchCheckboxGroup legend="Normtypen" name="type" facet="type" options={searchPayload.filters.types} />
             <label class="search-field">
-              <span>Fassung</span>
+              <span>{VERSION_FIELD_LABEL}</span>
               <select name="versionScope" data-search-filter="versionScope">
-                <option value="current" selected>Geltende Fassungen</option>
-                <option value="future">Zukünftige Fassungen</option>
-                <option value="historical">Historische Fassungen</option>
-                <option value="unknown-effective">Inkrafttreten ungeklärt</option>
-                <option value="all">Alle Fassungen</option>
+                {VERSION_SCOPE_OPTIONS.map((option) => (
+                  <option value={option.value} selected={option.value === 'current'}>{option.label}</option>
+                ))}
               </select>
             </label>
             <label class="search-field">
@@ -146,7 +147,8 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
             <div class="search-filter-panel__content">
               <SearchCheckboxGroup legend="Sachgebiete" name="subject" facet="subject" options={searchPayload.filters.subjects.map((option) => ({ value: option, label: formatSubjectLabel(option, { withNumber: true, short: true }) }))} />
               <SearchCheckboxGroup legend="Ressorts" name="ministry" facet="ministry" options={searchPayload.filters.ministries.map((option) => ({ value: option, label: option }))} />
-              <SearchCheckboxGroup legend="Status" name="status" facet="status" options={searchPayload.filters.statuses} />
+              <!-- Die Geltung heißt überall gleich; die Projektion liefert die Werte, die Wörter kommen aus der Wortliste. -->
+              <SearchCheckboxGroup legend={VALIDITY_FIELD_LABEL} name="status" facet="status" options={searchPayload.filters.statuses.map((option) => ({ value: option.value, label: validityLabel(option.value as NormStatus) }))} />
               <SearchCheckboxGroup legend="Rechtsherkunft" name="origin" facet="origin" options={searchPayload.filters.origins} />
             </div>
               </details>
