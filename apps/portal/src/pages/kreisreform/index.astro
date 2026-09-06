@@ -5,6 +5,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import DataPagination from '../../components/portal/DataPagination.astro';
+import { DEFAULT_PORTAL_PAGE_SIZE } from '@ostrecht/shared/lib/portal/pagination.ts';
 import {
   getFreestateUrl,
   getFreestatePageUrl,
@@ -49,6 +51,11 @@ const neueBezirke = [...bezirkeCollection.features]
   .sort((left, right) => left.name.localeCompare(right.name, 'de'));
 
 const base = import.meta.env.BASE_URL;
+/**
+ * Die Kreistabelle rendert nur die erste Seite. Alle 101 Zeilen auf einmal machten die Seite bei
+ * 375 px 24.041 px lang; die übrigen Seiten kommen aus derselben Datei, die auch die Karte liest.
+ */
+const firstKreisPage = neueKreise.slice(0, DEFAULT_PORTAL_PAGE_SIZE);
 const oldLayersAvailable =
   manifest.layers.alteKreise.available ||
   manifest.layers.alteBezirke.available ||
@@ -299,28 +306,30 @@ const kreisreformFaq = [
       </p>
     </div>
 
-    <div class="kreisreform-table-tools" data-kreisreform-table-filter>
-      <label class="search-field" for="kreisreform-table-query">
-        <span>Kreis oder Bezirk filtern</span>
-        <input
-          id="kreisreform-table-query"
-          type="search"
-          autocomplete="off"
-          placeholder="z. B. Lausitz oder Berlin"
-          data-kreisreform-table-query
-        />
-      </label>
-      <label class="search-field" for="kreisreform-table-bezirk">
-        <span>Bezirk auswählen</span>
-        <select id="kreisreform-table-bezirk" data-kreisreform-table-bezirk>
-          <option value="">Alle Bezirke</option>
-          {neueBezirke.map((bezirk) => <option value={bezirk.name}>{bezirk.name}</option>)}
-        </select>
-      </label>
+    <form class="filter-bar" data-kreisreform-table-filter data-base-url={base}>
+      <div class="filter-bar__fields">
+        <label class="filter-field" for="kreisreform-table-query">
+          <span>Kreis oder Bezirk filtern</span>
+          <input
+            id="kreisreform-table-query"
+            type="search"
+            autocomplete="off"
+            placeholder="z. B. Lausitz oder Berlin"
+            data-kreisreform-table-query
+          />
+        </label>
+        <label class="filter-field" for="kreisreform-table-bezirk">
+          <span>Bezirk auswählen</span>
+          <select id="kreisreform-table-bezirk" data-kreisreform-table-bezirk>
+            <option value="">Alle Bezirke</option>
+            {neueBezirke.map((bezirk) => <option value={bezirk.name}>{bezirk.name}</option>)}
+          </select>
+        </label>
+      </div>
       <p class="search-feedback" role="status" aria-live="polite" data-kreisreform-table-status>
-        {formatCount(neueBezirke.length, 'Bezirk', 'Bezirke')} und {formatCount(neueKreise.length, 'Kreis', 'Kreise')} sichtbar.
+        {formatCount(neueBezirke.length, 'Bezirk', 'Bezirke')} und {formatCount(neueKreise.length, 'Kreis', 'Kreise')} gefunden.
       </p>
-    </div>
+    </form>
 
     <p class="table-scroll-hint" id="bezirke-scroll-hint">
       Auf kleinen Bildschirmen können Sie die Tabelle innerhalb dieses Bereichs horizontal verschieben.
@@ -367,8 +376,8 @@ const kreisreformFaq = [
             <th scope="col">Bisherige Gebietsteile</th>
           </tr>
         </thead>
-        <tbody>
-          {neueKreise.map((kreis) => (
+        <tbody data-kreisreform-table-body>
+          {firstKreisPage.map((kreis) => (
             <tr data-kreisreform-table-row data-kind="kreis" data-name={`${kreis.name} ${kreis.bezirkNeu}`.toLocaleLowerCase('de-DE')} data-bezirk={kreis.bezirkNeu}>
               <th scope="row">{kreis.name}</th>
               <td>{kreis.typ}</td>
@@ -384,6 +393,19 @@ const kreisreformFaq = [
         </tbody>
       </table>
     </div>
+    <DataPagination
+      label="Seiten der Kreistabelle"
+      total={neueKreise.length}
+      scope="kreise"
+      unit="Kreise und kreisfreie Städte"
+    />
+    <noscript>
+      <p class="detail-line">
+        Die ersten {DEFAULT_PORTAL_PAGE_SIZE} Kreise sind hier sichtbar. Der vollständige Bestand
+        steht als <a class="inline-link" href={`${base}data/kreisreform/neue-kreise.geojson`}>Datensatz</a>
+        bereit; Filter und Blätterung benötigen JavaScript.
+      </p>
+    </noscript>
   </section>
 
   <section id="rechtsgrundlagen" class="section" aria-labelledby="rechtsgrundlagen-ueberschrift">
@@ -492,16 +514,7 @@ const kreisreformFaq = [
       margin: 0;
     }
 
-    .kreisreform-table-tools {
-      display: grid;
-      grid-template-columns: minmax(16rem, 1fr) minmax(14rem, 0.65fr);
-      gap: 1rem;
-      align-items: end;
-      margin: 1.25rem 0;
-    }
-
-    .kreisreform-table-tools .search-feedback {
-      grid-column: 1 / -1;
+    [data-kreisreform-table-filter] .search-feedback {
       margin: 0;
     }
 
@@ -747,10 +760,6 @@ const kreisreformFaq = [
     @media (max-width: 980px) {
       .kreisreform-map-layout,
       .kreisreform-map-toolbar {
-        grid-template-columns: 1fr;
-      }
-
-      .kreisreform-table-tools {
         grid-template-columns: 1fr;
       }
 

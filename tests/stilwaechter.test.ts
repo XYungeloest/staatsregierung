@@ -7,19 +7,20 @@ import postcss, { type AtRule, type ChildNode, type Container, type Document, ty
 
 /**
  * Stilwächter: hält die Kennzahlen der Designprüfung (September 2026) fest, damit sie nicht wieder
- * wegdriften. Die Obergrenzen sind keine Zielwerte, sondern die am 5. September 2026 auf main
- * (84481acdc) mit measureStylesheets() über alle acht Stylesheets in packages/shared/src/styles
- * gemessenen Bestände (law-portal.css allein hatte in der Prüfung 4 Breakpoints und 0 Rahmen- und
- * Flächenfarben; die übrigen Dateien tragen den Rest). Wer eine Grenze anheben muss, hebt sie genau
+ * wegdriften. Die Obergrenzen sind keine Zielwerte, sondern der mit measureStylesheets() über alle
+ * acht Stylesheets in packages/shared/src/styles gemessene Bestand nach der Designprüfung des
+ * Staatsportals vom 6. September 2026. Der verbliebene rawRem-Rest liegt in foundation.css, und
+ * zwar in Regeln, die auch OstRecht anfassen; sie bleiben roh, bis dieselbe Stufe dort geprüft
+ * ist. Wer eine Grenze anheben muss, hebt sie genau
  * um die neuen Fälle an und begründet im Commit, warum diese Fälle kein Token, keine gemeinsame
  * Regel oder keinen vorhandenen Breakpoint verwenden können; die Meldung des Tests nennt jeden Fall
  * mit Datei und Zeile. Eine Grenze zu entfernen ist keine Option, sie zu senken jederzeit erwünscht.
  */
 const LIMITS = {
   breakpoints: 4, // 30, 48, 64 und 80rem – die vier Stufen aus DESIGN.md
-  hexInBorderBackground: 47, // foundation 14, holdings 3, home 21, portal-shell 6, section-system 3; law-portal 0
-  rawRem: 638, // foundation 284, section-system 135, home 90, holdings 70, portal-shell 44, law-portal 9, content-layout 6
-  duplicateProperties: 69, // dateiübergreifend; 22 davon innerhalb einer Datei
+  hexInBorderBackground: 0, // Rahmen- und Flächenfarben kommen ausnahmslos aus Farbrollen
+  rawRem: 100, // foundation 92, law-portal 8; die fünf Portal-Stylesheets tragen keinen mehr
+  duplicateProperties: 65, // dateiübergreifend; 18 davon innerhalb einer Datei
 };
 
 const STYLES_DIR = fileURLToPath(new URL('../packages/shared/src/styles/', import.meta.url));

@@ -89,7 +89,7 @@ async function openTarget(page: Page, request: APIRequestContext, target: AuditT
   if (url.includes('/suche/')) {
     const status = page.locator('[data-search-summary], [data-portal-search-status]').first();
     await expect(status).not.toContainText(/werden geladen/u, { timeout: 30_000 });
-    await expect(status).toContainText(/Treffer|Wonach suchen Sie/u, { timeout: 30_000 });
+    await expect(status).toContainText(/Treffer|Geben Sie einen Begriff ein/u, { timeout: 30_000 });
   }
   return url;
 }

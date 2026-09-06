@@ -1,3 +1,4 @@
+import { getPageState } from '@ostrecht/shared/lib/portal/pagination.ts';
 import {
   formatHoldingCurrentPercent,
   formatHoldingCurrentStatus,
@@ -230,10 +231,10 @@ function initializeHoldingsNavigator(root: HTMLElement): void {
   const mobileResults = requireElement<HTMLElement>('[data-holdings-mobile-results]');
   const activeFilters = requireElement<HTMLElement>('[data-holdings-active-filters]');
   const filterSummary = requireElement<HTMLElement>('[data-holdings-filter-summary]');
-  const pagination = requireElement<HTMLElement>('[data-holdings-pagination]');
-  const range = requireElement<HTMLElement>('[data-holdings-range]');
-  const paginationTotal = requireElement<HTMLElement>('[data-holdings-pagination-total]');
-  const pageLabel = requireElement<HTMLElement>('[data-holdings-page-label]');
+  const pagination = requireElement<HTMLElement>('[data-pagination="holdings"]');
+  const range = requireElement<HTMLElement>('[data-pagination-range]');
+  const paginationTotal = requireElement<HTMLElement>('[data-pagination-total]');
+  const pageLabel = requireElement<HTMLElement>('[data-pagination-page]');
   const tree = requireElement<HTMLElement>('[data-holdings-tree]');
   const sortSelect = requireElement<HTMLSelectElement>('[data-holdings-sort-select]');
   const directionButton = requireElement<HTMLButtonElement>('[data-holdings-sort-direction]');
@@ -345,11 +346,9 @@ function initializeHoldingsNavigator(root: HTMLElement): void {
     syncControls();
     renderActiveFilters();
     const filtered = getFilteredPositions();
-    const pageCount = Math.max(1, Math.ceil(filtered.length / state.perPage));
-    state.page = Math.min(state.page, pageCount);
-    const start = (state.page - 1) * state.perPage;
-    const end = Math.min(start + state.perPage, filtered.length);
-    const pagePositions = filtered.slice(start, end);
+    const pageState = getPageState(filtered.length, state.page, state.perPage);
+    state.page = pageState.page;
+    const pagePositions = filtered.slice(pageState.start, pageState.end);
 
     resultCount.textContent = `${filtered.length} von ${inventory.totals.positionRows} Positionen`;
     tableBody.innerHTML = pagePositions.length > 0
@@ -358,12 +357,12 @@ function initializeHoldingsNavigator(root: HTMLElement): void {
     mobileResults.innerHTML = pagePositions.length > 0
       ? pagePositions.map(createMobileCard).join('')
       : '<p class="holdings-empty">Keine Position entspricht dieser Auswahl.</p>';
-    range.textContent = filtered.length === 0 ? '0' : `${start + 1}–${end}`;
-    pageLabel.textContent = `Seite ${state.page} von ${pageCount}`;
+    range.textContent = pageState.rangeLabel;
+    pageLabel.textContent = pageState.pageLabel;
     const previous = pagination.querySelector<HTMLButtonElement>('[data-page-action="previous"]');
     const next = pagination.querySelector<HTMLButtonElement>('[data-page-action="next"]');
-    if (previous) previous.disabled = state.page <= 1;
-    if (next) next.disabled = state.page >= pageCount;
+    if (previous) previous.disabled = !pageState.hasPrevious;
+    if (next) next.disabled = !pageState.hasNext;
     paginationTotal.textContent = String(filtered.length);
     tree.innerHTML = createTree(filtered);
 

@@ -80,8 +80,8 @@ const tags = [...new Set(releases.flatMap((release) => release.tags))].sort((lef
       <h2>Archiv der Mitteilungen</h2>
       <p>Alle Pressemitteilungen bleiben mit Datum, Ressortbezug und Fließtext dauerhaft erreichbar.</p>
     </div>
-    <form class="search-form" data-role="press-release-filter">
-      <div class="search-form__filters">
+    <form class="filter-bar" data-role="press-release-filter">
+      <div class="filter-bar__fields">
         <label class="search-field">
           <span>Suchbegriff</span>
           <input type="search" name="query" placeholder="Titel, Ressort oder Schlagwort" />
