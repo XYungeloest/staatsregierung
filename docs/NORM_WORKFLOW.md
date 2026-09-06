@@ -50,6 +50,19 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
 Mehrere `--file`-Argumente sind zulässig. `--quick` lässt Build und UI-Smokes bewusst aus und ist
 nur für lokale Zwischenprüfungen gedacht.
 
+Nach einer Änderung am HTML- oder Markdown-Parser werden die betroffenen eigenen Verkündungen
+gezielt neu eingelesen:
+
+```sh
+npm run norms:import -- --write --update-existing --file "OGVBl. 2026 Nr. 40.html"
+npm run norms:import -- --source-dir Gesetze --strict --quiet
+```
+
+Der Unterschriftenblock einer Verkündung (`signature`) entsteht dabei allein aus der amtlichen
+Quelle. Quellen, deren interne Metadaten nicht zu einem vorhandenen Verkündungsdatensatz passen,
+und Normen ohne HTML-Quelle bleiben unangetastet; sie werden redaktionell gepflegt und der Schritt
+im Commit begründet.
+
 ## Abbruchbedingungen
 
 Der Ablauf bricht vor einer Veröffentlichung ab, wenn eine ausgewählte Quelle strukturell nicht

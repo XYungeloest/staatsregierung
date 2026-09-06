@@ -41,6 +41,7 @@ export const STRUCTURE_TYPES = [
   'tableRow',
   'tableHeaderCell',
   'tableCell',
+  'signature',
 ] as const;
 
 export const TABLE_HEADER_SCOPES = ['col', 'row', 'colgroup', 'rowgroup'] as const;
@@ -207,6 +208,15 @@ export interface NormMeta {
   editorialResolutions?: NormEditorialResolution[];
 }
 
+/**
+ * Ein äußerer oder innerer Block des Normkörpers.
+ *
+ * Beim Blocktyp `signature` (Unterschriftenblock am Ende einer eigenen Verkündung)
+ * tragen die allgemeinen Felder besondere Bedeutung: `text` nennt die unterzeichnende
+ * Person, `title` die Amtsbezeichnung in Normalschreibung und `label` – sofern die
+ * Quelle sie führt – Ort und Datum der Unterzeichnung. Untergeordnete Blöcke sind
+ * dort nicht zulässig.
+ */
 export interface NormBodyBlock {
   type: StructureType;
   label?: string;
@@ -644,6 +654,15 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     }
   }
 
+  if (type === 'signature') {
+    if (!text && !title) {
+      fail(path, 'Blocktyp "signature" benötigt die unterzeichnende Person in "text" oder die Amtsbezeichnung in "title"');
+    }
+    if (children) {
+      fail(`${path}.children`, 'ist für Blocktyp "signature" nicht zulässig');
+    }
+  }
+
   if ((type === 'subparagraph' || type === 'item' || type === 'subitem') && !label && !text && (!children || children.length === 0)) {
     fail(path, `Blocktyp "${type}" benötigt Gliederungszeichen, Text oder untergeordnete Blöcke`);
   }
@@ -1042,6 +1061,7 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
     tablerow: 'tableRow',
     tableheadercell: 'tableHeaderCell',
     tablecell: 'tableCell',
+    signature: 'signature',
   };
   const type = normalizedTypeMap[rawType] ?? rawType;
 

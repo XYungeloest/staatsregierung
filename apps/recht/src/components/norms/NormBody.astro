@@ -165,6 +165,14 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                 </Fragment>
               ) : null}
 
+              {block.type === 'signature' ? (
+                <p class="norm-signature">
+                  {block.text ? <span class="norm-signature__name">{toDisplayText(block.text)}</span> : null}
+                  {block.title ? <span class="norm-signature__office">{toDisplayText(block.title)}</span> : null}
+                  {block.label ? <span class="norm-signature__place">{toDisplayText(block.label)}</span> : null}
+                </p>
+              ) : null}
+
               {block.type === 'subparagraph' ? (
                 <div class="norm-subparagraph-wrap">
                   <p class="norm-subparagraph">

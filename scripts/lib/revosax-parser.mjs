@@ -388,6 +388,58 @@ function sectionContent(section, state = { signature: false }) {
   return blocks;
 }
 
+function comparableHeading(value) {
+  return String(value ?? '').replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de');
+}
+
+/**
+ * REVOSax führt die Überschrift einer Gliederungseinheit zugleich im Attribut der Einheit und
+ * als erste Zeile ihres ersten Kindes („1. Vorbehalt des Begnadigungsrechts“ → Nummer „1.“ mit
+ * dem Text „Vorbehalt des Begnadigungsrechts …“). Die Lesefassung führt die Überschrift genau
+ * einmal: Die wiederholte Zeile wird aus dem ersten Kind entfernt. Bleibt dabei kein Text übrig,
+ * entfällt das Kind; seine Unterpunkte rücken an seine Stelle. Nur vollständige Zeilen zählen –
+ * ein Text, der zufällig mit demselben Wort beginnt, bleibt unverändert.
+ */
+export function stripDuplicatedHeading(block) {
+  if (!block?.title || !Array.isArray(block.children) || block.children.length === 0) return block;
+  const [first, ...rest] = block.children;
+  if (typeof first?.text !== 'string' || !first.text) return block;
+  const lines = first.text.split('\n');
+  const title = comparableHeading(block.title);
+  const label = comparableHeading(block.label);
+  const labelAndTitle = label ? comparableHeading(`${block.label} ${block.title}`) : title;
+  const firstLine = comparableHeading(lines[0]);
+  const consumed = firstLine === title || firstLine === labelAndTitle
+    ? 1
+    : label && firstLine === label && comparableHeading(lines[1]) === title
+      ? 2
+      : 0;
+  if (consumed === 0) return block;
+  const remainder = lines.slice(consumed).join('\n').trim();
+  if (remainder) {
+    block.children = [{ ...first, text: remainder }, ...rest];
+    return block;
+  }
+  // Ohne eigenen Text trägt der Punkt nur noch sein Gliederungszeichen: Unterscheidet es sich
+  // von dem der Einheit, bleibt es als leerer Gliederungspunkt mit seinen Unterpunkten stehen.
+  const keepsOwnLabel = Boolean(first.label) && comparableHeading(first.label) !== label;
+  if (keepsOwnLabel) {
+    const { text: _text, ...withoutText } = first;
+    block.children = [withoutText, ...rest];
+    return block;
+  }
+  block.children = [...(first.children ?? []), ...rest];
+  return block;
+}
+
+function stripDuplicatedHeadings(blocks) {
+  for (const block of blocks ?? []) {
+    stripDuplicatedHeadings(block.children);
+    stripDuplicatedHeading(block);
+  }
+  return blocks;
+}
+
 function parseSections(container, notes = [], { hoistTextBearingWrappers = false } = {}) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
@@ -435,7 +487,7 @@ function parseSections(container, notes = [], { hoistTextBearingWrappers = false
     stack.at(-1).children.push(block);
     stack.push({ rank, children: block.children });
   }
-  return root;
+  return stripDuplicatedHeadings(root);
 }
 
 function parseSourceNotes(article) {

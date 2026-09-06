@@ -37,6 +37,7 @@ const PUBLICATION_ENTRY_TYPE_LABELS: Record<PublicationEntryType, string> = {
   verordnung: 'Verordnung',
   verwaltungsvorschrift: 'Verwaltungsvorschrift',
   foerderrichtlinie: 'Förderrichtlinie',
+  allgemeinverfuegung: 'Allgemeinverfügung',
   bekanntmachung: 'Bekanntmachung',
   berichtigung: 'Berichtigung',
   staatsvertrag: 'Staatsvertrag',

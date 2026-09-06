@@ -44,6 +44,8 @@ const ROOT = resolve(process.cwd());
 const CONTENT_ROOT = join(ROOT, 'content', 'normen');
 const R2_MANIFEST_PATH = join(ROOT, 'data', 'recht', 'revosax-r2-manifest.json');
 const SUNSET_DECISIONS_PATH = join(ROOT, 'data', 'recht', 'revosax-sunset-decisions.json');
+const POST_CUTOFF_DECISIONS_PATH = join(ROOT, 'data', 'recht', 'revosax-post-cutoff-decisions.json');
+const POST_CUTOFF_RESOLUTIONS = ['discard', 'adopted', 'open'];
 
 const USAGE = `Verwendung: node --experimental-strip-types scripts/materialize-revosax-baseline.mjs [Optionen]
 
@@ -459,6 +461,20 @@ async function main() {
   const fetchedEnvelopes = new Map((envelopes?.fetchedEnvelopes ?? []).map((source) => [source.sourceId, source]));
   const r2Manifest = (await exists(R2_MANIFEST_PATH)) ? await readJson(R2_MANIFEST_PATH) : { objects: {} };
   const sunsetDecisions = (await exists(SUNSET_DECISIONS_PATH)) ? await readJson(SUNSET_DECISIONS_PATH) : { decisions: {} };
+  // Rechtsakte nach dem Rechtsüberleitungsstichtag: Der Plan führt sie nur dann als CREATE oder
+  // MATCH, wenn eine ostdeutsche Änderungsvorschrift sie übernimmt („adopted“) oder der Fall
+  // begründet offen bleibt („open“). Hier wird nur geprüft, dass jede Entscheidung zum Plan passt.
+  const postCutoffDecisions = (await exists(POST_CUTOFF_DECISIONS_PATH)) ? await readJson(POST_CUTOFF_DECISIONS_PATH) : { decisions: {} };
+  for (const [slug, decision] of Object.entries(postCutoffDecisions.decisions ?? {})) {
+    if (!POST_CUTOFF_RESOLUTIONS.includes(decision.resolution)) {
+      throw new Error(`Entscheidung zu ${slug} nennt keine gültige Auflösung (${decision.resolution ?? '?'})`);
+    }
+    if (decision.resolution === 'adopted' && !decision.adoptingNorm) {
+      throw new Error(`Entscheidung zu ${slug} weist die Quelle als übernommen aus, nennt aber keine ostdeutsche Änderungsvorschrift`);
+    }
+    if (decision.slug !== slug) throw new Error(`Entscheidung zu ${slug} nennt den abweichenden Slug ${decision.slug}`);
+  }
+  const postCutoffSkipped = plan.entries.filter((entry) => entry.postCutoffResolution && entry.action === 'SKIP');
   for (const [sourceId, decision] of Object.entries(sunsetDecisions.decisions ?? {})) {
     const planned = plan.entries.find((candidate) => candidate.sourceId === sourceId);
     if (planned && decision.slug && planned.canonicalSlug !== decision.slug && reportEntriesSlug(report, sourceId) !== decision.slug) {
@@ -587,6 +603,11 @@ async function main() {
     problemDetails: problems,
     protectedDetails: skipped,
     pruned,
+    postCutoff: {
+      skipped: postCutoffSkipped.length,
+      decisions: Object.values(postCutoffDecisions.decisions ?? {})
+        .reduce((acc, decision) => ({ ...acc, [decision.resolution]: (acc[decision.resolution] ?? 0) + 1 }), {}),
+    },
   };
 
   if (problems.length > 0) {

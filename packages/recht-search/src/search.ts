@@ -199,6 +199,9 @@ export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyConten
     quoted = false,
   ) => {
     for (const [index, block] of entries.entries()) {
+      // Unterschriften stehen unter dem Normtext, sind aber keine Regelung: Sie bilden
+      // keine Fundstelle und gehören nicht in den Suchtext.
+      if (block.type === 'signature') continue;
       const currentPath = [...path, index];
       const headingParts: string[] = [];
       addText(headingParts, block.label);

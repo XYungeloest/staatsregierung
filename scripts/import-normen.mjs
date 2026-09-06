@@ -7,11 +7,17 @@ import { basename, join, relative, resolve } from 'node:path';
 
 import {
   classifyHtmlSource,
+  hasSpacedLetters,
   parseConsolidatedHtml,
   parsePublicationHtml,
   summarizeHtmlAudit,
   summarizeParsedSource,
 } from './lib/norm-html-parser.mjs';
+import {
+  citationLabelMatchesNormType,
+  NORM_TYPE_CITATION_LABELS,
+  publicationEntryTypeForNormType,
+} from './lib/publication-entry-types.mjs';
 import {
   classifyMarkdownSource,
   parseConsolidatedMarkdown,
@@ -759,8 +765,18 @@ function formatGermanDate(isoDate) {
 function citationFor(parsed, startPage) {
   const label = /Berichtigung/iu.test(parsed.heading ?? '') || parsed.type === 'berichtigung'
     ? 'Berichtigung'
+    : /Allgemeinverfügung/iu.test(parsed.heading ?? '') || parsed.type === 'allgemeinverfuegung'
+    ? 'Allgemeinverfügung'
+    : /Organisationserlass/iu.test(parsed.heading ?? '')
+    ? 'Organisationserlass'
     : /Erlass/iu.test(parsed.heading ?? '')
     ? 'Erlass'
+    : /Anordnung/iu.test(parsed.heading ?? '')
+    ? 'Anordnung'
+    : /Förderrichtlinie/iu.test(parsed.heading ?? '') || parsed.type === 'foerderrichtlinie'
+    ? 'Förderrichtlinie'
+    : /Richtlinie/iu.test(parsed.heading ?? '')
+    ? 'Richtlinie'
     : /Verwaltungsvorschrift/iu.test(parsed.heading ?? '')
     ? 'Verwaltungsvorschrift'
     : /Bekanntmachung/iu.test(parsed.heading ?? '') || parsed.type === 'bekanntmachung'
@@ -884,22 +900,70 @@ function relatedNormSlugs(meta) {
   return [meta?.enactedNorm, ...(meta?.enactedNorms ?? [])].filter(Boolean);
 }
 
+/**
+ * Die Bezeichnung des Eintrags folgt der Norm, nicht dem Altbestand: Eine bereits
+ * vorhandene Zitierung wird nur übernommen, wenn sie einen zum Normtyp passenden
+ * Rechtsakt nennt (amtliche Sonderformen wie Anordnung oder Organisationserlass
+ * bleiben damit erhalten); sonst wird sie aus Normtyp, Datum und Fundstelle gebildet.
+ */
 function legacyEntryCitation(previous, meta, publication, documentDate) {
-  if (previous?.citation && /\bvom\s+\d{1,2}\.\s+[A-ZÄÖÜa-zäöüß]+\s+\d{4}/u.test(previous.citation)) return previous.citation;
-  const labels = {
-    gesetz: 'Gesetz',
-    verordnung: 'Verordnung',
-    verwaltungsvorschrift: 'Verwaltungsvorschrift',
-    foerderrichtlinie: 'Förderrichtlinie',
-    allgemeinverfuegung: 'Allgemeinverfügung',
-    bekanntmachung: 'Bekanntmachung',
-    berichtigung: 'Berichtigung',
-    staatsvertrag: 'Staatsvertrag',
-    zustimmungsgesetz: 'Gesetz',
-    aenderungsvorschrift: 'Gesetz',
-  };
+  if (
+    previous?.citation &&
+    /\bvom\s+\d{1,2}\.\s+[A-ZÄÖÜa-zäöüß]+\s+\d{4}/u.test(previous.citation) &&
+    citationLabelMatchesNormType(previous.citation, meta.type)
+  ) return previous.citation;
   const page = previous?.startPage ?? previous?.pages?.match(/\d+/u)?.[0];
-  return `${labels[meta.type] ?? 'Veröffentlichung'} vom ${formatGermanDate(documentDate)} (${publication.publication} ${publication.year} Nr. ${publication.issue}${page ? ` S. ${page}` : ''})`;
+  const label = citationLabelMatchesNormType(meta.initialCitation, meta.type)
+    ? String(meta.initialCitation).split(/\s+vom\s+/u)[0].trim()
+    : NORM_TYPE_CITATION_LABELS[meta.type] ?? 'Veröffentlichung';
+  return `${label} vom ${formatGermanDate(documentDate)} (${publication.publication} ${publication.year} Nr. ${publication.issue}${page ? ` S. ${page}` : ''})`;
+}
+
+/**
+ * Befristete Verkündungen: Das Außerkrafttreten steht im Titel und im Text der amtlichen
+ * Quelle („bis zum 1. Januar 2026, 06:00 Uhr“). Der Import modelliert es deterministisch
+ * als expiryDate, validTo der letzten Fassung, Status und Historieneintrag – wie die
+ * Befristungsentscheidungen des übernommenen Bestands. Die Angabe steht hier und nicht in
+ * NEW_PUBLICATION_CONFIG, weil die Norm ihre übrigen redaktionellen Metadaten
+ * (Kurzbezeichnung, Abkürzung, Kurzfassung, Sachgebiete) aus dem Bestand behält.
+ */
+const PUBLICATION_EXPIRY_CONFIG = {
+  'allgemeinverfugung-zur-beschrankung-des-gemeingebrauchs-von-hp0whs': {
+    expiryDate: '2026-01-01',
+    basis: 'vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr',
+    dateNote: 'Die Allgemeinverfügung galt vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr.',
+  },
+};
+
+function applyPublicationExpiry(record) {
+  const config = PUBLICATION_EXPIRY_CONFIG[record.meta.slug];
+  if (!config) return record;
+  const repealed = config.expiryDate <= asOf;
+  const version = record.versions.at(-1);
+  const citation = version?.citation ?? record.meta.initialCitation;
+  const entries = (record.history?.entries ?? []).filter((entry) =>
+    !(entry.type === 'repeal' && entry.date === config.expiryDate));
+  return {
+    ...record,
+    meta: {
+      ...record.meta,
+      status: repealed ? 'repealed' : record.meta.status,
+      expiryDate: config.expiryDate,
+      dateNote: config.dateNote,
+    },
+    history: {
+      ...record.history,
+      entries: [...entries, {
+        date: config.expiryDate,
+        type: 'repeal',
+        title: repealed ? 'Außer Kraft getreten durch Befristung im Text.' : 'Tritt durch Befristung im Text außer Kraft.',
+        citation,
+        affectingVersionId: null,
+        note: `Befristung nach dem Wortlaut der Verkündung: gilt ${config.basis}.`,
+      }],
+    },
+    versions: [...record.versions.slice(0, -1), { ...version, validTo: config.expiryDate, isCurrent: !repealed }],
+  };
 }
 
 function resolveLegacySourceRecords(parsed, existingPublication, existingRecords) {
@@ -958,7 +1022,7 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
     const currentVersion = existing.versions.find((entry) => entry.versionId === publicationEntry?.versionId) ??
       existing.versions.find((entry) => entry.isCurrent) ?? existing.versions.at(-1);
     if (!currentVersion) throw new Error(`${parsed.fileName}: ${slug} besitzt keine aktualisierbare Fassung`);
-    return {
+    return applyPublicationExpiry({
       source: parsed.fileName,
       startPage: publicationEntry?.startPage,
       meta: {
@@ -970,7 +1034,7 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
       },
       history: existing.history,
       versions: [{ ...currentVersion, body: norm.body }],
-    };
+    });
   });
   const mappedEntries = mappings.map(({ norm, slug, existing }, index) => {
     const previous = (existingPublication.entries ?? []).find((entry) => entry.normSlug === slug);
@@ -980,7 +1044,10 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
       ...(previous ?? {}),
       id: previous?.id ?? slug,
       title: existing.meta.title,
-      type: previous?.type ?? (existing.meta.type === 'verordnung' ? 'verordnung' : 'gesetz'),
+      type: publicationEntryTypeForNormType(existing.meta.type, {
+        publication: existingPublication.publication,
+        initialCitation: existing.meta.initialCitation,
+      }),
       citation: legacyEntryCitation(previous, existing.meta, existingPublication, documentDate),
       documentDate,
       normSlug: slug,
@@ -1461,13 +1528,10 @@ function publicationFrom(parsed, records) {
     entries: [...records.map((record) => ({
       id: record.meta.slug,
       title: record.meta.title,
-      type: isNewOfficialIssue
-        ? record.meta.type === 'aenderungsvorschrift'
-          ? parsed.publication === 'StAnzO.'
-            ? 'verwaltungsvorschrift'
-            : /^Gesetz\s/u.test(record.meta.initialCitation) ? 'gesetz' : 'verordnung'
-          : record.meta.type
-        : record.meta.type === 'verordnung' ? 'verordnung' : 'gesetz',
+      type: publicationEntryTypeForNormType(record.meta.type, {
+        publication: parsed.publication,
+        initialCitation: record.meta.initialCitation,
+      }),
       citation: record.meta.initialCitation,
       ...(!historicalPageRange && !isVolksbefragung && !isNewOfficialIssue && record.startPage ? { startPage: record.startPage } : {}),
       ...(historicalPageRange && records.length === 1
@@ -1539,15 +1603,22 @@ function stanzoHousingPublicationFrom(record) {
 function validateRecord(record) {
   if (!record.meta.slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(record.meta.slug)) throw new Error(`${record.source}: instabiler oder ungültiger Slug ${record.meta.slug}`);
   if (!record.versions[0].body.length) throw new Error(`${record.source}: ${record.meta.slug} besitzt einen leeren Normkörper`);
-  const text = JSON.stringify(record.versions[0].body);
+  const text = JSON.stringify(bodyWithoutSignatures(record.versions[0].body));
   if (hasNormContamination(text)) {
     throw new Error(`${record.source}: ${record.meta.slug} enthält Kopf-, Bild- oder Signaturdaten`);
   }
 }
 
+/** Unterschriftenblöcke sind gewollter Bestand; alles andere darf keinen gesperrten Satz tragen. */
+function bodyWithoutSignatures(blocks) {
+  return (blocks ?? [])
+    .filter((block) => block.type !== 'signature')
+    .map((block) => (block.children ? { ...block, children: bodyWithoutSignatures(block.children) } : block));
+}
+
 function hasNormContamination(text) {
   return /data:image|;base64,|Inhaltsverzeichnis|\bDresden,\s+den\s+\d/iu.test(text) ||
-    /D\s+e\s+r\s+L\s+A\s+N\s+D\s+T\s+A\s+G\s+S\s+P\s+R/u.test(text);
+    hasSpacedLetters(text);
 }
 
 function mergeSourceReferences(existingReferences, incomingReferences) {
@@ -1843,7 +1914,7 @@ function compareGeneratedRecordToExisting(record, existing) {
   if (JSON.stringify(storedBodyForSourceComparison) !== JSON.stringify(record.versions[0].body)) {
     issues.push('strukturierter Normtext weicht vom aktuellen Parsergebnis ab');
   }
-  const storedText = JSON.stringify(version.body);
+  const storedText = JSON.stringify(bodyWithoutSignatures(version.body));
   if (hasNormContamination(storedText)) issues.push('Vorblatt-, Bild-, Inhaltsverzeichnis- oder Signaturtext im Normkörper');
   return { status: issues.length ? 'differs' : 'matches', issues };
 }
@@ -1902,7 +1973,7 @@ function compareParsedNormToExisting(norm, issue, existingRecords) {
     const storedBlocks = flattenBody(version?.body ?? []);
     const storedLabels = new Set(storedBlocks.map((block) => block.label).filter(Boolean));
     const missingLabels = [...sourceLabels].filter((label) => !storedLabels.has(label));
-    const contamination = hasNormContamination(JSON.stringify(version?.body ?? []));
+    const contamination = hasNormContamination(JSON.stringify(bodyWithoutSignatures(version?.body ?? [])));
     return { slug, missingLabels, contamination, score: missingLabels.length + (contamination ? 1000 : 0) };
   }).sort((left, right) => left.score - right.score || left.slug.localeCompare(right.slug));
   const best = ranked[0];

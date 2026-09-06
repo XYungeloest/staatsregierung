@@ -165,6 +165,13 @@ function renderNode(node: NormDiffBlock, side: DiffSide, level: number, quoted: 
     return `<div class="norm-subparagraph-wrap"><p class="norm-subparagraph">${label ? `<span class="norm-subparagraph__label">${label}</span> ` : ''}<span>${renderValue(node, side, 'text')}</span></p>${children ? `<div class="norm-subparagraph__children">${children}</div>` : ''}</div>`;
   }
 
+  if (node.type === 'signature') {
+    const name = renderValue(node, side, 'text');
+    const office = renderValue(node, side, 'title');
+    const place = renderValue(node, side, 'label');
+    return `<p class="norm-signature">${name ? `<span class="norm-signature__name">${name}</span>` : ''}${office ? `<span class="norm-signature__office">${office}</span>` : ''}${place ? `<span class="norm-signature__place">${place}</span>` : ''}</p>`;
+  }
+
   if (node.type === 'table') return renderTable(node, side);
   if (node.type === 'quotedProvision') return `<blockquote class="norm-quoted-provision">${children}</blockquote>`;
   if (node.type === 'tableRow' || node.type === 'tableCell' || node.type === 'tableHeaderCell') {

@@ -272,17 +272,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ### Import aus den eigenen Verkündungen
 
-- [ ] Unterschriftenblöcke aus dem Normtext: In mindestens 22 ostdeutschen Normen (eine
-  PR-Prüfung zählte 27) steht der Schlussblock der Verkündung gesperrt gesetzt im Normtext
-  („D e r M I N I S T E R P R Ä S I D E N T“, „D i e S T A A T S M I N I S T E R I N D E S
-  I N N E R N“), etwa in `wohnvergesellschaftungs-durchfuhrungsverordnung`, `schulmilcherlass`
-  und `ostdeutsche-einkommensgrenzen-verordnung`; Vorleseprogramme lesen solche Folgen
-  buchstabenweise, die Suche zählt sie als Treffer-Einheit. Fertig, wenn
-  `scripts/import-normen.mjs` Ort, Datum und Unterzeichner als eigenen Block `signature`
-  ablegt, der als Unterschriftenzeile gerendert und nicht als Einheit indexiert wird,
-  gesperrter Satz normalisiert ist (auch Hervorhebungen wie „s o l l“ in `vwv-zur-gvga-und-gvo`
-  als Auszeichnung statt Leerzeichen) und `content:check` Folgen aus mindestens vier einzeln
-  stehenden Buchstaben im Normtext ablehnt.
 - [ ] Zusammenfassungen ohne Formeln: 1690 übernommene Normen tragen „Enthält die Regelungen der
   am 1. November 2023 übernommenen Ausgangsfassung „…““ (aus `inferSummary` in
   `scripts/lib/revosax-metadata.mjs`), 28 ostdeutsche Normen die ältere Formel „Regelt
@@ -292,28 +281,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Normen eine redaktionelle Zusammenfassung haben, abgeleitete Zusammenfassungen im Schema wie
   `shortTitleSource` gekennzeichnet sind (`summarySource`) und nirgends gerendert werden und
   `content:check` beide Formeln bei ostdeutschen Normen ablehnt.
-
-### Übernommene Normen aus dem REVOSax-Import
-
-- [ ] Überschrift im Nummerntext: In 259 Fassungen (1249 Einheiten, etwa `vwv-komminfra2009`
-  und `anordnung-begnadigungsrecht`) beginnt das erste `item` einer nummerierten `section` mit
-  dem Titel der Section („1. Vorbehalt des Begnadigungsrechts“ als Überschrift und erneut als
-  Textanfang). Fertig, wenn `scripts/materialize-revosax-norms.mjs` die Überschrift beim Import
-  abtrennt, die betroffenen Fassungen neu materialisiert sind und `content:check` einen Text
-  ablehnt, der mit dem Titel seiner übergeordneten Einheit beginnt.
-- [ ] Sächsische Rechtsakte nach dem Überleitungsstichtag: Übernommene Normen tragen Fundstellen
-  und Beziehungen nach dem 1. November 2023 („zuletzt enthalten in der Verwaltungsvorschrift
-  vom 27. November 2025 (SächsABl. SDr.)“, Beziehung „ändert“ zur VwV der Staatskanzlei),
-  stehen aber als „Übernommen und unverändert“ mit Fassungsstand 1. November 2023. Fertig, wenn
-  eine Importregel festlegt, ob solche Rechtsakte verworfen, als ostdeutsche Änderungen
-  übernommen oder als „nicht konsolidierte Änderung“ ausgewiesen werden,
-  `data/recht/revosax-import-audit/summary.json` die betroffenen Normen zählt und keine Norm
-  zugleich „unverändert“ und Ziel einer Beziehung „ändert“ mit Datum nach dem Stichtag ist.
-- [ ] Normtyp von Verkündungseintrag und Norm: In `content/verkuendungen/oabl-2025-09.json` ist
-  die Allgemeinverfügung zum Alexanderplatz als Eintragstyp `gesetz` mit Zitat „Gesetz vom
-  31. Dezember 2025“ geführt, die Norm selbst als `allgemeinverfuegung` ohne Geltungsende und
-  weiter „in Kraft“. Fertig, wenn `content:check` Eintragstyp und Normtyp abgleicht, das Zitat
-  aus dem Normtyp gebildet wird und befristete Allgemeinverfügungen ein `validTo` tragen.
 
 ## Sitzungsmediathek der Volkskammer
 

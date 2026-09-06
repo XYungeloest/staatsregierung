@@ -22,6 +22,17 @@ REVOSax-Übernahme in `data/recht/revosax-import-audit/summary.json`.
   Verlängerung vorlag; die Norm bleibt unverändert, der Fall ist in
   `data/recht/revosax-sunset-decisions.json` als offen dokumentiert.
 
+## Sächsische Rechtsakte nach dem Überleitungsstichtag
+
+Erlassdatum oder Fassungsbeginn nach dem 1. November 2023 werden in
+`data/recht/revosax-post-cutoff-decisions.json` entschieden (`discard`, `adopted`, `open`). Offen
+bleibt ein Fall:
+
+- **VwV Größere Raubtiere** (`vwv-groessere-raubtiere`, REVOSax 21231) — die amtliche Trefferliste
+  nennt als Erlassdatum den 30. Mai 2025, die übernommene Fassung gilt aber seit dem 1. Juli 2023
+  und wurde für den Stichtag ausgeliefert. Ohne weitere amtliche Quelle ist nicht entscheidbar, ob
+  die Vorschrift am Stichtag in dieser Fassung galt; sie bleibt unverändert im Bestand.
+
 ## Rechtsherkunft nicht belegbar (`origin-unresolved`)
 
 Die Herkunftsklasse wird aus Quellen, Fundstellen und Historie abgeleitet
@@ -33,16 +44,19 @@ ostdeutsche Setzung kennt:
 - **Ostdeutsches Zweckentfremdungsverbotsgesetz** (`zweckentfremdungsverbotsgesetz`) — sächsisches
   Gesetz vom 14. Februar 2024 (SächsGVBl. S. 167, REVOSax 20743.1, gültig ab 19. März 2024), also
   nach dem Stichtag erlassen und dennoch übernommen; ostdeutsche Änderung durch OGVBl. 2026
-  Nr. 29. Es fehlt eine belegte Regel, ob und wie nach dem Stichtag erlassenes sächsisches Recht in
-  den ostdeutschen Bestand gelangt (Adoptionsakt oder redaktionelle Entscheidung).
+  Nr. 29. Die Übernahme ist als `adopted` in `data/recht/revosax-post-cutoff-decisions.json`
+  belegt; offen bleibt allein die Herkunftsklasse, weil das Modell nur Übernahme zum Stichtag und
+  eigene ostdeutsche Setzung kennt.
 - **Ostdeutsches Gleichstellungsgesetz** (`saechsisches-gleichstellungsgesetz`) — sächsisches
   Gesetz vom 19. Oktober 2023 (SächsGVBl. S. 850, REVOSax 20283.1), am Stichtag verkündet, aber
-  erst am 1. Januar 2024 in Kraft; ostdeutsche Änderung durch OGVBl. 2026 Nr. 35. Offen ist, ob
-  am Stichtag verkündetes, noch nicht geltendes Recht als übernommen gilt.
+  erst am 1. Januar 2024 in Kraft; ostdeutsche Änderung durch OGVBl. 2026 Nr. 35. Die Übernahme
+  ist in `data/recht/revosax-post-cutoff-decisions.json` als `adopted` belegt; offen ist, ob am
+  Stichtag verkündetes, noch nicht geltendes Recht als übernommen gilt.
 - **Ausbildungs- und Prüfungsordnung Polizei** (`ausbildungs-und-pruefungsordnung-polizei`) —
   sächsische Verordnung vom 6. August 2024, Fassung ab 1. September 2025 (REVOSax 21006.2),
-  ostdeutsche Änderung durch OGVBl. 2026 Nr. 12; derselbe offene Adoptionsfall wie beim
-  Zweckentfremdungsverbotsgesetz.
+  ostdeutsche Änderung durch OGVBl. 2026 Nr. 12; die Übernahme ist wie beim
+  Zweckentfremdungsverbotsgesetz in `data/recht/revosax-post-cutoff-decisions.json` als `adopted`
+  belegt, die Herkunftsklasse bleibt offen.
 - **Oberstufen- und Abiturprüfungsverordnung** (`oberstufenund-abiturprufungsverordnung`) — die
   2024 geänderte Verordnung war bereits seit dem 1. August 2008 außer Kraft
   (`knowledge/clarifications/2026-08-27-zuarbeit-pdfnachtrag.md`); der Datensatz trägt weder eine

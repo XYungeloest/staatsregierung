@@ -164,7 +164,15 @@ als `alternativeIssueDesignation` gespeichert. Das optionale Feld `pdf` ist eine
 nicht automatisch öffentlich verlinkt.
 `entries[].documentDate` bezeichnet dagegen das Ausfertigungs- beziehungsweise Dokumentdatum.
 Beide Werte werden getrennt gepflegt und dürfen nicht aus Bequemlichkeit gleichgesetzt werden.
-`entries[].citation` enthält Normart, Dokumentdatum und die belegte Fundstelle. `startPage` bezeichnet
+`entries[].type` bezeichnet dieselbe Rechtsvorschrift wie die verknüpfte Norm und folgt deshalb
+deren Normtyp (`publicationEntryTypeForNormType` in
+`packages/shared/src/lib/norms/publications.ts`): Zustimmungsgesetze erscheinen als `gesetz`,
+Änderungsvorschriften mit dem Typ des ändernden Rechtsakts – im Staatsanzeiger
+`verwaltungsvorschrift`, sonst `gesetz` oder `verordnung` –, alle übrigen Normtypen unverändert.
+`entries[].citation` enthält Normart, Dokumentdatum und die belegte Fundstelle. Die genannte
+Normart muss zum Normtyp passen; amtliche Sonderformen einer Verwaltungsvorschrift (Anordnung,
+Erlass, Organisationserlass, Dienstanordnung) und einer Förderrichtlinie (Richtlinie) bleiben
+erhalten. `startPage` bezeichnet
 ausschließlich eine belastbar bekannte Anfangsseite; `pages` ist vollständigen, belegten Seitenbereichen
 vorbehalten. Eine Anfangsseite darf nicht als vollständiger Seitenbereich ausgegeben und bei Mantelgesetzen
 nicht pauschal auf eingeführte Stammnormen übertragen werden. Auch im verknüpften Normdatensatz bleibt das vollständige Normzitat erhalten, zum Beispiel
@@ -908,6 +916,11 @@ Regeln:
   behaupten.
 - Ist `meta.expiryDate` belegt, muss `validTo` der letzten gespeicherten Fassung diesem Datum
   entsprechen.
+- Eine Allgemeinverfügung, deren Titel oder Wortlaut ein Ende nennt („bis zum 1. Januar 2026“,
+  „mit Ablauf des …“), führt dieses Ende als `meta.expiryDate`; liegt es vor dem redaktionellen
+  Stichtag, ist der Status `repealed` und die Historie trägt einen Eintrag zum Außerkrafttreten.
+  Der Import erzeugt diese Angaben deterministisch aus `PUBLICATION_EXPIRY_CONFIG` in
+  `scripts/import-normen.mjs`, nicht von Hand.
 - Eine zukünftige Fassung wird aus `validFrom` nach dem redaktionellen Stichtag ermittelt und nie
   als historische Fassung bezeichnet.
 - Bei `pending-effective` wird die Fassung unabhängig vom Bestandsfeld als „Inkrafttreten nicht
@@ -993,9 +1006,26 @@ annex
 paragraphText
 item
 subitem
+signature
 ```
 
 Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `article` und `annex` brauchen mindestens `label` oder `title` und in der Regel `children`. Textblöcke `paragraphText`, `item` und `subitem` brauchen `text`.
+
+Der Blocktyp `signature` bildet den Unterschriftenblock am Ende einer eigenen Verkündung ab:
+`text` nennt die unterzeichnende Person, `title` die Amtsbezeichnung in Normalschreibung
+(„Der Ministerpräsident“, „Die Staatsministerin des Innern, Bau und für Kommunales“) und `label`
+Ort und Datum, soweit die Quelle sie im selben Block führt. Untergeordnete Blöcke sind dort nicht
+zulässig. Der Block steht auf Dokumentebene unter dem Normtext, bildet keine Fundstelle, wird nicht
+durchsucht und trägt keine Textverweise. Führt die Quelle Ort und Datum als eigene Zeile vor der
+Unterschrift („Dresden, den 20. Juli 2026“), gehört der gesamte Ausfertigungsblock nicht zum
+Normkörper und wird beim Import verworfen.
+
+Amtliche Quellen setzen Amtsbezeichnungen und einzelne Hervorhebungen gesperrt („D e r
+M I N I S T E R P R Ä S I D E N T“, „s o l l“). Der Normkörper kennt kein Auszeichnungsmodell für
+Hervorhebungen; gesperrter Satz wird deshalb als gewöhnliches Wort gespeichert. `content:check`
+lehnt Folgen aus mindestens vier einzeln stehenden Buchstaben in `label`, `title` und `text`
+außerhalb eines `signature`-Blocks ab. Ebenso lehnt es einen Text ab, der mit der Überschrift
+seiner übergeordneten Gliederungseinheit beginnt: Die Überschrift steht genau einmal.
 
 ## Parlamentarische Gesetzgebung
 
