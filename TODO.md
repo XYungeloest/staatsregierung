@@ -15,10 +15,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   `data/recht/subject-assignment-review.json`. Fertig, wenn redaktionell geprüfte Schlagwörter und
   Kurzfassungen vorliegen und die Kennzeichnung in `data/recht/revosax-import-audit/summary.json`
   entfällt.
-- [ ] Übergangsregel des Base-State-Guards abschließen: Code, Tests, Workflow-Schritte und
-  Runbook kennen nur noch die Identität aus dem Code-Abschluss; der Guard akzeptiert keine frühere
-  Berechnung mehr. Fertig, wenn Staging und Produktion eine Identität der neuen Berechnung tragen
-  (`npm run norms:runtime:d1-sync -- --remote-state …` meldet für beide No-op).
 
 ### Bestand und Struktur
 
