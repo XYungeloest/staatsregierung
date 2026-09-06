@@ -82,6 +82,18 @@ nur die stichtagsabhängig betroffenen Normen samt abgeleiteten Daten aller Norm
 (`scripts/lib/d1-reference-date.mjs`; Gleichheit mit einer frischen Vollprojektion wird in
 `tests/recht-d1-reference-date.test.mjs` geprüft).
 
+Der Stichtag bleibt eine redaktionelle Entscheidung; er wird nicht täglich automatisch
+fortgeschrieben. Die Oberfläche behauptet deshalb keine Tagesaussage: Fassungswahl,
+Vorschriftendaten und Trefferliste bezeichnen die geltende Fassung als „Rechtsstand vom
+<Stichtag>“ (`referenceDateLabel` in `apps/recht/src/lib/vocabulary.ts`, wortgleich in
+`packages/recht-search/src/search-query.ts`). Dieser Satz trifft an jedem Aufruftag zu, auch wenn
+der Stichtag einige Tage zurückliegt; „Geltend am <Datum>“ und das Wort „Stichtag“ kommen in
+öffentlichen Texten außerhalb der Hilfe nicht vor. Ein täglicher Workflow wurde bewusst nicht
+eingerichtet: er verlangte PR-Erstellung mit Pflichtchecks ohne Bypass, einen Organisations-
+Snapshot je Stichtag, eine laufende Themen-Hervorhebung, neu erzeugte Wissenshub-Dateien sowie je
+Lauf Vollbestand-Smoke, Doppel-Deployment und einen D1-Neuaufbau der abgeleiteten Daten aller
+Normen.
+
 ## Redaktionelle Nacharbeit
 
 Nach dem Import sind Verkündungsbezüge, Stammfundstelle, kanonisches Vollzitat, betroffene und

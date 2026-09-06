@@ -105,7 +105,9 @@ Typoskala (`foundation.css`): `--text-2xs` 0,72 rem (11,52 px), `--text-xs` 0,82
 (18,4), `--text-lg` 1,3 (20,8), `--text-lg-plus` 1,5 (24), `--text-xl` 1,75 (28). Begründete
 Zusatzstufen: `--text-base-plus` für Kartentitel (zwischen 16 und 18,4 px), `--text-lg-plus` für die
 Abschnitts-H2 des Staatsportals (sonst 20,8 px). Die kleinste Stufe trägt Wortmarken-Untertitel und
-Kennzahl-Etiketten.
+Kennzahl-Etiketten, nie Navigations- oder Listeneinträge: die Inhaltsübersicht der Normseite steht
+mindestens in `--text-sm`, ihre Gliederungszeichen mindestens in `--text-xs`
+(`tests/stilwaechter.test.ts` hält beide Untergrenzen fest).
 
 Titelstufen, eine je Seitenfamilie in beiden Portalen: `--text-display` für den Startseiten-Hero,
 `--text-title` für Bereichs-, Such- und Hilfeseiten, `--text-title-long` für Langtitel (Normseiten,
@@ -157,14 +159,18 @@ Es gibt vier Breakpoints, alle als `max-width` in rem: **80 rem**, **64 rem**, *
 
 - bis 80 rem (kleiner Desktop): im Rechtsportal klappt nur die Navigationsliste in das Menü;
   Wortmarke, Suchfeld und Menüknopf bleiben sichtbar (Kopf-Zwischenstufe). Das Band der
-  Startseite geht auf zwei Spalten, die Funktionskarte nimmt die volle Breite.
+  Startseite geht auf zwei Spalten, die Funktionskarte nimmt die volle Breite. Der
+  Normarbeitsbereich bleibt zweispaltig: die haftende Inhaltsübersicht neben dem Text, die
+  Vorschriftendaten darunter über beide Spalten als Aufklappbereich „Angaben zur Vorschrift“.
 - bis 64 rem (Tablet quer): die beiden Servicewege stehen im geöffneten Menü, die Suche bleibt im
-  Kopf; Normarbeitsbereich und Startseitenbänder werden einspaltig, Inhaltsübersicht und
-  Vorschriftendaten werden zu nativen Aufklappbereichen.
+  Kopf; Normarbeitsbereich und Startseitenbänder werden einspaltig, die Inhaltsübersicht wird zum
+  nativen Aufklappbereich.
 - bis 48 rem (Tablet hoch): Verzeichniseinträge, Filterleisten und Formularzeilen stapeln sich; die
-  Werkzeuge je Einheit sind dauerhaft sichtbar.
+  Werkzeuge je Einheit sind dauerhaft sichtbar und tragen ihre Beschriftung. Die beiden
+  Aufklappzeilen „Angaben zur Vorschrift“ und „Inhalt der Vorschrift“ stehen nebeneinander über dem
+  Text; die geöffnete nimmt die volle Breite. Die Werkzeugleiste des Normkopfs rollt waagerecht.
 - bis 30 rem (Smartphone): auch die Kopfsuche weicht in das Menü, dort bleibt sie erreichbar;
-  Kacheln werden einspaltig.
+  Kacheln werden einspaltig; Normtitel und Fassungswahl rücken eine Stufe zusammen.
 
 Inhalte werden gestapelt, nicht abgeschnitten oder versteckt. Kein Seitenlayout erzeugt
 horizontalen Dokumentüberlauf (geprüft bei 375, 768, 1024, 1100, 1280 und 1440 px). Tabellen dürfen
@@ -220,16 +226,30 @@ demselben Adress- und Seitenmuster.
 
 ### Normkopf und Fassungsnavigation
 
-Fassung, Historie, Fassungsvergleich und Einzelfassung rendern denselben `NormPageHeader.astro`;
-Eyebrow und Statuszeile kommen aus `apps/recht/src/lib/norm-header.ts`: der Eyebrow lautet
-„Vorschrift“, die Statuszeile nennt Fassungsart und Rechtsstand („Aktuelle Fassung · in Kraft seit …“,
-„Historische Fassung · gültig ab … bis …“). Der Wechsel zwischen den Ansichten verändert den Kopf
-nicht. Die Werkzeugleiste hat drei feste Plätze: „Als PDF öffnen“ (ohne PDF ausgegraut mit
-Begründung), „Als HTML lesen“, „Link kopieren“; Fundstellen ohne Ziel sind Nur-Text. Die
-Fassungsnavigation ist ein Linkband gleichwertiger Links mit unterstrichenem aktivem Eintrag – kein
-Kasten, keine gefüllte Pille, kein Tab-Widget; die gespeicherten Fassungen stehen in einem ohne
-JavaScript bedienbaren `details`-Wähler, nach geltend, historisch, zukünftig und ungeklärtem
-Inkrafttreten gruppiert und immer zusätzlich textlich bezeichnet.
+Fassung, „Fassungen und Änderungen“, Fassungsvergleich und Einzelfassung rendern denselben
+`NormPageHeader.astro`; Eyebrow und Statuszeile kommen aus `apps/recht/src/lib/norm-header.ts`: der
+Eyebrow lautet „Vorschrift“, die Statuszeile beschreibt zuerst die angezeigte Fassung und danach die
+Vorschrift („Geltende Fassung seit … · Vorschrift in Kraft seit …“, bei gleichen Daten „Geltende
+Fassung · in Kraft seit …“, „Historische Fassung · gültig ab … bis … · Vorschrift in Kraft seit …“).
+Der Wechsel zwischen den Ansichten verändert den Kopf nicht. Der Kopf trägt außer Titelblock
+(Überschrift, Langtitel nur bei Abweichung, Abkürzung) nur Normtyp und Geltung; Fundstelle,
+Rechtsstand und Zusammenfassung stehen nicht im Kopf. Die Werkzeugleiste hat drei feste Plätze –
+„Fassung als PDF“, „Amtliche Ausgabe (PDF)“ (ohne Beleg ausgegraut mit Begründung) und „Link
+kopieren“ – dazu den Sprunglink „Zum Vorschriftentext“ bzw. „Zur geltenden Fassung“.
+
+Alle Angaben zur Vorschrift stehen genau einmal in `NormFacts.astro` („Vorschriftendaten“):
+Vollzitat, Fundstelle, Rechtsstand, Geltung, Herkunft mit den verlinkten Änderungsvorschriften,
+Quelle, Sachgebiete, Ressort und Vertragsdaten. Ab 80 rem steht der Block offen, darunter ist er der
+Aufklappbereich „Angaben zur Vorschrift“.
+
+Die Fassungsnavigation ist ein Linkband gleichwertiger Links mit unterstrichenem aktivem Eintrag –
+kein Kasten, keine gefüllte Pille, kein Tab-Widget. Sie führt ausschließlich Unterseiten der
+Vorschrift: „Aktuelle Fassung“, „Fassungen und Änderungen“ und – ab zwei gespeicherten Fassungen –
+„Fassungsvergleich“, jede mit `aria-current` auf ihrer Seite; Sprungziele stehen nicht in der Reihe.
+Die gespeicherten Fassungen stehen in einem ohne JavaScript bedienbaren `details`-Wähler, nach
+geltend, historisch, zukünftig und ungeklärtem Inkrafttreten gruppiert und immer zusätzlich textlich
+bezeichnet; die geltende Fassung heißt dort wie überall „Rechtsstand vom <Datum>“. Vorschriften mit
+einer einzigen Fassung zeigen keinen Wähler.
 
 ### Normtext
 
@@ -240,15 +260,22 @@ Text steht ein echtes Leerzeichen, damit kopierter und vorgelesener Text „Arti
 Verfassungsgrundsätze“ und „(1) Die Hauptstadt …“ lautet. Absatz-, Nummern- und
 Buchstabenkennzeichnungen gehören zum Fließtext mit fester Labelspalte.
 
-Vor dem Text stehen ein Umschalter „Alle Paragraphen öffnen/schließen“, dessen Beschriftung den
-nächsten Zustand nennt, „Inhaltsübersicht“ als Sprunglink und „Drucken“ als Symbolknopf. Je Einheit
-gibt es einen Symbolknopf am rechten Rand der Überschrift (Desktop bei Hover und Fokus, kleine
-Bildschirme dauerhaft) mit „Link zu dieser Stelle kopieren“ (springt und kopiert) und „Einzeldruck“.
+Jede nicht zitierte Einheit ist ein `section` mit echter Überschrift; das Auf- und Zuklappen
+übernimmt ein Knopf daneben (`aria-expanded`, `aria-controls`), nicht ein `summary` – Überschriften
+in `summary` werden von Safari mit VoiceOver und von Firefox nicht als Überschrift ausgegeben.
+
+Vor dem Text stehen ein Umschalter, dessen Beschriftung den nächsten Zustand und die Einheitenart
+der Vorschrift nennt („Alle Artikel schließen“, „Alle Paragraphen öffnen“; ohne Artikel und
+Paragraphen entfällt er), „Inhaltsübersicht“ als Sprunglink und „Drucken“ als Symbolknopf. Je
+Einheit gibt es einen Knopf „Werkzeuge“ in der Kopfzeile (Desktop bei Hover und Fokus, kleine
+Bildschirme dauerhaft; ab 48 rem mit sichtbarer Beschriftung, darunter als Symbol mit
+zugänglichem Namen) mit „Link zu dieser Stelle kopieren“ (springt und kopiert) und „Einzeldruck“.
 Paragraphen, Artikel und Anlagen tragen sprechende, deterministische Anker; alte Anker bleiben
-unsichtbare Sprungziele. Inhaltsübersicht und Informationsspalte haften neben dem Dokument; die
-Seitenspalten tragen dafür die volle Zeilenhöhe. Entscheidung gegen die ursprüngliche Empfehlung:
-Tabellen und Anlagen ragen nicht in die Informationsspalte hinein, weil sie unter der haftenden
-Fläche lägen; sie nutzen die volle Textspalte und rollen erst darüber hinaus in `.table-wrap`.
+unsichtbare Sprungziele, und ein Sprung auf eine eingeklappte Einheit klappt sie auf. Die
+Inhaltsübersicht haftet neben dem Dokument; ihre Spalte trägt dafür die volle Zeilenhöhe.
+Entscheidung gegen die ursprüngliche Empfehlung: Tabellen und Anlagen ragen nicht in die
+Informationsspalte hinein, weil sie unter der haftenden Fläche lägen; sie nutzen die volle
+Textspalte und rollen erst darüber hinaus in `.table-wrap`.
 
 ### Fassungsvergleich
 
@@ -258,7 +285,11 @@ Vergleich zeigt dieselbe Gliederungstiefe, dieselben Leerzeichen und dieselbe Do
 Normseite. Er wird von `packages/shared/src/lib/norms/diff-render.ts` erzeugt, einem eigenen Renderer
 neben `NormBody.astro`; beide bleiben bewusst getrennt, weil der eine Astro-Templates aus dem
 Normmodell, der andere Zeichenketten mit Änderungsläufen je Seite aus dem Diff-Modell baut – gemeinsam
-sind Klassen und Regeln, nicht der Code.
+sind Klassen und Regeln, nicht der Code. Der Zähler nennt die Einheitenart der verglichenen
+Fassungen und beugt sie richtig („132 geänderte Artikel“, „1 geänderter Paragraph“, „1 geänderte
+Textstelle“; `packages/shared/src/lib/norms/units.ts`). Absätze ohne Gliederungszeichen werden
+inhaltlich gepaart: wortgleiche Absätze bleiben unverändert und erscheinen nicht, eine umformulierte
+Zeile gilt als geändert, eine gestrichene als entfallen.
 
 ### Startseite
 
@@ -290,7 +321,9 @@ Rechtsherkunft ist auf allen Rechtsseiten mit derselben Kennzeichnung sichtbar
 („Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“) und
 erklärend auf Normseite, in Suchtreffern, Filtern und Zählern („Übernommen und unverändert“,
 „Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft ungeklärt“). Die
-Normseite fasst Rechtsstand und Herkunft in `NormLegalStatusPanel.astro` zusammen.
+Normseite führt Rechtsstand und Herkunft in `NormFacts.astro` mit allen übrigen Angaben zur
+Vorschrift zusammen. Die geltende Fassung heißt in Fassungswahl, Vorschriftendaten und Trefferliste
+„Rechtsstand vom <Datum>“; das Wort „Stichtag“ steht öffentlich nur in der Hilfe.
 
 Jedes Ziel hat genau eine Bezeichnung, gelesen aus `lawSiteConfig.targetLabels`
 (`packages/shared/src/config/site.ts`) von Navigation, Fußzeilen beider Portale, Startseitenkarten,
@@ -346,7 +379,10 @@ ausdrücklich konfiguriertem Telefonweg.
 
 - genau eine H1 pro Seite, semantische Landmarken, nachvollziehbare Überschriftenfolge
 - Skip-Link, sichtbarer Tastaturfokus mit mindestens 3 : 1 gegen seine Bezugsfläche (siehe Farbrollen)
-- `aria-current` für den aktiven Hauptnavigationspunkt; native `details` für Menüs und Aufklappbereiche
+- `aria-current` für den aktiven Hauptnavigationspunkt; native `details` für Menüs und
+  Aufklappbereiche. Ausnahme sind die Einheiten des Vorschriftentextes: dort trägt eine echte
+  Überschrift den Namen und ein Knopf mit `aria-expanded`/`aria-controls` das Auf- und Zuklappen,
+  weil Überschriften in `summary` nicht überall als Überschrift ausgegeben werden.
 - beschriftete Suchfelder, Schaltflächen mit sichtbarem oder zugänglichem Namen
 - Bedienziele im Rechtsportal mindestens 24 × 24 px; die Fußzeile des Staatsportals liegt mit
   19–21 px darunter
@@ -367,6 +403,9 @@ erneuert – `npm run test:visual:update:linux -- --site law` (Docker) oder Work
 (`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt Screenshot-Suite). Sie sind kein Deployment-Gate. `tests/accessibility.spec.ts` prüft alle repräsentativen Seiten mit Axe und den
 Fokusindikator gegen seine Bezugsfläche; `tests/browser-smoke.spec.ts` prüft Verzeichnisse,
 Suche, Normseiten und Kopfstufen funktional; `npm run docs:check` hält die Dokumente konsistent.
+Zwei Messtests in `tests/visual.spec.ts` prüfen den Normarbeitsbereich in Zahlen statt in Bildern:
+bei 1280 px stehen Inhaltsübersicht und Text in zwei Spalten, auf den Mobilbreiten ist der Normkopf
+höchstens 320 px hoch und der Vorschriftentext beginnt spätestens bei 700 px.
 
 ## Was vermieden wird
 
