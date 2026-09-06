@@ -70,8 +70,7 @@ const header = normHeaderState(norm, headerVersion);
     version={headerVersion}
     eyebrow={header.eyebrow}
     status={header.status}
-    reference={toDisplayText(headerVersion.citation)}
-    htmlHref={getNormUrl(norm.meta.slug)}
+    textHref={getNormUrl(norm.meta.slug)}
   />
   <NormVersionNavigation norm={norm} currentPage="compare" showPicker={false} />
 

@@ -1,19 +1,17 @@
 ---
-import { getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatSourceLabel } from '../../lib/source-labels.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
 
 interface Props {
   norm: NormRecord;
   version: NormVersion;
-  fullCitation: string;
   publicationReference?: NormPublicationReference;
   publication?: Verkuendung;
 }
 
-const { norm, version, fullCitation, publicationReference, publication } = Astro.props;
-const citation = toDisplayText(fullCitation);
+const { norm, version, publicationReference, publication } = Astro.props;
 ---
 
 <section class="section norm-print-sources" aria-labelledby="drucken-quellen">
@@ -26,22 +24,14 @@ const citation = toDisplayText(fullCitation);
       <button class="text-link-button" type="button" data-print-page>Gesamtansicht drucken</button>
       <span>Die Druckansicht ist eine Portalansicht, keine eigenständige amtliche Verkündung.</span>
     </li>
-    {publicationReference ? (
-      <li>
-        <a class="inline-link" href={`${getPublicationUrl(publicationReference.publicationSlug)}#${publicationReference.entryId}`}>
-          Zugehörige Verkündungsseite
-        </a>
-        <span>{toDisplayText(publicationReference.publicationTitle)}</span>
-      </li>
-    ) : null}
     {publication?.pdf ? (
       <li>
-        <a class="inline-link" href={publication.pdf}>Originalausgabe als PDF</a>
+        <a class="inline-link" href={publication.pdf}>Amtliche Ausgabe (PDF)</a>
         <span>Amtliche Ausgabe zur Fundstelle.</span>
       </li>
     ) : publicationReference ? (
       <li>
-        <span class="norm-source-actions__label">Originalausgabe als PDF</span>
+        <span class="norm-source-actions__label">Amtliche Ausgabe (PDF)</span>
         <span>Für diese Ausgabe ist im Portal keine belegte PDF-Datei hinterlegt.</span>
       </li>
     ) : null}
@@ -54,8 +44,8 @@ const citation = toDisplayText(fullCitation);
           <li>
             <strong>
               {source.url ? (
-                <a class="inline-link" href={source.url}>{toDisplayText(source.label)}</a>
-              ) : toDisplayText(source.label)}
+                <a class="inline-link" href={source.url}>{formatSourceLabel(source.label)}</a>
+              ) : formatSourceLabel(source.label)}
             </strong>
             {source.pageRange ? ` · Seiten ${source.pageRange}` : ''}
           </li>
@@ -76,34 +66,4 @@ const citation = toDisplayText(fullCitation);
       </dl>
     </div>
   ) : null}
-  <div class="norm-citation-copy">
-    <label for={`citation-${norm.meta.slug}`}>Vollzitat dieser Fassung</label>
-    <div>
-      <textarea id={`citation-${norm.meta.slug}`} rows="4" readonly>{citation}</textarea>
-      <button type="button" data-copy-value={`citation-${norm.meta.slug}`}>Vollzitat kopieren</button>
-    </div>
-    <p class="norm-citation-copy__note">
-      Das Vollzitat nennt die Vorschrift selbst, ihre Stammfundstelle und die letzte für diese
-      Fassung nachgewiesene Änderung.
-    </p>
-    <p class="copy-feedback" aria-live="polite" data-copy-feedback></p>
-  </div>
 </section>
-
-<script>
-  document.addEventListener('click', async (event) => {
-    if (!(event.target instanceof HTMLButtonElement)) return;
-    const inputId = event.target.dataset.copyValue;
-    if (!inputId) return;
-    const input = document.getElementById(inputId);
-    if (!(input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement)) return;
-    input.select();
-    const feedback = event.target.closest('.norm-citation-copy')?.querySelector<HTMLElement>('[data-copy-feedback]');
-    try {
-      await navigator.clipboard.writeText(input.value);
-      if (feedback) feedback.textContent = 'Vollzitat wurde kopiert.';
-    } catch {
-      if (feedback) feedback.textContent = 'Das Vollzitat ist markiert und kann manuell kopiert werden.';
-    }
-  });
-</script>

@@ -11,6 +11,7 @@ import {
 } from '@ostrecht/shared/lib/norms/routes.ts';
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+import { referenceDateLabel } from '../../lib/vocabulary.ts';
 
 interface Props {
   norm: NormRecord;
@@ -39,7 +40,7 @@ function isSelected(entry: (typeof classified)[number]): boolean {
 }
 
 function versionLabel(entry: (typeof classified)[number]): string {
-  if (entry.kind === 'current') return `Geltend am ${formatDate(EDITORIAL_REFERENCE_DATE)}`;
+  if (entry.kind === 'current') return referenceDateLabel();
   if (entry.kind === 'future') return `Gültig ab ${formatDate(entry.version.validFrom)}`;
   if (entry.kind === 'historical') {
     return entry.version.validTo
@@ -75,7 +76,7 @@ function versionLabel(entry: (typeof classified)[number]): string {
             <h2 id={`version-current-${norm.meta.slug}`}>Geltend</h2>
             <ul><li>
               <a href={versionHref(applicable)} aria-current={isSelected(applicable) ? 'page' : undefined}>
-                Geltend{' '}am{' '}<time datetime={EDITORIAL_REFERENCE_DATE}>{formatDate(EDITORIAL_REFERENCE_DATE)}</time>
+                Rechtsstand{' '}vom{' '}<time datetime={EDITORIAL_REFERENCE_DATE}>{formatDate(EDITORIAL_REFERENCE_DATE)}</time>
               </a>
             </li></ul>
           </section>

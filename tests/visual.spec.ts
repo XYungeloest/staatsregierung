@@ -534,7 +534,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-herkunft-module',
     path: lawUrl(`/norm/${fixture.amended}/`),
     shots: [
-      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-legal-status"]'],
+      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-facts"]'],
     ],
     critical: true,
   },
@@ -542,7 +542,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-herkunft-unveraendert-module',
     path: lawUrl(`/norm/${fixture.unchanged}/`),
     shots: [
-      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-legal-status"]'],
+      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-facts"]'],
     ],
   },
   {
@@ -564,8 +564,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-module',
     path: lawUrl(`/norm/${fixture.original}/`),
     shots: [
-      ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
-      ['norm-zitieren-rechtsstand', '[data-visual-section="norm-citation-status"]'],
+      ['norm-rechtsstand', '[data-visual-section="norm-facts"]'],
       ['norm-navigation', '.norm-version-navigation'],
       ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
     ],
@@ -574,7 +573,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-sidebar-module',
     path: lawUrl(`/norm/${fixture.portalRelations}/`),
     shots: [
-      ['norm-vorschriftendaten', '[data-visual-section="norm-metadata"]'],
+      ['norm-vorschriftendaten', '[data-visual-section="norm-facts"]'],
       ['norm-weiterfuehrende-bezuege', '[data-visual-section="norm-portal-relations"]'],
     ],
   },
@@ -693,8 +692,9 @@ for (const entry of componentVisualPages) {
       });
     }
 
-    if (entry.name === 'norm-module' || entry.name === 'norm-sidebar-module') {
-      await page.locator('.norm-info-panel').evaluate((element) => {
+    // Die Vorschriftendaten sind unterhalb von 80 rem ein Aufklappbereich; die Baseline zeigt sie offen.
+    if (entry.shots.some(([, selector]) => selector.includes('norm-facts'))) {
+      await page.locator('.norm-facts').evaluate((element) => {
         (element as HTMLDetailsElement).open = true;
       });
     }

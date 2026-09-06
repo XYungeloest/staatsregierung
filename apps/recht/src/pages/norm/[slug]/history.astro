@@ -92,8 +92,7 @@ const successorSlug = norm.meta.successorSlug;
     version={currentVersion}
     eyebrow={header.eyebrow}
     status={header.status}
-    reference={toDisplayText(currentVersion.citation)}
-    htmlHref={getNormUrl(norm.meta.slug)}
+    textHref={getNormUrl(norm.meta.slug)}
   />
   <NormVersionNavigation norm={norm} currentPage="history" />
 

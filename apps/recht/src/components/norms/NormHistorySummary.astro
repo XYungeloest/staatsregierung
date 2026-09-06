@@ -14,7 +14,6 @@ const entries = [...norm.history.entries].sort((left, right) => right.date.local
         <li>
           <time datetime={entry.date}>{formatDate(entry.date)}</time>
           <span>{toDisplayText(entry.title)}</span>
-          {entry.relatedNorm ? <span>Bezug: {toDisplayText(entry.relatedNorm)}</span> : null}
         </li>
       ))}
     </ol>

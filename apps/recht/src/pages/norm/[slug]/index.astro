@@ -2,10 +2,8 @@
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import NormBody from '../../../components/norms/NormBody.astro';
-import NormCitationBlock from '../../../components/norms/NormCitationBlock.astro';
-import NormMetaCard from '../../../components/norms/NormMetaCard.astro';
+import NormFacts from '../../../components/norms/NormFacts.astro';
 import NormOutline from '../../../components/norms/NormOutline.astro';
-import NormLegalStatusPanel from '../../../components/norms/NormLegalStatusPanel.astro';
 import NormLegalRelations from '../../../components/norms/NormLegalRelations.astro';
 import NormDocumentTools from '../../../components/norms/NormDocumentTools.astro';
 import NormPrintSources from '../../../components/norms/NormPrintSources.astro';
@@ -22,7 +20,6 @@ import {
 import {
   getLawPortalUrl,
   getNormUrl,
-  getPublicationUrl,
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
@@ -46,16 +43,11 @@ const [derived, fullCitation, publicationReference] = await Promise.all([
   store.getPublicationReference(slug, currentVersion.versionId),
 ]);
 if (!derived) return Astro.rewrite('/404');
-const publication = publicationReference ? await store.getPublication(publicationReference.publicationSlug) : null;
-const currentReference = publicationReference
-  ? `${toDisplayText(publicationReference.publication)} ${publicationReference.publicationDate.slice(0, 4)} Nr. ${toDisplayText(publicationReference.issue)}${
-      publicationReference.pages
-        ? ` S. ${toDisplayText(publicationReference.pages)}`
-        : publicationReference.startPage
-          ? ` S. ${toDisplayText(publicationReference.startPage)}`
-          : ''
-    }`
-  : toDisplayText(currentVersion.citation);
+// Bezeichnungen der Änderungsvorschriften: die Vorschriftendaten verlinken sie mit Titel und Datum.
+const [publication, amendmentLabels] = await Promise.all([
+  publicationReference ? store.getPublication(publicationReference.publicationSlug) : Promise.resolve(null),
+  store.getNormLabels(derived.origin.ownChanges.map((entry) => entry.relatedNormSlug).filter((entry): entry is string => Boolean(entry))),
+]);
 const outline = buildNormOutline(currentVersion.body);
 const identity = getNormVersionIdentity(norm, currentVersion);
 const normTitle = toDisplayText(identity.title);
@@ -103,16 +95,13 @@ const header = normHeaderState(norm, currentVersion);
     version={currentVersion}
     eyebrow={header.eyebrow}
     status={header.status}
-    reference={currentReference}
-    referenceUrl={publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined}
-    publicationPdf={publication?.pdf}
+    officialPdf={publication?.pdf}
   />
   <NormVersionNavigation norm={norm} version={currentVersion} />
   <div class="norm-workspace">
     <aside class="norm-toc-column" id="norm-inhalt"><NormOutline items={outline} /></aside>
 
     <article class="norm-document-column">
-      <NormLegalStatusPanel norm={norm} version={currentVersion} origin={derived.origin} />
       <section class="section" id="normtext" data-visual-section="norm-text">
         <div class="section-header">
           <h2>Vorschriftentext</h2>
@@ -124,7 +113,6 @@ const header = normHeaderState(norm, currentVersion);
       <NormPrintSources
         norm={norm}
         version={currentVersion}
-        fullCitation={fullCitation ?? currentVersion.citation}
         publicationReference={publicationReference}
         publication={publication ?? undefined}
       />
@@ -132,77 +120,71 @@ const header = normHeaderState(norm, currentVersion);
     </article>
 
     <aside class="norm-info-column" data-visual-section="norm-sidebar">
-      <details class="norm-info-panel" open>
-        <summary>Rechtsstand und weitere Informationen</summary>
-        <div class="content-stack norm-sidebar">
-          <NormCitationBlock
-            norm={norm}
-            version={currentVersion}
-            fullCitation={fullCitation ?? currentVersion.citation}
-            publicationReference={publicationReference}
-          />
-          <NormMetaCard
-            norm={norm}
-            version={currentVersion}
-            publicationReference={publicationReference}
-          />
-          <NormHistorySummary norm={norm} />
-          {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
-            <section class="section norm-sidebar__portal-links" data-visual-section="norm-portal-relations">
-          <div class="section-header section-header--compact">
-            <h2>Weiterführende Bezüge</h2>
-          </div>
-          {relatedNorms.length > 0 ? (
-            <>
-              <h3 id="normverwandt">Verwandte Vorschriften</h3>
-              <ul class="norm-sidebar__link-list">
-                {relatedNorms.map((entry) => (
-                  <li>
-                    <a class="inline-link" href={getNormUrl(entry.slug)}>
-                      {toDisplayText(entry.shortTitle || entry.title)}
-                    </a>
-                    <span>{entry.relation}</span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : null}
-          {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? <h3 class="norm-sidebar__portal-heading">Im Staatsportal</h3> : null}
-          {relatedTopics.length > 0 ? (
-            <>
-              <h4>Themen und Projekte</h4>
-              <ul class="norm-sidebar__link-list">
-                {relatedTopics.map((topic) => (
-                  <li>
-                    <a class="inline-link" href={topic.url}>{topic.title}</a>
-                  </li>
-                ))}
-              </ul>
-              <p class="section-link-row">
-                <a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a>
-              </p>
-            </>
-          ) : null}
-          {relatedPressReleases.length > 0 ? (
-            <>
-              <h4>Pressemitteilungen</h4>
-              <ul class="norm-sidebar__link-list">
-                {relatedPressReleases.map((release) => (
-                  <li>
-                    <a class="inline-link" href={release.url}>{release.title}</a>
-                    <time datetime={release.date}>{formatDate(release.date)}</time>
-                  </li>
-                ))}
-              </ul>
-              <p class="section-link-row">
-                <a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a>
-              </p>
-            </>
-          ) : null}
-            </section>
-          ) : null}
+      <div class="content-stack norm-sidebar">
+        <NormFacts
+          norm={norm}
+          version={currentVersion}
+          origin={derived.origin}
+          fullCitation={fullCitation ?? currentVersion.citation}
+          publicationReference={publicationReference}
+          amendmentLabels={amendmentLabels}
+        />
+        <NormHistorySummary norm={norm} />
+        {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
+          <section class="section norm-sidebar__portal-links" data-visual-section="norm-portal-relations">
+        <div class="section-header section-header--compact">
+          <h2>Weiterführende Bezüge</h2>
         </div>
-      </details>
+        {relatedNorms.length > 0 ? (
+          <>
+            <h3 id="normverwandt">Verwandte Vorschriften</h3>
+            <ul class="norm-sidebar__link-list">
+              {relatedNorms.map((entry) => (
+                <li>
+                  <a class="inline-link" href={getNormUrl(entry.slug)}>
+                    {toDisplayText(entry.shortTitle || entry.title)}
+                  </a>
+                  <span>{entry.relation}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+        {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? <h3 class="norm-sidebar__portal-heading">Im Staatsportal</h3> : null}
+        {relatedTopics.length > 0 ? (
+          <>
+            <h4>Themen und Projekte</h4>
+            <ul class="norm-sidebar__link-list">
+              {relatedTopics.map((topic) => (
+                <li>
+                  <a class="inline-link" href={topic.url}>{topic.title}</a>
+                </li>
+              ))}
+            </ul>
+            <p class="section-link-row">
+              <a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a>
+            </p>
+          </>
+        ) : null}
+        {relatedPressReleases.length > 0 ? (
+          <>
+            <h4>Pressemitteilungen</h4>
+            <ul class="norm-sidebar__link-list">
+              {relatedPressReleases.map((release) => (
+                <li>
+                  <a class="inline-link" href={release.url}>{release.title}</a>
+                  <time datetime={release.date}>{formatDate(release.date)}</time>
+                </li>
+              ))}
+            </ul>
+            <p class="section-link-row">
+              <a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a>
+            </p>
+          </>
+        ) : null}
+          </section>
+        ) : null}
+      </div>
     </aside>
   </div>
 </LawLayout>

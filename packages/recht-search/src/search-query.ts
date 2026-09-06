@@ -17,7 +17,9 @@ export function formatSearchResultLabel(
   if (entry.versionKind === 'future') return `Zukünftige Fassung ab ${formatDate(entry.validFrom)}`;
   if (entry.versionKind === 'unknown-effective') return 'Veröffentlicht; Inkrafttreten noch nicht belegt';
   if (entry.versionKind === 'historical') return `Historische Fassung vom ${formatDate(entry.validFrom)}`;
-  return `Geltende Fassung zum ${formatDate(referenceDate)}`;
+  // Wortlaut wie `referenceDateLabel()` in apps/recht/src/lib/vocabulary.ts (Literal, weil dieses
+  // Modul im Browser läuft und die Wortliste nicht laden kann); tests/recht-norm-labels.test.ts hält beide gleich.
+  return `Geltende Fassung, Rechtsstand vom ${formatDate(referenceDate)}`;
 }
 
 export type SearchScope = 'all' | 'title' | 'metadata' | 'body';
