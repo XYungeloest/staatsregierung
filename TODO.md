@@ -7,10 +7,14 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## OstRecht
 
-- [ ] Abgeleitete Metadaten der übernommenen Normen nachschärfen: Sachgebiete, Schlagwörter und
-  Kurzfassungen der REVOSax-Baseline sind deterministisch aus Typ, Ressort und Titel abgeleitet und
-  im Import-Audit als `derivedMetadata` gekennzeichnet. Fertig, wenn redaktionell geprüfte Werte
-  vorliegen und die Kennzeichnung in `data/recht/revosax-import-audit/summary.json` entfällt.
+- [ ] Abgeleitete Metadaten der übernommenen Normen nachschärfen: Schlagwörter und Kurzfassungen
+  der REVOSax-Baseline sind deterministisch aus Typ und Titel abgeleitet und im Import-Audit als
+  `derivedMetadata` gekennzeichnet. Die Sachgebiete folgen der amtlichen Systematik;
+  `derivedMetadata.subjects` zählt, wie viele Zuordnungen die Fundstellennummer belegt und wie
+  viele aus der Ableitungskette stammen, die Zweifelsfälle stehen in
+  `data/recht/subject-assignment-review.json`. Fertig, wenn redaktionell geprüfte Schlagwörter und
+  Kurzfassungen vorliegen und die Kennzeichnung in `data/recht/revosax-import-audit/summary.json`
+  entfällt.
 - [ ] Übergangsregel des Base-State-Guards abschließen: Code, Tests, Workflow-Schritte und
   Runbook kennen nur noch die Identität aus dem Code-Abschluss; der Guard akzeptiert keine frühere
   Berechnung mehr. Fertig, wenn Staging und Produktion eine Identität der neuen Berechnung tragen
@@ -31,18 +35,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   übernommene Änderungsvorschriften nur über den Normtyp-Filter oder die Herkunftsfacette
   erscheinen, jede Änderungsvorschrift aus der Historie ihrer Stammnorm verlinkt ist und alle
   Bestandszahlen dieselbe Grundmenge nennen („x Vorschriften, davon y geltend“).
-- [ ] Sachgebiete zu einer nummerierten Systematik zusammenführen: 43 flache Sachgebiete mit
-  Nahdubletten (Bildung und Schule, Bildung und Weiterbildung, Bildung und Wissenschaft,
-  Schulrecht; Grenzpolizei, Grenzschutz; Öffentlicher Dienst, Öffentliches Dienstrecht; Innere
-  Sicherheit, Sicherheit und Ordnung, Polizei- und Ordnungsrecht; Sozialrecht, Arbeit und
-  Soziales, Gesundheit und Soziales), 17 Sachgebiete mit höchstens fünf Normen und der
-  Sammelposten „Landesrecht“ mit 1500 Normen. REVOSax ordnet jede Vorschrift über eine
-  Gliederungsnummer (Fsn-Nr., etwa 312-V97.1) in acht Hauptgruppen mit Untergruppen ein.
-  Fertig, wenn eine zweistufige nummerierte Systematik mit Zuordnungstabelle alter zu neuen
-  Sachgebieten in `packages/shared/src/config/` liegt, „Landesrecht“ als Sachgebiet entfällt,
-  jede Norm mindestens eine Untergruppe trägt und Sachgebietsseiten, Filter und Startseite die
-  Systematik in derselben Reihenfolge zeigen (ergänzt den Eintrag zu den abgeleiteten
-  Metadaten).
 - [ ] Verzeichnisse und A–Z nach Ordnungswort sortieren: Die Sortierung nach amtlichem Langtitel
   bündelt 108 von 310 Gesetzen unter G („Gesetz über …“), 285 von 615 Verordnungen und 456 von
   577 Verwaltungsvorschriften unter V, im A–Z 1419 Einträge unter V; die Buchstabenleiste ist in

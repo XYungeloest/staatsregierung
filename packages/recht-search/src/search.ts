@@ -1,3 +1,4 @@
+import { compareSubjects } from '@ostrecht/shared/config/law-subjects.ts';
 import {
   buildNormFullCitation,
   buildNormRecordLookup,
@@ -449,7 +450,8 @@ export function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
       .map(([value, label]) => ({ value, label }))
       .sort(compareLabelValuePairs),
     ministries: [...ministries].sort(compareStrings),
-    subjects: [...subjects].sort(compareStrings),
+    // Sachgebiete in der Reihenfolge der amtlichen Systematik.
+    subjects: [...subjects].sort(compareSubjects),
     statuses: [...statuses.entries()]
       .map(([value, label]) => ({ value, label }))
       .sort(compareLabelValuePairs),

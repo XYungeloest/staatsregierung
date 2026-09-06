@@ -402,3 +402,28 @@ test('Gedankenstriche ohne Leerzeichen trennen ebenfalls, Jahresspannen bleiben 
     abbr: undefined,
   });
 });
+
+test('die amtliche Fundstellennummer wird aus der Marginalspalte gelesen', () => {
+  const withFsn = `<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>Testgesetz</h1>
+    <p>Vollzitat: Testgesetz vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)</p>
+    <article id="lesetext">
+      <header><h3>Testgesetz (TestG)</h3><p>1. Januar 2020</p></header>
+      <div class="sections"><section title="§ 1 Zweck"><h4>§ 1 Zweck</h4><p>(1) Testinhalt.</p></section></div>
+    </article>
+    <div id="quickbar">
+      <div class="box"><h3>Fundstelle und systematische Gliederungsnummer</h3><p>
+        OGVBl. 2020 Nr. 1, S. 2
+        <br>
+        Fsn-Nr.: 612-3.10/2
+      </p></div>
+      <div class="box"><h3>Gültigkeitszeitraum</h3><p>Fassung gültig ab: 1. Januar 2020</p></div>
+    </div>
+  </div></div></body></html>`;
+  assert.equal(parseRevosaxSnapshot(withFsn, { url: 'https://www.revosax.sachsen.de/vorschrift/1' }).fsnNumber, '612-3.10/2');
+
+  // Ältere Fassungsseiten führen den Kasten ohne Gliederungsnummer.
+  const withoutFsn = withFsn.replace('Fsn-Nr.: 612-3.10/2', '');
+  assert.equal(parseRevosaxSnapshot(withoutFsn, { url: 'https://www.revosax.sachsen.de/vorschrift/1' }).fsnNumber, null);
+  assert.equal(parseRevosaxSnapshot(snapshot('<section title="§ 1 Zweck"><h4>§ 1 Zweck</h4><p>(1) Testinhalt.</p></section>'), { url: 'https://www.revosax.sachsen.de/vorschrift/1' }).fsnNumber, null);
+});

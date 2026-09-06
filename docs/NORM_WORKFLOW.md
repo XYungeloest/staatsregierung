@@ -20,6 +20,8 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
    `keywords`. Die Zusammenfassung ist eine redaktionelle Kurzbeschreibung; nur eine aus Typ und
    Titel gebildete Formel des Massenimports trägt `summarySource: "derived"` und bleibt öffentlich
    unsichtbar. Eigene Vorschriften brauchen immer eine echte Kurzbeschreibung.
+   Sachgebiete stammen aus der amtlichen Systematik (`packages/shared/src/config/law-subjects.json`);
+   `primarySubject` ist das erste Sachgebiet, Förderrichtlinien tragen zusätzlich `fundingArea`.
 4. Bei der ersten ostdeutschen Änderung einer übernommenen Stammnorm die am 1. November 2023
    geltende REVOSax-Fassung mit `npm run norms:revosax:fetch` sichern und parsen. Die gespeicherte
    HTML-Datei unter `data/recht/sources/revosax/` ist unveränderliche Quellenbeweissicherung.

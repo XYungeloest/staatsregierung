@@ -113,24 +113,26 @@ const ISSUE_CONFIG = {
   '59': [{ slug: 'volksbefragungsverordnung-2026', shortTitle: 'Volksbefragungsverordnung 2026', responsibleMinistry: 'Staatsrat des Freistaates Ostdeutschland', summary: 'Ordnet für den 5. und 6. September 2026 eine freiwillige, rechtlich nicht bindende Volksbefragung mit fünf Fragen an und regelt Information, Durchführung, Ergebnisermittlung und politische Auswertung.' }],
 };
 
+// Sachgebiete der amtlichen Systematik (packages/shared/src/config/law-subjects.json)
+// je Ausgabe des Gesetz- und Verordnungsblatts; das erste ist das Hauptsachgebiet.
 const ISSUE_SUBJECTS = {
-  '46': ['Kommunal- und Verwaltungsrecht', 'Raumordnung und Landesplanung'],
-  '47': ['Mobilität und öffentliche Infrastruktur'],
-  '48': ['Wirtschaft und Förderung', 'Haushaltsrecht'],
-  '49': ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
-  '50': ['Sicherheit und Ordnung'],
-  '51': ['Gesundheit und Soziales'],
-  '52': ['Sport und Bildung'],
-  '53': ['Staats- und Verfassungsrecht'],
-  '54': ['Staats- und Verfassungsrecht', 'Haushaltsrecht'],
-  '55': ['Staats- und Verfassungsrecht'],
-  '56': ['Staats- und Verfassungsrecht', 'Bildung und Weiterbildung'],
-  '57': ['Bildung und Weiterbildung', 'Rundfunk und Medien'],
-  '58': ['Umwelt, Energie und Klimaschutz', 'Kreislaufwirtschaft'],
-  '59': ['Staats- und Verfassungsrecht', 'Wahlrecht und politische Beteiligung'],
+  '46': ['Kommunalrecht', 'Raumordnung, Landesplanung'],
+  '47': ['Verkehr'],
+  '48': ['Gewerbe- und Berufsrecht', 'Haushaltwesen, Rechnungshof'],
+  '49': ['Umweltschutz, Abfallwirtschaft', 'Gewerbe- und Berufsrecht'],
+  '50': ['Sicherheitsrecht und Polizeirecht'],
+  '51': ['Allgemeines zum Sozialwesen'],
+  '52': ['Sport'],
+  '53': ['Verfassungsrecht'],
+  '54': ['Verfassungsrecht', 'Haushaltwesen, Rechnungshof'],
+  '55': ['Verfassungsrecht'],
+  '56': ['Verfassungsrecht', 'Bildungswesen'],
+  '57': ['Bildungswesen', 'Presse-, Rundfunk-, Filmwesen'],
+  '58': ['Umweltschutz, Abfallwirtschaft'],
+  '59': ['Verfassungsrecht'],
 };
 
-const SCHOOL_LAW_SUBJECTS = ['Bildung und Weiterbildung', 'Schulrecht'];
+const SCHOOL_LAW_SUBJECTS = ['Bildungswesen'];
 const NEW_PUBLICATION_CONFIG = {
   'OGVBl.|2026|68': [{
     slug: 'berichtigung-verschiedener-verkuendungen-2026',
@@ -141,7 +143,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-27',
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
-    subjects: ['Landesrecht'],
+    subjects: ['Kommunalrecht'],
     summary: 'Berichtigt acht frühere Verkündungen, ohne einen neuen materiellen Änderungszeitpunkt für die betroffenen Rechtsvorschriften zu begründen.',
     affectedNorms: [
       'dienstanordnung-momentane-terrorgefahr-2024',
@@ -282,7 +284,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-22',
     enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
     responsibleMinistry: 'Büro des Staatspräsidenten',
-    subjects: ['Landesrecht', 'Sicherheit und Ordnung'],
+    subjects: ['Sicherheitsrecht und Polizeirecht'],
     summary: 'Stiftet die Einsatzmedaille „Monschau 2026“ für besondere Verdienste bei der Waldbrandkatastrophe vom 18. bis 20. August 2026 und regelt Voraussetzungen, Gestaltung und Verleihungsverfahren.',
     effectiveOverride: '2026-08-21',
     relatedNorms: ['bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu'],
@@ -307,7 +309,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-22',
     enactingBody: 'Verwaltungsrat der Landesenergiewerke Ost',
     responsibleMinistry: 'Landesenergiewerke Ost AöR',
-    subjects: ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
+    subjects: ['Umweltschutz, Abfallwirtschaft', 'Gewerbe- und Berufsrecht'],
     summary: 'Legt die gemeinwirtschaftliche Strompreisbildung der Landesenergiewerke Ost fest und führt zum 1. September 2026 den Ost-Stromtarif sowie einen vergünstigten Grundbedarfstarif ein.',
     effectiveOverride: '2026-09-01',
     relatedNorms: ['landesenergiewerke-gesetz', 'energie-und-waermevergesellschaftungsgesetz'],
@@ -322,7 +324,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-22',
     enactingBody: 'Verwaltungsrat der Landesenergiewerke Ost',
     responsibleMinistry: 'Landesenergiewerke Ost AöR',
-    subjects: ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
+    subjects: ['Umweltschutz, Abfallwirtschaft', 'Gewerbe- und Berufsrecht'],
     summary: 'Legt die gemeinwirtschaftliche Wärmepreisbildung der Landesenergiewerke Ost fest, senkt Haushaltswärmepreise und führt zum 1. September 2026 einen vergünstigten Grundwärmetarif ein.',
     effectiveOverride: '2026-09-01',
     relatedNorms: ['landesenergiewerke-gesetz', 'energie-und-waermevergesellschaftungsgesetz', 'energie-und-waermefinanzierungsgesetz'],
@@ -337,7 +339,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-23',
     enactingBody: 'Verwaltungsrat der Ostdeutschen Eisenbahn',
     responsibleMinistry: 'Ostdeutsche Eisenbahn AöR',
-    subjects: ['Mobilität und öffentliche Infrastruktur', 'Öffentliche Wirtschaft'],
+    subjects: ['Verkehr', 'Gewerbe- und Berufsrecht'],
     summary: 'Verankert gemeinwirtschaftliche Betriebsgrundsätze, Betriebs- und Personalreserven, eine Fahrgastgarantie, eine einheitliche Wagenklasse und monatliche Qualitätsberichte der Ostdeutschen Eisenbahn.',
     effectiveOverride: '2026-08-24',
     relatedNorms: [
@@ -357,7 +359,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-23',
     enactingBody: 'Verbandsversammlung des Ostdeutschen Verkehrsverbundes',
     responsibleMinistry: 'Ostdeutscher Verkehrsverbund',
-    subjects: ['Mobilität und öffentliche Infrastruktur', 'Sozialrecht'],
+    subjects: ['Verkehr', 'Allgemeines zum Sozialwesen'],
     summary: 'Setzt das Ost-Ticket auf 15 Euro, führt einen unentgeltlichen Sozialtarif und die grundsätzlich unentgeltliche Fahrradmitnahme ein und bestimmt Standards für Fahrgastinformation und Anschlusssicherung.',
     effectiveOverride: '2026-08-01',
     relatedNorms: [
@@ -377,7 +379,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-23',
     enactingBody: 'Staatssekretariat für Mobilität und regionale Entwicklung',
     responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung',
-    subjects: ['Mobilität und öffentliche Infrastruktur', 'Raumordnung und Landesplanung'],
+    subjects: ['Verkehr', 'Raumordnung, Landesplanung'],
     summary: 'Bestimmt das Landesnetz Ost und legt Planungsgrundsätze für Ostdeutschlandtakt, Betriebszeiten, Mobilitätsgrundversorgung, Taktknoten, Anschlusssicherung und Angebotsausbau fest.',
     effectiveOverride: '2026-08-24',
     relatedNorms: [
@@ -398,7 +400,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-04',
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-    subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+    subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
     keywords: ['Interflug', 'Gründungsvorstand', 'Joachim Hunold', 'Ralf Teckentrup', 'Klaus Wowereit'],
     summary: 'Bestellt Joachim Hunold, Ralf Teckentrup und Klaus Wowereit mit Wirkung vom 3. September 2026 zu Mitgliedern des Gründungsvorstandes der Interflug und begrenzt die Bestellung auf die Gründungsphase.',
     effectiveOverride: '2026-09-03',
@@ -415,7 +417,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-04',
     enactingBody: 'Gründungsvorstand der Interflug',
     responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-    subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+    subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
     keywords: ['Interflug', 'Anfangsflotte', 'Löschflugzeuge', 'AT-802F Fire Boss', 'Dash 8-400AT', 'Boeing 737-700 FireLiner', 'Beschaffungsprogramm'],
     summary: 'Macht die nach § 21 des Interflug-Gesetzes beschlossene Beschaffung der Anfangsflotte aus zehn Löschflugzeugen mit einem Beschaffungsvolumen von bis zu 105,5 Millionen Euro bekannt.',
     effectiveOverride: '2026-09-03',
@@ -432,7 +434,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit',
-    subjects: ['Sicherheit und Ordnung'],
+    subjects: ['Sicherheitsrecht und Polizeirecht'],
     summary: 'Bestimmt die lebens- und verteidigungswichtigen Einrichtungen, für deren Aufgabenwahrnehmung Sicherheitsüberprüfungen erforderlich sind.',
     dateNote: 'Am 31. August 2026 verkündet und am 1. September 2026 in Kraft getreten.',
   }],
@@ -446,7 +448,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
-      subjects: ['Staats- und Verfassungsrecht', 'Landesrecht'],
+      subjects: ['Verfassungsrecht'],
       summary: 'Führt ein neues Gesetz über die Hoheitszeichen ein, hebt das bisherige Gesetz über die Hoheitszeichen auf und regelt Übergangsrecht sowie die Fortgeltung der Hoheitszeichenverordnung.',
       affectedNorms: ['gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes', 'hoheitszeichenverordnung'],
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
@@ -461,7 +463,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
-      subjects: ['Staats- und Verfassungsrecht', 'Landesrecht'],
+      subjects: ['Verfassungsrecht'],
       summary: 'Bestimmt die Hoheitszeichen des Freistaates Ostdeutschland und ihre Verwendung.',
       predecessor: 'Gesetz zur Einführung eines Hoheitszeichengesetzes',
       relatedNorms: ['besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts', 'hoheitszeichenverordnung'],
@@ -478,7 +480,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Staats- und Verfassungsrecht'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verfassungsrecht'],
       summary: 'Führt das Ostdeutsche Daseinsvorsorgegesetz ein und ergänzt die Ostdeutsche Haushaltsordnung um eine Regelung zur Überlassung landeseigener Liegenschaften.',
       affectedNorms: ['saechsische-haushaltsordnung'],
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
@@ -493,7 +495,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Staats- und Verfassungsrecht'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verfassungsrecht'],
       summary: 'Bestimmt die öffentliche Daseinsvorsorge als staatliche Aufgabe, ihre Verantwortungsträger und die Grundsätze ihrer Sicherstellung.',
       relatedNorms: ['gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge', 'saechsische-haushaltsordnung'],
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
@@ -508,7 +510,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: 'Landtag des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
-    subjects: ['Kommunal- und Verwaltungsrecht', 'Transparenz und Informationszugang'],
+    subjects: ['Kommunalrecht', 'Allgemeine Verwaltung'],
     summary: 'Führt bei Gemeinden, Landkreisen und Bezirken interne Meldestellen für Hinweisgeber:innen ein.',
     affectedNorms: ['saechsische-gemeindeordnung', 'saechsische-landkreisordnung', 'ostdeutsche-bezirksordnung'],
     dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 1. Oktober 2026.',
@@ -523,7 +525,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Wirtschaft und Förderung'],
+      subjects: ['Gewerbe- und Berufsrecht'],
       summary: 'Führt das Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald ein.',
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
     },
@@ -537,7 +539,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Wirtschaft und Förderung'],
+      subjects: ['Gewerbe- und Berufsrecht'],
       summary: 'Regelt die Vergesellschaftung des Lithiumprojekts Zinnwald.',
       relatedNorms: ['gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes'],
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
@@ -553,7 +555,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
       summary: 'Errichtet die Interflug und führt das Gesetz über die Interflug ein.',
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
     },
@@ -567,7 +569,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
       summary: 'Bestimmt Aufgaben, Organisation und Aufsicht der Interflug.',
       relatedNorms: ['gesetz-zur-errichtung-der-interflug', 'bekanntmachung-bestellung-gruendungsvorstand-interflug', 'bekanntmachung-beschaffung-anfangsflotte-interflug'],
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
@@ -582,7 +584,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: null,
     responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
-    subjects: ['Rundfunk und Medien', 'Völkerrecht und Staatsverträge'],
+    subjects: ['Presse-, Rundfunk-, Filmwesen', 'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen'],
     summary: 'Ändert den Staatsvertrag über den Norddeutschen Rundfunk und regelt die Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk.',
     effectiveOverride: '2026-09-03',
     versionId: '2026-03-08',
@@ -617,7 +619,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
-    subjects: ['Rundfunk und Medien', 'Völkerrecht und Staatsverträge'],
+    subjects: ['Presse-, Rundfunk-, Filmwesen', 'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen'],
     summary: 'Macht bekannt, dass der NDR-Änderungs- und Überleitungsstaatsvertrag nach Austausch der Ratifikationsurkunden am 3. September 2026 in Kraft tritt.',
     relatedNorms: ['staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt'],
     dateNote: 'Am 2. September 2026 verkündet. Der Staatsvertrag tritt am 3. September 2026 in Kraft.',
@@ -637,6 +639,18 @@ function configuredSubjectsFor(parsed) {
   return NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]
     ? SCHOOL_LAW_SUBJECTS
     : ISSUE_SUBJECTS[parsed.issue];
+}
+
+/**
+ * Sachgebiete in der Speicherform: höchstens drei, ohne Wiederholung, das Hauptsachgebiet
+ * an erster Stelle (primarySubject ist stets subjects[0]).
+ */
+function orderedSubjects(subjects, primarySubject) {
+  const unique = [...new Set(subjects ?? [])];
+  const ordered = primarySubject && unique.includes(primarySubject)
+    ? [primarySubject, ...unique.filter((subject) => subject !== primarySubject)]
+    : unique;
+  return ordered.slice(0, 3);
 }
 
 const OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES = [
@@ -1104,8 +1118,8 @@ function buildRecords(parsed) {
       type: recordType,
       ...(enactingBody ? { enactingBody } : {}),
       responsibleMinistry,
-      subjects: config.subjects ?? configuredSubjectsFor(parsed),
-      ...(config.primarySubject ? { primarySubject: config.primarySubject } : {}),
+      subjects: orderedSubjects(config.subjects ?? configuredSubjectsFor(parsed), config.primarySubject),
+      primarySubject: orderedSubjects(config.subjects ?? configuredSubjectsFor(parsed), config.primarySubject)[0],
       // Auch eine nicht übernommene Abkürzung oder Kurzbezeichnung bleibt auffindbar.
       keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? []), ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)].filter(Boolean))].slice(0, 16),
       initialCitation: citation,
@@ -1124,7 +1138,7 @@ function buildRecords(parsed) {
       ...(config.editorialResolutions ? { editorialResolutions: config.editorialResolutions } : {}),
       ...(parsed.issue === '59' ? {
         expiryDate: '2026-12-31',
-        primarySubject: 'Staats- und Verfassungsrecht',
+        primarySubject: 'Verfassungsrecht',
         relatedNorms: [
           'staatsverfassung-des-freistaates-ostdeutschland',
           'erstes-gesetz-zur-grossen-staatsreform',
@@ -1188,13 +1202,9 @@ function buildGmblAgreementRecord(parsed) {
     enactingBody: 'Bundesministerium des Innern und für Heimat und Ostdeutscher Staatsrat',
     responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit',
     subjects: [
-      'Grenzpolizei',
-      'Polizei- und Ordnungsrecht',
-      'Bund-Länder-Zusammenarbeit',
-      'Grenzschutz',
-      'Sicherheit und Ordnung',
+      'Sicherheitsrecht und Polizeirecht',
+      'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen',
     ],
-    primarySubject: 'Grenzpolizei',
     keywords: [
       'Verwaltungsabkommen',
       'Grenzpolizei',
@@ -1331,8 +1341,8 @@ function buildStAnZOHousingGuidelineRecord(parsed) {
       type: 'bekanntmachung',
       enactingBody: 'Verwaltungsrat der Gemeingut Wohnen AöR',
       responsibleMinistry: 'Gemeingut Wohnen AöR',
-      subjects: ['Wohnen und Bodenordnung', 'Öffentliche Wirtschaft'],
-      primarySubject: 'Wohnen und Bodenordnung',
+      subjects: ['Wohnungsbau, Wohnungswesen', 'Gewerbe- und Berufsrecht'],
+      primarySubject: 'Wohnungsbau, Wohnungswesen',
       keywords: ['Gemeingut Wohnen', 'Kostenmiete', 'Mietsenkung', 'Bestandsmieten', 'Nettokaltmiete', '25 Prozent', '5,50 Euro'],
       initialCitation: citation,
       predecessor: null,
@@ -1383,7 +1393,7 @@ function buildConstitutionRecord(parsed) {
       shortTitleSource: 'official',
       type: 'gesetz',
       responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
-      subjects: ['Staats- und Verfassungsrecht'],
+      subjects: ['Verfassungsrecht'],
       keywords: ['Verfassung', 'Volkskammer', 'Staatsrat', 'Staatspräsident', 'Grundrechte', 'Staatsziele'],
       initialCitation: citation,
       predecessor: null,
@@ -1636,7 +1646,8 @@ function mergeWithExisting(record, existing) {
   ));
   const preservedMeta = {
     ...record.meta,
-    subjects: [...new Set([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])])],
+    subjects: orderedSubjects([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])], record.meta.primarySubject),
+    primarySubject: orderedSubjects([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])], record.meta.primarySubject)[0],
     keywords: [...new Set([
       ...(record.meta.keywords ?? []),
       ...(existing.meta.keywords ?? []).filter((keyword) => keyword !== existing.meta.abbr || keyword === record.meta.abbr),

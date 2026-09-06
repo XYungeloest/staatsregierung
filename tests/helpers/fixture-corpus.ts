@@ -18,7 +18,7 @@ import { comparePublicationsNewestFirst, parseVerkuendung, type Verkuendung } fr
  * Ausgabe dieses Builders statt content/normen. Deshalb gilt: keine Datei- oder Umgebungszugriffe,
  * nur Importe aus dem Schema; Ereignisdaten absolut und außerhalb des Fensters
  * 2026-09-01 bis 2026-09-04 (tests/recht-d1-reference-date.test.mjs), jede Norm mit eigener
- * Abkürzung und eigenem Kurztitel, Sachgebiete nur aus packages/shared/src/config/law-subjects.ts.
+ * Abkürzung und eigenem Kurztitel, Sachgebiete nur aus der amtlichen Systematik (packages/shared/src/config/law-subjects.json).
  */
 export const FIXTURE_REFERENCE_DATE = '2026-09-04';
 
@@ -89,7 +89,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'testgesetz',
       meta: {
         title: 'Testgesetz für den Ostdeutschen Freistaat', shortTitle: 'Ostdeutsches Testgesetz', abbr: 'OstTestG', type: 'gesetz', status: 'in-force',
-        subjects: ['Kommunal- und Verwaltungsrecht', 'Gesundheit und Soziales'], primarySubject: 'Kommunal- und Verwaltungsrecht', keywords: ['OstTestG', 'Gemeinde', 'Feiertag'],
+        subjects: ['Kommunalrecht', 'Öffentlicher Gesundheitsdienst'], primarySubject: 'Kommunalrecht', keywords: ['OstTestG', 'Gemeinde', 'Feiertag'],
         initialCitation: 'Sächsisches Testgesetz vom 1. Januar 2000 (SächsGVBl. S. 1)', summary: 'Regelt die Feiertage der Gemeinden im Testbestand.',
         originEnactingBody: 'Sächsischer Landtag', responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland', effectiveDate: '2000-01-01',
         affectedByNorms: ['aenderungsgesetz-testgesetz'], sourceReferences: [revosaxSource('1001')],
@@ -120,7 +120,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'aenderungsgesetz-testgesetz',
       meta: {
         title: 'Gesetz zur Änderung des Testgesetzes', shortTitle: 'Änderungsgesetz Testgesetz', abbr: 'TestGÄndG', type: 'aenderungsvorschrift', status: 'one-time-act',
-        subjects: ['Kommunal- und Verwaltungsrecht'], keywords: ['Testgesetz'], initialCitation: AMENDMENT_CITATION, summary: 'Ändert das Testgesetz um den Tag der Verfassung.',
+        subjects: ['Kommunalrecht'], keywords: ['Testgesetz'], initialCitation: AMENDMENT_CITATION, summary: 'Ändert das Testgesetz um den Tag der Verfassung.',
         enactingBody: 'Landtag des Freistaates Ostdeutschland', documentDate: '2026-03-23', publicationDate: '2026-03-24', effectiveDate: '2026-03-25', affectedNorms: ['testgesetz'],
         sourceReferences: [htmlSource('OGVBl. 2026 Nr. 1.html')],
       },
@@ -138,7 +138,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'testverordnung',
       meta: {
         title: 'Ostdeutsche Bestattungsverordnung', shortTitle: 'Bestattungsverordnung', abbr: 'OstBestVO', type: 'verordnung', status: 'in-force',
-        subjects: ['Gesundheit und Soziales'], keywords: ['OstBestVO', 'Bestattung'], initialCitation: 'Sächsische Bestattungsverordnung vom 3. März 2003 (SächsGVBl. S. 30)',
+        subjects: ['Öffentlicher Gesundheitsdienst'], keywords: ['OstBestVO', 'Bestattung'], initialCitation: 'Sächsische Bestattungsverordnung vom 3. März 2003 (SächsGVBl. S. 30)',
         summary: 'Enthält die Regelungen der übernommenen Ausgangsfassung zur Bestattung.', originEnactingBody: 'Sächsisches Staatsministerium des Innern', effectiveDate: '2003-03-03', affectedByNorms: ['aend-testverordnung-alt'], sourceReferences: [revosaxSource('1002')],
       },
       history: { initialVersionId: BASELINE, entries: [{ date: BASELINE, type: 'initial', title: 'Ausgangsfassung', citation: 'Sächsische Bestattungsverordnung vom 3. März 2003 (SächsGVBl. S. 30)', affectingVersionId: BASELINE }] },
@@ -152,7 +152,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'neues-ostgesetz',
       meta: {
         title: 'Ostdeutsches Testbeteiligungsgesetz', shortTitle: 'Testbeteiligungsgesetz', abbr: 'OstTBG', type: 'gesetz', status: 'in-force',
-        subjects: ['Wirtschaft und Förderung'], keywords: ['OstTBG', 'Testbeteiligung'], initialCitation: 'Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2)',
+        subjects: ['Gewerbe- und Berufsrecht'], keywords: ['OstTBG', 'Testbeteiligung'], initialCitation: 'Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2)',
         summary: 'Regelt die Beteiligung der Gemeinden an Testvorhaben des Freistaates.', enactingBody: 'Landtag des Freistaates Ostdeutschland', responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
         documentDate: '2026-09-02', publicationDate: '2026-09-02', effectiveDate: '2026-09-03', sourceReferences: [htmlSource('OGVBl. 2026 Nr. 70.html')],
       },
@@ -167,7 +167,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'kuenftiges-gesetz',
       meta: {
         title: 'Ostdeutsches Zukunftsgesetz', shortTitle: 'Zukunftsgesetz', abbr: 'OstZukG', type: 'gesetz', status: 'future-effective',
-        subjects: ['Wirtschaft und Förderung'], keywords: ['OstZukG'], initialCitation: 'Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 5)',
+        subjects: ['Gewerbe- und Berufsrecht'], keywords: ['OstZukG'], initialCitation: 'Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 5)',
         summary: 'Tritt erst nach dem Stichtag in Kraft und regelt künftige Förderungen.', enactingBody: 'Landtag des Freistaates Ostdeutschland', documentDate: '2026-09-02', publicationDate: '2026-09-02', effectiveDate: '2099-01-01',
         sourceReferences: [htmlSource('OGVBl. 2026 Nr. 70.html')],
       },
@@ -182,7 +182,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'aufgehobene-verordnung',
       meta: {
         title: 'Ostdeutsche Altverordnung', shortTitle: 'Altverordnung', abbr: 'OstAltVO', type: 'verordnung', status: 'repealed',
-        subjects: ['Kommunal- und Verwaltungsrecht'], keywords: ['Altverordnung'], initialCitation: 'Sächsische Altverordnung vom 5. Mai 2005 (SächsGVBl. S. 50)',
+        subjects: ['Kommunalrecht'], keywords: ['Altverordnung'], initialCitation: 'Sächsische Altverordnung vom 5. Mai 2005 (SächsGVBl. S. 50)',
         summary: 'Übernommene Verordnung, die zum 25. März 2026 aufgehoben wurde.', originEnactingBody: 'Sächsische Staatsregierung', effectiveDate: '2005-05-05', expiryDate: '2026-03-24', sourceReferences: [revosaxSource('1003')],
       },
       history: {
@@ -202,7 +202,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'mantelverordnung',
       meta: {
         title: 'Verordnung zur Neufassung der Testverordnung und zur Änderung anderer Verordnungen', shortTitle: 'Mantelverordnung Test', abbr: 'TestMantelVO', type: 'verordnung', status: 'in-force',
-        subjects: ['Kommunal- und Verwaltungsrecht'], keywords: ['Mantelverordnung'], initialCitation: 'Verordnung vom 30. April 2026 (OGVBl. 2026 Nr. 40 S. 2)',
+        subjects: ['Kommunalrecht'], keywords: ['Mantelverordnung'], initialCitation: 'Verordnung vom 30. April 2026 (OGVBl. 2026 Nr. 40 S. 2)',
         summary: 'Fasst die Testverordnung neu und ändert weitere Verordnungen.', enactingBody: 'Staatsregierung des Freistaates Ostdeutschland', documentDate: '2026-04-30', publicationDate: '2026-04-30', effectiveDate: '2026-05-01',
         sourceReferences: [htmlSource('OGVBl. 2026 Nr. 40.html')],
       },
@@ -220,7 +220,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'aend-gebuehrenverordnung-artikel',
       meta: {
         title: 'Änderung der Gebührenverordnung', shortTitle: 'Änd. GebVO', abbr: 'GebVOÄnd', type: 'aenderungsvorschrift', status: 'one-time-act', containedIn: 'mantelverordnung',
-        subjects: ['Kommunal- und Verwaltungsrecht'], keywords: ['Gebührenverordnung'], initialCitation: 'Verordnung vom 30. April 2026 (OGVBl. 2026 Nr. 40 S. 2)',
+        subjects: ['Kommunalrecht'], keywords: ['Gebührenverordnung'], initialCitation: 'Verordnung vom 30. April 2026 (OGVBl. 2026 Nr. 40 S. 2)',
         summary: 'Artikel 2 der Mantelverordnung: hebt § 3 der Gebührenverordnung auf.', enactingBody: 'Staatsregierung des Freistaates Ostdeutschland', documentDate: '2026-04-30', effectiveDate: '2026-05-01',
         sourceReferences: [htmlSource('OGVBl. 2026 Nr. 40.html')],
       },
@@ -235,7 +235,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'foerderrichtlinie-testkindergeld',
       meta: {
         title: 'Förderrichtlinie des Staatsministeriums des Innern zur Gewährung eines Testkindergeldes', shortTitle: 'Förderrichtlinie Testkindergeld', abbr: 'FRL Testkindergeld', type: 'foerderrichtlinie', status: 'in-force',
-        subjects: ['Wohnen und Bodenordnung'], keywords: ['FRL Testkindergeld', 'Testkindergeld'], initialCitation: 'Richtlinie vom 9. Februar 2026 (StAnzO. 2026 Nr. 2 S. 3)',
+        subjects: ['Wohnungsbau, Wohnungswesen'], keywords: ['FRL Testkindergeld', 'Testkindergeld'], initialCitation: 'Richtlinie vom 9. Februar 2026 (StAnzO. 2026 Nr. 2 S. 3)',
         summary: 'Fördert Familien beim Erwerb von Wohneigentum mit dem Testkindergeld.', enactingBody: 'Staatsministerium des Innern', documentDate: '2026-02-09', publicationDate: '2026-02-10', effectiveDate: '2026-02-10',
         sourceReferences: [htmlSource('StAnzO. 2026 Nr. 2.html')],
       },
@@ -250,7 +250,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'zustimmungsgesetz-testvertrag',
       meta: {
         title: 'Gesetz zum Staatsvertrag über die Testzusammenarbeit', shortTitle: 'Zustimmungsgesetz Testvertrag', abbr: 'TestVertrG', type: 'zustimmungsgesetz', status: 'in-force',
-        subjects: ['Völkerrecht und Staatsverträge'], keywords: ['Testzusammenarbeit'], initialCitation: 'Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 1 S. 9)',
+        subjects: ['Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen'], keywords: ['Testzusammenarbeit'], initialCitation: 'Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 1 S. 9)',
         summary: 'Stimmt dem Staatsvertrag über die Testzusammenarbeit zu.', enactingBody: 'Landtag des Freistaates Ostdeutschland', documentDate: '2026-01-26', publicationDate: '2026-03-24', effectiveDate: '2026-03-25',
         sourceReferences: [htmlSource('OGVBl. 2026 Nr. 1.html')],
       },
@@ -264,7 +264,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'staatsvertrag-aenderung-testvertrag',
       meta: {
         title: 'Staatsvertrag zur Änderung des Staatsvertrages über die Testzusammenarbeit', shortTitle: 'Änderungsstaatsvertrag Testzusammenarbeit', abbr: 'TestVertrÄndStV', type: 'staatsvertrag', status: 'one-time-act',
-        subjects: ['Völkerrecht und Staatsverträge'], keywords: ['Testzusammenarbeit'], initialCitation: 'Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)',
+        subjects: ['Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen'], keywords: ['Testzusammenarbeit'], initialCitation: 'Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)',
         summary: 'Ändert den Staatsvertrag über die Testzusammenarbeit.', enactingBody: 'Landtag des Freistaates Ostdeutschland', documentDate: '2026-03-08', publicationDate: '2026-03-24', effectiveDate: '2026-03-25',
         sourceReferences: [htmlSource('OVertrBl. 2026 Nr. 4.html')],
       },
@@ -279,7 +279,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'stichtagsgesetz',
       meta: {
         title: 'Haushaltsgesetz des Ostdeutschen Freistaates', shortTitle: 'Ostdeutsches Haushaltsgesetz', abbr: 'OstHG', type: 'gesetz', status: 'in-force',
-        subjects: ['Haushaltsrecht'], keywords: ['OstHG', 'Haushalt'], initialCitation: 'Sächsisches Haushaltsgesetz vom 10. April 2001 (SächsGVBl. S. 153)',
+        subjects: ['Haushaltwesen, Rechnungshof'], keywords: ['OstHG', 'Haushalt'], initialCitation: 'Sächsisches Haushaltsgesetz vom 10. April 2001 (SächsGVBl. S. 153)',
         summary: 'Regelt die Aufstellung des Haushalts; zum 3. September 2026 geändert.', originEnactingBody: 'Sächsischer Landtag', effectiveDate: '2001-04-10', affectedByNorms: ['neues-ostgesetz'], sourceReferences: [revosaxSource('1004')],
       },
       history: {
@@ -308,7 +308,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'staatsverfassung-des-freistaates-ostdeutschland',
       meta: {
         title: 'Verfassung des Freistaates Ostdeutschland', shortTitle: 'Ostdeutsche Verfassung', abbr: 'OstVerf', type: 'gesetz', status: 'in-force',
-        subjects: ['Staats- und Verfassungsrecht'], keywords: ['OstVerf', 'Verfassung', 'Grundrechte'], initialCitation: CONSTITUTION_CITATION,
+        subjects: ['Verfassungsrecht'], keywords: ['OstVerf', 'Verfassung', 'Grundrechte'], initialCitation: CONSTITUTION_CITATION,
         summary: 'Verfassung des Testbestands mit Präambel, Grundrechten und Staatsorganisation; zweimal geändert.', enactingBody: 'Landtag des Freistaates Ostdeutschland',
         responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland', documentDate: '2023-12-15', publicationDate: '2024-01-01', effectiveDate: '2024-01-01',
         sourceReferences: [htmlSource('OGVBl. 2024 Nr. 1.html')],
@@ -343,7 +343,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'gefahrenabwehrverordnung-testgelaende',
       meta: {
         title: 'Gefahrenabwehrverordnung für Testgelände', shortTitle: 'Testgeländeverordnung', abbr: 'TestGelVO', type: 'verordnung', status: 'in-force',
-        subjects: ['Sicherheit und Ordnung'], keywords: ['TestGelVO', 'Testgelände', 'Gefahrenabwehr'], initialCitation: 'Sächsische Gefahrenabwehrverordnung vom 12. Dezember 2012 (SächsGVBl. S. 700)',
+        subjects: ['Sicherheitsrecht und Polizeirecht'], keywords: ['TestGelVO', 'Testgelände', 'Gefahrenabwehr'], initialCitation: 'Sächsische Gefahrenabwehrverordnung vom 12. Dezember 2012 (SächsGVBl. S. 700)',
         summary: 'Übernommene Verordnung über die Ordnung auf Testgeländen; seit dem Stichtag unverändert.', originEnactingBody: 'Sächsisches Staatsministerium des Innern', effectiveDate: '2013-01-01', sourceReferences: [revosaxSource('1005')],
       },
       history: { initialVersionId: BASELINE, entries: [{ date: BASELINE, type: 'initial', title: 'Ausgangsfassung', citation: 'Sächsische Gefahrenabwehrverordnung vom 12. Dezember 2012 (SächsGVBl. S. 700)', affectingVersionId: BASELINE }] },
@@ -357,7 +357,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'aend-testverordnung-alt',
       meta: {
         title: 'Verordnung zur Änderung bestattungsrechtlicher Vorschriften', shortTitle: 'Änderungsverordnung Bestattungsrecht', abbr: 'BestRÄndVO', type: 'aenderungsvorschrift', status: 'one-time-act',
-        subjects: ['Gesundheit und Soziales'], keywords: ['Bestattungsrecht'], initialCitation: 'Verordnung vom 5. Mai 2010 (SächsGVBl. S. 120)',
+        subjects: ['Öffentlicher Gesundheitsdienst'], keywords: ['Bestattungsrecht'], initialCitation: 'Verordnung vom 5. Mai 2010 (SächsGVBl. S. 120)',
         summary: 'Sächsische Änderungsverordnung, die in der übernommenen Ausgangsfassung der Bestattungsverordnung bereits eingearbeitet ist.',
         originEnactingBody: 'Sächsisches Staatsministerium des Innern', documentDate: '2010-05-05', effectiveDate: '2010-06-01', affectedNorms: ['testverordnung'], sourceReferences: [revosaxSource('1006', '2010-06-01')],
       },
@@ -375,7 +375,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'alte-testverordnung',
       meta: {
         title: 'Ostdeutsche Übergangsverordnung für Testfälle', shortTitle: 'Übergangsverordnung Testfälle', abbr: 'TestÜbVO', type: 'verordnung', status: 'historical',
-        subjects: ['Verwaltungsrecht'], keywords: ['TestÜbVO', 'Übergang'], initialCitation: 'Sächsische Übergangsverordnung vom 7. Juli 2007 (SächsGVBl. S. 70)',
+        subjects: ['Allgemeine Verwaltung'], keywords: ['TestÜbVO', 'Übergang'], initialCitation: 'Sächsische Übergangsverordnung vom 7. Juli 2007 (SächsGVBl. S. 70)',
         summary: 'Übernommene Verordnung, die mit Ablauf des 31. Dezember 2025 außer Kraft getreten ist.', originEnactingBody: 'Sächsische Staatsregierung', effectiveDate: '2007-07-07', expiryDate: '2025-12-31', sourceReferences: [revosaxSource('1008')],
       },
       history: { initialVersionId: BASELINE, entries: [{ date: BASELINE, type: 'initial', title: 'Ausgangsfassung', citation: 'Sächsische Übergangsverordnung vom 7. Juli 2007 (SächsGVBl. S. 70)', affectingVersionId: BASELINE }] },
@@ -389,7 +389,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'vwv-testgelaende',
       meta: {
         title: 'Verwaltungsvorschrift des Staatsministeriums des Innern zur Ordnung auf dem Testgelände', shortTitle: 'VwV Testgelände', abbr: 'VwVTestGel', type: 'verwaltungsvorschrift', status: 'in-force',
-        subjects: ['Verwaltungsrecht'], keywords: ['VwVTestGel', 'Testgelände', 'Formulare'], initialCitation: 'Verwaltungsvorschrift vom 4. Mai 2026 (StAnzO. 2026 Nr. 5 S. 2)',
+        subjects: ['Allgemeine Verwaltung'], keywords: ['VwVTestGel', 'Testgelände', 'Formulare'], initialCitation: 'Verwaltungsvorschrift vom 4. Mai 2026 (StAnzO. 2026 Nr. 5 S. 2)',
         summary: 'Bestimmt Zugang, Formulare und Verhalten auf dem Testgelände.', enactingBody: 'Staatsministerium des Innern', documentDate: '2026-05-04', publicationDate: '2026-05-12', effectiveDate: '2026-05-13',
         sourceReferences: [htmlSource('StAnzO. 2026 Nr. 5.html')],
       },
@@ -408,7 +408,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'bekanntmachung-teststiftung',
       meta: {
         title: 'Bekanntmachung über die Errichtung der Teststiftung', shortTitle: 'Bekanntmachung Teststiftung', abbr: 'TestStiftBek', type: 'bekanntmachung', status: 'in-force',
-        subjects: ['Verwaltungsrecht'], keywords: ['Teststiftung'], initialCitation: 'Bekanntmachung vom 6. Mai 2026 (StAnzO. 2026 Nr. 5 S. 4)',
+        subjects: ['Allgemeine Verwaltung'], keywords: ['Teststiftung'], initialCitation: 'Bekanntmachung vom 6. Mai 2026 (StAnzO. 2026 Nr. 5 S. 4)',
         summary: 'Gibt die Errichtung der Teststiftung und ihre Organe bekannt; die Besetzung des Vorstands wurde später geändert.', enactingBody: 'Staatsministerium des Innern',
         documentDate: '2026-05-06', publicationDate: '2026-05-12', effectiveDate: '2026-05-13', sourceReferences: [htmlSource('StAnzO. 2026 Nr. 5.html')],
       },
@@ -436,7 +436,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'testgebuehrenverzeichnis',
       meta: {
         title: 'Gesetz über das Testgebührenverzeichnis', shortTitle: 'Testgebührenverzeichnisgesetz', abbr: 'TestGebVerzG', type: 'gesetz', status: 'in-force',
-        subjects: ['Haushaltsrecht', 'Verwaltungsrecht'], primarySubject: 'Haushaltsrecht', keywords: ['TestGebVerzG', 'Gebühren'], initialCitation: 'Gesetz vom 28. April 2026 (OGVBl. 2026 Nr. 40 S. 8)',
+        subjects: ['Haushaltwesen, Rechnungshof', 'Allgemeine Verwaltung'], primarySubject: 'Haushaltwesen, Rechnungshof', keywords: ['TestGebVerzG', 'Gebühren'], initialCitation: 'Gesetz vom 28. April 2026 (OGVBl. 2026 Nr. 40 S. 8)',
         summary: 'Legt die Gebühren für Testverfahren in einem tabellarischen Verzeichnis fest.', enactingBody: 'Landtag des Freistaates Ostdeutschland', documentDate: '2026-04-28', publicationDate: '2026-04-30', effectiveDate: '2026-05-01',
         sourceReferences: [htmlSource('OGVBl. 2026 Nr. 40.html')],
       },
@@ -469,7 +469,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'hinweisverordnung',
       meta: {
         title: 'Verordnung über Testhinweise', shortTitle: 'Testhinweisverordnung', abbr: 'TestHinwVO', type: 'verordnung', status: 'in-force',
-        subjects: ['Verwaltungsrecht'], keywords: ['TestHinwVO', 'Hinweis'], initialCitation: 'Verordnung vom 18. Dezember 2023 (OGVBl. 2024 Nr. 1 S. 12)',
+        subjects: ['Allgemeine Verwaltung'], keywords: ['TestHinwVO', 'Hinweis'], initialCitation: 'Verordnung vom 18. Dezember 2023 (OGVBl. 2024 Nr. 1 S. 12)',
         summary: 'Ostdeutsche Verordnung mit einem späteren Berichtigungshinweis, der den Rechtsstand nicht verändert.', enactingBody: 'Staatsregierung des Freistaates Ostdeutschland',
         documentDate: '2023-12-18', publicationDate: '2024-01-01', effectiveDate: '2024-01-01', sourceReferences: [htmlSource('OGVBl. 2024 Nr. 1.html')],
       },
@@ -490,7 +490,7 @@ export function buildFixtureNorms(): NormRecord[] {
       slug: 'unklare-verordnung',
       meta: {
         title: 'Verordnung über ungeklärte Testzuständigkeiten', shortTitle: 'Testzuständigkeitsverordnung', abbr: 'TestZustVO', type: 'verordnung', status: 'in-force',
-        subjects: ['Verwaltungsrecht'], keywords: ['TestZustVO', 'Zuständigkeit'], initialCitation: 'Sächsische Zuständigkeitsverordnung vom 20. Januar 2024 (SächsGVBl. S. 40)',
+        subjects: ['Allgemeine Verwaltung'], keywords: ['TestZustVO', 'Zuständigkeit'], initialCitation: 'Sächsische Zuständigkeitsverordnung vom 20. Januar 2024 (SächsGVBl. S. 40)',
         summary: 'Übernommene Verordnung ohne belegten Ausgangsrechtsstand zum 1. November 2023; die Herkunft ist ungeklärt.', originEnactingBody: 'Sächsische Staatsregierung', effectiveDate: '2024-02-01',
         sourceReferences: [revosaxSource('1007', '2024-02-01')],
       },
@@ -583,7 +583,7 @@ export function normOfType(type: NormType, overrides: Record<string, unknown> = 
   const citation = 'Testfundstelle vom 1. Januar 2026 (OGVBl. 2026 Nr. 1 S. 1)';
   return norm({
     slug: `typ-${type}`,
-    meta: { title: `Testvorschrift (${type})`, shortTitle: `Testvorschrift ${type}`, type, status: 'in-force', subjects: ['Staats- und Verfassungsrecht'], initialCitation: citation, summary: 'Testdatensatz eines Normtyps für Funktionstests.', ...overrides },
+    meta: { title: `Testvorschrift (${type})`, shortTitle: `Testvorschrift ${type}`, type, status: 'in-force', subjects: ['Verfassungsrecht'], initialCitation: citation, summary: 'Testdatensatz eines Normtyps für Funktionstests.', ...overrides },
     history: { initialVersionId: '2026-01-01', entries: [{ date: '2026-01-01', type: 'initial', title: 'Stammfassung', citation, affectingVersionId: '2026-01-01' }] },
     versions: [{ versionId: '2026-01-01', validFrom: '2026-01-01', validTo: null, isCurrent: true, citation, changeNote: 'Stammfassung.', body: [paragraph('§ 1', 'Regelung', 'Testregelung.')] }],
   });

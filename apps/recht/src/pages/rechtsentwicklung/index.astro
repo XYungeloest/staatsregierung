@@ -18,6 +18,7 @@ import {
   toDisplayText,
   type NormOriginKind,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { DEFAULT_PAGE_SIZE, normalizePage } from '../../lib/runtime/store.ts';
 import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
@@ -131,7 +132,7 @@ const pageTitle = `Rechtsentwicklung seit 1. November 2023${result.page > 1 ? ` 
         <span>Sachgebiet</span>
         <select name="subject" data-development-filter="subject">
           <option value="" selected={!state.subject}>Alle Sachgebiete</option>
-          {subjects.map((subject) => <option value={subject} selected={state.subject === subject}>{subject}</option>)}
+          {subjects.map((subject) => <option value={subject} selected={state.subject === subject}>{formatSubjectLabel(subject, { withNumber: true, short: true })}</option>)}
         </select>
       </label>
       <label class="search-field">

@@ -439,6 +439,19 @@ function parseSections(container, notes = [], { hoistTextBearingWrappers = false
   return root;
 }
 
+/**
+ * Fundstellennummer aus dem Kasten „Fundstelle und systematische Gliederungsnummer“
+ * der Marginalspalte. Ihre Gliederungsnummer (Teil vor dem Bindestrich) trägt die
+ * amtliche Sachgebietszuordnung; ältere Fassungsseiten führen den Kasten ohne sie.
+ */
+function parseFsnNumber(document) {
+  const box = findElement(document, (node) => hasClass(node, 'box')
+    && elementChildren(node, 'h3').some((heading) => textOf(heading) === 'Fundstelle und systematische Gliederungsnummer'));
+  if (!box) return null;
+  const match = textOf(box, { breaks: true }).match(/Fsn-Nr\.:\s*(\S+)/u);
+  return match ? match[1] : null;
+}
+
 function parseSourceNotes(article) {
   const footer = elementChildren(article, 'footer')[0];
   if (!footer) return [];
@@ -550,6 +563,8 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
     // daraus eine zeitlich plausible versionsspezifische Zitierung auswählen.
     pageFullCitation: fullCitation,
     fullCitation,
+    // Amtliche Fundstellennummer der Seite; Grundlage der Sachgebietszuordnung.
+    fsnNumber: parseFsnNumber(document),
     documentDate,
     sourceValidFrom: validFrom,
     sourceValidTo: validTo,

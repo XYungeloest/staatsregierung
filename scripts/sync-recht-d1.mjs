@@ -491,12 +491,20 @@ export function publicationQueries(publication, now) {
  * mit einer Zeile statt mit dem gesamten Normenbestand liest.
  */
 export function corpusOverviewMeta(norms, publications) {
-  const subjectGroups = getSubjectGroups(norms).map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length }));
+  const subjectEntry = (group) => ({
+    name: group.name,
+    slug: group.slug,
+    ...(group.number ? { number: group.number } : {}),
+    ...(group.shortTitle ? { shortTitle: group.shortTitle } : {}),
+    normCount: group.norms.length,
+  });
+  const subjectGroups = getSubjectGroups(norms).map(subjectEntry);
   const subjectAreas = getSubjectAreaGroups(norms).map((area) => ({
     name: area.name,
+    ...(area.number ? { number: area.number } : {}),
     description: area.description,
     normCount: area.normCount,
-    subjects: area.subjects.map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length })),
+    subjects: area.subjects.map(subjectEntry),
   }));
   const stats = {
     normCount: norms.length,

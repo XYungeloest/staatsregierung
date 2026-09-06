@@ -784,6 +784,7 @@ Pflichtfelder:
 - `title`
 - `type`
 - `subjects`
+- `primarySubject`
 - `keywords`
 - `initialCitation`
 - `predecessor`
@@ -836,7 +837,8 @@ Format:
   "type": "gesetz",
   "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
   "responsibleMinistry": "Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation",
-  "subjects": ["Landesrecht"],
+  "subjects": ["Verfassungsrecht"],
+  "primarySubject": "Verfassungsrecht",
   "keywords": ["Beispiel"],
   "initialCitation": "Gesetz vom 17. April 2026 (OGVBl. 2026 Nr. 20 S. 2)",
   "predecessor": null,
@@ -966,9 +968,18 @@ Regeln:
   `relevance`, `title` und `rechtsstand` bleiben wählbare Sortierungen.
 - Druckansichten sind Portalansichten. Ein PDF- oder Anlagenlink wird nur aus einem belegten
   Quellenfeld erzeugt.
-- Mehrere `subjects` bleiben zulässig. `primarySubject` kann optional eine primäre Zuordnung
-  festlegen, muss aber zugleich in `subjects` enthalten sein; die übergeordnete redaktionelle
-  Gruppierung stammt aus `packages/shared/src/config/law-subjects.ts` und verwendet keine erfundenen Nummern.
+- `subjects` nennt ausschließlich Untergruppen der amtlichen zweistufigen Sachgebietssystematik
+  (`packages/shared/src/config/law-subjects.json`: acht Hauptgruppen, 56 Untergruppen mit
+  zweistelliger Gliederungsnummer, zehn Förderbereiche 550–559; Helfer in
+  `packages/shared/src/config/law-subjects.ts`). Höchstens drei Sachgebiete ohne Wiederholung;
+  `primarySubject` ist Pflicht und stets `subjects[0]`. Die frühere Auffangbezeichnung
+  „Landesrecht“ ist unzulässig. Die Hauptgruppe folgt aus der Untergruppe und wird nicht
+  gespeichert; die Adresse eines Sachgebiets ist `/sachgebiete/<nummer>-<titel>/`.
+- `fundingArea` nennt bei einer Förderrichtlinie den Förderbereich (`"550"` bis `"559"`) aus
+  derselben Konfiguration; bei allen anderen Normarten ist das Feld unzulässig.
+- `sourceReferences[].fsnNumber` hält die Fundstellennummer einer amtlichen REVOSax-Quelle fest
+  (zum Beispiel `"612-3.10/2"`). Ihre Gliederungsnummer trägt die Sachgebietszuordnung und macht
+  sie ohne den lokalen Rohcache nachvollziehbar.
 
 Format:
 

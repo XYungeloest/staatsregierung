@@ -116,6 +116,8 @@ export function adaptParsedRevosaxSnapshot(parsed) {
     body: (parsed.body ?? []).map(adaptBodyBlock),
     // sourceNotes beschreiben die amtliche Quelle und werden nicht redaktionell
     // umgeschrieben. Die unveränderte Rohquelle bleibt daneben separat archiviert.
+    // fsnNumber ist eine reine Fundstellenangabe der Quelle und bleibt unverändert
+    // (durch die Übernahme oben bereits durchgereicht).
   };
 }
 
