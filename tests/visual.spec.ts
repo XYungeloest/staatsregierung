@@ -1,12 +1,12 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
-import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion } from './helpers/law-runtime.ts';
+import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion, LAW_ORIGIN, multiVersionNorm } from './helpers/law-runtime.ts';
 
-const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+const lawUrl = (path: string) => new URL(path, LAW_ORIGIN).toString();
 // SITE_TARGETS (portal, law) begrenzt die Suite auf die gebauten Websites; ohne Angabe laufen beide.
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
-const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith('http://127.0.0.1:4322') ? 'law' : 'portal');
+const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith(LAW_ORIGIN) ? 'law' : 'portal');
 
 // OstRecht-Motive beschreiben Seitenrollen; welche Vorschrift sie zeigen, bestimmt das synthetische
 // Testfixture (data/recht/runtime-fixture.json, tests/helpers/fixture-corpus.ts) – keine realen Normen.
@@ -634,7 +634,7 @@ async function awaitSettled(page: Page, path: string): Promise<void> {
   }
   // Die Rechtssuche lädt Kandidaten und Treffer nach dem Seitenaufbau; erst der fertige
   // Trefferstand („n Treffer“ oder „Keine Treffer“) ist die Baseline.
-  if (path.startsWith('http://127.0.0.1:4322') && url.pathname === '/suche/') {
+  if (path.startsWith(LAW_ORIGIN) && url.pathname === '/suche/') {
     const summary = page.locator('[data-search-summary]');
     await expect(summary).toBeVisible();
     await expect(summary).not.toContainText(/werden geladen/u);
@@ -659,7 +659,54 @@ for (const entry of visualPages) {
 
 /** Portal-Seiten nur prüfen, wenn das Staatsportal ausgewählt ist (SITE_TARGETS); OstRecht-Läufe überspringen sie. */
 const portalTest = isSelected('/') ? test : test.skip;
-const lawTest = isSelected('http://127.0.0.1:4322/') ? test : test.skip;
+const lawTest = isSelected(`${LAW_ORIGIN}/`) ? test : test.skip;
+
+/**
+ * Messungen statt Bilder (Befunde E1, E3): Sie prüfen die Stufen des Normarbeitsbereichs und die
+ * Höhe des mobilen Kopfs in Zahlen, laufen also auch dort, wo kein Pixelvergleich stattfindet.
+ * Die Vorschrift wird zur Laufzeit aus der Kandidaten-API abgeleitet, nicht fest verdrahtet.
+ */
+lawTest('Messung: Normarbeitsbereich ist zwischen 64 und 80 rem zweispaltig', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die 64–80-rem-Stufe wird einmal bei 1280 Pixeln gemessen.');
+  await preparePage(page);
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const columns = await page.locator('.norm-workspace').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+  expect(columns, 'Inhaltsübersicht und Text stehen nebeneinander').toBe(2);
+  await expect(page.locator('.norm-outline--desktop')).toBeVisible();
+  await expect(page.locator('.norm-outline-mobile')).toBeHidden();
+  // Die Vorschriftendaten stehen darunter über beide Spalten.
+  const spans = await page.locator('.norm-info-column').evaluate((element) => {
+    const workspace = element.closest('.norm-workspace')!;
+    return element.getBoundingClientRect().width / workspace.getBoundingClientRect().width;
+  });
+  expect(spans, 'Vorschriftendaten spannen über beide Spalten').toBeGreaterThan(0.9);
+  await verifyViewport(page);
+});
+
+lawTest('Messung: mobil beginnt der Vorschriftentext oberhalb von 700 Pixeln', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile-'), 'Die Höhe des mobilen Kopfs wird auf den Mobilbreiten gemessen.');
+  await preparePage(page);
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const headerHeight = await page.locator('.norm-page-header').evaluate((element) => element.getBoundingClientRect().height);
+  expect(headerHeight, 'Normkopf').toBeLessThanOrEqual(320);
+  const textTop = await page.locator('#normtext').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(textTop, 'Beginn des Vorschriftentextes').toBeLessThanOrEqual(700);
+  // Die Angaben zur Vorschrift stehen als geschlossene Zeile vor Inhaltsübersicht und Text.
+  const facts = page.locator('.norm-facts');
+  await expect(facts).not.toHaveAttribute('open', /.*/u);
+  const factsTop = await facts.evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(factsTop, 'Angaben zur Vorschrift stehen über dem Text').toBeLessThan(textTop);
+  await verifyViewport(page);
+});
 
 lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-390', 'Die geöffnete mobile Navigation wird einmal bei 390 Pixeln geprüft.');

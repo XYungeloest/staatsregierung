@@ -23,8 +23,8 @@ import { referenceDateLabel, validityLabel, VALIDITY_FIELD_LABEL, LEGAL_STATUS_F
  *
  * Ab 80 rem steht der Block offen neben bzw. unter dem Text; darunter ist er ein echter
  * Aufklappbereich „Angaben zur Vorschrift“, unter 48 rem direkt unter der Fassungsnavigation.
- * Das Markup ist deshalb geschlossen; die Desktopregel blendet die Zusammenfassungszeile aus und
- * erzwingt den Inhalt (packages/shared/src/styles/law-portal.css).
+ * Das Markup ist offen, damit die Angaben ohne JavaScript und im Ausdruck vollständig vorliegen;
+ * unterhalb von 80 rem klappt das Skript den Bereich einmal beim Laden zu.
  */
 interface Props {
   norm: NormRecord;
@@ -115,7 +115,7 @@ const showDocumentDate = Boolean(norm.meta.documentDate) && norm.meta.documentDa
 const showPublicationDate = Boolean(norm.meta.publicationDate) && norm.meta.publicationDate !== norm.meta.documentDate;
 ---
 
-<details class:list={['norm-facts', `norm-facts--${temporalKind}`, `norm-facts--${origin.kind}`]} aria-labelledby={headingId} data-visual-section="norm-facts">
+<details class:list={['norm-facts', `norm-facts--${temporalKind}`, `norm-facts--${origin.kind}`]} aria-labelledby={headingId} data-visual-section="norm-facts" open>
   <summary class="norm-facts__summary">Angaben zur Vorschrift</summary>
   <div class="norm-facts__body">
     <div class="norm-facts__head">
@@ -301,6 +301,14 @@ const showPublicationDate = Boolean(norm.meta.publicationDate) && norm.meta.publ
 </details>
 
 <script>
+  // Unterhalb von 80 rem sind die Vorschriftendaten ein Aufklappbereich; ohne JavaScript bleiben
+  // sie offen, damit keine Angabe verborgen ist.
+  if (window.matchMedia('(max-width: 80rem)').matches) {
+    document.querySelectorAll<HTMLDetailsElement>('.norm-facts[open]').forEach((panel) => {
+      panel.open = false;
+    });
+  }
+
   document.addEventListener('click', async (event) => {
     if (!(event.target instanceof HTMLButtonElement)) return;
     const facts = event.target.closest<HTMLElement>('.norm-facts');

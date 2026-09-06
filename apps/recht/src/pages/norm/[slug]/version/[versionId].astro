@@ -97,17 +97,20 @@ const header = versionHeaderState(norm, version);
         publication={publication ?? undefined}
       />
     </article>
-    <aside class="norm-info-column">
-      <div class="content-stack norm-sidebar">
-        <NormFacts
-          norm={norm}
-          version={version}
-          origin={derived.origin}
-          fullCitation={fullCitation ?? version.citation}
-          publicationReference={publicationReference}
-          amendmentLabels={amendmentLabels}
-          immutableLink
-        />
+    <aside class="norm-info-column" data-visual-section="norm-sidebar">
+      <NormFacts
+        norm={norm}
+        version={version}
+        origin={derived.origin}
+        fullCitation={fullCitation ?? version.citation}
+        publicationReference={publicationReference}
+        amendmentLabels={amendmentLabels}
+        immutableLink
+      />
+    </aside>
+
+    <aside class="norm-related-column">
+      <div class="content-stack">
         <NormHistorySummary norm={norm} />
       </div>
     </aside>

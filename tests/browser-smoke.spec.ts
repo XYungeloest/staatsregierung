@@ -536,13 +536,14 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen 
   const referenceDate = editorialReferenceDate();
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.historical.url));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.historical.title);
+  // Die Überschrift trägt den Kurztitel, wenn er vom Langtitel abweicht (getNormTitleBlock).
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.historical.shortTitle || norm.historical.title);
   const facts = page.locator('[data-visual-section="norm-facts"]');
   await expect(facts).toContainText(formatGermanDate(norm.historical.validFrom));
   if (norm.historical.validTo) await expect(facts).toContainText(formatGermanDate(norm.historical.validTo));
 
   await page.goto(lawUrl(norm.current.currentUrl));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.current.title);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.current.shortTitle || norm.current.title);
 
   // Startseite zum redaktionellen Stichtag: letzte Rechtsereignisse absteigend, je Norm einmal,
   // nichts Künftiges; künftige Änderungen liegen nach dem Stichtag.

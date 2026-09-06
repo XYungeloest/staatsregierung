@@ -120,15 +120,18 @@ const header = normHeaderState(norm, currentVersion);
     </article>
 
     <aside class="norm-info-column" data-visual-section="norm-sidebar">
-      <div class="content-stack norm-sidebar">
-        <NormFacts
-          norm={norm}
-          version={currentVersion}
-          origin={derived.origin}
-          fullCitation={fullCitation ?? currentVersion.citation}
-          publicationReference={publicationReference}
-          amendmentLabels={amendmentLabels}
-        />
+      <NormFacts
+        norm={norm}
+        version={currentVersion}
+        origin={derived.origin}
+        fullCitation={fullCitation ?? currentVersion.citation}
+        publicationReference={publicationReference}
+        amendmentLabels={amendmentLabels}
+      />
+    </aside>
+
+    <aside class="norm-related-column">
+      <div class="content-stack">
         <NormHistorySummary norm={norm} />
         {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
           <section class="section norm-sidebar__portal-links" data-visual-section="norm-portal-relations">

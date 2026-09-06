@@ -36,8 +36,12 @@ const versionPdf = getNormVersionPdfPath(norm.meta.slug, version.versionId);
     <p class="eyebrow">{eyebrow}</p>
     <p class="norm-page-header__status"><span aria-hidden="true"></span>{status}</p>
     <h1 class="section-hero__title--long">{title.heading}</h1>
-    {title.longTitle ? <p class="norm-page-header__long-title">{title.longTitle}</p> : null}
-    {title.abbr ? <p class="norm-page-header__abbr">{title.abbr}</p> : null}
+    {title.longTitle || title.abbr ? (
+      <p class="norm-page-header__names">
+        {title.longTitle ? <span class="norm-page-header__long-title">{title.longTitle}</span> : null}
+        {title.abbr ? <span class="norm-page-header__abbr">{title.abbr}</span> : null}
+      </p>
+    ) : null}
     <dl class="norm-page-header__facts">
       <div><dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd></div>
       <div><dt>{VALIDITY_FIELD_LABEL}</dt><dd>{validityLabel(norm.meta.status)}</dd></div>
