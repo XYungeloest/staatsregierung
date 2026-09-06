@@ -9,6 +9,7 @@ import {
   getSubjectSlug,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import { lawSubjectGroups } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
@@ -41,7 +42,7 @@ const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummarie
     title="Sachgebiete"
     lead="Vorschriften nach der amtlichen Sachgebietsgliederung recherchieren: acht Hauptgruppen mit ihren nummerierten Sachgebieten."
     variant="law"
-    facts={[{ label: 'Hauptgruppen', value: String(areaGroups.length) }, { label: 'Vorschriften im Bestand', value: String(stats.normCount) }]}
+    facts={[{ label: 'Hauptgruppen', value: String(lawSubjectGroups.length) }, { label: 'Vorschriften im Bestand', value: String(stats.normCount) }]}
   />
 
   <section class="section">
