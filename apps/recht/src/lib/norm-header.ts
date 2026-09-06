@@ -1,4 +1,5 @@
-import { formatDate, formatNormStatus } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { formatNormStatus } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 

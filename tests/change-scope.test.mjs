@@ -278,7 +278,7 @@ test('Testscope: D1 und Vollbestand folgen dem Code-Abschluss, Darstellung nur d
     { label: 'CSS OstRecht: Fixture genügt, kein Vollbestand-D1', paths: ['apps/recht/src/styles/law-portal.css'], scope: 'law', targets: ['law'], d1Sync: false, fullCorpus: false, visual: true, corpus: false },
     { label: 'origin.ts: die Datei ist Projektionscode – der Nachweis entscheidet erst im Sync', paths: ['packages/shared/src/lib/norms/origin.ts'], scope: 'shared', d1Sync: true, fullCorpus: true, corpus: true },
     { label: 'diff-render.ts reine Darstellung: kein D1, kein Vollbestand', paths: ['packages/shared/src/lib/norms/diff-render.ts'], scope: 'shared', d1Sync: false, fullCorpus: false, visual: true, corpus: false },
-    { label: 'site.ts: im Abschluss (Portalbezüge), also D1-relevant – der Nachweis belegt targetLabels als datenneutral', paths: ['packages/shared/src/config/site.ts'], scope: 'shared', d1Sync: true, fullCorpus: true },
+    { label: 'site.ts: Bezeichnungen, Navigation und Kontakt – reine Darstellung außerhalb des Abschlusses', paths: ['packages/shared/src/config/site.ts'], scope: 'shared', d1Sync: false, fullCorpus: false, visual: true },
     { label: 'Search-Projektor: D1', paths: ['packages/recht-search/src/search.ts'], scope: 'law', d1Sync: true, fullCorpus: true, corpus: true },
     { label: 'D1-Schema: Vollbestand, Content, kein Deployment', paths: ['data/recht/d1/0008_neu.sql'], scope: 'ci-only', d1Sync: false, fullCorpus: true, content: true, buildTargets: ['law'], uiTargets: ['law'] },
     { label: 'Docs: docs-only', paths: ['docs/DEPLOYMENT_RUNBOOK.md', 'README.md'], scope: 'docs-only', unit: false, d1Sync: false, fullCorpus: false, visual: false },
@@ -294,6 +294,12 @@ test('Testscope: D1 und Vollbestand folgen dem Code-Abschluss, Darstellung nur d
     { label: 'Nachweiswerkzeug: Vollbestand mit OstRecht-Build (Seed-Werkzeug)', paths: ['scripts/d1-projection-snapshot.mjs'], scope: 'ci-only', fullCorpus: true, d1Sync: false },
     { label: 'Abschlussbibliothek: im Abschluss, D1', paths: ['scripts/lib/d1-projection-closure.mjs'], scope: 'ci-only', d1Sync: true, fullCorpus: true },
     { label: 'Abhängigkeiten: Vollbestand und Korpus-Tests', paths: ['package-lock.json'], scope: 'shared', fullCorpus: true, corpus: true },
+
+    // --- Modulgrenze Projektion/Darstellung: site-routing.ts liegt im Abschluss (Adressen in
+    // Suchdokumenten und Portalbezügen); site.ts, origin-presentation.ts und display.ts sind Oberfläche.
+    { label: 'site-routing.ts: Origins und Pfadtabellen im Abschluss', paths: ['packages/shared/src/config/site-routing.ts'], scope: 'shared', d1Sync: true, fullCorpus: true },
+    { label: 'origin-presentation.ts: Herkunftsbadge und Erläuterung, reine Darstellung', paths: ['packages/shared/src/lib/norms/origin-presentation.ts'], scope: 'shared', d1Sync: false, fullCorpus: false, visual: true },
+    { label: 'display.ts: Datumsformat, Gliederung und verlinkter Text, reine Darstellung', paths: ['packages/shared/src/lib/norms/display.ts'], scope: 'shared', d1Sync: false, fullCorpus: false, visual: true },
   ];
   for (const entry of cases) {
     const result = classify(entry.paths);

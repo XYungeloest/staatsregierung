@@ -1,4 +1,5 @@
-import { formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormDiffBlock, NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 
 type DiffSide = 'before' | 'after';

@@ -14,12 +14,21 @@ import { scopeFromChangedPaths } from '../../scripts/lib/d1-sync-scope.mjs';
  * Abnahmefälle der Projektionsidentität, gerechnet statt behauptet – auf dem Testfixture
  * (data/recht/runtime-fixture.json), damit jede Projektion Sekunden statt Minuten dauert:
  *
- *   A  origin.ts, nur formatNormOriginBadge      → Identität ändert sich, Daten identisch
- *   B  diff-render.ts, reine Darstellung         → Identität unverändert, Daten identisch
- *   C  site.ts, nur targetLabels                 → Identität ändert sich, Daten identisch
- *   D  origin.ts, formatNormOriginKind           → Identität ändert sich, Daten verschieden (Suchfilter)
- *   E  search.ts, buildSearchDocument            → Identität ändert sich, Daten verschieden (Suchdokumente)
- *   G  Schema (neue Migration)                   → Identität ändert sich, Umfang immer full
+ *   A  origin-presentation.ts, formatNormOriginBadge → Identität unverändert, Daten identisch
+ *   B  diff-render.ts, reine Darstellung             → Identität unverändert, Daten identisch
+ *   C  site.ts, nur targetLabels                     → Identität unverändert, Daten identisch
+ *   D  origin.ts, formatNormOriginKind               → Identität ändert sich, Daten verschieden (Suchfilter)
+ *   E  search.ts, buildSearchDocument                → Identität ändert sich, Daten verschieden (Suchdokumente)
+ *   G  Schema (neue Migration)                       → Identität ändert sich, Umfang immer full
+ *   H  site-routing.ts, Themenpfad                   → Identität ändert sich, Daten verschieden (Portalbezüge)
+ *   I  display.ts, Datumsformat                      → Identität unverändert, Daten identisch
+ *   J  presentation.ts, NORM_TYPE_LABELS             → Identität ändert sich, Daten verschieden (Suchdokumente, Suchfilter)
+ *   K  portal/organization.ts, Regierungsableitung   → Identität unverändert, Daten identisch
+ *
+ * Reine Darstellung (A, B, C, I, K) liegt außerhalb des Code-Abschlusses und ändert weder Identität
+ * noch Daten; Projektionscode (D, E, H, J) ändert die Identität, und nur ausgeführter Projektionscode
+ * ändert die Daten. Die Trennung ist eine Modulgrenze (config/site-routing.ts,
+ * norms/origin-presentation.ts, norms/display.ts, portal/norm-portal-content.ts), keine Ignore-Liste.
  *
  * Jeder Fall wird in einem temporären Worktree mit dem Code des Arbeitsbaums plus genau einer
  * Änderung projiziert (Kindprozess mit dem Code des Worktrees) und gegen die unveränderte
@@ -55,7 +64,7 @@ async function patch(tree, file, from, to, { occurrence = 'all' } = {}) {
   await writeFile(path, patched, 'utf8');
 }
 
-test('Abnahmefälle A–E und G: nur Code, den die Projektion erreicht, ändert die Identität; nur Code, den sie ausführt, ändert die Daten', { timeout: 20 * 60 * 1000 }, async () => {
+test('Abnahmefälle A–E und G–K: nur Code, den die Projektion erreicht, ändert die Identität; nur Code, den sie ausführt, ändert die Daten', { timeout: 20 * 60 * 1000 }, async () => {
   const tree = await realpath(await mkdtemp(join(tmpdir(), 'd1-equivalence-')));
   await rm(tree, { recursive: true, force: true });
   git(ROOT, 'worktree', 'add', '--detach', tree, 'HEAD');
@@ -69,12 +78,19 @@ test('Abnahmefälle A–E und G: nur Code, den die Projektion erreicht, ändert 
     const logicPaths = new Set(baseline.logicFiles);
 
     const cases = [
-      { name: 'A origin.ts nur formatNormOriginBadge', file: 'packages/shared/src/lib/norms/origin.ts', from: "return 'Übernommen · geändert';", to: "return 'Übernommen · geändert (Abnahme A)';", identityChanges: true, dataChanges: false },
+      { name: 'A origin-presentation.ts formatNormOriginBadge', file: 'packages/shared/src/lib/norms/origin-presentation.ts', from: "return 'Übernommen · geändert';", to: "return 'Übernommen · geändert (Abnahme A)';", identityChanges: false, dataChanges: false },
       { name: 'B diff-render.ts reine Darstellung', file: 'packages/shared/src/lib/norms/diff-render.ts', from: 'function escapeHtml(', to: "export const ABNAHME_B = 'Darstellung';\nfunction escapeHtml(", identityChanges: false, dataChanges: false },
-      { name: 'C site.ts nur targetLabels', file: 'packages/shared/src/config/site.ts', from: "search: 'Rechtssuche',", to: "search: 'Rechtssuche (Abnahme C)',", identityChanges: true, dataChanges: false },
+      { name: 'C site.ts nur targetLabels', file: 'packages/shared/src/config/site.ts', from: "search: 'Rechtssuche',", to: "search: 'Rechtssuche (Abnahme C)',", identityChanges: false, dataChanges: false },
       { name: 'D origin.ts formatNormOriginKind', file: 'packages/shared/src/lib/norms/origin.ts', from: "return 'Übernommen und ostdeutsch geändert';", to: "return 'Übernommen und ostdeutsch geändert (Abnahme D)';", identityChanges: true, dataChanges: true, tables: ['law_runtime_meta'] },
       { name: 'E search.ts buildSearchDocument', file: 'packages/recht-search/src/search.ts', from: 'title: toDisplayText(identity.title),', to: "title: `${toDisplayText(identity.title)} (Abnahme E)`,", occurrence: 'first', identityChanges: true, dataChanges: true, tables: ['law_search_documents'] },
       { name: 'G Schema', file: 'data/recht/d1/0008_abnahme_g.sql', create: 'ALTER TABLE law_norms ADD COLUMN abnahme_g TEXT;\n', identityChanges: true, dataChanges: true, full: true },
+      // Modulgrenze Projektion/Darstellung: site-routing.ts und presentation.ts sind Projektionscode
+      // (Adressen der Portalbezüge, Normtypbezeichnung in Suchdokumenten und Suchfiltern), display.ts
+      // und portal/organization.ts erreicht der Sync nicht.
+      { name: 'H site-routing.ts Themenpfad', file: 'packages/shared/src/config/site-routing.ts', from: "topics: '/themen/',", to: "topics: '/themen-abnahme-h/',", identityChanges: true, dataChanges: true, tables: ['law_norm_derived'] },
+      { name: 'I display.ts Datumsformat', file: 'packages/shared/src/lib/norms/display.ts', from: "month: 'long',", to: "month: 'short',", identityChanges: false, dataChanges: false },
+      { name: 'J presentation.ts NORM_TYPE_LABELS', file: 'packages/shared/src/lib/norms/presentation.ts', from: "gesetz: 'Gesetz',", to: "gesetz: 'Gesetz (Abnahme J)',", identityChanges: true, dataChanges: true, tables: ['law_search_documents', 'law_runtime_meta'] },
+      { name: 'K portal/organization.ts Regierungsableitung', file: 'packages/shared/src/lib/portal/organization.ts', from: 'function isRecord(', to: "export const ABNAHME_K = 'Organisation';\nfunction isRecord(", identityChanges: false, dataChanges: false },
     ];
     for (const entry of cases) {
       // Worktree auf den unveränderten Stand zurücksetzen (Code des Arbeitsbaums), dann genau eine Änderung.

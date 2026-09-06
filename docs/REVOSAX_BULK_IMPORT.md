@@ -291,10 +291,19 @@ Einstiegspunkts `scripts/sync-recht-d1.mjs` (`scripts/lib/d1-projection-closure.
 mit esbuild: statische und literale dynamische Importe, Re-Exports und Sammeldateien,
 JSON-Imports, Workspace-Pakete über ihre `exports`) plus das Schema unter `data/recht/d1/` und die
 Versionen externer Pakete im Abschluss; `npm run norms:runtime:d1-closure` zeigt die Dateien.
-Reine Darstellung in denselben Verzeichnissen (`norms/diff-render.ts`, `norms/diff.ts`,
-`recht-search/search-query.ts`, die Sammeldatei `norms/index.ts`) gehört nicht dazu, Dateien
-außerhalb der früheren Wurzeln, die der Sync erreicht (`portal/schema.ts`, `repository-root.ts`),
-schon. Ist der Abschluss unsicher – ein dynamischer Import mit nicht literalem Argument, eine
+Reine Darstellung in denselben Verzeichnissen gehört nicht dazu; sie liegt in eigenen Modulen,
+die kein Modell-Modul importiert: `config/site.ts` (Bezeichnungen, Navigation, Kontakt, SEO,
+`targetLabels`), `norms/origin-presentation.ts` (Herkunftsbadge und Erläuterung),
+`norms/display.ts` (Datumsformat, Fundstellenparser, verlinkter Text, Gliederung),
+`norms/diff-render.ts`, `norms/diff.ts`, `recht-search/search-query.ts`, die Sammeldatei
+`norms/index.ts` und der vollständige Portal-Loader (`portal/loader.ts`, `portal/organization.ts`,
+`portal/dates.ts`). Im Abschluss liegen dagegen `config/site-routing.ts` (Origins, Zielsite und
+Pfadtabellen: die Routenhelfer schreiben Adressen in Suchdokumente und Portalbezüge),
+`norms/presentation.ts` (projizierte Anzeigetexte und Anker), `norms/origin.ts` (Herkunftsmodell
+und `formatNormOriginKind`), die schmalen Themen- und Presse-Loader
+(`portal/norm-portal-content.ts`, `portal/json-collection.ts`) sowie Dateien außerhalb der
+früheren Wurzeln, die der Sync erreicht (`portal/schema.ts`, `repository-root.ts`). Die Trennung
+ist eine Modulgrenze, keine Ignore-Liste. Ist der Abschluss unsicher – ein dynamischer Import mit nicht literalem Argument, eine
 esbuild-Warnung, ein fehlender Einstieg –, zählt fail-closed die konservative Obermenge. Der Sync
 legt Fingerabdruck, Scope und `sync_state = complete` in `law_runtime_meta` ab; ein Lauf bei
 identischer Identität ist ein No-op. Ein Fixture kann nie die Identität des Vollbestands behaupten.

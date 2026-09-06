@@ -285,7 +285,8 @@ haben die barrierearme Höhe von 2,75 rem.
 
 Rechtsherkunft ist auf allen Rechtsseiten mit derselben Kennzeichnung sichtbar
 (`NormOriginBadge.astro`, Klasse `origin-badge`, Texte ausschließlich aus
-`packages/shared/src/lib/norms/origin.ts`) in genau zwei Formen: kurz in Listen und Trefferzeilen
+`packages/shared/src/lib/norms/origin-presentation.ts`; die erklärende Langform ist
+`formatNormOriginKind` aus `origin.ts`) in genau zwei Formen: kurz in Listen und Trefferzeilen
 („Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“) und
 erklärend auf Normseite, in Suchtreffern, Filtern und Zählern („Übernommen und unverändert“,
 „Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft ungeklärt“). Die

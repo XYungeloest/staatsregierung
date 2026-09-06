@@ -1,6 +1,6 @@
 import type { SearchHitUnit, SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
 import { formatNormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
-import { formatDate } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { NORM_TYPES, type NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
 

@@ -13,9 +13,8 @@ import NormVersionNavigation from '../../../components/norms/NormVersionNavigati
 import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
 import NormHistorySummary from '../../../components/norms/NormHistorySummary.astro';
 import { getPressReleaseIndexUrl, getTopicsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { buildNormOutline, formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import {
-  buildNormOutline,
-  formatDate,
   formatNormStatus,
   formatNormType,
   toDisplayText,

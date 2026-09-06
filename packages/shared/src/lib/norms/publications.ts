@@ -98,18 +98,6 @@ export interface PublicationEntryRecord {
   entry: VerkuendungEntry;
 }
 
-const PUBLICATION_ENTRY_TYPE_LABELS: Record<PublicationEntryType, string> = {
-  gesetz: 'Gesetz',
-  verordnung: 'Verordnung',
-  verwaltungsvorschrift: 'Verwaltungsvorschrift',
-  foerderrichtlinie: 'Förderrichtlinie',
-  bekanntmachung: 'Bekanntmachung',
-  berichtigung: 'Berichtigung',
-  staatsvertrag: 'Staatsvertrag',
-  verwaltungsabkommen: 'Verwaltungsabkommen',
-  sonstiges: 'Sonstige Veröffentlichung',
-};
-
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
@@ -430,10 +418,6 @@ export function findPublicationByDesignation(
 
   return publications.find((publication) => getPublicationDesignations(publication)
     .some((value) => normalizePublicationDesignation(value) === normalizedDesignation));
-}
-
-export function formatPublicationEntryType(value: PublicationEntryType): string {
-  return PUBLICATION_ENTRY_TYPE_LABELS[value];
 }
 
 export function listPublicationEntries(publications: Verkuendung[]): PublicationEntryRecord[] {

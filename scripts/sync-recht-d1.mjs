@@ -17,7 +17,7 @@ import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
-import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
+import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/norm-portal-content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases, isAmendmentRecord } from '@ostrecht/recht-search/search.ts';
 
 import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';

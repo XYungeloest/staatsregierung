@@ -19,7 +19,8 @@ import {
   type VersionScope,
 } from '@ostrecht/recht-search/search-query.ts';
 import type { SearchIndexDocument, SearchPublication } from '@ostrecht/recht-search/search.ts';
-import { NORM_ORIGIN_KINDS, describeNormOriginKind, formatNormOriginBadge, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+import { NORM_ORIGIN_KINDS, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+import { describeNormOriginKind, formatNormOriginBadge } from '@ostrecht/shared/lib/norms/origin-presentation.ts';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 
 const PAGE_SIZE = 20;

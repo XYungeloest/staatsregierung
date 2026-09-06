@@ -77,12 +77,16 @@ test('Abschluss des Repositorys: Projektionscode ist drin, reine Darstellung nic
     'packages/shared/src/lib/norms/origin.ts',
     'packages/shared/src/lib/norms/derived.ts',
     'packages/recht-search/src/search.ts',
-    'packages/shared/src/config/site.ts',
+    'packages/shared/src/config/site-routing.ts',
     'packages/shared/src/config/editorial.json',
     'packages/shared/src/lib/portal/schema.ts',
     'scripts/lib/d1-sync-scope.mjs',
   ]) assert.ok(closure.files.includes(file), `${file} gehört zur Projektion`);
   for (const file of [
+    'packages/shared/src/config/site.ts',
+    'packages/shared/src/lib/norms/origin-presentation.ts',
+    'packages/shared/src/lib/norms/display.ts',
+    'packages/shared/src/lib/portal/organization.ts',
     'packages/shared/src/lib/norms/diff-render.ts',
     'packages/shared/src/lib/norms/diff.ts',
     'packages/shared/src/lib/norms/index.ts',

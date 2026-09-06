@@ -1067,7 +1067,8 @@ Bezirk-Karten und Tabellen erreichbar bleiben.
 
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
 
-- `packages/shared/src/config/site.ts`: Portalname, Pfade, Navigation und Kontakt
+- `packages/shared/src/config/site-routing.ts`: Origins, Zielsite und Pfadtabellen beider Websites (Teil der D1-Projektion)
+- `packages/shared/src/config/site.ts`: Portalname, Navigation, Kontakt, SEO und Zielbezeichnungen (reine Darstellung)
 - `packages/shared/src/config/editorial.json`: redaktioneller Stichtag
 - `packages/shared/src/config/features.ts`: Feature-Schalter für die optionale Webanalyse
 - `packages/shared/src/config/analytics.ts`: Analyse- und Consent-Konfiguration
@@ -1179,7 +1180,7 @@ Typische Orte:
 - `apps/portal/src/pages/**/*.astro`: Seiteneinstiege, Abschnittsüberschriften, leere Zustände und feste Verknüpfungen.
 - `apps/portal/src/components/**/*.astro` und `apps/recht/src/components/**/*.astro`: app-spezifische Karten, Akkordeons, Statusanzeigen, Suchoberflächen und Modultexte.
 - `packages/shared/src/components/**/*.astro`: von beiden Anwendungen verwendete Seitengerüst- und Basiskomponenten.
-- `packages/shared/src/lib/portal/presentation.ts` und `packages/shared/src/lib/norms/presentation.ts`: Formatierungs- und Anzeigetexte.
+- `packages/shared/src/lib/portal/presentation.ts`, `packages/shared/src/lib/norms/display.ts` und `packages/shared/src/lib/norms/origin-presentation.ts`: Formatierungen, Gliederung und Anzeigetexte der Oberfläche. `packages/shared/src/lib/norms/presentation.ts` enthält nur die projizierten Anzeigetexte und Anker (Normtyp, Rechtsstand, Umlautkorrektur) und gehört zur D1-Projektion.
 - `packages/shared/src/lib/norms/routes.ts`: zentrale Pfade und Gruppierungen des Rechtsbereichs, einschließlich
   Suche, Index, Sachgebieten, Förderrichtlinien und Hilfe.
 

@@ -3,7 +3,8 @@ import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
 import NormVersionNavigation from '../../../components/norms/NormVersionNavigation.astro';
-import { formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   classifyNormVersion,
   getLawPortalUrl,

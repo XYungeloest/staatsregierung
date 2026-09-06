@@ -1,25 +1,14 @@
-import { formatDate } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { isLawSite, lawPaths, portalPaths, siteTarget, siteUrls } from '@ostrecht/shared/config/site-routing.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 
-const DEFAULT_PORTAL_SITE_URL = 'https://freistaat-ostdeutschland.de';
-const DEFAULT_LAW_SITE_URL = 'https://recht.freistaat-ostdeutschland.de';
-
-function readBuildEnvironment(name: string, fallback: string): string {
-  const metaEnvironment = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env;
-  const processEnvironment = typeof process !== 'undefined' ? process.env?.[name] : undefined;
-  return metaEnvironment?.[name]?.trim() || processEnvironment?.trim() || fallback;
-}
-
-function normalizeSiteUrl(value: string): string {
-  return value.replace(/\/+$/u, '');
-}
-
-export const siteUrls = {
-  portal: normalizeSiteUrl(readBuildEnvironment('PORTAL_SITE_URL', DEFAULT_PORTAL_SITE_URL)),
-  law: normalizeSiteUrl(readBuildEnvironment('LAW_SITE_URL', DEFAULT_LAW_SITE_URL)),
-} as const;
-
-export const siteTarget = readBuildEnvironment('SITE_TARGET', 'portal') === 'law' ? 'law' : 'portal';
-export const isLawSite = siteTarget === 'law';
+/**
+ * Öffentliche Grunddaten beider Websites: Bezeichnungen, Navigation, Kontakt, SEO und
+ * Zielbezeichnungen. Reine Darstellung außerhalb der D1-Projektion. Origins, Zielsite und
+ * Pfadtabellen kommen aus site-routing.ts (Teil der Projektion) und werden hier für die
+ * vorhandenen Importe weitergereicht.
+ */
+export { isLawSite, siteTarget, siteUrls } from '@ostrecht/shared/config/site-routing.ts';
+export type { LawSitePathKey, SitePathKey } from '@ostrecht/shared/config/site-routing.ts';
 
 export const siteConfig = {
   authorityName: 'Staatsrat des Ostdeutschen Freistaates',
@@ -50,40 +39,7 @@ export const siteConfig = {
   officialFlagText: 'OF',
   searchLabel: 'Portal durchsuchen',
   searchPlaceholder: 'z. B. Thema, Ressort, Recht oder Presse',
-  paths: {
-    home: '/',
-    search: '/suche/',
-    government: '/staatsregierung/',
-    governmentMembers: '/staatsregierung/mitglieder/',
-    ministerPresident: '/staatsregierung/ministerpraesident/',
-    cabinet: '/staatsregierung/kabinett/',
-    holdings: '/staatsregierung/beteiligungen/',
-    previousCabinets: '/staatsregierung/fruehere-kabinette/',
-    coalition: '/staatsregierung/koalition/',
-    actionPlan: '/staatsregierung/15-punkte-plan/',
-    kreisreform: '/kreisreform/',
-    topics: '/themen/',
-    educationAndSchool: '/themen/bildung-und-schule/',
-    schoolSystem: '/themen/bildung-und-schule/schulsystem/',
-    press: '/presse/',
-    pressReleases: '/presse/pressemitteilungen/',
-    pressSpeeches: '/presse/reden/',
-    pressDates: '/presse/termine/',
-    budget: '/haushalt/',
-    freestate: '/freistaat/',
-    service: '/service/',
-    serviceOverview: '/service/uebersicht/',
-    career: '/service/karriere/',
-    faq: '/service/faq/',
-    lawBridge: '/recht/',
-    contact: '/service/kontakt/',
-    easyLanguage: '/service/leichte-sprache/',
-    signLanguage: '/service/gebaerdensprache/',
-    publications: '/service/publikationen/',
-    imprint: '/service/impressum/',
-    privacy: '/service/datenschutz/',
-    accessibility: '/service/barrierefreiheit/',
-  },
+  paths: portalPaths,
   mainNavigation: [
     { label: 'Freistaat', pathKey: 'freestate' },
     { label: 'Staatsrat', pathKey: 'government' },
@@ -164,21 +120,7 @@ export const lawSiteConfig = {
   officialFlagText: siteConfig.officialFlagText,
   searchLabel: 'Recht durchsuchen',
   searchPlaceholder: 'Gesetze, Verordnungen und Verwaltungsvorschriften durchsuchen',
-  paths: {
-    home: '/',
-    search: '/suche/',
-    laws: '/gesetze/',
-    regulations: '/verordnungen/',
-    administrativeRules: '/verwaltungsvorschriften/',
-    index: '/archiv/',
-    subjects: '/sachgebiete/',
-    funding: '/foerderrichtlinien/',
-    references: '/fundstellen/',
-    publications: '/verkuendungen/',
-    constitution: '/norm/staatsverfassung-des-freistaates-ostdeutschland/',
-    development: '/rechtsentwicklung/',
-    help: '/hilfe/',
-  },
+  paths: lawPaths,
   /**
    * Je Ziel genau eine öffentliche Bezeichnung. Navigation, Fußzeile, Startseitenkarten,
    * Hilfe, Fehlerseite und Seitenköpfe lesen sie hier; niemand formuliert sie selbst.
@@ -209,6 +151,3 @@ export const lawSiteConfig = {
 } as const;
 
 export const activeSiteConfig = isLawSite ? lawSiteConfig : siteConfig;
-
-export type SitePathKey = keyof typeof siteConfig.paths;
-export type LawSitePathKey = keyof typeof lawSiteConfig.paths;

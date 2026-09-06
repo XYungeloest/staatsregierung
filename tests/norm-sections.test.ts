@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { buildNormOutline } from '@ostrecht/shared/lib/norms/display.ts';
 import {
   buildNormAnchorMap,
-  buildNormOutline,
   getResolvedBlockAnchorId,
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';

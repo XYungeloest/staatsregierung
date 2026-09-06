@@ -16,7 +16,8 @@ Datei die D1-Projektion betrifft, wird nicht aus ihrem Verzeichnis geraten, sond
 Code-Abschluss der Projektion (`scripts/lib/d1-projection-closure.mjs`, siehe
 `docs/REVOSAX_BULK_IMPORT.md`): nur Dateien, die `scripts/sync-recht-d1.mjs` tatsächlich erreicht,
 und das Schema zählen als Projektionscode; reine Darstellungslogik in denselben Verzeichnissen
-(z. B. `norms/diff-render.ts`) ist Oberfläche. Ist der Abschluss nicht sicher bestimmbar, gilt
+(z. B. `config/site.ts`, `norms/origin-presentation.ts`, `norms/display.ts`,
+`norms/diff-render.ts`) ist Oberfläche. Ist der Abschluss nicht sicher bestimmbar, gilt
 fail-closed die konservative Obermenge dieser Verzeichnisse.
 
 | Scope | Typische Pfade | Produktion |
@@ -188,8 +189,9 @@ Der lokale D1-Seed ist ein SQLite-Snapshot mit deterministischem Fingerabdruck
 
 Der Fingerabdruck ändert sich nur, wenn Projektionscode (Code-Abschluss des Syncs), Migrationen,
 Rechtsbestand, Portalgrundlagen, Stichtag, Seed-Werkzeuge oder die Versionen von wrangler,
-miniflare und workerd sich ändern; CSS, Komponenten, Darstellungslogik außerhalb des Abschlusses,
-Tests oder Dokumentation ändern ihn nicht. `npm run norms:runtime:d1-seed-fingerprint -- --json
+miniflare und workerd sich ändern; CSS, Komponenten, Darstellungslogik außerhalb des Abschlusses
+(Herkunftsbadges in `norms/origin-presentation.ts`, Zielbezeichnungen in `config/site.ts`,
+Datumsformat in `norms/display.ts`), Tests oder Dokumentation ändern ihn nicht. `npm run norms:runtime:d1-seed-fingerprint -- --json
 --ref <Commit>` bestimmt ihn für einen Basis-Commit (Cache-Schlüssel des Äquivalenznachweises). Der Job-Summary jedes
 Laufs zeigt Status (`restored`/`built`), Projektions-, Verifikations- und Einsetzdauer sowie die
 Laufzeiten von Build, Verifikation, A11y und Browser. Der Workflow `OstRecht-Vollbestand-Smoke`

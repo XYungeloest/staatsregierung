@@ -25,20 +25,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   `tests/recht-d1-sync-guard.test.mjs`, `tests/d1-projection-proof.test.mjs` und
   `tests/d1-projection-closure.test.mjs` sowie die Legacy-Restore-Schritte der Workflows gelöscht
   sind.
-- [ ] Präsentationslogik aus der D1-Projektionslogik herauslösen: Rein visuelle Änderungen wie
-  `formatNormOriginBadge` in `packages/shared/src/lib/norms/origin.ts` und öffentliche
-  `targetLabels` in `packages/shared/src/config/site.ts` verändern derzeit weiterhin die
-  D1-Projektionsidentität und lösen damit Seed- und Äquivalenznachweis aus, obwohl die projizierten
-  Daten unverändert bleiben. Projektionsrelevante Herkunfts-, Such- und Laufzeitlogik und reine
-  Präsentationslogik sind so in getrennte Module aufzuteilen, dass der transitive Code-Abschluss
-  von `scripts/sync-recht-d1.mjs` nur tatsächlich projektionsrelevanten Code erreicht. Fertig,
-  wenn Änderungen ausschließlich an Herkunftsbadges, Beschriftungen oder sonstiger
-  Darstellungslogik weder den D1-Fingerabdruck ändern noch `d1_sync`, `d1_seed` oder einen
-  Äquivalenznachweis auslösen, während Änderungen an `getNormOriginInfo`,
-  `formatNormOriginKind`, Suchdokumenten oder sonstiger projektionsrelevanter Logik weiterhin
-  fail-closed erkannt werden; die Abnahmefälle in
-  `tests/corpus/d1-projection-equivalence.test.mjs` und `tests/change-scope.test.mjs` bilden
-  diese Trennung ausdrücklich ab.
 - [ ] Browser-, Barrierefreiheits- und Screenshot-Fixture vom redaktionellen Rechtsbestand
   entkoppeln: `data/recht/runtime-fixture.json` wählt derzeit reale Normen aus `content/normen`
   aus, sodass spätere redaktionelle Änderungen an Titeln, Texten oder Fassungen beim nächsten

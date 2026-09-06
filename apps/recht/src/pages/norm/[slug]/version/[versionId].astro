@@ -11,7 +11,8 @@ import NormPrintSources from '../../../../components/norms/NormPrintSources.astr
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
 import NormPageHeader from '../../../../components/norms/NormPageHeader.astro';
 import NormHistorySummary from '../../../../components/norms/NormHistorySummary.astro';
-import { buildNormOutline, formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { buildNormOutline, formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   getLawPortalUrl,
   getNormUrl,

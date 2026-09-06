@@ -64,7 +64,6 @@ export {
 export {
   buildNormPublicationReferenceLookup,
   findPublicationByDesignation,
-  formatPublicationEntryType,
   getPublicationDesignations,
   getLatestPublication,
   getNormPublicationReference,
@@ -82,22 +81,25 @@ export {
 
 export {
   buildNormAnchorMap,
-  buildNormOutline,
-  formatDate,
   formatNormStatus,
   formatNormType,
   getBlockAnchorId,
-  getLegacyBlockAnchorId,
   getResolvedBlockAnchorId,
+  toDisplayText,
+  type NormAnchorMap,
+  type TextLinkReference,
+} from '@ostrecht/shared/lib/norms/presentation.ts';
+export {
+  buildNormOutline,
+  formatDate,
+  formatPublicationEntryType,
+  getLegacyBlockAnchorId,
   getHeadingTag,
   parseCitation,
   renderLinkedDisplayText,
-  toDisplayText,
   type NormOutlineItem,
-  type NormAnchorMap,
   type ParsedCitation,
-  type TextLinkReference,
-} from '@ostrecht/shared/lib/norms/presentation.ts';
+} from '@ostrecht/shared/lib/norms/display.ts';
 export {
   buildNormFullCitation,
   buildNormRecordLookup,
@@ -117,7 +119,6 @@ export {
   VERSION_TEMPORAL_KINDS,
   classifyNormVersion,
   classifyNormVersions,
-  formatVersionTemporalLabel,
   getApplicableVersion,
   getNormLastActivityDate,
   getNormLastChangeDate,
@@ -128,19 +129,21 @@ export {
 export {
   LEGAL_BASELINE_DATE,
   NORM_ORIGIN_KINDS,
-  classifyNormOriginVersion,
-  describeNormOriginKind,
-  formatNormOriginBadge,
   formatNormOriginKind,
   getBaselineVersion,
   getNormOriginInfo,
   getOwnNormChanges,
-  type NormOriginBadgeVariant,
   type NormOriginInfo,
   type NormOriginKind,
-  type NormOriginVersionKind,
   type OwnNormChange,
 } from '@ostrecht/shared/lib/norms/origin.ts';
+export {
+  classifyNormOriginVersion,
+  describeNormOriginKind,
+  formatNormOriginBadge,
+  type NormOriginBadgeVariant,
+  type NormOriginVersionKind,
+} from '@ostrecht/shared/lib/norms/origin-presentation.ts';
 export {
   NORM_RELATION_KINDS,
   buildNormRelations,

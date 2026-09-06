@@ -1,10 +1,7 @@
 ---
 import { getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
-import {
-  formatDate,
-  formatNormStatus,
-  toDisplayText,
-} from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import { classifyNormVersion, EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';

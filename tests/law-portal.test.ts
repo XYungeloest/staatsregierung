@@ -7,15 +7,12 @@ import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, d
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
 import {
   LEGAL_BASELINE_DATE,
-  classifyNormOriginVersion,
   getNormOriginInfo,
 } from '@ostrecht/shared/lib/norms/origin.ts';
+import { classifyNormOriginVersion } from '@ostrecht/shared/lib/norms/origin-presentation.ts';
 import { buildNormRelations } from '@ostrecht/shared/lib/norms/relations.ts';
-import {
-  getBlockAnchorId,
-  getLegacyBlockAnchorId,
-  parseCitation,
-} from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getLegacyBlockAnchorId, parseCitation } from '@ostrecht/shared/lib/norms/display.ts';
+import { getBlockAnchorId } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   buildSearchCandidateParams,
   candidateTotalMatchesResults,
