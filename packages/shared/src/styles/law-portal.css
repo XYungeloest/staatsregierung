@@ -571,6 +571,24 @@
   scroll-margin-top: 7rem;
 }
 
+/* Unterschriftenblock am Ende einer eigenen Verkündung: Name, Amtsbezeichnung und – soweit
+   die Quelle sie führt – Ort und Datum, jeweils in eigener Zeile. Die amtliche Quelle setzt
+   die Amtsbezeichnung gesperrt; gespeichert und vorgelesen wird sie in Normalschreibung. */
+.norm-signature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-block: var(--space-5) 0;
+  color: var(--color-text-muted);
+  line-height: var(--lh-body);
+  break-inside: avoid;
+}
+
+.norm-signature__name {
+  color: var(--color-ink);
+  font-weight: 650;
+}
+
 .legacy-anchor {
   position: absolute;
   inset-block-start: 0;

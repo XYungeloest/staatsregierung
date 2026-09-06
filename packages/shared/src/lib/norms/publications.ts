@@ -1,12 +1,13 @@
 import type { Dirent } from 'node:fs';
 
-import { ContentValidationError } from '@ostrecht/shared/lib/norms/schema.ts';
+import { ContentValidationError, type NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 
 export const PUBLICATION_ENTRY_TYPES = [
   'gesetz',
   'verordnung',
   'verwaltungsvorschrift',
   'foerderrichtlinie',
+  'allgemeinverfuegung',
   'bekanntmachung',
   'berichtigung',
   'staatsvertrag',
@@ -31,6 +32,39 @@ async function fileSystem() {
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 export type PublicationEntryType = (typeof PUBLICATION_ENTRY_TYPES)[number];
+
+/**
+ * Verkündungseintrag und Norm nennen dieselbe Rechtsvorschrift: Der Eintragstyp folgt
+ * deshalb dem Normtyp. Änderungsvorschriften tragen den Typ des ändernden Rechtsakts –
+ * im Staatsanzeiger eine Verwaltungsvorschrift, sonst Gesetz oder Verordnung, je nachdem,
+ * womit die Vorschrift verkündet wurde. Zustimmungsgesetze erscheinen als Gesetz.
+ */
+export function publicationEntryTypeForNormType(
+  normType: NormType,
+  publication?: { publication?: string; initialCitation?: string },
+): PublicationEntryType {
+  if (normType === 'zustimmungsgesetz') return 'gesetz';
+  if (normType === 'aenderungsvorschrift') {
+    if (publication?.publication === 'StAnzO.') return 'verwaltungsvorschrift';
+    return /^Verordnung\b/u.test(publication?.initialCitation ?? '') ? 'verordnung' : 'gesetz';
+  }
+  return normType;
+}
+
+const COMPATIBLE_NORM_TYPES: Partial<Record<PublicationEntryType, readonly NormType[]>> = {
+  gesetz: ['gesetz', 'zustimmungsgesetz', 'aenderungsvorschrift'],
+  verordnung: ['verordnung', 'aenderungsvorschrift'],
+  verwaltungsvorschrift: ['verwaltungsvorschrift', 'aenderungsvorschrift'],
+};
+
+/** Passt der Typ eines Verkündungseintrags zum Typ der verkündeten Norm? */
+export function isCompatiblePublicationEntryType(
+  entryType: PublicationEntryType,
+  normType: NormType,
+): boolean {
+  const compatible = COMPATIBLE_NORM_TYPES[entryType];
+  return compatible ? compatible.includes(normType) : entryType === normType;
+}
 
 export type PublicationSourceAvailability = 'versioned' | 'external' | 'not-versioned';
 

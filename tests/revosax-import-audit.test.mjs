@@ -73,4 +73,57 @@ test('der Import-Audit ist deterministisch und seine Bilanz geht exakt auf', asy
   assert.deepEqual(first.summary.derivedMetadata.fields, ['keywords', 'summary']);
   assert.equal(first.summary.derivedMetadata.norms, 3);
   assert.deepEqual(first.summary.derivedMetadata.subjects, { official: 0, derived: 0 }, 'ohne lesbare meta.json zählt der Audit keine Zuordnung');
+  // Ohne nachstichtaglichen Rechtsakt bleiben alle Zähler auf null.
+  assert.deepEqual(first.summary.postCutoff, {
+    baselineDate: '2023-11-01',
+    sourcesAfterCutoff: 0,
+    citationsWithContainmentClauseStripped: 0,
+    decisions: { discard: 0, adopted: 0, open: 0 },
+    skipped: 0,
+    unchangedTargetsOfPostCutoffAmends: 0,
+  });
+});
+
+test('Rechtsakte nach dem Überleitungsstichtag werden gezählt, gekennzeichnet und als eigene SKIP-Kategorie geführt', async () => {
+  const manifest = { reportedCount: 2, hits: [{ lawId: 1 }, { lawId: 2 }], duplicateListings: 0, passes: 1 };
+  const entries = [
+    {
+      sourceId: '1', revosaxLawId: '1', category: 'ÄVO', inferredType: 'aenderungsvorschrift', adaptedTitle: 'A',
+      sourceUrl: 'u1', proposedSlug: 'a', reviewFlags: [], listing: { documentDate: '2024-07-08' },
+      fullCitation: 'Testvorschrift vom 1. Januar 2020 (SächsABl. S. 1), zuletzt enthalten in der Verwaltungsvorschrift vom 27. November 2025 (SächsABl. SDr. S. S 209)',
+    },
+    {
+      sourceId: '2', revosaxLawId: '2', category: 'G', inferredType: 'gesetz', adaptedTitle: 'B',
+      sourceUrl: 'u2', proposedSlug: 'b', reviewFlags: [], listing: { documentDate: '2020-01-01' },
+      fullCitation: 'Zweites Testgesetz vom 1. Januar 2020 (SächsGVBl. S. 2)',
+    },
+  ];
+  const report = { baselineDate: '2023-11-01', generatedAt: 't', total: 2, successful: 2, failed: 0, reviewCases: 0, failureCounts: {}, entries };
+  const plan = {
+    generatedAt: 't', writable: true,
+    counts: { CREATE: 1, MATCH: 0, PROTECT: 0, REVIEW: 0, SKIP: 1, DEFERRED: 0 },
+    entries: [
+      { sourceId: '1', action: 'SKIP', canonicalSlug: 'a', inferredType: 'aenderungsvorschrift', reason: 'post-cutoff-saxon-act: Erlassdatum 2024-07-08 liegt nach dem Rechtsüberleitungsstichtag 2023-11-01', postCutoff: ['Erlassdatum 2024-07-08'], postCutoffResolution: 'discard' },
+      { sourceId: '2', action: 'CREATE', canonicalSlug: 'b' },
+    ],
+  };
+  const postCutoffDecisions = { decisions: { a: { slug: 'a', resolution: 'discard', adoptingNorm: null, basis: 'Erlassdatum 8. Juli 2024', reason: 'Einmaliger Rechtsakt nach dem Stichtag' } } };
+  const audit = await buildImportAudit({
+    cacheDir: '/nicht/vorhanden', manifest, report, plan, envelopes: null,
+    decisions: { decisions: {} }, sunsetDecisions: null, postCutoffDecisions,
+    r2Manifest: { objects: {} }, attachmentsManifest: null, materializationReport: null, residualBacklog: null, preexistingMatches: 0,
+  });
+  assert.deepEqual(audit.summary.postCutoff, {
+    baselineDate: '2023-11-01',
+    sourcesAfterCutoff: 1,
+    citationsWithContainmentClauseStripped: 1,
+    decisions: { discard: 1, adopted: 0, open: 0 },
+    skipped: 1,
+    unchangedTargetsOfPostCutoffAmends: 0,
+  });
+  assert.deepEqual(audit.skips.byCategory, { 'post-cutoff-saxon-act': 1 });
+  const flagged = audit.reviewFlags.entries.find((entry) => entry.sourceId === '1');
+  assert.ok(flagged.flags.includes('post-cutoff-source'));
+  assert.equal(flagged.postCutoff.resolution, 'discard');
+  assert.equal(flagged.postCutoff.adoptingNorm, null);
 });

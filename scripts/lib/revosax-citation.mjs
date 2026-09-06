@@ -65,6 +65,44 @@ function stripFutureAmendmentClause(citation, cutoffDate) {
   return normalized.slice(0, start).replace(/[\s,;]+$/gu, '').trim();
 }
 
+/**
+ * Sächsische Fundstellenpflege nach dem Überleitungsstichtag: Die jährliche
+ * Bereinigungsvorschrift listet noch geltende Verwaltungsvorschriften auf
+ * („zuletzt enthalten in der Verwaltungsvorschrift vom 27. November 2025
+ * (SächsABl. SDr. S. S 209)“). Sie ändert das Recht nicht und hat in Ostdeutschland
+ * keine Wirkung; ihre Daten gehören deshalb nicht in die übernommene Zitierung.
+ */
+export function containmentDatesFromCitation(citation) {
+  const normalized = String(citation ?? '').replace(/\s+/gu, ' ').trim();
+  const pattern = new RegExp(
+    `(?:zuletzt\\s+)?enthalten\\s+in\\s+der\\s+(?:Verwaltungsvorschrift|Bekanntmachung)[^()]{0,200}?\\bvom\\s+(${DATE_SOURCE})`,
+    'giu',
+  );
+  const values = [];
+  for (const match of normalized.matchAll(pattern)) {
+    const date = parseCitationDate(match[1]);
+    if (date) values.push(date);
+  }
+  return [...new Set(values)].sort();
+}
+
+export function futureContainmentDates(citation, cutoffDate) {
+  if (!cutoffDate) return [];
+  return containmentDatesFromCitation(citation).filter((date) => date > cutoffDate);
+}
+
+/** Entfernt die Aufnahmeklausel samt vorangehendem Komma, wenn sie nach dem Stichtag datiert. */
+export function stripFutureContainmentClause(citation, cutoffDate) {
+  const normalized = String(citation ?? '').replace(/\s+/gu, ' ').trim();
+  if (futureContainmentDates(normalized, cutoffDate).length === 0) return normalized;
+  const clause = new RegExp(
+    `[\\s,;]*(?:zuletzt\\s+)?enthalten\\s+in\\s+der\\s+(?:Verwaltungsvorschrift|Bekanntmachung)[^()]{0,200}?\\bvom\\s+${DATE_SOURCE}[^()]{0,80}?(?:\\([^()]*\\))?\\s*$`,
+    'iu',
+  );
+  const stripped = normalized.replace(clause, '').replace(/[\s,;]+$/gu, '').trim();
+  return stripped === normalized ? null : stripped;
+}
+
 export function historicalBaselineCitation({
   pageFullCitation,
   sourceValidTo,
@@ -74,9 +112,20 @@ export function historicalBaselineCitation({
   context = 'REVOSax-Ausgangsfassung',
 }) {
   const explicitCitation = baselineCitation ?? sourceCitation;
-  const citation = explicitCitation ?? pageFullCitation;
+  let citation = explicitCitation ?? pageFullCitation;
   if (!citation) throw new Error(`${context}: Zitierung fehlt`);
   const cutoffDate = citationValidAt ?? sourceValidTo;
+  // Nachstichtagliche sächsische Fundstellenpflege zuerst entfernen: Sie ist keine
+  // Rechtsänderung und darf die Prüfung auf spätere Änderungen nicht auslösen.
+  if (!explicitCitation && futureContainmentDates(citation, cutoffDate).length > 0) {
+    const withoutContainment = stripFutureContainmentClause(citation, cutoffDate);
+    if (!withoutContainment) {
+      throw new Error(
+        `${context}: Aufnahme in eine sächsische Bereinigungsvorschrift nach dem Stichtag ${cutoffDate} lässt sich nicht aus der Zitierung lösen`,
+      );
+    }
+    citation = withoutContainment;
+  }
   const futureDates = futureAmendmentDates(citation, cutoffDate);
   if (futureDates.length > 0) {
     if (!explicitCitation) {

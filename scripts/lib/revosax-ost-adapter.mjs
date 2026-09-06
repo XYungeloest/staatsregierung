@@ -1,3 +1,5 @@
+import { collapseSpacedLetters } from './norm-html-parser.mjs';
+
 /**
  * Geschützte Provenienz: ausschließlich Fundstellenkürzel der amtlichen
  * Verkündungs- und Amtsblätter (immer mit abschließendem Punkt). Sie bezeichnen die
@@ -90,8 +92,10 @@ export function adaptSaxonText(value) {
 function adaptBodyBlock(block) {
   const result = { ...block };
   // Gliederungskennzeichen wie „Anlage 1 (zu § 8 SächsRKVO)“ tragen ebenfalls amtliche Kürzel.
+  // Gesperrter Satz der Quelle (Amtsbezeichnungen in Besoldungsanlagen, „s o l l“) wird dabei
+  // als gewöhnliches Wort übernommen; ein Auszeichnungsmodell für Hervorhebungen gibt es nicht.
   for (const field of ['label', 'title', 'text']) {
-    if (typeof result[field] === 'string') result[field] = adaptSaxonText(result[field]);
+    if (typeof result[field] === 'string') result[field] = collapseSpacedLetters(adaptSaxonText(result[field]));
   }
   if (Array.isArray(result.children)) result.children = result.children.map(adaptBodyBlock);
   return result;

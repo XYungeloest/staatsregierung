@@ -16,6 +16,24 @@ sächsische Versionshistorie vor dem Stichtag werden importiert. Spätere Fassun
 ausschließlich aus ostdeutschen Verkündungen, geprüften Änderungsvorschriften und deterministischen
 Konsolidierungsregeln (`docs/NORM_WORKFLOW.md`).
 
+**Rechtsakte nach dem Stichtag.** Die sächsische Fundstellenpflege führt übernommene Vorschriften
+in jährlichen Bereinigungsvorschriften weiter („zuletzt enthalten in der Verwaltungsvorschrift vom
+27. November 2025 (SächsABl. SDr. …)“). Solche Aufnahmeklauseln ändern das Recht nicht und wirken
+nicht in Ostdeutschland; `scripts/lib/revosax-citation.mjs` entfernt sie aus der übernommenen
+Zitierung (`containmentDatesFromCitation`, `stripFutureContainmentClause`), Klauseln vor dem
+Stichtag bleiben erhalten. Ein sächsischer Rechtsakt, dessen Erlassdatum oder Fassungsbeginn nach
+dem Stichtag liegt – bei Artikeln einer Mantelvorschrift auch deren Fassungsbeginn –, gehört nicht
+zum übernommenen Rechtsstand: Der Materialisierungsplan führt ihn als `SKIP` mit dem Grund
+`post-cutoff-saxon-act`. Ausgenommen sind Fälle mit einer redaktionellen Entscheidung in
+`data/recht/revosax-post-cutoff-decisions.json` (Schlüssel ist der Slug; Felder `slug`,
+`revosaxLawId`, `resolution` `discard`|`adopted`|`open`, `adoptingNorm`, `basis`, `reason`,
+`decidedAt`): `adopted` nennt die ostdeutsche Änderungsvorschrift, die den späteren Zwischenstand
+als Ausgangsfassung übernimmt (Konsolidierungsweg), `open` hält den Fall begründet offen und lässt
+die Norm unverändert im Bestand (dokumentiert in `CONTENT_GAPS.md`), `discard` entfernt sie mit
+`--regenerate --prune-baseline`. `scripts/audit-norm-derivations.ts` prüft die Regel über den
+gesamten Bestand: Eine übernommene, unveränderte Norm nennt keinen Rechtsakt nach dem Stichtag und
+ist nicht Ziel einer Änderung oder Aufhebung mit späterem Datum.
+
 ## Architektur
 
 ```text
@@ -86,6 +104,13 @@ Optionen: `--stratified N` (gleichmäßige Stichprobe über alle Typen), `--limi
 `--law-id`, `--refetch`, `--offline`. Rohquellen werden unter `.cache/revosax-baseline/2023-11-01/`
 abgelegt (`raw/` mit SHA-256-Metadaten, `parsed/`, `report.json`) und bei Wiederholungen aus dem
 Cache verwendet.
+
+Überschriften stehen genau einmal: REVOSax führt den Titel einer Gliederungseinheit zugleich im
+Attribut der Einheit und als erste Zeile ihres ersten Kindes. `stripDuplicatedHeading` entfernt die
+wiederholte Zeile; bleibt kein Text übrig, entfällt der Punkt und seine Unterpunkte rücken an seine
+Stelle. Gestrichen wird nur bei vollständiger Übereinstimmung ganzer Zeilen – ein Text, der
+lediglich mit demselben Wort beginnt, bleibt unverändert. Gesperrter Satz der Quelle
+(Amtsbezeichnungen, „s o l l“) wird bei der Rechtsüberleitung als gewöhnliches Wort übernommen.
 
 Fassungslogik: dynamische Treffer werden über die numerische Stammnorm-URL geladen und auf die
 tatsächlich angezeigte konkrete Fassung festgelegt; „Fassung gültig ab“ muss dem Treffer
@@ -175,6 +200,7 @@ npm run norms:revosax:plan-materialization
 npm run norms:revosax:materialize-baseline            # Prüfung ohne Schreiben
 npm run norms:revosax:materialize-baseline -- --write
 npm run norms:revosax:materialize-baseline -- --regenerate --write   # nur nach Adapter-/Regeländerungen
+npm run norms:revosax:materialize-baseline -- --regenerate --prune-baseline --write   # zusätzlich nicht mehr übernommene Baseline-Normen entfernen
 npm run content:check
 npm run norms:revosax:import-audit                    # versionierter Import-Audit
 ```
@@ -190,7 +216,7 @@ Kein Fuzzy-Matching. Die Rückfallstufen greifen nur, wenn keine `lawId` vorlieg
 | `MATCH` | vorhandene Norm mit Fassung zum Stichtag; wird nicht verändert |
 | `PROTECT` | vorhandene Norm mit anderer lawId und ohne Stichtagsfassung oder mit späteren Ost-Fassungen bleibt unangetastet |
 | `REVIEW` | Identität oder Inhalt nicht eindeutig; blockiert `--write`, sofern nicht zurückgestellt |
-| `SKIP` | Alias derselben Fassung, textloser Eintrag, identischer Vorgängertext, Doppelerfassung, dokumentierte Entscheidung |
+| `SKIP` | Alias derselben Fassung, textloser Eintrag, identischer Vorgängertext, Doppelerfassung, dokumentierte Entscheidung, Rechtsakt nach dem Überleitungsstichtag |
 
 **Mantelbestandteile.** REVOSax führt die Artikel einer Mantelvorschrift als eigene Vorschriften
 ohne Lesetext. `scripts/classify-revosax-envelopes.mjs` ordnet sie ein (versioniert in
@@ -245,6 +271,12 @@ abgeleiteten Zuordnungen; `derivedMetadata.fields` nennt nur noch Schlagwörter 
 nicht im R2-Manifest archiviert ist, ein Zielverzeichnis existiert oder ein Datensatz die Regeln
 verletzt. `--regenerate` schreibt reine Baseline-Normen nach Adapter- oder Regeländerungen neu;
 Normen mit weiteren Fassungen oder anderen Quellen sind geschützt.
+
+`summary.postCutoff` zählt die Rechtsakte nach dem Stichtag (`sourcesAfterCutoff`), die bereinigten
+Aufnahmeklauseln (`citationsWithContainmentClauseStripped`), die Entscheidungen nach Auflösung, die
+übersprungenen Einträge und die übernommenen Normen, die ohne dokumentierte Adoption von einem
+solchen Rechtsakt geändert würden (`unchangedTargetsOfPostCutoffAmends`, muss 0 sein);
+`review-flags.json` weist jeden Fall mit der Prüfmarke `post-cutoff-source` aus.
 
 Der versionierte Import-Audit `data/recht/revosax-import-audit/` (`summary.json`, `skips.json`,
 `envelopes.json`, `review-flags.json`) entsteht deterministisch aus den Stagingartefakten

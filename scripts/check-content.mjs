@@ -11,6 +11,12 @@ import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { promisify } from 'node:util';
 
+import { hasSpacedLetters } from './lib/norm-html-parser.mjs';
+import {
+  citationLabelMatchesNormType,
+  isCompatiblePublicationEntryType,
+} from './lib/publication-entry-types.mjs';
+
 const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
 const publicRoot = join(root, 'public');
@@ -24,6 +30,8 @@ const allowedFundingAreas = new Set(lawSubjectsConfig.fundingAreas.map((area) =>
 const fsnNumberPattern = /^\d{1,4}(?:-[0-9A-Za-z.,:/]{1,16})?$/u;
 const problems = [];
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
+/** Befristung im Wortlaut einer Verkündung („bis zum 1. Januar 2026“, „mit Ablauf des …“). */
+const LIMITED_PERIOD_PATTERN = /\b(?:bis\s+zum|mit\s+Ablauf\s+des)\s+\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s+\d{4}/u;
 const allowedNormTypes = new Set([
   'gesetz',
   'verordnung',
@@ -957,6 +965,14 @@ for (const { file, json } of records) {
           const history = byPrefix(`normen/${entry.normSlug}/`).find(({ file: normFile }) =>
             basename(normFile) === 'history.json',
           )?.json;
+          // Verkündungseintrag und Norm bezeichnen dieselbe Rechtsvorschrift: Eintragsart und
+          // Zitierbezeichnung müssen zum Normtyp passen.
+          if (meta?.type && typeof entry.type === 'string' && !isCompatiblePublicationEntryType(entry.type, meta.type)) {
+            addProblem(file, `${entryPath}.type „${entry.type}“ passt nicht zum Normtyp „${meta.type}“ von ${entry.normSlug}`);
+          }
+          if (meta?.type && typeof entry.citation === 'string' && !citationLabelMatchesNormType(entry.citation, meta.type)) {
+            addProblem(file, `${entryPath}.citation nennt keine zum Normtyp „${meta.type}“ passende Rechtsaktbezeichnung: „${entry.citation}“`);
+          }
           const referencesInitialVersion = !entry.versionId || history?.initialVersionId === entry.versionId;
           if (referencesInitialVersion && entry.documentDate && meta?.documentDate && entry.documentDate !== meta.documentDate) {
             addProblem(file, `${entryPath}.documentDate weicht vom Normdatensatz ${entry.normSlug} ab`);
@@ -1032,6 +1048,17 @@ for (const { file, json } of normMetaRecords) {
   }
   if (json.status === 'repealed' && (!json.expiryDate || json.expiryDate > referenceDate)) {
     addProblem(file, 'repealed setzt ein Außerkrafttreten am oder vor dem Stichtag voraus');
+  }
+  // Eine befristete Allgemeinverfügung nennt ihr Ende im Titel oder im Wortlaut; das
+  // Außerkrafttreten wird als expiryDate geführt (validTo der letzten Fassung prüft die
+  // allgemeine Fassungsregel weiter unten).
+  if (json.type === 'allgemeinverfuegung' && !json.expiryDate) {
+    const bodyText = byPrefix(`normen/${json.slug}/versions/`)
+      .flatMap(({ json: version }) => collectStrings(version.body ?? []).map((entry) => entry.value))
+      .join('\n');
+    if (LIMITED_PERIOD_PATTERN.test(`${json.title ?? ''}\n${bodyText}`)) {
+      addProblem(file, 'befristete Allgemeinverfügung benötigt ein belegtes expiryDate');
+    }
   }
 
   for (const relation of ['enactedNorm', 'enactingNorm', 'containedIn']) {
@@ -1127,6 +1154,45 @@ for (const { file, json: meta } of normMetaRecords) {
       addProblem(versionFile, `abbr ${versionAbbrProblem}: ${String(version.abbr).replace(/\s+/gu, ' ')}`);
     }
   }
+}
+
+/**
+ * Normkörper: Unterschriften stehen in einem eigenen Blocktyp, gesperrter Satz der amtlichen
+ * Quelle wird als gewöhnliches Wort gespeichert, und die Überschrift einer Gliederungseinheit
+ * steht genau einmal – nicht zusätzlich als erste Zeile ihres ersten Untergliederungspunktes.
+ */
+const comparableHeading = (value) => String(value ?? '').replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de');
+
+function auditBodyBlocks(file, blocks, path = 'body') {
+  for (const [index, block] of (blocks ?? []).entries()) {
+    const blockPath = `${path}[${index}] (${block.type})`;
+    for (const field of ['label', 'title', 'text']) {
+      const value = block[field];
+      if (typeof value !== 'string' || !hasSpacedLetters(value)) continue;
+      if (block.type === 'signature' && field === 'text') continue;
+      addProblem(file, `${blockPath}.${field} enthält gesperrt gesetzten Text „${value.slice(0, 60)}“; Unterschriften gehören in einen signature-Block, Hervorhebungen werden ohne Sperrung gespeichert`);
+    }
+    if (block.title && Array.isArray(block.children) && block.children.length > 0) {
+      const first = block.children[0];
+      if (typeof first?.text === 'string' && first.text) {
+        const lines = first.text.split('\n');
+        const title = comparableHeading(block.title);
+        const label = comparableHeading(block.label);
+        const labelAndTitle = label ? comparableHeading(`${block.label} ${block.title}`) : title;
+        const firstLine = comparableHeading(lines[0]);
+        const duplicated = firstLine === title || firstLine === labelAndTitle ||
+          (label && firstLine === label && comparableHeading(lines[1]) === title);
+        if (duplicated) {
+          addProblem(file, `${blockPath}: Der Text des ersten Untergliederungspunktes beginnt mit der Überschrift der übergeordneten Einheit „${block.title}“`);
+        }
+      }
+    }
+    auditBodyBlocks(file, block.children, `${blockPath}`);
+  }
+}
+
+for (const { file, json } of byPrefix('normen/').filter(({ relativePath }) => relativePath.includes('/versions/'))) {
+  auditBodyBlocks(file, json.body);
 }
 
 for (const slug of normSlugs) {

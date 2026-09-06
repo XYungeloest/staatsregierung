@@ -89,7 +89,7 @@ interface FlatUnit {
 
 const UNIT_TYPES = new Set([
   'part', 'chapter', 'paragraph', 'article', 'section', 'subsection', 'annex', 'subparagraph',
-  'paragraphText', 'item', 'subitem', 'tableRow', 'tableCell', 'tableHeaderCell',
+  'paragraphText', 'item', 'subitem', 'tableRow', 'tableCell', 'tableHeaderCell', 'signature',
 ]);
 
 function directText(block: NormBodyBlock): string {

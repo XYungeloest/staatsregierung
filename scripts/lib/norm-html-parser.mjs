@@ -8,6 +8,17 @@ const GERMAN_MONTHS = {
 };
 const LIST_CLASS_PATTERN = /(?:^|\s)lst-kix_([a-z0-9_]+)-(\d+)(?=\s|$)/iu;
 const SIGNATURE_PATTERN = /^[\p{L} .'-]{2,60},\s+den\s+\d{1,2}\./iu;
+// Gesperrter Satz: einzeln stehende Buchstaben eines Wortes. Wortgrenzen stehen in den
+// Quellen als geschütztes oder doppeltes Leerzeichen; sie werden vor der Auflösung
+// markiert, damit „D e r  M I N I S T E R“ nicht zu einem einzigen Wort verschmilzt.
+const SPACED_WORD_GAP = '\u0000';
+const SPACED_LETTER_RUN = /(?<!\p{L})\p{L}(?: \p{L})+(?!\p{L})/gu;
+const SPACED_LETTER_EMPHASIS = /(?<!\p{L})\p{L}(?: \p{L}){3,}(?!\p{L})/u;
+const OFFICE_SMALL_WORDS = new Set([
+  'der', 'die', 'das', 'des', 'dem', 'den', 'und', 'oder', 'für', 'im', 'in', 'am', 'an',
+  'auf', 'bei', 'mit', 'von', 'vom', 'zu', 'zur', 'zum', 'als', 'beim',
+]);
+const PAGE_FURNITURE_PATTERN = /^(?:Seite\s*\d*|(?:OABl|OGVBl|StAnzO|OVertrBl|GMBl)\.\s*(?:Nr\.\s*\d+\s+)?\d{1,2}\.\s*\p{L}+\s+\d{4}(?:\s+Seite\s*\d*)?)$/u;
 const CONTAMINATION_PATTERN = /data:image|;base64,|@font-face|@import\s+url|<style|Inhaltsverzeichnis|Nichtamtliches Inhaltsverzeichnis/iu;
 const QUOTE_TRIGGER_PATTERN = /(?:(?:wird|werden)\s+(?:wie folgt|durch folgende|durch die nachstehende)\s+(?:neu\s*)?(?:gefasst|eingefügt)|(?:wird|werden)\s+[^:]*?(?:eingefügt|angefügt|(?:neu\s*)?gefasst)|(?:wird|werden)\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+(?:Fassung|Anlage)\s+(?:ersetzt|abgelöst)|(?:erhält|erhalten)\s+folgende\s+Bezeichnung|(?:wird|werden)\s+wie\s+folgt\s+ersetzt)\s*:\s*$/iu;
 const AMENDMENT_REFERENCE_PATTERN = /\b(?:wird|werden)\b[^:]*\b(?:geändert|aufgehoben|ersetzt|gefasst|eingefügt|angefügt|verschoben|umbenannt)\b\s*:?\s*$/iu;
@@ -64,13 +75,82 @@ function descendants(node, predicate, output = []) {
 }
 
 export function normalizeHtmlText(value) {
-  return String(value ?? '')
-    .replace(/\r\n?/gu, '\n')
+  // Gesperrter Satz wird vor der Vereinheitlichung der Leerzeichen aufgelöst, solange die
+  // Wortgrenzen (geschützte Leerzeichen) der Quelle noch erkennbar sind.
+  return collapseSpacedLetters(String(value ?? '').replace(/\r\n?/gu, '\n'))
     .replace(/[\u00a0\u202f]/gu, ' ')
     .replace(/[\u200b\u200c\u200d\u2060\ufeff]/gu, '')
     .replace(/[\t\f\v ]+/gu, ' ')
     .replace(/ *\n */gu, '\n')
     .replace(/\n{3,}/gu, '\n\n')
+    .trim();
+}
+
+/**
+ * Markiert Wortgrenzen innerhalb gesperrt gesetzter Zeilen: geschützte und doppelte
+ * Leerzeichen trennen die Wörter, einfache Leerzeichen trennen die Buchstaben eines Wortes.
+ */
+function markSpacedWordGaps(line) {
+  return String(line ?? '')
+    .replace(/[\u00a0\u202f]/gu, SPACED_WORD_GAP)
+    .replace(/[\t\f\v]+/gu, ' ')
+    .replace(/ {2,}/gu, SPACED_WORD_GAP);
+}
+
+/** Enthält der Wert einen gesperrt gesetzten Wortteil (mindestens vier einzelne Buchstaben)? */
+export function hasSpacedLetters(value) {
+  return String(value ?? '').split('\n').some((line) => SPACED_LETTER_EMPHASIS.test(markSpacedWordGaps(line)));
+}
+
+/**
+ * Löst gesperrten Satz zeilenweise in gewöhnliche Wörter auf („s o l l“ → „soll“,
+ * „D e r  M I N I S T E R“ → „Der MINISTER“). Zeilen ohne gesperrten Satz bleiben
+ * unverändert; es gibt kein Auszeichnungsmodell für Hervorhebungen im Normkörper.
+ */
+export function collapseSpacedLetters(value) {
+  return String(value ?? '').split('\n').map((line) => {
+    const marked = markSpacedWordGaps(line);
+    if (!SPACED_LETTER_EMPHASIS.test(marked)) return line;
+    return marked
+      .split(SPACED_WORD_GAP)
+      .map((segment) => (isSpacedWordSegment(segment)
+        ? segment.trim().replaceAll(' ', '')
+        : segment.replace(SPACED_LETTER_RUN, (run) => run.replaceAll(' ', ''))))
+      .join(' ')
+      .replace(/(\p{L}) ([:,;.!?])/gu, '$1$2')
+      .replace(/ {2,}/gu, ' ')
+      .trim();
+  }).join('\n');
+}
+
+/**
+ * Ein durch Wortgrenzen abgetrennter Abschnitt, der nur aus einzeln gesetzten Buchstaben
+ * eines Wortes besteht. Kleine Setzfehler der Quelle („U ND“ statt „U N D“) bleiben Teil
+ * desselben Wortes; längere Bestandteile sind gewöhnlicher Text und bleiben getrennt.
+ */
+function isSpacedWordSegment(segment) {
+  const tokens = segment.trim().replace(/[.,;:!?]+$/u, '').split(' ').filter(Boolean);
+  return tokens.length > 1 &&
+    tokens.every((token) => /^\p{L}+$/u.test(token) && [...token].length <= 3) &&
+    tokens.some((token) => [...token].length === 1);
+}
+
+/** Amtsbezeichnung aus gesperrter Versalschreibung in Normalschreibung überführen. */
+export function normalizeOfficeTitle(value) {
+  return collapseSpacedLetters(value)
+    .replace(/\s+/gu, ' ')
+    .trim()
+    .split(' ')
+    .map((word, index) => {
+      const core = word.replace(/[^\p{L}]/gu, '').toLocaleLowerCase('de');
+      if (index > 0 && OFFICE_SMALL_WORDS.has(core)) return word.toLocaleLowerCase('de');
+      return `${word.slice(0, 1).toLocaleUpperCase('de')}${word.slice(1).toLocaleLowerCase('de')}`;
+    })
+    .join(' ')
+    .replace(/\s+([,;.])/gu, '$1')
+    // Zusammengesetzte Eigennamen stehen in gesperrter Versalschreibung mit Gedankenstrich
+    // („N I E D E R S A C H S E N – H O L S T E I N“); in Normalschreibung ist es ein Bindestrich.
+    .replace(/(\p{L})\s*[–—]\s*(\p{L})/gu, '$1-$2')
     .trim();
 }
 
@@ -88,6 +168,32 @@ function textOf(node) {
 
 function linesOf(node) {
   return normalizeHtmlText(textWithBreaks(node)).split(/\n+/u).map((line) => line.trim()).filter(Boolean);
+}
+
+/** Zeilen eines Knotens mit erhaltenen Wortgrenzen des gesperrten Satzes. */
+function spacedLinesOf(node) {
+  return String(textWithBreaks(node))
+    .replace(/\r\n?/gu, '\n')
+    .replace(/[\u200b\u200c\u200d\u2060\ufeff]/gu, '')
+    .split('\n')
+    .map((line) => line.replace(/[\t\f\v]+/gu, ' ').trim())
+    .filter(Boolean);
+}
+
+/** Amtsbezeichnung des Unterschriftenblocks („D e r  M I N I S T E R P R Ä S I D E N T“). */
+function isSpacedOfficeLine(line) {
+  return hasSpacedLetters(line) && /^(?:Der|Die|Das)\s+\p{Lu}{2,}/u.test(collapseSpacedLetters(line));
+}
+
+/** Fortsetzungszeile einer umbrochenen Amtsbezeichnung („B A U  U N D  F Ü R  K O M M U N A L E S“). */
+function isSpacedOfficeContinuation(line) {
+  if (!hasSpacedLetters(line)) return false;
+  const collapsed = collapseSpacedLetters(line);
+  return /^[\p{Lu}\p{N}\s.,;:()–—-]+$/u.test(collapsed) && /\p{Lu}{2,}/u.test(collapsed);
+}
+
+function isPageFurniture(text) {
+  return PAGE_FURNITURE_PATTERN.test(String(text ?? '').trim());
 }
 
 function normalizeHeadingText(value) {
@@ -586,6 +692,27 @@ function makeAtomicTokens(nodes, css, fileName) {
       }
       continue;
     }
+    if (!['ol', 'ul', 'table'].includes(node.tagName) && isPageFurniture(text)) continue;
+    // Unterschriftenblock: Name, darunter die gesperrt gesetzte Amtsbezeichnung; die
+    // Amtsbezeichnung kann in eine weitere Zeile oder einen weiteren Absatz umbrechen.
+    if (!['ol', 'ul', 'table'].includes(node.tagName)) {
+      const lines = spacedLinesOf(node).filter((line) => !isPageFurniture(line));
+      const officeIndex = lines.findIndex(isSpacedOfficeLine);
+      const previousToken = tokens.at(-1);
+      if (officeIndex >= 0) {
+        tokens.push({
+          kind: 'signature',
+          name: collapseSpacedLetters(lines.slice(0, officeIndex).join('\n')).replace(/\s+/gu, ' ').trim(),
+          officeParts: lines.slice(officeIndex),
+          text,
+        });
+        continue;
+      }
+      if (previousToken?.kind === 'signature' && lines.length > 0 && lines.every(isSpacedOfficeContinuation)) {
+        previousToken.officeParts.push(...lines);
+        continue;
+      }
+    }
     const rawText = normalizeHtmlText(textWithBreaks(node));
     const numberedHeading = /^h[1-6]$/u.test(node.tagName)
       ? rawText.match(/^(\d+)\.\s+(.+)$/u)
@@ -821,6 +948,22 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       currentChildren(stack).push(block);
       stack.push({ rank, children: block.children });
       lastBlock = block;
+      lastListState = null;
+      listParents.clear();
+      listBaselines.clear();
+      continue;
+    }
+    if (token.kind === 'signature') {
+      // Unterschriften stehen unter der letzten Gliederungseinheit, nicht in ihr.
+      stack.length = 1;
+      // Zeilenweise verbinden: Der gesperrte Satz kennt Wortgrenzen nur innerhalb einer Zeile.
+      const office = normalizeOfficeTitle(token.officeParts.join('\n'));
+      append({
+        type: 'signature',
+        ...(token.place ? { label: token.place } : {}),
+        ...(office ? { title: office } : {}),
+        ...(token.name ? { text: token.name } : {}),
+      });
       lastListState = null;
       listParents.clear();
       listBaselines.clear();
@@ -1075,6 +1218,11 @@ function validateBody(fileName, title, body) {
   const bodyText = flat.map(({ block }) => `${block.label ?? ''} ${block.title ?? ''} ${block.text ?? ''}`).join(' ');
   const contamination = bodyText.match(CONTAMINATION_PATTERN)?.[0];
   if (contamination) throw new NormHtmlParseError(fileName, `Kopf-, Fuß-, CSS-, Bild- oder Signaturdaten sind in den Normkörper von „${title}“ geraten (${contamination})`);
+  const spaced = flat.find(({ block }) => block.type !== 'signature' &&
+    ['label', 'title', 'text'].some((field) => hasSpacedLetters(block[field])));
+  if (spaced) {
+    throw new NormHtmlParseError(fileName, `gesperrt gesetzter Text im Normkörper von „${title}“: Unterschriften gehören in einen Unterschriftenblock, Hervorhebungen werden ohne Sperrung gespeichert (${[spaced.block.label, spaced.block.title, spaced.block.text].filter(Boolean).join(' ').slice(0, 80)})`);
+  }
   const sequenceIssues = validateListSequences(body);
   if (sequenceIssues.length > 0) {
     throw new NormHtmlParseError(fileName, `needs-review: ${sequenceIssues.join('; ')}`);
