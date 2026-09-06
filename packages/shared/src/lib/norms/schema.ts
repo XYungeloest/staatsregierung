@@ -160,6 +160,11 @@ export interface NormMeta {
   shortTitle: string;
   abbr?: string;
   shortTitleSource?: 'official' | 'editorial';
+  /**
+   * Herkunft der Zusammenfassung: `derived` = deterministisch aus Typ und Titel abgeleitete
+   * Formel (nicht öffentlich gerendert), sonst redaktionell.
+   */
+  summarySource?: 'derived' | 'editorial';
   type: NormType;
   /** Bestandsfeld; neue Datensätze trennen Organ und fachliche Zuständigkeit. */
   ministry?: string;
@@ -804,6 +809,9 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     shortTitleSource: object.shortTitleSource === undefined
       ? undefined
       : expectEnumValue(object.shortTitleSource, `${path}.shortTitleSource`, ['official', 'editorial'] as const),
+    summarySource: object.summarySource === undefined
+      ? undefined
+      : expectEnumValue(object.summarySource, `${path}.summarySource`, ['derived', 'editorial'] as const),
     type: normalizedTypeMap[rawType],
     ministry: expectOptionalString(object.ministry, `${path}.ministry`),
     enactingBody: expectOptionalString(object.enactingBody, `${path}.enactingBody`),

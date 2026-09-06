@@ -1,5 +1,7 @@
 import { isLawSite, lawPaths, portalPaths, siteTarget, siteUrls } from '@ostrecht/shared/config/site-routing.ts';
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import type { NormStatus } from '@ostrecht/shared/lib/norms/schema.ts';
+import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
 
 /**
  * Öffentliche Grunddaten beider Websites: Bezeichnungen, Navigation, Kontakt, SEO und
@@ -139,6 +141,49 @@ export const lawSiteConfig = {
     constitution: 'Verfassung',
     development: 'Rechtsentwicklung',
     help: 'Hilfe',
+  },
+  /**
+   * Eine Wortliste für Geltung, Fassung und Rechtsstand. Dieselbe Sache heißt überall gleich:
+   * „Geltung“ ist der Status einer Vorschrift (in Kraft, künftig, außer Kraft, einmaliger
+   * Rechtsakt), „Fassung“ die zeitliche Einordnung einer gespeicherten Fassung (geltend,
+   * historisch, künftig), „Rechtsstand“ ein Datum. Filter, Facetten, Karten, Statuszeilen und
+   * Vorschriftendaten lesen die Begriffe hier; niemand formuliert sie selbst.
+   */
+  vocabulary: {
+    validity: {
+      label: 'Geltung',
+      any: 'Jede Geltung',
+      byStatus: {
+        'in-force': 'in Kraft',
+        'future-effective': 'künftig in Kraft',
+        'pending-effective': 'Inkrafttreten nicht belegt',
+        repealed: 'außer Kraft',
+        historical: 'außer Kraft',
+        'one-time-act': 'einmaliger Rechtsakt',
+        planned: 'nicht verkündet',
+      } satisfies Record<NormStatus, string>,
+    },
+    version: {
+      label: 'Fassung',
+      any: 'Alle Fassungen',
+      byKind: {
+        current: { one: 'Geltende Fassung', many: 'Geltende Fassungen', adjective: 'geltend' },
+        historical: { one: 'Historische Fassung', many: 'Historische Fassungen', adjective: 'historisch' },
+        future: { one: 'Künftige Fassung', many: 'Künftige Fassungen', adjective: 'künftig' },
+        'unknown-effective': { one: 'Fassung mit ungeklärtem Inkrafttreten', many: 'Fassungen mit ungeklärtem Inkrafttreten', adjective: 'ungeklärt' },
+      } satisfies Record<VersionTemporalKind, { one: string; many: string; adjective: string }>,
+    },
+    legalStatus: {
+      label: 'Rechtsstand',
+      /** Satzmuster „Rechtsstand vom 4. September 2026“ für die geltende Fassung. */
+      asOf: 'Rechtsstand vom',
+    },
+    /** Bezeichnung der Verfassung außerhalb des amtlichen Langtitels. */
+    constitution: 'Verfassung',
+    /** Fassungsnavigation und Verweise auf die Historienseite einer Vorschrift. */
+    normHistory: 'Fassungen und Änderungen',
+    normCompare: 'Fassungsvergleich',
+    normCurrent: 'Aktuelle Fassung',
   },
   mainNavigation: [
     { label: 'Gesetze', pathKey: 'laws' },

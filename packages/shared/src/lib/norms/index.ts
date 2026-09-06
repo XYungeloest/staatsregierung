@@ -95,9 +95,11 @@ export {
   formatPublicationEntryType,
   getLegacyBlockAnchorId,
   getHeadingTag,
+  getNormTitleBlock,
   parseCitation,
   renderLinkedDisplayText,
   type NormOutlineItem,
+  type NormTitleBlock,
   type ParsedCitation,
 } from '@ostrecht/shared/lib/norms/display.ts';
 export {
@@ -107,6 +109,7 @@ export {
 } from '@ostrecht/shared/lib/norms/citation.ts';
 export {
   getNormVersionIdentity,
+  getPublicNormSummary,
   type NormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/identity.ts';
 export {
@@ -167,3 +170,8 @@ export {
   getRelatedNormsBySubjects,
   type RelatedNormRecommendation,
 } from '@ostrecht/shared/lib/norms/references.ts';
+export {
+  INVENTORY_SQL,
+  isInheritedAmendment,
+  type InventoryStats,
+} from '@ostrecht/shared/lib/norms/inventory.ts';

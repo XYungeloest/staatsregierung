@@ -178,3 +178,30 @@ export function buildNormOutline(
 
   return visit(blocks);
 }
+
+export interface NormTitleBlock {
+  /** Überschrift: echter Kurztitel, sonst Langtitel. */
+  heading: string;
+  /** Langtitel, nur wenn er von der Überschrift abweicht. */
+  longTitle?: string;
+  /** Abkürzung, nur wenn sie weder Überschrift noch Langtitel wiederholt. */
+  abbr?: string;
+}
+
+/**
+ * Einheitlicher Aufbau der Bezeichnung einer Vorschrift für Normkopf, Suche, Verzeichnisse,
+ * Auswahlfelder und Empfehlungen: Überschrift ist der Kurztitel, wenn er vorliegt und vom
+ * Langtitel abweicht, sonst der Langtitel; der Langtitel steht darunter nur bei Abweichung; die
+ * Abkürzung steht daneben und nie doppelt.
+ */
+export function getNormTitleBlock(identity: { title: string; shortTitle?: string | null; abbr?: string | null }): NormTitleBlock {
+  const title = toDisplayText(identity.title).trim();
+  const shortTitle = identity.shortTitle ? toDisplayText(identity.shortTitle).trim() : '';
+  const heading = shortTitle && shortTitle !== title ? shortTitle : title;
+  const abbr = identity.abbr ? toDisplayText(identity.abbr).trim() : '';
+  return {
+    heading,
+    ...(heading !== title ? { longTitle: title } : {}),
+    ...(abbr && abbr !== heading && abbr !== title ? { abbr } : {}),
+  };
+}

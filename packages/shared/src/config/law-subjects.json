@@ -1,0 +1,345 @@
+{
+  "$schema": "law-subjects/1",
+  "source": "Amtliche Sachgebietszuordnung des Fundstellennachweises (REVOSax, Formular Sachgebietszuordnung und Förderrichtlinien-Kategorien), abgerufen am 6. September 2026; Hauptgruppen 1–8, Untergruppen zweistellig, Förderbereiche 550–559.",
+  "description": "Zweistufige Sachgebietssystematik von OstRecht. Die Nummern sind die amtlichen Gliederungsnummern (erste Stelle Hauptgruppe, zwei Stellen Untergruppe); die Fsn-Nummer einer übernommenen Vorschrift beginnt mit der Untergruppe. shortTitle ist eine kürzere redaktionelle Form für Filter und Kennzeichnungen; title bleibt die amtliche Bezeichnung.",
+  "groups": [
+    {
+      "number": "1",
+      "title": "Staats- und Verfassungsrecht",
+      "description": "Verfassung, staatliche Organisation, Verfassungsschutz, Gleichstellung sowie Staatsverträge und Abkommen.",
+      "subjects": [
+        {
+          "number": "10",
+          "title": "Verfassungsrecht"
+        },
+        {
+          "number": "11",
+          "title": "Staatliche Organisation"
+        },
+        {
+          "number": "12",
+          "title": "Verfassungsschutz"
+        },
+        {
+          "number": "13",
+          "title": "Gleichstellung von Frauen und Männern"
+        },
+        {
+          "number": "14",
+          "title": "Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen",
+          "shortTitle": "Staatsverträge und Abkommen"
+        }
+      ]
+    },
+    {
+      "number": "2",
+      "title": "Verwaltung",
+      "description": "Behördenaufbau, allgemeine Verwaltung, Sicherheit und Polizei, Kommunalrecht, öffentlicher Dienst, Gesundheitsdienst, Melde- und Ausländerwesen, Rettungsdienst, Archive und Statistik.",
+      "subjects": [
+        {
+          "number": "20",
+          "title": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
+          "shortTitle": "Behördenaufbau und Zuständigkeiten"
+        },
+        {
+          "number": "21",
+          "title": "Allgemeine Verwaltung"
+        },
+        {
+          "number": "22",
+          "title": "Sicherheitsrecht und Polizeirecht"
+        },
+        {
+          "number": "23",
+          "title": "Kommunalrecht"
+        },
+        {
+          "number": "24",
+          "title": "Recht der im öffentlichen Dienst stehenden Personen",
+          "shortTitle": "Öffentlicher Dienst"
+        },
+        {
+          "number": "25",
+          "title": "Öffentlicher Gesundheitsdienst"
+        },
+        {
+          "number": "26",
+          "title": "Meldewesen, Personenstandswesen, Namensrecht",
+          "shortTitle": "Meldewesen und Personenstand"
+        },
+        {
+          "number": "27",
+          "title": "Aus dem Ausland stammende Personen"
+        },
+        {
+          "number": "28",
+          "title": "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr",
+          "shortTitle": "Rettungsdienst und Katastrophenschutz"
+        },
+        {
+          "number": "29",
+          "title": "Archivwesen, Statistik"
+        }
+      ]
+    },
+    {
+      "number": "3",
+      "title": "Rechtspflege, Zivilrecht und Strafrecht",
+      "description": "Gerichtsverfassung, Gerichtsverfahren, Justizkosten, Zivil- und Handelsrecht, Strafrecht und Ordnungswidrigkeiten.",
+      "subjects": [
+        {
+          "number": "30",
+          "title": "Gerichtsverfassung und Berufsrecht"
+        },
+        {
+          "number": "31",
+          "title": "Gerichtsverfahren"
+        },
+        {
+          "number": "32",
+          "title": "Justizkostenrecht"
+        },
+        {
+          "number": "33",
+          "title": "Zivilrecht, Handelsrecht, Urheberrecht, gewerblicher Rechtsschutz",
+          "shortTitle": "Zivil- und Handelsrecht"
+        },
+        {
+          "number": "34",
+          "title": "Strafrecht, Ordnungswidrigkeiten"
+        }
+      ]
+    },
+    {
+      "number": "4",
+      "title": "Landesplanung, Baurecht, Wohnungen, Verkehr",
+      "description": "Raumordnung, Städtebau, Bauwesen, Wohnungswesen, Kleingärten, Vermessung, Denkmalschutz und Verkehr.",
+      "subjects": [
+        {
+          "number": "40",
+          "title": "Raumordnung, Landesplanung"
+        },
+        {
+          "number": "41",
+          "title": "Städtebau, Dorferneuerung"
+        },
+        {
+          "number": "42",
+          "title": "Bauwesen"
+        },
+        {
+          "number": "43",
+          "title": "Wohnungsbau, Wohnungswesen"
+        },
+        {
+          "number": "44",
+          "title": "Kleingartenwesen"
+        },
+        {
+          "number": "45",
+          "title": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
+          "shortTitle": "Vermessung und Grundstücksverkehr"
+        },
+        {
+          "number": "46",
+          "title": "Denkmalschutz"
+        },
+        {
+          "number": "47",
+          "title": "Verkehr"
+        }
+      ]
+    },
+    {
+      "number": "5",
+      "title": "Finanzwesen",
+      "description": "Finanzverwaltung, Steuern und Abgaben, Haushalt, kommunales Vermögen und Eigenbetriebe, Förderrichtlinien und öffentliches Auftragswesen.",
+      "subjects": [
+        {
+          "number": "50",
+          "title": "Finanzverwaltung, Finanzausgleich"
+        },
+        {
+          "number": "51",
+          "title": "Steuern und Abgaben"
+        },
+        {
+          "number": "52",
+          "title": "Haushaltwesen, Rechnungshof"
+        },
+        {
+          "number": "53",
+          "title": "Kommunales Vermögen"
+        },
+        {
+          "number": "54",
+          "title": "Kommunale Eigenbetriebe"
+        },
+        {
+          "number": "55",
+          "title": "Förderrichtlinien"
+        },
+        {
+          "number": "56",
+          "title": "Öffentliches Auftragswesen"
+        }
+      ]
+    },
+    {
+      "number": "6",
+      "title": "Wirtschaftsrecht, Landwirtschaft, Umweltrecht",
+      "description": "Gewerbe und Berufe, Bergbau, Energie und Wasser, Geld und Kredit, Land- und Forstwirtschaft, Jagd, Fischerei, Naturschutz, Umwelt und Abfall.",
+      "subjects": [
+        {
+          "number": "60",
+          "title": "Gewerbe- und Berufsrecht"
+        },
+        {
+          "number": "61",
+          "title": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
+          "shortTitle": "Bergbau, Energie, Wasser"
+        },
+        {
+          "number": "62",
+          "title": "Geld- und Kreditwesen, Versicherungen"
+        },
+        {
+          "number": "63",
+          "title": "Landwirtschaft und Ernährungswirtschaft"
+        },
+        {
+          "number": "64",
+          "title": "Landwirtschaftliche Marktordnung, Vieh- und Fleischwirtschaft",
+          "shortTitle": "Landwirtschaftliche Marktordnung"
+        },
+        {
+          "number": "65",
+          "title": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
+          "shortTitle": "Forst, Jagd, Fischerei, Naturschutz"
+        },
+        {
+          "number": "66",
+          "title": "Umweltschutz, Abfallwirtschaft",
+          "shortTitle": "Umweltschutz und Abfallwirtschaft"
+        }
+      ]
+    },
+    {
+      "number": "7",
+      "title": "Kulturelle Angelegenheiten",
+      "description": "Kultur, Bildung, Medien, Kirchen, Stiftungen, Vereine, Versammlungen und Sport.",
+      "subjects": [
+        {
+          "number": "70",
+          "title": "Kultur"
+        },
+        {
+          "number": "71",
+          "title": "Bildungswesen"
+        },
+        {
+          "number": "72",
+          "title": "Presse-, Rundfunk-, Filmwesen",
+          "shortTitle": "Presse, Rundfunk, Film"
+        },
+        {
+          "number": "73",
+          "title": "Kirchen, Religionsgemeinschaften"
+        },
+        {
+          "number": "74",
+          "title": "Stiftungen"
+        },
+        {
+          "number": "75",
+          "title": "Vereinsrecht, Versammlungsrecht, Freizügigkeit, Sammlungen",
+          "shortTitle": "Vereins- und Versammlungsrecht"
+        },
+        {
+          "number": "76",
+          "title": "Sport"
+        }
+      ]
+    },
+    {
+      "number": "8",
+      "title": "Sozialwesen",
+      "description": "Familie und Kinder, Jugendhilfe, ältere Menschen, Pflege und Teilhabe, Krankenkassen, Sozialhilfe und Wohlfahrt.",
+      "subjects": [
+        {
+          "number": "80",
+          "title": "Allgemeines zum Sozialwesen"
+        },
+        {
+          "number": "81",
+          "title": "Familie, Kinder"
+        },
+        {
+          "number": "82",
+          "title": "Jugendhilfe"
+        },
+        {
+          "number": "83",
+          "title": "Ältere Menschen, Senioren, Rentner",
+          "shortTitle": "Ältere Menschen"
+        },
+        {
+          "number": "84",
+          "title": "Behindertenfürsorge, Kriegsopferfürsorge, Pflege",
+          "shortTitle": "Behinderung und Pflege"
+        },
+        {
+          "number": "85",
+          "title": "Krankenkassen, Unfallfürsorge"
+        },
+        {
+          "number": "86",
+          "title": "Sozialhilfe und Wohlfahrtswesen",
+          "shortTitle": "Sozialhilfe und Wohlfahrt"
+        }
+      ]
+    }
+  ],
+  "fundingAreas": [
+    {
+      "number": "550",
+      "title": "Allgemein, Regionen, Auslandsbeziehungen"
+    },
+    {
+      "number": "551",
+      "title": "Kommunale Investitionen, kommunale Zusammenarbeit"
+    },
+    {
+      "number": "552",
+      "title": "Wirtschaftsförderung allgemein"
+    },
+    {
+      "number": "553",
+      "title": "Landesplanung, Städtebau, Dorferneuerung, Bau, Verkehr"
+    },
+    {
+      "number": "554",
+      "title": "Wohnungswesen"
+    },
+    {
+      "number": "555",
+      "title": "Energiewirtschaft"
+    },
+    {
+      "number": "556",
+      "title": "Umwelt, Kreislauf- und Abfallwirtschaft, Land- und Forstwirtschaft, Naturschutz"
+    },
+    {
+      "number": "557",
+      "title": "Kultur und Bildung"
+    },
+    {
+      "number": "558",
+      "title": "Sozialwesen, Gesundheitswesen, Verbraucherschutz"
+    },
+    {
+      "number": "559",
+      "title": "Beschäftigungsförderung"
+    }
+  ]
+}

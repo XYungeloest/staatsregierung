@@ -844,7 +844,8 @@ async function readStoredIdentity({ transport, config, local, persistTo, databas
       return Object.fromEntries(results.map((row) => [row.key, row.value]));
     } catch (error) {
       if (error instanceof SyncBudgetExceeded) throw error;
-      const message = error instanceof Error ? error.message : String(error);
+      // Wie executeSqlFile: die Wrangler-Meldung steht in stdout/stderr, nicht in error.message.
+      const message = error instanceof Error ? `${error.message}\n${error.stdout ?? ''}\n${error.stderr ?? ''}` : String(error);
       const kind = classifyStoredIdentityError(message);
       if (kind === 'missing-table') return null;
       if (kind === 'transient' && attempt < attempts) {
