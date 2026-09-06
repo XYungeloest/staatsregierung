@@ -16,6 +16,7 @@ import {
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
 
 // Der Vergleich lädt nur die beiden angezeigten Fassungen aus D1.
@@ -35,6 +36,8 @@ const versions = [...norm.versions].sort((left, right) => left.validFrom.localeC
 const defaultTo = versions.find((version) => version.versionId === defaultToSkeleton.versionId) ?? versions.at(-1)!;
 const defaultFrom = versions.find((version) => version.versionId === defaultFromSkeleton.versionId) ?? versions[0];
 const defaultProvisions = buildProvisionVersionDiff(defaultFrom, defaultTo);
+// Der Zähler nennt die Einheitenart beider verglichener Fassungen („132 geänderte Artikel“).
+const defaultUnitKind = getNormUnitKind([...defaultFrom.body, ...defaultTo.body]);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const currentIdentity = getNormVersionIdentity(norm, defaultTo);
 const normTitle = toDisplayText(currentIdentity.title);
@@ -105,14 +108,15 @@ const header = normHeaderState(norm, headerVersion);
       data-compare-output
       data-compare-pair={defaultPairKey}
       aria-label={`Vergleich ${formatDate(defaultFrom.validFrom)} mit ${formatDate(defaultTo.validFrom)}`}
-      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom)}
+      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom, defaultUnitKind)}
     ></section>
   </section>
 
   <script>
     import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
     import type { NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
-    type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: NormProvisionDiff[] };
+    import type { NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
+    type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: NormProvisionDiff[]; unitKind?: NormUnitKind };
     const root = document.querySelector<HTMLElement>('[data-version-compare]');
     const form = root?.querySelector<HTMLFormElement>('[data-compare-form]');
     const fromSelect = root?.querySelector<HTMLSelectElement>('[data-compare-from]');
@@ -124,7 +128,7 @@ const header = normHeaderState(norm, headerVersion);
       if (!output) return;
       output.dataset.comparePair = `${payload.fromVersion.versionId}::${payload.toVersion.versionId}`;
       output.setAttribute('aria-label', `Vergleich ${dateFormatter.format(new Date(`${payload.fromVersion.validFrom}T00:00:00Z`))} mit ${dateFormatter.format(new Date(`${payload.toVersion.validFrom}T00:00:00Z`))}`);
-      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom);
+      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom, payload.unitKind ?? 'none');
     };
     const loadPair = async (updateUrl = false) => {
       if (!fromSelect || !toSelect || !output) return;

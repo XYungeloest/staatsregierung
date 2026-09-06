@@ -1,6 +1,7 @@
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormDiffBlock, NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
+import { formatChangedUnitCount, type NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 
 type DiffSide = 'before' | 'after';
 
@@ -198,6 +199,7 @@ export function renderNormDiffDocument(
   provisions: NormProvisionDiff[],
   fromDate: string,
   toDate: string,
+  unitKind: NormUnitKind = 'none',
 ): string {
   const count = provisions.length;
   const provisionMarkup = provisions.map((provision) => {
@@ -205,5 +207,5 @@ export function renderNormDiffDocument(
     const after = provision.after ? renderSide(provision, 'after', toDate) : '';
     return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}"><span class="norm-diff__status">${statusLabel(provision.kind)}</span><div class="norm-diff__provision-columns">${before}${after}</div></li>`;
   }).join('');
-  return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${count} geänderte ${count === 1 ? 'Vorschrift' : 'Vorschriften'}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p>Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : ''}`;
+  return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${escapeHtml(formatChangedUnitCount(count, unitKind))}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p>Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : ''}`;
 }

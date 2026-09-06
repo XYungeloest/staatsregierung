@@ -89,6 +89,7 @@ test('Abschluss des Repositorys: Projektionscode ist drin, reine Darstellung nic
     'packages/shared/src/lib/portal/organization.ts',
     'packages/shared/src/lib/norms/diff-render.ts',
     'packages/shared/src/lib/norms/diff.ts',
+    'packages/shared/src/lib/norms/units.ts',
     'packages/shared/src/lib/norms/index.ts',
     'packages/recht-search/src/search-query.ts',
     'packages/recht-search/src/search-files.ts',

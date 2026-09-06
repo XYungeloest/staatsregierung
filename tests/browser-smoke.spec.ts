@@ -703,16 +703,31 @@ siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugäng
   await versionNavigation.locator('.norm-version-picker summary').click();
   await expect(versionNavigation.getByRole('link', { name: /Geltend am/u })).toBeVisible();
 
-  const firstUnit = page.locator('details.norm-unit').first();
+  const firstUnit = page.locator('.norm-unit[data-norm-unit]').first();
   await expect(firstUnit).toHaveAttribute('id', /^paragraph-|^artikel-/u);
   const semanticId = await firstUnit.getAttribute('id');
   expect(semanticId).toBeTruthy();
   await expect(firstUnit.locator('.legacy-anchor')).toHaveAttribute('id', /^block-/u);
+  // Die Überschrift der Einheit ist eine echte Überschrift; der Schalter daneben trägt den Zustand.
+  await expect(firstUnit.locator('.norm-unit__head [id]').first()).toHaveAttribute('id', `${semanticId}-heading`);
+  const unitToggle = firstUnit.locator('[data-unit-toggle]');
+  await expect(unitToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(unitToggle).toHaveAttribute('aria-controls', `${semanticId}-inhalt`);
+  await unitToggle.click();
+  await expect(unitToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator(`#${semanticId}-inhalt`)).toBeHidden();
+  await unitToggle.click();
+  await expect(page.locator(`#${semanticId}-inhalt`)).toBeVisible();
 
-  await page.getByRole('button', { name: 'Alle Paragraphen schließen' }).click();
-  await expect(page.locator('details.norm-unit[open]')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Alle Paragraphen öffnen' }).click();
-  await expect(page.locator('details.norm-unit[open]').first()).toBeVisible();
+  // Der Gesamtschalter nennt die Einheitenart der Vorschrift („Alle Artikel …“, „Alle Paragraphen …“).
+  const toggleAll = page.locator('[data-norm-toggle-all]');
+  const closeLabel = await toggleAll.getAttribute('data-close-label');
+  const openLabel = await toggleAll.getAttribute('data-open-label');
+  expect(closeLabel).toMatch(/^Alle \S/u);
+  await page.getByRole('button', { name: closeLabel! }).click();
+  await expect(page.locator('.norm-unit[data-norm-unit]:not([data-collapsed])')).toHaveCount(0);
+  await page.getByRole('button', { name: openLabel! }).click();
+  await expect(page.locator('.norm-unit[data-norm-unit]:not([data-collapsed])').first()).toBeVisible();
 
   await page.evaluate(() => {
     const testWindow = window as Window & { __printCalls?: number };

@@ -20,6 +20,7 @@ import {
   classifyNormVersion,
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { getNormStore } from '../../../../lib/runtime/context.ts';
 import { versionHeaderState } from '../../../../lib/norm-header.ts';
 
@@ -88,7 +89,7 @@ const header = versionHeaderState(norm, version);
           <h2>{temporalKind === 'future' ? 'Zukünftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
           <p>{toDisplayText(version.changeNote)}</p>
         </div>
-        <NormDocumentTools norm={norm} />
+        <NormDocumentTools unitKind={getNormUnitKind(version.body)} />
         <NormBody blocks={version.body} references={derived.textReferences} />
       </section>
       <NormPrintSources

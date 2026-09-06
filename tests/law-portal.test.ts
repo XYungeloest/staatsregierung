@@ -5,6 +5,7 @@ import { getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared
 
 import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
+import { formatChangedUnitCount, formatNormUnitKind, getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import {
   LEGAL_BASELINE_DATE,
   getNormOriginInfo,
@@ -404,6 +405,42 @@ test('umsortierte, wortgleiche Absätze erzeugen nicht mehr Einträge als Absät
   const provisions = buildProvisionVersionDiff(before, after);
   assert.ok(provisions.length <= 3, `höchstens drei Einträge, gemeldet ${provisions.length}`);
   assert.ok(provisions.every((entry) => entry.kind !== 'unchanged'));
+});
+
+test('Einheitenart einer Vorschrift folgt dem Normkörper und wird richtig gebeugt', () => {
+  const article = { type: 'article', label: 'Artikel 1', title: 'Grundsatz', children: [{ type: 'paragraphText', text: 'Text' }] } as const;
+  const paragraph = { type: 'paragraph', label: '§ 1', title: 'Geltung', children: [{ type: 'paragraphText', text: 'Text' }] } as const;
+  const quoted = { type: 'quotedProvision', children: [paragraph] } as const;
+
+  assert.equal(getNormUnitKind([article]), 'article');
+  assert.equal(getNormUnitKind([paragraph]), 'paragraph');
+  assert.equal(getNormUnitKind([article, paragraph]), 'mixed');
+  assert.equal(getNormUnitKind([{ type: 'paragraphText', text: 'Nur ein Absatz.' }]), 'none');
+  // Wiedergegebener fremder Text bestimmt die Einheitenart der Vorschrift nicht.
+  assert.equal(getNormUnitKind([article, quoted]), 'article');
+  // Einheiten in einer Gliederungsebene zählen mit.
+  assert.equal(getNormUnitKind([{ type: 'section', label: 'Abschnitt 1', children: [paragraph] }]), 'paragraph');
+
+  assert.equal(formatNormUnitKind('article', 'all'), 'Artikel');
+  assert.equal(formatNormUnitKind('paragraph', 'all'), 'Paragraphen');
+  assert.equal(formatNormUnitKind('none', 'all'), 'Textstellen');
+  assert.equal(formatChangedUnitCount(132, 'article'), '132 geänderte Artikel');
+  assert.equal(formatChangedUnitCount(1, 'article'), '1 geänderter Artikel');
+  assert.equal(formatChangedUnitCount(1, 'paragraph'), '1 geänderter Paragraph');
+  assert.equal(formatChangedUnitCount(2, 'paragraph'), '2 geänderte Paragraphen');
+  assert.equal(formatChangedUnitCount(1, 'none'), '1 geänderte Textstelle');
+  assert.equal(formatChangedUnitCount(3), '3 geänderte Textstellen');
+});
+
+test('Vergleichszähler nennt die Einheitenart, bleibt aber mit drei Argumenten gültig', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body = [{ type: 'article', label: 'Artikel 1', title: 'Grundsatz', children: [{ type: 'paragraphText', text: 'Die alte Regel gilt.' }] }];
+  const after = version('b', '2026-07-01', null);
+  after.body = [{ type: 'article', label: 'Artikel 1', title: 'Grundsatz', children: [{ type: 'paragraphText', text: 'Die neue Regel gilt.' }] }];
+  const provisions = buildProvisionVersionDiff(before, after);
+
+  assert.match(renderNormDiffDocument(provisions, before.validFrom, after.validFrom, 'article'), /1 geänderter Artikel/u);
+  assert.match(renderNormDiffDocument(provisions, before.validFrom, after.validFrom), /1 geänderte Textstelle/u);
 });
 
 test('Tabellen bleiben im strukturierten Vergleich als Tabellen erhalten', () => {

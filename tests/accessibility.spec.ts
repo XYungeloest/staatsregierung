@@ -94,6 +94,56 @@ for (const target of selected(auditTargets)) {
   });
 }
 
+/**
+ * Überschriftenfolge im Vorschriftentext (Befund E7): Safari mit VoiceOver und Firefox geben
+ * Überschriften innerhalb eines `summary` nicht als Überschrift aus. Der Normtext muss seine
+ * Einheiten deshalb als echte Überschriften anbieten, mit dem Aufklappschalter daneben.
+ */
+const lawA11yTest = selectedSiteTargets.includes('law') ? test : test.skip;
+
+lawA11yTest('Normtext gibt seine Einheiten als Überschriften aus, nicht in einem Aufklappzeichen', async ({ page, request }) => {
+  for (const url of [
+    lawUrl((await currentNormOfOrigin(request, 'ostdeutsch-original')).currentUrl),
+    lawUrl((await multiVersionNorm(request)).historical.url),
+  ]) {
+    await withWorkerRecovery(request, () => page.goto(url));
+    const text = page.locator('#normtext');
+    await expect(text, url).toBeVisible();
+
+    // Keine Überschrift steckt in einem summary; die Abschnittsüberschrift bleibt die erste.
+    await expect(text.locator('summary h1, summary h2, summary h3, summary h4, summary h5, summary h6'), url).toHaveCount(0);
+    const levels = await text.locator('h2, h3, h4, h5, h6').evaluateAll((elements) =>
+      elements.map((element) => Number.parseInt(element.tagName.slice(1), 10)));
+    expect(levels[0], url).toBe(2);
+    for (let index = 1; index < levels.length; index += 1) {
+      expect(levels[index] - levels[index - 1], `${url}: Überschriftensprung an Stelle ${index}`).toBeLessThanOrEqual(1);
+    }
+
+    const units = text.locator('.norm-unit[data-norm-unit]');
+    const unitCount = await units.count();
+    expect(unitCount, url).toBeGreaterThan(0);
+    // Jede Einheit trägt genau eine echte Überschrift (h3 oder tiefer) und nennt sie als ihren Namen;
+    // jeder Schalter nennt den Bereich, den er auf- und zuklappt.
+    const unitHeadings = await units.evaluateAll((elements) => elements.map((element) => {
+      const heading = element.querySelector(':scope > .norm-unit__head > h3, :scope > .norm-unit__head > h4, :scope > .norm-unit__head > h5, :scope > .norm-unit__head > h6');
+      return {
+        level: heading ? Number.parseInt(heading.tagName.slice(1), 10) : 0,
+        headingId: heading?.id ?? null,
+        labelledby: element.getAttribute('aria-labelledby'),
+        controls: element.querySelector(':scope > .norm-unit__head > [data-unit-toggle]')?.getAttribute('aria-controls') ?? null,
+        bodyId: element.querySelector(':scope > .norm-unit__body')?.id ?? null,
+      };
+    }));
+    for (const unit of unitHeadings) {
+      expect(unit.level, url).toBeGreaterThanOrEqual(3);
+      expect(unit.headingId, url).toBe(unit.labelledby);
+      expect(unit.controls, url).toBe(unit.bodyId);
+      expect(unit.controls, url).toBeTruthy();
+    }
+    expect(await text.getByRole('heading').count(), url).toBeGreaterThanOrEqual(unitCount);
+  }
+});
+
 // Fokusindikator (Befund A3): Auf sechs repräsentativen Seiten beider Portale wird jedes
 // fokussierbare Element angefahren und sein Indikator – Umriss (outline-color/-width/-offset) und
 // Schein (box-shadow) – gegen die Fläche gerechnet, auf der er tatsächlich liegt: der Umriss läuft

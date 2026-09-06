@@ -1,18 +1,23 @@
 ---
-import type { NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
+import { formatNormUnitKind, type NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 
 interface Props {
-  norm: NormRecord;
+  /** Einheitenart der angezeigten Fassung; ohne Artikel und Paragraphen entfällt der Umschalter. */
+  unitKind: NormUnitKind;
   outlineId?: string;
 }
 
-const { outlineId = 'norm-inhalt' } = Astro.props;
+const { unitKind, outlineId = 'norm-inhalt' } = Astro.props;
+const unitWord = formatNormUnitKind(unitKind, 'all');
 ---
 
 <!-- Ein Umschalter statt des Paares „öffnen/schließen“: die Beschriftung nennt den nächsten
-     Zustand. Inhaltsübersicht als Sprunglink, Drucken als sekundärer Symbolknopf (Befund D4). -->
+     Zustand und die Einheitenart der Vorschrift. Inhaltsübersicht als Sprunglink, Drucken als
+     sekundärer Symbolknopf (Befund D4). -->
 <nav class="norm-document-tools" aria-label="Werkzeuge für den Vorschriftentext">
-  <button type="button" data-norm-toggle-all data-open-label="Alle Paragraphen öffnen" data-close-label="Alle Paragraphen schließen">Alle Paragraphen schließen</button>
+  {unitKind === 'none' ? null : (
+    <button type="button" data-norm-toggle-all data-open-label={`Alle ${unitWord} öffnen`} data-close-label={`Alle ${unitWord} schließen`}>Alle {unitWord} schließen</button>
+  )}
   <a class="norm-document-tools__jump" href={`#${outlineId}`}>Inhaltsübersicht</a>
   <button class="norm-document-tools__print" type="button" data-print-page aria-label="Drucken" title="Drucken">
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 8V4h10v4M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M7 14h10v6H7z"/></svg>
@@ -20,8 +25,23 @@ const { outlineId = 'norm-inhalt' } = Astro.props;
 </nav>
 
 <script>
-  function normDetails(): HTMLDetailsElement[] {
-    return Array.from(document.querySelectorAll<HTMLDetailsElement>('#normtext details.norm-unit'));
+  /** Einheiten sind Abschnitte mit eigener Überschrift; ihr Zustand steht am Schalter und am Abschnitt. */
+  function normUnits(): HTMLElement[] {
+    return Array.from(document.querySelectorAll<HTMLElement>('#normtext .norm-unit[data-norm-unit]'));
+  }
+
+  function isCollapsed(unit: HTMLElement): boolean {
+    return unit.hasAttribute('data-collapsed');
+  }
+
+  function setCollapsed(unit: HTMLElement, collapsed: boolean): void {
+    const toggle = unit.querySelector<HTMLButtonElement>(':scope > .norm-unit__head > [data-unit-toggle]');
+    if (collapsed) unit.setAttribute('data-collapsed', '');
+    else unit.removeAttribute('data-collapsed');
+    if (!toggle) return;
+    toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    const label = toggle.querySelector<HTMLElement>('[data-unit-toggle-label]');
+    if (label) label.textContent = (collapsed ? toggle.dataset.expandLabel : toggle.dataset.collapseLabel) ?? '';
   }
 
   const toggleAll = document.querySelector<HTMLButtonElement>('[data-norm-toggle-all]');
@@ -29,21 +49,36 @@ const { outlineId = 'norm-inhalt' } = Astro.props;
   /** Beschriftung nennt den nächsten Zustand: solange eine Einheit offen ist, „schließen“. */
   function syncToggleLabel(): void {
     if (!toggleAll) return;
-    const anyOpen = normDetails().some((entry) => entry.open);
+    const anyOpen = normUnits().some((unit) => !isCollapsed(unit));
     toggleAll.textContent = (anyOpen ? toggleAll.dataset.closeLabel : toggleAll.dataset.openLabel) ?? '';
   }
   syncToggleLabel();
-  document.addEventListener('toggle', (event) => {
-    if (event.target instanceof HTMLDetailsElement && event.target.classList.contains('norm-unit')) syncToggleLabel();
-  }, true);
+
+  /** Ein Sprung auf eine eingeklappte Einheit klappt sie auf, sonst führt der Anker ins Leere. */
+  function revealHashTarget(): void {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    const target = document.getElementById(decodeURIComponent(id));
+    const unit = target?.closest<HTMLElement>('.norm-unit[data-norm-unit]');
+    if (unit && isCollapsed(unit)) {
+      setCollapsed(unit, false);
+      syncToggleLabel();
+    }
+  }
+  revealHashTarget();
+  window.addEventListener('hashchange', revealHashTarget);
 
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) return;
     if (event.target.closest('[data-norm-toggle-all]')) {
-      const open = !normDetails().some((entry) => entry.open);
-      normDetails().forEach((entry) => {
-        entry.open = open;
-      });
+      const collapse = normUnits().some((unit) => !isCollapsed(unit));
+      normUnits().forEach((unit) => setCollapsed(unit, collapse));
+      syncToggleLabel();
+    }
+    const unitToggle = event.target.closest<HTMLElement>('[data-unit-toggle]');
+    const unit = unitToggle?.closest<HTMLElement>('.norm-unit[data-norm-unit]');
+    if (unit) {
+      setCollapsed(unit, !isCollapsed(unit));
       syncToggleLabel();
     }
     // Offene Werkzeugmenüs schließen, sobald außerhalb geklickt wird.
@@ -53,12 +88,13 @@ const { outlineId = 'norm-inhalt' } = Astro.props;
     const printButton = event.target.closest<HTMLElement>('[data-print-unit]');
     if (printButton?.dataset.printUnit) {
       const target = document.getElementById(printButton.dataset.printUnit);
-      if (target instanceof HTMLDetailsElement) target.open = true;
+      if (target instanceof HTMLElement && target.matches('.norm-unit[data-norm-unit]')) setCollapsed(target, false);
       document.body.classList.add('print-single-norm-unit');
       target?.classList.add('print-target');
       window.print();
       document.body.classList.remove('print-single-norm-unit');
       target?.classList.remove('print-target');
+      syncToggleLabel();
     }
 
     // Eine Aktion für Anker und Zwischenablage: der Link springt zur Stelle und kopiert die Adresse.

@@ -26,6 +26,7 @@ import {
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { buildLegislationJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
 import { normHeaderState } from '../../../lib/norm-header.ts';
@@ -117,7 +118,7 @@ const header = normHeaderState(norm, currentVersion);
           <h2>Vorschriftentext</h2>
           <p>{toDisplayText(currentVersion.changeNote)}</p>
         </div>
-        <NormDocumentTools norm={norm} />
+        <NormDocumentTools unitKind={getNormUnitKind(currentVersion.body)} />
         <NormBody blocks={currentVersion.body} references={derived.textReferences} />
       </section>
       <NormPrintSources

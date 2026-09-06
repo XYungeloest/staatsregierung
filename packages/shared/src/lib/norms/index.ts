@@ -175,3 +175,9 @@ export {
   isInheritedAmendment,
   type InventoryStats,
 } from '@ostrecht/shared/lib/norms/inventory.ts';
+export {
+  formatChangedUnitCount,
+  formatNormUnitKind,
+  getNormUnitKind,
+  type NormUnitKind,
+} from '@ostrecht/shared/lib/norms/units.ts';
