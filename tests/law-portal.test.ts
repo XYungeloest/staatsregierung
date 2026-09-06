@@ -313,6 +313,99 @@ test('Whitespace-only changes erzeugen keinen Vergleichsblock', () => {
   assert.deepEqual(buildProvisionVersionDiff(before, after), []);
 });
 
+/**
+ * Absatzfolge ohne Gliederungszeichen vor der ersten Einheit, wie sie Präambeln und Vorsprüche
+ * bilden: jeder Absatz ist im Vergleich eine eigene Änderungseinheit.
+ */
+function unlabeledParagraphs(target: NormVersion, texts: string[]): void {
+  target.body = [
+    ...texts.map((text) => ({ type: 'paragraphText', text }) as NormVersion['body'][number]),
+    { type: 'paragraph', label: '§ 1', title: 'Geltung', children: [{ type: 'paragraphText', text: 'Diese Vorschrift gilt unverändert.' }] },
+  ];
+}
+
+test('Fassungsvergleich paart eingefügte Absätze ohne Gliederungszeichen inhaltlich', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  unlabeledParagraphs(before, [
+    'Erste Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Zweite Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Dritte Zeile des Vorspruchs nennt die maßgebliche Zuständigkeit der Behörde.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+  const after = version('b', '2026-07-01', null);
+  unlabeledParagraphs(after, [
+    'Erste Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Eine neu eingefügte Zeile ergänzt den Vorspruch an zweiter Stelle.',
+    'Zweite Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Dritte Zeile des Vorspruchs nennt die maßgebliche Zuständigkeit der obersten Behörde.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Eine weitere neu eingefügte Zeile schließt den Vorspruch ab.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+
+  const provisions = buildProvisionVersionDiff(before, after);
+  assert.equal(provisions.filter((entry) => entry.kind === 'added').length, 2);
+  assert.equal(provisions.filter((entry) => entry.kind === 'changed').length, 1);
+  assert.equal(provisions.filter((entry) => entry.kind === 'removed').length, 0);
+  const [changed] = provisions.filter((entry) => entry.kind === 'changed');
+  assert.ok(changed.textDiff?.some((chunk) => chunk.kind === 'insert' && chunk.text.includes('obersten')));
+});
+
+test('Fassungsvergleich meldet neu formulierte Absätze ohne Gliederungszeichen als entfallen und neu', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  unlabeledParagraphs(before, [
+    'Der erste Vorspruchabsatz beschreibt eine längst überholte Ausgangslage im Einzelnen.',
+    'Der zweite Vorspruchabsatz zählt frühere Zuständigkeiten einzelner Stellen auf.',
+    'Der dritte Vorspruchabsatz verweist auf eine aufgehobene Übergangsregelung.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Der sechste Vorspruchabsatz nennt den Willen der Bürgerinnen und Bürger des Landes.',
+    'Der siebte Vorspruchabsatz beschreibt eine längst überholte Verfahrensweise.',
+    'Achte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+  const after = version('b', '2026-07-01', null);
+  unlabeledParagraphs(after, [
+    'Eine vollständig neu gefasste Eröffnung stellt die heutige Aufgabe voran.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Der sechste Vorspruchabsatz nennt den Willen aller Bürgerinnen und Bürger des Landes.',
+    'Achte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+
+  const provisions = buildProvisionVersionDiff(before, after);
+  // Drei wortgleiche Zeilen bleiben unverändert und werden nicht gelistet; aus acht mal fünf
+  // Absätzen werden sechs Einträge statt der positionsweisen fünf „Geändert“ und drei „Entfallen“.
+  assert.equal(provisions.length, 6);
+  assert.equal(provisions.filter((entry) => entry.kind === 'changed').length, 1);
+  assert.equal(provisions.filter((entry) => entry.kind === 'added').length, 1);
+  assert.equal(provisions.filter((entry) => entry.kind === 'removed').length, 4);
+  // Kein Absatz erscheint zugleich als entfallen und als geändert.
+  assert.equal(new Set(provisions.map((entry) => entry.beforeText ?? entry.afterText)).size, provisions.length);
+  const [changed] = provisions.filter((entry) => entry.kind === 'changed');
+  assert.ok(changed.beforeText?.includes('Willen der Bürgerinnen'));
+  assert.ok(changed.afterText?.includes('Willen aller Bürgerinnen'));
+});
+
+test('umsortierte, wortgleiche Absätze erzeugen nicht mehr Einträge als Absätze', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  unlabeledParagraphs(before, [
+    'Erste Aussage des Vorspruchs zur Zuständigkeit der obersten Landesbehörde.',
+    'Zweite Aussage des Vorspruchs zur Beteiligung der kommunalen Ebene.',
+    'Dritte Aussage des Vorspruchs bleibt an ihrer Stelle unverändert bestehen.',
+  ]);
+  const after = version('b', '2026-07-01', null);
+  unlabeledParagraphs(after, [
+    'Zweite Aussage des Vorspruchs zur Beteiligung der kommunalen Ebene.',
+    'Erste Aussage des Vorspruchs zur Zuständigkeit der obersten Landesbehörde.',
+    'Dritte Aussage des Vorspruchs bleibt an ihrer Stelle unverändert bestehen.',
+  ]);
+
+  const provisions = buildProvisionVersionDiff(before, after);
+  assert.ok(provisions.length <= 3, `höchstens drei Einträge, gemeldet ${provisions.length}`);
+  assert.ok(provisions.every((entry) => entry.kind !== 'unchanged'));
+});
+
 test('Tabellen bleiben im strukturierten Vergleich als Tabellen erhalten', () => {
   const before = version('a', '2026-01-01', '2026-06-30');
   before.body[0].children = [{
