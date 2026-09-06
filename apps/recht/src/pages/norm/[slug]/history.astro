@@ -15,6 +15,7 @@ import {
 import { getCurrentVersion, getVersionById } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
 import { normHeaderState } from '../../../lib/norm-header.ts';
+import { NORM_HISTORY_LABEL } from '../../../lib/vocabulary.ts';
 
 // Historienseiten werden zur Laufzeit aus D1 gelesen; Normkörper werden nicht benötigt.
 export const prerender = false;
@@ -55,7 +56,7 @@ const initialVersionUrl = initialVersion
 const currentIdentity = getNormVersionIdentity(norm, currentVersion);
 const normTitle = toDisplayText(currentIdentity.title);
 const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
-const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, gespeicherten Fassungen und Änderungshinweisen im Rechtsbereich des Freistaates Ostdeutschland.`;
+const historyDescription = `Gespeicherte Fassungen, Änderungen und Stammdaten zu ${normTitle} im Rechtsbereich des Freistaates Ostdeutschland.`;
 const historyTypeLabels: Record<string, string> = {
   initial: 'Stammfassung',
   amendment: 'Änderung',
@@ -71,19 +72,19 @@ const successorSlug = norm.meta.successorSlug;
 
 <LawLayout
   documentFont
-  title={`${normSeoTitle} Historie`}
+  title={`${normSeoTitle} – ${NORM_HISTORY_LABEL}`}
   description={historyDescription}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
     { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
-    { label: 'Historie' },
+    { label: NORM_HISTORY_LABEL },
   ]}
 >
   <Breadcrumbs
     items={[
       { label: 'OstRecht', href: getLawPortalUrl() },
       { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
-      { label: 'Historie' },
+      { label: NORM_HISTORY_LABEL },
     ]}
   />
 
@@ -92,10 +93,17 @@ const successorSlug = norm.meta.successorSlug;
     version={currentVersion}
     eyebrow={header.eyebrow}
     status={header.status}
-    reference={toDisplayText(currentVersion.citation)}
-    htmlHref={getNormUrl(norm.meta.slug)}
+    textHref={getNormUrl(norm.meta.slug)}
   />
   <NormVersionNavigation norm={norm} currentPage="history" />
+
+  <!-- Die Seite trägt drei Abschnitte; die Sprungleiste ersetzt das frühere Ziel
+       „Änderungsverlauf“ in der Fassungsnavigation. -->
+  <nav class="link-list link-list--inline norm-history-jumps" aria-label="Abschnitte dieser Seite">
+    <a href="#fassungen">Fassungen</a>
+    <a href="#historieneintraege">Änderungen</a>
+    <a href="#stammdaten">Stammdaten</a>
+  </nav>
 
   <div class="norm-history-workspace">
     <section id="fassungen" class="norm-history-panel norm-history-panel--versions">
@@ -151,7 +159,7 @@ const successorSlug = norm.meta.successorSlug;
       <div class="norm-history-panel__header">
         <div>
           <span class="section-eyebrow">Amtliche Entwicklung</span>
-          <h2>Historieneinträge</h2>
+          <h2>Änderungen</h2>
         </div>
       </div>
       <h3 class="norm-history__group-title">Stammfassung</h3>

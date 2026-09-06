@@ -49,7 +49,21 @@ export interface StylesheetMetrics {
   rawRem: Finding[];
   duplicateProperties: DuplicateFinding[];
   duplicatePropertiesWithinFile: number;
+  /** Schriftgrößen der Inhaltsübersicht (Einträge und Gliederungszeichen) mit Fundstelle. */
+  outlineFontSizes: Finding[];
 }
+
+/**
+ * Typoskala aus foundation.css in aufsteigender Reihenfolge; der Vergleich läuft über den Index,
+ * damit „mindestens diese Stufe“ prüfbar ist.
+ */
+const TEXT_SCALE = ['--text-2xs', '--text-xs', '--text-sm', '--text-base', '--text-base-plus', '--text-md', '--text-lg', '--text-lg-plus', '--text-xl'];
+
+/** Untergrenzen der Inhaltsübersicht (Befund E9): Listeneinträge und Gliederungszeichen. */
+const OUTLINE_MINIMUMS: Array<{ match: RegExp; minimum: string; what: string }> = [
+  { match: /\.outline-list\s+a$/u, minimum: '--text-sm', what: 'Einträge der Inhaltsübersicht' },
+  { match: /\.outline-label$/u, minimum: '--text-xs', what: 'Gliederungszeichen der Inhaltsübersicht' },
+];
 
 function insideAtRule(node: ChildNode, names: string[]): boolean {
   let parent: Container | Document | undefined = node.parent;
@@ -80,6 +94,7 @@ export function measureStylesheets(directory = STYLES_DIR): StylesheetMetrics {
   const breakpoints = new Set<string>();
   const hexInBorderBackground: Finding[] = [];
   const rawRem: Finding[] = [];
+  const outlineFontSizes: Finding[] = [];
   // Selektor → Eigenschaft → Wert → Fundstellen (nur außerhalb von Media Queries und Keyframes).
   const bySelector = new Map<string, Map<string, Map<string, string[]>>>();
   const bySelectorAndFile = new Map<string, Map<string, Set<string>>>();
@@ -95,6 +110,10 @@ export function measureStylesheets(directory = STYLES_DIR): StylesheetMetrics {
       const finding: Finding = { file, line: decl.source?.start?.line ?? 0, selector, prop: decl.prop, value: decl.value };
       if ((decl.prop.startsWith('border') || decl.prop.startsWith('background')) && HEX_COLOR.test(decl.value)) hexInBorderBackground.push(finding);
       if (SPACING_OR_TEXT_PROP.test(decl.prop) && RAW_REM.test(withoutVar(decl.value))) rawRem.push(finding);
+      if (decl.prop === 'font-size' && rule && rule.type === 'rule' && !insideAtRule(decl, ['print'])) {
+        const selectors = (rule as Rule).selectors.map((entry) => entry.replace(/\s+/gu, ' ').trim());
+        if (selectors.some((entry) => OUTLINE_MINIMUMS.some(({ match }) => match.test(entry)))) outlineFontSizes.push(finding);
+      }
       if (!rule || rule.type !== 'rule' || decl.prop.startsWith('--') || insideAtRule(decl, ['media', 'keyframes'])) return;
       const value = `${decl.value.replace(/\s+/gu, ' ').trim()}${decl.important ? ' !important' : ''}`;
       for (const single of (rule as Rule).selectors.map((entry) => entry.replace(/\s+/gu, ' ').trim())) {
@@ -127,6 +146,7 @@ export function measureStylesheets(directory = STYLES_DIR): StylesheetMetrics {
     rawRem,
     duplicateProperties,
     duplicatePropertiesWithinFile,
+    outlineFontSizes,
   };
 }
 
@@ -145,6 +165,19 @@ test('Stilwächter: keine neuen fest verdrahteten Hexfarben in border*- und back
 
 test('Stilwächter: keine neuen rohen rem-Werte in Abstands- und Schriftgrößen-Deklarationen', () => {
   assert.ok(metrics.rawRem.length <= LIMITS.rawRem, `Gemessen ${metrics.rawRem.length}, erlaubt ${LIMITS.rawRem}. Abstände kommen aus var(--space-*), Schriftgrößen aus var(--text-*):\n${describeFindings(metrics.rawRem)}`);
+});
+
+test('Stilwächter: die Inhaltsübersicht bleibt lesbar (Einträge mindestens --text-sm, Gliederungszeichen --text-xs)', () => {
+  assert.ok(metrics.outlineFontSizes.length > 0, 'Die Schriftgröße der Inhaltsübersicht muss ausdrücklich gesetzt sein.');
+  const problems = metrics.outlineFontSizes.flatMap((entry) => {
+    const rule = OUTLINE_MINIMUMS.find(({ match }) => entry.selector.split(',').map((part) => part.replace(/\s+/gu, ' ').trim()).some((part) => match.test(part)));
+    if (!rule) return [];
+    const token = entry.value.match(/--text-[a-z-]+/u)?.[0];
+    const index = token ? TEXT_SCALE.indexOf(token) : -1;
+    if (index >= 0 && index >= TEXT_SCALE.indexOf(rule.minimum)) return [];
+    return [`  ${entry.file}:${entry.line} ${entry.selector} { font-size: ${entry.value} } – ${rule.what} brauchen mindestens var(${rule.minimum})`];
+  });
+  assert.deepEqual(problems, [], `Navigations- und Listeneinträge stehen nie unter der Lesegrenze:\n${problems.join('\n')}`);
 });
 
 test('Stilwächter: kein Selektor setzt dieselbe Eigenschaft außerhalb von Media Queries zweimal mit unterschiedlichem Wert', () => {

@@ -1,4 +1,4 @@
-import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
+import { expect, test, type APIRequestContext, type Locator, type Page } from '@playwright/test';
 
 import { legacyRoutes } from '../apps/portal/src/config/legacy-routes.mjs';
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
@@ -556,17 +556,31 @@ siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und 
   }
 });
 
+/**
+ * Die Vorschriftendaten sind unterhalb von 80 rem ein Aufklappbereich (NormFacts.astro klappt sie
+ * beim Laden zu). Die Prüfungen öffnen ihn wie eine Leserin, statt eine Bildschirmbreite anzunehmen.
+ */
+async function openNormFacts(page: Page): Promise<Locator> {
+  const facts = page.locator('[data-visual-section="norm-facts"]');
+  await expect(facts).toHaveCount(1);
+  if (!(await facts.evaluate((element) => (element as HTMLDetailsElement).open))) {
+    await facts.locator('summary').click();
+  }
+  return facts;
+}
+
 siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen dem redaktionellen Stichtag', async ({ page, request }) => {
   const referenceDate = editorialReferenceDate();
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.historical.url));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.historical.title);
-  const metadata = page.locator('[data-visual-section="norm-metadata"]');
-  await expect(metadata).toContainText(formatGermanDate(norm.historical.validFrom));
-  if (norm.historical.validTo) await expect(metadata).toContainText(formatGermanDate(norm.historical.validTo));
+  // Die Überschrift trägt den Kurztitel, wenn er vom Langtitel abweicht (getNormTitleBlock).
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.historical.shortTitle || norm.historical.title);
+  const facts = await openNormFacts(page);
+  await expect(facts).toContainText(formatGermanDate(norm.historical.validFrom));
+  if (norm.historical.validTo) await expect(facts).toContainText(formatGermanDate(norm.historical.validTo));
 
   await page.goto(lawUrl(norm.current.currentUrl));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.current.title);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.current.shortTitle || norm.current.title);
 
   // Startseite zum redaktionellen Stichtag: letzte Rechtsereignisse absteigend, je Norm einmal,
   // nichts Künftiges; künftige Änderungen liegen nach dem Stichtag.
@@ -636,11 +650,14 @@ siteTest(['law'])('Normkopf unterscheidet allgemeinen und fassungsspezifischen L
   const [relatedSlug] = fixtureSlugsWithRole('portal-relations');
   expect(relatedSlug, 'Fixture-Rolle portal-relations').toBeTruthy();
   await page.goto(lawUrl(`/norm/${relatedSlug}/`));
-  const citationBlock = page.locator('[data-visual-section="norm-citation-status"]');
-  await expect(citationBlock).toBeVisible();
-  await expect(citationBlock).toContainText('Vollzitat');
-  await expect(citationBlock).toContainText('Fassungsstatus');
-  await expect(citationBlock.getByRole('button', { name: 'Link zur Vorschrift kopieren' })).toBeVisible();
+  const facts = await openNormFacts(page);
+  await expect(facts).toContainText('Vollzitat');
+  await expect(facts).toContainText('Rechtsstand');
+  await expect(facts.getByRole('button', { name: 'Vollzitat kopieren' })).toBeVisible();
+  await expect(facts.getByRole('button', { name: 'Link zur Vorschrift kopieren' })).toBeVisible();
+  // Jede Angabe steht genau einmal: die abgelösten Blöcke gibt es nicht mehr.
+  await expect(page.locator('[data-visual-section="norm-legal-status"], [data-visual-section="norm-citation-status"], [data-visual-section="norm-metadata"]')).toHaveCount(0);
+  await expect(page.getByRole('navigation', { name: 'Werkzeuge zur Vorschrift' })).toHaveCount(1);
 
   const portalRelations = page.locator('[data-visual-section="norm-portal-relations"]');
   await expect(portalRelations.getByRole('heading', { name: 'Im Staatsportal' })).toBeVisible();
@@ -648,8 +665,9 @@ siteTest(['law'])('Normkopf unterscheidet allgemeinen und fassungsspezifischen L
 
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.historical.url));
-  await expect(page.getByRole('button', { name: 'Link zu dieser Fassung kopieren' })).toBeVisible();
-  await expect(page.getByText('Dieser Link bleibt der gespeicherten Fassung zugeordnet.')).toBeVisible();
+  const versionFacts = await openNormFacts(page);
+  await expect(versionFacts.getByRole('button', { name: 'Link zu dieser Fassung kopieren' })).toBeVisible();
+  await expect(versionFacts.getByText('Dieser Link führt dauerhaft zu dieser Fassung.')).toBeVisible();
 });
 
 siteTest(['law'])('OstRecht-Navigation bleibt mobil nutzbar', async ({ page }) => {
@@ -721,22 +739,38 @@ siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugäng
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.current.currentUrl));
 
-  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen dieser Vorschrift' });
   await expect(versionNavigation).toBeVisible();
-  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am');
+  const referenceLabel = `Rechtsstand vom ${formatGermanDate(editorialReferenceDate())}`;
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText(referenceLabel);
   await versionNavigation.locator('.norm-version-picker summary').click();
-  await expect(versionNavigation.getByRole('link', { name: /Geltend am/u })).toBeVisible();
+  await expect(versionNavigation.getByRole('link', { name: referenceLabel })).toBeVisible();
 
-  const firstUnit = page.locator('details.norm-unit').first();
+  const firstUnit = page.locator('.norm-unit[data-norm-unit]').first();
   await expect(firstUnit).toHaveAttribute('id', /^paragraph-|^artikel-/u);
   const semanticId = await firstUnit.getAttribute('id');
   expect(semanticId).toBeTruthy();
   await expect(firstUnit.locator('.legacy-anchor')).toHaveAttribute('id', /^block-/u);
+  // Die Überschrift der Einheit ist eine echte Überschrift; der Schalter daneben trägt den Zustand.
+  await expect(firstUnit.locator('.norm-unit__head [id]').first()).toHaveAttribute('id', `${semanticId}-heading`);
+  const unitToggle = firstUnit.locator('[data-unit-toggle]');
+  await expect(unitToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(unitToggle).toHaveAttribute('aria-controls', `${semanticId}-inhalt`);
+  await unitToggle.click();
+  await expect(unitToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator(`#${semanticId}-inhalt`)).toBeHidden();
+  await unitToggle.click();
+  await expect(page.locator(`#${semanticId}-inhalt`)).toBeVisible();
 
-  await page.getByRole('button', { name: 'Alle Paragraphen schließen' }).click();
-  await expect(page.locator('details.norm-unit[open]')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Alle Paragraphen öffnen' }).click();
-  await expect(page.locator('details.norm-unit[open]').first()).toBeVisible();
+  // Der Gesamtschalter nennt die Einheitenart der Vorschrift („Alle Artikel …“, „Alle Paragraphen …“).
+  const toggleAll = page.locator('[data-norm-toggle-all]');
+  const closeLabel = await toggleAll.getAttribute('data-close-label');
+  const openLabel = await toggleAll.getAttribute('data-open-label');
+  expect(closeLabel).toMatch(/^Alle \S/u);
+  await page.getByRole('button', { name: closeLabel! }).click();
+  await expect(page.locator('.norm-unit[data-norm-unit]:not([data-collapsed])')).toHaveCount(0);
+  await page.getByRole('button', { name: openLabel! }).click();
+  await expect(page.locator('.norm-unit[data-norm-unit]:not([data-collapsed])').first()).toBeVisible();
 
   await page.evaluate(() => {
     const testWindow = window as Window & { __printCalls?: number };
@@ -780,13 +814,15 @@ siteTest(['law'])('Fassungsleiste bleibt auf aktueller Fassung, Historie und Ein
   const norm = await multiVersionNorm(request);
   for (const path of [norm.current.currentUrl, `/norm/${norm.slug}/history/`, norm.historical.url]) {
     await page.goto(lawUrl(path));
-    const navigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+    const navigation = page.getByRole('navigation', { name: 'Fassungen dieser Vorschrift' });
     await expect(navigation.locator('.norm-version-navigation__primary a'), path).toHaveText([
       'Aktuelle Fassung',
-      'Historische Fassungen',
-      'Änderungsverlauf',
+      'Fassungen und Änderungen',
       'Fassungsvergleich',
     ]);
+    // Jede Unterseite kennzeichnet sich selbst; ein Sprungziel steht nicht in der Reihe.
+    await expect(navigation.locator('.norm-version-navigation__primary a[aria-current="page"]'), path).toHaveCount(1);
+    await expect(navigation.locator('.norm-version-navigation__primary a[href*="#"]'), path).toHaveCount(0);
     await expect(page.getByRole('navigation', { name: 'Werkzeuge zur Vorschrift' }).getByText(/vergleich/iu)).toHaveCount(0);
   }
 });
@@ -1173,23 +1209,29 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
   const [original] = await currentDocuments(request, '&origin=ostdeutsch-original&type=gesetz&status=in-force');
   expect(original, 'geltendes Gesetz ostdeutscher Herkunft').toBeTruthy();
   await page.goto(lawUrl(original.currentUrl));
-  const panel = page.locator('[data-visual-section="norm-legal-status"]');
-  await expect(panel.getByRole('heading', { name: 'Rechtsstand und Herkunft' })).toBeVisible();
+  const panel = await openNormFacts(page);
+  await expect(panel.getByRole('heading', { name: 'Vorschriftendaten' })).toBeVisible();
   await expect(panel.locator('.origin-badge')).toHaveText(/Ostdeutsch neu geschaffen/u);
-  await expect(panel).toContainText(`Geltende Fassung mit Rechtsstand vom ${formatGermanDate(original.validFrom)}`);
+  await expect(panel).toContainText(`Geltende Fassung, gültig ab ${formatGermanDate(original.validFrom)}`);
+  await expect(panel).toContainText(`Rechtsstand vom ${formatGermanDate(editorialReferenceDate())}`);
+  await expect(panel).not.toContainText('Stichtag');
   await expect(page.locator('.norm-page-header__status')).toContainText('in Kraft seit');
   await expect(page.locator('.status-notice')).toHaveCount(0);
 
   const amended = await currentNormOfOrigin(request, 'inherited-amended');
   await page.goto(lawUrl(amended.currentUrl));
-  const amendedPanel = page.locator('[data-visual-section="norm-legal-status"]');
+  const amendedPanel = await openNormFacts(page);
   await expect(amendedPanel.locator('.origin-badge')).toHaveText(/Übernommen und ostdeutsch geändert/u);
-  await expect(amendedPanel).toContainText('Zuletzt ostdeutsch geändert');
+  // Änderungsvorschriften stehen mit Titel und Datum, nicht als unbeschrifteter Verweis.
+  await expect(amendedPanel).toContainText('Änderungsvorschriften');
+  const amendmentLink = amendedPanel.locator('.norm-facts__changes a').first();
+  await expect(amendmentLink).toBeVisible();
+  await expect(amendmentLink).toHaveAttribute('href', /^\/norm\//u);
   await expect(amendedPanel.getByRole('link', { name: new RegExp(`Ausgangsfassung vom ${formatGermanDate(LEGAL_BASELINE_DATE)}`, 'u') })).toBeVisible();
   await expect(amendedPanel.getByRole('link', { name: 'Mit Ausgangsrecht vergleichen' })).toBeVisible();
 
   await page.goto(lawUrl(`/norm/${amended.slug}/version/${LEGAL_BASELINE_DATE}/`));
-  const baseline = page.locator('[data-visual-section="norm-legal-status"]');
+  const baseline = await openNormFacts(page);
   await expect(baseline).toContainText('Historische Fassung');
   await expect(baseline).toContainText('übernommene sächsische Ausgangsrechtsstand');
   await expect(baseline.getByRole('link', { name: 'Amtliche sächsische Quelle' })).toBeVisible();

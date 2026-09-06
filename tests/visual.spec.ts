@@ -2,7 +2,7 @@ import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
 import { getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
-import { LAW_ORIGIN, fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion } from './helpers/law-runtime.ts';
+import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion, LAW_ORIGIN, multiVersionNorm } from './helpers/law-runtime.ts';
 
 const lawUrl = (path: string) => new URL(path, LAW_ORIGIN).toString();
 // SITE_TARGETS (portal, law) begrenzt die Suite auf die gebauten Websites; ohne Angabe laufen beide.
@@ -536,7 +536,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-herkunft-module',
     path: lawUrl(`/norm/${fixture.amended}/`),
     shots: [
-      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-legal-status"]'],
+      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-facts"]'],
     ],
     critical: true,
   },
@@ -544,7 +544,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-herkunft-unveraendert-module',
     path: lawUrl(`/norm/${fixture.unchanged}/`),
     shots: [
-      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-legal-status"]'],
+      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-facts"]'],
     ],
   },
   {
@@ -566,8 +566,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-module',
     path: lawUrl(`/norm/${fixture.original}/`),
     shots: [
-      ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
-      ['norm-zitieren-rechtsstand', '[data-visual-section="norm-citation-status"]'],
+      ['norm-rechtsstand', '[data-visual-section="norm-facts"]'],
       ['norm-navigation', '.norm-version-navigation'],
       ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
     ],
@@ -576,7 +575,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-sidebar-module',
     path: lawUrl(`/norm/${fixture.portalRelations}/`),
     shots: [
-      ['norm-vorschriftendaten', '[data-visual-section="norm-metadata"]'],
+      ['norm-vorschriftendaten', '[data-visual-section="norm-facts"]'],
       ['norm-weiterfuehrende-bezuege', '[data-visual-section="norm-portal-relations"]'],
     ],
   },
@@ -664,6 +663,53 @@ for (const entry of visualPages) {
 const portalTest = isSelected('/') ? test : test.skip;
 const lawTest = isSelected(`${LAW_ORIGIN}/`) ? test : test.skip;
 
+/**
+ * Messungen statt Bilder (Befunde E1, E3): Sie prüfen die Stufen des Normarbeitsbereichs und die
+ * Höhe des mobilen Kopfs in Zahlen, laufen also auch dort, wo kein Pixelvergleich stattfindet.
+ * Die Vorschrift wird zur Laufzeit aus der Kandidaten-API abgeleitet, nicht fest verdrahtet.
+ */
+lawTest('Messung: Normarbeitsbereich ist zwischen 64 und 80 rem zweispaltig', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die 64–80-rem-Stufe wird einmal bei 1280 Pixeln gemessen.');
+  await preparePage(page);
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const columns = await page.locator('.norm-workspace').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+  expect(columns, 'Inhaltsübersicht und Text stehen nebeneinander').toBe(2);
+  await expect(page.locator('.norm-outline--desktop')).toBeVisible();
+  await expect(page.locator('.norm-outline-mobile')).toBeHidden();
+  // Die Vorschriftendaten stehen darunter über beide Spalten.
+  const spans = await page.locator('.norm-info-column').evaluate((element) => {
+    const workspace = element.closest('.norm-workspace')!;
+    return element.getBoundingClientRect().width / workspace.getBoundingClientRect().width;
+  });
+  expect(spans, 'Vorschriftendaten spannen über beide Spalten').toBeGreaterThan(0.9);
+  await verifyViewport(page);
+});
+
+lawTest('Messung: mobil beginnt der Vorschriftentext oberhalb von 700 Pixeln', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile-'), 'Die Höhe des mobilen Kopfs wird auf den Mobilbreiten gemessen.');
+  await preparePage(page);
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const headerHeight = await page.locator('.norm-page-header').evaluate((element) => element.getBoundingClientRect().height);
+  expect(headerHeight, 'Normkopf').toBeLessThanOrEqual(320);
+  const textTop = await page.locator('#normtext').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(textTop, 'Beginn des Vorschriftentextes').toBeLessThanOrEqual(700);
+  // Die Angaben zur Vorschrift stehen als geschlossene Zeile vor Inhaltsübersicht und Text.
+  const facts = page.locator('.norm-facts');
+  await expect(facts).not.toHaveAttribute('open', /.*/u);
+  const factsTop = await facts.evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(factsTop, 'Angaben zur Vorschrift stehen über dem Text').toBeLessThan(textTop);
+  await verifyViewport(page);
+});
+
 lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-390', 'Die geöffnete mobile Navigation wird einmal bei 390 Pixeln geprüft.');
   await preparePage(page);
@@ -695,8 +741,9 @@ for (const entry of componentVisualPages) {
       });
     }
 
-    if (entry.name === 'norm-module' || entry.name === 'norm-sidebar-module') {
-      await page.locator('.norm-info-panel').evaluate((element) => {
+    // Die Vorschriftendaten sind unterhalb von 80 rem ein Aufklappbereich; die Baseline zeigt sie offen.
+    if (entry.shots.some(([, selector]) => selector.includes('norm-facts'))) {
+      await page.locator('.norm-facts').evaluate((element) => {
         (element as HTMLDetailsElement).open = true;
       });
     }

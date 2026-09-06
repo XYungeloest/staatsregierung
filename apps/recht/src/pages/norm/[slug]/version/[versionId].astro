@@ -2,10 +2,8 @@
 import LawLayout from '../../../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import NormBody from '../../../../components/norms/NormBody.astro';
-import NormCitationBlock from '../../../../components/norms/NormCitationBlock.astro';
-import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
+import NormFacts from '../../../../components/norms/NormFacts.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
-import NormLegalStatusPanel from '../../../../components/norms/NormLegalStatusPanel.astro';
 import NormDocumentTools from '../../../../components/norms/NormDocumentTools.astro';
 import NormPrintSources from '../../../../components/norms/NormPrintSources.astro';
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
@@ -16,10 +14,10 @@ import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   getLawPortalUrl,
   getNormUrl,
-  getPublicationUrl,
   classifyNormVersion,
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { getNormStore } from '../../../../lib/runtime/context.ts';
 import { versionHeaderState } from '../../../../lib/norm-header.ts';
 
@@ -39,7 +37,11 @@ const [derived, fullCitation, publicationReference] = await Promise.all([
   store.getPublicationReference(slug, versionId),
 ]);
 if (!derived) return Astro.rewrite('/404');
-const publication = publicationReference ? await store.getPublication(publicationReference.publicationSlug) : null;
+// Bezeichnungen der Änderungsvorschriften: die Vorschriftendaten verlinken sie mit Titel und Datum.
+const [publication, amendmentLabels] = await Promise.all([
+  publicationReference ? store.getPublication(publicationReference.publicationSlug) : Promise.resolve(null),
+  store.getNormLabels(derived.origin.ownChanges.map((entry) => entry.relatedNormSlug).filter((entry): entry is string => Boolean(entry))),
+]);
 const temporalKind = classifyNormVersion(norm, version);
 const outline = buildNormOutline(version.body);
 const identity = getNormVersionIdentity(norm, version);
@@ -74,46 +76,43 @@ const header = versionHeaderState(norm, version);
     version={version}
     eyebrow={header.eyebrow}
     status={header.status}
-    reference={toDisplayText(version.citation)}
-    referenceUrl={publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined}
-    publicationPdf={publication?.pdf}
+    officialPdf={publication?.pdf}
   />
   <NormVersionNavigation norm={norm} version={version} currentPage="history" />
   <div class="norm-workspace">
     <aside class="norm-toc-column"><NormOutline items={outline} /></aside>
     <article class="norm-document-column">
-      <NormLegalStatusPanel norm={norm} version={version} origin={derived.origin} />
       <section class="section" id="normtext">
         <div class="section-header">
           <h2>{temporalKind === 'future' ? 'Zukünftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
           <p>{toDisplayText(version.changeNote)}</p>
         </div>
-        <NormDocumentTools norm={norm} />
+        <NormDocumentTools unitKind={getNormUnitKind(version.body)} />
         <NormBody blocks={version.body} references={derived.textReferences} />
       </section>
       <NormPrintSources
         norm={norm}
         version={version}
-        fullCitation={fullCitation ?? version.citation}
         publicationReference={publicationReference}
         publication={publication ?? undefined}
       />
     </article>
-    <aside class="norm-info-column">
-      <details class="norm-info-panel" open>
-        <summary>Rechtsstand und weitere Informationen</summary>
-        <div class="content-stack norm-sidebar">
-          <NormCitationBlock
-            norm={norm}
-            version={version}
-            fullCitation={fullCitation ?? version.citation}
-            publicationReference={publicationReference}
-            immutableLink
-          />
-          <NormMetaCard norm={norm} version={version} publicationReference={publicationReference} />
-          <NormHistorySummary norm={norm} />
-        </div>
-      </details>
+    <aside class="norm-info-column" data-visual-section="norm-sidebar">
+      <NormFacts
+        norm={norm}
+        version={version}
+        origin={derived.origin}
+        fullCitation={fullCitation ?? version.citation}
+        publicationReference={publicationReference}
+        amendmentLabels={amendmentLabels}
+        immutableLink
+      />
+    </aside>
+
+    <aside class="norm-related-column">
+      <div class="content-stack">
+        <NormHistorySummary norm={norm} />
+      </div>
     </aside>
   </div>
 </LawLayout>

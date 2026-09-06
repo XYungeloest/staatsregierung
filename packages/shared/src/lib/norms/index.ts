@@ -191,3 +191,9 @@ export {
   type LawSubjectDefinition,
   type LawSubjectGroupDefinition,
 } from '@ostrecht/shared/config/law-subjects.ts';
+export {
+  formatChangedUnitCount,
+  formatNormUnitKind,
+  getNormUnitKind,
+  type NormUnitKind,
+} from '@ostrecht/shared/lib/norms/units.ts';

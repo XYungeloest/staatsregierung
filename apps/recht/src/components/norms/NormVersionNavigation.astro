@@ -11,6 +11,7 @@ import {
 } from '@ostrecht/shared/lib/norms/routes.ts';
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+import { NORM_COMPARE_LABEL, NORM_CURRENT_LABEL, NORM_HISTORY_LABEL, referenceDateLabel } from '../../lib/vocabulary.ts';
 
 interface Props {
   norm: NormRecord;
@@ -39,7 +40,7 @@ function isSelected(entry: (typeof classified)[number]): boolean {
 }
 
 function versionLabel(entry: (typeof classified)[number]): string {
-  if (entry.kind === 'current') return `Geltend am ${formatDate(EDITORIAL_REFERENCE_DATE)}`;
+  if (entry.kind === 'current') return referenceDateLabel();
   if (entry.kind === 'future') return `Gültig ab ${formatDate(entry.version.validFrom)}`;
   if (entry.kind === 'historical') {
     return entry.version.validTo
@@ -50,23 +51,24 @@ function versionLabel(entry: (typeof classified)[number]): string {
 }
 ---
 
-<nav class:list={['norm-version-navigation', { 'norm-version-navigation--compact': !showPicker }]} aria-label="Fassungen und Historie" data-version-navigation>
+<!-- Die Reihe führt nur Unterseiten der Vorschrift, jede mit aria-current auf ihrer Seite; das
+     Sprungziel „Änderungsverlauf“ entfällt, weil die Historienseite ihre eigene Sprungleiste hat. -->
+<nav class:list={['norm-version-navigation', { 'norm-version-navigation--compact': !showPicker }]} aria-label="Fassungen dieser Vorschrift" data-version-navigation>
   <ul class="norm-version-navigation__primary">
     <li>
       <a href={getNormUrl(norm.meta.slug)} aria-current={currentPage === 'norm' ? 'page' : undefined}>
-        Aktuelle Fassung
+        {NORM_CURRENT_LABEL}
       </a>
     </li>
     <li>
       <a href={getNormHistoryUrl(norm.meta.slug)} aria-current={currentPage === 'history' ? 'page' : undefined}>
-        Historische Fassungen
+        {NORM_HISTORY_LABEL}
       </a>
     </li>
-    <li><a href={`${getNormHistoryUrl(norm.meta.slug)}#historieneintraege`}>Änderungsverlauf</a></li>
-    {norm.versions.length >= 2 ? <li><a href={getNormCompareUrl(norm.meta.slug)} aria-current={currentPage === 'compare' ? 'page' : undefined}>Fassungsvergleich</a></li> : null}
+    {norm.versions.length >= 2 ? <li><a href={getNormCompareUrl(norm.meta.slug)} aria-current={currentPage === 'compare' ? 'page' : undefined}>{NORM_COMPARE_LABEL}</a></li> : null}
   </ul>
 
-  {showPicker && selectedEntry ? (
+  {showPicker && selectedEntry && norm.versions.length >= 2 ? (
     <details class="norm-version-picker">
       <summary><span>Fassung wählen</span><strong>{versionLabel(selectedEntry)}</strong></summary>
       <div class="norm-version-picker__content">
@@ -75,7 +77,7 @@ function versionLabel(entry: (typeof classified)[number]): string {
             <h2 id={`version-current-${norm.meta.slug}`}>Geltend</h2>
             <ul><li>
               <a href={versionHref(applicable)} aria-current={isSelected(applicable) ? 'page' : undefined}>
-                Geltend{' '}am{' '}<time datetime={EDITORIAL_REFERENCE_DATE}>{formatDate(EDITORIAL_REFERENCE_DATE)}</time>
+                Rechtsstand{' '}vom{' '}<time datetime={EDITORIAL_REFERENCE_DATE}>{formatDate(EDITORIAL_REFERENCE_DATE)}</time>
               </a>
             </li></ul>
           </section>

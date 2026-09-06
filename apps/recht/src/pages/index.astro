@@ -5,6 +5,7 @@ import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
 import { formatDate, formatNormType, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
+import { NORM_HISTORY_LABEL } from '../lib/vocabulary.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
 export const prerender = false;
@@ -111,7 +112,7 @@ const quickAccess = [
               <div>
                 <h3><a href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a></h3>
                 <p>{toDisplayText(change.title)}</p>
-                <p class="record-list__meta"><NormOriginBadge kind={change.originKind} /><a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a></p>
+                <p class="record-list__meta"><NormOriginBadge kind={change.originKind} /><a class="law-row-link" href={getNormHistoryUrl(change.slug)}>{NORM_HISTORY_LABEL}</a></p>
               </div>
             </li>
           ))}
@@ -138,7 +139,7 @@ const quickAccess = [
               <div>
                 <h3><a href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a></h3>
                 <p>{toDisplayText(change.title)}</p>
-                <a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a>
+                <a class="law-row-link" href={getNormHistoryUrl(change.slug)}>{NORM_HISTORY_LABEL}</a>
               </div>
             </li>
           ))}
@@ -182,7 +183,7 @@ const quickAccess = [
 
       <section class="law-service-card">
         <h2>Rechtsportal-Funktionen</h2>
-        <a href={`${getSearchUrl()}?versionScope=current`}><strong>Konsolidierte Fassungen</strong><span>Zum Stichtag geltende Normtexte</span></a>
+        <a href={`${getSearchUrl()}?versionScope=current`}><strong>Konsolidierte Fassungen</strong><span>Derzeit geltende Normtexte</span></a>
         <a href={getLawDevelopmentOverviewUrl()}><strong>Änderungsverlauf</strong><span>Fassungen und Änderungen im Zeitverlauf</span></a>
         <a href={getReferencesUrl()}><strong>PDF und HTML</strong><span>Fundstellen und aufbereitete Normtexte</span></a>
         <a href={getIndexUrl()}><strong>{lawSiteConfig.targetLabels.index}</strong><span>Vorschriften, Abkürzungen und Stichwörter von A bis Z</span></a>
