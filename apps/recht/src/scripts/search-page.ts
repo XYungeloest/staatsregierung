@@ -641,7 +641,9 @@ function buildRequestUrl(state: NormSearchState, offset: number): string {
     ['publicationIssue', state.publicationIssue],
     ['publicationPage', state.publicationPage],
   ] as Array<[string, string]>) if (value) params.set(name, value);
-  params.set('versionScope', state.versionScope);
+  // Nur eine ausdrücklich gewählte Fassungsart geht mit: eine Fundstellensuche darf den
+  // stillschweigenden Standard „geltende Fassungen“ auf alle Fassungen anheben.
+  if (state.versionScopeExplicit || state.versionScope !== 'current') params.set('versionScope', state.versionScope);
   params.set('includeAmendments', state.includeAmendments ? '1' : '0');
   params.set('sort', getActiveSearchSort(state));
   params.set('limit', String(PAGE_SIZE));
