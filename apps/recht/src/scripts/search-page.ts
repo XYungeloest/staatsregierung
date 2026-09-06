@@ -499,7 +499,7 @@ function renderVersion(result: ScoredSearchResult, state: NormSearchState, headi
           <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
           <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
           <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>
-          <div><dt>Änderungsverlauf</dt><dd><a class="inline-link" href="${escapeHtml(`${entry.currentUrl}history/`)}">Fassungen und Änderungen</a></dd></div>
+          <div><dt>Weitere Fassungen</dt><dd><a class="inline-link" href="${escapeHtml(`${entry.currentUrl}history/`)}">Fassungen und Änderungen</a></dd></div>
         </dl>
       </details>
     </article>

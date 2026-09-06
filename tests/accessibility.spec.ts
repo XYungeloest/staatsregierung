@@ -45,7 +45,7 @@ const auditTargets: AuditTarget[] = [
   { name: 'Normseite (übernommen, ostdeutsch geändert)', site: 'law', resolve: async (request) => lawUrl((await currentNormOfOrigin(request, 'inherited-amended')).currentUrl) },
   { name: 'Normseite (ostdeutsch neu geschaffen)', site: 'law', resolve: async (request) => lawUrl((await currentNormOfOrigin(request, 'ostdeutsch-original')).currentUrl) },
   { name: 'Fassungsvergleich', site: 'law', resolve: async (request) => { const norm = await multiVersionNorm(request); return lawUrl(`/norm/${norm.slug}/vergleich/?von=${norm.historical.versionId}&bis=${norm.current.versionId}`); } },
-  { name: 'Änderungsverlauf', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
+  { name: 'Fassungen und Änderungen', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
   { name: 'Historische Fassung', site: 'law', resolve: async (request) => lawUrl((await multiVersionNorm(request)).historical.url) },
   { name: 'Bekanntmachung', site: 'law', resolve: async (request) => { const [notice] = (await currentDocuments(request)).filter((document) => document.type === 'bekanntmachung'); expect(notice, 'geltende Bekanntmachung').toBeTruthy(); return lawUrl(notice.currentUrl); } },
   { name: 'Rechtssuche', site: 'law', resolve: lawPage('/suche/') },

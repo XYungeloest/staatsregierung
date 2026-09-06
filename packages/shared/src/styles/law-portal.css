@@ -2949,9 +2949,15 @@ a.search-hit__context-prefix {
 
 .norm-history-panel {
   overflow: hidden;
+  /* Sprungziele der Abschnittsleiste bleiben unter der haftenden Kopfleiste sichtbar. */
+  scroll-margin-top: 7rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
+}
+
+.norm-history-jumps {
+  margin-top: var(--space-4);
 }
 
 .norm-history-panel--versions,

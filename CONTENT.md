@@ -924,7 +924,11 @@ Regeln:
 
 - `/norm/[slug]/` auf der OstRecht-Origin ist der dynamische Hauptlink.
 - `/norm/[slug]/version/[versionId]/` auf der OstRecht-Origin ist der unveränderliche Fassungslink.
-- Die Fassungsnavigation erscheint auf Normtext, gespeicherter Fassung, Historie und Vergleich.
+- Die Fassungsnavigation erscheint auf Normtext, gespeicherter Fassung, „Fassungen und Änderungen“
+  und Vergleich. Sie führt ausschließlich Unterseiten: „Aktuelle Fassung“, „Fassungen und
+  Änderungen“ (`/norm/[slug]/history/`) und – ab zwei gespeicherten Fassungen – „Fassungsvergleich“.
+  Dasselbe Ziel heißt überall „Fassungen und Änderungen“; die Seite selbst gliedert sich in
+  Fassungen, Änderungen und Stammdaten.
 - Der Vergleich speichert die Auswahl in `von` und `bis`; ohne JavaScript bleibt der voreingestellte
   Vergleich zur vorherigen Fassung lesbar. Bei übernommenem Recht wird zusätzlich ein direkter
   Vergleich mit der belegten Ausgangsfassung angeboten. Weitere Paarungen werden erst beim Abruf für

@@ -1,5 +1,6 @@
 ---
 import { formatDate, getNormHistoryUrl, toDisplayText, type NormRecord } from '@ostrecht/shared/lib/norms/index.ts';
+import { NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
 
 interface Props { norm: NormRecord; }
 const { norm } = Astro.props;
@@ -8,7 +9,7 @@ const entries = [...norm.history.entries].sort((left, right) => right.date.local
 
 {entries.length > 0 ? (
   <section class="norm-side-card" data-visual-section="norm-history-summary">
-    <h2>Änderungshistorie</h2>
+    <h2>Letzte Änderungen</h2>
     <ol class="norm-side-history">
       {entries.map((entry) => (
         <li>
@@ -17,6 +18,6 @@ const entries = [...norm.history.entries].sort((left, right) => right.date.local
         </li>
       ))}
     </ol>
-    <a class="law-card-footer-link" href={getNormHistoryUrl(norm.meta.slug)}>Alle Änderungen anzeigen</a>
+    <a class="law-card-footer-link" href={getNormHistoryUrl(norm.meta.slug)}>{NORM_HISTORY_LABEL}</a>
   </section>
 ) : null}

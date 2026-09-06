@@ -701,7 +701,7 @@ siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugäng
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.current.currentUrl));
 
-  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen dieser Vorschrift' });
   await expect(versionNavigation).toBeVisible();
   const referenceLabel = `Rechtsstand vom ${formatGermanDate(editorialReferenceDate())}`;
   await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText(referenceLabel);
@@ -776,13 +776,15 @@ siteTest(['law'])('Fassungsleiste bleibt auf aktueller Fassung, Historie und Ein
   const norm = await multiVersionNorm(request);
   for (const path of [norm.current.currentUrl, `/norm/${norm.slug}/history/`, norm.historical.url]) {
     await page.goto(lawUrl(path));
-    const navigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+    const navigation = page.getByRole('navigation', { name: 'Fassungen dieser Vorschrift' });
     await expect(navigation.locator('.norm-version-navigation__primary a'), path).toHaveText([
       'Aktuelle Fassung',
-      'Historische Fassungen',
-      'Änderungsverlauf',
+      'Fassungen und Änderungen',
       'Fassungsvergleich',
     ]);
+    // Jede Unterseite kennzeichnet sich selbst; ein Sprungziel steht nicht in der Reihe.
+    await expect(navigation.locator('.norm-version-navigation__primary a[aria-current="page"]'), path).toHaveCount(1);
+    await expect(navigation.locator('.norm-version-navigation__primary a[href*="#"]'), path).toHaveCount(0);
     await expect(page.getByRole('navigation', { name: 'Werkzeuge zur Vorschrift' }).getByText(/vergleich/iu)).toHaveCount(0);
   }
 });
