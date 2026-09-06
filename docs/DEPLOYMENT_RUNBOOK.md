@@ -273,8 +273,15 @@ Felder oder Formate noch nicht kennt, zeigt in diesem Fenster fehlende Werte. De
 
 1. **Expand:** Der Worker versteht alte und neue Datenform; neue Felder werden additiv gelesen,
    fehlende Werte fail-safe dargestellt (Beispiel: unbekannte Rechtsherkunft wird als „Herkunft
-   ungeklärt“ gezeigt, `apps/recht/src/scripts/search-page.ts`). Dieses Release enthält noch
-   keine Projektionsänderung.
+   ungeklärt“ gezeigt, `apps/recht/src/scripts/search-page.ts`). Beispiel aus der Suche: die
+   Treffereinheiten tragen ihre Überschrift nicht mehr im Text (`collectBodyContent`), und je
+   geltender Fassung kommt eine Metadateneinheit hinzu. Der Worker schneidet einen noch
+   gespeicherten Überschriftvorspann zur Laufzeit ab (`buildSearchSnippet`) und kommt ohne die
+   Metadateneinheit aus – nur der Suchbereich „Nur nach Metadaten und Fundstellen“ und die
+   Fundstellensuche über Verkündungsaliasse greifen erst nach der Vollprojektion. Der
+   Antwortvertrag von `/api/suche.json` ist gleichzeitig gewechselt: die Suchseite hängt `v=2`
+   an ihre Anfrage und behandelt eine Antwort ohne `hits` als Ladefehler mit einer Wiederholung,
+   damit bis zu zehn Minuten alte Cache-Antworten nie in die neue Seite laufen.
 2. **Migrate:** Die Projektion wird auf die neue Form umgestellt (bei Umbenennungen als
    Übergangsprojektion, die alte und neue Felder parallel schreibt). Schema-Migrationen zuerst
    lokal, dann Staging, dann Produktion.
@@ -310,7 +317,7 @@ wiederholt:
 | schnell / Unit | `tests/*.test.{ts,mjs}` | reine Funktionen, Parser, Scope, Fingerabdruck, Abschluss, Nachweisbindung, Store- und Projektionsverhalten auf dem synthetischen Bestand (`tests/helpers/fixture-corpus.ts`) – kein Vollbestand, kein Worker | bei jeder Codeänderung, lokal in Sekunden (`npm run test:fast`) |
 | Korpus | `tests/corpus/` | Abnahmefälle der Projektionsidentität auf dem Fixture, Seed-Werkzeug gegen die lokale D1, Referenz- und Empfehlungsindex auf einer Stichprobe | bei Projektions-, Laufzeit- und Schemaänderungen, wöchentlich (`npm run test:corpus`) |
 | Content-Audit | `content:check` (Import-Audit, REVOSax-Audit, Konsolidierung, Schemas, Metadaten, Ableitungen, Reststellen, Themen, Wissenshub), `test:links:run`, `test:seo:run` | generische Invarianten des gesamten Rechtsbestands: Quellenhashes, Referenzen, Gültigkeitsintervalle, Vollzitate, Herkunft, keine Import-Artefakte | bei Inhalts- und Pipeline-Änderungen, wöchentlich; Links und SEO nach jedem Build |
-| Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker; Erwartungen aus Kandidaten-API, Vorschlägen, Verkündungsindex und ausgelieferten Daten (`tests/helpers/law-runtime.ts`) | Pflichtcheck (Fixture), wöchentlich Vollbestand |
+| Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker; Erwartungen aus Such-API, Vorschlägen, Verkündungsindex und ausgelieferten Daten (`tests/helpers/law-runtime.ts`). Dazu die Zählkonsistenz der Suche: die Überschrift nennt `total`, angezeigte und verbleibende Treffer ergeben zusammen dieselbe Zahl, je Suchzustand geht genau eine Anfrage hinaus, und die Verzeichniszahlen (`/gesetze/`, `/verordnungen/`, `/verwaltungsvorschriften/`, `/foerderrichtlinien/`, Herkunftsübersicht des A–Z) stimmen mit `total` derselben Grundmenge überein | Pflichtcheck (Fixture), wöchentlich Vollbestand |
 | Barrierefreiheit | `tests/accessibility.spec.ts` | axe und Fokusindikator auf Seitenrollen (Normseite je Herkunft, Vergleich, Historie, Suche, Verkündung, Fehlerseite) | Pflichtcheck |
 | Visual | `tests/visual.spec.ts` | Layout und Design (kritisch / breit) einschließlich horizontalem Überlauf, keine funktionalen Assertions | bei Oberflächenänderungen |
 | Vollbestand | `full_corpus_smoke`, Workflow „OstRecht-Vollbestand-Smoke und Korpus-Audit“ | Datenintegrität, Suche und D1 über den echten Bestand; vollständige Content-Audits und Korpus-Tests | bei relevanten Änderungen, wöchentlich, manuell, vor größeren Releases |

@@ -716,6 +716,44 @@ lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', { tag: [CRITICAL_T
   await verifyViewport(page);
 });
 
+/**
+ * Trefferdichte der Rechtssuche: eine ungeöffnete Trefferkarte bleibt auf einem 375 Pixel breiten
+ * Bildschirm höchstens 220 Pixel hoch, damit auf einer Bildschirmhöhe mehr als ein Treffer steht.
+ * Das Suchwort stammt aus dem Manifest des synthetischen Fixtures; ergibt es nur einen Treffer,
+ * wird das nächste genommen (die Messung braucht mehrere Karten, keine bestimmte Anzahl).
+ */
+lawTest('Trefferdichte bei 375 px', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-390', 'Die Trefferdichte wird einmal bei 375 Pixeln gemessen.');
+  await preparePage(page);
+  await page.setViewportSize({ width: 375, height: 812 });
+  const words = [fixture.multiHit, fixture.originalWord, fixture.unchangedWord];
+  let hits: Array<{ height: number; open: boolean; text: string }> = [];
+  let used = '';
+  for (const word of words) {
+    await page.goto(searchUrl(word));
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+    await awaitSettled(page, searchUrl(word));
+    hits = await page.locator('[data-search-results] .search-result-group > .search-hit').evaluateAll((elements) => elements.map((element) => ({
+      height: Math.round(element.getBoundingClientRect().height),
+      open: Boolean(element.querySelector('details[open]')),
+      text: (element.querySelector('h3')?.textContent ?? '').trim().slice(0, 60),
+    })));
+    used = word;
+    if (hits.length > 1) break;
+  }
+  test.skip(hits.length < 2, `Das Fixture liefert zu „${used}“ nur ${hits.length} Treffer; die Dichte braucht mehrere Karten.`);
+  const tooTall = hits.filter((hit) => hit.height > 220);
+  if (tooTall.length > 0) {
+    const report = [`Suchwort: ${used}`, `Treffer: ${hits.length}`, ...hits.map((hit) => `${String(hit.height).padStart(4)} px  ${hit.open ? 'offen ' : 'zu    '}${hit.text}`)].join('\n');
+    await test.info().attach('trefferdichte.txt', { body: report, contentType: 'text/plain' });
+    console.log(report);
+  }
+  expect(tooTall.map((hit) => `${hit.height} px: ${hit.text}`), 'jede ungeöffnete Trefferkarte bleibt bei 375 px unter 220 px').toEqual([]);
+  await verifyViewport(page);
+});
+
 for (const entry of componentVisualPages) {
   if (!isSelected(entry.path)) continue;
   test(`Komponenten-Basislinien: ${entry.name}`, { tag: entry.critical ? [CRITICAL_TAG] : [] }, async ({ page }, testInfo) => {

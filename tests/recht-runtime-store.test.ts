@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
+import type { NormSearchState } from '@ostrecht/recht-search/search-query.ts';
 import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
 import { isInheritedAmendment } from '@ostrecht/shared/lib/norms/inventory.ts';
 
@@ -189,6 +190,41 @@ test('Suchkandidaten und Suchdokumente entsprechen dem Suchindexformat; der Herk
   const searched = await store.searchCandidates({ match: '("testgesetz"*)', limit: 10, offset: 0, origins: ['ostdeutsch-original'] });
   assert.ok(!searched.slugs.includes('testgesetz'), 'übernommene Norm fällt beim Filter auf ostdeutsch-original heraus');
   assert.ok(searched.slugs.includes('aenderungsgesetz-testgesetz'));
+});
+
+/** Suchzustand der Dateivariante; sie bewertet mit derselben Logik wie die Anzeige. */
+function searchState(overrides: Partial<NormSearchState> = {}): NormSearchState {
+  return {
+    q: '', exclude: '', exact: '', scope: 'all', types: [], ministries: [], subjects: [], statuses: [], origins: [],
+    versionScope: 'current', includeAmendments: false, geltungstag: '', validFrom: '', validTo: '', citation: '',
+    publicationSources: [], publicationYears: [], publicationIssue: '', publicationPage: '',
+    sort: 'activity', sortExplicit: false, ...overrides,
+  };
+}
+
+test('Trefferseite, Gesamtzahl und Facettenzähler der Dateivariante beschreiben dieselbe Menge', async () => {
+  const state = searchState();
+  const all = await store.searchCandidates({ match: null, limit: 500, offset: 0, state });
+  assert.equal(all.slugs.length, all.total, 'die Gesamtzahl zählt genau die gelieferten Vorschriften');
+  assert.equal(new Set(all.slugs).size, all.slugs.length, 'jede Vorschrift steht einmal in der Liste');
+  const first = await store.searchCandidates({ match: null, limit: 5, offset: 0, state });
+  const second = await store.searchCandidates({ match: null, limit: 5, offset: 5, state });
+  assert.equal(first.total, all.total);
+  assert.deepEqual([...first.slugs, ...second.slugs], all.slugs.slice(0, 10), 'echtes Blättern ohne Lücken und Doppelungen');
+
+  const facets = await store.countSearchFacets({ match: null, limit: 5, offset: 0, state });
+  const sum = (counts: Record<string, number>) => Object.values(counts).reduce((total, count) => total + count, 0);
+  assert.equal(sum(facets.type), all.total, 'jede Vorschrift trägt genau einen Normtyp');
+  assert.equal(sum(facets.origin), all.total, 'die Herkunftsarten zerlegen die Treffermenge');
+  assert.ok(sum(facets.subject) >= all.total, 'eine Vorschrift kann mehreren Sachgebieten angehören');
+
+  // Grundmenge: übernommene Änderungsvorschriften kommen erst mit dem Häkchen hinzu.
+  const withAmendments = await store.searchCandidates({ match: null, limit: 500, offset: 0, state: searchState({ includeAmendments: true }) });
+  assert.ok(withAmendments.total > all.total, 'das Häkchen erweitert die Menge');
+
+  // Identität zuerst: die Abkürzung einer Vorschrift führt sie an die Spitze der Trefferliste.
+  const identity = await store.searchCandidates({ match: '("osttestg"*)', limit: 20, offset: 0, state: searchState({ q: 'OstTestG', sort: 'relevance' }) });
+  assert.equal(identity.slugs[0], 'testgesetz');
 });
 
 test('Body-Blöcke werden aus Teilen in Reihenfolge zusammengesetzt', () => {

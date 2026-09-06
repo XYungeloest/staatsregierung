@@ -4,14 +4,10 @@ import { toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 import type { NormSummary } from './runtime/store.ts';
 
 /**
- * Übersichtsdaten mit den Feldern, die die Projektion für Verzeichnisse ergänzt: der
- * Förderbereich einer Förderrichtlinie und das Vollzitat der Ausgangsfassung. Beide Felder
- * sind optional, damit die Seiten auch ohne den projizierten Wert richtig bleiben.
+ * Übersichtsdaten der Verzeichniseinträge. Förderbereich und Vollzitat der Ausgangsfassung
+ * stehen seit Migration 0008 in der Projektion und damit unmittelbar in `NormSummary`.
  */
-export type DirectoryNormSummary = NormSummary & {
-  fundingArea?: string;
-  initialCitation?: string;
-};
+export type DirectoryNormSummary = NormSummary;
 
 /**
  * Kurzform eines Vollzitats: Der Titel steht bereits in der Überschrift, deshalb bleibt nur

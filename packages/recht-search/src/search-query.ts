@@ -1,4 +1,4 @@
-import type { SearchHitUnit, SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
+import type { SearchHitUnit, SearchIndexDocument, SearchPublication } from '@ostrecht/recht-search/search.ts';
 import { formatNormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { NORM_TYPES, type NormType } from '@ostrecht/shared/lib/norms/schema.ts';
@@ -55,79 +55,11 @@ export interface NormSearchState {
 }
 
 /**
- * Filter, die die Kandidatenabfrage der Such-API serverseitig ausdrückt (Namen der
- * Anfrageparameter von /api/suche.json und Felder von SearchCandidateQuery in
- * apps/recht/src/lib/runtime/store.ts).
- */
-export interface SearchCandidateParams {
-  q: string;
-  exact: string;
-  citation: string;
-  types: string[];
-  origins: string[];
-  ministries: string[];
-  subjects: string[];
-  statuses: string[];
-  publicationSources: string[];
-  publicationYears: string[];
-  geltungstag: string;
-  validFrom: string;
-  validTo: string;
-  versionScope: VersionScope;
-  includeAmendments: boolean;
-}
-
-/**
- * Freitextanteil der Anfrage. D1 liefert dazu nur großzügige Kandidaten (ODER über alle
- * Wortvarianten); die feldbewusste, verknüpfende Bewertung läuft im Browser. Eine serverseitige
- * Gesamtzahl beschreibt deshalb nie genau die angezeigte Trefferliste.
+ * Freitextanteil der Anfrage. Ohne ihn beschreibt die Kandidatenabfrage eine reine Auswahl über
+ * die Filterspalten; mit ihm kommt der Volltextindex als Treiber der Reihenfolge hinzu.
  */
 export function hasFreeTextQuery(state: Pick<NormSearchState, 'q' | 'exact' | 'citation' | 'exclude'>): boolean {
   return Boolean(state.q.trim() || state.exact.trim() || state.citation.trim() || state.exclude.trim());
-}
-
-/**
- * Filter, die ausschließlich im Browser wirken: Ausgabennummer und Seite der Fundstelle. Beide
- * vergleichen normalisierten Text (normalizeSearchText, bei der Seite als Teilstring); die
- * Projektion trägt nur die unveränderten Werte, ein SQL-Vergleich träfe deshalb eine andere Menge.
- */
-export function hasClientOnlyFilters(state: NormSearchState): boolean {
-  return Boolean(state.publicationIssue || state.publicationPage);
-}
-
-/**
- * Trifft die serverseitig gezählte Kandidatenmenge genau die angezeigte Ergebnismenge? Nur dann
- * darf eine Überschrift das `total` der Such-API als Gesamtzahl der Treffer nennen.
- */
-export function candidateTotalMatchesResults(state: NormSearchState): boolean {
-  return !hasFreeTextQuery(state) && !hasClientOnlyFilters(state);
-}
-
-/**
- * Kandidatenanfrage aus dem Suchzustand. `includeAmendments` wird nur ohne Freitext
- * serverseitig verengt: mit Suchbegriff bleiben Änderungsvorschriften Kandidaten, weil die
- * Bewertung im Browser sie bei einem unmittelbaren Titel- oder Fundstellentreffer trotzdem zeigt.
- */
-export function buildSearchCandidateParams(state: NormSearchState): SearchCandidateParams {
-  const freeText = hasFreeTextQuery(state);
-  return {
-    q: state.q,
-    exact: state.exact,
-    citation: state.citation,
-    types: state.types,
-    origins: state.origins,
-    ministries: state.ministries,
-    subjects: state.subjects,
-    statuses: state.statuses,
-    publicationSources: state.publicationSources,
-    publicationYears: state.publicationYears,
-    geltungstag: state.geltungstag,
-    validFrom: state.validFrom,
-    validTo: state.validTo,
-    // Eine Fundstellensuche hebt den impliziten Standard auf alle Fassungen an (siehe evaluateDocument).
-    versionScope: freeText && state.versionScopeExplicit !== true ? 'all' : state.versionScope,
-    includeAmendments: state.includeAmendments || freeText || state.types.includes('aenderungsvorschrift'),
-  };
 }
 
 export type SearchRankTier = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -723,7 +655,8 @@ export function getBestHitUnit(
   return getBestPreparedHitUnit(prepared, query, findReferenceHits(prepared, query.references)?.[0]?.hit)?.unit;
 }
 
-function levenshteinDistance(left: string, right: string): number {
+/** Editierabstand zweier normalisierter Wörter; Grundlage der Ähnlichkeitsstufe (matchKind `fuzzy`). */
+export function levenshteinDistance(left: string, right: string): number {
   if (left === right) return 0;
   if (!left || !right) return Math.max(left.length, right.length);
   const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
@@ -1062,4 +995,254 @@ export function runNormSearch(
     ? exactResults
     : evaluations.filter((entry) => entry.isFuzzy).map((entry) => entry.result);
   return results.sort((left, right) => compareNormSearchResults(left, right, getActiveSearchSort(state)));
+}
+
+// ---------------------------------------------------------------------------
+// Suchplan: reine Funktionen für die serverseitige Auswertung
+// ---------------------------------------------------------------------------
+
+/** Eine Begriffsgruppe des Suchplans: alle Schreibvarianten desselben Suchworts. */
+export interface SearchPlanGroup {
+  variants: string[];
+  prefix: boolean;
+}
+
+/**
+ * Serverseitig auswertbarer Bauplan einer Suchanfrage. Er zerlegt die Anfrage in Bestandteile,
+ * die sich als SQL-Bedingung über den Volltextindex, die Strukturadressen und die schmalen
+ * Spalten der Projektion ausdrücken lassen. Der Plan ist eine reine Ableitung des Suchzustands
+ * und enthält keine Anzeigetexte.
+ */
+export interface SearchQueryPlan {
+  /** Je Suchwort eine Gruppe; alle Gruppen müssen in derselben Vorschrift vorkommen. */
+  tokenGroups: SearchPlanGroup[];
+  /** Wortfolgen in Anführungszeichen und die Eingabe „Exakte Wortfolge“. */
+  phrases: string[];
+  /** Begriffe aus „Enthält nicht“; eine Vorschrift mit einem davon fällt heraus. */
+  excludeTokens: SearchPlanGroup[];
+  /** Strukturadressen (§, Artikel, Absatz) aus der Anfrage. */
+  references: LegalReferenceIntent[];
+  /** Normtyp als einzige Aussage der Anfrage („Verordnungen“) – wirkt wie ein Typfilter. */
+  typeOnly?: NormType;
+  /** Erkannter Normtyp (Rangstufe und Hinweis-Chip). */
+  typeIntent?: NormTypeIntent;
+  /** Rohanfrage für den Gleichheitsvergleich mit Abkürzung, Kurzbezeichnung und Titel. */
+  identityValues: string[];
+  /** Mehrwortige Anfrage als Wortfolge im Titelbereich (Ausnahme für Änderungsvorschriften). */
+  titlePhrase?: string;
+  /** Eingabe „Fundstelle“: Wortfolge über alle Felder, unabhängig vom Suchbereich. */
+  citationPhrase?: string;
+  /** Suchbereich der Anfrage. */
+  scope: SearchScope;
+  sort: SortKey;
+  freeText: boolean;
+  /** Die Anfrage nennt eine Fundstelle (OGVBl. 2026 Nr. 73). */
+  hasPublicationReference: boolean;
+}
+
+/** FTS5-Term mit maskierten Anführungszeichen. */
+function ftsTerm(value: string): string {
+  return `"${value.replace(/"/gu, '""')}"`;
+}
+
+/** ODER-Gruppe aller Schreibvarianten eines Suchworts, als Präfixsuche. */
+function ftsGroupExpression(group: SearchPlanGroup): string {
+  return `(${group.variants.map((variant) => `${ftsTerm(variant)}*`).join(' OR ')})`;
+}
+
+/** Wortfolge als FTS5-Phrase über alle Schreibvarianten. */
+function ftsPhraseExpression(phrase: string): string {
+  const variants = [...new Set(buildSearchVariants(phrase))].filter(Boolean);
+  return variants.length > 0 ? `(${variants.map((variant) => ftsTerm(variant)).join(' OR ')})` : '';
+}
+
+/**
+ * FTS5-Spaltenfilter eines Suchbereichs. `all` sucht über alle indexierten Spalten; „Nur
+ * Metadaten“ trennt der Aufrufer zusätzlich über die Einheitenart (block_type `metadata`).
+ */
+export function searchScopeColumns(scope: SearchScope): string | null {
+  if (scope === 'title') return '{title short_title abbr}';
+  if (scope === 'body') return '{label heading body}';
+  return null;
+}
+
+/** Setzt einen FTS5-Ausdruck in den Spaltenfilter eines Suchbereichs. */
+export function buildFtsColumnMatch(columns: string | null, expression: string): string {
+  return columns ? `${columns}: ${expression}` : expression;
+}
+
+/**
+ * Großzügiger Kandidatenausdruck (ODER über alle Wortvarianten und Wortfolgen). Er treibt die
+ * Volltextabfrage und stellt `rank` bereit; die verknüpfende Auswahl übernehmen die
+ * UND-Bedingungen des Plans. Ohne Suchtext gibt es keinen Ausdruck: eine Anfrage aus Normtyp
+ * oder Strukturadresse allein läuft über die Filterspalten, nicht über den Volltextindex.
+ */
+export function buildFtsMatch(plan: SearchQueryPlan): string | null {
+  const groups = [
+    ...plan.tokenGroups.map((group) => ftsGroupExpression(group)),
+    ...plan.phrases.map((phrase) => ftsPhraseExpression(phrase)),
+    ...(plan.citationPhrase ? [ftsPhraseExpression(plan.citationPhrase)] : []),
+  ].filter(Boolean);
+  return groups.length > 0 ? groups.join(' OR ') : null;
+}
+
+/** UND-Bedingung der Eingabe „Fundstelle“: Wortfolge über alle Felder. */
+export function planCitationMatch(plan: SearchQueryPlan): string | null {
+  if (!plan.citationPhrase) return null;
+  return ftsPhraseExpression(plan.citationPhrase) || null;
+}
+
+/** UND-Bedingung einer Begriffsgruppe im Suchbereich des Plans. */
+export function planGroupMatch(plan: SearchQueryPlan, group: SearchPlanGroup): string {
+  return buildFtsColumnMatch(searchScopeColumns(plan.scope), ftsGroupExpression(group));
+}
+
+/** UND-Bedingung einer Wortfolge im Suchbereich des Plans. */
+export function planPhraseMatch(plan: SearchQueryPlan, phrase: string): string {
+  return buildFtsColumnMatch(searchScopeColumns(plan.scope), ftsPhraseExpression(phrase));
+}
+
+/** Ausschlussausdruck: eine Vorschrift, die einen dieser Begriffe trägt, fällt heraus. */
+export function planExcludeMatch(plan: SearchQueryPlan): string | null {
+  if (plan.excludeTokens.length === 0) return null;
+  return plan.excludeTokens.map((group) => ftsGroupExpression(group)).join(' OR ');
+}
+
+/** Alle Begriffsgruppen in derselben Einheit – Rangstufe „Treffer in einer Vorschrift“. */
+export function planUnitMatch(plan: SearchQueryPlan): string | null {
+  const parts = [
+    ...plan.tokenGroups.map((group) => ftsGroupExpression(group)),
+    ...plan.phrases.map((phrase) => ftsPhraseExpression(phrase)).filter(Boolean),
+  ];
+  if (parts.length < 2) return null;
+  return buildFtsColumnMatch(searchScopeColumns(plan.scope), `(${parts.join(' AND ')})`);
+}
+
+/** Alle Begriffsgruppen im Titelbereich – Rangstufe „Titel“ und Ausnahme für Änderungsvorschriften. */
+export function planTitleMatch(plan: SearchQueryPlan): string | null {
+  const parts = [
+    ...plan.tokenGroups.map((group) => ftsGroupExpression(group)),
+    ...plan.phrases.map((phrase) => ftsPhraseExpression(phrase)).filter(Boolean),
+  ];
+  if (parts.length === 0) return null;
+  return buildFtsColumnMatch('{title short_title abbr}', `(${parts.join(' AND ')})`);
+}
+
+function planGroupsOf(tokens: QueryToken[]): SearchPlanGroup[] {
+  return tokens.flatMap((token) => {
+    const variants = [...new Set([token.value, ...token.variants])].filter((variant) => variant.length >= 2);
+    return variants.length > 0 ? [{ variants, prefix: token.prefix }] : [];
+  });
+}
+
+/**
+ * Suchplan aus dem Suchzustand. Reine Funktion ohne Zugriff auf den Bestand: ob eine Anfrage die
+ * Bezeichnung einer Vorschrift genau trifft, entscheidet erst die Abfrage über die
+ * Bezeichnungsspalten; die Normtyp-Absicht bleibt eine Absicht.
+ */
+export function buildSearchQueryPlan(state: NormSearchState): SearchQueryPlan {
+  const query = parseNormSearchQuery(state.q, { allowTypeIntent: true });
+  const exactPhrase = state.exact.replaceAll('*', '').trim();
+  const phrases = [...query.phrases, ...(exactPhrase ? [exactPhrase] : [])];
+  const raw = normalizeSearchText(state.q.replace(PUBLICATION_REFERENCE_PATTERN, ' '));
+  PUBLICATION_REFERENCE_PATTERN.lastIndex = 0;
+  const typeOnly = query.typeIntent && !hasSearchTerms(query) ? query.typeIntent.type : undefined;
+  return {
+    tokenGroups: planGroupsOf(query.tokens),
+    phrases,
+    excludeTokens: planGroupsOf(parseQueryTokens(state.exclude)),
+    references: query.references,
+    ...(typeOnly ? { typeOnly } : {}),
+    ...(query.typeIntent ? { typeIntent: query.typeIntent } : {}),
+    identityValues: state.q.trim() ? [state.q.trim()] : [],
+    ...(words(raw).length > 1 ? { titlePhrase: raw } : {}),
+    ...(state.citation.trim() ? { citationPhrase: state.citation.trim() } : {}),
+    scope: state.scope,
+    sort: getActiveSearchSort(state),
+    freeText: hasFreeTextQuery(state),
+    hasPublicationReference: query.hasPublicationReference,
+  };
+}
+
+/**
+ * Textausschnitt eines Treffers: ohne die eigene Überschrift, ohne Zeilenumbrüche, an einer
+ * Wortgrenze gekürzt. Der Überschriftvorspann wird als Übergangsregel abgeschnitten, solange
+ * gespeicherte Einheiten ihn noch im Text führen (collectBodyContent schreibt ihn nicht mehr).
+ */
+export function buildSearchSnippet(
+  unit: { label?: string; title?: string; text?: string },
+  limit = 300,
+): string {
+  const collapse = (value: string | undefined): string => (value ?? '').replace(/\s+/gu, ' ').trim();
+  let text = collapse(unit.text);
+  const label = collapse(unit.label);
+  const title = collapse(unit.title);
+  for (const prefix of [[label, title].filter(Boolean).join(' '), title, label]) {
+    if (!prefix || text.length <= prefix.length) continue;
+    if (text.slice(0, prefix.length).toLocaleLowerCase('de-DE') !== prefix.toLocaleLowerCase('de-DE')) continue;
+    text = text.slice(prefix.length).replace(/^[\s:.–—-]+/u, '');
+    break;
+  }
+  if (text.length <= limit) return text;
+  const cut = text.slice(0, limit);
+  const boundary = cut.lastIndexOf(' ');
+  return `${(boundary > limit / 2 ? cut.slice(0, boundary) : cut).trimEnd()}…`;
+}
+
+/**
+ * Ausgabe, deren Bezeichnung die Anfrage wörtlich nennt („OGVBl. 2026 Nr. 73“). Sie steht als
+ * Direkttreffer über der Trefferliste.
+ */
+export function findPublicationDirectHit(publications: SearchPublication[], query: string): SearchPublication | undefined {
+  const queryForms = buildSearchVariants(query);
+  if (queryForms.length === 0) return undefined;
+  return publications.find((publication) => [publication.designation, ...publication.aliases]
+    .some((designation) => buildSearchVariants(designation).some((value) => queryForms.includes(value))));
+}
+
+export const SEARCH_FACETS = ['type', 'origin', 'ministry', 'subject', 'status', 'publicationSource', 'publicationYear'] as const;
+export type SearchFacet = typeof SEARCH_FACETS[number];
+
+/** Facettenzähler der Suche: je Facette die Zahl passender Vorschriften nach Facettenwert. */
+export type SearchFacetCounts = Record<SearchFacet, Record<string, number>>;
+
+/** Ein Treffer der Such-API: eine Vorschrift mit ihrer bestbewerteten Fassung. */
+export interface SearchHit {
+  slug: string;
+  url: string;
+  currentUrl: string;
+  versionId: string;
+  versionKind: VersionTemporalKind;
+  isCurrent: boolean;
+  isAmendment: boolean;
+  title: string;
+  shortTitle: string;
+  abbr: string;
+  type: string;
+  typeLabel: string;
+  origin: string;
+  status: string;
+  statusLabel: string;
+  citation: string;
+  publication: string;
+  publicationSlug?: string;
+  publicationUrl?: string;
+  publicationTitle?: string;
+  publicationIssue?: string;
+  publicationSource?: string;
+  publicationYear?: string;
+  ministry: string;
+  validFrom: string;
+  validTo: string | null;
+  lastChangeDate?: string;
+  matchKind: SearchMatchKind;
+  matchLabel: string;
+  /** Textausschnitt der Trefferstelle, höchstens 300 Zeichen, ohne die eigene Überschrift. */
+  snippet: string;
+  unitLabel?: string;
+  unitTitle?: string;
+  unitAnchor?: string;
+  unitType?: string;
+  /** Weitere passende Fassungen derselben Vorschrift. */
+  otherVersions: Array<{ versionId: string; versionKind: VersionTemporalKind; validFrom: string; url: string; matchLabel: string }>;
 }

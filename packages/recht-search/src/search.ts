@@ -13,6 +13,7 @@ import {
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   buildNormPublicationReferenceLookup,
+  getPublicationLabel,
   type NormPublicationReference,
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/publications.ts';
@@ -233,10 +234,11 @@ export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyConten
         }
       }
 
-      if (headingParts.length > 0) {
-        const heading = headingParts.join(' ');
-        if (nextUnit) nextUnit.textParts.push(heading);
-        else supplementalTextParts.push(heading);
+      // Label und Titel einer Treffereinheit stehen bereits in ihren eigenen Feldern; im Text
+      // stünden sie doppelt und begännen jeden Ausschnitt mit der Überschrift. Außerhalb einer
+      // Einheit bleibt die Überschrift als Ergänzungstext suchbar.
+      if (headingParts.length > 0 && !nextUnit) {
+        supplementalTextParts.push(headingParts.join(' '));
       }
 
       if (block.text) {
@@ -251,15 +253,21 @@ export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyConten
         visit(block.children, currentPath, nextUnit, quoted || block.type === 'quotedProvision');
       }
 
-      if (isHitUnit && nextUnit && nextUnit.textParts.length > 0) {
-        hitUnits.push({
-          type: nextUnit.type,
-          label: nextUnit.label,
-          title: nextUnit.title,
-          text: nextUnit.textParts.join('\n\n'),
-          anchor: nextUnit.anchor,
-          references: nextUnit.references,
-        });
+      if (isHitUnit && nextUnit) {
+        if (nextUnit.textParts.length > 0) {
+          hitUnits.push({
+            type: nextUnit.type,
+            label: nextUnit.label,
+            title: nextUnit.title,
+            text: nextUnit.textParts.join('\n\n'),
+            anchor: nextUnit.anchor,
+            references: nextUnit.references,
+          });
+        } else if (headingParts.length > 0) {
+          // Eine Gliederungsebene ohne eigenen Text ist keine Trefferstelle (sonst bliebe der
+          // Ausschnitt leer); ihre Überschrift bleibt als Ergänzungstext auffindbar.
+          supplementalTextParts.push(headingParts.join(' '));
+        }
       }
     }
   };
@@ -411,7 +419,8 @@ export function buildSearchSuggestions(records: NormRecord[], asOf = EDITORIAL_R
 
 export function buildSearchPublications(publications: Verkuendung[]): SearchPublication[] {
   return publications.map((publication) => {
-    const designation = `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
+    // Eine Bezeichnung für alle Ausgaben: nummerierte Hefte tragen die Nummer, Einzelverkündungen ihr Datum.
+    const designation = getPublicationLabel(publication);
     const aliases = [
       publication.originalIssueDesignation,
       publication.alternativeIssueDesignation,

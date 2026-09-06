@@ -1010,6 +1010,16 @@ Regeln:
   Einträge der Verkündungsblätter. `/fundstellen/` leitet mit denselben Filtern dorthin weiter.
 - Suchparameter mit mehreren Werten werden wiederholt, etwa `type=gesetz&type=verordnung`.
   Verschiedene Facetten sind UND-verknüpft, Werte derselben Facette ODER-verknüpft.
+- Die Trefferliste ist seitenweise: `offset` und `limit` (Standard 20, höchstens 100) blättern
+  echt, die genannte Trefferzahl ist die vollständige. Auswahl, Reihenfolge und Zählung entstehen
+  in einer Abfrage; jeder Bestandteil der Anfrage geht mit – `q`, `exact`, `exclude`, `citation`,
+  `scope` (`all`, `title`, `metadata`, `body`), `type`, `origin`, `ministry`, `subject`, `status`,
+  `publicationSource`, `publicationYear`, `publicationIssue`, `publicationPage`, `geltungstag`,
+  `validFrom`, `validTo`, `versionScope`, `includeAmendments` und `sort`.
+- Die Standardsuche zeigt die Grundmenge des Bestands: übernommene Änderungsvorschriften
+  erscheinen nur über den Normtyp `aenderungsvorschrift`, das Häkchen „Änderungsvorschriften
+  vollständig“ oder einen unmittelbaren Treffer (Bezeichnung, mehrwortige Titelwortfolge, zitierte
+  Ausgabe). Eigene ostdeutsche Änderungsvorschriften sind immer sichtbar.
 - `versionScope` unterstützt `current`, `future`, `historical`, `unknown-effective` und `all`.
 - `origin` unterstützt `ostdeutsch-original`, `inherited-unchanged`, `inherited-amended` und
   `origin-unresolved` und verwendet dieselbe zentrale Einordnung wie die Normseiten.

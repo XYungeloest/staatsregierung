@@ -2367,11 +2367,33 @@
   text-underline-offset: 0.16em;
 }
 
+/* Trefferdichte: eine ungeöffnete Trefferkarte bleibt auf kleinen Bildschirmen unter 220 px hoch
+   (zwei Zeilen Bezeichnung, eine Metazeile, drei Zeilen Ausschnitt, eine Zeile „Weitere Angaben“).
+   Die Regeln gelten nur in der Trefferspalte der Rechtssuche; die Portalsuche teilt die
+   Grundklassen aus foundation.css und bleibt unberührt. */
 .law-search-results-column .search-hit {
-  padding: var(--space-4);
+  padding: var(--space-3);
   border-inline-start: 1px solid var(--color-border);
   border-color: var(--color-border);
   box-shadow: none;
+}
+
+.law-search-results-column .search-hit__context {
+  margin-top: var(--space-xs);
+}
+
+.law-search-results-column .search-hit__details {
+  margin-top: var(--space-xs);
+  padding-top: var(--space-xs);
+}
+
+.law-search-results-column .search-hit__meta-line {
+  gap: var(--space-hairline) var(--space-2);
+  margin-top: var(--space-hairline);
+}
+
+.law-search-results-column .search-hit__title h3 {
+  margin-top: 0;
 }
 
 .search-hit__title {
@@ -3861,6 +3883,22 @@ a.search-hit__context-prefix {
 }
 
 @media (max-width: 48rem) {
+  /* Auf kleinen Bildschirmen zeigt der Ausschnitt drei Zeilen und der Langtitel eine; beides
+     vollständig steht eine Verknüpfung entfernt in der Vorschrift selbst. */
+  .law-search-results-column .search-hit__context {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  /* Der amtliche Langtitel wiederholt auf kleinen Bildschirmen die Kurzbezeichnung in längerer
+     Form; er steht vollständig auf der Vorschriftenseite und weicht hier dem Wortlaut. */
+  .law-search-results-column .search-hit__long-title {
+    display: none;
+  }
+
   .law-site .site-notice__inner p {
     font-size: var(--text-2xs);
   }

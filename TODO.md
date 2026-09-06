@@ -23,30 +23,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 ### Bestand und Struktur
 
 
-### Suche
-
-- [ ] Suchtreffer serverseitig blättern und zählen: `/api/suche.json` liefert je Anfrage bis zu
-  145 Dokumente mit vollständigen `hitUnits` (3,6 MB entpackt, 0,8 MB übertragen, 1,3 s bei
-  „Gemeinde“), die Seite fordert sie beim Aufruf zweimal an (mit und ohne
-  `includeAmendments`), der Client rechnet daraus „Mindestens 71 Treffer“, obwohl der Server
-  `total: 1040` kennt, und „Weitere Treffer anzeigen“ blättert nur innerhalb der 120
-  Kandidaten. Fertig, wenn der Server je Seite höchstens 20 Treffer mit fertig gekürzten
-  Textausschnitten (höchstens 300 Zeichen je Einheit) und die Gesamtzahl liefert, die
-  Trefferzeile die Gesamtzahl nennt, pro Suche genau eine Anfrage gestellt wird, `offset` das
-  Blättern trägt und der Zählkonsistenz-Smoke-Test die Serverzahl gegen die Verzeichnisse
-  prüft.
-- [ ] Überschrift nicht doppelt im Textausschnitt: `collectBodyContent` in
-  `packages/recht-search/src/search.ts` schreibt Label und Titel einer Einheit in `text`, die
-  Trefferliste zeigt beides zusätzlich als Vorspann-Link („§ 1 Verwaltungseinheit
-  Annaberg-Buchholz: § 1 Verwaltungseinheit Annaberg-Buchholz Die Gemeinde …“, 20 von 20
-  Treffern). Fertig, wenn der Ausschnitt mit dem ersten Satz nach der Überschrift beginnt,
-  Label und Titel nur im Vorspann-Link stehen und ein Suchtest das für Paragraph-, Artikel- und
-  Nummerneinheiten prüft.
-- [ ] Treffer verdichten: Ein Treffer ist bei 375 px rund 400 px hoch (Titel doppelt, Metazeile,
-  Ausschnitt mit doppelter Überschrift, „Weitere Angaben“). Fertig, wenn ein Treffer ohne
-  aufgeklappte Angaben bei 375 px höchstens 220 px hoch ist (Messung in `tests/visual.spec.ts`)
-  und die Metazeile bei „Übernommen und unverändert“ die Fundstelle statt der Herkunft führt.
-
 ### Normseite
 
 
