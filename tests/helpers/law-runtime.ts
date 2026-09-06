@@ -12,7 +12,8 @@ import { expect, type APIRequestContext } from '@playwright/test';
  * stehen im Manifest des synthetischen Fixtures (data/recht/runtime-fixture.json, erzeugt aus
  * tests/helpers/fixture-corpus.ts): `roles`, `versions`, `publications`, `search`.
  */
-export const LAW_ORIGIN = 'http://127.0.0.1:4322';
+/** Herkunft des lokalen OstRecht-Workers; OSTRECHT_LAW_PORT hält parallele Arbeitsbäume auseinander. */
+export const LAW_ORIGIN = `http://127.0.0.1:${process.env.OSTRECHT_LAW_PORT ?? '4322'}`;
 export const lawUrl = (path: string): string => new URL(path, LAW_ORIGIN).toString();
 
 export interface ApiDocument {
