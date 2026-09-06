@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion, LAW_ORIGIN, multiVersionNorm } from './helpers/law-runtime.ts';
 
@@ -998,5 +999,64 @@ portalTest('Messung: die Themenübersicht führt jedes Thema genau einmal als Ka
   expect(cards.every((id) => id.startsWith('thema-')), 'jede Karte trägt ein Sprungziel').toBe(true);
   for (const href of references) {
     expect(cards, `Verweis ${href} zeigt auf eine Karte`).toContain(href.slice(1));
+  }
+});
+
+portalTest('Messung: jede Schriftgröße und Schriftfamilie stammt aus der Skala', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Schriftinventur wird einmal bei 1440 Pixeln gemessen.');
+  await preparePage(page);
+  for (const path of PORTAL_MEASURED_PAGES) {
+    await page.goto(path);
+    await page.evaluate(async () => { await document.fonts.ready; });
+    const inventory = await page.evaluate(() => {
+      const sizes = new Map<number, string>();
+      const families = new Map<string, string>();
+      for (const element of document.querySelectorAll('body *')) {
+        // Beschriftungen in Diagrammen tragen ihre eigene Geometrie, keine Textrolle.
+        if (element.closest('svg')) continue;
+        let hasText = false;
+        for (const node of element.childNodes) if (node.nodeType === 3 && (node.textContent ?? '').trim()) hasText = true;
+        if (!hasText) continue;
+        const style = getComputedStyle(element);
+        if (style.display === 'none' || style.visibility === 'hidden') continue;
+        if (element.getBoundingClientRect().height === 0) continue;
+        const sample = (element.textContent ?? '').trim().slice(0, 30);
+        sizes.set(Math.round(parseFloat(style.fontSize) * 100) / 100, sample);
+        families.set(style.fontFamily.split(',')[0].replace(/["']/gu, ''), sample);
+      }
+      return {
+        sizes: [...sizes.entries()].map(([size, sample]) => ({ size, sample })).sort((left, right) => left.size - right.size),
+        families: [...families.entries()].map(([family, sample]) => ({ family, sample })),
+      };
+    });
+
+    // Nur die drei Hausschriften; eine Systemschrift bedeutet ein Bedienelement ohne `font: inherit`.
+    const foreign = inventory.families.filter((entry) => !['Jost', 'Ost Grotesk', 'Source Serif 4'].includes(entry.family));
+    expect(foreign, `${path}: fremde Schriftfamilie`).toEqual([]);
+
+    /*
+     * Die Skala aus foundation.css bei 1440 px: neun feste Stufen, dazu die skalierenden Rollen
+     * (Titel, Langtitel, Band, Kartentitel, Kennzahl). Die Prüfung ist eine Zugehörigkeitsprüfung,
+     * keine Zählung: die Zahl der Stufen einer Seite folgt aus ihrem Inhalt, ihre Herkunft nicht.
+     */
+    const scale = new Set([11.52, 13.12, 14.72, 16, 17, 18.4, 20.8, 24, 28, 22.4, 32, 42.4, 52]);
+    const offScale = inventory.sizes.filter((entry) => !scale.has(entry.size));
+    expect(offScale, `${path}: Schriftgröße außerhalb der Skala`).toEqual([]);
+    expect(inventory.sizes.length, `${path}: verschiedene Schriftgrößen`).toBeLessThanOrEqual(11);
+  }
+});
+
+portalTest('Messung: Stände tragen die Wörter der Wortliste', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Wortliste wird einmal geprüft.');
+  await preparePage(page);
+  const vocabulary = Object.values(siteConfig.vocabulary);
+  // Begriffe, die dieselbe Sache mit einem anderen Wort benennen. `Stichtag` steht in der
+  // Wortliste (Bezugstag einer Erhebung) und ist deshalb keine Dublette.
+  const forbidden = /\b(Fachstand|Redaktionsstand|Sachstand|Bearbeitungsstand|Aktualisierungsstand)\b/u;
+  for (const path of ['/', '/themen/', '/themen/bildungsreform/', '/staatsregierung/beteiligungen/', '/kreisreform/']) {
+    await page.goto(path);
+    const text = await page.locator('#main-content').innerText();
+    const hit = text.match(forbidden);
+    expect(hit?.[0], `${path}: Begriff außerhalb der Wortliste (${vocabulary.join(', ')})`).toBeUndefined();
   }
 });

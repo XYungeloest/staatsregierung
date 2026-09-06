@@ -579,6 +579,15 @@ ausdrücklicher Freigabe geladen. Die Behördennummer 115 ist ein Orientierungsb
 zentralen Konfiguration und verweist auf den Kontaktbereich; ein `tel:`-Link erscheint nur bei
 ausdrücklich konfiguriertem Telefonweg.
 
+### Wortliste für Stände
+
+`siteConfig.vocabulary` legt die Begriffe fest, und die Oberflächen lesen sie dort: **Stand** ist
+der redaktionelle Stand einer Portalseite, **Datenstand** der Stand eines Datenbestands,
+**Ausgangsstichtag** der Beginn einer Zeitreihe, **Stichtag** der Bezugstag einer Erhebung. Der
+**Rechtsstand** des Rechtsportals steht in `lawSiteConfig.vocabulary` und bezeichnet ein Datum der
+Rechtslage; er wird bewusst nicht mit „Stand“ gleichgesetzt. Wörter, die dieselbe Sache anders
+benennen — „Fachstand“, „Sachstand“, „Bearbeitungsstand“ —, prüft `tests/visual.spec.ts` weg.
+
 ### Portalsuche und Portalinventar
 
 Das Portalinventar (`apps/portal/src/lib/route-inventory.ts`) ist die einzige Liste der
