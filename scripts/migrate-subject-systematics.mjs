@@ -74,6 +74,14 @@ async function loadRawFsnIndex(rawCache) {
   return { byFile, byLawId, files: files.length };
 }
 
+async function readJsonIfExists(path) {
+  try {
+    return JSON.parse(await readFile(path, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
 async function loadNorms() {
   const slugs = (await readdir(NORMS_DIR, { withFileTypes: true }))
     .filter((entry) => entry.isDirectory())
@@ -209,6 +217,7 @@ async function main() {
   }
 
   // 3. Alle übrigen Normen in der verbindlichen Reihenfolge zuordnen.
+  const previousReview = new Map((await readJsonIfExists(REVIEW_PATH))?.norms?.map((entry) => [entry.slug, entry]) ?? []);
   const review = [];
   const derivedAffected = [];
   for (const norm of norms) {
@@ -226,6 +235,9 @@ async function main() {
       legacySubjects,
       relatedAssignment: related ? { numbers: related.numbers } : undefined,
       stemLookup,
+      // Eigene ostdeutsche Vorschriften tragen eine redaktionell gesetzte Zuordnung
+      // (Importkonfiguration); sie wird übersetzt, nicht ersetzt.
+      legacyFirst: revosaxReferences(norm.meta).length === 0,
     });
     assignments.set(norm.slug, { ...assignment, numbers: subjectNumbersOf(assignment.subjects) });
 
@@ -237,6 +249,14 @@ async function main() {
         assignedSubject: assignment.primarySubject,
         previousSubjects: norm.meta.subjects ?? [],
       });
+      continue;
+    }
+    // Ein wiederholter Lauf liest die bereits geschriebene Ersatzzuordnung als frühere
+    // Zuordnung. Damit die Prüfliste nicht verschwindet, bleibt ein Eintrag bestehen,
+    // solange die Norm keinen amtlichen Anhaltspunkt hat und die Ersatzzuordnung trägt.
+    const kept = previousReview.get(norm.slug);
+    if (kept && ['legacy', 'keyword'].includes(assignment.basis) && kept.assignedSubject === assignment.primarySubject) {
+      review.push(kept);
     }
   }
 
@@ -264,8 +284,10 @@ async function main() {
   }
   const fundingCounts = countBy([...assignments.values()].map((assignment) => assignment.fundingArea).filter(Boolean));
   console.log(`\nFörderbereiche: ${fundingCounts.map(([area, count]) => `${area}: ${count}`).join(', ') || 'keine'}`);
-  const withoutFunding = norms.filter((norm) => norm.meta.type === 'foerderrichtlinie' && !assignments.get(norm.slug)?.fundingArea).length;
-  console.log(`Förderrichtlinien ohne Förderbereich: ${withoutFunding}`);
+  const withoutFunding = norms
+    .filter((norm) => norm.meta.type === 'foerderrichtlinie' && !assignments.get(norm.slug)?.fundingArea)
+    .map((norm) => ({ slug: norm.slug, title: norm.meta.title }));
+  console.log(`Förderrichtlinien ohne Förderbereich: ${withoutFunding.length}`);
 
   if (!args.write) {
     console.log('\nPrüflauf ohne Schreibvorgang. Mit --write werden meta.json und die Prüfliste geschrieben.');
@@ -305,6 +327,11 @@ async function main() {
     generatedBy: 'scripts/migrate-subject-systematics.mjs',
     count: review.length,
     norms: review.sort((left, right) => left.slug.localeCompare(right.slug)),
+    fundingAreas: {
+      description: 'Förderrichtlinien ohne ableitbaren Förderbereich; sie tragen kein Feld fundingArea.',
+      count: withoutFunding.length,
+      norms: withoutFunding.sort((left, right) => left.slug.localeCompare(right.slug)),
+    },
   };
   await writeFile(REVIEW_PATH, `${JSON.stringify(reviewFile, null, 2)}\n`, 'utf8');
 

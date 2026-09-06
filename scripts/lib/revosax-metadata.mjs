@@ -1,6 +1,7 @@
 import {
   fundingAreaFromFsn,
   getSubjectByNumber,
+  getSubjectByTitle,
   legacySubjectMapping,
   subjectNumberFromFsn,
 } from '@ostrecht/shared/config/law-subjects.ts';
@@ -191,6 +192,10 @@ const AGREEMENT_TYPES = ['staatsvertrag', 'zustimmungsgesetz', 'verwaltungsabkom
  *
  * Zweitsachgebiete stammen nur aus amtlichen Signalen (Förderbereich, verbundene Norm oder
  * Stammnorm, frühere Mehrfachzuordnung); Schlüsselwörter liefern nie ein Zweitsachgebiet.
+ *
+ * `legacyFirst` gilt für eigene ostdeutsche Vorschriften: sie tragen keine amtliche
+ * Fundstellennummer, ihre Zuordnung ist redaktionell gesetzt (Importkonfiguration) und wird
+ * deshalb nur in die neue Systematik übersetzt, nicht durch Beziehungen oder Titelworte ersetzt.
  */
 export function inferSubjectAssignment({
   fsnNumber,
@@ -202,6 +207,7 @@ export function inferSubjectAssignment({
   legacySubjects = [],
   relatedAssignment,
   stemLookup,
+  legacyFirst = false,
 }) {
   const haystack = `${sourceTitle ?? ''} ${label ?? ''}`;
   const isFunding = normType === 'foerderrichtlinie' || FUNDING_CATEGORIES.includes(category);
@@ -214,13 +220,18 @@ export function inferSubjectAssignment({
 
   const fromFsn = subjectNumberFromFsn(fsnNumber);
   const fromStem = stemLookup ? stemLookup.get(stemTitleKeyOf(sourceTitle) ?? ' ') : undefined;
-  const legacyNumbers = legacySubjects
-    .map((subject) => legacySubjectMapping[subject])
-    .filter(Boolean);
+  // Frühere Zuordnungen: bereits amtliche Bezeichnungen zählen unmittelbar, ältere
+  // redaktionelle Bezeichnungen über die Zuordnungstabelle. Das hält den Lauf wiederholbar.
+  const legacyNumbers = [...new Set(legacySubjects
+    .map((subject) => getSubjectByTitle(subject)?.number ?? legacySubjectMapping[subject])
+    .filter(Boolean))];
 
   if (fromFsn) {
     numbers = [fromFsn];
     basis = fsnSource === 'sibling' ? 'fsn-sibling' : 'fsn';
+  } else if (legacyFirst && legacyNumbers.length > 0) {
+    numbers = legacyNumbers;
+    basis = 'legacy';
   } else if (relatedAssignment?.numbers?.length) {
     numbers = [...relatedAssignment.numbers];
     basis = 'related-norm';
