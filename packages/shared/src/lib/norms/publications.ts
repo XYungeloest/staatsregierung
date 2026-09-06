@@ -413,8 +413,37 @@ export function getLatestPublication(
   return [...publications].sort(comparePublicationsNewestFirst)[0];
 }
 
+/**
+ * Trägt die Ausgabe eine Nummer (Ziffern, römische Zahlen, Spannen wie „1–7“)? Nur dann ist
+ * das Kurzzitat „Blatt Jahr Nr. N“ richtig; sonst wird die Ausgabe über ihr Datum bezeichnet.
+ */
+export function hasNumberedIssue(publication: Pick<Verkuendung, 'issue'>): boolean {
+  return /^[\dIVXLC]+(?:[\s./–-][\dIVXLC]+)*$/u.test(publication.issue.trim());
+}
+
+/**
+ * Ausgabedatum im Kurzzitat („1. März 2024“). Eigene kleine Formatierung: dieses Modell-Modul
+ * gehört zur D1-Projektion und darf die Darstellungsschicht (display.ts) nicht importieren –
+ * sie importiert dieses Modul bereits.
+ */
+function formatIssueDate(value: string): string {
+  const [year, month, day] = value.split('-').map((part) => Number.parseInt(part, 10));
+  return new Intl.DateTimeFormat('de-DE', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(Date.UTC(year, month - 1, day)));
+}
+
+/**
+ * Kurzzitat einer Ausgabe: nummerierte Ausgaben nennen Blatt, Jahrgang und Nummer,
+ * Einzelverkündungen ohne Nummer nennen Blatt und Ausgabedatum.
+ */
 export function getPublicationLabel(publication: Verkuendung): string {
-  return `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
+  return hasNumberedIssue(publication)
+    ? `${publication.publication} ${publication.year} Nr. ${publication.issue}`
+    : `${publication.publication} vom ${formatIssueDate(publication.date)}`;
 }
 
 function normalizePublicationDesignation(value: string): string {

@@ -199,13 +199,16 @@ Informationen bleiben außerhalb zugänglich.
 
 ### Verzeichnisse
 
-Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien, Verkündungen, Fundstellen,
-Rechtsentwicklung, Sachgebiete und A–Z verwenden dieselben Bausteine aus
-`apps/recht/src/components/directory/`:
+Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien, Verkündungen, Sachgebiete und
+A–Z verwenden dieselben Bausteine aus `apps/recht/src/components/directory/`:
 
-- `DirectoryEntry.astro`: links Datum oder Buchstabe, Mitte Titel mit Kurzbeschreibung, rechts
-  Fakten als Definitionsliste, darunter die Badgezeile (Normtyp, Rechtsherkunft). Verkündungen zeigen
-  die Herkunft der verkündeten Vorschriften.
+- `DirectoryEntry.astro`: links das beschriftete Datum („Rechtsstand“ bei Vorschriften, „Ausgabe
+  vom“ bei Ausgaben, „Verkündet am“ bei Einträgen), Mitte die Überschrift aus `getNormTitleBlock`
+  (Kurztitel mit der echten Abkürzung, darunter der Langtitel in gedämpfter Schrift) mit
+  Kurzbeschreibung, rechts Fakten als Definitionsliste, darunter die Badgezeile (Normtyp,
+  Rechtsherkunft). Die Beschreibung ist die redaktionelle Zusammenfassung; fehlt sie, steht dort
+  die Kurzform des Vollzitats („Vom 4. Dezember 1997 (OGVBl. S. 684)“). Der Fakt „Geltung“ trägt
+  das Wort der Wortliste. Verkündungen zeigen die Herkunft der verkündeten Vorschriften.
 - `DirectoryFilterBar.astro`: Auto-Fit-Raster, Aktionen an derselben Stelle, „Zurücksetzen“ immer
   vorhanden und ohne aktiven Filter ausgegraut (`aria-disabled`), die Ergebniszahl unter der Leiste;
   der Bereichskopf nennt keine Bestandszahl mehr.
@@ -222,8 +225,25 @@ Sachgebietsseite; der gespeicherte Wert bleibt die amtliche Bezeichnung.
   unabhängigen Parametern `seite` und `stichwortseite`.
 
 Filter und Seiten laufen über GET-Parameter mit kanonischer Adresse; Seiten mit aktiven Filtern
-tragen `noindex`. Verkündungen und Fundstellen filtern ihre Metadatentabelle im Speicher, folgen aber
-demselben Adress- und Seitenmuster.
+tragen `noindex`. Verkündungen filtern ihre Metadatentabelle im Speicher, folgen aber demselben
+Adress- und Seitenmuster.
+
+Verkündungen führen Ausgaben und Einträge in einer Seite. Ein Ansichtswechsel
+(`<nav class="law-view-switch" aria-label="Ansicht">`, zwei gleichwertige Links mit
+`aria-current="page"`) schaltet zwischen „Ausgaben“ und „Einträge“ (`ansicht=eintraege`); Filter,
+Jahrgangsleiste und Ergebniszahl gelten für beide Ansichten, beide beginnen mit der jüngsten
+Ausgabe. `/fundstellen/` ist eine dauerhafte Weiterleitung auf die Ansicht „Einträge“.
+
+Förderrichtlinien haben keine Buchstabenleiste, sondern die zehn amtlichen Förderbereiche: der
+Seitenkopf nennt Bestand und geltende Richtlinien, darunter stehen die belegten Förderbereiche als
+Sprungziele mit Zahl, danach je Förderbereich ein Abschnitt `<section class="directory"
+id="bereich-55x">` mit den gemeinsamen Einträgen. Der Filter kennt zusätzlich den Förderbereich;
+ohne Auswahl zeigt jeder Abschnitt höchstens eine Seite und verweist auf den vollständigen Bereich.
+
+Die Rechtsentwicklung ist keine eigene Übersicht mehr: Herkunft, Normtyp, Sachgebiet und Geltung
+sind Filter der Rechtssuche. Die Herkunftszahlen des Bestands stehen als Kachelreihe
+(`.law-origin-overview`) über der Trefferliste; `/rechtsentwicklung/` leitet mit denselben
+Parameternamen dorthin weiter.
 
 ### Normkopf und Fassungsnavigation
 

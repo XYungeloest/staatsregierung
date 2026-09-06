@@ -545,7 +545,7 @@ siteTest(['law'])('Normverzeichnis filtert und paginiert serverseitig; die Buchs
 
 siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und dieselbe Filterleiste', async ({ page }) => {
   const subjectPath = await firstLink(page, lawUrl('/sachgebiete/'), /href="\/sachgebiete\/[a-z0-9-]+\/"/u);
-  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/fundstellen/', '/rechtsentwicklung/', '/archiv/', subjectPath]) {
+  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/verkuendungen/?ansicht=eintraege', '/archiv/', subjectPath]) {
     await page.goto(lawUrl(path));
     await expect(page.locator('[data-directory-filter]').first(), path).toBeVisible();
     await expect(page.locator('[data-directory-count]').first(), path).toBeVisible();
@@ -702,7 +702,7 @@ siteTest(['law'])('Rechtsportal verwendet auf Übersichten und Suchindex dieselb
   const index = await publicationIndex(request);
   const latestPublication = index.latestPublication;
   expect(latestPublication).toBeTruthy();
-  const latestPublicationLabel = `${latestPublication!.publication} ${latestPublication!.year} Nr. ${latestPublication!.issue}`;
+  const latestPublicationLabel = latestPublication!.label;
 
   await page.goto(lawUrl('/'));
   const latestHomePublication = page.getByRole('heading', { name: 'Neu verkündet' })
@@ -1249,35 +1249,66 @@ siteTest(['law'])('A–Z hält Norm- und Stichwortseite unabhängig (mehrseitige
   await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
 });
 
-siteTest(['law'])('Rechtsentwicklung filtert und paginiert serverseitig über GET-Parameter', async ({ page }) => {
-  await page.goto(lawUrl('/rechtsentwicklung/'));
-  await expect(page.locator('[data-development-count]')).toContainText('im Bestand');
-  const total = await page.locator('[data-development-item]').count();
-  expect(total).toBeGreaterThan(0);
-  expect(total).toBeLessThanOrEqual(50);
-  // Auswahländerung sendet das GET-Formular; die URL trägt die Auswahl.
-  await page.locator('select[name="origin"]').selectOption('inherited-amended');
-  await expect(page).toHaveURL(/origin=inherited-amended/u);
-  await expect(page.locator('select[name="origin"]')).toHaveValue('inherited-amended');
-  const origins = await page.locator('[data-development-item]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.origin));
-  expect(origins.length).toBeGreaterThan(0);
-  expect(origins.every((origin) => origin === 'inherited-amended')).toBe(true);
+siteTest(['law'])('Rechtsentwicklung und Fundstellen bleiben als Adressen gültig und führen an ihren neuen Ort', async ({ request }) => {
+  const redirects = [
+    ['/rechtsentwicklung/', '/suche/'],
+    ['/rechtsentwicklung/?origin=inherited-amended', '/suche/?origin=inherited-amended'],
+    ['/fundstellen/', '/verkuendungen/?ansicht=eintraege'],
+    ['/fundstellen/?year=2026', '/verkuendungen/?ansicht=eintraege&year=2026'],
+  ];
+  for (const [source, target] of redirects) {
+    const response = await request.get(lawUrl(source), { maxRedirects: 0 });
+    expect(response.status(), source).toBe(301);
+    expect(response.headers().location, source).toBe(target);
+  }
+});
+
+siteTest(['law'])('Verkündungen führen Ausgaben und Einträge in einer Seite mit Ansichtswechsel', async ({ page }) => {
+  await page.goto(lawUrl('/verkuendungen/'));
+  const viewSwitch = page.getByRole('navigation', { name: 'Ansicht' });
+  await expect(viewSwitch.locator('a[aria-current="page"]')).toHaveText('Ausgaben');
+  await expect(page.locator('[data-directory-count]')).toContainText(/Ausgabe/u);
+  const issueDates = await page.locator('[data-directory-entry] .directory-entry__lead time').evaluateAll(
+    (nodes) => nodes.map((node) => node.getAttribute('datetime') ?? ''));
+  expect(issueDates.length).toBeGreaterThan(0);
+  expect([...issueDates].sort().reverse(), 'Ausgaben stehen mit der jüngsten zuerst').toEqual(issueDates);
+
+  await viewSwitch.locator('a[data-view="eintraege"]').click();
+  await expect(page).toHaveURL(/ansicht=eintraege/u);
+  await expect(viewSwitch.locator('a[aria-current="page"]')).toHaveText('Einträge');
+  await expect(page.locator('[data-directory-count]')).toContainText(/Eintrag|Einträge/u);
+  const entryDates = await page.locator('[data-directory-entry] .directory-entry__lead time').evaluateAll(
+    (nodes) => nodes.map((node) => node.getAttribute('datetime') ?? ''));
+  expect(entryDates.length).toBeGreaterThan(0);
+  expect(entryDates.length).toBeLessThanOrEqual(50);
+  expect([...entryDates].sort().reverse(), 'Einträge stehen mit der jüngsten Ausgabe zuerst').toEqual(entryDates);
+
+  // Der Filter bleibt in der Ansicht: die Auswahl führt nicht zurück auf die Ausgabenliste.
+  await page.locator('[data-directory-filter] select[name="publication"]').selectOption({ index: 1 });
+  await expect(page).toHaveURL(/ansicht=eintraege/u);
+  await expect(viewSwitch.locator('a[aria-current="page"]')).toHaveText('Einträge');
+  await expect(page.locator('[data-directory-reset]')).not.toHaveAttribute('aria-disabled', 'true');
+});
+
+siteTest(['law'])('Förderrichtlinien sind nach Förderbereichen gegliedert und über Sprungziele erreichbar', async ({ page }) => {
+  await page.goto(lawUrl('/foerderrichtlinien/'));
+  const sections = page.locator('[data-funding-section]');
+  const sectionCount = await sections.count();
+  expect(sectionCount).toBeGreaterThan(0);
+  await expect(page.locator('.letter-nav')).toHaveCount(0);
+
+  const areas = await page.locator('[data-funding-link]').evaluateAll(
+    (nodes) => nodes.map((node) => (node as HTMLElement).dataset.fundingLink ?? ''));
+  expect(areas.length).toBe(sectionCount);
+  for (const area of areas) {
+    await expect(page.locator(`[data-funding-section="${area}"]`), area).toHaveCount(1);
+  }
+
+  // Ein Förderbereich lässt sich als Auswahl eingrenzen; die Adresse trägt sie.
+  await page.locator('[data-directory-filter] select[name="bereich"]').selectOption(areas[0]);
+  await expect(page).toHaveURL(new RegExp(`bereich=${areas[0]}`, 'u'));
+  await expect(page.locator('[data-funding-section]')).toHaveCount(1);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
-
-  // Freitext per Formular (innerhalb des Herkunftsfilters), Zurück-Navigation stellt den vorherigen Zustand wieder her.
-  const word = searchWordOf((await page.locator('[data-development-item] .directory-entry__title a').first().textContent()) ?? '');
-  await page.locator('[data-development-filter-form] input[name="q"]').fill(word);
-  await page.locator('[data-development-filter-form] button[type="submit"]').click();
-  await expect(page).toHaveURL(new RegExp(`q=${encodeURIComponent(word)}`, 'u'));
-  await expect(page.locator('[data-development-item]').first()).toContainText(new RegExp(word, 'iu'));
-  await page.goBack();
-  await expect(page).toHaveURL(/origin=inherited-amended/u);
-  await expect(page).not.toHaveURL(/q=/u);
-
-  // Leere Treffermenge zeigt einen Hinweis statt einer Liste.
-  await page.goto(lawUrl('/rechtsentwicklung/?q=xyzzy-nicht-vorhanden'));
-  await expect(page.locator('[data-development-count]')).toContainText('keine Vorschriften');
-  await expect(page.locator('[data-development-empty]')).toBeVisible();
 });
 
 siteTest(['law'])('unbekannte OstRecht-Pfade liefern die eigene deutsche Fehlerseite mit Status 404', async ({ page, request }) => {

@@ -43,7 +43,9 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
    künstliche zusätzliche Fassung. Originalquellen bleiben unverändert.
 6. Original-PDFs werden unabhängig vom Alter der Ausgabe über
    `npm run norms:publications:pdf-sync -- --write` den Verkündungen zugeordnet und als
-   deploybare Rechtsassets bereitgestellt. HTML bleibt die strukturtragende Transkription,
+   deploybare Rechtsassets bereitgestellt; der öffentliche Dateiname ist der Slug der Ausgabe
+   (`public/assets/recht/<slug>.pdf`), der interne Quellenname unter `Gesetze/` bleibt unverändert.
+   HTML bleibt die strukturtragende Transkription,
    PDF die amtliche visuelle Kontrollquelle; abweichende historische Dateinamen brauchen eine
    eindeutige, geprüfte Zuordnung. Der Lauf übernimmt das Prüfdatum (`verifiedAt`) der Ausgabe
    auf die zugeordneten Normen und setzt ein bereits dokumentiertes späteres Prüfdatum derselben

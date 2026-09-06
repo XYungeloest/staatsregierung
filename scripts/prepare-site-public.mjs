@@ -41,10 +41,10 @@ if (target === 'portal') {
     `/recht/archiv/ ${lawSiteUrl}/archiv/ 301`,
     `/recht/sachgebiete/ ${lawSiteUrl}/sachgebiete/ 301`,
     `/recht/foerderrichtlinien/ ${lawSiteUrl}/foerderrichtlinien/ 301`,
-    `/recht/fundstellen/ ${lawSiteUrl}/fundstellen/ 301`,
+    `/recht/fundstellen/ ${lawSiteUrl}/verkuendungen/?ansicht=eintraege 301`,
     `/recht/verkuendungen/ ${lawSiteUrl}/verkuendungen/ 301`,
     `/recht/verfassung/ ${lawSiteUrl}/norm/staatsverfassung-des-freistaates-ostdeutschland/ 301`,
-    `/recht/rechtsentwicklung/ ${lawSiteUrl}/rechtsentwicklung/ 301`,
+    `/recht/rechtsentwicklung/ ${lawSiteUrl}/suche/ 301`,
     `/recht/hilfe/ ${lawSiteUrl}/hilfe/ 301`,
     `/recht/verkuendungen/index.json ${lawSiteUrl}/verkuendungen/index.json 301`,
     `/recht/norm/sachsische-landkreisordnung/ ${lawSiteUrl}/norm/saechsische-landkreisordnung/ 301`,
@@ -56,6 +56,8 @@ if (target === 'portal') {
 } else {
   await Promise.all([
     copy('_headers'),
+    // Weiterleitungen der OstRecht-Origin (Altadressen der Ausgaben-PDFs mit Leerzeichen).
+    copy('_redirects'),
     copy('favicon.ico'),
     copy('favicon.svg'),
     copy('assets/recht'),

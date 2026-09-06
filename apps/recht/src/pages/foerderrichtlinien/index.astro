@@ -1,10 +1,211 @@
 ---
-import NormDirectory from '../../components/norms/NormDirectory.astro';
-import { getFundingUrl } from '@ostrecht/shared/lib/norms/index.ts';
+import LawLayout from '../../layouts/LawLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import DirectoryEntry from '../../components/directory/DirectoryEntry.astro';
+import DirectoryFilterBar from '../../components/directory/DirectoryFilterBar.astro';
+import DirectoryPagination from '../../components/directory/DirectoryPagination.astro';
+import {
+  formatDate,
+  formatNormOriginKind,
+  getFundingUrl,
+  getLawPortalUrl,
+  getNormTitleBlock,
+  getNormUrl,
+  NORM_ORIGIN_KINDS,
+  toDisplayText,
+  type NormOriginKind,
+} from '@ostrecht/shared/lib/norms/index.ts';
+import { lawFundingAreas } from '@ostrecht/shared/config/law-subjects.ts';
+import { directoryDescription, type DirectoryNormSummary } from '../../lib/norm-summary.ts';
+import { LEGAL_STATUS_FIELD_LABEL, VALIDITY_FIELD_LABEL, validityLabel, validityOptions } from '../../lib/vocabulary.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
+import { DEFAULT_PAGE_SIZE, normalizePage, normalizeQueryText } from '../../lib/runtime/store.ts';
+import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
 
-// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion – seitenweise, nie vollständig.
+/**
+ * Förderrichtlinien sind nach den zehn amtlichen Förderbereichen 550–559 gegliedert; eine
+ * Buchstabenleiste gibt es hier nicht. Der Bestand dieses Normtyps ist schmal genug, um ihn
+ * in einer Abfrage zu gruppieren; ausgeliefert wird je Förderbereich höchstens eine Seite.
+ */
 export const prerender = false;
 
+const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+const basePath = getFundingUrl();
+const all = (await store.listNormSummariesByType('foerderrichtlinie')) as DirectoryNormSummary[];
+
+const WITHOUT_AREA = 'weitere';
+const areas = [
+  ...lawFundingAreas.map((area) => ({ id: `bereich-${area.number}`, number: area.number, title: area.title })),
+  { id: `bereich-${WITHOUT_AREA}`, number: WITHOUT_AREA, title: 'Weitere Förderrichtlinien' },
+];
+const areaOf = (norm: DirectoryNormSummary): string => {
+  const number = (norm.fundingArea ?? '').trim();
+  return lawFundingAreas.some((area) => area.number === number) ? number : WITHOUT_AREA;
+};
+
+const params = Astro.url.searchParams;
+const clean = (value: string | null, allowed?: readonly string[], maxLength = 200): string => {
+  const text = (value ?? '').trim().slice(0, maxLength);
+  if (!text) return '';
+  return allowed && !allowed.includes(text) ? '' : text;
+};
+const statusOptions = validityOptions([...new Set(all.map((norm) => norm.status))]);
+const originOptions = NORM_ORIGIN_KINDS.map((kind) => ({ value: kind, label: formatNormOriginKind(kind) }));
+const state = {
+  q: clean(params.get('q')),
+  status: clean(params.get('status'), statusOptions.map((option) => option.value), 40),
+  origin: clean(params.get('origin'), NORM_ORIGIN_KINDS, 40),
+  bereich: clean(params.get('bereich'), areas.map((area) => area.number), 20),
+};
+const selectedStatuses = statusOptions.find((option) => option.value === state.status)?.statuses;
+const query = normalizeQueryText(state.q);
+const matches = (norm: DirectoryNormSummary): boolean =>
+  (!selectedStatuses || selectedStatuses.includes(norm.status))
+  && (!state.origin || norm.originKind === state.origin)
+  && (!query || [norm.title, norm.shortTitle, norm.abbr ?? '', ...norm.keywords].join(' ').toLocaleLowerCase('de-DE').includes(query));
+
+const filtered = all.filter(matches);
+const inForce = all.filter((norm) => norm.status === 'in-force').length;
+const countsByArea = new Map(areas.map((area) => [area.number, filtered.filter((norm) => areaOf(norm) === area.number).length]));
+const visibleAreas = areas.filter((area) => (countsByArea.get(area.number) ?? 0) > 0 && (!state.bereich || state.bereich === area.number));
+
+const active = Boolean(state.q || state.status || state.origin || state.bereich);
+const filterParams = { q: state.q, status: state.status, origin: state.origin, bereich: state.bereich };
+
+// Nur ein einzelner Förderbereich wird geblättert; ohne Auswahl zeigt jeder Abschnitt eine Seite.
+const single = state.bereich ? filtered.filter((norm) => areaOf(norm) === state.bereich) : [];
+const { page } = normalizePage(params.get('seite'));
+const pageCount = state.bereich ? Math.max(1, Math.ceil(single.length / DEFAULT_PAGE_SIZE)) : 1;
+const current = Math.min(page, pageCount);
+const pagination = buildPagination({ page: current, pageCount, basePath, params: filterParams });
+
+const entriesOf = (number: string): DirectoryNormSummary[] => {
+  const rows = filtered.filter((norm) => areaOf(norm) === number);
+  if (state.bereich === number) {
+    const from = (current - 1) * DEFAULT_PAGE_SIZE;
+    return rows.slice(from, from + DEFAULT_PAGE_SIZE);
+  }
+  return rows.slice(0, DEFAULT_PAGE_SIZE);
+};
+
+const total = state.bereich ? single.length : filtered.length;
+const firstIndex = state.bereich ? (total === 0 ? 0 : (current - 1) * DEFAULT_PAGE_SIZE + 1) : 1;
+const lastIndex = state.bereich ? Math.min(current * DEFAULT_PAGE_SIZE, total) : total;
+const count = total === 0
+  ? 'Keine Förderrichtlinien passen zur Auswahl.'
+  : `${total} ${total === 1 ? 'Förderrichtlinie' : 'Förderrichtlinien'}${active ? ' passen zur Auswahl' : ''}${lastIndex < total ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
+const pageTitle = `Förderrichtlinien${current > 1 ? ` (Seite ${current} von ${pageCount})` : ''}`;
 ---
-<NormDirectory title="Förderrichtlinien" lead="Förderrichtlinien des Ostdeutschen Freistaates nach Sachgebiet, Ressort und Rechtsstand erschließen." href={getFundingUrl()} type="foerderrichtlinie" />
+
+<LawLayout
+  title={pageTitle}
+  description="Förderrichtlinien des Ostdeutschen Freistaates nach den amtlichen Förderbereichen."
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Förderrichtlinien', href: basePath },
+  ]}
+  canonical={pageUrl(basePath, { ...filterParams, seite: current })}
+  noindex={active}
+  prev={pagination.prev}
+  next={pagination.next}
+>
+  <Breadcrumbs items={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Förderrichtlinien' },
+  ]} />
+
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Förderrichtlinien"
+    lead={`${all.length} ${all.length === 1 ? 'Förderrichtlinie' : 'Förderrichtlinien'}, davon ${inForce} geltend. Die Gliederung folgt den amtlichen Förderbereichen; jeder Abschnitt führt zu den Richtlinien dieses Bereichs.`}
+    variant="law"
+    facts={[
+      { label: 'Förderrichtlinien', value: String(all.length) },
+      { label: 'davon geltend', value: String(inForce) },
+      { label: 'Förderbereiche', value: String(lawFundingAreas.length) },
+    ]}
+  />
+
+  <nav class="law-funding-areas" aria-label="Förderbereiche">
+    {areas.map((area) => {
+      const areaCount = countsByArea.get(area.number) ?? 0;
+      return areaCount > 0 ? (
+        <a href={`#${area.id}`} data-funding-link={area.number}>
+          <strong>{area.number === WITHOUT_AREA ? area.title : `${area.number} ${area.title}`}</strong>
+          <span>{areaCount} {areaCount === 1 ? 'Förderrichtlinie' : 'Förderrichtlinien'}</span>
+        </a>
+      ) : null;
+    })}
+  </nav>
+
+  <DirectoryFilterBar action={basePath} label="Förderrichtlinien filtern" active={active} resetHref={basePath} count={count}>
+    <label class="search-field">
+      <span>Titel, Abkürzung oder Stichwort</span>
+      <input type="search" name="q" value={state.q} autocomplete="off" maxlength="200" placeholder="z. B. Schulhausbau" />
+    </label>
+    <label class="search-field">
+      <span>Förderbereich</span>
+      <select name="bereich">
+        <option value="" selected={!state.bereich}>Alle Förderbereiche</option>
+        {areas.map((area) => <option value={area.number} selected={area.number === state.bereich}>{area.number === WITHOUT_AREA ? area.title : `${area.number} ${area.title}`}</option>)}
+      </select>
+    </label>
+    <label class="search-field">
+      <span>{VALIDITY_FIELD_LABEL}</span>
+      <select name="status">
+        <option value="" selected={!state.status}>Jede Geltung</option>
+        {statusOptions.map((option) => <option value={option.value} selected={option.value === state.status}>{option.label}</option>)}
+      </select>
+    </label>
+    <label class="search-field">
+      <span>Rechtsherkunft</span>
+      <select name="origin">
+        <option value="" selected={!state.origin}>Alle Herkunftsarten</option>
+        {originOptions.map((option) => <option value={option.value} selected={option.value === state.origin}>{option.label}</option>)}
+      </select>
+    </label>
+  </DirectoryFilterBar>
+
+  {visibleAreas.length > 0 ? visibleAreas.map((area) => {
+    const rows = entriesOf(area.number);
+    const areaCount = countsByArea.get(area.number) ?? 0;
+    return (
+      <section class="section directory" id={area.id} aria-labelledby={`${area.id}-heading`} data-directory data-funding-section={area.number}>
+        <h2 id={`${area.id}-heading`} class="directory__heading">{area.number === WITHOUT_AREA ? area.title : `${area.number} ${area.title}`}</h2>
+        <ol class="directory-list" data-directory-list>
+          {rows.map((norm) => {
+            const block = getNormTitleBlock(norm);
+            return (
+              <DirectoryEntry
+                title={block.heading}
+                href={getNormUrl(norm.slug)}
+                abbr={block.abbr}
+                longTitle={block.longTitle}
+                lead={{ label: LEGAL_STATUS_FIELD_LABEL, text: formatDate(norm.currentValidFrom), datetime: norm.currentValidFrom }}
+                description={directoryDescription(norm)}
+                originKind={norm.originKind ?? null}
+                facts={[
+                  { label: VALIDITY_FIELD_LABEL, value: validityLabel(norm.status) },
+                  ...(norm.responsibleMinistry ? [{ label: 'Ressort', value: toDisplayText(norm.responsibleMinistry) }] : []),
+                ]}
+                attrs={{ 'data-directory-entry': '', 'data-origin': norm.originKind ?? 'origin-unresolved', 'data-status': norm.status, 'data-funding-area': area.number }}
+              />
+            );
+          })}
+        </ol>
+        {!state.bereich && areaCount > rows.length ? (
+          <p class="section-link-row">
+            <a class="inline-link" href={pageUrl(basePath, { ...filterParams, bereich: area.number })}>Alle {areaCount} Förderrichtlinien dieses Förderbereichs</a>
+          </p>
+        ) : null}
+      </section>
+    );
+  }) : (
+    <p class="directory-empty" data-directory-empty>Passen Sie die Filter an oder <a class="inline-link" href={basePath}>setzen Sie die Auswahl zurück</a>.</p>
+  )}
+
+  {state.bereich ? <DirectoryPagination pagination={pagination} label="Seiten des Förderbereichs" attrs={{ 'data-directory-pagination': '' }} /> : null}
+</LawLayout>

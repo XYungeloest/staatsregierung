@@ -43,28 +43,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   (Kurztitel, sonst Titel ohne Gattungspräfix „Gesetz über/zur“, „Verordnung des … über“,
   „Verwaltungsvorschrift des … zur“), die Ableitung getestet ist und ein Korpus-Test prüft,
   dass kein Buchstabe mehr als ein Viertel eines Verzeichnisses trägt.
-- [ ] Verkündungen und Fundstellennachweise zusammenführen: Beide Seitenfamilien tragen
-  dieselben Filter (Verkündungsblatt, Jahr, Ausgabennummer, Normtyp, Suchbegriff), denselben
-  Kopf und dieselbe Jahresleiste; die Fundstellen sortieren nicht chronologisch (1. März 2024,
-  dann 29. Juli 2026, 9. Januar 2026 …) und benennen Einzelverkündungen falsch („Amtliche
-  Einzelverkündung 2024 Nr. 1. März 2024“). Fertig, wenn `/fundstellen/` als Ansicht „Einträge“
-  innerhalb von `/verkuendungen/` geführt wird (Umschalter Ausgaben/Einträge, alte Adresse
-  leitet weiter), beide Ansichten nach Ausgabedatum absteigend sortieren und Einzelverkündungen
-  als „Amtliche Einzelverkündung vom …“ erscheinen.
-- [ ] Rechtsentwicklung als Suchansicht statt viertem Verzeichnis: `/rechtsentwicklung/` hat ein
-  eigenes Filterformular (Freitext, Rechtsentwicklung, Normtyp, Sachgebiet, Status) mit eigener
-  Statusliste („Alle Status / außer Kraft / einmaliger Rechtsakt / historische Fassung / in
-  Kraft“), die von der Rechtsstand-Auswahl der Verzeichnisse („Geltend / Zukünftig / Historisch
-  oder aufgehoben“) und der Status-Facette der Suche abweicht. Fertig, wenn die Herkunftszahlen
-  als Kacheln auf der Suche oder Startseite stehen, die Liste auf `/suche/` mit vorbelegter
-  Facette „Rechtsherkunft“ verweist (alte Adresse leitet weiter) und es nur noch eine
-  Status-Wortliste gibt (siehe Benennungen).
-- [ ] Förderrichtlinien nach Förderbereichen gliedern: `/foerderrichtlinien/` ist ein flaches
-  Verzeichnis mit 215 Einträgen und Buchstabenleiste (V: 7, G: 1); REVOSax gliedert
-  Förderrichtlinien in Haupt- und Unterkategorien. Fertig, wenn Förderrichtlinien nach
-  Förderbereich gruppiert sind (aus Ressort und Sachgebiet abgeleitet, redaktionell
-  überschreibbar), die Seite die Bereiche mit Zahl voranstellt und die Buchstabenleiste dort
-  entfällt.
 - [ ] Stichwortregister in Bürgersprache: REVOSax führt einen alphabetischen Index mit
   bürgernahen Stichwörtern, die auf Vorschriften verweisen; das A–Z unter `/archiv/` mischt
   Titel, Abkürzungen und aus Titelwörtern abgeleitete Schlagwörter (`inferKeywords` in
@@ -175,20 +153,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ### Verkündungen und Startseite
 
-- [ ] Verkündungsseite: Auf `/verkuendungen/<slug>/` sind die Eintragstitel nicht verlinkt, der
-  einzige Link heißt „Fassung 2026-09-03“; die Liste „Ausgabe und Quellen“ enthält zwei nicht
-  verlinkte `<strong>`-Zeilen aus `sourceReferences[].label` („Vollständige strukturtragende
-  HTML-Fassung der amtlichen Ausgabe“, „Amtliche visuelle Veröffentlichungsfassung“), die Seite
-  hat zwei `<main>`-Elemente, „Herausgegeben von Freistaat Ostdeutschland“ ist falsch gebeugt
-  und die PDF-Adresse enthält Leerzeichen (`/assets/recht/OGVBl. 2026 Nr. 74.pdf`). Fertig,
-  wenn der Eintragstitel auf die Fassung verlinkt („Fassung vom 3. September 2026“ als
-  Zusatz), die Quellenliste nur echte Links enthält, genau ein `<main>` existiert (Prüfung in
-  `tests/accessibility.spec.ts`), PDF-Dateien unter Slug-Namen liegen und der Satz
-  „Herausgegeben vom Freistaat Ostdeutschland“ lautet.
-- [ ] Ausgabenkarten ohne doppelten Titel: Karten in `/verkuendungen/` und auf der Startseite
-  nennen die Ausgabe zweimal („Staatsanzeiger Ostdeutschland 2026 Nr. 40“, „StAnzO. 2026 Nr.
-  40“) und das Verkündungsblatt ein drittes Mal als Faktum. Fertig, wenn die Karte den Langnamen
-  als Überschrift, das Kurzzitat nur in der Metazeile und die Einträge mit Titel führt.
 - [ ] Startseite: Das Raster „Schnellzugriff“ hat vier Spalten für fünf Karten („Sachgebiete“
   steht allein in der zweiten Reihe), drei von vier „Aktuelle Änderungen“ tragen den
   Platzhalter „Verkündung.“, unter „Künftige Änderungen“ steht der Maßnahmekatalog Bienen mit
@@ -197,13 +161,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   wenn das Raster bei 1280 px keine Einzelkarte lässt, Einträge ohne Änderungsnotiz den
   Vollzitatanfang statt „Verkündung.“ zeigen, künftiges Außerkrafttreten als „tritt außer
   Kraft“ beschriftet ist und die Funktionsliste in Nutzersprache steht.
-- [ ] Verzeichniseinträge: Jeder Eintrag beginnt mit einem unbeschrifteten Datum (`<time>` mit
-  dem Fassungsstand), 41 von 50 VwV-Einträgen zeigen die Beschreibung „Enthält die Regelungen
-  der am 1. November 2023 übernommenen Ausgangsfassung „…““, die nur den Titel wiederholt, und
-  „Rechtsstand: in Kraft“ bzw. „Rechtsstand: einmaliger Rechtsakt“ verwendet „Rechtsstand“ für
-  einen Status. Fertig, wenn `DirectoryEntry.astro` das Datum beschriftet, generierte
-  Platzhalterbeschreibungen nicht rendert (stattdessen die Vollzitat-Kurzform) und der Status
-  als „Geltung“ bezeichnet wird.
 
 ### Kopf, Layout und Benennungen
 

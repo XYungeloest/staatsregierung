@@ -3,7 +3,7 @@ import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../layouts/LawLayout.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
-import { formatDate, formatNormType, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatDate, formatNormType, getIndexUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationEntriesUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
@@ -37,7 +37,7 @@ const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json
 const quickAccess = [
   { title: lawSiteConfig.targetLabels.index, text: 'Alphabetische Übersicht', href: getIndexUrl(), icon: 'law' as const },
   { title: 'Neue Regelungen', text: 'Nach Rechtsstand sortiert', href: `${getSearchUrl()}?sort=rechtsstand`, icon: 'calendar' as const },
-  { title: 'Änderungen', text: 'Rechtsentwicklung nachvollziehen', href: getLawDevelopmentOverviewUrl(), icon: 'arrow' as const },
+  { title: 'Änderungen', text: 'Rechtsentwicklung nachvollziehen', href: `${getSearchUrl()}?sort=activity`, icon: 'arrow' as const },
   { title: 'Verkündungsblätter', text: 'Ausgaben und Fundstellen', href: getPublicationsUrl(), icon: 'law' as const },
   { title: lawSiteConfig.targetLabels.subjects, text: 'Recht nach Themen geordnet', href: getSubjectsUrl(), icon: 'topics' as const },
 ];
@@ -95,7 +95,7 @@ const quickAccess = [
       <section class="law-dashboard-card" data-visual-section="law-latest-status">
         <header class="law-dashboard-card__header">
           <div><PortalIcon name="arrow" /><h2>Aktuelle Änderungen</h2></div>
-          <a href={getLawDevelopmentOverviewUrl()}>Alle anzeigen</a>
+          <a href={`${getSearchUrl()}?sort=activity`}>Alle anzeigen</a>
         </header>
         <ol class="law-dashboard-list" data-law-current-change-list>
           {latestChanges.map((change, index) => (
@@ -157,10 +157,10 @@ const quickAccess = [
           {latestPublications.map((publication) => (
             <li>
               <time datetime={publication.date}>{formatDate(publication.date)}</time>
-              <span class="law-type-label">{publication.publication}</span>
+              <span class="law-type-label">{getPublicationLabel(publication)}</span>
               <div>
                 <h3><a href={getPublicationUrl(publication.slug)}>{toDisplayText(publication.title)}</a></h3>
-                <p>{getPublicationLabel(publication)} · {publication.entries.length} {publication.entries.length === 1 ? 'Eintrag' : 'Einträge'}</p>
+                <p>{publication.entries.slice(0, 3).map((entry) => toDisplayText(entry.title)).join('; ')}{publication.entries.length > 3 ? ' …' : ''}</p>
               </div>
             </li>
           ))}
@@ -183,8 +183,8 @@ const quickAccess = [
       <section class="law-service-card">
         <h2>Rechtsportal-Funktionen</h2>
         <a href={`${getSearchUrl()}?versionScope=current`}><strong>Konsolidierte Fassungen</strong><span>Zum Stichtag geltende Normtexte</span></a>
-        <a href={getLawDevelopmentOverviewUrl()}><strong>Änderungsverlauf</strong><span>Fassungen und Änderungen im Zeitverlauf</span></a>
-        <a href={getReferencesUrl()}><strong>PDF und HTML</strong><span>Fundstellen und aufbereitete Normtexte</span></a>
+        <a href={`${getSearchUrl()}?sort=activity`}><strong>Änderungsverlauf</strong><span>Fassungen und Änderungen im Zeitverlauf</span></a>
+        <a href={getPublicationEntriesUrl()}><strong>PDF und HTML</strong><span>Fundstellen und aufbereitete Normtexte</span></a>
         <a href={getIndexUrl()}><strong>{lawSiteConfig.targetLabels.index}</strong><span>Vorschriften, Abkürzungen und Stichwörter von A bis Z</span></a>
       </section>
     </div>

@@ -136,10 +136,8 @@ export const lawSiteConfig = {
     index: 'Vorschriften A–Z',
     subjects: 'Sachgebiete',
     funding: 'Förderrichtlinien',
-    references: 'Fundstellennachweise',
     publications: 'Verkündungen',
     constitution: 'Verfassung',
-    development: 'Rechtsentwicklung',
     help: 'Hilfe',
   },
   /**

@@ -14,9 +14,9 @@ import {
   formatNormOriginKind,
   formatNormStatus,
   formatNormType,
-  getLawDevelopmentOverviewUrl,
   getLawPortalUrl,
   getNormUrl,
+  getSearchUrl,
   toDisplayText,
   type NormOriginKind,
 } from '@ostrecht/shared/lib/norms/index.ts';
@@ -130,7 +130,7 @@ const originOverview = originKinds
       ))}
     </ul>
     <p class="section-link-row">
-      <a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Rechtsentwicklung mit weiteren Filtern</a>
+      <a class="inline-link" href={getSearchUrl()}>Rechtsherkunft mit weiteren Filtern in der Rechtssuche</a>
     </p>
   </section>
 
