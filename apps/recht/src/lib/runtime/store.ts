@@ -296,6 +296,12 @@ export interface NormStore {
    */
   searchCandidates(query: SearchCandidateQuery): Promise<{ slugs: string[]; total: number }>;
   getRuntimeMeta(key: string): Promise<string | null>;
+  /**
+   * Kennung des Datenstandes, aus dem die Laufzeit liest. Sie ändert sich bei jedem Abgleich und
+   * wird in den Schlüssel abgeleiteter, zwischengespeicherter Antworten (Fassungs-PDF)
+   * aufgenommen, damit geänderte Bezeichnungen oder Vollzitate nie veraltet ausgeliefert werden.
+   */
+  getProjectionFingerprint(): Promise<string>;
   /** Anzeigebezeichnungen (geltende Fassung) für eine Slug-Liste, z. B. Bezüge in Historieneinträgen. */
   getNormLabels(slugs: string[]): Promise<Map<string, { title: string; shortTitle: string }>>;
 }
@@ -947,6 +953,9 @@ export function createD1NormStore(db: D1Database): NormStore {
     async getRuntimeMeta(key) {
       return readMeta(key);
     },
+    async getProjectionFingerprint() {
+      return (await readMeta('projection_fingerprint')) ?? (await readMeta('last_sync_at')) ?? 'unbekannt';
+    },
     async getNormLabels(slugs) {
       const labels = new Map<string, { title: string; shortTitle: string }>();
       const unique = [...new Set(slugs)];
@@ -1225,6 +1234,10 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     },
     async getRuntimeMeta() {
       return null;
+    },
+    async getProjectionFingerprint() {
+      // Die Dateivariante liest unmittelbar aus content/; einen Abgleichstand gibt es dort nicht.
+      return 'files';
     },
     async getNormLabels(slugs) {
       const ctx = await context();
