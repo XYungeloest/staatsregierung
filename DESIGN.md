@@ -44,16 +44,20 @@ stehen im Stylesheet.
 | OstRecht-Marke | `--law-blue`, `--law-blue-dark`, `--law-blue-light`, `--law-green`, `--law-red` | Kopf, Hinweisleiste, Servicekarte, Statusflächen |
 | Sekundärgrün | `--color-secondary`, `--color-secondary-hover` | ruhige Akzente, geltende Fassungen, Einfügungen |
 | Warnrot | `--color-seal`, `--color-seal-hover` (Rechtsportal `--law-red`) | Aufhebung, Fehler, Warnungen (siehe Farbrollen) |
-| Gold | `--color-gold` | aktiver Navigationspunkt, Oberrand der Leitkarte |
-| Informationsflächen | `--color-info-blue`, `--color-info-green`, `--color-info-gold` | Hinweise, Status, künftige und entfallene Fassungen |
+| Gold | `--color-gold`, `--color-gold-bright` | aktiver Navigationspunkt, Oberrand der Leitkarte; helles Gold auf dunklem Grund |
+| Informationsflächen | `--color-info-blue`, `--color-info-green`, `--color-info-gold`, `--color-info-gold-soft`, `--color-info-gold-hover` | Hinweise, Status, künftige und entfallene Fassungen, großflächige Hinweisbänder |
+| Rahmen und Text auf Informationsflächen | `--color-info-blue-border`, `--color-info-blue-hover`, `--color-info-green-border`, `--color-info-gold-border`, `--color-info-gold-divider`, `--color-info-gold-ink` | je Fläche ein Rahmen, ein Innentrenner, eine Textfarbe |
+| Hoheitszeichen und Tiefen | `--color-flag-blue`, `--color-flag-green`, `--color-ink-deep`, `--color-highlight` | Flagge, Fußbereich, Trefferhervorhebung der Suche |
 | Fokus | `--color-focus`, `--focus-ring`, `--focus-halo` | Umriss, weißer Schein, Vererbung an dunkle Flächen |
 | Hinweisleiste | `--color-banner` | Simulationshinweis des Staatsportals |
 | Schatten | `--shadow-soft`, `--shadow-card` | Ebenentrennung, sparsam |
 | Radien | `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-pill` | 0,5 / 0,75 / 0,875 rem; Pillen ein Idiom |
 | Breiten | `--content-width` (Staatsportal 84 rem, OstRecht 96 rem), `--content-width-narrow`, `--space-section` | Inhaltscontainer, Lesespalte, Abstand zwischen Bändern |
+| Seitenrand und Lesemaß | `--page-gutter`, `--measure-body` | Rand des Inhaltscontainers, Zeilenlänge des Fließtexts; das Staatsportal setzt beide unter `.portal-site` eigenständig |
 
-Hexwerte stehen nur in den Token-Definitionen und als `#fff`, wo reines Weiß gemeint ist; Rahmen- und
-Flächenfarben kommen ausschließlich aus Tokens. Rahmen und Abstände tragen die Struktur, Schatten
+Hexwerte stehen nur in den Token-Definitionen und als `#fff` für reines Weiß **als Textfarbe** auf
+dunklem Grund; Rahmen- und Flächenfarben kommen ausschließlich aus Tokens (`hexInBorderBackground`
+im Stilwächter steht auf 0). Weiße Flächen sind `var(--color-surface)`. Rahmen und Abstände tragen die Struktur, Schatten
 trennen Ebenen zurückhaltend. Farbverläufe gibt es nur noch am Fußbereich und an der Servicekarte
 des Rechtsportals, wo keine Kleinschrift darüber liegt; dekorative Großformen gibt es nicht.
 
@@ -68,9 +72,9 @@ Alle Familien werden lokal aus `packages/shared/src/assets/fonts/` untersetzt au
 | --- | --- | --- | --- | --- |
 | `Jost-Variable.woff2` | Jost (OFL) | wght 100–900 | 34 KB | Oberfläche beider Portale |
 | `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, OFL) | wght 400–700, opsz 12–48 | 86 KB | Dokument im Rechtsportal |
-| `OstGrotesk-Regular.woff`, `OstGrotesk-Bold.woff` | Ost Grotesk (aus Neu5Land, OFL), nach der Schmalen Erbar-Grotesk | feste Schnitte 400 und 700 | 23 KB | Wegweiserebene beider Portale |
+| `OstGrotesk-Regular.woff2`, `OstGrotesk-Bold.woff2` | Ost Grotesk (aus Neu5Land, OFL), nach der Schmalen Erbar-Grotesk | feste Schnitte 400 und 700 | 17 KB | Wegweiserebene beider Portale |
 
-Budget für die gesamte Schriftübertragung: 270 KB; Stand 143 KB. Keine Kursive (der Bestand enthält
+Budget für die gesamte Schriftübertragung: 270 KB; Stand 137 KB (Jost 34, Source Serif 4 86, Ost Grotesk 8 + 8). Keine Kursive (der Bestand enthält
 keine). `font-display: swap`. `PageHead.astro` lädt Jost auf jeder Seite vor; in jeder Messung (lokal
 und gegen die Produktion auf Cloudflare, bis Slow 3G) war Jost vor dem ersten Anstrich fertig, deshalb
 folgt auf Jost direkt `system-ui`, ohne Rückfallschnitt. Source Serif 4 wird nur auf den Normseiten
@@ -82,7 +86,7 @@ im Schriftordner). Die Optical-Size-Achse folgt der Schriftgröße automatisch.
 
 Ost Grotesk wird als fetter Schnitt auf jeder Seite vorgeladen (Wortzeichen); der normale Schnitt
 trägt nur Abkürzungen und Sigel und lädt ohne Vorrang. Ein eigener Rückfallschnitt entfällt: bei
-11 KB je Schnitt gilt dieselbe Messung wie für Jost, und `--font-sign` fällt auf die
+8 KB je Schnitt gilt dieselbe Messung wie für Jost, und `--font-sign` fällt auf die
 Oberflächenschrift zurück, wenn die Datei ausbleibt. Die Familie hat keine Gewichtsachse — es gibt
 nur 400 und 700.
 
@@ -126,10 +130,18 @@ Kennzahl-Etiketten, nie Navigations- oder Listeneinträge: die Inhaltsübersicht
 mindestens in `--text-sm`, ihre Gliederungszeichen mindestens in `--text-xs`
 (`tests/stilwaechter.test.ts` hält beide Untergrenzen fest).
 
-Titelstufen, eine je Seitenfamilie in beiden Portalen: `--text-display` für den Startseiten-Hero,
-`--text-title` für Bereichs-, Such- und Hilfeseiten, `--text-title-long` für Langtitel (Normseiten,
-Rechtsentwicklung, Personen, Beteiligungen). Alle drei sind `clamp()`-Ausdrücke (bei 1440 px:
-50,4 / 52 / 42,4 px).
+Titelstufen, zwei in beiden Portalen: `--text-title` trägt jede H1 – Startseiten-Hero, Bereichs-,
+Such- und Hilfeseiten –, `--text-title-long` die Langtitel (Normseiten, Rechtsentwicklung, Personen,
+Beteiligungen, Leitkarte der Startseite). Beide sind `clamp()`-Ausdrücke (bei 1440 px: 52 / 42,4 px).
+Eine dritte Stufe für den Hero gab es einmal; sie unterschied sich bei 1280 px um 0,8 px von
+`--text-title` und ist darin aufgegangen.
+
+Drei skalierende Zwischenrollen ersetzen die früheren freien `clamp()`-Schriftgrößen der
+Stylesheets: `--text-band` für die Überschrift eines Startseiten- oder Modulbandes,
+`--text-card-title` für den hervorgehobenen Kartentitel, `--text-metric` für die Kennzahl eines
+Kopfbereichs. Außerhalb der Wortmarke von OstRecht bildet keine Datei mehr eine eigene
+Schriftgröße; `tests/visual.spec.ts` misst je Seitenfamilie die kleinste Fließtextgröße
+(mindestens 14,5 px) und das Lesemaß.
 
 Zeilenhöhen ausschließlich aus vier Tokens: `--lh-display` 1,12 (Titel), `--lh-heading` 1,28
 (Überschriften), `--lh-compact` 1,45 (Etiketten, Menü- und Bedienzeilen), `--lh-body` 1,65
@@ -143,12 +155,23 @@ Personenbezeichnungen verwenden den Doppelpunkt.
 ## Abstände und Radien
 
 Abstandsskala: `--space-hairline` 2 px, `--space-1` 4, `--space-xs` 6, `--space-2` 8, `--space-3` 12,
-`--space-4` 16, `--space-5` 24, `--space-6` 32, `--space-7` 48, `--space-8` 64. `--space-hairline` und
-`--space-xs` sind ergänzte Zwischenstufen für Haarabstände und die häufigen 6-px-Lücken.
+`--space-4` 16, `--space-4-plus` 20, `--space-5` 24, `--space-6` 32, `--space-6-plus` 40,
+`--space-7` 48, `--space-8` 64. `--space-hairline` und `--space-xs` sind ergänzte Zwischenstufen für
+Haarabstände und die häufigen 6-px-Lücken; `--space-4-plus` und `--space-6-plus` sind die beiden
+Stufen, ohne die Kartenpolster und Bandabstände des Staatsportals um bis zu 8 px springen müssten
+(zwischen 16 und 24 px lagen dort 57 Einzelwerte, zwischen 32 und 48 px weitere 14).
 `--space-section` (`clamp(2.5rem, 5vw, 4.5rem)`) trennt die Bänder einer Seite. Radien nur aus
 `--radius-sm`, `--radius-md`, `--radius-lg` und `--radius-pill`.
 
 ## Layoutsystem
+
+Der Inhaltscontainer `.container` rechnet mit `--page-gutter`. OstRecht behält den Wert des
+Fundaments (`--space-4`, 16 px auf jeder Breite); das Staatsportal setzt ihn am `body`
+(`.portal-site`) und lässt ihn mit der Fensterbreite wachsen: `--space-6` (32 px) über 80 rem,
+`--space-5` (24) bis 80 rem, `--space-4` (16) bis 64 rem, `--space-3` (12) bis 48 rem. Denselben
+Weg geht das Lesemaß: `--measure-body` steht im Fundament auf 78ch, im Staatsportal auf 75ch, und
+`p`, `li`, `dd`, die Beschreibungszeile einer Eintragsliste und der Einleitungssatz einer Seite
+lesen es.
 
 Das Staatsportal verwendet `apps/portal/src/layouts/BaseLayout.astro` mit den Hauptvarianten
 `contained` (begrenzter Hauptcontainer) und `full` (vollbreite Bänder mit innen begrenzten
@@ -161,8 +184,19 @@ strukturierte Listen; Fachabschnitte werden nicht ohne Grund zu schwebenden Kart
 
 Der Kopf des Staatsportals besteht aus Simulations-Hinweisleiste, Wortmarke mit Staatsflagge,
 Hauptnavigation mit `aria-current`, Portalsuche und den Einstiegen zu Leichter Sprache und
-Gebärdensprache. Ab 80 rem Breite wandern Navigation, Suche und Servicelinks gemeinsam in das native,
-tastaturbedienbare Menü.
+Gebärdensprache. Er kennt drei Stufen: über 80 rem steht alles in einer Zeile; zwischen 48 und
+80 rem wird er zweizeilig — oben Wortmarke und Suchfeld, darunter die vollständige
+Hauptnavigation mit Trennlinie und 2,75 rem hohen Zielen —, und erst ab 48 rem abwärts weichen
+Navigation und Kopfwerkzeuge gemeinsam in das native, tastaturbedienbare Menü. Kein Zustand
+blendet die Navigation mit `!important` aus; `tests/visual.spec.ts` misst bei 1024, 1100, 1280 und
+1440 px sichtbare Navigationspunkte.
+
+Die Hauptnavigation führt ausschließlich Bereichseinstiege. Bereichsname, Adresse und
+Kurzbeschreibung stehen als `PORTAL_SECTIONS` in `packages/shared/src/config/site.ts`; Navigation,
+Fehlerseite, Serviceübersicht und Suchfilter lesen sie dort. Der Bereich heißt „Staatsrat“, weil
+die Staatsverfassung das Organ an der Spitze der vollziehenden Gewalt so nennt; seine Adresse
+bleibt `/staatsregierung/`, weil sie das Politikfeld benennt, eingeführt ist und in
+`site-routing.ts` innerhalb des D1-Projektionsabschlusses liegt.
 
 OstRecht führt eine dunkle Hinweisleiste (`.law-notice`), die Wortmarke „OstRecht – Rechtsportal des
 Ostdeutschen Freistaates“, die Hauptnavigation zu Gesetzen, Verordnungen, Verwaltungsvorschriften,
@@ -181,16 +215,21 @@ Stufe 8,75 rem); alle haftenden Seitenspalten setzen dort an, statt die Höhe zu
 
 Es gibt vier Breakpoints, alle als `max-width` in rem: **80 rem**, **64 rem**, **48 rem**, **30 rem**.
 
-- bis 80 rem (kleiner Desktop): im Rechtsportal wird der Kopf zweizeilig – Wortmarke, Suchfeld und
-  Servicewege oben, die Navigationsliste als zweite Zeile; das Menü bleibt geschlossen. Das Band der
+- bis 80 rem (kleiner Desktop): in beiden Portalen wird der Kopf zweizeilig – Wortmarke, Suchfeld
+  und (im Rechtsportal) Servicewege oben, die Navigationsliste als zweite Zeile; das Menü bleibt
+  geschlossen. Der Seitenrand des Staatsportals geht von `--space-6` auf `--space-5`. Das Band der
   Startseite geht auf zwei Spalten, die Funktionskarte nimmt die volle Breite. Der
   Normarbeitsbereich bleibt zweispaltig: die haftende Inhaltsübersicht neben dem Text, die
   Vorschriftendaten darunter über beide Spalten als Aufklappbereich „Angaben zur Vorschrift“.
-- bis 64 rem (Tablet quer): Servicewege und Navigationsliste stehen im geöffneten Menü, die Suche
-  bleibt im Kopf; der Schnellzugriff geht auf drei Spalten (3 + 2, keine allein stehende Karte);
+- bis 64 rem (Tablet quer): im Rechtsportal stehen Servicewege und Navigationsliste im geöffneten
+  Menü, die Suche bleibt im Kopf; im Staatsportal bleibt die Navigationszeile sichtbar, der
+  Seitenrand geht auf `--space-4`, Kartenraster gehen auf zwei Spalten und die Bereichsnavigation
+  klebt nicht mehr; der Schnellzugriff geht auf drei Spalten (3 + 2, keine allein stehende Karte);
   Normarbeitsbereich und Startseitenbänder werden einspaltig, die Inhaltsübersicht wird zum
   nativen Aufklappbereich.
-- bis 48 rem (Tablet hoch): Verzeichniseinträge, Filterleisten und Formularzeilen stapeln sich; die
+- bis 48 rem (Tablet hoch): im Staatsportal weichen Navigation und Kopfwerkzeuge in das Menü, die
+  Kartenraster werden einspaltig, der Seitenrand geht auf `--space-3`; Verzeichniseinträge,
+  Filterleisten und Formularzeilen stapeln sich; die
   Werkzeuge je Einheit sind dauerhaft sichtbar und tragen ihre Beschriftung. Die beiden
   Aufklappzeilen „Angaben zur Vorschrift“ und „Inhalt der Vorschrift“ stehen nebeneinander über dem
   Text; die geöffnete nimmt die volle Breite. Die Werkzeugleiste des Normkopfs rollt waagerecht.
@@ -470,6 +509,11 @@ redaktionelle Kurzbeschreibung bleibt die Zeile leer.
 
 ### Startseite
 
+Alle Hauptbänder der Startseite tragen denselben vertikalen Rhythmus (`--space-7`, unter 48 rem
+`--space-6`). Hinweisband und Informationsband sind ausdrücklich **ein** Band — gleiche Fläche,
+keine Farbgrenze —, deshalb steht zwischen ihnen der halbe Bandabstand statt einer zweiten
+Bandkante.
+
 Die Startseite folgt einer festen Hierarchie: Hero mit redaktionellem Staatskanzlei-Bild, H1 und
 Portalsuche; zentrale Portalpfade als Zugangskarten (`PortalAccessCard.astro`); wichtiges Hinweisband
 (`ImportantNoticeBand.astro`); Presse, aktuelle Ministerien und Freistaat-Kurzprofil
@@ -478,6 +522,28 @@ Regierungshandeln“ mit einem Leitvorhaben als dunkler Karte (`home-lead-featur
 weiteren Vorhaben; Recht, Haushalt und weitere Serviceangebote; Serviceband und Footer. Suchvorschläge,
 Karten und Listen verweisen ausschließlich auf vorhandene Seiten. Hervorhebungen sind redaktionelle
 Entscheidungen aus den Themendaten; es gibt keine zweite manuelle Startseitenliste.
+
+### Karten, Raster und Formulare
+
+Eine Kartenbasis trägt Polster, Rahmen, Radius, Hover und Titelgröße: `.portal-card` (mit `.panel`
+als eingeführtem Namen derselben Rolle) gilt für `EventCard`, `GovernmentMemberCard`,
+`JobOfferCard`, `MinistryCard`, `PressReleaseCard`, `ServiceCard`, `SpeechCard` und `TopicCard`.
+Die Komponenten bestimmen nur noch ihren Inhalt.
+
+Die Rasterklassen sagen, was sie tun: `.card-grid--two` sind zwei Spalten, `.card-grid--three`
+drei, `.card-grid--four` vier; unter 64 rem werden daraus zwei, unter 48 rem eine. Eine einzelne
+Karte behält damit die Breite ihrer Spalte und wird nie zum Vollbreitenband. Die Spaltenzahl eines
+Rasters, dessen Kartenzahl schwankt, kommt aus `getBalancedColumnCount`: sieben Zugangskarten
+stehen als 4 + 3, acht als 4 + 4, sechs als 3 + 3 — nie eine Karte allein in der letzten Reihe.
+Die Rasterlücke ist größer als das seitliche Innenpolster der Karte.
+
+Kennzahlenkarten sind quantitativen Werten vorbehalten (`isMetricValue`); Textangaben stehen als
+Beschreibungsliste (`.fact-list`).
+
+Ein Formularmuster trägt alle Such- und Filterleisten: `.filter-bar` setzt das Raster,
+`.filter-field` Beschriftung, Feldhöhe (2,75 rem), Rahmen und Fokus. Vorbild ist
+`DirectoryFilterBar` des Rechtsportals. Es gibt nur `:focus-visible`-Regeln; keine Leiste
+überschreibt den globalen Fokusring beim Klicken.
 
 ### Komponenten und Bilder
 
@@ -502,10 +568,33 @@ gleichartigen Einheiten vorbehalten. Fehlerseiten beider Portale zeigen im eigen
 nicht gefunden“ mit Suche und Verzeichniszugängen; die englische Astro-Standardseite wird nie
 ausgeliefert.
 
+Lange Datenansichten blättern zu 25 Zeilen (`DEFAULT_PORTAL_PAGE_SIZE`). Beteiligungsnavigator und
+Kreistabelle teilen Rechnung (`getPageState`), Wortlaut und Leiste (`DataPagination.astro`); beide
+geben die erste Seite im HTML aus, laden den Rest aus ihrer Datendatei und nennen ohne JavaScript
+den vollständigen Datensatz. Die Bereichsnavigation (`SectionNavigation`) bleibt ab 64 rem klebend;
+ihre Sprungziele werden gegen die vorhandenen `id`-Attribute geprüft.
+
 Die Kreisreform-Seite liefert die Gebietssuche als Text; die interaktive Karte wird erst nach
 ausdrücklicher Freigabe geladen. Die Behördennummer 115 ist ein Orientierungsbegriff aus der
 zentralen Konfiguration und verweist auf den Kontaktbereich; ein `tel:`-Link erscheint nur bei
 ausdrücklich konfiguriertem Telefonweg.
+
+### Portalsuche und Portalinventar
+
+Das Portalinventar (`apps/portal/src/lib/route-inventory.ts`) ist die einzige Liste der
+öffentlichen Portalseiten. `sitemap.xml`, die Serviceübersicht und der Suchindex lesen sie; es gibt
+keine zweite Seitenliste und kein Nachparsen der Sitemap. Werkzeugseiten (Suche, Fehlerseiten,
+Datenendpunkte) stehen nicht darin.
+
+Der Suchbestand liegt in zwei Dateien. `/search-index.json` trägt die Portalinhalte mit ihrem
+sichtbaren Fließtext und wird sofort geladen; `/search-index-recht.json` trägt die Bezeichnungen
+des Rechtsbestands in schmaler Form (dieselbe Grundmenge wie die Verzeichnisse von OstRecht) und
+wird erst geholt, wenn der Bereichsfilter das Recht einschließt. Die Trefferliste weist
+„Staatsportal“ und „Recht“ als getrennte Gruppen aus und verweist für den Volltext auf die
+Rechtssuche. Die Reihenfolge folgt fünf Stufen — Gleichheit mit einer Bezeichnung, Bezeichnung
+beginnt mit der Anfrage, Bezeichnung enthält sie, Kurzbeschreibung, Volltext — und gibt
+Portalseiten einen Bereichsbonus, der eine exakt eingegebene Abkürzung nicht verdrängt. Ein
+Volltexttreffer zeigt einen Ausschnitt um die Fundstelle mit hervorgehobenem Begriff.
 
 ## Barrierefreiheit
 

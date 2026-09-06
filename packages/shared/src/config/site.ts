@@ -12,6 +12,102 @@ import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts
 export { isLawSite, siteTarget, siteUrls } from '@ostrecht/shared/config/site-routing.ts';
 export type { LawSitePathKey, SitePathKey } from '@ostrecht/shared/config/site-routing.ts';
 
+/**
+ * Die Bereiche des Staatsportals: Bezeichnung, Adresse und Kurzbeschreibung stehen genau einmal
+ * hier. Hauptnavigation, Brotkrumen, Serviceübersicht, `sitemap.xml`, Suchindex und Fehlerseite
+ * lesen sie; niemand formuliert einen Bereichsnamen selbst (Befund „Bereichsname und Adresse“ der
+ * Designprüfung vom 6. September 2026).
+ *
+ * Die Hauptnavigation führt ausschließlich Bereichseinstiege. Einzelne Themen — etwa das
+ * Schulsystem — sind über die Themenseite, die Startseite und die Suche erreichbar, nicht als
+ * zehnter Punkt neben acht Bereichen. Die Kreisreform bleibt ein eigener Bereich, weil sie nach
+ * `AGENTS.md` ein zentraler Portalweg mit eigener Adresse ist.
+ *
+ * Der Bereich heißt „Staatsrat“, weil die Staatsverfassung das Organ an der Spitze der
+ * vollziehenden Gewalt so nennt (Artikel „Der Staatsrat“). Seine Adresse bleibt
+ * `/staatsregierung/`: sie benennt das Politikfeld, ist die eingeführte öffentliche Adresse und
+ * liegt in `site-routing.ts` innerhalb des D1-Projektionsabschlusses — eine Umbenennung machte
+ * aus einer reinen Darstellungsänderung eine Projektionsfreigabe, ohne dass Nutzende etwas
+ * gewinnen. Titelzusatz und Brotkrume kommen aus `authorityName` beziehungsweise aus dieser
+ * Liste, sodass Name, Adresse und Beschriftung nicht mehr auseinanderlaufen können.
+ */
+export const PORTAL_SECTIONS = [
+  {
+    key: 'home',
+    label: 'Startseite',
+    pathKey: 'home',
+    path: portalPaths.home,
+    description: 'Einstieg in das Staatsportal.',
+    navigation: false,
+  },
+  {
+    key: 'freestate',
+    label: 'Freistaat',
+    pathKey: 'freestate',
+    path: portalPaths.freestate,
+    description: 'Staatsaufbau, Bezirke, Hoheitszeichen und Geschichte.',
+    navigation: true,
+  },
+  {
+    key: 'government',
+    label: 'Staatsrat',
+    pathKey: 'government',
+    path: portalPaths.government,
+    description: 'Mitglieder, Geschäftsbereiche, Beteiligungen und Regierungsprogramm.',
+    navigation: true,
+  },
+  {
+    key: 'topics',
+    label: 'Themen',
+    pathKey: 'topics',
+    path: portalPaths.topics,
+    description: 'Vorhaben und Reformbereiche mit Stand, Zuständigkeit und Rechtsgrundlagen.',
+    navigation: true,
+  },
+  {
+    key: 'law',
+    label: 'Recht',
+    pathKey: 'lawBridge',
+    path: portalPaths.lawBridge,
+    description: 'Zugang zum Rechtsportal OstRecht.',
+    navigation: true,
+  },
+  {
+    key: 'kreisreform',
+    label: 'Kreisreform',
+    pathKey: 'kreisreform',
+    path: portalPaths.kreisreform,
+    description: 'Neue Kreise und Bezirke mit Gebietssuche und Tabellen.',
+    navigation: true,
+  },
+  {
+    key: 'budget',
+    label: 'Haushalt',
+    pathKey: 'budget',
+    path: portalPaths.budget,
+    description: 'Doppelhaushalt, Einzelpläne und Sondervermögen.',
+    navigation: true,
+  },
+  {
+    key: 'press',
+    label: 'Presse',
+    pathKey: 'press',
+    path: portalPaths.press,
+    description: 'Pressemitteilungen, Reden und Termine.',
+    navigation: true,
+  },
+  {
+    key: 'service',
+    label: 'Service',
+    pathKey: 'service',
+    path: portalPaths.service,
+    description: 'Kontakt, Karriere, Hilfe und barrierearme Zugänge.',
+    navigation: true,
+  },
+] as const;
+
+export type PortalSectionKey = (typeof PORTAL_SECTIONS)[number]['key'];
+
 export const siteConfig = {
   authorityName: 'Staatsrat des Ostdeutschen Freistaates',
   portalTitle: 'Freistaat Ostdeutschland',
@@ -42,17 +138,11 @@ export const siteConfig = {
   searchLabel: 'Portal durchsuchen',
   searchPlaceholder: 'z. B. Thema, Ressort, Recht oder Presse',
   paths: portalPaths,
-  mainNavigation: [
-    { label: 'Freistaat', pathKey: 'freestate' },
-    { label: 'Staatsrat', pathKey: 'government' },
-    { label: 'Themen', pathKey: 'topics' },
-    { label: 'Schulsystem', pathKey: 'schoolSystem' },
-    { label: 'Recht', pathKey: 'lawBridge' },
-    { label: 'Kreisreform', pathKey: 'kreisreform' },
-    { label: 'Haushalt', pathKey: 'budget' },
-    { label: 'Presse', pathKey: 'press' },
-    { label: 'Service', pathKey: 'service' },
-  ],
+  sections: PORTAL_SECTIONS,
+  mainNavigation: PORTAL_SECTIONS.filter((section) => section.navigation).map((section) => ({
+    label: section.label,
+    pathKey: section.pathKey,
+  })),
   serviceNavigation: [
     { label: 'Leichte Sprache', pathKey: 'easyLanguage' },
     { label: 'Gebärdensprache', pathKey: 'signLanguage' },
@@ -90,6 +180,18 @@ export const siteConfig = {
       email: 'portalbetrieb@freistaat-ostdeutschland.de',
     },
     officeHours: ['Montag bis Donnerstag: 9.00 bis 17.00 Uhr', 'Freitag: 9.00 bis 15.00 Uhr'],
+  },
+  /**
+   * Eine Wortliste für Stände und Stichtage. Dieselbe Sache heißt überall gleich, verschiedene
+   * Sachen behalten verschiedene Wörter: `portalContentAsOf` ist der redaktionelle Stand einer
+   * Portalseite, `dataAsOf` der Stand eines Datenbestands, `baselineDate` der Ausgangspunkt einer
+   * Zeitreihe. Der `legalStatusAsOf` des Rechtsportals steht in `lawSiteConfig.vocabulary`; er
+   * bezeichnet ein Datum der Rechtslage und wird hier bewusst nicht mit „Stand“ gleichgesetzt.
+   */
+  vocabulary: {
+    portalContentAsOf: 'Stand',
+    dataAsOf: 'Datenstand',
+    baselineDate: 'Ausgangsstichtag',
   },
   date: {
     formatLong: formatDate,

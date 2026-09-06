@@ -1,4 +1,5 @@
 ---
+import { isMetricValue } from '@ostrecht/shared/lib/portal/presentation.ts';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import type { ThemenModul } from '@ostrecht/shared/lib/portal/index.ts';
 
@@ -60,8 +61,14 @@ const timelineState = (date: string, endDate?: string) => {
     <dl class="topic-data-grid">
       {module.items.map((item) => (
         /* Innerhalb einer Beschreibungsliste sind nur dt- und dd-Gruppen zulässig: Der
-           erläuternde Hinweis gehört deshalb in das dd und nicht daneben. */
-        <div><dt>{item.label}</dt><dd>{item.value}{item.note ? <p>{item.note}</p> : null}</dd></div>
+           erläuternde Hinweis gehört deshalb in das dd und nicht daneben. Nur ein Zahlenwert
+           bekommt die Kennzahlengröße; ein Satz bleibt Fließtext (DESIGN.md, Kennzahlenkarten). */
+        <div>
+          <dt>{item.label}</dt>
+          <dd class:list={[isMetricValue(item.value) ? 'topic-data-grid__metric' : 'topic-data-grid__text']}>
+            {item.value}{item.note ? <p>{item.note}</p> : null}
+          </dd>
+        </div>
       ))}
     </dl>
   ) : null}

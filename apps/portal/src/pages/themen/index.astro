@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import StatusBadge from '../../components/portal/StatusBadge.astro';
 import TopicCard from '../../components/portal/TopicCard.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
@@ -13,6 +14,7 @@ import {
   getKreisreformUrl,
   getLawHomeUrl,
   groupTopicsByCluster,
+  TOPIC_CLUSTER_LABELS,
 } from '@ostrecht/shared/lib/portal/index.ts';
 import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
 import { loadMinistries, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
@@ -63,14 +65,18 @@ const topicGroups = groupTopicsByCluster(topics);
         <h2 id="topics-current-title">Was jetzt wichtig ist</h2>
         <p>Zeitkritische Vorhaben und jüngste Statusänderungen. Der Zeitraum wird direkt im jeweiligen Themendatensatz gepflegt.</p>
       </div>
-      <p class="topics-reference-date">Stand <time datetime={PORTAL_REFERENCE_DATE}>{siteConfig.date.formatLong(PORTAL_REFERENCE_DATE)}</time></p>
+      <p class="topics-reference-date">{siteConfig.vocabulary.portalContentAsOf} <time datetime={PORTAL_REFERENCE_DATE}>{siteConfig.date.formatLong(PORTAL_REFERENCE_DATE)}</time></p>
     </div>
     {currentTopics.length > 0 ? (
-      <div class:list={['topics-current-grid', currentTopics.length >= 3 && 'topics-current-grid--lead-layout']}>
+      <ul class="topic-reference-list">
         {currentTopics.map((topic) => (
-          <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} variant="highlight" />
+          <li class="topic-reference">
+            <StatusBadge status={topic.status} />
+            <a class="inline-link" href={`#thema-${topic.slug}`}>{topic.title}</a>
+            <span>{TOPIC_CLUSTER_LABELS[topic.cluster]}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     ) : (
       <p class="status-notice">Derzeit ist kein Thema mit einem laufenden Hervorhebungszeitraum gekennzeichnet.</p>
     )}
@@ -80,20 +86,24 @@ const topicGroups = groupTopicsByCluster(topics);
     <div class="section-header">
       <p class="eyebrow">Schwerpunkte</p>
       <h2 id="topics-focus-title">Große Reformbereiche</h2>
-      <p>Dauerhafte politische und rechtliche Arbeitsfelder mit eigener Themenseite, Zuständigkeit und belegtem Umsetzungsstand.</p>
+      <p>Dauerhafte politische und rechtliche Arbeitsfelder. Die vollständige Karte jedes Themas steht in der Übersicht darunter.</p>
     </div>
-    <div class="card-grid card-grid--three">
+    <ul class="topic-reference-list">
       {focusTopics.map((topic) => (
-        <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} />
+        <li class="topic-reference">
+          <StatusBadge status={topic.status} />
+          <a class="inline-link" href={`#thema-${topic.slug}`}>{topic.title}</a>
+          <span>{TOPIC_CLUSTER_LABELS[topic.cluster]}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   </section>
 
   <section id="alle-themen" class="section topics-directory" aria-labelledby="topics-directory-title">
     <div class="section-header">
       <p class="eyebrow">Vollständige Übersicht</p>
       <h2 id="topics-directory-title">Alle Themen nach Fachgebiet</h2>
-      <p>Jedes Thema erscheint in genau einem redaktionellen Themenbereich. Status und Fachstand bleiben auf jeder Karte sichtbar.</p>
+      <p>Jedes Thema steht hier genau einmal als vollständige Karte, geordnet nach Fachgebiet. Die Abschnitte darüber verweisen auf diese Karten.</p>
     </div>
     <nav class="topic-cluster-navigation" aria-label="Direkt zu einem Themenbereich">
       <ul>
@@ -109,7 +119,7 @@ const topicGroups = groupTopicsByCluster(topics);
           </div>
           <div class="card-grid card-grid--two">
             {group.topics.map((topic) => (
-              <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} variant="compact" headingLevel={4} />
+              <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} variant="compact" headingLevel={4} anchorId={`thema-${topic.slug}`} />
             ))}
           </div>
         </section>
