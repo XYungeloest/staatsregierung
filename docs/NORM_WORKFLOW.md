@@ -15,6 +15,13 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
 
 3. Importkonfiguration, Normtyp, Titel, Kurztitel, Abkürzung, Zusammenfassung,
    `enactingBody`, `responsibleMinistry`, Sachgebiete und Beziehungen redaktionell prüfen.
+   Dabei gilt das Titelmodell: `title` ist der amtliche Langtitel, `shortTitle` nur eine echte
+   Kurzbezeichnung, `abbr` nur eine echte Abkürzung; abkürzungsartige Bezeichnungen gehören in
+   `keywords`. Die Zusammenfassung ist eine redaktionelle Kurzbeschreibung; nur eine aus Typ und
+   Titel gebildete Formel des Massenimports trägt `summarySource: "derived"` und bleibt öffentlich
+   unsichtbar. Eigene Vorschriften brauchen immer eine echte Kurzbeschreibung.
+   Sachgebiete stammen aus der amtlichen Systematik (`packages/shared/src/config/law-subjects.json`);
+   `primarySubject` ist das erste Sachgebiet, Förderrichtlinien tragen zusätzlich `fundingArea`.
 4. Bei der ersten ostdeutschen Änderung einer übernommenen Stammnorm die am 1. November 2023
    geltende REVOSax-Fassung mit `npm run norms:revosax:fetch` sichern und parsen. Die gespeicherte
    HTML-Datei unter `data/recht/sources/revosax/` ist unveränderliche Quellenbeweissicherung.
@@ -36,7 +43,9 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
    künstliche zusätzliche Fassung. Originalquellen bleiben unverändert.
 6. Original-PDFs werden unabhängig vom Alter der Ausgabe über
    `npm run norms:publications:pdf-sync -- --write` den Verkündungen zugeordnet und als
-   deploybare Rechtsassets bereitgestellt. HTML bleibt die strukturtragende Transkription,
+   deploybare Rechtsassets bereitgestellt; der öffentliche Dateiname ist der Slug der Ausgabe
+   (`public/assets/recht/<slug>.pdf`), der interne Quellenname unter `Gesetze/` bleibt unverändert.
+   HTML bleibt die strukturtragende Transkription,
    PDF die amtliche visuelle Kontrollquelle; abweichende historische Dateinamen brauchen eine
    eindeutige, geprüfte Zuordnung. Der Lauf übernimmt das Prüfdatum (`verifiedAt`) der Ausgabe
    auf die zugeordneten Normen und setzt ein bereits dokumentiertes späteres Prüfdatum derselben
@@ -49,6 +58,19 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
 
 Mehrere `--file`-Argumente sind zulässig. `--quick` lässt Build und UI-Smokes bewusst aus und ist
 nur für lokale Zwischenprüfungen gedacht.
+
+Nach einer Änderung am HTML- oder Markdown-Parser werden die betroffenen eigenen Verkündungen
+gezielt neu eingelesen:
+
+```sh
+npm run norms:import -- --write --update-existing --file "OGVBl. 2026 Nr. 40.html"
+npm run norms:import -- --source-dir Gesetze --strict --quiet
+```
+
+Der Unterschriftenblock einer Verkündung (`signature`) entsteht dabei allein aus der amtlichen
+Quelle. Quellen, deren interne Metadaten nicht zu einem vorhandenen Verkündungsdatensatz passen,
+und Normen ohne HTML-Quelle bleiben unangetastet; sie werden redaktionell gepflegt und der Schritt
+im Commit begründet.
 
 ## Abbruchbedingungen
 
@@ -81,6 +103,18 @@ der automatische `--git-diff`-Sync liest den alten Stichtag aus dem Basis-Commit
 nur die stichtagsabhängig betroffenen Normen samt abgeleiteten Daten aller Normen
 (`scripts/lib/d1-reference-date.mjs`; Gleichheit mit einer frischen Vollprojektion wird in
 `tests/recht-d1-reference-date.test.mjs` geprüft).
+
+Der Stichtag bleibt eine redaktionelle Entscheidung; er wird nicht täglich automatisch
+fortgeschrieben. Die Oberfläche behauptet deshalb keine Tagesaussage: Fassungswahl,
+Vorschriftendaten und Trefferliste bezeichnen die geltende Fassung als „Rechtsstand vom
+<Stichtag>“ (`referenceDateLabel` in `apps/recht/src/lib/vocabulary.ts`, wortgleich in
+`packages/recht-search/src/search-query.ts`). Dieser Satz trifft an jedem Aufruftag zu, auch wenn
+der Stichtag einige Tage zurückliegt; „Geltend am <Datum>“ und das Wort „Stichtag“ kommen in
+öffentlichen Texten außerhalb der Hilfe nicht vor. Ein täglicher Workflow wurde bewusst nicht
+eingerichtet: er verlangte PR-Erstellung mit Pflichtchecks ohne Bypass, einen Organisations-
+Snapshot je Stichtag, eine laufende Themen-Hervorhebung, neu erzeugte Wissenshub-Dateien sowie je
+Lauf Vollbestand-Smoke, Doppel-Deployment und einen D1-Neuaufbau der abgeleiteten Daten aller
+Normen.
 
 ## Redaktionelle Nacharbeit
 

@@ -1,24 +1,33 @@
 {
   "id": "rl-wohnraumanpassung",
   "slug": "rl-wohnraumanpassung",
-  "title": "RL Wohnraumanpassung",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung der Anpassung von Wohnraum an Belange von Menschen mit Mobilitätseinschränkungen",
   "shortTitle": "RL Wohnraumanpassung",
-  "abbr": "RL WRA",
   "shortTitleSource": "official",
+  "abbr": "RL WRA",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien",
+    "Wohnungsbau, Wohnungswesen"
   ],
+  "primarySubject": "Förderrichtlinien",
+  "fundingArea": "554",
   "keywords": [
-    "RL WRA",
     "RL Wohnraumanpassung",
+    "Innern",
+    "Förderung",
+    "Anpassung",
+    "Wohnraum",
+    "Belange",
+    "Menschen",
+    "Mobilitätseinschränkungen",
     "Wohnraumanpassung"
   ],
-  "initialCitation": "RL Wohnraumanpassung vom 17. Mai 2017 (SächsABl. S. 758), die zuletzt durch Ziffer I der Richtlinie vom 7. Juli 2023 (SächsABl. S. 1062) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "initialCitation": "RL Wohnraumanpassung vom 17. Mai 2017 (SächsABl. S. 758), die zuletzt durch Ziffer I der Richtlinie vom 7. Juli 2023 (SächsABl. S. 1062) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „RL Wohnraumanpassung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2017-05-17",
   "sourceReferences": [
@@ -32,6 +41,7 @@
       "sha256": "1c3fd29b9edf6de56dfa29cdcda4cfbe233788adaa6eeff30642d3e6ed5e2f1c",
       "lawId": "17278",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "554-V17.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

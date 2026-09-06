@@ -1,24 +1,26 @@
 {
   "id": "ostdeutsches-strassengesetz",
   "slug": "ostdeutsches-strassengesetz",
-  "title": "Ostdeutsches Straßengesetz",
+  "title": "Straßengesetz für den Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Straßengesetz",
-  "abbr": "OstStrG",
   "shortTitleSource": "official",
+  "abbr": "OstStrG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Mobilität und öffentliche Infrastruktur"
+    "Verkehr"
   ],
+  "primarySubject": "Verkehr",
   "keywords": [
-    "OstStrG",
     "Ostdeutsches Straßengesetz",
-    "Straßengesetz"
+    "Straßengesetz",
+    "OstStrG"
   ],
   "initialCitation": "Ostdeutsches Straßengesetz vom 21. Januar 1993 (SächsGVBl. S. 93)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Straßengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1993-01-21",
   "sourceReferences": [
@@ -33,6 +35,7 @@
       "lawId": "4785",
       "sourceValidFrom": "2020-01-01",
       "sourceValidTo": "2026-08-31",
+      "fsnNumber": "471-4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

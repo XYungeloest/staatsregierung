@@ -1,25 +1,28 @@
 {
   "id": "rl-aufzugsanlagen-mietwohngebaeude",
   "slug": "rl-aufzugsanlagen-mietwohngebaeude",
-  "title": "RL Aufzugsanlagen Mietwohngebäude",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung von Aufzugsanlagen in Mietwohngebäuden",
   "shortTitle": "RL Aufzugsanlagen Mietwohngebäude",
-  "abbr": "RL AMW",
   "shortTitleSource": "official",
+  "abbr": "RL AMW",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "RL AMW",
     "RL Aufzugsanlagen Mietwohngebäude",
+    "Innern",
+    "Förderung",
     "Aufzugsanlagen",
+    "Mietwohngebäuden",
     "Mietwohngebäude"
   ],
-  "initialCitation": "RL Aufzugsanlagen Mietwohngebäude vom 18. Dezember 2019 (SächsABl. 2020 S. 143), die durch Ziffer II der Richtlinie vom 7. Juli 2023 (SächsABl. S. 1062) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "initialCitation": "RL Aufzugsanlagen Mietwohngebäude vom 18. Dezember 2019 (SächsABl. 2020 S. 143), die durch Ziffer II der Richtlinie vom 7. Juli 2023 (SächsABl. S. 1062) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „RL Aufzugsanlagen Mietwohngebäude“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2019-12-18",
   "sourceReferences": [
@@ -33,6 +36,7 @@
       "sha256": "98077c6e2f174479771166019c95856dc6c38047fbd343f09d5d6095b1e41ea8",
       "lawId": "18592",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "554-V20.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

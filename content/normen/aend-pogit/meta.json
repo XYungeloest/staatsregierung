@@ -2,12 +2,11 @@
   "id": "aend-pogit",
   "slug": "aend-pogit",
   "title": "Änderung der Prüfungsordnung der Landesdirektion Ostdeutschland für die Zwischen- und Abschlussprüfung sowie die Umschulungsprüfung in den Ausbildungsberufen der Geoinformationstechnologie",
-  "shortTitle": "Änd. POGIT",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. POGIT",
     "Änderung",
@@ -23,7 +22,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "anpassung-pruefungsordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. POGIT“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Prüfungsordnung der Landesdirektion Ostdeutschland für die Zwischen- und Abschlussprüfung sowie die Umschulungsprüfung in den Ausbildungsberufen der Geoinformationstechnologie“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-07-19",
   "effectiveDate": "2021-08-01",
@@ -38,6 +38,7 @@
       "sha256": "459b847c8225b21a558b231105a1a1a3b22932ca79b239ff1c7629f8a1ce6f35",
       "lawId": "19277",
       "sourceValidFrom": "2021-08-01",
+      "fsnNumber": "245",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

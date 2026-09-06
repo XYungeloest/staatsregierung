@@ -130,7 +130,7 @@ test('gezielte Stichtagsfortschreibung erzeugt dieselbe Projektion wie eine fris
   for (const table of TABLES) {
     assert.deepEqual(dumpTable(targeted, table), dumpTable(fresh, table), `Tabelle ${table} weicht zwischen gezielter Fortschreibung und Vollprojektion ab`);
   }
-  for (const term of ['Vergesellschaftung', 'Haushaltsplan']) {
+  for (const term of ['Testbeteiligung', 'Haushaltsplan']) {
     assert.deepEqual(ftsHits(targeted, term), ftsHits(fresh, term), `Volltextindex für „${term}“ weicht ab`);
     assert.ok(ftsHits(fresh, term).length > 0, `„${term}“ muss über den Suchindex der geltenden Fassung auffindbar sein`);
   }

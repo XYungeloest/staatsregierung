@@ -198,20 +198,6 @@ export function validateVersionIntervals(
   }
 }
 
-export function formatVersionTemporalLabel(
-  kind: VersionTemporalKind,
-  version: NormVersion,
-): string {
-  if (kind === 'future') return `Zukünftige Fassung ab ${version.validFrom}`;
-  if (kind === 'historical') {
-    return version.validTo
-      ? `Historische Fassung ${version.validFrom} bis ${version.validTo}`
-      : `Historische Fassung ab ${version.validFrom}; Gültigkeitsende nicht gespeichert`;
-  }
-  if (kind === 'unknown-effective') return 'Veröffentlicht; Inkrafttreten nicht belegt';
-  return `Zum Stichtag geltende Fassung ab ${version.validFrom}`;
-}
-
 /** Die am redaktionellen Stichtag geltende Fassung (siehe getApplicableVersion). */
 export function getCurrentVersion(record: NormRecord): NormVersion {
   return getApplicableVersion(record);

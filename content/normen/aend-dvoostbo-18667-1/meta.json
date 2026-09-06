@@ -2,14 +2,13 @@
   "id": "aend-dvoostbo-18667-1",
   "slug": "aend-dvoostbo-18667-1",
   "title": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Durchführungsverordnung zur OstBO",
-  "shortTitle": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Durchführungsverordnung zur OstBO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
-    "Dritte Verordnung des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Durchführungsverordnung zur OstBO",
+    "Änd. DVOOstBO",
     "Dritte",
     "Regionalentwicklung",
     "Änderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verordnung des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Durchführungsverordnung zur OstBO“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-03-30",
   "effectiveDate": "2020-05-01",
@@ -34,8 +34,12 @@
       "sha256": "79c6d3b00d9cae951a4395e7034c77fba494f29ffe502f2dd6cb185754a17d57",
       "lawId": "18667",
       "sourceValidFrom": "2020-05-01",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "durchfuehrungsverordnung-zur-ostbo"
   ]
 }

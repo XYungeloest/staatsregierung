@@ -2,15 +2,14 @@
   "id": "bfso-und-aend-bso",
   "slug": "bfso-und-aend-bso",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus über die Berufsfachschule im Freistaat Ostdeutschland und zur Änderung der Schulordnung Berufsschule",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus über die Berufsfachschule im Freistaat Ostdeutschland und zur Änderung der Schulordnung Berufsschule",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus über die Berufsfachschule im Freistaat Ostdeutschland und zur Änderung der Schulordnung Berufsschule",
+    "BFSO und Änd. BSO",
     "Kultus",
     "Berufsfachschule",
     "Änderung",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus über die Berufsfachschule im Freistaat Ostdeutschland und zur Änderung der Schulordnung Berufsschule“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-05-14",
   "effectiveDate": "2007-05-25",
@@ -35,8 +35,12 @@
       "sha256": "c234c4455ca65e5e655d7db7304960b75bebd436123a1f327033ca19640828b7",
       "lawId": "9422",
       "sourceValidFrom": "2007-05-25",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-berufsschule"
   ]
 }

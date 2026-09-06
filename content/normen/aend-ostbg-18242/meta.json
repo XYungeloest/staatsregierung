@@ -2,13 +2,12 @@
   "id": "aend-ostbg-18242",
   "slug": "aend-ostbg-18242",
   "title": "Änderung des Ostdeutschen Beamtengesetzes",
-  "shortTitle": "Änd. OstBG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstBG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-einfuehrung-automatisierte-beihilfebearbeitung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Beamtengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-06-06",
   "effectiveDate": "2019-07-06",
@@ -33,6 +33,7 @@
       "sha256": "e5af4ae8469a4781b322b39584276b5f9ee7e8b62039e425c3086b1be3ffa9b6",
       "lawId": "18242",
       "sourceValidFrom": "2019-07-06",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

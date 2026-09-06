@@ -18,11 +18,14 @@ import {
   type DerivedContext,
   type NormDerivedData,
 } from '@ostrecht/shared/lib/norms/derived.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
+import { INVENTORY_SQL, isInheritedAmendment, type InventoryStats } from '@ostrecht/shared/lib/norms/inventory.ts';
 import { getNormOriginInfo, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+import { compareSubjects, getSubjectByTitle } from '@ostrecht/shared/config/law-subjects.ts';
 import { getGermanIndexLetter, getNormUrl, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
-import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
+import { formatNormType, getNormSortKey, getNormSortWord, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { registerKeywordsBySlug, type KeywordRegister } from '@ostrecht/shared/lib/norms/register.ts';
+import { comparePublicationsNewestFirst, type NormPublicationReference, type Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
 import {
   buildFilterOptions,
   buildSearchPublications,
@@ -33,6 +36,23 @@ import {
   type SearchPublication,
   type SearchSuggestion,
 } from '@ostrecht/recht-search/search.ts';
+import {
+  SEARCH_FACETS,
+  groupNormSearchResults,
+  planCitationMatch,
+  planExcludeMatch,
+  planGroupMatch,
+  planPhraseMatch,
+  planTitleMatch,
+  planUnitMatch,
+  runNormSearch,
+  type NormSearchState,
+  type SearchFacet,
+  type SearchFacetCounts,
+  type SearchQueryPlan,
+  type SortKey,
+} from '@ostrecht/recht-search/search-query.ts';
+import { inventoryPredicateSql } from '@ostrecht/shared/lib/norms/inventory.ts';
 
 import type { D1Database } from './d1-types.ts';
 
@@ -67,9 +87,17 @@ export interface NormSummary {
   status: NormStatus;
   subjects: string[];
   primarySubject?: string;
+  /** Amtlicher Förderbereich einer Förderrichtlinie (Nummer der Systematik). */
+  fundingArea?: string;
+  /** Fundstelle der Stammfassung (Verzeichnisse, Verkündungsseiten). */
+  initialCitation?: string;
   keywords: string[];
   /** Bezeichnungen anderer Fassungen (Autovervollständigung, Stichwortindex). */
   aliases: string[];
+  /** Ordnungswort: erstes inhaltstragendes Wort der Bezeichnung (Buchstabengruppe, Anzeige). */
+  sortWord: string;
+  /** Vergleichsschlüssel des Ordnungsworts (law_norms.sort_word); bestimmt die Reihenfolge. */
+  sortKey: string;
   responsibleMinistry?: string;
   currentVersionId: string;
   currentValidFrom: string;
@@ -88,6 +116,13 @@ export interface NormSummaryQuery {
   types?: string[];
   statuses?: string[];
   subjectSlug?: string;
+  /**
+   * Übernommene Änderungsvorschriften einbeziehen (Standard: nein). Ohne dieses Kennzeichen
+   * beschreiben Verzeichnisse, A–Z, Sachgebiete und Bestandszahlen die Grundmenge
+   * (packages/shared/src/lib/norms/inventory.ts). Der Normtypfilter `aenderungsvorschrift`
+   * bezieht sie ebenfalls wieder ein, sonst bliebe er ohne Treffer.
+   */
+  includeInheritedAmendments?: boolean;
 }
 
 /**
@@ -126,7 +161,10 @@ export interface IndexLetterCount {
 }
 
 /** Eingrenzung der Buchstabenzähler auf ein Verzeichnis (Normtyp, Sachgebiet, Herkunft). */
-export type IndexLetterQuery = Pick<NormPageQuery, 'types' | 'subjectSlug' | 'originKind'>;
+export type IndexLetterQuery = Pick<NormPageQuery, 'types' | 'subjectSlug' | 'originKind' | 'includeInheritedAmendments'>;
+
+/** Herkunft eines Stichworteintrags (law_norm_keywords.kind). */
+export type KeywordKind = 'register' | 'abbr' | 'short-title' | 'derived';
 
 export interface KeywordIndexEntry {
   keyword: string;
@@ -138,6 +176,8 @@ export interface KeywordIndexQuery {
   q?: string;
   page?: number;
   pageSize?: number;
+  /** Nur Einträge dieser Herkunft; ohne Angabe alle. */
+  kinds?: KeywordKind[];
 }
 
 export interface KeywordIndexPage {
@@ -164,6 +204,13 @@ export function normalizePage(page: unknown, pageSize: unknown = DEFAULT_PAGE_SI
   };
 }
 
+/** Nummer und Kurzform eines Sachgebiets aus der amtlichen Systematik. */
+function subjectFacts(subject: string): { number?: string; shortTitle?: string } {
+  const definition = getSubjectByTitle(subject);
+  if (!definition) return {};
+  return { number: definition.number, ...(definition.shortTitle ? { shortTitle: definition.shortTitle } : {}) };
+}
+
 /** Freitext für den Vergleich: getrimmt, deutsch kleingeschrieben, Mehrfachleerraum reduziert. */
 export function normalizeQueryText(value: unknown): string {
   return String(value ?? '').trim().toLocaleLowerCase('de-DE').replace(/\s+/gu, ' ');
@@ -172,23 +219,24 @@ export function normalizeQueryText(value: unknown): string {
 export interface SubjectSummary {
   name: string;
   slug: string;
+  /** Amtliche Untergruppennummer; fehlt bei nicht konfigurierten Bezeichnungen. */
+  number?: string;
+  /** Kurzform der Systematik für Filter und Kennzeichnungen. */
+  shortTitle?: string;
   normCount: number;
 }
 
 export interface SubjectAreaSummary {
   name: string;
+  /** Amtliche Hauptgruppennummer; fehlt bei der Auffanggruppe. */
+  number?: string;
   description: string;
   normCount: number;
   subjects: SubjectSummary[];
 }
 
-export interface CorpusStats {
-  normCount: number;
-  inForceCount: number;
-  publicationCount: number;
-  types: NormType[];
-  statuses: NormStatus[];
-}
+/** Bestandszahlen der Grundmenge (law_runtime_meta `corpus_stats_json`). */
+export type CorpusStats = InventoryStats;
 
 export interface NormVersionSummary {
   slug: string;
@@ -288,14 +336,25 @@ export interface NormStore {
   getPublication(slug: string): Promise<Verkuendung | null>;
   /** Suchdokumente der gewünschten Normen (alle Fassungen) samt Provisionen der geltenden Fassung. */
   /** `unitsMatch`: FTS-Ausdruck, auf den die gelieferten Provisionen eingeschränkt werden; null = alle Provisionen; undefined = keine. */
-  getSearchDocuments(slugs: string[], unitsMatch: string | null | undefined): Promise<SearchCandidate[]>;
+  getSearchDocuments(slugs: string[], unitsMatch: string | null | undefined, options?: { unitsPerNorm?: number }): Promise<SearchCandidate[]>;
   /**
-   * Kandidatenmenge der Suche. Alle hier übergebenen Filter wirken serverseitig, damit `total`
-   * dieselbe Menge zählt, die die Trefferliste anzeigt (buildSearchCandidateParams in
-   * packages/recht-search/src/search-query.ts bestimmt sie aus dem Suchzustand).
+   * Eine Seite der Trefferliste samt genauer Gesamtzahl. Alle Bedingungen der Anfrage – Filter,
+   * Volltext, Ausschluss, Strukturadressen und die Regel für Änderungsvorschriften – wirken
+   * serverseitig, damit `total` dieselbe Menge zählt, die die Trefferliste anzeigt.
    */
   searchCandidates(query: SearchCandidateQuery): Promise<{ slugs: string[]; total: number }>;
+  /**
+   * Facettenzähler derselben Anfrage: je Facettenwert die Zahl passender Vorschriften. Die
+   * eigene Bedingung einer Facette entfällt, damit Geschwisterwerte wählbar bleiben.
+   */
+  countSearchFacets(query: SearchCandidateQuery): Promise<SearchFacetCounts>;
   getRuntimeMeta(key: string): Promise<string | null>;
+  /**
+   * Kennung des Datenstandes, aus dem die Laufzeit liest. Sie ändert sich bei jedem Abgleich und
+   * wird in den Schlüssel abgeleiteter, zwischengespeicherter Antworten (Fassungs-PDF)
+   * aufgenommen, damit geänderte Bezeichnungen oder Vollzitate nie veraltet ausgeliefert werden.
+   */
+  getProjectionFingerprint(): Promise<string>;
   /** Anzeigebezeichnungen (geltende Fassung) für eine Slug-Liste, z. B. Bezüge in Historieneinträgen. */
   getNormLabels(slugs: string[]): Promise<Map<string, { title: string; shortTitle: string }>>;
 }
@@ -325,8 +384,28 @@ export interface SearchCandidateQuery {
   validTo?: string;
   /** Fassungsart; `all` oder nicht gesetzt schränkt nicht ein. */
   versionScope?: VersionTemporalKind | 'all';
-  /** `false` blendet Änderungsvorschriften aus (law_norms.is_amendment). */
+  /**
+   * `true` bezieht die übernommenen Änderungsvorschriften ein. Ohne diese Angabe bleibt die
+   * Grundmenge maßgeblich (packages/shared/src/lib/norms/inventory.ts): übernommene
+   * Änderungsvorschriften erscheinen nur bei Normtypfilter oder unmittelbarem Treffer.
+   */
   includeAmendments?: boolean;
+  /** Suchplan der Anfrage; er trägt Volltext, Wortfolgen, Ausschluss und Strukturadressen. */
+  plan?: SearchQueryPlan;
+  /** Reihenfolge der Kandidaten; ohne Angabe Relevanz (mit Suchausdruck) bzw. Rechtsänderung. */
+  sort?: SortKey;
+  /** Ausgabennummer der Fundstelle. */
+  publicationIssue?: string;
+  /** Seite der Fundstelle (Teilstring). */
+  publicationPage?: string;
+  /** Vorschriften einer in der Anfrage zitierten Ausgabe; sie stehen als Direkttreffer vorn. */
+  citedSlugs?: string[];
+  /** Nur diese Vorschriften (Ähnlichkeitsstufe). */
+  restrictSlugs?: string[];
+  /** Diese Vorschriften nicht erneut zählen (sie stehen bereits als Direkttreffer vorn). */
+  excludeSlugs?: string[];
+  /** Vollständiger Suchzustand; nur die Dateivariante wertet ihn mit runNormSearch aus. */
+  state?: NormSearchState;
 }
 
 // ---------------------------------------------------------------------------
@@ -348,11 +427,26 @@ function getCurrentVersionId(record: NormRecord): string | undefined {
   return record.versions.find((version) => version.isCurrent)?.versionId ?? record.versions.at(-1)?.versionId;
 }
 
-/** ORDER BY einer Übersicht: jüngste Rechtsänderung zuerst (fehlende Werte zuletzt) oder Titel. */
+/**
+ * ORDER BY einer Übersicht: jüngste Rechtsänderung zuerst (fehlende Werte zuletzt) oder
+ * alphabetisch nach Ordnungswort. `COALESCE` hält die Reihenfolge während des Expand-Fensters
+ * stabil, solange Migration 0008 gelaufen, die Projektion aber noch nicht neu geschrieben ist.
+ */
+export const SORT_WORD_SQL = 'COALESCE(n.sort_word, n.sort_title)';
+
 export function summaryOrderBy(sort: NormSummarySort = 'title'): string {
   return sort === 'activity'
-    ? '(n.last_change_date IS NULL), n.last_change_date DESC, n.sort_title, n.slug'
-    : 'n.sort_title, n.slug';
+    ? `(n.last_change_date IS NULL), n.last_change_date DESC, ${SORT_WORD_SQL}, n.slug`
+    : `${SORT_WORD_SQL}, n.slug`;
+}
+
+/**
+ * Gehört die Auswahl zur Grundmenge? Der Normtypfilter `aenderungsvorschrift` und das Häkchen
+ * „Übernommene Änderungsvorschriften einbeziehen“ heben die Einschränkung auf – sonst bliebe der
+ * Filter ohne Treffer. Eine Definition, zwei Fassungen (SQL und Datei).
+ */
+function limitsToInventory(query: Pick<NormSummaryQuery, 'types' | 'includeInheritedAmendments'>): boolean {
+  return !query.includeInheritedAmendments && !query.types?.includes('aenderungsvorschrift');
 }
 
 /**
@@ -373,11 +467,81 @@ export function candidateFilterSql(query: SearchCandidateQuery): { sql: string; 
   inList('n.origin_kind', query.origins);
   inList('n.responsible_ministry', query.ministries);
   inList('n.status', query.statuses);
-  if (query.includeAmendments === false) clauses.push(' AND n.is_amendment = 0');
+  inList('n.slug', query.restrictSlugs);
+  if ((query.excludeSlugs ?? []).length > 0) {
+    const slugs = query.excludeSlugs as string[];
+    clauses.push(` AND n.slug NOT IN (${slugs.map(() => '?').join(', ')})`);
+    params.push(...slugs);
+  }
   if ((query.subjectSlugs ?? []).length > 0) {
     const slugs = query.subjectSlugs as string[];
     clauses.push(` AND EXISTS (SELECT 1 FROM law_norm_subjects sub WHERE sub.norm_id = n.id AND sub.subject_slug IN (${slugs.map(() => '?').join(', ')}))`);
     params.push(...slugs);
+  }
+  // Grundmenge: übernommene Änderungsvorschriften bleiben außen vor, solange sie nicht
+  // ausdrücklich verlangt (Häkchen, Normtypfilter) oder unmittelbar getroffen werden – durch
+  // Gleichheit mit einer Bezeichnung, eine mehrwortige Titelwortfolge oder eine zitierte Ausgabe.
+  if (query.includeAmendments !== true && !(query.types ?? []).includes('aenderungsvorschrift')) {
+    const direct: string[] = [];
+    for (const value of query.plan?.identityValues ?? []) {
+      direct.push('(n.abbr = ? COLLATE NOCASE OR n.short_title = ? COLLATE NOCASE OR n.title = ? COLLATE NOCASE)');
+      params.push(value, value, value);
+    }
+    const titleMatch = query.plan?.titlePhrase ? planTitleMatch(query.plan) : null;
+    if (titleMatch) {
+      direct.push('n.id IN (SELECT norm_id FROM law_search WHERE law_search MATCH ?)');
+      params.push(titleMatch);
+    }
+    if ((query.citedSlugs ?? []).length > 0) {
+      const slugs = query.citedSlugs as string[];
+      direct.push(`n.slug IN (${slugs.map(() => '?').join(', ')})`);
+      params.push(...slugs);
+    }
+    clauses.push(` AND (${[inventoryPredicateSql('n'), ...direct].join(' OR ')})`);
+  }
+  const plan = query.plan;
+  if (plan) {
+    // Dokumentweite UND-Verknüpfung: jede Begriffsgruppe und jede Wortfolge muss in derselben
+    // Vorschrift vorkommen; „Nur Metadaten“ liest ausschließlich die Metadateneinheit.
+    const unitSource = plan.scope === 'metadata'
+      ? "SELECT s.norm_id FROM law_search s JOIN law_search_units mu ON mu.id = s.rowid WHERE law_search MATCH ? AND mu.block_type = 'metadata'"
+      : 'SELECT norm_id FROM law_search WHERE law_search MATCH ?';
+    for (const group of plan.tokenGroups) {
+      clauses.push(` AND n.id IN (${unitSource})`);
+      params.push(planGroupMatch(plan, group));
+    }
+    for (const phrase of plan.phrases) {
+      clauses.push(` AND n.id IN (${unitSource})`);
+      params.push(planPhraseMatch(plan, phrase));
+    }
+    // Die Eingabe „Fundstelle“ sucht über alle Felder, auch außerhalb des gewählten Suchbereichs.
+    const citationMatch = planCitationMatch(plan);
+    if (citationMatch) {
+      clauses.push(' AND n.id IN (SELECT norm_id FROM law_search WHERE law_search MATCH ?)');
+      params.push(citationMatch);
+    }
+    const excludeMatch = planExcludeMatch(plan);
+    if (excludeMatch) {
+      clauses.push(' AND n.id NOT IN (SELECT norm_id FROM law_search WHERE law_search MATCH ?)');
+      params.push(excludeMatch);
+    }
+    for (const reference of plan.references) {
+      const subsectionExists = " AND EXISTS (SELECT 1 FROM json_each(json_extract(u.references_json, '$.subsections')) je WHERE je.value = ?)";
+      if (reference.kind === 'subsection') {
+        clauses.push(` AND n.id IN (SELECT u.norm_id FROM law_search_units u WHERE 1 = 1${subsectionExists})`);
+        params.push(reference.number);
+        continue;
+      }
+      const field = reference.kind === 'article' ? '$.article' : '$.paragraph';
+      clauses.push(` AND n.id IN (SELECT u.norm_id FROM law_search_units u WHERE json_extract(u.references_json, '${field}') = ?${reference.subsection ? subsectionExists : ''})`);
+      params.push(reference.number);
+      if (reference.subsection) params.push(reference.subsection);
+    }
+    // Nennt die Anfrage nur einen Normtyp („Verordnungen“), wirkt sie wie ein Typfilter.
+    if (plan.typeOnly && (query.types ?? []).length === 0) {
+      clauses.push(' AND n.type = ?');
+      params.push(plan.typeOnly);
+    }
   }
   const versionClauses: string[] = [];
   const versionParams: Array<string | number> = [];
@@ -404,12 +568,60 @@ export function candidateFilterSql(query: SearchCandidateQuery): { sql: string; 
     versionClauses.push('v.valid_from <= ?');
     versionParams.push(query.validTo);
   }
+  // Ausgabennummer und Seite stehen in der gespeicherten Fundstelle der Fassung; beide vergleichen
+  // kleingeschrieben, die Seite als Teilstring („S. 1 bis 4“ enthält „2“ nicht).
+  if (query.publicationIssue) {
+    versionClauses.push("lower(json_extract(v.publication_ref_json, '$.issue')) = ?");
+    versionParams.push(query.publicationIssue.trim().toLocaleLowerCase('de-DE'));
+  }
+  if (query.publicationPage) {
+    versionClauses.push("instr(lower(coalesce(json_extract(v.publication_ref_json, '$.pages'), json_extract(v.publication_ref_json, '$.startPage'), '')), ?) > 0");
+    versionParams.push(query.publicationPage.trim().toLocaleLowerCase('de-DE'));
+  }
   if (versionClauses.length > 0) {
     clauses.push(` AND EXISTS (SELECT 1 FROM law_versions v WHERE v.norm_id = n.id AND ${versionClauses.join(' AND ')})`);
     params.push(...versionParams);
   }
   return { sql: clauses.join(''), params };
 }
+
+/** Gewichtung des Volltextindex: Bezeichnungen zählen zehnfach, Überschriften doppelt, Text einfach. */
+export const SEARCH_RANK_WEIGHTS = 'bm25(0,0,0,0,0,0,0,10,10,10,2,2,1)';
+
+/**
+ * ORDER BY der Kandidatenabfrage ohne Suchausdruck (Stöbern). Die Reihenfolge folgt derselben
+ * Semantik wie die Sortierung der Trefferliste.
+ */
+export function browseOrderBy(sort: SortKey = 'activity'): string {
+  if (sort === 'title') return 'n.sort_title, n.slug';
+  if (sort === 'rechtsstand') return '(n.current_valid_from IS NULL), n.current_valid_from DESC, n.sort_title, n.slug';
+  if (sort === 'publication') return '(n.publication_date IS NULL), n.publication_date DESC, n.sort_title, n.slug';
+  return summaryOrderBy('activity');
+}
+
+/**
+ * ORDER BY der Volltextabfrage. Bei Relevanz zuerst die Bezeichnungsgleichheit, dann der
+ * Titeltreffer, dann eigene vor übernommenen Änderungsträgern, dann alle Begriffe in derselben
+ * Vorschrift, dann das gewichtete bm25 und zuletzt der Titel.
+ */
+export function rankedOrderBy(sort: SortKey = 'relevance'): string {
+  if (sort === 'title') return 'sort_title, s.slug';
+  if (sort === 'rechtsstand') return '(valid_from IS NULL), valid_from DESC, sort_title, s.slug';
+  if (sort === 'publication') return '(publication_date IS NULL), publication_date DESC, sort_title, s.slug';
+  if (sort === 'activity') return '(last_change_date IS NULL), last_change_date DESC, sort_title, s.slug';
+  return 'identity DESC, title_hit DESC, is_amendment, unit_hit DESC, best, sort_title, s.slug';
+}
+
+/** Facettenquellen der Suche: Spalte, benötigter Verbund und die eigene, beim Zählen entfallende Bedingung. */
+export const SEARCH_FACET_SOURCES: Record<SearchFacet, { column: string; join: string; clear: Partial<SearchCandidateQuery> }> = {
+  type: { column: 'n.type', join: '', clear: { types: [] } },
+  origin: { column: 'n.origin_kind', join: '', clear: { origins: [] } },
+  ministry: { column: 'n.responsible_ministry', join: '', clear: { ministries: [] } },
+  subject: { column: 'fs.subject', join: ' JOIN law_norm_subjects fs ON fs.norm_id = n.id', clear: { subjectSlugs: [] } },
+  status: { column: 'n.status', join: '', clear: { statuses: [] } },
+  publicationSource: { column: 'fv.publication_source', join: ' JOIN law_versions fv ON fv.norm_id = n.id', clear: { publicationSources: [] } },
+  publicationYear: { column: 'fv.publication_year', join: ' JOIN law_versions fv ON fv.norm_id = n.id', clear: { publicationYears: [] } },
+};
 
 /** Vergleich für `activity`-Sortierung in der Dateivariante (identische Reihenfolge wie summaryOrderBy). */
 export function compareByActivity(left: NormSummary, right: NormSummary): number {
@@ -436,13 +648,17 @@ export function summarizeNormRecord(record: NormRecord, records: NormRecord[] = 
     title: identity.title,
     shortTitle: identity.shortTitle,
     ...(identity.abbr ? { abbr: identity.abbr } : {}),
-    summary: identity.summary,
+    summary: getPublicNormSummary(identity) ?? '',
     type: record.meta.type,
     status: record.meta.status,
     subjects: [...record.meta.subjects],
     ...(record.meta.primarySubject ? { primarySubject: record.meta.primarySubject } : {}),
+    ...(record.meta.fundingArea ? { fundingArea: record.meta.fundingArea } : {}),
+    ...(record.meta.initialCitation ? { initialCitation: record.meta.initialCitation } : {}),
     keywords: [...record.meta.keywords],
     aliases: getNormAliases(record, identity),
+    sortWord: getNormSortWord(identity),
+    sortKey: getNormSortKey(identity),
     ...(record.meta.responsibleMinistry ?? record.meta.ministry ? { responsibleMinistry: record.meta.responsibleMinistry ?? record.meta.ministry } : {}),
     currentVersionId: current.versionId,
     currentValidFrom: current.validFrom,
@@ -468,8 +684,12 @@ export function suggestionFromSummary(summary: NormSummary): SearchSuggestion {
   };
 }
 
+/**
+ * Alphabetische Reihenfolge der Übersichten: nach dem Vergleichsschlüssel des Ordnungsworts,
+ * genau wie `ORDER BY COALESCE(n.sort_word, n.sort_title), n.slug` in der D1-Variante.
+ */
 export function compareSummaryTitles(left: NormSummary, right: NormSummary): number {
-  return left.title.localeCompare(right.title, 'de') || left.slug.localeCompare(right.slug);
+  return (left.sortKey < right.sortKey ? -1 : left.sortKey > right.sortKey ? 1 : 0) || left.slug.localeCompare(right.slug);
 }
 
 function chunked<T>(items: T[], size: number): T[][] {
@@ -519,6 +739,9 @@ interface SummaryRow {
   status: NormStatus;
   subjects_json: string;
   primary_subject: string | null;
+  funding_area: string | null;
+  initial_citation: string | null;
+  sort_word: string | null;
   keywords_json: string;
   aliases_json: string;
   responsible_ministry: string | null;
@@ -540,11 +763,12 @@ export interface BlockRow {
 }
 
 const SUMMARY_SELECT = `SELECT n.id, n.slug, n.title, n.short_title, n.abbr, n.summary, v.summary AS current_summary, n.type, n.status,
-  n.subjects_json, n.primary_subject, n.keywords_json, n.aliases_json, n.responsible_ministry, n.current_version_id, n.current_valid_from,
+  n.subjects_json, n.primary_subject, n.funding_area, n.initial_citation, n.sort_word, n.keywords_json, n.aliases_json, n.responsible_ministry, n.current_version_id, n.current_valid_from,
   n.document_date, n.origin_kind, n.origin_baseline_version_id, n.origin_last_own_change_date, n.version_count, n.last_change_date, n.last_activity_date
   FROM law_norms n LEFT JOIN law_versions v ON v.norm_id = n.id AND v.version_id = n.current_version_id`;
 
 function summaryFromRow(row: SummaryRow): NormSummary {
+  const identity = { title: row.title, shortTitle: row.short_title };
   return {
     id: row.id,
     slug: row.slug,
@@ -556,8 +780,14 @@ function summaryFromRow(row: SummaryRow): NormSummary {
     status: row.status,
     subjects: parseJsonArray(row.subjects_json),
     ...(row.primary_subject ? { primarySubject: row.primary_subject } : {}),
+    ...(row.funding_area ? { fundingArea: row.funding_area } : {}),
+    ...(row.initial_citation ? { initialCitation: row.initial_citation } : {}),
     keywords: parseJsonArray(row.keywords_json),
     aliases: parseJsonArray(row.aliases_json),
+    sortWord: getNormSortWord(identity),
+    // Vor der ersten Projektion nach Migration 0008 trägt sort_word den kleingeschriebenen Titel;
+    // der berechnete Schlüssel bleibt dann die genauere Angabe.
+    sortKey: row.sort_word ?? getNormSortKey(identity),
     ...(row.responsible_ministry ? { responsibleMinistry: row.responsible_ministry } : {}),
     currentVersionId: row.current_version_id,
     currentValidFrom: row.current_valid_from,
@@ -627,6 +857,7 @@ export function createD1NormStore(db: D1Database): NormStore {
   const listSummaries = async (query: NormSummaryQuery = {}): Promise<NormSummary[]> => {
     const conditions: string[] = [];
     const params: unknown[] = [];
+    if (limitsToInventory(query)) conditions.push(INVENTORY_SQL);
     if (query.types?.length) {
       conditions.push(`n.type IN (${query.types.map(() => '?').join(', ')})`);
       params.push(...query.types);
@@ -640,7 +871,7 @@ export function createD1NormStore(db: D1Database): NormStore {
       params.push(query.subjectSlug);
     }
     const where = conditions.length ? ` WHERE ${conditions.join(' AND ')}` : '';
-    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY n.sort_title, n.slug`).bind(...params).all<SummaryRow>();
+    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY ${summaryOrderBy('title')}`).bind(...params).all<SummaryRow>();
     return rows.results.map(summaryFromRow);
   };
 
@@ -648,6 +879,7 @@ export function createD1NormStore(db: D1Database): NormStore {
   const pageConditions = (query: NormPageQuery): { where: string; params: unknown[] } => {
     const conditions: string[] = [];
     const params: unknown[] = [];
+    if (limitsToInventory(query)) conditions.push(INVENTORY_SQL);
     if (query.letter) {
       conditions.push('n.index_letter = ?');
       params.push(query.letter);
@@ -700,12 +932,13 @@ export function createD1NormStore(db: D1Database): NormStore {
     queryNormSummaries: pageSummaries,
     async listIndexLetters(query = {}) {
       const mapRows = (rows: Array<{ letter: string; count: number }>): IndexLetterCount[] => rows.map((row) => ({ letter: row.letter, count: Number(row.count) }));
-      if (!query.types?.length && !query.subjectSlug && !query.originKind) {
-        return cachedMeta('index_letters', async () =>
-          mapRows((await db.prepare('SELECT index_letter AS letter, COUNT(*) AS count FROM law_norms GROUP BY index_letter ORDER BY index_letter').all<{ letter: string; count: number }>()).results));
+      if (!query.types?.length && !query.subjectSlug && !query.originKind && !query.includeInheritedAmendments) {
+        // Buchstabengruppen der Grundmenge: eine Aggregatzeile je Buchstabe, je Sync-Stand gecacht.
+        return cachedMeta('index_letters_inventory', async () =>
+          mapRows((await db.prepare(`SELECT n.index_letter AS letter, COUNT(*) AS count FROM law_norms n WHERE ${INVENTORY_SQL} GROUP BY n.index_letter ORDER BY n.index_letter`).all<{ letter: string; count: number }>()).results));
       }
       // Zähler eines Verzeichnisses: dieselben indexgestützten Bedingungen wie die Seitenabfrage.
-      const { where, params } = pageConditions({ types: query.types, subjectSlug: query.subjectSlug, originKind: query.originKind });
+      const { where, params } = pageConditions({ types: query.types, subjectSlug: query.subjectSlug, originKind: query.originKind, includeInheritedAmendments: query.includeInheritedAmendments });
       return mapRows((await db.prepare(`SELECT n.index_letter AS letter, COUNT(*) AS count FROM law_norms n${where} GROUP BY n.index_letter ORDER BY n.index_letter`).bind(...params).all<{ letter: string; count: number }>()).results);
     },
     async listKeywordIndex(letter, query = {}) {
@@ -713,6 +946,10 @@ export function createD1NormStore(db: D1Database): NormStore {
       const text = normalizeQueryText(query.q);
       const conditions = ['k.index_letter = ?'];
       const params: unknown[] = [letter];
+      if (query.kinds?.length) {
+        conditions.push(`k.kind IN (${query.kinds.map(() => '?').join(', ')})`);
+        params.push(...query.kinds);
+      }
       if (text) {
         conditions.push("lower(k.keyword) LIKE ? ESCAPE '\\'");
         params.push(`%${text.replaceAll('\\', '\\\\').replaceAll('%', '\\%').replaceAll('_', '\\_')}%`);
@@ -728,7 +965,7 @@ export function createD1NormStore(db: D1Database): NormStore {
         // Die Seite ist in SQL-Sortierung ein zusammenhängender Bereich: BETWEEN statt einer
         // IN-Liste (D1 erlaubt höchstens 100 Parameter); der Filter gilt erneut, damit
         // zwischenliegende Stichwörter ohne Treffer nicht mitgelesen werden.
-        const rows = await db.prepare(`SELECT k.keyword, n.slug, n.short_title FROM law_norm_keywords k JOIN law_norms n ON n.id = k.norm_id WHERE ${where} AND k.keyword BETWEEN ? AND ? ORDER BY k.keyword, n.sort_title, n.slug`).bind(...params, keywords[0], keywords[keywords.length - 1]).all<{ keyword: string; slug: string; short_title: string }>();
+        const rows = await db.prepare(`SELECT k.keyword, n.slug, n.short_title FROM law_norm_keywords k JOIN law_norms n ON n.id = k.norm_id WHERE ${where} AND k.keyword BETWEEN ? AND ? ORDER BY k.keyword, ${SORT_WORD_SQL}, n.slug`).bind(...params, keywords[0], keywords[keywords.length - 1]).all<{ keyword: string; slug: string; short_title: string }>();
         for (const row of rows.results) {
           const entry = entries.get(row.keyword);
           if (entry && !entry.norms.some((norm) => norm.slug === row.slug)) entry.norms.push({ slug: row.slug, shortTitle: row.short_title });
@@ -737,8 +974,10 @@ export function createD1NormStore(db: D1Database): NormStore {
       return { entries: [...entries.values()].sort((left, right) => left.keyword.localeCompare(right.keyword, 'de')), total, page: current, pageSize, pageCount };
     },
     async countByOriginKind() {
-      return cachedMeta('origin_counts', async () =>
-        Object.fromEntries((await db.prepare('SELECT origin_kind, COUNT(*) AS count FROM law_norms GROUP BY origin_kind').all<{ origin_kind: NormOriginKind | null; count: number }>()).results
+      // Herkunftszahlen beschreiben dieselbe Grundmenge wie die Verzeichnisse; sonst nennt die
+      // Kachel „übernommen“ eine Zahl, die keine Liste der Website zeigt.
+      return cachedMeta('origin_counts_inventory', async () =>
+        Object.fromEntries((await db.prepare(`SELECT n.origin_kind, COUNT(*) AS count FROM law_norms n WHERE ${INVENTORY_SQL} GROUP BY n.origin_kind`).all<{ origin_kind: NormOriginKind | null; count: number }>()).results
           .filter((row) => row.origin_kind)
           .map((row) => [row.origin_kind as NormOriginKind, Number(row.count)])) as Partial<Record<NormOriginKind, number>>);
     },
@@ -800,8 +1039,11 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async listSubjectSummaries() {
       return metaJson<SubjectSummary[]>('subject_groups_json', async () => {
-        const rows = await db.prepare('SELECT subject, subject_slug, COUNT(*) AS norm_count FROM law_norm_subjects GROUP BY subject_slug, subject ORDER BY subject').all<{ subject: string; subject_slug: string; norm_count: number }>();
-        return rows.results.map((row) => ({ name: row.subject, slug: row.subject_slug, normCount: Number(row.norm_count) }));
+        const rows = await db.prepare(`SELECT s.subject, s.subject_slug, COUNT(*) AS norm_count FROM law_norm_subjects s JOIN law_norms n ON n.id = s.norm_id WHERE ${INVENTORY_SQL} GROUP BY s.subject_slug, s.subject`).all<{ subject: string; subject_slug: string; norm_count: number }>();
+        // Ohne die vorberechnete Übersicht: Reihenfolge und Nummern aus der amtlichen Systematik.
+        return rows.results
+          .map((row) => ({ name: row.subject, slug: row.subject_slug, ...subjectFacts(row.subject), normCount: Number(row.norm_count) }))
+          .sort((left, right) => compareSubjects(left.name, right.name));
       });
     },
     async listSubjectAreas() {
@@ -809,12 +1051,17 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async getCorpusStats() {
       return metaJson<CorpusStats>('corpus_stats_json', async () => {
-        const row = await db.prepare(`SELECT (SELECT COUNT(*) FROM law_norms) AS norm_count, (SELECT COUNT(*) FROM law_norms WHERE status = 'in-force') AS in_force, (SELECT COUNT(*) FROM law_publications) AS publication_count`).first<{ norm_count: number; in_force: number; publication_count: number }>();
-        const types = await db.prepare('SELECT DISTINCT type FROM law_norms ORDER BY type').all<{ type: NormType }>();
-        const statuses = await db.prepare('SELECT DISTINCT status FROM law_norms ORDER BY status').all<{ status: NormStatus }>();
+        // Ersatzweg ohne vorberechnete Zeile: dieselbe Grundmenge wie die Verzeichnisse.
+        const row = await db.prepare(`SELECT (SELECT COUNT(*) FROM law_norms n WHERE ${INVENTORY_SQL}) AS norm_count,
+          (SELECT COUNT(*) FROM law_norms n WHERE ${INVENTORY_SQL} AND n.status = 'in-force') AS in_force,
+          (SELECT COUNT(*) FROM law_norms n WHERE NOT (${INVENTORY_SQL})) AS inherited_amendments,
+          (SELECT COUNT(*) FROM law_publications) AS publication_count`).first<{ norm_count: number; in_force: number; inherited_amendments: number; publication_count: number }>();
+        const types = await db.prepare(`SELECT DISTINCT n.type FROM law_norms n WHERE ${INVENTORY_SQL} ORDER BY n.type`).all<{ type: NormType }>();
+        const statuses = await db.prepare(`SELECT DISTINCT n.status FROM law_norms n WHERE ${INVENTORY_SQL} ORDER BY n.status`).all<{ status: NormStatus }>();
         return {
           normCount: Number(row?.norm_count ?? 0),
           inForceCount: Number(row?.in_force ?? 0),
+          inheritedAmendmentCount: Number(row?.inherited_amendments ?? 0),
           publicationCount: Number(row?.publication_count ?? 0),
           types: types.results.map((entry) => entry.type),
           statuses: statuses.results.map((entry) => entry.status),
@@ -881,9 +1128,12 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async listPublications({ limit } = {}) {
       // Nur law_publications; der Normenbestand wird dafür nicht gelesen.
+      // Reihenfolge wie comparePublicationsNewestFirst: Datum, Blatt, Ausgabennummer numerisch –
+      // sonst stünde „9“ hinter „10“ und ein Datum als Ausgabenbezeichnung an falscher Stelle.
+      const order = 'ORDER BY publication_date DESC, publication, CAST(issue AS INTEGER) DESC, issue DESC';
       const statement = limit
-        ? db.prepare('SELECT publication_json FROM law_publications ORDER BY publication_date DESC, issue DESC LIMIT ?').bind(limit)
-        : db.prepare('SELECT publication_json FROM law_publications ORDER BY publication_date DESC, issue DESC');
+        ? db.prepare(`SELECT publication_json FROM law_publications ${order} LIMIT ?`).bind(limit)
+        : db.prepare(`SELECT publication_json FROM law_publications ${order}`);
       const rows = await statement.all<{ publication_json: string }>();
       return rows.results.map((row) => JSON.parse(row.publication_json) as Verkuendung);
     },
@@ -891,7 +1141,7 @@ export function createD1NormStore(db: D1Database): NormStore {
       const row = await db.prepare('SELECT publication_json FROM law_publications WHERE slug = ?').bind(slug).first<{ publication_json: string }>();
       return row ? JSON.parse(row.publication_json) as Verkuendung : null;
     },
-    async getSearchDocuments(slugs, unitsMatch) {
+    async getSearchDocuments(slugs, unitsMatch, { unitsPerNorm = 8 } = {}) {
       if (slugs.length === 0) return [];
       // D1 erlaubt höchstens 100 gebundene Parameter je Anfrage (lokale SQLite-
       // Builds teils weniger); Kandidatenlisten werden deshalb in Blöcken abgefragt.
@@ -902,10 +1152,12 @@ export function createD1NormStore(db: D1Database): NormStore {
         const placeholders = chunk.map(() => '?').join(', ');
         documents.push(...(await db.prepare(`SELECT d.norm_id, d.version_id, d.document_json FROM law_search_documents d JOIN law_norms n ON n.id = d.norm_id WHERE n.slug IN (${placeholders})`).bind(...chunk).all<{ norm_id: string; version_id: string; document_json: string }>()).results);
         if (unitsMatch === undefined) continue;
+        // Je Vorschrift nur die bestbewerteten Einheiten: die Seite braucht Trefferstelle und
+        // Ausschnitt, nicht den ganzen Normtext (Fensterfunktion statt aller passenden Zeilen).
         units.push(...(unitsMatch === null
           // Ohne Suchausdruck über die relationale Tabelle und ihren Slug-Index, nicht über den FTS-Index.
-          ? (await db.prepare(`SELECT ${unitColumns} FROM law_search_units WHERE slug IN (${placeholders})`).bind(...chunk).all<Record<string, string>>()).results
-          : (await db.prepare(`SELECT ${unitColumns} FROM law_search WHERE law_search MATCH ? AND slug IN (${placeholders})`).bind(unitsMatch, ...chunk).all<Record<string, string>>()).results));
+          ? (await db.prepare(`SELECT ${unitColumns} FROM (SELECT ${unitColumns}, slug, row_number() OVER (PARTITION BY slug ORDER BY CAST(provision_path AS INTEGER)) AS rn FROM law_search_units WHERE slug IN (${placeholders})) WHERE rn <= ?`).bind(...chunk, unitsPerNorm).all<Record<string, string>>()).results
+          : (await db.prepare(`SELECT ${unitColumns} FROM (SELECT ${unitColumns}, slug, row_number() OVER (PARTITION BY slug ORDER BY rank) AS rn FROM law_search WHERE law_search MATCH ? AND slug IN (${placeholders})) WHERE rn <= ?`).bind(unitsMatch, ...chunk, unitsPerNorm).all<Record<string, string>>()).results));
       }
       const unitsByKey = new Map<string, SearchUnitRow[]>();
       for (const unit of units) {
@@ -931,21 +1183,79 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async searchCandidates(query) {
       const { match, limit, offset } = query;
+      // Zitierte Ausgaben stehen als unmittelbare Treffer vor der Volltextliste; sie werden
+      // aus der übrigen Zählung ausgenommen, damit keine Vorschrift doppelt zählt.
+      // D1 bindet höchstens 100 Werte je Abfrage; die Direkttreffer einer zitierten Ausgabe
+      // stehen zweimal in den Bedingungen (Ausnahme und Ausschluss) und bleiben deshalb knapp.
+      const cited = [...new Set(query.citedSlugs ?? [])].slice(0, 20);
+      let direct: string[] = [];
+      if (cited.length > 0) {
+        const base = candidateFilterSql({ ...query, plan: undefined, citedSlugs: [], includeAmendments: true });
+        const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE n.slug IN (${cited.map(() => '?').join(', ')})${base.sql} ORDER BY n.sort_title, n.slug`).bind(...cited, ...base.params).all<{ slug: string }>();
+        direct = rows.results.map((row) => row.slug);
+      }
+      const headSlugs = direct.slice(offset, offset + limit);
+      const rest = limit - headSlugs.length;
+      const restOffset = Math.max(0, offset - direct.length);
       // Alle Filter über die schmalen, indizierten Spalten der Projektion; nichts wird
       // nachträglich verworfen, damit total dieselbe Menge zählt wie die Trefferliste.
-      const { sql: filterSql, params: filterParams } = candidateFilterSql(query);
+      const { sql: filterSql, params: filterParams } = candidateFilterSql({ ...query, excludeSlugs: [...(query.excludeSlugs ?? []), ...direct] });
+      const plan = query.plan;
       if (match) {
-        const rows = await db.prepare(`SELECT s.slug, min(s.rank) AS best FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${filterSql} GROUP BY s.slug ORDER BY best LIMIT ? OFFSET ?`).bind(match, ...filterParams, limit, offset).all<{ slug: string }>();
-        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${filterSql}`).bind(match, ...filterParams).first<{ total: number }>();
-        return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
+        const rankParams: Array<string | number> = [];
+        const identity = (plan?.identityValues ?? []).map(() => '(n.abbr = ? COLLATE NOCASE OR n.short_title = ? COLLATE NOCASE OR n.title = ? COLLATE NOCASE)').join(' OR ');
+        for (const value of plan?.identityValues ?? []) rankParams.push(value, value, value);
+        const titleMatch = plan ? planTitleMatch(plan) : null;
+        if (titleMatch) rankParams.push(titleMatch);
+        const unitMatch = plan ? planUnitMatch(plan) : null;
+        if (unitMatch) rankParams.push(unitMatch);
+        const columns = [
+          `${identity ? `max(CASE WHEN ${identity} THEN 1 ELSE 0 END)` : '0'} AS identity`,
+          `${titleMatch ? 'max(CASE WHEN n.id IN (SELECT norm_id FROM law_search WHERE law_search MATCH ?) THEN 1 ELSE 0 END)' : '0'} AS title_hit`,
+          `${unitMatch ? 'max(CASE WHEN s.rowid IN (SELECT rowid FROM law_search WHERE law_search MATCH ?) THEN 1 ELSE 0 END)' : '0'} AS unit_hit`,
+          'min(s.rank) AS best',
+          'max(n.is_amendment) AS is_amendment',
+          'min(n.sort_title) AS sort_title',
+          'max(n.last_change_date) AS last_change_date',
+          'max(n.current_valid_from) AS valid_from',
+          'max(n.publication_date) AS publication_date',
+        ].join(', ');
+        const source = `FROM law_search s JOIN law_norms n ON n.id = s.norm_id WHERE law_search MATCH ?${filterSql}`;
+        const page = rest > 0
+          ? await db.prepare(`SELECT s.slug, ${columns} ${source} AND rank MATCH '${SEARCH_RANK_WEIGHTS}' GROUP BY s.slug ORDER BY ${rankedOrderBy(query.sort)} LIMIT ? OFFSET ?`)
+            .bind(...rankParams, match, ...filterParams, rest, restOffset).all<{ slug: string }>()
+          : { results: [] as Array<{ slug: string }> };
+        const total = await db.prepare(`SELECT count(DISTINCT s.slug) AS total ${source}`).bind(match, ...filterParams).first<{ total: number }>();
+        return { slugs: [...headSlugs, ...page.results.map((row) => row.slug)], total: direct.length + Number(total?.total ?? 0) };
       }
       // Ohne Suchausdruck: jüngste Rechtsänderung zuerst (law_norms.last_change_date), dann Titel.
-      const rows = await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${filterSql} ORDER BY ${summaryOrderBy('activity')} LIMIT ? OFFSET ?`).bind(...filterParams, limit, offset).all<{ slug: string }>();
+      const rows = rest > 0
+        ? await db.prepare(`SELECT n.slug FROM law_norms n WHERE 1 = 1${filterSql} ORDER BY ${browseOrderBy(query.sort)} LIMIT ? OFFSET ?`).bind(...filterParams, rest, restOffset).all<{ slug: string }>()
+        : { results: [] as Array<{ slug: string }> };
       const total = await db.prepare(`SELECT count(*) AS total FROM law_norms n WHERE 1 = 1${filterSql}`).bind(...filterParams).first<{ total: number }>();
-      return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
+      return { slugs: [...headSlugs, ...rows.results.map((row) => row.slug)], total: direct.length + Number(total?.total ?? 0) };
+    },
+    async countSearchFacets(query) {
+      // Je Facette eine Gruppierung über dieselbe Auswahl, ohne die eigene Bedingung: so bleiben
+      // Geschwisterwerte wählbar. Alle sieben Abfragen gehen als ein Stapel an die Datenbank.
+      const statements = SEARCH_FACETS.map((facet) => {
+        const source = SEARCH_FACET_SOURCES[facet];
+        const { sql, params } = candidateFilterSql({ ...query, ...source.clear, excludeSlugs: [] });
+        return query.match
+          ? db.prepare(`SELECT ${source.column} AS value, count(DISTINCT s.slug) AS count FROM law_search s JOIN law_norms n ON n.id = s.norm_id${source.join} WHERE law_search MATCH ?${sql} GROUP BY ${source.column}`).bind(query.match, ...params)
+          : db.prepare(`SELECT ${source.column} AS value, count(DISTINCT n.slug) AS count FROM law_norms n${source.join} WHERE 1 = 1${sql} GROUP BY ${source.column}`).bind(...params);
+      });
+      const results = await db.batch<{ value: string | null; count: number }>(statements);
+      return Object.fromEntries(SEARCH_FACETS.map((facet, index) => [
+        facet,
+        Object.fromEntries((results[index]?.results ?? []).filter((row) => row.value).map((row) => [String(row.value), Number(row.count)])),
+      ])) as SearchFacetCounts;
     },
     async getRuntimeMeta(key) {
       return readMeta(key);
+    },
+    async getProjectionFingerprint() {
+      return (await readMeta('projection_fingerprint')) ?? (await readMeta('last_sync_at')) ?? 'unbekannt';
     },
     async getNormLabels(slugs) {
       const labels = new Map<string, { title: string; shortTitle: string }>();
@@ -967,6 +1277,8 @@ export function createD1NormStore(db: D1Database): NormStore {
 export interface FileStoreSources {
   loadAllNorms(): Promise<NormRecord[]>;
   loadAllVerkuendungen(): Promise<Verkuendung[]>;
+  /** Redaktionelles Stichwortregister; ohne Quelle bleibt der Registerteil des A–Z leer. */
+  loadRegister?(): Promise<KeywordRegister>;
   loadTopics?(): Promise<Array<{ slug: string; title: string; rechtsgrundlagen?: Array<{ normSlug?: string }> }>>;
   loadPressReleases?(): Promise<Array<{ slug: string; title: string; date: string; relatedNormSlugs?: string[] }>>;
   topicUrl?(slug: string): string;
@@ -998,12 +1310,58 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
   };
   const find = async (slug: string): Promise<NormRecord | null> => (await context()).lookup.get(slug) ?? null;
 
+  /** Vollständige Datensätze der Grundmenge (Sachgebietszähler, Bestandszahlen). */
+  const inventoryRecords = async (): Promise<NormRecord[]> => {
+    const inventorySlugs = new Set((await summaries()).filter(inInventory).map((summary) => summary.slug));
+    return (await context()).norms.filter((record) => inventorySlugs.has(record.meta.slug));
+  };
+  const registerPromise = sources.loadRegister?.() ?? Promise.resolve({ entries: [] } as KeywordRegister);
+  const registerBySlug = (): Promise<Map<string, string[]>> => registerPromise.then(registerKeywordsBySlug);
+  /** Grundmenge wie in SQL: übernommene Änderungsvorschriften nur auf ausdrückliche Auswahl. */
+  const inInventory = (summary: NormSummary): boolean => !isInheritedAmendment({ type: summary.type, originKind: summary.originKind });
+  /**
+   * Alle Suchdokumente des Bestands (eine je Fassung). Nur die Dateivariante baut sie – sie liest
+   * ohnehin unmittelbar aus content/; die D1-Variante lädt nie den vollständigen Korpus.
+   */
+  let searchDocumentsPromise: Promise<SearchIndexDocument[]> | null = null;
+  const allSearchDocuments = (): Promise<SearchIndexDocument[]> => {
+    searchDocumentsPromise ??= (async () => {
+      const ctx = await context();
+      const build = sources.buildSearchDocument;
+      if (!build) return [];
+      return ctx.norms.flatMap((record) => record.versions.map((version) =>
+        build(record, version, ctx.lookup, ctx.publicationReferences.get(`${record.meta.slug}:${version.versionId}`))));
+    })();
+    return searchDocumentsPromise;
+  };
+
   const filterSummaries = async (query: NormSummaryQuery = {}): Promise<NormSummary[]> =>
     (await summaries()).filter((summary) =>
-      (!query.types?.length || query.types.includes(summary.type))
+      (!limitsToInventory(query) || inInventory(summary))
+      && (!query.types?.length || query.types.includes(summary.type))
       && (!query.statuses?.length || query.statuses.includes(summary.status))
       && (!query.subjectSlug || summary.subjects.some((subject) => getSubjectSlug(subject) === query.subjectSlug)));
 
+  /** Stichworteinträge einer Übersichtszeile mit Herkunft – dieselbe Rangfolge wie im Sync. */
+  const keywordEntriesWithKind = (summary: NormSummary, register: Map<string, string[]>): Array<{ keyword: string; kind: KeywordKind }> => {
+    const sources_: Array<[KeywordKind, Array<string | undefined>]> = [
+      ['register', register.get(summary.slug) ?? []],
+      ['abbr', [summary.abbr]],
+      ['short-title', [summary.shortTitle]],
+      ['derived', summary.keywords],
+    ];
+    const seen = new Set<string>();
+    const entries: Array<{ keyword: string; kind: KeywordKind }> = [];
+    for (const [kind, values] of sources_) {
+      for (const value of values) {
+        const keyword = typeof value === 'string' ? value.trim() : '';
+        if (keyword.length < 2 || seen.has(keyword)) continue;
+        seen.add(keyword);
+        entries.push({ keyword, kind });
+      }
+    }
+    return entries;
+  };
   const keywordEntriesOf = (summary: NormSummary): string[] =>
     [...new Set([summary.abbr, summary.shortTitle, ...summary.keywords].map((value) => (typeof value === 'string' ? value.trim() : '')).filter((value) => value.length >= 2))];
   const matchesText = (summary: NormSummary, text: string): boolean =>
@@ -1019,7 +1377,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       const { page, pageSize } = normalizePage(query.page, query.pageSize);
       const text = normalizeQueryText(query.q);
       const all = (await filterSummaries(query)).filter((summary) =>
-        (!query.letter || getGermanIndexLetter(summary.title) === query.letter)
+        (!query.letter || getGermanIndexLetter(summary.sortWord) === query.letter)
         && (!query.originKind || summary.originKind === query.originKind)
         && (!query.subject || summary.subjects.includes(query.subject))
         && (!text || matchesText(summary, text)));
@@ -1030,10 +1388,10 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     },
     async listIndexLetters(query = {}) {
       const counts = new Map<string, number>();
-      const scoped = (await filterSummaries({ types: query.types, subjectSlug: query.subjectSlug }))
+      const scoped = (await filterSummaries({ types: query.types, subjectSlug: query.subjectSlug, includeInheritedAmendments: query.includeInheritedAmendments }))
         .filter((summary) => !query.originKind || summary.originKind === query.originKind);
       for (const summary of scoped) {
-        const letter = getGermanIndexLetter(summary.title);
+        const letter = getGermanIndexLetter(summary.sortWord);
         counts.set(letter, (counts.get(letter) ?? 0) + 1);
       }
       return [...counts.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([letter, count]) => ({ letter, count }));
@@ -1041,9 +1399,12 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     async listKeywordIndex(letter, query = {}) {
       const { page, pageSize } = normalizePage(query.page, query.pageSize ?? KEYWORD_PAGE_SIZE);
       const text = normalizeQueryText(query.q);
+      const kinds = query.kinds?.length ? new Set<KeywordKind>(query.kinds) : null;
+      const register = await registerBySlug();
       const entries = new Map<string, KeywordIndexEntry>();
       for (const summary of await summaries()) {
-        for (const keyword of keywordEntriesOf(summary)) {
+        for (const { keyword, kind } of keywordEntriesWithKind(summary, register)) {
+          if (kinds && !kinds.has(kind)) continue;
           if (getGermanIndexLetter(keyword) !== letter || (text && !keyword.toLocaleLowerCase('de-DE').includes(text))) continue;
           const entry = entries.get(keyword) ?? { keyword, norms: [] };
           if (!entry.norms.some((norm) => norm.slug === summary.slug)) entry.norms.push({ slug: summary.slug, shortTitle: summary.shortTitle });
@@ -1058,7 +1419,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     async countByOriginKind() {
       const counts: Partial<Record<NormOriginKind, number>> = {};
       for (const summary of await summaries()) {
-        if (summary.originKind) counts[summary.originKind] = (counts[summary.originKind] ?? 0) + 1;
+        if (summary.originKind && inInventory(summary)) counts[summary.originKind] = (counts[summary.originKind] ?? 0) + 1;
       }
       return counts;
     },
@@ -1107,24 +1468,27 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       return selected.slice(0, limit);
     },
     async listSubjectSummaries() {
-      return getSubjectGroups((await context()).norms).map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length }));
+      return getSubjectGroups(await inventoryRecords()).map((group) => ({ name: group.name, slug: group.slug, ...subjectFacts(group.name), normCount: group.norms.length }));
     },
     async listSubjectAreas() {
-      return getSubjectAreaGroups((await context()).norms).map((area) => ({
+      return getSubjectAreaGroups(await inventoryRecords()).map((area) => ({
         name: area.name,
+        ...(area.number ? { number: area.number } : {}),
         description: area.description,
         normCount: area.normCount,
-        subjects: area.subjects.map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length })),
+        subjects: area.subjects.map((group) => ({ name: group.name, slug: group.slug, ...subjectFacts(group.name), normCount: group.norms.length })),
       }));
     },
     async getCorpusStats() {
       const { norms, publications } = await context();
+      const inventory = await inventoryRecords();
       return {
-        normCount: norms.length,
-        inForceCount: norms.filter((record) => record.meta.status === 'in-force').length,
+        normCount: inventory.length,
+        inForceCount: inventory.filter((record) => record.meta.status === 'in-force').length,
+        inheritedAmendmentCount: norms.length - inventory.length,
         publicationCount: publications.length,
-        types: [...new Set(norms.map((record) => record.meta.type))].sort(),
-        statuses: [...new Set(norms.map((record) => record.meta.status))].sort(),
+        types: [...new Set(inventory.map((record) => record.meta.type))].sort(),
+        statuses: [...new Set(inventory.map((record) => record.meta.status))].sort(),
       };
     },
     async listSearchSuggestions() {
@@ -1156,13 +1520,14 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       return (await context()).publicationReferences.get(`${slug}:${versionId}`);
     },
     async listPublications({ limit } = {}) {
-      const publications = [...(await context()).publications].sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'));
+      // Dieselbe Reihenfolge wie die D1-Variante und loadAllVerkuendungen.
+      const publications = [...(await context()).publications].sort(comparePublicationsNewestFirst);
       return limit ? publications.slice(0, limit) : publications;
     },
     async getPublication(slug) {
       return (await context()).publications.find((publication) => publication.slug === slug) ?? null;
     },
-    async getSearchDocuments(slugs, unitsMatch) {
+    async getSearchDocuments(slugs, unitsMatch, { unitsPerNorm = 8 } = {}) {
       const ctx = await context();
       if (!sources.buildSearchDocument) return [];
       const build = sources.buildSearchDocument;
@@ -1176,7 +1541,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
           const isCurrent = version.versionId === getCurrentVersionId(record);
           const units: SearchUnitRow[] = includeUnits && isCurrent
             ? [
-                ...hitUnits.map((unit, index) => ({ normId: record.meta.id, versionId: version.versionId, unitIndex: index, anchor: unit.anchor, blockType: unit.type, label: unit.label, heading: unit.title, body: unit.text, ...(unit.references ? { references: unit.references } : {}) })),
+                ...hitUnits.slice(0, unitsPerNorm).map((unit, index) => ({ normId: record.meta.id, versionId: version.versionId, unitIndex: index, anchor: unit.anchor, blockType: unit.type, label: unit.label, heading: unit.title, body: unit.text, ...(unit.references ? { references: unit.references } : {}) })),
                 ...(bodySupplement ? [{ normId: record.meta.id, versionId: version.versionId, unitIndex: hitUnits.length, anchor: '', blockType: 'supplement', label: '', heading: '', body: bodySupplement }] : []),
               ]
             : [];
@@ -1184,9 +1549,50 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         });
       });
     },
+    async countSearchFacets(query) {
+      // Dieselbe Bewertung wie die Trefferliste, je Facette einmal ohne die eigene Bedingung.
+      const counts = Object.fromEntries(SEARCH_FACETS.map((facet) => [facet, {} as Record<string, number>])) as SearchFacetCounts;
+      if (!query.state) return counts;
+      const facetState: Record<SearchFacet, Partial<NormSearchState>> = {
+        type: { types: [] },
+        origin: { origins: [] },
+        ministry: { ministries: [] },
+        subject: { subjects: [] },
+        status: { statuses: [] },
+        publicationSource: { publicationSources: [] },
+        publicationYear: { publicationYears: [] },
+      };
+      const values: Record<SearchFacet, (entry: SearchIndexDocument) => readonly string[]> = {
+        type: (entry) => [entry.type],
+        origin: (entry) => [entry.origin],
+        ministry: (entry) => [entry.ministry],
+        subject: (entry) => entry.subjects,
+        status: (entry) => [entry.status],
+        publicationSource: (entry) => (entry.publicationSource ? [entry.publicationSource] : []),
+        publicationYear: (entry) => (entry.publicationYear ? [entry.publicationYear] : []),
+      };
+      const documents = await allSearchDocuments();
+      for (const facet of SEARCH_FACETS) {
+        const state = { ...query.state, ...facetState[facet] } as NormSearchState;
+        for (const group of groupNormSearchResults(runNormSearch(documents, state), state)) {
+          for (const value of values[facet](group.entries[0].documentEntry)) {
+            if (value) counts[facet][value] = (counts[facet][value] ?? 0) + 1;
+          }
+        }
+      }
+      return counts;
+    },
     async searchCandidates(query) {
       const { match, limit, offset, types = [], origins = [], ministries = [], subjectSlugs = [], statuses = [], publicationSources = [], publicationYears = [], validOn, validFrom, validTo, versionScope, includeAmendments } = query;
       const ctx = await context();
+      if (query.state) {
+        // Dateivariante: dieselbe feldbewusste Bewertung wie die Anzeige, über den ganzen Bestand.
+        const state = query.state;
+        const restrict = query.restrictSlugs ? new Set(query.restrictSlugs) : null;
+        const groups = groupNormSearchResults(runNormSearch(await allSearchDocuments(), state), state)
+          .filter((group) => !restrict || restrict.has(group.slug));
+        return { slugs: groups.slice(offset, offset + limit).map((group) => group.slug), total: groups.length };
+      }
       const originBySlug = origins.length > 0 ? new Map((await summaries()).map((summary) => [summary.slug, summary.originKind])) : null;
       const terms = (match ?? '').toLocaleLowerCase('de').replace(/[()"*]/gu, '').split(/\s+(?:OR|AND)\s+|\s+/u).filter(Boolean);
       // Dieselben Bedingungen wie candidateFilterSql; die Fassungsbedingungen muss eine Fassung
@@ -1213,7 +1619,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
         if (subjectSlugs.length > 0 && !record.meta.subjects.some((subject) => subjectSlugs.includes(getSubjectSlug(subject)))) return false;
         if (!versionMatches(record)) return false;
         if (terms.length === 0) return true;
-        const haystack = [record.meta.title, record.meta.shortTitle, record.meta.abbr ?? '', ...record.versions.flatMap((version) => [version.title ?? '', version.shortTitle ?? ''])].join(' ').toLocaleLowerCase('de');
+        const haystack = [record.meta.title, record.meta.shortTitle ?? '', record.meta.abbr ?? '', ...record.versions.flatMap((version) => [version.title ?? '', version.shortTitle ?? ''])].join(' ').toLocaleLowerCase('de');
         return terms.some((term) => haystack.includes(term));
       });
       if (terms.length === 0) {
@@ -1225,6 +1631,10 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     },
     async getRuntimeMeta() {
       return null;
+    },
+    async getProjectionFingerprint() {
+      // Die Dateivariante liest unmittelbar aus content/; einen Abgleichstand gibt es dort nicht.
+      return 'files';
     },
     async getNormLabels(slugs) {
       const ctx = await context();

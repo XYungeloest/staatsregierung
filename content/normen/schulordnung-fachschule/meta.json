@@ -1,24 +1,30 @@
 {
   "id": "schulordnung-fachschule",
   "slug": "schulordnung-fachschule",
-  "title": "Schulordnung Fachschule",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus und des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft über die Fachschule im Freistaat Ostdeutschland",
   "shortTitle": "Schulordnung Fachschule",
-  "abbr": "FSO",
   "shortTitleSource": "official",
+  "abbr": "FSO",
   "type": "verordnung",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "FSO",
     "Schulordnung Fachschule",
-    "Schulordnung",
-    "Fachschule"
+    "Kultus",
+    "Energie",
+    "Klimaschutz",
+    "Umwelt",
+    "Landwirtschaft",
+    "Fachschule",
+    "Schulordnung"
   ],
   "initialCitation": "Schulordnung Fachschule vom 31. Juli 2023 (SächsGVBl. S. 638)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Schulordnung Fachschule“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2023-07-31",
   "sourceReferences": [
@@ -33,6 +39,7 @@
       "lawId": "20186",
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2024-07-31",
+      "fsnNumber": "710-1.42/5",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

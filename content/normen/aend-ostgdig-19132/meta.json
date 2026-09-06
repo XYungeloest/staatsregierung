@@ -2,12 +2,11 @@
   "id": "aend-ostgdig-19132",
   "slug": "aend-ostgdig-19132",
   "title": "Änderung des Ostdeutschen Geodateninfrastrukturgesetzes",
-  "shortTitle": "Änd. OstGDIG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstGDIG",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGDIG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Geodateninfrastrukturgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "a64b01a618f5e9cb91d6cdf7259c1a9a496ca4b170deed4b442281a7cc333ced",
       "lawId": "19132",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

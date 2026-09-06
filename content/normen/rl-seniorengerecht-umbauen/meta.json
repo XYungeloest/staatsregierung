@@ -1,24 +1,33 @@
 {
   "id": "rl-seniorengerecht-umbauen",
   "slug": "rl-seniorengerecht-umbauen",
-  "title": "RL Seniorengerecht Umbauen",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung des seniorengerechten Umbaus von Wohnraum",
   "shortTitle": "RL Seniorengerecht Umbauen",
-  "abbr": "RL SeBau",
   "shortTitleSource": "official",
+  "abbr": "RL SeBau",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien",
+    "Wohnungsbau, Wohnungswesen"
   ],
+  "primarySubject": "Förderrichtlinien",
+  "fundingArea": "554",
   "keywords": [
-    "RL SeBau",
     "RL Seniorengerecht Umbauen",
+    "Innern",
+    "Förderung",
+    "seniorengerechten",
+    "Umbaus",
+    "Wohnraum",
     "Seniorengerecht",
-    "Umbauen"
+    "Umbauen",
+    "SeBau"
   ],
-  "initialCitation": "RL Seniorengerecht Umbauen vom 9. Januar 2018 (SächsABl. S. 126), die zuletzt durch Ziffer IV der Richtlinie vom 10. Dezember 2019 (SächsABl. SDr. 2020 S. S 5) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "initialCitation": "RL Seniorengerecht Umbauen vom 9. Januar 2018 (SächsABl. S. 126), die zuletzt durch Ziffer IV der Richtlinie vom 10. Dezember 2019 (SächsABl. SDr. 2020 S. S 5) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „RL Seniorengerecht Umbauen“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-01-09",
   "sourceReferences": [
@@ -32,6 +41,7 @@
       "sha256": "daa1fc9e668fcb00ac530a824d58ae3d4c356b0e508ebb8260fc9a2e82365527",
       "lawId": "17557",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "554-V18.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

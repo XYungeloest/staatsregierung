@@ -2,15 +2,14 @@
   "id": "aend-vwv-stundentafeln-berufsbildende-schulen",
   "slug": "aend-vwv-stundentafeln-berufsbildende-schulen",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen",
+    "Änd. VwV Stundentafeln berufsbildende Schulen",
     "Kultus",
     "Änderung",
     "Stundentafeln",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-04-30",
   "effectiveDate": "2018-06-08",
@@ -35,8 +35,12 @@
       "sha256": "331a83223b4e0ad6d724ceb9fa0bed023d131a3ce7131e597f523eef236c7892",
       "lawId": "17727",
       "sourceValidFrom": "2018-06-08",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-stundentafeln-berufsbildende-schulen"
   ]
 }

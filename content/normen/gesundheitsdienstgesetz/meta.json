@@ -8,8 +8,9 @@
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "OstGDG",
     "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland",
@@ -23,6 +24,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1991-12-11",
   "sourceReferences": [
@@ -36,7 +38,8 @@
       "sha256": "0c8e1875b1e1bd75bf545f49a80a5ce488ccef1fc2dbdd4e0792de2551ffaafc",
       "lawId": "3348",
       "sourceValidFrom": "2018-05-25",
-      "sourceValidTo": "2024-08-16"
+      "sourceValidTo": "2024-08-16",
+      "fsnNumber": "250-1"
     },
     {
       "kind": "revosax-snapshot",

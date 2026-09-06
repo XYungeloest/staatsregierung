@@ -2,14 +2,12 @@
   "id": "aend-komwg-17501",
   "slug": "aend-komwg-17501",
   "title": "Änderung des Kommunalwahlgesetzes",
-  "shortTitle": "Änd. KomWG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht",
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. KomWG",
     "Änderung",
@@ -19,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "2-g-fortentwicklung-kommunalrecht",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. KomWG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Kommunalwahlgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-12-13",
   "effectiveDate": "2018-01-01",
@@ -34,6 +33,7 @@
       "sha256": "14a829cf896552c5ff2ce51abc78a8a79eff16d1a62083305dcc0d87e34c7340",
       "lawId": "17501",
       "sourceValidFrom": "2018-01-01",
+      "fsnNumber": "233",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Erlass des Ostdeutschen Staatsministeriums der Finanzen und des Ostdeutschen Staatsministeriums des Innern über das Verfahren bei der Erteilung von Anerkennungen nach § 4 Nr. 5, § 5 Abs. 1 Nr. 2 und § 32 Abs. 2 des Grundsteuergesetzes",
-  "shortTitle": "Erlass des Ostdeutschen Staatsministeriums der Finanzen und des Ostdeutschen Staatsministeriums des Innern über das Verfahren bei der Erteilung von Anerkennungen nach § 4 Nr. 5, § 5 Abs. 1 Nr. 2 und § 32 Abs. 2 des Grundsteuergesetzes",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Erlass des Ostdeutschen Staatsministeriums der Finanzen und des Ostdeutschen Staatsministeriums des Innern über das Verfahren bei der Erteilung von Anerkennungen nach § 4 Nr. 5, § 5 Abs. 1 Nr. 2 und § 32 Abs. 2 des Grundsteuergesetzes vom 4. Februar 2004 (SächsABl. S. 179), zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 222)",
+  "citation": "Erlass des Ostdeutschen Staatsministeriums der Finanzen und des Ostdeutschen Staatsministeriums des Innern über das Verfahren bei der Erteilung von Anerkennungen nach § 4 Nr. 5, § 5 Abs. 1 Nr. 2 und § 32 Abs. 2 des Grundsteuergesetzes vom 4. Februar 2004 (SächsABl. S. 179)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "5d640c8b96bb930073cad27b9d98c86315b0ce936984633a58f2271a2fa43ec7",
       "lawId": "1422",
       "sourceValidFrom": "2004-02-04",
+      "fsnNumber": "51-V04.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -33,37 +33,28 @@
       "title": "Zuständigkeit zur Erteilung der Anerkennungen:",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Die Staatsregierung hat durch die Verordnung über die Anerkennung der Bedingungen zur Grundsteuerbefreiung von Grundbesitz (Ostdeutsche Grundsteuer-Anerkennungsverordnung –\nOstGrStAnerkV) vom 4. Juni 1996 (SächsGVBl. S. 237) bestimmt, dass"
+        },
+        {
           "type": "item",
-          "label": "1.",
-          "text": "Zuständigkeit zur Erteilung der Anerkennungen:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Staatsregierung hat durch die Verordnung über die Anerkennung der Bedingungen zur Grundsteuerbefreiung von Grundbesitz (Ostdeutsche Grundsteuer-Anerkennungsverordnung –\nOstGrStAnerkV) vom 4. Juni 1996 (SächsGVBl. S. 237) bestimmt, dass"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "die Anerkennungen nach § 4 Nr. 5 und § 5 Abs. 1 Nr. 2 Satz 2 GrStG durch die Oberfinanzdirektion Chemnitz oder in den Fällen des § 42\nGrStG durch das örtlich zuständige Regierungspräsidium und",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "die Anerkennungen nach § 32 Abs. 2 Satz 2\nGrStG durch das örtlich zuständige Regierungspräsidium",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "paragraphText",
-              "text": "erteilt werden (§§ 1 und 2\nOstGrStAnerkV).\nDie Verordnung ist gemäß § 4\nOstGrStAnerkV mit Wirkung vom 1. Januar 1991 in Kraft getreten."
-            }
-          ]
+          "label": "a)",
+          "text": "die Anerkennungen nach § 4 Nr. 5 und § 5 Abs. 1 Nr. 2 Satz 2 GrStG durch die Oberfinanzdirektion Chemnitz oder in den Fällen des § 42\nGrStG durch das örtlich zuständige Regierungspräsidium und",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "die Anerkennungen nach § 32 Abs. 2 Satz 2\nGrStG durch das örtlich zuständige Regierungspräsidium",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "erteilt werden (§§ 1 und 2\nOstGrStAnerkV).\nDie Verordnung ist gemäß § 4\nOstGrStAnerkV mit Wirkung vom 1. Januar 1991 in Kraft getreten."
         }
       ]
     },
@@ -72,14 +63,6 @@
       "label": "2.",
       "title": "Vorbereitung des Anerkennungsverfahrens:",
       "children": [
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Vorbereitung des Anerkennungsverfahrens:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -165,14 +148,6 @@
       "label": "3.",
       "title": "Durchführung des Anerkennungsverfahrens:",
       "children": [
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Durchführung des Anerkennungsverfahrens:",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.1",

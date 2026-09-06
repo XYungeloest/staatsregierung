@@ -14,6 +14,9 @@
   --law-red: #b51f32;
   --law-green: #2e7d45;
   --content-width: 96rem;
+  /* Höhe der haftenden Kopfleiste plus Luft: haftende Seitenspalten setzen hier an, damit sie
+     bei der zweizeiligen Kopfstufe (64–80 rem) nicht unter den Kopf rutschen. */
+  --law-header-offset: 6.5rem;
 }
 
 .law-site body,
@@ -358,69 +361,113 @@
   background: var(--color-surface);
 }
 
-.norm-citation-status {
-  display: grid;
-  grid-template-columns: minmax(12rem, 0.42fr) minmax(0, 1.58fr);
-  gap: var(--space-4) var(--space-4);
-  margin-top: var(--space-3);
-  padding: var(--space-3) var(--space-4);
+/* Vorschriftendaten (Befund E4): ein Block mit jeder Angabe genau einmal. Ab 80 rem steht er
+   offen und ohne Zusammenfassungszeile, darunter ist er der Aufklappbereich „Angaben zur
+   Vorschrift“ (das Markup ist offen; NormFacts.astro klappt ihn dort einmal beim Laden zu). */
+.norm-facts {
   border: 1px solid color-mix(in srgb, var(--law-blue) 34%, var(--color-border));
   border-inline-start: 0.2rem solid var(--law-blue);
   border-radius: var(--radius-md);
   background: var(--color-surface);
 }
 
-.norm-citation-status__heading p,
-.norm-citation-status__heading h2 {
-  margin: 0;
+.norm-facts--future {
+  border-inline-start-color: var(--color-gold);
 }
 
-.norm-citation-status__heading h2 {
-  margin-top: var(--space-1);
-  font-size: var(--text-md);
+.norm-facts--historical,
+.norm-facts--unknown-effective {
+  border-inline-start-color: var(--color-border-strong);
 }
 
-.norm-citation-status__facts {
+.norm-facts__summary {
+  display: none;
+}
+
+.norm-facts__body {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+.norm-facts__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.norm-facts__head h2 {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--lh-heading);
+}
+
+.norm-facts__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: var(--space-3) var(--space-4);
   margin: 0;
+  font-size: var(--text-xs);
 }
 
-.norm-citation-status__facts > div {
+.norm-facts__list > div {
   min-width: 0;
 }
 
-.norm-citation-status__facts dt {
+.norm-facts__wide {
+  grid-column: 1 / -1;
+}
+
+.norm-facts__list dt {
   color: var(--color-text-muted);
-  font-size: var(--text-xs);
+  font-size: var(--text-2xs);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-.norm-citation-status__facts dd {
+.norm-facts__list dd {
   margin: var(--space-hairline) 0 0;
+  line-height: var(--lh-compact);
   overflow-wrap: anywhere;
 }
 
-.norm-citation-status__citation {
-  grid-column: 1 / -1;
+.norm-facts__secondary {
+  display: block;
+  margin-top: var(--space-hairline);
+  color: var(--color-text-muted);
 }
 
-.norm-citation-status__link-tools {
+.norm-facts__changes {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.norm-facts__links {
+  margin-top: var(--space-2);
+}
+
+.norm-facts__copy {
+  margin-inline-start: var(--space-2);
+}
+
+.norm-facts__link-tools {
   display: flex;
-  grid-column: 1 / -1;
   flex-wrap: wrap;
   align-items: baseline;
   gap: var(--space-xs) var(--space-3);
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-border);
   color: var(--color-text-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
 }
 
-.norm-citation-status__link-tools .copy-feedback {
+.norm-facts__link-tools .copy-feedback {
   flex-basis: 100%;
 }
 
@@ -571,6 +618,24 @@
   scroll-margin-top: 7rem;
 }
 
+/* Unterschriftenblock am Ende einer eigenen Verkündung: Name, Amtsbezeichnung und – soweit
+   die Quelle sie führt – Ort und Datum, jeweils in eigener Zeile. Die amtliche Quelle setzt
+   die Amtsbezeichnung gesperrt; gespeichert und vorgelesen wird sie in Normalschreibung. */
+.norm-signature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-block: var(--space-5) 0;
+  color: var(--color-text-muted);
+  line-height: var(--lh-body);
+  break-inside: avoid;
+}
+
+.norm-signature__name {
+  color: var(--color-ink);
+  font-weight: 650;
+}
+
 .legacy-anchor {
   position: absolute;
   inset-block-start: 0;
@@ -579,27 +644,46 @@
   pointer-events: none;
 }
 
-/* Werkzeuge je Einheit (Befund D1): ein unauffälliger Symbolknopf am rechten Rand der
-   Überschrift, auf dem Desktop nur bei Hover und Fokus sichtbar; das Menü bündelt Anker
-   (springt und kopiert) und Einzeldruck. Auf kleinen Bildschirmen ist der Knopf immer sichtbar. */
+/* Aufklappschalter je Einheit (Befund E7): die Überschrift bleibt eine echte Überschrift, das
+   Auf- und Zuklappen übernimmt ein beschrifteter Knopf daneben. Die Beschriftung nennt den
+   nächsten Zustand, der zugängliche Name zusätzlich die Einheit. */
+.norm-unit__toggle {
+  display: inline-flex;
+  min-height: 1.5rem;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--law-blue);
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.norm-unit__toggle:hover {
+  border-color: var(--color-border);
+  background: var(--color-surface-alt);
+}
+
+.norm-unit[data-collapsed] > .norm-unit__body {
+  display: none;
+}
+
+/* Werkzeuge je Einheit (Befund D1): ein unauffälliger Knopf in der Kopfzeile der Einheit,
+   auf dem Desktop nur bei Hover und Fokus sichtbar; das Menü bündelt Anker (springt und
+   kopiert) und Einzeldruck. Auf kleinen Bildschirmen ist der Knopf immer sichtbar. */
 .norm-unit__tools {
-  position: absolute;
-  /* Auf Höhe der Überschrift: die Einheit trägt in der Dokumentspalte --space-5 Innenabstand oben. */
-  inset-block-start: var(--space-5);
-  inset-inline-end: 0;
-  z-index: 2;
   opacity: 0;
   transition: opacity 120ms ease;
 }
 
-.norm-unit:hover > .norm-unit__tools,
-.norm-unit:focus-within > .norm-unit__tools,
+.norm-unit:hover > .norm-unit__head > .norm-unit__tools,
+.norm-unit:focus-within > .norm-unit__head > .norm-unit__tools,
 .norm-unit__tools:has([open]) {
   opacity: 1;
-}
-
-.norm-unit > .norm-unit__summary {
-  padding-inline-end: 3rem;
 }
 
 .norm-unit__tools-menu {
@@ -608,16 +692,17 @@
 
 .norm-unit__tools-menu > summary {
   display: inline-flex;
-  width: 2.5rem;
-  min-height: 2.5rem;
+  min-height: 1.5rem;
   align-items: center;
-  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-1) var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-primary);
-  font-weight: 750;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 650;
   line-height: 1;
   list-style: none;
   cursor: pointer;
@@ -699,61 +784,11 @@
   font-weight: 650;
 }
 
-.norm-citation-copy {
+/* Quellenhierarchie und Quellenhinweise unter „Drucken und Quellen“. */
+.norm-source-block {
   display: grid;
   gap: var(--space-2);
   margin-top: var(--space-4);
-}
-
-.norm-citation-copy > label {
-  color: var(--color-heading);
-  font-weight: 700;
-}
-
-.norm-citation-copy > div {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--space-2);
-}
-
-.norm-citation-copy input,
-.norm-citation-copy textarea,
-.norm-citation-copy button {
-  min-height: 2.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font: inherit;
-}
-
-/* Vollzitat: Dokumentschrift. */
-.norm-citation-copy textarea {
-  font-family: var(--font-document);
-}
-
-.norm-citation-copy input,
-.norm-citation-copy textarea {
-  min-width: 0;
-  padding: var(--space-3) var(--space-3);
-}
-
-.norm-citation-copy textarea {
-  resize: vertical;
-  line-height: var(--lh-compact);
-}
-
-.norm-citation-copy button {
-  padding-inline: var(--space-4);
-  color: var(--color-primary);
-  font-weight: 650;
-}
-
-.norm-citation-copy__note {
-  max-width: 72ch;
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
 }
 
 .copy-feedback {
@@ -1339,65 +1374,6 @@
   color: #6b5216;
 }
 
-/* Gemeinsamer Hinweis „Rechtsstand und Herkunft“ auf Normseiten. */
-.norm-legal-status {
-  margin-top: var(--space-4);
-  padding: var(--space-4) var(--space-4) var(--space-4);
-  border: 1px solid var(--color-border);
-  border-inline-start: 4px solid var(--law-blue);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-}
-
-.norm-legal-status--future {
-  border-inline-start-color: var(--color-gold);
-}
-
-.norm-legal-status--historical,
-.norm-legal-status--unknown-effective {
-  border-inline-start-color: var(--color-border-strong);
-  background: var(--color-surface-alt);
-}
-
-.norm-legal-status__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2) var(--space-4);
-}
-
-.norm-legal-status__head h2 {
-  margin: 0;
-  font-size: var(--text-base);
-  line-height: var(--lh-heading);
-}
-
-.norm-legal-status__status,
-.norm-legal-status__origin,
-.norm-legal-status__change {
-  margin: var(--space-2) 0 0;
-  line-height: var(--lh-compact);
-}
-
-.norm-legal-status__term {
-  display: inline-block;
-  margin-inline-end: var(--space-xs);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-.norm-legal-status__term::after {
-  content: ':';
-}
-
-.norm-legal-status__links {
-  margin-top: var(--space-3);
-}
-
 .search-hit__meta-line {
   display: flex;
   flex-wrap: wrap;
@@ -1407,6 +1383,51 @@
 }
 
 .search-hit__meta-separator {
+  color: var(--color-text-muted);
+}
+
+/* Sprungziele der Förderbereiche über den Abschnitten der Förderrichtlinien. */
+.law-funding-areas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-2);
+  margin-block: var(--space-4);
+}
+
+.law-funding-areas a {
+  display: grid;
+  gap: var(--space-hairline);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: inherit;
+  text-decoration: none;
+}
+
+.law-funding-areas a:hover,
+.law-funding-areas a:focus-visible {
+  border-color: var(--law-blue);
+  background: var(--color-info-blue);
+}
+
+.law-funding-areas span {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+/* Herkunftskacheln über der Trefferliste der Rechtssuche. */
+.law-search-origins {
+  margin-block: var(--space-5);
+}
+
+.law-search-origins h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.law-search-origins p {
+  margin: var(--space-2) 0 var(--space-4);
   color: var(--color-text-muted);
 }
 
@@ -1532,16 +1553,38 @@
   text-decoration: none;
 }
 
+/* Ansichtswechsel einer Übersicht (Verkündungen: Ausgaben oder Einträge). */
+.law-view-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-block: var(--space-3);
+}
+
+.law-view-switch a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.law-view-switch a:hover {
+  border-color: var(--color-primary);
+  background: var(--color-info-blue);
+}
+
+.law-view-switch a[aria-current='page'] {
+  border-color: var(--law-blue);
+  background: var(--law-blue);
+  color: var(--color-surface);
+}
+
 @media (max-width: 48rem) {
-  .norm-citation-status,
-  .norm-citation-status__facts {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .norm-citation-status__citation {
-    grid-column: auto;
-  }
-
   .search-form__primary--law,
   .search-filter-groups {
     grid-template-columns: minmax(0, 1fr);
@@ -1556,19 +1599,21 @@
     padding-inline: var(--space-3);
   }
 
-  .norm-version-navigation__primary {
-    display: grid;
-  }
-
-  .norm-version-navigation__primary a {
-    width: 100%;
-  }
-
   .norm-unit__tools {
     opacity: 1;
   }
 
-  .norm-citation-copy > div,
+  /* Unter 48 rem trägt der Werkzeugknopf nur das Symbol; sein Name bleibt „Werkzeuge“. */
+  .norm-unit__tools-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   .norm-compare__form {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1580,6 +1625,7 @@
   .law-header-search {
     display: none;
   }
+
 
   .law-header__bar {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -1596,7 +1642,7 @@
     display: none !important;
   }
 
-  .norm-unit:not([open]) > :not(summary) {
+  .norm-unit[data-collapsed] > .norm-unit__body {
     display: block;
   }
 
@@ -1976,7 +2022,7 @@
 
 /* Bedienziele außerhalb der Startseite mindestens 24 px hoch (Befund A1) – über Polsterung,
    nicht über Schriftgröße, damit der vertikale Rhythmus bleibt. */
-.norm-unit__summary {
+.norm-unit__head {
   min-height: 1.5rem;
 }
 
@@ -1994,9 +2040,18 @@
   align-items: center;
 }
 
+/* Alleinstehende Links in Listen und Definitionslisten sind Zeigerziele und keine Fließtextstellen:
+   mindestens 24 px hoch (WCAG 2.5.8). Fließtextlinks bleiben von der Ausnahme gedeckt. */
 .norm-history__version-date a,
-.norm-history__event-list .inline-link {
-  display: inline-block;
+.norm-history__event-list .inline-link,
+.norm-history__data-grid .inline-link,
+.directory-entry__facts dd a,
+.law-publication-entry__links .inline-link,
+.law-publication-sources .link-list a,
+.search-hit__facts dd .inline-link {
+  display: inline-flex;
+  min-height: 1.5rem;
+  align-items: center;
   padding-block: var(--space-hairline);
 }
 
@@ -2215,7 +2270,7 @@
 
 .law-search-filters {
   position: sticky;
-  top: 6.5rem;
+  top: var(--law-header-offset);
   padding: var(--space-3);
 }
 
@@ -2324,11 +2379,33 @@
   text-underline-offset: 0.16em;
 }
 
+/* Trefferdichte: eine ungeöffnete Trefferkarte bleibt auf kleinen Bildschirmen unter 220 px hoch
+   (zwei Zeilen Bezeichnung, eine Metazeile, drei Zeilen Ausschnitt, eine Zeile „Weitere Angaben“).
+   Die Regeln gelten nur in der Trefferspalte der Rechtssuche; die Portalsuche teilt die
+   Grundklassen aus foundation.css und bleibt unberührt. */
 .law-search-results-column .search-hit {
-  padding: var(--space-4);
+  padding: var(--space-3);
   border-inline-start: 1px solid var(--color-border);
   border-color: var(--color-border);
   box-shadow: none;
+}
+
+.law-search-results-column .search-hit__context {
+  margin-top: var(--space-xs);
+}
+
+.law-search-results-column .search-hit__details {
+  margin-top: var(--space-xs);
+  padding-top: var(--space-xs);
+}
+
+.law-search-results-column .search-hit__meta-line {
+  gap: var(--space-hairline) var(--space-2);
+  margin-top: var(--space-hairline);
+}
+
+.law-search-results-column .search-hit__title h3 {
+  margin-top: 0;
 }
 
 .search-hit__title {
@@ -2581,31 +2658,24 @@ a.search-hit__context-prefix {
   line-height: var(--lh-display);
 }
 
-.norm-page-header__abbr {
+/* Langtitel und Abkürzung stehen in einer umbrechenden Zeile; zwei eigene Zeilen kosten mobil
+   Höhe, ohne mehr zu sagen (Befund E3). */
+.norm-page-header__names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs) var(--space-3);
   margin: var(--space-xs) 0 0;
+}
+
+.norm-page-header__long-title {
+  color: #43586e;
+}
+
+.norm-page-header__abbr {
   color: var(--law-blue);
   font-size: var(--text-base);
   font-weight: 750;
-}
-
-.norm-page-header__summary {
-  max-width: 78ch;
-  margin: var(--space-3) 0 0;
-  color: #43586e;
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.norm-page-header__reference {
-  margin: var(--space-2) 0 0;
-  color: #52677c;
-  font-size: var(--text-xs);
-}
-
-.norm-page-header__reference a {
-  color: var(--law-blue);
 }
 
 .norm-page-header__facts {
@@ -2670,12 +2740,6 @@ a.search-hit__context-prefix {
   cursor: default;
 }
 
-/* Fundstelle ohne Ziel ist Nur-Text und sieht auch so aus. */
-.norm-page-header__reference-text {
-  color: inherit;
-  text-decoration: none;
-}
-
 .law-topic-card__note {
   margin: 0;
   padding: var(--space-2) var(--space-3) var(--space-3);
@@ -2689,25 +2753,51 @@ a.search-hit__context-prefix {
   text-align: right;
 }
 
+/* Die Rückmeldung belegt erst Höhe, wenn sie etwas sagt. */
+.norm-page-header__feedback:empty {
+  display: none;
+}
+
 .norm-workspace {
   display: grid;
-  grid-template-columns: minmax(14rem, 0.72fr) minmax(31rem, 2.25fr) minmax(17rem, 0.92fr);
+  grid-template-columns: minmax(16rem, 0.8fr) minmax(31rem, 2.25fr) minmax(17rem, 0.92fr);
   gap: var(--space-4);
   align-items: start;
   margin-top: var(--space-4);
 }
 
 .norm-toc-column,
-.norm-info-column {
+.norm-info-column,
+.norm-related-column {
   min-width: 0;
-  /* Spalten tragen die volle Zeilenhöhe, damit Inhaltsübersicht und Informationsspalte
-     neben dem langen Dokument haften können (Befund L2). */
+}
+
+/* Die Inhaltsübersicht trägt die volle Zeilenhöhe, damit sie neben dem langen Dokument haften
+   kann (Befund L2); Vorschriftendaten und Bezüge stehen darüber und darunter in der dritten Spalte. */
+.norm-toc-column {
+  grid-column: 1;
+  grid-row: 1 / span 2;
   align-self: stretch;
+}
+
+.norm-document-column {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.norm-info-column {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.norm-related-column {
+  grid-column: 3;
+  grid-row: 2;
 }
 
 .norm-outline--desktop {
   position: sticky;
-  top: 6.5rem;
+  top: var(--law-header-offset);
   max-height: calc(100vh - 7.5rem);
   margin: 0;
   padding: var(--space-4);
@@ -2735,7 +2825,7 @@ a.search-hit__context-prefix {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font: inherit;
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
 }
 
 .norm-outline .outline-list,
@@ -2762,8 +2852,10 @@ a.search-hit__context-prefix {
   padding: var(--space-1) var(--space-xs);
   border-radius: var(--radius-sm);
   color: #314d6a;
-  font-size: var(--text-2xs);
-  line-height: var(--lh-heading);
+  /* Untergrenze der Inhaltsübersicht (Befund E9): Listeneinträge nie unter --text-sm,
+     Gliederungszeichen nie unter --text-xs; tests/stilwaechter.test.ts hält sie fest. */
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
   text-decoration: none;
 }
 
@@ -2775,6 +2867,7 @@ a.search-hit__context-prefix {
 
 .outline-label {
   color: var(--law-blue);
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
@@ -2782,13 +2875,8 @@ a.search-hit__context-prefix {
   display: none;
 }
 
-.norm-document-column {
-  min-width: 0;
-}
-
 .norm-document-column > .section,
-.norm-document-column > .status-notice,
-.norm-document-column > .norm-legal-status {
+.norm-document-column > .status-notice {
   margin-top: var(--space-3);
 }
 
@@ -2835,14 +2923,14 @@ a.search-hit__context-prefix {
 /* Nur wenn ein Titel folgt; ein Label ohne Titel („Präambel“, „Artikel 5“) bleibt die Überschrift.
    Die Nummernzeile gehört zum Dokument und bleibt in der Dokumentschrift. */
 .norm-document-column .norm-division__header .norm-label:not(:only-child),
-.norm-document-column .norm-unit__summary .norm-unit__label:not(:only-child) {
+.norm-document-column .norm-unit__head .norm-unit__label:not(:only-child) {
   color: var(--color-text-muted);
   font-size: var(--text-sm);
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 
-.norm-document-column .norm-unit__summary .norm-unit__heading {
+.norm-document-column .norm-unit__head .norm-unit__heading {
   color: var(--law-blue-dark);
   font-family: var(--font-document);
   font-size: var(--text-md);
@@ -2870,53 +2958,13 @@ a.search-hit__context-prefix {
   line-height: var(--lh-body);
 }
 
-.norm-info-panel {
-  position: sticky;
-  top: 6.5rem;
-  max-height: calc(100vh - 7.5rem);
-  overflow: auto;
-}
-
-.norm-info-panel > summary {
-  display: none;
-}
-
-.norm-info-panel:not([open]) > div {
-  display: grid;
-}
-
-.norm-info-column .norm-citation-status {
-  grid-template-columns: minmax(0, 1fr);
-  margin: 0;
-  padding: var(--space-3);
-}
-
-.norm-info-column .norm-citation-status__facts {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.norm-info-column .norm-citation-status__citation,
-.norm-info-column .norm-citation-status__link-tools {
-  grid-column: 1;
-}
-
-.norm-info-column .norm-meta-panel,
-.norm-info-column .section.norm-sidebar__portal-links,
+.norm-related-column .section.norm-sidebar__portal-links,
 .norm-side-card {
   padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   box-shadow: none;
-}
-
-.norm-info-column .norm-meta-panel {
-  font-size: var(--text-xs);
-}
-
-.norm-info-column .meta-list--compact > div {
-  grid-template-columns: 1fr;
-  gap: var(--space-hairline);
 }
 
 .norm-side-card h2 {
@@ -2968,9 +3016,15 @@ a.search-hit__context-prefix {
 
 .norm-history-panel {
   overflow: hidden;
+  /* Sprungziele der Abschnittsleiste bleiben unter der haftenden Kopfleiste sichtbar. */
+  scroll-margin-top: 7rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
+}
+
+.norm-history-jumps {
+  margin-top: var(--space-4);
 }
 
 .norm-history-panel--versions,
@@ -2980,7 +3034,7 @@ a.search-hit__context-prefix {
   grid-column: 2;
   grid-row: 2 / span 2;
   position: sticky;
-  top: 6.5rem;
+  top: var(--law-header-offset);
 }
 
 .norm-history-panel__header {
@@ -3222,7 +3276,7 @@ a.search-hit__context-prefix {
 .law-help-card__number { color: #56697b; font-size: var(--text-xs); font-weight: 750; letter-spacing: 0.06em; }
 .law-help-card h3 { margin: 0 0 var(--space-2); color: var(--law-blue-dark); font-size: var(--text-md); }
 .law-help-card p { margin: var(--space-2) 0 0; color: #34495d; }
-.law-help-aside { position: sticky; top: 6.5rem; }
+.law-help-aside { position: sticky; top: var(--law-header-offset); }
 .law-help-aside section { padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-muted); }
 .law-help-aside nav { display: grid; margin-top: var(--space-3); }
 .law-help-aside nav a { padding: var(--space-3) 0; border-top: 1px solid var(--color-border); color: var(--law-blue-dark); font-weight: 650; text-decoration: none; }
@@ -3252,7 +3306,9 @@ a.search-hit__context-prefix {
 .law-publication-entry__citation { margin: 0; color: #43586c; }
 .law-publication-entry__citation > strong { margin-right: var(--space-2); color: #56697b; font-size: var(--text-2xs); text-transform: uppercase; letter-spacing: 0.04em; }
 .law-publication-entry__links { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: start; }
-.law-publication-sources { position: sticky; top: 6.5rem; padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-muted); }
+/* Zusatz zum Eintragstitel: die Fassung, auf die der Titel verweist. */
+.law-publication-entry__version { color: #56697b; font-size: var(--text-xs); }
+.law-publication-sources { position: sticky; top: var(--law-header-offset); padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-muted); }
 .law-publication-sources > p { color: #40566a; }
 .law-publication-sources .section-link-row a { display: inline-flex; padding: var(--space-3) var(--space-3); border-radius: var(--radius-sm); background: var(--law-blue); color: #fff; text-decoration: none; }
 .law-publication-sources .link-list { margin-top: var(--space-4); padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
@@ -3372,6 +3428,15 @@ a.search-hit__context-prefix {
   line-height: var(--lh-compact);
 }
 
+/* Beschriftung des Datums, im Aussehen der Faktenbeschriftungen rechts. */
+.directory-entry__lead-label {
+  display: block;
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .directory-entry__main {
   min-width: 0;
 }
@@ -3390,6 +3455,21 @@ a.search-hit__context-prefix {
 
 .directory-entry__title a:hover {
   text-decoration: underline;
+}
+
+/* Echte Abkürzung in der Überschrift, hinter dem Titel. */
+.directory-entry__abbr {
+  margin-inline-start: var(--space-2);
+  color: var(--law-blue);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+/* Langtitel unter der Überschrift, wenn diese den Kurztitel trägt. */
+.directory-entry__long-title {
+  margin: var(--space-hairline) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
 }
 
 .directory-entry__subtitle {
@@ -3498,17 +3578,45 @@ a.search-hit__context-prefix {
   }
 }
 
-/* Kleiner Desktop: Nur die Navigationsliste klappt in das Menü. Wortmarke, Kopfsuche und
-   Menüknopf bleiben sichtbar; die Suche ist der wichtigste Einstieg und weicht zuletzt. */
+/* Kleiner Desktop (64–80 rem): Der Kopf wird zweizeilig. Wortmarke, Kopfsuche und Servicewege
+   bleiben in der ersten Zeile, die sieben Navigationspunkte stehen als eigene zweite Zeile –
+   einzeilig bräuchten sie bei 1024 px mehr Platz, als der Kopf dort hergibt. Das Menü kommt
+   erst eine Stufe später (64 rem), wenn auch die Servicewege weichen. */
 @media (max-width: 80rem) {
   .law-header__bar {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    min-height: 4.8rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand utilities'
+      'nav nav';
+    min-height: 0;
     align-items: center;
+    row-gap: 0;
+  }
+
+  .law-wordmark {
+    grid-area: brand;
+    min-height: 4.8rem;
+  }
+
+  .law-header__utilities {
+    grid-area: utilities;
   }
 
   .law-main-nav {
-    display: none;
+    grid-area: nav;
+    justify-content: flex-start;
+    border-top: 1px solid var(--color-border);
+    overflow-x: auto;
+  }
+
+  .law-main-nav a {
+    min-height: 2.75rem;
+    border-bottom-width: 2px;
+  }
+
+  /* Die Navigationszeile trägt den Kopf höher; die haftenden Seitenspalten setzen tiefer an. */
+  .law-site {
+    --law-header-offset: 8.75rem;
   }
 
   .law-home-dashboard__row--band {
@@ -3519,9 +3627,105 @@ a.search-hit__context-prefix {
     grid-column: 1 / -1;
   }
 
+  .law-home-hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: var(--space-5);
+  }
+
+  .law-home-hero h1 {
+    max-width: 22ch;
+  }
+
+  .law-search-workspace {
+    grid-template-columns: minmax(14rem, 0.6fr) minmax(0, 1.6fr);
+  }
+
+  .law-search-tips {
+    grid-template-columns: 1fr;
+  }
+
+  /* Zwischen 64 und 80 rem bleibt der Arbeitsbereich zweispaltig: haftende Inhaltsübersicht
+     neben dem Text, die Vorschriftendaten darüber hinweg darunter als Aufklappbereich. */
+  .norm-workspace {
+    grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 2fr);
+  }
+
+  .norm-toc-column,
+  .norm-document-column {
+    grid-row: 1;
+  }
+
+  .norm-info-column {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .norm-related-column {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  /* Die Zusammenfassungszeile gilt für beide Aufklappbereiche; die mobile Inhaltsübersicht
+     erscheint erst unterhalb von 64 rem. */
+  .norm-outline-mobile > summary,
+  .norm-facts__summary {
+    display: flex;
+    min-height: 3rem;
+    align-items: center;
+    padding: var(--space-3) var(--space-3);
+    color: var(--law-blue-dark);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .norm-outline-mobile > nav {
+    max-height: 65vh;
+    padding: 0 var(--space-3) var(--space-3);
+    overflow: auto;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .norm-facts[open] > .norm-facts__body {
+    padding-top: 0;
+  }
+
+  .norm-history-workspace { grid-template-columns: 1fr; }
+  .norm-history-panel--versions,
+  .norm-history-panel--events,
+  .norm-history-panel--data { grid-column: 1; grid-row: auto; position: static; }
+}
+
+@media (max-width: 64rem) {
+  /* Die beiden Servicewege stehen im geöffneten Menü; im Kopf bleibt die Suche. Weil sie
+     hier weichen, weicht auch die Navigationsliste: der Kopf wird wieder einzeilig, die
+     sieben Punkte stehen im Menü. */
+  .law-header__utilities a {
+    display: none;
+  }
+
+  .law-header__bar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: 'brand utilities menu';
+    min-height: 4.8rem;
+  }
+
+  .law-wordmark {
+    min-height: 0;
+  }
+
+  .law-main-nav {
+    display: none;
+  }
+
+  .law-site {
+    --law-header-offset: 6.5rem;
+  }
+
   .law-mobile-nav {
     display: block;
     position: relative;
+    grid-area: menu;
   }
 
   .law-mobile-nav summary {
@@ -3581,52 +3785,29 @@ a.search-hit__context-prefix {
     margin-top: var(--space-3);
   }
 
-  .law-home-hero {
-    grid-template-columns: 1fr;
-    min-height: 0;
-    gap: var(--space-5);
-  }
-
-  .law-home-hero h1 {
-    max-width: 22ch;
-  }
-
+  /* Fünf Schnellzugriffe auf drei Spalten: 3 + 2 statt einer einzelnen Karte in der zweiten Reihe. */
   .law-quick-access {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .law-quick-access > a:nth-child(n + 4) {
+    border-top: 1px solid var(--color-border);
   }
 
   .law-quick-access > a:nth-child(4) {
     border-inline-start: 0;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .law-quick-access > a:nth-child(5) {
-    border-top: 1px solid var(--color-border);
-  }
-
-  .law-search-workspace {
-    grid-template-columns: minmax(14rem, 0.6fr) minmax(0, 1.6fr);
-  }
-
-  .law-search-tips {
-    grid-template-columns: 1fr;
   }
 
   .norm-workspace {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .norm-toc-column {
-    order: 0;
-  }
-
-  .norm-document-column {
-    order: 1;
-  }
-
-  .norm-info-column {
-    order: 2;
+  .norm-toc-column,
+  .norm-document-column,
+  .norm-info-column,
+  .norm-related-column {
     grid-column: auto;
+    grid-row: auto;
   }
 
   .norm-outline--desktop {
@@ -3638,57 +3819,6 @@ a.search-hit__context-prefix {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     background: var(--color-surface);
-  }
-
-  .norm-outline-mobile > summary,
-  .norm-info-panel > summary {
-    display: flex;
-    min-height: 3rem;
-    align-items: center;
-    padding: var(--space-3) var(--space-3);
-    color: var(--law-blue-dark);
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .norm-outline-mobile > nav {
-    max-height: 65vh;
-    padding: 0 var(--space-3) var(--space-3);
-    overflow: auto;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .norm-info-panel {
-    max-height: none;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background: var(--color-surface);
-  }
-
-  .norm-info-panel > summary {
-    display: flex;
-  }
-
-  .norm-info-panel:not([open]) > div {
-    display: none;
-  }
-
-  .norm-info-panel[open] > div {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 0 var(--space-3) var(--space-3);
-  }
-
-  .norm-history-workspace { grid-template-columns: 1fr; }
-  .norm-history-panel--versions,
-  .norm-history-panel--events,
-  .norm-history-panel--data { grid-column: 1; grid-row: auto; position: static; }
-}
-
-@media (max-width: 64rem) {
-  /* Die beiden Servicewege stehen im geöffneten Menü; im Kopf bleibt die Suche. */
-  .law-header__utilities a {
-    display: none;
   }
 
   .law-main {
@@ -3814,6 +3944,22 @@ a.search-hit__context-prefix {
 }
 
 @media (max-width: 48rem) {
+  /* Auf kleinen Bildschirmen zeigt der Ausschnitt drei Zeilen und der Langtitel eine; beides
+     vollständig steht eine Verknüpfung entfernt in der Vorschrift selbst. */
+  .law-search-results-column .search-hit__context {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  /* Der amtliche Langtitel wiederholt auf kleinen Bildschirmen die Kurzbezeichnung in längerer
+     Form; er steht vollständig auf der Vorschriftenseite und weicht hier dem Wortlaut. */
+  .law-search-results-column .search-hit__long-title {
+    display: none;
+  }
+
   .law-site .site-notice__inner p {
     font-size: var(--text-2xs);
   }
@@ -3900,13 +4046,78 @@ a.search-hit__context-prefix {
     gap: var(--space-2);
   }
 
+  .norm-page-header {
+    padding-block: var(--space-4);
+  }
+
+  /* Die Werkzeuge bleiben eine Zeile und rollen wie die Fassungsnavigation; vier gestapelte
+     Knöpfe schöben den Vorschriftentext mobil um 100 Pixel nach unten (Befund E3). */
+  .norm-page-header__actions {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+  }
+
+  /* Der Langtitel ist eine Erläuterung der Überschrift und bleibt mobil einzeilig. */
+  .norm-page-header__long-title {
+    font-size: var(--text-sm);
+  }
+
   .norm-page-header h1 {
-    font-size: var(--text-title-long);
+    margin-top: var(--space-1);
+  }
+
+  .norm-page-header__facts {
+    margin-top: var(--space-2);
+  }
+
+  /* Die Fassungsreihe rollt waagerecht, statt auf zwei Zeilen umzubrechen. */
+  .norm-version-navigation__primary {
+    flex-wrap: nowrap;
+  }
+
+  .norm-outline-mobile > summary,
+  .norm-facts__summary {
+    min-height: 2.75rem;
+  }
+
+  /* Beide Aufklappzeilen teilen sich mobil eine Zeile über dem Text; die geöffnete nimmt die
+     volle Breite, die andere rückt darunter (Befund E3). */
+  .norm-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: var(--space-3);
+  }
+
+  .norm-info-column {
+    order: -2;
+    grid-column: span 1;
+  }
+
+  .norm-toc-column {
+    order: -1;
+    grid-column: span 1;
+  }
+
+  .norm-info-column:has(.norm-facts[open]),
+  .norm-toc-column:has(.norm-outline-mobile[open]),
+  .norm-document-column,
+  .norm-related-column {
+    grid-column: 1 / -1;
+  }
+
+  /* Die Fassungsnavigation wird zur schmalen Rollreihe; sie darf mobil keine 200 px belegen. */
+  .norm-version-navigation {
+    gap: var(--space-2);
+    padding-block: var(--space-2);
   }
 
   .norm-page-header__actions > * {
-    flex: 1 1 auto;
-    justify-content: center;
+    flex: 0 0 auto;
+    min-height: 2.5rem;
+    padding-inline: var(--space-3);
+    font-size: var(--text-2xs);
+    white-space: nowrap;
+    scroll-snap-align: start;
   }
 
   .norm-version-navigation__primary {
@@ -4125,4 +4336,33 @@ a.search-hit__context-prefix {
   background: var(--law-blue-light);
   color: var(--law-blue-dark);
   font-weight: 650;
+}
+
+/* Schmalste Stufe: Der Normkopf und die Fassungswahl brechen sonst in jeder Zeile um und schieben
+   den Vorschriftentext nach unten (Befund E3). */
+@media (max-width: 30rem) {
+  .norm-page-header {
+    padding-block: var(--space-3);
+  }
+
+  .norm-page-header h1 {
+    font-size: var(--text-lg-plus);
+  }
+
+  .norm-page-header__long-title,
+  .norm-page-header__abbr {
+    font-size: var(--text-xs);
+  }
+
+  .norm-version-picker summary {
+    padding-inline-end: var(--space-5);
+  }
+
+  .norm-version-picker summary strong {
+    font-size: var(--text-sm);
+  }
+
+  .norm-workspace {
+    margin-top: var(--space-2);
+  }
 }

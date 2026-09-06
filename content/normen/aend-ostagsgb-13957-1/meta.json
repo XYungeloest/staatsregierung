@@ -2,15 +2,14 @@
   "id": "aend-ostagsgb-13957-1",
   "slug": "aend-ostagsgb-13957-1",
   "title": "Drittes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitle": "Drittes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Allgemeines zum Sozialwesen"
   ],
+  "primarySubject": "Allgemeines zum Sozialwesen",
   "keywords": [
-    "Drittes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
+    "Änd. OstAGSGB",
     "Drittes",
     "Änderung",
     "Ausführung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Drittes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-04-02",
   "effectiveDate": "2014-05-01",
@@ -34,8 +34,12 @@
       "sha256": "07fab6113d16d9ebdf156a47fd7963143c9a695bc1704500d4d5d27dec4786de",
       "lawId": "13957",
       "sourceValidFrom": "2014-05-01",
+      "fsnNumber": "8",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches"
   ]
 }

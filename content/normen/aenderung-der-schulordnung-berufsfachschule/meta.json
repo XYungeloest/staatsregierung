@@ -2,12 +2,11 @@
   "id": "aenderung-der-schulordnung-berufsfachschule",
   "slug": "aenderung-der-schulordnung-berufsfachschule",
   "title": "Änderung der Schulordnung Berufsfachschule",
-  "shortTitle": "Änd. BFSO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. BFSO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-neufassung-und-aend-bfso",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. BFSO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Berufsfachschule“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-10-24",
   "effectiveDate": "2023-01-01",
@@ -33,6 +33,7 @@
       "sha256": "fc1023312efdff3e4393753da20e0e06008b57fe0a92fc863edda54cfef97fc9",
       "lawId": "19748",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

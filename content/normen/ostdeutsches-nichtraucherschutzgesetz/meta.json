@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-nichtraucherschutzgesetz",
   "slug": "ostdeutsches-nichtraucherschutzgesetz",
-  "title": "Ostdeutsches Nichtraucherschutzgesetz",
+  "title": "Gesetz zum Schutz von Nichtrauchern im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Nichtraucherschutzgesetz",
-  "abbr": "OstNSG",
   "shortTitleSource": "official",
+  "abbr": "OstNSG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "OstNSG",
     "Ostdeutsches Nichtraucherschutzgesetz",
-    "Nichtraucherschutzgesetz"
+    "Schutz",
+    "Nichtrauchern",
+    "Nichtraucherschutzgesetz",
+    "OstNSG"
   ],
   "initialCitation": "Ostdeutsches Nichtraucherschutzgesetz vom 26. Oktober 2007 (SächsGVBl. S. 495), das zuletzt durch Artikel 3 des Gesetzes vom 28. Juni 2018 (SächsGVBl. S. 458) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Nichtraucherschutzgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2007-10-26",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "3307a0e984fd770125c4fbba2ab66bdc11ce5e53cf2caf27981d928192624917",
       "lawId": "9706",
       "sourceValidFrom": "2018-07-26",
+      "fsnNumber": "250-13",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

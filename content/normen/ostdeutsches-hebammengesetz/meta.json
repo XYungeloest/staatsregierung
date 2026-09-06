@@ -1,24 +1,30 @@
 {
   "id": "ostdeutsches-hebammengesetz",
   "slug": "ostdeutsches-hebammengesetz",
-  "title": "Ostdeutsches Hebammengesetz",
+  "title": "Gesetz zur Ausübung des Berufes der Hebamme und des Entbindungspflegers",
   "shortTitle": "Ostdeutsches Hebammengesetz",
-  "abbr": "OstHebG",
   "shortTitleSource": "official",
+  "abbr": "OstHebG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "OstHebG",
     "Ostdeutsches Hebammengesetz",
-    "Hebammengesetz"
+    "Ausübung",
+    "Berufes",
+    "Hebamme",
+    "Entbindungspflegers",
+    "Hebammengesetz",
+    "OstHebG"
   ],
   "initialCitation": "Ostdeutsches Hebammengesetz vom 9. Juli 1997 (SächsGVBl. S. 478), das zuletzt durch Artikel 20 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Hebammengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1997-07-09",
   "sourceReferences": [
@@ -32,6 +38,7 @@
       "sha256": "059cb9750927b1215428eb309bf881992062ded201091973b1437214373992b8",
       "lawId": "2608",
       "sourceValidFrom": "2018-05-25",
+      "fsnNumber": "253-6",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

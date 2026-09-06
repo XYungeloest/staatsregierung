@@ -1,23 +1,25 @@
 {
   "id": "gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland",
   "slug": "gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland",
-  "title": "Rechnungshofgesetz",
+  "title": "Gesetz über den Rechnungshof des Freistaates Ostdeutschland",
   "shortTitle": "Rechnungshofgesetz",
-  "abbr": "RHG",
   "shortTitleSource": "official",
+  "abbr": "RHG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Haushaltwesen, Rechnungshof"
   ],
+  "primarySubject": "Haushaltwesen, Rechnungshof",
   "keywords": [
-    "RHG",
-    "Rechnungshofgesetz"
+    "Rechnungshofgesetz",
+    "Rechnungshof"
   ],
   "initialCitation": "Rechnungshofgesetz vom 11. Dezember 1991 (SächsGVBl. S. 409), das zuletzt durch Artikel 4 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Rechnungshofgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1991-12-11",
   "sourceReferences": [
@@ -31,6 +33,7 @@
       "sha256": "0f177d0ee63e308350478378d096bd96e9496b7095bb2066166f7f30baacf80d",
       "lawId": "3530",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "523-1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

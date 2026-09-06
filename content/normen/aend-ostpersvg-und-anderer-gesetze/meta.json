@@ -2,15 +2,14 @@
   "id": "aend-ostpersvg-und-anderer-gesetze",
   "slug": "aend-ostpersvg-und-anderer-gesetze",
   "title": "Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes und anderer Gesetze",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes und anderer Gesetze",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes und anderer Gesetze",
+    "Änd. OstPersVG und anderer Gesetze",
     "Änderung",
     "Personalvertretungsgesetzes",
     "anderer",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes und anderer Gesetze“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-12-17",
   "effectiveDate": "2016-01-01",
@@ -34,8 +34,12 @@
       "sha256": "0a83cea9cd6b9647c2b5b96e5978ae4c94c2db8dd3b369305c120006ba0e30a2",
       "lawId": "16771",
       "sourceValidFrom": "2016-01-01",
+      "fsnNumber": "244",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-personalvertretungsgesetz"
   ]
 }

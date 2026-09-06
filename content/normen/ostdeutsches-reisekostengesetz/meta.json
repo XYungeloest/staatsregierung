@@ -1,25 +1,29 @@
 {
   "id": "ostdeutsches-reisekostengesetz",
   "slug": "ostdeutsches-reisekostengesetz",
-  "title": "Ostdeutsches Reisekostengesetz",
+  "title": "Ostdeutsches Gesetz über die Reisekostenvergütung der Beamten und Richter",
   "shortTitle": "Ostdeutsches Reisekostengesetz",
-  "abbr": "OstRKG",
   "shortTitleSource": "official",
+  "abbr": "OstRKG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht",
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "OstRKG",
     "Ostdeutsches Reisekostengesetz",
-    "Reisekostengesetz"
+    "Reisekostenvergütung",
+    "Beamten",
+    "Richter",
+    "Reisekostengesetz",
+    "OstRKG"
   ],
   "initialCitation": "Ostdeutsches Reisekostengesetz vom 12. Dezember 2008 (SächsGVBl. S. 866, 876), das zuletzt durch das Gesetz vom 17. Mai 2023 (SächsGVBl. S. 246) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Reisekostengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2008-12-12",
   "sourceReferences": [
@@ -33,6 +37,7 @@
       "sha256": "c525a9efe892cec95c5998e959d7d11eb971468afa31f624d3a52380e94f38df",
       "lawId": "10536",
       "sourceValidFrom": "2023-06-10",
+      "fsnNumber": "242-8/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

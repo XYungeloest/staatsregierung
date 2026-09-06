@@ -2,12 +2,11 @@
   "id": "aend-ostaakvo-12504",
   "slug": "aend-ostaakvo-12504",
   "title": "Änderung der Ostdeutschen Amtsarztkursverordnung",
-  "shortTitle": "Änd. OstAAKVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Änd. OstAAKVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-ueber-folgeaenderungen-nach-aufloesung-des-bildungszentrums",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstAAKVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Amtsarztkursverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-05-08",
   "effectiveDate": "2012-01-01",
@@ -32,6 +32,7 @@
       "sha256": "36f4f9c968ba53c1ea3f97e0c23287686283632edb170e41bf2febcb60c888aa",
       "lawId": "12504",
       "sourceValidFrom": "2012-01-01",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

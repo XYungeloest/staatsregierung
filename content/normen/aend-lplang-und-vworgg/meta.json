@@ -2,15 +2,14 @@
   "id": "aend-lplang-und-vworgg",
   "slug": "aend-lplang-und-vworgg",
   "title": "Gesetz zur Änderung des Landesplanungsgesetzes",
-  "shortTitle": "Gesetz zur Änderung des Landesplanungsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Raumordnung und Landesplanung"
+    "Raumordnung, Landesplanung"
   ],
+  "primarySubject": "Raumordnung, Landesplanung",
   "keywords": [
-    "Gesetz zur Änderung des Landesplanungsgesetzes",
+    "Änd. LPlanG und VwOrgG",
     "Änderung",
     "Landesplanungsgesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Landesplanungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2005-09-09",
   "effectiveDate": "2006-01-01",
@@ -35,5 +35,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "landesplanungsgesetz"
   ]
 }

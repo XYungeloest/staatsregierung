@@ -1,8 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift Hohlraumgebiete",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Oberbergamtes zur Festlegung der Gebiete gemäß § 8 Abs. 2 OstHohlrVO",
   "shortTitle": "Verwaltungsvorschrift Hohlraumgebiete",
-  "abbr": "VwV HohlrGeb",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
@@ -19,6 +18,7 @@
       "sha256": "11afba355a6f7202bad988b1af8efd792623d5072128fa825f143b690a3f4cf0",
       "lawId": "12445",
       "sourceValidFrom": "2012-04-26",
+      "fsnNumber": "22-V12.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -33,14 +33,6 @@
       "label": "1",
       "title": "Festlegung von Gebieten mit unterirdischen Hohlräumen",
       "children": [
-        {
-          "type": "item",
-          "label": "1",
-          "text": "Festlegung von Gebieten mit unterirdischen Hohlräumen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -74,14 +66,6 @@
       "children": [
         {
           "type": "item",
-          "label": "2",
-          "text": "Bedeutung der Gebietsausweisung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "2.1",
           "text": "Gemäß § 8 Abs. 1\nOstHohlrVO kann beim Vorliegen eines berechtigten Interesses für die in der Hohlraumkarte ausgewiesenen Gebieten eine bergbehördliche Mitteilung eingeholt werden. Ein berechtigtes Interesse liegt insbesondere bei geplanten Bauvorhaben vor. Der Bauherr sollte rechtzeitig vor Erstellung der Bauvorlagen vom Ostdeutschen Oberbergamt eine bergbauliche Mitteilung über mögliche Gefahren, die von unterirdischen Hohlräumen, Halden oder Restlöchern ausgehen, einholen.",
           "level": 0,
@@ -112,14 +96,6 @@
       "title": "Hinweise",
       "children": [
         {
-          "type": "item",
-          "label": "3",
-          "text": "Hinweise",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Die Gebietsausweisung nach Nummer 1.1 beruht auf den beim Ostdeutschen Oberbergamt vorhandenen Informationen in Form von Kartenwerken, Sachdaten und bergschadenkundlichen Analysen. Es ist nicht ausgeschlossen, dass auch außerhalb der festgelegten Hohlraumgebiete unterirdische Hohlräume, Halden und Restlöcher vorhanden sind, die Auswirkungen auf die Grundstücksnutzung haben. Weiterhin kann nicht ausgeschlossen werden, dass innerhalb der festgesetzten Hohlraumgebiete unterirdische Hohlräume, Halden und Restlöcher vorhanden sind, die dem Ostdeutschen Oberbergamt nicht bekannt sind und deshalb in der Mitteilung nach § 8 Abs. 1\nOstHohlrVO nicht berücksichtigt werden können."
         }
@@ -130,14 +106,6 @@
       "label": "4",
       "title": "Inkrafttreten",
       "children": [
-        {
-          "type": "item",
-          "label": "4",
-          "text": "Inkrafttreten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft."

@@ -2,15 +2,14 @@
   "id": "aend-lblindg-19473-1",
   "slug": "aend-lblindg-19473-1",
   "title": "Drittes Gesetz zur Änderung des Landesblindengeldgesetzes",
-  "shortTitle": "Drittes Gesetz zur Änderung des Landesblindengeldgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Behindertenfürsorge, Kriegsopferfürsorge, Pflege"
   ],
+  "primarySubject": "Behindertenfürsorge, Kriegsopferfürsorge, Pflege",
   "keywords": [
-    "Drittes Gesetz zur Änderung des Landesblindengeldgesetzes",
+    "Änd. LBlindG",
     "Drittes",
     "Änderung",
     "Landesblindengeldgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Drittes Gesetz zur Änderung des Landesblindengeldgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-12-21",
   "effectiveDate": "2022-01-01",
@@ -33,8 +33,12 @@
       "sha256": "01cd437377075d093ef5adcde3e47a46d482a624778fd8f31dee1b8b580f7e95",
       "lawId": "19473",
       "sourceValidFrom": "2022-01-01",
+      "fsnNumber": "840",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-die-gewaehrung-eines-landesblindengeldes-und-anderer-nachteilsausgleiche"
   ]
 }

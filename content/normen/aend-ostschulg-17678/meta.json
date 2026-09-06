@@ -2,13 +2,12 @@
   "id": "aend-ostschulg-17678",
   "slug": "aend-ostschulg-17678",
   "title": "Änderung des Ostdeutschen Schulgesetzes",
-  "shortTitle": "Änd. OstSchulG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. OstSchulG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "anpassung-landesr-an-dsgvo",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstSchulG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Schulgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-04-26",
   "effectiveDate": "2018-05-25",
@@ -33,6 +33,7 @@
       "sha256": "9e43009db8c203d5a16cf062bc432baeec0e04295a8f4d0bdc214ba87dac1fd6",
       "lawId": "17678",
       "sourceValidFrom": "2018-05-25",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

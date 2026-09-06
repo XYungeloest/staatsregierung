@@ -2,15 +2,13 @@
   "id": "aend-vogelbervo",
   "slug": "aend-vogelbervo",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Vogelberingungsverordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Vogelberingungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Vogelberingungsverordnung",
+    "Änd. VogelBerVO",
     "Umwelt",
     "Landwirtschaft",
     "Änderung",
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Vogelberingungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-06-26",
   "effectiveDate": "2008-08-01",
@@ -34,8 +33,12 @@
       "sha256": "406b936933ded9f9e9ff2ae5aaf8307d1c41ba524def4c1191f2153d6c5cc66e",
       "lawId": "10302",
       "sourceValidFrom": "2008-08-01",
+      "fsnNumber": "653",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-umwelt-und-landwirtschaft-ueber-die-3983-3"
   ]
 }

@@ -2,13 +2,11 @@
   "id": "aend-medienstaatsvertrag",
   "slug": "aend-medienstaatsvertrag",
   "title": "Änderung des Medienstaatsvertrages",
-  "shortTitle": "Änd. Medienstaatsvertrag",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Rundfunk und Medien",
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
     "Änd. Medienstaatsvertrag",
     "Änderung",
@@ -18,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "zweiter-medienaenderungsstaatsvertrag",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Medienstaatsvertrag“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Medienstaatsvertrages“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-12-27",
   "effectiveDate": "2022-06-01",
@@ -33,6 +32,7 @@
       "sha256": "57671a7fa24238a3e519163277255235605a48b5cd8410534ea2045328b1b01e",
       "lawId": "19615",
       "sourceValidFrom": "2022-06-01",
+      "fsnNumber": "72",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

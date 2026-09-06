@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-18287",
   "slug": "aend-ostgemo-18287",
   "title": "Änderung der Ostdeutschen Gemeindeordnung",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-unterstuetzung-der-selbstbestimmten-teilhabe-von-menschen-mit-behinderungen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Gemeindeordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-07-02",
   "effectiveDate": "2019-07-20",
@@ -33,6 +33,7 @@
       "sha256": "0fa8ebaa7ce6367b22043f006d283d04b9142279570f271c38d3e11964d55018",
       "lawId": "18287",
       "sourceValidFrom": "2019-07-20",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

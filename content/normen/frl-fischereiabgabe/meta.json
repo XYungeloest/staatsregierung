@@ -1,24 +1,31 @@
 {
   "id": "frl-fischereiabgabe",
   "slug": "frl-fischereiabgabe",
-  "title": "FRL Fischereiabgabe",
+  "title": "Förderrichtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft für die Verwendung der Mittel aus der Fischereiabgabe",
   "shortTitle": "FRL Fischereiabgabe",
-  "abbr": "FRL FA/2009",
   "shortTitleSource": "official",
+  "abbr": "FRL FA/2009",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien",
+    "Umweltschutz, Abfallwirtschaft"
   ],
+  "primarySubject": "Förderrichtlinien",
+  "fundingArea": "556",
   "keywords": [
-    "FRL FA/2009",
     "FRL Fischereiabgabe",
+    "Förderrichtlinie",
+    "Umwelt",
+    "Landwirtschaft",
+    "Verwendung",
+    "Mittel",
     "Fischereiabgabe"
   ],
   "initialCitation": "FRL Fischereiabgabe vom 30. November 2009 (SächsABl. S. 2032), zuletzt enthalten in der Verwaltungsvorschrift vom 7. Dezember 2021 (SächsABl. SDr. S. S 239)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „FRL Fischereiabgabe“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2009-11-30",
   "sourceReferences": [
@@ -33,6 +40,7 @@
       "lawId": "11183",
       "sourceValidFrom": "2009-12-24",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "5563-V09.4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

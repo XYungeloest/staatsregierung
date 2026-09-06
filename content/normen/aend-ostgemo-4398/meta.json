@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-4398",
   "slug": "aend-ostgemo-4398",
   "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "saechsische-landkreisordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Gemeindeordnung für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1993-07-19",
   "effectiveDate": "1993-07-31",
@@ -47,6 +47,7 @@
       "lawId": "3264",
       "sourceValidFrom": "2022-02-20",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "231-2",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

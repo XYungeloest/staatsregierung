@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Unterrichtung konsularischer Vertretungen über strafrechtlich begründete Freiheitsentziehungen gegen Angehörige ihres Staates",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Unterrichtung konsularischer Vertretungen über strafrechtlich begründete Freiheitsentziehungen gegen Angehörige ihres Staates",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Unterrichtung konsularischer Vertretungen über strafrechtlich begründete Freiheitsentziehungen gegen Angehörige ihres Staates vom 25. November 2002 (SächsJMBl. S. 154), die durch die Verwaltungsvorschrift vom 3. Juli 2005 (SächsJMBl. S. 60) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 11. Dezember 2023 (SächsABl. SDr. S. S 275)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Unterrichtung konsularischer Vertretungen über strafrechtlich begründete Freiheitsentziehungen gegen Angehörige ihres Staates vom 25. November 2002 (SächsJMBl. S. 154), die durch die Verwaltungsvorschrift vom 3. Juli 2005 (SächsJMBl. S. 60) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "lawId": "2023",
       "sourceValidFrom": "2005-08-01",
       "sourceValidTo": "2024-01-31",
+      "fsnNumber": "313-V02.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -30,41 +30,32 @@
       "title": "Allgemeines; Mitteilungspflicht auf Verlangen des Betroffenen",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Die Behörden der Bundesrepublik Deutschland sind nach Artikel 36 Abs. 1 Buchst. b des Wiener Übereinkommens vom 24. April 1963 über konsularische Beziehungen (BGBl. 1969 II S. 1585, 1971 II S. 1285, 1972 II S. 613, 1974 II S. 945, 1994 II S. 308) in Verbindung mit Nummer 135 Abs. 1 der Richtlinien für den Verkehr mit dem Ausland in strafrechtlichen Angelegenheiten (RiVASt), in Kraft gesetzt durch Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Einführung der Richtlinien für den Verkehr mit dem Ausland in strafrechtlichen Angelegenheiten (\nVwV RiVASt) vom 22. November 1991 (SächsABl. Nr. 42 S. 5), zuletzt geändert durch Verwaltungsvorschrift vom 3. Dezember 1996 (SächsJMBl. S. 142) und verlängert durch Verwaltungsvorschrift vom 22. November 2001 (SächsABl. S. 1220), völkerrechtlich verpflichtet,"
+        },
+        {
           "type": "item",
-          "label": "1.",
-          "text": "Allgemeines; Mitteilungspflicht auf Verlangen des Betroffenen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Behörden der Bundesrepublik Deutschland sind nach Artikel 36 Abs. 1 Buchst. b des Wiener Übereinkommens vom 24. April 1963 über konsularische Beziehungen (BGBl. 1969 II S. 1585, 1971 II S. 1285, 1972 II S. 613, 1974 II S. 945, 1994 II S. 308) in Verbindung mit Nummer 135 Abs. 1 der Richtlinien für den Verkehr mit dem Ausland in strafrechtlichen Angelegenheiten (RiVASt), in Kraft gesetzt durch Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Einführung der Richtlinien für den Verkehr mit dem Ausland in strafrechtlichen Angelegenheiten (\nVwV RiVASt) vom 22. November 1991 (SächsABl. Nr. 42 S. 5), zuletzt geändert durch Verwaltungsvorschrift vom 3. Dezember 1996 (SächsJMBl. S. 142) und verlängert durch Verwaltungsvorschrift vom 22. November 2001 (SächsABl. S. 1220), völkerrechtlich verpflichtet,"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "die konsularische Vertretung des Entsendestaates auf Verlangen der betroffenen Person unverzüglich zu unterrichten, wenn in deren Konsularbezirk eine Person dieses Staates festgenommen, in Straf- oder Untersuchungshaft genommen oder ihr anderweitig die Freiheit entzogen ist,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "jede von der betroffenen Person an die konsularische Vertretung gerichtete Mitteilung unverzüglich weiterzuleiten und",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "die betroffene Person unverzüglich über ihre Rechte aufgrund dieser Bestimmung zu unterrichten.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "die konsularische Vertretung des Entsendestaates auf Verlangen der betroffenen Person unverzüglich zu unterrichten, wenn in deren Konsularbezirk eine Person dieses Staates festgenommen, in Straf- oder Untersuchungshaft genommen oder ihr anderweitig die Freiheit entzogen ist,",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "jede von der betroffenen Person an die konsularische Vertretung gerichtete Mitteilung unverzüglich weiterzuleiten und",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "die betroffene Person unverzüglich über ihre Rechte aufgrund dieser Bestimmung zu unterrichten.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -75,43 +66,34 @@
       "children": [
         {
           "type": "item",
-          "label": "2.",
-          "text": "Mitteilungspflicht ohne oder gegen den Willen des Betroffenen",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "label": "a)",
+          "text": "Eine völkerrechtliche Verpflichtung zur Unterrichtung der konsularischen Vertretung ohne oder gegen den Willen des Betroffenen besteht gegenüber den in der Anlage aufgeführten Staaten nach den dort genannten Verträgen in Verbindung mit Nummer 135 Abs. 2 RiVASt.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "Die Mitteilungspflicht besteht in den unter Buchstabe a genannten Fällen auch dann,",
+          "level": 1,
+          "numberingStyle": "lower-latin",
           "children": [
             {
               "type": "item",
-              "label": "a)",
-              "text": "Eine völkerrechtliche Verpflichtung zur Unterrichtung der konsularischen Vertretung ohne oder gegen den Willen des Betroffenen besteht gegenüber den in der Anlage aufgeführten Staaten nach den dort genannten Verträgen in Verbindung mit Nummer 135 Abs. 2 RiVASt.",
-              "level": 1,
+              "label": "aa)",
+              "text": "wenn der Festgenommene die Vertretung seines Landes selbst benachrichtigt oder",
+              "level": 2,
               "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Die Mitteilungspflicht besteht in den unter Buchstabe a genannten Fällen auch dann,",
-              "level": 1,
+              "label": "bb)",
+              "text": "wenn sich der ausländische Staatsangehörige freiwillig zum Vollzug gerichtlich angeordneter Entscheidungen stellt.",
+              "level": 2,
               "numberingStyle": "lower-latin",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "aa)",
-                  "text": "wenn der Festgenommene die Vertretung seines Landes selbst benachrichtigt oder",
-                  "level": 2,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "bb)",
-                  "text": "wenn sich der ausländische Staatsangehörige freiwillig zum Vollzug gerichtlich angeordneter Entscheidungen stellt.",
-                  "level": 2,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "children": []
             }
           ]
         }
@@ -124,28 +106,19 @@
       "children": [
         {
           "type": "item",
-          "label": "3.",
-          "text": "Art und Weise der Unterrichtung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Die ausländische Vertretung ist unverzüglich, in dringenden Fällen fernmündlich im voraus, über die Tatsache der Freiheitsentziehung zu unterrichten. Sofern der betroffene ausländische Staatsangehörige schriftlich die Zustimmung erklärt, können auch der Grund der Verhaftung und der gegen ihn erhobene Tatvorwurf mitgeteilt werden. Von einer weiter gehenden Unterrichtung der konsularischen Vertretung, auch durch Übersendung von Unterlagen, ist abzusehen. Zeigt sich eine konsularische Vertretung an zusätzlichen Mitteilungen interessiert, ist sie auf die Möglichkeit hinzuweisen, mit dem Betroffenen Verbindung aufzunehmen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Die Mitteilung ist von einem Richter oder einem Beamten des höheren Dienstes, bei Justizvollzugsanstalten vom Anstaltsleiter oder seinem Vertreter zu unterzeichnen und mit Höflichkeitsformeln (im internationalen Verkehr üblich sind z. B. „Sehr geehrte Damen und Herren“; „Mit vorzüglicher Hochachtung“) zu versehen. Der Unterschrift ist die Amtsbezeichnung (Dienstbezeichnung) und ein Abdruck des Dienstsiegels beizufügen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "Die ausländische Vertretung ist unverzüglich, in dringenden Fällen fernmündlich im voraus, über die Tatsache der Freiheitsentziehung zu unterrichten. Sofern der betroffene ausländische Staatsangehörige schriftlich die Zustimmung erklärt, können auch der Grund der Verhaftung und der gegen ihn erhobene Tatvorwurf mitgeteilt werden. Von einer weiter gehenden Unterrichtung der konsularischen Vertretung, auch durch Übersendung von Unterlagen, ist abzusehen. Zeigt sich eine konsularische Vertretung an zusätzlichen Mitteilungen interessiert, ist sie auf die Möglichkeit hinzuweisen, mit dem Betroffenen Verbindung aufzunehmen.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "Die Mitteilung ist von einem Richter oder einem Beamten des höheren Dienstes, bei Justizvollzugsanstalten vom Anstaltsleiter oder seinem Vertreter zu unterzeichnen und mit Höflichkeitsformeln (im internationalen Verkehr üblich sind z. B. „Sehr geehrte Damen und Herren“; „Mit vorzüglicher Hochachtung“) zu versehen. Der Unterschrift ist die Amtsbezeichnung (Dienstbezeichnung) und ein Abdruck des Dienstsiegels beizufügen.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -155,17 +128,8 @@
       "title": "Belehrung",
       "children": [
         {
-          "type": "item",
-          "label": "4.",
-          "text": "Belehrung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Für die Belehrung sind die amtlich festgestellten Vordrucke zu verwenden. Auch das Einverständnis des Betroffenen zur Mitteilung des Tatvorwurfs ist von ihm durch Unterschrift zu bestätigen."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Für die Belehrung sind die amtlich festgestellten Vordrucke zu verwenden. Auch das Einverständnis des Betroffenen zur Mitteilung des Tatvorwurfs ist von ihm durch Unterschrift zu bestätigen."
         }
       ]
     },
@@ -175,49 +139,40 @@
       "title": "Zuständigkeit",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Die Benachrichtigung der ausländischen Vertretung und die Belehrung des Festgenommenen obliegen"
+        },
+        {
           "type": "item",
-          "label": "5.",
-          "text": "Zuständigkeit",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Benachrichtigung der ausländischen Vertretung und die Belehrung des Festgenommenen obliegen"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "beim Vollzug von Untersuchungshaft oder einstweiliger Unterbringung, beim Vollzug von vorläufiger Auslieferungshaft oder Auslieferungshaft sowie in den Fällen des § 22 Abs. 3 Satz 2\nIRG dem Richter, dem der Betroffene nach seiner Festnahme vorgeführt wird,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "beim Vollzug von Freiheitsstrafe, Jugendstrafe, Sicherungsverwahrung, Jugendarrest oder aufgrund eines Vollstreckungshaftbefehls der Justizvollzugsanstalt,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "bei einer strafgerichtlich angeordneten Unterbringung in einem psychiatrischen Krankenhaus oder einer Entziehungsanstalt der Vollstreckungsbehörde, auch dann, wenn der Betroffene aufgrund eines Vollstreckungshaftbefehls vorübergehend in eine Justizvollzugsanstalt aufgenommen wurde,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "d)",
-              "text": "in den übrigen Fällen der Behörde, die die freiheitsentziehende Maßnahme vollzieht.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "beim Vollzug von Untersuchungshaft oder einstweiliger Unterbringung, beim Vollzug von vorläufiger Auslieferungshaft oder Auslieferungshaft sowie in den Fällen des § 22 Abs. 3 Satz 2\nIRG dem Richter, dem der Betroffene nach seiner Festnahme vorgeführt wird,",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "beim Vollzug von Freiheitsstrafe, Jugendstrafe, Sicherungsverwahrung, Jugendarrest oder aufgrund eines Vollstreckungshaftbefehls der Justizvollzugsanstalt,",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "bei einer strafgerichtlich angeordneten Unterbringung in einem psychiatrischen Krankenhaus oder einer Entziehungsanstalt der Vollstreckungsbehörde, auch dann, wenn der Betroffene aufgrund eines Vollstreckungshaftbefehls vorübergehend in eine Justizvollzugsanstalt aufgenommen wurde,",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "in den übrigen Fällen der Behörde, die die freiheitsentziehende Maßnahme vollzieht.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -227,17 +182,8 @@
       "title": "In-Kraft-Treten",
       "children": [
         {
-          "type": "item",
-          "label": "6.",
-          "text": "In-Kraft-Treten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt am 1. Januar 2003 in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am 1. Januar 2003 in Kraft."
         }
       ]
     },

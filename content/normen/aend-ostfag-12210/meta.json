@@ -2,13 +2,12 @@
   "id": "aend-ostfag-12210",
   "slug": "aend-ostfag-12210",
   "title": "Änderung des Finanzausgleichsgesetzes",
-  "shortTitle": "Änd. OstFAG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Finanzverwaltung, Finanzausgleich"
   ],
+  "primarySubject": "Finanzverwaltung, Finanzausgleich",
   "keywords": [
     "Änd. OstFAG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "gesetz-kommunalpaket-2012",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstFAG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Finanzausgleichsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-01-25",
   "effectiveDate": "2012-01-01",
@@ -33,6 +33,7 @@
       "sha256": "24ebeebf5c59e843c980bbe9002dc821f7e7eaec65e3a28fe4d717a6c66eb320",
       "lawId": "12210",
       "sourceValidFrom": "2012-01-01",
+      "fsnNumber": "50",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

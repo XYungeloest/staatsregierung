@@ -2,15 +2,14 @@
   "id": "aend-ostjg-18159-1",
   "slug": "aend-ostjg-18159-1",
   "title": "Drittes Gesetz zur Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitle": "Drittes Gesetz zur Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Drittes Gesetz zur Änderung des Ostdeutschen Justizgesetzes",
+    "Änd. OstJG",
     "Drittes",
     "Änderung",
     "Justizgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Drittes Gesetz zur Änderung des Ostdeutschen Justizgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-05-03",
   "effectiveDate": "2019-06-01",
@@ -33,8 +33,12 @@
       "sha256": "8dd548ad27a5178f508867e456a37111924486e376e562518954f7b02ffcbe86",
       "lawId": "18159",
       "sourceValidFrom": "2019-06-01",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-justizgesetz"
   ]
 }

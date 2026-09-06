@@ -9,7 +9,7 @@ import {
   selectMatchingTextLinkReferences,
 } from '@ostrecht/shared/lib/norms/references.ts';
 import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
-import { renderLinkedDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { renderLinkedDisplayText } from '@ostrecht/shared/lib/norms/display.ts';
 
 test('Textverweise werden über den Präfixindex genauso gefunden wie beim Rendern', async () => {
   const norms = await loadAllNorms();

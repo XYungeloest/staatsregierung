@@ -1,8 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen zum Vollzug der Ostdeutschen Beihilfeverordnung",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen zum Vollzug der Ostdeutschen Beihilfeverordnung (VwV-OstBhVO)",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen zum Vollzug der Ostdeutschen Beihilfeverordnung",
-  "abbr": "VwV-OstBhVO",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
@@ -20,6 +19,7 @@
       "lawId": "16881",
       "sourceValidFrom": "2021-06-18",
       "sourceValidTo": "2024-11-14",
+      "fsnNumber": "242-V16.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -35,14 +35,6 @@
           "title": "Allgemeines (Rechtsgrundlage)",
           "children": [
             {
-              "type": "item",
-              "label": "0",
-              "text": "Allgemeines (Rechtsgrundlage)",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
               "type": "paragraphText",
               "text": "Die\nOstdeutsche Beihilfeverordnung ist auf der Grundlage des § 80 Absatz 8 des\nOstdeutschen Beamtengesetzes vom 18. Dezember 2013 (SächsGVBl. S. 970, 971) erlassen. § 80 des\nOstdeutschen Beamtengesetzes bestimmt dabei die wesentlichen Grundsätze und den Rahmen der Beihilfegewährung. Der beihilfeberechtigte Personenkreis ist grundsätzlich in § 80 Absatz 2 des\nOstdeutschen Beamtengesetzes geregelt."
             }
@@ -53,14 +45,6 @@
           "label": "1",
           "title": "Zu § 1 Anwendungsbereich und Rechtsnatur",
           "children": [
-            {
-              "type": "item",
-              "label": "1",
-              "text": "Zu § 1 Anwendungsbereich und Rechtsnatur",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "1.1",
@@ -275,14 +259,6 @@
           "children": [
             {
               "type": "item",
-              "label": "2",
-              "text": "Zu § 2 Berücksichtigungsfähige Angehörige",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "2.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -344,14 +320,6 @@
           "label": "3",
           "title": "Zu § 3 Konkurrenzen",
           "children": [
-            {
-              "type": "item",
-              "label": "3",
-              "text": "Zu § 3 Konkurrenzen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "3.1",
@@ -511,14 +479,6 @@
           "label": "4",
           "title": "Zu § 4 Beihilfefähigkeit von Aufwendungen",
           "children": [
-            {
-              "type": "item",
-              "label": "4",
-              "text": "Zu § 4 Beihilfefähigkeit von Aufwendungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "4.1",
@@ -1603,14 +1563,6 @@
           "children": [
             {
               "type": "item",
-              "label": "5",
-              "text": "Zu § 5 Ausschluss der Beihilfefähigkeit",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "5.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -1730,14 +1682,6 @@
           "children": [
             {
               "type": "item",
-              "label": "6",
-              "text": "Zu § 6 Anrechnung von Erstattungen und Sachleistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "6.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -1839,14 +1783,6 @@
           "label": "7",
           "title": "Zu § 7 Aufwendungen im Ausland",
           "children": [
-            {
-              "type": "item",
-              "label": "7",
-              "text": "Zu § 7 Aufwendungen im Ausland",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "7.1",
@@ -2166,14 +2102,6 @@
           "children": [
             {
               "type": "item",
-              "label": "8",
-              "text": "Zu § 8 Ärztliche Leistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "8.1",
               "text": "Ob die Aufwendungen aus Anlass einer Krankheit entstanden sind und notwendig waren, ergibt sich aus der Diagnose.\nHandelt es sich um eine Vorsorge- oder Früherkennungsuntersuchung, richtet sich die Beihilfefähigkeit nach den Vorschriften des Abschnitts 4.\nOhne Angabe der Diagnose in der Rechnung können die Aufwendungen nicht geprüft werden. Dem Antragsteller ist Gelegenheit zu geben, die fehlenden Angaben beizubringen.",
               "level": 0,
@@ -2246,14 +2174,6 @@
           "children": [
             {
               "type": "item",
-              "label": "9",
-              "text": "Zu § 9 Heilpraktikerleistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "9.1",
               "text": "Ob die Aufwendungen aus Anlass einer Krankheit entstanden sind und notwendig waren, ergibt sich aus der Diagnose. Ohne Angabe der Diagnose in der Rechnung können die Aufwendungen nicht geprüft werden.",
               "level": 0,
@@ -2301,14 +2221,6 @@
           "children": [
             {
               "type": "item",
-              "label": "10",
-              "text": "Zu § 10 Zahnärztliche Leistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "10.1",
               "text": "Bei implantologischen Leistungen nach § 11 Absatz 2 sowie funktionsanalytischen und funktionstherapeutischen Leistungen ist zur Prüfung der Beihilfefähigkeit der Aufwendungen die Angabe der Diagnose auf den Belegen erforderlich. Die Vorlage einer Dokumentation der klinischen Funktionsanalyse nach Nummer 8000 des Gebührenverzeichnisses zur Gebührenordnung für Zahnärzte ist bei funktionsanalytischen und funktionstherapeutischen Leistungen nicht zwingend erforderlich.",
               "level": 0,
@@ -2330,14 +2242,6 @@
           "label": "11",
           "title": "Zu § 11 Implantologische Leistungen",
           "children": [
-            {
-              "type": "item",
-              "label": "11",
-              "text": "Zu § 11 Implantologische Leistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "11.1",
@@ -2433,14 +2337,6 @@
           "label": "12",
           "title": "Zu § 12 Kieferorthopädische Leistungen",
           "children": [
-            {
-              "type": "item",
-              "label": "12",
-              "text": "Zu § 12 Kieferorthopädische Leistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "12.1",
@@ -2607,30 +2503,13 @@
           "type": "section",
           "label": "13",
           "title": "Zu § 13 (weggefallen)",
-          "children": [
-            {
-              "type": "item",
-              "label": "13",
-              "text": "Zu § 13 (weggefallen)",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            }
-          ]
+          "children": []
         },
         {
           "type": "section",
           "label": "14",
           "title": "Zu § 14 Auslagen, Material- und Laborkosten, Heil- und Kostenpläne",
           "children": [
-            {
-              "type": "item",
-              "label": "14",
-              "text": "Zu § 14 Auslagen, Material- und Laborkosten, Heil- und Kostenpläne",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "14.1",
@@ -2688,14 +2567,6 @@
           "children": [
             {
               "type": "item",
-              "label": "15",
-              "text": "Zu § 15 Zahnärztliche Leistungen für Beamte auf Widerruf",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "15.1",
               "text": "Zu Absatz 1 (bleibt frei)",
               "level": 0,
@@ -2725,14 +2596,6 @@
           "label": "16",
           "title": "Zu § 16 Psychotherapeutische Leistungen",
           "children": [
-            {
-              "type": "item",
-              "label": "16",
-              "text": "Zu § 16 Psychotherapeutische Leistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "16.1",
@@ -3373,14 +3236,6 @@
           "children": [
             {
               "type": "item",
-              "label": "17",
-              "text": "Zu § 17 Psychoanalytisch begründete Verfahren",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "17.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -3490,14 +3345,6 @@
           "label": "18",
           "title": "Zu § 18 Verhaltenstherapie",
           "children": [
-            {
-              "type": "item",
-              "label": "18",
-              "text": "Zu § 18 Verhaltenstherapie",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "18.1",
@@ -3714,14 +3561,6 @@
           "children": [
             {
               "type": "item",
-              "label": "19",
-              "text": "Zu § 19 Psychosomatische Grundversorgung",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "19.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -3799,14 +3638,6 @@
           "label": "20",
           "title": "Zu § 20 Krankenhausleistungen",
           "children": [
-            {
-              "type": "item",
-              "label": "20",
-              "text": "Zu § 20 Krankenhausleistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "20.1",
@@ -4159,14 +3990,6 @@
           "children": [
             {
               "type": "item",
-              "label": "21",
-              "text": "Zu § 21 Arzneimittel",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "21.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -4315,14 +4138,6 @@
           "children": [
             {
               "type": "item",
-              "label": "22",
-              "text": "Zu § 22 Medizinprodukte",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "22.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -4424,14 +4239,6 @@
           "label": "23",
           "title": "Zu § 23 Hilfsmittel",
           "children": [
-            {
-              "type": "item",
-              "label": "23",
-              "text": "Zu § 23 Hilfsmittel",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "23.1",
@@ -7532,14 +7339,6 @@
           "children": [
             {
               "type": "item",
-              "label": "24",
-              "text": "Zu § 24 Sehhilfen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "24.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -7723,14 +7522,6 @@
           "children": [
             {
               "type": "item",
-              "label": "25",
-              "text": "Zu § 25 Lebensmittel und Nahrungsergänzungsmittel",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "25.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -7832,14 +7623,6 @@
           "label": "26",
           "title": "Zu § 26 Heilmittel",
           "children": [
-            {
-              "type": "item",
-              "label": "26",
-              "text": "Zu § 26 Heilmittel",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "26.1",
@@ -8321,14 +8104,6 @@
           "children": [
             {
               "type": "item",
-              "label": "27",
-              "text": "Zu § 27 Komplextherapie, integrierte Versorgung und andere interdisziplinäre Leistungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "27.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -8529,14 +8304,6 @@
           "children": [
             {
               "type": "item",
-              "label": "28",
-              "text": "Zu § 28 Mobilitätstraining für Blinde",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "28.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -8566,14 +8333,6 @@
           "label": "29",
           "title": "Zu § 29 Soziotherapie",
           "children": [
-            {
-              "type": "item",
-              "label": "29",
-              "text": "Zu § 29 Soziotherapie",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "29.0.1",
@@ -8863,14 +8622,6 @@
           "label": "30",
           "title": "Zu § 30 Häusliche Krankenpflege",
           "children": [
-            {
-              "type": "item",
-              "label": "30",
-              "text": "Zu § 30 Häusliche Krankenpflege",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "30.1",
@@ -9332,14 +9083,6 @@
           "children": [
             {
               "type": "item",
-              "label": "31",
-              "text": "Zu § 31 Palliativversorgung",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "31.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -9510,14 +9253,6 @@
           "label": "32",
           "title": "Zu § 32 Fahrtkosten",
           "children": [
-            {
-              "type": "item",
-              "label": "32",
-              "text": "Zu § 32 Fahrtkosten",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "32.1",
@@ -9724,14 +9459,6 @@
           "children": [
             {
               "type": "item",
-              "label": "33",
-              "text": "Zu § 33 Unterkunfts- und Verpflegungskosten",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "33.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -9803,14 +9530,6 @@
           "children": [
             {
               "type": "item",
-              "label": "34",
-              "text": "Zu § 34 Kommunikationshelfer",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "34.1",
               "text": "Über die Beihilfefähigkeit von Aufwendungen für die Inanspruchnahme von Kommunikationshelfern ist nach den Umständen des Einzelfalles zu entscheiden, ob diese erforderlich waren. Erforderlich sind Kommunikationshelfer insbesondere dann, wenn eine umfangreiche und komplexe Kommunikation erfolgen musste. Grundsätzlich ist bei der Prüfung der Erforderlichkeit des Kommunikationshelfers an sich im Einzelfall jedoch kein besonders strenger Maßstab anzulegen.",
               "level": 0,
@@ -9856,14 +9575,6 @@
           "label": "35",
           "title": "Zu § 35 Familien- und Haushaltshilfe",
           "children": [
-            {
-              "type": "item",
-              "label": "35",
-              "text": "Zu § 35 Familien- und Haushaltshilfe",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "35.1",
@@ -10001,14 +9712,6 @@
           "children": [
             {
               "type": "item",
-              "label": "36",
-              "text": "Zu § 36 Überführungskosten in Todesfällen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "36.1",
               "text": "Die Kosten der Überführung der Leiche oder Urne sind nur aus den in § 36 genannten (dienstlichen) Gründen beihilfefähig. Hält sich der Beamte zum Zeitpunkt des Todes aus anderen als den genannten dienstlichen Gründen, insbesondere aus persönlichen beziehungsweise privaten Gründen, außerhalb des Familienwohnsitzes auf, können Überführungskosten nicht als beihilfefähig anerkannt werden.",
               "level": 0,
@@ -10054,14 +9757,6 @@
           "label": "37",
           "title": "Zu § 37 Medizinische Rehabilitationsmaßnahmen",
           "children": [
-            {
-              "type": "item",
-              "label": "37",
-              "text": "Zu § 37 Medizinische Rehabilitationsmaßnahmen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "37.1",
@@ -10423,14 +10118,6 @@
           "children": [
             {
               "type": "item",
-              "label": "38",
-              "text": "Zu § 38 Voraussetzungen für medizinische Rehabilitationsmaßnahmen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "38.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -10593,14 +10280,6 @@
           "label": "39",
           "title": "Zu § 39 Kuren",
           "children": [
-            {
-              "type": "item",
-              "label": "39",
-              "text": "Zu § 39 Kuren",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "39.1",
@@ -10956,14 +10635,6 @@
           "label": "41",
           "title": "Zu § 41 Früherkennungsuntersuchungen",
           "children": [
-            {
-              "type": "item",
-              "label": "41",
-              "text": "Zu § 41 Früherkennungsuntersuchungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "41.0",
@@ -11568,14 +11239,6 @@
           "children": [
             {
               "type": "item",
-              "label": "42",
-              "text": "Zu § 42 Kinder- und Jugenduntersuchungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "42.1",
               "text": "Die Beihilfefähigkeit der Aufwendungen für Untersuchungen zur Früherkennung von Krankheiten bei Kindern und Jugendlichen, die das 18. Lebensjahr noch nicht vollendet haben, bestimmt sich nach folgenden Richtlinien:",
               "level": 0,
@@ -11729,14 +11392,6 @@
           "children": [
             {
               "type": "item",
-              "label": "43",
-              "text": "Zu § 43 Verhütung von Zahnerkrankungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "43.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -11878,14 +11533,6 @@
           "label": "44",
           "title": "Zu § 44 Schwangerschaft und Geburt",
           "children": [
-            {
-              "type": "item",
-              "label": "44",
-              "text": "Zu § 44 Schwangerschaft und Geburt",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "44.1",
@@ -12272,14 +11919,6 @@
           "children": [
             {
               "type": "item",
-              "label": "45",
-              "text": "Zu § 45 Künstliche Befruchtung",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "45.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -12536,14 +12175,6 @@
           "children": [
             {
               "type": "item",
-              "label": "46",
-              "text": "Zu § 46 Sterilisation und Schwangerschaftsabbruch",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "46.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -12637,14 +12268,6 @@
           "label": "47",
           "title": "Zu § 47 Erste Hilfe, Entseuchung, Organ-, Gewebe- und Stammzellspende",
           "children": [
-            {
-              "type": "item",
-              "label": "47",
-              "text": "Zu § 47 Erste Hilfe, Entseuchung, Organ-, Gewebe- und Stammzellspende",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "47.1",
@@ -13030,14 +12653,6 @@
           "children": [
             {
               "type": "item",
-              "label": "48",
-              "text": "Zu § 48 Dauernde Pflegebedürftigkeit",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "48.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -13353,14 +12968,6 @@
           "label": "49",
           "title": "Zu § 49 Häusliche Pflege",
           "children": [
-            {
-              "type": "item",
-              "label": "49",
-              "text": "Zu § 49 Häusliche Pflege",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "49.1",
@@ -15292,14 +14899,6 @@
           "children": [
             {
               "type": "item",
-              "label": "50",
-              "text": "Zu § 50 Teilstationäre Pflege",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "50.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -15417,14 +15016,6 @@
           "label": "51",
           "title": "Zu § 51 Häusliche Pflege bei Verhinderung der Pflegeperson",
           "children": [
-            {
-              "type": "item",
-              "label": "51",
-              "text": "Zu § 51 Häusliche Pflege bei Verhinderung der Pflegeperson",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "51.1",
@@ -15713,14 +15304,6 @@
           "children": [
             {
               "type": "item",
-              "label": "52",
-              "text": "Zu § 52 Kurzzeitpflege",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "52.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -15907,14 +15490,6 @@
           "label": "53",
           "title": "Zu § 53 Angebote zur Unterstützung im Alltag und Entlastungsbetrag",
           "children": [
-            {
-              "type": "item",
-              "label": "53",
-              "text": "Zu § 53 Angebote zur Unterstützung im Alltag und Entlastungsbetrag",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "53.1",
@@ -16141,14 +15716,6 @@
           "children": [
             {
               "type": "item",
-              "label": "54",
-              "text": "Zu § 54 Pflegehilfsmittel und Maßnahmen zur Verbesserung des individuellen Wohnumfeldes",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "54.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -16295,14 +15862,6 @@
           "label": "55",
           "title": "Zu § 55 Vollstationäre Pflege",
           "children": [
-            {
-              "type": "item",
-              "label": "55",
-              "text": "Zu § 55 Vollstationäre Pflege",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "55.1",
@@ -16664,14 +16223,6 @@
           "children": [
             {
               "type": "item",
-              "label": "56",
-              "text": "Zu § 56 Vollstationäre Einrichtung der Behindertenhilfe",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "56.1",
               "text": "Beihilfefähig sind pflegebedingte Aufwendungen einschließlich der Aufwendungen für Betreuung und die Aufwendungen für Leistungen der medizinischen Behandlungspflege in vollstationären Einrichtungen im Sinne des § 71 Absatz 4 Nummer 1 des Elften Buches Sozialgesetzbuch. Mit dem Verweis auf § 43a des Elften Buches Sozialgesetzbuch gilt dies auch für Räumlichkeiten im Sinne des § 71 Absatz 4 Nummer 3 des Elften Buches Sozialgesetzbuch.",
               "level": 0,
@@ -16733,14 +16284,6 @@
           "label": "57",
           "title": "Zu § 57 Bemessung der Beihilfe",
           "children": [
-            {
-              "type": "item",
-              "label": "57",
-              "text": "Zu § 57 Bemessung der Beihilfe",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "57.1",
@@ -16991,14 +16534,6 @@
           "children": [
             {
               "type": "item",
-              "label": "58",
-              "text": "Zu § 58 Begrenzung der Beihilfe",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "58.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -17060,14 +16595,6 @@
           "label": "59",
           "title": "Zu § 59 Eigenbeteiligungen",
           "children": [
-            {
-              "type": "item",
-              "label": "59",
-              "text": "Zu § 59 Eigenbeteiligungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "59.1",
@@ -17197,14 +16724,6 @@
           "children": [
             {
               "type": "item",
-              "label": "60",
-              "text": "Zu § 60 Selbstbehalt",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "60.1",
               "text": "Zu Absatz 1",
               "level": 0,
@@ -17266,14 +16785,6 @@
           "label": "61",
           "title": "Zu § 61 Belastungsgrenzen",
           "children": [
-            {
-              "type": "item",
-              "label": "61",
-              "text": "Zu § 61 Belastungsgrenzen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "61.1",
@@ -17377,14 +16888,6 @@
           "label": "62",
           "title": "Zu § 62 Verfahren",
           "children": [
-            {
-              "type": "item",
-              "label": "62",
-              "text": "Zu § 62 Verfahren",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "62.1",
@@ -17873,14 +17376,6 @@
           "children": [
             {
               "type": "item",
-              "label": "63",
-              "text": "Zu § 63 Antragsfrist",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "63.1",
               "text": "Bei Versäumnis der Antragsfrist ist eine Wiedereinsetzung in den vorigen Stand zu gewähren, sofern die Voraussetzungen des § 32 des Verwaltungsverfahrensgesetzes vorliegen (VG Dresden, Urteil vom 29. April 2014, 11 K 1536/13).",
               "level": 0,
@@ -17893,30 +17388,13 @@
           "type": "section",
           "label": "64",
           "title": "Zu § 64 Verwaltungsvorschriften (bleibt frei)",
-          "children": [
-            {
-              "type": "item",
-              "label": "64",
-              "text": "Zu § 64 Verwaltungsvorschriften (bleibt frei)",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            }
-          ]
+          "children": []
         },
         {
           "type": "section",
           "label": "65",
           "title": "Zu § 65 Übergangsvorschriften",
           "children": [
-            {
-              "type": "item",
-              "label": "65",
-              "text": "Zu § 65 Übergangsvorschriften",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "65.1",
@@ -17935,7 +17413,6 @@
             {
               "type": "item",
               "label": "66.",
-              "text": "Übergangsvorschriften aus Anlass des Zweiten und Dritten Pflegestärkungsgesetzes",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []

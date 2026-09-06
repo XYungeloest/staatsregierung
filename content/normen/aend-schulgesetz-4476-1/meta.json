@@ -2,15 +2,14 @@
   "id": "aend-schulgesetz-4476-1",
   "slug": "aend-schulgesetz-4476-1",
   "title": "Gesetz zur Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
-  "shortTitle": "Gesetz zur Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Gesetz zur Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
+    "Änd. Schulgesetz",
     "Änderung",
     "Schulgesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Schulgesetzes für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1994-07-15",
   "effectiveDate": "1994-08-10",
@@ -35,5 +35,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-schulgesetz"
   ]
 }

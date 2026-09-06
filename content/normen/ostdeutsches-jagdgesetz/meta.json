@@ -1,24 +1,26 @@
 {
   "id": "ostdeutsches-jagdgesetz",
   "slug": "ostdeutsches-jagdgesetz",
-  "title": "Ostdeutsches Jagdgesetz",
+  "title": "Jagdgesetz für den Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Jagdgesetz",
-  "abbr": "OstJagdG",
   "shortTitleSource": "official",
+  "abbr": "OstJagdG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "OstJagdG",
     "Ostdeutsches Jagdgesetz",
-    "Jagdgesetz"
+    "Jagdgesetz",
+    "OstJagdG"
   ],
   "initialCitation": "Ostdeutsches Jagdgesetz vom 8. Juni 2012 (SächsGVBl. S. 308), das durch das Gesetz vom 31. Januar 2018 (SächsGVBl. S. 21) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Jagdgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2012-06-08",
   "sourceReferences": [
@@ -32,6 +34,7 @@
       "sha256": "102af953071bdd885912cb5f353aadac0a8540dc258bc261d840444d9c1ccfa7",
       "lawId": "12495",
       "sourceValidFrom": "2018-02-18",
+      "fsnNumber": "651-4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

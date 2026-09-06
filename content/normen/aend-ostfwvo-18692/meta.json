@@ -2,12 +2,11 @@
   "id": "aend-ostfwvo-18692",
   "slug": "aend-ostfwvo-18692",
   "title": "Änderung der Ostdeutschen Feuerwehrverordnung",
-  "shortTitle": "Änd. OstFwVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr"
   ],
+  "primarySubject": "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr",
   "keywords": [
     "Änd. OstFwVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-neuregelung-ostfwapo",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstFwVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Feuerwehrverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-05-14",
   "effectiveDate": "2020-05-30",
@@ -32,6 +32,7 @@
       "sha256": "df64e1d757a924b3b971fb3fb5919d539e6837b3d45db2a3ff1f1b567e6a8fcd",
       "lawId": "18692",
       "sourceValidFrom": "2020-05-30",
+      "fsnNumber": "28",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

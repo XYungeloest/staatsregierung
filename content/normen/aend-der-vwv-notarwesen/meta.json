@@ -2,12 +2,11 @@
   "id": "aend-der-vwv-notarwesen",
   "slug": "aend-der-vwv-notarwesen",
   "title": "Änderung der VwV Notarwesen",
-  "shortTitle": "Änd. der VwV Notarwesen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
     "Änd. der VwV Notarwesen",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vwv-neuordnung-notarwesen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. der VwV Notarwesen“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der VwV Notarwesen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-12-17",
   "effectiveDate": "2022-01-01",
@@ -32,6 +32,7 @@
       "sha256": "7bea99934cfd54aaf6295c335aa8b5ed7ede80ebc12c576447bb5736d440a746",
       "lawId": "19464",
       "sourceValidFrom": "2022-01-01",
+      "fsnNumber": "302",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

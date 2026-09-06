@@ -2,15 +2,14 @@
   "id": "aend-itadminfoevo",
   "slug": "aend-itadminfoevo",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der IT-Administrations-Förderverordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der IT-Administrations-Förderverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der IT-Administrations-Förderverordnung",
+    "Änd. ITAdminFöVO",
     "Kultus",
     "Änderung",
     "IT-Administrations-Förderverordnung"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der IT-Administrations-Förderverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-09-08",
   "effectiveDate": "2023-09-30",
@@ -33,8 +33,12 @@
       "sha256": "6f35b9a83a33efa856861c8fce20b333a247857c1624e781b63b3ab8d7690450",
       "lawId": "20220",
       "sourceValidFrom": "2023-09-30",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-ueber-zuweisungen-zur-schaffung-und"
   ]
 }

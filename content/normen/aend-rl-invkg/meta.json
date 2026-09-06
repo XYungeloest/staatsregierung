@@ -2,14 +2,13 @@
   "id": "aend-rl-invkg",
   "slug": "aend-rl-invkg",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Förderrichtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Gewährung von Zuwendungen nach dem Investitionsgesetz Kohleregionen",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Förderrichtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Gewährung von Zuwendungen nach dem Investitionsgesetz Kohleregionen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Förderrichtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Gewährung von Zuwendungen nach dem Investitionsgesetz Kohleregionen",
+    "Änd.RL InvKG",
     "Regionalentwicklung",
     "Änderung",
     "Förderrichtlinie",
@@ -22,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der Förderrichtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Gewährung von Zuwendungen nach dem Investitionsgesetz Kohleregionen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-07-06",
   "effectiveDate": "2023-07-01",
@@ -36,8 +36,12 @@
       "sha256": "598c0e4a4ed335d048f016406f8e1dbdec3d3ae120f16bb8c0984c798850a472",
       "lawId": "20159",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "5501",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-des-ostdeutschen-staatsministeriums-fuer-regionalentwicklung-zur-gewaehrung"
   ]
 }

@@ -1,23 +1,29 @@
 {
   "id": "ostdeutsche-pflegeunterstuetzungsverordnung",
   "slug": "ostdeutsche-pflegeunterstuetzungsverordnung",
-  "title": "Ostdeutsche Pflegeunterstützungsverordnung",
+  "title": "Verordnung der Ostdeutschen Staatsregierung für die Anerkennung und Förderung von Unterstützungsangeboten in der Pflege",
   "shortTitle": "Ostdeutsche Pflegeunterstützungsverordnung",
-  "abbr": "OstPflUVO",
   "shortTitleSource": "official",
+  "abbr": "OstPflUVO",
   "type": "verordnung",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Behindertenfürsorge, Kriegsopferfürsorge, Pflege"
   ],
+  "primarySubject": "Behindertenfürsorge, Kriegsopferfürsorge, Pflege",
   "keywords": [
-    "OstPflUVO",
     "Ostdeutsche Pflegeunterstützungsverordnung",
-    "Pflegeunterstützungsverordnung"
+    "Anerkennung",
+    "Förderung",
+    "Unterstützungsangeboten",
+    "Pflege",
+    "Pflegeunterstützungsverordnung",
+    "OstPflUVO"
   ],
   "initialCitation": "Ostdeutsche Pflegeunterstützungsverordnung vom 25. November 2021 (SächsGVBl. S. 1338), die durch die Verordnung vom 24. November 2022 (SächsGVBl. S. 633) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Pflegeunterstützungsverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2021-11-25",
   "sourceReferences": [
@@ -31,6 +37,7 @@
       "sha256": "c92bbe843accb378509172ddf263e3b18702c252ae1c018f77fb0c54904cf0ef",
       "lawId": "19454",
       "sourceValidFrom": "2022-12-23",
+      "fsnNumber": "842-11",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

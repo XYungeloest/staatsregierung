@@ -2,15 +2,14 @@
   "id": "aend-ostdeutsches-gesetz-zur-ausfuehrung-sozialgesetzbuch",
   "slug": "aend-ostdeutsches-gesetz-zur-ausfuehrung-sozialgesetzbuch",
   "title": "Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Allgemeines zum Sozialwesen"
   ],
+  "primarySubject": "Allgemeines zum Sozialwesen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
+    "Änd. Ostdeutsches Gesetz zur Ausführung Sozialgesetzbuch",
     "Änderung",
     "Ausführung",
     "Sozialgesetzbuches"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2006-04-06",
   "effectiveDate": "2006-05-06",
@@ -36,5 +36,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches"
   ]
 }

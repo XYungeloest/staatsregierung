@@ -1,24 +1,26 @@
 {
   "id": "ostdeutsches-fischereigesetz",
   "slug": "ostdeutsches-fischereigesetz",
-  "title": "Ostdeutsches Fischereigesetz",
+  "title": "Fischereigesetz für den Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Fischereigesetz",
-  "abbr": "OstFischG",
   "shortTitleSource": "official",
+  "abbr": "OstFischG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "OstFischG",
     "Ostdeutsches Fischereigesetz",
-    "Fischereigesetz"
+    "Fischereigesetz",
+    "OstFischG"
   ],
   "initialCitation": "Ostdeutsches Fischereigesetz vom 9. Juli 2007 (SächsGVBl. S. 310), das zuletzt durch das Gesetz vom 29. April 2012 (SächsGVBl. S. 254) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Fischereigesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2007-07-09",
   "sourceReferences": [
@@ -32,6 +34,7 @@
       "sha256": "00bef93bd894a672cdc7d8634b4508baab04c153a9ffd74755ec897e8f1f14a3",
       "lawId": "9553",
       "sourceValidFrom": "2012-05-26",
+      "fsnNumber": "652-1/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

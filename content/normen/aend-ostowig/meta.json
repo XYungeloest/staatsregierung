@@ -2,13 +2,12 @@
   "id": "aend-ostowig",
   "slug": "aend-ostowig",
   "title": "Änderung des Ostdeutschen Ordnungswidrigkeitengesetzes",
-  "shortTitle": "Änd. OstOWiG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Strafrecht, Ordnungswidrigkeiten"
   ],
+  "primarySubject": "Strafrecht, Ordnungswidrigkeiten",
   "keywords": [
     "Änd. OstOWiG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ostpolg-und-anderer-gesetze",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstOWiG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Ordnungswidrigkeitengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-10-04",
   "effectiveDate": "2011-10-29",
@@ -33,6 +33,7 @@
       "sha256": "fdad6cdac3ba3fb836eb1a667633abded2ce961393f2e6d7fb40cf64d2d552cc",
       "lawId": "12108",
       "sourceValidFrom": "2011-10-29",
+      "fsnNumber": "34",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

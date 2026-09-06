@@ -2,12 +2,11 @@
   "id": "aend-ostbeurtvo-13862",
   "slug": "aend-ostbeurtvo-13862",
   "title": "Änderung der Ostdeutschen Beurteilungsverordnung",
-  "shortTitle": "Änd. OstBeurtVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstBeurtVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "osturlmueltvo-und-aend-ostbeurtvo",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBeurtVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Beurteilungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-12-16",
   "effectiveDate": "2014-01-01",
@@ -32,6 +32,7 @@
       "sha256": "b00db749b967b2e8e11b89ac14bf9897346505bba763145a9ecaadcbb495c83f",
       "lawId": "13862",
       "sourceValidFrom": "2014-01-01",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

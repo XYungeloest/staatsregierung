@@ -94,6 +94,8 @@ export function collectVersionTexts(norm: NormRecord): string[] {
   const parts: string[] = [];
   const visit = (blocks: NormVersion['body']): void => {
     for (const block of blocks ?? []) {
+      // Unterschriften nennen Personen und Ämter, keine Vorschriften: keine Textverweise.
+      if (block.type === 'signature') continue;
       if (block.label) parts.push(block.label);
       if (block.title) parts.push(block.title);
       if (block.text) parts.push(block.text);

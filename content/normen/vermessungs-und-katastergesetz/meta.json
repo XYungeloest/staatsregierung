@@ -1,15 +1,16 @@
 {
   "id": "vermessungs-und-katastergesetz",
   "slug": "vermessungs-und-katastergesetz",
-  "title": "Gesetz über das amtliche Vermessungswesen und das Liegenschaftskataster im Ostdeutschen Freistaat (Ostdeutsches Vermessungs- und Katastergesetz – OstVermKatG)",
+  "title": "Gesetz über das amtliche Vermessungswesen und das Liegenschaftskataster im Ostdeutschen Freistaat",
   "shortTitle": "Ostdeutsches Vermessungs- und Katastergesetz",
   "abbr": "OstVermKatG",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Raumordnung und Landesplanung"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "OstVermKatG",
     "Ostdeutsches Vermessungs- und Katastergesetz",
@@ -21,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Vermessungs- und Katastergesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2008-01-29",
   "sourceReferences": [
@@ -34,7 +36,8 @@
       "sha256": "5c800fa5832e384cda765b312e87548f09d862da22b3f1e3c209a7ff93dcb1cf",
       "lawId": "9851",
       "sourceValidFrom": "2021-05-13",
-      "sourceValidTo": "2024-07-29"
+      "sourceValidTo": "2024-07-29",
+      "fsnNumber": "450-2"
     },
     {
       "kind": "revosax-snapshot",

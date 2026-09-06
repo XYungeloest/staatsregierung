@@ -2,12 +2,11 @@
   "id": "aend-osthygvo",
   "slug": "aend-osthygvo",
   "title": "Änderung der Ostdeutschen Hygiene-Verordnung",
-  "shortTitle": "Änd. OstHygVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Änd. OstHygVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsche-dienstleistungsrichtlinienverordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstHygVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Hygiene-Verordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-12-08",
   "effectiveDate": "2009-12-28",
@@ -32,6 +32,7 @@
       "sha256": "4b48e930aa90e910425b853511c82ad0b8f8df56385ac4b3668acc885a1fab29",
       "lawId": "11219",
       "sourceValidFrom": "2009-12-28",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

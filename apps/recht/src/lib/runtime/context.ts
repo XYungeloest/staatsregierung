@@ -36,12 +36,14 @@ function createFileStore(): Promise<NormStore> {
     const [
       { loadAllNorms },
       { loadAllVerkuendungen },
+      { loadKeywordRegister },
       { loadPressReleases, loadTopics },
       { getPressReleaseUrl, getTopicUrl },
       { buildSearchDocument },
     ] = await Promise.all([
       import('@ostrecht/shared/lib/norms/loader.ts'),
       import('@ostrecht/shared/lib/norms/publications.ts'),
+      import('@ostrecht/shared/lib/norms/register.ts'),
       import('@ostrecht/shared/lib/portal/content.ts'),
       import('@ostrecht/shared/lib/portal/routes.ts'),
       import('@ostrecht/recht-search/search.ts'),
@@ -49,6 +51,7 @@ function createFileStore(): Promise<NormStore> {
     return createFileNormStore({
       loadAllNorms,
       loadAllVerkuendungen,
+      loadRegister: loadKeywordRegister,
       loadTopics,
       loadPressReleases,
       topicUrl: getTopicUrl,

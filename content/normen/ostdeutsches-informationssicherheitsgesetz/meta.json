@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-informationssicherheitsgesetz",
   "slug": "ostdeutsches-informationssicherheitsgesetz",
-  "title": "Ostdeutsches Informationssicherheitsgesetz",
+  "title": "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Informationssicherheitsgesetz",
-  "abbr": "OstISichG",
   "shortTitleSource": "official",
+  "abbr": "OstISichG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Allgemeine Verwaltung"
   ],
+  "primarySubject": "Allgemeine Verwaltung",
   "keywords": [
-    "OstISichG",
     "Ostdeutsches Informationssicherheitsgesetz",
-    "Informationssicherheitsgesetz"
+    "Gewährleistung",
+    "Informationssicherheit",
+    "Informationssicherheitsgesetz",
+    "OstISichG"
   ],
   "initialCitation": "Ostdeutsches Informationssicherheitsgesetz vom 2. August 2019 (SächsGVBl. S. 630)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Informationssicherheitsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2019-08-02",
   "sourceReferences": [
@@ -33,6 +37,7 @@
       "lawId": "18349",
       "sourceValidFrom": "2023-06-22",
       "sourceValidTo": "2024-09-30",
+      "fsnNumber": "213-4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

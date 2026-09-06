@@ -2,13 +2,12 @@
   "id": "aend-osthzg-18245",
   "slug": "aend-osthzg-18245",
   "title": "Änderung des Ostdeutschen Hochschulzulassungsgesetzes",
-  "shortTitle": "Änd. OstHZG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. OstHZG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-erleichterung-hochschulzulassung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstHZG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Hochschulzulassungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-06-06",
   "effectiveDate": "2020-04-01",
@@ -33,6 +33,7 @@
       "sha256": "6e98b9b1688369b6747aa18067c05034c8845db332d588089113aff0660ffb8a",
       "lawId": "18245",
       "sourceValidFrom": "2020-04-01",
+      "fsnNumber": "711",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

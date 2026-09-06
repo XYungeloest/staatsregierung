@@ -2,15 +2,13 @@
   "id": "aend-rl-dios",
   "slug": "aend-rl-dios",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Digitale Offensive Ostdeutschland",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Digitale Offensive Ostdeutschland",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Digitale Offensive Ostdeutschland",
+    "Änd. RL DiOS",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Digitale Offensive Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-09",
   "effectiveDate": "2019-12-27",
@@ -36,8 +35,12 @@
       "sha256": "88a780acabd465911c59cc0539f2619e7b76273fd902505ae34420802e8aaf2f",
       "lawId": "18490",
       "sourceValidFrom": "2019-12-27",
+      "fsnNumber": "551",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-digitale-offensive-ostdeutschland"
   ]
 }

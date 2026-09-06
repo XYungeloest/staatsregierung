@@ -1,28 +1,31 @@
 {
   "id": "aend-sogya-und-agykovo",
   "slug": "aend-sogya-und-agykovo",
-  "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Gymnasien Abiturprüfung und der Abendgymnasien-und Kollegverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Gymnasien Abiturprüfung und der Abendgymnasien- und Kollegverordnung",
   "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Gymnasien Abiturprüfung und der Abendgymnasien-und Kollegverordnung",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Gymnasien Abiturprüfung und der Abendgymnasien-und Kollegverordnung",
+    "Änd. SOGYA und AGyKoVO",
     "Kultus",
     "Änderung",
     "Schulordnung",
     "Gymnasien",
     "Abiturprüfung",
-    "Abendgymnasien-und",
+    "Abendgymnasien-",
     "Kollegverordnung"
   ],
   "initialCitation": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Gymnasien Abiturprüfung und der Abendgymnasien-und Kollegverordnung vom 25. Juli 2014 (SächsGVBl. S. 411)",
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Gymnasien Abiturprüfung und der Abendgymnasien-und Kollegverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-07-25",
   "effectiveDate": "2014-08-01",
@@ -37,8 +40,12 @@
       "sha256": "d3c686faf17227773d42ec14747a01bf549a4ff92c05e4007a07071e783ec884",
       "lawId": "14073",
       "sourceValidFrom": "2014-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-gymnasien-abiturpruefung"
   ]
 }

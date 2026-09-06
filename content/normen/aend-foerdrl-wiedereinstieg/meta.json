@@ -2,14 +2,13 @@
   "id": "aend-foerdrl-wiedereinstieg",
   "slug": "aend-foerdrl-wiedereinstieg",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FördRL Wiedereinstieg",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FördRL Wiedereinstieg",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FördRL Wiedereinstieg",
+    "Änd. FördRL Wiedereinstieg",
     "Wissenschaft",
     "Kultur",
     "Tourismus",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FördRL Wiedereinstieg“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-13",
   "effectiveDate": "2023-07-01",
@@ -36,8 +36,12 @@
       "lawId": "20021",
       "sourceValidFrom": "2023-07-01",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "5572",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerdrl-wiedereinstieg"
   ]
 }

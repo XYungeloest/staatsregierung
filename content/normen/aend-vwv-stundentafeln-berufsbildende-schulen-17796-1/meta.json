@@ -1,15 +1,16 @@
 {
   "id": "aend-vwv-stundentafeln-berufsbildende-schulen-17796-1",
   "slug": "aend-vwv-stundentafeln-berufsbildende-schulen-17796-1",
-  "title": "Änd. VwV Stundentafeln berufsbildende Schulen",
-  "shortTitle": "Änd. VwV Stundentafeln berufsbildende Schulen",
-  "shortTitleSource": "official",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. VwV Stundentafeln berufsbildende Schulen",
+    "Kultus",
+    "Änderung",
     "Stundentafeln",
     "berufsbildende",
     "Schulen"
@@ -17,7 +18,8 @@
   "initialCitation": "Änd. VwV Stundentafeln berufsbildende Schulen vom 11. Juli 2018 (MBl. SMK S. 327)",
   "predecessor": null,
   "successor": null,
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. VwV Stundentafeln berufsbildende Schulen“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-07-11",
   "effectiveDate": "2018-08-01",
@@ -32,8 +34,12 @@
       "sha256": "6eacaa7567343d15b7da7690cb22e257b925061e47b1a3a6e7a8a96eea82db22",
       "lawId": "17796",
       "sourceValidFrom": "2018-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-stundentafeln-berufsbildende-schulen"
   ]
 }

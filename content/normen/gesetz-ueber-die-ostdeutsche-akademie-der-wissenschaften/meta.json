@@ -1,25 +1,28 @@
 {
   "id": "gesetz-ueber-die-ostdeutsche-akademie-der-wissenschaften",
   "slug": "gesetz-ueber-die-ostdeutsche-akademie-der-wissenschaften",
-  "title": "Gesetz über die Ostdeutsche Akademie der Wissenschaften",
+  "title": "Gesetz über die Ostdeutsche Akademie der Wissenschaften zu Leipzig",
   "shortTitle": "Gesetz über die Ostdeutsche Akademie der Wissenschaften",
-  "abbr": "OstAkadWissG",
   "shortTitleSource": "official",
+  "abbr": "OstAkadWissG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Kultur"
   ],
+  "primarySubject": "Kultur",
   "keywords": [
-    "OstAkadWissG",
     "Gesetz über die Ostdeutsche Akademie der Wissenschaften",
     "Akademie",
-    "Wissenschaften"
+    "Wissenschaften",
+    "Leipzig",
+    "OstAkadWissG"
   ],
   "initialCitation": "Gesetz über die Ostdeutsche Akademie der Wissenschaften vom 30. Mai 1994 (SächsGVBl. S. 1021), das durch Artikel 25 des Gesetzes vom 15. Dezember 2010 (SächsGVBl. S. 387) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Gesetz über die Ostdeutsche Akademie der Wissenschaften“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1994-05-30",
   "sourceReferences": [
@@ -33,6 +36,7 @@
       "sha256": "84076fc4c84a311eb46aaf0c537547b034af0ea39a2ec78248fb81e6e6285344",
       "lawId": "3284",
       "sourceValidFrom": "2011-01-01",
+      "fsnNumber": "70-6",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

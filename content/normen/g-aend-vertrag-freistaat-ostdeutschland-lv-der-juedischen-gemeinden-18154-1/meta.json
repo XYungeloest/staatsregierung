@@ -2,15 +2,13 @@
   "id": "g-aend-vertrag-freistaat-ostdeutschland-lv-der-juedischen-gemeinden-18154-1",
   "slug": "g-aend-vertrag-freistaat-ostdeutschland-lv-der-juedischen-gemeinden-18154-1",
   "title": "Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden",
-  "shortTitle": "Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Völkerrecht und Staatsverträge",
-    "Kommunal- und Verwaltungsrecht"
+    "Kirchen, Religionsgemeinschaften"
   ],
+  "primarySubject": "Kirchen, Religionsgemeinschaften",
   "keywords": [
-    "Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden",
+    "G Änd. Vertrag Freistaat Ostdeutschland – LV der Jüdischen Gemeinden",
     "Vertrag",
     "Änderung",
     "Vertrages",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-03-05",
   "effectiveDate": "2019-08-22",
@@ -36,8 +35,12 @@
       "sha256": "2d90f0018f9f26f1aa94549eae5a711f82a0875d5515b542250c509ae9a6020e",
       "lawId": "18154",
       "sourceValidFrom": "2019-08-22",
+      "fsnNumber": "73",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vertrag-ostdeutschland-lv-der-juedische-gemeinden"
   ]
 }

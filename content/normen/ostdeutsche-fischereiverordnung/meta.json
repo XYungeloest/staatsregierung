@@ -1,23 +1,31 @@
 {
   "id": "ostdeutsche-fischereiverordnung",
   "slug": "ostdeutsche-fischereiverordnung",
-  "title": "Ostdeutsche Fischereiverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Durchführung des Fischereigesetzes für den Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsche Fischereiverordnung",
-  "abbr": "OstFischVO",
   "shortTitleSource": "official",
+  "abbr": "OstFischVO",
   "type": "verordnung",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "OstFischVO",
     "Ostdeutsche Fischereiverordnung",
-    "Fischereiverordnung"
+    "Energie",
+    "Klimaschutz",
+    "Umwelt",
+    "Landwirtschaft",
+    "Durchführung",
+    "Fischereigesetzes",
+    "Fischereiverordnung",
+    "OstFischVO"
   ],
   "initialCitation": "Ostdeutsche Fischereiverordnung vom 22. April 2022 (SächsGVBl. S. 318)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Fischereiverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2022-04-22",
   "sourceReferences": [
@@ -31,6 +39,7 @@
       "sha256": "0f2f28ce9f4b017d190410dd68c3d4bfa6d6a63196aeaefd4f916f258ed8dc24",
       "lawId": "19620",
       "sourceValidFrom": "2022-06-01",
+      "fsnNumber": "652-1.6/3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

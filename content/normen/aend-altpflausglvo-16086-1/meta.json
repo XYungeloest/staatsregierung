@@ -2,15 +2,14 @@
   "id": "aend-altpflausglvo-16086-1",
   "slug": "aend-altpflausglvo-16086-1",
   "title": "Zweite Verordnung der Ostdeutschen Staatsregierung zur Änderung der Altenpflege-Ausgleichsverordnung",
-  "shortTitle": "Zweite Verordnung der Ostdeutschen Staatsregierung zur Änderung der Altenpflege-Ausgleichsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Behindertenfürsorge, Kriegsopferfürsorge, Pflege"
   ],
+  "primarySubject": "Behindertenfürsorge, Kriegsopferfürsorge, Pflege",
   "keywords": [
-    "Zweite Verordnung der Ostdeutschen Staatsregierung zur Änderung der Altenpflege-Ausgleichsverordnung",
+    "Änd. AltPflAusglVO",
     "Zweite",
     "Änderung",
     "Altenpflege-Ausgleichsverordnung"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung der Ostdeutschen Staatsregierung zur Änderung der Altenpflege-Ausgleichsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-06-15",
   "effectiveDate": "2015-07-14",
@@ -33,8 +33,12 @@
       "sha256": "006b5094bfc24b1dbb02284b3e45dcb40ff17e8e21e10c4bd07ac05dd42ac93d",
       "lawId": "16086",
       "sourceValidFrom": "2015-07-14",
+      "fsnNumber": "842",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-der-ostdeutschen-staatsregierung-ueber-die-erhebung-von-ausgleichsbetraegen-zur"
   ]
 }

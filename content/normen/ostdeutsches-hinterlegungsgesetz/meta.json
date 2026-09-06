@@ -1,24 +1,27 @@
 {
   "id": "ostdeutsches-hinterlegungsgesetz",
   "slug": "ostdeutsches-hinterlegungsgesetz",
-  "title": "Ostdeutsches Hinterlegungsgesetz",
+  "title": "Gesetz über das Hinterlegungsverfahren im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Hinterlegungsgesetz",
-  "abbr": "OstHintG",
   "shortTitleSource": "official",
+  "abbr": "OstHintG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Zivilrecht, Handelsrecht, Urheberrecht, gewerblicher Rechtsschutz"
   ],
+  "primarySubject": "Zivilrecht, Handelsrecht, Urheberrecht, gewerblicher Rechtsschutz",
   "keywords": [
-    "OstHintG",
     "Ostdeutsches Hinterlegungsgesetz",
-    "Hinterlegungsgesetz"
+    "Hinterlegungsverfahren",
+    "Hinterlegungsgesetz",
+    "OstHintG"
   ],
   "initialCitation": "Ostdeutsches Hinterlegungsgesetz vom 11. Juni 2010 (SächsGVBl. S. 154), das durch Artikel 8 des Gesetzes vom 15. Dezember 2022 (SächsGVBl. S. 626) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Hinterlegungsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2010-06-11",
   "sourceReferences": [
@@ -32,6 +35,7 @@
       "sha256": "c5a687eae69f2be4fd3eb9a9a7a64ec46659a134c2fcb64f29a0108ec295e118",
       "lawId": "11414",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "33-7",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-13964",
   "slug": "aend-ostgemo-13964",
   "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "wiederaufbaubegleitgesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Gemeindeordnung für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-04-02",
   "effectiveDate": "2014-05-01",
@@ -33,6 +33,7 @@
       "sha256": "06e667bd60d4965038e9946ac0f5a3ffdd358aa9b5d704c52c51d3008422f67b",
       "lawId": "13964",
       "sourceValidFrom": "2014-05-01",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

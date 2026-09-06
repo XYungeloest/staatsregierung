@@ -2,15 +2,14 @@
   "id": "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-zur-aenderung-der-schulbesuchsordnung",
   "slug": "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-zur-aenderung-der-schulbesuchsordnung",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulbesuchsordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulbesuchsordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulbesuchsordnung",
+    "SBO",
     "Kultus",
     "Änderung",
     "Schulbesuchsordnung"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulbesuchsordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2004-02-04",
   "effectiveDate": "2004-03-09",
@@ -36,5 +36,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-ueber-den-besuch-oeffentlicher"
   ]
 }

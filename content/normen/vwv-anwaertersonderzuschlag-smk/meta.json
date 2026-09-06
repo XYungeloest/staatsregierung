@@ -1,23 +1,28 @@
 {
   "id": "vwv-anwaertersonderzuschlag-smk",
   "slug": "vwv-anwaertersonderzuschlag-smk",
-  "title": "VwV Anwärtersonderzuschlag SMK",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Gewährung von Anwärtersonderzuschlägen",
   "shortTitle": "VwV Anwärtersonderzuschlag SMK",
-  "abbr": "VwV AnwSZ SMK",
   "shortTitleSource": "official",
+  "abbr": "VwV AnwSZ SMK",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "VwV AnwSZ SMK",
     "VwV Anwärtersonderzuschlag SMK",
-    "Anwärtersonderzuschlag"
+    "Kultus",
+    "Gewährung",
+    "Anwärtersonderzuschlägen",
+    "Anwärtersonderzuschlag",
+    "AnwSZ"
   ],
-  "initialCitation": "VwV Anwärtersonderzuschlag SMK vom 6. Juni 2019 (MBl. SMK S. 164), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "initialCitation": "VwV Anwärtersonderzuschlag SMK vom 6. Juni 2019 (MBl. SMK S. 164)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Anwärtersonderzuschlag SMK“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2019-06-06",
   "sourceReferences": [
@@ -31,6 +36,7 @@
       "sha256": "74c5a8458b431fdb973c957bb174c14ef9608722389d662c9014b1fbedb7e7cb",
       "lawId": "18235",
       "sourceValidFrom": "2019-08-01",
+      "fsnNumber": "242-V19.3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,16 +2,14 @@
   "id": "g-zum-13-rundfunkaenderungsstv-und-aend-ostprg",
   "slug": "g-zum-13-rundfunkaenderungsstv-und-aend-ostprg",
   "title": "Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
-  "shortTitle": "Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Rundfunk und Medien",
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
-    "Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
+    "G zum 13.RundfunkänderungsStV und Änd. OstPRG",
     "Dreizehnten",
     "Rundfunkänderungsstaatsvertrag",
     "Änderung",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-03-10",
   "effectiveDate": "2010-03-26",
@@ -35,8 +34,12 @@
       "sha256": "92e6562bf3144ee9c2a4cd4a472b083fc242bc07bd7e3caf2c6dce3fe0eb9a88",
       "lawId": "11324",
       "sourceValidFrom": "2010-03-26",
+      "fsnNumber": "72-30A",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-privatrundfunkgesetz"
   ]
 }

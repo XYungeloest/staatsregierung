@@ -2,13 +2,12 @@
   "id": "aend-ostbo-17908",
   "slug": "aend-ostbo-17908",
   "title": "Änderung der Ostdeutschen Bauordnung",
-  "shortTitle": "Änd. OstBO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
     "Änd. OstBO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-planungsrechtlicher-vorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Bauordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-12-11",
   "effectiveDate": "2018-12-21",
@@ -33,6 +33,7 @@
       "sha256": "7a5552aeeec9883d943663c1faecfecd2c729c6314e9338434e4d6e29e99b65c",
       "lawId": "17908",
       "sourceValidFrom": "2018-12-21",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

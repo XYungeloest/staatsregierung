@@ -2,16 +2,14 @@
   "id": "verwaltungsvorschrift-des-ostdeutschen-staatsministeriums-des-innern-zur-aenderung-der",
   "slug": "verwaltungsvorschrift-des-ostdeutschen-staatsministeriums-des-innern-zur-aenderung-der",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Feuerwehrförderung",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Feuerwehrförderung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Sicherheit und Ordnung",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Feuerwehrförderung",
+    "Änd. RLFw",
     "Innern",
     "Änderung",
     "Feuerwehrförderung"
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Feuerwehrförderung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-08-02",
   "effectiveDate": "2014-08-22",
@@ -34,8 +33,12 @@
       "sha256": "73124542ab1289fb122d1115249721eb9eb43a7602fb47388f9a99e8a2c21610",
       "lawId": "14091",
       "sourceValidFrom": "2014-08-22",
+      "fsnNumber": "551",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-feuerwehrfoerderung"
   ]
 }

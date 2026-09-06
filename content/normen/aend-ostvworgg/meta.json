@@ -2,15 +2,14 @@
   "id": "aend-ostvworgg",
   "slug": "aend-ostvworgg",
   "title": "Zweites Gesetz zur Änderung des Ostdeutschen Verwaltungsorganisationsgesetzes",
-  "shortTitle": "Zweites Gesetz zur Änderung des Ostdeutschen Verwaltungsorganisationsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Ostdeutschen Verwaltungsorganisationsgesetzes",
+    "Änd. OstVwOrgG",
     "Zweites",
     "Änderung",
     "Verwaltungsorganisationsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Ostdeutschen Verwaltungsorganisationsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-12-02",
   "effectiveDate": "2020-12-30",
@@ -33,8 +33,12 @@
       "sha256": "259ee8254e60f2cfbe75ea70df988d779f6c30048a709720d3f6e4f125b523f1",
       "lawId": "18945",
       "sourceValidFrom": "2020-12-30",
+      "fsnNumber": "111",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "sachsisches-verwaltungsorganisationsgesetz"
   ]
 }

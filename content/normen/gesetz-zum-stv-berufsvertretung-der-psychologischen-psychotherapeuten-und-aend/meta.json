@@ -2,16 +2,14 @@
   "id": "gesetz-zum-stv-berufsvertretung-der-psychologischen-psychotherapeuten-und-aend",
   "slug": "gesetz-zum-stv-berufsvertretung-der-psychologischen-psychotherapeuten-und-aend",
   "title": "Gesetz zu dem Staatsvertrag über die gemeinsame Berufsvertretung der Psychologischen Psychotherapeuten und der Kinder- und Jugendlichenpsychotherapeuten sowie zur Änderung des Ostdeutschen Heilberufekammergesetzes und anderer Gesetze",
-  "shortTitle": "Gesetz zu dem Staatsvertrag über die gemeinsame Berufsvertretung der Psychologischen Psychotherapeuten und der Kinder- und Jugendlichenpsychotherapeuten sowie zur Änderung des Ostdeutschen Heilberufekammergesetzes und anderer Gesetze",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Völkerrecht und Staatsverträge"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "Gesetz zu dem Staatsvertrag über die gemeinsame Berufsvertretung der Psychologischen Psychotherapeuten und der Kinder- und Jugendlichenpsychotherapeuten sowie zur Änderung des Ostdeutschen Heilberufekammergesetzes und anderer Gesetze",
+    "Gesetz zum StV Berufsvertretung der Psychologischen Psychotherapeuten und Änd. Heilberufekammergesetz",
     "Staatsvertrag",
     "gemeinsame",
     "Berufsvertretung",
@@ -28,6 +26,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zu dem Staatsvertrag über die gemeinsame Berufsvertretung der Psychologischen Psychotherapeuten und der Kinder- und Jugendlichenpsychotherapeuten sowie zur Änderung des Ostdeutschen Heilberufekammergesetzes und anderer Gesetze“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2005-09-09",
   "effectiveDate": "2006-04-01",
@@ -42,8 +41,12 @@
       "sha256": "21899093ad53e22fa122433bf87b130e2e4ebd880b8493a3db477ea11dc50669",
       "lawId": "2217",
       "sourceValidFrom": "2006-04-01",
+      "fsnNumber": "253-10A",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-heilberufekammergesetz"
   ]
 }

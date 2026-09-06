@@ -2,12 +2,11 @@
   "id": "aend-altersgrenzenvo",
   "slug": "aend-altersgrenzenvo",
   "title": "Änderung der Altersgrenzenverordnung",
-  "shortTitle": "Änd. AltersgrenzenVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. AltersgrenzenVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsche-dienstrechtsneuordnungsverordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. AltersgrenzenVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Altersgrenzenverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-09-16",
   "effectiveDate": "2014-10-29",
@@ -32,6 +32,7 @@
       "sha256": "4572678560bbef89b8f5daf753be0d93bab592a91b9af2e703b5bd14547fcd8f",
       "lawId": "14146",
       "sourceValidFrom": "2014-10-29",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

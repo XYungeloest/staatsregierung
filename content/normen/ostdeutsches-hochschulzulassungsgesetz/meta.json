@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-hochschulzulassungsgesetz",
   "slug": "ostdeutsches-hochschulzulassungsgesetz",
-  "title": "Ostdeutsches Hochschulzulassungsgesetz",
+  "title": "Gesetz über die Zulassung zum Hochschulstudium im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Hochschulzulassungsgesetz",
-  "abbr": "OstHZG",
   "shortTitleSource": "official",
+  "abbr": "OstHZG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "OstHZG",
     "Ostdeutsches Hochschulzulassungsgesetz",
-    "Hochschulzulassungsgesetz"
+    "Zulassung",
+    "Hochschulstudium",
+    "Hochschulzulassungsgesetz",
+    "OstHZG"
   ],
   "initialCitation": "Ostdeutsches Hochschulzulassungsgesetz vom 7. Juni 1993 (SächsGVBl. S. 462), das zuletzt durch Artikel 2 des Gesetzes vom 31. Mai 2023 (SächsGVBl. S. 329) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Hochschulzulassungsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1993-06-07",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "3f716e6d3162ac737c6082e3f93f5214d22435b23ad74325bf4d65e6ffb0aeac",
       "lawId": "3127",
       "sourceValidFrom": "2023-06-22",
+      "fsnNumber": "711-7",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

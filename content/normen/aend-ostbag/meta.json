@@ -2,13 +2,12 @@
   "id": "aend-ostbag",
   "slug": "aend-ostbag",
   "title": "Änderung des Ostdeutschen Berufsakademiegesetzes",
-  "shortTitle": "Änd. OstBAG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. OstBAG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2019-2020",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBAG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Berufsakademiegesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-12-14",
   "effectiveDate": "2019-01-01",
@@ -33,6 +33,7 @@
       "sha256": "568a53d453df8f5e946e8d9e56baa75f506970a252de646e231e22c21ddd04d3",
       "lawId": "17958",
       "sourceValidFrom": "2019-01-01",
+      "fsnNumber": "712",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

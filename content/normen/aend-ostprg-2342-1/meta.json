@@ -2,15 +2,14 @@
   "id": "aend-ostprg-2342-1",
   "slug": "aend-ostprg-2342-1",
   "title": "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Rundfunk und Medien"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
+    "Änd. OstPRG",
     "Änderung",
     "Privatrundfunkgesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2004-01-23",
   "effectiveDate": "2004-02-21",
@@ -35,5 +35,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-privatrundfunkgesetz"
   ]
 }

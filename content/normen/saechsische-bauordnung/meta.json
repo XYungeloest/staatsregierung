@@ -2,13 +2,12 @@
   "id": "saechsische-bauordnung",
   "slug": "saechsische-bauordnung",
   "title": "Ostdeutsche Bauordnung",
-  "shortTitle": "Ostdeutsche Bauordnung",
-  "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
     "Bauordnung",
     "Baurecht",
@@ -32,7 +31,8 @@
       "sha256": "c342bc4ae041704e617d464afaad3564491f3ae07129e08eaa56cee7991e5e8d",
       "lawId": "1779",
       "sourceValidFrom": "2023-01-01",
-      "sourceValidTo": "2024-03-18"
+      "sourceValidTo": "2024-03-18",
+      "fsnNumber": "421-1/3"
     },
     {
       "kind": "revosax-snapshot",

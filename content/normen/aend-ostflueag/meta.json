@@ -2,15 +2,14 @@
   "id": "aend-ostflueag",
   "slug": "aend-ostflueag",
   "title": "Erstes Gesetz zur Änderung des Ostdeutschen Flüchtlingsaufnahmegesetzes",
-  "shortTitle": "Erstes Gesetz zur Änderung des Ostdeutschen Flüchtlingsaufnahmegesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Aus dem Ausland stammende Personen"
   ],
+  "primarySubject": "Aus dem Ausland stammende Personen",
   "keywords": [
-    "Erstes Gesetz zur Änderung des Ostdeutschen Flüchtlingsaufnahmegesetzes",
+    "Änd. OstFlüAG",
     "Erstes",
     "Änderung",
     "Flüchtlingsaufnahmegesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erstes Gesetz zur Änderung des Ostdeutschen Flüchtlingsaufnahmegesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-12-11",
   "effectiveDate": "2018-12-21",
@@ -33,8 +33,12 @@
       "sha256": "2192e7b73a6fed3aeed959061ce3dee1b57f4471e92eb9cc3a515b16a5272e60",
       "lawId": "17909",
       "sourceValidFrom": "2018-12-21",
+      "fsnNumber": "271",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "fluechtlingsaufnahmegesetz"
   ]
 }

@@ -2,16 +2,14 @@
   "id": "aend-sogs-und-schulgespflvo",
   "slug": "aend-sogs-und-schulgespflvo",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen und der Schulgesundheitspflegeverordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen und der Schulgesundheitspflegeverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen und der Schulgesundheitspflegeverordnung",
+    "Änd. SOGS und SchulGesPflVO",
     "Kultus",
     "Änderung",
     "Schulordnung",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen und der Schulgesundheitspflegeverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-08-14",
   "effectiveDate": "2013-08-01",
@@ -39,5 +38,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-grundschulen"
   ]
 }

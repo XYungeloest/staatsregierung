@@ -2,15 +2,14 @@
   "id": "aend-ostagsgb",
   "slug": "aend-ostagsgb",
   "title": "Zweites Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitle": "Zweites Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Allgemeines zum Sozialwesen"
   ],
+  "primarySubject": "Allgemeines zum Sozialwesen",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
+    "Änd. OstAGSGB",
     "Zweites",
     "Änderung",
     "Ausführung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-09-23",
   "effectiveDate": "2010-10-19",
@@ -34,8 +34,12 @@
       "sha256": "57978b3c5f46343e3e35535d74f7bf8af3ae2c95533e1baef3580c67b67cdcf1",
       "lawId": "11508",
       "sourceValidFrom": "2010-10-19",
+      "fsnNumber": "80",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches"
   ]
 }

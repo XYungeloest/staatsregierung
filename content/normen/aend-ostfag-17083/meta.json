@@ -2,13 +2,12 @@
   "id": "aend-ostfag-17083",
   "slug": "aend-ostfag-17083",
   "title": "Änderung des Ostdeutschen Finanzausgleichsgesetzes",
-  "shortTitle": "Änd. OstFAG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Finanzverwaltung, Finanzausgleich"
   ],
+  "primarySubject": "Finanzverwaltung, Finanzausgleich",
   "keywords": [
     "Änd. OstFAG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-finanzbeziehungen-freistaat-ostdeutschland-kommunen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstFAG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Finanzausgleichsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-12-15",
   "effectiveDate": "2017-01-01",
@@ -33,6 +33,7 @@
       "sha256": "36cf140a9134b3af1ee107fdfaaef0791e41b75bb7410a3394dddc0d88fb7677",
       "lawId": "17083",
       "sourceValidFrom": "2017-01-01",
+      "fsnNumber": "50",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

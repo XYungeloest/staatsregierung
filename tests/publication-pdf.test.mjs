@@ -10,6 +10,8 @@ import {
   preserveVerifiedAt,
   publicationIdentityKey,
   publicationIdentityFromPdfFileName,
+  publicationPdfFileName,
+  publicationPdfPublicPath,
   retainUnrelatedPublicationSourceReferences,
   resolvePublicationPdf,
 } from '../scripts/lib/publication-pdf.mjs';
@@ -114,4 +116,25 @@ test('Neuableitung setzt ein dokumentiertes Prüfdatum derselben Datei nie zurü
   assert.equal(rebuilt[2].verifiedAt, '2026-08-28', 'fremde Dateien bleiben unberührt');
   assert.equal(rebuilt[3].verifiedAt, '2026-08-28', 'geänderter Hash übernimmt kein altes Prüfdatum');
   assert.deepEqual(preserveVerifiedAt([{ kind: 'original', label: 'ohne Datei' }], existing), [{ kind: 'original', label: 'ohne Datei' }]);
+});
+
+test('der öffentliche Name eines Ausgaben-PDFs ist der Slug der Ausgabe', () => {
+  assert.equal(publicationPdfFileName('testblatt-2026-01'), 'testblatt-2026-01.pdf');
+  assert.equal(publicationPdfPublicPath('testblatt-2026-01'), '/assets/recht/testblatt-2026-01.pdf');
+  // Slugs enthalten weder Leerzeichen noch Punkte: die Adresse braucht keine Kodierung.
+  const path = publicationPdfPublicPath('einzelverkuendung-2026-03-01');
+  assert.equal(path, encodeURI(path));
+  assert.equal(/[ .]/u.test(path.replace(/\.pdf$/u, '')), false);
+});
+
+test('jede Verkündung im Bestand verweist auf ihren eigenen Slug-Namen', async () => {
+  const { readdir, readFile } = await import('node:fs/promises');
+  const root = new URL('../content/verkuendungen/', import.meta.url);
+  const files = (await readdir(root)).filter((name) => name.endsWith('.json'));
+  assert.ok(files.length > 0, 'Verkündungen vorhanden');
+  for (const file of files) {
+    const publication = JSON.parse(await readFile(new URL(file, root), 'utf8'));
+    if (!publication.pdf) continue;
+    assert.equal(publication.pdf, publicationPdfPublicPath(publication.slug), file);
+  }
 });

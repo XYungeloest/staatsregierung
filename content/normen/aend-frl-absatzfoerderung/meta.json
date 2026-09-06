@@ -2,15 +2,13 @@
   "id": "aend-frl-absatzfoerderung",
   "slug": "aend-frl-absatzfoerderung",
   "title": "Erste Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Absatzförderung",
-  "shortTitle": "Erste Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Absatzförderung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Erste Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Absatzförderung",
+    "Änd. FRL Absatzförderung",
     "Erste",
     "Umwelt",
     "Landwirtschaft",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erste Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Absatzförderung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-17",
   "effectiveDate": "2020-01-01",
@@ -36,8 +35,12 @@
       "sha256": "0b9a0b6c2f2ef783a7fbae75e8db7dbac4a8ffaf20d6cc87333a4a00e9b6455e",
       "lawId": "18541",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "5563",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-absatzfoerderung"
   ]
 }

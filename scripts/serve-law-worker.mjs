@@ -14,8 +14,9 @@ import { join, relative, resolve } from 'node:path';
  *   node scripts/serve-law-worker.mjs [--port 4322] [--persist-to .cache/wrangler-local]
  *                                     [--fixture data/recht/runtime-fixture.json] [--seed-only] [--force]
  *
- * Persist-Verzeichnis: `--persist-to` oder OSTRECHT_D1_PERSIST_TO (Standard .cache/wrangler-local);
- * so können Fixture- und Vollbestandsprojektion nebeneinander liegen.
+ * Persist-Verzeichnis: `--persist-to` oder OSTRECHT_D1_PERSIST_TO; ohne Angabe
+ * .cache/wrangler-fixture beim Testfixture und .cache/wrangler-local beim Vollbestand, damit
+ * beide Projektionen nebeneinander liegen und sich nicht gegenseitig überschreiben.
  *
  * Fixture: mit `--fixture <Datei>` oder der Umgebungsvariable OSTRECHT_D1_FIXTURE wird
  * nur der repräsentative Testbestand (data/recht/runtime-fixture.json) projiziert –
@@ -35,10 +36,15 @@ import { join, relative, resolve } from 'node:path';
 const ROOT = resolve(process.cwd());
 const args = process.argv.slice(2);
 const port = valueAfter('--port') ?? '4322';
-const persistTo = resolve(ROOT, valueAfter('--persist-to') ?? process.env.OSTRECHT_D1_PERSIST_TO ?? join('.cache', 'wrangler-local'));
 const seedOnly = args.includes('--seed-only');
 const force = args.includes('--force');
 const fixture = valueAfter('--fixture') ?? (process.env.OSTRECHT_D1_FIXTURE || undefined);
+// Testfixture und Vollbestand bekommen getrennte Verzeichnisse: sonst bedient ein Lauf mit
+// Fixture die Datenbank einer vorangegangenen Vollprojektion (oder umgekehrt), und die
+// Browserprüfungen messen einen anderen Bestand als den, den sie erwarten.
+const persistTo = resolve(ROOT, valueAfter('--persist-to')
+  ?? process.env.OSTRECHT_D1_PERSIST_TO
+  ?? join('.cache', fixture ? 'wrangler-fixture' : 'wrangler-local'));
 const workerConfig = join(ROOT, 'apps', 'recht', 'dist', 'server', 'wrangler.json');
 
 function valueAfter(flag) {

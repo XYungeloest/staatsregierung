@@ -2,15 +2,13 @@
   "id": "aend-richtlinie-grw-riga",
   "slug": "aend-richtlinie-grw-riga",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie GRW RIGA",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie GRW RIGA",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie GRW RIGA",
+    "Änd. Richtlinie GRW RIGA",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie GRW RIGA“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-03-23",
   "effectiveDate": "2021-04-01",
@@ -34,8 +33,12 @@
       "sha256": "0f66d944a8502a4473803381c64a87971a4329f0aa1b886eaa860b628902f133",
       "lawId": "19066",
       "sourceValidFrom": "2021-04-01",
+      "fsnNumber": "552",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-grw-riga"
   ]
 }

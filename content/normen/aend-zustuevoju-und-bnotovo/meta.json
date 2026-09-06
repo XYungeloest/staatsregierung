@@ -2,15 +2,14 @@
   "id": "aend-zustuevoju-und-bnotovo",
   "slug": "aend-zustuevoju-und-bnotovo",
   "title": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und der Verordnung zur Ausführung der Bundesnotarordnung aus Anlass des Inkrafttretens des Gesetzes zur Modernisierung von Verfahren im anwaltlichen und notariellen Berufsrecht, zur Errichtung einer Schlichtungsstelle der Rechtsanwaltschaft sowie zur Änderung sonstiger Vorschriften",
-  "shortTitle": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und der Verordnung zur Ausführung der Bundesnotarordnung aus Anlass des Inkrafttretens des Gesetzes zur Modernisierung von Verfahren im anwaltlichen und notariellen Berufsrecht, zur Errichtung einer Schlichtungsstelle der Rechtsanwaltschaft sowie zur Änderung sonstiger Vorschriften",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und der Verordnung zur Ausführung der Bundesnotarordnung aus Anlass des Inkrafttretens des Gesetzes zur Modernisierung von Verfahren im anwaltlichen und notariellen Berufsrecht, zur Errichtung einer Schlichtungsstelle der Rechtsanwaltschaft sowie zur Änderung sonstiger Vorschriften",
+    "Änd. ZustÜVOJu und BNotOVO",
     "Änderung",
     "Zuständigkeitsübertragungsverordnung",
     "Justiz",
@@ -31,6 +30,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und der Verordnung zur Ausführung der Bundesnotarordnung aus Anlass des Inkrafttretens des Gesetzes zur Modernisierung von Verfahren im anwaltlichen und notariellen Berufsrecht, zur Errichtung einer Schlichtungsstelle der Rechtsanwaltschaft sowie zur Änderung sonstiger Vorschriften“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-10-02",
   "effectiveDate": "2009-10-21",
@@ -45,8 +45,12 @@
       "sha256": "28cf638d381b2c1eced09b425d802fee5f2835c6c2b4c8e158eff54b2b807290",
       "lawId": "11148",
       "sourceValidFrom": "2009-10-21",
+      "fsnNumber": "302",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsuebertragungsverordnung-justiz"
   ]
 }

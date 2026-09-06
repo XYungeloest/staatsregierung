@@ -2,13 +2,11 @@
   "id": "aenderung-der-schulordnung-foerderschulen",
   "slug": "aenderung-der-schulordnung-foerderschulen",
   "title": "Änderung der Schulordnung Förderschulen",
-  "shortTitle": "Änd. SOFS",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SOFS",
     "Änderung",
@@ -19,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-sogs-sofs-und-somiap",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SOFS“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Förderschulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-02-17",
   "effectiveDate": "2009-03-06",
@@ -34,6 +33,7 @@
       "sha256": "603e7d55f26b0ddd54617283a0fe6c2ff730340b0c51756410af82c78f4763a3",
       "lawId": "10665",
       "sourceValidFrom": "2009-03-06",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

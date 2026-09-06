@@ -2,15 +2,14 @@
   "id": "aend-lapo-ii-und-qualivo-lehrer",
   "slug": "aend-lapo-ii-und-qualivo-lehrer",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehramtsprüfungsordnung II",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehramtsprüfungsordnung II",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehramtsprüfungsordnung II",
+    "Änd. LAPO II und QualiVO Lehrer",
     "Kultus",
     "Änderung",
     "Lehramtsprüfungsordnung"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehramtsprüfungsordnung II“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-07-02",
   "effectiveDate": "2019-08-01",
@@ -33,8 +33,12 @@
       "sha256": "3d08efe24ea65d28169acfb5417760e83138c1583b46da19571fdac125c3c542",
       "lawId": "18299",
       "sourceValidFrom": "2019-08-01",
+      "fsnNumber": "710-1.92",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "lehramtspruefungsordnung-ii"
   ]
 }

@@ -1,9 +1,11 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-strip-types
 
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
+import { abbreviationProblem, isAbbreviationLikeLabel } from './lib/norm-title-rules.mjs';
+import { inferSubjectAssignment } from './lib/revosax-metadata.mjs';
 
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
@@ -60,51 +62,58 @@ function inferEnactingBody(title, type) {
   return 'Sächsische Staatsregierung';
 }
 
-function inferSubjects(title) {
-  const rules = [
-    [/Gesundheit|Krankenhaus|Bestattung/iu, 'Gesundheit und Soziales'],
-    [/Personennahverkehr|Eisenbahn|Verkehr/iu, 'Mobilität und öffentliche Infrastruktur'],
-    [/Kindertages|Schul|Hochschul|Stundentafel|Ausbildungs- und Prüfungsordnung/iu, 'Bildung und Weiterbildung'],
-    [/Kommunalwahl|Wahlgesetz/iu, 'Wahlrecht und politische Beteiligung'],
-    [/Arbeitszeit|Beamt/iu, 'Öffentliches Dienstrecht'],
-    [/Finanzausgleich|Kostenverzeichnis/iu, 'Haushaltsrecht'],
-    [/Medien|Rundfunk/iu, 'Rundfunk und Medien'],
-    [/Gleichstellung/iu, 'Gleichstellung und Teilhabe'],
-    [/Justiz|Normenkontroll/iu, 'Justiz und Rechtspflege'],
-    [/Kulturraum/iu, 'Kultur und Denkmalschutz'],
-    [/Polizei|Verschlusssachen/iu, 'Sicherheit und Ordnung'],
-    [/Vermess|Kataster|Landesplanung/iu, 'Raumordnung und Landesplanung'],
-    [/Zweckentfremd|Wohnraum/iu, 'Wohnen und Bodenordnung'],
-    [/Wald/iu, 'Umwelt, Energie und Klimaschutz'],
-  ];
-  return [...new Set(rules.filter(([pattern]) => pattern.test(title)).map(([, subject]) => subject))].slice(0, 3).length
-    ? [...new Set(rules.filter(([pattern]) => pattern.test(title)).map(([, subject]) => subject))].slice(0, 3)
-    : ['Landesrecht'];
-}
-
 function inferSummary(title) {
   const subject = title.match(/\b(?:über|zur|zum)\s+(.+)$/iu)?.[1]?.replace(/\.$/u, '');
   if (subject) return `Regelt ${subject.charAt(0).toLocaleLowerCase('de')}${subject.slice(1)}.`;
   return `Enthält die Regelungen der amtlichen Ausgangsfassung „${title}“.`;
 }
 
+/**
+ * Titelmodell (scripts/lib/norm-title-rules.mjs): Kurzbezeichnung nur, wenn sie sich vom Titel
+ * unterscheidet und keine Abkürzungsform ist; Abkürzung nur, wenn sie die gemeinsame Regel besteht.
+ */
+function identityFields(parsed, configured, title) {
+  const candidate = (configured.resultShortTitle ?? parsed.shortTitle ?? '').trim();
+  const shortTitle = candidate && candidate !== title && !isAbbreviationLikeLabel(candidate)
+    ? candidate
+    : undefined;
+  const candidateAbbr = configured.resultAbbr ?? parsed.abbr;
+  const abbr = abbreviationProblem(candidateAbbr, { title, shortTitle }) === null ? candidateAbbr : undefined;
+  return { shortTitle, abbr };
+}
+
 function inferredMeta(parsed, configured, slug, initialCitation) {
   const title = configured.title ?? parsed.sourceTitle;
   const type = configured.createMeta?.type ?? inferType(parsed.sourceTitle);
+  const { shortTitle, abbr } = identityFields(parsed, configured, title);
+  // Sachgebiete nach der amtlichen Systematik: Fundstellennummer der Quellseite,
+  // sonst die gemeinsame Ableitungskette aus scripts/lib/revosax-metadata.mjs.
+  const assignment = inferSubjectAssignment({
+    fsnNumber: parsed.fsnNumber,
+    normType: type,
+    sourceTitle: parsed.sourceTitle,
+    label: parsed.shortTitle,
+    legacySubjects: configured.createMeta?.subjects ?? [],
+  });
   return {
     id: slug,
     slug,
     title,
-    shortTitle: configured.resultShortTitle ?? parsed.shortTitle ?? title,
-    ...(configured.resultAbbr ?? parsed.abbr ? { abbr: configured.resultAbbr ?? parsed.abbr } : {}),
-    shortTitleSource: 'official',
+    ...(shortTitle ? { shortTitle } : {}),
+    ...(abbr ? { abbr } : {}),
+    ...(shortTitle ? { shortTitleSource: 'official' } : {}),
     type,
     enactingBody: configured.createMeta?.enactingBody ?? inferEnactingBody(parsed.sourceTitle, type),
     ...(configured.createMeta?.responsibleMinistry ? { responsibleMinistry: configured.createMeta.responsibleMinistry } : {}),
-    subjects: configured.createMeta?.subjects ?? inferSubjects(parsed.sourceTitle),
+    subjects: assignment.subjects,
+    primarySubject: assignment.primarySubject,
+    ...(type === 'foerderrichtlinie' && assignment.fundingArea ? { fundingArea: assignment.fundingArea } : {}),
     keywords: [...new Set([
       ...(configured.createMeta?.keywords ?? []),
-      parsed.abbr,
+      abbr,
+      shortTitle,
+      // Die Kurzbezeichnung der Quelle bleibt auch dann auffindbar, wenn sie als
+      // Abkürzungsform nicht in shortTitle gehört.
       parsed.shortTitle,
       ...parsed.sourceTitle.split(/[^\p{L}\d]+/u).filter((word) => word.length >= 5),
     ].filter(Boolean))].slice(0, 16),
@@ -112,6 +121,9 @@ function inferredMeta(parsed, configured, slug, initialCitation) {
     predecessor: null,
     successor: null,
     summary: configured.createMeta?.summary ?? inferSummary(parsed.sourceTitle),
+    // Ohne redaktionelle Kurzbeschreibung bleibt nur die aus dem Titel gebildete Formel;
+    // sie wird gekennzeichnet und öffentlich nicht ausgespielt.
+    ...(configured.createMeta?.summary ? {} : { summarySource: 'derived' }),
     status: 'in-force',
     ...((configured.documentDate ?? parsed.documentDate)
       ? { documentDate: configured.documentDate ?? parsed.documentDate }
@@ -214,11 +226,13 @@ async function materialize(slug, configured, config) {
     initialVersionId: seed.versionId,
     entries: [initialEntry],
   };
+  // Die Fassung spiegelt die Bezeichnungen der Norm (Titelmodell: shortTitle und abbr optional).
+  const versionIdentity = identityFields(parsed, configured, meta.title);
   const version = {
     versionId: seed.versionId,
-    title: parsed.sourceTitle,
-    shortTitle: parsed.shortTitle,
-    ...(parsed.abbr ? { abbr: parsed.abbr } : {}),
+    title: meta.title,
+    ...(meta.shortTitle ?? versionIdentity.shortTitle ? { shortTitle: meta.shortTitle ?? versionIdentity.shortTitle } : {}),
+    ...(meta.abbr ?? versionIdentity.abbr ? { abbr: meta.abbr ?? versionIdentity.abbr } : {}),
     validFrom: seed.versionId,
     validTo: existingVersion?.validTo ?? null,
     isCurrent: existingVersion?.isCurrent ?? true,

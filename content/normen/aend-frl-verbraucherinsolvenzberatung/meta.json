@@ -2,15 +2,13 @@
   "id": "aend-frl-verbraucherinsolvenzberatung",
   "slug": "aend-frl-verbraucherinsolvenzberatung",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Verbraucherinsolvenzberatung",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Verbraucherinsolvenzberatung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Verbraucherinsolvenzberatung",
+    "Änd. FRL Verbraucherinsolvenzberatung",
     "Soziales",
     "Gesellschaftlichen",
     "Zusammenhalt",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Verbraucherinsolvenzberatung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-07-26",
   "effectiveDate": "2023-07-01",
@@ -35,8 +34,12 @@
       "sha256": "dc5e3309d07c1b279f1582f8c1a51a821596b2cb46f40a3e5046fd6220e0bdca",
       "lawId": "20165",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "5586",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-verbraucherinsolvenzberatung"
   ]
 }

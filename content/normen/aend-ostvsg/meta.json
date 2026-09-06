@@ -2,14 +2,12 @@
   "id": "aend-ostvsg",
   "slug": "aend-ostvsg",
   "title": "Änderung des Ostdeutschen Verfassungsschutzgesetzes",
-  "shortTitle": "Änd. OstVSG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht",
-    "Sicherheit und Ordnung"
+    "Verfassungsschutz"
   ],
+  "primarySubject": "Verfassungsschutz",
   "keywords": [
     "Änd. OstVSG",
     "Änderung",
@@ -19,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ostpolg-und-weiterer-gesetze",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstVSG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Verfassungsschutzgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-12-17",
   "effectiveDate": "2013-12-31",
@@ -34,6 +33,7 @@
       "sha256": "c9762cadcb88552a7be0097782872d212545682d483101cb4432f37cb3f1cc01",
       "lawId": "13852",
       "sourceValidFrom": "2013-12-31",
+      "fsnNumber": "12",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

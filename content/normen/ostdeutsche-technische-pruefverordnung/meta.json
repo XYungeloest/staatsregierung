@@ -1,24 +1,31 @@
 {
   "id": "ostdeutsche-technische-pruefverordnung",
   "slug": "ostdeutsche-technische-pruefverordnung",
-  "title": "Ostdeutsche Technische Prüfverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums des Innern über Prüfungen technischer Anlagen nach Bauordnungsrecht",
   "shortTitle": "Ostdeutsche Technische Prüfverordnung",
-  "abbr": "OstTechPrüfVO",
   "shortTitleSource": "official",
+  "abbr": "OstTechPrüfVO",
   "type": "verordnung",
   "subjects": [
-    "Landesrecht"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
-    "OstTechPrüfVO",
     "Ostdeutsche Technische Prüfverordnung",
+    "Innern",
+    "Prüfungen",
+    "technischer",
+    "Anlagen",
+    "Bauordnungsrecht",
     "Technische",
-    "Prüfverordnung"
+    "Prüfverordnung",
+    "OstTechPrüfVO"
   ],
   "initialCitation": "Ostdeutsche Technische Prüfverordnung vom 7. Februar 2000 (SächsGVBl. S. 127), die zuletzt durch Artikel 3 der Verordnung vom 8. Oktober 2014 (SächsGVBl. S. 647) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Technische Prüfverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2000-02-07",
   "sourceReferences": [
@@ -32,6 +39,7 @@
       "sha256": "292a4a2a5e5d72ba2e641dd2aaa35d4f71c2948c70e1cf880aa60dfdb9d3da43",
       "lawId": "4130",
       "sourceValidFrom": "2014-11-11",
+      "fsnNumber": "421-1.15",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

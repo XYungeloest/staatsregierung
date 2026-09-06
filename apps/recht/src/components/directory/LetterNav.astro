@@ -1,4 +1,5 @@
 ---
+import { formatCount, NORM_UNIT } from '../../lib/counts.ts';
 import type { IndexLetterCount } from '../../lib/runtime/store.ts';
 
 /**
@@ -14,23 +15,23 @@ interface Props {
   label?: string;
   /** Link „Alle“ vor den Buchstaben anbieten. */
   withAll?: boolean;
-  /** Einheit für den Titel-Hinweis, z. B. „Vorschriften“. */
-  unit?: string;
+  /** Einheit für den Titel-Hinweis in Einzahl und Mehrzahl, z. B. Vorschrift/Vorschriften. */
+  unit?: { one: string; many: string };
 }
 
-const { letters, current = '', hrefFor, label = 'Buchstaben-Navigation', withAll = true, unit = 'Vorschriften' } = Astro.props;
+const { letters, current = '', hrefFor, label = 'Buchstaben-Navigation', withAll = true, unit = NORM_UNIT } = Astro.props;
 const counts = new Map(letters.map((entry) => [entry.letter, entry.count]));
 const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '#'];
 const total = letters.reduce((sum, entry) => sum + entry.count, 0);
 ---
 
 <nav class="letter-nav" aria-label={label}>
-  {withAll ? <a href={hrefFor('')} aria-current={current ? undefined : 'page'} data-index-letter="" title={`${total} ${unit}`}>Alle</a> : null}
+  {withAll ? <a href={hrefFor('')} aria-current={current ? undefined : 'page'} data-index-letter="" title={formatCount(total, unit.one, unit.many)}>Alle</a> : null}
   {alphabet.map((letter) => {
     const count = counts.get(letter) ?? 0;
     const name = letter === '#' ? 'Ziffern und Sonderzeichen' : letter;
     return count > 0
-      ? <a href={hrefFor(letter)} aria-current={letter === current ? 'page' : undefined} data-index-letter={letter} title={`${name}: ${count} ${unit}`}>{letter}</a>
-      : <span aria-disabled="true" data-index-letter={letter} title={`${name}: keine ${unit}`}>{letter}</span>;
+      ? <a href={hrefFor(letter)} aria-current={letter === current ? 'page' : undefined} data-index-letter={letter} title={`${name}: ${formatCount(count, unit.one, unit.many)}`}>{letter}</a>
+      : <span aria-disabled="true" data-index-letter={letter} title={`${name}: keine ${unit.many}`}>{letter}</span>;
   })}
 </nav>

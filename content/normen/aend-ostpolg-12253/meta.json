@@ -2,13 +2,12 @@
   "id": "aend-ostpolg-12253",
   "slug": "aend-ostpolg-12253",
   "title": "Weitere Änderung des Polizeigesetzes des Freistaates Ostdeutschland",
-  "shortTitle": "Änd. OstPolG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
     "Änd. OstPolG",
     "Weitere",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-standortegesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstPolG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Weitere Änderung des Polizeigesetzes des Freistaates Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-01-27",
   "effectiveDate": "2013-01-01",
@@ -34,6 +34,7 @@
       "sha256": "6fec4038b32115854767b43024c7af79e01158933bbe7969c560de77c176fa55",
       "lawId": "12253",
       "sourceValidFrom": "2013-01-01",
+      "fsnNumber": "22",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

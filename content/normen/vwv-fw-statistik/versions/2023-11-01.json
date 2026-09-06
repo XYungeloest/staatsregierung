@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die Erstellung der Einsatzberichte für Brand- und Hilfeleistungseinsätze und über die Jahresstatistik bei den Feuerwehren im Freistaat Ostdeutschland",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die Erstellung der Einsatzberichte für Brand- und Hilfeleistungseinsätze und über die Jahresstatistik bei den Feuerwehren im Freistaat Ostdeutschland (VwV Fw-Statistik)",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die Erstellung der Einsatzberichte für Brand- und Hilfeleistungseinsätze und über die Jahresstatistik bei den Feuerwehren im Freistaat Ostdeutschland",
-  "abbr": "VwV Fw-Statistik",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die Erstellung der Einsatzberichte für Brand- und Hilfeleistungseinsätze und über die Jahresstatistik bei den Feuerwehren im Freistaat Ostdeutschland vom 27. November 1998 (SächsABl. S. 947), die durch Ziffer XXI der Verwaltungsvorschrift vom 1. März 2012 (SächsABl. S. 336) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 24. November 2023 (SächsABl. SDr. S. S 243)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die Erstellung der Einsatzberichte für Brand- und Hilfeleistungseinsätze und über die Jahresstatistik bei den Feuerwehren im Freistaat Ostdeutschland vom 27. November 1998 (SächsABl. S. 947), die durch Ziffer XXI der Verwaltungsvorschrift vom 1. März 2012 (SächsABl. S. 336) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -20,6 +19,7 @@
       "lawId": "2984",
       "sourceValidFrom": "2012-03-02",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "28-V98.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -37,7 +37,7 @@
         {
           "type": "item",
           "label": "1",
-          "text": "Zu führende Berichte und Statistiken\nBei den Feuerwehren im Freistaat Ostdeutschland werden folgende Berichte und statistische Erhebungen geführt:",
+          "text": "Bei den Feuerwehren im Freistaat Ostdeutschland werden folgende Berichte und statistische Erhebungen geführt:",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -68,7 +68,7 @@
         {
           "type": "item",
           "label": "2",
-          "text": "Identitätsnummer\nGrundlage der Identitätsnummer bildet die Schlüsselnummer der Gemeinde (\nAnlage zur Verordnung der Ostdeutschen Staatsregierung zur Durchführung des Gemeindefinanzreformgesetzes vom 10. Dezember 1991 [SächsGVBl. 1992 S. 2] in der jeweils gültigen Fassung).\nDer Schlüsselnummer sind zwei weitere Zahlen anzufügen, wobei folgende Zuordnung gilt:",
+          "text": "Grundlage der Identitätsnummer bildet die Schlüsselnummer der Gemeinde (\nAnlage zur Verordnung der Ostdeutschen Staatsregierung zur Durchführung des Gemeindefinanzreformgesetzes vom 10. Dezember 1991 [SächsGVBl. 1992 S. 2] in der jeweils gültigen Fassung).\nDer Schlüsselnummer sind zwei weitere Zahlen anzufügen, wobei folgende Zuordnung gilt:",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
@@ -88,7 +88,7 @@
         {
           "type": "item",
           "label": "3",
-          "text": "Begriffe\nFolgende Begriffe werden verwendet:\nBegriffe\nBegriff\nVerwendung\n– Kleinbrand A\nEinsatz von nicht mehr als einem kleinen Löschgerät,\n– Kleinbrand B\nEinsatz von nicht mehr als einem C-Rohr,\n– Mittelbrand\nGleichzeitiger Einsatz von zwei bis drei C-Rohren,\n– Großbrand\nGleichzeitiger Einsatz von mehr als drei C-Rohren.",
+          "text": "Folgende Begriffe werden verwendet:\nBegriffe\nBegriff\nVerwendung\n– Kleinbrand A\nEinsatz von nicht mehr als einem kleinen Löschgerät,\n– Kleinbrand B\nEinsatz von nicht mehr als einem C-Rohr,\n– Mittelbrand\nGleichzeitiger Einsatz von zwei bis drei C-Rohren,\n– Großbrand\nGleichzeitiger Einsatz von mehr als drei C-Rohren.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
@@ -135,14 +135,6 @@
       "children": [
         {
           "type": "item",
-          "label": "4",
-          "text": "Erstellung der Brand- und Hilfeleistungsberichte",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "4.1",
           "text": "Verantwortlich für die Erstellung der Brand- und Hilfeleistungsberichte ist der Einsatzleiter der für den Einsatzort zuständigen Feuerwehr. Andere hinzugezogene Feuerwehren erstellen die Berichte für ihren Träger in zweifacher Fertigung; eine davon ist dem Träger der für den Einsatzort zuständigen Feuerwehr zu übermitteln. Für die Erstellung der Brand- und Hilfeleistungsberichte benötigte Angaben sind bei der zuständigen Leitstelle Feuerwehr/Rettungsdienst anzufordern (zum Beispiel genaue Alarmierungszeit, Einsatznummer, Zeit der Herstellung der Einsatzbereitschaft).",
           "level": 0,
@@ -172,14 +164,6 @@
       "label": "5",
       "title": "Erstellung der Jahresstatistik",
       "children": [
-        {
-          "type": "item",
-          "label": "5",
-          "text": "Erstellung der Jahresstatistik",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.1.",
@@ -243,7 +227,7 @@
         {
           "type": "item",
           "label": "6",
-          "text": "Inkrafttreten, Außerkrafttreten\nDiese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die statistische Erfassung der Brand- und Hilfeleistungseinsätze der Feuerwehren vom 25. November 1992 (SächsABl. 1993 S. 6) außer Kraft.",
+          "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die statistische Erfassung der Brand- und Hilfeleistungseinsätze der Feuerwehren vom 25. November 1992 (SächsABl. 1993 S. 6) außer Kraft.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []

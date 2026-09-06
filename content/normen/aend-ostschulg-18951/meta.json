@@ -2,13 +2,12 @@
   "id": "aend-ostschulg-18951",
   "slug": "aend-ostschulg-18951",
   "title": "Änderung des Ostdeutschen Schulgesetzes",
-  "shortTitle": "Änd. OstSchulG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. OstSchulG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "gesetz-zur-staerkung-der-fruehkindlichen-schulischen-und-hochschulischen-bildung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstSchulG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Schulgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-12-17",
   "effectiveDate": "2020-12-30",
@@ -33,6 +33,7 @@
       "sha256": "adbae5b71b80c06584a415eff8163f1b9b6c90e493e8a812b1f6c151bf7ab338",
       "lawId": "18951",
       "sourceValidFrom": "2020-12-30",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

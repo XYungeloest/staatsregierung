@@ -1,24 +1,30 @@
 {
   "id": "ostdeutsches-justizvollzugsdatenschutzgesetz",
   "slug": "ostdeutsches-justizvollzugsdatenschutzgesetz",
-  "title": "Ostdeutsches Justizvollzugsdatenschutzgesetz",
+  "title": "Gesetz zum Schutz personenbezogener Daten im Justizvollzug",
   "shortTitle": "Ostdeutsches Justizvollzugsdatenschutzgesetz",
-  "abbr": "OstJVollzDSG",
   "shortTitleSource": "official",
+  "abbr": "OstJVollzDSG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Transparenz und Informationszugang"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
-    "OstJVollzDSG",
     "Ostdeutsches Justizvollzugsdatenschutzgesetz",
-    "Justizvollzugsdatenschutzgesetz"
+    "Schutz",
+    "personenbezogener",
+    "Daten",
+    "Justizvollzug",
+    "Justizvollzugsdatenschutzgesetz",
+    "OstJVollzDSG"
   ],
   "initialCitation": "Ostdeutsches Justizvollzugsdatenschutzgesetz vom 22. August 2019 (SächsGVBl. S. 663)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Justizvollzugsdatenschutzgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2019-08-22",
   "sourceReferences": [
@@ -33,6 +39,7 @@
       "lawId": "18376",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-02-16",
+      "fsnNumber": "311-21",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

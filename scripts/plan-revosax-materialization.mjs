@@ -17,7 +17,8 @@ import { pathToFileURL } from 'node:url';
  *            von der Baseline berührt
  *   REVIEW   Identität nicht eindeutig oder Sachlage ungeklärt; Schreiben verboten
  *   SKIP     fachlich bewusst nicht zu importieren (Mehrfachfassungs-Alias,
- *            identische Zweitfassung oder dokumentierte Entscheidung)
+ *            identische Zweitfassung, dokumentierte Entscheidung oder ein
+ *            sächsischer Rechtsakt nach dem Rechtsüberleitungsstichtag)
  *
  * Identität wird in dieser Reihenfolge geprüft: REVOSax-lawId, vorhandene
  * Quellenreferenz (URL), exakter Titel, exakte Kurzbezeichnung, exakte
@@ -30,7 +31,9 @@ import { pathToFileURL } from 'node:url';
 const ROOT = resolve(process.cwd());
 const CONTENT_ROOT = join(ROOT, 'content', 'normen');
 const DECISIONS_PATH = join(ROOT, 'data', 'recht', 'revosax-baseline-decisions.json');
+const POST_CUTOFF_DECISIONS_PATH = join(ROOT, 'data', 'recht', 'revosax-post-cutoff-decisions.json');
 export const PLAN_ACTIONS = ['CREATE', 'MATCH', 'PROTECT', 'REVIEW', 'SKIP'];
+export const POST_CUTOFF_SKIP_REASON = 'post-cutoff-saxon-act';
 
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
@@ -316,6 +319,44 @@ export function planEntry(entry, baselineDate, indexes) {
   };
 }
 
+/**
+ * Merkmale, die einen sächsischen Rechtsakt zeitlich hinter den Überleitungsstichtag setzen:
+ * das amtliche Erlassdatum, der Beginn der übernommenen Fassung und – bei Artikeln einer
+ * Mantelvorschrift – der Beginn der Mantelvorschrift selbst.
+ */
+export function postCutoffFacts(entry, baselineDate, { envelopeValidFrom = null } = {}) {
+  const facts = [];
+  const documentDate = entry.documentDate ?? entry.listing?.documentDate ?? null;
+  if (documentDate && documentDate > baselineDate) facts.push(`Erlassdatum ${documentDate}`);
+  if (entry.sourceValidFrom && entry.sourceValidFrom > baselineDate) facts.push(`Fassungsbeginn ${entry.sourceValidFrom}`);
+  if (envelopeValidFrom && envelopeValidFrom > baselineDate) facts.push(`Mantelvorschrift ab ${envelopeValidFrom}`);
+  return facts;
+}
+
+/**
+ * Ein sächsischer Rechtsakt nach dem Rechtsüberleitungsstichtag gehört nicht zum
+ * übernommenen Rechtsstand. Er wird übersprungen, sofern nicht
+ * data/recht/revosax-post-cutoff-decisions.json ihn als übernommen („adopted“, mit der
+ * ostdeutschen Änderungsvorschrift) oder als begründet offen („open“) ausweist.
+ */
+export function applyPostCutoffRule(planned, entry, decisions, baselineDate, envelopeValidFrom) {
+  if (!['CREATE', 'MATCH'].includes(planned.action)) return planned;
+  const facts = postCutoffFacts(entry, baselineDate, { envelopeValidFrom });
+  if (facts.length === 0) return planned;
+  const slug = planned.canonicalSlug ?? entry.proposedSlug;
+  const decision = decisions?.[slug];
+  if (decision?.resolution === 'adopted' || decision?.resolution === 'open') {
+    return { ...planned, postCutoff: facts, postCutoffResolution: decision.resolution };
+  }
+  return {
+    ...planned,
+    action: 'SKIP',
+    reason: `${POST_CUTOFF_SKIP_REASON}: ${facts.join('; ')} liegt nach dem Rechtsüberleitungsstichtag ${baselineDate}${decision ? ` (Entscheidung: ${decision.reason})` : ''}`,
+    postCutoff: facts,
+    postCutoffResolution: decision?.resolution ?? 'undecided',
+  };
+}
+
 export function applyDecision(planned, entry, decisions, baselineDate) {
   const key = entry.sourceId ?? `${entry.revosaxLawId}${entry.versionSuffix ? `.${entry.versionSuffix}` : ''}`;
   const decision = decisions?.[key] ?? decisions?.[String(entry.revosaxLawId)];
@@ -384,15 +425,30 @@ export function findDuplicateSources(entries) {
   return duplicates;
 }
 
-export function buildPlan({ report, existing, decisions = {}, baselineDate = report.baselineDate, envelopeComponents = null }) {
+export function buildPlan({ report, existing, decisions = {}, postCutoffDecisions = {}, baselineDate = report.baselineDate, envelopeComponents = null }) {
   const indexes = buildIndexes(existing);
   indexes.envelopeComponents = envelopeComponents
     ? new Map(envelopeComponents.components.map((component) => [component.sourceId, component]))
     : null;
+  const envelopeValidFrom = new Map([
+    ...(envelopeComponents?.fetchedEnvelopes ?? []).map((source) => [source.sourceId, source.sourceValidFrom ?? null]),
+    ...report.entries.map((candidate) => [candidate.sourceId, candidate.sourceValidFrom ?? null]),
+  ]);
   const duplicates = findDuplicateSources(report.entries);
-  const planFor = (entry) => (duplicates.has(entry.sourceId)
-    ? { action: 'SKIP', reason: `identischer Text und gleiche Zitierung wie ${duplicates.get(entry.sourceId)} (REVOSax-Doppelerfassung)` }
-    : applyDecision(planEntry(entry, baselineDate, indexes), entry, decisions, baselineDate));
+  const planFor = (entry) => {
+    if (duplicates.has(entry.sourceId)) {
+      return { action: 'SKIP', reason: `identischer Text und gleiche Zitierung wie ${duplicates.get(entry.sourceId)} (REVOSax-Doppelerfassung)` };
+    }
+    const planned = applyDecision(planEntry(entry, baselineDate, indexes), entry, decisions, baselineDate);
+    const envelopeSourceId = planned.envelope?.envelopeSourceId;
+    return applyPostCutoffRule(
+      planned,
+      entry,
+      postCutoffDecisions,
+      baselineDate,
+      envelopeSourceId ? envelopeValidFrom.get(envelopeSourceId) ?? null : null,
+    );
+  };
   const entries = report.entries.map((entry) => ({
     revosaxLawId: String(entry.revosaxLawId),
     versionSuffix: entry.versionSuffix ?? null,
@@ -441,9 +497,9 @@ export function buildPlan({ report, existing, decisions = {}, baselineDate = rep
   };
 }
 
-async function loadDecisions() {
+async function loadDecisions(path = DECISIONS_PATH) {
   try {
-    const file = await readJson(DECISIONS_PATH);
+    const file = await readJson(path);
     return file.decisions ?? {};
   } catch (error) {
     if (error.code === 'ENOENT') return {};
@@ -464,16 +520,17 @@ async function main() {
   if (!report.baselineDate) throw new Error(`${reportPath}: baselineDate fehlt`);
 
   const envelopesPath = resolve(valueAfter(args, '--envelopes') ?? reportPath.replace(/report\.json$/u, 'envelope-components.json'));
-  const [existing, decisions, envelopeComponents] = await Promise.all([
+  const [existing, decisions, postCutoffDecisions, envelopeComponents] = await Promise.all([
     loadExistingNorms(),
     loadDecisions(),
+    loadDecisions(POST_CUTOFF_DECISIONS_PATH),
     readJson(envelopesPath).catch((error) => {
       if (error.code === 'ENOENT') return null;
       throw error;
     }),
   ]);
   if (!envelopeComponents) console.error(`Hinweis: ${envelopesPath} fehlt; Bestandteile von Mantelvorschriften werden als REVIEW geführt.`);
-  const plan = buildPlan({ report: { ...report, sourceReport: reportPath.replace(`${ROOT}/`, '') }, existing, decisions, envelopeComponents });
+  const plan = buildPlan({ report: { ...report, sourceReport: reportPath.replace(`${ROOT}/`, '') }, existing, decisions, postCutoffDecisions, envelopeComponents });
   await writeFile(outputPath, `${JSON.stringify(plan, null, 2)}\n`, 'utf8');
   console.log(`Materialisierungsplan: ${outputPath}`);
   console.log(Object.entries(plan.counts).map(([action, count]) => `${action}=${count}`).join(', '));

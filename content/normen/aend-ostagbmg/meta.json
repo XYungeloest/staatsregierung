@@ -2,13 +2,12 @@
   "id": "aend-ostagbmg",
   "slug": "aend-ostagbmg",
   "title": "Änderung des Ostdeutschen Gesetzes zur Ausführung des Bundesmeldegesetzes",
-  "shortTitle": "Änd. OstAGBMG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Meldewesen, Personenstandswesen, Namensrecht"
   ],
+  "primarySubject": "Meldewesen, Personenstandswesen, Namensrecht",
   "keywords": [
     "Änd. OstAGBMG",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ostkag",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstAGBMG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Gesetzes zur Ausführung des Bundesmeldegesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-10-26",
   "effectiveDate": "2016-11-20",
@@ -34,6 +34,7 @@
       "sha256": "85d89757d31706bafcea8fd247d3ad265e09e294d660d3dec0779e81a16b49ae",
       "lawId": "17038",
       "sourceValidFrom": "2016-11-20",
+      "fsnNumber": "26",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

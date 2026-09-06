@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type APIRequestContext, type Locator, type Page } from '@playwright/test';
 
 import { legacyRoutes } from '../apps/portal/src/config/legacy-routes.mjs';
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
@@ -16,6 +16,7 @@ import {
   suggestions,
   withWorkerRecovery,
   type ApiDocument,
+  type Suggestion,
 } from './helpers/law-runtime.ts';
 
 /**
@@ -25,6 +26,29 @@ import {
  * gelten unverändert für Testfixture und Vollbestand. Erscheinungsbild prüft tests/visual.spec.ts,
  * Barrierefreiheit tests/accessibility.spec.ts.
  */
+/**
+ * Suchwort und Vorschlag einer Vorschrift mit geltender Fassung. Die Standardsuche zeigt nur
+ * geltende Fassungen; die Autovervollständigung führt darüber hinaus künftig geltende
+ * Vorschriften, deren Titelwörter dort keinen Treffer ergeben.
+ */
+async function currentSearchWord(request: APIRequestContext): Promise<string> {
+  for (const entry of await currentDocuments(request)) {
+    for (const candidate of [entry.shortTitle, entry.title]) {
+      if (!candidate) continue;
+      try { return searchWordOf(candidate); } catch { /* nächster Titel */ }
+    }
+  }
+  throw new Error('Keine geltende Vorschrift mit brauchbarem Suchwort');
+}
+
+async function currentSuggestion(request: APIRequestContext, options: { query?: string; match?: (entry: Suggestion) => boolean } = {}): Promise<Suggestion> {
+  const { query = '', match = () => true } = options;
+  const current = new Set((await currentDocuments(request, query)).map((entry) => entry.slug));
+  const entry = (await suggestions(request)).find((candidate) => current.has(candidate.slug) && match(candidate));
+  if (!entry) throw new Error(`Kein Vorschlag mit geltender Fassung (${query || 'ohne Filter'})`);
+  return entry;
+}
+
 type SiteTarget = 'portal' | 'law';
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 const siteTest = (targets: SiteTarget[]) => targets.some((target) => selectedSiteTargets.includes(target)) ? test : test.skip;
@@ -39,7 +63,7 @@ async function prepareFunctionalPage(page: Page): Promise<void> {
   await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
 }
 
-/** Rechtssuche im Endzustand: Kandidaten und Treffer geladen („n Treffer“, „Mindestens n Treffer“ oder „Keine Treffer“). */
+/** Rechtssuche im Endzustand: die Trefferseite ist geladen („n Treffer“ oder „Keine Treffer“). */
 async function searchSettled(page: Page): Promise<void> {
   const summary = page.locator('[data-search-summary]');
   await expect(summary).toBeVisible();
@@ -87,7 +111,7 @@ siteTest(['portal'])('alte Rechtspfade führen ohne Kette permanent zur funktion
   // Musterpfade: die Weiterleitung ist generisch (/recht/<Weg>/* → OstRecht), unabhängig davon, ob die Norm existiert.
   const redirects = [
     ['/recht/suche/', '/suche/'],
-    ['/recht/archiv/', '/archiv/'],
+    ['/recht/archiv/', '/a-z/'],
     ['/recht/verfassung/', '/norm/staatsverfassung-des-freistaates-ostdeutschland/'],
     ['/recht/norm/beispielnorm/', '/norm/beispielnorm/'],
     ['/recht/norm/beispielnorm/history/', '/norm/beispielnorm/history/'],
@@ -471,7 +495,7 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
 
 siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilter auffindbar', async ({ page, request }) => {
   const payload = await searchApi(request, '?versionScope=current&includeAmendments=1');
-  const amendment = payload.documents.find((document) => document.isAmendment && document.versionKind === 'current');
+  const amendment = payload.hits.find((hit) => hit.isAmendment && hit.versionKind === 'current');
   expect(amendment, 'geltende Änderungsvorschrift im Bestand').toBeTruthy();
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(amendment!.title)}`));
   await searchSettled(page);
@@ -521,28 +545,51 @@ siteTest(['law'])('Normverzeichnis filtert und paginiert serverseitig; die Buchs
 
 siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und dieselbe Filterleiste', async ({ page }) => {
   const subjectPath = await firstLink(page, lawUrl('/sachgebiete/'), /href="\/sachgebiete\/[a-z0-9-]+\/"/u);
-  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/fundstellen/', '/rechtsentwicklung/', '/archiv/', subjectPath]) {
+  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/verkuendungen/?ansicht=eintraege', '/a-z/', subjectPath]) {
     await page.goto(lawUrl(path));
     await expect(page.locator('[data-directory-filter]').first(), path).toBeVisible();
     await expect(page.locator('[data-directory-count]').first(), path).toBeVisible();
     await expect(page.locator('[data-directory-reset]').first(), path).toBeVisible();
     const entries = await page.locator('.directory-entry').count();
     expect(entries, path).toBeGreaterThan(0);
-    expect(entries, path).toBeLessThanOrEqual(50);
+    // Seitenweise Verzeichnisse zeigen höchstens eine Seite. Die Förderrichtlinien sind statt
+    // dessen nach den amtlichen Förderbereichen gegliedert: sie führen alle Einträge, aber in
+    // benannten Abschnitten mit Sprungzielen.
+    if (path === '/foerderrichtlinien/') {
+      expect(await page.locator('[data-funding-section]').count(), path).toBeGreaterThan(0);
+      const outside = await page.locator('.directory-entry:not([data-funding-section] .directory-entry)').count();
+      expect(outside, `${path}: Einträge außerhalb eines Förderbereichs`).toBe(0);
+    } else {
+      expect(entries, path).toBeLessThanOrEqual(50);
+    }
   }
 });
+
+/**
+ * Die Vorschriftendaten sind unterhalb von 80 rem ein Aufklappbereich (NormFacts.astro klappt sie
+ * beim Laden zu). Die Prüfungen öffnen ihn wie eine Leserin, statt eine Bildschirmbreite anzunehmen.
+ */
+async function openNormFacts(page: Page): Promise<Locator> {
+  const facts = page.locator('[data-visual-section="norm-facts"]');
+  await expect(facts).toHaveCount(1);
+  if (!(await facts.evaluate((element) => (element as HTMLDetailsElement).open))) {
+    await facts.locator('summary').click();
+  }
+  return facts;
+}
 
 siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen dem redaktionellen Stichtag', async ({ page, request }) => {
   const referenceDate = editorialReferenceDate();
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.historical.url));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.historical.title);
-  const metadata = page.locator('[data-visual-section="norm-metadata"]');
-  await expect(metadata).toContainText(formatGermanDate(norm.historical.validFrom));
-  if (norm.historical.validTo) await expect(metadata).toContainText(formatGermanDate(norm.historical.validTo));
+  // Die Überschrift trägt den Kurztitel, wenn er vom Langtitel abweicht (getNormTitleBlock).
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.historical.shortTitle || norm.historical.title);
+  const facts = await openNormFacts(page);
+  await expect(facts).toContainText(formatGermanDate(norm.historical.validFrom));
+  if (norm.historical.validTo) await expect(facts).toContainText(formatGermanDate(norm.historical.validTo));
 
   await page.goto(lawUrl(norm.current.currentUrl));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.current.title);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(norm.current.shortTitle || norm.current.title);
 
   // Startseite zum redaktionellen Stichtag: letzte Rechtsereignisse absteigend, je Norm einmal,
   // nichts Künftiges; künftige Änderungen liegen nach dem Stichtag.
@@ -579,7 +626,7 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen 
 });
 
 siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page, request }) => {
-  const suggestion = (await suggestions(request)).find((entry) => entry.abbr && /^[A-Za-zÄÖÜäöü]{4,}$/u.test(entry.abbr));
+  const suggestion = await currentSuggestion(request, { match: (entry) => Boolean(entry.abbr) && /^[A-Za-zÄÖÜäöü]{4,}$/u.test(entry.abbr) });
   expect(suggestion, 'Vorschlag mit Abkürzung').toBeTruthy();
   const [startNorm] = await currentDocuments(request, '&type=gesetz');
   await page.goto(lawUrl(startNorm.currentUrl));
@@ -611,12 +658,18 @@ siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt
 siteTest(['law'])('Normkopf unterscheidet allgemeinen und fassungsspezifischen Link und kennzeichnet Staatsportal-Bezüge', async ({ page, request }) => {
   const [relatedSlug] = fixtureSlugsWithRole('portal-relations');
   expect(relatedSlug, 'Fixture-Rolle portal-relations').toBeTruthy();
-  await page.goto(lawUrl(`/norm/${relatedSlug}/`));
-  const citationBlock = page.locator('[data-visual-section="norm-citation-status"]');
-  await expect(citationBlock).toBeVisible();
-  await expect(citationBlock).toContainText('Vollzitat');
-  await expect(citationBlock).toContainText('Fassungsstatus');
-  await expect(citationBlock.getByRole('button', { name: 'Link zur Vorschrift kopieren' })).toBeVisible();
+  const relatedResponse = await page.goto(lawUrl(`/norm/${relatedSlug}/`));
+  // Die Rolle beschreibt eine Vorschrift des synthetischen Testbestands; gegen den Vollbestand
+  // gibt es sie nicht.
+  test.skip(relatedResponse?.status() === 404, `Der laufende Bestand führt ${relatedSlug} nicht.`);
+  const facts = await openNormFacts(page);
+  await expect(facts).toContainText('Vollzitat');
+  await expect(facts).toContainText('Rechtsstand');
+  await expect(facts.getByRole('button', { name: 'Vollzitat kopieren' })).toBeVisible();
+  await expect(facts.getByRole('button', { name: 'Link zur Vorschrift kopieren' })).toBeVisible();
+  // Jede Angabe steht genau einmal: die abgelösten Blöcke gibt es nicht mehr.
+  await expect(page.locator('[data-visual-section="norm-legal-status"], [data-visual-section="norm-citation-status"], [data-visual-section="norm-metadata"]')).toHaveCount(0);
+  await expect(page.getByRole('navigation', { name: 'Werkzeuge zur Vorschrift' })).toHaveCount(1);
 
   const portalRelations = page.locator('[data-visual-section="norm-portal-relations"]');
   await expect(portalRelations.getByRole('heading', { name: 'Im Staatsportal' })).toBeVisible();
@@ -624,8 +677,9 @@ siteTest(['law'])('Normkopf unterscheidet allgemeinen und fassungsspezifischen L
 
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.historical.url));
-  await expect(page.getByRole('button', { name: 'Link zu dieser Fassung kopieren' })).toBeVisible();
-  await expect(page.getByText('Dieser Link bleibt der gespeicherten Fassung zugeordnet.')).toBeVisible();
+  const versionFacts = await openNormFacts(page);
+  await expect(versionFacts.getByRole('button', { name: 'Link zu dieser Fassung kopieren' })).toBeVisible();
+  await expect(versionFacts.getByText('Dieser Link führt dauerhaft zu dieser Fassung.')).toBeVisible();
 });
 
 siteTest(['law'])('OstRecht-Navigation bleibt mobil nutzbar', async ({ page }) => {
@@ -665,7 +719,8 @@ siteTest(['law'])('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inh
 siteTest(['law'])('Normtabellen geben nur belastbare Kopfzellen-Scope-Werte aus', async ({ page }) => {
   const [tableSlug] = fixtureSlugsWithRole('norm-table');
   expect(tableSlug, 'Fixture-Rolle norm-table').toBeTruthy();
-  await page.goto(lawUrl(`/norm/${tableSlug}/`));
+  const tableResponse = await page.goto(lawUrl(`/norm/${tableSlug}/`));
+  test.skip(tableResponse?.status() === 404, `Der laufende Bestand führt ${tableSlug} nicht.`);
 
   const headerCells = page.locator('.norm-table th');
   const headerCount = await headerCells.count();
@@ -678,7 +733,7 @@ siteTest(['law'])('Rechtsportal verwendet auf Übersichten und Suchindex dieselb
   const index = await publicationIndex(request);
   const latestPublication = index.latestPublication;
   expect(latestPublication).toBeTruthy();
-  const latestPublicationLabel = `${latestPublication!.publication} ${latestPublication!.year} Nr. ${latestPublication!.issue}`;
+  const latestPublicationLabel = latestPublication!.label;
 
   await page.goto(lawUrl('/'));
   const latestHomePublication = page.getByRole('heading', { name: 'Neu verkündet' })
@@ -697,22 +752,38 @@ siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugäng
   const norm = await multiVersionNorm(request);
   await page.goto(lawUrl(norm.current.currentUrl));
 
-  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen dieser Vorschrift' });
   await expect(versionNavigation).toBeVisible();
-  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am');
+  const referenceLabel = `Rechtsstand vom ${formatGermanDate(editorialReferenceDate())}`;
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText(referenceLabel);
   await versionNavigation.locator('.norm-version-picker summary').click();
-  await expect(versionNavigation.getByRole('link', { name: /Geltend am/u })).toBeVisible();
+  await expect(versionNavigation.getByRole('link', { name: referenceLabel })).toBeVisible();
 
-  const firstUnit = page.locator('details.norm-unit').first();
+  const firstUnit = page.locator('.norm-unit[data-norm-unit]').first();
   await expect(firstUnit).toHaveAttribute('id', /^paragraph-|^artikel-/u);
   const semanticId = await firstUnit.getAttribute('id');
   expect(semanticId).toBeTruthy();
   await expect(firstUnit.locator('.legacy-anchor')).toHaveAttribute('id', /^block-/u);
+  // Die Überschrift der Einheit ist eine echte Überschrift; der Schalter daneben trägt den Zustand.
+  await expect(firstUnit.locator('.norm-unit__head [id]').first()).toHaveAttribute('id', `${semanticId}-heading`);
+  const unitToggle = firstUnit.locator('[data-unit-toggle]');
+  await expect(unitToggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(unitToggle).toHaveAttribute('aria-controls', `${semanticId}-inhalt`);
+  await unitToggle.click();
+  await expect(unitToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator(`#${semanticId}-inhalt`)).toBeHidden();
+  await unitToggle.click();
+  await expect(page.locator(`#${semanticId}-inhalt`)).toBeVisible();
 
-  await page.getByRole('button', { name: 'Alle Paragraphen schließen' }).click();
-  await expect(page.locator('details.norm-unit[open]')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Alle Paragraphen öffnen' }).click();
-  await expect(page.locator('details.norm-unit[open]').first()).toBeVisible();
+  // Der Gesamtschalter nennt die Einheitenart der Vorschrift („Alle Artikel …“, „Alle Paragraphen …“).
+  const toggleAll = page.locator('[data-norm-toggle-all]');
+  const closeLabel = await toggleAll.getAttribute('data-close-label');
+  const openLabel = await toggleAll.getAttribute('data-open-label');
+  expect(closeLabel).toMatch(/^Alle \S/u);
+  await page.getByRole('button', { name: closeLabel! }).click();
+  await expect(page.locator('.norm-unit[data-norm-unit]:not([data-collapsed])')).toHaveCount(0);
+  await page.getByRole('button', { name: openLabel! }).click();
+  await expect(page.locator('.norm-unit[data-norm-unit]:not([data-collapsed])').first()).toBeVisible();
 
   await page.evaluate(() => {
     const testWindow = window as Window & { __printCalls?: number };
@@ -756,19 +827,21 @@ siteTest(['law'])('Fassungsleiste bleibt auf aktueller Fassung, Historie und Ein
   const norm = await multiVersionNorm(request);
   for (const path of [norm.current.currentUrl, `/norm/${norm.slug}/history/`, norm.historical.url]) {
     await page.goto(lawUrl(path));
-    const navigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+    const navigation = page.getByRole('navigation', { name: 'Fassungen dieser Vorschrift' });
     await expect(navigation.locator('.norm-version-navigation__primary a'), path).toHaveText([
       'Aktuelle Fassung',
-      'Historische Fassungen',
-      'Änderungsverlauf',
+      'Fassungen und Änderungen',
       'Fassungsvergleich',
     ]);
+    // Jede Unterseite kennzeichnet sich selbst; ein Sprungziel steht nicht in der Reihe.
+    await expect(navigation.locator('.norm-version-navigation__primary a[aria-current="page"]'), path).toHaveCount(1);
+    await expect(navigation.locator('.norm-version-navigation__primary a[href*="#"]'), path).toHaveCount(0);
     await expect(page.getByRole('navigation', { name: 'Werkzeuge zur Vorschrift' }).getByText(/vergleich/iu)).toHaveCount(0);
   }
 });
 
 siteTest(['law'])('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page, request }) => {
-  const suggestion = (await suggestions(request)).find((entry) => entry.typeLabel === 'Gesetz');
+  const suggestion = await currentSuggestion(request, { query: '&type=gesetz' });
   expect(suggestion).toBeTruthy();
   const word = searchWordOf(suggestion!.title);
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(`${word.slice(0, Math.max(5, word.length - 2))}*`)}&type=gesetz&type=verordnung`));
@@ -810,8 +883,7 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   expect(filtered.every((entry) => entry.type === 'gesetz')).toBeTruthy();
   expect(filteredDates.every((date, index) => index === 0 || filteredDates[index - 1] >= date)).toBeTruthy();
 
-  const suggestion = (await suggestions(request)).find((entry) => entry.abbr);
-  const word = searchWordOf(suggestion!.title);
+  const word = await currentSearchWord(request);
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(word)}`));
   await searchSettled(page);
   await expect(page.locator('select[name="sort"]')).toHaveValue('relevance');
@@ -827,11 +899,10 @@ interface CandidatePayload {
   total: number;
   offset: number;
   limit: number;
-  candidateCount: number;
-  documents: ApiDocument[];
+  hits: ApiDocument[];
 }
 
-/** Suchseite laden und die Kandidatenantwort mitlesen, die die Seite selbst angefordert hat. */
+/** Suchseite laden und die Antwort mitlesen, die die Seite selbst angefordert hat. */
 async function loadSearchPage(page: Page, query: string): Promise<CandidatePayload> {
   const [response] = await Promise.all([
     page.waitForResponse((entry) => entry.url().includes('/api/suche.json') && entry.status() === 200),
@@ -842,10 +913,8 @@ async function loadSearchPage(page: Page, query: string): Promise<CandidatePaylo
 }
 
 interface SearchCounts {
-  /** Zahl in der Überschrift; bei „Mindestens …“ nur eine Untergrenze. */
+  /** Gesamtzahl aus der Überschrift; die Suche zählt vollständig, eine Untergrenze gibt es nicht. */
   headline: number | null;
-  /** Nennt die Überschrift eine feststehende Gesamtzahl? */
-  exactTotal: boolean;
   shown: number;
   remaining: number | null;
   moreVisible: boolean;
@@ -859,12 +928,10 @@ async function readSearchCounts(page: Page): Promise<SearchCounts> {
   const more = page.locator('[data-search-more]');
   const moreVisible = await more.isVisible();
   const moreText = moreVisible ? (await more.textContent()) ?? '' : '';
-  // „1739 Treffer …“ bei feststehender Gesamtzahl, „Mindestens 6 Treffer …“, solange sie offen ist.
-  const headline = summary.match(/^(?:Mindestens )?(\d+) Treffer/u)?.[1];
+  const headline = summary.match(/^(\d+) Treffer/u)?.[1];
   const remaining = moreText.match(/\((\d+) verbleibend\)/u)?.[1];
   return {
-    headline: headline === undefined ? null : Number(headline),
-    exactTotal: !summary.startsWith('Mindestens '),
+    headline: headline === undefined ? (/^Keine Treffer/u.test(summary) ? 0 : null) : Number(headline),
     shown,
     remaining: remaining === undefined ? null : Number(remaining),
     moreVisible,
@@ -872,34 +939,25 @@ async function readSearchCounts(page: Page): Promise<SearchCounts> {
   };
 }
 
-/**
- * Widerspruchsfreiheit von Überschrift, Nachladezähler und serverseitigem `total` – unabhängig
- * davon, ob die Kandidatenmenge in eine Seite passt (Testfixture) oder nicht (Vollbestand).
- */
+/** Widerspruchsfreiheit von Überschrift, Nachladezähler und serverseitigem `total`. */
 function expectConsistentCounts(counts: SearchCounts, payload: CandidatePayload, label: string): void {
   const where = `${label}: ${counts.summary}`;
-  expect(counts.headline, where).not.toBeNull();
-  // Die Überschrift behauptet nie mehr Treffer, als die Kandidatenmenge überhaupt hergibt.
-  expect(counts.headline ?? 0, where).toBeLessThanOrEqual(payload.total);
-  if (counts.exactTotal) {
-    // Angezeigte und verbleibende Treffer ergeben zusammen die genannte Gesamtzahl.
-    expect(counts.shown + (counts.remaining ?? 0), where).toBe(counts.headline);
-    // Der Nachladeknopf erscheint genau dann, wenn noch Treffer fehlen.
-    expect(counts.moreVisible, where).toBe(counts.shown < (counts.headline ?? 0));
-    if (counts.moreVisible) expect(counts.remaining, where).not.toBeNull();
-    return;
-  }
-  // Offene Gesamtzahl: die Überschrift bleibt eine Untergrenze, der Knopf nennt keine Trefferzahl.
-  expect(counts.headline ?? 0, where).toBeGreaterThanOrEqual(counts.shown);
-  expect(counts.remaining, where).toBeNull();
-  expect(counts.moreVisible, where).toBe(true);
+  expect(counts.headline, where).toBe(payload.total);
+  // Angezeigte und verbleibende Treffer ergeben zusammen die genannte Gesamtzahl.
+  expect(counts.shown + (counts.remaining ?? 0), where).toBe(counts.headline);
+  // Der Nachladeknopf erscheint genau dann, wenn noch Treffer fehlen.
+  expect(counts.moreVisible, where).toBe(counts.shown < (counts.headline ?? 0));
+  if (counts.moreVisible) expect(counts.remaining, where).not.toBeNull();
 }
 
 siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschreiben dieselbe Ergebnismenge', async ({ page, request }) => {
   const referenceDate = editorialReferenceDate();
-  // Filterkombinationen, die die Kandidatenabfrage vollständig serverseitig ausdrückt: hier muss
-  // die Überschrift genau die Zahl nennen, die die Such-API als total liefert.
-  const serverSideCases = [
+  // Jede Filterkombination wird vollständig serverseitig ausgedrückt: die Überschrift nennt
+  // genau die Zahl, die die Such-API als total liefert – mit und ohne Suchbegriff.
+  const issue = (await searchApi(request, '?versionScope=all&includeAmendments=1')).hits.find((entry) => entry.publicationIssue)?.publicationIssue;
+  expect(issue, 'Vorschrift mit Ausgabennummer').toBeTruthy();
+  const word = await currentSearchWord(request);
+  const cases = [
     { label: 'ohne Suchbegriff', query: '' },
     { label: 'Änderungsvorschriften einbezogen', query: '?includeAmendments=1' },
     { label: 'nur geltende Fassungen', query: '?versionScope=current' },
@@ -908,37 +966,27 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
     { label: 'Status und Normtyp', query: '?type=gesetz&status=in-force' },
     { label: 'Geltungstag', query: `?geltungstag=${referenceDate}` },
     { label: 'Gültigkeitszeitraum', query: `?validFrom=${referenceDate.slice(0, 4)}-01-01&validTo=${referenceDate.slice(0, 4)}-12-31&versionScope=all` },
+    { label: 'Ausgabennummer', query: `?publicationIssue=${issue}&versionScope=all&includeAmendments=1` },
+    { label: 'Suchbegriff', query: `?q=${encodeURIComponent(word)}` },
+    { label: 'Suchbegriff und Sortierung', query: `?q=${encodeURIComponent(word)}&sort=title` },
   ];
 
-  for (const { label, query } of serverSideCases) {
+  for (const { label, query } of cases) {
     const payload = await loadSearchPage(page, query);
     const counts = await readSearchCounts(page);
-    // Serverseitig ausdrückbar: die Überschrift nennt genau das `total` der Such-API.
-    expect(counts.exactTotal, `${label}: ${counts.summary}`).toBe(true);
-    expect(counts.headline, `${label}: ${counts.summary}`).toBe(payload.total);
     expectConsistentCounts(counts, payload, label);
   }
 
-  // Ein nur im Browser wirkender Filter (Ausgabennummer, normalisierter Textvergleich) darf die
-  // serverseitige Gesamtzahl nicht als Trefferzahl behaupten; die Überschrift bleibt bei der
-  // Menge, die die Liste zeigt.
-  const issue = (await searchApi(request, '?versionScope=all&includeAmendments=1')).documents.find((entry) => entry.publicationIssue)?.publicationIssue;
-  expect(issue, 'Dokument mit Ausgabennummer').toBeTruthy();
-  const narrowed = await loadSearchPage(page, `?publicationIssue=${issue}&versionScope=all&includeAmendments=1`);
-  const narrowedCounts = await readSearchCounts(page);
-  expect(narrowedCounts.headline ?? 0, narrowedCounts.summary).toBeLessThan(narrowed.total);
-  expectConsistentCounts(narrowedCounts, narrowed, 'Ausgabennummer');
-
-  // Auch mit Suchbegriff bleibt die Überschrift bei der Menge, die die Liste zeigt.
-  const word = searchWordOf((await suggestions(request))[0].title);
-  const searched = await loadSearchPage(page, `?q=${encodeURIComponent(word)}`);
-  expectConsistentCounts(await readSearchCounts(page), searched, 'Suchbegriff');
-
-  // Nachladen bleibt widerspruchsfrei: mehr angezeigt, dieselbe Gesamtzahl, kleinerer Restwert.
+  // Nachladen: mehr angezeigt, dieselbe Gesamtzahl, kleinerer Restwert – und die zweite Anfrage
+  // holt die nächste Seite über `offset`, statt dieselbe Menge erneut zu laden.
   const paged = await loadSearchPage(page, '?includeAmendments=1&versionScope=all');
   const before = await readSearchCounts(page);
   if (before.moreVisible) {
-    await page.locator('[data-search-more]').click();
+    const [next] = await Promise.all([
+      page.waitForResponse((entry) => entry.url().includes('/api/suche.json') && entry.status() === 200),
+      page.locator('[data-search-more]').click(),
+    ]);
+    expect(new URL(next.url()).searchParams.get('offset'), 'die zweite Anfrage blättert weiter').toBe(String(before.shown));
     await expect.poll(async () => (await readSearchCounts(page)).shown).toBeGreaterThan(before.shown);
     const after = await readSearchCounts(page);
     expect(after.headline).toBe(paged.total);
@@ -947,9 +995,57 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
   }
 });
 
+siteTest(['law'])('Die Rechtssuche stellt je Suchzustand genau eine Anfrage', async ({ page, request }) => {
+  const word = await currentSearchWord(request);
+  let requests = 0;
+  page.on('request', (entry) => {
+    if (entry.url().includes('/api/suche.json')) requests += 1;
+  });
+  await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(word)}`));
+  await searchSettled(page);
+  expect(requests, 'ein Seitenaufruf mit Suchbegriff fragt genau einmal').toBe(1);
+
+  // Ein Filterwechsel ist ein neuer Suchzustand: genau eine weitere Anfrage.
+  await page.locator('select[name="versionScope"]').selectOption('all');
+  await searchSettled(page);
+  await expect(page).toHaveURL(/versionScope=all/u);
+  await expect.poll(() => requests).toBe(2);
+  expect(requests).toBe(2);
+});
+
+siteTest(['law'])('Verzeichniszahlen und Suchtreffer zählen denselben Bestand', async ({ page, request }) => {
+  const directoryCount = async (path: string): Promise<number> => {
+    await page.goto(lawUrl(path));
+    const text = (await page.locator('[data-directory-count], [data-index-count]').first().textContent()) ?? '';
+    const match = text.match(/(\d+)/u);
+    expect(match, `${path}: ${text}`).toBeTruthy();
+    return Number(match![1]);
+  };
+  for (const [path, type] of [
+    ['/gesetze/', 'gesetz'],
+    ['/verordnungen/', 'verordnung'],
+    ['/verwaltungsvorschriften/', 'verwaltungsvorschrift'],
+    ['/foerderrichtlinien/', 'foerderrichtlinie'],
+  ] as Array<[string, string]>) {
+    const listed = await directoryCount(path);
+    const found = await searchApi(request, `?type=${type}&versionScope=all&includeAmendments=1`);
+    expect(found.total, `${path} gegen ?type=${type}`).toBe(listed);
+  }
+  // Herkunftsübersicht des A–Z: Sie zählt die Grundmenge je Herkunftsart, also ohne die
+  // übernommenen Änderungsvorschriften. Die Suche zählt dieselbe Menge, solange sie nicht
+  // ausdrücklich um sie erweitert wird.
+  await page.goto(lawUrl('/a-z/'));
+  for (const origin of ['inherited-unchanged', 'ostdeutsch-original']) {
+    const listed = Number((await page.locator(`[data-origin-overview] a[data-origin-kind="${origin}"] strong`).textContent()) ?? '');
+    expect(listed, origin).toBeGreaterThan(0);
+    const found = await searchApi(request, `?origin=${origin}&versionScope=all`);
+    expect(found.total, `/a-z/ gegen ?origin=${origin}`).toBe(listed);
+  }
+});
+
 siteTest(['law'])('Rechtsänderung und Aktivität bleiben getrennt: ein Hinweis hebt lastmod, nicht die Sortierung', async ({ page, request }) => {
   const payload = await searchApi(request, '?includeAmendments=1&versionScope=current');
-  const changeBySlug = new Map(payload.documents.filter((entry) => entry.isCurrent).map((entry) => [entry.slug, entry.lastChangeDate ?? '']));
+  const changeBySlug = new Map(payload.hits.filter((entry) => entry.isCurrent).map((entry) => [entry.slug, entry.lastChangeDate ?? '']));
   expect(changeBySlug.size).toBeGreaterThan(5);
 
   const sitemap = await (await request.get(lawUrl('/sitemap.xml'))).text();
@@ -978,8 +1074,8 @@ siteTest(['law'])('Rechtsänderung und Aktivität bleiben getrennt: ein Hinweis 
 });
 
 siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, zuletzt die Suche', async ({ page }) => {
-  // Zwischen kleinem und großem Desktop klappt nur die Navigationsliste zusammen; Wortmarke,
-  // Suchfeld und Menüknopf bleiben sichtbar.
+  // Zwischen 64 und 80 rem wird der Kopf zweizeilig: die Navigationsliste bleibt sichtbar und
+  // steht als eigene Zeile. Erst darunter weicht sie in das Menü, zuletzt auch die Suche.
   const readHeader = async (width: number) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(lawUrl('/gesetze/'));
@@ -994,9 +1090,24 @@ siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, 
   const wide = await readHeader(1440);
   expect(wide, 'großer Desktop: volle Navigation ohne Menüknopf').toMatchObject({ wordmark: true, search: true, navigation: true, menu: false });
 
-  for (const width of [1280, 1180, 1100, 1024]) {
+  // Zweizeilige Stufe oberhalb von 64 rem (1024 px): die Navigationsliste bleibt im Kopf.
+  for (const width of [1280, 1180, 1100, 1040]) {
     const header = await readHeader(width);
-    expect(header, `Zwischenstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: true, navigation: false });
+    expect(header, `Zweizeilige Kopfstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: false, navigation: true });
+    expect(await page.locator('.law-main-nav a').count(), `Navigationspunkte bei ${width} px`).toBe(7);
+  }
+
+  // Ab 64 rem abwärts weichen Servicewege und Navigationsliste gemeinsam in das Menü.
+  for (const width of [1024, 1000, 900]) {
+    const header = await readHeader(width);
+    expect(header, `Menüstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: true, navigation: false });
+  }
+
+  // Keine Stufe macht die Seite breiter als das Fenster.
+  for (const width of [1440, 1280, 1100, 1040, 1024]) {
+    await readHeader(width);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `kein waagerechter Überlauf bei ${width} px`).toBeLessThanOrEqual(1);
   }
 
   // Erst auf dem kleinsten Bildschirm weicht auch die Suche in das Menü; erreichbar bleibt sie dort.
@@ -1009,49 +1120,59 @@ siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, 
 
 siteTest(['law'])('Fundstellen der Verkündungsblätter werden in der Rechtssuche erkannt', async ({ page, request }) => {
   const payload = await searchApi(request, '?versionScope=all&includeAmendments=1');
-  const document = payload.documents.find((entry) => entry.publicationSlug);
-  const publication = payload.publications.find((entry) => entry.slug === document?.publicationSlug);
-  expect(publication, 'Verkündung mit zugeordnetem Dokument').toBeTruthy();
-  await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(publication!.designation)}`));
+  const document = payload.hits.find((entry) => entry.publicationSource && entry.publicationIssue && entry.publication);
+  expect(document, 'Vorschrift mit Fundstelle').toBeTruthy();
+  const designation = document!.publication;
+  const cited = await searchApi(request, `?q=${encodeURIComponent(designation)}`);
+  // Die zitierte Ausgabe führt ihre Vorschriften an; die Ausgabe selbst steht als Direkttreffer darüber.
+  expect(cited.total, designation).toBeGreaterThan(0);
+  expect(cited.hits.some((hit) => hit.slug === document!.slug), designation).toBe(true);
+  await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(designation)}`));
   await searchSettled(page);
-  const firstHit = page.locator('[data-search-results] .search-hit').first();
-  await expect(firstHit).toBeVisible();
-  await expect(firstHit).toContainText(new RegExp(`${publication!.designation.replaceAll('.', '\\.')}|${publication!.title.replaceAll('.', '\\.')}`, 'u'));
+  await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
+  await expect(page.locator('[data-search-results]')).toContainText(new RegExp(designation.replaceAll('.', '\\.'), 'u'));
 });
 
-siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet einen lokal filterbaren Stichwortindex', async ({ page }) => {
-  await page.goto(lawUrl('/archiv/'));
+siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und führt Abkürzungen und Kurztitel getrennt', async ({ page, request }) => {
+  // Die alte Adresse bleibt erreichbar und führt mit ihrem Zustand auf den neuen Weg.
+  const moved = await request.get(lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged'), { maxRedirects: 0 });
+  expect(moved.status()).toBe(301);
+  expect(moved.headers().location).toContain('/a-z/?buchstabe=G&herkunft=inherited-unchanged');
+
+  await page.goto(lawUrl('/a-z/'));
   await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('A');
   expect(await page.locator('[data-index-list] li').count()).toBeGreaterThan(0);
   expect(await page.locator('[data-index-list] li').count()).toBeLessThanOrEqual(50);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/archiv\/\?buchstabe=A$/u);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/a-z\/\?buchstabe=A$/u);
 
-  // Buchstabenwechsel über die URL (ohne JavaScript nutzbar): nur Normen dieser Gruppe.
+  // Buchstabenwechsel über die URL (ohne JavaScript nutzbar): nur Vorschriften dieser Gruppe.
+  // Verglichen wird die Buchstabengruppe des Eintrags, nicht sein Titelanfang – die Einordnung
+  // folgt dem Ordnungswort.
   const letterLinks = page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""]):not([aria-current="page"])');
   const letter = (await letterLinks.first().getAttribute('data-index-letter')) ?? 'B';
   await letterLinks.first().click();
   await expect(page).toHaveURL(new RegExp(`buchstabe=${letter}`, 'u'));
   await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText(letter);
-  const titles = await page.locator('[data-index-list] li a').allTextContents();
-  expect(titles.length).toBeGreaterThan(0);
-  const initial = new RegExp(`^[${letter}${letter === 'A' ? 'Ä' : letter === 'O' ? 'Ö' : letter === 'U' ? 'Ü' : ''}]`, 'u');
-  expect(titles.every((title) => initial.test(title.trim().replace(/^(?:der|die|das)\s+/iu, '')))).toBe(true);
+  const groups = await page.locator('[data-index-list] li').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.indexLetter));
+  expect(groups.length).toBeGreaterThan(0);
+  expect(groups.every((group) => group === letter)).toBe(true);
 
-  // Stichwortindex einer Gruppe mit Stichwörtern: serverseitig gefiltert (GET) und lokal auf der
-  // geladenen Seite filterbar.
+  // Abkürzungen und Kurztitel: serverseitig gefiltert (GET) und lokal auf der geladenen Seite filterbar.
   let keyword = '';
   let keywordLetter = letter;
   for (const candidate of [letter, ...(await page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-index-letter') ?? '')))]) {
-    await page.goto(lawUrl(`/archiv/?buchstabe=${candidate}`));
+    await page.goto(lawUrl(`/a-z/?buchstabe=${candidate}`));
     const first = page.locator('[data-index-entry] > strong').first();
     if (await first.count() === 0) continue;
     keyword = ((await first.textContent()) ?? '').trim();
     keywordLetter = candidate;
     if (keyword.length > 2) break;
   }
-  expect(keyword.length, 'Buchstabengruppe mit Stichwortindex').toBeGreaterThan(2);
-  await page.goto(lawUrl(`/archiv/?buchstabe=${keywordLetter}&stichwort=${encodeURIComponent(keyword)}`));
-  await expect(page).toHaveURL(new RegExp(`stichwort=${encodeURIComponent(keyword)}`, 'u'));
+  expect(keyword.length, 'Buchstabengruppe mit Abkürzungen und Kurztiteln').toBeGreaterThan(2);
+  await page.goto(lawUrl(`/a-z/?buchstabe=${keywordLetter}&abkuerzung=${encodeURIComponent(keyword)}`));
+  // Verglichen wird der gelesene Parameter, nicht die Schreibweise der Adresse: das Formular
+  // schreibt Leerzeichen als `+`, eine gebaute Adresse als `%20`.
+  await expect.poll(() => new URL(page.url()).searchParams.get('abkuerzung')).toBe(keyword);
   const entries = page.locator('[data-index-entry]');
   expect(await entries.count()).toBeGreaterThan(0);
   expect(await entries.count()).toBeLessThanOrEqual(100);
@@ -1060,11 +1181,14 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   await expect(page.locator('[data-index-filter-status]')).toContainText('dieser Seite');
   expect(await entries.evaluateAll((nodes) => nodes.filter((node) => !(node as HTMLElement).hidden).length)).toBeGreaterThan(0);
   await page.locator('[data-keyword-filter-form] button[type="submit"]').click();
-  await expect(page).toHaveURL(new RegExp(`stichwort=${encodeURIComponent(keyword)}`, 'u'));
+  await expect.poll(() => new URL(page.url()).searchParams.get('abkuerzung')).toBe(keyword);
   await expect(page.locator('[data-index-filter-status]')).toContainText(`passen zu „${keyword}“`);
 
+  // Das Stichwortregister ist ein eigener Abschnitt mit eigenem Zustand; es darf leer sein.
+  await expect(page.locator('[data-register-count]')).toBeVisible();
+
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
-  const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));
+  const response = await page.goto(lawUrl('/a-z/?buchstabe=A&seite=999'));
   expect(response?.status()).toBe(200);
   await expect(page.locator('[data-index-count]')).toContainText(/\d+ Vorschrift/u);
 });
@@ -1076,7 +1200,11 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   const count = (values: string[]) => values.reduce((map, value) => map.set(value, (map.get(value) ?? 0) + 1), new Map<string, number>());
   const abbrCounts = count(all.map((entry) => entry.abbr));
   const shortTitleCounts = count(all.map((entry) => entry.shortTitle));
-  const unique = all.filter((entry) => entry.abbr && /^[A-Za-zÄÖÜäöü][\wÄÖÜäöüß-]{3,}$/u.test(entry.abbr) && abbrCounts.get(entry.abbr) === 1 && shortTitleCounts.get(entry.shortTitle) === 1);
+  // Gesucht wird nur nach Vorschriften mit geltender Fassung: die Autovervollständigung führt
+  // auch künftig geltende Vorschriften, die die Standardsuche (Fassungsfilter „geltend“) nicht
+  // zeigt. Die Eindeutigkeit wird weiter über den gesamten Bestand gezählt.
+  const current = await currentDocuments(request);
+  const unique = current.filter((entry) => entry.abbr && /^[A-Za-zÄÖÜäöü][\wÄÖÜäöüß-]{3,}$/u.test(entry.abbr) && abbrCounts.get(entry.abbr) === 1 && shortTitleCounts.get(entry.shortTitle) === 1);
   const known = [...unique.filter((entry) => entry.typeLabel === 'Gesetz'), ...unique.filter((entry) => entry.typeLabel !== 'Gesetz')].slice(0, 4);
   expect(known.length).toBeGreaterThan(0);
   const queries = known.flatMap((entry) => [[entry.abbr, entry], [entry.shortTitle, entry]] as const);
@@ -1089,7 +1217,11 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
     await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first(), query).toContainText(entry.title);
     // Die Fassungspille erscheint nur, wenn sie vom aktiven Fassungsfilter abweicht.
     await expect(hits.first().locator('.status-badge'), query).toHaveCount(0);
-    await expect(hits.first().locator('.search-hit__meta-line .origin-badge'), query).toBeVisible();
+    // Die Metazeile bleibt einzeilig: Normtyp und – je nach Herkunft – Herkunftszeichen oder Fundstelle.
+    const metaLine = hits.first().locator('.search-hit__meta-line');
+    await expect(metaLine.locator('.law-type-label'), query).toBeVisible();
+    const marker = entry.origin === 'inherited-unchanged' ? '.search-hit__publication' : '.origin-badge';
+    await expect(metaLine.locator(marker), `${query} (${entry.origin})`).toBeVisible();
   }
 
   // Herkunftsfacet und Kandidaten-API arbeiten mit derselben Herkunftssemantik: der Leerzustand
@@ -1103,7 +1235,10 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(original.abbr)}&origin=ostdeutsch-original`));
   await searchSettled(page);
   await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
-  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsch neu geschaffen');
+  // In der Trefferliste steht das Herkunftszeichen in der kompakten Listenform; die ausführliche
+  // Bedeutung trägt es als Titel.
+  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsch neu');
+  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toHaveAttribute('title', /Freistaat Ostdeutschland geschaffen/u);
   let emptyQuery: string | undefined;
   for (const candidate of originals.slice(0, 5)) {
     if ((await searchApi(request, `?q=${encodeURIComponent(candidate.abbr)}&origin=inherited-unchanged`)).total === 0) {
@@ -1127,9 +1262,9 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   const filtered = await searchApi(request, '?q=Gesetz&origin=inherited-amended');
   expect(filtered.query.origins).toEqual(['inherited-amended']);
   expect(filtered.total).toBeGreaterThan(0);
-  expect(filtered.candidateCount).toBeLessThanOrEqual(filtered.total);
-  expect(filtered.documents.length).toBeGreaterThan(0);
-  expect(filtered.documents.every((entry) => entry.origin === 'inherited-amended')).toBe(true);
+  expect(filtered.hits.length).toBeGreaterThan(0);
+  expect(filtered.hits.length).toBeLessThanOrEqual(filtered.total);
+  expect(filtered.hits.every((entry) => entry.origin === 'inherited-amended')).toBe(true);
   const unfiltered = await searchApi(request, '?q=Gesetz');
   expect(unfiltered.total).toBeGreaterThan(filtered.total);
   const ignored = await searchApi(request, '?q=Gesetz&origin=bogus');
@@ -1144,36 +1279,51 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
   const [original] = await currentDocuments(request, '&origin=ostdeutsch-original&type=gesetz&status=in-force');
   expect(original, 'geltendes Gesetz ostdeutscher Herkunft').toBeTruthy();
   await page.goto(lawUrl(original.currentUrl));
-  const panel = page.locator('[data-visual-section="norm-legal-status"]');
-  await expect(panel.getByRole('heading', { name: 'Rechtsstand und Herkunft' })).toBeVisible();
+  const panel = await openNormFacts(page);
+  await expect(panel.getByRole('heading', { name: 'Vorschriftendaten' })).toBeVisible();
   await expect(panel.locator('.origin-badge')).toHaveText(/Ostdeutsch neu geschaffen/u);
-  await expect(panel).toContainText(`Geltende Fassung mit Rechtsstand vom ${formatGermanDate(original.validFrom)}`);
+  await expect(panel).toContainText(`Geltende Fassung, gültig ab ${formatGermanDate(original.validFrom)}`);
+  await expect(panel).toContainText(`Rechtsstand vom ${formatGermanDate(editorialReferenceDate())}`);
+  await expect(panel).not.toContainText('Stichtag');
   await expect(page.locator('.norm-page-header__status')).toContainText('in Kraft seit');
   await expect(page.locator('.status-notice')).toHaveCount(0);
 
   const amended = await currentNormOfOrigin(request, 'inherited-amended');
   await page.goto(lawUrl(amended.currentUrl));
-  const amendedPanel = page.locator('[data-visual-section="norm-legal-status"]');
+  const amendedPanel = await openNormFacts(page);
   await expect(amendedPanel.locator('.origin-badge')).toHaveText(/Übernommen und ostdeutsch geändert/u);
-  await expect(amendedPanel).toContainText('Zuletzt ostdeutsch geändert');
+  // Änderungsvorschriften stehen mit Titel und Datum, nicht als unbeschrifteter Verweis.
+  await expect(amendedPanel).toContainText('Änderungsvorschriften');
+  const amendmentLink = amendedPanel.locator('.norm-facts__changes a').first();
+  await expect(amendmentLink).toBeVisible();
+  await expect(amendmentLink).toHaveAttribute('href', /^\/norm\//u);
   await expect(amendedPanel.getByRole('link', { name: new RegExp(`Ausgangsfassung vom ${formatGermanDate(LEGAL_BASELINE_DATE)}`, 'u') })).toBeVisible();
   await expect(amendedPanel.getByRole('link', { name: 'Mit Ausgangsrecht vergleichen' })).toBeVisible();
 
   await page.goto(lawUrl(`/norm/${amended.slug}/version/${LEGAL_BASELINE_DATE}/`));
-  const baseline = page.locator('[data-visual-section="norm-legal-status"]');
+  const baseline = await openNormFacts(page);
   await expect(baseline).toContainText('Historische Fassung');
   await expect(baseline).toContainText('übernommene sächsische Ausgangsrechtsstand');
   await expect(baseline.getByRole('link', { name: 'Amtliche sächsische Quelle' })).toBeVisible();
 });
 
 siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält den Buchstabenwechsel im Filter', async ({ page }) => {
-  await page.goto(lawUrl('/archiv/'));
+  await page.goto(lawUrl('/a-z/'));
   const overview = page.locator('[data-origin-overview] a');
   expect(await overview.count()).toBeGreaterThanOrEqual(3);
   await expect(page.locator('[data-index-list] .origin-badge').first()).toBeVisible();
   await overview.filter({ hasText: 'Übernommen · unverändert' }).click();
   await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
   await expect(page.locator('select[name="herkunft"]')).toHaveValue('inherited-unchanged');
+  // Die Buchstabenleiste zählt den gesamten Bestand; unter dem Herkunftsfilter kann eine Gruppe
+  // leer sein. Geprüft wird die erste Gruppe, die Vorschriften dieser Herkunft führt.
+  const groups = await page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-index-letter') ?? ''));
+  let filledLetter = '';
+  for (const candidate of groups) {
+    await page.goto(lawUrl(`/a-z/?buchstabe=${candidate}&herkunft=inherited-unchanged`));
+    if (await page.locator('[data-index-list] li').count() > 0) { filledLetter = candidate; break; }
+  }
+  expect(filledLetter, 'Buchstabengruppe mit übernommenen, unveränderten Vorschriften').not.toBe('');
   const origins = await page.locator('[data-index-list] li').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.origin));
   expect(origins.length).toBeGreaterThan(0);
   expect(origins.every((origin) => origin === 'inherited-unchanged')).toBe(true);
@@ -1184,62 +1334,93 @@ siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält den Bu
   await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
 });
 
-siteTest(['law'])('A–Z hält Norm- und Stichwortseite unabhängig (mehrseitige Buchstabengruppe)', async ({ page }) => {
-  // Zwei gleichzeitig paginierte Dimensionen gibt es erst ab 50 Normen und 100 Stichwörtern je
+siteTest(['law'])('A–Z hält Vorschriften- und Abkürzungsseite unabhängig (mehrseitige Buchstabengruppe)', async ({ page }) => {
+  // Zwei gleichzeitig paginierte Dimensionen gibt es erst ab 50 Vorschriften und 50 Einträgen je
   // Buchstabe – also nur mit dem Vollbestand. Ohne zweite Seite wird übersprungen statt geraten.
-  await page.goto(lawUrl('/archiv/?buchstabe=G'));
+  await page.goto(lawUrl('/a-z/?buchstabe=G'));
   const indexPages = await page.locator('[data-index-pagination] a[aria-label^="Seite "]').count();
-  const keywordPages = await page.locator('[data-keyword-pagination] a[aria-label^="Stichwortseite "]').count();
-  test.skip(indexPages < 2 || keywordPages < 2, `Buchstabe G hat ${indexPages} Norm- und ${keywordPages} Stichwortseiten; die Unabhängigkeit beider Paginierungen wird mit dem Vollbestand geprüft.`);
+  const keywordPages = await page.locator('[data-keyword-pagination] a[aria-label^="Seite "]').count();
+  test.skip(indexPages < 2 || keywordPages < 2, `Buchstabe G hat ${indexPages} Vorschriften- und ${keywordPages} Abkürzungsseiten; die Unabhängigkeit beider Paginierungen wird mit dem Vollbestand geprüft.`);
 
   // Beide Paginierungen derselben Seite behalten den jeweils anderen Zustand.
-  await page.goto(lawUrl('/archiv/?buchstabe=G&seite=2&stichwortseite=2'));
+  await page.goto(lawUrl('/a-z/?buchstabe=G&seite=2&abkuerzungsseite=2'));
   await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
   await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
   const normLinks = await page.locator('[data-index-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
   expect(normLinks.length).toBeGreaterThan(0);
-  expect(normLinks.every((href) => href.includes('stichwortseite=2'))).toBe(true);
+  expect(normLinks.every((href) => href.includes('abkuerzungsseite=2'))).toBe(true);
   const keywordLinks = await page.locator('[data-keyword-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
   expect(keywordLinks.length).toBeGreaterThan(0);
   expect(keywordLinks.every((href) => /[?&]seite=2/u.test(href))).toBe(true);
-  await page.locator('[data-keyword-pagination] a[rel], [data-keyword-pagination] a').filter({ hasText: 'Nächste Stichwörter' }).click();
+  await page.locator('[data-keyword-pagination] a[rel], [data-keyword-pagination] a').filter({ hasText: 'Nächste Einträge' }).click();
   await expect(page).toHaveURL(/seite=2/u);
-  await expect(page).toHaveURL(/stichwortseite=3/u);
+  await expect(page).toHaveURL(/abkuerzungsseite=3/u);
   await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
   await page.goBack();
-  await expect(page).toHaveURL(/stichwortseite=2/u);
+  await expect(page).toHaveURL(/abkuerzungsseite=2/u);
   await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
 });
 
-siteTest(['law'])('Rechtsentwicklung filtert und paginiert serverseitig über GET-Parameter', async ({ page }) => {
-  await page.goto(lawUrl('/rechtsentwicklung/'));
-  await expect(page.locator('[data-development-count]')).toContainText('im Bestand');
-  const total = await page.locator('[data-development-item]').count();
-  expect(total).toBeGreaterThan(0);
-  expect(total).toBeLessThanOrEqual(50);
-  // Auswahländerung sendet das GET-Formular; die URL trägt die Auswahl.
-  await page.locator('select[name="origin"]').selectOption('inherited-amended');
-  await expect(page).toHaveURL(/origin=inherited-amended/u);
-  await expect(page.locator('select[name="origin"]')).toHaveValue('inherited-amended');
-  const origins = await page.locator('[data-development-item]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.origin));
-  expect(origins.length).toBeGreaterThan(0);
-  expect(origins.every((origin) => origin === 'inherited-amended')).toBe(true);
+siteTest(['law'])('Rechtsentwicklung und Fundstellen bleiben als Adressen gültig und führen an ihren neuen Ort', async ({ request }) => {
+  const redirects = [
+    ['/rechtsentwicklung/', '/suche/'],
+    ['/rechtsentwicklung/?origin=inherited-amended', '/suche/?origin=inherited-amended'],
+    ['/fundstellen/', '/verkuendungen/?ansicht=eintraege'],
+    ['/fundstellen/?year=2026', '/verkuendungen/?ansicht=eintraege&year=2026'],
+  ];
+  for (const [source, target] of redirects) {
+    const response = await request.get(lawUrl(source), { maxRedirects: 0 });
+    expect(response.status(), source).toBe(301);
+    expect(response.headers().location, source).toBe(target);
+  }
+});
+
+siteTest(['law'])('Verkündungen führen Ausgaben und Einträge in einer Seite mit Ansichtswechsel', async ({ page }) => {
+  await page.goto(lawUrl('/verkuendungen/'));
+  const viewSwitch = page.getByRole('navigation', { name: 'Ansicht' });
+  await expect(viewSwitch.locator('a[aria-current="page"]')).toHaveText('Ausgaben');
+  await expect(page.locator('[data-directory-count]')).toContainText(/Ausgabe/u);
+  const issueDates = await page.locator('[data-directory-entry] .directory-entry__lead time').evaluateAll(
+    (nodes) => nodes.map((node) => node.getAttribute('datetime') ?? ''));
+  expect(issueDates.length).toBeGreaterThan(0);
+  expect([...issueDates].sort().reverse(), 'Ausgaben stehen mit der jüngsten zuerst').toEqual(issueDates);
+
+  await viewSwitch.locator('a[data-view="eintraege"]').click();
+  await expect(page).toHaveURL(/ansicht=eintraege/u);
+  await expect(viewSwitch.locator('a[aria-current="page"]')).toHaveText('Einträge');
+  await expect(page.locator('[data-directory-count]')).toContainText(/Eintrag|Einträge/u);
+  const entryDates = await page.locator('[data-directory-entry] .directory-entry__lead time').evaluateAll(
+    (nodes) => nodes.map((node) => node.getAttribute('datetime') ?? ''));
+  expect(entryDates.length).toBeGreaterThan(0);
+  expect(entryDates.length).toBeLessThanOrEqual(50);
+  expect([...entryDates].sort().reverse(), 'Einträge stehen mit der jüngsten Ausgabe zuerst').toEqual(entryDates);
+
+  // Der Filter bleibt in der Ansicht: die Auswahl führt nicht zurück auf die Ausgabenliste.
+  await page.locator('[data-directory-filter] select[name="publication"]').selectOption({ index: 1 });
+  await expect(page).toHaveURL(/ansicht=eintraege/u);
+  await expect(viewSwitch.locator('a[aria-current="page"]')).toHaveText('Einträge');
+  await expect(page.locator('[data-directory-reset]')).not.toHaveAttribute('aria-disabled', 'true');
+});
+
+siteTest(['law'])('Förderrichtlinien sind nach Förderbereichen gegliedert und über Sprungziele erreichbar', async ({ page }) => {
+  await page.goto(lawUrl('/foerderrichtlinien/'));
+  const sections = page.locator('[data-funding-section]');
+  const sectionCount = await sections.count();
+  expect(sectionCount).toBeGreaterThan(0);
+  await expect(page.locator('.letter-nav')).toHaveCount(0);
+
+  const areas = await page.locator('[data-funding-link]').evaluateAll(
+    (nodes) => nodes.map((node) => (node as HTMLElement).dataset.fundingLink ?? ''));
+  expect(areas.length).toBe(sectionCount);
+  for (const area of areas) {
+    await expect(page.locator(`[data-funding-section="${area}"]`), area).toHaveCount(1);
+  }
+
+  // Ein Förderbereich lässt sich als Auswahl eingrenzen; die Adresse trägt sie.
+  await page.locator('[data-directory-filter] select[name="bereich"]').selectOption(areas[0]);
+  await expect(page).toHaveURL(new RegExp(`bereich=${areas[0]}`, 'u'));
+  await expect(page.locator('[data-funding-section]')).toHaveCount(1);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
-
-  // Freitext per Formular (innerhalb des Herkunftsfilters), Zurück-Navigation stellt den vorherigen Zustand wieder her.
-  const word = searchWordOf((await page.locator('[data-development-item] .directory-entry__title a').first().textContent()) ?? '');
-  await page.locator('[data-development-filter-form] input[name="q"]').fill(word);
-  await page.locator('[data-development-filter-form] button[type="submit"]').click();
-  await expect(page).toHaveURL(new RegExp(`q=${encodeURIComponent(word)}`, 'u'));
-  await expect(page.locator('[data-development-item]').first()).toContainText(new RegExp(word, 'iu'));
-  await page.goBack();
-  await expect(page).toHaveURL(/origin=inherited-amended/u);
-  await expect(page).not.toHaveURL(/q=/u);
-
-  // Leere Treffermenge zeigt einen Hinweis statt einer Liste.
-  await page.goto(lawUrl('/rechtsentwicklung/?q=xyzzy-nicht-vorhanden'));
-  await expect(page.locator('[data-development-count]')).toContainText('keine Vorschriften');
-  await expect(page.locator('[data-development-empty]')).toBeVisible();
 });
 
 siteTest(['law'])('unbekannte OstRecht-Pfade liefern die eigene deutsche Fehlerseite mit Status 404', async ({ page, request }) => {
@@ -1256,4 +1437,76 @@ siteTest(['law'])('unbekannte OstRecht-Pfade liefern die eigene deutsche Fehlers
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Seite nicht gefunden');
   await expect(page.getByRole('link', { name: 'Zur Rechtssuche' })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
+});
+
+siteTest(['law'])('Fassung als PDF wird im Worker erzeugt und für unbekannte Fassungen mit 404 beantwortet', async ({ request }) => {
+  const norm = await multiVersionNorm(request);
+  // Der dritte Durchgang wiederholt die geltende Fassung und wird aus dem Randzwischenspeicher beantwortet.
+  for (const version of [norm.current, norm.historical, norm.current]) {
+    const path = `/norm/${norm.slug}/version/${version.versionId}/fassung.pdf`;
+    const response = await withWorkerRecovery(request, () => request.get(lawUrl(path)));
+    expect(response.status(), path).toBe(200);
+    expect(response.headers()['content-type'], path).toMatch(/^application\/pdf/u);
+    expect(response.headers()['content-disposition'], path).toContain(`${norm.slug}-${version.versionId}.pdf`);
+    expect(response.headers()['x-robots-tag'], path).toContain('noindex');
+    const body = await response.body();
+    expect(body.subarray(0, 5).toString('latin1'), path).toBe('%PDF-');
+    expect(body.subarray(-5).toString('latin1'), path).toBe('%%EOF');
+  }
+
+  const missing = await request.get(lawUrl(`/norm/${norm.slug}/version/gibt-es-nicht/fassung.pdf`));
+  expect(missing.status()).toBe(404);
+});
+
+/**
+ * Öffentliche Texte sprechen die Sprache der Nutzenden: keine maschinenlesbaren Daten, keine
+ * Systemwörter und keine Zähler in falscher Zahl. Geprüft wird die Sprache des Portals –
+ * Überschriften, Beschriftungen, Filter, Statuszeilen und Zähler. Vorschriftentext,
+ * Zusammenfassungen und Suchausschnitte sind Bestand und keine Systemsprache; ihre Wortwahl
+ * prüfen die Bestandsaudits (`npm run content:check`), nicht dieser Test. Die Sperrliste bleibt
+ * kurz: sie hält Systemwörter fern, ohne neue Formulierungen zu verbieten.
+ */
+// Bestandstext bleibt außen vor: Normtext samt Inhaltsübersicht (sie führt die Überschriften der
+// Einheiten), Beschreibungen der Verzeichniseinträge, Suchausschnitte und die Änderungsliste.
+const CORPUS_TEXT_SELECTORS = '.norm-document-column, .norm-outline, .norm-outline-mobile, .directory-entry__description, .search-hit__context, .norm-side-history';
+
+siteTest(['law'])('Öffentliche Texte ohne Systemsprache', async ({ page, request }) => {
+  const norm = await multiVersionNorm(request);
+  const [current] = await currentDocuments(request);
+  const index = await publicationIndex(request);
+  expect(index.latestPublication, 'Verkündung im Bestand').toBeTruthy();
+  const pages = [
+    '/',
+    '/suche/',
+    '/gesetze/',
+    '/a-z/',
+    current.currentUrl,
+    `/norm/${norm.slug}/history/`,
+    norm.historical.url,
+    `/verkuendungen/${index.latestPublication!.slug}/`,
+    '/hilfe/',
+  ];
+
+  const blocked: Array<{ what: string; pattern: RegExp; exceptHelp?: boolean }> = [
+    { what: 'maschinenlesbares Datum', pattern: /\b\d{4}-\d{2}-\d{2}\b/u },
+    { what: 'Systemwort', pattern: /\b(?:gespeichert\w*|Datenbestand\w*|Anker\w*|strukturtragend\w*)\b/iu },
+    { what: 'Stichtag außerhalb der Hilfe', pattern: /Stichtag\b/u, exceptHelp: true },
+    { what: 'Auswahl „Alle Status“', pattern: /Alle Status/u },
+    { what: 'Zähler in falscher Zahl', pattern: /\b1 (?:Vorschriften|Ausgaben|Nachweise|Einträge|Fassungen|Jahrgänge)\b/u },
+  ];
+
+  for (const path of pages) {
+    await page.goto(lawUrl(path));
+    const text = await page.evaluate((selectors) => {
+      const copy = document.body.cloneNode(true) as HTMLElement;
+      for (const element of copy.querySelectorAll(`script, style, template, ${selectors}`)) element.remove();
+      return `${document.title} ${copy.textContent ?? ''}`.replace(/\s+/gu, ' ').trim();
+    }, CORPUS_TEXT_SELECTORS);
+    for (const { what, pattern, exceptHelp } of blocked) {
+      if (exceptHelp && path === '/hilfe/') continue;
+      const found = text.match(pattern);
+      const context = found ? text.slice(Math.max(0, found.index! - 70), found.index! + 70) : '';
+      expect(found, `${path}: ${what} „${found?.[0] ?? ''}“ in „…${context}…“`).toBeNull();
+    }
+  }
 });

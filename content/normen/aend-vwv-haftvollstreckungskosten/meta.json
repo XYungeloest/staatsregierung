@@ -2,14 +2,13 @@
   "id": "aend-vwv-haftvollstreckungskosten",
   "slug": "aend-vwv-haftvollstreckungskosten",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Haftvollstreckungskosten",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Haftvollstreckungskosten",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Haftvollstreckungskosten",
+    "Änd. VwV Haftvollstreckungskosten",
     "Justiz",
     "Änderung",
     "Haftvollstreckungskosten"
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Haftvollstreckungskosten“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2006-07-21",
   "effectiveDate": "2006-08-31",
@@ -35,5 +35,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-haftvollstreckungskosten"
   ]
 }

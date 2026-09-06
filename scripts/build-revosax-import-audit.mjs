@@ -1,10 +1,13 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-strip-types
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { getSubjectByTitle, subjectNumberFromFsn } from '@ostrecht/shared/config/law-subjects.ts';
+
 import { extractVersionLinks } from './lib/revosax-discovery.mjs';
+import { futureContainmentDates } from './lib/revosax-citation.mjs';
 
 /**
  * Erzeugt den versionierten Import-Audit des REVOSax-Ausgangsbestands unter
@@ -123,6 +126,31 @@ export function classifySourceEnding({ sourceValidTo, laterVersions, sunsetDates
   return { type: 'unclear', basis: 'weder Nachfolgefassung noch Befristung im Text erkennbar' };
 }
 
+/**
+ * Deckung der Sachgebiete: eine Zuordnung gilt als amtlich belegt, wenn eine REVOSax-Quelle
+ * der Norm die Fundstellennummer trägt und deren Gliederungsnummer das Hauptsachgebiet ergibt.
+ * Alles andere ist abgeleitet und bleibt im Import-Audit als solches gekennzeichnet.
+ */
+async function countSubjectCoverage(plan, contentRoot) {
+  const coverage = { official: 0, derived: 0 };
+  const seen = new Set();
+  for (const entry of plan.entries.filter((candidate) => candidate.canonicalSlug && ['CREATE', 'MATCH'].includes(candidate.action))) {
+    if (seen.has(entry.canonicalSlug)) continue;
+    seen.add(entry.canonicalSlug);
+    let meta;
+    try {
+      meta = await readJson(join(contentRoot, entry.canonicalSlug, 'meta.json'));
+    } catch {
+      continue;
+    }
+    const number = getSubjectByTitle(meta.primarySubject ?? meta.subjects?.[0] ?? '')?.number;
+    const official = number !== undefined
+      && (meta.sourceReferences ?? []).some((reference) => subjectNumberFromFsn(reference.fsnNumber) === number);
+    coverage[official ? 'official' : 'derived'] += 1;
+  }
+  return coverage;
+}
+
 /** MATCH-Einträge, deren Norm nicht aus dieser Baseline stammt (redaktionell vorhandene Normen). */
 async function countPreexistingMatches(plan, contentRoot) {
   let count = 0;
@@ -141,9 +169,10 @@ async function countPreexistingMatches(plan, contentRoot) {
   return count;
 }
 
-export async function buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, sunsetDecisions = null, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, contentRoot = join(ROOT, 'content', 'normen'), preexistingMatches = null }) {
+export async function buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, sunsetDecisions = null, postCutoffDecisions = null, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, contentRoot = join(ROOT, 'content', 'normen'), preexistingMatches = null }) {
   const planBySource = new Map(plan.entries.map((entry) => [entry.sourceId, entry]));
   const existingMatched = preexistingMatches ?? await countPreexistingMatches(plan, contentRoot);
+  const subjectCoverage = await countSubjectCoverage(plan, contentRoot);
   const envelopeBySource = new Map((envelopes?.components ?? []).map((component) => [component.sourceId, component]));
 
   // --- SKIP-Fälle ---
@@ -165,9 +194,11 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
                 ? 'duplicate-source'
                 : reason.startsWith('Entscheidung:')
                   ? 'manual-decision'
-                  : reason.startsWith('Staging: part-of-envelope')
-                    ? 'part-of-envelope-unclassified'
-                    : 'other';
+                  : reason.startsWith('post-cutoff-saxon-act')
+                    ? 'post-cutoff-saxon-act'
+                    : reason.startsWith('Staging: part-of-envelope')
+                      ? 'part-of-envelope-unclassified'
+                      : 'other';
     const list = skipGroups[category] ?? [];
     list.push({ ...compactEntry(entry, planned), reason, ...(entry.envelope ? { envelopeLawId: String(entry.envelope.envelopeLawId), envelopeUrl: entry.envelope.envelopeUrl } : {}) });
     skipGroups[category] = list;
@@ -224,7 +255,10 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
   };
 
   // --- Prüfmarken ---
-  const flagged = report.entries.filter((entry) => !entry.skipReason && (entry.reviewFlags?.length || entry.attachments?.length));
+  // Nachstichtagliche Rechtsakte werden auch dann ausgewiesen, wenn das Staging den Treffer
+  // bereits als Bestandteil einer Mantelvorschrift übersprungen hat.
+  const flagged = report.entries.filter((entry) => planBySource.get(entry.sourceId)?.postCutoff?.length ||
+    (!entry.skipReason && (entry.reviewFlags?.length || entry.attachments?.length)));
   const attachmentsByLaw = new Map();
   for (const record of Object.values(attachmentsManifest?.attachments ?? {})) {
     const list = attachmentsByLaw.get(record.sourceId) ?? [];
@@ -271,6 +305,15 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
       if (sunset) details.sunsetDecision = { resolution: sunset.resolution, expiryDate: sunset.expiryDate ?? null, status: sunset.status ?? null, basis: sunset.basis ?? null, reason: sunset.reason };
     }
     if (flags.includes('listing-title-mismatch')) details.listingTitle = { listing: entry.listing?.title ?? null, source: entry.sourceTitle ?? null };
+    if (planned?.postCutoff?.length) {
+      flags.push('post-cutoff-source');
+      const decision = postCutoffDecisions?.decisions?.[planned.canonicalSlug ?? entry.proposedSlug] ?? null;
+      details.postCutoff = {
+        facts: planned.postCutoff,
+        resolution: planned.postCutoffResolution ?? 'undecided',
+        ...(decision ? { adoptingNorm: decision.adoptingNorm ?? null, basis: decision.basis ?? null, reason: decision.reason } : {}),
+      };
+    }
     for (const flag of flags) flagCounts[flag] = (flagCounts[flag] ?? 0) + 1;
     flagEntries.push({ ...base, flags, ...details });
   }
@@ -289,6 +332,19 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
     documentDateMissing: flagEntries.filter((entry) => entry.documentDate && !entry.documentDate.value).length,
     entries: flagEntries.sort((left, right) => Number(left.lawId) - Number(right.lawId) || left.sourceId.localeCompare(right.sourceId)),
   };
+
+  // --- Rechtsakte nach dem Rechtsüberleitungsstichtag ---
+  const postCutoffPlanned = plan.entries.filter((entry) => entry.postCutoff?.length);
+  const postCutoffResolutionCounts = Object.values(postCutoffDecisions?.decisions ?? {})
+    .reduce((acc, decision) => ({ ...acc, [decision.resolution]: (acc[decision.resolution] ?? 0) + 1 }), {});
+  const containmentClausesStripped = report.entries.filter((entry) =>
+    futureContainmentDates(entry.fullCitation, report.baselineDate).length > 0).length;
+  // Ein sächsischer Rechtsakt nach dem Stichtag darf keine übernommene Norm ändern, ohne dass
+  // eine ostdeutsche Änderungsvorschrift ihn ausdrücklich übernimmt.
+  const unchangedTargetsOfPostCutoffAmends = postCutoffPlanned.filter((entry) =>
+    entry.action !== 'SKIP' &&
+    entry.inferredType === 'aenderungsvorschrift' &&
+    postCutoffDecisions?.decisions?.[entry.canonicalSlug ?? entry.proposedSlug]?.resolution !== 'adopted').length;
 
   // --- Bilanz ---
   const actions = plan.counts;
@@ -329,14 +385,34 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
     reviewFlags: { counts: flagCounts, sourceEndingTypes, sourceEndingResolutions, documentDateFromListing: reviewFlags.documentDateFromListing, documentDateMissing: reviewFlags.documentDateMissing },
     decisions: Object.fromEntries(Object.entries(decisions?.decisions ?? {}).map(([key, decision]) => [key, { action: decision.action, reason: decision.reason }])),
     sunsetDecisions: Object.fromEntries(Object.entries(sunsetDecisions?.decisions ?? {}).map(([key, decision]) => [key, { slug: decision.slug, resolution: decision.resolution, expiryDate: decision.expiryDate ?? null, status: decision.status ?? null }])),
+    // Sächsische Rechtsakte nach dem Rechtsüberleitungsstichtag: Aufnahmeklauseln der
+    // sächsischen Fundstellenpflege werden aus den Zitierungen entfernt, spätere Rechtsakte
+    // nur mit dokumentierter Adoption übernommen (data/recht/revosax-post-cutoff-decisions.json).
+    postCutoff: {
+      baselineDate: report.baselineDate,
+      sourcesAfterCutoff: postCutoffPlanned.length,
+      citationsWithContainmentClauseStripped: containmentClausesStripped,
+      decisions: {
+        discard: postCutoffResolutionCounts.discard ?? 0,
+        adopted: postCutoffResolutionCounts.adopted ?? 0,
+        open: postCutoffResolutionCounts.open ?? 0,
+      },
+      skipped: postCutoffPlanned.filter((entry) => entry.action === 'SKIP').length,
+      unchangedTargetsOfPostCutoffAmends: unchangedTargetsOfPostCutoffAmends,
+    },
     // Metadaten der übernommenen Normen, die nicht aus der amtlichen Quelle stammen, sondern
-    // automatisch abgeleitet sind (scripts/lib/revosax-metadata.mjs): Sachgebiete aus Typ,
-    // Ressortkürzel und Titel, Schlagwörter aus Abkürzung/Kurzbezeichnung/Titel, Kurzfassung
-    // aus Typ und Kurzbezeichnung. Sie sind Erschließungshilfen, keine amtlichen Angaben.
+    // automatisch abgeleitet sind (scripts/lib/revosax-metadata.mjs): Schlagwörter aus
+    // Abkürzung/Kurzbezeichnung/Titel, Kurzfassung aus Typ und Kurzbezeichnung. Sie sind
+    // Erschließungshilfen, keine amtlichen Angaben. Die Sachgebiete folgen der amtlichen
+    // Systematik; sie sind belegt, soweit die Fundstellennummer der Quelle sie trägt.
     derivedMetadata: {
       norms: actions.CREATE + actions.MATCH - existingMatched,
-      fields: ['subjects', 'keywords', 'summary'],
-      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz)',
+      fields: ['keywords', 'summary'],
+      subjects: {
+        official: subjectCoverage.official,
+        derived: subjectCoverage.derived,
+      },
+      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferKeywords, inferSummary); die Kurzfassung trägt summarySource "derived" und wird öffentlich nicht ausgespielt; Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)',
     },
     residualBacklog: residualBacklog ? { norms: residualBacklog.normCount, residuals: residualBacklog.residualCount } : null,
   };
@@ -347,7 +423,7 @@ async function main() {
   const args = process.argv.slice(2);
   const cacheDir = resolve(valueAfter(args, '--cache') ?? '.cache/revosax-baseline/2023-11-01');
   const check = args.includes('--check');
-  const [manifest, report, plan, envelopes, decisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, sunsetDecisions] = await Promise.all([
+  const [manifest, report, plan, envelopes, decisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, sunsetDecisions, postCutoffDecisions] = await Promise.all([
     readJson(join(ROOT, 'data', 'recht', 'revosax-baseline-2023-11-01.json')),
     readJson(join(cacheDir, 'report.json')),
     readJson(join(cacheDir, 'materialization-plan.json')),
@@ -358,8 +434,9 @@ async function main() {
     readJsonIfExists(join(cacheDir, 'materialization-report.json')),
     readJsonIfExists(join(ROOT, 'data', 'recht', 'ost-residual-backlog.json')),
     readJsonIfExists(join(ROOT, 'data', 'recht', 'revosax-sunset-decisions.json')),
+    readJsonIfExists(join(ROOT, 'data', 'recht', 'revosax-post-cutoff-decisions.json')),
   ]);
-  const audit = await buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, sunsetDecisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog });
+  const audit = await buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, sunsetDecisions, postCutoffDecisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog });
   await mkdir(OUTPUT_DIR, { recursive: true });
   let changed = 0;
   for (const [name, value] of Object.entries({ 'summary.json': audit.summary, 'skips.json': audit.skips, 'envelopes.json': audit.envelopes, 'review-flags.json': audit.reviewFlags })) {

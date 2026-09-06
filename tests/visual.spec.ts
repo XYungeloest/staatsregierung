@@ -1,11 +1,33 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+import { getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
+import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion, LAW_ORIGIN, multiVersionNorm } from './helpers/law-runtime.ts';
 
-const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+const lawUrl = (path: string) => new URL(path, LAW_ORIGIN).toString();
 // SITE_TARGETS (portal, law) begrenzt die Suite auf die gebauten Websites; ohne Angabe laufen beide.
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
-const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith('http://127.0.0.1:4322') ? 'law' : 'portal');
+const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith(LAW_ORIGIN) ? 'law' : 'portal');
+
+// OstRecht-Motive beschreiben Seitenrollen; welche Vorschrift sie zeigen, bestimmt das synthetische
+// Testfixture (data/recht/runtime-fixture.json, tests/helpers/fixture-corpus.ts) – keine realen Normen.
+const fixture = {
+  original: fixtureRole('ostdeutsch-original'),
+  amended: fixtureRole('inherited-amended'),
+  unchanged: fixtureRole('inherited-unchanged'),
+  constitution: fixtureRole('constitution'),
+  noticeOnly: fixtureRole('notice-only'),
+  bekanntmachung: fixtureRole('bekanntmachung'),
+  portalRelations: fixtureRole('portal-relations'),
+  amendedHistorical: fixtureVersion('inherited-amended', 'historical'),
+  amendedCurrent: fixtureVersion('inherited-amended', 'current'),
+  publication: fixturePublication('detail'),
+  multiHit: fixtureSearchWord('multi-hit'),
+  originalWord: fixtureSearchWord('ostdeutsch-original'),
+  unchangedWord: fixtureSearchWord('inherited-unchanged'),
+};
+const searchUrl = (word: string) => lawUrl(`/suche/?q=${encodeURIComponent(word)}`);
+const compareUrl = lawUrl(`/norm/${fixture.amended}/vergleich/?von=${fixture.amendedHistorical}&bis=${fixture.amendedCurrent}`);
 
 /**
  * Screenshot-Suite in zwei Stufen (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt Screenshot-Suite):
@@ -49,30 +71,32 @@ const visualPages: VisualPage[] = [
   { name: 'portalsuche', path: '/suche/' },
   { name: 'recht-bruecke', path: '/recht/' },
   { name: 'ostrecht', path: lawUrl('/'), critical: true, tablet: true },
-  { name: 'ostrecht-suche', path: lawUrl('/suche/?q=Kulturpass'), critical: true },
+  { name: 'ostrecht-suche', path: searchUrl(fixture.multiHit), critical: true },
   // Ein Verzeichnis je Listenmuster: Gesetze, Verordnungen und Verwaltungsvorschriften teilen Template und Filterleiste.
   { name: 'ostrecht-gesetze', path: lawUrl('/gesetze/') },
-  { name: 'ostrecht-archiv', path: lawUrl('/archiv/') },
+  { name: 'ostrecht-archiv', path: lawUrl('/a-z/') },
   { name: 'ostrecht-sachgebiete', path: lawUrl('/sachgebiete/') },
   { name: 'ostrecht-verkuendungen', path: lawUrl('/verkuendungen/') },
-  { name: 'ostrecht-fundstellen', path: lawUrl('/fundstellen/') },
-  { name: 'ostrecht-rechtsentwicklung', path: lawUrl('/rechtsentwicklung/') },
-  { name: 'ostrecht-verkuendung-detail', path: lawUrl('/verkuendungen/stanzo-2026-33/') },
-  { name: 'ostrecht-sachgebiet-detail', path: lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/') },
+  { name: 'ostrecht-verkuendungen-eintraege', path: lawUrl('/verkuendungen/?ansicht=eintraege') },
+  { name: 'ostrecht-foerderrichtlinien', path: lawUrl('/foerderrichtlinien/') },
+  { name: 'ostrecht-verkuendung-detail', path: lawUrl(`/verkuendungen/${fixture.publication}/`) },
+  // Der Sachgebietsslug trägt die amtliche Gliederungsnummer; sie kommt aus der Systematik, nicht aus dem Text.
+  { name: 'ostrecht-sachgebiet-detail', path: lawUrl(`/sachgebiete/${getSubjectSlug('Kommunalrecht')}/`) },
   { name: 'ostrecht-hilfe', path: lawUrl('/hilfe/') },
   { name: 'ostrecht-404', path: lawUrl('/gibt-es-nicht/') },
-  { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'), critical: true },
-  { name: 'norm-gemeindeordnung-historisch', path: lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/') },
-  { name: 'norm-sero-historie', path: lawUrl('/norm/sero-verordnung/history/') },
-  { name: 'norm-gemeindeordnung-vergleich', path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'), critical: true },
-  { name: 'norm-staatsverfassung', path: lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/') },
-  { name: 'norm-sero-verordnung', path: lawUrl('/norm/sero-verordnung/') },
+  { name: 'norm-ostdeutsch-neu', path: lawUrl(`/norm/${fixture.original}/`), critical: true },
+  { name: 'norm-uebernommen-geaendert-historisch', path: lawUrl(`/norm/${fixture.amended}/version/${fixture.amendedHistorical}/`) },
+  { name: 'norm-verordnung-historie', path: lawUrl(`/norm/${fixture.noticeOnly}/history/`) },
+  { name: 'norm-uebernommen-geaendert-vergleich', path: compareUrl, critical: true },
+  { name: 'norm-verfassung', path: lawUrl(`/norm/${fixture.constitution}/`) },
+  { name: 'norm-verordnung-hinweis', path: lawUrl(`/norm/${fixture.noticeOnly}/`) },
   // Rechtsherkunft: übernommen und unverändert, übernommen und ostdeutsch geändert (ostdeutsch neu
-  // geschaffen deckt norm-kulturpass ab).
-  { name: 'norm-uebernommen-unveraendert', path: lawUrl('/norm/vwv-polizeibekleidungswirtschaft/') },
-  { name: 'norm-uebernommen-geaendert', path: lawUrl('/norm/saechsische-gemeindeordnung/'), critical: true },
-  { name: 'norm-bekanntmachung', path: lawUrl('/norm/bekanntmachung-bestellung-gruendungsvorstand-interflug/') },
-  { name: 'ostrecht-archiv-herkunft', path: lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
+  // geschaffen deckt norm-ostdeutsch-neu ab).
+  { name: 'norm-uebernommen-unveraendert', path: lawUrl(`/norm/${fixture.unchanged}/`) },
+  { name: 'norm-uebernommen-geaendert', path: lawUrl(`/norm/${fixture.amended}/`), critical: true },
+  { name: 'norm-bekanntmachung', path: lawUrl(`/norm/${fixture.bekanntmachung}/`) },
+  // Buchstabe G mit Herkunftsfilter: das Fixture stellt eine übernommene, unveränderte Norm mit G bereit (Rolle inherited-unchanged-letter-g).
+  { name: 'ostrecht-archiv-herkunft', path: lawUrl('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
   { name: 'service', path: '/service/' },
@@ -471,7 +495,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'rechtssuche-module',
-    path: lawUrl('/suche/?q=Kulturpass'),
+    path: searchUrl(fixture.multiHit),
     shots: [
       ['rechtssuche-kopf', '.law-search-form > .search-form__primary'],
       ['rechtssuche-filter', '[data-search-filter-panel="more"]'],
@@ -479,19 +503,16 @@ const componentVisualPages: ComponentVisualPage[] = [
     critical: true,
   },
   {
-    name: 'rechtsentwicklung-module',
-    // Die Liste sortiert nach jüngstem Rechtsereignis; das Archivgesetz (übernommen, unverändert)
-    // wird über den Freitextfilter auf die erste Seite geholt.
-    path: lawUrl('/rechtsentwicklung/?q=Archivgesetz'),
+    name: 'rechtssuche-herkunft-kacheln-module',
+    // Die Herkunftszahlen des Bestands stehen seit dem Wegfall der Rechtsentwicklung auf der Suche.
+    path: lawUrl('/suche/'),
     shots: [
-      ['rechtsentwicklung-kennzahlen', '.section-hero__facts'],
-      ['rechtsentwicklung-filter', '[data-development-filter-form]'],
-      ['rechtsentwicklung-uebernommen', '[data-development-item]:has(a[href="/norm/archivgesetz/"])'],
+      ['rechtssuche-herkunft-kacheln', '.law-search-origins'],
     ],
   },
   {
     name: 'fassungsvergleich-module',
-    path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
+    path: compareUrl,
     shots: [
       ['fassungsvergleich-auswahl', '[data-version-compare] .norm-compare__form'],
       ['fassungsvergleich-zusammenfassung', '.norm-diff__header'],
@@ -500,7 +521,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'normhistorie-module',
-    path: lawUrl('/norm/saechsische-gemeindeordnung/history/'),
+    path: lawUrl(`/norm/${fixture.amended}/history/`),
     shots: [
       ['normhistorie-einstieg', '.norm-history-panel--versions'],
       ['normhistorie-fassung', '.norm-history__version-list > .norm-history__version:last-child'],
@@ -510,29 +531,29 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'norm-herkunft-module',
-    path: lawUrl('/norm/saechsische-gemeindeordnung/'),
+    path: lawUrl(`/norm/${fixture.amended}/`),
     shots: [
-      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-legal-status"]'],
+      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-facts"]'],
     ],
     critical: true,
   },
   {
     name: 'norm-herkunft-unveraendert-module',
-    path: lawUrl('/norm/vwv-polizeibekleidungswirtschaft/'),
+    path: lawUrl(`/norm/${fixture.unchanged}/`),
     shots: [
-      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-legal-status"]'],
+      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-facts"]'],
     ],
   },
   {
     name: 'rechtssuche-herkunft-module',
-    path: lawUrl('/suche/?q=Interflug'),
+    path: searchUrl(fixture.originalWord),
     shots: [
       ['rechtssuche-treffer-herkunft', '[data-search-results] .search-result-group:first-child > .search-hit'],
     ],
   },
   {
     name: 'archiv-herkunft-module',
-    path: lawUrl('/archiv/'),
+    path: lawUrl('/a-z/'),
     shots: [
       ['archiv-rechtsherkunft', '[data-visual-section="law-origin-overview"]'],
       ['archiv-liste-herkunft', '[data-index-list] > li:first-child'],
@@ -540,19 +561,18 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'norm-module',
-    path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'),
+    path: lawUrl(`/norm/${fixture.original}/`),
     shots: [
-      ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
-      ['norm-zitieren-rechtsstand', '[data-visual-section="norm-citation-status"]'],
+      ['norm-rechtsstand', '[data-visual-section="norm-facts"]'],
       ['norm-navigation', '.norm-version-navigation'],
       ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
     ],
   },
   {
     name: 'norm-sidebar-module',
-    path: lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
+    path: lawUrl(`/norm/${fixture.portalRelations}/`),
     shots: [
-      ['norm-vorschriftendaten', '[data-visual-section="norm-metadata"]'],
+      ['norm-vorschriftendaten', '[data-visual-section="norm-facts"]'],
       ['norm-weiterfuehrende-bezuege', '[data-visual-section="norm-portal-relations"]'],
     ],
   },
@@ -613,7 +633,7 @@ async function awaitSettled(page: Page, path: string): Promise<void> {
   }
   // Die Rechtssuche lädt Kandidaten und Treffer nach dem Seitenaufbau; erst der fertige
   // Trefferstand („n Treffer“ oder „Keine Treffer“) ist die Baseline.
-  if (path.startsWith('http://127.0.0.1:4322') && url.pathname === '/suche/') {
+  if (path.startsWith(LAW_ORIGIN) && url.pathname === '/suche/') {
     const summary = page.locator('[data-search-summary]');
     await expect(summary).toBeVisible();
     await expect(summary).not.toContainText(/werden geladen/u);
@@ -638,7 +658,54 @@ for (const entry of visualPages) {
 
 /** Portal-Seiten nur prüfen, wenn das Staatsportal ausgewählt ist (SITE_TARGETS); OstRecht-Läufe überspringen sie. */
 const portalTest = isSelected('/') ? test : test.skip;
-const lawTest = isSelected('http://127.0.0.1:4322/') ? test : test.skip;
+const lawTest = isSelected(`${LAW_ORIGIN}/`) ? test : test.skip;
+
+/**
+ * Messungen statt Bilder (Befunde E1, E3): Sie prüfen die Stufen des Normarbeitsbereichs und die
+ * Höhe des mobilen Kopfs in Zahlen, laufen also auch dort, wo kein Pixelvergleich stattfindet.
+ * Die Vorschrift wird zur Laufzeit aus der Kandidaten-API abgeleitet, nicht fest verdrahtet.
+ */
+lawTest('Messung: Normarbeitsbereich ist zwischen 64 und 80 rem zweispaltig', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die 64–80-rem-Stufe wird einmal bei 1280 Pixeln gemessen.');
+  await preparePage(page);
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const columns = await page.locator('.norm-workspace').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+  expect(columns, 'Inhaltsübersicht und Text stehen nebeneinander').toBe(2);
+  await expect(page.locator('.norm-outline--desktop')).toBeVisible();
+  await expect(page.locator('.norm-outline-mobile')).toBeHidden();
+  // Die Vorschriftendaten stehen darunter über beide Spalten.
+  const spans = await page.locator('.norm-info-column').evaluate((element) => {
+    const workspace = element.closest('.norm-workspace')!;
+    return element.getBoundingClientRect().width / workspace.getBoundingClientRect().width;
+  });
+  expect(spans, 'Vorschriftendaten spannen über beide Spalten').toBeGreaterThan(0.9);
+  await verifyViewport(page);
+});
+
+lawTest('Messung: mobil beginnt der Vorschriftentext oberhalb von 700 Pixeln', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile-'), 'Die Höhe des mobilen Kopfs wird auf den Mobilbreiten gemessen.');
+  await preparePage(page);
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const headerHeight = await page.locator('.norm-page-header').evaluate((element) => element.getBoundingClientRect().height);
+  expect(headerHeight, 'Normkopf').toBeLessThanOrEqual(320);
+  const textTop = await page.locator('#normtext').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(textTop, 'Beginn des Vorschriftentextes').toBeLessThanOrEqual(700);
+  // Die Angaben zur Vorschrift stehen als geschlossene Zeile vor Inhaltsübersicht und Text.
+  const facts = page.locator('.norm-facts');
+  await expect(facts).not.toHaveAttribute('open', /.*/u);
+  const factsTop = await facts.evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(factsTop, 'Angaben zur Vorschrift stehen über dem Text').toBeLessThan(textTop);
+  await verifyViewport(page);
+});
 
 lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-390', 'Die geöffnete mobile Navigation wird einmal bei 390 Pixeln geprüft.');
@@ -646,6 +713,44 @@ lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', { tag: [CRITICAL_T
   await page.goto(lawUrl('/'));
   await page.locator('.law-mobile-nav > summary').click();
   await expectSectionScreenshot(page.locator('.law-mobile-nav__panel'), 'recht-mobile-navigation.png');
+  await verifyViewport(page);
+});
+
+/**
+ * Trefferdichte der Rechtssuche: eine ungeöffnete Trefferkarte bleibt auf einem 375 Pixel breiten
+ * Bildschirm höchstens 220 Pixel hoch, damit auf einer Bildschirmhöhe mehr als ein Treffer steht.
+ * Das Suchwort stammt aus dem Manifest des synthetischen Fixtures; ergibt es nur einen Treffer,
+ * wird das nächste genommen (die Messung braucht mehrere Karten, keine bestimmte Anzahl).
+ */
+lawTest('Trefferdichte bei 375 px', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-390', 'Die Trefferdichte wird einmal bei 375 Pixeln gemessen.');
+  await preparePage(page);
+  await page.setViewportSize({ width: 375, height: 812 });
+  const words = [fixture.multiHit, fixture.originalWord, fixture.unchangedWord];
+  let hits: Array<{ height: number; open: boolean; text: string }> = [];
+  let used = '';
+  for (const word of words) {
+    await page.goto(searchUrl(word));
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+    await awaitSettled(page, searchUrl(word));
+    hits = await page.locator('[data-search-results] .search-result-group > .search-hit').evaluateAll((elements) => elements.map((element) => ({
+      height: Math.round(element.getBoundingClientRect().height),
+      open: Boolean(element.querySelector('details[open]')),
+      text: (element.querySelector('h3')?.textContent ?? '').trim().slice(0, 60),
+    })));
+    used = word;
+    if (hits.length > 1) break;
+  }
+  test.skip(hits.length < 2, `Das Fixture liefert zu „${used}“ nur ${hits.length} Treffer; die Dichte braucht mehrere Karten.`);
+  const tooTall = hits.filter((hit) => hit.height > 220);
+  if (tooTall.length > 0) {
+    const report = [`Suchwort: ${used}`, `Treffer: ${hits.length}`, ...hits.map((hit) => `${String(hit.height).padStart(4)} px  ${hit.open ? 'offen ' : 'zu    '}${hit.text}`)].join('\n');
+    await test.info().attach('trefferdichte.txt', { body: report, contentType: 'text/plain' });
+    console.log(report);
+  }
+  expect(tooTall.map((hit) => `${hit.height} px: ${hit.text}`), 'jede ungeöffnete Trefferkarte bleibt bei 375 px unter 220 px').toEqual([]);
   await verifyViewport(page);
 });
 
@@ -671,8 +776,9 @@ for (const entry of componentVisualPages) {
       });
     }
 
-    if (entry.name === 'norm-module' || entry.name === 'norm-sidebar-module') {
-      await page.locator('.norm-info-panel').evaluate((element) => {
+    // Die Vorschriftendaten sind unterhalb von 80 rem ein Aufklappbereich; die Baseline zeigt sie offen.
+    if (entry.shots.some(([, selector]) => selector.includes('norm-facts'))) {
+      await page.locator('.norm-facts').evaluate((element) => {
         (element as HTMLDetailsElement).open = true;
       });
     }

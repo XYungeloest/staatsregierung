@@ -2,15 +2,14 @@
   "id": "aend-heilberufekammer-und-heilberufezustaendigkeitsgesetzes",
   "slug": "aend-heilberufekammer-und-heilberufezustaendigkeitsgesetzes",
   "title": "Gesetz zur Änderung des Ostdeutschen Heilberufekammergesetzes und des Heilberufezuständigkeitsgesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Heilberufekammergesetzes und des Heilberufezuständigkeitsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Heilberufekammergesetzes und des Heilberufezuständigkeitsgesetzes",
+    "Änd. Heilberufekammer- und Heilberufezuständigkeitsgesetzes",
     "Änderung",
     "Heilberufekammergesetzes",
     "Heilberufezuständigkeitsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Heilberufekammergesetzes und des Heilberufezuständigkeitsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2005-11-11",
   "effectiveDate": "2005-11-26",
@@ -36,5 +36,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-heilberufekammergesetz"
   ]
 }

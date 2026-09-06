@@ -2,12 +2,11 @@
   "id": "aend-ostvermkatg-19129",
   "slug": "aend-ostvermkatg-19129",
   "title": "Änderung des Ostdeutschen Vermessungs- und Katastergesetzes",
-  "shortTitle": "Änd. OstVermKatG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstVermKatG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstVermKatG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Vermessungs- und Katastergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -33,6 +33,7 @@
       "sha256": "bc175137bb41fa4d2f2dc68fcd56f1d10ea7dafd3789fc97e6fa251776785ebd",
       "lawId": "19129",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -6,7 +6,7 @@ import { checkDeployment, extractHtmlBuildCommit } from '../scripts/check-deploy
 const portalOrigin = 'https://portal.test.invalid';
 const lawOrigin = 'https://recht.test.invalid';
 const commit = '1234567890abcdef1234567890abcdef12345678';
-const representativeNorm = '/norm/erstes-gesetz-zur-grossen-staatsreform/';
+const representativeNorm = '/norm/testgesetz/';
 
 function html(buildCommit = commit) {
   return `<!doctype html><html><head><meta name="build-commit" content="${buildCommit}" /></head></html>`;
@@ -43,7 +43,7 @@ test('Produktions-Smoketest prüft beide Sites, Altpfad und gemeinsame Commitken
   const result = await checkDeployment({
     portalSiteUrl: portalOrigin,
     lawSiteUrl: lawOrigin,
-    expectedCommit: commit,
+    expectedCommit: commit, representativeNorm,
     fetchImpl: createFetch(),
   });
 
@@ -61,7 +61,7 @@ test('Produktions-Smoketest kennzeichnet seine Abrufe und umgeht keine veraltete
   await checkDeployment({
     portalSiteUrl: portalOrigin,
     lawSiteUrl: lawOrigin,
-    expectedCommit: commit,
+    expectedCommit: commit, representativeNorm,
     fetchImpl: async (input, init) => {
       requests.push(init);
       return baseFetch(input, init);
@@ -80,7 +80,7 @@ test('unterschiedliche ausgelieferte Commits lassen den Smoketest klar scheitern
     checkDeployment({
       portalSiteUrl: portalOrigin,
       lawSiteUrl: lawOrigin,
-      expectedCommit: commit,
+      expectedCommit: commit, representativeNorm,
       fetchImpl: createFetch({ lawCommit: 'abcdef1234567890abcdef1234567890abcdef12' }),
     }),
     /X-Portal-Commit.*erwartet/u,
@@ -92,7 +92,7 @@ test('Portal-only-Deployment prüft keinen unveränderten Rechtsportal-Commit', 
   const result = await checkDeployment({
     portalSiteUrl: portalOrigin,
     lawSiteUrl: lawOrigin,
-    expectedCommit: commit,
+    expectedCommit: commit, representativeNorm,
     targets: ['portal'],
     fetchImpl: async (input, init) => {
       requests.push(String(input));
@@ -110,9 +110,9 @@ test('ein falsches Ziel des permanenten Altpfads wird abgewiesen', async () => {
     checkDeployment({
       portalSiteUrl: portalOrigin,
       lawSiteUrl: lawOrigin,
-      expectedCommit: commit,
+      expectedCommit: commit, representativeNorm,
       fetchImpl: createFetch({ redirectTarget: `${lawOrigin}/suche/` }),
     }),
-    /erwartet wurde.*erstes-gesetz/u,
+    /erwartet wurde.*testgesetz/u,
   );
 });

@@ -41,6 +41,7 @@ export const STRUCTURE_TYPES = [
   'tableRow',
   'tableHeaderCell',
   'tableCell',
+  'signature',
 ] as const;
 
 export const TABLE_HEADER_SCOPES = ['col', 'row', 'colgroup', 'rowgroup'] as const;
@@ -96,6 +97,12 @@ export interface NormSourceReference {
   verifiedAt?: string;
   sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot' | 'amendment-evidence' | 'envelope-snapshot';
   derivedSource?: string;
+  /**
+   * Fundstellennummer der amtlichen Quelle („612-3.10/2“). Provenienzangabe; ihre
+   * Gliederungsnummer trägt die Sachgebietszuordnung und macht sie ohne den lokalen
+   * Rohcache nachvollziehbar. Nur für `revosax-snapshot`.
+   */
+  fsnNumber?: string;
 }
 
 export interface NormSourceNote {
@@ -156,10 +163,18 @@ export interface NormEditorialResolution {
 export interface NormMeta {
   id: string;
   slug: string;
+  /** Amtlicher Langtitel der Vorschrift. */
   title: string;
-  shortTitle: string;
+  /** Echte Kurzbezeichnung; entfällt, wenn die Vorschrift nur den Langtitel führt. */
+  shortTitle?: string;
+  /** Echte Abkürzung; entfällt, wenn keine belegte Abkürzung besteht. */
   abbr?: string;
   shortTitleSource?: 'official' | 'editorial';
+  /**
+   * Herkunft der Zusammenfassung: `derived` = deterministisch aus Typ und Titel abgeleitete
+   * Formel (nicht öffentlich gerendert), sonst redaktionell.
+   */
+  summarySource?: 'derived' | 'editorial';
   type: NormType;
   /** Bestandsfeld; neue Datensätze trennen Organ und fachliche Zuständigkeit. */
   ministry?: string;
@@ -173,6 +188,11 @@ export interface NormMeta {
   responsibleMinistry?: string;
   subjects: string[];
   primarySubject?: string;
+  /**
+   * Förderbereich einer Förderrichtlinie („550“ bis „559“) aus der amtlichen
+   * Sachgebietssystematik; nur für type `foerderrichtlinie`.
+   */
+  fundingArea?: string;
   keywords: string[];
   initialCitation: string;
   predecessor: string | null;
@@ -202,6 +222,15 @@ export interface NormMeta {
   editorialResolutions?: NormEditorialResolution[];
 }
 
+/**
+ * Ein äußerer oder innerer Block des Normkörpers.
+ *
+ * Beim Blocktyp `signature` (Unterschriftenblock am Ende einer eigenen Verkündung)
+ * tragen die allgemeinen Felder besondere Bedeutung: `text` nennt die unterzeichnende
+ * Person, `title` die Amtsbezeichnung in Normalschreibung und `label` – sofern die
+ * Quelle sie führt – Ort und Datum der Unterzeichnung. Untergeordnete Blöcke sind
+ * dort nicht zulässig.
+ */
 export interface NormBodyBlock {
   type: StructureType;
   label?: string;
@@ -376,6 +405,8 @@ function expectSlugArray(value: unknown, path: string): string[] {
 
 const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
 const R2_OBJECT_KEY_PATTERN = /^[a-z0-9][a-z0-9._-]*(?:\/[a-z0-9][a-z0-9._-]*)+$/iu;
+/** Fundstellennummer: Gliederungsnummer, optional mit laufender Nummer nach dem Bindestrich. */
+const FSN_NUMBER_PATTERN = /^\d{1,4}(?:-[0-9A-Za-z.,:/]{1,16})?$/u;
 
 function parseNormSourceReference(value: unknown, path: string): NormSourceReference {
   const object = expectObject(value, path);
@@ -395,9 +426,15 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
     : expectIsoDate(object.sourceValidFrom, `${path}.sourceValidFrom`);
   const mediaType = expectOptionalString(object.mediaType, `${path}.mediaType`) as NormSourceReference['mediaType'];
   const sourceRole = expectOptionalString(object.sourceRole, `${path}.sourceRole`) as NormSourceReference['sourceRole'];
+  const fsnNumber = expectOptionalString(object.fsnNumber, `${path}.fsnNumber`);
 
   if (sha256 !== undefined && !SHA256_PATTERN.test(sha256)) {
     fail(`${path}.sha256`, 'muss ein SHA-256-Hexwert mit 64 Zeichen sein');
+  }
+
+  if (fsnNumber !== undefined) {
+    if (kind !== 'revosax-snapshot') fail(`${path}.fsnNumber`, 'ist nur für eine amtliche REVOSax-Quelle zulässig');
+    if (!FSN_NUMBER_PATTERN.test(fsnNumber)) fail(`${path}.fsnNumber`, 'muss eine Fundstellennummer wie „612-3.10/2“ sein');
   }
 
   if (availability === 'versioned') {
@@ -451,6 +488,7 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
         : expectIsoDate(object.verifiedAt, `${path}.verifiedAt`),
     sourceRole,
     derivedSource: expectOptionalString(object.derivedSource, `${path}.derivedSource`),
+    fsnNumber,
   };
 }
 
@@ -639,6 +677,15 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     }
   }
 
+  if (type === 'signature') {
+    if (!text && !title) {
+      fail(path, 'Blocktyp "signature" benötigt die unterzeichnende Person in "text" oder die Amtsbezeichnung in "title"');
+    }
+    if (children) {
+      fail(`${path}.children`, 'ist für Blocktyp "signature" nicht zulässig');
+    }
+  }
+
   if ((type === 'subparagraph' || type === 'item' || type === 'subitem') && !label && !text && (!children || children.length === 0)) {
     fail(path, `Blocktyp "${type}" benötigt Gliederungszeichen, Text oder untergeordnete Blöcke`);
   }
@@ -799,11 +846,14 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     id: expectString(object.id, `${path}.id`),
     slug: expectSlug(object.slug, `${path}.slug`),
     title: expectString(object.title, `${path}.title`),
-    shortTitle: expectString(object.shortTitle, `${path}.shortTitle`),
+    shortTitle: expectOptionalString(object.shortTitle, `${path}.shortTitle`),
     abbr: expectOptionalString(object.abbr, `${path}.abbr`),
     shortTitleSource: object.shortTitleSource === undefined
       ? undefined
       : expectEnumValue(object.shortTitleSource, `${path}.shortTitleSource`, ['official', 'editorial'] as const),
+    summarySource: object.summarySource === undefined
+      ? undefined
+      : expectEnumValue(object.summarySource, `${path}.summarySource`, ['derived', 'editorial'] as const),
     type: normalizedTypeMap[rawType],
     ministry: expectOptionalString(object.ministry, `${path}.ministry`),
     enactingBody: expectOptionalString(object.enactingBody, `${path}.enactingBody`),
@@ -811,6 +861,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     responsibleMinistry: expectOptionalString(object.responsibleMinistry, `${path}.responsibleMinistry`),
     subjects,
     primarySubject,
+    fundingArea: expectOptionalString(object.fundingArea, `${path}.fundingArea`),
     keywords: expectStringArray(object.keywords, `${path}.keywords`),
     initialCitation: expectString(object.initialCitation, `${path}.initialCitation`),
     predecessor: expectNullableString(object.predecessor, `${path}.predecessor`),
@@ -1034,6 +1085,7 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
     tablerow: 'tableRow',
     tableheadercell: 'tableHeaderCell',
     tablecell: 'tableCell',
+    signature: 'signature',
   };
   const type = normalizedTypeMap[rawType] ?? rawType;
 

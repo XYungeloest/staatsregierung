@@ -2,16 +2,14 @@
   "id": "aend-sport-frl",
   "slug": "aend-sport-frl",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Sportförderrichtlinie",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Sportförderrichtlinie",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Sport und Bildung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Sportförderrichtlinie",
+    "Änd. Sport-FRL",
     "Innern",
     "Änderung",
     "Sportförderrichtlinie"
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Sportförderrichtlinie“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-19",
   "effectiveDate": "2020-01-01",
@@ -34,8 +33,12 @@
       "sha256": "c5434c8c4704053068a3f69ca48ef9387b78866957c18a635084c9a8c558ce38",
       "lawId": "18568",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "5574",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-des-ostdeutschen-staatsministeriums-des-innern-fuer-die-sportfoerderung"
   ]
 }

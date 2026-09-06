@@ -2,13 +2,12 @@
   "id": "aend-ostpolg-10122",
   "slug": "aend-ostpolg-10122",
   "title": "Änderung des Polizeigesetzes des Freistaates Ostdeutschland",
-  "shortTitle": "Änd. OstPolG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
     "Änd. OstPolG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-von-landesrechtlichen-vorschriften-aus-anlass-aend-kostenrechts",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstPolG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Polizeigesetzes des Freistaates Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-05-05",
   "effectiveDate": "2008-05-31",
@@ -33,6 +33,7 @@
       "sha256": "dd9ecda3b60f6c30b2cb1dfaaa4c0072a2f4ec97dd76efc20f5d88dfdd107b96",
       "lawId": "10122",
       "sourceValidFrom": "2008-05-31",
+      "fsnNumber": "22",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

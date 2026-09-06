@@ -2,15 +2,14 @@
   "id": "aend-vwv-invest-schule-18575-1",
   "slug": "aend-vwv-invest-schule-18575-1",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Invest Schule",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Invest Schule",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Invest Schule",
+    "Änd. VwV Invest Schule",
     "Kultus",
     "Änderung",
     "Invest",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Invest Schule“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-01-07",
   "effectiveDate": "2020-01-01",
@@ -35,8 +35,12 @@
       "lawId": "18575",
       "sourceValidFrom": "2020-01-01",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "5572",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-invest-schule"
   ]
 }

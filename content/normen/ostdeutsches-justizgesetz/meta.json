@@ -1,14 +1,15 @@
 {
   "id": "ostdeutsches-justizgesetz",
   "slug": "ostdeutsches-justizgesetz",
-  "title": "Ostdeutsches Justizgesetz",
+  "title": "Gesetz über die Justiz im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Justizgesetz",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Justiz und Rechtspflege"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
     "OstJG",
     "Ostdeutsches Justizgesetz",
@@ -19,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Justizgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2000-11-24",
   "sourceReferences": [
@@ -32,7 +34,8 @@
       "sha256": "7fa867f9d202f1155f2a9b1234c911a9422b5fd3722058369bc5f38f24dd37fa",
       "lawId": "3393",
       "sourceValidFrom": "2023-01-01",
-      "sourceValidTo": "2023-12-31"
+      "sourceValidTo": "2023-12-31",
+      "fsnNumber": "300-14"
     },
     {
       "kind": "revosax-snapshot",

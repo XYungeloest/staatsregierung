@@ -1,24 +1,32 @@
 {
   "id": "vwv-groessere-raubtiere",
   "slug": "vwv-groessere-raubtiere",
-  "title": "VwV Größere Raubtiere",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zum Ausgleich von durch Wolf, Luchs oder Bär verursachten Schäden",
   "shortTitle": "VwV Größere Raubtiere",
-  "abbr": "VwVGR",
   "shortTitleSource": "official",
+  "abbr": "VwVGR",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "VwVGR",
     "VwV Größere Raubtiere",
+    "Umwelt",
+    "Landwirtschaft",
+    "Ausgleich",
+    "Luchs",
+    "verursachten",
+    "Schäden",
     "Größere",
-    "Raubtiere"
+    "Raubtiere",
+    "VwVGR"
   ],
-  "initialCitation": "VwV Größere Raubtiere vom 30. Mai 2025 (SächsABl. S. 633), enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 280)",
+  "initialCitation": "VwV Größere Raubtiere vom 30. Mai 2025 (SächsABl. S. 633)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Größere Raubtiere“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2025-05-30",
   "sourceReferences": [
@@ -32,6 +40,7 @@
       "sha256": "9a8af5a6105d3001ce15a9dbee2e616b3037944f740d637ad69d646e34ff3a6c",
       "lawId": "21231",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "653",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,15 +2,14 @@
   "id": "aend-zustuevoju-19258-1",
   "slug": "aend-zustuevoju-19258-1",
   "title": "Sechste Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitle": "Sechste Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Sechste Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
+    "Änd. ZustÜVOJu",
     "Sechste",
     "Änderung",
     "Zuständigkeitsübertragungsverordnung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Sechste Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-07-13",
   "effectiveDate": "2021-08-07",
@@ -34,8 +34,12 @@
       "sha256": "8cde10c5f92987e59ffeab6be85f8c44ab288e3d4da99e3aa739f2c2863b0ddc",
       "lawId": "19258",
       "sourceValidFrom": "2021-08-07",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsuebertragungsverordnung-justiz"
   ]
 }

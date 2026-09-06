@@ -2,14 +2,13 @@
   "id": "aend-vwveakte",
   "slug": "aend-vwveakte",
   "title": "Erste Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
-  "shortTitle": "Erste Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Erste Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
+    "Änd. VwVEAkte",
     "Erste",
     "Justiz",
     "Demokratie",
@@ -23,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erste Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-04-21",
   "effectiveDate": "2022-05-29",
@@ -38,8 +38,12 @@
       "lawId": "19592",
       "sourceValidFrom": "2022-05-29",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-elektronische-verfahrensakte"
   ]
 }

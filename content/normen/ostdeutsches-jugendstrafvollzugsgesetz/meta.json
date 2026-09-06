@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-jugendstrafvollzugsgesetz",
   "slug": "ostdeutsches-jugendstrafvollzugsgesetz",
-  "title": "Ostdeutsches Jugendstrafvollzugsgesetz",
+  "title": "Ostdeutsches Gesetz über den Vollzug der Jugendstrafe",
   "shortTitle": "Ostdeutsches Jugendstrafvollzugsgesetz",
-  "abbr": "OstJStVollzG",
   "shortTitleSource": "official",
+  "abbr": "OstJStVollzG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
-    "OstJStVollzG",
     "Ostdeutsches Jugendstrafvollzugsgesetz",
-    "Jugendstrafvollzugsgesetz"
+    "Vollzug",
+    "Jugendstrafe",
+    "Jugendstrafvollzugsgesetz",
+    "OstJStVollzG"
   ],
   "initialCitation": "Ostdeutsches Jugendstrafvollzugsgesetz vom 12. Dezember 2007 (SächsGVBl. S. 558)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Jugendstrafvollzugsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2007-12-12",
   "sourceReferences": [
@@ -33,6 +37,7 @@
       "lawId": "9746",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-02-16",
+      "fsnNumber": "311-5",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

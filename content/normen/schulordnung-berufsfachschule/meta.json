@@ -1,24 +1,26 @@
 {
   "id": "schulordnung-berufsfachschule",
   "slug": "schulordnung-berufsfachschule",
-  "title": "Schulordnung Berufsfachschule",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus über die Berufsfachschule im Freistaat Ostdeutschland",
   "shortTitle": "Schulordnung Berufsfachschule",
-  "abbr": "BFSO",
   "shortTitleSource": "official",
+  "abbr": "BFSO",
   "type": "verordnung",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "BFSO",
     "Schulordnung Berufsfachschule",
-    "Schulordnung",
-    "Berufsfachschule"
+    "Kultus",
+    "Berufsfachschule",
+    "Schulordnung"
   ],
   "initialCitation": "Schulordnung Berufsfachschule vom 24. Oktober 2022 (SächsGVBl. S. 547)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Schulordnung Berufsfachschule“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2022-10-24",
   "sourceReferences": [
@@ -33,6 +35,7 @@
       "lawId": "19746",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-07-31",
+      "fsnNumber": "710-1.53/6",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

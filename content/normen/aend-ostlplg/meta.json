@@ -2,13 +2,12 @@
   "id": "aend-ostlplg",
   "slug": "aend-ostlplg",
   "title": "Änderung des Landesplanungsgesetzes",
-  "shortTitle": "Änd. OstLPlG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Raumordnung und Landesplanung"
+    "Raumordnung, Landesplanung"
   ],
+  "primarySubject": "Raumordnung, Landesplanung",
   "keywords": [
     "Änd. OstLPlG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-des-ostdeutschen-abfall-und-bodenschutzrechtes",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstLPlG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Landesplanungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-02-22",
   "effectiveDate": "2019-03-22",
@@ -33,6 +33,7 @@
       "sha256": "62fbfc678e2673750c45c1b4d773cd94fc3527762874e5b57a6cd75cc509406e",
       "lawId": "18059",
       "sourceValidFrom": "2019-03-22",
+      "fsnNumber": "40",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

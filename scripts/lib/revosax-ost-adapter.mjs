@@ -1,3 +1,5 @@
+import { collapseSpacedLetters } from './norm-html-parser.mjs';
+
 /**
  * Geschützte Provenienz: ausschließlich Fundstellenkürzel der amtlichen
  * Verkündungs- und Amtsblätter (immer mit abschließendem Punkt). Sie bezeichnen die
@@ -90,8 +92,10 @@ export function adaptSaxonText(value) {
 function adaptBodyBlock(block) {
   const result = { ...block };
   // Gliederungskennzeichen wie „Anlage 1 (zu § 8 SächsRKVO)“ tragen ebenfalls amtliche Kürzel.
+  // Gesperrter Satz der Quelle (Amtsbezeichnungen in Besoldungsanlagen, „s o l l“) wird dabei
+  // als gewöhnliches Wort übernommen; ein Auszeichnungsmodell für Hervorhebungen gibt es nicht.
   for (const field of ['label', 'title', 'text']) {
-    if (typeof result[field] === 'string') result[field] = adaptSaxonText(result[field]);
+    if (typeof result[field] === 'string') result[field] = collapseSpacedLetters(adaptSaxonText(result[field]));
   }
   if (Array.isArray(result.children)) result.children = result.children.map(adaptBodyBlock);
   return result;
@@ -106,6 +110,7 @@ export function adaptParsedRevosaxSnapshot(parsed) {
   return {
     ...parsed,
     sourceTitle: adaptSaxonText(parsed.sourceTitle),
+    ...(parsed.longTitle ? { longTitle: adaptSaxonText(parsed.longTitle) } : {}),
     shortTitle: adaptSaxonText(parsed.shortTitle),
     ...(parsed.abbr ? { abbr: adaptSaxonText(parsed.abbr) } : {}),
     // Die Titelbestandteile des Vollzitats werden angepasst; SächsGVBl./SächsABl.
@@ -115,6 +120,8 @@ export function adaptParsedRevosaxSnapshot(parsed) {
     body: (parsed.body ?? []).map(adaptBodyBlock),
     // sourceNotes beschreiben die amtliche Quelle und werden nicht redaktionell
     // umgeschrieben. Die unveränderte Rohquelle bleibt daneben separat archiviert.
+    // fsnNumber ist eine reine Fundstellenangabe der Quelle und bleibt unverändert
+    // (durch die Übernahme oben bereits durchgereicht).
   };
 }
 
@@ -152,6 +159,7 @@ function stripProtectedSourceTokens(value) {
 export function auditAdaptedRevosaxSnapshot(parsed) {
   const normative = {
     sourceTitle: parsed.sourceTitle,
+    longTitle: parsed.longTitle,
     shortTitle: parsed.shortTitle,
     abbr: parsed.abbr,
     fullCitation: parsed.fullCitation,

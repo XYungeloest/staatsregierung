@@ -1,8 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Prüfhandbuch AP.Doppik",
+  "title": "Verwaltungsvorschrift der Ostdeutschen Anstalt für kommunale Datenverarbeitung Prüfhandbuch über die erforderlichen technischen Standards für Programmzulassungen im Bereich der Allgemeinen Anforderungen an Finanzverfahren nach den Regeln der Doppik",
   "shortTitle": "VwV Prüfhandbuch AP.Doppik",
-  "abbr": "VwV PHB-AP.Doppik",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
@@ -19,6 +18,7 @@
       "sha256": "874e3cb4cc0e34eda4e1a0175d4069b326f8c9ef0500e04ce13509be5ccc3779",
       "lawId": "14190",
       "sourceValidFrom": "2014-11-28",
+      "fsnNumber": "521-V14.x2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -34,14 +34,6 @@
       "title": "Anwendungsbereich",
       "children": [
         {
-          "type": "item",
-          "label": "I.",
-          "text": "Anwendungsbereich",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift ist bei der Prüfung von Programmen zur Unterstützung des kommunalen Finanzwesens nach den Regeln der Doppik anzuwenden. Sie fasst die aus den im Freistaat Ostdeutschland geltenden Kommunalgesetzen und Verordnungen ableitbaren allgemeinen Anforderungen und allgemein anerkannten technischen Regeln an Programme zusammen, deren Erfüllung Voraussetzung für eine Programmzulassung durch die SAKD ist. Diese Anforderungen und Regeln sind in der Form von Prüfkriterien formuliert."
         }
@@ -52,14 +44,6 @@
       "label": "II.",
       "title": "Abbildung von Sachverhalten",
       "children": [
-        {
-          "type": "item",
-          "label": "II.",
-          "text": "Abbildung von Sachverhalten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -110,14 +94,6 @@
       "children": [
         {
           "type": "item",
-          "label": "III.",
-          "text": "Übersichtliche Eingabe und wiedererkennbare Abläufe",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Das Programm gewährleistet die Wiedererkennbarkeit finanzrelevanter Vorgänge und fachlicher Abläufe.\nKriteriennummer: AP4",
           "level": 0,
@@ -139,14 +115,6 @@
       "label": "IV.",
       "title": "Plausibilitätskontrollen",
       "children": [
-        {
-          "type": "item",
-          "label": "IV.",
-          "text": "Plausibilitätskontrollen",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -258,14 +226,6 @@
       "children": [
         {
           "type": "item",
-          "label": "V.",
-          "text": "Berechnungen",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Das Programm führt Berechnungen so durch, dass sie den geltenden Gesetzlichkeiten folgen.\nKriteriennummer: AP8",
           "level": 0,
@@ -326,14 +286,6 @@
       "children": [
         {
           "type": "item",
-          "label": "VI.",
-          "text": "Übersichtlichkeit der Darstellung, Druck von Dokumenten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Das Programm ermöglicht den Ausdruck aller vom Anwender im Programm gespeicherten Fachdaten.\nKriteriennummer: AP10",
           "level": 0,
@@ -355,14 +307,6 @@
       "label": "VII.",
       "title": "Personendaten",
       "children": [
-        {
-          "type": "item",
-          "label": "VII.",
-          "text": "Personendaten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -503,14 +447,6 @@
       "label": "VIII.",
       "title": "Bescheidgestaltung",
       "children": [
-        {
-          "type": "item",
-          "label": "VIII.",
-          "text": "Bescheidgestaltung",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -748,14 +684,6 @@
       "children": [
         {
           "type": "item",
-          "label": "IX.",
-          "text": "Mandantenfähigkeit",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Das Programm ermöglicht die parallele Bearbeitung mehrerer voneinander unabhängiger Haushalte im Rahmen einer Programminstallation.\nKriteriennummer: AP25",
           "level": 0,
@@ -769,14 +697,6 @@
       "label": "X.",
       "title": "Anforderungen zur Gewährleistung des Datenschutzes",
       "children": [
-        {
-          "type": "item",
-          "label": "X.",
-          "text": "Anforderungen zur Gewährleistung des Datenschutzes",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -865,14 +785,6 @@
       "children": [
         {
           "type": "item",
-          "label": "XI.",
-          "text": "Schutz von Stamm- und Bewegungsdaten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Das Programm protokolliert recherchierbar und feldbezogen jeden ändernden Zugriff auf Stammdaten durch die Speicherung der folgenden Informationen:",
           "level": 0,
@@ -941,14 +853,6 @@
       "children": [
         {
           "type": "item",
-          "label": "XII.",
-          "text": "Datensicherung",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Das Programm unterstützt zur Wiederherstellung fachlich funktionierender Datenbestände die Erstellung von externen Sicherungskopien zu einem vom Anwender wählbaren Zeitpunkt.\nKriteriennummer: AP34",
           "level": 0,
@@ -962,14 +866,6 @@
       "label": "XIII.",
       "title": "Ablaufsicherheit, Schutz vor Datenverlust",
       "children": [
-        {
-          "type": "item",
-          "label": "XIII.",
-          "text": "Ablaufsicherheit, Schutz vor Datenverlust",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -993,14 +889,6 @@
       "label": "XIV.",
       "title": "Produktdokumentation",
       "children": [
-        {
-          "type": "item",
-          "label": "XIV.",
-          "text": "Produktdokumentation",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -1347,14 +1235,6 @@
       "label": "XV.",
       "title": "Inkrafttreten",
       "children": [
-        {
-          "type": "item",
-          "label": "XV.",
-          "text": "Inkrafttreten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift tritt am Tag nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift der Ostdeutschen Anstalt für kommunale Datenverarbeitung – Prüfhandbuch über die erforderlichen technischen Standards für Programmzulassungen im Bereich der Allgemeinen Anforderungen an Finanzverfahren nach den Regeln der Doppik (VwV Prüfhandbuch AP.Doppik – VwV PHB-AP.Doppik) vom 2. Februar 2011 (SächsABl. S. 524) außer Kraft."

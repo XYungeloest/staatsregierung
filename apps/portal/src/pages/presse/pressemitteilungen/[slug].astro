@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { loadAllNormMetas } from '@ostrecht/shared/lib/norms/loader.ts';
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
 import { buildNewsArticleJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
@@ -38,7 +39,7 @@ const normLookup = new Map(norms.map((meta) => [
   {
     slug: meta.slug,
     title: toDisplayText(meta.title),
-    summary: toDisplayText(meta.summary),
+    summary: toDisplayText(getPublicNormSummary(meta) ?? ''),
   },
 ]));
 
@@ -183,7 +184,7 @@ const relatedReleases =
                 {relatedNorms.map((norm) => (
                   <li class="record-list__item">
                     <strong><a class="inline-link" href={getNormUrl(norm.slug)}>{norm.title}</a></strong>
-                    <span>{norm.summary}</span>
+                    {norm.summary ? <span>{norm.summary}</span> : null}
                   </li>
                 ))}
               </ul>

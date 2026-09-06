@@ -2,16 +2,14 @@
   "id": "aend-ostkistg-16263-1",
   "slug": "aend-ostkistg-16263-1",
   "title": "Zweites Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes",
-  "shortTitle": "Zweites Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht",
-    "Feiertage und gesellschaftliches Leben"
+    "Kirchen, Religionsgemeinschaften"
   ],
+  "primarySubject": "Kirchen, Religionsgemeinschaften",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes",
+    "Änd. OstKiStG",
     "Zweites",
     "Änderung",
     "Kirchensteuergesetzes"
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-08-10",
   "effectiveDate": "2015-09-01",
@@ -34,8 +33,12 @@
       "sha256": "730830b5ba4779ff3f9de6965475f38dbc59740b3586dfcf9c773661fd0beec9",
       "lawId": "16263",
       "sourceValidFrom": "2015-09-01",
+      "fsnNumber": "73",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-kirchensteuergesetz"
   ]
 }

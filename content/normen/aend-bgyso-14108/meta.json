@@ -2,12 +2,11 @@
   "id": "aend-bgyso-14108",
   "slug": "aend-bgyso-14108",
   "title": "Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitle": "Änd. BGySO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. BGySO",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-einfuehrung-beruf-notfallsanitaeter",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. BGySO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-08-13",
   "effectiveDate": "2014-08-31",
@@ -34,6 +34,7 @@
       "sha256": "f824ceb281ca2378be5b18e11aaf054679fb4802d7a8f04f7a2afcb11c5e7dea",
       "lawId": "14108",
       "sourceValidFrom": "2014-08-31",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

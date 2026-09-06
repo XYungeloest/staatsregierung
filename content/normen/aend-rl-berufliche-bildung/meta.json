@@ -2,17 +2,14 @@
   "id": "aend-rl-berufliche-bildung",
   "slug": "aend-rl-berufliche-bildung",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr, des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft, des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Berufliche Bildung",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr, des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft, des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Berufliche Bildung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr, des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft, des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Berufliche Bildung",
+    "Änd. RL Berufliche Bildung",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -29,6 +26,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr, des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft, des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Berufliche Bildung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-01-25",
   "effectiveDate": "2023-01-01",
@@ -43,8 +41,12 @@
       "sha256": "45699a527426ae5cdb6135c2b5fe7fa736f81de7219e823a75925ba012657804",
       "lawId": "19879",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "5573",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-berufliche-bildung"
   ]
 }

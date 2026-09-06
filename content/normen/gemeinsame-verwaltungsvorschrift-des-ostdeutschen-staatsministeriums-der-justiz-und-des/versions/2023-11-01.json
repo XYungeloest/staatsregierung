@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und des Ostdeutschen Staatsministeriums des Innern über Aufbewahrung, Transport, Verwertung und Vernichtung sichergestellter, beschlagnahmter oder eingezogener Betäubungsmittel, Waffen und verbotener Gegenstände",
+  "title": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und des Ostdeutschen Staatsministeriums des Innern über Aufbewahrung, Transport, Verwertung und Vernichtung sichergestellter, beschlagnahmter oder eingezogener Betäubungsmittel, Waffen und verbotener Gegenstände (VwV-BtM/Waffen)",
   "shortTitle": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und des Ostdeutschen Staatsministeriums des Innern über Aufbewahrung, Transport, Verwertung und Vernichtung sichergestellter, beschlagnahmter oder eingezogener Betäubungsmittel, Waffen und verbotener Gegenstände",
-  "abbr": "VwV-BtM/Waffen",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und des Ostdeutschen Staatsministeriums des Innern über Aufbewahrung, Transport, Verwertung und Vernichtung sichergestellter, beschlagnahmter oder eingezogener Betäubungsmittel, Waffen und verbotener Gegenstände vom 31. Juli 1996 (SächsABl. S. 905), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 244)",
+  "citation": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und des Ostdeutschen Staatsministeriums des Innern über Aufbewahrung, Transport, Verwertung und Vernichtung sichergestellter, beschlagnahmter oder eingezogener Betäubungsmittel, Waffen und verbotener Gegenstände vom 31. Juli 1996 (SächsABl. S. 905)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "825e0fc77db97053703b7b7302c271aafea5436a5fd68a13e8941f505ee89f99",
       "lawId": "1475",
       "sourceValidFrom": "1996-10-01",
+      "fsnNumber": "605-V96.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -48,7 +48,7 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "I. Aufbewahrung\nStrafprozessual sichergestellte oder beschlagnahmte Betäubungsmittel werden durch das Landeskriminalamt Ostdeutschland (LKA) zentral aufbewahrt. Bei der Aufbewahrung ist mit besonderer Sorgfalt zu verfahren und insbesondere darauf zu achten, dass Betäubungsmittel Unbefugten nicht zugänglich sind. Für die Kennzeichnung von Betäubungsmitteln und die gebotenen Aufzeichnungen sind die Bestimmungen des\nBetäubungsmittelgesetzes in der Fassung der Bekanntmachung vom 1. März 1994 (BGBl. I S. 358) maßgebend."
+          "text": "Strafprozessual sichergestellte oder beschlagnahmte Betäubungsmittel werden durch das Landeskriminalamt Ostdeutschland (LKA) zentral aufbewahrt. Bei der Aufbewahrung ist mit besonderer Sorgfalt zu verfahren und insbesondere darauf zu achten, dass Betäubungsmittel Unbefugten nicht zugänglich sind. Für die Kennzeichnung von Betäubungsmitteln und die gebotenen Aufzeichnungen sind die Bestimmungen des\nBetäubungsmittelgesetzes in der Fassung der Bekanntmachung vom 1. März 1994 (BGBl. I S. 358) maßgebend."
         }
       ]
     },
@@ -59,7 +59,7 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "II. Transport\nEine Versendung mit der Post ist unzulässig."
+          "text": "Eine Versendung mit der Post ist unzulässig."
         },
         {
           "type": "item",
@@ -94,7 +94,7 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "III. Verwertung und Vernichtung\nDie zuständigen Vollstreckungsbehörden unterrichten das LKA von der rechtskräftigen oder formlosen Einziehung eines Betäubungsmittels. Das LKA verfährt wie folgt:"
+          "text": "Die zuständigen Vollstreckungsbehörden unterrichten das LKA von der rechtskräftigen oder formlosen Einziehung eines Betäubungsmittels. Das LKA verfährt wie folgt:"
         },
         {
           "type": "item",
@@ -125,10 +125,6 @@
       "label": "I.",
       "title": "Allgemeine Vorschriften",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "I. Allgemeine Vorschriften"
-        },
         {
           "type": "item",
           "label": "1.",
@@ -324,10 +320,6 @@
       "label": "II.",
       "title": "Besondere Vorschriften für das Ermittlungs- und das Strafverfahren",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "II. Besondere Vorschriften für das Ermittlungs- und das Strafverfahren"
-        },
         {
           "type": "item",
           "label": "1.",

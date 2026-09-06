@@ -2,14 +2,12 @@
   "id": "aend-komwg-9829",
   "slug": "aend-komwg-9829",
   "title": "Änderung des Kommunalwahlgesetzes",
-  "shortTitle": "Änd. KomWG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht",
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. KomWG",
     "Änderung",
@@ -19,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-zur-neugliederung-des-gebietes-der-landkreise-und-aend-anderer-gesetze",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. KomWG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Kommunalwahlgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-01-29",
   "effectiveDate": "2008-08-01",
@@ -47,6 +46,7 @@
       "sha256": "8ca2912fbaf1a5f71eea503f4478b54f8b2b72088bf99bbc1ad4d1f02c41a419",
       "lawId": "9824",
       "sourceValidFrom": "2008-08-01",
+      "fsnNumber": "231-4A",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

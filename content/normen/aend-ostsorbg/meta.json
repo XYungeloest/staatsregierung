@@ -2,13 +2,12 @@
   "id": "aend-ostsorbg",
   "slug": "aend-ostsorbg",
   "title": "Änderung des Ostdeutschen Sorbengesetzes",
-  "shortTitle": "Änd. OstSorbG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Verfassungsrecht"
   ],
+  "primarySubject": "Verfassungsrecht",
   "keywords": [
     "Änd. OstSorbG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-standortegesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstSorbG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Sorbengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-01-27",
   "effectiveDate": "2012-03-01",
@@ -33,6 +33,7 @@
       "sha256": "b85ec7fa78780727c20aa4fa1575a27e536d08094c7b831f1c69955bab86205f",
       "lawId": "12295",
       "sourceValidFrom": "2012-03-01",
+      "fsnNumber": "103",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

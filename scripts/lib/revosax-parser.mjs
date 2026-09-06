@@ -1,6 +1,7 @@
 import { parse } from 'parse5';
 
 import { parseGermanDate, parseStructureMarker } from './norm-html-parser.mjs';
+import { splitParentheticalTitle } from './norm-title-rules.mjs';
 
 const DATE_DOTTED = /(\d{1,2})\.(\d{1,2})\.(\d{4})/u;
 const DATE_DOTTED_GLOBAL = /(\d{1,2})\.(\d{1,2})\.(\d{4})/gu;
@@ -388,6 +389,58 @@ function sectionContent(section, state = { signature: false }) {
   return blocks;
 }
 
+function comparableHeading(value) {
+  return String(value ?? '').replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de');
+}
+
+/**
+ * REVOSax führt die Überschrift einer Gliederungseinheit zugleich im Attribut der Einheit und
+ * als erste Zeile ihres ersten Kindes („1. Vorbehalt des Begnadigungsrechts“ → Nummer „1.“ mit
+ * dem Text „Vorbehalt des Begnadigungsrechts …“). Die Lesefassung führt die Überschrift genau
+ * einmal: Die wiederholte Zeile wird aus dem ersten Kind entfernt. Bleibt dabei kein Text übrig,
+ * entfällt das Kind; seine Unterpunkte rücken an seine Stelle. Nur vollständige Zeilen zählen –
+ * ein Text, der zufällig mit demselben Wort beginnt, bleibt unverändert.
+ */
+export function stripDuplicatedHeading(block) {
+  if (!block?.title || !Array.isArray(block.children) || block.children.length === 0) return block;
+  const [first, ...rest] = block.children;
+  if (typeof first?.text !== 'string' || !first.text) return block;
+  const lines = first.text.split('\n');
+  const title = comparableHeading(block.title);
+  const label = comparableHeading(block.label);
+  const labelAndTitle = label ? comparableHeading(`${block.label} ${block.title}`) : title;
+  const firstLine = comparableHeading(lines[0]);
+  const consumed = firstLine === title || firstLine === labelAndTitle
+    ? 1
+    : label && firstLine === label && comparableHeading(lines[1]) === title
+      ? 2
+      : 0;
+  if (consumed === 0) return block;
+  const remainder = lines.slice(consumed).join('\n').trim();
+  if (remainder) {
+    block.children = [{ ...first, text: remainder }, ...rest];
+    return block;
+  }
+  // Ohne eigenen Text trägt der Punkt nur noch sein Gliederungszeichen: Unterscheidet es sich
+  // von dem der Einheit, bleibt es als leerer Gliederungspunkt mit seinen Unterpunkten stehen.
+  const keepsOwnLabel = Boolean(first.label) && comparableHeading(first.label) !== label;
+  if (keepsOwnLabel) {
+    const { text: _text, ...withoutText } = first;
+    block.children = [withoutText, ...rest];
+    return block;
+  }
+  block.children = [...(first.children ?? []), ...rest];
+  return block;
+}
+
+function stripDuplicatedHeadings(blocks) {
+  for (const block of blocks ?? []) {
+    stripDuplicatedHeadings(block.children);
+    stripDuplicatedHeading(block);
+  }
+  return blocks;
+}
+
 function parseSections(container, notes = [], { hoistTextBearingWrappers = false } = {}) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
@@ -435,7 +488,20 @@ function parseSections(container, notes = [], { hoistTextBearingWrappers = false
     stack.at(-1).children.push(block);
     stack.push({ rank, children: block.children });
   }
-  return root;
+  return stripDuplicatedHeadings(root);
+}
+
+/**
+ * Fundstellennummer aus dem Kasten „Fundstelle und systematische Gliederungsnummer“
+ * der Marginalspalte. Ihre Gliederungsnummer (Teil vor dem Bindestrich) trägt die
+ * amtliche Sachgebietszuordnung; ältere Fassungsseiten führen den Kasten ohne sie.
+ */
+function parseFsnNumber(document) {
+  const box = findElement(document, (node) => hasClass(node, 'box')
+    && elementChildren(node, 'h3').some((heading) => textOf(heading) === 'Fundstelle und systematische Gliederungsnummer'));
+  if (!box) return null;
+  const match = textOf(box, { breaks: true }).match(/Fsn-Nr\.:\s*(\S+)/u);
+  return match ? match[1] : null;
 }
 
 function parseSourceNotes(article) {
@@ -477,9 +543,13 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
   const articleHeader = elementChildren(article, 'header')[0];
   const identityHeading = articleHeader && findElement(articleHeader, (node) => node.tagName === 'h3');
   const identityText = textOf(identityHeading, { breaks: true });
-  const parenthetical = identityText.match(/\(([^()]+)\)\s*$/u);
-  const parentheticalText = parenthetical?.[1]?.trim();
-  const abbr = parentheticalText?.split(/\s+[–—-]\s+/u).at(-1)?.trim();
+  // Die Kennzeile trägt die amtliche Form „Langtitel (Kurzbezeichnung – Abkürzung)“. Beide Teile
+  // werden getrennt übernommen; ein einteiliger Klammerzusatz ist entweder Kurzbezeichnung oder
+  // Abkürzung, Jahresspannen bleiben Titelbestandteil (scripts/lib/norm-title-rules.mjs).
+  const identity = splitParentheticalTitle(identityText);
+  const longTitle = identity.title && identity.title !== sourceTitle ? identity.title : undefined;
+  const parentheticalShortTitle = identity.shortTitle;
+  const abbr = identity.abbr;
   const dateNode = articleHeader && descendants(articleHeader, (node) => node.tagName === 'p')
     .find((node) => parseFlexibleDate(textOf(node)));
   const documentDate = parseFlexibleDate(textOf(dateNode));
@@ -535,13 +605,18 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
 
   return {
     sourceTitle,
-    shortTitle: sourceTitle,
+    // Der Langtitel der Kennzeile ist Quelleninformation; die Materialisierer bevorzugen ihn
+    // gegenüber der Überschrift, die REVOSax auf die Kurzbezeichnung setzt.
+    ...(longTitle ? { longTitle } : {}),
+    shortTitle: parentheticalShortTitle ?? sourceTitle,
     ...(abbr ? { abbr } : {}),
     // REVOSax aktualisiert dieses Seiten-Vollzitat teilweise auch auf Seiten
     // historischer Fassungen. Es bleibt Quelleninformation; Materializer müssen
     // daraus eine zeitlich plausible versionsspezifische Zitierung auswählen.
     pageFullCitation: fullCitation,
     fullCitation,
+    // Amtliche Fundstellennummer der Seite; Grundlage der Sachgebietszuordnung.
+    fsnNumber: parseFsnNumber(document),
     documentDate,
     sourceValidFrom: validFrom,
     sourceValidTo: validTo,

@@ -1,8 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Gutachten und Zeugnisse",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zu Gutachten und Zeugnissen der Gesundheitsämter in Personalangelegenheiten des öffentlichen Dienstes (VwV Gutachten und Zeugnisse)",
   "shortTitle": "VwV Gutachten und Zeugnisse",
-  "abbr": "VwV Gutachten und Zeugnisse",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
@@ -20,6 +19,7 @@
       "lawId": "16075",
       "sourceValidFrom": "2015-06-26",
       "sourceValidTo": "2025-06-26",
+      "fsnNumber": "240-V15.4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -38,14 +38,6 @@
       "label": "1.",
       "title": "Vorbemerkung",
       "children": [
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Vorbemerkung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -77,14 +69,6 @@
       "label": "2.",
       "title": "Beamte und Richter einschließlich Bewerber, Versorgungsempfänger",
       "children": [
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Beamte und Richter einschließlich Bewerber, Versorgungsempfänger",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -234,14 +218,6 @@
       "children": [
         {
           "type": "item",
-          "label": "3.",
-          "text": "Beschäftigte",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.1",
           "text": "Einstellungsuntersuchungen",
           "level": 0,
@@ -304,14 +280,6 @@
       "title": "Auszubildende",
       "children": [
         {
-          "type": "item",
-          "label": "4.",
-          "text": "Auszubildende",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Gemäß § 4 Absatz 1 Satz 1 des Tarifvertrags für Auszubildende der Länder in Ausbildungsberufen nach dem Berufsbildungsgesetz (TVA-L BBiG) sowie § 4 Absatz 1 Satz 1 Tarifvertrag für Auszubildende der Länder in Pflegeberufen (TVA-L Pflege) haben Auszubildende auf Verlangen des Ausbildenden vor ihrer Einstellung ihre gesundheitliche Eignung durch das Zeugnis eines Amtsarztes nachzuweisen. Diese Begutachtungen sind als Dienstaufgabe durch das Gesundheitsamt zu erbringen. Ansonsten gelten für die Begutachtung von Auszubildenden die Nummern 2 und 3 entsprechend."
         }
@@ -323,14 +291,6 @@
       "title": "Schwerbehinderte und diesen gleichgestellte Bewerber",
       "children": [
         {
-          "type": "item",
-          "label": "5.",
-          "text": "Schwerbehinderte und diesen gleichgestellte Bewerber",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Bei schwerbehinderten und diesen gleichgestellten Bewerbern ist nur das für den vorgesehenen Dienstposten erforderliche Mindestmaß gesundheitlicher Eignung zu verlangen (vergleiche § 5 Absatz 1 der Ostdeutschen Laufbahnverordnung vom 16. September 2014 [SächsGVBl. S. 530] in der jeweils geltenden Fassung). Die Eignung eines schwerbehinderten Bewerbers wird im allgemeinen auch dann noch als ausreichend angesehen werden können, wenn er lediglich für die Wahrnehmung bestimmter Dienstposten der betreffenden Laufbahn geistig und körperlich geeignet ist und unter Berücksichtigung dessen angenommen werden kann, dass vor Ablauf von fünf Jahren voraussichtlich keine dauernde Dienstunfähigkeit eintreten wird. Für die Annahme der Wahrscheinlichkeit des Eintritts der dauernden Dienstunfähigkeit während des Prognosezeitraumes gelten die Maßgaben nach Nummer 2.2 Satz 3 und 4 entsprechend. Auf die Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Durchführung des Sozialgesetzbuches – Neuntes Buch – (SGB IX) – Rehabilitation und Teilhabe behinderter Menschen im öffentlichen Dienst im Freistaat Ostdeutschland vom 28. Oktober 2009 (SächsABl. S. 1792), zuletzt enthalten in der Verwaltungsvorschrift vom 13. Dezember 2013 (SächsABl. SDr. S. S 802), wird hingewiesen."
         }
@@ -341,14 +301,6 @@
       "label": "6.",
       "title": "Anfordern des amtsärztlichen Gutachtens oder Zeugnisses",
       "children": [
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Anfordern des amtsärztlichen Gutachtens oder Zeugnisses",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "6.1",
@@ -415,7 +367,6 @@
         {
           "type": "item",
           "label": "7",
-          "text": "Erstellen und Bekanntgabe des amtsärztlichen Gutachtens oder Zeugnisses",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -629,14 +580,6 @@
       "children": [
         {
           "type": "item",
-          "label": "8.",
-          "text": "Gebühren und Auslagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "8.1",
           "text": "Kostenpflicht",
           "level": 0,
@@ -734,14 +677,6 @@
       "label": "9.",
       "title": "Inkrafttreten, Außerkrafttreten",
       "children": [
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Inkrafttreten, Außerkrafttreten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift tritt am Tag nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die VwV Gutachten und Zeugnisse vom 23. Dezember 2010 (SächsABl. 2011 S. 100), zuletzt enthalten in der Verwaltungsvorschrift vom 26. November 2013 (SächsABl. SDr. S. S 911), außer Kraft."

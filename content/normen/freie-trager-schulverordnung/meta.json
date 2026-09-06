@@ -2,14 +2,13 @@
   "id": "freie-trager-schulverordnung",
   "slug": "freie-trager-schulverordnung",
   "title": "Freie-Träger-Schulverordnung",
-  "shortTitle": "Freie-Träger-Schulverordnung",
   "abbr": "FrTrSchulVO",
-  "shortTitleSource": "official",
   "type": "verordnung",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Wissenschaft"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "freie Träger",
     "Ersatzschulen",
@@ -34,7 +33,8 @@
       "sha256": "da26b64d487a51edd347f4f0ae1f3257e307e167ed644d0dc308bd7d2446ece9",
       "lawId": "17118",
       "sourceValidFrom": "2020-08-01",
-      "sourceValidTo": "2024-07-31"
+      "sourceValidTo": "2024-07-31",
+      "fsnNumber": "710-2.14/2"
     },
     {
       "kind": "amendment-source",

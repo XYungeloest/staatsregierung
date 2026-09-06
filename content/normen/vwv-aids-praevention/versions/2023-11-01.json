@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales zur Organisation der AIDS-Prävention im öffentlichen Gesundheitsdienst",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales zur Organisation der AIDS-Prävention im öffentlichen Gesundheitsdienst (VwV AIDS-Prävention)",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales zur Organisation der AIDS-Prävention im öffentlichen Gesundheitsdienst",
-  "abbr": "VwV AIDS-Prävention",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales zur Organisation der AIDS-Prävention im öffentlichen Gesundheitsdienst vom 1. Dezember 2003 (SächsABl. S. 1218), zuletzt enthalten in der Verwaltungsvorschrift vom 30. November 2023 (SächsABl. SDr. S. S 306)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales zur Organisation der AIDS-Prävention im öffentlichen Gesundheitsdienst vom 1. Dezember 2003 (SächsABl. S. 1218)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -20,6 +19,7 @@
       "lawId": "2010",
       "sourceValidFrom": "2003-12-28",
       "sourceValidTo": "2024-08-17",
+      "fsnNumber": "250-V03.3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -34,14 +34,6 @@
       "label": "1.",
       "title": "Regierungspräsidien",
       "children": [
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Regierungspräsidien",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -89,14 +81,6 @@
       "label": "2.",
       "title": "Gesundheitsämter",
       "children": [
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Gesundheitsämter",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -178,14 +162,6 @@
       "children": [
         {
           "type": "item",
-          "label": "3.",
-          "text": "Landesuntersuchungsanstalt",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.1",
           "text": "Die Landesuntersuchungsanstalt für das Gesundheits- und Veterinärwesen Ostdeutschland (Landesuntersuchungsanstalt) führt bei den von Gesundheitsämtern eingesandten Blutproben HIV-Antikörpertests und gegebenenfalls Bestätigungstests durch.",
           "level": 0,
@@ -216,17 +192,8 @@
       "title": "In-Kraft-Treten und Außer-Kraft-Treten",
       "children": [
         {
-          "type": "item",
-          "label": "4.",
-          "text": "In-Kraft-Treten und Außer-Kraft-Treten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie zur Organisation der AIDS-Prävention im öffentlichen Gesundheitsdienst (VwV AIDS-Prävention) vom 17. November 1998 (SächsABl. S. 894) außer Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie zur Organisation der AIDS-Prävention im öffentlichen Gesundheitsdienst (VwV AIDS-Prävention) vom 17. November 1998 (SächsABl. S. 894) außer Kraft."
         }
       ]
     }

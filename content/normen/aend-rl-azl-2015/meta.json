@@ -2,15 +2,13 @@
   "id": "aend-rl-azl-2015",
   "slug": "aend-rl-azl-2015",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage",
+    "Änd. RL AZL/2015",
     "Umwelt",
     "Landwirtschaft",
     "Änderung",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-10-11",
   "effectiveDate": "2016-01-01",
@@ -36,8 +35,12 @@
       "lawId": "16999",
       "sourceValidFrom": "2016-01-01",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "5563",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-ausgleichszulage"
   ]
 }

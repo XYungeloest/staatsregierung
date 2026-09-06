@@ -2,14 +2,13 @@
   "id": "landesbeamtengesetz",
   "slug": "landesbeamtengesetz",
   "title": "Ostdeutsches Beamtengesetz",
-  "shortTitle": "Ostdeutsches Beamtengesetz",
   "abbr": "OstBG",
-  "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Öffentliches Dienstrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "OstBG",
     "Ostdeutsches Beamtengesetz",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Beamtengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2013-12-18",
   "sourceReferences": [
@@ -33,7 +33,8 @@
       "sha256": "9e11330634a8bd9e6b396b20c201ad19c52fc538285bcc6e71a3f8e1387c0dd2",
       "lawId": "13871",
       "sourceValidFrom": "2023-07-11",
-      "sourceValidTo": "2023-12-31"
+      "sourceValidTo": "2023-12-31",
+      "fsnNumber": "240-2/2"
     },
     {
       "kind": "amendment-source",

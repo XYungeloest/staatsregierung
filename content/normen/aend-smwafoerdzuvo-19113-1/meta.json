@@ -2,15 +2,13 @@
   "id": "aend-smwafoerdzuvo-19113-1",
   "slug": "aend-smwafoerdzuvo-19113-1",
   "title": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderzuständigkeitsverordnung SMWA",
-  "shortTitle": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderzuständigkeitsverordnung SMWA",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Dritte Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderzuständigkeitsverordnung SMWA",
+    "Änd. SMWAFördZuVO",
     "Dritte",
     "Wirtschaft",
     "Arbeit",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderzuständigkeitsverordnung SMWA“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-30",
   "effectiveDate": "2021-05-13",
@@ -36,8 +35,12 @@
       "sha256": "9a2a62c2f6eb3a29ce65e2ab9d86730e1cd66f4732739bed5d089530f7490aa6",
       "lawId": "19113",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "55",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderzustaendigkeitsverordnung-smwa"
   ]
 }

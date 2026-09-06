@@ -2,15 +2,14 @@
   "id": "aend-foerikib",
   "slug": "aend-foerikib",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderrichtlinie Kinderbetreuungsfinanzierung Bund",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderrichtlinie Kinderbetreuungsfinanzierung Bund",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderrichtlinie Kinderbetreuungsfinanzierung Bund",
+    "Änd. FöriKiB",
     "Kultus",
     "Änderung",
     "Förderrichtlinie",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderrichtlinie Kinderbetreuungsfinanzierung Bund“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-29",
   "effectiveDate": "2023-06-30",
@@ -35,8 +35,12 @@
       "lawId": "20081",
       "sourceValidFrom": "2023-06-30",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "5581",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-kinderbetreuungsfinanzierung-bund"
   ]
 }

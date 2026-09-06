@@ -40,8 +40,10 @@ import { readFile } from 'node:fs/promises';
 import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
 
 import { fixtureCorpus } from './helpers/fixture-corpus.ts';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import {
-  buildSyncPlan, corpusOverviewMeta, createStats, deleteNormQueries, derivedQueries, estimatePlanCost, normQueries, recordResults, SyncBudgetExceeded, summarizeStatements,
+  buildSyncPlan, corpusOverviewMeta, createStats, deleteNormQueries, derivedQueries, estimatePlanCost, inventoryNorms, keywordEntries, normQueries, recordResults, SyncBudgetExceeded, summarizeStatements,
 } from '../scripts/sync-recht-d1.mjs';
 import { SEARCH_TRIGGERS, SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from '../scripts/lib/d1-search-schema.mjs';
 
@@ -173,6 +175,54 @@ test('Migration 0007 ergänzt die Filterspalten der Kandidatenabfrage und füllt
   assert.match(migration, /CREATE INDEX IF NOT EXISTS idx_law_versions_candidate ON law_versions\(norm_id, temporal_kind, publication_source, publication_year\)/u);
 });
 
+test('Migration 0008 ergänzt Grundmenge, Ordnungswort, Förderbereich und Stichwortart und füllt sie für vorhandene Zeilen', async () => {
+  const migration = await readFile(new URL('../data/recht/d1/0008_inventory_sort_word.sql', import.meta.url), 'utf8');
+  for (const column of ['in_inventory', 'sort_word', 'funding_area']) {
+    assert.ok(migration.includes(`ALTER TABLE law_norms ADD COLUMN ${column}`), column);
+  }
+  assert.ok(migration.includes("ALTER TABLE law_norm_keywords ADD COLUMN kind TEXT NOT NULL DEFAULT 'derived'"));
+  // Backfill: Altzeilen tragen sofort einen tragfähigen Wert, sonst zählt das Verzeichnis
+  // zwischen Migration und Projektion eine falsche Menge und sortiert ins Leere.
+  assert.match(migration, /UPDATE law_norms SET in_inventory = CASE\s+WHEN type = 'aenderungsvorschrift' AND origin_kind IN \('inherited-unchanged', 'inherited-amended'\) THEN 0/u);
+  assert.match(migration, /UPDATE law_norms SET sort_word = sort_title WHERE sort_word IS NULL/u);
+  assert.match(migration, /CREATE INDEX IF NOT EXISTS idx_law_norms_inventory_letter ON law_norms\(in_inventory, index_letter, sort_word\)/u);
+});
+
+test('Stichworteinträge tragen ihre Herkunft; ein Registerstichwort verdrängt das gleichlautende abgeleitete Schlagwort', async () => {
+  const { norms, context } = await fixture();
+  const statute = norms.find((norm) => norm.meta.slug === 'testgesetz');
+  const identity = getNormVersionIdentity(statute, getApplicableVersion(statute));
+  const plain = keywordEntries(statute, identity);
+  assert.ok(plain.length > 0);
+  assert.ok(plain.every((entry) => ['abbr', 'short-title', 'derived'].includes(entry.kind)));
+  assert.equal(new Set(plain.map((entry) => entry.keyword)).size, plain.length, 'je Stichwort genau eine Zeile');
+  const existing = plain.find((entry) => entry.kind === 'derived');
+  const withRegister = keywordEntries(statute, identity, ['Musterstichwort', existing.keyword]);
+  assert.equal(withRegister.find((entry) => entry.keyword === 'Musterstichwort')?.kind, 'register');
+  assert.equal(withRegister.find((entry) => entry.keyword === existing.keyword)?.kind, 'register');
+  assert.equal(new Set(withRegister.map((entry) => entry.keyword)).size, withRegister.length);
+  // Kurze Werte bleiben draußen; die Reihenfolge beginnt mit dem Register.
+  assert.deepEqual(keywordEntries(statute, identity, ['x']).filter((entry) => entry.keyword === 'x'), []);
+  assert.equal(withRegister[0].kind, 'register');
+});
+
+test('ein geändertes Stichwortregister schreibt nur die Stichworteinträge neu', async () => {
+  const { norms, context } = await fixture();
+  const scope = { mode: 'incremental', slugs: [], deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, refreshKeywords: true, reasons: [] };
+  const register = new Map([[norms[0].meta.slug, ['Musterstichwort']]]);
+  const plan = buildSyncPlan({ scope, norms, publications: [], context, now: NOW, fingerprint: FINGERPRINT, register });
+  const groups = plan.groups.filter((group) => group.slug.startsWith('(abgeleitet '));
+  assert.equal(groups.length, norms.length);
+  for (const group of groups) {
+    assert.ok(group.queries.every((query) => /law_norm_keywords/u.test(query.sql)), group.slug);
+    assert.equal(group.queries[0].sql, 'DELETE FROM law_norm_keywords WHERE norm_id = ?');
+  }
+  const registerInserts = plan.groups.flatMap((group) => group.queries).filter((query) => query.params?.[1] === 'Musterstichwort');
+  assert.equal(registerInserts.length, 1);
+  assert.equal(registerInserts[0].params[3], 'register');
+  assert.equal(plan.derivedCount, 0, 'abgeleitete Daten bleiben unberührt');
+});
+
 test('die Projektion schreibt Rechtsänderung, Aktivität, Änderungskennzeichen und Fundstellenspalten je Norm', async () => {
   const { norms, context } = await fixture();
   const amendment = norms.find((norm) => norm.meta.type === 'aenderungsvorschrift');
@@ -220,9 +270,17 @@ test('Anweisungszähler und Übersichtsmetadaten sind deterministisch', async ()
   assert.equal(summary['insert law_versions'], norms[0].versions.length);
   const meta = corpusOverviewMeta(norms, []);
   const stats = JSON.parse(meta.corpus_stats_json);
-  assert.equal(stats.normCount, norms.length);
-  assert.ok(Array.isArray(JSON.parse(meta.subject_groups_json)));
-  assert.ok(JSON.parse(meta.subject_areas_json).every((area) => typeof area.normCount === 'number'));
+  // Die Bestandszahl beschreibt die Grundmenge, nicht alle projizierten Zeilen.
+  assert.equal(stats.normCount, inventoryNorms(norms).length);
+  assert.equal(stats.normCount + stats.inheritedAmendmentCount, norms.length);
+  const subjectGroups = JSON.parse(meta.subject_groups_json);
+  assert.ok(Array.isArray(subjectGroups));
+  // Nummer und Reihenfolge der amtlichen Systematik werden mitprojiziert.
+  assert.ok(subjectGroups.every((group) => /^\d{2}$/u.test(group.number) && group.slug.startsWith(`${group.number}-`)));
+  assert.deepEqual([...subjectGroups].sort((left, right) => left.number.localeCompare(right.number)), subjectGroups);
+  const subjectAreas = JSON.parse(meta.subject_areas_json);
+  assert.ok(subjectAreas.every((area) => typeof area.normCount === 'number'));
+  assert.deepEqual(subjectAreas.map((area) => area.number), [...subjectAreas.map((area) => area.number)].sort());
   assert.deepEqual(corpusOverviewMeta(norms, []), meta);
   const derived = derivedQueries(norms[0], context, NOW);
   assert.equal(derived.length, 3);

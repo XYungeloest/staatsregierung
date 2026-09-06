@@ -1,16 +1,37 @@
 import { access, readdir, readFile, stat } from 'node:fs/promises';
+import {
+  abbreviationProblem,
+  isAbbreviationLikeLabel,
+  isDerivedSummary,
+  isTitleFormulaSummary,
+  UNVERIFIED_GENERATED_ABBREVIATIONS as unverifiedGeneratedAbbreviations,
+} from './lib/norm-title-rules.mjs';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { promisify } from 'node:util';
+
+import { hasSpacedLetters } from './lib/norm-html-parser.mjs';
+import {
+  citationLabelMatchesNormType,
+  isCompatiblePublicationEntryType,
+} from './lib/publication-entry-types.mjs';
 
 const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
 const publicRoot = join(root, 'public');
 const editorialConfig = JSON.parse(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'editorial.json'), 'utf8'));
 const referenceDate = editorialConfig.referenceDate;
+// Amtliche Sachgebietssystematik; die Prüfung liest die Konfigurationsdatei unmittelbar,
+// damit dieses Audit ohne TypeScript-Auflösung läuft.
+const lawSubjectsConfig = JSON.parse(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'law-subjects.json'), 'utf8'));
+const allowedSubjects = new Set(lawSubjectsConfig.groups.flatMap((group) => group.subjects.map((subject) => subject.title)));
+const allowedFundingAreas = new Set(lawSubjectsConfig.fundingAreas.map((area) => area.number));
+const fsnNumberPattern = /^\d{1,4}(?:-[0-9A-Za-z.,:/]{1,16})?$/u;
 const problems = [];
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
+/** Befristung im Wortlaut einer Verkündung („bis zum 1. Januar 2026“, „mit Ablauf des …“). */
+const LIMITED_PERIOD_PATTERN = /\b(?:bis\s+zum|mit\s+Ablauf\s+des)\s+\d{1,2}\.\s*[A-ZÄÖÜ][a-zäöüß]+\s+\d{4}/u;
 const allowedNormTypes = new Set([
   'gesetz',
   'verordnung',
@@ -80,11 +101,6 @@ const allowedEnactingBodies = new Set([
   'Gründungsvorstand der Interflug',
   'Staatssekretariat für Mobilität und regionale Entwicklung',
   'Ministerium für freistaatliche Sicherheit',
-]);
-const unverifiedGeneratedAbbreviations = new Set([
-  'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
-  'PsychVersStG', '1. StaatsreformG', '2. StaatsreformG', '3. StaatsreformG',
-  '4. StaatsreformG', 'ZweitVeröffG',
 ]);
 const execFileAsync = promisify(execFile);
 
@@ -345,6 +361,13 @@ async function validateNormSourceReference(file, source, sourcePath) {
   if (!extensionPattern) {
     addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
     return;
+  }
+  if (source.fsnNumber !== undefined) {
+    if (source.kind !== 'revosax-snapshot') {
+      addProblem(file, `${sourcePath}.fsnNumber ist nur für eine amtliche REVOSax-Quelle zulässig`);
+    } else if (typeof source.fsnNumber !== 'string' || !fsnNumberPattern.test(source.fsnNumber)) {
+      addProblem(file, `${sourcePath}.fsnNumber muss eine Fundstellennummer wie „612-3.10/2“ sein`);
+    }
   }
   if (source.availability === 'r2-archived') {
     await validateArchivedNormSourceReference(file, source, sourcePath);
@@ -666,15 +689,51 @@ for (const { file, json } of records) {
       }
     }
 
-    if (json.abbr && unverifiedGeneratedAbbreviations.has(json.abbr)) {
-      addProblem(file, `abbr ist nicht durch die Primärquelle belegt: ${json.abbr}`);
+    // Titelmodell: Kurzbezeichnung und Abkürzung nach der gemeinsamen Regel
+    // (scripts/lib/norm-title-rules.mjs); Prüfung über den Bestand statt im Einzelfall.
+    if (json.shortTitle !== undefined && typeof json.shortTitle !== 'string') {
+      addProblem(file, 'shortTitle muss eine Zeichenkette sein');
+    }
+    if (typeof json.shortTitle === 'string' && json.shortTitle.trim() === String(json.title ?? '').trim()) {
+      addProblem(file, 'shortTitle wiederholt den Titel; die Kurzbezeichnung entfällt dann');
+    }
+    if (typeof json.shortTitle === 'string' && isAbbreviationLikeLabel(json.shortTitle)) {
+      addProblem(file, `shortTitle ist eine Abkürzungsform und gehört in keywords: ${json.shortTitle}`);
+    }
+    if (json.shortTitleSource !== undefined && !json.shortTitle) {
+      addProblem(file, 'shortTitleSource ohne shortTitle');
+    }
+    const abbrProblem = abbreviationProblem(json.abbr, { title: json.title, shortTitle: json.shortTitle });
+    if (abbrProblem) {
+      addProblem(file, `abbr ${abbrProblem}: ${String(json.abbr).replace(/\s+/gu, ' ')}`);
     }
 
     if (!Array.isArray(json.subjects) || json.subjects.length === 0) {
       addProblem(file, 'subjects muss mindestens ein Sachgebiet enthalten');
+    } else {
+      if (json.subjects.length > 3) {
+        addProblem(file, 'subjects darf höchstens drei Sachgebiete nennen');
+      }
+      if (new Set(json.subjects).size !== json.subjects.length) {
+        addProblem(file, 'subjects darf kein Sachgebiet doppelt nennen');
+      }
+      for (const subject of json.subjects) {
+        if (!allowedSubjects.has(subject)) {
+          addProblem(file, `subjects nennt „${subject}“; zulässig sind nur die Untergruppen der amtlichen Systematik (packages/shared/src/config/law-subjects.json)`);
+        }
+      }
     }
-    if (json.primarySubject && !json.subjects?.includes(json.primarySubject)) {
-      addProblem(file, 'primarySubject muss zugleich in subjects enthalten sein');
+    if (typeof json.primarySubject !== 'string' || json.primarySubject.length === 0) {
+      addProblem(file, 'primarySubject fehlt');
+    } else if (json.primarySubject !== json.subjects?.[0]) {
+      addProblem(file, 'primarySubject muss das erste Sachgebiet in subjects sein');
+    }
+    if (json.fundingArea !== undefined) {
+      if (json.type !== 'foerderrichtlinie') {
+        addProblem(file, 'fundingArea ist nur für eine Förderrichtlinie zulässig');
+      } else if (!allowedFundingAreas.has(json.fundingArea)) {
+        addProblem(file, `fundingArea nennt „${json.fundingArea}“; zulässig sind nur die Förderbereiche der amtlichen Systematik`);
+      }
     }
 
     if (!Array.isArray(json.keywords) || json.keywords.length === 0) {
@@ -906,6 +965,14 @@ for (const { file, json } of records) {
           const history = byPrefix(`normen/${entry.normSlug}/`).find(({ file: normFile }) =>
             basename(normFile) === 'history.json',
           )?.json;
+          // Verkündungseintrag und Norm bezeichnen dieselbe Rechtsvorschrift: Eintragsart und
+          // Zitierbezeichnung müssen zum Normtyp passen.
+          if (meta?.type && typeof entry.type === 'string' && !isCompatiblePublicationEntryType(entry.type, meta.type)) {
+            addProblem(file, `${entryPath}.type „${entry.type}“ passt nicht zum Normtyp „${meta.type}“ von ${entry.normSlug}`);
+          }
+          if (meta?.type && typeof entry.citation === 'string' && !citationLabelMatchesNormType(entry.citation, meta.type)) {
+            addProblem(file, `${entryPath}.citation nennt keine zum Normtyp „${meta.type}“ passende Rechtsaktbezeichnung: „${entry.citation}“`);
+          }
           const referencesInitialVersion = !entry.versionId || history?.initialVersionId === entry.versionId;
           if (referencesInitialVersion && entry.documentDate && meta?.documentDate && entry.documentDate !== meta.documentDate) {
             addProblem(file, `${entryPath}.documentDate weicht vom Normdatensatz ${entry.normSlug} ab`);
@@ -956,6 +1023,54 @@ for (const [sourceFile, owners] of publicationSourceOwners) {
   }
 }
 
+// Redaktionelles Stichwortregister (content/stichwortregister.json): jedes Stichwort steht
+// genau einmal, nennt mindestens eine vorhandene Vorschrift, und jeder „siehe“-Verweis führt
+// auf ein Stichwort desselben Registers. Die Datei ist eine Eingabe der D1-Projektion.
+const registerFile = join(contentRoot, 'stichwortregister.json');
+if (await exists(registerFile)) {
+  const register = await readJson(registerFile);
+  if (register?.$schema !== 'stichwortregister/1') {
+    addProblem(registerFile, '$schema muss stichwortregister/1 sein');
+  }
+  if (!Array.isArray(register?.eintraege)) {
+    addProblem(registerFile, 'eintraege muss ein Array sein');
+  } else {
+    const keys = new Set(register.eintraege
+      .map((entry) => (typeof entry?.stichwort === 'string' ? entry.stichwort.trim().toLocaleLowerCase('de') : ''))
+      .filter(Boolean));
+    const seen = new Set();
+    for (const [index, entry] of register.eintraege.entries()) {
+      const where = `eintraege[${index}]`;
+      const stichwort = typeof entry?.stichwort === 'string' ? entry.stichwort.trim() : '';
+      if (!stichwort) {
+        addProblem(registerFile, `${where}.stichwort muss ein nicht leerer Text sein`);
+        continue;
+      }
+      const key = stichwort.toLocaleLowerCase('de');
+      if (seen.has(key)) addProblem(registerFile, `${where}.stichwort ist doppelt vergeben: ${stichwort}`);
+      seen.add(key);
+      if (!Array.isArray(entry.normen) || entry.normen.length === 0) {
+        addProblem(registerFile, `${where}.normen muss mindestens eine Vorschrift nennen`);
+      } else {
+        for (const [slugIndex, slug] of entry.normen.entries()) {
+          if (typeof slug !== 'string' || !slugPattern.test(slug)) addProblem(registerFile, `${where}.normen[${slugIndex}] ist kein Slug`);
+          else if (!normSlugs.has(slug)) addProblem(registerFile, `${where}.normen[${slugIndex}] nennt eine unbekannte Vorschrift: ${slug}`);
+        }
+        if (new Set(entry.normen).size !== entry.normen.length) addProblem(registerFile, `${where}.normen nennt eine Vorschrift doppelt`);
+      }
+      if (entry.siehe !== undefined && !Array.isArray(entry.siehe)) {
+        addProblem(registerFile, `${where}.siehe muss ein Array sein`);
+      } else {
+        for (const [targetIndex, target] of (entry.siehe ?? []).entries()) {
+          if (typeof target !== 'string' || !keys.has(target.trim().toLocaleLowerCase('de'))) {
+            addProblem(registerFile, `${where}.siehe[${targetIndex}] nennt ein unbekanntes Stichwort: ${String(target)}`);
+          }
+        }
+      }
+    }
+  }
+}
+
 const normMetaRecords = byPrefix('normen/').filter(({ file }) => basename(file) === 'meta.json');
 const normMetaBySlug = new Map(normMetaRecords.map(({ json }) => [json.slug, json]));
 for (const { file, json } of normMetaRecords) {
@@ -981,6 +1096,17 @@ for (const { file, json } of normMetaRecords) {
   }
   if (json.status === 'repealed' && (!json.expiryDate || json.expiryDate > referenceDate)) {
     addProblem(file, 'repealed setzt ein Außerkrafttreten am oder vor dem Stichtag voraus');
+  }
+  // Eine befristete Allgemeinverfügung nennt ihr Ende im Titel oder im Wortlaut; das
+  // Außerkrafttreten wird als expiryDate geführt (validTo der letzten Fassung prüft die
+  // allgemeine Fassungsregel weiter unten).
+  if (json.type === 'allgemeinverfuegung' && !json.expiryDate) {
+    const bodyText = byPrefix(`normen/${json.slug}/versions/`)
+      .flatMap(({ json: version }) => collectStrings(version.body ?? []).map((entry) => entry.value))
+      .join('\n');
+    if (LIMITED_PERIOD_PATTERN.test(`${json.title ?? ''}\n${bodyText}`)) {
+      addProblem(file, 'befristete Allgemeinverfügung benötigt ein belegtes expiryDate');
+    }
   }
 
   for (const relation of ['enactedNorm', 'enactingNorm', 'containedIn']) {
@@ -1038,6 +1164,83 @@ for (const { file, json } of byPrefix('normen/').filter(({ file }) => basename(f
     }
     if (entry.relatedNorm === normSlug) addProblem(file, `entries[${index}].relatedNorm darf nicht auf die Vorschrift selbst verweisen`);
   }
+}
+
+// Titelmodell und Herkunft der Zusammenfassung über den ganzen Bestand: Fassungen spiegeln die
+// Bezeichnungen der Norm, Formeln aus Typ und Titel bleiben als abgeleitet gekennzeichnet und
+// werden öffentlich nicht ausgespielt (scripts/lib/norm-title-rules.mjs).
+for (const { file, json: meta } of normMetaRecords) {
+  const versionRecords = byPrefix(`normen/${meta.slug}/versions/`);
+  const hasRevosaxProvenance = [
+    ...(meta.sourceReferences ?? []),
+    ...versionRecords.flatMap(({ json }) => json.sourceReferences ?? []),
+  ].some((reference) => reference?.kind === 'revosax-snapshot');
+  const summary = String(meta.summary ?? '').trim();
+  const formula = isDerivedSummary(summary) || isTitleFormulaSummary(summary, meta.title);
+  if (formula && !hasRevosaxProvenance) {
+    addProblem(file, 'summary ist eine aus Typ und Titel gebildete Formel; eigene Vorschriften brauchen eine redaktionelle Kurzbeschreibung');
+  } else if (formula && meta.summarySource !== 'derived') {
+    addProblem(file, 'summary ist eine abgeleitete Formel und muss summarySource "derived" führen');
+  }
+  if (meta.summarySource === 'derived' && !formula) {
+    addProblem(file, 'summarySource "derived" ohne eine der abgeleiteten Formeln');
+  }
+
+  for (const { file: versionFile, json: version } of versionRecords) {
+    const versionTitle = String(version.title ?? meta.title ?? '').trim();
+    if (typeof version.shortTitle === 'string' && version.shortTitle.trim() === versionTitle) {
+      addProblem(versionFile, 'shortTitle wiederholt den Titel der Fassung; die Kurzbezeichnung entfällt dann');
+    }
+    if (typeof version.shortTitle === 'string' && isAbbreviationLikeLabel(version.shortTitle)) {
+      addProblem(versionFile, `shortTitle ist eine Abkürzungsform und gehört in keywords: ${version.shortTitle}`);
+    }
+    const versionAbbrProblem = abbreviationProblem(version.abbr, {
+      title: versionTitle,
+      shortTitle: version.shortTitle ?? meta.shortTitle,
+    });
+    if (versionAbbrProblem) {
+      addProblem(versionFile, `abbr ${versionAbbrProblem}: ${String(version.abbr).replace(/\s+/gu, ' ')}`);
+    }
+  }
+}
+
+/**
+ * Normkörper: Unterschriften stehen in einem eigenen Blocktyp, gesperrter Satz der amtlichen
+ * Quelle wird als gewöhnliches Wort gespeichert, und die Überschrift einer Gliederungseinheit
+ * steht genau einmal – nicht zusätzlich als erste Zeile ihres ersten Untergliederungspunktes.
+ */
+const comparableHeading = (value) => String(value ?? '').replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de');
+
+function auditBodyBlocks(file, blocks, path = 'body') {
+  for (const [index, block] of (blocks ?? []).entries()) {
+    const blockPath = `${path}[${index}] (${block.type})`;
+    for (const field of ['label', 'title', 'text']) {
+      const value = block[field];
+      if (typeof value !== 'string' || !hasSpacedLetters(value)) continue;
+      if (block.type === 'signature' && field === 'text') continue;
+      addProblem(file, `${blockPath}.${field} enthält gesperrt gesetzten Text „${value.slice(0, 60)}“; Unterschriften gehören in einen signature-Block, Hervorhebungen werden ohne Sperrung gespeichert`);
+    }
+    if (block.title && Array.isArray(block.children) && block.children.length > 0) {
+      const first = block.children[0];
+      if (typeof first?.text === 'string' && first.text) {
+        const lines = first.text.split('\n');
+        const title = comparableHeading(block.title);
+        const label = comparableHeading(block.label);
+        const labelAndTitle = label ? comparableHeading(`${block.label} ${block.title}`) : title;
+        const firstLine = comparableHeading(lines[0]);
+        const duplicated = firstLine === title || firstLine === labelAndTitle ||
+          (label && firstLine === label && comparableHeading(lines[1]) === title);
+        if (duplicated) {
+          addProblem(file, `${blockPath}: Der Text des ersten Untergliederungspunktes beginnt mit der Überschrift der übergeordneten Einheit „${block.title}“`);
+        }
+      }
+    }
+    auditBodyBlocks(file, block.children, `${blockPath}`);
+  }
+}
+
+for (const { file, json } of byPrefix('normen/').filter(({ relativePath }) => relativePath.includes('/versions/'))) {
+  auditBodyBlocks(file, json.body);
 }
 
 for (const slug of normSlugs) {

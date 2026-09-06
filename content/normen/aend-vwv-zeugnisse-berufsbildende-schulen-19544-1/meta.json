@@ -2,15 +2,14 @@
   "id": "aend-vwv-zeugnisse-berufsbildende-schulen-19544-1",
   "slug": "aend-vwv-zeugnisse-berufsbildende-schulen-19544-1",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Zeugnisse berufsbildende Schulen",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Zeugnisse berufsbildende Schulen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Zeugnisse berufsbildende Schulen",
+    "Änd. VwV Zeugnisse berufsbildende Schulen",
     "Kultus",
     "Änderung",
     "Zeugnisse",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Zeugnisse berufsbildende Schulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-02-02",
   "effectiveDate": "2022-03-04",
@@ -35,8 +35,12 @@
       "sha256": "0552705f16256a54aa54e64a9ad6da7dad86ef81886db1b990d69ff4caa0ecd4",
       "lawId": "19544",
       "sourceValidFrom": "2022-03-04",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-zeugnisse-berufsbildende-schulen"
   ]
 }

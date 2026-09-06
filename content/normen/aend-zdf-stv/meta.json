@@ -2,14 +2,13 @@
   "id": "aend-zdf-stv",
   "slug": "aend-zdf-stv",
   "title": "Änderung des ZDF-Staatsvertrages",
-  "shortTitle": "Änderung des ZDF-Staatsvertrages",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
-    "Änderung des ZDF-Staatsvertrages",
+    "Änd. ZDF-StV",
     "Änderung",
     "ZDF-Staatsvertrages"
   ],
@@ -17,6 +16,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des ZDF-Staatsvertrages“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2002-09-27",
   "effectiveDate": "2003-04-15",
@@ -34,5 +34,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zdf-staatsvertrag"
   ]
 }

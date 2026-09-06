@@ -2,12 +2,11 @@
   "id": "aend-schulkonfvo",
   "slug": "aend-schulkonfvo",
   "title": "Änderung der Schulkonferenzverordnung",
-  "shortTitle": "Änd. SchulKonfVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SchulKonfVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-umsetzung-neuregelungen-des-schulwesens",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SchulKonfVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulkonferenzverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-06-28",
   "effectiveDate": "2017-08-01",
@@ -32,6 +32,7 @@
       "sha256": "acaad47c63f2b682e01b6f240ff8413054447993e06ebd8315cda0382b765294",
       "lawId": "17338",
       "sourceValidFrom": "2017-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

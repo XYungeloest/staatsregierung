@@ -2,16 +2,14 @@
   "id": "aend-ostkistg",
   "slug": "aend-ostkistg",
   "title": "Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht",
-    "Feiertage und gesellschaftliches Leben"
+    "Kirchen, Religionsgemeinschaften"
   ],
+  "primarySubject": "Kirchen, Religionsgemeinschaften",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes",
+    "Änd. OstKiStG",
     "Änderung",
     "Kirchensteuergesetzes"
   ],
@@ -19,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Kirchensteuergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-04-03",
   "effectiveDate": "2009-01-01",
@@ -33,8 +32,12 @@
       "sha256": "f0c9e32f0ba636cef88d6b0f91a62099a8d1019fb953497f893cc078305dd726",
       "lawId": "10736",
       "sourceValidFrom": "2009-01-01",
+      "fsnNumber": "73",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-kirchensteuergesetz"
   ]
 }

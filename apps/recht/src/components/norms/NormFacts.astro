@@ -1,0 +1,341 @@
+---
+import NormOriginBadge from './NormOriginBadge.astro';
+import { LEGAL_BASELINE_DATE, type NormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
+import { classifyNormOriginVersion } from '@ostrecht/shared/lib/norms/origin-presentation.ts';
+import {
+  getNormCompareSelectionUrl,
+  getNormUrl,
+  getNormVersionUrl,
+  getPublicationUrl,
+  getSubjectUrl,
+} from '@ostrecht/shared/lib/norms/routes.ts';
+import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
+import { formatDate, getNormTitleBlock } from '@ostrecht/shared/lib/norms/display.ts';
+import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+import type { NormPublicationReference } from '@ostrecht/shared/lib/norms/publications.ts';
+import { formatSourceLabel } from '../../lib/source-labels.ts';
+import { referenceDateLabel, validityLabel, VALIDITY_FIELD_LABEL, LEGAL_STATUS_FIELD_LABEL } from '../../lib/vocabulary.ts';
+
+/**
+ * „Vorschriftendaten“: der eine Block, in dem jede Angabe zur Vorschrift genau einmal steht
+ * (Befund E4). Er löst NormLegalStatusPanel, NormCitationBlock und NormMetaCard ab.
+ *
+ * Ab 80 rem steht der Block offen neben bzw. unter dem Text; darunter ist er ein echter
+ * Aufklappbereich „Angaben zur Vorschrift“, unter 48 rem direkt unter der Fassungsnavigation.
+ * Das Markup ist offen, damit die Angaben ohne JavaScript und im Ausdruck vollständig vorliegen;
+ * unterhalb von 80 rem klappt das Skript den Bereich einmal beim Laden zu.
+ */
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  origin: NormOriginInfo;
+  fullCitation: string;
+  publicationReference?: NormPublicationReference;
+  /** Bezeichnungen der verlinkten Änderungsvorschriften (Slug → Titel), aus store.getNormLabels. */
+  amendmentLabels?: Map<string, { title: string; shortTitle?: string | null; abbr?: string | null }>;
+  /** Auf der Fassungsseite kopiert der Werkzeugknopf den unveränderlichen Fassungslink. */
+  immutableLink?: boolean;
+}
+
+const {
+  norm,
+  version,
+  origin,
+  fullCitation,
+  publicationReference,
+  amendmentLabels,
+  immutableLink = false,
+} = Astro.props;
+
+const temporalKind = classifyNormVersion(norm, version);
+const status = norm.meta.status;
+const versionKind = classifyNormOriginVersion(origin, version);
+const headingId = `norm-facts-${norm.meta.slug}-${version.versionId}`;
+const immutableVersion = immutableLink || temporalKind !== 'current';
+
+// Rechtsstand: ein Satz zur angezeigten Fassung. Der redaktionelle Stand steht als
+// „Rechtsstand vom …“ dahinter – eine Aussage, die an jedem Aufruftag zutrifft (H1).
+const legalStatusText = temporalKind === 'historical'
+  ? `Historische Fassung, gültig ab ${formatDate(version.validFrom)}${version.validTo ? ` bis ${formatDate(version.validTo)}` : '; ein genaues Gültigkeitsende ist nicht belegt'}.`
+  : temporalKind === 'future'
+    ? `Verkündet; tritt am ${formatDate(version.validFrom)} in Kraft und gehört bis dahin nicht zum geltenden Rechtsstand.`
+    : temporalKind === 'unknown-effective'
+      ? 'Veröffentlicht; der Eintritt der Bedingung für das Inkrafttreten ist durch die vorliegenden Quellen noch nicht belegt.'
+      : status === 'one-time-act'
+        ? `Abgeschlossener einmaliger Rechtsakt mit Wirkung vom ${formatDate(version.validFrom)}; die Fassung bleibt zu Dokumentationszwecken verfügbar.`
+        : `Geltende Fassung, gültig ab ${formatDate(version.validFrom)}${version.validTo ? ` bis ${formatDate(version.validTo)}` : ''}; ${referenceDateLabel()}.`;
+
+// Herkunft: Kennzeichnung, Erläuterung und die Wege zu Ausgangsrecht, Vergleich und amtlicher Quelle.
+const amendmentCount = origin.ownAmendmentCount;
+const originText = versionKind === 'ostdeutsch-original'
+  ? 'Erst im Freistaat Ostdeutschland geschaffen; kein übernommenes sächsisches Ausgangsrecht.'
+  : versionKind === 'baseline'
+    ? origin.kind === 'inherited-unchanged'
+      ? 'Aus dem sächsischen Rechtsstand vom 1. November 2023 übernommen und seitdem im Freistaat Ostdeutschland nicht geändert.'
+      : 'Diese Fassung ist der am 1. November 2023 übernommene sächsische Ausgangsrechtsstand; die Vorschrift wurde seitdem im Freistaat Ostdeutschland geändert.'
+    : versionKind === 'inherited-intermediate'
+      ? 'Übernommener sächsischer Rechtsstand vor der ersten nachgewiesenen ostdeutschen Änderung der Vorschrift.'
+      : versionKind === 'inherited-amended'
+        ? `Aus dem sächsischen Rechtsstand vom 1. November 2023 übernommen; die angezeigte Fassung berücksichtigt ${amendmentCount === 1 ? 'eine ostdeutsche Änderung' : `${amendmentCount} ostdeutsche Änderungen`}.`
+        : 'Die vorliegenden Quellen reichen für eine sichere Zuordnung zu übernommenem Ausgangsrecht oder eigenständig geschaffenem Landesrecht noch nicht aus.';
+
+const baselineVersion = origin.baselineVersionId
+  ? norm.versions.find((entry) => entry.versionId === origin.baselineVersionId)
+  : undefined;
+const baselineUrl = baselineVersion
+  ? classifyNormVersion(norm, baselineVersion) === 'current'
+    ? getNormUrl(norm.meta.slug)
+    : getNormVersionUrl(norm.meta.slug, baselineVersion.versionId)
+  : undefined;
+const compareUrl = baselineVersion && baselineVersion.versionId !== version.versionId
+  ? getNormCompareSelectionUrl(norm.meta.slug, baselineVersion.versionId, version.versionId)
+  : undefined;
+const showCurrentLink = versionKind !== 'inherited-amended' && versionKind !== 'ostdeutsch-original' && temporalKind !== 'current' && origin.kind === 'inherited-amended';
+const originLinks = [
+  ...(baselineUrl && baselineUrl !== getNormVersionUrl(norm.meta.slug, version.versionId) && versionKind !== 'baseline'
+    ? [{ href: baselineUrl, label: `Ausgangsfassung vom ${formatDate(LEGAL_BASELINE_DATE)}` }]
+    : []),
+  ...(showCurrentLink ? [{ href: getNormUrl(norm.meta.slug), label: 'Geltende Fassung' }] : []),
+  ...(compareUrl ? [{ href: compareUrl, label: 'Mit Ausgangsrecht vergleichen' }] : []),
+  ...(origin.baselineSourceUrl ? [{ href: origin.baselineSourceUrl, label: 'Amtliche sächsische Quelle' }] : []),
+];
+
+// Änderungsvorschriften mit Titel und Datum statt eines unbeschrifteten Verweises (Befund E5).
+const amendments = origin.ownChanges.filter((entry) => Boolean(entry.relatedNormSlug));
+const amendmentTitle = (slug: string, fallback: string): string => {
+  const identity = amendmentLabels?.get(slug);
+  return identity ? getNormTitleBlock(identity).heading : toDisplayText(fallback);
+};
+
+const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.citation.trim();
+const sourceReference = version.sourceReferences?.[0] ?? norm.meta.sourceReferences?.[0];
+const documentDateLabel = norm.meta.type === 'verwaltungsabkommen' ? 'Abschlussdatum' : 'Normdatum';
+const showDocumentDate = Boolean(norm.meta.documentDate) && norm.meta.documentDate !== version.validFrom;
+const showPublicationDate = Boolean(norm.meta.publicationDate) && norm.meta.publicationDate !== norm.meta.documentDate;
+---
+
+<details class:list={['norm-facts', `norm-facts--${temporalKind}`, `norm-facts--${origin.kind}`]} aria-labelledby={headingId} data-visual-section="norm-facts" open>
+  <summary class="norm-facts__summary">Angaben zur Vorschrift</summary>
+  <div class="norm-facts__body">
+    <div class="norm-facts__head">
+      <h2 id={headingId}>Vorschriftendaten</h2>
+      <NormOriginBadge kind={origin.kind} variant="full" />
+    </div>
+
+    <dl class="norm-facts__list">
+      <div class="norm-facts__wide">
+        <dt>Vollzitat</dt>
+        <dd>
+          <span data-full-citation>{toDisplayText(fullCitation)}</span>
+          <button class="text-link-button norm-facts__copy" type="button" data-copy-full-citation>Vollzitat kopieren</button>
+        </dd>
+      </div>
+
+      <div class="norm-facts__wide">
+        <dt>Fundstelle</dt>
+        <dd>
+          {publicationReference ? (
+            <>
+              <a class="inline-link" href={getPublicationUrl(publicationReference.publicationSlug)}>{toDisplayText(publicationReference.publicationTitle)}</a>
+              <span class="norm-facts__secondary">
+                <time datetime={publicationReference.publicationDate}>{formatDate(publicationReference.publicationDate)}</time>
+                {publicationReference.pages
+                  ? ` · Seiten ${toDisplayText(publicationReference.pages)}`
+                  : publicationReference.startPage
+                    ? ` · Beginn auf Seite ${toDisplayText(publicationReference.startPage)}`
+                    : ''}
+              </span>
+            </>
+          ) : toDisplayText(version.citation)}
+          {hasDistinctInitialCitation ? (
+            <span class="norm-facts__secondary">Stammfundstelle: {toDisplayText(norm.meta.initialCitation)}</span>
+          ) : null}
+        </dd>
+      </div>
+
+      <div class="norm-facts__wide">
+        <dt>{LEGAL_STATUS_FIELD_LABEL}</dt>
+        <dd>{legalStatusText}</dd>
+      </div>
+
+      <div>
+        <dt>{VALIDITY_FIELD_LABEL}</dt>
+        <dd>{validityLabel(status)}</dd>
+      </div>
+
+      {showDocumentDate ? (
+        <div>
+          <dt>{documentDateLabel}</dt>
+          <dd><time datetime={norm.meta.documentDate}>{formatDate(norm.meta.documentDate!)}</time></dd>
+        </div>
+      ) : null}
+
+      {showPublicationDate ? (
+        <div>
+          <dt>Veröffentlicht</dt>
+          <dd><time datetime={norm.meta.publicationDate}>{formatDate(norm.meta.publicationDate!)}</time></dd>
+        </div>
+      ) : null}
+
+      {norm.meta.dateNote ? (
+        <div class="norm-facts__wide">
+          <dt>Datierungshinweis</dt>
+          <dd>{toDisplayText(norm.meta.dateNote)}</dd>
+        </div>
+      ) : null}
+
+      <div class="norm-facts__wide">
+        <dt>Herkunft</dt>
+        <dd>
+          {originText}
+          {originLinks.length > 0 ? (
+            <nav class="link-list link-list--inline norm-facts__links" aria-label="Ausgangsrecht, Vergleich und Quellen">
+              {originLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+            </nav>
+          ) : null}
+        </dd>
+      </div>
+
+      {amendments.length > 0 ? (
+        <div class="norm-facts__wide">
+          <dt>Änderungsvorschriften</dt>
+          <dd>
+            <ul class="norm-facts__changes">
+              {amendments.map((entry) => (
+                <li>
+                  <a class="inline-link" href={getNormUrl(entry.relatedNormSlug!)}>{amendmentTitle(entry.relatedNormSlug!, entry.title)}</a>
+                  {' · '}
+                  <time datetime={entry.date}>{formatDate(entry.date)}</time>
+                </li>
+              ))}
+            </ul>
+          </dd>
+        </div>
+      ) : null}
+
+      {sourceReference ? (
+        <div class="norm-facts__wide">
+          <dt>Quelle</dt>
+          <dd>{sourceReference.url
+            ? <a class="inline-link" href={sourceReference.url}>{formatSourceLabel(sourceReference.label)}</a>
+            : formatSourceLabel(sourceReference.label)}</dd>
+        </div>
+      ) : null}
+
+      {norm.meta.subjects.length > 0 ? (
+        <div class="norm-facts__wide">
+          <dt>Sachgebiete</dt>
+          <dd>
+            <span class="tag-list">
+              {norm.meta.subjects.map((subject) => <a class="tag" href={getSubjectUrl(subject)}>{formatSubjectLabel(toDisplayText(subject), { withNumber: true, short: true })}</a>)}
+            </span>
+          </dd>
+        </div>
+      ) : null}
+
+      {norm.meta.responsibleMinistry ? (
+        <div>
+          <dt>Zuständiger Geschäftsbereich</dt>
+          <dd>{toDisplayText(norm.meta.responsibleMinistry)}</dd>
+        </div>
+      ) : null}
+
+      {norm.meta.enactingBody ? (
+        <div>
+          <dt>Erlassendes Organ</dt>
+          <dd>{toDisplayText(norm.meta.enactingBody)}</dd>
+        </div>
+      ) : null}
+
+      {norm.meta.originEnactingBody ? (
+        <div>
+          <dt>Ursprungsorgan der übernommenen Quelle</dt>
+          <dd>{toDisplayText(norm.meta.originEnactingBody)}</dd>
+        </div>
+      ) : null}
+
+      {norm.meta.agreementDetails ? (
+        <>
+          <div>
+            <dt>Abschlussort</dt>
+            <dd>{toDisplayText(norm.meta.agreementDetails.signedAt)}</dd>
+          </div>
+          <div class="norm-facts__wide">
+            <dt>Vertragspartner</dt>
+            <dd>{norm.meta.agreementDetails.parties.map((party) => toDisplayText(party.name)).join(' · ')}</dd>
+          </div>
+          <div class="norm-facts__wide">
+            <dt>Unterzeichner:innen</dt>
+            <dd>{norm.meta.agreementDetails.signatories.map((signatory) => `${toDisplayText(signatory.name)} (${toDisplayText(signatory.office)})`).join(' · ')}</dd>
+          </div>
+          <div class="norm-facts__wide">
+            <dt>Rechtsgrundlage</dt>
+            <dd>
+              {norm.meta.agreementDetails.legalBases.map((basis, index) => (
+                <>
+                  {index > 0 ? ' · ' : ''}
+                  {basis.url
+                    ? <a class="inline-link" href={basis.url}>{toDisplayText(basis.label)} – {toDisplayText(basis.title)}</a>
+                    : `${toDisplayText(basis.label)} – ${toDisplayText(basis.title)}`}
+                </>
+              ))}
+            </dd>
+          </div>
+        </>
+      ) : null}
+    </dl>
+
+    <div class="norm-facts__link-tools">
+      <button class="text-link-button" type="button" data-copy-norm-link>
+        {immutableVersion ? 'Link zu dieser Fassung kopieren' : 'Link zur Vorschrift kopieren'}
+      </button>
+      <span>
+        {immutableVersion
+          ? 'Dieser Link führt dauerhaft zu dieser Fassung.'
+          : 'Dieser allgemeine Link führt zur jeweils als geltend ausgewiesenen Fassung.'}
+      </span>
+      <span class="copy-feedback" aria-live="polite" data-copy-norm-link-feedback></span>
+    </div>
+  </div>
+</details>
+
+<script>
+  // Unterhalb von 80 rem sind die Vorschriftendaten ein Aufklappbereich; ohne JavaScript bleiben
+  // sie offen, damit keine Angabe verborgen ist.
+  if (window.matchMedia('(max-width: 80rem)').matches) {
+    document.querySelectorAll<HTMLDetailsElement>('.norm-facts[open]').forEach((panel) => {
+      panel.open = false;
+    });
+  }
+
+  document.addEventListener('click', async (event) => {
+    if (!(event.target instanceof HTMLButtonElement)) return;
+    const facts = event.target.closest<HTMLElement>('.norm-facts');
+    const feedback = facts?.querySelector<HTMLElement>('[data-copy-norm-link-feedback]');
+
+    if (event.target.matches('[data-copy-norm-link]')) {
+      const url = new URL(window.location.href);
+      url.hash = '';
+      url.search = '';
+      try {
+        await navigator.clipboard.writeText(url.toString());
+        if (feedback) feedback.textContent = 'Link wurde kopiert.';
+      } catch {
+        if (feedback) feedback.textContent = 'Der Link kann aus der Adresszeile kopiert werden.';
+      }
+      return;
+    }
+
+    if (event.target.matches('[data-copy-full-citation]')) {
+      const citation = facts?.querySelector<HTMLElement>('[data-full-citation]')?.textContent?.trim() ?? '';
+      try {
+        await navigator.clipboard.writeText(citation);
+        if (feedback) feedback.textContent = 'Vollzitat wurde kopiert.';
+      } catch {
+        if (feedback) feedback.textContent = 'Das Vollzitat kann aus der Seite kopiert werden.';
+      }
+    }
+  });
+</script>

@@ -1,24 +1,27 @@
 {
   "id": "vo-ermittlungspersonen-staatsanwaltschaft",
   "slug": "vo-ermittlungspersonen-staatsanwaltschaft",
-  "title": "VO Ermittlungspersonen Staatsanwaltschaft",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums der Justiz über die Ermittlungspersonen der Staatsanwaltschaft",
   "shortTitle": "VO Ermittlungspersonen Staatsanwaltschaft",
-  "abbr": "VOErmPStA",
   "shortTitleSource": "official",
+  "abbr": "VOErmPStA",
   "type": "verordnung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "VOErmPStA",
     "VO Ermittlungspersonen Staatsanwaltschaft",
+    "Justiz",
     "Ermittlungspersonen",
-    "Staatsanwaltschaft"
+    "Staatsanwaltschaft",
+    "VOErmPStA"
   ],
   "initialCitation": "VO Ermittlungspersonen Staatsanwaltschaft vom 5. April 2005 (SächsGVBl. S. 72), die durch die Verordnung vom 7. Oktober 2015 (SächsGVBl. S. 611) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VO Ermittlungspersonen Staatsanwaltschaft“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2005-04-05",
   "sourceReferences": [
@@ -32,6 +35,7 @@
       "sha256": "eeeb2da7f26551dbfb3a885f510272e8a1d8bd2607f4b47b69e10fa323702781",
       "lawId": "2085",
       "sourceValidFrom": "2015-10-31",
+      "fsnNumber": "300-15",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

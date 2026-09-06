@@ -2,15 +2,14 @@
   "id": "aend-ostming",
   "slug": "aend-ostming",
   "title": "Zweites Gesetz zur Änderung des Ostdeutschen Ministergesetzes",
-  "shortTitle": "Zweites Gesetz zur Änderung des Ostdeutschen Ministergesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Ostdeutschen Ministergesetzes",
+    "Änd OstMinG",
     "Zweites",
     "Änderung",
     "Ministergesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Ostdeutschen Ministergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1995-01-12",
   "effectiveDate": "1995-01-28",
@@ -36,5 +36,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-ministergesetz"
   ]
 }

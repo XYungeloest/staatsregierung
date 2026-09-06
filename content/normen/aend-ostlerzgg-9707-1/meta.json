@@ -2,15 +2,14 @@
   "id": "aend-ostlerzgg-9707-1",
   "slug": "aend-ostlerzgg-9707-1",
   "title": "Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Familie, Kinder"
   ],
+  "primarySubject": "Familie, Kinder",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes",
+    "Änd. OstLErzGG",
     "Änderung",
     "Landeserziehungsgeldgesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-11-07",
   "effectiveDate": "2007-11-25",
@@ -32,8 +32,12 @@
       "sha256": "b6365fe1c74a38acfa6e0a52f7b91fa806da019d86cf31effe318100d8dc63ae",
       "lawId": "9707",
       "sourceValidFrom": "2007-11-25",
+      "fsnNumber": "812",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-landeserziehungsgeldgesetz"
   ]
 }

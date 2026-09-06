@@ -164,7 +164,9 @@ function runtimeImpact(runtimeTargets, { content = false, d1Sync = false, fullCo
  */
 function isLawContentPath(path) {
   return path.startsWith('content/normen/')
-    || path.startsWith('content/verkuendungen/');
+    || path.startsWith('content/verkuendungen/')
+    // Das redaktionelle Stichwortregister ist eine Eingabe der Projektion (law_norm_keywords).
+    || path === 'content/stichwortregister.json';
 }
 
 /**
@@ -341,6 +343,12 @@ function pathImpact(path, logicPaths = null) {
   }
 
   if (isPortalPublicAsset(path)) return runtimeImpact(['portal']);
+
+  // Der synthetische Testbestand und sein Lader bestimmen wie das Fixture-Manifest, was Browser-,
+  // Barrierefreiheits- und Screenshot-Tests sehen (siehe data/recht/runtime-fixture.json unten).
+  if (path === 'tests/helpers/fixture-corpus.ts' || path === 'scripts/lib/runtime-fixture.mjs') {
+    return verificationImpact({ content: true, build: SITE_TARGETS, ui: SITE_TARGETS, corpusTests: true, visual: true });
+  }
 
   if (path.startsWith('tests/')) {
     if (isUiSmokeSpec(path)) return verificationImpact({ build: SITE_TARGETS, ui: SITE_TARGETS });

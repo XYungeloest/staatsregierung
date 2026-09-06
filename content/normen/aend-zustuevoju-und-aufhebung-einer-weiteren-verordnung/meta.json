@@ -2,15 +2,14 @@
   "id": "aend-zustuevoju-und-aufhebung-einer-weiteren-verordnung",
   "slug": "aend-zustuevoju-und-aufhebung-einer-weiteren-verordnung",
   "title": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und zur Aufhebung einer weiteren Verordnung",
-  "shortTitle": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und zur Aufhebung einer weiteren Verordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und zur Aufhebung einer weiteren Verordnung",
+    "Änd. ZustÜVOJu und Aufhebung einer weiteren Verordnung",
     "Änderung",
     "Zuständigkeitsübertragungsverordnung",
     "Justiz",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz und zur Aufhebung einer weiteren Verordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-12-10",
   "effectiveDate": "2013-01-01",
@@ -35,8 +35,12 @@
       "sha256": "50bc5d37b6ba3df9b91c706a96abac2b029413f884bd990eadce67a75abeaa90",
       "lawId": "12676",
       "sourceValidFrom": "2013-01-01",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsuebertragungsverordnung-justiz"
   ]
 }

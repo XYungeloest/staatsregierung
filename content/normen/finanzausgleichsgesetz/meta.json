@@ -1,14 +1,15 @@
 {
   "id": "finanzausgleichsgesetz",
   "slug": "finanzausgleichsgesetz",
-  "title": "Ostdeutsches Finanzausgleichsgesetz",
+  "title": "Gesetz über den Finanzausgleich mit den Gemeinden und Landkreisen im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Finanzausgleichsgesetz",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Finanzverwaltung, Finanzausgleich"
   ],
+  "primarySubject": "Finanzverwaltung, Finanzausgleich",
   "keywords": [
     "Ostdeutsches Finanzausgleichsgesetz",
     "Ostdeutsches",
@@ -18,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Finanzausgleichsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2021-04-23",
   "sourceReferences": [
@@ -31,7 +33,8 @@
       "sha256": "9adc6fa29fb15c2e4eecc205fa5f28f651ab86b826462ef2852f958f87c35ddb",
       "lawId": "5402",
       "sourceValidFrom": "2023-09-30",
-      "sourceValidTo": "2023-12-31"
+      "sourceValidTo": "2023-12-31",
+      "fsnNumber": "50-3"
     },
     {
       "kind": "revosax-snapshot",

@@ -2,15 +2,14 @@
   "id": "aend-ostagsgb-17568-1",
   "slug": "aend-ostagsgb-17568-1",
   "title": "Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Allgemeines zum Sozialwesen"
   ],
+  "primarySubject": "Allgemeines zum Sozialwesen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
+    "Änd. OstAGSGB",
     "Änderung",
     "Ausführung",
     "Sozialgesetzbuches"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-01-18",
   "effectiveDate": "2018-02-18",
@@ -33,8 +33,12 @@
       "sha256": "ba1e2ae0401a7514d1c6661f90292a10ffc72a6516a20ce5e0b170aefb484a44",
       "lawId": "17568",
       "sourceValidFrom": "2018-02-18",
+      "fsnNumber": "80",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches"
   ]
 }

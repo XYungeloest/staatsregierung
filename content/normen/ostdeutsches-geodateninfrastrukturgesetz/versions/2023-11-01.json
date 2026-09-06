@@ -1,8 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "Ostdeutsches Geodateninfrastrukturgesetz",
+  "title": "Gesetz über die Geodateninfrastruktur im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Geodateninfrastrukturgesetz",
-  "abbr": "OstGDIG",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
@@ -20,6 +19,7 @@
       "lawId": "11375",
       "sourceValidFrom": "2021-05-13",
       "sourceValidTo": "2024-07-29",
+      "fsnNumber": "450-3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -989,10 +989,6 @@
       "label": "Anlage",
       "title": "Themenbereiche der Geodaten",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Themenbereiche der Geodaten"
-        },
         {
           "type": "table",
           "columns": 3,

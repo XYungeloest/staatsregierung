@@ -87,15 +87,15 @@ test('ein Nachweis gilt nur für genau den geprüften Stand: Identitäten, Scope
   const proof = {
     $schema: PROOF_SCHEMA,
     comparator: COMPARATOR_VERSION,
-    base: { fingerprint: 'b'.repeat(64), legacyFingerprint: 'l'.repeat(64), scope: 'full', commit: 'aaa' },
+    base: { fingerprint: 'b'.repeat(64), scope: 'full', commit: 'aaa' },
     head: { fingerprint: head.fingerprint, scope: 'full', commit: 'bbb' },
     result: 'identity',
     logicChange: 'ignore',
     scopeSignature: '{"mode":"incremental"}',
   };
   assert.deepEqual(validateProof(proof, { storedFingerprint: 'b'.repeat(64), headIdentity: head }), { ok: true, problems: [] });
-  // Übergang: die frühere Basisidentität wird ebenfalls als gespeicherte Identität anerkannt.
-  assert.equal(validateProof(proof, { storedFingerprint: 'l'.repeat(64), headIdentity: head }).ok, true);
+  // Ein Nachweis mit einem zusätzlichen Feld schmuggelt keine zweite Basis ein.
+  assert.equal(validateProof({ ...proof, base: { ...proof.base, legacyFingerprint: 'l'.repeat(64) } }, { storedFingerprint: 'l'.repeat(64), headIdentity: head }).ok, false);
   const problem = (change, options = {}) => validateProof({ ...proof, ...change }, { storedFingerprint: 'b'.repeat(64), headIdentity: head, ...options }).problems.join('; ');
   assert.match(problem({}, { storedFingerprint: 'x'.repeat(64) }), /gespeicherte Identität .* ist nicht die Basis/u);
   assert.match(problem({}, { headIdentity: { fingerprint: 'y'.repeat(64) } }), /Zielidentität des Nachweises/u);

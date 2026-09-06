@@ -7,8 +7,9 @@
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Ostdeutsches Schulgesetz",
     "Ostdeutsches",
@@ -18,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Schulgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-09-27",
   "sourceReferences": [
@@ -31,7 +33,8 @@
       "sha256": "3d1792a483a1f733746bfe6c38744a10877dfb16398bbaa1dc7d525815719066",
       "lawId": "4192",
       "sourceValidFrom": "2023-08-01",
-      "sourceValidTo": "2023-12-31"
+      "sourceValidTo": "2023-12-31",
+      "fsnNumber": "710-1"
     },
     {
       "kind": "amendment-source",

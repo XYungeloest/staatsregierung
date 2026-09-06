@@ -5,20 +5,18 @@ import { getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared
 
 import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
+import { formatChangedUnitCount, formatNormUnitKind, getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import {
   LEGAL_BASELINE_DATE,
-  classifyNormOriginVersion,
   getNormOriginInfo,
 } from '@ostrecht/shared/lib/norms/origin.ts';
+import { classifyNormOriginVersion } from '@ostrecht/shared/lib/norms/origin-presentation.ts';
 import { buildNormRelations } from '@ostrecht/shared/lib/norms/relations.ts';
+import { getLegacyBlockAnchorId, getNormTitleBlock, parseCitation } from '@ostrecht/shared/lib/norms/display.ts';
+import { getBlockAnchorId } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
-  getBlockAnchorId,
-  getLegacyBlockAnchorId,
-  parseCitation,
-} from '@ostrecht/shared/lib/norms/presentation.ts';
-import {
-  buildSearchCandidateParams,
-  candidateTotalMatchesResults,
+  buildSearchQueryPlan,
+  buildSearchSnippet,
   getDefaultSearchSort,
   groupNormSearchResults,
   normalizeSearchText,
@@ -47,7 +45,7 @@ import {
   partitionDatedEntries,
   validateVersionIntervals,
 } from '@ostrecht/shared/lib/norms/versions.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
 
 import { FIXTURE_REFERENCE_DATE, fixtureCorpus } from './helpers/fixture-corpus.ts';
@@ -314,6 +312,135 @@ test('Whitespace-only changes erzeugen keinen Vergleichsblock', () => {
   after.body[0].children = [{ type: 'paragraphText', label: '(1)', text: '  Eine   Regel. ' }];
 
   assert.deepEqual(buildProvisionVersionDiff(before, after), []);
+});
+
+/**
+ * Absatzfolge ohne Gliederungszeichen vor der ersten Einheit, wie sie Präambeln und Vorsprüche
+ * bilden: jeder Absatz ist im Vergleich eine eigene Änderungseinheit.
+ */
+function unlabeledParagraphs(target: NormVersion, texts: string[]): void {
+  target.body = [
+    ...texts.map((text) => ({ type: 'paragraphText', text }) as NormVersion['body'][number]),
+    { type: 'paragraph', label: '§ 1', title: 'Geltung', children: [{ type: 'paragraphText', text: 'Diese Vorschrift gilt unverändert.' }] },
+  ];
+}
+
+test('Fassungsvergleich paart eingefügte Absätze ohne Gliederungszeichen inhaltlich', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  unlabeledParagraphs(before, [
+    'Erste Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Zweite Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Dritte Zeile des Vorspruchs nennt die maßgebliche Zuständigkeit der Behörde.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+  const after = version('b', '2026-07-01', null);
+  unlabeledParagraphs(after, [
+    'Erste Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Eine neu eingefügte Zeile ergänzt den Vorspruch an zweiter Stelle.',
+    'Zweite Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Dritte Zeile des Vorspruchs nennt die maßgebliche Zuständigkeit der obersten Behörde.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Eine weitere neu eingefügte Zeile schließt den Vorspruch ab.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+
+  const provisions = buildProvisionVersionDiff(before, after);
+  assert.equal(provisions.filter((entry) => entry.kind === 'added').length, 2);
+  assert.equal(provisions.filter((entry) => entry.kind === 'changed').length, 1);
+  assert.equal(provisions.filter((entry) => entry.kind === 'removed').length, 0);
+  const [changed] = provisions.filter((entry) => entry.kind === 'changed');
+  assert.ok(changed.textDiff?.some((chunk) => chunk.kind === 'insert' && chunk.text.includes('obersten')));
+});
+
+test('Fassungsvergleich meldet neu formulierte Absätze ohne Gliederungszeichen als entfallen und neu', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  unlabeledParagraphs(before, [
+    'Der erste Vorspruchabsatz beschreibt eine längst überholte Ausgangslage im Einzelnen.',
+    'Der zweite Vorspruchabsatz zählt frühere Zuständigkeiten einzelner Stellen auf.',
+    'Der dritte Vorspruchabsatz verweist auf eine aufgehobene Übergangsregelung.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Der sechste Vorspruchabsatz nennt den Willen der Bürgerinnen und Bürger des Landes.',
+    'Der siebte Vorspruchabsatz beschreibt eine längst überholte Verfahrensweise.',
+    'Achte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+  const after = version('b', '2026-07-01', null);
+  unlabeledParagraphs(after, [
+    'Eine vollständig neu gefasste Eröffnung stellt die heutige Aufgabe voran.',
+    'Vierte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Fünfte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+    'Der sechste Vorspruchabsatz nennt den Willen aller Bürgerinnen und Bürger des Landes.',
+    'Achte Zeile des Vorspruchs bleibt vollständig unverändert bestehen.',
+  ]);
+
+  const provisions = buildProvisionVersionDiff(before, after);
+  // Drei wortgleiche Zeilen bleiben unverändert und werden nicht gelistet; aus acht mal fünf
+  // Absätzen werden sechs Einträge statt der positionsweisen fünf „Geändert“ und drei „Entfallen“.
+  assert.equal(provisions.length, 6);
+  assert.equal(provisions.filter((entry) => entry.kind === 'changed').length, 1);
+  assert.equal(provisions.filter((entry) => entry.kind === 'added').length, 1);
+  assert.equal(provisions.filter((entry) => entry.kind === 'removed').length, 4);
+  // Kein Absatz erscheint zugleich als entfallen und als geändert.
+  assert.equal(new Set(provisions.map((entry) => entry.beforeText ?? entry.afterText)).size, provisions.length);
+  const [changed] = provisions.filter((entry) => entry.kind === 'changed');
+  assert.ok(changed.beforeText?.includes('Willen der Bürgerinnen'));
+  assert.ok(changed.afterText?.includes('Willen aller Bürgerinnen'));
+});
+
+test('umsortierte, wortgleiche Absätze erzeugen nicht mehr Einträge als Absätze', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  unlabeledParagraphs(before, [
+    'Erste Aussage des Vorspruchs zur Zuständigkeit der obersten Landesbehörde.',
+    'Zweite Aussage des Vorspruchs zur Beteiligung der kommunalen Ebene.',
+    'Dritte Aussage des Vorspruchs bleibt an ihrer Stelle unverändert bestehen.',
+  ]);
+  const after = version('b', '2026-07-01', null);
+  unlabeledParagraphs(after, [
+    'Zweite Aussage des Vorspruchs zur Beteiligung der kommunalen Ebene.',
+    'Erste Aussage des Vorspruchs zur Zuständigkeit der obersten Landesbehörde.',
+    'Dritte Aussage des Vorspruchs bleibt an ihrer Stelle unverändert bestehen.',
+  ]);
+
+  const provisions = buildProvisionVersionDiff(before, after);
+  assert.ok(provisions.length <= 3, `höchstens drei Einträge, gemeldet ${provisions.length}`);
+  assert.ok(provisions.every((entry) => entry.kind !== 'unchanged'));
+});
+
+test('Einheitenart einer Vorschrift folgt dem Normkörper und wird richtig gebeugt', () => {
+  const article = { type: 'article', label: 'Artikel 1', title: 'Grundsatz', children: [{ type: 'paragraphText', text: 'Text' }] } as const;
+  const paragraph = { type: 'paragraph', label: '§ 1', title: 'Geltung', children: [{ type: 'paragraphText', text: 'Text' }] } as const;
+  const quoted = { type: 'quotedProvision', children: [paragraph] } as const;
+
+  assert.equal(getNormUnitKind([article]), 'article');
+  assert.equal(getNormUnitKind([paragraph]), 'paragraph');
+  assert.equal(getNormUnitKind([article, paragraph]), 'mixed');
+  assert.equal(getNormUnitKind([{ type: 'paragraphText', text: 'Nur ein Absatz.' }]), 'none');
+  // Wiedergegebener fremder Text bestimmt die Einheitenart der Vorschrift nicht.
+  assert.equal(getNormUnitKind([article, quoted]), 'article');
+  // Einheiten in einer Gliederungsebene zählen mit.
+  assert.equal(getNormUnitKind([{ type: 'section', label: 'Abschnitt 1', children: [paragraph] }]), 'paragraph');
+
+  assert.equal(formatNormUnitKind('article', 'all'), 'Artikel');
+  assert.equal(formatNormUnitKind('paragraph', 'all'), 'Paragraphen');
+  assert.equal(formatNormUnitKind('none', 'all'), 'Textstellen');
+  assert.equal(formatChangedUnitCount(132, 'article'), '132 geänderte Artikel');
+  assert.equal(formatChangedUnitCount(1, 'article'), '1 geänderter Artikel');
+  assert.equal(formatChangedUnitCount(1, 'paragraph'), '1 geänderter Paragraph');
+  assert.equal(formatChangedUnitCount(2, 'paragraph'), '2 geänderte Paragraphen');
+  assert.equal(formatChangedUnitCount(1, 'none'), '1 geänderte Textstelle');
+  assert.equal(formatChangedUnitCount(3), '3 geänderte Textstellen');
+});
+
+test('Vergleichszähler nennt die Einheitenart, bleibt aber mit drei Argumenten gültig', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body = [{ type: 'article', label: 'Artikel 1', title: 'Grundsatz', children: [{ type: 'paragraphText', text: 'Die alte Regel gilt.' }] }];
+  const after = version('b', '2026-07-01', null);
+  after.body = [{ type: 'article', label: 'Artikel 1', title: 'Grundsatz', children: [{ type: 'paragraphText', text: 'Die neue Regel gilt.' }] }];
+  const provisions = buildProvisionVersionDiff(before, after);
+
+  assert.match(renderNormDiffDocument(provisions, before.validFrom, after.validFrom, 'article'), /1 geänderter Artikel/u);
+  assert.match(renderNormDiffDocument(provisions, before.validFrom, after.validFrom), /1 geänderte Textstelle/u);
 });
 
 test('Tabellen bleiben im strukturierten Vergleich als Tabellen erhalten', () => {
@@ -629,58 +756,70 @@ test('Standardsortierung richtet sich nach Suchkontext und respektiert eine ausd
 
 test('Sortierung nach jüngster Rechtsänderung: neues Gesetz 2026 und 2026 geänderte Übernahme vor unverändert übernommenem Recht, künftige Ereignisse zählen nicht', () => {
   const inheritedUnchanged = searchDocument({
-    id: 'alt:1', slug: 'archivgesetz', title: 'Archivgesetz', publicationDate: '1993-05-17', validFrom: '2023-11-01', lastChangeDate: '2023-11-01',
+    id: 'alt:1', slug: 'altes-testgesetz', title: 'Altes Testgesetz', publicationDate: '1993-05-17', validFrom: '2023-11-01', lastChangeDate: '2023-11-01',
   });
   const amendedInherited = searchDocument({
-    id: 'gemo:1', slug: 'gemeindeordnung', title: 'Gemeindeordnung', publicationDate: '2018-03-09', validFrom: '2026-08-01', lastChangeDate: '2026-08-01',
+    id: 'geaendert:1', slug: 'geaendertes-testgesetz', title: 'Geändertes Testgesetz', publicationDate: '2018-03-09', validFrom: '2026-08-01', lastChangeDate: '2026-08-01',
   });
   const newLaw = searchDocument({
-    id: 'zinn:1', slug: 'zinnwald', title: 'Zinnwald-Vergesellschaftungsgesetz', publicationDate: '2026-09-02', validFrom: '2026-09-02', lastChangeDate: '2026-09-02',
+    id: 'neu:1', slug: 'neues-testgesetz', title: 'Neues Testgesetz', publicationDate: '2026-09-02', validFrom: '2026-09-02', lastChangeDate: '2026-09-02',
   });
   // Ältere Suchdokumente ohne das Feld ordnen sich über den Fassungsbeginn ein (Expand/Contract).
   const legacyDocument = searchDocument({ id: 'legacy:1', slug: 'legacy', title: 'Ältere Projektion', validFrom: '2024-01-01' });
   delete (legacyDocument as Partial<SearchIndexDocument>).lastChangeDate;
   const results = runNormSearch([inheritedUnchanged, legacyDocument, amendedInherited, newLaw], searchState({ sort: 'activity', sortExplicit: false }));
-  assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['zinnwald', 'gemeindeordnung', 'legacy', 'archivgesetz']);
+  assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['neues-testgesetz', 'geaendertes-testgesetz', 'legacy', 'altes-testgesetz']);
   // Gleichstand: Titel, dann Slug – deterministisch.
   const tieA = searchDocument({ id: 'a:1', slug: 'b-slug', title: 'Alpha', validFrom: '2026-01-01', lastChangeDate: '2026-05-01' });
   const tieB = searchDocument({ id: 'b:1', slug: 'a-slug', title: 'Alpha', validFrom: '2026-01-01', lastChangeDate: '2026-05-01' });
   assert.deepEqual(runNormSearch([tieA, tieB], searchState({ sort: 'activity', sortExplicit: false })).map((entry) => entry.documentEntry.slug), ['a-slug', 'b-slug']);
 });
 
-test('Kandidatenanfrage trägt jeden serverseitig ausdrückbaren Filter; nur dann darf die Überschrift eine Gesamtzahl nennen', () => {
-  // Stöbern: alles serverseitig ausdrückbar, die Gesamtzahl der API beschreibt dieselbe Menge.
-  const browse = searchState({ types: ['gesetz'], subjects: ['Bildung und Schule'], statuses: ['in-force'], versionScope: 'current' });
-  assert.equal(candidateTotalMatchesResults(browse), true);
-  const browseParams = buildSearchCandidateParams(browse);
-  assert.deepEqual(browseParams.types, ['gesetz']);
-  assert.deepEqual(browseParams.subjects, ['Bildung und Schule']);
-  assert.equal(browseParams.versionScope, 'current');
-  assert.equal(browseParams.includeAmendments, false, 'ohne Suchbegriff verengt der Server auch die Änderungsvorschriften');
+test('der Suchplan zerlegt die Anfrage in serverseitig auswertbare Bestandteile', () => {
+  // Stöbern: kein Freitext, keine Bedingung über den Volltextindex.
+  const browse = buildSearchQueryPlan(searchState({ types: ['gesetz'], statuses: ['in-force'], sort: 'activity', sortExplicit: false }));
+  assert.equal(browse.freeText, false);
+  assert.deepEqual(browse.tokenGroups, []);
+  assert.equal(browse.sort, 'activity');
 
-  // Freitext: die Kandidaten sind großzügig, die Bewertung läuft im Browser – keine Gesamtzahl.
-  for (const state of [searchState({ q: 'Kulturpass' }), searchState({ exact: 'Kulturpass' }), searchState({ citation: 'OGVBl. 2026 Nr. 16' }), searchState({ exclude: 'Änderung' })]) {
-    assert.equal(candidateTotalMatchesResults(state), false);
-    assert.equal(buildSearchCandidateParams(state).includeAmendments, true, 'mit Suchbegriff bleiben Änderungsvorschriften Kandidaten');
-    assert.equal(buildSearchCandidateParams(state).versionScope, 'all', 'eine Fundstellensuche darf Fassungen nicht vorab ausschließen');
-  }
-  // Ausdrücklich gewählte Fassungsart bleibt auch mit Suchbegriff erhalten.
-  assert.equal(buildSearchCandidateParams(searchState({ q: 'Kulturpass', versionScope: 'historical', versionScopeExplicit: true })).versionScope, 'historical');
-  // Ausdrücklich gefilterte Änderungsvorschriften bleiben Kandidaten (amendmentExplicitlyRequested).
-  assert.equal(buildSearchCandidateParams(searchState({ types: ['aenderungsvorschrift'] })).includeAmendments, true);
+  // Zwei Begriffe ergeben zwei Gruppen; jede trägt ihre Schreibvarianten.
+  const plan = buildSearchQueryPlan(searchState({ q: 'Prüfstelle Straße', exclude: 'Änderung' }));
+  assert.equal(plan.tokenGroups.length, 2);
+  assert.ok(plan.tokenGroups[0].variants.includes('prufstelle'));
+  assert.ok(plan.tokenGroups[0].variants.includes('pruefstelle'), 'Umlautvarianten gehören zur selben Gruppe');
+  assert.equal(plan.excludeTokens.length, 1);
+  assert.equal(plan.freeText, true);
+  assert.equal(plan.sort, 'relevance');
+  assert.equal(plan.titlePhrase, 'prufstelle strasse', 'mehrwortige Anfragen bleiben als Wortfolge erhalten');
+  assert.deepEqual(plan.identityValues, ['Prüfstelle Straße']);
 
-  // Geltungstag und Gültigkeitszeitraum trägt die Projektion je Fassung: sie gehen serverseitig mit.
-  const dated = searchState({ geltungstag: '2026-01-01', validFrom: '2026-01-01', validTo: '2026-12-31' });
-  assert.equal(candidateTotalMatchesResults(dated), true);
-  assert.deepEqual(
-    [buildSearchCandidateParams(dated).geltungstag, buildSearchCandidateParams(dated).validFrom, buildSearchCandidateParams(dated).validTo],
-    ['2026-01-01', '2026-01-01', '2026-12-31'],
-  );
+  // Wortfolgen: Anführungszeichen und die Eingabe „Exakte Wortfolge“ landen gemeinsam im Plan.
+  const phrases = buildSearchQueryPlan(searchState({ q: '"öffentliche Aufgabe" Amt', exact: 'zweite Wortfolge' }));
+  assert.deepEqual(phrases.phrases, ['öffentliche Aufgabe', 'zweite Wortfolge']);
+  assert.equal(phrases.tokenGroups.length, 1);
 
-  // Ausgabennummer und Seite vergleichen normalisierten Text und bleiben im Browser.
-  for (const state of [searchState({ publicationIssue: '16' }), searchState({ publicationPage: '12' })]) {
-    assert.equal(candidateTotalMatchesResults(state), false);
-  }
+  // Strukturadressen und Normtypabsicht bleiben getrennt vom Suchtext.
+  const structured = buildSearchQueryPlan(searchState({ q: '§ 2a Abs. 1' }));
+  assert.deepEqual(structured.references.map((reference) => [reference.kind, reference.number, reference.subsection]), [['paragraph', '2a', '1']]);
+  const typeOnly = buildSearchQueryPlan(searchState({ q: 'Verordnungen' }));
+  assert.equal(typeOnly.typeOnly, 'verordnung');
+  assert.equal(buildSearchQueryPlan(searchState({ q: 'Verordnung über Gebühren' })).typeOnly, undefined, 'mit weiteren Begriffen wirkt die Absicht nicht als Filter');
+
+  // Suchbereich und einzelne Begriffe: ein Wort ergibt keine Titelwortfolge.
+  const scoped = buildSearchQueryPlan(searchState({ q: 'Amt', scope: 'title' }));
+  assert.equal(scoped.scope, 'title');
+  assert.equal(scoped.titlePhrase, undefined);
+});
+
+test('Textausschnitte beginnen beim Wortlaut, nicht bei der eigenen Überschrift', () => {
+  // Übergangsregel: gespeicherte Einheiten aus einer älteren Projektion tragen den Vorspann noch.
+  assert.equal(buildSearchSnippet({ label: '§ 1', title: 'Zweck', text: '§ 1 Zweck\n\nDiese Vorschrift regelt das Verfahren.' }), 'Diese Vorschrift regelt das Verfahren.');
+  assert.equal(buildSearchSnippet({ label: 'Artikel 1', title: 'Artikel 1', text: 'Artikel 1\nDie Verordnung wird neu gefasst.' }), 'Die Verordnung wird neu gefasst.');
+  assert.equal(buildSearchSnippet({ label: 'I.', title: 'Zuwendungszweck', text: 'Der Freistaat gewährt Zuwendungen.' }), 'Der Freistaat gewährt Zuwendungen.');
+  // Zeilenumbrüche werden zu Leerzeichen, die Länge endet an einer Wortgrenze mit Auslassung.
+  const long = buildSearchSnippet({ label: '', title: '', text: `${'Wortlaut '.repeat(60)}Ende` }, 60);
+  assert.ok(long.length <= 61 && long.endsWith('…'), long);
+  assert.ok(!long.includes('  '));
 });
 
 test('Rechtsänderung und Aktivität sind getrennt: ein bloßer Hinweis zählt nur als Aktivität', () => {
@@ -830,6 +969,26 @@ test('Rechtsherkunft des Fixture-Bestands folgt Quellen und Historie', () => {
   assert.equal(origin('aufgehobene-verordnung').kind, 'inherited-amended', 'eine ostdeutsche Aufhebung ist eine eigene Änderung');
 });
 
+test('Treffereinheiten führen ihre Überschrift nicht zusätzlich im Text', () => {
+  const unitsOf = (slug: string) => fixtureSearchIndex.documents.find((entry) => entry.slug === slug && entry.isCurrent)?.hitUnits ?? [];
+  const cases: Array<[string, string]> = [
+    ['testgesetz', '§ 1'],
+    ['mantelverordnung', 'Artikel 1'],
+    ['foerderrichtlinie-testkindergeld', 'I.'],
+  ];
+  for (const [slug, label] of cases) {
+    const unit = unitsOf(slug).find((entry) => entry.label === label);
+    assert.ok(unit, `${slug}: Einheit ${label}`);
+    assert.ok(!unit.text.startsWith(unit.label), `${slug}: Text beginnt mit dem Label – ${unit.text.slice(0, 40)}`);
+    assert.ok(!unit.text.startsWith(unit.title), `${slug}: Text beginnt mit der Überschrift – ${unit.text.slice(0, 40)}`);
+    const snippet = buildSearchSnippet(unit);
+    assert.ok(snippet.length > 0 && !snippet.startsWith(unit.label) && !snippet.startsWith(unit.title), `${slug}: ${snippet.slice(0, 60)}`);
+    assert.equal(snippet, unit.text.replace(/\s+/gu, ' ').trim().slice(0, snippet.length), `${slug}: der Ausschnitt beginnt beim ersten Satz`);
+  }
+  // Eine Einheit ohne eigenen Wortlaut bildet keine Trefferstelle mehr.
+  assert.ok(fixtureSearchIndex.documents.every((entry) => entry.hitUnits.every((unit) => unit.text.trim().length > 0)));
+});
+
 test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung', () => {
   const latest = getLatestPublication(fixture.publications);
   assert.ok(latest);
@@ -951,4 +1110,48 @@ test('Autocomplete enthält eine kanonische Suggestion je geltender Norm', () =>
   assert.equal(amended?.url.endsWith('/norm/testgesetz/'), true);
   assert.ok(!suggestions.some((suggestion) => suggestion.slug === 'kuenftiges-gesetz'), 'ohne geltende Fassung kein Vorschlag');
   assert.ok(!suggestions.some((suggestion) => suggestion.slug === 'aufgehobene-verordnung'), 'aufgehobene Normen werden nicht vorgeschlagen');
+});
+test('der Titelblock zeigt die Kurzbezeichnung als Überschrift und den Langtitel darunter', () => {
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Gesetz über die Prüfung von Testfällen', shortTitle: 'Ostdeutsches Testprüfgesetz', abbr: 'TestPrG' }),
+    { heading: 'Ostdeutsches Testprüfgesetz', longTitle: 'Gesetz über die Prüfung von Testfällen', abbr: 'TestPrG' },
+  );
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Ostdeutsches Testprüfgesetz' }),
+    { heading: 'Ostdeutsches Testprüfgesetz' },
+    'ohne Kurzbezeichnung bleibt der Titel allein stehen',
+  );
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Ostdeutsches Testprüfgesetz', shortTitle: 'Ostdeutsches Testprüfgesetz', abbr: 'Ostdeutsches Testprüfgesetz' }),
+    { heading: 'Ostdeutsches Testprüfgesetz' },
+    'Wiederholungen erzeugen weder eine zweite Zeile noch eine Abkürzung',
+  );
+});
+
+test('die Identität einer Fassung kommt ohne Kurzbezeichnung der Norm aus', () => {
+  const norm = record([version('geltend', '2026-01-01', null)]);
+  const meta = { ...norm.meta, shortTitle: undefined, summary: 'Regelt die Prüfung von Testfällen.' };
+  const identity = getNormVersionIdentity({ meta }, norm.versions[0]);
+  assert.equal(identity.title, 'Testnorm');
+  assert.equal(identity.shortTitle, 'Testnorm', 'ohne Kurzbezeichnung tritt der Titel an ihre Stelle');
+  assert.equal(getNormTitleBlock(identity).longTitle, undefined);
+});
+
+test('abgeleitete Zusammenfassungen bleiben unveröffentlicht, redaktionelle nicht', () => {
+  const base = record([version('geltend', '2026-01-01', null)]);
+  const derived = {
+    meta: { ...base.meta, summary: 'Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Testnorm“.', summarySource: 'derived' as const },
+  };
+  assert.equal(getPublicNormSummary(getNormVersionIdentity(derived, base.versions[0])), undefined);
+  const editorial = { meta: { ...base.meta, summary: 'Regelt die Prüfung von Testfällen und das Verfahren der Prüfstellen.' } };
+  assert.equal(
+    getPublicNormSummary(getNormVersionIdentity(editorial, base.versions[0])),
+    'Regelt die Prüfung von Testfällen und das Verfahren der Prüfstellen.',
+  );
+  const overridden = { ...base.versions[0], summary: 'Beschreibt die Fassung dieser Vorschrift im Einzelnen.' };
+  assert.equal(
+    getPublicNormSummary(getNormVersionIdentity(derived, overridden)),
+    'Beschreibt die Fassung dieser Vorschrift im Einzelnen.',
+    'eine fassungseigene Zusammenfassung gilt als redaktionell',
+  );
 });

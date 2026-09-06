@@ -2,15 +2,14 @@
   "id": "6-aendg-ostbesg",
   "slug": "6-aendg-ostbesg",
   "title": "Sechstes Gesetz zur Änderung des Ostdeutschen Besoldungsgesetzes",
-  "shortTitle": "Sechstes Gesetz zur Änderung des Ostdeutschen Besoldungsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Sechstes Gesetz zur Änderung des Ostdeutschen Besoldungsgesetzes",
+    "6. ÄndG OstBesG",
     "Sechstes",
     "Änderung",
     "Besoldungsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Sechstes Gesetz zur Änderung des Ostdeutschen Besoldungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-06-19",
   "effectiveDate": "2009-08-01",
@@ -33,8 +33,12 @@
       "sha256": "9325c83d7281ffccdb3f2b70edff1ffd4b50a4ae5d67614e119cdcf2e0fd9f0d",
       "lawId": "10832",
       "sourceValidFrom": "2009-08-01",
+      "fsnNumber": "242",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-besoldungsgesetz"
   ]
 }

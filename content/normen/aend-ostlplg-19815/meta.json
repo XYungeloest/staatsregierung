@@ -2,13 +2,12 @@
   "id": "aend-ostlplg-19815",
   "slug": "aend-ostlplg-19815",
   "title": "Änderung des Landesplanungsgesetzes",
-  "shortTitle": "Änd. OstLPlG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Raumordnung und Landesplanung"
+    "Raumordnung, Landesplanung"
   ],
+  "primarySubject": "Raumordnung, Landesplanung",
   "keywords": [
     "Änd. OstLPlG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2023-2024",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstLPlG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Landesplanungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-12-20",
   "effectiveDate": "2022-12-30",
@@ -33,6 +33,7 @@
       "sha256": "954e995e6bbe300760e29be24b5f0afb44793541329d248a371b25edbca148d3",
       "lawId": "19815",
       "sourceValidFrom": "2022-12-30",
+      "fsnNumber": "40",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

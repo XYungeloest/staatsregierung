@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Landesbürgschaftsprogramm",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums der Finanzen zur Übernahme von Bürgschaften für die gewerbliche Wirtschaft und die freien Berufe (Landesbürgschaftsprogramm)",
   "shortTitle": "Landesbürgschaftsprogramm",
-  "abbr": "Landesbürgschaftsprogramm",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Landesbürgschaftsprogramm vom 1. Juli 2013 (SächsABl. S. 985), die zuletzt durch die Richtlinie vom 9. Februar 2016 (SächsABl. S. 311) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 1. Dezember 2023 (SächsABl. SDr. S. S 253)",
+  "citation": "Landesbürgschaftsprogramm vom 1. Juli 2013 (SächsABl. S. 985), die zuletzt durch die Richtlinie vom 9. Februar 2016 (SächsABl. S. 311) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -20,6 +19,7 @@
       "lawId": "13774",
       "sourceValidFrom": "2016-02-09",
       "sourceValidTo": "2024-02-08",
+      "fsnNumber": "5500-V13.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -35,14 +35,6 @@
           "label": "1.",
           "title": "Allgemeines",
           "children": [
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Allgemeines",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "1.1",
@@ -132,14 +124,6 @@
           "title": "Verwendungszweck",
           "children": [
             {
-              "type": "item",
-              "label": "2.",
-              "text": "Verwendungszweck",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
               "type": "paragraphText",
               "text": "Die Bürgschaften können gewährt werden zur Besicherung von Krediten und Avalrahmen für folgende Maßnahmen:"
             },
@@ -172,14 +156,6 @@
           "children": [
             {
               "type": "item",
-              "label": "3.",
-              "text": "Bürgschaftsvoraussetzungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "3.1",
               "text": "Bürgschaften dürfen nur übernommen werden, wenn auf der Grundlage eines tragfähigen Unternehmenskonzeptes die Rückzahlung der verbürgten Kredite bei normalem wirtschaftlichen Ablauf innerhalb der für den Kredit vereinbarten Zahlungstermine erwartet werden kann. Bürgschaften dürfen nicht übernommen werden, wenn mit hoher Wahrscheinlichkeit mit der Inanspruchnahme aus der Bürgschaft gerechnet werden muss.",
               "level": 0,
@@ -201,14 +177,6 @@
           "label": "4.",
           "title": "Antragsteller (Kreditnehmer)",
           "children": [
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Antragsteller (Kreditnehmer)",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "4.1",
@@ -292,14 +260,6 @@
           "children": [
             {
               "type": "item",
-              "label": "5.",
-              "text": "Kreditgeber",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "5.1",
               "text": "Die Bürgschaften werden gegenüber Kreditinstituten oder anderen Kapitalsammelstellen mit Sitz im Europäischen Wirtschaftsraum übernommen.",
               "level": 0,
@@ -321,14 +281,6 @@
           "label": "6.",
           "title": "Inhalt, Umfang und Laufzeit von Bürgschaften",
           "children": [
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "Inhalt, Umfang und Laufzeit von Bürgschaften",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "6.1",
@@ -370,14 +322,6 @@
           "children": [
             {
               "type": "item",
-              "label": "7.",
-              "text": "Sicherheiten",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "7.1",
               "text": "Der Kreditnehmer ist ungeachtet der Nummer 3.2 verpflichtet, bei Stellung des Antrages auf Übernahme einer Bürgschaft alle zumutbaren Kreditsicherheiten anzubieten.",
               "level": 0,
@@ -414,14 +358,6 @@
           "label": "8.",
           "title": "Antragsverfahren",
           "children": [
-            {
-              "type": "item",
-              "label": "8.",
-              "text": "Antragsverfahren",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "8.1",
@@ -524,14 +460,6 @@
           "children": [
             {
               "type": "item",
-              "label": "9.",
-              "text": "Bürgschaftsbewilligung",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "9.1",
               "text": "Über die Rückbürgschaft entscheidet das Staatsministerium der Finanzen. Die Rückbürgschaften können mit Nebenbestimmungen versehen werden.",
               "level": 0,
@@ -579,14 +507,6 @@
           "children": [
             {
               "type": "item",
-              "label": "10.",
-              "text": "Bürgschaftsübernahme",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "10.1",
               "text": "Sofern der Kreditvertrag die im Zusammenhang mit der Entscheidung getroffenen notwendigen Festlegungen (Nummer 9.3) berücksichtigt, veranlasst die SAB die Ausstellung der Bürgschaftserklärung.",
               "level": 0,
@@ -615,14 +535,6 @@
           "label": "11.",
           "title": "Kosten der Bürgschaftsübernahme",
           "children": [
-            {
-              "type": "item",
-              "label": "11.",
-              "text": "Kosten der Bürgschaftsübernahme",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "11.1",
@@ -699,14 +611,6 @@
           "title": "Vertraulichkeit",
           "children": [
             {
-              "type": "item",
-              "label": "12.",
-              "text": "Vertraulichkeit",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
               "type": "paragraphText",
               "text": "Alle Verhandlungen, Beratungen, Unterlagen und Auskünfte sind vertraulich zu behandeln und dürfen Dritten gegenüber nicht offenbart werden. Alle an Entscheidungen über Bürgschaften Beteiligten sind zur Verschwiegenheit verpflichtet."
             }
@@ -718,14 +622,6 @@
           "title": "Anpassungsklausel",
           "children": [
             {
-              "type": "item",
-              "label": "13.",
-              "text": "Anpassungsklausel",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
               "type": "paragraphText",
               "text": "Das Staatsministerium der Finanzen behält sich vor, die Anlagen 1 bis 2 den jeweiligen Verhältnissen einschließlich Änderungen der Rechtslage anzupassen."
             }
@@ -736,14 +632,6 @@
           "label": "14.",
           "title": "Prüfungs- und Auskunftsrechte",
           "children": [
-            {
-              "type": "item",
-              "label": "14.",
-              "text": "Prüfungs- und Auskunftsrechte",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "14.1",
@@ -783,14 +671,6 @@
           "label": "15.",
           "title": "Inkrafttreten",
           "children": [
-            {
-              "type": "item",
-              "label": "15.",
-              "text": "Inkrafttreten",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "paragraphText",
               "text": "Die Richtlinie tritt mit Wirkung vom 1. Juli 2013 in Kraft und gilt bei Bürgschaften von mehr als 2 500 000 EUR für alle Anträge auf Übernahme einer Bürgschaft (Nummer 8.1), die das Staatsministerium der Finanzen ab dem 1. Juli 2013 zur Bearbeitung freigibt."

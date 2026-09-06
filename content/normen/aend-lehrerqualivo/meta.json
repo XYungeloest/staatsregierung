@@ -2,12 +2,11 @@
   "id": "aend-lehrerqualivo",
   "slug": "aend-lehrerqualivo",
   "title": "Änderung der Lehrer-Qualifizierungsverordnung",
-  "shortTitle": "Änd. LehrerQualiVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. LehrerQualiVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-anpassungen-in-der-lehreraus-und-weiterbildung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. LehrerQualiVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Lehrer-Qualifizierungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-01-19",
   "effectiveDate": "2022-02-01",
@@ -32,6 +32,7 @@
       "sha256": "9801d94ba49ef3d5d6ca490b653794cad6d34de164ba085d871b5fc9811d9bca",
       "lawId": "19498",
       "sourceValidFrom": "2022-02-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

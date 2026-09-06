@@ -2,15 +2,14 @@
   "id": "aend-ostfag",
   "slug": "aend-ostfag",
   "title": "Siebentes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes",
-  "shortTitle": "Siebentes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Finanzverwaltung, Finanzausgleich"
   ],
+  "primarySubject": "Finanzverwaltung, Finanzausgleich",
   "keywords": [
-    "Siebentes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes",
+    "Änd. OstFAG",
     "Siebentes",
     "Änderung",
     "Finanzausgleichsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Siebentes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-12-15",
   "effectiveDate": "2011-01-01",
@@ -33,8 +33,12 @@
       "sha256": "c503aecaabbc218af4b5c083911bd8b8284abac006e1e29869a36a753c2aa3bb",
       "lawId": "11603",
       "sourceValidFrom": "2011-01-01",
+      "fsnNumber": "50",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "finanzausgleichsgesetz"
   ]
 }

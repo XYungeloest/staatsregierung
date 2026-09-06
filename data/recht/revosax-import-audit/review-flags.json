@@ -11,7 +11,9 @@
     "no-provisions": 61,
     "legacy-layout": 4,
     "duplicate-interval-versions": 1,
-    "multi-version-identical-text": 2
+    "multi-version-identical-text": 2,
+    "envelope-not-in-manifest": 5,
+    "post-cutoff-source": 10
   },
   "sourceEndingTypes": {
     "A": 275,
@@ -23340,6 +23342,81 @@
       ]
     },
     {
+      "lawId": "20118",
+      "sourceId": "20118",
+      "versionSuffix": null,
+      "category": "ÄG",
+      "normType": "aenderungsvorschrift",
+      "title": "Änderung des Ostdeutschen Beamtenversorgungsgesetzes",
+      "shortTitle": "Änd. Sächs BeamtVG",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20118",
+      "canonicalVersionUrl": null,
+      "slug": "aend-saechs-beamtvg-20118",
+      "action": "SKIP",
+      "flags": [
+        "envelope-not-in-manifest",
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Mantelvorschrift ab 2024-01-01"
+        ],
+        "resolution": "undecided"
+      }
+    },
+    {
+      "lawId": "20119",
+      "sourceId": "20119",
+      "versionSuffix": null,
+      "category": "ÄG",
+      "normType": "aenderungsvorschrift",
+      "title": "Weitere Änderung des Ostdeutschen Besoldungsgesetzes",
+      "shortTitle": "Änd. OstBesG",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20119",
+      "canonicalVersionUrl": null,
+      "slug": "aend-ostbesg-20119",
+      "action": "SKIP",
+      "flags": [
+        "envelope-not-in-manifest",
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Mantelvorschrift ab 2024-01-01"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Mantelvorschrift 20116 gilt erst ab 1. Januar 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Mantelvorschrift 20116 gilt erst ab 1. Januar 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
+      "lawId": "20120",
+      "sourceId": "20120",
+      "versionSuffix": null,
+      "category": "ÄG",
+      "normType": "aenderungsvorschrift",
+      "title": "Weitere Änderung des Ostdeutschen Beamtenversorgungsgesetzes",
+      "shortTitle": "Änd. OstBeamtVG",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20120",
+      "canonicalVersionUrl": null,
+      "slug": "aend-ostbeamtvg-20120",
+      "action": "SKIP",
+      "flags": [
+        "envelope-not-in-manifest",
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Mantelvorschrift ab 2024-01-01"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Mantelvorschrift 20116 gilt erst ab 1. Januar 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Mantelvorschrift 20116 gilt erst ab 1. Januar 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
       "lawId": "20153",
       "sourceId": "20153",
       "versionSuffix": null,
@@ -24152,6 +24229,185 @@
           "fileName": "01_21_0432a_anl3.pdf"
         }
       ]
+    },
+    {
+      "lawId": "20826",
+      "sourceId": "20826.1",
+      "versionSuffix": "1",
+      "category": "ÄG",
+      "normType": "aenderungsvorschrift",
+      "title": "Änderung des Ostdeutschen Besoldungsgesetzes zum 1. Januar 2023",
+      "shortTitle": "Änd. OstBesG",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20826.1",
+      "canonicalVersionUrl": null,
+      "slug": "aend-ostbesg-20826",
+      "action": "SKIP",
+      "flags": [
+        "envelope-not-in-manifest",
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Erlassdatum 2024-05-02",
+          "Mantelvorschrift ab 2024-01-01"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Erlassdatum 2. Mai 2024; Mantelvorschrift 20817 gilt erst ab 1. Januar 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Erlassdatum 2. Mai 2024; Mantelvorschrift 20817 gilt erst ab 1. Januar 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
+      "lawId": "20865",
+      "sourceId": "20865",
+      "versionSuffix": null,
+      "category": "ÄG",
+      "normType": "aenderungsvorschrift",
+      "title": "Änderung des Landesplanungsgesetzes",
+      "shortTitle": "Änd. OstLPlG",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20865",
+      "canonicalVersionUrl": null,
+      "slug": "aend-ostlplg-20865",
+      "action": "SKIP",
+      "flags": [
+        "envelope-not-in-manifest",
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Erlassdatum 2024-06-12",
+          "Mantelvorschrift ab 2024-06-29"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Erlassdatum 12. Juni 2024; Mantelvorschrift 20863 gilt erst ab 29. Juni 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Erlassdatum 12. Juni 2024; Mantelvorschrift 20863 gilt erst ab 29. Juni 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
+      "lawId": "20929",
+      "sourceId": "20929",
+      "versionSuffix": null,
+      "category": "ÄVO",
+      "normType": "aenderungsvorschrift",
+      "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung von Rechtsnormen für Schulen in freier Trägerschaft im Jahr 2024",
+      "shortTitle": "Änd. Rechtsnormen für Schulen in freier Trägerschaft 2024",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20929",
+      "canonicalVersionUrl": "https://www.revosax.sachsen.de/vorschrift/20929.1",
+      "slug": "aend-rechtsnormen-fuer-schulen-in-freier-traegerschaft-2024",
+      "action": "SKIP",
+      "flags": [
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Erlassdatum 2024-07-08"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Erlassdatum 8. Juli 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Erlassdatum 8. Juli 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
+      "lawId": "20930",
+      "sourceId": "20930",
+      "versionSuffix": null,
+      "category": "ÄVO",
+      "normType": "aenderungsvorschrift",
+      "title": "Änderung des Ostdeutschen Gesetzes über Schulen in freier Trägerschaft",
+      "shortTitle": "Änd. OstFrTrSchulG",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20930",
+      "canonicalVersionUrl": null,
+      "slug": "aend-ostfrtrschulg-20930",
+      "action": "SKIP",
+      "flags": [
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Erlassdatum 2024-07-08"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Erlassdatum 8. Juli 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Erlassdatum 8. Juli 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
+      "lawId": "20931",
+      "sourceId": "20931",
+      "versionSuffix": null,
+      "category": "ÄVO",
+      "normType": "aenderungsvorschrift",
+      "title": "Änderung der Zuschussverordnung",
+      "shortTitle": "Änd. ZuschussVO",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20931",
+      "canonicalVersionUrl": null,
+      "slug": "aend-zuschussvo-20931",
+      "action": "SKIP",
+      "flags": [
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Erlassdatum 2024-07-08"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Erlassdatum 8. Juli 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Erlassdatum 8. Juli 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
+      "lawId": "20934",
+      "sourceId": "20934",
+      "versionSuffix": null,
+      "category": "ÄVO",
+      "normType": "aenderungsvorschrift",
+      "title": "Änderung der Ostdeutschen Schulnetzplanungsverordnung",
+      "shortTitle": "Änd. OstSchulnetzVO",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/20934",
+      "canonicalVersionUrl": null,
+      "slug": "aend-ostschulnetzvo-20934",
+      "action": "SKIP",
+      "flags": [
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Erlassdatum 2024-07-08"
+        ],
+        "resolution": "discard",
+        "adoptingNorm": null,
+        "basis": "Erlassdatum 8. Juli 2024",
+        "reason": "Einmaliger sächsischer Rechtsakt nach dem Überleitungsstichtag (Erlassdatum 8. Juli 2024) ohne ostdeutsche Änderungsvorschrift, die ihn übernimmt. Er gehört nicht zum übernommenen Rechtsstand vom 1. November 2023 und wird aus der Ausgangsmenge entfernt."
+      }
+    },
+    {
+      "lawId": "21231",
+      "sourceId": "21231",
+      "versionSuffix": null,
+      "category": "VwV",
+      "normType": "verwaltungsvorschrift",
+      "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zum Ausgleich von durch Wolf, Luchs oder Bär verursachten Schäden",
+      "shortTitle": "VwV Größere Raubtiere",
+      "sourceUrl": "https://www.revosax.sachsen.de/vorschrift/21231",
+      "canonicalVersionUrl": "https://www.revosax.sachsen.de/vorschrift/21231.1",
+      "slug": "vwv-groessere-raubtiere",
+      "action": "MATCH",
+      "flags": [
+        "post-cutoff-source"
+      ],
+      "postCutoff": {
+        "facts": [
+          "Erlassdatum 2025-05-30"
+        ],
+        "resolution": "open",
+        "adoptingNorm": null,
+        "basis": "Erlassdatum 30. Mai 2025 bei Fassungsbeginn 1. Juli 2023",
+        "reason": "Die amtliche Trefferliste nennt ein Erlassdatum nach dem Überleitungsstichtag, die übernommene Fassung gilt aber seit dem 1. Juli 2023. Ob die Vorschrift am Stichtag in dieser Fassung galt, ist ohne weitere amtliche Quelle nicht zu belegen; sie bleibt unverändert im Bestand und in CONTENT_GAPS.md dokumentiert."
+      }
     }
   ]
 }

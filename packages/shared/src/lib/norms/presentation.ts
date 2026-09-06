@@ -1,22 +1,16 @@
 import type { NormBodyBlock, NormStatus, NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 
-export interface NormOutlineItem {
-  anchor: string;
-  label?: string;
-  title: string;
-  level: number;
-  children: NormOutlineItem[];
-}
+/**
+ * Projizierte Anzeigetexte und Anker: Umlautkorrektur (`toDisplayText`), Bezeichnungen von
+ * Normtyp und Rechtsstand sowie die Blockanker der Fassungen. Teil der D1-Projektion
+ * (Code-Abschluss von scripts/sync-recht-d1.mjs über search.ts, citation.ts und references.ts):
+ * Titel, Schlagwörter, Vollzitate, Filterbezeichnungen und Suchprovisionen werden damit in D1
+ * geschrieben. Reine Darstellung für die Oberfläche (Datumsformat, Fundstellenparser,
+ * verlinkter Text, Gliederung, alte Anker) steht in display.ts; dieses Modul importiert
+ * display.ts nie.
+ */
 
 export type NormAnchorMap = ReadonlyMap<string, string>;
-
-export interface ParsedCitation {
-  source: string;
-  year: string;
-  part?: string;
-  issue: string;
-  page?: string;
-}
 
 export interface TextLinkReference {
   label: string;
@@ -167,93 +161,98 @@ export function formatNormStatus(value: NormStatus): string {
   return NORM_STATUS_LABELS[value];
 }
 
-export function formatDate(value: string): string {
-  const [year, month, day] = value.split('-').map((entry) => Number.parseInt(entry, 10));
-  const date = new Date(Date.UTC(year, month - 1, day));
+// ---------------------------------------------------------------------------
+// Ordnungswort (alphabetische Einordnung)
+// ---------------------------------------------------------------------------
 
-  return new Intl.DateTimeFormat('de-DE', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(date);
+/**
+ * Amtliche Titel beginnen fast immer mit der Rechtsform („Gesetz“, „Verordnung“,
+ * „Verwaltungsvorschrift“) und oft mit der erlassenden Stelle. Das Ordnungswort ist das erste
+ * inhaltstragende Wort einer Vorschrift: der Begriff, unter dem sie in einem alphabetischen
+ * Verzeichnis steht. Die Regeln arbeiten nur auf dem Text der Bezeichnung; sie lesen keine
+ * anderen Felder und treffen keine fachliche Entscheidung.
+ */
+const SORT_ORDINAL = /^(?:(?:erste|zweite|dritte|vierte|fünfte|sechste|siebte|siebente|achte|neunte|zehnte|elfte|zwölfte)[snmr]?|\d+\.)\s+/iu;
+/** Führende Abkürzung der Rechtsform („VwV Meldewesen“, „VwV-Fischereirechte“, „FRL Bus“). */
+const SORT_ABBREVIATION = /^(?:OstVwV|SächsVwV|VwV|FRL|RL|VO|G)(?:\s+|\s*[-–]\s*)/u;
+/** Führende Gattungsbezeichnung der Rechtsform. */
+const SORT_GENUS = /^(?:Gesetzes|Gesetz|Rechtsverordnungen|Rechtsverordnung|Polizeiverordnungen|Polizeiverordnung|Verordnungen|Verordnung|(?:Gemeinsame|Allgemeine)\s+Verwaltungsvorschriften?|Verwaltungsvorschriften|Verwaltungsvorschrift|Förderrichtlinien|Förderrichtlinie|Richtlinien|Richtlinie|Bekanntmachungen|Bekanntmachung|Allgemeinverfügungen|Allgemeinverfügung|Staatsverträge|Staatsvertrag|Verwaltungsabkommen|Abkommen|Verwaltungsvereinbarung|Vereinbarung|Rahmenvereinbarung|Erlass|Satzung|Beschluss|Grundsätze|Hinweise|Empfehlungen|Leitlinien|Vertrag|Übereinkommen|Programm|Anordnung)\b[\s,]*/u;
+/** Erlassende Stelle: „des Ostdeutschen Staatsministeriums …“, „der Staatsregierung …“. */
+const SORT_ISSUER = /^(?:des|der|dem|vom|von\s+(?:der|dem)|beim|bei\s+der)\s+(?:(?:Ostdeutsch|Sächsisch|Freistaat)\w*\s+)*(?:Staatsministeriums|Staatsministerien|Staatsministerium|Staatsregierung|Staatskanzlei|Regierungspräsidiums|Regierungspräsidium|Landesdirektion|Staatsrates|Staatsrats|Staatsrat|Staatssekretariats|Staatssekretariat|Landesamtes|Landesamts|Landesamt|Landtages|Landtags|Landtag|Ministerpräsidenten|Landesregierung|Obersten\s+Landesbehörden|Staatspräsidenten|Volkskammer)\b/u;
+/** Ende der Erlasserangabe: hier beginnt der Regelungsgegenstand. */
+const SORT_ISSUER_END = /(?<=\s)(?:über|zur|zum|zu|betreffend|hinsichtlich|für\s+(?:den|die|das|ein\w*))\s+/iu;
+/** Führende Präposition und führender Artikel vor dem Regelungsgegenstand. */
+const SORT_PREPOSITION = /^(?:über|zur|zum|zu|betreffend|hinsichtlich|für|gegen|von|vom|mit|nach|auf|bei|wegen)\s+/iu;
+const SORT_ARTICLE = /^(?:der|die|das|den|dem|des|ein|eine|einer|eines|einem|einen)\s+/iu;
+/** Landesbezogene Adjektive vor der Rechtsform oder dem Gegenstand (nur als eigenes Wort). */
+const SORT_ADJECTIVE = /^(?:Ostdeutsch|Sächsisch)\w*\s+/u;
+const SORT_LEADING_MARKS = /^[\s"„“”‚‘’'«»(\[{–—-]+/u;
+
+/** Führende Anführungszeichen, Klammern und Striche entfernen. */
+function stripLeadingMarks(value: string): string {
+  return value.replace(SORT_LEADING_MARKS, '').trimStart();
 }
 
-export function parseCitation(value: string): ParsedCitation | undefined {
-  const displayValue = toDisplayText(value);
-  const match = displayValue.match(
-    /\b(OGVBl\.|OABl\.|StAnzO\.|OVertrBl\.|GMBl\.|SächsGVBl\.|BGBl\.)\s+(\d{4})(?:\s+([IVX]+))?\s+Nr\.\s+([\p{L}\p{N}]+(?:[./\-–—][\p{L}\p{N}]+)*)(?:\s+S\.\s+([\p{L}\p{N}]+(?:[./\-–—][\p{L}\p{N}]+)*))?/u,
-  );
-
-  if (!match) {
-    return undefined;
-  }
-
-  return {
-    source: match[1],
-    year: match[2],
-    ...(match[3] ? { part: match[3] } : {}),
-    issue: match[4],
-    ...(match[5] ? { page: match[5] } : {}),
-  };
+/** Erlasserangabe bis zum Regelungsgegenstand abschneiden; ohne Fügewort hilft der Gedankenstrich. */
+function stripIssuerSegment(value: string): string {
+  if (!SORT_ISSUER.test(value)) return value;
+  const end = SORT_ISSUER_END.exec(value);
+  if (end && end.index > 0) return value.slice(end.index);
+  const dash = value.lastIndexOf(' – ');
+  return dash > 0 ? value.slice(dash + 3) : value;
 }
 
-function escapeHtml(value: string): string {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
-
-function isWordCharacter(value: string): boolean {
-  return /[\p{L}\p{N}_-]/u.test(value);
-}
-
-function isDelimited(value: string, start: number, length: number): boolean {
-  const before = value[start - 1];
-  const after = value[start + length];
-
-  return (!before || !isWordCharacter(before)) && (!after || !isWordCharacter(after));
-}
-
-export function renderLinkedDisplayText(
-  value: string | null | undefined,
-  references: TextLinkReference[] = [],
-): string {
-  const text = toDisplayText(value);
-  if (!text || references.length === 0) {
-    return escapeHtml(text);
-  }
-
-  const chunks: string[] = [];
-  let index = 0;
-
-  while (index < text.length) {
-    const match = references.find((reference) => {
-      if (!text.startsWith(reference.label, index)) {
-        return false;
-      }
-
-      return isDelimited(text, index, reference.label.length);
-    });
-
-    if (!match) {
-      chunks.push(escapeHtml(text[index]));
-      index += 1;
-      continue;
+/**
+ * Ordnungswort einer Vorschrift: der Anfang ihrer Bezeichnung ohne Ordnungszahl, Rechtsform,
+ * erlassende Stelle, Präposition und Artikel. Bleibt nichts übrig, gilt der Titel selbst.
+ * Reine Textlogik – Teil der D1-Projektion (der Sync schreibt Sortierschlüssel und
+ * Buchstabengruppe damit).
+ */
+export function getNormSortWord(identity: { title: string; shortTitle?: string | null }): string {
+  const title = (identity.title ?? '').trim();
+  const shortTitle = (identity.shortTitle ?? '').trim();
+  let value = stripLeadingMarks(shortTitle && shortTitle !== title ? shortTitle : title);
+  // Die Rechtsform wird einmal entfernt und nur nach einem Landesadjektiv ein zweites Mal
+  // („Ostdeutsches Gesetz zur Ausführung …“). Sonst verlöre ein Zustimmungsgesetz auch den
+  // Vertragsnamen, unter dem es gesucht wird.
+  let genusRemoved = false;
+  for (let round = 0; round < 8; round += 1) {
+    const before = value;
+    let next = value.replace(SORT_ORDINAL, '').replace(SORT_ABBREVIATION, '');
+    const withoutAdjective = next.replace(SORT_ADJECTIVE, '');
+    const adjectiveRemoved = withoutAdjective !== next;
+    next = withoutAdjective.replace(SORT_ARTICLE, '');
+    if ((!genusRemoved || adjectiveRemoved) && SORT_GENUS.test(next)) {
+      next = stripIssuerSegment(next.replace(SORT_GENUS, ''));
+      genusRemoved = true;
     }
-
-    chunks.push(
-      `<a class="inline-link" href="${escapeHtml(match.url)}"${match.external ? ' rel="noopener noreferrer" target="_blank"' : ''}>${escapeHtml(match.label)}</a>`,
-    );
-    index += match.label.length;
+    next = stripLeadingMarks(next.replace(SORT_PREPOSITION, '').replace(SORT_ARTICLE, ''));
+    // Ein Schritt, der nichts übrig lässt, wird verworfen: die Bezeichnung besteht dann nur aus
+    // Rechtsform und Fügewörtern.
+    if (!next) break;
+    value = next;
+    if (value === before) break;
   }
-
-  return chunks.join('');
+  return value || title;
 }
 
-function anchorSlug(value: string): string {
+/**
+ * Sortier- und Vergleichsschlüssel des Ordnungsworts: Kleinschreibung, Umlaute und Akzente
+ * aufgelöst, ß als ss, Anführungszeichen entfernt. SQLite sortiert binär – die Projektion legt
+ * deshalb genau diesen Schlüssel als `law_norms.sort_word` ab, damit „Ärzte“ unter A steht.
+ */
+export function getNormSortKey(identity: { title: string; shortTitle?: string | null }): string {
+  return getNormSortWord(identity)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/gu, '')
+    .replace(/ß/gu, 'ss')
+    .replace(/[„“”‚‘’"'«»]/gu, '')
+    .toLocaleLowerCase('de')
+    .replace(/\s+/gu, ' ')
+    .trim();
+}
+
+export function anchorSlug(value: string): string {
   return value
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
@@ -261,13 +260,6 @@ function anchorSlug(value: string): string {
     .replace(/§§?/g, 'paragraph')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-}
-
-export function getLegacyBlockAnchorId(path: number[], block: NormBodyBlock): string {
-  const base = block.label ?? block.title ?? block.type;
-  const slug = anchorSlug(base);
-
-  return `block-${path.join('-')}-${slug || block.type}`;
 }
 
 export function getBlockAnchorId(
@@ -299,7 +291,7 @@ function getBlockPathKey(path: number[]): string {
   return path.join('.');
 }
 
-function isAnchoredBlock(block: NormBodyBlock): boolean {
+export function isAnchoredBlock(block: NormBodyBlock): boolean {
   return (
     block.type === 'part' ||
     block.type === 'chapter' ||
@@ -354,42 +346,4 @@ export function getResolvedBlockAnchorId(
   namespace = '',
 ): string {
   return anchors.get(getBlockPathKey(path)) ?? getBlockAnchorId(path, block, namespace);
-}
-
-export function getHeadingTag(parentLevel: number): 'h3' | 'h4' | 'h5' | 'h6' {
-  const level = Math.min(Math.max(parentLevel + 1, 3), 6);
-  return `h${level}` as 'h3' | 'h4' | 'h5' | 'h6';
-}
-
-export function buildNormOutline(
-  blocks: NormBodyBlock[],
-): NormOutlineItem[] {
-  const anchors = buildNormAnchorMap(blocks);
-
-  function visit(entries: NormBodyBlock[], path: number[] = [], level = 0): NormOutlineItem[] {
-    return entries.flatMap((block, index) => {
-      const currentPath = [...path, index];
-      if (block.type === 'quotedProvision') return [];
-      const shouldInclude = isAnchoredBlock(block);
-      const children = block.children
-        ? visit(block.children, currentPath, shouldInclude ? level + 1 : level)
-        : [];
-
-      if (!shouldInclude) {
-        return children;
-      }
-
-      return [
-        {
-          anchor: getResolvedBlockAnchorId(anchors, currentPath, block),
-          label: block.label ? toDisplayText(block.label) : undefined,
-          title: toDisplayText(block.title ?? block.label ?? 'Unbenannt'),
-          level,
-          children,
-        },
-      ];
-    });
-  }
-
-  return visit(blocks);
 }

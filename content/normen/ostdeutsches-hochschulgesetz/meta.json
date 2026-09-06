@@ -1,15 +1,16 @@
 {
   "id": "ostdeutsches-hochschulgesetz",
   "slug": "ostdeutsches-hochschulgesetz",
-  "title": "Ostdeutsches Hochschulgesetz",
+  "title": "Gesetz über die Hochschulen im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Hochschulgesetz",
   "abbr": "OstHSG",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "OstHSG",
     "Ostdeutsches Hochschulgesetz",
@@ -20,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Hochschulgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2023-05-31",
   "sourceReferences": [
@@ -33,7 +35,8 @@
       "sha256": "03bb52c8238633f751e5569d7f81ea3724dbac2271e7e88801cc0605f68f1be2",
       "lawId": "19986",
       "sourceValidFrom": "2023-06-22",
-      "sourceValidTo": "2023-12-31"
+      "sourceValidTo": "2023-12-31",
+      "fsnNumber": "711-8/4"
     },
     {
       "kind": "amendment-source",

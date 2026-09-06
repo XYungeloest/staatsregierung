@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV-Schulfahrten",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Durchführung von Schulfahrten (VwV-Schulfahrten)",
   "shortTitle": "VwV-Schulfahrten",
-  "abbr": "VwV-Schulfahrten",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV-Schulfahrten vom 7. April 2004 (SächsABl. S. 372), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "VwV-Schulfahrten vom 7. April 2004 (SächsABl. S. 372)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "d43e1c772dcf0e40a7429e9878876e1ead3db38615834a81fb3999f6136e6d53",
       "lawId": "4519",
       "sourceValidFrom": "2004-04-30",
+      "fsnNumber": "710-V04.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -29,14 +29,6 @@
       "label": "1",
       "title": "Allgemeines",
       "children": [
-        {
-          "type": "item",
-          "label": "1",
-          "text": "Allgemeines",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -78,14 +70,6 @@
       "children": [
         {
           "type": "item",
-          "label": "2",
-          "text": "Schulfahrten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "2.1",
           "text": "Schulfahrten als Schulwanderungen\nSchulwanderungen sind eintägige Veranstaltungen, die vor allem dazu dienen, Natur, Kultur und Wirtschaft im regionalen Umfeld kennen zu lernen.",
           "level": 0,
@@ -125,14 +109,6 @@
       "children": [
         {
           "type": "item",
-          "label": "3",
-          "text": "Zeitlicher Rahmen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.1",
           "text": "Allgemein bildende Schulen und allgemein bildende Förderschulen\nFür Schulfahrten, ausgenommen Fahrten aus besonderem Anlass nach Ziffer 2.2 Satz 2, sowie die Fahrten nach den Ziffern 2.3 und 2.4 steht pro Schuljahr beziehungsweise in der Sekundarstufe II insgesamt folgender zeitlicher Rahmen zur Verfügung:\nZeitrahmen\nKlassenstufe\nUnterrichtstage pro Schuljahr\nPrimarstufe\nbis zu 5 Unterrichtstage pro Schuljahr\nSekundarstufe I\nKlassenstufe 5 bis 7\nbis zu 7 Unterrichtstage pro Schuljahr\nKlassenstufe 8 bis 10\nbis zu 8 Unterrichtstage pro Schuljahr\nSekundarstufe II\nbis zu 10 Unterrichtstage insgesamt.\nPro Schuljahr können innerhalb des oben aufgeführten zeitlichen Rahmens bis zu drei Wandertage gemäß Ziffer 2.1 durchgeführt werden. Werden in der Primarstufe die gesamten fünf Tage in Anspruch genommen, sollen mindestens zwei davon Wandertage nach Ziffer 2.1 sein.",
           "level": 0,
@@ -170,14 +146,6 @@
       "label": "4",
       "title": "Planung und Vorbereitung von Schulfahrten",
       "children": [
-        {
-          "type": "item",
-          "label": "4",
-          "text": "Planung und Vorbereitung von Schulfahrten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "4.1",
@@ -243,14 +211,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5",
-          "text": "Leitung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.1",
           "text": "Dienstliche Aufgabe der Lehrkräfte\nDie Teilnahme an Schulfahrten gehört zu den dienstlichen Aufgaben der Lehrkräfte. Lehrer sollen nicht gegen ihren Willen verpflichtet werden, eine Schulfahrt mit erhöhtem Risiko zu leiten oder als Begleitperson an ihr teilzunehmen.",
           "level": 0,
@@ -272,14 +232,6 @@
       "label": "6",
       "title": "Aufsicht/Begleitpersonen",
       "children": [
-        {
-          "type": "item",
-          "label": "6",
-          "text": "Aufsicht/Begleitpersonen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "6.1",
@@ -304,17 +256,8 @@
       "title": "Schwerbehinderte",
       "children": [
         {
-          "type": "item",
-          "label": "7",
-          "text": "Schwerbehinderte",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Für schwerbehinderte Lehrkräfte und ihnen Gleichgestellte ist die Vereinbarung zur Integration schwerbehinderter Beschäftigter im Schuldienst des Ostdeutschen Staatsministerium für Kultus vom 20. Oktober 2003 (MBl. SMK S. 298) zu beachten. Insbesondere ist der Punkt 4.1 der Integrationsvereinbarung anzuwenden."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Für schwerbehinderte Lehrkräfte und ihnen Gleichgestellte ist die Vereinbarung zur Integration schwerbehinderter Beschäftigter im Schuldienst des Ostdeutschen Staatsministerium für Kultus vom 20. Oktober 2003 (MBl. SMK S. 298) zu beachten. Insbesondere ist der Punkt 4.1 der Integrationsvereinbarung anzuwenden."
         }
       ]
     },
@@ -323,14 +266,6 @@
       "label": "8",
       "title": "Verkehrsmittel",
       "children": [
-        {
-          "type": "item",
-          "label": "8",
-          "text": "Verkehrsmittel",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "8.1",
@@ -372,14 +307,6 @@
       "children": [
         {
           "type": "item",
-          "label": "9",
-          "text": "Genehmigung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "9.1",
           "text": "Antrag\nJede Schulfahrt/Schulwanderung bedarf der Genehmigung. Der Antrag des Leiters muss enthalten:\neine pädagogische Zielstellung (bei Schulwanderungen nach Ziffer 2.1 entbehrlich),\nAngaben über Ort, Zeit und Dauer der Veranstaltung,\nBenennung von Begleitpersonen und gegebenenfalls Benennung von Ersatzpersonen,\ndie Einverständniserklärungen der Erziehungsberechtigten, der Schüler beziehungsweise der volljährigen Schüler, soweit diese nach Ziffer 4.3 beziehungsweise 4.7 vorgeschrieben sind,\neinen Kostenplan.",
           "level": 0,
@@ -410,17 +337,8 @@
       "title": "Unterweisung",
       "children": [
         {
-          "type": "item",
-          "label": "10",
-          "text": "Unterweisung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Vor Antritt einer Schulfahrt hat der Leiter die Schüler über Gefahren und Maßnahmen zum sicheren Verhalten zu unterweisen. Dabei ist auf den besonderen Charakter der Schulfahrt abzustellen. Es ist darauf hinzuweisen, dass den Anordnungen der Lehrkräfte und Begleitpersonen Folge zu leisten ist."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Vor Antritt einer Schulfahrt hat der Leiter die Schüler über Gefahren und Maßnahmen zum sicheren Verhalten zu unterweisen. Dabei ist auf den besonderen Charakter der Schulfahrt abzustellen. Es ist darauf hinzuweisen, dass den Anordnungen der Lehrkräfte und Begleitpersonen Folge zu leisten ist."
         }
       ]
     },
@@ -430,17 +348,8 @@
       "title": "Versicherungen",
       "children": [
         {
-          "type": "item",
-          "label": "11",
-          "text": "Versicherungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Es wird empfohlen, dass bei Schulwanderungen nach Ziffer 2.1 von den Schülern ein Krankenversicherungsnachweis und bei Schulfahrten zusätzlich der Impfausweis (auch Kopie) mitgeführt wird.\nBei Fahrten ins Ausland sind die Erziehungsberechtigten und die volljährigen Schüler auf versicherungsrechtliche Besonderheiten, insbesondere bei so genannten Nichtabkommensstaaten, hinzuweisen. Der aktuelle Stand ist bei den Krankenkassen zu erfragen. Die Erziehungsberechtigten und die volljährigen Schüler sind auf die Möglichkeit des Abschlusses von Haftpflicht-, Gepäck- und Reiserücktrittskostenversicherungen und bei geplantem Auslandsaufenthalt auf die Notwendigkeit eines Auslandskrankenversicherungsschutzes hinzuweisen. Es obliegt den Erziehungsberechtigten und den volljährigen Schülern, Versicherungslücken selbst zu schließen. Der Hinweis ist aktenkundig zu machen."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Es wird empfohlen, dass bei Schulwanderungen nach Ziffer 2.1 von den Schülern ein Krankenversicherungsnachweis und bei Schulfahrten zusätzlich der Impfausweis (auch Kopie) mitgeführt wird.\nBei Fahrten ins Ausland sind die Erziehungsberechtigten und die volljährigen Schüler auf versicherungsrechtliche Besonderheiten, insbesondere bei so genannten Nichtabkommensstaaten, hinzuweisen. Der aktuelle Stand ist bei den Krankenkassen zu erfragen. Die Erziehungsberechtigten und die volljährigen Schüler sind auf die Möglichkeit des Abschlusses von Haftpflicht-, Gepäck- und Reiserücktrittskostenversicherungen und bei geplantem Auslandsaufenthalt auf die Notwendigkeit eines Auslandskrankenversicherungsschutzes hinzuweisen. Es obliegt den Erziehungsberechtigten und den volljährigen Schülern, Versicherungslücken selbst zu schließen. Der Hinweis ist aktenkundig zu machen."
         }
       ]
     },
@@ -450,17 +359,8 @@
       "title": "Unfallversicherung",
       "children": [
         {
-          "type": "item",
-          "label": "12",
-          "text": "Unfallversicherung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Alle Schüler sind bei Schulfahrten gemäß § 2 Abs. 1 Ziffer 8b\nSiebtes Buch Sozialgesetzbuch – Gesetzliche Unfallversicherung (\nSGB VII) vom 7. August 1996 (BGBl. I S. 1254), das zuletzt durch Artikel 6 des Gesetzes vom 27. Dezember 2003 (BGBl. I S. 3022, 3056) geändert worden ist, in der gesetzlichen Schülerunfallversicherung Unfallkasse Ostdeutschland versichert.\nAusgenommen sind eigenwirtschaftliche (private) Tätigkeiten, die nicht durch die Schulveranstaltung bedingt sind (zum Beispiel Essen, Trinken, Schlafen und Freizeit).\nLehrkräfte und andere Begleitpersonen, die mit der Wahrnehmung von Beaufsichtigungsaufgaben beauftragt wurden, sind gemäß § 2 Abs. 1 Nr. 1 beziehungsweise § 2 Abs. 2 in Verbindung mit § 2 Abs. 1 Ziffer 1\nSGB VII in der gesetzlichen Unfallversicherung versichert. Für Lehrkräfte im Beamtenverhältnis tritt die beamtenrechtliche Unfallfürsorge ein."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Alle Schüler sind bei Schulfahrten gemäß § 2 Abs. 1 Ziffer 8b\nSiebtes Buch Sozialgesetzbuch – Gesetzliche Unfallversicherung (\nSGB VII) vom 7. August 1996 (BGBl. I S. 1254), das zuletzt durch Artikel 6 des Gesetzes vom 27. Dezember 2003 (BGBl. I S. 3022, 3056) geändert worden ist, in der gesetzlichen Schülerunfallversicherung Unfallkasse Ostdeutschland versichert.\nAusgenommen sind eigenwirtschaftliche (private) Tätigkeiten, die nicht durch die Schulveranstaltung bedingt sind (zum Beispiel Essen, Trinken, Schlafen und Freizeit).\nLehrkräfte und andere Begleitpersonen, die mit der Wahrnehmung von Beaufsichtigungsaufgaben beauftragt wurden, sind gemäß § 2 Abs. 1 Nr. 1 beziehungsweise § 2 Abs. 2 in Verbindung mit § 2 Abs. 1 Ziffer 1\nSGB VII in der gesetzlichen Unfallversicherung versichert. Für Lehrkräfte im Beamtenverhältnis tritt die beamtenrechtliche Unfallfürsorge ein."
         }
       ]
     },
@@ -470,17 +370,8 @@
       "title": "Erste Hilfe",
       "children": [
         {
-          "type": "item",
-          "label": "13",
-          "text": "Erste Hilfe",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Bei Schulfahrten ist Erste-Hilfe-Material, zum Beispiel Sanitätstaschen nach DIN 13160 mitzunehmen. Die Lehrkräfte müssen über Kenntnisse und Übung in Erster Hilfe verfügen. Hat sich ein Unfall oder ein Krankheitsfall ereignet, ist sofort für ärztliche Hilfe zu sorgen. Der Schulleiter und gegebenenfalls die Erziehungsberechtigten sind umgehend zu benachrichtigen."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Bei Schulfahrten ist Erste-Hilfe-Material, zum Beispiel Sanitätstaschen nach DIN 13160 mitzunehmen. Die Lehrkräfte müssen über Kenntnisse und Übung in Erster Hilfe verfügen. Hat sich ein Unfall oder ein Krankheitsfall ereignet, ist sofort für ärztliche Hilfe zu sorgen. Der Schulleiter und gegebenenfalls die Erziehungsberechtigten sind umgehend zu benachrichtigen."
         }
       ]
     },
@@ -490,17 +381,8 @@
       "title": "Ausschluss von Schülern",
       "children": [
         {
-          "type": "item",
-          "label": "14",
-          "text": "Ausschluss von Schülern",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Der Ausschluss von Schülern von einer Schulfahrt vor und während der Veranstaltung richtet sich grundsätzlich nach §§ 32, 39\nSchulG.\nWährend der Schulfahrt entscheidet der Leiter über den Ausschluss eines Schülers, soweit möglich nach Anhörung der Erziehungsberechtigten oder des volljährigen Schülers. Der Schulleiter ist hierüber zu informieren. Die Erziehungsberechtigten sind umgehend von der Entscheidung zu unterrichten. Der minderjährige Schüler soll von ihnen abgeholt werden. Erfolgt dies nicht unverzüglich nach Ausschluss, soll der Schüler durch eine Begleitperson nach Hause gebracht werden. Die anfallenden Kosten tragen die Erziehungsberechtigten oder der volljährige Schüler."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Der Ausschluss von Schülern von einer Schulfahrt vor und während der Veranstaltung richtet sich grundsätzlich nach §§ 32, 39\nSchulG.\nWährend der Schulfahrt entscheidet der Leiter über den Ausschluss eines Schülers, soweit möglich nach Anhörung der Erziehungsberechtigten oder des volljährigen Schülers. Der Schulleiter ist hierüber zu informieren. Die Erziehungsberechtigten sind umgehend von der Entscheidung zu unterrichten. Der minderjährige Schüler soll von ihnen abgeholt werden. Erfolgt dies nicht unverzüglich nach Ausschluss, soll der Schüler durch eine Begleitperson nach Hause gebracht werden. Die anfallenden Kosten tragen die Erziehungsberechtigten oder der volljährige Schüler."
         }
       ]
     },
@@ -510,17 +392,8 @@
       "title": "In-Kraft-Treten",
       "children": [
         {
-          "type": "item",
-          "label": "15",
-          "text": "In-Kraft-Treten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Durchführung von Schulwanderungen und Schulfahrten vom 8. Juni 1999 (MBl. SMK S. 347) außer Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Durchführung von Schulwanderungen und Schulfahrten vom 8. Juni 1999 (MBl. SMK S. 347) außer Kraft."
         }
       ]
     },

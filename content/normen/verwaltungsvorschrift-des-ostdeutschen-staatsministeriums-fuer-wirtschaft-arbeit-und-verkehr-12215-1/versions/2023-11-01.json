@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Verordnung über die bautechnische Prüfung baulicher Anlagen in öffentlichen Straßen",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Verordnung über die bautechnische Prüfung baulicher Anlagen in öffentlichen Straßen",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Verordnung über die bautechnische Prüfung baulicher Anlagen in öffentlichen Straßen vom 13. Dezember 2011 (SächsABl. 2012 S. 110), zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Verordnung über die bautechnische Prüfung baulicher Anlagen in öffentlichen Straßen vom 13. Dezember 2011 (SächsABl. 2012 S. 110)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "021558fddf77645fc9aaf027e22ea1b8ae3b9d06852411b04cb45a4757bef548",
       "lawId": "12215",
       "sourceValidFrom": "2012-01-01",
+      "fsnNumber": "471-V12.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -32,14 +32,6 @@
       "label": "1.",
       "title": "Geltungsbereich",
       "children": [
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Geltungsbereich",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "a)",
@@ -130,14 +122,6 @@
       "children": [
         {
           "type": "item",
-          "label": "2.",
-          "text": "Prüfung der Standsicherheitsnachweise",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "a)",
           "text": "Die Prüfung der Standsicherheitsnachweise ist im Regelfall anerkannten Prüfingenieuren für Baustatik zu übertragen.",
           "level": 0,
@@ -159,14 +143,6 @@
       "label": "3.",
       "title": "Erteilung des Prüfauftrages",
       "children": [
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Erteilung des Prüfauftrages",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "a)",
@@ -222,14 +198,6 @@
       "label": "4.",
       "title": "Durchführung der Prüfung",
       "children": [
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Durchführung der Prüfung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "a)",
@@ -293,14 +261,6 @@
       "label": "5.",
       "title": "Prüfbericht und Prüfvermerk",
       "children": [
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Prüfbericht und Prüfvermerk",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "a)",
@@ -423,14 +383,6 @@
       "children": [
         {
           "type": "item",
-          "label": "6.",
-          "text": "Pflichten des Prüfingenieurs",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "a)",
           "text": "Der Prüfingenieur hat ein Prüfverzeichnis nach dem Muster der Anlage 3 zu führen.",
           "level": 0,
@@ -452,14 +404,6 @@
       "label": "7.",
       "title": "Prüfunterlagen, Ausführungsunterlagen",
       "children": [
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Prüfunterlagen, Ausführungsunterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "a)",
@@ -541,14 +485,6 @@
       "children": [
         {
           "type": "item",
-          "label": "8.",
-          "text": "Vertragliche Prüfung der Ausführungspläne",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "a)",
           "text": "Die vertragliche Prüfung der Ausführungspläne durch die Straßenbaubehörde berührt die Verantwortung und Haftung des Auftragnehmers aus dem Bauvertrag nicht.",
           "level": 0,
@@ -579,14 +515,6 @@
       "title": "Bauwerksklassen",
       "children": [
         {
-          "type": "item",
-          "label": "9.",
-          "text": "Bauwerksklassen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Die für die Einstufung maßgebenden Merkmale sind für Brücken und sonstige Ingenieurbauwerke der Anlage 5 zu entnehmen."
         }
@@ -597,14 +525,6 @@
       "label": "10.",
       "title": "Anrechenbare Kosten",
       "children": [
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "Anrechenbare Kosten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "a)",
@@ -628,14 +548,6 @@
       "label": "11.",
       "title": "Höhe der Gebühren",
       "children": [
-        {
-          "type": "item",
-          "label": "11.",
-          "text": "Höhe der Gebühren",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "In Ergänzung von § 11 Abs. 1 Nr. 3\nStrPrüfVO gelten folgende Erhöhungssätze:"
@@ -725,14 +637,6 @@
       "title": "Vergütung nach Zeitaufwand",
       "children": [
         {
-          "type": "item",
-          "label": "12.",
-          "text": "Vergütung nach Zeitaufwand",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Gemäß § 12 Abs. 1 Nr. 3\nStrPrüfVO werden folgende Prüfungsleistungen – ergänzend zu § 12 Abs. 1 Nr. 1 und 2\nStrPrüfVO – nach Zeitaufwand vergütet:"
         },
@@ -775,14 +679,6 @@
       "label": "13.",
       "title": "Inkrafttreten, Außerkrafttreten, Übergangsregelung",
       "children": [
-        {
-          "type": "item",
-          "label": "13.",
-          "text": "Inkrafttreten, Außerkrafttreten, Übergangsregelung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift tritt am 1. Januar 2012 in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit zur Verordnung über die bautechnische Prüfung baulicher Anlagen in öffentlichen Straßen (VwVStrPrüfVO) vom 5. November 2004 (SächsABl. S. 1187), zuletzt enthalten in der Verwaltungsvorschrift vom 24. November 2011 (SächsABl. SDr. S. S 1767), außer Kraft."

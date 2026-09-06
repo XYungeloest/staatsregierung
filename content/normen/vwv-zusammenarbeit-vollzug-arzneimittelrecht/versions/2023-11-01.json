@@ -1,11 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie über die Zusammenarbeit für den Vollzug des Arzneimittelrechts, des Betäubungsmittelrechts, des Apothekenrechts und des Lebensmittel- und Bedarfsgegenständerechts im Freistaat Ostdeutschland zuständigen Behörden",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie über die Zusammenarbeit der für den Vollzug des Arzneimittelrechts, des Betäubungsmittelrechts, des Apothekenrechts und des Lebensmittel- und Bedarfsgegenständerechts im Freistaat Ostdeutschland zuständigen Behörden",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie über die Zusammenarbeit für den Vollzug des Arzneimittelrechts, des Betäubungsmittelrechts, des Apothekenrechts und des Lebensmittel- und Bedarfsgegenständerechts im Freistaat Ostdeutschland zuständigen Behörden",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie über die Zusammenarbeit für den Vollzug des Arzneimittelrechts, des Betäubungsmittelrechts, des Apothekenrechts und des Lebensmittel- und Bedarfsgegenständerechts im Freistaat Ostdeutschland zuständigen Behörden vom 3. März 1995 (SächsABl. S. 364), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 272)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie über die Zusammenarbeit für den Vollzug des Arzneimittelrechts, des Betäubungsmittelrechts, des Apothekenrechts und des Lebensmittel- und Bedarfsgegenständerechts im Freistaat Ostdeutschland zuständigen Behörden vom 3. März 1995 (SächsABl. S. 364)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +18,7 @@
       "sha256": "acaca82d332621a16aa368cec073b5dd9a092931a74bc2ab5c04fd1f825b86ce",
       "lawId": "1145",
       "sourceValidFrom": "1995-03-31",
+      "fsnNumber": "608-V95.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -28,14 +29,6 @@
       "label": "1",
       "title": "Überwachung des Verkehrs mit freiverkäuflichen Arzneimitteln, Lebensmitteln, kosmetischen Mitteln und Bedarfsgegenständen",
       "children": [
-        {
-          "type": "item",
-          "label": "1",
-          "text": "Überwachung des Verkehrs mit freiverkäuflichen Arzneimitteln, Lebensmitteln, kosmetischen Mitteln und Bedarfsgegenständen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -110,14 +103,6 @@
       "children": [
         {
           "type": "item",
-          "label": "2",
-          "text": "Überwachung des Verkehrs mit Arzneimitteln, die zur Anwendung bei Tieren bestimmt sind",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "2.1",
           "text": "Werden im Rahmen der Besichtigung von Arzneimittelgroßhandelsbetrieben oder von Apotheken durch das Regierungspräsidium Feststellungen getroffen, die einen Verstoß gegen die Vorschriften über den Verkehr mit Arzneimitteln, die zur Anwendung bei Tieren bestimmt sind, erkennen oder vermuten lassen, informiert der Kontrollierende unverzüglich das gemäß § 1 Abs. 3 der Zuständigkeitsverordnung zuständige Lebensmittelüberwachungs- und Veterinäramt.",
           "level": 0,
@@ -182,14 +167,6 @@
       "children": [
         {
           "type": "item",
-          "label": "3",
-          "text": "Überwachung des Verkehrs mit Betäubungsmitteln",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.1",
           "text": "Sofern dem Regierungspräsidium im Rahmen der Überwachung des Verkehrs mit Betäubungsmitteln in Apotheken gemäß § 19 Abs. 1 Satz 3 des\nBetäubungsmittelgesetzes\nin Verbindung mit § 1 Abs. 1 Nr. 5 der Zuständigkeitsverordnung, durch Anzeigen nach § 2 Abs. 2 Satz 2 der\nBetäubungsmittel-Verschreibungsverordnung oder auf anderem Wege Tatsachen bekannt werden, die einen Verstoß gegen betäubungsmittelrechtliche Bestimmungen erkennen oder vermuten lassen, kann bei erforderlichen Kontrollen bei Ärzten, Zahnärzten oder in Krankenhäusern gemäß § 1 Abs. 5 der Zuständigkeitsverordnung das örtliche Gesundheitsamt zur Mitwirkung herangezogen werden.",
           "level": 0,
@@ -237,17 +214,8 @@
       "title": "Inkrafttreten",
       "children": [
         {
-          "type": "item",
-          "label": "4",
-          "text": "Inkrafttreten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft."
         }
       ]
     }

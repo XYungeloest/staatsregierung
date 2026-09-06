@@ -2,15 +2,14 @@
   "id": "aend-vwv-normerlass-19565-1",
   "slug": "aend-vwv-normerlass-19565-1",
   "title": "Dritte Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass",
-  "shortTitle": "Dritte Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
-    "Dritte Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass",
+    "Änd. VwV Normerlass",
     "Dritte",
     "Änderung",
     "Normerlass"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-03-22",
   "effectiveDate": "2022-04-08",
@@ -34,8 +34,12 @@
       "lawId": "19565",
       "sourceValidFrom": "2022-04-08",
       "sourceValidTo": "2025-03-14",
+      "fsnNumber": "20",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-normerlass"
   ]
 }

@@ -2,12 +2,11 @@
   "id": "aend-bgyso-9560",
   "slug": "aend-bgyso-9560",
   "title": "Änderung der Schulordnung berufliche Gymnasien",
-  "shortTitle": "Änd. BGySO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. BGySO",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-bgyso-und-bfso",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. BGySO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-07-20",
   "effectiveDate": "2007-08-01",
@@ -47,6 +47,7 @@
       "sha256": "449c33f23cf0bbcb6ce6d754e868b28836a66aa02136488da386bac8be5bab86",
       "lawId": "9559",
       "sourceValidFrom": "2007-08-01",
+      "fsnNumber": "710",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

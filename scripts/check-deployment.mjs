@@ -49,12 +49,18 @@ async function expectSuccessfulRoute(fetchImpl, url) {
   return response;
 }
 
+/**
+ * `representativeNorm` ist die Normadresse, deren Altpfad im Staatsportal permanent auf OstRecht
+ * weiterleiten muss; produktiv die feste reale Norm (REPRESENTATIVE_NORM), in Unit-Tests ein
+ * synthetischer Pfad.
+ */
 export async function checkDeployment({
   portalSiteUrl,
   lawSiteUrl,
   expectedCommit,
   targets,
   fetchImpl = fetch,
+  representativeNorm = REPRESENTATIVE_NORM,
 }) {
   const selectedTargets = normalizeDeploymentTargets(targets);
   const checksPortal = selectedTargets.includes('portal');
@@ -68,7 +74,7 @@ export async function checkDeployment({
   }
 
   const portalPaths = ['/', '/recht/', '/sitemap.xml', '/robots.txt'];
-  const lawPaths = ['/', '/suche/', REPRESENTATIVE_NORM, '/verkuendungen/', '/sitemap.xml', '/robots.txt'];
+  const lawPaths = ['/', '/suche/', representativeNorm, '/verkuendungen/', '/sitemap.xml', '/robots.txt'];
   const responses = new Map();
 
   const routeGroups = [
@@ -87,8 +93,8 @@ export async function checkDeployment({
   let legacyUrl;
   let expectedRedirect;
   if (checksPortal) {
-    legacyUrl = new URL(`/recht${REPRESENTATIVE_NORM}`, `${portalOrigin}/`).toString();
-    expectedRedirect = new URL(REPRESENTATIVE_NORM, `${lawOrigin}/`).toString();
+    legacyUrl = new URL(`/recht${representativeNorm}`, `${portalOrigin}/`).toString();
+    expectedRedirect = new URL(representativeNorm, `${lawOrigin}/`).toString();
     redirect = await checkedFetch(fetchImpl, legacyUrl, { redirect: 'manual' });
     if (![301, 308].includes(redirect.status)) {
       throw new Error(`${legacyUrl} antwortet mit HTTP ${redirect.status}; erwartet wurde ein permanenter Redirect (301 oder 308).`);

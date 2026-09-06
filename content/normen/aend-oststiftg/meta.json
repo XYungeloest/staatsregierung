@@ -2,13 +2,12 @@
   "id": "aend-oststiftg",
   "slug": "aend-oststiftg",
   "title": "Änderung des Ostdeutschen Stiftungsgesetzes",
-  "shortTitle": "Änd. OstStiftG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Stiftungen"
   ],
+  "primarySubject": "Stiftungen",
   "keywords": [
     "Änd. OstStiftG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-standortegesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstStiftG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Stiftungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-01-27",
   "effectiveDate": "2012-03-01",
@@ -33,6 +33,7 @@
       "sha256": "1e9255e7328cbd0658bef15b1a3d879076db9eb5308f785f7b9a4762a9650ba2",
       "lawId": "12250",
       "sourceValidFrom": "2012-03-01",
+      "fsnNumber": "74",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

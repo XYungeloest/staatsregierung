@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV-Innenrevision SMK",
+  "title": "des Ostdeutschen Staatsministeriums für Kultus über die Einrichtung und die Aufgaben einer Innenrevision im Geschäftsbereich (VwV-Innenrevision SMK)",
   "shortTitle": "VwV-Innenrevision SMK",
-  "abbr": "VwV-Innenrevision SMK",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV-Innenrevision SMK vom 1. August 2005 (SächsABl. S. 761), die zuletzt durch die Verwaltungsvorschrift vom 10. Juli 2014 (SächsABl. S. 962) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "VwV-Innenrevision SMK vom 1. August 2005 (SächsABl. S. 761), die zuletzt durch die Verwaltungsvorschrift vom 10. Juli 2014 (SächsABl. S. 962) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "8f7b46a2c1f19fd795a797d39211a1455aa5b3a4596675f83068db9919abe29a",
       "lawId": "1425",
       "sourceValidFrom": "2014-01-01",
+      "fsnNumber": "20-V05.3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -36,17 +36,8 @@
       "title": "Einrichtung, Zuständigkeit",
       "children": [
         {
-          "type": "item",
-          "label": "1.",
-          "text": "Einrichtung, Zuständigkeit",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Im Ostdeutschen Staatsministerium für Kultus ist eine Innenrevision eingerichtet. Die Innenrevision ist dem Referatsleiter 14 – Justiziariat, Innenrevision, Datenschutz – unterstellt.\nDie Innenrevision ist für den gesamten Geschäftsbereich des Ostdeutschen Staatsministeriums für Kultus zuständig."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Im Ostdeutschen Staatsministerium für Kultus ist eine Innenrevision eingerichtet. Die Innenrevision ist dem Referatsleiter 14 – Justiziariat, Innenrevision, Datenschutz – unterstellt.\nDie Innenrevision ist für den gesamten Geschäftsbereich des Ostdeutschen Staatsministeriums für Kultus zuständig."
         }
       ]
     },
@@ -56,17 +47,8 @@
       "title": "Aufgaben",
       "children": [
         {
-          "type": "item",
-          "label": "2.",
-          "text": "Aufgaben",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Aufgaben der Innenrevision sind:"
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die Aufgaben der Innenrevision sind:"
         },
         {
           "type": "item",
@@ -115,14 +97,6 @@
       "label": "3.",
       "title": "Ablauf von Überprüfungen",
       "children": [
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Ablauf von Überprüfungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.1",
@@ -188,14 +162,6 @@
       "children": [
         {
           "type": "item",
-          "label": "4.",
-          "text": "Prüfungsergebnisse",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "4.1",
           "text": "Die während der Prüfung getroffenen Feststellungen werden abschließend zu einem Prüfbericht zusammengefasst.",
           "level": 0,
@@ -234,17 +200,8 @@
       "title": "Zusammenarbeit mit den Strafverfolgungsbehörden",
       "children": [
         {
-          "type": "item",
-          "label": "5.",
-          "text": "Zusammenarbeit mit den Strafverfolgungsbehörden",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Sofern ein konkreter strafrechtlich relevanter Verdacht vorliegt, entscheidet der Amtschef nach Information durch die Innenrevision über die Einschaltung der Strafverfolgungsbehörden."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Sofern ein konkreter strafrechtlich relevanter Verdacht vorliegt, entscheidet der Amtschef nach Information durch die Innenrevision über die Einschaltung der Strafverfolgungsbehörden."
         }
       ]
     },
@@ -254,17 +211,8 @@
       "title": "In-Kraft-Treten",
       "children": [
         {
-          "type": "item",
-          "label": "6.",
-          "text": "In-Kraft-Treten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt mit Wirkung vom 1. August 2005 in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt mit Wirkung vom 1. August 2005 in Kraft."
         }
       ]
     }

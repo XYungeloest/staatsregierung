@@ -2,15 +2,14 @@
   "id": "gesetz-zur-erleichterung-der-sicherheitsneugruendung-von-zweckverbaenden-und-aend-kommunale",
   "slug": "gesetz-zur-erleichterung-der-sicherheitsneugruendung-von-zweckverbaenden-und-aend-kommunale",
   "title": "Gesetz zur Erleichterung der Sicherheitsneugründung von Zweckverbänden und zur Änderung des Ostdeutschen Gesetzes über kommunale Zusammenarbeit",
-  "shortTitle": "Gesetz zur Erleichterung der Sicherheitsneugründung von Zweckverbänden und zur Änderung des Ostdeutschen Gesetzes über kommunale Zusammenarbeit",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
-    "Gesetz zur Erleichterung der Sicherheitsneugründung von Zweckverbänden und zur Änderung des Ostdeutschen Gesetzes über kommunale Zusammenarbeit",
+    "Gesetz zur Erleichterung der Sicherheitsneugründung von Zweckverbänden und Änd. kommunale Zusammenarbeit",
     "Erleichterung",
     "Sicherheitsneugründung",
     "Zweckverbänden",
@@ -22,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Erleichterung der Sicherheitsneugründung von Zweckverbänden und zur Änderung des Ostdeutschen Gesetzes über kommunale Zusammenarbeit“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2002-04-18",
   "effectiveDate": "2002-05-01",
@@ -36,8 +36,12 @@
       "sha256": "b28d1703a1510f4ccf124ffad9ed2443a2be731d0fb38ddea0e580956cc62816",
       "lawId": "1866",
       "sourceValidFrom": "2002-05-01",
+      "fsnNumber": "234-9A",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-gesetz-ueber-kommunale-zusammenarbeit"
   ]
 }

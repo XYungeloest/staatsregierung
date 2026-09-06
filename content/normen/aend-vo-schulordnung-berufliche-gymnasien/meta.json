@@ -2,15 +2,14 @@
   "id": "aend-vo-schulordnung-berufliche-gymnasien",
   "slug": "aend-vo-schulordnung-berufliche-gymnasien",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung berufliche Gymnasien",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung berufliche Gymnasien",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung berufliche Gymnasien",
+    "Änd. VO Schulordnung berufliche Gymnasien",
     "Kultus",
     "Änderung",
     "Schulordnung",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2002-03-25",
   "effectiveDate": "2002-04-10",
@@ -39,5 +39,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-berufliche-gymnasien"
   ]
 }

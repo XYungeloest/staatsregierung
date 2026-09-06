@@ -2,13 +2,12 @@
   "id": "aend-ostbg-17911",
   "slug": "aend-ostbg-17911",
   "title": "Änderung des Ostdeutschen Beamtengesetzes",
-  "shortTitle": "Änd. OstBG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstBG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-beamten-besoldungs-und-versorgungsrechtlicher-vorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Beamtengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-12-11",
   "effectiveDate": "2019-01-01",
@@ -33,6 +33,7 @@
       "sha256": "814b21ede664a90ead043a80913ae481463da9782851afa5bbf5a245b4469f0a",
       "lawId": "17911",
       "sourceValidFrom": "2019-01-01",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -2,12 +2,11 @@
   "id": "aend-ostazvo-9748",
   "slug": "aend-ostazvo-9748",
   "title": "Änderung der Ostdeutschen Arbeitszeitverordnung",
-  "shortTitle": "Änd. OstAZVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstAZVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-arbeitszeitverordnung-und-jugendarbeitsschutzverordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstAZVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Arbeitszeitverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-12-17",
   "effectiveDate": "2008-01-01",
@@ -32,6 +32,7 @@
       "sha256": "8dd40ddad698adba4a29a125260067d2549c6724922e7b5530ad13c34b21e7ec",
       "lawId": "9748",
       "sourceValidFrom": "2008-01-01",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

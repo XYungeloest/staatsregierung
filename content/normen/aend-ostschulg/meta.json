@@ -2,15 +2,14 @@
   "id": "aend-ostschulg",
   "slug": "aend-ostschulg",
   "title": "Fünftes Gesetz zur Änderung des Ostdeutschen Schulgesetzes",
-  "shortTitle": "Fünftes Gesetz zur Änderung des Ostdeutschen Schulgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Fünftes Gesetz zur Änderung des Ostdeutschen Schulgesetzes",
+    "Änd. OstSchulG",
     "Fünftes",
     "Änderung",
     "Schulgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Fünftes Gesetz zur Änderung des Ostdeutschen Schulgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-02-02",
   "effectiveDate": "2023-08-01",
@@ -33,8 +33,12 @@
       "sha256": "f3dc2938629aa55282aa1b1179abd4a7d12ef893c3e3c44c1dc8d028fdd32b3d",
       "lawId": "19905",
       "sourceValidFrom": "2023-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-schulgesetz"
   ]
 }

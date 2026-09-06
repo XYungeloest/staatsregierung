@@ -1,23 +1,27 @@
 {
   "id": "ostdeutsche-jagdverordnung",
   "slug": "ostdeutsche-jagdverordnung",
-  "title": "Ostdeutsche Jagdverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über die Jagd",
   "shortTitle": "Ostdeutsche Jagdverordnung",
-  "abbr": "OstJagdVO",
   "shortTitleSource": "official",
+  "abbr": "OstJagdVO",
   "type": "verordnung",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "OstJagdVO",
     "Ostdeutsche Jagdverordnung",
-    "Jagdverordnung"
+    "Umwelt",
+    "Landwirtschaft",
+    "Jagdverordnung",
+    "OstJagdVO"
   ],
   "initialCitation": "Ostdeutsche Jagdverordnung vom 27. August 2012 (SächsGVBl. S. 518), die zuletzt durch Artikel 2 der Verordnung vom 15. Mai 2019 (SächsGVBl. S. 332) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Jagdverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2012-08-27",
   "sourceReferences": [
@@ -31,6 +35,7 @@
       "sha256": "630716c6913de9f7e0b6401918e233cbb7e357dc907a0161d25cd8a0e4a151f0",
       "lawId": "12563",
       "sourceValidFrom": "2021-10-01",
+      "fsnNumber": "651-4.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

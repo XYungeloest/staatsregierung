@@ -2,12 +2,11 @@
   "id": "aend-ostkatsvo",
   "slug": "aend-ostkatsvo",
   "title": "Änderung der Ostdeutschen Katastrophenschutzverordnung",
-  "shortTitle": "Änd. OstKatSVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr"
   ],
+  "primarySubject": "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr",
   "keywords": [
     "Änd. OstKatSVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ostkatsvo-und-ostfwvo",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstKatSVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Katastrophenschutzverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-11-09",
   "effectiveDate": "2010-12-21",
@@ -32,6 +32,7 @@
       "sha256": "e743cb703a1b88d3c7cd8811d0795e1d76abef2ec461b6388c9fbd42ac8bafe7",
       "lawId": "11552",
       "sourceValidFrom": "2010-12-21",
+      "fsnNumber": "28",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

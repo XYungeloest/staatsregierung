@@ -1,8 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "Waldsperrungsverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Landwirtschaft, Ernährung und Forsten über die Art und Kennzeichnung der Sperrung von Wald",
   "shortTitle": "Waldsperrungsverordnung",
-  "abbr": "WaldSpVO",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
@@ -19,6 +18,7 @@
       "sha256": "5b432bcb791b7785ea37803a1b40eb71d6bf2670ee640cdb81560ac98c0969e0",
       "lawId": "4003",
       "sourceValidFrom": "2002-07-03",
+      "fsnNumber": "650-1.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -92,10 +92,6 @@
       "label": "Anlage",
       "title": "Sperrschilder für Waldwege und Waldflächen",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "Sperrschilder für Waldwege und Waldflächen"
-        },
         {
           "type": "table",
           "columns": 2,

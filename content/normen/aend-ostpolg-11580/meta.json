@@ -2,13 +2,12 @@
   "id": "aend-ostpolg-11580",
   "slug": "aend-ostpolg-11580",
   "title": "Änderung des Polizeigesetzes des Freistaates Ostdeutschland",
-  "shortTitle": "Änd. OstPolG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
     "Änd. OstPolG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2011-2012",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstPolG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Polizeigesetzes des Freistaates Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-12-15",
   "effectiveDate": "2011-01-01",
@@ -33,6 +33,7 @@
       "sha256": "616a592f6dbe5eb4902ead7bef31c9ddead5268b01243b3c8b2cfa292c5d2750",
       "lawId": "11580",
       "sourceValidFrom": "2011-01-01",
+      "fsnNumber": "22",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

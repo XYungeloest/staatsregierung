@@ -2,15 +2,14 @@
   "id": "aend-pflegeavo",
   "slug": "aend-pflegeavo",
   "title": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Pflegeausschußverordnung",
-  "shortTitle": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Pflegeausschußverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Behindertenfürsorge, Kriegsopferfürsorge, Pflege"
   ],
+  "primarySubject": "Behindertenfürsorge, Kriegsopferfürsorge, Pflege",
   "keywords": [
-    "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Pflegeausschußverordnung",
+    "Änd. PflegeAVO",
     "Änderung",
     "Pflegeausschußverordnung"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung der Ostdeutschen Staatsregierung zur Änderung der Pflegeausschußverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-02-23",
   "effectiveDate": "2012-03-16",
@@ -32,8 +32,12 @@
       "sha256": "7bb262f67294d61bffc54f6592574a95cca6849230f4faee422f062c74be6d74",
       "lawId": "12361",
       "sourceValidFrom": "2012-03-16",
+      "fsnNumber": "842",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-der-ostdeutschen-staatsregierung-ueber-den-landespflegeausschuss-gemaess-92-satz-3"
   ]
 }

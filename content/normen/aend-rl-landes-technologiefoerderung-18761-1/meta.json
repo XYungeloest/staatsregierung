@@ -2,15 +2,13 @@
   "id": "aend-rl-landes-technologiefoerderung-18761-1",
   "slug": "aend-rl-landes-technologiefoerderung-18761-1",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung",
+    "Änd. RL Landes-Technologieförderung",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-06-26",
   "effectiveDate": "2020-01-01",
@@ -35,8 +34,12 @@
       "sha256": "7b9e9a79b0a63e23cf3698803eacc083ff38c4d56ed2c9d1d3cb898e99f707b2",
       "lawId": "18761",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "552",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-landes-technologiefoerderung"
   ]
 }

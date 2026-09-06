@@ -2,14 +2,13 @@
   "id": "aend-vwv-elektronische-verfahrensakte",
   "slug": "aend-vwv-elektronische-verfahrensakte",
   "title": "Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
-  "shortTitle": "Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
+    "Änd. VwV Elektronische Verfahrensakte",
     "Dritte",
     "Justiz",
     "Demokratie",
@@ -23,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-09-19",
   "effectiveDate": "2022-10-11",
@@ -38,8 +38,12 @@
       "lawId": "19727",
       "sourceValidFrom": "2022-10-11",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-elektronische-verfahrensakte"
   ]
 }

@@ -2,12 +2,11 @@
   "id": "aend-somia-12521",
   "slug": "aend-somia-12521",
   "title": "Änderung der Schulordnung Mittel- und Abendmittelschulen",
-  "shortTitle": "Änd. SOMIA",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SOMIA",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "sogya-und-aend-weiterer-vo",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SOMIA“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Mittel- und Abendmittelschulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-06-27",
   "effectiveDate": "2012-08-01",
@@ -34,6 +34,7 @@
       "sha256": "ecbb223148f997019691364e88790bb86de82cc258cbb6c07de307d6bd745cc4",
       "lawId": "12521",
       "sourceValidFrom": "2012-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

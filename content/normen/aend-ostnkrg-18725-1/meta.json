@@ -2,15 +2,14 @@
   "id": "aend-ostnkrg-18725-1",
   "slug": "aend-ostnkrg-18725-1",
   "title": "Zweites Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes",
-  "shortTitle": "Zweites Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes",
+    "Änd. OstNKRG",
     "Zweites",
     "Änderung",
     "Normenkontrollratsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-06-10",
   "effectiveDate": "2020-07-01",
@@ -33,8 +33,12 @@
       "sha256": "a63d8dacf6e6561685d21ec06def7d2816954ef052b36e6f16d35fe4c1f0f9cd",
       "lawId": "18725",
       "sourceValidFrom": "2020-07-01",
+      "fsnNumber": "111",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-normenkontrollratsgesetz"
   ]
 }

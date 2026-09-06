@@ -2,12 +2,11 @@
   "id": "aend-ostgdnutzvo",
   "slug": "aend-ostgdnutzvo",
   "title": "Änderung der Ostdeutschen Geodatennutzungsverordnung",
-  "shortTitle": "Änd. OstGDNutzVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstGDNutzVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGDNutzVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Geodatennutzungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "cdceb6c4f95365f0e5c7c22ef291da0d6dab020c01c726606d059c3e46395425",
       "lawId": "19133",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

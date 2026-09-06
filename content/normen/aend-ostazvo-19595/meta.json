@@ -2,12 +2,11 @@
   "id": "aend-ostazvo-19595",
   "slug": "aend-ostazvo-19595",
   "title": "Änderung der Ostdeutschen Arbeitszeitverordnung",
-  "shortTitle": "Änd. OstAZVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstAZVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-aend-besoldungsrechtlicher-vorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstAZVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Arbeitszeitverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-04-26",
   "effectiveDate": "2022-05-12",
@@ -32,6 +32,7 @@
       "sha256": "168fc9039107acddaef87e2e837003e5d95978bf8e58a9c2414b8a3a16882edc",
       "lawId": "19595",
       "sourceValidFrom": "2022-05-12",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

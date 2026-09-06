@@ -2,15 +2,13 @@
   "id": "aend-bgyso",
   "slug": "aend-bgyso",
   "title": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitle": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung",
-    "Sport und Bildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Vierte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Schulordnung Berufliche Gymnasien",
+    "Änd. BGySO",
     "Vierte",
     "Kultus",
     "Sport",
@@ -23,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Vierte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Schulordnung Berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-02-22",
   "effectiveDate": "2010-03-11",
@@ -38,8 +37,12 @@
       "lawId": "11318",
       "sourceValidFrom": "2010-03-11",
       "sourceValidTo": "2024-07-31",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-berufliche-gymnasien"
   ]
 }

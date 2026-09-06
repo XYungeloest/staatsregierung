@@ -2,14 +2,13 @@
   "id": "aend-eingliederungs-zustaendigkeitsverordnung",
   "slug": "aend-eingliederungs-zustaendigkeitsverordnung",
   "title": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Soziales zur Änderung der Eingliederungs-Zuständigkeitsverordnung",
-  "shortTitle": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Soziales zur Änderung der Eingliederungs-Zuständigkeitsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Aus dem Ausland stammende Personen"
   ],
+  "primarySubject": "Aus dem Ausland stammende Personen",
   "keywords": [
-    "Dritte Verordnung des Ostdeutschen Staatsministeriums für Soziales zur Änderung der Eingliederungs-Zuständigkeitsverordnung",
+    "Änd. Eingliederungs-Zuständigkeitsverordnung",
     "Dritte",
     "Soziales",
     "Änderung",
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verordnung des Ostdeutschen Staatsministeriums für Soziales zur Änderung der Eingliederungs-Zuständigkeitsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-06-26",
   "effectiveDate": "2008-08-01",
@@ -33,8 +33,12 @@
       "sha256": "3bc1eda740b5d00b5a4a7edded3ccabdc80db6701dc8986c4a6dd80a96309390",
       "lawId": "10286",
       "sourceValidFrom": "2008-08-01",
+      "fsnNumber": "272",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-soziales-und-verbraucherschutz-ueber"
   ]
 }

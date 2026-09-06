@@ -2,13 +2,12 @@
   "id": "aend-oststrg-18212",
   "slug": "aend-oststrg-18212",
   "title": "Änderung des Ostdeutschen Straßengesetzes",
-  "shortTitle": "Änd. OstStrG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Mobilität und öffentliche Infrastruktur"
+    "Verkehr"
   ],
+  "primarySubject": "Verkehr",
   "keywords": [
     "Änd. OstStrG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-neustrukturierung-polizeirecht",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstStrG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Straßengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-05-11",
   "effectiveDate": "2020-01-01",
@@ -33,6 +33,7 @@
       "sha256": "257cbd518b23abc63625abea36885c063c3857ffc498afda27abc40e5a657e0a",
       "lawId": "18212",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "471",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

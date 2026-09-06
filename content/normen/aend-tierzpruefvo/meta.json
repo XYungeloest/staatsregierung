@@ -2,13 +2,11 @@
   "id": "aend-tierzpruefvo",
   "slug": "aend-tierzpruefvo",
   "title": "Änderung der Tierzuchtprüfungsverordnung",
-  "shortTitle": "Änd. TierzPrüfVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung",
-    "Umwelt, Energie und Klimaschutz"
+    "Landwirtschaft und Ernährungswirtschaft"
   ],
+  "primarySubject": "Landwirtschaft und Ernährungswirtschaft",
   "keywords": [
     "Änd. TierzPrüfVO",
     "Änderung",
@@ -18,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-aend-tierzuchtrechtlicher-verordnungen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. TierzPrüfVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Tierzuchtprüfungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-03-30",
   "effectiveDate": "2009-05-03",
@@ -33,6 +32,7 @@
       "sha256": "bc1cb6cc305798b9bf19de93496dde2d0ba546ac2fef1ed4bf26d3ccb486a66e",
       "lawId": "10745",
       "sourceValidFrom": "2009-05-03",
+      "fsnNumber": "634",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

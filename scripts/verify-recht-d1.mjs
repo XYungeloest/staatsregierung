@@ -5,18 +5,26 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
+import { loadKeywordRegister, registerKeywordsBySlug } from '@ostrecht/shared/lib/norms/register.ts';
+
 import { FULL_SCOPE, fixtureScope, projectionIdentity } from './lib/d1-projection-fingerprint.mjs';
+import { fixtureSlugList, isSyntheticFixture, loadFixtureCorpus, readFixtureManifest } from './lib/runtime-fixture.mjs';
 
 /**
- * Prüft die D1-Projektion von OstRecht gegen den Git-Bestand: Tabellenzähler
+ * Prüft die D1-Projektion von OstRecht gegen den erwarteten Bestand: Tabellenzähler
  * (Normen, Fassungen, Verkündungen, Suchindexabdeckung) und Stichproben je Norm
  * (Titel, Typ, Status, Fassungen mit Blöcken, Suchzeilen).
  *
  * Aufruf:
- *   node scripts/verify-recht-d1.mjs [--local [--persist-to .cache/wrangler-local]] [--database <Name>] [--fts-integrity] [slug ...]
+ *   node --experimental-strip-types scripts/verify-recht-d1.mjs [--local [--persist-to .cache/wrangler-local]] [--database <Name>] [--fts-integrity] [--corpus-filter <Datei>] [slug ...]
  *
  * Ohne --local wird die produktive Datenbank über die Wrangler-Anmeldung gelesen;
  * mit --local die Miniflare-Datenbank von scripts/serve-law-worker.mjs.
+ *
+ * Erwarteter Bestand: ohne --corpus-filter der Git-Bestand unter content/; mit einem synthetischen
+ * Fixture (data/recht/runtime-fixture.json, source "synthetic") die Datensätze des Builders
+ * tests/helpers/fixture-corpus.ts (daher --experimental-strip-types); mit einer Slug-Liste
+ * ({ "slugs": [...] }, Staging) die genannten realen Normen und alle Verkündungen.
  */
 
 const ROOT = resolve(process.cwd());
@@ -26,11 +34,13 @@ const persistIndex = args.indexOf('--persist-to');
 const persistTo = resolve(ROOT, persistIndex >= 0 ? args[persistIndex + 1] : join('.cache', 'wrangler-local'));
 const databaseIndex = args.indexOf('--database');
 const databaseName = databaseIndex >= 0 ? args[databaseIndex + 1] : (process.env.OSTRECHT_D1_DATABASE_NAME ?? 'ostrecht-recht');
-// --corpus-filter <Datei>: die Projektion ist ein Testfixture (lokal/Staging); Git-Seite und
-// erwartete Identität beziehen sich dann auf die Slugs der Fixture-Datei.
+// --corpus-filter <Datei>: die Projektion ist ein Testfixture (lokal/Staging); erwarteter Bestand
+// und erwartete Identität beziehen sich dann auf das Fixture.
 const corpusIndex = args.indexOf('--corpus-filter');
 const corpusFilter = corpusIndex >= 0 ? args[corpusIndex + 1] : null;
-const fixtureSlugs = corpusFilter ? new Set(JSON.parse(readFileSync(resolve(ROOT, corpusFilter), 'utf8')).slugs.map((entry) => (typeof entry === 'string' ? entry : entry.slug))) : null;
+const fixtureManifest = corpusFilter ? await readFixtureManifest(ROOT, corpusFilter) : null;
+const synthetic = fixtureManifest ? isSyntheticFixture(fixtureManifest) : false;
+const expectedLabel = synthetic ? 'Fixture' : 'Git';
 const requestedSlugs = args.filter((value, index) => !value.startsWith('--') && index !== persistIndex + 1 && index !== databaseIndex + 1 && index !== corpusIndex + 1);
 
 function query(sql) {
@@ -78,54 +88,69 @@ const counts = query(`SELECT
   (SELECT value FROM law_runtime_meta WHERE key='sync_mode') AS sync_mode`)[0];
 console.log(`D1 (${local ? 'lokal' : 'remote'}):`, JSON.stringify(counts));
 
-const normDir = join(ROOT, 'content', 'normen');
-const slugs = readdirSync(normDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name).filter((slug) => !fixtureSlugs || fixtureSlugs.has(slug)).sort();
-if (fixtureSlugs && slugs.length !== fixtureSlugs.size) throw new Error(`Fixture ${corpusFilter}: ${fixtureSlugs.size - slugs.length} Slug(s) nicht im Bestand`);
+// Erwarteter Bestand als Datensätze je Slug ({ meta, versions }) und Verkündungen ({ slug, date }):
+// aus dem Builder (synthetisches Fixture) oder aus content/ (Vollbestand bzw. Slug-Liste).
+const bySlug = new Map();
+const expectedPublications = [];
+if (synthetic) {
+  const corpus = await loadFixtureCorpus(ROOT, fixtureManifest);
+  for (const norm of corpus.norms) bySlug.set(norm.meta.slug, { meta: norm.meta, versions: norm.versions });
+  expectedPublications.push(...corpus.publications.map((publication) => ({ slug: publication.slug, date: publication.date })));
+} else {
+  const fixtureSlugs = fixtureManifest ? new Set(fixtureSlugList(fixtureManifest)) : null;
+  const normDir = join(ROOT, 'content', 'normen');
+  const directories = readdirSync(normDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name).filter((slug) => !fixtureSlugs || fixtureSlugs.has(slug));
+  if (fixtureSlugs && directories.length !== fixtureSlugs.size) throw new Error(`Fixture ${corpusFilter}: ${fixtureSlugs.size - directories.length} Slug(s) nicht im Bestand`);
+  for (const slug of directories) {
+    const meta = JSON.parse(readFileSync(join(normDir, slug, 'meta.json'), 'utf8'));
+    const versions = readdirSync(join(normDir, slug, 'versions')).filter((file) => file.endsWith('.json')).map((file) => JSON.parse(readFileSync(join(normDir, slug, 'versions', file), 'utf8')));
+    bySlug.set(slug, { meta, versions });
+  }
+  for (const file of readdirSync(join(ROOT, 'content', 'verkuendungen')).filter((name) => name.endsWith('.json'))) {
+    const publication = JSON.parse(readFileSync(join(ROOT, 'content', 'verkuendungen', file), 'utf8'));
+    expectedPublications.push({ slug: publication.slug, date: publication.date });
+  }
+}
+const slugs = [...bySlug.keys()].sort();
 let gitVersions = 0;
 let gitR2Sources = 0;
 const fingerprintLines = [];
-const bySlug = new Map();
 for (const slug of slugs) {
-  const meta = JSON.parse(readFileSync(join(normDir, slug, 'meta.json'), 'utf8'));
-  const versionFiles = readdirSync(join(normDir, slug, 'versions')).filter((file) => file.endsWith('.json'));
-  gitVersions += versionFiles.length;
-  const versions = [];
-  for (const file of versionFiles) {
-    const version = JSON.parse(readFileSync(join(normDir, slug, 'versions', file), 'utf8'));
-    versions.push(version);
+  for (const version of bySlug.get(slug).versions) {
+    gitVersions += 1;
     gitR2Sources += (version.sourceReferences ?? []).filter((reference) => reference.availability === 'r2-archived').length;
     fingerprintLines.push(`${slug}:${version.versionId}:${version.validFrom}:${version.validTo ?? ''}`);
   }
-  bySlug.set(slug, { meta, versions });
 }
-const publicationFiles = readdirSync(join(ROOT, 'content', 'verkuendungen')).filter((file) => file.endsWith('.json'));
-for (const file of publicationFiles) {
-  const publication = JSON.parse(readFileSync(join(ROOT, 'content', 'verkuendungen', file), 'utf8'));
-  fingerprintLines.push(`publication:${publication.slug}:${publication.date}`);
+for (const publication of expectedPublications) fingerprintLines.push(`publication:${publication.slug}:${publication.date}`);
+// Das Stichwortregister ist eine Eingabe der Projektion; der Sync zählt es in denselben
+// Fingerabdruck (corpusFingerprint in scripts/sync-recht-d1.mjs).
+for (const [slug, keywords] of registerKeywordsBySlug(await loadKeywordRegister())) {
+  fingerprintLines.push(`register:${slug}:${[...keywords].sort().join('|')}`);
 }
-const publications = publicationFiles.length;
+const publications = expectedPublications.length;
 const gitHash = createHash('sha256').update(fingerprintLines.sort().join('\n')).digest('hex');
-console.log('Git:', JSON.stringify({ norms: slugs.length, versions: gitVersions, r2_sources: gitR2Sources, publications, corpus_hash: gitHash }));
+console.log(`${expectedLabel}:`, JSON.stringify({ norms: slugs.length, versions: gitVersions, r2_sources: gitR2Sources, publications, corpus_hash: gitHash }));
 
 const problems = [];
-if (Number(counts.norms) !== slugs.length) problems.push(`Normen: D1 ${counts.norms} ≠ Git ${slugs.length}`);
-if (Number(counts.versions) !== gitVersions) problems.push(`Fassungen: D1 ${counts.versions} ≠ Git ${gitVersions}`);
-if (Number(counts.publications) !== publications) problems.push(`Verkündungen: D1 ${counts.publications} ≠ Git ${publications}`);
+if (Number(counts.norms) !== slugs.length) problems.push(`Normen: D1 ${counts.norms} ≠ ${expectedLabel} ${slugs.length}`);
+if (Number(counts.versions) !== gitVersions) problems.push(`Fassungen: D1 ${counts.versions} ≠ ${expectedLabel} ${gitVersions}`);
+if (Number(counts.publications) !== publications) problems.push(`Verkündungen: D1 ${counts.publications} ≠ ${expectedLabel} ${publications}`);
 if (Number(counts.search_norms) !== slugs.length) problems.push(`Suchindex deckt ${counts.search_norms} von ${slugs.length} Normen ab`);
-if (Number(counts.norm_count_meta) !== slugs.length) problems.push(`law_runtime_meta.norm_count ${counts.norm_count_meta} ≠ Git ${slugs.length}`);
-if (Number(counts.publication_count_meta) !== publications) problems.push(`law_runtime_meta.publication_count ${counts.publication_count_meta} ≠ Git ${publications}`);
+if (Number(counts.norm_count_meta) !== slugs.length) problems.push(`law_runtime_meta.norm_count ${counts.norm_count_meta} ≠ ${expectedLabel} ${slugs.length}`);
+if (Number(counts.publication_count_meta) !== publications) problems.push(`law_runtime_meta.publication_count ${counts.publication_count_meta} ≠ ${expectedLabel} ${publications}`);
 if (Number(counts.derived) !== slugs.length) problems.push(`law_norm_derived ${counts.derived} ≠ Normen ${slugs.length}`);
 if (Number(counts.bad_index_letters) !== 0) problems.push(`${counts.bad_index_letters} Normen ohne gültigen Buchstabenindex (Migration 0006 / Sync)`);
 if (Number(counts.keyword_rows) < slugs.length) problems.push(`law_norm_keywords ${counts.keyword_rows} < Normen ${slugs.length} (Stichwortindex unvollständig)`);
 if (Number(counts.search_documents) !== gitVersions) problems.push(`law_search_documents ${counts.search_documents} ≠ Fassungen ${gitVersions}`);
-if (Number(counts.r2_sources) !== gitR2Sources) problems.push(`R2-Quellen: D1 ${counts.r2_sources} ≠ Git ${gitR2Sources}`);
-if (counts.corpus_hash !== gitHash) problems.push(`corpus_hash: D1 ${counts.corpus_hash ?? '(fehlt)'} ≠ Git ${gitHash}`);
+if (Number(counts.r2_sources) !== gitR2Sources) problems.push(`R2-Quellen: D1 ${counts.r2_sources} ≠ ${expectedLabel} ${gitR2Sources}`);
+if (counts.corpus_hash !== gitHash) problems.push(`corpus_hash: D1 ${counts.corpus_hash ?? '(fehlt)'} ≠ ${expectedLabel} ${gitHash}`);
 // Erwartete Identität im geprüften Scope: Vollbestand oder (--corpus-filter) Fixture.
 const expectedScope = corpusFilter ? await fixtureScope(ROOT, corpusFilter) : FULL_SCOPE;
 const expectedFingerprint = await projectionIdentity({ root: ROOT, scope: expectedScope });
 console.log('Projektionsidentität:', JSON.stringify({ d1: counts.projection_fingerprint ?? null, git: expectedFingerprint.fingerprint, scope_d1: counts.projection_scope ?? null, scope_git: expectedScope, sync_state: counts.sync_state ?? null, sync_mode: counts.sync_mode ?? null }));
 if (counts.projection_fingerprint !== expectedFingerprint.fingerprint) {
-  problems.push(`projection_fingerprint: D1 ${counts.projection_fingerprint ?? '(fehlt)'} ≠ Git ${expectedFingerprint.fingerprint} (Sync würde erneut projizieren)`);
+  problems.push(`projection_fingerprint: D1 ${counts.projection_fingerprint ?? '(fehlt)'} ≠ ${expectedLabel} ${expectedFingerprint.fingerprint} (Sync würde erneut projizieren)`);
 }
 if ((counts.projection_scope ?? null) !== expectedScope) problems.push(`projection_scope: D1 ${counts.projection_scope ?? '(fehlt)'} ≠ erwartet ${expectedScope}`);
 if ((counts.sync_state ?? null) !== 'complete') problems.push(`sync_state: D1 ${counts.sync_state ?? '(fehlt)'} ≠ complete`);
@@ -158,13 +183,18 @@ const rows = query(`SELECT n.slug, n.title, n.type, n.status,
   (SELECT d.portal_links_json FROM law_norm_derived d WHERE d.norm_id = n.id) AS portal_links_json
   FROM law_norms n WHERE n.slug IN (${inList}) ORDER BY n.slug`);
 for (const row of rows) {
-  const meta = JSON.parse(readFileSync(join(normDir, row.slug, 'meta.json'), 'utf8'));
-  const versionCount = readdirSync(join(normDir, row.slug, 'versions')).filter((file) => file.endsWith('.json')).length;
+  const expected = bySlug.get(row.slug);
+  if (!expected) {
+    problems.push(`${row.slug}: in D1, aber nicht im erwarteten Bestand`);
+    continue;
+  }
+  const { meta } = expected;
+  const versionCount = expected.versions.length;
   const relativePortalLink = /"(?:url|href)":"\/(?!\/)/u.test(row.portal_links_json ?? '');
   const ok = meta.title === row.title && meta.type === row.type && meta.status === row.status
     && versionCount === Number(row.versions) && Number(row.versions_with_blocks) === versionCount && !relativePortalLink;
-  console.log(`${ok ? 'OK ' : 'ABWEICHUNG'} ${row.slug}: D1 ${row.versions} Fassungen (${row.versions_with_blocks} mit Blöcken, ${row.search_rows} Suchzeilen) | Git ${versionCount} Fassungen | ${row.type}/${row.status}`);
-  if (!ok) problems.push(`${row.slug}: Titel/Typ/Status/Fassungen/Portalverweise weichen ab (D1 „${row.title}“ vs Git „${meta.title}“${relativePortalLink ? ', relativer Portalverweis' : ''})`);
+  console.log(`${ok ? 'OK ' : 'ABWEICHUNG'} ${row.slug}: D1 ${row.versions} Fassungen (${row.versions_with_blocks} mit Blöcken, ${row.search_rows} Suchzeilen) | ${expectedLabel} ${versionCount} Fassungen | ${row.type}/${row.status}`);
+  if (!ok) problems.push(`${row.slug}: Titel/Typ/Status/Fassungen/Portalverweise weichen ab (D1 „${row.title}“ vs ${expectedLabel} „${meta.title}“${relativePortalLink ? ', relativer Portalverweis' : ''})`);
 }
 const missing = sample.filter((slug) => !rows.some((row) => row.slug === slug));
 if (missing.length > 0) problems.push(`in D1 fehlen: ${missing.join(', ')}`);
@@ -173,5 +203,5 @@ if (problems.length > 0) {
   console.error(`Abweichungen:\n- ${problems.join('\n- ')}`);
   process.exitCode = 1;
 } else {
-  console.log('Git und D1 stimmen für Zähler und Stichproben überein.');
+  console.log(`${expectedLabel} und D1 stimmen für Zähler und Stichproben überein.`);
 }

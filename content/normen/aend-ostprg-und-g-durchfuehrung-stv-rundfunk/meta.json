@@ -2,16 +2,14 @@
   "id": "aend-ostprg-und-g-durchfuehrung-stv-rundfunk",
   "slug": "aend-ostprg-und-g-durchfuehrung-stv-rundfunk",
   "title": "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und zur Änderung des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrags über den Rundfunk im vereinten Deutschland",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und zur Änderung des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrags über den Rundfunk im vereinten Deutschland",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Rundfunk und Medien",
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und zur Änderung des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrags über den Rundfunk im vereinten Deutschland",
+    "Änd. OstPRG und G Durchführung StV Rundfunk",
     "Änderung",
     "Privatrundfunkgesetzes",
     "Durchführung",
@@ -24,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und zur Änderung des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrags über den Rundfunk im vereinten Deutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-04-11",
   "effectiveDate": "2011-05-11",
@@ -38,8 +37,12 @@
       "sha256": "8c8fc469d25b8e0dbb75af7560e3094a81cb5285e66b6298518eb1643294561e",
       "lawId": "11995",
       "sourceValidFrom": "2011-05-11",
+      "fsnNumber": "72",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-privatrundfunkgesetz"
   ]
 }

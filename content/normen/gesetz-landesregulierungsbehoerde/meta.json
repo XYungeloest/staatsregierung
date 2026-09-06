@@ -2,21 +2,21 @@
   "id": "gesetz-landesregulierungsbehoerde",
   "slug": "gesetz-landesregulierungsbehoerde",
   "title": "Gesetz über die Landesregulierungsbehörde",
-  "shortTitle": "Gesetz über die Landesregulierungsbehörde",
-  "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Bergbau, Energiewirtschaft, Wasserwirtschaft"
   ],
+  "primarySubject": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
   "keywords": [
-    "Gesetz über die Landesregulierungsbehörde",
+    "Gesetz Landesregulierungsbehörde",
     "Landesregulierungsbehörde"
   ],
   "initialCitation": "Gesetz über die Landesregulierungsbehörde vom 18. Oktober 2012 (SächsGVBl. S. 567), das durch Artikel 2 Absatz 23 des Gesetzes vom 5. April 2019 (SächsGVBl. S. 245) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Gesetz über die Landesregulierungsbehörde“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2012-10-18",
   "sourceReferences": [
@@ -30,6 +30,7 @@
       "sha256": "9d8b9bc7a9b225dd898808c02021cdae15e5f485650d37c7530cdbdcee35bca0",
       "lawId": "12603",
       "sourceValidFrom": "2019-04-27",
+      "fsnNumber": "611-5",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

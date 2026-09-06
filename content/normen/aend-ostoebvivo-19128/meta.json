@@ -2,12 +2,11 @@
   "id": "aend-ostoebvivo-19128",
   "slug": "aend-ostoebvivo-19128",
   "title": "Änderung der Ostdeutschen Verordnung über Öffentlich bestellte Vermessungsingenieure",
-  "shortTitle": "Änd. OstÖbVIVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstÖbVIVO",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstÖbVIVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Verordnung über Öffentlich bestellte Vermessungsingenieure“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -34,6 +34,7 @@
       "sha256": "dec26fa85a6810edf4160d8bb2d4d0408834d3d43bc82b984dc4d5e98ebdaa66",
       "lawId": "19128",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

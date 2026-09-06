@@ -1,25 +1,33 @@
 {
   "id": "richtlinie-kommunale-praevention",
   "slug": "richtlinie-kommunale-praevention",
-  "title": "Richtlinie Kommunale Prävention",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung von Projekten und Maßnahmen zur kommunalen Prävention",
   "shortTitle": "Richtlinie Kommunale Prävention",
-  "abbr": "RL KommPräv",
   "shortTitleSource": "official",
+  "abbr": "RL KommPräv",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien",
+    "Kommunalrecht"
   ],
+  "primarySubject": "Förderrichtlinien",
+  "fundingArea": "551",
   "keywords": [
-    "RL KommPräv",
     "Richtlinie Kommunale Prävention",
+    "Innern",
+    "Förderung",
+    "Projekten",
+    "Maßnahmen",
+    "kommunalen",
+    "Prävention",
     "Kommunale",
-    "Prävention"
+    "KommPräv"
   ],
-  "initialCitation": "Richtlinie Kommunale Prävention vom 12. Juni 2018 (SächsABl. S. 811), die zuletzt durch die Richtlinie vom 31. Mai 2023 (SächsABl. S. 655) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2025 (SächsABl. SDr. S. S 212)",
+  "initialCitation": "Richtlinie Kommunale Prävention vom 12. Juni 2018 (SächsABl. S. 811), die zuletzt durch die Richtlinie vom 31. Mai 2023 (SächsABl. S. 655) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Richtlinie Kommunale Prävention“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-06-12",
   "sourceReferences": [
@@ -33,6 +41,7 @@
       "sha256": "5f2eb6a241dab54df4647f4756d78c786b8babadd7b6a82663ad4598e7dcd9cb",
       "lawId": "17736",
       "sourceValidFrom": "2023-06-16",
+      "fsnNumber": "551-V18.3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

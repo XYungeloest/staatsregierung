@@ -23,9 +23,16 @@ export interface DirectoryAction {
 interface Props {
   title: string;
   href: string;
-  /** Linke Spalte: Datum (mit `datetime`) oder Buchstabe/Kurztext. */
-  lead?: { text: string; datetime?: string };
-  /** Abkürzung oder Kurzbezeichnung unter dem Titel. */
+  /**
+   * Linke Spalte: beschriftetes Datum („Rechtsstand“, „Ausgabe vom“, „Verkündet am“) oder
+   * Buchstabe/Kurztext. Ohne Beschriftung bleibt der Wert allein stehen.
+   */
+  lead?: { label?: string; text: string; datetime?: string };
+  /** Echte Abkürzung; sie steht in der Überschrift neben dem Titellink, nicht im Linktext. */
+  abbr?: string;
+  /** Langtitel, wenn die Überschrift den Kurztitel trägt. */
+  longTitle?: string;
+  /** Kurzbezeichnung unter dem Titel (Fundstelle einer Verkündung, Kurzzitat). */
   subtitle?: string;
   description?: string;
   facts?: DirectoryFact[];
@@ -45,6 +52,8 @@ const {
   title,
   href,
   lead,
+  abbr,
+  longTitle,
   subtitle,
   description,
   facts = [],
@@ -62,11 +71,13 @@ const hasBadges = Boolean(typeLabel) || originKind !== undefined || Astro.slots.
 <li class:list={['directory-entry', { 'directory-entry--compact': compact }]} {...attrs}>
   {lead ? (
     <div class="directory-entry__lead">
+      {lead.label ? <span class="directory-entry__lead-label">{lead.label}</span> : null}
       {lead.datetime ? <time datetime={lead.datetime}>{lead.text}</time> : <span>{lead.text}</span>}
     </div>
   ) : null}
   <div class="directory-entry__main">
-    <Heading class="directory-entry__title"><a href={href}>{title}</a></Heading>
+    <Heading class="directory-entry__title"><a href={href}>{title}</a>{abbr ? <span class="directory-entry__abbr">{abbr}</span> : null}</Heading>
+    {longTitle ? <p class="directory-entry__long-title">{longTitle}</p> : null}
     {subtitle ? <p class="directory-entry__subtitle">{subtitle}</p> : null}
     {description ? <p class="directory-entry__description">{description}</p> : null}
     {hasBadges ? (

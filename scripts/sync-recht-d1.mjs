@@ -13,14 +13,18 @@ import { promisify } from 'node:util';
 import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { buildDerivedContext, deriveNorm, fullCitationFor } from '@ostrecht/shared/lib/norms/derived.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
+import { isInheritedAmendment } from '@ostrecht/shared/lib/norms/inventory.ts';
+import { getNormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
+import { getNormSortKey, getNormSortWord } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { loadKeywordRegister, registerKeywordsBySlug, REGISTER_PATH } from '@ostrecht/shared/lib/norms/register.ts';
 import { getGermanIndexLetter, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
-import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
+import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/norm-portal-content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases, isAmendmentRecord } from '@ostrecht/recht-search/search.ts';
 
-import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
+import { isEmptyScope, metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
 import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { FULL_SCOPE, fixtureScope, portalProjectionChangedSince, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
@@ -64,7 +68,11 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *     ersetzt der Äquivalenznachweis (scripts/lib/d1-projection-proof.mjs) die Annahme durch
  *     Rechnung (scripts/d1-projection-snapshot.mjs prove): Basis- und Zielprojektion werden lokal
  *     vollständig verglichen, und nur der nachgewiesene inkrementelle Umfang wird geschrieben – im Grenzfall nur Identität und
- *     Laufzeitmetadaten (die neue Identität wird übernommen, ohne Daten neu zu schreiben). Der
+ *     Laufzeitmetadaten (die neue Identität wird übernommen, ohne Daten neu zu schreiben). Dieser
+ *     Metadata-only-Lauf (isMetadataOnlyRun, planRun) berechnet keine korpusweiten Ableitungen:
+ *     der Bestand wird nur geladen, weil der Umfang aus ihm bestimmt wird und die 17 Zeilen der
+ *     Laufzeitmetadaten (Zähler, corpus_hash, Suchfilter, Übersichten) aus dem Ziel-Bestand
+ *     stammen müssen – der Nachweis belegt die Datentabellen, nicht diese Zeilen. Der
  *     Nachweis ist an gespeicherte und neue Identität, Scope, Comparator-Version und Umfang
  *     gebunden; jede Abweichung ist fail-closed. Einen frei setzbaren Bypass gibt es nicht.
  *
@@ -226,6 +234,25 @@ function searchUnits(record, version, context) {
   if (bodySupplement) {
     units.push({ unitIndex: units.length, path: 'supplement', anchor: '', blockType: 'supplement', label: '', heading: '', body: bodySupplement.slice(0, MAX_SEARCH_BODY_CHARS), references: null });
   }
+  // Eine Einheit je Fassung mit den Metadaten (Kurzfassung, Stichwörter, Sachgebiete, Ressort,
+  // Zitate, Verkündungsbezeichnungen, frühere Bezeichnungen). Sie ist keine Trefferstelle, macht
+  // aber Metadaten und Verkündungsaliasse im Volltextindex auffindbar; ohne sie wären der
+  // Suchbereich „Nur Metadaten“ und die Fundstellensuche nicht als Abfrage ausdrückbar.
+  const metadataBody = [
+    metadata.summary,
+    ...(metadata.keywords ?? []),
+    ...(metadata.subjects ?? []),
+    metadata.ministry,
+    metadata.initialCitation,
+    metadata.citation,
+    metadata.publication,
+    metadata.publicationTitle,
+    ...(metadata.publicationAliases ?? []),
+    ...(metadata.aliases ?? []),
+  ].filter(Boolean).join('\n');
+  if (metadataBody) {
+    units.push({ unitIndex: units.length, path: 'metadata', anchor: '', blockType: 'metadata', label: '', heading: '', body: metadataBody.slice(0, MAX_SEARCH_BODY_CHARS), references: null });
+  }
   return { metadata, units };
 }
 
@@ -251,15 +278,39 @@ const NORM_COLUMNS = [
   'document_date', 'publication_date', 'effective_date', 'expiry_date', 'initial_citation', 'summary',
   'responsible_ministry', 'enacting_body', 'source_kind', 'updated_at', 'meta_json', 'history_json', 'sort_title', 'current_valid_from',
   'subjects_json', 'primary_subject', 'keywords_json', 'aliases_json', 'origin_kind', 'origin_baseline_version_id', 'origin_last_own_change_date', 'version_count', 'last_change_date', 'last_activity_date', 'is_amendment',
-  'index_letter',
+  'index_letter', 'in_inventory', 'sort_word', 'funding_area',
 ];
 
-/** Einträge des Stichwortindex einer Norm (Abkürzung, Kurzbezeichnung, Schlagwörter; mindestens zwei Zeichen). */
-export function keywordEntries(norm, identity) {
-  const values = [identity.abbr, identity.shortTitle, ...(norm.meta.keywords ?? [])]
-    .map((value) => (typeof value === 'string' ? value.trim() : ''))
-    .filter((value) => value.length >= 2);
-  return [...new Set(values)].map((keyword) => ({ keyword, indexLetter: getGermanIndexLetter(keyword) }));
+/**
+ * Einträge des Stichwortindex einer Norm mit ihrer Herkunft: redaktionelles Stichwortregister,
+ * Abkürzung, Kurzbezeichnung, abgeleitete Schlagwörter (mindestens zwei Zeichen). Je Stichwort
+ * entsteht genau eine Zeile; bei mehrfacher Herkunft gilt die erste dieser Reihenfolge, damit
+ * ein redaktionelles Stichwort nicht als abgeleitetes Titelwort im A–Z verschwindet.
+ */
+export function keywordEntries(norm, identity, registerKeywords = []) {
+  const sources = [
+    ['register', registerKeywords],
+    ['abbr', [identity.abbr]],
+    ['short-title', [identity.shortTitle]],
+    ['derived', norm.meta.keywords ?? []],
+  ];
+  const seen = new Set();
+  const entries = [];
+  for (const [kind, values] of sources) {
+    for (const value of values) {
+      const keyword = typeof value === 'string' ? value.trim() : '';
+      if (keyword.length < 2 || seen.has(keyword)) continue;
+      seen.add(keyword);
+      entries.push({ keyword, indexLetter: getGermanIndexLetter(keyword), kind });
+    }
+  }
+  return entries;
+}
+
+/** Anweisungen der Stichworteinträge einer Norm (ohne die vorherige Löschung). */
+export function keywordQueries(norm, identity, registerKeywords = []) {
+  return keywordEntries(norm, identity, registerKeywords).map(({ keyword, indexLetter, kind }) =>
+    q('INSERT OR IGNORE INTO law_norm_keywords (norm_id, keyword, index_letter, kind) VALUES (?, ?, ?, ?)', [norm.meta.id, keyword, indexLetter, kind]));
 }
 
 /**
@@ -267,7 +318,7 @@ export function keywordEntries(norm, identity) {
  * Indizes gelöscht; in der Vollprojektion sind alle Tabellen bereits leer, dann entfallen
  * die Löschungen vollständig.
  */
-export function normQueries(norm, context, now, { full = false } = {}) {
+export function normQueries(norm, context, now, { full = false, registerKeywords = [] } = {}) {
   const { meta, history, versions } = norm;
   // Der Stichtag der Projektion kommt aus dem Ableitungskontext (Standard: editorial.json).
   const asOf = context.asOf ?? EDITORIAL_REFERENCE_DATE;
@@ -292,13 +343,20 @@ export function normQueries(norm, context, now, { full = false } = {}) {
     ON CONFLICT(id) DO UPDATE SET ${updates}`, [
     meta.id, meta.slug, currentIdentity.title, currentIdentity.shortTitle, currentIdentity.abbr ?? null, meta.type, meta.status,
     lawId, current.versionId, meta.documentDate ?? null, meta.publicationDate ?? null,
-    meta.effectiveDate ?? null, meta.expiryDate ?? null, meta.initialCitation, meta.summary,
+    meta.effectiveDate ?? null, meta.expiryDate ?? null, meta.initialCitation,
+    // Abgeleitete Formeln bleiben in meta_json erhalten, erscheinen aber nicht in den Übersichtsspalten.
+    getPublicNormSummary(currentIdentity) ?? '',
     meta.responsibleMinistry ?? meta.ministry ?? null, meta.enactingBody ?? null, sourceKind, now,
     JSON.stringify(meta), JSON.stringify(history), currentIdentity.title.toLocaleLowerCase('de'), current.validFrom,
     JSON.stringify(meta.subjects), meta.primarySubject ?? null, JSON.stringify(meta.keywords), JSON.stringify(getNormAliases(norm, currentIdentity)),
     derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, versions.length, lastChangeDate(norm),
     lastActivityDate(norm), isAmendmentRecord(norm) ? 1 : 0,
-    getGermanIndexLetter(currentIdentity.title),
+    // Buchstabengruppe und Sortierung folgen dem Ordnungswort, nicht dem Titelanfang; die
+    // Grundmenge blendet übernommene Änderungsvorschriften aus (inventory.ts).
+    getGermanIndexLetter(getNormSortWord(currentIdentity)),
+    isInheritedAmendment({ type: meta.type, originKind: derived.origin.kind }) ? 0 : 1,
+    getNormSortKey(currentIdentity),
+    meta.fundingArea ?? null,
   ]));
 
   for (const version of versions) {
@@ -310,7 +368,8 @@ export function normQueries(norm, context, now, { full = false } = {}) {
       version_json, full_citation, publication_ref_json, temporal_kind, publication_source, publication_year
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
       meta.id, version.versionId, version.validFrom, version.validTo ?? null, version.isCurrent ? 1 : 0,
-      version.title ?? null, version.shortTitle ?? null, version.abbr ?? null, version.summary ?? null,
+      version.title ?? null, version.shortTitle ?? null, version.abbr ?? null,
+      version.summary === undefined ? null : (getPublicNormSummary(getNormVersionIdentity(norm, version)) ?? ''),
       version.citation, version.changeNote, primarySource?.sha256 ?? null, primarySource?.url ?? null,
       primarySource?.retrievedAt ?? null, primarySource?.objectKey ?? null, now,
       JSON.stringify(stripBody(version)), fullCitationFor(norm, version, context),
@@ -355,9 +414,7 @@ export function normQueries(norm, context, now, { full = false } = {}) {
     subjectSlugs.add(subjectSlug);
     queries.push(q('INSERT INTO law_norm_subjects (norm_id, subject, subject_slug) VALUES (?, ?, ?)', [meta.id, subject, subjectSlug]));
   }
-  for (const { keyword, indexLetter } of keywordEntries(norm, currentIdentity)) {
-    queries.push(q('INSERT OR IGNORE INTO law_norm_keywords (norm_id, keyword, index_letter) VALUES (?, ?, ?)', [meta.id, keyword, indexLetter]));
-  }
+  queries.push(...keywordQueries(norm, currentIdentity, registerKeywords));
   for (const [entryIndex, entry] of history.entries.entries()) {
     queries.push(q(`INSERT INTO law_norm_history (
       norm_id, entry_index, change_date, change_type, title, citation, note, affecting_version_id, related_norm
@@ -460,10 +517,12 @@ export function deletePublicationQueries(slug) {
  * Fassung sowie Verkündungsslugs), den der Sync in law_runtime_meta ablegt und
  * scripts/verify-recht-d1.mjs gegen den Repositorystand vergleicht.
  */
-export function corpusFingerprint(norms, publications) {
+export function corpusFingerprint(norms, publications, register = new Map()) {
   const lines = [
     ...norms.flatMap((norm) => norm.versions.map((version) => `${norm.meta.slug}:${version.versionId}:${version.validFrom}:${version.validTo ?? ''}`)),
     ...publications.map((publication) => `publication:${publication.slug}:${publication.date}`),
+    // Das Stichwortregister ist eine Eingabe der Projektion (law_norm_keywords, kind register).
+    ...[...register.entries()].map(([slug, keywords]) => `register:${slug}:${[...keywords].sort().join('|')}`),
   ].sort();
   return createHash('sha256').update(lines.join('\n')).digest('hex');
 }
@@ -483,20 +542,42 @@ export function publicationQueries(publication, now) {
  * Git-Bestand berechnet und als einzelne Metadatenzeilen abgelegt, damit die Website sie
  * mit einer Zeile statt mit dem gesamten Normenbestand liest.
  */
+/**
+ * Grundmenge des Bestands (packages/shared/src/lib/norms/inventory.ts): alles außer den
+ * übernommenen Änderungsvorschriften. Die Rechtsherkunft wird nur für Änderungsvorschriften
+ * bestimmt – für jeden anderen Normtyp ist die Antwort unabhängig davon nein.
+ */
+export function inventoryNorms(norms) {
+  return norms.filter((norm) => norm.meta.type !== 'aenderungsvorschrift'
+    || !isInheritedAmendment({ type: norm.meta.type, originKind: getNormOriginInfo(norm, norms).kind }));
+}
+
 export function corpusOverviewMeta(norms, publications) {
-  const subjectGroups = getSubjectGroups(norms).map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length }));
-  const subjectAreas = getSubjectAreaGroups(norms).map((area) => ({
+  // Sachgebietszähler und Bestandszahlen beschreiben die Grundmenge – dieselbe Menge, die
+  // Verzeichnisse, A–Z und Sachgebiete zeigen.
+  const inventory = inventoryNorms(norms);
+  const subjectEntry = (group) => ({
+    name: group.name,
+    slug: group.slug,
+    ...(group.number ? { number: group.number } : {}),
+    ...(group.shortTitle ? { shortTitle: group.shortTitle } : {}),
+    normCount: group.norms.length,
+  });
+  const subjectGroups = getSubjectGroups(inventory).map(subjectEntry);
+  const subjectAreas = getSubjectAreaGroups(inventory).map((area) => ({
     name: area.name,
+    ...(area.number ? { number: area.number } : {}),
     description: area.description,
     normCount: area.normCount,
-    subjects: area.subjects.map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length })),
+    subjects: area.subjects.map(subjectEntry),
   }));
   const stats = {
-    normCount: norms.length,
-    inForceCount: norms.filter((norm) => norm.meta.status === 'in-force').length,
+    normCount: inventory.length,
+    inForceCount: inventory.filter((norm) => norm.meta.status === 'in-force').length,
+    inheritedAmendmentCount: norms.length - inventory.length,
     publicationCount: publications.length,
-    types: [...new Set(norms.map((norm) => norm.meta.type))].sort(),
-    statuses: [...new Set(norms.map((norm) => norm.meta.status))].sort(),
+    types: [...new Set(inventory.map((norm) => norm.meta.type))].sort(),
+    statuses: [...new Set(inventory.map((norm) => norm.meta.status))].sort(),
   };
   return {
     subject_groups_json: JSON.stringify(subjectGroups),
@@ -540,12 +621,12 @@ export function partialMetaQueries({ now, mode }) {
 }
 
 /** Laufzeitmetadaten; sie werden als letzte Anweisungen eines erfolgreichen Laufs geschrieben. */
-export function runtimeMetaQueries({ now, norms, publications, fingerprint, identity = fingerprint, mode }) {
+export function runtimeMetaQueries({ now, norms, publications, fingerprint, identity = fingerprint, mode, register = new Map() }) {
   const values = {
     last_sync_at: now,
     norm_count: String(norms.length),
     publication_count: String(publications.length),
-    corpus_hash: corpusFingerprint(norms, publications),
+    corpus_hash: corpusFingerprint(norms, publications, register),
     ...identityMetaValues(identity),
     sync_mode: mode,
     search_filters_json: JSON.stringify(buildFilterOptions(norms)),
@@ -651,10 +732,7 @@ export function decideSyncAction({ requested, stored, identity, baseIdentity = n
   else if (!complete) problems.push(`D1 meldet einen unvollständigen Zustand (${storedState})`);
   if (storedFingerprint && storedScope !== identity.scope) problems.push(`Scope in D1 ist ${storedScope}, erwartet ${identity.scope}`);
   if (baseIdentity) {
-    // Übergang: eine vor dem Abschluss-Algorithmus geschriebene Identität desselben Basis-Refs
-    // gilt als verifizierte Basis (legacyFingerprint, siehe Fingerprint-Modul und TODO.md).
-    const acceptedBases = [baseIdentity.fingerprint, baseIdentity.legacyFingerprint].filter(Boolean);
-    if (storedFingerprint && !acceptedBases.includes(storedFingerprint)) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
+    if (storedFingerprint && storedFingerprint !== baseIdentity.fingerprint) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
   } else if (requiresBase) {
     problems.push('kein Basis-Ref zur Verifikation des Ausgangszustands');
   }
@@ -677,6 +755,7 @@ export function assessSyncDecision({ decision, scope, budgetProfile = null, limi
     const parts = [`${scope.slugs.length} Norm(en)`, `${scope.deletedSlugs.length} Löschung(en)`, `${scope.publicationSlugs.length} Verkündung(en)`];
     if (scope.derivedRebuild) parts.push('abgeleitete Daten aller Normen');
     if (scope.refreshSearchDocuments) parts.push('Suchdokumente aller Normen');
+    if (scope.refreshKeywords) parts.push('Stichworteinträge aller Normen');
     return { ok: true, code: 'incremental', message: `Inkrementell mit verifizierter Basis: ${parts.join(', ')}.` };
   }
   if (decision.action === 'recovery') return { ok: true, code: 'recovery', message: `Recovery-Vollprojektion mit eigenem Budget (${decision.reason}).` };
@@ -687,6 +766,37 @@ export function assessSyncDecision({ decision, scope, budgetProfile = null, limi
     code: 'full-gate',
     message: `Vollprojektion erforderlich (${decision.reason}), aber das Budgetprofil ${budgetProfile ?? 'explizit'} trägt keine Vollprojektion. Der automatische Sync führt keine Vollprojektion aus (Tabellen würden geleert). Bei geänderter Projektionslogik ohne Schemaänderung entscheidet der Äquivalenznachweis (npm run norms:runtime:d1-prove -- --base <base>, dann --equivalence-proof <Datei>): nachgewiesen gleiche Daten werden ohne Rebuild übernommen, ein nachgewiesener inkrementeller Umfang wird geschrieben. Sonst Release-Gate: Staging und Produktion bewusst mit --full --budget full auf den Zielstand bringen; danach ist dieser Lauf ein No-op (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt D1-Release-Gate).`,
   };
+}
+
+/**
+ * Metadata-only-Lauf: verifizierter inkrementeller Lauf, dessen Umfang außer Identität und
+ * Laufzeitmetadaten nichts schreibt – entweder ohne jede Logikänderung (der Umfang wurde mit
+ * logicChange `full` bestimmt; eine geänderte Logik hätte `full` ergeben) oder mit angewendetem
+ * Äquivalenznachweis `identity`/`ignore`, der genau diesen leeren Umfang belegt. Alles andere
+ * (Normen, Löschungen, Verkündungen, abgeleitete Daten, Suchdokumente, Nachweis `incremental`
+ * oder `narrow`, abweichende Umfangssignatur, No-op, Voll- oder Recovery-Projektion) nimmt den
+ * normalen fail-closed Projektionsweg. Reine Funktion. Die Laufzeitmetadaten werden auch im
+ * Metadata-only-Lauf aus dem geladenen Bestand neu berechnet: der Nachweis belegt die
+ * Datentabellen, nicht die korpusabgeleiteten Zeilen von law_runtime_meta.
+ */
+export function isMetadataOnlyRun({ decision, scope, proof = null }) {
+  if (decision?.action !== 'incremental') return false;
+  if (!isEmptyScope(scope)) return false;
+  if (!proof) return true;
+  return proof.result === 'identity' && proof.logicChange === 'ignore' && proof.scopeSignature === scopeSignature(scope);
+}
+
+/**
+ * Plan eines Laufs. `buildContext` (korpusweite Ableitungen über buildDerivedContext) wird nur
+ * gerufen, wenn der Plan Normen, abgeleitete Daten oder Suchdokumente schreibt; der
+ * Metadata-only-Lauf baut den Plan ohne Ableitungskontext (buildSyncPlan prüft das fail-closed).
+ * @returns {{ plan: ReturnType<typeof buildSyncPlan>, metadataOnly: boolean }}
+ */
+export function planRun({ decision, scope, norms, publications, buildContext, now, identity, writeIdentity, proof = null, register = new Map() }) {
+  const metadataOnly = isMetadataOnlyRun({ decision, scope, proof });
+  const context = metadataOnly ? null : buildContext();
+  const plan = buildSyncPlan({ scope, norms, publications, context, now, identity, writeIdentity, register });
+  return { plan, metadataOnly };
 }
 
 /** Vorabprüfung der Planschätzung gegen das Budget; wirft, bevor irgendetwas geschrieben wird. */
@@ -809,7 +919,8 @@ async function readStoredIdentity({ transport, config, local, persistTo, databas
       return Object.fromEntries(results.map((row) => [row.key, row.value]));
     } catch (error) {
       if (error instanceof SyncBudgetExceeded) throw error;
-      const message = error instanceof Error ? error.message : String(error);
+      // Wie executeSqlFile: die Wrangler-Meldung steht in stdout/stderr, nicht in error.message.
+      const message = error instanceof Error ? `${error.message}\n${error.stdout ?? ''}\n${error.stderr ?? ''}` : String(error);
       const kind = classifyStoredIdentityError(message);
       if (kind === 'missing-table') return null;
       if (kind === 'transient' && attempt < attempts) {
@@ -839,6 +950,9 @@ async function gitChangedPaths(base, head) {
 
 /** Beschränkt den Bestand auf ein Testfixture; unbekannte Slugs sind ein Fehler (kein stilles Fixture). */
 export function applyCorpusFilter(norms, fixture, label = 'Fixture') {
+  // Ein synthetisches Fixture (Builder tests/helpers/fixture-corpus.ts) wird nur vom Seed
+  // projiziert; der Sync kennt ausschließlich reale Slug-Listen (Staging-Sonderfall).
+  if (fixture?.source === 'synthetic') throw new Error(`${label}: ein synthetisches Testfixture wird nur vom Seed projiziert (scripts/d1-runtime-seed.mjs, OSTRECHT_D1_FIXTURE); --corpus-filter erwartet eine Slug-Liste realer Normen ({ "slugs": [...] })`);
   const slugs = fixture?.slugs;
   if (!Array.isArray(slugs) || slugs.length === 0) throw new Error(`${label}: "slugs" fehlt oder ist leer`);
   const wanted = new Set(slugs.map((entry) => (typeof entry === 'string' ? entry : entry?.slug)));
@@ -920,30 +1034,42 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
 /**
  * Baut die vollständige Anweisungsliste eines Laufs: Reset (nur --full), Löschungen,
  * Normen, abgeleitete Daten, Verkündungen, Laufzeitmetadaten. Reine Funktion über den
- * geladenen Bestand; Tests prüfen damit Umfang und Kostenpfad ohne Datenbank.
+ * geladenen Bestand; Tests prüfen damit Umfang und Kostenpfad ohne Datenbank. `context` darf
+ * nur fehlen, wenn der Umfang leer ist (Metadata-only-Lauf, planRun).
  */
-export function buildSyncPlan({ scope, norms, publications, context, now, fingerprint, identity = fingerprint, writeIdentity = true }) {
+export function buildSyncPlan({ scope, norms, publications, context, now, fingerprint, identity = fingerprint, writeIdentity = true, register = new Map() }) {
   const full = scope.mode === 'full';
   const selectedSlugs = new Set(scope.slugs);
   const selected = full ? norms : norms.filter((norm) => selectedSlugs.has(norm.meta.slug));
+  // Fail-closed: ohne Ableitungskontext darf der Plan weder Normen noch abgeleitete Daten oder
+  // Suchdokumente schreiben – nur der leere Umfang kommt ohne Kontext aus.
+  if (!context && (full || scope.slugs.length > 0 || scope.derivedRebuild || scope.refreshSearchDocuments || scope.refreshKeywords)) {
+    throw new Error('Ableitungskontext fehlt: dieser Umfang schreibt Normen, abgeleitete Daten oder Suchdokumente und kann kein Metadata-only-Plan sein (fail-closed)');
+  }
   const groups = [];
   if (full) groups.push({ slug: '(reset)', queries: fullResetQueries() });
   else if (writeIdentity) groups.push({ slug: '(identität entwerten)', queries: incrementalStartQueries(now) });
   for (const slug of scope.deletedSlugs) groups.push({ slug: `(löschen ${slug})`, queries: deleteNormQueries(slug) });
   let searchUnitCount = 0;
   for (const norm of selected) {
-    const queries = normQueries(norm, context, now, { full });
+    const queries = normQueries(norm, context, now, { full, registerKeywords: register.get(norm.meta.slug) ?? [] });
     searchUnitCount += queries.filter((query) => query.sql.startsWith('INSERT INTO law_search_units')).length;
     groups.push({ slug: norm.meta.slug, queries });
   }
   let derivedCount = 0;
   let documentRefreshCount = 0;
-  if (!full && (scope.derivedRebuild || scope.refreshSearchDocuments)) {
+  if (!full && (scope.derivedRebuild || scope.refreshSearchDocuments || scope.refreshKeywords)) {
+    const asOf = context?.asOf ?? EDITORIAL_REFERENCE_DATE;
     for (const norm of norms) {
       if (selectedSlugs.has(norm.meta.slug)) continue;
       const queries = [
         ...(scope.derivedRebuild ? derivedQueries(norm, context, now) : []),
         ...(scope.refreshSearchDocuments ? searchDocumentQueries(norm, context, now) : []),
+        // Geändertes Stichwortregister: nur die Stichworteinträge, über den Primärschlüssel gelöscht.
+        ...(scope.refreshKeywords
+          ? [q('DELETE FROM law_norm_keywords WHERE norm_id = ?', [norm.meta.id]),
+            ...keywordQueries(norm, getNormVersionIdentity(norm, getApplicableVersion(norm, asOf)), register.get(norm.meta.slug) ?? [])]
+          : []),
       ];
       groups.push({ slug: `(abgeleitet ${norm.meta.slug})`, queries });
       if (scope.derivedRebuild) derivedCount += 1;
@@ -954,7 +1080,7 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
   const finalQueries = [
     ...scope.deletedPublications.flatMap((slug) => deletePublicationQueries(slug)),
     ...publicationSelection.flatMap((publication) => publicationQueries(publication, now)),
-    ...(full || writeIdentity ? runtimeMetaQueries({ now, norms, publications, identity, mode: scope.mode }) : partialMetaQueries({ now, mode: 'manual-partial' })),
+    ...(full || writeIdentity ? runtimeMetaQueries({ now, norms, publications, identity, mode: scope.mode, register }) : partialMetaQueries({ now, mode: 'manual-partial' })),
   ];
   groups.push({ slug: '(verkuendungen+meta)', queries: finalQueries });
   const all = groups.flatMap((group) => group.queries);
@@ -1048,16 +1174,18 @@ async function main() {
   if (stored) console.log(`D1 trägt: Fingerabdruck ${stored.projection_fingerprint?.slice(0, 16) ?? '(keiner)'}…, Scope ${stored.projection_scope ?? '(keiner)'}, Zustand ${stored.sync_state ?? '(keiner)'}, Modus ${stored.sync_mode ?? '?'}, letzter Sync ${stored.last_sync_at ?? '?'}`);
   else console.log(canReadTarget ? 'D1 trägt keine lesbare Identität.' : 'Identität in D1 nicht geprüft (Dry-run ohne Zugang).');
 
-  const [loadedNorms, publications, topics, pressReleases] = await Promise.all([
-    loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(),
+  const [loadedNorms, publications, topics, pressReleases, keywordRegister] = await Promise.all([
+    loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(), loadKeywordRegister(),
   ]);
+  // Redaktionelle Stichwörter je Vorschrift: Eingabe der Stichworteinträge (law_norm_keywords).
+  const register = registerKeywordsBySlug(keywordRegister);
   const norms = corpusFilter ? applyCorpusFilter(loadedNorms, JSON.parse(await readFile(resolve(ROOT, corpusFilter), 'utf8')), corpusFilter) : loadedNorms;
   console.log(`${loadedNorms.length} Normen und ${publications.length} Verkündungen geladen und validiert (${Math.round((Date.now() - startedAt) / 1000)} s)${corpusFilter ? `; Fixture ${corpusFilter}: ${norms.length} Normen` : ''}`);
   // Entscheidung vor dem ersten Schreibzugriff: No-op, Vollprojektion, verifizierter
   // inkrementeller Lauf oder markierte Recovery (fail-closed bei abweichender Basis).
   const gitDiffBase = args.includes('--git-diff') ? args[args.indexOf('--git-diff') + 1] : null;
   const baseIdentity = gitDiffBase ? await projectionIdentityAtRef(gitDiffBase, { root: ROOT, scope: scopeId }) : null;
-  if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…${baseIdentity.legacyFingerprint ? ` (frühere Berechnung ${baseIdentity.legacyFingerprint.slice(0, 16)}…)` : ''}`);
+  if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…`);
   // Logikänderungen sind genau die geänderten Dateien des Code-Abschlusses von Basis oder Ziel;
   // ist ein Abschluss unsicher, gilt fail-closed die konservative Obermenge.
   const logicPaths = fingerprint.closureUncertain || Boolean(baseIdentity?.closureUncertain) ? null : new Set([...fingerprint.logicFiles, ...(baseIdentity?.logicFiles ?? [])]);
@@ -1089,6 +1217,8 @@ async function main() {
   // Entscheidung gegen das Budgetprofil prüfen, bevor Ableitungen gerechnet oder Anweisungen
   // gebaut werden: eine nicht tragbare Vollprojektion endet hier, nicht nach dem Planbau.
   let assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
+  // Der angewendete Nachweis bleibt für den Planbau sichtbar (Metadata-only-Lauf, isMetadataOnlyRun).
+  let appliedProof = null;
   if (!assessment.ok && assessment.code === 'full-gate' && gitDiffBase && proofFile) {
     // Äquivalenznachweis statt Vollprojektion: jede Bindung wird geprüft, bevor der nachgewiesene
     // Umfang gilt (scripts/lib/d1-projection-proof-format.mjs).
@@ -1104,6 +1234,7 @@ async function main() {
         assessment = { ok: false, code: 'proof-scope-mismatch', message: `Äquivalenznachweis nicht anwendbar (fail-closed): der Umfang dieses Laufs entspricht nicht dem nachgewiesenen Umfang (${scope.mode}; ${scope.reasons.slice(0, 3).join('; ')})` };
       } else {
         decision = decide('incremental');
+        appliedProof = proof;
         assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
         console.log(`Äquivalenznachweis (${proof.head.commit.slice(0, 9)} gegen ${proof.base.commit.slice(0, 9)}): ${describeProofResult(proof)}`);
         console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
@@ -1134,15 +1265,29 @@ async function main() {
   const full = scope.mode === 'full';
   console.log(full
     ? 'Umfang: Vollprojektion (Tabellen werden einmalig geleert, keine normweisen Löschungen)'
-    : `Umfang: ${scope.slugs.length} Norm(en), ${scope.deletedSlugs.length} Löschung(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.refreshSearchDocuments ? ', Suchdokumente aller Normen' : ''}${scope.reasons.length ? ` – ${scope.reasons.slice(0, 3).join('; ')}` : ''}`);
+    : `Umfang: ${scope.slugs.length} Norm(en), ${scope.deletedSlugs.length} Löschung(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.refreshSearchDocuments ? ', Suchdokumente aller Normen' : ''}${scope.refreshKeywords ? ', Stichworteinträge aller Normen' : ''}${scope.reasons.length ? ` – ${scope.reasons.slice(0, 3).join('; ')}` : ''}`);
   if (scope.referenceDate) console.log(`Stichtag: ${scope.referenceDate.from} → ${scope.referenceDate.to}; betroffene Normen: ${scope.slugs.join(', ') || '(keine)'}`);
-  const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE });
-  console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
   const now = new Date().toISOString();
   // Identität nur bei Vollprojektion und verifiziertem Git-Diff schreiben; manuelle Teilsyncs
   // lassen die gespeicherte Identität unverändert (siehe partialMetaQueries).
   const writeIdentity = full || Boolean(gitDiffBase);
-  const plan = buildSyncPlan({ scope, norms, publications, context, now, identity: fingerprint, writeIdentity });
+  // Korpusweite Ableitungen nur, wenn der Plan sie schreibt: der nachgewiesen datenneutrale leere
+  // Umfang (isMetadataOnlyRun) erzeugt den Metadata-only-Plan ohne Ableitungskontext.
+  const { plan, metadataOnly } = planRun({
+    decision, scope, norms, publications, now, identity: fingerprint, writeIdentity, proof: appliedProof, register,
+    buildContext: () => buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE }),
+  });
+  if (metadataOnly) {
+    console.log(`Umfang leer und nachgewiesen datenneutral: Metadata-only-Plan (Identität und Laufzeitmetadaten aus dem geladenen Bestand), keine korpusweiten Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
+    // Plausibilität, kein Gate: unter leerem Umfang ändern sich die Zähler nicht; eine Abweichung
+    // deutet auf einen fremden Zustand in D1 hin (die Basis prüft decideSyncAction über die Identität).
+    for (const [key, actual] of [['norm_count', norms.length], ['publication_count', publications.length]]) {
+      const storedValue = stored?.[key];
+      if (storedValue !== undefined && storedValue !== null && Number(storedValue) !== actual) console.warn(`Hinweis: ${key} in D1 (${storedValue}) weicht vom geladenen Bestand (${actual}) ab; die Laufzeitmetadaten werden aus dem Bestand neu geschrieben.`);
+    }
+  } else {
+    console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
+  }
   const cost = estimatePlanCost(plan, budgets.estimate ?? DEFAULT_ESTIMATE);
   console.log(`Plan: ${plan.selected.length} Normen, ${scope.deletedSlugs.length} Löschungen, ${plan.derivedCount} abgeleitete Datensätze, ${plan.documentRefreshCount} Normen mit erneuerten Suchdokumenten, ${plan.publicationCount} Verkündungen, ${plan.searchUnitCount} Suchprovisionen, ${plan.statementCount} Anweisungen`);
   console.log(`Anweisungen je Tabelle: ${JSON.stringify(plan.byStatement)}`);

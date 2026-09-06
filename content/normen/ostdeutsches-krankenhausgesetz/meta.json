@@ -2,14 +2,13 @@
   "id": "ostdeutsches-krankenhausgesetz",
   "slug": "ostdeutsches-krankenhausgesetz",
   "title": "Ostdeutsches Krankenhausgesetz",
-  "shortTitle": "Ostdeutsches Krankenhausgesetz",
   "abbr": "OstKHG",
-  "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "OstKHG",
     "Ostdeutsches Krankenhausgesetz",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Krankenhausgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2022-12-15",
   "sourceReferences": [
@@ -33,7 +33,8 @@
       "sha256": "b6426a79d1f6bd8b219f142360a6f3717b5f1de65ad8574673655a3710eca3ca",
       "lawId": "19826",
       "sourceValidFrom": "2023-01-01",
-      "sourceValidTo": "2024-08-16"
+      "sourceValidTo": "2024-08-16",
+      "fsnNumber": "252-2/2"
     },
     {
       "kind": "amendment-source",

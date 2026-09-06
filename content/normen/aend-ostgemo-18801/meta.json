@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-18801",
   "slug": "aend-ostgemo-18801",
   "title": "Änderung der Ostdeutschen Gemeindeordnung",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-unterstuetzung-der-kommunen-zur-bewaeltigung-der-covid-19-pandemie",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Gemeindeordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-07-15",
   "effectiveDate": "2020-08-01",
@@ -33,6 +33,7 @@
       "sha256": "b4edf03ef7bf6a096337d094a19c870a7c6844b1af5a1544a2c58bcf1d10c95e",
       "lawId": "18801",
       "sourceValidFrom": "2020-08-01",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

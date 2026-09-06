@@ -2,15 +2,14 @@
   "id": "aend-vwv-weiterbildung-kindheitspaedagogik",
   "slug": "aend-vwv-weiterbildung-kindheitspaedagogik",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Weiterbildung Kindheitspädagogik",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Weiterbildung Kindheitspädagogik",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Weiterbildung Kindheitspädagogik",
+    "Änd. VwV Weiterbildung Kindheitspädagogik",
     "Kultus",
     "Änderung",
     "Weiterbildung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Weiterbildung Kindheitspädagogik“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-08-09",
   "effectiveDate": "2022-09-02",
@@ -34,8 +34,12 @@
       "sha256": "7e33fbd54687085aaf93e269556ca448cc733d500359fbc6fee403c9c749bcd5",
       "lawId": "19691",
       "sourceValidFrom": "2022-09-02",
+      "fsnNumber": "713",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-weiterbildung-kindheitspaedagogik"
   ]
 }

@@ -1,9 +1,8 @@
-import type { Dirent } from 'node:fs';
-import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { portalCollections } from '@ostrecht/shared/lib/portal/collections.ts';
 import { isCurrentOrFuture, PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
+import { CONTENT_ROOT, loadCollection, readJsonFile } from '@ostrecht/shared/lib/portal/json-collection.ts';
 import {
   deriveCurrentGovernment,
   deriveGovernmentMember,
@@ -21,15 +20,12 @@ import {
   parseCabinetPageContent,
   parseBeteiligungsInventar,
   parseBeteiligungsUebersicht,
-  PortalContentValidationError,
   parseRede,
   parseMinisteriumProfil,
-  parsePressemitteilung,
   parseRegierungProfil,
   parseSeite,
   parseStellenangebot,
   parseTermin,
-  parseThemenseite,
   type Haushaltsseite,
   type HomeContent,
   type CabinetPageContent,
@@ -37,67 +33,27 @@ import {
   type BeteiligungsUebersicht,
   type Ministerium,
   type MinisteriumProfil,
-  type Pressemitteilung,
   type Rede,
   type RegierungMitglied,
   type RegierungProfil,
   type Seite,
   type Stellenangebot,
   type Termin,
-  type Themenseite,
 } from '@ostrecht/shared/lib/portal/schema.ts';
-import { resolveRepositoryRoot } from '@ostrecht/shared/lib/repository-root.ts';
 
-const CONTENT_ROOT = join(resolveRepositoryRoot(), 'content');
-
-async function readJsonFile(filePath: string): Promise<unknown> {
-  try {
-    const raw = await readFile(filePath, 'utf8');
-    return JSON.parse(raw) as unknown;
-  } catch (error) {
-    if (error instanceof SyntaxError) {
-      throw new PortalContentValidationError(`${filePath}: enthält ungültiges JSON`);
-    }
-
-    throw error;
-  }
-}
-
-async function listJsonFiles(directoryPath: string): Promise<string[]> {
-  try {
-    const entries = await readdir(directoryPath, { withFileTypes: true });
-
-    return entries
-      .filter((entry: Dirent) => entry.isFile() && entry.name.endsWith('.json'))
-      .map((entry: Dirent) => entry.name)
-      .sort((left: string, right: string) => left.localeCompare(right, 'de'));
-  } catch (error) {
-    const nodeError = error as NodeJS.ErrnoException;
-    if (nodeError.code === 'ENOENT') {
-      return [];
-    }
-
-    throw error;
-  }
-}
-
-async function loadCollection<T>(
-  directorySegments: string[],
-  parser: (value: unknown, path: string) => T,
-): Promise<T[]> {
-  const directoryPath = join(CONTENT_ROOT, ...directorySegments);
-  const fileNames = await listJsonFiles(directoryPath);
-
-  const entries = await Promise.all(
-    fileNames.map(async (fileName) => {
-      const filePath = join(directoryPath, fileName);
-      const json = await readJsonFile(filePath);
-      return parser(json, `content/${directorySegments.join('/')}/${fileName}`);
-    }),
-  );
-
-  return entries;
-}
+/**
+ * Vollständiger Portal-Loader mit Organisations- und Stichtagslogik; außerhalb der
+ * D1-Projektion. Themen und Pressemitteilungen lädt norm-portal-content.ts (Teil des
+ * Code-Abschlusses des Syncs) und wird hier für die Portalseiten weitergereicht.
+ */
+export {
+  loadFeaturedPressReleases,
+  loadPressReleaseBySlug,
+  loadPressReleases,
+  loadRecentPressReleases,
+  loadTopicBySlug,
+  loadTopics,
+} from '@ostrecht/shared/lib/portal/norm-portal-content.ts';
 
 export async function loadGovernmentProfiles(): Promise<RegierungProfil[]> {
   return loadCollection(
@@ -189,14 +145,6 @@ export async function loadBeteiligungsInventar(): Promise<BeteiligungsInventar> 
   );
 }
 
-export async function loadPressReleases(): Promise<Pressemitteilung[]> {
-  const entries = await loadCollection(
-    portalCollections.pressemitteilung.directorySegments,
-    parsePressemitteilung,
-  );
-  return entries.sort((left, right) => right.date.localeCompare(left.date));
-}
-
 export async function loadSpeeches(): Promise<Rede[]> {
   const entries = await loadCollection(portalCollections.rede.directorySegments, parseRede);
   return entries.sort((left, right) => right.date.localeCompare(left.date));
@@ -217,16 +165,6 @@ export async function loadEventBySlug(slug: string): Promise<Termin | undefined>
   return entries.find((entry) => entry.slug === slug);
 }
 
-export async function loadTopics(): Promise<Themenseite[]> {
-  const entries = await loadCollection(portalCollections.themenseite.directorySegments, parseThemenseite);
-  return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));
-}
-
-export async function loadTopicBySlug(slug: string): Promise<Themenseite | undefined> {
-  const entries = await loadTopics();
-  return entries.find((entry) => entry.slug === slug);
-}
-
 export async function loadBudgetPages(): Promise<Haushaltsseite[]> {
   const entries = await loadCollection(
     portalCollections.haushaltsseite.directorySegments,
@@ -237,13 +175,6 @@ export async function loadBudgetPages(): Promise<Haushaltsseite[]> {
 
 export async function loadBudgetPageBySlug(slug: string): Promise<Haushaltsseite | undefined> {
   const entries = await loadBudgetPages();
-  return entries.find((entry) => entry.slug === slug);
-}
-
-export async function loadPressReleaseBySlug(
-  slug: string,
-): Promise<Pressemitteilung | undefined> {
-  const entries = await loadPressReleases();
   return entries.find((entry) => entry.slug === slug);
 }
 
@@ -284,16 +215,6 @@ export async function loadFreestatePages(): Promise<Seite[]> {
 export async function loadFreestatePageBySlug(slug: string): Promise<Seite | undefined> {
   const entries = await loadFreestatePages();
   return entries.find((entry) => entry.slug === slug);
-}
-
-export async function loadFeaturedPressReleases(limit = 3): Promise<Pressemitteilung[]> {
-  const entries = await loadPressReleases();
-  return entries.filter((entry) => entry.isFeatured).slice(0, limit);
-}
-
-export async function loadRecentPressReleases(limit = 3): Promise<Pressemitteilung[]> {
-  const entries = await loadPressReleases();
-  return entries.slice(0, limit);
 }
 
 export async function loadCurrentJobOffers(limit = 3): Promise<Stellenangebot[]> {

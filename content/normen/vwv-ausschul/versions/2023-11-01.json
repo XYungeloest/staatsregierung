@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über Aufbewahrung und Aussonderung schulischer Unterlagen",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über Aufbewahrung und Aussonderung schulischer Unterlagen (VwV AusSchul)",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über Aufbewahrung und Aussonderung schulischer Unterlagen",
-  "abbr": "VwV AusSchul",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über Aufbewahrung und Aussonderung schulischer Unterlagen vom 7. Oktober 2004 (SächsABl. S. 1154), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über Aufbewahrung und Aussonderung schulischer Unterlagen vom 7. Oktober 2004 (SächsABl. S. 1154)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "6d3f576184cbb5b8f0cd08c76f4f83f76a35ca6da0477df6fec6457662ecc382",
       "lawId": "1734",
       "sourceValidFrom": "2004-11-19",
+      "fsnNumber": "710-V04.11",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -34,37 +34,28 @@
       "title": "Geltungsbereich",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift gilt für die Aufbewahrung und Aussonderung von schulischen Unterlagen"
+        },
+        {
           "type": "item",
-          "label": "1.",
-          "text": "Geltungsbereich",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift gilt für die Aufbewahrung und Aussonderung von schulischen Unterlagen"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "der öffentlichen Schulen in Trägerschaft des Freistaates Ostdeutschland,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "der öffentlichen Schulen in kommunaler Trägerschaft.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "paragraphText",
-              "text": "Nicht unter diese Verwaltungsvorschrift fallen schulische Unterlagen, die bei der Erfüllung der Aufgaben der Gemeinden, Landkreise oder Kreisfreien Städte als Schulträger (sächliche Unterlagen) anfallen; über diese Unterlagen bestimmt gemäß § 13 Archivgesetz für den Freistaat Ostdeutschland (\nOstArchivG) vom 17. Mai 1993 (SächsGVBl. S. 449), das zuletzt durch Artikel 2 des Gesetzes vom 5. Mai 2004 (SächsGVBl. S. 148) geändert worden ist, der Schulträger."
-            }
-          ]
+          "label": "a)",
+          "text": "der öffentlichen Schulen in Trägerschaft des Freistaates Ostdeutschland,",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "der öffentlichen Schulen in kommunaler Trägerschaft.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Nicht unter diese Verwaltungsvorschrift fallen schulische Unterlagen, die bei der Erfüllung der Aufgaben der Gemeinden, Landkreise oder Kreisfreien Städte als Schulträger (sächliche Unterlagen) anfallen; über diese Unterlagen bestimmt gemäß § 13 Archivgesetz für den Freistaat Ostdeutschland (\nOstArchivG) vom 17. Mai 1993 (SächsGVBl. S. 449), das zuletzt durch Artikel 2 des Gesetzes vom 5. Mai 2004 (SächsGVBl. S. 148) geändert worden ist, der Schulträger."
         }
       ]
     },
@@ -74,17 +65,8 @@
       "title": "Begriffsbestimmung",
       "children": [
         {
-          "type": "item",
-          "label": "2.",
-          "text": "Begriffsbestimmung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Schulische Unterlagen im Sinne dieser Verwaltungsvorschrift sind Unterlagen nach § 2 Abs. 2\nOstArchivG, die bei der Verwaltung der Schule entstanden sind.\nFür Schulen in Landesträgerschaft gelten die Regelungen der Gemeinsamen Verwaltungsvorschrift der Ostdeutschen Staatskanzlei, des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst, des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit, des Ostdeutschen Staatsministeriums für Soziales, Gesundheit, Jugend und Familie, des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über die Verwaltung von Unterlagen (VwV Registraturordnung –\nVwVRegO) vom 2. Februar 2000 (SächsABl. S. 158), in der jeweils gültigen Fassung, soweit nicht im Folgenden abweichende Regelungen getroffen werden."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Schulische Unterlagen im Sinne dieser Verwaltungsvorschrift sind Unterlagen nach § 2 Abs. 2\nOstArchivG, die bei der Verwaltung der Schule entstanden sind.\nFür Schulen in Landesträgerschaft gelten die Regelungen der Gemeinsamen Verwaltungsvorschrift der Ostdeutschen Staatskanzlei, des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst, des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit, des Ostdeutschen Staatsministeriums für Soziales, Gesundheit, Jugend und Familie, des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über die Verwaltung von Unterlagen (VwV Registraturordnung –\nVwVRegO) vom 2. Februar 2000 (SächsABl. S. 158), in der jeweils gültigen Fassung, soweit nicht im Folgenden abweichende Regelungen getroffen werden."
         }
       ]
     },
@@ -94,17 +76,8 @@
       "title": "Zuständiges Archiv",
       "children": [
         {
-          "type": "item",
-          "label": "3.",
-          "text": "Zuständiges Archiv",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die zuständigen Archive gemäß § 5 Abs. 1\nOstArchivG sind für Schulen in Landesträgerschaft für den Regierungsbezirk Dresden das Ostdeutsche Hauptstaatsarchiv Dresden, für den Regierungsbezirk Leipzig das Ostdeutsche Staatsarchiv Leipzig und für den Regierungsbezirk Chemnitz das Ostdeutsche Staatsarchiv Chemnitz.\nDie Zuständigkeit des jeweiligen Kommunalarchivs für Schulen in kommunaler Trägerschaft ergibt sich auf der Grundlage von § 13\nOstArchivG aus der jeweiligen kommunalen Archivsatzung."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die zuständigen Archive gemäß § 5 Abs. 1\nOstArchivG sind für Schulen in Landesträgerschaft für den Regierungsbezirk Dresden das Ostdeutsche Hauptstaatsarchiv Dresden, für den Regierungsbezirk Leipzig das Ostdeutsche Staatsarchiv Leipzig und für den Regierungsbezirk Chemnitz das Ostdeutsche Staatsarchiv Chemnitz.\nDie Zuständigkeit des jeweiligen Kommunalarchivs für Schulen in kommunaler Trägerschaft ergibt sich auf der Grundlage von § 13\nOstArchivG aus der jeweiligen kommunalen Archivsatzung."
         }
       ]
     },
@@ -113,14 +86,6 @@
       "label": "4.",
       "title": "Aufbewahrung und Aussonderung schulischer Unterlagen",
       "children": [
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Aufbewahrung und Aussonderung schulischer Unterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "4.1",
@@ -153,17 +118,8 @@
       "title": "In-Kraft-Treten",
       "children": [
         {
-          "type": "item",
-          "label": "5.",
-          "text": "In-Kraft-Treten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft."
         }
       ]
     },

@@ -2,15 +2,14 @@
   "id": "aend-abgeordnetengesetz-19221-1",
   "slug": "aend-abgeordnetengesetz-19221-1",
   "title": "Fünfzehntes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitle": "Fünfzehntes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Fünfzehntes Gesetz zur Änderung des Abgeordnetengesetzes",
+    "Änd. Abgeordnetengesetz",
     "Fünfzehntes",
     "Änderung",
     "Abgeordnetengesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Fünfzehntes Gesetz zur Änderung des Abgeordnetengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-06-14",
   "effectiveDate": "2021-06-01",
@@ -33,8 +33,12 @@
       "sha256": "f3021fec7b9c6dd4bef1b4d098e41f2c9f6566255ad70a48da45e5ce74c72ed0",
       "lawId": "19221",
       "sourceValidFrom": "2021-06-01",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-die-rechtsverhaeltnisse-der-mitglieder-des-ostdeutschen-landtages"
   ]
 }

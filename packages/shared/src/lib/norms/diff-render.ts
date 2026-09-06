@@ -1,5 +1,7 @@
-import { formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormDiffBlock, NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
+import { formatChangedUnitCount, type NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 
 type DiffSide = 'before' | 'after';
 
@@ -164,6 +166,13 @@ function renderNode(node: NormDiffBlock, side: DiffSide, level: number, quoted: 
     return `<div class="norm-subparagraph-wrap"><p class="norm-subparagraph">${label ? `<span class="norm-subparagraph__label">${label}</span> ` : ''}<span>${renderValue(node, side, 'text')}</span></p>${children ? `<div class="norm-subparagraph__children">${children}</div>` : ''}</div>`;
   }
 
+  if (node.type === 'signature') {
+    const name = renderValue(node, side, 'text');
+    const office = renderValue(node, side, 'title');
+    const place = renderValue(node, side, 'label');
+    return `<p class="norm-signature">${name ? `<span class="norm-signature__name">${name}</span>` : ''}${office ? `<span class="norm-signature__office">${office}</span>` : ''}${place ? `<span class="norm-signature__place">${place}</span>` : ''}</p>`;
+  }
+
   if (node.type === 'table') return renderTable(node, side);
   if (node.type === 'quotedProvision') return `<blockquote class="norm-quoted-provision">${children}</blockquote>`;
   if (node.type === 'tableRow' || node.type === 'tableCell' || node.type === 'tableHeaderCell') {
@@ -197,6 +206,7 @@ export function renderNormDiffDocument(
   provisions: NormProvisionDiff[],
   fromDate: string,
   toDate: string,
+  unitKind: NormUnitKind = 'none',
 ): string {
   const count = provisions.length;
   const provisionMarkup = provisions.map((provision) => {
@@ -204,5 +214,5 @@ export function renderNormDiffDocument(
     const after = provision.after ? renderSide(provision, 'after', toDate) : '';
     return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}"><span class="norm-diff__status">${statusLabel(provision.kind)}</span><div class="norm-diff__provision-columns">${before}${after}</div></li>`;
   }).join('');
-  return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${count} geänderte ${count === 1 ? 'Vorschrift' : 'Vorschriften'}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p>Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : ''}`;
+  return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${escapeHtml(formatChangedUnitCount(count, unitKind))}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p>Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : ''}`;
 }

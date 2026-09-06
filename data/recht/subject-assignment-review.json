@@ -1,0 +1,58 @@
+{
+  "description": "Vorschriften ohne amtlichen Anhaltspunkt für die Sachgebietszuordnung. Der eingetragene Wert ist eine Ersatzzuordnung nach Dokumentart und ersetzt keine redaktionelle Entscheidung.",
+  "generatedBy": "scripts/migrate-subject-systematics.mjs",
+  "count": 1,
+  "norms": [
+    {
+      "slug": "gesetz-uber-verkundungen-und-bekanntmachungen",
+      "title": "Gesetz über Verkündungen und Bekanntmachungen (Bekanntmachungs und Verkündungsgesetz \\- BeVerKüGe)",
+      "type": "gesetz",
+      "assignedSubject": "Allgemeine Verwaltung",
+      "previousSubjects": [
+        "Landesrecht"
+      ]
+    }
+  ],
+  "fundingAreas": {
+    "description": "Förderrichtlinien ohne ableitbaren Förderbereich; sie tragen kein Feld fundingArea.",
+    "count": 9,
+    "norms": [
+      {
+        "slug": "auffangrichtlinie-tornadoschaeden-2010",
+        "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Beseitigung von Tornadoschäden, die nicht von Förderprogrammen abgedeckt werden (Auffangrichtlinie Tornadoschäden 2010)"
+      },
+      {
+        "slug": "forderrichtlinie-zur-vergabe-zum-meisterkredit",
+        "title": "Förderrichtlinie zur Vergabe zum Meisterkredit"
+      },
+      {
+        "slug": "frl-demografie",
+        "title": "Richtlinie der Ostdeutschen Staatskanzlei zur Förderung von Maßnahmen für die Bewältigung des demografischen Wandels (FRL Demografie)"
+      },
+      {
+        "slug": "richtlinie-bestandserhaltung-ostdeutsche-archive",
+        "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung der Bestandserhaltung des Archivgutes in ostdeutschen Archiven (Richtlinie Bestandserhaltung ostdeutsche Archive – FRL BestandserhaltArchive)"
+      },
+      {
+        "slug": "richtlinie-feuerwehrfoerderung",
+        "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Gewährung von Zuwendungen zur Förderung des Feuerwehrwesens (Richtlinie Feuerwehrförderung – RLFw)"
+      },
+      {
+        "slug": "rl-aufzugsanlagen-mietwohngebaeude",
+        "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung von Aufzugsanlagen in Mietwohngebäuden (RL Aufzugsanlagen Mietwohngebäude – RL AMW)"
+      },
+      {
+        "slug": "rl-tornadoschaeden-wohngebaeude",
+        "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Beseitigung von Schäden an Wohngebäuden vom Tornado am 24. Mai 2010 (RL Tornadoschäden Wohngebäude)"
+      },
+      {
+        "slug": "rl-wohneigentum",
+        "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung von selbstgenutztem Wohneigentum im innerstädtischen Bereich (RL Wohneigentum)"
+      },
+      {
+        "slug": "rl-wohneigentum-laendlicher-raum",
+        "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung des Wohneigentums im ländlichen Raum (RL Wohneigentum ländlicher Raum – RL WLR)"
+      }
+    ]
+  }
+}

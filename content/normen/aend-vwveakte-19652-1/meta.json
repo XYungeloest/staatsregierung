@@ -2,14 +2,13 @@
   "id": "aend-vwveakte-19652-1",
   "slug": "aend-vwveakte-19652-1",
   "title": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
-  "shortTitle": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte",
+    "Änd. VwVEAkte",
     "Zweite",
     "Justiz",
     "Demokratie",
@@ -23,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Elektronische Verfahrensakte“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-06-17",
   "effectiveDate": "2022-07-01",
@@ -38,8 +38,12 @@
       "lawId": "19652",
       "sourceValidFrom": "2022-07-01",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-elektronische-verfahrensakte"
   ]
 }

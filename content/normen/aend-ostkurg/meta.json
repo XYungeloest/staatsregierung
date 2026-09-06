@@ -2,15 +2,14 @@
   "id": "aend-ostkurg",
   "slug": "aend-ostkurg",
   "title": "Gesetz zur Änderung des Ostdeutschen Kurortegesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Kurortegesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Kurortegesetzes",
+    "Änd. OstKurG",
     "Änderung",
     "Kurortegesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Kurortegesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-02-25",
   "effectiveDate": "2008-03-23",
@@ -32,8 +32,12 @@
       "sha256": "1dbcc5d86f159a51d9ae32cdc45273ab45ab7906fe14c8e39e87ced1d24c198e",
       "lawId": "9978",
       "sourceValidFrom": "2008-03-23",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-kurortegesetz"
   ]
 }

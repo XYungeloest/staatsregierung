@@ -2,15 +2,14 @@
   "id": "aend-abgeordnetengesetz-12015-1",
   "slug": "aend-abgeordnetengesetz-12015-1",
   "title": "Vierzehntes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitle": "Vierzehntes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Vierzehntes Gesetz zur Änderung des Abgeordnetengesetzes",
+    "Änd. Abgeordnetengesetz",
     "Vierzehntes",
     "Änderung",
     "Abgeordnetengesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Vierzehntes Gesetz zur Änderung des Abgeordnetengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-04-27",
   "effectiveDate": "2011-05-27",
@@ -33,8 +33,12 @@
       "sha256": "b8e9e5be0e9800893a7c316dffec714f15fc8cc419ea645fb34f0898f47ac087",
       "lawId": "12015",
       "sourceValidFrom": "2011-05-27",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-die-rechtsverhaeltnisse-der-mitglieder-des-ostdeutschen-landtages"
   ]
 }

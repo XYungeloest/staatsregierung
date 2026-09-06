@@ -2,13 +2,12 @@
   "id": "aend-ostpetag",
   "slug": "aend-ostpetag",
   "title": "Änderung des Ostdeutschen Petitionsausschußgesetzes",
-  "shortTitle": "Änd. OstPetAG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd. OstPetAG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-von-landesrechtlichen-vorschriften-aus-anlass-aend-kostenrechts",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstPetAG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Petitionsausschußgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-05-05",
   "effectiveDate": "2008-05-31",
@@ -33,6 +33,7 @@
       "sha256": "fc6159a6b4ff78d93a84ea5f8dd6e49ba39df156e893eb82c60844b1eaf7213d",
       "lawId": "10120",
       "sourceValidFrom": "2008-05-31",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

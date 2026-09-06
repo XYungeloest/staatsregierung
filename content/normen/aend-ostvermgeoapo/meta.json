@@ -2,13 +2,11 @@
   "id": "aend-ostvermgeoapo",
   "slug": "aend-ostvermgeoapo",
   "title": "Änderung der Ostdeutschen Ausbildungs- und Prüfungsordnung Vermessungswesen und Geoinformation",
-  "shortTitle": "Änd. OstVermGeoAPO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung",
-    "Bildung und Weiterbildung"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstVermGeoAPO",
     "Änderung",
@@ -21,7 +19,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstVermGeoAPO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Ausbildungs- und Prüfungsordnung Vermessungswesen und Geoinformation“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -36,6 +35,7 @@
       "sha256": "597cd83cf2afb3145be605bc8db6b3ed26054635e675fcda90fd7bbf242a7c51",
       "lawId": "19134",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

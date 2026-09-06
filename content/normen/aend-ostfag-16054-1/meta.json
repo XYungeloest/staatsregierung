@@ -2,15 +2,14 @@
   "id": "aend-ostfag-16054-1",
   "slug": "aend-ostfag-16054-1",
   "title": "Neuntes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes",
-  "shortTitle": "Neuntes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Finanzverwaltung, Finanzausgleich"
   ],
+  "primarySubject": "Finanzverwaltung, Finanzausgleich",
   "keywords": [
-    "Neuntes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes",
+    "Änd. OstFAG",
     "Neuntes",
     "Änderung",
     "Finanzausgleichsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Neuntes Gesetz zur Änderung des Ostdeutschen Finanzausgleichsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-04-29",
   "effectiveDate": "2015-01-01",
@@ -33,8 +33,12 @@
       "sha256": "c9ae04e2dae374f61a3450fde6c9fd7502ccc265d98cd63b7b0501a85f0e3002",
       "lawId": "16054",
       "sourceValidFrom": "2015-01-01",
+      "fsnNumber": "50",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "finanzausgleichsgesetz"
   ]
 }

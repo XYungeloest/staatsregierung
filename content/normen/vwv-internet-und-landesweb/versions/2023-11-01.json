@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Internet und LandesWeb",
+  "title": "Verwaltungsvorschrift der Ostdeutschen Staatsregierung über die Pflege und Bereitstellung der Inhalte im Internetauftritt „ostdeutschland.de“, im Service-Portal „Amt24“ und im LandesWeb (VwV Internet und LandesWeb)",
   "shortTitle": "VwV Internet und LandesWeb",
-  "abbr": "VwV Internet und LandesWeb",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV Internet und LandesWeb vom 18. April 2009 (SächsABl. S. 779), die durch die Verwaltungsvorschrift vom 1. Juli 2011 (SächsABl. S. 983) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 206)",
+  "citation": "VwV Internet und LandesWeb vom 18. April 2009 (SächsABl. S. 779), die durch die Verwaltungsvorschrift vom 1. Juli 2011 (SächsABl. S. 983) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "7f1d55cc47ac060940a885e2766673329b4a075628963f0ef43effa609546bea",
       "lawId": "10747",
       "sourceValidFrom": "2011-07-01",
+      "fsnNumber": "111-V09.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -36,14 +36,6 @@
       "title": "Regelungsinhalt",
       "children": [
         {
-          "type": "item",
-          "label": "I.",
-          "text": "Regelungsinhalt",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift legt die Verantwortlichkeiten und Arbeitsprozesse bei der Planung, Erstellung und Aktualisierung von Inhalten des Internetauftritts „ostdeutschland.de“ (ostdeutschland.de), des Service-Portals „Amt24“ (Amt24), des Prozessregisters Ostdeutschland und des LandesWeb fest. Sie benennt die Aufgaben in der Staatskanzlei und den Staatsministerien (Ressorts) und die Gremien für die Abstimmung zu Inhalten der Webauftritte der Ressorts. Die Verwaltungsvorschrift wird ergänzt durch die „Rollenabgrenzung E-Government“ (Rollenkonzept), die im LandesWeb in der jeweils geltenden Fassung unter www.landesweb.ostdeutschland.de/Allgemeines/Amt24/Dokumente/ Rollenkonzept.pdf eingestellt ist. Die Änderung und Ergänzung des Rollenkonzepts bedarf des Einvernehmens der betroffenen Stellen."
         }
@@ -54,14 +46,6 @@
       "label": "II.",
       "title": "Allgemeine Verantwortlichkeiten",
       "children": [
-        {
-          "type": "item",
-          "label": "II.",
-          "text": "Allgemeine Verantwortlichkeiten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -108,14 +92,6 @@
       "label": "III.",
       "title": "Ostdeutschland.de",
       "children": [
-        {
-          "type": "item",
-          "label": "III.",
-          "text": "Ostdeutschland.de",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -416,14 +392,6 @@
       "children": [
         {
           "type": "item",
-          "label": "IV.",
-          "text": "Amt24, Prozessregister Ostdeutschland",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Grundsatz",
           "level": 0,
@@ -720,14 +688,6 @@
       "children": [
         {
           "type": "item",
-          "label": "V.",
-          "text": "LandesWeb",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Abgrenzung zu ostdeutschland.de",
           "level": 0,
@@ -801,14 +761,6 @@
       "label": "VI.",
       "title": "Inkrafttreten",
       "children": [
-        {
-          "type": "item",
-          "label": "VI.",
-          "text": "Inkrafttreten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft."

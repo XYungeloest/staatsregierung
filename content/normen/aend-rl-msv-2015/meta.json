@@ -2,15 +2,13 @@
   "id": "aend-rl-msv-2015",
   "slug": "aend-rl-msv-2015",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Marktstrukturverbesserung 2015",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Marktstrukturverbesserung 2015",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Marktstrukturverbesserung 2015",
+    "Änd. RL MSV/2015",
     "Umwelt",
     "Landwirtschaft",
     "Änderung",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Marktstrukturverbesserung 2015“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-06-24",
   "effectiveDate": "2016-01-01",
@@ -35,8 +34,12 @@
       "sha256": "2a4c68fd50cb36e104cc76b967ae52c0d2b8ac8ea2619009320a93ee552a65c1",
       "lawId": "16949",
       "sourceValidFrom": "2016-01-01",
+      "fsnNumber": "5563",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-marktstrukturverbesserung-2015"
   ]
 }

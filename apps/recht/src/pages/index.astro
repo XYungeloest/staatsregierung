@@ -3,8 +3,11 @@ import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../layouts/LawLayout.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
-import { formatDate, formatNormType, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatDate, formatNormType, getIndexUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationEntriesUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
+import { NORM_HISTORY_LABEL } from '../lib/vocabulary.ts';
+import { formatCount, formatInventoryCount, formatPublicationCount } from '../lib/counts.ts';
+import { describeChange } from '../lib/history-labels.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
 export const prerender = false;
@@ -23,20 +26,28 @@ const HOME_PUBLICATION_LIMIT = 3;
 const HOME_CHANGE_TYPES = [...LEGAL_CHANGE_ENTRY_TYPES];
 const [stats, subjectAreas, latestChanges, futureChanges, latestPublications] = await Promise.all([
   store.getCorpusStats(),
-  store.listSubjectAreas().then((areas) => areas.slice(0, 6)),
+  // Alle acht Hauptgruppen der amtlichen Systematik in ihrer Reihenfolge.
+  store.listSubjectAreas(),
   // Letzte Rechtsereignisse bis zum Stichtag: Erlass neuer Vorschriften, Änderungen und Aufhebungen,
   // je Norm nur das jüngste Ereignis, nach Ereignisdatum absteigend (keine redaktionelle Auswahl).
   store.listChanges({ changeTypes: HOME_CHANGE_TYPES, until: EDITORIAL_REFERENCE_DATE, order: 'desc', limit: HOME_CHANGE_CANDIDATE_LIMIT, distinctNorms: true }),
   store.listChanges({ changeTypes: HOME_CHANGE_TYPES, after: EDITORIAL_REFERENCE_DATE, order: 'asc', limit: HOME_CHANGE_CANDIDATE_LIMIT, distinctNorms: true }),
   store.listPublications({ limit: HOME_PUBLICATION_LIMIT }),
 ]);
+/**
+ * Künftige Einträge sagen, was geschieht: eine Aufhebung tritt außer Kraft, alles andere in Kraft.
+ * Dasselbe Wort steht im Text und in `data-future-label`, das law-future-changes.ts beim
+ * Umsortieren übernimmt.
+ */
+const futureLabel = (change: { changeType: string }): string =>
+  change.changeType === 'repeal' ? 'tritt außer Kraft' : 'tritt in Kraft';
 const homeSearchTypes = [...stats.types]
   .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
 const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 const quickAccess = [
   { title: lawSiteConfig.targetLabels.index, text: 'Alphabetische Übersicht', href: getIndexUrl(), icon: 'law' as const },
   { title: 'Neue Regelungen', text: 'Nach Rechtsstand sortiert', href: `${getSearchUrl()}?sort=rechtsstand`, icon: 'calendar' as const },
-  { title: 'Änderungen', text: 'Rechtsentwicklung nachvollziehen', href: getLawDevelopmentOverviewUrl(), icon: 'arrow' as const },
+  { title: 'Änderungen', text: 'Rechtsentwicklung nachvollziehen', href: `${getSearchUrl()}?sort=activity`, icon: 'arrow' as const },
   { title: 'Verkündungsblätter', text: 'Ausgaben und Fundstellen', href: getPublicationsUrl(), icon: 'law' as const },
   { title: lawSiteConfig.targetLabels.subjects, text: 'Recht nach Themen geordnet', href: getSubjectsUrl(), icon: 'topics' as const },
 ];
@@ -75,7 +86,7 @@ const quickAccess = [
         <a href={`${getSearchUrl()}?type=foerderrichtlinie`}>Förderrichtlinien</a>
         <a href={getSearchUrl()}>Erweiterte Suche</a>
       </nav>
-      <p class="law-home-hero__inventory">{stats.inForceCount} geltende Vorschriften und {stats.publicationCount} erschlossene Ausgaben im Bestand.</p>
+      <p class="law-home-hero__inventory">{formatInventoryCount(stats)}; dazu {formatPublicationCount(stats.publicationCount)} der Verkündungsblätter.</p>
     </div>
   </section>
 
@@ -94,7 +105,7 @@ const quickAccess = [
       <section class="law-dashboard-card" data-visual-section="law-latest-status">
         <header class="law-dashboard-card__header">
           <div><PortalIcon name="arrow" /><h2>Aktuelle Änderungen</h2></div>
-          <a href={getLawDevelopmentOverviewUrl()}>Alle anzeigen</a>
+          <a href={`${getSearchUrl()}?sort=activity`}>Alle anzeigen</a>
         </header>
         <ol class="law-dashboard-list" data-law-current-change-list>
           {latestChanges.map((change, index) => (
@@ -102,15 +113,15 @@ const quickAccess = [
               data-law-change
               data-effective-date={change.date}
               data-current-label={formatNormType(change.type)}
-              data-future-label="tritt künftig in Kraft"
+              data-future-label={futureLabel(change)}
               hidden={index >= HOME_CURRENT_CHANGE_LIMIT}
             >
               <time datetime={change.date}>{formatDate(change.date)}</time>
               <span class="law-type-label" data-law-change-label>{formatNormType(change.type)}</span>
               <div>
                 <h3><a href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a></h3>
-                <p>{toDisplayText(change.title)}</p>
-                <p class="record-list__meta"><NormOriginBadge kind={change.originKind} /><a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a></p>
+                <p>{describeChange(change)}</p>
+                <p class="record-list__meta"><NormOriginBadge kind={change.originKind} /><a class="law-row-link" href={getNormHistoryUrl(change.slug)}>{NORM_HISTORY_LABEL}</a></p>
               </div>
             </li>
           ))}
@@ -129,15 +140,15 @@ const quickAccess = [
               data-law-change
               data-effective-date={change.date}
               data-current-label={formatNormType(change.type)}
-              data-future-label="tritt künftig in Kraft"
+              data-future-label={futureLabel(change)}
               hidden={index >= HOME_FUTURE_CHANGE_LIMIT}
             >
               <time datetime={change.date}>{formatDate(change.date)}</time>
-              <span class="law-type-label law-type-label--future" data-law-change-label>tritt künftig in Kraft</span>
+              <span class="law-type-label law-type-label--future" data-law-change-label>{futureLabel(change)}</span>
               <div>
                 <h3><a href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a></h3>
-                <p>{toDisplayText(change.title)}</p>
-                <a class="law-row-link" href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a>
+                <p>{describeChange(change)}</p>
+                <a class="law-row-link" href={getNormHistoryUrl(change.slug)}>{NORM_HISTORY_LABEL}</a>
               </div>
             </li>
           ))}
@@ -156,10 +167,10 @@ const quickAccess = [
           {latestPublications.map((publication) => (
             <li>
               <time datetime={publication.date}>{formatDate(publication.date)}</time>
-              <span class="law-type-label">{publication.publication}</span>
+              <span class="law-type-label">{getPublicationLabel(publication)}</span>
               <div>
                 <h3><a href={getPublicationUrl(publication.slug)}>{toDisplayText(publication.title)}</a></h3>
-                <p>{getPublicationLabel(publication)} · {publication.entries.length} {publication.entries.length === 1 ? 'Eintrag' : 'Einträge'}</p>
+                <p>{publication.entries.slice(0, 2).map((entry) => toDisplayText(entry.title)).join('; ')}{publication.entries.length > 2 ? ' …' : ''} · {formatCount(publication.entries.length, 'Eintrag', 'Einträge')}</p>
               </div>
             </li>
           ))}
@@ -173,7 +184,7 @@ const quickAccess = [
         </header>
         <ul>
           {subjectAreas.map((area) => (
-            <li><a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.name}<span>{area.normCount}</span></a></li>
+            <li><a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.number ? `${area.number} ${area.name}` : area.name}<span>{area.normCount}</span></a></li>
           ))}
         </ul>
         <p class="law-topic-card__note">Eine Vorschrift kann mehreren Sachgebieten zugeordnet sein; die Zahlen summieren sich deshalb nicht zum Bestand.</p>
@@ -181,9 +192,9 @@ const quickAccess = [
 
       <section class="law-service-card">
         <h2>Rechtsportal-Funktionen</h2>
-        <a href={`${getSearchUrl()}?versionScope=current`}><strong>Konsolidierte Fassungen</strong><span>Zum Stichtag geltende Normtexte</span></a>
-        <a href={getLawDevelopmentOverviewUrl()}><strong>Änderungsverlauf</strong><span>Fassungen und Änderungen im Zeitverlauf</span></a>
-        <a href={getReferencesUrl()}><strong>PDF und HTML</strong><span>Fundstellen und aufbereitete Normtexte</span></a>
+        <a href={`${getSearchUrl()}?versionScope=current`}><strong>Konsolidierte Fassungen</strong><span>Geltende Normtexte zum aktuellen Rechtsstand</span></a>
+        <a href={`${getSearchUrl()}?sort=activity`}><strong>Änderungsverlauf</strong><span>Fassungen und Änderungen im Zeitverlauf</span></a>
+        <a href={getPublicationEntriesUrl()}><strong>Amtliche Ausgaben</strong><span>Fundstellen und Originalausgaben zum Nachlesen</span></a>
         <a href={getIndexUrl()}><strong>{lawSiteConfig.targetLabels.index}</strong><span>Vorschriften, Abkürzungen und Stichwörter von A bis Z</span></a>
       </section>
     </div>
@@ -192,8 +203,8 @@ const quickAccess = [
   <section class="law-trust-strip" aria-label="Merkmale des Rechtsportals">
     <div><strong>Amtlich</strong><span>Auf Grundlage belegter Verkündungen.</span></div>
     <div><strong>Aktuell</strong><span>Konsolidierte Fassungen und Änderungen.</span></div>
-    <div><strong>Verständlich</strong><span>Strukturierte Normdarstellung.</span></div>
-    <div><strong>Zugänglich</strong><span>Responsiv und barrierearm.</span></div>
+    <div><strong>Verständlich</strong><span>Gegliederte Normtexte mit Inhaltsübersicht.</span></div>
+    <div><strong>Zugänglich</strong><span>Auch mit Tastatur, Vorlesesoftware und auf dem Handy nutzbar.</span></div>
   </section>
 
   <script>import '../scripts/law-future-changes.ts';</script>

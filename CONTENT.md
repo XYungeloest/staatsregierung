@@ -91,6 +91,39 @@ public/images/
   ui/
 ```
 
+## Stichwortregister
+
+Pfad: `content/stichwortregister.json`
+
+Das Stichwortregister ist der redaktionelle Wortzugang zum Rechtsbestand: gebräuchliche Stichwörter
+führen auf die Vorschriften, die eine Frage regeln. Es erscheint im A–Z (`/a-z/`) im Abschnitt
+„Stichwortregister“, getrennt von den Abkürzungen und Kurztiteln; aus Titeln abgeleitete Schlagwörter
+stehen dort nicht mehr, bleiben aber durchsuchbar. Das Register ist eine Eingabe der D1-Projektion
+(`law_norm_keywords` mit `kind` = `register`); eine Änderung erneuert die Stichworteinträge, sonst
+nichts.
+
+```json
+{
+  "$schema": "stichwortregister/1",
+  "eintraege": [
+    { "stichwort": "Interflug", "normen": ["bekanntmachung-bestellung-gruendungsvorstand-interflug"] },
+    { "stichwort": "Volkskammerwahl", "normen": ["volksbefragungsverordnung-2026"], "siehe": ["Volksbefragung"] }
+  ]
+}
+```
+
+Regeln (geprüft von `npm run content:check`):
+
+- `stichwort` ist ein nicht leerer Text und steht im Register genau einmal; verglichen wird ohne
+  Rücksicht auf Groß- und Kleinschreibung.
+- `normen` nennt mindestens eine vorhandene Vorschrift unter `content/normen`; jeder Slug steht je
+  Eintrag höchstens einmal.
+- `siehe` verweist ausschließlich auf Stichwörter desselben Registers.
+
+Stichwörter sind Sachbegriffe in Bürgersprache. Fundstellen, Datumsangaben, Beträge, Personennamen
+und Abkürzungen gehören nicht ins Register; Abkürzungen und Kurztitel führt das A–Z ohnehin in einem
+eigenen Abschnitt. Das Register wird redaktionell ausgebaut; die Seite sagt das ausdrücklich.
+
 ## Rechtsverkündungen und Fundstellen
 
 Pfad: `content/verkuendungen/[slug].json`
@@ -164,7 +197,15 @@ als `alternativeIssueDesignation` gespeichert. Das optionale Feld `pdf` ist eine
 nicht automatisch öffentlich verlinkt.
 `entries[].documentDate` bezeichnet dagegen das Ausfertigungs- beziehungsweise Dokumentdatum.
 Beide Werte werden getrennt gepflegt und dürfen nicht aus Bequemlichkeit gleichgesetzt werden.
-`entries[].citation` enthält Normart, Dokumentdatum und die belegte Fundstelle. `startPage` bezeichnet
+`entries[].type` bezeichnet dieselbe Rechtsvorschrift wie die verknüpfte Norm und folgt deshalb
+deren Normtyp (`publicationEntryTypeForNormType` in
+`packages/shared/src/lib/norms/publications.ts`): Zustimmungsgesetze erscheinen als `gesetz`,
+Änderungsvorschriften mit dem Typ des ändernden Rechtsakts – im Staatsanzeiger
+`verwaltungsvorschrift`, sonst `gesetz` oder `verordnung` –, alle übrigen Normtypen unverändert.
+`entries[].citation` enthält Normart, Dokumentdatum und die belegte Fundstelle. Die genannte
+Normart muss zum Normtyp passen; amtliche Sonderformen einer Verwaltungsvorschrift (Anordnung,
+Erlass, Organisationserlass, Dienstanordnung) und einer Förderrichtlinie (Richtlinie) bleiben
+erhalten. `startPage` bezeichnet
 ausschließlich eine belastbar bekannte Anfangsseite; `pages` ist vollständigen, belegten Seitenbereichen
 vorbehalten. Eine Anfangsseite darf nicht als vollständiger Seitenbereich ausgegeben und bei Mantelgesetzen
 nicht pauschal auf eingeführte Stammnormen übertragen werden. Auch im verknüpften Normdatensatz bleibt das vollständige Normzitat erhalten, zum Beispiel
@@ -172,8 +213,26 @@ nicht pauschal auf eingeführte Stammnormen übertragen werden. Auch im verknüp
 
 Normmetadaten trennen das erlassende Organ (`enactingBody`) vom fachlich zuständigen Geschäftsbereich
 (`responsibleMinistry`). Das frühere Sammelfeld `ministry` ist in Normmetadaten nicht mehr zulässig.
-`abbr` ist optional und darf ausschließlich aus einer Primärquelle übernommen werden. Redaktionelle
-Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht.
+Das Titelmodell trennt drei Bezeichnungen: `title` ist der amtliche Langtitel, `shortTitle` die
+echte Kurzbezeichnung und `abbr` die echte Abkürzung. `shortTitle` und `abbr` sind optional und
+entfallen, wenn es sie nicht gibt; sie wiederholen weder den Titel noch einander. Abkürzungsartige
+Bezeichnungen der Quelle („Änd. OstSFG“, „1. ÄndVO …“, reine Kürzelformen) sind kein Kurztitel und
+werden als Stichwort in `keywords` geführt. Eine Abkürzung ist höchstens 20 Zeichen lang oder,
+zusammengeschrieben, höchstens 30 Zeichen; sie enthält keinen Zeilenumbruch und ist keine aus dem
+Titel gebildete Initialenfolge. `abbr` darf ausschließlich aus einer Primärquelle übernommen werden.
+Redaktionelle Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht; ohne
+`shortTitle` entfällt auch dieses Feld. Die gemeinsamen Regeln stehen in
+`scripts/lib/norm-title-rules.mjs` und werden von Import, Materialisierung und `content:check` genutzt.
+
+Öffentlich gilt überall derselbe Titelblock (`getNormTitleBlock`): Überschrift ist die
+Kurzbezeichnung, sonst der Titel; der Langtitel steht darunter, wenn er von der Überschrift abweicht;
+die Abkürzung steht daneben, wenn sie sich von der Überschrift unterscheidet.
+
+`summary` ist eine redaktionelle Kurzbeschreibung. Ist sie nur eine aus Typ und Titel gebildete
+Formel des Massenimports, trägt sie `summarySource: "derived"`; solche Zusammenfassungen werden
+öffentlich nicht ausgespielt und nicht als Suchtext indexiert. Ohne Kennzeichnung gilt eine
+Zusammenfassung als redaktionell. Formeln ohne REVOSax-Herkunft sind unzulässig; eigene Vorschriften
+brauchen eine echte Kurzbeschreibung.
 
 Verwaltungsabkommen werden als eigener Normtyp `verwaltungsabkommen` geführt und nicht als
 Staatsvertrag oder Verwaltungsvorschrift klassifiziert. Vertragspartner, Unterzeichner,
@@ -764,9 +823,9 @@ Pflichtfelder:
 - `id`
 - `slug`
 - `title`
-- `shortTitle`
 - `type`
 - `subjects`
+- `primarySubject`
 - `keywords`
 - `initialCitation`
 - `predecessor`
@@ -774,7 +833,8 @@ Pflichtfelder:
 - `summary`
 - `status`
 
-`abbr`, `enactingBody` und `responsibleMinistry` sind optional. Eine Abkürzung darf nur
+`shortTitle`, `abbr`, `shortTitleSource`, `summarySource`, `enactingBody` und `responsibleMinistry`
+sind optional. Kurzbezeichnung und Abkürzung folgen dem Titelmodell; eine Abkürzung darf nur
 bei belastbarer Quelle gepflegt werden. Neue Normen trennen das erlassende Organ von der fachlichen
 Zuständigkeit. `predecessorSlug` und `successorSlug` können zusätzlich gesetzt werden, wenn die
 Beziehung auf einen eindeutig geprüften Normdatensatz verweist; nur dann wird sie als Normlink
@@ -818,7 +878,8 @@ Format:
   "type": "gesetz",
   "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
   "responsibleMinistry": "Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation",
-  "subjects": ["Landesrecht"],
+  "subjects": ["Verfassungsrecht"],
+  "primarySubject": "Verfassungsrecht",
   "keywords": ["Beispiel"],
   "initialCitation": "Gesetz vom 17. April 2026 (OGVBl. 2026 Nr. 20 S. 2)",
   "predecessor": null,
@@ -908,6 +969,11 @@ Regeln:
   behaupten.
 - Ist `meta.expiryDate` belegt, muss `validTo` der letzten gespeicherten Fassung diesem Datum
   entsprechen.
+- Eine Allgemeinverfügung, deren Titel oder Wortlaut ein Ende nennt („bis zum 1. Januar 2026“,
+  „mit Ablauf des …“), führt dieses Ende als `meta.expiryDate`; liegt es vor dem redaktionellen
+  Stichtag, ist der Status `repealed` und die Historie trägt einen Eintrag zum Außerkrafttreten.
+  Der Import erzeugt diese Angaben deterministisch aus `PUBLICATION_EXPIRY_CONFIG` in
+  `scripts/import-normen.mjs`, nicht von Hand.
 - Eine zukünftige Fassung wird aus `validFrom` nach dem redaktionellen Stichtag ermittelt und nie
   als historische Fassung bezeichnet.
 - Bei `pending-effective` wird die Fassung unabhängig vom Bestandsfeld als „Inkrafttreten nicht
@@ -916,6 +982,9 @@ Regeln:
 - Ändern sich Titel, Kurztitel, Abkürzung oder Kurzbeschreibung, werden die neuen Werte in der
   betroffenen Fassung gespeichert. Historische Fassungen behalten ihre damalige Bezeichnung;
   `meta.json` dient nur als Rückfallwert.
+- Die fassungseigenen Bezeichnungen folgen demselben Titelmodell: `shortTitle` wiederholt nicht den
+  Titel der Fassung, `abbr` bleibt eine echte Abkürzung. Eine fassungseigene `summary` gilt immer
+  als redaktionell.
 - Das öffentliche Vollzitat wird ausschließlich zentral mit `buildNormFullCitation` für die
   konkret angezeigte Fassung erzeugt. Stammfundstelle, einzelne Verkündung und Vollzitat bleiben
   getrennte Angaben.
@@ -924,16 +993,33 @@ Regeln:
 
 - `/norm/[slug]/` auf der OstRecht-Origin ist der dynamische Hauptlink.
 - `/norm/[slug]/version/[versionId]/` auf der OstRecht-Origin ist der unveränderliche Fassungslink.
-- Die Fassungsnavigation erscheint auf Normtext, gespeicherter Fassung, Historie und Vergleich.
+- Die Fassungsnavigation erscheint auf Normtext, gespeicherter Fassung, „Fassungen und Änderungen“
+  und Vergleich. Sie führt ausschließlich Unterseiten: „Aktuelle Fassung“, „Fassungen und
+  Änderungen“ (`/norm/[slug]/history/`) und – ab zwei gespeicherten Fassungen – „Fassungsvergleich“.
+  Dasselbe Ziel heißt überall „Fassungen und Änderungen“; die Seite selbst gliedert sich in
+  Fassungen, Änderungen und Stammdaten.
 - Der Vergleich speichert die Auswahl in `von` und `bis`; ohne JavaScript bleibt der voreingestellte
   Vergleich zur vorherigen Fassung lesbar. Bei übernommenem Recht wird zusätzlich ein direkter
   Vergleich mit der belegten Ausgangsfassung angeboten. Weitere Paarungen werden erst beim Abruf für
   genau das angefragte Paar berechnet; die Normseiten betten nicht alle Fassungs-Paare ein.
-- `/rechtsentwicklung/` auf der OstRecht-Origin bündelt Herkunft, Ausgangsfassung, eigene Änderungen und den
-  anwendbaren Stand. Filter für Suchtext, Herkunft, Normtyp, Sachgebiet und Status bleiben in der
-  Adresse erhalten.
+- Herkunft, Ausgangsfassung, eigene Änderungen und der anwendbare Stand werden über die Rechtssuche
+  erschlossen; die Herkunftszahlen des Bestands stehen dort als Kacheln über der Trefferliste.
+  `/rechtsentwicklung/` bleibt als Adresse gültig und leitet mit denselben Parameternamen
+  (`q`, `origin`, `type`, `subject`, `status`) dauerhaft auf `/suche/` weiter.
+- `/verkuendungen/` führt Ausgaben und Einträge in einer Seite; `ansicht=eintraege` zeigt die
+  Einträge der Verkündungsblätter. `/fundstellen/` leitet mit denselben Filtern dorthin weiter.
 - Suchparameter mit mehreren Werten werden wiederholt, etwa `type=gesetz&type=verordnung`.
   Verschiedene Facetten sind UND-verknüpft, Werte derselben Facette ODER-verknüpft.
+- Die Trefferliste ist seitenweise: `offset` und `limit` (Standard 20, höchstens 100) blättern
+  echt, die genannte Trefferzahl ist die vollständige. Auswahl, Reihenfolge und Zählung entstehen
+  in einer Abfrage; jeder Bestandteil der Anfrage geht mit – `q`, `exact`, `exclude`, `citation`,
+  `scope` (`all`, `title`, `metadata`, `body`), `type`, `origin`, `ministry`, `subject`, `status`,
+  `publicationSource`, `publicationYear`, `publicationIssue`, `publicationPage`, `geltungstag`,
+  `validFrom`, `validTo`, `versionScope`, `includeAmendments` und `sort`.
+- Die Standardsuche zeigt die Grundmenge des Bestands: übernommene Änderungsvorschriften
+  erscheinen nur über den Normtyp `aenderungsvorschrift`, das Häkchen „Änderungsvorschriften
+  vollständig“ oder einen unmittelbaren Treffer (Bezeichnung, mehrwortige Titelwortfolge, zitierte
+  Ausgabe). Eigene ostdeutsche Änderungsvorschriften sind immer sichtbar.
 - `versionScope` unterstützt `current`, `future`, `historical`, `unknown-effective` und `all`.
 - `origin` unterstützt `ostdeutsch-original`, `inherited-unchanged`, `inherited-amended` und
   `origin-unresolved` und verwendet dieselbe zentrale Einordnung wie die Normseiten.
@@ -945,9 +1031,18 @@ Regeln:
   `relevance`, `title` und `rechtsstand` bleiben wählbare Sortierungen.
 - Druckansichten sind Portalansichten. Ein PDF- oder Anlagenlink wird nur aus einem belegten
   Quellenfeld erzeugt.
-- Mehrere `subjects` bleiben zulässig. `primarySubject` kann optional eine primäre Zuordnung
-  festlegen, muss aber zugleich in `subjects` enthalten sein; die übergeordnete redaktionelle
-  Gruppierung stammt aus `packages/shared/src/config/law-subjects.ts` und verwendet keine erfundenen Nummern.
+- `subjects` nennt ausschließlich Untergruppen der amtlichen zweistufigen Sachgebietssystematik
+  (`packages/shared/src/config/law-subjects.json`: acht Hauptgruppen, 56 Untergruppen mit
+  zweistelliger Gliederungsnummer, zehn Förderbereiche 550–559; Helfer in
+  `packages/shared/src/config/law-subjects.ts`). Höchstens drei Sachgebiete ohne Wiederholung;
+  `primarySubject` ist Pflicht und stets `subjects[0]`. Die frühere Auffangbezeichnung
+  „Landesrecht“ ist unzulässig. Die Hauptgruppe folgt aus der Untergruppe und wird nicht
+  gespeichert; die Adresse eines Sachgebiets ist `/sachgebiete/<nummer>-<titel>/`.
+- `fundingArea` nennt bei einer Förderrichtlinie den Förderbereich (`"550"` bis `"559"`) aus
+  derselben Konfiguration; bei allen anderen Normarten ist das Feld unzulässig.
+- `sourceReferences[].fsnNumber` hält die Fundstellennummer einer amtlichen REVOSax-Quelle fest
+  (zum Beispiel `"612-3.10/2"`). Ihre Gliederungsnummer trägt die Sachgebietszuordnung und macht
+  sie ohne den lokalen Rohcache nachvollziehbar.
 
 Format:
 
@@ -993,9 +1088,26 @@ annex
 paragraphText
 item
 subitem
+signature
 ```
 
 Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `article` und `annex` brauchen mindestens `label` oder `title` und in der Regel `children`. Textblöcke `paragraphText`, `item` und `subitem` brauchen `text`.
+
+Der Blocktyp `signature` bildet den Unterschriftenblock am Ende einer eigenen Verkündung ab:
+`text` nennt die unterzeichnende Person, `title` die Amtsbezeichnung in Normalschreibung
+(„Der Ministerpräsident“, „Die Staatsministerin des Innern, Bau und für Kommunales“) und `label`
+Ort und Datum, soweit die Quelle sie im selben Block führt. Untergeordnete Blöcke sind dort nicht
+zulässig. Der Block steht auf Dokumentebene unter dem Normtext, bildet keine Fundstelle, wird nicht
+durchsucht und trägt keine Textverweise. Führt die Quelle Ort und Datum als eigene Zeile vor der
+Unterschrift („Dresden, den 20. Juli 2026“), gehört der gesamte Ausfertigungsblock nicht zum
+Normkörper und wird beim Import verworfen.
+
+Amtliche Quellen setzen Amtsbezeichnungen und einzelne Hervorhebungen gesperrt („D e r
+M I N I S T E R P R Ä S I D E N T“, „s o l l“). Der Normkörper kennt kein Auszeichnungsmodell für
+Hervorhebungen; gesperrter Satz wird deshalb als gewöhnliches Wort gespeichert. `content:check`
+lehnt Folgen aus mindestens vier einzeln stehenden Buchstaben in `label`, `title` und `text`
+außerhalb eines `signature`-Blocks ab. Ebenso lehnt es einen Text ab, der mit der Überschrift
+seiner übergeordneten Gliederungseinheit beginnt: Die Überschrift steht genau einmal.
 
 ## Parlamentarische Gesetzgebung
 
@@ -1067,7 +1179,8 @@ Bezirk-Karten und Tabellen erreichbar bleiben.
 
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
 
-- `packages/shared/src/config/site.ts`: Portalname, Pfade, Navigation und Kontakt
+- `packages/shared/src/config/site-routing.ts`: Origins, Zielsite und Pfadtabellen beider Websites (Teil der D1-Projektion)
+- `packages/shared/src/config/site.ts`: Portalname, Navigation, Kontakt, SEO und Zielbezeichnungen (reine Darstellung)
 - `packages/shared/src/config/editorial.json`: redaktioneller Stichtag
 - `packages/shared/src/config/features.ts`: Feature-Schalter für die optionale Webanalyse
 - `packages/shared/src/config/analytics.ts`: Analyse- und Consent-Konfiguration
@@ -1179,7 +1292,7 @@ Typische Orte:
 - `apps/portal/src/pages/**/*.astro`: Seiteneinstiege, Abschnittsüberschriften, leere Zustände und feste Verknüpfungen.
 - `apps/portal/src/components/**/*.astro` und `apps/recht/src/components/**/*.astro`: app-spezifische Karten, Akkordeons, Statusanzeigen, Suchoberflächen und Modultexte.
 - `packages/shared/src/components/**/*.astro`: von beiden Anwendungen verwendete Seitengerüst- und Basiskomponenten.
-- `packages/shared/src/lib/portal/presentation.ts` und `packages/shared/src/lib/norms/presentation.ts`: Formatierungs- und Anzeigetexte.
+- `packages/shared/src/lib/portal/presentation.ts`, `packages/shared/src/lib/norms/display.ts` und `packages/shared/src/lib/norms/origin-presentation.ts`: Formatierungen, Gliederung und Anzeigetexte der Oberfläche. `packages/shared/src/lib/norms/presentation.ts` enthält nur die projizierten Anzeigetexte und Anker (Normtyp, Rechtsstand, Umlautkorrektur) und gehört zur D1-Projektion.
 - `packages/shared/src/lib/norms/routes.ts`: zentrale Pfade und Gruppierungen des Rechtsbereichs, einschließlich
   Suche, Index, Sachgebieten, Förderrichtlinien und Hilfe.
 
@@ -1225,6 +1338,11 @@ In JSON wird daraus zum Beispiel:
 Fotografische Motive sollten als webtaugliche JPEG-Dateien gepflegt werden. Transparente oder grafische Platzhalter können PNG bleiben.
 
 `npm run content:check` prüft Bildpfade für Felder wie `bild`, `image` und `hero`, wenn sie mit `/images/` beginnen.
+
+Das PDF einer Verkündung wird unter dem Slug der Ausgabe ausgeliefert: `pdf` lautet stets
+`/assets/recht/<slug>.pdf` (`publicationPdfPublicPath` in `scripts/lib/publication-pdf.mjs`). Der
+interne Quellenname unter `Gesetze/` bleibt unverändert und belegt die Herkunft. Die früher
+ausgelieferten Adressen mit Leerzeichen bleiben über `public/_redirects` dauerhaft erreichbar.
 
 E-Mail-Adressen in redaktionellen JSON-Daten verwenden ausschließlich die Domain
 `freistaat-ostdeutschland.de`. Die Content-QA führt diese Domain als kontrollierte Allowlist und

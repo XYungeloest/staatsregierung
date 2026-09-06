@@ -2,15 +2,14 @@
   "id": "zweite-verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-zur-aenderung-der",
   "slug": "zweite-verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-zur-aenderung-der",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufsfachschule",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufsfachschule",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufsfachschule",
+    "Änd. BFSO",
     "Zweite",
     "Kultus",
     "Änderung",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufsfachschule“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-10-25",
   "effectiveDate": "2022-11-16",
@@ -35,8 +35,12 @@
       "sha256": "e0b774d573b1cf96b09f245e940808010615b55e7489f6fb73ea0bd5d4f3b732",
       "lawId": "19408",
       "sourceValidFrom": "2022-11-16",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-berufsfachschule"
   ]
 }

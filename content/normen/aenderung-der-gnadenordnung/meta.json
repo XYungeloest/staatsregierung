@@ -2,12 +2,11 @@
   "id": "aenderung-der-gnadenordnung",
   "slug": "aenderung-der-gnadenordnung",
   "title": "Änderung der Gnadenordnung",
-  "shortTitle": "Änd. GNO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
     "Änd. GNO",
     "Änderung",
@@ -16,7 +15,8 @@
   "initialCitation": "Änderung der Gnadenordnung vom 15. November 2001 (SächsABl. S. 1192)",
   "predecessor": null,
   "successor": null,
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. GNO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Gnadenordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2001-11-15",
   "effectiveDate": "2002-01-01",
@@ -48,5 +48,8 @@
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verwaltungsvorschrift-des-ostdeutschen-staatsministeriums-der-justiz-ueber-das-verfahren-der"
   ]
 }

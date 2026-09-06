@@ -2,15 +2,14 @@
   "id": "12-aeg-abgeordnetengesetz",
   "slug": "12-aeg-abgeordnetengesetz",
   "title": "Zwölftes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitle": "Zwölftes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Zwölftes Gesetz zur Änderung des Abgeordnetengesetzes",
+    "12. ÄG Abgeordnetengesetz",
     "Zwölftes",
     "Änderung",
     "Abgeordnetengesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zwölftes Gesetz zur Änderung des Abgeordnetengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-01-25",
   "effectiveDate": "2007-12-01",
@@ -36,5 +36,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-die-rechtsverhaeltnisse-der-mitglieder-des-ostdeutschen-landtages"
   ]
 }

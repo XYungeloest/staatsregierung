@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen über die Benutzung von Dienstkraftfahrzeugen in der Ostdeutschen Landesverwaltung",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen über die Benutzung von Dienstkraftfahrzeugen in der Ostdeutschen Landesverwaltung",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen über die Benutzung von Dienstkraftfahrzeugen in der Ostdeutschen Landesverwaltung in der Fassung der Bekanntmachung vom 1. Dezember 2003 (SächsABl. S. 1199), die zuletzt durch die Verwaltungsvorschrift vom 10. Januar 2019 (SächsABl. S. 228) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 222)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen über die Benutzung von Dienstkraftfahrzeugen in der Ostdeutschen Landesverwaltung in der Fassung der Bekanntmachung vom 1. Dezember 2003 (SächsABl. S. 1199), die zuletzt durch die Verwaltungsvorschrift vom 10. Januar 2019 (SächsABl. S. 228) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "f972b2b0bd721287b38a46a23633131410363b9feb0c1b7d84d8be0e4e1d7000",
       "lawId": "1197",
       "sourceValidFrom": "2019-02-01",
+      "fsnNumber": "20-V03.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -35,17 +35,8 @@
       "title": "Begriff des Dienstkraftfahrzeugs",
       "children": [
         {
-          "type": "item",
-          "label": "1",
-          "text": "Begriff des Dienstkraftfahrzeugs",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Dienstkraftfahrzeuge nach dieser Verwaltungsvorschrift sind Kraftfahrzeuge und Anhänger im Sinne des Straßenverkehrsrechts einschließlich selbstfahrender Arbeitsmaschinen, einachsiger Zugmaschinen sowie maschinell angetriebener Luft- und Wasserfahrzeuge, die vom Freistaat unterhalten und betrieben werden."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Dienstkraftfahrzeuge nach dieser Verwaltungsvorschrift sind Kraftfahrzeuge und Anhänger im Sinne des Straßenverkehrsrechts einschließlich selbstfahrender Arbeitsmaschinen, einachsiger Zugmaschinen sowie maschinell angetriebener Luft- und Wasserfahrzeuge, die vom Freistaat unterhalten und betrieben werden."
         }
       ]
     },
@@ -54,14 +45,6 @@
       "label": "2",
       "title": "Beschaffung, Ausstattung und Haltung von Dienstkraftfahrzeugen",
       "children": [
-        {
-          "type": "item",
-          "label": "2",
-          "text": "Beschaffung, Ausstattung und Haltung von Dienstkraftfahrzeugen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -125,14 +108,6 @@
       "label": "3",
       "title": "Versicherung und Haftung",
       "children": [
-        {
-          "type": "item",
-          "label": "3",
-          "text": "Versicherung und Haftung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.1",
@@ -232,14 +207,6 @@
       "children": [
         {
           "type": "item",
-          "label": "4",
-          "text": "Kraftfahrzeugurkunden, Fahrzeugakte",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "4.1",
           "text": "Der Fahrzeugbrief ist bei der Dienststelle, die das Dienstkraftfahrzeug unterhält, zu verwahren. Der Fahrzeugschein ist bei allen Fahrten mitzuführen.",
           "level": 0,
@@ -271,14 +238,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5",
-          "text": "Dienstfahrten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.1",
           "text": "Dienstkraftfahrzeuge dürfen grundsätzlich nur für dienstliche Zwecke, namentlich zu Einsatzfahrten, Arbeitseinsätzen sowie Dienstreisen und Dienstgängen im Sinne des Ostdeutschen Reisekostengesetzes (OstRKG) benutzt werden, soweit nichts anderes bestimmt ist.",
           "level": 0,
@@ -300,14 +259,6 @@
       "label": "6",
       "title": "Benutzung von Dienstkraftfahrzeugen durch bestimmte Personen",
       "children": [
-        {
-          "type": "item",
-          "label": "6",
-          "text": "Benutzung von Dienstkraftfahrzeugen durch bestimmte Personen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "6.1",
@@ -333,14 +284,6 @@
       "children": [
         {
           "type": "item",
-          "label": "7",
-          "text": "Benutzung von Dienstkraftfahrzeugen durch andere Dienststellen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "7.1",
           "text": "Dienstkraftfahrzeuge können mit Genehmigung des Dienststellenleiters vorübergehend auch anderen Dienststellen der Ostdeutschen Landesverwaltung zur Verfügung gestellt werden, wenn dadurch Wartezeiten oder Wegstrecken eingespart werden, jedoch der eigene Kraftfahrzeugbetrieb nicht beeinträchtigt wird.",
           "level": 0,
@@ -362,14 +305,6 @@
       "label": "8",
       "title": "Kilometerentgelt",
       "children": [
-        {
-          "type": "item",
-          "label": "8",
-          "text": "Kilometerentgelt",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "8.1",
@@ -419,14 +354,6 @@
       "children": [
         {
           "type": "item",
-          "label": "9",
-          "text": "Mitnahme von Nichtbediensteten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "9.1",
           "text": "Die Mitnahme nicht im Dienste des Freistaates Ostdeutschland stehender Personen in Dienstkraftfahrzeugen ist auf begründete Ausnahmefälle zu beschränken. In diesen Ausnahmefällen und bei der Benutzung von Dienstkraftfahrzeugen zu außerdienstlichen Zwecken (ausgenommenen Fahrten nach Nummer 8.5) ist jede Haftung zwischen den Beteiligten durch die Abgabe einer schriftlichen Verzichtserklärung (Anlage 4) der Mitfahrenden auszuschließen. Die Erklärung entfällt, wenn die Mitnahme aus dienstlichen Gründen erfolgt.",
           "level": 0,
@@ -456,14 +383,6 @@
       "label": "10",
       "title": "Privatfahrten",
       "children": [
-        {
-          "type": "item",
-          "label": "10",
-          "text": "Privatfahrten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "10.1",
@@ -546,14 +465,6 @@
       "children": [
         {
           "type": "item",
-          "label": "11",
-          "text": "Aufsicht",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "11.1",
           "text": "Die Aufsicht über die Führer von Dienstkraftfahrzeugen und über die Kraftfahrzeughaltung üben die Dienststellenleiter oder die damit beauftragten Bediensteten aus. Sie sind insbesondere verantwortlich für die sachgemäße Unterbringung der Fahrzeuge, die pflegliche Behandlung, den verkehrs- und betriebssicheren Zustand, die Vollständigkeit und Brauchbarkeit des Zubehörs und der Geräte, die Verwaltung und ordnungsgemäße Verwendung der Betriebsstoffe und die rechtzeitige Beseitigung von Schäden. Sie entscheiden über Instandsetzungen sowie über die Beschaffung von Ersatzteilen.",
           "level": 0,
@@ -626,14 +537,6 @@
       "children": [
         {
           "type": "item",
-          "label": "12",
-          "text": "Führung von Dienstkraftfahrzeugen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "12.1",
           "text": "Dienstkraftfahrzeuge sollen in der Regel nur von den jeweils bestellten Kraftfahrern oder Maschinenführern geführt werden. Kraftfahrzeugtechnische Bedienstete, Sachverständige und Prüfer für den Kraftfahrzeug-Verkehr sind berechtigt, im Rahmen ihrer Tätigkeit Dienstkraftfahrzeuge selbst zu führen. Andere Bedienstete dürfen Dienstkraftfahrzeuge – außer in Notfällen – nur führen mit vorheriger schriftlicher Zustimmung des Dienststellenleiters oder seines Beauftragten. Bedienstete, die im Besitz einer Fahrerlaubnis sind und zu deren Berufsbild das Führen von Kraftfahrzeugen gehört, können zum Führen von Dienstkraftfahrzeugen verpflichtet werden. Die unter Nummer 6 genannten Berechtigten dürfen das personengebundene oder zur vorrangigen Benutzung zugewiesene Dienstkraftfahrzeug selbst führen. Ehepartner, Lebenspartner in einer eingetragenen Lebenspartnerschaft sowie Kinder des Nutzungsberechtigten, sofern sie im Besitz einer entsprechenden Fahrerlaubnis sind, dürfen bei Privatfahrten das Dienstkraftfahrzeug steuern, sofern der Nutzungsberechtigte selbst mit im Dienstkraftfahrzeug sitzt.",
           "level": 0,
@@ -655,14 +558,6 @@
       "label": "13",
       "title": "Hauptberufliche Kraftfahrer (Berufskraftfahrer)",
       "children": [
-        {
-          "type": "item",
-          "label": "13",
-          "text": "Hauptberufliche Kraftfahrer (Berufskraftfahrer)",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "13.1",
@@ -712,14 +607,6 @@
       "children": [
         {
           "type": "item",
-          "label": "14",
-          "text": "Selbstfahrer",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "14.1",
           "text": "Der unter Nummer 6 genannte Personenkreis ist berechtigt, das personengebundene Fahrzeug selbst zu führen.",
           "level": 0,
@@ -751,14 +638,6 @@
       "children": [
         {
           "type": "item",
-          "label": "15",
-          "text": "Pflichten der Kraftfahrer",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "15.1",
           "text": "Führer von Dienstkraftfahrzeugen haben die verkehrsrechtlichen Bestimmungen vorbildlich zu beachten. Sie sind verpflichtet, körperliche oder geistige Mängel, die sie zum Führen von Kraftfahrzeugen ungeeignet machen, unverzüglich der Dienststelle und bei einer Dienstfahrt den Fahrtteilnehmern anzuzeigen. Führer von Dienstkraftfahrzeugen dürfen während der Fahrt nicht rauchen und nicht unter Alkoholeinwirkung oder anderen die Fahrtüchtigkeit beeinträchtigenden Mitteln stehen. Anderen Bediensteten ist es untersagt, Kraftfahrer während des Dienstes zum Alkoholgenuss zu verleiten.",
           "level": 0,
@@ -780,14 +659,6 @@
       "label": "16",
       "title": "Fahrtenbuch",
       "children": [
-        {
-          "type": "item",
-          "label": "16",
-          "text": "Fahrtenbuch",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "16.1",
@@ -866,14 +737,6 @@
       "children": [
         {
           "type": "item",
-          "label": "17",
-          "text": "Kraftfahrzeugpflege",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "17.1",
           "text": "Die Berufskraftfahrer sind für den vorschriftsmäßigen und betriebssicheren Zustand der ihnen zugewiesenen Fahrzeuge verantwortlich. Die Reinigung der Dienstkraftfahrzeuge sowie kleinere Instandsetzungs- und Wartungsarbeiten haben Berufskraftfahrer grundsätzlich selbst durchzuführen; eine Fremdvergabe darf nur erfolgen, wenn dies wirtschaftlicher oder zweckmäßiger ist. Der Beauftragte für den Haushalt (§ 9 SäHO) ist vor Auftragsvergabe zu beteiligen.",
           "level": 0,
@@ -895,14 +758,6 @@
       "label": "18",
       "title": "Verkehrsunfälle",
       "children": [
-        {
-          "type": "item",
-          "label": "18",
-          "text": "Verkehrsunfälle",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "18.1",
@@ -937,7 +792,7 @@
         {
           "type": "item",
           "label": "19",
-          "text": "Schutzkleidung\nSoweit Schutzkleidung erforderlich ist, kann den Kraftfahrzeugführern nach den für die Beschaffung von Schutzkleidung geltenden allgemeinen Bestimmungen Schutzkleidung gestellt werden.",
+          "text": "Soweit Schutzkleidung erforderlich ist, kann den Kraftfahrzeugführern nach den für die Beschaffung von Schutzkleidung geltenden allgemeinen Bestimmungen Schutzkleidung gestellt werden.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -949,14 +804,6 @@
       "label": "20",
       "title": "Sonderregelungen",
       "children": [
-        {
-          "type": "item",
-          "label": "20",
-          "text": "Sonderregelungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "20.1",
@@ -994,14 +841,6 @@
       "label": "21",
       "title": "Einrichtung von zentralen Fahrbereitschaften",
       "children": [
-        {
-          "type": "item",
-          "label": "21",
-          "text": "Einrichtung von zentralen Fahrbereitschaften",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "21.1",
@@ -1076,14 +915,6 @@
       "children": [
         {
           "type": "item",
-          "label": "22",
-          "text": "Verwaltungs- und haushaltsmäßige Behandlung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "22.1",
           "text": "Die zentrale Fahrbereitschaft ist Teil der Dienststelle, bei der sie eingerichtet ist. Diese Dienststelle führt die Dienst- und Fachaufsicht über die Kraftfahrer.",
           "level": 0,
@@ -1107,14 +938,6 @@
       "children": [
         {
           "type": "item",
-          "label": "23",
-          "text": "Betrieb der zentralen Fahrbereitschaft",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "23.1",
           "text": "Die Verfügungsbefugnis über die Dienstkraftfahrzeuge steht ausschließlich der Einsatzzentrale zu. Nur sie ist gegenüber den Fahrern weisungsberechtigt. Sie ist dafür verantwortlich, dass die Dienstfahrzeuge wirtschaftlich und zweckmäßig eingesetzt werden.",
           "level": 0,
@@ -1136,14 +959,6 @@
       "label": "24",
       "title": "Einsatz der Dienstkraftfahrzeuge",
       "children": [
-        {
-          "type": "item",
-          "label": "24",
-          "text": "Einsatz der Dienstkraftfahrzeuge",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "24.1",
@@ -1175,14 +990,6 @@
       "label": "25",
       "title": "Anforderung von Dienstkraftfahrzeugen",
       "children": [
-        {
-          "type": "item",
-          "label": "25",
-          "text": "Anforderung von Dienstkraftfahrzeugen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "25.1",
@@ -1241,14 +1048,6 @@
       "children": [
         {
           "type": "item",
-          "label": "26",
-          "text": "Einteilung der Dienstkraftfahrzeuge",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "26.1",
           "text": "Die Einsatzzentrale hat zu prüfen, ob Fahrten zusammengelegt werden können. Werden mehr Kraftfahrzeuge angefordert als verfügbar sind, hat die Einsatzzentrale die Fahrzeuge ohne Rücksicht auf die Dienststellung der Fahrgäste grundsätzlich nach Wirtschaftlichkeitsgesichtspunkten einzuteilen; Fahrten mit mehreren Fahrgästen zu Zielorten, die mit öffentlichen Verkehrsmitteln schwer erreichbar sind, haben also Vorrang gegenüber Einzelfahrten und Fahrten zu Zielorten, die mit anderen Verkehrsmitteln leichter erreicht werden können.",
           "level": 0,
@@ -1288,14 +1087,6 @@
       "children": [
         {
           "type": "item",
-          "label": "27",
-          "text": "Ergänzende Vorschriften",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "27.1",
           "text": "Werden die nach Nummer 6.2 zur bevorzugten Benutzung zur Verfügung stehenden Dienstkraftfahrzeuge von den Dispositionsberechtigten nicht benötigt, zum Beispiel wegen Krankheit, Urlaub usw., hat die Kontaktstelle dies der Einsatzzentrale mitzuteilen, damit die Fahrbereitschaft diese Fahrzeuge einsetzen kann. Besteht die Abwesenheit der Dispositionsberechtigten voraussichtlich länger als drei Tage, werden die Kraftfahrer in die Fahrbereitschaft integriert.",
           "level": 0,
@@ -1330,16 +1121,7 @@
       "type": "section",
       "label": "28",
       "title": "(Schlussbestimmungen)",
-      "children": [
-        {
-          "type": "item",
-          "label": "28",
-          "text": "(Schlussbestimmungen)",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",

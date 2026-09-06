@@ -2,13 +2,12 @@
   "id": "aend-osthzg-10842",
   "slug": "aend-osthzg-10842",
   "title": "Änderung des Ostdeutschen Hochschulzulassungsgesetzes",
-  "shortTitle": "Änd. OstHZG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. OstHZG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aendg-infolge-neufassung-osthsg",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstHZG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Hochschulzulassungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-06-26",
   "effectiveDate": "2009-07-11",
@@ -33,6 +33,7 @@
       "sha256": "6f2211e96e7f918f170664eb3521bc5ab1a477949592e4d21d01ecc16e2d46b7",
       "lawId": "10842",
       "sourceValidFrom": "2009-07-11",
+      "fsnNumber": "711",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Alarmierungsrichtlinie",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern für die Alarmierung der Katastrophenschutzbehörden, der Feuerwehren, des Technischen Hilfswerkes, des Rettungsdienstes und der privaten Hilfsorganisationen im Freistaat Ostdeutschland (Alarmierungsrichtlinie)",
   "shortTitle": "Alarmierungsrichtlinie",
-  "abbr": "Alarmierungsrichtlinie",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Alarmierungsrichtlinie vom 14. Juli 1994 (SächsABl. S. 1050), die durch die Verwaltungsvorschrift vom 1. Dezember 2000 (SächsABl. 2001 S. 4) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2025 (SächsABl. SDr. S. S 212)",
+  "citation": "Alarmierungsrichtlinie vom 14. Juli 1994 (SächsABl. S. 1050), die durch die Verwaltungsvorschrift vom 1. Dezember 2000 (SächsABl. 2001 S. 4) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "65b2daad8be66e1cf1a78ea0cc8939e9b27d161f5764b70d7a5dc744e717f6f3",
       "lawId": "4485",
       "sourceValidFrom": "2001-01-01",
+      "fsnNumber": "28-V94.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -32,16 +32,7 @@
       "type": "section",
       "label": "1",
       "title": "Erreichbarkeit und Alarmierung der Katastrophenschutzbehörden",
-      "children": [
-        {
-          "type": "item",
-          "label": "1",
-          "text": "Erreichbarkeit und Alarmierung der Katastrophenschutzbehörden",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -51,7 +42,7 @@
         {
           "type": "item",
           "label": "1.1",
-          "text": "Voraussetzungen\nBei größeren Schadensereignissen, welche das Leben, die Gesundheit zahlreicher Menschen oder erhebliche Sachwerte gefährden oder schädigen können, insbesondere bei solchen, welche die Entscheidung der Katastrophenschutzbehörde über die Auslösung des Katastrophenvoralarms oder des Katastrophenalarms erforderlich machen können, ist unverzüglich die zuständige untere Katastrophenschutzbehörde zu informieren. Diese hat durch personelle, technische und organisatorische Maßnahmen sicherzustellen, daß Meldungen nach Satz 1 jederzeit entgegengenommen und ausgewertet werden können und daß ihre Entscheidungsfähigkeit und die unverzügliche Übernahme der Leitung eines Katastropheneinsatzes gewährleistet ist.",
+          "text": "Bei größeren Schadensereignissen, welche das Leben, die Gesundheit zahlreicher Menschen oder erhebliche Sachwerte gefährden oder schädigen können, insbesondere bei solchen, welche die Entscheidung der Katastrophenschutzbehörde über die Auslösung des Katastrophenvoralarms oder des Katastrophenalarms erforderlich machen können, ist unverzüglich die zuständige untere Katastrophenschutzbehörde zu informieren. Diese hat durch personelle, technische und organisatorische Maßnahmen sicherzustellen, daß Meldungen nach Satz 1 jederzeit entgegengenommen und ausgewertet werden können und daß ihre Entscheidungsfähigkeit und die unverzügliche Übernahme der Leitung eines Katastropheneinsatzes gewährleistet ist.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -66,7 +57,7 @@
         {
           "type": "item",
           "label": "1.2",
-          "text": "Alarmplanung\nDie Katastrophenschutzbehörden haben ihre Alarmierung durch einen allgemeinen Katastrophenschutzplan organisatorisch sicherzustellen.",
+          "text": "Die Katastrophenschutzbehörden haben ihre Alarmierung durch einen allgemeinen Katastrophenschutzplan organisatorisch sicherzustellen.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -81,7 +72,7 @@
         {
           "type": "item",
           "label": "1.3",
-          "text": "Alarmierungsmittel\nDie Katastrophenschutzbehörden stellen ihre telefonische Alarmierbarkeit sicher. Soweit entscheidungsbefugte Führungskräfte außerhalb der Dienstzeit telefonisch nicht erreichbar sind, stellen die Katastrophenschutzbehörden die Erreichbarkeit durch andere Mittel sicher. Die Alarmierbarkeit außerhalb der Dienstzeit gilt dann als gewährleistet, wenn bei den Katastrophenschutzbehörden jeweils eine entscheidungsbefugte Führungskraft jederzeit erreichbar ist.\nAlarmierungsmittel und -verfahren sind mit der Leitstelle abzustimmen und zu erproben.\nDer Ausbau der drahtlosen Benachrichtigung und Alarmierung ist vorrangig zu behandeln.",
+          "text": "Die Katastrophenschutzbehörden stellen ihre telefonische Alarmierbarkeit sicher. Soweit entscheidungsbefugte Führungskräfte außerhalb der Dienstzeit telefonisch nicht erreichbar sind, stellen die Katastrophenschutzbehörden die Erreichbarkeit durch andere Mittel sicher. Die Alarmierbarkeit außerhalb der Dienstzeit gilt dann als gewährleistet, wenn bei den Katastrophenschutzbehörden jeweils eine entscheidungsbefugte Führungskraft jederzeit erreichbar ist.\nAlarmierungsmittel und -verfahren sind mit der Leitstelle abzustimmen und zu erproben.\nDer Ausbau der drahtlosen Benachrichtigung und Alarmierung ist vorrangig zu behandeln.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -96,7 +87,7 @@
         {
           "type": "item",
           "label": "1.4",
-          "text": "Alarmauslösung\nDie zuständige Polizeidienststelle benachrichtigt die Leitstelle, die Ortspolizeibehörde und die untere Katastrophenschutzbehörde über Schadensereignisse gemäß Nummer 1.1 Satz 1. Außerhalb der Dienstzeiten benachrichtigt sie deren erreichbare Führungskräfte. Die zuerst benachrichtigten Führungskräfte veranlassen nach Bedarf die weitere Alarmierung ihrer Behörde.\nErfährt die Leitstelle als erste von einem Schadensereignis gemäß Nummer 1.1 Satz 1, benachrichtigt sie die Polizeidirektion, die Ortspolizeibehörde und die untere Katastrophenschutzbehörde.\nDas zuständige Polizeipräsidium benachrichtigt die zuständige höhere Katastrophenschutzbehörde, das Landespolizeipräsidium die oberste Katastrophenschutzbehörde.",
+          "text": "Die zuständige Polizeidienststelle benachrichtigt die Leitstelle, die Ortspolizeibehörde und die untere Katastrophenschutzbehörde über Schadensereignisse gemäß Nummer 1.1 Satz 1. Außerhalb der Dienstzeiten benachrichtigt sie deren erreichbare Führungskräfte. Die zuerst benachrichtigten Führungskräfte veranlassen nach Bedarf die weitere Alarmierung ihrer Behörde.\nErfährt die Leitstelle als erste von einem Schadensereignis gemäß Nummer 1.1 Satz 1, benachrichtigt sie die Polizeidirektion, die Ortspolizeibehörde und die untere Katastrophenschutzbehörde.\nDas zuständige Polizeipräsidium benachrichtigt die zuständige höhere Katastrophenschutzbehörde, das Landespolizeipräsidium die oberste Katastrophenschutzbehörde.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -107,16 +98,7 @@
       "type": "section",
       "label": "2",
       "title": "Alarmierung der Feuerwehren",
-      "children": [
-        {
-          "type": "item",
-          "label": "2",
-          "text": "Alarmierung der Feuerwehren",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -126,7 +108,7 @@
         {
           "type": "item",
           "label": "2.1",
-          "text": "Voraussetzungen\nNach § 7 Abs. 1 des Gesetzes über den Brandschutz und die Hilfeleistung der Feuerwehren bei Unglücksfällen und Notständen im Freistaat Ostdeutschland (OstBrandschG) vom 2. Juli 1991 (SächsGVBl. S. 227), zuletzt geändert durch Gesetz vom 19. August 1993 (SächsGVBl. S. 815), haben die Feuerwehren die Aufgabe, Menschen, Tiere und Sachwerte vor Bränden zu schützen, Brände zu bekämpfen und bei Unglücksfällen und Notständen Hilfe zu leisten. Sie leisten technische Hilfe auch bei der Bekämpfung von Katastrophen und der Beseitigung von Umweltgefahren.\nDie öffentlichen Feuerwehren sind daher bei derartigen Ereignissen unverzüglich zu alarmieren.",
+          "text": "Nach § 7 Abs. 1 des Gesetzes über den Brandschutz und die Hilfeleistung der Feuerwehren bei Unglücksfällen und Notständen im Freistaat Ostdeutschland (OstBrandschG) vom 2. Juli 1991 (SächsGVBl. S. 227), zuletzt geändert durch Gesetz vom 19. August 1993 (SächsGVBl. S. 815), haben die Feuerwehren die Aufgabe, Menschen, Tiere und Sachwerte vor Bränden zu schützen, Brände zu bekämpfen und bei Unglücksfällen und Notständen Hilfe zu leisten. Sie leisten technische Hilfe auch bei der Bekämpfung von Katastrophen und der Beseitigung von Umweltgefahren.\nDie öffentlichen Feuerwehren sind daher bei derartigen Ereignissen unverzüglich zu alarmieren.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -141,7 +123,7 @@
         {
           "type": "item",
           "label": "2.2",
-          "text": "Alarmplanung\nDie Alarmierung der Feuerwehren soll nach Maßgabe von Ausrückeordnungen erfolgen, die die Einsatzmöglichkeiten im abwehrenden Brandschutz und in der technischen Hilfeleistung im Gemeindegebiet und gegebenenfalls auch darüber hinaus enthalten. Die Gemeinden erarbeiten für ihre Feuerwehren die Alarm- und Ausrückeordnung, halten sie auf dem laufenden Stand und übergeben sie der Leitstelle. Überörtliche Einsatzbereiche und hierfür erforderliche Alarm- und Ausrückeordnungen sind durch die Landkreise (Kreisbrandmeister) im Einvernehmen mit den Gemeinden und durch die Kreisfreien Städte (Leiter der Berufsfeuerwehren) festzulegen. Sie sind mit den benachbarten Landkreisen und Kreisfreien Städten abzustimmen und den zuständigen Leitstellen zu übergeben.",
+          "text": "Die Alarmierung der Feuerwehren soll nach Maßgabe von Ausrückeordnungen erfolgen, die die Einsatzmöglichkeiten im abwehrenden Brandschutz und in der technischen Hilfeleistung im Gemeindegebiet und gegebenenfalls auch darüber hinaus enthalten. Die Gemeinden erarbeiten für ihre Feuerwehren die Alarm- und Ausrückeordnung, halten sie auf dem laufenden Stand und übergeben sie der Leitstelle. Überörtliche Einsatzbereiche und hierfür erforderliche Alarm- und Ausrückeordnungen sind durch die Landkreise (Kreisbrandmeister) im Einvernehmen mit den Gemeinden und durch die Kreisfreien Städte (Leiter der Berufsfeuerwehren) festzulegen. Sie sind mit den benachbarten Landkreisen und Kreisfreien Städten abzustimmen und den zuständigen Leitstellen zu übergeben.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -153,14 +135,6 @@
       "label": "2.3",
       "title": "Alarmierungsmittel",
       "children": [
-        {
-          "type": "item",
-          "label": "2.3",
-          "text": "Alarmierungsmittel",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.3.1",
@@ -187,7 +161,7 @@
         {
           "type": "item",
           "label": "2.4",
-          "text": "Alarmauslösung\nFür die Alarmierung der Feuerwehren ist die Leitstelle zuständig.",
+          "text": "Für die Alarmierung der Feuerwehren ist die Leitstelle zuständig.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -198,30 +172,13 @@
       "type": "section",
       "label": "3",
       "title": "Alarmierung des Technischen Hilfswerkes (THW)",
-      "children": [
-        {
-          "type": "item",
-          "label": "3",
-          "text": "Alarmierung des Technischen Hilfswerkes (THW)",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
       "label": "3.1",
       "title": "Voraussetzungen",
       "children": [
-        {
-          "type": "item",
-          "label": "3.1",
-          "text": "Voraussetzungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.1.1",
@@ -245,14 +202,6 @@
       "label": "3.2",
       "title": "Alarmplanung",
       "children": [
-        {
-          "type": "item",
-          "label": "3.2",
-          "text": "Alarmplanung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.2.1",
@@ -279,7 +228,7 @@
         {
           "type": "item",
           "label": "3.3",
-          "text": "Alarmierungsmittel\nDas THW gewährleistet die Alarmierung seiner Kräfte grundsätzlich mit eigenen Mitteln und Verfahren. Diese sind jährlich mehrmals in Abstimmung mit den Leitstellen zu überprüfen. Über das Ergebnis ist die untere Katastrophenschutzbehörde zu unterrichten. Sie kann das THW mit eigenen Mitteln zur Alarmierung (Funkmeldeempfänger) ausstatten, um dessen Einsatzwert zu erhöhen.",
+          "text": "Das THW gewährleistet die Alarmierung seiner Kräfte grundsätzlich mit eigenen Mitteln und Verfahren. Diese sind jährlich mehrmals in Abstimmung mit den Leitstellen zu überprüfen. Über das Ergebnis ist die untere Katastrophenschutzbehörde zu unterrichten. Sie kann das THW mit eigenen Mitteln zur Alarmierung (Funkmeldeempfänger) ausstatten, um dessen Einsatzwert zu erhöhen.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -291,14 +240,6 @@
       "label": "3.4",
       "title": "Alarmauslösung",
       "children": [
-        {
-          "type": "item",
-          "label": "3.4",
-          "text": "Alarmauslösung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.4.1",
@@ -325,7 +266,7 @@
         {
           "type": "item",
           "label": "4",
-          "text": "Einsatzleitung\nDer Leiter der am Einsatzort zuerst eintreffenden Kräfte übernimmt zunächst die Einsatzleitung. Nach Eintreffen erster Einheiten der Feuerwehr übernimmt deren Einsatzleiter die technische Leitung des Einsatzes vor Ort. Löst die Katastrophenschutzbehörde Katastrophenalarm aus, dann bestellt sie zugleich den Technischen Leiter des Einsatzes, der nach seinem Eintreffen am Einsatzort die Einsatzleitung übernimmt.",
+          "text": "Der Leiter der am Einsatzort zuerst eintreffenden Kräfte übernimmt zunächst die Einsatzleitung. Nach Eintreffen erster Einheiten der Feuerwehr übernimmt deren Einsatzleiter die technische Leitung des Einsatzes vor Ort. Löst die Katastrophenschutzbehörde Katastrophenalarm aus, dann bestellt sie zugleich den Technischen Leiter des Einsatzes, der nach seinem Eintreffen am Einsatzort die Einsatzleitung übernimmt.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -337,14 +278,6 @@
       "label": "5",
       "title": "Alarmierung des Rettungsdienstes",
       "children": [
-        {
-          "type": "item",
-          "label": "5",
-          "text": "Alarmierung des Rettungsdienstes",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.1",
@@ -367,16 +300,7 @@
       "type": "section",
       "label": "6",
       "title": "Alarmierung der privaten Hilfsorganisationen",
-      "children": [
-        {
-          "type": "item",
-          "label": "6",
-          "text": "Alarmierung der privaten Hilfsorganisationen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -386,7 +310,7 @@
         {
           "type": "item",
           "label": "6.1",
-          "text": "Voraussetzungen\nDie vom Freistaat Ostdeutschland anerkannten privaten Hilfsorganisationen stehen mit ihren einsatzbereiten und von der unteren Katastrophenschutzbehörde als einsatzbereit anerkannten Einheiten und Einrichtungen bei Katastrophen zur Hilfeleistung zur Verfügung. Sie haben sich bereit erklärt, auch bei größeren Unglücksfällen im Rahmen ihrer Möglichkeiten Hilfe zu leisten. Sie sind bei Schadensereignissen, welche die Entscheidung über die Auslösung des Katastrophenvoralarms oder des Katastrophenalarms erfordern, zu alarmieren.",
+          "text": "Die vom Freistaat Ostdeutschland anerkannten privaten Hilfsorganisationen stehen mit ihren einsatzbereiten und von der unteren Katastrophenschutzbehörde als einsatzbereit anerkannten Einheiten und Einrichtungen bei Katastrophen zur Hilfeleistung zur Verfügung. Sie haben sich bereit erklärt, auch bei größeren Unglücksfällen im Rahmen ihrer Möglichkeiten Hilfe zu leisten. Sie sind bei Schadensereignissen, welche die Entscheidung über die Auslösung des Katastrophenvoralarms oder des Katastrophenalarms erfordern, zu alarmieren.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -398,14 +322,6 @@
       "label": "6.2",
       "title": "Alarmplanung",
       "children": [
-        {
-          "type": "item",
-          "label": "6.2",
-          "text": "Alarmplanung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "6.2.1",
@@ -440,7 +356,7 @@
         {
           "type": "item",
           "label": "6.3",
-          "text": "Alarmierungsmittel\nDie drahtlose Alarmierung von Sanitätseinheiten des Katastrophenschutzes erfolgt durch die Leitstelle. Der Ausbau der drahtlosen Benachrichtigung und Alarmierung ist vorrangig zu behandeln.\nDie unteren Katastrophenschutzbehörden können die für den Katastrophenschutz geeigneten Einheiten und Einrichtungen der privaten Hilfsorganisationen mit eigenen Mitteln (Funkmeldeempfänger) zur Alarmierung ausstatten, um deren Einsatzwert zu erhöhen.",
+          "text": "Die drahtlose Alarmierung von Sanitätseinheiten des Katastrophenschutzes erfolgt durch die Leitstelle. Der Ausbau der drahtlosen Benachrichtigung und Alarmierung ist vorrangig zu behandeln.\nDie unteren Katastrophenschutzbehörden können die für den Katastrophenschutz geeigneten Einheiten und Einrichtungen der privaten Hilfsorganisationen mit eigenen Mitteln (Funkmeldeempfänger) zur Alarmierung ausstatten, um deren Einsatzwert zu erhöhen.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -452,14 +368,6 @@
       "label": "6.4",
       "title": "Alarmauslösung",
       "children": [
-        {
-          "type": "item",
-          "label": "6.4",
-          "text": "Alarmauslösung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "6.4.1",
@@ -494,7 +402,7 @@
         {
           "type": "item",
           "label": "7",
-          "text": "Sonstige Benachrichtigungspflichten\nBenachrichtigungs- und Meldepflichten auf Grund anderer Vorschriften (zum Beispiel § 13 Abs. 2 und 3 und § 17\nOstBrandSchG) werden durch diese Richtlinie nicht berührt.",
+          "text": "Benachrichtigungs- und Meldepflichten auf Grund anderer Vorschriften (zum Beispiel § 13 Abs. 2 und 3 und § 17\nOstBrandSchG) werden durch diese Richtlinie nicht berührt.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []

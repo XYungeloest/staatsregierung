@@ -2,15 +2,14 @@
   "id": "osterwstatg-und-aend-oststatg",
   "slug": "osterwstatg-und-aend-oststatg",
   "title": "Gesetz zur Durchführung der Erwerbsstatistik im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Statistikgesetzes",
-  "shortTitle": "Gesetz zur Durchführung der Erwerbsstatistik im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Statistikgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Archivwesen, Statistik"
   ],
+  "primarySubject": "Archivwesen, Statistik",
   "keywords": [
-    "Gesetz zur Durchführung der Erwerbsstatistik im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Statistikgesetzes",
+    "OstErwStatG und Änd. OstStatG",
     "Durchführung",
     "Erwerbsstatistik",
     "Änderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Durchführung der Erwerbsstatistik im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Statistikgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1999-02-12",
   "effectiveDate": "1999-03-05",
@@ -34,8 +34,12 @@
       "sha256": "3346cad26c024726839d9afdce7fbc5a25650fedb088c57d26ebb6f624f6c357",
       "lawId": "3015",
       "sourceValidFrom": "1999-03-05",
+      "fsnNumber": "291-2A",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-statistikgesetz"
   ]
 }

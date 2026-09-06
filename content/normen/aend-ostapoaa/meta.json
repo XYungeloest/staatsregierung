@@ -2,12 +2,11 @@
   "id": "aend-ostapoaa",
   "slug": "aend-ostapoaa",
   "title": "Änderung der Ausbildungs- und Prüfungsordnung für Amtsanwälte",
-  "shortTitle": "Änd. OstAPOAA",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
     "Änd. OstAPOAA",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-apvo-justizdienst",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstAPOAA“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ausbildungs- und Prüfungsordnung für Amtsanwälte“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-07-15",
   "effectiveDate": "2020-09-01",
@@ -34,6 +34,7 @@
       "sha256": "a93076346275628d18bb2a6cc174d0d9962af6f5bb6c7ebe2ffbf4c5045ba2c7",
       "lawId": "18818",
       "sourceValidFrom": "2020-09-01",
+      "fsnNumber": "305",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

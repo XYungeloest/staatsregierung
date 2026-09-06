@@ -2,13 +2,12 @@
   "id": "aend-ostbg-19801",
   "slug": "aend-ostbg-19801",
   "title": "Änderung des Ostdeutschen Beamtengesetzes",
-  "shortTitle": "Änd. OstBG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstBG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2023-2024",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Beamtengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-12-20",
   "effectiveDate": "2022-12-30",
@@ -33,6 +33,7 @@
       "sha256": "35f5add8ddb5bccd25ef6db08c75e1b091277a5dbf7e67561cdb210bf515fd6b",
       "lawId": "19801",
       "sourceValidFrom": "2022-12-30",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

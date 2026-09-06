@@ -149,11 +149,9 @@ jobs:
           node --experimental-strip-types scripts/d1-runtime-seed.mjs fingerprint --json --ref "$BASE_SHA" > "$RUNNER_TEMP/base-seed.json"
           node -e '
             const seed = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
-            const legacy = seed.legacyFingerprint ? seed.snapshot.replace(seed.fingerprint.slice(0, 32), seed.legacyFingerprint.slice(0, 32)) : "";
-            const lines = [`key=d1-seed-${seed.fingerprint}`, `snapshot=${seed.snapshot}`, `legacy_key=${seed.legacyFingerprint ? `d1-seed-${seed.legacyFingerprint}` : ""}`, `legacy_snapshot=${legacy}`];
-            require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `${lines.join("\n")}\n`);
+            require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `key=d1-seed-${seed.fingerprint}\nsnapshot=${seed.snapshot}\n`);
           ' "$RUNNER_TEMP/base-seed.json"
-      - name: Basis-Seed aus dem Cache (neue Identität)
+      - name: Basis-Seed aus dem Cache
         if: ${{ steps.remote_state.outputs.rc == '3' }}
         uses: actions/cache/restore@v6
         with:
@@ -161,14 +159,6 @@ jobs:
             ${{ steps.base_seed.outputs.snapshot }}
             ${{ steps.base_seed.outputs.snapshot }}.json
           key: ${{ steps.base_seed.outputs.key }}
-      - name: Basis-Seed aus dem Cache (frühere Identität, Übergang)
-        if: ${{ steps.remote_state.outputs.rc == '3' && steps.base_seed.outputs.legacy_key != '' }}
-        uses: actions/cache/restore@v6
-        with:
-          path: |
-            ${{ steps.base_seed.outputs.legacy_snapshot }}
-            ${{ steps.base_seed.outputs.legacy_snapshot }}.json
-          key: ${{ steps.base_seed.outputs.legacy_key }}
       - name: Ziel-Seed bereitstellen (Cache oder einmalige Projektion)
         if: ${{ steps.remote_state.outputs.rc == '3' }}
         uses: ./.github/actions/d1-seed

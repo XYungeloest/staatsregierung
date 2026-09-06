@@ -2,15 +2,13 @@
   "id": "aend-frl-laendliche-entwicklung",
   "slug": "aend-frl-laendliche-entwicklung",
   "title": "Vierte Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ländliche Entwicklung",
-  "shortTitle": "Vierte Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ländliche Entwicklung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Vierte Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ländliche Entwicklung",
+    "Änd. FRL Ländliche Entwicklung",
     "Vierte",
     "Umwelt",
     "Landwirtschaft",
@@ -23,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Vierte Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ländliche Entwicklung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-17",
   "effectiveDate": "2020-01-01",
@@ -37,8 +36,12 @@
       "sha256": "5f00ee418fae4e8cc0231b3289d90ac46820a8f84347d26669cb4c1d3eeb8e9e",
       "lawId": "18545",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "5563",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-laendliche-entwicklung"
   ]
 }

@@ -1,23 +1,24 @@
 {
   "id": "vwv-schulsport",
   "slug": "vwv-schulsport",
-  "title": "VwV Schulsport",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zum Schulsport (VwV Schulsport)",
   "shortTitle": "VwV Schulsport",
-  "abbr": "VwV Schulsport",
   "shortTitleSource": "official",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung",
-    "Sport und Bildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "VwV Schulsport",
+    "Kultus",
     "Schulsport"
   ],
-  "initialCitation": "VwV Schulsport vom 10. Dezember 2014 (MBl. SMK 2015 S. 3), die zuletzt durch die Verwaltungsvorschrift vom 16. Juli 2021 (MBl. SMK S. 134) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "initialCitation": "VwV Schulsport vom 10. Dezember 2014 (MBl. SMK 2015 S. 3), die zuletzt durch die Verwaltungsvorschrift vom 16. Juli 2021 (MBl. SMK S. 134) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Schulsport“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2014-12-10",
   "sourceReferences": [
@@ -31,6 +32,7 @@
       "sha256": "62eb0f48856baba6e0755d5456c7c02759ff393f3be4a86d9d200ee809973d48",
       "lawId": "15105",
       "sourceValidFrom": "2021-08-01",
+      "fsnNumber": "710-V15.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

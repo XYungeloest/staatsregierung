@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV KomDienstsiegel",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die Gestaltung kommunaler Dienstsiegel (VwV KomDienstsiegel)",
   "shortTitle": "VwV KomDienstsiegel",
-  "abbr": "VwV KomDienstsiegel",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV KomDienstsiegel vom 29. November 1999 (SächsABl. S. 1072), die durch die Verwaltungsvorschrift vom 26. Januar 2005 (SächsABl. S. 126) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2025 (SächsABl. SDr. S. S 212)",
+  "citation": "VwV KomDienstsiegel vom 29. November 1999 (SächsABl. S. 1072), die durch die Verwaltungsvorschrift vom 26. Januar 2005 (SächsABl. S. 126) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "6242cdf6f570162977ad842939a6c5dc8defb9a1f33fcf755b4701e650e01417",
       "lawId": "1136",
       "sourceValidFrom": "2005-02-18",
+      "fsnNumber": "235-V99.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -32,7 +32,7 @@
         {
           "type": "item",
           "label": "1",
-          "text": "Geltungsbereich\nDiese Verwaltungsvorschrift gilt für die Gestaltung von Dienstsiegeln der Gemeinden, Landkreise, Verwaltungs- und Zweckverbände.",
+          "text": "Diese Verwaltungsvorschrift gilt für die Gestaltung von Dienstsiegeln der Gemeinden, Landkreise, Verwaltungs- und Zweckverbände.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -401,7 +401,7 @@
         {
           "type": "item",
           "label": "3",
-          "text": "Form und Herstellung kommunaler Dienstsiegel\nDie Dienstsiegel werden als Prägesiegel aus Metall, als Lacksiegel (Petschaft) aus Metall und als Farbdrucksiegel aus Metall, Polymer oder Gummi gefertigt. Die Prägesiegel und Lacksiegel zeigen Wappenbild und Schrift erhaben in Prägung. Die Farbdrucksiegel bringen Wappen und Schrift in dunklem Farbdruck.\nFür die Siegelung von Schriftstücken, die mit Hilfe drucktechnischer oder elektronischer Einrichtungen erstellt werden, kann ein Abdruck des Dienstsiegels maschinell eingedruckt sein oder aufgedruckt werden.\nDie Prägesiegel sollten einen Durchmesser von 40 mm oder 35 mm haben. Die übrigen Dienstsiegel sollten einen Durchmesser von 35 mm oder 20 mm haben. Soweit erforderlich, sind auch kleinere Durchmesser zulässig. Es muss auf jeden Fall sichergestellt sein, dass die Umschrift und das Wappen noch deutlich erkennbar sind. Werden mehrere Dienstsiegel mit derselben Umschrift geführt, sind diese zur Unterscheidung zusätzlich zu kennzeichnen.\nDen Landkreisen, Gemeinden, Verwaltungsverbänden und Zweckverbänden bleibt es überlassen, welches Unternehmen mit der Herstellung der Dienstsiegel beauftragt wird. Einer besonderen Zulassung bedarf es nicht.",
+          "text": "Die Dienstsiegel werden als Prägesiegel aus Metall, als Lacksiegel (Petschaft) aus Metall und als Farbdrucksiegel aus Metall, Polymer oder Gummi gefertigt. Die Prägesiegel und Lacksiegel zeigen Wappenbild und Schrift erhaben in Prägung. Die Farbdrucksiegel bringen Wappen und Schrift in dunklem Farbdruck.\nFür die Siegelung von Schriftstücken, die mit Hilfe drucktechnischer oder elektronischer Einrichtungen erstellt werden, kann ein Abdruck des Dienstsiegels maschinell eingedruckt sein oder aufgedruckt werden.\nDie Prägesiegel sollten einen Durchmesser von 40 mm oder 35 mm haben. Die übrigen Dienstsiegel sollten einen Durchmesser von 35 mm oder 20 mm haben. Soweit erforderlich, sind auch kleinere Durchmesser zulässig. Es muss auf jeden Fall sichergestellt sein, dass die Umschrift und das Wappen noch deutlich erkennbar sind. Werden mehrere Dienstsiegel mit derselben Umschrift geführt, sind diese zur Unterscheidung zusätzlich zu kennzeichnen.\nDen Landkreisen, Gemeinden, Verwaltungsverbänden und Zweckverbänden bleibt es überlassen, welches Unternehmen mit der Herstellung der Dienstsiegel beauftragt wird. Einer besonderen Zulassung bedarf es nicht.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -413,14 +413,6 @@
       "label": "4",
       "title": "Verwendung der Dienstsiegel",
       "children": [
-        {
-          "type": "item",
-          "label": "4",
-          "text": "Verwendung der Dienstsiegel",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "4.1",

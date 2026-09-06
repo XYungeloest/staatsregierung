@@ -2,15 +2,13 @@
   "id": "aend-frl-gewaesser-hochwasserschutz",
   "slug": "aend-frl-gewaesser-hochwasserschutz",
   "title": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Gewässer/Hochwasserschutz",
-  "shortTitle": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Gewässer/Hochwasserschutz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Gewässer/Hochwasserschutz",
+    "Änd. FRL Gewässer/Hochwasserschutz",
     "Zweite",
     "Umwelt",
     "Landwirtschaft",
@@ -23,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Gewässer/Hochwasserschutz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-17",
   "effectiveDate": "2020-01-01",
@@ -37,8 +36,12 @@
       "sha256": "2bc1e75f8d3a545c42cc559ab2ec8517e777a9748d3e1b1660819f104973defa",
       "lawId": "18548",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "5564",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-gewaesser-hochwasserschutz"
   ]
 }

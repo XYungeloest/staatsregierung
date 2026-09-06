@@ -2,15 +2,13 @@
   "id": "aend-vo-sofortprogramm-strasse",
   "slug": "aend-vo-sofortprogramm-strasse",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Verordnung Sofortprogramm Straße",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Verordnung Sofortprogramm Straße",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Haushaltwesen, Rechnungshof"
   ],
+  "primarySubject": "Haushaltwesen, Rechnungshof",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Verordnung Sofortprogramm Straße",
+    "Änd. VO Sofortprogramm Straße",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Verordnung Sofortprogramm Straße“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-07-10",
   "effectiveDate": "2014-07-31",
@@ -36,8 +35,12 @@
       "sha256": "cc9c32f7a56faddea6691d0fce0fd3f3a82603146bf077e7fa21f2b8eec2c7a8",
       "lawId": "14062",
       "sourceValidFrom": "2014-07-31",
+      "fsnNumber": "520",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-sofortprogramm-strasse"
   ]
 }

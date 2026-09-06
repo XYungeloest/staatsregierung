@@ -17,11 +17,12 @@ import {
   BASELINE_DATE,
   inferEnactingBody,
   inferKeywords,
-  inferSubjects,
+  inferSubjectAssignment,
   inferSummary,
   sourceReferenceLabel,
 } from './lib/revosax-metadata.mjs';
-import { adaptParsedRevosaxSnapshot, auditAdaptedRevosaxSnapshot } from './lib/revosax-ost-adapter.mjs';
+import { abbreviationProblem, isAbbreviationLikeLabel } from './lib/norm-title-rules.mjs';
+import { adaptParsedRevosaxSnapshot, adaptSaxonText, auditAdaptedRevosaxSnapshot } from './lib/revosax-ost-adapter.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
 /**
@@ -44,6 +45,8 @@ const ROOT = resolve(process.cwd());
 const CONTENT_ROOT = join(ROOT, 'content', 'normen');
 const R2_MANIFEST_PATH = join(ROOT, 'data', 'recht', 'revosax-r2-manifest.json');
 const SUNSET_DECISIONS_PATH = join(ROOT, 'data', 'recht', 'revosax-sunset-decisions.json');
+const POST_CUTOFF_DECISIONS_PATH = join(ROOT, 'data', 'recht', 'revosax-post-cutoff-decisions.json');
+const POST_CUTOFF_RESOLUTIONS = ['discard', 'adopted', 'open'];
 
 const USAGE = `Verwendung: node --experimental-strip-types scripts/materialize-revosax-baseline.mjs [Optionen]
 
@@ -60,6 +63,11 @@ Optionen:
                       Normen entfernen, deren Quelle im Plan nicht mehr CREATE oder MATCH ist
                       (z. B. nach neuer Einordnung als Alias oder Reviewfall)
   --help              Diese Hilfe`;
+
+/** Titel sind einzeilig: Zeilenumbrüche der amtlichen Quelle werden zu einfachen Leerzeichen. */
+function collapseTitleWhitespace(value) {
+  return String(value ?? '').replace(/\s+/gu, ' ').trim();
+}
 
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
@@ -91,6 +99,16 @@ async function writeJson(path, value) {
 
 export function objectKeyFor(baselineDate, sourceId) {
   return `revosax/${baselineDate}/${sourceId}.html`;
+}
+
+/**
+ * Kurzbezeichnung nach dem Titelmodell: nur eine echte, vom Langtitel abweichende Kurzform;
+ * abkürzungsartige Bezeichnungen der Trefferliste („Änd. OstSFG“) bleiben Stichwort.
+ */
+function normalizedShortTitle(candidate, { title, label }) {
+  const value = (candidate ?? '').trim() || (label ?? '').trim();
+  if (!value || value === (title ?? '').trim()) return undefined;
+  return isAbbreviationLikeLabel(value) ? undefined : value;
 }
 
 function checkSummary(summary, context) {
@@ -161,9 +179,12 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     citationValidAt: baselineDate,
     context,
   });
-  const title = adapted.sourceTitle;
-  const shortTitle = adapted.shortTitle || title;
-  const abbr = adapted.abbr;
+  // Titelmodell (scripts/lib/norm-title-rules.mjs): der amtliche Langtitel steht in der Kennzeile
+  // beziehungsweise in der Trefferliste; die Überschrift der Seite trägt oft nur die Kurzbezeichnung.
+  // Ein Titel ist einzeilig; die amtliche Trefferliste und die Kennzeile brechen ihn um.
+  const title = collapseTitleWhitespace(adapted.longTitle || adaptSaxonText(entry.listing?.title ?? '') || adapted.sourceTitle);
+  const shortTitle = normalizedShortTitle(adapted.shortTitle, { title, label: entry.listing?.label });
+  const abbr = abbreviationProblem(adapted.abbr, { title, shortTitle }) === null ? adapted.abbr : undefined;
   const normType = entry.inferredType;
   const isAmendment = normType === 'aenderungsvorschrift';
   const reference = {
@@ -182,6 +203,9 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     lawId: String(entry.revosaxLawId),
     sourceValidFrom: original.sourceValidFrom,
     ...(original.sourceValidTo ? { sourceValidTo: original.sourceValidTo } : {}),
+    // Amtliche Fundstellennummer der Quellseite: Provenienz und Grundlage der
+    // Sachgebietszuordnung, damit sie ohne den lokalen Rohcache nachvollziehbar bleibt.
+    ...(original.fsnNumber ? { fsnNumber: original.fsnNumber } : {}),
     sourceRole: 'official-snapshot',
     mediaType: 'text/html',
   };
@@ -191,21 +215,32 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
   // Erlassdatum: aus der Fassungsseite, ersatzweise aus der amtlichen REVOSax-Trefferliste
   // (Spalte Erlassdatum); nie geschätzt.
   const documentDate = original.documentDate ?? entry.listing?.documentDate ?? null;
+  const subjectAssignment = inferSubjectAssignment({
+    fsnNumber: original.fsnNumber,
+    category: entry.category,
+    normType,
+    sourceTitle: original.sourceTitle,
+    label: entry.listing?.label,
+  });
   const meta = {
     id: slug,
     slug,
     title,
-    shortTitle,
+    ...(shortTitle ? { shortTitle } : {}),
     ...(abbr ? { abbr } : {}),
-    shortTitleSource: 'official',
+    ...(shortTitle ? { shortTitleSource: 'official' } : {}),
     type: normType,
     ...(originEnactingBody ? { originEnactingBody } : {}),
-    subjects: inferSubjects({ sourceTitle: original.sourceTitle, label: entry.listing?.label, category: entry.category }),
-    keywords: inferKeywords({ abbr, shortTitle, title }),
+    subjects: subjectAssignment.subjects,
+    primarySubject: subjectAssignment.primarySubject,
+    ...(normType === 'foerderrichtlinie' && subjectAssignment.fundingArea ? { fundingArea: subjectAssignment.fundingArea } : {}),
+    keywords: inferKeywords({ abbr, shortTitle, title, label: adaptSaxonText(entry.listing?.label ?? '') }),
     initialCitation: citation,
     predecessor: null,
     successor: null,
-    summary: inferSummary({ normType, shortTitle }),
+    summary: inferSummary({ normType, shortTitle: shortTitle || title }),
+    // Aus Typ und Bezeichnung abgeleitete Formel; sie wird öffentlich nicht ausgespielt.
+    summarySource: 'derived',
     status: isAmendment ? 'one-time-act' : 'in-force',
     ...(documentDate ? { documentDate } : {}),
     ...(isAmendment ? { effectiveDate: original.sourceValidFrom } : {}),
@@ -224,7 +259,7 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
   const version = {
     versionId: baselineDate,
     title,
-    shortTitle,
+    ...(shortTitle ? { shortTitle } : {}),
     ...(abbr ? { abbr } : {}),
     validFrom: baselineDate,
     validTo: null,
@@ -313,8 +348,10 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
     fullCitation: component.sourceCitation ?? entry.listing?.citation ?? '',
     body: componentBodyAtPath(envelopeBody, component.articleBlockPath ?? []),
   });
-  const title = adapted.sourceTitle;
-  const shortTitle = adapted.shortTitle || title;
+  const title = collapseTitleWhitespace(adapted.sourceTitle);
+  // Die Trefferlistenbezeichnung eines Mantelbestandteils ist meist eine Abkürzungsform
+  // („Änd. OstSFG“); sie bleibt Stichwort statt Kurzbezeichnung.
+  const shortTitle = normalizedShortTitle(adapted.shortTitle, { title, label: entry.listing?.label });
   const citation = historicalBaselineCitation({
     pageFullCitation: adapted.fullCitation,
     sourceValidTo: null,
@@ -352,21 +389,32 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
   };
   const originEnactingBody = inferEnactingBody({ category: entry.category, sourceTitle: component.sourceTitle ?? '' });
   const documentDate = entry.listing?.documentDate ?? null;
+  // Der Artikel einer Mantelvorschrift trägt die Fundstellennummer der Mantelvorschrift.
+  const subjectAssignment = inferSubjectAssignment({
+    fsnNumber: component.fsnNumber ?? envelopeSource.fsnNumber,
+    category: entry.category,
+    normType: 'aenderungsvorschrift',
+    sourceTitle: component.sourceTitle,
+    label: entry.listing?.label,
+  });
   const meta = {
     id: slug,
     slug,
     title,
-    shortTitle,
-    shortTitleSource: 'official',
+    ...(shortTitle ? { shortTitle } : {}),
+    ...(shortTitle ? { shortTitleSource: 'official' } : {}),
     type: 'aenderungsvorschrift',
     ...(originEnactingBody ? { originEnactingBody } : {}),
-    subjects: inferSubjects({ sourceTitle: component.sourceTitle, label: entry.listing?.label, category: entry.category }),
-    keywords: inferKeywords({ abbr: undefined, shortTitle, title }),
+    subjects: subjectAssignment.subjects,
+    primarySubject: subjectAssignment.primarySubject,
+    keywords: inferKeywords({ abbr: undefined, shortTitle, title, label: adaptSaxonText(entry.listing?.label ?? '') }),
     initialCitation: citation,
     predecessor: null,
     successor: null,
     ...(containedIn ? { containedIn } : {}),
-    summary: inferSummary({ normType: 'aenderungsvorschrift', shortTitle }),
+    summary: inferSummary({ normType: 'aenderungsvorschrift', shortTitle: shortTitle || title }),
+    // Aus Typ und Bezeichnung abgeleitete Formel; sie wird öffentlich nicht ausgespielt.
+    summarySource: 'derived',
     status: 'one-time-act',
     ...(documentDate ? { documentDate } : {}),
     effectiveDate: validFrom,
@@ -385,7 +433,7 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
   const version = {
     versionId: baselineDate,
     title,
-    shortTitle,
+    ...(shortTitle ? { shortTitle } : {}),
     validFrom: baselineDate,
     validTo: null,
     isCurrent: true,
@@ -459,6 +507,20 @@ async function main() {
   const fetchedEnvelopes = new Map((envelopes?.fetchedEnvelopes ?? []).map((source) => [source.sourceId, source]));
   const r2Manifest = (await exists(R2_MANIFEST_PATH)) ? await readJson(R2_MANIFEST_PATH) : { objects: {} };
   const sunsetDecisions = (await exists(SUNSET_DECISIONS_PATH)) ? await readJson(SUNSET_DECISIONS_PATH) : { decisions: {} };
+  // Rechtsakte nach dem Rechtsüberleitungsstichtag: Der Plan führt sie nur dann als CREATE oder
+  // MATCH, wenn eine ostdeutsche Änderungsvorschrift sie übernimmt („adopted“) oder der Fall
+  // begründet offen bleibt („open“). Hier wird nur geprüft, dass jede Entscheidung zum Plan passt.
+  const postCutoffDecisions = (await exists(POST_CUTOFF_DECISIONS_PATH)) ? await readJson(POST_CUTOFF_DECISIONS_PATH) : { decisions: {} };
+  for (const [slug, decision] of Object.entries(postCutoffDecisions.decisions ?? {})) {
+    if (!POST_CUTOFF_RESOLUTIONS.includes(decision.resolution)) {
+      throw new Error(`Entscheidung zu ${slug} nennt keine gültige Auflösung (${decision.resolution ?? '?'})`);
+    }
+    if (decision.resolution === 'adopted' && !decision.adoptingNorm) {
+      throw new Error(`Entscheidung zu ${slug} weist die Quelle als übernommen aus, nennt aber keine ostdeutsche Änderungsvorschrift`);
+    }
+    if (decision.slug !== slug) throw new Error(`Entscheidung zu ${slug} nennt den abweichenden Slug ${decision.slug}`);
+  }
+  const postCutoffSkipped = plan.entries.filter((entry) => entry.postCutoffResolution && entry.action === 'SKIP');
   for (const [sourceId, decision] of Object.entries(sunsetDecisions.decisions ?? {})) {
     const planned = plan.entries.find((candidate) => candidate.sourceId === sourceId);
     if (planned && decision.slug && planned.canonicalSlug !== decision.slug && reportEntriesSlug(report, sourceId) !== decision.slug) {
@@ -511,13 +573,15 @@ async function main() {
         if (fetchedEnvelopes.has(component.envelopeSourceId)) {
           const fetched = fetchedEnvelopes.get(component.envelopeSourceId);
           const html = await readFile(resolve(ROOT, fetched.rawCacheFile), 'utf8');
-          envelopeBody = parseRevosaxSnapshot(html, { url: fetched.url }).body;
-          envelopeSource = { objectKey: fetched.objectKey, sha256: fetched.sha256, url: fetched.url, retrievedAt: fetched.retrievedAt, sourceValidFrom: fetched.sourceValidFrom, sourceValidTo: fetched.sourceValidTo };
+          const parsedEnvelope = parseRevosaxSnapshot(html, { url: fetched.url });
+          envelopeBody = parsedEnvelope.body;
+          envelopeSource = { objectKey: fetched.objectKey, sha256: fetched.sha256, url: fetched.url, retrievedAt: fetched.retrievedAt, sourceValidFrom: fetched.sourceValidFrom, sourceValidTo: fetched.sourceValidTo, fsnNumber: parsedEnvelope.fsnNumber ?? null };
         } else {
           const envelopeEntry = reportEntries.get(component.envelopeSourceId);
           if (!envelopeEntry?.parsedCacheFile) throw new Error(`${planned.sourceId}: Mantelvorschrift ${component.envelopeSourceId} nicht im Stagingbericht`);
-          envelopeBody = (await readJson(resolve(ROOT, envelopeEntry.parsedCacheFile))).original.body;
-          envelopeSource = { objectKey: objectKeyFor(baselineDate, envelopeEntry.sourceId), sha256: envelopeEntry.sourceSha256, url: envelopeEntry.sourceUrl, retrievedAt: envelopeEntry.retrievedAt, sourceValidFrom: envelopeEntry.sourceValidFrom, sourceValidTo: envelopeEntry.sourceValidTo ?? null };
+          const parsedEnvelope = (await readJson(resolve(ROOT, envelopeEntry.parsedCacheFile))).original;
+          envelopeBody = parsedEnvelope.body;
+          envelopeSource = { objectKey: objectKeyFor(baselineDate, envelopeEntry.sourceId), sha256: envelopeEntry.sourceSha256, url: envelopeEntry.sourceUrl, retrievedAt: envelopeEntry.retrievedAt, sourceValidFrom: envelopeEntry.sourceValidFrom, sourceValidTo: envelopeEntry.sourceValidTo ?? null, fsnNumber: parsedEnvelope.fsnNumber ?? null };
         }
         record = buildEnvelopeComponentRecord({
           entry,
@@ -587,6 +651,11 @@ async function main() {
     problemDetails: problems,
     protectedDetails: skipped,
     pruned,
+    postCutoff: {
+      skipped: postCutoffSkipped.length,
+      decisions: Object.values(postCutoffDecisions.decisions ?? {})
+        .reduce((acc, decision) => ({ ...acc, [decision.resolution]: (acc[decision.resolution] ?? 0) + 1 }), {}),
+    },
   };
 
   if (problems.length > 0) {

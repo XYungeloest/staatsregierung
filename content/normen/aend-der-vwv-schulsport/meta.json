@@ -2,16 +2,14 @@
   "id": "aend-der-vwv-schulsport",
   "slug": "aend-der-vwv-schulsport",
   "title": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Schulsport",
-  "shortTitle": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Schulsport",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung",
-    "Sport und Bildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Schulsport",
+    "Änd. der VwV Schulsport",
     "Zweite",
     "Kultus",
     "Änderung",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Schulsport“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-07-16",
   "effectiveDate": "2021-08-01",
@@ -35,8 +34,12 @@
       "sha256": "78de9beee24feb4c2c48d579dfa5daf4fbc9f377dda61ccfb9ae77db7c9e34a2",
       "lawId": "19256",
       "sourceValidFrom": "2021-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-schulsport"
   ]
 }

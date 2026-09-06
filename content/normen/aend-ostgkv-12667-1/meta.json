@@ -2,16 +2,14 @@
   "id": "aend-ostgkv-12667-1",
   "slug": "aend-ostgkv-12667-1",
   "title": "Zweites Gesetz zur Änderung des Gesetzes über den Kommunalen Versorgungsverband Ostdeutschland",
-  "shortTitle": "Zweites Gesetz zur Änderung des Gesetzes über den Kommunalen Versorgungsverband Ostdeutschland",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht",
-    "Haushaltsrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Gesetzes über den Kommunalen Versorgungsverband Ostdeutschland",
+    "Änd. OstGKV",
     "Zweites",
     "Änderung",
     "Kommunalen",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Gesetzes über den Kommunalen Versorgungsverband Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-12-14",
   "effectiveDate": "2013-01-01",
@@ -35,8 +34,12 @@
       "sha256": "2015047f0549e9058886daa76e71963d71e6fdade77f0b86d8e91e0f1fca5151",
       "lawId": "12667",
       "sourceValidFrom": "2013-01-01",
+      "fsnNumber": "242",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-den-kommunalen-versorgungsverband-ostdeutschland"
   ]
 }

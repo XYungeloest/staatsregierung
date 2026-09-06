@@ -1,24 +1,29 @@
 {
   "id": "ostdeutsches-denkmalschutzgesetz",
   "slug": "ostdeutsches-denkmalschutzgesetz",
-  "title": "Ostdeutsches Denkmalschutzgesetz",
+  "title": "Gesetz zum Schutz und zur Pflege der Kulturdenkmale im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Denkmalschutzgesetz",
-  "abbr": "OstDSchG",
   "shortTitleSource": "official",
+  "abbr": "OstDSchG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Denkmalschutz"
   ],
+  "primarySubject": "Denkmalschutz",
   "keywords": [
-    "OstDSchG",
     "Ostdeutsches Denkmalschutzgesetz",
-    "Denkmalschutzgesetz"
+    "Schutz",
+    "Pflege",
+    "Kulturdenkmale",
+    "Denkmalschutzgesetz",
+    "OstDSchG"
   ],
   "initialCitation": "Ostdeutsches Denkmalschutzgesetz vom 3. März 1993 (SächsGVBl. S. 229), das zuletzt durch Artikel 23 des Gesetzes vom 20. Dezember 2022 (SächsGVBl. S. 705) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Denkmalschutzgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1993-03-03",
   "sourceReferences": [
@@ -32,6 +37,7 @@
       "sha256": "c39847cb0256c91c4aff774fa6b9dcae30ba0eb9e6b69fa04048750f7a666385",
       "lawId": "5198",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "46-1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,16 +2,14 @@
   "id": "aend-sofs-und-soosa",
   "slug": "aend-sofs-und-soosa",
   "title": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Förderschulen",
-  "shortTitle": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Förderschulen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Förderschulen",
+    "Änd. SOFS und SOOSA",
     "Dritte",
     "Kultus",
     "Änderung",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Förderschulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-07-31",
   "effectiveDate": "2023-08-29",
@@ -36,8 +35,12 @@
       "sha256": "715a34a466aee7962c725520a06ab55f419ed31e5ca236f7e52132ece0889b7d",
       "lawId": "20183",
       "sourceValidFrom": "2023-08-29",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-foerderschulen"
   ]
 }

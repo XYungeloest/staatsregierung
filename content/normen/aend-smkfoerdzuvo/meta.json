@@ -2,16 +2,14 @@
   "id": "aend-smkfoerdzuvo",
   "slug": "aend-smkfoerdzuvo",
   "title": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Förderzuständigkeitsverordnung SMK",
-  "shortTitle": "Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Förderzuständigkeitsverordnung SMK",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Sport und Bildung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Förderzuständigkeitsverordnung SMK",
+    "Änd. SMKFördZUvO",
     "Dritte",
     "Kultus",
     "Sport",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verordnung des Ostdeutschen Staatsministeriums für Kultus und Sport zur Änderung der Förderzuständigkeitsverordnung SMK“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-04-01",
   "effectiveDate": "2010-05-15",
@@ -36,8 +35,12 @@
       "sha256": "5d84ff5dc3a326f95ed9bd804815c34c2e2e2418cd1dbcc627ac562945e75baa",
       "lawId": "11362",
       "sourceValidFrom": "2010-05-15",
+      "fsnNumber": "55",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderzustaendigkeitsverordnung-smk"
   ]
 }

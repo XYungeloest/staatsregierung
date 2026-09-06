@@ -2,12 +2,11 @@
   "id": "aend-altersgrenzenverordnung",
   "slug": "aend-altersgrenzenverordnung",
   "title": "Änderung der Altersgrenzenverordnung",
-  "shortTitle": "Änd. Altersgrenzenverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. Altersgrenzenverordnung",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-beamtenrechtlicher-verordnungen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Altersgrenzenverordnung“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Altersgrenzenverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-08-20",
   "effectiveDate": "2009-09-06",
@@ -32,6 +32,7 @@
       "sha256": "e1cb1a78aea8e5bdc23f7abac33f9323a25d8a2399bf2b0d1e2b737ace5a927a",
       "lawId": "10937",
       "sourceValidFrom": "2009-09-06",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

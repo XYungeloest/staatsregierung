@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-naturschutzgesetz",
   "slug": "ostdeutsches-naturschutzgesetz",
-  "title": "Ostdeutsches Naturschutzgesetz",
+  "title": "Gesetz über Naturschutz und Landschaftspflege im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Naturschutzgesetz",
-  "abbr": "OstNatSchG",
   "shortTitleSource": "official",
+  "abbr": "OstNatSchG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "OstNatSchG",
     "Ostdeutsches Naturschutzgesetz",
-    "Naturschutzgesetz"
+    "Naturschutz",
+    "Landschaftspflege",
+    "Naturschutzgesetz",
+    "OstNatSchG"
   ],
   "initialCitation": "Ostdeutsches Naturschutzgesetz vom 6. Juni 2013 (SächsGVBl. S. 451)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Naturschutzgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2013-06-06",
   "sourceReferences": [
@@ -33,6 +37,7 @@
       "lawId": "12836",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-08-16",
+      "fsnNumber": "653-2/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

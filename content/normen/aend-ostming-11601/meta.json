@@ -2,13 +2,12 @@
   "id": "aend-ostming-11601",
   "slug": "aend-ostming-11601",
   "title": "Änderung des Ostdeutschen Ministergesetzes",
-  "shortTitle": "Änd. OstMinG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd. OstMinG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2011-2012",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstMinG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Ministergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-12-15",
   "effectiveDate": "2011-01-01",
@@ -33,6 +33,7 @@
       "sha256": "7b661dda43f3412b47e06e3cdfe0c8aa984c00214408e962be66c176c711b5fd",
       "lawId": "11601",
       "sourceValidFrom": "2011-01-01",
+      "fsnNumber": "111",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

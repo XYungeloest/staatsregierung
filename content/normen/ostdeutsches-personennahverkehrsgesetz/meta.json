@@ -2,14 +2,13 @@
   "id": "ostdeutsches-personennahverkehrsgesetz",
   "slug": "ostdeutsches-personennahverkehrsgesetz",
   "title": "Ostdeutsches Personennahverkehrsgesetz",
-  "shortTitle": "Ostdeutsches Personennahverkehrsgesetz",
   "abbr": "ÖPNVG",
-  "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Mobilität und öffentliche Infrastruktur"
+    "Verkehr"
   ],
+  "primarySubject": "Verkehr",
   "keywords": [
     "ÖPNVG",
     "Gesetz über den öffentlichen Personennahverkehr im Freistaat Ostdeutschland",
@@ -23,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Gesetz über den öffentlichen Personennahverkehr im Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1995-12-14",
   "sourceReferences": [
@@ -35,7 +35,8 @@
       "retrievedAt": "2026-08-23",
       "sha256": "a1199f68ee4755d13a8b558a62096069b2818f408bb6771141278779d86dc340",
       "lawId": "3863",
-      "sourceValidFrom": "2012-03-01"
+      "sourceValidFrom": "2012-03-01",
+      "fsnNumber": "472-3"
     },
     {
       "kind": "amendment-source",

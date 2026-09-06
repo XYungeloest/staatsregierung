@@ -2,16 +2,14 @@
   "id": "aend-rl-digitale-schulen",
   "slug": "aend-rl-digitale-schulen",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen",
+    "Änd. RL Digitale Schulen",
     "Kultus",
     "Änderung",
     "Digitale",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-06-15",
   "effectiveDate": "2020-06-15",
@@ -35,8 +34,12 @@
       "sha256": "dbc78ee1ada6129d30cbd02b12a252e7b59fb3f5fe62b6ef6f11213a7104419a",
       "lawId": "18740",
       "sourceValidFrom": "2020-06-15",
+      "fsnNumber": "5572",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-digitale-schulen"
   ]
 }

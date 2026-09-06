@@ -2,14 +2,13 @@
   "id": "aend-voermpsta",
   "slug": "aend-voermpsta",
   "title": "Verordnung des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VO Ermittlungspersonen Staatsanwaltschaft",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VO Ermittlungspersonen Staatsanwaltschaft",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VO Ermittlungspersonen Staatsanwaltschaft",
+    "Änd. VOErmPStA",
     "Justiz",
     "Änderung",
     "Ermittlungspersonen",
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VO Ermittlungspersonen Staatsanwaltschaft“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-10-07",
   "effectiveDate": "2015-10-31",
@@ -33,8 +33,12 @@
       "sha256": "03929dd2cb63832bdeb3e8f532b6363c01b2ed74e085e40abcaa556bea697d47",
       "lawId": "16651",
       "sourceValidFrom": "2015-10-31",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vo-ermittlungspersonen-staatsanwaltschaft"
   ]
 }

@@ -2,14 +2,13 @@
   "id": "aend-vwv-donot",
   "slug": "aend-vwv-donot",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Notardienstordnung",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Notardienstordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Notardienstordnung",
+    "Änd. VwV DONot",
     "Justiz",
     "Demokratie",
     "Europa",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Notardienstordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-05-04",
   "effectiveDate": "2023-06-01",
@@ -35,8 +35,12 @@
       "sha256": "032e8638f153acdab8e67795d31c68d5ad168a7f39a404c402ca76a21cbf9dd2",
       "lawId": "19965",
       "sourceValidFrom": "2023-06-01",
+      "fsnNumber": "302",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-notardienstordnung"
   ]
 }

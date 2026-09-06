@@ -44,6 +44,13 @@
  */
 
 export const REFERENCE_DATE_PATH = 'packages/shared/src/config/editorial.json';
+/**
+ * Redaktionelles Stichwortregister: Eingabe der Stichworteinträge (law_norm_keywords). Eine
+ * Änderung berührt weder Fassungen noch Normkörper noch abgeleitete Daten; sie schreibt die
+ * Stichworteinträge aller Normen neu (`refreshKeywords`), weil ein Registerstichwort ein
+ * gleichlautendes abgeleitetes Schlagwort derselben Norm ersetzt.
+ */
+export const KEYWORD_REGISTER_PATH = 'content/stichwortregister.json';
 /** Schemaänderungen erzwingen immer die Vollprojektion. */
 export const SCHEMA_TRIGGER_PATTERN = /^data\/recht\/d1\//u;
 export const LOGIC_CHANGE_MODES = ['full', 'narrow', 'ignore'];
@@ -115,10 +122,15 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
   let referenceDateChanged = false;
   let narrowLogic = false;
   let portalChanged = 0;
+  let registerChanged = false;
 
   for (const path of normalized) {
     if (path === REFERENCE_DATE_PATH && referenceDateSlugs) {
       referenceDateChanged = true;
+      continue;
+    }
+    if (path === KEYWORD_REGISTER_PATH) {
+      registerChanged = true;
       continue;
     }
     if (PORTAL_CONTENT_PATTERN.test(path)) {
@@ -161,6 +173,9 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
   }
 
   let derivedRebuild = false;
+  if (!full && registerChanged) {
+    reasons.push(`${KEYWORD_REGISTER_PATH}: Stichwortregister geändert, Stichworteinträge aller Normen neu`);
+  }
   if (!full && portalChanged > 0) {
     derivedRebuild = true;
     reasons.push(`${portalChanged} Portalgrundlage(n) (Themen/Presse) mit geänderten Normbezügen: abgeleitete Daten aller Normen neu`);
@@ -192,6 +207,7 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
     deletedPublications: [...deletedPublications].sort(),
     derivedRebuild: full ? false : (derivedRebuild || narrowLogic),
     refreshSearchDocuments: !full && narrowLogic,
+    refreshKeywords: !full && registerChanged,
     ignoredPaths: unknown,
     reasons,
   };
@@ -210,6 +226,7 @@ export function scopeSignature(scope) {
     deletedPublications: [...(scope.deletedPublications ?? [])].sort(),
     derivedRebuild: Boolean(scope.derivedRebuild),
     refreshSearchDocuments: Boolean(scope.refreshSearchDocuments),
+    refreshKeywords: Boolean(scope.refreshKeywords),
   });
 }
 
@@ -217,7 +234,7 @@ export function scopeSignature(scope) {
 export function isEmptyScope(scope) {
   return scope.mode === 'incremental' && scope.slugs.length === 0 && scope.deletedSlugs.length === 0
     && scope.publicationSlugs.length === 0 && (scope.deletedPublications ?? []).length === 0
-    && !scope.derivedRebuild && !scope.refreshSearchDocuments;
+    && !scope.derivedRebuild && !scope.refreshSearchDocuments && !scope.refreshKeywords;
 }
 
 /** Vergleicht zwei meta.json-Stände auf identitätsrelevante Änderungen. */

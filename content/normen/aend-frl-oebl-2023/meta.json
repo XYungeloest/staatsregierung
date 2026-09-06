@@ -2,15 +2,13 @@
   "id": "aend-frl-oebl-2023",
   "slug": "aend-frl-oebl-2023",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ökologischer/Biologischer Landbau",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ökologischer/Biologischer Landbau",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ökologischer/Biologischer Landbau",
+    "Änd. FRL ÖBL/2023",
     "Energie",
     "Klimaschutz",
     "Umwelt",
@@ -25,6 +23,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ökologischer/Biologischer Landbau“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-10-16",
   "effectiveDate": "2023-10-16",
@@ -39,8 +38,12 @@
       "sha256": "be5511bca5c932dff5eb4a2f11ae9b0007d7a6062e014d9401639ce238d53f68",
       "lawId": "20269",
       "sourceValidFrom": "2023-10-16",
+      "fsnNumber": "5563",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-oekologischer-biologischer-landbau"
   ]
 }

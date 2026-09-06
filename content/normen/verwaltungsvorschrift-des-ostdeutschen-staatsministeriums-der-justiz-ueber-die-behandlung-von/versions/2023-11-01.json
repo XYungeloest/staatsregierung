@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Kleinbetragsregelung",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Behandlung von Kleinbeträgen im Bereich der Justizverwaltung (Kleinbetragsregelung)",
   "shortTitle": "Kleinbetragsregelung",
-  "abbr": "Kleinbetragsregelung",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Kleinbetragsregelung vom 2. Dezember 1992 (SächsABl. 1993 S. 27), die zuletzt durch die Verwaltungsvorschrift vom 19. Dezember 2004 (SächsJMBl. 2005 S. 2) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 244)",
+  "citation": "Kleinbetragsregelung vom 2. Dezember 1992 (SächsABl. 1993 S. 27), die zuletzt durch die Verwaltungsvorschrift vom 19. Dezember 2004 (SächsJMBl. 2005 S. 2) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "c82bb5a3fa587ceb27b3d82d44c1f5188f6975cd522a446a738cc2182de4b6bb",
       "lawId": "4264",
       "sourceValidFrom": "2005-01-27",
+      "fsnNumber": "32-V92.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -41,14 +41,6 @@
           "label": "1",
           "title": "Einforderung und Einziehung kleiner Kostenbeträge",
           "children": [
-            {
-              "type": "item",
-              "label": "1",
-              "text": "Einforderung und Einziehung kleiner Kostenbeträge",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "1.1",
@@ -123,7 +115,7 @@
             {
               "type": "item",
               "label": "2",
-              "text": "Kleinbeträge im Geschäftsverkehr der Gerichtsvollzieher\nDie Auszahlung von Kleinbeträgen sowie die Einziehung und Zurückhaltung von kleinen Kostenbeträgen durch den Gerichtsvollzieher richten sich nach besonderen Bestimmungen.",
+              "text": "Die Auszahlung von Kleinbeträgen sowie die Einziehung und Zurückhaltung von kleinen Kostenbeträgen durch den Gerichtsvollzieher richten sich nach besonderen Bestimmungen.",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []
@@ -135,14 +127,6 @@
           "label": "3",
           "title": "Niederschlagung im Kostensoll",
           "children": [
-            {
-              "type": "item",
-              "label": "3",
-              "text": "Niederschlagung im Kostensoll",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "3.1",
@@ -166,14 +150,6 @@
           "label": "4",
           "title": "Kleine Kostenbeträge bei Prüfungen",
           "children": [
-            {
-              "type": "item",
-              "label": "4",
-              "text": "Kleine Kostenbeträge bei Prüfungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "4.1",
@@ -208,7 +184,7 @@
             {
               "type": "item",
               "label": "5",
-              "text": "Auszahlung von kleinen Kostenbeträgen\nVon der Auszahlung von kleinen Kostenbeträgen soll grundsätzlich abgesehen werden. Dies gilt nicht, wenn der Anspruchsberechtigte die Auszahlung verlangt. Im übrigen gelten die vorstehenden Bestimmungen entsprechend.",
+              "text": "Von der Auszahlung von kleinen Kostenbeträgen soll grundsätzlich abgesehen werden. Dies gilt nicht, wenn der Anspruchsberechtigte die Auszahlung verlangt. Im übrigen gelten die vorstehenden Bestimmungen entsprechend.",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []
@@ -223,7 +199,7 @@
             {
               "type": "item",
               "label": "6",
-              "text": "Kleinbetragsgrenzen bei Sondervermögen\nIst der Kostenschuldner ein Sondervermögen des Freistaates Ostdeutschland oder eine juristische Person des öffentlichen Rechts, so tritt unter der Voraussetzung, daß Gegenseitigkeit besteht, an die Stelle des Betrages von 5 EUR der Betrag von 25 EUR. Soweit sich Ansprüche gegen den Bund oder ein anderes Bundesland richten, liegt Gegenseitigkeit vor.",
+              "text": "Ist der Kostenschuldner ein Sondervermögen des Freistaates Ostdeutschland oder eine juristische Person des öffentlichen Rechts, so tritt unter der Voraussetzung, daß Gegenseitigkeit besteht, an die Stelle des Betrages von 5 EUR der Betrag von 25 EUR. Soweit sich Ansprüche gegen den Bund oder ein anderes Bundesland richten, liegt Gegenseitigkeit vor.",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []
@@ -235,14 +211,6 @@
           "label": "7",
           "title": "Ausgenommene Kleinbeträge",
           "children": [
-            {
-              "type": "item",
-              "label": "7",
-              "text": "Ausgenommene Kleinbeträge",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "7.1",

@@ -2,17 +2,14 @@
   "id": "aend-vwv-kooperationsverbund-fortbildung",
   "slug": "aend-vwv-kooperationsverbund-fortbildung",
   "title": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Justiz, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz und des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der VwV Kooperationsverbund-Fortbildung",
-  "shortTitle": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Justiz, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz und des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der VwV Kooperationsverbund-Fortbildung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Justiz, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz und des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der VwV Kooperationsverbund-Fortbildung",
+    "Änd. VwV Kooperationsverbund-Fortbildung",
     "Gemeinsame",
     "Innern",
     "Justiz",
@@ -29,6 +26,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern, des Ostdeutschen Staatsministeriums der Justiz, des Ostdeutschen Staatsministeriums der Finanzen, des Ostdeutschen Staatsministeriums für Kultus, des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz und des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der VwV Kooperationsverbund-Fortbildung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-09-04",
   "effectiveDate": "2017-11-03",
@@ -43,8 +41,12 @@
       "sha256": "57f55c60e2be551824ca40f17b559383b5d3e5729f2a0af9c98e0575af77e635",
       "lawId": "17420",
       "sourceValidFrom": "2017-11-03",
+      "fsnNumber": "245",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-kooperationsverbund-fortbildung"
   ]
 }

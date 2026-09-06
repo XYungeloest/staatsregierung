@@ -2,12 +2,11 @@
   "id": "aend-bgyso-19107",
   "slug": "aend-bgyso-19107",
   "title": "Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitle": "Änd. BGySO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. BGySO",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-schulordnungen-berufsbildender-schulen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. BGySO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-23",
   "effectiveDate": "2021-05-13",
@@ -34,6 +34,7 @@
       "sha256": "15714c3cb3f56223f85b202b50d62e7b41bd8f943623c4da50a2706ac4020ef9",
       "lawId": "19107",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

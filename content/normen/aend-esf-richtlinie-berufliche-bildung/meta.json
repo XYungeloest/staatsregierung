@@ -2,16 +2,13 @@
   "id": "aend-esf-richtlinie-berufliche-bildung",
   "slug": "aend-esf-richtlinie-berufliche-bildung",
   "title": "Erste Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der ESF-Richtlinie Berufliche Bildung",
-  "shortTitle": "Erste Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der ESF-Richtlinie Berufliche Bildung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Erste Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der ESF-Richtlinie Berufliche Bildung",
+    "Änd. ESF-Richtlinie Berufliche Bildung",
     "Erste",
     "Wirtschaft",
     "Arbeit",
@@ -25,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erste Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der ESF-Richtlinie Berufliche Bildung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-07-17",
   "effectiveDate": "2018-08-02",
@@ -40,8 +38,12 @@
       "lawId": "17792",
       "sourceValidFrom": "2018-08-02",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "559",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "esf-richtlinie-berufliche-bildung"
   ]
 }

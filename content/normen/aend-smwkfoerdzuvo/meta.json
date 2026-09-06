@@ -2,14 +2,13 @@
   "id": "aend-smwkfoerdzuvo",
   "slug": "aend-smwkfoerdzuvo",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst zur Änderung der Förderzuständigkeitsverordnung SMWK",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst zur Änderung der Förderzuständigkeitsverordnung SMWK",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst zur Änderung der Förderzuständigkeitsverordnung SMWK",
+    "Änd. SMWKFördZuVO",
     "Zweite",
     "Wissenschaft",
     "Kunst",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst zur Änderung der Förderzuständigkeitsverordnung SMWK“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-03-30",
   "effectiveDate": "2015-01-01",
@@ -34,8 +34,12 @@
       "sha256": "5ecfeae4e36c9bdcb02240b1b81f55f005923a2ab61e13db1e6930c71b2de16a",
       "lawId": "16018",
       "sourceValidFrom": "2015-01-01",
+      "fsnNumber": "55",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderzustaendigkeitsverordnung-smwk"
   ]
 }

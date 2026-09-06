@@ -16,6 +16,24 @@ sächsische Versionshistorie vor dem Stichtag werden importiert. Spätere Fassun
 ausschließlich aus ostdeutschen Verkündungen, geprüften Änderungsvorschriften und deterministischen
 Konsolidierungsregeln (`docs/NORM_WORKFLOW.md`).
 
+**Rechtsakte nach dem Stichtag.** Die sächsische Fundstellenpflege führt übernommene Vorschriften
+in jährlichen Bereinigungsvorschriften weiter („zuletzt enthalten in der Verwaltungsvorschrift vom
+27. November 2025 (SächsABl. SDr. …)“). Solche Aufnahmeklauseln ändern das Recht nicht und wirken
+nicht in Ostdeutschland; `scripts/lib/revosax-citation.mjs` entfernt sie aus der übernommenen
+Zitierung (`containmentDatesFromCitation`, `stripFutureContainmentClause`), Klauseln vor dem
+Stichtag bleiben erhalten. Ein sächsischer Rechtsakt, dessen Erlassdatum oder Fassungsbeginn nach
+dem Stichtag liegt – bei Artikeln einer Mantelvorschrift auch deren Fassungsbeginn –, gehört nicht
+zum übernommenen Rechtsstand: Der Materialisierungsplan führt ihn als `SKIP` mit dem Grund
+`post-cutoff-saxon-act`. Ausgenommen sind Fälle mit einer redaktionellen Entscheidung in
+`data/recht/revosax-post-cutoff-decisions.json` (Schlüssel ist der Slug; Felder `slug`,
+`revosaxLawId`, `resolution` `discard`|`adopted`|`open`, `adoptingNorm`, `basis`, `reason`,
+`decidedAt`): `adopted` nennt die ostdeutsche Änderungsvorschrift, die den späteren Zwischenstand
+als Ausgangsfassung übernimmt (Konsolidierungsweg), `open` hält den Fall begründet offen und lässt
+die Norm unverändert im Bestand (dokumentiert in `CONTENT_GAPS.md`), `discard` entfernt sie mit
+`--regenerate --prune-baseline`. `scripts/audit-norm-derivations.ts` prüft die Regel über den
+gesamten Bestand: Eine übernommene, unveränderte Norm nennt keinen Rechtsakt nach dem Stichtag und
+ist nicht Ziel einer Änderung oder Aufhebung mit späterem Datum.
+
 ## Architektur
 
 ```text
@@ -87,6 +105,13 @@ Optionen: `--stratified N` (gleichmäßige Stichprobe über alle Typen), `--limi
 abgelegt (`raw/` mit SHA-256-Metadaten, `parsed/`, `report.json`) und bei Wiederholungen aus dem
 Cache verwendet.
 
+Überschriften stehen genau einmal: REVOSax führt den Titel einer Gliederungseinheit zugleich im
+Attribut der Einheit und als erste Zeile ihres ersten Kindes. `stripDuplicatedHeading` entfernt die
+wiederholte Zeile; bleibt kein Text übrig, entfällt der Punkt und seine Unterpunkte rücken an seine
+Stelle. Gestrichen wird nur bei vollständiger Übereinstimmung ganzer Zeilen – ein Text, der
+lediglich mit demselben Wort beginnt, bleibt unverändert. Gesperrter Satz der Quelle
+(Amtsbezeichnungen, „s o l l“) wird bei der Rechtsüberleitung als gewöhnliches Wort übernommen.
+
 Fassungslogik: dynamische Treffer werden über die numerische Stammnorm-URL geladen und auf die
 tatsächlich angezeigte konkrete Fassung festgelegt; „Fassung gültig ab“ muss dem Treffer
 entsprechen und das Intervall den Stichtag abdecken, sonst wird die passende historische Fassung
@@ -102,6 +127,16 @@ Fehler werden klassifiziert (`http`, `parser`, `adapter`, `residual`, `validity`
 blockieren die Materialisierung (`attachment-only-content`, `multi-version-text-differs`,
 `multi-version-sibling-not-staged`). `parseRevosaxSnapshot()` ist der einzige Parser; ein zweiter
 Parser oder ein Plaintext-Fallback ist unzulässig.
+
+Die Kennzeile der Vorschriftenseite trägt die amtliche Form „Langtitel (Kurzbezeichnung –
+Abkürzung)“. `parseRevosaxSnapshot()` trennt beide Teile: der Langtitel wird als `longTitle`
+geführt, die Kurzbezeichnung als `shortTitle`, die Abkürzung als `abbr`; ein einteiliger
+Klammerzusatz ist je nach Form Abkürzung oder Kurzbezeichnung, Jahresspannen bleiben
+Titelbestandteil. Die Überschrift der Seite bleibt als `sourceTitle` Provenienz, weil REVOSax dort
+häufig nur die Kurzbezeichnung zeigt. Die Materialisierer setzen `title` deshalb aus dem Langtitel
+der Kennzeile beziehungsweise der amtlichen Trefferliste und übernehmen `shortTitle` und `abbr` nur,
+wenn sie die gemeinsamen Regeln in `scripts/lib/norm-title-rules.mjs` bestehen; abkürzungsartige
+Trefferlistenbezeichnungen („Änd. OstSFG“) bleiben Stichwort.
 
 ### 3. Rechtsüberleitung (Sachsen → Ostdeutschland)
 
@@ -165,13 +200,15 @@ npm run norms:revosax:plan-materialization
 npm run norms:revosax:materialize-baseline            # Prüfung ohne Schreiben
 npm run norms:revosax:materialize-baseline -- --write
 npm run norms:revosax:materialize-baseline -- --regenerate --write   # nur nach Adapter-/Regeländerungen
+npm run norms:revosax:materialize-baseline -- --regenerate --prune-baseline --write   # zusätzlich nicht mehr übernommene Baseline-Normen entfernen
 npm run content:check
 npm run norms:revosax:import-audit                    # versionierter Import-Audit
 ```
 
 Identität wird in dieser Reihenfolge geprüft: REVOSax-`lawId` in den Quellenreferenzen (ohne
 `envelope-snapshot`) → Quellen-URL → exakter Titel → exakte Kurzbezeichnung → exakte Abkürzung.
-Kein Fuzzy-Matching.
+Kein Fuzzy-Matching. Die Rückfallstufen greifen nur, wenn keine `lawId` vorliegt; das Titelmodell
+(Langtitel statt Kurzbezeichnung in `title`) verändert die Zuordnung deshalb nicht.
 
 | Aktion | Bedeutung |
 | --- | --- |
@@ -179,7 +216,7 @@ Kein Fuzzy-Matching.
 | `MATCH` | vorhandene Norm mit Fassung zum Stichtag; wird nicht verändert |
 | `PROTECT` | vorhandene Norm mit anderer lawId und ohne Stichtagsfassung oder mit späteren Ost-Fassungen bleibt unangetastet |
 | `REVIEW` | Identität oder Inhalt nicht eindeutig; blockiert `--write`, sofern nicht zurückgestellt |
-| `SKIP` | Alias derselben Fassung, textloser Eintrag, identischer Vorgängertext, Doppelerfassung, dokumentierte Entscheidung |
+| `SKIP` | Alias derselben Fassung, textloser Eintrag, identischer Vorgängertext, Doppelerfassung, dokumentierte Entscheidung, Rechtsakt nach dem Überleitungsstichtag |
 
 **Mantelbestandteile.** REVOSax führt die Artikel einer Mantelvorschrift als eigene Vorschriften
 ohne Lesetext. `scripts/classify-revosax-envelopes.mjs` ordnet sie ein (versioniert in
@@ -209,12 +246,37 @@ Begründung, Auflösung mit `canonicalSlug`, `DEFER`). Der Plan ist nur schreibb
 zurückgestellter `REVIEW`-Fall existiert. `CREATE`-Einträge erhalten `meta.json`, `history.json`
 und `versions/2023-11-01.json` mit R2-Provenienz (Objektschlüssel, amtliche URL, `lawId`,
 Abrufzeit, SHA-256, Gültigkeitsintervall, `sourceRole: official-snapshot`); das Erlassdatum stammt
-von der Fassungsseite oder der amtlichen Trefferliste – nie geschätzt. Ursprungsorgan, Sachgebiete,
+von der Fassungsseite oder der amtlichen Trefferliste – nie geschätzt. Ursprungsorgan,
 Schlagwörter und Kurzfassung leitet `scripts/lib/revosax-metadata.mjs` deterministisch ab (im
-Import-Audit als `derivedMetadata` gekennzeichnet). Der Lauf schreibt nichts, solange ein Eintrag
+Import-Audit als `derivedMetadata` gekennzeichnet). Die abgeleitete Kurzfassung trägt im Datensatz
+`summarySource: "derived"`; sie ist eine Erschließungshilfe, wird öffentlich nicht ausgespielt und
+nicht als Suchtext indexiert. Die Schlagwörter enthalten zusätzlich die Bezeichnung der amtlichen
+Trefferliste, damit auch eine nicht als Kurztitel übernommene Kurzbezeichnung auffindbar bleibt.
+
+Die Sachgebiete folgen der amtlichen Systematik. `scripts/lib/revosax-parser.mjs` liest die
+Fundstellennummer aus dem Kasten „Fundstelle und systematische Gliederungsnummer“ der
+Marginalspalte (`fsnNumber`, zum Beispiel `612-3.10/2`; der Adapter reicht sie unverändert
+durch), der Materializer schreibt sie in die Quellenangabe der Norm. `inferSubjectAssignment`
+ordnet in dieser verbindlichen Reihenfolge zu und meldet die Herkunft als `basis`: eigene
+Fundstellennummer (`fsn`), Fundstellennummer einer anderen Fassung derselben Vorschrift
+(`fsn-sibling`), verbundene Norm (`related-norm`), eindeutiger Titeltreffer auf die Stammnorm
+(`stem-title`), Regel aus der Dokumentart (`type-rule`: Förderrichtlinie → 55 mit Förderbereich,
+Staatsvertrag → 14), frühere redaktionelle Zuordnung (`legacy`), Titelschlüsselwort (`keyword`)
+und zuletzt die Prüfliste `data/recht/subject-assignment-review.json` (`review`).
+Zweitsachgebiete stammen nur aus amtlichen Signalen. Die einmalige Umstellung des Bestands leistet
+`node --experimental-strip-types scripts/migrate-subject-systematics.mjs --write` (ohne `--write`
+nur Kennzahlen); sie liest die Fundstellennummern aus `meta.json` und ersatzweise aus dem lokalen
+Rohcache. Im Import-Audit zählt `derivedMetadata.subjects` die amtlich belegten gegen die
+abgeleiteten Zuordnungen; `derivedMetadata.fields` nennt nur noch Schlagwörter und Kurzfassung. Der Lauf schreibt nichts, solange ein Eintrag
 nicht im R2-Manifest archiviert ist, ein Zielverzeichnis existiert oder ein Datensatz die Regeln
 verletzt. `--regenerate` schreibt reine Baseline-Normen nach Adapter- oder Regeländerungen neu;
 Normen mit weiteren Fassungen oder anderen Quellen sind geschützt.
+
+`summary.postCutoff` zählt die Rechtsakte nach dem Stichtag (`sourcesAfterCutoff`), die bereinigten
+Aufnahmeklauseln (`citationsWithContainmentClauseStripped`), die Entscheidungen nach Auflösung, die
+übersprungenen Einträge und die übernommenen Normen, die ohne dokumentierte Adoption von einem
+solchen Rechtsakt geändert würden (`unchangedTargetsOfPostCutoffAmends`, muss 0 sein);
+`review-flags.json` weist jeden Fall mit der Prüfmarke `post-cutoff-source` aus.
 
 Der versionierte Import-Audit `data/recht/revosax-import-audit/` (`summary.json`, `skips.json`,
 `envelopes.json`, `review-flags.json`) entsteht deterministisch aus den Stagingartefakten
@@ -272,7 +334,11 @@ Primärschlüssel, Volltextstichproben; normalisiert werden nur `updated_at`, `l
 der inkrementelle Umfang des Syncs – zuerst mit der Logikänderung als datenneutral (`ignore`),
 dann als enge Logikprojektion (`narrow`: Suchdokumente, abgeleitete Daten und abgeleitete
 Normspalten aller Normen) – auf die Basis angewendet exakt das Ziel ergibt. Ergebnis `identity`
-(nur Identität und Laufzeitmetadaten), `incremental` (nachgewiesener Umfang) oder `full`
+(nur Identität und Laufzeitmetadaten: der Sync berechnet dann keine korpusweiten Ableitungen,
+sondern lädt den Bestand nur, um den leeren Umfang zu bestimmen und die korpusabgeleiteten
+Zeilen von `law_runtime_meta` neu zu schreiben – `isMetadataOnlyRun`/`planRun` in
+`scripts/sync-recht-d1.mjs`; jeder nicht leere oder nicht eindeutig datenneutrale Umfang nimmt
+den normalen fail-closed Projektionsweg), `incremental` (nachgewiesener Umfang) oder `full`
 (abweichende Tabellen werden genannt; Schemaänderungen sind immer `full`). Die Nachweisdatei ist
 an Basis- und Ziel-Commit, alte und neue Identität, Scope, Comparator-Version und Umfangssignatur
 gebunden; `--equivalence-proof <Datei>` prüft jede Bindung gegen die gespeicherte Identität in D1
@@ -291,10 +357,19 @@ Einstiegspunkts `scripts/sync-recht-d1.mjs` (`scripts/lib/d1-projection-closure.
 mit esbuild: statische und literale dynamische Importe, Re-Exports und Sammeldateien,
 JSON-Imports, Workspace-Pakete über ihre `exports`) plus das Schema unter `data/recht/d1/` und die
 Versionen externer Pakete im Abschluss; `npm run norms:runtime:d1-closure` zeigt die Dateien.
-Reine Darstellung in denselben Verzeichnissen (`norms/diff-render.ts`, `norms/diff.ts`,
-`recht-search/search-query.ts`, die Sammeldatei `norms/index.ts`) gehört nicht dazu, Dateien
-außerhalb der früheren Wurzeln, die der Sync erreicht (`portal/schema.ts`, `repository-root.ts`),
-schon. Ist der Abschluss unsicher – ein dynamischer Import mit nicht literalem Argument, eine
+Reine Darstellung in denselben Verzeichnissen gehört nicht dazu; sie liegt in eigenen Modulen,
+die kein Modell-Modul importiert: `config/site.ts` (Bezeichnungen, Navigation, Kontakt, SEO,
+`targetLabels`), `norms/origin-presentation.ts` (Herkunftsbadge und Erläuterung),
+`norms/display.ts` (Datumsformat, Fundstellenparser, verlinkter Text, Gliederung),
+`norms/diff-render.ts`, `norms/diff.ts`, `recht-search/search-query.ts`, die Sammeldatei
+`norms/index.ts` und der vollständige Portal-Loader (`portal/loader.ts`, `portal/organization.ts`,
+`portal/dates.ts`). Im Abschluss liegen dagegen `config/site-routing.ts` (Origins, Zielsite und
+Pfadtabellen: die Routenhelfer schreiben Adressen in Suchdokumente und Portalbezüge),
+`norms/presentation.ts` (projizierte Anzeigetexte und Anker), `norms/origin.ts` (Herkunftsmodell
+und `formatNormOriginKind`), die schmalen Themen- und Presse-Loader
+(`portal/norm-portal-content.ts`, `portal/json-collection.ts`) sowie Dateien außerhalb der
+früheren Wurzeln, die der Sync erreicht (`portal/schema.ts`, `repository-root.ts`). Die Trennung
+ist eine Modulgrenze, keine Ignore-Liste. Ist der Abschluss unsicher – ein dynamischer Import mit nicht literalem Argument, eine
 esbuild-Warnung, ein fehlender Einstieg –, zählt fail-closed die konservative Obermenge. Der Sync
 legt Fingerabdruck, Scope und `sync_state = complete` in `law_runtime_meta` ab; ein Lauf bei
 identischer Identität ist ein No-op. Ein Fixture kann nie die Identität des Vollbestands behaupten.
@@ -304,11 +379,9 @@ Laufzeitmetadaten).
 
 **Base-State-Guard.** Ein `--git-diff`-Sync schreibt erst, wenn D1 genau die Identität des
 Basis-Refs trägt (Scope `full`, Zustand `complete`); sonst fail-closed oder mit `--recover` eine
-markierte Recovery-Vollprojektion mit dem Profil `recovery`. Während des Übergangs auf den
-Abschluss-Algorithmus gilt zusätzlich die frühere Identität des Basis-Refs (`legacyFingerprint`,
-Logikhash über ganze Verzeichnisse) als verifizierte Basis, damit eine vor dem Übergang
-geschriebene D1 keine Recovery auslöst (`TODO.md`). Der inkrementelle Lauf entwertet die
-Identität vor dem ersten Schreibzugriff und schreibt sie erst am erfolgreichen Ende; ein
+markierte Recovery-Vollprojektion mit dem Profil `recovery`. Es gibt genau eine akzeptierte
+Basis: die Identität des Basis-Refs, berechnet aus dem Code-Abschluss. Der inkrementelle Lauf
+entwertet die Identität vor dem ersten Schreibzugriff und schreibt sie erst am erfolgreichen Ende; ein
 abgebrochener Lauf wird beim nächsten automatischen Lauf erkannt und repariert. Manuelle Teilsyncs
 (`--slug`, `--delete`, `--publications`, `--changed-paths`) verlangen eine vollständige Identität
 im selben Scope, schreiben aber keine neue Identität.
@@ -334,17 +407,27 @@ Anmeldefehler werden je Datei wiederholt. `--local [--persist-to <Verzeichnis>]`
 Miniflare-D1, `--apply-schema` spielt davor die Migrationen ein (nur lokal). Token und
 Anmeldedaten werden nie committed.
 
-**Testfixture.** `--corpus-filter data/recht/runtime-fixture.json` (nur lokal oder gegen Staging,
-nie gegen `ostrecht-recht`) beschränkt den Bestand auf die Fixture-Normen; Ableitungen und
-Übersichtsmetadaten beziehen sich dann auf das Fixture, die Identität trägt den Fixture-Scope.
+**Testfixture.** `data/recht/runtime-fixture.json` ist ein synthetisches Manifest
+(`"source": "synthetic"`): Rollen, Fassungskennungen, Verkündungsrollen und Suchwörter des Bestands
+aus `tests/helpers/fixture-corpus.ts` (Normen, Verkündungen, Themen, Pressemitteilungen – derselbe
+Builder wie in den Unit-Tests). Der Seed (`scripts/d1-runtime-seed.mjs`, `OSTRECHT_D1_FIXTURE`)
+projiziert diesen Bestand über `scripts/lib/runtime-fixture.mjs` ohne `content/`; der Scope lautet
+`fixture:<Pfad>@<Hash über Manifest und Git-Blob des Builders>`, und in diesem Scope ersetzt derselbe
+Hash Rechtsbestand und Portalgrundlagen in der Identität – redaktionelle Änderungen unter `content/`
+bewegen weder Fixture-Seed noch Screenshot-Baselines. Der Sync importiert den Builder nie (er liegt
+außerhalb des Code-Abschlusses); `--corpus-filter` des Syncs akzeptiert nur Slug-Listen realer
+Normen (`{ "slugs": [...] }`, nur lokal oder gegen Staging, nie gegen `ostrecht-recht`) und lehnt
+das synthetische Manifest ab. Nach Änderungen am Builder wird das Manifest neu geschrieben
+(`node --experimental-strip-types --input-type=module -e "import('./scripts/lib/runtime-fixture.mjs').then((m) => m.writeFixtureManifest())"`);
+`tests/runtime-fixture-manifest.test.ts` prüft Übereinstimmung und Rollenabdeckung.
 
 **Verifikation** (`scripts/verify-recht-d1.mjs`): Zähler (Normen, Fassungen, Blöcke, Quellen,
 abgeleitete Zeilen, Verkündungen, Suchdokumente, Suchzeilen, Stichwörter), `corpus_hash`,
 Projektionsidentität und Scope, `sync_state`, optional FTS5-Integrität (`--fts-integrity`) und
 deterministische Stichproben (erste und letzte übernommene Norm, eine Norm mit mehreren
 Fassungen, eine übernommene Änderungsvorschrift, ein Mantelbestandteil, die größte Norm).
-`--local` prüft die Miniflare-Projektion, `--corpus-filter` ein Fixture, `--database` eine andere
-Zieldatenbank.
+`--local` prüft die Miniflare-Projektion, `--corpus-filter` ein Fixture (synthetisch: Erwartungen
+aus dem Builder; Slug-Liste: aus `content/`), `--database` eine andere Zieldatenbank.
 
 ## Lokaler D1-Seed für Tests
 
@@ -355,7 +438,8 @@ liefert `scripts/d1-runtime-seed.mjs` als portablen SQLite-Snapshot:
 ```sh
 npm run norms:runtime:d1-seed-fingerprint                  # deterministischer Seed-Fingerabdruck (Cache-Key)
 npm run norms:runtime:d1-seed                              # Vollbestand: Snapshot bauen/verifizieren/einsetzen
-OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json npm run norms:runtime:d1-seed   # Fixture
+OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json npm run norms:runtime:d1-seed   # synthetisches Fixture (tests/helpers/fixture-corpus.ts)
+OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json npm run norms:runtime:d1-verify -- --local --fts-integrity --corpus-filter data/recht/runtime-fixture.json   # Fixture-Projektion prüfen
 node --experimental-strip-types scripts/d1-runtime-seed.mjs verify   # Snapshot gegen den Arbeitsbaum prüfen
 node --experimental-strip-types scripts/d1-runtime-seed.mjs ensure --force   # Neuaufbau erzwingen
 npm run norms:runtime:d1-verify -- --local --fts-integrity  # eingesetzte Projektion prüfen
@@ -380,33 +464,80 @@ npm run norms:runtime:d1-verify -- --local --fts-integrity  # eingesetzte Projek
 
 ## Schema
 
-`data/recht/d1/0001_rechtsbestand.sql` bis `0007_search_candidate_filters.sql`; produktiv manuell mit
+`data/recht/d1/0001_rechtsbestand.sql` bis `0008_inventory_sort_word.sql`; produktiv manuell mit
 `wrangler d1 execute <Datenbank> --remote --file …` einspielen – zuerst lokal (`--apply-schema`),
 dann Staging, dann Produktion, nie automatisch.
 
 | Tabelle | Inhalt |
 | --- | --- |
-| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabenindex, `is_amendment`, `last_change_date` = jüngste Rechtsänderung bis zum Stichtag ohne bloße Hinweise: Standardsortierung der Übersichten und der Suche ohne Suchbegriff, `last_activity_date` = jüngstes Ereignis einschließlich Hinweisen für `lastmod`) sowie `meta_json`, `history_json` |
+| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabengruppe `index_letter` und Sortierschlüssel `sort_word` des Ordnungsworts, Grundmenge `in_inventory`, Förderbereich `funding_area`, `is_amendment`, `last_change_date` = jüngste Rechtsänderung bis zum Stichtag ohne bloße Hinweise: Standardsortierung der Übersichten und der Suche ohne Suchbegriff, `last_activity_date` = jüngstes Ereignis einschließlich Hinweisen für `lastmod`) sowie `meta_json`, `history_json` |
 | `law_versions` | Fassungen ohne Körper (`version_json`), Vollzitat, Verkündungsbezug (`publication_ref_json` sowie `publication_source` und `publication_year` als Filterspalten), zeitliche Einordnung (`temporal_kind`) |
 | `law_version_blocks` | äußere Body-Blöcke als JSON; große Blöcke in Teile (`part_index`) zerlegt |
 | `law_source_objects` | Quellenreferenzen je Fassung, bei R2 mit `object_key` |
 | `law_norm_derived` | Beziehungen, Empfehlungen, Herkunft, Textverweise, Portalbezüge |
 | `law_publications` | Verkündungen als JSON |
 | `law_search_documents` | Suchdokument-Metadaten je Fassung (ohne Stichtag; Fassungsbezeichnung entsteht im Browser) |
-| `law_search_units` | Provisionen der geltenden Fassung, relational mit Indizes auf `norm_id`, `slug`, `(norm_id, version_id)` |
+| `law_search_units` | Provisionen der geltenden Fassung, relational mit Indizes auf `norm_id`, `slug`, `(norm_id, version_id)`; dazu je Fassung eine Ergänzungseinheit (`supplement`) und eine Metadateneinheit (`metadata`: Kurzfassung, Stichwörter, Sachgebiete, Ressort, Zitate, Verkündungsbezeichnungen und frühere Bezeichnungen). Beide sind Suchtext, aber keine Trefferstelle: der Ausschnitt kommt nie aus ihnen. Der Text einer Provision beginnt beim Wortlaut; Nummer und Überschrift stehen in den eigenen Spalten `label` und `heading` |
 | `law_search` | FTS5-Index mit externem Inhalt über `law_search_units`, per Trigger rowid-genau geführt |
-| `law_norm_subjects`, `law_norm_history`, `law_norm_keywords` | Sachgebiete, Historieneinträge (Datumsindex), Stichwortindex je Buchstabengruppe |
+| `law_norm_subjects`, `law_norm_history`, `law_norm_keywords` | Sachgebiete, Historieneinträge (Datumsindex), Stichworteinträge je Buchstabengruppe mit Herkunft (`kind`: `register`, `abbr`, `short-title`, `derived`) |
 | `law_runtime_meta` | Identität, Zustand, Zähler, `corpus_hash` und vorberechnete Metadatenzeilen (Suchfilter, Sachgebiete, Bestandszahlen) |
+
+Die Metadatenzeile `projection_fingerprint` dient der Laufzeit zugleich als Schlüssel des
+Randzwischenspeichers der erzeugten Fassungs-PDF (`/norm/<slug>/version/<versionId>/fassung.pdf`,
+`NormStore.getProjectionFingerprint`): jeder Sync setzt einen neuen Fingerabdruck und entwertet
+damit alle zwischengespeicherten Dokumente, sodass geänderte Titel oder Vollzitate nie veraltet
+ausgeliefert werden.
 
 Kostenpfad: Löschungen laufen nur über Indizes (`law_search_units` mit AFTER-DELETE-Trigger, nie
 ein Vollscan des FTS5-Index); die Vollprojektion leert die Tabellen einmalig (FTS5 `delete-all`),
 schreibt ohne normweise Löschungen und setzt die Laufzeitmetadaten erst am erfolgreichen Ende.
 Die Laufzeit lädt nie den Korpus: Übersichten lesen `NormSummary`-Zeilen mit SQL-Filtern, A–Z und
 Rechtsentwicklung paginieren serverseitig, korpusweite Zahlen kommen aus Metadatenzeilen, die
-Suche wählt Kandidaten über den FTS5-Index; jeder Filter, den die Projektion trägt, läuft bereits
-in SQL (Typ, Herkunft, Ressort, Sachgebiet, Status, Fassungsart, Verkündungsblatt, Jahr,
-Änderungsvorschriften), damit `total` dieselbe Menge zählt wie die Trefferliste.
+Suche blättert echt über den FTS5-Index; jede Bedingung einer Suchanfrage läuft in SQL (Typ,
+Herkunft, Ressort, Sachgebiet, Status, Fassungsart, Verkündungsblatt, Jahr, Ausgabennummer, Seite,
+Geltungstag, Gültigkeitszeitraum, Suchbegriffe, Wortfolgen, Ausschlussbegriffe, Strukturadressen
+und die Grundmenge der Änderungsvorschriften), damit `total` dieselbe Menge zählt wie die
+Trefferliste. Je Anfrage liest sie eine Seite von höchstens hundert Vorschriften, deren
+Suchdokumente und höchstens acht Einheiten je Vorschrift.
 `tests/recht-runtime-d1-queries.test.ts` protokolliert die Abfrageformen jeder Route.
+
+### Grundmenge, Ordnungswort, Förderbereich und Stichwortart (Migration 0008)
+
+`0008_inventory_sort_word.sql` ergänzt vier projizierte Werte:
+
+| Spalte | Bedeutung |
+| --- | --- |
+| `law_norms.in_inventory` | Gehört die Vorschrift zur Grundmenge? `0` für übernommene Änderungsvorschriften (Normtyp `aenderungsvorschrift` mit Herkunft `inherited-unchanged`/`inherited-amended`). Eine Definition: `isInheritedAmendment`/`INVENTORY_SQL` in `packages/shared/src/lib/norms/inventory.ts`. |
+| `law_norms.sort_word` | Vergleichsschlüssel des Ordnungsworts (`getNormSortKey`): kleingeschrieben, Umlaute aufgelöst, ß als ss. SQLite sortiert binär – ohne aufgelöste Umlaute stünde „Ärzte“ hinter „Zoll“. `index_letter` folgt demselben Ordnungswort. |
+| `law_norms.funding_area` | Amtlicher Förderbereich (550–559) einer Förderrichtlinie aus `meta.fundingArea`. |
+| `law_norm_keywords.kind` | Herkunft eines Stichworteintrags: `register` (redaktionelles Stichwortregister), `abbr`, `short-title`, `derived`. |
+
+Neue Sync-Eingabe: `content/stichwortregister.json` (Loader
+`packages/shared/src/lib/norms/register.ts`). Die Datei zählt zu `CORPUS_ROOTS` der
+Projektionsidentität und zum `corpus_hash`; eine Änderung ergibt den Umfang `refreshKeywords`
+(`scripts/lib/d1-sync-scope.mjs`), der ausschließlich die Stichworteinträge aller Normen neu
+schreibt – keine Fassungen, keine Normkörper, keine abgeleiteten Daten.
+
+Folge für den nächsten Sync: Schema und Projektionslogik ändern sich, damit auch die
+Projektionsidentität; nötig ist eine **Vollprojektion** (`--full --budget full`), zuerst lokal, dann
+gegen `ostrecht-recht-staging`, dann produktiv. Reihenfolge wie immer: Migration einspielen, dann
+projizieren. Die Migration füllt `in_inventory` aus Normtyp und Herkunft und setzt `sort_word` auf
+`sort_title`, damit zwischen Migration und Vollprojektion weder eine falsche Bestandszahl noch eine
+leere Sortierung entsteht; erst die Vollprojektion schreibt das tatsächliche Ordnungswort und die
+Buchstabengruppen.
+
+**Expand/Contract.** 0008 ist rein additiv: Der alte Worker liest die migrierte Datenbank
+unverändert weiter. Der neue Worker toleriert umgekehrt eine Datenbank, die 0008 hat, aber noch
+nicht neu projiziert ist – er sortiert über `COALESCE(n.sort_word, n.sort_title)` (`SORT_WORD_SQL`
+in `apps/recht/src/lib/runtime/store.ts`), `in_inventory` steht per Vorgabe auf `1` und `kind` auf
+`derived`. Die Projektion darf deshalb vor oder nach dem Worker-Deployment laufen; ohne Migration
+0008 dagegen beantwortet der neue Worker jede Rechtsroute mit 500, weil `SUMMARY_SELECT` die neuen
+Spalten bedingungslos liest. Migration also zuerst, dann projizieren, dann deployen.
+
+Änderungen an den Einheiten sind eine Vollprojektion: `law_search_units` trägt seit der Umstellung
+der Trefferausschnitte den Wortlaut ohne wiederholte Überschrift und zusätzlich die
+Metadateneinheit. Der Äquivalenznachweis (`npm run norms:runtime:d1-prove`) ergibt deshalb `full`;
+der Ablauf steht in `docs/DEPLOYMENT_RUNBOOK.md` (lokal, Staging, Produktion).
 
 ### Bedeutung von `last_change_date` (Migration 0007)
 
@@ -458,8 +589,8 @@ laufen dort, bevor die produktive Datenbank berührt wird (`tests/staging-wrangl
 Datenbank nur (`--dry-run`) und beweist den Schreibzugriff mit einer isolierten Probe gegen Staging
 (`scripts/d1-write-probe.mjs`).
 
-Recovery: Trägt D1 weder die erwartete Basisidentität (noch, im Übergang, deren frühere
-Berechnung) oder einen unvollständigen Zustand, führt der automatische Sync mit `--recover` eine
+Recovery: Trägt D1 nicht die erwartete Basisidentität oder einen unvollständigen Zustand,
+führt der automatische Sync mit `--recover` eine
 markierte Vollprojektion mit dem Profil `recovery` aus.
 Bleibt ein Lauf wegen Budgetüberschreitung stehen, sind Identität und Laufzeitmetadaten nicht
 geschrieben; die Wiederholung (`--full --budget full`, zuerst Staging) repariert den Zustand

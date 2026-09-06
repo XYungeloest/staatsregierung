@@ -1,23 +1,28 @@
 {
   "id": "ostdeutsche-feuerungsverordnung",
   "slug": "ostdeutsche-feuerungsverordnung",
-  "title": "Ostdeutsche Feuerungsverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums des Innern über den Bau und Betrieb von Feuerungsanlagen",
   "shortTitle": "Ostdeutsche Feuerungsverordnung",
-  "abbr": "OstFeuVO",
   "shortTitleSource": "official",
+  "abbr": "OstFeuVO",
   "type": "verordnung",
   "subjects": [
-    "Landesrecht"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
-    "OstFeuVO",
     "Ostdeutsche Feuerungsverordnung",
-    "Feuerungsverordnung"
+    "Innern",
+    "Betrieb",
+    "Feuerungsanlagen",
+    "Feuerungsverordnung",
+    "OstFeuVO"
   ],
   "initialCitation": "Ostdeutsche Feuerungsverordnung vom 15. Oktober 2007 (SächsGVBl. S. 432), die zuletzt durch die Verordnung vom 18. März 2020 (SächsGVBl. S. 134) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Feuerungsverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2007-10-15",
   "sourceReferences": [
@@ -31,6 +36,7 @@
       "sha256": "3c50ffc49df56716cbae80610a3c224d757c544d0f765baa953e26005f824b62",
       "lawId": "9613",
       "sourceValidFrom": "2020-04-07",
+      "fsnNumber": "421-1.13/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

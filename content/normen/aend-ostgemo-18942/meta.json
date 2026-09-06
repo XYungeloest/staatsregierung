@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-18942",
   "slug": "aend-ostgemo-18942",
   "title": "Änderung der Ostdeutschen Gemeindeordnung",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-schaffung-pandemiebedingter-ausnahmeregelungen-kommunalwahlrecht",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Gemeindeordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-12-16",
   "effectiveDate": "2020-12-30",
@@ -33,6 +33,7 @@
       "sha256": "dc8994e54897ba32d6511c882df332527abb4911af067b680506e702c3c7816a",
       "lawId": "18942",
       "sourceValidFrom": "2020-12-30",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

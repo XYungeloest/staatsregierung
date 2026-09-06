@@ -11,6 +11,7 @@ import TopicCard from '../../components/portal/TopicCard.astro';
 import TopicModule from '../../components/portal/TopicModule.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import {
@@ -183,7 +184,7 @@ const heroActions = topic ? [
             <h3>
               {entry.norm ? <a href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a> : entry.label}
             </h3>
-            {entry.note ? <p>{entry.note}</p> : entry.norm ? <p>{toDisplayText(entry.norm.meta.summary)}</p> : null}
+            {entry.note ? <p>{entry.note}</p> : entry.norm && getPublicNormSummary(entry.norm.meta) ? <p>{toDisplayText(getPublicNormSummary(entry.norm.meta) ?? '')}</p> : null}
             {entry.norm?.meta.effectiveDate ? (
               <p class="topic-legal-card__date">Wirksam seit <time datetime={entry.norm.meta.effectiveDate}>{siteConfig.date.formatLong(entry.norm.meta.effectiveDate)}</time></p>
             ) : null}

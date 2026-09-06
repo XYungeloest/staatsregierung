@@ -2,13 +2,11 @@
   "id": "aend-waldorfpvo-19230",
   "slug": "aend-waldorfpvo-19230",
   "title": "Änderung der Prüfungsverordnung Waldorfschulen",
-  "shortTitle": "Änd. WaldorfPVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung",
-    "Umwelt, Energie und Klimaschutz"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. WaldorfPVO",
     "Änderung",
@@ -19,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-einfuehrung-der-gemeinschaftsschule-und-oberschule",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. WaldorfPVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Prüfungsverordnung Waldorfschulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-06-22",
   "effectiveDate": "2021-08-01",
@@ -34,6 +33,7 @@
       "sha256": "c29b722db2913d6e691cc0b664f797453eb81a75d67ec6d50eab215485882532",
       "lawId": "19230",
       "sourceValidFrom": "2021-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

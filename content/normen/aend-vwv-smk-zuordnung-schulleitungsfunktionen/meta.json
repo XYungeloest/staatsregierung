@@ -2,15 +2,14 @@
   "id": "aend-vwv-smk-zuordnung-schulleitungsfunktionen",
   "slug": "aend-vwv-smk-zuordnung-schulleitungsfunktionen",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-SMK Zuordnung Schulleitungsfunktionen",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-SMK Zuordnung Schulleitungsfunktionen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-SMK Zuordnung Schulleitungsfunktionen",
+    "Änd. VwV-SMK Zuordnung Schulleitungsfunktionen",
     "Kultus",
     "Änderung",
     "VwV-SMK",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-SMK Zuordnung Schulleitungsfunktionen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-01-21",
   "effectiveDate": "2019-01-01",
@@ -35,8 +35,12 @@
       "sha256": "40a469536cd42d84609a9e04d26c598bf26a8b379847c24bbd27a13c5b0da734",
       "lawId": "18006",
       "sourceValidFrom": "2019-01-01",
+      "fsnNumber": "242",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-smk-zuordnung-schulleitungsfunktionen"
   ]
 }

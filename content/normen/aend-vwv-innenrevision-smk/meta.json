@@ -1,16 +1,18 @@
 {
   "id": "aend-vwv-innenrevision-smk",
   "slug": "aend-vwv-innenrevision-smk",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-Innenrevision SMK",
+  "title": "des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-Innenrevision SMK",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-Innenrevision SMK",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Landesrecht"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
     "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-Innenrevision SMK",
+    "Änd VwV-Innenrevision SMK",
     "Kultus",
     "Änderung",
     "VwV-Innenrevision"
@@ -19,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV-Innenrevision SMK“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-04-02",
   "effectiveDate": "2007-01-15",
@@ -33,8 +36,12 @@
       "sha256": "5bd47727f72d4c4de6d541a05d01c17354ae769bf524e3285ff7e5c22b003607",
       "lawId": "9328",
       "sourceValidFrom": "2007-01-15",
+      "fsnNumber": "20",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-innenrevision-smk"
   ]
 }

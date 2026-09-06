@@ -2,13 +2,12 @@
   "id": "aend-ostvermgeog",
   "slug": "aend-ostvermgeog",
   "title": "Änderung des Ostdeutschen Vermessungs- und Geobasisinformationsgesetzes",
-  "shortTitle": "Änd. OstVermGeoG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstVermGeoG",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "gesetz-geoinformationswesen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstVermGeoG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Vermessungs- und Geobasisinformationsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-05-19",
   "effectiveDate": "2010-06-05",
@@ -34,6 +34,7 @@
       "sha256": "d228316f8a21aa9082b9a9f27e75e133b3efb589d6871d62e75a56b41dedbbaf",
       "lawId": "11374",
       "sourceValidFrom": "2010-06-05",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -2,12 +2,11 @@
   "id": "aend-soges",
   "slug": "aend-soges",
   "title": "Änderung der Schulordnung Gemeinschaftsschulen",
-  "shortTitle": "Änd. SOGES",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SOGES",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aendvo-schulrechtlicher-vorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SOGES“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Gemeinschaftsschulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-05-30",
   "effectiveDate": "2023-08-01",
@@ -33,6 +33,7 @@
       "sha256": "170a4875387b438a3d5de7d71b880ae7de3c9880ea804d25440f942684878cf6",
       "lawId": "20006",
       "sourceValidFrom": "2023-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

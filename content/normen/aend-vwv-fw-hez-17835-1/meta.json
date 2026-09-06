@@ -1,25 +1,27 @@
 {
   "id": "aend-vwv-fw-hez-17835-1",
   "slug": "aend-vwv-fw-hez-17835-1",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Feuerwehr- Helfer-Ehrenzeichen",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Feuerwehr-Helfer-Ehrenzeichen",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Feuerwehr- Helfer-Ehrenzeichen",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Feuerwehr- Helfer-Ehrenzeichen",
+    "Änd. VwV Fw-HEZ",
     "Innern",
     "Änderung",
-    "Feuerwehr-",
-    "Helfer-Ehrenzeichen"
+    "Feuerwehr-Helfer-Ehrenzeichen"
   ],
   "initialCitation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Feuerwehr- Helfer-Ehrenzeichen vom 12. September 2018 (SächsABl. S. 1210)",
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Feuerwehr- Helfer-Ehrenzeichen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-09-12",
   "effectiveDate": "2018-10-12",
@@ -34,8 +36,12 @@
       "sha256": "6c25edf8f404bc0a3a4b444c7ab55baad07286e82492f766d1194017287d6b9c",
       "lawId": "17835",
       "sourceValidFrom": "2018-10-12",
+      "fsnNumber": "114",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-feuerwehr-helfer-ehrenzeichen"
   ]
 }

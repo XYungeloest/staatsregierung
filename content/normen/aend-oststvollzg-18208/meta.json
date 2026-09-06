@@ -2,13 +2,12 @@
   "id": "aend-oststvollzg-18208",
   "slug": "aend-oststvollzg-18208",
   "title": "Änderung des Ostdeutschen Strafvollzugsgesetzes",
-  "shortTitle": "Änd. OstStVollzG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
     "Änd. OstStVollzG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-neustrukturierung-polizeirecht",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstStVollzG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Strafvollzugsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-05-11",
   "effectiveDate": "2020-01-01",
@@ -33,6 +33,7 @@
       "sha256": "065f34c517285a9e9f9c1ff68dd311f9238cea4bfd8029e0a3a2bfdd3cd6570a",
       "lawId": "18208",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "311",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

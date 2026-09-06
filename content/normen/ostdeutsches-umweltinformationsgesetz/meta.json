@@ -1,24 +1,26 @@
 {
   "id": "ostdeutsches-umweltinformationsgesetz",
   "slug": "ostdeutsches-umweltinformationsgesetz",
-  "title": "Ostdeutsches Umweltinformationsgesetz",
+  "title": "Umweltinformationsgesetz für den Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Umweltinformationsgesetz",
-  "abbr": "OstUIG",
   "shortTitleSource": "official",
+  "abbr": "OstUIG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Umweltschutz, Abfallwirtschaft"
   ],
+  "primarySubject": "Umweltschutz, Abfallwirtschaft",
   "keywords": [
-    "OstUIG",
     "Ostdeutsches Umweltinformationsgesetz",
-    "Umweltinformationsgesetz"
+    "Umweltinformationsgesetz",
+    "OstUIG"
   ],
   "initialCitation": "Ostdeutsches Umweltinformationsgesetz vom 1. Juni 2006 (SächsGVBl. S. 146), das zuletzt durch Artikel 2 Absatz 10 des Gesetzes vom 19. August 2022 (SächsGVBl. S. 486) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Umweltinformationsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2006-06-01",
   "sourceReferences": [
@@ -32,6 +34,7 @@
       "sha256": "c7e27c057091fd5391efdefa935654de8f079b0a3c4ede64cd7d30b5a9c2da3d",
       "lawId": "1471",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "660-9",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

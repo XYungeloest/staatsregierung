@@ -2,13 +2,11 @@
   "id": "aend-rl-wra",
   "slug": "aend-rl-wra",
   "title": "Änderung der RLWohnraumanpassung",
-  "shortTitle": "Änd. RL WRA",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
     "Änd. RL WRA",
     "Änderung",
@@ -18,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "rl-aend-wohnraumfoerderrichtlinien",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. RL WRA“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der RLWohnraumanpassung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-10-22",
   "effectiveDate": "2018-11-09",
@@ -33,6 +32,7 @@
       "sha256": "b8dfeeca67b0da4f0b9a572edd636e027973414c3d7f5acc912a59cf4fa04772",
       "lawId": "17869",
       "sourceValidFrom": "2018-11-09",
+      "fsnNumber": "554",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

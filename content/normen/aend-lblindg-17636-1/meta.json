@@ -2,15 +2,14 @@
   "id": "aend-lblindg-17636-1",
   "slug": "aend-lblindg-17636-1",
   "title": "Zweites Gesetz zur Änderung des Landesblindengeldgesetzes",
-  "shortTitle": "Zweites Gesetz zur Änderung des Landesblindengeldgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Behindertenfürsorge, Kriegsopferfürsorge, Pflege"
   ],
+  "primarySubject": "Behindertenfürsorge, Kriegsopferfürsorge, Pflege",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Landesblindengeldgesetzes",
+    "Änd. LBlindG",
     "Zweites",
     "Änderung",
     "Landesblindengeldgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Landesblindengeldgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-04-11",
   "effectiveDate": "2018-01-01",
@@ -33,8 +33,12 @@
       "sha256": "1cb349f5141d36dcedce7427a413d7964036e02bd642d54dee8e016ae0558656",
       "lawId": "17636",
       "sourceValidFrom": "2018-01-01",
+      "fsnNumber": "840",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-die-gewaehrung-eines-landesblindengeldes-und-anderer-nachteilsausgleiche"
   ]
 }

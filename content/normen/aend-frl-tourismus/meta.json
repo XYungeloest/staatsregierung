@@ -2,14 +2,13 @@
   "id": "aend-frl-tourismus",
   "slug": "aend-frl-tourismus",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FRL Tourismus",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FRL Tourismus",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FRL Tourismus",
+    "Änd. FRL Tourismus",
     "Wissenschaft",
     "Kultur",
     "Tourismus",
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der FRL Tourismus“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-12",
   "effectiveDate": "2023-07-01",
@@ -33,8 +33,12 @@
       "sha256": "bfd92be1caa69e1bc7c48fee332ec8c805ec8e9bebd41bf17f2701a7f8a3769f",
       "lawId": "20015",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "552",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-tourismus"
   ]
 }

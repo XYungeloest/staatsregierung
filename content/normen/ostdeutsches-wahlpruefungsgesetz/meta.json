@@ -1,24 +1,29 @@
 {
   "id": "ostdeutsches-wahlpruefungsgesetz",
   "slug": "ostdeutsches-wahlpruefungsgesetz",
-  "title": "Ostdeutsches Wahlprüfungsgesetz",
+  "title": "Gesetz über die Prüfung der Wahlen zum Ostdeutschen Landtag",
   "shortTitle": "Ostdeutsches Wahlprüfungsgesetz",
-  "abbr": "OstWprG",
   "shortTitleSource": "official",
+  "abbr": "OstWprG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "OstWprG",
     "Ostdeutsches Wahlprüfungsgesetz",
-    "Wahlprüfungsgesetz"
+    "Prüfung",
+    "Wahlen",
+    "Landtag",
+    "Wahlprüfungsgesetz",
+    "OstWprG"
   ],
   "initialCitation": "Ostdeutsches Wahlprüfungsgesetz vom 22. Juni 1994 (SächsGVBl. S. 1249)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Wahlprüfungsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1994-06-22",
   "sourceReferences": [
@@ -33,6 +38,7 @@
       "lawId": "2860",
       "sourceValidFrom": "1994-07-20",
       "sourceValidTo": "2024-04-30",
+      "fsnNumber": "113-7",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -105,10 +105,10 @@ test('Portalgrundlagen zählen nur projektionsrelevant: Hervorhebung, Teaser und
   await mkdir(join(root, 'content', 'themen'), { recursive: true });
   await mkdir(join(root, 'content', 'presse'), { recursive: true });
   const topicPath = join(root, 'content', 'themen', 'bildung.json');
-  const pressPath = join(root, 'content', 'presse', '2026-09-04-interflug.json');
+  const pressPath = join(root, 'content', 'presse', '2026-09-04-testmeldung.json');
   const topic = (extra) => JSON.stringify({ slug: 'bildung', title: 'Bildung', teaser: 'Alt', priority: 10, featured: false, rechtsgrundlagen: [{ normSlug: 'schulgesetz', label: 'SchulG' }], ...extra });
   await writeFile(topicPath, `${topic({})}\n`);
-  await writeFile(pressPath, '{"slug":"interflug","title":"Interflug gegründet","date":"2026-09-04","relatedNormSlugs":["interflug-gesetz"],"body":"Text"}\n');
+  await writeFile(pressPath, '{"slug":"testmeldung","title":"Testmeldung veröffentlicht","date":"2026-09-04","relatedNormSlugs":["testgesetz"],"body":"Text"}\n');
   execFileSync('git', ['add', '.'], { cwd: root });
   execFileSync('git', ['commit', '-q', '-m', 'portal'], { cwd: root });
   const base = await portalContentHash(root);
@@ -126,7 +126,7 @@ test('Portalgrundlagen zählen nur projektionsrelevant: Hervorhebung, Teaser und
   assert.equal(identity.fingerprint, baseIdentity.fingerprint, 'Projektionsidentität unverändert');
 
   // Normbezug, Titel oder Slug: Identität ändert sich, Auszug gilt als geändert.
-  await writeFile(topicPath, `${topic({ rechtsgrundlagen: [{ normSlug: 'schulgesetz' }, { normSlug: 'kindertagesbetreuungsgesetz' }] })}\n`);
+  await writeFile(topicPath, `${topic({ rechtsgrundlagen: [{ normSlug: 'schulgesetz' }, { normSlug: 'testverordnung' }] })}\n`);
   assert.notEqual(await portalContentHash(root), base);
   assert.equal(await portalProjectionChangedSince(root, 'HEAD', 'content/themen/bildung.json'), true);
   await writeFile(topicPath, `${topic({ title: 'Bildung und Schule' })}\n`);
@@ -135,11 +135,11 @@ test('Portalgrundlagen zählen nur projektionsrelevant: Hervorhebung, Teaser und
   assert.equal(await portalContentHash(root), base);
 
   // Presse: Datum und Normbezüge zählen, der Fließtext nicht.
-  await writeFile(pressPath, '{"slug":"interflug","title":"Interflug gegründet","date":"2026-09-04","relatedNormSlugs":["interflug-gesetz"],"body":"Anderer Text"}\n');
+  await writeFile(pressPath, '{"slug":"testmeldung","title":"Testmeldung veröffentlicht","date":"2026-09-04","relatedNormSlugs":["testgesetz"],"body":"Anderer Text"}\n');
   assert.equal(await portalContentHash(root), base);
-  await writeFile(pressPath, '{"slug":"interflug","title":"Interflug gegründet","date":"2026-09-05","relatedNormSlugs":["interflug-gesetz"],"body":"Text"}\n');
+  await writeFile(pressPath, '{"slug":"testmeldung","title":"Testmeldung veröffentlicht","date":"2026-09-05","relatedNormSlugs":["testgesetz"],"body":"Text"}\n');
   assert.notEqual(await portalContentHash(root), base);
-  assert.equal(await portalProjectionChangedSince(root, 'HEAD', 'content/presse/2026-09-04-interflug.json'), true);
+  assert.equal(await portalProjectionChangedSince(root, 'HEAD', 'content/presse/2026-09-04-testmeldung.json'), true);
 
   // Der Auszug selbst: sortierte, eindeutige Normbezüge; unbekannte Pfade liefern nichts.
   assert.deepEqual(portalProjectionOf('content/themen/x.json', { slug: 'x', title: 'X', rechtsgrundlagen: [{ normSlug: 'b' }, { normSlug: 'a' }, { normSlug: 'b' }, { label: 'ohne Slug' }] }), { kind: 'thema', slug: 'x', title: 'X', normSlugs: ['a', 'b'] });
