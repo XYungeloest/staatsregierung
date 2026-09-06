@@ -17,16 +17,19 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ### Bestand und Struktur
 
-- [ ] Änderungsvorschriften aus den Verzeichnissen herausnehmen: 3336 der 5209 Normen tragen den
-  Normtyp Änderungsvorschrift (Status „einmaliger Rechtsakt“) und stehen gleichberechtigt neben
-  Stammnormen in Sachgebieten (72 von 95 Einträgen in „Staats- und Verfassungsrecht“), im A–Z,
-  in der Rechtsentwicklung und in den Bestandszahlen („5209 Vorschriften im Bestand“ gegenüber
-  „1867 geltende Vorschriften“ auf der Startseite). REVOSax führt Änderungsvorschriften nur in
-  der Normenhistorie der Stammnorm und als eigenen Vorschriftentyp (ÄG, ÄVO, ÄVwV) in der Suche.
-  Fertig, wenn Verzeichnisse, Sachgebiete, A–Z und Rechtsentwicklung standardmäßig nur
-  Stammnormen zeigen, Änderungsvorschriften über den Normtyp-Filter erreichbar bleiben, jede
-  Änderungsvorschrift aus der Historie ihrer Stammnorm verlinkt ist und alle Bestandszahlen
-  dieselbe Grundmenge nennen („x Vorschriften, davon y geltend“).
+- [ ] Übernommene Änderungsvorschriften aus den Verzeichnissen herausnehmen: 3336 der 5209 Normen
+  tragen den Normtyp Änderungsvorschrift, davon 3276 aus dem sächsischen Rechtsstand übernommen
+  und 60 ostdeutsch neu. Die übernommenen stehen gleichberechtigt neben Stammnormen in
+  Sachgebieten (72 von 95 Einträgen in „Staats- und Verfassungsrecht“), im A–Z, in der
+  Rechtsentwicklung und in den Bestandszahlen („5209 Vorschriften im Bestand“ gegenüber „1867
+  geltende Vorschriften“ auf der Startseite). REVOSax führt Änderungsvorschriften nur in der
+  Normenhistorie der Stammnorm und als eigenen Vorschriftentyp (ÄG, ÄVO, ÄVwV) in der Suche.
+  Ostdeutsche Änderungsvorschriften bleiben sichtbar: Neues ostdeutsches Recht soll leichter zu
+  finden sein als altes sächsisches. Fertig, wenn Verzeichnisse, Sachgebiete, A–Z und
+  Rechtsentwicklung standardmäßig Stammnormen und ostdeutsche Änderungsvorschriften zeigen,
+  übernommene Änderungsvorschriften nur über den Normtyp-Filter oder die Herkunftsfacette
+  erscheinen, jede Änderungsvorschrift aus der Historie ihrer Stammnorm verlinkt ist und alle
+  Bestandszahlen dieselbe Grundmenge nennen („x Vorschriften, davon y geltend“).
 - [ ] Titelmodell Langtitel, Kurztitel, Abkürzung bereinigen: `abbr` dient im Import als
   Titelspeicher (1408 Normen mit Abkürzung, davon 402 identisch mit dem Titel und 363 länger als
   20 Zeichen, bis 393 Zeichen); 3465 Normen haben `shortTitle` gleich `title`. Suchtreffer und
@@ -118,6 +121,16 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   „Inhalt der Vorschrift“ aufgeklappt werden. Fertig, wenn zwischen 64 und 80 rem
   Inhaltsübersicht und Text nebeneinander stehen (Vorschriftendaten darunter), die Übersicht
   dort klebend bleibt und `DESIGN.md` (Responsives Verhalten) die Stufe beschreibt.
+- [ ] Fassungsnavigation nur aus Unterseiten: Die Reihe „Aktuelle Fassung · Historische Fassungen ·
+  Änderungsverlauf · Fassungsvergleich“ mischt Unterseiten (`/`, `/history/`, `/vergleich/`) mit
+  dem Sprungziel `/history/#historieneintraege`; dasselbe Ziel heißt auf der Startseite
+  „Änderungsverlauf“ (→ `/history/`) und auf der Normseite „Alle Änderungen anzeigen“
+  (→ `/history/`), und „Historische Fassungen“ listet auch die geltende Fassung und erscheint
+  selbst bei Normen mit nur einer Fassung. Fertig, wenn die Reihe nur Unterseiten mit
+  `aria-current` enthält — entweder entfällt „Änderungsverlauf“ und `/history/` heißt „Fassungen
+  und Änderungen“ mit einer Sprungleiste zu den beiden Abschnitten, oder der Änderungsverlauf
+  wird eine eigene Unterseite `/norm/<slug>/aenderungen/` — und Startseite, Normseite und
+  Verzeichnisse auf dieses eine Ziel mit demselben Wort verweisen.
 - [ ] Normkopf mobil verdichten: Bei 375 px ist der Kopf 506 px hoch, der Vorschriftentext
   beginnt erst bei 1260 px (Kopf, Werkzeugleiste, Fassungsnavigation, Rechtsstand-Kasten);
   „Als HTML lesen“ verweist auf `#normtext` und ist ein falsch beschrifteter Sprunglink. Fertig,
