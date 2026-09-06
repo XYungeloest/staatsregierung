@@ -5,6 +5,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
+import { loadKeywordRegister, registerKeywordsBySlug } from '@ostrecht/shared/lib/norms/register.ts';
+
 import { FULL_SCOPE, fixtureScope, projectionIdentity } from './lib/d1-projection-fingerprint.mjs';
 import { fixtureSlugList, isSyntheticFixture, loadFixtureCorpus, readFixtureManifest } from './lib/runtime-fixture.mjs';
 
@@ -121,6 +123,11 @@ for (const slug of slugs) {
   }
 }
 for (const publication of expectedPublications) fingerprintLines.push(`publication:${publication.slug}:${publication.date}`);
+// Das Stichwortregister ist eine Eingabe der Projektion; der Sync zählt es in denselben
+// Fingerabdruck (corpusFingerprint in scripts/sync-recht-d1.mjs).
+for (const [slug, keywords] of registerKeywordsBySlug(await loadKeywordRegister())) {
+  fingerprintLines.push(`register:${slug}:${[...keywords].sort().join('|')}`);
+}
 const publications = expectedPublications.length;
 const gitHash = createHash('sha256').update(fingerprintLines.sort().join('\n')).digest('hex');
 console.log(`${expectedLabel}:`, JSON.stringify({ norms: slugs.length, versions: gitVersions, r2_sources: gitR2Sources, publications, corpus_hash: gitHash }));
