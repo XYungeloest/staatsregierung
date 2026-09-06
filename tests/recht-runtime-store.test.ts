@@ -68,6 +68,10 @@ test('Übersichtsdaten: Änderungen, Sachgebiete, Bestandszahlen, Vorschläge, S
   const summaries = await store.listNormSummaries();
   assert.equal(subjects.reduce((sum, subject) => sum + subject.normCount, 0), summaries.reduce((sum, summary) => sum + new Set(summary.subjects).size, 0));
   assert.ok(areas.length > 0 && areas.every((area) => area.subjects.length > 0));
+  // Sachgebiete tragen ihre amtliche Nummer und stehen in der Reihenfolge der Systematik.
+  assert.ok(subjects.every((subject) => /^\d{2}$/u.test(subject.number ?? '')));
+  assert.deepEqual(subjects.map((subject) => subject.number), [...subjects.map((subject) => subject.number)].sort());
+  assert.ok(areas.every((area) => /^\d$/u.test(area.number ?? '') && area.subjects.every((subject) => subject.number?.startsWith(area.number ?? ''))));
   assert.equal(stats.normCount, summaries.length);
   assert.equal(stats.inForceCount, summaries.filter((summary) => summary.status === 'in-force').length);
   const bySubject = await store.listNormSummaries({ subjectSlug: subjects[0].slug });

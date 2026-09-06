@@ -221,8 +221,14 @@ test('Anweisungszähler und Übersichtsmetadaten sind deterministisch', async ()
   const meta = corpusOverviewMeta(norms, []);
   const stats = JSON.parse(meta.corpus_stats_json);
   assert.equal(stats.normCount, norms.length);
-  assert.ok(Array.isArray(JSON.parse(meta.subject_groups_json)));
-  assert.ok(JSON.parse(meta.subject_areas_json).every((area) => typeof area.normCount === 'number'));
+  const subjectGroups = JSON.parse(meta.subject_groups_json);
+  assert.ok(Array.isArray(subjectGroups));
+  // Nummer und Reihenfolge der amtlichen Systematik werden mitprojiziert.
+  assert.ok(subjectGroups.every((group) => /^\d{2}$/u.test(group.number) && group.slug.startsWith(`${group.number}-`)));
+  assert.deepEqual([...subjectGroups].sort((left, right) => left.number.localeCompare(right.number)), subjectGroups);
+  const subjectAreas = JSON.parse(meta.subject_areas_json);
+  assert.ok(subjectAreas.every((area) => typeof area.normCount === 'number'));
+  assert.deepEqual(subjectAreas.map((area) => area.number), [...subjectAreas.map((area) => area.number)].sort());
   assert.deepEqual(corpusOverviewMeta(norms, []), meta);
   const derived = derivedQueries(norms[0], context, NOW);
   assert.equal(derived.length, 3);
