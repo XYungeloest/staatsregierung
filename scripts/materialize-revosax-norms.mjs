@@ -1,9 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-strip-types
 
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
+import { inferSubjectAssignment } from './lib/revosax-metadata.mjs';
 
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
@@ -60,28 +61,6 @@ function inferEnactingBody(title, type) {
   return 'Sächsische Staatsregierung';
 }
 
-function inferSubjects(title) {
-  const rules = [
-    [/Gesundheit|Krankenhaus|Bestattung/iu, 'Gesundheit und Soziales'],
-    [/Personennahverkehr|Eisenbahn|Verkehr/iu, 'Mobilität und öffentliche Infrastruktur'],
-    [/Kindertages|Schul|Hochschul|Stundentafel|Ausbildungs- und Prüfungsordnung/iu, 'Bildung und Weiterbildung'],
-    [/Kommunalwahl|Wahlgesetz/iu, 'Wahlrecht und politische Beteiligung'],
-    [/Arbeitszeit|Beamt/iu, 'Öffentliches Dienstrecht'],
-    [/Finanzausgleich|Kostenverzeichnis/iu, 'Haushaltsrecht'],
-    [/Medien|Rundfunk/iu, 'Rundfunk und Medien'],
-    [/Gleichstellung/iu, 'Gleichstellung und Teilhabe'],
-    [/Justiz|Normenkontroll/iu, 'Justiz und Rechtspflege'],
-    [/Kulturraum/iu, 'Kultur und Denkmalschutz'],
-    [/Polizei|Verschlusssachen/iu, 'Sicherheit und Ordnung'],
-    [/Vermess|Kataster|Landesplanung/iu, 'Raumordnung und Landesplanung'],
-    [/Zweckentfremd|Wohnraum/iu, 'Wohnen und Bodenordnung'],
-    [/Wald/iu, 'Umwelt, Energie und Klimaschutz'],
-  ];
-  return [...new Set(rules.filter(([pattern]) => pattern.test(title)).map(([, subject]) => subject))].slice(0, 3).length
-    ? [...new Set(rules.filter(([pattern]) => pattern.test(title)).map(([, subject]) => subject))].slice(0, 3)
-    : ['Landesrecht'];
-}
-
 function inferSummary(title) {
   const subject = title.match(/\b(?:über|zur|zum)\s+(.+)$/iu)?.[1]?.replace(/\.$/u, '');
   if (subject) return `Regelt ${subject.charAt(0).toLocaleLowerCase('de')}${subject.slice(1)}.`;
@@ -91,6 +70,15 @@ function inferSummary(title) {
 function inferredMeta(parsed, configured, slug, initialCitation) {
   const title = configured.title ?? parsed.sourceTitle;
   const type = configured.createMeta?.type ?? inferType(parsed.sourceTitle);
+  // Sachgebiete nach der amtlichen Systematik: Fundstellennummer der Quellseite,
+  // sonst die gemeinsame Ableitungskette aus scripts/lib/revosax-metadata.mjs.
+  const assignment = inferSubjectAssignment({
+    fsnNumber: parsed.fsnNumber,
+    normType: type,
+    sourceTitle: parsed.sourceTitle,
+    label: parsed.shortTitle,
+    legacySubjects: configured.createMeta?.subjects ?? [],
+  });
   return {
     id: slug,
     slug,
@@ -101,7 +89,9 @@ function inferredMeta(parsed, configured, slug, initialCitation) {
     type,
     enactingBody: configured.createMeta?.enactingBody ?? inferEnactingBody(parsed.sourceTitle, type),
     ...(configured.createMeta?.responsibleMinistry ? { responsibleMinistry: configured.createMeta.responsibleMinistry } : {}),
-    subjects: configured.createMeta?.subjects ?? inferSubjects(parsed.sourceTitle),
+    subjects: assignment.subjects,
+    primarySubject: assignment.primarySubject,
+    ...(type === 'foerderrichtlinie' && assignment.fundingArea ? { fundingArea: assignment.fundingArea } : {}),
     keywords: [...new Set([
       ...(configured.createMeta?.keywords ?? []),
       parsed.abbr,

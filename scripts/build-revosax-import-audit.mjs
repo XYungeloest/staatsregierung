@@ -1,8 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-strip-types
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+
+import { getSubjectByTitle, subjectNumberFromFsn } from '@ostrecht/shared/config/law-subjects.ts';
 
 import { extractVersionLinks } from './lib/revosax-discovery.mjs';
 
@@ -123,6 +125,31 @@ export function classifySourceEnding({ sourceValidTo, laterVersions, sunsetDates
   return { type: 'unclear', basis: 'weder Nachfolgefassung noch Befristung im Text erkennbar' };
 }
 
+/**
+ * Deckung der Sachgebiete: eine Zuordnung gilt als amtlich belegt, wenn eine REVOSax-Quelle
+ * der Norm die Fundstellennummer trägt und deren Gliederungsnummer das Hauptsachgebiet ergibt.
+ * Alles andere ist abgeleitet und bleibt im Import-Audit als solches gekennzeichnet.
+ */
+async function countSubjectCoverage(plan, contentRoot) {
+  const coverage = { official: 0, derived: 0 };
+  const seen = new Set();
+  for (const entry of plan.entries.filter((candidate) => candidate.canonicalSlug && ['CREATE', 'MATCH'].includes(candidate.action))) {
+    if (seen.has(entry.canonicalSlug)) continue;
+    seen.add(entry.canonicalSlug);
+    let meta;
+    try {
+      meta = await readJson(join(contentRoot, entry.canonicalSlug, 'meta.json'));
+    } catch {
+      continue;
+    }
+    const number = getSubjectByTitle(meta.primarySubject ?? meta.subjects?.[0] ?? '')?.number;
+    const official = number !== undefined
+      && (meta.sourceReferences ?? []).some((reference) => subjectNumberFromFsn(reference.fsnNumber) === number);
+    coverage[official ? 'official' : 'derived'] += 1;
+  }
+  return coverage;
+}
+
 /** MATCH-Einträge, deren Norm nicht aus dieser Baseline stammt (redaktionell vorhandene Normen). */
 async function countPreexistingMatches(plan, contentRoot) {
   let count = 0;
@@ -144,6 +171,7 @@ async function countPreexistingMatches(plan, contentRoot) {
 export async function buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, sunsetDecisions = null, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, contentRoot = join(ROOT, 'content', 'normen'), preexistingMatches = null }) {
   const planBySource = new Map(plan.entries.map((entry) => [entry.sourceId, entry]));
   const existingMatched = preexistingMatches ?? await countPreexistingMatches(plan, contentRoot);
+  const subjectCoverage = await countSubjectCoverage(plan, contentRoot);
   const envelopeBySource = new Map((envelopes?.components ?? []).map((component) => [component.sourceId, component]));
 
   // --- SKIP-Fälle ---
@@ -330,13 +358,18 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
     decisions: Object.fromEntries(Object.entries(decisions?.decisions ?? {}).map(([key, decision]) => [key, { action: decision.action, reason: decision.reason }])),
     sunsetDecisions: Object.fromEntries(Object.entries(sunsetDecisions?.decisions ?? {}).map(([key, decision]) => [key, { slug: decision.slug, resolution: decision.resolution, expiryDate: decision.expiryDate ?? null, status: decision.status ?? null }])),
     // Metadaten der übernommenen Normen, die nicht aus der amtlichen Quelle stammen, sondern
-    // automatisch abgeleitet sind (scripts/lib/revosax-metadata.mjs): Sachgebiete aus Typ,
-    // Ressortkürzel und Titel, Schlagwörter aus Abkürzung/Kurzbezeichnung/Titel, Kurzfassung
-    // aus Typ und Kurzbezeichnung. Sie sind Erschließungshilfen, keine amtlichen Angaben.
+    // automatisch abgeleitet sind (scripts/lib/revosax-metadata.mjs): Schlagwörter aus
+    // Abkürzung/Kurzbezeichnung/Titel, Kurzfassung aus Typ und Kurzbezeichnung. Sie sind
+    // Erschließungshilfen, keine amtlichen Angaben. Die Sachgebiete folgen der amtlichen
+    // Systematik; sie sind belegt, soweit die Fundstellennummer der Quelle sie trägt.
     derivedMetadata: {
       norms: actions.CREATE + actions.MATCH - existingMatched,
-      fields: ['subjects', 'keywords', 'summary'],
-      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz)',
+      fields: ['keywords', 'summary'],
+      subjects: {
+        official: subjectCoverage.official,
+        derived: subjectCoverage.derived,
+      },
+      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)',
     },
     residualBacklog: residualBacklog ? { norms: residualBacklog.normCount, residuals: residualBacklog.residualCount } : null,
   };

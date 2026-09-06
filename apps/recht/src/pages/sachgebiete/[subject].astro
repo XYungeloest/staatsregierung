@@ -39,6 +39,9 @@ const typeCounts = (await store.listNormSummaries({ subjectSlug: subject.slug })
 const typeRows = [...typeCounts.entries()].sort(([left], [right]) => formatNormType(left as NormType).localeCompare(formatNormType(right as NormType), 'de'));
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const title = toDisplayText(subject.name);
+// Eyebrow und Einleitung nennen die amtliche Gliederungsnummer und die Hauptgruppe.
+const eyebrow = subject.number ? `Sachgebiet ${subject.number}` : 'Sachgebiet';
+const areaLead = area ? ` Es gehört zur Hauptgruppe ${area.number ? `${area.number} ` : ''}${area.name}.` : '';
 const pageTitle = view.result.page > 1 ? `Sachgebiet ${title} (Seite ${view.result.page} von ${view.result.pageCount})` : `Sachgebiet ${title}`;
 ---
 
@@ -64,9 +67,9 @@ const pageTitle = view.result.page > 1 ? `Sachgebiet ${title} (Seite ${view.resu
   />
 
   <SectionHero
-    eyebrow="Sachgebiet"
+    eyebrow={eyebrow}
     title={title}
-    lead={`Vorschriften dieses Sachgebiets nach Titel, Normtyp, Rechtsstand und Herkunft.${area ? ` Es gehört zum Bereich ${area.name}.` : ''}`}
+    lead={`Vorschriften dieses Sachgebiets nach Titel, Normtyp, Rechtsstand und Herkunft.${areaLead}`}
     variant="law"
     actions={[
       { label: 'Sachgebiet durchsuchen', href: `${getSearchUrl()}?subject=${encodeURIComponent(subject.name)}`, primary: true },

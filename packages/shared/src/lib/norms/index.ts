@@ -175,3 +175,19 @@ export {
   isInheritedAmendment,
   type InventoryStats,
 } from '@ostrecht/shared/lib/norms/inventory.ts';
+export {
+  compareSubjects,
+  formatSubjectLabel,
+  fundingAreaFromFsn,
+  getFundingAreaByNumber,
+  getSubjectByNumber,
+  getSubjectByTitle,
+  getSubjectGroupOf,
+  lawFundingAreas,
+  lawSubjectGroups,
+  lawSubjects,
+  subjectNumberFromFsn,
+  type LawFundingAreaDefinition,
+  type LawSubjectDefinition,
+  type LawSubjectGroupDefinition,
+} from '@ostrecht/shared/config/law-subjects.ts';

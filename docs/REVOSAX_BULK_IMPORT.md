@@ -209,9 +209,25 @@ Begründung, Auflösung mit `canonicalSlug`, `DEFER`). Der Plan ist nur schreibb
 zurückgestellter `REVIEW`-Fall existiert. `CREATE`-Einträge erhalten `meta.json`, `history.json`
 und `versions/2023-11-01.json` mit R2-Provenienz (Objektschlüssel, amtliche URL, `lawId`,
 Abrufzeit, SHA-256, Gültigkeitsintervall, `sourceRole: official-snapshot`); das Erlassdatum stammt
-von der Fassungsseite oder der amtlichen Trefferliste – nie geschätzt. Ursprungsorgan, Sachgebiete,
+von der Fassungsseite oder der amtlichen Trefferliste – nie geschätzt. Ursprungsorgan,
 Schlagwörter und Kurzfassung leitet `scripts/lib/revosax-metadata.mjs` deterministisch ab (im
-Import-Audit als `derivedMetadata` gekennzeichnet). Der Lauf schreibt nichts, solange ein Eintrag
+Import-Audit als `derivedMetadata` gekennzeichnet).
+
+Die Sachgebiete folgen der amtlichen Systematik. `scripts/lib/revosax-parser.mjs` liest die
+Fundstellennummer aus dem Kasten „Fundstelle und systematische Gliederungsnummer“ der
+Marginalspalte (`fsnNumber`, zum Beispiel `612-3.10/2`; der Adapter reicht sie unverändert
+durch), der Materializer schreibt sie in die Quellenangabe der Norm. `inferSubjectAssignment`
+ordnet in dieser verbindlichen Reihenfolge zu und meldet die Herkunft als `basis`: eigene
+Fundstellennummer (`fsn`), Fundstellennummer einer anderen Fassung derselben Vorschrift
+(`fsn-sibling`), verbundene Norm (`related-norm`), eindeutiger Titeltreffer auf die Stammnorm
+(`stem-title`), Regel aus der Dokumentart (`type-rule`: Förderrichtlinie → 55 mit Förderbereich,
+Staatsvertrag → 14), frühere redaktionelle Zuordnung (`legacy`), Titelschlüsselwort (`keyword`)
+und zuletzt die Prüfliste `data/recht/subject-assignment-review.json` (`review`).
+Zweitsachgebiete stammen nur aus amtlichen Signalen. Die einmalige Umstellung des Bestands leistet
+`node --experimental-strip-types scripts/migrate-subject-systematics.mjs --write` (ohne `--write`
+nur Kennzahlen); sie liest die Fundstellennummern aus `meta.json` und ersatzweise aus dem lokalen
+Rohcache. Im Import-Audit zählt `derivedMetadata.subjects` die amtlich belegten gegen die
+abgeleiteten Zuordnungen; `derivedMetadata.fields` nennt nur noch Schlagwörter und Kurzfassung. Der Lauf schreibt nichts, solange ein Eintrag
 nicht im R2-Manifest archiviert ist, ein Zielverzeichnis existiert oder ein Datensatz die Regeln
 verletzt. `--regenerate` schreibt reine Baseline-Normen nach Adapter- oder Regeländerungen neu;
 Normen mit weiteren Fassungen oder anderen Quellen sind geschützt.

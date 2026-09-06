@@ -9,6 +9,12 @@ const contentRoot = join(root, 'content');
 const publicRoot = join(root, 'public');
 const editorialConfig = JSON.parse(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'editorial.json'), 'utf8'));
 const referenceDate = editorialConfig.referenceDate;
+// Amtliche Sachgebietssystematik; die Prüfung liest die Konfigurationsdatei unmittelbar,
+// damit dieses Audit ohne TypeScript-Auflösung läuft.
+const lawSubjectsConfig = JSON.parse(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'law-subjects.json'), 'utf8'));
+const allowedSubjects = new Set(lawSubjectsConfig.groups.flatMap((group) => group.subjects.map((subject) => subject.title)));
+const allowedFundingAreas = new Set(lawSubjectsConfig.fundingAreas.map((area) => area.number));
+const fsnNumberPattern = /^\d{1,4}(?:-[0-9A-Za-z.,:/]{1,16})?$/u;
 const problems = [];
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const allowedNormTypes = new Set([
@@ -346,6 +352,13 @@ async function validateNormSourceReference(file, source, sourcePath) {
     addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
     return;
   }
+  if (source.fsnNumber !== undefined) {
+    if (source.kind !== 'revosax-snapshot') {
+      addProblem(file, `${sourcePath}.fsnNumber ist nur für eine amtliche REVOSax-Quelle zulässig`);
+    } else if (typeof source.fsnNumber !== 'string' || !fsnNumberPattern.test(source.fsnNumber)) {
+      addProblem(file, `${sourcePath}.fsnNumber muss eine Fundstellennummer wie „612-3.10/2“ sein`);
+    }
+  }
   if (source.availability === 'r2-archived') {
     await validateArchivedNormSourceReference(file, source, sourcePath);
     return;
@@ -672,9 +685,30 @@ for (const { file, json } of records) {
 
     if (!Array.isArray(json.subjects) || json.subjects.length === 0) {
       addProblem(file, 'subjects muss mindestens ein Sachgebiet enthalten');
+    } else {
+      if (json.subjects.length > 3) {
+        addProblem(file, 'subjects darf höchstens drei Sachgebiete nennen');
+      }
+      if (new Set(json.subjects).size !== json.subjects.length) {
+        addProblem(file, 'subjects darf kein Sachgebiet doppelt nennen');
+      }
+      for (const subject of json.subjects) {
+        if (!allowedSubjects.has(subject)) {
+          addProblem(file, `subjects nennt „${subject}“; zulässig sind nur die Untergruppen der amtlichen Systematik (packages/shared/src/config/law-subjects.json)`);
+        }
+      }
     }
-    if (json.primarySubject && !json.subjects?.includes(json.primarySubject)) {
-      addProblem(file, 'primarySubject muss zugleich in subjects enthalten sein');
+    if (typeof json.primarySubject !== 'string' || json.primarySubject.length === 0) {
+      addProblem(file, 'primarySubject fehlt');
+    } else if (json.primarySubject !== json.subjects?.[0]) {
+      addProblem(file, 'primarySubject muss das erste Sachgebiet in subjects sein');
+    }
+    if (json.fundingArea !== undefined) {
+      if (json.type !== 'foerderrichtlinie') {
+        addProblem(file, 'fundingArea ist nur für eine Förderrichtlinie zulässig');
+      } else if (!allowedFundingAreas.has(json.fundingArea)) {
+        addProblem(file, `fundingArea nennt „${json.fundingArea}“; zulässig sind nur die Förderbereiche der amtlichen Systematik`);
+      }
     }
 
     if (!Array.isArray(json.keywords) || json.keywords.length === 0) {

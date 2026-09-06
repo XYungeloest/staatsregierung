@@ -5,6 +5,7 @@ import {
   getSubjectUrl,
 } from '@ostrecht/shared/lib/norms/routes.ts';
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import {
   formatNormStatus,
   formatNormType,
@@ -187,7 +188,7 @@ const temporalStatus = temporalKind === 'current'
     <h3 id="norm-sachgebiete">Sachgebiete</h3>
     <div class="tag-list">
       {norm.meta.subjects.map((subject) => (
-        <a class="tag" href={getSubjectUrl(subject)}>{toDisplayText(subject)}</a>
+        <a class="tag" href={getSubjectUrl(subject)}>{formatSubjectLabel(toDisplayText(subject), { withNumber: true, short: true })}</a>
       ))}
     </div>
   </section>

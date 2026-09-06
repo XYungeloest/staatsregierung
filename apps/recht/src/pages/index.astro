@@ -23,7 +23,8 @@ const HOME_PUBLICATION_LIMIT = 3;
 const HOME_CHANGE_TYPES = [...LEGAL_CHANGE_ENTRY_TYPES];
 const [stats, subjectAreas, latestChanges, futureChanges, latestPublications] = await Promise.all([
   store.getCorpusStats(),
-  store.listSubjectAreas().then((areas) => areas.slice(0, 6)),
+  // Alle acht Hauptgruppen der amtlichen Systematik in ihrer Reihenfolge.
+  store.listSubjectAreas(),
   // Letzte Rechtsereignisse bis zum Stichtag: Erlass neuer Vorschriften, Änderungen und Aufhebungen,
   // je Norm nur das jüngste Ereignis, nach Ereignisdatum absteigend (keine redaktionelle Auswahl).
   store.listChanges({ changeTypes: HOME_CHANGE_TYPES, until: EDITORIAL_REFERENCE_DATE, order: 'desc', limit: HOME_CHANGE_CANDIDATE_LIMIT, distinctNorms: true }),
@@ -173,7 +174,7 @@ const quickAccess = [
         </header>
         <ul>
           {subjectAreas.map((area) => (
-            <li><a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.name}<span>{area.normCount}</span></a></li>
+            <li><a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.number ? `${area.number} ${area.name}` : area.name}<span>{area.normCount}</span></a></li>
           ))}
         </ul>
         <p class="law-topic-card__note">Eine Vorschrift kann mehreren Sachgebieten zugeordnet sein; die Zahlen summieren sich deshalb nicht zum Bestand.</p>

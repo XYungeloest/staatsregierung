@@ -68,6 +68,9 @@ test('der Import-Audit ist deterministisch und seine Bilanz geht exakt auf', asy
   assert.equal(ended.sourceEnding.type, 'A', 'ohne Cache keine Befristungsdaten → wie spätere Rechtsänderung eingeordnet');
   assert.deepEqual(ended.sunsetDecision, { resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed', basis: 'Sie tritt mit Ablauf des 31. Dezember 2023 außer Kraft.', reason: 'Typ B' });
   assert.deepEqual(first.summary.sunsetDecisions, { '6.1': { slug: 'f', resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed' } });
-  assert.deepEqual(first.summary.derivedMetadata.fields, ['subjects', 'keywords', 'summary']);
+  // Sachgebiete gelten als amtlich belegt, sobald die Fundstellennummer der Quelle sie trägt;
+  // abgeleitet bleiben nur Stichwörter und Kurzfassung.
+  assert.deepEqual(first.summary.derivedMetadata.fields, ['keywords', 'summary']);
   assert.equal(first.summary.derivedMetadata.norms, 3);
+  assert.deepEqual(first.summary.derivedMetadata.subjects, { official: 0, derived: 0 }, 'ohne lesbare meta.json zählt der Audit keine Zuordnung');
 });

@@ -1,3 +1,4 @@
+import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { NORM_ORIGIN_KINDS, formatNormOriginKind, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 
 import { buildPagination, pageUrl, type Pagination } from './pagination.ts';
@@ -133,7 +134,7 @@ export async function loadNormDirectory(store: NormStore, {
   const lastIndex = Math.min(result.page * result.pageSize, result.total);
   const fieldList: DirectoryField[] = fields.map((name): DirectoryField => {
     if (name === 'q') return { name, label: 'Titel, Abkürzung oder Stichwort', value: state.q, placeholder: 'z. B. Gemeindeordnung' };
-    if (name === 'subject') return { name, label: 'Sachgebiet', value: state.subject, allLabel: 'Alle Sachgebiete', options: (filterOptions.subjects ?? []).map((entry) => ({ value: entry, label: entry })) };
+    if (name === 'subject') return { name, label: 'Sachgebiet', value: state.subject, allLabel: 'Alle Sachgebiete', options: (filterOptions.subjects ?? []).map((entry) => ({ value: entry, label: formatSubjectLabel(entry, { withNumber: true, short: true }) })) };
     if (name === 'type') return { name, label: 'Normtyp', value: state.type, allLabel: 'Alle Normtypen', options: filterOptions.types ?? [] };
     if (name === 'status') return { name, label: 'Rechtsstand', value: state.status, allLabel: 'Alle Rechtsstände', options: DIRECTORY_STATUS_OPTIONS.map(({ value, label }) => ({ value, label })) };
     return { name, label: 'Rechtsherkunft', value: state.origin, allLabel: 'Alle Herkunftsarten', options: ORIGIN_OPTIONS };

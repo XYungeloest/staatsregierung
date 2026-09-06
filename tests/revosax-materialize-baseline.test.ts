@@ -24,6 +24,7 @@ const parsed = {
     shortTitle: 'Sächsische Kommunalpauschalenverordnung',
     abbr: 'SächsKomPauschVO',
     fullCitation: 'Sächsische Kommunalpauschalenverordnung vom 27. September 2023 (SächsGVBl. S. 837), die durch die Verordnung vom 1. August 2024 (SächsGVBl. S. 700) geändert worden ist',
+    fsnNumber: '230-4.2',
     documentDate: '2023-09-27',
     sourceValidFrom: '2023-10-31',
     sourceValidTo: '2024-08-16',
@@ -50,7 +51,9 @@ test('Ausgangsfassung wird mit R2-Provenienz, historischer Zitierung und Stichta
   assert.equal(record.version.body[0].children[0].text, 'Der Freistaat Ostdeutschland gewährt nach dem OstVerfGHG eine Pauschale.');
   assert.match(record.version.changeNote, /^Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01/u);
   assert.doesNotMatch(record.version.changeNote, /sächsisch/iu);
-  assert.deepEqual(record.meta.subjects, ['Kommunal- und Verwaltungsrecht', 'Gesundheit und Soziales']);
+  // Sachgebiet aus der amtlichen Gliederungsnummer der Quellseite (230 → Untergruppe 23).
+  assert.deepEqual(record.meta.subjects, ['Kommunalrecht']);
+  assert.equal(record.meta.primarySubject, 'Kommunalrecht');
   assert.ok(record.meta.keywords.includes('OstKomPauschVO'));
   // Spätere sächsische Änderung wird aus dem Seiten-Vollzitat entfernt; die Fundstelle bleibt historisch.
   assert.equal(record.meta.initialCitation, 'Ostdeutsche Kommunalpauschalenverordnung vom 27. September 2023 (SächsGVBl. S. 837)');
@@ -67,6 +70,8 @@ test('Ausgangsfassung wird mit R2-Provenienz, historischer Zitierung und Stichta
   assert.equal(source.sourceRole, 'official-snapshot');
   assert.equal(source.retrievedAt, '2026-09-03');
   assert.equal(source.sourceValidTo, '2024-08-16');
+  // Die Fundstellennummer bleibt als Provenienz erhalten, damit die Zuordnung ohne Rohcache nachvollziehbar ist.
+  assert.equal(source.fsnNumber, '230-4.2');
   assert.equal(objectKeyFor('2023-11-01', '20247'), 'revosax/2023-11-01/20247.html');
 });
 

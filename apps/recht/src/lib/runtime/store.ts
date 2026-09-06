@@ -20,6 +20,7 @@ import {
 } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getNormOriginInfo, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+import { compareSubjects, getSubjectByTitle } from '@ostrecht/shared/config/law-subjects.ts';
 import { getGermanIndexLetter, getNormUrl, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
@@ -164,6 +165,13 @@ export function normalizePage(page: unknown, pageSize: unknown = DEFAULT_PAGE_SI
   };
 }
 
+/** Nummer und Kurzform eines Sachgebiets aus der amtlichen Systematik. */
+function subjectFacts(subject: string): { number?: string; shortTitle?: string } {
+  const definition = getSubjectByTitle(subject);
+  if (!definition) return {};
+  return { number: definition.number, ...(definition.shortTitle ? { shortTitle: definition.shortTitle } : {}) };
+}
+
 /** Freitext für den Vergleich: getrimmt, deutsch kleingeschrieben, Mehrfachleerraum reduziert. */
 export function normalizeQueryText(value: unknown): string {
   return String(value ?? '').trim().toLocaleLowerCase('de-DE').replace(/\s+/gu, ' ');
@@ -172,11 +180,17 @@ export function normalizeQueryText(value: unknown): string {
 export interface SubjectSummary {
   name: string;
   slug: string;
+  /** Amtliche Untergruppennummer; fehlt bei nicht konfigurierten Bezeichnungen. */
+  number?: string;
+  /** Kurzform der Systematik für Filter und Kennzeichnungen. */
+  shortTitle?: string;
   normCount: number;
 }
 
 export interface SubjectAreaSummary {
   name: string;
+  /** Amtliche Hauptgruppennummer; fehlt bei der Auffanggruppe. */
+  number?: string;
   description: string;
   normCount: number;
   subjects: SubjectSummary[];
@@ -800,8 +814,11 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async listSubjectSummaries() {
       return metaJson<SubjectSummary[]>('subject_groups_json', async () => {
-        const rows = await db.prepare('SELECT subject, subject_slug, COUNT(*) AS norm_count FROM law_norm_subjects GROUP BY subject_slug, subject ORDER BY subject').all<{ subject: string; subject_slug: string; norm_count: number }>();
-        return rows.results.map((row) => ({ name: row.subject, slug: row.subject_slug, normCount: Number(row.norm_count) }));
+        const rows = await db.prepare('SELECT subject, subject_slug, COUNT(*) AS norm_count FROM law_norm_subjects GROUP BY subject_slug, subject').all<{ subject: string; subject_slug: string; norm_count: number }>();
+        // Ohne die vorberechnete Übersicht: Reihenfolge und Nummern aus der amtlichen Systematik.
+        return rows.results
+          .map((row) => ({ name: row.subject, slug: row.subject_slug, ...subjectFacts(row.subject), normCount: Number(row.norm_count) }))
+          .sort((left, right) => compareSubjects(left.name, right.name));
       });
     },
     async listSubjectAreas() {
@@ -1107,14 +1124,15 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       return selected.slice(0, limit);
     },
     async listSubjectSummaries() {
-      return getSubjectGroups((await context()).norms).map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length }));
+      return getSubjectGroups((await context()).norms).map((group) => ({ name: group.name, slug: group.slug, ...subjectFacts(group.name), normCount: group.norms.length }));
     },
     async listSubjectAreas() {
       return getSubjectAreaGroups((await context()).norms).map((area) => ({
         name: area.name,
+        ...(area.number ? { number: area.number } : {}),
         description: area.description,
         normCount: area.normCount,
-        subjects: area.subjects.map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length })),
+        subjects: area.subjects.map((group) => ({ name: group.name, slug: group.slug, ...subjectFacts(group.name), normCount: group.norms.length })),
       }));
     },
     async getCorpusStats() {

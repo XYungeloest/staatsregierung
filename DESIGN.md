@@ -210,6 +210,13 @@ Rechtsentwicklung, Sachgebiete und A–Z verwenden dieselben Bausteine aus
   vorhanden und ohne aktiven Filter ausgegraut (`aria-disabled`), die Ergebniszahl unter der Leiste;
   der Bereichskopf nennt keine Bestandszahl mehr.
 - `LetterNav.astro`: Sprungnavigation mit allen 27 Buchstabengruppen, unbelegte sichtbar inaktiv.
+
+Die Sachgebietsübersicht zeigt die amtliche Systematik: acht nummerierte Hauptgruppen mit
+Beschreibung, darunter ihre nummerierten Sachgebiete mit Vorschriftenzahl; Sachgebiete ohne
+Vorschriften erscheinen nicht. Die Sachgebietsseite nennt die Nummer im Eyebrow („Sachgebiet 71“)
+und die Hauptgruppe in der Einleitung. Filter, Facetten und Kennzeichnungen tragen Nummer und
+Kurzform („71 Bildungswesen“), die vollständige amtliche Bezeichnung steht auf Übersicht und
+Sachgebietsseite; der gespeicherte Wert bleibt die amtliche Bezeichnung.
 - `DirectoryPagination.astro`: serverseitige Seiten zu 50 Einträgen (`DEFAULT_PAGE_SIZE`) in allen
   Verzeichnissen; im A–Z stehen Vorschriften und Stichwörter je zu 50 (`KEYWORD_PAGE_SIZE`) mit
   unabhängigen Parametern `seite` und `stichwortseite`.
@@ -266,7 +273,8 @@ Ruhige Hero-Fläche (`--law-blue-light`, kein Verlauf, kein Dekorzeichen) mit Vo
 Chips, die sämtlich Suchfilter sind (der letzte führt zur erweiterten Suche), darunter ein
 horizontaler Schnellzugriff. Zwei Bänder: oben „Aktuelle Änderungen“ und „Künftige Änderungen“ als
 gleich lange Spalten (je vier Einträge; eine leere Zukunftsspalte zeigt einen Hinweis), unten „Neu
-verkündet“, „Sachgebiete“ (mit Hinweis auf Mehrfachzuordnung) und die Funktionen des Rechtsportals;
+verkündet“, „Sachgebiete“ (die acht nummerierten Hauptgruppen der amtlichen Systematik in ihrer
+Reihenfolge, mit Hinweis auf Mehrfachzuordnung) und die Funktionen des Rechtsportals;
 zwischen den Bändern `--space-section`. H2 in `--text-lg`, Kartentitel in `--text-base-plus`,
 Beschreibungen in `--text-sm`, Etiketten in `--text-xs`; kein Bedienziel unter 24 px.
 

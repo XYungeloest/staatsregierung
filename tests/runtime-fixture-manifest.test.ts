@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { lawSubjectAreas } from '@ostrecht/shared/config/law-subjects.ts';
+import { lawSubjects } from '@ostrecht/shared/config/law-subjects.ts';
 import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import { getNormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
 import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
@@ -130,8 +130,8 @@ test('Suchwörter, Abkürzungen, Kurztitel und Sachgebiete tragen die Specs', ()
   assert.ok(norms.filter((norm) => ABBR_PATTERN.test(norm.meta.abbr ?? '')).length >= 4, 'genügend eindeutige Abkürzungen für die Standardsuche');
   assert.ok(norms.filter((norm) => (getNormLastChangeDate(norm, FIXTURE_REFERENCE_DATE) ?? '') <= FIXTURE_REFERENCE_DATE && getNormLastChangeDate(norm, FIXTURE_REFERENCE_DATE)).length > 6, 'mehr als sechs Normen mit Rechtsänderung bis zum Stichtag (Übersichten, Sitemap)');
 
-  const configured = new Set(lawSubjectAreas.flatMap((area) => area.subjects));
-  for (const norm of norms) for (const subject of norm.meta.subjects) assert.ok(configured.has(subject), `${norm.meta.slug}: Sachgebiet „${subject}“ steht nicht in law-subjects.ts`);
+  const configured = new Set(lawSubjects.map((subject) => subject.title));
+  for (const norm of norms) for (const subject of norm.meta.subjects) assert.ok(configured.has(subject), `${norm.meta.slug}: Sachgebiet „${subject}“ steht nicht in der amtlichen Systematik`);
 });
 
 test('der Builder bleibt außerhalb des Projektionsabschlusses', () => {

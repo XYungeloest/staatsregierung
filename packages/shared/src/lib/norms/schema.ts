@@ -96,6 +96,12 @@ export interface NormSourceReference {
   verifiedAt?: string;
   sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot' | 'amendment-evidence' | 'envelope-snapshot';
   derivedSource?: string;
+  /**
+   * Fundstellennummer der amtlichen Quelle („612-3.10/2“). Provenienzangabe; ihre
+   * Gliederungsnummer trägt die Sachgebietszuordnung und macht sie ohne den lokalen
+   * Rohcache nachvollziehbar. Nur für `revosax-snapshot`.
+   */
+  fsnNumber?: string;
 }
 
 export interface NormSourceNote {
@@ -178,6 +184,11 @@ export interface NormMeta {
   responsibleMinistry?: string;
   subjects: string[];
   primarySubject?: string;
+  /**
+   * Förderbereich einer Förderrichtlinie („550“ bis „559“) aus der amtlichen
+   * Sachgebietssystematik; nur für type `foerderrichtlinie`.
+   */
+  fundingArea?: string;
   keywords: string[];
   initialCitation: string;
   predecessor: string | null;
@@ -381,6 +392,8 @@ function expectSlugArray(value: unknown, path: string): string[] {
 
 const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
 const R2_OBJECT_KEY_PATTERN = /^[a-z0-9][a-z0-9._-]*(?:\/[a-z0-9][a-z0-9._-]*)+$/iu;
+/** Fundstellennummer: Gliederungsnummer, optional mit laufender Nummer nach dem Bindestrich. */
+const FSN_NUMBER_PATTERN = /^\d{1,4}(?:-[0-9A-Za-z.,:/]{1,16})?$/u;
 
 function parseNormSourceReference(value: unknown, path: string): NormSourceReference {
   const object = expectObject(value, path);
@@ -400,9 +413,15 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
     : expectIsoDate(object.sourceValidFrom, `${path}.sourceValidFrom`);
   const mediaType = expectOptionalString(object.mediaType, `${path}.mediaType`) as NormSourceReference['mediaType'];
   const sourceRole = expectOptionalString(object.sourceRole, `${path}.sourceRole`) as NormSourceReference['sourceRole'];
+  const fsnNumber = expectOptionalString(object.fsnNumber, `${path}.fsnNumber`);
 
   if (sha256 !== undefined && !SHA256_PATTERN.test(sha256)) {
     fail(`${path}.sha256`, 'muss ein SHA-256-Hexwert mit 64 Zeichen sein');
+  }
+
+  if (fsnNumber !== undefined) {
+    if (kind !== 'revosax-snapshot') fail(`${path}.fsnNumber`, 'ist nur für eine amtliche REVOSax-Quelle zulässig');
+    if (!FSN_NUMBER_PATTERN.test(fsnNumber)) fail(`${path}.fsnNumber`, 'muss eine Fundstellennummer wie „612-3.10/2“ sein');
   }
 
   if (availability === 'versioned') {
@@ -456,6 +475,7 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
         : expectIsoDate(object.verifiedAt, `${path}.verifiedAt`),
     sourceRole,
     derivedSource: expectOptionalString(object.derivedSource, `${path}.derivedSource`),
+    fsnNumber,
   };
 }
 
@@ -819,6 +839,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     responsibleMinistry: expectOptionalString(object.responsibleMinistry, `${path}.responsibleMinistry`),
     subjects,
     primarySubject,
+    fundingArea: expectOptionalString(object.fundingArea, `${path}.fundingArea`),
     keywords: expectStringArray(object.keywords, `${path}.keywords`),
     initialCitation: expectString(object.initialCitation, `${path}.initialCitation`),
     predecessor: expectNullableString(object.predecessor, `${path}.predecessor`),

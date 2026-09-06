@@ -17,7 +17,7 @@ import {
   BASELINE_DATE,
   inferEnactingBody,
   inferKeywords,
-  inferSubjects,
+  inferSubjectAssignment,
   inferSummary,
   sourceReferenceLabel,
 } from './lib/revosax-metadata.mjs';
@@ -182,6 +182,9 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     lawId: String(entry.revosaxLawId),
     sourceValidFrom: original.sourceValidFrom,
     ...(original.sourceValidTo ? { sourceValidTo: original.sourceValidTo } : {}),
+    // Amtliche Fundstellennummer der Quellseite: Provenienz und Grundlage der
+    // Sachgebietszuordnung, damit sie ohne den lokalen Rohcache nachvollziehbar bleibt.
+    ...(original.fsnNumber ? { fsnNumber: original.fsnNumber } : {}),
     sourceRole: 'official-snapshot',
     mediaType: 'text/html',
   };
@@ -191,6 +194,13 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
   // Erlassdatum: aus der Fassungsseite, ersatzweise aus der amtlichen REVOSax-Trefferliste
   // (Spalte Erlassdatum); nie geschätzt.
   const documentDate = original.documentDate ?? entry.listing?.documentDate ?? null;
+  const subjectAssignment = inferSubjectAssignment({
+    fsnNumber: original.fsnNumber,
+    category: entry.category,
+    normType,
+    sourceTitle: original.sourceTitle,
+    label: entry.listing?.label,
+  });
   const meta = {
     id: slug,
     slug,
@@ -200,7 +210,9 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     shortTitleSource: 'official',
     type: normType,
     ...(originEnactingBody ? { originEnactingBody } : {}),
-    subjects: inferSubjects({ sourceTitle: original.sourceTitle, label: entry.listing?.label, category: entry.category }),
+    subjects: subjectAssignment.subjects,
+    primarySubject: subjectAssignment.primarySubject,
+    ...(normType === 'foerderrichtlinie' && subjectAssignment.fundingArea ? { fundingArea: subjectAssignment.fundingArea } : {}),
     keywords: inferKeywords({ abbr, shortTitle, title }),
     initialCitation: citation,
     predecessor: null,
@@ -352,6 +364,14 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
   };
   const originEnactingBody = inferEnactingBody({ category: entry.category, sourceTitle: component.sourceTitle ?? '' });
   const documentDate = entry.listing?.documentDate ?? null;
+  // Der Artikel einer Mantelvorschrift trägt die Fundstellennummer der Mantelvorschrift.
+  const subjectAssignment = inferSubjectAssignment({
+    fsnNumber: component.fsnNumber ?? envelopeSource.fsnNumber,
+    category: entry.category,
+    normType: 'aenderungsvorschrift',
+    sourceTitle: component.sourceTitle,
+    label: entry.listing?.label,
+  });
   const meta = {
     id: slug,
     slug,
@@ -360,7 +380,8 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
     shortTitleSource: 'official',
     type: 'aenderungsvorschrift',
     ...(originEnactingBody ? { originEnactingBody } : {}),
-    subjects: inferSubjects({ sourceTitle: component.sourceTitle, label: entry.listing?.label, category: entry.category }),
+    subjects: subjectAssignment.subjects,
+    primarySubject: subjectAssignment.primarySubject,
     keywords: inferKeywords({ abbr: undefined, shortTitle, title }),
     initialCitation: citation,
     predecessor: null,
@@ -511,13 +532,15 @@ async function main() {
         if (fetchedEnvelopes.has(component.envelopeSourceId)) {
           const fetched = fetchedEnvelopes.get(component.envelopeSourceId);
           const html = await readFile(resolve(ROOT, fetched.rawCacheFile), 'utf8');
-          envelopeBody = parseRevosaxSnapshot(html, { url: fetched.url }).body;
-          envelopeSource = { objectKey: fetched.objectKey, sha256: fetched.sha256, url: fetched.url, retrievedAt: fetched.retrievedAt, sourceValidFrom: fetched.sourceValidFrom, sourceValidTo: fetched.sourceValidTo };
+          const parsedEnvelope = parseRevosaxSnapshot(html, { url: fetched.url });
+          envelopeBody = parsedEnvelope.body;
+          envelopeSource = { objectKey: fetched.objectKey, sha256: fetched.sha256, url: fetched.url, retrievedAt: fetched.retrievedAt, sourceValidFrom: fetched.sourceValidFrom, sourceValidTo: fetched.sourceValidTo, fsnNumber: parsedEnvelope.fsnNumber ?? null };
         } else {
           const envelopeEntry = reportEntries.get(component.envelopeSourceId);
           if (!envelopeEntry?.parsedCacheFile) throw new Error(`${planned.sourceId}: Mantelvorschrift ${component.envelopeSourceId} nicht im Stagingbericht`);
-          envelopeBody = (await readJson(resolve(ROOT, envelopeEntry.parsedCacheFile))).original.body;
-          envelopeSource = { objectKey: objectKeyFor(baselineDate, envelopeEntry.sourceId), sha256: envelopeEntry.sourceSha256, url: envelopeEntry.sourceUrl, retrievedAt: envelopeEntry.retrievedAt, sourceValidFrom: envelopeEntry.sourceValidFrom, sourceValidTo: envelopeEntry.sourceValidTo ?? null };
+          const parsedEnvelope = (await readJson(resolve(ROOT, envelopeEntry.parsedCacheFile))).original;
+          envelopeBody = parsedEnvelope.body;
+          envelopeSource = { objectKey: objectKeyFor(baselineDate, envelopeEntry.sourceId), sha256: envelopeEntry.sourceSha256, url: envelopeEntry.sourceUrl, retrievedAt: envelopeEntry.retrievedAt, sourceValidFrom: envelopeEntry.sourceValidFrom, sourceValidTo: envelopeEntry.sourceValidTo ?? null, fsnNumber: parsedEnvelope.fsnNumber ?? null };
         }
         record = buildEnvelopeComponentRecord({
           entry,
