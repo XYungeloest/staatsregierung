@@ -4,7 +4,8 @@ export interface NormVersionIdentity {
   title: string;
   shortTitle: string;
   abbr?: string;
-  summary: string;
+  /** Fehlt, solange keine redaktionelle Kurzbeschreibung vorliegt. */
+  summary?: string;
   /** Herkunft der Zusammenfassung; eine fassungsspezifische Zusammenfassung gilt als redaktionell. */
   summarySource?: 'derived' | 'editorial';
 }
