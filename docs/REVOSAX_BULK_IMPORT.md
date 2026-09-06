@@ -477,7 +477,7 @@ dann Staging, dann Produktion, nie automatisch.
 | `law_norm_derived` | Beziehungen, Empfehlungen, Herkunft, Textverweise, Portalbezüge |
 | `law_publications` | Verkündungen als JSON |
 | `law_search_documents` | Suchdokument-Metadaten je Fassung (ohne Stichtag; Fassungsbezeichnung entsteht im Browser) |
-| `law_search_units` | Provisionen der geltenden Fassung, relational mit Indizes auf `norm_id`, `slug`, `(norm_id, version_id)` |
+| `law_search_units` | Provisionen der geltenden Fassung, relational mit Indizes auf `norm_id`, `slug`, `(norm_id, version_id)`; dazu je Fassung eine Ergänzungseinheit (`supplement`) und eine Metadateneinheit (`metadata`: Kurzfassung, Stichwörter, Sachgebiete, Ressort, Zitate, Verkündungsbezeichnungen und frühere Bezeichnungen). Beide sind Suchtext, aber keine Trefferstelle: der Ausschnitt kommt nie aus ihnen. Der Text einer Provision beginnt beim Wortlaut; Nummer und Überschrift stehen in den eigenen Spalten `label` und `heading` |
 | `law_search` | FTS5-Index mit externem Inhalt über `law_search_units`, per Trigger rowid-genau geführt |
 | `law_norm_subjects`, `law_norm_history`, `law_norm_keywords` | Sachgebiete, Historieneinträge (Datumsindex), Stichwortindex je Buchstabengruppe |
 | `law_runtime_meta` | Identität, Zustand, Zähler, `corpus_hash` und vorberechnete Metadatenzeilen (Suchfilter, Sachgebiete, Bestandszahlen) |
@@ -493,10 +493,18 @@ ein Vollscan des FTS5-Index); die Vollprojektion leert die Tabellen einmalig (FT
 schreibt ohne normweise Löschungen und setzt die Laufzeitmetadaten erst am erfolgreichen Ende.
 Die Laufzeit lädt nie den Korpus: Übersichten lesen `NormSummary`-Zeilen mit SQL-Filtern, A–Z und
 Rechtsentwicklung paginieren serverseitig, korpusweite Zahlen kommen aus Metadatenzeilen, die
-Suche wählt Kandidaten über den FTS5-Index; jeder Filter, den die Projektion trägt, läuft bereits
-in SQL (Typ, Herkunft, Ressort, Sachgebiet, Status, Fassungsart, Verkündungsblatt, Jahr,
-Änderungsvorschriften), damit `total` dieselbe Menge zählt wie die Trefferliste.
+Suche blättert echt über den FTS5-Index; jede Bedingung einer Suchanfrage läuft in SQL (Typ,
+Herkunft, Ressort, Sachgebiet, Status, Fassungsart, Verkündungsblatt, Jahr, Ausgabennummer, Seite,
+Geltungstag, Gültigkeitszeitraum, Suchbegriffe, Wortfolgen, Ausschlussbegriffe, Strukturadressen
+und die Grundmenge der Änderungsvorschriften), damit `total` dieselbe Menge zählt wie die
+Trefferliste. Je Anfrage liest sie eine Seite von höchstens hundert Vorschriften, deren
+Suchdokumente und höchstens acht Einheiten je Vorschrift.
 `tests/recht-runtime-d1-queries.test.ts` protokolliert die Abfrageformen jeder Route.
+
+Änderungen an den Einheiten sind eine Vollprojektion: `law_search_units` trägt seit der Umstellung
+der Trefferausschnitte den Wortlaut ohne wiederholte Überschrift und zusätzlich die
+Metadateneinheit. Der Äquivalenznachweis (`npm run norms:runtime:d1-prove`) ergibt deshalb `full`;
+der Ablauf steht in `docs/DEPLOYMENT_RUNBOOK.md` (lokal, Staging, Produktion).
 
 ### Bedeutung von `last_change_date` (Migration 0007)
 

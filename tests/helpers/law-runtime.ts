@@ -16,6 +16,7 @@ import { expect, type APIRequestContext } from '@playwright/test';
 export const LAW_ORIGIN = `http://127.0.0.1:${process.env.OSTRECHT_LAW_PORT ?? '4322'}`;
 export const lawUrl = (path: string): string => new URL(path, LAW_ORIGIN).toString();
 
+/** Ein Treffer der Such-API: eine Vorschrift mit ihrer bestbewerteten Fassung. */
 export interface ApiDocument {
   slug: string;
   versionId: string;
@@ -34,30 +35,28 @@ export interface ApiDocument {
   citation: string;
   publication: string;
   publicationSlug?: string;
+  publicationTitle?: string;
   publicationIssue?: string;
   publicationSource?: string;
+  ministry: string;
   validFrom: string;
   validTo: string | null;
   lastChangeDate?: string;
-}
-
-export interface ApiPublication {
-  slug: string;
-  url: string;
-  title: string;
-  designation: string;
-  aliases: string[];
-  date: string;
-  publication: string;
-  year: string;
-  issue: string;
+  matchKind: string;
+  matchLabel: string;
+  snippet: string;
+  unitLabel?: string;
+  unitAnchor?: string;
+  otherVersions: Array<{ versionId: string; versionKind: string; validFrom: string; url: string; matchLabel: string }>;
 }
 
 export interface ApiPayload {
   total: number;
-  candidateCount: number;
-  documents: ApiDocument[];
-  publications: ApiPublication[];
+  offset: number;
+  limit: number;
+  hits: ApiDocument[];
+  facets?: Record<string, Record<string, number>>;
+  publicationDirectHit?: { slug: string; url: string; designation: string; title: string };
   query: { origins: string[]; [key: string]: unknown };
 }
 
@@ -99,11 +98,15 @@ export async function withWorkerRecovery<T>(request: APIRequestContext, action: 
   }
 }
 
-export async function searchApi(request: APIRequestContext, query = ''): Promise<ApiPayload> {
+/** Eine Trefferseite der Such-API; die Testhelfer holen bis zu hundert Treffer auf einmal. */
+export async function searchApi(request: APIRequestContext, query = '', limit = 100): Promise<ApiPayload> {
+  const separator = query.startsWith('?') ? '&' : '?';
   return withWorkerRecovery(request, async () => {
-    const response = await request.get(lawUrl(`/api/suche.json${query}`));
+    const response = await request.get(lawUrl(`/api/suche.json${query}${separator}limit=${limit}`));
     expect(response.ok(), `/api/suche.json${query}`).toBe(true);
-    return await response.json() as ApiPayload;
+    const payload = await response.json() as ApiPayload;
+    expect(Array.isArray(payload.hits), `/api/suche.json${query}: hits`).toBe(true);
+    return payload;
   });
 }
 
@@ -123,24 +126,28 @@ export async function publicationIndex(request: APIRequestContext): Promise<{ la
   });
 }
 
-/** Geltende Vorschriften (eine je Norm) in der Reihenfolge der Kandidaten-API (jüngstes Rechtsereignis zuerst). */
+/** Geltende Vorschriften (eine je Norm) in der Reihenfolge der Such-API (jüngstes Rechtsereignis zuerst). */
 export async function currentDocuments(request: APIRequestContext, query = ''): Promise<ApiDocument[]> {
   const payload = await searchApi(request, `?versionScope=current${query}`);
-  const seen = new Set<string>();
-  return payload.documents.filter((document) => document.isCurrent && !seen.has(document.slug) && seen.add(document.slug));
+  return payload.hits.filter((hit) => hit.isCurrent);
 }
 
 /** Norm mit mindestens zwei gespeicherten Fassungen, darunter eine geltende und eine historische. */
 export async function multiVersionNorm(request: APIRequestContext): Promise<{ slug: string; current: ApiDocument; historical: ApiDocument }> {
   const payload = await searchApi(request, '?versionScope=all&includeAmendments=1');
-  const bySlug = new Map<string, ApiDocument[]>();
-  for (const document of payload.documents) bySlug.set(document.slug, [...(bySlug.get(document.slug) ?? []), document]);
-  for (const [slug, documents] of bySlug) {
-    const current = documents.find((document) => document.versionKind === 'current');
-    const historical = documents.find((document) => document.versionKind === 'historical');
-    if (current && historical) return { slug, current, historical };
+  for (const hit of payload.hits) {
+    // Die weiteren passenden Fassungen einer Vorschrift stehen am Treffer selbst.
+    const versions = [{ versionId: hit.versionId, versionKind: hit.versionKind, validFrom: hit.validFrom, url: hit.url }, ...hit.otherVersions];
+    const current = versions.find((version) => version.versionKind === 'current');
+    const historical = versions.find((version) => version.versionKind === 'historical');
+    if (!current || !historical) continue;
+    return {
+      slug: hit.slug,
+      current: { ...hit, ...current },
+      historical: { ...hit, ...historical, isCurrent: false },
+    };
   }
-  throw new Error('Kein Kandidat mit geltender und historischer Fassung in der Kandidaten-API');
+  throw new Error('Kein Treffer mit geltender und historischer Fassung in der Such-API');
 }
 
 /** Erste geltende Norm der gewünschten Rechtsherkunft. */

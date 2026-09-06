@@ -14,8 +14,8 @@ import { buildNormRelations } from '@ostrecht/shared/lib/norms/relations.ts';
 import { getLegacyBlockAnchorId, getNormTitleBlock, parseCitation } from '@ostrecht/shared/lib/norms/display.ts';
 import { getBlockAnchorId } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
-  buildSearchCandidateParams,
-  candidateTotalMatchesResults,
+  buildSearchQueryPlan,
+  buildSearchSnippet,
   getDefaultSearchSort,
   groupNormSearchResults,
   normalizeSearchText,
@@ -645,39 +645,51 @@ test('Sortierung nach jüngster Rechtsänderung: neues Gesetz 2026 und 2026 geä
   assert.deepEqual(runNormSearch([tieA, tieB], searchState({ sort: 'activity', sortExplicit: false })).map((entry) => entry.documentEntry.slug), ['a-slug', 'b-slug']);
 });
 
-test('Kandidatenanfrage trägt jeden serverseitig ausdrückbaren Filter; nur dann darf die Überschrift eine Gesamtzahl nennen', () => {
-  // Stöbern: alles serverseitig ausdrückbar, die Gesamtzahl der API beschreibt dieselbe Menge.
-  const browse = searchState({ types: ['gesetz'], subjects: ['Bildung und Schule'], statuses: ['in-force'], versionScope: 'current' });
-  assert.equal(candidateTotalMatchesResults(browse), true);
-  const browseParams = buildSearchCandidateParams(browse);
-  assert.deepEqual(browseParams.types, ['gesetz']);
-  assert.deepEqual(browseParams.subjects, ['Bildung und Schule']);
-  assert.equal(browseParams.versionScope, 'current');
-  assert.equal(browseParams.includeAmendments, false, 'ohne Suchbegriff verengt der Server auch die Änderungsvorschriften');
+test('der Suchplan zerlegt die Anfrage in serverseitig auswertbare Bestandteile', () => {
+  // Stöbern: kein Freitext, keine Bedingung über den Volltextindex.
+  const browse = buildSearchQueryPlan(searchState({ types: ['gesetz'], statuses: ['in-force'], sort: 'activity', sortExplicit: false }));
+  assert.equal(browse.freeText, false);
+  assert.deepEqual(browse.tokenGroups, []);
+  assert.equal(browse.sort, 'activity');
 
-  // Freitext: die Kandidaten sind großzügig, die Bewertung läuft im Browser – keine Gesamtzahl.
-  for (const state of [searchState({ q: 'Testkindergeld' }), searchState({ exact: 'Testkindergeld' }), searchState({ citation: 'OGVBl. 2026 Nr. 16' }), searchState({ exclude: 'Änderung' })]) {
-    assert.equal(candidateTotalMatchesResults(state), false);
-    assert.equal(buildSearchCandidateParams(state).includeAmendments, true, 'mit Suchbegriff bleiben Änderungsvorschriften Kandidaten');
-    assert.equal(buildSearchCandidateParams(state).versionScope, 'all', 'eine Fundstellensuche darf Fassungen nicht vorab ausschließen');
-  }
-  // Ausdrücklich gewählte Fassungsart bleibt auch mit Suchbegriff erhalten.
-  assert.equal(buildSearchCandidateParams(searchState({ q: 'Testkindergeld', versionScope: 'historical', versionScopeExplicit: true })).versionScope, 'historical');
-  // Ausdrücklich gefilterte Änderungsvorschriften bleiben Kandidaten (amendmentExplicitlyRequested).
-  assert.equal(buildSearchCandidateParams(searchState({ types: ['aenderungsvorschrift'] })).includeAmendments, true);
+  // Zwei Begriffe ergeben zwei Gruppen; jede trägt ihre Schreibvarianten.
+  const plan = buildSearchQueryPlan(searchState({ q: 'Prüfstelle Straße', exclude: 'Änderung' }));
+  assert.equal(plan.tokenGroups.length, 2);
+  assert.ok(plan.tokenGroups[0].variants.includes('prufstelle'));
+  assert.ok(plan.tokenGroups[0].variants.includes('pruefstelle'), 'Umlautvarianten gehören zur selben Gruppe');
+  assert.equal(plan.excludeTokens.length, 1);
+  assert.equal(plan.freeText, true);
+  assert.equal(plan.sort, 'relevance');
+  assert.equal(plan.titlePhrase, 'prufstelle strasse', 'mehrwortige Anfragen bleiben als Wortfolge erhalten');
+  assert.deepEqual(plan.identityValues, ['Prüfstelle Straße']);
 
-  // Geltungstag und Gültigkeitszeitraum trägt die Projektion je Fassung: sie gehen serverseitig mit.
-  const dated = searchState({ geltungstag: '2026-01-01', validFrom: '2026-01-01', validTo: '2026-12-31' });
-  assert.equal(candidateTotalMatchesResults(dated), true);
-  assert.deepEqual(
-    [buildSearchCandidateParams(dated).geltungstag, buildSearchCandidateParams(dated).validFrom, buildSearchCandidateParams(dated).validTo],
-    ['2026-01-01', '2026-01-01', '2026-12-31'],
-  );
+  // Wortfolgen: Anführungszeichen und die Eingabe „Exakte Wortfolge“ landen gemeinsam im Plan.
+  const phrases = buildSearchQueryPlan(searchState({ q: '"öffentliche Aufgabe" Amt', exact: 'zweite Wortfolge' }));
+  assert.deepEqual(phrases.phrases, ['öffentliche Aufgabe', 'zweite Wortfolge']);
+  assert.equal(phrases.tokenGroups.length, 1);
 
-  // Ausgabennummer und Seite vergleichen normalisierten Text und bleiben im Browser.
-  for (const state of [searchState({ publicationIssue: '16' }), searchState({ publicationPage: '12' })]) {
-    assert.equal(candidateTotalMatchesResults(state), false);
-  }
+  // Strukturadressen und Normtypabsicht bleiben getrennt vom Suchtext.
+  const structured = buildSearchQueryPlan(searchState({ q: '§ 2a Abs. 1' }));
+  assert.deepEqual(structured.references.map((reference) => [reference.kind, reference.number, reference.subsection]), [['paragraph', '2a', '1']]);
+  const typeOnly = buildSearchQueryPlan(searchState({ q: 'Verordnungen' }));
+  assert.equal(typeOnly.typeOnly, 'verordnung');
+  assert.equal(buildSearchQueryPlan(searchState({ q: 'Verordnung über Gebühren' })).typeOnly, undefined, 'mit weiteren Begriffen wirkt die Absicht nicht als Filter');
+
+  // Suchbereich und einzelne Begriffe: ein Wort ergibt keine Titelwortfolge.
+  const scoped = buildSearchQueryPlan(searchState({ q: 'Amt', scope: 'title' }));
+  assert.equal(scoped.scope, 'title');
+  assert.equal(scoped.titlePhrase, undefined);
+});
+
+test('Textausschnitte beginnen beim Wortlaut, nicht bei der eigenen Überschrift', () => {
+  // Übergangsregel: gespeicherte Einheiten aus einer älteren Projektion tragen den Vorspann noch.
+  assert.equal(buildSearchSnippet({ label: '§ 1', title: 'Zweck', text: '§ 1 Zweck\n\nDiese Vorschrift regelt das Verfahren.' }), 'Diese Vorschrift regelt das Verfahren.');
+  assert.equal(buildSearchSnippet({ label: 'Artikel 1', title: 'Artikel 1', text: 'Artikel 1\nDie Verordnung wird neu gefasst.' }), 'Die Verordnung wird neu gefasst.');
+  assert.equal(buildSearchSnippet({ label: 'I.', title: 'Zuwendungszweck', text: 'Der Freistaat gewährt Zuwendungen.' }), 'Der Freistaat gewährt Zuwendungen.');
+  // Zeilenumbrüche werden zu Leerzeichen, die Länge endet an einer Wortgrenze mit Auslassung.
+  const long = buildSearchSnippet({ label: '', title: '', text: `${'Wortlaut '.repeat(60)}Ende` }, 60);
+  assert.ok(long.length <= 61 && long.endsWith('…'), long);
+  assert.ok(!long.includes('  '));
 });
 
 test('Rechtsänderung und Aktivität sind getrennt: ein bloßer Hinweis zählt nur als Aktivität', () => {
@@ -825,6 +837,26 @@ test('Rechtsherkunft des Fixture-Bestands folgt Quellen und Historie', () => {
   assert.equal(amended.baselineVersionId, LEGAL_BASELINE_DATE);
   assert.equal(amended.ownAmendmentCount, 1);
   assert.equal(origin('aufgehobene-verordnung').kind, 'inherited-amended', 'eine ostdeutsche Aufhebung ist eine eigene Änderung');
+});
+
+test('Treffereinheiten führen ihre Überschrift nicht zusätzlich im Text', () => {
+  const unitsOf = (slug: string) => fixtureSearchIndex.documents.find((entry) => entry.slug === slug && entry.isCurrent)?.hitUnits ?? [];
+  const cases: Array<[string, string]> = [
+    ['testgesetz', '§ 1'],
+    ['mantelverordnung', 'Artikel 1'],
+    ['foerderrichtlinie-testkindergeld', 'I.'],
+  ];
+  for (const [slug, label] of cases) {
+    const unit = unitsOf(slug).find((entry) => entry.label === label);
+    assert.ok(unit, `${slug}: Einheit ${label}`);
+    assert.ok(!unit.text.startsWith(unit.label), `${slug}: Text beginnt mit dem Label – ${unit.text.slice(0, 40)}`);
+    assert.ok(!unit.text.startsWith(unit.title), `${slug}: Text beginnt mit der Überschrift – ${unit.text.slice(0, 40)}`);
+    const snippet = buildSearchSnippet(unit);
+    assert.ok(snippet.length > 0 && !snippet.startsWith(unit.label) && !snippet.startsWith(unit.title), `${slug}: ${snippet.slice(0, 60)}`);
+    assert.equal(snippet, unit.text.replace(/\s+/gu, ' ').trim().slice(0, snippet.length), `${slug}: der Ausschnitt beginnt beim ersten Satz`);
+  }
+  // Eine Einheit ohne eigenen Wortlaut bildet keine Trefferstelle mehr.
+  assert.ok(fixtureSearchIndex.documents.every((entry) => entry.hitUnits.every((unit) => unit.text.trim().length > 0)));
 });
 
 test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung', () => {

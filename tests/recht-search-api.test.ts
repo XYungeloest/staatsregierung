@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { buildFtsMatch, buildFtsColumnMatch, searchScopeColumns } from '@ostrecht/recht-search/search-query.ts';
 import type { SearchPublication } from '@ostrecht/recht-search/search.ts';
 
-import { buildFtsMatch, citedPublications, parseOriginFilter } from '../apps/recht/src/pages/api/suche.json.ts';
+import { citedPublications, parseLimit, parseOriginFilter, parseScope, parseSort, parseVersionScope } from '../apps/recht/src/pages/api/suche.json.ts';
 
 const publication = (overrides: Partial<SearchPublication>): SearchPublication => ({
   slug: 'ogvbl-2026-99', url: '/verkuendungen/ogvbl-2026-99/', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 99',
@@ -30,8 +31,31 @@ test('zitierte Ausgaben werden an Wortgrenzen erkannt – mit und ohne Punkte, a
   assert.deepEqual(slugs(''), []);
 });
 
-test('Herkunftsfilter und FTS-Ausdruck der Kandidaten-API bleiben fail-safe', () => {
+test('Herkunftsfilter und FTS-Ausdruck bleiben fail-safe', () => {
   assert.deepEqual(parseOriginFilter(['inherited-amended', 'unbekannt', 'inherited-amended', 'ostdeutsch-original']), ['inherited-amended', 'ostdeutsch-original']);
   assert.equal(buildFtsMatch({ q: '', exact: '', citation: '' }), null);
   assert.match(buildFtsMatch({ q: 'Testbegriff', exact: '', citation: '' }) ?? '', /"testbegriff"\*/u);
+  // Mehrere Begriffe sammeln Kandidaten großzügig; die Verknüpfung leisten die UND-Bedingungen.
+  assert.match(buildFtsMatch({ q: 'Testbegriff Zweitbegriff', exact: '', citation: '' }) ?? '', /\) OR \(/u);
+  // Spaltenfilter je Suchbereich.
+  assert.equal(searchScopeColumns('all'), null);
+  assert.equal(searchScopeColumns('metadata'), null, 'Metadaten trennt die Einheitenart, nicht der Spaltenfilter');
+  assert.equal(buildFtsColumnMatch(searchScopeColumns('title'), '("amt"*)'), '{title short_title abbr}: ("amt"*)');
+  assert.equal(buildFtsColumnMatch(searchScopeColumns('body'), '("amt"*)'), '{label heading body}: ("amt"*)');
+});
+
+test('Anfrageparameter der Such-API werden begrenzt und fail-safe gelesen', () => {
+  assert.equal(parseLimit(null), 20, 'ohne Angabe eine Seite von zwanzig Treffern');
+  assert.equal(parseLimit('50'), 50);
+  assert.equal(parseLimit('5000'), 100, 'die Seitengröße bleibt bei hundert');
+  assert.equal(parseLimit('0'), 20);
+  assert.equal(parseLimit('keine Zahl'), 20);
+  assert.equal(parseScope('body'), 'body');
+  assert.equal(parseScope('unbekannt'), 'all');
+  assert.deepEqual(parseSort('title'), { sort: 'title', explicit: true });
+  assert.deepEqual(parseSort(null), { sort: 'activity', explicit: false });
+  assert.deepEqual(parseSort('unbekannt'), { sort: 'activity', explicit: false });
+  assert.equal(parseVersionScope('historical'), 'historical');
+  assert.equal(parseVersionScope('all'), 'all');
+  assert.equal(parseVersionScope('unbekannt'), undefined);
 });

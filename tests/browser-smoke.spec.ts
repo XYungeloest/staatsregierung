@@ -63,7 +63,7 @@ async function prepareFunctionalPage(page: Page): Promise<void> {
   await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
 }
 
-/** Rechtssuche im Endzustand: Kandidaten und Treffer geladen („n Treffer“, „Mindestens n Treffer“ oder „Keine Treffer“). */
+/** Rechtssuche im Endzustand: die Trefferseite ist geladen („n Treffer“ oder „Keine Treffer“). */
 async function searchSettled(page: Page): Promise<void> {
   const summary = page.locator('[data-search-summary]');
   await expect(summary).toBeVisible();
@@ -495,7 +495,7 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
 
 siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilter auffindbar', async ({ page, request }) => {
   const payload = await searchApi(request, '?versionScope=current&includeAmendments=1');
-  const amendment = payload.documents.find((document) => document.isAmendment && document.versionKind === 'current');
+  const amendment = payload.hits.find((hit) => hit.isAmendment && hit.versionKind === 'current');
   expect(amendment, 'geltende Änderungsvorschrift im Bestand').toBeTruthy();
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(amendment!.title)}`));
   await searchSettled(page);
@@ -850,11 +850,10 @@ interface CandidatePayload {
   total: number;
   offset: number;
   limit: number;
-  candidateCount: number;
-  documents: ApiDocument[];
+  hits: ApiDocument[];
 }
 
-/** Suchseite laden und die Kandidatenantwort mitlesen, die die Seite selbst angefordert hat. */
+/** Suchseite laden und die Antwort mitlesen, die die Seite selbst angefordert hat. */
 async function loadSearchPage(page: Page, query: string): Promise<CandidatePayload> {
   const [response] = await Promise.all([
     page.waitForResponse((entry) => entry.url().includes('/api/suche.json') && entry.status() === 200),
@@ -865,10 +864,8 @@ async function loadSearchPage(page: Page, query: string): Promise<CandidatePaylo
 }
 
 interface SearchCounts {
-  /** Zahl in der Überschrift; bei „Mindestens …“ nur eine Untergrenze. */
+  /** Gesamtzahl aus der Überschrift; die Suche zählt vollständig, eine Untergrenze gibt es nicht. */
   headline: number | null;
-  /** Nennt die Überschrift eine feststehende Gesamtzahl? */
-  exactTotal: boolean;
   shown: number;
   remaining: number | null;
   moreVisible: boolean;
@@ -882,12 +879,10 @@ async function readSearchCounts(page: Page): Promise<SearchCounts> {
   const more = page.locator('[data-search-more]');
   const moreVisible = await more.isVisible();
   const moreText = moreVisible ? (await more.textContent()) ?? '' : '';
-  // „1739 Treffer …“ bei feststehender Gesamtzahl, „Mindestens 6 Treffer …“, solange sie offen ist.
-  const headline = summary.match(/^(?:Mindestens )?(\d+) Treffer/u)?.[1];
+  const headline = summary.match(/^(\d+) Treffer/u)?.[1];
   const remaining = moreText.match(/\((\d+) verbleibend\)/u)?.[1];
   return {
-    headline: headline === undefined ? null : Number(headline),
-    exactTotal: !summary.startsWith('Mindestens '),
+    headline: headline === undefined ? (/^Keine Treffer/u.test(summary) ? 0 : null) : Number(headline),
     shown,
     remaining: remaining === undefined ? null : Number(remaining),
     moreVisible,
@@ -895,34 +890,25 @@ async function readSearchCounts(page: Page): Promise<SearchCounts> {
   };
 }
 
-/**
- * Widerspruchsfreiheit von Überschrift, Nachladezähler und serverseitigem `total` – unabhängig
- * davon, ob die Kandidatenmenge in eine Seite passt (Testfixture) oder nicht (Vollbestand).
- */
+/** Widerspruchsfreiheit von Überschrift, Nachladezähler und serverseitigem `total`. */
 function expectConsistentCounts(counts: SearchCounts, payload: CandidatePayload, label: string): void {
   const where = `${label}: ${counts.summary}`;
-  expect(counts.headline, where).not.toBeNull();
-  // Die Überschrift behauptet nie mehr Treffer, als die Kandidatenmenge überhaupt hergibt.
-  expect(counts.headline ?? 0, where).toBeLessThanOrEqual(payload.total);
-  if (counts.exactTotal) {
-    // Angezeigte und verbleibende Treffer ergeben zusammen die genannte Gesamtzahl.
-    expect(counts.shown + (counts.remaining ?? 0), where).toBe(counts.headline);
-    // Der Nachladeknopf erscheint genau dann, wenn noch Treffer fehlen.
-    expect(counts.moreVisible, where).toBe(counts.shown < (counts.headline ?? 0));
-    if (counts.moreVisible) expect(counts.remaining, where).not.toBeNull();
-    return;
-  }
-  // Offene Gesamtzahl: die Überschrift bleibt eine Untergrenze, der Knopf nennt keine Trefferzahl.
-  expect(counts.headline ?? 0, where).toBeGreaterThanOrEqual(counts.shown);
-  expect(counts.remaining, where).toBeNull();
-  expect(counts.moreVisible, where).toBe(true);
+  expect(counts.headline, where).toBe(payload.total);
+  // Angezeigte und verbleibende Treffer ergeben zusammen die genannte Gesamtzahl.
+  expect(counts.shown + (counts.remaining ?? 0), where).toBe(counts.headline);
+  // Der Nachladeknopf erscheint genau dann, wenn noch Treffer fehlen.
+  expect(counts.moreVisible, where).toBe(counts.shown < (counts.headline ?? 0));
+  if (counts.moreVisible) expect(counts.remaining, where).not.toBeNull();
 }
 
 siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschreiben dieselbe Ergebnismenge', async ({ page, request }) => {
   const referenceDate = editorialReferenceDate();
-  // Filterkombinationen, die die Kandidatenabfrage vollständig serverseitig ausdrückt: hier muss
-  // die Überschrift genau die Zahl nennen, die die Such-API als total liefert.
-  const serverSideCases = [
+  // Jede Filterkombination wird vollständig serverseitig ausgedrückt: die Überschrift nennt
+  // genau die Zahl, die die Such-API als total liefert – mit und ohne Suchbegriff.
+  const issue = (await searchApi(request, '?versionScope=all&includeAmendments=1')).hits.find((entry) => entry.publicationIssue)?.publicationIssue;
+  expect(issue, 'Vorschrift mit Ausgabennummer').toBeTruthy();
+  const word = await currentSearchWord(request);
+  const cases = [
     { label: 'ohne Suchbegriff', query: '' },
     { label: 'Änderungsvorschriften einbezogen', query: '?includeAmendments=1' },
     { label: 'nur geltende Fassungen', query: '?versionScope=current' },
@@ -931,37 +917,27 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
     { label: 'Status und Normtyp', query: '?type=gesetz&status=in-force' },
     { label: 'Geltungstag', query: `?geltungstag=${referenceDate}` },
     { label: 'Gültigkeitszeitraum', query: `?validFrom=${referenceDate.slice(0, 4)}-01-01&validTo=${referenceDate.slice(0, 4)}-12-31&versionScope=all` },
+    { label: 'Ausgabennummer', query: `?publicationIssue=${issue}&versionScope=all&includeAmendments=1` },
+    { label: 'Suchbegriff', query: `?q=${encodeURIComponent(word)}` },
+    { label: 'Suchbegriff und Sortierung', query: `?q=${encodeURIComponent(word)}&sort=title` },
   ];
 
-  for (const { label, query } of serverSideCases) {
+  for (const { label, query } of cases) {
     const payload = await loadSearchPage(page, query);
     const counts = await readSearchCounts(page);
-    // Serverseitig ausdrückbar: die Überschrift nennt genau das `total` der Such-API.
-    expect(counts.exactTotal, `${label}: ${counts.summary}`).toBe(true);
-    expect(counts.headline, `${label}: ${counts.summary}`).toBe(payload.total);
     expectConsistentCounts(counts, payload, label);
   }
 
-  // Ein nur im Browser wirkender Filter (Ausgabennummer, normalisierter Textvergleich) darf die
-  // serverseitige Gesamtzahl nicht als Trefferzahl behaupten; die Überschrift bleibt bei der
-  // Menge, die die Liste zeigt.
-  const issue = (await searchApi(request, '?versionScope=all&includeAmendments=1')).documents.find((entry) => entry.publicationIssue)?.publicationIssue;
-  expect(issue, 'Dokument mit Ausgabennummer').toBeTruthy();
-  const narrowed = await loadSearchPage(page, `?publicationIssue=${issue}&versionScope=all&includeAmendments=1`);
-  const narrowedCounts = await readSearchCounts(page);
-  expect(narrowedCounts.headline ?? 0, narrowedCounts.summary).toBeLessThan(narrowed.total);
-  expectConsistentCounts(narrowedCounts, narrowed, 'Ausgabennummer');
-
-  // Auch mit Suchbegriff bleibt die Überschrift bei der Menge, die die Liste zeigt.
-  const word = await currentSearchWord(request);
-  const searched = await loadSearchPage(page, `?q=${encodeURIComponent(word)}`);
-  expectConsistentCounts(await readSearchCounts(page), searched, 'Suchbegriff');
-
-  // Nachladen bleibt widerspruchsfrei: mehr angezeigt, dieselbe Gesamtzahl, kleinerer Restwert.
+  // Nachladen: mehr angezeigt, dieselbe Gesamtzahl, kleinerer Restwert – und die zweite Anfrage
+  // holt die nächste Seite über `offset`, statt dieselbe Menge erneut zu laden.
   const paged = await loadSearchPage(page, '?includeAmendments=1&versionScope=all');
   const before = await readSearchCounts(page);
   if (before.moreVisible) {
-    await page.locator('[data-search-more]').click();
+    const [next] = await Promise.all([
+      page.waitForResponse((entry) => entry.url().includes('/api/suche.json') && entry.status() === 200),
+      page.locator('[data-search-more]').click(),
+    ]);
+    expect(new URL(next.url()).searchParams.get('offset'), 'die zweite Anfrage blättert weiter').toBe(String(before.shown));
     await expect.poll(async () => (await readSearchCounts(page)).shown).toBeGreaterThan(before.shown);
     const after = await readSearchCounts(page);
     expect(after.headline).toBe(paged.total);
@@ -970,9 +946,56 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
   }
 });
 
+siteTest(['law'])('Die Rechtssuche stellt je Suchzustand genau eine Anfrage', async ({ page, request }) => {
+  const word = await currentSearchWord(request);
+  let requests = 0;
+  page.on('request', (entry) => {
+    if (entry.url().includes('/api/suche.json')) requests += 1;
+  });
+  await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(word)}`));
+  await searchSettled(page);
+  expect(requests, 'ein Seitenaufruf mit Suchbegriff fragt genau einmal').toBe(1);
+
+  // Ein Filterwechsel ist ein neuer Suchzustand: genau eine weitere Anfrage.
+  await page.locator('select[name="versionScope"]').selectOption('all');
+  await searchSettled(page);
+  await expect(page).toHaveURL(/versionScope=all/u);
+  await expect.poll(() => requests).toBe(2);
+  expect(requests).toBe(2);
+});
+
+siteTest(['law'])('Verzeichniszahlen und Suchtreffer zählen denselben Bestand', async ({ page, request }) => {
+  const directoryCount = async (path: string): Promise<number> => {
+    await page.goto(lawUrl(path));
+    const text = (await page.locator('[data-directory-count], [data-index-count]').first().textContent()) ?? '';
+    const match = text.match(/(\d+)/u);
+    expect(match, `${path}: ${text}`).toBeTruthy();
+    return Number(match![1]);
+  };
+  for (const [path, type] of [
+    ['/gesetze/', 'gesetz'],
+    ['/verordnungen/', 'verordnung'],
+    ['/verwaltungsvorschriften/', 'verwaltungsvorschrift'],
+    ['/foerderrichtlinien/', 'foerderrichtlinie'],
+  ] as Array<[string, string]>) {
+    const listed = await directoryCount(path);
+    const found = await searchApi(request, `?type=${type}&versionScope=all&includeAmendments=1`);
+    expect(found.total, `${path} gegen ?type=${type}`).toBe(listed);
+  }
+  // Herkunftsübersicht des A–Z (eine eigene A–Z-Gesamtseite gibt es nicht; die Übersicht zählt
+  // den ganzen Bestand je Herkunftsart).
+  await page.goto(lawUrl('/archiv/'));
+  for (const origin of ['inherited-unchanged', 'ostdeutsch-original']) {
+    const listed = Number((await page.locator(`[data-origin-overview] a[data-origin-kind="${origin}"] strong`).textContent()) ?? '');
+    expect(listed, origin).toBeGreaterThan(0);
+    const found = await searchApi(request, `?origin=${origin}&versionScope=all&includeAmendments=1`);
+    expect(found.total, `/archiv/ gegen ?origin=${origin}`).toBe(listed);
+  }
+});
+
 siteTest(['law'])('Rechtsänderung und Aktivität bleiben getrennt: ein Hinweis hebt lastmod, nicht die Sortierung', async ({ page, request }) => {
   const payload = await searchApi(request, '?includeAmendments=1&versionScope=current');
-  const changeBySlug = new Map(payload.documents.filter((entry) => entry.isCurrent).map((entry) => [entry.slug, entry.lastChangeDate ?? '']));
+  const changeBySlug = new Map(payload.hits.filter((entry) => entry.isCurrent).map((entry) => [entry.slug, entry.lastChangeDate ?? '']));
   expect(changeBySlug.size).toBeGreaterThan(5);
 
   const sitemap = await (await request.get(lawUrl('/sitemap.xml'))).text();
@@ -1032,14 +1055,17 @@ siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, 
 
 siteTest(['law'])('Fundstellen der Verkündungsblätter werden in der Rechtssuche erkannt', async ({ page, request }) => {
   const payload = await searchApi(request, '?versionScope=all&includeAmendments=1');
-  const document = payload.documents.find((entry) => entry.publicationSlug);
-  const publication = payload.publications.find((entry) => entry.slug === document?.publicationSlug);
-  expect(publication, 'Verkündung mit zugeordnetem Dokument').toBeTruthy();
-  await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(publication!.designation)}`));
+  const document = payload.hits.find((entry) => entry.publicationSource && entry.publicationIssue && entry.publication);
+  expect(document, 'Vorschrift mit Fundstelle').toBeTruthy();
+  const designation = document!.publication;
+  const cited = await searchApi(request, `?q=${encodeURIComponent(designation)}`);
+  // Die zitierte Ausgabe führt ihre Vorschriften an; die Ausgabe selbst steht als Direkttreffer darüber.
+  expect(cited.total, designation).toBeGreaterThan(0);
+  expect(cited.hits.some((hit) => hit.slug === document!.slug), designation).toBe(true);
+  await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(designation)}`));
   await searchSettled(page);
-  const firstHit = page.locator('[data-search-results] .search-hit').first();
-  await expect(firstHit).toBeVisible();
-  await expect(firstHit).toContainText(new RegExp(`${publication!.designation.replaceAll('.', '\\.')}|${publication!.title.replaceAll('.', '\\.')}`, 'u'));
+  await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
+  await expect(page.locator('[data-search-results]')).toContainText(new RegExp(designation.replaceAll('.', '\\.'), 'u'));
 });
 
 siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet einen lokal filterbaren Stichwortindex', async ({ page }) => {
@@ -1118,7 +1144,11 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
     await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first(), query).toContainText(entry.title);
     // Die Fassungspille erscheint nur, wenn sie vom aktiven Fassungsfilter abweicht.
     await expect(hits.first().locator('.status-badge'), query).toHaveCount(0);
-    await expect(hits.first().locator('.search-hit__meta-line .origin-badge'), query).toBeVisible();
+    // Die Metazeile bleibt einzeilig: Normtyp und – je nach Herkunft – Herkunftszeichen oder Fundstelle.
+    const metaLine = hits.first().locator('.search-hit__meta-line');
+    await expect(metaLine.locator('.law-type-label'), query).toBeVisible();
+    const marker = entry.origin === 'inherited-unchanged' ? '.search-hit__publication' : '.origin-badge';
+    await expect(metaLine.locator(marker), `${query} (${entry.origin})`).toBeVisible();
   }
 
   // Herkunftsfacet und Kandidaten-API arbeiten mit derselben Herkunftssemantik: der Leerzustand
@@ -1132,7 +1162,10 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(original.abbr)}&origin=ostdeutsch-original`));
   await searchSettled(page);
   await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
-  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsch neu geschaffen');
+  // In der Trefferliste steht das Herkunftszeichen in der kompakten Listenform; die ausführliche
+  // Bedeutung trägt es als Titel.
+  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsch neu');
+  await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toHaveAttribute('title', /Freistaat Ostdeutschland geschaffen/u);
   let emptyQuery: string | undefined;
   for (const candidate of originals.slice(0, 5)) {
     if ((await searchApi(request, `?q=${encodeURIComponent(candidate.abbr)}&origin=inherited-unchanged`)).total === 0) {
@@ -1156,9 +1189,9 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   const filtered = await searchApi(request, '?q=Gesetz&origin=inherited-amended');
   expect(filtered.query.origins).toEqual(['inherited-amended']);
   expect(filtered.total).toBeGreaterThan(0);
-  expect(filtered.candidateCount).toBeLessThanOrEqual(filtered.total);
-  expect(filtered.documents.length).toBeGreaterThan(0);
-  expect(filtered.documents.every((entry) => entry.origin === 'inherited-amended')).toBe(true);
+  expect(filtered.hits.length).toBeGreaterThan(0);
+  expect(filtered.hits.length).toBeLessThanOrEqual(filtered.total);
+  expect(filtered.hits.every((entry) => entry.origin === 'inherited-amended')).toBe(true);
   const unfiltered = await searchApi(request, '?q=Gesetz');
   expect(unfiltered.total).toBeGreaterThan(filtered.total);
   const ignored = await searchApi(request, '?q=Gesetz&origin=bogus');

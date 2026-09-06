@@ -284,14 +284,25 @@ Beschreibungen in `--text-sm`, Etiketten in `--text-xs`; kein Bedienziel unter 2
 ### Rechtssuche
 
 Filter, Trefferliste und Suchhinweise stehen auf breiten Bildschirmen nebeneinander; auf kleinen
-werden die Filter als `details` vorangestellt. Ein Treffer zeigt vor dem Auszug drei Zeilen:
-Kurztitel mit Abkürzung, Langtitel klein (beides aus dem gemeinsamen Titelblock, siehe
-„Rechtsherkunft und Benennungen“), eine Metazeile aus Typ, Herkunft und Fundstelle; der
-Auszug trägt die Trefferstelle als verlinktes Präfix; die Fassungspille erscheint nur, wenn sie vom
-aktiven Fassungsfilter abweicht. Der Leerzustand heißt „Keine Vorschrift gefunden“, zitiert die
-Anfrage und bietet drei Auswege (Filter zurücksetzen mit Anzahl, alle Fassungen, Vorschriften A–Z);
-Facetten ohne Treffer sind deaktiviert, außer innerhalb einer Gruppe mit eigener Auswahl. Filterzeilen
-haben die barrierearme Höhe von 2,75 rem.
+werden die Filter als `details` vorangestellt. Ein Treffer zeigt vor dem Auszug zwei Zeilen:
+Kurztitel mit Abkürzung (aus dem gemeinsamen Titelblock, siehe „Rechtsherkunft und Benennungen“;
+der Langtitel steht klein darunter und weicht auf schmalen Bildschirmen dem Wortlaut) und eine
+einzeilige Metazeile aus Normtyp und – je nach Rechtsherkunft – dem kurzen Herkunftszeichen oder
+der Fundstelle: übernommenes, unverändertes Recht ist der Regelfall und nennt die Fundstelle,
+eigene, geänderte und ungeklärte Vorschriften tragen das Herkunftszeichen. Der Auszug trägt die
+Trefferstelle als verlinktes Präfix, ist auf 300 Zeichen begrenzt, beginnt beim Wortlaut statt bei
+der wiederholten Überschrift und zeigt auf schmalen Bildschirmen drei Zeilen; die Fassungspille
+erscheint nur, wenn sie vom aktiven Fassungsfilter abweicht. So bleibt eine ungeöffnete
+Trefferkarte bei 375 Pixeln Breite unter 220 Pixeln hoch (Messung in `tests/visual.spec.ts`).
+
+Die Trefferliste ist seitenweise: die Überschrift nennt die vollständige Trefferzahl und die
+Sortierung („N Treffer. Sortiert nach …“), der Knopf „Weitere Treffer laden“ nennt den Rest. Die
+Reihenfolge nach Relevanz folgt fünf Stufen: Gleichheit mit einer Bezeichnung, Treffer im Titel,
+eigene vor übernommenen Änderungsträgern, alle Suchbegriffe in derselben Vorschrift, gewichtete
+Volltextrelevanz und zuletzt der Titel. Der Leerzustand heißt „Keine Vorschrift gefunden“, zitiert
+die Anfrage und bietet drei Auswege (Filter zurücksetzen mit Anzahl, alle Fassungen, Vorschriften
+A–Z); Facetten zählen passende Vorschriften und sind ohne Treffer deaktiviert, außer innerhalb
+einer Gruppe mit eigener Auswahl. Filterzeilen haben die barrierearme Höhe von 2,75 rem.
 
 ### Rechtsherkunft und Benennungen
 
@@ -299,8 +310,9 @@ Rechtsherkunft ist auf allen Rechtsseiten mit derselben Kennzeichnung sichtbar
 (`NormOriginBadge.astro`, Klasse `origin-badge`, Texte ausschließlich aus
 `packages/shared/src/lib/norms/origin-presentation.ts`; die erklärende Langform ist
 `formatNormOriginKind` aus `origin.ts`) in genau zwei Formen: kurz in Listen und Trefferzeilen
-(„Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“) und
-erklärend auf Normseite, in Suchtreffern, Filtern und Zählern („Übernommen und unverändert“,
+(„Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“; die
+erklärende Fassung steht dort als Titel am Zeichen) und erklärend auf Normseite, in Filtern und
+Zählern („Übernommen und unverändert“,
 „Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft ungeklärt“). Die
 Normseite fasst Rechtsstand und Herkunft in `NormLegalStatusPanel.astro` zusammen.
 

@@ -230,6 +230,25 @@ function searchUnits(record, version, context) {
   if (bodySupplement) {
     units.push({ unitIndex: units.length, path: 'supplement', anchor: '', blockType: 'supplement', label: '', heading: '', body: bodySupplement.slice(0, MAX_SEARCH_BODY_CHARS), references: null });
   }
+  // Eine Einheit je Fassung mit den Metadaten (Kurzfassung, Stichwörter, Sachgebiete, Ressort,
+  // Zitate, Verkündungsbezeichnungen, frühere Bezeichnungen). Sie ist keine Trefferstelle, macht
+  // aber Metadaten und Verkündungsaliasse im Volltextindex auffindbar; ohne sie wären der
+  // Suchbereich „Nur Metadaten“ und die Fundstellensuche nicht als Abfrage ausdrückbar.
+  const metadataBody = [
+    metadata.summary,
+    ...(metadata.keywords ?? []),
+    ...(metadata.subjects ?? []),
+    metadata.ministry,
+    metadata.initialCitation,
+    metadata.citation,
+    metadata.publication,
+    metadata.publicationTitle,
+    ...(metadata.publicationAliases ?? []),
+    ...(metadata.aliases ?? []),
+  ].filter(Boolean).join('\n');
+  if (metadataBody) {
+    units.push({ unitIndex: units.length, path: 'metadata', anchor: '', blockType: 'metadata', label: '', heading: '', body: metadataBody.slice(0, MAX_SEARCH_BODY_CHARS), references: null });
+  }
   return { metadata, units };
 }
 

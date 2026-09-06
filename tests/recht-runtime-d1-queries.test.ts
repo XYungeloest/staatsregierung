@@ -45,8 +45,8 @@ function recordingDatabase(rows: Record<string, unknown[]> = {}): { db: D1Databa
       };
       return statement;
     },
-    async batch() {
-      return [];
+    async batch<T>(statements: D1PreparedStatement[]): Promise<Array<D1Result<T>>> {
+      return Promise.all(statements.map((statement) => statement.all<T>()));
     },
   };
   return { db, log };
@@ -98,20 +98,87 @@ test('Suche lädt keinen Korpus: FTS-Kandidaten, Suchdokumente der Kandidaten, E
 test('Herkunftsfilter der Suche läuft serverseitig über law_norms.origin_kind – für Kandidaten und Gesamtzahl, mit und ohne Suchausdruck', async () => {
   const { db, log } = recordingDatabase({ 'min(s.rank)': [{ slug: 'a' }], 'count(DISTINCT s.slug)': [{ total: 1 }] });
   const store = createD1NormStore(db);
-  await store.searchCandidates({ match: '("gesetz"*)', limit: 120, offset: 0, types: ['gesetz'], origins: ['inherited-amended', 'ostdeutsch-original'] });
+  await store.searchCandidates({ match: '("gesetz"*)', limit: 120, offset: 0, types: ['gesetz'], origins: ['inherited-amended', 'ostdeutsch-original'], includeAmendments: true });
   const [candidates, total] = log;
-  assert.match(candidates.sql, /WHERE law_search MATCH \? AND n\.type IN \(\?\) AND n\.origin_kind IN \(\?, \?\) GROUP BY s\.slug/u);
+  assert.match(candidates.sql, /WHERE law_search MATCH \? AND n\.type IN \(\?\) AND n\.origin_kind IN \(\?, \?\) AND rank MATCH 'bm25\(0,0,0,0,0,0,0,10,10,10,2,2,1\)' GROUP BY s\.slug/u);
   assert.deepEqual(candidates.params, ['("gesetz"*)', 'gesetz', 'inherited-amended', 'ostdeutsch-original', 120, 0]);
   assert.match(total.sql, /count\(DISTINCT s\.slug\).*AND n\.origin_kind IN \(\?, \?\)$/u);
   assert.deepEqual(total.params, ['("gesetz"*)', 'gesetz', 'inherited-amended', 'ostdeutsch-original']);
   const browse = recordingDatabase();
-  await createD1NormStore(browse.db).searchCandidates({ match: null, limit: 50, offset: 100, origins: ['inherited-unchanged'] });
+  await createD1NormStore(browse.db).searchCandidates({ match: null, limit: 50, offset: 100, origins: ['inherited-unchanged'], includeAmendments: true });
   assert.match(browse.log[0].sql, /FROM law_norms n WHERE 1 = 1 AND n\.origin_kind IN \(\?\) ORDER BY/u);
   assert.deepEqual(browse.log[0].params, ['inherited-unchanged', 50, 100]);
   assert.match(browse.log[1].sql, /count\(\*\).*AND n\.origin_kind IN \(\?\)$/u);
   const unfiltered = recordingDatabase();
-  await createD1NormStore(unfiltered.db).searchCandidates({ match: null, limit: 50, offset: 0 });
+  await createD1NormStore(unfiltered.db).searchCandidates({ match: null, limit: 50, offset: 0, includeAmendments: true });
   assert.ok(unfiltered.log.every((query) => !query.sql.includes('origin_kind')), 'ohne Herkunftsfilter keine Herkunftsbedingung');
+});
+
+test('Grundmenge der Suche: übernommene Änderungsvorschriften bleiben draußen, außer sie sind unmittelbar getroffen', async () => {
+  const inventory = /AND \(NOT \(n\.type = 'aenderungsvorschrift' AND n\.origin_kind IN \('inherited-unchanged', 'inherited-amended'\)\)/u;
+  const standard = recordingDatabase({ 'count(*)': [{ total: 0 }] });
+  await createD1NormStore(standard.db).searchCandidates({ match: null, limit: 20, offset: 0 });
+  assert.match(standard.log[0].sql, inventory, 'ohne Häkchen gilt die Grundmenge');
+  assert.ok(!standard.log[0].sql.includes('n.is_amendment = 0'), 'die alte Bedingung über is_amendment ist ersetzt');
+
+  const included = recordingDatabase({ 'count(*)': [{ total: 0 }] });
+  await createD1NormStore(included.db).searchCandidates({ match: null, limit: 20, offset: 0, includeAmendments: true });
+  assert.ok(included.log.every((query) => !inventory.test(query.sql)), 'mit Häkchen entfällt die Einschränkung');
+
+  const typed = recordingDatabase({ 'count(*)': [{ total: 0 }] });
+  await createD1NormStore(typed.db).searchCandidates({ match: null, limit: 20, offset: 0, types: ['aenderungsvorschrift'] });
+  assert.ok(typed.log.every((query) => !inventory.test(query.sql)), 'der Normtypfilter holt sie ausdrücklich zurück');
+
+  // Unmittelbarer Treffer: Gleichheit mit einer Bezeichnung oder eine zitierte Ausgabe.
+  const direct = recordingDatabase({ 'count(*)': [{ total: 0 }], 'FROM law_norms n WHERE n.slug IN': [{ slug: 'aend-x' }] });
+  await createD1NormStore(direct.db).searchCandidates({
+    match: null,
+    limit: 20,
+    offset: 0,
+    citedSlugs: ['aend-x'],
+    plan: { tokenGroups: [], phrases: [], excludeTokens: [], references: [], identityValues: ['OstTestG'], scope: 'all', sort: 'relevance', freeText: true, hasPublicationReference: false },
+  });
+  const page = direct.log.find((query) => query.sql.includes('LIMIT ? OFFSET ?'));
+  assert.ok(page);
+  assert.match(page.sql, /n\.abbr = \? COLLATE NOCASE OR n\.short_title = \? COLLATE NOCASE OR n\.title = \? COLLATE NOCASE/u);
+  assert.match(page.sql, /OR n\.slug IN \(\?\)\)/u);
+  assert.ok(page.params.includes('OstTestG'));
+  assert.match(page.sql, /AND n\.slug NOT IN \(\?\)/u, 'die vorangestellten Direkttreffer zählen nicht doppelt');
+});
+
+test('Suchplan wird zu SQL: Begriffe dokumentweit mit UND, Ausschluss als NOT IN, Bezüge über json_extract', async () => {
+  const { db, log } = recordingDatabase({ 'min(s.rank)': [{ slug: 'a' }], 'count(DISTINCT s.slug)': [{ total: 1 }] });
+  await createD1NormStore(db).searchCandidates({
+    match: '("gemeinde"*) OR ("haushalt"*)',
+    limit: 20,
+    offset: 0,
+    includeAmendments: true,
+    sort: 'relevance',
+    plan: {
+      tokenGroups: [{ variants: ['gemeinde'], prefix: true }, { variants: ['haushalt'], prefix: true }],
+      phrases: ['oeffentliche aufgabe'],
+      excludeTokens: [{ variants: ['aenderung'], prefix: true }],
+      references: [{ kind: 'paragraph', number: '2a', subsection: '1', label: '§ 2a Abs. 1' }],
+      identityValues: ['Gemeinde Haushalt'],
+      titlePhrase: 'gemeinde haushalt',
+      scope: 'all',
+      sort: 'relevance',
+      freeText: true,
+      hasPublicationReference: false,
+    },
+  });
+  const [page, total] = log;
+  assert.equal((page.sql.match(/AND n\.id IN \(SELECT norm_id FROM law_search WHERE law_search MATCH \?\)/gu) ?? []).length, 3, 'zwei Begriffsgruppen und eine Wortfolge');
+  assert.match(page.sql, /AND n\.id NOT IN \(SELECT norm_id FROM law_search WHERE law_search MATCH \?\)/u);
+  assert.match(page.sql, /json_extract\(u\.references_json, '\$\.paragraph'\) = \?/u);
+  assert.match(page.sql, /json_each\(json_extract\(u\.references_json, '\$\.subsections'\)\) je WHERE je\.value = \?/u);
+  assert.match(page.sql, /max\(CASE WHEN n\.id IN \(SELECT norm_id FROM law_search WHERE law_search MATCH \?\) THEN 1 ELSE 0 END\) AS title_hit/u);
+  assert.match(page.sql, /max\(CASE WHEN s\.rowid IN \(SELECT rowid FROM law_search WHERE law_search MATCH \?\) THEN 1 ELSE 0 END\) AS unit_hit/u);
+  assert.match(page.sql, /ORDER BY identity DESC, title_hit DESC, is_amendment, unit_hit DESC, best, sort_title, s\.slug LIMIT \? OFFSET \?/u);
+  // Die Zählung beschreibt dieselbe Menge: gleiche Bedingungen, gleiche Parameter nach dem Ausdruck.
+  const conditions = (sql: string): string => sql.replace(/^.*WHERE law_search MATCH \?/su, '').replace(/ AND rank MATCH[^]*$| GROUP BY[^]*$/su, '');
+  assert.equal(conditions(total.sql), conditions(page.sql));
+  assert.deepEqual(total.params, page.params.slice(page.params.length - total.params.length - 2, -2));
 });
 
 test('Startseiten- und Übersichtsabfragen lesen Metadatenzeilen, Historie über den Datumsindex und begrenzte Listen', async () => {
@@ -157,19 +224,21 @@ test('Aktuelle Änderungen der Startseite: je Norm ein Ereignis über eine Fenst
 test('Übersichten ohne Suchbegriff sortieren nach jüngster Rechtsänderung (last_change_date), A–Z alphabetisch; die Volltextsuche bleibt nach Rang', async () => {
   const { db, log } = recordingDatabase({ 'count(*)': [{ total: 0 }], 'COUNT(*)': [{ total: 0 }] });
   const store = createD1NormStore(db);
-  await store.searchCandidates({ match: null, limit: 120, offset: 0 });
-  await store.searchCandidates({ match: null, limit: 120, offset: 0, types: ['gesetz'], origins: ['inherited-amended'] });
-  await store.searchCandidates({ match: '"Testbegriff"', limit: 120, offset: 0 });
+  await store.searchCandidates({ match: null, limit: 120, offset: 0, includeAmendments: true });
+  await store.searchCandidates({ match: null, limit: 120, offset: 0, types: ['gesetz'], origins: ['inherited-amended'], includeAmendments: true });
+  await store.searchCandidates({ match: '"Testbegriff"', limit: 120, offset: 0, includeAmendments: true });
+  await store.searchCandidates({ match: null, limit: 20, offset: 0, includeAmendments: true, sort: 'title' });
   await store.queryNormSummaries({ sort: 'activity', page: 1, pageSize: 50 });
   await store.queryNormSummaries({ letter: 'G', page: 1, pageSize: 50 });
-  const browse = log.filter((query) => query.sql.startsWith('SELECT n.slug FROM law_norms n'));
-  assert.equal(browse.length, 2);
-  for (const query of browse) assert.match(query.sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT \? OFFSET \?/u);
+  const browse = log.filter((query) => query.sql.startsWith('SELECT n.slug FROM law_norms n') && query.sql.includes('LIMIT'));
+  assert.equal(browse.length, 3);
+  for (const query of browse.slice(0, 2)) assert.match(query.sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT \? OFFSET \?/u);
   assert.deepEqual(browse[1].params, ['gesetz', 'inherited-amended', 120, 0]);
-  assert.ok(browse.every((query) => !query.sql.includes('current_valid_from')));
+  assert.match(browse[2].sql, /ORDER BY n\.sort_title, n\.slug LIMIT \? OFFSET \?/u, 'eine ausdrückliche Sortierung wirkt auch beim Stöbern');
+  assert.ok(browse.slice(0, 2).every((query) => !query.sql.includes('current_valid_from')));
   const fulltext = log.find((query) => query.sql.includes('law_search MATCH ?') && query.sql.includes('LIMIT'));
-  assert.match(fulltext?.sql ?? '', /ORDER BY best LIMIT \? OFFSET \?/u);
-  const pages = log.filter((query) => query.sql.includes('LIMIT ? OFFSET ?') && query.sql.includes('n.sort_title') && !query.sql.startsWith('SELECT n.slug FROM law_norms n'));
+  assert.match(fulltext?.sql ?? '', /ORDER BY identity DESC, title_hit DESC, is_amendment, unit_hit DESC, best, sort_title, s\.slug LIMIT \? OFFSET \?/u);
+  const pages = log.filter((query) => query.sql.includes('LIMIT ? OFFSET ?') && query.sql.includes('n.sort_title') && !query.sql.startsWith('SELECT n.slug FROM law_norms n') && !query.sql.includes('law_search'));
   assert.equal(pages.length, 2);
   assert.match(pages[0].sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT/u);
   assert.match(pages[1].sql, /WHERE n\.index_letter = \? ORDER BY n\.sort_title, n\.slug LIMIT/u);
@@ -191,7 +260,9 @@ test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und
     publicationYears: ['2026'],
     validOn: '2026-09-04',
     versionScope: 'current',
-    includeAmendments: false,
+    publicationIssue: '16',
+    publicationPage: '12',
+    includeAmendments: true,
   });
   const [page, count] = log;
   // Normebene über die schmalen Spalten, Sachgebiet über die Zuordnungstabelle.
@@ -199,10 +270,10 @@ test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und
   assert.match(page.sql, /AND n\.origin_kind IN \(\?\)/u);
   assert.match(page.sql, /AND n\.responsible_ministry IN \(\?\)/u);
   assert.match(page.sql, /AND n\.status IN \(\?\)/u);
-  assert.match(page.sql, /AND n\.is_amendment = 0/u);
   assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_norm_subjects sub WHERE sub\.norm_id = n\.id AND sub\.subject_slug IN \(\?\)\)/u);
-  // Fassungsart, Verkündungsblatt und Jahr muss dieselbe Fassung erfüllen: genau ein EXISTS.
-  assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_versions v WHERE v\.norm_id = n\.id AND v\.temporal_kind = \? AND v\.publication_source IN \(\?\) AND v\.publication_year IN \(\?\) AND v\.valid_from <= \? AND \(v\.valid_to IS NULL OR v\.valid_to >= \?\)\)/u);
+  // Fassungsart, Verkündungsblatt, Jahr, Gültigkeit, Ausgabennummer und Seite muss dieselbe
+  // Fassung erfüllen: genau ein EXISTS.
+  assert.match(page.sql, /EXISTS \(SELECT 1 FROM law_versions v WHERE v\.norm_id = n\.id AND v\.temporal_kind = \? AND v\.publication_source IN \(\?\) AND v\.publication_year IN \(\?\) AND v\.valid_from <= \? AND \(v\.valid_to IS NULL OR v\.valid_to >= \?\) AND lower\(json_extract\(v\.publication_ref_json, '\$\.issue'\)\) = \? AND instr\(lower\(coalesce\(json_extract\(v\.publication_ref_json, '\$\.pages'\), json_extract\(v\.publication_ref_json, '\$\.startPage'\), ''\)\), \?\) > 0\)/u);
   assert.equal((page.sql.match(/FROM law_versions v/gu) ?? []).length, 1);
   // Die Zählung darf keine andere Menge beschreiben als die Seite.
   assert.match(count.sql, /^SELECT count\(\*\) AS total FROM law_norms n WHERE 1 = 1/u);
@@ -215,6 +286,53 @@ test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und
   await createD1NormStore(plainDb).searchCandidates({ match: null, limit: 120, offset: 0, includeAmendments: true });
   assert.equal(plainLog[0].sql, 'SELECT n.slug FROM law_norms n WHERE 1 = 1 ORDER BY (n.last_change_date IS NULL), n.last_change_date DESC, n.sort_title, n.slug LIMIT ? OFFSET ?');
   assert.deepEqual(plainLog[0].params, [120, 0]);
+});
+
+test('Facettenzähler laufen als ein Stapel; jede Facette zählt Vorschriften ohne die eigene Bedingung', async () => {
+  const { db, log } = recordingDatabase({ 'GROUP BY': [{ value: 'gesetz', count: 3 }] });
+  const counts = await createD1NormStore(db).countSearchFacets({
+    match: '("gemeinde"*)',
+    limit: 20,
+    offset: 0,
+    types: ['gesetz'],
+    origins: ['ostdeutsch-original'],
+    includeAmendments: true,
+  });
+  assert.equal(log.length, 7, 'sieben Gruppierungen, ein Stapel');
+  assert.deepEqual(Object.keys(counts), ['type', 'origin', 'ministry', 'subject', 'status', 'publicationSource', 'publicationYear']);
+  assert.deepEqual(counts.type, { gesetz: 3 });
+  const byColumn = (column: string) => log.find((query) => query.sql.includes(`GROUP BY ${column}`));
+  const type = byColumn('n.type');
+  assert.ok(type);
+  assert.ok(!type.sql.includes('n.type IN'), 'die eigene Bedingung entfällt, damit Geschwister wählbar bleiben');
+  assert.match(type.sql, /count\(DISTINCT s\.slug\) AS count FROM law_search s JOIN law_norms n ON n\.id = s\.norm_id WHERE law_search MATCH \?/u);
+  assert.match(type.sql, /AND n\.origin_kind IN \(\?\)/u, 'die übrigen Bedingungen bleiben');
+  const origin = byColumn('n.origin_kind');
+  assert.ok(origin && !origin.sql.includes('n.origin_kind IN'));
+  assert.match(byColumn('fs.subject')?.sql ?? '', /JOIN law_norm_subjects fs ON fs\.norm_id = n\.id/u);
+  assert.match(byColumn('fv.publication_source')?.sql ?? '', /JOIN law_versions fv ON fv\.norm_id = n\.id/u);
+  assert.ok(log.every((query) => !loadsCorpus(query)));
+
+  // Ohne Suchausdruck zählt die Gruppierung unmittelbar über law_norms.
+  const browse = recordingDatabase({ 'GROUP BY': [{ value: 'in-force', count: 2 }] });
+  await createD1NormStore(browse.db).countSearchFacets({ match: null, limit: 20, offset: 0, includeAmendments: true });
+  assert.match(browse.log[0].sql, /count\(DISTINCT n\.slug\) AS count FROM law_norms n WHERE 1 = 1/u);
+});
+
+test('Einheiten der Trefferseite sind je Vorschrift gedeckelt (Fensterfunktion), nie der ganze Normtext', async () => {
+  const { db, log } = recordingDatabase();
+  const store = createD1NormStore(db);
+  await store.getSearchDocuments(['a', 'b'], '("gemeinde"*)', { unitsPerNorm: 5 });
+  await store.getSearchDocuments(['a'], null, { unitsPerNorm: 3 });
+  const ranked = log.find((query) => query.sql.includes('law_search MATCH ?') && query.sql.includes('row_number'));
+  assert.ok(ranked);
+  assert.match(ranked.sql, /row_number\(\) OVER \(PARTITION BY slug ORDER BY rank\) AS rn FROM law_search WHERE law_search MATCH \? AND slug IN \(\?, \?\)\) WHERE rn <= \?/u);
+  assert.deepEqual(ranked.params, ['("gemeinde"*)', 'a', 'b', 5]);
+  const relational = log.find((query) => query.sql.includes('FROM law_search_units WHERE slug IN'));
+  assert.ok(relational);
+  assert.match(relational.sql, /row_number\(\) OVER \(PARTITION BY slug ORDER BY CAST\(provision_path AS INTEGER\)\) AS rn/u);
+  assert.deepEqual(relational.params, ['a', 3]);
+  assert.ok(log.every((query) => !loadsCorpus(query)));
 });
 
 test('Buchstabenzähler eines Verzeichnisses laufen als GROUP BY über dieselben Bedingungen wie die Seitenabfrage', async () => {
