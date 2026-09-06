@@ -261,7 +261,7 @@ jobs:
             npm run knowledge:check
           fi
           echo "content=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
-      - name: TypeScript und Unit-Tests prüfen (schnelle Tests immer, Korpus-Tests nur bei Inhalts-, Projektions- oder Laufzeitänderung)
+      - name: TypeScript und Unit-Tests prüfen (schnelle Tests immer, Korpus-Tests nur bei Projektions-, Laufzeit- oder Schemaänderung)
         env:
           CHECK_PORTAL: ${{ needs.classify.outputs.check_portal }}
           CHECK_LAW: ${{ needs.classify.outputs.check_law }}

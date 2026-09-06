@@ -109,8 +109,11 @@ npm run test:a11y
 ```
 
 Tests haben je eine Verantwortung (`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt Testkategorien):
-schnelle Unit-Tests unter `tests/`, Korpus-Tests unter `tests/corpus/`, Browser-, Barrierefreiheits-
-und Screenshot-Tests als Playwright-Specs. Innerhalb einer Sammelprüfung wird jede Website höchstens
+schnelle Unit-Tests unter `tests/` auf synthetischen Fixtures (`tests/helpers/fixture-corpus.ts`),
+Korpus-Tests unter `tests/corpus/`, Browser-, Barrierefreiheits- und Screenshot-Tests als
+Playwright-Specs mit zur Laufzeit abgeleiteten Erwartungen. Kein Funktionstest nennt Titel,
+Abkürzung oder Fundstelle einer realen Norm; Inhaltsinvarianten prüfen die Content-Audits
+(`npm run content:check`) generisch über den ganzen Bestand. Innerhalb einer Sammelprüfung wird jede Website höchstens
 einmal gebaut; die `*:run`-Varianten arbeiten auf dem vorhandenen Build.
 
 ## Inhalt und Redaktion

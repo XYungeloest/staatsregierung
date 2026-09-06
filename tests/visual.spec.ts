@@ -698,19 +698,6 @@ portalTest('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabelle
   await verifyViewport(page);
 });
 
-portalTest('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/haushalt/');
-
-  const header = page.locator('.section-hero--budget').first();
-  const heading = header.getByRole('heading', { level: 1 });
-  const [headerBox, headingBox] = await Promise.all([header.boundingBox(), heading.boundingBox()]);
-
-  expect(headerBox).not.toBeNull();
-  expect(headingBox).not.toBeNull();
-  expect((headingBox?.x ?? 0) - (headerBox?.x ?? 0)).toBeGreaterThanOrEqual(24);
-});
-
 portalTest('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) => {
   await preparePage(page);
   await page.goto('/kreisreform/');

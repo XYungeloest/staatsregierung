@@ -80,7 +80,7 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
     },
     {
       label: 'J: Normdaten laufen über D1, nicht über ein OstRecht-Deployment',
-      paths: ['content/normen/sero-verordnung/meta.json'],
+      paths: ['content/normen/beispielnorm/meta.json'],
       scope: 'portal',
       targets: ['portal'],
       content: true,
@@ -230,7 +230,7 @@ test('Vollbestand-Smoke nur bei Laufzeit-, Projektions- oder umfangreichen Besta
     { label: 'Kandidatenabfragen der Suche: Vollbestand, aber keine Projektionslogik', paths: ['packages/recht-search/src/search-query.ts'], scope: 'law', fullCorpus: true, d1Sync: false },
     { label: 'Stichtag: Vollbestand und D1-Projektion (im Abschluss)', paths: ['packages/shared/src/config/editorial.json'], scope: 'shared', fullCorpus: true, d1Sync: true },
     { label: 'Abhängigkeiten: Vollbestand', paths: ['package-lock.json'], scope: 'shared', fullCorpus: true },
-    { label: 'wenige Normen: Fixture genügt, keine Screenshots', paths: ['content/normen/a/meta.json', 'content/normen/b/versions/2026-01-01.json', 'content/verkuendungen/x.json'], scope: 'portal', fullCorpus: false, visual: false, content: true, d1Sync: true },
+    { label: 'wenige Normen: Fixture genügt, keine Screenshots, Content-Audits und D1-Sync statt Korpus-Tests', paths: ['content/normen/a/meta.json', 'content/normen/b/versions/2026-01-01.json', 'content/verkuendungen/x.json'], scope: 'portal', fullCorpus: false, visual: false, content: true, d1Sync: true, corpus: false },
     { label: 'Themenseite: Screenshots, kein Vollbestand', paths: ['content/themen/bildung.json'], scope: 'portal', fullCorpus: false, visual: true, content: true, d1Sync: true },
     { label: 'Dokumentation: weder Vollbestand noch Screenshots', paths: ['README.md', 'docs/DEPLOYMENT_RUNBOOK.md'], scope: 'docs-only', fullCorpus: false, visual: false, unit: false },
     { label: 'Workflow: weder Vollbestand noch Screenshots', paths: ['.github/workflows/deploy.yml'], scope: 'ci-only', fullCorpus: false, visual: false },
@@ -247,6 +247,7 @@ test('Vollbestand-Smoke nur bei Laufzeit-, Projektions- oder umfangreichen Besta
     if (entry.content !== undefined) assert.equal(result.runContentCheck, entry.content, `${entry.label}: Content-Prüfung`);
     if (entry.d1Sync !== undefined) assert.equal(result.runD1Sync, entry.d1Sync, `${entry.label}: D1-Sync`);
     if (entry.unit !== undefined) assert.equal(result.runUnitTests, entry.unit, `${entry.label}: Unit-Tests`);
+    if (entry.corpus !== undefined) assert.equal(result.runCorpusTests, entry.corpus, `${entry.label}: Korpus-Tests`);
   }
 
   // Umfangreiche Bestandsänderung: ab LARGE_CORPUS_CHANGE_THRESHOLD Normen läuft der Vollbestand
@@ -283,10 +284,11 @@ test('Testscope: D1 und Vollbestand folgen dem Code-Abschluss, Darstellung nur d
     { label: 'Docs: docs-only', paths: ['docs/DEPLOYMENT_RUNBOOK.md', 'README.md'], scope: 'docs-only', unit: false, d1Sync: false, fullCorpus: false, visual: false },
     { label: 'Visual-Test: Screenshot-Suite, keine Smokes', paths: ['tests/visual.spec.ts'], scope: 'ci-only', visual: true, buildTargets: ['portal', 'law'], uiTargets: [] },
     { label: 'Baseline: Screenshot-Suite', paths: ['tests/visual.spec.ts-snapshots/ostrecht-desktop-wide-linux.png'], scope: 'ci-only', visual: true, buildTargets: ['portal', 'law'] },
-    { label: 'Korpus-Test: nur Korpus-Tests', paths: ['tests/corpus/law-portal.test.ts'], scope: 'ci-only', corpus: true, d1Sync: false, fullCorpus: false, content: false },
+    { label: 'Korpus-Test: nur Korpus-Tests', paths: ['tests/corpus/d1-projection-equivalence.test.mjs'], scope: 'ci-only', corpus: true, d1Sync: false, fullCorpus: false, content: false },
+    { label: 'Testfixture: Smokes, Screenshots und Korpus-Tests, kein Deployment', paths: ['data/recht/runtime-fixture.json'], scope: 'ci-only', corpus: true, content: true, visual: true, buildTargets: ['portal', 'law'], uiTargets: ['portal', 'law'] },
     { label: 'schneller Unit-Test: keine Korpus-Tests', paths: ['tests/norm-sections.test.ts'], scope: 'ci-only', corpus: false },
     { label: 'Font-Messwerkzeug ohne npm-Skript: nur Unit-Tests', paths: ['scripts/measure-font-fallbacks.mjs'], scope: 'ci-only', content: false, corpus: false, buildTargets: [], uiTargets: [] },
-    { label: 'Content-Validator aus package.json: Content-Prüfung', paths: ['scripts/check-content.mjs'], scope: 'ci-only', content: true, corpus: true },
+    { label: 'Content-Validator aus package.json: Content-Prüfung, keine Korpus-Tests', paths: ['scripts/check-content.mjs'], scope: 'ci-only', content: true, corpus: false },
     { label: 'Importer aus package.json: Content-Prüfung', paths: ['scripts/import-normen.mjs'], scope: 'ci-only', content: true },
     { label: 'Bibliothek unter scripts/lib: konservativ Content-Prüfung', paths: ['scripts/lib/revosax-parser.mjs'], scope: 'ci-only', content: true },
     { label: 'Nachweiswerkzeug: Vollbestand mit OstRecht-Build (Seed-Werkzeug)', paths: ['scripts/d1-projection-snapshot.mjs'], scope: 'ci-only', fullCorpus: true, d1Sync: false },

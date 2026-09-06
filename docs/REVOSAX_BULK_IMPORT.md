@@ -131,7 +131,7 @@ Reststellenprüfung in drei Stufen, alle fail-closed:
 
 Provenienz-Semantik: `originEnactingBody` nennt das historische Ursprungsorgan der übernommenen
 Quelle; `enactingBody` bleibt bei übernommenen Normen leer. `scripts/audit-norm-metadata.mjs`
-(Teil von `content:check`) und `tests/norm-origin-metadata.test.ts` lehnen ein sächsisches Organ in
+(Teil von `content:check`) und `scripts/audit-norm-derivations.ts` lehnen ein sächsisches Organ in
 `enactingBody` bei REVOSax-Provenienz sowie ein `originEnactingBody` ohne Provenienzbeleg ab;
 `npm run norms:migrate-origin-bodies -- --write` migriert Altbestände nur bei belegter Herkunft und
 unveränderter Herkunftsklasse.

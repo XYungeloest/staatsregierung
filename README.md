@@ -44,7 +44,7 @@ npm run knowledge:build
 npm run check
 npm run test:fast      # schnelle Unit-Tests (Sekunden)
 npm run test:pr        # was ein normaler PR lokal vorab prüft: Typen, Unit-Tests, ein Build, Links, SEO, Smokes, kritische Screenshots
-npm run test:full      # bewusst vollständig: zusätzlich Content, Korpus-Tests, breite Screenshot-Inventur
+npm run test:full      # bewusst vollständig: zusätzlich Content-Audits, Korpus-Tests, breite Screenshot-Inventur
 npm run build
 npm run links:check
 npm run seo:check
@@ -77,7 +77,7 @@ context/         historische Ausgangstexte, Entwürfe, Programme und Simulations
 public/          gemeinsame Assets (Rechts-PDFs, Kartendaten, Bilder)
 docs/            Runbooks für Betrieb, Normworkflow, REVOSax-Import und Kreisreform-Karte
 scripts/         repo-weite Import-, Build-, Seed- und Prüfwerkzeuge
-tests/           schnelle Unit-Tests, tests/corpus/ (Vollbestand, Projektion), Browser-, Accessibility- und Screenshot-Tests
+tests/           schnelle Unit-Tests auf synthetischen Fixtures, tests/corpus/ (Projektionsnachweis, Seed), Browser-, Accessibility- und Screenshot-Tests
 ```
 
 ## Inhalte und Recht

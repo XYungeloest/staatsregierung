@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import { getNormLastActivityDate, getNormLastChangeDate } from '@ostrecht/shared/lib/norms/versions.ts';
@@ -28,15 +27,12 @@ import {
   runNormSearch,
   type NormSearchState,
 } from '@ostrecht/recht-search/search-query.ts';
-import { buildSearchSuggestionPayload } from '@ostrecht/recht-search/search-files.ts';
-import { loadSearchIndexSampleOnce } from '../helpers/corpus.ts';
-import { isAmendmentRecord, type SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
+import { buildSearchIndexPayloadFrom } from '@ostrecht/recht-search/search-files.ts';
+import { buildSearchSuggestions, isAmendmentRecord, type SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
 import {
   findPublicationByDesignation,
   getLatestPublication,
-  loadAllVerkuendungen,
 } from '@ostrecht/shared/lib/norms/publications.ts';
-import { loadNormsOnce as loadAllNorms } from '../helpers/corpus.ts';
 import {
   ContentValidationError,
   parseNormMeta,
@@ -53,6 +49,8 @@ import {
 } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
+
+import { FIXTURE_REFERENCE_DATE, fixtureCorpus } from './helpers/fixture-corpus.ts';
 
 function version(versionId: string, validFrom: string, validTo: string | null): NormVersion {
   return {
@@ -130,20 +128,6 @@ test('deutsche Umlaute werden im A–Z-Index einheitlich gruppiert', () => {
   assert.equal(getGermanIndexLetter('ÖPNV-Gesetz'), 'O');
   assert.equal(getGermanIndexLetter('Überleitungsverordnung'), 'U');
   assert.equal(getGermanIndexLetter('123. Bekanntmachung'), '#');
-});
-
-test('übergeleitete historische und geltende Fassungen behalten ihre jeweilige öffentliche Bezeichnung', async () => {
-  const norms = await loadAllNorms();
-  const municipality = norms.find((norm) => norm.meta.slug === 'saechsische-gemeindeordnung');
-  assert.ok(municipality);
-  const historical = municipality.versions.find((version) => version.versionId === '2023-11-01');
-  const current = municipality.versions.find((version) => version.versionId === '2026-08-01');
-  assert.ok(historical);
-  assert.ok(current);
-  assert.equal(getNormVersionIdentity(municipality, historical).title, 'Ostdeutsche Gemeindeordnung');
-  assert.equal(getNormVersionIdentity(municipality, current).title, 'Gemeindeordnung für den Ostdeutschen Freistaat');
-  assert.equal(historical.validTo, '2023-12-30');
-  assert.equal(current.validFrom, '2026-08-01');
 });
 
 test('überlappende oder widersprüchliche Gültigkeitsintervalle werden abgewiesen', () => {
@@ -527,73 +511,6 @@ test('gerichtete Normrelationen werden aus einer Richtung und mehreren Historien
   assert.equal(relations.get(second.meta.slug)?.find((entry) => entry.kind === 'amends')?.resultingVersionId, '2026-07-21');
 });
 
-test('Verfassung und Gemeindeordnung erfüllen die realen Herkunftsregressionen', async () => {
-  const norms = await loadAllNorms();
-  const constitution = norms.find((entry) => entry.meta.slug === 'staatsverfassung-des-freistaates-ostdeutschland');
-  const municipality = norms.find((entry) => entry.meta.slug === 'saechsische-gemeindeordnung');
-  assert.ok(constitution);
-  assert.ok(municipality);
-
-  const constitutionOrigin = getNormOriginInfo(constitution, norms);
-  const municipalityOrigin = getNormOriginInfo(municipality, norms);
-  assert.equal(constitutionOrigin.kind, 'ostdeutsch-original');
-  assert.equal(constitutionOrigin.baselineVersionId, undefined);
-  assert.equal(municipalityOrigin.kind, 'inherited-amended');
-  assert.equal(municipalityOrigin.baselineVersionId, '2023-11-01');
-  assert.equal(municipalityOrigin.ownAmendmentCount, 3);
-  assert.ok(municipality.versions.some((entry) => entry.versionId === '2023-12-31'));
-});
-
-test('amtlich berichtigte Wortlaute und verbleibende Quellenkonflikte sind vollständig dokumentiert', () => {
-  const read = (path: string) => JSON.parse(readFileSync(path, 'utf8'));
-  const archiveMeta = read('content/normen/archivgesetz/meta.json');
-  const archiveBaseline = read('content/normen/archivgesetz/versions/2023-11-01.json');
-  const archiveParagraphs = archiveBaseline.body.flatMap(function flatten(block: any): any[] {
-    return [block, ...(block.children ?? []).flatMap(flatten)];
-  }).filter((block: any) => block.type === 'paragraph');
-  assert.deepEqual(
-    archiveParagraphs.filter((block: any) => /^§ (?:1[7-9])$/u.test(block.label)).map((block: any) => [block.label, block.title]),
-    [
-      ['§ 17', 'Besondere Kategorien personenbezogener Daten'],
-      ['§ 18', 'Einschränkung eines Grundrechts'],
-      ['§ 19', 'Inkrafttreten'],
-    ],
-  );
-  assert.equal(archiveParagraphs.filter((block: any) => block.label === '§ 17').length, 1);
-  assert.equal(archiveMeta.editorialResolutions[0].status, 'resolved-source-conflict');
-
-  const countyMeta = read('content/normen/saechsische-landkreisordnung/meta.json');
-  const county2025 = read('content/normen/saechsische-landkreisordnung/versions/2025-03-12.json');
-  const countyText = JSON.stringify(county2025.body);
-  assert.match(countyText, /§ 65/u);
-  assert.match(countyText, /der jeweilige Bezirk/u);
-  assert.doesNotMatch(countyText, /§ 75/u);
-  assert.equal(countyMeta.editorialResolutions, undefined);
-  assert.ok(countyMeta.sourceReferences.some((reference: any) =>
-    reference.localSource === 'Gesetze/OGVBl.2026Nr.68.html' && reference.sourceRole === 'amendment-evidence'
-  ));
-
-  const policeMeta = read('content/normen/ostdeutsches-polizeivollzugsdienstgesetz/meta.json');
-  const police2026 = read('content/normen/ostdeutsches-polizeivollzugsdienstgesetz/versions/2026-03-24.json');
-  const policeParagraphs = police2026.body.flatMap(function flatten(block: any): any[] {
-    return [block, ...(block.children ?? []).flatMap(flatten)];
-  }).filter((block: any) => block.type === 'paragraph');
-  const labels = policeParagraphs.map((block: any) => block.label);
-  assert.equal(labels.indexOf('§ 41a'), labels.indexOf('§ 41') + 1);
-  assert.equal(labels[labels.indexOf('§ 41a') + 1], '§ 42');
-  assert.equal(labels.includes('§ 32a'), false);
-  assert.equal(policeMeta.editorialResolutions, undefined);
-  assert.ok(policeMeta.sourceReferences.some((reference: any) =>
-    reference.localSource === 'Gesetze/OGVBl.2026Nr.68.html' && reference.sourceRole === 'amendment-evidence'
-  ));
-
-  const districtMeta = read('content/normen/ostdeutsche-bezirksordnung/meta.json');
-  assert.equal(districtMeta.editorialResolutions, undefined);
-  assert.ok(districtMeta.sourceReferences.some((reference: any) =>
-    reference.localSource === 'Gesetze/OGVBl.2026Nr.68.html' && reference.sourceRole === 'amendment-evidence'
-  ));
-});
-
 function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchIndexDocument {
   return {
     id: 'test:1',
@@ -883,142 +800,125 @@ test('Fundstellenparser unterstützt Bindestrich, Gedankenstriche und Schrägstr
   }
 });
 
-test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung', async () => {
-  const publications = await loadAllVerkuendungen();
-  const latest = getLatestPublication(publications);
-  const searchIndex = await loadSearchIndexSampleOnce();
+const fixture = fixtureCorpus();
+const fixtureNorm = (slug: string): NormRecord => {
+  const record = fixture.norms.find((entry) => entry.meta.slug === slug);
+  assert.ok(record, slug);
+  return record;
+};
+const fixtureSearchIndex = buildSearchIndexPayloadFrom({ records: fixture.norms, publications: fixture.publications });
+
+test('jede Fassung trägt ihre eigene öffentliche Bezeichnung', () => {
+  const law = fixtureNorm('testgesetz');
+  const [historical, current] = law.versions;
+  assert.equal(getNormVersionIdentity(law, historical).title, 'Ostdeutsches Testgesetz');
+  assert.equal(getNormVersionIdentity(law, current).title, 'Testgesetz für den Ostdeutschen Freistaat');
+  assert.equal(getNormVersionIdentity(law, current).abbr, 'OstTestG');
+  const regulation = fixtureNorm('testverordnung');
+  assert.equal(getNormVersionIdentity(regulation, regulation.versions[0]).title, regulation.meta.title, 'ohne Fassungstitel gilt die Stammbezeichnung');
+});
+
+test('Rechtsherkunft des Fixture-Bestands folgt Quellen und Historie', () => {
+  const origin = (slug: string) => getNormOriginInfo(fixtureNorm(slug), fixture.norms);
+  assert.equal(origin('neues-ostgesetz').kind, 'ostdeutsch-original');
+  assert.equal(origin('neues-ostgesetz').baselineVersionId, undefined);
+  assert.equal(origin('testverordnung').kind, 'inherited-unchanged');
+  const amended = origin('testgesetz');
+  assert.equal(amended.kind, 'inherited-amended');
+  assert.equal(amended.baselineVersionId, LEGAL_BASELINE_DATE);
+  assert.equal(amended.ownAmendmentCount, 1);
+  assert.equal(origin('aufgehobene-verordnung').kind, 'inherited-amended', 'eine ostdeutsche Aufhebung ist eine eigene Änderung');
+});
+
+test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung', () => {
+  const latest = getLatestPublication(fixture.publications);
   assert.ok(latest);
-  assert.deepEqual(searchIndex.latestPublication, {
+  assert.deepEqual(fixtureSearchIndex.latestPublication, {
     slug: latest.slug,
     date: latest.date,
     publication: latest.publication,
     year: latest.year,
     issue: latest.issue,
   });
-  // Der Suchindex ist kein statisches Asset mehr (Cloudflare-Grenze 25 MiB):
-  // /api/suche.json liefert Kandidaten aus D1, die Größe des Gesamtindex ist
-  // deshalb keine Auslieferungsgrenze mehr.
 });
 
-test('historische Verkündungsbezeichnung bleibt ein Such- und Lookupalias', async () => {
-  const publications = await loadAllVerkuendungen();
-  const searchIndex = await loadSearchIndexSampleOnce();
-
-  for (const designation of ['OABl. 2026 Nr. 2', 'StAnzO. 2026 Nr. 2']) {
-    assert.equal(findPublicationByDesignation(publications, designation)?.slug, 'stanzo-2026-02');
-    const results = runNormSearch(searchIndex.documents, searchState({ q: designation }));
-    assert.equal(new Set(results.map(({ documentEntry }) => documentEntry.publicationSlug)).size, 1);
-    assert.equal(results[0]?.documentEntry.publicationSlug, 'stanzo-2026-02');
+test('historische Verkündungsbezeichnung bleibt ein Such- und Lookupalias', () => {
+  for (const designation of ['OABl. 2026 Nr. 2', 'StAnzO. 2026 Nr. 2', 'OABl 2026 Nr 2']) {
+    assert.equal(findPublicationByDesignation(fixture.publications, designation)?.slug, 'stanzo-2026-02', designation);
+    const results = runNormSearch(fixtureSearchIndex.documents, searchState({ q: designation }));
+    assert.ok(results.length > 0, designation);
+    assert.deepEqual([...new Set(results.map(({ documentEntry }) => documentEntry.publicationSlug))], ['stanzo-2026-02'], designation);
   }
-
-  assert.equal(findPublicationByDesignation(publications, 'OABl. 2025 Nr. 2')?.slug, 'oabl-2025-02');
+  assert.equal(findPublicationByDesignation(fixture.publications, 'OABl. 2025 Nr. 2'), undefined);
 });
 
-test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorschriften und Fundstellen', async () => {
-  const searchIndex = await loadSearchIndexSampleOnce();
-  const documents = prepareSearchDocuments(searchIndex.documents);
+test('feldbewusste Rechtssuche priorisiert Identitäten, Normtypen, Vorschriften und Fundstellen', () => {
+  const documents = prepareSearchDocuments(fixtureSearchIndex.documents);
   const search = (q: string, overrides: Partial<NormSearchState> = {}) => runNormSearch(documents, searchState({
     q,
     sort: 'relevance',
     sortExplicit: false,
     ...overrides,
   }));
-  const fundingSlug = 'forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23';
-
-  // Mit dem vollständigen Rechtsbestand konkurrieren viele Förderrichtlinien um den
-  // reinen Typbegriff; entscheidend ist, dass ausschließlich Förderrichtlinien
-  // erscheinen und die bekannte Richtlinie darunter ist (`anyPosition`).
-  const cases: Array<{ q: string; slug: string; anyPosition?: boolean; assertion?: (results: ReturnType<typeof search>) => void }> = [
+  const fundingSlug = 'foerderrichtlinie-testkindergeld';
+  const cases: Array<{ q: string; slug: string; assertion?: (results: ReturnType<typeof search>) => void }> = [
+    { q: 'Förderrichtlinie', slug: fundingSlug, assertion: (results) => assert.ok(results.every((result) => result.documentEntry.type === 'foerderrichtlinie')) },
+    { q: 'Foerderrichtlinie', slug: fundingSlug, assertion: (results) => assert.ok(results.every((result) => result.documentEntry.type === 'foerderrichtlinie')) },
+    { q: 'FRL Testkindergeld', slug: fundingSlug },
+    { q: 'Testkindergeld', slug: fundingSlug },
+    { q: 'OstTestG', slug: 'testgesetz' },
+    { q: 'Testgesetz § 2a', slug: 'testgesetz', assertion: (results) => assert.equal(results[0]?.bestHitUnit?.label, '§ 2a') },
     {
-      q: 'Förderrichtlinie',
-      slug: fundingSlug,
-      anyPosition: true,
-      assertion: (results) => assert.ok(results.every((result) => result.documentEntry.type === 'foerderrichtlinie')),
-    },
-    { q: 'FRL Landesbaukindergeld', slug: fundingSlug },
-    { q: 'Landesbaukindergeld', slug: fundingSlug },
-    { q: 'OstPVDG', slug: 'ostdeutsches-polizeivollzugsdienstgesetz' },
-    {
-      q: 'Polizeivollzugsdienst § 41a',
-      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
-      assertion: (results) => assert.equal(results[0]?.bestHitUnit?.label, '§ 41a'),
-    },
-    {
-      q: 'Polizeivollzugsdienst §§ 41, 41a',
-      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+      q: 'Testgesetz §§ 2, 2a',
+      slug: 'testgesetz',
       assertion: (results) => {
-        assert.equal(results[0]?.bestHitUnit?.label, '§ 41');
-        assert.equal(results[0]?.matchLabel, 'Treffer in §§ 41, 41a');
+        assert.equal(results[0]?.bestHitUnit?.label, '§ 2');
+        assert.equal(results[0]?.matchLabel, 'Treffer in §§ 2, 2a');
       },
     },
     {
-      q: 'Polizeivollzugsdienst § 41a Abs. 2',
-      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+      q: 'Testgesetz § 2a Abs. 1',
+      slug: 'testgesetz',
       assertion: (results) => {
-        assert.equal(results[0]?.bestHitUnit?.label, '§ 41a');
-        assert.equal(results[0]?.bestHitUnit?.references?.paragraph, '41a');
-        assert.ok(results[0]?.bestHitUnit?.references?.subsections?.includes('2'));
+        assert.equal(results[0]?.bestHitUnit?.label, '§ 2a');
+        assert.equal(results[0]?.bestHitUnit?.references?.paragraph, '2a');
+        assert.ok(results[0]?.bestHitUnit?.references?.subsections?.includes('1'));
       },
     },
-    {
-      q: 'Foerderrichtlinie',
-      slug: fundingSlug,
-      anyPosition: true,
-      assertion: (results) => assert.ok(results.every((result) => result.documentEntry.type === 'foerderrichtlinie')),
-    },
-    {
-      q: 'OGVBl. 2026 Nr. 68',
-      slug: 'berichtigung-verschiedener-verkuendungen-2026',
-      assertion: (results) => assert.equal(results[0]?.documentEntry.publicationSlug, 'ogvbl-2026-68'),
-    },
+    { q: 'OGVBl. 2026 Nr. 70', slug: 'neues-ostgesetz', assertion: (results) => assert.ok(results.every((result) => result.documentEntry.publicationSlug === 'ogvbl-2026-70')) },
   ];
-
-  for (const { q, slug, anyPosition, assertion } of cases) {
+  for (const { q, slug, assertion } of cases) {
     const results = search(q);
-    if (anyPosition) assert.ok(results.some((result) => result.documentEntry.slug === slug), q);
-    else assert.equal(results[0]?.documentEntry.slug, slug, q);
+    assert.equal(results[0]?.documentEntry.slug, slug, q);
     assertion?.(results);
   }
 
-  const firstLawResults = search('erstes Gesetz');
-  assert.ok(firstLawResults.length > 0);
-  assert.match(firstLawResults[0]?.documentEntry.title ?? '', /^Erstes Gesetz/u);
-  assert.ok(firstLawResults.some((result) => result.documentEntry.slug === 'erstes-gesetz-zur-grossen-staatsreform'));
-
-  const exactAmendmentTitle = 'Erstes Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung des Staatswesens';
-  assert.equal(search(exactAmendmentTitle)[0]?.documentEntry.slug, 'erstes-gesetz-zur-grossen-staatsreform');
+  // Ein starker Titeltreffer holt eine Änderungsvorschrift auch ohne Volltextfilter nach vorn.
+  const amendmentTitle = 'Gesetz zur Änderung des Testgesetzes';
+  assert.equal(search(amendmentTitle)[0]?.documentEntry.slug, 'aenderungsgesetz-testgesetz');
+  assert.ok(search('Gesetz zur Änderung').some((result) => result.documentEntry.slug === 'aenderungsgesetz-testgesetz'));
 
   const amendmentIntentResults = search('Änderungsvorschrift');
   assert.ok(amendmentIntentResults.length > 0);
   assert.ok(amendmentIntentResults.every((result) => result.documentEntry.type === 'aenderungsvorschrift'));
-
   const amendmentFacetResults = search('', { types: ['aenderungsvorschrift'] });
   assert.ok(amendmentFacetResults.length > 0);
   assert.ok(amendmentFacetResults.every((result) => result.documentEntry.type === 'aenderungsvorschrift'));
-
   const genericLawResults = search('Gesetz');
   assert.ok(genericLawResults.length > 0);
   assert.ok(genericLawResults.every((result) => !result.documentEntry.isAmendment));
+  const typedLawResults = search('Gesetz', { types: ['gesetz'] });
+  assert.ok(typedLawResults.length > 0);
+  assert.ok(typedLawResults.every((result) => result.documentEntry.type === 'gesetz' && !result.documentEntry.isAmendment));
 
-  const typedFirstLawResults = search('erstes Gesetz', { types: ['gesetz'] });
-  assert.ok(typedFirstLawResults.length > 0);
-  assert.ok(typedFirstLawResults.every((result) => result.documentEntry.type === 'gesetz'));
-  assert.ok(typedFirstLawResults.every((result) => !result.documentEntry.isAmendment));
-
-  const historicalTitleState = searchState({
-    q: 'Ostdeutsche Gemeindeordnung',
-    versionScope: 'all',
-    sort: 'relevance',
-    sortExplicit: false,
-  });
-  const historicalTitleResults = runNormSearch(documents, historicalTitleState);
-  const municipalityGroup = groupNormSearchResults(historicalTitleResults, historicalTitleState)
-    .find((group) => group.slug === 'saechsische-gemeindeordnung');
-  // Der übergeleitete historische Titel ist zugleich die geltende Kurzbezeichnung; die Gruppe
+  // Der übergeleitete historische Titel ist zugleich die geltende Kurzbezeichnung: die Gruppe
   // führt die geltende Fassung an und enthält die historische Fassung unter ihrem Titel.
-  assert.ok(municipalityGroup);
-  assert.ok(['Ostdeutsche Gemeindeordnung', 'Gemeindeordnung für den Ostdeutschen Freistaat'].includes(municipalityGroup.entries[0]?.documentEntry.title ?? ''));
-  assert.ok(municipalityGroup.entries.some((entry) => entry.documentEntry.title === 'Ostdeutsche Gemeindeordnung' && entry.documentEntry.versionKind === 'historical'));
+  const historicalTitleState = searchState({ q: 'Ostdeutsches Testgesetz', versionScope: 'all', sort: 'relevance', sortExplicit: false });
+  const historicalTitleResults = runNormSearch(documents, historicalTitleState);
+  const group = groupNormSearchResults(historicalTitleResults, historicalTitleState).find((entry) => entry.slug === 'testgesetz');
+  assert.ok(group);
+  assert.ok(['Ostdeutsches Testgesetz', 'Testgesetz für den Ostdeutschen Freistaat'].includes(group.entries[0]?.documentEntry.title ?? ''));
+  assert.ok(group.entries.some((entry) => entry.documentEntry.title === 'Ostdeutsches Testgesetz' && entry.documentEntry.versionKind === 'historical'));
 
   const consentResults = search('Zustimmungsgesetz');
   assert.equal(parseNormSearchQuery('Zustimmungsgesetz').typeIntent?.type, 'zustimmungsgesetz');
@@ -1038,16 +938,17 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
   ].join(' ')).includes(normalizeSearchText(phrase))));
 });
 
-test('Autocomplete enthält eine kanonische Suggestion je geltender Norm', async () => {
-  const payload = await buildSearchSuggestionPayload();
-  assert.equal(new Set(payload.suggestions.map((suggestion) => suggestion.slug)).size, payload.suggestions.length);
-  const funding = payload.suggestions.find((suggestion) => suggestion.slug === 'forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23');
+test('Autocomplete enthält eine kanonische Suggestion je geltender Norm', () => {
+  const suggestions = buildSearchSuggestions(fixture.norms, FIXTURE_REFERENCE_DATE);
+  assert.equal(new Set(suggestions.map((suggestion) => suggestion.slug)).size, suggestions.length);
+  const funding = suggestions.find((suggestion) => suggestion.slug === 'foerderrichtlinie-testkindergeld');
   assert.ok(funding);
-  assert.equal(funding.abbr, 'FRL Landesbaukindergeld');
-  assert.ok(funding.title.includes('Landesbaukindergeld'));
-  const historical = payload.suggestions.find((suggestion) => suggestion.slug === 'saechsische-gemeindeordnung');
-  // Aliasse sind Bezeichnungen anderer Fassungen, die von der geltenden Identität abweichen
-  // (hier die Abkürzung der Zwischenfassung; der übergeleitete Titel ist die geltende Kurzbezeichnung).
-  assert.ok(historical?.aliases.includes('OstGemO'));
-  assert.equal(historical?.url.endsWith('/norm/saechsische-gemeindeordnung/'), true);
+  assert.equal(funding.abbr, 'FRL Testkindergeld');
+  assert.ok(funding.title.includes('Testkindergeld'));
+  const amended = suggestions.find((suggestion) => suggestion.slug === 'testgesetz');
+  // Aliasse sind Bezeichnungen anderer Fassungen, die von der geltenden Identität abweichen.
+  assert.ok(amended?.aliases.includes('Ostdeutsches Testgesetz'));
+  assert.equal(amended?.url.endsWith('/norm/testgesetz/'), true);
+  assert.ok(!suggestions.some((suggestion) => suggestion.slug === 'kuenftiges-gesetz'), 'ohne geltende Fassung kein Vorschlag');
+  assert.ok(!suggestions.some((suggestion) => suggestion.slug === 'aufgehobene-verordnung'), 'aufgehobene Normen werden nicht vorgeschlagen');
 });

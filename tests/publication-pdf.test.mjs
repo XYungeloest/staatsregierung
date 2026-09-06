@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { access, mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -96,16 +96,6 @@ test('Deployment-Audit findet einen fehlenden und bestätigt einen vorhandenen P
   assert.equal(result.linkedPdfs, 2);
   assert.deepEqual(result.missing.map((entry) => entry.publication), ['b']);
   await rm(root, { recursive: true, force: true });
-});
-
-test('StAnzO. 2026 Nr. 5 verweist nicht mehr fälschlich auf ein unverfügbares Original', async () => {
-  const publication = JSON.parse(await readFile(new URL('../content/verkuendungen/stanzo-2026-05.json', import.meta.url), 'utf8'));
-  const primaryPdf = publication.sourceReferences.find((reference) => reference.kind === 'primary-pdf');
-  assert.equal(publication.pdf, '/assets/recht/StAnzO 2026 Nr 5.pdf');
-  assert.equal(primaryPdf?.availability, 'versioned');
-  assert.equal(primaryPdf?.localSource, 'Gesetze/StAnzO 2026 Nr 5.pdf');
-  assert.equal(publication.sourceReferences.some((reference) => /nicht Bestandteil des Repositorys/i.test(reference.note || '')), false);
-  await access(new URL('../public/assets/recht/StAnzO 2026 Nr 5.pdf', import.meta.url));
 });
 
 test('Neuableitung setzt ein dokumentiertes Prüfdatum derselben Datei nie zurück', () => {

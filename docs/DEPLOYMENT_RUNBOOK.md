@@ -42,10 +42,11 @@ Drei weitere Flags bestimmen den Prüfumfang unabhängig vom Deploymentziel:
   prüft immer den Vollbestand. Rein visuelle Änderungen (Komponenten, Layouts, Styles,
   Browserskripte, Darstellungslogik außerhalb des Abschlusses, Hilfe- und Fehlerseite) laufen
   gegen das Fixture.
-- **`run_corpus_tests`** – die Korpus-Tests (`tests/corpus/`, Vollbestand und Projektion) laufen
-  nur bei Inhalts-, Projektions- oder Laufzeitänderungen, bei geänderten Abhängigkeiten und bei
-  Änderungen an diesen Tests selbst; die schnellen Unit-Tests (`tests/*.test.*`) laufen bei jeder
-  Codeänderung.
+- **`run_corpus_tests`** – die Korpus-Tests (`tests/corpus/`: Projektionsnachweis auf dem
+  Fixture, Seed, Referenzindex) laufen nur bei Projektions-, Laufzeit- oder Schemaänderungen, bei
+  geänderten Abhängigkeiten, beim Testfixture und bei Änderungen an diesen Tests selbst. Reine
+  Inhaltsänderungen prüfen die Content-Audits (`run_content_check`) und der D1-Sync; die
+  schnellen Unit-Tests (`tests/*.test.*`) laufen bei jeder Codeänderung.
 - **`run_visual`** – die Screenshot-Suite läuft bei Oberflächen-, Layout-, Style- und
   Portalinhaltsänderungen, nicht bei reinem Normcontent, Dokumentation oder Workflows: in Pull
   Requests die kritische Auswahl, auf `main` die breite Inventur (siehe Screenshot-Suite).
@@ -249,14 +250,36 @@ wiederholt:
 
 | Kategorie | Ort | Zweck | läuft |
 | --- | --- | --- | --- |
-| schnell / Unit | `tests/*.test.{ts,mjs}` | reine Funktionen, Parser, Scope, Fingerabdruck, Abschluss, Nachweisbindung – kein Vollbestand, kein Worker | bei jeder Codeänderung, lokal in Sekunden (`npm run test:fast`) |
-| Korpus | `tests/corpus/` | Vollbestand, Ableitungen, Projektion, Abnahmefälle der Identität auf dem Fixture | bei Inhalts-, Projektions- oder Laufzeitänderungen (`npm run test:corpus`) |
-| Content / statisch | `content:check`, `knowledge`, `test:links:run`, `test:seo:run` | Schemas, Normdaten, Wissenshub, Links, SEO | bei Inhalts- und Pipeline-Änderungen bzw. nach jedem Build |
-| Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker (Fixture) | Pflichtcheck |
-| Barrierefreiheit | `tests/accessibility.spec.ts` | axe und Fokusindikator auf repräsentativen Seiten | Pflichtcheck |
-| Visual | `tests/visual.spec.ts` | Layout und Design (kritisch / breit), keine funktionalen Assertions | bei Oberflächenänderungen |
-| Vollbestand | `full_corpus_smoke`, `OstRecht-Vollbestand-Smoke` | Datenintegrität, Suche und D1 über den echten Bestand | bei relevanten Änderungen, wöchentlich, manuell |
-| Browsermatrix | `tests/quality.spec.ts`, `test:browsers:run` | Firefox/WebKit, sieben Viewports, Zoom | manuell |
+| schnell / Unit | `tests/*.test.{ts,mjs}` | reine Funktionen, Parser, Scope, Fingerabdruck, Abschluss, Nachweisbindung, Store- und Projektionsverhalten auf dem synthetischen Bestand (`tests/helpers/fixture-corpus.ts`) – kein Vollbestand, kein Worker | bei jeder Codeänderung, lokal in Sekunden (`npm run test:fast`) |
+| Korpus | `tests/corpus/` | Abnahmefälle der Projektionsidentität auf dem Fixture, Seed-Werkzeug gegen die lokale D1, Referenz- und Empfehlungsindex auf einer Stichprobe | bei Projektions-, Laufzeit- und Schemaänderungen, wöchentlich (`npm run test:corpus`) |
+| Content-Audit | `content:check` (Import-Audit, REVOSax-Audit, Konsolidierung, Schemas, Metadaten, Ableitungen, Reststellen, Themen, Wissenshub), `test:links:run`, `test:seo:run` | generische Invarianten des gesamten Rechtsbestands: Quellenhashes, Referenzen, Gültigkeitsintervalle, Vollzitate, Herkunft, keine Import-Artefakte | bei Inhalts- und Pipeline-Änderungen, wöchentlich; Links und SEO nach jedem Build |
+| Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker; Erwartungen aus Kandidaten-API, Vorschlägen, Verkündungsindex und ausgelieferten Daten (`tests/helpers/law-runtime.ts`) | Pflichtcheck (Fixture), wöchentlich Vollbestand |
+| Barrierefreiheit | `tests/accessibility.spec.ts` | axe und Fokusindikator auf Seitenrollen (Normseite je Herkunft, Vergleich, Historie, Suche, Verkündung, Fehlerseite) | Pflichtcheck |
+| Visual | `tests/visual.spec.ts` | Layout und Design (kritisch / breit) einschließlich horizontalem Überlauf, keine funktionalen Assertions | bei Oberflächenänderungen |
+| Vollbestand | `full_corpus_smoke`, Workflow „OstRecht-Vollbestand-Smoke und Korpus-Audit“ | Datenintegrität, Suche und D1 über den echten Bestand; vollständige Content-Audits und Korpus-Tests | bei relevanten Änderungen, wöchentlich, manuell, vor größeren Releases |
+| Browsermatrix | `test:browsers:run` | Browser-Smoke und Beteiligungsnavigator in Firefox und WebKit | manuell |
+
+Jeder Test schützt eine dauerhafte Invariante des aktuellen Systems, keinen historischen
+Einzelstand:
+
+- **Verhaltensinvarianten** (Unit, Browser, Barrierefreiheit) laufen auf bewusst gebauten
+  Fixtures oder zur Laufzeit abgeleiteten Daten. Kein Funktionstest nennt den Titel, die Abkürzung
+  oder eine Fundstelle einer realen Norm; eine redaktionelle Korrektur oder Umbenennung einer Norm
+  bricht keinen Unit-, Browser- oder Screenshot-Test.
+- **Inhaltsinvarianten** (Quellen unverändert, Referenzen aufgelöst, Intervalle lückenlos,
+  Vollzitate ausgeschrieben, Herkunft widerspruchsfrei, keine Import-Artefakte, keine
+  Sachsen-Reststellen) prüfen die Content-Audits generisch über den gesamten Bestand – nicht als
+  Einzeltests auf bekannte Werte.
+- **Historische Einmaltests** (Import- und Migrationsschritte, konkrete Reihenfolgen eines
+  Releases, Wortlaut einzelner Berichtigungen) werden nicht dauerhaft mitgeführt; Git enthält die
+  Geschichte. Wer einen solchen Fall absichern will, formuliert ihn als generische Invariante oder
+  prüft ihn manuell mit den Audits.
+
+Für eine Änderung an einer einzelnen Norm laufen dadurch: die Content-Audits (rund eine Minute
+über den Bestand, keine Tests auf bekannte Werte), der D1-Sync für die betroffene Norm, die
+Browser- und Barrierefreiheits-Smokes gegen das Fixture – und nicht die Korpus-Tests. Die
+vollständigen Audits und Korpus-Tests laufen bei Import-, Schema- und Projektionslogik, wöchentlich
+und manuell vor größeren Releases.
 
 Lokale Befehle (jede Website wird höchstens einmal gebaut; die `*:run`-Varianten arbeiten auf dem
 vorhandenen Build):

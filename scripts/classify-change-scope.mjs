@@ -134,7 +134,7 @@ function verificationImpact({
     runUnitTests: unit,
     runD1Sync: d1Sync,
     fullCorpus,
-    corpusTests: corpusTests || content || d1Sync || fullCorpus,
+    corpusTests: corpusTests || fullCorpus,
     visual,
   };
 }
@@ -152,7 +152,7 @@ function runtimeImpact(runtimeTargets, { content = false, d1Sync = false, fullCo
     runUnitTests: true,
     runD1Sync: d1Sync,
     fullCorpus,
-    corpusTests: corpusTests || content || d1Sync || fullCorpus,
+    corpusTests: corpusTests || fullCorpus,
     visual,
   };
 }
@@ -366,6 +366,8 @@ function pathImpact(path, logicPaths = null) {
     // Migrationen werden manuell eingespielt; ihre Wirkung beweist der Vollbestand-Smoke.
     return verificationImpact({ content: true, build: ['law'], ui: ['law'], fullCorpus: true });
   }
+  // Das Testfixture bestimmt, was Browser-, Barrierefreiheits- und Screenshot-Tests sehen.
+  if (path === 'data/recht/runtime-fixture.json') return verificationImpact({ content: true, build: SITE_TARGETS, ui: SITE_TARGETS, corpusTests: true, visual: true });
   if (isContentVerificationPath(path)) return verificationImpact({ content: true });
 
   if (path.startsWith('temp-neu/')) return verificationImpact();
@@ -419,8 +421,9 @@ function resultFor(impacts, paths, { forceFullCorpus = false, closureKnown = tru
     runContentCheck: impacts.some((impact) => impact.runContentCheck),
     runKnowledgeCheck: impacts.some((impact) => impact.runKnowledgeCheck),
     runUnitTests: impacts.some((impact) => impact.runUnitTests),
-    // Korpus-Tests (tests/corpus/: Vollbestand, Ableitungen, Projektion) nur, wenn Inhalte,
-    // Projektion, Laufzeit oder die Tests selbst berührt sind; die schnellen Unit-Tests laufen immer.
+    // Korpus-Tests (tests/corpus/: Projektionsnachweis, Seed, Referenzindex) nur bei Projektions-,
+    // Laufzeit- oder Schemaänderungen und bei Änderungen der Tests selbst. Reine Inhaltsänderungen
+    // prüfen die Content-Audits (content:check) und der D1-Sync; die schnellen Unit-Tests laufen immer.
     runCorpusTests: impacts.some((impact) => impact.corpusTests) || runFullCorpusSmoke,
     runD1Sync: impacts.some((impact) => impact.runD1Sync),
     closureKnown,
