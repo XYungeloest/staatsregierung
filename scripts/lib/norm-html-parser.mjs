@@ -1352,8 +1352,34 @@ function parsedDocument(fileName, html) {
   return { document, body, css, nodes: flowNodes(body), documentText: textOf(body) };
 }
 
+/**
+ * Ausgabekopf einer ostdeutschen Verkündungsreihe: Ausgabenummer und Ausgabedatum stehen im
+ * Dokument selbst, nicht im Dateinamen.
+ */
+function publicationIssueHeader(nodes) {
+  const headerText = nodes.slice(0, 10).map(textOf).join(' ');
+  return {
+    issueMatch: headerText.match(/\bNr\.\s*(\d+)\b/u),
+    publicationDate: parseGermanDate(headerText.match(/Ausgegeben\s+zu[\s\S]{0,120}/iu)?.[0] ?? headerText),
+  };
+}
+
+/**
+ * Eine Ausgabe kann ausschließlich nichtnormative Veröffentlichungen enthalten, zum Beispiel
+ * einen Bericht eines Verfassungsorgans. Sie bleibt ein Verkündungsblatt, trägt aber keine
+ * Rechtsvorschrift und ist deshalb keine Normimportquelle. Maßgeblich ist dieselbe
+ * Überschriftenerkennung wie beim Import; ohne erkennbaren Ausgabekopf oder Inhaltsverzeichnis
+ * bleibt die Einordnung dem Parser überlassen.
+ */
+function publishesLegalInstrument(nodes, css) {
+  const { publicationDate } = publicationIssueHeader(nodes);
+  const tocIndex = nodes.findIndex((node) => /^Inhaltsverzeichnis$/iu.test(textOf(node)));
+  if (!publicationDate || tocIndex < 0) return true;
+  return headingRanges(nodes, tocIndex, css, publicationDate).length > 0;
+}
+
 export function classifyHtmlSource(fileName, html) {
-  const { documentText } = parsedDocument(fileName, html);
+  const { documentText, nodes, css } = parsedDocument(fileName, html);
   // Bundesblätter können vor der Inhaltsübersicht einen deutlich längeren
   // Herausgeberkopf als die ostdeutschen Verkündungsreihen führen.
   const lead = documentText.slice(0, 20000);
@@ -1364,7 +1390,17 @@ export function classifyHtmlSource(fileName, html) {
   const editorial = /\b(?:Pressemitteilung|Begründung|Vorblatt|Erläuterung|Begleittext)\b/iu.test(lead) || /^PM[-_. ]/iu.test(fileName);
   const structureCount = (documentText.match(/(?:^|\s)(?:Artikel\s+\d+[a-z]?|§{1,2}\s*\d+[a-z]?)/giu) ?? []).length;
   const consolidated = /Staatsverfassung/iu.test(fileName) || /Nichtamtliches Inhaltsverzeichnis/iu.test(lead) || structureCount >= 3;
-  if (publication) return { kind: 'publication', publication: publicationIdentity.publication, reason: `${publicationIdentity.longName} mit internem Ausgabekopf und Inhaltsverzeichnis` };
+  if (publication) {
+    const normative = publicationIdentity.publication === 'GMBl.' || publishesLegalInstrument(nodes, css);
+    return {
+      kind: 'publication',
+      publication: publicationIdentity.publication,
+      normative,
+      reason: normative
+        ? `${publicationIdentity.longName} mit internem Ausgabekopf und Inhaltsverzeichnis`
+        : `${publicationIdentity.longName} ohne Rechtsvorschrift; die Ausgabe enthält ausschließlich eine nichtnormative Veröffentlichung`,
+    };
+  }
   if (editorial) return { kind: 'editorial', reason: 'redaktioneller Begleittext' };
   if (consolidated) return { kind: 'consolidated', reason: 'konsolidierte oder eigenständige Einzelnorm' };
   if (/<html\b/iu.test(html)) return { kind: 'unsupported', reason: 'HTML ohne eindeutige Norm- oder Verkündungsblattstruktur' };
@@ -1509,9 +1545,7 @@ export function parsePublicationHtml(fileName, html) {
   if (classification.publication === 'GMBl.') {
     return parseFederalMinisterialGazette(fileName, nodes, css, classification);
   }
-  const headerText = nodes.slice(0, 10).map(textOf).join(' ');
-  const issueMatch = headerText.match(/\bNr\.\s*(\d+)\b/u);
-  const publicationDate = parseGermanDate(headerText.match(/Ausgegeben\s+zu[\s\S]{0,120}/iu)?.[0] ?? headerText);
+  const { issueMatch, publicationDate } = publicationIssueHeader(nodes);
   if (!issueMatch || !publicationDate) throw new NormHtmlParseError(fileName, 'Ausgabenummer oder Ausgabedatum konnte nicht aus dem Inhalt bestimmt werden');
   const tocIndex = nodes.findIndex((node) => /^Inhaltsverzeichnis$/iu.test(textOf(node)));
   if (tocIndex < 0) throw new NormHtmlParseError(fileName, 'Inhaltsverzeichnis fehlt');

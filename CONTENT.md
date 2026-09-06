@@ -280,6 +280,13 @@ sonstiges
 gesetzt ist, muss diese Fassung unter `content/normen/[slug]/versions/[versionId].json`
 vorhanden sein.
 
+Nicht jede Veröffentlichung eines Verkündungsblattes ist eine Rechtsvorschrift. Ein Bericht eines
+Verfassungsorgans oder eine vergleichbare nichtnormative Veröffentlichung wird als Eintragstyp
+`sonstiges` ohne `normSlug` geführt; ein Normtyp wird dafür nicht erfunden und kein Normdatensatz
+angelegt. Fundstelle, Dokumentdatum und Seitenbereich werden wie bei jedem anderen Eintrag gepflegt.
+Der Normimporter erkennt eine Ausgabe ohne Rechtsvorschrift als solche und lässt sie unberührt; sie
+erscheint im Quellenaudit als „ohne Rechtsvorschrift“ und nicht als mehrdeutige Quelle.
+
 ## Normale JSON-Inhalte
 
 Die folgenden Content-Typen liegen jeweils als einzelne JSON-Datei. Pflichtfelder sind die Felder, die der Parser erwartet. Optionale Felder sind gekennzeichnet.
@@ -385,7 +392,7 @@ Format:
 }
 ```
 
-`federfuehrendesRessort` und `mitzeichnungsressorts` verweisen auf Slugs in `content/ressorts/`. `rechtsgrundlagen[].normSlug` verweist auf einen Norm-Slug unter `content/normen/`.
+`federfuehrendesRessort` und `mitzeichnungsressorts` verweisen auf Slugs in `content/ressorts/`. `rechtsgrundlagen[].normSlug` verweist auf einen Norm-Slug unter `content/normen/`. Ist die Grundlage keine Norm, sondern eine sonstige amtliche Veröffentlichung – etwa ein Bericht eines Verfassungsorgans –, nennt `rechtsgrundlagen[].publicationSlug` stattdessen die Ausgabe unter `content/verkuendungen/`; bei einer Norm wird die Ausgabe weiterhin aus dem Verkündungsdatensatz abgeleitet.
 `keyDates` speichert belegte fachliche Termine. `modules` erlaubt die Typen `questions`,
 `timeline`, `facts` und `comparison`; sie werden nur verwendet, wenn die jeweilige Darstellung
 einen inhaltlichen Mehrwert hat. Projekt- und Gegenwartsstände des Wissenshubs werden in
@@ -1359,7 +1366,7 @@ und weist verbliebene Editor- beziehungsweise Rasterdaten zurück. Die bearbeitb
 Folgende Verknüpfungen werden in der Content-QA geprüft:
 
 - `content/themen/*.json`: `federfuehrendesRessort` muss auf ein vorhandenes Ressort zeigen.
-- `content/themen/*.json`: `rechtsgrundlagen[].normSlug` muss auf eine vorhandene Norm zeigen.
+- `content/themen/*.json`: `rechtsgrundlagen[].normSlug` muss auf eine vorhandene Norm und `rechtsgrundlagen[].publicationSlug` auf eine vorhandene Verkündung zeigen.
 - `content/themen/*.json`: `relatedTopicSlugs` muss auf vorhandene Themen zeigen.
 - `content/themen/*.json`: `knowledgeProjectRefs` muss wechselseitig zum Coverage-Register passen.
 - `content/presse/mitteilungen/*.json`: `relatedTopicSlugs` muss auf vorhandene Themen zeigen.

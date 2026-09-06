@@ -196,6 +196,28 @@ test('redaktionelles HTML wird nicht als Norm klassifiziert', () => {
   assert.equal(classifyHtmlSource('PM-21072026-03.html', html).kind, 'editorial');
 });
 
+test('eine Ausgabe ohne Rechtsvorschrift bleibt Verkündungsblatt, ist aber keine Normquelle', () => {
+  const gazette = (content) => `<!doctype html><html><head><style></style></head><body>
+    <p>Staatsanzeiger für den Freistaat Ostdeutschland</p>
+    <p>Nr. 99</p><p>Ausgegeben zu Dresden am 27. August 2026</p>
+    <p>Inhaltsverzeichnis</p>${content}
+    <p>Dresden, den 27. August 2026</p></body></html>`;
+  const report = classifyHtmlSource('ausgabe-ohne-norm.html', gazette(`
+    <p>27. August 2026 Bericht über einen Prüfvorgang Seite 2</p>
+    <p>Bericht<br>über einen Prüfvorgang<br>vom 27. August 2026</p>
+    <p>Dieser Bericht begründet keine unmittelbar geltenden Rechte oder Pflichten.</p>`));
+  assert.equal(report.kind, 'publication');
+  assert.equal(report.publication, 'StAnzO.');
+  assert.equal(report.normative, false);
+
+  const notice = classifyHtmlSource('ausgabe-mit-norm.html', gazette(`
+    <p>27. August 2026 Bekanntmachung über einen Prüfvorgang Seite 2</p>
+    <p>Bekanntmachung<br>über einen Prüfvorgang<br>vom 27. August 2026</p>
+    <h2>I.<br>Gegenstand</h2><p>Bekannt gemacht wird ein Prüfvorgang.</p>`));
+  assert.equal(notice.kind, 'publication');
+  assert.equal(notice.normative, true);
+});
+
 test('HTML-Tabellen bewahren leere Zellen, Kopfzellen, Spalten und Zellspannen', () => {
   const html = `<!doctype html><html><head><style></style></head><body>
     <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>

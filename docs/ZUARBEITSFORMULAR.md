@@ -103,14 +103,18 @@ OVertrBl. 2026 Nr. 4.
 
 ## V. Künftige Vollzugsbelege
 
-### V-01 – Volksbefragung und achte Volkskammerwahl
+### V-01 – Folgebelege zur Volksbefragung und zur achten Volkskammerwahl
 
-Nach dem 5. und 6. September 2026 werden nur tatsächlich veröffentlichte Folgedokumente benötigt:
+Durchführung, amtliches Endergebnis der Volksbefragung, amtliches Wahlergebnis und der politische
+Auswertungsbericht des Staatsrates sind durch das amtliche Endergebnis der Bundeswahlleitung vom
+6. September 2026 und StAnzO. 2026 Nr. 41 belegt und eingepflegt. Weiterhin benötigt werden nur:
 
-- [ ] Durchführungsnachweis
-- [ ] amtliche Ergebnisbekanntmachung der Volksbefragung
-- [ ] amtliches Wahlergebnis
-- [ ] spätere politische oder rechtliche Folgebeschlüsse
+- [ ] gesonderter Beschluss des Staatsrates über organisatorische Grundlagen und nächste Schritte
+      der Olympiabewerbung
+- [ ] konstituierende Sitzung der achten Volkskammer (Datum und Sitzungsdokument)
+- [ ] Gesetzentwürfe, Einbringungen und Verkündungen der angekündigten Folgevorhaben, insbesondere
+      Sozialistische Verfassungsnovelle sowie Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz
+- [ ] Errichtungsakte für Staatsplankommission Ost und Landeswirtschaftsrat
 
 ### V-02 – Boom Europe Leipzig/Halle
 

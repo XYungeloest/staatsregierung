@@ -98,6 +98,12 @@ export type Themencluster = (typeof THEMENCLUSTER)[number];
 export interface ThemenRechtsgrundlage {
   label: string;
   normSlug?: string;
+  /**
+   * Amtliche Ausgabe, in der die Grundlage veröffentlicht ist. Nur nötig, wenn die
+   * Veröffentlichung keine Norm ist – etwa ein Bericht eines Verfassungsorgans; bei
+   * einer Norm wird die Ausgabe aus dem Verkündungsdatensatz abgeleitet.
+   */
+  publicationSlug?: string;
   note?: string;
 }
 
@@ -717,6 +723,7 @@ function parseThemenRechtsgrundlagen(
     return {
       label: expectString(record.label, `${path}[${index}].label`),
       normSlug: expectOptionalString(record.normSlug, `${path}[${index}].normSlug`),
+      publicationSlug: expectOptionalString(record.publicationSlug, `${path}[${index}].publicationSlug`),
       note: expectOptionalString(record.note, `${path}[${index}].note`),
     };
   });

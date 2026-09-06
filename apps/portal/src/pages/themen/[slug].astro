@@ -74,10 +74,14 @@ for (const publication of publications) {
     }
   }
 }
+const publicationBySlug = new Map(publications.map((publication) => [publication.slug, publication]));
 const legalReferences = (topic?.rechtsgrundlagen ?? []).map((entry) => ({
   ...entry,
   norm: entry.normSlug ? normLookup.get(entry.normSlug) : undefined,
-  publication: entry.normSlug ? publicationByNormSlug.get(entry.normSlug) : undefined,
+  // Eine ausdrücklich benannte Ausgabe geht vor; sonst die Ausgabe der verknüpften Norm.
+  publication: entry.publicationSlug
+    ? publicationBySlug.get(entry.publicationSlug)
+    : entry.normSlug ? publicationByNormSlug.get(entry.normSlug) : undefined,
 }));
 const visibleLegalReferences = legalReferences.slice(0, 6);
 const additionalLegalReferences = legalReferences.slice(6);

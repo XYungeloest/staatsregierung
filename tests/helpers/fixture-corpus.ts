@@ -20,7 +20,7 @@ import { comparePublicationsNewestFirst, parseVerkuendung, type Verkuendung } fr
  * 2026-09-01 bis 2026-09-04 (tests/recht-d1-reference-date.test.mjs), jede Norm mit eigener
  * Abkürzung und eigenem Kurztitel, Sachgebiete nur aus der amtlichen Systematik (packages/shared/src/config/law-subjects.json).
  */
-export const FIXTURE_REFERENCE_DATE = '2026-09-04';
+export const FIXTURE_REFERENCE_DATE = '2026-09-06';
 
 const BASELINE = '2023-11-01';
 

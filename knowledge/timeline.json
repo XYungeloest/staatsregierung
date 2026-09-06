@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-04",
+  "asOf": "2026-09-06",
   "events": [
     {
       "id": "event-off-holdings-succession-2026",
@@ -438,21 +438,26 @@
     {
       "id": "event-volksbefragung-2026",
       "title": "Volksbefragung 2026",
-      "status": "planned",
+      "status": "confirmed-primary",
       "validFrom": "2026-09-05",
       "validTo": "2026-09-06",
-      "asOf": "2026-08-23",
-      "summary": "Die freiwillige und rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen findet vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Wahl der achten Volkskammer statt.",
+      "asOf": "2026-09-06",
+      "summary": "Die freiwillige und rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen wurde vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Wahl der achten Volkskammer durchgeführt.",
       "sourceRefs": [
         {
-          "sourceId": "source-ogvbl-2026-59",
-          "locator": "§§ 1 bis 5",
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitt I Nummer 3 und Abschnitt IV",
           "role": "primary"
         },
         {
-          "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
-          "locator": "Abstimmungszeitraum",
+          "sourceId": "source-stanzo-2026-41",
+          "locator": "Abschnitt I",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§§ 1 bis 5",
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -465,17 +470,17 @@
       "tags": [
         "timeline",
         "political-participation",
-        "scheduled"
+        "historical"
       ],
       "notes": [
-        "Kein Volksentscheid und keine unmittelbare rechtliche Bindungswirkung; die Teilnahme ist freiwillig."
+        "Kein Volksentscheid und keine unmittelbare rechtliche Bindungswirkung; die Teilnahme war freiwillig."
       ],
       "aliases": [],
       "date": "2026-09-05",
       "startDate": "2026-09-05",
       "endDate": "2026-09-06",
       "eventType": "public-consultation",
-      "eventStatus": "scheduled",
+      "eventStatus": "completed",
       "normRefs": [
         {
           "normSlug": "volksbefragungsverordnung-2026",
@@ -484,37 +489,128 @@
       ]
     },
     {
-      "id": "event-volksbefragung-result-deadline-2026",
-      "title": "Vorgesehene Bekanntmachung des Befragungsergebnisses",
-      "status": "planned",
-      "validFrom": "2026-09-10",
-      "validTo": "2026-09-10",
-      "asOf": "2026-08-09",
-      "summary": "Das endgültige Ergebnis soll nach der Verordnung spätestens am 10. September 2026 öffentlich bekannt gemacht werden.",
+      "id": "event-volksbefragung-result-2026",
+      "title": "Bundeswahlleitung stellt das Endergebnis endgültig fest",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-06",
+      "validTo": "2026-09-06",
+      "asOf": "2026-09-06",
+      "summary": "Die Bundeswahlleitung stellt das amtliche Endergebnis der Wahl zur achten Volkskammer und der Volksbefragung 2026 am 6. September 2026 endgültig fest und beurkundet es. Alle fünf Fragen der Volksbefragung sind mehrheitlich befürwortet.",
       "sourceRefs": [
         {
-          "sourceId": "source-ogvbl-2026-59",
-          "locator": "§ 7 Absatz 6",
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitte II bis V",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§ 7",
+          "role": "context"
         }
       ],
       "relatedIds": [
         "inst-bundeswahlleiter",
+        "inst-volkskammer",
+        "proceeding-volksbefragung-2026",
+        "proceeding-eighth-volkskammer-election"
+      ],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "election",
+        "historical"
+      ],
+      "notes": [
+        "Die Verordnung sah eine Bekanntmachung spätestens am 10. September 2026 vor; die Feststellung erfolgte bereits am 6. September 2026."
+      ],
+      "aliases": [],
+      "date": "2026-09-06",
+      "eventType": "election-result-confirmed",
+      "eventStatus": "completed",
+      "normRefs": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "versionId": "2026-08-09"
+        }
+      ]
+    },
+    {
+      "id": "event-volkskammer-election-result-2026",
+      "title": "Amtliches Endergebnis der Wahl zur achten Volkskammer",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-06",
+      "validTo": "2026-09-06",
+      "asOf": "2026-09-06",
+      "summary": "Die gemeinsame Liste Roter Aufbruch erhält 17 von 19 Stimmen (89,47 Prozent), alle drei Aktivitätspunkte und ein Gesamtergebnis von 92,63 Prozent; sie stellt alle 11 Sitze der achten Volkskammer. Die Wahlbeteiligung beträgt 63,33 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitte II und III",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "inst-bundeswahlleiter",
+        "party-volksfront",
+        "party-demos",
+        "proceeding-eighth-volkskammer-election",
+        "event-volkskammer-election-2026"
+      ],
+      "tags": [
+        "timeline",
+        "election",
+        "parliament",
+        "historical"
+      ],
+      "notes": [
+        "Die Regelanzahl von 15 Listensitzen war für die achte Volkskammer auf 11 abgesenkt.",
+        "Die konstituierende Sitzung der achten Volkskammer ist damit noch nicht belegt."
+      ],
+      "aliases": [],
+      "date": "2026-09-06",
+      "eventType": "election-result-confirmed",
+      "eventStatus": "completed",
+      "normRefs": []
+    },
+    {
+      "id": "event-volksbefragung-report-2026",
+      "title": "Staatsrat veröffentlicht den Auswertungsbericht zur Volksbefragung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-06",
+      "validTo": "2026-09-06",
+      "asOf": "2026-09-06",
+      "summary": "Der Staatsrat veröffentlicht den nach § 8 VBefrVO 2026 vorgeschriebenen Bericht über die Ergebnisse der Volksbefragung 2026 und die daraus gezogenen politischen Schlussfolgerungen im StAnzO. 2026 Nr. 41. Damit ist die Berichtspflicht erfüllt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-41",
+          "locator": "Seiten 2–7",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§ 8",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
         "inst-staatsrat",
+        "inst-volkskammer",
         "proceeding-volksbefragung-2026"
       ],
       "tags": [
         "timeline",
         "political-participation",
-        "scheduled"
+        "government",
+        "historical"
       ],
       "notes": [
-        "Die Soll-Regelung wird nicht als bereits erfolgte Ergebnisbekanntmachung dargestellt."
+        "Der Bericht wird der Volkskammer zugeleitet und öffentlich zugänglich gemacht; er begründet selbst keine unmittelbar geltenden Rechte oder Pflichten."
       ],
       "aliases": [],
-      "date": "2026-09-10",
-      "eventType": "result-publication-target",
-      "eventStatus": "scheduled",
+      "date": "2026-09-06",
+      "eventType": "official-report-published",
+      "eventStatus": "completed",
       "normRefs": [
         {
           "normSlug": "volksbefragungsverordnung-2026",
@@ -914,26 +1010,33 @@
     {
       "id": "event-volkskammer-election-2026",
       "title": "Wahl zur achten Volkskammer",
-      "status": "planned",
+      "status": "confirmed-primary",
       "validFrom": "2026-09-05",
       "validTo": "2026-09-06",
-      "asOf": "2026-08-01",
-      "summary": "Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.",
+      "asOf": "2026-09-06",
+      "summary": "Die Wahl zur achten Ostdeutschen Volkskammer wurde am 5. und 6. September 2026 durchgeführt.",
       "sourceRefs": [
+        {
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitt I",
+          "role": "primary"
+        },
         {
           "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
           "locator": "Wahl zur achten Volkskammer",
-          "role": "primary"
+          "role": "context"
         }
       ],
       "relatedIds": [
         "inst-volkskammer",
-        "proceeding-eighth-volkskammer-election"
+        "inst-bundeswahlleiter",
+        "proceeding-eighth-volkskammer-election",
+        "event-volkskammer-election-result-2026"
       ],
       "tags": [
         "timeline",
         "election",
-        "scheduled"
+        "historical"
       ],
       "notes": [],
       "aliases": [
@@ -943,7 +1046,7 @@
       "startDate": "2026-09-05",
       "endDate": "2026-09-06",
       "eventType": "election",
-      "eventStatus": "scheduled",
+      "eventStatus": "completed",
       "normRefs": []
     },
     {

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-04",
+  "asOf": "2026-09-06",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -530,27 +530,32 @@
     },
     {
       "id": "state-current-volksbefragung-2026",
-      "title": "Angeordnete Volksbefragung 2026",
+      "title": "Volksbefragung 2026 abgeschlossen und politisch ausgewertet",
       "status": "confirmed-primary",
-      "validFrom": "2026-08-09",
+      "validFrom": "2026-09-06",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Die Volksbefragungsverordnung 2026 ist am 9. August 2026 verkündet worden und in Kraft getreten. Nach der Bekanntmachung der Bundeswahlleitung läuft die freiwillige, rechtlich nicht bindende Befragung vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Wahl der achten Volkskammer.",
+      "asOf": "2026-09-06",
+      "summary": "Die freiwillige und rechtlich nicht bindende Volksbefragung wurde am 5. und 6. September 2026 gleichzeitig mit der Wahl zur achten Volkskammer durchgeführt. Die Bundeswahlleitung stellte das endgültige Ergebnis am 6. September 2026 fest; alle fünf Fragen wurden mehrheitlich befürwortet. Der Staatsrat hat seinen Bericht nach § 8 VBefrVO 2026 am selben Tag im StAnzO. 2026 Nr. 41 veröffentlicht. Das Verfahren einschließlich seiner politischen Auswertung ist damit abgeschlossen.",
       "sourceRefs": [
         {
-          "sourceId": "source-ogvbl-2026-59",
-          "locator": "Seiten 2–7, insbesondere §§ 1, 2 und 11",
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitt IV Nummer 2 und Abschnitt V",
           "role": "primary"
         },
         {
-          "sourceId": "source-pm-2026-08-09-05",
-          "locator": "gesamte Pressemitteilung",
+          "sourceId": "source-stanzo-2026-41",
+          "locator": "Seiten 2–7, Abschnitte I bis X",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "Seiten 2–7, insbesondere §§ 1, 2, 7 und 8",
           "role": "corroborating"
         },
         {
           "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
           "locator": "Abstimmungszeitraum und fünf Fragen",
-          "role": "corroborating"
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -558,7 +563,9 @@
         "inst-volkskammer",
         "inst-bundeswahlleiter",
         "proceeding-volksbefragung-2026",
-        "event-volksbefragung-2026"
+        "event-volksbefragung-2026",
+        "event-volksbefragung-result-2026",
+        "event-volksbefragung-report-2026"
       ],
       "tags": [
         "current-state",
@@ -566,8 +573,9 @@
         "election"
       ],
       "notes": [
-        "Die Befragung ist kein Volksentscheid; ein Beteiligungs- oder Zustimmungsquorum besteht nicht.",
-        "Durchführung, Ergebnisbekanntmachung und Bericht werden nicht vorweggenommen."
+        "Die Befragung war kein Volksentscheid; sie entfaltet keine unmittelbare rechtliche Bindungswirkung, und ein Beteiligungs- oder Zustimmungsquorum bestand nicht.",
+        "Auch der Bericht des Staatsrates begründet nach seinem Abschnitt IX selbst keine unmittelbar geltenden Rechte oder Pflichten.",
+        "Die im Bericht angekündigten Gesetzgebungs- und Vollzugsvorhaben sind eigenständige Folgevorhaben und in agenda.json geführt; sie sind weder beschlossen noch umgesetzt."
       ],
       "normRefs": [
         {
@@ -577,8 +585,81 @@
       ],
       "consultationStartDate": "2026-09-05",
       "consultationEndDate": "2026-09-06",
+      "resultConfirmedOn": "2026-09-06",
+      "reportPublishedOn": "2026-09-06",
+      "reportPublication": "StAnzO. 2026 Nr. 41",
       "participation": "voluntary",
-      "legalEffect": "non-binding"
+      "legalEffect": "non-binding",
+      "questionResults": [
+        {
+          "number": 1,
+          "shortTitle": "Politische Grundrichtung",
+          "question": "Sollte der Freistaat seine Politik darauf ausrichten, dauerhaft im Rahmen seiner verfassungsrechtlichen Möglichkeiten den demokratischen Sozialismus aufzubauen oder zu erhalten?",
+          "yesVotes": 16,
+          "yesPercent": 88.89,
+          "noVotes": 2,
+          "noPercent": 11.11,
+          "votesCast": 18,
+          "turnoutPercent": 60.0,
+          "outcome": "approved"
+        },
+        {
+          "number": 2,
+          "shortTitle": "Große Staatsreform",
+          "question": "Befürworten Sie die durch die Große Staatsreform geschaffene staatliche Ordnung mit Volkskammer, Staatsrat und Staatspräsident?",
+          "yesVotes": 13,
+          "yesPercent": 76.47,
+          "noVotes": 4,
+          "noPercent": 23.53,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        },
+        {
+          "number": 3,
+          "shortTitle": "Öffentliches und gemeinwirtschaftliches Eigentum",
+          "question": "Sollen zentrale Bereiche der Daseinsvorsorge, wie Wohnen, Energie, Boden, Verkehr und Gesundheitsversorgung, überwiegend in öffentlicher oder gemeinwirtschaftlicher Verantwortung organisiert werden?",
+          "yesVotes": 14,
+          "yesPercent": 82.35,
+          "noVotes": 3,
+          "noPercent": 17.65,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        },
+        {
+          "number": 4,
+          "shortTitle": "Wirtschaftslenkung und -planung",
+          "question": "Soll der Freistaat weiterhin durch öffentliche Investitionen, Wirtschaftslenkung und -planung, eigene Unternehmen und eine aktive Industriepolitik Arbeitsplätze sichern, strukturschwache Regionen stärken und die Infrastruktur modernisieren?",
+          "yesVotes": 15,
+          "yesPercent": 88.24,
+          "noVotes": 2,
+          "noPercent": 11.76,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        },
+        {
+          "number": 5,
+          "shortTitle": "Olympische und Paralympische Spiele",
+          "question": "Soll der Freistaat Ostdeutschland die Bewerbung um die Ausrichtung Olympischer und Paralympischer Spiele weiter verfolgen?",
+          "yesVotes": 10,
+          "yesPercent": 58.82,
+          "noVotes": 7,
+          "noPercent": 41.18,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        }
+      ],
+      "politicalConclusions": [
+        "Der Staatsrat sieht in dem Ergebnis ein deutliches politisches Mandat zur Fortsetzung und Weiterentwicklung des mit der Großen Staatsreform sowie den Reformen der öffentlichen Daseinsvorsorge begonnenen Kurses.",
+        "Er wird die Vorbereitung einer Sozialistischen Verfassungsnovelle unterstützen; Verfassungsordnung, Grundrechte, freie demokratische Willensbildung und der Vorrang des Bundesrechts bleiben uneingeschränkt zu beachten.",
+        "Die staatliche Neuordnung mit Volkskammer, Staatsrat und Staatspräsident gilt auch politisch als bestätigt; eine Rückkehr zu den früheren Organisationsstrukturen wird nicht verfolgt.",
+        "Der Ausbau öffentlicher und gemeinwirtschaftlicher Strukturen wird in den Bereichen Wohnen, Energie und Wärme, Boden, öffentlicher Verkehr sowie Gesundheit und Pflege fortgeführt.",
+        "Aus der vierten Frage zieht der Staatsrat die Vorbereitung eines Wirtschaftsplanungs- und Gemeinwirtschaftsgesetzes, die Errichtung einer Staatsplankommission Ost, den Aufbau eines Landeswirtschaftsrates, mittel- und langfristige Wirtschaftsplanung, eine stärkere Abstimmung öffentlicher Investitionen sowie die aktive Sicherung industrieller Standorte; Wirtschaftsplanung bedeutet ausdrücklich keine zentrale Steuerung sämtlicher wirtschaftlicher Tätigkeit.",
+        "Das Bewerbungsprojekt für Olympische und Paralympische Spiele wird unter sozialen und finanziellen Bedingungen weiterverfolgt; über organisatorische Grundlagen und nächste Schritte will der Staatsrat gesondert beschließen."
+      ]
     },
     {
       "id": "state-current-parliament",
@@ -586,8 +667,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-09",
-      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt; parallel ist eine freiwillige und rechtlich nicht bindende Volksbefragung angeordnet.",
+      "asOf": "2026-09-06",
+      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort; sie wird seit 5. Juli 2026 von der Koalition aus Volksfront und DEMOS mit 11 von 15 Sitzen getragen. Die Wahl zur achten Volkskammer fand am 5. und 6. September 2026 statt; die Bundeswahlleitung stellte das Endergebnis am 6. September 2026 endgültig fest. Die gemeinsame Liste Roter Aufbruch erhielt 17 von 19 Stimmen (89,47 Prozent), alle drei Aktivitätspunkte und damit ein Gesamtergebnis von 92,63 Prozent sowie sämtliche 11 Sitze; die Regelanzahl von 15 Listensitzen war für die achte Volkskammer auf 11 abgesenkt worden.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-governments",
@@ -608,6 +689,11 @@
           "sourceId": "source-ogvbl-2026-59",
           "locator": "§ 1",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitte I bis III und V",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -616,6 +702,7 @@
         "party-demos",
         "proceeding-eighth-volkskammer-election",
         "event-volkskammer-election-2026",
+        "event-volkskammer-election-result-2026",
         "proceeding-volksbefragung-2026",
         "event-volksbefragung-2026"
       ],
@@ -624,7 +711,9 @@
         "parliament",
         "coalition"
       ],
-      "notes": [],
+      "notes": [
+        "Für die konstituierende Sitzung der achten Volkskammer, den Beginn der achten Wahlperiode und eine daraus folgende Regierungsbildung liegt noch keine Quelle vor; bis dahin bleibt die siebte Volkskammer der belegte aktuelle Parlamentsstand."
+      ],
       "legislature": "7. Volkskammer",
       "totalSeats": 15,
       "coalitionSeats": 11,
@@ -633,9 +722,31 @@
         "party-demos"
       ],
       "seatCountAsOf": "2026-07-05",
-      "nextElectionTiming": "5. und 6. September 2026",
-      "nextElectionDate": "2026-09-05",
-      "nextElectionEndDate": "2026-09-06"
+      "electionStartDate": "2026-09-05",
+      "electionEndDate": "2026-09-06",
+      "electionResultConfirmedOn": "2026-09-06",
+      "electionTurnoutVotes": 19,
+      "electionTurnoutPercent": 63.33,
+      "nextLegislature": "8. Volkskammer",
+      "nextLegislatureSeats": 11,
+      "electedListName": "Roter Aufbruch (RA)",
+      "electedListPartyIds": [
+        "party-volksfront",
+        "party-demos"
+      ],
+      "electedListMembers": [
+        "Dr. Karl Honecker",
+        "Yannik Schmäle",
+        "Ole Dolittle",
+        "Dr. Mateo Delgado",
+        "Horst Wollseif",
+        "Mia Wollrath",
+        "Tim Dieter",
+        "Finn Bonnano",
+        "Carl Ulbricht",
+        "Kilian Schmidt",
+        "David König"
+      ]
     },
     {
       "id": "state-current-territory",

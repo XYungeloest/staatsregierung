@@ -2,7 +2,7 @@
 
 > Diese Datei ist ein generierter Überblick. Für rechtliche Detailfragen sind die verknüpften Primärquellen und Normfassungen maßgeblich.
 
-**Redaktioneller Stand:** 2026-09-04
+**Redaktioneller Stand:** 2026-09-06
 
 ## Quellenregeln
 
@@ -95,22 +95,20 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 
 ## Wichtigste historische Ereignisse
 
-- **2026-09-02: Ostdeutsches Hoheitszeichengesetz verkündet und in Kraft getreten.** Das Besondere Gesetz zur Neuregelung des Hoheitszeichenrechts führt das Ostdeutsche Hoheitszeichengesetz (OHzG) ein; es tritt am Tag seiner Verkündung in Kraft.
-- **2026-09-02: Zinnwald-Vergesellschaftungsgesetz verkündet und in Kraft getreten.** Das Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald (ZinnVG) überführt die Geschäftsanteile des Projektunternehmens gegen Entschädigung in Gemeineigentum und tritt am Tag seiner Verkündung in Kraft.
 - **2026-09-03: NDR-Änderungs- und Überleitungsstaatsvertrag tritt in Kraft.** Der Staatsvertrag ist am 3. September 2026 in Kraft getreten; die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten nach Austausch der Ratifikationsurkunden fest.
 - **2026-09-03: Ostdeutsches Daseinsvorsorgegesetz in Kraft getreten.** Das am 2. September 2026 verkündete Besondere Gesetz über die öffentliche Daseinsvorsorge (OstDVG) tritt am Tag nach seiner Verkündung in Kraft und ändert zugleich die Haushaltsordnung.
 - **2026-09-03: Interflug-Gesetz in Kraft getreten.** Das am 2. September 2026 verkündete Gesetz zur Errichtung der Interflug tritt am Tag nach seiner Verkündung in Kraft; die Interflug entsteht als Anstalt des öffentlichen Rechts mit Sitz in Schönefeld.
 - **2026-09-03: Gründungsvorstand der Interflug bestellt.** Der Staatsrat bestellt Joachim Hunold (Vorsitzender), Ralf Teckentrup und Klaus Wowereit mit Wirkung vom 3. September 2026 zu Mitgliedern des Gründungsvorstandes der Interflug; die Bestellung endet spätestens mit Ablauf des 3. März 2027.
 - **2026-09-03: Anfangsflotte der Interflug beschafft.** Der Gründungsvorstand macht die Beschaffung von sechs AT-802F Fire Boss, zwei Dash 8-400AT und zwei Boeing 737-700 FireLiner bekannt; das Beschaffungsprogramm umfasst bis zu 105,5 Millionen Euro einschließlich Erstausstattung und Risikovorsorge.
-- **2026-09-05: Volksbefragung 2026.** Die freiwillige und rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen findet vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Wahl der achten Volkskammer statt.
-- **2026-09-05: Wahl zur achten Volkskammer.** Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.
-- **2026-09-10: Vorgesehene Bekanntmachung des Befragungsergebnisses.** Das endgültige Ergebnis soll nach der Verordnung spätestens am 10. September 2026 öffentlich bekannt gemacht werden.
+- **2026-09-05: Volksbefragung 2026.** Die freiwillige und rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen wurde vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Wahl der achten Volkskammer durchgeführt.
+- **2026-09-05: Wahl zur achten Volkskammer.** Die Wahl zur achten Ostdeutschen Volkskammer wurde am 5. und 6. September 2026 durchgeführt.
+- **2026-09-06: Bundeswahlleitung stellt das Endergebnis endgültig fest.** Die Bundeswahlleitung stellt das amtliche Endergebnis der Wahl zur achten Volkskammer und der Volksbefragung 2026 am 6. September 2026 endgültig fest und beurkundet es. Alle fünf Fragen der Volksbefragung sind mehrheitlich befürwortet.
+- **2026-09-06: Amtliches Endergebnis der Wahl zur achten Volkskammer.** Die gemeinsame Liste Roter Aufbruch erhält 17 von 19 Stimmen (89,47 Prozent), alle drei Aktivitätspunkte und ein Gesamtergebnis von 92,63 Prozent; sie stellt alle 11 Sitze der achten Volkskammer. Die Wahlbeteiligung beträgt 63,33 Prozent.
+- **2026-09-06: Staatsrat veröffentlicht den Auswertungsbericht zur Volksbefragung.** Der Staatsrat veröffentlicht den nach § 8 VBefrVO 2026 vorgeschriebenen Bericht über die Ergebnisse der Volksbefragung 2026 und die daraus gezogenen politischen Schlussfolgerungen im StAnzO. 2026 Nr. 41. Damit ist die Berichtspflicht erfüllt.
 
 ## Laufende Verfahren und Abhängigkeiten
 
 - **Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer** (formal-outcome-unresolved): Nach dem Antrag vom 9. Juli beschloss der Bundestag am 12. Juli 2026 die Präsidentenanklage und reichte sie beim Bundesverfassungsgericht ein. Dreyer trat am 16. Juli zurück; der formelle Verfahrensausgang ist nicht belegt.
-- **Wahl zur achten Volkskammer** (scheduled): Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.
-- **Allgemeine Volksbefragung anlässlich der achten Volkskammerwahl** (scheduled): Der Staatsrat hat eine freiwillige und rechtlich nicht bindende Volksbefragung zu fünf politischen Grundsatzfragen angeordnet. Sie wird vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Volkskammerwahl durchgeführt.
 - **Übergang zur neuen Kreis- und Bezirksstruktur** (implementation): Die Neuordnung ist seit 1. August 2026 wirksam. Übergangsorgane, Rechtsnachfolge und weitere organisatorische Vollzugsschritte werden umgesetzt.
 - **Nachweis der dritten Plenarsitzung vom 20. Juli 2026** (records-missing): Verkündungen belegen zwölf beschlossene Vorhaben, aber Plenarprotokoll, Einzelabstimmungen und Stimmenzahlen fehlen.
 - **Umsetzung Boom Europe Leipzig/Halle** (implementation): Das Boom Europe Leipzig/Halle Agreement ist seit dem 14. Mai 2026 rechtskräftig unterzeichnet und in Kraft. Die gesetzlichen Grundlagen traten am 21. Juli 2026 hinzu; die spätere Standorteröffnung ist nicht belegt.
