@@ -447,6 +447,14 @@ jobs:
         env:
           SITE_TARGETS: law
         run: npm run test:browsers:ci
+      - name: Wrangler-Logs des lokalen Workers bereitstellen (nur bei Fehlern)
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: wrangler-logs-${{ github.job }}-${{ github.run_id }}
+          path: ~/.config/.wrangler/logs
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Seed-Status festhalten
         if: ${{ always() }}
         env:

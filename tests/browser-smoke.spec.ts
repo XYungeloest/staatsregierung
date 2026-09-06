@@ -14,6 +14,7 @@ import {
   searchApi,
   searchWordOf,
   suggestions,
+  withWorkerRecovery,
   type ApiDocument,
 } from './helpers/law-runtime.ts';
 
@@ -40,11 +41,13 @@ async function prepareFunctionalPage(page: Page): Promise<void> {
 
 /** Erster interner Link eines Musters auf einer Seite (z. B. erstes Regierungsmitglied). */
 async function firstLink(page: Page, path: string, pattern: RegExp): Promise<string> {
-  const response = await page.request.get(path);
-  expect(response.ok(), path).toBe(true);
-  const match = (await response.text()).match(pattern);
-  expect(match, `${path}: kein Link nach ${pattern}`).toBeTruthy();
-  return match![0].replace(/^href="/u, '').replace(/"$/u, '');
+  return withWorkerRecovery(page.request, async () => {
+    const response = await page.request.get(path);
+    expect(response.ok(), path).toBe(true);
+    const match = (await response.text()).match(pattern);
+    expect(match, `${path}: kein Link nach ${pattern}`).toBeTruthy();
+    return match![0].replace(/^href="/u, '').replace(/"$/u, '');
+  });
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -392,7 +395,8 @@ siteTest(['portal', 'law'])('Kalender, Sitemaps und strukturierte Termindaten si
     await page.goto('/presse/termine/');
     const firstEventLink = page.locator('a[href^="/presse/termine/"]:not([href$="kalender.ics"])').first();
     await expect(firstEventLink).toBeVisible();
-    await firstEventLink.click();
+    // Erst nach abgeschlossener Navigation lesen (Firefox liefert sonst die Skripte der alten Seite).
+    await Promise.all([page.waitForURL(/\/presse\/termine\/[^/]+\/?$/u), firstEventLink.click()]);
     const structuredData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
       scripts.map((script) => script.textContent ?? '').join('\n'),
     );

@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
-import { currentDocuments, currentNormOfOrigin, lawUrl, multiVersionNorm, publicationIndex, suggestions } from './helpers/law-runtime.ts';
+import { currentDocuments, currentNormOfOrigin, lawUrl, multiVersionNorm, publicationIndex, suggestions, withWorkerRecovery } from './helpers/law-runtime.ts';
 
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 
@@ -20,11 +20,13 @@ const lawPage = (path: string): Resolve => async () => lawUrl(path);
 
 /** Erster interner Link eines Musters auf einer statischen Portalseite (z. B. erstes Ressort). */
 async function firstLink(request: APIRequestContext, path: string, pattern: RegExp): Promise<string> {
-  const response = await request.get(path);
-  expect(response.ok(), path).toBe(true);
-  const match = (await response.text()).match(pattern);
-  expect(match, `${path}: kein Link nach ${pattern}`).toBeTruthy();
-  return match![0].replace(/^href="/u, '').replace(/"$/u, '');
+  return withWorkerRecovery(request, async () => {
+    const response = await request.get(path);
+    expect(response.ok(), path).toBe(true);
+    const match = (await response.text()).match(pattern);
+    expect(match, `${path}: kein Link nach ${pattern}`).toBeTruthy();
+    return match![0].replace(/^href="/u, '').replace(/"$/u, '');
+  });
 }
 
 const auditTargets: AuditTarget[] = [
@@ -71,7 +73,10 @@ async function openTarget(page: Page, request: APIRequestContext, target: AuditT
   const url = await target.resolve(request);
   await page.route('**://*.tile.openstreetmap.org/**', (route) => route.abort());
   await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
-  await page.goto(url);
+  await withWorkerRecovery(request, () => page.goto(url));
+  // Suchseiten laden Kandidaten und Treffer nach dem Seitenaufbau: erst der fertige Stand wird
+  // geprüft, und keine laufende Antwort wird beim Schließen der Seite abgebrochen.
+  if (url.includes('/suche/')) await expect(page.locator('[data-search-summary], [data-portal-search-status]').first()).toContainText(/Treffer|Wonach suchen Sie/u, { timeout: 15_000 });
   return url;
 }
 
@@ -228,7 +233,6 @@ for (const target of selected(focusTargets)) {
       window.localStorage.setItem('ostrecht-portal-analytics-consent', 'rejected');
     });
     const url = await openTarget(page, request, target);
-    if (url.includes('/suche/')) await expect(page.locator('[data-search-summary], [data-portal-search-status]').first()).toContainText(/Treffer/u);
     // Übergänge aus: gemessen wird der Endzustand des Indikators, nicht ein Zwischenbild der Animation.
     await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
     await page.keyboard.press('Tab'); // Tastaturmodus: :focus-visible gilt dann auch für Skriptfokus

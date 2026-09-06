@@ -100,6 +100,14 @@ jobs:
           START=$(date +%s)
           npm run test:browsers:ci
           echo "browser=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Wrangler-Logs des lokalen Workers bereitstellen (nur bei Fehlern)
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: wrangler-logs-${{ github.job }}-${{ github.run_id }}
+          path: ~/.config/.wrangler/logs
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Laufzeiten festhalten
         if: ${{ always() }}
         env:

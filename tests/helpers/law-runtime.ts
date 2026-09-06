@@ -74,22 +74,50 @@ export function editorialReferenceDate(): string {
   return editorial.referenceDate;
 }
 
+const CONNECTION_LOST = /ECONNREFUSED|ECONNRESET|ERR_CONNECTION_REFUSED|ERR_EMPTY_RESPONSE|ERR_CONNECTION_RESET|socket hang up/u;
+
+/**
+ * Der lokale OstRecht-Worker (wrangler dev) startet sich nach einer vom Browser abgebrochenen
+ * Antwort neu (scripts/serve-law-worker.mjs); ein Aufruf, der genau in dieses Fenster fällt, wartet
+ * auf die Rückkehr des Workers und wird einmal wiederholt. Fachliche Fehler werden nicht wiederholt.
+ */
+export async function withWorkerRecovery<T>(request: APIRequestContext, action: () => Promise<T>): Promise<T> {
+  try {
+    return await action();
+  } catch (error) {
+    if (!CONNECTION_LOST.test(error instanceof Error ? error.message : String(error))) throw error;
+    const deadline = Date.now() + 60_000;
+    while (Date.now() < deadline) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const probe = await request.get(lawUrl('/hilfe/'), { timeout: 5000 }).catch(() => null);
+      if (probe?.ok()) return await action();
+    }
+    throw error;
+  }
+}
+
 export async function searchApi(request: APIRequestContext, query = ''): Promise<ApiPayload> {
-  const response = await request.get(lawUrl(`/api/suche.json${query}`));
-  expect(response.ok(), `/api/suche.json${query}`).toBe(true);
-  return await response.json() as ApiPayload;
+  return withWorkerRecovery(request, async () => {
+    const response = await request.get(lawUrl(`/api/suche.json${query}`));
+    expect(response.ok(), `/api/suche.json${query}`).toBe(true);
+    return await response.json() as ApiPayload;
+  });
 }
 
 export async function suggestions(request: APIRequestContext): Promise<Suggestion[]> {
-  const response = await request.get(lawUrl('/search-suggestions.json'));
-  expect(response.ok()).toBe(true);
-  return ((await response.json()) as { suggestions: Suggestion[] }).suggestions;
+  return withWorkerRecovery(request, async () => {
+    const response = await request.get(lawUrl('/search-suggestions.json'));
+    expect(response.ok()).toBe(true);
+    return ((await response.json()) as { suggestions: Suggestion[] }).suggestions;
+  });
 }
 
 export async function publicationIndex(request: APIRequestContext): Promise<{ latestPublication: { slug: string; date: string; publication: string; year: number; issue: string } | null; publications: Array<{ slug: string; label: string; aliases: string[]; issue: string; publication: string; entries: Array<{ normSlug?: string }> }> }> {
-  const response = await request.get(lawUrl('/verkuendungen/index.json'));
-  expect(response.ok()).toBe(true);
-  return await response.json();
+  return withWorkerRecovery(request, async () => {
+    const response = await request.get(lawUrl('/verkuendungen/index.json'));
+    expect(response.ok()).toBe(true);
+    return await response.json();
+  });
 }
 
 /** Geltende Vorschriften (eine je Norm) in der Reihenfolge der Kandidaten-API (jüngstes Rechtsereignis zuerst). */
