@@ -10,6 +10,7 @@ import {
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
+import { formatCount } from '../../lib/counts.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
 export const prerender = false;
@@ -41,7 +42,11 @@ const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummarie
     title="Sachgebiete"
     lead="Vorschriften nach der amtlichen Sachgebietsgliederung recherchieren: acht Hauptgruppen mit ihren nummerierten Sachgebieten."
     variant="law"
-    facts={[{ label: 'Hauptgruppen', value: String(areaGroups.length) }, { label: 'Vorschriften im Bestand', value: String(stats.normCount) }]}
+    facts={[
+      { label: 'Hauptgruppen', value: String(areaGroups.length) },
+      { label: 'Vorschriften', value: String(stats.normCount) },
+      { label: 'davon geltend', value: String(stats.inForceCount) },
+    ]}
   />
 
   <section class="section">
@@ -59,7 +64,7 @@ const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummarie
               title={group.number ? `${group.number} ${toDisplayText(group.name)}` : toDisplayText(group.name)}
               href={getSubjectUrl(group.name)}
               compact
-              facts={[{ label: 'Vorschriften', value: String(group.normCount) }]}
+              facts={[{ label: 'Umfang', value: formatCount(group.normCount, 'Vorschrift', 'Vorschriften') }]}
               attrs={{ 'data-directory-entry': '' }}
             />
           ))}

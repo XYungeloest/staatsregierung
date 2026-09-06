@@ -111,7 +111,7 @@ siteTest(['portal'])('alte Rechtspfade führen ohne Kette permanent zur funktion
   // Musterpfade: die Weiterleitung ist generisch (/recht/<Weg>/* → OstRecht), unabhängig davon, ob die Norm existiert.
   const redirects = [
     ['/recht/suche/', '/suche/'],
-    ['/recht/archiv/', '/archiv/'],
+    ['/recht/archiv/', '/a-z/'],
     ['/recht/verfassung/', '/norm/staatsverfassung-des-freistaates-ostdeutschland/'],
     ['/recht/norm/beispielnorm/', '/norm/beispielnorm/'],
     ['/recht/norm/beispielnorm/history/', '/norm/beispielnorm/history/'],
@@ -545,7 +545,7 @@ siteTest(['law'])('Normverzeichnis filtert und paginiert serverseitig; die Buchs
 
 siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und dieselbe Filterleiste', async ({ page }) => {
   const subjectPath = await firstLink(page, lawUrl('/sachgebiete/'), /href="\/sachgebiete\/[a-z0-9-]+\/"/u);
-  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/fundstellen/', '/rechtsentwicklung/', '/archiv/', subjectPath]) {
+  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/', '/verkuendungen/', '/fundstellen/', '/rechtsentwicklung/', '/a-z/', subjectPath]) {
     await page.goto(lawUrl(path));
     await expect(page.locator('[data-directory-filter]').first(), path).toBeVisible();
     await expect(page.locator('[data-directory-count]').first(), path).toBeVisible();
@@ -1042,41 +1042,46 @@ siteTest(['law'])('Fundstellen der Verkündungsblätter werden in der Rechtssuch
   await expect(firstHit).toContainText(new RegExp(`${publication!.designation.replaceAll('.', '\\.')}|${publication!.title.replaceAll('.', '\\.')}`, 'u'));
 });
 
-siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet einen lokal filterbaren Stichwortindex', async ({ page }) => {
-  await page.goto(lawUrl('/archiv/'));
+siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und führt Abkürzungen und Kurztitel getrennt', async ({ page, request }) => {
+  // Die alte Adresse bleibt erreichbar und führt mit ihrem Zustand auf den neuen Weg.
+  const moved = await request.get(lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged'), { maxRedirects: 0 });
+  expect(moved.status()).toBe(301);
+  expect(moved.headers().location).toContain('/a-z/?buchstabe=G&herkunft=inherited-unchanged');
+
+  await page.goto(lawUrl('/a-z/'));
   await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('A');
   expect(await page.locator('[data-index-list] li').count()).toBeGreaterThan(0);
   expect(await page.locator('[data-index-list] li').count()).toBeLessThanOrEqual(50);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/archiv\/\?buchstabe=A$/u);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/a-z\/\?buchstabe=A$/u);
 
-  // Buchstabenwechsel über die URL (ohne JavaScript nutzbar): nur Normen dieser Gruppe.
+  // Buchstabenwechsel über die URL (ohne JavaScript nutzbar): nur Vorschriften dieser Gruppe.
+  // Verglichen wird die Buchstabengruppe des Eintrags, nicht sein Titelanfang – die Einordnung
+  // folgt dem Ordnungswort.
   const letterLinks = page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""]):not([aria-current="page"])');
   const letter = (await letterLinks.first().getAttribute('data-index-letter')) ?? 'B';
   await letterLinks.first().click();
   await expect(page).toHaveURL(new RegExp(`buchstabe=${letter}`, 'u'));
   await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText(letter);
-  const titles = await page.locator('[data-index-list] li a').allTextContents();
-  expect(titles.length).toBeGreaterThan(0);
-  const initial = new RegExp(`^[${letter}${letter === 'A' ? 'Ä' : letter === 'O' ? 'Ö' : letter === 'U' ? 'Ü' : ''}]`, 'u');
-  expect(titles.every((title) => initial.test(title.trim().replace(/^(?:der|die|das)\s+/iu, '')))).toBe(true);
+  const groups = await page.locator('[data-index-list] li').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.indexLetter));
+  expect(groups.length).toBeGreaterThan(0);
+  expect(groups.every((group) => group === letter)).toBe(true);
 
-  // Stichwortindex einer Gruppe mit Stichwörtern: serverseitig gefiltert (GET) und lokal auf der
-  // geladenen Seite filterbar.
+  // Abkürzungen und Kurztitel: serverseitig gefiltert (GET) und lokal auf der geladenen Seite filterbar.
   let keyword = '';
   let keywordLetter = letter;
   for (const candidate of [letter, ...(await page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-index-letter') ?? '')))]) {
-    await page.goto(lawUrl(`/archiv/?buchstabe=${candidate}`));
+    await page.goto(lawUrl(`/a-z/?buchstabe=${candidate}`));
     const first = page.locator('[data-index-entry] > strong').first();
     if (await first.count() === 0) continue;
     keyword = ((await first.textContent()) ?? '').trim();
     keywordLetter = candidate;
     if (keyword.length > 2) break;
   }
-  expect(keyword.length, 'Buchstabengruppe mit Stichwortindex').toBeGreaterThan(2);
-  await page.goto(lawUrl(`/archiv/?buchstabe=${keywordLetter}&stichwort=${encodeURIComponent(keyword)}`));
+  expect(keyword.length, 'Buchstabengruppe mit Abkürzungen und Kurztiteln').toBeGreaterThan(2);
+  await page.goto(lawUrl(`/a-z/?buchstabe=${keywordLetter}&abkuerzung=${encodeURIComponent(keyword)}`));
   // Verglichen wird der gelesene Parameter, nicht die Schreibweise der Adresse: das Formular
   // schreibt Leerzeichen als `+`, eine gebaute Adresse als `%20`.
-  await expect.poll(() => new URL(page.url()).searchParams.get('stichwort')).toBe(keyword);
+  await expect.poll(() => new URL(page.url()).searchParams.get('abkuerzung')).toBe(keyword);
   const entries = page.locator('[data-index-entry]');
   expect(await entries.count()).toBeGreaterThan(0);
   expect(await entries.count()).toBeLessThanOrEqual(100);
@@ -1085,11 +1090,14 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   await expect(page.locator('[data-index-filter-status]')).toContainText('dieser Seite');
   expect(await entries.evaluateAll((nodes) => nodes.filter((node) => !(node as HTMLElement).hidden).length)).toBeGreaterThan(0);
   await page.locator('[data-keyword-filter-form] button[type="submit"]').click();
-  await expect.poll(() => new URL(page.url()).searchParams.get('stichwort')).toBe(keyword);
+  await expect.poll(() => new URL(page.url()).searchParams.get('abkuerzung')).toBe(keyword);
   await expect(page.locator('[data-index-filter-status]')).toContainText(`passen zu „${keyword}“`);
 
+  // Das Stichwortregister ist ein eigener Abschnitt mit eigenem Zustand; es darf leer sein.
+  await expect(page.locator('[data-register-count]')).toBeVisible();
+
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
-  const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));
+  const response = await page.goto(lawUrl('/a-z/?buchstabe=A&seite=999'));
   expect(response?.status()).toBe(200);
   await expect(page.locator('[data-index-count]')).toContainText(/\d+ Vorschrift/u);
 });
@@ -1196,7 +1204,7 @@ siteTest(['law'])('Normseiten zeigen Rechtsstand und Herkunft in einem gemeinsam
 });
 
 siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält den Buchstabenwechsel im Filter', async ({ page }) => {
-  await page.goto(lawUrl('/archiv/'));
+  await page.goto(lawUrl('/a-z/'));
   const overview = page.locator('[data-origin-overview] a');
   expect(await overview.count()).toBeGreaterThanOrEqual(3);
   await expect(page.locator('[data-index-list] .origin-badge').first()).toBeVisible();
@@ -1208,7 +1216,7 @@ siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält den Bu
   const groups = await page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-index-letter') ?? ''));
   let filledLetter = '';
   for (const candidate of groups) {
-    await page.goto(lawUrl(`/archiv/?buchstabe=${candidate}&herkunft=inherited-unchanged`));
+    await page.goto(lawUrl(`/a-z/?buchstabe=${candidate}&herkunft=inherited-unchanged`));
     if (await page.locator('[data-index-list] li').count() > 0) { filledLetter = candidate; break; }
   }
   expect(filledLetter, 'Buchstabengruppe mit übernommenen, unveränderten Vorschriften').not.toBe('');
@@ -1222,30 +1230,30 @@ siteTest(['law'])('A–Z bietet Herkunftsfilter und -übersicht und hält den Bu
   await expect(page).toHaveURL(/herkunft=inherited-unchanged/u);
 });
 
-siteTest(['law'])('A–Z hält Norm- und Stichwortseite unabhängig (mehrseitige Buchstabengruppe)', async ({ page }) => {
-  // Zwei gleichzeitig paginierte Dimensionen gibt es erst ab 50 Normen und 100 Stichwörtern je
+siteTest(['law'])('A–Z hält Vorschriften- und Abkürzungsseite unabhängig (mehrseitige Buchstabengruppe)', async ({ page }) => {
+  // Zwei gleichzeitig paginierte Dimensionen gibt es erst ab 50 Vorschriften und 50 Einträgen je
   // Buchstabe – also nur mit dem Vollbestand. Ohne zweite Seite wird übersprungen statt geraten.
-  await page.goto(lawUrl('/archiv/?buchstabe=G'));
+  await page.goto(lawUrl('/a-z/?buchstabe=G'));
   const indexPages = await page.locator('[data-index-pagination] a[aria-label^="Seite "]').count();
-  const keywordPages = await page.locator('[data-keyword-pagination] a[aria-label^="Stichwortseite "]').count();
-  test.skip(indexPages < 2 || keywordPages < 2, `Buchstabe G hat ${indexPages} Norm- und ${keywordPages} Stichwortseiten; die Unabhängigkeit beider Paginierungen wird mit dem Vollbestand geprüft.`);
+  const keywordPages = await page.locator('[data-keyword-pagination] a[aria-label^="Seite "]').count();
+  test.skip(indexPages < 2 || keywordPages < 2, `Buchstabe G hat ${indexPages} Vorschriften- und ${keywordPages} Abkürzungsseiten; die Unabhängigkeit beider Paginierungen wird mit dem Vollbestand geprüft.`);
 
   // Beide Paginierungen derselben Seite behalten den jeweils anderen Zustand.
-  await page.goto(lawUrl('/archiv/?buchstabe=G&seite=2&stichwortseite=2'));
+  await page.goto(lawUrl('/a-z/?buchstabe=G&seite=2&abkuerzungsseite=2'));
   await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
   await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
   const normLinks = await page.locator('[data-index-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
   expect(normLinks.length).toBeGreaterThan(0);
-  expect(normLinks.every((href) => href.includes('stichwortseite=2'))).toBe(true);
+  expect(normLinks.every((href) => href.includes('abkuerzungsseite=2'))).toBe(true);
   const keywordLinks = await page.locator('[data-keyword-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
   expect(keywordLinks.length).toBeGreaterThan(0);
   expect(keywordLinks.every((href) => /[?&]seite=2/u.test(href))).toBe(true);
-  await page.locator('[data-keyword-pagination] a[rel], [data-keyword-pagination] a').filter({ hasText: 'Nächste Stichwörter' }).click();
+  await page.locator('[data-keyword-pagination] a[rel], [data-keyword-pagination] a').filter({ hasText: 'Nächste Einträge' }).click();
   await expect(page).toHaveURL(/seite=2/u);
-  await expect(page).toHaveURL(/stichwortseite=3/u);
+  await expect(page).toHaveURL(/abkuerzungsseite=3/u);
   await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
   await page.goBack();
-  await expect(page).toHaveURL(/stichwortseite=2/u);
+  await expect(page).toHaveURL(/abkuerzungsseite=2/u);
   await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
 });
 

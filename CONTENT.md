@@ -91,6 +91,39 @@ public/images/
   ui/
 ```
 
+## Stichwortregister
+
+Pfad: `content/stichwortregister.json`
+
+Das Stichwortregister ist der redaktionelle Wortzugang zum Rechtsbestand: gebräuchliche Stichwörter
+führen auf die Vorschriften, die eine Frage regeln. Es erscheint im A–Z (`/a-z/`) im Abschnitt
+„Stichwortregister“, getrennt von den Abkürzungen und Kurztiteln; aus Titeln abgeleitete Schlagwörter
+stehen dort nicht mehr, bleiben aber durchsuchbar. Das Register ist eine Eingabe der D1-Projektion
+(`law_norm_keywords` mit `kind` = `register`); eine Änderung erneuert die Stichworteinträge, sonst
+nichts.
+
+```json
+{
+  "$schema": "stichwortregister/1",
+  "eintraege": [
+    { "stichwort": "Interflug", "normen": ["bekanntmachung-bestellung-gruendungsvorstand-interflug"] },
+    { "stichwort": "Volkskammerwahl", "normen": ["volksbefragungsverordnung-2026"], "siehe": ["Volksbefragung"] }
+  ]
+}
+```
+
+Regeln (geprüft von `npm run content:check`):
+
+- `stichwort` ist ein nicht leerer Text und steht im Register genau einmal; verglichen wird ohne
+  Rücksicht auf Groß- und Kleinschreibung.
+- `normen` nennt mindestens eine vorhandene Vorschrift unter `content/normen`; jeder Slug steht je
+  Eintrag höchstens einmal.
+- `siehe` verweist ausschließlich auf Stichwörter desselben Registers.
+
+Stichwörter sind Sachbegriffe in Bürgersprache. Fundstellen, Datumsangaben, Beträge, Personennamen
+und Abkürzungen gehören nicht ins Register; Abkürzungen und Kurztitel führt das A–Z ohnehin in einem
+eigenen Abschnitt. Das Register wird redaktionell ausgebaut; die Seite sagt das ausdrücklich.
+
 ## Rechtsverkündungen und Fundstellen
 
 Pfad: `content/verkuendungen/[slug].json`

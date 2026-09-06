@@ -50,7 +50,7 @@ const auditTargets: AuditTarget[] = [
   { name: 'Bekanntmachung', site: 'law', resolve: async (request) => { const [notice] = (await currentDocuments(request)).filter((document) => document.type === 'bekanntmachung'); expect(notice, 'geltende Bekanntmachung').toBeTruthy(); return lawUrl(notice.currentUrl); } },
   { name: 'Rechtssuche', site: 'law', resolve: lawPage('/suche/') },
   { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
-  { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
+  { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'Rechtsentwicklung', site: 'law', resolve: lawPage('/rechtsentwicklung/') },
   { name: 'Sachgebiet', site: 'law', resolve: async (request) => lawUrl(await firstLink(request, lawUrl('/sachgebiete/'), /href="\/sachgebiete\/[a-z0-9-]+\/"/u)) },
   { name: 'Verkündung', site: 'law', resolve: async (request) => { const index = await publicationIndex(request); expect(index.latestPublication).toBeTruthy(); return lawUrl(`/verkuendungen/${index.latestPublication!.slug}/`); } },

@@ -41,6 +41,8 @@ test('generische Altadressen werden permanent auf die konfigurierbare Rechts-Ori
   const redirects = readFileSync('apps/portal/.site-public/_redirects', 'utf8');
 
   assert.match(redirects, new RegExp(`/recht/suche/ ${configuredOrigin}/suche/ 301`, 'u'));
+  // Der alphabetische Zugang liegt unter /a-z/; das Staatsportal leitet ohne Zwischenschritt dorthin.
+  assert.match(redirects, new RegExp(`/recht/archiv/ ${configuredOrigin}/a-z/ 301`, 'u'));
   assert.match(redirects, new RegExp(`/recht/verfassung/ ${configuredOrigin}/norm/staatsverfassung-des-freistaates-ostdeutschland/ 301`, 'u'));
   assert.match(redirects, new RegExp(`/recht/norm/\\* ${configuredOrigin}/norm/:splat 301`, 'u'));
   assert.match(redirects, new RegExp(`/recht/verkuendungen/\\* ${configuredOrigin}/verkuendungen/:splat 301`, 'u'));

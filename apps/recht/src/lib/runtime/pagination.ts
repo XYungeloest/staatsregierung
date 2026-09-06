@@ -23,10 +23,10 @@ export const DEFAULT_PAGE_PARAM = 'seite';
 
 /**
  * URL mit Query-Parametern; leere Werte entfallen. Die erste Seite wird nicht geschrieben –
- * für jeden Seitenparameter (`seite`, `stichwortseite`), damit unabhängige Paginierungen
- * derselben Seite ihren jeweiligen Zustand behalten.
+ * für jeden Seitenparameter (`seite`, `stichwortseite`, `abkuerzungsseite`), damit unabhängige
+ * Paginierungen derselben Seite ihren jeweiligen Zustand behalten.
  */
-export function pageUrl(basePath: string, params: Record<string, string | number | undefined>, pageParams: readonly string[] = [DEFAULT_PAGE_PARAM, 'stichwortseite']): string {
+export function pageUrl(basePath: string, params: Record<string, string | number | undefined>, pageParams: readonly string[] = [DEFAULT_PAGE_PARAM, 'stichwortseite', 'abkuerzungsseite']): string {
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     const text = value === undefined ? '' : String(value).trim();

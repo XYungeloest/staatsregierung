@@ -38,7 +38,7 @@ if (target === 'portal') {
     .replace(/\/+$/u, '');
   const redirects = [
     `/recht/suche/ ${lawSiteUrl}/suche/ 301`,
-    `/recht/archiv/ ${lawSiteUrl}/archiv/ 301`,
+    `/recht/archiv/ ${lawSiteUrl}/a-z/ 301`,
     `/recht/sachgebiete/ ${lawSiteUrl}/sachgebiete/ 301`,
     `/recht/foerderrichtlinien/ ${lawSiteUrl}/foerderrichtlinien/ 301`,
     `/recht/fundstellen/ ${lawSiteUrl}/fundstellen/ 301`,

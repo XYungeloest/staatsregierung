@@ -29,11 +29,12 @@ const view = await loadNormDirectory(store, {
   basePath,
   scope: { subjectSlug: subject.slug },
   searchParams: Astro.url.searchParams,
-  fields: ['q', 'type', 'status', 'origin'],
+  fields: ['q', 'type', 'status', 'origin', 'aenderungen'],
   filterOptions: { types: filters.types },
 });
 // Verteilung nach Normtyp aus den Buchstabenzählern des Sachgebiets ist nicht ableitbar; sie
 // kommt aus der Sachgebietsübersicht, die nur Zähler trägt – ohne den Bestand zu laden.
+// Sie beschreibt die Grundmenge, also dieselbe Liste, die darunter steht.
 const typeCounts = (await store.listNormSummaries({ subjectSlug: subject.slug }))
   .reduce((map: Map<string, number>, norm) => map.set(norm.type, (map.get(norm.type) ?? 0) + 1), new Map<string, number>());
 const typeRows = [...typeCounts.entries()].sort(([left], [right]) => formatNormType(left as NormType).localeCompare(formatNormType(right as NormType), 'de'));
