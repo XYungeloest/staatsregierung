@@ -88,7 +88,7 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
     },
     {
       label: 'J2: Verkündungen laufen über D1',
-      paths: ['content/verkuendungen/2024/sero-verordnung.json'],
+      paths: ['content/verkuendungen/2024/testblatt-2024-1.json'],
       scope: 'portal',
       targets: ['portal'],
       content: true,
@@ -153,7 +153,7 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
     },
     {
       label: 'amtliche Quell-HTML ohne aktualisierte Normdaten',
-      paths: ['Gesetze/SERO-Verordnung.html'],
+      paths: ['Gesetze/Testverordnung.html'],
       scope: 'ci-only',
       targets: [],
       content: true,
@@ -300,6 +300,10 @@ test('Testscope: D1 und Vollbestand folgen dem Code-Abschluss, Darstellung nur d
     { label: 'site-routing.ts: Origins und Pfadtabellen im Abschluss', paths: ['packages/shared/src/config/site-routing.ts'], scope: 'shared', d1Sync: true, fullCorpus: true },
     { label: 'origin-presentation.ts: Herkunftsbadge und Erläuterung, reine Darstellung', paths: ['packages/shared/src/lib/norms/origin-presentation.ts'], scope: 'shared', d1Sync: false, fullCorpus: false, visual: true },
     { label: 'display.ts: Datumsformat, Gliederung und verlinkter Text, reine Darstellung', paths: ['packages/shared/src/lib/norms/display.ts'], scope: 'shared', d1Sync: false, fullCorpus: false, visual: true },
+    // Synthetisches Testfixture: Builder und Lader zählen wie das Manifest data/recht/runtime-fixture.json.
+    { label: 'Fixture-Builder: Smokes, Screenshots und Korpus-Tests, kein Deployment', paths: ['tests/helpers/fixture-corpus.ts'], scope: 'ci-only', corpus: true, content: true, visual: true, d1Sync: false, fullCorpus: false, buildTargets: ['portal', 'law'], uiTargets: ['portal', 'law'] },
+    { label: 'Fixture-Lader: wie das Manifest', paths: ['scripts/lib/runtime-fixture.mjs'], scope: 'ci-only', corpus: true, content: true, visual: true, d1Sync: false, fullCorpus: false, buildTargets: ['portal', 'law'], uiTargets: ['portal', 'law'] },
+    { label: 'anderer Test-Helfer: weiterhin nur Korpus-Tests', paths: ['tests/helpers/law-runtime.ts'], scope: 'ci-only', corpus: true, visual: false, uiTargets: [] },
   ];
   for (const entry of cases) {
     const result = classify(entry.paths);

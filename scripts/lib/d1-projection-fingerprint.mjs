@@ -229,10 +229,56 @@ export async function portalProjectionChangedSince(root, ref, path) {
   return JSON.stringify(portalProjectionOf(path, previous)) !== JSON.stringify(portalProjectionOf(path, current));
 }
 
-/** Scope-Kennung eines Testfixtures: Pfad und Inhaltshash der Fixture-Datei. */
+/**
+ * Fixture-Manifest (Bytes und geparster Inhalt) aus dem Arbeitsbaum oder einem Git-Ref; fehlt die
+ * Datei im Ref oder ist sie kein JSON, gilt sie als nicht synthetisch.
+ */
+async function readFixtureFile(root, fixturePath, { ref = null } = {}) {
+  const normalized = fixturePath.replaceAll('\\', '/');
+  const bytes = ref ? Buffer.from(await git(root, ['show', `${ref}:${normalized}`]), 'utf8') : await readFile(resolve(root, fixturePath));
+  let manifest = null;
+  try {
+    manifest = JSON.parse(bytes.toString('utf8'));
+  } catch {
+    manifest = null;
+  }
+  return { bytes, manifest };
+}
+
+function isSyntheticManifest(manifest) {
+  return Boolean(manifest) && typeof manifest === 'object' && manifest.source === 'synthetic' && typeof manifest.builder === 'string';
+}
+
+/**
+ * Inhaltshash eines synthetischen Fixtures: Manifestbytes und Git-Blob des Builders
+ * (tests/helpers/fixture-corpus.ts). Der Builder wird nur gehasht, nie importiert – die
+ * Fixture-Daten sind Testdatum, keine Projektionslogik.
+ */
+async function syntheticFixtureHash(root, fixturePath, { ref = null, file = null } = {}) {
+  const { bytes, manifest } = file ?? await readFixtureFile(root, fixturePath, { ref });
+  const builder = await hashRoots(root, [], [manifest.builder], { ref });
+  return createHash('sha256').update(`manifest:${createHash('sha256').update(bytes).digest('hex')}\nbuilder:${builder}`).digest('hex');
+}
+
+/** Fixture-Pfad aus einer Scope-Kennung `fixture:<Pfad>@<Hash>`; null für den Vollbestand. */
+function fixturePathOfScope(scope) {
+  if (typeof scope !== 'string' || !scope.startsWith('fixture:')) return null;
+  const rest = scope.slice('fixture:'.length);
+  const at = rest.lastIndexOf('@');
+  return at > 0 ? rest.slice(0, at) : rest;
+}
+
+/**
+ * Scope-Kennung eines Testfixtures: Pfad und Inhaltshash der Fixture-Datei; bei einem synthetischen
+ * Manifest (source "synthetic") zusätzlich der Git-Blob des Builders, damit sich der Scope mit dem
+ * Fixture-Bestand ändert.
+ */
 export async function fixtureScope(root, fixturePath) {
-  const bytes = await readFile(resolve(root, fixturePath));
-  return `fixture:${fixturePath.replaceAll('\\', '/')}@${createHash('sha256').update(bytes).digest('hex').slice(0, 16)}`;
+  const file = await readFixtureFile(root, fixturePath);
+  const hash = isSyntheticManifest(file.manifest)
+    ? await syntheticFixtureHash(root, fixturePath, { file })
+    : createHash('sha256').update(file.bytes).digest('hex');
+  return `fixture:${fixturePath.replaceAll('\\', '/')}@${hash.slice(0, 16)}`;
 }
 
 export function combineFingerprint({ logic, corpus, portal, scope = FULL_SCOPE }) {
@@ -244,12 +290,21 @@ export function combineFingerprint({ logic, corpus, portal, scope = FULL_SCOPE }
  * `fingerprint` ist der Vergleichswert; `scope` wird zusätzlich gespeichert und geprüft.
  * `logicFiles` nennt die Dateien des Abschlusses (Umfangsbestimmung, Dokumentation);
  * `legacyFingerprint` ist die Identität derselben Eingaben mit dem früheren Logikhash (Übergang).
+ * Im Scope eines synthetischen Fixtures treten Manifest und Builder an die Stelle von Rechtsbestand
+ * und Portalgrundlagen (`corpus` = `portal` = ihr Hash): redaktionelle Änderungen unter content/
+ * bewegen die Fixture-Identität nicht. Der Vollbestands-Scope bleibt unverändert.
  */
 export async function projectionIdentity({ root = process.cwd(), scope = FULL_SCOPE, ref = null } = {}) {
   const options = { ref };
   const closure = await projectionClosure({ root, ref });
+  const fixturePath = fixturePathOfScope(scope);
+  const fixtureFile = fixturePath ? await readFixtureFile(root, fixturePath, options).catch(() => null) : null;
+  const synthetic = fixtureFile && isSyntheticManifest(fixtureFile.manifest) ? await syntheticFixtureHash(root, fixturePath, { ref, file: fixtureFile }) : null;
   const [logic, legacyLogic, corpus, portal] = await Promise.all([
-    projectionLogicHash(root, { ref, closure }), legacyProjectionLogicHash(root, options), corpusContentHash(root, options), portalContentHash(root, options),
+    projectionLogicHash(root, { ref, closure }),
+    legacyProjectionLogicHash(root, options),
+    synthetic ?? corpusContentHash(root, options),
+    synthetic ?? portalContentHash(root, options),
   ]);
   return {
     fingerprint: combineFingerprint({ logic, corpus, portal, scope }),

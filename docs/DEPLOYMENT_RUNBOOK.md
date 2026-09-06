@@ -45,7 +45,9 @@ Drei weitere Flags bestimmen den Prüfumfang unabhängig vom Deploymentziel:
   gegen das Fixture.
 - **`run_corpus_tests`** – die Korpus-Tests (`tests/corpus/`: Projektionsnachweis auf dem
   Fixture, Seed, Referenzindex) laufen nur bei Projektions-, Laufzeit- oder Schemaänderungen, bei
-  geänderten Abhängigkeiten, beim Testfixture und bei Änderungen an diesen Tests selbst. Reine
+  geänderten Abhängigkeiten, beim Testfixture (Manifest `data/recht/runtime-fixture.json`, Builder
+  `tests/helpers/fixture-corpus.ts`, Lader `scripts/lib/runtime-fixture.mjs`) und bei Änderungen an
+  diesen Tests selbst. Reine
   Inhaltsänderungen prüfen die Content-Audits (`run_content_check`) und der D1-Sync; die
   schnellen Unit-Tests (`tests/*.test.*`) laufen bei jeder Codeänderung.
 - **`run_visual`** – die Screenshot-Suite läuft bei Oberflächen-, Layout-, Style- und
@@ -268,7 +270,13 @@ Einzelstand:
 - **Verhaltensinvarianten** (Unit, Browser, Barrierefreiheit) laufen auf bewusst gebauten
   Fixtures oder zur Laufzeit abgeleiteten Daten. Kein Funktionstest nennt den Titel, die Abkürzung
   oder eine Fundstelle einer realen Norm; eine redaktionelle Korrektur oder Umbenennung einer Norm
-  bricht keinen Unit-, Browser- oder Screenshot-Test.
+  bricht keinen Unit-, Browser- oder Screenshot-Test. Das D1-Testfixture der Browser-,
+  Barrierefreiheits- und Screenshot-Tests ist derselbe synthetische Bestand wie in den Unit-Tests
+  (`tests/helpers/fixture-corpus.ts`; Manifest `data/recht/runtime-fixture.json` mit Rollen,
+  Fassungskennungen, Verkündungsrollen und Suchwörtern, das `tests/runtime-fixture-manifest.test.ts`
+  gegen den Builder hält). Die Specs lesen Rollen statt Slugs (`tests/helpers/law-runtime.ts`:
+  `fixtureRole`, `fixtureVersion`, `fixturePublication`, `fixtureSearchWord`); fehlt eine Rolle, ist
+  das Fixture zu ergänzen, nicht der Test.
 - **Inhaltsinvarianten** (Quellen unverändert, Referenzen aufgelöst, Intervalle lückenlos,
   Vollzitate ausgeschrieben, Herkunft widerspruchsfrei, keine Import-Artefakte, keine
   Sachsen-Reststellen) prüfen die Content-Audits generisch über den gesamten Bestand – nicht als
@@ -315,7 +323,10 @@ bereits sehen. Sie hat zwei Stufen (`tests/visual.spec.ts`):
 
 Kanonische Plattform ist Linux: versioniert sind nur `-linux.png`-Baselines aus dem
 Playwright-Container. Auf macOS laufen dieselben Tests funktional (Seitenaufbau, Überlauf,
-Interaktion) ohne Pixelvergleich; `OSTRECHT_VISUAL_STRICT=1` erzwingt ihn. Bei einer beabsichtigten
+Interaktion) ohne Pixelvergleich; `OSTRECHT_VISUAL_STRICT=1` erzwingt ihn. Die OstRecht-Motive
+zeigen den synthetischen Fixture-Bestand: ihre Baselines ändern sich mit dem Builder
+`tests/helpers/fixture-corpus.ts` (dann einmal erneuern), nicht mit redaktionellen Änderungen unter
+`content/normen`. Bei einer beabsichtigten
 Oberflächenänderung wird die Suite zunächst rot – das ist ihr Zweck; die Baselines werden dann mit
 einem Vorgang erneuert:
 

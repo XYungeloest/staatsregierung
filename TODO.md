@@ -25,20 +25,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   `tests/recht-d1-sync-guard.test.mjs`, `tests/d1-projection-proof.test.mjs` und
   `tests/d1-projection-closure.test.mjs` sowie die Legacy-Restore-Schritte der Workflows gelöscht
   sind.
-- [ ] Browser-, Barrierefreiheits- und Screenshot-Fixture vom redaktionellen Rechtsbestand
-  entkoppeln: `data/recht/runtime-fixture.json` wählt derzeit reale Normen aus `content/normen`
-  aus, sodass spätere redaktionelle Änderungen an Titeln, Texten oder Fassungen beim nächsten
-  Oberflächen-PR bestehende Screenshot-Baselines oder UI-Tests verändern können, obwohl die
-  Oberfläche selbst unverändert ist. Für UI-, Browser- und A11y-Tests ist ein kleiner,
-  deterministischer synthetischer D1-Testbestand mit den erforderlichen Rollen
-  (mehrere Fassungen, Rechtsherkunft, Änderungsvorschrift, aufgehoben, künftig, Portalbezüge,
-  Tabellen, Suche usw.) zu verwenden; der reale Vollbestand bleibt den Content-Audits,
-  Korpus-/Projektionsprüfungen und Full-Corpus-Smokes vorbehalten. Fertig, wenn normale
-  redaktionelle Änderungen unter `content/normen` keine bestehenden Visual-Baselines verändern,
-  die UI-Smokes ohne konkrete reale Normtitel oder -slugs auskommen und auch synthetische
-  Unit-Testdaten keine scheinbar realen Bezeichnungen wie „Archivgesetz“ oder
-  „Gemeindeordnung“ mehr benötigen, sofern die konkrete Normidentität nicht Gegenstand des
-  Tests ist.
 
 ### Bestand und Struktur
 

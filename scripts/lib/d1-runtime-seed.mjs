@@ -9,6 +9,7 @@ import { pathToFileURL } from 'node:url';
 
 import { FULL_SCOPE, fixtureScope, hashRoots, projectionIdentity } from './d1-projection-fingerprint.mjs';
 import { checkSearchIndexIntegrity, executePlan, openDatabase } from './d1-sqlite.mjs';
+import { expectedFixtureNormCount, isSyntheticFixture, loadFixtureCorpus, readFixtureManifest } from './runtime-fixture.mjs';
 
 /**
  * Lokaler D1-Seed von OstRecht als portabler SQLite-Snapshot.
@@ -16,13 +17,21 @@ import { checkSearchIndexIntegrity, executePlan, openDatabase } from './d1-sqlit
  * Ein Seed ist die vollständige lokale D1-Projektion (Vollbestand oder Testfixture) als eine
  * SQLite-Datei, erzeugt mit node:sqlite aus demselben Sync-Plan wie die produktive Projektion
  * (scripts/sync-recht-d1.mjs, buildSyncPlan) und den echten Migrationen (data/recht/d1/).
- * Er wird ohne Wrangler gebaut, gegen den Git-Bestand verifiziert und anschließend in den
+ * Er wird ohne Wrangler gebaut, gegen den erwarteten Bestand verifiziert und anschließend in den
  * Miniflare-Zustand von `wrangler dev --local` eingesetzt. Der Snapshot ist damit cachebar:
  * derselbe Seed-Fingerabdruck bezeichnet immer denselben reproduzierbaren Datenbankinhalt.
  *
+ * Testfixture: ein synthetisches Manifest (data/recht/runtime-fixture.json, source "synthetic")
+ * projiziert die Ausgabe des Builders tests/helpers/fixture-corpus.ts (scripts/lib/runtime-fixture.mjs)
+ * statt content/ – Browser-, Barrierefreiheits- und Screenshot-Tests sehen einen kleinen
+ * deterministischen Bestand, den redaktionelle Änderungen nicht bewegen. Eine Slug-Liste
+ * ({ "slugs": [...] }) projiziert weiterhin reale Normen aus content/normen (Staging-Sonderfall).
+ *
  * Seed-Fingerabdruck (runtime seed fingerprint): SHA-256 über
  *   - die Projektionsidentität (scripts/lib/d1-projection-fingerprint.mjs: Projektionslogik,
- *     Migrationen, Rechtsbestand, Portalgrundlagen, Stichtag, Scope full/fixture),
+ *     Migrationen, Rechtsbestand, Portalgrundlagen, Stichtag, Scope full/fixture; im Scope eines
+ *     synthetischen Fixtures treten Manifest und Builder-Blob an die Stelle von Bestand und
+ *     Portalgrundlagen),
  *   - den Inhaltshash der Seed-Werkzeuge (SEED_TOOL_FILES, Git-Blob-Kennungen),
  *   - die Versionen von wrangler, miniflare und workerd aus package-lock.json (Format des
  *     Miniflare-Zustands),
@@ -35,6 +44,7 @@ export const SEED_MANIFEST_SCHEMA = 'd1-runtime-seed/1';
 export const SEED_TOOL_FILES = [
   'scripts/lib/d1-runtime-seed.mjs',
   'scripts/lib/d1-sqlite.mjs',
+  'scripts/lib/runtime-fixture.mjs',
   'scripts/d1-runtime-seed.mjs',
 ];
 export const SEED_TOOL_PACKAGES = ['wrangler', 'miniflare', 'workerd'];
@@ -136,15 +146,31 @@ export function seedManifestPath(snapshotPath) {
   return `${snapshotPath}.json`;
 }
 
-/** Erwartete Normzahl im Scope: Verzeichnisse unter content/normen, beim Fixture dessen Slugs. */
+/**
+ * Erwartete Normzahl im Scope: Verzeichnisse unter content/normen; beim synthetischen Fixture die
+ * Normen des Builders, bei einer Slug-Liste deren eindeutige Slugs.
+ */
 export async function expectedNormCount(root, fixture) {
-  if (fixture) {
-    const parsed = await readJson(resolve(root, fixture));
-    const slugs = parsed.slugs.map((entry) => (typeof entry === 'string' ? entry : entry.slug));
-    return new Set(slugs).size;
-  }
+  if (fixture) return expectedFixtureNormCount(root, await readFixtureManifest(root, fixture));
   const entries = await readdir(join(root, 'content', 'normen'), { withFileTypes: true });
   return entries.filter((entry) => entry.isDirectory()).length;
+}
+
+/**
+ * Eingaben der Projektion: der reale Bestand aus content/ (Vollbestand oder Slug-Liste eines
+ * Fixtures) oder – beim synthetischen Fixture – die Ausgabe des Builders ohne Zugriff auf content/.
+ */
+async function loadSeedInputs({ root, fixture, manifest, sync }) {
+  if (manifest && isSyntheticFixture(manifest)) {
+    const corpus = await loadFixtureCorpus(root, manifest);
+    return { norms: corpus.norms, publications: corpus.publications, topics: corpus.topics, pressReleases: corpus.pressReleases, fixtureSource: 'synthetic' };
+  }
+  const { loadAllNorms } = await import('@ostrecht/shared/lib/norms/loader.ts');
+  const { loadAllVerkuendungen } = await import('@ostrecht/shared/lib/norms/publications.ts');
+  const { loadPressReleases, loadTopics } = await import('@ostrecht/shared/lib/portal/content.ts');
+  const [loadedNorms, publications, topics, pressReleases] = await Promise.all([loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases()]);
+  const norms = manifest ? sync.applyCorpusFilter(loadedNorms, manifest, fixture) : loadedNorms;
+  return { norms, publications, topics, pressReleases, fixtureSource: manifest ? 'slugs' : null };
 }
 
 /**
@@ -156,16 +182,13 @@ export async function buildSeedSnapshot({ root = process.cwd(), fixture = null, 
   const startedAt = Date.now();
   const seedIdentity = identity ?? await runtimeSeedIdentity({ root, fixture });
   const sync = await import(pathToFileURL(join(root, 'scripts', 'sync-recht-d1.mjs')).href);
-  const { loadAllNorms } = await import('@ostrecht/shared/lib/norms/loader.ts');
-  const { loadAllVerkuendungen } = await import('@ostrecht/shared/lib/norms/publications.ts');
   const { buildDerivedContext } = await import('@ostrecht/shared/lib/norms/derived.ts');
   const { EDITORIAL_REFERENCE_DATE } = await import('@ostrecht/shared/lib/norms/versions.ts');
-  const { loadPressReleases, loadTopics } = await import('@ostrecht/shared/lib/portal/content.ts');
   const { getPressReleaseUrl, getTopicUrl } = await import('@ostrecht/shared/lib/portal/routes.ts');
 
-  const [loadedNorms, publications, topics, pressReleases] = await Promise.all([loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases()]);
-  const norms = fixture ? sync.applyCorpusFilter(loadedNorms, await readJson(resolve(root, fixture)), fixture) : loadedNorms;
-  log(`Seed ${seedIdentity.mode}: ${norms.length} Normen und ${publications.length} Verkündungen geladen (${Math.round((Date.now() - startedAt) / 1000)} s); Seed-Fingerabdruck ${seedIdentity.fingerprint.slice(0, 16)}…`);
+  const fixtureManifest = fixture ? await readFixtureManifest(root, fixture) : null;
+  const { norms, publications, topics, pressReleases, fixtureSource } = await loadSeedInputs({ root, fixture, manifest: fixtureManifest, sync });
+  log(`Seed ${seedIdentity.mode}${fixtureSource === 'synthetic' ? ' (synthetischer Bestand)' : ''}: ${norms.length} Normen und ${publications.length} Verkündungen geladen (${Math.round((Date.now() - startedAt) / 1000)} s); Seed-Fingerabdruck ${seedIdentity.fingerprint.slice(0, 16)}…`);
   const scope = await sync.resolveScope(['--full'], { norms, publications });
   const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE });
   const plan = sync.buildSyncPlan({ scope, norms, publications, context, now: SEED_PROJECTION_NOW, fingerprint: seedIdentity.projection, identity: seedIdentity.projection, writeIdentity: true });
@@ -196,6 +219,7 @@ export async function buildSeedSnapshot({ root = process.cwd(), fixture = null, 
     format: seedIdentity.format,
     mode: seedIdentity.mode,
     fixture: seedIdentity.fixture,
+    fixtureSource,
     scope: seedIdentity.scope,
     projectionFingerprint: seedIdentity.projection.fingerprint,
     projectionLogicHash: seedIdentity.projection.logic,

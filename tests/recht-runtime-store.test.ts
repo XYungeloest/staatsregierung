@@ -115,7 +115,7 @@ test('Übersichten ohne Suchbegriff: jüngstes Rechtsereignis zuerst (wie D1), A
   const alphabetical = await store.queryNormSummaries({ letter: 'O', page: 1, pageSize: 20 });
   assert.ok(alphabetical.items.length > 1);
   assert.ok(alphabetical.items.every((item, index) => index === 0 || alphabetical.items[index - 1].title.toLocaleLowerCase('de').localeCompare(item.title.toLocaleLowerCase('de'), 'de') <= 0));
-  const candidates = await store.searchCandidates({ match: null, limit: 20, offset: 0 });
+  const candidates = await store.searchCandidates({ match: null, limit: 50, offset: 0 });
   assert.deepEqual(candidates.slugs, page.items.map((item) => item.slug), 'Kandidaten ohne Suchausdruck in derselben Reihenfolge wie die Übersicht');
 });
 
@@ -146,9 +146,12 @@ test('Suchkandidaten und Suchdokumente entsprechen dem Suchindexformat; der Herk
   const all = await store.searchCandidates({ match: null, limit: 1000, offset: 0 });
   const originals = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['ostdeutsch-original'] });
   const inherited = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['inherited-unchanged', 'inherited-amended'] });
+  const unresolved = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['origin-unresolved'] });
   assert.ok(originals.total > 0 && originals.total < all.total);
   assert.equal(originals.slugs.length, originals.total);
-  assert.equal(originals.total + inherited.total, all.total);
+  // Die vier Herkunftsarten zerlegen den Bestand vollständig und überschneidungsfrei.
+  assert.ok(unresolved.total > 0, 'der Bestand enthält eine Norm ungeklärter Herkunft');
+  assert.equal(originals.total + inherited.total + unresolved.total, all.total);
   const summariesBySlug = new Map((await store.listNormSummaries()).map((summary) => [summary.slug, summary]));
   assert.ok(originals.slugs.every((slug) => summariesBySlug.get(slug)?.originKind === 'ostdeutsch-original'));
   assert.ok(inherited.slugs.every((slug) => summariesBySlug.get(slug)?.originKind?.startsWith('inherited-')));

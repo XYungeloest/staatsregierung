@@ -159,7 +159,7 @@ test('Übersichten ohne Suchbegriff sortieren nach jüngster Rechtsänderung (la
   const store = createD1NormStore(db);
   await store.searchCandidates({ match: null, limit: 120, offset: 0 });
   await store.searchCandidates({ match: null, limit: 120, offset: 0, types: ['gesetz'], origins: ['inherited-amended'] });
-  await store.searchCandidates({ match: '"Zinnwald"', limit: 120, offset: 0 });
+  await store.searchCandidates({ match: '"Testbegriff"', limit: 120, offset: 0 });
   await store.queryNormSummaries({ sort: 'activity', page: 1, pageSize: 50 });
   await store.queryNormSummaries({ letter: 'G', page: 1, pageSize: 50 });
   const browse = log.filter((query) => query.sql.startsWith('SELECT n.slug FROM law_norms n'));

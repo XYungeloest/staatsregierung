@@ -875,6 +875,9 @@ async function gitChangedPaths(base, head) {
 
 /** Beschränkt den Bestand auf ein Testfixture; unbekannte Slugs sind ein Fehler (kein stilles Fixture). */
 export function applyCorpusFilter(norms, fixture, label = 'Fixture') {
+  // Ein synthetisches Fixture (Builder tests/helpers/fixture-corpus.ts) wird nur vom Seed
+  // projiziert; der Sync kennt ausschließlich reale Slug-Listen (Staging-Sonderfall).
+  if (fixture?.source === 'synthetic') throw new Error(`${label}: ein synthetisches Testfixture wird nur vom Seed projiziert (scripts/d1-runtime-seed.mjs, OSTRECHT_D1_FIXTURE); --corpus-filter erwartet eine Slug-Liste realer Normen ({ "slugs": [...] })`);
   const slugs = fixture?.slugs;
   if (!Array.isArray(slugs) || slugs.length === 0) throw new Error(`${label}: "slugs" fehlt oder ist leer`);
   const wanted = new Set(slugs.map((entry) => (typeof entry === 'string' ? entry : entry?.slug)));

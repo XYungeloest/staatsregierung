@@ -347,17 +347,27 @@ Anmeldefehler werden je Datei wiederholt. `--local [--persist-to <Verzeichnis>]`
 Miniflare-D1, `--apply-schema` spielt davor die Migrationen ein (nur lokal). Token und
 Anmeldedaten werden nie committed.
 
-**Testfixture.** `--corpus-filter data/recht/runtime-fixture.json` (nur lokal oder gegen Staging,
-nie gegen `ostrecht-recht`) beschränkt den Bestand auf die Fixture-Normen; Ableitungen und
-Übersichtsmetadaten beziehen sich dann auf das Fixture, die Identität trägt den Fixture-Scope.
+**Testfixture.** `data/recht/runtime-fixture.json` ist ein synthetisches Manifest
+(`"source": "synthetic"`): Rollen, Fassungskennungen, Verkündungsrollen und Suchwörter des Bestands
+aus `tests/helpers/fixture-corpus.ts` (Normen, Verkündungen, Themen, Pressemitteilungen – derselbe
+Builder wie in den Unit-Tests). Der Seed (`scripts/d1-runtime-seed.mjs`, `OSTRECHT_D1_FIXTURE`)
+projiziert diesen Bestand über `scripts/lib/runtime-fixture.mjs` ohne `content/`; der Scope lautet
+`fixture:<Pfad>@<Hash über Manifest und Git-Blob des Builders>`, und in diesem Scope ersetzt derselbe
+Hash Rechtsbestand und Portalgrundlagen in der Identität – redaktionelle Änderungen unter `content/`
+bewegen weder Fixture-Seed noch Screenshot-Baselines. Der Sync importiert den Builder nie (er liegt
+außerhalb des Code-Abschlusses); `--corpus-filter` des Syncs akzeptiert nur Slug-Listen realer
+Normen (`{ "slugs": [...] }`, nur lokal oder gegen Staging, nie gegen `ostrecht-recht`) und lehnt
+das synthetische Manifest ab. Nach Änderungen am Builder wird das Manifest neu geschrieben
+(`node --experimental-strip-types --input-type=module -e "import('./scripts/lib/runtime-fixture.mjs').then((m) => m.writeFixtureManifest())"`);
+`tests/runtime-fixture-manifest.test.ts` prüft Übereinstimmung und Rollenabdeckung.
 
 **Verifikation** (`scripts/verify-recht-d1.mjs`): Zähler (Normen, Fassungen, Blöcke, Quellen,
 abgeleitete Zeilen, Verkündungen, Suchdokumente, Suchzeilen, Stichwörter), `corpus_hash`,
 Projektionsidentität und Scope, `sync_state`, optional FTS5-Integrität (`--fts-integrity`) und
 deterministische Stichproben (erste und letzte übernommene Norm, eine Norm mit mehreren
 Fassungen, eine übernommene Änderungsvorschrift, ein Mantelbestandteil, die größte Norm).
-`--local` prüft die Miniflare-Projektion, `--corpus-filter` ein Fixture, `--database` eine andere
-Zieldatenbank.
+`--local` prüft die Miniflare-Projektion, `--corpus-filter` ein Fixture (synthetisch: Erwartungen
+aus dem Builder; Slug-Liste: aus `content/`), `--database` eine andere Zieldatenbank.
 
 ## Lokaler D1-Seed für Tests
 
@@ -368,7 +378,8 @@ liefert `scripts/d1-runtime-seed.mjs` als portablen SQLite-Snapshot:
 ```sh
 npm run norms:runtime:d1-seed-fingerprint                  # deterministischer Seed-Fingerabdruck (Cache-Key)
 npm run norms:runtime:d1-seed                              # Vollbestand: Snapshot bauen/verifizieren/einsetzen
-OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json npm run norms:runtime:d1-seed   # Fixture
+OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json npm run norms:runtime:d1-seed   # synthetisches Fixture (tests/helpers/fixture-corpus.ts)
+OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json npm run norms:runtime:d1-verify -- --local --fts-integrity --corpus-filter data/recht/runtime-fixture.json   # Fixture-Projektion prüfen
 node --experimental-strip-types scripts/d1-runtime-seed.mjs verify   # Snapshot gegen den Arbeitsbaum prüfen
 node --experimental-strip-types scripts/d1-runtime-seed.mjs ensure --force   # Neuaufbau erzwingen
 npm run norms:runtime:d1-verify -- --local --fts-integrity  # eingesetzte Projektion prüfen

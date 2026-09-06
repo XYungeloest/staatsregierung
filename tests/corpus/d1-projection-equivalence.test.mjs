@@ -38,7 +38,7 @@ import { scopeFromChangedPaths } from '../../scripts/lib/d1-sync-scope.mjs';
 
 const ROOT = process.cwd();
 const FIXTURE = 'data/recht/runtime-fixture.json';
-const CODE_PATHS = ['scripts', 'packages', 'data/recht/d1', 'package.json', 'package-lock.json'];
+const CODE_PATHS = ['scripts', 'packages', 'data/recht/d1', 'tests/helpers', 'package.json', 'package-lock.json'];
 
 function git(cwd, ...args) {
   return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });

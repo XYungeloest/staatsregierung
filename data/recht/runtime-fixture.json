@@ -1,216 +1,93 @@
 {
-  "$schema": "runtime-fixture/1",
-  "description": "Repräsentativer Testbestand für Browser- und Barrierefreiheits-Smoke gegen die D1-Runtime (scripts/serve-law-worker.mjs --fixture, scripts/sync-recht-d1.mjs --corpus-filter). Alle Verkündungen werden mitprojiziert; Ableitungen und Übersichtsmetadaten beziehen sich auf dieses Fixture. Einträge tragen einen Grund (reason) und optional strukturelle Rollen (roles: portal-relations = Norm mit Themen-/Pressebezügen des Staatsportals, norm-table = Norm mit Tabellen im Text), die Browser- und Barrierefreiheitstests statt fester Slugs verwenden.",
-  "slugs": [
-    {
-      "slug": "saechsische-gemeindeordnung",
-      "reason": "Stammnorm mit vier Fassungen (historische Fassung 2023-11-01, Vergleich 2023-11-01→2026-08-01); Smoke-Tests"
-    },
-    {
-      "slug": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo",
-      "reason": "Änderungsakt zur Gemeindeordnung (Beziehungen, Empfehlungen)"
-    },
-    {
-      "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
-      "reason": "Änderungsakt zur Gemeindeordnung und zum Polizeirecht"
-    },
-    {
-      "slug": "kreis-und-bezirksneuordnungsgesetz",
-      "reason": "Artikelgesetz mit vielen betroffenen Normen (Beziehungen)"
-    },
-    {
-      "slug": "ostdeutsche-bezirksordnung",
-      "reason": "Stammnorm mit drei Fassungen, zwei Sachgebiete; Smoke-Tests"
-    },
-    {
-      "slug": "sero-verordnung",
-      "reason": "Ost-Verordnung, Verkündung OGVBl. 2026 Nr. 58, Historie; Smoke-Tests"
-    },
-    {
-      "slug": "ostdeutsches-kulturpassgesetz",
-      "reason": "Stammnorm mit Fassung 2026-03-23 (Fassungslink); Suchtreffer „Kulturpass“"
-    },
-    {
-      "slug": "gesetz-uber-den-kulturpass-fur-junge-erwachsene-im-freistaat-ostdeutschland",
-      "reason": "Zweiter Suchtreffer „Kulturpass“ (Trefferliste mit mehreren Normen)"
-    },
-    {
-      "slug": "staatsverfassung-des-freistaates-ostdeutschland",
-      "reason": "Verfassung mit fünf Fassungen; Suchtreffer „Verfassung“; Weiterleitung /verfassung/"
-    },
-    {
-      "slug": "erstes-gesetz-zur-grossen-staatsreform",
-      "reason": "Änderungsvorschrift mit Portalbezügen (Themen), Zitat- und Metadatenblöcke; Smoke-Tests",
-      "roles": [
-        "portal-relations"
-      ]
-    },
-    {
-      "slug": "archivgesetz",
-      "reason": "Stammnorm mit zwei Fassungen (Fassungsleiste, Vergleich, Historie); Smoke-Tests"
-    },
-    {
-      "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
-      "reason": "Änderungsakt zum Archivgesetz (Vergleichs-Einfügung im Smoke-Test)"
-    },
-    {
-      "slug": "verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb",
-      "reason": "Ost-Verordnung mit langem Slug; Smoke-Tests"
-    },
-    {
-      "slug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland",
-      "reason": "Stammnorm mit zwei Sachgebieten; Smoke-Tests"
-    },
-    {
-      "slug": "gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh",
-      "reason": "Änderungsvorschrift (Smoke-Test) mit Bezug zum Justizgesetz",
-      "roles": [
-        "norm-table"
-      ]
-    },
-    {
-      "slug": "ostdeutsches-justizgesetz",
-      "reason": "Übernommene Stammnorm mit vier Fassungen (Ziel des Änderungsgesetzes)"
-    },
-    {
-      "slug": "forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23",
-      "reason": "Förderrichtlinie mit drei Sachgebieten; Suchtreffer „Landesbaukindergeld“"
-    },
-    {
-      "slug": "ostdeutsches-krankenhausgesetz",
-      "reason": "Stammnorm mit drei Fassungen; Suchtreffer „Kranken*“ (Typfilter Gesetz/Verordnung)"
-    },
-    {
-      "slug": "ostdeutsches-polizeivollzugsdienstgesetz",
-      "reason": "Große Norm (2 MB) mit sechs Fassungen; Vorschlagsliste „OstPVDG“"
-    },
-    {
-      "slug": "ostdeutsches-polizeibehoerdengesetz",
-      "reason": "Polizeirecht mit Bezügen zum Polizeivollzugsdienstgesetz (Empfehlungen)"
-    },
-    {
-      "slug": "verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024",
-      "reason": "Sachgebiet „Bildung und Schule“ (Sachgebietsseite im Smoke-Test)"
-    },
-    {
-      "slug": "bekanntmachung-einsatzmedaille-monschau-2026",
-      "reason": "Eintrag der Verkündung StAnzO. 2026 Nr. 33 (Verkündungsseite im A11y-Test)"
-    },
-    {
-      "slug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu",
-      "reason": "Bekanntmachung mit zwei Fassungen, Eintrag StAnzO. 2026 Nr. 33"
-    },
-    {
-      "slug": "zehntes-ostdeutsches-kostenverzeichnis",
-      "reason": "Größte Norm des Bestands (3 MB, 107 Tabellen): Blockteilung, Tabellen, Anlagen"
-    },
-    {
-      "slug": "vwv-polizeibekleidungswirtschaft",
-      "reason": "Übernommene Verwaltungsvorschrift mit archivierten PDF-Anlagen (R2-Manifest)"
-    },
-    {
-      "slug": "vwv-schulformulare",
-      "reason": "Verwaltungsvorschrift mit Anlagenverweisen im Text"
-    },
-    {
-      "slug": "1-aend-naturparkvo-erzgebirge-vogtland",
-      "reason": "Übernommene Änderungsverordnung mit Umlaut-Transliteration im Slug"
-    },
-    {
-      "slug": "abschiebe-aussetzungsverordnung",
-      "reason": "Aufgehobene Norm (Status repealed)"
-    },
-    {
-      "slug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n",
-      "reason": "Norm mit Status historical"
-    },
-    {
-      "slug": "interflug-gesetz",
-      "reason": "Norm mit Status future-effective (künftige Fassung, Startseite „Künftige Änderungen“)"
-    },
-    {
-      "slug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
-      "reason": "Staatsvertrag, future-effective"
-    },
-    {
-      "slug": "ostdeutsches-feiertagsgesetz",
-      "reason": "Übernommene Stammnorm mit Änderung (inherited-amended; Unit-Test-Referenznorm)"
-    },
-    {
-      "slug": "gesetz-zur-anderung-des-gesetzes-uber-sonn-und-feiertage-im-freistaat-ostdeutschland",
-      "reason": "Änderungsakt zum Feiertagsgesetz"
-    },
-    {
-      "slug": "saechsische-landkreisordnung",
-      "reason": "Übernommene Stammnorm im Sachgebiet Kommunal- und Verwaltungsrecht"
-    },
-    {
-      "slug": "kommunalwahlgesetz",
-      "reason": "Übernommene Stammnorm mit Fassungen (Kommunalrecht)"
-    },
-    {
-      "slug": "kindertagesbetreuungsgesetz",
-      "reason": "Übernommene Stammnorm mit vier Fassungen (Bildung/Soziales)"
-    },
-    {
-      "slug": "aend-dvoostbo-9614",
-      "reason": "Mantelbestandteil (Artikel einer Mantelvorschrift, envelope-snapshot-Quelle)"
-    },
-    {
-      "slug": "neufassung-ostfeuvo-und-aend-anderer-verordnungen",
-      "reason": "Mantelvorschrift des Bestandteils (part-of/contains-Beziehung)"
-    },
-    {
-      "slug": "zinnwald-vergesellschaftungsgesetz",
-      "reason": "Ostdeutsch neu geschaffen; am 2. September 2026 in Kraft getreten (Stichtagsfortschreibung, Suche „Zinnwald“, „ZinnVG“)"
-    },
-    {
-      "slug": "gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes",
-      "reason": "Einführungsgesetz zur Zinnwald-Vergesellschaftung (Verkündung OGVBl. 2026 Nr. 73)"
-    },
-    {
-      "slug": "gesetz-zur-errichtung-der-interflug",
-      "reason": "Einführungsgesetz zum Interflug-Gesetz (Verkündung OGVBl. 2026 Nr. 74)"
-    },
-    {
-      "slug": "ostdeutsches-daseinsvorsorgegesetz",
-      "reason": "Ostdeutsch neu geschaffen; am 3. September 2026 in Kraft getreten (Suche „OstDVG“, „Daseinsvorsorge“)"
-    },
-    {
-      "slug": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
-      "reason": "Einführungsgesetz zum Daseinsvorsorgegesetz mit Änderung der Haushaltsordnung (OGVBl. 2026 Nr. 71)"
-    },
-    {
-      "slug": "saechsische-haushaltsordnung",
-      "reason": "Übernommene, mehrfach ostdeutsch geänderte Stammnorm; Fassungswechsel zum 3. September 2026"
-    },
-    {
-      "slug": "ostdeutsches-hoheitszeichengesetz",
-      "reason": "Ostdeutsch neu geschaffen; am 2. September 2026 in Kraft getreten (Suche „OHzG“, „Hoheitszeichen“)"
-    },
-    {
-      "slug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
-      "reason": "Einführungsgesetz zum Hoheitszeichengesetz (OGVBl. 2026 Nr. 70)"
-    },
-    {
-      "slug": "bekanntmachung-bestellung-gruendungsvorstand-interflug",
-      "reason": "Bekanntmachung StAnzO. 2026 Nr. 39 (Gründungsvorstand der Interflug); Smoke-Tests der Suche"
-    },
-    {
-      "slug": "bekanntmachung-beschaffung-anfangsflotte-interflug",
-      "reason": "Bekanntmachung StAnzO. 2026 Nr. 40 (Anfangsflotte der Interflug); Smoke-Tests der Suche"
-    },
-    {
-      "slug": "bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages",
-      "reason": "Bekanntmachung zum Inkrafttreten des NDR-Staatsvertrags (OVertrBl. 2026 Nr. 5)"
-    },
-    {
-      "slug": "zweckentfremdungsverbotsgesetz",
-      "reason": "Rechtsherkunft ungeklärt (origin-unresolved): nach dem Stichtag erlassenes sächsisches Gesetz mit REVOSax-Quelle und ostdeutscher Änderung; Badge „Herkunft ungeklärt“"
-    },
-    {
-      "slug": "gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx",
-      "reason": "Änderungsakt zum Zweckentfremdungsverbotsgesetz (Beziehung der ungeklärten Norm)"
+  "$schema": "runtime-fixture/2",
+  "source": "synthetic",
+  "builder": "tests/helpers/fixture-corpus.ts",
+  "description": "Synthetischer Testbestand für Browser-, Barrierefreiheits- und Screenshot-Tests gegen die D1-Runtime: der Seed (scripts/d1-runtime-seed.mjs, OSTRECHT_D1_FIXTURE) projiziert die Ausgabe des Builders tests/helpers/fixture-corpus.ts (Normen, Verkündungen, Themen, Pressemitteilungen) statt content/. Die Tests lesen Rollen (roles: Rolle → Slugs), Fassungskennungen (versions), Verkündungsrollen (publications) und Suchwörter (search) aus diesem Manifest statt feste Bezeichnungen zu nennen. Erzeugt von buildFixtureManifest(); tests/runtime-fixture-manifest.test.ts prüft die Übereinstimmung.",
+  "roles": {
+    "constitution": [
+      "staatsverfassung-des-freistaates-ostdeutschland"
+    ],
+    "multi-version": [
+      "staatsverfassung-des-freistaates-ostdeutschland"
+    ],
+    "inherited-amended": [
+      "testgesetz"
+    ],
+    "inherited-unchanged": [
+      "testverordnung"
+    ],
+    "inherited-unchanged-letter-g": [
+      "gefahrenabwehrverordnung-testgelaende"
+    ],
+    "inherited-amendment-act": [
+      "aend-testverordnung-alt"
+    ],
+    "ostdeutsch-original": [
+      "neues-ostgesetz"
+    ],
+    "origin-unresolved": [
+      "unklare-verordnung"
+    ],
+    "amendment-act": [
+      "aenderungsgesetz-testgesetz"
+    ],
+    "repealed": [
+      "aufgehobene-verordnung"
+    ],
+    "historical": [
+      "alte-testverordnung"
+    ],
+    "future-effective": [
+      "kuenftiges-gesetz"
+    ],
+    "reference-date-switch": [
+      "stichtagsgesetz"
+    ],
+    "envelope": [
+      "mantelverordnung"
+    ],
+    "envelope-article": [
+      "aend-gebuehrenverordnung-artikel"
+    ],
+    "foerderrichtlinie": [
+      "foerderrichtlinie-testkindergeld"
+    ],
+    "zustimmungsgesetz": [
+      "zustimmungsgesetz-testvertrag"
+    ],
+    "staatsvertrag": [
+      "staatsvertrag-aenderung-testvertrag"
+    ],
+    "verwaltungsvorschrift": [
+      "vwv-testgelaende"
+    ],
+    "bekanntmachung": [
+      "bekanntmachung-teststiftung"
+    ],
+    "norm-table": [
+      "testgebuehrenverzeichnis"
+    ],
+    "notice-only": [
+      "hinweisverordnung"
+    ],
+    "portal-relations": [
+      "testgesetz"
+    ]
+  },
+  "versions": {
+    "inherited-amended": {
+      "historical": "2023-11-01",
+      "current": "2026-03-25"
     }
-  ]
+  },
+  "publications": {
+    "detail": [
+      "stanzo-2026-05"
+    ]
+  },
+  "search": {
+    "multi-hit": "Testgelände",
+    "ostdeutsch-original": "Testbeteiligung",
+    "inherited-unchanged": "Bestattungsverordnung"
+  }
 }
