@@ -25,7 +25,7 @@ const formatDateRange = (date: string, endDate?: string) => endDate && endDate !
       <h2 id="topic-briefing-title">Stand, Wirkung und nächste Schritte</h2>
     </div>
     <p class="topic-briefing__updated">
-      Fachstand: <time datetime={topic.updatedAt}>{siteConfig.date.formatLong(topic.updatedAt)}</time>
+      {siteConfig.vocabulary.portalContentAsOf}: <time datetime={topic.updatedAt}>{siteConfig.date.formatLong(topic.updatedAt)}</time>
     </p>
   </div>
 

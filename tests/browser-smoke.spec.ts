@@ -104,7 +104,8 @@ siteTest(['portal'])('belegte Altadressen werden gezielt weitergeleitet und unbe
   expect(missing?.status()).toBe(404);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Seite nicht gefunden');
-  await expect(page.getByRole('heading', { name: 'Häufig gesuchte Bereiche' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Bereiche des Staatsportals' })).toBeVisible();
+  await expect(page.locator('#error-search')).toBeVisible();
 });
 
 siteTest(['portal'])('alte Rechtspfade führen ohne Kette permanent zur funktional gleichen OstRecht-Adresse', async ({ request }) => {
@@ -207,7 +208,7 @@ siteTest(['portal'])('Kernnavigation, Suche und Kontaktwegweiser funktionieren',
   await page.locator('.skip-link').focus();
   await expect(page.locator('.skip-link')).toBeFocused();
 
-  await page.goto('/suche/?q=Gesetz&type=law');
+  await page.goto('/suche/?q=Gesetz&bereich=law');
   await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
   await expect(page.locator('.search-hit mark').first()).toBeVisible();
 
@@ -227,7 +228,7 @@ siteTest(['portal'])('Kreisreform bleibt ohne Karte nutzbar: Tabellenfilter und 
   await expect(page.locator('[data-map-load]')).toBeVisible();
   await expect(page.locator('[data-kreisreform-map]')).toBeHidden();
   await page.locator('#kreisreform-table-query').fill('Berlin');
-  await expect(page.locator('[data-kreisreform-table-status]')).toContainText('sichtbar');
+  await expect(page.locator('[data-kreisreform-table-status]')).toContainText('gefunden');
 
   const input = page.locator('[data-kreisreform-search-input]');
   await expect(input).toBeVisible();
@@ -318,19 +319,19 @@ siteTest(['portal'])('Portalsuche: Zustände schließen sich gegenseitig aus', a
   const noResults = page.locator('[data-portal-search-empty]');
   const error = page.locator('[data-portal-search-error]');
 
-  await expect(status).toContainText('Wonach suchen Sie?');
+  await expect(status).toContainText('Geben Sie einen Begriff ein');
   await expect(noResults).toBeHidden();
   await expect(error).toBeHidden();
 
   await input.fill('Kreisreform');
   await expect(status).toContainText('Treffer für „Kreisreform“');
-  await expect(page.locator('[data-portal-search-results] .search-hit')).not.toHaveCount(0);
+  await expect(page.locator('[data-portal-search-groups] .search-hit')).not.toHaveCount(0);
   await expect(noResults).toBeHidden();
   await expect(error).toBeHidden();
 
   await input.fill('zzzznichtvorhanden');
   await expect(status).toContainText('Keine Treffer für');
-  await expect(page.locator('[data-portal-search-results] .search-hit')).toHaveCount(0);
+  await expect(page.locator('[data-portal-search-groups] .search-hit')).toHaveCount(0);
   await expect(noResults).toBeVisible();
   await expect(error).toBeHidden();
 });
@@ -1509,4 +1510,55 @@ siteTest(['law'])('Öffentliche Texte ohne Systemsprache', async ({ page, reques
       expect(found, `${path}: ${what} „${found?.[0] ?? ''}“ in „…${context}…“`).toBeNull();
     }
   }
+});
+
+/**
+ * Portalinventar und Portalsuche: Serviceübersicht und `sitemap.xml` kommen aus derselben Quelle
+ * (`apps/portal/src/lib/route-inventory.ts`), und die Suche weist Portalinhalte und Recht als
+ * getrennte Bereiche aus. Die Erwartungen werden zur Laufzeit aus der Sitemap abgeleitet; kein
+ * Test nennt eine feste Seitenzahl oder einen redaktionellen Titel.
+ */
+siteTest(['portal'])('Serviceübersicht und Sitemap stammen aus einem Inventar', async ({ page, request }) => {
+  const sitemap = await (await request.get('/sitemap.xml')).text();
+  const sitemapPaths = new Set(
+    [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].map((match) => new URL(match[1]).pathname),
+  );
+  expect(sitemapPaths.size).toBeGreaterThan(100);
+
+  await page.goto('/service/uebersicht/');
+  const links = await page.evaluate(() =>
+    [...document.querySelectorAll('#main-content .record-list__item a')]
+      .map((link) => new URL((link as HTMLAnchorElement).href).pathname));
+  expect(links.length).toBeGreaterThan(20);
+  const unknown = links.filter((path) => !sitemapPaths.has(path));
+  expect(unknown, 'Übersichtslinks ohne Eintrag in der Sitemap').toEqual([]);
+  expect(new Set(links).size, 'jede Seite steht genau einmal in der Übersicht').toBe(links.length);
+
+  // Werkzeugseiten gehören nicht in die Übersicht.
+  for (const utility of ['/suche/', '/404/', '/500/']) {
+    expect(links, `Werkzeugseite ${utility}`).not.toContain(utility);
+  }
+});
+
+siteTest(['portal'])('Portalsuche gruppiert nach Bereichen und lädt den Rechtsbestand erst bei Bedarf', async ({ page }) => {
+  const requested: string[] = [];
+  page.on('request', (request) => {
+    const path = new URL(request.url()).pathname;
+    if (path.startsWith('/search-index')) requested.push(path);
+  });
+
+  await page.goto('/suche/');
+  await expect(page.locator('[data-portal-search-status]')).toContainText('Geben Sie einen Begriff ein');
+  expect(requested, 'ohne Suchbegriff wird der Rechtsbestand nicht geladen').not.toContain('/search-index-recht.json');
+
+  // Ein Bereichsname des Staatsportals führt zuerst auf dessen Einstieg.
+  const sectionLabel = await page.locator('.site-header__nav a').nth(1).innerText();
+  await page.locator('[data-portal-search-query]').fill(sectionLabel);
+  await expect(page.locator('#search-group-portal')).toBeVisible();
+  await expect(page.locator('.search-group').first().locator('.search-hit').first()).toBeVisible();
+
+  // Der Bereichsfilter kann das Recht ausschließen.
+  await page.locator('[data-portal-search-area]').selectOption('portal');
+  await expect(page.locator('#search-group-law')).toHaveCount(0);
+  await expect(page.locator('[data-portal-search-status]')).toContainText('0 im Recht');
 });

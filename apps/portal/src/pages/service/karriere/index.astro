@@ -40,8 +40,8 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
     </div>
     {offers.length > 0 ? (
       <Fragment>
-        <form class="search-form" id="career-filter" data-role="career-filter">
-          <div class="search-form__filters">
+        <form class="filter-bar" id="career-filter" data-role="career-filter">
+          <div class="filter-bar__fields">
             <label class="search-field"><span>Stichwort</span><input type="search" name="query" placeholder="z. B. Kultur, Presse oder Verwaltung" /></label>
             <label class="search-field"><span>Ressort</span><select name="ressort"><option value="">Alle Ressorts</option>{ressorts.map((entry) => <option value={entry}>{entry}</option>)}</select></label>
             <label class="search-field"><span>Standort</span><select name="standort"><option value="">Alle Standorte</option>{standorte.map((entry) => <option value={entry}>{entry}</option>)}</select></label>

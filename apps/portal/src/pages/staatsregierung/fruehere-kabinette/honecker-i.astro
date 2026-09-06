@@ -55,22 +55,18 @@ const ministries = Object.values(ministryModules)
   <section class="section">
     <div class="meta-grid">
       <div class="meta-card">
-        <span class="meta-label">Amtszeit</span>
-        <strong><time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time></strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Koalition</span>
-        <strong>{archive.coalition}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Ministerpräsident</span>
-        <strong>{archive.headOfGovernment}</strong>
-      </div>
-      <div class="meta-card">
         <span class="meta-label">Ressorts</span>
         <strong>{ministries.length}</strong>
       </div>
     </div>
+    <dl class="fact-list">
+      <div>
+        <dt>Amtszeit</dt>
+        <dd><time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time></dd>
+      </div>
+      <div><dt>Koalition</dt><dd>{archive.coalition}</dd></div>
+      <div><dt>Ministerpräsident</dt><dd>{archive.headOfGovernment}</dd></div>
+    </dl>
   </section>
 
   <section class="section section-muted">

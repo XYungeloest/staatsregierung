@@ -1,4 +1,11 @@
 export {
+  formatTopicStatus,
+  getBalancedColumnCount,
+  getTopicStatusTone,
+  isMetricValue,
+} from '@ostrecht/shared/lib/portal/presentation.ts';
+
+export {
   formatActionPlanStatus,
   formatEuroAmount,
   formatEuroCompact,

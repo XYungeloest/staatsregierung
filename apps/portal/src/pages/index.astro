@@ -14,19 +14,20 @@ import { getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
 import {
   getActionPlanUrl,
+  getActiveTopicHighlights,
+  getBalancedColumnCount,
   getBudgetUrl,
   getCareerUrl,
   getContactUrl,
   getFreestateUrl,
-  getActiveTopicHighlights,
-  getNextTopicDate,
   getKreisreformUrl,
   getLawConstitutionUrl,
   getLawHomeUrl,
+  getNextTopicDate,
   getPortalSearchUrl,
   getPressUrl,
-  getTopicUrl,
   getTopicsUrl,
+  getTopicUrl,
   resolvePortalPath,
 } from '@ostrecht/shared/lib/portal/index.ts';
 import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
@@ -131,7 +132,7 @@ const importantItems = homeContent.importantItems.map((item) => ({
           </div>
           <a href={getFreestateUrl()}>Portal im Überblick <span aria-hidden="true">→</span></a>
         </header>
-        <div class="portal-access-grid">
+        <div class="portal-access-grid" style={`--access-count: ${getBalancedColumnCount(portalAccesses.length)}`}>
           {portalAccesses.map((access) => <PortalAccessCard {...access} />)}
         </div>
       </div>
@@ -163,7 +164,7 @@ const importantItems = homeContent.importantItems.map((item) => ({
           {homeLeadTopic ? (
             <article class:list={['home-lead-feature', homeSecondaryTopics.length === 0 && 'home-lead-feature--wide']}>
               <div class="home-lead-feature__icon"><PortalIcon name="topics" /></div>
-              <div class="home-lead-feature__status"><StatusBadge status={homeLeadTopic.status} /><span>Fachstand {siteConfig.date.formatLong(homeLeadTopic.updatedAt)}</span></div>
+              <div class="home-lead-feature__status"><StatusBadge status={homeLeadTopic.status} /><span>{siteConfig.vocabulary.portalContentAsOf} {siteConfig.date.formatLong(homeLeadTopic.updatedAt)}</span></div>
               <p class="eyebrow">Aktuelles Vorhaben</p>
               <h3>{homeLeadTopic.title}</h3>
               <p>{homeLeadTopic.teaser}</p>

@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion, LAW_ORIGIN, multiVersionNorm } from './helpers/law-runtime.ts';
 
@@ -472,7 +473,12 @@ const componentVisualPages: ComponentVisualPage[] = [
   {
     name: 'themen-module',
     path: '/themen/',
-    shots: [['themen-aktuell', '[data-visual-section="topics-current"] .topic-card:first-child']],
+    // „Aktuell“ verweist seit der Entdopplung nur noch auf die vollständige Karte in der
+    // Übersicht; beide Formen stehen als Motiv.
+    shots: [
+      ['themen-aktuell', '[data-visual-section="topics-current"] .topic-reference-list'],
+      ['themen-karte', '#alle-themen .topic-cluster:first-of-type .topic-card:first-of-type'],
+    ],
   },
   {
     name: 'themendetail-module',
@@ -827,4 +833,230 @@ portalTest('Consent-Hinweis ist lesbar und ablehnbar', { tag: [CRITICAL_TAG] }, 
   await expect(banner).toHaveScreenshot('consent.png');
   await banner.getByRole('button', { name: 'Nur notwendige Funktionen nutzen' }).click();
   await expect(banner).toBeHidden();
+});
+
+/**
+ * Messungen der Designprüfung des Staatsportals (6. September 2026). Sie halten die Regeln fest,
+ * die kein Bild belegt: sichtbare Hauptnavigation zwischen 64 und 80 rem, Spaltenzahl der
+ * Kartenraster, Lesegrößen, Lesemaß, Sprungziele der Bereichsnavigation und Kennzahlenkarten.
+ * Alle Erwartungen werden zur Laufzeit aus der Seite abgeleitet, keine nennt einen Inhalt.
+ */
+const PORTAL_MEASURED_PAGES = ['/', '/themen/', '/haushalt/', '/staatsregierung/', '/service/uebersicht/', '/404.html'];
+
+portalTest('Messung: die Hauptnavigation bleibt bis 64 rem sichtbar', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Kopfstufen werden einmal in einem Lauf geprüft.');
+  await preparePage(page);
+  for (const width of [1024, 1100, 1280, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/');
+    const links = await page.locator('.site-header__nav a').evaluateAll((nodes) =>
+      nodes.filter((node) => node.getBoundingClientRect().width > 0).length);
+    expect(links, `sichtbare Navigationspunkte bei ${width} px`).toBeGreaterThanOrEqual(5);
+    await expect(page.locator('.site-header__tools'), `Kopfwerkzeuge bei ${width} px`).toBeVisible();
+    await verifyViewport(page);
+  }
+});
+
+portalTest('Messung: Rasterklassen halten ihre Spaltenzahl', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Spaltenzahl wird einmal bei 1280 Pixeln gemessen.');
+  await preparePage(page);
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  for (const path of ['/themen/', '/service/uebersicht/', '/']) {
+    await page.goto(path);
+    const grids = await page.evaluate(() =>
+      [...document.querySelectorAll('.card-grid')]
+        .filter((element) => element.getBoundingClientRect().height > 0)
+        .map((element) => ({
+          modifier: [...element.classList].find((name) => name.startsWith('card-grid--')) ?? 'card-grid',
+          columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+          widths: [...new Set([...element.children].map((child) => Math.round(child.getBoundingClientRect().width)))],
+        })));
+    for (const grid of grids) {
+      const expected = { 'card-grid--two': 2, 'card-grid--three': 3, 'card-grid--four': 4, 'card-grid': 3 }[grid.modifier];
+      expect(grid.columns, `${path} · ${grid.modifier}`).toBe(expected);
+      expect(grid.widths.length, `${path} · ${grid.modifier}: Kartenbreiten ${grid.widths.join(', ')}`).toBeLessThanOrEqual(2);
+    }
+  }
+});
+
+portalTest('Messung: die Zugangskarten der Startseite lassen keine Karte allein', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Das Raster wird einmal bei 1280 Pixeln gemessen.');
+  await preparePage(page);
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto('/');
+  const grid = await page.locator('.portal-access-grid').evaluate((element) => ({
+    columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+    cards: element.children.length,
+    gap: parseFloat(getComputedStyle(element).columnGap),
+    padding: parseFloat(getComputedStyle(element.firstElementChild as HTMLElement).paddingLeft),
+  }));
+  const rest = grid.cards % grid.columns;
+  expect(rest, `${grid.cards} Karten in ${grid.columns} Spalten`).not.toBe(1);
+  expect(grid.gap, 'Rasterlücke größer als das seitliche Innenpolster').toBeGreaterThan(grid.padding);
+});
+
+portalTest('Messung: Fließtext steht nicht in der kleinsten Stufe', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'), 'Die Lesegrößen werden auf einer Desktopbreite gemessen.');
+  await preparePage(page);
+  for (const path of PORTAL_MEASURED_PAGES) {
+    await page.goto(path);
+    const findings = await page.evaluate(() =>
+      [...document.querySelectorAll('main p, main li, main dd')]
+        .filter((element) => {
+          const style = getComputedStyle(element);
+          if (style.display === 'none' || element.getBoundingClientRect().height === 0) return false;
+          if (element.closest('.eyebrow, .meta-label, time, .tag, .status-badge, .search-hit__meta')) return false;
+          // Kurze Etiketten dürfen klein sein; ein Absatz Fließtext nicht.
+          return (element.textContent ?? '').trim().length >= 120;
+        })
+        .map((element) => ({ size: parseFloat(getComputedStyle(element).fontSize), text: (element.textContent ?? '').trim().slice(0, 40) }))
+        .filter((entry) => entry.size < 14.5));
+    expect(findings, `${path}: Fließtext unter 14,5 px`).toEqual([]);
+  }
+});
+
+portalTest('Messung: das Lesemaß der Textspalten bleibt unter 78 Zeichen', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Das Lesemaß wird einmal bei 1440 Pixeln gemessen.');
+  await preparePage(page);
+  for (const path of PORTAL_MEASURED_PAGES) {
+    await page.goto(path);
+    await page.evaluate(async () => { await document.fonts.ready; });
+    const widest = await page.evaluate(() => {
+      // Ein „ch“ ist die Vorschubbreite der Ziffer 0; die Messung nimmt sie aus der Seite selbst.
+      const probe = document.createElement('span');
+      probe.style.cssText = 'position:absolute;visibility:hidden;width:1ch';
+      document.body.append(probe);
+      const ch = probe.getBoundingClientRect().width;
+      probe.remove();
+      let max = { chars: 0, text: '' };
+      for (const element of document.querySelectorAll('main p, main li > span, main dd')) {
+        const style = getComputedStyle(element);
+        if (style.display === 'none') continue;
+        const text = (element.textContent ?? '').trim();
+        if (text.length < 90) continue;
+        const chars = element.getBoundingClientRect().width / (ch * (parseFloat(style.fontSize) / 16));
+        if (chars > max.chars) max = { chars: Math.round(chars), text: text.slice(0, 50) };
+      }
+      return max;
+    });
+    expect(widest.chars, `${path}: „${widest.text}“`).toBeLessThanOrEqual(78);
+  }
+});
+
+portalTest('Messung: Sprungziele der Bereichsnavigation existieren', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Sprungziele werden einmal geprüft.');
+  await preparePage(page);
+  for (const path of ['/themen/', '/kreisreform/', '/staatsregierung/beteiligungen/', '/service/uebersicht/']) {
+    await page.goto(path);
+    const broken = await page.evaluate(() =>
+      [...document.querySelectorAll('.section-navigation a[href^="#"]')]
+        .map((link) => (link as HTMLAnchorElement).getAttribute('href') ?? '')
+        .filter((href) => href.length > 1 && !document.getElementById(href.slice(1))));
+    expect(broken, `${path}: Sprungziele ohne Ziel`).toEqual([]);
+    const position = await page.locator('.section-navigation').evaluate((element) => getComputedStyle(element).position);
+    expect(position, `${path}: Bereichsnavigation ab 64 rem`).toBe('sticky');
+  }
+});
+
+portalTest('Messung: Kennzahlenkarten tragen nur Zahlen', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Kennzahlen werden einmal geprüft.');
+  await preparePage(page);
+  const metricSelector = '.meta-card strong, .fact-card strong, .budget-kpi-card strong, .budget-plan-kpis strong, .topic-data-grid__metric';
+  for (const path of ['/', '/haushalt/', '/freistaat/', '/staatsregierung/15-punkte-plan/', '/staatsregierung/fruehere-kabinette/honecker-i/']) {
+    await page.goto(path);
+    const values = await page.evaluate(
+      (selector) => [...document.querySelectorAll(selector)].map((element) => (element.textContent ?? '').trim()),
+      metricSelector,
+    );
+    const textValues = values.filter((value) => !/^[−+-]?[\d.,]/u.test(value));
+    expect(textValues, `${path}: Kennzahlenkarten ohne Zahlenwert`).toEqual([]);
+  }
+});
+
+portalTest('Messung: die Kreistabelle blättert statt alles auszugeben', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile-'), 'Die Zeilenzahl wird auf einer Mobilbreite gemessen.');
+  await preparePage(page);
+  await page.goto('/kreisreform/');
+  const rows = page.locator('[data-kreisreform-table-body] tr');
+  await expect(rows).toHaveCount(25);
+  const pagination = page.locator('[data-pagination="kreise"]');
+  await expect(pagination).toBeVisible();
+  await pagination.locator('[data-page-action="next"]').click();
+  await expect(pagination.locator('[data-pagination-page]')).toHaveText(/Seite 2 von \d+/u);
+  await expect(rows).toHaveCount(25);
+  await verifyViewport(page);
+});
+
+portalTest('Messung: die Themenübersicht führt jedes Thema genau einmal als Karte', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Übersicht wird einmal geprüft.');
+  await preparePage(page);
+  await page.goto('/themen/');
+  const { cards, references } = await page.evaluate(() => ({
+    cards: [...document.querySelectorAll('#alle-themen .topic-card')].map((element) => element.id),
+    references: [...document.querySelectorAll('.topic-reference > a')].map((element) => (element as HTMLAnchorElement).getAttribute('href') ?? ''),
+  }));
+  expect(new Set(cards).size, 'jede Karte steht genau einmal').toBe(cards.length);
+  expect(cards.every((id) => id.startsWith('thema-')), 'jede Karte trägt ein Sprungziel').toBe(true);
+  for (const href of references) {
+    expect(cards, `Verweis ${href} zeigt auf eine Karte`).toContain(href.slice(1));
+  }
+});
+
+portalTest('Messung: jede Schriftgröße und Schriftfamilie stammt aus der Skala', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Schriftinventur wird einmal bei 1440 Pixeln gemessen.');
+  await preparePage(page);
+  for (const path of PORTAL_MEASURED_PAGES) {
+    await page.goto(path);
+    await page.evaluate(async () => { await document.fonts.ready; });
+    const inventory = await page.evaluate(() => {
+      const sizes = new Map<number, string>();
+      const families = new Map<string, string>();
+      for (const element of document.querySelectorAll('body *')) {
+        // Beschriftungen in Diagrammen tragen ihre eigene Geometrie, keine Textrolle.
+        if (element.closest('svg')) continue;
+        let hasText = false;
+        for (const node of element.childNodes) if (node.nodeType === 3 && (node.textContent ?? '').trim()) hasText = true;
+        if (!hasText) continue;
+        const style = getComputedStyle(element);
+        if (style.display === 'none' || style.visibility === 'hidden') continue;
+        if (element.getBoundingClientRect().height === 0) continue;
+        const sample = (element.textContent ?? '').trim().slice(0, 30);
+        sizes.set(Math.round(parseFloat(style.fontSize) * 100) / 100, sample);
+        families.set(style.fontFamily.split(',')[0].replace(/["']/gu, ''), sample);
+      }
+      return {
+        sizes: [...sizes.entries()].map(([size, sample]) => ({ size, sample })).sort((left, right) => left.size - right.size),
+        families: [...families.entries()].map(([family, sample]) => ({ family, sample })),
+      };
+    });
+
+    // Nur die drei Hausschriften; eine Systemschrift bedeutet ein Bedienelement ohne `font: inherit`.
+    const foreign = inventory.families.filter((entry) => !['Jost', 'Ost Grotesk', 'Source Serif 4'].includes(entry.family));
+    expect(foreign, `${path}: fremde Schriftfamilie`).toEqual([]);
+
+    /*
+     * Die Skala aus foundation.css bei 1440 px: neun feste Stufen, dazu die skalierenden Rollen
+     * (Titel, Langtitel, Band, Kartentitel, Kennzahl). Die Prüfung ist eine Zugehörigkeitsprüfung,
+     * keine Zählung: die Zahl der Stufen einer Seite folgt aus ihrem Inhalt, ihre Herkunft nicht.
+     */
+    const scale = new Set([11.52, 13.12, 14.72, 16, 17, 18.4, 20.8, 24, 28, 22.4, 32, 42.4, 52]);
+    const offScale = inventory.sizes.filter((entry) => !scale.has(entry.size));
+    expect(offScale, `${path}: Schriftgröße außerhalb der Skala`).toEqual([]);
+    expect(inventory.sizes.length, `${path}: verschiedene Schriftgrößen`).toBeLessThanOrEqual(11);
+  }
+});
+
+portalTest('Messung: Stände tragen die Wörter der Wortliste', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Wortliste wird einmal geprüft.');
+  await preparePage(page);
+  const vocabulary = Object.values(siteConfig.vocabulary);
+  // Begriffe, die dieselbe Sache mit einem anderen Wort benennen. `Stichtag` steht in der
+  // Wortliste (Bezugstag einer Erhebung) und ist deshalb keine Dublette.
+  const forbidden = /\b(Fachstand|Redaktionsstand|Sachstand|Bearbeitungsstand|Aktualisierungsstand)\b/u;
+  for (const path of ['/', '/themen/', '/themen/bildungsreform/', '/staatsregierung/beteiligungen/', '/kreisreform/']) {
+    await page.goto(path);
+    const text = await page.locator('#main-content').innerText();
+    const hit = text.match(forbidden);
+    expect(hit?.[0], `${path}: Begriff außerhalb der Wortliste (${vocabulary.join(', ')})`).toBeUndefined();
+  }
 });

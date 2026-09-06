@@ -16,16 +16,23 @@ interface Props {
   ministryName?: string;
   variant?: 'default' | 'highlight' | 'compact';
   headingLevel?: 3 | 4;
+  /** Sprungziel der Verweise aus „Aktuell“ und „Schwerpunkte“ auf die vollständige Karte. */
+  anchorId?: string;
 }
 
-const { topic, ministryName, variant = 'default', headingLevel = 3 } = Astro.props as Props;
+const { topic, ministryName, variant = 'default', headingLevel = 3, anchorId } = Astro.props as Props;
 const nextDate = getNextTopicDate(topic, PORTAL_REFERENCE_DATE);
 const Heading = `h${headingLevel}`;
+/**
+ * Das Statusabzeichen steht dort, wo es unterscheidet. In der Vollübersicht trüge es bei 18 von
+ * 21 Themen dasselbe Wort; dort tragen Fachgebiet, nächster Termin und Fachstand die Auskunft.
+ */
+const showStatus = variant !== 'compact';
 ---
 
-<article class:list={['panel', 'topic-card', `topic-card--${variant}`]}>
+<article id={anchorId} class:list={['panel', 'topic-card', `topic-card--${variant}`]}>
   <div class="topic-card__header">
-    <StatusBadge status={topic.status} />
+    {showStatus ? <StatusBadge status={topic.status} /> : null}
     <p class="topic-card__cluster">{TOPIC_CLUSTER_LABELS[topic.cluster]}</p>
   </div>
   <Heading><a href={getTopicUrl(topic.slug)}>{topic.title}</a></Heading>
@@ -38,6 +45,6 @@ const Heading = `h${headingLevel}`;
       Zuständig: <a class="inline-link" href={getMinistryUrl(topic.federfuehrendesRessort)}>{ministryName}</a>
     </p>
   ) : null}
-  <p class="topic-card__updated">Fachstand <time datetime={topic.updatedAt}>{siteConfig.date.formatLong(topic.updatedAt)}</time></p>
+  <p class="topic-card__updated">{siteConfig.vocabulary.portalContentAsOf} <time datetime={topic.updatedAt}>{siteConfig.date.formatLong(topic.updatedAt)}</time></p>
   <a class="topic-card__link" href={getTopicUrl(topic.slug)} aria-label={`${topic.title} ansehen`}><PortalIcon name="arrow" /></a>
 </article>
