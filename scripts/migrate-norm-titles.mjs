@@ -38,6 +38,7 @@ import { ADAPTER_ARTEFACT_PATTERN, adaptSaxonText, hasSaxonResidual } from './li
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const NORMS_DIR = join(ROOT, 'content/normen');
+const PUBLICATIONS_DIR = join(ROOT, 'content/verkuendungen');
 const BASELINE_LISTING = join(ROOT, 'data/recht/revosax-baseline-2023-11-01.json');
 
 /** Ankerfelder für neu eingefügte Schlüssel, damit die Dateien lesbar sortiert bleiben. */
@@ -256,10 +257,18 @@ export function planNorm({ meta, versions, listingHit, hasRevosax = Boolean(list
 
   // (6) Zusammenfassung: Formeln kennzeichnen, eigene „Regelt …“-Formeln redaktionell ersetzen.
   const summary = text(meta.summary);
-  if (editorialSummary) {
-    metaChanges.summary = editorialSummary;
-    if (meta.summarySource !== undefined) metaChanges.summarySource = undefined;
-    stats.add('zusammenfassung-redaktionell');
+  const replaceableSummary = isDerivedSummary(summary) || isTitleFormulaSummary(summary, originalTitle);
+  if (editorialSummary && replaceableSummary) {
+    // Eine redaktionelle Kurzbeschreibung eines eigenen Erlasses darf keinen unbelegten
+    // Sachsen-Bezug einführen (npm run norms:ost:residual-audit); solche Texte bleiben liegen.
+    if (hasSaxonResidual(editorialSummary)) {
+      notes.push({ kind: 'zusammenfassung-reststelle', from: text(editorialSummary), to: 'unbelegter Sachsen-Bezug' });
+      stats.add('zusammenfassung-reststelle');
+    } else {
+      metaChanges.summary = text(editorialSummary);
+      if (meta.summarySource !== undefined) metaChanges.summarySource = undefined;
+      stats.add('zusammenfassung-redaktionell');
+    }
   } else if (isDerivedSummary(summary) && hasRevosax) {
     if (meta.summarySource !== 'derived') {
       metaChanges.summarySource = 'derived';
@@ -302,7 +311,7 @@ export function planNorm({ meta, versions, listingHit, hasRevosax = Boolean(list
     if (versionAbbr) {
       const reason = abbreviationProblem(versionAbbr, { title: effectiveTitle, shortTitle: nextShortTitle });
       if (reason) {
-        if (versionAbbr !== abbr) keywords = removeKeyword(keywords, versionAbbr);
+        // Stichwörter bleiben unangetastet: über sie entscheidet die Bezeichnung der Norm.
         changes.abbr = undefined;
         stats.add('fassungsabkuerzung');
         notes.push({ kind: 'fassungsabkuerzung', from: `${versionId}: ${versionAbbr}`, to: reason });
@@ -311,6 +320,8 @@ export function planNorm({ meta, versions, listingHit, hasRevosax = Boolean(list
     if (Object.keys(changes).length > 0) versionChanges.set(versionId, changes);
   }
 
+  // Jede Vorschrift bleibt über mindestens ein Stichwort auffindbar.
+  if (keywords.length === 0) keywords = addKeyword(keywords, shortTitle ?? title);
   const originalKeywords = meta.keywords ?? [];
   if (keywords.length !== originalKeywords.length
     || keywords.some((keyword, index) => keyword !== originalKeywords[index])) {
@@ -336,6 +347,7 @@ async function main() {
     .map((entry) => entry.name)
     .sort();
 
+  const titleChanges = new Map();
   const counters = new Map();
   const bump = (key, amount = 1) => counters.set(key, (counters.get(key) ?? 0) + amount);
   const before = { abbr: 0, abbrEqualsTitle: 0, abbrTooLong: 0, shortTitleEqualsTitle: 0, summaryFormula: 0 };
@@ -343,6 +355,7 @@ async function main() {
   const parentheticals = [];
   const rejected = [];
   const openFormulas = [];
+  const residualSummaries = [];
   let changedNorms = 0;
   let changedFiles = 0;
 
@@ -382,9 +395,13 @@ async function main() {
       if (note.kind === 'klammertitel') parentheticals.push([slug, note.from, note.to]);
       if (note.kind === 'langtitel-abgelehnt') rejected.push([slug, note.from, note.to]);
       if (note.kind === 'zusammenfassung-formel-offen') openFormulas.push([slug, note.from]);
+      if (note.kind === 'zusammenfassung-reststelle') residualSummaries.push([slug, note.from]);
       if (verbose) console.log(`${slug}: ${note.kind}: ${note.from} → ${note.to}`);
     }
 
+    if (plan.metaChanges.title && plan.metaChanges.title !== meta.title) {
+      titleChanges.set(slug, { from: meta.title, to: plan.metaChanges.title });
+    }
     const nextMeta = Object.keys(plan.metaChanges).length > 0
       ? applyFieldChanges(meta, plan.metaChanges)
       : meta;
@@ -409,6 +426,27 @@ async function main() {
     if (nextMeta.summarySource === 'derived') after.summaryDerived += 1;
   }
 
+  // Verkündungseinträge spiegeln den Titel ihrer Vorschrift (scripts/import-normen.mjs übernimmt
+  // ihn aus meta.json); ein geänderter Titel wird dort mitgeführt.
+  let changedPublications = 0;
+  let changedPublicationEntries = 0;
+  for (const file of (await readdir(PUBLICATIONS_DIR)).filter((entry) => entry.endsWith('.json')).sort()) {
+    const path = join(PUBLICATIONS_DIR, file);
+    const publication = await readJson(path);
+    let touched = 0;
+    for (const entry of publication.entries ?? []) {
+      const change = entry.normSlug ? titleChanges.get(entry.normSlug) : undefined;
+      if (!change || entry.title !== change.from) continue;
+      entry.title = change.to;
+      touched += 1;
+    }
+    if (touched === 0) continue;
+    changedPublications += 1;
+    changedPublicationEntries += touched;
+    changedFiles += 1;
+    if (write) await writeJson(path, publication);
+  }
+
   const unknownSummaries = Object.keys(editorialSummaries).filter((slug) => !usedSummaries.has(slug));
 
   console.log(`Normen: ${slugs.length}${write ? '' : ' (Prüflauf, keine Datei geschrieben)'}`);
@@ -424,6 +462,7 @@ async function main() {
     + `abbr ${after.abbr}, abbr = title ${after.abbrEqualsTitle}, abbr > 20 Zeichen ${after.abbrTooLong}, `
     + `shortTitle = title ${after.shortTitleEqualsTitle}, summarySource derived ${after.summaryDerived}`);
 
+  console.log(`Verkündungseinträge mit nachgeführtem Titel: ${changedPublicationEntries} in ${changedPublications} Ausgaben`);
   console.log(`Klammertitel aufgeteilt: ${parentheticals.length}`);
   for (const [slug, title, parts] of parentheticals) console.log(`  ${slug}: ${title} ${parts}`);
   if (rejected.length > 0) {
@@ -433,6 +472,11 @@ async function main() {
   if (openFormulas.length > 0) {
     console.log(`Formel-Zusammenfassungen ohne redaktionellen Ersatz: ${openFormulas.length}`);
     for (const [slug] of openFormulas) console.log(`  ${slug}`);
+  }
+  if (residualSummaries.length > 0) {
+    console.log(`Redaktionelle Zusammenfassungen mit unbelegtem Sachsen-Bezug (nicht übernommen): ${residualSummaries.length}`);
+    for (const [slug, value] of residualSummaries) console.log(`  ${slug}: ${value}`);
+    process.exitCode = 1;
   }
   if (unknownSummaries.length > 0) {
     console.log(`Zusammenfassungen ohne passende Norm: ${unknownSummaries.length}`);
