@@ -37,6 +37,7 @@ import {
 import {
   SEARCH_FACETS,
   groupNormSearchResults,
+  planCitationMatch,
   planExcludeMatch,
   planGroupMatch,
   planPhraseMatch,
@@ -480,6 +481,12 @@ export function candidateFilterSql(query: SearchCandidateQuery): { sql: string; 
     for (const phrase of plan.phrases) {
       clauses.push(` AND n.id IN (${unitSource})`);
       params.push(planPhraseMatch(plan, phrase));
+    }
+    // Die Eingabe „Fundstelle“ sucht über alle Felder, auch außerhalb des gewählten Suchbereichs.
+    const citationMatch = planCitationMatch(plan);
+    if (citationMatch) {
+      clauses.push(' AND n.id IN (SELECT norm_id FROM law_search WHERE law_search MATCH ?)');
+      params.push(citationMatch);
     }
     const excludeMatch = planExcludeMatch(plan);
     if (excludeMatch) {
@@ -1111,7 +1118,9 @@ export function createD1NormStore(db: D1Database): NormStore {
       const { match, limit, offset } = query;
       // Zitierte Ausgaben stehen als unmittelbare Treffer vor der Volltextliste; sie werden
       // aus der übrigen Zählung ausgenommen, damit keine Vorschrift doppelt zählt.
-      const cited = [...new Set(query.citedSlugs ?? [])].slice(0, 40);
+      // D1 bindet höchstens 100 Werte je Abfrage; die Direkttreffer einer zitierten Ausgabe
+      // stehen zweimal in den Bedingungen (Ausnahme und Ausschluss) und bleiben deshalb knapp.
+      const cited = [...new Set(query.citedSlugs ?? [])].slice(0, 20);
       let direct: string[] = [];
       if (cited.length > 0) {
         const base = candidateFilterSql({ ...query, plan: undefined, citedSlugs: [], includeAmendments: true });

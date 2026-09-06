@@ -1028,6 +1028,8 @@ export interface SearchQueryPlan {
   identityValues: string[];
   /** Mehrwortige Anfrage als Wortfolge im Titelbereich (Ausnahme für Änderungsvorschriften). */
   titlePhrase?: string;
+  /** Eingabe „Fundstelle“: Wortfolge über alle Felder, unabhängig vom Suchbereich. */
+  citationPhrase?: string;
   /** Suchbereich der Anfrage. */
   scope: SearchScope;
   sort: SortKey;
@@ -1070,23 +1072,22 @@ export function buildFtsColumnMatch(columns: string | null, expression: string):
 /**
  * Großzügiger Kandidatenausdruck (ODER über alle Wortvarianten und Wortfolgen). Er treibt die
  * Volltextabfrage und stellt `rank` bereit; die verknüpfende Auswahl übernehmen die
- * UND-Bedingungen des Plans.
+ * UND-Bedingungen des Plans. Ohne Suchtext gibt es keinen Ausdruck: eine Anfrage aus Normtyp
+ * oder Strukturadresse allein läuft über die Filterspalten, nicht über den Volltextindex.
  */
-export function buildFtsMatch({ q, exact, citation }: { q: string; exact: string; citation: string }): string | null {
-  const groups: string[] = [];
-  for (const token of parseQueryTokens(q)) {
-    const variants = [...new Set([token.value, ...token.variants])].filter((variant) => variant.length >= 2);
-    if (variants.length === 0) continue;
-    groups.push(ftsGroupExpression({ variants, prefix: true }));
-  }
-  for (const phrase of [exact, citation]) {
-    const cleaned = phrase.replace(/[^\p{L}\p{N}\s.]/gu, ' ').replace(/\s+/gu, ' ').trim();
-    if (!cleaned) continue;
-    const expression = ftsPhraseExpression(cleaned);
-    if (expression) groups.push(expression);
-  }
-  if (groups.length === 0) return null;
-  return groups.join(' OR ');
+export function buildFtsMatch(plan: SearchQueryPlan): string | null {
+  const groups = [
+    ...plan.tokenGroups.map((group) => ftsGroupExpression(group)),
+    ...plan.phrases.map((phrase) => ftsPhraseExpression(phrase)),
+    ...(plan.citationPhrase ? [ftsPhraseExpression(plan.citationPhrase)] : []),
+  ].filter(Boolean);
+  return groups.length > 0 ? groups.join(' OR ') : null;
+}
+
+/** UND-Bedingung der Eingabe „Fundstelle“: Wortfolge über alle Felder. */
+export function planCitationMatch(plan: SearchQueryPlan): string | null {
+  if (!plan.citationPhrase) return null;
+  return ftsPhraseExpression(plan.citationPhrase) || null;
 }
 
 /** UND-Bedingung einer Begriffsgruppe im Suchbereich des Plans. */
@@ -1153,6 +1154,7 @@ export function buildSearchQueryPlan(state: NormSearchState): SearchQueryPlan {
     ...(query.typeIntent ? { typeIntent: query.typeIntent } : {}),
     identityValues: state.q.trim() ? [state.q.trim()] : [],
     ...(words(raw).length > 1 ? { titlePhrase: raw } : {}),
+    ...(state.citation.trim() ? { citationPhrase: state.citation.trim() } : {}),
     scope: state.scope,
     sort: getActiveSearchSort(state),
     freeText: hasFreeTextQuery(state),

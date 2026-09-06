@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { buildFtsMatch, buildFtsColumnMatch, searchScopeColumns } from '@ostrecht/recht-search/search-query.ts';
+import { buildFtsColumnMatch, buildFtsMatch, buildSearchQueryPlan, searchScopeColumns, type NormSearchState } from '@ostrecht/recht-search/search-query.ts';
 import type { SearchPublication } from '@ostrecht/recht-search/search.ts';
 
 import { citedPublications, parseLimit, parseOriginFilter, parseScope, parseSort, parseVersionScope } from '../apps/recht/src/pages/api/suche.json.ts';
@@ -18,6 +18,16 @@ const publications = [
   publication({ slug: 'overtrbl-2026-40', designation: 'OVertrBl. 2026 Nr. 40', title: 'Ostdeutsches Vertragsblatt 2026 Nr. 40', aliases: ['Ostdeutsches Vertragsblatt 2026 Nr. 40'], publication: 'OVertrBl.', issue: '40', date: '2026-12-01' }),
 ];
 
+/** Suchzustand für die Planprüfungen; dieselben Vorgaben wie die Suchseite. */
+function searchState(overrides: Partial<NormSearchState> = {}): NormSearchState {
+  return {
+    q: '', exclude: '', exact: '', scope: 'all', types: [], ministries: [], subjects: [], statuses: [], origins: [],
+    versionScope: 'current', includeAmendments: false, geltungstag: '', validFrom: '', validTo: '', citation: '',
+    publicationSources: [], publicationYears: [], publicationIssue: '', publicationPage: '',
+    sort: 'relevance', sortExplicit: false, ...overrides,
+  };
+}
+
 test('zitierte Ausgaben werden an Wortgrenzen erkannt – mit und ohne Punkte, als Langtitel, nie als Teil einer anderen Nummer', () => {
   const slugs = (query: string) => citedPublications(query, publications).map((entry) => entry.slug);
   assert.deepEqual(slugs('OVertrBl. 2026 Nr. 4'), ['overtrbl-2026-04']);
@@ -32,11 +42,15 @@ test('zitierte Ausgaben werden an Wortgrenzen erkannt – mit und ohne Punkte, a
 });
 
 test('Herkunftsfilter und FTS-Ausdruck bleiben fail-safe', () => {
+  const plan = (overrides: Partial<NormSearchState>) => buildSearchQueryPlan(searchState(overrides));
   assert.deepEqual(parseOriginFilter(['inherited-amended', 'unbekannt', 'inherited-amended', 'ostdeutsch-original']), ['inherited-amended', 'ostdeutsch-original']);
-  assert.equal(buildFtsMatch({ q: '', exact: '', citation: '' }), null);
-  assert.match(buildFtsMatch({ q: 'Testbegriff', exact: '', citation: '' }) ?? '', /"testbegriff"\*/u);
+  assert.equal(buildFtsMatch(plan({})), null);
+  assert.match(buildFtsMatch(plan({ q: 'Testbegriff' })) ?? '', /"testbegriff"\*/u);
   // Mehrere Begriffe sammeln Kandidaten großzügig; die Verknüpfung leisten die UND-Bedingungen.
-  assert.match(buildFtsMatch({ q: 'Testbegriff Zweitbegriff', exact: '', citation: '' }) ?? '', /\) OR \(/u);
+  assert.match(buildFtsMatch(plan({ q: 'Testbegriff Zweitbegriff' })) ?? '', /\) OR \(/u);
+  // Eine Anfrage aus Normtyp oder Strukturadresse allein läuft über die Filterspalten.
+  assert.equal(buildFtsMatch(plan({ q: 'Verordnungen' })), null);
+  assert.equal(buildFtsMatch(plan({ q: '§ 2a' })), null);
   // Spaltenfilter je Suchbereich.
   assert.equal(searchScopeColumns('all'), null);
   assert.equal(searchScopeColumns('metadata'), null, 'Metadaten trennt die Einheitenart, nicht der Spaltenfilter');

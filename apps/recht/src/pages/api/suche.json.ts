@@ -219,7 +219,8 @@ function fuzzySlugs(suggestions: Array<{ slug: string; title: string; shortTitle
     const similar = tokens.every((token) => [...words].some((word) =>
       Math.abs(word.length - token.length) <= 2 && levenshteinDistance(word, token) <= 2));
     return similar ? [suggestion.slug] : [];
-  }).slice(0, MAX_LIMIT);
+    // D1 bindet höchstens 100 Werte je Abfrage; mehr ähnliche Titel wären ohnehin keine Hilfe.
+  }).slice(0, 60);
 }
 
 export const GET: APIRoute = async ({ url, locals }) => {
@@ -240,7 +241,10 @@ export const GET: APIRoute = async ({ url, locals }) => {
     ? { ...requested, versionScope: 'all' }
     : requested;
   const plan = buildSearchQueryPlan(state);
-  const match = buildFtsMatch({ q: state.q, exact: state.exact, citation: state.citation });
+  const match = buildFtsMatch(plan);
+  // Ohne Suchtext braucht die Trefferstelle keinen Ausdruck; eine Anfrage nach einer
+  // Strukturadresse („§ 2a“) liest die Einheiten trotzdem, damit der Ausschnitt sie zeigen kann.
+  const unitsMatch = match ?? (plan.references.length > 0 ? null : undefined);
   const query = {
     match,
     limit,
@@ -283,7 +287,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
     }
   }
 
-  const candidates = await store.getSearchDocuments(slugs, match ?? undefined, { unitsPerNorm: UNITS_PER_NORM });
+  const candidates = await store.getSearchDocuments(slugs, unitsMatch, { unitsPerNorm: UNITS_PER_NORM });
   const documents = candidates.map(toSearchDocument);
   // Bewertung nur über die Seite: Trefferart, beste Trefferstelle und weitere passende Fassungen.
   // Über die Zugehörigkeit hat die Abfrage bereits entschieden; die Bewertung beschriftet nur noch.
