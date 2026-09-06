@@ -20,7 +20,7 @@ import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/rou
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/norm-portal-content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases, isAmendmentRecord } from '@ostrecht/recht-search/search.ts';
 
-import { metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
+import { isEmptyScope, metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
 import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { FULL_SCOPE, fixtureScope, portalProjectionChangedSince, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
@@ -64,7 +64,11 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *     ersetzt der Äquivalenznachweis (scripts/lib/d1-projection-proof.mjs) die Annahme durch
  *     Rechnung (scripts/d1-projection-snapshot.mjs prove): Basis- und Zielprojektion werden lokal
  *     vollständig verglichen, und nur der nachgewiesene inkrementelle Umfang wird geschrieben – im Grenzfall nur Identität und
- *     Laufzeitmetadaten (die neue Identität wird übernommen, ohne Daten neu zu schreiben). Der
+ *     Laufzeitmetadaten (die neue Identität wird übernommen, ohne Daten neu zu schreiben). Dieser
+ *     Metadata-only-Lauf (isMetadataOnlyRun, planRun) berechnet keine korpusweiten Ableitungen:
+ *     der Bestand wird nur geladen, weil der Umfang aus ihm bestimmt wird und die 17 Zeilen der
+ *     Laufzeitmetadaten (Zähler, corpus_hash, Suchfilter, Übersichten) aus dem Ziel-Bestand
+ *     stammen müssen – der Nachweis belegt die Datentabellen, nicht diese Zeilen. Der
  *     Nachweis ist an gespeicherte und neue Identität, Scope, Comparator-Version und Umfang
  *     gebunden; jede Abweichung ist fail-closed. Einen frei setzbaren Bypass gibt es nicht.
  *
@@ -689,6 +693,37 @@ export function assessSyncDecision({ decision, scope, budgetProfile = null, limi
   };
 }
 
+/**
+ * Metadata-only-Lauf: verifizierter inkrementeller Lauf, dessen Umfang außer Identität und
+ * Laufzeitmetadaten nichts schreibt – entweder ohne jede Logikänderung (der Umfang wurde mit
+ * logicChange `full` bestimmt; eine geänderte Logik hätte `full` ergeben) oder mit angewendetem
+ * Äquivalenznachweis `identity`/`ignore`, der genau diesen leeren Umfang belegt. Alles andere
+ * (Normen, Löschungen, Verkündungen, abgeleitete Daten, Suchdokumente, Nachweis `incremental`
+ * oder `narrow`, abweichende Umfangssignatur, No-op, Voll- oder Recovery-Projektion) nimmt den
+ * normalen fail-closed Projektionsweg. Reine Funktion. Die Laufzeitmetadaten werden auch im
+ * Metadata-only-Lauf aus dem geladenen Bestand neu berechnet: der Nachweis belegt die
+ * Datentabellen, nicht die korpusabgeleiteten Zeilen von law_runtime_meta.
+ */
+export function isMetadataOnlyRun({ decision, scope, proof = null }) {
+  if (decision?.action !== 'incremental') return false;
+  if (!isEmptyScope(scope)) return false;
+  if (!proof) return true;
+  return proof.result === 'identity' && proof.logicChange === 'ignore' && proof.scopeSignature === scopeSignature(scope);
+}
+
+/**
+ * Plan eines Laufs. `buildContext` (korpusweite Ableitungen über buildDerivedContext) wird nur
+ * gerufen, wenn der Plan Normen, abgeleitete Daten oder Suchdokumente schreibt; der
+ * Metadata-only-Lauf baut den Plan ohne Ableitungskontext (buildSyncPlan prüft das fail-closed).
+ * @returns {{ plan: ReturnType<typeof buildSyncPlan>, metadataOnly: boolean }}
+ */
+export function planRun({ decision, scope, norms, publications, buildContext, now, identity, writeIdentity, proof = null }) {
+  const metadataOnly = isMetadataOnlyRun({ decision, scope, proof });
+  const context = metadataOnly ? null : buildContext();
+  const plan = buildSyncPlan({ scope, norms, publications, context, now, identity, writeIdentity });
+  return { plan, metadataOnly };
+}
+
 /** Vorabprüfung der Planschätzung gegen das Budget; wirft, bevor irgendetwas geschrieben wird. */
 export function assertEstimateWithinBudget(cost, limits) {
   const problems = [];
@@ -920,12 +955,18 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
 /**
  * Baut die vollständige Anweisungsliste eines Laufs: Reset (nur --full), Löschungen,
  * Normen, abgeleitete Daten, Verkündungen, Laufzeitmetadaten. Reine Funktion über den
- * geladenen Bestand; Tests prüfen damit Umfang und Kostenpfad ohne Datenbank.
+ * geladenen Bestand; Tests prüfen damit Umfang und Kostenpfad ohne Datenbank. `context` darf
+ * nur fehlen, wenn der Umfang leer ist (Metadata-only-Lauf, planRun).
  */
 export function buildSyncPlan({ scope, norms, publications, context, now, fingerprint, identity = fingerprint, writeIdentity = true }) {
   const full = scope.mode === 'full';
   const selectedSlugs = new Set(scope.slugs);
   const selected = full ? norms : norms.filter((norm) => selectedSlugs.has(norm.meta.slug));
+  // Fail-closed: ohne Ableitungskontext darf der Plan weder Normen noch abgeleitete Daten oder
+  // Suchdokumente schreiben – nur der leere Umfang kommt ohne Kontext aus.
+  if (!context && (full || scope.slugs.length > 0 || scope.derivedRebuild || scope.refreshSearchDocuments)) {
+    throw new Error('Ableitungskontext fehlt: dieser Umfang schreibt Normen, abgeleitete Daten oder Suchdokumente und kann kein Metadata-only-Plan sein (fail-closed)');
+  }
   const groups = [];
   if (full) groups.push({ slug: '(reset)', queries: fullResetQueries() });
   else if (writeIdentity) groups.push({ slug: '(identität entwerten)', queries: incrementalStartQueries(now) });
@@ -1089,6 +1130,8 @@ async function main() {
   // Entscheidung gegen das Budgetprofil prüfen, bevor Ableitungen gerechnet oder Anweisungen
   // gebaut werden: eine nicht tragbare Vollprojektion endet hier, nicht nach dem Planbau.
   let assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
+  // Der angewendete Nachweis bleibt für den Planbau sichtbar (Metadata-only-Lauf, isMetadataOnlyRun).
+  let appliedProof = null;
   if (!assessment.ok && assessment.code === 'full-gate' && gitDiffBase && proofFile) {
     // Äquivalenznachweis statt Vollprojektion: jede Bindung wird geprüft, bevor der nachgewiesene
     // Umfang gilt (scripts/lib/d1-projection-proof-format.mjs).
@@ -1104,6 +1147,7 @@ async function main() {
         assessment = { ok: false, code: 'proof-scope-mismatch', message: `Äquivalenznachweis nicht anwendbar (fail-closed): der Umfang dieses Laufs entspricht nicht dem nachgewiesenen Umfang (${scope.mode}; ${scope.reasons.slice(0, 3).join('; ')})` };
       } else {
         decision = decide('incremental');
+        appliedProof = proof;
         assessment = assessSyncDecision({ decision, scope, budgetProfile, limits: stats.limits });
         console.log(`Äquivalenznachweis (${proof.head.commit.slice(0, 9)} gegen ${proof.base.commit.slice(0, 9)}): ${describeProofResult(proof)}`);
         console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
@@ -1136,13 +1180,27 @@ async function main() {
     ? 'Umfang: Vollprojektion (Tabellen werden einmalig geleert, keine normweisen Löschungen)'
     : `Umfang: ${scope.slugs.length} Norm(en), ${scope.deletedSlugs.length} Löschung(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.refreshSearchDocuments ? ', Suchdokumente aller Normen' : ''}${scope.reasons.length ? ` – ${scope.reasons.slice(0, 3).join('; ')}` : ''}`);
   if (scope.referenceDate) console.log(`Stichtag: ${scope.referenceDate.from} → ${scope.referenceDate.to}; betroffene Normen: ${scope.slugs.join(', ') || '(keine)'}`);
-  const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE });
-  console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
   const now = new Date().toISOString();
   // Identität nur bei Vollprojektion und verifiziertem Git-Diff schreiben; manuelle Teilsyncs
   // lassen die gespeicherte Identität unverändert (siehe partialMetaQueries).
   const writeIdentity = full || Boolean(gitDiffBase);
-  const plan = buildSyncPlan({ scope, norms, publications, context, now, identity: fingerprint, writeIdentity });
+  // Korpusweite Ableitungen nur, wenn der Plan sie schreibt: der nachgewiesen datenneutrale leere
+  // Umfang (isMetadataOnlyRun) erzeugt den Metadata-only-Plan ohne Ableitungskontext.
+  const { plan, metadataOnly } = planRun({
+    decision, scope, norms, publications, now, identity: fingerprint, writeIdentity, proof: appliedProof,
+    buildContext: () => buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE }),
+  });
+  if (metadataOnly) {
+    console.log(`Umfang leer und nachgewiesen datenneutral: Metadata-only-Plan (Identität und Laufzeitmetadaten aus dem geladenen Bestand), keine korpusweiten Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
+    // Plausibilität, kein Gate: unter leerem Umfang ändern sich die Zähler nicht; eine Abweichung
+    // deutet auf einen fremden Zustand in D1 hin (die Basis prüft decideSyncAction über die Identität).
+    for (const [key, actual] of [['norm_count', norms.length], ['publication_count', publications.length]]) {
+      const storedValue = stored?.[key];
+      if (storedValue !== undefined && storedValue !== null && Number(storedValue) !== actual) console.warn(`Hinweis: ${key} in D1 (${storedValue}) weicht vom geladenen Bestand (${actual}) ab; die Laufzeitmetadaten werden aus dem Bestand neu geschrieben.`);
+    }
+  } else {
+    console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
+  }
   const cost = estimatePlanCost(plan, budgets.estimate ?? DEFAULT_ESTIMATE);
   console.log(`Plan: ${plan.selected.length} Normen, ${scope.deletedSlugs.length} Löschungen, ${plan.derivedCount} abgeleitete Datensätze, ${plan.documentRefreshCount} Normen mit erneuerten Suchdokumenten, ${plan.publicationCount} Verkündungen, ${plan.searchUnitCount} Suchprovisionen, ${plan.statementCount} Anweisungen`);
   console.log(`Anweisungen je Tabelle: ${JSON.stringify(plan.byStatement)}`);

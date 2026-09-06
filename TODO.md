@@ -39,15 +39,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Unit-Testdaten keine scheinbar realen Bezeichnungen wie „Archivgesetz“ oder
   „Gemeindeordnung“ mehr benötigen, sofern die konkrete Normidentität nicht Gegenstand des
   Tests ist.
-- [ ] Metadaten-only-D1-Sync ohne korpusweite Ableitungsberechnung: Ein gültiger
-  Äquivalenznachweis mit Ergebnis `identity` beziehungsweise `logicChange = ignore` und leerem
-  inkrementellem Umfang schreibt ausschließlich Projektionsidentität und Laufzeitmetadaten,
-  berechnet derzeit aber trotzdem vor dem 19-Anweisungen-Metadatenplan den vollständigen
-  Ableitungskontext aller Normen. Fertig, wenn dieser nachgewiesen datenneutrale Sonderfall nach
-  Prüfung von Basiszustand, Scope und Äquivalenznachweis unmittelbar einen
-  Metadata-only-Plan erzeugt, ohne `buildDerivedContext` oder Such-/Normprojektionen
-  auszuführen; ein Test muss zugleich sicherstellen, dass jeder nicht leere oder nicht eindeutig
-  datenneutrale Umfang weiterhin den normalen fail-closed Projektionsweg verwendet.
 
 ### Bestand und Struktur
 

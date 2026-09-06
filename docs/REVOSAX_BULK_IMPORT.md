@@ -272,7 +272,11 @@ Primärschlüssel, Volltextstichproben; normalisiert werden nur `updated_at`, `l
 der inkrementelle Umfang des Syncs – zuerst mit der Logikänderung als datenneutral (`ignore`),
 dann als enge Logikprojektion (`narrow`: Suchdokumente, abgeleitete Daten und abgeleitete
 Normspalten aller Normen) – auf die Basis angewendet exakt das Ziel ergibt. Ergebnis `identity`
-(nur Identität und Laufzeitmetadaten), `incremental` (nachgewiesener Umfang) oder `full`
+(nur Identität und Laufzeitmetadaten: der Sync berechnet dann keine korpusweiten Ableitungen,
+sondern lädt den Bestand nur, um den leeren Umfang zu bestimmen und die korpusabgeleiteten
+Zeilen von `law_runtime_meta` neu zu schreiben – `isMetadataOnlyRun`/`planRun` in
+`scripts/sync-recht-d1.mjs`; jeder nicht leere oder nicht eindeutig datenneutrale Umfang nimmt
+den normalen fail-closed Projektionsweg), `incremental` (nachgewiesener Umfang) oder `full`
 (abweichende Tabellen werden genannt; Schemaänderungen sind immer `full`). Die Nachweisdatei ist
 an Basis- und Ziel-Commit, alte und neue Identität, Scope, Comparator-Version und Umfangssignatur
 gebunden; `--equivalence-proof <Datei>` prüft jede Bindung gegen die gespeicherte Identität in D1
