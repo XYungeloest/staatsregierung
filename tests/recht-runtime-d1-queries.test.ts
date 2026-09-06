@@ -58,12 +58,13 @@ test('listNormSummariesByType filtert per SQL über den Typindex und liest keine
   const { db, log } = recordingDatabase();
   await createD1NormStore(db).listNormSummariesByType('gesetz');
   assert.equal(log.length, 1);
-  assert.match(log[0].sql, /WHERE n\.type IN \(\?\)/u);
+  assert.match(log[0].sql, /WHERE n\.in_inventory = 1 AND n\.type IN \(\?\)/u);
   assert.deepEqual(log[0].params, ['gesetz']);
-  assert.match(log[0].sql, /ORDER BY n\.sort_title, n\.slug/u);
+  assert.match(log[0].sql, /ORDER BY COALESCE\(n\.sort_word, n\.sort_title\), n\.slug/u);
   assert.ok(!/meta_json|version_json|history_json/u.test(log[0].sql));
   const subject = recordingDatabase();
   await createD1NormStore(subject.db).listNormSummaries({ subjectSlug: 'bildung-und-schule', statuses: ['in-force'] });
+  assert.match(subject.log[0].sql, /^SELECT .*WHERE n\.in_inventory = 1 AND n\.status IN/su);
   assert.match(subject.log[0].sql, /law_norm_subjects s WHERE s\.subject_slug = \?/u);
   assert.deepEqual(subject.log[0].params, ['in-force', 'bildung-und-schule']);
 });
@@ -164,15 +165,17 @@ test('Übersichten ohne Suchbegriff sortieren nach jüngster Rechtsänderung (la
   await store.queryNormSummaries({ letter: 'G', page: 1, pageSize: 50 });
   const browse = log.filter((query) => query.sql.startsWith('SELECT n.slug FROM law_norms n'));
   assert.equal(browse.length, 2);
-  for (const query of browse) assert.match(query.sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT \? OFFSET \?/u);
+  for (const query of browse) assert.match(query.sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, COALESCE\(n\.sort_word, n\.sort_title\), n\.slug LIMIT \? OFFSET \?/u);
   assert.deepEqual(browse[1].params, ['gesetz', 'inherited-amended', 120, 0]);
   assert.ok(browse.every((query) => !query.sql.includes('current_valid_from')));
   const fulltext = log.find((query) => query.sql.includes('law_search MATCH ?') && query.sql.includes('LIMIT'));
   assert.match(fulltext?.sql ?? '', /ORDER BY best LIMIT \? OFFSET \?/u);
   const pages = log.filter((query) => query.sql.includes('LIMIT ? OFFSET ?') && query.sql.includes('n.sort_title') && !query.sql.startsWith('SELECT n.slug FROM law_norms n'));
   assert.equal(pages.length, 2);
-  assert.match(pages[0].sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, n\.sort_title, n\.slug LIMIT/u);
-  assert.match(pages[1].sql, /WHERE n\.index_letter = \? ORDER BY n\.sort_title, n\.slug LIMIT/u);
+  assert.match(pages[0].sql, /ORDER BY \(n\.last_change_date IS NULL\), n\.last_change_date DESC, COALESCE\(n\.sort_word, n\.sort_title\), n\.slug LIMIT/u);
+  // Grundmenge und Ordnungswort: das A–Z blendet übernommene Änderungsvorschriften aus und
+  // sortiert nach dem Ordnungswort, während der Titel die Überschrift bleibt.
+  assert.match(pages[1].sql, /WHERE n\.in_inventory = 1 AND n\.index_letter = \? ORDER BY COALESCE\(n\.sort_word, n\.sort_title\), n\.slug LIMIT/u);
 });
 
 test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und Seite verwenden dieselben Bedingungen', async () => {
@@ -213,7 +216,7 @@ test('Kandidatenabfrage drückt jeden tragbaren Filter als SQL aus; Zählung und
   // Ohne Filter bleibt die Abfrage unverändert schmal.
   const { db: plainDb, log: plainLog } = recordingDatabase({ 'count(*)': [{ total: 0 }] });
   await createD1NormStore(plainDb).searchCandidates({ match: null, limit: 120, offset: 0, includeAmendments: true });
-  assert.equal(plainLog[0].sql, 'SELECT n.slug FROM law_norms n WHERE 1 = 1 ORDER BY (n.last_change_date IS NULL), n.last_change_date DESC, n.sort_title, n.slug LIMIT ? OFFSET ?');
+  assert.equal(plainLog[0].sql, 'SELECT n.slug FROM law_norms n WHERE 1 = 1 ORDER BY (n.last_change_date IS NULL), n.last_change_date DESC, COALESCE(n.sort_word, n.sort_title), n.slug LIMIT ? OFFSET ?');
   assert.deepEqual(plainLog[0].params, [120, 0]);
 });
 
@@ -221,10 +224,15 @@ test('Buchstabenzähler eines Verzeichnisses laufen als GROUP BY über dieselben
   const { db, log } = recordingDatabase({ 'GROUP BY n.index_letter': [{ letter: 'G', count: 4 }] });
   const store = createD1NormStore(db);
   assert.deepEqual(await store.listIndexLetters({ types: ['gesetz'] }), [{ letter: 'G', count: 4 }]);
-  assert.match(log[0].sql, /^SELECT n\.index_letter AS letter, COUNT\(\*\) AS count FROM law_norms n WHERE n\.type IN \(\?\) GROUP BY n\.index_letter ORDER BY n\.index_letter$/u);
+  assert.match(log[0].sql, /^SELECT n\.index_letter AS letter, COUNT\(\*\) AS count FROM law_norms n WHERE n\.in_inventory = 1 AND n\.type IN \(\?\) GROUP BY n\.index_letter ORDER BY n\.index_letter$/u);
   assert.deepEqual(log[0].params, ['gesetz']);
   await store.listIndexLetters({ subjectSlug: 'bildung-und-schule', originKind: 'ostdeutsch-original' });
   assert.match(log[1].sql, /n\.origin_kind = \? AND n\.id IN \(SELECT s\.norm_id FROM law_norm_subjects s WHERE s\.subject_slug = \?\) GROUP BY n\.index_letter/u);
+  // Der Normtypfilter „Änderungsvorschrift“ hebt die Grundmenge auf, sonst bliebe er ohne Treffer.
+  await store.listIndexLetters({ types: ['aenderungsvorschrift'] });
+  assert.ok(!log[2].sql.includes('in_inventory'));
+  await store.listIndexLetters({ types: ['gesetz'], includeInheritedAmendments: true });
+  assert.ok(!log[3].sql.includes('in_inventory'));
   assert.ok(log.every((query) => !/meta_json|version_json|history_json/u.test(query.sql)));
 });
 
@@ -251,9 +259,9 @@ test('seitenweise Übersichten laufen als SQL mit COUNT(*) und LIMIT/OFFSET; Buc
   assert.equal(page.page, 3);
   assert.equal(page.pageCount, 3);
   assert.equal(log.length, 2);
-  assert.match(log[0].sql, /^SELECT COUNT\(\*\) AS total FROM law_norms n WHERE n\.index_letter = \?$/u);
+  assert.match(log[0].sql, /^SELECT COUNT\(\*\) AS total FROM law_norms n WHERE n\.in_inventory = 1 AND n\.index_letter = \?$/u);
   assert.deepEqual(log[0].params, ['B']);
-  assert.match(log[1].sql, /WHERE n\.index_letter = \? ORDER BY n\.sort_title, n\.slug LIMIT \? OFFSET \?$/u);
+  assert.match(log[1].sql, /WHERE n\.in_inventory = 1 AND n\.index_letter = \? ORDER BY COALESCE\(n\.sort_word, n\.sort_title\), n\.slug LIMIT \? OFFSET \?$/u);
   assert.deepEqual(log[1].params, ['B', 50, 100]);
   assert.ok(!/meta_json|version_json|history_json/u.test(log[1].sql));
 
@@ -274,28 +282,28 @@ test('seitenweise Übersichten laufen als SQL mit COUNT(*) und LIMIT/OFFSET; Buc
 
 test('Buchstabengruppen, Stichwortindex und Herkunftszähler lesen nur Aggregat- bzw. Indexzeilen', async () => {
   const { db, log } = recordingDatabase({
-    'GROUP BY index_letter': [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }],
+    'GROUP BY n.index_letter': [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }],
     'COUNT(DISTINCT k.keyword)': [{ total: 250 }],
     'GROUP BY k.keyword ORDER BY k.keyword LIMIT': [{ keyword: 'Abgaben' }],
     'FROM law_norm_keywords k JOIN law_norms n': [{ keyword: 'Abgaben', slug: 'a', short_title: 'A-Gesetz' }, { keyword: 'Abgaben', slug: 'b', short_title: 'B-Gesetz' }, { keyword: 'Abgaben', slug: 'a', short_title: 'A-Gesetz' }],
-    'GROUP BY origin_kind': [{ origin_kind: 'ostdeutsch-original', count: 5 }, { origin_kind: null, count: 1 }],
+    'GROUP BY n.origin_kind': [{ origin_kind: 'ostdeutsch-original', count: 5 }, { origin_kind: null, count: 1 }],
   });
   const store = createD1NormStore(db);
   assert.deepEqual(await store.listIndexLetters(), [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }]);
-  const keywords = await store.listKeywordIndex('A', { q: 'abg', page: 2 });
+  const keywords = await store.listKeywordIndex('A', { kinds: ['abbr', 'short-title'], q: 'abg', page: 2 });
   assert.deepEqual(keywords.entries, [{ keyword: 'Abgaben', norms: [{ slug: 'a', shortTitle: 'A-Gesetz' }, { slug: 'b', shortTitle: 'B-Gesetz' }] }]);
   assert.deepEqual({ total: keywords.total, page: keywords.page, pageSize: keywords.pageSize, pageCount: keywords.pageCount }, { total: 250, page: 2, pageSize: 50, pageCount: 5 });
   assert.deepEqual(await store.countByOriginKind(), { 'ostdeutsch-original': 5 });
   const countQuery = log.find((query) => query.sql.includes('COUNT(DISTINCT k.keyword)'));
   assert.ok(countQuery);
-  assert.match(countQuery.sql, /WHERE k\.index_letter = \? AND lower\(k\.keyword\) LIKE \? ESCAPE/u);
-  assert.deepEqual(countQuery.params, ['A', '%abg%']);
+  assert.match(countQuery.sql, /WHERE k\.index_letter = \? AND k\.kind IN \(\?, \?\) AND lower\(k\.keyword\) LIKE \? ESCAPE/u);
+  assert.deepEqual(countQuery.params, ['A', 'abbr', 'short-title', '%abg%']);
   const pageQuery = log.find((query) => query.sql.includes('GROUP BY k.keyword ORDER BY k.keyword LIMIT'));
   assert.ok(pageQuery);
-  assert.deepEqual(pageQuery.params, ['A', '%abg%', 50, 50]);
+  assert.deepEqual(pageQuery.params, ['A', 'abbr', 'short-title', '%abg%', 50, 50]);
   const joinQuery = log.find((query) => query.sql.includes('FROM law_norm_keywords k JOIN law_norms n'));
   assert.ok(joinQuery);
-  assert.match(joinQuery.sql, /WHERE k\.index_letter = \? AND lower\(k\.keyword\) LIKE \? ESCAPE '\\' AND k\.keyword BETWEEN \? AND \? ORDER BY k\.keyword/u);
-  assert.deepEqual(joinQuery.params, ['A', '%abg%', 'Abgaben', 'Abgaben'], 'höchstens vier Parameter, unabhängig von der Seitengröße (D1-Grenze 100)');
+  assert.match(joinQuery.sql, /WHERE k\.index_letter = \? AND k\.kind IN \(\?, \?\) AND lower\(k\.keyword\) LIKE \? ESCAPE '\\' AND k\.keyword BETWEEN \? AND \? ORDER BY k\.keyword/u);
+  assert.deepEqual(joinQuery.params, ['A', 'abbr', 'short-title', '%abg%', 'Abgaben', 'Abgaben'], 'höchstens sechs Parameter, unabhängig von der Seitengröße (D1-Grenze 100)');
   assert.ok(log.every((query) => !loadsCorpus(query)));
 });

@@ -230,6 +230,7 @@ test('Vollbestand-Smoke nur bei Laufzeit-, Projektions- oder umfangreichen Besta
     { label: 'Kandidatenabfragen der Suche: Vollbestand, aber keine Projektionslogik', paths: ['packages/recht-search/src/search-query.ts'], scope: 'law', fullCorpus: true, d1Sync: false },
     { label: 'Stichtag: Vollbestand und D1-Projektion (im Abschluss)', paths: ['packages/shared/src/config/editorial.json'], scope: 'shared', fullCorpus: true, d1Sync: true },
     { label: 'Abhängigkeiten: Vollbestand', paths: ['package-lock.json'], scope: 'shared', fullCorpus: true },
+    { label: 'Stichwortregister: Rechtsdaten mit Content-Audit und D1-Sync, kein Vollbestand-Smoke', paths: ['content/stichwortregister.json'], scope: 'portal', fullCorpus: false, visual: false, content: true, d1Sync: true },
     { label: 'wenige Normen: Fixture genügt, keine Screenshots, Content-Audits und D1-Sync statt Korpus-Tests', paths: ['content/normen/a/meta.json', 'content/normen/b/versions/2026-01-01.json', 'content/verkuendungen/x.json'], scope: 'portal', fullCorpus: false, visual: false, content: true, d1Sync: true, corpus: false },
     { label: 'Themenseite: Screenshots, kein Vollbestand', paths: ['content/themen/bildung.json'], scope: 'portal', fullCorpus: false, visual: true, content: true, d1Sync: true },
     { label: 'Dokumentation: weder Vollbestand noch Screenshots', paths: ['README.md', 'docs/DEPLOYMENT_RUNBOOK.md'], scope: 'docs-only', fullCorpus: false, visual: false, unit: false },

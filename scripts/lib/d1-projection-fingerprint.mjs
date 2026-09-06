@@ -64,7 +64,11 @@ export const PROJECTION_LOGIC_FILES = [
 ];
 /** Schema der Projektion: immer Teil der Logik, jede Änderung ist eine Vollprojektion. */
 export const SCHEMA_ROOTS = ['data/recht/d1'];
-export const CORPUS_ROOTS = ['content/normen', 'content/verkuendungen'];
+/**
+ * Rechtsbestand der Projektion: Normen, Verkündungen und das redaktionelle Stichwortregister
+ * (content/stichwortregister.json), das der Sync als Eingabe der Stichworteinträge liest.
+ */
+export const CORPUS_ROOTS = ['content/normen', 'content/verkuendungen', 'content/stichwortregister.json'];
 export const PORTAL_CONTENT_ROOTS = ['content/themen', 'content/presse'];
 export const FULL_SCOPE = 'full';
 

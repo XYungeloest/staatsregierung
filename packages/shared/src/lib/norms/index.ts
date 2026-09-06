@@ -84,6 +84,8 @@ export {
   formatNormStatus,
   formatNormType,
   getBlockAnchorId,
+  getNormSortKey,
+  getNormSortWord,
   getResolvedBlockAnchorId,
   toDisplayText,
   type NormAnchorMap,
@@ -175,6 +177,16 @@ export {
   isInheritedAmendment,
   type InventoryStats,
 } from '@ostrecht/shared/lib/norms/inventory.ts';
+export {
+  REGISTER_PATH,
+  REGISTER_SCHEMA,
+  loadKeywordRegister,
+  parseKeywordRegister,
+  registerKeywordKey,
+  registerKeywordsBySlug,
+  type KeywordRegister,
+  type RegisterEntry,
+} from '@ostrecht/shared/lib/norms/register.ts';
 export {
   compareSubjects,
   formatSubjectLabel,
