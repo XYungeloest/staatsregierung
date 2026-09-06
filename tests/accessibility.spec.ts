@@ -51,7 +51,8 @@ const auditTargets: AuditTarget[] = [
   { name: 'Rechtssuche', site: 'law', resolve: lawPage('/suche/') },
   { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
   { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
-  { name: 'Rechtsentwicklung', site: 'law', resolve: lawPage('/rechtsentwicklung/') },
+  { name: 'Förderrichtlinien', site: 'law', resolve: lawPage('/foerderrichtlinien/') },
+  { name: 'Verkündungen (Einträge)', site: 'law', resolve: lawPage('/verkuendungen/?ansicht=eintraege') },
   { name: 'Sachgebiet', site: 'law', resolve: async (request) => lawUrl(await firstLink(request, lawUrl('/sachgebiete/'), /href="\/sachgebiete\/[a-z0-9-]+\/"/u)) },
   { name: 'Verkündung', site: 'law', resolve: async (request) => { const index = await publicationIndex(request); expect(index.latestPublication).toBeTruthy(); return lawUrl(`/verkuendungen/${index.latestPublication!.slug}/`); } },
   { name: 'Hilfe', site: 'law', resolve: lawPage('/hilfe/') },
@@ -87,6 +88,8 @@ async function openTarget(page: Page, request: APIRequestContext, target: AuditT
 for (const target of selected(auditTargets)) {
   test(`Accessibility-Smoke-Test: ${target.name}`, async ({ page, request }) => {
     const url = await openTarget(page, request, target);
+    // Genau ein <main> je Seite: Hilfstechnik braucht einen eindeutigen Hauptbereich.
+    expect(await page.locator('main').count(), `${url}: genau ein main`).toBe(1);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();

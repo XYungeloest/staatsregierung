@@ -230,20 +230,12 @@ export function getLawFundingUrl(): string {
   return getLawSiteUrl('funding');
 }
 
-export function getLawReferencesUrl(): string {
-  return getLawSiteUrl('references');
-}
-
 export function getLawPublicationsUrl(): string {
   return getLawSiteUrl('publications');
 }
 
 export function getLawConstitutionUrl(): string {
   return getLawSiteUrl('constitution');
-}
-
-export function getLawDevelopmentUrl(): string {
-  return getLawSiteUrl('development');
 }
 
 export function getLawHelpUrl(): string {

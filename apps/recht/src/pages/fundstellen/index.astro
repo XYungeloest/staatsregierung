@@ -1,158 +1,22 @@
 ---
-import LawLayout from '../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import DirectoryEntry from '../../components/directory/DirectoryEntry.astro';
-import DirectoryFilterBar from '../../components/directory/DirectoryFilterBar.astro';
-import DirectoryPagination from '../../components/directory/DirectoryPagination.astro';
-import { formatDate, formatPublicationEntryType, getLawPortalUrl, getNormUrl, getNormVersionUrl, getPublicationLabel, getPublicationUrl, getReferencesUrl, listPublicationEntries, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
-import { getNormStore } from '../../lib/runtime/context.ts';
-import { DEFAULT_PAGE_SIZE, normalizePage, normalizeQueryText } from '../../lib/runtime/store.ts';
-import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
+import { getPublicationsUrl } from '@ostrecht/shared/lib/norms/index.ts';
+import { pageUrl } from '../../lib/runtime/pagination.ts';
 
-// Fundstellen entstehen aus der Metadatentabelle der Verkündungen; Filter und Seiten laufen
-// serverseitig über GET-Parameter, die Antwort enthält höchstens eine Seite Nachweise.
+/**
+ * Fundstellen und Verkündungen sind eine Seite: Die Einträge der Verkündungsblätter stehen
+ * unter /verkuendungen/ in der Ansicht „Einträge“. Diese Adresse bleibt dauerhaft gültig
+ * und führt mit denselben Filtern dorthin.
+ */
 export const prerender = false;
 
-const store = await getNormStore(Astro.locals);
-Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
-
-const basePath = getReferencesUrl();
-const publications = await store.listPublications();
-const entries = listPublicationEntries(publications).sort((left, right) => {
-  if (left.publication.publication !== right.publication.publication) {
-    return left.publication.publication.localeCompare(right.publication.publication, 'de');
-  }
-  if (left.publication.year !== right.publication.year) {
-    return right.publication.year - left.publication.year;
-  }
-  return right.publication.issue.localeCompare(left.publication.issue, 'de', { numeric: true });
-});
-const publicationNames = [...new Set(publications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));
-const years = [...new Set(publications.map((publication) => publication.year))].sort((left, right) => right - left);
-const entryTypes = [...new Set(entries.map(({ entry }) => entry.type))].sort();
-
 const params = Astro.url.searchParams;
-const clean = (value: string | null, allowed?: string[]): string => {
-  const text = (value ?? '').trim().slice(0, 100);
-  return !text || (allowed && !allowed.includes(text)) ? '' : text;
-};
-const state = {
-  publication: clean(params.get('publication'), publicationNames),
-  year: clean(params.get('year'), years.map(String)),
-  issue: clean(params.get('issue')),
-  type: clean(params.get('type'), entryTypes),
-  q: clean(params.get('q')),
-};
-const query = normalizeQueryText(state.q);
-const filtered = entries.filter(({ publication, entry }) =>
-  (!state.publication || publication.publication === state.publication)
-  && (!state.year || String(publication.year) === state.year)
-  && (!state.issue || publication.issue === state.issue)
-  && (!state.type || entry.type === state.type)
-  && (!query || `${entry.title} ${entry.citation}`.toLocaleLowerCase('de-DE').includes(query)));
-const { page } = normalizePage(params.get('seite'));
-const pageCount = Math.max(1, Math.ceil(filtered.length / DEFAULT_PAGE_SIZE));
-const current = Math.min(page, pageCount);
-const items = filtered.slice((current - 1) * DEFAULT_PAGE_SIZE, current * DEFAULT_PAGE_SIZE);
-const filterParams = { publication: state.publication, year: state.year, issue: state.issue, type: state.type, q: state.q };
-const active = Object.values(filterParams).some(Boolean);
-const pagination = buildPagination({ page: current, pageCount, basePath, params: filterParams });
-const firstIndex = filtered.length === 0 ? 0 : (current - 1) * DEFAULT_PAGE_SIZE + 1;
-const lastIndex = Math.min(current * DEFAULT_PAGE_SIZE, filtered.length);
-const count = filtered.length === 0
-  ? 'Keine Nachweise passen zur Auswahl.'
-  : `${filtered.length} ${filtered.length === 1 ? 'Nachweis' : 'Nachweise'}${active ? ' passen zur Auswahl' : ''}${filtered.length > DEFAULT_PAGE_SIZE ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
-
-// Nur die Fassungen der auf dieser Seite zitierten Normen (Slug, Fassung, zeitliche Einordnung).
-const citedSlugs = [...new Set(items.map(({ entry }) => entry.normSlug).filter((slug): slug is string => Boolean(slug)))];
-const [versionSummaries, normSummaries] = await Promise.all([store.listVersionSummaries({ slugs: citedSlugs }), store.getNormSummaries(citedSlugs)]);
-const versionKinds = new Map(versionSummaries.map((version) => [`${version.slug}:${version.versionId}`, version.temporalKind]));
-
-function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
-  if (!normSlug || !normSummaries.has(normSlug)) return undefined;
-  const kind = versionId ? versionKinds.get(`${normSlug}:${versionId}`) : undefined;
-  return !kind || kind === 'current' ? getNormUrl(normSlug) : getNormVersionUrl(normSlug, versionId as string);
-}
-const yearCounts = new Map(years.map((year) => [year, entries.filter(({ publication }) => publication.year === year).length]));
-const pageTitle = `Fundstellennachweise${current > 1 ? ` (Seite ${current} von ${pageCount})` : ''}`;
+return Astro.redirect(pageUrl(getPublicationsUrl(), {
+  ansicht: 'eintraege',
+  publication: params.get('publication') ?? '',
+  year: params.get('year') ?? '',
+  issue: params.get('issue') ?? '',
+  type: params.get('type') ?? '',
+  q: params.get('q') ?? '',
+  seite: params.get('seite') ?? '',
+}), 301);
 ---
-
-<LawLayout
-  title={pageTitle}
-  description="Fundstellen, Verkündungsblätter und Verweise auf Normfassungen im Rechtsbereich."
-  breadcrumbs={[
-    { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Fundstellennachweise', href: basePath },
-  ]}
-  canonical={pageUrl(basePath, { ...filterParams, seite: current })}
-  noindex={active}
-  prev={pagination.prev}
-  next={pagination.next}
->
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: 'Fundstellennachweise' },
-    ]}
-  />
-
-  <SectionHero
-    eyebrow="Rechtsportal"
-    title="Fundstellennachweise"
-    lead="Nachweise aus Verkündungsblättern mit direkter Verknüpfung zu den gespeicherten Normfassungen."
-    variant="law"
-    facts={[
-      { label: 'Verkündungsblätter', value: String(publicationNames.length) },
-      { label: 'Jahrgänge', value: String(years.length) },
-    ]}
-  />
-
-  <section class="directory" aria-labelledby="fundstellen-heading" data-directory>
-    <h2 id="fundstellen-heading" class="directory__heading">Nachweise</h2>
-    <DirectoryFilterBar action={basePath} label="Fundstellen filtern" active={active} resetHref={basePath} count={count}>
-      <label class="search-field"><span>Verkündungsblatt</span><select name="publication"><option value="" selected={!state.publication}>Alle Verkündungsblätter</option>{publicationNames.map((entry) => <option value={entry} selected={entry === state.publication}>{entry}</option>)}</select></label>
-      <label class="search-field"><span>Jahr</span><select name="year"><option value="" selected={!state.year}>Alle Jahre</option>{years.map((entry) => <option value={String(entry)} selected={String(entry) === state.year}>{entry}</option>)}</select></label>
-      <label class="search-field"><span>Ausgabennummer</span><input name="issue" inputmode="numeric" value={state.issue} /></label>
-      <label class="search-field"><span>Normtyp</span><select name="type"><option value="" selected={!state.type}>Alle Normtypen</option>{entryTypes.map((entry) => <option value={entry} selected={entry === state.type}>{formatPublicationEntryType(entry)}</option>)}</select></label>
-      <label class="search-field"><span>Titel oder Suchbegriff</span><input type="search" name="q" value={state.q} autocomplete="off" maxlength="100" /></label>
-    </DirectoryFilterBar>
-
-    <nav class="letter-nav" aria-label="Jahrgänge">
-      <a href={pageUrl(basePath, { ...filterParams, year: '' })} aria-current={state.year ? undefined : 'page'}>Alle</a>
-      {years.map((year) => (
-        <a href={pageUrl(basePath, { ...filterParams, year: String(year) })} aria-current={String(year) === state.year ? 'page' : undefined} title={`${yearCounts.get(year) ?? 0} Nachweise`}>{year}</a>
-      ))}
-    </nav>
-
-    {items.length > 0 ? (
-      <ol class="directory-list" start={firstIndex} data-directory-list>
-        {items.map(({ publication, entry }) => {
-          const normUrl = getEntryNormUrl(entry.normSlug, entry.versionId);
-          const summary = entry.normSlug ? normSummaries.get(entry.normSlug) : undefined;
-          return (
-            <DirectoryEntry
-              title={toDisplayText(entry.title)}
-              href={`${getPublicationUrl(publication.slug)}#${entry.id}`}
-              lead={{ text: formatDate(publication.date), datetime: publication.date }}
-              subtitle={toDisplayText(entry.citation)}
-              typeLabel={formatPublicationEntryType(entry.type)}
-              originKind={summary ? (summary.originKind ?? null) : undefined}
-              facts={[
-                { label: 'Ausgabe', value: getPublicationLabel(publication), href: getPublicationUrl(publication.slug) },
-                normUrl
-                  ? { label: 'Normfassung', value: entry.versionId ? `Fassung ${entry.versionId}` : 'Vorschrift öffnen', href: normUrl }
-                  : { label: 'Normfassung', value: 'nicht als Volltext gespeichert' },
-              ]}
-              attrs={{ 'data-directory-entry': '', 'data-year': String(publication.year), 'data-type': entry.type }}
-            />
-          );
-        })}
-      </ol>
-    ) : (
-      <p class="directory-empty" data-directory-empty>Passen Sie die Filter an oder <a class="inline-link" href={basePath}>setzen Sie die Auswahl zurück</a>.</p>
-    )}
-
-    <DirectoryPagination pagination={pagination} label="Seiten der Nachweisliste" attrs={{ 'data-directory-pagination': '' }} />
-  </section>
-</LawLayout>

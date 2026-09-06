@@ -38,6 +38,8 @@ import {
   pageRangeForPublication,
   pdfPageCount,
   preserveVerifiedAt,
+  publicationPdfFileName,
+  publicationPdfPublicPath,
   publicationSourceReferences as buildPublicationSourceReferences,
   resolvePublicationPdf,
 } from './lib/publication-pdf.mjs';
@@ -1093,7 +1095,7 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
   const publication = {
     ...existingPublication,
     ...(existingPublication.sourceFiles ? { sourceFiles: [`Gesetze/${basename(parsed.fileName)}`] } : {}),
-    ...(resolvedPdf.fileName ? { pdf: `/assets/recht/${resolvedPdf.fileName}` } : { pdf: undefined }),
+    ...(resolvedPdf.fileName ? { pdf: publicationPdfPublicPath(existingPublication.slug) } : { pdf: undefined }),
     sourceReferences: officialIssueSourceReferences(parsed, {}, {
       existingReferences: existingPublication.sourceReferences,
       ...(publicationPageRange ? { pageRange: publicationPageRange } : {}),
@@ -1542,7 +1544,7 @@ function publicationFrom(parsed, records) {
       place: 'Dresden',
       publisher: 'Freistaat Ostdeutschland',
     } : {}),
-    ...(pdfFileName ? { pdf: `/assets/recht/${pdfFileName}` } : {}),
+    ...(pdfFileName ? { pdf: publicationPdfPublicPath(`${publicationDetails.slugPrefix}-${parsed.year}-${publicationIssue}`) } : {}),
     sourceReferences: officialIssueSourceReferences(parsed, config),
     entries: [...records.map((record) => ({
       id: record.meta.slug,
@@ -1577,7 +1579,7 @@ function gmblPublicationFrom(record) {
     publication: 'GMBl.',
     place: 'Bonn',
     publisher: 'Bundesministerium des Innern und für Heimat',
-    pdf: '/assets/recht/GMBl-14-2026.pdf',
+    pdf: publicationPdfPublicPath('gmbl-2026-14'),
     sourceReferences: GMBL_SOURCE_REFERENCES,
     entries: [
       {
@@ -1604,7 +1606,7 @@ function stanzoHousingPublicationFrom(record) {
     publication: 'StAnzO.',
     place: 'Dresden',
     publisher: 'Freistaat Ostdeutschland',
-    pdf: '/assets/recht/StAnzO. 2026 Nr. 15.pdf',
+    pdf: publicationPdfPublicPath('stanzo-2026-15'),
     sourceReferences: STANZO_HOUSING_SOURCE_REFERENCES,
     entries: [{
       id: STANZO_HOUSING_GUIDELINE_SLUG,
@@ -2523,8 +2525,7 @@ if (shouldWrite) {
     await writeJson(path, publication);
     const primaryPdf = publication.sourceReferences?.find((reference) => reference.kind === 'primary-pdf');
     if (primaryPdf?.localSource) {
-      const pdfFileName = basename(primaryPdf.localSource);
-      const publicPath = resolve(ROOT, 'public/assets/recht', pdfFileName);
+      const publicPath = resolve(ROOT, 'public/assets/recht', publicationPdfFileName(publication.slug));
       await mkdir(resolve(ROOT, 'public/assets/recht'), { recursive: true });
       await copyFile(resolve(ROOT, primaryPdf.localSource), publicPath);
     }

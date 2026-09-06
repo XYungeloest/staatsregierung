@@ -74,10 +74,8 @@ export const lawPaths = {
   index: '/archiv/',
   subjects: '/sachgebiete/',
   funding: '/foerderrichtlinien/',
-  references: '/fundstellen/',
   publications: '/verkuendungen/',
   constitution: '/norm/staatsverfassung-des-freistaates-ostdeutschland/',
-  development: '/rechtsentwicklung/',
   help: '/hilfe/',
 } as const;
 

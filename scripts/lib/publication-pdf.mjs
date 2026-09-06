@@ -23,6 +23,17 @@ export const HISTORICAL_PUBLICATION_PAGE_RANGE_MAP = {
   'StAnzO.|2026|5': '2–6',
 };
 
+// Öffentlicher Name eines Ausgaben-PDFs ist der Slug der Ausgabe. Der interne Quellenname
+// bleibt unverändert (er belegt die Herkunft); die ausgelieferte Adresse enthält damit
+// weder Leerzeichen noch Punkte und ist ohne Kodierung zitierbar.
+export function publicationPdfFileName(slug) {
+  return `${slug}.pdf`;
+}
+
+export function publicationPdfPublicPath(slug) {
+  return `/assets/recht/${publicationPdfFileName(slug)}`;
+}
+
 export function canonicalPublicationIdentity(publication, year, issue) {
   const identity = `${publication}|${year}|${String(issue).replace(/^0+(?=\d)/u, '')}`;
   return PUBLICATION_IDENTITY_ALIASES[identity] ?? identity;

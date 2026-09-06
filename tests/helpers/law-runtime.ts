@@ -115,7 +115,7 @@ export async function suggestions(request: APIRequestContext): Promise<Suggestio
   });
 }
 
-export async function publicationIndex(request: APIRequestContext): Promise<{ latestPublication: { slug: string; date: string; publication: string; year: number; issue: string } | null; publications: Array<{ slug: string; label: string; aliases: string[]; issue: string; publication: string; entries: Array<{ normSlug?: string }> }> }> {
+export async function publicationIndex(request: APIRequestContext): Promise<{ latestPublication: { slug: string; date: string; publication: string; year: number; issue: string; label: string } | null; publications: Array<{ slug: string; label: string; aliases: string[]; issue: string; publication: string; entries: Array<{ normSlug?: string }> }> }> {
   return withWorkerRecovery(request, async () => {
     const response = await request.get(lawUrl('/verkuendungen/index.json'));
     expect(response.ok()).toBe(true);

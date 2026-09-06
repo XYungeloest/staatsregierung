@@ -15,3 +15,11 @@ test('jedes Ziel des Rechtsportals hat genau eine Bezeichnung', () => {
   const labels = Object.values(lawSiteConfig.targetLabels);
   assert.equal(new Set(labels).size, labels.length, 'Bezeichnungen sind eindeutig');
 });
+
+test('aufgelöste Bereiche sind keine eigenen Ziele mehr', () => {
+  // Fundstellen sind eine Ansicht der Verkündungen, die Rechtsentwicklung eine Sicht der Suche.
+  assert.equal(Object.hasOwn(lawSiteConfig.paths, 'references'), false);
+  assert.equal(Object.hasOwn(lawSiteConfig.paths, 'development'), false);
+  assert.equal(Object.hasOwn(lawSiteConfig.targetLabels, 'references'), false);
+  assert.equal(Object.hasOwn(lawSiteConfig.targetLabels, 'development'), false);
+});

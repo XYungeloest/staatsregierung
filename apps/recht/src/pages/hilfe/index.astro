@@ -8,8 +8,8 @@ import {
   getHelpUrl,
   getIndexUrl,
   getLawPortalUrl,
+  getPublicationEntriesUrl,
   getPublicationsUrl,
-  getReferencesUrl,
   getSearchUrl,
   getSubjectsUrl,
 } from '@ostrecht/shared/lib/norms/index.ts';
@@ -52,7 +52,7 @@ import {
   </section>
 
   <div class="law-help-layout">
-    <main class="law-help-guide">
+    <div class="law-help-guide">
       <div class="law-help-guide__heading">
         <span class="section-eyebrow">Schritt für Schritt</span>
         <h2>OstRecht sicher nutzen</h2>
@@ -153,7 +153,7 @@ import {
         </p>
         </div>
       </section>
-    </main>
+    </div>
 
     <aside class="law-help-aside">
       <section>
@@ -163,7 +163,7 @@ import {
           <a href={getSearchUrl()}>Normensuche</a>
           <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
           <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
-          <a href={getReferencesUrl()}>Fundstellennachweise</a>
+          <a href={getPublicationEntriesUrl()}>Fundstellen</a>
           <a href={getPublicationsUrl()}>Verkündungen</a>
           <a href={getFundingUrl()}>Förderrichtlinien</a>
         </nav>

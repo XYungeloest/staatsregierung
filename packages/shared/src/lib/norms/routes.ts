@@ -3,13 +3,11 @@ import {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
-  getLawDevelopmentUrl,
   getLawFundingUrl,
   getLawHomeUrl,
   getLawHelpUrl,
   getLawIndexUrl,
   getLawPublicationsUrl,
-  getLawReferencesUrl,
   getLawSearchUrl,
   getLawSubjectsUrl,
   getPrivacyUrl,
@@ -74,12 +72,13 @@ export function getFundingUrl(): string {
   return getLawFundingUrl();
 }
 
-export function getReferencesUrl(): string {
-  return getLawReferencesUrl();
-}
-
 export function getPublicationsUrl(): string {
   return getLawPublicationsUrl();
+}
+
+/** Verkündungen in der Ansicht „Einträge“: die Fundstellen aller Ausgaben in einer Liste. */
+export function getPublicationEntriesUrl(): string {
+  return `${getLawPublicationsUrl()}?ansicht=eintraege`;
 }
 
 export function getPublicationUrl(slug: string): string {
@@ -92,10 +91,6 @@ export function getHelpUrl(): string {
 
 export function getLawPortalUrl(): string {
   return getLawHomeUrl();
-}
-
-export function getLawDevelopmentOverviewUrl(): string {
-  return getLawDevelopmentUrl();
 }
 
 export function getNormCompareSelectionUrl(
@@ -120,11 +115,9 @@ export {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
-  getLawDevelopmentUrl,
   getLawFundingUrl,
   getLawHelpUrl,
   getLawPublicationsUrl,
-  getLawReferencesUrl,
   getPrivacyUrl,
   getServiceOverviewUrl,
 };

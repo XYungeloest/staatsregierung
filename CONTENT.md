@@ -969,9 +969,12 @@ Regeln:
   Vergleich zur vorherigen Fassung lesbar. Bei übernommenem Recht wird zusätzlich ein direkter
   Vergleich mit der belegten Ausgangsfassung angeboten. Weitere Paarungen werden erst beim Abruf für
   genau das angefragte Paar berechnet; die Normseiten betten nicht alle Fassungs-Paare ein.
-- `/rechtsentwicklung/` auf der OstRecht-Origin bündelt Herkunft, Ausgangsfassung, eigene Änderungen und den
-  anwendbaren Stand. Filter für Suchtext, Herkunft, Normtyp, Sachgebiet und Status bleiben in der
-  Adresse erhalten.
+- Herkunft, Ausgangsfassung, eigene Änderungen und der anwendbare Stand werden über die Rechtssuche
+  erschlossen; die Herkunftszahlen des Bestands stehen dort als Kacheln über der Trefferliste.
+  `/rechtsentwicklung/` bleibt als Adresse gültig und leitet mit denselben Parameternamen
+  (`q`, `origin`, `type`, `subject`, `status`) dauerhaft auf `/suche/` weiter.
+- `/verkuendungen/` führt Ausgaben und Einträge in einer Seite; `ansicht=eintraege` zeigt die
+  Einträge der Verkündungsblätter. `/fundstellen/` leitet mit denselben Filtern dorthin weiter.
 - Suchparameter mit mehreren Werten werden wiederholt, etwa `type=gesetz&type=verordnung`.
   Verschiedene Facetten sind UND-verknüpft, Werte derselben Facette ODER-verknüpft.
 - `versionScope` unterstützt `current`, `future`, `historical`, `unknown-effective` und `all`.
@@ -1292,6 +1295,11 @@ In JSON wird daraus zum Beispiel:
 Fotografische Motive sollten als webtaugliche JPEG-Dateien gepflegt werden. Transparente oder grafische Platzhalter können PNG bleiben.
 
 `npm run content:check` prüft Bildpfade für Felder wie `bild`, `image` und `hero`, wenn sie mit `/images/` beginnen.
+
+Das PDF einer Verkündung wird unter dem Slug der Ausgabe ausgeliefert: `pdf` lautet stets
+`/assets/recht/<slug>.pdf` (`publicationPdfPublicPath` in `scripts/lib/publication-pdf.mjs`). Der
+interne Quellenname unter `Gesetze/` bleibt unverändert und belegt die Herkunft. Die früher
+ausgelieferten Adressen mit Leerzeichen bleiben über `public/_redirects` dauerhaft erreichbar.
 
 E-Mail-Adressen in redaktionellen JSON-Daten verwenden ausschließlich die Domain
 `freistaat-ostdeutschland.de`. Die Content-QA führt diese Domain als kontrollierte Allowlist und

@@ -4,22 +4,34 @@ import LawLayout from '../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import SearchCheckboxGroup from '../components/norms/SearchCheckboxGroup.astro';
+import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
 import {
+  describeNormOriginKind,
   getFundingUrl,
   getIndexUrl,
   getLawPortalUrl,
+  getPublicationEntriesUrl,
   getPublicationsUrl,
-  getReferencesUrl,
   getSearchUrl,
   getSubjectsUrl,
+  LEGAL_BASELINE_DATE,
+  type NormOriginKind,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
+import { pageUrl } from '../lib/runtime/pagination.ts';
 
 // Die Suchseite ist eine statische Hülle; Treffer liefert zur Laufzeit /api/suche.json aus D1.
 const store = await getNormStore(Astro.locals);
 // Filteroptionen und Dokumentzahl kommen als vorberechnete Metadatenzeilen aus D1.
-const [{ filters, documentCount }, searchPublications] = await Promise.all([store.getSearchFilters(), store.listSearchPublications()]);
+const [{ filters, documentCount }, searchPublications, originCounts] = await Promise.all([
+  store.getSearchFilters(),
+  store.listSearchPublications(),
+  store.countByOriginKind(),
+]);
+// Reihenfolge der Herkunftsarten wie in der A–Z-Übersicht; die Zahlen zählen die Grundmenge.
+const originKinds: NormOriginKind[] = ['inherited-unchanged', 'inherited-amended', 'ostdeutsch-original', 'origin-unresolved'];
+const originOverview = originKinds.map((kind) => ({ kind, count: originCounts[kind] ?? 0 }));
 filters.publications = [...new Set(searchPublications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));
 filters.years = [...new Set(searchPublications.map((publication) => publication.year))].sort((left, right) => right.localeCompare(left));
 const searchPayload = { filters, documentCount };
@@ -69,6 +81,27 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
         <div class="search-active-filters__list" data-search-active-list></div>
         <button class="text-link-button" type="button" data-search-clear-filters>Alle Filter löschen</button>
       </div>
+
+      <section class="law-search-origins" aria-labelledby="search-origin-heading">
+        <h2 id="search-origin-heading">Rechtsherkunft</h2>
+        <p>
+          Übernommenes sächsisches Recht trägt den Rechtsstand vom
+          <time datetime={LEGAL_BASELINE_DATE}>1. November 2023</time>; seitdem entwickelt der Freistaat
+          seinen Rechtsbestand eigenständig fort. Welche Fassung als geltend angezeigt wird, richtet sich
+          davon getrennt nach dem aktuellen Rechtsstand des Portals.
+        </p>
+        <ul class="law-origin-overview" data-origin-overview>
+          {originOverview.map((entry) => (
+            <li>
+              <a href={pageUrl(getSearchUrl(), { origin: entry.kind })} data-origin-kind={entry.kind}>
+                <NormOriginBadge kind={entry.kind} />
+                <strong>{entry.count}</strong>
+                <span>{entry.count === 1 ? 'Vorschrift' : 'Vorschriften'} · {describeNormOriginKind(entry.kind)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <div class="law-search-workspace">
         <aside class="law-search-filters" aria-label="Suchfilter">
@@ -162,7 +195,7 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
             <nav>
               <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
               <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
-              <a href={getReferencesUrl()}>Fundstellennachweise</a>
+              <a href={getPublicationEntriesUrl()}>Fundstellen</a>
               <a href={getPublicationsUrl()}>Verkündungen</a>
               <a href={getFundingUrl()}>Förderrichtlinien</a>
             </nav>

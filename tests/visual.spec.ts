@@ -77,8 +77,8 @@ const visualPages: VisualPage[] = [
   { name: 'ostrecht-archiv', path: lawUrl('/archiv/') },
   { name: 'ostrecht-sachgebiete', path: lawUrl('/sachgebiete/') },
   { name: 'ostrecht-verkuendungen', path: lawUrl('/verkuendungen/') },
-  { name: 'ostrecht-fundstellen', path: lawUrl('/fundstellen/') },
-  { name: 'ostrecht-rechtsentwicklung', path: lawUrl('/rechtsentwicklung/') },
+  { name: 'ostrecht-verkuendungen-eintraege', path: lawUrl('/verkuendungen/?ansicht=eintraege') },
+  { name: 'ostrecht-foerderrichtlinien', path: lawUrl('/foerderrichtlinien/') },
   { name: 'ostrecht-verkuendung-detail', path: lawUrl(`/verkuendungen/${fixture.publication}/`) },
   // Der Sachgebietsslug trägt die amtliche Gliederungsnummer; sie kommt aus der Systematik, nicht aus dem Text.
   { name: 'ostrecht-sachgebiet-detail', path: lawUrl(`/sachgebiete/${getSubjectSlug('Kommunalrecht')}/`) },
@@ -503,14 +503,11 @@ const componentVisualPages: ComponentVisualPage[] = [
     critical: true,
   },
   {
-    name: 'rechtsentwicklung-module',
-    // Die Liste sortiert nach jüngstem Rechtsereignis; die übernommene, unveränderte Norm wird
-    // über den Freitextfilter auf die erste Seite geholt.
-    path: lawUrl(`/rechtsentwicklung/?q=${encodeURIComponent(fixture.unchangedWord)}`),
+    name: 'rechtssuche-herkunft-kacheln-module',
+    // Die Herkunftszahlen des Bestands stehen seit dem Wegfall der Rechtsentwicklung auf der Suche.
+    path: lawUrl('/suche/'),
     shots: [
-      ['rechtsentwicklung-kennzahlen', '.section-hero__facts'],
-      ['rechtsentwicklung-filter', '[data-development-filter-form]'],
-      ['rechtsentwicklung-uebernommen', `[data-development-item]:has(a[href="/norm/${fixture.unchanged}/"])`],
+      ['rechtssuche-herkunft-kacheln', '.law-search-origins'],
     ],
   },
   {

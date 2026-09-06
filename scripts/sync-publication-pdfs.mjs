@@ -9,6 +9,8 @@ import {
   pdfPageCount,
   preserveVerifiedAt,
   publicationIdentityKey,
+  publicationPdfFileName,
+  publicationPdfPublicPath,
   publicationSourceReferences,
   resolvePublicationPdf,
   retainUnrelatedPublicationSourceReferences,
@@ -31,7 +33,7 @@ function isCorrectlyLinked(publication, pdfFileNames) {
     entry.kind === 'primary-pdf' && entry.availability === 'versioned');
   if (!reference?.localSource || !publication.pdf) return false;
   const fileName = basename(reference.localSource);
-  return pdfFileNames.includes(fileName) && publication.pdf === `/assets/recht/${fileName}`;
+  return pdfFileNames.includes(fileName) && publication.pdf === publicationPdfPublicPath(publication.slug);
 }
 
 const [publicationFiles, sourceFiles] = await Promise.all([
@@ -117,7 +119,7 @@ for (const fileName of publicationFiles.filter((name) => name.endsWith('.json'))
   }), publication.sourceReferences);
   const updated = {
     ...publicationWithCorrectedEntries,
-    pdf: `/assets/recht/${resolved.fileName}`,
+    pdf: publicationPdfPublicPath(publication.slug),
     sourceReferences: [
       ...modernReferences,
       ...retainUnrelatedPublicationSourceReferences(publication.sourceReferences, {
@@ -134,7 +136,7 @@ for (const fileName of publicationFiles.filter((name) => name.endsWith('.json'))
   if (write) {
     await writeJson(path, updated);
     await mkdir(publicRoot, { recursive: true });
-    await copyFile(join(sourceRoot, resolved.fileName), join(publicRoot, resolved.fileName));
+    await copyFile(join(sourceRoot, resolved.fileName), join(publicRoot, publicationPdfFileName(publication.slug)));
     for (const entry of correctedEntries ?? []) {
       if (!entry.normSlug) continue;
       const metaPath = join(normRoot, entry.normSlug, 'meta.json');
