@@ -88,6 +88,10 @@ async function openTarget(page: Page, request: APIRequestContext, target: AuditT
 for (const target of selected(auditTargets)) {
   test(`Accessibility-Smoke-Test: ${target.name}`, async ({ page, request }) => {
     const url = await openTarget(page, request, target);
+    // Übergänge aus: geprüft wird der Endzustand. Die Werkzeuge einer Normeinheit blenden über
+    // 120 ms auf; trifft axe ein Zwischenbild, misst es den halb durchsichtigen Text gegen die
+    // Fläche und meldet einen Kontrast, den niemand zu sehen bekommt (wie im Fokustest unten).
+    await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
     // Genau ein <main> je Seite: Hilfstechnik braucht einen eindeutigen Hauptbereich.
     expect(await page.locator('main').count(), `${url}: genau ein main`).toBe(1);
     const results = await new AxeBuilder({ page })
