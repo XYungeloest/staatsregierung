@@ -2,12 +2,11 @@
   "id": "aend-ostfeuvo-12068",
   "slug": "aend-ostfeuvo-12068",
   "title": "Änderung der Ostdeutschen Feuerungsverordnung",
-  "shortTitle": "Änd. OstFeuVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
     "Änd. OstFeuVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-ueber-garagen-und-stellplaetze-und-aend-der-ostdeutschen-feuerungsverordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstFeuVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Feuerungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-07-13",
   "effectiveDate": "2011-09-01",
@@ -32,6 +32,7 @@
       "sha256": "b49a53dfff368796674faa8f43c13cc09ffbb311c407feab29b5a4b33c12b838",
       "lawId": "12068",
       "sourceValidFrom": "2011-09-01",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

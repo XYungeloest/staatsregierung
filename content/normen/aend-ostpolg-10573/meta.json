@@ -2,13 +2,12 @@
   "id": "aend-ostpolg-10573",
   "slug": "aend-ostpolg-10573",
   "title": "Änderung des Polizeigesetzes des Freistaates Ostdeutschland",
-  "shortTitle": "Änd. OstPolG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
     "Änd. OstPolG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-anpassung-landesrechtlicher-verjaehrungsvorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstPolG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Polizeigesetzes des Freistaates Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-12-08",
   "effectiveDate": "2009-01-01",
@@ -33,6 +33,7 @@
       "sha256": "e64d485ccb1d714814b223624bebc0910ae77abaf0277a29323a700295b7f923",
       "lawId": "10573",
       "sourceValidFrom": "2009-01-01",
+      "fsnNumber": "22",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

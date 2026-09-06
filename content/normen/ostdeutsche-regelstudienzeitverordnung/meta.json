@@ -1,23 +1,31 @@
 {
   "id": "ostdeutsche-regelstudienzeitverordnung",
   "slug": "ostdeutsche-regelstudienzeitverordnung",
-  "title": "Ostdeutsche Regelstudienzeitverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus über die Regelstudienzeit auf Grund der COVID-19-Pandemie",
   "shortTitle": "Ostdeutsche Regelstudienzeitverordnung",
-  "abbr": "OstRegStudZVO",
   "shortTitleSource": "official",
+  "abbr": "OstRegStudZVO",
   "type": "verordnung",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "OstRegStudZVO",
     "Ostdeutsche Regelstudienzeitverordnung",
-    "Regelstudienzeitverordnung"
+    "Wissenschaft",
+    "Kultur",
+    "Tourismus",
+    "Regelstudienzeit",
+    "Grund",
+    "COVID-19-Pandemie",
+    "Regelstudienzeitverordnung",
+    "OstRegStudZVO"
   ],
   "initialCitation": "Ostdeutsche Regelstudienzeitverordnung vom 29. April 2021 (SächsGVBl. S. 513), die durch die Verordnung vom 27. Januar 2022 (SächsGVBl. S. 146) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Regelstudienzeitverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2021-04-29",
   "sourceReferences": [
@@ -31,6 +39,7 @@
       "sha256": "c5ab823e6b69cbc5683d2176a75059290cbd22d9362f6fa6748601ac33e87c02",
       "lawId": "19111",
       "sourceValidFrom": "2021-10-01",
+      "fsnNumber": "711-8.16",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,16 +2,14 @@
   "id": "aend-rl-katszuwendungen-19483-1",
   "slug": "aend-rl-katszuwendungen-19483-1",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Gewährung von Zuwendungen für die Mitwirkung im Katastrophenschutz",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Gewährung von Zuwendungen für die Mitwirkung im Katastrophenschutz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Sicherheit und Ordnung",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Gewährung von Zuwendungen für die Mitwirkung im Katastrophenschutz",
+    "Änd. RL KatSZuwendungen",
     "Innern",
     "Änderung",
     "Gewährung",
@@ -23,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Gewährung von Zuwendungen für die Mitwirkung im Katastrophenschutz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-12-21",
   "effectiveDate": "2022-01-01",
@@ -37,8 +36,12 @@
       "sha256": "7a1521853beec6a1adda1688f4fa54785380ff2e77cf298dcf3ac7673400d195",
       "lawId": "19483",
       "sourceValidFrom": "2022-01-01",
+      "fsnNumber": "5536",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-katszuwendungen"
   ]
 }

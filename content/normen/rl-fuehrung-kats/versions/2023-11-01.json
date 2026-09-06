@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Führung im Katastrophenschutz",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Führung im Katastrophenschutz (RL Führung-KatS)",
   "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Führung im Katastrophenschutz",
-  "abbr": "RL Führung-KatS",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Führung im Katastrophenschutz vom 27. Dezember 1999 (SächsABl. SDr. 2000 S. S 2), die durch Ziffer XIX der Verwaltungsvorschrift vom 1. März 2012 (SächsABl. S. 336) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2025 (SächsABl. SDr. S. S 212)",
+  "citation": "Richtlinie des Ostdeutschen Staatsministeriums des Innern über die Führung im Katastrophenschutz vom 27. Dezember 1999 (SächsABl. SDr. 2000 S. S 2), die durch Ziffer XIX der Verwaltungsvorschrift vom 1. März 2012 (SächsABl. S. 336) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "6dea56353a44fb26c0b6e052f29fe7f28f97b806f6a9f3efb03ada9e8046e4a6",
       "lawId": "2129",
       "sourceValidFrom": "2012-03-02",
+      "fsnNumber": "28-V00.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -29,14 +29,6 @@
       "label": "1",
       "title": "Vorbemerkung",
       "children": [
-        {
-          "type": "item",
-          "label": "1",
-          "text": "Vorbemerkung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -102,14 +94,6 @@
       "children": [
         {
           "type": "item",
-          "label": "2",
-          "text": "Führungsebenen im Katastrophenschutz und ihre Führungseinrichtungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "2.1",
           "text": "Die Katastrophenschutzbehörden nach § 4 OstKatSG leiten die Bekämpfung einer Katastrophe. Sie behalten auch im Falle einer Katastrophe ihre gliederungsmäßigen Aufgaben und Zuständigkeiten bei und ergänzen diese durch besondere Führungseinrichtungen unterschiedlicher Führungsebenen.",
           "level": 0,
@@ -143,16 +127,7 @@
       "type": "section",
       "label": "3",
       "title": "Die Katastrophenschutzbehörde bei der Bekämpfung einer Katastrophe",
-      "children": [
-        {
-          "type": "item",
-          "label": "3",
-          "text": "Die Katastrophenschutzbehörde bei der Bekämpfung einer Katastrophe",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -192,14 +167,6 @@
       "children": [
         {
           "type": "item",
-          "label": "3.2",
-          "text": "Der Leiter der Katastrophenschutzbehörde",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.2.1",
           "text": "Aufgaben:",
           "level": 0,
@@ -237,14 +204,6 @@
       "label": "3.3",
       "title": "Organisationseinheiten in der eigenen Behörde",
       "children": [
-        {
-          "type": "item",
-          "label": "3.3",
-          "text": "Organisationseinheiten in der eigenen Behörde",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.3.1",
@@ -294,14 +253,6 @@
       "children": [
         {
           "type": "item",
-          "label": "4",
-          "text": "Andere Stellen gemäß §§ 9 und 11 OstKatSG",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "4.1",
           "text": "Die gemäß §§ 9 und 11 OstKatSG zur Mitwirkung Verpflichteten, zum Beispiel die Krankenhäuser und die Sonderbehörden mit Aufgaben im Zuständigkeitsbereich der Katastrophenschutzbehörde, handeln gemäß Nummer 3.3.1. Sie bleiben im Übrigen den Weisungen ihrer vorgesetzten Stelle unterworfen. Treten ihre eigenen Verwaltungsaufgaben mit denen der im Katastrophenschutz Mitwirkenden in Konflikt, dann informieren sie ihre eigene vorgesetzte Dienststelle und die Katastrophenschutzbehörde mit der Bitte um Entscheidung.",
           "level": 0,
@@ -326,7 +277,7 @@
         {
           "type": "item",
           "label": "5",
-          "text": "Aufgaben und Organisation des Katastrophenschutzstabes\n(vergleiche Anlage 3)",
+          "text": "(vergleiche Anlage 3)",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -338,14 +289,6 @@
       "label": "5.1",
       "title": "Aufgaben, Unterbringung, Ausstattung",
       "children": [
-        {
-          "type": "item",
-          "label": "5.1",
-          "text": "Aufgaben, Unterbringung, Ausstattung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.1.1",
@@ -388,7 +331,7 @@
         {
           "type": "item",
           "label": "5.2",
-          "text": "Der Leiter des Katastrophenschutzstabes\nDer Leiter des Katastrophenschutzstabes untersteht dem Leiter der Katastrophenschutzbehörde (Behördenleiter).\nAufgaben:\nEr leitet die Arbeit des Katastrophenschutzstabes und koordiniert das Zusammenwirken aller Organisationseinheiten der Behörde bei der Bekämpfung der Katastrophe. Er bereitet die Grundsatzentscheidung des Behördenleiters vor und leitet die Katastrophenschutzmaßnahmen nach Weisung und im Auftrag des Behördenleiters. Er leitet die Stabsbesprechungen.",
+          "text": "Der Leiter des Katastrophenschutzstabes untersteht dem Leiter der Katastrophenschutzbehörde (Behördenleiter).\nAufgaben:\nEr leitet die Arbeit des Katastrophenschutzstabes und koordiniert das Zusammenwirken aller Organisationseinheiten der Behörde bei der Bekämpfung der Katastrophe. Er bereitet die Grundsatzentscheidung des Behördenleiters vor und leitet die Katastrophenschutzmaßnahmen nach Weisung und im Auftrag des Behördenleiters. Er leitet die Stabsbesprechungen.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -400,14 +343,6 @@
       "label": "5.3",
       "title": "Sachgebiet S 1 – Personal/allgemeiner Dienstbetrieb",
       "children": [
-        {
-          "type": "item",
-          "label": "5.3",
-          "text": "Sachgebiet S 1 – Personal/allgemeiner Dienstbetrieb",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.3.1",
@@ -481,14 +416,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5.4",
-          "text": "Sachgebiet S 2 – Lage/Information",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.4.1",
           "text": "Der Leiter des Sachgebietes S 2 untersteht dem Leiter des Katastrophenschutzstabes.",
           "level": 0,
@@ -542,14 +469,6 @@
       "label": "5.5",
       "title": "Sachgebiet S 3 – Einsatz",
       "children": [
-        {
-          "type": "item",
-          "label": "5.5",
-          "text": "Sachgebiet S 3 – Einsatz",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.5.1",
@@ -607,14 +526,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5.6",
-          "text": "Sachgebiet S 4 – Logistik",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.6.1",
           "text": "Der Leiter des Sachgebietes S 4 untersteht dem Leiter des Katastrophenschutzstabes.",
           "level": 0,
@@ -652,14 +563,6 @@
       "label": "5.7",
       "title": "Sachgebiet S 5 – Medien- und Öffentlichkeitsarbeit",
       "children": [
-        {
-          "type": "item",
-          "label": "5.7",
-          "text": "Sachgebiet S 5 – Medien- und Öffentlichkeitsarbeit",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.7.1",
@@ -789,14 +692,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5.8",
-          "text": "Sachgebiet S 6 – Information und Kommunikation (IuK)",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.8.1",
           "text": "Der Leiter des Sachgebietes S 6, in der Regel der IuK Sachbearbeiter der Katastrophenschutzbehörden, untersteht dem Leiter des Katastrophenschutzstabes.",
           "level": 0,
@@ -842,14 +737,6 @@
       "label": "5.9",
       "title": "Sachgebiet S 7 – Seelsorge/Notfallpsychologischer Dienst",
       "children": [
-        {
-          "type": "item",
-          "label": "5.9",
-          "text": "Sachgebiet S 7 – Seelsorge/Notfallpsychologischer Dienst",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.9.1",
@@ -939,14 +826,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5.10",
-          "text": "Fachberater",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.10.1",
           "text": "Fachberater bei der Katastrophenschutzbehörde unterstehen für ihre Tätigkeit dem Leiter des Katastrophenschutzstabes, im Übrigen der sie entsendenden Stelle.\nAufgaben:\nFachberater beraten alle Sachgebiete des Katastrophenschutzstabes und die TEL auf ihrem jeweiligen Fachgebiet, insbesondere über\nbesondere Gefahren, deren Bewertung und Prognose,\nBedingungen, Erfordernisse, Möglichkeiten, Grenzen und Umsetzung der Gefahrenabwehrmaßnahmen und\nMaßnahmen zum Schutz eingesetzter Kräfte.",
           "level": 0,
@@ -968,14 +847,6 @@
       "label": "5.11",
       "title": "Verbindungsorgane",
       "children": [
-        {
-          "type": "item",
-          "label": "5.11",
-          "text": "Verbindungsorgane",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.11.1",
@@ -1009,14 +880,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5.12",
-          "text": "Besondere Planungsgruppen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.12.1",
           "text": "Bestimmte möglicherweise zu erwartende Lageentwicklungen, zum Beispiel der drohende Ausfall lebenswichtiger Versorgungsleistungen und die Notwendigkeit großflächiger Evakuierungen, erfordern unter Umständen, entsprechende Abwehrmaßnahmen vorausschauend zu untersuchen und in Grundzügen zu planen. Es kann zweckmäßig sein, hierfür besondere Planungsgruppen einzusetzen, die unabhängig vom aktuellen Geschehen und dessen Beanspruchungen „Alternativplanungen“ entwerfen. Besondere Planungsgruppen arbeiten sachgebietsübergreifend. Sie sollen klein bleiben.",
           "level": 0,
@@ -1045,30 +908,13 @@
       "type": "section",
       "label": "6",
       "title": "Leitung vor Ort",
-      "children": [
-        {
-          "type": "item",
-          "label": "6",
-          "text": "Leitung vor Ort",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
       "label": "6.1",
       "title": "Die Technische Einsatzleitung (TEL)",
       "children": [
-        {
-          "type": "item",
-          "label": "6.1",
-          "text": "Die Technische Einsatzleitung (TEL)",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "6.1.1",
@@ -1182,14 +1028,6 @@
       "children": [
         {
           "type": "item",
-          "label": "6.2",
-          "text": "Abschnittsleitung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "6.2.1",
           "text": "Größere, insbesondere unübersichtliche Einsatzgebiete vor Ort sind durch den Technischen Leiter des Einsatzes in Abschnitte zu unterteilen und jeweils einer Abschnittsleitung zuzuordnen. Abschnitte können auch nach räumlichen oder fachlichen Gesichtspunkten gebildet werden, zum Beispiel für das Retten und Bergen, die Betreuung, für das Sanitätswesen oder die Seelsorge/den notfallpsychologischen Dienst.",
           "level": 0,
@@ -1218,30 +1056,13 @@
       "type": "section",
       "label": "7",
       "title": "Hilfsorganisationen",
-      "children": [
-        {
-          "type": "item",
-          "label": "7",
-          "text": "Hilfsorganisationen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
       "label": "7.1",
       "title": "Private Hilfsorganisationen",
       "children": [
-        {
-          "type": "item",
-          "label": "7.1",
-          "text": "Private Hilfsorganisationen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "7.1.1",
@@ -1278,14 +1099,6 @@
       "label": "7.2",
       "title": "Bundesanstalt Technisches Hilfswerk (THW)",
       "children": [
-        {
-          "type": "item",
-          "label": "7.2",
-          "text": "Bundesanstalt Technisches Hilfswerk (THW)",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "7.2.1",
@@ -1341,7 +1154,7 @@
         {
           "type": "item",
           "label": "8",
-          "text": "Unternehmen\nUnternehmen, die durch die Katastrophe besonders betroffen sind oder die eine Katastrophenschutzbehörde in besonderer Weise fachlich unterstützen können, sind gemäß § 21 Abs. 3 OstKatSG als Fachberater der TEL, bei Bedarf auch als Berater der Katastrophenschutzbehörde hinzuzuziehen. Sie können erforderlichenfalls gemäß § 22 OstKatSG auch zu Sach-, Werk- und Dienstleistungen herangezogen werden.",
+          "text": "Unternehmen, die durch die Katastrophe besonders betroffen sind oder die eine Katastrophenschutzbehörde in besonderer Weise fachlich unterstützen können, sind gemäß § 21 Abs. 3 OstKatSG als Fachberater der TEL, bei Bedarf auch als Berater der Katastrophenschutzbehörde hinzuzuziehen. Sie können erforderlichenfalls gemäß § 22 OstKatSG auch zu Sach-, Werk- und Dienstleistungen herangezogen werden.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1356,7 +1169,7 @@
         {
           "type": "item",
           "label": "9",
-          "text": "Führungsvorgang\n(vergleiche Anlage 4)",
+          "text": "(vergleiche Anlage 4)",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1371,7 +1184,7 @@
         {
           "type": "item",
           "label": "9.1",
-          "text": "Allgemeines\nDer Führungsvorgang im Katastrophenschutz ist ein auf die Gefahrenbekämpfung gerichteter, immer wiederkehrender Denk- und Handlungsablauf auf allen Führungsebenen.\nSeine Elemente sind:\nLagefeststellung,\nBeurteilung der Lage,\nEntschluss,\nEinsatzplan,\nAnordnung/Befehl,\nKontrolle.",
+          "text": "Der Führungsvorgang im Katastrophenschutz ist ein auf die Gefahrenbekämpfung gerichteter, immer wiederkehrender Denk- und Handlungsablauf auf allen Führungsebenen.\nSeine Elemente sind:\nLagefeststellung,\nBeurteilung der Lage,\nEntschluss,\nEinsatzplan,\nAnordnung/Befehl,\nKontrolle.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1383,14 +1196,6 @@
       "label": "9.2",
       "title": "Lagefeststellung",
       "children": [
-        {
-          "type": "item",
-          "label": "9.2",
-          "text": "Lagefeststellung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "9.2.1",
@@ -1433,7 +1238,7 @@
         {
           "type": "item",
           "label": "9.3",
-          "text": "Beurteilung der Lage\nVor der Entscheidung ist die Schadenslage zu beurteilen und der Beurteilung der eigenen Lage gegenüber zu stellen. Die Beurteilung der eigenen Lage beinhaltet das Bewerten aller Faktoren der Einsatzkraft der eigenen Kräfte, Mittel und Einrichtungen sowie die Möglichkeiten, weitere Kräfte einschließlich Reserven zu aktivieren. Alle sich daraus ergebenden Handlungsmöglichkeiten sind zu bewerten und gegeneinander abzuwägen. Dabei sind die Faktoren Raum und Zeit für die Umsetzung zu berücksichtigen. Das Ergebnis der Lagebeurteilung ist der Entschluss.",
+          "text": "Vor der Entscheidung ist die Schadenslage zu beurteilen und der Beurteilung der eigenen Lage gegenüber zu stellen. Die Beurteilung der eigenen Lage beinhaltet das Bewerten aller Faktoren der Einsatzkraft der eigenen Kräfte, Mittel und Einrichtungen sowie die Möglichkeiten, weitere Kräfte einschließlich Reserven zu aktivieren. Alle sich daraus ergebenden Handlungsmöglichkeiten sind zu bewerten und gegeneinander abzuwägen. Dabei sind die Faktoren Raum und Zeit für die Umsetzung zu berücksichtigen. Das Ergebnis der Lagebeurteilung ist der Entschluss.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1445,14 +1250,6 @@
       "label": "9.4",
       "title": "Entschluss",
       "children": [
-        {
-          "type": "item",
-          "label": "9.4",
-          "text": "Entschluss",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "9.4.1",
@@ -1476,14 +1273,6 @@
       "label": "9.5",
       "title": "Einsatzplan",
       "children": [
-        {
-          "type": "item",
-          "label": "9.5",
-          "text": "Einsatzplan",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "9.5.1",
@@ -1510,7 +1299,7 @@
         {
           "type": "item",
           "label": "9.6",
-          "text": "Anordnung, Befehl\nDie Katastrophenschutzbehörde führt grundsätzlich durch Anordnungen. Der Technische Leiter des Einsatzes, die Abschnittsleiter und die Einheitsführer führen durch Befehl. Die Anordnungen und der Befehl setzen den Entschluss in planmäßiges Handeln um. Die Anordnung/der Befehl kann als Einzel- oder als Gesamtanordnung/-befehl erteilt werden. Anordnungen, die nicht schriftlich, sondern mündlich oder auf andere Weise erteilt werden, sind im Einsatztagebuch oder als Anlage dazu festzuhalten. Anordnungen/Befehle sollen Ziele setzen, jedoch die Wege dorthin dem für die Durchführung Verantwortlichen möglichst weitgehend überlassen. Aufgaben und Befugnisse sind, soweit möglich, zu delegieren. Für das Erstellen eines Marsch- und Einsatzbefehls gelten Anlagen 6 und 7 als Anhalt.",
+          "text": "Die Katastrophenschutzbehörde führt grundsätzlich durch Anordnungen. Der Technische Leiter des Einsatzes, die Abschnittsleiter und die Einheitsführer führen durch Befehl. Die Anordnungen und der Befehl setzen den Entschluss in planmäßiges Handeln um. Die Anordnung/der Befehl kann als Einzel- oder als Gesamtanordnung/-befehl erteilt werden. Anordnungen, die nicht schriftlich, sondern mündlich oder auf andere Weise erteilt werden, sind im Einsatztagebuch oder als Anlage dazu festzuhalten. Anordnungen/Befehle sollen Ziele setzen, jedoch die Wege dorthin dem für die Durchführung Verantwortlichen möglichst weitgehend überlassen. Aufgaben und Befugnisse sind, soweit möglich, zu delegieren. Für das Erstellen eines Marsch- und Einsatzbefehls gelten Anlagen 6 und 7 als Anhalt.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1525,7 +1314,7 @@
         {
           "type": "item",
           "label": "9.7",
-          "text": "Unterstützungsforderungen\nWenn die im eigenen Zuständigkeitsbereich verfügbaren Mittel und Kräfte nicht ausreichen, sind diese bei benachbarten Stellen und, wenn diese nicht ausreichen, bei übergeordneten Stellen zu beantragen. Anträge an Stellen außerhalb des Freistaates Ostdeutschland sind der nächsthöheren Katastrophenschutzbehörde zu melden.",
+          "text": "Wenn die im eigenen Zuständigkeitsbereich verfügbaren Mittel und Kräfte nicht ausreichen, sind diese bei benachbarten Stellen und, wenn diese nicht ausreichen, bei übergeordneten Stellen zu beantragen. Anträge an Stellen außerhalb des Freistaates Ostdeutschland sind der nächsthöheren Katastrophenschutzbehörde zu melden.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1540,7 +1329,7 @@
         {
           "type": "item",
           "label": "9.8",
-          "text": "Kontrolle\nDie Kontrolle hat den Zweck zu prüfen, ob die Durchführung der getroffenen Anordnungen der Absicht des Anordnenden und der Lageentwicklung entsprechen. Ihr Ergebnis leitet zugleich als Lagefeststellung einen neuen Führungsvorgang ein. Mittel der Kontrolle sind insbesondere:\nMeldungen und Berichte aus der eigenen Behörde und ihren Führungseinrichtungen sowie unterstellter Kräfte, Mitwirkender, Berichte anderer,\neigene Augenscheinnahme vor Ort.",
+          "text": "Die Kontrolle hat den Zweck zu prüfen, ob die Durchführung der getroffenen Anordnungen der Absicht des Anordnenden und der Lageentwicklung entsprechen. Ihr Ergebnis leitet zugleich als Lagefeststellung einen neuen Führungsvorgang ein. Mittel der Kontrolle sind insbesondere:\nMeldungen und Berichte aus der eigenen Behörde und ihren Führungseinrichtungen sowie unterstellter Kräfte, Mitwirkender, Berichte anderer,\neigene Augenscheinnahme vor Ort.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1551,16 +1340,7 @@
       "type": "section",
       "label": "10",
       "title": "Einsatz- und Führungsgrundsätze",
-      "children": [
-        {
-          "type": "item",
-          "label": "10",
-          "text": "Einsatz- und Führungsgrundsätze",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -1570,7 +1350,7 @@
         {
           "type": "item",
           "label": "10.1",
-          "text": "Alarmierung\nJede Katastrophenschutzbehörde muss ihre Fähigkeit zur Übernahme der Leitung der Bekämpfung der Katastrophe jederzeit und schnell herstellen können. Hierzu benennt sie der gemeinsamen Leitstelle der Feuerwehr und des Rettungsdienstes (Leitstelle) mindestens drei entscheidungsbefugte ständig erreichbare Führungskräfte. Diese leiten die ersten Maßnahmen der Behörde ein. Dazu gehören insbesondere die Beurteilung des Schadensereignisses und die Beratung des Behördenleiters, ob es erforderlich ist, den Katastrophenvoralarm oder -alarm auszulösen. Die Führungskräfte veranlassen die Alarmierung der Angehörigen des Katastrophenschutzstabes, des Technischen Leiters des Einsatzes und weiterer Angehöriger der Behörde, soweit es die Lage erfordert. Einzelheiten sind durch die Richtlinie des Ostdeutschen Staatsministeriums des Innern für die Alarmierung der Katastrophenschutzbehörden, der Feuerwehren, des Technischen Hilfswerkes, des Rettungsdienstes und der privaten Hilfsorganisationen im Freistaat Ostdeutschland (\nAlarmierungsrichtlinie) vom 14. Juli 1994 (SächsABl. S. 1050), in der jeweils geltenden Fassung, geregelt.",
+          "text": "Jede Katastrophenschutzbehörde muss ihre Fähigkeit zur Übernahme der Leitung der Bekämpfung der Katastrophe jederzeit und schnell herstellen können. Hierzu benennt sie der gemeinsamen Leitstelle der Feuerwehr und des Rettungsdienstes (Leitstelle) mindestens drei entscheidungsbefugte ständig erreichbare Führungskräfte. Diese leiten die ersten Maßnahmen der Behörde ein. Dazu gehören insbesondere die Beurteilung des Schadensereignisses und die Beratung des Behördenleiters, ob es erforderlich ist, den Katastrophenvoralarm oder -alarm auszulösen. Die Führungskräfte veranlassen die Alarmierung der Angehörigen des Katastrophenschutzstabes, des Technischen Leiters des Einsatzes und weiterer Angehöriger der Behörde, soweit es die Lage erfordert. Einzelheiten sind durch die Richtlinie des Ostdeutschen Staatsministeriums des Innern für die Alarmierung der Katastrophenschutzbehörden, der Feuerwehren, des Technischen Hilfswerkes, des Rettungsdienstes und der privaten Hilfsorganisationen im Freistaat Ostdeutschland (\nAlarmierungsrichtlinie) vom 14. Juli 1994 (SächsABl. S. 1050), in der jeweils geltenden Fassung, geregelt.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1585,7 +1365,7 @@
         {
           "type": "item",
           "label": "10.2",
-          "text": "Umfang der Führungseinrichtungen\nFür schnelles und zielgerichtetes Handeln in der Katastrophe sind alle Führungseinrichtungen so klein wie möglich zu halten. Maßgebend ist der sich aus der Lage ergebende Bedarf. Anlage 1 enthält daher keine Stärkeangaben. Die Informationswege sind einfach und kurz zu gestalten.",
+          "text": "Für schnelles und zielgerichtetes Handeln in der Katastrophe sind alle Führungseinrichtungen so klein wie möglich zu halten. Maßgebend ist der sich aus der Lage ergebende Bedarf. Anlage 1 enthält daher keine Stärkeangaben. Die Informationswege sind einfach und kurz zu gestalten.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1597,14 +1377,6 @@
       "label": "10.3",
       "title": "Personalverstärkung",
       "children": [
-        {
-          "type": "item",
-          "label": "10.3",
-          "text": "Personalverstärkung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "10.3.1",
@@ -1628,14 +1400,6 @@
       "label": "10.4",
       "title": "Einsatzdauer und Ablösung",
       "children": [
-        {
-          "type": "item",
-          "label": "10.4",
-          "text": "Einsatzdauer und Ablösung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "10.4.1",
@@ -1686,7 +1450,7 @@
         {
           "type": "item",
           "label": "10.5",
-          "text": "Betreuung der Kräfte\nInsbesondere bei länger andauernden und stark belastenden Einsätzen bedürfen die eingesetzten Kräfte besonderer Betreuung. Diese soll auch hinreichende Ruhemöglichkeiten, Pflege und Wechsel der Bekleidung, Möglichkeiten zur Körperpflege und bei längeren Einsätzen öffentliche Fernsprecheinrichtungen (Münz-/Kartentelefon) nahe dem betreuten Ruheraum einschließen.",
+          "text": "Insbesondere bei länger andauernden und stark belastenden Einsätzen bedürfen die eingesetzten Kräfte besonderer Betreuung. Diese soll auch hinreichende Ruhemöglichkeiten, Pflege und Wechsel der Bekleidung, Möglichkeiten zur Körperpflege und bei längeren Einsätzen öffentliche Fernsprecheinrichtungen (Münz-/Kartentelefon) nahe dem betreuten Ruheraum einschließen.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1698,14 +1462,6 @@
       "label": "10.6",
       "title": "Reserven",
       "children": [
-        {
-          "type": "item",
-          "label": "10.6",
-          "text": "Reserven",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "10.6.1",
@@ -1736,30 +1492,13 @@
       "type": "section",
       "label": "11",
       "title": "Zusammenarbeit mit anderen Ländern und dem Ausland",
-      "children": [
-        {
-          "type": "item",
-          "label": "11",
-          "text": "Zusammenarbeit mit anderen Ländern und dem Ausland",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
       "label": "11.1",
       "title": "Allgemeines",
       "children": [
-        {
-          "type": "item",
-          "label": "11.1",
-          "text": "Allgemeines",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "11.1.1",
@@ -1786,7 +1525,7 @@
         {
           "type": "item",
           "label": "11.2",
-          "text": "Inland\nDie Zusammenarbeit mit den Katastrophenschutzbehörden anderer Länder erfolgt im Rahmen der Amtshilfe auf der jeweiligen Ebene der Zusammenarbeit.",
+          "text": "Die Zusammenarbeit mit den Katastrophenschutzbehörden anderer Länder erfolgt im Rahmen der Amtshilfe auf der jeweiligen Ebene der Zusammenarbeit.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1798,14 +1537,6 @@
       "label": "11.3",
       "title": "Ausland",
       "children": [
-        {
-          "type": "item",
-          "label": "11.3",
-          "text": "Ausland",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "11.3.1",
@@ -1855,14 +1586,6 @@
       "children": [
         {
           "type": "item",
-          "label": "11.4",
-          "text": "Informationspflicht",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "11.4.1",
           "text": "Ordnet das Staatsministerium des Innern oder die Landesdirektion Ostdeutschland den Einsatz von Katastrophenschutzkräften und -mitteln der unteren Katastrophenschutzbehörden oder der Hilfsorganisationen an, so sind diese darüber zu informieren.",
           "level": 0,
@@ -1883,16 +1606,7 @@
       "type": "section",
       "label": "12",
       "title": "Katastrophenhilfe durch die Bundeswehr",
-      "children": [
-        {
-          "type": "item",
-          "label": "12",
-          "text": "Katastrophenhilfe durch die Bundeswehr",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -1902,7 +1616,7 @@
         {
           "type": "item",
           "label": "12.1",
-          "text": "Allgemeines und Zuständigkeiten\nTruppenteile und Dienststellen der Bundeswehr können bei Naturkatastrophen oder besonders schweren Unglücksfällen auf Anforderung der zuständigen Katastrophenschutzbehörde wirksame Hilfe leisten. Über Art und Umfang des Einsatzes entscheidet entsprechend dem Ausmaß das jeweils regional zuständige Verteidigungsbezirkskommando (VBK) oder das Wehrbereichskommando (WBK). Anforderungen auf Unterstützung durch die Wehrverwaltung sind grundsätzlich an die genannten militärischen Territorialen Kommandobehörden zu richten. Diese stimmen die Hilfeleistung mit der zuständigen Wehrbereichsverwaltung (WBV) und der örtlich zuständigen Standortverwaltung (STOV) ab. In Fällen dringender Nothilfe kann jeder Führer eines Truppenteils beziehungsweise jeder Leiter einer militärischen Dienststelle die sofort erforderlichen Hilfsmaßnahmen anordnen.",
+          "text": "Truppenteile und Dienststellen der Bundeswehr können bei Naturkatastrophen oder besonders schweren Unglücksfällen auf Anforderung der zuständigen Katastrophenschutzbehörde wirksame Hilfe leisten. Über Art und Umfang des Einsatzes entscheidet entsprechend dem Ausmaß das jeweils regional zuständige Verteidigungsbezirkskommando (VBK) oder das Wehrbereichskommando (WBK). Anforderungen auf Unterstützung durch die Wehrverwaltung sind grundsätzlich an die genannten militärischen Territorialen Kommandobehörden zu richten. Diese stimmen die Hilfeleistung mit der zuständigen Wehrbereichsverwaltung (WBV) und der örtlich zuständigen Standortverwaltung (STOV) ab. In Fällen dringender Nothilfe kann jeder Führer eines Truppenteils beziehungsweise jeder Leiter einer militärischen Dienststelle die sofort erforderlichen Hilfsmaßnahmen anordnen.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1917,7 +1631,7 @@
         {
           "type": "item",
           "label": "12.2",
-          "text": "Hoheitsrechte\nBei Naturkatastrophen oder besonders schweren Unglücksfällen stehen der Bundeswehr hoheitliche Befugnisse auch polizeilicher Art zu, soweit sie zur Durchführung der Hilfeleistung erforderlich sind.",
+          "text": "Bei Naturkatastrophen oder besonders schweren Unglücksfällen stehen der Bundeswehr hoheitliche Befugnisse auch polizeilicher Art zu, soweit sie zur Durchführung der Hilfeleistung erforderlich sind.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1932,7 +1646,7 @@
         {
           "type": "item",
           "label": "12.3",
-          "text": "Unterstellung\nDie zur Hilfeleistung eingesetzten Angehörigen der Bundeswehr bleiben ihrem Vorgesetzten auch beim Katastropheneinsatz in truppendienstlicher und allgemeindienstlicher Hinsicht unterstellt. Die Befugnis der Katastrophenschutzbehörde und der von ihr bestimmten Stellen, Kräften, die ihr für den Einsatz zur Verfügung gestellt wurden, Anordnungen zu erteilen, beschränkt sich ausschließlich auf solche Anordnungen, die der unmittelbaren Katastrophenbekämpfung dienen und nur so lange, wie es für das Zusammenwirken unter der einheitlichen Leitung der Katastrophenschutzbehörde unerlässlich ist. Anordnungen sind grundsätzlich an den leitenden Offizier oder den Leiter einer Einheit/Dienststelle zu richten.",
+          "text": "Die zur Hilfeleistung eingesetzten Angehörigen der Bundeswehr bleiben ihrem Vorgesetzten auch beim Katastropheneinsatz in truppendienstlicher und allgemeindienstlicher Hinsicht unterstellt. Die Befugnis der Katastrophenschutzbehörde und der von ihr bestimmten Stellen, Kräften, die ihr für den Einsatz zur Verfügung gestellt wurden, Anordnungen zu erteilen, beschränkt sich ausschließlich auf solche Anordnungen, die der unmittelbaren Katastrophenbekämpfung dienen und nur so lange, wie es für das Zusammenwirken unter der einheitlichen Leitung der Katastrophenschutzbehörde unerlässlich ist. Anordnungen sind grundsätzlich an den leitenden Offizier oder den Leiter einer Einheit/Dienststelle zu richten.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -1944,14 +1658,6 @@
       "label": "12.4",
       "title": "Zusammenarbeit",
       "children": [
-        {
-          "type": "item",
-          "label": "12.4",
-          "text": "Zusammenarbeit",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "12.4.1",
@@ -2007,16 +1713,7 @@
       "type": "section",
       "label": "13",
       "title": "Katastrophenhilfe durch den Bundesgrenzschutz",
-      "children": [
-        {
-          "type": "item",
-          "label": "13",
-          "text": "Katastrophenhilfe durch den Bundesgrenzschutz",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -2026,7 +1723,7 @@
         {
           "type": "item",
           "label": "13.1",
-          "text": "Allgemeines\nDer Bundesgrenzschutz leistet auf Anforderung der Katastrophenschutzbehörde technische und/oder polizeiliche Katastrophenhilfe (Allgemeine Verwaltungsvorschrift des Bundesministers des Innern über die Verwendung des Bundesgrenzschutzes bei einer Naturkatastrophe oder bei einem besonders schweren Unglücksfall sowie zur Hilfe im Notfall – BGSKatHiVwV – vom 2. Mai 1974 (GMBl. S. 171), geändert durch ÄnderungsVwV vom 4. November 1975 (GMBl. S. 747).",
+          "text": "Der Bundesgrenzschutz leistet auf Anforderung der Katastrophenschutzbehörde technische und/oder polizeiliche Katastrophenhilfe (Allgemeine Verwaltungsvorschrift des Bundesministers des Innern über die Verwendung des Bundesgrenzschutzes bei einer Naturkatastrophe oder bei einem besonders schweren Unglücksfall sowie zur Hilfe im Notfall – BGSKatHiVwV – vom 2. Mai 1974 (GMBl. S. 171), geändert durch ÄnderungsVwV vom 4. November 1975 (GMBl. S. 747).",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -2041,7 +1738,7 @@
         {
           "type": "item",
           "label": "13.2",
-          "text": "Technische Katastrophenhilfe\nDie technische Katastrophenhilfe umfasst insbesondere Personal, Kraftfahrzeuge, Hubschrauber, Wasserfahrzeuge, Gerät, Material, Notunterkünfte, Einsatzküchen, aber auch Bekleidung, Verpflegung und Unterkunftsgerät sowie andere Gegenstände aus den Beständen des Bundesgrenzschutzes. Er kann auch durch den Einsatz von Ärzten und Sanitätsbediensteten, Sanitätsgerät und -material Unterstützung leisten. Zuständig für die Anforderung sind die Katastrophenschutzbehörden. Die Entscheidung darüber, ob und in welchem Umfang der Bundesgrenzschutz Hilfe leistet, trifft das Grenzschutzpräsidium Ost, in Einzelfällen das Bundesministerium des Innern (BMI).",
+          "text": "Die technische Katastrophenhilfe umfasst insbesondere Personal, Kraftfahrzeuge, Hubschrauber, Wasserfahrzeuge, Gerät, Material, Notunterkünfte, Einsatzküchen, aber auch Bekleidung, Verpflegung und Unterkunftsgerät sowie andere Gegenstände aus den Beständen des Bundesgrenzschutzes. Er kann auch durch den Einsatz von Ärzten und Sanitätsbediensteten, Sanitätsgerät und -material Unterstützung leisten. Zuständig für die Anforderung sind die Katastrophenschutzbehörden. Die Entscheidung darüber, ob und in welchem Umfang der Bundesgrenzschutz Hilfe leistet, trifft das Grenzschutzpräsidium Ost, in Einzelfällen das Bundesministerium des Innern (BMI).",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -2056,7 +1753,7 @@
         {
           "type": "item",
           "label": "13.3",
-          "text": "Polizeiliche Katastrophenhilfe\nDer Bundesgrenzschutz gewährt dem Polizeivollzugsdienst des Freistaates Ostdeutschland Unterstützung durch polizeiliche Katastrophenhilfe. Anforderungsberechtigt ist das Staatsministerium des Innern. Die Entscheidung darüber, ob und inwieweit polizeiliche Katastrophenhilfe gewährt wird, trifft die Bundesregierung, im Übrigen das Bundesministerium des Innern.",
+          "text": "Der Bundesgrenzschutz gewährt dem Polizeivollzugsdienst des Freistaates Ostdeutschland Unterstützung durch polizeiliche Katastrophenhilfe. Anforderungsberechtigt ist das Staatsministerium des Innern. Die Entscheidung darüber, ob und inwieweit polizeiliche Katastrophenhilfe gewährt wird, trifft die Bundesregierung, im Übrigen das Bundesministerium des Innern.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -2071,7 +1768,7 @@
         {
           "type": "item",
           "label": "13.4",
-          "text": "Zusammenarbeit\nDie Zusammenarbeit mit dem Bundesgrenzschutz und das Unterstellungsverhältnis der eingesetzten Kräfte im Rahmen seiner technischen Katastrophenhilfe richtet sich im Übrigen nach den gleichen Grundsätzen wie die Zusammenarbeit mit der Bundeswehr (vergleiche Nummern 12.3 und 12.4)\nEbenen der Zusammenarbeit sind:",
+          "text": "Die Zusammenarbeit mit dem Bundesgrenzschutz und das Unterstellungsverhältnis der eingesetzten Kräfte im Rahmen seiner technischen Katastrophenhilfe richtet sich im Übrigen nach den gleichen Grundsätzen wie die Zusammenarbeit mit der Bundeswehr (vergleiche Nummern 12.3 und 12.4)\nEbenen der Zusammenarbeit sind:",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
@@ -2088,14 +1785,6 @@
       "label": "14",
       "title": "Topographische Unterlagen",
       "children": [
-        {
-          "type": "item",
-          "label": "14",
-          "text": "Topographische Unterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "14.1",
@@ -2151,14 +1840,6 @@
       "label": "15",
       "title": "In-Kraft-Treten und Außer-Kraft-Treten",
       "children": [
-        {
-          "type": "item",
-          "label": "15",
-          "text": "In-Kraft-Treten und Außer-Kraft-Treten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "15.1",

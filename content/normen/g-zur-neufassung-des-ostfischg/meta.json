@@ -2,15 +2,14 @@
   "id": "g-zur-neufassung-des-ostfischg",
   "slug": "g-zur-neufassung-des-ostfischg",
   "title": "Gesetz zur Neufassung des Ostdeutschen Fischereigesetzes",
-  "shortTitle": "Gesetz zur Neufassung des Ostdeutschen Fischereigesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "Gesetz zur Neufassung des Ostdeutschen Fischereigesetzes",
+    "G zur Neufassung des OstFischG",
     "Neufassung",
     "Fischereigesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Neufassung des Ostdeutschen Fischereigesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-07-09",
   "effectiveDate": "2007-07-31",
@@ -32,8 +32,12 @@
       "sha256": "f5aca59d548b990354503787a19c2387b83fa879c8267ed04b8f8ec9b1168fd6",
       "lawId": "9552",
       "sourceValidFrom": "2007-07-31",
+      "fsnNumber": "652-2A",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-fischereigesetz"
   ]
 }

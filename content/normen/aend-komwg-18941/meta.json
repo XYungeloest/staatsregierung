@@ -2,14 +2,12 @@
   "id": "aend-komwg-18941",
   "slug": "aend-komwg-18941",
   "title": "Änderung des Kommunalwahlgesetzes",
-  "shortTitle": "Änd. KomWG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht",
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. KomWG",
     "Änderung",
@@ -19,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-schaffung-pandemiebedingter-ausnahmeregelungen-kommunalwahlrecht",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. KomWG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Kommunalwahlgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-12-16",
   "effectiveDate": "2020-12-30",
@@ -34,6 +33,7 @@
       "sha256": "0c097e6f2b4a6405cefbe74a0d3663578243ae51f6d7e35035d4eaa69174f21a",
       "lawId": "18941",
       "sourceValidFrom": "2020-12-30",
+      "fsnNumber": "233",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

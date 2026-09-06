@@ -2,14 +2,13 @@
   "id": "aend-vwv-kostvfg-19641-1",
   "slug": "aend-vwv-kostvfg-19641-1",
   "title": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenverfügung",
-  "shortTitle": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenverfügung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Justizkostenrecht"
   ],
+  "primarySubject": "Justizkostenrecht",
   "keywords": [
-    "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenverfügung",
+    "Änd. VwV KostVfg",
     "Zweite",
     "Justiz",
     "Demokratie",
@@ -22,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenverfügung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-05-13",
   "effectiveDate": "2022-04-01",
@@ -36,8 +36,12 @@
       "sha256": "a551c39b092ad1e4ff2855c3708fc9dd6fe2076cb13365fda7d8ccb5a1882eb1",
       "lawId": "19641",
       "sourceValidFrom": "2022-04-01",
+      "fsnNumber": "32",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-kostenverfuegung"
   ]
 }

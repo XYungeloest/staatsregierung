@@ -2,15 +2,14 @@
   "id": "g-aend-energieeinsparungszustg",
   "slug": "g-aend-energieeinsparungszustg",
   "title": "Gesetz zur Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung",
-  "shortTitle": "Gesetz zur Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
-    "Gesetz zur Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung",
+    "G Änd. EnergieeinsparungsZustG",
     "Änderung",
     "Zuständigkeiten",
     "Gebiet",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-09-01",
   "effectiveDate": "2010-09-18",
@@ -34,8 +34,12 @@
       "sha256": "3b944bba31bcfd15c4da6f34050827b1d1da10a765fb9354af82a0cbe0e82d38",
       "lawId": "11480",
       "sourceValidFrom": "2010-09-18",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-zustaendigkeiten-auf-dem-gebiet-der-energieeinsparung"
   ]
 }

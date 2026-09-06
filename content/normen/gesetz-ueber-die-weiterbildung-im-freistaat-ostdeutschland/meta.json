@@ -1,23 +1,25 @@
 {
   "id": "gesetz-ueber-die-weiterbildung-im-freistaat-ostdeutschland",
   "slug": "gesetz-ueber-die-weiterbildung-im-freistaat-ostdeutschland",
-  "title": "Weiterbildungsgesetz",
+  "title": "Gesetz über die Weiterbildung im Freistaat Ostdeutschland",
   "shortTitle": "Weiterbildungsgesetz",
-  "abbr": "WBG",
   "shortTitleSource": "official",
+  "abbr": "WBG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "WBG",
-    "Weiterbildungsgesetz"
+    "Weiterbildungsgesetz",
+    "Weiterbildung"
   ],
   "initialCitation": "Weiterbildungsgesetz vom 29. Juni 1998 (SächsGVBl. S. 270), das zuletzt durch Artikel 9 des Gesetzes vom 20. Dezember 2022 (SächsGVBl. S. 705) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Weiterbildungsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1998-06-29",
   "sourceReferences": [
@@ -32,6 +34,7 @@
       "lawId": "3385",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "713-1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,16 +2,13 @@
   "id": "aend-frl-familienwohnen",
   "slug": "aend-frl-familienwohnen",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der FRL Familienwohnen",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der FRL Familienwohnen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der FRL Familienwohnen",
+    "Änd. FRL Familienwohnen",
     "Regionalentwicklung",
     "Änderung",
     "Familienwohnen"
@@ -20,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der FRL Familienwohnen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-05-24",
   "effectiveDate": "2022-06-17",
@@ -34,8 +32,12 @@
       "sha256": "5a40994d6d5ed99ba04a5127a3dca1092eacd4e299c657e946302cd62284cd33",
       "lawId": "19644",
       "sourceValidFrom": "2022-06-17",
+      "fsnNumber": "554",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-familienwohnen"
   ]
 }

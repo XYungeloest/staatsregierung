@@ -1,15 +1,16 @@
 {
   "id": "ostdeutsches-polizeibehoerdengesetz",
   "slug": "ostdeutsches-polizeibehoerdengesetz",
-  "title": "Ostdeutsches Polizeibehördengesetz",
+  "title": "Gesetz über die Aufgaben, Organisation, Befugnisse und Datenverarbeitung der Polizeibehörden im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Polizeibehördengesetz",
   "abbr": "OstPBG",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
     "OstPBG",
     "Ostdeutsches Polizeibehördengesetz",
@@ -20,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Ostdeutsches Polizeibehördengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2019-05-11",
   "sourceReferences": [
@@ -33,7 +35,8 @@
       "sha256": "c74a5044b9f6d672a0f463352093c5111220e1c2d4b8e762b36cf07eceb3612b",
       "lawId": "18194",
       "sourceValidFrom": "2020-01-01",
-      "sourceValidTo": "2024-08-31"
+      "sourceValidTo": "2024-08-31",
+      "fsnNumber": "22-12"
     },
     {
       "kind": "amendment-source",

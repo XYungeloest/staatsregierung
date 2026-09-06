@@ -2,13 +2,12 @@
   "id": "aend-ostjg-10124",
   "slug": "aend-ostjg-10124",
   "title": "Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitle": "Änd. OstJG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
     "Änd. OstJG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-von-landesrechtlichen-vorschriften-aus-anlass-aend-kostenrechts",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstJG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Justizgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-05-05",
   "effectiveDate": "2008-05-31",
@@ -33,6 +33,7 @@
       "sha256": "55b853dabee76dd992f61bdafb18ca16a081750ec7e0c9f699753e4fd6487cf8",
       "lawId": "10124",
       "sourceValidFrom": "2008-05-31",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

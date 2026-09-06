@@ -2,15 +2,14 @@
   "id": "aend-frl-mobile-luftreiniger",
   "slug": "aend-frl-mobile-luftreiniger",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der FRL mobile Luftreiniger",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der FRL mobile Luftreiniger",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der FRL mobile Luftreiniger",
+    "Änd. FRL mobile Luftreiniger",
     "Kultus",
     "Änderung",
     "mobile",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Kultus zur Änderung der FRL mobile Luftreiniger“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-01-21",
   "effectiveDate": "2022-01-21",
@@ -34,8 +34,12 @@
       "sha256": "f8ebfc180a24227f148fc67cae5b1cf9b5c1414003e09f1bafe2106675ee3ba0",
       "lawId": "19512",
       "sourceValidFrom": "2022-01-21",
+      "fsnNumber": "5572",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-mobile-luftreiniger"
   ]
 }

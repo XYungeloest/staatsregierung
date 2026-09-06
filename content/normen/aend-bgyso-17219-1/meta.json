@@ -2,15 +2,14 @@
   "id": "aend-bgyso-17219-1",
   "slug": "aend-bgyso-17219-1",
   "title": "Fünfte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitle": "Fünfte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Fünfte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufliche Gymnasien",
+    "Änd. BGySO",
     "Fünfte",
     "Kultus",
     "Änderung",
@@ -22,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Fünfte Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-04-06",
   "effectiveDate": "2017-04-30",
@@ -37,8 +37,12 @@
       "lawId": "17219",
       "sourceValidFrom": "2017-04-30",
       "sourceValidTo": "2024-07-31",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-berufliche-gymnasien"
   ]
 }

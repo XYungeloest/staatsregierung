@@ -2,15 +2,14 @@
   "id": "aend-zustuevoju-20049-1",
   "slug": "aend-zustuevoju-20049-1",
   "title": "Achte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitle": "Achte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Achte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
+    "Änd. ZustÜVOJu",
     "Achte",
     "Änderung",
     "Zuständigkeitsübertragungsverordnung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Achte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-18",
   "effectiveDate": "2023-07-11",
@@ -34,8 +34,12 @@
       "sha256": "aa2cc18698fea02896897340333638223ab431b6b7380961e6343ca06dbe7d35",
       "lawId": "20049",
       "sourceValidFrom": "2023-07-11",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsuebertragungsverordnung-justiz"
   ]
 }

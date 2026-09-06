@@ -2,15 +2,13 @@
   "id": "aend-osttiernebzuvo",
   "slug": "aend-osttiernebzuvo",
   "title": "Verordnung des Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Zuständigkeitsverordnung Tierische Nebenprodukte",
-  "shortTitle": "Verordnung des Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Zuständigkeitsverordnung Tierische Nebenprodukte",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Umwelt, Energie und Klimaschutz"
+    "Landwirtschaft und Ernährungswirtschaft"
   ],
+  "primarySubject": "Landwirtschaft und Ernährungswirtschaft",
   "keywords": [
-    "Verordnung des Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Zuständigkeitsverordnung Tierische Nebenprodukte",
+    "Änd. OstTierNebZuVO",
     "Soziales",
     "Verbraucherschutz",
     "Änderung",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Zuständigkeitsverordnung Tierische Nebenprodukte“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-07-22",
   "effectiveDate": "2019-08-17",
@@ -36,8 +35,12 @@
       "sha256": "758205c20a70f1f524279f18410635b401723465388d2df61e3f9d09bae9c10b",
       "lawId": "18339",
       "sourceValidFrom": "2019-08-17",
+      "fsnNumber": "634",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsverordnung-tierische-nebenprodukte"
   ]
 }

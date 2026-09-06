@@ -2,12 +2,11 @@
   "id": "aend-vwv-it-justiz",
   "slug": "aend-vwv-it-justiz",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV IT – Justiz",
-  "shortTitle": "Änd. VwV IT – Justiz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
     "Änd. VwV IT – Justiz",
     "Justiz",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vwv-auftragsverarbeitung-und-aend-vwvit-justiz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. VwV IT – Justiz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV IT – Justiz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-04-24",
   "effectiveDate": "2019-05-01",
@@ -32,6 +32,7 @@
       "sha256": "6b9ff89e6394bac3d1727b94cb9f21379b7abc181d733467ebcfed404ebeba8b",
       "lawId": "18144",
       "sourceValidFrom": "2019-05-01",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

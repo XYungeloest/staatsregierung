@@ -2,16 +2,14 @@
   "id": "aend-sogs-sofs-und-somiap",
   "slug": "aend-sogs-sofs-und-somiap",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen, der Schulordnung Förderschulen und der Schulordnung Mittelschulen Abschlussprüfungen",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen, der Schulordnung Förderschulen und der Schulordnung Mittelschulen Abschlussprüfungen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen, der Schulordnung Förderschulen und der Schulordnung Mittelschulen Abschlussprüfungen",
+    "Änd. SOGS, SOFS und SOMIAP",
     "Kultus",
     "Änderung",
     "Schulordnung",
@@ -24,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen, der Schulordnung Förderschulen und der Schulordnung Mittelschulen Abschlussprüfungen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-02-17",
   "effectiveDate": "2009-03-06",
@@ -38,8 +37,12 @@
       "sha256": "2faace0dcf5e83612360cdfab63ad8bc74947c8d0a34692bbff82a62a1410b66",
       "lawId": "10663",
       "sourceValidFrom": "2009-03-06",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-grundschulen"
   ]
 }

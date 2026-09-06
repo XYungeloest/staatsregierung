@@ -2,12 +2,11 @@
   "id": "aend-ostvermkatgdvo-19130",
   "slug": "aend-ostvermkatgdvo-19130",
   "title": "Änderung der Durchführungsverordnung zum Ostdeutschen Vermessungs- und Katastergesetz",
-  "shortTitle": "Änd. OstVermKatGDVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstVermKatGDVO",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstVermKatGDVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Durchführungsverordnung zum Ostdeutschen Vermessungs- und Katastergesetz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -34,6 +34,7 @@
       "sha256": "92bfe8a40c8f2488946915f4dabddb900fb6ac0e24da0b916abeb21317411aba",
       "lawId": "19130",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

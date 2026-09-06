@@ -1,17 +1,18 @@
 {
   "id": "aend-oepnvfinausg",
   "slug": "aend-oepnvfinausg",
-  "title": "Gesetz zur Änderung des Gesetzes zur Finanzierung des Ausbildungsverkehrs im Öffentlichen Personennahverkehr",
+  "title": "zur Änderung des Gesetzes zur Finanzierung des Ausbildungsverkehrs im Öffentlichen Personennahverkehr",
   "shortTitle": "Gesetz zur Änderung des Gesetzes zur Finanzierung des Ausbildungsverkehrs im Öffentlichen Personennahverkehr",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Verkehr"
   ],
+  "primarySubject": "Verkehr",
   "keywords": [
     "Gesetz zur Änderung des Gesetzes zur Finanzierung des Ausbildungsverkehrs im Öffentlichen Personennahverkehr",
+    "Änd. ÖPNVFinAusG",
     "Änderung",
     "Finanzierung",
     "Ausbildungsverkehrs",
@@ -22,6 +23,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Gesetzes zur Finanzierung des Ausbildungsverkehrs im Öffentlichen Personennahverkehr“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-01-25",
   "effectiveDate": "2012-01-01",
@@ -36,8 +38,12 @@
       "sha256": "c72bb569d1461ebe8633f8a2514b173c9e1cfa9ede060cf909f81cf74f0fc623",
       "lawId": "12324",
       "sourceValidFrom": "2012-01-01",
+      "fsnNumber": "472",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-zur-finanzierung-des-ausbildungsverkehrs-im-oeffentlichen-personennahverkehr"
   ]
 }

@@ -2,15 +2,14 @@
   "id": "zweites-gesetz-zur-aenderung-des-landesjugendhilfegesetzes",
   "slug": "zweites-gesetz-zur-aenderung-des-landesjugendhilfegesetzes",
   "title": "Zweites Gesetz zur Änderung des Landesjugendhilfegesetzes",
-  "shortTitle": "Zweites Gesetz zur Änderung des Landesjugendhilfegesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Jugendhilfe"
   ],
+  "primarySubject": "Jugendhilfe",
   "keywords": [
-    "Zweites Gesetz zur Änderung des Landesjugendhilfegesetzes",
+    "Änd. LJHG",
     "Zweites",
     "Änderung",
     "Landesjugendhilfegesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweites Gesetz zur Änderung des Landesjugendhilfegesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-02-10",
   "effectiveDate": "2017-03-01",
@@ -33,8 +33,12 @@
       "sha256": "14cc47ff4b8496b7ebeaef45ea63c979245d5dc123e86cabfbc8c76f8acf92d4",
       "lawId": "17152",
       "sourceValidFrom": "2017-03-01",
+      "fsnNumber": "82",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "landesjugendhilfegesetz"
   ]
 }

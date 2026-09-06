@@ -1,23 +1,28 @@
 {
   "id": "ostdeutsche-pflanzenschutzverordnung",
   "slug": "ostdeutsche-pflanzenschutzverordnung",
-  "title": "Ostdeutsche Pflanzenschutzverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zum Pflanzenschutzgesetz",
   "shortTitle": "Ostdeutsche Pflanzenschutzverordnung",
-  "abbr": "OstPflSchVO",
   "shortTitleSource": "official",
+  "abbr": "OstPflSchVO",
   "type": "verordnung",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Landwirtschaft und Ernährungswirtschaft"
   ],
+  "primarySubject": "Landwirtschaft und Ernährungswirtschaft",
   "keywords": [
-    "OstPflSchVO",
     "Ostdeutsche Pflanzenschutzverordnung",
-    "Pflanzenschutzverordnung"
+    "Umwelt",
+    "Landwirtschaft",
+    "Pflanzenschutzgesetz",
+    "Pflanzenschutzverordnung",
+    "OstPflSchVO"
   ],
   "initialCitation": "Ostdeutsche Pflanzenschutzverordnung vom 28. Juli 2014 (SächsGVBl. S. 457)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Pflanzenschutzverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2014-07-28",
   "sourceReferences": [
@@ -31,6 +36,7 @@
       "sha256": "295ee399aefed10a7294f5dcea5e58635ec99f64717ba5704039ad19205c252a",
       "lawId": "14102",
       "sourceValidFrom": "2014-08-31",
+      "fsnNumber": "633-7",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

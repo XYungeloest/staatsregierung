@@ -1,24 +1,32 @@
 {
   "id": "zustaendigkeitsverordnung-tierschutz",
   "slug": "zustaendigkeitsverordnung-tierschutz",
-  "title": "Zuständigkeitsverordnung Tierschutz",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz über Zuständigkeiten zur Ausführung tierschutzrechtlicher Vorschriften",
   "shortTitle": "Zuständigkeitsverordnung Tierschutz",
-  "abbr": "TierschZVO",
   "shortTitleSource": "official",
+  "abbr": "TierschZVO",
   "type": "verordnung",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Bergbau, Energiewirtschaft, Wasserwirtschaft"
   ],
+  "primarySubject": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
   "keywords": [
-    "TierschZVO",
     "Zuständigkeitsverordnung Tierschutz",
+    "Soziales",
+    "Verbraucherschutz",
+    "Zuständigkeiten",
+    "Ausführung",
+    "tierschutzrechtlicher",
+    "Vorschriften",
     "Zuständigkeitsverordnung",
-    "Tierschutz"
+    "Tierschutz",
+    "TierschZVO"
   ],
   "initialCitation": "Zuständigkeitsverordnung Tierschutz vom 12. Dezember 2014 (SächsGVBl. 2015 S. 7), die durch die Verordnung vom 3. Juli 2023 (SächsGVBl. S. 592) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Zuständigkeitsverordnung Tierschutz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2014-12-12",
   "sourceReferences": [
@@ -32,6 +40,7 @@
       "sha256": "cf11a259285c4183f857f79f85c4e8f22d76aa719b79685b7178e039f3e140ef",
       "lawId": "15096",
       "sourceValidFrom": "2023-08-01",
+      "fsnNumber": "614-14.1/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

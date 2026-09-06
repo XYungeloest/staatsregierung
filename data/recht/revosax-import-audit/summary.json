@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "baselineDate": "2023-11-01",
   "generatedFrom": {
-    "report": "2026-09-03T16:02:19.269Z",
-    "plan": "2026-09-03T19:02:17.311Z",
+    "report": "2026-09-06T13:23:26.876Z",
+    "plan": "2026-09-06T13:28:08.190Z",
     "envelopes": "2026-09-03T19:02:13.242Z"
   },
   "discovery": {
@@ -87,29 +87,30 @@
     }
   },
   "plan": {
-    "CREATE": 99,
-    "MATCH": 4874,
+    "CREATE": 0,
+    "MATCH": 4964,
     "PROTECT": 52,
     "REVIEW": 0,
-    "SKIP": 64,
+    "SKIP": 73,
     "DEFERRED": 0,
     "writable": true
   },
   "balance": {
     "uniqueHits": 5089,
-    "materializedOwnNorms": 4966,
+    "materializedOwnNorms": 4957,
     "existingMatched": 7,
     "protectedExisting": 52,
     "review": 0,
     "reviewDeferred": 0,
-    "skipped": 64,
+    "skipped": 73,
     "skippedByCategory": {
       "manual-decision": 2,
       "no-text-in-revosax": 9,
       "envelope-alias": 42,
       "duplicate-source": 1,
       "same-version-alias": 8,
-      "identical-text-alias": 2
+      "identical-text-alias": 2,
+      "post-cutoff-saxon-act": 9
     },
     "sums": 5089
   },
@@ -122,9 +123,8 @@
       "D": 0
     },
     "byAction": {
-      "MATCH": 1521,
-      "SKIP": 42,
-      "CREATE": 99
+      "MATCH": 1612,
+      "SKIP": 50
     },
     "fetchedEnvelopes": 20
   },
@@ -152,7 +152,9 @@
       "no-provisions": 61,
       "legacy-layout": 4,
       "duplicate-interval-versions": 1,
-      "multi-version-identical-text": 2
+      "multi-version-identical-text": 2,
+      "envelope-not-in-manifest": 5,
+      "post-cutoff-source": 10
     },
     "sourceEndingTypes": {
       "A": 275,
@@ -232,14 +234,29 @@
       "status": null
     }
   },
+  "postCutoff": {
+    "baselineDate": "2023-11-01",
+    "sourcesAfterCutoff": 10,
+    "citationsWithContainmentClauseStripped": 687,
+    "decisions": {
+      "discard": 9,
+      "adopted": 12,
+      "open": 1
+    },
+    "skipped": 9,
+    "unchangedTargetsOfPostCutoffAmends": 0
+  },
   "derivedMetadata": {
-    "norms": 4966,
+    "norms": 4957,
     "fields": [
-      "subjects",
       "keywords",
       "summary"
     ],
-    "source": "automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz)"
+    "subjects": {
+      "official": 4491,
+      "derived": 473
+    },
+    "source": "automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferKeywords, inferSummary); die Kurzfassung trägt summarySource \"derived\" und wird öffentlich nicht ausgespielt; Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)"
   },
   "residualBacklog": {
     "norms": 0,

@@ -2,15 +2,13 @@
   "id": "aend-zulafogevo-18989-1",
   "slug": "aend-zulafogevo-18989-1",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Zuständigkeitsverordnung Landwirtschaft/Forsten/Gentechnik",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Zuständigkeitsverordnung Landwirtschaft/Forsten/Gentechnik",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Landwirtschaft und Ernährungswirtschaft"
   ],
+  "primarySubject": "Landwirtschaft und Ernährungswirtschaft",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Zuständigkeitsverordnung Landwirtschaft/Forsten/Gentechnik",
+    "Änd. ZuLaFoGeVO",
     "Zweite",
     "Energie",
     "Klimaschutz",
@@ -25,6 +23,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Zuständigkeitsverordnung Landwirtschaft/Forsten/Gentechnik“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-12-21",
   "effectiveDate": "2021-01-27",
@@ -39,8 +38,12 @@
       "sha256": "2109f7e7f493acbb678193466ee3c29798348e94ed3751407d1085f5adbfc47d",
       "lawId": "18989",
       "sourceValidFrom": "2021-01-27",
+      "fsnNumber": "630",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsverordnung-landwirtschaft-forsten-gentechnik"
   ]
 }

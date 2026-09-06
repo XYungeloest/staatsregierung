@@ -2,12 +2,11 @@
   "id": "aend-vwv-stundentafeln-berufsbildende-schulen-19095",
   "slug": "aend-vwv-stundentafeln-berufsbildende-schulen-19095",
   "title": "Änderung der VwV Stundentafeln berufsbildende Schulen",
-  "shortTitle": "Änd. VwV Stundentafeln berufsbildende Schulen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. VwV Stundentafeln berufsbildende Schulen",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-vwv-stundentafeln-berufsbildende-schulen-vwv-zeugnisse-berufsbildende-schulen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. VwV Stundentafeln berufsbildende Schulen“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der VwV Stundentafeln berufsbildende Schulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-16",
   "effectiveDate": "2021-08-01",
@@ -34,6 +34,7 @@
       "sha256": "673eb3d4d1a32b4efa360eb85e9cbd26830d3970d899b257bdf52bcf6ebce2c5",
       "lawId": "19095",
       "sourceValidFrom": "2021-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

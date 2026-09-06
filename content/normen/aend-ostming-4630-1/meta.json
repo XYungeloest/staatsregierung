@@ -2,15 +2,14 @@
   "id": "aend-ostming-4630-1",
   "slug": "aend-ostming-4630-1",
   "title": "Drittes Gesetz zur Änderung des Ostdeutschen Ministergesetzes",
-  "shortTitle": "Drittes Gesetz zur Änderung des Ostdeutschen Ministergesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Drittes Gesetz zur Änderung des Ostdeutschen Ministergesetzes",
+    "Änd OstMinG",
     "Drittes",
     "Änderung",
     "Ministergesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Drittes Gesetz zur Änderung des Ostdeutschen Ministergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2000-05-04",
   "effectiveDate": "2000-06-01",
@@ -36,5 +36,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-ministergesetz"
   ]
 }

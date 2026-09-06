@@ -2,13 +2,12 @@
   "id": "aend-ostbo-12256",
   "slug": "aend-ostbo-12256",
   "title": "Änderung der Ostdeutschen Bauordnung",
-  "shortTitle": "Änd. OstBO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
     "Änd. OstBO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-standortegesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Bauordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-01-27",
   "effectiveDate": "2012-03-01",
@@ -33,6 +33,7 @@
       "sha256": "b0f0bba0e62ae81d90485343373a5eddcfea8784e5e9e5705a5849b9d4bbfb14",
       "lawId": "12256",
       "sourceValidFrom": "2012-03-01",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -1,23 +1,29 @@
 {
   "id": "vwv-kostenverfuegung",
   "slug": "vwv-kostenverfuegung",
-  "title": "VwV Kostenverfügung",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Kostenverfügung",
   "shortTitle": "VwV Kostenverfügung",
-  "abbr": "VwV KostVfg",
   "shortTitleSource": "official",
+  "abbr": "VwV KostVfg",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Justizkostenrecht"
   ],
+  "primarySubject": "Justizkostenrecht",
   "keywords": [
-    "VwV KostVfg",
     "VwV Kostenverfügung",
-    "Kostenverfügung"
+    "Justiz",
+    "Demokratie",
+    "Europa",
+    "Gleichstellung",
+    "Kostenverfügung",
+    "KostVfg"
   ],
   "initialCitation": "VwV Kostenverfügung vom 26. Mai 2014 (SächsJMBl. S. 41)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Kostenverfügung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2014-05-26",
   "sourceReferences": [
@@ -32,6 +38,7 @@
       "lawId": "14004",
       "sourceValidFrom": "2023-10-01",
       "sourceValidTo": "2024-08-31",
+      "fsnNumber": "32-V14.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

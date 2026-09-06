@@ -2,15 +2,14 @@
   "id": "aend-zustuevoju-17738-1",
   "slug": "aend-zustuevoju-17738-1",
   "title": "Fünfte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitle": "Fünfte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Fünfte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
+    "Änd. ZustÜVOJu",
     "Fünfte",
     "Änderung",
     "Zuständigkeitsübertragungsverordnung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Fünfte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-05-28",
   "effectiveDate": "2018-06-29",
@@ -34,8 +34,12 @@
       "sha256": "def8a0caef975ef84ffe17255a53a615f89e64baf2309a0c098b528d1cf18ed2",
       "lawId": "17738",
       "sourceValidFrom": "2018-06-29",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsuebertragungsverordnung-justiz"
   ]
 }

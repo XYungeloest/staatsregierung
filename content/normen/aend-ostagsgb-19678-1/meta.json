@@ -2,15 +2,14 @@
   "id": "aend-ostagsgb-19678-1",
   "slug": "aend-ostagsgb-19678-1",
   "title": "Viertes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitle": "Viertes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Allgemeines zum Sozialwesen"
   ],
+  "primarySubject": "Allgemeines zum Sozialwesen",
   "keywords": [
-    "Viertes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches",
+    "Änd. OstAGSGB",
     "Viertes",
     "Änderung",
     "Ausführung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Viertes Gesetz zur Änderung des Ostdeutschen Gesetzes zur Ausführung des Sozialgesetzbuches“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-07-14",
   "effectiveDate": "2022-07-01",
@@ -34,8 +34,12 @@
       "sha256": "6551e80703101c9adfe61507dd1cc651538866fd79e363bfd2a7ab1e3b627b87",
       "lawId": "19678",
       "sourceValidFrom": "2022-07-01",
+      "fsnNumber": "80",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-gesetz-zur-ausfuehrung-des-sozialgesetzbuches"
   ]
 }

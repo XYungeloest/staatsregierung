@@ -2,13 +2,12 @@
   "id": "aend-landesbildungsratsvo",
   "slug": "aend-landesbildungsratsvo",
   "title": "Änderung der Landesbildungsratsverordnung",
-  "shortTitle": "Änd. LandesbildungsratsVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. LandesbildungsratsVO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2009-2010",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. LandesbildungsratsVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Landesbildungsratsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-12-12",
   "effectiveDate": "2009-04-01",
@@ -33,6 +33,7 @@
       "sha256": "98d25ff0228d4c5169f2d9bf98e8c44e0147ac93418f2b6554ae7da160b0b412",
       "lawId": "10548",
       "sourceValidFrom": "2009-04-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

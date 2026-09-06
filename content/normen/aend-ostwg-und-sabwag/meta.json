@@ -2,15 +2,14 @@
   "id": "aend-ostwg-und-sabwag",
   "slug": "aend-ostwg-und-sabwag",
   "title": "Gesetz zur Änderung des Ostdeutschen Wassergesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Wassergesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Bergbau, Energiewirtschaft, Wasserwirtschaft"
   ],
+  "primarySubject": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Wassergesetzes",
+    "Änd. OstWG und SAbwaG",
     "Änderung",
     "Wassergesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Wassergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1998-07-23",
   "effectiveDate": "1998-08-13",
@@ -35,5 +35,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-wassergesetz"
   ]
 }

@@ -1,24 +1,29 @@
 {
   "id": "ostdeutsches-vergabegesetz",
   "slug": "ostdeutsches-vergabegesetz",
-  "title": "Ostdeutsches Vergabegesetz",
+  "title": "Gesetz über die Vergabe öffentlicher Aufträge im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Vergabegesetz",
-  "abbr": "OstVergabeG",
   "shortTitleSource": "official",
+  "abbr": "OstVergabeG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentliches Auftragswesen"
   ],
+  "primarySubject": "Öffentliches Auftragswesen",
   "keywords": [
-    "OstVergabeG",
     "Ostdeutsches Vergabegesetz",
-    "Vergabegesetz"
+    "Vergabe",
+    "öffentlicher",
+    "Aufträge",
+    "Vergabegesetz",
+    "OstVergabeG"
   ],
   "initialCitation": "Ostdeutsches Vergabegesetz vom 14. Februar 2013 (SächsGVBl. S. 109), das durch Artikel 2 Absatz 18 des Gesetzes vom 5. April 2019 (SächsGVBl. S. 245) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Vergabegesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2013-02-14",
   "sourceReferences": [
@@ -32,6 +37,7 @@
       "sha256": "b2231aacbb7c50cd55c786924065a74448cace488aefcbbae206e435222700aa",
       "lawId": "12749",
       "sourceValidFrom": "2019-04-27",
+      "fsnNumber": "56-4/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

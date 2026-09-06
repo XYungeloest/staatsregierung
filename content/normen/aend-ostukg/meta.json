@@ -2,16 +2,14 @@
   "id": "aend-ostukg",
   "slug": "aend-ostukg",
   "title": "Gesetz zur Änderung des Ostdeutschen Umzugskostengesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Umzugskostengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht",
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Umzugskostengesetzes",
+    "Änd. OstUKG",
     "Änderung",
     "Umzugskostengesetzes"
   ],
@@ -19,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Umzugskostengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-12-16",
   "effectiveDate": "2016-01-01",
@@ -33,8 +32,12 @@
       "sha256": "0a2843d9d85a1dea49cc5ce2d863ffdf908e7930608babb79be098d9edaa0bd2",
       "lawId": "16775",
       "sourceValidFrom": "2016-01-01",
+      "fsnNumber": "242",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-umzugskostengesetz"
   ]
 }

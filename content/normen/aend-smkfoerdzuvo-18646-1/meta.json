@@ -2,15 +2,14 @@
   "id": "aend-smkfoerdzuvo-18646-1",
   "slug": "aend-smkfoerdzuvo-18646-1",
   "title": "Sechste Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderzuständigkeitsverordnung SMK",
-  "shortTitle": "Sechste Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderzuständigkeitsverordnung SMK",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Sechste Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderzuständigkeitsverordnung SMK",
+    "Änd. SMKFÖrdZuVO",
     "Sechste",
     "Kultus",
     "Änderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Sechste Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Förderzuständigkeitsverordnung SMK“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-03-12",
   "effectiveDate": "2020-04-07",
@@ -34,8 +34,12 @@
       "sha256": "d5d93d1f61ac38e7550bcd872cd9bb4ce67b72c4340be88a23837d642ae6f903",
       "lawId": "18646",
       "sourceValidFrom": "2020-04-07",
+      "fsnNumber": "55",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderzustaendigkeitsverordnung-smk"
   ]
 }

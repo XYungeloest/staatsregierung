@@ -64,6 +64,11 @@ Optionen:
                       (z. B. nach neuer Einordnung als Alias oder Reviewfall)
   --help              Diese Hilfe`;
 
+/** Titel sind einzeilig: Zeilenumbrüche der amtlichen Quelle werden zu einfachen Leerzeichen. */
+function collapseTitleWhitespace(value) {
+  return String(value ?? '').replace(/\s+/gu, ' ').trim();
+}
+
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
   return index >= 0 ? args[index + 1] : undefined;
@@ -176,7 +181,8 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
   });
   // Titelmodell (scripts/lib/norm-title-rules.mjs): der amtliche Langtitel steht in der Kennzeile
   // beziehungsweise in der Trefferliste; die Überschrift der Seite trägt oft nur die Kurzbezeichnung.
-  const title = adapted.longTitle || adaptSaxonText(entry.listing?.title ?? '') || adapted.sourceTitle;
+  // Ein Titel ist einzeilig; die amtliche Trefferliste und die Kennzeile brechen ihn um.
+  const title = collapseTitleWhitespace(adapted.longTitle || adaptSaxonText(entry.listing?.title ?? '') || adapted.sourceTitle);
   const shortTitle = normalizedShortTitle(adapted.shortTitle, { title, label: entry.listing?.label });
   const abbr = abbreviationProblem(adapted.abbr, { title, shortTitle }) === null ? adapted.abbr : undefined;
   const normType = entry.inferredType;
@@ -342,7 +348,7 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
     fullCitation: component.sourceCitation ?? entry.listing?.citation ?? '',
     body: componentBodyAtPath(envelopeBody, component.articleBlockPath ?? []),
   });
-  const title = adapted.sourceTitle;
+  const title = collapseTitleWhitespace(adapted.sourceTitle);
   // Die Trefferlistenbezeichnung eines Mantelbestandteils ist meist eine Abkürzungsform
   // („Änd. OstSFG“); sie bleibt Stichwort statt Kurzbezeichnung.
   const shortTitle = normalizedShortTitle(adapted.shortTitle, { title, label: entry.listing?.label });

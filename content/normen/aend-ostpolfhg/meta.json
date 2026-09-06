@@ -1,17 +1,18 @@
 {
   "id": "aend-ostpolfhg",
   "slug": "aend-ostpolfhg",
-  "title": "Gesetz zur Änderung des Ostdeutschen Polizeifachhochschulgesetzes",
+  "title": "zur Änderung des Ostdeutschen Polizeifachhochschulgesetzes",
   "shortTitle": "Gesetz zur Änderung des Ostdeutschen Polizeifachhochschulgesetzes",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung",
-    "Bildung und Weiterbildung"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
     "Gesetz zur Änderung des Ostdeutschen Polizeifachhochschulgesetzes",
+    "Änd. OstPolFHG",
     "Änderung",
     "Polizeifachhochschulgesetzes"
   ],
@@ -19,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Polizeifachhochschulgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-10-17",
   "effectiveDate": "2013-01-01",
@@ -33,8 +35,12 @@
       "sha256": "fd485b0aac99e764cef9f3e3563a4442321683f2dc10039d1590947fad794c19",
       "lawId": "12623",
       "sourceValidFrom": "2013-01-01",
+      "fsnNumber": "22",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-polizeifachhochschulgesetz"
   ]
 }

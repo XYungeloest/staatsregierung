@@ -2,12 +2,11 @@
   "id": "aend-der-schulordnung-berufliche-gymnasien",
   "slug": "aend-der-schulordnung-berufliche-gymnasien",
   "title": "Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitle": "Änd. der Schulordnung Berufliche Gymnasien",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. der Schulordnung Berufliche Gymnasien",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-umsetzung-ostschulg-berufsschulen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. der Schulordnung Berufliche Gymnasien“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-07-24",
   "effectiveDate": "2018-08-01",
@@ -34,6 +34,7 @@
       "sha256": "9c0a3268f5a4146367f6bc12d6a22737dbf2fd5e799e70873428475ef07c9315",
       "lawId": "17813",
       "sourceValidFrom": "2018-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

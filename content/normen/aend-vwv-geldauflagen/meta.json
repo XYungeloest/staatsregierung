@@ -2,14 +2,13 @@
   "id": "aend-vwv-geldauflagen",
   "slug": "aend-vwv-geldauflagen",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geldauflagen",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geldauflagen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geldauflagen",
+    "Änd. VwV Geldauflagen",
     "Justiz",
     "Änderung",
     "Geldauflagen"
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geldauflagen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2004-06-28",
   "effectiveDate": "2004-06-01",
@@ -35,5 +35,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-geldauflagen"
   ]
 }

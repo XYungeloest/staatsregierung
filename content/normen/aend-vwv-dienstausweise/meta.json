@@ -2,15 +2,14 @@
   "id": "aend-vwv-dienstausweise",
   "slug": "aend-vwv-dienstausweise",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Dienstausweise",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Dienstausweise",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Landesrecht"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Dienstausweise",
+    "Änd. VwV Dienstausweise",
     "Innern",
     "Änderung",
     "Dienstausweise"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Dienstausweise“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-09-25",
   "effectiveDate": "2018-10-19",
@@ -33,8 +33,12 @@
       "sha256": "63700d3343a2c9ca184e13f3ab5d53aded701ccd016b46d1e5c46f3fed8a3cdb",
       "lawId": "17839",
       "sourceValidFrom": "2018-10-19",
+      "fsnNumber": "20",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-dienstausweise"
   ]
 }

@@ -9,9 +9,8 @@
     "D": 0
   },
   "byAction": {
-    "MATCH": 1521,
-    "SKIP": 42,
-    "CREATE": 99
+    "MATCH": 1612,
+    "SKIP": 50
   },
   "fetchedEnvelopes": [
     {
@@ -4961,7 +4960,7 @@
       "class": "A",
       "reason": "Artikel IX. der Mantelvorschrift 3297 eindeutig zugeordnet",
       "slug": "aend-vwv-aufwentschbeirjvollz",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "3724",
@@ -5325,7 +5324,7 @@
       "class": "A",
       "reason": "Artikel Neunter Abschnitt § 37 Absatz 2 der Mantelvorschrift 5479 eindeutig zugeordnet",
       "slug": "aend-ostaeg",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "3962",
@@ -5400,7 +5399,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 12 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-g-zustaendigkeiten-energieeinsparung",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -5620,7 +5619,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 3542 eindeutig zugeordnet",
       "slug": "aend-ostag-gesetz-10",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-gesetz-verfassungsschutzgesetzes-und-des-gesetzes-zur-ausfuehrung-des-gesetzes-zu-art-10-gg"
     },
     {
@@ -5816,7 +5815,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 5082 eindeutig zugeordnet",
       "slug": "aenderung-des-finanzausgleichsgesetzes-4265",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "anpassung-von-landesrecht-an-aend-gesetz-aufbau-ost"
     },
     {
@@ -5992,7 +5991,7 @@
       "class": "A",
       "reason": "Artikel § 11 Nummer 2 der Mantelvorschrift 2932 eindeutig zugeordnet",
       "slug": "aend-vo-landkreisordnung",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "4398",
@@ -6044,7 +6043,7 @@
       "class": "A",
       "reason": "Artikel Teil 10 § 73 Absatz 1 der Mantelvorschrift 3393 eindeutig zugeordnet",
       "slug": "aend-ostgemo-4399",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostdeutsches-justizgesetz"
     },
     {
@@ -6095,7 +6094,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 6 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-g-zur-rl-94-80-eg",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -6365,7 +6364,7 @@
       "class": "A",
       "reason": "Artikel Teil 9 § 128 Absatz 2 der Mantelvorschrift 2956 eindeutig zugeordnet",
       "slug": "aend-ostsozanerkg-4570",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "4572",
@@ -6441,7 +6440,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 15 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-ostsozanerkg-4574",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -6637,7 +6636,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 11 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-ostbestg-4603",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -7120,7 +7119,7 @@
       "class": "A",
       "reason": "Artikel Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen der Mantelvorschrift 2324 eindeutig zugeordnet",
       "slug": "aend-protokoll-des-europaeischen-uebereinkommens-ueber-das-grenzueberschreitende-fernsehen",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vierter-rundfunkaenderungsstaatsvertrag"
     },
     {
@@ -7267,7 +7266,7 @@
       "class": "A",
       "reason": "Artikel II. der Mantelvorschrift 4525 eindeutig zugeordnet",
       "slug": "aend-vwv-feststellungspruefungen",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "4760",
@@ -7508,7 +7507,7 @@
       "class": "A",
       "reason": "Artikel Artikel 8 der Mantelvorschrift 3750 eindeutig zugeordnet",
       "slug": "aend-oststrg-4784",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostdeutsches-aufbaubeschleunigungsgesetz"
     },
     {
@@ -7536,7 +7535,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 2 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-saechs-aufbaug",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -7713,7 +7712,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 19 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-sonderurlaubsgesetz",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -8274,7 +8273,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 20 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-dg-kof",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -9791,7 +9790,7 @@
       "class": "A",
       "reason": "Artikel § 55 der Mantelvorschrift 2876 eindeutig zugeordnet",
       "slug": "aend-abgeordnetengesetz-9483",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "9493",
@@ -9841,7 +9840,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 1255 eindeutig zugeordnet",
       "slug": "zug-zum-4-rundfunkaenderungsstv",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-zum-4-rundfunkaenderungsstv-und-aend-weiterer-g"
     },
     {
@@ -12458,7 +12457,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 10264 eindeutig zugeordnet",
       "slug": "aend-ostapomvwd-10266",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-ostapogvwd-ostapomvwd-ostbbigavo"
     },
     {
@@ -12484,7 +12483,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 der Mantelvorschrift 10264 eindeutig zugeordnet",
       "slug": "aend-ostbbigavo-10267",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-ostapogvwd-ostapomvwd-ostbbigavo"
     },
     {
@@ -12921,7 +12920,7 @@
       "class": "A",
       "reason": "Artikel Artikel 11 der Mantelvorschrift 10338 eindeutig zugeordnet",
       "slug": "aend-zuvo-schutzbereichg-landbeschaffungsg",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vo-umsetzung-verwaltungsneuordnung-zustaendigkeitsbereich-smi"
     },
     {
@@ -14969,7 +14968,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 11324 eindeutig zugeordnet",
       "slug": "g-zum-13-rdf-aestv",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-zum-13-rundfunkaenderungsstv-und-aend-ostprg"
     },
     {
@@ -14995,7 +14994,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 11324 eindeutig zugeordnet",
       "slug": "aend-ostprg-11327",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-zum-13-rundfunkaenderungsstv-und-aend-ostprg"
     },
     {
@@ -15022,7 +15021,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 11325 eindeutig zugeordnet",
       "slug": "aend-jmstv-11329",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "dreizehnter-rundfunkaenderungsstaatsvertrag"
     },
     {
@@ -15048,7 +15047,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 11330 eindeutig zugeordnet",
       "slug": "aend-zustuevoju-11331",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostintverstvo-und-aend-zustuevoju"
     },
     {
@@ -15099,7 +15098,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 3 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostdg-11380",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15126,7 +15125,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 4 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostgdg-11381",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15153,7 +15152,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 7 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-osteag",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15180,7 +15179,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 8 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostbo-11385",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15207,7 +15206,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 9 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aenderung-des-landesjugendhilfegesetzes-11386",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15234,7 +15233,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 10 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-schulg-11387",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15261,7 +15260,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 11 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-befaeang-lehrer-11388",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15288,7 +15287,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 12 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostgfbwbg-11389",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15315,7 +15314,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 13 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostsozanerkg-11390",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15342,7 +15341,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 14 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostkag-11391",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15369,7 +15368,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 16 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostravg-11393",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15396,7 +15395,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 20 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-ostmarkg",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15423,7 +15422,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 22 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-leisenbg-11399",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -15450,7 +15449,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 23 der Mantelvorschrift 11376 eindeutig zugeordnet",
       "slug": "aend-lseilbg-11400",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze"
     },
     {
@@ -16316,7 +16315,7 @@
       "class": "A",
       "reason": "Artikel I. der Mantelvorschrift 11643 eindeutig zugeordnet",
       "slug": "aend-rl-hochwasserschaeden-wohngebaeude-2010",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-frl-hochwasser-2010"
     },
     {
@@ -16342,7 +16341,7 @@
       "class": "A",
       "reason": "Artikel II. der Mantelvorschrift 11643 eindeutig zugeordnet",
       "slug": "aend-rl-vorfinanzierung-hochwasser-2010",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-frl-hochwasser-2010"
     },
     {
@@ -16368,7 +16367,7 @@
       "class": "A",
       "reason": "Artikel III. der Mantelvorschrift 11643 eindeutig zugeordnet",
       "slug": "aend-rl-kommunaldarlehen-hochwasser-2010-11646",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-frl-hochwasser-2010"
     },
     {
@@ -16394,7 +16393,7 @@
       "class": "A",
       "reason": "Artikel IV. der Mantelvorschrift 11643 eindeutig zugeordnet",
       "slug": "aend-auffangrichtlinie-hochwasserschaeden-2010",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-frl-hochwasser-2010"
     },
     {
@@ -16420,7 +16419,7 @@
       "class": "A",
       "reason": "Artikel V. der Mantelvorschrift 11643 eindeutig zugeordnet",
       "slug": "aend-vwv-smi-aufbauhilfe-sommerhochwasser-2010",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-frl-hochwasser-2010"
     },
     {
@@ -16447,7 +16446,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 3051 eindeutig zugeordnet",
       "slug": "zustimmungsgesetz-zum-evangelischen-kirchenvertrag-ostdeutschland",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-zum-stv-evangelischer-kirchenevertrag-ostdeutschland"
     },
     {
@@ -18230,7 +18229,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwv-lof-ueberbreite",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18256,7 +18255,7 @@
       "class": "A",
       "reason": "Artikel Artikel 5 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-rl-fuer-die-rechtliche-behandlung-von-ortsdurchfahrten",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18282,7 +18281,7 @@
       "class": "A",
       "reason": "Artikel Artikel 7 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwv-strassenunterhaltungs-und-betriebsdienst-im-gemeinschaftsaufwand",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18308,7 +18307,7 @@
       "class": "A",
       "reason": "Artikel Artikel 8 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwvostuivo",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18334,7 +18333,7 @@
       "class": "A",
       "reason": "Artikel Artikel 9 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwv-einfuehrung-rl-zur-ermittlung-und-verrechnung-von-kosten-im-strassenbetriebsdienst-an",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18360,7 +18359,7 @@
       "class": "A",
       "reason": "Artikel Artikel 10 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwv-merkblatt-gruenpflege",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18386,7 +18385,7 @@
       "class": "A",
       "reason": "Artikel Artikel 11 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwv-bta-strassentunnel",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18412,7 +18411,7 @@
       "class": "A",
       "reason": "Artikel Artikel 12 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwv-baustellv-vom-10-06-1998-rab",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18438,7 +18437,7 @@
       "class": "A",
       "reason": "Artikel Artikel 13 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-vwv-mvas-1999",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -18464,7 +18463,7 @@
       "class": "A",
       "reason": "Artikel Artikel 14 der Mantelvorschrift 12305 eindeutig zugeordnet",
       "slug": "aend-rl-oepnv-12319",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vwv-zur-anpassung-des-oststog"
     },
     {
@@ -19930,7 +19929,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 12491 eindeutig zugeordnet",
       "slug": "aend-g-ueber-die-oeffentlich-rechtlichen-kreditinstitute-im-freistaat-ostdeutschland-und-die-12492",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-g-ueber-die-oeffentlich-rechtlichen-kreditinstitute-im-freistaat-ostdeutschland-und-die"
     },
     {
@@ -19956,7 +19955,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 12491 eindeutig zugeordnet",
       "slug": "aend-g-ueber-die-oeffentlich-rechtlichen-kreditinstitute-im-freistaat-ostdeutschland-und-die-12493",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-g-ueber-die-oeffentlich-rechtlichen-kreditinstitute-im-freistaat-ostdeutschland-und-die"
     },
     {
@@ -21302,7 +21301,7 @@
       "class": "A",
       "reason": "Artikel Artikel 24 der Mantelvorschrift 12679 eindeutig zugeordnet",
       "slug": "aend-ostchemrzuvo",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "vo-zur-umsetzung-der-standortkonzeption-sowie-zur-rechtsbereinigung"
     },
     {
@@ -23696,7 +23695,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 14069 eindeutig zugeordnet",
       "slug": "aend-sakdg-14075",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-foerderung-elektronischen-verwaltung-errichtung-der-ostdeutschen-anstalt-fuer-kommunale"
     },
     {
@@ -23746,7 +23745,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 14073 eindeutig zugeordnet",
       "slug": "aend-agykovo-14084",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-sogya-und-agykovo"
     },
     {
@@ -23844,7 +23843,7 @@
       "class": "A",
       "reason": "Artikel I. der Mantelvorschrift 14120 eindeutig zugeordnet",
       "slug": "aend-rl-energetische-sanierung-14121",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "14122",
@@ -23869,7 +23868,7 @@
       "class": "A",
       "reason": "Artikel II. der Mantelvorschrift 14120 eindeutig zugeordnet",
       "slug": "aend-rl-mehrgenerationenwohnen",
-      "action": "CREATE"
+      "action": "MATCH"
     },
     {
       "lawId": "14143",
@@ -24341,7 +24340,7 @@
       "class": "A",
       "reason": "Artikel Änderung des Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze der Mantelvorschrift 16011 eindeutig zugeordnet",
       "slug": "aend-ostagbmg-und-weiterer-gesetze",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-ostagbmg-und-ostmeldvo"
     },
     {
@@ -25474,7 +25473,7 @@
       "class": "A",
       "reason": "Artikel Teil 10 § 73 Absatz 3 der Mantelvorschrift 3393 eindeutig zugeordnet",
       "slug": "aend-ostprg-16833",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "ostdeutsches-justizgesetz"
     },
     {
@@ -25838,7 +25837,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 1 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-agbtg-17022",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -25893,7 +25892,7 @@
       "class": "A",
       "reason": "Artikel § 1 Nummer 13 der Mantelvorschrift 4371 eindeutig zugeordnet",
       "slug": "aend-ostagsgb-viii-17024",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "zweites-ostdeutsches-rechtsbereinigungsgesetz"
     },
     {
@@ -26013,7 +26012,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 17036 eindeutig zugeordnet",
       "slug": "aend-ostagbmg",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-ostkag"
     },
     {
@@ -26663,7 +26662,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 1 der Mantelvorschrift 17089 eindeutig zugeordnet",
       "slug": "aend-ostkomzg-17092",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "3-g-aend-ostgemo"
     },
     {
@@ -26690,7 +26689,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 2 der Mantelvorschrift 17089 eindeutig zugeordnet",
       "slug": "aend-ostlkro-17093",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "3-g-aend-ostgemo"
     },
     {
@@ -26717,7 +26716,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 3 der Mantelvorschrift 17089 eindeutig zugeordnet",
       "slug": "aend-ostkomsozvg-17094",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "3-g-aend-ostgemo"
     },
     {
@@ -26744,7 +26743,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 5 der Mantelvorschrift 17089 eindeutig zugeordnet",
       "slug": "aend-sakdg-17096",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "3-g-aend-ostgemo"
     },
     {
@@ -26771,7 +26770,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 6 der Mantelvorschrift 17089 eindeutig zugeordnet",
       "slug": "aend-ostkrg-17097",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "3-g-aend-ostgemo"
     },
     {
@@ -30083,7 +30082,7 @@
       "class": "A",
       "reason": "Artikel I. der Mantelvorschrift 17866 eindeutig zugeordnet",
       "slug": "aend-rl-gmw-17867",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "rl-aend-wohnraumfoerderrichtlinien"
     },
     {
@@ -30109,7 +30108,7 @@
       "class": "A",
       "reason": "Artikel II. der Mantelvorschrift 17866 eindeutig zugeordnet",
       "slug": "aend-rl-sebau",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "rl-aend-wohnraumfoerderrichtlinien"
     },
     {
@@ -30135,7 +30134,7 @@
       "class": "A",
       "reason": "Artikel III. der Mantelvorschrift 17866 eindeutig zugeordnet",
       "slug": "aend-rl-wra",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "rl-aend-wohnraumfoerderrichtlinien"
     },
     {
@@ -33804,7 +33803,7 @@
       "class": "A",
       "reason": "Artikel I. der Mantelvorschrift 18452 eindeutig zugeordnet",
       "slug": "aend-rl-gebundener-mietwohnraum",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aenderungsrichtlinie-wohnraumfoerderung-2019"
     },
     {
@@ -33830,7 +33829,7 @@
       "class": "A",
       "reason": "Artikel II. der Mantelvorschrift 18452 eindeutig zugeordnet",
       "slug": "aend-rl-wohnraumanpassung-18454",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aenderungsrichtlinie-wohnraumfoerderung-2019"
     },
     {
@@ -33976,7 +33975,7 @@
       "class": "A",
       "reason": "Artikel I. der Mantelvorschrift 18512 eindeutig zugeordnet",
       "slug": "aend-rl-gebundener-mietwohnraum-18513",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "anpassungsrichtlinie-wohnraumfoerderung-2019"
     },
     {
@@ -34002,7 +34001,7 @@
       "class": "A",
       "reason": "Artikel III. der Mantelvorschrift 18512 eindeutig zugeordnet",
       "slug": "aend-rl-wohnraumanpassung-18515",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "anpassungsrichtlinie-wohnraumfoerderung-2019"
     },
     {
@@ -34028,7 +34027,7 @@
       "class": "A",
       "reason": "Artikel IV. der Mantelvorschrift 18512 eindeutig zugeordnet",
       "slug": "aend-rl-seniorengerecht-umbauen",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "anpassungsrichtlinie-wohnraumfoerderung-2019"
     },
     {
@@ -34054,7 +34053,7 @@
       "class": "A",
       "reason": "Artikel V. der Mantelvorschrift 18512 eindeutig zugeordnet",
       "slug": "aend-rl-wohneigentum-laendlicher-raum",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "anpassungsrichtlinie-wohnraumfoerderung-2019"
     },
     {
@@ -35592,7 +35591,7 @@
       "class": "A",
       "reason": "Artikel I. der Mantelvorschrift 19094 eindeutig zugeordnet",
       "slug": "aend-vwv-stundentafeln-berufsbildende-schulen-19095",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-vwv-stundentafeln-berufsbildende-schulen-vwv-zeugnisse-berufsbildende-schulen"
     },
     {
@@ -35618,7 +35617,7 @@
       "class": "A",
       "reason": "Artikel II. der Mantelvorschrift 19094 eindeutig zugeordnet",
       "slug": "aend-vwv-zeugnisse-berufsbildende-schulen-19096",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-vwv-stundentafeln-berufsbildende-schulen-vwv-zeugnisse-berufsbildende-schulen"
     },
     {
@@ -36796,7 +36795,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 19262 eindeutig zugeordnet",
       "slug": "aend-ostschkgagfoerdvo-19265",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "aend-ostschkgagfoerdvo-19262-1"
     },
     {
@@ -37881,7 +37880,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 1 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostnkrg-19700",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -37908,7 +37907,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 2 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-10-ostkvz",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -37935,7 +37934,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 3 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostarchivg-19702",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -37962,7 +37961,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 4 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostjstvollzg-19703",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -37989,7 +37988,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 5 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostuhaftvollzg-19704",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -38016,7 +38015,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 6 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-oststvollzg-19705",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -38043,7 +38042,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 7 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostsvvollzg-19706",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -38070,7 +38069,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 8 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostjarrestvollzg-19707",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -38097,7 +38096,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 9 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostwaldg-19708",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -38124,7 +38123,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 Absatz 10 der Mantelvorschrift 19698 eindeutig zugeordnet",
       "slug": "aend-ostuig-19709",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-einfuehrung-des-osttranspg"
     },
     {
@@ -39927,7 +39926,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 1 der Mantelvorschrift 20109 eindeutig zugeordnet",
       "slug": "aend-ostpersvg-20112",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-aend-ostnrg-und-ostrig"
     },
     {
@@ -39954,7 +39953,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 2 der Mantelvorschrift 20109 eindeutig zugeordnet",
       "slug": "aend-ostbesg-20113",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-aend-ostnrg-und-ostrig"
     },
     {
@@ -39981,7 +39980,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 3 der Mantelvorschrift 20109 eindeutig zugeordnet",
       "slug": "aend-ostbeamtvg-20114",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-aend-ostnrg-und-ostrig"
     },
     {
@@ -40008,7 +40007,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 Absatz 4 der Mantelvorschrift 20109 eindeutig zugeordnet",
       "slug": "aend-ostdrzustvo-20115",
-      "action": "CREATE",
+      "action": "MATCH",
       "containedIn": "g-aend-ostnrg-und-ostrig"
     },
     {
@@ -40031,8 +40030,8 @@
       "anchorResolution": "anchor",
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 20116 eindeutig zugeordnet",
-      "slug": "aend-saechs-beamtvg",
-      "action": "MATCH"
+      "slug": "aend-saechs-beamtvg-20118",
+      "action": "SKIP"
     },
     {
       "lawId": "20119",
@@ -40055,7 +40054,7 @@
       "class": "A",
       "reason": "Artikel Artikel 3 der Mantelvorschrift 20116 eindeutig zugeordnet",
       "slug": "aend-ostbesg-20119",
-      "action": "MATCH"
+      "action": "SKIP"
     },
     {
       "lawId": "20120",
@@ -40078,7 +40077,7 @@
       "class": "A",
       "reason": "Artikel Artikel 4 der Mantelvorschrift 20116 eindeutig zugeordnet",
       "slug": "aend-ostbeamtvg-20120",
-      "action": "MATCH"
+      "action": "SKIP"
     },
     {
       "lawId": "20142",
@@ -40389,7 +40388,7 @@
       "class": "A",
       "reason": "Artikel Artikel 9 der Mantelvorschrift 20817 eindeutig zugeordnet",
       "slug": "aend-ostbesg-20826",
-      "action": "MATCH"
+      "action": "SKIP"
     },
     {
       "lawId": "20865",
@@ -40412,7 +40411,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 20863 eindeutig zugeordnet",
       "slug": "aend-ostlplg-20865",
-      "action": "MATCH"
+      "action": "SKIP"
     },
     {
       "lawId": "20930",
@@ -40435,8 +40434,7 @@
       "class": "A",
       "reason": "Artikel Artikel 1 der Mantelvorschrift 20929 eindeutig zugeordnet",
       "slug": "aend-ostfrtrschulg-20930",
-      "action": "MATCH",
-      "containedIn": "aend-rechtsnormen-fuer-schulen-in-freier-traegerschaft-2024"
+      "action": "SKIP"
     },
     {
       "lawId": "20931",
@@ -40459,8 +40457,7 @@
       "class": "A",
       "reason": "Artikel Artikel 2 der Mantelvorschrift 20929 eindeutig zugeordnet",
       "slug": "aend-zuschussvo-20931",
-      "action": "MATCH",
-      "containedIn": "aend-rechtsnormen-fuer-schulen-in-freier-traegerschaft-2024"
+      "action": "SKIP"
     },
     {
       "lawId": "20934",
@@ -40483,8 +40480,7 @@
       "class": "A",
       "reason": "Artikel Artikel 5 der Mantelvorschrift 20929 eindeutig zugeordnet",
       "slug": "aend-ostschulnetzvo-20934",
-      "action": "MATCH",
-      "containedIn": "aend-rechtsnormen-fuer-schulen-in-freier-traegerschaft-2024"
+      "action": "SKIP"
     }
   ]
 }

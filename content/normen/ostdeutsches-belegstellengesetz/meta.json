@@ -1,24 +1,29 @@
 {
   "id": "ostdeutsches-belegstellengesetz",
   "slug": "ostdeutsches-belegstellengesetz",
-  "title": "Ostdeutsches Belegstellengesetz",
+  "title": "Gesetz zum Schutz von Belegstellen für Bienen im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Belegstellengesetz",
-  "abbr": "OstBelStG",
   "shortTitleSource": "official",
+  "abbr": "OstBelStG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Landwirtschaft und Ernährungswirtschaft"
   ],
+  "primarySubject": "Landwirtschaft und Ernährungswirtschaft",
   "keywords": [
-    "OstBelStG",
     "Ostdeutsches Belegstellengesetz",
-    "Belegstellengesetz"
+    "Schutz",
+    "Belegstellen",
+    "Bienen",
+    "Belegstellengesetz",
+    "OstBelStG"
   ],
   "initialCitation": "Ostdeutsches Belegstellengesetz vom 3. August 2018 (SächsGVBl. S. 494)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Belegstellengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-08-03",
   "sourceReferences": [
@@ -32,6 +37,7 @@
       "sha256": "a9785054807083998fdcb382b374455f5dc6b89c7b0f4f306fd31f6d94324dad",
       "lawId": "17803",
       "sourceValidFrom": "2018-08-04",
+      "fsnNumber": "634-21",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Fachinformationssystem Grundwasser",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Fachinformationssystem Grundwasser (VwV FIS GW)",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Fachinformationssystem Grundwasser",
-  "abbr": "VwV FIS GW",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Fachinformationssystem Grundwasser vom 17. Dezember 2009 (SächsABl. 2010 S. 64), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 280)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Fachinformationssystem Grundwasser vom 17. Dezember 2009 (SächsABl. 2010 S. 64)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "62f243890af8f2ff9b1fa6d65847087f60ba00e902d96b9dc9d2ca4f4057a877",
       "lawId": "11258",
       "sourceValidFrom": "2010-01-01",
+      "fsnNumber": "612-V10.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -30,14 +30,6 @@
       "title": "Regelungsgegenstand",
       "children": [
         {
-          "type": "item",
-          "label": "I.",
-          "text": "Regelungsgegenstand",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Im Freistaat Ostdeutschland sind in verschiedenen Behörden grundwasserrelevante Daten sowohl in digitaler als auch analoger Form vorhanden. Die digitalen Daten sollen im landeseinheitlichen Fachinformationssystem Grundwasser zusammengeführt werden, auf das von berechtigten Nutzern elektronisch zugegriffen werden kann."
         }
@@ -48,14 +40,6 @@
       "label": "II.",
       "title": "Landesmessnetz Grundwasser",
       "children": [
-        {
-          "type": "item",
-          "label": "II.",
-          "text": "Landesmessnetz Grundwasser",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "Das Landesamt für Umwelt, Landwirtschaft und Geologie (LfULG) unterhält nach § 10 des Ostdeutschen Wassergesetzes (\nOstWG) in der Fassung der Bekanntmachung vom 18. Oktober 2004 (SächsGVBl. S. 482), das zuletzt durch Artikel 13 des Gesetzes vom 13. August 2009 (SächsGVBl. S. 438, 442) geändert worden ist, sowie §§ 10, 11 und 14 Abs. 1 Satz 1 der Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Bestandsaufnahme, Einstufung und Überwachung der Gewässer (Ostdeutsche Wasserrahmenrichtlinienverordnung –\nOstWRRLVO) vom 7. Dezember 2004 (SächsGVBl. S. 610), die durch Verordnung vom 26. Juni 2008 (SächsGVBl. S. 456) geändert worden ist, das Landesmessnetz Grundwasser. Es umfasst die Bestandteile:"
@@ -121,14 +105,6 @@
       "children": [
         {
           "type": "item",
-          "label": "III.",
-          "text": "Sonstige Grundwasserdaten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "1.",
           "text": "Ergänzend werden dem LfULG zur Erfüllung der Aufgaben nach § 9\nOstWRRLVO grundwasserrelevante Daten von anderen Behörden nach §§ 10 und 126\nOstWG übermittelt.",
           "level": 0,
@@ -183,14 +159,6 @@
       "label": "IV.",
       "title": "Elektronische Verarbeitung der Grundwasserdaten",
       "children": [
-        {
-          "type": "item",
-          "label": "IV.",
-          "text": "Elektronische Verarbeitung der Grundwasserdaten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -260,14 +228,6 @@
       "label": "V.",
       "title": "Verwendung der Daten",
       "children": [
-        {
-          "type": "item",
-          "label": "V.",
-          "text": "Verwendung der Daten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -398,14 +358,6 @@
       "label": "VI.",
       "title": "Zugriffsrechte",
       "children": [
-        {
-          "type": "item",
-          "label": "VI.",
-          "text": "Zugriffsrechte",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.",
@@ -574,14 +526,6 @@
       "title": "Löschen der Daten",
       "children": [
         {
-          "type": "item",
-          "label": "VII.",
-          "text": "Löschen der Daten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Es besteht wegen der langfristig zu beobachtenden Entwicklungen im Grundwasser eine unbeschränkte Aufbewahrungspflicht."
         }
@@ -593,14 +537,6 @@
       "title": "Auskunftsrechte/Veröffentlichung",
       "children": [
         {
-          "type": "item",
-          "label": "VIII.",
-          "text": "Auskunftsrechte/Veröffentlichung",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
-        {
           "type": "paragraphText",
           "text": "Das Recht auf Auskunft wird nach den Vorschriften des Gesetzes über den Zugang zu Umweltinformationen für den Freistaat Ostdeutschland (Ostdeutsches Umweltinformationsgesetz –\nOstUIG) vom 1. Juni 2006 (SächsGVBl. S. 146) in der jeweils geltenden Fassung gewährt."
         }
@@ -611,14 +547,6 @@
       "label": "IX.",
       "title": "Inkrafttreten",
       "children": [
-        {
-          "type": "item",
-          "label": "IX.",
-          "text": "Inkrafttreten",
-          "level": 0,
-          "numberingStyle": "upper-roman",
-          "children": []
-        },
         {
           "type": "paragraphText",
           "text": "Diese Verwaltungsvorschrift tritt am 1. Januar 2010 in Kraft."

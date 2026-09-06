@@ -2,13 +2,12 @@
   "id": "aend-ostkontrollg",
   "slug": "aend-ostkontrollg",
   "title": "Änderung des Ostdeutschen Kontrollgesetzes",
-  "shortTitle": "Änd. OstKontrollG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd. OstKontrollG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ostpolg-und-anderer-gesetze",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstKontrollG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Kontrollgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-10-04",
   "effectiveDate": "2011-10-29",
@@ -33,6 +33,7 @@
       "sha256": "b69ff49370fd7033e29a3ebd411b9ba7cdcbb1568812e82e9f4ec51d5a8d6cf3",
       "lawId": "12107",
       "sourceValidFrom": "2011-10-29",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

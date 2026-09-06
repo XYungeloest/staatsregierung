@@ -2,15 +2,14 @@
   "id": "aend-vwv-stundentafeln-18704-1",
   "slug": "aend-vwv-stundentafeln-18704-1",
   "title": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln",
-  "shortTitle": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Landesrecht"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln",
+    "Änd. VwV Stundentafeln",
     "Zweite",
     "Kultus",
     "Änderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-05-12",
   "effectiveDate": "2020-08-01",
@@ -34,8 +34,12 @@
       "sha256": "d04f8240615733fb3adb9fa8f279978428a222c043413c2e7ce9757bd0fa7e76",
       "lawId": "18704",
       "sourceValidFrom": "2020-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-stundentafeln"
   ]
 }

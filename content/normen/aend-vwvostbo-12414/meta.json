@@ -2,12 +2,11 @@
   "id": "aend-vwvostbo-12414",
   "slug": "aend-vwvostbo-12414",
   "title": "Änderung der Verwaltungsvorschrift zur Ostdeutschen Bauordnung",
-  "shortTitle": "Änd. VwVOstBO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
     "Änd. VwVOstBO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vwv-des-smi-zur-aenderung-von-verwaltungsvorschriften-aufgrund-des-ostdeutschen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. VwVOstBO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Verwaltungsvorschrift zur Ostdeutschen Bauordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-03-01",
   "effectiveDate": "2012-03-02",
@@ -32,6 +32,7 @@
       "sha256": "83b5e27a1c3f72688a924d2a93fc7b04555e7353adec4898a64f3abe8c0f3e49",
       "lawId": "12414",
       "sourceValidFrom": "2012-03-02",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

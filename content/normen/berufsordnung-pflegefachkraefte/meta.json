@@ -1,24 +1,30 @@
 {
   "id": "berufsordnung-pflegefachkraefte",
   "slug": "berufsordnung-pflegefachkraefte",
-  "title": "Berufsordnung Pflegefachkräfte",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz über die Berufsausübung von Pflegefachkräften",
   "shortTitle": "Berufsordnung Pflegefachkräfte",
-  "abbr": "PflBO",
   "shortTitleSource": "official",
+  "abbr": "PflBO",
   "type": "verordnung",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "PflBO",
     "Berufsordnung Pflegefachkräfte",
+    "Soziales",
+    "Verbraucherschutz",
+    "Berufsausübung",
+    "Pflegefachkräften",
     "Berufsordnung",
-    "Pflegefachkräfte"
+    "Pflegefachkräfte",
+    "PflBO"
   ],
   "initialCitation": "Berufsordnung Pflegefachkräfte vom 30. November 2012 (SächsGVBl. S. 696), die zuletzt durch Artikel 2 der Verordnung vom 26. November 2019 (SächsGVBl. S. 770) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Berufsordnung Pflegefachkräfte“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2012-11-30",
   "sourceReferences": [
@@ -32,6 +38,7 @@
       "sha256": "25aafb20fea95eb422a73abe612892523cc0dda83fa1e9f8c6365d13f312bb0c",
       "lawId": "12628",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "250-1.3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -1,24 +1,30 @@
 {
   "id": "ostdeutsches-kurortegesetz",
   "slug": "ostdeutsches-kurortegesetz",
-  "title": "Ostdeutsches Kurortegesetz",
+  "title": "Ostdeutsches Gesetz über die staatliche Anerkennung von Kurorten und Erholungsorten im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Kurortegesetz",
-  "abbr": "OstKurG",
   "shortTitleSource": "official",
+  "abbr": "OstKurG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
-    "OstKurG",
     "Ostdeutsches Kurortegesetz",
-    "Kurortegesetz"
+    "staatliche",
+    "Anerkennung",
+    "Kurorten",
+    "Erholungsorten",
+    "Kurortegesetz",
+    "OstKurG"
   ],
   "initialCitation": "Ostdeutsches Kurortegesetz vom 9. Juni 1994 (SächsGVBl. S. 1022), das zuletzt durch das Gesetz vom 25. Februar 2008 (SächsGVBl. S. 245) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Kurortegesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1994-06-09",
   "sourceReferences": [
@@ -32,6 +38,7 @@
       "sha256": "4f8c2ed6c63fbac810f01d46239384e1130c0436f6602984ec7eaf9721284cd9",
       "lawId": "4858",
       "sourceValidFrom": "2008-08-01",
+      "fsnNumber": "230-2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

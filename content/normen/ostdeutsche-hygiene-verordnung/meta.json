@@ -1,23 +1,29 @@
 {
   "id": "ostdeutsche-hygiene-verordnung",
   "slug": "ostdeutsche-hygiene-verordnung",
-  "title": "Ostdeutsche Hygiene-Verordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Soziales zur Verhütung übertragbarer Krankheiten",
   "shortTitle": "Ostdeutsche Hygiene-Verordnung",
-  "abbr": "OstHygVO",
   "shortTitleSource": "official",
+  "abbr": "OstHygVO",
   "type": "verordnung",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "OstHygVO",
     "Ostdeutsche Hygiene-Verordnung",
-    "Hygiene-Verordnung"
+    "Soziales",
+    "Verhütung",
+    "übertragbarer",
+    "Krankheiten",
+    "Hygiene-Verordnung",
+    "OstHygVO"
   ],
   "initialCitation": "Ostdeutsche Hygiene-Verordnung vom 7. April 2004 (SächsGVBl. S. 137), die durch Artikel 3 der Verordnung vom 8. Dezember 2009 (SächsGVBl. S. 594) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Hygiene-Verordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2004-04-07",
   "sourceReferences": [
@@ -31,6 +37,7 @@
       "sha256": "ca8cd8d05a18359d181b23187323630d2f25c3148baf0eb8d8cb2b5e1dd03a65",
       "lawId": "1084",
       "sourceValidFrom": "2009-12-28",
+      "fsnNumber": "250-10.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

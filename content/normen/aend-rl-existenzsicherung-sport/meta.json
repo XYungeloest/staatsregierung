@@ -2,16 +2,14 @@
   "id": "aend-rl-existenzsicherung-sport",
   "slug": "aend-rl-existenzsicherung-sport",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der RL Existenzsicherung Sport",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der RL Existenzsicherung Sport",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Sport und Bildung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der RL Existenzsicherung Sport",
+    "Änd. RL Existenzsicherung Sport",
     "Innern",
     "Änderung",
     "Existenzsicherung",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der RL Existenzsicherung Sport“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-12-21",
   "effectiveDate": "2021-12-31",
@@ -35,8 +34,12 @@
       "sha256": "612120bd4186c5b1ccd79f34e2e8bb2e624d26bbadb1bfbae79bf3a1ada78fc9",
       "lawId": "19482",
       "sourceValidFrom": "2021-12-31",
+      "fsnNumber": "5574",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-existenzsicherung-sport"
   ]
 }

@@ -2,16 +2,14 @@
   "id": "aend-ostkag",
   "slug": "aend-ostkag",
   "title": "Gesetz zur Änderung des Ostdeutschen Kommunalabgabengesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Kommunalabgabengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht",
-    "Haushaltsrecht"
+    "Steuern und Abgaben"
   ],
+  "primarySubject": "Steuern und Abgaben",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Kommunalabgabengesetzes",
+    "Änd. OstKAG",
     "Änderung",
     "Kommunalabgabengesetzes"
   ],
@@ -19,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Kommunalabgabengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-10-26",
   "effectiveDate": "2016-11-20",
@@ -33,8 +32,12 @@
       "sha256": "8d1ceb9a5fd658df235301cc36a4a4e6e635e4dcb6fa3fde2225a9fe9f3d8981",
       "lawId": "17036",
       "sourceValidFrom": "2016-11-20",
+      "fsnNumber": "51",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-kommunalabgabengesetz"
   ]
 }

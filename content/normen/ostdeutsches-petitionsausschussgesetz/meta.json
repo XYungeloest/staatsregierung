@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-petitionsausschussgesetz",
   "slug": "ostdeutsches-petitionsausschussgesetz",
-  "title": "Ostdeutsches Petitionsausschußgesetz",
+  "title": "Gesetz über den Petitionsausschuß des Ostdeutschen Landtags",
   "shortTitle": "Ostdeutsches Petitionsausschußgesetz",
-  "abbr": "OstPetAG",
   "shortTitleSource": "official",
+  "abbr": "OstPetAG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "OstPetAG",
     "Ostdeutsches Petitionsausschußgesetz",
-    "Petitionsausschußgesetz"
+    "Petitionsausschuß",
+    "Landtags",
+    "Petitionsausschußgesetz",
+    "OstPetAG"
   ],
   "initialCitation": "Ostdeutsches Petitionsausschußgesetz vom 11. Juni 1991 (SächsGVBl. S. 90), das durch Artikel 1 des Gesetzes vom 5. Mai 2008 (SächsGVBl. S. 302) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Petitionsausschußgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1991-06-11",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "5afc34d33d450df14051c3d1316d75c257faf10d78ad952531cdc4d714248934",
       "lawId": "4262",
       "sourceValidFrom": "2008-05-31",
+      "fsnNumber": "110-4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

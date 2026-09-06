@@ -2,15 +2,13 @@
   "id": "aend-smulfoerdzuvo-16623-1",
   "slug": "aend-smulfoerdzuvo-16623-1",
   "title": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderzuständigkeitsverordnung Umwelt/Landwirtschaft",
-  "shortTitle": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderzuständigkeitsverordnung Umwelt/Landwirtschaft",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Vierte Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderzuständigkeitsverordnung Umwelt/Landwirtschaft",
+    "Änd. SMULFördZuVO",
     "Vierte",
     "Umwelt",
     "Landwirtschaft",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Vierte Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderzuständigkeitsverordnung Umwelt/Landwirtschaft“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-08-26",
   "effectiveDate": "2015-10-01",
@@ -35,8 +34,12 @@
       "sha256": "f99b1ab6470bfa6c71245701c15bb1db0395dbb21178c71812ce4aaae3e59c6d",
       "lawId": "16623",
       "sourceValidFrom": "2015-10-01",
+      "fsnNumber": "55",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderzustaendigkeitsverordnung-umwelt-landwirtschaft"
   ]
 }

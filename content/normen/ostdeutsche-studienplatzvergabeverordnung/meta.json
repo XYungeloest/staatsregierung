@@ -1,23 +1,30 @@
 {
   "id": "ostdeutsche-studienplatzvergabeverordnung",
   "slug": "ostdeutsche-studienplatzvergabeverordnung",
-  "title": "Ostdeutsche Studienplatzvergabeverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus über die Vergabe von Studienplätzen",
   "shortTitle": "Ostdeutsche Studienplatzvergabeverordnung",
-  "abbr": "OstStudPlVergabeVO",
   "shortTitleSource": "official",
+  "abbr": "OstStudPlVergabeVO",
   "type": "verordnung",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "OstStudPlVergabeVO",
     "Ostdeutsche Studienplatzvergabeverordnung",
-    "Studienplatzvergabeverordnung"
+    "Wissenschaft",
+    "Kultur",
+    "Tourismus",
+    "Vergabe",
+    "Studienplätzen",
+    "Studienplatzvergabeverordnung",
+    "OstStudPlVergabeVO"
   ],
   "initialCitation": "Ostdeutsche Studienplatzvergabeverordnung vom 15. Juni 2020 (SächsGVBl. S. 300)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Studienplatzvergabeverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2020-06-15",
   "sourceReferences": [
@@ -32,6 +39,7 @@
       "lawId": "18734",
       "sourceValidFrom": "2023-07-15",
       "sourceValidTo": "2026-03-31",
+      "fsnNumber": "711-7.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

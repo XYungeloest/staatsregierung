@@ -2,19 +2,20 @@
   "id": "ard-staatsvertrag",
   "slug": "ard-staatsvertrag",
   "title": "ARD-Staatsvertrag",
-  "shortTitle": "ARD-Staatsvertrag",
-  "shortTitleSource": "official",
   "type": "staatsvertrag",
   "subjects": [
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
+    "ARD-StV",
     "ARD-Staatsvertrag"
   ],
   "initialCitation": "ARD-Staatsvertrag in der Fassung der Bekanntmachung vom 9. Januar 2001 (SächsGVBl. S. 39)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „ARD-Staatsvertrag“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1991-08-31",
   "sourceReferences": [
@@ -29,6 +30,7 @@
       "lawId": "1058",
       "sourceValidFrom": "2020-11-07",
       "sourceValidTo": "2025-11-30",
+      "fsnNumber": "72-17V",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

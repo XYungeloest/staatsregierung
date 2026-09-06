@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-jugendarrestvollzugsgesetz",
   "slug": "ostdeutsches-jugendarrestvollzugsgesetz",
-  "title": "Ostdeutsches Jugendarrestvollzugsgesetz",
+  "title": "Gesetz über den Vollzug des Jugendarrestes im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Jugendarrestvollzugsgesetz",
-  "abbr": "OstJArrestVollzG",
   "shortTitleSource": "official",
+  "abbr": "OstJArrestVollzG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
-    "OstJArrestVollzG",
     "Ostdeutsches Jugendarrestvollzugsgesetz",
-    "Jugendarrestvollzugsgesetz"
+    "Vollzug",
+    "Jugendarrestes",
+    "Jugendarrestvollzugsgesetz",
+    "OstJArrestVollzG"
   ],
   "initialCitation": "Ostdeutsches Jugendarrestvollzugsgesetz vom 5. März 2019 (SächsGVBl. S. 158)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Jugendarrestvollzugsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2019-03-05",
   "sourceReferences": [
@@ -33,6 +37,7 @@
       "lawId": "18049",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-02-16",
+      "fsnNumber": "311-19",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

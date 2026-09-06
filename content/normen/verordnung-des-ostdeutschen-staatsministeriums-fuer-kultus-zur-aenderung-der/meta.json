@@ -2,15 +2,14 @@
   "id": "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-zur-aenderung-der",
   "slug": "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-zur-aenderung-der",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schülermitwirkungsverordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schülermitwirkungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Landesrecht"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schülermitwirkungsverordnung",
+    "Änd. SMVO",
     "Kultus",
     "Änderung",
     "Schülermitwirkungsverordnung"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schülermitwirkungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-10-25",
   "effectiveDate": "2019-11-28",
@@ -33,8 +33,12 @@
       "sha256": "431d65d9cd8e7532e7db8cf4483f5006b5c977ee2b8cf66c0a4d40f32810c8dd",
       "lawId": "18463",
       "sourceValidFrom": "2019-11-28",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-ueber-die-mitwirkung-der-schueler-in"
   ]
 }

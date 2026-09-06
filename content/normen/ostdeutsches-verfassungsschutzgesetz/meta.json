@@ -1,25 +1,27 @@
 {
   "id": "ostdeutsches-verfassungsschutzgesetz",
   "slug": "ostdeutsches-verfassungsschutzgesetz",
-  "title": "Ostdeutsches Verfassungsschutzgesetz",
+  "title": "Gesetz über den Verfassungsschutz im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Verfassungsschutzgesetz",
-  "abbr": "OstVSG",
   "shortTitleSource": "official",
+  "abbr": "OstVSG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht",
-    "Sicherheit und Ordnung"
+    "Verfassungsschutz"
   ],
+  "primarySubject": "Verfassungsschutz",
   "keywords": [
-    "OstVSG",
     "Ostdeutsches Verfassungsschutzgesetz",
-    "Verfassungsschutzgesetz"
+    "Verfassungsschutz",
+    "Verfassungsschutzgesetz",
+    "OstVSG"
   ],
   "initialCitation": "Ostdeutsches Verfassungsschutzgesetz vom 16. Oktober 1992 (SächsGVBl. S. 459)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Verfassungsschutzgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1992-10-16",
   "sourceReferences": [
@@ -34,6 +36,7 @@
       "lawId": "3288",
       "sourceValidFrom": "2019-06-01",
       "sourceValidTo": "2024-09-30",
+      "fsnNumber": "12-1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

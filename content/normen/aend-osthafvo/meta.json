@@ -2,12 +2,11 @@
   "id": "aend-osthafvo",
   "slug": "aend-osthafvo",
   "title": "Änderung der Ostdeutschen Hafenverordnung",
-  "shortTitle": "Änd. OstHafVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Bergbau, Energiewirtschaft, Wasserwirtschaft"
   ],
+  "primarySubject": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
   "keywords": [
     "Änd. OstHafVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-str-und-smwa-zur-aenderung-von-verordnungen-zur-umsetzung-der-standortkonzeption-sowie-zur",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstHafVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Hafenverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-03-02",
   "effectiveDate": "2012-03-01",
@@ -32,6 +32,7 @@
       "sha256": "42c08b51883cfde360d624aeeb8b8a8142432a3563f3f8425243f9fe7954f841",
       "lawId": "12350",
       "sourceValidFrom": "2012-03-01",
+      "fsnNumber": "612",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

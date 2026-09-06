@@ -1,23 +1,26 @@
 {
   "id": "gesetz-ueber-seilbahnen-im-freistaat-ostdeutschland",
   "slug": "gesetz-ueber-seilbahnen-im-freistaat-ostdeutschland",
-  "title": "Landesseilbahngesetz",
+  "title": "Gesetz über Seilbahnen im Freistaat Ostdeutschland",
   "shortTitle": "Landesseilbahngesetz",
-  "abbr": "LSeilbG",
   "shortTitleSource": "official",
+  "abbr": "LSeilbG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Verkehr"
   ],
+  "primarySubject": "Verkehr",
   "keywords": [
-    "LSeilbG",
-    "Landesseilbahngesetz"
+    "Landesseilbahngesetz",
+    "Seilbahnen",
+    "LSeilbG"
   ],
   "initialCitation": "Landesseilbahngesetz vom 12. März 1998 (SächsGVBl. S. 97, 102), das zuletzt durch Artikel 2 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 78) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Landesseilbahngesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1998-03-12",
   "sourceReferences": [
@@ -31,6 +34,7 @@
       "sha256": "a95f0489f700f07c82aaae5bffcb13bd976951c07c330f98942cf9f4f5c67738",
       "lawId": "5160",
       "sourceValidFrom": "2016-03-24",
+      "fsnNumber": "473-3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

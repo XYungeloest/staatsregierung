@@ -1,25 +1,29 @@
 {
   "id": "rl-wohneigentum-laendlicher-raum",
   "slug": "rl-wohneigentum-laendlicher-raum",
-  "title": "RL Wohneigentum ländlicher Raum",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Förderung des Wohneigentums im ländlichen Raum",
   "shortTitle": "RL Wohneigentum ländlicher Raum",
-  "abbr": "RL WLR",
   "shortTitleSource": "official",
+  "abbr": "RL WLR",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "RL WLR",
     "RL Wohneigentum ländlicher Raum",
+    "Innern",
+    "Förderung",
+    "Wohneigentums",
+    "ländlichen",
     "Wohneigentum",
     "ländlicher"
   ],
-  "initialCitation": "RL Wohneigentum ländlicher Raum vom 4. Dezember 2018 (SächsABl. S. 1463), die zuletzt durch Ziffer V der Richtlinie vom 10. Dezember 2019 (SächsABl. SDr. 2020 S. S 5) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "initialCitation": "RL Wohneigentum ländlicher Raum vom 4. Dezember 2018 (SächsABl. S. 1463), die zuletzt durch Ziffer V der Richtlinie vom 10. Dezember 2019 (SächsABl. SDr. 2020 S. S 5) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „RL Wohneigentum ländlicher Raum“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-12-04",
   "sourceReferences": [
@@ -33,6 +37,7 @@
       "sha256": "16b67f80a04f025e3a3e020b0d2ad0684ac838295887e6ad8a176ce33905651a",
       "lawId": "17903",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "554-V18.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,15 +2,13 @@
   "id": "aend-ostgfbwbvo",
   "slug": "aend-ostgfbwbvo",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Bildung und Weiterbildung"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe",
+    "Änd. OstGfbWBVO",
     "Soziales",
     "Verbraucherschutz",
     "Änderung",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-05-21",
   "effectiveDate": "2013-07-02",
@@ -35,8 +34,12 @@
       "sha256": "daad928f87e9805620c50ac98a20a966b92a5af10ef4ac045742abf30ad77de2",
       "lawId": "12829",
       "sourceValidFrom": "2013-07-02",
+      "fsnNumber": "253",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "weiterbildungsverordnung-gesundheitsfachberufe"
   ]
 }

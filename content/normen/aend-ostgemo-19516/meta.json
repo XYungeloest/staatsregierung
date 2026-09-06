@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-19516",
   "slug": "aend-ostgemo-19516",
   "title": "Änderung der Ostdeutschen Gemeindeordnung",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-fortentwicklung-kommunalrecht",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Gemeindeordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-02-09",
   "effectiveDate": "2022-02-20",
@@ -33,6 +33,7 @@
       "sha256": "1d0ca16149871e57f9ffe746f99fccfbd78bded7b5433a18b091d5600693b739",
       "lawId": "19516",
       "sourceValidFrom": "2022-02-20",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -2,15 +2,14 @@
   "id": "aend-komfreivo-16069-1",
   "slug": "aend-komfreivo-16069-1",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung",
+    "Änd. KomFreiVO",
     "Zweite",
     "Innern",
     "Änderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-04-19",
   "effectiveDate": "2015-06-16",
@@ -34,8 +34,12 @@
       "sha256": "568b59c5f1d6634fca7e0cb7fc3d5af73efeda2901d2a446c5889574e13ea383",
       "lawId": "16069",
       "sourceValidFrom": "2015-06-16",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-des-innern-ueber-freistellungen-von"
   ]
 }

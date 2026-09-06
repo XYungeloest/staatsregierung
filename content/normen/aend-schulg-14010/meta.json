@@ -2,13 +2,12 @@
   "id": "aend-schulg-14010",
   "slug": "aend-schulg-14010",
   "title": "Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. SchulG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SchulG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "2-gesetz-umsetzung-schulkonzept",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SchulG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Schulgesetzes für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2004-02-19",
   "effectiveDate": "2004-04-01",
@@ -33,6 +33,7 @@
       "sha256": "a5f0178b47dd5f3ae200ad2b680c8a4f373b9a0e87701da2bd9f2af45824baf5",
       "lawId": "14010",
       "sourceValidFrom": "2004-04-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

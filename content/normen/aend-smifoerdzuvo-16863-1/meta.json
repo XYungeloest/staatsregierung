@@ -2,15 +2,14 @@
   "id": "aend-smifoerdzuvo-16863-1",
   "slug": "aend-smifoerdzuvo-16863-1",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderzuständigkeitsverordnung SMI",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderzuständigkeitsverordnung SMI",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderzuständigkeitsverordnung SMI",
+    "Änd. SMIFördZuVO",
     "Zweite",
     "Innern",
     "Änderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderzuständigkeitsverordnung SMI“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-02-22",
   "effectiveDate": "2016-03-24",
@@ -34,8 +34,12 @@
       "sha256": "09c9a204c973b7ac9e531ce140e189148eb1f1f258dcce4d12b56e594481ae1b",
       "lawId": "16863",
       "sourceValidFrom": "2016-03-24",
+      "fsnNumber": "55",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderzustaendigkeitsverordnung-smi"
   ]
 }

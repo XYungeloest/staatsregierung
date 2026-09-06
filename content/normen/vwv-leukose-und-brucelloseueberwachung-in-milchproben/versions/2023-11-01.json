@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie zur Leukose- und Brucelloseüberwachung in Milchproben",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie zur Leukose- und Brucelloseüberwachung in Milchproben",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie zur Leukose- und Brucelloseüberwachung in Milchproben vom 11. März 1994 (SächsABl. S. 566), die zuletzt durch die Verwaltungsvorschrift vom 4. Juni 1998 (SächsABl. S. 539) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 30. November 2023 (SächsABl. SDr. S. S 306)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales, Gesundheit und Familie zur Leukose- und Brucelloseüberwachung in Milchproben vom 11. März 1994 (SächsABl. S. 566), die zuletzt durch die Verwaltungsvorschrift vom 4. Juni 1998 (SächsABl. S. 539) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "lawId": "2148",
       "sourceValidFrom": "1998-01-01",
       "sourceValidTo": "2024-12-31",
+      "fsnNumber": "634-V94.3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -35,10 +35,6 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "1. Milchproben"
-        },
-        {
-          "type": "paragraphText",
           "text": "Die Überwachung mittels Tankmilchproben ist auf Grund der Größe der Bestände auch weiterhin nicht geeignet und deshalb nicht anzuwenden. Für die Überwachung sind die vom Ostdeutschen Landeskontrollverband e. V. (LKV) gezogenen Einzelmilchproben zu nutzen. Dazu stellt der LKV die erforderlichen Milchproben auf Anforderung durch die Landesuntersuchungsanstalt für das Gesundheits- und Veterinärwesen (LUA), Standort Chemnitz, für die veterinärmedizinische Untersuchungseinrichtung zur Verfügung. In Beständen, in denen durch den Landeskontrollverband keine Einzelmilchproben gezogen werden, erfolgt die Probenentnahme nach näherer Anweisung des Amtstierarztes. Es ist das kostengünstigste Überwachungsverfahren zu wählen, sofern nicht besondere Gründe entgegenstehen."
         }
       ]
@@ -48,10 +44,6 @@
       "label": "2.",
       "title": "Untersuchungseinrichtung",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "2. Untersuchungseinrichtung"
-        },
         {
           "type": "paragraphText",
           "text": "Die Untersuchung der Milchproben mittels ELISA erfolgt für alle drei Regierungsbezirke im Standort Chemnitz der LUA."
@@ -65,10 +57,6 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "3. Betriebe für die Überwachung mittels Milchproben"
-        },
-        {
-          "type": "paragraphText",
           "text": "In die Leukose- und Brucelloseüberwachung mittels Milchproben sind die Betriebe einzubeziehen, deren Bestände ein Jahr und länger leukoseunverdächtig entsprechend Leukoseverordnung sind. Der IDT ist für die Überwachung der genannten Betriebe nur dann anzuwenden, wenn die gemäß Leukoseverordnung verlangten Bedingungen zum Einsatz des Milch-ELISA nicht gegeben sind oder vom LKV keine unter Nummer 1 genannten Einzelmilchproben gezogen werden. Die Festlegung der Betriebe erfolgt durch den Amtstierarzt nach den genannten Kriterien."
         }
       ]
@@ -78,10 +66,6 @@
       "label": "4.",
       "title": "Abklärung positiver Ergebnisse des Milch-ELISA",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "4. Abklärung positiver Ergebnisse des Milch-ELISA"
-        },
         {
           "type": "paragraphText",
           "text": "Die Abklärung von positiven Ergebnissen des Milch-ELISA ist in den regional zuständigen LUA-Standorten mittels IDT und gegebenenfalls weiterer Methoden vorzunehmen. Die Abklärungsuntersuchung ist vom Amtstierarzt zu veranlassen."
@@ -95,10 +79,6 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "5. Dokumentation und Informationsfluss"
-        },
-        {
-          "type": "paragraphText",
           "text": "Die Regierungspräsidien teilen jeweils halbjährlich (bis zum 15. Juni und 15. Dezember des Jahres) auf der Basis der Meldungen der Amtstierärzte gemäß Nummer 3 der LUA, Standort Chemnitz, dem LKV und der Ostdeutschen Tierseuchenkasse die Betriebe mit, die im nächsten halben Jahr nach Nummer 3 im Milch-ELISA zu untersuchen sind. Die LUA teilt die Untersuchungsbefunde dem Betrieb, dem Amtstierarzt und die nicht negativen Ergebnisse zusätzlich dem zuständigen Regierungspräsidium mit. Wurde ein Befund entsprechend Nummer 4 als positiv abgeklärt, übergibt die LUA, Standort Chemnitz, eine Liste der gleichzeitig negativ untersuchten Einzeltiere des Bestandes nach der Zusammenstellung des LKV. Dieser gewährleistet die dafür erforderliche Dokumentation."
         }
       ]
@@ -110,10 +90,6 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "6. Kosten"
-        },
-        {
-          "type": "paragraphText",
           "text": "Für die Berechnung der ELISA-Untersuchungen an die Ostdeutsche Tierseuchenkasse gilt die jeweilige Gebührenordnung der LUA. Der LKV erhält eine Aufwandsentschädigung gemäß einer vom Ostdeutschen Staatsministerium für Soziales, Gesundheit und Familie zu bestätigenden Vereinbarung mit der Ostdeutschen Tierseuchenkasse."
         }
       ]
@@ -123,10 +99,6 @@
       "label": "7.",
       "title": "Inkrafttreten",
       "children": [
-        {
-          "type": "paragraphText",
-          "text": "7. Inkrafttreten"
-        },
         {
           "type": "paragraphText",
           "text": "Die Verwaltungsvorschrift tritt mit Wirkung vom 1. Januar 1994"

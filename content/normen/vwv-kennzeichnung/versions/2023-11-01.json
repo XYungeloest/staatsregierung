@@ -1,11 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Kennzeichnung",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über die Kennzeichnung von Führungskräften und Führungsstellen der Feuerwehren und privater Hilfsorganisationen im Freistaat Ostdeutschland (VwV Kennzeichnung) Az.: 42-1500.10/2",
   "shortTitle": "VwV Kennzeichnung",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV Kennzeichnung vom 13. Dezember 2000 (SächsABl. 2001 S. 34), zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2025 (SächsABl. SDr. S. S 212)",
+  "citation": "VwV Kennzeichnung vom 13. Dezember 2000 (SächsABl. 2001 S. 34)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +18,7 @@
       "sha256": "30d2a4a879340ee93999ece69aee10728fcacddaa5cc1aa76d971a151baac0c5",
       "lawId": "3067",
       "sourceValidFrom": "2001-01-01",
+      "fsnNumber": "28-V00.5",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -31,7 +32,7 @@
         {
           "type": "item",
           "label": "1",
-          "text": "Geltungsbereich\nEs wird eine landeseinheitliche Kennzeichnung von",
+          "text": "Es wird eine landeseinheitliche Kennzeichnung von",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
@@ -67,7 +68,7 @@
         {
           "type": "item",
           "label": "2",
-          "text": "Kennzeichnung von Führungskräften\nDie Kennzeichnung erfolgt durch farbige Weste/farbigen Überwurf mit ergänzender Aufschrift auf dem Brust- und Rückenteil nach Nummer 3.",
+          "text": "Die Kennzeichnung erfolgt durch farbige Weste/farbigen Überwurf mit ergänzender Aufschrift auf dem Brust- und Rückenteil nach Nummer 3.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -96,17 +97,8 @@
       "title": "Farben und Funktionsaufschriften",
       "children": [
         {
-          "type": "item",
-          "label": "3",
-          "text": "Farben und Funktionsaufschriften",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Westen/Überwürfe in der Grundfarbe Signalgelb bleiben dem Einsatzleiter vorbehalten und bedürfen daher nicht zwingend einer Aufschrift.\nWesten/Überwürfe in den Grundfarben Reinweiß, Rot und Grün können mit ergänzenden Aufschriften von Fachdiensten versehen werden.\nZugführer tragen Westen/Überwürfe in der Grundfarbe Reinweiß ohne Aufschrift.\nWesten/Überwürfe für Fachberater bedürfen keiner ergänzenden Aufschrift, wenn deren Dienstkleidung Verwechslungen ausschließt (zum Beispiel THW, Polizeivollzugsdienst, Bundeswehr, Bundesgrenzschutz).\nNotärzte tragen Westen/Überwürfe in der Grundfarbe Blau ohne Aufschrift.\nGröße und Beschriftung der Kennzeichen sind der Anlage zu entnehmen."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Westen/Überwürfe in der Grundfarbe Signalgelb bleiben dem Einsatzleiter vorbehalten und bedürfen daher nicht zwingend einer Aufschrift.\nWesten/Überwürfe in den Grundfarben Reinweiß, Rot und Grün können mit ergänzenden Aufschriften von Fachdiensten versehen werden.\nZugführer tragen Westen/Überwürfe in der Grundfarbe Reinweiß ohne Aufschrift.\nWesten/Überwürfe für Fachberater bedürfen keiner ergänzenden Aufschrift, wenn deren Dienstkleidung Verwechslungen ausschließt (zum Beispiel THW, Polizeivollzugsdienst, Bundeswehr, Bundesgrenzschutz).\nNotärzte tragen Westen/Überwürfe in der Grundfarbe Blau ohne Aufschrift.\nGröße und Beschriftung der Kennzeichen sind der Anlage zu entnehmen."
         }
       ]
     },
@@ -118,7 +110,7 @@
         {
           "type": "item",
           "label": "4",
-          "text": "Kennzeichnung von Führungsstellen\nDie Kennzeichnung von Führungsstellen erfolgt mittels Tafeln oder gleichfarbenen Ballons. In besonderen Fällen kann die Kennzeichnung auch in anderer Weise erfolgen. Grundfarbe der Tafel ist Signalgelb nach RAL 1003 für Einsatzleitung, Reinweiß nach RAL 9010 für Abschnittsleitung, Meldekopf, Sammelstelle.\nGröße und Beschriftung der Schilder sind der Anlage zu entnehmen.",
+          "text": "Die Kennzeichnung von Führungsstellen erfolgt mittels Tafeln oder gleichfarbenen Ballons. In besonderen Fällen kann die Kennzeichnung auch in anderer Weise erfolgen. Grundfarbe der Tafel ist Signalgelb nach RAL 1003 für Einsatzleitung, Reinweiß nach RAL 9010 für Abschnittsleitung, Meldekopf, Sammelstelle.\nGröße und Beschriftung der Schilder sind der Anlage zu entnehmen.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -133,7 +125,7 @@
         {
           "type": "item",
           "label": "5",
-          "text": "In-Kraft-Treten\nDiese Verwaltungsvorschrift tritt am 1. Januar 2001 in Kraft.",
+          "text": "Diese Verwaltungsvorschrift tritt am 1. Januar 2001 in Kraft.",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []

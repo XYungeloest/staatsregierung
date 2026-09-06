@@ -2,15 +2,14 @@
   "id": "aend-ostpersvg-11530-1",
   "slug": "aend-ostpersvg-11530-1",
   "title": "Viertes Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes",
-  "shortTitle": "Viertes Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Viertes Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes",
+    "Änd. OstPersVG",
     "Viertes",
     "Änderung",
     "Personalvertretungsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Viertes Gesetz zur Änderung des Ostdeutschen Personalvertretungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-11-04",
   "effectiveDate": "2010-11-21",
@@ -33,8 +33,12 @@
       "sha256": "e97e367a22de8971f7b07baac09afe3a06680873a0fb3c465d8cbc702b5bf8fd",
       "lawId": "11530",
       "sourceValidFrom": "2010-11-21",
+      "fsnNumber": "244",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-personalvertretungsgesetz"
   ]
 }

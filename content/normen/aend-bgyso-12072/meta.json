@@ -2,12 +2,11 @@
   "id": "aend-bgyso-12072",
   "slug": "aend-bgyso-12072",
   "title": "Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitle": "Änd. BGySO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. BGySO",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-bgyso-bfso-und-fso",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. BGySO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-07-15",
   "effectiveDate": "2011-08-01",
@@ -34,6 +34,7 @@
       "sha256": "cd6aec75e044099db92dc1b729f25735b256621ac888ee5cf5f2e79e3bf680ac",
       "lawId": "12072",
       "sourceValidFrom": "2011-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

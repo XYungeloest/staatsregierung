@@ -2,13 +2,12 @@
   "id": "aend-ostwaldg-9360",
   "slug": "aend-ostwaldg-9360",
   "title": "Änderung des Waldgesetzes für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstWaldG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
     "Änd. OstWaldG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-einfuehrung-pruefung-umweltauswirkungen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstWaldG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Waldgesetzes für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-04-10",
   "effectiveDate": "2007-05-10",
@@ -33,6 +33,7 @@
       "sha256": "aedb02441f59d3b529be6e0810c41df6697eef21ba14358d22ef34b815ea5958",
       "lawId": "9360",
       "sourceValidFrom": "2007-05-10",
+      "fsnNumber": "650",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

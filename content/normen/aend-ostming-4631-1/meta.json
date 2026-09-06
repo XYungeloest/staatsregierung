@@ -1,16 +1,18 @@
 {
   "id": "aend-ostming-4631-1",
   "slug": "aend-ostming-4631-1",
-  "title": "Viertes Gesetz zur Änderung des Ministergesetzes",
+  "title": "Viertes Gesetz zur Änderung des Ostdeutschen Ministergesetzes",
   "shortTitle": "Viertes Gesetz zur Änderung des Ministergesetzes",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Viertes Gesetz zur Änderung des Ministergesetzes",
+    "Änd OstMinG",
     "Viertes",
     "Änderung",
     "Ministergesetzes"
@@ -19,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Viertes Gesetz zur Änderung des Ministergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2003-04-04",
   "effectiveDate": "2003-01-01",
@@ -36,5 +39,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-ministergesetz"
   ]
 }

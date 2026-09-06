@@ -2,15 +2,14 @@
   "id": "aend-abgeordnetengesetz-9716-1",
   "slug": "aend-abgeordnetengesetz-9716-1",
   "title": "Elftes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitle": "Elftes Gesetz zur Änderung des Abgeordnetengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Elftes Gesetz zur Änderung des Abgeordnetengesetzes",
+    "Änd. Abgeordnetengesetz",
     "Elftes",
     "Änderung",
     "Abgeordnetengesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Elftes Gesetz zur Änderung des Abgeordnetengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-11-15",
   "effectiveDate": "2007-12-01",
@@ -33,8 +33,12 @@
       "sha256": "5d8b6a27c17d06e48394be2cb1312c3b776a77e9ced6707d88b7626cc506039c",
       "lawId": "9716",
       "sourceValidFrom": "2007-12-01",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-die-rechtsverhaeltnisse-der-mitglieder-des-ostdeutschen-landtages"
   ]
 }

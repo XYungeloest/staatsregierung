@@ -2,14 +2,13 @@
   "id": "aend-frl-buergerbeteiligung-20014-1",
   "slug": "aend-frl-buergerbeteiligung-20014-1",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der FRL Bürgerbeteiligung",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der FRL Bürgerbeteiligung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der FRL Bürgerbeteiligung",
+    "Änd. FRL Bürgerbeteiligung",
     "Justiz",
     "Demokratie",
     "Europa",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der FRL Bürgerbeteiligung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-14",
   "effectiveDate": "2023-06-30",
@@ -35,8 +35,12 @@
       "sha256": "6db26f07d8f46e3b5d8df51ce89163a31d6feabc1c8b86c5701b95cb070230e4",
       "lawId": "20014",
       "sourceValidFrom": "2023-06-30",
+      "fsnNumber": "5500",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-buergerbeteiligung"
   ]
 }

@@ -2,15 +2,14 @@
   "id": "aend-dvoostbo-und-weiterer-vo",
   "slug": "aend-dvoostbo-und-weiterer-vo",
   "title": "Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO und weiterer Vorschriften",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO und weiterer Vorschriften",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Landesrecht"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO und weiterer Vorschriften",
+    "Änd. DVOOstBO und weiterer VO",
     "Innern",
     "Änderung",
     "Durchführungsverordnung",
@@ -22,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO und weiterer Vorschriften“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-10-08",
   "effectiveDate": "2014-11-11",
@@ -36,8 +36,12 @@
       "sha256": "8863ac4e934abffc03f38e70733b9c277852c5ede9979681def8b39365ecc8e6",
       "lawId": "14178",
       "sourceValidFrom": "2014-11-11",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "durchfuehrungsverordnung-zur-ostbo"
   ]
 }

@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-12779",
   "slug": "aend-ostgemo-12779",
   "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-zur-aend-kommunalwahlrechtlicher-vorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Gemeindeordnung für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-03-28",
   "effectiveDate": "2013-04-28",
@@ -33,6 +33,7 @@
       "sha256": "8b0a04a4950548ff7bd3f40d78254d8f08246ea060df33e2dfe134bedad7c503",
       "lawId": "12779",
       "sourceValidFrom": "2013-04-28",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

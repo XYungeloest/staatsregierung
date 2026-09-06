@@ -1,22 +1,27 @@
 {
   "id": "vwv-heilpraktiker",
   "slug": "vwv-heilpraktiker",
-  "title": "VwV Heilpraktiker",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Durchführung des Heilpraktikergesetzes (VwV Heilpraktiker)",
   "shortTitle": "VwV Heilpraktiker",
-  "abbr": "VwV Heilpraktiker",
   "shortTitleSource": "official",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "VwV Heilpraktiker",
+    "Soziales",
+    "Verbraucherschutz",
+    "Durchführung",
+    "Heilpraktikergesetzes",
     "Heilpraktiker"
   ],
-  "initialCitation": "VwV Heilpraktiker vom 25. Juli 2019 (SächsABl. S. 1127), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 272)",
+  "initialCitation": "VwV Heilpraktiker vom 25. Juli 2019 (SächsABl. S. 1127)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Heilpraktiker“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2019-07-25",
   "sourceReferences": [
@@ -31,6 +36,7 @@
       "lawId": "18331",
       "sourceValidFrom": "2019-08-16",
       "sourceValidTo": "2024-11-21",
+      "fsnNumber": "253-V19.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

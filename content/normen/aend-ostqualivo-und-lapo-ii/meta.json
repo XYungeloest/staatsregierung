@@ -2,15 +2,14 @@
   "id": "aend-ostqualivo-und-lapo-ii",
   "slug": "aend-ostqualivo-und-lapo-ii",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehrer-Qualifizierungsverordnung und der Lehramtsprüfungsordnung II",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehrer-Qualifizierungsverordnung und der Lehramtsprüfungsordnung II",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehrer-Qualifizierungsverordnung und der Lehramtsprüfungsordnung II",
+    "Änd. OstQualiVO und LAPO II",
     "Zweite",
     "Kultus",
     "Änderung",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Lehrer-Qualifizierungsverordnung und der Lehramtsprüfungsordnung II“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-06-29",
   "effectiveDate": "2017-08-01",
@@ -35,8 +35,12 @@
       "sha256": "bb85d59c7e154337f0598b6da1f56555889b2e4dbf5a41c95ae69f9dc306759a",
       "lawId": "17341",
       "sourceValidFrom": "2017-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-zur-berufsbegleitenden"
   ]
 }

@@ -2,15 +2,14 @@
   "id": "aend-vwv-normerlass",
   "slug": "aend-vwv-normerlass",
   "title": "Erste Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass",
-  "shortTitle": "Erste Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
-    "Erste Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass",
+    "Änd. VwV Normerlass",
     "Erste",
     "Änderung",
     "Normerlass"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erste Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Änderung der VwV Normerlass“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-07-15",
   "effectiveDate": "2019-08-02",
@@ -34,8 +34,12 @@
       "lawId": "18318",
       "sourceValidFrom": "2019-08-02",
       "sourceValidTo": "2025-03-14",
+      "fsnNumber": "20",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-normerlass"
   ]
 }

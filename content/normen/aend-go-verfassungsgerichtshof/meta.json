@@ -2,14 +2,13 @@
   "id": "aend-go-verfassungsgerichtshof",
   "slug": "aend-go-verfassungsgerichtshof",
   "title": "Erste Änderung der Geschäftsordnung des Verfassungsgerichtshofes des Freistaates Ostdeutschland",
-  "shortTitle": "Erste Änderung der Geschäftsordnung des Verfassungsgerichtshofes des Freistaates Ostdeutschland",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Staats- und Verfassungsrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Erste Änderung der Geschäftsordnung des Verfassungsgerichtshofes des Freistaates Ostdeutschland",
+    "Änd. GO Verfassungsgerichtshof",
     "Erste",
     "Änderung",
     "Geschäftsordnung",
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erste Änderung der Geschäftsordnung des Verfassungsgerichtshofes des Freistaates Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1996-12-13",
   "effectiveDate": "1996-12-13",
@@ -37,5 +37,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "go-verfassungsgerichtshof"
   ]
 }

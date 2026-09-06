@@ -1,22 +1,31 @@
 {
   "id": "frl-regioplan",
   "slug": "frl-regioplan",
-  "title": "FRL RegioPlan",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung über die Gewährung von Zuwendungen zur Förderung von Bebauungsplänen und Flächennutzungsplänen im Freistaat Ostdeutschland (FRL RegioPlan)",
   "shortTitle": "FRL RegioPlan",
-  "abbr": "FRL RegioPlan",
   "shortTitleSource": "official",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien",
+    "Raumordnung, Landesplanung"
   ],
+  "primarySubject": "Förderrichtlinien",
+  "fundingArea": "553",
   "keywords": [
     "FRL RegioPlan",
+    "Regionalentwicklung",
+    "Gewährung",
+    "Zuwendungen",
+    "Förderung",
+    "Bebauungsplänen",
+    "Flächennutzungsplänen",
     "RegioPlan"
   ],
-  "initialCitation": "FRL RegioPlan vom 17. Januar 2023 (SächsABl. S. 189, 497), zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "initialCitation": "FRL RegioPlan vom 17. Januar 2023 (SächsABl. S. 189, 497)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „FRL RegioPlan“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2023-01-17",
   "sourceReferences": [
@@ -30,6 +39,7 @@
       "sha256": "0ff9bb3b09842cec66c4befc0123aac0169b003d3bcec3921463a1ddd59cd697",
       "lawId": "19872",
       "sourceValidFrom": "2023-02-01",
+      "fsnNumber": "5532-V23.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -2,12 +2,11 @@
   "id": "aend-ostvermkovo",
   "slug": "aend-ostvermkovo",
   "title": "Änderung der Ostdeutschen Vermessungskostenverordnung",
-  "shortTitle": "Änd. OstVermKoVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "Änd. OstVermKoVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstVermKoVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Vermessungskostenverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "c9feedb0c2381ea59ea39b0c5a29aae3c0fc517c416a3234d1c7334f02e1cc8b",
       "lawId": "19131",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "450",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

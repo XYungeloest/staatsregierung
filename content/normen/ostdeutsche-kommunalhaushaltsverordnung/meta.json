@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsche-kommunalhaushaltsverordnung",
   "slug": "ostdeutsche-kommunalhaushaltsverordnung",
-  "title": "Ostdeutsche Kommunalhaushaltsverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums des Innern über die kommunale Haushaltswirtschaft",
   "shortTitle": "Ostdeutsche Kommunalhaushaltsverordnung",
-  "abbr": "OstKomHVO",
   "shortTitleSource": "official",
+  "abbr": "OstKomHVO",
   "type": "verordnung",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht",
-    "Haushaltsrecht"
+    "Haushaltwesen, Rechnungshof"
   ],
+  "primarySubject": "Haushaltwesen, Rechnungshof",
   "keywords": [
-    "OstKomHVO",
     "Ostdeutsche Kommunalhaushaltsverordnung",
-    "Kommunalhaushaltsverordnung"
+    "Innern",
+    "kommunale",
+    "Haushaltswirtschaft",
+    "Kommunalhaushaltsverordnung",
+    "OstKomHVO"
   ],
   "initialCitation": "Ostdeutsche Kommunalhaushaltsverordnung vom 10. Dezember 2013 (SächsGVBl. S. 910), die zuletzt durch die Verordnung vom 18. März 2022 (SächsGVBl. S. 259) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Kommunalhaushaltsverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2013-12-10",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "edd9a44ddb5800ec78e0211ba2bdfbfb60859ef2df187d0f5e64c11c6bd01d67",
       "lawId": "13864",
       "sourceValidFrom": "2022-04-12",
+      "fsnNumber": "521-5/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

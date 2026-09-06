@@ -2,14 +2,13 @@
   "id": "aend-vwv-kostenausgleich-18744-1",
   "slug": "aend-vwv-kostenausgleich-18744-1",
   "title": "Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenausgleich",
-  "shortTitle": "Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenausgleich",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Justizkostenrecht"
   ],
+  "primarySubject": "Justizkostenrecht",
   "keywords": [
-    "Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenausgleich",
+    "Änd. VwV Kostenausgleich",
     "Dritte",
     "Justiz",
     "Demokratie",
@@ -22,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der VwV Kostenausgleich“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-06-12",
   "effectiveDate": "2020-07-01",
@@ -36,8 +36,12 @@
       "sha256": "93132bf8bfda9cbbf0083c0ec1fda29cd8153e5049498884bf739730771498cb",
       "lawId": "18744",
       "sourceValidFrom": "2020-07-01",
+      "fsnNumber": "32",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-kostenausgleich"
   ]
 }

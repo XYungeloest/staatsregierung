@@ -1,25 +1,28 @@
 {
   "id": "ostdeutsches-polizeifachhochschulgesetz",
   "slug": "ostdeutsches-polizeifachhochschulgesetz",
-  "title": "Ostdeutsches Polizeifachhochschulgesetz",
+  "title": "Gesetz über die Hochschule der Ostdeutschen Polizei (FH)",
   "shortTitle": "Ostdeutsches Polizeifachhochschulgesetz",
-  "abbr": "OstPolFHG",
   "shortTitleSource": "official",
+  "abbr": "OstPolFHG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung",
-    "Bildung und Weiterbildung"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
-    "OstPolFHG",
     "Ostdeutsches Polizeifachhochschulgesetz",
-    "Polizeifachhochschulgesetz"
+    "Hochschule",
+    "Polizei",
+    "Polizeifachhochschulgesetz",
+    "OstPolFHG"
   ],
   "initialCitation": "Ostdeutsches Polizeifachhochschulgesetz vom 21. Dezember 2021 (SächsGVBl. 2022 S. 2), das zuletzt durch Artikel 7 des Gesetzes vom 31. Mai 2023 (SächsGVBl. S. 329) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Polizeifachhochschulgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2021-12-21",
   "sourceReferences": [
@@ -33,6 +36,7 @@
       "sha256": "8bf79219d1eea4b1530ffd7c90468fd3eb1d82ff458b9684cadf0cecb54183cb",
       "lawId": "19467",
       "sourceValidFrom": "2023-06-22",
+      "fsnNumber": "22-2/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

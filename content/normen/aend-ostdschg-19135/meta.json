@@ -2,12 +2,11 @@
   "id": "aend-ostdschg-19135",
   "slug": "aend-ostdschg-19135",
   "title": "Änderung des Ostdeutschen Denkmalschutzgesetzes",
-  "shortTitle": "Änd. OstDSchG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Denkmalschutz"
   ],
+  "primarySubject": "Denkmalschutz",
   "keywords": [
     "Änd. OstDSchG",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstDSchG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Denkmalschutzgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "d96d7655b51eb7639f5a68889932a37241b04f2af1477470e7ff0a9af3154b72",
       "lawId": "19135",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "46",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

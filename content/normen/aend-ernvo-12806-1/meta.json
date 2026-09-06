@@ -2,14 +2,13 @@
   "id": "aend-ernvo-12806-1",
   "slug": "aend-ernvo-12806-1",
   "title": "Fünfte Verordnung des Ministerpräsidenten zur Änderung der Ernennungsverordnung",
-  "shortTitle": "Fünfte Verordnung des Ministerpräsidenten zur Änderung der Ernennungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Fünfte Verordnung des Ministerpräsidenten zur Änderung der Ernennungsverordnung",
+    "Änd. ErnVO",
     "Fünfte",
     "Ministerpräsidenten",
     "Änderung",
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Fünfte Verordnung des Ministerpräsidenten zur Änderung der Ernennungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-04-24",
   "effectiveDate": "2013-06-01",
@@ -33,8 +33,12 @@
       "sha256": "fc8997078ecaf5559f4f98e247e24e304f57edb3f1295ccfeb5d976b9bdaa0ec",
       "lawId": "12806",
       "sourceValidFrom": "2013-06-01",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ministerpraesidenten-ueber-die-ernennung-der-beamten-des-freistaates"
   ]
 }

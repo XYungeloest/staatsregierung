@@ -2,13 +2,12 @@
   "id": "aend-ostming-13889",
   "slug": "aend-ostming-13889",
   "title": "Änderung des Ostdeutschen Ministergesetzes",
-  "shortTitle": "Änd. OstMinG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd. OstMinG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-dienstrechtsneuordnungsgesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstMinG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Ministergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-12-18",
   "effectiveDate": "2014-04-01",
@@ -33,6 +33,7 @@
       "sha256": "828cc1680a4b51f2d09dcb4f2e27d6ba22ba63f36fbcc494d63c6f998796153d",
       "lawId": "13889",
       "sourceValidFrom": "2014-04-01",
+      "fsnNumber": "111",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

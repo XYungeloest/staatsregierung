@@ -2,12 +2,11 @@
   "id": "aend-ostegovg-19117",
   "slug": "aend-ostegovg-19117",
   "title": "Änderung des Ostdeutschen E-Government-Gesetzes",
-  "shortTitle": "Änd. OstEGovG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstEGovG",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstEGovG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen E-Government-Gesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "c2603c72f3cb3b1d2fbe68bcab321243b8376d11187ca329f06ce5fda27cd1a5",
       "lawId": "19117",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "234",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -2,13 +2,12 @@
   "id": "aend-sparkassengesetz",
   "slug": "aend-sparkassengesetz",
   "title": "Änderung des Sparkassengesetzes des Freistaates Ostdeutschland",
-  "shortTitle": "Änd. Sparkassengesetz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Zivilrecht, Handelsrecht, Urheberrecht, gewerblicher Rechtsschutz"
   ],
+  "primarySubject": "Zivilrecht, Handelsrecht, Urheberrecht, gewerblicher Rechtsschutz",
   "keywords": [
     "Änd. Sparkassengesetz",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "agzu-305-inso-und-anpassung-des-landesrechts",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Sparkassengesetz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Sparkassengesetzes des Freistaates Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1998-12-10",
   "effectiveDate": "1999-01-01",
@@ -46,6 +46,7 @@
       "sha256": "6f7a7631647f3009c65a5eb8712c9d59de969d2d7f1d21c856fabcac99ec14a0",
       "lawId": "5052",
       "sourceValidFrom": "1999-01-01",
+      "fsnNumber": "33-3A",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

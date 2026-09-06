@@ -2,13 +2,12 @@
   "id": "aend-abgeordnetengesetz-9483",
   "slug": "aend-abgeordnetengesetz-9483",
   "title": "Änderung des Abgeordnetengesetzes",
-  "shortTitle": "Änd Abgeordnetengesetz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd Abgeordnetengesetz",
     "Änderung",
@@ -17,7 +16,8 @@
   "initialCitation": "Änderung des Abgeordnetengesetzes vom 5. August 1993 (SächsGVBl. S. 723, 732)",
   "predecessor": null,
   "successor": null,
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd Abgeordnetengesetz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Abgeordnetengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1993-08-05",
   "effectiveDate": "1993-09-08",
@@ -46,8 +46,12 @@
       "lawId": "2876",
       "sourceValidFrom": "1993-09-08",
       "sourceValidTo": "1993-10-22",
+      "fsnNumber": "113-3",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-die-rechtsverhaeltnisse-der-mitglieder-des-ostdeutschen-landtages"
   ]
 }

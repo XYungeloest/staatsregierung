@@ -2,15 +2,13 @@
   "id": "aend-frl-investitionen",
   "slug": "aend-frl-investitionen",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Investitionen",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Investitionen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Investitionen",
+    "Änd. FRL Investitionen",
     "Soziales",
     "Gesellschaftlichen",
     "Zusammenhalt",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der FRL Investitionen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-09",
   "effectiveDate": "2023-06-30",
@@ -35,8 +34,12 @@
       "sha256": "8bb6077762dfaa4056922f8209dcd0e07380a0356d53b5ad2e0b50561d5b99f6",
       "lawId": "20028",
       "sourceValidFrom": "2023-06-30",
+      "fsnNumber": "5583",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-investitionen"
   ]
 }

@@ -1,23 +1,27 @@
 {
   "id": "ostdeutsche-katastrophenschutzverordnung",
   "slug": "ostdeutsche-katastrophenschutzverordnung",
-  "title": "Ostdeutsche Katastrophenschutzverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums des Innern über den Katastrophenschutz im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsche Katastrophenschutzverordnung",
-  "abbr": "OstKatSVO",
   "shortTitleSource": "official",
+  "abbr": "OstKatSVO",
   "type": "verordnung",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr"
   ],
+  "primarySubject": "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr",
   "keywords": [
-    "OstKatSVO",
     "Ostdeutsche Katastrophenschutzverordnung",
-    "Katastrophenschutzverordnung"
+    "Innern",
+    "Katastrophenschutz",
+    "Katastrophenschutzverordnung",
+    "OstKatSVO"
   ],
   "initialCitation": "Ostdeutsche Katastrophenschutzverordnung vom 19. Dezember 2005 (SächsGVBl. S. 324)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Katastrophenschutzverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2005-12-19",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "lawId": "1315",
       "sourceValidFrom": "2013-05-09",
       "sourceValidTo": "2024-06-28",
+      "fsnNumber": "28-8.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

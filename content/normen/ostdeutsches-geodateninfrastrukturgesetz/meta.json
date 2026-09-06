@@ -1,24 +1,27 @@
 {
   "id": "ostdeutsches-geodateninfrastrukturgesetz",
   "slug": "ostdeutsches-geodateninfrastrukturgesetz",
-  "title": "Ostdeutsches Geodateninfrastrukturgesetz",
+  "title": "Gesetz über die Geodateninfrastruktur im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Geodateninfrastrukturgesetz",
-  "abbr": "OstGDIG",
   "shortTitleSource": "official",
+  "abbr": "OstGDIG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
-    "OstGDIG",
     "Ostdeutsches Geodateninfrastrukturgesetz",
-    "Geodateninfrastrukturgesetz"
+    "Geodateninfrastruktur",
+    "Geodateninfrastrukturgesetz",
+    "OstGDIG"
   ],
   "initialCitation": "Ostdeutsches Geodateninfrastrukturgesetz vom 19. Mai 2010 (SächsGVBl. S. 134)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Geodateninfrastrukturgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2010-05-19",
   "sourceReferences": [
@@ -33,6 +36,7 @@
       "lawId": "11375",
       "sourceValidFrom": "2021-05-13",
       "sourceValidTo": "2024-07-29",
+      "fsnNumber": "450-3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

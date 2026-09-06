@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-16046",
   "slug": "aend-ostgemo-16046",
   "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2015-2016",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Gemeindeordnung für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-04-29",
   "effectiveDate": "2015-05-09",
@@ -33,6 +33,7 @@
       "sha256": "f702f869f7c36b796096af11e2f08a646bc47f6e391002dfbb384c86a968a7ab",
       "lawId": "16046",
       "sourceValidFrom": "2015-05-09",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

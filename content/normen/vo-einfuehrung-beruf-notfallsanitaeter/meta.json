@@ -2,15 +2,14 @@
   "id": "vo-einfuehrung-beruf-notfallsanitaeter",
   "slug": "vo-einfuehrung-beruf-notfallsanitaeter",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Einführung des Berufs des Notfallsanitäters und der Notfallsanitäterin und zur Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Einführung des Berufs des Notfallsanitäters und der Notfallsanitäterin und zur Änderung der Schulordnung Berufliche Gymnasien",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Einführung des Berufs des Notfallsanitäters und der Notfallsanitäterin und zur Änderung der Schulordnung Berufliche Gymnasien",
+    "VO Einführung Beruf Notfallsanitäter",
     "Kultus",
     "Einführung",
     "Berufs",
@@ -25,6 +24,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Einführung des Berufs des Notfallsanitäters und der Notfallsanitäterin und zur Änderung der Schulordnung Berufliche Gymnasien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-08-13",
   "effectiveDate": "2014-08-31",
@@ -39,8 +39,12 @@
       "sha256": "1c6daf0c9935677a659fd6b6598a487c987732c291fda8931aad5036eef8541b",
       "lawId": "14105",
       "sourceValidFrom": "2014-08-31",
+      "fsnNumber": "710-1.53C",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-berufliche-gymnasien"
   ]
 }

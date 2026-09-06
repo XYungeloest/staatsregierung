@@ -289,7 +289,11 @@ export function inferKeywords({ abbr, shortTitle, title, label }) {
   const words = String(title ?? '')
     .split(/[^\p{L}\p{N}-]+/u)
     .filter((word) => word.length >= 5 && !/^(?:sowie|einer|eines|eine|über|durch|gegen|nach|unter|zwischen|Verordnung|Gesetz|Gesetzes|Verwaltungsvorschrift|Richtlinie|Staatsministeriums|Staatsministerium|Staatsregierung|Ostdeutschen|Ostdeutsches|Ostdeutsche|Ostdeutschland|Freistaat|Freistaates)$/iu.test(word));
-  return [...new Set([abbr, shortTitle, label, ...words].filter(Boolean))].slice(0, 16);
+  // Schlagwörter sind Erschließungshilfen, keine amtlichen Angaben: eine sächsische Bezeichnung,
+  // die die Rechtsüberleitung nicht übersetzt hat, wird nicht als eigenes Schlagwort geführt
+  // (scripts/audit-ost-residuals.mjs). Titel und Zitierung behalten sie, wo die Quelle sie belegt.
+  const withoutSaxonResidue = (value) => !/(?:^|\s)(?:Sächs|Sachsen)/u.test(String(value));
+  return [...new Set([abbr, shortTitle, label, ...words].filter(Boolean))].filter(withoutSaxonResidue).slice(0, 16);
 }
 
 export function sourceReferenceLabel({ lawId, versionNumber, sourceValidFrom, sourceValidTo }) {

@@ -2,23 +2,22 @@
   "id": "ostdeutsches-wassergesetz",
   "slug": "ostdeutsches-wassergesetz",
   "title": "Ostdeutsches Wassergesetz",
-  "shortTitle": "Ostdeutsches Wassergesetz",
   "abbr": "OstWG",
-  "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Bergbau, Energiewirtschaft, Wasserwirtschaft"
   ],
+  "primarySubject": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
   "keywords": [
     "OstWG",
-    "Ostdeutsches Wassergesetz",
     "Wassergesetz"
   ],
   "initialCitation": "Ostdeutsches Wassergesetz vom 12. Juli 2013 (SächsGVBl. S. 503)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Wassergesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2013-07-12",
   "sourceReferences": [
@@ -33,6 +32,7 @@
       "lawId": "12868",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-07-29",
+      "fsnNumber": "612-3/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

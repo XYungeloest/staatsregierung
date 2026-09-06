@@ -1,17 +1,18 @@
 {
   "id": "aend-vwv-sicherheitsleistungen-12761-1",
   "slug": "aend-vwv-sicherheitsleistungen-12761-1",
-  "title": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Europa und des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Sicherheitsleistungen",
+  "title": "des Ostdeutschen Staatsministeriums der Justiz und für Europa und des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Sicherheitsleistungen",
   "shortTitle": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Europa und des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Sicherheitsleistungen",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Landesrecht"
+    "Strafrecht, Ordnungswidrigkeiten"
   ],
+  "primarySubject": "Strafrecht, Ordnungswidrigkeiten",
   "keywords": [
     "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Europa und des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Sicherheitsleistungen",
-    "Gemeinsame",
+    "Änd. VwV Sicherheitsleistungen",
     "Justiz",
     "Europa",
     "Innern",
@@ -22,6 +23,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Europa und des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Sicherheitsleistungen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-02-12",
   "effectiveDate": "2013-03-15",
@@ -36,8 +38,12 @@
       "sha256": "2e9a563759c5ef0a828ee953feaa56e9cbd00b97bb3746f16b6941f5e5aff5d4",
       "lawId": "12761",
       "sourceValidFrom": "2013-03-15",
+      "fsnNumber": "34",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-sicherheitsleistungen"
   ]
 }

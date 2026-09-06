@@ -2,14 +2,13 @@
   "id": "aend-rl-brachenberaeumung",
   "slug": "aend-rl-brachenberaeumung",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Brachenberäumung",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Brachenberäumung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Brachenberäumung",
+    "Änd. RL Brachenberäumung",
     "Regionalentwicklung",
     "Änderung",
     "Brachenberäumung"
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Brachenberäumung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-02-06",
   "effectiveDate": "2020-02-28",
@@ -32,8 +32,12 @@
       "sha256": "c6e7535d0fc11519931f3afc9dda355ceeffff351093acf1cdabe2222f1a673d",
       "lawId": "18597",
       "sourceValidFrom": "2020-02-28",
+      "fsnNumber": "5532",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-brachenberaeumung"
   ]
 }

@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-juristenausbildungsgesetz",
   "slug": "ostdeutsches-juristenausbildungsgesetz",
-  "title": "Ostdeutsches Juristenausbildungsgesetz",
+  "title": "Gesetz über die juristische Ausbildung im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Juristenausbildungsgesetz",
-  "abbr": "OstJAG",
   "shortTitleSource": "official",
+  "abbr": "OstJAG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "OstJAG",
     "Ostdeutsches Juristenausbildungsgesetz",
-    "Juristenausbildungsgesetz"
+    "juristische",
+    "Ausbildung",
+    "Juristenausbildungsgesetz",
+    "OstJAG"
   ],
   "initialCitation": "Ostdeutsches Juristenausbildungsgesetz vom 26. Februar 2021 (SächsGVBl. S. 318)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Juristenausbildungsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2021-02-26",
   "sourceReferences": [
@@ -33,6 +37,7 @@
       "lawId": "19043",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-02-16",
+      "fsnNumber": "305-1/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

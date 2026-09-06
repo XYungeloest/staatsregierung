@@ -2,12 +2,11 @@
   "id": "aend-ostlplg-19118",
   "slug": "aend-ostlplg-19118",
   "title": "Änderung des Landesplanungsgesetzes",
-  "shortTitle": "Änd. OstLPlG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Raumordnung und Landesplanung"
+    "Raumordnung, Landesplanung"
   ],
+  "primarySubject": "Raumordnung, Landesplanung",
   "keywords": [
     "Änd. OstLPlG",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstLPlG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Landesplanungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "2f487a2d8e0ae346440df98e2ded4a6203fbccfc7a4110820da2b13ad4bfd1b3",
       "lawId": "19118",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "40",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

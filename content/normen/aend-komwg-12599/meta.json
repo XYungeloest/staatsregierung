@@ -2,14 +2,12 @@
   "id": "aend-komwg-12599",
   "slug": "aend-komwg-12599",
   "title": "Änderung des Kommunalwahlgesetzes",
-  "shortTitle": "Änd. KomWG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht",
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. KomWG",
     "Änderung",
@@ -19,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-erleichterung-freiwilliger-gebietsaenderungen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. KomWG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Kommunalwahlgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-10-18",
   "effectiveDate": "2012-11-18",
@@ -34,6 +33,7 @@
       "sha256": "dbfe2b7ae7e8f18981867887c1325566e8b494e49114da66b74dde3a5ed9abf9",
       "lawId": "12599",
       "sourceValidFrom": "2012-11-18",
+      "fsnNumber": "233",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

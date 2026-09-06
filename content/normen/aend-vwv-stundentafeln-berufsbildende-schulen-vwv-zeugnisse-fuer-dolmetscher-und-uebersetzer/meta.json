@@ -2,15 +2,14 @@
   "id": "aend-vwv-stundentafeln-berufsbildende-schulen-vwv-zeugnisse-fuer-dolmetscher-und-uebersetzer",
   "slug": "aend-vwv-stundentafeln-berufsbildende-schulen-vwv-zeugnisse-fuer-dolmetscher-und-uebersetzer",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen und der VwV Zeugnisse für Dolmetscher und Übersetzer",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen und der VwV Zeugnisse für Dolmetscher und Übersetzer",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen und der VwV Zeugnisse für Dolmetscher und Übersetzer",
+    "Änd. VwV Stundentafeln berufsbildende Schulen, VwV Zeugnisse für Dolmetscher und Übersetzer",
     "Kultus",
     "Änderung",
     "Stundentafeln",
@@ -24,6 +23,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der VwV Stundentafeln berufsbildende Schulen und der VwV Zeugnisse für Dolmetscher und Übersetzer“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-04-17",
   "effectiveDate": "2023-05-05",
@@ -38,8 +38,12 @@
       "sha256": "3e354799c5d0e2ec187ee0b155b84303007645a272d145fc0604eafa166390f4",
       "lawId": "19939",
       "sourceValidFrom": "2023-05-05",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-stundentafeln-berufsbildende-schulen"
   ]
 }

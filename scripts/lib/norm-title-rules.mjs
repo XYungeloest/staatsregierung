@@ -145,7 +145,9 @@ export function isFormulaSummary(summary, title) {
  * („single“), die in amtlichen Titeln oft Bestandteil des Titels ist.
  */
 export function splitParentheticalTitle(value) {
-  const raw = text(value);
+  // Die amtliche Kennzeile steht auf mehreren Zeilen; ein Titel ist einzeilig. Erst nach dem
+  // Zusammenziehen der Zeilenumbrüche greift die Klammerform „Langtitel (Kurzbezeichnung – Abkürzung)“.
+  const raw = text(value).replace(/\s+/gu, ' ');
   const match = raw.match(/^(.*\S)\s*\(([^()]+)\)\s*$/u);
   if (!match) return { title: raw, separator: null };
   const title = match[1].trim();

@@ -2,12 +2,11 @@
   "id": "aend-ostbo-19120",
   "slug": "aend-ostbo-19120",
   "title": "Änderung der Ostdeutschen Bauordnung",
-  "shortTitle": "Änd. OstBO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wohnen und Bodenordnung"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
     "Änd. OstBO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Bauordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "3499f3273a824c5f1a9a12c3e3a57396e008b4d090e29996b63c0b4cb40bb440",
       "lawId": "19120",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -1,24 +1,25 @@
 {
   "id": "gesetz-ueber-den-ostdeutschen-auslaenderbeauftragten",
   "slug": "gesetz-ueber-den-ostdeutschen-auslaenderbeauftragten",
-  "title": "Gesetz über den Ostdeutschen Ausländerbeauftragten",
+  "title": "Gesetz über den Ostdeutschen Ausländerbeauftragten (OstAuslBeauftrG)",
   "shortTitle": "Gesetz über den Ostdeutschen Ausländerbeauftragten",
-  "abbr": "OstAuslBeauftrG",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Aus dem Ausland stammende Personen"
   ],
+  "primarySubject": "Aus dem Ausland stammende Personen",
   "keywords": [
-    "OstAuslBeauftrG",
     "Gesetz über den Ostdeutschen Ausländerbeauftragten",
+    "OstAuslBeauftrG",
     "Ausländerbeauftragten"
   ],
   "initialCitation": "Gesetz über den Ostdeutschen Ausländerbeauftragten vom 9. März 1994 (SächsGVBl. S. 465), das durch Artikel 3 des Gesetzes vom 6. Juni 2002 (SächsGVBl. S. 168) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Gesetz über den Ostdeutschen Ausländerbeauftragten“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1994-03-09",
   "sourceReferences": [
@@ -32,6 +33,7 @@
       "sha256": "49ac859c6fd28887a6ddfc5d2afe0356636f062e312c42fcd2f330025cf1f784",
       "lawId": "4836",
       "sourceValidFrom": "2002-07-03",
+      "fsnNumber": "270-2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

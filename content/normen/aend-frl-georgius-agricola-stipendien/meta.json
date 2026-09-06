@@ -2,14 +2,13 @@
   "id": "aend-frl-georgius-agricola-stipendien",
   "slug": "aend-frl-georgius-agricola-stipendien",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der Förderrichtlinie Georgius-Agricola-Stipendien",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der Förderrichtlinie Georgius-Agricola-Stipendien",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der Förderrichtlinie Georgius-Agricola-Stipendien",
+    "Änd. FRL Georgius-Agricola-Stipendien",
     "Wissenschaft",
     "Kultur",
     "Tourismus",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung der Förderrichtlinie Georgius-Agricola-Stipendien“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-13",
   "effectiveDate": "2023-07-01",
@@ -35,8 +35,12 @@
       "sha256": "578836a3d4b021793920eb9720e4558507971bc44df586228f24a3a352713844",
       "lawId": "20020",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "5502",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-georgius-agricola-stipendien"
   ]
 }

@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "FördRL Wiedereinstieg",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst über die Vergabe von Stipendien zur Förderung des Wiedereinstiegs in die wissenschaftliche Arbeit (FördRL Wiedereinstieg)",
   "shortTitle": "FördRL Wiedereinstieg",
-  "abbr": "FördRL Wiedereinstieg",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "FördRL Wiedereinstieg vom 23. September 2005 (SächsABl. S. 994), die durch die Richtlinie vom 13. Juni 2023 (SächsABl. S. 758) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 11. Dezember 2023 (SächsABl. SDr. S. S 295)",
+  "citation": "FördRL Wiedereinstieg vom 23. September 2005 (SächsABl. S. 994), die durch die Richtlinie vom 13. Juni 2023 (SächsABl. S. 758) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -20,6 +19,7 @@
       "lawId": "1420",
       "sourceValidFrom": "2023-07-01",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "5572-V05.3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -31,22 +31,10 @@
       "title": "Allgemeine Regelungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "A. Allgemeine Regelungen"
-        },
-        {
           "type": "section",
           "label": "I.",
           "title": "Zuwendungszweck, Rechtsgrundlagen",
           "children": [
-            {
-              "type": "item",
-              "label": "I.",
-              "text": "Zuwendungszweck, Rechtsgrundlagen",
-              "level": 0,
-              "numberingStyle": "upper-roman",
-              "children": []
-            },
             {
               "type": "item",
               "label": "1.",
@@ -104,17 +92,8 @@
           "title": "Gegenstand der Förderung",
           "children": [
             {
-              "type": "item",
-              "label": "II.",
-              "text": "Gegenstand der Förderung",
-              "level": 0,
-              "numberingStyle": "upper-roman",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Gefördert werden insbesondere im naturwissenschaftlich-technischen Bereich"
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Gefördert werden insbesondere im naturwissenschaftlich-technischen Bereich"
             },
             {
               "type": "item",
@@ -142,22 +121,10 @@
       "title": "Besondere Regelungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "B. Besondere Regelungen"
-        },
-        {
           "type": "section",
           "label": "I.",
           "title": "Stipendien zum Abschluss der Promotion oder Habilitation",
           "children": [
-            {
-              "type": "item",
-              "label": "I.",
-              "text": "Stipendien zum Abschluss der Promotion oder Habilitation",
-              "level": 0,
-              "numberingStyle": "upper-roman",
-              "children": []
-            },
             {
               "type": "item",
               "label": "1.",
@@ -612,14 +579,6 @@
           "children": [
             {
               "type": "item",
-              "label": "II.",
-              "text": "Stipendien für Vorbereitungsmaßnahmen, die promovierten Wissenschaftlerinnen einen Wiedereinstieg in die wissenschaftliche Arbeit nach qualifizierter beruflicher Tätigkeit ermöglichen, um die Voraussetzungen für eine Berufung an eine Hochschule zu schaffen",
-              "level": 0,
-              "numberingStyle": "upper-roman",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "1.",
               "text": "Zuwendungsvoraussetzungen",
               "level": 0,
@@ -880,10 +839,6 @@
           "label": "C.",
           "title": "In-Kraft-Treten und Außer-Kraft-Treten",
           "children": [
-            {
-              "type": "paragraphText",
-              "text": "C. In-Kraft-Treten und Außer-Kraft-Treten"
-            },
             {
               "type": "paragraphText",
               "text": "Diese Richtlinie tritt am Tage nach ihrer Veröffentlichung im Ostdeutschen Amtsblatt in Kraft.\nGleichzeitig tritt die Förderrichtlinie des Ostdeutschen Staatsministeriums für Wissenschaft und Kunst (SMWK) zur Gewährung von Stipendien zur Förderung des Wiedereinstiegs in die wissenschaftliche Arbeit (Wiedereinstiegsstipendien) vom 1. Dezember 2001 (SächsABl. S. 1325) außer Kraft."

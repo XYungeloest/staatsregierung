@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Bestellung der Strahlenschutzbeauftragten an öffentlichen Schulen des Freistaates Ostdeutschland",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Bestellung der Strahlenschutzbeauftragten an öffentlichen Schulen des Freistaates Ostdeutschland",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Bestellung der Strahlenschutzbeauftragten an öffentlichen Schulen des Freistaates Ostdeutschland vom 6. März 2006 (MBl. SMK S. 179), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Bestellung der Strahlenschutzbeauftragten an öffentlichen Schulen des Freistaates Ostdeutschland vom 6. März 2006 (MBl. SMK S. 179)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "48828a16b5d560a399e7da1d17a1c3e1ef43f5ca4de8be44957235d9b312440c",
       "lawId": "2346",
       "sourceValidFrom": "2006-04-29",
+      "fsnNumber": "710-V06.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -33,17 +33,8 @@
       "title": "Allgemeines",
       "children": [
         {
-          "type": "item",
-          "label": "1.",
-          "text": "Allgemeines",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Für die Ausgestaltung der innerschulischen Strahlenschutzorganisation steht die Erfüllung des Gesetzeszweckes, Leben, Gesundheit und Sachgüter vor den Gefahren der schädlichen Wirkung ionisierender Strahlen zu schützen, im Vordergrund. Auch die Strahlenschutzorganisation dient der Einhaltung der Strahlenschutzgrundsätze (§ 33 Abs. 1\nStrlSchV\n, § 15 Abs. 1\nRöV)."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Für die Ausgestaltung der innerschulischen Strahlenschutzorganisation steht die Erfüllung des Gesetzeszweckes, Leben, Gesundheit und Sachgüter vor den Gefahren der schädlichen Wirkung ionisierender Strahlen zu schützen, im Vordergrund. Auch die Strahlenschutzorganisation dient der Einhaltung der Strahlenschutzgrundsätze (§ 33 Abs. 1\nStrlSchV\n, § 15 Abs. 1\nRöV)."
         }
       ]
     },
@@ -52,14 +43,6 @@
       "label": "2.",
       "title": "Strahlenschutzverantwortlicher, Strahlenschutzbevollmächtigter, Strahlenschutzbeauftragter",
       "children": [
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Strahlenschutzverantwortlicher, Strahlenschutzbevollmächtigter, Strahlenschutzbeauftragter",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -94,7 +77,6 @@
         {
           "type": "item",
           "label": "3.",
-          "text": "Strahlenschutzbeauftragte",
           "level": 0,
           "numberingStyle": "decimal",
           "children": []
@@ -106,14 +88,6 @@
       "label": "3.1",
       "title": "Grundsätze der Bestellung",
       "children": [
-        {
-          "type": "item",
-          "label": "3.1",
-          "text": "Grundsätze der Bestellung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.1.1",
@@ -171,14 +145,6 @@
       "children": [
         {
           "type": "item",
-          "label": "3.2",
-          "text": "Erwerb der erforderlichen Fachkunde",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.2.1",
           "text": "Gemäß § 30 Abs. 1\nStrlSchV\n, § 18a Abs. 1\nRöV wird die erforderliche Fachkunde im Strahlenschutz in der Regel durch eine für den jeweiligen Anwendungsbereich geeignete Ausbildung, praktische Erfahrung und die erfolgreiche Teilnahme an von der zuständigen Stelle anerkannten Kursen erworben.",
           "level": 0,
@@ -210,14 +176,6 @@
       "children": [
         {
           "type": "item",
-          "label": "3.3",
-          "text": "Aktualisierung der Fachkunde im Strahlenschutz",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "3.3.1",
           "text": "Die Fachkunde im Strahlenschutz muss mindestens alle fünf Jahre durch die erfolgreiche Teilnahme an einer anerkannten Fortbildungsmaßnahme mit Erfolgskontrolle aktualisiert werden (§ 30 Abs. 2\nStrlSchV\n, § 18a Abs. 2\nRöV). Der Nachweis über die durchgeführte Fortbildung ist in jedem Fall dem zuständigen Regionalschulamt vorzulegen, dem Landesamt für Umwelt und Geologie und dem zuständigen Regierungspräsidium nur auf Anforderung.",
           "level": 0,
@@ -239,14 +197,6 @@
       "label": "3.4",
       "title": "Aufgaben des Strahlenschutzbeauftragten",
       "children": [
-        {
-          "type": "item",
-          "label": "3.4",
-          "text": "Aufgaben des Strahlenschutzbeauftragten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.4.1",
@@ -287,17 +237,8 @@
       "title": "In-Kraft-Treten",
       "children": [
         {
-          "type": "item",
-          "label": "4.",
-          "text": "In-Kraft-Treten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt am Tag nach ihrer Veröffentlichung in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tag nach ihrer Veröffentlichung in Kraft."
         }
       ]
     }

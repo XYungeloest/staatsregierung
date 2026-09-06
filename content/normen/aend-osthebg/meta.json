@@ -2,15 +2,14 @@
   "id": "aend-osthebg",
   "slug": "aend-osthebg",
   "title": "Gesetz zur Änderung des Ostdeutschen Hebammengesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Hebammengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Hebammengesetzes",
+    "Änd. OstHebG",
     "Änderung",
     "Hebammengesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Hebammengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-01-10",
   "effectiveDate": "2013-02-10",
@@ -32,8 +32,12 @@
       "sha256": "a096d93daa2c58c2ab0e846fc9e20cd252974cb474683ab87ab5ba939a128ef4",
       "lawId": "12737",
       "sourceValidFrom": "2013-02-10",
+      "fsnNumber": "253",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-hebammengesetz"
   ]
 }

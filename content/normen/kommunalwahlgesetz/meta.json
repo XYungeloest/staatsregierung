@@ -1,14 +1,15 @@
 {
   "id": "kommunalwahlgesetz",
   "slug": "kommunalwahlgesetz",
-  "title": "Kommunalwahlgesetz",
+  "title": "Gesetz über die Kommunalwahlen im Freistaat Ostdeutschland",
   "shortTitle": "Kommunalwahlgesetz",
   "shortTitleSource": "official",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Wahlrecht und politische Beteiligung"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Kommunalwahlgesetz"
   ],
@@ -16,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Kommunalwahlgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-04-20",
   "sourceReferences": [
@@ -28,7 +30,8 @@
       "retrievedAt": "2026-08-23",
       "sha256": "1d8524bcea6b5b6c83f2544b2e75e77ba549a03f686813f352991d570b1887a7",
       "lawId": "3818",
-      "sourceValidFrom": "2022-02-20"
+      "sourceValidFrom": "2022-02-20",
+      "fsnNumber": "233-1"
     },
     {
       "kind": "amendment-source",

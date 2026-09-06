@@ -2,15 +2,13 @@
   "id": "aend-ostgfbwbvo-19553-1",
   "slug": "aend-ostgfbwbvo-19553-1",
   "title": "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Bildung und Weiterbildung"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe",
+    "Änd. OstGfbWBVO",
     "Soziales",
     "Gesellschaftlichen",
     "Zusammenhalt",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Weiterbildungsverordnung Gesundheitsfachberufe“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-03-01",
   "effectiveDate": "2022-03-17",
@@ -36,8 +35,12 @@
       "sha256": "783f58c7720d249450881684bf1289af0d3e6795102179ee2b27696305b72578",
       "lawId": "19553",
       "sourceValidFrom": "2022-03-17",
+      "fsnNumber": "253",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "weiterbildungsverordnung-gesundheitsfachberufe"
   ]
 }

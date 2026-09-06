@@ -1,24 +1,29 @@
 {
   "id": "ostdeutsches-krebsregistergesetz",
   "slug": "ostdeutsches-krebsregistergesetz",
-  "title": "Ostdeutsches Krebsregistergesetz",
+  "title": "Gesetz zur klinischen und epidemiologischen Krebsregistrierung im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Krebsregistergesetz",
-  "abbr": "OstKRegG",
   "shortTitleSource": "official",
+  "abbr": "OstKRegG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "OstKRegG",
     "Ostdeutsches Krebsregistergesetz",
-    "Krebsregistergesetz"
+    "klinischen",
+    "epidemiologischen",
+    "Krebsregistrierung",
+    "Krebsregistergesetz",
+    "OstKRegG"
   ],
   "initialCitation": "Ostdeutsches Krebsregistergesetz vom 17. Mai 2018 (SächsGVBl. S. 277), das durch das Gesetz vom 15. Dezember 2022 (SächsGVBl. S. 765) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Krebsregistergesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-05-17",
   "sourceReferences": [
@@ -32,6 +37,7 @@
       "sha256": "a0713c318d6abf6624a8392b73577a48d29c8123fa4e6cf6cfb8914d4ed0e5d6",
       "lawId": "17722",
       "sourceValidFrom": "2022-12-30",
+      "fsnNumber": "250-22",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

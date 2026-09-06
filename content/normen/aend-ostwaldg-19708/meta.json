@@ -2,13 +2,12 @@
   "id": "aend-ostwaldg-19708",
   "slug": "aend-ostwaldg-19708",
   "title": "Änderung des Waldgesetzes für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstWaldG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
     "Änd. OstWaldG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-einfuehrung-des-osttranspg",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstWaldG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Waldgesetzes für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-08-19",
   "effectiveDate": "2023-01-01",
@@ -33,6 +33,7 @@
       "sha256": "d44a2a0c08b395bd8a9f9151bcc2a4e8ff442e5511b0b9f7f9eff1829302a2c2",
       "lawId": "19708",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "650",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

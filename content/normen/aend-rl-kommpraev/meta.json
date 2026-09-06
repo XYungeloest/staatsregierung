@@ -2,16 +2,14 @@
   "id": "aend-rl-kommpraev",
   "slug": "aend-rl-kommpraev",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Kommunale Prävention",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Kommunale Prävention",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Kommunale Prävention",
+    "Änd. RL KommPräv",
     "Innern",
     "Änderung",
     "Kommunale",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Richtlinie Kommunale Prävention“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-05-31",
   "effectiveDate": "2023-06-16",
@@ -35,8 +34,12 @@
       "sha256": "cc55ee68df3a9eda64ebfecfadcc5d5fa5902059df66ad9535250c597ec70a0d",
       "lawId": "19981",
       "sourceValidFrom": "2023-06-16",
+      "fsnNumber": "551",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-kommunale-praevention"
   ]
 }

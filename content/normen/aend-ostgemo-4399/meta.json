@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-4399",
   "slug": "aend-ostgemo-4399",
   "title": "Änderung der Ostdeutschen Gemeindeordnung",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-justizgesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Gemeindeordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2000-11-24",
   "effectiveDate": "2001-01-01",
@@ -47,6 +47,7 @@
       "lawId": "3393",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "300-14",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }
