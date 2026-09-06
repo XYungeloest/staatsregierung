@@ -70,11 +70,11 @@ test('Sortierung, Paginierung, URL-Wiederherstellung und Konzernstruktur funktio
   await expect(firstName.locator('strong')).not.toHaveText(ascendingName);
 
   await page.locator('[data-page-action="next"]').click();
-  await expect(page.locator('[data-holdings-range]')).toHaveText(`${PAGE_SIZE + 1}–${Math.min(2 * PAGE_SIZE, positions.length)}`);
+  await expect(page.locator('[data-pagination-range]')).toHaveText(`${PAGE_SIZE + 1}–${Math.min(2 * PAGE_SIZE, positions.length)}`);
   await expect(page).toHaveURL(/page=2/u);
   await page.reload();
   await expect(page.locator('[data-holdings-root]')).toHaveAttribute('data-holdings-ready', 'true');
-  await expect(page.locator('[data-holdings-range]')).toHaveText(`${PAGE_SIZE + 1}–${Math.min(2 * PAGE_SIZE, positions.length)}`);
+  await expect(page.locator('[data-pagination-range]')).toHaveText(`${PAGE_SIZE + 1}–${Math.min(2 * PAGE_SIZE, positions.length)}`);
 
   await page.locator('[data-holdings-view="tree"]').click();
   await expect(page.locator('[data-holdings-panel="tree"]')).toBeVisible();
