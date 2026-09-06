@@ -2,20 +2,20 @@
   "id": "medienstaatsvertrag",
   "slug": "medienstaatsvertrag",
   "title": "Medienstaatsvertrag",
-  "shortTitle": "Medienstaatsvertrag",
-  "shortTitleSource": "official",
   "type": "staatsvertrag",
   "subjects": [
-    "Rundfunk und Medien",
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
+    "MStV",
     "Medienstaatsvertrag"
   ],
   "initialCitation": "Medienstaatsvertrag vom 28. April 2020 (SächsGVBl. S. 381)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Medienstaatsvertrag“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2020-04-28",
   "sourceReferences": [
@@ -30,6 +30,7 @@
       "lawId": "18790",
       "sourceValidFrom": "2023-07-01",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "72-46V",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

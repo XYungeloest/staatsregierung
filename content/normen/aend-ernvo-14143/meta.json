@@ -2,12 +2,11 @@
   "id": "aend-ernvo-14143",
   "slug": "aend-ernvo-14143",
   "title": "Änderung der Ernennungsverordnung",
-  "shortTitle": "Änd. ErnVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. ErnVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsche-dienstrechtsneuordnungsverordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. ErnVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ernennungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-09-16",
   "effectiveDate": "2014-10-29",
@@ -32,6 +32,7 @@
       "sha256": "329d505f16290d52b2fe42bd17ceae73d75207823920031ce6f2f14fa3f71bd8",
       "lawId": "14143",
       "sourceValidFrom": "2014-10-29",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

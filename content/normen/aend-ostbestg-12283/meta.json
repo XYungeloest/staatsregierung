@@ -2,13 +2,12 @@
   "id": "aend-ostbestg-12283",
   "slug": "aend-ostbestg-12283",
   "title": "Änderung des Ostdeutschen Bestattungsgesetzes",
-  "shortTitle": "Änd. OstBestG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Änd. OstBestG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-standortegesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBestG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Bestattungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-01-27",
   "effectiveDate": "2012-03-01",
@@ -33,6 +33,7 @@
       "sha256": "982226d2b32ce5a78f2cd7f062ed2a6ca7af63e04302f718933f30fc9237d431",
       "lawId": "12283",
       "sourceValidFrom": "2012-03-01",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

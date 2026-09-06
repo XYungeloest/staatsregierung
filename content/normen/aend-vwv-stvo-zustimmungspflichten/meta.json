@@ -2,15 +2,13 @@
   "id": "aend-vwv-stvo-zustimmungspflichten",
   "slug": "aend-vwv-stvo-zustimmungspflichten",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der VwV StVO-Zustimmungspflichten",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der VwV StVO-Zustimmungspflichten",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Verkehr"
   ],
+  "primarySubject": "Verkehr",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der VwV StVO-Zustimmungspflichten",
+    "Änd. VwV StVO-Zustimmungspflichten",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der VwV StVO-Zustimmungspflichten“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-01-26",
   "effectiveDate": "2015-02-13",
@@ -35,8 +34,12 @@
       "sha256": "305cd18748c493745605ce9a16c5a9bbb085fa9d745cadb3b84e52afe33c19a6",
       "lawId": "15118",
       "sourceValidFrom": "2015-02-13",
+      "fsnNumber": "471",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-stvo-zustimmungspflichten"
   ]
 }

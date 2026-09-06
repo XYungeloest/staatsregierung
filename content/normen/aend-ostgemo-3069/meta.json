@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-3069",
   "slug": "aend-ostgemo-3069",
   "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "kommunalwahlgesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Gemeindeordnung für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1993-10-18",
   "effectiveDate": "1993-10-31",
@@ -46,6 +46,7 @@
       "sha256": "14131bc97ea0f6bb2a2a579cefefc7f7f2d6bff8bb1410d1a4a15d9d565ef35d",
       "lawId": "3818",
       "sourceValidFrom": "2022-02-20",
+      "fsnNumber": "233-1",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

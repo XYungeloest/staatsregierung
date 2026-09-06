@@ -2,15 +2,14 @@
   "id": "aend-komfreivo",
   "slug": "aend-komfreivo",
   "title": "Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung",
+    "Änd. KomFreiVO",
     "Innern",
     "Änderung",
     "Kommunalfreistellungsverordnung"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Kommunalfreistellungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-08-31",
   "effectiveDate": "2009-10-01",
@@ -33,8 +33,12 @@
       "sha256": "2f91536bef2f6fe7e2d15bfaac5b2573a1dae11d0fa765662dc1839c8f50615d",
       "lawId": "11099",
       "sourceValidFrom": "2009-10-01",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-des-innern-ueber-freistellungen-von"
   ]
 }

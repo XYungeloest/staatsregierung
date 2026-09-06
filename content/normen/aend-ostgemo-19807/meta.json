@@ -2,13 +2,12 @@
   "id": "aend-ostgemo-19807",
   "slug": "aend-ostgemo-19807",
   "title": "Änderung der Ostdeutschen Gemeindeordnung",
-  "shortTitle": "Änd. OstGemO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
     "Änd. OstGemO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2023-2024",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGemO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Gemeindeordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-12-20",
   "effectiveDate": "2023-01-01",
@@ -33,6 +33,7 @@
       "sha256": "d7d298ca355f03291e9558557d7e5b0f4e4ede409789bd8ec17a8da41d0171f1",
       "lawId": "19807",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "230",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

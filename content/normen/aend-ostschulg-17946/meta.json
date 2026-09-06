@@ -2,13 +2,12 @@
   "id": "aend-ostschulg-17946",
   "slug": "aend-ostschulg-17946",
   "title": "Änderung des Ostdeutschen Schulgesetzes",
-  "shortTitle": "Änd. OstSchulG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. OstSchulG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2019-2020",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstSchulG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Schulgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-12-14",
   "effectiveDate": "2019-01-01",
@@ -33,6 +33,7 @@
       "sha256": "a8a4552f52e39f6237938d78d073efdbb1bf00fbdb92e8784fd3358bf088b5d9",
       "lawId": "17946",
       "sourceValidFrom": "2019-01-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -8,8 +8,8 @@ import {
   getHelpUrl,
   getIndexUrl,
   getLawPortalUrl,
+  getPublicationEntriesUrl,
   getPublicationsUrl,
-  getReferencesUrl,
   getSearchUrl,
   getSubjectsUrl,
 } from '@ostrecht/shared/lib/norms/index.ts';
@@ -52,7 +52,7 @@ import {
   </section>
 
   <div class="law-help-layout">
-    <main class="law-help-guide">
+    <div class="law-help-guide">
       <div class="law-help-guide__heading">
         <span class="section-eyebrow">Schritt für Schritt</span>
         <h2>OstRecht sicher nutzen</h2>
@@ -63,13 +63,13 @@ import {
         <p>
           Die einfache Suche findet Begriffe in Titel, Kurztitel, Abkürzung, Metadaten und
           Normtext. Die erweiterten Filter grenzen Treffer nach Normtyp, Ressort, Sachgebiet,
-          Status, Fassungsart, Geltungsdatum und Fundstelle ein. Mehrere Werte innerhalb einer
+          Geltung, Fassungsart, Geltungsdatum und Fundstelle ein. Mehrere Werte innerhalb einer
           Filtergruppe werden alternativ berücksichtigt; verschiedene Filtergruppen grenzen die
           Suche gemeinsam ein.
         </p>
         <p>
-          Ein Stern am Ende eines Wortstamms dient als Präfix-Platzhalter: <code>Kranken*</code>
-          findet beispielsweise Wörter, die mit „Kranken“ beginnen. Ohne Stern bleibt die
+          Ein Stern am Ende eines Wortstamms dient als Präfix-Platzhalter:
+          <code>Kranken*</code> findet beispielsweise Wörter, die mit „Kranken“ beginnen. Ohne Stern bleibt die
           gewohnte Teilwortsuche erhalten.
         </p>
         <p class="section-link-row"><a class="inline-link" href={getSearchUrl()}>Zur Normensuche</a></p>
@@ -92,7 +92,7 @@ import {
         <div><h3>Fundstellen und Verkündungen</h3>
         <p>
           Verkündungen sind als eigene Ausgaben geführt. Die Fundstellennachweise zeigen, in
-          welcher Ausgabe ein Eintrag steht und welche gespeicherte Normfassung dazu gehört.
+          welcher Ausgabe ein Eintrag steht und welche Fassung einer Vorschrift dazu gehört.
         </p>
         <p class="section-link-row">
           <a class="inline-link" href={getPublicationsUrl()}>Zu den Verkündungen</a>
@@ -102,13 +102,13 @@ import {
 
       <section class="law-help-card">
         <div class="law-help-card__number">04</div>
-        <div><h3>Fassungen und Historie</h3>
+        <div><h3>Fassungen und Änderungen</h3>
         <p>
           Der allgemeine Normlink zeigt dynamisch die zum redaktionellen Stichtag geltende
           Fassung. Ist eine Norm noch nicht in Kraft, werden Veröffentlichung und künftiges oder
-          noch nicht belegtes Inkrafttreten ausdrücklich ausgewiesen. Jede gespeicherte Fassung
-          besitzt zusätzlich einen unveränderlichen Fassungslink. Zukünftige Fassungen werden
-          nicht als historische Fassungen bezeichnet.
+          noch nicht belegtes Inkrafttreten ausdrücklich ausgewiesen. Jede Fassung besitzt
+          zusätzlich einen unveränderlichen Fassungslink. Künftige Fassungen werden nicht als
+          historische Fassungen bezeichnet.
         </p>
         </div>
       </section>
@@ -117,11 +117,12 @@ import {
         <div class="law-help-card__number">05</div>
         <div><h3>Vorschriftentext</h3>
         <p>
-          Vorschriftentexte werden mit Inhaltsübersicht, einzeln auf- und zuklappbaren
-          Paragraphen oder Artikeln und kompakten Vorschriftendaten dargestellt. Die
-          Textwerkzeuge öffnen oder schließen alle Einheiten, führen zur Fassungswahl und bieten
-          Gesamt- sowie Einzeldruck. Ein Link zu einer konkreten Stelle bleibt über den
-          semantischen Anker direkt aufrufbar.
+          Vorschriftentexte werden mit Inhaltsübersicht, einzeln auf- und zuklappbaren Einheiten
+          und einem Block „Vorschriftendaten“ dargestellt. Jede Einheit trägt ihre Überschrift und
+          daneben einen Schalter zum Ein- und Ausklappen sowie den Knopf „Werkzeuge“ mit Link auf
+          die Stelle und Einzeldruck. Der Umschalter über dem Text nennt die Einheitenart der
+          Vorschrift („Alle Artikel schließen“, „Alle Paragraphen schließen“). Ein Link zu einer
+          konkreten Stelle bleibt dauerhaft direkt aufrufbar.
         </p>
         <p>
           Eindeutige Verweise auf Vorschriften im eigenen Rechtsbereich werden im Text verlinkt.
@@ -135,8 +136,15 @@ import {
         <div class="law-help-card__number">06</div>
         <div><h3>Drucken und Quellen</h3>
         <p>
+          Es gibt zwei Arten von PDF-Dateien: „Fassung als PDF“ wird für jede angezeigte Fassung
+          aus dem Vorschriftentext erzeugt und enthält Vollzitat, Rechtsstand und Seitenzahlen;
+          diese Portalfassung ist keine amtliche Verkündung. Die „Amtliche Ausgabe (PDF)“ ist die
+          unveränderte Datei des Verkündungsblatts; sie liegt nur für einen Teil der Vorschriften
+          vor.
+        </p>
+        <p>
           Die Druckansicht ist eine aufbereitete Portalansicht und keine eigenständige amtliche
-          Verkündung. Soweit eine Originalausgabe als belegte PDF-Datei vorhanden ist, wird sie
+          Verkündung. Soweit eine amtliche Ausgabe als belegte PDF-Datei vorhanden ist, wird sie
           gesondert verlinkt. Andernfalls bleibt die zugehörige Verkündungsseite mit Fundstelle
           erreichbar. Das Vollzitat wird aus dem nachgewiesenen Vorschriftentitel, der
           Stammfundstelle und der letzten Änderung gebildet, die der jeweils angezeigten Fassung
@@ -145,7 +153,7 @@ import {
         </p>
         </div>
       </section>
-    </main>
+    </div>
 
     <aside class="law-help-aside">
       <section>
@@ -155,7 +163,7 @@ import {
           <a href={getSearchUrl()}>Normensuche</a>
           <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
           <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
-          <a href={getReferencesUrl()}>Fundstellennachweise</a>
+          <a href={getPublicationEntriesUrl()}>Fundstellen</a>
           <a href={getPublicationsUrl()}>Verkündungen</a>
           <a href={getFundingUrl()}>Förderrichtlinien</a>
         </nav>

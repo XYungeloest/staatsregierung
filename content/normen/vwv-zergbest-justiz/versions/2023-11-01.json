@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Ergänzung der Zahlstellenbestimmungen",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Ergänzung der Zahlstellenbestimmungen (VwV ZErgBest-Justiz)",
   "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Ergänzung der Zahlstellenbestimmungen",
-  "abbr": "VwV ZErgBest-Justiz",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Ergänzung der Zahlstellenbestimmungen vom 12. August 2008 (SächsJMBl. S. 366), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 244)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Ergänzung der Zahlstellenbestimmungen vom 12. August 2008 (SächsJMBl. S. 366)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "b6516366bd4f360b1a9708fe1a2bd17f58ca313113fbc570a66f80879f467e60",
       "lawId": "10412",
       "sourceValidFrom": "2008-08-29",
+      "fsnNumber": "32-V08.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -54,7 +54,7 @@
                 {
                   "type": "item",
                   "label": "2.",
-                  "text": "Aufgaben\n(zu Nummer 2 ZBest)",
+                  "text": "(zu Nummer 2 ZBest)",
                   "level": 0,
                   "numberingStyle": "decimal",
                   "children": [
@@ -95,14 +95,6 @@
               "label": "3.",
               "title": "Einzahlungen und Hinterlegungen",
               "children": [
-                {
-                  "type": "item",
-                  "label": "3.",
-                  "text": "Einzahlungen und Hinterlegungen",
-                  "level": 0,
-                  "numberingStyle": "decimal",
-                  "children": []
-                },
                 {
                   "type": "item",
                   "label": "3.1",
@@ -240,14 +232,6 @@
               "children": [
                 {
                   "type": "item",
-                  "label": "4.",
-                  "text": "Auszahlungen",
-                  "level": 0,
-                  "numberingStyle": "decimal",
-                  "children": []
-                },
-                {
-                  "type": "item",
                   "label": "4.1",
                   "text": "Die Zahlstelle darf, soweit nichts anderes bestimmt ist, Auszahlungen nur durch Übergabe von Bargeld und nur insoweit leisten, als es sich um Ausgaben handelt, deren sofortige Barauszahlung notwendig ist. Die Voraussetzungen können insbesondere gegeben sein bei:",
                   "level": 0,
@@ -301,14 +285,6 @@
               "label": "5.",
               "title": "Zahlungsanzeigen, Quittungen",
               "children": [
-                {
-                  "type": "item",
-                  "label": "5.",
-                  "text": "Zahlungsanzeigen, Quittungen",
-                  "level": 0,
-                  "numberingStyle": "decimal",
-                  "children": []
-                },
                 {
                   "type": "item",
                   "label": "5.1",
@@ -375,7 +351,7 @@
                 {
                   "type": "item",
                   "label": "6.",
-                  "text": "Verfahren bei Einzahlung durch Scheck\n(zu Nummer 6.1 ZBest)",
+                  "text": "(zu Nummer 6.1 ZBest)",
                   "level": 0,
                   "numberingStyle": "decimal",
                   "children": [
@@ -410,14 +386,6 @@
               "children": [
                 {
                   "type": "item",
-                  "label": "7.",
-                  "text": "Beschaffung von Quittungsblöcken",
-                  "level": 0,
-                  "numberingStyle": "decimal",
-                  "children": []
-                },
-                {
-                  "type": "item",
                   "label": "7.1",
                   "text": "Die Landesjustizkasse liefert den Zahlstellen die benötigten Quittungsblöcke.",
                   "level": 0,
@@ -442,7 +410,7 @@
                 {
                   "type": "item",
                   "label": "8.",
-                  "text": "Vereinfachte Führung von Titelverzeichnissen\n(zu Nummer 9 ZBest)",
+                  "text": "(zu Nummer 9 ZBest)",
                   "level": 0,
                   "numberingStyle": "decimal",
                   "children": []
@@ -495,17 +463,8 @@
               "title": "Belege",
               "children": [
                 {
-                  "type": "item",
-                  "label": "9.",
-                  "text": "Belege",
-                  "level": 0,
-                  "numberingStyle": "decimal",
-                  "children": [
-                    {
-                      "type": "paragraphText",
-                      "text": "Für nachstehende Einnahmen gelten als Beleg:"
-                    }
-                  ]
+                  "type": "paragraphText",
+                  "text": "Für nachstehende Einnahmen gelten als Beleg:"
                 },
                 {
                   "type": "item",
@@ -564,7 +523,7 @@
                 {
                   "type": "item",
                   "label": "10.",
-                  "text": "Einrichtung von Geldstellen\n(zu Nummer 15 ZBest)",
+                  "text": "(zu Nummer 15 ZBest)",
                   "level": 0,
                   "numberingStyle": "decimal",
                   "children": []
@@ -616,17 +575,8 @@
               "title": "Annahme von Einzahlungen außerhalb von Kassenräumen nach Nummer 36.5 zu § 70 VwV-SäHO",
               "children": [
                 {
-                  "type": "item",
-                  "label": "11.",
-                  "text": "Annahme von Einzahlungen außerhalb von Kassenräumen nach Nummer 36.5 zu § 70 VwV-SäHO",
-                  "level": 0,
-                  "numberingStyle": "decimal",
-                  "children": [
-                    {
-                      "type": "paragraphText",
-                      "text": "Bedienstete können gemäß Nummer 36.5\nVwV zu § 70 SäHO zur Annahme von geringen Barzahlungen wie privaten Telefon- und Kopiergebühren außerhalb von Kassenräumen ermächtigt werden, wenn die Einzahlung bei einer Kasse, Zahlstelle oder Geldannahmestelle nicht zugemutet werden kann. Nummer 15\nZBest ist entsprechend anzuwenden. Buchstabe F der Verwaltungsvorschrift der Ostdeutschen Staatsregierung über die Errichtung, den Betrieb und die Benutzung dienstlicher Telekommunikationsanlagen für die Landesverwaltung des Freistaates Ostdeutschland (Dienstanschlussvorschrift –\nDAV) vom 11. September 2004 (SächsABl. S. 1030), enthalten in der Verwaltungsvorschrift vom 11. Dezember 2007 (SächsABl. SDr. S. S 481), bleibt unberührt."
-                    }
-                  ]
+                  "type": "paragraphText",
+                  "text": "Bedienstete können gemäß Nummer 36.5\nVwV zu § 70 SäHO zur Annahme von geringen Barzahlungen wie privaten Telefon- und Kopiergebühren außerhalb von Kassenräumen ermächtigt werden, wenn die Einzahlung bei einer Kasse, Zahlstelle oder Geldannahmestelle nicht zugemutet werden kann. Nummer 15\nZBest ist entsprechend anzuwenden. Buchstabe F der Verwaltungsvorschrift der Ostdeutschen Staatsregierung über die Errichtung, den Betrieb und die Benutzung dienstlicher Telekommunikationsanlagen für die Landesverwaltung des Freistaates Ostdeutschland (Dienstanschlussvorschrift –\nDAV) vom 11. September 2004 (SächsABl. S. 1030), enthalten in der Verwaltungsvorschrift vom 11. Dezember 2007 (SächsABl. SDr. S. S 481), bleibt unberührt."
                 }
               ]
             }

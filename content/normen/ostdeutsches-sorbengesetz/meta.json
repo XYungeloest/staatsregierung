@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-sorbengesetz",
   "slug": "ostdeutsches-sorbengesetz",
-  "title": "Ostdeutsches Sorbengesetz",
+  "title": "Gesetz über die Rechte der Sorben im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Sorbengesetz",
-  "abbr": "OstSorbG",
   "shortTitleSource": "official",
+  "abbr": "OstSorbG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Verfassungsrecht"
   ],
+  "primarySubject": "Verfassungsrecht",
   "keywords": [
-    "OstSorbG",
     "Ostdeutsches Sorbengesetz",
-    "Sorbengesetz"
+    "Rechte",
+    "Sorben",
+    "Sorbengesetz",
+    "OstSorbG"
   ],
   "initialCitation": "Ostdeutsches Sorbengesetz vom 31. März 1999 (SächsGVBl. S. 161), das zuletzt durch Artikel 19 des Gesetzes vom 20. Dezember 2022 (SächsGVBl. S. 705) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Sorbengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1999-03-31",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "55ec83c825056a0692f20ed8380934e50c33ae92c18642eef61a25af46c54214",
       "lawId": "3019",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "103-2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

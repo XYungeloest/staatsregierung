@@ -2,15 +2,13 @@
   "id": "aend-rl-mikrodarlehen",
   "slug": "aend-rl-mikrodarlehen",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Mikrodarlehen",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Mikrodarlehen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Mikrodarlehen",
+    "Änd. RL Mikrodarlehen",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Richtlinie Mikrodarlehen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-12",
   "effectiveDate": "2020-01-01",
@@ -35,8 +34,12 @@
       "sha256": "72666a96b1c70758d19c9b2dba80da68a12492edf2b1f5878c2a7c5003f285fe",
       "lawId": "18526",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "559",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-mikrodarlehen"
   ]
 }

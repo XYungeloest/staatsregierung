@@ -2,13 +2,12 @@
   "id": "aend-schulg-10533",
   "slug": "aend-schulg-10533",
   "title": "Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. SchulG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SchulG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2009-2010",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SchulG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Schulgesetzes für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-12-12",
   "effectiveDate": "2009-01-01",
@@ -33,6 +33,7 @@
       "sha256": "c38fec8dd583e87b8fd7c7ca148ac5f6b282e6f4be2f057f926293e2c0a21fbe",
       "lawId": "10533",
       "sourceValidFrom": "2009-01-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -2,12 +2,11 @@
   "id": "aend-zuschussvo-18251",
   "slug": "aend-zuschussvo-18251",
   "title": "Änderung der Zuschussverordnung",
-  "shortTitle": "Änd. ZuschussVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. ZuschussVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-rechtsnormen-fuer-schulen-in-freier-traegerschaft-18249-1",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. ZuschussVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Zuschussverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-06-21",
   "effectiveDate": "2018-08-01",
@@ -32,6 +32,7 @@
       "sha256": "d60662b035faf5b01139e0e7b2ee012651d39dd3722ce764a13da17821013a73",
       "lawId": "18251",
       "sourceValidFrom": "2018-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

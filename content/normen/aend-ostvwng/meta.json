@@ -2,13 +2,12 @@
   "id": "aend-ostvwng",
   "slug": "aend-ostvwng",
   "title": "Änderung des Ostdeutschen Verwaltungsneuordnungsgesetzes",
-  "shortTitle": "Änd. OstVwNG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
     "Änd. OstVwNG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "neuordnungsg-kulturraeume",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstVwNG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Verwaltungsneuordnungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-06-20",
   "effectiveDate": "2008-07-15",
@@ -33,6 +33,7 @@
       "sha256": "fac33e4aee7582453057f1ef2148b0ec07d835dd05adcb1b682c2582e2f5eea9",
       "lawId": "10236",
       "sourceValidFrom": "2008-07-15",
+      "fsnNumber": "20",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

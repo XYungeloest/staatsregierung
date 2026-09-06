@@ -1,23 +1,30 @@
 {
   "id": "vwv-nachlasssachen",
   "slug": "vwv-nachlasssachen",
-  "title": "VwV Nachlasssachen",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung über die Benachrichtigung in Nachlasssachen",
   "shortTitle": "VwV Nachlasssachen",
-  "abbr": "VwV NachlSach",
   "shortTitleSource": "official",
+  "abbr": "VwV NachlSach",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Meldewesen, Personenstandswesen, Namensrecht"
   ],
+  "primarySubject": "Meldewesen, Personenstandswesen, Namensrecht",
   "keywords": [
-    "VwV NachlSach",
     "VwV Nachlasssachen",
-    "Nachlasssachen"
+    "Justiz",
+    "Demokratie",
+    "Europa",
+    "Gleichstellung",
+    "Benachrichtigung",
+    "Nachlasssachen",
+    "NachlSach"
   ],
-  "initialCitation": "VwV Nachlasssachen vom 28. August 2023 (SächsJMBl. S. 199), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 244)",
+  "initialCitation": "VwV Nachlasssachen vom 28. August 2023 (SächsJMBl. S. 199)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Nachlasssachen“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2023-08-28",
   "sourceReferences": [
@@ -31,6 +38,7 @@
       "sha256": "e608efd45e73eb482fcd069eeac2a38ea318b59bde13d3020139441504c48664",
       "lawId": "20230",
       "sourceValidFrom": "2023-10-01",
+      "fsnNumber": "26-V23,1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

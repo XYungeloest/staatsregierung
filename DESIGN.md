@@ -105,7 +105,9 @@ Typoskala (`foundation.css`): `--text-2xs` 0,72 rem (11,52 px), `--text-xs` 0,82
 (18,4), `--text-lg` 1,3 (20,8), `--text-lg-plus` 1,5 (24), `--text-xl` 1,75 (28). Begründete
 Zusatzstufen: `--text-base-plus` für Kartentitel (zwischen 16 und 18,4 px), `--text-lg-plus` für die
 Abschnitts-H2 des Staatsportals (sonst 20,8 px). Die kleinste Stufe trägt Wortmarken-Untertitel und
-Kennzahl-Etiketten.
+Kennzahl-Etiketten, nie Navigations- oder Listeneinträge: die Inhaltsübersicht der Normseite steht
+mindestens in `--text-sm`, ihre Gliederungszeichen mindestens in `--text-xs`
+(`tests/stilwaechter.test.ts` hält beide Untergrenzen fest).
 
 Titelstufen, eine je Seitenfamilie in beiden Portalen: `--text-display` für den Startseiten-Hero,
 `--text-title` für Bereichs-, Such- und Hilfeseiten, `--text-title-long` für Langtitel (Normseiten,
@@ -151,20 +153,32 @@ Verfassung, Verkündungen und Sachgebieten, ein kompaktes Suchfeld und die Servi
 Barrierefreiheit und Staatsportal. Verkündungen bleiben ein eigener Navigationspunkt. Politische
 Teaser- und Pressenavigation gehören nicht in diese Navigation.
 
+Der OstRecht-Kopf kennt drei Stufen. Über 80 rem steht alles in einer Zeile. Zwischen 64 und 80 rem
+wird der Kopf zweizeilig: Wortmarke, Suchfeld und Servicewege bleiben oben, die sieben
+Navigationspunkte stehen darunter als eigene Zeile mit Trennlinie und 2,75 rem hohen Zielen.
+Erst ab 64 rem abwärts weichen Servicewege und Navigationsliste gemeinsam in das Menü. Die Höhe der
+haftenden Kopfleiste steht als `--law-header-offset` auf `.law-site` (6,5 rem, in der zweizeiligen
+Stufe 8,75 rem); alle haftenden Seitenspalten setzen dort an, statt die Höhe zu wiederholen.
+
 ## Responsives Verhalten
 
 Es gibt vier Breakpoints, alle als `max-width` in rem: **80 rem**, **64 rem**, **48 rem**, **30 rem**.
 
-- bis 80 rem (kleiner Desktop): im Rechtsportal klappt nur die Navigationsliste in das Menü;
-  Wortmarke, Suchfeld und Menüknopf bleiben sichtbar (Kopf-Zwischenstufe). Das Band der
-  Startseite geht auf zwei Spalten, die Funktionskarte nimmt die volle Breite.
-- bis 64 rem (Tablet quer): die beiden Servicewege stehen im geöffneten Menü, die Suche bleibt im
-  Kopf; Normarbeitsbereich und Startseitenbänder werden einspaltig, Inhaltsübersicht und
-  Vorschriftendaten werden zu nativen Aufklappbereichen.
+- bis 80 rem (kleiner Desktop): im Rechtsportal wird der Kopf zweizeilig – Wortmarke, Suchfeld und
+  Servicewege oben, die Navigationsliste als zweite Zeile; das Menü bleibt geschlossen. Das Band der
+  Startseite geht auf zwei Spalten, die Funktionskarte nimmt die volle Breite. Der
+  Normarbeitsbereich bleibt zweispaltig: die haftende Inhaltsübersicht neben dem Text, die
+  Vorschriftendaten darunter über beide Spalten als Aufklappbereich „Angaben zur Vorschrift“.
+- bis 64 rem (Tablet quer): Servicewege und Navigationsliste stehen im geöffneten Menü, die Suche
+  bleibt im Kopf; der Schnellzugriff geht auf drei Spalten (3 + 2, keine allein stehende Karte);
+  Normarbeitsbereich und Startseitenbänder werden einspaltig, die Inhaltsübersicht wird zum
+  nativen Aufklappbereich.
 - bis 48 rem (Tablet hoch): Verzeichniseinträge, Filterleisten und Formularzeilen stapeln sich; die
-  Werkzeuge je Einheit sind dauerhaft sichtbar.
+  Werkzeuge je Einheit sind dauerhaft sichtbar und tragen ihre Beschriftung. Die beiden
+  Aufklappzeilen „Angaben zur Vorschrift“ und „Inhalt der Vorschrift“ stehen nebeneinander über dem
+  Text; die geöffnete nimmt die volle Breite. Die Werkzeugleiste des Normkopfs rollt waagerecht.
 - bis 30 rem (Smartphone): auch die Kopfsuche weicht in das Menü, dort bleibt sie erreichbar;
-  Kacheln werden einspaltig.
+  Kacheln werden einspaltig; Normtitel und Fassungswahl rücken eine Stufe zusammen.
 
 Inhalte werden gestapelt, nicht abgeschnitten oder versteckt. Kein Seitenlayout erzeugt
 horizontalen Dokumentüberlauf (geprüft bei 375, 768, 1024, 1100, 1280 und 1440 px). Tabellen dürfen
@@ -199,37 +213,113 @@ Informationen bleiben außerhalb zugänglich.
 
 ### Verzeichnisse
 
-Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien, Verkündungen, Fundstellen,
-Rechtsentwicklung, Sachgebiete und A–Z verwenden dieselben Bausteine aus
-`apps/recht/src/components/directory/`:
+Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien, Verkündungen, Sachgebiete und
+A–Z verwenden dieselben Bausteine aus `apps/recht/src/components/directory/`:
 
-- `DirectoryEntry.astro`: links Datum oder Buchstabe, Mitte Titel mit Kurzbeschreibung, rechts
-  Fakten als Definitionsliste, darunter die Badgezeile (Normtyp, Rechtsherkunft). Verkündungen zeigen
-  die Herkunft der verkündeten Vorschriften.
+- `DirectoryEntry.astro`: links das beschriftete Datum („Rechtsstand“ bei Vorschriften, „Ausgabe
+  vom“ bei Ausgaben, „Verkündet am“ bei Einträgen), Mitte die Überschrift aus `getNormTitleBlock`
+  (Kurztitel mit der echten Abkürzung, darunter der Langtitel in gedämpfter Schrift) mit
+  Kurzbeschreibung, rechts Fakten als Definitionsliste, darunter die Badgezeile (Normtyp,
+  Rechtsherkunft). Die Beschreibung ist die redaktionelle Zusammenfassung; fehlt sie, steht dort
+  die Kurzform des Vollzitats („Vom 4. Dezember 1997 (OGVBl. S. 684)“). Der Fakt „Geltung“ trägt
+  das Wort der Wortliste. Verkündungen zeigen die Herkunft der verkündeten Vorschriften.
 - `DirectoryFilterBar.astro`: Auto-Fit-Raster, Aktionen an derselben Stelle, „Zurücksetzen“ immer
   vorhanden und ohne aktiven Filter ausgegraut (`aria-disabled`), die Ergebniszahl unter der Leiste;
   der Bereichskopf nennt keine Bestandszahl mehr.
 - `LetterNav.astro`: Sprungnavigation mit allen 27 Buchstabengruppen, unbelegte sichtbar inaktiv.
+
+Die Sachgebietsübersicht zeigt die amtliche Systematik: acht nummerierte Hauptgruppen mit
+Beschreibung, darunter ihre nummerierten Sachgebiete mit Vorschriftenzahl; Sachgebiete ohne
+Vorschriften erscheinen nicht. Die Sachgebietsseite nennt die Nummer im Eyebrow („Sachgebiet 71“)
+und die Hauptgruppe in der Einleitung. Filter, Facetten und Kennzeichnungen tragen Nummer und
+Kurzform („71 Bildungswesen“), die vollständige amtliche Bezeichnung steht auf Übersicht und
+Sachgebietsseite; der gespeicherte Wert bleibt die amtliche Bezeichnung.
 - `DirectoryPagination.astro`: serverseitige Seiten zu 50 Einträgen (`DEFAULT_PAGE_SIZE`) in allen
-  Verzeichnissen; im A–Z stehen Vorschriften und Stichwörter je zu 50 (`KEYWORD_PAGE_SIZE`) mit
-  unabhängigen Parametern `seite` und `stichwortseite`.
+  Verzeichnissen; im A–Z stehen Vorschriften, Stichwörter und Abkürzungen je zu 50
+  (`KEYWORD_PAGE_SIZE`) mit den unabhängigen Parametern `seite`, `stichwortseite` und
+  `abkuerzungsseite`.
 
 Filter und Seiten laufen über GET-Parameter mit kanonischer Adresse; Seiten mit aktiven Filtern
-tragen `noindex`. Verkündungen und Fundstellen filtern ihre Metadatentabelle im Speicher, folgen aber
-demselben Adress- und Seitenmuster.
+tragen `noindex`. Verkündungen filtern ihre Metadatentabelle im Speicher, folgen aber demselben
+Adress- und Seitenmuster.
+
+Verkündungen führen Ausgaben und Einträge in einer Seite. Ein Ansichtswechsel
+(`<nav class="law-view-switch" aria-label="Ansicht">`, zwei gleichwertige Links mit
+`aria-current="page"`) schaltet zwischen „Ausgaben“ und „Einträge“ (`ansicht=eintraege`); Filter,
+Jahrgangsleiste und Ergebniszahl gelten für beide Ansichten, beide beginnen mit der jüngsten
+Ausgabe. `/fundstellen/` ist eine dauerhafte Weiterleitung auf die Ansicht „Einträge“.
+
+Förderrichtlinien haben keine Buchstabenleiste, sondern die zehn amtlichen Förderbereiche: der
+Seitenkopf nennt Bestand und geltende Richtlinien, darunter stehen die belegten Förderbereiche als
+Sprungziele mit Zahl, danach je Förderbereich ein Abschnitt `<section class="directory"
+id="bereich-55x">` mit den gemeinsamen Einträgen. Der Filter kennt zusätzlich den Förderbereich;
+ohne Auswahl zeigt jeder Abschnitt höchstens eine Seite und verweist auf den vollständigen Bereich.
+
+Die Rechtsentwicklung ist keine eigene Übersicht mehr: Herkunft, Normtyp, Sachgebiet und Geltung
+sind Filter der Rechtssuche. Die Herkunftszahlen des Bestands stehen als Kachelreihe
+(`.law-origin-overview`) über der Trefferliste; `/rechtsentwicklung/` leitet mit denselben
+Parameternamen dorthin weiter.
+
+### Grundmenge und Bestandszahl
+
+Verzeichnisse, A–Z, Sachgebiete, Bestandszahlen und die Standardsuche beschreiben dieselbe
+Grundmenge: alle Vorschriften außer den aus dem sächsischen Rechtsstand übernommenen
+Änderungsvorschriften (`packages/shared/src/lib/norms/inventory.ts`, projizierte Spalte
+`law_norms.in_inventory`). Übernommene Änderungsakte sind historische Änderungsträger, keine
+gleichrangigen Stammnormen; erreichbar bleiben sie über den Normtypfilter „Änderungsvorschrift“,
+das Auswahlfeld „Übernommene Änderungsvorschriften“ (`aenderungen=uebernommen`) in A–Z und
+Sachgebietsseiten sowie über die Beziehungen der geänderten Vorschrift. Die Verzeichnisse der
+Gesetze, Verordnungen, Verwaltungsvorschriften und Förderrichtlinien führen sie nie.
+
+Die Bestandszahl lautet überall gleich: „1933 Vorschriften, davon 1867 geltend“
+(`formatInventoryCount` in `apps/recht/src/lib/counts.ts`, Einzahl „1 Vorschrift“). Sie steht auf der
+Startseite, im Kopf des A–Z und der Sachgebietsübersicht.
+
+### Ordnungswort und alphabetische Einordnung
+
+Der Buchstabe eines Eintrags ist der Anfangsbuchstabe seines Ordnungsworts – des ersten
+inhaltstragenden Wortes der Bezeichnung, ohne Ordnungszahl, Rechtsform, erlassende Stelle,
+Präposition und Artikel („Gesetz über die Landesregulierungsbehörde“ steht unter L).
+`getNormSortWord` und `getNormSortKey` in `packages/shared/src/lib/norms/presentation.ts` bilden es;
+die Projektion legt den Vergleichsschlüssel als `law_norms.sort_word` ab, die Buchstabengruppe als
+`index_letter`. Die Überschrift eines Verzeichniseintrags bleibt der Titelblock; das Ordnungswort
+erscheint als beschriftete Angabe nur dort, wo sein Anfangsbuchstabe von dem der Überschrift
+abweicht. Die Einleitung des A–Z sagt einmal, dass der Buchstabe dem Ordnungswort folgt.
+
+### A–Z unter `/a-z/`
+
+Der alphabetische Zugang liegt unter `/a-z/`; `/archiv/` bleibt als dauerhafte Weiterleitung (301)
+mit Buchstabe, Herkunft, Seite und Stichwortstand erreichbar. Die Seite hat nach Herkunftsübersicht
+und Vorschriftenliste zwei getrennte Wortlisten: „Stichwortregister“ mit den redaktionellen
+Stichwörtern aus `content/stichwortregister.json` und „Abkürzungen und Kurztitel“. Abgeleitete
+Titelwörter erscheinen dort nicht mehr; sie bleiben durchsuchbar.
 
 ### Normkopf und Fassungsnavigation
 
-Fassung, Historie, Fassungsvergleich und Einzelfassung rendern denselben `NormPageHeader.astro`;
-Eyebrow und Statuszeile kommen aus `apps/recht/src/lib/norm-header.ts`: der Eyebrow lautet
-„Vorschrift“, die Statuszeile nennt Fassungsart und Rechtsstand („Aktuelle Fassung · in Kraft seit …“,
-„Historische Fassung · gültig ab … bis …“). Der Wechsel zwischen den Ansichten verändert den Kopf
-nicht. Die Werkzeugleiste hat drei feste Plätze: „Als PDF öffnen“ (ohne PDF ausgegraut mit
-Begründung), „Als HTML lesen“, „Link kopieren“; Fundstellen ohne Ziel sind Nur-Text. Die
-Fassungsnavigation ist ein Linkband gleichwertiger Links mit unterstrichenem aktivem Eintrag – kein
-Kasten, keine gefüllte Pille, kein Tab-Widget; die gespeicherten Fassungen stehen in einem ohne
-JavaScript bedienbaren `details`-Wähler, nach geltend, historisch, zukünftig und ungeklärtem
-Inkrafttreten gruppiert und immer zusätzlich textlich bezeichnet.
+Fassung, „Fassungen und Änderungen“, Fassungsvergleich und Einzelfassung rendern denselben
+`NormPageHeader.astro`; Eyebrow und Statuszeile kommen aus `apps/recht/src/lib/norm-header.ts`: der
+Eyebrow lautet „Vorschrift“, die Statuszeile beschreibt zuerst die angezeigte Fassung und danach die
+Vorschrift („Geltende Fassung seit … · Vorschrift in Kraft seit …“, bei gleichen Daten „Geltende
+Fassung · in Kraft seit …“, „Historische Fassung · gültig ab … bis … · Vorschrift in Kraft seit …“).
+Der Wechsel zwischen den Ansichten verändert den Kopf nicht. Der Kopf trägt außer Titelblock
+(Überschrift, Langtitel nur bei Abweichung, Abkürzung) nur Normtyp und Geltung; Fundstelle,
+Rechtsstand und Zusammenfassung stehen nicht im Kopf. Die Werkzeugleiste hat drei feste Plätze –
+„Fassung als PDF“, „Amtliche Ausgabe (PDF)“ (ohne Beleg ausgegraut mit Begründung) und „Link
+kopieren“ – dazu den Sprunglink „Zum Vorschriftentext“ bzw. „Zur geltenden Fassung“.
+
+Alle Angaben zur Vorschrift stehen genau einmal in `NormFacts.astro` („Vorschriftendaten“):
+Vollzitat, Fundstelle, Rechtsstand, Geltung, Herkunft mit den verlinkten Änderungsvorschriften,
+Quelle, Sachgebiete, Ressort und Vertragsdaten. Ab 80 rem steht der Block offen, darunter ist er der
+Aufklappbereich „Angaben zur Vorschrift“.
+
+Die Fassungsnavigation ist ein Linkband gleichwertiger Links mit unterstrichenem aktivem Eintrag –
+kein Kasten, keine gefüllte Pille, kein Tab-Widget. Sie führt ausschließlich Unterseiten der
+Vorschrift: „Aktuelle Fassung“, „Fassungen und Änderungen“ und – ab zwei gespeicherten Fassungen –
+„Fassungsvergleich“, jede mit `aria-current` auf ihrer Seite; Sprungziele stehen nicht in der Reihe.
+Die gespeicherten Fassungen stehen in einem ohne JavaScript bedienbaren `details`-Wähler, nach
+geltend, historisch, zukünftig und ungeklärtem Inkrafttreten gruppiert und immer zusätzlich textlich
+bezeichnet; die geltende Fassung heißt dort wie überall „Rechtsstand vom <Datum>“. Vorschriften mit
+einer einzigen Fassung zeigen keinen Wähler.
 
 ### Normtext
 
@@ -240,15 +330,22 @@ Text steht ein echtes Leerzeichen, damit kopierter und vorgelesener Text „Arti
 Verfassungsgrundsätze“ und „(1) Die Hauptstadt …“ lautet. Absatz-, Nummern- und
 Buchstabenkennzeichnungen gehören zum Fließtext mit fester Labelspalte.
 
-Vor dem Text stehen ein Umschalter „Alle Paragraphen öffnen/schließen“, dessen Beschriftung den
-nächsten Zustand nennt, „Inhaltsübersicht“ als Sprunglink und „Drucken“ als Symbolknopf. Je Einheit
-gibt es einen Symbolknopf am rechten Rand der Überschrift (Desktop bei Hover und Fokus, kleine
-Bildschirme dauerhaft) mit „Link zu dieser Stelle kopieren“ (springt und kopiert) und „Einzeldruck“.
+Jede nicht zitierte Einheit ist ein `section` mit echter Überschrift; das Auf- und Zuklappen
+übernimmt ein Knopf daneben (`aria-expanded`, `aria-controls`), nicht ein `summary` – Überschriften
+in `summary` werden von Safari mit VoiceOver und von Firefox nicht als Überschrift ausgegeben.
+
+Vor dem Text stehen ein Umschalter, dessen Beschriftung den nächsten Zustand und die Einheitenart
+der Vorschrift nennt („Alle Artikel schließen“, „Alle Paragraphen öffnen“; ohne Artikel und
+Paragraphen entfällt er), „Inhaltsübersicht“ als Sprunglink und „Drucken“ als Symbolknopf. Je
+Einheit gibt es einen Knopf „Werkzeuge“ in der Kopfzeile (Desktop bei Hover und Fokus, kleine
+Bildschirme dauerhaft; ab 48 rem mit sichtbarer Beschriftung, darunter als Symbol mit
+zugänglichem Namen) mit „Link zu dieser Stelle kopieren“ (springt und kopiert) und „Einzeldruck“.
 Paragraphen, Artikel und Anlagen tragen sprechende, deterministische Anker; alte Anker bleiben
-unsichtbare Sprungziele. Inhaltsübersicht und Informationsspalte haften neben dem Dokument; die
-Seitenspalten tragen dafür die volle Zeilenhöhe. Entscheidung gegen die ursprüngliche Empfehlung:
-Tabellen und Anlagen ragen nicht in die Informationsspalte hinein, weil sie unter der haftenden
-Fläche lägen; sie nutzen die volle Textspalte und rollen erst darüber hinaus in `.table-wrap`.
+unsichtbare Sprungziele, und ein Sprung auf eine eingeklappte Einheit klappt sie auf. Die
+Inhaltsübersicht haftet neben dem Dokument; ihre Spalte trägt dafür die volle Zeilenhöhe.
+Entscheidung gegen die ursprüngliche Empfehlung: Tabellen und Anlagen ragen nicht in die
+Informationsspalte hinein, weil sie unter der haftenden Fläche lägen; sie nutzen die volle
+Textspalte und rollen erst darüber hinaus in `.table-wrap`.
 
 ### Fassungsvergleich
 
@@ -258,38 +355,80 @@ Vergleich zeigt dieselbe Gliederungstiefe, dieselben Leerzeichen und dieselbe Do
 Normseite. Er wird von `packages/shared/src/lib/norms/diff-render.ts` erzeugt, einem eigenen Renderer
 neben `NormBody.astro`; beide bleiben bewusst getrennt, weil der eine Astro-Templates aus dem
 Normmodell, der andere Zeichenketten mit Änderungsläufen je Seite aus dem Diff-Modell baut – gemeinsam
-sind Klassen und Regeln, nicht der Code.
+sind Klassen und Regeln, nicht der Code. Der Zähler nennt die Einheitenart der verglichenen
+Fassungen und beugt sie richtig („132 geänderte Artikel“, „1 geänderter Paragraph“, „1 geänderte
+Textstelle“; `packages/shared/src/lib/norms/units.ts`). Absätze ohne Gliederungszeichen werden
+inhaltlich gepaart: wortgleiche Absätze bleiben unverändert und erscheinen nicht, eine umformulierte
+Zeile gilt als geändert, eine gestrichene als entfallen.
 
 ### Startseite
 
 Ruhige Hero-Fläche (`--law-blue-light`, kein Verlauf, kein Dekorzeichen) mit Volltextsuche und
 Chips, die sämtlich Suchfilter sind (der letzte führt zur erweiterten Suche), darunter ein
-horizontaler Schnellzugriff. Zwei Bänder: oben „Aktuelle Änderungen“ und „Künftige Änderungen“ als
-gleich lange Spalten (je vier Einträge; eine leere Zukunftsspalte zeigt einen Hinweis), unten „Neu
-verkündet“, „Sachgebiete“ (mit Hinweis auf Mehrfachzuordnung) und die Funktionen des Rechtsportals;
+horizontaler Schnellzugriff mit fünf Karten: fünf Spalten bis 64 rem, darunter drei (3 + 2), unter
+48 rem ein waagerechtes Rollband. Zwei Bänder: oben „Aktuelle Änderungen“ und „Künftige Änderungen“
+als gleich lange Spalten (je vier Einträge; eine leere Zukunftsspalte zeigt einen Hinweis; künftige
+Einträge sind nach ihrer Art als „tritt in Kraft“ oder „tritt außer Kraft“ beschriftet, und Einträge
+ohne aussagekräftigen Titel zeigen den Anfang des Vollzitats), unten „Neu
+verkündet“, „Sachgebiete“ (die acht nummerierten Hauptgruppen der amtlichen Systematik in ihrer
+Reihenfolge, mit Hinweis auf Mehrfachzuordnung) und die Funktionen des Rechtsportals;
 zwischen den Bändern `--space-section`. H2 in `--text-lg`, Kartentitel in `--text-base-plus`,
 Beschreibungen in `--text-sm`, Etiketten in `--text-xs`; kein Bedienziel unter 24 px.
 
 ### Rechtssuche
 
 Filter, Trefferliste und Suchhinweise stehen auf breiten Bildschirmen nebeneinander; auf kleinen
-werden die Filter als `details` vorangestellt. Ein Treffer zeigt vor dem Auszug drei Zeilen:
-Kurztitel mit Abkürzung, Langtitel klein, eine Metazeile aus Typ, Herkunft und Fundstelle; der
-Auszug trägt die Trefferstelle als verlinktes Präfix; die Fassungspille erscheint nur, wenn sie vom
-aktiven Fassungsfilter abweicht. Der Leerzustand heißt „Keine Vorschrift gefunden“, zitiert die
-Anfrage und bietet drei Auswege (Filter zurücksetzen mit Anzahl, alle Fassungen, Vorschriften A–Z);
-Facetten ohne Treffer sind deaktiviert, außer innerhalb einer Gruppe mit eigener Auswahl. Filterzeilen
-haben die barrierearme Höhe von 2,75 rem.
+werden die Filter als `details` vorangestellt. Ein Treffer zeigt vor dem Auszug zwei Zeilen:
+Kurztitel mit Abkürzung (aus dem gemeinsamen Titelblock, siehe „Rechtsherkunft und Benennungen“;
+der Langtitel steht klein darunter und weicht auf schmalen Bildschirmen dem Wortlaut) und eine
+einzeilige Metazeile aus Normtyp und – je nach Rechtsherkunft – dem kurzen Herkunftszeichen oder
+der Fundstelle: übernommenes, unverändertes Recht ist der Regelfall und nennt die Fundstelle,
+eigene, geänderte und ungeklärte Vorschriften tragen das Herkunftszeichen. Der Auszug trägt die
+Trefferstelle als verlinktes Präfix, ist auf 300 Zeichen begrenzt, beginnt beim Wortlaut statt bei
+der wiederholten Überschrift und zeigt auf schmalen Bildschirmen drei Zeilen; die Fassungspille
+erscheint nur, wenn sie vom aktiven Fassungsfilter abweicht. So bleibt eine ungeöffnete
+Trefferkarte bei 375 Pixeln Breite unter 220 Pixeln hoch (Messung in `tests/visual.spec.ts`).
+
+Die Trefferliste ist seitenweise: die Überschrift nennt die vollständige Trefferzahl und die
+Sortierung („N Treffer. Sortiert nach …“), der Knopf „Weitere Treffer laden“ nennt den Rest. Die
+Reihenfolge nach Relevanz folgt fünf Stufen: Gleichheit mit einer Bezeichnung, Treffer im Titel,
+eigene vor übernommenen Änderungsträgern, alle Suchbegriffe in derselben Vorschrift, gewichtete
+Volltextrelevanz und zuletzt der Titel. Der Leerzustand heißt „Keine Vorschrift gefunden“, zitiert
+die Anfrage und bietet drei Auswege (Filter zurücksetzen mit Anzahl, alle Fassungen, Vorschriften
+A–Z); Facetten zählen passende Vorschriften und sind ohne Treffer deaktiviert, außer innerhalb
+einer Gruppe mit eigener Auswahl. Filterzeilen haben die barrierearme Höhe von 2,75 rem.
 
 ### Rechtsherkunft und Benennungen
 
 Rechtsherkunft ist auf allen Rechtsseiten mit derselben Kennzeichnung sichtbar
 (`NormOriginBadge.astro`, Klasse `origin-badge`, Texte ausschließlich aus
-`packages/shared/src/lib/norms/origin.ts`) in genau zwei Formen: kurz in Listen und Trefferzeilen
-(„Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“) und
-erklärend auf Normseite, in Suchtreffern, Filtern und Zählern („Übernommen und unverändert“,
+`packages/shared/src/lib/norms/origin-presentation.ts`; die erklärende Langform ist
+`formatNormOriginKind` aus `origin.ts`) in genau zwei Formen: kurz in Listen und Trefferzeilen
+(„Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“; die
+erklärende Fassung steht dort als Titel am Zeichen) und erklärend auf Normseite, in Filtern und
+Zählern („Übernommen und unverändert“,
 „Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft ungeklärt“). Die
-Normseite fasst Rechtsstand und Herkunft in `NormLegalStatusPanel.astro` zusammen.
+Normseite führt Rechtsstand und Herkunft in `NormFacts.astro` mit allen übrigen Angaben zur
+Vorschrift zusammen. Die geltende Fassung heißt in Fassungswahl, Vorschriftendaten und Trefferliste
+„Rechtsstand vom <Datum>“; das Wort „Stichtag“ steht öffentlich nur in der Hilfe.
+
+Für Geltung, Rechtsstand und Fassung gilt eine Wortliste: `lawSiteConfig.vocabulary`
+(`packages/shared/src/config/site.ts`) legt sie fest, `apps/recht/src/lib/vocabulary.ts` bildet sie
+für die Oberfläche ab. **Geltung** ist der Zustand einer Vorschrift (in Kraft, künftig in Kraft,
+außer Kraft, einmaliger Rechtsakt, Inkrafttreten nicht belegt, nicht verkündet) und beschriftet den
+Verzeichnisfilter, die Facette der Suche und die Fakten der Einträge; die Auswahl „alle“ heißt
+„Jede Geltung“. **Rechtsstand** ist immer ein Datum. **Fassung** benennt die zeitliche Einordnung
+(Geltende, Historische, Künftige Fassung, Fassung mit ungeklärtem Inkrafttreten) und beschriftet die
+Fassungsauswahl der Suche und die Fassungsnavigation. Kein Formular führt eigene Wörter;
+`tests/law-target-labels.test.ts` prüft die Optionslisten der drei Auswahlfelder gegen die Wortliste.
+
+Öffentliche Texte sprechen die Sprache der Nutzenden: keine maschinenlesbaren Daten, keine
+Systemwörter („gespeichert“, „Datenbestand“, „Anker“, „strukturtragend“, „Stichtag“ außerhalb der
+Hilfe) und Zähler in richtiger Zahl (`apps/recht/src/lib/counts.ts` bildet jede Bestandszahl).
+Wortlaute aus dem Import, die dagegen verstoßen, werden zur Anzeige abgebildet
+(`apps/recht/src/lib/history-labels.ts`): Platzhaltertitel wie „Verkündung.“ weichen dem Anfang des
+Vollzitats, die Herkunftsformel wird zu „Übernommene Ausgangsfassung mit Rechtsstand vom
+1. November 2023“.
 
 Jedes Ziel hat genau eine Bezeichnung, gelesen aus `lawSiteConfig.targetLabels`
 (`packages/shared/src/config/site.ts`) von Navigation, Fußzeilen beider Portale, Startseitenkarten,
@@ -297,8 +436,18 @@ Hilfe, Suche und Fehlerseite – etwa „Vorschriften A–Z“ und „Sachgebiet
 Navigation und Bezeichnungen zusammen. Der Eyebrow nennt den Bereich: „Rechtsportal“ auf
 Übersichten, Hilfe und Fehlerseite, „Rechtssuche“, „Vorschrift“, „Verkündung“, „Sachgebiet“ auf den
 Detailseiten; Zustände stehen in der Statuszeile oder im Text. Bestandszahlen heißen „geltende
-Vorschriften“ (Startseite) und „Vorschriften im Bestand“ (Übersichten); die Historie zeigt frühere
+Vorschriften“ (Startseite) und „Vorschriften im Bestand“ (Übersichten) — die zusammengesetzte Zahl
+bildet `formatInventoryCount` (siehe „Grundmenge und Bestandszahl“); die Historie zeigt frühere
 Titel einer Vorschrift nur bei Abweichung, gekennzeichnet als „Damaliger Titel“.
+
+Für die Benennung einer Vorschrift gilt überall derselbe Titelblock aus `getNormTitleBlock`
+(`packages/shared/src/lib/norms/display.ts`): Überschrift ist die Kurzbezeichnung, sonst der
+Langtitel; der Langtitel steht klein darunter, sobald er von der Überschrift abweicht; die
+Abkürzung steht neben der Überschrift, wenn sie sich von ihr unterscheidet. Normkopf, Suchtreffer,
+Verzeichniseinträge, Stichwortregister, Brotkrumen, Auswahllisten und Autocomplete verwenden diese
+eine Regel; keine Oberfläche bildet eigene Titelvarianten. Formelhafte Kurzbeschreibungen des
+Massenimports (`summarySource: "derived"`) werden nirgends als Beschreibung ausgespielt; ohne
+redaktionelle Kurzbeschreibung bleibt die Zeile leer.
 
 ## Staatsportal
 
@@ -345,7 +494,10 @@ ausdrücklich konfiguriertem Telefonweg.
 
 - genau eine H1 pro Seite, semantische Landmarken, nachvollziehbare Überschriftenfolge
 - Skip-Link, sichtbarer Tastaturfokus mit mindestens 3 : 1 gegen seine Bezugsfläche (siehe Farbrollen)
-- `aria-current` für den aktiven Hauptnavigationspunkt; native `details` für Menüs und Aufklappbereiche
+- `aria-current` für den aktiven Hauptnavigationspunkt; native `details` für Menüs und
+  Aufklappbereiche. Ausnahme sind die Einheiten des Vorschriftentextes: dort trägt eine echte
+  Überschrift den Namen und ein Knopf mit `aria-expanded`/`aria-controls` das Auf- und Zuklappen,
+  weil Überschriften in `summary` nicht überall als Überschrift ausgegeben werden.
 - beschriftete Suchfelder, Schaltflächen mit sichtbarem oder zugänglichem Namen
 - Bedienziele im Rechtsportal mindestens 24 × 24 px; die Fußzeile des Staatsportals liegt mit
   19–21 px darunter
@@ -366,6 +518,9 @@ erneuert – `npm run test:visual:update:linux -- --site law` (Docker) oder Work
 (`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt Screenshot-Suite). Sie sind kein Deployment-Gate. `tests/accessibility.spec.ts` prüft alle repräsentativen Seiten mit Axe und den
 Fokusindikator gegen seine Bezugsfläche; `tests/browser-smoke.spec.ts` prüft Verzeichnisse,
 Suche, Normseiten und Kopfstufen funktional; `npm run docs:check` hält die Dokumente konsistent.
+Zwei Messtests in `tests/visual.spec.ts` prüfen den Normarbeitsbereich in Zahlen statt in Bildern:
+bei 1280 px stehen Inhaltsübersicht und Text in zwei Spalten, auf den Mobilbreiten ist der Normkopf
+höchstens 320 px hoch und der Vorschriftentext beginnt spätestens bei 700 px.
 
 ## Was vermieden wird
 

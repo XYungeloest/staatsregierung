@@ -2,15 +2,14 @@
   "id": "aend-heilbzug-und-ostgfbwbg",
   "slug": "aend-heilbzug-und-ostgfbwbg",
   "title": "Gesetz zur Änderung des Heilberufezuständigkeitsgesetzes und eines weiteren Gesetzes",
-  "shortTitle": "Gesetz zur Änderung des Heilberufezuständigkeitsgesetzes und eines weiteren Gesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "Gesetz zur Änderung des Heilberufezuständigkeitsgesetzes und eines weiteren Gesetzes",
+    "Änd. HeilbZuG und OstGfbWBG",
     "Änderung",
     "Heilberufezuständigkeitsgesetzes",
     "weiteren"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Heilberufezuständigkeitsgesetzes und eines weiteren Gesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-06-05",
   "effectiveDate": "2014-07-05",
@@ -33,8 +33,12 @@
       "sha256": "c2dd32e3d4eadc089793922b2b7cd6c5edb64c96e773617ef8f9d2fb89d970e4",
       "lawId": "14014",
       "sourceValidFrom": "2014-07-05",
+      "fsnNumber": "253",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-den-vollzug-des-berufsrechts-der-akademischen-heilberufe-und-der"
   ]
 }

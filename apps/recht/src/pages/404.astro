@@ -6,7 +6,6 @@ import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
   getHelpUrl,
   getIndexUrl,
-  getLawDevelopmentOverviewUrl,
   getLawPortalUrl,
   getPublicationsUrl,
   getSearchUrl,
@@ -55,14 +54,13 @@ Astro.response.headers.set('Cache-Control', 'no-store');
       <h2 id="error-paths-title">So finden Sie die gesuchte Vorschrift</h2>
       <p>
         Vorschriften sind über Titel, Abkürzung und Stichwörter erschlossen. Verkündungen führen
-        zu den amtlichen Ausgaben, die Rechtsentwicklung ordnet den Bestand nach Herkunft.
+        zu den amtlichen Ausgaben; die Rechtssuche ordnet den Bestand zusätzlich nach Herkunft.
       </p>
     </div>
     <ul class="record-list">
       <li class="record-list__item"><a class="inline-link" href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a></li>
       <li class="record-list__item"><a class="inline-link" href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a></li>
       <li class="record-list__item"><a class="inline-link" href={getPublicationsUrl()}>Verkündungen und Fundstellen</a></li>
-      <li class="record-list__item"><a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Rechtsentwicklung seit dem 1. November 2023</a></li>
       <li class="record-list__item"><a class="inline-link" href={getHelpUrl()}>Hilfe zur Nutzung von OstRecht</a></li>
     </ul>
   </section>

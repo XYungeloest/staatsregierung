@@ -2,15 +2,14 @@
   "id": "aend-zustuevoju-14017-1",
   "slug": "aend-zustuevoju-14017-1",
   "title": "Dritte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitle": "Dritte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Dritte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
+    "Änd. ZustÜVOJu",
     "Dritte",
     "Änderung",
     "Zuständigkeitsübertragungsverordnung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Dritte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Zuständigkeitsübertragungsverordnung Justiz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-06-16",
   "effectiveDate": "2014-07-05",
@@ -34,8 +34,12 @@
       "sha256": "faf75ec4783c189ddcee6fb41754c0befdfed16b437f05d1b3f5e379ddf86ddb",
       "lawId": "14017",
       "sourceValidFrom": "2014-07-05",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsuebertragungsverordnung-justiz"
   ]
 }

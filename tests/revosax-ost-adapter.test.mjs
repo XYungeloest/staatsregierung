@@ -100,3 +100,22 @@ test('zusammengesetzte Kürzel und Schreibvarianten werden erfasst', () => {
   assert.equal(hasSaxonResidual('sächsicher Rechtsvorschriften'), true);
   assert.equal(hasSaxonResidual('Niedersächsisches Recht'), false);
 });
+
+test('gesperrter Satz im übernommenen Normkörper wird als gewöhnliches Wort übergeleitet', () => {
+  const parsed = {
+    sourceTitle: 'Sächsisches Besoldungsgesetz',
+    shortTitle: 'Sächsisches Besoldungsgesetz',
+    fullCitation: 'Sächsisches Besoldungsgesetz vom 1. Januar 2020 (SächsGVBl. S. 1)',
+    body: [
+      { type: 'paragraphText', text: 'Die Vorschrift s o l l im Freistaat Sachsen gelten.' },
+      { type: 'section', label: '1.', title: 'A m t s r a t', children: [
+        { type: 'item', label: 'a)', text: 'Der Antrag bleibt u n v e r ä n d e r t bestehen.' },
+      ] },
+    ],
+  };
+  const adapted = adaptParsedRevosaxSnapshot(parsed);
+  assert.equal(adapted.body[0].text, 'Die Vorschrift soll im Freistaat Ostdeutschland gelten.');
+  assert.equal(adapted.body[1].title, 'Amtsrat');
+  assert.equal(adapted.body[1].children[0].text, 'Der Antrag bleibt unverändert bestehen.');
+  assert.deepEqual(auditAdaptedRevosaxSnapshot(adapted), []);
+});

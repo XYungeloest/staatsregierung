@@ -1,24 +1,27 @@
 {
   "id": "ostdeutsches-sicherheitswachtgesetz",
   "slug": "ostdeutsches-sicherheitswachtgesetz",
-  "title": "Ostdeutsches Sicherheitswachtgesetz",
+  "title": "Gesetz über die Ostdeutsche Sicherheitswacht",
   "shortTitle": "Ostdeutsches Sicherheitswachtgesetz",
-  "abbr": "OstSWG",
   "shortTitleSource": "official",
+  "abbr": "OstSWG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
-    "OstSWG",
     "Ostdeutsches Sicherheitswachtgesetz",
-    "Sicherheitswachtgesetz"
+    "Sicherheitswacht",
+    "Sicherheitswachtgesetz",
+    "OstSWG"
   ],
   "initialCitation": "Ostdeutsches Sicherheitswachtgesetz vom 12. Dezember 1997 (SächsGVBl. S. 647), das zuletzt durch Artikel 5 des Gesetzes vom 11. Mai 2019 (SächsGVBl. S. 358) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Sicherheitswachtgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1997-12-12",
   "sourceReferences": [
@@ -32,6 +35,7 @@
       "sha256": "13b32f0c15eaf35607fb4a31a08af3626a36425c85ab0523a7ca9e0ca280d68a",
       "lawId": "3532",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "22-3",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

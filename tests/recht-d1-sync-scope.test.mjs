@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { deleteNormQueries, derivedQueries, fullResetQueries, renderStatement } from '../scripts/sync-recht-d1.mjs';
-import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
+import { isEmptyScope, KEYWORD_REGISTER_PATH, metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths, scopeSignature } from '../scripts/lib/d1-sync-scope.mjs';
 
 const existingSlugs = new Set(['foo', 'bar', 'baz']);
-const existingPublications = new Set(['ogvbl-2026-58', 'ogvbl-2026-59']);
+const existingPublications = new Set(['testblatt-2026-1', 'testblatt-2026-2']);
 
 test('ein geänderter Slug wird gezielt projiziert, ohne abgeleitete Daten anderer Normen', () => {
   const scope = scopeFromChangedPaths(['content/normen/foo/versions/2026-09-04.json', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false });
@@ -37,13 +37,13 @@ test('eine neue Norm gilt als Identitätsänderung, eine gelöschte Norm wird en
 });
 
 test('eine reine Verkündungsänderung projiziert die Verkündung und die zitierenden Normen', () => {
-  const scope = scopeFromChangedPaths(['content/verkuendungen/ogvbl-2026-58.json'], { existingSlugs, existingPublications, identityChanged: () => false });
+  const scope = scopeFromChangedPaths(['content/verkuendungen/testblatt-2026-1.json'], { existingSlugs, existingPublications, identityChanged: () => false });
   assert.equal(scope.mode, 'incremental');
-  assert.deepEqual(scope.publicationSlugs, ['ogvbl-2026-58']);
+  assert.deepEqual(scope.publicationSlugs, ['testblatt-2026-1']);
   assert.deepEqual(scope.slugs, []);
   const citing = normsCitingPublications([
-    { slug: 'ogvbl-2026-58', entries: [{ normSlug: 'foo' }, { normSlug: 'bar' }, {}] },
-    { slug: 'ogvbl-2026-59', entries: [{ normSlug: 'baz' }] },
+    { slug: 'testblatt-2026-1', entries: [{ normSlug: 'foo' }, { normSlug: 'bar' }, {}] },
+    { slug: 'testblatt-2026-2', entries: [{ normSlug: 'baz' }] },
   ], scope.publicationSlugs);
   assert.deepEqual(citing, ['bar', 'foo']);
   const removed = scopeFromChangedPaths(['content/verkuendungen/ogvbl-2020-01.json'], { existingSlugs, existingPublications });
@@ -63,7 +63,7 @@ test('Änderungen an Projektionslogik oder Schema erzwingen die Vollprojektion',
 });
 
 test('Portalgrundlagen (Themen, Presse) erneuern nur die abgeleiteten Daten – nie Fassungen, nie Vollprojektion', () => {
-  const topics = scopeFromChangedPaths(['content/themen/bildung.json', 'content/presse/2026-09-04-interflug.json'], { existingSlugs, existingPublications });
+  const topics = scopeFromChangedPaths(['content/themen/bildung.json', 'content/presse/2026-09-04-testmeldung.json'], { existingSlugs, existingPublications });
   assert.equal(topics.mode, 'incremental');
   assert.deepEqual(topics.slugs, []);
   assert.equal(topics.derivedRebuild, true);
@@ -178,4 +178,22 @@ test('eine nachgewiesene enge Logikänderung erneuert Suchdokumente und abgeleit
   // Standard ohne Nachweis: Logikänderung = Vollprojektion; die frühere Annahmeoption gibt es nicht.
   assert.equal(scopeFromChangedPaths(['packages/recht-search/src/search.ts'], { existingSlugs, existingPublications }).mode, 'full');
   assert.equal(scopeFromChangedPaths(['packages/recht-search/src/search.ts'], { existingSlugs, existingPublications, narrowLogicChange: true }).mode, 'full');
+});
+
+test('ein geändertes Stichwortregister erneuert nur die Stichworteinträge, nichts anderes', () => {
+  const scope = scopeFromChangedPaths([KEYWORD_REGISTER_PATH], { existingSlugs, existingPublications });
+  assert.equal(scope.mode, 'incremental');
+  assert.deepEqual(scope.slugs, []);
+  assert.equal(scope.refreshKeywords, true);
+  assert.equal(scope.derivedRebuild, false);
+  assert.equal(scope.refreshSearchDocuments, false);
+  assert.equal(scope.ignoredPaths, 0, 'das Register ist eine bekannte Projektionseingabe');
+  assert.equal(isEmptyScope(scope), false, 'der Umfang schreibt Zeilen und ist nicht datenneutral');
+  // Zusammen mit einer Normänderung bleibt beides erhalten.
+  const combined = scopeFromChangedPaths([KEYWORD_REGISTER_PATH, 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false });
+  assert.deepEqual(combined.slugs, ['foo']);
+  assert.equal(combined.refreshKeywords, true);
+  assert.equal(scopeSignature(combined).includes('"refreshKeywords":true'), true);
+  // Ohne Registeränderung bleibt das Kennzeichen aus.
+  assert.equal(scopeFromChangedPaths(['content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false }).refreshKeywords, false);
 });

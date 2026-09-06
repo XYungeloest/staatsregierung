@@ -1,22 +1,26 @@
 {
   "id": "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-ueber-schulkonferenzen",
   "slug": "verordnung-des-ostdeutschen-staatsministeriums-fuer-kultus-ueber-schulkonferenzen",
-  "title": "Schulkonferenzverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums für Kultus über Schulkonferenzen",
   "shortTitle": "Schulkonferenzverordnung",
-  "abbr": "SchulKonfVO",
   "shortTitleSource": "official",
+  "abbr": "SchulKonfVO",
   "type": "verordnung",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "SchulKonfVO",
-    "Schulkonferenzverordnung"
+    "Schulkonferenzverordnung",
+    "Kultus",
+    "Schulkonferenzen",
+    "SchulKonfVO"
   ],
   "initialCitation": "Schulkonferenzverordnung vom 1. August 1994 (SächsGVBl. S. 1450), die zuletzt durch Artikel 3 der Verordnung vom 28. Juni 2017 (SächsGVBl. S. 374) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Schulkonferenzverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1994-08-01",
   "sourceReferences": [
@@ -30,6 +34,7 @@
       "sha256": "56f181e705eebd1e14e5eca81958b445f3dfb5f6c01769ab3ba40a866587a736",
       "lawId": "2870",
       "sourceValidFrom": "2017-08-01",
+      "fsnNumber": "710-1.33",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

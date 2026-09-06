@@ -2,16 +2,14 @@
   "id": "g-aend-vertrag-freistaat-ostdeutschland-lv-der-juedischen-gemeinden",
   "slug": "g-aend-vertrag-freistaat-ostdeutschland-lv-der-juedischen-gemeinden",
   "title": "Gesetz zum Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden",
-  "shortTitle": "Gesetz zum Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Völkerrecht und Staatsverträge",
-    "Kommunal- und Verwaltungsrecht"
+    "Kirchen, Religionsgemeinschaften"
   ],
+  "primarySubject": "Kirchen, Religionsgemeinschaften",
   "keywords": [
-    "Gesetz zum Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden",
+    "G Änd. Vertrag Freistaat Ostdeutschland – LV der Jüdischen Gemeinden",
     "Vertrag",
     "Änderung",
     "Vertrages",
@@ -23,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zum Vertrag zur Änderung des Vertrages des Freistaates Ostdeutschland mit dem Landesverband der Jüdischen Gemeinden“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-04-07",
   "effectiveDate": "2016-05-07",
@@ -37,8 +36,12 @@
       "sha256": "5b9ceebb72459b27fb86c169a3272b6ee80e833fbdabda0ecffb277d25429cf3",
       "lawId": "16883",
       "sourceValidFrom": "2016-05-07",
+      "fsnNumber": "73",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vertrag-ostdeutschland-lv-der-juedische-gemeinden"
   ]
 }

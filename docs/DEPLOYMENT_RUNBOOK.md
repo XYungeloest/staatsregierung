@@ -16,7 +16,8 @@ Datei die D1-Projektion betrifft, wird nicht aus ihrem Verzeichnis geraten, sond
 Code-Abschluss der Projektion (`scripts/lib/d1-projection-closure.mjs`, siehe
 `docs/REVOSAX_BULK_IMPORT.md`): nur Dateien, die `scripts/sync-recht-d1.mjs` tatsächlich erreicht,
 und das Schema zählen als Projektionscode; reine Darstellungslogik in denselben Verzeichnissen
-(z. B. `norms/diff-render.ts`) ist Oberfläche. Ist der Abschluss nicht sicher bestimmbar, gilt
+(z. B. `config/site.ts`, `norms/origin-presentation.ts`, `norms/display.ts`,
+`norms/diff-render.ts`) ist Oberfläche. Ist der Abschluss nicht sicher bestimmbar, gilt
 fail-closed die konservative Obermenge dieser Verzeichnisse.
 
 | Scope | Typische Pfade | Produktion |
@@ -44,7 +45,9 @@ Drei weitere Flags bestimmen den Prüfumfang unabhängig vom Deploymentziel:
   gegen das Fixture.
 - **`run_corpus_tests`** – die Korpus-Tests (`tests/corpus/`: Projektionsnachweis auf dem
   Fixture, Seed, Referenzindex) laufen nur bei Projektions-, Laufzeit- oder Schemaänderungen, bei
-  geänderten Abhängigkeiten, beim Testfixture und bei Änderungen an diesen Tests selbst. Reine
+  geänderten Abhängigkeiten, beim Testfixture (Manifest `data/recht/runtime-fixture.json`, Builder
+  `tests/helpers/fixture-corpus.ts`, Lader `scripts/lib/runtime-fixture.mjs`) und bei Änderungen an
+  diesen Tests selbst. Reine
   Inhaltsänderungen prüfen die Content-Audits (`run_content_check`) und der D1-Sync; die
   schnellen Unit-Tests (`tests/*.test.*`) laufen bei jeder Codeänderung.
 - **`run_visual`** – die Screenshot-Suite läuft bei Oberflächen-, Layout-, Style- und
@@ -94,7 +97,8 @@ classify ─┬─ build ───────────────┬─ run
    Basisprojektion aus dem Seed-Cache oder aus einem Worktree des Basis-Commits, Zielprojektion
    aus dem Seed des Laufs, vollständiger Tabellenvergleich) und übergibt ihn dem Sync
    (`--equivalence-proof`): nachgewiesen gleiche Daten übernehmen nur die neue Identität und die
-   Laufzeitmetadaten, ein nachgewiesener inkrementeller Umfang wird geschrieben, alles andere
+   Laufzeitmetadaten (ohne korpusweite Ableitungen), ein nachgewiesener inkrementeller Umfang
+   wird geschrieben, alles andere
    bleibt rot. Dass das auf `main` nicht eintritt, zeigt `d1_token_check` vor dem Merge (siehe
    unten). Migrationen spielt der Workflow nie ein.
 6. `deploy` veröffentlicht zuerst OstRecht, danach das Staatsportal, und prüft den
@@ -138,6 +142,38 @@ Actions-Caches eines PR-Branches sind nur für diesen Branch sichtbar; `main` li
 Standardbranch-Caches. Nach dem Merge einer Änderung an den Seed-Eingaben projiziert `main` deshalb
 einmal neu und speichert den Snapshot für alle folgenden Läufe und Branches.
 
+## Cloudflare-Plan und D1-Grenzen
+
+Konto und Datenbanken laufen auf **Workers Paid**. Der Nachweis kommt ohne Blick in die Abrechnung
+aus: `npx wrangler d1 info ostrecht-recht` nennt die geschriebenen Zeilen der letzten 24 Stunden,
+und der kostenlose Plan begrenzt sie hart auf 100.000 je Tag. Messung vom 6. September 2026:
+1.636.372 gelesene und 638.256 geschriebene Zeilen, Datenbankgröße 323 MB (Staging ebenso). Eine
+einzige Vollprojektion schreibt mehr als das Vierfache des kostenlosen Tageskontingents; sie wäre
+dort nicht durchführbar.
+
+Die für den Betrieb maßgeblichen Grenzen (Stand 6. September 2026, Cloudflare-Dokumentation zu D1
+und Workers):
+
+| Grenze | Workers Free | Workers Paid | Bezug zum Betrieb |
+| --- | --- | --- | --- |
+| Geschriebene Zeilen | 100.000 je Tag | 50 Mio. je Monat enthalten, darüber 1,00 $ je Mio. | Vollprojektion vom 3. September 2026: 465.926 Zeilen |
+| Gelesene Zeilen | 5 Mio. je Tag | 25 Mrd. je Monat enthalten, darüber 0,001 $ je Mio. | Vollprojektion: 103.403 Zeilen; ein Seitenaufruf liest wenige |
+| Datenbankgröße | 500 MB | 10 GB | Produktion und Staging je 323 MB |
+| Speicher je Konto | 5 GB | 5 GB enthalten, darüber 0,75 $ je GB-Monat, höchstens 1 TB | zwei Datenbanken, zusammen unter 1 GB |
+| Abfragen je Worker-Aufruf | 50 | 1.000 | Normseite mit Fassungen, Historie und Bezügen |
+| CPU-Zeit je Anfrage | 10 ms | 30 s voreingestellt, bis 5 min | Rendern großer Normen mit vielen Einheiten |
+| Time Travel | 7 Tage | 30 Tage | Rückholfenster nach einer fehlerhaften Projektion |
+
+Die enthaltenen 50 Mio. geschriebenen Zeilen je Monat entsprechen rund hundert Vollprojektionen des
+Bestands; der Regelbetrieb schreibt inkrementell und bleibt weit darunter. Die Budgetprofile des
+Syncs (`data/recht/d1-sync-budgets.json`) liegen unterhalb dieser Grenzen und brechen einen Lauf
+ab, bevor ein Fehlverhalten die Kontingente erschöpft.
+
+Ein Wechsel des Plans ist eine Kosten- und keine technische Entscheidung: er wird ausdrücklich
+veranlasst, nie beiläufig im Zuge eines Releases. Fiele das Konto auf den kostenlosen Plan zurück,
+scheiterte zuerst die Vollprojektion am Tageskontingent und danach das Rendern großer Normen an der
+CPU-Zeit; beides erscheint als Fehler des Workflows `d1_sync` beziehungsweise als 5xx der Normseite.
+
 ## D1-Release-Gate
 
 Ein grüner Pull Request muss nach dem Merge einen grünen Main-Workflow ergeben. Ändert ein PR die
@@ -146,7 +182,7 @@ Projektionsidentität, gibt es drei Fälle:
 | Fall | Erkennung | Weg |
 | --- | --- | --- |
 | Inhalte (Normen, Verkündungen, Stichtag, Normbezüge von Themen/Presse) | `d1_token_check`: inkrementell | nichts zu tun; `d1_sync` schreibt inkrementell mit verifizierter Basis |
-| Projektionslogik ohne Schemaänderung | `d1_token_check`: Remote-State Exit 3 → Äquivalenznachweis | automatisch: Nachweis `identity` (nur Identität und Metadaten) oder `incremental` (nachgewiesener Umfang, z. B. abgeleitete Daten und Suchdokumente aller Normen) → grün; Nachweis `full` (abweichende Tabellen werden genannt) → wie Schemaänderung |
+| Projektionslogik ohne Schemaänderung | `d1_token_check`: Remote-State Exit 3 → Äquivalenznachweis | automatisch: Nachweis `identity` (nur Identität und Metadaten, ohne korpusweite Ableitungsberechnung) oder `incremental` (nachgewiesener Umfang, z. B. abgeleitete Daten und Suchdokumente aller Normen) → grün; Nachweis `full` (abweichende Tabellen werden genannt) → wie Schemaänderung |
 | Schemaänderung (`data/recht/d1/`) oder Nachweis `full` | `d1_token_check` rot | Zielprojektion vor dem Merge herstellen, nie danach (unten) |
 
 Der Nachweis ist keine Annahme: er projiziert Basis und Ziel vollständig (Seed-Cache oder lokale
@@ -188,8 +224,9 @@ Der lokale D1-Seed ist ein SQLite-Snapshot mit deterministischem Fingerabdruck
 
 Der Fingerabdruck ändert sich nur, wenn Projektionscode (Code-Abschluss des Syncs), Migrationen,
 Rechtsbestand, Portalgrundlagen, Stichtag, Seed-Werkzeuge oder die Versionen von wrangler,
-miniflare und workerd sich ändern; CSS, Komponenten, Darstellungslogik außerhalb des Abschlusses,
-Tests oder Dokumentation ändern ihn nicht. `npm run norms:runtime:d1-seed-fingerprint -- --json
+miniflare und workerd sich ändern; CSS, Komponenten, Darstellungslogik außerhalb des Abschlusses
+(Herkunftsbadges in `norms/origin-presentation.ts`, Zielbezeichnungen in `config/site.ts`,
+Datumsformat in `norms/display.ts`), Tests oder Dokumentation ändern ihn nicht. `npm run norms:runtime:d1-seed-fingerprint -- --json
 --ref <Commit>` bestimmt ihn für einen Basis-Commit (Cache-Schlüssel des Äquivalenznachweises). Der Job-Summary jedes
 Laufs zeigt Status (`restored`/`built`), Projektions-, Verifikations- und Einsetzdauer sowie die
 Laufzeiten von Build, Verifikation, A11y und Browser. Der Workflow `OstRecht-Vollbestand-Smoke`
@@ -207,6 +244,26 @@ Laufzeitziele (Richtwerte, keine harten Grenzen):
 | Release auf `main`, Vollbestand mit Cache-Miss | Projektion parallel zum Build; Gesamtlauf unter 30 Minuten |
 | Release auf `main` mit Äquivalenznachweis | `d1_sync` unter 25 Minuten; kein produktiver Rebuild bei gleichen Daten |
 
+## Fassungs-PDF im Worker
+
+`/norm/<slug>/version/<versionId>/fassung.pdf` erzeugt die Portalfassung einer Fassung bei der
+Anfrage im Worker (`apps/recht/src/lib/pdf/`, kein Buildartefakt, keine Abhängigkeit, keine
+zusätzliche Bindung). Die Antwort wird über `caches.default` am Rand zwischengespeichert; der
+Schlüssel enthält den Wert der Metadatenzeile `projection_fingerprint` aus `law_runtime_meta`
+(Dateivariante: `files`), sodass jeder Sync den Zwischenspeicher entwertet und geänderte
+Bezeichnungen oder Vollzitate nie veraltet ausgeliefert werden. Ohne Cache-API – `astro dev` ohne
+Wrangler – wird jede Anfrage neu erzeugt. Kopfzeilen der Antwort: `application/pdf`,
+`Content-Disposition: inline`, `Cache-Control: public, max-age=300, s-maxage=86400`, `ETag` aus
+Fingerabdruck und Fassungskennung sowie `X-Robots-Tag: noindex` (die erzeugten Dateien gehören
+nicht in den Suchindex und stehen nicht in der Sitemap).
+
+Betriebswerte (lokal gemessen, Node 22): eine Fassung mittlerer Größe unter 5 ms; eine
+synthetische Fassung in der Größenordnung der größten realen Fassung (1,3 Mio. Zeichen, 7.840
+Blöcke) 383 Seiten, 387 KiB, rund 180 ms Laufzeit und 240 ms CPU. Das liegt weit unter dem
+CPU-Limit des belegten Workers-Paid-Plans; eine Obergrenze für Seitenzahlen ist deshalb nicht
+gesetzt. Fehlt `CompressionStream`, bleiben die Inhaltsströme ungepackt und die Datei wächst
+etwa um den Faktor drei.
+
 ## Datenform der D1-Projektion ändern (Expand/Contract)
 
 Die Projektion nach Cloudflare D1 läuft vor dem Worker-Deployment; für die Dauer bis zum
@@ -216,8 +273,15 @@ Felder oder Formate noch nicht kennt, zeigt in diesem Fenster fehlende Werte. De
 
 1. **Expand:** Der Worker versteht alte und neue Datenform; neue Felder werden additiv gelesen,
    fehlende Werte fail-safe dargestellt (Beispiel: unbekannte Rechtsherkunft wird als „Herkunft
-   ungeklärt“ gezeigt, `apps/recht/src/scripts/search-page.ts`). Dieses Release enthält noch
-   keine Projektionsänderung.
+   ungeklärt“ gezeigt, `apps/recht/src/scripts/search-page.ts`). Beispiel aus der Suche: die
+   Treffereinheiten tragen ihre Überschrift nicht mehr im Text (`collectBodyContent`), und je
+   geltender Fassung kommt eine Metadateneinheit hinzu. Der Worker schneidet einen noch
+   gespeicherten Überschriftvorspann zur Laufzeit ab (`buildSearchSnippet`) und kommt ohne die
+   Metadateneinheit aus – nur der Suchbereich „Nur nach Metadaten und Fundstellen“ und die
+   Fundstellensuche über Verkündungsaliasse greifen erst nach der Vollprojektion. Der
+   Antwortvertrag von `/api/suche.json` ist gleichzeitig gewechselt: die Suchseite hängt `v=2`
+   an ihre Anfrage und behandelt eine Antwort ohne `hits` als Ladefehler mit einer Wiederholung,
+   damit bis zu zehn Minuten alte Cache-Antworten nie in die neue Seite laufen.
 2. **Migrate:** Die Projektion wird auf die neue Form umgestellt (bei Umbenennungen als
    Übergangsprojektion, die alte und neue Felder parallel schreibt). Schema-Migrationen zuerst
    lokal, dann Staging, dann Produktion.
@@ -253,7 +317,7 @@ wiederholt:
 | schnell / Unit | `tests/*.test.{ts,mjs}` | reine Funktionen, Parser, Scope, Fingerabdruck, Abschluss, Nachweisbindung, Store- und Projektionsverhalten auf dem synthetischen Bestand (`tests/helpers/fixture-corpus.ts`) – kein Vollbestand, kein Worker | bei jeder Codeänderung, lokal in Sekunden (`npm run test:fast`) |
 | Korpus | `tests/corpus/` | Abnahmefälle der Projektionsidentität auf dem Fixture, Seed-Werkzeug gegen die lokale D1, Referenz- und Empfehlungsindex auf einer Stichprobe | bei Projektions-, Laufzeit- und Schemaänderungen, wöchentlich (`npm run test:corpus`) |
 | Content-Audit | `content:check` (Import-Audit, REVOSax-Audit, Konsolidierung, Schemas, Metadaten, Ableitungen, Reststellen, Themen, Wissenshub), `test:links:run`, `test:seo:run` | generische Invarianten des gesamten Rechtsbestands: Quellenhashes, Referenzen, Gültigkeitsintervalle, Vollzitate, Herkunft, keine Import-Artefakte | bei Inhalts- und Pipeline-Änderungen, wöchentlich; Links und SEO nach jedem Build |
-| Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker; Erwartungen aus Kandidaten-API, Vorschlägen, Verkündungsindex und ausgelieferten Daten (`tests/helpers/law-runtime.ts`) | Pflichtcheck (Fixture), wöchentlich Vollbestand |
+| Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker; Erwartungen aus Such-API, Vorschlägen, Verkündungsindex und ausgelieferten Daten (`tests/helpers/law-runtime.ts`). Dazu die Zählkonsistenz der Suche: die Überschrift nennt `total`, angezeigte und verbleibende Treffer ergeben zusammen dieselbe Zahl, je Suchzustand geht genau eine Anfrage hinaus, und die Verzeichniszahlen (`/gesetze/`, `/verordnungen/`, `/verwaltungsvorschriften/`, `/foerderrichtlinien/`, Herkunftsübersicht des A–Z) stimmen mit `total` derselben Grundmenge überein | Pflichtcheck (Fixture), wöchentlich Vollbestand |
 | Barrierefreiheit | `tests/accessibility.spec.ts` | axe und Fokusindikator auf Seitenrollen (Normseite je Herkunft, Vergleich, Historie, Suche, Verkündung, Fehlerseite) | Pflichtcheck |
 | Visual | `tests/visual.spec.ts` | Layout und Design (kritisch / breit) einschließlich horizontalem Überlauf, keine funktionalen Assertions | bei Oberflächenänderungen |
 | Vollbestand | `full_corpus_smoke`, Workflow „OstRecht-Vollbestand-Smoke und Korpus-Audit“ | Datenintegrität, Suche und D1 über den echten Bestand; vollständige Content-Audits und Korpus-Tests | bei relevanten Änderungen, wöchentlich, manuell, vor größeren Releases |
@@ -265,7 +329,13 @@ Einzelstand:
 - **Verhaltensinvarianten** (Unit, Browser, Barrierefreiheit) laufen auf bewusst gebauten
   Fixtures oder zur Laufzeit abgeleiteten Daten. Kein Funktionstest nennt den Titel, die Abkürzung
   oder eine Fundstelle einer realen Norm; eine redaktionelle Korrektur oder Umbenennung einer Norm
-  bricht keinen Unit-, Browser- oder Screenshot-Test.
+  bricht keinen Unit-, Browser- oder Screenshot-Test. Das D1-Testfixture der Browser-,
+  Barrierefreiheits- und Screenshot-Tests ist derselbe synthetische Bestand wie in den Unit-Tests
+  (`tests/helpers/fixture-corpus.ts`; Manifest `data/recht/runtime-fixture.json` mit Rollen,
+  Fassungskennungen, Verkündungsrollen und Suchwörtern, das `tests/runtime-fixture-manifest.test.ts`
+  gegen den Builder hält). Die Specs lesen Rollen statt Slugs (`tests/helpers/law-runtime.ts`:
+  `fixtureRole`, `fixtureVersion`, `fixturePublication`, `fixtureSearchWord`); fehlt eine Rolle, ist
+  das Fixture zu ergänzen, nicht der Test.
 - **Inhaltsinvarianten** (Quellen unverändert, Referenzen aufgelöst, Intervalle lückenlos,
   Vollzitate ausgeschrieben, Herkunft widerspruchsfrei, keine Import-Artefakte, keine
   Sachsen-Reststellen) prüfen die Content-Audits generisch über den gesamten Bestand – nicht als
@@ -312,7 +382,10 @@ bereits sehen. Sie hat zwei Stufen (`tests/visual.spec.ts`):
 
 Kanonische Plattform ist Linux: versioniert sind nur `-linux.png`-Baselines aus dem
 Playwright-Container. Auf macOS laufen dieselben Tests funktional (Seitenaufbau, Überlauf,
-Interaktion) ohne Pixelvergleich; `OSTRECHT_VISUAL_STRICT=1` erzwingt ihn. Bei einer beabsichtigten
+Interaktion) ohne Pixelvergleich; `OSTRECHT_VISUAL_STRICT=1` erzwingt ihn. Die OstRecht-Motive
+zeigen den synthetischen Fixture-Bestand: ihre Baselines ändern sich mit dem Builder
+`tests/helpers/fixture-corpus.ts` (dann einmal erneuern), nicht mit redaktionellen Änderungen unter
+`content/normen`. Bei einer beabsichtigten
 Oberflächenänderung wird die Suite zunächst rot – das ist ihr Zweck; die Baselines werden dann mit
 einem Vorgang erneuert:
 

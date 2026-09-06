@@ -89,7 +89,7 @@ interface FlatUnit {
 
 const UNIT_TYPES = new Set([
   'part', 'chapter', 'paragraph', 'article', 'section', 'subsection', 'annex', 'subparagraph',
-  'paragraphText', 'item', 'subitem', 'tableRow', 'tableCell', 'tableHeaderCell',
+  'paragraphText', 'item', 'subitem', 'tableRow', 'tableCell', 'tableHeaderCell', 'signature',
 ]);
 
 function directText(block: NormBodyBlock): string {
@@ -359,6 +359,137 @@ function blockSegment(block: NormBodyBlock, occurrences: Map<string, number>): s
   return `${block.type}:${identity}:${count}`;
 }
 
+/**
+ * Ähnlichkeitsschwelle für Absätze ohne Gliederungszeichen: erreicht ein Paar sie, gilt der Absatz
+ * als geändert und wird wortweise verglichen; darunter ist der alte Absatz entfallen und der neue
+ * hinzugekommen. Gemessen als Anteil unveränderter Zeichen an der längeren der beiden Fassungen –
+ * dieselbe Größe wie in `hasReadableWordDiff`.
+ */
+export const UNLABELED_PAIRING_THRESHOLD = 0.5;
+
+/** Obergrenze der Paarungsmatrix; darüber bleibt es bei der Paarung in Reihenfolge. */
+const UNLABELED_PAIRING_LIMIT = 160_000;
+
+/**
+ * Zellen tragen ihre Bedeutung aus der Spaltenposition und werden deshalb weiter der Reihe nach
+ * gepaart. Unterschriften ebenso: sie stehen in fester Reihenfolge am Ende der Vorschrift, und ein
+ * Wechsel der unterzeichnenden Person ist eine Änderung derselben Stelle, kein Wegfall.
+ */
+const POSITIONAL_BLOCK_TYPES = new Set(['tableCell', 'tableHeaderCell', 'signature']);
+
+function blockSignature(block: NormBodyBlock): string {
+  return `${block.type} ${comparableText(block.text)} ${comparableText(block.title)}`;
+}
+
+function blockContent(block: NormBodyBlock): string {
+  return [comparableText(block.title), comparableText(block.text)].filter(Boolean).join(' ');
+}
+
+/** Anteil gemeinsamer Zeichen an der längeren Fassung (0 bis 1); zwei textlose Blöcke gelten als gleich. */
+function blockSimilarity(before: NormBodyBlock, after: NormBodyBlock): number {
+  const left = blockContent(before);
+  const right = blockContent(after);
+  const longest = Math.max(left.length, right.length);
+  if (longest === 0) return 1;
+  const same = diffWords(left, right)
+    .filter((chunk) => chunk.kind === 'same')
+    .reduce((sum, chunk) => sum + chunk.text.length, 0);
+  return same / longest;
+}
+
+/** Längste gemeinsame Teilfolge zweier Signaturfolgen als Indexpaare (Standard-DP wie `diffWords`). */
+function longestCommonSubsequence(left: string[], right: string[]): Array<[number, number]> {
+  const table = Array.from({ length: left.length + 1 }, () => new Array<number>(right.length + 1).fill(0));
+  for (let i = left.length - 1; i >= 0; i -= 1) {
+    for (let j = right.length - 1; j >= 0; j -= 1) {
+      table[i][j] = left[i] === right[j] ? table[i + 1][j + 1] + 1 : Math.max(table[i + 1][j], table[i][j + 1]);
+    }
+  }
+  const pairs: Array<[number, number]> = [];
+  let i = 0;
+  let j = 0;
+  while (i < left.length && j < right.length) {
+    if (left[i] === right[j]) {
+      pairs.push([i, j]);
+      i += 1;
+      j += 1;
+    } else if (table[i + 1][j] >= table[i][j + 1]) {
+      i += 1;
+    } else {
+      j += 1;
+    }
+  }
+  return pairs;
+}
+
+/**
+ * Reste zwischen zwei gleichen Absätzen inhaltlich paaren: das ähnlichste Paar zuerst, danach nur
+ * noch Paare, die die Reihenfolge nicht kreuzen. Was die Schwelle nicht erreicht, bleibt ungepaart
+ * (entfallen bzw. neu).
+ */
+function pairBySimilarity(
+  beforeIndexes: number[],
+  afterIndexes: number[],
+  before: NormBodyBlock[],
+  after: NormBodyBlock[],
+): Array<[number, number]> {
+  const candidates: Array<{ before: number; after: number; similarity: number }> = [];
+  for (const beforeIndex of beforeIndexes) {
+    for (const afterIndex of afterIndexes) {
+      const similarity = blockSimilarity(before[beforeIndex], after[afterIndex]);
+      if (similarity >= UNLABELED_PAIRING_THRESHOLD) candidates.push({ before: beforeIndex, after: afterIndex, similarity });
+    }
+  }
+  candidates.sort((left, right) => right.similarity - left.similarity || left.before - right.before);
+  const accepted: Array<[number, number]> = [];
+  const usedBefore = new Set<number>();
+  const usedAfter = new Set<number>();
+  for (const candidate of candidates) {
+    if (usedBefore.has(candidate.before) || usedAfter.has(candidate.after)) continue;
+    const crosses = accepted.some(([beforeIndex, afterIndex]) =>
+      (candidate.before < beforeIndex && candidate.after > afterIndex) ||
+      (candidate.before > beforeIndex && candidate.after < afterIndex));
+    if (crosses) continue;
+    accepted.push([candidate.before, candidate.after]);
+    usedBefore.add(candidate.before);
+    usedAfter.add(candidate.after);
+  }
+  return accepted;
+}
+
+/**
+ * Blöcke ohne Gliederungszeichen paaren: zuerst die längste gemeinsame Teilfolge wortgleicher
+ * Absätze (sie bleiben unverändert und tauchen im Vergleich nicht auf), danach die Reste zwischen
+ * zwei solchen Ankern nach Ähnlichkeit. So gilt eine umformulierte Zeile als geändert und eine
+ * gestrichene als entfallen, statt beides an der Position zu verrechnen.
+ */
+function pairUnlabeledBlocks(
+  beforeIndexes: number[],
+  afterIndexes: number[],
+  before: NormBodyBlock[],
+  after: NormBodyBlock[],
+): Array<[number, number]> {
+  if (beforeIndexes.length === 0 || afterIndexes.length === 0) return [];
+  if (beforeIndexes.length * afterIndexes.length > UNLABELED_PAIRING_LIMIT) {
+    const length = Math.min(beforeIndexes.length, afterIndexes.length);
+    return Array.from({ length }, (_, index) => [beforeIndexes[index], afterIndexes[index]] as [number, number]);
+  }
+  const anchors = longestCommonSubsequence(
+    beforeIndexes.map((index) => blockSignature(before[index])),
+    afterIndexes.map((index) => blockSignature(after[index])),
+  );
+  const pairs: Array<[number, number]> = [];
+  let left = 0;
+  let right = 0;
+  for (const [anchorLeft, anchorRight] of [...anchors, [beforeIndexes.length, afterIndexes.length] as [number, number]]) {
+    pairs.push(...pairBySimilarity(beforeIndexes.slice(left, anchorLeft), afterIndexes.slice(right, anchorRight), before, after));
+    if (anchorLeft < beforeIndexes.length) pairs.push([beforeIndexes[anchorLeft], afterIndexes[anchorRight]]);
+    left = anchorLeft + 1;
+    right = anchorRight + 1;
+  }
+  return pairs;
+}
+
 function pairBlockLists(
   before: NormBodyBlock[],
   after: NormBodyBlock[],
@@ -369,36 +500,44 @@ function pairBlockLists(
   const beforeSegments = before.map((block) => blockSegment(block, beforeOccurrences));
   const afterSegments = after.map((block) => blockSegment(block, afterOccurrences));
   const usedAfter = new Set<number>();
+  const matches = new Map<number, number>();
   const pairs: Array<{ before?: NormBodyBlock; after?: NormBodyBlock; beforeIndex?: number; afterIndex?: number; key: string }> = [];
 
-  const findMatch = (block: NormBodyBlock, index: number): number | undefined => {
+  // Beschriftete Blöcke folgen ihrem Gliederungszeichen; nur der Rest wird inhaltlich gepaart.
+  before.forEach((block, index) => {
+    if (!block.label) return;
     const exact = after.findIndex((candidate, candidateIndex) =>
-      !usedAfter.has(candidateIndex) && candidate.type === block.type &&
-      Boolean(block.label) && candidate.label === block.label,
+      !usedAfter.has(candidateIndex) && candidate.type === block.type && candidate.label === block.label,
     );
-    if (exact >= 0) return exact;
+    if (exact < 0) return;
+    usedAfter.add(exact);
+    matches.set(index, exact);
+  });
 
-    if (!block.label) {
-      const sameType = after.findIndex((candidate, candidateIndex) =>
-        !usedAfter.has(candidateIndex) && !candidate.label && candidate.type === block.type,
-      );
-      if (sameType >= 0) return sameType;
+  const unlabeled = (blocks: NormBodyBlock[], used?: Set<number>) => blocks
+    .map((block, index) => ({ block, index }))
+    .filter(({ block, index }) => !block.label && !(used?.has(index) ?? false));
+  const openBefore = unlabeled(before).filter(({ index }) => !matches.has(index));
+  const openAfter = unlabeled(after, usedAfter);
+  const types = [...new Set(openBefore.map(({ block }) => block.type))];
+  for (const type of types) {
+    const beforeIndexes = openBefore.filter(({ block }) => block.type === type).map(({ index }) => index);
+    const afterIndexes = openAfter.filter(({ block }) => block.type === type).map(({ index }) => index);
+    const paired = POSITIONAL_BLOCK_TYPES.has(type)
+      ? Array.from({ length: Math.min(beforeIndexes.length, afterIndexes.length) }, (_, index) => [beforeIndexes[index], afterIndexes[index]] as [number, number])
+      : pairUnlabeledBlocks(beforeIndexes, afterIndexes, before, after);
+    for (const [beforeIndex, afterIndex] of paired) {
+      matches.set(beforeIndex, afterIndex);
+      usedAfter.add(afterIndex);
     }
-
-    const samePosition = after[index];
-    if (samePosition && !usedAfter.has(index) && !block.label && !samePosition.label && samePosition.type === block.type) {
-      return index;
-    }
-    return undefined;
-  };
+  }
 
   before.forEach((block, index) => {
-    const afterIndex = findMatch(block, index);
+    const afterIndex = matches.get(index);
     if (afterIndex === undefined) {
       pairs.push({ before: block, beforeIndex: index, key: `${parentKey}/${beforeSegments[index]}` });
       return;
     }
-    usedAfter.add(afterIndex);
     pairs.push({
       before: block,
       after: after[afterIndex],

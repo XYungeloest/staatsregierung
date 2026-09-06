@@ -1,17 +1,18 @@
 {
   "id": "aend-reisekostengesetz-anpassung-dienst-und-versorgungsbezuege-2003-2004",
   "slug": "aend-reisekostengesetz-anpassung-dienst-und-versorgungsbezuege-2003-2004",
-  "title": "Gesetz zur Anpassung von bestimmten Dienst- und Versorgungsbezügen 2003/2004 und zur Änderung des Ostdeutschen Reisekostengesetzes",
+  "title": "zur Anpassung von bestimmten Dienst- und Versorgungsbezügen 2003/2004 und zur Änderung des Ostdeutschen Reisekostengesetzes",
   "shortTitle": "Gesetz zur Anpassung von bestimmten Dienst- und Versorgungsbezügen 2003/2004 und zur Änderung des Ostdeutschen Reisekostengesetzes",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht",
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Gesetz zur Anpassung von bestimmten Dienst- und Versorgungsbezügen 2003/2004 und zur Änderung des Ostdeutschen Reisekostengesetzes",
+    "Änd. Reisekostengesetz Anpassung Dienst- und Versorgungsbezüge 2003/2004",
     "Anpassung",
     "bestimmten",
     "Dienst-",
@@ -23,6 +24,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Anpassung von bestimmten Dienst- und Versorgungsbezügen 2003/2004 und zur Änderung des Ostdeutschen Reisekostengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2003-11-27",
   "effectiveDate": "2003-04-01",
@@ -37,8 +39,12 @@
       "sha256": "6b39b7517c4c35bdd39dca7488d58658c3915d765b141a2db6306bccd82ec9cb",
       "lawId": "3982",
       "sourceValidFrom": "2003-04-01",
+      "fsnNumber": "242-22A",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-reisekostengesetz"
   ]
 }

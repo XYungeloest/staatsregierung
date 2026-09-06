@@ -1,23 +1,29 @@
 {
   "id": "vwv-gefangenenverpflegung",
   "slug": "vwv-gefangenenverpflegung",
-  "title": "VwV Gefangenenverpflegung",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Verpflegung der Gefangenen in den Justizvollzugsanstalten des Freistaates Ostdeutschland",
   "shortTitle": "VwV Gefangenenverpflegung",
-  "abbr": "VwV GefVerpfl",
   "shortTitleSource": "official",
+  "abbr": "VwV GefVerpfl",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
-    "VwV GefVerpfl",
     "VwV Gefangenenverpflegung",
-    "Gefangenenverpflegung"
+    "Justiz",
+    "Verpflegung",
+    "Gefangenen",
+    "Justizvollzugsanstalten",
+    "Gefangenenverpflegung",
+    "GefVerpfl"
   ],
-  "initialCitation": "VwV Gefangenenverpflegung vom 17. November 2015 (SächsABl. S. 1704), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 244)",
+  "initialCitation": "VwV Gefangenenverpflegung vom 17. November 2015 (SächsABl. S. 1704)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Gefangenenverpflegung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2015-11-17",
   "sourceReferences": [
@@ -31,6 +37,7 @@
       "sha256": "51cc7cc050f749436960d455113fd13296c3f94af6b500beb5fd5a0696ffab7c",
       "lawId": "16694",
       "sourceValidFrom": "2015-12-01",
+      "fsnNumber": "311-V15.4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

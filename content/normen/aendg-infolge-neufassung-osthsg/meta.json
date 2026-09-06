@@ -2,15 +2,14 @@
   "id": "aendg-infolge-neufassung-osthsg",
   "slug": "aendg-infolge-neufassung-osthsg",
   "title": "Gesetz zur Änderung ostdeutscher Gesetze infolge der Neufassung des Ostdeutschen Hochschulgesetzes",
-  "shortTitle": "Gesetz zur Änderung ostdeutscher Gesetze infolge der Neufassung des Ostdeutschen Hochschulgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Gesetz zur Änderung ostdeutscher Gesetze infolge der Neufassung des Ostdeutschen Hochschulgesetzes",
+    "ÄndG infolge Neufassung OstHSG",
     "Änderung",
     "ostdeutscher",
     "Gesetze",
@@ -22,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung ostdeutscher Gesetze infolge der Neufassung des Ostdeutschen Hochschulgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-06-26",
   "effectiveDate": "2009-07-11",
@@ -36,8 +36,12 @@
       "sha256": "fddb8a8e4748965440f64a309286da1dd35693727b4662f525678146ff90f377",
       "lawId": "10836",
       "sourceValidFrom": "2009-07-11",
+      "fsnNumber": "711",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-hochschulgesetz"
   ]
 }

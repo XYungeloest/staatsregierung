@@ -2,13 +2,12 @@
   "id": "aend-ostgdg",
   "slug": "aend-ostgdg",
   "title": "Änderung des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland",
-  "shortTitle": "Änd. OstGDG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
     "Änd. OstGDG",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "gesetz-aufhebung-aenderung-rechtsvorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstGDG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2002-06-06",
   "effectiveDate": "2002-07-03",
@@ -47,6 +47,7 @@
       "sha256": "48749a6f5f7d002d117238f82d0437d41231ce8dba7bff5692c5275800364824",
       "lawId": "4371",
       "sourceValidFrom": "2002-07-03",
+      "fsnNumber": "20-10A",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

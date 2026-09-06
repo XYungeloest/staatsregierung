@@ -2,15 +2,14 @@
   "id": "aend-rl-digitale-schulen-und-vwv-regiodigis",
   "slug": "aend-rl-digitale-schulen-und-vwv-regiodigis",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen und zur Änderung der Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Finanzierung regionaler und landesweiter Projekte zur Digitalisierung des Schulwesens",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen und zur Änderung der Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Finanzierung regionaler und landesweiter Projekte zur Digitalisierung des Schulwesens",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen und zur Änderung der Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Finanzierung regionaler und landesweiter Projekte zur Digitalisierung des Schulwesens",
+    "Änd. RL Digitale Schulen und VwV RegioDigiS",
     "Kultus",
     "Änderung",
     "Digitale",
@@ -26,6 +25,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Änderung der RL Digitale Schulen und zur Änderung der Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Finanzierung regionaler und landesweiter Projekte zur Digitalisierung des Schulwesens“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-01-07",
   "effectiveDate": "2020-01-01",
@@ -40,8 +40,12 @@
       "sha256": "581540afa3e10756af18d67e12e0016df68e74f5fac713153b9c985ee41a8b46",
       "lawId": "18572",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "5572",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-digitale-schulen"
   ]
 }

@@ -2,15 +2,14 @@
   "id": "aend-ostnkrg",
   "slug": "aend-ostnkrg",
   "title": "Erstes Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes",
-  "shortTitle": "Erstes Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
-    "Erstes Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes",
+    "Änd. OstNKRG",
     "Erstes",
     "Änderung",
     "Normenkontrollratsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erstes Gesetz zur Änderung des Ostdeutschen Normenkontrollratsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-06-09",
   "effectiveDate": "2017-07-04",
@@ -33,8 +33,12 @@
       "sha256": "2876b859eb65dbbe1e1bd64e7e6bbdc6091d833dce77a4e93f8ea603b570a0fb",
       "lawId": "17299",
       "sourceValidFrom": "2017-07-04",
+      "fsnNumber": "111",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-normenkontrollratsgesetz"
   ]
 }

@@ -2,16 +2,14 @@
   "id": "aend-ostprg-und-dg-stv-rundfunk",
   "slug": "aend-ostprg-und-dg-stv-rundfunk",
   "title": "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrages über den Rundfunk im vereinten Deutschland",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrages über den Rundfunk im vereinten Deutschland",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Rundfunk und Medien",
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrages über den Rundfunk im vereinten Deutschland",
+    "Änd. OstPRG und DG StV Rundfunk",
     "Änderung",
     "Privatrundfunkgesetzes",
     "Durchführung",
@@ -24,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Privatrundfunkgesetzes und des Ostdeutschen Gesetzes zur Durchführung des Staatsvertrages über den Rundfunk im vereinten Deutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-07-10",
   "effectiveDate": "2014-07-31",
@@ -38,8 +37,12 @@
       "sha256": "f759e66cbfec4fc28376ea95c47e603d421dfa928d40259ede7ea153cf8c5c23",
       "lawId": "14044",
       "sourceValidFrom": "2014-07-31",
+      "fsnNumber": "72",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-privatrundfunkgesetz"
   ]
 }

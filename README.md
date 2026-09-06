@@ -60,7 +60,8 @@ nach `apps/portal/dist/`, `npm run build:recht` nach `apps/recht/dist/`. Die gem
 OstRecht lokal mit Rechtsdaten: `npm run test:a11y` und `npm run test:browsers` starten den gebauten
 Worker über `scripts/serve-law-worker.mjs` mit einer lokalen Miniflare-D1. Der Seed dafür ist ein
 portabler SQLite-Snapshot (`npm run norms:runtime:d1-seed`, Fixture über
-`OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json`); `npm run norms:runtime:d1-seed-fingerprint`
+`OSTRECHT_D1_FIXTURE=data/recht/runtime-fixture.json` – ein synthetischer Bestand aus
+`tests/helpers/fixture-corpus.ts`, kein Auszug aus `content/`); `npm run norms:runtime:d1-seed-fingerprint`
 liefert den deterministischen Seed-Fingerabdruck. Die produktive Datenbank wird dabei nie berührt.
 
 ## Wichtige Verzeichnisse
@@ -87,7 +88,8 @@ Pflegewege stehen in `CONTENT.md`. Ämter, Mitgliedschaften und Ressortleitungen
 `content/organisation/` abgeleitet.
 
 Normen liegen unter `content/normen/[slug]/` (`meta.json`, `history.json`, `versions/*.json`),
-Verkündungen unter `content/verkuendungen/[slug].json`. Historische Fassungen sind gespeicherte,
+Verkündungen unter `content/verkuendungen/[slug].json`, das redaktionelle Stichwortregister des
+alphabetischen Zugangs `/a-z/` unter `content/stichwortregister.json`. Historische Fassungen sind gespeicherte,
 unveränderliche Fassungen. Reguläre Importquellen sind die HTML-Dateien unter `Gesetze/`; PDFs
 dienen der visuellen Gegenprüfung. Für übernommene Stammnormen ist der sächsische Rechtsstand am
 1. November 2023 die Ausgangsfassung; Folgefassungen entstehen nur über geprüfte Patch-Rezepte.
@@ -102,8 +104,9 @@ npm run norms:advance-reference-date -- --to <Datum> --write
 
 ## Qualitätssicherung und Veröffentlichung
 
-Pull Requests laufen gegen das repräsentative Testfixture (`data/recht/runtime-fixture.json`);
-der vollständige Rechtsbestand wird als gecachter D1-Seed nur dann geprüft, wenn eine Änderung
+Pull Requests laufen gegen das synthetische Testfixture (`data/recht/runtime-fixture.json`,
+Bestand aus `tests/helpers/fixture-corpus.ts`; redaktionelle Änderungen unter `content/` verändern
+weder Seed noch Screenshot-Baselines); der vollständige Rechtsbestand wird als gecachter D1-Seed nur dann geprüft, wenn eine Änderung
 Laufzeit, Projektion oder den Bestand in größerem Umfang berührt, sowie wöchentlich und manuell.
 Ob eine Datei die D1-Projektion betrifft, bestimmt der Code-Abschluss des Syncs, nicht ihr
 Verzeichnis; ändert sich die Projektionslogik, ersetzt ein vollständiger Vergleich von Basis- und

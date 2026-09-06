@@ -1,21 +1,25 @@
 {
   "id": "tp-vorschrift",
   "slug": "tp-vorschrift",
-  "title": "TP Vorschrift",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern über das trigonometrische Festpunktfeld",
   "shortTitle": "TP Vorschrift",
   "shortTitleSource": "official",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Vermessungs- und Katasterwesen, Grundstücksverkehr"
   ],
+  "primarySubject": "Vermessungs- und Katasterwesen, Grundstücksverkehr",
   "keywords": [
     "TP Vorschrift",
-    "Vorschrift"
+    "Innern",
+    "trigonometrische",
+    "Festpunktfeld"
   ],
-  "initialCitation": "TP Vorschrift vom 10. Dezember 1992 (SächsABl. 1993 S. 24), zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "initialCitation": "TP Vorschrift vom 10. Dezember 1992 (SächsABl. 1993 S. 24)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „TP Vorschrift“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "1992-12-10",
   "sourceReferences": [
@@ -30,6 +34,7 @@
       "lawId": "2211",
       "sourceValidFrom": "1993-01-01",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "450-V92.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

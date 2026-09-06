@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsche-kommunalwahlordnung",
   "slug": "ostdeutsche-kommunalwahlordnung",
-  "title": "Ostdeutsche Kommunalwahlordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums des Innern zur Durchführung des Kommunalwahlgesetzes",
   "shortTitle": "Ostdeutsche Kommunalwahlordnung",
-  "abbr": "OstKomWO",
   "shortTitleSource": "official",
+  "abbr": "OstKomWO",
   "type": "verordnung",
   "subjects": [
-    "Staats- und Verfassungsrecht",
-    "Kommunal- und Verwaltungsrecht"
+    "Kommunalrecht"
   ],
+  "primarySubject": "Kommunalrecht",
   "keywords": [
-    "OstKomWO",
     "Ostdeutsche Kommunalwahlordnung",
-    "Kommunalwahlordnung"
+    "Innern",
+    "Durchführung",
+    "Kommunalwahlgesetzes",
+    "Kommunalwahlordnung",
+    "OstKomWO"
   ],
   "initialCitation": "Ostdeutsche Kommunalwahlordnung vom 24. Juli 2023 (SächsGVBl. S. 674)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Kommunalwahlordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2023-07-24",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "557e1d5edb56e83d4f87a6789c071f9b884bf8aac4e5b499787f725bc1121365",
       "lawId": "20190",
       "sourceValidFrom": "2023-08-30",
+      "fsnNumber": "233-1.1/4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

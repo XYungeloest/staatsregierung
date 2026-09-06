@@ -2,13 +2,12 @@
   "id": "aend-ostkontrollg-18206",
   "slug": "aend-ostkontrollg-18206",
   "title": "Änderung des Ostdeutschen Kontrollgesetzes",
-  "shortTitle": "Änd. OstKontrollG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd. OstKontrollG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-neustrukturierung-polizeirecht",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstKontrollG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Kontrollgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-05-11",
   "effectiveDate": "2020-01-01",
@@ -33,6 +33,7 @@
       "sha256": "2ad34855f882ee46a79c3088f756d4302213374166d213fd9e9166840fc010fa",
       "lawId": "18206",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

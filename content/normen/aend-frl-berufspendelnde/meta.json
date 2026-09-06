@@ -2,15 +2,13 @@
   "id": "aend-frl-berufspendelnde",
   "slug": "aend-frl-berufspendelnde",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderrichtlinie Berufspendelnde",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderrichtlinie Berufspendelnde",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderrichtlinie Berufspendelnde",
+    "Änd. FRL Berufspendelnde",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Förderrichtlinie Berufspendelnde“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-06-01",
   "effectiveDate": "2021-06-18",
@@ -36,8 +35,12 @@
       "sha256": "4c1edda1582eeac2a08218cb60a20dbf0eba004b48d90d3cda05c72eee214e76",
       "lawId": "19200",
       "sourceValidFrom": "2021-06-18",
+      "fsnNumber": "5502",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-berufspendelnde"
   ]
 }

@@ -38,7 +38,7 @@ export { PROOF_RESULTS, PROOF_SCHEMA, describeProofResult, readProof, validatePr
  * abweichenden Tabellen werden genannt). Schemaänderungen sind immer `full`.
  *
  * Der Nachweis ist deterministisch an den geprüften Stand gebunden: Basis- und Ziel-Commit, alte
- * und neue Projektionsidentität (bei der Basis zusätzlich die frühere Identität für den
+ * und neue Projektionsidentität (für den
  * Übergang), Scope, Comparator-Version und die Signatur des nachgewiesenen Umfangs
  * (scripts/lib/d1-projection-proof-format.mjs). Der Sync (`--equivalence-proof <Datei>`) prüft
  * jede dieser Bindungen fail-closed, bevor er statt der Vollprojektion den nachgewiesenen Umfang
@@ -205,7 +205,6 @@ function identitySummary(identity, commit, ref) {
     ref,
     commit,
     fingerprint: identity.fingerprint,
-    legacyFingerprint: identity.legacyFingerprint ?? null,
     scope: identity.scope,
     logic: identity.logic,
     corpus: identity.corpus,
@@ -239,7 +238,7 @@ export async function proveProjectionEquivalence({ root = process.cwd(), sync, b
   if (headRefIdentity.fingerprint !== headIdentity.fingerprint) {
     throw new Error(`Der Arbeitsbaum trägt nicht die Projektionsidentität von ${headRef} (${headIdentity.fingerprint.slice(0, 16)}… ≠ ${headRefIdentity.fingerprint.slice(0, 16)}…); nicht committete Änderungen zuerst committen`);
   }
-  note(`Basis ${baseRef} (${baseCommit.slice(0, 9)}): Identität ${baseIdentity.fingerprint.slice(0, 16)}…${baseIdentity.legacyFingerprint ? `, frühere Identität ${baseIdentity.legacyFingerprint.slice(0, 16)}…` : ''}`);
+  note(`Basis ${baseRef} (${baseCommit.slice(0, 9)}): Identität ${baseIdentity.fingerprint.slice(0, 16)}…`);
   note(`Ziel ${headRef} (${headCommit.slice(0, 9)}): Identität ${headIdentity.fingerprint.slice(0, 16)}… (Logik ${headIdentity.logic.slice(0, 12)}…, ${headIdentity.logicFiles.length} Abschlussdateien${headIdentity.closureUncertain ? ', Abschluss unsicher' : ''})`);
   const proof = {
     $schema: PROOF_SCHEMA,
@@ -285,7 +284,7 @@ export async function proveProjectionEquivalence({ root = process.cwd(), sync, b
 
   const basePath = join(workdir, `base-${baseIdentity.fingerprint.slice(0, 16)}.sqlite`);
   const headPath = join(workdir, `head-${headIdentity.fingerprint.slice(0, 16)}.sqlite`);
-  const baseSeed = await findSeedProjection({ root, cacheDir: seedCacheDir, fingerprints: [baseIdentity.fingerprint, baseIdentity.legacyFingerprint] });
+  const baseSeed = await findSeedProjection({ root, cacheDir: seedCacheDir, fingerprints: [baseIdentity.fingerprint] });
   if (baseSeed) {
     await copyFile(baseSeed, basePath);
     proof.projections.base = { source: 'seed-cache', file: relative(root, baseSeed) };
@@ -351,6 +350,7 @@ function planSummary(scope) {
     deletedPublications: scope.deletedPublications ?? [],
     derivedRebuild: Boolean(scope.derivedRebuild),
     refreshSearchDocuments: Boolean(scope.refreshSearchDocuments),
+    refreshKeywords: Boolean(scope.refreshKeywords),
     reasons: scope.reasons.slice(0, 8),
   };
 }

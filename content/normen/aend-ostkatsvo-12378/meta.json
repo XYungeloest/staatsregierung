@@ -2,12 +2,11 @@
   "id": "aend-ostkatsvo-12378",
   "slug": "aend-ostkatsvo-12378",
   "title": "Änderung der Ostdeutschen Katastrophenschutzverordnung",
-  "shortTitle": "Änd. OstKatSVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr"
   ],
+  "primarySubject": "Rettungsdienst, Katastrophenschutz, Brandschutz, Feuerwehr",
   "keywords": [
     "Änd. OstKatSVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-smi-smf-smjus-smk-smwk-smwa-sms-und-smul-zur-umsetzung-der-standortkonzeption-im",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstKatSVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Katastrophenschutzverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2012-03-01",
   "effectiveDate": "2012-03-02",
@@ -32,6 +32,7 @@
       "sha256": "ce464eaf9f6e55422f6173bff5b8b687b300901552d667c0baffa55d83dc3b16",
       "lawId": "12378",
       "sourceValidFrom": "2012-03-02",
+      "fsnNumber": "28",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

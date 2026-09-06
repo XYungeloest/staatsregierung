@@ -2,13 +2,12 @@
   "id": "aend-schulg-11387",
   "slug": "aend-schulg-11387",
   "title": "Änderung des Schulgesetzes für den Freistaat Ostdeutschland",
-  "shortTitle": "Änd. SchulG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SchulG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostvwvfzg-und-aenderung-anderer-gesetze",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SchulG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Schulgesetzes für den Freistaat Ostdeutschland“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-05-19",
   "effectiveDate": "2010-06-05",
@@ -33,6 +33,7 @@
       "sha256": "fb2f5a2d339bf3ac3b78a59acf8d4a086d80a4ff7a77cb64e184a32e55a8fdd9",
       "lawId": "11387",
       "sourceValidFrom": "2010-06-05",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

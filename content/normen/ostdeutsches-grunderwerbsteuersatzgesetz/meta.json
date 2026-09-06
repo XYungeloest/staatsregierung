@@ -1,24 +1,29 @@
 {
   "id": "ostdeutsches-grunderwerbsteuersatzgesetz",
   "slug": "ostdeutsches-grunderwerbsteuersatzgesetz",
-  "title": "Ostdeutsches Grunderwerbsteuersatzgesetz",
+  "title": "Ostdeutsches Gesetz über die Bestimmung des Steuersatzes bei der Grunderwerbsteuer",
   "shortTitle": "Ostdeutsches Grunderwerbsteuersatzgesetz",
-  "abbr": "OstGrEStSatzG",
   "shortTitleSource": "official",
+  "abbr": "OstGrEStSatzG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Steuern und Abgaben"
   ],
+  "primarySubject": "Steuern und Abgaben",
   "keywords": [
-    "OstGrEStSatzG",
     "Ostdeutsches Grunderwerbsteuersatzgesetz",
-    "Grunderwerbsteuersatzgesetz"
+    "Bestimmung",
+    "Steuersatzes",
+    "Grunderwerbsteuer",
+    "Grunderwerbsteuersatzgesetz",
+    "OstGrEStSatzG"
   ],
   "initialCitation": "Ostdeutsches Grunderwerbsteuersatzgesetz vom 20. Dezember 2022 (SächsGVBl. S. 705, 715)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Grunderwerbsteuersatzgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2022-12-20",
   "sourceReferences": [
@@ -32,6 +37,7 @@
       "sha256": "40ae3cc8b710028b36de413239a3beccd5bef878a44d1554db2f0abd3562dc04",
       "lawId": "19800",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "51-8",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

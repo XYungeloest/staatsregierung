@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-personalanalysegesetz",
   "slug": "ostdeutsches-personalanalysegesetz",
-  "title": "Ostdeutsches Personalanalysegesetz",
+  "title": "Gesetz über die Personalstruktur- und Personalbedarfsanalyse im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Personalanalysegesetz",
-  "abbr": "OstPersAnG",
   "shortTitleSource": "official",
+  "abbr": "OstPersAnG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "OstPersAnG",
     "Ostdeutsches Personalanalysegesetz",
-    "Personalanalysegesetz"
+    "Personalstruktur-",
+    "Personalbedarfsanalyse",
+    "Personalanalysegesetz",
+    "OstPersAnG"
   ],
   "initialCitation": "Ostdeutsches Personalanalysegesetz vom 11. Dezember 2018 (SächsGVBl. S. 714, 718)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Personalanalysegesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2018-12-11",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "c37bb357b7dcd178f0397e6efe2deef0a809c67b837199072b17ed0b8ab90d67",
       "lawId": "17915",
       "sourceValidFrom": "2018-12-21",
+      "fsnNumber": "240-10",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

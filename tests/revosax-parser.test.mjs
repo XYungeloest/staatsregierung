@@ -3,8 +3,11 @@ import test from 'node:test';
 
 import {
   amendmentDatesFromCitation,
+  containmentDatesFromCitation,
   futureAmendmentDates,
+  futureContainmentDates,
   historicalBaselineCitation,
+  stripFutureContainmentClause,
 } from '../scripts/lib/revosax-citation.mjs';
 import { parseRevosaxSnapshot } from '../scripts/lib/revosax-parser.mjs';
 
@@ -310,7 +313,49 @@ test('Bekanntmachungen als eigene Vorschrift und Abschnitte außerhalb von .sect
   const sections = modern.body.filter((block) => block.type === 'section');
   assert.deepEqual(sections.map((block) => [block.label, block.title]), [['I.', 'Geltungsbereich'], ['II.', 'Religionsunterricht']]);
   assert.deepEqual(sections[1].children.map((block) => [block.type, block.label, block.title]), [['section', '1.', 'Rechtsgrundlagen']]);
+  // Die Nummer wiederholt nur die Überschrift ihrer Einheit; sie entfällt in der Lesefassung.
+  assert.deepEqual(sections[1].children[0].children, []);
   assert.equal(modern.sourceValidFrom, '2026-08-01');
+});
+
+test('die Überschrift einer Gliederungseinheit steht genau einmal im Normtext', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="1. Vorbehalt des Begnadigungsrechts"><h4>1. Vorbehalt des Begnadigungsrechts</h4>
+      <dl class="cf"><dt class="td_1">1.</dt><dd class="td_last_1"><strong>Vorbehalt des Begnadigungsrechts</strong><br>Die Ausübung bleibt vorbehalten.
+        </dd></dl></section>
+    <section title="2. Übertragung"><h4>2. Übertragung</h4>
+      <dl class="cf"><dt class="td_1">2.</dt><dd class="td_last_1">2. Übertragung</dd>
+        <dt class="td_2">a)</dt><dd class="td_last_2">Erste Möglichkeit.</dd></dl></section>
+    <section title="3. Begründung"><h4>3. Begründung</h4>
+      <p>Begründungen sind schriftlich zu geben.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/4058' });
+  const sections = parsed.body.filter((block) => block.type === 'section');
+  assert.deepEqual(sections[0].children.map((block) => [block.type, block.label, block.text]), [
+    ['item', '1.', 'Die Ausübung bleibt vorbehalten.'],
+  ]);
+  // Bleibt kein Text übrig, rücken die Unterpunkte an die Stelle des leeren Punktes.
+  assert.deepEqual(sections[1].children.map((block) => [block.type, block.label, block.text]), [
+    ['item', 'a)', 'Erste Möglichkeit.'],
+  ]);
+  // Ein Text, der lediglich mit demselben Wort beginnt, bleibt unverändert.
+  assert.deepEqual(sections[2].children.map((block) => [block.type, block.text]), [
+    ['paragraphText', 'Begründungen sind schriftlich zu geben.'],
+  ]);
+});
+
+test('Überschriften aus Gliederungszeichen- und Titelzeile werden nur bei vollständiger Übereinstimmung entfernt', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="Artikel 12 Inkrafttreten"><h4>Artikel 12 Inkrafttreten</h4>
+      <p>Artikel 12<br>Inkrafttreten<br>Dieses Gesetz tritt in Kraft.</p></section>
+    <section title="§ 2 Ausgliederungsgegenstand"><h4>§ 2 Ausgliederungsgegenstand</h4>
+      <p>Ausgliederungsgegenstand ist das Flurstück 12.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/3734' });
+  const article = parsed.body.find((block) => block.label === 'Artikel 12');
+  assert.deepEqual(article.children.map((block) => [block.type, block.text]), [
+    ['paragraphText', 'Dieses Gesetz tritt in Kraft.'],
+  ]);
+  const paragraph = parsed.body.find((block) => block.label === '§ 2');
+  assert.deepEqual(paragraph.children.map((block) => [block.type, block.text]), [
+    ['paragraphText', 'Ausgliederungsgegenstand ist das Flurstück 12.'],
+  ]);
 });
 
 test('unbetitelte technische Abschnitte werden auf die aktuelle Ebene gehoben', () => {
@@ -335,5 +380,120 @@ test('historische Zitierung entfernt spätere Änderungsklauseln auch bei gleich
       citationValidAt: '2023-11-01',
     }),
     'Förderrichtlinie Tierzucht vom 27. Juni 2023 (SächsABl. S. 931)',
+  );
+});
+
+function identitySnapshot(heading, pageTitle = 'Testgesetz') {
+  return `<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>${pageTitle}</h1>
+    <p>Vollzitat: Testgesetz vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)</p>
+    <article id="lesetext">
+      <header><h3>${heading}</h3><p>1. Januar 2020</p></header>
+      <div class="sections"><section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Das Gesetz regelt seinen Zweck.</p></section></div>
+    </article>
+    <div id="quickbar"><div class="box"><h3>Gültigkeitszeitraum</h3><p>Fassung gültig ab: 1. Januar 2020</p></div></div>
+  </div></div></body></html>`;
+}
+
+function parsedIdentity(heading, pageTitle) {
+  const parsed = parseRevosaxSnapshot(identitySnapshot(heading, pageTitle), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+  return { sourceTitle: parsed.sourceTitle, longTitle: parsed.longTitle, shortTitle: parsed.shortTitle, abbr: parsed.abbr };
+}
+
+test('die Kennzeile trennt Langtitel, Kurzbezeichnung und Abkürzung', () => {
+  assert.deepEqual(
+    parsedIdentity('Gesetz über die Prüfung von Testfällen (Testprüfgesetz – TestPrG)', 'Testprüfgesetz'),
+    {
+      sourceTitle: 'Testprüfgesetz',
+      longTitle: 'Gesetz über die Prüfung von Testfällen',
+      shortTitle: 'Testprüfgesetz',
+      abbr: 'TestPrG',
+    },
+  );
+});
+
+test('ein einteiliger Klammerzusatz wird als Abkürzung oder als Kurzbezeichnung eingeordnet', () => {
+  assert.deepEqual(parsedIdentity('Gesetz über Testfälle (TestG)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Gesetz über Testfälle',
+    shortTitle: 'Testgesetz',
+    abbr: 'TestG',
+  });
+  assert.deepEqual(parsedIdentity('Gesetz über Testfälle (VwV Formblätter Testwesen)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Gesetz über Testfälle',
+    shortTitle: 'VwV Formblätter Testwesen',
+    abbr: undefined,
+  });
+});
+
+test('Gedankenstriche ohne Leerzeichen trennen ebenfalls, Jahresspannen bleiben Titelbestandteil', () => {
+  assert.deepEqual(parsedIdentity('Gesetz über Testfälle (Testprüfgesetz –TestPrG)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Gesetz über Testfälle',
+    shortTitle: 'Testprüfgesetz',
+    abbr: 'TestPrG',
+  });
+  assert.deepEqual(parsedIdentity('Förderrichtlinie Testförderung 2014–2020'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Förderrichtlinie Testförderung 2014–2020',
+    shortTitle: 'Testgesetz',
+    abbr: undefined,
+  });
+  assert.deepEqual(parsedIdentity('Förderrichtlinie Testförderung (Testprogramm 2014–2020)'), {
+    sourceTitle: 'Testgesetz',
+    longTitle: 'Förderrichtlinie Testförderung (Testprogramm 2014–2020)',
+    shortTitle: 'Testgesetz',
+    abbr: undefined,
+  });
+});
+
+test('die amtliche Fundstellennummer wird aus der Marginalspalte gelesen', () => {
+  const withFsn = `<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>Testgesetz</h1>
+    <p>Vollzitat: Testgesetz vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)</p>
+    <article id="lesetext">
+      <header><h3>Testgesetz (TestG)</h3><p>1. Januar 2020</p></header>
+      <div class="sections"><section title="§ 1 Zweck"><h4>§ 1 Zweck</h4><p>(1) Testinhalt.</p></section></div>
+    </article>
+    <div id="quickbar">
+      <div class="box"><h3>Fundstelle und systematische Gliederungsnummer</h3><p>
+        OGVBl. 2020 Nr. 1, S. 2
+        <br>
+        Fsn-Nr.: 612-3.10/2
+      </p></div>
+      <div class="box"><h3>Gültigkeitszeitraum</h3><p>Fassung gültig ab: 1. Januar 2020</p></div>
+    </div>
+  </div></div></body></html>`;
+  assert.equal(parseRevosaxSnapshot(withFsn, { url: 'https://www.revosax.sachsen.de/vorschrift/1' }).fsnNumber, '612-3.10/2');
+
+  // Ältere Fassungsseiten führen den Kasten ohne Gliederungsnummer.
+  const withoutFsn = withFsn.replace('Fsn-Nr.: 612-3.10/2', '');
+  assert.equal(parseRevosaxSnapshot(withoutFsn, { url: 'https://www.revosax.sachsen.de/vorschrift/1' }).fsnNumber, null);
+  assert.equal(parseRevosaxSnapshot(snapshot('<section title="§ 1 Zweck"><h4>§ 1 Zweck</h4><p>(1) Testinhalt.</p></section>'), { url: 'https://www.revosax.sachsen.de/vorschrift/1' }).fsnNumber, null);
+});
+
+test('sächsische Fundstellenpflege nach dem Stichtag gehört nicht in die übernommene Zitierung', () => {
+  const citation = 'Anordnung über die Ausübung des Begnadigungsrechts vom 8. Oktober 1997 (SächsABl. S. 1124), zuletzt enthalten in der Verwaltungsvorschrift vom 27. November 2025 (SächsABl. SDr. S. S 209)';
+  assert.deepEqual(containmentDatesFromCitation(citation), ['2025-11-27']);
+  assert.deepEqual(futureContainmentDates(citation, '2023-11-01'), ['2025-11-27']);
+  assert.equal(
+    stripFutureContainmentClause(citation, '2023-11-01'),
+    'Anordnung über die Ausübung des Begnadigungsrechts vom 8. Oktober 1997 (SächsABl. S. 1124)',
+  );
+  assert.equal(
+    historicalBaselineCitation({ pageFullCitation: citation, sourceValidTo: null, citationValidAt: '2023-11-01', context: 'Test' }),
+    'Anordnung über die Ausübung des Begnadigungsrechts vom 8. Oktober 1997 (SächsABl. S. 1124)',
+  );
+});
+
+test('Aufnahmeklauseln vor dem Stichtag und spätere Änderungen bleiben unterscheidbar', () => {
+  const before = 'Testvorschrift vom 1. Januar 2015 (SächsABl. S. 5), zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2020 (SächsABl. SDr. S. S 1)';
+  assert.deepEqual(futureContainmentDates(before, '2023-11-01'), []);
+  assert.equal(historicalBaselineCitation({ pageFullCitation: before, sourceValidTo: null, citationValidAt: '2023-11-01', context: 'Test' }), before);
+  const both = 'Testvorschrift vom 1. Januar 2015 (SächsABl. S. 5), die durch die Verwaltungsvorschrift vom 4. Mai 2024 (SächsABl. S. 9) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 1)';
+  assert.equal(
+    historicalBaselineCitation({ pageFullCitation: both, sourceValidTo: null, citationValidAt: '2023-11-01', context: 'Test' }),
+    'Testvorschrift vom 1. Januar 2015 (SächsABl. S. 5)',
   );
 });

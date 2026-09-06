@@ -2,15 +2,13 @@
   "id": "aend-forstdklvo",
   "slug": "aend-forstdklvo",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Forstdienstkleidungsverordnung",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Forstdienstkleidungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Forstwirtschaft, Jagd, Fischerei, Naturschutz"
   ],
+  "primarySubject": "Forstwirtschaft, Jagd, Fischerei, Naturschutz",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Forstdienstkleidungsverordnung",
+    "Änd. ForstDKlVO",
     "Zweite",
     "Umwelt",
     "Landwirtschaft",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Forstdienstkleidungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-11-20",
   "effectiveDate": "2019-01-01",
@@ -35,8 +34,12 @@
       "sha256": "d1d2daa92a19098230aa5d38e1ff0b36bf514a7bd5fcbad2f7fdc28dcfaa5ac5",
       "lawId": "17927",
       "sourceValidFrom": "2019-01-01",
+      "fsnNumber": "650",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-umwelt-und-landwirtschaft-ueber-die-3400-7"
   ]
 }

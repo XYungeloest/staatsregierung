@@ -2,13 +2,12 @@
   "id": "aend-ostdg",
   "slug": "aend-ostdg",
   "title": "Änderung des Ostdeutschen Disziplinargesetzes",
-  "shortTitle": "Änd. OstDG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstDG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ostbg-und-anderer-gesetze",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstDG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Disziplinargesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-03-12",
   "effectiveDate": "2009-04-01",
@@ -33,6 +33,7 @@
       "sha256": "c339848e1cabb8da2837cb6c48bb30d4fecc284f1bdacadbe855ab566e956169",
       "lawId": "10689",
       "sourceValidFrom": "2009-04-01",
+      "fsnNumber": "241",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

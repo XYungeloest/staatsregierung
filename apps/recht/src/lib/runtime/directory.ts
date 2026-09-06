@@ -1,5 +1,9 @@
+import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import { NORM_ORIGIN_KINDS, formatNormOriginKind, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 
+import { formatCount } from '../counts.ts';
+import { VALIDITY_FIELD_LABEL, validityOptions } from '../vocabulary.ts';
 import { buildPagination, pageUrl, type Pagination } from './pagination.ts';
 import { DEFAULT_PAGE_SIZE, normalizePage, type IndexLetterCount, type NormPage, type NormStore } from './store.ts';
 
@@ -10,7 +14,8 @@ import { DEFAULT_PAGE_SIZE, normalizePage, type IndexLetterCount, type NormPage,
  * als eine Seite (DEFAULT_PAGE_SIZE) Übersichtszeilen.
  *
  * Parameter: `q` Titel/Abkürzung/Stichwort, `subject` Sachgebiet, `type` Normtyp, `status`
- * Rechtsstand, `origin` Rechtsherkunft, `buchstabe` Buchstabengruppe, `seite` Seite.
+ * Rechtsstand, `origin` Rechtsherkunft, `aenderungen` übernommene Änderungsvorschriften,
+ * `buchstabe` Buchstabengruppe, `seite` Seite.
  */
 
 export interface DirectoryScope {
@@ -18,7 +23,13 @@ export interface DirectoryScope {
   subjectSlug?: string;
 }
 
-export type DirectoryFieldName = 'q' | 'subject' | 'type' | 'status' | 'origin';
+export type DirectoryFieldName = 'q' | 'subject' | 'type' | 'status' | 'origin' | 'aenderungen';
+
+/**
+ * Auswahl des Felds „Übernommene Änderungsvorschriften“. Ohne Auswahl zeigt ein Verzeichnis die
+ * Grundmenge; `uebernommen` bezieht die übernommenen Änderungsvorschriften wieder ein.
+ */
+export const INHERITED_AMENDMENT_VALUE = 'uebernommen';
 
 export interface DirectoryFieldOption {
   value: string;
@@ -59,14 +70,24 @@ export interface NormDirectoryView {
   hrefForLetter(letter: string): string;
 }
 
-/** Rechtsstände der Filterauswahl; „Zukünftig“ umfasst verkündete Vorschriften ohne belegtes Inkrafttreten. */
-export const DIRECTORY_STATUS_OPTIONS: Array<DirectoryFieldOption & { statuses: string[] }> = [
-  { value: 'in-force', label: 'Geltend', statuses: ['in-force'] },
-  { value: 'future-effective', label: 'Zukünftig', statuses: ['future-effective', 'pending-effective'] },
-  { value: 'historical', label: 'Historisch oder aufgehoben', statuses: ['historical', 'repealed'] },
-];
+/**
+ * Geltung der Filterauswahl. Die Wörter stammen aus der gemeinsamen Wortliste
+ * (lawSiteConfig.vocabulary); gleich benannte Rechtsstände stehen in einer Auswahl.
+ */
+export const DIRECTORY_STATUS_OPTIONS: Array<DirectoryFieldOption & { statuses: string[] }> =
+  validityOptions(['in-force', 'future-effective', 'pending-effective', 'repealed', 'historical', 'one-time-act']);
 
 const ORIGIN_OPTIONS: DirectoryFieldOption[] = NORM_ORIGIN_KINDS.map((kind) => ({ value: kind, label: formatNormOriginKind(kind) }));
+
+/**
+ * Übernommene Änderungsvorschriften wieder einbeziehen. Beschriftung und Werte stehen einmal
+ * hier; A–Z und Sachgebietsseiten verwenden dieselbe Auswahl.
+ */
+export const INHERITED_AMENDMENT_FIELD: { label: string; allLabel: string; options: DirectoryFieldOption[] } = {
+  label: 'Übernommene Änderungsvorschriften',
+  allLabel: 'Nicht einbeziehen',
+  options: [{ value: INHERITED_AMENDMENT_VALUE, label: 'Einbeziehen' }],
+};
 
 function clean(value: string | null, allowed?: readonly string[], maxLength = 200): string {
   const text = (value ?? '').trim().slice(0, maxLength);
@@ -79,11 +100,10 @@ export function describeDirectoryCount(result: NormPage, unit: DirectoryUnit, { 
   if (result.total === 0) return active || letter ? `Keine ${unit.plural} passen zur Auswahl.` : `Keine ${unit.plural} vorhanden.`;
   const firstIndex = (result.page - 1) * result.pageSize + 1;
   const lastIndex = Math.min(result.page * result.pageSize, result.total);
-  const noun = result.total === 1 ? unit.singular : unit.plural;
   const scope = letter ? ` in der Buchstabengruppe ${letter === '#' ? 'Ziffern und Sonderzeichen' : letter}` : '';
   const qualifier = active ? ' passen zur Auswahl' : '';
   const shown = result.total > result.pageSize ? `; angezeigt ${firstIndex}–${lastIndex}` : '';
-  return `${result.total} ${noun}${qualifier}${scope}${shown}.`;
+  return `${formatCount(result.total, unit.singular, unit.plural)}${qualifier}${scope}${shown}.`;
 }
 
 export async function loadNormDirectory(store: NormStore, {
@@ -101,17 +121,19 @@ export async function loadNormDirectory(store: NormStore, {
   unit?: DirectoryUnit;
   filterOptions?: { subjects?: string[]; types?: DirectoryFieldOption[] };
 }): Promise<NormDirectoryView> {
-  const letters = await store.listIndexLetters(scope);
-  const availableLetters = letters.map((entry) => entry.letter);
-  const requestedLetter = (searchParams.get('buchstabe') ?? '').trim().toLocaleUpperCase('de-DE').slice(0, 1);
-  const letter = availableLetters.includes(requestedLetter) ? requestedLetter : '';
   const state = {
     q: fields.includes('q') ? clean(searchParams.get('q')) : '',
     subject: fields.includes('subject') ? clean(searchParams.get('subject'), filterOptions.subjects ?? [], 120) : '',
     type: fields.includes('type') ? clean(searchParams.get('type'), (filterOptions.types ?? []).map((entry) => entry.value), 40) : '',
     status: fields.includes('status') ? clean(searchParams.get('status'), DIRECTORY_STATUS_OPTIONS.map((entry) => entry.value), 40) : '',
     origin: fields.includes('origin') ? clean(searchParams.get('origin'), NORM_ORIGIN_KINDS, 40) : '',
+    aenderungen: fields.includes('aenderungen') ? clean(searchParams.get('aenderungen'), [INHERITED_AMENDMENT_VALUE], 40) : '',
   };
+  const includeInheritedAmendments = state.aenderungen === INHERITED_AMENDMENT_VALUE;
+  const letters = await store.listIndexLetters({ ...scope, includeInheritedAmendments });
+  const availableLetters = letters.map((entry) => entry.letter);
+  const requestedLetter = (searchParams.get('buchstabe') ?? '').trim().toLocaleUpperCase('de-DE').slice(0, 1);
+  const letter = availableLetters.includes(requestedLetter) ? requestedLetter : '';
   const { page } = normalizePage(searchParams.get('seite'));
   const statuses = DIRECTORY_STATUS_OPTIONS.find((entry) => entry.value === state.status)?.statuses;
   const result = await store.queryNormSummaries({
@@ -122,20 +144,22 @@ export async function loadNormDirectory(store: NormStore, {
     subject: state.subject || undefined,
     statuses,
     originKind: (state.origin || undefined) as NormOriginKind | undefined,
+    includeInheritedAmendments,
     page,
     pageSize: DEFAULT_PAGE_SIZE,
     sort: 'title',
   });
-  const active = Boolean(state.q || state.subject || state.type || state.status || state.origin);
-  const filterParams: Record<string, string> = { q: state.q, subject: state.subject, type: state.type, status: state.status, origin: state.origin };
+  const active = Boolean(state.q || state.subject || state.type || state.status || state.origin || state.aenderungen);
+  const filterParams: Record<string, string> = { q: state.q, subject: state.subject, type: state.type, status: state.status, origin: state.origin, aenderungen: state.aenderungen };
   const params = { ...filterParams, buchstabe: letter };
   const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
   const lastIndex = Math.min(result.page * result.pageSize, result.total);
   const fieldList: DirectoryField[] = fields.map((name): DirectoryField => {
     if (name === 'q') return { name, label: 'Titel, Abkürzung oder Stichwort', value: state.q, placeholder: 'z. B. Gemeindeordnung' };
-    if (name === 'subject') return { name, label: 'Sachgebiet', value: state.subject, allLabel: 'Alle Sachgebiete', options: (filterOptions.subjects ?? []).map((entry) => ({ value: entry, label: entry })) };
+    if (name === 'subject') return { name, label: 'Sachgebiet', value: state.subject, allLabel: 'Alle Sachgebiete', options: (filterOptions.subjects ?? []).map((entry) => ({ value: entry, label: formatSubjectLabel(entry, { withNumber: true, short: true }) })) };
     if (name === 'type') return { name, label: 'Normtyp', value: state.type, allLabel: 'Alle Normtypen', options: filterOptions.types ?? [] };
-    if (name === 'status') return { name, label: 'Rechtsstand', value: state.status, allLabel: 'Alle Rechtsstände', options: DIRECTORY_STATUS_OPTIONS.map(({ value, label }) => ({ value, label })) };
+    if (name === 'status') return { name, label: VALIDITY_FIELD_LABEL, value: state.status, allLabel: lawSiteConfig.vocabulary.validity.any, options: DIRECTORY_STATUS_OPTIONS.map(({ value, label }) => ({ value, label })) };
+    if (name === 'aenderungen') return { name, ...INHERITED_AMENDMENT_FIELD, value: state.aenderungen };
     return { name, label: 'Rechtsherkunft', value: state.origin, allLabel: 'Alle Herkunftsarten', options: ORIGIN_OPTIONS };
   });
   return {

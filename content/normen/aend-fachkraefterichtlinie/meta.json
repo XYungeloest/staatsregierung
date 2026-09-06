@@ -2,15 +2,13 @@
   "id": "aend-fachkraefterichtlinie",
   "slug": "aend-fachkraefterichtlinie",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Fachkräfterichtlinie",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Fachkräfterichtlinie",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Fachkräfterichtlinie",
+    "Änd. Fachkräfterichtlinie",
     "Wirtschaft",
     "Arbeit",
     "Verkehr",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der Fachkräfterichtlinie“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-12",
   "effectiveDate": "2020-01-01",
@@ -35,8 +34,12 @@
       "sha256": "1b577c21046f4fd7693ddfe8e97c931fbb2b9f98e8562888dd38471a1a7d2f03",
       "lawId": "18522",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "559",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "richtlinie-des-ostdeutschen-staatsministeriums-fuer-wirtschaft-arbeit-und-verkehr-zur-18147-3"
   ]
 }

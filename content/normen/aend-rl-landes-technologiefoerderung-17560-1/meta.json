@@ -2,15 +2,13 @@
   "id": "aend-rl-landes-technologiefoerderung-17560-1",
   "slug": "aend-rl-landes-technologiefoerderung-17560-1",
   "title": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung",
-  "shortTitle": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Mobilität und öffentliche Infrastruktur"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung",
+    "Änd. RL Landes-Technologieförderung",
     "Zweite",
     "Wirtschaft",
     "Arbeit",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung der RL Landes-Technologieförderung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-01-10",
   "effectiveDate": "2018-02-02",
@@ -36,8 +35,12 @@
       "sha256": "8b273b8a649bd019ddac9b625f9df418e2e05bfae1f901e1887da2b0ab826d37",
       "lawId": "17560",
       "sourceValidFrom": "2018-02-02",
+      "fsnNumber": "552",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-landes-technologiefoerderung"
   ]
 }

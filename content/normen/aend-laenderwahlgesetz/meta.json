@@ -2,13 +2,12 @@
   "id": "aend-laenderwahlgesetz",
   "slug": "aend-laenderwahlgesetz",
   "title": "Änderung des Länderwahlgesetzes",
-  "shortTitle": "Änd. Länderwahlgesetz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Staats- und Verfassungsrecht"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
     "Änd. Länderwahlgesetz",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "agbtg-und-aend-weiterer-rechtsvorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Länderwahlgesetz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Länderwahlgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1992-11-10",
   "effectiveDate": "1992-11-21",
@@ -46,6 +46,7 @@
       "sha256": "a6949af934538cb67c8a78b3a701137ebe98d57657ab188e0b6cfabd8867a83e",
       "lawId": "9498",
       "sourceValidFrom": "2002-07-03",
+      "fsnNumber": "20-1A",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

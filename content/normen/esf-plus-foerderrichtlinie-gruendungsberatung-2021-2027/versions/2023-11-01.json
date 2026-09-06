@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "ESF Plus-Förderrichtlinie Gründungsberatung 2021–2027",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Förderung von Beratungsleistungen in der Vorgründungsphase im Freistaat Ostdeutschland mit Mitteln des Europäischen Sozialfonds",
   "shortTitle": "ESF Plus-Förderrichtlinie Gründungsberatung 2021–2027",
-  "abbr": "FRL GRB",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "ESF Plus-Förderrichtlinie Gründungsberatung 2021–2027 vom 30. August 2022 (SächsABl. S. 1119), zuletzt enthalten in der Verwaltungsvorschrift vom 1. Dezember 2025 (SächsABl. SDr. S. S 268)",
+  "citation": "ESF Plus-Förderrichtlinie Gründungsberatung 2021–2027 vom 30. August 2022 (SächsABl. S. 1119)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "bca80b43fd7a22c17de9eaa4b5212ee0df31359f3376829fa488b09d2e449fa0",
       "lawId": "19721",
       "sourceValidFrom": "2022-09-30",
+      "fsnNumber": "552-V22.6",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -587,28 +587,19 @@
       "children": [
         {
           "type": "item",
-          "label": "8.",
-          "text": "Inkrafttreten, Außerkrafttreten",
-          "level": 0,
+          "label": "8.1",
+          "text": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft.",
+          "level": 1,
           "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "8.1",
-              "text": "Diese Förderrichtlinie tritt am Tag nach der Veröffentlichung in Kraft.",
-              "level": 1,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "8.2",
-              "text": "Gleichzeitig tritt Teil B.I.1 der Mittelstandsrichtlinie vom 23. März 2020 (SächsABl. S. 398), die durch die Richtlinie vom 12. Mai 2021 (SächsABl. S. 644) geändert worden ist, enthalten in der Verwaltungsvorschrift vom 28. November 2021 (SächsABl. SDr. S. S 224) außer Kraft.",
-              "level": 1,
-              "numberingStyle": "decimal",
-              "children": []
-            }
-          ]
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.2",
+          "text": "Gleichzeitig tritt Teil B.I.1 der Mittelstandsrichtlinie vom 23. März 2020 (SächsABl. S. 398), die durch die Richtlinie vom 12. Mai 2021 (SächsABl. S. 644) geändert worden ist, enthalten in der Verwaltungsvorschrift vom 28. November 2021 (SächsABl. SDr. S. S 224) außer Kraft.",
+          "level": 1,
+          "numberingStyle": "decimal",
+          "children": []
         }
       ]
     }

@@ -8,12 +8,17 @@ import {
   getLawPortalUrl,
   getNormUrl,
   getNormVersionUrl,
-  getPublicationLabel,
+  getPublicationEntriesUrl,
   getPublicationUrl,
   getPublicationsUrl,
-  getReferencesUrl,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import {
+  formatIssueHeadline,
+  formatPublisherLine,
+  formatVersionDateLabel,
+  publicationSourceLinks,
+} from '../../lib/publication-presentation.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 
 // Verkündungsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
@@ -32,7 +37,10 @@ const [versionSummaries, derivedEntries] = await Promise.all([
 ]);
 const knownSlugs = new Set(versionSummaries.map((version) => version.slug));
 const versionKinds = new Map(versionSummaries.map((version) => [`${version.slug}:${version.versionId}`, version.temporalKind]));
+const versionDates = new Map(versionSummaries.map((version) => [`${version.slug}:${version.versionId}`, version.validFrom]));
 const relationLookup = new Map(derivedEntries.map(([slug, derived]) => [slug, derived?.relations ?? []]));
+const publisherLine = formatPublisherLine(publication.publisher);
+const sourceLinks = publicationSourceLinks(publication);
 
 function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
   if (!normSlug || !knownSlugs.has(normSlug)) {
@@ -48,7 +56,7 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
 
 <LawLayout
   title={publication.title}
-  description={`${publication.title} mit Fundstellen und verlinkten Normfassungen.`}
+  description={`${publication.title} mit Fundstellen und verlinkten Fassungen.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
     { label: 'Verkündungen', href: getPublicationsUrl() },
@@ -66,7 +74,7 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
   <SectionHero
     eyebrow="Verkündung"
     title={toDisplayText(publication.title)}
-    lead={`${getPublicationLabel(publication)} vom ${formatDate(publication.date)} mit den verzeichneten Veröffentlichungen und Verknüpfungen zu Normfassungen.`}
+    lead={`${formatIssueHeadline(publication)} mit den verzeichneten Veröffentlichungen und den verlinkten Fassungen.`}
     variant="law"
     facts={[
       { label: 'Ausgabedatum', value: formatDate(publication.date) },
@@ -75,19 +83,19 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
     ]}
     actions={[
       { label: 'Alle Verkündungen', href: getPublicationsUrl(), primary: true },
-      { label: 'Fundstellen', href: getReferencesUrl() },
+      { label: 'Fundstellen', href: getPublicationEntriesUrl() },
     ]}
   >
-    {publication.publisher ? <p>Herausgegeben von {toDisplayText(publication.publisher)}.</p> : null}
+    {publisherLine ? <p>{toDisplayText(publisherLine)}</p> : null}
     <button class="text-link-button" type="button" data-print-page>Seite drucken</button>
   </SectionHero>
 
   <div class="law-publication-detail">
-    <main class="law-publication-entries">
+    <section class="law-publication-entries" aria-labelledby="publication-entries-heading">
       <header>
         <span class="section-eyebrow">Inhalt der Ausgabe</span>
-        <h2>Veröffentlichungen</h2>
-        <p>Jeder Eintrag verbindet die amtliche Fundstelle mit der zugehörigen Normfassung.</p>
+        <h2 id="publication-entries-heading">Veröffentlichungen</h2>
+        <p>Jeder Eintrag verbindet die amtliche Fundstelle mit der verlinkten Fassung.</p>
       </header>
       <ol>
           {publication.entries.map((entry) => {
@@ -95,13 +103,16 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
             const legalRelations = entry.normSlug
               ? (relationLookup.get(entry.normSlug) ?? []).filter((relation) => relation.kind === 'amends' || relation.kind === 'repeals')
               : [];
+            const versionLabel = entry.normSlug && entry.versionId
+              ? formatVersionDateLabel(entry.versionId, versionDates.get(`${entry.normSlug}:${entry.versionId}`))
+              : undefined;
 
             return (
               <li id={entry.id}>
                 <div class="law-publication-entry__number" aria-hidden="true">{String(publication.entries.indexOf(entry) + 1).padStart(2, '0')}</div>
                 <div class="law-publication-entry__content">
                   <span class="law-publication-entry__type">{formatPublicationEntryType(entry.type)}</span>
-                  <h3>{toDisplayText(entry.title)}</h3>
+                  <h3>{normUrl ? <a href={normUrl}>{toDisplayText(entry.title)}</a> : toDisplayText(entry.title)}</h3>
                   <p class="law-publication-entry__citation"><strong>Fundstelle</strong>{toDisplayText(entry.citation)}
                   {entry.pages
                     ? <span> · Seiten {entry.pages}</span>
@@ -112,9 +123,7 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
                   <div class="law-publication-entry__links">
                   {normUrl ? (
                     <>
-                      <a class="inline-link" href={normUrl}>
-                        {entry.versionId ? `Fassung ${entry.versionId}` : 'Norm öffnen'}
-                      </a>
+                      {versionLabel ? <span class="law-publication-entry__version">{versionLabel}</span> : null}
                       {legalRelations.length > 0 ? (
                         <ul class="publication-relation-list">
                           {legalRelations.map((relation) => {
@@ -131,7 +140,7 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
                       ) : null}
                     </>
                   ) : (
-                    <span>Keine Normfassung zugeordnet</span>
+                    <span>Text nicht im Rechtsportal enthalten</span>
                   )}
                   </div>
                 </div>
@@ -139,14 +148,14 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
             );
           })}
       </ol>
-    </main>
+    </section>
 
     <aside class="law-publication-sources">
       <span class="section-eyebrow">Dokumentnachweis</span>
       <h2>Ausgabe und Quellen</h2>
       <p>
-        Die verlinkte Normfassung und die Fundstelle dokumentieren die Ausgabe, in der die
-        Vorschrift oder Bekanntmachung geführt wird.
+        Die verlinkte Fassung und die Fundstelle weisen die Ausgabe nach, in der die Vorschrift
+        oder Bekanntmachung geführt wird.
       </p>
     {publication.pdf ? (
       <p class="section-link-row">
@@ -155,11 +164,11 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
     ) : (
       <p class="detail-line">Für diese Ausgabe liegt derzeit kein PDF vor.</p>
     )}
-    {publication.sourceReferences && publication.sourceReferences.length > 0 ? (
+    {sourceLinks.length > 0 ? (
       <ul class="link-list">
-        {publication.sourceReferences.map((source) => (
+        {sourceLinks.map((source) => (
           <li>
-            <strong>{toDisplayText(source.label)}</strong>
+            <a class="inline-link" href={source.url}>{toDisplayText(source.label)}</a>
             {source.pageRange ? ` · Seiten ${source.pageRange}` : ''}
           </li>
         ))}

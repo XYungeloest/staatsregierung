@@ -2,13 +2,12 @@
   "id": "aend-schulg-18784",
   "slug": "aend-schulg-18784",
   "title": "Änderung des Ostdeutschen Schulgesetzes",
-  "shortTitle": "Änd. SchulG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SchulG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-einfuehrung-gemeinschaftsschule",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SchulG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Schulgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-07-15",
   "effectiveDate": "2020-08-01",
@@ -33,6 +33,7 @@
       "sha256": "18c24eecf67a5ce25cf6c9ace30c8130d2860c49be4b6a27d27275c08f58217a",
       "lawId": "18784",
       "sourceValidFrom": "2020-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

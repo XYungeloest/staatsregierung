@@ -2,15 +2,14 @@
   "id": "aend-ifsgzuvo",
   "slug": "aend-ifsgzuvo",
   "title": "Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Infektionsschutzgesetz-Zuständigkeitsverordnung",
-  "shortTitle": "Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Infektionsschutzgesetz-Zuständigkeitsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Infektionsschutzgesetz-Zuständigkeitsverordnung",
+    "Änd. IfSGZuVO",
     "Soziales",
     "Gesellschaftlichen",
     "Zusammenhalt",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Infektionsschutzgesetz-Zuständigkeitsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-03-13",
   "effectiveDate": "2020-03-18",
@@ -35,8 +35,12 @@
       "sha256": "5b1b1a08d191e7d645aa9a4b1e3517752484cd5cec3282e7ae79aac417e13c1a",
       "lawId": "18613",
       "sourceValidFrom": "2020-03-18",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-der-ostdeutschen-staatsregierung-und-des-ostdeutschen-staatsministeriums-fuer-18010-9"
   ]
 }

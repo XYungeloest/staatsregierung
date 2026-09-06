@@ -2,15 +2,14 @@
   "id": "aend-ostlerzgg-13993-1",
   "slug": "aend-ostlerzgg-13993-1",
   "title": "Drittes Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes",
-  "shortTitle": "Drittes Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Familie, Kinder"
   ],
+  "primarySubject": "Familie, Kinder",
   "keywords": [
-    "Drittes Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes",
+    "Änd. OstLErzGG",
     "Drittes",
     "Änderung",
     "Landeserziehungsgeldgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Drittes Gesetz zur Änderung des Ostdeutschen Landeserziehungsgeldgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-05-09",
   "effectiveDate": "2013-08-01",
@@ -33,8 +33,12 @@
       "sha256": "72a5d38305872f6f1e9f38d8adaf349b24eddb24784825812e60db22d5779f85",
       "lawId": "13993",
       "sourceValidFrom": "2013-08-01",
+      "fsnNumber": "812",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-landeserziehungsgeldgesetz"
   ]
 }

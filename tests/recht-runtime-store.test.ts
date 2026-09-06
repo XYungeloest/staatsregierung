@@ -2,9 +2,11 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
+import type { NormSearchState } from '@ostrecht/recht-search/search-query.ts';
 import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
+import { isInheritedAmendment } from '@ostrecht/shared/lib/norms/inventory.ts';
 
-import { assembleBlocks, createFileNormStore, selectedVersionIds } from '../apps/recht/src/lib/runtime/store.ts';
+import { assembleBlocks, createFileNormStore, selectedVersionIds, type NormSummary } from '../apps/recht/src/lib/runtime/store.ts';
 import { FIXTURE_REFERENCE_DATE, fixtureCorpus } from './helpers/fixture-corpus.ts';
 
 /**
@@ -14,15 +16,31 @@ import { FIXTURE_REFERENCE_DATE, fixtureCorpus } from './helpers/fixture-corpus.
  */
 const { norms, publications } = fixtureCorpus();
 const store = createFileNormStore({ loadAllNorms: async () => norms, loadAllVerkuendungen: async () => publications, buildSearchDocument });
+/**
+ * Grundmenge des Fixtures: alles außer den übernommenen Änderungsvorschriften. Verzeichnisse,
+ * A–Z, Sachgebiete und Bestandszahlen beschreiben sie; die Erwartungen werden aus dem Bestand
+ * gerechnet, nicht als Zahl geschrieben.
+ */
+const allSummaries = (): Promise<NormSummary[]> => store.listNormSummaries({ includeInheritedAmendments: true });
+const inventorySize = (list: NormSummary[]): number => list.filter((summary) => !isInheritedAmendment(summary)).length;
 
 test('Übersichtszeilen, Normen mit gewünschten Körpern, Ableitungen und Verkündungen', async () => {
   const summaries = await store.listNormSummaries();
-  assert.equal(summaries.length, norms.length);
+  const everything = await allSummaries();
+  assert.equal(everything.length, norms.length);
+  // Übernommene Änderungsvorschriften stehen nicht neben den Stammnormen.
+  assert.equal(summaries.length, inventorySize(everything));
+  assert.ok(summaries.length < everything.length, 'das Fixture führt mindestens eine übernommene Änderungsvorschrift');
+  assert.ok(summaries.every((summary) => !isInheritedAmendment(summary)));
   assert.ok(summaries.every((summary) => summary.slug && summary.title && summary.type && summary.currentVersionId));
+  // Der Normtypfilter holt sie zurück, sonst bliebe er ohne Treffer.
+  const amendments = await store.listNormSummaries({ types: ['aenderungsvorschrift'] });
+  assert.ok(amendments.some((summary) => isInheritedAmendment(summary)));
   const regulations = await store.listNormSummariesByType('verordnung');
   assert.ok(regulations.length > 0);
   assert.deepEqual(regulations.map((summary) => summary.slug), summaries.filter((summary) => summary.type === 'verordnung').map((summary) => summary.slug));
   const amended = (await store.getNormSummaries(['testgesetz', 'gibt-es-nicht'])).get('testgesetz');
+  assert.ok(amended?.sortWord && amended.sortKey === amended.sortKey.toLocaleLowerCase('de'), 'Ordnungswort und Vergleichsschlüssel stehen in der Übersichtszeile');
   assert.ok(amended);
   assert.equal(amended.originKind, 'inherited-amended');
   assert.equal(amended.versionCount, 2);
@@ -68,15 +86,21 @@ test('Übersichtsdaten: Änderungen, Sachgebiete, Bestandszahlen, Vorschläge, S
   const summaries = await store.listNormSummaries();
   assert.equal(subjects.reduce((sum, subject) => sum + subject.normCount, 0), summaries.reduce((sum, summary) => sum + new Set(summary.subjects).size, 0));
   assert.ok(areas.length > 0 && areas.every((area) => area.subjects.length > 0));
+  // Sachgebiete tragen ihre amtliche Nummer und stehen in der Reihenfolge der Systematik.
+  assert.ok(subjects.every((subject) => /^\d{2}$/u.test(subject.number ?? '')));
+  assert.deepEqual(subjects.map((subject) => subject.number), [...subjects.map((subject) => subject.number)].sort());
+  assert.ok(areas.every((area) => /^\d$/u.test(area.number ?? '') && area.subjects.every((subject) => subject.number?.startsWith(area.number ?? ''))));
   assert.equal(stats.normCount, summaries.length);
   assert.equal(stats.inForceCount, summaries.filter((summary) => summary.status === 'in-force').length);
+  assert.equal(stats.normCount + stats.inheritedAmendmentCount, norms.length, 'Grundmenge und übernommene Änderungsvorschriften ergeben den Bestand');
   const bySubject = await store.listNormSummaries({ subjectSlug: subjects[0].slug });
   assert.equal(bySubject.length, subjects[0].normCount);
   const suggestions = await store.listSearchSuggestions();
   assert.ok(suggestions.some((suggestion) => suggestion.slug === 'testgesetz'));
   const { filters, documentCount } = await store.getSearchFilters();
   assert.ok(filters.types.length > 0);
-  assert.equal(documentCount, summaries.reduce((sum, summary) => sum + summary.versionCount, 0));
+  // Die Suche kennt alle Fassungen, auch die der übernommenen Änderungsvorschriften.
+  assert.equal(documentCount, (await allSummaries()).reduce((sum, summary) => sum + summary.versionCount, 0));
   assert.equal((await store.listSearchPublications()).length, publications.length);
 });
 
@@ -112,11 +136,18 @@ test('Übersichten ohne Suchbegriff: jüngstes Rechtsereignis zuerst (wie D1), A
   const filtered = await store.queryNormSummaries({ sort: 'activity', types: ['gesetz'], page: 1, pageSize: 20 });
   assert.ok(filtered.items.length > 0 && filtered.items.every((item) => item.type === 'gesetz'));
   assert.ok(filtered.items.every((item, index) => index === 0 || (filtered.items[index - 1].lastChangeDate ?? '') >= (item.lastChangeDate ?? '')));
-  const alphabetical = await store.queryNormSummaries({ letter: 'O', page: 1, pageSize: 20 });
-  assert.ok(alphabetical.items.length > 1);
-  assert.ok(alphabetical.items.every((item, index) => index === 0 || alphabetical.items[index - 1].title.toLocaleLowerCase('de').localeCompare(item.title.toLocaleLowerCase('de'), 'de') <= 0));
-  const candidates = await store.searchCandidates({ match: null, limit: 20, offset: 0 });
-  assert.deepEqual(candidates.slugs, page.items.map((item) => item.slug), 'Kandidaten ohne Suchausdruck in derselben Reihenfolge wie die Übersicht');
+  // Buchstabengruppe zur Laufzeit wählen: die Einordnung folgt dem Ordnungswort, nicht dem Titel.
+  const letters = await store.listIndexLetters();
+  const filled = letters.find((entry) => entry.count > 1) ?? letters[0];
+  const alphabetical = await store.queryNormSummaries({ letter: filled.letter, page: 1, pageSize: 20 });
+  assert.equal(alphabetical.total, filled.count);
+  assert.ok(alphabetical.items.every((item) => getGermanIndexLetter(item.sortWord) === filled.letter));
+  assert.ok(alphabetical.items.every((item, index) => index === 0 || alphabetical.items[index - 1].sortKey <= item.sortKey));
+  const candidates = await store.searchCandidates({ match: null, limit: 50, offset: 0 });
+  // Die Kandidatenmenge der Suche ist nicht die Grundmenge der Verzeichnisse; verglichen wird die
+  // Reihenfolge über denselben Bestand.
+  const everything = await store.queryNormSummaries({ sort: 'activity', includeInheritedAmendments: true, page: 1, pageSize: 50 });
+  assert.deepEqual(candidates.slugs, everything.items.map((item) => item.slug), 'Kandidaten ohne Suchausdruck in derselben Reihenfolge wie die Übersicht');
 });
 
 test('Buchstabenzähler eines Verzeichnisses folgen dem Normtyp- bzw. Sachgebietsfilter', async () => {
@@ -146,15 +177,54 @@ test('Suchkandidaten und Suchdokumente entsprechen dem Suchindexformat; der Herk
   const all = await store.searchCandidates({ match: null, limit: 1000, offset: 0 });
   const originals = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['ostdeutsch-original'] });
   const inherited = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['inherited-unchanged', 'inherited-amended'] });
+  const unresolved = await store.searchCandidates({ match: null, limit: 1000, offset: 0, origins: ['origin-unresolved'] });
   assert.ok(originals.total > 0 && originals.total < all.total);
   assert.equal(originals.slugs.length, originals.total);
-  assert.equal(originals.total + inherited.total, all.total);
-  const summariesBySlug = new Map((await store.listNormSummaries()).map((summary) => [summary.slug, summary]));
+  // Die vier Herkunftsarten zerlegen den Bestand vollständig und überschneidungsfrei.
+  assert.ok(unresolved.total > 0, 'der Bestand enthält eine Norm ungeklärter Herkunft');
+  assert.equal(originals.total + inherited.total + unresolved.total, all.total);
+  // Die Suche kennt auch die übernommenen Änderungsvorschriften; die Zuordnung nutzt den vollen Bestand.
+  const summariesBySlug = new Map((await allSummaries()).map((summary) => [summary.slug, summary]));
   assert.ok(originals.slugs.every((slug) => summariesBySlug.get(slug)?.originKind === 'ostdeutsch-original'));
   assert.ok(inherited.slugs.every((slug) => summariesBySlug.get(slug)?.originKind?.startsWith('inherited-')));
   const searched = await store.searchCandidates({ match: '("testgesetz"*)', limit: 10, offset: 0, origins: ['ostdeutsch-original'] });
   assert.ok(!searched.slugs.includes('testgesetz'), 'übernommene Norm fällt beim Filter auf ostdeutsch-original heraus');
   assert.ok(searched.slugs.includes('aenderungsgesetz-testgesetz'));
+});
+
+/** Suchzustand der Dateivariante; sie bewertet mit derselben Logik wie die Anzeige. */
+function searchState(overrides: Partial<NormSearchState> = {}): NormSearchState {
+  return {
+    q: '', exclude: '', exact: '', scope: 'all', types: [], ministries: [], subjects: [], statuses: [], origins: [],
+    versionScope: 'current', includeAmendments: false, geltungstag: '', validFrom: '', validTo: '', citation: '',
+    publicationSources: [], publicationYears: [], publicationIssue: '', publicationPage: '',
+    sort: 'activity', sortExplicit: false, ...overrides,
+  };
+}
+
+test('Trefferseite, Gesamtzahl und Facettenzähler der Dateivariante beschreiben dieselbe Menge', async () => {
+  const state = searchState();
+  const all = await store.searchCandidates({ match: null, limit: 500, offset: 0, state });
+  assert.equal(all.slugs.length, all.total, 'die Gesamtzahl zählt genau die gelieferten Vorschriften');
+  assert.equal(new Set(all.slugs).size, all.slugs.length, 'jede Vorschrift steht einmal in der Liste');
+  const first = await store.searchCandidates({ match: null, limit: 5, offset: 0, state });
+  const second = await store.searchCandidates({ match: null, limit: 5, offset: 5, state });
+  assert.equal(first.total, all.total);
+  assert.deepEqual([...first.slugs, ...second.slugs], all.slugs.slice(0, 10), 'echtes Blättern ohne Lücken und Doppelungen');
+
+  const facets = await store.countSearchFacets({ match: null, limit: 5, offset: 0, state });
+  const sum = (counts: Record<string, number>) => Object.values(counts).reduce((total, count) => total + count, 0);
+  assert.equal(sum(facets.type), all.total, 'jede Vorschrift trägt genau einen Normtyp');
+  assert.equal(sum(facets.origin), all.total, 'die Herkunftsarten zerlegen die Treffermenge');
+  assert.ok(sum(facets.subject) >= all.total, 'eine Vorschrift kann mehreren Sachgebieten angehören');
+
+  // Grundmenge: übernommene Änderungsvorschriften kommen erst mit dem Häkchen hinzu.
+  const withAmendments = await store.searchCandidates({ match: null, limit: 500, offset: 0, state: searchState({ includeAmendments: true }) });
+  assert.ok(withAmendments.total > all.total, 'das Häkchen erweitert die Menge');
+
+  // Identität zuerst: die Abkürzung einer Vorschrift führt sie an die Spitze der Trefferliste.
+  const identity = await store.searchCandidates({ match: '("osttestg"*)', limit: 20, offset: 0, state: searchState({ q: 'OstTestG', sort: 'relevance' }) });
+  assert.equal(identity.slugs[0], 'testgesetz');
 });
 
 test('Body-Blöcke werden aus Teilen in Reihenfolge zusammengesetzt', () => {
@@ -175,19 +245,20 @@ test('Body-Blöcke werden aus Teilen in Reihenfolge zusammengesetzt', () => {
 
 test('seitenweise Übersichten mit Buchstaben-, Freitext-, Herkunfts- und Sachgebietsfilter sowie Stichwortindex', async () => {
   const letters = await store.listIndexLetters();
-  const letterO = letters.find((entry) => entry.letter === 'O');
-  assert.ok(letterO && letterO.count > 2);
-  assert.equal(letters.reduce((sum, entry) => sum + entry.count, 0), norms.length);
-  const first = await store.queryNormSummaries({ letter: 'O', page: 1, pageSize: 2 });
+  // Eine Buchstabengruppe mit mehreren Seiten wird zur Laufzeit bestimmt, nicht angenommen.
+  const group = letters.find((entry) => entry.count > 2) ?? letters[0];
+  assert.ok(group.count > 0);
+  assert.equal(letters.reduce((sum, entry) => sum + entry.count, 0), inventorySize(await allSummaries()));
+  const first = await store.queryNormSummaries({ letter: group.letter, page: 1, pageSize: 2 });
   assert.equal(first.pageSize, 2);
   assert.ok(first.items.length <= 2);
-  assert.ok(first.items.every((summary) => getGermanIndexLetter(summary.title) === 'O'));
-  assert.equal(first.total, letterO.count);
+  assert.ok(first.items.every((summary) => getGermanIndexLetter(summary.sortWord) === group.letter));
+  assert.equal(first.total, group.count);
   assert.equal(first.pageCount, Math.ceil(first.total / 2));
-  const second = await store.queryNormSummaries({ letter: 'O', page: 2, pageSize: 2 });
+  const second = await store.queryNormSummaries({ letter: group.letter, page: 2, pageSize: 2 });
   assert.ok(second.items.length > 0);
   assert.ok(second.items.every((summary) => !first.items.some((entry) => entry.slug === summary.slug)), 'Seiten überschneiden sich nicht');
-  const beyond = await store.queryNormSummaries({ letter: 'O', page: 999, pageSize: 2 });
+  const beyond = await store.queryNormSummaries({ letter: group.letter, page: 999, pageSize: 2 });
   assert.equal(beyond.page, beyond.pageCount, 'zu große Seite fällt auf die letzte zurück');
   const text = await store.queryNormSummaries({ q: 'testgesetz' });
   assert.ok(text.items.some((summary) => summary.slug === 'testgesetz'));

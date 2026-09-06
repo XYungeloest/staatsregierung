@@ -2,15 +2,13 @@
   "id": "aend-tierbeitrbefrvo",
   "slug": "aend-tierbeitrbefrvo",
   "title": "Erste Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Tierbeitragsbefreiungsverordnung",
-  "shortTitle": "Erste Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Tierbeitragsbefreiungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Umwelt, Energie und Klimaschutz"
+    "Landwirtschaft und Ernährungswirtschaft"
   ],
+  "primarySubject": "Landwirtschaft und Ernährungswirtschaft",
   "keywords": [
-    "Erste Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Tierbeitragsbefreiungsverordnung",
+    "Änd. TierBeitrBefrVO",
     "Erste",
     "Soziales",
     "Verbraucherschutz",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erste Verordnung des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur Änderung der Tierbeitragsbefreiungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-10-22",
   "effectiveDate": "2016-01-01",
@@ -35,8 +34,12 @@
       "sha256": "99f8eb4c9b369fe4ef1d5f414d62c1cb820186d105f534c3bdea14bfdcfbd9bd",
       "lawId": "16707",
       "sourceValidFrom": "2016-01-01",
+      "fsnNumber": "634",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-fuer-soziales-und-verbraucherschutz-ueber-die-15292-2"
   ]
 }

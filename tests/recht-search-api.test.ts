@@ -1,21 +1,32 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { buildFtsColumnMatch, buildFtsMatch, buildSearchQueryPlan, searchScopeColumns, type NormSearchState } from '@ostrecht/recht-search/search-query.ts';
 import type { SearchPublication } from '@ostrecht/recht-search/search.ts';
 
-import { buildFtsMatch, citedPublications, parseOriginFilter } from '../apps/recht/src/pages/api/suche.json.ts';
+import { citedPublications, parseLimit, parseOriginFilter, parseScope, parseSort, parseVersionScope } from '../apps/recht/src/pages/api/suche.json.ts';
 
 const publication = (overrides: Partial<SearchPublication>): SearchPublication => ({
-  slug: 'ogvbl-2026-73', url: '/verkuendungen/ogvbl-2026-73/', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 73',
-  designation: 'OGVBl. 2026 Nr. 73', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 73'], date: '2026-09-02',
-  publication: 'OGVBl.', year: '2026', issue: '73', ...overrides,
+  slug: 'ogvbl-2026-99', url: '/verkuendungen/ogvbl-2026-99/', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 99',
+  designation: 'OGVBl. 2026 Nr. 99', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 99'], date: '2026-09-02',
+  publication: 'OGVBl.', year: '2026', issue: '99', ...overrides,
 });
 const publications = [
   publication({}),
-  publication({ slug: 'ogvbl-2026-7', designation: 'OGVBl. 2026 Nr. 7', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 7', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 7'], issue: '7' }),
+  publication({ slug: 'ogvbl-2026-9', designation: 'OGVBl. 2026 Nr. 9', title: 'Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 9', aliases: ['Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 9'], issue: '9'}),
   publication({ slug: 'overtrbl-2026-04', designation: 'OVertrBl. 2026 Nr. 4', title: 'Ostdeutsches Vertragsblatt 2026 Nr. 4', aliases: ['Ostdeutsches Vertragsblatt 2026 Nr. 4'], publication: 'OVertrBl.', issue: '4', date: '2026-03-24' }),
   publication({ slug: 'overtrbl-2026-40', designation: 'OVertrBl. 2026 Nr. 40', title: 'Ostdeutsches Vertragsblatt 2026 Nr. 40', aliases: ['Ostdeutsches Vertragsblatt 2026 Nr. 40'], publication: 'OVertrBl.', issue: '40', date: '2026-12-01' }),
 ];
+
+/** Suchzustand für die Planprüfungen; dieselben Vorgaben wie die Suchseite. */
+function searchState(overrides: Partial<NormSearchState> = {}): NormSearchState {
+  return {
+    q: '', exclude: '', exact: '', scope: 'all', types: [], ministries: [], subjects: [], statuses: [], origins: [],
+    versionScope: 'current', includeAmendments: false, geltungstag: '', validFrom: '', validTo: '', citation: '',
+    publicationSources: [], publicationYears: [], publicationIssue: '', publicationPage: '',
+    sort: 'relevance', sortExplicit: false, ...overrides,
+  };
+}
 
 test('zitierte Ausgaben werden an Wortgrenzen erkannt – mit und ohne Punkte, als Langtitel, nie als Teil einer anderen Nummer', () => {
   const slugs = (query: string) => citedPublications(query, publications).map((entry) => entry.slug);
@@ -23,15 +34,42 @@ test('zitierte Ausgaben werden an Wortgrenzen erkannt – mit und ohne Punkte, a
   assert.deepEqual(slugs('OVertrBl 2026 Nr 4 S. 2'), ['overtrbl-2026-04']);
   assert.deepEqual(slugs('Staatsvertrag overtrbl. 2026 nr. 4'), ['overtrbl-2026-04']);
   assert.deepEqual(slugs('Ostdeutsches Vertragsblatt 2026 Nr. 40'), ['overtrbl-2026-40']);
-  assert.deepEqual(slugs('OGVBl. 2026 Nr. 73'), ['ogvbl-2026-73']);
-  assert.deepEqual(slugs('OGVBl. 2026 Nr. 7'), ['ogvbl-2026-7']);
-  assert.deepEqual(slugs('Zinnwald'), []);
+  assert.deepEqual(slugs('OGVBl. 2026 Nr. 99'), ['ogvbl-2026-99']);
+  assert.deepEqual(slugs('OGVBl. 2026 Nr. 9'), ['ogvbl-2026-9']);
+  assert.deepEqual(slugs('Testbegriff'), []);
   assert.deepEqual(slugs('2026 Nr. 4'), []);
   assert.deepEqual(slugs(''), []);
 });
 
-test('Herkunftsfilter und FTS-Ausdruck der Kandidaten-API bleiben fail-safe', () => {
+test('Herkunftsfilter und FTS-Ausdruck bleiben fail-safe', () => {
+  const plan = (overrides: Partial<NormSearchState>) => buildSearchQueryPlan(searchState(overrides));
   assert.deepEqual(parseOriginFilter(['inherited-amended', 'unbekannt', 'inherited-amended', 'ostdeutsch-original']), ['inherited-amended', 'ostdeutsch-original']);
-  assert.equal(buildFtsMatch({ q: '', exact: '', citation: '' }), null);
-  assert.match(buildFtsMatch({ q: 'Zinnwald', exact: '', citation: '' }) ?? '', /"zinnwald"\*/u);
+  assert.equal(buildFtsMatch(plan({})), null);
+  assert.match(buildFtsMatch(plan({ q: 'Testbegriff' })) ?? '', /"testbegriff"\*/u);
+  // Mehrere Begriffe sammeln Kandidaten großzügig; die Verknüpfung leisten die UND-Bedingungen.
+  assert.match(buildFtsMatch(plan({ q: 'Testbegriff Zweitbegriff' })) ?? '', /\) OR \(/u);
+  // Eine Anfrage aus Normtyp oder Strukturadresse allein läuft über die Filterspalten.
+  assert.equal(buildFtsMatch(plan({ q: 'Verordnungen' })), null);
+  assert.equal(buildFtsMatch(plan({ q: '§ 2a' })), null);
+  // Spaltenfilter je Suchbereich.
+  assert.equal(searchScopeColumns('all'), null);
+  assert.equal(searchScopeColumns('metadata'), null, 'Metadaten trennt die Einheitenart, nicht der Spaltenfilter');
+  assert.equal(buildFtsColumnMatch(searchScopeColumns('title'), '("amt"*)'), '{title short_title abbr}: ("amt"*)');
+  assert.equal(buildFtsColumnMatch(searchScopeColumns('body'), '("amt"*)'), '{label heading body}: ("amt"*)');
+});
+
+test('Anfrageparameter der Such-API werden begrenzt und fail-safe gelesen', () => {
+  assert.equal(parseLimit(null), 20, 'ohne Angabe eine Seite von zwanzig Treffern');
+  assert.equal(parseLimit('50'), 50);
+  assert.equal(parseLimit('5000'), 100, 'die Seitengröße bleibt bei hundert');
+  assert.equal(parseLimit('0'), 20);
+  assert.equal(parseLimit('keine Zahl'), 20);
+  assert.equal(parseScope('body'), 'body');
+  assert.equal(parseScope('unbekannt'), 'all');
+  assert.deepEqual(parseSort('title'), { sort: 'title', explicit: true });
+  assert.deepEqual(parseSort(null), { sort: 'activity', explicit: false });
+  assert.deepEqual(parseSort('unbekannt'), { sort: 'activity', explicit: false });
+  assert.equal(parseVersionScope('historical'), 'historical');
+  assert.equal(parseVersionScope('all'), 'all');
+  assert.equal(parseVersionScope('unbekannt'), undefined);
 });

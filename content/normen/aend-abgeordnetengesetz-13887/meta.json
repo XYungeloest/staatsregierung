@@ -2,13 +2,12 @@
   "id": "aend-abgeordnetengesetz-13887",
   "slug": "aend-abgeordnetengesetz-13887",
   "title": "Änderung des Abgeordnetengesetzes",
-  "shortTitle": "Änd. Abgeordnetengesetz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd. Abgeordnetengesetz",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "ostdeutsches-dienstrechtsneuordnungsgesetz",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Abgeordnetengesetz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Abgeordnetengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2013-12-18",
   "effectiveDate": "2014-04-01",
@@ -33,6 +33,7 @@
       "sha256": "9fbbfa413795be722c73e7ae9482beba202e9e6bdf1dc68b93eec875b655a075",
       "lawId": "13887",
       "sourceValidFrom": "2014-04-01",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

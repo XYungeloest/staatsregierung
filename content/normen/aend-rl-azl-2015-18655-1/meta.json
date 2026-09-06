@@ -2,15 +2,13 @@
   "id": "aend-rl-azl-2015-18655-1",
   "slug": "aend-rl-azl-2015-18655-1",
   "title": "Vierte Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage",
-  "shortTitle": "Vierte Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Vierte Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage",
+    "Änd. RL AZL/2015",
     "Vierte",
     "Energie",
     "Klimaschutz",
@@ -24,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Vierte Richtlinie des Ostdeutschen Staatsministeriums für Energie, Klimaschutz, Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Ausgleichszulage“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-03-19",
   "effectiveDate": "2020-03-01",
@@ -39,8 +38,12 @@
       "lawId": "18655",
       "sourceValidFrom": "2020-03-01",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "5563",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-ausgleichszulage"
   ]
 }

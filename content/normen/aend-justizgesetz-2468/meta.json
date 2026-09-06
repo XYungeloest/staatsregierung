@@ -2,13 +2,12 @@
   "id": "aend-justizgesetz-2468",
   "slug": "aend-justizgesetz-2468",
   "title": "Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitle": "Änd. Justizgesetz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
     "Änd. Justizgesetz",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ostpolg",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Justizgesetz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Justizgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2004-05-04",
   "effectiveDate": "2005-01-01",
@@ -46,6 +46,7 @@
       "sha256": "1d1a4da7d14d0893f2c9dc7edfc8e1e223717b95b4f311800f0ae8e5fa57846a",
       "lawId": "2411",
       "sourceValidFrom": "2004-05-23",
+      "fsnNumber": "22",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

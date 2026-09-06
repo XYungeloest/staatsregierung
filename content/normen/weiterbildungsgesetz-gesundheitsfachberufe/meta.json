@@ -1,26 +1,29 @@
 {
   "id": "weiterbildungsgesetz-gesundheitsfachberufe",
   "slug": "weiterbildungsgesetz-gesundheitsfachberufe",
-  "title": "Weiterbildungsgesetz Gesundheitsfachberufe",
+  "title": "Gesetz über die Weiterbildung in den Gesundheitsfachberufen im Freistaat Ostdeutschland",
   "shortTitle": "Weiterbildungsgesetz Gesundheitsfachberufe",
-  "abbr": "OstGfbWBG",
   "shortTitleSource": "official",
+  "abbr": "OstGfbWBG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Bildung und Weiterbildung"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "OstGfbWBG",
     "Weiterbildungsgesetz Gesundheitsfachberufe",
+    "Weiterbildung",
+    "Gesundheitsfachberufen",
     "Weiterbildungsgesetz",
-    "Gesundheitsfachberufe"
+    "Gesundheitsfachberufe",
+    "OstGfbWBG"
   ],
   "initialCitation": "Weiterbildungsgesetz Gesundheitsfachberufe vom 4. November 2002 (SächsGVBl. S. 266), das zuletzt durch Artikel 2 des Gesetzes vom 5. Juli 2023 (SächsGVBl. S. 559) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Weiterbildungsgesetz Gesundheitsfachberufe“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2002-11-04",
   "sourceReferences": [
@@ -34,6 +37,7 @@
       "sha256": "6fed2b71e74840245d5bfbdb3c0337710a8a76aa53c420a6bf9a34147ee07c15",
       "lawId": "1108",
       "sourceValidFrom": "2023-08-01",
+      "fsnNumber": "253-8",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

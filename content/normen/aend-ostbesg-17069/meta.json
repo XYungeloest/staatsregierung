@@ -2,13 +2,12 @@
   "id": "aend-ostbesg-17069",
   "slug": "aend-ostbesg-17069",
   "title": "Änderung des Ostdeutschen Besoldungsgesetzes",
-  "shortTitle": "Änd. OstBesG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstBesG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2017-2018",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBesG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Besoldungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-12-15",
   "effectiveDate": "2017-01-01",
@@ -33,6 +33,7 @@
       "sha256": "e69730969fd7e98b3e6f1648b289b5c1437951ff01acb618bb4f29eda6b0ca84",
       "lawId": "17069",
       "sourceValidFrom": "2017-01-01",
+      "fsnNumber": "242",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -3,7 +3,9 @@ import DirectoryEntry from './DirectoryEntry.astro';
 import DirectoryFilterBar from './DirectoryFilterBar.astro';
 import DirectoryPagination from './DirectoryPagination.astro';
 import LetterNav from './LetterNav.astro';
-import { formatDate, formatNormStatus, formatNormType, getNormUrl, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatDate, formatNormType, getNormTitleBlock, getNormUrl, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { directoryDescription, type DirectoryNormSummary } from '../../lib/norm-summary.ts';
+import { LEGAL_STATUS_FIELD_LABEL, VALIDITY_FIELD_LABEL, validityLabel } from '../../lib/vocabulary.ts';
 import type { NormDirectoryView } from '../../lib/runtime/directory.ts';
 
 /**
@@ -43,22 +45,27 @@ const { result } = view;
 
   {result.items.length > 0 ? (
     <ol class="directory-list" start={view.firstIndex} data-directory-list>
-      {result.items.map((norm) => (
-        <DirectoryEntry
-          title={toDisplayText(norm.title)}
-          href={getNormUrl(norm.slug)}
-          lead={{ text: formatDate(norm.currentValidFrom), datetime: norm.currentValidFrom }}
-          subtitle={norm.abbr ? toDisplayText(norm.abbr) : undefined}
-          description={toDisplayText(norm.summary)}
-          typeLabel={formatNormType(norm.type)}
-          originKind={norm.originKind ?? null}
-          facts={[
-            { label: 'Rechtsstand', value: formatNormStatus(norm.status) },
-            ...(norm.responsibleMinistry ? [{ label: 'Ressort', value: toDisplayText(norm.responsibleMinistry) }] : []),
-          ]}
-          attrs={{ 'data-directory-entry': '', 'data-origin': norm.originKind ?? 'origin-unresolved', 'data-type': norm.type, 'data-status': norm.status }}
-        />
-      ))}
+      {result.items.map((item) => {
+        const norm = item as DirectoryNormSummary;
+        const block = getNormTitleBlock(norm);
+        return (
+          <DirectoryEntry
+            title={block.heading}
+            href={getNormUrl(norm.slug)}
+            abbr={block.abbr}
+            longTitle={block.longTitle}
+            lead={{ label: LEGAL_STATUS_FIELD_LABEL, text: formatDate(norm.currentValidFrom), datetime: norm.currentValidFrom }}
+            description={directoryDescription(norm)}
+            typeLabel={formatNormType(norm.type)}
+            originKind={norm.originKind ?? null}
+            facts={[
+              { label: VALIDITY_FIELD_LABEL, value: validityLabel(norm.status) },
+              ...(norm.responsibleMinistry ? [{ label: 'Ressort', value: toDisplayText(norm.responsibleMinistry) }] : []),
+            ]}
+            attrs={{ 'data-directory-entry': '', 'data-origin': norm.originKind ?? 'origin-unresolved', 'data-type': norm.type, 'data-status': norm.status }}
+          />
+        );
+      })}
     </ol>
   ) : (
     <p class="directory-empty" data-directory-empty>

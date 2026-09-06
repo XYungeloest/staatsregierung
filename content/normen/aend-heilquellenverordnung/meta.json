@@ -2,12 +2,11 @@
   "id": "aend-heilquellenverordnung",
   "slug": "aend-heilquellenverordnung",
   "title": "Änderung der Heilquellenverordnung",
-  "shortTitle": "Änd. Heilquellenverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Bergbau, Energiewirtschaft, Wasserwirtschaft"
   ],
+  "primarySubject": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
   "keywords": [
     "Änd. Heilquellenverordnung",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-aend-wasserrechtlicher-verordnungen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Heilquellenverordnung“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Heilquellenverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-06-12",
   "effectiveDate": "2014-07-13",
@@ -32,6 +32,7 @@
       "sha256": "08abc498c0a2bbd59972fee7992b8d61d8527c185b28c2521f9632b8af89d37b",
       "lawId": "14033",
       "sourceValidFrom": "2014-07-13",
+      "fsnNumber": "612",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

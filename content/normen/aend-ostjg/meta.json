@@ -2,15 +2,14 @@
   "id": "aend-ostjg",
   "slug": "aend-ostjg",
   "title": "Gesetz zur Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Justizgesetzes",
+    "Änd. OstJG",
     "Änderung",
     "Justizgesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Justizgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-03-04",
   "effectiveDate": "2011-03-31",
@@ -32,8 +32,12 @@
       "sha256": "f958ce9c94140602b6f2695de7e5f07622a0a4953b712bd33c8f592370596d2a",
       "lawId": "11690",
       "sourceValidFrom": "2011-03-31",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-justizgesetz"
   ]
 }

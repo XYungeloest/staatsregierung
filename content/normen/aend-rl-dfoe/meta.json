@@ -2,15 +2,13 @@
   "id": "aend-rl-dfoe",
   "slug": "aend-rl-dfoe",
   "title": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Denkmalförderung",
-  "shortTitle": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Denkmalförderung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Denkmalförderung",
+    "Änd. RL DFö",
     "Zweite",
     "Regionalentwicklung",
     "Änderung",
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der RL Denkmalförderung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-10-27",
   "effectiveDate": "2021-11-19",
@@ -34,8 +33,12 @@
       "sha256": "280a759740690bbdacc28380e04e494f7d1ef65a78d926575a65edc007038476",
       "lawId": "19399",
       "sourceValidFrom": "2021-11-19",
+      "fsnNumber": "5571",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "rl-denkmalfoerderung"
   ]
 }

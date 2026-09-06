@@ -2,12 +2,11 @@
   "id": "aend-ostplanzvo-19119",
   "slug": "aend-ostplanzvo-19119",
   "title": "Änderung der Ostdeutschen Planzeichenverordnung",
-  "shortTitle": "Änd. OstPlanzVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Raumordnung, Landesplanung"
   ],
+  "primarySubject": "Raumordnung, Landesplanung",
   "keywords": [
     "Änd. OstPlanzVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-ressortbezeichnung-smr",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstPlanzVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ostdeutschen Planzeichenverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2021-04-12",
   "effectiveDate": "2021-05-13",
@@ -32,6 +32,7 @@
       "sha256": "cf3ba468a0da1b69d6a089f352526f447fa77cc896d6b0c6e1d9f71689fbf6a6",
       "lawId": "19119",
       "sourceValidFrom": "2021-05-13",
+      "fsnNumber": "40",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

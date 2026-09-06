@@ -5,6 +5,14 @@ import type {
   NormVersion,
 } from '@ostrecht/shared/lib/norms/schema.ts';
 
+/**
+ * Herkunftsmodell der Rechtsvorschriften (Baseline, eigene Änderungen, Herkunftsart) und die
+ * projizierte Bezeichnung `formatNormOriginKind`. Teil der D1-Projektion (Code-Abschluss von
+ * scripts/sync-recht-d1.mjs über search.ts und derived.ts): Herkunft und Bezeichnung landen in
+ * law_norm_derived und law_runtime_meta. Kurzform, Erläuterung und Fassungseinordnung für die
+ * Oberfläche stehen in origin-presentation.ts; dieses Modul importiert sie nie.
+ */
+
 export const LEGAL_BASELINE_DATE = '2023-11-01';
 
 export const NORM_ORIGIN_KINDS = [
@@ -15,13 +23,6 @@ export const NORM_ORIGIN_KINDS = [
 ] as const;
 
 export type NormOriginKind = (typeof NORM_ORIGIN_KINDS)[number];
-
-export type NormOriginVersionKind =
-  | 'ostdeutsch-original'
-  | 'baseline'
-  | 'inherited-intermediate'
-  | 'inherited-amended'
-  | 'origin-unresolved';
 
 export interface OwnNormChange {
   type: 'amendment' | 'repeal';
@@ -184,49 +185,15 @@ export function getNormOriginInfo(
   return { ...common, kind: 'origin-unresolved' };
 }
 
-export function classifyNormOriginVersion(
-  origin: NormOriginInfo,
-  version: Pick<NormVersion, 'versionId' | 'validFrom'>,
-): NormOriginVersionKind {
-  if (origin.kind === 'ostdeutsch-original') return 'ostdeutsch-original';
-  if (origin.kind === 'origin-unresolved') return 'origin-unresolved';
-  if (version.versionId === origin.baselineVersionId) return 'baseline';
-  if (!origin.firstOwnChangeDate || version.validFrom < origin.firstOwnChangeDate) {
-    return 'inherited-intermediate';
-  }
-  return 'inherited-amended';
-}
-
 /**
- * Öffentliche Bezeichnungen der Rechtsherkunft. Alle Oberflächen (Filter, Listen,
- * Suchtreffer, Normseite) verwenden diese Funktionen; es gibt keine zweite
- * Herkunftsbezeichnung im Browser.
- *
- * Genau zwei Formen: kurz für Listen (`formatNormOriginBadge('compact')`) und erklärend für
- * Detailseiten, Filter und Zähler (`formatNormOriginKind`, identisch mit
- * `formatNormOriginBadge('full')`).
+ * Erklärende öffentliche Bezeichnung der Rechtsherkunft. Sie wird projiziert (Suchfilter in
+ * law_runtime_meta über search.ts) und ist zugleich die Langform der Oberfläche; die Kurzform
+ * für Listen und die Erläuterung für Tooltips stehen in origin-presentation.ts
+ * (`formatNormOriginBadge`, `describeNormOriginKind`).
  */
 export function formatNormOriginKind(kind: NormOriginKind): string {
   if (kind === 'ostdeutsch-original') return 'Ostdeutsch neu geschaffen';
   if (kind === 'inherited-amended') return 'Übernommen und ostdeutsch geändert';
   if (kind === 'inherited-unchanged') return 'Übernommen und unverändert';
   return 'Herkunft ungeklärt';
-}
-
-export type NormOriginBadgeVariant = 'compact' | 'full';
-
-export function formatNormOriginBadge(kind: NormOriginKind, variant: NormOriginBadgeVariant = 'compact'): string {
-  if (variant === 'full') return formatNormOriginKind(kind);
-  if (kind === 'ostdeutsch-original') return 'Ostdeutsch neu';
-  if (kind === 'inherited-amended') return 'Übernommen · geändert';
-  if (kind === 'inherited-unchanged') return 'Übernommen · unverändert';
-  return 'Herkunft ungeklärt';
-}
-
-/** Kurze, für Tooltips und Screenreader geeignete Erläuterung der Herkunftsart. */
-export function describeNormOriginKind(kind: NormOriginKind): string {
-  if (kind === 'ostdeutsch-original') return 'Erst im Freistaat Ostdeutschland geschaffen.';
-  if (kind === 'inherited-amended') return 'Aus dem sächsischen Rechtsstand vom 1. November 2023 übernommen und seitdem ostdeutsch geändert.';
-  if (kind === 'inherited-unchanged') return 'Aus dem sächsischen Rechtsstand vom 1. November 2023 übernommen und seitdem nicht geändert.';
-  return 'Die Herkunft dieser Vorschrift ist noch nicht abschließend belegt.';
 }

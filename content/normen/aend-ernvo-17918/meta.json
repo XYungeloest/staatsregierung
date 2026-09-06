@@ -2,13 +2,12 @@
   "id": "aend-ernvo-17918",
   "slug": "aend-ernvo-17918",
   "title": "Änderung der Ernennungsverordnung",
-  "shortTitle": "Änd. ErnVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. ErnVO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-beamten-besoldungs-und-versorgungsrechtlicher-vorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. ErnVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ernennungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-12-11",
   "effectiveDate": "2019-01-01",
@@ -33,6 +33,7 @@
       "sha256": "9a212aa992c49d9eedc89dc20bb2e489fa63af67b4ce396a72a9308c98617618",
       "lawId": "17918",
       "sourceValidFrom": "2019-01-01",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

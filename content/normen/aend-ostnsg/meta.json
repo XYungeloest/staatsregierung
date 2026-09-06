@@ -1,16 +1,18 @@
 {
   "id": "aend-ostnsg",
   "slug": "aend-ostnsg",
-  "title": "Gesetz zur Änderung des Ostdeutschen Nichtraucherschutzgesetzes",
+  "title": "zur Änderung des Ostdeutschen Nichtraucherschutzgesetzes",
   "shortTitle": "Gesetz zur Änderung des Ostdeutschen Nichtraucherschutzgesetzes",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Gesetz zur Änderung des Ostdeutschen Nichtraucherschutzgesetzes",
+    "Änd. OstNSG",
     "Änderung",
     "Nichtraucherschutzgesetzes"
   ],
@@ -18,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Nichtraucherschutzgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-12-09",
   "effectiveDate": "2010-01-01",
@@ -32,8 +35,12 @@
       "sha256": "7525ebf82fcf636e098d281b4752cdc73c64d523f5252a790e2d1c25da29d286",
       "lawId": "11235",
       "sourceValidFrom": "2010-01-01",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-nichtraucherschutzgesetz"
   ]
 }

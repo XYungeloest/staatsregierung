@@ -2,14 +2,13 @@
   "id": "aend-frl-tag-der-ostdeutschland",
   "slug": "aend-frl-tag-der-ostdeutschland",
   "title": "Verwaltungsvorschrift der Ostdeutschen Staatskanzlei zur Änderung der Richtlinie der Ostdeutschen Staatskanzlei über die Förderung aktiver Teilnehmer am „Tag der Ostdeutschland“",
-  "shortTitle": "Verwaltungsvorschrift der Ostdeutschen Staatskanzlei zur Änderung der Richtlinie der Ostdeutschen Staatskanzlei über die Förderung aktiver Teilnehmer am „Tag der Ostdeutschland“",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Verwaltungsvorschrift der Ostdeutschen Staatskanzlei zur Änderung der Richtlinie der Ostdeutschen Staatskanzlei über die Förderung aktiver Teilnehmer am „Tag der Ostdeutschland“",
+    "Änd. FRL „Tag der Ostdeutschland“",
     "Staatskanzlei",
     "Änderung",
     "Förderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift der Ostdeutschen Staatskanzlei zur Änderung der Richtlinie der Ostdeutschen Staatskanzlei über die Förderung aktiver Teilnehmer am „Tag der Ostdeutschland““.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-03-23",
   "effectiveDate": "2015-04-17",
@@ -35,8 +35,12 @@
       "lawId": "15999",
       "sourceValidFrom": "2015-04-17",
       "sourceValidTo": "2026-05-31",
+      "fsnNumber": "5501",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-tag-der-ostdeutschland"
   ]
 }

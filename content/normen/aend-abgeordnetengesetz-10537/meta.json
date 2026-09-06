@@ -2,13 +2,12 @@
   "id": "aend-abgeordnetengesetz-10537",
   "slug": "aend-abgeordnetengesetz-10537",
   "title": "Änderung des Abgeordnetengesetzes",
-  "shortTitle": "Änd. Abgeordnetengesetz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Staatliche Organisation"
   ],
+  "primarySubject": "Staatliche Organisation",
   "keywords": [
     "Änd. Abgeordnetengesetz",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2009-2010",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Abgeordnetengesetz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Abgeordnetengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-12-12",
   "effectiveDate": "2009-04-01",
@@ -33,6 +33,7 @@
       "sha256": "06985be67cf2f7749268a674a70f0132d7bdcd3897d4d0c2f7210e7d730eca3d",
       "lawId": "10537",
       "sourceValidFrom": "2009-04-01",
+      "fsnNumber": "110",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

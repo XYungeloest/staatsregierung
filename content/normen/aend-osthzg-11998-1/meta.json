@@ -2,15 +2,14 @@
   "id": "aend-osthzg-11998-1",
   "slug": "aend-osthzg-11998-1",
   "title": "Drittes Gesetz zur Änderung des Ostdeutschen Hochschulzulassungsgesetzes",
-  "shortTitle": "Drittes Gesetz zur Änderung des Ostdeutschen Hochschulzulassungsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Drittes Gesetz zur Änderung des Ostdeutschen Hochschulzulassungsgesetzes",
+    "Änd. OstHZG",
     "Drittes",
     "Änderung",
     "Hochschulzulassungsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Drittes Gesetz zur Änderung des Ostdeutschen Hochschulzulassungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-04-11",
   "effectiveDate": "2010-07-01",
@@ -33,8 +33,12 @@
       "sha256": "b974e2c475ed87647cf8b53c4a0dd8574c327c99b84f1c7350a4802722aed251",
       "lawId": "11998",
       "sourceValidFrom": "2010-07-01",
+      "fsnNumber": "711",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-hochschulzulassungsgesetz"
   ]
 }

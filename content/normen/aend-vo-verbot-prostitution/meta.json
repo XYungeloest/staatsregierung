@@ -2,12 +2,11 @@
   "id": "aend-vo-verbot-prostitution",
   "slug": "aend-vo-verbot-prostitution",
   "title": "Änderung der Verordnung über das Verbot der Prostitution",
-  "shortTitle": "Änd. VO Verbot Prostitution",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Strafrecht, Ordnungswidrigkeiten"
   ],
+  "primarySubject": "Strafrecht, Ordnungswidrigkeiten",
   "keywords": [
     "Änd. VO Verbot Prostitution",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-umsetzung-verwaltungsneuordnung-zustaendigkeitsbereich-smi",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. VO Verbot Prostitution“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Verordnung über das Verbot der Prostitution“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-07-16",
   "effectiveDate": "2008-08-01",
@@ -33,6 +33,7 @@
       "sha256": "7806ba74263455d603120465a86533155fdec5f8d38e00f051fdcb3c302a4d36",
       "lawId": "10345",
       "sourceValidFrom": "2008-08-01",
+      "fsnNumber": "34",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

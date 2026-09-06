@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit über die Gewährung von Zuwendungen an kleine und mittlere Unternehmen nach erfolgreicher Überwindung einer Krisensituation",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit über die Gewährung von Zuwendungen an kleine und mittlere Unternehmen nach erfolgreicher Überwindung einer Krisensituation",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit über die Gewährung von Zuwendungen an kleine und mittlere Unternehmen nach erfolgreicher Überwindung einer Krisensituation vom 1. November 2006 (SächsABl. S. 1032), zuletzt enthalten in der Verwaltungsvorschrift vom 1. Dezember 2025 (SächsABl. SDr. S. S 268)",
+  "citation": "Richtlinie des Ostdeutschen Staatsministeriums für Wirtschaft und Arbeit über die Gewährung von Zuwendungen an kleine und mittlere Unternehmen nach erfolgreicher Überwindung einer Krisensituation vom 1. November 2006 (SächsABl. S. 1032)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "8608d93bb9853a09d4d7db051d5e9a990160ab012bb8fe0daaf58972cabecd3c",
       "lawId": "5584",
       "sourceValidFrom": "2006-11-24",
+      "fsnNumber": "552-V06.2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -34,14 +34,6 @@
       "label": "1.",
       "title": "Zuwendungszweck, Rechtsgrundlage",
       "children": [
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Zuwendungszweck, Rechtsgrundlage",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -74,17 +66,8 @@
       "title": "Gegenstand der Förderung",
       "children": [
         {
-          "type": "item",
-          "label": "2.",
-          "text": "Gegenstand der Förderung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Gewährt werden die Zuwendungen zur Finanzierung von\nInvestitionen in das Anlage- oder Umlaufvermögen sowie\nprojekt- oder auftragsbezogenen laufenden betrieblichen Ausgaben,\ndie der Existenzfestigung des Unternehmens und der Stabilisierung der Wettbewerbsfähigkeit dienen. Zahlungen von Quoten an Gläubiger eines vorangegangenen Insolvenzverfahrens aus Mitteln des Programms sind ausgeschlossen. Andere Förderprogramme sind vorrangig in Anspruch zu nehmen."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Gewährt werden die Zuwendungen zur Finanzierung von\nInvestitionen in das Anlage- oder Umlaufvermögen sowie\nprojekt- oder auftragsbezogenen laufenden betrieblichen Ausgaben,\ndie der Existenzfestigung des Unternehmens und der Stabilisierung der Wettbewerbsfähigkeit dienen. Zahlungen von Quoten an Gläubiger eines vorangegangenen Insolvenzverfahrens aus Mitteln des Programms sind ausgeschlossen. Andere Förderprogramme sind vorrangig in Anspruch zu nehmen."
         }
       ]
     },
@@ -93,14 +76,6 @@
       "label": "3.",
       "title": "Zuwendungsempfänger",
       "children": [
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Zuwendungsempfänger",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.1",
@@ -125,17 +100,8 @@
       "title": "Zuwendungsvoraussetzungen",
       "children": [
         {
-          "type": "item",
-          "label": "4.",
-          "text": "Zuwendungsvoraussetzungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Voraussetzung für die Gewährung der Zuwendung ist:\ndie Vorlage eines gemäß § 248\nInsolvenzordnung (\nInsO) vom 5. Oktober 1994 (BGBl. I S. 2866), die zuletzt durch Artikel 9 des Gesetzes vom 22. März 2005 geändert worden ist (BGBl. I S. 837), bestätigten Insolvenzplanes, dessen Realisierung eine nachhaltige Existenzfestigung belegt und aus dem hervorgeht, dass die Umstrukturierung des Unternehmens bis zur Aufhebung des Insolvenzverfahrens beendet ist. Die Zustimmung der Gläubiger zum Insolvenzplan steht nicht unter der Bedingung einer Neustartfinanzierung aus diesem Programm,\nder Beschluss über die Aufhebung des Insolvenzverfahrens gemäß § 258\nInsO,\ndass es sich nicht um ein „Unternehmen in Schwierigkeiten“ im Sinne der Leitlinien der Europäischen Gemeinschaft für staatliche Beihilfen zur Rettung und Umstrukturierung von Unternehmen in Schwierigkeiten (ABl. EU Nr. C 244 S. 2 vom 1. Oktober 2004),\ndass das geförderte Unternehmen seine Betriebsstätte in Ostdeutschland hat."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Voraussetzung für die Gewährung der Zuwendung ist:\ndie Vorlage eines gemäß § 248\nInsolvenzordnung (\nInsO) vom 5. Oktober 1994 (BGBl. I S. 2866), die zuletzt durch Artikel 9 des Gesetzes vom 22. März 2005 geändert worden ist (BGBl. I S. 837), bestätigten Insolvenzplanes, dessen Realisierung eine nachhaltige Existenzfestigung belegt und aus dem hervorgeht, dass die Umstrukturierung des Unternehmens bis zur Aufhebung des Insolvenzverfahrens beendet ist. Die Zustimmung der Gläubiger zum Insolvenzplan steht nicht unter der Bedingung einer Neustartfinanzierung aus diesem Programm,\nder Beschluss über die Aufhebung des Insolvenzverfahrens gemäß § 258\nInsO,\ndass es sich nicht um ein „Unternehmen in Schwierigkeiten“ im Sinne der Leitlinien der Europäischen Gemeinschaft für staatliche Beihilfen zur Rettung und Umstrukturierung von Unternehmen in Schwierigkeiten (ABl. EU Nr. C 244 S. 2 vom 1. Oktober 2004),\ndass das geförderte Unternehmen seine Betriebsstätte in Ostdeutschland hat."
         }
       ]
     },
@@ -144,14 +110,6 @@
       "label": "5.",
       "title": "Art, Umfang und Höhe der Zuwendung",
       "children": [
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Art, Umfang und Höhe der Zuwendung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "5.1",
@@ -212,17 +170,8 @@
       "title": "Sonstige Zuwendungsvoraussetzungen",
       "children": [
         {
-          "type": "item",
-          "label": "6.",
-          "text": "Sonstige Zuwendungsvoraussetzungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Zuwendungen sind im Rahmen der bestehenden Möglichkeiten zu besichern. Zur Unterlegung der beantragten Zuwendungen ist bei Kapitalgesellschaften die Abgabe einer selbstschuldnerischen Bürgschaft durch die geschäftsführenden Gesellschafter beziehungsweise eine Patronatserklärung in angemessenem Umfang erforderlich. Die vom Unternehmen zu beantragende Zuwendung ist um Steuern, Abgaben, Kosten und Gebühren von öffentlich-rechtlichen Einrichtungen zu kürzen."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die Zuwendungen sind im Rahmen der bestehenden Möglichkeiten zu besichern. Zur Unterlegung der beantragten Zuwendungen ist bei Kapitalgesellschaften die Abgabe einer selbstschuldnerischen Bürgschaft durch die geschäftsführenden Gesellschafter beziehungsweise eine Patronatserklärung in angemessenem Umfang erforderlich. Die vom Unternehmen zu beantragende Zuwendung ist um Steuern, Abgaben, Kosten und Gebühren von öffentlich-rechtlichen Einrichtungen zu kürzen."
         }
       ]
     },
@@ -231,14 +180,6 @@
       "label": "7.",
       "title": "Verfahren",
       "children": [
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Verfahren",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "7.1",
@@ -310,17 +251,8 @@
       "title": "Inkrafttreten",
       "children": [
         {
-          "type": "item",
-          "label": "8.",
-          "text": "Inkrafttreten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Richtlinie tritt mit dem Tag ihrer Veröffentlichung in Kraft und ersetzt die bis zu diesem Zeitpunkt geltende Richtlinie in der Fassung vom 12. Oktober 2004 (SächsABl. S. 1283)."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Richtlinie tritt mit dem Tag ihrer Veröffentlichung in Kraft und ersetzt die bis zu diesem Zeitpunkt geltende Richtlinie in der Fassung vom 12. Oktober 2004 (SächsABl. S. 1283)."
         }
       ]
     }

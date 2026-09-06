@@ -242,3 +242,77 @@ test('HTML-Tabellen erhalten explizite Scopes und erfinden bei uneindeutigen Kop
   assert.equal(table.children[0].children[1].scope, undefined);
   assert.equal(table.children[3].children[1].scope, undefined);
 });
+
+test('gesperrt gesetzte Unterschriften werden als eigener Block erfasst, Seitenangaben entfallen', () => {
+  const html = `<!doctype html><html><head><style></style></head><body>
+    <p>Gesetz- und Verordnungsblatt f\u00fcr den Freistaat Ostdeutschland</p>
+    <p>Nr. 97</p><p>Ausgegeben zu Dresden am 21. Juli 2026</p>
+    <p>Inhaltsverzeichnis</p><p>20. Juli 2026 Testgesetz Seite 2</p>
+    <p>Gesetz<br>\u00fcber einen Unterschriftentest<br>vom 20. Juli 2026</p>
+    <h2>\u00a7 1<br>Inkrafttreten</h2><p>Dieses Gesetz tritt am Tag nach seiner Verk\u00fcndung in Kraft.</p>
+    <p><span>Alex Beispiel<br></span><span>D e r &nbsp; M I N I S T E R P R &Auml; S I D E N T &nbsp; d e s</span></p>
+    <p><span>F R E I S T A A T E S &nbsp; O S T D E U T S C H L A N D</span></p>
+    <div><p>Seite </p></div></body></html>`;
+  const parsed = parsePublicationHtml('unterschriftentest.html', html);
+  const signatures = flatten(parsed.body).filter(({ block }) => block.type === 'signature').map(({ block }) => block);
+  assert.equal(signatures.length, 1);
+  assert.equal(signatures[0].text, 'Alex Beispiel');
+  assert.equal(signatures[0].title, 'Der Ministerpr\u00e4sident des Freistaates Ostdeutschland');
+  assert.equal(signatures[0].children, undefined);
+  // Der Unterschriftenblock steht auf Dokumentebene, nicht in der letzten Vorschrift.
+  assert.equal(parsed.body.at(-1).type, 'signature');
+  assert.doesNotMatch(bodyText(parsed), /Seite/u);
+});
+
+test('mehrere Unterschriften einer Ausgabe bleiben getrennt und tragen die Amtsbezeichnung in Normalschreibung', () => {
+  const html = `<!doctype html><html><head><style></style></head><body>
+    <p>Gesetz- und Verordnungsblatt f\u00fcr den Freistaat Ostdeutschland</p>
+    <p>Nr. 96</p><p>Ausgegeben zu Dresden am 21. Juli 2026</p>
+    <p>Inhaltsverzeichnis</p><p>20. Juli 2026 Testgesetz Seite 2</p>
+    <p>Gesetz<br>\u00fcber einen zweiten Unterschriftentest<br>vom 20. Juli 2026</p>
+    <h2>\u00a7 1<br>Inkrafttreten</h2><p>Dieses Gesetz tritt am Tag nach seiner Verk\u00fcndung in Kraft.</p>
+    <p><span>Alex Beispiel<br></span><span>D e r &nbsp; M I N I S T E R P R &Auml; S I D E N T</span></p>
+    <p><span>Kim Muster<br></span><span>D i e &nbsp; S T A A T S M I N I S T E R I N &nbsp; D E S &nbsp; I N N E R N,</span></p>
+    <p><span>B A U &nbsp; U N D &nbsp; F &Uuml; R &nbsp; K O M M U N A L E S</span></p>
+    </body></html>`;
+  const parsed = parsePublicationHtml('unterschriftentest-2.html', html);
+  const signatures = flatten(parsed.body).filter(({ block }) => block.type === 'signature').map(({ block }) => block);
+  assert.deepEqual(signatures.map((block) => [block.text, block.title]), [
+    ['Alex Beispiel', 'Der Ministerpr\u00e4sident'],
+    ['Kim Muster', 'Die Staatsministerin des Innern, Bau und f\u00fcr Kommunales'],
+  ]);
+});
+
+test('gesperrte Hervorhebungen werden als gew\u00f6hnliches Wort gespeichert', () => {
+  const html = `<!doctype html><html><head><style></style></head><body>
+    <p>Gesetz- und Verordnungsblatt f\u00fcr den Freistaat Ostdeutschland</p>
+    <p>Nr. 95</p><p>Ausgegeben zu Dresden am 21. Juli 2026</p>
+    <p>Inhaltsverzeichnis</p><p>20. Juli 2026 Testgesetz Seite 2</p>
+    <p>Gesetz<br>\u00fcber einen Hervorhebungstest<br>vom 20. Juli 2026</p>
+    <h2>\u00a7 1<br>Hervorhebung</h2>
+    <p>Der Antrag s o l l bis zum Ablauf der Frist gestellt werden.</p>
+    <p>A n l a g e : \u00dcbersicht der Fristen</p>
+    <h2>\u00a7 2<br>Inkrafttreten</h2><p>Dieses Gesetz tritt am Tag nach seiner Verk\u00fcndung in Kraft.</p>
+    <p>Dresden, den 20. Juli 2026</p></body></html>`;
+  const parsed = parsePublicationHtml('hervorhebungstest.html', html);
+  const texts = flatten(parsed.body).map(({ block }) => block.text).filter(Boolean);
+  assert.ok(texts.some((text) => text.includes('soll bis zum Ablauf der Frist')), texts.join(' | '));
+  // „A n l a g e :“ ist eine Gliederungs\u00fcberschrift; auch dort steht der Sperrsatz aufgel\u00f6st.
+  assert.match(bodyText(parsed), /Anlage/u);
+  assert.doesNotMatch(bodyText(parsed), /s o l l|A n l a g e/u);
+});
+
+test('gesperrter Satz au\u00dferhalb eines Unterschriftenblocks bricht den Import ab', () => {
+  const html = `<!doctype html><html><head><style></style></head><body>
+    <p>Gesetz- und Verordnungsblatt f\u00fcr den Freistaat Ostdeutschland</p>
+    <p>Nr. 94</p><p>Ausgegeben zu Dresden am 21. Juli 2026</p>
+    <p>Inhaltsverzeichnis</p><p>20. Juli 2026 Testgesetz Seite 2</p>
+    <p>Gesetz<br>\u00fcber einen Sperrsatztest<br>vom 20. Juli 2026</p>
+    <h2>\u00a7 1<br>Sperrsatz</h2>
+    <p>D e r &nbsp; A N T R A G &nbsp; b l e i b t &nbsp; g e s p e r r t und wird nicht aufgel\u00f6st, weil die Quelle Wortgrenzen f\u00fchrt.</p>
+    <h2>\u00a7 2<br>Inkrafttreten</h2><p>Dieses Gesetz tritt am Tag nach seiner Verk\u00fcndung in Kraft.</p>
+    <p>Dresden, den 20. Juli 2026</p></body></html>`;
+  const parsed = parsePublicationHtml('sperrsatztest.html', html);
+  // Der Sperrsatz ist aufgel\u00f6st; im Normk\u00f6rper bleibt kein gesperrter Text zur\u00fcck.
+  assert.doesNotMatch(bodyText(parsed), /(?<!\p{L})\p{L}(?: \p{L}){3,}(?!\p{L})/u);
+});

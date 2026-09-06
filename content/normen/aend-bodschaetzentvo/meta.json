@@ -2,16 +2,14 @@
   "id": "aend-bodschaetzentvo",
   "slug": "aend-bodschaetzentvo",
   "title": "Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Bodenschätzer-Entschädigungsverordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Bodenschätzer-Entschädigungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium der Finanzen",
   "subjects": [
-    "Wohnen und Bodenordnung",
-    "Umwelt, Energie und Klimaschutz"
+    "Allgemeine Verwaltung"
   ],
+  "primarySubject": "Allgemeine Verwaltung",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Bodenschätzer-Entschädigungsverordnung",
+    "Änd. BodSchätzEntVO",
     "Finanzen",
     "Änderung",
     "Bodenschätzer-Entschädigungsverordnung"
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Bodenschätzer-Entschädigungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2016-04-04",
   "effectiveDate": "2016-01-01",
@@ -34,8 +33,12 @@
       "sha256": "e4f4abfa842e9fad741e80c76a599e3190fc61183943f34d2587cd18ca9eaa46",
       "lawId": "16886",
       "sourceValidFrom": "2016-01-01",
+      "fsnNumber": "211",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-der-finanzen-ueber-die-entschaedigung-der-nicht"
   ]
 }

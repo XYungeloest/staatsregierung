@@ -1,51 +1,61 @@
 ---
 import {
-  formatDate,
   formatNormType,
+  getNormTitleBlock,
   getNormVersionIdentity,
-  toDisplayText,
   type NormRecord,
   type NormVersion,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormVersionPdfPath } from '../../lib/norm-links.ts';
+import { validityLabel, VALIDITY_FIELD_LABEL } from '../../lib/vocabulary.ts';
 
+/**
+ * Kopf aller vier Normansichten: Bereich, Statuszeile, Bezeichnung und zwei Angaben. Alles
+ * Weitere steht einmal in den Vorschriftendaten (NormFacts.astro) – der Kopf wiederholt weder
+ * Fundstelle noch Rechtsstand noch Zusammenfassung (Befunde E3, E4).
+ */
 interface Props {
   norm: NormRecord;
   version: NormVersion;
   eyebrow: string;
   status: string;
-  reference: string;
-  referenceUrl?: string;
-  publicationPdf?: string;
-  htmlHref?: string;
+  /** Amtliche Ausgabe der Verkündung; ohne Beleg bleibt der Platz sichtbar und nennt den Grund. */
+  officialPdf?: string;
+  /** Ziel des Sprunglinks: der Vorschriftentext dieser Seite oder die geltende Fassung. */
+  textHref?: string;
 }
 
-const { norm, version, eyebrow, status, reference, referenceUrl, publicationPdf, htmlHref = '#normtext' } = Astro.props;
+const { norm, version, eyebrow, status, officialPdf, textHref = '#normtext' } = Astro.props;
 const identity = getNormVersionIdentity(norm, version);
+const title = getNormTitleBlock(identity);
+const versionPdf = getNormVersionPdfPath(norm.meta.slug, version.versionId);
 ---
 
 <header class="section-hero section-hero--law norm-page-header">
   <div class="norm-page-header__main">
     <p class="eyebrow">{eyebrow}</p>
     <p class="norm-page-header__status"><span aria-hidden="true"></span>{status}</p>
-    <h1 class="section-hero__title--long">{toDisplayText(identity.title)}</h1>
-    {identity.abbr ? <p class="norm-page-header__abbr">{toDisplayText(identity.abbr)}</p> : null}
-    <p class="norm-page-header__summary">{toDisplayText(identity.summary)}</p>
-    <p class="norm-page-header__reference">
-      <strong>Fundstelle:</strong>{' '}
-      {referenceUrl ? <a href={referenceUrl}>{reference}</a> : <span class="norm-page-header__reference-text">{reference}</span>}
-    </p>
+    <h1 class="section-hero__title--long">{title.heading}</h1>
+    {title.longTitle || title.abbr ? (
+      <p class="norm-page-header__names">
+        {title.longTitle ? <span class="norm-page-header__long-title">{title.longTitle}</span> : null}
+        {title.abbr ? <span class="norm-page-header__abbr">{title.abbr}</span> : null}
+      </p>
+    ) : null}
     <dl class="norm-page-header__facts">
       <div><dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd></div>
-      <div><dt>Fassungsstand</dt><dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd></div>
+      <div><dt>{VALIDITY_FIELD_LABEL}</dt><dd>{validityLabel(norm.meta.status)}</dd></div>
     </dl>
   </div>
-  <!-- Feste Plätze: PDF, HTML, Link. Ein nicht belegter Platz bleibt sichtbar und nennt den Grund. -->
+  <!-- Feste Plätze: Portalfassung als PDF, amtliche Ausgabe, Link. Ein nicht belegter Platz
+       bleibt sichtbar und nennt den Grund; der Sprunglink führt zum Text. -->
   <nav class="norm-page-header__actions" aria-label="Werkzeuge zur Vorschrift">
-    {publicationPdf
-      ? <a href={publicationPdf}>Als PDF öffnen</a>
-      : <span aria-disabled="true" title="Für diese Fassung ist keine amtliche PDF-Datei hinterlegt.">Als PDF öffnen · nicht hinterlegt</span>}
-    <a href={htmlHref}>Als HTML lesen</a>
+    <a href={versionPdf}>Fassung als PDF</a>
+    {officialPdf
+      ? <a href={officialPdf}>Amtliche Ausgabe (PDF)</a>
+      : <span aria-disabled="true" title="Für diese Fassung ist keine amtliche PDF-Datei hinterlegt.">Amtliche Ausgabe (PDF) · nicht hinterlegt</span>}
     <button type="button" data-copy-page-url>Link kopieren</button>
+    <a class="norm-page-header__jump" href={textHref}>{textHref.startsWith('#') ? 'Zum Vorschriftentext' : 'Zur geltenden Fassung'}</a>
   </nav>
   <p class="copy-feedback norm-page-header__feedback" aria-live="polite" data-copy-page-feedback></p>
 </header>

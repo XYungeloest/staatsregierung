@@ -1,11 +1,11 @@
 import {
   isLawSite,
-  lawSiteConfig,
-  siteConfig,
+  lawPaths,
+  portalPaths,
   siteUrls,
   type LawSitePathKey,
   type SitePathKey,
-} from '@ostrecht/shared/config/site.ts';
+} from '@ostrecht/shared/config/site-routing.ts';
 
 const base = import.meta.env?.BASE_URL ?? '/';
 const specialProtocolPattern = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/iu;
@@ -35,7 +35,7 @@ export function resolvePortalPath(path: string): string {
     return path;
   }
 
-  if (path.startsWith('/recht/') && path !== siteConfig.paths.lawBridge) {
+  if (path.startsWith('/recht/') && path !== portalPaths.lawBridge) {
     return getLawUrl(path.slice('/recht'.length));
   }
 
@@ -43,11 +43,11 @@ export function resolvePortalPath(path: string): string {
 }
 
 export function getSiteUrl(pathKey: SitePathKey): string {
-  return getPortalUrl(siteConfig.paths[pathKey]);
+  return getPortalUrl(portalPaths[pathKey]);
 }
 
 export function getLawSiteUrl(pathKey: LawSitePathKey): string {
-  return getLawUrl(lawSiteConfig.paths[pathKey]);
+  return getLawUrl(lawPaths[pathKey]);
 }
 
 export function getHomeUrl(): string {
@@ -67,7 +67,7 @@ export function getGovernmentMembersUrl(): string {
 }
 
 export function getGovernmentMemberUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.governmentMembers}${slug}/`);
+  return getPortalUrl(`${portalPaths.governmentMembers}${slug}/`);
 }
 
 export function getMinisterPresidentUrl(): string {
@@ -103,7 +103,7 @@ export function getMinistriesUrl(): string {
 }
 
 export function getMinistryUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.cabinet}${slug}/`);
+  return getPortalUrl(`${portalPaths.cabinet}${slug}/`);
 }
 
 export function getTopicsUrl(): string {
@@ -111,7 +111,7 @@ export function getTopicsUrl(): string {
 }
 
 export function getTopicUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.topics}${slug}/`);
+  return getPortalUrl(`${portalPaths.topics}${slug}/`);
 }
 
 export function getEducationAndSchoolUrl(): string {
@@ -131,7 +131,7 @@ export function getPressReleaseIndexUrl(): string {
 }
 
 export function getPressReleaseUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.pressReleases}${slug}/`);
+  return getPortalUrl(`${portalPaths.pressReleases}${slug}/`);
 }
 
 export function getSpeechIndexUrl(): string {
@@ -139,7 +139,7 @@ export function getSpeechIndexUrl(): string {
 }
 
 export function getSpeechUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.pressSpeeches}${slug}/`);
+  return getPortalUrl(`${portalPaths.pressSpeeches}${slug}/`);
 }
 
 export function getEventIndexUrl(): string {
@@ -147,7 +147,7 @@ export function getEventIndexUrl(): string {
 }
 
 export function getEventUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.pressDates}${slug}/`);
+  return getPortalUrl(`${portalPaths.pressDates}${slug}/`);
 }
 
 export function getBudgetUrl(): string {
@@ -155,11 +155,11 @@ export function getBudgetUrl(): string {
 }
 
 export function getBudgetPageUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.budget}${slug}/`);
+  return getPortalUrl(`${portalPaths.budget}${slug}/`);
 }
 
 export function getBudgetPlanUrl(planNumber: string): string {
-  return getPortalUrl(`${siteConfig.paths.budget}einzelplaene/${planNumber.padStart(2, '0')}/`);
+  return getPortalUrl(`${portalPaths.budget}einzelplaene/${planNumber.padStart(2, '0')}/`);
 }
 
 export function getFreestateUrl(): string {
@@ -167,7 +167,7 @@ export function getFreestateUrl(): string {
 }
 
 export function getFreestatePageUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.freestate}${slug}/`);
+  return getPortalUrl(`${portalPaths.freestate}${slug}/`);
 }
 
 export function getServiceUrl(): string {
@@ -183,7 +183,7 @@ export function getServiceOverviewUrl(): string {
 }
 
 export function getJobUrl(slug: string): string {
-  return getPortalUrl(`${siteConfig.paths.career}${slug}/`);
+  return getPortalUrl(`${portalPaths.career}${slug}/`);
 }
 
 export function getContactUrl(): string {
@@ -230,20 +230,12 @@ export function getLawFundingUrl(): string {
   return getLawSiteUrl('funding');
 }
 
-export function getLawReferencesUrl(): string {
-  return getLawSiteUrl('references');
-}
-
 export function getLawPublicationsUrl(): string {
   return getLawSiteUrl('publications');
 }
 
 export function getLawConstitutionUrl(): string {
   return getLawSiteUrl('constitution');
-}
-
-export function getLawDevelopmentUrl(): string {
-  return getLawSiteUrl('development');
 }
 
 export function getLawHelpUrl(): string {

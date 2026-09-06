@@ -2,14 +2,13 @@
   "id": "aend-vwv-diversion",
   "slug": "aend-vwv-diversion",
   "title": "Gemeinsame Verwaltungsvorschrift der Ostdeutschen Staatsministerien der Justiz, des Innern, für Soziales, Gesundheit, Jugend und Familie sowie für Kultus zur Änderung der VwV Diversion",
-  "shortTitle": "Gemeinsame Verwaltungsvorschrift der Ostdeutschen Staatsministerien der Justiz, des Innern, für Soziales, Gesundheit, Jugend und Familie sowie für Kultus zur Änderung der VwV Diversion",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Gerichtsverfahren"
   ],
+  "primarySubject": "Gerichtsverfahren",
   "keywords": [
-    "Gemeinsame Verwaltungsvorschrift der Ostdeutschen Staatsministerien der Justiz, des Innern, für Soziales, Gesundheit, Jugend und Familie sowie für Kultus zur Änderung der VwV Diversion",
+    "Änd. VwV Diversion",
     "Gemeinsame",
     "Staatsministerien",
     "Justiz",
@@ -26,6 +25,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gemeinsame Verwaltungsvorschrift der Ostdeutschen Staatsministerien der Justiz, des Innern, für Soziales, Gesundheit, Jugend und Familie sowie für Kultus zur Änderung der VwV Diversion“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2001-09-29",
   "effectiveDate": "2002-01-01",
@@ -43,5 +43,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-diversion"
   ]
 }

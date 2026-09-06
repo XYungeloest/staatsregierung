@@ -2,15 +2,14 @@
   "id": "2-aevo-der-sogs",
   "slug": "2-aevo-der-sogs",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium für Kultus",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen",
+    "2. ÄVO der SOGS",
     "Zweite",
     "Kultus",
     "Änderung",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums für Kultus zur Änderung der Schulordnung Grundschulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-05-04",
   "effectiveDate": "2018-08-01",
@@ -35,8 +35,12 @@
       "sha256": "34387e5f818ff6aec752b76bf9ba790c3e8d2d96190b736247d3396d0b2707a0",
       "lawId": "17703",
       "sourceValidFrom": "2018-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "schulordnung-grundschulen"
   ]
 }

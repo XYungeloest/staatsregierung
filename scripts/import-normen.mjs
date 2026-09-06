@@ -7,11 +7,17 @@ import { basename, join, relative, resolve } from 'node:path';
 
 import {
   classifyHtmlSource,
+  hasSpacedLetters,
   parseConsolidatedHtml,
   parsePublicationHtml,
   summarizeHtmlAudit,
   summarizeParsedSource,
 } from './lib/norm-html-parser.mjs';
+import {
+  citationLabelMatchesNormType,
+  NORM_TYPE_CITATION_LABELS,
+  publicationEntryTypeForNormType,
+} from './lib/publication-entry-types.mjs';
 import {
   classifyMarkdownSource,
   parseConsolidatedMarkdown,
@@ -24,10 +30,16 @@ import {
 } from './lib/norm-parser-contract.mjs';
 import { applyCorrectionsToRecord, loadCorrectionBundles } from './lib/correction-engine.mjs';
 import {
+  abbreviationProblem,
+  UNVERIFIED_GENERATED_ABBREVIATIONS as UNVERIFIED_ABBREVIATIONS,
+} from './lib/norm-title-rules.mjs';
+import {
   HISTORICAL_PUBLICATION_PAGE_RANGE_MAP,
   pageRangeForPublication,
   pdfPageCount,
   preserveVerifiedAt,
+  publicationPdfFileName,
+  publicationPdfPublicPath,
   publicationSourceReferences as buildPublicationSourceReferences,
   resolvePublicationPdf,
 } from './lib/publication-pdf.mjs';
@@ -109,24 +121,26 @@ const ISSUE_CONFIG = {
   '59': [{ slug: 'volksbefragungsverordnung-2026', shortTitle: 'Volksbefragungsverordnung 2026', responsibleMinistry: 'Staatsrat des Freistaates Ostdeutschland', summary: 'Ordnet für den 5. und 6. September 2026 eine freiwillige, rechtlich nicht bindende Volksbefragung mit fünf Fragen an und regelt Information, Durchführung, Ergebnisermittlung und politische Auswertung.' }],
 };
 
+// Sachgebiete der amtlichen Systematik (packages/shared/src/config/law-subjects.json)
+// je Ausgabe des Gesetz- und Verordnungsblatts; das erste ist das Hauptsachgebiet.
 const ISSUE_SUBJECTS = {
-  '46': ['Kommunal- und Verwaltungsrecht', 'Raumordnung und Landesplanung'],
-  '47': ['Mobilität und öffentliche Infrastruktur'],
-  '48': ['Wirtschaft und Förderung', 'Haushaltsrecht'],
-  '49': ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
-  '50': ['Sicherheit und Ordnung'],
-  '51': ['Gesundheit und Soziales'],
-  '52': ['Sport und Bildung'],
-  '53': ['Staats- und Verfassungsrecht'],
-  '54': ['Staats- und Verfassungsrecht', 'Haushaltsrecht'],
-  '55': ['Staats- und Verfassungsrecht'],
-  '56': ['Staats- und Verfassungsrecht', 'Bildung und Weiterbildung'],
-  '57': ['Bildung und Weiterbildung', 'Rundfunk und Medien'],
-  '58': ['Umwelt, Energie und Klimaschutz', 'Kreislaufwirtschaft'],
-  '59': ['Staats- und Verfassungsrecht', 'Wahlrecht und politische Beteiligung'],
+  '46': ['Kommunalrecht', 'Raumordnung, Landesplanung'],
+  '47': ['Verkehr'],
+  '48': ['Gewerbe- und Berufsrecht', 'Haushaltwesen, Rechnungshof'],
+  '49': ['Umweltschutz, Abfallwirtschaft', 'Gewerbe- und Berufsrecht'],
+  '50': ['Sicherheitsrecht und Polizeirecht'],
+  '51': ['Allgemeines zum Sozialwesen'],
+  '52': ['Sport'],
+  '53': ['Verfassungsrecht'],
+  '54': ['Verfassungsrecht', 'Haushaltwesen, Rechnungshof'],
+  '55': ['Verfassungsrecht'],
+  '56': ['Verfassungsrecht', 'Bildungswesen'],
+  '57': ['Bildungswesen', 'Presse-, Rundfunk-, Filmwesen'],
+  '58': ['Umweltschutz, Abfallwirtschaft'],
+  '59': ['Verfassungsrecht'],
 };
 
-const SCHOOL_LAW_SUBJECTS = ['Bildung und Weiterbildung', 'Schulrecht'];
+const SCHOOL_LAW_SUBJECTS = ['Bildungswesen'];
 const NEW_PUBLICATION_CONFIG = {
   'OGVBl.|2026|68': [{
     slug: 'berichtigung-verschiedener-verkuendungen-2026',
@@ -137,7 +151,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-27',
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
-    subjects: ['Landesrecht'],
+    subjects: ['Kommunalrecht'],
     summary: 'Berichtigt acht frühere Verkündungen, ohne einen neuen materiellen Änderungszeitpunkt für die betroffenen Rechtsvorschriften zu begründen.',
     affectedNorms: [
       'dienstanordnung-momentane-terrorgefahr-2024',
@@ -278,7 +292,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-22',
     enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
     responsibleMinistry: 'Büro des Staatspräsidenten',
-    subjects: ['Landesrecht', 'Sicherheit und Ordnung'],
+    subjects: ['Sicherheitsrecht und Polizeirecht'],
     summary: 'Stiftet die Einsatzmedaille „Monschau 2026“ für besondere Verdienste bei der Waldbrandkatastrophe vom 18. bis 20. August 2026 und regelt Voraussetzungen, Gestaltung und Verleihungsverfahren.',
     effectiveOverride: '2026-08-21',
     relatedNorms: ['bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu'],
@@ -303,7 +317,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-22',
     enactingBody: 'Verwaltungsrat der Landesenergiewerke Ost',
     responsibleMinistry: 'Landesenergiewerke Ost AöR',
-    subjects: ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
+    subjects: ['Umweltschutz, Abfallwirtschaft', 'Gewerbe- und Berufsrecht'],
     summary: 'Legt die gemeinwirtschaftliche Strompreisbildung der Landesenergiewerke Ost fest und führt zum 1. September 2026 den Ost-Stromtarif sowie einen vergünstigten Grundbedarfstarif ein.',
     effectiveOverride: '2026-09-01',
     relatedNorms: ['landesenergiewerke-gesetz', 'energie-und-waermevergesellschaftungsgesetz'],
@@ -318,7 +332,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-22',
     enactingBody: 'Verwaltungsrat der Landesenergiewerke Ost',
     responsibleMinistry: 'Landesenergiewerke Ost AöR',
-    subjects: ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
+    subjects: ['Umweltschutz, Abfallwirtschaft', 'Gewerbe- und Berufsrecht'],
     summary: 'Legt die gemeinwirtschaftliche Wärmepreisbildung der Landesenergiewerke Ost fest, senkt Haushaltswärmepreise und führt zum 1. September 2026 einen vergünstigten Grundwärmetarif ein.',
     effectiveOverride: '2026-09-01',
     relatedNorms: ['landesenergiewerke-gesetz', 'energie-und-waermevergesellschaftungsgesetz', 'energie-und-waermefinanzierungsgesetz'],
@@ -333,7 +347,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-23',
     enactingBody: 'Verwaltungsrat der Ostdeutschen Eisenbahn',
     responsibleMinistry: 'Ostdeutsche Eisenbahn AöR',
-    subjects: ['Mobilität und öffentliche Infrastruktur', 'Öffentliche Wirtschaft'],
+    subjects: ['Verkehr', 'Gewerbe- und Berufsrecht'],
     summary: 'Verankert gemeinwirtschaftliche Betriebsgrundsätze, Betriebs- und Personalreserven, eine Fahrgastgarantie, eine einheitliche Wagenklasse und monatliche Qualitätsberichte der Ostdeutschen Eisenbahn.',
     effectiveOverride: '2026-08-24',
     relatedNorms: [
@@ -353,7 +367,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-23',
     enactingBody: 'Verbandsversammlung des Ostdeutschen Verkehrsverbundes',
     responsibleMinistry: 'Ostdeutscher Verkehrsverbund',
-    subjects: ['Mobilität und öffentliche Infrastruktur', 'Sozialrecht'],
+    subjects: ['Verkehr', 'Allgemeines zum Sozialwesen'],
     summary: 'Setzt das Ost-Ticket auf 15 Euro, führt einen unentgeltlichen Sozialtarif und die grundsätzlich unentgeltliche Fahrradmitnahme ein und bestimmt Standards für Fahrgastinformation und Anschlusssicherung.',
     effectiveOverride: '2026-08-01',
     relatedNorms: [
@@ -373,7 +387,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-08-23',
     enactingBody: 'Staatssekretariat für Mobilität und regionale Entwicklung',
     responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung',
-    subjects: ['Mobilität und öffentliche Infrastruktur', 'Raumordnung und Landesplanung'],
+    subjects: ['Verkehr', 'Raumordnung, Landesplanung'],
     summary: 'Bestimmt das Landesnetz Ost und legt Planungsgrundsätze für Ostdeutschlandtakt, Betriebszeiten, Mobilitätsgrundversorgung, Taktknoten, Anschlusssicherung und Angebotsausbau fest.',
     effectiveOverride: '2026-08-24',
     relatedNorms: [
@@ -394,7 +408,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-04',
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-    subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+    subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
     keywords: ['Interflug', 'Gründungsvorstand', 'Joachim Hunold', 'Ralf Teckentrup', 'Klaus Wowereit'],
     summary: 'Bestellt Joachim Hunold, Ralf Teckentrup und Klaus Wowereit mit Wirkung vom 3. September 2026 zu Mitgliedern des Gründungsvorstandes der Interflug und begrenzt die Bestellung auf die Gründungsphase.',
     effectiveOverride: '2026-09-03',
@@ -411,7 +425,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-04',
     enactingBody: 'Gründungsvorstand der Interflug',
     responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-    subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+    subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
     keywords: ['Interflug', 'Anfangsflotte', 'Löschflugzeuge', 'AT-802F Fire Boss', 'Dash 8-400AT', 'Boeing 737-700 FireLiner', 'Beschaffungsprogramm'],
     summary: 'Macht die nach § 21 des Interflug-Gesetzes beschlossene Beschaffung der Anfangsflotte aus zehn Löschflugzeugen mit einem Beschaffungsvolumen von bis zu 105,5 Millionen Euro bekannt.',
     effectiveOverride: '2026-09-03',
@@ -428,7 +442,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit',
-    subjects: ['Sicherheit und Ordnung'],
+    subjects: ['Sicherheitsrecht und Polizeirecht'],
     summary: 'Bestimmt die lebens- und verteidigungswichtigen Einrichtungen, für deren Aufgabenwahrnehmung Sicherheitsüberprüfungen erforderlich sind.',
     dateNote: 'Am 31. August 2026 verkündet und am 1. September 2026 in Kraft getreten.',
   }],
@@ -442,7 +456,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
-      subjects: ['Staats- und Verfassungsrecht', 'Landesrecht'],
+      subjects: ['Verfassungsrecht'],
       summary: 'Führt ein neues Gesetz über die Hoheitszeichen ein, hebt das bisherige Gesetz über die Hoheitszeichen auf und regelt Übergangsrecht sowie die Fortgeltung der Hoheitszeichenverordnung.',
       affectedNorms: ['gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes', 'hoheitszeichenverordnung'],
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
@@ -457,7 +471,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
-      subjects: ['Staats- und Verfassungsrecht', 'Landesrecht'],
+      subjects: ['Verfassungsrecht'],
       summary: 'Bestimmt die Hoheitszeichen des Freistaates Ostdeutschland und ihre Verwendung.',
       predecessor: 'Gesetz zur Einführung eines Hoheitszeichengesetzes',
       relatedNorms: ['besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts', 'hoheitszeichenverordnung'],
@@ -474,7 +488,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Staats- und Verfassungsrecht'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verfassungsrecht'],
       summary: 'Führt das Ostdeutsche Daseinsvorsorgegesetz ein und ergänzt die Ostdeutsche Haushaltsordnung um eine Regelung zur Überlassung landeseigener Liegenschaften.',
       affectedNorms: ['saechsische-haushaltsordnung'],
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
@@ -489,7 +503,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Staats- und Verfassungsrecht'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verfassungsrecht'],
       summary: 'Bestimmt die öffentliche Daseinsvorsorge als staatliche Aufgabe, ihre Verantwortungsträger und die Grundsätze ihrer Sicherstellung.',
       relatedNorms: ['gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge', 'saechsische-haushaltsordnung'],
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
@@ -504,7 +518,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: 'Landtag des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
-    subjects: ['Kommunal- und Verwaltungsrecht', 'Transparenz und Informationszugang'],
+    subjects: ['Kommunalrecht', 'Allgemeine Verwaltung'],
     summary: 'Führt bei Gemeinden, Landkreisen und Bezirken interne Meldestellen für Hinweisgeber:innen ein.',
     affectedNorms: ['saechsische-gemeindeordnung', 'saechsische-landkreisordnung', 'ostdeutsche-bezirksordnung'],
     dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 1. Oktober 2026.',
@@ -519,7 +533,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Wirtschaft und Förderung'],
+      subjects: ['Gewerbe- und Berufsrecht'],
       summary: 'Führt das Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald ein.',
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
     },
@@ -533,7 +547,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Wirtschaft und Förderung'],
+      subjects: ['Gewerbe- und Berufsrecht'],
       summary: 'Regelt die Vergesellschaftung des Lithiumprojekts Zinnwald.',
       relatedNorms: ['gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes'],
       dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
@@ -549,7 +563,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
       summary: 'Errichtet die Interflug und führt das Gesetz über die Interflug ein.',
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
     },
@@ -563,7 +577,7 @@ const NEW_PUBLICATION_CONFIG = {
       verifiedAt: '2026-09-02',
       enactingBody: 'Landtag des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
-      subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+      subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
       summary: 'Bestimmt Aufgaben, Organisation und Aufsicht der Interflug.',
       relatedNorms: ['gesetz-zur-errichtung-der-interflug', 'bekanntmachung-bestellung-gruendungsvorstand-interflug', 'bekanntmachung-beschaffung-anfangsflotte-interflug'],
       dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
@@ -578,7 +592,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: null,
     responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
-    subjects: ['Rundfunk und Medien', 'Völkerrecht und Staatsverträge'],
+    subjects: ['Presse-, Rundfunk-, Filmwesen', 'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen'],
     summary: 'Ändert den Staatsvertrag über den Norddeutschen Rundfunk und regelt die Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk.',
     effectiveOverride: '2026-09-03',
     versionId: '2026-03-08',
@@ -613,7 +627,7 @@ const NEW_PUBLICATION_CONFIG = {
     verifiedAt: '2026-09-02',
     enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
-    subjects: ['Rundfunk und Medien', 'Völkerrecht und Staatsverträge'],
+    subjects: ['Presse-, Rundfunk-, Filmwesen', 'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen'],
     summary: 'Macht bekannt, dass der NDR-Änderungs- und Überleitungsstaatsvertrag nach Austausch der Ratifikationsurkunden am 3. September 2026 in Kraft tritt.',
     relatedNorms: ['staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt'],
     dateNote: 'Am 2. September 2026 verkündet. Der Staatsvertrag tritt am 3. September 2026 in Kraft.',
@@ -633,6 +647,18 @@ function configuredSubjectsFor(parsed) {
   return NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]
     ? SCHOOL_LAW_SUBJECTS
     : ISSUE_SUBJECTS[parsed.issue];
+}
+
+/**
+ * Sachgebiete in der Speicherform: höchstens drei, ohne Wiederholung, das Hauptsachgebiet
+ * an erster Stelle (primarySubject ist stets subjects[0]).
+ */
+function orderedSubjects(subjects, primarySubject) {
+  const unique = [...new Set(subjects ?? [])];
+  const ordered = primarySubject && unique.includes(primarySubject)
+    ? [primarySubject, ...unique.filter((subject) => subject !== primarySubject)]
+    : unique;
+  return ordered.slice(0, 3);
 }
 
 const OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES = [
@@ -743,13 +769,9 @@ const STANZO_HOUSING_SOURCE_REFERENCES = [
   },
 ];
 
-// Nur in Primärquellen belegte Kürzel dürfen als amtliche Suchbegriffe erscheinen.
+// Nur in Primärquellen belegte Kürzel dürfen als amtliche Suchbegriffe erscheinen; die Liste
+// führt scripts/lib/norm-title-rules.mjs gemeinsam mit den übrigen Regeln des Titelmodells.
 // Diese redaktionell gebildeten Werte werden beim Zusammenführen mit Bestandsdaten entfernt.
-const UNVERIFIED_GENERATED_ABBREVIATIONS = new Set([
-  'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
-  'PsychVersStG', '1. StaatsreformG', '2. StaatsreformG', '3. StaatsreformG',
-  '4. StaatsreformG', 'ZweitVeröffG',
-]);
 
 function formatGermanDate(isoDate) {
   return new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
@@ -759,8 +781,18 @@ function formatGermanDate(isoDate) {
 function citationFor(parsed, startPage) {
   const label = /Berichtigung/iu.test(parsed.heading ?? '') || parsed.type === 'berichtigung'
     ? 'Berichtigung'
+    : /Allgemeinverfügung/iu.test(parsed.heading ?? '') || parsed.type === 'allgemeinverfuegung'
+    ? 'Allgemeinverfügung'
+    : /Organisationserlass/iu.test(parsed.heading ?? '')
+    ? 'Organisationserlass'
     : /Erlass/iu.test(parsed.heading ?? '')
     ? 'Erlass'
+    : /Anordnung/iu.test(parsed.heading ?? '')
+    ? 'Anordnung'
+    : /Förderrichtlinie/iu.test(parsed.heading ?? '') || parsed.type === 'foerderrichtlinie'
+    ? 'Förderrichtlinie'
+    : /Richtlinie/iu.test(parsed.heading ?? '')
+    ? 'Richtlinie'
     : /Verwaltungsvorschrift/iu.test(parsed.heading ?? '')
     ? 'Verwaltungsvorschrift'
     : /Bekanntmachung/iu.test(parsed.heading ?? '') || parsed.type === 'bekanntmachung'
@@ -884,22 +916,70 @@ function relatedNormSlugs(meta) {
   return [meta?.enactedNorm, ...(meta?.enactedNorms ?? [])].filter(Boolean);
 }
 
+/**
+ * Die Bezeichnung des Eintrags folgt der Norm, nicht dem Altbestand: Eine bereits
+ * vorhandene Zitierung wird nur übernommen, wenn sie einen zum Normtyp passenden
+ * Rechtsakt nennt (amtliche Sonderformen wie Anordnung oder Organisationserlass
+ * bleiben damit erhalten); sonst wird sie aus Normtyp, Datum und Fundstelle gebildet.
+ */
 function legacyEntryCitation(previous, meta, publication, documentDate) {
-  if (previous?.citation && /\bvom\s+\d{1,2}\.\s+[A-ZÄÖÜa-zäöüß]+\s+\d{4}/u.test(previous.citation)) return previous.citation;
-  const labels = {
-    gesetz: 'Gesetz',
-    verordnung: 'Verordnung',
-    verwaltungsvorschrift: 'Verwaltungsvorschrift',
-    foerderrichtlinie: 'Förderrichtlinie',
-    allgemeinverfuegung: 'Allgemeinverfügung',
-    bekanntmachung: 'Bekanntmachung',
-    berichtigung: 'Berichtigung',
-    staatsvertrag: 'Staatsvertrag',
-    zustimmungsgesetz: 'Gesetz',
-    aenderungsvorschrift: 'Gesetz',
-  };
+  if (
+    previous?.citation &&
+    /\bvom\s+\d{1,2}\.\s+[A-ZÄÖÜa-zäöüß]+\s+\d{4}/u.test(previous.citation) &&
+    citationLabelMatchesNormType(previous.citation, meta.type)
+  ) return previous.citation;
   const page = previous?.startPage ?? previous?.pages?.match(/\d+/u)?.[0];
-  return `${labels[meta.type] ?? 'Veröffentlichung'} vom ${formatGermanDate(documentDate)} (${publication.publication} ${publication.year} Nr. ${publication.issue}${page ? ` S. ${page}` : ''})`;
+  const label = citationLabelMatchesNormType(meta.initialCitation, meta.type)
+    ? String(meta.initialCitation).split(/\s+vom\s+/u)[0].trim()
+    : NORM_TYPE_CITATION_LABELS[meta.type] ?? 'Veröffentlichung';
+  return `${label} vom ${formatGermanDate(documentDate)} (${publication.publication} ${publication.year} Nr. ${publication.issue}${page ? ` S. ${page}` : ''})`;
+}
+
+/**
+ * Befristete Verkündungen: Das Außerkrafttreten steht im Titel und im Text der amtlichen
+ * Quelle („bis zum 1. Januar 2026, 06:00 Uhr“). Der Import modelliert es deterministisch
+ * als expiryDate, validTo der letzten Fassung, Status und Historieneintrag – wie die
+ * Befristungsentscheidungen des übernommenen Bestands. Die Angabe steht hier und nicht in
+ * NEW_PUBLICATION_CONFIG, weil die Norm ihre übrigen redaktionellen Metadaten
+ * (Kurzbezeichnung, Abkürzung, Kurzfassung, Sachgebiete) aus dem Bestand behält.
+ */
+const PUBLICATION_EXPIRY_CONFIG = {
+  'allgemeinverfugung-zur-beschrankung-des-gemeingebrauchs-von-hp0whs': {
+    expiryDate: '2026-01-01',
+    basis: 'vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr',
+    dateNote: 'Die Allgemeinverfügung galt vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr.',
+  },
+};
+
+function applyPublicationExpiry(record) {
+  const config = PUBLICATION_EXPIRY_CONFIG[record.meta.slug];
+  if (!config) return record;
+  const repealed = config.expiryDate <= asOf;
+  const version = record.versions.at(-1);
+  const citation = version?.citation ?? record.meta.initialCitation;
+  const entries = (record.history?.entries ?? []).filter((entry) =>
+    !(entry.type === 'repeal' && entry.date === config.expiryDate));
+  return {
+    ...record,
+    meta: {
+      ...record.meta,
+      status: repealed ? 'repealed' : record.meta.status,
+      expiryDate: config.expiryDate,
+      dateNote: config.dateNote,
+    },
+    history: {
+      ...record.history,
+      entries: [...entries, {
+        date: config.expiryDate,
+        type: 'repeal',
+        title: repealed ? 'Außer Kraft getreten durch Befristung im Text.' : 'Tritt durch Befristung im Text außer Kraft.',
+        citation,
+        affectingVersionId: null,
+        note: `Befristung nach dem Wortlaut der Verkündung: gilt ${config.basis}.`,
+      }],
+    },
+    versions: [...record.versions.slice(0, -1), { ...version, validTo: config.expiryDate, isCurrent: !repealed }],
+  };
 }
 
 function resolveLegacySourceRecords(parsed, existingPublication, existingRecords) {
@@ -958,7 +1038,7 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
     const currentVersion = existing.versions.find((entry) => entry.versionId === publicationEntry?.versionId) ??
       existing.versions.find((entry) => entry.isCurrent) ?? existing.versions.at(-1);
     if (!currentVersion) throw new Error(`${parsed.fileName}: ${slug} besitzt keine aktualisierbare Fassung`);
-    return {
+    return applyPublicationExpiry({
       source: parsed.fileName,
       startPage: publicationEntry?.startPage,
       meta: {
@@ -970,7 +1050,7 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
       },
       history: existing.history,
       versions: [{ ...currentVersion, body: norm.body }],
-    };
+    });
   });
   const mappedEntries = mappings.map(({ norm, slug, existing }, index) => {
     const previous = (existingPublication.entries ?? []).find((entry) => entry.normSlug === slug);
@@ -980,7 +1060,10 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
       ...(previous ?? {}),
       id: previous?.id ?? slug,
       title: existing.meta.title,
-      type: previous?.type ?? (existing.meta.type === 'verordnung' ? 'verordnung' : 'gesetz'),
+      type: publicationEntryTypeForNormType(existing.meta.type, {
+        publication: existingPublication.publication,
+        initialCitation: existing.meta.initialCitation,
+      }),
       citation: legacyEntryCitation(previous, existing.meta, existingPublication, documentDate),
       documentDate,
       normSlug: slug,
@@ -1012,7 +1095,7 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
   const publication = {
     ...existingPublication,
     ...(existingPublication.sourceFiles ? { sourceFiles: [`Gesetze/${basename(parsed.fileName)}`] } : {}),
-    ...(resolvedPdf.fileName ? { pdf: `/assets/recht/${resolvedPdf.fileName}` } : { pdf: undefined }),
+    ...(resolvedPdf.fileName ? { pdf: publicationPdfPublicPath(existingPublication.slug) } : { pdf: undefined }),
     sourceReferences: officialIssueSourceReferences(parsed, {}, {
       existingReferences: existingPublication.sourceReferences,
       ...(publicationPageRange ? { pageRange: publicationPageRange } : {}),
@@ -1086,18 +1169,27 @@ function buildRecords(parsed) {
       ? norm.title.slice(0, -officialTitleSuffix.length).trim()
       : norm.title;
     const sourceReferences = officialIssueSourceReferences(parsed, config);
+    // Titelmodell (scripts/lib/norm-title-rules.mjs): Kurzbezeichnung nur, wenn sie sich vom
+    // Langtitel unterscheidet; Abkürzung nur, wenn sie die gemeinsame Regel besteht.
+    const resultShortTitle = shortTitle && shortTitle !== officialTitle ? shortTitle : undefined;
+    const resultAbbr = abbreviationProblem(abbr, { title: officialTitle, shortTitle: resultShortTitle }) === null
+      ? abbr
+      : undefined;
     const meta = {
       id: slug,
       slug,
       title: officialTitle,
-      shortTitle,
-      shortTitleSource: config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial',
-      ...(abbr ? { abbr } : {}),
+      ...(resultShortTitle ? { shortTitle: resultShortTitle } : {}),
+      ...(resultShortTitle
+        ? { shortTitleSource: config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial' }
+        : {}),
+      ...(resultAbbr ? { abbr: resultAbbr } : {}),
       type: recordType,
       ...(enactingBody ? { enactingBody } : {}),
       responsibleMinistry,
-      subjects: config.subjects ?? configuredSubjectsFor(parsed),
-      ...(config.primarySubject ? { primarySubject: config.primarySubject } : {}),
+      subjects: orderedSubjects(config.subjects ?? configuredSubjectsFor(parsed), config.primarySubject),
+      primarySubject: orderedSubjects(config.subjects ?? configuredSubjectsFor(parsed), config.primarySubject)[0],
+      // Auch eine nicht übernommene Abkürzung oder Kurzbezeichnung bleibt auffindbar.
       keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? []), ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)].filter(Boolean))].slice(0, 16),
       initialCitation: citation,
       predecessor: config.predecessor ?? null,
@@ -1115,7 +1207,7 @@ function buildRecords(parsed) {
       ...(config.editorialResolutions ? { editorialResolutions: config.editorialResolutions } : {}),
       ...(parsed.issue === '59' ? {
         expiryDate: '2026-12-31',
-        primarySubject: 'Staats- und Verfassungsrecht',
+        primarySubject: 'Verfassungsrecht',
         relatedNorms: [
           'staatsverfassung-des-freistaates-ostdeutschland',
           'erstes-gesetz-zur-grossen-staatsreform',
@@ -1179,13 +1271,9 @@ function buildGmblAgreementRecord(parsed) {
     enactingBody: 'Bundesministerium des Innern und für Heimat und Ostdeutscher Staatsrat',
     responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit',
     subjects: [
-      'Grenzpolizei',
-      'Polizei- und Ordnungsrecht',
-      'Bund-Länder-Zusammenarbeit',
-      'Grenzschutz',
-      'Sicherheit und Ordnung',
+      'Sicherheitsrecht und Polizeirecht',
+      'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen',
     ],
-    primarySubject: 'Grenzpolizei',
     keywords: [
       'Verwaltungsabkommen',
       'Grenzpolizei',
@@ -1322,8 +1410,8 @@ function buildStAnZOHousingGuidelineRecord(parsed) {
       type: 'bekanntmachung',
       enactingBody: 'Verwaltungsrat der Gemeingut Wohnen AöR',
       responsibleMinistry: 'Gemeingut Wohnen AöR',
-      subjects: ['Wohnen und Bodenordnung', 'Öffentliche Wirtschaft'],
-      primarySubject: 'Wohnen und Bodenordnung',
+      subjects: ['Wohnungsbau, Wohnungswesen', 'Gewerbe- und Berufsrecht'],
+      primarySubject: 'Wohnungsbau, Wohnungswesen',
       keywords: ['Gemeingut Wohnen', 'Kostenmiete', 'Mietsenkung', 'Bestandsmieten', 'Nettokaltmiete', '25 Prozent', '5,50 Euro'],
       initialCitation: citation,
       predecessor: null,
@@ -1374,7 +1462,7 @@ function buildConstitutionRecord(parsed) {
       shortTitleSource: 'official',
       type: 'gesetz',
       responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
-      subjects: ['Staats- und Verfassungsrecht'],
+      subjects: ['Verfassungsrecht'],
       keywords: ['Verfassung', 'Volkskammer', 'Staatsrat', 'Staatspräsident', 'Grundrechte', 'Staatsziele'],
       initialCitation: citation,
       predecessor: null,
@@ -1456,18 +1544,15 @@ function publicationFrom(parsed, records) {
       place: 'Dresden',
       publisher: 'Freistaat Ostdeutschland',
     } : {}),
-    ...(pdfFileName ? { pdf: `/assets/recht/${pdfFileName}` } : {}),
+    ...(pdfFileName ? { pdf: publicationPdfPublicPath(`${publicationDetails.slugPrefix}-${parsed.year}-${publicationIssue}`) } : {}),
     sourceReferences: officialIssueSourceReferences(parsed, config),
     entries: [...records.map((record) => ({
       id: record.meta.slug,
       title: record.meta.title,
-      type: isNewOfficialIssue
-        ? record.meta.type === 'aenderungsvorschrift'
-          ? parsed.publication === 'StAnzO.'
-            ? 'verwaltungsvorschrift'
-            : /^Gesetz\s/u.test(record.meta.initialCitation) ? 'gesetz' : 'verordnung'
-          : record.meta.type
-        : record.meta.type === 'verordnung' ? 'verordnung' : 'gesetz',
+      type: publicationEntryTypeForNormType(record.meta.type, {
+        publication: parsed.publication,
+        initialCitation: record.meta.initialCitation,
+      }),
       citation: record.meta.initialCitation,
       ...(!historicalPageRange && !isVolksbefragung && !isNewOfficialIssue && record.startPage ? { startPage: record.startPage } : {}),
       ...(historicalPageRange && records.length === 1
@@ -1494,7 +1579,7 @@ function gmblPublicationFrom(record) {
     publication: 'GMBl.',
     place: 'Bonn',
     publisher: 'Bundesministerium des Innern und für Heimat',
-    pdf: '/assets/recht/GMBl-14-2026.pdf',
+    pdf: publicationPdfPublicPath('gmbl-2026-14'),
     sourceReferences: GMBL_SOURCE_REFERENCES,
     entries: [
       {
@@ -1521,7 +1606,7 @@ function stanzoHousingPublicationFrom(record) {
     publication: 'StAnzO.',
     place: 'Dresden',
     publisher: 'Freistaat Ostdeutschland',
-    pdf: '/assets/recht/StAnzO. 2026 Nr. 15.pdf',
+    pdf: publicationPdfPublicPath('stanzo-2026-15'),
     sourceReferences: STANZO_HOUSING_SOURCE_REFERENCES,
     entries: [{
       id: STANZO_HOUSING_GUIDELINE_SLUG,
@@ -1539,15 +1624,22 @@ function stanzoHousingPublicationFrom(record) {
 function validateRecord(record) {
   if (!record.meta.slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(record.meta.slug)) throw new Error(`${record.source}: instabiler oder ungültiger Slug ${record.meta.slug}`);
   if (!record.versions[0].body.length) throw new Error(`${record.source}: ${record.meta.slug} besitzt einen leeren Normkörper`);
-  const text = JSON.stringify(record.versions[0].body);
+  const text = JSON.stringify(bodyWithoutSignatures(record.versions[0].body));
   if (hasNormContamination(text)) {
     throw new Error(`${record.source}: ${record.meta.slug} enthält Kopf-, Bild- oder Signaturdaten`);
   }
 }
 
+/** Unterschriftenblöcke sind gewollter Bestand; alles andere darf keinen gesperrten Satz tragen. */
+function bodyWithoutSignatures(blocks) {
+  return (blocks ?? [])
+    .filter((block) => block.type !== 'signature')
+    .map((block) => (block.children ? { ...block, children: bodyWithoutSignatures(block.children) } : block));
+}
+
 function hasNormContamination(text) {
   return /data:image|;base64,|Inhaltsverzeichnis|\bDresden,\s+den\s+\d/iu.test(text) ||
-    /D\s+e\s+r\s+L\s+A\s+N\s+D\s+T\s+A\s+G\s+S\s+P\s+R/u.test(text);
+    hasSpacedLetters(text);
 }
 
 function mergeSourceReferences(existingReferences, incomingReferences) {
@@ -1627,14 +1719,19 @@ function mergeWithExisting(record, existing) {
   ));
   const preservedMeta = {
     ...record.meta,
-    subjects: [...new Set([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])])],
+    subjects: orderedSubjects([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])], record.meta.primarySubject),
+    primarySubject: orderedSubjects([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])], record.meta.primarySubject)[0],
     keywords: [...new Set([
       ...(record.meta.keywords ?? []),
       ...(existing.meta.keywords ?? []).filter((keyword) => keyword !== existing.meta.abbr || keyword === record.meta.abbr),
-    ])].filter((keyword) => !UNVERIFIED_GENERATED_ABBREVIATIONS.has(keyword)),
+    ])].filter((keyword) => !UNVERIFIED_ABBREVIATIONS.has(keyword)),
+    // Eine gepflegte Kurzbeschreibung bleibt erhalten; ihre Herkunftskennzeichnung folgt ihr.
     summary: existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary)
       ? existing.meta.summary
       : record.meta.summary,
+    ...(existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary) && existing.meta.summarySource
+      ? { summarySource: existing.meta.summarySource }
+      : {}),
     ...((existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm)
       ? { enactingNorm: existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm }
       : {}),
@@ -1843,7 +1940,7 @@ function compareGeneratedRecordToExisting(record, existing) {
   if (JSON.stringify(storedBodyForSourceComparison) !== JSON.stringify(record.versions[0].body)) {
     issues.push('strukturierter Normtext weicht vom aktuellen Parsergebnis ab');
   }
-  const storedText = JSON.stringify(version.body);
+  const storedText = JSON.stringify(bodyWithoutSignatures(version.body));
   if (hasNormContamination(storedText)) issues.push('Vorblatt-, Bild-, Inhaltsverzeichnis- oder Signaturtext im Normkörper');
   return { status: issues.length ? 'differs' : 'matches', issues };
 }
@@ -1902,7 +1999,7 @@ function compareParsedNormToExisting(norm, issue, existingRecords) {
     const storedBlocks = flattenBody(version?.body ?? []);
     const storedLabels = new Set(storedBlocks.map((block) => block.label).filter(Boolean));
     const missingLabels = [...sourceLabels].filter((label) => !storedLabels.has(label));
-    const contamination = hasNormContamination(JSON.stringify(version?.body ?? []));
+    const contamination = hasNormContamination(JSON.stringify(bodyWithoutSignatures(version?.body ?? [])));
     return { slug, missingLabels, contamination, score: missingLabels.length + (contamination ? 1000 : 0) };
   }).sort((left, right) => left.score - right.score || left.slug.localeCompare(right.slug));
   const best = ranked[0];
@@ -2428,8 +2525,7 @@ if (shouldWrite) {
     await writeJson(path, publication);
     const primaryPdf = publication.sourceReferences?.find((reference) => reference.kind === 'primary-pdf');
     if (primaryPdf?.localSource) {
-      const pdfFileName = basename(primaryPdf.localSource);
-      const publicPath = resolve(ROOT, 'public/assets/recht', pdfFileName);
+      const publicPath = resolve(ROOT, 'public/assets/recht', publicationPdfFileName(publication.slug));
       await mkdir(resolve(ROOT, 'public/assets/recht'), { recursive: true });
       await copyFile(resolve(ROOT, primaryPdf.localSource), publicPath);
     }

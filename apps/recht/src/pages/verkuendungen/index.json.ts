@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getPublicationLabel, getPublicationSearchAliases } from '@ostrecht/shared/lib/norms/index.ts';
+import { comparePublicationsNewestFirst, getPublicationLabel, getPublicationSearchAliases } from '@ostrecht/shared/lib/norms/index.ts';
 
 import { getNormStore } from '../../lib/runtime/context.ts';
 
@@ -8,7 +8,8 @@ export const prerender = false;
 
 export const GET: APIRoute = async ({ locals }) => {
   const store = await getNormStore(locals);
-  const publications = await store.listPublications();
+  // Dieselbe Reihenfolge wie die Übersicht: jüngste Ausgabe zuerst, unabhängig von der Datenquelle.
+  const publications = [...(await store.listPublications())].sort(comparePublicationsNewestFirst);
 
   return new Response(
     JSON.stringify({
@@ -21,6 +22,7 @@ export const GET: APIRoute = async ({ locals }) => {
             publication: publications[0].publication,
             year: publications[0].year,
             issue: publications[0].issue,
+            label: getPublicationLabel(publications[0]),
           }
         : null,
       publications: publications.map((publication) => ({

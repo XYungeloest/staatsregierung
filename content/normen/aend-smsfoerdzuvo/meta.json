@@ -2,15 +2,13 @@
   "id": "aend-smsfoerdzuvo",
   "slug": "aend-smsfoerdzuvo",
   "title": "Verordnung der Ostdeutschen Staatsministerien für Soziales und Gesellschaftlichen Zusammenhalt sowie der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderzuständigkeitsverordnung SMS",
-  "shortTitle": "Verordnung der Ostdeutschen Staatsministerien für Soziales und Gesellschaftlichen Zusammenhalt sowie der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderzuständigkeitsverordnung SMS",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Verordnung der Ostdeutschen Staatsministerien für Soziales und Gesellschaftlichen Zusammenhalt sowie der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderzuständigkeitsverordnung SMS",
+    "Änd. SMSFördZuVO",
     "Staatsministerien",
     "Soziales",
     "Gesellschaftlichen",
@@ -26,6 +24,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung der Ostdeutschen Staatsministerien für Soziales und Gesellschaftlichen Zusammenhalt sowie der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderzuständigkeitsverordnung SMS“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-02-02",
   "effectiveDate": "2022-02-20",
@@ -40,8 +39,12 @@
       "sha256": "1afb03544cb801413b4a36766150b081abe3b0777dada4422ededdca27fd0648",
       "lawId": "19533",
       "sourceValidFrom": "2022-02-20",
+      "fsnNumber": "55",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderzustaendigkeitsverordnung-sms"
   ]
 }

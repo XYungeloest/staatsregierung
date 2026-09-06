@@ -1,23 +1,27 @@
 {
   "id": "vwv-verkehrsueberwachung",
   "slug": "vwv-verkehrsueberwachung",
-  "title": "VwV Verkehrsüberwachung",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Überwachung des Straßenverkehrs",
   "shortTitle": "VwV Verkehrsüberwachung",
-  "abbr": "VwV VKÜ",
   "shortTitleSource": "official",
+  "abbr": "VwV VKÜ",
   "type": "verwaltungsvorschrift",
   "subjects": [
-    "Mobilität und öffentliche Infrastruktur"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
-    "VwV VKÜ",
     "VwV Verkehrsüberwachung",
+    "Innern",
+    "Überwachung",
+    "Straßenverkehrs",
     "Verkehrsüberwachung"
   ],
-  "initialCitation": "VwV Verkehrsüberwachung vom 21. Mai 2014 (SächsABl. S. 759), zuletzt enthalten in der Verwaltungsvorschrift vom 25. November 2025 (SächsABl. SDr. S. S 212)",
+  "initialCitation": "VwV Verkehrsüberwachung vom 21. Mai 2014 (SächsABl. S. 759)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV Verkehrsüberwachung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2014-05-21",
   "sourceReferences": [
@@ -31,6 +35,7 @@
       "sha256": "04219c670f1923e1ce48b40ae524203c76f346bb497acf5f0f3cba57fe8b8c3b",
       "lawId": "14006",
       "sourceValidFrom": "2014-06-20",
+      "fsnNumber": "22-V14.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

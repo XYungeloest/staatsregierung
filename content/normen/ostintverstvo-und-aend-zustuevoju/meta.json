@@ -2,15 +2,14 @@
   "id": "ostintverstvo-und-aend-zustuevoju",
   "slug": "ostintverstvo-und-aend-zustuevoju",
   "title": "Verordnung der Ostdeutschen Staatsregierung zur Regelung der Internetversteigerung in der Zwangsvollstreckung und von Fundsachen und zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitle": "Verordnung der Ostdeutschen Staatsregierung zur Regelung der Internetversteigerung in der Zwangsvollstreckung und von Fundsachen und zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Verordnung der Ostdeutschen Staatsregierung zur Regelung der Internetversteigerung in der Zwangsvollstreckung und von Fundsachen und zur Änderung der Zuständigkeitsübertragungsverordnung Justiz",
+    "OstIntVerstVO und Änd. ZustÜVOJu",
     "Regelung",
     "Internetversteigerung",
     "Zwangsvollstreckung",
@@ -23,6 +22,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung der Ostdeutschen Staatsregierung zur Regelung der Internetversteigerung in der Zwangsvollstreckung und von Fundsachen und zur Änderung der Zuständigkeitsübertragungsverordnung Justiz“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2010-03-14",
   "effectiveDate": "2010-04-01",
@@ -37,8 +37,12 @@
       "sha256": "a1cd0a256b02435b96de04ed44b6aad8e42507c31c9c855c3bddf7d3905fd40e",
       "lawId": "11330",
       "sourceValidFrom": "2010-04-01",
+      "fsnNumber": "303",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "zustaendigkeitsuebertragungsverordnung-justiz"
   ]
 }

@@ -2,14 +2,13 @@
   "id": "aend-frl-kofinanzierung-zukunftsprogramm-kino",
   "slug": "aend-frl-kofinanzierung-zukunftsprogramm-kino",
   "title": "Richtlinie der Ostdeutschen Staatskanzlei zur Änderung der FRL Kofinanzierung Zukunftsprogramm Kino",
-  "shortTitle": "Richtlinie der Ostdeutschen Staatskanzlei zur Änderung der FRL Kofinanzierung Zukunftsprogramm Kino",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie der Ostdeutschen Staatskanzlei zur Änderung der FRL Kofinanzierung Zukunftsprogramm Kino",
+    "Änd. FRL Kofinanzierung Zukunftsprogramm Kino",
     "Staatskanzlei",
     "Änderung",
     "Kofinanzierung",
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie der Ostdeutschen Staatskanzlei zur Änderung der FRL Kofinanzierung Zukunftsprogramm Kino“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-05-05",
   "effectiveDate": "2023-01-30",
@@ -33,8 +33,12 @@
       "sha256": "d4794118b2687810f591983b03ecbe89f03a38d36fff9b53aad08c79ee9b0c7a",
       "lawId": "19955",
       "sourceValidFrom": "2023-01-30",
+      "fsnNumber": "5571",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "frl-kofinanzierung-zukunftsprogramm-kino"
   ]
 }

@@ -2,13 +2,12 @@
   "id": "aend-ostwg-19802",
   "slug": "aend-ostwg-19802",
   "title": "Änderung des Ostdeutschen Wassergesetzes",
-  "shortTitle": "Änd. OstWG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Umwelt, Energie und Klimaschutz"
+    "Bergbau, Energiewirtschaft, Wasserwirtschaft"
   ],
+  "primarySubject": "Bergbau, Energiewirtschaft, Wasserwirtschaft",
   "keywords": [
     "Änd. OstWG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "haushaltsbegleitgesetz-2023-2024",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstWG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Wassergesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-12-20",
   "effectiveDate": "2023-01-01",
@@ -33,6 +33,7 @@
       "sha256": "7ca5889b401a22cbcd35454580a3234e192461488e15d08f3063e0e63f859fe2",
       "lawId": "19802",
       "sourceValidFrom": "2023-01-01",
+      "fsnNumber": "612",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

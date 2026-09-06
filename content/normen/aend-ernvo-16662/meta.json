@@ -2,12 +2,11 @@
   "id": "aend-ernvo-16662",
   "slug": "aend-ernvo-16662",
   "title": "Änderung der Ernennungsverordnung",
-  "shortTitle": "Änd. ErnVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. ErnVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-der-vertretungsverordnung-und-der-ernennungsverordnung",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. ErnVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Ernennungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-09-24",
   "effectiveDate": "2015-10-31",
@@ -32,6 +32,7 @@
       "sha256": "78e7062f634a19d9722d7c57a5063464de4a5f614ce223bb5b785c24bb5d533b",
       "lawId": "16662",
       "sourceValidFrom": "2015-10-31",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -2,16 +2,14 @@
   "id": "aend-ostrkg-und-ostukg",
   "slug": "aend-ostrkg-und-ostukg",
   "title": "Gesetz zur Änderung des Ostdeutschen Reisekostengesetzes und des Ostdeutschen Umzugskostengesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Reisekostengesetzes und des Ostdeutschen Umzugskostengesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht",
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Reisekostengesetzes und des Ostdeutschen Umzugskostengesetzes",
+    "Änd. OstRKG und OstUKG",
     "Änderung",
     "Reisekostengesetzes",
     "Umzugskostengesetzes"
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Reisekostengesetzes und des Ostdeutschen Umzugskostengesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1998-05-19",
   "effectiveDate": "1998-06-04",
@@ -37,5 +36,8 @@
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-reisekostengesetz"
   ]
 }

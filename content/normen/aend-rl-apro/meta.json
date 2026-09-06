@@ -2,15 +2,14 @@
   "id": "aend-rl-apro",
   "slug": "aend-rl-apro",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderrichtlinie Aussteigerprogramm",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderrichtlinie Aussteigerprogramm",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderrichtlinie Aussteigerprogramm",
+    "Änd. RL APro",
     "Innern",
     "Änderung",
     "Förderrichtlinie",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums des Innern zur Änderung der Förderrichtlinie Aussteigerprogramm“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2011-03-01",
   "effectiveDate": "2011-04-08",
@@ -34,8 +34,12 @@
       "sha256": "2b64cd926e37b61c7026838dab68e09abeb9abf1a8a63645ce811178b953f134",
       "lawId": "11708",
       "sourceValidFrom": "2011-04-08",
+      "fsnNumber": "5580",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-aussteigerprogramm"
   ]
 }

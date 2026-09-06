@@ -2,13 +2,12 @@
   "id": "aend-ostjg-10831",
   "slug": "aend-ostjg-10831",
   "title": "Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitle": "Änd. OstJG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
     "Änd. OstJG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-osteigbg-und-andere-g",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstJG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Justizgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-06-26",
   "effectiveDate": "2009-07-11",
@@ -33,6 +33,7 @@
       "sha256": "bf2ac3b0285bb730e264ea10b2fc4e9312c62cb9dc0cd8baa564010af8e6e76e",
       "lawId": "10831",
       "sourceValidFrom": "2009-07-11",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

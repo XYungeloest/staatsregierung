@@ -1,24 +1,27 @@
 {
   "id": "ostdeutsches-gaststaettengesetz",
   "slug": "ostdeutsches-gaststaettengesetz",
-  "title": "Ostdeutsches Gaststättengesetz",
+  "title": "Gesetz über die Gaststätten im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Gaststättengesetz",
-  "abbr": "OstGastG",
   "shortTitleSource": "official",
+  "abbr": "OstGastG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gewerbe- und Berufsrecht"
   ],
+  "primarySubject": "Gewerbe- und Berufsrecht",
   "keywords": [
-    "OstGastG",
     "Ostdeutsches Gaststättengesetz",
-    "Gaststättengesetz"
+    "Gaststätten",
+    "Gaststättengesetz",
+    "OstGastG"
   ],
   "initialCitation": "Ostdeutsches Gaststättengesetz vom 3. Juli 2011 (SächsGVBl. S. 198), das zuletzt durch Artikel 27 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Gaststättengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2011-07-03",
   "sourceReferences": [
@@ -32,6 +35,7 @@
       "sha256": "f16aaddebb99b2efd617a9807139d7888f12c4549d43c3d6ef9fb892fcca2108",
       "lawId": "12033",
       "sourceValidFrom": "2018-05-25",
+      "fsnNumber": "601-13",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

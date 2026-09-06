@@ -1,24 +1,29 @@
 {
   "id": "ostdeutsches-sparkassengesetz",
   "slug": "ostdeutsches-sparkassengesetz",
-  "title": "Ostdeutsches Sparkassengesetz",
+  "title": "Gesetz über die öffentlich-rechtlichen Kreditinstitute im Freistaat Ostdeutschland und die Ostdeutschland-Finanzgruppe",
   "shortTitle": "Ostdeutsches Sparkassengesetz",
-  "abbr": "OstSpG",
   "shortTitleSource": "official",
+  "abbr": "OstSpG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Geld- und Kreditwesen, Versicherungen"
   ],
+  "primarySubject": "Geld- und Kreditwesen, Versicherungen",
   "keywords": [
-    "OstSpG",
     "Ostdeutsches Sparkassengesetz",
-    "Sparkassengesetz"
+    "öffentlich-rechtlichen",
+    "Kreditinstitute",
+    "Ostdeutschland-Finanzgruppe",
+    "Sparkassengesetz",
+    "OstSpG"
   ],
   "initialCitation": "Ostdeutsches Sparkassengesetz vom 13. Dezember 2002 (SächsGVBl. S. 333), das zuletzt durch Artikel 8 des Gesetzes vom 9. Februar 2022 (SächsGVBl. S. 134) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Sparkassengesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2002-12-13",
   "sourceReferences": [
@@ -32,6 +37,7 @@
       "sha256": "fea4a55f0b49e42cc48a347eb2a87cee5b051aea6a85879d109ceb209cfc9678",
       "lawId": "3844",
       "sourceValidFrom": "2022-02-20",
+      "fsnNumber": "62-9",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

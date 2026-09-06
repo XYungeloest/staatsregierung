@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Bekämpfung OK",
+  "title": "Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Europa und des Ostdeutschen Staatsministeriums des Innern über die Zusammenarbeit von Staatsanwaltschaft und Polizeivollzugsdienst bei der Bekämpfung der Organisierten Kriminalität (VwV Bekämpfung OK)",
   "shortTitle": "VwV Bekämpfung OK",
-  "abbr": "VwV Bekämpfung OK",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV Bekämpfung OK vom 12. August 2010 (SächsABl. S. 1240), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 244)",
+  "citation": "VwV Bekämpfung OK vom 12. August 2010 (SächsABl. S. 1240)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "0d2f3e623177694767bc7b75612fc50c655a0c0ca71c6f1b7caa187d14632dc3",
       "lawId": "11475",
       "sourceValidFrom": "2010-10-01",
+      "fsnNumber": "34-V10.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -29,14 +29,6 @@
       "label": "1",
       "title": "Grundsätzliches",
       "children": [
-        {
-          "type": "item",
-          "label": "1",
-          "text": "Grundsätzliches",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "1.1",
@@ -83,14 +75,6 @@
       "label": "2",
       "title": "Begriff, Erscheinungsformen und Indikatoren der OK",
       "children": [
-        {
-          "type": "item",
-          "label": "2",
-          "text": "Begriff, Erscheinungsformen und Indikatoren der OK",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -303,17 +287,8 @@
       "title": "Organisation der Strafverfolgungsbehörden, Zuständigkeiten",
       "children": [
         {
-          "type": "item",
-          "label": "3",
-          "text": "Organisation der Strafverfolgungsbehörden, Zuständigkeiten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Bekämpfung der OK ist eine Aufgabe nicht nur der in den Nummern 3.1 und 3.2 aufgeführten Dienststellen und Beamten. Vielmehr sind alle Angehörigen der Strafverfolgungsbehörden gehalten, auf Anzeichen für OK zu achten. Die zügige und wirksame Verfolgung der OK setzt eine aufeinander abgestimmte Organisation der Strafverfolgungsbehörden voraus. Ein identischer Aufbau ist nicht erforderlich."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die Bekämpfung der OK ist eine Aufgabe nicht nur der in den Nummern 3.1 und 3.2 aufgeführten Dienststellen und Beamten. Vielmehr sind alle Angehörigen der Strafverfolgungsbehörden gehalten, auf Anzeichen für OK zu achten. Die zügige und wirksame Verfolgung der OK setzt eine aufeinander abgestimmte Organisation der Strafverfolgungsbehörden voraus. Ein identischer Aufbau ist nicht erforderlich."
         },
         {
           "type": "item",
@@ -454,14 +429,6 @@
       "children": [
         {
           "type": "item",
-          "label": "4",
-          "text": "Verfahrensbearbeitung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "4.1",
           "text": "Ziel der Ermittlungen",
           "level": 0,
@@ -594,14 +561,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5",
-          "text": "Verfahrensübergreifende Zusammenarbeit",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.1",
           "text": "Ziel",
           "level": 0,
@@ -723,17 +682,8 @@
       "title": "Initiativermittlungen",
       "children": [
         {
-          "type": "item",
-          "label": "6",
-          "text": "Initiativermittlungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "OK ist konspirativ und agiert abgeschottet. Die Aufklärung und wirksame Verfolgung setzt daher Initiativermittlungen voraus, indem Staatsanwaltschaft und Polizei von sich aus im Rahmen ihrer gesetzlichen Befugnisse Informationen gewinnen oder bereits erhobene Informationen zusammenführen, um Ansätze zu weiteren Ermittlungen zu erhalten."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "OK ist konspirativ und agiert abgeschottet. Die Aufklärung und wirksame Verfolgung setzt daher Initiativermittlungen voraus, indem Staatsanwaltschaft und Polizei von sich aus im Rahmen ihrer gesetzlichen Befugnisse Informationen gewinnen oder bereits erhobene Informationen zusammenführen, um Ansätze zu weiteren Ermittlungen zu erhalten."
         },
         {
           "type": "item",
@@ -795,17 +745,8 @@
       "title": "Zusammenarbeit mit den Justizvollzugsanstalten",
       "children": [
         {
-          "type": "item",
-          "label": "7",
-          "text": "Zusammenarbeit mit den Justizvollzugsanstalten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die von der OK ausgehenden Gefahren sind auch bei den Vollzugsentscheidungen zu berücksichtigen."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die von der OK ausgehenden Gefahren sind auch bei den Vollzugsentscheidungen zu berücksichtigen."
         },
         {
           "type": "item",
@@ -866,14 +807,6 @@
       "label": "8",
       "title": "Zusammenarbeit mit anderen Behörden",
       "children": [
-        {
-          "type": "item",
-          "label": "8",
-          "text": "Zusammenarbeit mit anderen Behörden",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "8.1",
@@ -982,37 +915,28 @@
       "title": "Schutz der Ermittlungen und Informationsaustausch",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Der Geheimhaltung der Ermittlungen kommt in Verfahren wegen OK besonders hohe Bedeutung zu. Dabei darf der notwendige polizeiliche Informationsaustausch zwischen den Strafverfolgungsbehörden nicht behindert werden oder gar zum Erliegen kommen. Um das unter Nummer 4.1 genannte vorrangige Ermittlungsziel nicht zu gefährden, ist sicherzustellen, dass"
+        },
+        {
           "type": "item",
-          "label": "9",
-          "text": "Schutz der Ermittlungen und Informationsaustausch",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Der Geheimhaltung der Ermittlungen kommt in Verfahren wegen OK besonders hohe Bedeutung zu. Dabei darf der notwendige polizeiliche Informationsaustausch zwischen den Strafverfolgungsbehörden nicht behindert werden oder gar zum Erliegen kommen. Um das unter Nummer 4.1 genannte vorrangige Ermittlungsziel nicht zu gefährden, ist sicherzustellen, dass"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "ausschließlich unmittelbar an den Ermittlungen Beteiligte Kenntnis von Maßnahmen der verdeckten Informationsgewinnung erlangen,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "in den mit der Bekämpfung der OK befassten Dienststellen und Organisationseinheiten alle Voraussetzungen für den Schutz der Ermittlungen gegeben sind, insbesondere Informationsempfänger sorgsam ausgewählt werden und die Nachverfolgbarkeit von Informationswegen sichergestellt ist.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "paragraphText",
-              "text": "Die Rechte der Verteidigung bleiben unberührt."
-            }
-          ]
+          "label": "a)",
+          "text": "ausschließlich unmittelbar an den Ermittlungen Beteiligte Kenntnis von Maßnahmen der verdeckten Informationsgewinnung erlangen,",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "in den mit der Bekämpfung der OK befassten Dienststellen und Organisationseinheiten alle Voraussetzungen für den Schutz der Ermittlungen gegeben sind, insbesondere Informationsempfänger sorgsam ausgewählt werden und die Nachverfolgbarkeit von Informationswegen sichergestellt ist.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Rechte der Verteidigung bleiben unberührt."
         }
       ]
     },
@@ -1022,17 +946,8 @@
       "title": "Inkrafttreten und Außerkrafttreten",
       "children": [
         {
-          "type": "item",
-          "label": "10",
-          "text": "Inkrafttreten und Außerkrafttreten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt am ersten Tag des auf ihre Veröffentlichung folgenden Monats in Kraft. Gleichzeitig tritt die Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und des Ostdeutschen Staatsministeriums des Innern über die Zusammenarbeit von Staatsanwaltschaft und Polizeivollzugsdienst bei der Bekämpfung der Organisierten Kriminalität (VwV Bekämpfung OK) vom 15. Februar 1995 (SächsABl. S. 346), geändert durch Verwaltungsvorschrift vom 2. Februar 2000 (SächsABl. S. 187), zuletzt enthalten in der Verwaltungsvorschrift vom 11. Dezember 2009 (SächsABl. SDr. S. S 2431), außer Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am ersten Tag des auf ihre Veröffentlichung folgenden Monats in Kraft. Gleichzeitig tritt die Gemeinsame Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und des Ostdeutschen Staatsministeriums des Innern über die Zusammenarbeit von Staatsanwaltschaft und Polizeivollzugsdienst bei der Bekämpfung der Organisierten Kriminalität (VwV Bekämpfung OK) vom 15. Februar 1995 (SächsABl. S. 346), geändert durch Verwaltungsvorschrift vom 2. Februar 2000 (SächsABl. S. 187), zuletzt enthalten in der Verwaltungsvorschrift vom 11. Dezember 2009 (SächsABl. SDr. S. S 2431), außer Kraft."
         }
       ]
     },

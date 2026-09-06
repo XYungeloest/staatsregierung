@@ -1,24 +1,30 @@
 {
   "id": "vwv-rueckbau-wohngebaeude",
   "slug": "vwv-rueckbau-wohngebaeude",
-  "title": "VwV-Rückbau Wohngebäude",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Förderung des Rückbaus von Wohngebäuden (VwV-Rückbau Wohngebäude)",
   "shortTitle": "VwV-Rückbau Wohngebäude",
-  "abbr": "VwV-Rückbau Wohngebäude",
   "shortTitleSource": "official",
   "type": "foerderrichtlinie",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien",
+    "Raumordnung, Landesplanung"
   ],
+  "primarySubject": "Förderrichtlinien",
+  "fundingArea": "553",
   "keywords": [
     "VwV-Rückbau Wohngebäude",
+    "Innern",
+    "Förderung",
+    "Rückbaus",
+    "Wohngebäuden",
     "VwV-Rückbau",
     "Wohngebäude"
   ],
-  "initialCitation": "VwV-Rückbau Wohngebäude vom 25. Juni 2013 (SächsABl. S. 672), die durch die Richtlinie vom 30. Juni 2023 (SächsABl. S. 1016) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 5. Dezember 2025 (SächsABl. SDr. S. S 286)",
+  "initialCitation": "VwV-Rückbau Wohngebäude vom 25. Juni 2013 (SächsABl. S. 672), die durch die Richtlinie vom 30. Juni 2023 (SächsABl. S. 1016) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „VwV-Rückbau Wohngebäude“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2013-06-25",
   "sourceReferences": [
@@ -32,6 +38,7 @@
       "sha256": "609f839918abf85451c778b96391fe9ccbe549f3da2568b9fa554b33ee373e1c",
       "lawId": "12849",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "554-V13.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

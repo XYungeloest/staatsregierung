@@ -2,16 +2,14 @@
   "id": "g-zum-12-rundfunkaenderungsstv-und-aend-ostprg",
   "slug": "g-zum-12-rundfunkaenderungsstv-und-aend-ostprg",
   "title": "Gesetz zum Zwölften Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
-  "shortTitle": "Gesetz zum Zwölften Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Rundfunk und Medien",
-    "Völkerrecht und Staatsverträge"
+    "Presse-, Rundfunk-, Filmwesen"
   ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
   "keywords": [
-    "Gesetz zum Zwölften Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes",
+    "G zum 12. RundfunkänderungsStV und Änd. OstPRG",
     "Zwölften",
     "Rundfunkänderungsstaatsvertrag",
     "Änderung",
@@ -21,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zum Zwölften Rundfunkänderungsstaatsvertrag und zur Änderung des Ostdeutschen Privatrundfunkgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-04-16",
   "effectiveDate": "2009-05-03",
@@ -35,8 +34,12 @@
       "sha256": "8da43b50ed6c879acf25ccbc14678b6ec606c461e6ee44f7ec5a2e640a39ae65",
       "lawId": "10724",
       "sourceValidFrom": "2009-05-03",
+      "fsnNumber": "72-29A",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-privatrundfunkgesetz"
   ]
 }

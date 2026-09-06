@@ -137,7 +137,6 @@ export {
   getLawHomeUrl,
   getLawIndexUrl,
   getLawPublicationsUrl,
-  getLawReferencesUrl,
   getLawSearchUrl,
   getLawSubjectsUrl,
   getMinisterPresidentUrl,

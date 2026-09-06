@@ -2,15 +2,13 @@
   "id": "aend-frl-siedlungswasserwirtschaft",
   "slug": "aend-frl-siedlungswasserwirtschaft",
   "title": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Siedlungswasserwirtschaft",
-  "shortTitle": "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Siedlungswasserwirtschaft",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Umwelt, Energie und Klimaschutz"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Siedlungswasserwirtschaft",
+    "Änd. FRL Siedlungswasserwirtschaft",
     "Zweite",
     "Umwelt",
     "Landwirtschaft",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Richtlinie des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft zur Änderung der Förderrichtlinie Siedlungswasserwirtschaft“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-17",
   "effectiveDate": "2020-01-01",
@@ -36,8 +35,12 @@
       "sha256": "b443408228f37c92fa05d7a2e788b315edc8af1d9c00d044881b83c5105d0ef3",
       "lawId": "18550",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "5564",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-siedlungswasserwirtschaft"
   ]
 }

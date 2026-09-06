@@ -2,12 +2,11 @@
   "id": "aend-soosa-20185",
   "slug": "aend-soosa-20185",
   "title": "Änderung der Schulordnung Ober- und Abendoberschulen",
-  "shortTitle": "Änd. SOOSA",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. SOOSA",
     "Änderung",
@@ -19,7 +18,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "aend-sofs-und-soosa",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. SOOSA“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Ober- und Abendoberschulen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-07-31",
   "effectiveDate": "2023-08-29",
@@ -34,6 +34,7 @@
       "sha256": "b29c18cf146510197d6eefd5b989cb7366b96b59c1a15dfed793943747fe2d57",
       "lawId": "20185",
       "sourceValidFrom": "2023-08-29",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

@@ -2,12 +2,11 @@
   "id": "aend-berufsordnung-pflegefachkraefte",
   "slug": "aend-berufsordnung-pflegefachkraefte",
   "title": "Änderung der Berufsordnung Pflegefachkräfte",
-  "shortTitle": "Änd. Berufsordnung Pflegefachkräfte",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Änd. Berufsordnung Pflegefachkräfte",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "vo-zur-umsetzung-des-pflegeberufegesetzes",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Berufsordnung Pflegefachkräfte“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Berufsordnung Pflegefachkräfte“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-11-26",
   "effectiveDate": "2020-01-01",
@@ -33,6 +33,7 @@
       "sha256": "1712892acecb362cff17ccf164ee0ceaff69ef5686996064cab3339099282dab",
       "lawId": "18479",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

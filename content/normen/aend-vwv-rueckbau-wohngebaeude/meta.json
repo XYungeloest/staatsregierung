@@ -2,15 +2,13 @@
   "id": "aend-vwv-rueckbau-wohngebaeude",
   "slug": "aend-vwv-rueckbau-wohngebaeude",
   "title": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der VwV-Rückbau Wohngebäude",
-  "shortTitle": "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der VwV-Rückbau Wohngebäude",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Wohnen und Bodenordnung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der VwV-Rückbau Wohngebäude",
+    "Änd. VwV-Rückbau Wohngebäude",
     "Regionalentwicklung",
     "Änderung",
     "VwV-Rückbau",
@@ -20,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Richtlinie des Ostdeutschen Staatsministeriums für Regionalentwicklung zur Änderung der VwV-Rückbau Wohngebäude“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2023-06-30",
   "effectiveDate": "2023-07-01",
@@ -34,8 +33,12 @@
       "sha256": "b6bef1c07e67f429ef66bfcbba81f1a48cf2dbee59868bf231880972fd9dadb8",
       "lawId": "20098",
       "sourceValidFrom": "2023-07-01",
+      "fsnNumber": "554",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-rueckbau-wohngebaeude"
   ]
 }

@@ -1,3 +1,5 @@
+import { collapseSpacedLetters } from './norm-html-parser.mjs';
+
 const ORDINAL_STEM = '(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)';
 const ORDINAL_LAW = `(?:${ORDINAL_STEM}(?:e|er|es|en))`;
 
@@ -8,7 +10,9 @@ const SOURCE_HEADING_PATTERN = new RegExp(
 
 const OUTER_ARTICLE_TITLE = /^(?:Einführung|Änderung|Neufassung|Übergangsbestimmungen?|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Rechtsbereinigung)/iu;
 const SIGNATURE_START = /^(?:Dresden|Berlin|Leipzig|Potsdam|Warschau|Prag|Helsinki),\s+den\b/iu;
-const SIGNATURE_OFFICE = /^(?:D\s+i\s+e|D\s+e\s+r)\s+(?:M\s+I\s+N\s+I\s+S\s+T\s+E\s+R|S\s+T\s+A\s+A\s+T\s+S|L\s+A\s+N\s+D\s+T\s+A\s+G)/iu;
+// Der gesperrte Satz der Quelle ist beim Zeilenaufbau bereits aufgelöst
+// (`normalizeMarkdown`); die Amtszeile steht dann in Versalschreibung.
+const SIGNATURE_OFFICE = /^(?:Die|Der)\s+(?:MINISTER|STAATS|LANDTAG)/u;
 const BASE64_PATTERN = /(?:data:image\/|;base64,|\[image\d+\]:\s*<data:)/iu;
 const QUOTED_PROVISION_TRIGGER = /(?:wird\s+(?:wie folgt gefasst|folgender\s+(?:Artikel|Paragraph|§)[^:]*(?:eingefügt|angefügt))|wird\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+Fassung\s+(?:ersetzt|abgelöst)|erhält\s+folgende\s+Bezeichnung)\s*:?$/iu;
 
@@ -20,9 +24,12 @@ export class NormMarkdownParseError extends Error {
 }
 
 export function normalizeMarkdown(markdown) {
-  return markdown
+  // Gesperrter Satz wird aufgelöst, solange die Wortgrenzen der Quelle (mehrfache oder
+  // geschützte Leerzeichen) noch erkennbar sind; ein Auszeichnungsmodell für
+  // Hervorhebungen gibt es im Normkörper nicht.
+  return collapseSpacedLetters(markdown
     .replace(/\r\n?/gu, '\n')
-    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/gu, ' ')
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/gu, ' '))
     .replace(/\u00a0/gu, ' ');
 }
 

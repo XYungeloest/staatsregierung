@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Dienstbefreiung bei der Zweiten Staatsprüfung für Lehrämter",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Dienstbefreiung bei der Zweiten Staatsprüfung für Lehrämter",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Dienstbefreiung bei der Zweiten Staatsprüfung für Lehrämter vom 3. August 1992 (MBl. SMK S. 1), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Dienstbefreiung bei der Zweiten Staatsprüfung für Lehrämter vom 3. August 1992 (MBl. SMK S. 1)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "c60c2c7ea216af4204f7b74393a6a21bd774be2481223c50c8cc4e4e0ab50b5d",
       "lawId": "3701",
       "sourceValidFrom": "1992-08-03",
+      "fsnNumber": "710-V92.19",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -33,17 +33,8 @@
       "title": "Dienstbefreiung für Studienreferendare und Lehramtsanwärter bei mündlichen Prüfungen im Rahmen der Zweiten Staatsprüfung",
       "children": [
         {
-          "type": "item",
-          "label": "1",
-          "text": "Dienstbefreiung für Studienreferendare und Lehramtsanwärter bei mündlichen Prüfungen im Rahmen der Zweiten Staatsprüfung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Zur Ablegung der mündlichen Prüfung(en) erhalten Studienreferendare und Lehramtsanwärter Befreiung in nachstehendem Umfang von allen Seminar und Schulveranstaltungen, die an den genannten Tagen stattfinden."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Zur Ablegung der mündlichen Prüfung(en) erhalten Studienreferendare und Lehramtsanwärter Befreiung in nachstehendem Umfang von allen Seminar und Schulveranstaltungen, die an den genannten Tagen stattfinden."
         },
         {
           "type": "item",
@@ -85,17 +76,8 @@
       "title": "Dienstbefreiung für Studienreferendare und Lehramtsanwärter bei Prüfungslehrproben im Rahmen der Zweiten Staatsprüfung",
       "children": [
         {
-          "type": "item",
-          "label": "2",
-          "text": "Dienstbefreiung für Studienreferendare und Lehramtsanwärter bei Prüfungslehrproben im Rahmen der Zweiten Staatsprüfung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Am Tag der Prüfungslehrprobe sind die Studienreferendare und Lehramtsanwärter von allen sonstigen Seminar- und Schulveranstaltungen befreit."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Am Tag der Prüfungslehrprobe sind die Studienreferendare und Lehramtsanwärter von allen sonstigen Seminar- und Schulveranstaltungen befreit."
         },
         {
           "type": "paragraphText",

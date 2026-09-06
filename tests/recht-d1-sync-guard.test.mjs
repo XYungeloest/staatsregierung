@@ -1,10 +1,14 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import test, { mock } from 'node:test';
 
+import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
+
+import { scopeSignature } from '../scripts/lib/d1-sync-scope.mjs';
 import {
   D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, classifyStoredIdentityError, decideSyncAction, estimatePlanCost,
-  identityMetaValues, incrementalStartQueries, isTransientD1Error, renderStatement, resolveBudget, runtimeMetaQueries,
+  identityMetaValues, incrementalStartQueries, isMetadataOnlyRun, isTransientD1Error, planRun, renderStatement, resolveBudget, runtimeMetaQueries,
 } from '../scripts/sync-recht-d1.mjs';
+import { fixtureCorpus } from './helpers/fixture-corpus.ts';
 
 const full = { fingerprint: 'f'.repeat(64), scope: 'full', logic: 'l', corpus: 'c', portal: 'p' };
 const fixtureA = { fingerprint: 'a'.repeat(64), scope: 'fixture:data/recht/runtime-fixture.json@1111111111111111', logic: 'l', corpus: 'c', portal: 'p' };
@@ -113,14 +117,12 @@ test('Base-State-Guard: nur die Identität des Basis-Refs wird als Ausgangszusta
   assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
 });
 
-test('Übergang: eine mit dem früheren Logikhash geschriebene Basisidentität wird als Basis anerkannt, andere Werte nicht', () => {
+test('Base-State-Guard: nur die Identität des Basis-Refs zählt, keine frühere Berechnung', () => {
   const head = { ...full, fingerprint: '9'.repeat(64) };
-  const base = { ...full, fingerprint: '8'.repeat(64), legacyFingerprint: '7'.repeat(64), ref: 'main' };
+  const base = { ...full, fingerprint: '8'.repeat(64), ref: 'main' };
   assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '8'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
-  assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
-  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
-  // Ohne frühere Identität zählt nur der neue Wert.
-  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: { ...base, legacyFingerprint: undefined } }), SyncBaseMismatch);
+  // Ein zusätzliches Feld am Basisobjekt eröffnet keine zweite anerkannte Basis.
+  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: { ...base, legacyFingerprint: '7'.repeat(64) } }), SyncBaseMismatch);
 });
 
 test('Entscheidung gegen Budgetprofil: No-op und verifizierter inkrementeller Lauf sind tragbar, eine Vollprojektion nur mit Full-/Recovery-Budget (Release-Gate)', () => {
@@ -206,4 +208,95 @@ test('ein Lesefehler der gespeicherten Identität gilt nie als leere Datenbank: 
   assert.equal(classifyStoredIdentityError('Authentication error [code: 10000]'), 'transient');
   assert.equal(classifyStoredIdentityError('wrangler d1 execute lieferte kein JSON'), 'fatal');
   assert.equal(classifyStoredIdentityError('Unknown database'), 'fatal');
+});
+
+// --- Metadata-only-Lauf: leerer nachgewiesener Umfang ohne korpusweite Ableitungen ------------
+
+const NOW = '2026-09-06T12:00:00.000Z';
+const incremental = { action: 'incremental', reason: 'Basiszustand verifiziert' };
+const emptyScope = () => ({ mode: 'incremental', slugs: [], deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, refreshSearchDocuments: false, reasons: [] });
+const identityProof = (scope, overrides = {}) => ({ result: 'identity', logicChange: 'ignore', scopeSignature: scopeSignature(scope), ...overrides });
+
+let corpusPromise = null;
+/** Synthetischer Bestand (tests/helpers/fixture-corpus.ts) mit einmal gerechnetem Ableitungskontext. */
+function corpus() {
+  corpusPromise ??= (async () => {
+    const { norms, publications } = fixtureCorpus();
+    const context = buildDerivedContext({ norms, publications, topics: [], pressReleases: [] });
+    return { norms, publications, context };
+  })();
+  return corpusPromise;
+}
+
+test('Metadata-only: leerer nachgewiesener Umfang erzeugt den 19-Anweisungen-Metadatenplan ohne Ableitungskontext', async () => {
+  const { norms, publications } = await corpus();
+  const scope = emptyScope();
+  assert.equal(isMetadataOnlyRun({ decision: incremental, scope, proof: identityProof(scope) }), true);
+  // Ohne Nachweis wurde der Umfang mit logicChange `full` bestimmt: eine Logikänderung hätte `full` ergeben.
+  assert.equal(isMetadataOnlyRun({ decision: incremental, scope }), true);
+  for (const proof of [identityProof(scope), null]) {
+    const buildContext = mock.fn(() => { throw new Error('buildDerivedContext darf im Metadata-only-Lauf nicht gerufen werden'); });
+    const { plan, metadataOnly } = planRun({ decision: incremental, scope, norms, publications, buildContext, now: NOW, identity: head, writeIdentity: true, proof });
+    assert.equal(metadataOnly, true);
+    assert.equal(buildContext.mock.callCount(), 0);
+    assert.equal(plan.statementCount, 19);
+    assert.deepEqual(plan.groups.map((group) => group.slug), ['(identität entwerten)', '(verkuendungen+meta)']);
+    assert.deepEqual(plan.byStatement, { 'delete law_runtime_meta': 1, 'insert law_runtime_meta': 18 });
+    const rendered = plan.groups.at(-1).queries.map(renderStatement);
+    assert.ok(rendered.some((statement) => statement.includes("'projection_fingerprint'") && statement.includes(head.fingerprint)));
+    assert.ok(rendered.some((statement) => statement.includes("'sync_state', 'complete'")));
+    assert.ok(rendered.some((statement) => statement.includes("'sync_mode', 'incremental'")));
+    // Die korpusabgeleiteten Zeilen stammen aus dem geladenen Bestand, nicht aus D1 (der Nachweis belegt sie nicht).
+    assert.ok(rendered.some((statement) => statement.includes(`'norm_count', '${norms.length}'`)));
+    assert.ok(rendered.some((statement) => statement.includes(`'publication_count', '${publications.length}'`)));
+    for (const key of ['corpus_hash', 'search_filters_json', 'search_publications_json', 'subject_groups_json', 'subject_areas_json', 'corpus_stats_json']) {
+      assert.ok(rendered.some((statement) => statement.includes(`'${key}'`)), key);
+    }
+  }
+});
+
+test('jeder nicht leere oder nicht eindeutig datenneutrale Umfang nimmt den normalen fail-closed Projektionsweg', async () => {
+  const { norms, publications, context } = await corpus();
+  const slug = norms[0].meta.slug;
+  const publicationSlug = publications[0].slug;
+  const run = ({ decision = incremental, scope, proof }) => {
+    const buildContext = mock.fn(() => context);
+    const result = planRun({ decision, scope, norms, publications, buildContext, now: NOW, identity: head, writeIdentity: true, proof });
+    assert.equal(result.metadataOnly, isMetadataOnlyRun({ decision, scope, proof }));
+    return { ...result, buildContext };
+  };
+  const beyondMeta = (plan) => Object.keys(plan.byStatement).some((key) => !key.endsWith('law_runtime_meta'));
+
+  // Nicht leerer Umfang: Normen, Löschungen, Verkündungen, abgeleitete Daten, Suchdokumente – auch mit gültigem Nachweis.
+  for (const variant of [{ slugs: [slug] }, { deletedSlugs: ['alt'] }, { publicationSlugs: [publicationSlug] }, { deletedPublications: ['alt'] }, { derivedRebuild: true }, { refreshSearchDocuments: true }]) {
+    const scope = { ...emptyScope(), ...variant };
+    const label = JSON.stringify(variant);
+    const { plan, metadataOnly, buildContext } = run({ scope, proof: identityProof(scope) });
+    assert.equal(metadataOnly, false, label);
+    assert.equal(buildContext.mock.callCount(), 1, label);
+    assert.ok(beyondMeta(plan), `${label}: ${JSON.stringify(plan.byStatement)}`);
+  }
+  // Leerer Umfang, aber kein eindeutig datenneutraler Nachweis: Ergebnis incremental, enge Logikänderung, fremde Umfangssignatur.
+  for (const overrides of [{ result: 'incremental' }, { logicChange: 'narrow' }, { scopeSignature: scopeSignature({ ...emptyScope(), slugs: ['x'] }) }]) {
+    const scope = emptyScope();
+    const label = JSON.stringify(overrides);
+    const { metadataOnly, buildContext } = run({ scope, proof: identityProof(scope, overrides) });
+    assert.equal(metadataOnly, false, label);
+    assert.equal(buildContext.mock.callCount(), 1, label);
+  }
+  // Entscheidungen No-op, Vollprojektion und Recovery: nie Metadata-only.
+  for (const [action, scope] of [['noop', emptyScope()], ['full', { ...emptyScope(), mode: 'full' }], ['recovery', { ...emptyScope(), mode: 'full' }]]) {
+    const { plan, metadataOnly, buildContext } = run({ decision: { action, reason: action }, scope, proof: identityProof(scope) });
+    assert.equal(metadataOnly, false, action);
+    assert.equal(buildContext.mock.callCount(), 1, action);
+    if (scope.mode === 'full') assert.equal(plan.groups[0].slug, '(reset)', action);
+  }
+  // Fail-closed im Planbau: ohne Ableitungskontext lässt sich kein nicht leerer Umfang bauen.
+  for (const scope of [{ ...emptyScope(), slugs: [slug] }, { ...emptyScope(), derivedRebuild: true }, { ...emptyScope(), refreshSearchDocuments: true }, { ...emptyScope(), mode: 'full' }]) {
+    assert.throws(() => buildSyncPlan({ scope, norms, publications, context: null, now: NOW, identity: head }), /Ableitungskontext fehlt/u);
+  }
+  // main() rechnet buildDerivedContext ausschließlich über den injizierten Thunk von planRun.
+  const { readFile } = await import('node:fs/promises');
+  const source = await readFile(new URL('../scripts/sync-recht-d1.mjs', import.meta.url), 'utf8');
+  assert.equal((source.match(/buildDerivedContext\(/gu) ?? []).length, 1);
 });

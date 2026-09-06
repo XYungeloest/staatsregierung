@@ -2,12 +2,11 @@
   "id": "aend-pflbo",
   "slug": "aend-pflbo",
   "title": "Änderung der Berufsordnung Pflegefachkräfte",
-  "shortTitle": "Änd. PflBO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Änd. PflBO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "anpassung-landesr-an-dsgvo",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. PflBO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Berufsordnung Pflegefachkräfte“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-04-26",
   "effectiveDate": "2018-05-25",
@@ -33,6 +33,7 @@
       "sha256": "c3da0457a3b3aa155a9b897c278e5abe1552e20304a9deda85fb6d37e17d876c",
       "lawId": "17661",
       "sourceValidFrom": "2018-05-25",
+      "fsnNumber": "250",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

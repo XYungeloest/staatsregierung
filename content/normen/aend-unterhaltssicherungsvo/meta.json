@@ -2,12 +2,11 @@
   "id": "aend-unterhaltssicherungsvo",
   "slug": "aend-unterhaltssicherungsvo",
   "title": "Änderung der Unterhaltssicherungsverordnung",
-  "shortTitle": "Änd. UnterhaltssicherungsVO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten"
   ],
+  "primarySubject": "Behördenaufbau, Organisation, Geschäftsverteilung, Zuständigkeiten",
   "keywords": [
     "Änd. UnterhaltssicherungsVO",
     "Änderung",
@@ -17,7 +16,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "agbtg-und-aend-weiterer-rechtsvorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. UnterhaltssicherungsVO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Unterhaltssicherungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "1992-11-10",
   "effectiveDate": "1992-11-21",
@@ -45,6 +45,7 @@
       "sha256": "a6949af934538cb67c8a78b3a701137ebe98d57657ab188e0b6cfabd8867a83e",
       "lawId": "9498",
       "sourceValidFrom": "2002-07-03",
+      "fsnNumber": "20-1A",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

@@ -34,8 +34,8 @@ export const GET: APIRoute = async ({ site, locals }) => {
   }
   const staticPaths = [
     lawSiteConfig.paths.home, lawSiteConfig.paths.index, lawSiteConfig.paths.subjects,
-    lawSiteConfig.paths.funding, lawSiteConfig.paths.references, lawSiteConfig.paths.publications,
-    lawSiteConfig.paths.constitution, lawSiteConfig.paths.development, lawSiteConfig.paths.help,
+    lawSiteConfig.paths.funding, lawSiteConfig.paths.publications,
+    lawSiteConfig.paths.constitution, lawSiteConfig.paths.help,
   ];
   const dynamicPaths = [
     ...norms.flatMap((norm) => [

@@ -2,15 +2,14 @@
   "id": "aend-vwv-ermaechtigung-zu-verwarnungen",
   "slug": "aend-vwv-ermaechtigung-zu-verwarnungen",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Ermächtigung zu Verwarnungen",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Ermächtigung zu Verwarnungen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Landesrecht"
+    "Strafrecht, Ordnungswidrigkeiten"
   ],
+  "primarySubject": "Strafrecht, Ordnungswidrigkeiten",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Ermächtigung zu Verwarnungen",
+    "Änd. VwV Ermächtigung zu Verwarnungen",
     "Innern",
     "Änderung",
     "Ermächtigung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Ermächtigung zu Verwarnungen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-09-09",
   "effectiveDate": "2020-09-25",
@@ -34,8 +34,12 @@
       "sha256": "6955941ca59d734c9f63390f564402fbe2a7e4a362b57e656103d0aaea021af9",
       "lawId": "18848",
       "sourceValidFrom": "2020-09-25",
+      "fsnNumber": "34",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-ermaechtigung-zu-verwarnungen"
   ]
 }

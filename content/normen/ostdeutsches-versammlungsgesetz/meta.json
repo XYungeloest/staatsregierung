@@ -1,24 +1,28 @@
 {
   "id": "ostdeutsches-versammlungsgesetz",
   "slug": "ostdeutsches-versammlungsgesetz",
-  "title": "Ostdeutsches Versammlungsgesetz",
+  "title": "Gesetz über Versammlungen und Aufzüge im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Versammlungsgesetz",
-  "abbr": "OstVersG",
   "shortTitleSource": "official",
+  "abbr": "OstVersG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Sicherheit und Ordnung"
+    "Vereinsrecht, Versammlungsrecht, Freizügigkeit, Sammlungen"
   ],
+  "primarySubject": "Vereinsrecht, Versammlungsrecht, Freizügigkeit, Sammlungen",
   "keywords": [
-    "OstVersG",
     "Ostdeutsches Versammlungsgesetz",
-    "Versammlungsgesetz"
+    "Versammlungen",
+    "Aufzüge",
+    "Versammlungsgesetz",
+    "OstVersG"
   ],
   "initialCitation": "Ostdeutsches Versammlungsgesetz vom 25. Januar 2012 (SächsGVBl. S. 54), das zuletzt durch Artikel 7 des Gesetzes vom 11. Mai 2019 (SächsGVBl. S. 358) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Versammlungsgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2012-01-25",
   "sourceReferences": [
@@ -32,6 +36,7 @@
       "sha256": "147d4bb75f8a731fb73ea1b3d77018da4daff631ef3f1c21da1e9ce537b8ee17",
       "lawId": "12206",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "75-4",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

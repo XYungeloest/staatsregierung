@@ -2,15 +2,13 @@
   "id": "zweite-verordnung-des-ostdeutschen-staatsministeriums-fuer-wissenschaft-kultur-und-tourismus",
   "slug": "zweite-verordnung-des-ostdeutschen-staatsministeriums-fuer-wissenschaft-kultur-und-tourismus",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung des Universitätsklinika-Gesetzes",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung des Universitätsklinika-Gesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Wirtschaft und Förderung",
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung des Universitätsklinika-Gesetzes",
+    "Änd. UKG",
     "Zweite",
     "Wissenschaft",
     "Kultur",
@@ -22,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums für Wissenschaft, Kultur und Tourismus zur Änderung des Universitätsklinika-Gesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-12-09",
   "effectiveDate": "2021-01-01",
@@ -36,8 +35,12 @@
       "sha256": "75ba2da72151829670f8dad02f619790968013b722febff377c071be3ccd4368",
       "lawId": "18961",
       "sourceValidFrom": "2021-01-01",
+      "fsnNumber": "711",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "gesetz-ueber-das-universitaetsklinikum-leipzig-an-der-universitaet-leipzig-und-das"
   ]
 }

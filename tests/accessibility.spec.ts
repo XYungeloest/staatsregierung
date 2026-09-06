@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
-import { currentDocuments, currentNormOfOrigin, lawUrl, multiVersionNorm, publicationIndex, suggestions, withWorkerRecovery } from './helpers/law-runtime.ts';
+import { currentDocuments, currentNormOfOrigin, fixtureRole, fixtureSearchWord, lawUrl, multiVersionNorm, publicationIndex, withWorkerRecovery } from './helpers/law-runtime.ts';
 
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 
@@ -17,6 +17,15 @@ interface AuditTarget { name: string; site: 'portal' | 'law'; resolve: Resolve }
 
 const staticPage = (path: string): Resolve => async () => path;
 const lawPage = (path: string): Resolve => async () => lawUrl(path);
+/**
+ * Suchadresse mit sicheren Treffern: Die Standardsuche zeigt nur geltende Fassungen, die
+ * Autovervollständigung führt darüber hinaus künftig geltende Vorschriften. Der Suchbegriff kommt
+ * deshalb aus einer Vorschrift mit geltender Fassung.
+ */
+const searchWithHits: Resolve = async (request) => {
+  const term = (await currentDocuments(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz';
+  return lawUrl(`/suche/?q=${encodeURIComponent(term)}`);
+};
 
 /** Erster interner Link eines Musters auf einer statischen Portalseite (z. B. erstes Ressort). */
 async function firstLink(request: APIRequestContext, path: string, pattern: RegExp): Promise<string> {
@@ -45,13 +54,14 @@ const auditTargets: AuditTarget[] = [
   { name: 'Normseite (übernommen, ostdeutsch geändert)', site: 'law', resolve: async (request) => lawUrl((await currentNormOfOrigin(request, 'inherited-amended')).currentUrl) },
   { name: 'Normseite (ostdeutsch neu geschaffen)', site: 'law', resolve: async (request) => lawUrl((await currentNormOfOrigin(request, 'ostdeutsch-original')).currentUrl) },
   { name: 'Fassungsvergleich', site: 'law', resolve: async (request) => { const norm = await multiVersionNorm(request); return lawUrl(`/norm/${norm.slug}/vergleich/?von=${norm.historical.versionId}&bis=${norm.current.versionId}`); } },
-  { name: 'Änderungsverlauf', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
+  { name: 'Fassungen und Änderungen', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
   { name: 'Historische Fassung', site: 'law', resolve: async (request) => lawUrl((await multiVersionNorm(request)).historical.url) },
   { name: 'Bekanntmachung', site: 'law', resolve: async (request) => { const [notice] = (await currentDocuments(request)).filter((document) => document.type === 'bekanntmachung'); expect(notice, 'geltende Bekanntmachung').toBeTruthy(); return lawUrl(notice.currentUrl); } },
   { name: 'Rechtssuche', site: 'law', resolve: lawPage('/suche/') },
-  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
-  { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
-  { name: 'Rechtsentwicklung', site: 'law', resolve: lawPage('/rechtsentwicklung/') },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: searchWithHits },
+  { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
+  { name: 'Förderrichtlinien', site: 'law', resolve: lawPage('/foerderrichtlinien/') },
+  { name: 'Verkündungen (Einträge)', site: 'law', resolve: lawPage('/verkuendungen/?ansicht=eintraege') },
   { name: 'Sachgebiet', site: 'law', resolve: async (request) => lawUrl(await firstLink(request, lawUrl('/sachgebiete/'), /href="\/sachgebiete\/[a-z0-9-]+\/"/u)) },
   { name: 'Verkündung', site: 'law', resolve: async (request) => { const index = await publicationIndex(request); expect(index.latestPublication).toBeTruthy(); return lawUrl(`/verkuendungen/${index.latestPublication!.slug}/`); } },
   { name: 'Hilfe', site: 'law', resolve: lawPage('/hilfe/') },
@@ -64,7 +74,7 @@ const focusTargets: AuditTarget[] = [
   { name: 'Portalsuche mit Treffern', site: 'portal', resolve: staticPage('/suche/?q=Gesetz') },
   { name: 'OstRecht-Startseite', site: 'law', resolve: lawPage('/') },
   { name: 'Normseite', site: 'law', resolve: async (request) => lawUrl((await currentDocuments(request, '&type=gesetz'))[0].currentUrl) },
-  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: searchWithHits },
 ];
 
 const selected = (targets: AuditTarget[]) => targets.filter((target) => selectedSiteTargets.includes(target.site));
@@ -87,12 +97,68 @@ async function openTarget(page: Page, request: APIRequestContext, target: AuditT
 for (const target of selected(auditTargets)) {
   test(`Accessibility-Smoke-Test: ${target.name}`, async ({ page, request }) => {
     const url = await openTarget(page, request, target);
+    // Übergänge aus: geprüft wird der Endzustand. Die Werkzeuge einer Normeinheit blenden über
+    // 120 ms auf; trifft axe ein Zwischenbild, misst es den halb durchsichtigen Text gegen die
+    // Fläche und meldet einen Kontrast, den niemand zu sehen bekommt (wie im Fokustest unten).
+    await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
+    // Genau ein <main> je Seite: Hilfstechnik braucht einen eindeutigen Hauptbereich.
+    expect(await page.locator('main').count(), `${url}: genau ein main`).toBe(1);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
     expect(results.violations, url).toEqual([]);
   });
 }
+
+/**
+ * Überschriftenfolge im Vorschriftentext (Befund E7): Safari mit VoiceOver und Firefox geben
+ * Überschriften innerhalb eines `summary` nicht als Überschrift aus. Der Normtext muss seine
+ * Einheiten deshalb als echte Überschriften anbieten, mit dem Aufklappschalter daneben.
+ */
+const lawA11yTest = selectedSiteTargets.includes('law') ? test : test.skip;
+
+lawA11yTest('Normtext gibt seine Einheiten als Überschriften aus, nicht in einem Aufklappzeichen', async ({ page, request }) => {
+  for (const url of [
+    lawUrl((await currentNormOfOrigin(request, 'ostdeutsch-original')).currentUrl),
+    lawUrl((await multiVersionNorm(request)).historical.url),
+  ]) {
+    await withWorkerRecovery(request, () => page.goto(url));
+    const text = page.locator('#normtext');
+    await expect(text, url).toBeVisible();
+
+    // Keine Überschrift steckt in einem summary; die Abschnittsüberschrift bleibt die erste.
+    await expect(text.locator('summary h1, summary h2, summary h3, summary h4, summary h5, summary h6'), url).toHaveCount(0);
+    const levels = await text.locator('h2, h3, h4, h5, h6').evaluateAll((elements) =>
+      elements.map((element) => Number.parseInt(element.tagName.slice(1), 10)));
+    expect(levels[0], url).toBe(2);
+    for (let index = 1; index < levels.length; index += 1) {
+      expect(levels[index] - levels[index - 1], `${url}: Überschriftensprung an Stelle ${index}`).toBeLessThanOrEqual(1);
+    }
+
+    const units = text.locator('.norm-unit[data-norm-unit]');
+    const unitCount = await units.count();
+    expect(unitCount, url).toBeGreaterThan(0);
+    // Jede Einheit trägt genau eine echte Überschrift (h3 oder tiefer) und nennt sie als ihren Namen;
+    // jeder Schalter nennt den Bereich, den er auf- und zuklappt.
+    const unitHeadings = await units.evaluateAll((elements) => elements.map((element) => {
+      const heading = element.querySelector(':scope > .norm-unit__head > h3, :scope > .norm-unit__head > h4, :scope > .norm-unit__head > h5, :scope > .norm-unit__head > h6');
+      return {
+        level: heading ? Number.parseInt(heading.tagName.slice(1), 10) : 0,
+        headingId: heading?.id ?? null,
+        labelledby: element.getAttribute('aria-labelledby'),
+        controls: element.querySelector(':scope > .norm-unit__head > [data-unit-toggle]')?.getAttribute('aria-controls') ?? null,
+        bodyId: element.querySelector(':scope > .norm-unit__body')?.id ?? null,
+      };
+    }));
+    for (const unit of unitHeadings) {
+      expect(unit.level, url).toBeGreaterThanOrEqual(3);
+      expect(unit.headingId, url).toBe(unit.labelledby);
+      expect(unit.controls, url).toBe(unit.bodyId);
+      expect(unit.controls, url).toBeTruthy();
+    }
+    expect(await text.getByRole('heading').count(), url).toBeGreaterThanOrEqual(unitCount);
+  }
+});
 
 // Fokusindikator (Befund A3): Auf sechs repräsentativen Seiten beider Portale wird jedes
 // fokussierbare Element angefahren und sein Indikator – Umriss (outline-color/-width/-offset) und
@@ -114,7 +180,8 @@ interface FocusReport {
 
 const focusPages = [
   ...(selectedSiteTargets.includes('portal') ? ['/', '/staatsregierung/kabinett/', '/suche/?q=Gesetz'] : []),
-  ...(selectedSiteTargets.includes('law') ? [lawUrl('/'), lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/'), lawUrl('/suche/?q=Kulturpass')] : []),
+  // Verfassung und Suche mit mehreren Treffern aus den Rollen des Testfixtures (keine realen Normen).
+  ...(selectedSiteTargets.includes('law') ? [lawUrl('/'), lawUrl(`/norm/${fixtureRole('constitution')}/`), lawUrl(`/suche/?q=${encodeURIComponent(fixtureSearchWord('multi-hit'))}`)] : []),
 ];
 
 function measureFocusIndicators(): FocusReport {
@@ -245,5 +312,51 @@ for (const target of selected(focusTargets)) {
     expect(report.withoutFocusVisible, `${url}: Elemente ohne :focus-visible`).toBe(0);
     const message = report.violations.map((v) => `${v.element}: ${v.contrast}:1 gegen ${v.surface} (${v.indicator})`).join('\n');
     expect(report.violations, `${url}: Fokusindikator unter 3:1\n${message}`).toEqual([]);
+  });
+}
+
+/**
+ * Zielgröße (WCAG 2.5.8, Befund F7): Ein Link, der allein in einer Liste oder einer
+ * Definitionsliste steht, ist ein Zeigerziel und muss mindestens 24 Pixel hoch sein. Links im
+ * Fließtext sind davon ausgenommen; ausgenommen ist außerdem der Sprunglink, der erst bei
+ * Tastaturfokus sichtbar wird.
+ */
+const targetSizeTargets: AuditTarget[] = [
+  { name: 'Fassungen und Änderungen', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
+  { name: 'Verkündung', site: 'law', resolve: async (request) => { const index = await publicationIndex(request); expect(index.latestPublication).toBeTruthy(); return lawUrl(`/verkuendungen/${index.latestPublication!.slug}/`); } },
+  { name: 'Verkündungen (Einträge)', site: 'law', resolve: lawPage('/verkuendungen/?ansicht=eintraege') },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: searchWithHits },
+];
+
+for (const target of selected(targetSizeTargets)) {
+  test(`Alleinstehende Links sind mindestens 24 px hoch: ${target.name}`, async ({ page, request }) => {
+    const url = await openTarget(page, request, target);
+    if (target.name === 'Rechtssuche mit Treffern') {
+      await page.locator('.search-hit').first().waitFor();
+      // Die weiteren Angaben tragen die Listenlinks; sie stehen in einem Aufklappbereich.
+      for (const summary of await page.locator('.search-hit__details > summary').all()) await summary.click();
+    }
+    const small = await page.evaluate(() => {
+      const label = (el: Element): string => {
+        const classes = typeof el.className === 'string' && el.className ? `.${el.className.trim().split(/\s+/u).slice(0, 2).join('.')}` : '';
+        return `a${classes} „${(el.textContent ?? '').trim().replace(/\s+/gu, ' ').slice(0, 40)}“`;
+      };
+      // Fließtext-Ausnahme (WCAG 2.5.8): der Link steht in einem Satz. Das ist der Fall, wenn sein
+      // Elternknoten neben ihm eigenen Text trägt oder wenn er in einem Absatz mit weiterem Text steht.
+      const insideSentence = (el: Element): boolean => {
+        const parent = el.parentElement;
+        if (parent && [...parent.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && (node.textContent ?? '').trim().length > 0)) return true;
+        const paragraph = el.closest('p');
+        if (!paragraph) return false;
+        const rest = (paragraph.textContent ?? '').replace(el.textContent ?? '', '').replace(/[\s·:,;–—]/gu, '');
+        return rest.length > 0;
+      };
+      return [...document.querySelectorAll('a[href]')]
+        .filter((el) => el.getClientRects().length > 0 && !el.closest('.skip-link') && !el.classList.contains('skip-link'))
+        .filter((el) => !insideSentence(el))
+        .filter((el) => el.getBoundingClientRect().height < 24)
+        .map((el) => `${label(el)}: ${Math.round(el.getBoundingClientRect().height * 10) / 10} px`);
+    });
+    expect(small, `${url}: Zeigerziele unter 24 px\n${small.join('\n')}`).toEqual([]);
   });
 }

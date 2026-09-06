@@ -2,15 +2,14 @@
   "id": "aend-ostcorbg",
   "slug": "aend-ostcorbg",
   "title": "Erstes Gesetz zur Änderung des Ostdeutschen Coronabewältigungsfondsgesetzes",
-  "shortTitle": "Erstes Gesetz zur Änderung des Ostdeutschen Coronabewältigungsfondsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Haushaltwesen, Rechnungshof"
   ],
+  "primarySubject": "Haushaltwesen, Rechnungshof",
   "keywords": [
-    "Erstes Gesetz zur Änderung des Ostdeutschen Coronabewältigungsfondsgesetzes",
+    "Änd. OstCorBG",
     "Erstes",
     "Änderung",
     "Coronabewältigungsfondsgesetzes"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Erstes Gesetz zur Änderung des Ostdeutschen Coronabewältigungsfondsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-03-23",
   "effectiveDate": "2022-04-12",
@@ -33,8 +33,12 @@
       "sha256": "5eae5bd9938081e303ea41de28edc7aa8ef89e22935461f71c844b4fb1f264ab",
       "lawId": "19568",
       "sourceValidFrom": "2022-04-12",
+      "fsnNumber": "520",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-coronabewaeltigungsfondsgesetz"
   ]
 }

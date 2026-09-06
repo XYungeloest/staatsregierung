@@ -2,14 +2,13 @@
   "id": "aend-vwv-geschaeftspruefungen-18505-1",
   "slug": "aend-vwv-geschaeftspruefungen-18505-1",
   "title": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geschäftsprüfungen",
-  "shortTitle": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geschäftsprüfungen",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geschäftsprüfungen",
+    "Änd. VwV Geschäftsprüfungen",
     "Zweite",
     "Justiz",
     "Änderung",
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Geschäftsprüfungen“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-11-29",
   "effectiveDate": "2020-01-01",
@@ -33,8 +33,12 @@
       "sha256": "98f9871606730c277e17efc831a28aabb29f13a2675d3dc1d6e6a93a0a64338c",
       "lawId": "18505",
       "sourceValidFrom": "2020-01-01",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-geschaeftspruefungen"
   ]
 }

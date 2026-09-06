@@ -1,10 +1,8 @@
 ---
+import { getHeadingTag, getLegacyBlockAnchorId, renderLinkedDisplayText } from '@ostrecht/shared/lib/norms/display.ts';
 import {
   buildNormAnchorMap,
-  getHeadingTag,
-  getLegacyBlockAnchorId,
   getResolvedBlockAnchorId,
-  renderLinkedDisplayText,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormAnchorMap, TextLinkReference } from '@ostrecht/shared/lib/norms/presentation.ts';
@@ -107,28 +105,45 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     ) : null}
                   </section>
                 ) : (
-                  <details id={anchorId} class={`norm-unit norm-unit--${block.type}`} aria-labelledby={headingId} open>
+                  <section id={anchorId} class={`norm-unit norm-unit--${block.type}`} aria-labelledby={headingId} data-norm-unit>
                     {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
-                    <summary class="norm-unit__summary">
+                    <div class="norm-unit__head">
                       <HeadingTag id={headingId} class="norm-unit__heading">
                         {block.label ? <span class="norm-unit__label">{toDisplayText(block.label)}</span> : null}
                         {block.label && block.title ? ' ' : null}
                         {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                       </HeadingTag>
-                    </summary>
-                    <nav class="norm-unit__tools" aria-label={`Werkzeuge für ${toDisplayText([block.label, block.title].filter(Boolean).join(' '))}`}>
-                      <details class="norm-unit__tools-menu" data-unit-tools>
-                        <summary aria-label="Werkzeuge" title="Werkzeuge"><span aria-hidden="true">···</span></summary>
-                        <div class="norm-unit__tools-list">
-                          <a href={`#${anchorId}`} data-copy-anchor={anchorId}>Link zu dieser Stelle kopieren</a>
-                          <button type="button" data-print-unit={anchorId}>Einzeldruck</button>
-                        </div>
-                      </details>
-                    </nav>
-                    {block.children && block.children.length > 0 ? (
-                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} />
-                    ) : null}
-                  </details>
+                      <button
+                        type="button"
+                        class="norm-unit__toggle"
+                        aria-expanded="true"
+                        aria-controls={`${anchorId}-inhalt`}
+                        data-unit-toggle
+                        data-collapse-label="einklappen"
+                        data-expand-label="ausklappen"
+                      >
+                        <span class="visually-hidden">{toDisplayText([block.label, block.title].filter(Boolean).join(' '))}{' '}</span>
+                        <span data-unit-toggle-label>einklappen</span>
+                      </button>
+                      <nav class="norm-unit__tools" aria-label={`Werkzeuge für ${toDisplayText([block.label, block.title].filter(Boolean).join(' '))}`}>
+                        <details class="norm-unit__tools-menu" data-unit-tools>
+                          <summary>
+                            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="5" cy="12" r="1.8" fill="currentColor" /><circle cx="12" cy="12" r="1.8" fill="currentColor" /><circle cx="19" cy="12" r="1.8" fill="currentColor" /></svg>
+                            <span class="norm-unit__tools-label">Werkzeuge</span>
+                          </summary>
+                          <div class="norm-unit__tools-list">
+                            <a href={`#${anchorId}`} data-copy-anchor={anchorId}>Link zu dieser Stelle kopieren</a>
+                            <button type="button" data-print-unit={anchorId}>Einzeldruck</button>
+                          </div>
+                        </details>
+                      </nav>
+                    </div>
+                    <div id={`${anchorId}-inhalt`} class="norm-unit__body">
+                      {block.children && block.children.length > 0 ? (
+                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} />
+                      ) : null}
+                    </div>
+                  </section>
                 )
               ) : null}
 
@@ -165,6 +180,14 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     </div>
                   ) : null}
                 </Fragment>
+              ) : null}
+
+              {block.type === 'signature' ? (
+                <p class="norm-signature">
+                  {block.text ? <span class="norm-signature__name">{toDisplayText(block.text)}</span> : null}
+                  {block.title ? <span class="norm-signature__office">{toDisplayText(block.title)}</span> : null}
+                  {block.label ? <span class="norm-signature__place">{toDisplayText(block.label)}</span> : null}
+                </p>
               ) : null}
 
               {block.type === 'subparagraph' ? (

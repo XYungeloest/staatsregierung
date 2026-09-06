@@ -2,15 +2,14 @@
   "id": "aend-dvoostbo-17592-1",
   "slug": "aend-dvoostbo-17592-1",
   "title": "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO",
-  "shortTitle": "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Landesrecht"
+    "Bauwesen"
   ],
+  "primarySubject": "Bauwesen",
   "keywords": [
-    "Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO",
+    "Änd. DVOOstBO",
     "Zweite",
     "Innern",
     "Änderung",
@@ -21,6 +20,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verordnung des Ostdeutschen Staatsministeriums des Innern zur Änderung der Durchführungsverordnung zur OstBO“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-03-05",
   "effectiveDate": "2018-03-24",
@@ -35,8 +35,12 @@
       "sha256": "d5f2d105a35e140e49f055391d0f49124d3d2c23618bf5c9800ec07713933dd2",
       "lawId": "17592",
       "sourceValidFrom": "2018-03-24",
+      "fsnNumber": "421",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "durchfuehrungsverordnung-zur-ostbo"
   ]
 }

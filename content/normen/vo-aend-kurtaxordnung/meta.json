@@ -2,15 +2,14 @@
   "id": "vo-aend-kurtaxordnung",
   "slug": "vo-aend-kurtaxordnung",
   "title": "Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Kurtaxordnung",
-  "shortTitle": "Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Kurtaxordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium der Finanzen",
   "subjects": [
-    "Landesrecht"
+    "Allgemeine Verwaltung"
   ],
+  "primarySubject": "Allgemeine Verwaltung",
   "keywords": [
-    "Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Kurtaxordnung",
+    "VO Änd Kurtaxordnung",
     "Finanzen",
     "Änderung",
     "Kurtaxordnung"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung des Ostdeutschen Staatsministeriums der Finanzen zur Änderung der Kurtaxordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2007-04-24",
   "effectiveDate": "2007-05-25",
@@ -33,8 +33,12 @@
       "sha256": "b18ad8969ac8dd883aea1b7939bc1e2aed0350ce22fb080c5d7654a3248bbff6",
       "lawId": "9419",
       "sourceValidFrom": "2007-05-25",
+      "fsnNumber": "211",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-des-ostdeutschen-staatsministeriums-der-finanzen-ueber-die-erhebung-der-kurtaxe-in"
   ]
 }

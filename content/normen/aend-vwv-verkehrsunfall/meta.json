@@ -2,15 +2,14 @@
   "id": "aend-vwv-verkehrsunfall",
   "slug": "aend-vwv-verkehrsunfall",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Verkehrsunfall",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Verkehrsunfall",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsisches Staatsministerium des Innern",
   "subjects": [
-    "Mobilität und öffentliche Infrastruktur"
+    "Sicherheitsrecht und Polizeirecht"
   ],
+  "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [
-    "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Verkehrsunfall",
+    "Änd. VwV Verkehrsunfall",
     "Innern",
     "Änderung",
     "Verkehrsunfall"
@@ -19,6 +18,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verwaltungsvorschrift des Ostdeutschen Staatsministeriums des Innern zur Änderung der VwV Verkehrsunfall“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-11-04",
   "effectiveDate": "2009-12-11",
@@ -33,8 +33,12 @@
       "sha256": "b0ebb94c037d8fb4ac8bbd8c6e4685518373f599748bccca8a5ce5ca5886e54b",
       "lawId": "11195",
       "sourceValidFrom": "2009-12-11",
+      "fsnNumber": "22",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-verkehrsunfall"
   ]
 }

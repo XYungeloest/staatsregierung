@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Vergütung der Prüfer bei Feststellungsprüfungen",
-  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Vergütung der Prüfer bei Feststellungsprüfungen",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Vergütung der Prüfer bei Feststellungsprüfungen vom 6. August 1998 (MBl. SMK S. 268), die durch Ziffer II der Verwaltungsvorschrift vom 26. November 2001 (SächsABl. S. 1238) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus über die Vergütung der Prüfer bei Feststellungsprüfungen vom 6. August 1998 (MBl. SMK S. 268), die durch Ziffer II der Verwaltungsvorschrift vom 26. November 2001 (SächsABl. S. 1238) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "bea78df3a3a3f5b2d0c8f447cb1cbdca37110506f83b70ee1ea8d2c7188007bc",
       "lawId": "4759",
       "sourceValidFrom": "2002-01-01",
+      "fsnNumber": "710-V98.7",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -28,14 +28,6 @@
       "label": "A.",
       "title": "Geltungsbereich",
       "children": [
-        {
-          "type": "item",
-          "label": "A.",
-          "text": "Geltungsbereich",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "I.",
@@ -77,14 +69,6 @@
       "children": [
         {
           "type": "item",
-          "label": "B.",
-          "text": "Schriftliche Feststellungsprüfungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "I.",
           "text": "Erarbeitung der schriftlichen Feststellungsprüfung",
           "level": 0,
@@ -116,14 +100,6 @@
           "children": [
             {
               "type": "item",
-              "label": "C.",
-              "text": "Mündliche Feststellungsprüfungen",
-              "level": 0,
-              "numberingStyle": "upper-roman",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "I.",
               "text": "Erarbeitung der mündlichen Feststellungsprüfung",
               "level": 0,
@@ -150,14 +126,6 @@
           "label": "D.",
           "title": "Weitere Vorschriften",
           "children": [
-            {
-              "type": "item",
-              "label": "D.",
-              "text": "Weitere Vorschriften",
-              "level": 0,
-              "numberingStyle": "upper-roman",
-              "children": []
-            },
             {
               "type": "item",
               "label": "I.",
@@ -200,17 +168,8 @@
       "title": "Inkrafttreten",
       "children": [
         {
-          "type": "item",
-          "label": "E.",
-          "text": "Inkrafttreten",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Diese Verwaltungsvorschrift tritt am 1. Juli 1998 in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am 1. Juli 1998 in Kraft."
         }
       ]
     }

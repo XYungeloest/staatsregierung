@@ -3,13 +3,11 @@ import {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
-  getLawDevelopmentUrl,
   getLawFundingUrl,
   getLawHomeUrl,
   getLawHelpUrl,
   getLawIndexUrl,
   getLawPublicationsUrl,
-  getLawReferencesUrl,
   getLawSearchUrl,
   getLawSubjectsUrl,
   getPrivacyUrl,
@@ -17,7 +15,7 @@ import {
   getLawUrl,
 } from '@ostrecht/shared/lib/portal/routes.ts';
 import type { NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
-import { lawSubjectAreas } from '@ostrecht/shared/config/law-subjects.ts';
+import { compareSubjects, getSubjectByTitle, lawSubjectGroups } from '@ostrecht/shared/config/law-subjects.ts';
 import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 
@@ -74,12 +72,13 @@ export function getFundingUrl(): string {
   return getLawFundingUrl();
 }
 
-export function getReferencesUrl(): string {
-  return getLawReferencesUrl();
-}
-
 export function getPublicationsUrl(): string {
   return getLawPublicationsUrl();
+}
+
+/** Verkündungen in der Ansicht „Einträge“: die Fundstellen aller Ausgaben in einer Liste. */
+export function getPublicationEntriesUrl(): string {
+  return `${getLawPublicationsUrl()}?ansicht=eintraege`;
 }
 
 export function getPublicationUrl(slug: string): string {
@@ -92,10 +91,6 @@ export function getHelpUrl(): string {
 
 export function getLawPortalUrl(): string {
   return getLawHomeUrl();
-}
-
-export function getLawDevelopmentOverviewUrl(): string {
-  return getLawDevelopmentUrl();
 }
 
 export function getNormCompareSelectionUrl(
@@ -120,17 +115,21 @@ export {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
-  getLawDevelopmentUrl,
   getLawFundingUrl,
   getLawHelpUrl,
   getLawPublicationsUrl,
-  getLawReferencesUrl,
   getPrivacyUrl,
   getServiceOverviewUrl,
 };
 
+/**
+ * Sachgebietsslug aus amtlicher Nummer und Bezeichnung („71-bildungswesen“). Nicht
+ * konfigurierte Bezeichnungen behalten den reinen Bezeichnungsslug.
+ */
 export function getSubjectSlug(subject: string): string {
-  return normalizeForSlug(subject);
+  const definition = getSubjectByTitle(subject);
+  const name = normalizeForSlug(subject);
+  return definition ? `${definition.number}-${name}` : name;
 }
 
 export function getSubjectUrl(subject: string): string {
@@ -140,11 +139,17 @@ export function getSubjectUrl(subject: string): string {
 export interface SubjectGroup {
   name: string;
   slug: string;
+  /** Amtliche Untergruppennummer; fehlt bei nicht konfigurierten Bezeichnungen. */
+  number?: string;
+  /** Kurzform der Systematik für Filter und Kennzeichnungen. */
+  shortTitle?: string;
   norms: NormRecord[];
 }
 
 export interface SubjectAreaGroup {
   name: string;
+  /** Amtliche Hauptgruppennummer; fehlt bei der Auffanggruppe. */
+  number?: string;
   description: string;
   subjects: SubjectGroup[];
   normCount: number;
@@ -163,9 +168,12 @@ export function getSubjectGroups(norms: NormRecord[]): SubjectGroup[] {
         continue;
       }
 
+      const definition = getSubjectByTitle(subject);
       groups.set(slug, {
         name: subject,
         slug,
+        ...(definition ? { number: definition.number } : {}),
+        ...(definition?.shortTitle ? { shortTitle: definition.shortTitle } : {}),
         norms: [norm],
       });
     }
@@ -180,15 +188,15 @@ export function getSubjectGroups(norms: NormRecord[]): SubjectGroup[] {
         return leftTitle.localeCompare(rightTitle, 'de');
       }),
     }))
-    .sort((left, right) => left.name.localeCompare(right.name));
+    .sort((left, right) => compareSubjects(left.name, right.name));
 }
 
 export function getSubjectAreaGroups(norms: NormRecord[]): SubjectAreaGroup[] {
   const subjectGroups = getSubjectGroups(norms);
   const knownSubjects = new Set<string>();
-  const areaGroups = lawSubjectAreas.map((definition) => {
+  const areaGroups: SubjectAreaGroup[] = lawSubjectGroups.map((definition) => {
     const subjects = definition.subjects
-      .map((subject) => subjectGroups.find((group) => group.name === subject))
+      .map((subject) => subjectGroups.find((group) => group.name === subject.title))
       .filter((group): group is SubjectGroup => Boolean(group));
 
     for (const subject of subjects) {
@@ -196,7 +204,8 @@ export function getSubjectAreaGroups(norms: NormRecord[]): SubjectAreaGroup[] {
     }
 
     return {
-      name: definition.name,
+      name: definition.title,
+      number: definition.number,
       description: definition.description,
       subjects,
       normCount: new Set(subjects.flatMap((subject) => subject.norms.map((norm) => norm.meta.slug))).size,

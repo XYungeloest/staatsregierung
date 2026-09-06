@@ -1,24 +1,32 @@
 {
   "id": "ostdeutsches-landarztgesetz",
   "slug": "ostdeutsches-landarztgesetz",
-  "title": "Ostdeutsches Landarztgesetz",
+  "title": "Gesetz zur Sicherstellung der ärztlichen Versorgung in ländlichen und anderen Bedarfsgebieten im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Landarztgesetz",
-  "abbr": "OstLArztG",
   "shortTitleSource": "official",
+  "abbr": "OstLArztG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
-    "OstLArztG",
     "Ostdeutsches Landarztgesetz",
-    "Landarztgesetz"
+    "Sicherstellung",
+    "ärztlichen",
+    "Versorgung",
+    "ländlichen",
+    "anderen",
+    "Bedarfsgebieten",
+    "Landarztgesetz",
+    "OstLArztG"
   ],
   "initialCitation": "Ostdeutsches Landarztgesetz vom 30. September 2021 (SächsGVBl. S. 1122)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Landarztgesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2021-09-30",
   "sourceReferences": [
@@ -32,6 +40,7 @@
       "sha256": "63a90b0b427b6332723c9916d5565c31f8d5b74e0e5d0ddbb47ee522d29cc7b1",
       "lawId": "19336",
       "sourceValidFrom": "2021-09-29",
+      "fsnNumber": "253-15",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -1,11 +1,10 @@
 {
   "versionId": "2023-11-01",
   "title": "Bekanntmachung einer Empfehlung des Ostdeutschen Staatsministeriums für Soziales zu den räumlichen Anforderungen an Kindertageseinrichtungen",
-  "shortTitle": "Bekanntmachung einer Empfehlung des Ostdeutschen Staatsministeriums für Soziales zu den räumlichen Anforderungen an Kindertageseinrichtungen",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Bekanntmachung einer Empfehlung des Ostdeutschen Staatsministeriums für Soziales zu den räumlichen Anforderungen an Kindertageseinrichtungen vom 2. Juni 2005 (SächsABl. S. 522), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "Bekanntmachung einer Empfehlung des Ostdeutschen Staatsministeriums für Soziales zu den räumlichen Anforderungen an Kindertageseinrichtungen vom 2. Juni 2005 (SächsABl. S. 522)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -18,6 +17,7 @@
       "sha256": "7861967ebbef9251eaf7993f6f07366855b5058e5cb350d4a0be87cf4f62862e",
       "lawId": "1900",
       "sourceValidFrom": "2005-06-24",
+      "fsnNumber": "814-V05.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -33,17 +33,8 @@
       "title": "Begriffsbestimmung",
       "children": [
         {
-          "type": "item",
-          "label": "1",
-          "text": "Begriffsbestimmung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Aufenthaltsräume sind Gruppenräume, in denen sich Kinder über einen wesentlichen Teil des Tages aufhalten. Zusätzliche Räume werden extra benannt."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Aufenthaltsräume sind Gruppenräume, in denen sich Kinder über einen wesentlichen Teil des Tages aufhalten. Zusätzliche Räume werden extra benannt."
         }
       ]
     },
@@ -52,14 +43,6 @@
       "label": "2",
       "title": "Anforderungen an den Standort",
       "children": [
-        {
-          "type": "item",
-          "label": "2",
-          "text": "Anforderungen an den Standort",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -83,14 +66,6 @@
       "label": "3",
       "title": "Allgemeine Anforderungen",
       "children": [
-        {
-          "type": "item",
-          "label": "3",
-          "text": "Allgemeine Anforderungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "3.1",
@@ -162,14 +137,6 @@
       "label": "4",
       "title": "Ausstattungshinweise",
       "children": [
-        {
-          "type": "item",
-          "label": "4",
-          "text": "Ausstattungshinweise",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "4.1",
@@ -477,14 +444,6 @@
       "children": [
         {
           "type": "item",
-          "label": "5",
-          "text": "Freispielflächen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "5.1",
           "text": "Die Freispielfläche der Kindertageseinrichtung soll so eingefriedet sein, dass die Kinder vor Gefahr geschützt werden, jedoch der Kontakt zur Umgebung der Einrichtung nicht unverhältnismäßig erschwert wird.",
           "level": 0,
@@ -573,14 +532,6 @@
       "children": [
         {
           "type": "item",
-          "label": "6",
-          "text": "Sonstige Anforderungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "6.1",
           "text": "Für die Aufbewahrung der verschmutzten Wäsche bis zur Abgabe an die Wäscherei soll eine Schmutzwäschesammelstelle vorgesehen sein. Kinder dürfen zur Schmutzwäsche keinen Zugriff haben. Erfolgt das Waschen in der Einrichtung, sind folgende Räume notwendig:",
           "level": 0,
@@ -652,17 +603,8 @@
       "title": "Anderweitige Nutzung",
       "children": [
         {
-          "type": "item",
-          "label": "7",
-          "text": "Anderweitige Nutzung",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Räume der Einrichtung können von dem Träger außerhalb der Öffnungszeiten für andere Zwecke zur Verfügung gestellt werden, wenn die anderweitige Nutzung mit dem Zweck der Einrichtung vereinbar ist, der Betrieb der Einrichtung nicht beeinträchtigt wird sowie die pädagogischen und hygienischen Anforderungen erfüllt werden."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die Räume der Einrichtung können von dem Träger außerhalb der Öffnungszeiten für andere Zwecke zur Verfügung gestellt werden, wenn die anderweitige Nutzung mit dem Zweck der Einrichtung vereinbar ist, der Betrieb der Einrichtung nicht beeinträchtigt wird sowie die pädagogischen und hygienischen Anforderungen erfüllt werden."
         }
       ]
     },
@@ -672,17 +614,8 @@
       "title": "Katastrophen- und Brandschutz",
       "children": [
         {
-          "type": "item",
-          "label": "8",
-          "text": "Katastrophen- und Brandschutz",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Der Träger hat für jede Einrichtung einen Maßnahmeplan zu erstellen, der bei drohenden oder bestehenden Gefahren (zum Beispiel Havarien, Hochwasser, Bombendrohung, Feueralarm) anzuwenden ist. Ziel der Bemühungen muss sein, die Kinder schnellstens aus dem Gefahrenbereich zu bringen und die zuständigen Stellen sofort über die Gefahr zu informieren. Für die Einrichtung ist der Brandschutz zu gewährleisten."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Der Träger hat für jede Einrichtung einen Maßnahmeplan zu erstellen, der bei drohenden oder bestehenden Gefahren (zum Beispiel Havarien, Hochwasser, Bombendrohung, Feueralarm) anzuwenden ist. Ziel der Bemühungen muss sein, die Kinder schnellstens aus dem Gefahrenbereich zu bringen und die zuständigen Stellen sofort über die Gefahr zu informieren. Für die Einrichtung ist der Brandschutz zu gewährleisten."
         }
       ]
     }

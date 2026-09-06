@@ -9,7 +9,9 @@ import {
   getSubjectSlug,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import { lawSubjectGroups } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
+import { formatCount } from '../../lib/counts.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
 export const prerender = false;
@@ -17,7 +19,7 @@ export const prerender = false;
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-// Sachgebiete, Hauptbereiche und Bestandszahlen sind vorberechnete Metadatenzeilen.
+// Sachgebiete, Hauptgruppen und Bestandszahlen sind vorberechnete Metadatenzeilen.
 const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummaries(), store.listSubjectAreas(), store.getCorpusStats()]);
 ---
 
@@ -39,43 +41,36 @@ const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummarie
   <SectionHero
     eyebrow="Rechtsportal"
     title="Sachgebiete"
-    lead="Vorschriften nach fachlicher Zuordnung und thematischen Hauptbereichen recherchieren."
+    lead="Vorschriften nach der amtlichen Sachgebietsgliederung recherchieren: acht Hauptgruppen mit ihren nummerierten Sachgebieten."
     variant="law"
-    facts={[{ label: 'Hauptbereiche', value: String(areaGroups.length) }, { label: 'Vorschriften im Bestand', value: String(stats.normCount) }]}
+    facts={[
+      { label: 'Hauptgruppen', value: String(lawSubjectGroups.length) },
+      { label: 'Vorschriften', value: String(stats.normCount) },
+      { label: 'davon geltend', value: String(stats.inForceCount) },
+    ]}
   />
 
   <section class="section">
     <div class="section-header">
       <h2>Systematische Übersicht</h2>
-      <p>Die Hauptbereiche fassen verwandte Sachgebiete für die Recherche zusammen. {groups.length} Sachgebiete in {areaGroups.length} Hauptbereichen.</p>
+      <p>Die Nummern sind die amtlichen Gliederungsnummern: die erste Stelle nennt die Hauptgruppe, beide Stellen zusammen das Sachgebiet. {groups.length} Sachgebiete sind mit Vorschriften belegt.</p>
     </div>
     {areaGroups.map((area) => (
       <section class="directory directory--area" id={`subject-area-${getSubjectSlug(area.name)}`} aria-labelledby={`subject-area-title-${getSubjectSlug(area.name)}`}>
-        <h3 id={`subject-area-title-${getSubjectSlug(area.name)}`} class="directory__heading">{area.name}</h3>
+        <h3 id={`subject-area-title-${getSubjectSlug(area.name)}`} class="directory__heading">{area.number ? `${area.number} ${area.name}` : area.name}</h3>
         <p class="directory__lead">{area.description}</p>
         <ol class="directory-list directory-list--grid">
           {area.subjects.map((group) => (
             <DirectoryEntry
-              title={toDisplayText(group.name)}
+              title={group.number ? `${group.number} ${toDisplayText(group.name)}` : toDisplayText(group.name)}
               href={getSubjectUrl(group.name)}
               compact
-              facts={[{ label: 'Vorschriften', value: String(group.normCount) }]}
+              facts={[{ label: 'Umfang', value: formatCount(group.normCount, 'Vorschrift', 'Vorschriften') }]}
               attrs={{ 'data-directory-entry': '' }}
             />
           ))}
         </ol>
       </section>
     ))}
-  </section>
-
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Alphabetische Liste</h2>
-    </div>
-    <div class="tag-list">
-      {groups.map((group) => (
-        <a class="tag" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)} ({group.normCount})</a>
-      ))}
-    </div>
   </section>
 </LawLayout>

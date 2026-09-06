@@ -4,21 +4,37 @@ import LawLayout from '../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import SearchCheckboxGroup from '../components/norms/SearchCheckboxGroup.astro';
+import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
 import {
+  describeNormOriginKind,
   getFundingUrl,
   getIndexUrl,
   getLawPortalUrl,
+  getPublicationEntriesUrl,
   getPublicationsUrl,
-  getReferencesUrl,
   getSearchUrl,
   getSubjectsUrl,
+  LEGAL_BASELINE_DATE,
+  type NormOriginKind,
+  type NormStatus,
 } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
+import { countNoun, NORM_UNIT } from '../lib/counts.ts';
+import { VALIDITY_FIELD_LABEL, VERSION_FIELD_LABEL, VERSION_SCOPE_OPTIONS, validityLabel } from '../lib/vocabulary.ts';
+import { pageUrl } from '../lib/runtime/pagination.ts';
 
 // Die Suchseite ist eine statische Hülle; Treffer liefert zur Laufzeit /api/suche.json aus D1.
 const store = await getNormStore(Astro.locals);
 // Filteroptionen und Dokumentzahl kommen als vorberechnete Metadatenzeilen aus D1.
-const [{ filters, documentCount }, searchPublications] = await Promise.all([store.getSearchFilters(), store.listSearchPublications()]);
+const [{ filters, documentCount }, searchPublications, originCounts] = await Promise.all([
+  store.getSearchFilters(),
+  store.listSearchPublications(),
+  store.countByOriginKind(),
+]);
+// Reihenfolge der Herkunftsarten wie in der A–Z-Übersicht; die Zahlen zählen die Grundmenge.
+const originKinds: NormOriginKind[] = ['inherited-unchanged', 'inherited-amended', 'ostdeutsch-original', 'origin-unresolved'];
+const originOverview = originKinds.map((kind) => ({ kind, count: originCounts[kind] ?? 0 }));
 filters.publications = [...new Set(searchPublications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));
 filters.years = [...new Set(searchPublications.map((publication) => publication.year))].sort((left, right) => right.localeCompare(left));
 const searchPayload = { filters, documentCount };
@@ -37,7 +53,7 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
     <div>
       <p class="eyebrow">Rechtssuche</p>
       <h1>Gesetze und Vorschriften durchsuchen</h1>
-      <p>Titel, Fundstellen, Sachgebiete und die strukturierten Normtexte in {searchPayload.documentCount} gespeicherten Fassungen recherchieren.</p>
+      <p>Titel, Fundstellen, Sachgebiete und die gegliederten Normtexte in {searchPayload.documentCount} Fassungen recherchieren.</p>
     </div>
   </header>
 
@@ -69,6 +85,27 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
         <button class="text-link-button" type="button" data-search-clear-filters>Alle Filter löschen</button>
       </div>
 
+      <section class="law-search-origins" aria-labelledby="search-origin-heading">
+        <h2 id="search-origin-heading">Rechtsherkunft</h2>
+        <p>
+          Übernommenes sächsisches Recht trägt den Rechtsstand vom
+          <time datetime={LEGAL_BASELINE_DATE}>1. November 2023</time>; seitdem entwickelt der Freistaat
+          seinen Rechtsbestand eigenständig fort. Welche Fassung als geltend angezeigt wird, richtet sich
+          davon getrennt nach dem aktuellen Rechtsstand des Portals.
+        </p>
+        <ul class="law-origin-overview" data-origin-overview>
+          {originOverview.map((entry) => (
+            <li>
+              <a href={pageUrl(getSearchUrl(), { origin: entry.kind })} data-origin-kind={entry.kind}>
+                <NormOriginBadge kind={entry.kind} />
+                <strong>{entry.count}</strong>
+                <span>{countNoun(entry.count, NORM_UNIT.one, NORM_UNIT.many)} · {describeNormOriginKind(entry.kind)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <div class="law-search-workspace">
         <aside class="law-search-filters" aria-label="Suchfilter">
           <details class="law-search-filters-panel" open>
@@ -82,13 +119,11 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
               <div class="law-search-filter-basics">
             <SearchCheckboxGroup legend="Normtypen" name="type" facet="type" options={searchPayload.filters.types} />
             <label class="search-field">
-              <span>Fassung</span>
+              <span>{VERSION_FIELD_LABEL}</span>
               <select name="versionScope" data-search-filter="versionScope">
-                <option value="current" selected>Geltende Fassungen</option>
-                <option value="future">Zukünftige Fassungen</option>
-                <option value="historical">Historische Fassungen</option>
-                <option value="unknown-effective">Inkrafttreten ungeklärt</option>
-                <option value="all">Alle Fassungen</option>
+                {VERSION_SCOPE_OPTIONS.map((option) => (
+                  <option value={option.value} selected={option.value === 'current'}>{option.label}</option>
+                ))}
               </select>
             </label>
             <label class="search-field">
@@ -110,9 +145,10 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
               <details class="search-filter-panel" data-search-filter-panel="more">
             <summary><span>Norm und Zuständigkeit</span><span class="search-filter-panel__count" data-search-panel-count></span></summary>
             <div class="search-filter-panel__content">
-              <SearchCheckboxGroup legend="Sachgebiete" name="subject" facet="subject" options={searchPayload.filters.subjects.map((option) => ({ value: option, label: option }))} />
+              <SearchCheckboxGroup legend="Sachgebiete" name="subject" facet="subject" options={searchPayload.filters.subjects.map((option) => ({ value: option, label: formatSubjectLabel(option, { withNumber: true, short: true }) }))} />
               <SearchCheckboxGroup legend="Ressorts" name="ministry" facet="ministry" options={searchPayload.filters.ministries.map((option) => ({ value: option, label: option }))} />
-              <SearchCheckboxGroup legend="Status" name="status" facet="status" options={searchPayload.filters.statuses} />
+              <!-- Die Geltung heißt überall gleich; die Projektion liefert die Werte, die Wörter kommen aus der Wortliste. -->
+              <SearchCheckboxGroup legend={VALIDITY_FIELD_LABEL} name="status" facet="status" options={searchPayload.filters.statuses.map((option) => ({ value: option.value, label: validityLabel(option.value as NormStatus) }))} />
               <SearchCheckboxGroup legend="Rechtsherkunft" name="origin" facet="origin" options={searchPayload.filters.origins} />
             </div>
               </details>
@@ -142,7 +178,7 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
               <p class="eyebrow">Trefferliste</p>
               <h2>Suchergebnisse</h2>
             </div>
-            <div class="search-feedback" aria-live="polite" data-search-summary>Der Suchindex wird geladen.</div>
+            <div class="search-feedback" aria-live="polite" data-search-summary>Treffer werden geladen.</div>
           </div>
           <div class="search-results" data-search-results></div>
           <button class="button-link button-link--secondary search-load-more" type="button" data-search-more hidden>Weitere Treffer laden</button>
@@ -161,7 +197,7 @@ const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
             <nav>
               <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
               <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
-              <a href={getReferencesUrl()}>Fundstellennachweise</a>
+              <a href={getPublicationEntriesUrl()}>Fundstellen</a>
               <a href={getPublicationsUrl()}>Verkündungen</a>
               <a href={getFundingUrl()}>Förderrichtlinien</a>
             </nav>

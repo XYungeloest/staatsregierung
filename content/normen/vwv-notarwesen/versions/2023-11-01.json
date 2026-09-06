@@ -1,8 +1,7 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Notarwesen",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Ausführung der Bundesnotarordnung (VwV Notarwesen)",
   "shortTitle": "VwV Notarwesen",
-  "abbr": "VwV Notarwesen",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
@@ -20,6 +19,7 @@
       "lawId": "13753",
       "sourceValidFrom": "2022-01-01",
       "sourceValidTo": "2025-12-31",
+      "fsnNumber": "302-V13.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -55,28 +55,19 @@
           "children": [
             {
               "type": "item",
-              "label": "1.",
-              "text": "Ausschreibung von Anwärterstellen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "In den Anwärterdienst werden nur so viele Bewerber aufgenommen, wie es eine den Erfordernissen einer geordneten Rechtspflege verpflichtete Notarstellenplanung gebietet.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Die Notarassessorenstellen werden im Ostdeutschen Justizministerialblatt ausgeschrieben. Der Zeitpunkt der Ausschreibung und die Anzahl der auszuschreibenden Stellen werden im Einvernehmen mit der Notarkammer durch das Staatsministerium der Justiz festgesetzt.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "In den Anwärterdienst werden nur so viele Bewerber aufgenommen, wie es eine den Erfordernissen einer geordneten Rechtspflege verpflichtete Notarstellenplanung gebietet.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Notarassessorenstellen werden im Ostdeutschen Justizministerialblatt ausgeschrieben. Der Zeitpunkt der Ausschreibung und die Anzahl der auszuschreibenden Stellen werden im Einvernehmen mit der Notarkammer durch das Staatsministerium der Justiz festgesetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -87,107 +78,98 @@
           "children": [
             {
               "type": "item",
-              "label": "2.",
-              "text": "Inhalt der Bewerbung",
-              "level": 0,
-              "numberingStyle": "decimal",
+              "label": "a)",
+              "text": "Die Bewerbung um eine ausgeschriebene Notarassessorenstelle ist innerhalb der Ausschreibungsfrist in dreifacher Fertigung an das Staatsministerium der Justiz zu richten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Jede Fertigung der Bewerbung muss enthalten:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
-                  "label": "a)",
-                  "text": "Die Bewerbung um eine ausgeschriebene Notarassessorenstelle ist innerhalb der Ausschreibungsfrist in dreifacher Fertigung an das Staatsministerium der Justiz zu richten.",
-                  "level": 1,
+                  "label": "aa)",
+                  "text": "den Namen, den Vornamen, den Geburtsnamen, den Geburtstag, die Wohnanschrift und den Personenstand des Bewerbers,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "b)",
-                  "text": "Jede Fertigung der Bewerbung muss enthalten:",
-                  "level": 1,
+                  "label": "bb)",
+                  "text": "die Erklärung, welche Tätigkeiten der Bewerber seit der Erlangung der Voraussetzungen für die Bestellung zum Notarassessor ausgeübt hat,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "den Namen, den Vornamen, den Geburtsnamen, den Geburtstag, die Wohnanschrift und den Personenstand des Bewerbers,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "die Erklärung, welche Tätigkeiten der Bewerber seit der Erlangung der Voraussetzungen für die Bestellung zum Notarassessor ausgeübt hat,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "cc)",
-                      "text": "die Erklärung, ob gegen den Bewerber Strafen, Disziplinarmaßnahmen oder ehrengerichtliche Maßnahmen verhängt wurden, ob schriftliche Missbilligungen oder Rügen erteilt wurden oder ob gegen den Bewerber ein Strafverfahren, ein strafrechtliches Ermittlungsverfahren, ein Disziplinarverfahren, ein disziplinarrechtliches Vorermittlungsverfahren oder ein ehrengerichtliches Verfahren schwebt oder geschwebt hat; etwaige Strafen, Maßnahmen, Missbilligungen oder Rügen und die schwebenden oder abgeschlossenen Verfahren sind anzugeben,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "dd)",
-                      "text": "die Erklärung, ob der Bewerber infolge gerichtlicher Anordnung in der Verfügung über sein Vermögen beschränkt ist,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ee)",
-                      "text": "die Erklärung, bei welcher Dienststelle Personalakten aus einem früheren Dienstverhältnis geführt werden und ob der Bewerber mit der Beiziehung der Personalakten durch das Staatsministerium der Justiz, den Präsidenten des Oberlandesgerichts, den Präsidenten des Landgerichts und die Notarkammer Ostdeutschland einverstanden ist,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ff)",
-                      "text": "die Erklärung, ob der Bewerber bereits in einem anderen Land seine Ernennung zum Notar oder Notarassessor beantragt hat oder sich entsprechend beworben hat,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "gg)",
-                      "text": "die Erklärung, ob und gegebenenfalls durch welche Stelle eine beantragte Zulassung zur Rechtsanwaltschaft versagt, widerrufen oder zurückgenommen wurde und die Erklärung, dass für den Fall der Bestellung zum Notarassessor auf die Rechte aus der Zulassung zur Rechtsanwaltschaft verzichtet wird,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "hh)",
-                      "text": "einen ausgefüllten Personalbogen nach besonderem Vordruck gemäß der Anlage 1, je mit einem Lichtbild in Passbildformat versehen, das nicht älter als drei Monate sein soll,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ii)",
-                      "text": "jeweils in beglaubigter Ablichtung die Zeugnisse der Ersten Juristischen Prüfung und der Zweiten Juristischen Staatsprüfung sowie hinsichtlich der letztgenannten ein Einzelnotennachweis (schriftlicher und mündlicher Teil) und eine Bescheinigung über die erreichte Platzziffer,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "jj)",
-                      "text": "einen tabellarischen, nicht handgeschriebenen Lebenslauf; zusätzlich muss in einer Fertigung der Bewerbung ein handschriftlicher, nicht tabellarischer Lebenslauf enthalten sein.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    }
-                  ]
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "die Erklärung, ob gegen den Bewerber Strafen, Disziplinarmaßnahmen oder ehrengerichtliche Maßnahmen verhängt wurden, ob schriftliche Missbilligungen oder Rügen erteilt wurden oder ob gegen den Bewerber ein Strafverfahren, ein strafrechtliches Ermittlungsverfahren, ein Disziplinarverfahren, ein disziplinarrechtliches Vorermittlungsverfahren oder ein ehrengerichtliches Verfahren schwebt oder geschwebt hat; etwaige Strafen, Maßnahmen, Missbilligungen oder Rügen und die schwebenden oder abgeschlossenen Verfahren sind anzugeben,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "die Erklärung, ob der Bewerber infolge gerichtlicher Anordnung in der Verfügung über sein Vermögen beschränkt ist,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "die Erklärung, bei welcher Dienststelle Personalakten aus einem früheren Dienstverhältnis geführt werden und ob der Bewerber mit der Beiziehung der Personalakten durch das Staatsministerium der Justiz, den Präsidenten des Oberlandesgerichts, den Präsidenten des Landgerichts und die Notarkammer Ostdeutschland einverstanden ist,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ff)",
+                  "text": "die Erklärung, ob der Bewerber bereits in einem anderen Land seine Ernennung zum Notar oder Notarassessor beantragt hat oder sich entsprechend beworben hat,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "gg)",
+                  "text": "die Erklärung, ob und gegebenenfalls durch welche Stelle eine beantragte Zulassung zur Rechtsanwaltschaft versagt, widerrufen oder zurückgenommen wurde und die Erklärung, dass für den Fall der Bestellung zum Notarassessor auf die Rechte aus der Zulassung zur Rechtsanwaltschaft verzichtet wird,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "hh)",
+                  "text": "einen ausgefüllten Personalbogen nach besonderem Vordruck gemäß der Anlage 1, je mit einem Lichtbild in Passbildformat versehen, das nicht älter als drei Monate sein soll,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ii)",
+                  "text": "jeweils in beglaubigter Ablichtung die Zeugnisse der Ersten Juristischen Prüfung und der Zweiten Juristischen Staatsprüfung sowie hinsichtlich der letztgenannten ein Einzelnotennachweis (schriftlicher und mündlicher Teil) und eine Bescheinigung über die erreichte Platzziffer,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "jj)",
+                  "text": "einen tabellarischen, nicht handgeschriebenen Lebenslauf; zusätzlich muss in einer Fertigung der Bewerbung ein handschriftlicher, nicht tabellarischer Lebenslauf enthalten sein.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
                 }
               ]
             }
@@ -200,36 +182,27 @@
           "children": [
             {
               "type": "item",
-              "label": "3.",
-              "text": "Bewerberauswahlverfahren",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Nach Eingang der Bewerbungsunterlagen zieht das Staatsministerium der Justiz die Personalakten und die sonstigen für die Entscheidung bedeutsamen Vorgänge bei und leitet sie der Notarkammer zur Stellungnahme zu. Auf die Beiziehung der Personalakten von Bewerbern, die nach Durchsicht aller Bewerbungsunterlagen im Vergleich zu den Mitbewerbern für eine Aufnahme in den Anwärterdienst nicht in Betracht kommen, kann verzichtet werden.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Das Staatsministerium der Justiz kann mit den Bewerbern Vorstellungsgespräche führen. Zu diesen Gesprächen können von der Notarkammer beauftragte Notare und Mitglieder der Geschäftsführung der Notarkammer beigezogen werden.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "c)",
-                  "text": "Nach Durchführung der Vorstellungsgespräche erfolgt eine abschließende Anhörung der Notarkammer. Der Präsident der Notarkammer reicht dem Staatsministerium der Justiz die übersandten Vorgänge mit einer insbesondere auf die persönliche und fachliche Eignung des Bewerbers eingehenden Stellungnahme der Notarkammer zurück.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Nach Eingang der Bewerbungsunterlagen zieht das Staatsministerium der Justiz die Personalakten und die sonstigen für die Entscheidung bedeutsamen Vorgänge bei und leitet sie der Notarkammer zur Stellungnahme zu. Auf die Beiziehung der Personalakten von Bewerbern, die nach Durchsicht aller Bewerbungsunterlagen im Vergleich zu den Mitbewerbern für eine Aufnahme in den Anwärterdienst nicht in Betracht kommen, kann verzichtet werden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Das Staatsministerium der Justiz kann mit den Bewerbern Vorstellungsgespräche führen. Zu diesen Gesprächen können von der Notarkammer beauftragte Notare und Mitglieder der Geschäftsführung der Notarkammer beigezogen werden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Nach Durchführung der Vorstellungsgespräche erfolgt eine abschließende Anhörung der Notarkammer. Der Präsident der Notarkammer reicht dem Staatsministerium der Justiz die übersandten Vorgänge mit einer insbesondere auf die persönliche und fachliche Eignung des Bewerbers eingehenden Stellungnahme der Notarkammer zurück.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -239,17 +212,8 @@
           "title": "Vorlage eines amtsärztlichen Attests und eines Führungszeugnisses",
           "children": [
             {
-              "type": "item",
-              "label": "4.",
-              "text": "Vorlage eines amtsärztlichen Attests und eines Führungszeugnisses",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Bewerber können zur Einreichung eines amtsärztlichen Attests und eines Führungszeugnisses aufgefordert werden. Die entstehenden Kosten sind vom Bewerber zu tragen."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Bewerber können zur Einreichung eines amtsärztlichen Attests und eines Führungszeugnisses aufgefordert werden. Die entstehenden Kosten sind vom Bewerber zu tragen."
             }
           ]
         },
@@ -260,28 +224,19 @@
           "children": [
             {
               "type": "item",
-              "label": "5.",
-              "text": "Ernennung des Notarassessors, Beginn des Anwärterdienstes",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Die Ernennung des Notarassessors erfolgt durch das Staatsministerium der Justiz. Die Ernennungsurkunde wird dem Notarassessor durch den Präsidenten der Notarkammer ausgehändigt. Über die Aushändigung ist eine Niederschrift aufzunehmen. Je eine Abschrift dieser Niederschrift ist dem Staatsministerium der Justiz, dem Präsidenten des Landgerichts der ersten Ausbildungsstation und der Ländernotarkasse zu übersenden.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Der Anwärterdienst beginnt mit Dienstantritt des Notarassessors. Der Ausbildungsnotar zeigt den Tag des Dienstantrittes dem Präsidenten der Notarkammer an, welche das Staatsministerium der Justiz, den Präsidenten des Oberlandesgerichts, den Präsidenten des zuständigen Landgerichts und den Präsidenten der Ländernotarkasse unterrichtet.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Die Ernennung des Notarassessors erfolgt durch das Staatsministerium der Justiz. Die Ernennungsurkunde wird dem Notarassessor durch den Präsidenten der Notarkammer ausgehändigt. Über die Aushändigung ist eine Niederschrift aufzunehmen. Je eine Abschrift dieser Niederschrift ist dem Staatsministerium der Justiz, dem Präsidenten des Landgerichts der ersten Ausbildungsstation und der Ländernotarkasse zu übersenden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Der Anwärterdienst beginnt mit Dienstantritt des Notarassessors. Der Ausbildungsnotar zeigt den Tag des Dienstantrittes dem Präsidenten der Notarkammer an, welche das Staatsministerium der Justiz, den Präsidenten des Oberlandesgerichts, den Präsidenten des zuständigen Landgerichts und den Präsidenten der Ländernotarkasse unterrichtet.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -291,17 +246,8 @@
           "title": "Ablehnung eines Bewerbers",
           "children": [
             {
-              "type": "item",
-              "label": "6.",
-              "text": "Ablehnung eines Bewerbers",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Bewerber, die bei der Besetzung keine Berücksichtigung gefunden haben, werden vom Staatsministerium der Justiz unter Beifügung der nicht mehr benötigten Bewerbungsunterlagen darüber benachrichtigt, dass beabsichtigt sei, die Stelle an einen Mitbewerber zu vergeben."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Bewerber, die bei der Besetzung keine Berücksichtigung gefunden haben, werden vom Staatsministerium der Justiz unter Beifügung der nicht mehr benötigten Bewerbungsunterlagen darüber benachrichtigt, dass beabsichtigt sei, die Stelle an einen Mitbewerber zu vergeben."
             }
           ]
         },
@@ -312,36 +258,27 @@
           "children": [
             {
               "type": "item",
-              "label": "7.",
-              "text": "Entlassung eines Notarassessors",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Anträge von Notarassessoren auf Entlassung aus dem Dienst (§ 7 Absatz 7 Satz 1 der Bundesnotarordnung) sind über die Notarkammer dem Staatsministerium der Justiz vorzulegen.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Tatsachen, die zur Entlassung des Notarassessors aus einem der in § 7 Absatz 7 Satz 2 der Bundesnotarordnung genannten Gründe führen können, hat der Notar, der den Notarassessor beschäftigt (§ 7 Absatz 5 Satz 1 der Bundesnotarordnung), unverzüglich dem Präsidenten des zuständigen Landgerichts mitzuteilen. Dieser hört den Notarassessor sowie die Notarkammer an und berichtet auf dem Dienstweg dem Staatsministerium der Justiz.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "c)",
-                  "text": "Wird ein Notarassessor gemäß § 7 Absatz 7 der Bundesnotarordnung aus dem Anwärterdienst entlassen, ist er zur Führung der Bezeichnung „Notarassessor“ auch mit einem auf das Ausscheiden aus dem Dienst hinweisenden Zusatz nicht befugt.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Anträge von Notarassessoren auf Entlassung aus dem Dienst (§ 7 Absatz 7 Satz 1 der Bundesnotarordnung) sind über die Notarkammer dem Staatsministerium der Justiz vorzulegen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Tatsachen, die zur Entlassung des Notarassessors aus einem der in § 7 Absatz 7 Satz 2 der Bundesnotarordnung genannten Gründe führen können, hat der Notar, der den Notarassessor beschäftigt (§ 7 Absatz 5 Satz 1 der Bundesnotarordnung), unverzüglich dem Präsidenten des zuständigen Landgerichts mitzuteilen. Dieser hört den Notarassessor sowie die Notarkammer an und berichtet auf dem Dienstweg dem Staatsministerium der Justiz.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Wird ein Notarassessor gemäß § 7 Absatz 7 der Bundesnotarordnung aus dem Anwärterdienst entlassen, ist er zur Führung der Bezeichnung „Notarassessor“ auch mit einem auf das Ausscheiden aus dem Dienst hinweisenden Zusatz nicht befugt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         }
@@ -358,17 +295,8 @@
           "title": "Ausschreibung von Notarstellen",
           "children": [
             {
-              "type": "item",
-              "label": "8.",
-              "text": "Ausschreibung von Notarstellen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Die Notarstellen werden vom Staatsministerium der Justiz nach Anhörung der Notarkammer und der Ländernotarkasse im Ostdeutschen Justizministerialblatt ausgeschrieben."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Die Notarstellen werden vom Staatsministerium der Justiz nach Anhörung der Notarkammer und der Ländernotarkasse im Ostdeutschen Justizministerialblatt ausgeschrieben."
             }
           ]
         },
@@ -379,86 +307,77 @@
           "children": [
             {
               "type": "item",
-              "label": "9.",
-              "text": "Bewerbung um freie Notarstellen",
-              "level": 0,
-              "numberingStyle": "decimal",
+              "label": "a)",
+              "text": "Die Bewerbung um eine ausgeschriebene Notarstelle ist innerhalb der Ausschreibungsfrist in zweifacher Fertigung an das Staatsministerium der Justiz zu richten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Bewerbung muss die in Nummer 2 Buchst. b Doppelbuchst. aa) bis gg) vorgesehenen Angaben und Erklärungen enthalten. Zusätzlich sind anzugeben:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
-                  "label": "a)",
-                  "text": "Die Bewerbung um eine ausgeschriebene Notarstelle ist innerhalb der Ausschreibungsfrist in zweifacher Fertigung an das Staatsministerium der Justiz zu richten.",
-                  "level": 1,
+                  "label": "aa)",
+                  "text": "die Bezeichnung der ausgeschriebenen Stelle und, soweit sich die Bewerbung auf mehrere Stellen bezieht oder sich der Bewerber auf eine andere Stelle beworben hat, über deren Besetzung noch nicht entschieden ist, die Rangfolge der Stellen,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "b)",
-                  "text": "Die Bewerbung muss die in Nummer 2 Buchst. b Doppelbuchst. aa) bis gg) vorgesehenen Angaben und Erklärungen enthalten. Zusätzlich sind anzugeben:",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "die Bezeichnung der ausgeschriebenen Stelle und, soweit sich die Bewerbung auf mehrere Stellen bezieht oder sich der Bewerber auf eine andere Stelle beworben hat, über deren Besetzung noch nicht entschieden ist, die Rangfolge der Stellen,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "die Angabe, auf welche Weise die Voraussetzung für die Bestellung zum Notar erlangt wurde.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "type": "item",
-                  "label": "c)",
-                  "text": "Der Bewerbung sind beizufügen:",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "die in Nummer 2 Buchst. b Doppelbuchst. hh bis jj genannten Unterlagen,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "gegebenenfalls Nachweise über Anrechnungszeiten nach den §§ 4 und 8 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums der Justiz zur Ausführung der Bundesnotarordnung in der Fassung der Bekanntmachung vom 25. März 2013 (SächsGVBl.S. 205), die zuletzt durch die Verordnung vom 25. Oktober 2016 (SächsGVBl. S. 591) geändert worden ist, in der jeweils geltenden Fassung.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "type": "item",
-                  "label": "d)",
-                  "text": "Wird eine freie Notarstelle nur zur gemeinsamen Berufsausübung mit einem anderen Notar ausgeschrieben, hat der Bewerber zu erklären, dass er hierzu bereit ist.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "e)",
-                  "text": "Notarassessoren, die sich im Freistaat Ostdeutschland in einem Anwärterdienst nach § 7 der Bundesnotarordnung befinden, und Notare des Freistaates Ostdeutschland, die mit ihrer Bewerbung einen Wechsel ihres Amtssitzes anstreben, reichen im Falle einer Bewerbung an Stelle der erforderlichen Angaben, Erklärungen und Unterlagen nach Nummer 2 Buchst. b die Bewerbung unter Verweis auf die dem Staatsministerium der Justiz vorliegenden Personalakten ein, soweit sich keine Änderungen gegenüber der vorherigen Bewerbung ergeben haben.",
-                  "level": 1,
+                  "label": "bb)",
+                  "text": "die Angabe, auf welche Weise die Voraussetzung für die Bestellung zum Notar erlangt wurde.",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 }
               ]
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Der Bewerbung sind beizufügen:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "die in Nummer 2 Buchst. b Doppelbuchst. hh bis jj genannten Unterlagen,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "gegebenenfalls Nachweise über Anrechnungszeiten nach den §§ 4 und 8 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums der Justiz zur Ausführung der Bundesnotarordnung in der Fassung der Bekanntmachung vom 25. März 2013 (SächsGVBl.S. 205), die zuletzt durch die Verordnung vom 25. Oktober 2016 (SächsGVBl. S. 591) geändert worden ist, in der jeweils geltenden Fassung.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Wird eine freie Notarstelle nur zur gemeinsamen Berufsausübung mit einem anderen Notar ausgeschrieben, hat der Bewerber zu erklären, dass er hierzu bereit ist.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Notarassessoren, die sich im Freistaat Ostdeutschland in einem Anwärterdienst nach § 7 der Bundesnotarordnung befinden, und Notare des Freistaates Ostdeutschland, die mit ihrer Bewerbung einen Wechsel ihres Amtssitzes anstreben, reichen im Falle einer Bewerbung an Stelle der erforderlichen Angaben, Erklärungen und Unterlagen nach Nummer 2 Buchst. b die Bewerbung unter Verweis auf die dem Staatsministerium der Justiz vorliegenden Personalakten ein, soweit sich keine Änderungen gegenüber der vorherigen Bewerbung ergeben haben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -468,17 +387,8 @@
           "title": "Bewerberauswahlverfahren",
           "children": [
             {
-              "type": "item",
-              "label": "10.",
-              "text": "Bewerberauswahlverfahren",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Für das Bewerberauswahlverfahren gilt Nummer 3 entsprechend. Bei Bewerbungen von ostdeutschen Notarassessoren oder ostdeutschen Notaren sind die bei dem Präsidenten des Oberlandesgerichts und den Präsidenten der Landgerichte befindlichen Personalakten auf Aufforderung an das Staatsministerium der Justiz zu übersenden."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Für das Bewerberauswahlverfahren gilt Nummer 3 entsprechend. Bei Bewerbungen von ostdeutschen Notarassessoren oder ostdeutschen Notaren sind die bei dem Präsidenten des Oberlandesgerichts und den Präsidenten der Landgerichte befindlichen Personalakten auf Aufforderung an das Staatsministerium der Justiz zu übersenden."
             }
           ]
         },
@@ -488,17 +398,8 @@
           "title": "Mindestverweildauer vor Bewerbung um eine neue Notarstelle",
           "children": [
             {
-              "type": "item",
-              "label": "11.",
-              "text": "Mindestverweildauer vor Bewerbung um eine neue Notarstelle",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Ein Bewerber, der erstmals zum Notar bestellt worden ist oder seinen Amtssitz nach Ausschreibung verlegt hat, findet bis zum Ablauf von fünf Jahren seit der Bestellung oder dem Amtssitzwechsel in der Regel keine Berücksichtigung im Auswahlverfahren. Maßgeblich ist das Ende der Bewerbungsfrist. Ist bei Ablauf der Bewerbungsfrist die Notarstelle noch nicht besetzbar, ist der Zeitpunkt der Besetzbarkeit maßgebend. Besondere Gründe für eine vorzeitige Amtssitzverlegung oder Neubestellung sind darzulegen."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Ein Bewerber, der erstmals zum Notar bestellt worden ist oder seinen Amtssitz nach Ausschreibung verlegt hat, findet bis zum Ablauf von fünf Jahren seit der Bestellung oder dem Amtssitzwechsel in der Regel keine Berücksichtigung im Auswahlverfahren. Maßgeblich ist das Ende der Bewerbungsfrist. Ist bei Ablauf der Bewerbungsfrist die Notarstelle noch nicht besetzbar, ist der Zeitpunkt der Besetzbarkeit maßgebend. Besondere Gründe für eine vorzeitige Amtssitzverlegung oder Neubestellung sind darzulegen."
             }
           ]
         },
@@ -509,28 +410,19 @@
           "children": [
             {
               "type": "item",
-              "label": "12.",
-              "text": "Bewerbung um mehrere Notarstellen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Nimmt ein Notarassessor seine Bewerbung um eine Notarstelle ohne hinreichenden Grund zurück und war er im Zeitpunkt der Rücknahme der einzige berücksichtigungsfähige Bewerber um die ausgeschriebene Notarstelle, wird ihm die Notarstelle gemäß § 7 Absatz 7 Satz 2 Nummer 3 der Bundesnotarordnung zur erneuten Bewerbung angeboten.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Während der Dauer eines Gerichtsverfahrens um die Besetzung einer Notarstelle wird das Gesuch eines hieran beteiligten konkurrierenden Bewerbers um eine andere Notarstelle nur berücksichtigt, wenn er sich schriftlich bereit erklärt, diese unabhängig vom Stand des Gerichtsverfahrens zum erstmöglichen Zeitpunkt anzutreten.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Nimmt ein Notarassessor seine Bewerbung um eine Notarstelle ohne hinreichenden Grund zurück und war er im Zeitpunkt der Rücknahme der einzige berücksichtigungsfähige Bewerber um die ausgeschriebene Notarstelle, wird ihm die Notarstelle gemäß § 7 Absatz 7 Satz 2 Nummer 3 der Bundesnotarordnung zur erneuten Bewerbung angeboten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Während der Dauer eines Gerichtsverfahrens um die Besetzung einer Notarstelle wird das Gesuch eines hieran beteiligten konkurrierenden Bewerbers um eine andere Notarstelle nur berücksichtigt, wenn er sich schriftlich bereit erklärt, diese unabhängig vom Stand des Gerichtsverfahrens zum erstmöglichen Zeitpunkt anzutreten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -540,17 +432,8 @@
           "title": "Vorlage eines amtsärztlichen Attests, Ablehnung eines Bewerbers",
           "children": [
             {
-              "type": "item",
-              "label": "13.",
-              "text": "Vorlage eines amtsärztlichen Attests, Ablehnung eines Bewerbers",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Für die Vorlage eines amtsärztlichen Attests und die Ablehnung eines Bewerbers gelten die Nummern 4 und 6 entsprechend. Das Benachrichtigungsschreiben an abgelehnte Bewerber hat den Hinweis zu enthalten, dass das Besetzungsverfahren nach Ablauf von zwei Wochen ab Bekanntgabe des Benachrichtigungsschreibens fortgesetzt wird."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Für die Vorlage eines amtsärztlichen Attests und die Ablehnung eines Bewerbers gelten die Nummern 4 und 6 entsprechend. Das Benachrichtigungsschreiben an abgelehnte Bewerber hat den Hinweis zu enthalten, dass das Besetzungsverfahren nach Ablauf von zwei Wochen ab Bekanntgabe des Benachrichtigungsschreibens fortgesetzt wird."
             }
           ]
         },
@@ -560,17 +443,8 @@
           "title": "Bestallungsurkunde sowie die Unterschrifts- und Siegelprobe",
           "children": [
             {
-              "type": "item",
-              "label": "14.",
-              "text": "Bestallungsurkunde sowie die Unterschrifts- und Siegelprobe",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Der Präsident des Landgerichts, in dessen Bezirk sich die zu besetzende Notarstelle befindet, händigt dem Bewerber die Bestallungsurkunde aus. Über die Aushändigung und die anschließende Vereidigung (§ 13 der Bundesnotarordnung) ist eine Niederschrift aufzunehmen. Je eine Abschrift dieser Niederschrift ist dem Staatsministerium der Justiz, dem Präsidenten des Oberlandesgerichts, der Notarkammer und der Ländernotarkasse zu übersenden. Der Präsident des Landgerichts veranlasst den Notar, die eigenhändige Unterschrift sowie den Abdruck seiner Präge- und seiner Farbdrucksiegel einzureichen und übersendet eine Abschrift hiervon auf dem Dienstweg an das Staatsministerium der Justiz."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Der Präsident des Landgerichts, in dessen Bezirk sich die zu besetzende Notarstelle befindet, händigt dem Bewerber die Bestallungsurkunde aus. Über die Aushändigung und die anschließende Vereidigung (§ 13 der Bundesnotarordnung) ist eine Niederschrift aufzunehmen. Je eine Abschrift dieser Niederschrift ist dem Staatsministerium der Justiz, dem Präsidenten des Oberlandesgerichts, der Notarkammer und der Ländernotarkasse zu übersenden. Der Präsident des Landgerichts veranlasst den Notar, die eigenhändige Unterschrift sowie den Abdruck seiner Präge- und seiner Farbdrucksiegel einzureichen und übersendet eine Abschrift hiervon auf dem Dienstweg an das Staatsministerium der Justiz."
             }
           ]
         }
@@ -587,45 +461,36 @@
           "title": "Übertragung von Aufgaben der Notarkammer",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Von den Aufgaben, die der Notarkammer nach der Bundesnotarordnung zustehen, werden auf die Ländernotarkasse übertragen:"
+            },
+            {
               "type": "item",
-              "label": "15.",
-              "text": "Übertragung von Aufgaben der Notarkammer",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Von den Aufgaben, die der Notarkammer nach der Bundesnotarordnung zustehen, werden auf die Ländernotarkasse übertragen:"
-                },
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "die Mittelbereitstellung für die berufliche Fortbildung der Hilfskräfte der Notare (§ 67 Abs. 3 Nr. 1 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "die Regelung der Ausbildung und Prüfung der Hilfskräfte der Notare (§ 67 Abs. 3 Nr. 2 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "c)",
-                  "text": "die Erstattung kostenrechtlicher Gutachten (§ 67 Abs. 6 der Bundesnotarordnung).",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "Im Übrigen bleibt die Zuständigkeit der Notarkammer nach § 67 Abs. 3 Nr. 1 und Abs. 6 der Bundesnotarordnung unberührt."
-                }
-              ]
+              "label": "a)",
+              "text": "die Mittelbereitstellung für die berufliche Fortbildung der Hilfskräfte der Notare (§ 67 Abs. 3 Nr. 1 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "die Regelung der Ausbildung und Prüfung der Hilfskräfte der Notare (§ 67 Abs. 3 Nr. 2 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "die Erstattung kostenrechtlicher Gutachten (§ 67 Abs. 6 der Bundesnotarordnung).",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Im Übrigen bleibt die Zuständigkeit der Notarkammer nach § 67 Abs. 3 Nr. 1 und Abs. 6 der Bundesnotarordnung unberührt."
             }
           ]
         }
@@ -643,28 +508,19 @@
           "children": [
             {
               "type": "item",
-              "label": "16.",
-              "text": "Prüfung der Amtsführung",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Der Präsident des Landgerichts veranlasst die Prüfung der Amtsgeschäfte des Notars gemäß § 93 der Bundesnotarordnung. Stichprobenkontrollen nach § 83 Absatz 1 Satz 3 der Grundbuchverfügung in der Fassung der Bekanntmachung vom 24. Januar 1995 (BGBl. I S. 114), die zuletzt durch Artikel 4 des Gesetzes vom 3. Dezember 2015 (BGBl. I S. 2161) geändert worden ist, in der jeweils geltenden Fassung, erfolgen anlässlich der turnusmäßig stattfindenden Prüfungen, soweit nicht konkrete Anhaltspunkte eine außerplanmäßige Überprüfung erforderlich machen.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Der zur Prüfung hinzugezogene Notar (§ 93 Absatz 3 Satz 2 der Bundesnotarordnung) soll seinen Amtssitz nicht in dem Landgerichtsbezirk des zu prüfenden Notars haben. Der Ort, die Zeit und, soweit eine eingeschränkte Prüfung stattfindet, der Gegenstand der Prüfung sind der Notarkammer im Rahmen der Anhörung und zur Abstimmung mit dem prüfenden Notar rechtzeitig mitzuteilen.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Der Präsident des Landgerichts veranlasst die Prüfung der Amtsgeschäfte des Notars gemäß § 93 der Bundesnotarordnung. Stichprobenkontrollen nach § 83 Absatz 1 Satz 3 der Grundbuchverfügung in der Fassung der Bekanntmachung vom 24. Januar 1995 (BGBl. I S. 114), die zuletzt durch Artikel 4 des Gesetzes vom 3. Dezember 2015 (BGBl. I S. 2161) geändert worden ist, in der jeweils geltenden Fassung, erfolgen anlässlich der turnusmäßig stattfindenden Prüfungen, soweit nicht konkrete Anhaltspunkte eine außerplanmäßige Überprüfung erforderlich machen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Der zur Prüfung hinzugezogene Notar (§ 93 Absatz 3 Satz 2 der Bundesnotarordnung) soll seinen Amtssitz nicht in dem Landgerichtsbezirk des zu prüfenden Notars haben. Der Ort, die Zeit und, soweit eine eingeschränkte Prüfung stattfindet, der Gegenstand der Prüfung sind der Notarkammer im Rahmen der Anhörung und zur Abstimmung mit dem prüfenden Notar rechtzeitig mitzuteilen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -675,44 +531,35 @@
           "children": [
             {
               "type": "item",
-              "label": "17.",
-              "text": "Mitteilungspflichten der Aufsichtsbehörde",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Die Aufsichtsbehörde übersendet den anderen Aufsichtsbehörden und der Notarkammer Abdrucke der von ihr getroffenen Entscheidung. Dabei ist das Staatsministerium der Justiz nur über Entscheidungen zu unterrichten, denen eine grundsätzliche Bedeutung zukommt oder die von besonderem öffentlichen Interesse sind.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Über das Ergebnis der Prüfung der Amtsführung des Notars nach Maßgabe des § 93 der Bundesnotarordnung sind der Präsident des Oberlandesgerichts und die Notarkammer durch Übersendung eines Berichts und der hierzu erfolgten Stellungnahme des Notars zu unterrichten. Dies gilt auch für das Ergebnis einer im Einzelfall erforderlichen Nachprüfung und die zur Beseitigung vorgefundener Mängel ergriffenen Maßnahmen.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "c)",
-                  "text": "In Aufsichts- und Disziplinarangelegenheiten ist den höheren Aufsichtsbehörden über alle wesentlichen Vorgänge zu berichten. Höhere Aufsichtsbehörden sind der Präsident des Oberlandesgerichts und das Staatsministerium der Justiz. Wesentliche Vorgänge sind insbesondere Vorkommnisse, die ein Strafverfahren oder ein Disziplinarverfahren gegen einen Notar oder Notarassessor zur Folge haben können, sowie alle wesentlichen Entscheidungen im Zusammenhang mit diesen Verfahren. Bei Straßenverkehrsdelikten ist nur bei schweren Verstößen, insbesondere bei Trunkenheitsfahrten, Unfallflucht oder fahrlässiger Tötung, zu berichten.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "d)",
-                  "text": "Die höheren Dienstaufsichtsbehörden sind über Aufsichts- und Disziplinarangelegenheiten, denen Sachverhalte zu Grunde liegen, welche die Enthebung aus dem Amt oder die Entfernung vom bisherigen Amtssitz rechtfertigen können, zum frühest möglichen Zeitpunkt zu unterrichten. In Fällen, in denen die Verhängung einer Disziplinarmaßnahme nach § 97 Abs. 1 Alternative 1 und 2 der Bundesnotarordnung in Betracht kommt, sind die höheren Aufsichtsbehörden mit der Einleitung eines Disziplinarverfahrens zu unterrichten. In Fällen, in denen ausschließlich der Erlass einer Missbilligung nach § 94 der Bundesnotarordnung gerechtfertigt erscheint, sind die höheren Aufsichtsbehörden grundsätzlich erst nach deren Erlass zu unterrichten. Die Notarkammer Ostdeutschland ist in allen Fällen bereits vor Erlass möglicher Disziplinarverfügungen zum frühest möglichen Zeitpunkt zu unterrichten. Dies gilt auch für die Entscheidung über die gegen eine Disziplinarverfügung eingelegten Rechtsbehelfe und in Verfahren, die auf den Ausspruch einer Missbilligung gerichtet sind.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Die Aufsichtsbehörde übersendet den anderen Aufsichtsbehörden und der Notarkammer Abdrucke der von ihr getroffenen Entscheidung. Dabei ist das Staatsministerium der Justiz nur über Entscheidungen zu unterrichten, denen eine grundsätzliche Bedeutung zukommt oder die von besonderem öffentlichen Interesse sind.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Über das Ergebnis der Prüfung der Amtsführung des Notars nach Maßgabe des § 93 der Bundesnotarordnung sind der Präsident des Oberlandesgerichts und die Notarkammer durch Übersendung eines Berichts und der hierzu erfolgten Stellungnahme des Notars zu unterrichten. Dies gilt auch für das Ergebnis einer im Einzelfall erforderlichen Nachprüfung und die zur Beseitigung vorgefundener Mängel ergriffenen Maßnahmen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "In Aufsichts- und Disziplinarangelegenheiten ist den höheren Aufsichtsbehörden über alle wesentlichen Vorgänge zu berichten. Höhere Aufsichtsbehörden sind der Präsident des Oberlandesgerichts und das Staatsministerium der Justiz. Wesentliche Vorgänge sind insbesondere Vorkommnisse, die ein Strafverfahren oder ein Disziplinarverfahren gegen einen Notar oder Notarassessor zur Folge haben können, sowie alle wesentlichen Entscheidungen im Zusammenhang mit diesen Verfahren. Bei Straßenverkehrsdelikten ist nur bei schweren Verstößen, insbesondere bei Trunkenheitsfahrten, Unfallflucht oder fahrlässiger Tötung, zu berichten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Die höheren Dienstaufsichtsbehörden sind über Aufsichts- und Disziplinarangelegenheiten, denen Sachverhalte zu Grunde liegen, welche die Enthebung aus dem Amt oder die Entfernung vom bisherigen Amtssitz rechtfertigen können, zum frühest möglichen Zeitpunkt zu unterrichten. In Fällen, in denen die Verhängung einer Disziplinarmaßnahme nach § 97 Abs. 1 Alternative 1 und 2 der Bundesnotarordnung in Betracht kommt, sind die höheren Aufsichtsbehörden mit der Einleitung eines Disziplinarverfahrens zu unterrichten. In Fällen, in denen ausschließlich der Erlass einer Missbilligung nach § 94 der Bundesnotarordnung gerechtfertigt erscheint, sind die höheren Aufsichtsbehörden grundsätzlich erst nach deren Erlass zu unterrichten. Die Notarkammer Ostdeutschland ist in allen Fällen bereits vor Erlass möglicher Disziplinarverfügungen zum frühest möglichen Zeitpunkt zu unterrichten. Dies gilt auch für die Entscheidung über die gegen eine Disziplinarverfügung eingelegten Rechtsbehelfe und in Verfahren, die auf den Ausspruch einer Missbilligung gerichtet sind.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -723,28 +570,19 @@
           "children": [
             {
               "type": "item",
-              "label": "18.",
-              "text": "Mitteilungspflichten der Notarkammer",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Die Notarkammer teilt eine von ihr ausgesprochene Ermahnung dem Präsidenten des Landgerichts mit, der die Aufsicht über den Notar führt (§ 75 Abs. 3 Satz 3 der Bundesnotarordnung). Dieser legt sie dem Präsidenten des Oberlandesgerichts vor. Dies gilt auch für die Entscheidung über den gegen eine Ermahnung eingelegten Einspruch (§ 75 Abs. 4 der Bundesnotarordnung) und für die Entscheidung über den Antrag auf gerichtliche Überprüfung im Fall der Nichtabhilfe (§ 75 Abs. 5 der Bundesnotarordnung).",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Die Notarkammer teilt dem Präsidenten des Landgerichts die Überweisung von Notarassessoren mit. Sie teilt ihm auch Tatsachen mit, die zur Entlassung aus einem der in § 7 Abs. 7 Satz 2 der Bundesnotarordnung genannten Gründe führen kann.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Die Notarkammer teilt eine von ihr ausgesprochene Ermahnung dem Präsidenten des Landgerichts mit, der die Aufsicht über den Notar führt (§ 75 Abs. 3 Satz 3 der Bundesnotarordnung). Dieser legt sie dem Präsidenten des Oberlandesgerichts vor. Dies gilt auch für die Entscheidung über den gegen eine Ermahnung eingelegten Einspruch (§ 75 Abs. 4 der Bundesnotarordnung) und für die Entscheidung über den Antrag auf gerichtliche Überprüfung im Fall der Nichtabhilfe (§ 75 Abs. 5 der Bundesnotarordnung).",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Notarkammer teilt dem Präsidenten des Landgerichts die Überweisung von Notarassessoren mit. Sie teilt ihm auch Tatsachen mit, die zur Entlassung aus einem der in § 7 Abs. 7 Satz 2 der Bundesnotarordnung genannten Gründe führen kann.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         }
@@ -762,137 +600,128 @@
           "children": [
             {
               "type": "item",
-              "label": "19.",
-              "text": "Verfahren bei Anträgen und Anzeigen",
-              "level": 0,
-              "numberingStyle": "decimal",
+              "label": "a)",
+              "text": "In folgenden Angelegenheiten der Notare hat der Notar Anträge oder Anzeigen an die zuständige Aufsichtsbehörde über die Notarkammer einzureichen:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
-                  "label": "a)",
-                  "text": "In folgenden Angelegenheiten der Notare hat der Notar Anträge oder Anzeigen an die zuständige Aufsichtsbehörde über die Notarkammer einzureichen:",
-                  "level": 1,
+                  "label": "aa)",
+                  "text": "Übernahme eines besoldeten Amtes (§ 8 Abs. 1 der Bundesnotarordnung),",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "Übernahme eines besoldeten Amtes (§ 8 Abs. 1 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "Übernahme einer Nebenbeschäftigung gegen Vergütung, insbesondere einer gewerblichen Tätigkeit (§ 8 Abs. 3 Satz 1 Nr. 1 der Bundesnotarordnung) oder Eintritt in den Vorstand, Aufsichtsrat, Verwaltungsrat oder in ein sonstiges Organ einer auf Erwerb gerichteten Gesellschaft, Genossenschaft oder eines in einer anderen Rechtsform betriebenen wirtschaftlichen Unternehmens (§ 8 Abs. 3 Satz 1 Nr. 2 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "cc)",
-                      "text": "Verbindung zur gemeinsamen Berufsausübung oder Unterhaltung gemeinsamer Geschäftsräume (§ 9 der Bundesnotarordnung in Verbindung mit § 9 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums der Justiz zur Ausführung der Bundesnotarordnung,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "dd)",
-                      "text": "Verlegung des Amtssitzes (§ 10 Abs. 1 Satz 3 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ee)",
-                      "text": "Genehmigung mehrerer Geschäftsstellen oder Abhaltung auswärtiger Sprechtage (§ 10 Abs. 4 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ff)",
-                      "text": "Urkundstätigkeiten außerhalb des Amtsbereiches (§ 10a Abs. 3 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "gg)",
-                      "text": "Urkundstätigkeiten außerhalb des Amtsbezirkes (§ 11 Abs. 2 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "hh)",
-                      "text": "Befreiung von der Pflicht zur Verschwiegenheit (§ 18 Abs. 2 Halbsatz 2 der Bundesnotarordnung) und die Entscheidung in diesbezüglichen Zweifelsfragen (§ 18 Abs. 3 Satz 1 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ii)",
-                      "text": "Anstellung von juristischen Mitarbeitern (§ 10 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums der Justiz zur Ausführung der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "jj)",
-                      "text": "Abwesenheit des Notars von seinem Amtssitz von mehr als einem Monat (§ 38 Satz 2 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "kk)",
-                      "text": "Bestellung eines zeitweiligen Vertreters (§ 39 Abs.1 Satz 1 Halbsatz 1 der Bundesnotarordnung) und Bestellung eines ständigen Vertreters (§ 39 Abs. 1 Satz 1 Halbsatz 2 der Bundesnotarordnung), soweit es sich nicht um die Bestellung eines amtierenden ostdeutschen Notars handelt,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ll)",
-                      "text": "Übertragung der Aktenverwahrung (§ 51 Abs. 1 der Bundesnotarordnung),",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "mm)",
-                      "text": "Genehmigung zur Verlegung der Geschäftsstelle eines Notars in die Räume eines Notars, dessen Amt erloschen ist oder der seinen Amtssitz verlegt hat, und zur Übernahme eines in einem besonderen Vertrauensverhältnis stehenden Angestellten (§ 53 Abs. 1 der Bundesnotarordnung).",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "In allen anderen Fällen werden Anträge oder Anzeigen an die zuständige Aufsichtsbehörde unmittelbar übermittelt."
-                    }
-                  ]
+                  "children": []
                 },
                 {
                   "type": "item",
-                  "label": "b)",
-                  "text": "Die Notarkammer leitet in den Fällen von Buchstabe a Satz 1 Doppelbuchst. aa bis nn die mit einer Stellungnahme versehenen Anträge an die zuständige Aufsichtsbehörde weiter. Im Fall von Buchstabe a Satz 1 Doppelbuchst. ff leitet die Notarkammer den Vorgang nur an die zuständige Aufsichtsbehörde weiter, wenn die Vornahme der Urkundstätigkeit außerhalb des Amtsbereiches nicht nach § 10a Abs. 2 der Bundesnotarordnung geboten ist. In den Fällen von Buchstabe a Satz 1 Doppelbuchst. kk weist die Notarkammer den Präsidenten des Landgerichts auf die Notwendigkeit der erstmaligen Vereidigung des zu bestellenden Vertreters hin (§ 40 Abs. 1 Satz 2 der Bundesnotarordnung).",
-                  "level": 1,
+                  "label": "bb)",
+                  "text": "Übernahme einer Nebenbeschäftigung gegen Vergütung, insbesondere einer gewerblichen Tätigkeit (§ 8 Abs. 3 Satz 1 Nr. 1 der Bundesnotarordnung) oder Eintritt in den Vorstand, Aufsichtsrat, Verwaltungsrat oder in ein sonstiges Organ einer auf Erwerb gerichteten Gesellschaft, Genossenschaft oder eines in einer anderen Rechtsform betriebenen wirtschaftlichen Unternehmens (§ 8 Abs. 3 Satz 1 Nr. 2 der Bundesnotarordnung),",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "Verbindung zur gemeinsamen Berufsausübung oder Unterhaltung gemeinsamer Geschäftsräume (§ 9 der Bundesnotarordnung in Verbindung mit § 9 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums der Justiz zur Ausführung der Bundesnotarordnung,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "Verlegung des Amtssitzes (§ 10 Abs. 1 Satz 3 der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "Genehmigung mehrerer Geschäftsstellen oder Abhaltung auswärtiger Sprechtage (§ 10 Abs. 4 der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ff)",
+                  "text": "Urkundstätigkeiten außerhalb des Amtsbereiches (§ 10a Abs. 3 der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "gg)",
+                  "text": "Urkundstätigkeiten außerhalb des Amtsbezirkes (§ 11 Abs. 2 der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "hh)",
+                  "text": "Befreiung von der Pflicht zur Verschwiegenheit (§ 18 Abs. 2 Halbsatz 2 der Bundesnotarordnung) und die Entscheidung in diesbezüglichen Zweifelsfragen (§ 18 Abs. 3 Satz 1 der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ii)",
+                  "text": "Anstellung von juristischen Mitarbeitern (§ 10 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums der Justiz zur Ausführung der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "jj)",
+                  "text": "Abwesenheit des Notars von seinem Amtssitz von mehr als einem Monat (§ 38 Satz 2 der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "kk)",
+                  "text": "Bestellung eines zeitweiligen Vertreters (§ 39 Abs.1 Satz 1 Halbsatz 1 der Bundesnotarordnung) und Bestellung eines ständigen Vertreters (§ 39 Abs. 1 Satz 1 Halbsatz 2 der Bundesnotarordnung), soweit es sich nicht um die Bestellung eines amtierenden ostdeutschen Notars handelt,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ll)",
+                  "text": "Übertragung der Aktenverwahrung (§ 51 Abs. 1 der Bundesnotarordnung),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "mm)",
+                  "text": "Genehmigung zur Verlegung der Geschäftsstelle eines Notars in die Räume eines Notars, dessen Amt erloschen ist oder der seinen Amtssitz verlegt hat, und zur Übernahme eines in einem besonderen Vertrauensverhältnis stehenden Angestellten (§ 53 Abs. 1 der Bundesnotarordnung).",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "In allen anderen Fällen werden Anträge oder Anzeigen an die zuständige Aufsichtsbehörde unmittelbar übermittelt."
                 }
               ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Notarkammer leitet in den Fällen von Buchstabe a Satz 1 Doppelbuchst. aa bis nn die mit einer Stellungnahme versehenen Anträge an die zuständige Aufsichtsbehörde weiter. Im Fall von Buchstabe a Satz 1 Doppelbuchst. ff leitet die Notarkammer den Vorgang nur an die zuständige Aufsichtsbehörde weiter, wenn die Vornahme der Urkundstätigkeit außerhalb des Amtsbereiches nicht nach § 10a Abs. 2 der Bundesnotarordnung geboten ist. In den Fällen von Buchstabe a Satz 1 Doppelbuchst. kk weist die Notarkammer den Präsidenten des Landgerichts auf die Notwendigkeit der erstmaligen Vereidigung des zu bestellenden Vertreters hin (§ 40 Abs. 1 Satz 2 der Bundesnotarordnung).",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -902,113 +731,104 @@
           "title": "Anhörung der Notarkammer",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Unbeschadet der in Nummer 19 Buchst. a Satz 1 Doppelbuchst. aa bis nn genannten Fälle ist die Notarkammer anzuhören:"
+            },
+            {
               "type": "item",
-              "label": "20.",
-              "text": "Anhörung der Notarkammer",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Unbeschadet der in Nummer 19 Buchst. a Satz 1 Doppelbuchst. aa bis nn genannten Fälle ist die Notarkammer anzuhören:"
-                },
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "vor der Anweisung an einen Notar, seine Wohnung am Amtssitz zu nehmen (§ 10 Abs. 2 Satz 2 Halbsatz 2 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "vor der Verpflichtung eines Notars zur Unterhaltung weiterer Geschäftsstellen oder der Abhaltung von auswärtigen Sprechtagen (§ 10 Abs. 4 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "c)",
-                  "text": "vor der Änderung von Grenzen des Amtsbereiches (§ 10a Abs. 1 Satz 2 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "d)",
-                  "text": "vor der Erteilung von Auskünften an Dritte über die Berufshaftpflichtversicherung einzelner Notare (§ 19a Abs. 6 der Bundesnotarordnung in Verbindung mit § 11 Abs. 2 Nr. 4 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums\nder Justiz zur Ausführung der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "e)",
-                  "text": "vor der von Amts wegen vorzunehmenden Bestellung eines zeitweiligen Vertreters (§ 39 Abs. 2 der Bundesnotarordnung) oder dem Widerruf einer Vertreterbestellung (§ 40 Abs. 2 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "f)",
-                  "text": "vor der Entscheidung über den Antrag auf Genehmigung der vorübergehenden Amtsniederlegung (§§ 48b, 48c der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "g)",
-                  "text": "vor der Amtsenthebung (§ 50 Abs. 3 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "h)",
-                  "text": "vor der von Amts wegen vorzunehmenden Anordnung der Aktenverwahrung (§ 51 Abs. 1 Satz 2 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "i)",
-                  "text": "vor Erteilung der Erlaubnis zur Führung der Amtsbezeichnung Notar mit dem Zusatz „außer Dienst (a. D.)“ (§ 52 Absatz 2 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "j)",
-                  "text": "vor der vorläufigen Amtsenthebung (§ 54 Abs. 1 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "k)",
-                  "text": "vor der Bestellung eines Verwalters (§ 57 Abs. 2 der Bundesnotarordnung) und dem Widerruf der Verwalterbestellung (§ 64 Abs. 1 Satz 3 der Bundesnotarordnung),",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "l)",
-                  "text": "vor Entscheidungen im Zusammenhang mit der Bestellung oder der Amtsenthebung von Beisitzern aus den Reihen der Notare (§§ 103, 104 der Bundesnotarordnung).",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "vor der Anweisung an einen Notar, seine Wohnung am Amtssitz zu nehmen (§ 10 Abs. 2 Satz 2 Halbsatz 2 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "vor der Verpflichtung eines Notars zur Unterhaltung weiterer Geschäftsstellen oder der Abhaltung von auswärtigen Sprechtagen (§ 10 Abs. 4 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "vor der Änderung von Grenzen des Amtsbereiches (§ 10a Abs. 1 Satz 2 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "vor der Erteilung von Auskünften an Dritte über die Berufshaftpflichtversicherung einzelner Notare (§ 19a Abs. 6 der Bundesnotarordnung in Verbindung mit § 11 Abs. 2 Nr. 4 der Verordnung der Ostdeutschen Staatsregierung und des Ostdeutschen Staatsministeriums\nder Justiz zur Ausführung der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "vor der von Amts wegen vorzunehmenden Bestellung eines zeitweiligen Vertreters (§ 39 Abs. 2 der Bundesnotarordnung) oder dem Widerruf einer Vertreterbestellung (§ 40 Abs. 2 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "f)",
+              "text": "vor der Entscheidung über den Antrag auf Genehmigung der vorübergehenden Amtsniederlegung (§§ 48b, 48c der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "g)",
+              "text": "vor der Amtsenthebung (§ 50 Abs. 3 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "h)",
+              "text": "vor der von Amts wegen vorzunehmenden Anordnung der Aktenverwahrung (§ 51 Abs. 1 Satz 2 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "i)",
+              "text": "vor Erteilung der Erlaubnis zur Führung der Amtsbezeichnung Notar mit dem Zusatz „außer Dienst (a. D.)“ (§ 52 Absatz 2 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "j)",
+              "text": "vor der vorläufigen Amtsenthebung (§ 54 Abs. 1 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "k)",
+              "text": "vor der Bestellung eines Verwalters (§ 57 Abs. 2 der Bundesnotarordnung) und dem Widerruf der Verwalterbestellung (§ 64 Abs. 1 Satz 3 der Bundesnotarordnung),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "l)",
+              "text": "vor Entscheidungen im Zusammenhang mit der Bestellung oder der Amtsenthebung von Beisitzern aus den Reihen der Notare (§§ 103, 104 der Bundesnotarordnung).",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -1018,17 +838,8 @@
           "title": "Bestellung eines Vertreters",
           "children": [
             {
-              "type": "item",
-              "label": "21.",
-              "text": "Bestellung eines Vertreters",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Zum Notarvertreter (§ 39 der Bundesnotarordnung) sollen grundsätzlich nur Notare, Notarassessoren, Notare außer Dienst und ehemalige Richter, die nicht zugleich zur Rechtsanwaltschaft zugelassen sind, bestellt werden. Zu der Frage, ob Notarassessoren zur Verfügung stehen, ist eine Stellungnahme der Notarkammer einzuholen."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Zum Notarvertreter (§ 39 der Bundesnotarordnung) sollen grundsätzlich nur Notare, Notarassessoren, Notare außer Dienst und ehemalige Richter, die nicht zugleich zur Rechtsanwaltschaft zugelassen sind, bestellt werden. Zu der Frage, ob Notarassessoren zur Verfügung stehen, ist eine Stellungnahme der Notarkammer einzuholen."
             }
           ]
         },
@@ -1038,17 +849,8 @@
           "title": "Vorübergehende Amtsniederlegung",
           "children": [
             {
-              "type": "item",
-              "label": "22.",
-              "text": "Vorübergehende Amtsniederlegung",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Bei vorübergehenden Amtsniederlegungen (§§ 48b, 48c der Bundesnotarordnung) hat der Notar den Wegfall des Grundes einer vorübergehenden Amtsniederlegung und die Aufnahme erwerbswirtschaftlicher Nebentätigkeiten dem Präsidenten des Landgerichts anzuzeigen. Der Präsident des Landgerichts unterrichtet den Präsidenten der Notarkammer und auf dem Dienstweg das Staatsministerium der Justiz über die Anzeige."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Bei vorübergehenden Amtsniederlegungen (§§ 48b, 48c der Bundesnotarordnung) hat der Notar den Wegfall des Grundes einer vorübergehenden Amtsniederlegung und die Aufnahme erwerbswirtschaftlicher Nebentätigkeiten dem Präsidenten des Landgerichts anzuzeigen. Der Präsident des Landgerichts unterrichtet den Präsidenten der Notarkammer und auf dem Dienstweg das Staatsministerium der Justiz über die Anzeige."
             }
           ]
         },
@@ -1059,28 +861,19 @@
           "children": [
             {
               "type": "item",
-              "label": "23.",
-              "text": "Prüfung der Geschäftsübersichten",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Der Präsident des Landgerichts prüft die Geschäftsübersichten (§ 24 der Dienstordnung für Notarinnen und Notare) und stellt nach Behebung etwaiger Beanstandungen die Ergebnisse der Übersichten zusammen. Dabei sind die Notare mit dem Amtssitz im selben Amtsgerichtsbezirk in alphabetischer Reihenfolge unter Verwendung des als Anlage 2 beigefügten Musters aufzuführen.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Der Präsident des Landgerichts legt die Zusammenstellung bis zum 1. April auf dem Dienstweg dem Staatsministerium der Justiz vor. Die Notarkammer erhält von diesem eine Zusammenstellung der festgestellten und der bereinigten Urkundszahlen. Bei der Feststellung der bereinigten Nummern werden Beglaubigungen ohne Entwurf zu 10 vom Hundert, Beglaubigungen mit Entwurf zu 50 Prozent, Wechsel- und Scheckproteste mit 10 vom Hundert sowie die übrigen Beurkundungen voll berücksichtigt.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Der Präsident des Landgerichts prüft die Geschäftsübersichten (§ 24 der Dienstordnung für Notarinnen und Notare) und stellt nach Behebung etwaiger Beanstandungen die Ergebnisse der Übersichten zusammen. Dabei sind die Notare mit dem Amtssitz im selben Amtsgerichtsbezirk in alphabetischer Reihenfolge unter Verwendung des als Anlage 2 beigefügten Musters aufzuführen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Der Präsident des Landgerichts legt die Zusammenstellung bis zum 1. April auf dem Dienstweg dem Staatsministerium der Justiz vor. Die Notarkammer erhält von diesem eine Zusammenstellung der festgestellten und der bereinigten Urkundszahlen. Bei der Feststellung der bereinigten Nummern werden Beglaubigungen ohne Entwurf zu 10 vom Hundert, Beglaubigungen mit Entwurf zu 50 Prozent, Wechsel- und Scheckproteste mit 10 vom Hundert sowie die übrigen Beurkundungen voll berücksichtigt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -1091,28 +884,19 @@
           "children": [
             {
               "type": "item",
-              "label": "24.",
-              "text": "Übertragung der Aktenverwahrung",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Ist das Amt eines Notars erloschen oder wird der Amtssitz in einen anderen Amtsgerichtsbezirk verlegt (§ 51 Abs. 1 der Bundesnotarordnung), sind die Akten und Bücher des Notars sowie die ihm amtlich übergebenen Urkunden nach Beendigung der Verwaltung in der Regel demjenigen Notar in Verwahrung zu geben, der als Amtsnachfolger des ausgeschiedenen Notars anzusehen ist. Der Notariatsverwalter des ausgeschiedenen Notars übergibt bei Beendigung seines Amtes Siegel und Stempel an den Präsidenten des Landgerichts, welcher hiervon den Präsidenten der Notarkammer unterrichtet. Die Siegel und Stempel sind zur weiteren Verwendung geeignet. Sie sind daher nicht zu vernichten, sondern beim Präsidenten des Landgerichts aufzubewahren.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Die Siegel und Stempel des ausgeschiedenen Notars sind unverzüglich nach dem Zeitpunkt des Wirksamwerdens der Entlassung durch den ausscheidenden Notar oder bei Verwalterbestellung durch den Verwalter an das Amtsgericht, in dessen Bezirk sich die Notarstelle befindet, zur Einziehung und Vernichtung zu übergeben.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Ist das Amt eines Notars erloschen oder wird der Amtssitz in einen anderen Amtsgerichtsbezirk verlegt (§ 51 Abs. 1 der Bundesnotarordnung), sind die Akten und Bücher des Notars sowie die ihm amtlich übergebenen Urkunden nach Beendigung der Verwaltung in der Regel demjenigen Notar in Verwahrung zu geben, der als Amtsnachfolger des ausgeschiedenen Notars anzusehen ist. Der Notariatsverwalter des ausgeschiedenen Notars übergibt bei Beendigung seines Amtes Siegel und Stempel an den Präsidenten des Landgerichts, welcher hiervon den Präsidenten der Notarkammer unterrichtet. Die Siegel und Stempel sind zur weiteren Verwendung geeignet. Sie sind daher nicht zu vernichten, sondern beim Präsidenten des Landgerichts aufzubewahren.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Siegel und Stempel des ausgeschiedenen Notars sind unverzüglich nach dem Zeitpunkt des Wirksamwerdens der Entlassung durch den ausscheidenden Notar oder bei Verwalterbestellung durch den Verwalter an das Amtsgericht, in dessen Bezirk sich die Notarstelle befindet, zur Einziehung und Vernichtung zu übergeben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         }
@@ -1130,205 +914,196 @@
           "children": [
             {
               "type": "item",
-              "label": "25.",
-              "text": "Inhalt und Führung der Personalakten",
-              "level": 0,
-              "numberingStyle": "decimal",
+              "label": "a)",
+              "text": "Über jeden Notar sind Personalakten zu führen. Zu den Personalakten gehören alle den Notar betreffenden Vorgänge, die im Zusammenhang mit dem Amtsverhältnis stehen; Beschwerden, Behauptungen und Bewertungen über den Notar, die nicht zu einem Disziplinarverfahren geführt haben, gehören nur dann zu den Personalakten, soweit sie sich als begründet oder zutreffend erwiesen haben. Nicht zu den Personalakten gehören Vorgänge, die einen überwiegenden Bezug zu der Notarstelle aufweisen, und die bei Bedarf in einer gesonderten Sachakte geführt werden (Notarstellenakte). In der Notarstellenakte sind insbesondere Vorgänge zu führen, die folgende Angelegenheiten betreffen:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
-                  "label": "a)",
-                  "text": "Über jeden Notar sind Personalakten zu führen. Zu den Personalakten gehören alle den Notar betreffenden Vorgänge, die im Zusammenhang mit dem Amtsverhältnis stehen; Beschwerden, Behauptungen und Bewertungen über den Notar, die nicht zu einem Disziplinarverfahren geführt haben, gehören nur dann zu den Personalakten, soweit sie sich als begründet oder zutreffend erwiesen haben. Nicht zu den Personalakten gehören Vorgänge, die einen überwiegenden Bezug zu der Notarstelle aufweisen, und die bei Bedarf in einer gesonderten Sachakte geführt werden (Notarstellenakte). In der Notarstellenakte sind insbesondere Vorgänge zu führen, die folgende Angelegenheiten betreffen:",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "Dienstantrittsanzeige, Amtssiegelprobe, Unterschriftsprobe und Anzeigen zum Kanzleisitz, Beschäftigung juristischer Mitarbeiter,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "Geschäftsübersichten,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "cc)",
-                      "text": "Verwahrungsübersichten,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "dd)",
-                      "text": "Vertreterbestellungen,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "ee)",
-                      "text": "Notariatsverwaltungen.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Die Personalakten für Notare werden vom Staatsministerium der Justiz, vom Präsidenten des Oberlandesgerichts und vom Präsidenten des Landgerichts unter Beachtung der für den jeweiligen Aufgabenbereich bestehenden Zuständigkeiten geführt.",
-                  "level": 1,
+                  "label": "aa)",
+                  "text": "Dienstantrittsanzeige, Amtssiegelprobe, Unterschriftsprobe und Anzeigen zum Kanzleisitz, Beschäftigung juristischer Mitarbeiter,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "c)",
-                  "text": "Die Personalakten sind wegen ihres vertraulichen Charakters vor unbefugter Einsicht durch Dritte zu schützen. Sie dürfen nur den mit der Bearbeitung von Personalsachen von Notaren betrauten Bediensteten zugänglich sein.",
-                  "level": 1,
+                  "label": "bb)",
+                  "text": "Geschäftsübersichten,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "d)",
-                  "text": "Erstes Aktenstück der Personalakten ist der Personalbogen, der bei entsprechendem Anlass unverzüglich zu berichtigen ist. Nach diesem sind die einzelnen Aktenstücke, soweit sie nicht in Teilakten (Unterhefte) aufzunehmen sind, in zeitlicher Reihenfolge einzuordnen. Sämtliche Schriftstücke, mit Ausnahme des Personalbogens, sind in der rechten oberen Ecke mit einer fortlaufenden Blattzahl zu versehen.",
-                  "level": 1,
+                  "label": "cc)",
+                  "text": "Verwahrungsübersichten,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "e)",
-                  "text": "Folgende Vorgänge sind in die Unterhefte I bis IV aufzunehmen:",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "dienstliche Beurteilungen,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "Disziplinarvorgänge,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "cc)",
-                      "text": "Nebentätigkeitsvorgänge,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "dd)",
-                      "text": "Mitteilungen (betreffend Gerichts-, Ermittlungs- und Bußgeldverfahren sowie Beschwerden, Behauptungen und Bewertungen nach Buchstabe a).",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "Die Unterhefte sind erst anzulegen, wenn ein entsprechender Vorgang anfällt. Auf dem Aktenumschlag sind angelegte Unterhefte zu verzeichnen. Weitere Unterhefte, insbesondere Personalaktenqualität besitzende Vorgänge betreffend die Prüfung der Amtsführung, und Teile von Unterheften sind bei Bedarf anzulegen."
-                    }
-                  ]
-                },
-                {
-                  "type": "item",
-                  "label": "f)",
-                  "text": "Während des Disziplinarverfahrens sind die Disziplinarakten gesondert zu führende Sachakten und unterliegen für diese Zeit nicht den Regelungen über die Personalakten, sondern den besonderen Verfahrensvorschriften des Ostdeutschen Disziplinargesetzes vom 10. April 2007 (SächsGVBl. S. 54), das zuletzt durch Artikel 3 des Gesetzes vom 22. Oktober 2016 (SächsGVBl. S. 498) geändert worden ist, in der jeweils geltenden Fassung. Erst nach Abschluss des Disziplinarverfahrens werden sie als Unterheft II Bestandteil der Personalakte.",
-                  "level": 1,
+                  "label": "dd)",
+                  "text": "Vertreterbestellungen,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "g)",
-                  "text": "Buchstabe f gilt entsprechend für die gesondert zu führenden Teilakten über Gerichts-, Ermittlungs- und Bußgeldverfahren.",
-                  "level": 1,
+                  "label": "ee)",
+                  "text": "Notariatsverwaltungen.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Personalakten für Notare werden vom Staatsministerium der Justiz, vom Präsidenten des Oberlandesgerichts und vom Präsidenten des Landgerichts unter Beachtung der für den jeweiligen Aufgabenbereich bestehenden Zuständigkeiten geführt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Die Personalakten sind wegen ihres vertraulichen Charakters vor unbefugter Einsicht durch Dritte zu schützen. Sie dürfen nur den mit der Bearbeitung von Personalsachen von Notaren betrauten Bediensteten zugänglich sein.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Erstes Aktenstück der Personalakten ist der Personalbogen, der bei entsprechendem Anlass unverzüglich zu berichtigen ist. Nach diesem sind die einzelnen Aktenstücke, soweit sie nicht in Teilakten (Unterhefte) aufzunehmen sind, in zeitlicher Reihenfolge einzuordnen. Sämtliche Schriftstücke, mit Ausnahme des Personalbogens, sind in der rechten oberen Ecke mit einer fortlaufenden Blattzahl zu versehen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Folgende Vorgänge sind in die Unterhefte I bis IV aufzunehmen:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "dienstliche Beurteilungen,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "h)",
-                  "text": "Ärztliche und psychologische Gutachten sind in einem verschlossenen Umschlag zur Hauptakte – oder wenn sie von einem Einzelvorgang nicht getrennt werden können – zu dem entsprechenden Unterheft zu nehmen. Eine Öffnung des Umschlags ist unter Angabe des Datums und der Person des Einsichtnehmenden auf dem Umschlag zu vermerken. Ärztliche Zeugnisse nach Vordruck können unverschlossen aufgenommen werden, wenn sie keine besonderen Bemerkungen enthalten.",
-                  "level": 1,
+                  "label": "bb)",
+                  "text": "Disziplinarvorgänge,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "i)",
-                  "text": "Erklärungen der Notare und sonstige Schriftstücke, die Überprüfungen früherer politischer Tätigkeiten in der Deutschen Demokratischen Republik (DDR) oder Tätigkeiten für das Ministerium für Staatssicherheit oder das Amt für Nationale Sicherheit der DDR betreffen, sind weder in die Hauptakte noch in ein Unterheft aufzunehmen. Sie sind in alphabetischer Reihenfolge zu einer Sammlung für alle Notare zu nehmen, die beim Staatsministerium der Justiz aufzubewahren ist. Die Bestimmungen über die Einsicht in die Personalakten (Nummer 26) gelten entsprechend.",
-                  "level": 1,
+                  "label": "cc)",
+                  "text": "Nebentätigkeitsvorgänge,",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
                   "children": []
                 },
                 {
                   "type": "item",
-                  "label": "j)",
-                  "text": "Jeder Notar hat dem Präsidenten des Landgerichts und dem Präsidenten der Notarkammer mitzuteilen:",
-                  "level": 1,
+                  "label": "dd)",
+                  "text": "Mitteilungen (betreffend Gerichts-, Ermittlungs- und Bußgeldverfahren sowie Beschwerden, Behauptungen und Bewertungen nach Buchstabe a).",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "eine Verlegung der Geschäftsstelle und eine Änderung der Wohnanschrift,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "eine Eheschließung unter Vorlage der Heiratsurkunde oder die Begründung einer Lebenspartnerschaft unter Vorlage einer Lebenspartnerschaftsurkunde; dabei ist eine Erklärung abzugeben, ob und gegebenenfalls wo der Ehegatte oder der Lebenspartner im Justizdienst beschäftigt oder als Rechtsanwalt oder Notar in dem Bezirk des Landgerichts, in dem der Notar seinen Amtssitz hat, tätig ist,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "cc)",
-                      "text": "eine Namensänderung unter Vorlage der standesamtlichen Urkunde,",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "dd)",
-                      "text": "den Erwerb eines Doktortitels oder eines Diploms unter Vorlage eines Abdrucks der Verleihungsurkunde.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "paragraphText",
-                      "text": "Der Präsident des Landgerichts legt Abdrucke oder Ablichtungen dieser Mitteilungen über den Präsidenten des Oberlandesgerichts dem Staatsministerium der Justiz vor."
-                    }
-                  ]
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Unterhefte sind erst anzulegen, wenn ein entsprechender Vorgang anfällt. Auf dem Aktenumschlag sind angelegte Unterhefte zu verzeichnen. Weitere Unterhefte, insbesondere Personalaktenqualität besitzende Vorgänge betreffend die Prüfung der Amtsführung, und Teile von Unterheften sind bei Bedarf anzulegen."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "f)",
+              "text": "Während des Disziplinarverfahrens sind die Disziplinarakten gesondert zu führende Sachakten und unterliegen für diese Zeit nicht den Regelungen über die Personalakten, sondern den besonderen Verfahrensvorschriften des Ostdeutschen Disziplinargesetzes vom 10. April 2007 (SächsGVBl. S. 54), das zuletzt durch Artikel 3 des Gesetzes vom 22. Oktober 2016 (SächsGVBl. S. 498) geändert worden ist, in der jeweils geltenden Fassung. Erst nach Abschluss des Disziplinarverfahrens werden sie als Unterheft II Bestandteil der Personalakte.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "g)",
+              "text": "Buchstabe f gilt entsprechend für die gesondert zu führenden Teilakten über Gerichts-, Ermittlungs- und Bußgeldverfahren.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "h)",
+              "text": "Ärztliche und psychologische Gutachten sind in einem verschlossenen Umschlag zur Hauptakte – oder wenn sie von einem Einzelvorgang nicht getrennt werden können – zu dem entsprechenden Unterheft zu nehmen. Eine Öffnung des Umschlags ist unter Angabe des Datums und der Person des Einsichtnehmenden auf dem Umschlag zu vermerken. Ärztliche Zeugnisse nach Vordruck können unverschlossen aufgenommen werden, wenn sie keine besonderen Bemerkungen enthalten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "i)",
+              "text": "Erklärungen der Notare und sonstige Schriftstücke, die Überprüfungen früherer politischer Tätigkeiten in der Deutschen Demokratischen Republik (DDR) oder Tätigkeiten für das Ministerium für Staatssicherheit oder das Amt für Nationale Sicherheit der DDR betreffen, sind weder in die Hauptakte noch in ein Unterheft aufzunehmen. Sie sind in alphabetischer Reihenfolge zu einer Sammlung für alle Notare zu nehmen, die beim Staatsministerium der Justiz aufzubewahren ist. Die Bestimmungen über die Einsicht in die Personalakten (Nummer 26) gelten entsprechend.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "j)",
+              "text": "Jeder Notar hat dem Präsidenten des Landgerichts und dem Präsidenten der Notarkammer mitzuteilen:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "eine Verlegung der Geschäftsstelle und eine Änderung der Wohnanschrift,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "eine Eheschließung unter Vorlage der Heiratsurkunde oder die Begründung einer Lebenspartnerschaft unter Vorlage einer Lebenspartnerschaftsurkunde; dabei ist eine Erklärung abzugeben, ob und gegebenenfalls wo der Ehegatte oder der Lebenspartner im Justizdienst beschäftigt oder als Rechtsanwalt oder Notar in dem Bezirk des Landgerichts, in dem der Notar seinen Amtssitz hat, tätig ist,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "eine Namensänderung unter Vorlage der standesamtlichen Urkunde,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "den Erwerb eines Doktortitels oder eines Diploms unter Vorlage eines Abdrucks der Verleihungsurkunde.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Der Präsident des Landgerichts legt Abdrucke oder Ablichtungen dieser Mitteilungen über den Präsidenten des Oberlandesgerichts dem Staatsministerium der Justiz vor."
                 }
               ]
             }
@@ -1341,36 +1116,27 @@
           "children": [
             {
               "type": "item",
-              "label": "26.",
-              "text": "Einsicht in die Personalakten",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Der Notar hat ein Recht auf Einsicht in die vollständigen Personalakten. Dieses Recht steht auch einem früheren Notar zu. Die Personalakten können bei der Behörde eingesehen werden, welche die Personalakten führt oder verwahrt; ausnahmsweise kann die Einsichtnahme auch bei einer zu bestimmenden anderen Behörde gestattet werden. Die Akteneinsicht darf nicht aktenkundig gemacht werden.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Die Personalakten dürfen nur von dem Notar persönlich oder einem von ihm beauftragten Bevollmächtigten eingesehen werden. Bei der Einsichtnahme ist ein Bediensteter der Behörde anwesend, bei der die Personalakten eingesehen werden. Der Notar darf sich bei der Einsichtnahme Aufzeichnungen über den Inhalt der Akten und Abschriften oder Ablichtungen von Aktenstücken fertigen.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "c)",
-                  "text": "Für die Gewährung von Einsicht in die Personalakten sind weder Gebühren noch Auslagen (zum Beispiel Versendungskosten) zu erheben.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Der Notar hat ein Recht auf Einsicht in die vollständigen Personalakten. Dieses Recht steht auch einem früheren Notar zu. Die Personalakten können bei der Behörde eingesehen werden, welche die Personalakten führt oder verwahrt; ausnahmsweise kann die Einsichtnahme auch bei einer zu bestimmenden anderen Behörde gestattet werden. Die Akteneinsicht darf nicht aktenkundig gemacht werden.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Personalakten dürfen nur von dem Notar persönlich oder einem von ihm beauftragten Bevollmächtigten eingesehen werden. Bei der Einsichtnahme ist ein Bediensteter der Behörde anwesend, bei der die Personalakten eingesehen werden. Der Notar darf sich bei der Einsichtnahme Aufzeichnungen über den Inhalt der Akten und Abschriften oder Ablichtungen von Aktenstücken fertigen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Für die Gewährung von Einsicht in die Personalakten sind weder Gebühren noch Auslagen (zum Beispiel Versendungskosten) zu erheben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -1381,76 +1147,67 @@
           "children": [
             {
               "type": "item",
-              "label": "27.",
-              "text": "Überlassung oder Abgabe von Personalakten an andere Behörden",
-              "level": 0,
-              "numberingStyle": "decimal",
+              "label": "a)",
+              "text": "Wegen des vertraulichen Charakters der Personalakten unterliegt ihre Abgabe an andere Behörden zur Einsichtnahme Beschränkungen. Die um die Personalakte ersuchte Behörde muss stets im Einzelfall prüfen, ob und gegebenenfalls unter welchen Einschränkungen sie zur Abgabe verpflichtet oder berechtigt ist. Dabei sind folgende Grundsätze zu beachten:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
-                  "label": "a)",
-                  "text": "Wegen des vertraulichen Charakters der Personalakten unterliegt ihre Abgabe an andere Behörden zur Einsichtnahme Beschränkungen. Die um die Personalakte ersuchte Behörde muss stets im Einzelfall prüfen, ob und gegebenenfalls unter welchen Einschränkungen sie zur Abgabe verpflichtet oder berechtigt ist. Dabei sind folgende Grundsätze zu beachten:",
-                  "level": 1,
+                  "label": "aa)",
+                  "text": "Soweit eine ausdrückliche gesetzliche Verpflichtung zur Abgabe von Akten besteht, bleibt diese auch bei Personalakten unberührt.",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "Soweit eine ausdrückliche gesetzliche Verpflichtung zur Abgabe von Akten besteht, bleibt diese auch bei Personalakten unberührt.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "Zulässig ist die Abgabe von Akten an Behörden im Geschäftsbereich des Staatsministeriums der Justiz, wenn ein dienstliches Bedürfnis hierfür vorliegt.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "cc)",
-                      "text": "Einer Behörde außerhalb des Geschäftsbereichs des Staatsministeriums der Justiz sind die Personalakten grundsätzlich nur dann zugänglich zu machen, wenn der Notar zugestimmt hat oder ein überwiegendes öffentliches Interesse besteht.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "dd)",
-                      "text": "Schwebt gegen den Notar ein strafrechtliches Verfahren oder ein Disziplinarverfahren, geht grundsätzlich das öffentliche Interesse an einer gerechten Beurteilung seiner Persönlichkeit dem Interesse des Notars an der Geheimhaltung der Personalakten vor. Die Personalakten sind in diesem Fall in der Regel der Staatsanwaltschaft und den Strafgerichten oder Disziplinargerichten für Notare zur Verfügung zu stellen.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    }
-                  ]
+                  "children": []
                 },
                 {
                   "type": "item",
-                  "label": "b)",
-                  "text": "Die Abgabe der Personalakten an andere Behörden zum endgültigen Verbleib richtet sich nach folgenden Grundsätzen:",
-                  "level": 1,
+                  "label": "bb)",
+                  "text": "Zulässig ist die Abgabe von Akten an Behörden im Geschäftsbereich des Staatsministeriums der Justiz, wenn ein dienstliches Bedürfnis hierfür vorliegt.",
+                  "level": 2,
                   "numberingStyle": "lower-latin",
-                  "children": [
-                    {
-                      "type": "item",
-                      "label": "aa)",
-                      "text": "Wird der Amtssitz eines Notars verlegt, sind die Personalakten an die dann zuständigen Aufsichtsbehörden abzugeben.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    },
-                    {
-                      "type": "item",
-                      "label": "bb)",
-                      "text": "Erlischt das Amt des Notars, kommt eine Abgabe der Personalakten ohne ausdrückliche Zustimmung des ehemaligen Notars in der Regel nicht in Betracht. Die Übergabe von Dienstprüfungsberichten an den Notariatsverwalter oder den Nachfolger im Amt ist zulässig.",
-                      "level": 2,
-                      "numberingStyle": "lower-latin",
-                      "children": []
-                    }
-                  ]
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "Einer Behörde außerhalb des Geschäftsbereichs des Staatsministeriums der Justiz sind die Personalakten grundsätzlich nur dann zugänglich zu machen, wenn der Notar zugestimmt hat oder ein überwiegendes öffentliches Interesse besteht.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "Schwebt gegen den Notar ein strafrechtliches Verfahren oder ein Disziplinarverfahren, geht grundsätzlich das öffentliche Interesse an einer gerechten Beurteilung seiner Persönlichkeit dem Interesse des Notars an der Geheimhaltung der Personalakten vor. Die Personalakten sind in diesem Fall in der Regel der Staatsanwaltschaft und den Strafgerichten oder Disziplinargerichten für Notare zur Verfügung zu stellen.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Abgabe der Personalakten an andere Behörden zum endgültigen Verbleib richtet sich nach folgenden Grundsätzen:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Wird der Amtssitz eines Notars verlegt, sind die Personalakten an die dann zuständigen Aufsichtsbehörden abzugeben.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Erlischt das Amt des Notars, kommt eine Abgabe der Personalakten ohne ausdrückliche Zustimmung des ehemaligen Notars in der Regel nicht in Betracht. Die Übergabe von Dienstprüfungsberichten an den Notariatsverwalter oder den Nachfolger im Amt ist zulässig.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
                 }
               ]
             }
@@ -1463,28 +1220,19 @@
           "children": [
             {
               "type": "item",
-              "label": "28.",
-              "text": "Aufnahme von ungünstigen Tatsachen in die Personalakte und Tilgung von Eintragungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "a)",
-                  "text": "Die nach Nummer 25 Buchst. a zu den Personalakten gehörenden Beschwerden, Behauptungen oder Bewertungen über den Notar, die für ihn ungünstig sind oder ihm nachteilig werden können, dürfen in die Personalakten erst aufgenommen werden, wenn der Notar dazu gehört wurde. Seine schriftliche Äußerung ist zu den Personalakten zu nehmen. Äußert er sich nicht oder nur mündlich, muss sich aus den Personalakten ergeben, dass ihm Gelegenheit zur Äußerung gegeben wurde.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "b)",
-                  "text": "Wird bei einer der Personalakten führenden Behörden festgestellt, dass Eintragungen nach Maßgabe des § 110a Abs. 1 bis 5 der Bundesnotarordnung zu tilgen sind, oder geht bei ihr ein Antrag eines Notars auf Tilgung von Eintragungen nach § 110a Abs. 6 der Bundesnotarordnung ein, setzt sie die anderen Personalakten führenden Behörden hiervon in Kenntnis. Die Tilgungsfrist beginnt im Falle des § 110a Abs. 6 der Bundesnotarordnung mit dem Tag, an dem die das Verfahren abschließende Entscheidung ergeht, im Übrigen mit dem Tag, an dem die für die Verfolgung des Dienstvergehens zuständige Behörde Kenntnis von den wesentlichen Verdachtsmomenten erhält. Schriftliche Hinweise auf die Tilgung sind zusammen mit dem zu entfernenden Personalaktenbestandteil zu vernichten.",
-                  "level": 1,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
+              "label": "a)",
+              "text": "Die nach Nummer 25 Buchst. a zu den Personalakten gehörenden Beschwerden, Behauptungen oder Bewertungen über den Notar, die für ihn ungünstig sind oder ihm nachteilig werden können, dürfen in die Personalakten erst aufgenommen werden, wenn der Notar dazu gehört wurde. Seine schriftliche Äußerung ist zu den Personalakten zu nehmen. Äußert er sich nicht oder nur mündlich, muss sich aus den Personalakten ergeben, dass ihm Gelegenheit zur Äußerung gegeben wurde.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Wird bei einer der Personalakten führenden Behörden festgestellt, dass Eintragungen nach Maßgabe des § 110a Abs. 1 bis 5 der Bundesnotarordnung zu tilgen sind, oder geht bei ihr ein Antrag eines Notars auf Tilgung von Eintragungen nach § 110a Abs. 6 der Bundesnotarordnung ein, setzt sie die anderen Personalakten führenden Behörden hiervon in Kenntnis. Die Tilgungsfrist beginnt im Falle des § 110a Abs. 6 der Bundesnotarordnung mit dem Tag, an dem die das Verfahren abschließende Entscheidung ergeht, im Übrigen mit dem Tag, an dem die für die Verfolgung des Dienstvergehens zuständige Behörde Kenntnis von den wesentlichen Verdachtsmomenten erhält. Schriftliche Hinweise auf die Tilgung sind zusammen mit dem zu entfernenden Personalaktenbestandteil zu vernichten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
             }
           ]
         },
@@ -1494,17 +1242,8 @@
           "title": "Aufbewahrung von Personalakten",
           "children": [
             {
-              "type": "item",
-              "label": "29.",
-              "text": "Aufbewahrung von Personalakten",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Die Aufbewahrung von Personalakten richtet sich nach der Ostdeutschen Justizschriftgutverordnung vom 17. Dezember 2014 (SächsGVBl. 2015 S. 199) in der jeweils geltenden Fassung. Die Personalakten werden nach Ablauf der Aufbewahrungsfrist vernichtet, sofern sie nicht von einem Archiv des Freistaates Ostdeutschland oder einem Archiv einer der Aufsicht des Freistaates Ostdeutschland unterstehenden juristischen Person des öffentlichen Rechts übernommen werden. Zuvor wird die Ländernotarkasse über die beabsichtigte Vernichtung oder Abgabe schriftlich benachrichtigt. Die für Disziplinarvorgänge betreffendes Schriftgut geltenden spezialgesetzlichen Bestimmungen über die Tilgung, Vernichtung und den Ausschluss der Verwertbarkeit bleiben unberührt."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Die Aufbewahrung von Personalakten richtet sich nach der Ostdeutschen Justizschriftgutverordnung vom 17. Dezember 2014 (SächsGVBl. 2015 S. 199) in der jeweils geltenden Fassung. Die Personalakten werden nach Ablauf der Aufbewahrungsfrist vernichtet, sofern sie nicht von einem Archiv des Freistaates Ostdeutschland oder einem Archiv einer der Aufsicht des Freistaates Ostdeutschland unterstehenden juristischen Person des öffentlichen Rechts übernommen werden. Zuvor wird die Ländernotarkasse über die beabsichtigte Vernichtung oder Abgabe schriftlich benachrichtigt. Die für Disziplinarvorgänge betreffendes Schriftgut geltenden spezialgesetzlichen Bestimmungen über die Tilgung, Vernichtung und den Ausschluss der Verwertbarkeit bleiben unberührt."
             }
           ]
         },
@@ -1514,17 +1253,8 @@
           "title": "Geltung für Notarassessoren",
           "children": [
             {
-              "type": "item",
-              "label": "30.",
-              "text": "Geltung für Notarassessoren",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Die Regelungen der Nummern 25 bis 29 gelten für Notarassessoren entsprechend."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Die Regelungen der Nummern 25 bis 29 gelten für Notarassessoren entsprechend."
             }
           ]
         },

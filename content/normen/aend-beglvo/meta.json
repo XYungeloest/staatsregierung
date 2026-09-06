@@ -2,15 +2,14 @@
   "id": "aend-beglvo",
   "slug": "aend-beglvo",
   "title": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Beglaubigungsverordnung",
-  "shortTitle": "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Beglaubigungsverordnung",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsische Staatsregierung",
   "subjects": [
-    "Landesrecht"
+    "Allgemeine Verwaltung"
   ],
+  "primarySubject": "Allgemeine Verwaltung",
   "keywords": [
-    "Verordnung der Ostdeutschen Staatsregierung zur Änderung der Beglaubigungsverordnung",
+    "Änd. BeglVO",
     "Änderung",
     "Beglaubigungsverordnung"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Verordnung der Ostdeutschen Staatsregierung zur Änderung der Beglaubigungsverordnung“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2014-02-04",
   "effectiveDate": "2014-03-13",
@@ -32,8 +32,12 @@
       "sha256": "3de132a9faf91861fa628ee8fd9653ba017012fc072fd1e8191df402f5738567",
       "lawId": "13936",
       "sourceValidFrom": "2014-03-13",
+      "fsnNumber": "210",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "verordnung-der-ostdeutschen-staatsregierung-zur-bestimmung-der-zur-amtlichen-beglaubigung"
   ]
 }

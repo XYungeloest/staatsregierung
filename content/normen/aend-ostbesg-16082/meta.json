@@ -2,13 +2,12 @@
   "id": "aend-ostbesg-16082",
   "slug": "aend-ostbesg-16082",
   "title": "Änderung des Ostdeutschen Besoldungsgesetzes",
-  "shortTitle": "Änd. OstBesG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstBesG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "anpassungsg-besoldung-und-versorgungsbezuege-2015-2016",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBesG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Besoldungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2015-06-26",
   "effectiveDate": "2015-03-01",
@@ -33,6 +33,7 @@
       "sha256": "912cec95968b95ee7b4c40959ce3078922ce7ef01c11c5e358c31c93cc07ff2e",
       "lawId": "16082",
       "sourceValidFrom": "2015-03-01",
+      "fsnNumber": "242",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

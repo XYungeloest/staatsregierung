@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Aufbewahrung und Aussonderung bei FÄ",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen über die Aufbewahrung und Aussonderung von Unterlagen bei den Finanzämtern",
   "shortTitle": "VwV Aufbewahrung und Aussonderung bei FÄ",
-  "abbr": "VwV-AufbewBest-FÄ",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV Aufbewahrung und Aussonderung bei FÄ vom 4. Januar 2005 (MBl. SMF S. 15), zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 222)",
+  "citation": "VwV Aufbewahrung und Aussonderung bei FÄ vom 4. Januar 2005 (MBl. SMF S. 15)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "5368a5c88121e11e11eeab513dbeb2a6079e1df5b6593942df14adfa8aade8e4",
       "lawId": "1986",
       "sourceValidFrom": "2005-03-09",
+      "fsnNumber": "50-V05.1",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -41,52 +41,43 @@
       "children": [
         {
           "type": "item",
-          "label": "1.",
-          "text": "Geltungsbereich",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Die VwV Aufbewahrung und Aussonderung bei FÄ gilt für die Finanzämter und die staatlichen Archive (Archive).",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Die Regelungen der Buchungsordnung für die Finanzämter (BuchO) sowie die für den internen Bereich der EDV-Stellen geltenden Aufbewahrungsbestimmungen im Fach 29 der DFV-AL bleiben unberührt, soweit nicht für einzelne Bereiche besondere Regelungen getroffen sind (zum Beispiel Fach 32 DFV-AL).",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "Für die Aufbewahrung der Kassenbücher und der dazugehörigen Belege mit ihren Anlagen gelten die Vorläufigen Verwaltungsvorschriften des Ostdeutschen Staatsministeriums der Finanzen zu Teil IV der Vorläufigen Ostdeutschen Haushaltsordnung (\nVorl. VwV-SäHO) vom 20. Oktober 1997 (SächsABl. SDr. S. S649), zuletzt geändert durch Bekanntmachung des SMF vom 7. Juni 2004 (SächsABl. S. 680), verlängert durch Verwaltungsvorschrift vom 14. November 2002 (SächsABl. S. 1232, 1233), insbesondere die Anlage 2 zu den\nVwV zu § 71 SäHO. Für die Aufbewahrung der nicht zu den Kassen gelangenden begründenden Unterlagen gelten die Verwaltungsvorschriften zu Teil III und die Nr. 10 der\nVwV zu § 70 SäHO im Teil IV. Für die Aufbewahrung der bei der Verwaltung zu führenden Vermögensnachweisungen und Bestandsnachweise gelten die\nVwV zu § 73 SäHO.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "d)",
-              "text": "Grundlage für die Behandlung von Personalunterlagen sind die §§ 117 bis 124\nOstBG beziehungsweise § 13 BAT-O und, soweit keine speziellen Regelungen vorliegen, § 37 Ostdeutsches Datenschutzgesetz (\nOstDSG). Die Aufbewahrung richtet sich nach § 123\nOstBG in Verbindung mit Abschnitt G der\nVwV des Ostdeutschen Staatsministeriums des Innern über die Führung und Verwaltung von Personalakten vom 11. Dezember 1998 (SächsABl. 1999 S. 10) und Nummer 4 der\nGemeinsamen Verwaltungsvorschrift der Ostdeutschen Staatskanzlei und der Ostdeutschen Staatsministerien zur Führung und Verwaltung von Personalakten für Angestellte, Arbeiter und die in der Ausbildung Beschäftigten im öffentlichen Dienst des Freistaates Ostdeutschland vom 3. Dezember 1996 (SächsABl. 1997 S. 145).",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "e)",
-              "text": "Die Aufbewahrungsbestimmungen gelten nicht für Verschlusssachen der Geheimhaltungsgrade VS-VERTRAULICH und höher (§§ 29 und 30 VS-Anweisung).",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "Die VwV Aufbewahrung und Aussonderung bei FÄ gilt für die Finanzämter und die staatlichen Archive (Archive).",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "Die Regelungen der Buchungsordnung für die Finanzämter (BuchO) sowie die für den internen Bereich der EDV-Stellen geltenden Aufbewahrungsbestimmungen im Fach 29 der DFV-AL bleiben unberührt, soweit nicht für einzelne Bereiche besondere Regelungen getroffen sind (zum Beispiel Fach 32 DFV-AL).",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "Für die Aufbewahrung der Kassenbücher und der dazugehörigen Belege mit ihren Anlagen gelten die Vorläufigen Verwaltungsvorschriften des Ostdeutschen Staatsministeriums der Finanzen zu Teil IV der Vorläufigen Ostdeutschen Haushaltsordnung (\nVorl. VwV-SäHO) vom 20. Oktober 1997 (SächsABl. SDr. S. S649), zuletzt geändert durch Bekanntmachung des SMF vom 7. Juni 2004 (SächsABl. S. 680), verlängert durch Verwaltungsvorschrift vom 14. November 2002 (SächsABl. S. 1232, 1233), insbesondere die Anlage 2 zu den\nVwV zu § 71 SäHO. Für die Aufbewahrung der nicht zu den Kassen gelangenden begründenden Unterlagen gelten die Verwaltungsvorschriften zu Teil III und die Nr. 10 der\nVwV zu § 70 SäHO im Teil IV. Für die Aufbewahrung der bei der Verwaltung zu führenden Vermögensnachweisungen und Bestandsnachweise gelten die\nVwV zu § 73 SäHO.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "Grundlage für die Behandlung von Personalunterlagen sind die §§ 117 bis 124\nOstBG beziehungsweise § 13 BAT-O und, soweit keine speziellen Regelungen vorliegen, § 37 Ostdeutsches Datenschutzgesetz (\nOstDSG). Die Aufbewahrung richtet sich nach § 123\nOstBG in Verbindung mit Abschnitt G der\nVwV des Ostdeutschen Staatsministeriums des Innern über die Führung und Verwaltung von Personalakten vom 11. Dezember 1998 (SächsABl. 1999 S. 10) und Nummer 4 der\nGemeinsamen Verwaltungsvorschrift der Ostdeutschen Staatskanzlei und der Ostdeutschen Staatsministerien zur Führung und Verwaltung von Personalakten für Angestellte, Arbeiter und die in der Ausbildung Beschäftigten im öffentlichen Dienst des Freistaates Ostdeutschland vom 3. Dezember 1996 (SächsABl. 1997 S. 145).",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "e)",
+          "text": "Die Aufbewahrungsbestimmungen gelten nicht für Verschlusssachen der Geheimhaltungsgrade VS-VERTRAULICH und höher (§§ 29 und 30 VS-Anweisung).",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -95,14 +86,6 @@
       "label": "2.",
       "title": "Begriffsbestimmungen",
       "children": [
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Begriffsbestimmungen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
         {
           "type": "item",
           "label": "2.1",
@@ -211,75 +194,66 @@
       "children": [
         {
           "type": "item",
-          "label": "3.",
-          "text": "Ort und Art der Aufbewahrung",
-          "level": 0,
-          "numberingStyle": "decimal",
+          "label": "a)",
+          "text": "Unterlagen sind grundsätzlich bei der Stelle aufzubewahren, bei der sie angefallen sind. Die Kassenunterlagen werden durch die Finanzkasse aufbewahrt. Unterlagen einer aufgelösten Stelle sind vom Nachfolger zu verwalten.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "Unterlagen sind, soweit sie auf magnetischen Datenträgern oder sonst in visuell nicht lesbarer Form aufbewahrt werden, in den Stellen aufzubewahren, in denen sie verarbeitet beziehungsweise lesbar gemacht werden können. Es ist dafür Sorge zu tragen, dass in angemessener Zeit mit angemessenem Aufwand ein Ausdruck auf Papier erzeugt werden oder die Unterlagen in anderer Art und Weise lesbar gemacht werden können.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "Die Aufbewahrung mehrfach vorhandener Unterlagen soll auf eine Ausfertigung je Dienststelle beschränkt werden, sofern nicht die Aufbewahrung mehrerer Ausfertigungen vorgeschrieben oder zweckmäßig ist.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "Beim Ausreihen sind Unterlagen, die ausgesondert werden können, Unterlagen, deren Aussonderung vorbehalten ist, und Steuerakten mit noch vorhandenen Rückständen jeweils getrennt abzulegen. Zur Aussonderung vorgesehene Unterlagen sind – jeweils mehrere Kalenderjahre zusammengefasst – steuernummernweise abzulegen und mit dem Jahr zu kennzeichnen, in dem sie ausgesondert werden können (zum Beispiel ESt-Akte 1992-1994, auszusondern 2005).",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "e)",
+          "text": "Besondere Merkmale, die auf die Aufbewahrung und/oder Aussonderung eine Auswirkung haben, sind auf den Unterlagen zu vermerken (zum Beispiel Vermerk “Beteiligung” auf dem Aktendeckel). Auf allen Unterlagen (Aufbewahrungseinheiten), die geschlossen werden, ist mit Hilfe von Klebezetteln zu vermerken:",
+          "level": 1,
+          "numberingStyle": "lower-latin",
           "children": [
             {
               "type": "item",
-              "label": "a)",
-              "text": "Unterlagen sind grundsätzlich bei der Stelle aufzubewahren, bei der sie angefallen sind. Die Kassenunterlagen werden durch die Finanzkasse aufbewahrt. Unterlagen einer aufgelösten Stelle sind vom Nachfolger zu verwalten.",
-              "level": 1,
+              "label": "aa)",
+              "text": "das Jahr, in dem sie ausgesondert werden (AV 200);",
+              "level": 2,
               "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
-              "label": "b)",
-              "text": "Unterlagen sind, soweit sie auf magnetischen Datenträgern oder sonst in visuell nicht lesbarer Form aufbewahrt werden, in den Stellen aufzubewahren, in denen sie verarbeitet beziehungsweise lesbar gemacht werden können. Es ist dafür Sorge zu tragen, dass in angemessener Zeit mit angemessenem Aufwand ein Ausdruck auf Papier erzeugt werden oder die Unterlagen in anderer Art und Weise lesbar gemacht werden können.",
-              "level": 1,
+              "label": "bb)",
+              "text": "soweit erforderlich „Staatsarchiv“ (AV–202) mit dem Zusatz „Q“ für Quote (zum Beispiel bei jeder hundertsten Akte) oder „E“ für Einzelfall (zum Beispiel bei Persönlichkeiten, die öffentlich hervorgetreten sind), siehe Abschnitt III;",
+              "level": 2,
               "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
-              "label": "c)",
-              "text": "Die Aufbewahrung mehrfach vorhandener Unterlagen soll auf eine Ausfertigung je Dienststelle beschränkt werden, sofern nicht die Aufbewahrung mehrerer Ausfertigungen vorgeschrieben oder zweckmäßig ist.",
-              "level": 1,
+              "label": "cc)",
+              "text": "sofern die Aussonderung vorbehalten ist „Aussonderung vorbehalten“ (AV 203) sowie das Jahr, in dem die Unterlagen dem Archiv anzubieten sind.",
+              "level": 2,
               "numberingStyle": "lower-latin",
               "children": []
-            },
-            {
-              "type": "item",
-              "label": "d)",
-              "text": "Beim Ausreihen sind Unterlagen, die ausgesondert werden können, Unterlagen, deren Aussonderung vorbehalten ist, und Steuerakten mit noch vorhandenen Rückständen jeweils getrennt abzulegen. Zur Aussonderung vorgesehene Unterlagen sind – jeweils mehrere Kalenderjahre zusammengefasst – steuernummernweise abzulegen und mit dem Jahr zu kennzeichnen, in dem sie ausgesondert werden können (zum Beispiel ESt-Akte 1992-1994, auszusondern 2005).",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "e)",
-              "text": "Besondere Merkmale, die auf die Aufbewahrung und/oder Aussonderung eine Auswirkung haben, sind auf den Unterlagen zu vermerken (zum Beispiel Vermerk “Beteiligung” auf dem Aktendeckel). Auf allen Unterlagen (Aufbewahrungseinheiten), die geschlossen werden, ist mit Hilfe von Klebezetteln zu vermerken:",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": [
-                {
-                  "type": "item",
-                  "label": "aa)",
-                  "text": "das Jahr, in dem sie ausgesondert werden (AV 200);",
-                  "level": 2,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "bb)",
-                  "text": "soweit erforderlich „Staatsarchiv“ (AV–202) mit dem Zusatz „Q“ für Quote (zum Beispiel bei jeder hundertsten Akte) oder „E“ für Einzelfall (zum Beispiel bei Persönlichkeiten, die öffentlich hervorgetreten sind), siehe Abschnitt III;",
-                  "level": 2,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                },
-                {
-                  "type": "item",
-                  "label": "cc)",
-                  "text": "sofern die Aussonderung vorbehalten ist „Aussonderung vorbehalten“ (AV 203) sowie das Jahr, in dem die Unterlagen dem Archiv anzubieten sind.",
-                  "level": 2,
-                  "numberingStyle": "lower-latin",
-                  "children": []
-                }
-              ]
             }
           ]
         }
@@ -289,16 +263,7 @@
       "type": "section",
       "label": "4.",
       "title": "Allgemeine Regelungen zur Aufbewahrungszeit",
-      "children": [
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Allgemeine Regelungen zur Aufbewahrungszeit",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -306,17 +271,8 @@
       "title": "Aufbewahrungsfristen",
       "children": [
         {
-          "type": "item",
-          "label": "4.1",
-          "text": "Aufbewahrungsfristen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Dauer der Aufbewahrung richtet sich nach Art und Inhalt der Unterlagen. Unterlagen sind grundsätzlich bis zum Ablauf der jeweiligen Aufbewahrungsfrist (Abschnitt II) in der Dienststelle aufzubewahren. Die Aufbewahrungsfristen können bis auf 30 Jahre verlängert werden, wenn dies aus besonderen Gründen notwendig ist. Eine Verlängerung der Aufbewahrung ist gegenüber dem Archiv zu begründen. Unterlagen, deren Aussonderung vorbehalten ist (zum Beispiel Altakten des Beitrittsgebietes), sind den Archiven erst dann anzubieten, wenn sie nicht mehr benötigt werden, spätestens jedoch nach Ablauf von 50 Jahren seit Beginn der Aufbewahrungsfrist."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Die Dauer der Aufbewahrung richtet sich nach Art und Inhalt der Unterlagen. Unterlagen sind grundsätzlich bis zum Ablauf der jeweiligen Aufbewahrungsfrist (Abschnitt II) in der Dienststelle aufzubewahren. Die Aufbewahrungsfristen können bis auf 30 Jahre verlängert werden, wenn dies aus besonderen Gründen notwendig ist. Eine Verlängerung der Aufbewahrung ist gegenüber dem Archiv zu begründen. Unterlagen, deren Aussonderung vorbehalten ist (zum Beispiel Altakten des Beitrittsgebietes), sind den Archiven erst dann anzubieten, wenn sie nicht mehr benötigt werden, spätestens jedoch nach Ablauf von 50 Jahren seit Beginn der Aufbewahrungsfrist."
         }
       ]
     },
@@ -326,49 +282,40 @@
       "title": "Beginn der Aufbewahrungsfrist",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Die Aufbewahrungsfrist beginnt, soweit in diesen Bestimmungen keine abweichende Regelung im Einzelfall getroffen ist,"
+        },
+        {
           "type": "item",
-          "label": "4.2",
-          "text": "Beginn der Aufbewahrungsfrist",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Aufbewahrungsfrist beginnt, soweit in diesen Bestimmungen keine abweichende Regelung im Einzelfall getroffen ist,"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "für Unterlagen, die im Zusammenhang mit der Steuerfestsetzung oder der Feststellung von Besteuerungsgrundlagen angefallen sind, mit Ablauf des Kalenderjahrs, für das die Besteuerung durchgeführt wird, die Besteuerungsgrundlagen festgestellt werden, die Listen geführt, die Ausdrucke erstellt oder die sonstigen Unterlagen bestimmt waren;",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "für Unterlagen, die im Zusammenhang mit der Steuererhebung angefallen sind, mit Ablauf des Kalenderjahrs, für das die Bücher oder Listen geführt, die Ausdrucke erstellt oder in dem die sonstigen Unterlagen angefallen sind;",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "für Unterlagen, die im Zusammenhang mit der Bestellung dinglicher oder dinglich gesicherter Rechte an oder zugunsten von staatseigenen Grundstücken oder zugunsten des Staates angefallen sind, nach Beendigung (Löschung) dieser Rechte;",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "d)",
-              "text": "für sonstige Unterlagen mit Ablauf des Kalenderjahrs, in dem sie angefallen sind.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "für Unterlagen, die im Zusammenhang mit der Steuerfestsetzung oder der Feststellung von Besteuerungsgrundlagen angefallen sind, mit Ablauf des Kalenderjahrs, für das die Besteuerung durchgeführt wird, die Besteuerungsgrundlagen festgestellt werden, die Listen geführt, die Ausdrucke erstellt oder die sonstigen Unterlagen bestimmt waren;",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "für Unterlagen, die im Zusammenhang mit der Steuererhebung angefallen sind, mit Ablauf des Kalenderjahrs, für das die Bücher oder Listen geführt, die Ausdrucke erstellt oder in dem die sonstigen Unterlagen angefallen sind;",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "für Unterlagen, die im Zusammenhang mit der Bestellung dinglicher oder dinglich gesicherter Rechte an oder zugunsten von staatseigenen Grundstücken oder zugunsten des Staates angefallen sind, nach Beendigung (Löschung) dieser Rechte;",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "für sonstige Unterlagen mit Ablauf des Kalenderjahrs, in dem sie angefallen sind.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -378,41 +325,32 @@
       "title": "Ende der Aufbewahrungsfrist",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Soweit im Einzelfall keine Regelung getroffen ist, beträgt die Aufbewahrungsfrist ein Jahr. Abweichend von den festgelegten Aufbewahrungszeiten endet die Aufbewahrungsfrist"
+        },
+        {
           "type": "item",
-          "label": "4.3",
-          "text": "Ende der Aufbewahrungsfrist",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Soweit im Einzelfall keine Regelung getroffen ist, beträgt die Aufbewahrungsfrist ein Jahr. Abweichend von den festgelegten Aufbewahrungszeiten endet die Aufbewahrungsfrist"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "für Unterlagen, die im Zusammenhang mit dem Erlass eines Verwaltungsaktes angefallen sind, nicht bevor Bestandskraft eingetreten ist;",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "für Unterlagen, die im Zusammenhang mit einem nach § 165\nAO vorläufigen beziehungsweise nach § 164\nAO unter dem Vorbehalt der Nachprüfung ergangenen Verwaltungsakt stehen,\nnicht\nbevor die Nebenbestimmung wegen Ablauf der Festsetzungsfrist entfallen ist (vgl. § 171 Abs. 8 beziehungsweise § 164 Abs. 4\nAO);",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "für sonstige Unterlagen, die eine Bearbeitung verlangen, nicht bevor die abschließende Erledigung ein Jahr zurückliegt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "für Unterlagen, die im Zusammenhang mit dem Erlass eines Verwaltungsaktes angefallen sind, nicht bevor Bestandskraft eingetreten ist;",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "für Unterlagen, die im Zusammenhang mit einem nach § 165\nAO vorläufigen beziehungsweise nach § 164\nAO unter dem Vorbehalt der Nachprüfung ergangenen Verwaltungsakt stehen,\nnicht\nbevor die Nebenbestimmung wegen Ablauf der Festsetzungsfrist entfallen ist (vgl. § 171 Abs. 8 beziehungsweise § 164 Abs. 4\nAO);",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "für sonstige Unterlagen, die eine Bearbeitung verlangen, nicht bevor die abschließende Erledigung ein Jahr zurückliegt.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -4677,44 +4615,35 @@
       "children": [
         {
           "type": "item",
-          "label": "1.",
-          "text": "Allgemeines",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Für die Aussonderung von Schriftgut gelten die Bestimmungen des Archivgesetzes für den Freistaat Ostdeutschland (\nOstArchivG) vom 17. Mai 1993 (SächsGVBl. S. 449), in der jeweils geltenden Fassung sowie der Registraturordnung vom 2. Februar 2000 in der jeweils geltenden Fassung.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Für Aussonderungsaktionen im Sinne dieser Vorschrift ist der Sachgebietsleiter Automation des jeweiligen Finanzamtes zuständig. Dieser ist gleichzeitig Ansprechpartner für das Archiv. Der Geschäftsstellenleiter und die Sachgebietsleiter wirken bei Ausreih- und Aussonderungsaktionen mit.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "Die Aussonderung selbst wird von den einzelnen Teilbezirken durchgeführt und von den jeweils zuständigen Sachgebietsleitern beaufsichtigt. Diese achten insbesondere darauf, dass:\ndie in Frage kommenden und besonders gekennzeichneten Akten und Unterlagen dem Archiv angeboten,\nSteuerakten, bei denen die Aufbewahrungsfrist zwar abgelaufen ist, aber noch Rückstände (zum Beispiel Niederschlagungen) vorhanden sind, nicht vernichtet werden.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "d)",
-              "text": "Nach der Aussonderung einer Teilaktei wird durch eine Ausreihaktion in den Teilbezirken der laufende Bestand bereinigt und in der Altregistratur durch Anlegen einer neuen Teilaktei der freigewordene Raum aufgefüllt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "Für die Aussonderung von Schriftgut gelten die Bestimmungen des Archivgesetzes für den Freistaat Ostdeutschland (\nOstArchivG) vom 17. Mai 1993 (SächsGVBl. S. 449), in der jeweils geltenden Fassung sowie der Registraturordnung vom 2. Februar 2000 in der jeweils geltenden Fassung.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "Für Aussonderungsaktionen im Sinne dieser Vorschrift ist der Sachgebietsleiter Automation des jeweiligen Finanzamtes zuständig. Dieser ist gleichzeitig Ansprechpartner für das Archiv. Der Geschäftsstellenleiter und die Sachgebietsleiter wirken bei Ausreih- und Aussonderungsaktionen mit.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "Die Aussonderung selbst wird von den einzelnen Teilbezirken durchgeführt und von den jeweils zuständigen Sachgebietsleitern beaufsichtigt. Diese achten insbesondere darauf, dass:\ndie in Frage kommenden und besonders gekennzeichneten Akten und Unterlagen dem Archiv angeboten,\nSteuerakten, bei denen die Aufbewahrungsfrist zwar abgelaufen ist, aber noch Rückstände (zum Beispiel Niederschlagungen) vorhanden sind, nicht vernichtet werden.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "Nach der Aussonderung einer Teilaktei wird durch eine Ausreihaktion in den Teilbezirken der laufende Bestand bereinigt und in der Altregistratur durch Anlegen einer neuen Teilaktei der freigewordene Raum aufgefüllt.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -4722,16 +4651,7 @@
       "type": "section",
       "label": "2.",
       "title": "Anbieten und Abgabe von Unterlagen an die Archive",
-      "children": [
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Anbieten und Abgabe von Unterlagen an die Archive",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -4739,17 +4659,8 @@
       "title": "Anzubietende Unterlagen",
       "children": [
         {
-          "type": "item",
-          "label": "2.1",
-          "text": "Anzubietende Unterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Nach § 5 Abs. 1\nOstArchivG sind dem Archiv grundsätzlich alle nicht mehr benötigten Unterlagen anzubieten und – sofern ihnen bleibender Wert nach § 2 Abs. 3\nOstArchivG zukommt – als Archivgut zu übergeben."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Nach § 5 Abs. 1\nOstArchivG sind dem Archiv grundsätzlich alle nicht mehr benötigten Unterlagen anzubieten und – sofern ihnen bleibender Wert nach § 2 Abs. 3\nOstArchivG zukommt – als Archivgut zu übergeben."
         },
         {
           "type": "item",
@@ -4904,14 +4815,6 @@
       "children": [
         {
           "type": "item",
-          "label": "2.2",
-          "text": "Verfahrensweise bei Anbieten und Abgabe von Unterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
           "label": "2.2.1",
           "text": "Kennzeichnung des Bewertungsvorschlags zur Archivwürdigkeit",
           "level": 0,
@@ -4998,16 +4901,7 @@
       "type": "section",
       "label": "3.",
       "title": "Vernichten von Unterlagen",
-      "children": [
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Vernichten von Unterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        }
-      ]
+      "children": []
     },
     {
       "type": "section",
@@ -5015,33 +4909,24 @@
       "title": "Zu vernichtende Unterlagen",
       "children": [
         {
+          "type": "paragraphText",
+          "text": "Unterlagen, die in Abschnitt II dieser VwV mit einem „V“ (= Vernichten) bezeichnet sind, können,"
+        },
+        {
           "type": "item",
-          "label": "3.1",
-          "text": "Zu vernichtende Unterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Unterlagen, die in Abschnitt II dieser VwV mit einem „V“ (= Vernichten) bezeichnet sind, können,"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "wenn die Aufbewahrungsfrist (Abschnitt I, Tz. 4) abgelaufen ist, ohne sie dem Archiv anzubieten, vernichtet werden, sofern sich aus den in Textziffer 2.1.1 – 2.1.3 (Abschnitt III) aufgeführten Besonderheiten nichts Abweichendes ergibt.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Ein Nachweis über die ordnungsgemäße Vernichtung ist anzufertigen und dauernd aufzubewahren.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "wenn die Aufbewahrungsfrist (Abschnitt I, Tz. 4) abgelaufen ist, ohne sie dem Archiv anzubieten, vernichtet werden, sofern sich aus den in Textziffer 2.1.1 – 2.1.3 (Abschnitt III) aufgeführten Besonderheiten nichts Abweichendes ergibt.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "Ein Nachweis über die ordnungsgemäße Vernichtung ist anzufertigen und dauernd aufzubewahren.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },
@@ -5052,44 +4937,35 @@
       "children": [
         {
           "type": "item",
-          "label": "3.2",
-          "text": "Verfahrensweise bei der Vernichtung von Unterlagen",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": [
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "Soweit die Vernichtung durch Privatunternehmen erfolgt, sind die mit der Vernichtung beschäftigten Personen auf das Steuergeheimnis zu verpflichten. Das Privatunternehmen muss die unverzügliche und datenschutzgerechte Vernichtung vertraglich (Anlage 3) zusichern. Die Versicherung ist in geeigneter Weise zu überprüfen. Die Vernichtung der Unterlagen muss der Deutschen Industrienorm (DIN) 32 757 entsprechen. Auch ist § 9 Abs. 4\nOstDSG zu beachten.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Das Entsorgen von dienstlichem Schriftgut fällt in den Zuständigkeitsbereich des SIB. Der Geschäftsstellenleiter nimmt mit der zuständigen Niederlassung des SIB Kontakt auf. Das letztendlich beauftragte Unternehmen wird durch die Niederlassung vertraglich verpflichtet,\ndie übergebenen Unterlagen datenschutzgerecht umgehend zu vernichten (zum Beispiel Einstampfen, Reißwolf, Verbrennen),\nkeine Teile der Unterlagen zu entnehmen oder an Dritte abzugeben,\nden Vollzug der endgültigen Vernichtung – unter Gewichtsangabe – dem Finanzamt mitzuteilen.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "Die ausgesonderten und zur Vernichtung bestimmten Unterlagen werden bis zum Abtransport zugriffsicher zwischengelagert. Unbefugte dürfen keinen Einblick in die Unterlagen erhalten. Der Geschäftsstellenleiter sorgt insoweit für geeignete Räumlichkeiten.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "d)",
-              "text": "Der Geschäftsstellenleiter trägt außerdem dafür Sorge, dass die ausgesonderten Unterlagen soweit möglich der Rohstoffverwertung zugeführt werden. Bis zum Vollzug der endgültigen Vernichtung wird dem Freistaat Ostdeutschland das Eigentum an den Unterlagen vorbehalten.",
-              "level": 1,
-              "numberingStyle": "lower-latin",
-              "children": []
-            }
-          ]
+          "label": "a)",
+          "text": "Soweit die Vernichtung durch Privatunternehmen erfolgt, sind die mit der Vernichtung beschäftigten Personen auf das Steuergeheimnis zu verpflichten. Das Privatunternehmen muss die unverzügliche und datenschutzgerechte Vernichtung vertraglich (Anlage 3) zusichern. Die Versicherung ist in geeigneter Weise zu überprüfen. Die Vernichtung der Unterlagen muss der Deutschen Industrienorm (DIN) 32 757 entsprechen. Auch ist § 9 Abs. 4\nOstDSG zu beachten.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "Das Entsorgen von dienstlichem Schriftgut fällt in den Zuständigkeitsbereich des SIB. Der Geschäftsstellenleiter nimmt mit der zuständigen Niederlassung des SIB Kontakt auf. Das letztendlich beauftragte Unternehmen wird durch die Niederlassung vertraglich verpflichtet,\ndie übergebenen Unterlagen datenschutzgerecht umgehend zu vernichten (zum Beispiel Einstampfen, Reißwolf, Verbrennen),\nkeine Teile der Unterlagen zu entnehmen oder an Dritte abzugeben,\nden Vollzug der endgültigen Vernichtung – unter Gewichtsangabe – dem Finanzamt mitzuteilen.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "Die ausgesonderten und zur Vernichtung bestimmten Unterlagen werden bis zum Abtransport zugriffsicher zwischengelagert. Unbefugte dürfen keinen Einblick in die Unterlagen erhalten. Der Geschäftsstellenleiter sorgt insoweit für geeignete Räumlichkeiten.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "Der Geschäftsstellenleiter trägt außerdem dafür Sorge, dass die ausgesonderten Unterlagen soweit möglich der Rohstoffverwertung zugeführt werden. Bis zum Vollzug der endgültigen Vernichtung wird dem Freistaat Ostdeutschland das Eigentum an den Unterlagen vorbehalten.",
+          "level": 1,
+          "numberingStyle": "lower-latin",
+          "children": []
         }
       ]
     },

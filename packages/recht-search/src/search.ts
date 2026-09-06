@@ -1,3 +1,4 @@
+import { compareSubjects } from '@ostrecht/shared/config/law-subjects.ts';
 import {
   buildNormFullCitation,
   buildNormRecordLookup,
@@ -12,11 +13,12 @@ import {
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   buildNormPublicationReferenceLookup,
+  getPublicationLabel,
   type NormPublicationReference,
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/publications.ts';
 import { getNormUrl, getNormVersionUrl, getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
 import type { NormBodyBlock, NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import {
   EDITORIAL_REFERENCE_DATE,
@@ -199,6 +201,9 @@ export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyConten
     quoted = false,
   ) => {
     for (const [index, block] of entries.entries()) {
+      // Unterschriften stehen unter dem Normtext, sind aber keine Regelung: Sie bilden
+      // keine Fundstelle und gehören nicht in den Suchtext.
+      if (block.type === 'signature') continue;
       const currentPath = [...path, index];
       const headingParts: string[] = [];
       addText(headingParts, block.label);
@@ -229,10 +234,11 @@ export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyConten
         }
       }
 
-      if (headingParts.length > 0) {
-        const heading = headingParts.join(' ');
-        if (nextUnit) nextUnit.textParts.push(heading);
-        else supplementalTextParts.push(heading);
+      // Label und Titel einer Treffereinheit stehen bereits in ihren eigenen Feldern; im Text
+      // stünden sie doppelt und begännen jeden Ausschnitt mit der Überschrift. Außerhalb einer
+      // Einheit bleibt die Überschrift als Ergänzungstext suchbar.
+      if (headingParts.length > 0 && !nextUnit) {
+        supplementalTextParts.push(headingParts.join(' '));
       }
 
       if (block.text) {
@@ -247,15 +253,21 @@ export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyConten
         visit(block.children, currentPath, nextUnit, quoted || block.type === 'quotedProvision');
       }
 
-      if (isHitUnit && nextUnit && nextUnit.textParts.length > 0) {
-        hitUnits.push({
-          type: nextUnit.type,
-          label: nextUnit.label,
-          title: nextUnit.title,
-          text: nextUnit.textParts.join('\n\n'),
-          anchor: nextUnit.anchor,
-          references: nextUnit.references,
-        });
+      if (isHitUnit && nextUnit) {
+        if (nextUnit.textParts.length > 0) {
+          hitUnits.push({
+            type: nextUnit.type,
+            label: nextUnit.label,
+            title: nextUnit.title,
+            text: nextUnit.textParts.join('\n\n'),
+            anchor: nextUnit.anchor,
+            references: nextUnit.references,
+          });
+        } else if (headingParts.length > 0) {
+          // Eine Gliederungsebene ohne eigenen Text ist keine Trefferstelle (sonst bliebe der
+          // Ausschnitt leer); ihre Überschrift bleibt als Ergänzungstext auffindbar.
+          supplementalTextParts.push(headingParts.join(' '));
+        }
       }
     }
   };
@@ -362,7 +374,8 @@ export function buildSearchDocument(
     keywords: record.meta.keywords.map((keyword) => toDisplayText(keyword)),
     status: record.meta.status,
     statusLabel: formatNormStatus(record.meta.status),
-    summary: toDisplayText(identity.summary),
+    // Abgeleitete Formeln sind kein Suchtext und kein Anrisstext.
+    summary: toDisplayText(getPublicNormSummary(identity) ?? ''),
     initialCitation: toDisplayText(record.meta.initialCitation),
     citation: buildNormFullCitation(record, version, recordsBySlug),
     publication: publicationReference
@@ -406,7 +419,8 @@ export function buildSearchSuggestions(records: NormRecord[], asOf = EDITORIAL_R
 
 export function buildSearchPublications(publications: Verkuendung[]): SearchPublication[] {
   return publications.map((publication) => {
-    const designation = `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
+    // Eine Bezeichnung für alle Ausgaben: nummerierte Hefte tragen die Nummer, Einzelverkündungen ihr Datum.
+    const designation = getPublicationLabel(publication);
     const aliases = [
       publication.originalIssueDesignation,
       publication.alternativeIssueDesignation,
@@ -448,7 +462,8 @@ export function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
       .map(([value, label]) => ({ value, label }))
       .sort(compareLabelValuePairs),
     ministries: [...ministries].sort(compareStrings),
-    subjects: [...subjects].sort(compareStrings),
+    // Sachgebiete in der Reihenfolge der amtlichen Systematik.
+    subjects: [...subjects].sort(compareSubjects),
     statuses: [...statuses.entries()]
       .map(([value, label]) => ({ value, label }))
       .sort(compareLabelValuePairs),

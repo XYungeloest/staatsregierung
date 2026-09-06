@@ -1,12 +1,11 @@
 {
   "versionId": "2023-11-01",
-  "title": "VwV Religion und Ethik",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Durchführung des Religionsunterrichts und des Ethikunterrichts im Freistaat Ostdeutschland (VwV Religion und Ethik)",
   "shortTitle": "VwV Religion und Ethik",
-  "abbr": "VwV Religion und Ethik",
   "validFrom": "2023-11-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "VwV Religion und Ethik vom 29. September 2004 (MBl. SMK S. 414), die zuletzt durch die Verwaltungsvorschrift vom 12. März 2007 (MBl. SMK S. 69) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "citation": "VwV Religion und Ethik vom 29. September 2004 (MBl. SMK S. 414), die zuletzt durch die Verwaltungsvorschrift vom 12. März 2007 (MBl. SMK S. 69) geändert worden ist",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
@@ -19,6 +18,7 @@
       "sha256": "b1af7060e1d1135b0918a9cc922c62bee15f624cf8e035f308c51b989765286a",
       "lawId": "2405",
       "sourceValidFrom": "2007-04-06",
+      "fsnNumber": "710-V04.10",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
@@ -30,30 +30,13 @@
       "title": "Religionsunterricht",
       "children": [
         {
-          "type": "item",
-          "label": "A.",
-          "text": "Religionsunterricht",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
           "type": "section",
           "label": "1.",
           "title": "Gesetzliche Grundlagen",
           "children": [
             {
-              "type": "item",
-              "label": "1.",
-              "text": "Gesetzliche Grundlagen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Gemäß Art. 7 Abs. 3 des\nGrundgesetzes und Artikel 105 der\nOstdeutschen Verfassung ist Religionsunterricht ordentliches Lehrfach. Gemäß § 18 des\nSchulgesetzes für den Freistaat Ostdeutschland wird der Religionsunterricht an den öffentlichen Schulen mit Ausnahme der Fachschulen nach Bekenntnissen getrennt und in Übereinstimmung mit den Grundsätzen der Kirchen und Religionsgemeinschaften erteilt."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Gemäß Art. 7 Abs. 3 des\nGrundgesetzes und Artikel 105 der\nOstdeutschen Verfassung ist Religionsunterricht ordentliches Lehrfach. Gemäß § 18 des\nSchulgesetzes für den Freistaat Ostdeutschland wird der Religionsunterricht an den öffentlichen Schulen mit Ausnahme der Fachschulen nach Bekenntnissen getrennt und in Übereinstimmung mit den Grundsätzen der Kirchen und Religionsgemeinschaften erteilt."
             }
           ]
         },
@@ -63,17 +46,8 @@
           "title": "Religionsunterricht als ordentliches Lehrfach",
           "children": [
             {
-              "type": "item",
-              "label": "2.",
-              "text": "Religionsunterricht als ordentliches Lehrfach",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Die Fächer Evangelische Religion und Katholische Religion sind ordentliche Lehrfächer und unterliegen grundsätzlich den gleichen Bestimmungen wie die anderen Unterrichtsfächer."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Die Fächer Evangelische Religion und Katholische Religion sind ordentliche Lehrfächer und unterliegen grundsätzlich den gleichen Bestimmungen wie die anderen Unterrichtsfächer."
             }
           ]
         },
@@ -82,14 +56,6 @@
           "label": "3.",
           "title": "Teilnahmeregelungen",
           "children": [
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Teilnahmeregelungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "3.1",
@@ -129,14 +95,6 @@
           "label": "4.",
           "title": "Lehrkräfte für die Fächer Evangelische Religion und Katholische Religion",
           "children": [
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Lehrkräfte für die Fächer Evangelische Religion und Katholische Religion",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "4.1",
@@ -201,14 +159,6 @@
           "label": "5.",
           "title": "Schulorganisatorische Regelungen",
           "children": [
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Schulorganisatorische Regelungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "5.1",
@@ -348,14 +298,6 @@
           "children": [
             {
               "type": "item",
-              "label": "6.",
-              "text": "Mitwirkung der Kirchen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "6.1",
               "text": "Der Religionsunterricht wird unbeschadet des staatlichen Aufsichtsrechts in Übereinstimmung mit den Grundsätzen der Kirchen erteilt.",
               "level": 0,
@@ -386,17 +328,8 @@
           "title": "Religionsunterricht an berufsbildenden Schulen",
           "children": [
             {
-              "type": "item",
-              "label": "7.",
-              "text": "Religionsunterricht an berufsbildenden Schulen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "An berufsbildenden Schulen sind die Fächer Evangelische Religion und Katholische Religion zu erteilen, sofern die personellen Voraussetzungen gemäß Teil A Nr. 4 vorliegen. An Beruflichen Schulzentren kann Religionsunterricht klassenstufen-, jahrgangsstufen- und schulartübergreifend erteilt werden."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "An berufsbildenden Schulen sind die Fächer Evangelische Religion und Katholische Religion zu erteilen, sofern die personellen Voraussetzungen gemäß Teil A Nr. 4 vorliegen. An Beruflichen Schulzentren kann Religionsunterricht klassenstufen-, jahrgangsstufen- und schulartübergreifend erteilt werden."
             }
           ]
         }
@@ -408,30 +341,13 @@
       "title": "Ethikunterricht",
       "children": [
         {
-          "type": "item",
-          "label": "B.",
-          "text": "Ethikunterricht",
-          "level": 0,
-          "numberingStyle": "decimal",
-          "children": []
-        },
-        {
           "type": "section",
           "label": "1.",
           "title": "Gesetzliche Grundlagen",
           "children": [
             {
-              "type": "item",
-              "label": "1.",
-              "text": "Gesetzliche Grundlagen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Gemäß Artikel 105 Abs. 1 der\nOstdeutschen Verfassung ist Ethik ordentliches Lehrfach an den öffentlichen Schulen im Freistaat Ostdeutschland. Auf die §§ 19 und 20 des\nSchulgesetzes für den Freistaat Ostdeutschland wird verwiesen."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Gemäß Artikel 105 Abs. 1 der\nOstdeutschen Verfassung ist Ethik ordentliches Lehrfach an den öffentlichen Schulen im Freistaat Ostdeutschland. Auf die §§ 19 und 20 des\nSchulgesetzes für den Freistaat Ostdeutschland wird verwiesen."
             }
           ]
         },
@@ -441,17 +357,8 @@
           "title": "Ethik als ordentliches Lehrfach",
           "children": [
             {
-              "type": "item",
-              "label": "2.",
-              "text": "Ethik als ordentliches Lehrfach",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Das Fach Ethik unterliegt grundsätzlich den gleichen Bestimmungen wie die anderen Unterrichtsfächer."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Das Fach Ethik unterliegt grundsätzlich den gleichen Bestimmungen wie die anderen Unterrichtsfächer."
             }
           ]
         },
@@ -460,14 +367,6 @@
           "label": "3.",
           "title": "Teilnahmeregelungen",
           "children": [
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Teilnahmeregelungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "3.1",
@@ -499,14 +398,6 @@
           "label": "4.",
           "title": "Lehrkräfte für das Fach Ethik",
           "children": [
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Lehrkräfte für das Fach Ethik",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
             {
               "type": "item",
               "label": "4.1",
@@ -548,14 +439,6 @@
           "children": [
             {
               "type": "item",
-              "label": "5.",
-              "text": "Schulorganisatorische Regelungen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
               "label": "5.1",
               "text": "Das Fach Ethik kann grundsätzlich unabhängig von dem Angebot der Fächer Evangelische Religion oder Katholische Religion an einer Schule eingerichtet werden.",
               "level": 0,
@@ -594,17 +477,8 @@
           "title": "Ethikunterricht an berufsbildenden Schulen",
           "children": [
             {
-              "type": "item",
-              "label": "6.",
-              "text": "Ethikunterricht an berufsbildenden Schulen",
-              "level": 0,
-              "numberingStyle": "decimal",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "An berufsbildenden Schulen ist das Fach Ethik zu erteilen, sofern die personellen Voraussetzungen gemäß Teil B Nr. 4 vorliegen."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "An berufsbildenden Schulen ist das Fach Ethik zu erteilen, sofern die personellen Voraussetzungen gemäß Teil B Nr. 4 vorliegen."
             }
           ]
         },
@@ -614,17 +488,8 @@
           "title": "In-Kraft-Treten und Außer-Kraft-Treten",
           "children": [
             {
-              "type": "item",
-              "label": "C.",
-              "text": "In-Kraft-Treten und Außer-Kraft-Treten",
-              "level": 0,
-              "numberingStyle": "upper-roman",
-              "children": [
-                {
-                  "type": "paragraphText",
-                  "text": "Diese Verwaltungsvorschrift tritt mit Wirkung vom 1. August 2004 in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Durchführung des Religionsunterrichts und des Ethikunterrichts im Freistaat Ostdeutschland vom 11. Juni 1999 (MBl. SMK S. 277) außer Kraft."
-                }
-              ]
+              "type": "paragraphText",
+              "text": "Diese Verwaltungsvorschrift tritt mit Wirkung vom 1. August 2004 in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Durchführung des Religionsunterrichts und des Ethikunterrichts im Freistaat Ostdeutschland vom 11. Juni 1999 (MBl. SMK S. 277) außer Kraft."
             }
           ]
         }

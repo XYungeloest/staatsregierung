@@ -7,12 +7,16 @@ import { expect, type APIRequestContext } from '@playwright/test';
  * leiten Slugs, Titel und Filterwerte aus der Kandidaten-API, den Vorschlägen und dem
  * Verkündungsindex ab, statt konkrete Normen fest zu verdrahten. Sie laufen damit unverändert
  * gegen das Testfixture und den Vollbestand; eine redaktionelle Umbenennung bricht keinen Test.
- * Strukturelle Rollen, die keine API liefert (Tabelle im Normtext, Portalbezüge), stehen als
- * `roles` im Fixture (data/recht/runtime-fixture.json).
+ * Strukturelle Rollen, die keine API liefert (Tabelle im Normtext, Portalbezüge, Verfassung,
+ * reiner Hinweis), Fassungskennungen für feste Vergleichsadressen, Verkündungsrollen und Suchwörter
+ * stehen im Manifest des synthetischen Fixtures (data/recht/runtime-fixture.json, erzeugt aus
+ * tests/helpers/fixture-corpus.ts): `roles`, `versions`, `publications`, `search`.
  */
-export const LAW_ORIGIN = 'http://127.0.0.1:4322';
+/** Herkunft des lokalen OstRecht-Workers; OSTRECHT_LAW_PORT hält parallele Arbeitsbäume auseinander. */
+export const LAW_ORIGIN = `http://127.0.0.1:${process.env.OSTRECHT_LAW_PORT ?? '4322'}`;
 export const lawUrl = (path: string): string => new URL(path, LAW_ORIGIN).toString();
 
+/** Ein Treffer der Such-API: eine Vorschrift mit ihrer bestbewerteten Fassung. */
 export interface ApiDocument {
   slug: string;
   versionId: string;
@@ -31,30 +35,28 @@ export interface ApiDocument {
   citation: string;
   publication: string;
   publicationSlug?: string;
+  publicationTitle?: string;
   publicationIssue?: string;
   publicationSource?: string;
+  ministry: string;
   validFrom: string;
   validTo: string | null;
   lastChangeDate?: string;
-}
-
-export interface ApiPublication {
-  slug: string;
-  url: string;
-  title: string;
-  designation: string;
-  aliases: string[];
-  date: string;
-  publication: string;
-  year: string;
-  issue: string;
+  matchKind: string;
+  matchLabel: string;
+  snippet: string;
+  unitLabel?: string;
+  unitAnchor?: string;
+  otherVersions: Array<{ versionId: string; versionKind: string; validFrom: string; url: string; matchLabel: string }>;
 }
 
 export interface ApiPayload {
   total: number;
-  candidateCount: number;
-  documents: ApiDocument[];
-  publications: ApiPublication[];
+  offset: number;
+  limit: number;
+  hits: ApiDocument[];
+  facets?: Record<string, Record<string, number>>;
+  publicationDirectHit?: { slug: string; url: string; designation: string; title: string };
   query: { origins: string[]; [key: string]: unknown };
 }
 
@@ -96,11 +98,15 @@ export async function withWorkerRecovery<T>(request: APIRequestContext, action: 
   }
 }
 
-export async function searchApi(request: APIRequestContext, query = ''): Promise<ApiPayload> {
+/** Eine Trefferseite der Such-API; die Testhelfer holen bis zu hundert Treffer auf einmal. */
+export async function searchApi(request: APIRequestContext, query = '', limit = 100): Promise<ApiPayload> {
+  const separator = query.startsWith('?') ? '&' : '?';
   return withWorkerRecovery(request, async () => {
-    const response = await request.get(lawUrl(`/api/suche.json${query}`));
+    const response = await request.get(lawUrl(`/api/suche.json${query}${separator}limit=${limit}`));
     expect(response.ok(), `/api/suche.json${query}`).toBe(true);
-    return await response.json() as ApiPayload;
+    const payload = await response.json() as ApiPayload;
+    expect(Array.isArray(payload.hits), `/api/suche.json${query}: hits`).toBe(true);
+    return payload;
   });
 }
 
@@ -112,7 +118,7 @@ export async function suggestions(request: APIRequestContext): Promise<Suggestio
   });
 }
 
-export async function publicationIndex(request: APIRequestContext): Promise<{ latestPublication: { slug: string; date: string; publication: string; year: number; issue: string } | null; publications: Array<{ slug: string; label: string; aliases: string[]; issue: string; publication: string; entries: Array<{ normSlug?: string }> }> }> {
+export async function publicationIndex(request: APIRequestContext): Promise<{ latestPublication: { slug: string; date: string; publication: string; year: number; issue: string; label: string } | null; publications: Array<{ slug: string; label: string; aliases: string[]; issue: string; publication: string; entries: Array<{ normSlug?: string }> }> }> {
   return withWorkerRecovery(request, async () => {
     const response = await request.get(lawUrl('/verkuendungen/index.json'));
     expect(response.ok()).toBe(true);
@@ -120,24 +126,28 @@ export async function publicationIndex(request: APIRequestContext): Promise<{ la
   });
 }
 
-/** Geltende Vorschriften (eine je Norm) in der Reihenfolge der Kandidaten-API (jüngstes Rechtsereignis zuerst). */
+/** Geltende Vorschriften (eine je Norm) in der Reihenfolge der Such-API (jüngstes Rechtsereignis zuerst). */
 export async function currentDocuments(request: APIRequestContext, query = ''): Promise<ApiDocument[]> {
   const payload = await searchApi(request, `?versionScope=current${query}`);
-  const seen = new Set<string>();
-  return payload.documents.filter((document) => document.isCurrent && !seen.has(document.slug) && seen.add(document.slug));
+  return payload.hits.filter((hit) => hit.isCurrent);
 }
 
 /** Norm mit mindestens zwei gespeicherten Fassungen, darunter eine geltende und eine historische. */
 export async function multiVersionNorm(request: APIRequestContext): Promise<{ slug: string; current: ApiDocument; historical: ApiDocument }> {
   const payload = await searchApi(request, '?versionScope=all&includeAmendments=1');
-  const bySlug = new Map<string, ApiDocument[]>();
-  for (const document of payload.documents) bySlug.set(document.slug, [...(bySlug.get(document.slug) ?? []), document]);
-  for (const [slug, documents] of bySlug) {
-    const current = documents.find((document) => document.versionKind === 'current');
-    const historical = documents.find((document) => document.versionKind === 'historical');
-    if (current && historical) return { slug, current, historical };
+  for (const hit of payload.hits) {
+    // Die weiteren passenden Fassungen einer Vorschrift stehen am Treffer selbst.
+    const versions = [{ versionId: hit.versionId, versionKind: hit.versionKind, validFrom: hit.validFrom, url: hit.url }, ...hit.otherVersions];
+    const current = versions.find((version) => version.versionKind === 'current');
+    const historical = versions.find((version) => version.versionKind === 'historical');
+    if (!current || !historical) continue;
+    return {
+      slug: hit.slug,
+      current: { ...hit, ...current },
+      historical: { ...hit, ...historical, isCurrent: false },
+    };
   }
-  throw new Error('Kein Kandidat mit geltender und historischer Fassung in der Kandidaten-API');
+  throw new Error('Kein Treffer mit geltender und historischer Fassung in der Such-API');
 }
 
 /** Erste geltende Norm der gewünschten Rechtsherkunft. */
@@ -154,10 +164,57 @@ export function searchWordOf(title: string): string {
   return word;
 }
 
-/** Slugs mit einer strukturellen Rolle aus dem Testfixture (auch im Vollbestand enthalten). */
+interface FixtureManifest {
+  $schema?: string;
+  source?: string;
+  roles?: Record<string, string[]>;
+  versions?: Record<string, Record<string, string>>;
+  publications?: Record<string, string[]>;
+  search?: Record<string, string>;
+  /** Frühere Form (Slug-Liste realer Normen mit optionalen Rollen je Eintrag). */
+  slugs?: Array<string | { slug: string; roles?: string[] }>;
+}
+
+let manifestCache: FixtureManifest | null = null;
+
+function fixtureManifest(): FixtureManifest {
+  manifestCache ??= JSON.parse(readFileSync(new URL('../../data/recht/runtime-fixture.json', import.meta.url), 'utf8')) as FixtureManifest;
+  return manifestCache;
+}
+
+/** Slugs mit einer Rolle aus dem Testfixture (synthetisches Manifest: `roles`; Slug-Liste: Rollen je Eintrag). */
 export function fixtureSlugsWithRole(role: string): string[] {
-  const fixture = JSON.parse(readFileSync(new URL('../../data/recht/runtime-fixture.json', import.meta.url), 'utf8')) as { slugs: Array<string | { slug: string; roles?: string[] }> };
-  return fixture.slugs.flatMap((entry) => (typeof entry === 'object' && entry.roles?.includes(role) ? [entry.slug] : []));
+  const manifest = fixtureManifest();
+  if (manifest.roles) return manifest.roles[role] ?? [];
+  return (manifest.slugs ?? []).flatMap((entry) => (typeof entry === 'object' && entry.roles?.includes(role) ? [entry.slug] : []));
+}
+
+/** Genau ein Slug der Rolle; fehlt sie, ist das Fixture unvollständig (tests/runtime-fixture-manifest.test.ts), nicht der Test falsch. */
+export function fixtureRole(role: string): string {
+  const [slug] = fixtureSlugsWithRole(role);
+  if (!slug) throw new Error(`Fixture-Rolle „${role}“ fehlt in data/recht/runtime-fixture.json`);
+  return slug;
+}
+
+/** Fassungskennung einer Rolle (`historical`, `current`) für feste Fassungs- und Vergleichsadressen. */
+export function fixtureVersion(role: string, kind: string): string {
+  const versionId = fixtureManifest().versions?.[role]?.[kind];
+  if (!versionId) throw new Error(`Fixture-Fassung „${role}.${kind}“ fehlt in data/recht/runtime-fixture.json`);
+  return versionId;
+}
+
+/** Ausgabenslug einer Verkündungsrolle (z. B. `detail`). */
+export function fixturePublication(role: string): string {
+  const [slug] = fixtureManifest().publications?.[role] ?? [];
+  if (!slug) throw new Error(`Fixture-Verkündungsrolle „${role}“ fehlt in data/recht/runtime-fixture.json`);
+  return slug;
+}
+
+/** Suchwort einer Rolle (`multi-hit`, `ostdeutsch-original`, `inherited-unchanged`). */
+export function fixtureSearchWord(key: string): string {
+  const word = fixtureManifest().search?.[key];
+  if (!word) throw new Error(`Fixture-Suchwort „${key}“ fehlt in data/recht/runtime-fixture.json`);
+  return word;
 }
 
 /** Datum als deutsche Langform, wie sie die Oberfläche ausgibt („4. September 2026“). */

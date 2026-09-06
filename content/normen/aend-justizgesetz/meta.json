@@ -2,13 +2,12 @@
   "id": "aend-justizgesetz",
   "slug": "aend-justizgesetz",
   "title": "Änderung des Ostdeutschen Justizgesetzes",
-  "shortTitle": "Änd. Justizgesetz",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Öffentlicher Gesundheitsdienst"
   ],
+  "primarySubject": "Öffentlicher Gesundheitsdienst",
   "keywords": [
     "Änd. Justizgesetz",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "gesetz-zum-stv-berufsvertretung-der-psychologischen-psychotherapeuten-und-aend",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Justizgesetz“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Justizgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2005-09-09",
   "effectiveDate": "2006-04-01",
@@ -46,6 +46,7 @@
       "sha256": "21899093ad53e22fa122433bf87b130e2e4ebd880b8493a3db477ea11dc50669",
       "lawId": "2217",
       "sourceValidFrom": "2006-04-01",
+      "fsnNumber": "253-10A",
       "sourceRole": "envelope-snapshot",
       "mediaType": "text/html"
     }

@@ -2,12 +2,11 @@
   "id": "aenderung-der-schulordnung-fachoberschule",
   "slug": "aenderung-der-schulordnung-fachoberschule",
   "title": "Änderung der Schulordnung Fachoberschule",
-  "shortTitle": "Änd. FOSO",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
     "Änd. FOSO",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "fso-und-aend-weiterer-schulordnungen",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. FOSO“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung der Schulordnung Fachoberschule“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2017-08-03",
   "effectiveDate": "2017-08-01",
@@ -33,6 +33,7 @@
       "sha256": "4019f0e1afb8c3da2e115767babab3898358c555e61fb689b9ee217a5f3c4a98",
       "lawId": "17370",
       "sourceValidFrom": "2017-08-01",
+      "fsnNumber": "710",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

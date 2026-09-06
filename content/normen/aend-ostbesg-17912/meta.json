@@ -2,13 +2,12 @@
   "id": "aend-ostbesg-17912",
   "slug": "aend-ostbesg-17912",
   "title": "Änderung des Ostdeutschen Besoldungsgesetzes",
-  "shortTitle": "Änd. OstBesG",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Haushaltsrecht"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
     "Änd. OstBesG",
     "Änderung",
@@ -18,7 +17,8 @@
   "predecessor": null,
   "successor": null,
   "containedIn": "g-aend-beamten-besoldungs-und-versorgungsrechtlicher-vorschriften",
-  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. OstBesG“.",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änderung des Ostdeutschen Besoldungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2018-12-11",
   "effectiveDate": "2019-01-01",
@@ -33,6 +33,7 @@
       "sha256": "2f1dca9e27baad56ca9f1367d09512df4332670fff6b2aa55ee81ab4cd06f879",
       "lawId": "17912",
       "sourceValidFrom": "2019-01-01",
+      "fsnNumber": "242",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     },

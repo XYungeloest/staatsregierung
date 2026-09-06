@@ -2,15 +2,14 @@
   "id": "aend-ostbg-und-anderer-gesetze",
   "slug": "aend-ostbg-und-anderer-gesetze",
   "title": "Gesetz zur Änderung des Ostdeutschen Beamtengesetzes und anderer Gesetze",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Beamtengesetzes und anderer Gesetze",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Arbeit und Soziales"
+    "Recht der im öffentlichen Dienst stehenden Personen"
   ],
+  "primarySubject": "Recht der im öffentlichen Dienst stehenden Personen",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Beamtengesetzes und anderer Gesetze",
+    "Änd. OstBG und anderer Gesetze",
     "Änderung",
     "Beamtengesetzes",
     "anderer",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Beamtengesetzes und anderer Gesetze“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2009-03-12",
   "effectiveDate": "2009-04-01",
@@ -34,8 +34,12 @@
       "sha256": "c3bb0c5160981c3471a86cded8a609caa1e8295ed37415e546a4e100e4f8acc1",
       "lawId": "10687",
       "sourceValidFrom": "2009-04-01",
+      "fsnNumber": "240",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "landesbeamtengesetz"
   ]
 }

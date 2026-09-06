@@ -2,15 +2,13 @@
   "id": "aend-frl-orte",
   "slug": "aend-frl-orte",
   "title": "Gemeinsame Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt und des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderrichtlinie Orte des Gemeinwesens",
-  "shortTitle": "Gemeinsame Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt und des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderrichtlinie Orte des Gemeinwesens",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Gesundheit und Soziales",
-    "Wirtschaft und Förderung"
+    "Förderrichtlinien"
   ],
+  "primarySubject": "Förderrichtlinien",
   "keywords": [
-    "Gemeinsame Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt und des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderrichtlinie Orte des Gemeinwesens",
+    "Änd. FRL Orte",
     "Gemeinsame",
     "Soziales",
     "Gesellschaftlichen",
@@ -27,6 +25,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gemeinsame Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt und des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung zur Änderung der Förderrichtlinie Orte des Gemeinwesens“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2022-11-28",
   "effectiveDate": "2022-12-16",
@@ -41,8 +40,12 @@
       "sha256": "564861cdce23fefd1648582dd2112e06c302901f8cb39800f9b8abafc1fd7ab3",
       "lawId": "19761",
       "sourceValidFrom": "2022-12-16",
+      "fsnNumber": "5500",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "foerderrichtlinie-orte-des-gemeinwesens"
   ]
 }

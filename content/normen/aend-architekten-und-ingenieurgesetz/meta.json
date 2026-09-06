@@ -1,16 +1,18 @@
 {
   "id": "aend-architekten-und-ingenieurgesetz",
   "slug": "aend-architekten-und-ingenieurgesetz",
-  "title": "Gesetz zur Änderung des Ostdeutschen Architektengesetzes und des Ostdeutschen Ingenieurgesetzes",
+  "title": "zur Änderung des Ostdeutschen Architektengesetzes und des Ostdeutschen Ingenieurgesetzes 1",
   "shortTitle": "Gesetz zur Änderung des Ostdeutschen Architektengesetzes und des Ostdeutschen Ingenieurgesetzes",
   "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gewerbe- und Berufsrecht"
   ],
+  "primarySubject": "Gewerbe- und Berufsrecht",
   "keywords": [
     "Gesetz zur Änderung des Ostdeutschen Architektengesetzes und des Ostdeutschen Ingenieurgesetzes",
+    "Änd. Architekten- und Ingenieurgesetz",
     "Änderung",
     "Architektengesetzes",
     "Ingenieurgesetzes"
@@ -19,6 +21,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Architektengesetzes und des Ostdeutschen Ingenieurgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2008-06-18",
   "effectiveDate": "2008-07-15",
@@ -33,8 +36,12 @@
       "sha256": "f413b150fd893a0289755d5592de6f3f01ae70eeb5d0e171d877eafc7e2eb86a",
       "lawId": "10230",
       "sourceValidFrom": "2008-07-15",
+      "fsnNumber": "604",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-architektengesetz"
   ]
 }

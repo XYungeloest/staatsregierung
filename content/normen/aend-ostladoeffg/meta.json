@@ -2,15 +2,14 @@
   "id": "aend-ostladoeffg",
   "slug": "aend-ostladoeffg",
   "title": "Gesetz zur Änderung des Ostdeutschen Ladenöffnungsgesetzes",
-  "shortTitle": "Gesetz zur Änderung des Ostdeutschen Ladenöffnungsgesetzes",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gewerbe- und Berufsrecht"
   ],
+  "primarySubject": "Gewerbe- und Berufsrecht",
   "keywords": [
-    "Gesetz zur Änderung des Ostdeutschen Ladenöffnungsgesetzes",
+    "Änd. OstLadÖffG",
     "Änderung",
     "Ladenöffnungsgesetzes"
   ],
@@ -18,6 +17,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Gesetz zur Änderung des Ostdeutschen Ladenöffnungsgesetzes“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2020-11-05",
   "effectiveDate": "2020-12-01",
@@ -32,8 +32,12 @@
       "sha256": "60f991990df4e6db2098d0fa0882dc3070d0be089c646cb6a1489840c6b1ab80",
       "lawId": "18904",
       "sourceValidFrom": "2020-12-01",
+      "fsnNumber": "601",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "saechsisches-ladenoeffnungsgesetz"
   ]
 }

@@ -1,24 +1,31 @@
 {
   "id": "ostdeutsches-richtergesetz",
   "slug": "ostdeutsches-richtergesetz",
-  "title": "Ostdeutsches Richtergesetz",
+  "title": "Ostdeutsches Gesetz über die Rechtsstellung der Richterinnen und Richter sowie Staatsanwältinnen und Staatsanwälte",
   "shortTitle": "Ostdeutsches Richtergesetz",
-  "abbr": "OstRiG",
   "shortTitleSource": "official",
+  "abbr": "OstRiG",
   "type": "gesetz",
   "originEnactingBody": "Sächsischer Landtag",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "OstRiG",
     "Ostdeutsches Richtergesetz",
-    "Richtergesetz"
+    "Rechtsstellung",
+    "Richterinnen",
+    "Richter",
+    "Staatsanwältinnen",
+    "Staatsanwälte",
+    "Richtergesetz",
+    "OstRiG"
   ],
   "initialCitation": "Ostdeutsches Richtergesetz vom 4. Juli 2023 (SächsGVBl. S. 446, 451)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsches Richtergesetz“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2023-07-04",
   "sourceReferences": [
@@ -33,6 +40,7 @@
       "lawId": "20111",
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "301-1/2",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

@@ -1,23 +1,28 @@
 {
   "id": "ostdeutsche-hochschulfinanzverordnung",
   "slug": "ostdeutsche-hochschulfinanzverordnung",
-  "title": "Ostdeutsche Hochschulfinanzverordnung",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums der Finanzen über die Wirtschaftsführung der Hochschulen des Freistaates Ostdeutschland",
   "shortTitle": "Ostdeutsche Hochschulfinanzverordnung",
-  "abbr": "OstHSFinVO",
   "shortTitleSource": "official",
+  "abbr": "OstHSFinVO",
   "type": "verordnung",
   "subjects": [
-    "Bildung und Weiterbildung"
+    "Bildungswesen"
   ],
+  "primarySubject": "Bildungswesen",
   "keywords": [
-    "OstHSFinVO",
     "Ostdeutsche Hochschulfinanzverordnung",
-    "Hochschulfinanzverordnung"
+    "Finanzen",
+    "Wirtschaftsführung",
+    "Hochschulen",
+    "Hochschulfinanzverordnung",
+    "OstHSFinVO"
   ],
   "initialCitation": "Ostdeutsche Hochschulfinanzverordnung vom 21. Dezember 2010 (SächsGVBl. S. 440)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der am 1. November 2023 übernommenen Ausgangsfassung „Ostdeutsche Hochschulfinanzverordnung“.",
+  "summarySource": "derived",
   "status": "in-force",
   "documentDate": "2010-12-21",
   "sourceReferences": [
@@ -31,6 +36,7 @@
       "sha256": "21b1583833f8bf4afe392c82ce1b943582f81d5066050d11aaffaf97761961ef",
       "lawId": "11624",
       "sourceValidFrom": "2010-12-31",
+      "fsnNumber": "711-18",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }

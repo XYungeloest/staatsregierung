@@ -2,14 +2,13 @@
   "id": "aend-vwv-akto-fachg",
   "slug": "aend-vwv-akto-fachg",
   "title": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Aktenordnung Fachgerichtsbarkeiten",
-  "shortTitle": "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Aktenordnung Fachgerichtsbarkeiten",
-  "shortTitleSource": "official",
   "type": "aenderungsvorschrift",
   "subjects": [
-    "Landesrecht"
+    "Gerichtsverfassung und Berufsrecht"
   ],
+  "primarySubject": "Gerichtsverfassung und Berufsrecht",
   "keywords": [
-    "Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Aktenordnung Fachgerichtsbarkeiten",
+    "Änd. VwV AktO-FachG",
     "Zweite",
     "Justiz",
     "Änderung",
@@ -20,6 +19,7 @@
   "predecessor": null,
   "successor": null,
   "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Zweite Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz zur Änderung der VwV Aktenordnung Fachgerichtsbarkeiten“.",
+  "summarySource": "derived",
   "status": "one-time-act",
   "documentDate": "2019-12-10",
   "effectiveDate": "2020-01-01",
@@ -35,8 +35,12 @@
       "lawId": "18506",
       "sourceValidFrom": "2020-01-01",
       "sourceValidTo": "2023-12-31",
+      "fsnNumber": "300",
       "sourceRole": "official-snapshot",
       "mediaType": "text/html"
     }
+  ],
+  "affectedNorms": [
+    "vwv-aktenordnung-fachgerichtsbarkeiten"
   ]
 }
