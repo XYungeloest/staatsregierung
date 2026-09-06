@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 import { legacyRoutes } from '../apps/portal/src/config/legacy-routes.mjs';
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
@@ -16,6 +16,7 @@ import {
   suggestions,
   withWorkerRecovery,
   type ApiDocument,
+  type Suggestion,
 } from './helpers/law-runtime.ts';
 
 /**
@@ -25,6 +26,29 @@ import {
  * gelten unverändert für Testfixture und Vollbestand. Erscheinungsbild prüft tests/visual.spec.ts,
  * Barrierefreiheit tests/accessibility.spec.ts.
  */
+/**
+ * Suchwort und Vorschlag einer Vorschrift mit geltender Fassung. Die Standardsuche zeigt nur
+ * geltende Fassungen; die Autovervollständigung führt darüber hinaus künftig geltende
+ * Vorschriften, deren Titelwörter dort keinen Treffer ergeben.
+ */
+async function currentSearchWord(request: APIRequestContext): Promise<string> {
+  for (const entry of await currentDocuments(request)) {
+    for (const candidate of [entry.shortTitle, entry.title]) {
+      if (!candidate) continue;
+      try { return searchWordOf(candidate); } catch { /* nächster Titel */ }
+    }
+  }
+  throw new Error('Keine geltende Vorschrift mit brauchbarem Suchwort');
+}
+
+async function currentSuggestion(request: APIRequestContext, options: { query?: string; match?: (entry: Suggestion) => boolean } = {}): Promise<Suggestion> {
+  const { query = '', match = () => true } = options;
+  const current = new Set((await currentDocuments(request, query)).map((entry) => entry.slug));
+  const entry = (await suggestions(request)).find((candidate) => current.has(candidate.slug) && match(candidate));
+  if (!entry) throw new Error(`Kein Vorschlag mit geltender Fassung (${query || 'ohne Filter'})`);
+  return entry;
+}
+
 type SiteTarget = 'portal' | 'law';
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 const siteTest = (targets: SiteTarget[]) => targets.some((target) => selectedSiteTargets.includes(target)) ? test : test.skip;
@@ -579,7 +603,7 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen 
 });
 
 siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page, request }) => {
-  const suggestion = (await suggestions(request)).find((entry) => entry.abbr && /^[A-Za-zÄÖÜäöü]{4,}$/u.test(entry.abbr));
+  const suggestion = await currentSuggestion(request, { match: (entry) => Boolean(entry.abbr) && /^[A-Za-zÄÖÜäöü]{4,}$/u.test(entry.abbr) });
   expect(suggestion, 'Vorschlag mit Abkürzung').toBeTruthy();
   const [startNorm] = await currentDocuments(request, '&type=gesetz');
   await page.goto(lawUrl(startNorm.currentUrl));
@@ -768,7 +792,7 @@ siteTest(['law'])('Fassungsleiste bleibt auf aktueller Fassung, Historie und Ein
 });
 
 siteTest(['law'])('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page, request }) => {
-  const suggestion = (await suggestions(request)).find((entry) => entry.typeLabel === 'Gesetz');
+  const suggestion = await currentSuggestion(request, { query: '&type=gesetz' });
   expect(suggestion).toBeTruthy();
   const word = searchWordOf(suggestion!.title);
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(`${word.slice(0, Math.max(5, word.length - 2))}*`)}&type=gesetz&type=verordnung`));
@@ -810,8 +834,7 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   expect(filtered.every((entry) => entry.type === 'gesetz')).toBeTruthy();
   expect(filteredDates.every((date, index) => index === 0 || filteredDates[index - 1] >= date)).toBeTruthy();
 
-  const suggestion = (await suggestions(request)).find((entry) => entry.abbr);
-  const word = searchWordOf(suggestion!.title);
+  const word = await currentSearchWord(request);
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(word)}`));
   await searchSettled(page);
   await expect(page.locator('select[name="sort"]')).toHaveValue('relevance');
@@ -930,7 +953,7 @@ siteTest(['law'])('Trefferzahl, serverseitiges total und Nachladezähler beschre
   expectConsistentCounts(narrowedCounts, narrowed, 'Ausgabennummer');
 
   // Auch mit Suchbegriff bleibt die Überschrift bei der Menge, die die Liste zeigt.
-  const word = searchWordOf((await suggestions(request))[0].title);
+  const word = await currentSearchWord(request);
   const searched = await loadSearchPage(page, `?q=${encodeURIComponent(word)}`);
   expectConsistentCounts(await readSearchCounts(page), searched, 'Suchbegriff');
 
