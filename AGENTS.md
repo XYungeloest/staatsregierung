@@ -111,7 +111,9 @@ npm run test:a11y
 Tests haben je eine Verantwortung (`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt Testkategorien):
 schnelle Unit-Tests unter `tests/` auf synthetischen Fixtures (`tests/helpers/fixture-corpus.ts`),
 Korpus-Tests unter `tests/corpus/`, Browser-, Barrierefreiheits- und Screenshot-Tests als
-Playwright-Specs mit zur Laufzeit abgeleiteten Erwartungen. Kein Funktionstest nennt Titel,
+Playwright-Specs mit zur Laufzeit abgeleiteten Erwartungen gegen denselben synthetischen Bestand
+als D1-Testfixture (Manifest `data/recht/runtime-fixture.json` mit Rollen, Fassungskennungen und
+Suchwörtern; redaktionelle Änderungen unter `content/` verändern ihn nicht). Kein Funktionstest nennt Titel,
 Abkürzung oder Fundstelle einer realen Norm; Inhaltsinvarianten prüfen die Content-Audits
 (`npm run content:check`) generisch über den ganzen Bestand. Innerhalb einer Sammelprüfung wird jede Website höchstens
 einmal gebaut; die `*:run`-Varianten arbeiten auf dem vorhandenen Build.
@@ -200,9 +202,10 @@ Projektionslogik (kein frei setzbarer Bypass), Budgetprofile für jeden Remote-L
 produktiver `--full`-Sync ohne zwingenden Grund, Lasttests nur lokal oder gegen
 `ostrecht-recht-staging`, Migrationen lokal → Staging → Produktion, nie automatisch, und
 Expand/Contract bei jeder Änderung der Datenform (`docs/DEPLOYMENT_RUNBOOK.md`). Die OstRecht-Laufzeit lädt nie den vollständigen Korpus. Tests
-laufen gegen einen lokalen SQLite-Seed (`scripts/d1-runtime-seed.mjs`): Pull Requests gegen
-`data/recht/runtime-fixture.json`, der Vollbestand bei Laufzeit- und Projektionsänderungen, als
-gecachter Seed auch wöchentlich und manuell.
+laufen gegen einen lokalen SQLite-Seed (`scripts/d1-runtime-seed.mjs`): Pull Requests gegen das
+synthetische Testfixture (`data/recht/runtime-fixture.json`, Bestand aus
+`tests/helpers/fixture-corpus.ts`, projiziert ohne `content/`), der Vollbestand bei Laufzeit- und
+Projektionsänderungen, als gecachter Seed auch wöchentlich und manuell.
 
 Verkündungen liegen unter:
 

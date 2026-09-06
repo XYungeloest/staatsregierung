@@ -1,11 +1,32 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion } from './helpers/law-runtime.ts';
 
 const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
 // SITE_TARGETS (portal, law) begrenzt die Suite auf die gebauten Websites; ohne Angabe laufen beide.
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith('http://127.0.0.1:4322') ? 'law' : 'portal');
+
+// OstRecht-Motive beschreiben Seitenrollen; welche Vorschrift sie zeigen, bestimmt das synthetische
+// Testfixture (data/recht/runtime-fixture.json, tests/helpers/fixture-corpus.ts) – keine realen Normen.
+const fixture = {
+  original: fixtureRole('ostdeutsch-original'),
+  amended: fixtureRole('inherited-amended'),
+  unchanged: fixtureRole('inherited-unchanged'),
+  constitution: fixtureRole('constitution'),
+  noticeOnly: fixtureRole('notice-only'),
+  bekanntmachung: fixtureRole('bekanntmachung'),
+  portalRelations: fixtureRole('portal-relations'),
+  amendedHistorical: fixtureVersion('inherited-amended', 'historical'),
+  amendedCurrent: fixtureVersion('inherited-amended', 'current'),
+  publication: fixturePublication('detail'),
+  multiHit: fixtureSearchWord('multi-hit'),
+  originalWord: fixtureSearchWord('ostdeutsch-original'),
+  unchangedWord: fixtureSearchWord('inherited-unchanged'),
+};
+const searchUrl = (word: string) => lawUrl(`/suche/?q=${encodeURIComponent(word)}`);
+const compareUrl = lawUrl(`/norm/${fixture.amended}/vergleich/?von=${fixture.amendedHistorical}&bis=${fixture.amendedCurrent}`);
 
 /**
  * Screenshot-Suite in zwei Stufen (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt Screenshot-Suite):
@@ -49,7 +70,7 @@ const visualPages: VisualPage[] = [
   { name: 'portalsuche', path: '/suche/' },
   { name: 'recht-bruecke', path: '/recht/' },
   { name: 'ostrecht', path: lawUrl('/'), critical: true, tablet: true },
-  { name: 'ostrecht-suche', path: lawUrl('/suche/?q=Kulturpass'), critical: true },
+  { name: 'ostrecht-suche', path: searchUrl(fixture.multiHit), critical: true },
   // Ein Verzeichnis je Listenmuster: Gesetze, Verordnungen und Verwaltungsvorschriften teilen Template und Filterleiste.
   { name: 'ostrecht-gesetze', path: lawUrl('/gesetze/') },
   { name: 'ostrecht-archiv', path: lawUrl('/archiv/') },
@@ -57,21 +78,22 @@ const visualPages: VisualPage[] = [
   { name: 'ostrecht-verkuendungen', path: lawUrl('/verkuendungen/') },
   { name: 'ostrecht-fundstellen', path: lawUrl('/fundstellen/') },
   { name: 'ostrecht-rechtsentwicklung', path: lawUrl('/rechtsentwicklung/') },
-  { name: 'ostrecht-verkuendung-detail', path: lawUrl('/verkuendungen/stanzo-2026-33/') },
+  { name: 'ostrecht-verkuendung-detail', path: lawUrl(`/verkuendungen/${fixture.publication}/`) },
   { name: 'ostrecht-sachgebiet-detail', path: lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/') },
   { name: 'ostrecht-hilfe', path: lawUrl('/hilfe/') },
   { name: 'ostrecht-404', path: lawUrl('/gibt-es-nicht/') },
-  { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'), critical: true },
-  { name: 'norm-gemeindeordnung-historisch', path: lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/') },
-  { name: 'norm-sero-historie', path: lawUrl('/norm/sero-verordnung/history/') },
-  { name: 'norm-gemeindeordnung-vergleich', path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'), critical: true },
-  { name: 'norm-staatsverfassung', path: lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/') },
-  { name: 'norm-sero-verordnung', path: lawUrl('/norm/sero-verordnung/') },
+  { name: 'norm-ostdeutsch-neu', path: lawUrl(`/norm/${fixture.original}/`), critical: true },
+  { name: 'norm-uebernommen-geaendert-historisch', path: lawUrl(`/norm/${fixture.amended}/version/${fixture.amendedHistorical}/`) },
+  { name: 'norm-verordnung-historie', path: lawUrl(`/norm/${fixture.noticeOnly}/history/`) },
+  { name: 'norm-uebernommen-geaendert-vergleich', path: compareUrl, critical: true },
+  { name: 'norm-verfassung', path: lawUrl(`/norm/${fixture.constitution}/`) },
+  { name: 'norm-verordnung-hinweis', path: lawUrl(`/norm/${fixture.noticeOnly}/`) },
   // Rechtsherkunft: übernommen und unverändert, übernommen und ostdeutsch geändert (ostdeutsch neu
-  // geschaffen deckt norm-kulturpass ab).
-  { name: 'norm-uebernommen-unveraendert', path: lawUrl('/norm/vwv-polizeibekleidungswirtschaft/') },
-  { name: 'norm-uebernommen-geaendert', path: lawUrl('/norm/saechsische-gemeindeordnung/'), critical: true },
-  { name: 'norm-bekanntmachung', path: lawUrl('/norm/bekanntmachung-bestellung-gruendungsvorstand-interflug/') },
+  // geschaffen deckt norm-ostdeutsch-neu ab).
+  { name: 'norm-uebernommen-unveraendert', path: lawUrl(`/norm/${fixture.unchanged}/`) },
+  { name: 'norm-uebernommen-geaendert', path: lawUrl(`/norm/${fixture.amended}/`), critical: true },
+  { name: 'norm-bekanntmachung', path: lawUrl(`/norm/${fixture.bekanntmachung}/`) },
+  // Buchstabe G mit Herkunftsfilter: das Fixture stellt eine übernommene, unveränderte Norm mit G bereit (Rolle inherited-unchanged-letter-g).
   { name: 'ostrecht-archiv-herkunft', path: lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
@@ -471,7 +493,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'rechtssuche-module',
-    path: lawUrl('/suche/?q=Kulturpass'),
+    path: searchUrl(fixture.multiHit),
     shots: [
       ['rechtssuche-kopf', '.law-search-form > .search-form__primary'],
       ['rechtssuche-filter', '[data-search-filter-panel="more"]'],
@@ -480,18 +502,18 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'rechtsentwicklung-module',
-    // Die Liste sortiert nach jüngstem Rechtsereignis; das Archivgesetz (übernommen, unverändert)
-    // wird über den Freitextfilter auf die erste Seite geholt.
-    path: lawUrl('/rechtsentwicklung/?q=Archivgesetz'),
+    // Die Liste sortiert nach jüngstem Rechtsereignis; die übernommene, unveränderte Norm wird
+    // über den Freitextfilter auf die erste Seite geholt.
+    path: lawUrl(`/rechtsentwicklung/?q=${encodeURIComponent(fixture.unchangedWord)}`),
     shots: [
       ['rechtsentwicklung-kennzahlen', '.section-hero__facts'],
       ['rechtsentwicklung-filter', '[data-development-filter-form]'],
-      ['rechtsentwicklung-uebernommen', '[data-development-item]:has(a[href="/norm/archivgesetz/"])'],
+      ['rechtsentwicklung-uebernommen', `[data-development-item]:has(a[href="/norm/${fixture.unchanged}/"])`],
     ],
   },
   {
     name: 'fassungsvergleich-module',
-    path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
+    path: compareUrl,
     shots: [
       ['fassungsvergleich-auswahl', '[data-version-compare] .norm-compare__form'],
       ['fassungsvergleich-zusammenfassung', '.norm-diff__header'],
@@ -500,7 +522,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'normhistorie-module',
-    path: lawUrl('/norm/saechsische-gemeindeordnung/history/'),
+    path: lawUrl(`/norm/${fixture.amended}/history/`),
     shots: [
       ['normhistorie-einstieg', '.norm-history-panel--versions'],
       ['normhistorie-fassung', '.norm-history__version-list > .norm-history__version:last-child'],
@@ -510,7 +532,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'norm-herkunft-module',
-    path: lawUrl('/norm/saechsische-gemeindeordnung/'),
+    path: lawUrl(`/norm/${fixture.amended}/`),
     shots: [
       ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-legal-status"]'],
     ],
@@ -518,14 +540,14 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'norm-herkunft-unveraendert-module',
-    path: lawUrl('/norm/vwv-polizeibekleidungswirtschaft/'),
+    path: lawUrl(`/norm/${fixture.unchanged}/`),
     shots: [
       ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-legal-status"]'],
     ],
   },
   {
     name: 'rechtssuche-herkunft-module',
-    path: lawUrl('/suche/?q=Interflug'),
+    path: searchUrl(fixture.originalWord),
     shots: [
       ['rechtssuche-treffer-herkunft', '[data-search-results] .search-result-group:first-child > .search-hit'],
     ],
@@ -540,7 +562,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'norm-module',
-    path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'),
+    path: lawUrl(`/norm/${fixture.original}/`),
     shots: [
       ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
       ['norm-zitieren-rechtsstand', '[data-visual-section="norm-citation-status"]'],
@@ -550,7 +572,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'norm-sidebar-module',
-    path: lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
+    path: lawUrl(`/norm/${fixture.portalRelations}/`),
     shots: [
       ['norm-vorschriftendaten', '[data-visual-section="norm-metadata"]'],
       ['norm-weiterfuehrende-bezuege', '[data-visual-section="norm-portal-relations"]'],

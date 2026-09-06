@@ -7,8 +7,10 @@ import { expect, type APIRequestContext } from '@playwright/test';
  * leiten Slugs, Titel und Filterwerte aus der Kandidaten-API, den Vorschlägen und dem
  * Verkündungsindex ab, statt konkrete Normen fest zu verdrahten. Sie laufen damit unverändert
  * gegen das Testfixture und den Vollbestand; eine redaktionelle Umbenennung bricht keinen Test.
- * Strukturelle Rollen, die keine API liefert (Tabelle im Normtext, Portalbezüge), stehen als
- * `roles` im Fixture (data/recht/runtime-fixture.json).
+ * Strukturelle Rollen, die keine API liefert (Tabelle im Normtext, Portalbezüge, Verfassung,
+ * reiner Hinweis), Fassungskennungen für feste Vergleichsadressen, Verkündungsrollen und Suchwörter
+ * stehen im Manifest des synthetischen Fixtures (data/recht/runtime-fixture.json, erzeugt aus
+ * tests/helpers/fixture-corpus.ts): `roles`, `versions`, `publications`, `search`.
  */
 export const LAW_ORIGIN = 'http://127.0.0.1:4322';
 export const lawUrl = (path: string): string => new URL(path, LAW_ORIGIN).toString();
@@ -154,10 +156,57 @@ export function searchWordOf(title: string): string {
   return word;
 }
 
-/** Slugs mit einer strukturellen Rolle aus dem Testfixture (auch im Vollbestand enthalten). */
+interface FixtureManifest {
+  $schema?: string;
+  source?: string;
+  roles?: Record<string, string[]>;
+  versions?: Record<string, Record<string, string>>;
+  publications?: Record<string, string[]>;
+  search?: Record<string, string>;
+  /** Frühere Form (Slug-Liste realer Normen mit optionalen Rollen je Eintrag). */
+  slugs?: Array<string | { slug: string; roles?: string[] }>;
+}
+
+let manifestCache: FixtureManifest | null = null;
+
+function fixtureManifest(): FixtureManifest {
+  manifestCache ??= JSON.parse(readFileSync(new URL('../../data/recht/runtime-fixture.json', import.meta.url), 'utf8')) as FixtureManifest;
+  return manifestCache;
+}
+
+/** Slugs mit einer Rolle aus dem Testfixture (synthetisches Manifest: `roles`; Slug-Liste: Rollen je Eintrag). */
 export function fixtureSlugsWithRole(role: string): string[] {
-  const fixture = JSON.parse(readFileSync(new URL('../../data/recht/runtime-fixture.json', import.meta.url), 'utf8')) as { slugs: Array<string | { slug: string; roles?: string[] }> };
-  return fixture.slugs.flatMap((entry) => (typeof entry === 'object' && entry.roles?.includes(role) ? [entry.slug] : []));
+  const manifest = fixtureManifest();
+  if (manifest.roles) return manifest.roles[role] ?? [];
+  return (manifest.slugs ?? []).flatMap((entry) => (typeof entry === 'object' && entry.roles?.includes(role) ? [entry.slug] : []));
+}
+
+/** Genau ein Slug der Rolle; fehlt sie, ist das Fixture unvollständig (tests/runtime-fixture-manifest.test.ts), nicht der Test falsch. */
+export function fixtureRole(role: string): string {
+  const [slug] = fixtureSlugsWithRole(role);
+  if (!slug) throw new Error(`Fixture-Rolle „${role}“ fehlt in data/recht/runtime-fixture.json`);
+  return slug;
+}
+
+/** Fassungskennung einer Rolle (`historical`, `current`) für feste Fassungs- und Vergleichsadressen. */
+export function fixtureVersion(role: string, kind: string): string {
+  const versionId = fixtureManifest().versions?.[role]?.[kind];
+  if (!versionId) throw new Error(`Fixture-Fassung „${role}.${kind}“ fehlt in data/recht/runtime-fixture.json`);
+  return versionId;
+}
+
+/** Ausgabenslug einer Verkündungsrolle (z. B. `detail`). */
+export function fixturePublication(role: string): string {
+  const [slug] = fixtureManifest().publications?.[role] ?? [];
+  if (!slug) throw new Error(`Fixture-Verkündungsrolle „${role}“ fehlt in data/recht/runtime-fixture.json`);
+  return slug;
+}
+
+/** Suchwort einer Rolle (`multi-hit`, `ostdeutsch-original`, `inherited-unchanged`). */
+export function fixtureSearchWord(key: string): string {
+  const word = fixtureManifest().search?.[key];
+  if (!word) throw new Error(`Fixture-Suchwort „${key}“ fehlt in data/recht/runtime-fixture.json`);
+  return word;
 }
 
 /** Datum als deutsche Langform, wie sie die Oberfläche ausgibt („4. September 2026“). */

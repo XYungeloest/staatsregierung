@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
-import { currentDocuments, currentNormOfOrigin, lawUrl, multiVersionNorm, publicationIndex, suggestions, withWorkerRecovery } from './helpers/law-runtime.ts';
+import { currentDocuments, currentNormOfOrigin, fixtureRole, fixtureSearchWord, lawUrl, multiVersionNorm, publicationIndex, suggestions, withWorkerRecovery } from './helpers/law-runtime.ts';
 
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 
@@ -114,7 +114,8 @@ interface FocusReport {
 
 const focusPages = [
   ...(selectedSiteTargets.includes('portal') ? ['/', '/staatsregierung/kabinett/', '/suche/?q=Gesetz'] : []),
-  ...(selectedSiteTargets.includes('law') ? [lawUrl('/'), lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/'), lawUrl('/suche/?q=Kulturpass')] : []),
+  // Verfassung und Suche mit mehreren Treffern aus den Rollen des Testfixtures (keine realen Normen).
+  ...(selectedSiteTargets.includes('law') ? [lawUrl('/'), lawUrl(`/norm/${fixtureRole('constitution')}/`), lawUrl(`/suche/?q=${encodeURIComponent(fixtureSearchWord('multi-hit'))}`)] : []),
 ];
 
 function measureFocusIndicators(): FocusReport {

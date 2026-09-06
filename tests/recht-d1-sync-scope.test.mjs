@@ -5,7 +5,7 @@ import { deleteNormQueries, derivedQueries, fullResetQueries, renderStatement } 
 import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
 
 const existingSlugs = new Set(['foo', 'bar', 'baz']);
-const existingPublications = new Set(['ogvbl-2026-58', 'ogvbl-2026-59']);
+const existingPublications = new Set(['testblatt-2026-1', 'testblatt-2026-2']);
 
 test('ein geänderter Slug wird gezielt projiziert, ohne abgeleitete Daten anderer Normen', () => {
   const scope = scopeFromChangedPaths(['content/normen/foo/versions/2026-09-04.json', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false });
@@ -37,13 +37,13 @@ test('eine neue Norm gilt als Identitätsänderung, eine gelöschte Norm wird en
 });
 
 test('eine reine Verkündungsänderung projiziert die Verkündung und die zitierenden Normen', () => {
-  const scope = scopeFromChangedPaths(['content/verkuendungen/ogvbl-2026-58.json'], { existingSlugs, existingPublications, identityChanged: () => false });
+  const scope = scopeFromChangedPaths(['content/verkuendungen/testblatt-2026-1.json'], { existingSlugs, existingPublications, identityChanged: () => false });
   assert.equal(scope.mode, 'incremental');
-  assert.deepEqual(scope.publicationSlugs, ['ogvbl-2026-58']);
+  assert.deepEqual(scope.publicationSlugs, ['testblatt-2026-1']);
   assert.deepEqual(scope.slugs, []);
   const citing = normsCitingPublications([
-    { slug: 'ogvbl-2026-58', entries: [{ normSlug: 'foo' }, { normSlug: 'bar' }, {}] },
-    { slug: 'ogvbl-2026-59', entries: [{ normSlug: 'baz' }] },
+    { slug: 'testblatt-2026-1', entries: [{ normSlug: 'foo' }, { normSlug: 'bar' }, {}] },
+    { slug: 'testblatt-2026-2', entries: [{ normSlug: 'baz' }] },
   ], scope.publicationSlugs);
   assert.deepEqual(citing, ['bar', 'foo']);
   const removed = scopeFromChangedPaths(['content/verkuendungen/ogvbl-2020-01.json'], { existingSlugs, existingPublications });
@@ -63,7 +63,7 @@ test('Änderungen an Projektionslogik oder Schema erzwingen die Vollprojektion',
 });
 
 test('Portalgrundlagen (Themen, Presse) erneuern nur die abgeleiteten Daten – nie Fassungen, nie Vollprojektion', () => {
-  const topics = scopeFromChangedPaths(['content/themen/bildung.json', 'content/presse/2026-09-04-interflug.json'], { existingSlugs, existingPublications });
+  const topics = scopeFromChangedPaths(['content/themen/bildung.json', 'content/presse/2026-09-04-testmeldung.json'], { existingSlugs, existingPublications });
   assert.equal(topics.mode, 'incremental');
   assert.deepEqual(topics.slugs, []);
   assert.equal(topics.derivedRebuild, true);

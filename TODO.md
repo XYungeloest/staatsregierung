@@ -39,20 +39,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   fail-closed erkannt werden; die Abnahmefälle in
   `tests/corpus/d1-projection-equivalence.test.mjs` und `tests/change-scope.test.mjs` bilden
   diese Trennung ausdrücklich ab.
-- [ ] Browser-, Barrierefreiheits- und Screenshot-Fixture vom redaktionellen Rechtsbestand
-  entkoppeln: `data/recht/runtime-fixture.json` wählt derzeit reale Normen aus `content/normen`
-  aus, sodass spätere redaktionelle Änderungen an Titeln, Texten oder Fassungen beim nächsten
-  Oberflächen-PR bestehende Screenshot-Baselines oder UI-Tests verändern können, obwohl die
-  Oberfläche selbst unverändert ist. Für UI-, Browser- und A11y-Tests ist ein kleiner,
-  deterministischer synthetischer D1-Testbestand mit den erforderlichen Rollen
-  (mehrere Fassungen, Rechtsherkunft, Änderungsvorschrift, aufgehoben, künftig, Portalbezüge,
-  Tabellen, Suche usw.) zu verwenden; der reale Vollbestand bleibt den Content-Audits,
-  Korpus-/Projektionsprüfungen und Full-Corpus-Smokes vorbehalten. Fertig, wenn normale
-  redaktionelle Änderungen unter `content/normen` keine bestehenden Visual-Baselines verändern,
-  die UI-Smokes ohne konkrete reale Normtitel oder -slugs auskommen und auch synthetische
-  Unit-Testdaten keine scheinbar realen Bezeichnungen wie „Archivgesetz“ oder
-  „Gemeindeordnung“ mehr benötigen, sofern die konkrete Normidentität nicht Gegenstand des
-  Tests ist.
 - [ ] Metadaten-only-D1-Sync ohne korpusweite Ableitungsberechnung: Ein gültiger
   Äquivalenznachweis mit Ergebnis `identity` beziehungsweise `logicChange = ignore` und leerem
   inkrementellem Umfang schreibt ausschließlich Projektionsidentität und Laufzeitmetadaten,

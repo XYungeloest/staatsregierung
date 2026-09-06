@@ -629,19 +629,19 @@ test('Standardsortierung richtet sich nach Suchkontext und respektiert eine ausd
 
 test('Sortierung nach jüngster Rechtsänderung: neues Gesetz 2026 und 2026 geänderte Übernahme vor unverändert übernommenem Recht, künftige Ereignisse zählen nicht', () => {
   const inheritedUnchanged = searchDocument({
-    id: 'alt:1', slug: 'archivgesetz', title: 'Archivgesetz', publicationDate: '1993-05-17', validFrom: '2023-11-01', lastChangeDate: '2023-11-01',
+    id: 'alt:1', slug: 'altes-testgesetz', title: 'Altes Testgesetz', publicationDate: '1993-05-17', validFrom: '2023-11-01', lastChangeDate: '2023-11-01',
   });
   const amendedInherited = searchDocument({
-    id: 'gemo:1', slug: 'gemeindeordnung', title: 'Gemeindeordnung', publicationDate: '2018-03-09', validFrom: '2026-08-01', lastChangeDate: '2026-08-01',
+    id: 'geaendert:1', slug: 'geaendertes-testgesetz', title: 'Geändertes Testgesetz', publicationDate: '2018-03-09', validFrom: '2026-08-01', lastChangeDate: '2026-08-01',
   });
   const newLaw = searchDocument({
-    id: 'zinn:1', slug: 'zinnwald', title: 'Zinnwald-Vergesellschaftungsgesetz', publicationDate: '2026-09-02', validFrom: '2026-09-02', lastChangeDate: '2026-09-02',
+    id: 'neu:1', slug: 'neues-testgesetz', title: 'Neues Testgesetz', publicationDate: '2026-09-02', validFrom: '2026-09-02', lastChangeDate: '2026-09-02',
   });
   // Ältere Suchdokumente ohne das Feld ordnen sich über den Fassungsbeginn ein (Expand/Contract).
   const legacyDocument = searchDocument({ id: 'legacy:1', slug: 'legacy', title: 'Ältere Projektion', validFrom: '2024-01-01' });
   delete (legacyDocument as Partial<SearchIndexDocument>).lastChangeDate;
   const results = runNormSearch([inheritedUnchanged, legacyDocument, amendedInherited, newLaw], searchState({ sort: 'activity', sortExplicit: false }));
-  assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['zinnwald', 'gemeindeordnung', 'legacy', 'archivgesetz']);
+  assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['neues-testgesetz', 'geaendertes-testgesetz', 'legacy', 'altes-testgesetz']);
   // Gleichstand: Titel, dann Slug – deterministisch.
   const tieA = searchDocument({ id: 'a:1', slug: 'b-slug', title: 'Alpha', validFrom: '2026-01-01', lastChangeDate: '2026-05-01' });
   const tieB = searchDocument({ id: 'b:1', slug: 'a-slug', title: 'Alpha', validFrom: '2026-01-01', lastChangeDate: '2026-05-01' });
@@ -659,13 +659,13 @@ test('Kandidatenanfrage trägt jeden serverseitig ausdrückbaren Filter; nur dan
   assert.equal(browseParams.includeAmendments, false, 'ohne Suchbegriff verengt der Server auch die Änderungsvorschriften');
 
   // Freitext: die Kandidaten sind großzügig, die Bewertung läuft im Browser – keine Gesamtzahl.
-  for (const state of [searchState({ q: 'Kulturpass' }), searchState({ exact: 'Kulturpass' }), searchState({ citation: 'OGVBl. 2026 Nr. 16' }), searchState({ exclude: 'Änderung' })]) {
+  for (const state of [searchState({ q: 'Testkindergeld' }), searchState({ exact: 'Testkindergeld' }), searchState({ citation: 'OGVBl. 2026 Nr. 16' }), searchState({ exclude: 'Änderung' })]) {
     assert.equal(candidateTotalMatchesResults(state), false);
     assert.equal(buildSearchCandidateParams(state).includeAmendments, true, 'mit Suchbegriff bleiben Änderungsvorschriften Kandidaten');
     assert.equal(buildSearchCandidateParams(state).versionScope, 'all', 'eine Fundstellensuche darf Fassungen nicht vorab ausschließen');
   }
   // Ausdrücklich gewählte Fassungsart bleibt auch mit Suchbegriff erhalten.
-  assert.equal(buildSearchCandidateParams(searchState({ q: 'Kulturpass', versionScope: 'historical', versionScopeExplicit: true })).versionScope, 'historical');
+  assert.equal(buildSearchCandidateParams(searchState({ q: 'Testkindergeld', versionScope: 'historical', versionScopeExplicit: true })).versionScope, 'historical');
   // Ausdrücklich gefilterte Änderungsvorschriften bleiben Kandidaten (amendmentExplicitlyRequested).
   assert.equal(buildSearchCandidateParams(searchState({ types: ['aenderungsvorschrift'] })).includeAmendments, true);
 
