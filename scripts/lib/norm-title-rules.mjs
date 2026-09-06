@@ -147,7 +147,8 @@ export function isFormulaSummary(summary, title) {
 export function splitParentheticalTitle(value) {
   // Die amtliche Kennzeile steht auf mehreren Zeilen; ein Titel ist einzeilig. Erst nach dem
   // Zusammenziehen der Zeilenumbrüche greift die Klammerform „Langtitel (Kurzbezeichnung – Abkürzung)“.
-  const raw = text(value).replace(/\s+/gu, ' ');
+  // Markdown-Quellen setzen einen Rückstrich vor Satzzeichen; im Titel steht das Zeichen selbst.
+  const raw = text(value).replace(/\s+/gu, ' ').replace(/\\([-–—.,:;()])/gu, '$1');
   const match = raw.match(/^(.*\S)\s*\(([^()]+)\)\s*$/u);
   if (!match) return { title: raw, separator: null };
   const title = match[1].trim();
