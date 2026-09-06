@@ -26,6 +26,7 @@ import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { buildLegislationJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
+import { displayChangeNote } from '../../../lib/history-labels.ts';
 import { normHeaderState } from '../../../lib/norm-header.ts';
 
 // Normseiten werden zur Laufzeit aus der D1-Projektion ausgeliefert; sie werden
@@ -105,7 +106,7 @@ const header = normHeaderState(norm, currentVersion);
       <section class="section" id="normtext" data-visual-section="norm-text">
         <div class="section-header">
           <h2>Vorschriftentext</h2>
-          <p>{toDisplayText(currentVersion.changeNote)}</p>
+          <p>{displayChangeNote(currentVersion.changeNote)}</p>
         </div>
         <NormDocumentTools unitKind={getNormUnitKind(currentVersion.body)} />
         <NormBody blocks={currentVersion.body} references={derived.textReferences} />

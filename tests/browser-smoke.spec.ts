@@ -1019,12 +1019,13 @@ siteTest(['law'])('Verzeichniszahlen und Suchtreffer zählen denselben Bestand',
     expect(found.total, `${path} gegen ?type=${type}`).toBe(listed);
   }
   // Herkunftsübersicht des A–Z (eine eigene A–Z-Gesamtseite gibt es nicht; die Übersicht zählt
-  // den ganzen Bestand je Herkunftsart).
+  // je Herkunftsart dieselbe Grundmenge wie die Verzeichnisse und die Suche ohne die
+  // übernommenen Änderungsvorschriften).
   await page.goto(lawUrl('/archiv/'));
   for (const origin of ['inherited-unchanged', 'ostdeutsch-original']) {
     const listed = Number((await page.locator(`[data-origin-overview] a[data-origin-kind="${origin}"] strong`).textContent()) ?? '');
     expect(listed, origin).toBeGreaterThan(0);
-    const found = await searchApi(request, `?origin=${origin}&versionScope=all&includeAmendments=1`);
+    const found = await searchApi(request, `?origin=${origin}&versionScope=all`);
     expect(found.total, `/archiv/ gegen ?origin=${origin}`).toBe(listed);
   }
 });
@@ -1060,8 +1061,8 @@ siteTest(['law'])('Rechtsänderung und Aktivität bleiben getrennt: ein Hinweis 
 });
 
 siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, zuletzt die Suche', async ({ page }) => {
-  // Zwischen kleinem und großem Desktop klappt nur die Navigationsliste zusammen; Wortmarke,
-  // Suchfeld und Menüknopf bleiben sichtbar.
+  // Zwischen 64 und 80 rem wird der Kopf zweizeilig: die Navigationsliste bleibt sichtbar und
+  // steht als eigene Zeile. Erst darunter weicht sie in das Menü, zuletzt auch die Suche.
   const readHeader = async (width: number) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(lawUrl('/gesetze/'));
@@ -1076,9 +1077,24 @@ siteTest(['law'])('Der Kopf gibt stufenweise nach: zuerst die Navigationsliste, 
   const wide = await readHeader(1440);
   expect(wide, 'großer Desktop: volle Navigation ohne Menüknopf').toMatchObject({ wordmark: true, search: true, navigation: true, menu: false });
 
-  for (const width of [1280, 1180, 1100, 1024]) {
+  // Zweizeilige Stufe oberhalb von 64 rem (1024 px): die Navigationsliste bleibt im Kopf.
+  for (const width of [1280, 1180, 1100, 1040]) {
     const header = await readHeader(width);
-    expect(header, `Zwischenstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: true, navigation: false });
+    expect(header, `Zweizeilige Kopfstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: false, navigation: true });
+    expect(await page.locator('.law-main-nav a').count(), `Navigationspunkte bei ${width} px`).toBe(7);
+  }
+
+  // Ab 64 rem abwärts weichen Servicewege und Navigationsliste gemeinsam in das Menü.
+  for (const width of [1024, 1000, 900]) {
+    const header = await readHeader(width);
+    expect(header, `Menüstufe bei ${width} px`).toMatchObject({ wordmark: true, search: true, menu: true, navigation: false });
+  }
+
+  // Keine Stufe macht die Seite breiter als das Fenster.
+  for (const width of [1440, 1280, 1100, 1040, 1024]) {
+    await readHeader(width);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `kein waagerechter Überlauf bei ${width} px`).toBeLessThanOrEqual(1);
   }
 
   // Erst auf dem kleinsten Bildschirm weicht auch die Suche in das Menü; erreichbar bleibt sie dort.
@@ -1427,4 +1443,55 @@ siteTest(['law'])('Fassung als PDF wird im Worker erzeugt und für unbekannte Fa
 
   const missing = await request.get(lawUrl(`/norm/${norm.slug}/version/gibt-es-nicht/fassung.pdf`));
   expect(missing.status()).toBe(404);
+});
+
+/**
+ * Öffentliche Texte sprechen die Sprache der Nutzenden: keine maschinenlesbaren Daten, keine
+ * Systemwörter und keine Zähler in falscher Zahl. Geprüft wird die Sprache des Portals –
+ * Überschriften, Beschriftungen, Filter, Statuszeilen und Zähler. Vorschriftentext,
+ * Zusammenfassungen und Suchausschnitte sind Bestand und keine Systemsprache; ihre Wortwahl
+ * prüfen die Bestandsaudits (`npm run content:check`), nicht dieser Test. Die Sperrliste bleibt
+ * kurz: sie hält Systemwörter fern, ohne neue Formulierungen zu verbieten.
+ */
+const CORPUS_TEXT_SELECTORS = '.norm-body, .directory-entry__description, .search-hit__context, .norm-side-history';
+
+siteTest(['law'])('Öffentliche Texte ohne Systemsprache', async ({ page, request }) => {
+  const norm = await multiVersionNorm(request);
+  const [current] = await currentDocuments(request);
+  const index = await publicationIndex(request);
+  expect(index.latestPublication, 'Verkündung im Bestand').toBeTruthy();
+  const pages = [
+    '/',
+    '/suche/',
+    '/gesetze/',
+    '/a-z/',
+    current.currentUrl,
+    `/norm/${norm.slug}/history/`,
+    norm.historical.url,
+    `/verkuendungen/${index.latestPublication!.slug}/`,
+    '/hilfe/',
+  ];
+
+  const blocked: Array<{ what: string; pattern: RegExp; exceptHelp?: boolean }> = [
+    { what: 'maschinenlesbares Datum', pattern: /\b\d{4}-\d{2}-\d{2}\b/u },
+    { what: 'Systemwort', pattern: /\b(?:gespeichert\w*|Datenbestand\w*|Anker\w*|strukturtragend\w*)\b/iu },
+    { what: 'Stichtag außerhalb der Hilfe', pattern: /Stichtag\b/u, exceptHelp: true },
+    { what: 'Auswahl „Alle Status“', pattern: /Alle Status/u },
+    { what: 'Zähler in falscher Zahl', pattern: /\b1 (?:Vorschriften|Ausgaben|Nachweise|Einträge|Fassungen|Jahrgänge)\b/u },
+  ];
+
+  for (const path of pages) {
+    await page.goto(lawUrl(path));
+    const text = await page.evaluate((selectors) => {
+      const copy = document.body.cloneNode(true) as HTMLElement;
+      for (const element of copy.querySelectorAll(`script, style, template, ${selectors}`)) element.remove();
+      return `${document.title} ${copy.textContent ?? ''}`.replace(/\s+/gu, ' ').trim();
+    }, CORPUS_TEXT_SELECTORS);
+    for (const { what, pattern, exceptHelp } of blocked) {
+      if (exceptHelp && path === '/hilfe/') continue;
+      const found = text.match(pattern);
+      const context = found ? text.slice(Math.max(0, found.index! - 70), found.index! + 70) : '';
+      expect(found, `${path}: ${what} „${found?.[0] ?? ''}“ in „…${context}…“`).toBeNull();
+    }
+  }
 });

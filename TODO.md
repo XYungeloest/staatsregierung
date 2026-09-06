@@ -28,46 +28,9 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ### Verkündungen und Startseite
 
-- [ ] Startseite: Das Raster „Schnellzugriff“ hat vier Spalten für fünf Karten („Sachgebiete“
-  steht allein in der zweiten Reihe), drei von vier „Aktuelle Änderungen“ tragen den
-  Platzhalter „Verkündung.“, unter „Künftige Änderungen“ steht der Maßnahmekatalog Bienen mit
-  „tritt künftig in Kraft“ neben dem Hinweis „Tritt durch Befristung … außer Kraft“, und „PDF
-  und HTML“ sowie „Zugänglich — Responsiv und barrierearm“ sind Format- und Websprache. Fertig,
-  wenn das Raster bei 1280 px keine Einzelkarte lässt, Einträge ohne Änderungsnotiz den
-  Vollzitatanfang statt „Verkündung.“ zeigen, künftiges Außerkrafttreten als „tritt außer
-  Kraft“ beschriftet ist und die Funktionsliste in Nutzersprache steht.
 
 ### Kopf, Layout und Benennungen
 
-- [ ] Hauptnavigation bei 80 rem nicht einklappen: `(width <= 80rem)` versteckt `.law-main-nav`
-  und zeigt „Menü“, also auch bei 1280 px, einer der häufigsten Laptop-Breiten; zuvor klappte
-  die Navigation erst unter 1184 px. Fertig, wenn die sieben Einträge zwischen 64 und 80 rem
-  sichtbar bleiben (kürzere Beschriftung oder Verlagerung von Barrierefreiheit und Staatsportal
-  in die Kopfleiste), der Stilwächter-Test bei 1024, 1100 und 1280 px keinen Umbruch findet
-  und `DESIGN.md` die Kopf-Zwischenstufe entsprechend beschreibt.
-- [ ] Zeigerziele im Änderungsverlauf: 13 Listenlinks der Historie (`.inline-link` in
-  Definitionslisten) sind 23 px hoch und unterschreiten die 24-px-Untergrenze (WCAG 2.5.8).
-  Fertig, wenn Listenlinks mindestens 24 px hoch sind und `tests/accessibility.spec.ts` die
-  Untergrenze für Links außerhalb von Fließtext prüft.
-- [ ] Eine Wortliste für Geltung, Rechtsstand und Fassung: Dieselbe Sache heißt „Rechtsstand“
-  (Verzeichnisfilter: Geltend / Zukünftig / Historisch oder aufgehoben), „Status“ (Suche und
-  Rechtsentwicklung: in Kraft / außer Kraft / einmaliger Rechtsakt / historische Fassung),
-  „Gültigkeit“ (Suchtreffer) und „Fassungsstatus“ (Normseite); die Verfassung heißt
-  „Verfassung“ (Navigation), „Ostdeutsche Staatsverfassung“ (Brotkrumen, Vergleichsauswahl) und
-  „Verfassung des Freistaates Ostdeutschland“ (Titel); Bestandszahlen mischen „geltende
-  Vorschriften“, „Vorschriften im Bestand“ und „gespeicherte Fassungen“. Fertig, wenn
-  `lawSiteConfig.targetLabels` in `packages/shared/src/config/site.ts` die Begriffe Geltung (in
-  Kraft, künftig, außer Kraft, einmaliger Rechtsakt), Rechtsstand (Datum) und Fassung
-  (geltend, historisch, künftig) festlegt, alle Filter, Facetten und Karten sie verwenden und
-  ein Test die Optionslisten der drei Formulare gegen die Wortliste prüft.
-- [ ] Systemsprache aus öffentlichen Texten: „gespeicherte Fassungen/Normfassungen/Rechtsstände“,
-  „im Datenbestand nachgewiesen“, „semantischer Anker“, „Rechtsüberleitungsstichtag“,
-  „strukturtragende HTML-Fassung“, ISO-Daten („Fassung 2026-09-03“, „gültig ab 2002-12-31“,
-  Seitentitel „… 2025-03-12“), „Kranken*findet“ (fehlendes Leerzeichen in der Hilfe), „T: 1
-  Vorschriften“ (Buchstabenleiste), „Alle Status“. Fertig, wenn ein Test über die gerenderten
-  Seiten (Start, Suche, Verzeichnis, Norm, Historie, Verkündung, Hilfe) keine ISO-Daten und
-  keine Wörter einer Sperrliste (gespeichert, Datenbestand, Anker, strukturtragend, Stichtag
-  außerhalb der Hilfe) findet und Zähler Singular und Plural korrekt bilden.
 
 ### Import aus den eigenen Verkündungen
 

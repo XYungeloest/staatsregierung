@@ -58,7 +58,7 @@ const immutableVersion = immutableLink || temporalKind !== 'current';
 // Rechtsstand: ein Satz zur angezeigten Fassung. Der redaktionelle Stand steht als
 // „Rechtsstand vom …“ dahinter – eine Aussage, die an jedem Aufruftag zutrifft (H1).
 const legalStatusText = temporalKind === 'historical'
-  ? `Historische Fassung, gültig ab ${formatDate(version.validFrom)}${version.validTo ? ` bis ${formatDate(version.validTo)}` : '; ein genaues Gültigkeitsende ist nicht gespeichert'}.`
+  ? `Historische Fassung, gültig ab ${formatDate(version.validFrom)}${version.validTo ? ` bis ${formatDate(version.validTo)}` : '; ein genaues Gültigkeitsende ist nicht belegt'}.`
   : temporalKind === 'future'
     ? `Verkündet; tritt am ${formatDate(version.validFrom)} in Kraft und gehört bis dahin nicht zum geltenden Rechtsstand.`
     : temporalKind === 'unknown-effective'
