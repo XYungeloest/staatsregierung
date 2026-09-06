@@ -25,6 +25,43 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   `tests/recht-d1-sync-guard.test.mjs`, `tests/d1-projection-proof.test.mjs` und
   `tests/d1-projection-closure.test.mjs` sowie die Legacy-Restore-Schritte der Workflows gelöscht
   sind.
+- [ ] Präsentationslogik aus der D1-Projektionslogik herauslösen: Rein visuelle Änderungen wie
+  `formatNormOriginBadge` in `packages/shared/src/lib/norms/origin.ts` und öffentliche
+  `targetLabels` in `packages/shared/src/config/site.ts` verändern derzeit weiterhin die
+  D1-Projektionsidentität und lösen damit Seed- und Äquivalenznachweis aus, obwohl die projizierten
+  Daten unverändert bleiben. Projektionsrelevante Herkunfts-, Such- und Laufzeitlogik und reine
+  Präsentationslogik sind so in getrennte Module aufzuteilen, dass der transitive Code-Abschluss
+  von `scripts/sync-recht-d1.mjs` nur tatsächlich projektionsrelevanten Code erreicht. Fertig,
+  wenn Änderungen ausschließlich an Herkunftsbadges, Beschriftungen oder sonstiger
+  Darstellungslogik weder den D1-Fingerabdruck ändern noch `d1_sync`, `d1_seed` oder einen
+  Äquivalenznachweis auslösen, während Änderungen an `getNormOriginInfo`,
+  `formatNormOriginKind`, Suchdokumenten oder sonstiger projektionsrelevanter Logik weiterhin
+  fail-closed erkannt werden; die Abnahmefälle in
+  `tests/corpus/d1-projection-equivalence.test.mjs` und `tests/change-scope.test.mjs` bilden
+  diese Trennung ausdrücklich ab.
+- [ ] Browser-, Barrierefreiheits- und Screenshot-Fixture vom redaktionellen Rechtsbestand
+  entkoppeln: `data/recht/runtime-fixture.json` wählt derzeit reale Normen aus `content/normen`
+  aus, sodass spätere redaktionelle Änderungen an Titeln, Texten oder Fassungen beim nächsten
+  Oberflächen-PR bestehende Screenshot-Baselines oder UI-Tests verändern können, obwohl die
+  Oberfläche selbst unverändert ist. Für UI-, Browser- und A11y-Tests ist ein kleiner,
+  deterministischer synthetischer D1-Testbestand mit den erforderlichen Rollen
+  (mehrere Fassungen, Rechtsherkunft, Änderungsvorschrift, aufgehoben, künftig, Portalbezüge,
+  Tabellen, Suche usw.) zu verwenden; der reale Vollbestand bleibt den Content-Audits,
+  Korpus-/Projektionsprüfungen und Full-Corpus-Smokes vorbehalten. Fertig, wenn normale
+  redaktionelle Änderungen unter `content/normen` keine bestehenden Visual-Baselines verändern,
+  die UI-Smokes ohne konkrete reale Normtitel oder -slugs auskommen und auch synthetische
+  Unit-Testdaten keine scheinbar realen Bezeichnungen wie „Archivgesetz“ oder
+  „Gemeindeordnung“ mehr benötigen, sofern die konkrete Normidentität nicht Gegenstand des
+  Tests ist.
+- [ ] Metadaten-only-D1-Sync ohne korpusweite Ableitungsberechnung: Ein gültiger
+  Äquivalenznachweis mit Ergebnis `identity` beziehungsweise `logicChange = ignore` und leerem
+  inkrementellem Umfang schreibt ausschließlich Projektionsidentität und Laufzeitmetadaten,
+  berechnet derzeit aber trotzdem vor dem 19-Anweisungen-Metadatenplan den vollständigen
+  Ableitungskontext aller Normen. Fertig, wenn dieser nachgewiesen datenneutrale Sonderfall nach
+  Prüfung von Basiszustand, Scope und Äquivalenznachweis unmittelbar einen
+  Metadata-only-Plan erzeugt, ohne `buildDerivedContext` oder Such-/Normprojektionen
+  auszuführen; ein Test muss zugleich sicherstellen, dass jeder nicht leere oder nicht eindeutig
+  datenneutrale Umfang weiterhin den normalen fail-closed Projektionsweg verwendet.
 
 ### Bestand und Struktur
 
