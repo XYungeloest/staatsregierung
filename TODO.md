@@ -11,9 +11,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Kurzfassungen der REVOSax-Baseline sind deterministisch aus Typ, Ressort und Titel abgeleitet und
   im Import-Audit als `derivedMetadata` gekennzeichnet. Fertig, wenn redaktionell geprüfte Werte
   vorliegen und die Kennzeichnung in `data/recht/revosax-import-audit/summary.json` entfällt.
-- [ ] Cloudflare-Plan festlegen: Workers Paid ist für den Betrieb mit dem Vollbestand vorgesehen
-  (Schreibvorgänge einer Vollprojektion, CPU-Zeit großer Normen). Fertig, wenn der Plan aktiv ist
-  und `docs/DEPLOYMENT_RUNBOOK.md` die geltenden D1-Limits nennt.
 - [ ] Übergangsregel des Base-State-Guards abschließen: Code, Tests, Workflow-Schritte und
   Runbook kennen nur noch die Identität aus dem Code-Abschluss; der Guard akzeptiert keine frühere
   Berechnung mehr. Fertig, wenn Staging und Produktion eine Identität der neuen Berechnung tragen

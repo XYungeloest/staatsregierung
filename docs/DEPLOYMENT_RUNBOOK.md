@@ -142,6 +142,38 @@ Actions-Caches eines PR-Branches sind nur für diesen Branch sichtbar; `main` li
 Standardbranch-Caches. Nach dem Merge einer Änderung an den Seed-Eingaben projiziert `main` deshalb
 einmal neu und speichert den Snapshot für alle folgenden Läufe und Branches.
 
+## Cloudflare-Plan und D1-Grenzen
+
+Konto und Datenbanken laufen auf **Workers Paid**. Der Nachweis kommt ohne Blick in die Abrechnung
+aus: `npx wrangler d1 info ostrecht-recht` nennt die geschriebenen Zeilen der letzten 24 Stunden,
+und der kostenlose Plan begrenzt sie hart auf 100.000 je Tag. Messung vom 6. September 2026:
+1.636.372 gelesene und 638.256 geschriebene Zeilen, Datenbankgröße 323 MB (Staging ebenso). Eine
+einzige Vollprojektion schreibt mehr als das Vierfache des kostenlosen Tageskontingents; sie wäre
+dort nicht durchführbar.
+
+Die für den Betrieb maßgeblichen Grenzen (Stand 6. September 2026, Cloudflare-Dokumentation zu D1
+und Workers):
+
+| Grenze | Workers Free | Workers Paid | Bezug zum Betrieb |
+| --- | --- | --- | --- |
+| Geschriebene Zeilen | 100.000 je Tag | 50 Mio. je Monat enthalten, darüber 1,00 $ je Mio. | Vollprojektion vom 3. September 2026: 465.926 Zeilen |
+| Gelesene Zeilen | 5 Mio. je Tag | 25 Mrd. je Monat enthalten, darüber 0,001 $ je Mio. | Vollprojektion: 103.403 Zeilen; ein Seitenaufruf liest wenige |
+| Datenbankgröße | 500 MB | 10 GB | Produktion und Staging je 323 MB |
+| Speicher je Konto | 5 GB | 5 GB enthalten, darüber 0,75 $ je GB-Monat, höchstens 1 TB | zwei Datenbanken, zusammen unter 1 GB |
+| Abfragen je Worker-Aufruf | 50 | 1.000 | Normseite mit Fassungen, Historie und Bezügen |
+| CPU-Zeit je Anfrage | 10 ms | 30 s voreingestellt, bis 5 min | Rendern großer Normen mit vielen Einheiten |
+| Time Travel | 7 Tage | 30 Tage | Rückholfenster nach einer fehlerhaften Projektion |
+
+Die enthaltenen 50 Mio. geschriebenen Zeilen je Monat entsprechen rund hundert Vollprojektionen des
+Bestands; der Regelbetrieb schreibt inkrementell und bleibt weit darunter. Die Budgetprofile des
+Syncs (`data/recht/d1-sync-budgets.json`) liegen unterhalb dieser Grenzen und brechen einen Lauf
+ab, bevor ein Fehlverhalten die Kontingente erschöpft.
+
+Ein Wechsel des Plans ist eine Kosten- und keine technische Entscheidung: er wird ausdrücklich
+veranlasst, nie beiläufig im Zuge eines Releases. Fiele das Konto auf den kostenlosen Plan zurück,
+scheiterte zuerst die Vollprojektion am Tageskontingent und danach das Rendern großer Normen an der
+CPU-Zeit; beides erscheint als Fehler des Workflows `d1_sync` beziehungsweise als 5xx der Normseite.
+
 ## D1-Release-Gate
 
 Ein grüner Pull Request muss nach dem Merge einen grünen Main-Workflow ergeben. Ändert ein PR die
