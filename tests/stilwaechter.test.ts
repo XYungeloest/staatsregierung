@@ -19,8 +19,8 @@ import postcss, { type AtRule, type ChildNode, type Container, type Document, ty
 const LIMITS = {
   breakpoints: 4, // 30, 48, 64 und 80rem – die vier Stufen aus DESIGN.md
   hexInBorderBackground: 0, // Rahmen- und Flächenfarben kommen ausnahmslos aus Farbrollen
-  rawRem: 100, // foundation 92, law-portal 8; die fünf Portal-Stylesheets tragen keinen mehr
-  duplicateProperties: 65, // dateiübergreifend; 18 davon innerhalb einer Datei
+  rawRem: 98, // foundation 90, law-portal 8; die fünf Portal-Stylesheets tragen keinen mehr
+  duplicateProperties: 64, // dateiübergreifend; 19 davon innerhalb einer Datei
 };
 
 const STYLES_DIR = fileURLToPath(new URL('../packages/shared/src/styles/', import.meta.url));
