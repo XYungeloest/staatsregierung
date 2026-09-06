@@ -37,7 +37,7 @@ const { norm, version, publicationReference, publication } = Astro.props;
     ) : null}
   </ul>
   {norm.meta.sourceReferences && norm.meta.sourceReferences.length > 0 ? (
-    <div class="norm-citation-copy">
+    <div class="norm-source-block">
       <h3>Quellenhierarchie</h3>
       <ul>
         {norm.meta.sourceReferences.map((source) => (
@@ -54,7 +54,7 @@ const { norm, version, publicationReference, publication } = Astro.props;
     </div>
   ) : null}
   {version.sourceNotes && version.sourceNotes.length > 0 ? (
-    <div class="norm-citation-copy">
+    <div class="norm-source-block">
       <h3>Quellenhinweise</h3>
       <dl class="meta-list">
         {version.sourceNotes.map((note) => (
