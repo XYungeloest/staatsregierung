@@ -1,6 +1,6 @@
 {
   "$schema": "runtime-fixture/1",
-  "description": "Repräsentativer Testbestand für Browser- und Barrierefreiheits-Smoke gegen die D1-Runtime (scripts/serve-law-worker.mjs --fixture, scripts/sync-recht-d1.mjs --corpus-filter). Alle Verkündungen werden mitprojiziert; Ableitungen und Übersichtsmetadaten beziehen sich auf dieses Fixture.",
+  "description": "Repräsentativer Testbestand für Browser- und Barrierefreiheits-Smoke gegen die D1-Runtime (scripts/serve-law-worker.mjs --fixture, scripts/sync-recht-d1.mjs --corpus-filter). Alle Verkündungen werden mitprojiziert; Ableitungen und Übersichtsmetadaten beziehen sich auf dieses Fixture. Einträge tragen einen Grund (reason) und optional strukturelle Rollen (roles: portal-relations = Norm mit Themen-/Pressebezügen des Staatsportals, norm-table = Norm mit Tabellen im Text), die Browser- und Barrierefreiheitstests statt fester Slugs verwenden.",
   "slugs": [
     {
       "slug": "saechsische-gemeindeordnung",
@@ -40,7 +40,10 @@
     },
     {
       "slug": "erstes-gesetz-zur-grossen-staatsreform",
-      "reason": "Änderungsvorschrift mit Portalbezügen (Themen), Zitat- und Metadatenblöcke; Smoke-Tests"
+      "reason": "Änderungsvorschrift mit Portalbezügen (Themen), Zitat- und Metadatenblöcke; Smoke-Tests",
+      "roles": [
+        "portal-relations"
+      ]
     },
     {
       "slug": "archivgesetz",
@@ -60,7 +63,10 @@
     },
     {
       "slug": "gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh",
-      "reason": "Änderungsvorschrift (Smoke-Test) mit Bezug zum Justizgesetz"
+      "reason": "Änderungsvorschrift (Smoke-Test) mit Bezug zum Justizgesetz",
+      "roles": [
+        "norm-table"
+      ]
     },
     {
       "slug": "ostdeutsches-justizgesetz",

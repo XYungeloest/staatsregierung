@@ -40,12 +40,16 @@ test('D: zwei verschiedene Fixtures erkennen einander nicht als aktuell', () => 
   assert.equal(decideSyncAction({ requested: 'full', stored: stored(fixtureB), identity: fixtureA }).action, 'full');
 });
 
-test('E: der Produktionsschutz für --corpus-filter bleibt im Sync verankert', async () => {
+test('E: der Produktionsschutz für --corpus-filter bleibt im Sync verankert; frei setzbare Bypässe gibt es nicht mehr', async () => {
   const { readFile } = await import('node:fs/promises');
   const source = await readFile(new URL('../scripts/sync-recht-d1.mjs', import.meta.url), 'utf8');
   assert.match(source, /if \(corpusFilter && targetsProduction\) throw new Error\('--corpus-filter ist nur lokal oder gegen eine Staging-Datenbank zulässig/u);
   assert.match(source, /const targetsProduction = transport === 'api' \? config\.databaseId === DEFAULT_D1_DATABASE_ID : !local && databaseName === PRODUCTION_DATABASE_NAME;/u);
-  assert.match(source, /if \(corpusFilter\) throw new Error\('--stamp-fingerprint gilt nur für den Vollbestand'\)/u);
+  // --stamp-fingerprint und --assume-narrow-logic-change sind entfernt: nur ein validierter
+  // Äquivalenznachweis (--equivalence-proof) darf den Umfang einer geänderten Logik bestimmen.
+  assert.match(source, /if \(args\.includes\('--stamp-fingerprint'\)\) throw new Error/u);
+  assert.match(source, /if \(args\.includes\('--assume-narrow-logic-change'\)\) throw new Error/u);
+  assert.doesNotMatch(source, /fingerprintStampQueries/u);
 });
 
 // --- Base-State-Guard für inkrementelle Läufe -------------------------------------------
@@ -107,6 +111,16 @@ test('Base-State-Guard: nur die Identität des Basis-Refs wird als Ausgangszusta
   assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '8'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
   assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
   assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
+});
+
+test('Übergang: eine mit dem früheren Logikhash geschriebene Basisidentität wird als Basis anerkannt, andere Werte nicht', () => {
+  const head = { ...full, fingerprint: '9'.repeat(64) };
+  const base = { ...full, fingerprint: '8'.repeat(64), legacyFingerprint: '7'.repeat(64), ref: 'main' };
+  assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '8'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
+  assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
+  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
+  // Ohne frühere Identität zählt nur der neue Wert.
+  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: { ...base, legacyFingerprint: undefined } }), SyncBaseMismatch);
 });
 
 test('Entscheidung gegen Budgetprofil: No-op und verifizierter inkrementeller Lauf sind tragbar, eine Vollprojektion nur mit Full-/Recovery-Budget (Release-Gate)', () => {

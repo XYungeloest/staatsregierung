@@ -26,11 +26,19 @@ if (selectedSiteTargets.includes('law')) {
   });
 }
 
+// Kanonische Screenshot-Plattform ist Linux (Playwright-Container in CI, Docker lokal):
+// nur -linux-Baselines sind versioniert. Auf anderen Plattformen laufen die Screenshot-Tests
+// funktional (Seitenaufbau, Überlauf, Interaktion), ohne Pixelvergleich – OSTRECHT_VISUAL_STRICT=1
+// erzwingt den Vergleich (z. B. im Container).
+const strictSnapshots = process.platform === 'linux' || process.env.OSTRECHT_VISUAL_STRICT === '1';
+
 export default defineConfig({
   testDir: './tests',
   timeout: 45_000,
   fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),
+  ignoreSnapshots: !strictSnapshots,
+  snapshotPathTemplate: '{testDir}/{testFileName}-snapshots/{arg}-{projectName}-linux{ext}',
   reporter: process.env.CI
     ? [['github'], ['html', { open: 'never', outputFolder: 'playwright-report' }]]
     : 'list',

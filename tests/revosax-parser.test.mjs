@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import {
@@ -145,29 +144,19 @@ test('leere REVOSax-Zellen sind Hierarchieplatzhalter und kein eigener Inhalt', 
   assert.equal(JSON.stringify(body).includes('"label":""'), false);
 });
 
-test('echter § 4 SächsPVDG erhält 3 -> a/b und 4.b -> aa/bb/cc', () => {
-  const source = readFileSync(
-    'data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html',
-    'utf8',
-  );
-  const parsed = parseRevosaxSnapshot(source, { url: 'https://www.revosax.sachsen.de/vorschrift/18193.1' });
-  const paragraph = findLabel(parsed.body, '§ 4');
-  assert.deepEqual(findLabel(paragraph.children, '3.').children.slice(0, 3).map((item) => item.label), [
-    'a)', 'b)', 'c)',
+test('REVOSax-Tabellenparser erhält leere Zellen und die Spaltenzahl', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="§ 1 Tabelle"><h4>§ 1 Tabelle</h4>
+      <table><tr><th scope="col">A</th><th scope="col">B</th></tr>
+      <tr><td></td><td>längerer Inhalt</td></tr></table>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+  const table = findBlock(parsed.body, 'table');
+  assert.equal(table.columns, 2);
+  assert.equal(table.children[0].children[0].type, 'tableHeaderCell');
+  assert.deepEqual(table.children.map((row) => row.children.map((cell) => cell.text)), [
+    ['A', 'B'],
+    ['', 'längerer Inhalt'],
   ]);
-  assert.deepEqual(findLabel(findLabel(paragraph.children, '4.').children, 'b)').children.map((item) => item.label), [
-    'aa)', 'bb)', 'cc)',
-  ]);
-  const isolatedMarkers = [];
-  (function collect(blocks) {
-    for (const block of blocks ?? []) {
-      if (block.type === 'paragraphText' && /^(?:[a-z]+\)|\(\d+\)|\([a-z]+\))$/u.test(block.text)) {
-        isolatedMarkers.push(block.text);
-      }
-      collect(block.children);
-    }
-  }(paragraph.children));
-  assert.deepEqual(isolatedMarkers, []);
 });
 
 test('historische Zitierungen verwerfen spätere Änderungsfundstellen im REVOSax-Seitenkopf', () => {

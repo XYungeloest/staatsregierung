@@ -1,55 +1,96 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+import { currentDocuments, currentNormOfOrigin, lawUrl, multiVersionNorm, publicationIndex, suggestions, withWorkerRecovery } from './helpers/law-runtime.ts';
 
-const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 
-const auditPages = [
-  ...(selectedSiteTargets.includes('portal') ? [
-    '/',
-    '/staatsregierung/beteiligungen/',
-    '/staatsregierung/kabinett/',
-    '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
-    '/staatsregierung/mitglieder/max-peterson/',
-    '/haushalt/',
-    '/themen/volksbefragung-2026/',
-    '/kreisreform/',
-    '/suche/',
-    '/service/barrierefreiheit/',
-    '/recht/',
-  ] : []),
-  ...(selectedSiteTargets.includes('law') ? [
-    lawUrl('/'),
-    lawUrl('/norm/saechsische-gemeindeordnung/'),
-    lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
-    lawUrl('/norm/sero-verordnung/history/'),
-    lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'),
-    lawUrl('/suche/'),
-    lawUrl('/suche/?q=Interflug'),
-    lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged'),
-    lawUrl('/rechtsentwicklung/'),
-    lawUrl('/norm/zinnwald-vergesellschaftungsgesetz/'),
-    lawUrl('/norm/bekanntmachung-bestellung-gruendungsvorstand-interflug/'),
-    lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/'),
-    lawUrl('/verkuendungen/stanzo-2026-33/'),
-    lawUrl('/hilfe/'),
-    lawUrl('/gibt-es-nicht/'),
-  ] : []),
+/**
+ * Barrierefreiheit repräsentativer Seiten beider Websites (axe, WCAG 2.2 AA) und des
+ * Fokusindikators. Die Seiten sind als Rollen beschrieben („Normseite mit Fassungsvergleich“)
+ * und werden zur Laufzeit aus dem gebauten Bestand aufgelöst: die Tests laufen unverändert gegen
+ * Testfixture und Vollbestand, und eine Umbenennung einzelner Normen bricht sie nicht.
+ */
+type Resolve = (request: APIRequestContext) => Promise<string>;
+interface AuditTarget { name: string; site: 'portal' | 'law'; resolve: Resolve }
+
+const staticPage = (path: string): Resolve => async () => path;
+const lawPage = (path: string): Resolve => async () => lawUrl(path);
+
+/** Erster interner Link eines Musters auf einer statischen Portalseite (z. B. erstes Ressort). */
+async function firstLink(request: APIRequestContext, path: string, pattern: RegExp): Promise<string> {
+  return withWorkerRecovery(request, async () => {
+    const response = await request.get(path);
+    expect(response.ok(), path).toBe(true);
+    const match = (await response.text()).match(pattern);
+    expect(match, `${path}: kein Link nach ${pattern}`).toBeTruthy();
+    return match![0].replace(/^href="/u, '').replace(/"$/u, '');
+  });
+}
+
+const auditTargets: AuditTarget[] = [
+  { name: 'Startseite', site: 'portal', resolve: staticPage('/') },
+  { name: 'Beteiligungsnavigator', site: 'portal', resolve: staticPage('/staatsregierung/beteiligungen/') },
+  { name: 'Kabinett', site: 'portal', resolve: staticPage('/staatsregierung/kabinett/') },
+  { name: 'Ressortseite', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/kabinett\/[a-z0-9-]+\/"/u) },
+  { name: 'Regierungsmitglied', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u) },
+  { name: 'Haushalt', site: 'portal', resolve: staticPage('/haushalt/') },
+  { name: 'Themenseite', site: 'portal', resolve: (request) => firstLink(request, '/themen/', /href="\/themen\/[a-z0-9-]+\/"/u) },
+  { name: 'Kreisreform', site: 'portal', resolve: staticPage('/kreisreform/') },
+  { name: 'Portalsuche', site: 'portal', resolve: staticPage('/suche/') },
+  { name: 'Barrierefreiheitserklärung', site: 'portal', resolve: staticPage('/service/barrierefreiheit/') },
+  { name: 'Rechtsbrücke', site: 'portal', resolve: staticPage('/recht/') },
+  { name: 'OstRecht-Startseite', site: 'law', resolve: lawPage('/') },
+  { name: 'Normseite (übernommen, ostdeutsch geändert)', site: 'law', resolve: async (request) => lawUrl((await currentNormOfOrigin(request, 'inherited-amended')).currentUrl) },
+  { name: 'Normseite (ostdeutsch neu geschaffen)', site: 'law', resolve: async (request) => lawUrl((await currentNormOfOrigin(request, 'ostdeutsch-original')).currentUrl) },
+  { name: 'Fassungsvergleich', site: 'law', resolve: async (request) => { const norm = await multiVersionNorm(request); return lawUrl(`/norm/${norm.slug}/vergleich/?von=${norm.historical.versionId}&bis=${norm.current.versionId}`); } },
+  { name: 'Änderungsverlauf', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
+  { name: 'Historische Fassung', site: 'law', resolve: async (request) => lawUrl((await multiVersionNorm(request)).historical.url) },
+  { name: 'Bekanntmachung', site: 'law', resolve: async (request) => { const [notice] = (await currentDocuments(request)).filter((document) => document.type === 'bekanntmachung'); expect(notice, 'geltende Bekanntmachung').toBeTruthy(); return lawUrl(notice.currentUrl); } },
+  { name: 'Rechtssuche', site: 'law', resolve: lawPage('/suche/') },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
+  { name: 'A–Z mit Herkunftsfilter', site: 'law', resolve: lawPage('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
+  { name: 'Rechtsentwicklung', site: 'law', resolve: lawPage('/rechtsentwicklung/') },
+  { name: 'Sachgebiet', site: 'law', resolve: async (request) => lawUrl(await firstLink(request, lawUrl('/sachgebiete/'), /href="\/sachgebiete\/[a-z0-9-]+\/"/u)) },
+  { name: 'Verkündung', site: 'law', resolve: async (request) => { const index = await publicationIndex(request); expect(index.latestPublication).toBeTruthy(); return lawUrl(`/verkuendungen/${index.latestPublication!.slug}/`); } },
+  { name: 'Hilfe', site: 'law', resolve: lawPage('/hilfe/') },
+  { name: 'Fehlerseite', site: 'law', resolve: lawPage('/gibt-es-nicht/') },
 ];
 
-for (const path of auditPages) {
-  test(`Accessibility-Smoke-Test: ${path}`, async ({ page }) => {
-    await page.route('**://*.tile.openstreetmap.org/**', (route) => route.abort());
-    await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
-    await page.goto(path);
+const focusTargets: AuditTarget[] = [
+  { name: 'Startseite', site: 'portal', resolve: staticPage('/') },
+  { name: 'Kabinett', site: 'portal', resolve: staticPage('/staatsregierung/kabinett/') },
+  { name: 'Portalsuche mit Treffern', site: 'portal', resolve: staticPage('/suche/?q=Gesetz') },
+  { name: 'OstRecht-Startseite', site: 'law', resolve: lawPage('/') },
+  { name: 'Normseite', site: 'law', resolve: async (request) => lawUrl((await currentDocuments(request, '&type=gesetz'))[0].currentUrl) },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
+];
 
+const selected = (targets: AuditTarget[]) => targets.filter((target) => selectedSiteTargets.includes(target.site));
+
+async function openTarget(page: Page, request: APIRequestContext, target: AuditTarget): Promise<string> {
+  const url = await target.resolve(request);
+  await page.route('**://*.tile.openstreetmap.org/**', (route) => route.abort());
+  await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
+  await withWorkerRecovery(request, () => page.goto(url));
+  // Suchseiten laden Kandidaten und Treffer nach dem Seitenaufbau: erst der fertige Stand wird
+  // geprüft, und keine laufende Antwort wird beim Schließen der Seite abgebrochen.
+  if (url.includes('/suche/')) {
+    const status = page.locator('[data-search-summary], [data-portal-search-status]').first();
+    await expect(status).not.toContainText(/werden geladen/u, { timeout: 30_000 });
+    await expect(status).toContainText(/Treffer|Wonach suchen Sie/u, { timeout: 30_000 });
+  }
+  return url;
+}
+
+for (const target of selected(auditTargets)) {
+  test(`Accessibility-Smoke-Test: ${target.name}`, async ({ page, request }) => {
+    const url = await openTarget(page, request, target);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
-
-    expect(results.violations).toEqual([]);
+    expect(results.violations, url).toEqual([]);
   });
 }
 
@@ -190,20 +231,19 @@ function measureFocusIndicators(): FocusReport {
   return report;
 }
 
-for (const path of focusPages) {
-  test(`Fokusindikator hebt sich von seiner Bezugsfläche ab: ${path}`, async ({ page }) => {
+for (const target of selected(focusTargets)) {
+  test(`Fokusindikator hebt sich von seiner Bezugsfläche ab: ${target.name}`, async ({ page, request }) => {
     await page.addInitScript(() => {
       window.localStorage.setItem('ostrecht-portal-analytics-consent', 'rejected');
     });
-    await page.goto(path);
-    if (path.includes('/suche/')) await expect(page.locator('[data-search-summary], [data-portal-search-status]').first()).toContainText(/Treffer/u);
+    const url = await openTarget(page, request, target);
     // Übergänge aus: gemessen wird der Endzustand des Indikators, nicht ein Zwischenbild der Animation.
     await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
     await page.keyboard.press('Tab'); // Tastaturmodus: :focus-visible gilt dann auch für Skriptfokus
     const report = await page.evaluate(measureFocusIndicators);
-    expect(report.checked, `${path}: zu wenige fokussierbare Elemente gemessen`).toBeGreaterThan(10);
-    expect(report.withoutFocusVisible, `${path}: Elemente ohne :focus-visible`).toBe(0);
+    expect(report.checked, `${url}: zu wenige fokussierbare Elemente gemessen`).toBeGreaterThan(10);
+    expect(report.withoutFocusVisible, `${url}: Elemente ohne :focus-visible`).toBe(0);
     const message = report.violations.map((v) => `${v.element}: ${v.contrast}:1 gegen ${v.surface} (${v.indicator})`).join('\n');
-    expect(report.violations, `${path}: Fokusindikator unter 3:1\n${message}`).toEqual([]);
+    expect(report.violations, `${url}: Fokusindikator unter 3:1\n${message}`).toEqual([]);
   });
 }

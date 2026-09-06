@@ -12,14 +12,19 @@
  * relevante Auszug der Datei unverändert (`portalProjectionChanged`, z. B. nur eine
  * Hervorhebung oder ein Teaser), löst sie nichts aus.
  *
- * Eine geänderte Projektionslogik erzwingt die Vollprojektion, weil die Umfangslogik nicht wissen
- * kann, welche Zeilen eine Codeänderung berührt. Für den nachgewiesenen Sonderfall einer engen
- * Logikänderung (`narrowLogicChange`, CLI `--assume-narrow-logic-change`) – die Änderung berührt
- * ausschließlich Suchdokumente (law_search_documents), abgeleitete Daten (law_norm_derived) und
- * Laufzeitmetadaten – werden stattdessen die Suchdokumente und abgeleiteten Daten aller Normen neu
- * geschrieben; Schemaänderungen unter data/recht/d1/ bleiben immer ein Full-Trigger. Der Nachweis
- * (tabellenweiser Vergleich mit einer frischen Vollprojektion, scripts/d1-projection-snapshot.mjs)
- * liegt beim Aufrufer.
+ * Projektionslogik: Mit `logicPaths` (Dateien des transitiven Code-Abschlusses der Projektion
+ * in Basis und Ziel, scripts/lib/d1-projection-closure.mjs) zählt genau eine geänderte Datei
+ * dieses Abschlusses als Logikänderung; andere Dateien in denselben Verzeichnissen (reine
+ * Darstellung) sind unerheblich. Ohne `logicPaths` gilt fail-closed die konservative Obermenge
+ * GLOBAL_TRIGGER_PATTERNS. Schemaänderungen unter data/recht/d1/ sind immer eine Vollprojektion.
+ *
+ * `logicChange` sagt, wie eine Logikänderung außerhalb des Schemas zu behandeln ist. Standard ist
+ * `full` (die Umfangslogik kann nicht wissen, welche Zeilen eine Codeänderung berührt). Die beiden
+ * anderen Werte darf nur ein validierter Äquivalenznachweis setzen (scripts/lib/d1-projection-proof.mjs),
+ * nie ein Aufrufer aus eigener Annahme: `narrow` schreibt statt der Vollprojektion die
+ * Suchdokumente (law_search_documents) und abgeleiteten Daten (law_norm_derived, abgeleitete
+ * Spalten von law_norms) aller Normen neu; `ignore` behandelt die Logikänderung als
+ * datenneutral (nur Identität und Laufzeitmetadaten werden geschrieben).
  *
  * Der redaktionelle Stichtag (packages/shared/src/config/editorial.json) ist ein Sonderfall:
  * Seine Fortschreibung ändert die Projektion nur bei Normen, deren Fassungseinordnung oder
@@ -39,13 +44,17 @@
  */
 
 export const REFERENCE_DATE_PATH = 'packages/shared/src/config/editorial.json';
-/** Schemaänderungen erzwingen auch bei angenommener enger Logikänderung die Vollprojektion. */
+/** Schemaänderungen erzwingen immer die Vollprojektion. */
 export const SCHEMA_TRIGGER_PATTERN = /^data\/recht\/d1\//u;
+export const LOGIC_CHANGE_MODES = ['full', 'narrow', 'ignore'];
 
+/** Konservative Obermenge der Projektionslogik (Rückfall ohne bekannten Abschluss). */
 export const GLOBAL_TRIGGER_PATTERNS = [
   /^scripts\/sync-recht-d1\.mjs$/u,
   /^scripts\/lib\/d1-sync-scope\.mjs$/u,
   /^scripts\/lib\/d1-reference-date\.mjs$/u,
+  /^scripts\/lib\/d1-projection-closure\.mjs$/u,
+  /^scripts\/lib\/d1-projection-fingerprint\.mjs$/u,
   /^data\/recht\/d1\//u,
   /^packages\/shared\/src\/lib\/norms\//u,
   /^packages\/shared\/src\/lib\/portal\/(?:content|routes|loader|legislation)\.ts$/u,
@@ -77,16 +86,24 @@ function publicationSlugFromPath(path) {
   return match ? match[1] : null;
 }
 
+/** Ist der Pfad Projektionslogik? Mit Abschluss exakt, sonst über die konservative Obermenge. */
+export function isProjectionLogicPath(path, logicPaths = null) {
+  if (SCHEMA_TRIGGER_PATTERN.test(path)) return true;
+  if (logicPaths) return logicPaths.has(path);
+  return GLOBAL_TRIGGER_PATTERNS.some((pattern) => pattern.test(path));
+}
+
 /**
  * @param {string[]} paths geänderte Pfade (relativ zum Repository)
- * @param {{ existingSlugs: Set<string>, existingPublications?: Set<string>, identityChanged?: (slug: string) => boolean, referenceDateSlugs?: (() => string[]) | null, narrowLogicChange?: boolean, portalProjectionChanged?: (path: string) => boolean }} options
+ * @param {{ existingSlugs: Set<string>, existingPublications?: Set<string>, identityChanged?: (slug: string) => boolean, referenceDateSlugs?: (() => string[]) | null, logicPaths?: Set<string> | null, logicChange?: 'full' | 'narrow' | 'ignore', portalProjectionChanged?: (path: string) => boolean }} options
  *   `referenceDateSlugs` liefert die stichtagsabhängig betroffenen Normen, wenn sich nur der
  *   redaktionelle Stichtag geändert hat (scripts/lib/d1-reference-date.mjs); ohne Angabe bleibt
  *   eine Änderung von editorial.json ein Full-Trigger. `portalProjectionChanged` sagt für eine
  *   Themen- oder Pressedatei, ob sich ihr projektionsrelevanter Auszug geändert hat (Standard:
- *   ja, konservativ).
+ *   ja, konservativ). `logicPaths` und `logicChange` siehe Kopfkommentar.
  */
-export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false, referenceDateSlugs = null, narrowLogicChange = false, portalProjectionChanged = () => true } = {}) {
+export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false, referenceDateSlugs = null, logicPaths = null, logicChange = 'full', portalProjectionChanged = () => true } = {}) {
+  if (!LOGIC_CHANGE_MODES.includes(logicChange)) throw new Error(`logicChange muss full, narrow oder ignore sein, erhalten: ${String(logicChange)}`);
   const normalized = paths.map(normalizeChangedPath).filter(Boolean);
   const reasons = [];
   const slugs = new Set();
@@ -108,14 +125,18 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
       if (portalProjectionChanged(path)) portalChanged += 1;
       continue;
     }
-    if (GLOBAL_TRIGGER_PATTERNS.some((pattern) => pattern.test(path))) {
-      if (narrowLogicChange && !SCHEMA_TRIGGER_PATTERN.test(path)) {
-        narrowLogic = true;
-        reasons.push(`${path}: enge Logikänderung angenommen – Suchdokumente und abgeleitete Daten aller Normen neu`);
+    if (isProjectionLogicPath(path, logicPaths)) {
+      if (SCHEMA_TRIGGER_PATTERN.test(path) || logicChange === 'full') {
+        full = true;
+        reasons.push(`${path}: ${SCHEMA_TRIGGER_PATTERN.test(path) ? 'Schema' : 'Projektionslogik'} geändert`);
         continue;
       }
-      full = true;
-      reasons.push(`${path}: Projektionslogik oder korpusweite Grundlage geändert`);
+      if (logicChange === 'narrow') {
+        narrowLogic = true;
+        reasons.push(`${path}: enge Logikänderung nachgewiesen – Suchdokumente und abgeleitete Daten aller Normen neu`);
+        continue;
+      }
+      reasons.push(`${path}: Logikänderung nachgewiesen datenneutral`);
       continue;
     }
     const slug = slugFromNormPath(path);
@@ -174,6 +195,29 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
     ignoredPaths: unknown,
     reasons,
   };
+}
+
+/**
+ * Deterministische Kurzform eines Umfangs (ohne Begründungen) – bindet einen Äquivalenznachweis
+ * an genau den Umfang, der nachgewiesen wurde.
+ */
+export function scopeSignature(scope) {
+  return JSON.stringify({
+    mode: scope.mode,
+    slugs: [...scope.slugs].sort(),
+    deletedSlugs: [...scope.deletedSlugs].sort(),
+    publicationSlugs: [...scope.publicationSlugs].sort(),
+    deletedPublications: [...(scope.deletedPublications ?? [])].sort(),
+    derivedRebuild: Boolean(scope.derivedRebuild),
+    refreshSearchDocuments: Boolean(scope.refreshSearchDocuments),
+  });
+}
+
+/** Schreibt der Umfang außer Identität und Laufzeitmetadaten nichts? */
+export function isEmptyScope(scope) {
+  return scope.mode === 'incremental' && scope.slugs.length === 0 && scope.deletedSlugs.length === 0
+    && scope.publicationSlugs.length === 0 && (scope.deletedPublications ?? []).length === 0
+    && !scope.derivedRebuild && !scope.refreshSearchDocuments;
 }
 
 /** Vergleicht zwei meta.json-Stände auf identitätsrelevante Änderungen. */

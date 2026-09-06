@@ -4,9 +4,10 @@ name: Deploy to Cloudflare Workers
 # (scripts/classify-change-scope.mjs, docs/DEPLOYMENT_RUNBOOK.md):
 #
 #   classify ─┬─ build ───────────────┬─ runtime_smoke ─┬─ deploy
-#             └─ d1_seed (Vollbestand)┘                 │
-#             └─ d1_sync (Cloudflare D1, inkrementell) ─┘
-#             └─ visual (Screenshots, kein Gate)
+#             └─ d1_seed (Vollbestand)┼─ d1_sync ───────┘
+#             │                        (Cloudflare D1, inkrementell; bei geänderter Projektions-
+#             │                         logik mit Äquivalenznachweis statt Vollprojektion)
+#             └─ visual (breite Screenshot-Inventur, kein Gate)
 #
 # Der lokale D1-Seed des Vollbestands entsteht parallel zum Build (Job d1_seed) und nur,
 # wenn die Änderung Laufzeit, Projektion oder den Bestand in größerem Umfang berührt;
@@ -67,6 +68,7 @@ jobs:
       run_content_check: ${{ steps.scope.outputs.run_content_check }}
       run_knowledge_check: ${{ steps.scope.outputs.run_knowledge_check }}
       run_unit_tests: ${{ steps.scope.outputs.run_unit_tests }}
+      run_corpus_tests: ${{ steps.scope.outputs.run_corpus_tests }}
       run_d1_sync: ${{ steps.scope.outputs.run_d1_sync }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
       run_full_corpus_smoke: ${{ steps.scope.outputs.run_full_corpus_smoke }}
@@ -77,10 +79,8 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - name: Node.js einrichten
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
+      - name: Node.js und Abhängigkeiten (Code-Abschluss der Projektion braucht esbuild)
+        uses: ./.github/actions/setup-node-modules
       - name: Änderungsscope bestimmen
         id: scope
         env:
@@ -140,11 +140,12 @@ jobs:
             echo "- Portal-Prüfung: $(yes_no "$(output_value check_portal)")"
             echo "- OstRecht-Prüfung: $(yes_no "$(output_value check_law)")"
             echo "- Content-Prüfung: $(yes_no "$(output_value run_content_check)")"
-            echo "- Unit-Tests: $(yes_no "$(output_value run_unit_tests)")"
+            echo "- Unit-Tests (schnell): $(yes_no "$(output_value run_unit_tests)")"
+            echo "- Korpus-Tests: $(yes_no "$(output_value run_corpus_tests)")"
             echo "- D1-Projektion (Cloudflare, OstRecht-Laufzeitdaten): $(yes_no "$(output_value run_d1_sync)")"
             echo "- UI-Smoke: $(target_label "$UI_TARGETS")"
             echo "- OstRecht-Smoke-Bestand: $(corpus_label "$(output_value run_full_corpus_smoke)")"
-            echo "- Screenshot-Suite: $(yes_no "$(output_value run_visual)")"
+            echo "- Screenshot-Suite (breit): $(yes_no "$(output_value run_visual)")"
           } >> "$GITHUB_STEP_SUMMARY"
 
   docs_check:
@@ -262,6 +263,7 @@ jobs:
           RUN_CONTENT_CHECK: ${{ needs.classify.outputs.run_content_check }}
           RUN_KNOWLEDGE_CHECK: ${{ needs.classify.outputs.run_knowledge_check }}
           RUN_UNIT_TESTS: ${{ needs.classify.outputs.run_unit_tests }}
+          RUN_CORPUS_TESTS: ${{ needs.classify.outputs.run_corpus_tests }}
         run: |
           START=$(date +%s)
           node scripts/check-docs.mjs
@@ -280,7 +282,10 @@ jobs:
             npm run check:recht
           fi
           if [ "$RUN_UNIT_TESTS" = "true" ]; then
-            npm run test:unit
+            npm run test:fast
+          fi
+          if [ "$RUN_CORPUS_TESTS" = "true" ]; then
+            npm run test:corpus
           fi
           echo "checks=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
 
@@ -440,9 +445,10 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           echo "Laufzeiten: seed=${SEED_STATUS:-übersprungen}/${SEED_BUILD:-0}s $( [ -f "$RUNNER_TEMP/timings.txt" ] && paste -sd ',' "$RUNNER_TEMP/timings.txt" )"
 
-  # Screenshot-Suite bei Oberflächenänderungen im festen Playwright-Container, strikt gegen die
-  # committeten Linux-Baselines (Fixture-Bestand). Kein Deployment-Gate; Baselines werden nur
-  # über den Workflow „Screenshot-Baselines erneuern“ erzeugt.
+  # Breite Screenshot-Inventur (visual-extended) bei Oberflächenänderungen im festen Playwright-
+  # Container, strikt gegen die committeten Linux-Baselines (Fixture-Bestand). Kein Deployment-
+  # Gate; Baselines entstehen nur bewusst (npm run test:visual:update:linux oder Workflow
+  # „Screenshot-Baselines erneuern“).
   visual:
     needs:
       - classify
@@ -475,18 +481,18 @@ jobs:
         with:
           fixture: data/recht/runtime-fixture.json
           cache: 'false'
-      - name: Screenshot-Suite strikt gegen die committeten Linux-Baselines prüfen
+      - name: Breite Screenshot-Suite strikt gegen die committeten Linux-Baselines prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.build_targets }}
         run: |
           # Kein Bootstrap: fehlende Baselines sind ein Fehler. Neue oder geänderte Linux-Baselines
-          # entstehen nur bewusst über den Workflow „Screenshot-Baselines erneuern“ (Artefakt,
-          # Sichtprüfung, Commit).
+          # entstehen nur bewusst (npm run test:visual:update:linux oder Workflow „Screenshot-
+          # Baselines erneuern“), nach Sichtprüfung und Commit.
           if ! ls tests/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
-            echo "::error::Keine Linux-Screenshot-Baselines im Repository (tests/visual.spec.ts-snapshots/*-linux.png). Baselines mit dem Workflow „Screenshot-Baselines erneuern“ erzeugen, sichten und committen."
+            echo "::error::Keine Linux-Screenshot-Baselines im Repository (tests/visual.spec.ts-snapshots/*-linux.png). Baselines mit npm run test:visual:update:linux oder dem Workflow „Screenshot-Baselines erneuern“ erzeugen, sichten und committen."
             exit 1
           fi
-          npm run test:visual:run
+          npm run test:visual:extended
       - name: Testbericht bereitstellen
         if: ${{ failure() }}
         uses: actions/upload-artifact@v7
@@ -501,35 +507,117 @@ jobs:
   # aus Cloudflare D1. Änderungen an content/normen und content/verkuendungen
   # brauchen deshalb kein OstRecht-Deployment, sondern eine neue Projektion.
   # Schema-Migrationen (data/recht/d1/*.sql) werden bewusst manuell eingespielt,
-  # siehe docs/REVOSAX_BULK_IMPORT.md.
+  # siehe docs/REVOSAX_BULK_IMPORT.md. Verlangt der Lauf eine Vollprojektion nur wegen
+  # geänderter Projektionslogik, entscheidet der Äquivalenznachweis (Basis- gegen Ziel-
+  # projektion, vollständiger Tabellenvergleich): nachgewiesen gleiche Daten übernehmen nur die
+  # neue Identität, ein nachgewiesener inkrementeller Umfang wird geschrieben; sonst bleibt der
+  # Lauf fail-closed rot (der PR-Check d1_token_check hat das vorher gezeigt).
   d1_sync:
     needs:
       - classify
       - build
-    if: ${{ github.event_name == 'push' && needs.classify.outputs.run_d1_sync == 'true' && needs.build.result == 'success' }}
+      - d1_seed
+    if: ${{ always() && github.event_name == 'push' && needs.classify.outputs.run_d1_sync == 'true' && needs.build.result == 'success' && (needs.d1_seed.result == 'success' || needs.d1_seed.result == 'skipped') }}
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Node.js und Abhängigkeiten
         uses: ./.github/actions/setup-node-modules
-      - name: Rechtsdaten inkrementell nach Cloudflare D1 projizieren
+      - name: Basis-Commit und Entscheidung des Syncs bestimmen (Remote-State, kein Schreibzugriff)
+        id: remote_state
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           EVENT_BEFORE: ${{ github.event.before }}
           EVENT_SHA: ${{ github.sha }}
         run: |
-          # Nur die im Push geänderten Normen und Verkündungen; eine Vollprojektion nur bei
-          # geänderter Projektionslogik (scripts/lib/d1-sync-scope.mjs), wenn kein Vorgängerstand
-          # bekannt ist oder – als markierte Recovery (--recover) – wenn D1 nicht den
-          # Ausgangszustand des Vorgänger-Commits trägt (Base-State-Guard). Budgets aus
+          if [ -n "$EVENT_BEFORE" ] && [ "$EVENT_BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$EVENT_BEFORE^{commit}" 2>/dev/null; then
+            echo "base=$EVENT_BEFORE" >> "$GITHUB_OUTPUT"
+            set +e
+            npm run norms:runtime:d1-sync -- --transport api --remote-state --git-diff "$EVENT_BEFORE" "$EVENT_SHA" --budget incremental
+            RC=$?
+            set -e
+            echo "rc=$RC" >> "$GITHUB_OUTPUT"
+            if [ "$RC" != "0" ] && [ "$RC" != "3" ]; then exit "$RC"; fi
+          else
+            echo "base=" >> "$GITHUB_OUTPUT"
+            echo "rc=0" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Seed-Schlüssel der Basis bestimmen (Äquivalenznachweis)
+        if: ${{ steps.remote_state.outputs.rc == '3' }}
+        id: base_seed
+        env:
+          BASE_SHA: ${{ steps.remote_state.outputs.base }}
+        run: |
+          node --experimental-strip-types scripts/d1-runtime-seed.mjs fingerprint --json --ref "$BASE_SHA" > "$RUNNER_TEMP/base-seed.json"
+          node -e '
+            const seed = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
+            const legacy = seed.legacyFingerprint ? seed.snapshot.replace(seed.fingerprint.slice(0, 32), seed.legacyFingerprint.slice(0, 32)) : "";
+            const lines = [`key=d1-seed-${seed.fingerprint}`, `snapshot=${seed.snapshot}`, `legacy_key=${seed.legacyFingerprint ? `d1-seed-${seed.legacyFingerprint}` : ""}`, `legacy_snapshot=${legacy}`];
+            require("fs").appendFileSync(process.env.GITHUB_OUTPUT, `${lines.join("\n")}\n`);
+          ' "$RUNNER_TEMP/base-seed.json"
+      - name: Basis-Seed aus dem Cache (neue Identität)
+        if: ${{ steps.remote_state.outputs.rc == '3' }}
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            ${{ steps.base_seed.outputs.snapshot }}
+            ${{ steps.base_seed.outputs.snapshot }}.json
+          key: ${{ steps.base_seed.outputs.key }}
+      - name: Basis-Seed aus dem Cache (frühere Identität, Übergang)
+        if: ${{ steps.remote_state.outputs.rc == '3' && steps.base_seed.outputs.legacy_key != '' }}
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            ${{ steps.base_seed.outputs.legacy_snapshot }}
+            ${{ steps.base_seed.outputs.legacy_snapshot }}.json
+          key: ${{ steps.base_seed.outputs.legacy_key }}
+      - name: Ziel-Seed bereitstellen (Cache aus d1_seed oder einmalige Projektion)
+        if: ${{ steps.remote_state.outputs.rc == '3' }}
+        uses: ./.github/actions/d1-seed
+        with:
+          cache: 'true'
+      - name: Äquivalenznachweis rechnen (Basis- gegen Zielprojektion, vollständiger Tabellenvergleich)
+        if: ${{ steps.remote_state.outputs.rc == '3' }}
+        id: proof
+        env:
+          BASE_SHA: ${{ steps.remote_state.outputs.base }}
+          EVENT_SHA: ${{ github.sha }}
+        run: |
+          START=$(date +%s)
+          npm run norms:runtime:d1-prove -- --base "$BASE_SHA" --head "$EVENT_SHA" --out "$RUNNER_TEMP/d1-equivalence" || true
+          PROOF="$(ls "$RUNNER_TEMP"/d1-equivalence/proof-*.json | head -n 1)"
+          echo "path=$PROOF" >> "$GITHUB_OUTPUT"
+          {
+            echo '### Äquivalenznachweis'
+            echo
+            echo "- Ergebnis: $(node -e 'const p=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); console.log(`${p.result}${p.logicChange ? ` (${p.logicChange})` : ""}; abweichende Tabellen: ${(p.comparison && p.comparison.differingTables || []).join(", ") || "keine"}`)' "$PROOF")"
+            echo "- Dauer: $(( $(date +%s) - START )) s"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Rechtsdaten inkrementell nach Cloudflare D1 projizieren
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BASE_SHA: ${{ steps.remote_state.outputs.base }}
+          EVENT_SHA: ${{ github.sha }}
+          PROOF: ${{ steps.proof.outputs.path }}
+        run: |
+          # Nur die im Push geänderten Normen und Verkündungen; bei geänderter Projektionslogik der
+          # nachgewiesene Umfang (--equivalence-proof), wenn kein Vorgängerstand bekannt ist eine
+          # Vollprojektion, und – als markierte Recovery (--recover) – eine Vollprojektion, wenn D1
+          # nicht den Ausgangszustand des Vorgänger-Commits trägt (Base-State-Guard). Budgets aus
           # data/recht/d1-sync-budgets.json: Vorabschätzung vor dem ersten Schreibzugriff
           # (0 Schreibzugriffe bei Überschreitung) und Abbruch bei realer Überschreitung;
           # bei unverändertem Stand (identischer Fingerabdruck und Scope) ist der Lauf ein No-op.
-          if [ -n "$EVENT_BEFORE" ] && [ "$EVENT_BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$EVENT_BEFORE^{commit}" 2>/dev/null; then
-            npm run norms:runtime:d1-sync -- --transport api --git-diff "$EVENT_BEFORE" "$EVENT_SHA" --budget incremental --recover
+          if [ -n "$BASE_SHA" ]; then
+            if [ -n "$PROOF" ]; then
+              npm run norms:runtime:d1-sync -- --transport api --git-diff "$BASE_SHA" "$EVENT_SHA" --budget incremental --recover --equivalence-proof "$PROOF"
+            else
+              npm run norms:runtime:d1-sync -- --transport api --git-diff "$BASE_SHA" "$EVENT_SHA" --budget incremental --recover
+            fi
           else
             npm run norms:runtime:d1-sync -- --transport api --full --budget full
           fi

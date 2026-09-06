@@ -1,23 +1,22 @@
-import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
+import assert from 'node:assert/strict';
 import { join } from 'node:path';
 import test from 'node:test';
 
 import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
-import { loadNorm } from '@ostrecht/shared/lib/norms/loader.ts';
-import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 
 import { REFERENCE_DATE_PATH, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
 import { referenceDateAffectedSlugs, referenceDateSignature } from '../scripts/lib/d1-reference-date.mjs';
 import { buildSyncPlan, estimatePlanCost } from '../scripts/sync-recht-d1.mjs';
+import { fixtureCorpus } from './helpers/fixture-corpus.ts';
 
 /**
  * Stichtagsfortschreibung in der D1-Projektion: Der gezielte inkrementelle Lauf (nur die
  * stichtagsabhängig betroffenen Normen plus abgeleitete Daten aller Normen) muss dieselben
  * Tabelleninhalte erzeugen wie eine frische Vollprojektion zum neuen Stichtag. Der Vergleich
- * läuft gegen eine In-Memory-SQLite mit den echten Migrationen (FTS5, Trigger) über einen
- * repräsentativen Ausschnitt des Bestands, der die zum 4. September 2026 betroffenen Normen
- * einschließt.
+ * läuft gegen eine In-Memory-SQLite mit den echten Migrationen (FTS5, Trigger) über den
+ * synthetischen Fixture-Bestand, in dem zwischen den beiden Stichtagen eine Norm in Kraft tritt
+ * und eine übernommene Norm die Fassung wechselt.
  */
 
 const FROM = '2026-09-01';
@@ -33,16 +32,8 @@ const TABLES = [
 // Spalten ohne fachlichen Inhalt: Zeitstempel, Laufmodus und die fortlaufende rowid der Suchzeilen.
 const IGNORED_COLUMNS = new Set(['updated_at']);
 const IGNORED_META_KEYS = new Set(['last_sync_at', 'sync_mode']);
-
-const DATE_SENSITIVE_SLUGS = [
-  'interflug-gesetz', 'gesetz-zur-errichtung-der-interflug',
-  'zinnwald-vergesellschaftungsgesetz', 'gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes',
-  'ostdeutsches-daseinsvorsorgegesetz', 'gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge',
-  'ostdeutsches-hoheitszeichengesetz', 'besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts',
-  'staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt',
-  'bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages',
-  'saechsische-haushaltsordnung',
-];
+// Zwischen FROM und TO in Kraft getreten bzw. die Fassung gewechselt (tests/helpers/fixture-corpus.ts).
+const DATE_SENSITIVE_SLUGS = ['neues-ostgesetz', 'stichtagsgesetz'];
 
 async function loadSqlite() {
   try {
@@ -51,13 +42,6 @@ async function loadSqlite() {
   } catch (error) {
     throw new Error(`node:sqlite ist erforderlich (Node ≥ 22.13): ${error.message}`);
   }
-}
-
-async function loadFixtureNorms() {
-  const fixture = JSON.parse(await readFile(join(ROOT, 'data', 'recht', 'runtime-fixture.json'), 'utf8'));
-  const slugs = [...new Set([...fixture.slugs.map((entry) => (typeof entry === 'string' ? entry : entry.slug)), ...DATE_SENSITIVE_SLUGS])].sort();
-  const norms = await Promise.all(slugs.map((slug) => loadNorm(slug)));
-  return norms.sort((left, right) => left.meta.title.localeCompare(right.meta.title));
 }
 
 async function createDatabase(DatabaseSync) {
@@ -101,16 +85,17 @@ function ftsHits(db, term) {
   return db.prepare('SELECT norm_id, version_id, provision_path FROM law_search WHERE law_search MATCH ? ORDER BY norm_id, version_id, provision_path').all(term);
 }
 
-test('Stichtagsabhängige Signatur und betroffene Normen zwischen 2026-09-01 und 2026-09-04', async () => {
-  const norms = await loadFixtureNorms();
+test('stichtagsabhängige Signatur und betroffene Normen zwischen zwei Stichtagen', () => {
+  const { norms } = fixtureCorpus();
   const affected = referenceDateAffectedSlugs(norms, FROM, TO);
-  for (const slug of DATE_SENSITIVE_SLUGS) assert.ok(affected.includes(slug), `${slug} muss stichtagsabhängig betroffen sein`);
-  assert.ok(!affected.includes('sero-verordnung'), 'eine unveränderte Norm ist nicht betroffen');
+  assert.deepEqual(affected, DATE_SENSITIVE_SLUGS);
+  assert.ok(!affected.includes('testverordnung'), 'eine unveränderte Norm ist nicht betroffen');
+  assert.ok(!affected.includes('kuenftiges-gesetz'), 'eine an beiden Stichtagen künftige Norm ist nicht betroffen');
   assert.deepEqual(referenceDateAffectedSlugs(norms, TO, TO), []);
   assert.deepEqual(referenceDateAffectedSlugs(norms, TO, FROM), affected, 'die Richtung des Stichtagswechsels ändert die Menge nicht');
-  const interflug = norms.find((norm) => norm.meta.slug === 'interflug-gesetz');
-  assert.match(referenceDateSignature(interflug, FROM), /2026-09-03:future/u);
-  assert.match(referenceDateSignature(interflug, TO), /2026-09-03:current/u);
+  const newLaw = norms.find((norm) => norm.meta.slug === 'neues-ostgesetz');
+  assert.match(referenceDateSignature(newLaw, FROM), /2026-09-03:future/u);
+  assert.match(referenceDateSignature(newLaw, TO), /2026-09-03:current/u);
   const scope = scopeFromChangedPaths([REFERENCE_DATE_PATH], { existingSlugs: new Set(norms.map((norm) => norm.meta.slug)), referenceDateSlugs: () => affected });
   assert.equal(scope.mode, 'incremental');
   assert.deepEqual(scope.slugs, affected);
@@ -120,7 +105,7 @@ test('Stichtagsabhängige Signatur und betroffene Normen zwischen 2026-09-01 und
 
 test('gezielte Stichtagsfortschreibung erzeugt dieselbe Projektion wie eine frische Vollprojektion', async () => {
   const DatabaseSync = await loadSqlite();
-  const [norms, publications] = await Promise.all([loadFixtureNorms(), loadAllVerkuendungen()]);
+  const { norms, publications } = fixtureCorpus();
   const contextOld = buildDerivedContext({ norms, publications, asOf: FROM });
   const contextNew = buildDerivedContext({ norms, publications, asOf: TO });
   const fullScope = { mode: 'full', slugs: [], deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, reasons: ['--full'] };
@@ -145,7 +130,7 @@ test('gezielte Stichtagsfortschreibung erzeugt dieselbe Projektion wie eine fris
   for (const table of TABLES) {
     assert.deepEqual(dumpTable(targeted, table), dumpTable(fresh, table), `Tabelle ${table} weicht zwischen gezielter Fortschreibung und Vollprojektion ab`);
   }
-  for (const term of ['Interflug', 'Zinnwald', 'Daseinsvorsorge', 'Hoheitszeichen', 'Haushaltsordnung']) {
+  for (const term of ['Vergesellschaftung', 'Haushaltsplan']) {
     assert.deepEqual(ftsHits(targeted, term), ftsHits(fresh, term), `Volltextindex für „${term}“ weicht ab`);
     assert.ok(ftsHits(fresh, term).length > 0, `„${term}“ muss über den Suchindex der geltenden Fassung auffindbar sein`);
   }
@@ -154,17 +139,16 @@ test('gezielte Stichtagsfortschreibung erzeugt dieselbe Projektion wie eine fris
   const meta = Object.fromEntries(dumpTable(fresh, 'law_runtime_meta').map((row) => [row.key, row.value]));
   assert.equal(meta.projection_fingerprint, IDENTITY_NEW.fingerprint);
   assert.equal(meta.sync_state, 'complete');
-  const temporal = Object.fromEntries(fresh.prepare("SELECT n.slug || ':' || v.version_id AS key, v.temporal_kind FROM law_versions v JOIN law_norms n ON n.id = v.norm_id WHERE n.slug IN ('interflug-gesetz', 'zinnwald-vergesellschaftungsgesetz', 'saechsische-haushaltsordnung')").all().map((row) => [row.key, row.temporal_kind]));
-  assert.equal(temporal['interflug-gesetz:2026-09-03'], 'current');
-  assert.equal(temporal['zinnwald-vergesellschaftungsgesetz:2026-09-02'], 'current');
-  assert.equal(temporal['saechsische-haushaltsordnung:2026-01-27'], 'historical');
-  assert.equal(temporal['saechsische-haushaltsordnung:2026-09-03'], 'current');
+  const temporal = Object.fromEntries(fresh.prepare("SELECT n.slug || ':' || v.version_id AS key, v.temporal_kind FROM law_versions v JOIN law_norms n ON n.id = v.norm_id WHERE n.slug IN ('neues-ostgesetz', 'stichtagsgesetz')").all().map((row) => [row.key, row.temporal_kind]));
+  assert.equal(temporal['neues-ostgesetz:2026-09-03'], 'current');
+  assert.equal(temporal['stichtagsgesetz:2023-11-01'], 'historical');
+  assert.equal(temporal['stichtagsgesetz:2026-09-03'], 'current');
   const cost = estimatePlanCost(incrementalPlan);
   assert.ok(cost.rowsWrittenMax > 0);
 
-  // Enge Logikänderung (--assume-narrow-logic-change): zusätzlich Suchdokumente aller Normen neu –
-  // ebenfalls identisch mit der frischen Vollprojektion und idempotent.
-  const narrowScope = scopeFromChangedPaths([REFERENCE_DATE_PATH, 'packages/recht-search/src/search.ts'], { existingSlugs: new Set(norms.map((norm) => norm.meta.slug)), existingPublications: new Set(publications.map((publication) => publication.slug)), referenceDateSlugs: () => affected, narrowLogicChange: true });
+  // Nachgewiesen enge Logikänderung (Äquivalenznachweis, logicChange narrow): zusätzlich
+  // Suchdokumente aller Normen neu – ebenfalls identisch mit der frischen Vollprojektion und idempotent.
+  const narrowScope = scopeFromChangedPaths([REFERENCE_DATE_PATH, 'packages/recht-search/src/search.ts'], { existingSlugs: new Set(norms.map((norm) => norm.meta.slug)), existingPublications: new Set(publications.map((publication) => publication.slug)), referenceDateSlugs: () => affected, logicChange: 'narrow' });
   assert.equal(narrowScope.refreshSearchDocuments, true);
   const narrowPlan = buildSyncPlan({ scope: narrowScope, norms, publications, context: contextNew, now: NOW, fingerprint: IDENTITY_NEW, writeIdentity: true });
   assert.equal(narrowPlan.documentRefreshCount, norms.length - affected.length);

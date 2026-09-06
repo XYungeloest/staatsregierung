@@ -17,7 +17,7 @@ import {
 /**
  * CLI für den lokalen D1-Seed von OstRecht (scripts/lib/d1-runtime-seed.mjs).
  *
- *   node --experimental-strip-types scripts/d1-runtime-seed.mjs fingerprint [--json]
+ *   node --experimental-strip-types scripts/d1-runtime-seed.mjs fingerprint [--json] [--ref <Git-Ref>]
  *   node --experimental-strip-types scripts/d1-runtime-seed.mjs build   [--out <Datei>]
  *   node --experimental-strip-types scripts/d1-runtime-seed.mjs verify  [--snapshot <Datei>]
  *   node --experimental-strip-types scripts/d1-runtime-seed.mjs install [--snapshot <Datei>] [--persist-to <Verzeichnis>]
@@ -26,7 +26,9 @@ import {
  * Gemeinsame Optionen: --fixture <Datei> (oder OSTRECHT_D1_FIXTURE) für das Testfixture,
  * --cache-dir <Verzeichnis> (oder OSTRECHT_D1_SEED_CACHE, Standard .cache/d1-seed),
  * --persist-to (oder OSTRECHT_D1_PERSIST_TO, Standard .cache/wrangler-local).
- * `fingerprint` gibt ohne --json nur den Seed-Fingerabdruck aus (maschinenlesbar für Cache-Keys).
+ * `fingerprint` gibt ohne --json nur den Seed-Fingerabdruck aus (maschinenlesbar für Cache-Keys);
+ * `--ref` bestimmt ihn für einen Git-Ref (Vollbestand, ohne Checkout – Cache-Schlüssel der Basis
+ * eines Äquivalenznachweises), `--json` nennt daneben den Fingerabdruck der früheren Berechnung.
  * `ensure` schreibt Status und Dauern zusätzlich nach GITHUB_OUTPUT/GITHUB_STEP_SUMMARY, wenn gesetzt.
  */
 
@@ -86,10 +88,13 @@ async function reportEnsure(result) {
 
 switch (command) {
   case 'fingerprint': {
-    const identity = await runtimeSeedIdentity({ root: ROOT, fixture });
+    const ref = valueAfter('--ref') ?? null;
+    const identity = await runtimeSeedIdentity({ root: ROOT, fixture: ref ? null : fixture, ref });
     if (json) {
       console.log(JSON.stringify({
         fingerprint: identity.fingerprint,
+        legacyFingerprint: identity.legacyFingerprint,
+        ref: identity.ref,
         format: identity.format,
         scope: identity.scope,
         mode: identity.mode,

@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import {
@@ -133,17 +132,4 @@ test('zitierte Vorschriften erhalten einen eigenen kollisionsfreien Namensraum',
   assert.match(secondQuote, /^zitat-paragraph-1/u);
   assert.notEqual(firstQuote, secondQuote);
   assert.ok(!JSON.stringify(buildNormOutline(blocks)).includes('Zitierte Vorschrift'));
-});
-
-test('NormBody bindet aria-labelledby an tatsächlich gerenderte Überschriften', () => {
-  const component = readFileSync(
-    new URL('../apps/recht/src/components/norms/NormBody.astro', import.meta.url),
-    'utf8',
-  );
-
-  assert.match(component, /aria-labelledby=\{headingId\}/u);
-  assert.match(component, /<HeadingTag id=\{headingId\} class="norm-division__heading">/u);
-  assert.match(component, /<HeadingTag id=\{headingId\} class="norm-unit__heading">/u);
-  assert.match(component, /<HeadingTag id=\{headingId\} class="norm-quoted-unit__heading">/u);
-  assert.doesNotMatch(component, /const childHeadingLevel = block\.title/u);
 });

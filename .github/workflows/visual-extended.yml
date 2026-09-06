@@ -1,0 +1,96 @@
+name: Screenshot-Inventur (visual-extended)
+
+# Breite Screenshot-Inventur aller Motive auf drei Viewports im festen Playwright-Container,
+# strikt gegen die committeten Linux-Baselines (Fixture-Bestand): manuell und wöchentlich, vor
+# größeren Releases auf Anforderung. Pull Requests prüfen nur die kritische Auswahl
+# (pull-request.yml); main prüft die Inventur bei Oberflächenänderungen (deploy.yml). Es werden nie
+# Baselines erzeugt.
+
+on:
+  workflow_dispatch:
+    inputs:
+      site_targets:
+        description: Websites (portal, law oder portal,law)
+        required: true
+        default: portal,law
+        type: string
+  schedule:
+    - cron: '30 4 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: visual-extended
+  cancel-in-progress: true
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    outputs:
+      playwright_version: ${{ steps.version.outputs.playwright_version }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Playwright-Version aus package-lock.json lesen (Container muss ihr entsprechen)
+        id: version
+        run: echo "playwright_version=$(node -e 'console.log(require("./package-lock.json").packages["node_modules/@playwright/test"].version)')" >> "$GITHUB_OUTPUT"
+
+  visual_extended:
+    needs: lockfile
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs.lockfile.outputs.playwright_version }}-noble
+    env:
+      OSTRECHT_D1_FIXTURE: data/recht/runtime-fixture.json
+      HOME: /root
+    steps:
+      - name: Git im Container sicherstellen
+        run: command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends git)
+      - uses: actions/checkout@v7
+      - name: Arbeitsbaum für Git im Container freigeben
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Abhängigkeiten (Node.js des Containers)
+        uses: ./.github/actions/setup-node-modules
+        with:
+          node-version: ''
+      - name: Websites bauen
+        env:
+          PORTAL_BUILD_COMMIT: ${{ github.sha }}
+        run: |
+          START=$(date +%s)
+          npm run build
+          echo "build=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: OstRecht-Worker mit dem Testfixture vorbereiten
+        uses: ./.github/actions/d1-seed
+        with:
+          fixture: data/recht/runtime-fixture.json
+          cache: 'false'
+      - name: Breite Screenshot-Suite strikt prüfen
+        env:
+          SITE_TARGETS: ${{ github.event.inputs.site_targets || 'portal,law' }}
+        run: |
+          START=$(date +%s)
+          npm run test:visual:extended
+          echo "visual=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Laufzeiten festhalten
+        if: ${{ always() }}
+        run: |
+          {
+            echo '### Laufzeiten visual_extended'
+            echo
+            echo '| Schritt | Sekunden |'
+            echo '| --- | --- |'
+            if [ -f "$RUNNER_TEMP/timings.txt" ]; then
+              sed -E 's/^([^=]+)=(.*)$/| \1 | \2 |/' "$RUNNER_TEMP/timings.txt"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Testbericht bereitstellen
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-extended-report-${{ github.sha }}
+          path: |
+            playwright-report
+            test-results
+          retention-days: 14

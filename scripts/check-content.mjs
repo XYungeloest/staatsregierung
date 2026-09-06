@@ -144,6 +144,18 @@ function addProblem(path, message) {
   problems.push(`${relative(root, path)}: ${message}`);
 }
 
+// Quellen werden von mehreren Datensätzen referenziert (Norm, Fassungen, Verkündung); jede Datei
+// wird höchstens einmal gehasht.
+const fileHashes = new Map();
+async function fileSha256(path) {
+  let hash = fileHashes.get(path);
+  if (!hash) {
+    hash = readFile(path).then((bytes) => createHash('sha256').update(bytes).digest('hex'));
+    fileHashes.set(path, hash);
+  }
+  return hash;
+}
+
 function collectImagePaths(value, paths = []) {
   if (Array.isArray(value)) {
     for (const entry of value) {
@@ -390,9 +402,7 @@ async function validateNormSourceReference(file, source, sourcePath) {
     if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
       addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
     } else if (await exists(resolve(root, source.localSource))) {
-      const actualHash = createHash('sha256')
-        .update(await readFile(resolve(root, source.localSource)))
-        .digest('hex');
+      const actualHash = await fileSha256(resolve(root, source.localSource));
       if (actualHash !== source.sha256) {
         addProblem(file, `${sourcePath}.sha256 stimmt nicht mit der unveränderten Quelle überein`);
       }
@@ -512,8 +522,18 @@ for (const file of files) {
   }
 }
 
-const byPrefix = (prefix) =>
-  records.filter(({ file }) => relative(contentRoot, file).startsWith(prefix));
+// Relativpfade einmal je Datei; byPrefix wird in Schleifen über den Bestand aufgerufen (vorher
+// O(n²) Pfadberechnungen, über zwei Minuten bei 20.000 Dateien).
+for (const record of records) record.relativePath = relative(contentRoot, record.file);
+const byPrefixCache = new Map();
+const byPrefix = (prefix) => {
+  let matches = byPrefixCache.get(prefix);
+  if (!matches) {
+    matches = records.filter(({ relativePath }) => relativePath.startsWith(prefix));
+    byPrefixCache.set(prefix, matches);
+  }
+  return matches;
+};
 
 const ministrySlugs = new Set(byPrefix('ressorts/').map(({ json }) => json.slug).filter(Boolean));
 const topicSlugs = new Set(byPrefix('themen/').map(({ json }) => json.slug).filter(Boolean));
@@ -768,9 +788,7 @@ for (const { file, json } of records) {
           if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
             addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
           } else if (await exists(resolve(root, source.localSource))) {
-            const actualHash = createHash('sha256')
-              .update(await readFile(resolve(root, source.localSource)))
-              .digest('hex');
+            const actualHash = await fileSha256(resolve(root, source.localSource));
             if (actualHash !== source.sha256) {
               addProblem(file, `${sourcePath}.sha256 stimmt nicht mit der unveränderten Quelle überein`);
             }
@@ -801,9 +819,7 @@ for (const { file, json } of records) {
           if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
             addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
           } else if (await exists(resolve(root, source.localSource))) {
-            const actualHash = createHash('sha256')
-              .update(await readFile(resolve(root, source.localSource)))
-              .digest('hex');
+            const actualHash = await fileSha256(resolve(root, source.localSource));
             if (actualHash !== source.sha256) {
               addProblem(file, `${sourcePath}.sha256 stimmt nicht mit der unveränderten Quelle überein`);
             }
@@ -1236,6 +1252,64 @@ if (await exists(schoolSystemAsset)) {
   }
 } else {
   addProblem(schoolSystemAsset, 'fehlt');
+}
+
+// Eine mitversionierte Quelle darf nicht zugleich behaupten, nicht Bestandteil des Repositorys zu sein.
+function collectSourceReferenceArrays(value, path = '', output = []) {
+  if (Array.isArray(value)) {
+    value.forEach((entry, index) => collectSourceReferenceArrays(entry, `${path}[${index}]`, output));
+  } else if (value && typeof value === 'object') {
+    for (const [key, entry] of Object.entries(value)) {
+      if (key === 'sourceReferences' && Array.isArray(entry)) output.push({ path: path ? `${path}.${key}` : key, references: entry });
+      else collectSourceReferenceArrays(entry, path ? `${path}.${key}` : key, output);
+    }
+  }
+  return output;
+}
+for (const { file, json } of records) {
+  for (const { path, references } of collectSourceReferenceArrays(json)) {
+    references.forEach((reference, index) => {
+      if (reference && reference.availability === 'versioned' && /nicht Bestandteil des Repositorys/iu.test(reference.note ?? '')) {
+        addProblem(file, `${path}[${index}].note widerspricht der versionierten Verfügbarkeit der Quelle`);
+      }
+    });
+  }
+}
+
+// Archivierte Anlagen (data/recht/revosax-attachments.json): jede verifiziert, hashbelegt und eindeutig.
+const attachmentsManifestPath = join(root, 'data', 'recht', 'revosax-attachments.json');
+if (await exists(attachmentsManifestPath)) {
+  const manifest = await readJson(attachmentsManifestPath);
+  const attachmentKeys = new Set();
+  if (!/^\d{4}-\d{2}-\d{2}$/u.test(manifest?.baselineDate ?? '')) addProblem(attachmentsManifestPath, 'baselineDate muss ein ISO-Datum sein');
+  for (const [attachmentId, record] of Object.entries(manifest?.attachments ?? {})) {
+    const where = `attachments.${attachmentId}`;
+    if (!/^[0-9a-f]{64}$/u.test(record.sha256 ?? '')) addProblem(attachmentsManifestPath, `${where}.sha256 muss ein SHA-256-Hexwert sein`);
+    if (!(Number.isInteger(record.size) && record.size > 0)) addProblem(attachmentsManifestPath, `${where}.size muss positiv sein`);
+    if (record.verified !== true) addProblem(attachmentsManifestPath, `${where} ist nicht verifiziert`);
+    if (typeof record.objectKey !== 'string' || !record.objectKey.startsWith(`revosax/${manifest.baselineDate}/attachments/${record.lawId}/${record.attachmentId}-`)) addProblem(attachmentsManifestPath, `${where}.objectKey folgt nicht dem Muster revosax/<Stichtag>/attachments/<lawId>/<attachmentId>-<Datei>`);
+    if (!['pdf', 'word', 'spreadsheet', 'image', 'other'].includes(record.kind)) addProblem(attachmentsManifestPath, `${where}.kind ist unbekannt: ${record.kind}`);
+    if (!/^https:\/\/www\.revosax\.sachsen\.de\/attachments\/\d+$/u.test(record.url ?? '')) addProblem(attachmentsManifestPath, `${where}.url ist keine REVOSax-Anlagenadresse`);
+    if (!/^\d+(?:\.\d+)?$/u.test(String(record.sourceId ?? ''))) addProblem(attachmentsManifestPath, `${where}.sourceId ist keine REVOSax-Quellkennung`);
+    if (attachmentKeys.has(record.objectKey)) addProblem(attachmentsManifestPath, `${where}.objectKey ist doppelt: ${record.objectKey}`);
+    attachmentKeys.add(record.objectKey);
+  }
+}
+
+// Quelleninventar der Altquellen (data/recht/alt-source-inventory.json): Binärquellen unverändert.
+const altSourceInventoryPath = join(root, 'data', 'recht', 'alt-source-inventory.json');
+if (await exists(altSourceInventoryPath)) {
+  const inventory = await readJson(altSourceInventoryPath);
+  for (const source of inventory?.sources ?? []) {
+    if (!source?.localSource || !source?.sha256) continue;
+    const sourcePath = resolve(root, source.localSource);
+    if (!(await exists(sourcePath))) {
+      addProblem(altSourceInventoryPath, `${source.id}: Quelle fehlt im Checkout: ${source.localSource}`);
+    } else if ((await fileSha256(sourcePath)) !== source.sha256) {
+      addProblem(altSourceInventoryPath, `${source.id}: sha256 stimmt nicht mit der Quelle überein`);
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/u.test(source.verifiedAt ?? '')) addProblem(altSourceInventoryPath, `${source.id}: verifiedAt muss ein ISO-Datum sein`);
+  }
 }
 
 if (problems.length > 0) {

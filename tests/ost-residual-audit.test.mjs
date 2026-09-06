@@ -1,9 +1,15 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-import { auditCorpus, auditNormRecord, isBaselineImport, isInheritedNorm, isSourceBacked, lettersOnly, loadCorpus, sourceTextOf } from '../scripts/audit-ost-residuals.mjs';
+import { auditCorpus, auditNormRecord, isBaselineImport, isInheritedNorm, isSourceBacked, lettersOnly, sourceTextOf } from '../scripts/audit-ost-residuals.mjs';
 import { adaptParsedRevosaxSnapshot } from '../scripts/lib/revosax-ost-adapter.mjs';
+
+/**
+ * Reststellen-Audit auf synthetischen Datensätzen: was als Sachsen-Reststelle zählt, was
+ * geschützt ist (Fundstellen, Adressen, Sachsen-Anhalt) und wie eigene Erlasse quellenbelegt
+ * werden. Ob der reale Bestand reststellenfrei ist, prüft scripts/audit-ost-residuals.mjs
+ * in content:check.
+ */
 
 const r2Reference = {
   kind: 'revosax-snapshot',
@@ -58,7 +64,6 @@ test('absichtlich verbliebene Sachsen-Bezüge in normativen Feldern werden gefun
     version: { body: [{ type: 'paragraphText', text: 'Das SächsVerfGHG wird wie folgt geändert: Der Sächsische Landtag beschließt.' }] },
   });
   const findings = auditNormRecord(stale);
-  // Jede Fundstelle einzeln: der Körper enthält zwei Sachsen-Bezüge (SächsVerfGHG, Sächsische).
   assert.deepEqual(findings.map((finding) => finding.path).sort(), [
     'testnorm.meta.keywords[0]',
     'testnorm.meta.shortTitle',
@@ -67,7 +72,6 @@ test('absichtlich verbliebene Sachsen-Bezüge in normativen Feldern werden gefun
     'testnorm.versions[0].body[0].text',
   ]);
   assert.deepEqual(findings.filter((finding) => finding.path.endsWith('.text')).map((finding) => finding.token), ['SächsV', 'Sächsi']);
-  // Nach der Anpassung durch den Adapter ist der Körper reststellenfrei.
   const adapted = adaptParsedRevosaxSnapshot({ sourceTitle: 'x', shortTitle: 'x', fullCitation: 'x', body: stale.versions[0].body });
   assert.deepEqual(auditNormRecord(record({ version: { body: adapted.body } })), []);
 });
@@ -100,7 +104,6 @@ test('eigene ostdeutsche Erlasse: Sachsen-Bezüge gelten nur, wenn sie wörtlich
     ...record({ version: { body: [{ type: 'paragraphText', text }], sourceReferences: [{ kind: 'structured-html-transcription', availability: 'versioned', localSource: 'Gesetze/Erlass.html', label: 'x' }] } }),
     slug: 'eigener-erlass',
   });
-  own('x').meta.sourceReferences = [];
   const cited = own('Das Sächsische Bestattungsgesetz vom 8. Juli 1994 (SächsGVBl. S. 1321) wird wie folgt geändert:');
   cited.meta.sourceReferences = [];
   const sourceHtml = '<p>Das S&auml;chsische Bestattungsgesetz vom 8.&nbsp;Juli 1994 (S&auml;chsGVBl. S.&nbsp;1321) wird wie folgt ge&auml;ndert:</p>';
@@ -126,52 +129,30 @@ test('eigene ostdeutsche Erlasse: Sachsen-Bezüge gelten nur, wenn sie wörtlich
   assert.equal(artefactResult.legacy.size, 1);
 });
 
-test('der materialisierte Rechtsbestand enthält im übergeleiteten Recht keine Reststellen; eigene Erlasse sind belegt oder verzeichnet', async () => {
-  const backlog = JSON.parse(await readFile(new URL('../data/recht/ost-residual-backlog.json', import.meta.url), 'utf8'));
-  const norms = await loadCorpus();
-  const result = await auditCorpus(norms, backlog);
-  assert.deepEqual(result.inherited.map((entry) => `${entry.slug}: ${entry.findings[0]?.context}`), []);
-  assert.deepEqual(result.problems, []);
-  assert.equal(backlog.normCount, 0, 'Zielzustand: leerer Rückstand');
-});
-
-// --- Globaler Scanner: jede Fundstelle je String ---------------------------------------
-
-test('zwei problematische Sachsen-Bezüge in einem Feld ergeben zwei Fundstellen mit Index und Kontext', () => {
+test('jede Fundstelle je String wird einzeln mit Index und Kontext gemeldet', () => {
   const findings = auditNormRecord({ slug: 'n', meta: { title: 'Gesetz über die Sächsische Aufbaubank und die sächsischen Sparkassen' }, versions: [] });
   assert.deepEqual(findings.map((finding) => [finding.token, finding.index]), [['Sächsi', 16], ['sächsi', 46]]);
   assert.ok(findings.every((finding) => finding.path === 'n.meta.title' && finding.context.length > 0 && finding.window.length > 0));
 });
 
-test('erste Fundstelle belegt, zweite unbelegt: nur die belegte gilt als amtlich', async () => {
+test('quellenbelegt gilt je Fundstelle: erste belegt, zweite unbelegt; beide belegt', async () => {
   const meta = { title: 'X', sourceReferences: [{ kind: 'ostrecht-transcription', localSource: 'Gesetze/x.html' }] };
   const findings = auditNormRecord({ slug: 'x', meta, versions: [{ body: [{ type: 'paragraphText', text: 'Das Sächsische Beamtengesetz wird in Ostdeutsches Beamtengesetz umbenannt; das Sächsische Richtergesetz bleibt unberührt.' }] }] });
   assert.equal(findings.length, 2);
-  const sources = ['Gesetze/x.html'];
   const loadSource = async () => lettersOnly('Das Sächsische Beamtengesetz wird in Ostdeutsches Beamtengesetz umbenannt; das Thüringer Richtergesetz bleibt unberührt.');
-  assert.equal(await isSourceBacked(findings[0], sources, loadSource), true);
-  assert.equal(await isSourceBacked(findings[1], sources, loadSource), false);
-});
-
-test('zwei belegte Fundstellen in einem Satz sind beide amtlich belegt', async () => {
+  assert.equal(await isSourceBacked(findings[0], ['Gesetze/x.html'], loadSource), true);
+  assert.equal(await isSourceBacked(findings[1], ['Gesetze/x.html'], loadSource), false);
   const text = 'Das Sächsische Beamtengesetz und das Sächsische Richtergesetz gelten fort.';
-  const findings = auditNormRecord({ slug: 'y', meta: { title: 'Y' }, versions: [{ body: [{ type: 'paragraphText', text }] }] });
-  assert.equal(findings.length, 2);
-  for (const finding of findings) assert.equal(await isSourceBacked(finding, ['Gesetze/y.html'], async () => lettersOnly(text)), true);
+  const both = auditNormRecord({ slug: 'y', meta: { title: 'Y' }, versions: [{ body: [{ type: 'paragraphText', text }] }] });
+  assert.equal(both.length, 2);
+  for (const finding of both) assert.equal(await isSourceBacked(finding, ['Gesetze/y.html'], async () => lettersOnly(text)), true);
 });
 
-test('mehrere geschützte Fundstellenkürzel und ein echter Rest: nur der Rest wird gemeldet', () => {
-  const findings = auditNormRecord({ slug: 'z', meta: { title: 'Z' }, versions: [{ citation: 'Vom 1. Januar 2020 (SächsGVBl. S. 1), geändert durch Verordnung vom 2. Februar 2021 (SächsGVBl. S. 2, SächsABl. S. 3) und das Sächsische Ausführungsgesetz' }] });
-  assert.deepEqual(findings.map((finding) => finding.token), ['Sächsi']);
-  assert.ok(findings[0].index > 100);
-});
-
-test('Sachsen-Anhalt, Web- und E-Mail-Adressen sind keine Reststellen', () => {
-  const findings = auditNormRecord({ slug: 'a', meta: { title: 'Staatsvertrag mit Sachsen-Anhalt', summary: 'Siehe https://www.sachsen.de/x und post@sachsen.de.' }, versions: [] });
-  assert.deepEqual(findings, []);
-});
-
-test('SächsVerfGHG wird trotz geschützter Kürzel erkannt; Adapterartefakte werden als solche markiert', () => {
+test('geschützte Fundstellenkürzel, Sachsen-Anhalt und Adressen sind keine Reststellen; SächsVerfGHG und Adapterartefakte schon', () => {
+  const citation = auditNormRecord({ slug: 'z', meta: { title: 'Z' }, versions: [{ citation: 'Vom 1. Januar 2020 (SächsGVBl. S. 1), geändert durch Verordnung vom 2. Februar 2021 (SächsGVBl. S. 2, SächsABl. S. 3) und das Sächsische Ausführungsgesetz' }] });
+  assert.deepEqual(citation.map((finding) => finding.token), ['Sächsi']);
+  assert.ok(citation[0].index > 100);
+  assert.deepEqual(auditNormRecord({ slug: 'a', meta: { title: 'Staatsvertrag mit Sachsen-Anhalt', summary: 'Siehe https://www.sachsen.de/x und post@sachsen.de.' }, versions: [] }), []);
   const findings = auditNormRecord({ slug: 'b', meta: { title: 'Gesetz nach § 7 SächsVerfGHG (SächsGVBl. S. 9)' }, versions: [{ body: [{ type: 'paragraphText', text: 'Die Niederostdeutsche Landesbank ist beteiligt.' }] }] });
   assert.deepEqual(findings.map((finding) => [finding.token, finding.artefact === true]), [['SächsV', false], ['Niederostdeutsche', true]]);
 });

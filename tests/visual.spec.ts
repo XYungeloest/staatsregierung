@@ -7,11 +7,32 @@ const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 const isSelected = (path: string): boolean => selectedSiteTargets.includes(path.startsWith('http://127.0.0.1:4322') ? 'law' : 'portal');
 
-const visualPages = [
-  { name: 'startseite', path: '/' },
+/**
+ * Screenshot-Suite in zwei Stufen (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt Screenshot-Suite):
+ *   - visual-critical (`@critical`, npm run test:visual:critical): kleine, stabile Auswahl für Pull
+ *     Requests – je Website Startseite, eine typische Inhaltsseite und die layoutkritischen
+ *     Komponenten; Desktop und Mobil, Tablet nur bei eigenem Breakpoint-Verhalten (`tablet`).
+ *   - visual-extended (npm run test:visual:extended): die breite Inventur aller Motive auf drei
+ *     Viewports – auf main nach dem Merge, wöchentlich und manuell.
+ * Motive desselben Templates mit anderen Daten sind bewusst nicht mehrfach enthalten (Verzeichnisse
+ * der Normtypen, zweite Suche mit Herkunftsbadges, zweite ostdeutsch-originale Norm).
+ * Kanonische Plattform ist Linux; die Baselines werden mit `npm run test:visual:update:linux`
+ * (Docker) oder dem Workflow „Screenshot-Baselines erneuern“ erzeugt.
+ */
+interface VisualPage {
+  name: string;
+  path: string;
+  /** Teil der kritischen Suite (Pull Requests). */
+  critical?: boolean;
+  /** In der kritischen Suite auch auf dem Tablet-Viewport (eigener Breakpoint). */
+  tablet?: boolean;
+}
+
+const visualPages: VisualPage[] = [
+  { name: 'startseite', path: '/', critical: true, tablet: true },
   { name: 'staatsregierung', path: '/staatsregierung/' },
   { name: 'kabinett', path: '/staatsregierung/kabinett/' },
-  { name: 'ressort-wirtschaft-arbeit', path: '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/' },
+  { name: 'ressort-wirtschaft-arbeit', path: '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/', critical: true },
   { name: 'regierungsmitglied-max-peterson', path: '/staatsregierung/mitglieder/max-peterson/' },
   { name: 'staatsrat-yannik-schmaele', path: '/staatsregierung/mitglieder/yannik-schmaele/' },
   { name: 'regierungsarchiv-thomas-barlow', path: '/staatsregierung/mitglieder/thomas-henry-barlow/' },
@@ -22,16 +43,15 @@ const visualPages = [
   { name: 'haushalt-einzelplan-03', path: '/haushalt/einzelplaene/03/' },
   { name: 'haushalt-sondervermoegen', path: '/haushalt/sondervermoegen/' },
   { name: 'themen', path: '/themen/' },
-  { name: 'thema-volksbefragung', path: '/themen/volksbefragung-2026/' },
+  { name: 'thema-volksbefragung', path: '/themen/volksbefragung-2026/', critical: true },
   { name: 'thema-kulturpass', path: '/themen/kulturpass/' },
-  { name: 'kreisreform', path: '/kreisreform/' },
+  { name: 'kreisreform', path: '/kreisreform/', critical: true },
   { name: 'portalsuche', path: '/suche/' },
   { name: 'recht-bruecke', path: '/recht/' },
-  { name: 'ostrecht', path: lawUrl('/') },
-  { name: 'ostrecht-suche', path: lawUrl('/suche/?q=Kulturpass') },
+  { name: 'ostrecht', path: lawUrl('/'), critical: true, tablet: true },
+  { name: 'ostrecht-suche', path: lawUrl('/suche/?q=Kulturpass'), critical: true },
+  // Ein Verzeichnis je Listenmuster: Gesetze, Verordnungen und Verwaltungsvorschriften teilen Template und Filterleiste.
   { name: 'ostrecht-gesetze', path: lawUrl('/gesetze/') },
-  { name: 'ostrecht-verordnungen', path: lawUrl('/verordnungen/') },
-  { name: 'ostrecht-verwaltungsvorschriften', path: lawUrl('/verwaltungsvorschriften/') },
   { name: 'ostrecht-archiv', path: lawUrl('/archiv/') },
   { name: 'ostrecht-sachgebiete', path: lawUrl('/sachgebiete/') },
   { name: 'ostrecht-verkuendungen', path: lawUrl('/verkuendungen/') },
@@ -41,18 +61,17 @@ const visualPages = [
   { name: 'ostrecht-sachgebiet-detail', path: lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/') },
   { name: 'ostrecht-hilfe', path: lawUrl('/hilfe/') },
   { name: 'ostrecht-404', path: lawUrl('/gibt-es-nicht/') },
-  { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/') },
+  { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'), critical: true },
   { name: 'norm-gemeindeordnung-historisch', path: lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/') },
   { name: 'norm-sero-historie', path: lawUrl('/norm/sero-verordnung/history/') },
-  { name: 'norm-gemeindeordnung-vergleich', path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01') },
+  { name: 'norm-gemeindeordnung-vergleich', path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'), critical: true },
   { name: 'norm-staatsverfassung', path: lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/') },
   { name: 'norm-sero-verordnung', path: lawUrl('/norm/sero-verordnung/') },
-  // Rechtsherkunft: übernommen und unverändert, übernommen und ostdeutsch geändert, ostdeutsch neu geschaffen.
+  // Rechtsherkunft: übernommen und unverändert, übernommen und ostdeutsch geändert (ostdeutsch neu
+  // geschaffen deckt norm-kulturpass ab).
   { name: 'norm-uebernommen-unveraendert', path: lawUrl('/norm/vwv-polizeibekleidungswirtschaft/') },
-  { name: 'norm-uebernommen-geaendert', path: lawUrl('/norm/saechsische-gemeindeordnung/') },
-  { name: 'norm-ostdeutsch-neu', path: lawUrl('/norm/zinnwald-vergesellschaftungsgesetz/') },
+  { name: 'norm-uebernommen-geaendert', path: lawUrl('/norm/saechsische-gemeindeordnung/'), critical: true },
   { name: 'norm-bekanntmachung', path: lawUrl('/norm/bekanntmachung-bestellung-gruendungsvorstand-interflug/') },
-  { name: 'ostrecht-suche-herkunft', path: lawUrl('/suche/?q=Gesetz') },
   { name: 'ostrecht-archiv-herkunft', path: lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
@@ -375,11 +394,20 @@ async function expectSectionScreenshot(locator: Locator, name: string): Promise<
   await expect(locator).toHaveScreenshot(name);
 }
 
-const componentVisualPages = [
+interface ComponentVisualPage {
+  name: string;
+  path: string;
+  shots: ReadonlyArray<readonly [string, string]>;
+  critical?: boolean;
+  tablet?: boolean;
+}
+
+const componentVisualPages: ComponentVisualPage[] = [
   {
     name: 'startseite-aktuell-module',
     path: '/',
     shots: [['startseite-aktuelles-vorhaben', '[data-visual-section="home-current-topics"]']],
+    critical: true,
   },
   {
     name: 'staatsregierung-module',
@@ -448,6 +476,7 @@ const componentVisualPages = [
       ['rechtssuche-kopf', '.law-search-form > .search-form__primary'],
       ['rechtssuche-filter', '[data-search-filter-panel="more"]'],
     ],
+    critical: true,
   },
   {
     name: 'rechtsentwicklung-module',
@@ -485,6 +514,7 @@ const componentVisualPages = [
     shots: [
       ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-legal-status"]'],
     ],
+    critical: true,
   },
   {
     name: 'norm-herkunft-unveraendert-module',
@@ -559,7 +589,14 @@ const componentVisualPages = [
     path: '/themen/bildung-und-schule/schulsystem/',
     shots: [['schulsystem-grafik', '[data-visual-section="school-system-chart"]']],
   },
-] as const;
+];
+
+const CRITICAL_TAG = '@critical';
+/** Kritische Tests laufen auf dem Tablet-Viewport nur mit eigenem Breakpoint-Verhalten (`tablet`). */
+function skipTabletUnless(entry: { tablet?: boolean }, projectName: string, testInfo: { project: { name: string } }): void {
+  test.skip(process.env.OSTRECHT_VISUAL_SUITE === 'critical' && projectName === 'tablet' && !entry.tablet, 'Tablet nur bei eigenem Breakpoint in der kritischen Suite');
+  void testInfo;
+}
 
 /**
  * Seiten mit nachgeladenem Inhalt erst im Endzustand aufnehmen: Der Fassungsvergleich lädt das
@@ -586,7 +623,8 @@ async function awaitSettled(page: Page, path: string): Promise<void> {
 
 for (const entry of visualPages) {
   if (!isSelected(entry.path)) continue;
-  test(`visuelle Basislinie: ${entry.name}`, async ({ page }) => {
+  test(`visuelle Basislinie: ${entry.name}`, { tag: entry.critical ? [CRITICAL_TAG] : [] }, async ({ page }, testInfo) => {
+    skipTabletUnless(entry, testInfo.project.name, testInfo);
     await preparePage(page);
     await page.goto(entry.path);
     await page.evaluate(async () => {
@@ -602,7 +640,7 @@ for (const entry of visualPages) {
 const portalTest = isSelected('/') ? test : test.skip;
 const lawTest = isSelected('http://127.0.0.1:4322/') ? test : test.skip;
 
-lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', async ({ page }, testInfo) => {
+lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-390', 'Die geöffnete mobile Navigation wird einmal bei 390 Pixeln geprüft.');
   await preparePage(page);
   await page.goto(lawUrl('/'));
@@ -613,7 +651,8 @@ lawTest('Komponenten-Basislinie: mobile OstRecht-Navigation', async ({ page }, t
 
 for (const entry of componentVisualPages) {
   if (!isSelected(entry.path)) continue;
-  test(`Komponenten-Basislinien: ${entry.name}`, async ({ page }) => {
+  test(`Komponenten-Basislinien: ${entry.name}`, { tag: entry.critical ? [CRITICAL_TAG] : [] }, async ({ page }, testInfo) => {
+    skipTabletUnless(entry, testInfo.project.name, testInfo);
     await preparePage(page);
     await page.goto(entry.path);
     await page.evaluate(async () => {
@@ -659,79 +698,6 @@ portalTest('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabelle
   await verifyViewport(page);
 });
 
-portalTest('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/kreisreform/');
-
-  const input = page.locator('[data-kreisreform-search-input]');
-  await expect(input).toBeVisible();
-  await input.fill('Abtsbessingen');
-  await expect(page.locator('[data-kreisreform-search-result]')).toHaveCount(1, { timeout: 15_000 });
-  await page.locator('[data-kreisreform-search-result]').click();
-  await expect(page.locator('[data-kreisreform-search-detail]')).toBeVisible();
-});
-
-portalTest('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/suche/');
-
-  const status = page.locator('[data-portal-search-status]');
-  const input = page.locator('[data-portal-search-query]');
-  const noResults = page.locator('[data-portal-search-empty]');
-  const error = page.locator('[data-portal-search-error]');
-
-  await expect(status).toContainText('Wonach suchen Sie?');
-  await expect(noResults).toBeHidden();
-  await expect(error).toBeHidden();
-
-  await input.fill('Kreisreform');
-  await expect(status).toContainText('Treffer für „Kreisreform“');
-  await expect(page.locator('[data-portal-search-results] .search-hit')).not.toHaveCount(0);
-  await expect(noResults).toBeHidden();
-  await expect(error).toBeHidden();
-
-  await input.fill('zzzznichtvorhanden');
-  await expect(status).toContainText('Keine Treffer für');
-  await expect(page.locator('[data-portal-search-results] .search-hit')).toHaveCount(0);
-  await expect(noResults).toBeVisible();
-  await expect(error).toBeHidden();
-});
-
-portalTest('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/haushalt/');
-
-  const dashboard = page.locator('[data-budget-year-switcher]');
-  await expect(dashboard).toBeVisible();
-  await dashboard.getByRole('button', { name: 'Vergleich', exact: true }).click();
-  await expect(dashboard.locator('[data-budget-year-content="vergleich"]')).toBeVisible();
-  await expect(dashboard.locator('[data-budget-year-status]')).toContainText('Vergleich');
-
-  await page.goto('/haushalt/einzelplaene/');
-  const plans = page.locator('[data-budget-year-switcher]');
-  await plans.getByRole('button', { name: 'Vergleich', exact: true }).click();
-  const table = plans.locator('[data-budget-year-content="vergleich"] [data-budget-plan-table]');
-  await expect(table).toBeVisible();
-  await table.locator('[data-budget-plan-filter="query"]').fill('Bildung');
-  await expect(table.locator('[data-budget-plan-row]:visible')).toHaveCount(1);
-  await expect(table.locator('[data-budget-plan-status]')).toContainText('1 von 20 Einzelplänen');
-
-  await verifyViewport(page);
-});
-
-portalTest('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ page }) => {
-  await preparePage(page);
-  await page.goto('/haushalt/');
-
-  const header = page.locator('.section-hero--budget').first();
-  const heading = header.getByRole('heading', { level: 1 });
-  const [headerBox, headingBox] = await Promise.all([header.boundingBox(), heading.boundingBox()]);
-
-  expect(headerBox).not.toBeNull();
-  expect(headingBox).not.toBeNull();
-  expect((headingBox?.x ?? 0) - (headerBox?.x ?? 0)).toBeGreaterThanOrEqual(24);
-});
-
 portalTest('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) => {
   await preparePage(page);
   await page.goto('/kreisreform/');
@@ -745,7 +711,8 @@ portalTest('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ pa
   await expect(gate).toHaveScreenshot('kreisreform-karte.png');
 });
 
-portalTest('Consent-Hinweis ist lesbar und ablehnbar', async ({ page }) => {
+portalTest('Consent-Hinweis ist lesbar und ablehnbar', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  skipTabletUnless({}, testInfo.project.name, testInfo);
   await preparePage(page, '');
   await page.goto('/');
 

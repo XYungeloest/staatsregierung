@@ -11,7 +11,13 @@ veränderbar.
 
 Die zentrale Zuordnung liegt in `scripts/classify-change-scope.mjs`
 (`tests/change-scope.test.mjs` dokumentiert die Fälle). Sie trennt Deploymentziele von
-Verifikationsumfang; unbekannte Laufzeitpfade werden vorsorglich als `shared` behandelt.
+Verifikationsumfang; unbekannte Laufzeitpfade werden vorsorglich als `shared` behandelt. Ob eine
+Datei die D1-Projektion betrifft, wird nicht aus ihrem Verzeichnis geraten, sondern aus dem
+Code-Abschluss der Projektion (`scripts/lib/d1-projection-closure.mjs`, siehe
+`docs/REVOSAX_BULK_IMPORT.md`): nur Dateien, die `scripts/sync-recht-d1.mjs` tatsächlich erreicht,
+und das Schema zählen als Projektionscode; reine Darstellungslogik in denselben Verzeichnissen
+(z. B. `norms/diff-render.ts`) ist Oberfläche. Ist der Abschluss nicht sicher bestimmbar, gilt
+fail-closed die konservative Obermenge dieser Verzeichnisse.
 
 | Scope | Typische Pfade | Produktion |
 | --- | --- | --- |
@@ -21,22 +27,29 @@ Verifikationsumfang; unbekannte Laufzeitpfade werden vorsorglich als `shared` be
 | `law` | `apps/recht/`, `packages/recht-*`, `public/assets/recht/` | nur OstRecht |
 | `shared` | `packages/shared/`, `content/normen/`, `content/verkuendungen/`, gemeinsame Buildskripte, Root-Konfiguration, Abhängigkeiten | beide Anwendungen |
 
-Zwei weitere Flags bestimmen den Prüfumfang von OstRecht unabhängig vom Deploymentziel:
+Drei weitere Flags bestimmen den Prüfumfang unabhängig vom Deploymentziel:
 
 - **`run_full_corpus_smoke`** – der Smoke läuft gegen den gesamten Rechtsbestand statt gegen das
-  Fixture, wenn die Änderung D1-Schema oder Migrationen, Sync-, Scope-, Stichtags- oder
-  Seed-Werkzeuge (`scripts/sync-recht-d1.mjs`, `scripts/lib/d1-*`, `scripts/d1-runtime-seed.mjs`,
-  `scripts/serve-law-worker.mjs`, `scripts/verify-recht-d1.mjs`), den Runtime-Store und die
-  Routen mit Datenbankzugriff (`apps/recht/src/lib/runtime/`, `apps/recht/src/pages/` außer
-  Hilfe, 404 und robots), die Normbibliothek und Konfiguration (`packages/shared/src/lib/norms/`,
-  `packages/shared/src/config/` einschließlich Stichtag), die Portalbezüge der Projektion, die
-  Suchlogik (`packages/recht-search/src/`), die OstRecht-Laufzeitkonfiguration oder
-  `package-lock.json` berührt – oder wenn mindestens 25 Normverzeichnisse geändert sind
-  (`LARGE_CORPUS_CHANGE_THRESHOLD`). Ein manuelles OstRecht-Release prüft immer den Vollbestand.
-  Rein visuelle Änderungen (Komponenten, Layouts, Styles, Browserskripte, Hilfe- und Fehlerseite)
-  laufen gegen das Fixture.
+  Fixture, wenn die Änderung Projektionscode (Code-Abschluss des Syncs einschließlich Stichtag und
+  Portalbezügen) oder das D1-Schema, die Kandidatenabfragen der Suche
+  (`packages/recht-search/src/search-query.ts`), Seed- und Verifikationswerkzeuge
+  (`scripts/sync-recht-d1.mjs`, `scripts/lib/d1-*`, `scripts/d1-runtime-seed.mjs`,
+  `scripts/d1-projection-snapshot.mjs`, `scripts/serve-law-worker.mjs`,
+  `scripts/verify-recht-d1.mjs`), den Runtime-Store und die Routen mit Datenbankzugriff
+  (`apps/recht/src/lib/runtime/`, `apps/recht/src/pages/` außer Hilfe, 404 und robots), die
+  OstRecht-Laufzeitkonfiguration oder `package-lock.json` berührt – oder wenn mindestens 25
+  Normverzeichnisse geändert sind (`LARGE_CORPUS_CHANGE_THRESHOLD`). Ein manuelles OstRecht-Release
+  prüft immer den Vollbestand. Rein visuelle Änderungen (Komponenten, Layouts, Styles,
+  Browserskripte, Darstellungslogik außerhalb des Abschlusses, Hilfe- und Fehlerseite) laufen
+  gegen das Fixture.
+- **`run_corpus_tests`** – die Korpus-Tests (`tests/corpus/`: Projektionsnachweis auf dem
+  Fixture, Seed, Referenzindex) laufen nur bei Projektions-, Laufzeit- oder Schemaänderungen, bei
+  geänderten Abhängigkeiten, beim Testfixture und bei Änderungen an diesen Tests selbst. Reine
+  Inhaltsänderungen prüfen die Content-Audits (`run_content_check`) und der D1-Sync; die
+  schnellen Unit-Tests (`tests/*.test.*`) laufen bei jeder Codeänderung.
 - **`run_visual`** – die Screenshot-Suite läuft bei Oberflächen-, Layout-, Style- und
-  Portalinhaltsänderungen, nicht bei reinem Normcontent, Dokumentation oder Workflows.
+  Portalinhaltsänderungen, nicht bei reinem Normcontent, Dokumentation oder Workflows: in Pull
+  Requests die kritische Auswahl, auf `main` die breite Inventur (siehe Screenshot-Suite).
 
 Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie für Suche,
 Fundstellen und die Rechtsbrücke einliest; ihre Änderung löst kein OstRecht-Deployment aus,
@@ -48,18 +61,21 @@ Deployment wieder unter `apps/` hergestellt.
 
 ```text
 classify ─┬─ build ───────────────┬─ runtime_smoke ─┬─ deploy
-          ├─ d1_seed (Vollbestand)┘                 │
-          ├─ d1_sync (Cloudflare D1) ───────────────┘
-          └─ visual (Screenshots, kein Gate)
+          ├─ d1_seed (Vollbestand)┼─ d1_sync ───────┘
+          │                        (Cloudflare D1; bei geänderter Projektionslogik
+          │                         Äquivalenznachweis statt Vollprojektion)
+          └─ visual (breite Screenshot-Inventur, kein Gate)
 ```
 
-1. `classify` bestimmt Deployment- und Verifikationswirkung.
+1. `classify` bestimmt Deployment- und Verifikationswirkung (mit `node_modules`, weil der
+   Code-Abschluss der Projektion esbuild braucht).
 2. `build` stellt `node_modules` aus dem Actions-Cache her (`.github/actions/setup-node-modules`,
    Schlüssel aus Betriebssystem, Node-Version und `package-lock.json`; ohne Treffer `npm ci`), führt
    `npm audit` mit Wiederholung bei Registryfehlern aus (`scripts/npm-audit-retry.mjs`: nur
    HTTP 5xx, 429 und Netzfehler werden bis zu dreimal wiederholt; ein Befund ab Stufe `high` schlägt
-   sofort fehl), prüft Dokumentationsstruktur, Inhalte, Wissenshub, Typen und Unit-Tests je Scope,
-   baut einmal, prüft Assets, Links und SEO und lädt den Build als Artefakt hoch.
+   sofort fehl), prüft Dokumentationsstruktur, Inhalte, Wissenshub, Typen, schnelle Unit-Tests
+   und je Scope die Korpus-Tests, baut einmal, prüft Assets, Links und SEO und lädt den Build als
+   Artefakt hoch.
 3. `d1_seed` läuft parallel zum Build, nur bei `run_full_corpus_smoke`: Seed-Fingerabdruck
    bestimmen, Snapshot aus dem Actions-Cache (`d1-seed-<Fingerabdruck>`) wiederherstellen und
    verifizieren; ohne Treffer genau eine Projektion, danach Snapshot im Cache speichern.
@@ -72,14 +88,21 @@ classify ─┬─ build ───────────────┬─ run
    bereits die Projektionsidentität des Commits trägt; er schreibt inkrementell nur mit
    verifizierter Basis (Base-State-Guard) und fällt sonst auf eine markierte Recovery zurück. Eine
    Vollprojektion führt der automatische Sync nie aus: Entscheidung und Budgetprofil werden vor
-   dem Planbau abgeglichen, ein `full`-Beschluss endet sofort fail-closed. Dass er auf `main`
-   nicht eintritt, stellt das D1-Release-Gate vor dem Merge sicher (siehe unten). Migrationen
-   spielt der Workflow nie ein.
+   dem Planbau abgeglichen, ein `full`-Beschluss endet fail-closed. Verlangt er die Vollprojektion
+   nur wegen geänderter Projektionslogik (Remote-State meldet Exit 3), rechnet der Job zuerst den
+   Äquivalenznachweis (`npm run norms:runtime:d1-prove -- --base <before> --head <sha>`:
+   Basisprojektion aus dem Seed-Cache oder aus einem Worktree des Basis-Commits, Zielprojektion
+   aus dem Seed des Laufs, vollständiger Tabellenvergleich) und übergibt ihn dem Sync
+   (`--equivalence-proof`): nachgewiesen gleiche Daten übernehmen nur die neue Identität und die
+   Laufzeitmetadaten, ein nachgewiesener inkrementeller Umfang wird geschrieben, alles andere
+   bleibt rot. Dass das auf `main` nicht eintritt, zeigt `d1_token_check` vor dem Merge (siehe
+   unten). Migrationen spielt der Workflow nie ein.
 6. `deploy` veröffentlicht zuerst OstRecht, danach das Staatsportal, und prüft den
    Produktionsstand (`npm run test:deployment:production`).
-7. `visual` läuft bei `run_visual` im Playwright-Container gegen das Fixture und vergleicht strikt
-   mit den committeten Linux-Baselines (drei Viewports: 1440, 768, 390); es ist kein
-   Deployment-Gate, ein Fehlschlag wird aber wie eine Regression behandelt.
+7. `visual` läuft bei `run_visual` im Playwright-Container gegen das Fixture und vergleicht die
+   breite Inventur (`npm run test:visual:extended`, drei Viewports: 1440, 768, 390) strikt mit den
+   committeten Linux-Baselines; es ist kein Deployment-Gate, ein Fehlschlag wird aber wie eine
+   Regression behandelt.
 
 Bei `docs-only` endet der Lauf nach `docs_check`, bei `ci-only` nach den angeforderten Prüfungen.
 Ein manuell gestarteter Workflow bietet die Ziele `portal`, `law` und `both` und verwendet
@@ -96,11 +119,16 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
 
 - `d1_seed` und `full_corpus_smoke` bei `run_full_corpus_smoke` (Seed aus dem Cache, Verifikation,
   A11y und Browser gegen den Vollbestand);
-- `visual` bei `run_visual` im Playwright-Container;
+- `visual` bei `run_visual` im Playwright-Container: die kritische Auswahl
+  (`npm run test:visual:critical`, wenige Minuten);
 - `d1_token_check` bei `run_d1_sync`: `--remote-state` gegen Produktion (Identität, gespeicherte
   Identität, Umfang und Entscheidung des künftigen Main-Syncs in Sekunden, kein Sync-Plan, kein
-  Schreibzugriff) – grün bei No-op oder verifiziertem inkrementellem Lauf, rot (Exit 3), wenn der
-  Sync nach dem Merge eine Vollprojektion bräuchte; dazu ein Teilsync der Verkündungen gegen
+  Schreibzugriff) – grün bei No-op oder verifiziertem inkrementellem Lauf. Meldet er eine nötige
+  Vollprojektion (Exit 3), rechnet der Job den Äquivalenznachweis wie `d1_sync` auf `main`
+  (Basis-Seed aus dem Cache von `main`, Ziel-Seed aus `d1_seed`, sonst lokale Projektionen) und
+  wiederholt den Remote-State mit dem Nachweis: grün, wenn `main` nach dem Merge nur Identität
+  oder einen nachgewiesenen inkrementellen Umfang schreibt, rot mit den abweichenden Tabellen,
+  wenn tatsächlich eine Vollprojektion nötig ist; dazu ein Teilsync der Verkündungen gegen
   Staging als Schreibnachweis des Tokens;
 - `preview` für Pull Requests mit Staatsportal-Wirkung, wenn `CLOUDFLARE_PREVIEWS_ENABLED=true`,
   `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` gesetzt sind (Worker-Version mit
@@ -113,21 +141,35 @@ einmal neu und speichert den Snapshot für alle folgenden Läufe und Branches.
 ## D1-Release-Gate
 
 Ein grüner Pull Request muss nach dem Merge einen grünen Main-Workflow ergeben. Ändert ein PR die
-Projektionsidentität (Projektionslogik, Schema, Stichtag, Normbezüge von Themen/Presse), zeigt
-`d1_token_check` mit `--remote-state`, wie `d1_sync` auf `main` entscheiden würde. Meldet er das
-Gate (Exit 3), wird die Zielprojektion vor dem Merge hergestellt, nie danach:
+Projektionsidentität, gibt es drei Fälle:
 
-1. Lokal nachweisen, dass eine enge Projektion dem Zielstand entspricht
-   (`scripts/d1-projection-snapshot.mjs`: Basisstand als SQLite, gezielter Lauf hinein, frische
-   Vollprojektion, `compare` tabellenweise identisch). Ohne Nachweis bleibt nur die bewusste
-   Vollprojektion (`--full --budget full`, Tabellen werden geleert: Staging zuerst, Produktion nur
-   außerhalb der Nutzungszeiten und mit anschließender Verifikation).
-2. Staging auf den Zielstand bringen (`--git-diff <main> <head> --assume-narrow-logic-change
-   --budget incremental --database ostrecht-recht-staging`), `d1-verify --fts-integrity`, Staging-
-   Worker deployen und die Kernrouten prüfen.
-3. Produktion mit demselben Lauf auf den Zielstand bringen und verifizieren; der alte Worker liest
-   die neue Projektion bis zum Deployment nur, wenn die Datenform nach Expand/Contract abwärts-
-   kompatibel ist.
+| Fall | Erkennung | Weg |
+| --- | --- | --- |
+| Inhalte (Normen, Verkündungen, Stichtag, Normbezüge von Themen/Presse) | `d1_token_check`: inkrementell | nichts zu tun; `d1_sync` schreibt inkrementell mit verifizierter Basis |
+| Projektionslogik ohne Schemaänderung | `d1_token_check`: Remote-State Exit 3 → Äquivalenznachweis | automatisch: Nachweis `identity` (nur Identität und Metadaten) oder `incremental` (nachgewiesener Umfang, z. B. abgeleitete Daten und Suchdokumente aller Normen) → grün; Nachweis `full` (abweichende Tabellen werden genannt) → wie Schemaänderung |
+| Schemaänderung (`data/recht/d1/`) oder Nachweis `full` | `d1_token_check` rot | Zielprojektion vor dem Merge herstellen, nie danach (unten) |
+
+Der Nachweis ist keine Annahme: er projiziert Basis und Ziel vollständig (Seed-Cache oder lokale
+Projektion), vergleicht alle Tabellen semantisch (`scripts/lib/d1-projection-compare.mjs`) und
+bindet das Ergebnis an Basis- und Ziel-Commit, alte und neue Identität, Scope, Comparator-Version
+und den nachgewiesenen Umfang; der Sync prüft jede Bindung, bevor er statt der Vollprojektion
+schreibt. Einen frei setzbaren Bypass gibt es nicht. Lokal:
+
+```sh
+npm run norms:runtime:d1-prove -- --base origin/main            # Nachweis für HEAD, Ergebnis in .cache/d1-equivalence/
+npm run norms:runtime:d1-sync -- --remote-state --git-diff origin/main HEAD --budget incremental --equivalence-proof .cache/d1-equivalence/proof-<…>.json
+```
+
+Ist eine Vollprojektion tatsächlich nötig (Schema, Nachweis `full`), wird die Zielprojektion vor
+dem Merge hergestellt:
+
+1. Migration und Projektion zuerst lokal (`--local --apply-schema`, `d1-verify --fts-integrity`).
+2. Staging auf den Zielstand bringen (`--full --budget full --database ostrecht-recht-staging`,
+   Migration zuerst), `d1-verify --fts-integrity`, Staging-Worker deployen und die Kernrouten
+   prüfen.
+3. Produktion außerhalb der Nutzungszeiten mit demselben Lauf auf den Zielstand bringen und
+   verifizieren; der alte Worker liest die neue Projektion bis zum Deployment nur, wenn die
+   Datenform nach Expand/Contract abwärtskompatibel ist.
 4. `d1_token_check` erneut starten: er meldet No-op. Erst dann mergen; `d1_sync` auf `main` ist
    ein No-op, das Deployment folgt ohne manuellen Reparaturschritt.
 
@@ -144,9 +186,11 @@ Der lokale D1-Seed ist ein SQLite-Snapshot mit deterministischem Fingerabdruck
 | Cache-Treffer | Fingerabdruck bestimmen → Snapshot wiederherstellen → Manifest, Tabellen, Identität, Scope, `sync_state`, Zähler und FTS5-Integrität prüfen → in Miniflare einsetzen → Wrangler liest die Identität → Smoke. Keine Projektion. |
 | Cache-Miss | Fingerabdruck bestimmen → genau eine Projektion (`node:sqlite`) → dieselbe Verifikation → Snapshot im Cache speichern → einsetzen → Smoke. |
 
-Der Fingerabdruck ändert sich nur, wenn Projektionslogik, Migrationen, Rechtsbestand,
-Portalgrundlagen, Stichtag, Seed-Werkzeuge oder die Versionen von wrangler, miniflare und workerd
-sich ändern; CSS, Komponenten, Tests oder Dokumentation ändern ihn nicht. Der Job-Summary jedes
+Der Fingerabdruck ändert sich nur, wenn Projektionscode (Code-Abschluss des Syncs), Migrationen,
+Rechtsbestand, Portalgrundlagen, Stichtag, Seed-Werkzeuge oder die Versionen von wrangler,
+miniflare und workerd sich ändern; CSS, Komponenten, Darstellungslogik außerhalb des Abschlusses,
+Tests oder Dokumentation ändern ihn nicht. `npm run norms:runtime:d1-seed-fingerprint -- --json
+--ref <Commit>` bestimmt ihn für einen Basis-Commit (Cache-Schlüssel des Äquivalenznachweises). Der Job-Summary jedes
 Laufs zeigt Status (`restored`/`built`), Projektions-, Verifikations- und Einsetzdauer sowie die
 Laufzeiten von Build, Verifikation, A11y und Browser. Der Workflow `OstRecht-Vollbestand-Smoke`
 läuft wöchentlich und manuell mit demselben Cache; `refresh_seed` erzwingt die Projektion.
@@ -155,10 +199,13 @@ Laufzeitziele (Richtwerte, keine harten Grenzen):
 
 | Szenario | Ziel |
 | --- | --- |
-| Pull Request mit Fixture | unter 15 Minuten bis zu den Pflichtchecks |
+| Pull Request, reine Oberfläche (Fixture, kritische Screenshots) | unter 10 Minuten bis zu den Pflichtchecks |
+| Pull Request mit Inhalts- oder Laufzeitänderung (Korpus-Tests, Vollbestand) | unter 15 Minuten bis zu den Pflichtchecks |
+| Pull Request mit Äquivalenznachweis (`d1_token_check`) | Nachweis unter 20 Minuten, kein Pflichtcheck |
 | Release auf `main`, Fixture | unter 20 Minuten bis zum Deployment |
 | Release auf `main`, Vollbestand mit Cache-Treffer | Seed unter 1 Minute; Gesamtlauf unter 25 Minuten |
 | Release auf `main`, Vollbestand mit Cache-Miss | Projektion parallel zum Build; Gesamtlauf unter 30 Minuten |
+| Release auf `main` mit Äquivalenznachweis | `d1_sync` unter 25 Minuten; kein produktiver Rebuild bei gleichen Daten |
 
 ## Datenform der D1-Projektion ändern (Expand/Contract)
 
@@ -191,10 +238,96 @@ neue Projektion, nicht den alten Worker; die Übergangsregel ersetzt er nicht.
 | npm audit (Registry) | Wrapper meldet nach drei Versuchen „Registry nicht erreichbar“ | Lauf erneut starten; kein Codefehler |
 | D1-Seed | Seed-Verifikation lehnt einen Snapshot ab | Snapshot wird verworfen und neu projiziert; bei wiederholter Ablehnung Seed-Werkzeuge und Migrationen prüfen |
 | Browser oder Barrierefreiheit | Link-, SEO-, Accessibility- oder Browser-Test schlägt fehl | betroffene Route und Viewport aus dem Testbericht prüfen |
-| Visuelle Regression | `visual` schlägt fehl | Testbericht (Artefakt `visual-report`) sichten; bei beabsichtigter Änderung Linux-Baselines mit dem Workflow „Screenshot-Baselines erneuern“ (`visual-baselines.yml`, Artefakt) erzeugen, sichten und committen, nie stillschweigend |
-| D1-Sync | Remote-State meldet Release-Gate, Budget überschritten oder Basis nicht verifiziert | D1-Release-Gate vor dem Merge ausführen (enge Projektion mit Nachweis, sonst bewusste Vollprojektion zuerst gegen Staging); Workflow erst nach No-op mergen |
+| Visuelle Regression | `visual` schlägt fehl | Testbericht (Artefakt `visual-report`) sichten; bei beabsichtigter Änderung Linux-Baselines erneuern (`npm run test:visual:update:linux -- --site law`, ohne Docker Workflow „Screenshot-Baselines erneuern“ und `npm run test:visual:baselines:apply -- --run <Lauf-ID>`), sichten und committen, nie stillschweigend |
+| D1-Sync | Remote-State meldet Release-Gate (Nachweis `full` oder Schema), Budget überschritten oder Basis nicht verifiziert | D1-Release-Gate vor dem Merge ausführen (Vollprojektion zuerst gegen Staging); Workflow erst nach No-op mergen |
 | Cloudflare-Upload | alle Prüfungen grün, aber `deploy` schlägt fehl | Token, Account-ID, Worker-Konfiguration und Wrangler-Ausgabe prüfen; keine lokale Ersatzveröffentlichung |
 | Nachkontrolle | Workflow grün, aber Commitkennung oder Route stimmt nicht | letzte tatsächlich ausgelieferte Kennung feststellen und Deployment erst nach Ursachenklärung erneut anstoßen |
+
+## Testkategorien und lokale Prüfschleifen
+
+Jeder Test hat genau eine Verantwortung; derselbe Sachverhalt wird nicht auf mehreren Ebenen
+wiederholt:
+
+| Kategorie | Ort | Zweck | läuft |
+| --- | --- | --- | --- |
+| schnell / Unit | `tests/*.test.{ts,mjs}` | reine Funktionen, Parser, Scope, Fingerabdruck, Abschluss, Nachweisbindung, Store- und Projektionsverhalten auf dem synthetischen Bestand (`tests/helpers/fixture-corpus.ts`) – kein Vollbestand, kein Worker | bei jeder Codeänderung, lokal in Sekunden (`npm run test:fast`) |
+| Korpus | `tests/corpus/` | Abnahmefälle der Projektionsidentität auf dem Fixture, Seed-Werkzeug gegen die lokale D1, Referenz- und Empfehlungsindex auf einer Stichprobe | bei Projektions-, Laufzeit- und Schemaänderungen, wöchentlich (`npm run test:corpus`) |
+| Content-Audit | `content:check` (Import-Audit, REVOSax-Audit, Konsolidierung, Schemas, Metadaten, Ableitungen, Reststellen, Themen, Wissenshub), `test:links:run`, `test:seo:run` | generische Invarianten des gesamten Rechtsbestands: Quellenhashes, Referenzen, Gültigkeitsintervalle, Vollzitate, Herkunft, keine Import-Artefakte | bei Inhalts- und Pipeline-Änderungen, wöchentlich; Links und SEO nach jedem Build |
+| Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker; Erwartungen aus Kandidaten-API, Vorschlägen, Verkündungsindex und ausgelieferten Daten (`tests/helpers/law-runtime.ts`) | Pflichtcheck (Fixture), wöchentlich Vollbestand |
+| Barrierefreiheit | `tests/accessibility.spec.ts` | axe und Fokusindikator auf Seitenrollen (Normseite je Herkunft, Vergleich, Historie, Suche, Verkündung, Fehlerseite) | Pflichtcheck |
+| Visual | `tests/visual.spec.ts` | Layout und Design (kritisch / breit) einschließlich horizontalem Überlauf, keine funktionalen Assertions | bei Oberflächenänderungen |
+| Vollbestand | `full_corpus_smoke`, Workflow „OstRecht-Vollbestand-Smoke und Korpus-Audit“ | Datenintegrität, Suche und D1 über den echten Bestand; vollständige Content-Audits und Korpus-Tests | bei relevanten Änderungen, wöchentlich, manuell, vor größeren Releases |
+| Browsermatrix | `test:browsers:run` | Browser-Smoke und Beteiligungsnavigator in Firefox und WebKit | manuell |
+
+Jeder Test schützt eine dauerhafte Invariante des aktuellen Systems, keinen historischen
+Einzelstand:
+
+- **Verhaltensinvarianten** (Unit, Browser, Barrierefreiheit) laufen auf bewusst gebauten
+  Fixtures oder zur Laufzeit abgeleiteten Daten. Kein Funktionstest nennt den Titel, die Abkürzung
+  oder eine Fundstelle einer realen Norm; eine redaktionelle Korrektur oder Umbenennung einer Norm
+  bricht keinen Unit-, Browser- oder Screenshot-Test.
+- **Inhaltsinvarianten** (Quellen unverändert, Referenzen aufgelöst, Intervalle lückenlos,
+  Vollzitate ausgeschrieben, Herkunft widerspruchsfrei, keine Import-Artefakte, keine
+  Sachsen-Reststellen) prüfen die Content-Audits generisch über den gesamten Bestand – nicht als
+  Einzeltests auf bekannte Werte.
+- **Historische Einmaltests** (Import- und Migrationsschritte, konkrete Reihenfolgen eines
+  Releases, Wortlaut einzelner Berichtigungen) werden nicht dauerhaft mitgeführt; Git enthält die
+  Geschichte. Wer einen solchen Fall absichern will, formuliert ihn als generische Invariante oder
+  prüft ihn manuell mit den Audits.
+
+Für eine Änderung an einer einzelnen Norm laufen dadurch: die Content-Audits (rund eine Minute
+über den Bestand, keine Tests auf bekannte Werte), der D1-Sync für die betroffene Norm, die
+Browser- und Barrierefreiheits-Smokes gegen das Fixture – und nicht die Korpus-Tests. Die
+vollständigen Audits und Korpus-Tests laufen bei Import-, Schema- und Projektionslogik, wöchentlich
+und manuell vor größeren Releases.
+
+Lokale Befehle (jede Website wird höchstens einmal gebaut; die `*:run`-Varianten arbeiten auf dem
+vorhandenen Build):
+
+```sh
+npm run test:fast     # Typen nicht enthalten: reine Unit-Tests in Sekunden
+npm run test:pr       # Typen, schnelle Unit-Tests, ein Build, Links, SEO, A11y- und Browser-Smoke (Fixture), kritische Screenshots
+npm run test:full     # zusätzlich docs:check, content:check, Korpus-Tests, breite Screenshot-Inventur
+SITE_TARGETS=law npm run test:pr   # nur OstRecht in den Build-nachgelagerten Prüfungen
+```
+
+`test:pr` setzt `OSTRECHT_D1_FIXTURE` auf das Testfixture; ein kleiner Oberflächen-Change
+projiziert weder den Vollbestand noch erzeugt er Hunderte Screenshots. Die Komfortbefehle
+`links:check`, `seo:check`, `test:a11y`, `test:browsers` und `test:visual` bauen selbst und sind für
+Einzelaufrufe gedacht, nicht für Sammelprüfungen.
+
+## Screenshot-Suite
+
+Die Screenshot-Suite prüft Layout und Design – CSS-Regressionen, falsche Abstände, verschwundene
+Elemente, Überläufe, kaputte Breakpoints –, nichts, was Browser-Smoke oder Barrierefreiheitstest
+bereits sehen. Sie hat zwei Stufen (`tests/visual.spec.ts`):
+
+- **visual-critical** (`npm run test:visual:critical`, Tag `@critical`): je Website Startseite,
+  eine typische Inhaltsseite und die layoutkritischen Komponenten (Portal: Startseite mit
+  Aktuelles-Modul, Ministerium, Thema, Kreisreform, Consent; OstRecht: Startseite, Suche mit
+  Suchkopf und Filtern, Normseite, Rechtsstand/Herkunft, Fassungsvergleich, mobile Navigation) auf
+  Desktop und Mobil, Tablet nur bei eigenem Breakpoint (Startseiten). Läuft in Pull Requests.
+- **visual-extended** (`npm run test:visual:extended`): alle Motive auf drei Viewports. Läuft auf
+  `main` bei Oberflächenänderungen, wöchentlich und manuell (`visual-extended.yml`).
+
+Kanonische Plattform ist Linux: versioniert sind nur `-linux.png`-Baselines aus dem
+Playwright-Container. Auf macOS laufen dieselben Tests funktional (Seitenaufbau, Überlauf,
+Interaktion) ohne Pixelvergleich; `OSTRECHT_VISUAL_STRICT=1` erzwingt ihn. Bei einer beabsichtigten
+Oberflächenänderung wird die Suite zunächst rot – das ist ihr Zweck; die Baselines werden dann mit
+einem Vorgang erneuert:
+
+```sh
+npm run test:visual:update:linux -- --site law                   # Docker: Container wie in CI, Build, Fixture-Seed, Update, strikter Vergleich
+npm run test:visual:update:linux -- --site portal --critical      # nur die kritische Suite
+npm run test:visual:update:linux -- --grep "Komponenten-Basislinien: norm"   # einzelne Tests
+```
+
+Ohne Docker: Workflow „Screenshot-Baselines erneuern“ (Website, Suite, Muster wählbar; prüft die
+Auswahl direkt strikt gegen die neuen Baselines), danach
+`npm run test:visual:baselines:apply -- --run <Lauf-ID>`. In beiden Fällen bleiben Sichtprüfung
+und Commit bewusst manuell; die normale PR-CI aktualisiert nie Baselines. Instabile Screenshots
+werden über Wartebedingungen, blockierte externe Requests, feste Schriften und gezielte Masken
+stabilisiert – nicht über eine größere Pixeltoleranz (`maxDiffPixelRatio` 0,005 bleibt).
 
 ## Letzten ausgelieferten Commit feststellen
 

@@ -17,6 +17,24 @@ const summaryFragment = /^(?:§|Abschnitt\b|Artikel\b|OABl\.|OGVBl\.|StAnzO\.|GV
 // Provenienz-Semantik: enactingBody ist das erlassende Organ im ostdeutschen Rechtsbestand,
 // originEnactingBody das Ursprungsorgan der übernommenen sächsischen Quelle (REVOSax-Snapshot).
 const saxonBody = /Sächs|Sachsen/u;
+// Ab diesem Verkündungsdatum werden Normen redaktionell vollständig erfasst: erlassendes Organ,
+// fachliche Zuständigkeit und eine eigene Zusammenfassung sind Pflicht.
+const EDITORIAL_METADATA_SINCE = '2026-07-20';
+// Kopf-, Bild-, Editor- und Signaturreste aus Importen gehören nie in einen Normkörper.
+const IMPORT_ARTEFACTS = /data:image|;base64,|@import|LANDTAGSPRÄSIDENT|Ausgabe X\b|<mxfile/u;
+
+function sourceReferenceKey(reference) {
+  return JSON.stringify([reference.kind ?? null, reference.localSource ?? null, reference.objectKey ?? null, reference.url ?? null, reference.pageRange ?? null, reference.label ?? null]);
+}
+
+function reportDuplicateSources(slug, label, references) {
+  const seen = new Set();
+  for (const reference of references ?? []) {
+    const key = sourceReferenceKey(reference);
+    if (seen.has(key)) report(slug, `${label}: doppelte Quellenreferenz ${reference.label ?? reference.localSource ?? reference.objectKey ?? ''}`);
+    seen.add(key);
+  }
+}
 
 function report(slug, message) {
   problems.push(`${slug}: ${message}`);
@@ -56,12 +74,21 @@ for (const entry of await readdir(normRoot, { withFileTypes: true })) {
   if (typeof meta.summary !== 'string' || meta.summary.trim().length < 24 || summaryFragment.test(meta.summary.trim())) {
     report(slug, 'summary ist leer, zu kurz oder ein typisches Importfragment');
   }
+  if ((meta.publicationDate ?? '') >= EDITORIAL_METADATA_SINCE) {
+    if (typeof meta.summary === 'string' && meta.summary.trim() === `Regelt ${meta.title}.`) report(slug, 'summary ist eine generische Formel statt einer redaktionellen Kurzbeschreibung');
+    if (!meta.enactingBody) report(slug, `ab ${EDITORIAL_METADATA_SINCE} verkündete Normen führen das erlassende Organ (enactingBody)`);
+    if (!meta.responsibleMinistry) report(slug, `ab ${EDITORIAL_METADATA_SINCE} verkündete Normen führen die fachliche Zuständigkeit (responsibleMinistry)`);
+  }
+  reportDuplicateSources(slug, 'meta.json', meta.sourceReferences);
   if (versions.length === 0) {
     report(slug, 'enthält keine gespeicherte Fassung');
     continue;
   }
 
   for (const [index, version] of versions.entries()) {
+    if (!Array.isArray(version.body) || version.body.length === 0) report(slug, `${version.versionId}: leerer Normkörper`);
+    else if (IMPORT_ARTEFACTS.test(JSON.stringify(version.body))) report(slug, `${version.versionId}: Normkörper enthält Import-Artefakte (${JSON.stringify(version.body).match(IMPORT_ARTEFACTS)?.[0]})`);
+    reportDuplicateSources(slug, version.versionId, version.sourceReferences);
     const identity = {
       title: version.title ?? meta.title,
       shortTitle: version.shortTitle ?? version.title ?? meta.shortTitle ?? meta.title,

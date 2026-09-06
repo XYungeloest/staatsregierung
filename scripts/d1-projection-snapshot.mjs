@@ -3,40 +3,34 @@
 // Muss vor allen @ostrecht-Importen stehen (SITE_TARGET=law für die Routenhelfer).
 import './lib/law-site-env.mjs';
 
-import { join, resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { resolve } from 'node:path';
 
+import { compareProjections, formatComparison } from './lib/d1-projection-compare.mjs';
+import { projectionClosure } from './lib/d1-projection-closure.mjs';
+import { FULL_SCOPE, projectionIdentity, projectionLogicLines } from './lib/d1-projection-fingerprint.mjs';
+import { DEFAULT_PROOF_DIR, describeProofResult, loadProjectionInputs, proveProjectionEquivalence } from './lib/d1-projection-proof.mjs';
 import { checkSearchIndexIntegrity, executePlan, openDatabase } from './lib/d1-sqlite.mjs';
+import * as sync from './sync-recht-d1.mjs';
 
 /**
- * Lokaler Nachweis für gezielte D1-Projektionen ohne Cloudflare-Zugriff.
+ * Lokale Werkzeuge für die D1-Projektion ohne Cloudflare-Zugriff.
  *
- * Die Projektion wird mit den echten Migrationen (data/recht/d1/*.sql, FTS5, Trigger) in eine
- * SQLite-Datei geschrieben (node:sqlite) – entweder als Vollprojektion oder als gezielter
- * Git-Diff-Lauf in eine vorhandene Datei. Zwei Dateien lassen sich anschließend tabellenweise
- * vergleichen (ohne Zeitstempel, Laufmodus und die fortlaufende rowid der Suchzeilen).
- *
- * Typischer Nachweis „gezielte Fortschreibung == frische Vollprojektion“:
- *   1. im Basis-Stand (z. B. git worktree des letzten Produktionscommits, eigenes npm ci):
- *      node --experimental-strip-types <dieses Skript> project --out base.sqlite --full
- *   2. im Zielstand:
- *      node --experimental-strip-types scripts/d1-projection-snapshot.mjs project --into base.sqlite \
- *        --git-diff <base> <head> [--assume-narrow-logic-change]
- *      node --experimental-strip-types scripts/d1-projection-snapshot.mjs project --out target.sqlite --full
- *   3. node scripts/d1-projection-snapshot.mjs compare base.sqlite target.sqlite
+ *   project   Projektion mit den echten Migrationen (data/recht/d1/*.sql, FTS5, Trigger) in eine
+ *             SQLite-Datei (node:sqlite): Vollprojektion (--out <Datei> --full) oder gezielter
+ *             Git-Diff-Lauf in eine vorhandene Datei (--into <Datei> --git-diff <base> <head>).
+ *   compare   Vollständiger semantischer Tabellenvergleich zweier Dateien
+ *             (scripts/lib/d1-projection-compare.mjs; Exit 1 bei Abweichung).
+ *   prove     Äquivalenznachweis Basis-Ref → Arbeitsbaum (scripts/lib/d1-projection-proof.mjs):
+ *             --base <Ref> [--head <Ref>] [--out <Verzeichnis>] [--keep]; schreibt die
+ *             Nachweisdatei, die der Sync mit --equivalence-proof prüft.
+ *   closure   Dateien des transitiven Code-Abschlusses der Projektion (was Teil der
+ *             Projektionsidentität ist) und die Zeilen des Logikhashes; [--ref <Ref>].
  *
  * `project` verwendet immer den Sync des aktuellen Arbeitsverzeichnisses (scripts/sync-recht-d1.mjs)
- * und dessen Rechtsbestand; das Skript selbst kann dafür unverändert in einen Basis-Worktree
- * kopiert werden. Es schreibt nie in eine Cloudflare-Datenbank.
+ * und dessen Rechtsbestand. Kein Befehl schreibt in eine Cloudflare-Datenbank.
  */
 
 const ROOT = resolve(process.cwd());
-const TABLES = [
-  'law_norms', 'law_versions', 'law_version_blocks', 'law_source_objects', 'law_norm_derived', 'law_publications',
-  'law_search_documents', 'law_search_units', 'law_norm_subjects', 'law_norm_history', 'law_norm_keywords', 'law_runtime_meta',
-];
-const IGNORED_COLUMNS = new Set(['updated_at']);
-const IGNORED_META_KEYS = new Set(['last_sync_at', 'sync_mode']);
 
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
@@ -47,21 +41,13 @@ async function project(args) {
   const out = valueAfter(args, '--out');
   const into = valueAfter(args, '--into');
   if (Boolean(out) === Boolean(into)) throw new Error('project braucht genau eines von --out <neue Datei> oder --into <vorhandene Datei>');
-  const sync = await import(pathToFileURL(join(ROOT, 'scripts', 'sync-recht-d1.mjs')).href);
-  const fingerprintLib = await import(pathToFileURL(join(ROOT, 'scripts', 'lib', 'd1-projection-fingerprint.mjs')).href);
-  const { loadAllNorms } = await import('@ostrecht/shared/lib/norms/loader.ts');
-  const { loadAllVerkuendungen } = await import('@ostrecht/shared/lib/norms/publications.ts');
-  const { buildDerivedContext } = await import('@ostrecht/shared/lib/norms/derived.ts');
-  const { loadPressReleases, loadTopics } = await import('@ostrecht/shared/lib/portal/content.ts');
-  const { getPressReleaseUrl, getTopicUrl } = await import('@ostrecht/shared/lib/portal/routes.ts');
   const startedAt = Date.now();
-  const [norms, publications, topics, pressReleases] = await Promise.all([loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases()]);
+  const { norms, publications, context } = await loadProjectionInputs(ROOT, { sync });
   console.log(`${norms.length} Normen und ${publications.length} Verkündungen geladen (${Math.round((Date.now() - startedAt) / 1000)} s)`);
-  const identity = await fingerprintLib.projectionIdentity({ root: ROOT, scope: fingerprintLib.FULL_SCOPE });
+  const identity = await projectionIdentity({ root: ROOT, scope: FULL_SCOPE });
   console.log(`Projektionsidentität ${identity.fingerprint.slice(0, 16)}… (Logik ${identity.logic.slice(0, 12)}…, Bestand ${identity.corpus.slice(0, 12)}…, Portal ${identity.portal.slice(0, 12)}…)`);
   const scopeArgs = args.filter((value) => value !== 'project');
-  const scope = await sync.resolveScope(scopeArgs, { norms, publications });
-  const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl });
+  const scope = await sync.resolveScope(scopeArgs, { norms, publications, logicPaths: identity.closureUncertain ? null : new Set(identity.logicFiles) });
   console.log(`Umfang: ${scope.mode}${scope.mode === 'incremental' ? ` – ${scope.slugs.length} Norm(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.refreshSearchDocuments ? ', Suchdokumente aller Normen' : ''}` : ''}${scope.reasons?.length ? ` – ${scope.reasons.slice(0, 4).join('; ')}` : ''}`);
   const now = valueAfter(args, '--now') ?? '2026-01-01T00:00:00.000Z';
   const plan = sync.buildSyncPlan({ scope, norms, publications, context, now, fingerprint: identity, identity, writeIdentity: true });
@@ -73,65 +59,49 @@ async function project(args) {
   console.log(`${executed} Anweisungen nach ${out ?? into} geschrieben; FTS5-Integrität geprüft (${Math.round((Date.now() - startedAt) / 1000)} s).`);
 }
 
-function dumpTable(db, table) {
-  const rows = db.prepare(`SELECT * FROM ${table}`).all().map((row) => {
-    const entry = {};
-    for (const [key, value] of Object.entries(row)) {
-      if (IGNORED_COLUMNS.has(key)) continue;
-      if (table === 'law_search_units' && key === 'id') continue;
-      entry[key] = value;
-    }
-    return JSON.stringify(entry);
-  });
-  if (table === 'law_runtime_meta') return rows.filter((row) => !IGNORED_META_KEYS.has(JSON.parse(row).key)).sort();
-  return rows.sort();
-}
-
 async function compare(args) {
   const [left, right] = args.filter((value) => value !== 'compare' && !value.startsWith('--'));
   if (!left || !right) throw new Error('compare braucht zwei SQLite-Dateien');
-  const { createHash } = await import('node:crypto');
-  const a = await openDatabase(left, { create: false, readOnly: true });
-  const b = await openDatabase(right, { create: false, readOnly: true });
-  let differences = 0;
-  for (const table of TABLES) {
-    const rowsA = dumpTable(a, table);
-    const rowsB = dumpTable(b, table);
-    const hashA = createHash('sha256').update(rowsA.join('\n')).digest('hex').slice(0, 16);
-    const hashB = createHash('sha256').update(rowsB.join('\n')).digest('hex').slice(0, 16);
-    const equal = hashA === hashB;
-    if (!equal) differences += 1;
-    console.log(`${equal ? 'OK ' : 'DIFF'} ${table}: ${rowsA.length} vs ${rowsB.length} Zeilen, ${hashA} vs ${hashB}`);
-    if (!equal) {
-      const setB = new Set(rowsB);
-      const setA = new Set(rowsA);
-      const onlyA = rowsA.filter((row) => !setB.has(row));
-      const onlyB = rowsB.filter((row) => !setA.has(row));
-      console.log(`     nur links: ${onlyA.length}, nur rechts: ${onlyB.length}`);
-      for (const row of onlyA.slice(0, 3)) console.log(`     < ${row.slice(0, 300)}`);
-      for (const row of onlyB.slice(0, 3)) console.log(`     > ${row.slice(0, 300)}`);
-    }
-  }
-  for (const term of ['Interflug', 'Zinnwald', 'Daseinsvorsorge', 'Hoheitszeichen', 'Gemeindeordnung']) {
-    const hits = (db) => db.prepare('SELECT norm_id, version_id, provision_path FROM law_search WHERE law_search MATCH ? ORDER BY norm_id, version_id, provision_path').all(term).map((row) => JSON.stringify(row)).join('\n');
-    const equal = hits(a) === hits(b);
-    if (!equal) differences += 1;
-    console.log(`${equal ? 'OK ' : 'DIFF'} Volltextsuche „${term}“`);
-  }
-  a.close();
-  b.close();
-  if (differences > 0) {
-    console.error(`${differences} Tabelle(n)/Suchabfrage(n) weichen ab.`);
-    process.exitCode = 1;
-  } else {
-    console.log('Beide Projektionen sind tabellenweise identisch (ohne Zeitstempel, Laufmodus und Suchzeilen-rowid).');
+  const comparison = await compareProjections(left, right, { root: ROOT });
+  console.log(formatComparison(comparison));
+  if (!comparison.identical) process.exitCode = 1;
+}
+
+async function prove(args) {
+  const baseRef = valueAfter(args, '--base');
+  if (!baseRef) throw new Error('prove braucht --base <Ref>');
+  const { proof } = await proveProjectionEquivalence({
+    root: ROOT,
+    sync,
+    baseRef,
+    headRef: valueAfter(args, '--head') ?? 'HEAD',
+    proofDir: valueAfter(args, '--out') ?? DEFAULT_PROOF_DIR,
+    keepProjections: args.includes('--keep'),
+  });
+  console.log(`Ergebnis: ${describeProofResult(proof)}`);
+  if (proof.result === 'full') process.exitCode = 1;
+}
+
+async function closure(args) {
+  const ref = valueAfter(args, '--ref') ?? null;
+  const resolved = await projectionClosure({ root: ROOT, ref });
+  console.log(`Abschluss${ref ? ` von ${ref}` : ' des Arbeitsbaums'}: ${resolved.files.length} Datei(en)${resolved.uncertain ? ' – UNSICHER, der Fingerabdruck zählt die konservative Obermenge' : ''}`);
+  for (const reason of resolved.reasons) console.log(`  ! ${reason}`);
+  for (const file of resolved.files) console.log(`  ${file}`);
+  if (resolved.externals.length > 0) console.log(`Externe Pakete: ${resolved.externals.join(', ')}`);
+  if (args.includes('--lines')) {
+    console.log('Zeilen des Logikhashes:');
+    for (const line of (await projectionLogicLines(ROOT, { ref, closure: resolved })).sort()) console.log(`  ${line}`);
   }
 }
 
 const command = process.argv[2];
-if (command === 'project') await project(process.argv.slice(2));
-else if (command === 'compare') await compare(process.argv.slice(2));
+const args = process.argv.slice(2);
+if (command === 'project') await project(args);
+else if (command === 'compare') await compare(args);
+else if (command === 'prove') await prove(args);
+else if (command === 'closure') await closure(args);
 else {
-  console.error('Verwendung: d1-projection-snapshot.mjs project (--out <Datei> --full | --into <Datei> --git-diff <base> <head> [--assume-narrow-logic-change]) | compare <a.sqlite> <b.sqlite>');
+  console.error('Verwendung: d1-projection-snapshot.mjs project (--out <Datei> --full | --into <Datei> --git-diff <base> <head>) [--now <ISO>] | compare <a.sqlite> <b.sqlite> | prove --base <Ref> [--head <Ref>] [--out <Verzeichnis>] [--keep] | closure [--ref <Ref>] [--lines]');
   process.exit(2);
 }

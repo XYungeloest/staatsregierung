@@ -31,15 +31,15 @@ test('SQL-Dateien fassen Normen zusammen, ohne eine Norm zu zerteilen', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Kostenpfad der Projektion (Migration 0005): indexierte Löschungen, Vollprojektion
-// ohne normweise Suchindex-Löschung, Budgetgrenzen.
+// Kostenpfad der Projektion (Migration 0005) auf dem synthetischen Bestand: indexierte Löschungen,
+// Vollprojektion ohne normweise Suchindex-Löschung, Budgetgrenzen.
 // ---------------------------------------------------------------------------
 
 import { readFile } from 'node:fs/promises';
 
 import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
 
-import { loadNormsOnce } from './helpers/corpus.ts';
+import { fixtureCorpus } from './helpers/fixture-corpus.ts';
 import {
   buildSyncPlan, corpusOverviewMeta, createStats, deleteNormQueries, derivedQueries, estimatePlanCost, normQueries, recordResults, SyncBudgetExceeded, summarizeStatements,
 } from '../scripts/sync-recht-d1.mjs';
@@ -49,18 +49,12 @@ const FINGERPRINT = { fingerprint: 'f'.repeat(64), logic: 'l'.repeat(64), corpus
 const NOW = '2026-09-03T12:00:00.000Z';
 
 let fixturePromise = null;
-/** Kleiner, deterministischer Ausschnitt des Bestands: Stammnorm mit Fassungen, Mantelbestandteil, Änderungsakt, Baseline-Normen. */
+/** Synthetischer Bestand: Stammnorm mit Fassungen, Mantelbestandteil, Änderungsakt, übernommene Verordnungen (tests/helpers/fixture-corpus.ts). */
 function fixture() {
   fixturePromise ??= (async () => {
-    const all = await loadNormsOnce();
+    const all = fixtureCorpus().norms;
     const bySlug = new Map(all.map((norm) => [norm.meta.slug, norm]));
-    const picked = [
-      bySlug.get('ostdeutsches-feiertagsgesetz'),
-      all.find((norm) => norm.meta.containedIn),
-      all.find((norm) => norm.meta.type === 'aenderungsvorschrift' && !norm.meta.containedIn),
-      ...all.filter((norm) => norm.versions.length === 1 && norm.meta.type === 'verordnung').slice(0, 2),
-    ].filter(Boolean);
-    const norms = [...new Map(picked.map((norm) => [norm.meta.slug, norm])).values()];
+    const norms = ['testgesetz', 'aend-gebuehrenverordnung-artikel', 'aenderungsgesetz-testgesetz', 'testverordnung', 'aufgehobene-verordnung'].map((slug) => bySlug.get(slug));
     const context = buildDerivedContext({ norms, publications: [], topics: [], pressReleases: [] });
     return { norms, context };
   })();
@@ -100,7 +94,8 @@ test('Vollprojektion: Reset einmal am Anfang, keine normweisen Suchindex-Löschu
 
 test('einzelner Slug: nur Zeilen dieser Norm über Indizes, kein Reset; Derived-Rebuild berührt bei anderen Normen nur abgeleitete Daten', async () => {
   const { norms, context } = await fixture();
-  const target = norms[0];
+  // Ziel ohne Beziehungen zu anderen Normen des Ausschnitts: keine fremde norm_id in den Parametern.
+  const target = norms.find((norm) => norm.meta.slug === 'testverordnung');
   const scope = { mode: 'incremental', slugs: [target.meta.slug], deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, reasons: [] };
   const plan = buildSyncPlan({ scope, norms, publications: [], context, now: NOW, fingerprint: FINGERPRINT });
   assert.equal(plan.full, false);
@@ -181,7 +176,7 @@ test('Migration 0007 ergänzt die Filterspalten der Kandidatenabfrage und füllt
 test('die Projektion schreibt Rechtsänderung, Aktivität, Änderungskennzeichen und Fundstellenspalten je Norm', async () => {
   const { norms, context } = await fixture();
   const amendment = norms.find((norm) => norm.meta.type === 'aenderungsvorschrift');
-  const statute = norms.find((norm) => norm.meta.slug === 'ostdeutsches-feiertagsgesetz');
+  const statute = norms.find((norm) => norm.meta.slug === 'testgesetz');
   const normInsert = (norm) => normQueries(norm, context, NOW, { full: true })
     .find((query) => query.sql.startsWith('INSERT INTO law_norms'));
   const versionInsert = (norm) => normQueries(norm, context, NOW, { full: true })
