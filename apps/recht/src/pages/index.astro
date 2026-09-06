@@ -6,6 +6,7 @@ import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
 import { formatDate, formatNormType, getIndexUrl, getLawPortalUrl, getNormHistoryUrl, getNormUrl, getPublicationEntriesUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getSearchUrl, getSubjectsUrl, getSubjectSlug, EDITORIAL_REFERENCE_DATE, LEGAL_CHANGE_ENTRY_TYPES, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
 import { NORM_HISTORY_LABEL } from '../lib/vocabulary.ts';
+import { formatInventoryCount, formatPublicationCount } from '../lib/counts.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
 export const prerender = false;
@@ -77,7 +78,7 @@ const quickAccess = [
         <a href={`${getSearchUrl()}?type=foerderrichtlinie`}>Förderrichtlinien</a>
         <a href={getSearchUrl()}>Erweiterte Suche</a>
       </nav>
-      <p class="law-home-hero__inventory">{stats.inForceCount} geltende Vorschriften und {stats.publicationCount} erschlossene Ausgaben im Bestand.</p>
+      <p class="law-home-hero__inventory">{formatInventoryCount(stats)}; dazu {formatPublicationCount(stats.publicationCount)} der Verkündungsblätter.</p>
     </div>
   </section>
 

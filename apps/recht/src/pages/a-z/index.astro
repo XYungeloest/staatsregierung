@@ -1,0 +1,350 @@
+---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
+import LawLayout from '../../layouts/LawLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import NormOriginBadge from '../../components/norms/NormOriginBadge.astro';
+import DirectoryEntry from '../../components/directory/DirectoryEntry.astro';
+import DirectoryFilterBar from '../../components/directory/DirectoryFilterBar.astro';
+import DirectoryPagination from '../../components/directory/DirectoryPagination.astro';
+import LetterNav from '../../components/directory/LetterNav.astro';
+import {
+  describeNormOriginKind,
+  formatDate,
+  formatNormOriginKind,
+  formatNormStatus,
+  formatNormType,
+  getGermanIndexLetter,
+  getIndexUrl,
+  getLawPortalUrl,
+  getNormTitleBlock,
+  getNormUrl,
+  getSearchUrl,
+  toDisplayText,
+  type NormOriginKind,
+} from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
+import { DEFAULT_PAGE_SIZE, KEYWORD_PAGE_SIZE, normalizePage, type KeywordIndexPage } from '../../lib/runtime/store.ts';
+import { INHERITED_AMENDMENT_FIELD, INHERITED_AMENDMENT_VALUE } from '../../lib/runtime/directory.ts';
+import { formatCount } from '../../lib/counts.ts';
+import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
+
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion – seitenweise und
+// je Buchstabengruppe (serverseitige Filter), nie den gesamten Bestand in einer Antwort.
+export const prerender = false;
+
+const store = await getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+const basePath = getIndexUrl();
+// Reihenfolge der Herkunftsarten in Filter und Übersicht: übernommen (unverändert, geändert), neu, ungeklärt.
+const originKinds: NormOriginKind[] = ['inherited-unchanged', 'inherited-amended', 'ostdeutsch-original', 'origin-unresolved'];
+// Übernommene Änderungsvorschriften stehen nicht neben den Stammnormen; das Feld holt sie zurück.
+const includeInheritedAmendments = (Astro.url.searchParams.get('aenderungen') ?? '').trim() === INHERITED_AMENDMENT_VALUE;
+const [letters, originCounts, stats] = await Promise.all([
+  store.listIndexLetters({ includeInheritedAmendments }),
+  store.countByOriginKind(),
+  store.getCorpusStats(),
+]);
+const requestedLetter = (Astro.url.searchParams.get('buchstabe') ?? '').trim().toLocaleUpperCase('de-DE').slice(0, 1);
+const availableLetters = letters.map((entry) => entry.letter);
+const letter = availableLetters.includes(requestedLetter) ? requestedLetter : (availableLetters.includes('A') ? 'A' : availableLetters[0] ?? 'A');
+// Herkunftsfilter (`herkunft`): dieselben internen Werte wie Suche und Verzeichnisse.
+const requestedOrigin = (Astro.url.searchParams.get('herkunft') ?? '').trim();
+const originKind: NormOriginKind | '' = (originKinds as string[]).includes(requestedOrigin) ? (requestedOrigin as NormOriginKind) : '';
+const { page: requestedPage } = normalizePage(Astro.url.searchParams.get('seite'));
+const result = await store.queryNormSummaries({ letter, originKind: originKind || undefined, includeInheritedAmendments, page: requestedPage, pageSize: DEFAULT_PAGE_SIZE });
+// Stichwortregister und Abkürzungsverzeichnis sind zwei getrennte Listen derselben
+// Buchstabengruppe mit eigenem Filter und eigener Seitenfolge; die Vorschriftenliste bleibt
+// davon unberührt.
+const registerFilter = (Astro.url.searchParams.get('stichwort') ?? '').trim().slice(0, 100);
+const { page: requestedRegisterPage } = normalizePage(Astro.url.searchParams.get('stichwortseite'), KEYWORD_PAGE_SIZE);
+const abbreviationFilter = (Astro.url.searchParams.get('abkuerzung') ?? '').trim().slice(0, 100);
+const { page: requestedAbbreviationPage } = normalizePage(Astro.url.searchParams.get('abkuerzungsseite'), KEYWORD_PAGE_SIZE);
+const [register, abbreviations] = await Promise.all([
+  store.listKeywordIndex(letter, { kinds: ['register'], q: registerFilter || undefined, page: requestedRegisterPage, pageSize: KEYWORD_PAGE_SIZE }),
+  store.listKeywordIndex(letter, { kinds: ['abbr', 'short-title'], q: abbreviationFilter || undefined, page: requestedAbbreviationPage, pageSize: KEYWORD_PAGE_SIZE }),
+]);
+const stateParams = {
+  buchstabe: letter,
+  herkunft: originKind,
+  aenderungen: includeInheritedAmendments ? INHERITED_AMENDMENT_VALUE : '',
+  seite: result.page > 1 ? String(result.page) : '',
+  stichwort: registerFilter,
+  stichwortseite: register.page > 1 ? String(register.page) : '',
+  abkuerzung: abbreviationFilter,
+  abkuerzungsseite: abbreviations.page > 1 ? String(abbreviations.page) : '',
+};
+const listParams = { buchstabe: letter, herkunft: originKind, aenderungen: stateParams.aenderungen };
+const pagination = buildPagination({
+  page: result.page,
+  pageCount: result.pageCount,
+  basePath,
+  params: { ...listParams, stichwort: registerFilter, stichwortseite: stateParams.stichwortseite, abkuerzung: abbreviationFilter, abkuerzungsseite: stateParams.abkuerzungsseite },
+  pageParam: 'seite',
+});
+const registerPagination = buildPagination({
+  page: register.page,
+  pageCount: register.pageCount,
+  basePath,
+  params: { ...listParams, seite: stateParams.seite, stichwort: registerFilter, abkuerzung: abbreviationFilter, abkuerzungsseite: stateParams.abkuerzungsseite },
+  pageParam: 'stichwortseite',
+});
+const abbreviationPagination = buildPagination({
+  page: abbreviations.page,
+  pageCount: abbreviations.pageCount,
+  basePath,
+  params: { ...listParams, seite: stateParams.seite, stichwort: registerFilter, stichwortseite: stateParams.stichwortseite, abkuerzung: abbreviationFilter },
+  pageParam: 'abkuerzungsseite',
+});
+const heading = letter === '#' ? 'Ziffern und Sonderzeichen' : `Buchstabe ${letter}`;
+const originHeading = originKind ? ` · ${formatNormOriginKind(originKind)}` : '';
+const pageTitle = `${lawSiteConfig.targetLabels.index} – ${heading}${originHeading}${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
+const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
+const lastIndex = Math.min(result.page * result.pageSize, result.total);
+const filtersActive = Boolean(originKind) || includeInheritedAmendments;
+const indexCount = result.total === 0
+  ? (filtersActive ? 'In dieser Buchstabengruppe passen keine Vorschriften zur Auswahl.' : 'In dieser Buchstabengruppe sind keine Vorschriften verzeichnet.')
+  : `${formatCount(result.total, 'Vorschrift', 'Vorschriften')}${filtersActive ? ' passen zur Auswahl' : ''}${result.total > result.pageSize ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
+const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many: string, emptyFiltered: string, empty: string): string => {
+  if (list.total === 0) return filter ? `${emptyFiltered} „${filter}“.` : empty;
+  const from = (list.page - 1) * list.pageSize + 1;
+  const to = Math.min(list.page * list.pageSize, list.total);
+  return `${formatCount(list.total, one, many)}${filter ? ` passen zu „${filter}“` : ''}; angezeigt ${from}–${to}.`;
+};
+const originOverview = originKinds
+  .map((kind) => ({ kind, count: originCounts[kind] ?? 0 }))
+  .filter((entry) => entry.kind !== 'origin-unresolved' || entry.count > 0);
+---
+
+<LawLayout
+  title={pageTitle}
+  description={`Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Vorschriften: ${heading}${originHeading}.`}
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: lawSiteConfig.targetLabels.index, href: basePath },
+  ]}
+  canonical={pageUrl(basePath, stateParams)}
+  noindex={Boolean(registerFilter) || Boolean(abbreviationFilter) || filtersActive}
+  prev={pagination.prev}
+  next={pagination.next}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'OstRecht', href: getLawPortalUrl() },
+      { label: lawSiteConfig.targetLabels.index },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title={lawSiteConfig.targetLabels.index}
+    lead="Alle Vorschriften von A bis Z. Der Buchstabe ist der Anfangsbuchstabe des Ordnungsworts – des ersten inhaltstragenden Wortes der Bezeichnung, ohne Rechtsform und erlassende Stelle. Darunter führen ein redaktionelles Stichwortregister sowie Abkürzungen und Kurztitel in denselben Bestand."
+    variant="law"
+    facts={[
+      { label: 'Vorschriften', value: String(stats.normCount) },
+      { label: 'davon geltend', value: String(stats.inForceCount) },
+      { label: heading, value: String(result.total) },
+    ]}
+  />
+
+  <section class="section" aria-labelledby="origin-overview-heading" data-visual-section="law-origin-overview">
+    <div class="section-header">
+      <h2 id="origin-overview-heading">Rechtsherkunft</h2>
+      <p>Der Rechtsbestand des Freistaates besteht aus übernommenem sächsischem Recht mit Stand vom 1. November 2023 und seitdem eigenständig geschaffenen Vorschriften. Die Zahlen führen in die entsprechend eingegrenzte A–Z-Übersicht.</p>
+    </div>
+    <ul class="law-origin-overview" data-origin-overview>
+      {originOverview.map((entry) => (
+        <li>
+          <a href={pageUrl(basePath, { buchstabe: letter, herkunft: entry.kind })} aria-current={originKind === entry.kind ? 'page' : undefined} data-origin-kind={entry.kind}>
+            <NormOriginBadge kind={entry.kind} />
+            <strong>{entry.count}</strong>
+            <span>{entry.count === 1 ? 'Vorschrift' : 'Vorschriften'} · {describeNormOriginKind(entry.kind)}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="section-link-row">
+      <a class="inline-link" href={`${getSearchUrl()}?sort=activity`}>Suche mit weiteren Filtern</a>
+    </p>
+  </section>
+
+  <section class="section directory" id={letter} aria-labelledby="index-letter-heading" data-directory>
+    <h2 id="index-letter-heading" class="directory__heading">{heading}{originKind ? <span class="section-header__qualifier"> · {formatNormOriginKind(originKind)}</span> : null}</h2>
+    <DirectoryFilterBar action={basePath} label="Vorschriften eingrenzen" hidden={{ buchstabe: letter }} active={filtersActive} resetHref={pageUrl(basePath, { buchstabe: letter })} count={indexCount} attrs={{ 'data-origin-filter-form': '' }} countAttrs={{ 'data-index-count': '' }}>
+      <label class="search-field">
+        <span>Rechtsherkunft</span>
+        <select name="herkunft" data-origin-filter>
+          <option value="" selected={!originKind}>Alle Herkunftsarten</option>
+          {originKinds.map((kind) => <option value={kind} selected={originKind === kind}>{formatNormOriginKind(kind)}</option>)}
+        </select>
+      </label>
+      <label class="search-field">
+        <span>{INHERITED_AMENDMENT_FIELD.label}</span>
+        <select name="aenderungen" data-amendment-filter>
+          <option value="" selected={!includeInheritedAmendments}>{INHERITED_AMENDMENT_FIELD.allLabel}</option>
+          {INHERITED_AMENDMENT_FIELD.options.map((option) => <option value={option.value} selected={includeInheritedAmendments}>{option.label}</option>)}
+        </select>
+      </label>
+    </DirectoryFilterBar>
+    <LetterNav letters={letters} current={letter} hrefFor={(target) => pageUrl(basePath, { ...listParams, buchstabe: target || letter })} withAll={false} unit="Vorschriften" />
+    {result.items.length > 0 ? (
+      <ol class="directory-list" start={firstIndex} data-index-list data-directory-list>
+        {result.items.map((norm) => {
+          const block = getNormTitleBlock(norm);
+          const sortWord = toDisplayText(norm.sortWord);
+          // Das Ordnungswort steht nur dort, wo die Einordnung sonst nicht zu erkennen wäre.
+          const showSortWord = getGermanIndexLetter(sortWord) !== getGermanIndexLetter(block.heading);
+          return (
+            <DirectoryEntry
+              title={block.heading}
+              href={getNormUrl(norm.slug)}
+              lead={{ text: formatDate(norm.currentValidFrom), datetime: norm.currentValidFrom }}
+              subtitle={block.abbr}
+              description={toDisplayText(norm.summary)}
+              typeLabel={formatNormType(norm.type)}
+              originKind={norm.originKind ?? null}
+              facts={[
+                ...(showSortWord ? [{ label: 'Ordnungswort', value: sortWord }] : []),
+                { label: 'Rechtsstand', value: formatNormStatus(norm.status) },
+              ]}
+              attrs={{ 'data-directory-entry': '', 'data-origin': norm.originKind ?? 'origin-unresolved', 'data-index-letter': getGermanIndexLetter(sortWord) }}
+            />
+          );
+        })}
+      </ol>
+    ) : null}
+    <DirectoryPagination pagination={pagination} label={`Seiten der Buchstabengruppe ${letter}`} attrs={{ 'data-index-pagination': '' }} />
+  </section>
+
+  <section class="section section-muted" aria-labelledby="register-heading">
+    <div class="section-header">
+      <h2 id="register-heading">Stichwortregister {heading}</h2>
+      <p>Redaktionelle Stichwörter in gebräuchlicher Sprache führen zu den Vorschriften, die eine Frage regeln. Das Stichwortregister wird redaktionell ausgebaut.</p>
+    </div>
+    <form class="law-list-filter law-index-filter" method="get" action={basePath} data-register-filter-form>
+      <input type="hidden" name="buchstabe" value={letter} />
+      {originKind ? <input type="hidden" name="herkunft" value={originKind} /> : null}
+      {includeInheritedAmendments ? <input type="hidden" name="aenderungen" value={INHERITED_AMENDMENT_VALUE} /> : null}
+      {result.page > 1 ? <input type="hidden" name="seite" value={String(result.page)} /> : null}
+      <label class="search-field">
+        <span>Stichwörter filtern</span>
+        <input type="search" name="stichwort" value={registerFilter} autocomplete="off" maxlength="100" placeholder="z. B. Kultur, Energie, Wohnen" data-register-filter />
+      </label>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Filtern</button>
+        {registerFilter ? <a class="button-link button-link--secondary" href={pageUrl(basePath, { ...listParams, seite: stateParams.seite })}>Filter zurücksetzen</a> : null}
+      </div>
+    </form>
+    <p class="search-feedback" aria-live="polite" data-register-count>
+      {keywordCount(register, registerFilter, 'Stichwort', 'Stichwörter', 'Kein Stichwort passt zu', 'Für diese Buchstabengruppe sind noch keine Stichwörter verzeichnet.')}
+    </p>
+    {register.entries.length === 0 ? (
+      <p data-register-empty>Wählen Sie eine andere Buchstabengruppe oder suchen Sie im Volltext.</p>
+    ) : (
+      <div class="content-grid content-grid--wide">
+        <section class="panel" data-register-group={letter}>
+          <h3>{letter}</h3>
+          <ul class="record-list">
+            {register.entries.map((entry) => (
+              <li class="record-list__item" data-register-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
+                <strong>{entry.keyword}</strong>
+                <span>
+                  {entry.norms.map((norm, index) => (
+                    <Fragment>
+                      {index > 0 ? ', ' : ''}
+                      <a class="inline-link" href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a>
+                    </Fragment>
+                  ))}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    )}
+    <DirectoryPagination pagination={registerPagination} label={`Seiten des Stichwortregisters ${letter}`} pageWord="Stichwortseite" prevLabel="Vorherige Stichwörter" nextLabel="Nächste Stichwörter" attrs={{ 'data-register-pagination': '' }} />
+  </section>
+
+  <section class="section" aria-labelledby="keyword-index-heading">
+    <div class="section-header">
+      <h2 id="keyword-index-heading">Abkürzungen und Kurztitel {heading}</h2>
+      <p>Wer eine Abkürzung oder einen Kurztitel kennt, findet die Vorschrift hier ohne den vollständigen Titel.</p>
+    </div>
+    <form class="law-list-filter law-index-filter" method="get" action={basePath} data-keyword-filter-form>
+      <input type="hidden" name="buchstabe" value={letter} />
+      {originKind ? <input type="hidden" name="herkunft" value={originKind} /> : null}
+      {includeInheritedAmendments ? <input type="hidden" name="aenderungen" value={INHERITED_AMENDMENT_VALUE} /> : null}
+      {result.page > 1 ? <input type="hidden" name="seite" value={String(result.page)} /> : null}
+      {registerFilter ? <input type="hidden" name="stichwort" value={registerFilter} /> : null}
+      <label class="search-field">
+        <span>Abkürzungen und Kurztitel filtern</span>
+        <input type="search" name="abkuerzung" value={abbreviationFilter} autocomplete="off" maxlength="100" placeholder="z. B. VwV, Ostdeutsches" data-index-filter />
+      </label>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Filtern</button>
+        {abbreviationFilter ? <a class="button-link button-link--secondary" href={pageUrl(basePath, { ...listParams, seite: stateParams.seite, stichwort: registerFilter, stichwortseite: stateParams.stichwortseite })}>Filter zurücksetzen</a> : null}
+      </div>
+    </form>
+    <p class="search-feedback" aria-live="polite" data-index-filter-status>
+      {keywordCount(abbreviations, abbreviationFilter, 'Eintrag', 'Einträge', 'Kein Eintrag passt zu', 'Für diese Buchstabengruppe sind keine Abkürzungen und Kurztitel verzeichnet.')}
+    </p>
+    {abbreviations.entries.length === 0 ? (
+      <p data-index-empty>Passen Sie den Filter an oder wählen Sie eine andere Buchstabengruppe.</p>
+    ) : (
+      <div class="content-grid content-grid--wide">
+        <section class="panel" data-index-group={letter}>
+          <h3>{letter}</h3>
+          <ul class="record-list">
+            {abbreviations.entries.map((entry) => (
+              <li class="record-list__item" data-index-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
+                <strong>{entry.keyword}</strong>
+                <span>
+                  {entry.norms.map((norm, index) => (
+                    <Fragment>
+                      {index > 0 ? ', ' : ''}
+                      <a class="inline-link" href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a>
+                    </Fragment>
+                  ))}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    )}
+    <DirectoryPagination pagination={abbreviationPagination} label={`Seiten der Abkürzungen und Kurztitel ${letter}`} pageWord="Seite" prevLabel="Vorherige Einträge" nextLabel="Nächste Einträge" attrs={{ 'data-keyword-pagination': '' }} />
+  </section>
+  <script>
+    // Komfort ohne Pflicht: der Filter wirkt sofort auf die geladene Seite; das GET-Formular
+    // liefert die vollständige, serverseitig gefilterte Liste.
+    const localFilters: Array<[string, string, string]> = [
+      ['[data-register-filter]', '[data-register-entry]', '[data-register-count]'],
+      ['[data-index-filter]', '[data-index-entry]', '[data-index-filter-status]'],
+    ];
+    for (const form of document.querySelectorAll<HTMLFormElement>('[data-register-filter-form], [data-keyword-filter-form]')) {
+      // Leere Felder nicht in die Adresse übernehmen.
+      form.addEventListener('submit', () => {
+        form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[name], select[name]').forEach((field) => {
+          if (!field.value.trim()) field.disabled = true;
+        });
+      });
+    }
+    for (const [inputSelector, entrySelector, statusSelector] of localFilters) {
+      const input = document.querySelector<HTMLInputElement>(inputSelector);
+      const status = document.querySelector<HTMLElement>(statusSelector);
+      const entries = Array.from(document.querySelectorAll<HTMLElement>(entrySelector));
+      const initialStatus = status?.textContent ?? '';
+      input?.addEventListener('input', () => {
+        const query = input.value.trim().toLocaleLowerCase('de-DE');
+        let visible = 0;
+        entries.forEach((entry) => {
+          const value = entry.dataset.registerEntry ?? entry.dataset.indexEntry ?? '';
+          entry.hidden = Boolean(query) && !value.includes(query);
+          if (!entry.hidden) visible += 1;
+        });
+        if (status) status.textContent = query ? `${visible} Einträge dieser Seite passen zum Filter; „Filtern“ durchsucht die ganze Buchstabengruppe.` : initialStatus;
+      });
+    }
+  </script>
+</LawLayout>

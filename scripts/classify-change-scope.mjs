@@ -164,7 +164,9 @@ function runtimeImpact(runtimeTargets, { content = false, d1Sync = false, fullCo
  */
 function isLawContentPath(path) {
   return path.startsWith('content/normen/')
-    || path.startsWith('content/verkuendungen/');
+    || path.startsWith('content/verkuendungen/')
+    // Das redaktionelle Stichwortregister ist eine Eingabe der Projektion (law_norm_keywords).
+    || path === 'content/stichwortregister.json';
 }
 
 /**

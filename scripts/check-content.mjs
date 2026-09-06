@@ -1023,6 +1023,54 @@ for (const [sourceFile, owners] of publicationSourceOwners) {
   }
 }
 
+// Redaktionelles Stichwortregister (content/stichwortregister.json): jedes Stichwort steht
+// genau einmal, nennt mindestens eine vorhandene Vorschrift, und jeder „siehe“-Verweis führt
+// auf ein Stichwort desselben Registers. Die Datei ist eine Eingabe der D1-Projektion.
+const registerFile = join(contentRoot, 'stichwortregister.json');
+if (await exists(registerFile)) {
+  const register = await readJson(registerFile);
+  if (register?.$schema !== 'stichwortregister/1') {
+    addProblem(registerFile, '$schema muss stichwortregister/1 sein');
+  }
+  if (!Array.isArray(register?.eintraege)) {
+    addProblem(registerFile, 'eintraege muss ein Array sein');
+  } else {
+    const keys = new Set(register.eintraege
+      .map((entry) => (typeof entry?.stichwort === 'string' ? entry.stichwort.trim().toLocaleLowerCase('de') : ''))
+      .filter(Boolean));
+    const seen = new Set();
+    for (const [index, entry] of register.eintraege.entries()) {
+      const where = `eintraege[${index}]`;
+      const stichwort = typeof entry?.stichwort === 'string' ? entry.stichwort.trim() : '';
+      if (!stichwort) {
+        addProblem(registerFile, `${where}.stichwort muss ein nicht leerer Text sein`);
+        continue;
+      }
+      const key = stichwort.toLocaleLowerCase('de');
+      if (seen.has(key)) addProblem(registerFile, `${where}.stichwort ist doppelt vergeben: ${stichwort}`);
+      seen.add(key);
+      if (!Array.isArray(entry.normen) || entry.normen.length === 0) {
+        addProblem(registerFile, `${where}.normen muss mindestens eine Vorschrift nennen`);
+      } else {
+        for (const [slugIndex, slug] of entry.normen.entries()) {
+          if (typeof slug !== 'string' || !slugPattern.test(slug)) addProblem(registerFile, `${where}.normen[${slugIndex}] ist kein Slug`);
+          else if (!normSlugs.has(slug)) addProblem(registerFile, `${where}.normen[${slugIndex}] nennt eine unbekannte Vorschrift: ${slug}`);
+        }
+        if (new Set(entry.normen).size !== entry.normen.length) addProblem(registerFile, `${where}.normen nennt eine Vorschrift doppelt`);
+      }
+      if (entry.siehe !== undefined && !Array.isArray(entry.siehe)) {
+        addProblem(registerFile, `${where}.siehe muss ein Array sein`);
+      } else {
+        for (const [targetIndex, target] of (entry.siehe ?? []).entries()) {
+          if (typeof target !== 'string' || !keys.has(target.trim().toLocaleLowerCase('de'))) {
+            addProblem(registerFile, `${where}.siehe[${targetIndex}] nennt ein unbekanntes Stichwort: ${String(target)}`);
+          }
+        }
+      }
+    }
+  }
+}
+
 const normMetaRecords = byPrefix('normen/').filter(({ file }) => basename(file) === 'meta.json');
 const normMetaBySlug = new Map(normMetaRecords.map(({ json }) => [json.slug, json]));
 for (const { file, json } of normMetaRecords) {

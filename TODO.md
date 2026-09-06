@@ -22,34 +22,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ### Bestand und Struktur
 
-- [ ] Übernommene Änderungsvorschriften aus den Verzeichnissen herausnehmen: 3336 der 5209 Normen
-  tragen den Normtyp Änderungsvorschrift, davon 3276 aus dem sächsischen Rechtsstand übernommen
-  und 60 ostdeutsch neu. Die übernommenen stehen gleichberechtigt neben Stammnormen in
-  Sachgebieten (72 von 95 Einträgen in „Staats- und Verfassungsrecht“), im A–Z, in der
-  Rechtsentwicklung und in den Bestandszahlen („5209 Vorschriften im Bestand“ gegenüber „1867
-  geltende Vorschriften“ auf der Startseite). REVOSax führt Änderungsvorschriften nur in der
-  Normenhistorie der Stammnorm und als eigenen Vorschriftentyp (ÄG, ÄVO, ÄVwV) in der Suche.
-  Ostdeutsche Änderungsvorschriften bleiben sichtbar: Neues ostdeutsches Recht soll leichter zu
-  finden sein als altes sächsisches. Fertig, wenn Verzeichnisse, Sachgebiete, A–Z und
-  Rechtsentwicklung standardmäßig Stammnormen und ostdeutsche Änderungsvorschriften zeigen,
-  übernommene Änderungsvorschriften nur über den Normtyp-Filter oder die Herkunftsfacette
-  erscheinen, jede Änderungsvorschrift aus der Historie ihrer Stammnorm verlinkt ist und alle
-  Bestandszahlen dieselbe Grundmenge nennen („x Vorschriften, davon y geltend“).
-- [ ] Verzeichnisse und A–Z nach Ordnungswort sortieren: Die Sortierung nach amtlichem Langtitel
-  bündelt 108 von 310 Gesetzen unter G („Gesetz über …“), 285 von 615 Verordnungen und 456 von
-  577 Verwaltungsvorschriften unter V, im A–Z 1419 Einträge unter V; die Buchstabenleiste ist in
-  drei von vier Verzeichnissen ohne Nutzen. Fertig, wenn Verzeichnisse und A–Z nach einem in
-  `packages/shared/src/lib/norms/presentation.ts` abgeleiteten Ordnungswort sortieren
-  (Kurztitel, sonst Titel ohne Gattungspräfix „Gesetz über/zur“, „Verordnung des … über“,
-  „Verwaltungsvorschrift des … zur“), die Ableitung getestet ist und ein Korpus-Test prüft,
-  dass kein Buchstabe mehr als ein Viertel eines Verzeichnisses trägt.
-- [ ] Stichwortregister in Bürgersprache: REVOSax führt einen alphabetischen Index mit
-  bürgernahen Stichwörtern, die auf Vorschriften verweisen; das A–Z unter `/archiv/` mischt
-  Titel, Abkürzungen und aus Titelwörtern abgeleitete Schlagwörter (`inferKeywords` in
-  `scripts/lib/revosax-metadata.mjs`). Fertig, wenn ein redaktionell gepflegtes Register
-  (eigene Datei unter `content/` oder gekennzeichnetes Feld) existiert, ein Stichwort auf
-  mehrere Normen verweisen kann, das A–Z Stichwörter sichtbar von Titeln trennt und die
-  Adresse `/a-z/` heißt (`/archiv/` leitet weiter; „Archiv“ meint sonst die R2-Ablage).
 
 ### Suche
 

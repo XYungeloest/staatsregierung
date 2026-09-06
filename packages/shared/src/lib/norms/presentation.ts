@@ -161,6 +161,97 @@ export function formatNormStatus(value: NormStatus): string {
   return NORM_STATUS_LABELS[value];
 }
 
+// ---------------------------------------------------------------------------
+// Ordnungswort (alphabetische Einordnung)
+// ---------------------------------------------------------------------------
+
+/**
+ * Amtliche Titel beginnen fast immer mit der Rechtsform („Gesetz“, „Verordnung“,
+ * „Verwaltungsvorschrift“) und oft mit der erlassenden Stelle. Das Ordnungswort ist das erste
+ * inhaltstragende Wort einer Vorschrift: der Begriff, unter dem sie in einem alphabetischen
+ * Verzeichnis steht. Die Regeln arbeiten nur auf dem Text der Bezeichnung; sie lesen keine
+ * anderen Felder und treffen keine fachliche Entscheidung.
+ */
+const SORT_ORDINAL = /^(?:(?:erste|zweite|dritte|vierte|fünfte|sechste|siebte|siebente|achte|neunte|zehnte|elfte|zwölfte)[snmr]?|\d+\.)\s+/iu;
+/** Führende Abkürzung der Rechtsform („VwV Meldewesen“, „VwV-Fischereirechte“, „FRL Bus“). */
+const SORT_ABBREVIATION = /^(?:OstVwV|SächsVwV|VwV|FRL|RL|VO|G)(?:\s+|\s*[-–]\s*)/u;
+/** Führende Gattungsbezeichnung der Rechtsform. */
+const SORT_GENUS = /^(?:Gesetzes|Gesetz|Rechtsverordnungen|Rechtsverordnung|Polizeiverordnungen|Polizeiverordnung|Verordnungen|Verordnung|(?:Gemeinsame|Allgemeine)\s+Verwaltungsvorschriften?|Verwaltungsvorschriften|Verwaltungsvorschrift|Förderrichtlinien|Förderrichtlinie|Richtlinien|Richtlinie|Bekanntmachungen|Bekanntmachung|Allgemeinverfügungen|Allgemeinverfügung|Staatsverträge|Staatsvertrag|Verwaltungsabkommen|Abkommen|Verwaltungsvereinbarung|Vereinbarung|Rahmenvereinbarung|Erlass|Satzung|Beschluss|Grundsätze|Hinweise|Empfehlungen|Leitlinien|Vertrag|Übereinkommen|Programm|Anordnung)\b[\s,]*/u;
+/** Erlassende Stelle: „des Ostdeutschen Staatsministeriums …“, „der Staatsregierung …“. */
+const SORT_ISSUER = /^(?:des|der|dem|vom|von\s+(?:der|dem)|beim|bei\s+der)\s+(?:(?:Ostdeutsch|Sächsisch|Freistaat)\w*\s+)*(?:Staatsministeriums|Staatsministerien|Staatsministerium|Staatsregierung|Staatskanzlei|Regierungspräsidiums|Regierungspräsidium|Landesdirektion|Staatsrates|Staatsrats|Staatsrat|Staatssekretariats|Staatssekretariat|Landesamtes|Landesamts|Landesamt|Landtages|Landtags|Landtag|Ministerpräsidenten|Landesregierung|Obersten\s+Landesbehörden|Staatspräsidenten|Volkskammer)\b/u;
+/** Ende der Erlasserangabe: hier beginnt der Regelungsgegenstand. */
+const SORT_ISSUER_END = /(?<=\s)(?:über|zur|zum|zu|betreffend|hinsichtlich|für\s+(?:den|die|das|ein\w*))\s+/iu;
+/** Führende Präposition und führender Artikel vor dem Regelungsgegenstand. */
+const SORT_PREPOSITION = /^(?:über|zur|zum|zu|betreffend|hinsichtlich|für|gegen|von|vom|mit|nach|auf|bei|wegen)\s+/iu;
+const SORT_ARTICLE = /^(?:der|die|das|den|dem|des|ein|eine|einer|eines|einem|einen)\s+/iu;
+/** Landesbezogene Adjektive vor der Rechtsform oder dem Gegenstand (nur als eigenes Wort). */
+const SORT_ADJECTIVE = /^(?:Ostdeutsch|Sächsisch)\w*\s+/u;
+const SORT_LEADING_MARKS = /^[\s"„“”‚‘’'«»(\[{–—-]+/u;
+
+/** Führende Anführungszeichen, Klammern und Striche entfernen. */
+function stripLeadingMarks(value: string): string {
+  return value.replace(SORT_LEADING_MARKS, '').trimStart();
+}
+
+/** Erlasserangabe bis zum Regelungsgegenstand abschneiden; ohne Fügewort hilft der Gedankenstrich. */
+function stripIssuerSegment(value: string): string {
+  if (!SORT_ISSUER.test(value)) return value;
+  const end = SORT_ISSUER_END.exec(value);
+  if (end && end.index > 0) return value.slice(end.index);
+  const dash = value.lastIndexOf(' – ');
+  return dash > 0 ? value.slice(dash + 3) : value;
+}
+
+/**
+ * Ordnungswort einer Vorschrift: der Anfang ihrer Bezeichnung ohne Ordnungszahl, Rechtsform,
+ * erlassende Stelle, Präposition und Artikel. Bleibt nichts übrig, gilt der Titel selbst.
+ * Reine Textlogik – Teil der D1-Projektion (der Sync schreibt Sortierschlüssel und
+ * Buchstabengruppe damit).
+ */
+export function getNormSortWord(identity: { title: string; shortTitle?: string | null }): string {
+  const title = (identity.title ?? '').trim();
+  const shortTitle = (identity.shortTitle ?? '').trim();
+  let value = stripLeadingMarks(shortTitle && shortTitle !== title ? shortTitle : title);
+  // Die Rechtsform wird einmal entfernt und nur nach einem Landesadjektiv ein zweites Mal
+  // („Ostdeutsches Gesetz zur Ausführung …“). Sonst verlöre ein Zustimmungsgesetz auch den
+  // Vertragsnamen, unter dem es gesucht wird.
+  let genusRemoved = false;
+  for (let round = 0; round < 8; round += 1) {
+    const before = value;
+    let next = value.replace(SORT_ORDINAL, '').replace(SORT_ABBREVIATION, '');
+    const withoutAdjective = next.replace(SORT_ADJECTIVE, '');
+    const adjectiveRemoved = withoutAdjective !== next;
+    next = withoutAdjective.replace(SORT_ARTICLE, '');
+    if ((!genusRemoved || adjectiveRemoved) && SORT_GENUS.test(next)) {
+      next = stripIssuerSegment(next.replace(SORT_GENUS, ''));
+      genusRemoved = true;
+    }
+    next = stripLeadingMarks(next.replace(SORT_PREPOSITION, '').replace(SORT_ARTICLE, ''));
+    // Ein Schritt, der nichts übrig lässt, wird verworfen: die Bezeichnung besteht dann nur aus
+    // Rechtsform und Fügewörtern.
+    if (!next) break;
+    value = next;
+    if (value === before) break;
+  }
+  return value || title;
+}
+
+/**
+ * Sortier- und Vergleichsschlüssel des Ordnungsworts: Kleinschreibung, Umlaute und Akzente
+ * aufgelöst, ß als ss, Anführungszeichen entfernt. SQLite sortiert binär – die Projektion legt
+ * deshalb genau diesen Schlüssel als `law_norms.sort_word` ab, damit „Ärzte“ unter A steht.
+ */
+export function getNormSortKey(identity: { title: string; shortTitle?: string | null }): string {
+  return getNormSortWord(identity)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/gu, '')
+    .replace(/ß/gu, 'ss')
+    .replace(/[„“”‚‘’"'«»]/gu, '')
+    .toLocaleLowerCase('de')
+    .replace(/\s+/gu, ' ')
+    .trim();
+}
+
 export function anchorSlug(value: string): string {
   return value
     .normalize('NFD')

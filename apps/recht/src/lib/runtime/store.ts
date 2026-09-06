@@ -19,11 +19,13 @@ import {
   type NormDerivedData,
 } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity, getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
+import { INVENTORY_SQL, isInheritedAmendment, type InventoryStats } from '@ostrecht/shared/lib/norms/inventory.ts';
 import { getNormOriginInfo, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
 import { compareSubjects, getSubjectByTitle } from '@ostrecht/shared/config/law-subjects.ts';
 import { getGermanIndexLetter, getNormUrl, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
-import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
+import { formatNormType, getNormSortKey, getNormSortWord, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { registerKeywordsBySlug, type KeywordRegister } from '@ostrecht/shared/lib/norms/register.ts';
+import { comparePublicationsNewestFirst, type NormPublicationReference, type Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
 import {
   buildFilterOptions,
   buildSearchPublications,
@@ -68,9 +70,17 @@ export interface NormSummary {
   status: NormStatus;
   subjects: string[];
   primarySubject?: string;
+  /** Amtlicher Förderbereich einer Förderrichtlinie (Nummer der Systematik). */
+  fundingArea?: string;
+  /** Fundstelle der Stammfassung (Verzeichnisse, Verkündungsseiten). */
+  initialCitation?: string;
   keywords: string[];
   /** Bezeichnungen anderer Fassungen (Autovervollständigung, Stichwortindex). */
   aliases: string[];
+  /** Ordnungswort: erstes inhaltstragendes Wort der Bezeichnung (Buchstabengruppe, Anzeige). */
+  sortWord: string;
+  /** Vergleichsschlüssel des Ordnungsworts (law_norms.sort_word); bestimmt die Reihenfolge. */
+  sortKey: string;
   responsibleMinistry?: string;
   currentVersionId: string;
   currentValidFrom: string;
@@ -89,6 +99,13 @@ export interface NormSummaryQuery {
   types?: string[];
   statuses?: string[];
   subjectSlug?: string;
+  /**
+   * Übernommene Änderungsvorschriften einbeziehen (Standard: nein). Ohne dieses Kennzeichen
+   * beschreiben Verzeichnisse, A–Z, Sachgebiete und Bestandszahlen die Grundmenge
+   * (packages/shared/src/lib/norms/inventory.ts). Der Normtypfilter `aenderungsvorschrift`
+   * bezieht sie ebenfalls wieder ein, sonst bliebe er ohne Treffer.
+   */
+  includeInheritedAmendments?: boolean;
 }
 
 /**
@@ -127,7 +144,10 @@ export interface IndexLetterCount {
 }
 
 /** Eingrenzung der Buchstabenzähler auf ein Verzeichnis (Normtyp, Sachgebiet, Herkunft). */
-export type IndexLetterQuery = Pick<NormPageQuery, 'types' | 'subjectSlug' | 'originKind'>;
+export type IndexLetterQuery = Pick<NormPageQuery, 'types' | 'subjectSlug' | 'originKind' | 'includeInheritedAmendments'>;
+
+/** Herkunft eines Stichworteintrags (law_norm_keywords.kind). */
+export type KeywordKind = 'register' | 'abbr' | 'short-title' | 'derived';
 
 export interface KeywordIndexEntry {
   keyword: string;
@@ -139,6 +159,8 @@ export interface KeywordIndexQuery {
   q?: string;
   page?: number;
   pageSize?: number;
+  /** Nur Einträge dieser Herkunft; ohne Angabe alle. */
+  kinds?: KeywordKind[];
 }
 
 export interface KeywordIndexPage {
@@ -196,13 +218,8 @@ export interface SubjectAreaSummary {
   subjects: SubjectSummary[];
 }
 
-export interface CorpusStats {
-  normCount: number;
-  inForceCount: number;
-  publicationCount: number;
-  types: NormType[];
-  statuses: NormStatus[];
-}
+/** Bestandszahlen der Grundmenge (law_runtime_meta `corpus_stats_json`). */
+export type CorpusStats = InventoryStats;
 
 export interface NormVersionSummary {
   slug: string;
@@ -368,11 +385,26 @@ function getCurrentVersionId(record: NormRecord): string | undefined {
   return record.versions.find((version) => version.isCurrent)?.versionId ?? record.versions.at(-1)?.versionId;
 }
 
-/** ORDER BY einer Übersicht: jüngste Rechtsänderung zuerst (fehlende Werte zuletzt) oder Titel. */
+/**
+ * ORDER BY einer Übersicht: jüngste Rechtsänderung zuerst (fehlende Werte zuletzt) oder
+ * alphabetisch nach Ordnungswort. `COALESCE` hält die Reihenfolge während des Expand-Fensters
+ * stabil, solange Migration 0008 gelaufen, die Projektion aber noch nicht neu geschrieben ist.
+ */
+export const SORT_WORD_SQL = 'COALESCE(n.sort_word, n.sort_title)';
+
 export function summaryOrderBy(sort: NormSummarySort = 'title'): string {
   return sort === 'activity'
-    ? '(n.last_change_date IS NULL), n.last_change_date DESC, n.sort_title, n.slug'
-    : 'n.sort_title, n.slug';
+    ? `(n.last_change_date IS NULL), n.last_change_date DESC, ${SORT_WORD_SQL}, n.slug`
+    : `${SORT_WORD_SQL}, n.slug`;
+}
+
+/**
+ * Gehört die Auswahl zur Grundmenge? Der Normtypfilter `aenderungsvorschrift` und das Häkchen
+ * „Übernommene Änderungsvorschriften einbeziehen“ heben die Einschränkung auf – sonst bliebe der
+ * Filter ohne Treffer. Eine Definition, zwei Fassungen (SQL und Datei).
+ */
+function limitsToInventory(query: Pick<NormSummaryQuery, 'types' | 'includeInheritedAmendments'>): boolean {
+  return !query.includeInheritedAmendments && !query.types?.includes('aenderungsvorschrift');
 }
 
 /**
@@ -461,8 +493,12 @@ export function summarizeNormRecord(record: NormRecord, records: NormRecord[] = 
     status: record.meta.status,
     subjects: [...record.meta.subjects],
     ...(record.meta.primarySubject ? { primarySubject: record.meta.primarySubject } : {}),
+    ...(record.meta.fundingArea ? { fundingArea: record.meta.fundingArea } : {}),
+    ...(record.meta.initialCitation ? { initialCitation: record.meta.initialCitation } : {}),
     keywords: [...record.meta.keywords],
     aliases: getNormAliases(record, identity),
+    sortWord: getNormSortWord(identity),
+    sortKey: getNormSortKey(identity),
     ...(record.meta.responsibleMinistry ?? record.meta.ministry ? { responsibleMinistry: record.meta.responsibleMinistry ?? record.meta.ministry } : {}),
     currentVersionId: current.versionId,
     currentValidFrom: current.validFrom,
@@ -488,8 +524,12 @@ export function suggestionFromSummary(summary: NormSummary): SearchSuggestion {
   };
 }
 
+/**
+ * Alphabetische Reihenfolge der Übersichten: nach dem Vergleichsschlüssel des Ordnungsworts,
+ * genau wie `ORDER BY COALESCE(n.sort_word, n.sort_title), n.slug` in der D1-Variante.
+ */
 export function compareSummaryTitles(left: NormSummary, right: NormSummary): number {
-  return left.title.localeCompare(right.title, 'de') || left.slug.localeCompare(right.slug);
+  return (left.sortKey < right.sortKey ? -1 : left.sortKey > right.sortKey ? 1 : 0) || left.slug.localeCompare(right.slug);
 }
 
 function chunked<T>(items: T[], size: number): T[][] {
@@ -539,6 +579,9 @@ interface SummaryRow {
   status: NormStatus;
   subjects_json: string;
   primary_subject: string | null;
+  funding_area: string | null;
+  initial_citation: string | null;
+  sort_word: string | null;
   keywords_json: string;
   aliases_json: string;
   responsible_ministry: string | null;
@@ -560,11 +603,12 @@ export interface BlockRow {
 }
 
 const SUMMARY_SELECT = `SELECT n.id, n.slug, n.title, n.short_title, n.abbr, n.summary, v.summary AS current_summary, n.type, n.status,
-  n.subjects_json, n.primary_subject, n.keywords_json, n.aliases_json, n.responsible_ministry, n.current_version_id, n.current_valid_from,
+  n.subjects_json, n.primary_subject, n.funding_area, n.initial_citation, n.sort_word, n.keywords_json, n.aliases_json, n.responsible_ministry, n.current_version_id, n.current_valid_from,
   n.document_date, n.origin_kind, n.origin_baseline_version_id, n.origin_last_own_change_date, n.version_count, n.last_change_date, n.last_activity_date
   FROM law_norms n LEFT JOIN law_versions v ON v.norm_id = n.id AND v.version_id = n.current_version_id`;
 
 function summaryFromRow(row: SummaryRow): NormSummary {
+  const identity = { title: row.title, shortTitle: row.short_title };
   return {
     id: row.id,
     slug: row.slug,
@@ -576,8 +620,14 @@ function summaryFromRow(row: SummaryRow): NormSummary {
     status: row.status,
     subjects: parseJsonArray(row.subjects_json),
     ...(row.primary_subject ? { primarySubject: row.primary_subject } : {}),
+    ...(row.funding_area ? { fundingArea: row.funding_area } : {}),
+    ...(row.initial_citation ? { initialCitation: row.initial_citation } : {}),
     keywords: parseJsonArray(row.keywords_json),
     aliases: parseJsonArray(row.aliases_json),
+    sortWord: getNormSortWord(identity),
+    // Vor der ersten Projektion nach Migration 0008 trägt sort_word den kleingeschriebenen Titel;
+    // der berechnete Schlüssel bleibt dann die genauere Angabe.
+    sortKey: row.sort_word ?? getNormSortKey(identity),
     ...(row.responsible_ministry ? { responsibleMinistry: row.responsible_ministry } : {}),
     currentVersionId: row.current_version_id,
     currentValidFrom: row.current_valid_from,
@@ -647,6 +697,7 @@ export function createD1NormStore(db: D1Database): NormStore {
   const listSummaries = async (query: NormSummaryQuery = {}): Promise<NormSummary[]> => {
     const conditions: string[] = [];
     const params: unknown[] = [];
+    if (limitsToInventory(query)) conditions.push(INVENTORY_SQL);
     if (query.types?.length) {
       conditions.push(`n.type IN (${query.types.map(() => '?').join(', ')})`);
       params.push(...query.types);
@@ -660,7 +711,7 @@ export function createD1NormStore(db: D1Database): NormStore {
       params.push(query.subjectSlug);
     }
     const where = conditions.length ? ` WHERE ${conditions.join(' AND ')}` : '';
-    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY n.sort_title, n.slug`).bind(...params).all<SummaryRow>();
+    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY ${summaryOrderBy('title')}`).bind(...params).all<SummaryRow>();
     return rows.results.map(summaryFromRow);
   };
 
@@ -668,6 +719,7 @@ export function createD1NormStore(db: D1Database): NormStore {
   const pageConditions = (query: NormPageQuery): { where: string; params: unknown[] } => {
     const conditions: string[] = [];
     const params: unknown[] = [];
+    if (limitsToInventory(query)) conditions.push(INVENTORY_SQL);
     if (query.letter) {
       conditions.push('n.index_letter = ?');
       params.push(query.letter);
@@ -720,12 +772,13 @@ export function createD1NormStore(db: D1Database): NormStore {
     queryNormSummaries: pageSummaries,
     async listIndexLetters(query = {}) {
       const mapRows = (rows: Array<{ letter: string; count: number }>): IndexLetterCount[] => rows.map((row) => ({ letter: row.letter, count: Number(row.count) }));
-      if (!query.types?.length && !query.subjectSlug && !query.originKind) {
-        return cachedMeta('index_letters', async () =>
-          mapRows((await db.prepare('SELECT index_letter AS letter, COUNT(*) AS count FROM law_norms GROUP BY index_letter ORDER BY index_letter').all<{ letter: string; count: number }>()).results));
+      if (!query.types?.length && !query.subjectSlug && !query.originKind && !query.includeInheritedAmendments) {
+        // Buchstabengruppen der Grundmenge: eine Aggregatzeile je Buchstabe, je Sync-Stand gecacht.
+        return cachedMeta('index_letters_inventory', async () =>
+          mapRows((await db.prepare(`SELECT n.index_letter AS letter, COUNT(*) AS count FROM law_norms n WHERE ${INVENTORY_SQL} GROUP BY n.index_letter ORDER BY n.index_letter`).all<{ letter: string; count: number }>()).results));
       }
       // Zähler eines Verzeichnisses: dieselben indexgestützten Bedingungen wie die Seitenabfrage.
-      const { where, params } = pageConditions({ types: query.types, subjectSlug: query.subjectSlug, originKind: query.originKind });
+      const { where, params } = pageConditions({ types: query.types, subjectSlug: query.subjectSlug, originKind: query.originKind, includeInheritedAmendments: query.includeInheritedAmendments });
       return mapRows((await db.prepare(`SELECT n.index_letter AS letter, COUNT(*) AS count FROM law_norms n${where} GROUP BY n.index_letter ORDER BY n.index_letter`).bind(...params).all<{ letter: string; count: number }>()).results);
     },
     async listKeywordIndex(letter, query = {}) {
@@ -733,6 +786,10 @@ export function createD1NormStore(db: D1Database): NormStore {
       const text = normalizeQueryText(query.q);
       const conditions = ['k.index_letter = ?'];
       const params: unknown[] = [letter];
+      if (query.kinds?.length) {
+        conditions.push(`k.kind IN (${query.kinds.map(() => '?').join(', ')})`);
+        params.push(...query.kinds);
+      }
       if (text) {
         conditions.push("lower(k.keyword) LIKE ? ESCAPE '\\'");
         params.push(`%${text.replaceAll('\\', '\\\\').replaceAll('%', '\\%').replaceAll('_', '\\_')}%`);
@@ -748,7 +805,7 @@ export function createD1NormStore(db: D1Database): NormStore {
         // Die Seite ist in SQL-Sortierung ein zusammenhängender Bereich: BETWEEN statt einer
         // IN-Liste (D1 erlaubt höchstens 100 Parameter); der Filter gilt erneut, damit
         // zwischenliegende Stichwörter ohne Treffer nicht mitgelesen werden.
-        const rows = await db.prepare(`SELECT k.keyword, n.slug, n.short_title FROM law_norm_keywords k JOIN law_norms n ON n.id = k.norm_id WHERE ${where} AND k.keyword BETWEEN ? AND ? ORDER BY k.keyword, n.sort_title, n.slug`).bind(...params, keywords[0], keywords[keywords.length - 1]).all<{ keyword: string; slug: string; short_title: string }>();
+        const rows = await db.prepare(`SELECT k.keyword, n.slug, n.short_title FROM law_norm_keywords k JOIN law_norms n ON n.id = k.norm_id WHERE ${where} AND k.keyword BETWEEN ? AND ? ORDER BY k.keyword, ${SORT_WORD_SQL}, n.slug`).bind(...params, keywords[0], keywords[keywords.length - 1]).all<{ keyword: string; slug: string; short_title: string }>();
         for (const row of rows.results) {
           const entry = entries.get(row.keyword);
           if (entry && !entry.norms.some((norm) => norm.slug === row.slug)) entry.norms.push({ slug: row.slug, shortTitle: row.short_title });
@@ -757,8 +814,10 @@ export function createD1NormStore(db: D1Database): NormStore {
       return { entries: [...entries.values()].sort((left, right) => left.keyword.localeCompare(right.keyword, 'de')), total, page: current, pageSize, pageCount };
     },
     async countByOriginKind() {
-      return cachedMeta('origin_counts', async () =>
-        Object.fromEntries((await db.prepare('SELECT origin_kind, COUNT(*) AS count FROM law_norms GROUP BY origin_kind').all<{ origin_kind: NormOriginKind | null; count: number }>()).results
+      // Herkunftszahlen beschreiben dieselbe Grundmenge wie die Verzeichnisse; sonst nennt die
+      // Kachel „übernommen“ eine Zahl, die keine Liste der Website zeigt.
+      return cachedMeta('origin_counts_inventory', async () =>
+        Object.fromEntries((await db.prepare(`SELECT n.origin_kind, COUNT(*) AS count FROM law_norms n WHERE ${INVENTORY_SQL} GROUP BY n.origin_kind`).all<{ origin_kind: NormOriginKind | null; count: number }>()).results
           .filter((row) => row.origin_kind)
           .map((row) => [row.origin_kind as NormOriginKind, Number(row.count)])) as Partial<Record<NormOriginKind, number>>);
     },
@@ -820,7 +879,7 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async listSubjectSummaries() {
       return metaJson<SubjectSummary[]>('subject_groups_json', async () => {
-        const rows = await db.prepare('SELECT subject, subject_slug, COUNT(*) AS norm_count FROM law_norm_subjects GROUP BY subject_slug, subject').all<{ subject: string; subject_slug: string; norm_count: number }>();
+        const rows = await db.prepare(`SELECT s.subject, s.subject_slug, COUNT(*) AS norm_count FROM law_norm_subjects s JOIN law_norms n ON n.id = s.norm_id WHERE ${INVENTORY_SQL} GROUP BY s.subject_slug, s.subject`).all<{ subject: string; subject_slug: string; norm_count: number }>();
         // Ohne die vorberechnete Übersicht: Reihenfolge und Nummern aus der amtlichen Systematik.
         return rows.results
           .map((row) => ({ name: row.subject, slug: row.subject_slug, ...subjectFacts(row.subject), normCount: Number(row.norm_count) }))
@@ -832,12 +891,17 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async getCorpusStats() {
       return metaJson<CorpusStats>('corpus_stats_json', async () => {
-        const row = await db.prepare(`SELECT (SELECT COUNT(*) FROM law_norms) AS norm_count, (SELECT COUNT(*) FROM law_norms WHERE status = 'in-force') AS in_force, (SELECT COUNT(*) FROM law_publications) AS publication_count`).first<{ norm_count: number; in_force: number; publication_count: number }>();
-        const types = await db.prepare('SELECT DISTINCT type FROM law_norms ORDER BY type').all<{ type: NormType }>();
-        const statuses = await db.prepare('SELECT DISTINCT status FROM law_norms ORDER BY status').all<{ status: NormStatus }>();
+        // Ersatzweg ohne vorberechnete Zeile: dieselbe Grundmenge wie die Verzeichnisse.
+        const row = await db.prepare(`SELECT (SELECT COUNT(*) FROM law_norms n WHERE ${INVENTORY_SQL}) AS norm_count,
+          (SELECT COUNT(*) FROM law_norms n WHERE ${INVENTORY_SQL} AND n.status = 'in-force') AS in_force,
+          (SELECT COUNT(*) FROM law_norms n WHERE NOT (${INVENTORY_SQL})) AS inherited_amendments,
+          (SELECT COUNT(*) FROM law_publications) AS publication_count`).first<{ norm_count: number; in_force: number; inherited_amendments: number; publication_count: number }>();
+        const types = await db.prepare(`SELECT DISTINCT n.type FROM law_norms n WHERE ${INVENTORY_SQL} ORDER BY n.type`).all<{ type: NormType }>();
+        const statuses = await db.prepare(`SELECT DISTINCT n.status FROM law_norms n WHERE ${INVENTORY_SQL} ORDER BY n.status`).all<{ status: NormStatus }>();
         return {
           normCount: Number(row?.norm_count ?? 0),
           inForceCount: Number(row?.in_force ?? 0),
+          inheritedAmendmentCount: Number(row?.inherited_amendments ?? 0),
           publicationCount: Number(row?.publication_count ?? 0),
           types: types.results.map((entry) => entry.type),
           statuses: statuses.results.map((entry) => entry.status),
@@ -904,9 +968,12 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async listPublications({ limit } = {}) {
       // Nur law_publications; der Normenbestand wird dafür nicht gelesen.
+      // Reihenfolge wie comparePublicationsNewestFirst: Datum, Blatt, Ausgabennummer numerisch –
+      // sonst stünde „9“ hinter „10“ und ein Datum als Ausgabenbezeichnung an falscher Stelle.
+      const order = 'ORDER BY publication_date DESC, publication, CAST(issue AS INTEGER) DESC, issue DESC';
       const statement = limit
-        ? db.prepare('SELECT publication_json FROM law_publications ORDER BY publication_date DESC, issue DESC LIMIT ?').bind(limit)
-        : db.prepare('SELECT publication_json FROM law_publications ORDER BY publication_date DESC, issue DESC');
+        ? db.prepare(`SELECT publication_json FROM law_publications ${order} LIMIT ?`).bind(limit)
+        : db.prepare(`SELECT publication_json FROM law_publications ${order}`);
       const rows = await statement.all<{ publication_json: string }>();
       return rows.results.map((row) => JSON.parse(row.publication_json) as Verkuendung);
     },
@@ -993,6 +1060,8 @@ export function createD1NormStore(db: D1Database): NormStore {
 export interface FileStoreSources {
   loadAllNorms(): Promise<NormRecord[]>;
   loadAllVerkuendungen(): Promise<Verkuendung[]>;
+  /** Redaktionelles Stichwortregister; ohne Quelle bleibt der Registerteil des A–Z leer. */
+  loadRegister?(): Promise<KeywordRegister>;
   loadTopics?(): Promise<Array<{ slug: string; title: string; rechtsgrundlagen?: Array<{ normSlug?: string }> }>>;
   loadPressReleases?(): Promise<Array<{ slug: string; title: string; date: string; relatedNormSlugs?: string[] }>>;
   topicUrl?(slug: string): string;
@@ -1024,12 +1093,43 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
   };
   const find = async (slug: string): Promise<NormRecord | null> => (await context()).lookup.get(slug) ?? null;
 
+  /** Vollständige Datensätze der Grundmenge (Sachgebietszähler, Bestandszahlen). */
+  const inventoryRecords = async (): Promise<NormRecord[]> => {
+    const inventorySlugs = new Set((await summaries()).filter(inInventory).map((summary) => summary.slug));
+    return (await context()).norms.filter((record) => inventorySlugs.has(record.meta.slug));
+  };
+  const registerPromise = sources.loadRegister?.() ?? Promise.resolve({ entries: [] } as KeywordRegister);
+  const registerBySlug = (): Promise<Map<string, string[]>> => registerPromise.then(registerKeywordsBySlug);
+  /** Grundmenge wie in SQL: übernommene Änderungsvorschriften nur auf ausdrückliche Auswahl. */
+  const inInventory = (summary: NormSummary): boolean => !isInheritedAmendment({ type: summary.type, originKind: summary.originKind });
+
   const filterSummaries = async (query: NormSummaryQuery = {}): Promise<NormSummary[]> =>
     (await summaries()).filter((summary) =>
-      (!query.types?.length || query.types.includes(summary.type))
+      (!limitsToInventory(query) || inInventory(summary))
+      && (!query.types?.length || query.types.includes(summary.type))
       && (!query.statuses?.length || query.statuses.includes(summary.status))
       && (!query.subjectSlug || summary.subjects.some((subject) => getSubjectSlug(subject) === query.subjectSlug)));
 
+  /** Stichworteinträge einer Übersichtszeile mit Herkunft – dieselbe Rangfolge wie im Sync. */
+  const keywordEntriesWithKind = (summary: NormSummary, register: Map<string, string[]>): Array<{ keyword: string; kind: KeywordKind }> => {
+    const sources_: Array<[KeywordKind, Array<string | undefined>]> = [
+      ['register', register.get(summary.slug) ?? []],
+      ['abbr', [summary.abbr]],
+      ['short-title', [summary.shortTitle]],
+      ['derived', summary.keywords],
+    ];
+    const seen = new Set<string>();
+    const entries: Array<{ keyword: string; kind: KeywordKind }> = [];
+    for (const [kind, values] of sources_) {
+      for (const value of values) {
+        const keyword = typeof value === 'string' ? value.trim() : '';
+        if (keyword.length < 2 || seen.has(keyword)) continue;
+        seen.add(keyword);
+        entries.push({ keyword, kind });
+      }
+    }
+    return entries;
+  };
   const keywordEntriesOf = (summary: NormSummary): string[] =>
     [...new Set([summary.abbr, summary.shortTitle, ...summary.keywords].map((value) => (typeof value === 'string' ? value.trim() : '')).filter((value) => value.length >= 2))];
   const matchesText = (summary: NormSummary, text: string): boolean =>
@@ -1045,7 +1145,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       const { page, pageSize } = normalizePage(query.page, query.pageSize);
       const text = normalizeQueryText(query.q);
       const all = (await filterSummaries(query)).filter((summary) =>
-        (!query.letter || getGermanIndexLetter(summary.title) === query.letter)
+        (!query.letter || getGermanIndexLetter(summary.sortWord) === query.letter)
         && (!query.originKind || summary.originKind === query.originKind)
         && (!query.subject || summary.subjects.includes(query.subject))
         && (!text || matchesText(summary, text)));
@@ -1056,10 +1156,10 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     },
     async listIndexLetters(query = {}) {
       const counts = new Map<string, number>();
-      const scoped = (await filterSummaries({ types: query.types, subjectSlug: query.subjectSlug }))
+      const scoped = (await filterSummaries({ types: query.types, subjectSlug: query.subjectSlug, includeInheritedAmendments: query.includeInheritedAmendments }))
         .filter((summary) => !query.originKind || summary.originKind === query.originKind);
       for (const summary of scoped) {
-        const letter = getGermanIndexLetter(summary.title);
+        const letter = getGermanIndexLetter(summary.sortWord);
         counts.set(letter, (counts.get(letter) ?? 0) + 1);
       }
       return [...counts.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([letter, count]) => ({ letter, count }));
@@ -1067,9 +1167,12 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     async listKeywordIndex(letter, query = {}) {
       const { page, pageSize } = normalizePage(query.page, query.pageSize ?? KEYWORD_PAGE_SIZE);
       const text = normalizeQueryText(query.q);
+      const kinds = query.kinds?.length ? new Set<KeywordKind>(query.kinds) : null;
+      const register = await registerBySlug();
       const entries = new Map<string, KeywordIndexEntry>();
       for (const summary of await summaries()) {
-        for (const keyword of keywordEntriesOf(summary)) {
+        for (const { keyword, kind } of keywordEntriesWithKind(summary, register)) {
+          if (kinds && !kinds.has(kind)) continue;
           if (getGermanIndexLetter(keyword) !== letter || (text && !keyword.toLocaleLowerCase('de-DE').includes(text))) continue;
           const entry = entries.get(keyword) ?? { keyword, norms: [] };
           if (!entry.norms.some((norm) => norm.slug === summary.slug)) entry.norms.push({ slug: summary.slug, shortTitle: summary.shortTitle });
@@ -1084,7 +1187,7 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     async countByOriginKind() {
       const counts: Partial<Record<NormOriginKind, number>> = {};
       for (const summary of await summaries()) {
-        if (summary.originKind) counts[summary.originKind] = (counts[summary.originKind] ?? 0) + 1;
+        if (summary.originKind && inInventory(summary)) counts[summary.originKind] = (counts[summary.originKind] ?? 0) + 1;
       }
       return counts;
     },
@@ -1133,10 +1236,10 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       return selected.slice(0, limit);
     },
     async listSubjectSummaries() {
-      return getSubjectGroups((await context()).norms).map((group) => ({ name: group.name, slug: group.slug, ...subjectFacts(group.name), normCount: group.norms.length }));
+      return getSubjectGroups(await inventoryRecords()).map((group) => ({ name: group.name, slug: group.slug, ...subjectFacts(group.name), normCount: group.norms.length }));
     },
     async listSubjectAreas() {
-      return getSubjectAreaGroups((await context()).norms).map((area) => ({
+      return getSubjectAreaGroups(await inventoryRecords()).map((area) => ({
         name: area.name,
         ...(area.number ? { number: area.number } : {}),
         description: area.description,
@@ -1146,12 +1249,14 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     },
     async getCorpusStats() {
       const { norms, publications } = await context();
+      const inventory = await inventoryRecords();
       return {
-        normCount: norms.length,
-        inForceCount: norms.filter((record) => record.meta.status === 'in-force').length,
+        normCount: inventory.length,
+        inForceCount: inventory.filter((record) => record.meta.status === 'in-force').length,
+        inheritedAmendmentCount: norms.length - inventory.length,
         publicationCount: publications.length,
-        types: [...new Set(norms.map((record) => record.meta.type))].sort(),
-        statuses: [...new Set(norms.map((record) => record.meta.status))].sort(),
+        types: [...new Set(inventory.map((record) => record.meta.type))].sort(),
+        statuses: [...new Set(inventory.map((record) => record.meta.status))].sort(),
       };
     },
     async listSearchSuggestions() {
@@ -1183,7 +1288,8 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
       return (await context()).publicationReferences.get(`${slug}:${versionId}`);
     },
     async listPublications({ limit } = {}) {
-      const publications = [...(await context()).publications].sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'));
+      // Dieselbe Reihenfolge wie die D1-Variante und loadAllVerkuendungen.
+      const publications = [...(await context()).publications].sort(comparePublicationsNewestFirst);
       return limit ? publications.slice(0, limit) : publications;
     },
     async getPublication(slug) {

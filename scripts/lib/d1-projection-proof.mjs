@@ -350,6 +350,7 @@ function planSummary(scope) {
     deletedPublications: scope.deletedPublications ?? [],
     derivedRebuild: Boolean(scope.derivedRebuild),
     refreshSearchDocuments: Boolean(scope.refreshSearchDocuments),
+    refreshKeywords: Boolean(scope.refreshKeywords),
     reasons: scope.reasons.slice(0, 8),
   };
 }

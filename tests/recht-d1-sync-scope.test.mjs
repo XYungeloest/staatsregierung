@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { deleteNormQueries, derivedQueries, fullResetQueries, renderStatement } from '../scripts/sync-recht-d1.mjs';
-import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
+import { isEmptyScope, KEYWORD_REGISTER_PATH, metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths, scopeSignature } from '../scripts/lib/d1-sync-scope.mjs';
 
 const existingSlugs = new Set(['foo', 'bar', 'baz']);
 const existingPublications = new Set(['testblatt-2026-1', 'testblatt-2026-2']);
@@ -178,4 +178,22 @@ test('eine nachgewiesene enge Logikänderung erneuert Suchdokumente und abgeleit
   // Standard ohne Nachweis: Logikänderung = Vollprojektion; die frühere Annahmeoption gibt es nicht.
   assert.equal(scopeFromChangedPaths(['packages/recht-search/src/search.ts'], { existingSlugs, existingPublications }).mode, 'full');
   assert.equal(scopeFromChangedPaths(['packages/recht-search/src/search.ts'], { existingSlugs, existingPublications, narrowLogicChange: true }).mode, 'full');
+});
+
+test('ein geändertes Stichwortregister erneuert nur die Stichworteinträge, nichts anderes', () => {
+  const scope = scopeFromChangedPaths([KEYWORD_REGISTER_PATH], { existingSlugs, existingPublications });
+  assert.equal(scope.mode, 'incremental');
+  assert.deepEqual(scope.slugs, []);
+  assert.equal(scope.refreshKeywords, true);
+  assert.equal(scope.derivedRebuild, false);
+  assert.equal(scope.refreshSearchDocuments, false);
+  assert.equal(scope.ignoredPaths, 0, 'das Register ist eine bekannte Projektionseingabe');
+  assert.equal(isEmptyScope(scope), false, 'der Umfang schreibt Zeilen und ist nicht datenneutral');
+  // Zusammen mit einer Normänderung bleibt beides erhalten.
+  const combined = scopeFromChangedPaths([KEYWORD_REGISTER_PATH, 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false });
+  assert.deepEqual(combined.slugs, ['foo']);
+  assert.equal(combined.refreshKeywords, true);
+  assert.equal(scopeSignature(combined).includes('"refreshKeywords":true'), true);
+  // Ohne Registeränderung bleibt das Kennzeichen aus.
+  assert.equal(scopeFromChangedPaths(['content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false }).refreshKeywords, false);
 });

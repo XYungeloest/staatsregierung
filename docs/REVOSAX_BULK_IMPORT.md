@@ -464,13 +464,13 @@ npm run norms:runtime:d1-verify -- --local --fts-integrity  # eingesetzte Projek
 
 ## Schema
 
-`data/recht/d1/0001_rechtsbestand.sql` bis `0007_search_candidate_filters.sql`; produktiv manuell mit
+`data/recht/d1/0001_rechtsbestand.sql` bis `0008_inventory_sort_word.sql`; produktiv manuell mit
 `wrangler d1 execute <Datenbank> --remote --file …` einspielen – zuerst lokal (`--apply-schema`),
 dann Staging, dann Produktion, nie automatisch.
 
 | Tabelle | Inhalt |
 | --- | --- |
-| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabenindex, `is_amendment`, `last_change_date` = jüngste Rechtsänderung bis zum Stichtag ohne bloße Hinweise: Standardsortierung der Übersichten und der Suche ohne Suchbegriff, `last_activity_date` = jüngstes Ereignis einschließlich Hinweisen für `lastmod`) sowie `meta_json`, `history_json` |
+| `law_norms` | Identität, schmale Übersichtsspalten (Sachgebiete, Schlagwörter, Aliasse, Herkunft, Fassungszahl, Buchstabengruppe `index_letter` und Sortierschlüssel `sort_word` des Ordnungsworts, Grundmenge `in_inventory`, Förderbereich `funding_area`, `is_amendment`, `last_change_date` = jüngste Rechtsänderung bis zum Stichtag ohne bloße Hinweise: Standardsortierung der Übersichten und der Suche ohne Suchbegriff, `last_activity_date` = jüngstes Ereignis einschließlich Hinweisen für `lastmod`) sowie `meta_json`, `history_json` |
 | `law_versions` | Fassungen ohne Körper (`version_json`), Vollzitat, Verkündungsbezug (`publication_ref_json` sowie `publication_source` und `publication_year` als Filterspalten), zeitliche Einordnung (`temporal_kind`) |
 | `law_version_blocks` | äußere Body-Blöcke als JSON; große Blöcke in Teile (`part_index`) zerlegt |
 | `law_source_objects` | Quellenreferenzen je Fassung, bei R2 mit `object_key` |
@@ -479,7 +479,7 @@ dann Staging, dann Produktion, nie automatisch.
 | `law_search_documents` | Suchdokument-Metadaten je Fassung (ohne Stichtag; Fassungsbezeichnung entsteht im Browser) |
 | `law_search_units` | Provisionen der geltenden Fassung, relational mit Indizes auf `norm_id`, `slug`, `(norm_id, version_id)` |
 | `law_search` | FTS5-Index mit externem Inhalt über `law_search_units`, per Trigger rowid-genau geführt |
-| `law_norm_subjects`, `law_norm_history`, `law_norm_keywords` | Sachgebiete, Historieneinträge (Datumsindex), Stichwortindex je Buchstabengruppe |
+| `law_norm_subjects`, `law_norm_history`, `law_norm_keywords` | Sachgebiete, Historieneinträge (Datumsindex), Stichworteinträge je Buchstabengruppe mit Herkunft (`kind`: `register`, `abbr`, `short-title`, `derived`) |
 | `law_runtime_meta` | Identität, Zustand, Zähler, `corpus_hash` und vorberechnete Metadatenzeilen (Suchfilter, Sachgebiete, Bestandszahlen) |
 
 Die Metadatenzeile `projection_fingerprint` dient der Laufzeit zugleich als Schlüssel des
@@ -497,6 +497,39 @@ Suche wählt Kandidaten über den FTS5-Index; jeder Filter, den die Projektion t
 in SQL (Typ, Herkunft, Ressort, Sachgebiet, Status, Fassungsart, Verkündungsblatt, Jahr,
 Änderungsvorschriften), damit `total` dieselbe Menge zählt wie die Trefferliste.
 `tests/recht-runtime-d1-queries.test.ts` protokolliert die Abfrageformen jeder Route.
+
+### Grundmenge, Ordnungswort, Förderbereich und Stichwortart (Migration 0008)
+
+`0008_inventory_sort_word.sql` ergänzt vier projizierte Werte:
+
+| Spalte | Bedeutung |
+| --- | --- |
+| `law_norms.in_inventory` | Gehört die Vorschrift zur Grundmenge? `0` für übernommene Änderungsvorschriften (Normtyp `aenderungsvorschrift` mit Herkunft `inherited-unchanged`/`inherited-amended`). Eine Definition: `isInheritedAmendment`/`INVENTORY_SQL` in `packages/shared/src/lib/norms/inventory.ts`. |
+| `law_norms.sort_word` | Vergleichsschlüssel des Ordnungsworts (`getNormSortKey`): kleingeschrieben, Umlaute aufgelöst, ß als ss. SQLite sortiert binär – ohne aufgelöste Umlaute stünde „Ärzte“ hinter „Zoll“. `index_letter` folgt demselben Ordnungswort. |
+| `law_norms.funding_area` | Amtlicher Förderbereich (550–559) einer Förderrichtlinie aus `meta.fundingArea`. |
+| `law_norm_keywords.kind` | Herkunft eines Stichworteintrags: `register` (redaktionelles Stichwortregister), `abbr`, `short-title`, `derived`. |
+
+Neue Sync-Eingabe: `content/stichwortregister.json` (Loader
+`packages/shared/src/lib/norms/register.ts`). Die Datei zählt zu `CORPUS_ROOTS` der
+Projektionsidentität und zum `corpus_hash`; eine Änderung ergibt den Umfang `refreshKeywords`
+(`scripts/lib/d1-sync-scope.mjs`), der ausschließlich die Stichworteinträge aller Normen neu
+schreibt – keine Fassungen, keine Normkörper, keine abgeleiteten Daten.
+
+Folge für den nächsten Sync: Schema und Projektionslogik ändern sich, damit auch die
+Projektionsidentität; nötig ist eine **Vollprojektion** (`--full --budget full`), zuerst lokal, dann
+gegen `ostrecht-recht-staging`, dann produktiv. Reihenfolge wie immer: Migration einspielen, dann
+projizieren. Die Migration füllt `in_inventory` aus Normtyp und Herkunft und setzt `sort_word` auf
+`sort_title`, damit zwischen Migration und Vollprojektion weder eine falsche Bestandszahl noch eine
+leere Sortierung entsteht; erst die Vollprojektion schreibt das tatsächliche Ordnungswort und die
+Buchstabengruppen.
+
+**Expand/Contract.** 0008 ist rein additiv: Der alte Worker liest die migrierte Datenbank
+unverändert weiter. Der neue Worker toleriert umgekehrt eine Datenbank, die 0008 hat, aber noch
+nicht neu projiziert ist – er sortiert über `COALESCE(n.sort_word, n.sort_title)` (`SORT_WORD_SQL`
+in `apps/recht/src/lib/runtime/store.ts`), `in_inventory` steht per Vorgabe auf `1` und `kind` auf
+`derived`. Die Projektion darf deshalb vor oder nach dem Worker-Deployment laufen; ohne Migration
+0008 dagegen beantwortet der neue Worker jede Rechtsroute mit 500, weil `SUMMARY_SELECT` die neuen
+Spalten bedingungslos liest. Migration also zuerst, dann projizieren, dann deployen.
 
 ### Bedeutung von `last_change_date` (Migration 0007)
 

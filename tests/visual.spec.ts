@@ -74,7 +74,7 @@ const visualPages: VisualPage[] = [
   { name: 'ostrecht-suche', path: searchUrl(fixture.multiHit), critical: true },
   // Ein Verzeichnis je Listenmuster: Gesetze, Verordnungen und Verwaltungsvorschriften teilen Template und Filterleiste.
   { name: 'ostrecht-gesetze', path: lawUrl('/gesetze/') },
-  { name: 'ostrecht-archiv', path: lawUrl('/archiv/') },
+  { name: 'ostrecht-archiv', path: lawUrl('/a-z/') },
   { name: 'ostrecht-sachgebiete', path: lawUrl('/sachgebiete/') },
   { name: 'ostrecht-verkuendungen', path: lawUrl('/verkuendungen/') },
   { name: 'ostrecht-verkuendungen-eintraege', path: lawUrl('/verkuendungen/?ansicht=eintraege') },
@@ -96,7 +96,7 @@ const visualPages: VisualPage[] = [
   { name: 'norm-uebernommen-geaendert', path: lawUrl(`/norm/${fixture.amended}/`), critical: true },
   { name: 'norm-bekanntmachung', path: lawUrl(`/norm/${fixture.bekanntmachung}/`) },
   // Buchstabe G mit Herkunftsfilter: das Fixture stellt eine übernommene, unveränderte Norm mit G bereit (Rolle inherited-unchanged-letter-g).
-  { name: 'ostrecht-archiv-herkunft', path: lawUrl('/archiv/?buchstabe=G&herkunft=inherited-unchanged') },
+  { name: 'ostrecht-archiv-herkunft', path: lawUrl('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
   { name: 'service', path: '/service/' },
@@ -553,7 +553,7 @@ const componentVisualPages: ComponentVisualPage[] = [
   },
   {
     name: 'archiv-herkunft-module',
-    path: lawUrl('/archiv/'),
+    path: lawUrl('/a-z/'),
     shots: [
       ['archiv-rechtsherkunft', '[data-visual-section="law-origin-overview"]'],
       ['archiv-liste-herkunft', '[data-index-list] > li:first-child'],

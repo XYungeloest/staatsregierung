@@ -52,5 +52,6 @@ test('Norm- und Stichwortpaginierung derselben Seite behalten ihren jeweils ande
 
   // Ohne expliziten Parameter bleibt das bisherige Verhalten (`seite`).
   assert.equal(buildPagination({ page: 1, pageCount: 2, basePath: '/x/' }).next, '/x/?seite=2');
-  assert.equal(pageUrl('/archiv/', { buchstabe: 'A', seite: 1, stichwortseite: 1 }), '/archiv/?buchstabe=A');
+  assert.equal(pageUrl('/archiv/', { buchstabe: 'A', seite: 1, stichwortseite: 1, abkuerzungsseite: 1 }), '/archiv/?buchstabe=A');
+  assert.equal(pageUrl('/a-z/', { buchstabe: 'A', abkuerzungsseite: 2 }), '/a-z/?buchstabe=A&abkuerzungsseite=2');
 });

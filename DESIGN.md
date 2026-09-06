@@ -227,8 +227,9 @@ und die Hauptgruppe in der Einleitung. Filter, Facetten und Kennzeichnungen trag
 Kurzform („71 Bildungswesen“), die vollständige amtliche Bezeichnung steht auf Übersicht und
 Sachgebietsseite; der gespeicherte Wert bleibt die amtliche Bezeichnung.
 - `DirectoryPagination.astro`: serverseitige Seiten zu 50 Einträgen (`DEFAULT_PAGE_SIZE`) in allen
-  Verzeichnissen; im A–Z stehen Vorschriften und Stichwörter je zu 50 (`KEYWORD_PAGE_SIZE`) mit
-  unabhängigen Parametern `seite` und `stichwortseite`.
+  Verzeichnissen; im A–Z stehen Vorschriften, Stichwörter und Abkürzungen je zu 50
+  (`KEYWORD_PAGE_SIZE`) mit den unabhängigen Parametern `seite`, `stichwortseite` und
+  `abkuerzungsseite`.
 
 Filter und Seiten laufen über GET-Parameter mit kanonischer Adresse; Seiten mit aktiven Filtern
 tragen `noindex`. Verkündungen filtern ihre Metadatentabelle im Speicher, folgen aber demselben
@@ -250,6 +251,40 @@ Die Rechtsentwicklung ist keine eigene Übersicht mehr: Herkunft, Normtyp, Sachg
 sind Filter der Rechtssuche. Die Herkunftszahlen des Bestands stehen als Kachelreihe
 (`.law-origin-overview`) über der Trefferliste; `/rechtsentwicklung/` leitet mit denselben
 Parameternamen dorthin weiter.
+
+### Grundmenge und Bestandszahl
+
+Verzeichnisse, A–Z, Sachgebiete, Bestandszahlen und die Standardsuche beschreiben dieselbe
+Grundmenge: alle Vorschriften außer den aus dem sächsischen Rechtsstand übernommenen
+Änderungsvorschriften (`packages/shared/src/lib/norms/inventory.ts`, projizierte Spalte
+`law_norms.in_inventory`). Übernommene Änderungsakte sind historische Änderungsträger, keine
+gleichrangigen Stammnormen; erreichbar bleiben sie über den Normtypfilter „Änderungsvorschrift“,
+das Auswahlfeld „Übernommene Änderungsvorschriften“ (`aenderungen=uebernommen`) in A–Z und
+Sachgebietsseiten sowie über die Beziehungen der geänderten Vorschrift. Die Verzeichnisse der
+Gesetze, Verordnungen, Verwaltungsvorschriften und Förderrichtlinien führen sie nie.
+
+Die Bestandszahl lautet überall gleich: „1933 Vorschriften, davon 1867 geltend“
+(`formatInventoryCount` in `apps/recht/src/lib/counts.ts`, Einzahl „1 Vorschrift“). Sie steht auf der
+Startseite, im Kopf des A–Z und der Sachgebietsübersicht.
+
+### Ordnungswort und alphabetische Einordnung
+
+Der Buchstabe eines Eintrags ist der Anfangsbuchstabe seines Ordnungsworts – des ersten
+inhaltstragenden Wortes der Bezeichnung, ohne Ordnungszahl, Rechtsform, erlassende Stelle,
+Präposition und Artikel („Gesetz über die Landesregulierungsbehörde“ steht unter L).
+`getNormSortWord` und `getNormSortKey` in `packages/shared/src/lib/norms/presentation.ts` bilden es;
+die Projektion legt den Vergleichsschlüssel als `law_norms.sort_word` ab, die Buchstabengruppe als
+`index_letter`. Die Überschrift eines Verzeichniseintrags bleibt der Titelblock; das Ordnungswort
+erscheint als beschriftete Angabe nur dort, wo sein Anfangsbuchstabe von dem der Überschrift
+abweicht. Die Einleitung des A–Z sagt einmal, dass der Buchstabe dem Ordnungswort folgt.
+
+### A–Z unter `/a-z/`
+
+Der alphabetische Zugang liegt unter `/a-z/`; `/archiv/` bleibt als dauerhafte Weiterleitung (301)
+mit Buchstabe, Herkunft, Seite und Stichwortstand erreichbar. Die Seite hat nach Herkunftsübersicht
+und Vorschriftenliste zwei getrennte Wortlisten: „Stichwortregister“ mit den redaktionellen
+Stichwörtern aus `content/stichwortregister.json` und „Abkürzungen und Kurztitel“. Abgeleitete
+Titelwörter erscheinen dort nicht mehr; sie bleiben durchsuchbar.
 
 ### Normkopf und Fassungsnavigation
 
@@ -360,7 +395,8 @@ Hilfe, Suche und Fehlerseite – etwa „Vorschriften A–Z“ und „Sachgebiet
 Navigation und Bezeichnungen zusammen. Der Eyebrow nennt den Bereich: „Rechtsportal“ auf
 Übersichten, Hilfe und Fehlerseite, „Rechtssuche“, „Vorschrift“, „Verkündung“, „Sachgebiet“ auf den
 Detailseiten; Zustände stehen in der Statuszeile oder im Text. Bestandszahlen heißen „geltende
-Vorschriften“ (Startseite) und „Vorschriften im Bestand“ (Übersichten); die Historie zeigt frühere
+Vorschriften“ (Startseite) und „Vorschriften im Bestand“ (Übersichten) — die zusammengesetzte Zahl
+bildet `formatInventoryCount` (siehe „Grundmenge und Bestandszahl“); die Historie zeigt frühere
 Titel einer Vorschrift nur bei Abweichung, gekennzeichnet als „Damaliger Titel“.
 
 Für die Benennung einer Vorschrift gilt überall derselbe Titelblock aus `getNormTitleBlock`

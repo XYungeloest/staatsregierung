@@ -71,7 +71,9 @@ export const lawPaths = {
   laws: '/gesetze/',
   regulations: '/verordnungen/',
   administrativeRules: '/verwaltungsvorschriften/',
-  index: '/archiv/',
+  // Alphabetischer Zugang: die Adresse sagt, was die Seite ist. `/archiv/` bleibt als
+  // dauerhafte Weiterleitung bestehen (apps/recht/src/pages/archiv/index.astro).
+  index: '/a-z/',
   subjects: '/sachgebiete/',
   funding: '/foerderrichtlinien/',
   publications: '/verkuendungen/',
