@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-04",
+  "asOf": "2026-09-06",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment",
@@ -67,42 +67,70 @@
     {
       "id": "proceeding-eighth-volkskammer-election",
       "title": "Wahl zur achten Volkskammer",
-      "status": "editorially-confirmed",
+      "status": "confirmed-primary",
       "validFrom": "2026-08-01",
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.",
+      "asOf": "2026-09-06",
+      "summary": "Die Wahl zur achten Ostdeutschen Volkskammer wurde am 5. und 6. September 2026 durchgeführt. Die Bundeswahlleitung stellte das Endergebnis am 6. September 2026 endgültig fest: Die gemeinsame Liste Roter Aufbruch erreicht 92,63 Prozent und alle 11 Sitze bei einer Wahlbeteiligung von 63,33 Prozent.",
       "sourceRefs": [
+        {
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitte I bis III und V",
+          "role": "primary"
+        },
         {
           "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
           "locator": "Wahl zur achten Volkskammer",
-          "role": "primary"
+          "role": "context"
         }
       ],
       "relatedIds": [
         "inst-volkskammer",
-        "event-volkskammer-election-2026"
+        "inst-bundeswahlleiter",
+        "party-volksfront",
+        "party-demos",
+        "event-volkskammer-election-2026",
+        "event-volkskammer-election-result-2026"
       ],
       "tags": [
         "proceeding",
         "election",
-        "parliament"
+        "parliament",
+        "historical"
       ],
-      "notes": [],
+      "notes": [
+        "Die konstituierende Sitzung der achten Volkskammer und der Beginn der achten Wahlperiode sind noch nicht belegt."
+      ],
       "aliases": [
         "Wahl zur 8. Volkskammer"
       ],
       "proceedingType": "election",
-      "stage": "scheduled",
+      "stage": "completed",
       "participantIds": [
         "inst-volkskammer"
       ],
       "normRefs": [],
-      "decision": "Wahltage sind der 5. und 6. September 2026.",
-      "nextAction": "Durchführung der Wahl an den festgelegten Wahltagen.",
+      "decision": "Roter Aufbruch: 17 Stimmen (89,47 Prozent), 3 von 3 Aktivitätspunkten (100 Prozent), Gesamtergebnis 92,63 Prozent, 11 Sitze; Nein: 2 Stimmen (10,53 Prozent), Gesamtergebnis 7,37 Prozent.",
+      "nextAction": "Konstituierung der achten Volkskammer; ein Termin ist noch nicht belegt.",
       "openQuestionIds": [],
       "electionStartDate": "2026-09-05",
-      "electionEndDate": "2026-09-06"
+      "electionEndDate": "2026-09-06",
+      "electedListName": "Roter Aufbruch (RA)",
+      "electedSeats": 11,
+      "electionTurnoutPercent": 63.33,
+      "electedListMembers": [
+        "Dr. Karl Honecker",
+        "Yannik Schmäle",
+        "Ole Dolittle",
+        "Dr. Mateo Delgado",
+        "Horst Wollseif",
+        "Mia Wollrath",
+        "Tim Dieter",
+        "Finn Bonnano",
+        "Carl Ulbricht",
+        "Kilian Schmidt",
+        "David König"
+      ]
     },
     {
       "id": "proceeding-volksbefragung-2026",
@@ -110,23 +138,33 @@
       "status": "confirmed-primary",
       "validFrom": "2026-08-09",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Der Staatsrat hat eine freiwillige und rechtlich nicht bindende Volksbefragung zu fünf politischen Grundsatzfragen angeordnet. Sie wird vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Volkskammerwahl durchgeführt.",
+      "asOf": "2026-09-06",
+      "summary": "Die vom Staatsrat angeordnete freiwillige und rechtlich nicht bindende Volksbefragung zu fünf politischen Grundsatzfragen wurde am 5. und 6. September 2026 parallel zur Volkskammerwahl durchgeführt. Die Bundeswahlleitung stellte das Endergebnis am 6. September 2026 endgültig fest; alle fünf Fragen wurden mehrheitlich befürwortet. Der Bericht des Staatsrates nach § 8 VBefrVO 2026 wurde am selben Tag im StAnzO. 2026 Nr. 41 veröffentlicht. Das Verfahren ist abgeschlossen.",
       "sourceRefs": [
+        {
+          "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
+          "locator": "Abschnitt IV Nummer 2 und Abschnitt V",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-41",
+          "locator": "Seiten 2–7, Abschnitte I, II und X",
+          "role": "primary"
+        },
         {
           "sourceId": "source-ogvbl-2026-59",
           "locator": "Seiten 2–7, insbesondere §§ 1, 2 und 6–11",
-          "role": "primary"
+          "role": "corroborating"
         },
         {
           "sourceId": "source-pm-2026-08-09-05",
           "locator": "gesamte Pressemitteilung",
-          "role": "corroborating"
+          "role": "context"
         },
         {
           "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
           "locator": "Abstimmungszeitraum und fünf Fragen",
-          "role": "corroborating"
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -137,22 +175,26 @@
         "event-volksbefragung-ordered-2026",
         "event-volksbefragung-information-deadline-2026",
         "event-volksbefragung-2026",
-        "event-volksbefragung-result-deadline-2026"
+        "event-volksbefragung-result-2026",
+        "event-volksbefragung-report-2026"
       ],
       "tags": [
         "proceeding",
         "political-participation",
-        "election"
+        "election",
+        "historical"
       ],
       "notes": [
         "Die Volksbefragung ist ausdrücklich kein Volksentscheid im Sinne des Artikels 72 der Staatsverfassung und entfaltet keine unmittelbare rechtliche Bindungswirkung.",
-        "Ein Beteiligungs- oder Zustimmungsquorum besteht nicht."
+        "Ein Beteiligungs- oder Zustimmungsquorum bestand nicht.",
+        "Die Ergebnisbekanntmachung war spätestens für den 10. September 2026 und der Bericht innerhalb von dreißig Tagen vorgesehen; beide Fristen sind durch die Erledigung am 6. September 2026 gegenstandslos.",
+        "Die im Auswertungsbericht angekündigten Folgevorhaben – Sozialistische Verfassungsnovelle, Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz, Staatsplankommission Ost, Landeswirtschaftsrat und Olympia-Bewerbung – sind eigenständige Vorgänge der Agenda und nicht Teil dieses abgeschlossenen Verfahrens."
       ],
       "aliases": [
         "Volksbefragung 2026"
       ],
       "proceedingType": "public-consultation",
-      "stage": "scheduled",
+      "stage": "completed",
       "participantIds": [
         "inst-staatsrat",
         "inst-volkskammer",
@@ -168,8 +210,8 @@
           "versionId": "2026-07-21"
         }
       ],
-      "decision": "Anordnung durch die am 9. August 2026 verkündete Volksbefragungsverordnung 2026.",
-      "nextAction": "Durchführung vom 5. September um 18 Uhr bis 6. September um 18 Uhr, Ergebnisbekanntmachung bis 10. September und anschließender Bericht des Staatsrates.",
+      "decision": "Alle fünf Fragen wurden mehrheitlich mit Ja beantwortet (88,89 / 76,47 / 82,35 / 88,24 / 58,82 Prozent); die Bundeswahlleitung stellte das Endergebnis am 6. September 2026 endgültig fest.",
+      "nextAction": null,
       "openQuestionIds": [],
       "consultationStartDate": "2026-09-05",
       "consultationEndDate": "2026-09-06",
@@ -181,7 +223,67 @@
         "Sollen zentrale Bereiche der Daseinsvorsorge, wie Wohnen, Energie, Boden, Verkehr und Gesundheitsversorgung, überwiegend in öffentlicher oder gemeinwirtschaftlicher Verantwortung organisiert werden?",
         "Soll der Freistaat weiterhin durch öffentliche Investitionen, Wirtschaftslenkung und -planung, eigene Unternehmen und eine aktive Industriepolitik Arbeitsplätze sichern, strukturschwache Regionen stärken und die Infrastruktur modernisieren?",
         "Soll der Freistaat Ostdeutschland die Bewerbung um die Ausrichtung Olympischer und Paralympischer Spiele weiter verfolgen?"
-      ]
+      ],
+      "results": [
+        {
+          "number": 1,
+          "shortTitle": "Politische Grundrichtung",
+          "yesVotes": 16,
+          "yesPercent": 88.89,
+          "noVotes": 2,
+          "noPercent": 11.11,
+          "votesCast": 18,
+          "turnoutPercent": 60.0,
+          "outcome": "approved"
+        },
+        {
+          "number": 2,
+          "shortTitle": "Große Staatsreform",
+          "yesVotes": 13,
+          "yesPercent": 76.47,
+          "noVotes": 4,
+          "noPercent": 23.53,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        },
+        {
+          "number": 3,
+          "shortTitle": "Öffentliches und gemeinwirtschaftliches Eigentum",
+          "yesVotes": 14,
+          "yesPercent": 82.35,
+          "noVotes": 3,
+          "noPercent": 17.65,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        },
+        {
+          "number": 4,
+          "shortTitle": "Wirtschaftslenkung und -planung",
+          "yesVotes": 15,
+          "yesPercent": 88.24,
+          "noVotes": 2,
+          "noPercent": 11.76,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        },
+        {
+          "number": 5,
+          "shortTitle": "Olympische und Paralympische Spiele",
+          "yesVotes": 10,
+          "yesPercent": 58.82,
+          "noVotes": 7,
+          "noPercent": 41.18,
+          "votesCast": 17,
+          "turnoutPercent": 56.67,
+          "outcome": "approved"
+        }
+      ],
+      "resultConfirmedOn": "2026-09-06",
+      "reportPublishedOn": "2026-09-06",
+      "reportPublication": "StAnzO. 2026 Nr. 41"
     },
     {
       "id": "proceeding-staatsreform",

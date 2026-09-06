@@ -2112,7 +2112,7 @@ const report = {
   mode: shouldWrite ? 'incremental-write' : strictMode ? 'strict-audit' : 'audit-only',
   sourceFormat: 'structured-html-with-explicit-legacy-markdown',
   legacyMarkdownIgnored: [],
-  recognized: [], skipped: [], unsupported: [], ambiguous: [], sourceAudit: [], changes: [],
+  recognized: [], skipped: [], nonNormative: [], unsupported: [], ambiguous: [], sourceAudit: [], changes: [],
 };
 const records = [];
 const publications = [];
@@ -2164,6 +2164,19 @@ for (const fileName of htmlFiles) {
       report.recognized.push({ file: fileName, classification: classification.kind, norms: [] });
       report.sourceAudit.push({ file: fileName, classification: classification.kind, status: 'recognized-unconfigured', issues: ['keine stabile Slug-Zuordnung hinterlegt; kein Schreibvorgang'] });
     }
+    continue;
+  }
+  // Eine Ausgabe ohne Rechtsvorschrift (zum Beispiel ein Bericht eines Verfassungsorgans) ist
+  // ein Verkündungsblatt, aber keine Normimportquelle. Der Verkündungsdatensatz wird
+  // redaktionell gepflegt; der Normimporter erkennt die Ausgabe und lässt sie unberührt.
+  if (classification.normative === false) {
+    report.nonNormative.push({ file: fileName, reason: classification.reason });
+    report.sourceAudit.push({
+      file: fileName,
+      classification: classification.kind,
+      status: 'recognized-non-normative',
+      issues: [classification.reason],
+    });
     continue;
   }
   try {
@@ -2596,7 +2609,7 @@ if (strictMode) {
 }
 
 if (quietMode) {
-  console.log(`Normquellen-Audit: ${report.recognized.length} erkannt, ${report.skipped.length} redaktionell, ${report.unsupported.length} nicht unterstützt, ${report.ambiguous.length} mehrdeutig${strictMode ? `, ${strictFailures.length} strikte Abweichungen` : ''}.`);
+  console.log(`Normquellen-Audit: ${report.recognized.length} erkannt, ${report.skipped.length} redaktionell, ${report.nonNormative.length} ohne Rechtsvorschrift, ${report.unsupported.length} nicht unterstützt, ${report.ambiguous.length} mehrdeutig${strictMode ? `, ${strictFailures.length} strikte Abweichungen` : ''}.`);
 } else {
   console.log(JSON.stringify(report, null, 2));
 }

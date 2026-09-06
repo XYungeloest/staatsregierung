@@ -59,7 +59,9 @@ const timelineState = (date: string, endDate?: string) => {
   {module.type === 'facts' ? (
     <dl class="topic-data-grid">
       {module.items.map((item) => (
-        <div><dt>{item.label}</dt><dd>{item.value}</dd>{item.note ? <p>{item.note}</p> : null}</div>
+        /* Innerhalb einer Beschreibungsliste sind nur dt- und dd-Gruppen zulässig: Der
+           erläuternde Hinweis gehört deshalb in das dd und nicht daneben. */
+        <div><dt>{item.label}</dt><dd>{item.value}{item.note ? <p>{item.note}</p> : null}</dd></div>
       ))}
     </dl>
   ) : null}

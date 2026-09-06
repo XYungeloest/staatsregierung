@@ -1,7 +1,15 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { getPublicationLabel, hasNumberedIssue, type Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
+import {
+  buildNormPublicationReferenceLookup,
+  getPublicationLabel,
+  hasNumberedIssue,
+  listPublicationEntries,
+  parseVerkuendung,
+  type Verkuendung,
+} from '@ostrecht/shared/lib/norms/publications.ts';
+import { formatPublicationEntryType } from '@ostrecht/shared/lib/norms/display.ts';
 
 import { citationShortForm, directoryDescription } from '../apps/recht/src/lib/norm-summary.ts';
 import {
@@ -37,6 +45,48 @@ test('nummerierte Ausgaben behalten ihr Kurzzitat, Einzelverkündungen tragen da
     getPublicationLabel(issue({ publication: 'Amtliche Testverkündung', issue: '1. März 2026' })),
     'Amtliche Testverkündung vom 1. März 2026',
   );
+});
+
+test('eine nichtnormative Veröffentlichung bleibt Eintrag der Ausgabe, aber keine Vorschrift', () => {
+  const publication = parseVerkuendung({
+    slug: 'testblatt-2026-02',
+    title: 'Testblatt 2026 Nr. 2',
+    year: 2026,
+    issue: '2',
+    date: '2026-03-02',
+    publication: 'TBl.',
+    entries: [
+      {
+        id: 'testbericht',
+        title: 'Bericht einer Teststelle über einen Prüfvorgang',
+        type: 'sonstiges',
+        citation: 'Bericht vom 2. März 2026 (TBl. 2026 Nr. 2 S. 2)',
+        pages: '2–4',
+        documentDate: '2026-03-02',
+      },
+    ],
+  }, 'testblatt-2026-02.json');
+
+  const [entry] = publication.entries;
+  assert.equal(entry.type, 'sonstiges');
+  assert.equal(entry.normSlug, undefined);
+  assert.equal(entry.versionId, undefined);
+  assert.equal(entry.pages, '2–4');
+  assert.equal(formatPublicationEntryType(entry.type), 'Sonstige Veröffentlichung');
+  assert.equal(listPublicationEntries([publication]).length, 1);
+  assert.equal(buildNormPublicationReferenceLookup([publication]).size, 0);
+});
+
+test('eine Fassungskennung ohne Vorschrift wird zurückgewiesen', () => {
+  assert.throws(() => parseVerkuendung({
+    slug: 'testblatt-2026-03',
+    title: 'Testblatt 2026 Nr. 3',
+    year: 2026,
+    issue: '3',
+    date: '2026-03-03',
+    publication: 'TBl.',
+    entries: [{ id: 'testbericht', title: 'Bericht', type: 'sonstiges', citation: 'Bericht vom 3. März 2026 (TBl. 2026 Nr. 3 S. 2)', versionId: '2026-03-03' }],
+  }, 'testblatt-2026-03.json'), /versionId/u);
 });
 
 test('die Nummernprüfung trennt Zahlen, römische Zahlen und Spannen von Datumsangaben', () => {

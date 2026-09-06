@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-04",
-  "editorialAsOf": "2026-09-04",
-  "count": 1170,
+  "generatedAt": "2026-09-06",
+  "editorialAsOf": "2026-09-06",
+  "count": 1174,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -1058,7 +1058,7 @@
       "tags": [
         "timeline",
         "political-participation",
-        "scheduled"
+        "historical"
       ],
       "validFrom": "2026-09-05",
       "validTo": "2026-09-06",
@@ -1093,17 +1093,33 @@
       "target": "knowledge/timeline.json"
     },
     {
-      "id": "event-volksbefragung-result-deadline-2026",
-      "title": "Vorgesehene Bekanntmachung des Befragungsergebnisses",
+      "id": "event-volksbefragung-report-2026",
+      "title": "Staatsrat veröffentlicht den Auswertungsbericht zur Volksbefragung",
       "type": "timeline-event",
       "aliases": [],
       "tags": [
         "timeline",
         "political-participation",
-        "scheduled"
+        "government",
+        "historical"
       ],
-      "validFrom": "2026-09-10",
-      "validTo": "2026-09-10",
+      "validFrom": "2026-09-06",
+      "validTo": "2026-09-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-volksbefragung-result-2026",
+      "title": "Bundeswahlleitung stellt das Endergebnis endgültig fest",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "election",
+        "historical"
+      ],
+      "validFrom": "2026-09-06",
+      "validTo": "2026-09-06",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1116,9 +1132,24 @@
       "tags": [
         "timeline",
         "election",
-        "scheduled"
+        "historical"
       ],
       "validFrom": "2026-09-05",
+      "validTo": "2026-09-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-volkskammer-election-result-2026",
+      "title": "Amtliches Endergebnis der Wahl zur achten Volkskammer",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "election",
+        "parliament",
+        "historical"
+      ],
+      "validFrom": "2026-09-06",
       "validTo": "2026-09-06",
       "target": "knowledge/timeline.json"
     },
@@ -11814,7 +11845,8 @@
       "tags": [
         "proceeding",
         "election",
-        "parliament"
+        "parliament",
+        "historical"
       ],
       "validFrom": "2026-08-01",
       "validTo": null,
@@ -12027,7 +12059,8 @@
       "tags": [
         "proceeding",
         "political-participation",
-        "election"
+        "election",
+        "historical"
       ],
       "validFrom": "2026-08-09",
       "validTo": null,
@@ -12873,6 +12906,20 @@
         "media"
       ],
       "validFrom": "2026-03-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-bundeswahlleitung-endergebnis-2026-09-06",
+      "title": "Amtliches Endergebnis – Heft 2: Wahlvorbereitung und Endergebnis der Wahl zur VIII. Ostdeutschen Volkskammer",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "elections",
+        "political-participation",
+        "parliament"
+      ],
+      "validFrom": "2026-09-06",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -15126,6 +15173,22 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-stanzo-2026-41",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 41",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "political-participation",
+        "government",
+        "constitution",
+        "public-economy",
+        "sports"
+      ],
+      "validFrom": "2026-09-06",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-steelworks-valuation-2026-03-14",
       "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
       "type": "source",
@@ -15502,7 +15565,7 @@
     },
     {
       "id": "state-current-volksbefragung-2026",
-      "title": "Angeordnete Volksbefragung 2026",
+      "title": "Volksbefragung 2026 abgeschlossen und politisch ausgewertet",
       "type": "current-state",
       "aliases": [],
       "tags": [
@@ -15510,7 +15573,7 @@
         "political-participation",
         "election"
       ],
-      "validFrom": "2026-08-09",
+      "validFrom": "2026-09-06",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

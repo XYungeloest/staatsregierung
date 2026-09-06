@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-04",
+  "asOf": "2026-09-06",
   "purpose": "Kanonische interne Planungs- und Gesetzgebungsagenda für die nächste Wahlperiode. Sie dokumentiert politische Vorhaben getrennt vom geltenden Rechtsstand und von förmlichen Verfahren.",
   "programmeSource": "context/programme/roter-aufbruch-2026/regierungsprogramm-roter-aufbruch-2026.md",
   "humanOverview": "knowledge/AGENDA.md",
@@ -17,7 +17,17 @@
       "character": "gemeinsame Wahlliste",
       "partyContinuity": "Volksfront und DEMOS behalten ihre eigenständigen politischen Identitäten."
     },
-    "first100DaysFramework": "Aufbauprogramm 2030"
+    "first100DaysFramework": "Aufbauprogramm 2030",
+    "electionResultConfirmedOn": "2026-09-06",
+    "electionOutcome": "Die gemeinsame Liste Roter Aufbruch erreicht 92,63 Prozent und alle 11 Sitze der 8. Ostdeutschen Volkskammer; die Wahlbeteiligung beträgt 63,33 Prozent. Die konstituierende Sitzung ist noch nicht belegt.",
+    "volksbefragung2026": {
+      "status": "abgeschlossen",
+      "consultationDates": "5. und 6. September 2026",
+      "resultConfirmedOn": "2026-09-06",
+      "outcome": "Alle fünf Fragen wurden mehrheitlich befürwortet: 88,89 / 76,47 / 82,35 / 88,24 / 58,82 Prozent Ja.",
+      "report": "Bericht des Staatsrates vom 6. September 2026 (StAnzO. 2026 Nr. 41) nach § 8 VBefrVO 2026.",
+      "legalEffect": "Weder die Volksbefragung noch der Bericht begründen unmittelbar geltende Rechte oder Pflichten."
+    }
   },
   "stageDefinitions": {
     "idea": "politische oder redaktionelle Idee ohne ausgearbeiteten Entwurf",
@@ -52,8 +62,8 @@
     },
     {
       "topic": "Große Staatsreform",
-      "currentState": "Die Große Staatsreform ist bereits in Kraft.",
-      "openFollowUp": "Die Sozialistische Verfassungsnovelle ist ein eigenständiges neues Folgevorhaben."
+      "currentState": "Die Große Staatsreform ist abgeschlossen und in Kraft. Die geschaffene Ordnung mit Volkskammer, Staatsrat und Staatspräsident wurde in der Volksbefragung 2026 mit 76,47 Prozent auch politisch bestätigt; eine Rückkehr zu den früheren Organisationsstrukturen wird nicht verfolgt.",
+      "openFollowUp": "Konsolidierung der neuen Institutionen und die noch erforderlichen Folgeanpassungen des Organisations-, Parlaments- und Verwaltungsrechts in der achten Wahlperiode (StAnzO. 2026 Nr. 41, Abschnitt V); die Sozialistische Verfassungsnovelle bleibt ein eigenes Folgevorhaben."
     },
     {
       "topic": "Interflug",
@@ -70,11 +80,13 @@
     {
       "id": "agenda-socialistische-verfassungsnovelle",
       "title": "Sozialistische Verfassungsnovelle",
-      "stage": "conditional-programme",
+      "stage": "programme",
       "kind": "constitutional-amendment",
-      "condition": "Mehrheitliches Ja zur ersten Frage der Volksbefragung 2026.",
       "targetInstrument": "Verfassungsänderungsgesetz",
-      "summary": "Demokratischer Sozialismus als Staatsausrichtung, Wirtschaftsplanung als Staatsauftrag, soziale Grundrechte, stärkerer Schutz öffentlichen Eigentums und Beteiligungsrechte."
+      "summary": "Demokratischer Sozialismus als dauerhafte Staatsausrichtung, demokratische und rechtsstaatliche Bindung wirtschaftlicher Macht, Wirtschaftsplanung als staatliche Aufgabe, Weiterentwicklung sozialer Grundrechte, stärkerer Schutz öffentlichen und gemeinwirtschaftlichen Eigentums sowie Beteiligungsrechte von Beschäftigten, Nutzer:innen und Kommunen.",
+      "resolvedCondition": "Mehrheitliches Ja zur ersten Frage der Volksbefragung 2026 – am 6. September 2026 mit 88,89 Prozent Zustimmung erfüllt.",
+      "politicalBasis": "Bericht des Staatsrates vom 6. September 2026 (StAnzO. 2026 Nr. 41, Abschnitt IV): Der Staatsrat unterstützt die Vorbereitung einer Sozialistischen Verfassungsnovelle.",
+      "note": "Verfassungsmäßige Ordnung, Grundrechte, freie demokratische Willensbildung und der Vorrang des Bundesrechts bleiben nach dem Bericht uneingeschränkt zu beachten. Ein Entwurf, eine Einbringung oder ein Beschluss sind nicht belegt."
     },
     {
       "id": "agenda-wirtschaftsplanung-gemeinwirtschaft",
@@ -82,7 +94,9 @@
       "stage": "programme",
       "kind": "law",
       "targetInstrument": "neues Stammgesetz",
-      "summary": "Staatsplankommission Ost, Landeswirtschaftsrat, Perspektivplan 2040, Fünfjahr- und Jahreswirtschaftsplanung sowie Netz-, Speicher- und Standortplanung."
+      "summary": "Staatsplankommission Ost, Landeswirtschaftsrat, Perspektivplan 2040, Fünfjahr- und Jahreswirtschaftsplanung sowie Netz-, Speicher- und Standortplanung.",
+      "politicalBasis": "Bericht des Staatsrates vom 6. September 2026 (StAnzO. 2026 Nr. 41, Abschnitt VII): Nach dem Ergebnis der vierten Frage (88,24 Prozent Ja) zieht der Staatsrat die Vorbereitung eines Wirtschaftsplanungs- und Gemeinwirtschaftsgesetzes, die Errichtung einer Staatsplankommission Ost, den Aufbau eines Landeswirtschaftsrates, mittel- und langfristige Wirtschaftsplanung, eine stärkere Abstimmung öffentlicher Investitionen sowie die aktive Sicherung industrieller Standorte als politische Konsequenzen.",
+      "note": "Wirtschaftsplanung bedeutet nach dem Bericht ausdrücklich keine zentrale Steuerung sämtlicher wirtschaftlicher Tätigkeit; kleine und mittlere Unternehmen, Handwerk, Handel, freie Berufe und private Gründungen bleiben Bestandteil der Wirtschaftsordnung. Staatsplankommission Ost und Landeswirtschaftsrat sind angekündigt, aber nicht errichtet."
     },
     {
       "id": "agenda-oeffentliche-hand-industrie",
@@ -259,9 +273,11 @@
     {
       "id": "agenda-olympia",
       "title": "Olympia-Folgeprojekt",
-      "stage": "conditional-programme",
-      "condition": "Mehrheitliches Ja zur Olympia-Frage der Volksbefragung 2026.",
-      "summary": "Bewerbung nur unter sozialen Bedingungen und mit dauerhaftem Nutzen für Verkehr, Wohnungsbau, Breitensport und Barrierefreiheit."
+      "stage": "programme",
+      "summary": "Weiterverfolgung der Bewerbung unter sozialen Bedingungen: keine Verdrängung von Mieter:innen, keine dauerhafte Privatisierung öffentlichen Bodens, keine Finanzierung auf Kosten der sozialen Daseinsvorsorge, keine dauerhaft ungenutzten Sportstätten, transparente öffentliche Kosten und Garantien sowie dauerhafter Nutzen für Wohnungsbau, Verkehr, Barrierefreiheit und Breitensport.",
+      "resolvedCondition": "Mehrheitliches Ja zur Olympia-Frage der Volksbefragung 2026 – am 6. September 2026 mit 58,82 Prozent Zustimmung erfüllt.",
+      "politicalBasis": "Bericht des Staatsrates vom 6. September 2026 (StAnzO. 2026 Nr. 41, Abschnitt VIII): Der Staatsrat verfolgt das Bewerbungsprojekt weiter und will über die organisatorischen Grundlagen und die nächsten Schritte gesondert beschließen.",
+      "openDecision": "Der angekündigte gesonderte Beschluss des Staatsrates über organisatorische Grundlagen und nächste Schritte der Bewerbung steht noch aus. Bewerbungskomitee, Austragungsorte, Bewerbungsphase und Finanzierung sind nicht belegt."
     }
   ],
   "nonAgendaReferences": [
@@ -272,6 +288,6 @@
   ],
   "maintenance": {
     "rule": "Sobald ein Vorhaben förmlich eingebracht wird, ist das konkrete Verfahren zusätzlich in proceedings.json zu dokumentieren. Nach Verkündung ist der Normbestand maßgeblich.",
-    "recommendedNextReview": "nach der Wahl zur 8. Volkskammer und nach Vorliegen der Ergebnisse der Volksbefragung 2026"
+    "recommendedNextReview": "nach der Konstituierung der achten Volkskammer sowie nach dem angekündigten gesonderten Staatsratsbeschluss zur Olympia-Bewerbung"
   }
 }

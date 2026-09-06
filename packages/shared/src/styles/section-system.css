@@ -981,10 +981,13 @@
   line-height: var(--lh-display);
 }
 
+/* Der Hinweis steht im dd (gültige Beschreibungsliste) und erbt dessen Auszeichnung nicht. */
 .topic-data-grid p {
   margin: 0.55rem 0 0;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: var(--lh-body);
 }
 
 .topic-comparison {

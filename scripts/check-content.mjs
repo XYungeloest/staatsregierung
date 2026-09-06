@@ -568,6 +568,7 @@ const normSlugs = new Set(
     .filter(Boolean),
 );
 const normVersionIds = new Map();
+const publicationSlugs = new Set(byPrefix('verkuendungen/').map(({ json }) => json.slug).filter(Boolean));
 const legislationRecords = byPrefix('gesetzgebung/');
 const governmentMemberRecords = byPrefix('regierung/mitglieder/');
 const ministryRecords = byPrefix('ressorts/');
@@ -618,6 +619,9 @@ for (const { file, json } of records) {
     for (const reference of json.rechtsgrundlagen ?? []) {
       if (reference?.normSlug && !normSlugs.has(reference.normSlug)) {
         addProblem(file, `rechtsgrundlagen.normSlug verweist auf unbekannte Norm: ${reference.normSlug}`);
+      }
+      if (reference?.publicationSlug && !publicationSlugs.has(reference.publicationSlug)) {
+        addProblem(file, `rechtsgrundlagen.publicationSlug verweist auf unbekannte Verkündung: ${reference.publicationSlug}`);
       }
     }
   }
