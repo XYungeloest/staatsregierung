@@ -14,17 +14,10 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 - [ ] Cloudflare-Plan festlegen: Workers Paid ist für den Betrieb mit dem Vollbestand vorgesehen
   (Schreibvorgänge einer Vollprojektion, CPU-Zeit großer Normen). Fertig, wenn der Plan aktiv ist
   und `docs/DEPLOYMENT_RUNBOOK.md` die geltenden D1-Limits nennt.
-- [ ] Übergangsregel des Base-State-Guards entfernen: `projectionIdentity` liefert neben dem
-  Fingerabdruck einen `legacyFingerprint` (Logikhash über ganze Verzeichnisse statt über den
-  Code-Abschluss), den `decideSyncAction`, `validateProof` und die Seed-Cache-Schlüssel
-  (`legacyFingerprint` in `runtimeSeedIdentity`, zweiter Restore-Schritt in `d1_token_check` und
-  `d1_sync`) als Basiszustand akzeptieren, damit eine vor dem Abschluss-Algorithmus geschriebene
-  D1 keine Recovery-Vollprojektion auslöst. Fertig, wenn Produktion und Staging eine Identität der
-  neuen Berechnung tragen (`npm run norms:runtime:d1-sync -- --remote-state …` meldet No-op) und
-  `legacyFingerprint`, `legacyProjectionLogicHash` samt Tests in
-  `tests/recht-d1-sync-guard.test.mjs`, `tests/d1-projection-proof.test.mjs` und
-  `tests/d1-projection-closure.test.mjs` sowie die Legacy-Restore-Schritte der Workflows gelöscht
-  sind.
+- [ ] Übergangsregel des Base-State-Guards abschließen: Code, Tests, Workflow-Schritte und
+  Runbook kennen nur noch die Identität aus dem Code-Abschluss; der Guard akzeptiert keine frühere
+  Berechnung mehr. Fertig, wenn Staging und Produktion eine Identität der neuen Berechnung tragen
+  (`npm run norms:runtime:d1-sync -- --remote-state …` meldet für beide No-op).
 
 ### Bestand und Struktur
 

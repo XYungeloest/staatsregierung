@@ -655,10 +655,7 @@ export function decideSyncAction({ requested, stored, identity, baseIdentity = n
   else if (!complete) problems.push(`D1 meldet einen unvollständigen Zustand (${storedState})`);
   if (storedFingerprint && storedScope !== identity.scope) problems.push(`Scope in D1 ist ${storedScope}, erwartet ${identity.scope}`);
   if (baseIdentity) {
-    // Übergang: eine vor dem Abschluss-Algorithmus geschriebene Identität desselben Basis-Refs
-    // gilt als verifizierte Basis (legacyFingerprint, siehe Fingerprint-Modul und TODO.md).
-    const acceptedBases = [baseIdentity.fingerprint, baseIdentity.legacyFingerprint].filter(Boolean);
-    if (storedFingerprint && !acceptedBases.includes(storedFingerprint)) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
+    if (storedFingerprint && storedFingerprint !== baseIdentity.fingerprint) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
   } else if (requiresBase) {
     problems.push('kein Basis-Ref zur Verifikation des Ausgangszustands');
   }
@@ -1102,7 +1099,7 @@ async function main() {
   // inkrementeller Lauf oder markierte Recovery (fail-closed bei abweichender Basis).
   const gitDiffBase = args.includes('--git-diff') ? args[args.indexOf('--git-diff') + 1] : null;
   const baseIdentity = gitDiffBase ? await projectionIdentityAtRef(gitDiffBase, { root: ROOT, scope: scopeId }) : null;
-  if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…${baseIdentity.legacyFingerprint ? ` (frühere Berechnung ${baseIdentity.legacyFingerprint.slice(0, 16)}…)` : ''}`);
+  if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…`);
   // Logikänderungen sind genau die geänderten Dateien des Code-Abschlusses von Basis oder Ziel;
   // ist ein Abschluss unsicher, gilt fail-closed die konservative Obermenge.
   const logicPaths = fingerprint.closureUncertain || Boolean(baseIdentity?.closureUncertain) ? null : new Set([...fingerprint.logicFiles, ...(baseIdentity?.logicFiles ?? [])]);

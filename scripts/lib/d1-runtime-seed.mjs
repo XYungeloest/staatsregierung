@@ -110,9 +110,7 @@ export function combineSeedFingerprint({ projectionFingerprint, seedToolHash, to
 
 /**
  * Identität eines Seeds für den Arbeitsbaum (oder einen Git-Ref, nur Vollbestand): Projektions-
- * identität im Ziel-Scope plus Seed-Werkzeuge und Werkzeugversionen. `legacyFingerprint` ist der
- * Seed-Fingerabdruck derselben Eingaben mit der früheren Projektionsidentität (Übergang: Cache-
- * Einträge, die ein Basis-Commit mit dem früheren Algorithmus geschrieben hat, TODO.md).
+ * identität im Ziel-Scope plus Seed-Werkzeuge und Werkzeugversionen.
  * @param {{ root?: string, fixture?: string | null, ref?: string | null }} options
  */
 export async function runtimeSeedIdentity({ root = process.cwd(), fixture = null, ref = null } = {}) {
@@ -125,7 +123,6 @@ export async function runtimeSeedIdentity({ root = process.cwd(), fixture = null
   ]);
   return {
     fingerprint: combineSeedFingerprint({ projectionFingerprint: projection.fingerprint, seedToolHash, toolVersions }),
-    legacyFingerprint: projection.legacyFingerprint ? combineSeedFingerprint({ projectionFingerprint: projection.legacyFingerprint, seedToolHash, toolVersions }) : null,
     ref,
     format: SEED_FORMAT_VERSION,
     scope,

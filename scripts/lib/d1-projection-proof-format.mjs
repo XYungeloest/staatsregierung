@@ -8,9 +8,8 @@ import { readFile } from 'node:fs/promises';
  * Importen bleibt.
  *
  * Ein Nachweis gilt nur für genau den geprüften Stand: Schema und Comparator-Version, Scope
- * `full`, die Zielidentität des Arbeitsbaums, die gespeicherte Identität von D1 als Basis (im
- * Übergang auch die frühere Basisidentität), ein anwendbares Ergebnis und die Signatur des
- * nachgewiesenen Umfangs. Fehlt eine Bindung, ist der Nachweis nicht anwendbar – es gibt keinen
+ * `full`, die Zielidentität des Arbeitsbaums, die gespeicherte Identität von D1 als Basis, ein
+ * anwendbares Ergebnis und die Signatur des nachgewiesenen Umfangs. Fehlt eine Bindung, ist der Nachweis nicht anwendbar – es gibt keinen
  * Weg, ihn zu setzen, ohne beide Projektionen verglichen zu haben.
  */
 
@@ -36,8 +35,7 @@ export function validateProof(proof, { storedFingerprint, headIdentity, scope = 
   if (proof.result === 'full') problems.push('der Nachweis verlangt eine Vollprojektion; er ersetzt sie nicht');
   if (proof.head?.scope !== scope || proof.base?.scope !== scope) problems.push(`Nachweis-Scope ${String(proof.head?.scope)}/${String(proof.base?.scope)} ≠ ${scope}`);
   if (!headIdentity || proof.head?.fingerprint !== headIdentity.fingerprint) problems.push(`Zielidentität des Nachweises ${String(proof.head?.fingerprint).slice(0, 16)}… ≠ Arbeitsbaum ${String(headIdentity?.fingerprint).slice(0, 16)}…`);
-  const acceptedBases = [proof.base?.fingerprint, proof.base?.legacyFingerprint].filter(Boolean);
-  if (!storedFingerprint || !acceptedBases.includes(storedFingerprint)) problems.push(`gespeicherte Identität ${String(storedFingerprint).slice(0, 16)}… ist nicht die Basis des Nachweises ${String(proof.base?.fingerprint).slice(0, 16)}…`);
+  if (!storedFingerprint || storedFingerprint !== proof.base?.fingerprint) problems.push(`gespeicherte Identität ${String(storedFingerprint).slice(0, 16)}… ist nicht die Basis des Nachweises ${String(proof.base?.fingerprint).slice(0, 16)}…`);
   if (proof.result !== 'full' && (typeof proof.scopeSignature !== 'string' || !proof.logicChange)) problems.push('Nachweis nennt keinen nachgewiesenen Umfang');
   return { ok: problems.length === 0, problems };
 }

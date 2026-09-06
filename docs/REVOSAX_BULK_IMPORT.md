@@ -317,11 +317,9 @@ Laufzeitmetadaten).
 
 **Base-State-Guard.** Ein `--git-diff`-Sync schreibt erst, wenn D1 genau die Identität des
 Basis-Refs trägt (Scope `full`, Zustand `complete`); sonst fail-closed oder mit `--recover` eine
-markierte Recovery-Vollprojektion mit dem Profil `recovery`. Während des Übergangs auf den
-Abschluss-Algorithmus gilt zusätzlich die frühere Identität des Basis-Refs (`legacyFingerprint`,
-Logikhash über ganze Verzeichnisse) als verifizierte Basis, damit eine vor dem Übergang
-geschriebene D1 keine Recovery auslöst (`TODO.md`). Der inkrementelle Lauf entwertet die
-Identität vor dem ersten Schreibzugriff und schreibt sie erst am erfolgreichen Ende; ein
+markierte Recovery-Vollprojektion mit dem Profil `recovery`. Es gibt genau eine akzeptierte
+Basis: die Identität des Basis-Refs, berechnet aus dem Code-Abschluss. Der inkrementelle Lauf
+entwertet die Identität vor dem ersten Schreibzugriff und schreibt sie erst am erfolgreichen Ende; ein
 abgebrochener Lauf wird beim nächsten automatischen Lauf erkannt und repariert. Manuelle Teilsyncs
 (`--slug`, `--delete`, `--publications`, `--changed-paths`) verlangen eine vollständige Identität
 im selben Scope, schreiben aber keine neue Identität.
@@ -482,8 +480,8 @@ laufen dort, bevor die produktive Datenbank berührt wird (`tests/staging-wrangl
 Datenbank nur (`--dry-run`) und beweist den Schreibzugriff mit einer isolierten Probe gegen Staging
 (`scripts/d1-write-probe.mjs`).
 
-Recovery: Trägt D1 weder die erwartete Basisidentität (noch, im Übergang, deren frühere
-Berechnung) oder einen unvollständigen Zustand, führt der automatische Sync mit `--recover` eine
+Recovery: Trägt D1 nicht die erwartete Basisidentität oder einen unvollständigen Zustand,
+führt der automatische Sync mit `--recover` eine
 markierte Vollprojektion mit dem Profil `recovery` aus.
 Bleibt ein Lauf wegen Budgetüberschreitung stehen, sind Identität und Laufzeitmetadaten nicht
 geschrieben; die Wiederholung (`--full --budget full`, zuerst Staging) repariert den Zustand

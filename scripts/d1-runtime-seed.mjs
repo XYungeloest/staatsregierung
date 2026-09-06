@@ -93,7 +93,6 @@ switch (command) {
     if (json) {
       console.log(JSON.stringify({
         fingerprint: identity.fingerprint,
-        legacyFingerprint: identity.legacyFingerprint,
         ref: identity.ref,
         format: identity.format,
         scope: identity.scope,

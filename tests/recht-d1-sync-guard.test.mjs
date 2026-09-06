@@ -117,14 +117,12 @@ test('Base-State-Guard: nur die Identität des Basis-Refs wird als Ausgangszusta
   assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
 });
 
-test('Übergang: eine mit dem früheren Logikhash geschriebene Basisidentität wird als Basis anerkannt, andere Werte nicht', () => {
+test('Base-State-Guard: nur die Identität des Basis-Refs zählt, keine frühere Berechnung', () => {
   const head = { ...full, fingerprint: '9'.repeat(64) };
-  const base = { ...full, fingerprint: '8'.repeat(64), legacyFingerprint: '7'.repeat(64), ref: 'main' };
+  const base = { ...full, fingerprint: '8'.repeat(64), ref: 'main' };
   assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '8'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
-  assert.equal(decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: base }).action, 'incremental');
-  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '6'.repeat(64) }), identity: head, baseIdentity: base }), SyncBaseMismatch);
-  // Ohne frühere Identität zählt nur der neue Wert.
-  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: { ...base, legacyFingerprint: undefined } }), SyncBaseMismatch);
+  // Ein zusätzliches Feld am Basisobjekt eröffnet keine zweite anerkannte Basis.
+  assert.throws(() => decideSyncAction({ requested: 'incremental', stored: stored({ ...full, fingerprint: '7'.repeat(64) }), identity: head, baseIdentity: { ...base, legacyFingerprint: '7'.repeat(64) } }), SyncBaseMismatch);
 });
 
 test('Entscheidung gegen Budgetprofil: No-op und verifizierter inkrementeller Lauf sind tragbar, eine Vollprojektion nur mit Full-/Recovery-Budget (Release-Gate)', () => {

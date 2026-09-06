@@ -163,15 +163,6 @@ export async function projectionLogicHash(root = process.cwd(), options = {}) {
 }
 
 /**
- * Früherer Logikhash über ganze Verzeichnisse (Obermenge). Nur für den Übergang des
- * Base-State-Guards: eine vor dem Abschluss-Algorithmus geschriebene D1 trägt diesen Wert
- * (TODO.md); danach entfällt die Funktion.
- */
-export async function legacyProjectionLogicHash(root = process.cwd(), options = {}) {
-  return hashRoots(root, PROJECTION_LOGIC_ROOTS, PROJECTION_LOGIC_FILES, options);
-}
-
-/**
  * Projektionsrelevanter Auszug einer Portaldatei – genau die Felder, die
  * packages/shared/src/lib/norms/derived.ts (PortalTopicLike, PortalPressReleaseLike) liest.
  * Themen: Slug, Titel (bestimmt auch die Reihenfolge der Themenliste) und die Normbezüge der
@@ -288,8 +279,7 @@ export function combineFingerprint({ logic, corpus, portal, scope = FULL_SCOPE }
 /**
  * Vollständige Projektionsidentität des Arbeitsbaums (oder eines Git-Refs) für einen Scope.
  * `fingerprint` ist der Vergleichswert; `scope` wird zusätzlich gespeichert und geprüft.
- * `logicFiles` nennt die Dateien des Abschlusses (Umfangsbestimmung, Dokumentation);
- * `legacyFingerprint` ist die Identität derselben Eingaben mit dem früheren Logikhash (Übergang).
+ * `logicFiles` nennt die Dateien des Abschlusses (Umfangsbestimmung, Dokumentation).
  * Im Scope eines synthetischen Fixtures treten Manifest und Builder an die Stelle von Rechtsbestand
  * und Portalgrundlagen (`corpus` = `portal` = ihr Hash): redaktionelle Änderungen unter content/
  * bewegen die Fixture-Identität nicht. Der Vollbestands-Scope bleibt unverändert.
@@ -300,9 +290,8 @@ export async function projectionIdentity({ root = process.cwd(), scope = FULL_SC
   const fixturePath = fixturePathOfScope(scope);
   const fixtureFile = fixturePath ? await readFixtureFile(root, fixturePath, options).catch(() => null) : null;
   const synthetic = fixtureFile && isSyntheticManifest(fixtureFile.manifest) ? await syntheticFixtureHash(root, fixturePath, { ref, file: fixtureFile }) : null;
-  const [logic, legacyLogic, corpus, portal] = await Promise.all([
+  const [logic, corpus, portal] = await Promise.all([
     projectionLogicHash(root, { ref, closure }),
-    legacyProjectionLogicHash(root, options),
     synthetic ?? corpusContentHash(root, options),
     synthetic ?? portalContentHash(root, options),
   ]);
@@ -316,11 +305,6 @@ export async function projectionIdentity({ root = process.cwd(), scope = FULL_SC
     logicFiles: closure.files,
     closureUncertain: closure.uncertain,
     closureReasons: closure.reasons,
-    // Übergang: Identität derselben Eingaben mit dem früheren Logikhash über ganze Verzeichnisse.
-    // Eine D1, die vor dem Abschluss-Algorithmus geschrieben wurde, trägt diesen Wert als
-    // Basiszustand; der Base-State-Guard akzeptiert ihn, bis alle Datenbanken die neue Identität
-    // tragen (TODO.md).
-    legacyFingerprint: combineFingerprint({ logic: legacyLogic, corpus, portal, scope }),
   };
 }
 

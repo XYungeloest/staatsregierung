@@ -110,7 +110,7 @@ test('Abschluss und Identität eines Git-Refs entsprechen dem sauberen Arbeitsba
   assert.deepEqual(atHead.logicFiles, working.logicFiles);
   assert.equal(atHead.logic, working.logic);
   assert.equal(atHead.fingerprint, working.fingerprint);
-  assert.equal(atHead.legacyFingerprint, working.legacyFingerprint);
+  assert.equal('legacyFingerprint' in working, false);
 });
 
 test('Umfangsbestimmung mit Abschluss: nur erreichte Dateien sind Logikänderungen, Schema immer, ohne Abschluss die Obermenge', () => {
