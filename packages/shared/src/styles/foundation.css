@@ -20,6 +20,29 @@
   font-display: swap;
 }
 
+/* Ost Grotesk trägt die Wegweiserebene: Wortzeichen, Ordnungsnummern, Buchstabenleiste,
+   Sigel und Kennzahlen. Abgeleitet aus Neu5Land von Uwe Borchert nach der Schmalen
+   Erbar-Grotesk (1926), der Schrift der ostdeutschen Schilder; ergänzt um eine tz-Ligatur
+   nach dem Vorbild der Berliner Straßenschilder, bei der Querbalken des t und oberer Balken
+   des z zu einem durchgehenden Strich verschmelzen. Zwei feste Schnitte, keine
+   Gewichtsachse. Erzeugt mit
+   scripts/build-sign-font.py, Herkunft und Lizenzstand: assets/fonts/README.md. */
+@font-face {
+  font-family: 'Ost Grotesk';
+  src: url('../assets/fonts/OstGrotesk-Regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ost Grotesk';
+  src: url('../assets/fonts/OstGrotesk-Bold.woff') format('woff');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 /* Rückfallschnitte nur für die Dokumentschrift. Jost (33 KB) wird auf jeder Seite vorgeladen und
    war in jeder Messung – lokal wie gegen die Produktion auf Cloudflare, bis Slow 3G – vor dem
    ersten Anstrich fertig; ein Rückfallschnitt hätte dort nichts zu tun, deshalb folgt system-ui
@@ -102,10 +125,13 @@
   --radius-md: 0.75rem;
   --radius-lg: 0.875rem;
   /* Jost trägt die Oberfläche (beide Portale), Source Serif 4 das Dokument (Normtext, Normkopf,
-     Vergleich, Vollzitat). Der Familienwechsel der Dokumentschrift ist eine Änderung an
-     --font-document; --font-display bleibt ein Alias der Oberflächenschrift. */
+     Vergleich, Vollzitat), Ost Grotesk die Wegweiserebene (Wortzeichen, Ordnungsnummern,
+     Buchstabenleiste, Sigel, Kennzahlen). Der Familienwechsel der Dokumentschrift ist eine
+     Änderung an --font-document; --font-display bleibt ein Alias der Oberflächenschrift.
+     --font-sign fällt auf die Oberflächenschrift zurück, wenn die Datei ausbleibt. */
   --font-sans: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: var(--font-sans);
+  --font-sign: 'Ost Grotesk', var(--font-sans);
   --font-document: 'Source Serif 4', 'Source Serif 4 Fallback Georgia', 'Source Serif 4 Fallback Noto', 'Source Serif 4 Fallback DejaVu', 'Source Serif 4 Fallback Liberation', serif;
   --content-width: 84rem;
   --content-width-narrow: 60rem;
@@ -1037,7 +1063,7 @@ h2 {
 
 .site-title {
   display: inline-block;
-  font-family: var(--font-display);
+  font-family: var(--font-sign);
   font-size: var(--text-lg);
   font-weight: 820;
   line-height: var(--lh-display);
@@ -3537,4 +3563,27 @@ article.panel > p:last-child > a.inline-link:hover {
   .content-grid--wide {
     display: block;
   }
+}
+
+/* Wegweiserebene. Eine Regel für beide Portale, damit die Ausnahmen an einer Stelle stehen und
+   sich zurücknehmen lassen. Ost Grotesk steht hier für Orientierung, nicht für Überschriften:
+   Wortzeichen, Ordnungsnummern (§, Artikel), Buchstabenleiste, Abkürzungen und Sigel,
+   Kennzahlen, Zugangskarten und Ortsnamen der Gebietstabellen. Überschriften, Fließtext,
+   Normtext, Trefferlisten, Formulare und Metadaten bleiben bei Jost beziehungsweise Source
+   Serif 4. Die tz-Ligatur ist eine discretionary Ligatur und wird nur hier angefordert. */
+.site-title,
+.law-wordmark strong,
+.letter-nav a,
+.letter-nav span[aria-disabled],
+.norm-label,
+.norm-unit__label,
+.norm-quoted-unit__label,
+.directory-entry__abbr,
+.norm-page-header__abbr,
+.search-hit__abbr,
+.section-hero__facts dd,
+.portal-access-card__title,
+.data-table--orte tbody th {
+  font-family: var(--font-sign);
+  font-feature-settings: 'dlig' 1;
 }

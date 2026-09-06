@@ -36,3 +36,8 @@ Flagge_Osten.png
 *.gpkg
 setup.txt
 *.private-key.pem
+
+# Vorlagen der Wegweiserschrift: Quelle für scripts/build-sign-font.py, nicht im Repository
+# (Herkunft und Lizenzstand: packages/shared/src/assets/fonts/README.md)
+Neu5Land_*.ttf
+neu5land/
