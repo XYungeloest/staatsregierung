@@ -244,6 +244,26 @@ Laufzeitziele (Richtwerte, keine harten Grenzen):
 | Release auf `main`, Vollbestand mit Cache-Miss | Projektion parallel zum Build; Gesamtlauf unter 30 Minuten |
 | Release auf `main` mit Äquivalenznachweis | `d1_sync` unter 25 Minuten; kein produktiver Rebuild bei gleichen Daten |
 
+## Fassungs-PDF im Worker
+
+`/norm/<slug>/version/<versionId>/fassung.pdf` erzeugt die Portalfassung einer Fassung bei der
+Anfrage im Worker (`apps/recht/src/lib/pdf/`, kein Buildartefakt, keine Abhängigkeit, keine
+zusätzliche Bindung). Die Antwort wird über `caches.default` am Rand zwischengespeichert; der
+Schlüssel enthält den Wert der Metadatenzeile `projection_fingerprint` aus `law_runtime_meta`
+(Dateivariante: `files`), sodass jeder Sync den Zwischenspeicher entwertet und geänderte
+Bezeichnungen oder Vollzitate nie veraltet ausgeliefert werden. Ohne Cache-API – `astro dev` ohne
+Wrangler – wird jede Anfrage neu erzeugt. Kopfzeilen der Antwort: `application/pdf`,
+`Content-Disposition: inline`, `Cache-Control: public, max-age=300, s-maxage=86400`, `ETag` aus
+Fingerabdruck und Fassungskennung sowie `X-Robots-Tag: noindex` (die erzeugten Dateien gehören
+nicht in den Suchindex und stehen nicht in der Sitemap).
+
+Betriebswerte (lokal gemessen, Node 22): eine Fassung mittlerer Größe unter 5 ms; eine
+synthetische Fassung in der Größenordnung der größten realen Fassung (1,3 Mio. Zeichen, 7.840
+Blöcke) 383 Seiten, 387 KiB, rund 180 ms Laufzeit und 240 ms CPU. Das liegt weit unter dem
+CPU-Limit des belegten Workers-Paid-Plans; eine Obergrenze für Seitenzahlen ist deshalb nicht
+gesetzt. Fehlt `CompressionStream`, bleiben die Inhaltsströme ungepackt und die Datei wächst
+etwa um den Faktor drei.
+
 ## Datenform der D1-Projektion ändern (Expand/Contract)
 
 Die Projektion nach Cloudflare D1 läuft vor dem Worker-Deployment; für die Dauer bis zum

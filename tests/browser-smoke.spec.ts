@@ -1295,3 +1295,22 @@ siteTest(['law'])('unbekannte OstRecht-Pfade liefern die eigene deutsche Fehlers
   await expect(page.getByRole('link', { name: 'Zur Rechtssuche' })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
 });
+
+siteTest(['law'])('Fassung als PDF wird im Worker erzeugt und für unbekannte Fassungen mit 404 beantwortet', async ({ request }) => {
+  const norm = await multiVersionNorm(request);
+  // Der dritte Durchgang wiederholt die geltende Fassung und wird aus dem Randzwischenspeicher beantwortet.
+  for (const version of [norm.current, norm.historical, norm.current]) {
+    const path = `/norm/${norm.slug}/version/${version.versionId}/fassung.pdf`;
+    const response = await withWorkerRecovery(request, () => request.get(lawUrl(path)));
+    expect(response.status(), path).toBe(200);
+    expect(response.headers()['content-type'], path).toMatch(/^application\/pdf/u);
+    expect(response.headers()['content-disposition'], path).toContain(`${norm.slug}-${version.versionId}.pdf`);
+    expect(response.headers()['x-robots-tag'], path).toContain('noindex');
+    const body = await response.body();
+    expect(body.subarray(0, 5).toString('latin1'), path).toBe('%PDF-');
+    expect(body.subarray(-5).toString('latin1'), path).toBe('%%EOF');
+  }
+
+  const missing = await request.get(lawUrl(`/norm/${norm.slug}/version/gibt-es-nicht/fassung.pdf`));
+  expect(missing.status()).toBe(404);
+});

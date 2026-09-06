@@ -224,8 +224,11 @@ Fassung, Historie, Fassungsvergleich und Einzelfassung rendern denselben `NormPa
 Eyebrow und Statuszeile kommen aus `apps/recht/src/lib/norm-header.ts`: der Eyebrow lautet
 „Vorschrift“, die Statuszeile nennt Fassungsart und Rechtsstand („Aktuelle Fassung · in Kraft seit …“,
 „Historische Fassung · gültig ab … bis …“). Der Wechsel zwischen den Ansichten verändert den Kopf
-nicht. Die Werkzeugleiste hat drei feste Plätze: „Als PDF öffnen“ (ohne PDF ausgegraut mit
-Begründung), „Als HTML lesen“, „Link kopieren“; Fundstellen ohne Ziel sind Nur-Text. Die
+nicht. Die Werkzeugleiste hat vier feste Plätze: „Fassung als PDF“ (immer vorhanden; die aus dem
+Vorschriftentext erzeugte Portalfassung mit Vollzitat, Rechtsstand und Seitenzahlen), „Amtliche
+Ausgabe (PDF)“ (ohne belegte Datei ausgegraut mit Begründung), „Als HTML lesen“, „Link kopieren“;
+Fundstellen ohne Ziel sind Nur-Text. Beide PDF-Beschriftungen gelten wortgleich auch unter
+„Drucken und Quellen“; die Portalfassung wird nie als amtliche Verkündung bezeichnet. Die
 Fassungsnavigation ist ein Linkband gleichwertiger Links mit unterstrichenem aktivem Eintrag – kein
 Kasten, keine gefüllte Pille, kein Tab-Widget; die gespeicherten Fassungen stehen in einem ohne
 JavaScript bedienbaren `details`-Wähler, nach geltend, historisch, zukünftig und ungeklärtem

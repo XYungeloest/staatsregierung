@@ -189,12 +189,6 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Commit auf `main` landet (Statusfelder mitgezogen, D1-Freigabe nur bei Statuswechsel) oder
   die Oberfläche bei Stichtag vor dem Aufruftag „Rechtsstand vom …“ statt „Geltend am …“
   zeigt.
-- [ ] PDF je Fassung: REVOSax bietet für jede Vorschrift „Vorschrift als PDF“; OstRecht zeigt
-  für die meisten Normen „Als PDF öffnen · nicht hinterlegt“ und nur die Druckansicht. Fertig,
-  wenn für jede Fassung ein aus dem Normtext erzeugtes PDF (Kopf mit Vollzitat und Rechtsstand,
-  Seitenzahlen, Hinweis „Portalfassung, keine amtliche Verkündung“) abrufbar ist, der
-  Werkzeugplatz zwischen „Amtliche Ausgabe (PDF)“ und „Fassung als PDF“ unterscheidet und die
-  Erzeugung getestet ist.
 
 ### Verkündungen und Startseite
 

@@ -420,6 +420,12 @@ dann Staging, dann Produktion, nie automatisch.
 | `law_norm_subjects`, `law_norm_history`, `law_norm_keywords` | Sachgebiete, Historieneinträge (Datumsindex), Stichwortindex je Buchstabengruppe |
 | `law_runtime_meta` | Identität, Zustand, Zähler, `corpus_hash` und vorberechnete Metadatenzeilen (Suchfilter, Sachgebiete, Bestandszahlen) |
 
+Die Metadatenzeile `projection_fingerprint` dient der Laufzeit zugleich als Schlüssel des
+Randzwischenspeichers der erzeugten Fassungs-PDF (`/norm/<slug>/version/<versionId>/fassung.pdf`,
+`NormStore.getProjectionFingerprint`): jeder Sync setzt einen neuen Fingerabdruck und entwertet
+damit alle zwischengespeicherten Dokumente, sodass geänderte Titel oder Vollzitate nie veraltet
+ausgeliefert werden.
+
 Kostenpfad: Löschungen laufen nur über Indizes (`law_search_units` mit AFTER-DELETE-Trigger, nie
 ein Vollscan des FTS5-Index); die Vollprojektion leert die Tabellen einmalig (FTS5 `delete-all`),
 schreibt ohne normweise Löschungen und setzt die Laufzeitmetadaten erst am erfolgreichen Ende.
