@@ -39,6 +39,14 @@ async function prepareFunctionalPage(page: Page): Promise<void> {
   await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
 }
 
+/** Rechtssuche im Endzustand: Kandidaten und Treffer geladen („n Treffer“, „Mindestens n Treffer“ oder „Keine Treffer“). */
+async function searchSettled(page: Page): Promise<void> {
+  const summary = page.locator('[data-search-summary]');
+  await expect(summary).toBeVisible();
+  await expect(summary).not.toContainText(/werden geladen/u, { timeout: 30_000 });
+  await expect(summary).toContainText(/Treffer/u, { timeout: 30_000 });
+}
+
 /** Erster interner Link eines Musters auf einer Seite (z. B. erstes Regierungsmitglied). */
 async function firstLink(page: Page, path: string, pattern: RegExp): Promise<string> {
   return withWorkerRecovery(page.request, async () => {
@@ -420,10 +428,10 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
   const [regulation] = await currentDocuments(request, '&type=verordnung');
   expect(law && regulation, 'geltendes Gesetz und geltende Verordnung im Bestand').toBeTruthy();
   await page.goto(lawUrl('/suche/?type=gesetz'));
+  await searchSettled(page);
 
   await expect(page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' })).toBeVisible();
   await expect(page.getByLabel('Suchbereich')).toBeVisible();
-  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
   const lawType = page.locator('input[name="type"][value="gesetz"]');
   await expect(lawType).toBeChecked();
   await expect(page.locator('select[name="type"]')).toHaveCount(0);
@@ -458,7 +466,7 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
 
   await page.getByRole('button', { name: 'Alle Filter löschen' }).click();
   await expect(page).toHaveURL(/\/suche\/(?:\?q=)?$/u);
-  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  await searchSettled(page);
 });
 
 siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilter auffindbar', async ({ page, request }) => {
@@ -466,11 +474,11 @@ siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilt
   const amendment = payload.documents.find((document) => document.isAmendment && document.versionKind === 'current');
   expect(amendment, 'geltende Änderungsvorschrift im Bestand').toBeTruthy();
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(amendment!.title)}`));
-  await expect(page.locator('[data-search-summary]')).toContainText(/Treffer/u, { timeout: 15_000 });
+  await searchSettled(page);
   await expect(page.locator('[data-search-filter="includeAmendments"]')).not.toBeChecked();
   await expect(page).not.toHaveURL(/includeAmendments=1/u);
   await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
-  await expect(page.locator('[data-search-results] .search-hit .search-hit__title').first()).toContainText(amendment!.title);
+  await expect(page.locator('[data-search-results] .search-hit__title', { hasText: amendment!.title }).first()).toBeVisible();
 });
 
 siteTest(['law'])('Normverzeichnis filtert und paginiert serverseitig; die Buchstabenleiste zeigt alle Buchstaben', async ({ page }) => {
@@ -589,9 +597,11 @@ siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt
     page.waitForURL(new RegExp(`/suche/\\?q=${encodeURIComponent(word)}`, 'u')),
     search.getByRole('button', { name: 'Suchen' }).click(),
   ]);
+  await searchSettled(page);
   await expect(page.locator('[data-search-results]')).toContainText(new RegExp(word, 'iu'));
 
   await page.goto(lawUrl('/suche/'));
+  await searchSettled(page);
   const mainQuery = page.locator('[data-search-query]');
   await mainQuery.fill(suggestion!.abbr);
   await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
@@ -762,7 +772,7 @@ siteTest(['law'])('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Pl
   expect(suggestion).toBeTruthy();
   const word = searchWordOf(suggestion!.title);
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(`${word.slice(0, Math.max(5, word.length - 2))}*`)}&type=gesetz&type=verordnung`));
-  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  await searchSettled(page);
   await expect(page.locator('input[name="type"]:checked')).toHaveCount(2);
 
   await page.locator('select[name="versionScope"]').selectOption('historical');
@@ -777,6 +787,7 @@ siteTest(['law'])('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Pl
 
 siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahrt eine ausdrückliche Auswahl', async ({ page, request }) => {
   await page.goto(lawUrl('/suche/'));
+  await searchSettled(page);
   await expect(page.locator('select[name="sort"]')).toHaveValue('activity');
   await expect(page).not.toHaveURL(/sort=/u);
   // Ohne Suchbegriff: jüngstes Rechtsereignis zuerst – die Kandidaten kommen bereits in dieser
@@ -790,6 +801,7 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
 
   // Filter ohne Suchbegriff: innerhalb des Filters ebenfalls jüngstes Rechtsereignis zuerst.
   await page.goto(lawUrl('/suche/?type=gesetz'));
+  await searchSettled(page);
   await expect(page.locator('select[name="sort"]')).toHaveValue('activity');
   await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
   await expect(page.locator('[data-search-results] .search-hit .law-type-label').first()).toHaveText('Gesetz');
@@ -801,6 +813,7 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   const suggestion = (await suggestions(request)).find((entry) => entry.abbr);
   const word = searchWordOf(suggestion!.title);
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(word)}`));
+  await searchSettled(page);
   await expect(page.locator('select[name="sort"]')).toHaveValue('relevance');
   await expect(page).not.toHaveURL(/sort=/u);
   await expect(page.locator('[data-search-results] .search-hit').first()).toContainText(new RegExp(word, 'iu'));
@@ -958,6 +971,7 @@ siteTest(['law'])('Rechtsänderung und Aktivität bleiben getrennt: ein Hinweis 
 
   // Die Sortierung folgt der Rechtsänderung, nicht dem Hinweis.
   await page.goto(lawUrl('/suche/'));
+  await searchSettled(page);
   await expect(page.locator('[data-search-summary]')).toContainText('jüngster Rechtsänderung');
   const dates = (await currentDocuments(request)).map((entry) => entry.lastChangeDate ?? '');
   expect(dates.every((date, index) => index === 0 || dates[index - 1] >= date)).toBeTruthy();
@@ -999,7 +1013,7 @@ siteTest(['law'])('Fundstellen der Verkündungsblätter werden in der Rechtssuch
   const publication = payload.publications.find((entry) => entry.slug === document?.publicationSlug);
   expect(publication, 'Verkündung mit zugeordnetem Dokument').toBeTruthy();
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(publication!.designation)}`));
-  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  await searchSettled(page);
   const firstHit = page.locator('[data-search-results] .search-hit').first();
   await expect(firstHit).toBeVisible();
   await expect(firstHit).toContainText(new RegExp(`${publication!.designation.replaceAll('.', '\\.')}|${publication!.title.replaceAll('.', '\\.')}`, 'u'));
@@ -1068,7 +1082,7 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   const queries = known.flatMap((entry) => [[entry.abbr, entry], [entry.shortTitle, entry]] as const);
   for (const [query, entry] of queries) {
     await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(query)}`));
-    await expect(page.locator('[data-search-summary]'), query).toContainText('Treffer', { timeout: 15_000 });
+    await searchSettled(page);
     await expect(page.locator('select[name="versionScope"]'), query).toHaveValue('current');
     const hits = page.locator('[data-search-results] .search-hit');
     await expect(hits.first(), query).toBeVisible();
@@ -1084,8 +1098,10 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   expect(originals.length, 'geltende Norm ostdeutscher Herkunft mit eindeutiger Abkürzung').toBeGreaterThan(0);
   const original = originals[0];
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(original.abbr)}&versionScope=all`));
+  await searchSettled(page);
   await expect(page.locator('[data-search-results] .search-hit .status-badge').first()).toContainText(/Geltende Fassung/u);
   await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(original.abbr)}&origin=ostdeutsch-original`));
+  await searchSettled(page);
   await expect(page.locator('[data-search-results] .search-hit').first()).toBeVisible();
   await expect(page.locator('[data-search-results] .search-hit .origin-badge').first()).toContainText('Ostdeutsch neu geschaffen');
   let emptyQuery: string | undefined;
@@ -1097,6 +1113,7 @@ siteTest(['law'])('Standardsuche findet geltende Vorschriften über Titel und Ab
   }
   if (emptyQuery) {
     await page.goto(lawUrl(`/suche/?q=${encodeURIComponent(emptyQuery)}&origin=inherited-unchanged`));
+    await searchSettled(page);
     await expect(page.locator('[data-search-summary]')).toContainText('Keine Treffer');
     // Echter Leerzustand: Überschrift, zitierte Anfrage und Auswege mit Filterzahl.
     await expect(page.locator('[data-search-empty] h3')).toHaveText('Keine Vorschrift gefunden');

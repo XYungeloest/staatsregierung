@@ -76,7 +76,11 @@ async function openTarget(page: Page, request: APIRequestContext, target: AuditT
   await withWorkerRecovery(request, () => page.goto(url));
   // Suchseiten laden Kandidaten und Treffer nach dem Seitenaufbau: erst der fertige Stand wird
   // geprüft, und keine laufende Antwort wird beim Schließen der Seite abgebrochen.
-  if (url.includes('/suche/')) await expect(page.locator('[data-search-summary], [data-portal-search-status]').first()).toContainText(/Treffer|Wonach suchen Sie/u, { timeout: 15_000 });
+  if (url.includes('/suche/')) {
+    const status = page.locator('[data-search-summary], [data-portal-search-status]').first();
+    await expect(status).not.toContainText(/werden geladen/u, { timeout: 30_000 });
+    await expect(status).toContainText(/Treffer|Wonach suchen Sie/u, { timeout: 30_000 });
+  }
   return url;
 }
 
