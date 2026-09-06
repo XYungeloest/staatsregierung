@@ -14,6 +14,9 @@
   --law-red: #b51f32;
   --law-green: #2e7d45;
   --content-width: 96rem;
+  /* Höhe der haftenden Kopfleiste plus Luft: haftende Seitenspalten setzen hier an, damit sie
+     bei der zweizeiligen Kopfstufe (64–80 rem) nicht unter den Kopf rutschen. */
+  --law-header-offset: 6.5rem;
 }
 
 .law-site body,
@@ -2037,9 +2040,18 @@
   align-items: center;
 }
 
+/* Alleinstehende Links in Listen und Definitionslisten sind Zeigerziele und keine Fließtextstellen:
+   mindestens 24 px hoch (WCAG 2.5.8). Fließtextlinks bleiben von der Ausnahme gedeckt. */
 .norm-history__version-date a,
-.norm-history__event-list .inline-link {
-  display: inline-block;
+.norm-history__event-list .inline-link,
+.norm-history__data-grid .inline-link,
+.directory-entry__facts dd a,
+.law-publication-entry__links .inline-link,
+.law-publication-sources .link-list a,
+.search-hit__facts dd .inline-link {
+  display: inline-flex;
+  min-height: 1.5rem;
+  align-items: center;
   padding-block: var(--space-hairline);
 }
 
@@ -2258,7 +2270,7 @@
 
 .law-search-filters {
   position: sticky;
-  top: 6.5rem;
+  top: var(--law-header-offset);
   padding: var(--space-3);
 }
 
@@ -2785,7 +2797,7 @@ a.search-hit__context-prefix {
 
 .norm-outline--desktop {
   position: sticky;
-  top: 6.5rem;
+  top: var(--law-header-offset);
   max-height: calc(100vh - 7.5rem);
   margin: 0;
   padding: var(--space-4);
@@ -3022,7 +3034,7 @@ a.search-hit__context-prefix {
   grid-column: 2;
   grid-row: 2 / span 2;
   position: sticky;
-  top: 6.5rem;
+  top: var(--law-header-offset);
 }
 
 .norm-history-panel__header {
@@ -3264,7 +3276,7 @@ a.search-hit__context-prefix {
 .law-help-card__number { color: #56697b; font-size: var(--text-xs); font-weight: 750; letter-spacing: 0.06em; }
 .law-help-card h3 { margin: 0 0 var(--space-2); color: var(--law-blue-dark); font-size: var(--text-md); }
 .law-help-card p { margin: var(--space-2) 0 0; color: #34495d; }
-.law-help-aside { position: sticky; top: 6.5rem; }
+.law-help-aside { position: sticky; top: var(--law-header-offset); }
 .law-help-aside section { padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-muted); }
 .law-help-aside nav { display: grid; margin-top: var(--space-3); }
 .law-help-aside nav a { padding: var(--space-3) 0; border-top: 1px solid var(--color-border); color: var(--law-blue-dark); font-weight: 650; text-decoration: none; }
@@ -3296,7 +3308,7 @@ a.search-hit__context-prefix {
 .law-publication-entry__links { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: start; }
 /* Zusatz zum Eintragstitel: die Fassung, auf die der Titel verweist. */
 .law-publication-entry__version { color: #56697b; font-size: var(--text-xs); }
-.law-publication-sources { position: sticky; top: 6.5rem; padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-muted); }
+.law-publication-sources { position: sticky; top: var(--law-header-offset); padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-muted); }
 .law-publication-sources > p { color: #40566a; }
 .law-publication-sources .section-link-row a { display: inline-flex; padding: var(--space-3) var(--space-3); border-radius: var(--radius-sm); background: var(--law-blue); color: #fff; text-decoration: none; }
 .law-publication-sources .link-list { margin-top: var(--space-4); padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
@@ -3566,17 +3578,45 @@ a.search-hit__context-prefix {
   }
 }
 
-/* Kleiner Desktop: Nur die Navigationsliste klappt in das Menü. Wortmarke, Kopfsuche und
-   Menüknopf bleiben sichtbar; die Suche ist der wichtigste Einstieg und weicht zuletzt. */
+/* Kleiner Desktop (64–80 rem): Der Kopf wird zweizeilig. Wortmarke, Kopfsuche und Servicewege
+   bleiben in der ersten Zeile, die sieben Navigationspunkte stehen als eigene zweite Zeile –
+   einzeilig bräuchten sie bei 1024 px mehr Platz, als der Kopf dort hergibt. Das Menü kommt
+   erst eine Stufe später (64 rem), wenn auch die Servicewege weichen. */
 @media (max-width: 80rem) {
   .law-header__bar {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    min-height: 4.8rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand utilities'
+      'nav nav';
+    min-height: 0;
     align-items: center;
+    row-gap: 0;
+  }
+
+  .law-wordmark {
+    grid-area: brand;
+    min-height: 4.8rem;
+  }
+
+  .law-header__utilities {
+    grid-area: utilities;
   }
 
   .law-main-nav {
-    display: none;
+    grid-area: nav;
+    justify-content: flex-start;
+    border-top: 1px solid var(--color-border);
+    overflow-x: auto;
+  }
+
+  .law-main-nav a {
+    min-height: 2.75rem;
+    border-bottom-width: 2px;
+  }
+
+  /* Die Navigationszeile trägt den Kopf höher; die haftenden Seitenspalten setzen tiefer an. */
+  .law-site {
+    --law-header-offset: 8.75rem;
   }
 
   .law-home-dashboard__row--band {
@@ -3587,68 +3627,6 @@ a.search-hit__context-prefix {
     grid-column: 1 / -1;
   }
 
-  .law-mobile-nav {
-    display: block;
-    position: relative;
-  }
-
-  .law-mobile-nav summary {
-    /* Wie die Navigationsliste: Fokusschein über der Hinweisleiste (Befund A3). */
-    --focus-halo: var(--focus-ring);
-    display: flex;
-    min-height: 4.8rem;
-    align-items: center;
-    gap: var(--space-xs);
-    padding-inline: var(--space-3);
-    color: var(--law-blue-dark);
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .law-mobile-nav__panel {
-    position: absolute;
-    inset-block-start: 100%;
-    inset-inline-end: 0;
-    width: min(31rem, calc(100vw - 2rem));
-    max-height: calc(100vh - 6rem);
-    padding: var(--space-4);
-    overflow: auto;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    box-shadow: 0 12px 30px rgba(8, 47, 97, 0.16);
-  }
-
-  .law-mobile-nav__panel form,
-  .law-mobile-nav__panel nav {
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .law-mobile-nav__panel form > div {
-    display: flex;
-  }
-
-  .law-mobile-nav__panel input,
-  .law-mobile-nav__panel button,
-  .law-mobile-nav__panel nav a {
-    min-height: 2.75rem;
-    padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    font: inherit;
-  }
-
-  .law-mobile-nav__panel input {
-    min-width: 0;
-    flex: 1;
-  }
-
-  .law-mobile-nav__panel nav {
-    margin-top: var(--space-3);
-  }
-
   .law-home-hero {
     grid-template-columns: 1fr;
     min-height: 0;
@@ -3657,19 +3635,6 @@ a.search-hit__context-prefix {
 
   .law-home-hero h1 {
     max-width: 22ch;
-  }
-
-  .law-quick-access {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .law-quick-access > a:nth-child(4) {
-    border-inline-start: 0;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .law-quick-access > a:nth-child(5) {
-    border-top: 1px solid var(--color-border);
   }
 
   .law-search-workspace {
@@ -3732,9 +3697,105 @@ a.search-hit__context-prefix {
 }
 
 @media (max-width: 64rem) {
-  /* Die beiden Servicewege stehen im geöffneten Menü; im Kopf bleibt die Suche. */
+  /* Die beiden Servicewege stehen im geöffneten Menü; im Kopf bleibt die Suche. Weil sie
+     hier weichen, weicht auch die Navigationsliste: der Kopf wird wieder einzeilig, die
+     sieben Punkte stehen im Menü. */
   .law-header__utilities a {
     display: none;
+  }
+
+  .law-header__bar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: 'brand utilities menu';
+    min-height: 4.8rem;
+  }
+
+  .law-wordmark {
+    min-height: 0;
+  }
+
+  .law-main-nav {
+    display: none;
+  }
+
+  .law-site {
+    --law-header-offset: 6.5rem;
+  }
+
+  .law-mobile-nav {
+    display: block;
+    position: relative;
+    grid-area: menu;
+  }
+
+  .law-mobile-nav summary {
+    /* Wie die Navigationsliste: Fokusschein über der Hinweisleiste (Befund A3). */
+    --focus-halo: var(--focus-ring);
+    display: flex;
+    min-height: 4.8rem;
+    align-items: center;
+    gap: var(--space-xs);
+    padding-inline: var(--space-3);
+    color: var(--law-blue-dark);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .law-mobile-nav__panel {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-end: 0;
+    width: min(31rem, calc(100vw - 2rem));
+    max-height: calc(100vh - 6rem);
+    padding: var(--space-4);
+    overflow: auto;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: 0 12px 30px rgba(8, 47, 97, 0.16);
+  }
+
+  .law-mobile-nav__panel form,
+  .law-mobile-nav__panel nav {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .law-mobile-nav__panel form > div {
+    display: flex;
+  }
+
+  .law-mobile-nav__panel input,
+  .law-mobile-nav__panel button,
+  .law-mobile-nav__panel nav a {
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+  }
+
+  .law-mobile-nav__panel input {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .law-mobile-nav__panel nav {
+    margin-top: var(--space-3);
+  }
+
+  /* Fünf Schnellzugriffe auf drei Spalten: 3 + 2 statt einer einzelnen Karte in der zweiten Reihe. */
+  .law-quick-access {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .law-quick-access > a:nth-child(n + 4) {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .law-quick-access > a:nth-child(4) {
+    border-inline-start: 0;
   }
 
   .norm-workspace {

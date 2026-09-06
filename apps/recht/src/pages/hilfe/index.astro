@@ -63,13 +63,13 @@ import {
         <p>
           Die einfache Suche findet Begriffe in Titel, Kurztitel, Abkürzung, Metadaten und
           Normtext. Die erweiterten Filter grenzen Treffer nach Normtyp, Ressort, Sachgebiet,
-          Status, Fassungsart, Geltungsdatum und Fundstelle ein. Mehrere Werte innerhalb einer
+          Geltung, Fassungsart, Geltungsdatum und Fundstelle ein. Mehrere Werte innerhalb einer
           Filtergruppe werden alternativ berücksichtigt; verschiedene Filtergruppen grenzen die
           Suche gemeinsam ein.
         </p>
         <p>
-          Ein Stern am Ende eines Wortstamms dient als Präfix-Platzhalter: <code>Kranken*</code>
-          findet beispielsweise Wörter, die mit „Kranken“ beginnen. Ohne Stern bleibt die
+          Ein Stern am Ende eines Wortstamms dient als Präfix-Platzhalter:
+          <code>Kranken*</code> findet beispielsweise Wörter, die mit „Kranken“ beginnen. Ohne Stern bleibt die
           gewohnte Teilwortsuche erhalten.
         </p>
         <p class="section-link-row"><a class="inline-link" href={getSearchUrl()}>Zur Normensuche</a></p>
@@ -92,7 +92,7 @@ import {
         <div><h3>Fundstellen und Verkündungen</h3>
         <p>
           Verkündungen sind als eigene Ausgaben geführt. Die Fundstellennachweise zeigen, in
-          welcher Ausgabe ein Eintrag steht und welche gespeicherte Normfassung dazu gehört.
+          welcher Ausgabe ein Eintrag steht und welche Fassung einer Vorschrift dazu gehört.
         </p>
         <p class="section-link-row">
           <a class="inline-link" href={getPublicationsUrl()}>Zu den Verkündungen</a>
@@ -106,9 +106,9 @@ import {
         <p>
           Der allgemeine Normlink zeigt dynamisch die zum redaktionellen Stichtag geltende
           Fassung. Ist eine Norm noch nicht in Kraft, werden Veröffentlichung und künftiges oder
-          noch nicht belegtes Inkrafttreten ausdrücklich ausgewiesen. Jede gespeicherte Fassung
-          besitzt zusätzlich einen unveränderlichen Fassungslink. Zukünftige Fassungen werden
-          nicht als historische Fassungen bezeichnet.
+          noch nicht belegtes Inkrafttreten ausdrücklich ausgewiesen. Jede Fassung besitzt
+          zusätzlich einen unveränderlichen Fassungslink. Künftige Fassungen werden nicht als
+          historische Fassungen bezeichnet.
         </p>
         </div>
       </section>
@@ -122,7 +122,7 @@ import {
           daneben einen Schalter zum Ein- und Ausklappen sowie den Knopf „Werkzeuge“ mit Link auf
           die Stelle und Einzeldruck. Der Umschalter über dem Text nennt die Einheitenart der
           Vorschrift („Alle Artikel schließen“, „Alle Paragraphen schließen“). Ein Link zu einer
-          konkreten Stelle bleibt über den semantischen Anker direkt aufrufbar.
+          konkreten Stelle bleibt dauerhaft direkt aufrufbar.
         </p>
         <p>
           Eindeutige Verweise auf Vorschriften im eigenen Rechtsbereich werden im Text verlinkt.

@@ -153,17 +153,25 @@ Verfassung, Verkündungen und Sachgebieten, ein kompaktes Suchfeld und die Servi
 Barrierefreiheit und Staatsportal. Verkündungen bleiben ein eigener Navigationspunkt. Politische
 Teaser- und Pressenavigation gehören nicht in diese Navigation.
 
+Der OstRecht-Kopf kennt drei Stufen. Über 80 rem steht alles in einer Zeile. Zwischen 64 und 80 rem
+wird der Kopf zweizeilig: Wortmarke, Suchfeld und Servicewege bleiben oben, die sieben
+Navigationspunkte stehen darunter als eigene Zeile mit Trennlinie und 2,75 rem hohen Zielen.
+Erst ab 64 rem abwärts weichen Servicewege und Navigationsliste gemeinsam in das Menü. Die Höhe der
+haftenden Kopfleiste steht als `--law-header-offset` auf `.law-site` (6,5 rem, in der zweizeiligen
+Stufe 8,75 rem); alle haftenden Seitenspalten setzen dort an, statt die Höhe zu wiederholen.
+
 ## Responsives Verhalten
 
 Es gibt vier Breakpoints, alle als `max-width` in rem: **80 rem**, **64 rem**, **48 rem**, **30 rem**.
 
-- bis 80 rem (kleiner Desktop): im Rechtsportal klappt nur die Navigationsliste in das Menü;
-  Wortmarke, Suchfeld und Menüknopf bleiben sichtbar (Kopf-Zwischenstufe). Das Band der
+- bis 80 rem (kleiner Desktop): im Rechtsportal wird der Kopf zweizeilig – Wortmarke, Suchfeld und
+  Servicewege oben, die Navigationsliste als zweite Zeile; das Menü bleibt geschlossen. Das Band der
   Startseite geht auf zwei Spalten, die Funktionskarte nimmt die volle Breite. Der
   Normarbeitsbereich bleibt zweispaltig: die haftende Inhaltsübersicht neben dem Text, die
   Vorschriftendaten darunter über beide Spalten als Aufklappbereich „Angaben zur Vorschrift“.
-- bis 64 rem (Tablet quer): die beiden Servicewege stehen im geöffneten Menü, die Suche bleibt im
-  Kopf; Normarbeitsbereich und Startseitenbänder werden einspaltig, die Inhaltsübersicht wird zum
+- bis 64 rem (Tablet quer): Servicewege und Navigationsliste stehen im geöffneten Menü, die Suche
+  bleibt im Kopf; der Schnellzugriff geht auf drei Spalten (3 + 2, keine allein stehende Karte);
+  Normarbeitsbereich und Startseitenbänder werden einspaltig, die Inhaltsübersicht wird zum
   nativen Aufklappbereich.
 - bis 48 rem (Tablet hoch): Verzeichniseinträge, Filterleisten und Formularzeilen stapeln sich; die
   Werkzeuge je Einheit sind dauerhaft sichtbar und tragen ihre Beschriftung. Die beiden
@@ -357,8 +365,11 @@ Zeile gilt als geändert, eine gestrichene als entfallen.
 
 Ruhige Hero-Fläche (`--law-blue-light`, kein Verlauf, kein Dekorzeichen) mit Volltextsuche und
 Chips, die sämtlich Suchfilter sind (der letzte führt zur erweiterten Suche), darunter ein
-horizontaler Schnellzugriff. Zwei Bänder: oben „Aktuelle Änderungen“ und „Künftige Änderungen“ als
-gleich lange Spalten (je vier Einträge; eine leere Zukunftsspalte zeigt einen Hinweis), unten „Neu
+horizontaler Schnellzugriff mit fünf Karten: fünf Spalten bis 64 rem, darunter drei (3 + 2), unter
+48 rem ein waagerechtes Rollband. Zwei Bänder: oben „Aktuelle Änderungen“ und „Künftige Änderungen“
+als gleich lange Spalten (je vier Einträge; eine leere Zukunftsspalte zeigt einen Hinweis; künftige
+Einträge sind nach ihrer Art als „tritt in Kraft“ oder „tritt außer Kraft“ beschriftet, und Einträge
+ohne aussagekräftigen Titel zeigen den Anfang des Vollzitats), unten „Neu
 verkündet“, „Sachgebiete“ (die acht nummerierten Hauptgruppen der amtlichen Systematik in ihrer
 Reihenfolge, mit Hinweis auf Mehrfachzuordnung) und die Funktionen des Rechtsportals;
 zwischen den Bändern `--space-section`. H2 in `--text-lg`, Kartentitel in `--text-base-plus`,
@@ -400,6 +411,24 @@ Zählern („Übernommen und unverändert“,
 Normseite führt Rechtsstand und Herkunft in `NormFacts.astro` mit allen übrigen Angaben zur
 Vorschrift zusammen. Die geltende Fassung heißt in Fassungswahl, Vorschriftendaten und Trefferliste
 „Rechtsstand vom <Datum>“; das Wort „Stichtag“ steht öffentlich nur in der Hilfe.
+
+Für Geltung, Rechtsstand und Fassung gilt eine Wortliste: `lawSiteConfig.vocabulary`
+(`packages/shared/src/config/site.ts`) legt sie fest, `apps/recht/src/lib/vocabulary.ts` bildet sie
+für die Oberfläche ab. **Geltung** ist der Zustand einer Vorschrift (in Kraft, künftig in Kraft,
+außer Kraft, einmaliger Rechtsakt, Inkrafttreten nicht belegt, nicht verkündet) und beschriftet den
+Verzeichnisfilter, die Facette der Suche und die Fakten der Einträge; die Auswahl „alle“ heißt
+„Jede Geltung“. **Rechtsstand** ist immer ein Datum. **Fassung** benennt die zeitliche Einordnung
+(Geltende, Historische, Künftige Fassung, Fassung mit ungeklärtem Inkrafttreten) und beschriftet die
+Fassungsauswahl der Suche und die Fassungsnavigation. Kein Formular führt eigene Wörter;
+`tests/law-target-labels.test.ts` prüft die Optionslisten der drei Auswahlfelder gegen die Wortliste.
+
+Öffentliche Texte sprechen die Sprache der Nutzenden: keine maschinenlesbaren Daten, keine
+Systemwörter („gespeichert“, „Datenbestand“, „Anker“, „strukturtragend“, „Stichtag“ außerhalb der
+Hilfe) und Zähler in richtiger Zahl (`apps/recht/src/lib/counts.ts` bildet jede Bestandszahl).
+Wortlaute aus dem Import, die dagegen verstoßen, werden zur Anzeige abgebildet
+(`apps/recht/src/lib/history-labels.ts`): Platzhaltertitel wie „Verkündung.“ weichen dem Anfang des
+Vollzitats, die Herkunftsformel wird zu „Übernommene Ausgangsfassung mit Rechtsstand vom
+1. November 2023“.
 
 Jedes Ziel hat genau eine Bezeichnung, gelesen aus `lawSiteConfig.targetLabels`
 (`packages/shared/src/config/site.ts`) von Navigation, Fußzeilen beider Portale, Startseitenkarten,

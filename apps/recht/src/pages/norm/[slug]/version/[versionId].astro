@@ -20,6 +20,7 @@ import {
 import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { getNormStore } from '../../../../lib/runtime/context.ts';
 import { versionHeaderState } from '../../../../lib/norm-header.ts';
+import { displayChangeNote } from '../../../../lib/history-labels.ts';
 
 // Konkrete Fassungen werden zur Laufzeit aus D1 gelesen; nur der angefragte
 // Normkörper wird geladen.
@@ -48,14 +49,14 @@ const identity = getNormVersionIdentity(norm, version);
 const currentIdentity = getNormVersionIdentity(norm, norm.versions.find((entry) => classifyNormVersion(norm, entry) === 'current') ?? version);
 const normTitle = toDisplayText(identity.title);
 const normSeoTitle = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
-const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : temporalKind === 'historical' ? 'Historische' : 'Veröffentlichte'} Fassung von ${normTitle} mit Stand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
+const versionDescription = `${temporalKind === 'future' ? 'Künftige' : temporalKind === 'historical' ? 'Historische' : 'Veröffentlichte'} Fassung von ${normTitle} mit Stand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const header = versionHeaderState(norm, version);
 ---
 
 <LawLayout
   documentFont
-  title={`${normSeoTitle} ${version.versionId}`}
+  title={`${normSeoTitle} – Fassung vom ${formatDate(version.validFrom)}`}
   description={versionDescription}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
@@ -84,8 +85,8 @@ const header = versionHeaderState(norm, version);
     <article class="norm-document-column">
       <section class="section" id="normtext">
         <div class="section-header">
-          <h2>{temporalKind === 'future' ? 'Zukünftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
-          <p>{toDisplayText(version.changeNote)}</p>
+          <h2>{temporalKind === 'future' ? 'Künftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
+          <p>{displayChangeNote(version.changeNote)}</p>
         </div>
         <NormDocumentTools unitKind={getNormUnitKind(version.body)} />
         <NormBody blocks={version.body} references={derived.textReferences} />

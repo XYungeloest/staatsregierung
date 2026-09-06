@@ -17,7 +17,8 @@ import { describeNormOriginKind, formatNormOriginBadge } from '@ostrecht/shared/
 import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 
-import { NORM_HISTORY_LABEL, referenceDateLabel, versionKindLabel } from '../lib/vocabulary.ts';
+import { countNoun } from '../lib/counts.ts';
+import { NORM_HISTORY_LABEL, referenceDateLabel, VALIDITY_FIELD_LABEL, VERSION_FIELD_LABEL, versionKindLabel } from '../lib/vocabulary.ts';
 
 /**
  * Rechtssuche im Browser: Formularzustand, Adresse, Filterchips und Anzeige. Ausgewertet,
@@ -271,9 +272,9 @@ const filterLabels: Record<string, string> = {
   type: 'Normtyp',
   ministry: 'Ressort',
   subject: 'Sachgebiet',
-  status: 'Status',
+  status: VALIDITY_FIELD_LABEL,
   origin: 'Rechtsherkunft',
-  versionScope: 'Fassung',
+  versionScope: VERSION_FIELD_LABEL,
   sort: 'Sortierung',
   includeAmendments: 'Änderungsvorschriften vollständig',
   geltungstag: 'Geltungstag',
@@ -515,7 +516,7 @@ function renderHit(hit: SearchHit, state: NormSearchState): string {
 /** Weitere passende Fassungen derselben Vorschrift. */
 function otherVersionsMarkup(hit: SearchHit): string {
   if (hit.otherVersions.length === 0) return '';
-  const label = hit.otherVersions.length === 1 ? 'Fassung' : 'Fassungen';
+  const label = countNoun(hit.otherVersions.length, 'Fassung', 'Fassungen');
   return `<details class="search-result-group__versions"><summary>${hit.otherVersions.length} weitere passende ${label}</summary>${hit.otherVersions.map((version) => `
     <article class="search-hit">
       <div class="search-hit__header">

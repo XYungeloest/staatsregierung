@@ -88,6 +88,10 @@ async function openTarget(page: Page, request: APIRequestContext, target: AuditT
 for (const target of selected(auditTargets)) {
   test(`Accessibility-Smoke-Test: ${target.name}`, async ({ page, request }) => {
     const url = await openTarget(page, request, target);
+    // Übergänge aus: geprüft wird der Endzustand. Die Werkzeuge einer Normeinheit blenden über
+    // 120 ms auf; trifft axe ein Zwischenbild, misst es den halb durchsichtigen Text gegen die
+    // Fläche und meldet einen Kontrast, den niemand zu sehen bekommt (wie im Fokustest unten).
+    await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
     // Genau ein <main> je Seite: Hilfstechnik braucht einen eindeutigen Hauptbereich.
     expect(await page.locator('main').count(), `${url}: genau ein main`).toBe(1);
     const results = await new AxeBuilder({ page })
@@ -299,5 +303,51 @@ for (const target of selected(focusTargets)) {
     expect(report.withoutFocusVisible, `${url}: Elemente ohne :focus-visible`).toBe(0);
     const message = report.violations.map((v) => `${v.element}: ${v.contrast}:1 gegen ${v.surface} (${v.indicator})`).join('\n');
     expect(report.violations, `${url}: Fokusindikator unter 3:1\n${message}`).toEqual([]);
+  });
+}
+
+/**
+ * Zielgröße (WCAG 2.5.8, Befund F7): Ein Link, der allein in einer Liste oder einer
+ * Definitionsliste steht, ist ein Zeigerziel und muss mindestens 24 Pixel hoch sein. Links im
+ * Fließtext sind davon ausgenommen; ausgenommen ist außerdem der Sprunglink, der erst bei
+ * Tastaturfokus sichtbar wird.
+ */
+const targetSizeTargets: AuditTarget[] = [
+  { name: 'Fassungen und Änderungen', site: 'law', resolve: async (request) => lawUrl(`/norm/${(await multiVersionNorm(request)).slug}/history/`) },
+  { name: 'Verkündung', site: 'law', resolve: async (request) => { const index = await publicationIndex(request); expect(index.latestPublication).toBeTruthy(); return lawUrl(`/verkuendungen/${index.latestPublication!.slug}/`); } },
+  { name: 'Verkündungen (Einträge)', site: 'law', resolve: lawPage('/verkuendungen/?ansicht=eintraege') },
+  { name: 'Rechtssuche mit Treffern', site: 'law', resolve: async (request) => lawUrl(`/suche/?q=${encodeURIComponent((await suggestions(request)).find((entry) => entry.abbr)?.abbr ?? 'Gesetz')}`) },
+];
+
+for (const target of selected(targetSizeTargets)) {
+  test(`Alleinstehende Links sind mindestens 24 px hoch: ${target.name}`, async ({ page, request }) => {
+    const url = await openTarget(page, request, target);
+    if (target.name === 'Rechtssuche mit Treffern') {
+      await page.locator('.search-hit').first().waitFor();
+      // Die weiteren Angaben tragen die Listenlinks; sie stehen in einem Aufklappbereich.
+      for (const summary of await page.locator('.search-hit__details > summary').all()) await summary.click();
+    }
+    const small = await page.evaluate(() => {
+      const label = (el: Element): string => {
+        const classes = typeof el.className === 'string' && el.className ? `.${el.className.trim().split(/\s+/u).slice(0, 2).join('.')}` : '';
+        return `a${classes} „${(el.textContent ?? '').trim().replace(/\s+/gu, ' ').slice(0, 40)}“`;
+      };
+      // Fließtext-Ausnahme (WCAG 2.5.8): der Link steht in einem Satz. Das ist der Fall, wenn sein
+      // Elternknoten neben ihm eigenen Text trägt oder wenn er in einem Absatz mit weiterem Text steht.
+      const insideSentence = (el: Element): boolean => {
+        const parent = el.parentElement;
+        if (parent && [...parent.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && (node.textContent ?? '').trim().length > 0)) return true;
+        const paragraph = el.closest('p');
+        if (!paragraph) return false;
+        const rest = (paragraph.textContent ?? '').replace(el.textContent ?? '', '').replace(/[\s·:,;–—]/gu, '');
+        return rest.length > 0;
+      };
+      return [...document.querySelectorAll('a[href]')]
+        .filter((el) => el.getClientRects().length > 0 && !el.closest('.skip-link') && !el.classList.contains('skip-link'))
+        .filter((el) => !insideSentence(el))
+        .filter((el) => el.getBoundingClientRect().height < 24)
+        .map((el) => `${label(el)}: ${Math.round(el.getBoundingClientRect().height * 10) / 10} px`);
+    });
+    expect(small, `${url}: Zeigerziele unter 24 px\n${small.join('\n')}`).toEqual([]);
   });
 }

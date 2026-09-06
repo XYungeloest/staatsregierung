@@ -1,6 +1,7 @@
 ---
-import { formatDate, getNormHistoryUrl, toDisplayText, type NormRecord } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatDate, getNormHistoryUrl, type NormRecord } from '@ostrecht/shared/lib/norms/index.ts';
 import { NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
+import { describeChange } from '../../lib/history-labels.ts';
 
 interface Props { norm: NormRecord; }
 const { norm } = Astro.props;
@@ -14,7 +15,7 @@ const entries = [...norm.history.entries].sort((left, right) => right.date.local
       {entries.map((entry) => (
         <li>
           <time datetime={entry.date}>{formatDate(entry.date)}</time>
-          <span>{toDisplayText(entry.title)}</span>
+          <span>{describeChange(entry)}</span>
         </li>
       ))}
     </ol>

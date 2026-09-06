@@ -23,6 +23,7 @@ import {
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { VERSION_FIELD_LABEL } from '../../lib/vocabulary.ts';
+import { formatCount } from '../../lib/counts.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { DEFAULT_PAGE_SIZE, normalizePage, normalizeQueryText } from '../../lib/runtime/store.ts';
 import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
@@ -96,7 +97,7 @@ const unit = view === 'eintraege'
   : { one: 'Ausgabe', many: 'Ausgaben' };
 const count = total === 0
   ? `Keine ${unit.many} passen zur Auswahl.`
-  : `${total} ${total === 1 ? unit.one : unit.many}${active ? ' passen zur Auswahl' : ''}${total > DEFAULT_PAGE_SIZE ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
+  : `${formatCount(total, unit.one, unit.many)}${active ? ' passen zur Auswahl' : ''}${total > DEFAULT_PAGE_SIZE ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
 
 // Nur die Normen der aktuellen Seite: Rechtsherkunft der Ausgaben, Fassungen der Einträge.
 const pageSlugs = [...new Set([

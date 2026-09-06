@@ -15,7 +15,8 @@ import {
 import { getCurrentVersion, getVersionById } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
 import { normHeaderState } from '../../../lib/norm-header.ts';
-import { NORM_HISTORY_LABEL } from '../../../lib/vocabulary.ts';
+import { NORM_HISTORY_LABEL, versionKindLabel } from '../../../lib/vocabulary.ts';
+import { describeChange, displayChangeNote, displayHistoryTitle } from '../../../lib/history-labels.ts';
 
 // Historienseiten werden zur Laufzeit aus D1 gelesen; Normkörper werden nicht benötigt.
 export const prerender = false;
@@ -47,7 +48,9 @@ const initialVersion = norm.history.initialVersionId
   : undefined;
 const initialVersionLabel = initialVersion
   ? formatDate(initialVersion.validFrom)
-  : norm.history.initialVersionId ?? 'Stammfassung nicht als Volltext gespeichert';
+  : norm.history.initialVersionId && /^\d{4}-\d{2}-\d{2}$/u.test(norm.history.initialVersionId)
+    ? formatDate(norm.history.initialVersionId)
+    : 'Stammfassung nicht im Volltext vorhanden';
 const initialVersionUrl = initialVersion
   ? classifyNormVersion(norm, initialVersion) === 'current'
     ? getNormUrl(norm.meta.slug)
@@ -56,7 +59,7 @@ const initialVersionUrl = initialVersion
 const currentIdentity = getNormVersionIdentity(norm, currentVersion);
 const normTitle = toDisplayText(currentIdentity.title);
 const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
-const historyDescription = `Gespeicherte Fassungen, Änderungen und Stammdaten zu ${normTitle} im Rechtsbereich des Freistaates Ostdeutschland.`;
+const historyDescription = `Fassungen, Änderungen und Stammdaten zu ${normTitle} im Rechtsbereich des Freistaates Ostdeutschland.`;
 const historyTypeLabels: Record<string, string> = {
   initial: 'Stammfassung',
   amendment: 'Änderung',
@@ -109,7 +112,7 @@ const successorSlug = norm.meta.successorSlug;
     <section id="fassungen" class="norm-history-panel norm-history-panel--versions">
       <div class="norm-history-panel__header">
         <div>
-          <span class="section-eyebrow">Gespeicherte Rechtsstände</span>
+          <span class="section-eyebrow">Rechtsstände dieser Vorschrift</span>
           <h2>Fassungen</h2>
         </div>
       </div>
@@ -118,15 +121,7 @@ const successorSlug = norm.meta.successorSlug;
           <li class:list={[`norm-history__version norm-history__version--${classifyNormVersion(norm, version)}`]}>
             <div class="norm-history__version-marker" aria-hidden="true"></div>
             <div class="norm-history__version-main">
-              <span class="norm-history__status">
-                {classifyNormVersion(norm, version) === 'current'
-                  ? 'Geltende Fassung'
-                  : classifyNormVersion(norm, version) === 'future'
-                    ? 'Künftige Fassung'
-                    : classifyNormVersion(norm, version) === 'historical'
-                      ? 'Historische Fassung'
-                      : 'Rechtsstand offen'}
-              </span>
+              <span class="norm-history__status">{versionKindLabel(classifyNormVersion(norm, version))}</span>
               <strong class="norm-history__version-date">
               {classifyNormVersion(norm, version) === 'current' ? (
                 <a class="inline-link" href={getNormUrl(norm.meta.slug)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
@@ -142,12 +137,12 @@ const successorSlug = norm.meta.successorSlug;
               {version.validTo
                 ? <> bis <time datetime={version.validTo}>{formatDate(version.validTo)}</time></>
                 : classifyNormVersion(norm, version) === 'historical'
-                  ? '; Gültigkeitsende nicht gespeichert'
+                  ? '; Gültigkeitsende nicht belegt'
                   : '; Gültigkeitsende offen'}
               </span>
             </div>
             <div class="norm-history__version-detail">
-              <span><strong>Änderungsstand</strong>{toDisplayText(version.changeNote)}</span>
+              <span><strong>Änderungsstand</strong>{displayChangeNote(version.changeNote)}</span>
               <span><strong>Vollzitat</strong>{toDisplayText(fullCitations[version.versionId])}</span>
             </div>
           </li>
@@ -168,7 +163,7 @@ const successorSlug = norm.meta.successorSlug;
           <li class="norm-history__event norm-history__event--initial">
             <div class="norm-history__event-date"><time datetime={entry.date}>{formatDate(entry.date)}</time><span>{historyTypeLabels[entry.type] ?? entry.type}</span></div>
             <div class="norm-history__event-content">
-            <strong>{toDisplayText(entry.title)}</strong>
+            <strong>{describeChange(entry)}</strong>
             <span><b>Fundstelle</b>{toDisplayText(entry.citation)}</span>
             {entry.note ? <span><b>Hinweis</b>{toDisplayText(entry.note)}</span> : null}
             {entry.affectingVersionId ? (
@@ -209,7 +204,7 @@ const successorSlug = norm.meta.successorSlug;
             <li class="norm-history__event norm-history__event--amendment">
               <div class="norm-history__event-date"><time datetime={entry.date}>{formatDate(entry.date)}</time><span>Änderung</span></div>
               <div class="norm-history__event-content">
-              <strong>{toDisplayText(entry.title)}</strong>
+              <strong>{describeChange(entry)}</strong>
               <span><b>Fundstelle</b>{toDisplayText(entry.citation)}</span>
               {entry.relatedNorm && relatedNormLabels[entry.relatedNorm] ? (
                 <span><b>Änderungsvorschrift</b><a class="inline-link" href={getNormUrl(entry.relatedNorm)}>{relatedNormLabels[entry.relatedNorm]}</a></span>
@@ -231,18 +226,18 @@ const successorSlug = norm.meta.successorSlug;
             </li>
           ))}
         </ul>
-      ) : <p>Keine Änderungsvorschrift ist im Datenbestand nachgewiesen.</p>}
+      ) : <p>Keine Änderungsvorschrift ist belegt.</p>}
       <h3 class="norm-history__group-title">Aufhebung</h3>
       {repealEntries.length > 0 ? (
         <ul class="norm-history__event-list">
           {repealEntries.map((entry) => (
             <li class="norm-history__event norm-history__event--repeal">
               <div class="norm-history__event-date"><time datetime={entry.date}>{formatDate(entry.date)}</time><span>Aufhebung</span></div>
-              <div class="norm-history__event-content"><strong>{toDisplayText(entry.title)}</strong><span><b>Fundstelle</b>{toDisplayText(entry.citation)}</span></div>
+              <div class="norm-history__event-content"><strong>{describeChange(entry)}</strong><span><b>Fundstelle</b>{toDisplayText(entry.citation)}</span></div>
             </li>
           ))}
         </ul>
-      ) : <p>Keine Aufhebung ist im Datenbestand nachgewiesen.</p>}
+      ) : <p>Keine Aufhebung ist belegt.</p>}
       {noticeEntries.length > 0 ? (
         <>
           <h3 class="norm-history__group-title">Weitere Hinweise</h3>
@@ -250,7 +245,7 @@ const successorSlug = norm.meta.successorSlug;
             {noticeEntries.map((entry) => (
               <li class="norm-history__event norm-history__event--notice">
                 <div class="norm-history__event-date"><time datetime={entry.date}>{formatDate(entry.date)}</time><span>Hinweis</span></div>
-                <div class="norm-history__event-content"><strong>{toDisplayText(entry.title)}</strong>{entry.note ? <span>{toDisplayText(entry.note)}</span> : null}</div>
+                <div class="norm-history__event-content"><strong>{displayHistoryTitle(entry.title) ?? toDisplayText(entry.note)}</strong>{displayHistoryTitle(entry.title) && entry.note ? <span>{toDisplayText(entry.note)}</span> : null}</div>
               </li>
             ))}
           </ul>
@@ -278,7 +273,7 @@ const successorSlug = norm.meta.successorSlug;
           <dd><time datetime={currentVersion.validFrom}>{formatDate(currentVersion.validFrom)}</time></dd>
         </div>
         <div>
-          <dt>Gespeicherte Fassungen</dt>
+          <dt>Fassungen</dt>
           <dd>{norm.versions.length}</dd>
         </div>
         <div>
