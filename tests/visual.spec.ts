@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+import { getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { LAW_ORIGIN, fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion } from './helpers/law-runtime.ts';
 
 const lawUrl = (path: string) => new URL(path, LAW_ORIGIN).toString();
@@ -79,7 +80,8 @@ const visualPages: VisualPage[] = [
   { name: 'ostrecht-fundstellen', path: lawUrl('/fundstellen/') },
   { name: 'ostrecht-rechtsentwicklung', path: lawUrl('/rechtsentwicklung/') },
   { name: 'ostrecht-verkuendung-detail', path: lawUrl(`/verkuendungen/${fixture.publication}/`) },
-  { name: 'ostrecht-sachgebiet-detail', path: lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/') },
+  // Der Sachgebietsslug trägt die amtliche Gliederungsnummer; sie kommt aus der Systematik, nicht aus dem Text.
+  { name: 'ostrecht-sachgebiet-detail', path: lawUrl(`/sachgebiete/${getSubjectSlug('Kommunalrecht')}/`) },
   { name: 'ostrecht-hilfe', path: lawUrl('/hilfe/') },
   { name: 'ostrecht-404', path: lawUrl('/gibt-es-nicht/') },
   { name: 'norm-ostdeutsch-neu', path: lawUrl(`/norm/${fixture.original}/`), critical: true },
