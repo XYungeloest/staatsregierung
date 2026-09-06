@@ -19,6 +19,7 @@ import {
 import { lawFundingAreas } from '@ostrecht/shared/config/law-subjects.ts';
 import { directoryDescription, type DirectoryNormSummary } from '../../lib/norm-summary.ts';
 import { LEGAL_STATUS_FIELD_LABEL, VALIDITY_FIELD_LABEL, validityLabel, validityOptions } from '../../lib/vocabulary.ts';
+import { formatCount } from '../../lib/counts.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { DEFAULT_PAGE_SIZE, normalizePage, normalizeQueryText } from '../../lib/runtime/store.ts';
 import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
@@ -91,12 +92,14 @@ const entriesOf = (number: string): DirectoryNormSummary[] => {
   return rows.slice(0, DEFAULT_PAGE_SIZE);
 };
 
+/** Einheit dieses Verzeichnisses; jede Zahl der Seite wird damit gebildet. */
+const FUNDING_UNIT = { one: 'Förderrichtlinie', many: 'Förderrichtlinien' };
 const total = state.bereich ? single.length : filtered.length;
 const firstIndex = state.bereich ? (total === 0 ? 0 : (current - 1) * DEFAULT_PAGE_SIZE + 1) : 1;
 const lastIndex = state.bereich ? Math.min(current * DEFAULT_PAGE_SIZE, total) : total;
 const count = total === 0
   ? 'Keine Förderrichtlinien passen zur Auswahl.'
-  : `${total} ${total === 1 ? 'Förderrichtlinie' : 'Förderrichtlinien'}${active ? ' passen zur Auswahl' : ''}${lastIndex < total ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
+  : `${formatCount(total, FUNDING_UNIT.one, FUNDING_UNIT.many)}${active ? ' passen zur Auswahl' : ''}${lastIndex < total ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
 const pageTitle = `Förderrichtlinien${current > 1 ? ` (Seite ${current} von ${pageCount})` : ''}`;
 ---
 
@@ -120,7 +123,7 @@ const pageTitle = `Förderrichtlinien${current > 1 ? ` (Seite ${current} von ${p
   <SectionHero
     eyebrow="Rechtsportal"
     title="Förderrichtlinien"
-    lead={`${all.length} ${all.length === 1 ? 'Förderrichtlinie' : 'Förderrichtlinien'}, davon ${inForce} geltend. Die Gliederung folgt den amtlichen Förderbereichen; jeder Abschnitt führt zu den Richtlinien dieses Bereichs.`}
+    lead={`${formatCount(all.length, FUNDING_UNIT.one, FUNDING_UNIT.many)}, davon ${inForce} geltend. Die Gliederung folgt den amtlichen Förderbereichen; jeder Abschnitt führt zu den Richtlinien dieses Bereichs.`}
     variant="law"
     facts={[
       { label: 'Förderrichtlinien', value: String(all.length) },
@@ -135,7 +138,7 @@ const pageTitle = `Förderrichtlinien${current > 1 ? ` (Seite ${current} von ${p
       return areaCount > 0 ? (
         <a href={`#${area.id}`} data-funding-link={area.number}>
           <strong>{area.number === WITHOUT_AREA ? area.title : `${area.number} ${area.title}`}</strong>
-          <span>{areaCount} {areaCount === 1 ? 'Förderrichtlinie' : 'Förderrichtlinien'}</span>
+          <span>{formatCount(areaCount, FUNDING_UNIT.one, FUNDING_UNIT.many)}</span>
         </a>
       ) : null;
     })}
@@ -198,7 +201,7 @@ const pageTitle = `Förderrichtlinien${current > 1 ? ` (Seite ${current} von ${p
         </ol>
         {!state.bereich && areaCount > rows.length ? (
           <p class="section-link-row">
-            <a class="inline-link" href={pageUrl(basePath, { ...filterParams, bereich: area.number })}>Alle {areaCount} Förderrichtlinien dieses Förderbereichs</a>
+            <a class="inline-link" href={pageUrl(basePath, { ...filterParams, bereich: area.number })}>Alle {formatCount(areaCount, FUNDING_UNIT.one, FUNDING_UNIT.many)} dieses Förderbereichs</a>
           </p>
         ) : null}
       </section>

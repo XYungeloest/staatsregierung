@@ -26,7 +26,7 @@ import {
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { DEFAULT_PAGE_SIZE, KEYWORD_PAGE_SIZE, normalizePage, type KeywordIndexPage } from '../../lib/runtime/store.ts';
 import { INHERITED_AMENDMENT_FIELD, INHERITED_AMENDMENT_VALUE } from '../../lib/runtime/directory.ts';
-import { formatCount } from '../../lib/counts.ts';
+import { countNoun, formatCount, formatNormCount, NORM_UNIT } from '../../lib/counts.ts';
 import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion – seitenweise und
@@ -105,7 +105,7 @@ const lastIndex = Math.min(result.page * result.pageSize, result.total);
 const filtersActive = Boolean(originKind) || includeInheritedAmendments;
 const indexCount = result.total === 0
   ? (filtersActive ? 'In dieser Buchstabengruppe passen keine Vorschriften zur Auswahl.' : 'In dieser Buchstabengruppe sind keine Vorschriften verzeichnet.')
-  : `${formatCount(result.total, 'Vorschrift', 'Vorschriften')}${filtersActive ? ' passen zur Auswahl' : ''}${result.total > result.pageSize ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
+  : `${formatNormCount(result.total)}${filtersActive ? ' passen zur Auswahl' : ''}${result.total > result.pageSize ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
 const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many: string, emptyFiltered: string, empty: string): string => {
   if (list.total === 0) return filter ? `${emptyFiltered} „${filter}“.` : empty;
   const from = (list.page - 1) * list.pageSize + 1;
@@ -159,7 +159,7 @@ const originOverview = originKinds
           <a href={pageUrl(basePath, { buchstabe: letter, herkunft: entry.kind })} aria-current={originKind === entry.kind ? 'page' : undefined} data-origin-kind={entry.kind}>
             <NormOriginBadge kind={entry.kind} />
             <strong>{entry.count}</strong>
-            <span>{entry.count === 1 ? 'Vorschrift' : 'Vorschriften'} · {describeNormOriginKind(entry.kind)}</span>
+            <span>{countNoun(entry.count, NORM_UNIT.one, NORM_UNIT.many)} · {describeNormOriginKind(entry.kind)}</span>
           </a>
         </li>
       ))}
@@ -187,7 +187,7 @@ const originOverview = originKinds
         </select>
       </label>
     </DirectoryFilterBar>
-    <LetterNav letters={letters} current={letter} hrefFor={(target) => pageUrl(basePath, { ...listParams, buchstabe: target || letter })} withAll={false} unit="Vorschriften" />
+    <LetterNav letters={letters} current={letter} hrefFor={(target) => pageUrl(basePath, { ...listParams, buchstabe: target || letter })} withAll={false} unit={NORM_UNIT} />
     {result.items.length > 0 ? (
       <ol class="directory-list" start={firstIndex} data-index-list data-directory-list>
         {result.items.map((norm) => {
