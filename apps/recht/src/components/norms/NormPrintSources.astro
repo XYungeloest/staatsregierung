@@ -1,6 +1,7 @@
 ---
 import { getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getNormVersionPdfPath } from '../../lib/norm-links.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
 
@@ -23,6 +24,10 @@ const citation = toDisplayText(fullCitation);
   </div>
   <ul class="norm-source-actions">
     <li>
+      <a class="inline-link" href={getNormVersionPdfPath(norm.meta.slug, version.versionId)} type="application/pdf">Fassung als PDF</a>
+      <span>Aus dem Vorschriftentext erzeugte Portalfassung mit Vollzitat, Rechtsstand und Seitenzahlen; keine amtliche Verkündung.</span>
+    </li>
+    <li>
       <button class="text-link-button" type="button" data-print-page>Gesamtansicht drucken</button>
       <span>Die Druckansicht ist eine Portalansicht, keine eigenständige amtliche Verkündung.</span>
     </li>
@@ -36,12 +41,12 @@ const citation = toDisplayText(fullCitation);
     ) : null}
     {publication?.pdf ? (
       <li>
-        <a class="inline-link" href={publication.pdf}>Originalausgabe als PDF</a>
+        <a class="inline-link" href={publication.pdf}>Amtliche Ausgabe (PDF)</a>
         <span>Amtliche Ausgabe zur Fundstelle.</span>
       </li>
     ) : publicationReference ? (
       <li>
-        <span class="norm-source-actions__label">Originalausgabe als PDF</span>
+        <span class="norm-source-actions__label">Amtliche Ausgabe (PDF)</span>
         <span>Für diese Ausgabe ist im Portal keine belegte PDF-Datei hinterlegt.</span>
       </li>
     ) : null}
