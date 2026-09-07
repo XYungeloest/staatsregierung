@@ -13,7 +13,7 @@ const stateCouncilMembers = members.filter((member) => member.reihenfolge > 2 &&
 const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
 ---
 
-<BaseLayout title="Mitglieder des Staatsrates" description="Übersicht der Mitglieder des ersten Staatsrates des Ostdeutschen Freistaates.">
+<BaseLayout title="Mitglieder des Staatsrates" description="Übersicht der Mitglieder des Staatsrates des Ostdeutschen Freistaates.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
@@ -25,7 +25,7 @@ const chancelleryLeadership = members.filter((member) => member.slug === 'emma-m
   <SectionHero
     eyebrow="Staatsrat"
     title="Mitglieder des Staatsrates"
-    lead="Ämter, Geschäftsbereiche und biografische Angaben der Mitglieder des ersten Staatsrates."
+    lead="Ämter, Geschäftsbereiche und biografische Angaben der Mitglieder des Staatsrates."
     variant="government"
     facts={[{ label: 'Mitglieder des Staatsrates', value: String(leadership.length + stateCouncilMembers.length) }]}
   />
@@ -60,8 +60,8 @@ const chancelleryLeadership = members.filter((member) => member.slug === 'emma-m
 
   <section class="section section-muted">
     <div class="section-header">
-      <h2>Staatskanzlei</h2>
-      <p>Die Leitung der Staatskanzlei wird eigenständig neben den Mitgliedern des Staatsrates ausgewiesen.</p>
+      <h2>Büro des Staatspräsidenten</h2>
+      <p>Die Leitung des Büros des Staatspräsidenten wird eigenständig neben den Mitgliedern des Staatsrates ausgewiesen.</p>
     </div>
     <div class="card-grid card-grid--two">
       {chancelleryLeadership.map((member) => (

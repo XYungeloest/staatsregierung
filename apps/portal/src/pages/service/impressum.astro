@@ -23,7 +23,7 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
   <div class="content-grid">
     <section class="section body-copy">
       <h2>Anbieter und Herausgeber</h2>
-      <p>{contact.authorityShort}<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
+      <p>{contact.authorityShort}<br />Büro des Staatspräsidenten<br />{contact.addressLines.join(', ')}</p>
       <p>Telefon: <a class="inline-link" href={citizenPhoneHref}>{contact.citizenService.phone}</a><br />E-Mail: <a class="inline-link" href={`mailto:${contact.citizenService.email}`}>{contact.citizenService.email}</a><br />Internet: {siteHostname}</p>
       <p>Der Staatsrat des Ostdeutschen Freistaates ist Herausgeber dieses Internetangebots.</p>
 
@@ -31,13 +31,13 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <p>{currentGovernment.headOfGovernment}<br />Staatspräsident des Ostdeutschen Freistaates</p>
 
       <h2>Verantwortliche Stelle</h2>
-      <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Regierungskommunikation und Bürgerinformation<br />{contact.addressLines.join(', ')}</p>
+      <p>Büro des Staatspräsidenten<br />Referat Digitale Regierungskommunikation und Bürgerinformation<br />{contact.addressLines.join(', ')}</p>
       <p>E-Mail: <a class="inline-link" href={`mailto:${contact.editorialOffice.email}`}>{contact.editorialOffice.email}</a></p>
-      <p>Die redaktionelle Pflege, technische Koordination und organisatorische Gesamtverantwortung für dieses Portal liegen bei der Staatskanzlei des Ostdeutschen Freistaates.</p>
+      <p>Die redaktionelle Pflege, technische Koordination und organisatorische Gesamtverantwortung für dieses Portal liegen beim Büro des Staatspräsidenten.</p>
 
       <h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2>
       <p>Verantwortlich im Sinne des § 18 Abs. 2 Medienstaatsvertrag:</p>
-      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes des Staatsrates<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
+      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes des Staatsrates<br />Büro des Staatspräsidenten<br />{contact.addressLines.join(', ')}</p>
       <p>E-Mail: <a class="inline-link" href={`mailto:${contact.pressOffice.email}`}>{contact.pressOffice.email}</a></p>
       <p>Die Verantwortung umfasst insbesondere Pressemitteilungen, redaktionelle Meldungen, Themenseiten, Regierungserklärungen und sonstige publizistische Inhalte dieses Internetangebots.</p>
 
@@ -47,7 +47,7 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <p>Anfragen von Medienvertreter:innen richten Sie bitte an die Pressestelle des Staatsrates.</p>
 
       <h2>Technischer Betrieb</h2>
-      <p>Staatskanzlei des Ostdeutschen Freistaates<br />{contact.portalOperations.label}<br />{contact.addressLines.join(', ')}</p>
+      <p>Büro des Staatspräsidenten<br />{contact.portalOperations.label}<br />{contact.addressLines.join(', ')}</p>
       <p>E-Mail: <a class="inline-link" href={`mailto:${contact.portalOperations.email}`}>{contact.portalOperations.email}</a></p>
       <p>Der technische Betrieb umfasst die Pflege der Portalstruktur, die Bereitstellung der Suchfunktionen, die Barrierefreiheitskomponenten, die Cookie-Einstellungen und die technische Verfügbarkeit des Internetangebots.</p>
 

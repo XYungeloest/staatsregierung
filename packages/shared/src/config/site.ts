@@ -152,7 +152,7 @@ export const siteConfig = {
   contact: {
     authorityShort: 'Staatsrat des Ostdeutschen Freistaates',
     addressLines: ['Archivstraße 1', '01097 Dresden'],
-    postalAddress: 'Staatskanzlei des Ostdeutschen Freistaates, Archivstraße 1, 01097 Dresden',
+    postalAddress: 'Büro des Staatspräsidenten, Archivstraße 1, 01097 Dresden',
     citizenService: {
       label: 'Bürgertelefon',
       phone: '+49 351 100-0',

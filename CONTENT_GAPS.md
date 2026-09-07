@@ -63,6 +63,29 @@ ostdeutsche Setzung kennt:
   REVOSax-Quelle noch eine eigene Ausgangsfassung. Ohne amtliche Quelle der 1996er Verordnung bleibt
   die Herkunft ungeklärt.
 
+## Zweiter Staatsrat (StAnzO. 2026 Nr. 42, OGVBl. 2026 Nr. 75)
+
+Bekanntmachung, Organisationserlass und Zuarbeit vom 7. September 2026 sind eingepflegt; der
+Organisationsbestand, der Stichtag und die öffentlichen Seiten führen den zweiten Staatsrat. Offen
+bleiben drei Belege:
+
+- **Johanna Schwade** — Amt, Geschäftsbereich und Partei sind belegt; Lebenslauf, Kontaktangaben
+  und ein Porträt fehlen. Das Profil führt bis dahin ein Ansichtsbild statt eines Porträts.
+- **Staatssekretäre des Geschäftsbereichs Frieden** — die Ernennung von Finn Bonnano, Kilian
+  Schmidt und Lukas Schmidt nach Artikel 59 Absatz 2 Satz 2 ist durch den Ernennungsakt des
+  Staatspräsidenten vom 7. September 2026 belegt und transkribiert; die Originaldatei fehlt noch
+  unter `context/amtliche-dokumente/2026-09-07/`. Das Portal nennt die drei Ämter in Chronologie
+  und Zeitachse, führt aber keine eigenen Profile: Das Organisationsmodell kennt keine Ebene
+  unterhalb der Ressortleitung, und Porträts sowie Kontaktangaben fehlen.
+- **Wikirevision** — der Auszug des Artikels „Kabinett Honecker III“ wurde ohne Permalink
+  bereitgestellt. `knowledge/SOURCE_POLICY.md` verlangt für externe Wikiquellen eine konkrete
+  Revision.
+
+Die Zuarbeit steht in `docs/ZUARBEITSFORMULAR.md` unter V-01a, die Quellenbewertung in
+`knowledge/clarifications/2026-09-07-zweiter-staatsrat.md` und in
+`knowledge/clarifications/2026-09-07-kabinett-honecker-iii.md`, die offene Frage als
+`question-second-staatsrat-personnel-records`.
+
 ## Bekanntmachungen zur Interflug (StAnzO. 2026 Nr. 39 und 40)
 
 - **Bekanntmachung des Staatsrates über die Bestellung des Gründungsvorstandes der Interflug

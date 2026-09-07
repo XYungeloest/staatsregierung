@@ -47,14 +47,14 @@ const flagshipTopics = [
 
 <BaseLayout
   title="Staatsrat"
-  description="Mitglieder, Staatssekretariate und Zuständigkeiten des ersten Staatsrates des Ostdeutschen Freistaates."
+  description="Mitglieder, Staatssekretariate und Zuständigkeiten des Staatsrates des Ostdeutschen Freistaates."
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Staatsrat' }]} />
 
   <SectionHero
     eyebrow="Staatsrat"
-    title="Der erste Staatsrat"
-    lead="Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor und leitet die vollziehende Gewalt des Freistaates."
+    title={currentGovernment.title}
+    lead="Der Staatsrat steht an der Spitze der vollziehenden Gewalt des Freistaates; seine Mitglieder werden von der Volkskammer gewählt."
     variant="government"
     facts={[
       { label: 'Staatsorgan', value: currentGovernment.title },
@@ -91,7 +91,7 @@ const flagshipTopics = [
         </p>
         <p>
           Seit dem <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time> führt
-          {` ${currentGovernment.headOfGovernment} `} den Staatsrat als erster Staatspräsident.
+          {` ${currentGovernment.headOfGovernment} `} den Staatsrat als Staatspräsident.
           Stellvertretender Staatspräsident ist {currentGovernment.deputyHead}.
         </p>
         <p>
@@ -126,7 +126,7 @@ const flagshipTopics = [
       </p>
     </div>
     <ul class="direct-entry-list">
-      <li><strong>Politische Leitung</strong><span><a class="inline-link" href={getMinisterPresidentUrl()}>Staatspräsident und Staatskanzlei</a></span></li>
+      <li><strong>Politische Leitung</strong><span><a class="inline-link" href={getMinisterPresidentUrl()}>Staatspräsident und Büro des Staatspräsidenten</a></span></li>
       <li><strong>Staatsrat</strong><span><a class="inline-link" href={getCabinetUrl()}>Staatssekretariate, Zuständigkeiten und Mitglieder</a></span></li>
       <li><strong>Öffentliche Wirtschaft</strong><span><a class="inline-link" href={getHoldingsUrl()}>Beteiligungen, Rechtsnachfolge und neue Träger</a></span></li>
       <li><strong>Arbeitsgrundlage</strong><span><a class="inline-link" href={getCoalitionUrl()}>Koalition</a> und <a class="inline-link" href={getActionPlanUrl()}>15-Punkte-Plan II</a></span></li>
@@ -136,7 +136,7 @@ const flagshipTopics = [
   <section class="section" aria-labelledby="ministerien" data-visual-section="government-ministry-directory">
     <div class="section-header">
       <h2 id="ministerien">Staatssekretariate</h2>
-      <p>Leitung und zentrale Aufgaben der Geschäftsbereiche des {currentGovernment.title}.</p>
+      <p>Leitung und zentrale Aufgaben der Geschäftsbereiche des Staatsrates.</p>
     </div>
     <MinistryDirectory ministries={ministries} />
   </section>

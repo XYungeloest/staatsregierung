@@ -7,7 +7,7 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## Betrieb
 
-Diese drei Punkte stammen aus dem Audit vom 7. September 2026 und sind Betriebsarbeit, keine
+Diese Punkte stammen aus dem Audit vom 7. September 2026 und sind Betriebsarbeit, keine
 Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
 `docs/EINPFLEGE_PLAYBOOK.md`.
 
@@ -16,31 +16,42 @@ Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
   nachfolgende Lauf 34113139609 (da95e919f) war `ci-only` und hat `d1_sync` und `deploy` erneut
   übersprungen. Beide Produktionsziele antworten deshalb weiterhin mit
   `x-portal-commit: 582c0914…`, dem Stand vom 6. September — das Volkskammerwahlergebnis ist
-  nicht veröffentlicht. Zuerst die Fehlermeldung aus `assessSyncDecision` lesen und entscheiden,
-  ob ein Äquivalenznachweis genügt oder das D1-Release-Gate greift
-  (`docs/DEPLOYMENT_RUNBOOK.md`). Fertig, wenn `d1_sync` auf `main` grün ist, `deploy` gelaufen
-  ist und `npm run test:deployment:production` beide Ziele mit dem aktuellen `main`-Commit
-  bestätigt.
-- [ ] Linux-Screenshot-Baselines erneuern: Die Inventur 34106802597 (visual-extended, 88e46b76d)
-  meldet 50 fehlgeschlagene Aufnahmen von 228. Ursache sind die Oberflächenänderungen der Commits
-  582c09147 (Wegweiserschrift, `foundation.css`) und 88e46b76d (`section-system.css`,
-  `TopicModule.astro`, vorgerückter Stichtag), zu denen keine Baselines erneuert wurden. Der Lauf
-  „Screenshot-Baselines erneuern“ 34062347773 hält bereits ein Artefakt für genau diesen Stand
-  bereit; es verfällt am 20. September 2026. Fertig, wenn die erneuerten
-  `tests/visual.spec.ts-snapshots/*-linux.png` nach Sichtprüfung jeder geänderten Aufnahme
-  committet sind und `visual-extended` auf `main` grün läuft.
-- [ ] Themen-Hervorhebung über den 10. September 2026 hinaus sicherstellen:
-  `content/portal/topic-coverage.json` verlangt unter `discoverability.minimumActiveHighlights`
-  mindestens eine am Stichtag laufende Hervorhebung. `volksbefragung-2026` ist die einzige mit
-  laufendem Fenster (9. August bis 10. September 2026); `kommunen-regionen-und-berlin` und
-  `wohnen-und-vergesellschaftung` sind abgelaufen. Jeder Stichtag ab dem 11. September lässt
-  deshalb `content:check` und `check-topic-coverage` fehlschlagen. Fertig, wenn mindestens ein
-  Thema am fortgeschriebenen Stichtag ein laufendes Hervorhebungsfenster trägt,
-  `discoverability.editorialLead` darauf zeigt und der Audit
-  `npm run norms:advance-reference-date -- --to <Zieldatum>` laufende Hervorhebungen meldet.
+  nicht veröffentlicht, und jeder weitere Eingang bleibt es ebenfalls, solange die produktive D1
+  auf der Identität `9171011036a1fbe5…` steht.
+  Die Entscheidung ist gelesen und getroffen: Der Lauf meldet „Entscheidung: full – gespeicherte
+  Identität 9171011036a1fbe5… (full, complete) weicht ab“, der anschließende Äquivalenznachweis
+  „Vollprojektion erforderlich (abweichende Tabellen: `law_runtime_meta`)“. Ursache ist die
+  Fortschreibung des Stichtags in `packages/shared/src/config/editorial.json`; sie liegt im
+  Projektionsabschluss und ändert `law_runtime_meta`. Der Nachweis genügt damit nicht, das
+  D1-Release-Gate greift: Staging und Produktion bewusst mit `--full --budget full` auf den
+  Zielstand bringen (`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt D1-Release-Gate). Das braucht
+  `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` und ist ein bewusster Produktionsvorgang.
+  Fertig, wenn `d1_sync` auf `main` grün ist, `deploy` gelaufen ist und
+  `npm run test:deployment:production` beide Ziele mit dem aktuellen `main`-Commit bestätigt.
+- [ ] Klären, warum der Äquivalenznachweis in Lauf 34057455994 eine Vollprojektion verlangte: Er
+  meldete „abweichende Tabellen: `law_runtime_meta`“ für die Stichtagsfortschreibung vom
+  6. September. Derselbe Vorgang — Stichtag plus neue Normen — ist auf dem Branch
+  `eingang/stanzo-2026-42-zweiter-staatsrat` mit `npm run norms:runtime:d1-prove -- --base
+  origin/main` dagegen als inkrementell nachgewiesen worden („inkrementeller Umfang genügt,
+  Logikänderung datenneutral“). Die Stichtagsfortschreibung ist also kein genereller Full-Trigger;
+  der Unterschied liegt im Umfang des jeweiligen Laufs. Fertig, wenn feststeht, welcher
+  Umfangsunterschied die Abweichung in `law_runtime_meta` erzeugt hat, und die Regel in
+  `docs/REVOSAX_BULK_IMPORT.md` diesen Fall benennt.
 
 ## OstRecht
 
+- [ ] Schreiblauf des Normworkflows mit der Metadatenpflege in Einklang bringen: `npm run
+  norms:workflow -- --file <Quelle> --write` führt `scripts/materialize-revosax-norms.mjs --all
+  --update-existing --write` aus und erzeugt die übernommenen Normen vollständig aus
+  `data/recht/parsed/revosax/` neu. Dabei gehen die nachgelagerten Metadatenpflegen von PR #30
+  (`fsnNumber` in den Quellenangaben) und PR #39 (amtliche Langtitel statt der Kurzformen des
+  Massenimports) verloren: Ein einzelner Eingang aus `temp-neu/` verändert so 146 unbeteiligte
+  Dateien unter `content/normen/`, ohne dass ein Check anschlägt. Beim Eingang StAnzO. 2026 Nr. 42
+  wurden diese Dateien deshalb von Hand zurückgesetzt. Fertig, wenn ein Schreiblauf des
+  Normworkflows auf einer unveränderten Auscheckung von `main` außer den Dateien der eingepflegten
+  Quelle keine Änderung erzeugt — entweder weil der Materialisierer die gepflegten Felder erhält
+  oder weil die Verfeinerung (`scripts/refine-revosax-derived-metadata.mjs`) Teil des Workflows
+  wird.
 - [ ] Redaktionelle Kurzfassungen nachtragen: 4.981 der 5.200 Vorschriften tragen keine
   Kurzbeschreibung, seit die aus dem Titel gebildeten Formeln des Massenimports entfernt sind. Die
   Oberfläche lässt die Zeile dort leer; `summary` ist ein freiwilliges Feld. Der Arbeitsvorrat steht
@@ -74,6 +85,18 @@ Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
   keine Titelwörter mehr bildet und die Content-QA ein Titelwort als Schlagwort zurückweist.
 
 ## Staatsportal
+
+### Regierungsarchiv
+
+- [ ] Archivstände für das Kabinett Honecker II und den ersten Staatsrat nachziehen. Für einen
+  Regierungswechsel verlangt `docs/EINPFLEGE_PLAYBOOK.md` (4.5) einen Archivstand unter
+  `content/regierung/archiv/` und eine Seite unter
+  `apps/portal/src/pages/staatsregierung/fruehere-kabinette/`. Beide fehlen seit dem Übergang vom
+  20. Juli 2026 und erneut seit dem 7. September 2026; die Übersichtsseite
+  `fruehere-kabinette/index.astro` bindet nur `kabinett-honecker-i.json` fest ein und listet
+  deshalb genau eine Regierung. Fertig, wenn beide Regierungen einen Archivdatensatz und einen
+  Eintrag in der Übersicht haben und die Seite ihre Einträge nicht mehr einzeln importiert.
+
 
 ### Lange Seiten und Datenansichten
 

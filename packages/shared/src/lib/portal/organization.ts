@@ -324,7 +324,15 @@ export function validateOrganization(
     const government = assignment.governmentSlug ? governmentBySlug.get(assignment.governmentSlug) : undefined;
     if (!profileBySlug.has(assignment.personSlug)) problems.push(`${assignment.id}: unbekannte Person ${assignment.personSlug}`);
     if (!office) problems.push(`${assignment.id}: unbekanntes Amt ${assignment.officeSlug}`);
-    if (assignment.ministrySlug && !ministryBySlug.has(assignment.ministrySlug)) problems.push(`${assignment.id}: unbekanntes Ressort ${assignment.ministrySlug}`);
+    // Ein aufgelöstes Ressort verliert sein Profil, behält aber seine abgeschlossenen
+    // Zuordnungen: Die Amtszeit bleibt Teil der Personengeschichte und wird nicht gelöscht.
+    // Damit der damalige Name weiter angezeigt werden kann, muss eine solche Zuordnung
+    // beendet sein und ihren historischen Ressortnamen selbst tragen.
+    if (assignment.ministrySlug && !ministryBySlug.has(assignment.ministrySlug)) {
+      if (assignment.validTo === null || !assignment.historicalMinistryLabel) {
+        problems.push(`${assignment.id}: unbekanntes Ressort ${assignment.ministrySlug}`);
+      }
+    }
     if (assignment.governmentSlug && !government) problems.push(`${assignment.id}: unbekannte Regierung ${assignment.governmentSlug}`);
     if (assignment.validTo && assignment.validFrom > assignment.validTo) problems.push(`${assignment.id}: umgekehrtes Gültigkeitsintervall`);
     if (office?.requiresMinistry && !assignment.ministrySlug) problems.push(`${assignment.id}: Amt ${office.slug} benötigt ein Ressort`);

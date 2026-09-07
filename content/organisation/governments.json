@@ -27,7 +27,7 @@
       "title": "Erster Staatsrat",
       "kind": "state-council",
       "validFrom": "2026-07-21",
-      "validTo": null,
+      "validTo": "2026-09-06",
       "coalition": "Volksfront und Bündnis Demokratie Europa (DEMOS)",
       "coalitionShort": "Volksfront · DEMOS",
       "coalitionParties": [
@@ -42,6 +42,28 @@
       "sourceRefs": [
         "Artikel 121a der konsolidierten Staatsverfassung",
         "knowledge/current-state.json#state-current-government"
+      ]
+    },
+    {
+      "slug": "zweiter-staatsrat",
+      "title": "Zweiter Staatsrat",
+      "kind": "state-council",
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "coalition": "Roter Aufbruch aus Volksfront und Bündnis Demokratie Europa (DEMOS)",
+      "coalitionShort": "Roter Aufbruch",
+      "coalitionParties": [
+        "Volksfront",
+        "Bündnis Demokratie Europa (DEMOS)"
+      ],
+      "legislature": "8. Volkskammer",
+      "predecessor": "Erster Staatsrat",
+      "seatOfGovernment": "Dresden",
+      "coalitionSeats": 11,
+      "parliamentSeats": 11,
+      "sourceRefs": [
+        "Bekanntmachung der Formation des zweiten Staatsrates vom 7. September 2026 (StAnzO. 2026 Nr. 42)",
+        "Organisationserlass 09/2026 vom 7. September 2026 (OGVBl. 2026 Nr. 75)"
       ]
     }
   ]

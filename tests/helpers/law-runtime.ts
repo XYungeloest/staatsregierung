@@ -157,6 +157,19 @@ export async function currentNormOfOrigin(request: APIRequestContext, origin: st
   return document;
 }
 
+/**
+ * Geltende Norm mit gegliedertem Vorschriftentext: Bekanntmachungen und Erlasse tragen oft nur
+ * Absätze und Listen und damit keine Normeinheiten. Wer Überschriftenfolgen im Normtext prüft,
+ * braucht eine Vorschrift mit Paragrafen oder Artikeln; die Normart liefert sie zuverlässig.
+ */
+export async function currentStructuredNormOfOrigin(request: APIRequestContext, origin: string): Promise<ApiDocument> {
+  for (const type of ['gesetz', 'verordnung', 'verwaltungsvorschrift']) {
+    const [document] = await currentDocuments(request, `&origin=${origin}&type=${type}`);
+    if (document) return document;
+  }
+  throw new Error(`Keine geltende gegliederte Norm mit Herkunft ${origin} in der Such-API`);
+}
+
 /** Ein Wort aus einem Titel, das als Suchbegriff taugt (mindestens fünf Buchstaben, kein Funktionswort). */
 export function searchWordOf(title: string): string {
   const word = title.split(/[\s,;:()/–-]+/u).find((token) => /^\p{L}{5,}$/u.test(token) && !/^(?:Gesetz|Verordnung|Freistaat|Ostdeutschland|Ostdeutsche[nrs]?|Sächsische[nrs]?|Änderung|Freistaates|Staatsministeriums|Staatsregierung|Verwaltungsvorschrift|Bekanntmachung)$/u.test(token));

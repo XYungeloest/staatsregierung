@@ -151,3 +151,44 @@ test('Kabinettsumbildungen sind atomar und liefern alte sowie neue Besetzung', (
   }));
   assert.deepEqual(organization, before);
 });
+
+test('ein aufgelöstes Ressort behält seine abgeschlossenen Zuordnungen, aktive Zuordnungen brauchen ein Profil', () => {
+  const { organization, profiles, ministries } = fixture();
+  // Das Ressort „energie“ wird zum 30. Juni 2026 aufgelöst: Profil entfernt, laufende Leitung beendet.
+  const withoutEnergie = ministries.filter((entry) => entry.slug !== 'energie');
+  const assignments = organization.assignments
+    .filter((entry) => entry.id !== 'neu-clara-energie')
+    .map((entry) => (entry.id === 'alt-clara-energie'
+      ? { ...entry, historicalMinistryLabel: 'Staatssekretariat für Energie' }
+      : entry));
+  const dissolved = { ...organization, assignments };
+  assert.doesNotThrow(() => validateOrganization(dissolved, profiles, withoutEnergie, '2026-08-01'));
+
+  // Ohne historischen Ressortnamen bleibt der Verweis unauflösbar und wird gemeldet.
+  const withoutLabel = {
+    ...dissolved,
+    assignments: dissolved.assignments.map((entry) => {
+      if (entry.id !== 'alt-clara-energie') return entry;
+      const { historicalMinistryLabel: _dropped, ...rest } = entry;
+      return rest;
+    }),
+  };
+  assert.throws(
+    () => validateOrganization(withoutLabel, profiles, withoutEnergie, '2026-08-01'),
+    (error: unknown) => error instanceof OrganizationValidationError
+      && error.problems.some((problem) => problem.includes('alt-clara-energie: unbekanntes Ressort energie')),
+  );
+
+  // Eine noch laufende Zuordnung auf ein aufgelöstes Ressort bleibt ein Fehler.
+  const stillRunning = {
+    ...organization,
+    assignments: organization.assignments.map((entry) => (entry.id === 'neu-clara-energie'
+      ? { ...entry, historicalMinistryLabel: 'Staatssekretariat für Energie' }
+      : entry)),
+  };
+  assert.throws(
+    () => validateOrganization(stillRunning, profiles, withoutEnergie, '2026-08-01'),
+    (error: unknown) => error instanceof OrganizationValidationError
+      && error.problems.some((problem) => problem.includes('neu-clara-energie: unbekanntes Ressort energie')),
+  );
+});
