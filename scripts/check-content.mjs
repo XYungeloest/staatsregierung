@@ -677,10 +677,19 @@ for (const { file, json } of records) {
       addProblem(file, `enactingBody ist nicht als erlassendes Organ zugelassen: ${json.enactingBody}`);
     }
 
-    if (typeof json.summary !== 'string' || json.summary.trim().length < 24) {
-      addProblem(file, 'summary muss eine verständliche redaktionelle Kurzbeschreibung enthalten');
-    } else {
+    // Eine Kurzbeschreibung ist freiwillig: für den übernommenen Massenbestand gibt es keine
+    // Quelle, aus der sich eine belastbare Kurzfassung ableiten ließe, und eine Formel, die nur
+    // den Titel wiederholt, ist keine. Wo eine steht, muss sie eine echte Beschreibung sein; der
+    // Arbeitsvorrat steht in data/recht/norm-summary-review.json.
+    if (json.summary !== undefined && (typeof json.summary !== 'string' || json.summary.trim().length < 24)) {
+      addProblem(file, 'summary ist gesetzt, aber zu kurz für eine verständliche Kurzbeschreibung');
+    } else if (typeof json.summary === 'string') {
       const summary = json.summary.trim();
+      if (/^Enthält die Regelungen der am .+ übernommenen Ausgangsfassung/u.test(summary)
+        || /^Übernommene Änderungsvorschrift des Rechtsbestands/u.test(summary)
+        || /^Regelt\s+„?\s*$/u.test(summary)) {
+        addProblem(file, 'summary wiederholt nur den Titel (Formel des Massenimports) und ist keine Kurzbeschreibung');
+      }
       if (/^(?:§|Abschnitt\b|Artikel\b|OABl\.|OGVBl\.|StAnzO\.|GVBl\.|Aufgrund\b|Auf Grund\b|\d+\.)/u.test(summary)) {
         addProblem(file, 'summary beginnt mit einem typischen Normtext- oder Verkündungsfragment');
       }
@@ -740,8 +749,20 @@ for (const { file, json } of records) {
       }
     }
 
-    if (!Array.isArray(json.keywords) || json.keywords.length === 0) {
-      addProblem(file, 'keywords muss mindestens ein Stichwort enthalten');
+    // Schlagwörter sind Zweitbezeichnungen und Nutzerbegriffe. Titel, Kurzbezeichnung und
+    // Abkürzung stehen im Suchindex als eigene Spalten; sie hier zu wiederholen erschließt nichts.
+    // Eine leere Liste ist zulässig — dann trägt die Vorschrift keine belegte Zweitbezeichnung.
+    if (!Array.isArray(json.keywords)) {
+      addProblem(file, 'keywords muss eine Liste sein');
+    } else {
+      const designations = new Set([json.title, json.shortTitle, json.abbr]
+        .map((value) => (typeof value === 'string' ? value.trim() : ''))
+        .filter(Boolean));
+      for (const keyword of json.keywords) {
+        if (typeof keyword === 'string' && designations.has(keyword.trim())) {
+          addProblem(file, `keywords wiederholt Titel, Kurzbezeichnung oder Abkürzung: ${keyword}`);
+        }
+      }
     }
 
     if (typeof json.initialCitation !== 'string' || json.initialCitation.trim().length === 0) {

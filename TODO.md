@@ -41,14 +41,37 @@ Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
 
 ## OstRecht
 
-- [ ] Abgeleitete Metadaten der übernommenen Normen nachschärfen: Schlagwörter und Kurzfassungen
-  der REVOSax-Baseline sind deterministisch aus Typ und Titel abgeleitet und im Import-Audit als
-  `derivedMetadata` gekennzeichnet. Die Sachgebiete folgen der amtlichen Systematik;
-  `derivedMetadata.subjects` zählt, wie viele Zuordnungen die Fundstellennummer belegt und wie
-  viele aus der Ableitungskette stammen, die Zweifelsfälle stehen in
-  `data/recht/subject-assignment-review.json`. Fertig, wenn redaktionell geprüfte Schlagwörter und
-  Kurzfassungen vorliegen und die Kennzeichnung in `data/recht/revosax-import-audit/summary.json`
-  entfällt.
+- [ ] Redaktionelle Kurzfassungen nachtragen: 4.981 der 5.200 Vorschriften tragen keine
+  Kurzbeschreibung, seit die aus dem Titel gebildeten Formeln des Massenimports entfernt sind. Die
+  Oberfläche lässt die Zeile dort leer; `summary` ist ein freiwilliges Feld. Der Arbeitsvorrat steht
+  vollständig und nach Normtyp aufgeschlüsselt in `data/recht/norm-summary-review.json`
+  (Änderungsvorschrift 3.267, Verordnung 579, Verwaltungsvorschrift 537, Gesetz 256,
+  Förderrichtlinie 210, Staatsvertrag 67, Zustimmungsgesetz 65). Fertig, wenn `total` in dieser
+  Datei 0 ist.
+- [ ] Sachgebietszuordnungen ohne amtlichen Beleg entscheiden: Die Sachgebiete sind **nicht**
+  abgeschlossen. 473 der 4.964 übernommenen Vorschriften tragen ein Hauptsachgebiet, das keine
+  Fundstellennummer der Quelle belegt; es stammt aus der Ableitungskette (`fsn-sibling`,
+  `related-norm`, `stem-title`, `type-rule`, `legacy`, `keyword`). Die Zahl steht als
+  `derivedMetadata.subjects.derived` in `data/recht/revosax-import-audit/summary.json`, die Fälle
+  ohne jeden Anhaltspunkt in `data/recht/subject-assignment-review.json` (eine Vorschrift ohne
+  belegtes Sachgebiet, neun Förderrichtlinien ohne ableitbaren Förderbereich). Fertig, wenn
+  `derivedMetadata.subjects.derived` nur noch redaktionell entschiedene Fälle enthält und beide
+  Prüflisten leer sind.
+- [ ] Herkunft der Schlagwörter redaktionell prüfen. Die aus dem Titel gebildeten Schlagwörter des
+  Massenimports sind entfernt (`scripts/refine-revosax-derived-metadata.mjs`, Regel: ein
+  Titelbestandteil ab fünf Zeichen oder eine wortgleiche Bezeichnung ist kein Schlagwort). Im
+  Bestand stehen 6.616 Schlagwörter mit vier Herkünften; zwei sind belegt, zwei nicht:
+  - amtliche Bezeichnung der REVOSax-Trefferliste: 5.440 — belegt, nichts zu tun;
+  - fassungsspezifische Abkürzung oder Kurzbezeichnung aus `versions/*.json`: 2 — belegt;
+  - aus dem Bestand übernommene Schlagwörter der übernommenen Vorschriften: 149 — **nicht amtlich
+    belegt**; sie stammen aus redaktioneller Arbeit oder einem früheren Import und bleiben nur
+    erhalten, weil sie sonst ersatzlos verschwänden;
+  - 1.002 übernommene Vorschriften tragen gar keine zweite Bezeichnung.
+  Offen bleibt außerdem der eigene ostdeutsche Bestand: 514 der 1.025 Schlagwörter seiner
+  190 Vorschriften sind Titelbestandteile ab fünf Zeichen (151 Vorschriften), weil
+  `scripts/import-normen.mjs` sie weiterhin aus dem Kurztitel erzeugt. Fertig, wenn jedes
+  Schlagwort entweder amtlich belegt oder redaktionell gesetzt ist, `scripts/import-normen.mjs`
+  keine Titelwörter mehr bildet und die Content-QA ein Titelwort als Schlagwort zurückweist.
 
 ## Staatsportal
 

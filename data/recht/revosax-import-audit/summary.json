@@ -157,14 +157,9 @@
       "post-cutoff-source": 10
     },
     "sourceEndingTypes": {
-      "A": 275,
-      "unclear": 2,
-      "B": 7
+      "A": 284
     },
-    "sourceEndingResolutions": {
-      "open": 1,
-      "sunset-applies": 8
-    },
+    "sourceEndingResolutions": {},
     "documentDateFromListing": 249,
     "documentDateMissing": 1
   },
@@ -249,14 +244,14 @@
   "derivedMetadata": {
     "norms": 4957,
     "fields": [
-      "keywords",
-      "summary"
+      "subjects"
     ],
     "subjects": {
+      "total": 4964,
       "official": 4491,
       "derived": 473
     },
-    "source": "automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferKeywords, inferSummary); die Kurzfassung trägt summarySource \"derived\" und wird öffentlich nicht ausgespielt; Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)"
+    "source": "Schlagwörter: amtliche Bezeichnung der REVOSax-Trefferliste, ersatzweise eine fassungsspezifische Bezeichnung; vorhandene Schlagwörter bleiben erhalten, sind aber nicht amtlich belegt (scripts/refine-revosax-derived-metadata.mjs). Kurzfassungen: keine; ohne redaktionelle Kurzbeschreibung bleibt das Feld leer, der Arbeitsvorrat steht in data/recht/norm-summary-review.json. Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)"
   },
   "residualBacklog": {
     "norms": 0,

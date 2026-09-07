@@ -246,12 +246,24 @@ Begründung, Auflösung mit `canonicalSlug`, `DEFER`). Der Plan ist nur schreibb
 zurückgestellter `REVIEW`-Fall existiert. `CREATE`-Einträge erhalten `meta.json`, `history.json`
 und `versions/2023-11-01.json` mit R2-Provenienz (Objektschlüssel, amtliche URL, `lawId`,
 Abrufzeit, SHA-256, Gültigkeitsintervall, `sourceRole: official-snapshot`); das Erlassdatum stammt
-von der Fassungsseite oder der amtlichen Trefferliste – nie geschätzt. Ursprungsorgan,
-Schlagwörter und Kurzfassung leitet `scripts/lib/revosax-metadata.mjs` deterministisch ab (im
-Import-Audit als `derivedMetadata` gekennzeichnet). Die abgeleitete Kurzfassung trägt im Datensatz
-`summarySource: "derived"`; sie ist eine Erschließungshilfe, wird öffentlich nicht ausgespielt und
-nicht als Suchtext indexiert. Die Schlagwörter enthalten zusätzlich die Bezeichnung der amtlichen
-Trefferliste, damit auch eine nicht als Kurztitel übernommene Kurzbezeichnung auffindbar bleibt.
+von der Fassungsseite oder der amtlichen Trefferliste – nie geschätzt. Das Ursprungsorgan
+leitet `scripts/lib/revosax-metadata.mjs` deterministisch ab.
+
+Kurzfassungen werden **nicht** abgeleitet. Der Massenimport hatte zwei Formeln gesetzt, die den
+Titel wiederholten statt den Regelungsgegenstand zu nennen; sie sind entfernt, `summarySource:
+"derived"` gibt es nicht mehr. Ohne redaktionelle Kurzbeschreibung bleibt `summary` leer, und die
+Vorschrift steht im Arbeitsvorrat `data/recht/norm-summary-review.json` (aus dem Bestand
+reproduzierbar, ohne Zeitstempel).
+
+Schlagwörter sind Zweitbezeichnungen, keine Titelwörter: Titel, Kurzbezeichnung und Abkürzung
+stehen im Suchindex als eigene Spalten und gehören nicht zusätzlich in die Schlagwörter.
+`scripts/refine-revosax-derived-metadata.mjs` hält die Regel für den übernommenen Bestand: es
+entfernt Titelbestandteile ab fünf Zeichen und wortgleiche Bezeichnungen, ergänzt die amtliche
+Bezeichnung der Trefferliste und fassungsspezifische Bezeichnungen und **behält** alle übrigen
+vorhandenen Werte — ein Ersetzen der Liste verlöre redaktionelle Begriffe. Die vier Herkünfte
+(amtliche Bezeichnung, fassungsspezifische Bezeichnung, aus dem Bestand übernommen, keine)
+zählt der Lauf einzeln; nur die ersten beiden sind amtlich belegt. Das Werkzeug ist idempotent:
+ein zweiter Lauf ändert keine Datei.
 
 Die Sachgebiete folgen der amtlichen Systematik. `scripts/lib/revosax-parser.mjs` liest die
 Fundstellennummer aus dem Kasten „Fundstelle und systematische Gliederungsnummer“ der
@@ -267,7 +279,8 @@ Zweitsachgebiete stammen nur aus amtlichen Signalen. Die einmalige Umstellung de
 `node --experimental-strip-types scripts/migrate-subject-systematics.mjs --write` (ohne `--write`
 nur Kennzahlen); sie liest die Fundstellennummern aus `meta.json` und ersatzweise aus dem lokalen
 Rohcache. Im Import-Audit zählt `derivedMetadata.subjects` die amtlich belegten gegen die
-abgeleiteten Zuordnungen; `derivedMetadata.fields` nennt nur noch Schlagwörter und Kurzfassung. Der Lauf schreibt nichts, solange ein Eintrag
+abgeleiteten Zuordnungen (`total` nennt den Zählrahmen: die eindeutigen Zielnormen der Planeinträge
+CREATE und MATCH); `derivedMetadata.fields` nennt seither nur noch `subjects`. Der Lauf schreibt nichts, solange ein Eintrag
 nicht im R2-Manifest archiviert ist, ein Zielverzeichnis existiert oder ein Datensatz die Regeln
 verletzt. `--regenerate` schreibt reine Baseline-Normen nach Adapter- oder Regeländerungen neu;
 Normen mit weiteren Fassungen oder anderen Quellen sind geschützt.
