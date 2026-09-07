@@ -200,11 +200,16 @@ verbraucht. Stattdessen:
    gehört benannt — Tabelle für Tabelle, mit Zeilenzahlen.
 2. Nachweis führen und die Schätzung gegen beide Profile rechnen
    (`estimatePlanCost` + `assertEstimateWithinBudget`, dieselben Funktionen wie im Sync).
-3. Ist der Lauf im Profil `full` (500.000 / 900.000), aber nicht in `incremental`: **kein
-   `--full`**, sondern derselbe nachgewiesene inkrementelle Umfang mit `--budget full`. Das ist
-   keine Vollprojektion — keine Tabelle wird geleert, Fassungen, Normkörper, Quellobjekte,
-   Historie und Sachgebiete bleiben unberührt.
-4. Reihenfolge wie bei der Vollprojektion: erst Staging, `d1-verify --fts-integrity`, Kernrouten
+3. Ist der Lauf über `incremental`, aber ein vollständig klassifizierter Metadata-only-Umfang:
+   `--budget bulk-metadata` (150.000 / 200.000). Das Profil trägt genau diesen Fall und niemals
+   eine Vollprojektion; `assertBulkMetadataScope` weist fail-closed ab, sobald der Umfang eine
+   Normlöschung, eine Verkündung, einen Register- oder Portal-Rebuild, eine unklassifizierte Norm
+   oder eine Voll- bzw. Recovery-Entscheidung enthält. **Kein `--full`**, kein `--recover`, keine
+   angehobenen `--max-rows-*`. Es ist keine Vollprojektion: keine Tabelle wird geleert, Fassungen,
+   Normkörper, Quellobjekte, Historie und Sachgebiete bleiben unberührt.
+4. Passt der Lauf auch dort nicht, aber in `full` (500.000 / 900.000), gilt derselbe nachgewiesene
+   Umfang mit `--budget full` — weiterhin ohne `--full`.
+5. Reihenfolge wie bei der Vollprojektion: erst Staging, `d1-verify --fts-integrity`, Kernrouten
    prüfen; dann Produktion außerhalb der Nutzungszeiten mit demselben Lauf; danach
    `d1_token_check` erneut starten (No-op) und erst dann mergen.
 

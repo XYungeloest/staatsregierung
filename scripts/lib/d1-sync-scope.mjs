@@ -303,6 +303,10 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
     derivedRebuild: full ? false : (derivedRebuild || narrowLogic),
     refreshSearchDocuments: !full && narrowLogic,
     refreshKeywords: !full && registerChanged,
+    // Kam der Derived-Rebuild aus einer Portalgrundlage (Themen/Presse) und nicht aus den
+    // Normen selbst? Nur ein Budgetguard liest das (scripts/sync-recht-d1.mjs); geschrieben
+    // wird dadurch nichts anderes, deshalb steht es nicht in der Umfangssignatur.
+    portalRebuild: !full && portalChanged > 0,
     ignoredPaths: unknown,
     reasons,
   };
