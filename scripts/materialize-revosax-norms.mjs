@@ -62,12 +62,6 @@ function inferEnactingBody(title, type) {
   return 'Sächsische Staatsregierung';
 }
 
-function inferSummary(title) {
-  const subject = title.match(/\b(?:über|zur|zum)\s+(.+)$/iu)?.[1]?.replace(/\.$/u, '');
-  if (subject) return `Regelt ${subject.charAt(0).toLocaleLowerCase('de')}${subject.slice(1)}.`;
-  return `Enthält die Regelungen der amtlichen Ausgangsfassung „${title}“.`;
-}
-
 /**
  * Titelmodell (scripts/lib/norm-title-rules.mjs): Kurzbezeichnung nur, wenn sie sich vom Titel
  * unterscheidet und keine Abkürzungsform ist; Abkürzung nur, wenn sie die gemeinsame Regel besteht.
@@ -108,22 +102,24 @@ function inferredMeta(parsed, configured, slug, initialCitation) {
     subjects: assignment.subjects,
     primarySubject: assignment.primarySubject,
     ...(type === 'foerderrichtlinie' && assignment.fundingArea ? { fundingArea: assignment.fundingArea } : {}),
+    // Schlagwörter sind Zweitbezeichnungen und redaktionelle Nutzerbegriffe. Titelwörter gehören
+    // nicht dazu: Titel, Kurzbezeichnung und Abkürzung stehen im Suchindex als eigene Spalten,
+    // und „Oberbergamtes“ oder „Baubeschränkungsgebieten“ taugt niemand als Suchbegriff
+    // (scripts/refine-revosax-derived-metadata.mjs hat sie aus dem Bestand entfernt).
     keywords: [...new Set([
       ...(configured.createMeta?.keywords ?? []),
-      abbr,
-      shortTitle,
       // Die Kurzbezeichnung der Quelle bleibt auch dann auffindbar, wenn sie als
       // Abkürzungsform nicht in shortTitle gehört.
       parsed.shortTitle,
-      ...parsed.sourceTitle.split(/[^\p{L}\d]+/u).filter((word) => word.length >= 5),
-    ].filter(Boolean))].slice(0, 16),
+    ].filter(Boolean).filter((keyword) => keyword !== title && keyword !== shortTitle && keyword !== abbr))].slice(0, 16),
     initialCitation,
     predecessor: null,
     successor: null,
-    summary: configured.createMeta?.summary ?? inferSummary(parsed.sourceTitle),
-    // Ohne redaktionelle Kurzbeschreibung bleibt nur die aus dem Titel gebildete Formel;
-    // sie wird gekennzeichnet und öffentlich nicht ausgespielt.
-    ...(configured.createMeta?.summary ? {} : { summarySource: 'derived' }),
+    // Kurzfassung nur, wenn sie redaktionell vorliegt. Eine aus dem Titel gebildete Formel
+    // beschreibt keinen Regelungsgegenstand, sondern wiederholt den Titel; die Oberfläche spielt
+    // sie ohnehin nicht aus. Ohne Kurzfassung bleibt das Feld leer und die Vorschrift steht im
+    // Arbeitsvorrat (data/recht/norm-summary-review.json).
+    ...(configured.createMeta?.summary ? { summary: configured.createMeta.summary } : {}),
     status: 'in-force',
     ...((configured.documentDate ?? parsed.documentDate)
       ? { documentDate: configured.documentDate ?? parsed.documentDate }
