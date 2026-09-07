@@ -1025,7 +1025,9 @@ der Klassifikator.
 - **`d1_token_check` ist kein Pflichtcheck.** Ein Pull Request mit rotem `d1_token_check` ist
   mergebar und macht `main` danach zuverlässig rot. **Vor jedem Merge ist er von Hand zu prüfen.**
 - **`docs_check` ist kein Pflichtcheck**, und bei `scope=docs-only` sind drei der vier Pflichtchecks
-  übersprungen. Übersprungene Pflichtchecks gelten als bestanden.
+  übersprungen. Übersprungene Pflichtchecks gelten als bestanden. Der Pflichtcheck `quality` führt
+  `node scripts/check-docs.mjs` allerdings bedingungslos aus (`pull-request.yml:244`) — die
+  Dokumentationshygiene ist also in jedem Nicht-`docs-only`-Lauf ein hartes Gate.
 - Ein rotes `d1_seed` lässt `runtime_smoke` und `d1_sync` auf `skipped` fallen — und `deploy`
   veröffentlicht trotzdem.
 - Repository-Admins können das Ruleset umgehen (`bypass_mode: always`). **Diese Möglichkeit wird
