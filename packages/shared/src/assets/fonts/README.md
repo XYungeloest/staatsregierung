@@ -11,11 +11,12 @@ Alle Familien werden lokal ausgeliefert, ohne Anfragen an Dritte.
 
 Rollen: Jost trägt die Oberfläche (Navigation, Titel der Bereichsseiten, Verzeichnisse,
 Trefferlisten, Formulare, Metadaten), Source Serif 4 das Dokument (Normtext samt Gliederung,
-H1 der Normseiten, verglichener Text, Vollzitat), Ost Grotesk die Wegweiserebene (Wortzeichen
-beider Portale, Ordnungsnummern von Paragraphen und Artikeln, Buchstabenleiste, Abkürzungen und
-Verkündungssigel, Kennzahlen, Zugangskarten der Startseite, Ortsnamen der Gebietstabellen).
-Token: `--font-sans`, `--font-document` und `--font-sign` in `styles/foundation.css`; die
-Wegweiserstellen stehen dort als eine einzige Regel am Dateiende.
+H1 der Normseiten, verglichener Text, Vollzitat), Ost Grotesk die Wegweiserebene: wie eine
+Vorschrift heißt und in welchem Zustand sie ist — Titel in Verzeichnissen und Trefferlisten,
+Etikett des Normtyps, Herkunfts- und Statusabzeichen, Sachgebiet, Ortsnamen der Gebietstabellen.
+Die Auswahl folgt den Zeichen: „Gesetz“ trägt ein tz, „Straße“ ein ß. Token: `--font-sans`,
+`--font-document` und `--font-sign` in `styles/foundation.css`; die Wegweiserstellen stehen dort
+als eine einzige Regel am Dateiende.
 
 ## Ost Grotesk
 

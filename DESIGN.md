@@ -108,16 +108,20 @@ Die Serife trägt das Dokument, Jost die Oberfläche – nicht „Serife für Ü
 - Grenzfälle: die Werkzeuge vor dem Text und je Einheit sowie die Überschrift „Vorschriftentext“
   sind Oberfläche (Jost), obwohl sie im Dokumentbereich stehen; die Spaltenlabels „Fassung vom …“ des
   Vergleichs sind Jost, der verglichene Text darunter Serife.
-- Ost Grotesk (`--font-sign`): die Wegweiserebene, also das, was orientiert statt zu erzählen —
-  die Wortzeichen beider Portale (nicht deren Unterzeile), die Ordnungsnummern der Einheiten
-  („§ 12“, „Artikel 7a“; Titel und Text der Einheit bleiben Serife), die Buchstabenleiste der
-  Verzeichnisse, Abkürzungen und Verkündungssigel („OstArchivG“, „OGVBl. 2026 Nr. 74“) in
-  Verzeichnissen, Trefferlisten und Normkopf, die Kennzahlen der Kopfbereiche, die Titel der
-  Zugangskarten auf der Startseite des Staatsportals und die Ortsnamen der Gebietstabellen. Alle
+- Ost Grotesk (`--font-sign`): wie eine Vorschrift heißt und in welchem Zustand sie ist — der
+  Titel in Verzeichnissen und Trefferlisten, das Etikett des Normtyps („Gesetz“,
+  „Zustimmungsgesetz“), das Herkunfts- und das Statusabzeichen, das Sachgebiet und die Ortsnamen
+  der Gebietstabellen. Die Auswahl folgt den Zeichen: „Gesetz“ trägt ein tz, „Straße“ und
+  „außer Kraft“ ein ß, und 55 Prozent aller Normtitel enthalten das eine oder das andere. Alle
   Stellen stehen als eine Regel am Ende von `foundation.css`; wer sie zurücknimmt, löscht dort
-  eine Zeile. Überschriften gehören ausdrücklich **nicht** dazu: eine schmale Grotesk über
-  geometrischem Fließtext liest sich als zusammengedrückte Oberflächenschrift, nicht als zweite
-  Stimme. Die tz-Ligatur (`dlig`) wird nur in dieser Regel angefordert.
+  eine Zeile. Weil die schmale Grotesk bei gleicher Punktgröße weniger Weiß trägt, stehen die
+  Etiketten eine Stufe größer als die übrige Kleinschrift. Die tz-Ligatur (`dlig`) wird nur in
+  dieser Regel angefordert.
+- Nicht Ost Grotesk: Wortzeichen und Überschriften (eine schmale Grotesk über geometrischem
+  Fließtext liest sich als zusammengedrückte Oberflächenschrift, nicht als zweite Stimme),
+  Ordnungsnummern und Abkürzungen, Kennzahlen und Buchstabenleiste — dort kommen weder ß noch tz
+  vor. Versalien schließen die Schrift ebenfalls aus: in Großbuchstaben fällt das ß zu SS
+  zusammen und die Ligatur entfällt, deshalb setzen die Gebietstabellen ihre Ortsnamen gemischt.
 
 ### Skalen
 
