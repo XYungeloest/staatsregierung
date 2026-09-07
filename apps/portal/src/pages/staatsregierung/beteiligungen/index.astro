@@ -105,11 +105,11 @@ const heroFacts = [
         </div>
         <dl class="meta-list">
           <div>
-            <dt>Ausgangsstichtag</dt>
+            <dt>{siteConfig.vocabulary.baselineDate}</dt>
             <dd><time datetime={overview.inheritanceDate}>{formatDate(overview.inheritanceDate)}</time></dd>
           </div>
           <div>
-            <dt>Datenstand</dt>
+            <dt>{siteConfig.vocabulary.dataAsOf}</dt>
             <dd><time datetime={overview.asOf}>{formatDate(overview.asOf)}</time></dd>
           </div>
           <div>
@@ -167,7 +167,7 @@ const heroFacts = [
 
   <section id="veraenderungen" class="section section-muted holdings-changes">
     <div class="section-header">
-      <h2>Wichtige Veränderungen seit dem Ausgangsstichtag</h2>
+      <h2>Wichtige Veränderungen seit dem {siteConfig.vocabulary.baselineDate}</h2>
       <p>Errichtung, Rechtsnachfolge, Auflösung, Kapitalmaßnahmen und laufende Erwerbsvorgänge werden getrennt ausgewiesen.</p>
     </div>
     <ol class="holdings-timeline">

@@ -1,10 +1,11 @@
 name: Screenshot-Inventur (visual-extended)
 
-# Breite Screenshot-Inventur aller Motive auf drei Viewports im festen Playwright-Container,
-# strikt gegen die committeten Linux-Baselines (Fixture-Bestand): manuell und wöchentlich, vor
-# größeren Releases auf Anforderung. Pull Requests prüfen nur die kritische Auswahl
-# (pull-request.yml); main prüft die Inventur bei Oberflächenänderungen (deploy.yml). Es werden nie
-# Baselines erzeugt.
+# Vollständige Screenshot-Inventur aller Motive im festen Playwright-Container, strikt gegen die
+# committeten Linux-Baselines (Fixture-Bestand). Sie läuft ausschließlich hier: wöchentlich, manuell
+# und vor größeren Releases auf Anforderung. Pull Requests prüfen die kritische Auswahl
+# (pull-request.yml); der Deploy prüft keine Bilder mehr — ein veraltetes Bild ist kein Grund, den
+# Release-Workflow rot zu färben. Es werden nie Baselines erzeugt; das tut nur der Workflow
+# „Screenshot-Baselines erneuern“ (visual-baselines.yml) auf Anforderung.
 
 on:
   workflow_dispatch:

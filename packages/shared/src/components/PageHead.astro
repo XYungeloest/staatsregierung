@@ -2,7 +2,7 @@
 import { activeSiteConfig } from '@ostrecht/shared/config/site.ts';
 import sansFontUrl from '../assets/fonts/Jost-Variable.woff2?url';
 import documentFontUrl from '../assets/fonts/SourceSerif4Variable-Roman.woff2?url';
-import signFontUrl from '../assets/fonts/OstGrotesk-Bold.woff?url';
+import signFontUrl from '../assets/fonts/OstGrotesk-Bold.woff2?url';
 import {
   buildBreadcrumbJsonLd,
   buildCanonicalUrl,
@@ -94,7 +94,7 @@ const ogImageUrl = ogImage ? toAbsoluteUrl(ogImage.url, Astro.site) : undefined;
 <link rel="preload" as="font" type="font/woff2" crossorigin href={sansFontUrl} />
 {/* Der fette Schnitt der Wegweiserschrift steht im Wortzeichen jeder Seite; der normale
     Schnitt trägt nur Abkürzungen und Sigel und lädt deshalb ohne Vorrang. */}
-<link rel="preload" as="font" type="font/woff" crossorigin href={signFontUrl} />
+<link rel="preload" as="font" type="font/woff2" crossorigin href={signFontUrl} />
 {documentFont ? <link rel="preload" as="font" type="font/woff2" crossorigin href={documentFontUrl} /> : null}
 <link rel="icon" type="image/svg+xml" sizes="any" href={`${import.meta.env.BASE_URL}favicon.svg`} />
 <link rel="alternate icon" type="image/x-icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />

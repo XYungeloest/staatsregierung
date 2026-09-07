@@ -6,8 +6,8 @@ Alle Familien werden lokal ausgeliefert, ohne Anfragen an Dritte.
 | --- | --- | --- | --- |
 | `Jost-Variable.woff2` | Jost (OFL) | wght 100–900 | 34 KB |
 | `SourceSerif4Variable-Roman.woff2` | Source Serif 4 (Adobe, OFL, `LICENSE-SourceSerif4.md`) | wght 400–700, opsz 12–48 | 86 KB |
-| `OstGrotesk-Regular.woff` | Ost Grotesk (aus Neu5Land, OFL, `LICENSE-OstGrotesk.md`) | fester Schnitt 400 | 11 KB |
-| `OstGrotesk-Bold.woff` | Ost Grotesk | fester Schnitt 700 | 12 KB |
+| `OstGrotesk-Regular.woff2` | Ost Grotesk (aus Neu5Land, OFL, `LICENSE-OstGrotesk.md`) | fester Schnitt 400 | 8 KB |
+| `OstGrotesk-Bold.woff2` | Ost Grotesk | fester Schnitt 700 | 8 KB |
 
 Rollen: Jost trägt die Oberfläche (Navigation, Titel der Bereichsseiten, Verzeichnisse,
 Trefferlisten, Formulare, Metadaten), Source Serif 4 das Dokument (Normtext samt Gliederung,
@@ -37,14 +37,17 @@ Fließtext, in Normtexten oder in Trefferlisten.
 
 ```sh
 python3 scripts/build-sign-font.py Neu5Land_Norm.ttf \
-  --out packages/shared/src/assets/fonts/OstGrotesk-Regular.woff --style Regular
+  --out packages/shared/src/assets/fonts/OstGrotesk-Regular.woff2 --style Regular
 python3 scripts/build-sign-font.py Neu5Land_Fett.ttf \
-  --out packages/shared/src/assets/fonts/OstGrotesk-Bold.woff --style Bold
+  --out packages/shared/src/assets/fonts/OstGrotesk-Bold.woff2 --style Bold
 ```
 
-Die Vorlagendateien liegen nicht im Repository. Ausgeliefert wird woff (zlib) statt woff2, weil
-`brotli` in der Bauumgebung nicht verfügbar war; mit brotli erzeugt dasselbe Werkzeug woff2, wenn
-die Endung `.woff2` lautet — rund 3 KB je Schnitt weniger. Wie eng die Buchstaben ineinander
+Die Vorlagendateien liegen nicht im Repository. Ausgeliefert wird woff2 (Brotli); dafür braucht
+das Werkzeug die Python-Pakete `fonttools` und `brotli` und die Endung `.woff2`. Gegenüber der
+zuvor ausgelieferten woff-Fassung (zlib) sind das 10.988 → 8.176 Bytes im normalen und
+11.384 → 8.508 Bytes im fetten Schnitt bei gleichem Zeichenbestand: Glyphenreihenfolge, `cmap`,
+`hmtx`, `unitsPerEm`, Zeilenbox, Namenstabelle, Merkmalsliste und die `dlig`-Ligatur `t+z` sind
+identisch, ebenso die aufgezeichneten Umrisse aller 272 Glyphen. Wie eng die Buchstaben ineinander
 greifen, steuert `--overlap` (Standard 10 Einheiten je 1000); die Balkenmaße leitet das Werkzeug
 je Schnitt aus den Konturen ab, deshalb gilt derselbe Wert für beide. Weil die Unterkanten der
 zwei Balken um wenige Einheiten auseinanderliegen (3 im normalen, 17 im fetten Schnitt), führt

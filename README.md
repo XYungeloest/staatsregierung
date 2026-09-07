@@ -83,6 +83,12 @@ tests/           schnelle Unit-Tests auf synthetischen Fixtures, tests/corpus/ (
 
 ## Inhalte und Recht
 
+Welche Seiten das Staatsportal öffentlich hat, steht genau einmal im Portalinventar
+(`apps/portal/src/lib/route-inventory.ts`): `sitemap.xml`, die Serviceübersicht unter
+`/service/uebersicht/` und der Suchindex leiten sich daraus ab. Die Portalsuche lädt
+`/search-index.json` mit den Portalinhalten sofort und `/search-index-recht.json` mit den
+Bezeichnungen des Rechtsbestands erst, wenn der Bereichsfilter das Recht einschließt.
+
 Öffentliche Inhalte werden über validierte JSON-Dateien unter `content/` gepflegt; Formate und
 Pflegewege stehen in `CONTENT.md`. Ämter, Mitgliedschaften und Ressortleitungen werden nur aus
 `content/organisation/` abgeleitet.

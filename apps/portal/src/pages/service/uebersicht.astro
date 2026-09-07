@@ -1,29 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import {
-  getAccessibilityUrl,
-  getBudgetUrl,
-  getCareerUrl,
-  getContactUrl,
-  getEducationAndSchoolUrl,
-  getEasyLanguageUrl,
-  getFaqUrl,
-  getFreestateUrl,
-  getGovernmentUrl,
-  getHomeUrl,
-  getImprintUrl,
-  getLawHomeUrl,
-  getPressUrl,
-  getPrivacyUrl,
-  getPublicationsUrl,
-  getServiceUrl,
-  getSignLanguageUrl,
-  getTopicsUrl,
-} from '@ostrecht/shared/lib/portal/index.ts';
+import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import { buildPortalRouteInventory, groupRoutesBySection } from '../../lib/route-inventory.ts';
+import { getHomeUrl, getServiceUrl } from '@ostrecht/shared/lib/portal/index.ts';
+
+const routes = (await buildPortalRouteInventory()).filter((route) => route.overview);
+const groups = groupRoutesBySection(routes);
+const total = routes.length;
 ---
 
-<BaseLayout title="Übersicht" description="Sitemap-artige Übersicht über die zentralen Bereiche des Regierungsportals.">
+<BaseLayout
+  title="Übersicht"
+  description="Alle Bereiche und Einstiegsseiten des Staatsportals, nach Bereichen geordnet."
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
@@ -36,97 +26,36 @@ import {
     <p class="eyebrow">Service</p>
     <h1>Übersicht</h1>
     <p class="lead">
-      Diese Seite bündelt die wichtigsten Einstiege des Regierungsportals in einer kompakten,
-      sitemap-artigen Übersicht.
+      Diese Seite führt {total} Einstiegs- und Übersichtsseiten des Staatsportals, nach Bereichen
+      geordnet. Einzelne Mitteilungen, Reden, Termine, Themenseiten und Stellenangebote stehen in
+      den jeweiligen Bereichen.
     </p>
   </section>
 
-  <section class="section">
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h2>Staatsrat</h2>
-        <p>Staatspräsident, Mitglieder, Staatssekretariate und Programmübersicht.</p>
-        <p><a class="inline-link" href={getGovernmentUrl()}>Zum Staatsrat</a></p>
-      </article>
-      <article class="panel">
-        <h2>Themen & Projekte</h2>
-        <p>Politische Vorhaben mit Umsetzungsstand, FAQ und Rechtsgrundlagen.</p>
-        <p><a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a></p>
-      </article>
-      <article class="panel">
-        <h2>Bildung und Schule</h2>
-        <p>Schularten, Bildungswege, Abschlüsse und zuständige Stellen.</p>
-        <p><a class="inline-link" href={getEducationAndSchoolUrl()}>Zu Bildung und Schule</a></p>
-      </article>
-      <article class="panel">
-        <h2>Recht</h2>
-        <p>Normenbestand mit Suche, Archiv, Sachgebieten und Verfassung.</p>
-        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
-      </article>
-      <article class="panel">
-        <h2>Presse & Aktuelles</h2>
-        <p>Pressemitteilungen, Reden und Termine des Staatsrates.</p>
-        <p><a class="inline-link" href={getPressUrl()}>Zum Pressebereich</a></p>
-      </article>
-      <article class="panel">
-        <h2>Haushalt</h2>
-        <p>Doppelhaushalt, Einzelpläne, Sondervermögen und Explorer.</p>
-        <p><a class="inline-link" href={getBudgetUrl()}>Zum Haushalt</a></p>
-      </article>
-      <article class="panel">
-        <h2>Über den Freistaat</h2>
-        <p>Staatsziele, Bezirke, Hoheitszeichen und Geschichte.</p>
-        <p><a class="inline-link" href={getFreestateUrl()}>Zum Freistaat</a></p>
-      </article>
-    </div>
-  </section>
+  <SectionNavigation
+    label="Bereiche dieser Übersicht"
+    variant="service"
+    items={groups.map((group) => ({ label: group.label, href: `#bereich-${group.key}` }))}
+  />
 
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Servicezugänge</h2>
-      <p>Häufig genutzte Informations- und Hilfeseiten sind hier direkt verlinkt.</p>
-    </div>
-    <ul class="record-list">
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getServiceUrl()}>Service-Start</a></strong>
-        <span>Gemeinsamer Einstieg in Kontakt, Karriere und Hilfe.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getCareerUrl()}>Karriere</a></strong>
-        <span>Stellenangebote und Rahmendaten für die Arbeit in der Landesverwaltung.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getContactUrl()}>Kontakt</a></strong>
-        <span>Zentrale Kontaktwege und Zuständigkeitswegweiser.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getFaqUrl()}>FAQ</a></strong>
-        <span>Kurze Antworten zur Nutzung des Portals und des Rechtsbereichs.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getPublicationsUrl()}>Publikationen und Downloads</a></strong>
-        <span>Verkündungen, Presseformate und zentrale Downloadangebote.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getEasyLanguageUrl()}>Leichte Sprache</a></strong>
-        <span>Kurze Orientierung zu zentralen Portalbereichen.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getSignLanguageUrl()}>Hinweis zu Gebärdensprache</a></strong>
-        <span>Informationen zum derzeit noch nicht verfügbaren Videoangebot und zu Alternativen.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getAccessibilityUrl()}>Barrierefreiheit</a></strong>
-        <span>Hinweise zum Stand der Barrierefreiheit und zum Feedbackweg.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getImprintUrl()}>Impressum</a></strong>
-        <span>Verantwortlichkeiten und Angaben zum Portal.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getPrivacyUrl()}>Datenschutz</a></strong>
-        <span>Datenschutzhinweise zur Webanalyse und zur Nutzung der bereitgestellten Kontaktwege.</span>
-      </li>
-    </ul>
-  </section>
+  {groups.map((group) => (
+    <section
+      id={`bereich-${group.key}`}
+      class="section"
+      aria-labelledby={`bereich-${group.key}-titel`}
+    >
+      <div class="section-header section-header--compact">
+        <h2 id={`bereich-${group.key}-titel`}>{group.label}</h2>
+        <p>{group.description}</p>
+      </div>
+      <ul class="record-list">
+        {group.routes.map((route) => (
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={route.path}>{route.title}</a></strong>
+            {route.description ? <span>{route.description}</span> : null}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
 </BaseLayout>

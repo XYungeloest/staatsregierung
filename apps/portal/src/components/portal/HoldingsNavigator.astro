@@ -1,4 +1,5 @@
 ---
+import DataPagination from './DataPagination.astro';
 import HoldingsTable from './HoldingsTable.astro';
 import {
   formatHoldingCurrentStatus,
@@ -177,14 +178,12 @@ const getCurrentStatusLabel = (value: string) => formatHoldingCurrentStatus(valu
 
   <div id="holdings-panel-list" role="tabpanel" aria-labelledby="holdings-tab-list" data-holdings-panel="list">
     <HoldingsTable positions={initialPositions} />
-    <nav class="holdings-pagination" aria-label="Seiten des Beteiligungsbestands" data-holdings-pagination>
-      <p><span data-holdings-range>1–25</span> von <span data-holdings-pagination-total>{inventory.totals.positionRows}</span></p>
-      <div>
-        <button type="button" data-page-action="previous" disabled>Zurück</button>
-        <span data-holdings-page-label>Seite 1 von {Math.ceil(inventory.totals.positionRows / 25)}</span>
-        <button type="button" data-page-action="next">Weiter</button>
-      </div>
-    </nav>
+    <DataPagination
+      label="Seiten des Beteiligungsbestands"
+      total={inventory.totals.positionRows}
+      scope="holdings"
+      unit="Positionen"
+    />
   </div>
 
   <div id="holdings-panel-tree" role="tabpanel" aria-labelledby="holdings-tab-tree" data-holdings-panel="tree" hidden>
