@@ -43,6 +43,8 @@
  * Fassungen, Historie oder sonstige Metadaten, genügt die Norm selbst.
  */
 
+import { createHash } from 'node:crypto';
+
 export const REFERENCE_DATE_PATH = 'packages/shared/src/config/editorial.json';
 /**
  * Redaktionelles Stichwortregister: Eingabe der Stichworteinträge (law_norm_keywords). Eine
@@ -72,12 +74,80 @@ export const GLOBAL_TRIGGER_PATTERNS = [
 /** Portalgrundlagen, die nur die Portalbezüge in law_norm_derived beeinflussen. */
 export const PORTAL_CONTENT_PATTERN = /^content\/(?:themen|presse)\//u;
 
+/**
+ * Ziele der Normprojektion (scripts/sync-recht-d1.mjs, `normQueries`). Ein Metadata-only-Umfang
+ * schreibt statt aller Zeilen einer Norm nur die Ziele, die die geänderten meta.json-Felder
+ * überhaupt berühren können.
+ *
+ *   norm                 law_norms (eine Upsert-Zeile, enthält meta_json und alle Übersichtsspalten)
+ *   versions             law_versions, law_version_blocks, law_source_objects
+ *   derived              law_norm_derived und die abgeleiteten Spalten von law_norms
+ *   subjects             law_norm_subjects
+ *   keywords             law_norm_keywords
+ *   history              law_norm_history
+ *   searchDocuments      law_search_documents (Metadaten je Fassung)
+ *   searchUnits          alle law_search_units der Norm (Trefferstellen und Metadateneinheit)
+ *   searchMetadataUnit   nur die Metadateneinheit (block_type = 'metadata') der geltenden Fassung
+ */
+export const NORM_TARGETS = ['norm', 'versions', 'derived', 'subjects', 'keywords', 'history', 'searchDocuments', 'searchUnits', 'searchMetadataUnit'];
+
+/**
+ * Wirkung einzelner meta.json-Felder auf diese Ziele – ermittelt an den Projektionsfunktionen
+ * selbst, nicht vermutet (tests/d1-metadata-only-scope.test.mjs mutiert jedes Feld und vergleicht
+ * die erzeugten Anweisungen mengenweise; ein hier zu eng eingetragenes Feld fällt dort auf).
+ *
+ * Aufgenommen wird nur, was zwei Bedingungen erfüllt: die Änderung berührt ausschließlich Zeilen
+ * *derselben* Norm, und sie berührt von deren Zeilen nur die genannten Ziele. Ein Feld, das hier
+ * fehlt, ist nicht klassifiziert: die Norm wird dann fail-closed vollständig neu projiziert. Damit
+ * ist die Liste erweiterbar, ohne dass ihre Lücken zu falschen Daten führen.
+ *
+ * `summary`/`summarySource` gehen über `getPublicNormSummary` in die Übersichtsspalte, das
+ * Suchdokument und den Metadatentext der Suche ein; die Fassungsspalte law_versions.summary hängt
+ * dagegen allein an `version.summary` (packages/shared/src/lib/norms/identity.ts). `keywords`
+ * liefert zusätzlich die Stichworteinträge der Art `derived`.
+ */
+export const META_FIELD_TARGETS = {
+  summary: ['norm', 'searchDocuments', 'searchMetadataUnit'],
+  summarySource: ['norm', 'searchDocuments', 'searchMetadataUnit'],
+  keywords: ['norm', 'keywords', 'searchDocuments', 'searchMetadataUnit'],
+  ministry: ['norm', 'searchDocuments', 'searchMetadataUnit'],
+  responsibleMinistry: ['norm', 'searchDocuments', 'searchMetadataUnit'],
+  fundingArea: ['norm'],
+};
+
 /** Felder von meta.json, deren Änderung die abgeleiteten Daten anderer Normen berührt. */
 export const IDENTITY_FIELDS = [
   'slug', 'title', 'shortTitle', 'abbr', 'type', 'status', 'subjects', 'primarySubject', 'keywords',
   'predecessorSlug', 'successorSlug', 'enactingNorm', 'enactedNorm', 'enactedNorms', 'containedIn',
   'affectedNorms', 'affectedByNorms', 'relatedNorms', 'documentDate', 'effectiveDate', 'expiryDate',
 ];
+
+const METADATA_ONLY_LABEL = 'nur die betroffenen Ziele statt aller Zeilen der Norm';
+
+/** Bindender Kurzwert der Metadata-only-Zuordnung für die Umfangssignatur (Nachweisbindung). */
+export function metadataOnlyDigest(metadataOnly) {
+  const entries = Object.entries(metadataOnly ?? {}).sort(([left], [right]) => (left < right ? -1 : left > right ? 1 : 0));
+  if (entries.length === 0) return null;
+  const canonical = JSON.stringify(entries.map(([slug, targets]) => [slug, NORM_TARGETS.filter((target) => targets.includes(target))]));
+  return { count: entries.length, digest: createHash('sha256').update(canonical).digest('hex').slice(0, 32) };
+}
+
+/**
+ * Ziele, die eine Liste geänderter meta.json-Felder berühren kann, oder `null`, wenn mindestens
+ * ein Feld nicht klassifiziert ist (fail-closed: vollständige Neuprojektion der Norm). Eine leere
+ * Feldliste – meta.json geändert, aber kein Feldwert anders (Formatierung, Schlüsselreihenfolge) –
+ * ergibt die leere Zielmenge: an der Projektion dieser Norm ändert sich nichts.
+ */
+export function classifyMetaFields(fields) {
+  if (!Array.isArray(fields)) return null;
+  const targets = new Set();
+  for (const field of fields) {
+    const fieldTargets = META_FIELD_TARGETS[field];
+    if (!fieldTargets) return null;
+    for (const target of fieldTargets) targets.add(target);
+  }
+  return NORM_TARGETS.filter((target) => targets.has(target));
+}
 
 export function normalizeChangedPath(value) {
   return String(value ?? '').trim().replaceAll('\\', '/').replace(/^\.\//u, '');
@@ -107,9 +177,12 @@ export function isProjectionLogicPath(path, logicPaths = null) {
  *   redaktionelle Stichtag geändert hat (scripts/lib/d1-reference-date.mjs); ohne Angabe bleibt
  *   eine Änderung von editorial.json ein Full-Trigger. `portalProjectionChanged` sagt für eine
  *   Themen- oder Pressedatei, ob sich ihr projektionsrelevanter Auszug geändert hat (Standard:
- *   ja, konservativ). `logicPaths` und `logicChange` siehe Kopfkommentar.
+ *   ja, konservativ). `metaFieldsChanged` liefert für eine Norm die Namen der geänderten
+ *   meta.json-Felder (Basis gegen Ziel) oder `null`, wenn der Vergleich nicht möglich ist; ohne
+ *   diese Angabe wird jede Norm vollständig neu projiziert. `logicPaths` und `logicChange` siehe
+ *   Kopfkommentar.
  */
-export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false, referenceDateSlugs = null, logicPaths = null, logicChange = 'full', portalProjectionChanged = () => true } = {}) {
+export function scopeFromChangedPaths(paths, { existingSlugs, existingPublications = null, identityChanged = () => false, referenceDateSlugs = null, logicPaths = null, logicChange = 'full', portalProjectionChanged = () => true, metaFieldsChanged = () => null } = {}) {
   if (!LOGIC_CHANGE_MODES.includes(logicChange)) throw new Error(`logicChange muss full, narrow oder ignore sein, erhalten: ${String(logicChange)}`);
   const normalized = paths.map(normalizeChangedPath).filter(Boolean);
   const reasons = [];
@@ -117,6 +190,8 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
   const deletedSlugs = new Set();
   const publicationSlugs = new Set();
   const deletedPublications = new Set();
+  /** Welche Dateien einer Norm sich geändert haben – Metadata-only gilt nur für meta.json allein. */
+  const normFiles = new Map();
   let full = false;
   let unknown = 0;
   let referenceDateChanged = false;
@@ -153,8 +228,11 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
     }
     const slug = slugFromNormPath(path);
     if (slug) {
-      if (existingSlugs.has(slug)) slugs.add(slug);
-      else deletedSlugs.add(slug);
+      if (existingSlugs.has(slug)) {
+        slugs.add(slug);
+        if (!normFiles.has(slug)) normFiles.set(slug, new Set());
+        normFiles.get(slug).add(path.slice(`content/normen/${slug}/`.length));
+      } else deletedSlugs.add(slug);
       continue;
     }
     const publication = publicationSlugFromPath(path);
@@ -199,9 +277,26 @@ export function scopeFromChangedPaths(paths, { existingSlugs, existingPublicatio
     }
   }
 
+  // Metadata-only: Normen, an denen ausschließlich meta.json geändert wurde und deren geänderte
+  // Felder sämtlich klassifiziert sind. Alles andere bleibt die vollständige Neuprojektion der
+  // Norm – ein unbekanntes Feld, eine zweite geänderte Datei oder ein fehlender Basisvergleich
+  // genügen, um in den größeren sicheren Umfang zurückzufallen.
+  const metadataOnly = {};
+  if (!full) {
+    for (const slug of slugs) {
+      const files = normFiles.get(slug);
+      if (!files || files.size !== 1 || !files.has('meta.json')) continue;
+      const targets = classifyMetaFields(metaFieldsChanged(slug));
+      if (targets) metadataOnly[slug] = targets;
+    }
+    const count = Object.keys(metadataOnly).length;
+    if (count > 0) reasons.push(`${count} von ${slugs.size} Norm(en) nur mit klassifizierten meta.json-Feldern: ${METADATA_ONLY_LABEL}`);
+  }
+
   return {
     mode: full ? 'full' : 'incremental',
     slugs: [...slugs].sort(),
+    metadataOnly,
     deletedSlugs: [...deletedSlugs].sort(),
     publicationSlugs: [...publicationSlugs].sort(),
     deletedPublications: [...deletedPublications].sort(),
@@ -221,6 +316,10 @@ export function scopeSignature(scope) {
   return JSON.stringify({
     mode: scope.mode,
     slugs: [...scope.slugs].sort(),
+    // Der Metadata-only-Umfang bestimmt, welche Zeilen einer Norm überhaupt geschrieben werden;
+    // er gehört deshalb in die Signatur. Statt der vollen Zuordnung (bei einem Bestandslauf
+    // Tausende Einträge) bindet ein Digest über die sortierte Zuordnung den nachgewiesenen Stand.
+    metadataOnly: metadataOnlyDigest(scope.metadataOnly),
     deletedSlugs: [...scope.deletedSlugs].sort(),
     publicationSlugs: [...scope.publicationSlugs].sort(),
     deletedPublications: [...(scope.deletedPublications ?? [])].sort(),
