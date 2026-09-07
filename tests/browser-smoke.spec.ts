@@ -336,6 +336,78 @@ siteTest(['portal'])('Portalsuche: Zustände schließen sich gegenseitig aus', a
   await expect(error).toBeHidden();
 });
 
+/**
+ * Der Rechtsindex wird nachgeladen. Fällt er aus, muss die Seite bedienbar bleiben: genau eine
+ * Anfrage, kein selbsttätiger Neuversuch, Portaltreffer unverändert sichtbar und eine Meldung in
+ * der Gruppe „Recht“. Vorher stieß jedes Rendern eine neue Anfrage an, und der Reiter blieb in
+ * einer Microtask-Schleife stehen.
+ */
+async function withLawIndex(page: Page, handler: (route: import('@playwright/test').Route) => unknown): Promise<() => number> {
+  let calls = 0;
+  await page.route('**/search-index-recht.json', (route) => {
+    calls += 1;
+    return handler(route);
+  });
+  return () => calls;
+}
+
+siteTest(['portal'])('Portalsuche: ein Ausfall des Rechtsindex hält die Seite bedienbar', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  const calls = await withLawIndex(page, (route) => route.fulfill({ status: 500, contentType: 'application/json', body: '{}' }));
+  await page.goto('/suche/?q=Kreisreform');
+
+  const lawGroup = page.locator('[data-portal-search-law-status="error"]');
+  await expect(lawGroup).toBeVisible();
+  await expect(lawGroup).toContainText('konnte nicht geladen werden');
+  // Portaltreffer bleiben vollständig, der Fehlerkasten der Seite gilt nur dem Portalindex.
+  await expect(page.locator('[data-portal-search-groups] .search-hit')).not.toHaveCount(0);
+  await expect(page.locator('[data-portal-search-error]')).toBeHidden();
+  await expect(page.locator('[data-portal-search-root]')).toHaveAttribute('data-law-status', 'error');
+  expect(calls()).toBe(1);
+
+  // Lebendigkeitsnachweis: eine neue Eingabe wird verarbeitet (gegen den alten Stand lief hier
+  // die Zeitschranke ab) und löst keine zweite Anfrage aus.
+  await page.locator('[data-portal-search-query]').fill('Haushalt');
+  await expect(page.locator('[data-portal-search-status]')).toContainText('Haushalt', { timeout: 5_000 });
+  expect(calls()).toBe(1);
+
+  // Auch das Aus- und Einschalten des Bereichs wiederholt die Anfrage nicht.
+  await page.locator('[data-portal-search-area]').selectOption('portal');
+  await expect(page.locator('[data-portal-search-law-status]')).toHaveCount(0);
+  await page.locator('[data-portal-search-area]').selectOption('');
+  await expect(page.locator('[data-portal-search-law-status="error"]')).toBeVisible();
+  expect(calls()).toBe(1);
+});
+
+siteTest(['portal'])('Portalsuche: ein Netzwerkfehler des Rechtsindex endet im selben Zustand', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  const calls = await withLawIndex(page, (route) => route.abort('failed'));
+  await page.goto('/suche/?q=Kreisreform');
+
+  await expect(page.locator('[data-portal-search-law-status="error"]')).toBeVisible();
+  await expect(page.locator('[data-portal-search-groups] .search-hit')).not.toHaveCount(0);
+  expect(calls()).toBe(1);
+});
+
+siteTest(['portal'])('Portalsuche: ein leerer Rechtsbestand ist geladen, kein Fehler', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  const calls = await withLawIndex(page, (route) =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ origin: 'https://recht.example', entries: [] }) }));
+  await page.goto('/suche/?q=Kreisreform');
+
+  await expect(page.locator('[data-portal-search-root]')).toHaveAttribute('data-law-status', 'loaded');
+  await expect(page.locator('[data-portal-search-law-status]')).toHaveCount(0);
+  await expect(page.locator('[data-portal-search-groups] .search-hit')).not.toHaveCount(0);
+  await expect(page.locator('[data-portal-search-status]')).not.toContainText('werden geladen');
+  expect(calls()).toBe(1);
+
+  // Ohne Portaltreffer bleibt die allgemeine Leermeldung zuständig – nicht der Fehlerzustand.
+  await page.locator('[data-portal-search-query]').fill('zzzznichtvorhanden');
+  await expect(page.locator('[data-portal-search-empty]')).toBeVisible();
+  await expect(page.locator('[data-portal-search-law-status="error"]')).toHaveCount(0);
+  expect(calls()).toBe(1);
+});
+
 siteTest(['portal'])('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
   await prepareFunctionalPage(page);
   await page.goto('/haushalt/');

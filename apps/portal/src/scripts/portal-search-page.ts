@@ -1,10 +1,12 @@
 import {
   buildSnippet,
+  findTermRanges,
   rankEntries,
   toSearchTerms,
   type RankableEntry,
   type ScoredEntry,
 } from '../lib/search-ranking.ts';
+import { lawGroupStatus, nextLawState, type LawIndexState, type LawGroupStatus } from '../lib/search-law-state.ts';
 
 export {};
 
@@ -34,9 +36,13 @@ function markRanges(text: string, marks: Array<{ start: number; end: number }>):
   return html + escapeHtml(text.slice(cursor));
 }
 
+/**
+ * Markiert die Suchbegriffe im vollständigen Wert. Anders als `buildSnippet` bildet diese Stelle
+ * kein Fenster: Überschriften und Kurzbeschreibungen sollen ganz dastehen, nicht angeschnitten.
+ */
 function highlightWords(value: string, terms: string[]): string {
-  const snippet = buildSnippet(value, terms, value.length + 1);
-  return snippet && snippet.marks.length > 0 ? markRanges(snippet.text, snippet.marks) : escapeHtml(value);
+  const ranges = findTermRanges(value, terms);
+  return ranges.length > 0 ? markRanges(value, ranges) : escapeHtml(value);
 }
 
 function formatDate(date: string): string {
@@ -44,7 +50,7 @@ function formatDate(date: string): string {
 }
 
 function formatCount(count: number): string {
-  return `${count} ${count === 1 ? 'Treffer' : 'Treffer'}`;
+  return `${count} Treffer`;
 }
 
 if (root) {
@@ -67,7 +73,7 @@ if (root) {
 
   let portalEntries: PortalEntry[] = [];
   let lawEntries: RankableEntry[] = [];
-  let lawRequest: Promise<void> | null = null;
+  let lawState: LawIndexState = 'idle';
   let visibleCount = PAGE_SIZE;
 
   if (queryInput) queryInput.value = params.get('q') ?? '';
@@ -85,10 +91,16 @@ if (root) {
   /**
    * Der Rechtsindex wird erst geholt, wenn der Bereichsfilter ihn einschließt und tatsächlich
    * gesucht wird. Ein Portaltreffer steht damit vor der ersten Übertragung des Rechtsbestands.
+   *
+   * Genau eine Anfrage je Seitenaufruf: `lawState` führt den Zustand, statt ihn aus der Länge von
+   * `lawEntries` zu erraten. `loaded` und `error` sind Endzustände; ein Fehlschlag wird nicht
+   * wiederholt, und kein Rendern stößt eine zweite Anfrage an. Ein bewusster Neuversuch wäre ein
+   * Bedienelement, das `lawState` zurücksetzt – absichtlich nicht Teil dieses Ablaufs.
    */
-  const ensureLawIndex = (): Promise<void> => {
-    if (lawRequest) return lawRequest;
-    lawRequest = fetch(lawIndexUrl)
+  const ensureLawIndex = (): void => {
+    if (lawState !== 'idle') return;
+    lawState = nextLawState(lawState, 'request');
+    void fetch(lawIndexUrl)
       .then(async (response) => {
         if (!response.ok) throw new Error(`Law index unavailable (${response.status})`);
         const payload = (await response.json()) as { origin: string; entries: RankableEntry[] };
@@ -97,11 +109,16 @@ if (root) {
           id: entry.url,
           url: `${payload.origin}${entry.url}`,
         }));
+        // Auch ein leerer Bestand ist geladen, nicht fehlerhaft.
+        lawState = nextLawState(lawState, 'success');
       })
       .catch(() => {
         lawEntries = [];
-      });
-    return lawRequest;
+        lawState = nextLawState(lawState, 'failure');
+      })
+      // Genau ein Nachrendern, gleich welcher Ausgang; es hängt an keiner Bedingung, die der
+      // Fehlerpfad offen lassen könnte.
+      .finally(() => update(false));
   };
 
   const renderHit = (hit: ScoredEntry, terms: string[]): string => {
@@ -121,7 +138,7 @@ if (root) {
       </li>`;
   };
 
-  const renderGroups = (hits: ScoredEntry[], terms: string[], lawPending: boolean) => {
+  const renderGroups = (hits: ScoredEntry[], terms: string[], lawStatus: LawGroupStatus) => {
     if (!groupsNode) return;
     const groups: Array<{ key: 'portal' | 'law'; label: string; hint: string }> = [
       { key: 'portal', label: 'Staatsportal', hint: 'Seiten des Staatsportals' },
@@ -131,9 +148,14 @@ if (root) {
       .map((group) => {
         const all = hits.filter((hit) => hit.area === group.key);
         if (all.length === 0) {
-          return group.key === 'law' && lawPending
-            ? `<section class="search-group"><h2>${group.label}</h2><p class="search-feedback">Der Rechtsbestand wird geladen …</p></section>`
-            : '';
+          // Ein geladener, aber leerer Rechtsbestand braucht keinen eigenen Kasten; dafür gibt es
+          // die allgemeine Leermeldung. Laden und Ausfall dagegen sind eigene Zustände.
+          if (group.key !== 'law' || lawStatus === 'off' || lawStatus === 'loaded') return '';
+          const body =
+            lawStatus === 'loading'
+              ? '<p class="search-feedback">Die Vorschriften werden geladen …</p>'
+              : `<p class="search-feedback search-feedback--warning">Der Rechtsbestand konnte nicht geladen werden. Die Treffer des Staatsportals stehen oben unverändert.${lawSearchUrl ? ` <a class="inline-link" href="${escapeHtml(lawSearchUrl)}?q=${encodeURIComponent(queryInput?.value.trim() ?? '')}">Zur Rechtssuche</a>` : ''}</p>`;
+          return `<section class="search-group" data-portal-search-law-status="${lawStatus}" aria-labelledby="search-group-law"><div class="search-group__header"><h2 id="search-group-law">${group.label}</h2></div>${body}</section>`;
         }
         const shown = all.slice(0, visibleCount);
         const more =
@@ -178,25 +200,35 @@ if (root) {
     const portalPool = wantsPortal()
       ? portalEntries.filter((entry) => !sectionFilter || entry.section === sectionFilter)
       : [];
+    // Der Anstoß steht vor dem Rendern, damit schon das erste Bild den Ladezustand zeigt.
+    if (wantsLaw()) ensureLawIndex();
     const lawPool = wantsLaw() ? lawEntries : [];
-    const lawPending = wantsLaw() && lawEntries.length === 0;
+    const lawStatus = lawGroupStatus(lawState, wantsLaw());
     const hits = rankEntries(portalPool, lawPool, query, { sort });
+    root.dataset.lawStatus = lawStatus;
 
     if (examplesNode) examplesNode.hidden = true;
     if (errorNode) errorNode.hidden = true;
-    if (emptyNode) emptyNode.hidden = hits.length > 0 || lawPending;
+    // Beim Ausfall trägt die Gruppe „Recht“ die Meldung; zwei Warnungen zu einer Lage wären
+    // widersprüchlich (tests/browser-smoke.spec.ts: Zustände schließen sich gegenseitig aus).
+    if (emptyNode) emptyNode.hidden = hits.length > 0 || lawStatus === 'loading' || lawStatus === 'error';
     if (moreWrap) {
       moreWrap.hidden = hits.every((hit) => hits.filter((other) => other.area === hit.area).length <= visibleCount);
     }
     if (statusNode) {
       const portalCount = hits.filter((hit) => hit.area === 'portal').length;
       const lawCount = hits.filter((hit) => hit.area === 'law').length;
+      // Der Ladezustand hat einen eigenen Text in der Statuszeile (aria-live); der Hinweis auf den
+      // Ausfall hängt an der Trefferzeile, damit ihn auch hört, wer die Gruppe nicht erreicht.
+      const note = lawStatus === 'error' ? ' Der Rechtsbestand ist nicht erreichbar; die Treffer des Staatsportals bleiben vollständig.' : '';
       statusNode.textContent =
-        hits.length === 0
-          ? `Keine Treffer für „${query}“`
-          : `${hits.length} Treffer für „${query}“: ${portalCount} im Staatsportal, ${lawCount} im Recht.`;
+        lawStatus === 'loading'
+          ? `Suche läuft für „${query}“: die Vorschriften werden geladen …`
+          : hits.length === 0
+            ? `Keine Treffer für „${query}“.${note}`
+            : `${hits.length} Treffer für „${query}“: ${portalCount} im Staatsportal, ${lawCount} im Recht.${note}`;
     }
-    renderGroups(hits, terms, lawPending);
+    renderGroups(hits, terms, lawStatus);
 
     const nextParams = new URLSearchParams();
     if (query) nextParams.set('q', query);
@@ -204,8 +236,6 @@ if (root) {
     if (sort === 'latest') nextParams.set('sort', 'latest');
     const nextSearch = nextParams.toString();
     window.history.replaceState(null, '', `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ''}`);
-
-    if (lawPending) void ensureLawIndex().then(() => update(false));
   };
 
   if (hasSearchIntent() && statusNode) {
@@ -237,6 +267,9 @@ if (root) {
       });
       update();
     })
+    // Fällt der Portalindex aus, bleibt die Seite ohne Bedienung: die Ereignisbehandler oben
+    // werden nie gebunden, das Formular fällt auf seine eigene GET-Adresse zurück. `errorNode`
+    // gilt nur diesem Fall; der Ausfall des Rechtsindex steht in der Gruppe „Recht“.
     .catch(() => {
       if (statusNode) {
         statusNode.textContent =
