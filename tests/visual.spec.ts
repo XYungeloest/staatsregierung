@@ -694,7 +694,8 @@ for (const entry of componentVisualPages) {
  * sind dagegen Listen- und Formularmuster, die andere Bilder und die Messungen unten abdecken;
  * dass Suche und Blätterung *funktionieren*, prüft tests/browser-smoke.spec.ts.
  */
-portalTest('Komponenten-Basislinie: Kreisreform-Kartensperre', async ({ page }) => {
+portalTest('Komponenten-Basislinie: Kreisreform-Kartensperre', async ({ page }, testInfo) => {
+  skipSchmalUnless({}, testInfo.project.name, testInfo);
   await preparePage(page);
   await page.goto('/kreisreform/');
   await page.locator('[data-kreisreform-search-input]').fill('Abtsbessingen');
