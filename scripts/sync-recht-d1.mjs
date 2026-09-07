@@ -817,6 +817,39 @@ export function planRun({ decision, scope, norms, publications, buildContext, no
   return { plan, metadataOnly };
 }
 
+export const BULK_METADATA_PROFILE = 'bulk-metadata';
+
+/**
+ * Das Profil `bulk-metadata` trägt genau einen Fall: eine bewusste Bestandspflege, die
+ * ausschließlich klassifizierte `meta.json`-Felder vieler Vorschriften betrifft. Es hebt weder
+ * `incremental` noch `full` an, autorisiert keine Vollprojektion und greift nur bei ausdrücklicher
+ * Wahl. Der Guard prüft den Umfang fail-closed, **bevor** Ableitungen gerechnet werden: alles, was
+ * über einen vollständig klassifizierten Metadata-only-Umfang hinausgeht, fällt auf den normalen
+ * Weg zurück und muss dort ins Budget passen.
+ *
+ * @param {{ budgetProfile: string | null, decision: { action: string }, scope: object }} input
+ */
+export function assertBulkMetadataScope({ budgetProfile, decision, scope }) {
+  if (budgetProfile !== BULK_METADATA_PROFILE) return;
+  const problems = [];
+  if (decision?.action !== 'incremental') problems.push(`die Entscheidung ist ${decision?.action ?? '(keine)'}, nicht incremental`);
+  if (scope?.mode !== 'incremental') problems.push(`der Umfang ist ${scope?.mode ?? '(keiner)'}, nicht incremental`);
+  const slugs = scope?.slugs ?? [];
+  const metadataOnly = scope?.metadataOnly ?? {};
+  if (slugs.length === 0) problems.push('der Umfang nennt keine Norm');
+  const unclassified = slugs.filter((slug) => !Array.isArray(metadataOnly[slug]));
+  if (unclassified.length > 0) problems.push(`${unclassified.length} Norm(en) ohne klassifizierten Metadata-only-Umfang (z. B. ${unclassified.slice(0, 3).join(', ')})`);
+  if ((scope?.deletedSlugs ?? []).length > 0) problems.push(`${scope.deletedSlugs.length} Normlöschung(en)`);
+  if ((scope?.publicationSlugs ?? []).length > 0) problems.push(`${scope.publicationSlugs.length} geänderte Verkündung(en)`);
+  if ((scope?.deletedPublications ?? []).length > 0) problems.push(`${scope.deletedPublications.length} gelöschte Verkündung(en)`);
+  if (scope?.refreshKeywords) problems.push('Stichwortregister geändert (Register-Rebuild)');
+  if (scope?.refreshSearchDocuments) problems.push('Suchdokumente aller Normen (enge Logikprojektion)');
+  if (scope?.portalRebuild) problems.push('Portalgrundlagen geändert (Portal-Rebuild)');
+  if (problems.length > 0) {
+    throw new SyncBudgetExceeded(`Budgetprofil ${BULK_METADATA_PROFILE} nicht anwendbar (fail-closed): ${problems.join('; ')}. Es trägt nur eine bewusste Bestandspflege klassifizierter meta.json-Felder und niemals eine Vollprojektion; es wurde nichts geschrieben.`);
+  }
+}
+
 /** Vorabprüfung der Planschätzung gegen das Budget; wirft, bevor irgendetwas geschrieben wird. */
 export function assertEstimateWithinBudget(cost, limits) {
   const problems = [];
@@ -1310,6 +1343,9 @@ async function main() {
     return;
   }
   if (!assessment.ok) throw new Error(assessment.message);
+  // Das Sonderprofil einer Bestandspflege gilt nur für einen vollständig klassifizierten
+  // Metadata-only-Umfang; geprüft wird vor jeder Ableitungsrechnung und vor jedem Schreibzugriff.
+  assertBulkMetadataScope({ budgetProfile, decision, scope });
   if (decision.action === 'noop') {
     console.log(`D1-Projektion ist bereits exakt aktuell (letzter Sync ${stored?.last_sync_at ?? '?'}, Modus ${stored?.sync_mode ?? '?'}); kein Sync erforderlich.`);
     console.log(`Kosten dieser Prüfung: ${formatStats(stats)}`);

@@ -7,6 +7,11 @@
       "maxRowsRead": 60000,
       "maxRowsWritten": 120000
     },
+    "bulk-metadata": {
+      "description": "Bewusste Bestandspflege reiner meta.json-Felder: nachgewiesen inkrementeller, vollständig klassifizierter Metadata-only-Umfang über viele Vorschriften. Nur mit ausdrücklicher Wahl (--budget bulk-metadata) und nur, wenn der Guard in scripts/sync-recht-d1.mjs (assertBulkMetadataScope) alle Bedingungen bestätigt: keine Löschungen, keine Verkündungen, kein Register- oder Portal-Rebuild, kein unklassifizierter Umfang, keine Vollprojektion. Grenzen aus dem realen Lauf (95.776 gelesene, 131.460 geschriebene Zeilen geschätzt) mit rund der Hälfte Puffer, weiterhin weit unter `full`.",
+      "maxRowsRead": 150000,
+      "maxRowsWritten": 200000
+    },
     "full": {
       "description": "Bewusste Vollprojektion des gesamten Bestands.",
       "maxRowsRead": 500000,
