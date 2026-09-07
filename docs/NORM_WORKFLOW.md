@@ -4,6 +4,11 @@ Der kanonische Eingang für neue Normen und Änderungsnormen ist eine amtliche H
 `Gesetze/`; vorhandene PDFs dienen der visuellen Gegenprüfung. Der Workflow arbeitet immer
 dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
 
+Dieses Dokument beschreibt den Normteil. Der vollständige Eingangsablauf über alle Inhaltsarten —
+einschließlich der Schritte, die `npm run norms:workflow` nicht ausführt (`docs:check`,
+`norms:publications:pdf-sync`, Screenshot-Baselines, D1-Prüfung, Organisations-Snapshot) — steht in
+[`docs/EINPFLEGE_PLAYBOOK.md`](EINPFLEGE_PLAYBOOK.md).
+
 ## Ablauf
 
 1. Amtliche HTML- und PDF-Dateien nach `Gesetze/` übernehmen und gegeneinander prüfen.
