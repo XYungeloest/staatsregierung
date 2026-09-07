@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
-import { currentDocuments, currentNormOfOrigin, fixtureRole, fixtureSearchWord, lawUrl, multiVersionNorm, publicationIndex, withWorkerRecovery } from './helpers/law-runtime.ts';
+import { currentDocuments, currentNormOfOrigin, currentStructuredNormOfOrigin, fixtureRole, fixtureSearchWord, lawUrl, multiVersionNorm, publicationIndex, withWorkerRecovery } from './helpers/law-runtime.ts';
 
 const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 
@@ -119,7 +119,7 @@ const lawA11yTest = selectedSiteTargets.includes('law') ? test : test.skip;
 
 lawA11yTest('Normtext gibt seine Einheiten als Überschriften aus, nicht in einem Aufklappzeichen', async ({ page, request }) => {
   for (const url of [
-    lawUrl((await currentNormOfOrigin(request, 'ostdeutsch-original')).currentUrl),
+    lawUrl((await currentStructuredNormOfOrigin(request, 'ostdeutsch-original')).currentUrl),
     lawUrl((await multiVersionNorm(request)).historical.url),
   ]) {
     await withWorkerRecovery(request, () => page.goto(url));

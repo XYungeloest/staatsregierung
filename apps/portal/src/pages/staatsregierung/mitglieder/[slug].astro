@@ -40,7 +40,7 @@ const currentOfficeTitles = member.currentOffices.map((office) => office.title);
       title={member.name}
       titleSize="long"
       lead={currentOfficeTitles.length === 1 ? currentOfficeTitles[0] : member.current ? undefined : member.amt}
-      status={member.current ? 'Aktuelles Mitglied des ersten Staatsrates' : `Aus dem Kabinett ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
+      status={member.current ? 'Aktuelles Mitglied des Staatsrates' : `Aus dem Kabinett ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
       variant="government"
       facts={[
         { label: 'Ressort', value: member.ressort },

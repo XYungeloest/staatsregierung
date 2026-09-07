@@ -107,14 +107,31 @@ OVertrBl. 2026 Nr. 4.
 
 Durchführung, amtliches Endergebnis der Volksbefragung, amtliches Wahlergebnis und der politische
 Auswertungsbericht des Staatsrates sind durch das amtliche Endergebnis der Bundeswahlleitung vom
-6. September 2026 und StAnzO. 2026 Nr. 41 belegt und eingepflegt. Weiterhin benötigt werden nur:
+6. September 2026 und StAnzO. 2026 Nr. 41 belegt und eingepflegt; die konstituierende Sitzung der
+achten Volkskammer am 7. September 2026 durch StAnzO. 2026 Nr. 42. Weiterhin benötigt werden nur:
 
 - [ ] gesonderter Beschluss des Staatsrates über organisatorische Grundlagen und nächste Schritte
       der Olympiabewerbung
-- [ ] konstituierende Sitzung der achten Volkskammer (Datum und Sitzungsdokument)
 - [ ] Gesetzentwürfe, Einbringungen und Verkündungen der angekündigten Folgevorhaben, insbesondere
       Sozialistische Verfassungsnovelle sowie Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz
 - [ ] Errichtungsakte für Staatsplankommission Ost und Landeswirtschaftsrat
+
+### V-01a – Personenbelege zum zweiten Staatsrat
+
+Wahl, Konstituierung, Staatspräsident, Stellvertretung und der Zuschnitt der vier Geschäftsbereiche
+sind durch StAnzO. 2026 Nr. 42, OGVBl. 2026 Nr. 75 und die Zuarbeit vom 7. September 2026 belegt und
+eingepflegt. Weiterhin benötigt werden nur:
+
+- [ ] Personendatensatz Johanna Schwade: Kurzbiografie, Werdegang und dienstliche Kontaktangabe
+- [ ] Porträt von Johanna Schwade als JPEG oder PNG für `public/images/regierung/`; bis dahin führt
+      das Profil ein Ansichtsbild
+- [ ] Originaldatei des Ernennungsaktes vom 7. September 2026 für
+      `context/amtliche-dokumente/2026-09-07/`; der Wortlaut ist bereits transkribiert
+- [ ] Personendatensätze, Kontaktangaben und Porträts für Finn Bonnano, Kilian Schmidt und Lukas
+      Schmidt, falls die Staatssekretäre eigene Profile erhalten sollen; das Organisationsmodell
+      braucht dafür zusätzlich ein eigenes Amt unterhalb der Ressortleitung
+- [ ] Revisionspermalink des Wikiartikels „Kabinett Honecker III“ auf
+      `https://politiksim.miraheze.org/wiki/`
 
 ### V-02 – Boom Europe Leipzig/Halle
 

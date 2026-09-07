@@ -39,12 +39,12 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
 });
 ---
 
-<BaseLayout title="Erster Staatsrat" description="Mitglieder und Geschäftsbereiche des ersten Staatsrates.">
+<BaseLayout title="Staatsrat und Geschäftsbereiche" description="Mitglieder und Geschäftsbereiche des Staatsrates.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Staatsrat', href: getGovernmentUrl() },
-      { label: 'Erster Staatsrat' },
+      { label: 'Staatsrat und Geschäftsbereiche' },
     ]}
   />
 
@@ -128,7 +128,7 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
   <section class="section" data-visual-section="cabinet-members">
     <div class="section-header">
       <h2>Mitglieder des Staatsrates</h2>
-      <p>Die Profile bilden die aktuelle personelle Zusammensetzung des ersten Staatsrates ab.</p>
+      <p>Die Profile bilden die aktuelle personelle Zusammensetzung des Staatsrates ab.</p>
     </div>
     <div class="card-grid card-grid--two">
       {stateCouncilMembers.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
@@ -140,8 +140,8 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
 
   <section class="section section-muted">
     <div class="section-header">
-      <h2>Leitung der Staatskanzlei</h2>
-      <p>Die Chefin der Staatskanzlei wird getrennt von den Mitgliedern des Staatsrates ausgewiesen.</p>
+      <h2>Leitung des Büros des Staatspräsidenten</h2>
+      <p>Die Leitung des Büros des Staatspräsidenten wird getrennt von den Mitgliedern des Staatsrates ausgewiesen.</p>
     </div>
     <div class="card-grid card-grid--two">
       {chancelleryLeadership.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}

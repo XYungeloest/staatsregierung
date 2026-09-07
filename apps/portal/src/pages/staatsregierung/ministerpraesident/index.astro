@@ -83,12 +83,12 @@ const topPriorities = topics
           Schwerpunkte, Regierungsverfahren und zentrale Kommunikationslinien zusammengeführt.
         </p>
         <p>
-          Der Übergang zum ersten Staatsrat erfolgte am{' '}
-          <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time>.
-          Seitdem gilt die neue Staatsorganisation.
+          Der amtierende Staatsrat wurde am{' '}
+          <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time>{' '}
+          gebildet. Der Staatspräsident wird aus seiner Mitte bestimmt.
         </p>
         <p>
-          Die Leitungsfunktion des Staatspräsidenten ist eng mit der Staatskanzlei und dem
+          Die Leitungsfunktion des Staatspräsidenten ist eng mit dem Büro des Staatspräsidenten und dem
           Staatssekretariat der Finanzen verknüpft. Von hier aus werden Schwerpunkte, Umsetzungsstände und
           politische Prioritäten des Staatsrates gebündelt.
         </p>
@@ -112,7 +112,7 @@ const topPriorities = topics
             <dd>{currentGovernment.coalitionShort}</dd>
           </div>
         </dl>
-        <p><a class="inline-link" href={getCabinetUrl()}>Zum ersten Staatsrat</a></p>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum Staatsrat</a></p>
         <p><a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a></p>
       </aside>
     </div>
