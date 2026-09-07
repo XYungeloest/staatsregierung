@@ -1629,6 +1629,11 @@ siteTest(['portal'])('Portalsuche gruppiert nach Bereichen und lädt den Rechtsb
   await expect(page.locator('#search-group-portal')).toBeVisible();
   await expect(page.locator('.search-group').first().locator('.search-hit').first()).toBeVisible();
 
+  // Erfolgreiches Laden: der Rechtsindex wird genau einmal geholt und der Zustand ist `loaded`.
+  await expect(page.locator('[data-portal-search-root]')).toHaveAttribute('data-law-status', 'loaded');
+  await expect(page.locator('[data-portal-search-law-status]')).toHaveCount(0);
+  expect(requested.filter((path) => path === '/search-index-recht.json'), 'genau eine Anfrage für den Rechtsindex').toHaveLength(1);
+
   // Der Bereichsfilter kann das Recht ausschließen.
   await page.locator('[data-portal-search-area]').selectOption('portal');
   await expect(page.locator('#search-group-law')).toHaveCount(0);
