@@ -5,6 +5,40 @@ abgehakt; Git ist die Historie. Quellenlücken stehen in `CONTENT_GAPS.md`, ben�
 Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 `docs/DEPLOYMENT_RUNBOOK.md`.
 
+## Betrieb
+
+Diese drei Punkte stammen aus dem Audit vom 7. September 2026 und sind Betriebsarbeit, keine
+Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
+`docs/EINPFLEGE_PLAYBOOK.md`.
+
+- [ ] Deployment von `main` wiederherstellen: Der Lauf 34057455994 (Commit 88e46b76d,
+  Volkskammerwahlergebnis) ist an `d1_sync` gescheitert, `deploy` wurde übersprungen; der
+  nachfolgende Lauf 34113139609 (da95e919f) war `ci-only` und hat `d1_sync` und `deploy` erneut
+  übersprungen. Beide Produktionsziele antworten deshalb weiterhin mit
+  `x-portal-commit: 582c0914…`, dem Stand vom 6. September — das Volkskammerwahlergebnis ist
+  nicht veröffentlicht. Zuerst die Fehlermeldung aus `assessSyncDecision` lesen und entscheiden,
+  ob ein Äquivalenznachweis genügt oder das D1-Release-Gate greift
+  (`docs/DEPLOYMENT_RUNBOOK.md`). Fertig, wenn `d1_sync` auf `main` grün ist, `deploy` gelaufen
+  ist und `npm run test:deployment:production` beide Ziele mit dem aktuellen `main`-Commit
+  bestätigt.
+- [ ] Linux-Screenshot-Baselines erneuern: Die Inventur 34106802597 (visual-extended, 88e46b76d)
+  meldet 50 fehlgeschlagene Aufnahmen von 228. Ursache sind die Oberflächenänderungen der Commits
+  582c09147 (Wegweiserschrift, `foundation.css`) und 88e46b76d (`section-system.css`,
+  `TopicModule.astro`, vorgerückter Stichtag), zu denen keine Baselines erneuert wurden. Der Lauf
+  „Screenshot-Baselines erneuern“ 34062347773 hält bereits ein Artefakt für genau diesen Stand
+  bereit; es verfällt am 20. September 2026. Fertig, wenn die erneuerten
+  `tests/visual.spec.ts-snapshots/*-linux.png` nach Sichtprüfung jeder geänderten Aufnahme
+  committet sind und `visual-extended` auf `main` grün läuft.
+- [ ] Themen-Hervorhebung über den 10. September 2026 hinaus sicherstellen:
+  `content/portal/topic-coverage.json` verlangt unter `discoverability.minimumActiveHighlights`
+  mindestens eine am Stichtag laufende Hervorhebung. `volksbefragung-2026` ist die einzige mit
+  laufendem Fenster (9. August bis 10. September 2026); `kommunen-regionen-und-berlin` und
+  `wohnen-und-vergesellschaftung` sind abgelaufen. Jeder Stichtag ab dem 11. September lässt
+  deshalb `content:check` und `check-topic-coverage` fehlschlagen. Fertig, wenn mindestens ein
+  Thema am fortgeschriebenen Stichtag ein laufendes Hervorhebungsfenster trägt,
+  `discoverability.editorialLead` darauf zeigt und der Audit
+  `npm run norms:advance-reference-date -- --to <Zieldatum>` laufende Hervorhebungen meldet.
+
 ## OstRecht
 
 - [ ] Abgeleitete Metadaten der übernommenen Normen nachschärfen: Schlagwörter und Kurzfassungen
