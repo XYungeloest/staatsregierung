@@ -93,6 +93,7 @@ const allowedEnactingBodies = new Set([
   'Staatsregierung des Freistaates Ostdeutschland',
   'Staatsrat des Freistaates Ostdeutschland',
   'Staatspräsident des Freistaates Ostdeutschland',
+  'Präsident der Volkskammer des Freistaates Ostdeutschland',
   'Bundesministerium des Innern und für Heimat und Ostdeutscher Staatsrat',
   'Verwaltungsrat der Gemeingut Wohnen AöR',
   'Verwaltungsrat der Landesenergiewerke Ost',

@@ -7,7 +7,7 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## Betrieb
 
-Diese drei Punkte stammen aus dem Audit vom 7. September 2026 und sind Betriebsarbeit, keine
+Diese Punkte stammen aus dem Audit vom 7. September 2026 und sind Betriebsarbeit, keine
 Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
 `docs/EINPFLEGE_PLAYBOOK.md`.
 
@@ -16,11 +16,26 @@ Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
   nachfolgende Lauf 34113139609 (da95e919f) war `ci-only` und hat `d1_sync` und `deploy` erneut
   übersprungen. Beide Produktionsziele antworten deshalb weiterhin mit
   `x-portal-commit: 582c0914…`, dem Stand vom 6. September — das Volkskammerwahlergebnis ist
-  nicht veröffentlicht. Zuerst die Fehlermeldung aus `assessSyncDecision` lesen und entscheiden,
-  ob ein Äquivalenznachweis genügt oder das D1-Release-Gate greift
-  (`docs/DEPLOYMENT_RUNBOOK.md`). Fertig, wenn `d1_sync` auf `main` grün ist, `deploy` gelaufen
-  ist und `npm run test:deployment:production` beide Ziele mit dem aktuellen `main`-Commit
-  bestätigt.
+  nicht veröffentlicht, und jeder weitere Eingang bleibt es ebenfalls, solange die produktive D1
+  auf der Identität `9171011036a1fbe5…` steht.
+  Die Entscheidung ist gelesen und getroffen: Der Lauf meldet „Entscheidung: full – gespeicherte
+  Identität 9171011036a1fbe5… (full, complete) weicht ab“, der anschließende Äquivalenznachweis
+  „Vollprojektion erforderlich (abweichende Tabellen: `law_runtime_meta`)“. Ursache ist die
+  Fortschreibung des Stichtags in `packages/shared/src/config/editorial.json`; sie liegt im
+  Projektionsabschluss und ändert `law_runtime_meta`. Der Nachweis genügt damit nicht, das
+  D1-Release-Gate greift: Staging und Produktion bewusst mit `--full --budget full` auf den
+  Zielstand bringen (`docs/DEPLOYMENT_RUNBOOK.md`, Abschnitt D1-Release-Gate). Das braucht
+  `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` und ist ein bewusster Produktionsvorgang.
+  Fertig, wenn `d1_sync` auf `main` grün ist, `deploy` gelaufen ist und
+  `npm run test:deployment:production` beide Ziele mit dem aktuellen `main`-Commit bestätigt.
+- [ ] Prüfen, ob eine reine Stichtagsfortschreibung das Release-Gate auslösen soll: Der
+  Klassifikator behandelt `editorial.json` ausdrücklich nicht als Full-Trigger
+  (`scripts/lib/d1-sync-scope.mjs`), der Äquivalenznachweis verlangt wegen der einen abweichenden
+  Zeile in `law_runtime_meta` aber eine Vollprojektion. Damit führt jede Stichtagsfortschreibung
+  in das Gate, obwohl sich nur Metadaten ändern. Fertig, wenn entweder der Nachweis eine allein in
+  `law_runtime_meta` abweichende Projektion als inkrementellen Umfang ausweist und der Sync sie
+  schreibt, oder in `docs/REVOSAX_BULK_IMPORT.md` steht, dass die Stichtagsfortschreibung
+  bewusst ein Release-Gate ist.
 - [ ] Linux-Screenshot-Baselines erneuern: Die Inventur 34106802597 (visual-extended, 88e46b76d)
   meldet 50 fehlgeschlagene Aufnahmen von 228. Ursache sind die Oberflächenänderungen der Commits
   582c09147 (Wegweiserschrift, `foundation.css`) und 88e46b76d (`section-system.css`,
@@ -41,6 +56,18 @@ Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
 
 ## OstRecht
 
+- [ ] Schreiblauf des Normworkflows mit der Metadatenpflege in Einklang bringen: `npm run
+  norms:workflow -- --file <Quelle> --write` führt `scripts/materialize-revosax-norms.mjs --all
+  --update-existing --write` aus und erzeugt die übernommenen Normen vollständig aus
+  `data/recht/parsed/revosax/` neu. Dabei gehen die nachgelagerten Metadatenpflegen von PR #30
+  (`fsnNumber` in den Quellenangaben) und PR #39 (amtliche Langtitel statt der Kurzformen des
+  Massenimports) verloren: Ein einzelner Eingang aus `temp-neu/` verändert so 146 unbeteiligte
+  Dateien unter `content/normen/`, ohne dass ein Check anschlägt. Beim Eingang StAnzO. 2026 Nr. 42
+  wurden diese Dateien deshalb von Hand zurückgesetzt. Fertig, wenn ein Schreiblauf des
+  Normworkflows auf einer unveränderten Auscheckung von `main` außer den Dateien der eingepflegten
+  Quelle keine Änderung erzeugt — entweder weil der Materialisierer die gepflegten Felder erhält
+  oder weil die Verfeinerung (`scripts/refine-revosax-derived-metadata.mjs`) Teil des Workflows
+  wird.
 - [ ] Redaktionelle Kurzfassungen nachtragen: 4.981 der 5.200 Vorschriften tragen keine
   Kurzbeschreibung, seit die aus dem Titel gebildeten Formeln des Massenimports entfernt sind. Die
   Oberfläche lässt die Zeile dort leer; `summary` ist ein freiwilliges Feld. Der Arbeitsvorrat steht

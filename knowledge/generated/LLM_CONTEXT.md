@@ -14,21 +14,15 @@ Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, V
 
 ## Aktueller Staatsrat
 
-- **Dr. Karl Honecker:** Staatspräsident; Staatsrat der Finanzen; Präsident des Bundesrates; Wahrnehmung der Befugnisse des Bundespräsidenten
-- **Dr. Mateo Delgado:** Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation
-- **Volker Bagdadi:** Staatsrat des Innern und für Wohnungswirtschaft
-- **Tim Dieter:** Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik
-- **Yannik Schmäle:** Staatsrat für Nachhaltigkeit und Energie; Staatsrat für Staats- und Grenzsicherheit
-- **Lucia Liebknecht:** Staatsrätin für Gesundheits- und Sozialwesen
-- **Vincent Flick:** Staatsrat für Mobilität und regionale Entwicklung
-- **Carl Ulbricht:** Staatsrat für Volksbildung und Wissenschaft
-- **Endo Meyer-Raucht:** Staatsrat für Land-, Forst- und Küstenwirtschaft
-- **Max Peterson:** Staatsrat für Wirtschaft und Arbeit
+- **Dr. Karl Honecker:** Präsident des Bundesrates; Wahrnehmung der Befugnisse des Bundespräsidenten; Staatsrat für Überfluss
+- **Yannik Schmäle:** Staatsrat für Frieden
+- **Johanna Schwade:** Staatsrätin für Liebe
+- **Tim Dieter:** Staatsrat für Wahrheit
 - **Emma Müller:** Chefin der Staatskanzlei
 
 ## Parteien und Mehrheiten
 
-7. Volkskammer: Koalition aus Volksfront und Bündnis Demokratie Europa, 11 von 15 Sitzen seit 2026-07-05. Bundesparteiname und ostdeutsche Listenbezeichnungen der DEMOS werden getrennt mit ihrem jeweiligen Zeit- und Wahlbezug geführt.
+8. Volkskammer: Koalition aus Volksfront und Bündnis Demokratie Europa, 11 von 11 Sitzen seit 2026-09-07. Bundesparteiname und ostdeutsche Listenbezeichnungen der DEMOS werden getrennt mit ihrem jeweiligen Zeit- und Wahlbezug geführt.
 
 ## Geltende Verfassungsfassung
 
@@ -95,8 +89,6 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 
 ## Wichtigste historische Ereignisse
 
-- **2026-09-03: NDR-Änderungs- und Überleitungsstaatsvertrag tritt in Kraft.** Der Staatsvertrag ist am 3. September 2026 in Kraft getreten; die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten nach Austausch der Ratifikationsurkunden fest.
-- **2026-09-03: Ostdeutsches Daseinsvorsorgegesetz in Kraft getreten.** Das am 2. September 2026 verkündete Besondere Gesetz über die öffentliche Daseinsvorsorge (OstDVG) tritt am Tag nach seiner Verkündung in Kraft und ändert zugleich die Haushaltsordnung.
 - **2026-09-03: Interflug-Gesetz in Kraft getreten.** Das am 2. September 2026 verkündete Gesetz zur Errichtung der Interflug tritt am Tag nach seiner Verkündung in Kraft; die Interflug entsteht als Anstalt des öffentlichen Rechts mit Sitz in Schönefeld.
 - **2026-09-03: Gründungsvorstand der Interflug bestellt.** Der Staatsrat bestellt Joachim Hunold (Vorsitzender), Ralf Teckentrup und Klaus Wowereit mit Wirkung vom 3. September 2026 zu Mitgliedern des Gründungsvorstandes der Interflug; die Bestellung endet spätestens mit Ablauf des 3. März 2027.
 - **2026-09-03: Anfangsflotte der Interflug beschafft.** Der Gründungsvorstand macht die Beschaffung von sechs AT-802F Fire Boss, zwei Dash 8-400AT und zwei Boeing 737-700 FireLiner bekannt; das Beschaffungsprogramm umfasst bis zu 105,5 Millionen Euro einschließlich Erstausstattung und Risikovorsorge.
@@ -105,6 +97,8 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 - **2026-09-06: Bundeswahlleitung stellt das Endergebnis endgültig fest.** Die Bundeswahlleitung stellt das amtliche Endergebnis der Wahl zur achten Volkskammer und der Volksbefragung 2026 am 6. September 2026 endgültig fest und beurkundet es. Alle fünf Fragen der Volksbefragung sind mehrheitlich befürwortet.
 - **2026-09-06: Amtliches Endergebnis der Wahl zur achten Volkskammer.** Die gemeinsame Liste Roter Aufbruch erhält 17 von 19 Stimmen (89,47 Prozent), alle drei Aktivitätspunkte und ein Gesamtergebnis von 92,63 Prozent; sie stellt alle 11 Sitze der achten Volkskammer. Die Wahlbeteiligung beträgt 63,33 Prozent.
 - **2026-09-06: Staatsrat veröffentlicht den Auswertungsbericht zur Volksbefragung.** Der Staatsrat veröffentlicht den nach § 8 VBefrVO 2026 vorgeschriebenen Bericht über die Ergebnisse der Volksbefragung 2026 und die daraus gezogenen politischen Schlussfolgerungen im StAnzO. 2026 Nr. 41. Damit ist die Berichtspflicht erfüllt.
+- **2026-09-07: Achte Volkskammer konstituiert sich.** Die achte Ostdeutsche Volkskammer tritt zu ihrer konstituierenden Sitzung zusammen. Die Bekanntmachung der Sitzungsergebnisse zeichnet Dr. Mateo Delgado als Präsident der Volkskammer.
+- **2026-09-07: Zweiter Staatsrat gewählt.** Die achte Volkskammer wählt Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe) und Tim Dieter (Wahrheit) als Liste in den Staatsrat; die Gewählten werden vereidigt und ernannt. Mit der Listenwahl sind die bisherigen Mitglieder des Staatsrates abberufen.
 
 ## Laufende Verfahren und Abhängigkeiten
 
@@ -120,6 +114,7 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 - **Anerkennung ostdeutscher Verbundfahrausweise bei DB Fernverkehr** (deal-confirmed-details-unresolved): DB Fernverkehr und die ostdeutsche Seite vereinbarten für 57 Millionen Euro die Ticketanerkennung in IC- und ICE-Verbindungen. Der Deal umfasst keine Reaktivierung fehlender Fernverkehrsrelationen.
 - **Verkehrsrechtliche Bearbeitung des Vorgangs Ohlinger** (processed-outcome-details-missing): Die EAG erklärte die angeforderte Bearbeitung für erledigt. Ein konkreter Bußgeldbescheid, ein Fahrverbot oder der Ausgang eines möglichen Strafverfahrens liegen nicht vor.
 - **Beendigung ostdeutscher Kooperationen mit Israel** (in-force): Die seit 8. Mai 2026 geltende Verwaltungsvorschrift regelt Aussetzung, Beendigung und Nichtverlängerung landesunmittelbarer Kooperationen, Förderungen, Delegations- und Dienstreisebeziehungen mit staatlichen oder staatlich kontrollierten israelischen Stellen. Schutz jüdischen Lebens, Antisemitismusbekämpfung, Erinnerungsarbeit und bestimmte Menschenrechtskontakte bleiben unberührt.
+- **Bildung des zweiten Staatsrates** (partially-documented): Die achte Volkskammer hat am 7. September 2026 vier Mitglieder des Staatsrates als Liste gewählt, vereidigt und ernannt. Die Bestimmung des Staatspräsidenten nach Artikel 60 Absatz 4, die Stellvertretung nach Artikel 68a Absatz 1 und der Geschäftsbereichszuschnitt nach Artikel 59 Absatz 3 stehen aus.
 
 ## Bekannte Konflikte und offene Fragen
 
@@ -131,6 +126,7 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 - **Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?**: Ohne versionierten Ausgangssnapshot darf keine freie Konsolidierung erfolgen.
 - **Welche EAG-bestätigten Vergaben und Beschaffungen wurden tatsächlich ausgeliefert oder in Betrieb genommen?**: Der Discordverlauf endet bei Zuschlag, Bestellung oder angenommener Ansiedlung und enthält keine eindeutigen Vollzugsbelege.
 - **Welche bestätigten EAG-Vorgänge benötigen noch einen Vollzugs- oder Detailbeleg?**: Die EAG bestätigte Grundentscheidungen, der Export enthält aber nicht in allen Fällen Abschluss, Enddatum oder genaue Rechtsfolge.
+- **Wer führt im zweiten Staatsrat Vorsitz und Stellvertretung, und wie sind die Geschäftsbereiche zugeschnitten?**: Die Bekanntmachung gibt nur die Listenwahl wieder. Vorsitz, Stellvertretung und Geschäftsbereiche beschließt der Staatsrat in eigenen Akten, die nicht vorliegen.
 
 ## Detaildateien
 

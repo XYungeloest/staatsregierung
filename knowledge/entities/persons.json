@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-23",
+  "asOf": "2026-09-07",
   "persons": [
     {
       "id": "person-karl-honecker",
@@ -7,8 +7,8 @@
       "status": "confirmed-official",
       "validFrom": "2025-12-20",
       "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Erster Staatspräsident, Vorsitzender des ersten Staatsrates, Staatsrat der Finanzen und seit 20. Mai 2026 Präsident des Bundesrates.",
+      "asOf": "2026-09-07",
+      "summary": "Staatspräsident und Staatsrat der Finanzen im ersten Staatsrat bis 6. September 2026; seit 7. September 2026 Staatsrat für Überfluss im zweiten Staatsrat und seit 20. Mai 2026 Präsident des Bundesrates.",
       "sourceRefs": [
         {
           "sourceId": "source-karl-current",
@@ -19,6 +19,11 @@
           "sourceId": "source-karl-honecker-i",
           "locator": "Kurzbiografie",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -86,12 +91,15 @@
           "institutionId": "inst-staatspraesident",
           "officeTitle": "Staatspräsident",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=karl-honecker; officeTitle=Staatspräsident; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -102,12 +110,15 @@
           "institutionId": "inst-sek-finanzen",
           "officeTitle": "Staatsrat der Finanzen",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=karl-honecker; officeTitle=Staatsrat der Finanzen; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -172,6 +183,22 @@
           "notes": [
             "Kein Enddatum belegt; die Nachfolgeperson und deren Amtsantritt sind noch nicht erschlossen."
           ]
+        },
+        {
+          "institutionId": "inst-staatsrat",
+          "officeTitle": "Staatsrat für Überfluss",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; gewählt als Staatsrat für Überfluss"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
         }
       ]
     },
@@ -351,8 +378,8 @@
       "status": "confirmed-official",
       "validFrom": "2025-09-04",
       "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Ministerpräsident vom 4. September bis 19. Dezember 2025; seit 21. Juli 2026 Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation.",
+      "asOf": "2026-09-07",
+      "summary": "Ministerpräsident vom 4. September bis 19. Dezember 2025; Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation bis 6. September 2026; seit 7. September 2026 Präsident der Volkskammer.",
       "sourceRefs": [
         {
           "sourceId": "source-mateo-current",
@@ -373,6 +400,11 @@
           "sourceId": "source-appointment-gysi-2025-12-10",
           "locator": "Urkunde: Mateo Delgado zeichnet am 10. Dezember 2025 als Ministerpräsident",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -441,17 +473,38 @@
           "institutionId": "inst-sek-rechtsstaat-kultur",
           "officeTitle": "Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=mateo-delgado; officeTitle=Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation; validFrom=2026-07-21"
+          },
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-volkskammer",
+          "officeTitle": "Präsident der Volkskammer",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Unterschriftszeile der Bekanntmachung vom 7. September 2026: „Dr. Mateo Delgado, Der PRÄSIDENT DER VOLKSKAMMER“"
           },
           "terminationSource": null,
           "acting": false,
           "permanent": true,
           "predecessor": null,
           "successor": null,
-          "notes": []
+          "notes": [
+            "Belegt ist die Amtsführung am 7. September 2026; ein Wahlbeschluss der Volkskammer über das Präsidentenamt liegt gesondert nicht vor."
+          ]
         }
       ]
     },
@@ -461,12 +514,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-05-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrat des Innern und für Wohnungswirtschaft.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrat des Innern und für Wohnungswirtschaft bis 6. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-volker-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder",
           "role": "primary"
         }
       ],
@@ -530,12 +588,15 @@
           "institutionId": "inst-sek-inneres-wohnen",
           "officeTitle": "Staatsrat des Innern und für Wohnungswirtschaft",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=volker-bagdadi; officeTitle=Staatsrat des Innern und für Wohnungswirtschaft; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -550,12 +611,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-05-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik bis 6. September 2026; seit 7. September 2026 Staatsrat für Wahrheit.",
       "sourceRefs": [
         {
           "sourceId": "source-tim-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
           "role": "primary"
         }
       ],
@@ -599,10 +665,29 @@
           "institutionId": "inst-sek-voelkerfreundschaft",
           "officeTitle": "Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=tim-dieter; officeTitle=Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik; validFrom=2026-07-21"
+          },
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-staatsrat",
+          "officeTitle": "Staatsrat für Wahrheit",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; gewählt als Staatsrat für Wahrheit"
           },
           "terminationSource": null,
           "acting": false,
@@ -619,8 +704,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-07",
       "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Staatsrat für zwei eigenständige Geschäftsbereiche und Unterzeichner des Verwaltungsabkommens zur Wahrnehmung grenzpolizeilicher Aufgaben.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrat für Nachhaltigkeit und Energie sowie für Staats- und Grenzsicherheit bis 6. September 2026; seit 7. September 2026 Staatsrat für Frieden. Unterzeichner des Verwaltungsabkommens zur Wahrnehmung grenzpolizeilicher Aufgaben.",
       "sourceRefs": [
         {
           "sourceId": "source-yannik-current",
@@ -630,6 +715,11 @@
         {
           "sourceId": "source-gmbl-2026-14",
           "locator": "Unterschriftszeile auf Seite 6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
           "role": "primary"
         }
       ],
@@ -682,12 +772,15 @@
           "institutionId": "inst-sek-nachhaltigkeit-energie",
           "officeTitle": "Staatsrat für Nachhaltigkeit und Energie",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=yannik-schmaele; officeTitle=Staatsrat für Nachhaltigkeit und Energie; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -698,12 +791,15 @@
           "institutionId": "inst-sek-staats-grenzsicherheit",
           "officeTitle": "Staatsrat für Staats- und Grenzsicherheit",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=yannik-schmaele; officeTitle=Staatsrat für Staats- und Grenzsicherheit; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -711,6 +807,22 @@
           "notes": [
             "parallelOfficeAllowed"
           ]
+        },
+        {
+          "institutionId": "inst-staatsrat",
+          "officeTitle": "Staatsrat für Frieden",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; gewählt als Staatsrat für Frieden"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
         }
       ]
     },
@@ -720,12 +832,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-05-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrätin für Gesundheits- und Sozialwesen.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrätin für Gesundheits- und Sozialwesen bis 6. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-lucia-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder",
           "role": "primary"
         }
       ],
@@ -769,12 +886,15 @@
           "institutionId": "inst-sek-gesundheit-soziales",
           "officeTitle": "Staatsrätin für Gesundheits- und Sozialwesen",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=lucia-liebknecht; officeTitle=Staatsrätin für Gesundheits- und Sozialwesen; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -789,12 +909,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-05-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrat für Mobilität und regionale Entwicklung.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrat für Mobilität und regionale Entwicklung bis 6. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-vincent-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder",
           "role": "primary"
         }
       ],
@@ -838,12 +963,15 @@
           "institutionId": "inst-sek-mobilitaet-regionen",
           "officeTitle": "Staatsrat für Mobilität und regionale Entwicklung",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=vincent-flick; officeTitle=Staatsrat für Mobilität und regionale Entwicklung; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -858,12 +986,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-05-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrat für Volksbildung und Wissenschaft.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrat für Volksbildung und Wissenschaft bis 6. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-carl-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder",
           "role": "primary"
         }
       ],
@@ -907,12 +1040,15 @@
           "institutionId": "inst-sek-volksbildung-wissenschaft",
           "officeTitle": "Staatsrat für Volksbildung und Wissenschaft",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=carl-ulbricht; officeTitle=Staatsrat für Volksbildung und Wissenschaft; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -927,12 +1063,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-05-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrat für Land-, Forst- und Küstenwirtschaft.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrat für Land-, Forst- und Küstenwirtschaft bis 6. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-endo-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder",
           "role": "primary"
         }
       ],
@@ -976,12 +1117,15 @@
           "institutionId": "inst-sek-land-forst-kueste",
           "officeTitle": "Staatsrat für Land-, Forst- und Küstenwirtschaft",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=endo-meyer-raucht; officeTitle=Staatsrat für Land-, Forst- und Küstenwirtschaft; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -996,12 +1140,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-05-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrat für Wirtschaft und Arbeit.",
+      "asOf": "2026-09-07",
+      "summary": "Staatsrat für Wirtschaft und Arbeit bis 6. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-max-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder",
           "role": "primary"
         }
       ],
@@ -1045,12 +1194,15 @@
           "institutionId": "inst-sek-wirtschaft-arbeit",
           "officeTitle": "Staatsrat für Wirtschaft und Arbeit",
           "validFrom": "2026-07-21",
-          "validTo": null,
+          "validTo": "2026-09-06",
           "appointmentSource": {
             "sourceId": "source-organization-assignments",
             "locator": "personSlug=max-peterson; officeTitle=Staatsrat für Wirtschaft und Arbeit; validFrom=2026-07-21"
           },
-          "terminationSource": null,
+          "terminationSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2"
+          },
           "acting": false,
           "permanent": true,
           "predecessor": null,
@@ -1741,6 +1893,55 @@
           "permanent": true,
           "predecessor": "Liam Flüsterbein",
           "successor": "Tom Kurzschluss",
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-johanna-schwade",
+      "title": "Johanna Schwade",
+      "status": "confirmed-official",
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "asOf": "2026-09-07",
+      "summary": "Seit 7. September 2026 Staatsrätin für Liebe im zweiten Staatsrat.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; gewählt als Staatsrätin für Liebe",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [
+        "Über die Person sind bislang nur Name und Amtsbezeichnung amtlich belegt; Partei, Lebenslauf und Kontaktangaben fehlen."
+      ],
+      "aliases": [],
+      "name": "Johanna Schwade",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-staatsrat",
+          "officeTitle": "Staatsrätin für Liebe",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-stanzo-2026-42",
+            "locator": "Bekanntmachung vom 7. September 2026; gewählt als Staatsrätin für Liebe"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
           "notes": []
         }
       ]

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-02",
+  "asOf": "2026-09-07",
   "questions": [
     {
       "id": "question-holdings-undisclosed-deeper-tiers",
@@ -348,6 +348,50 @@
       "requiredSource": "Datierte amtliche Vollzugsmitteilung, Bescheid oder Reisebericht je Vorgang.",
       "publicContentImpact": "Keine Fertigstellung, Reise, Sanktion oder über den belegten Umfang hinausgehende Beendigung behaupten.",
       "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-second-staatsrat-offices",
+      "title": "Wer führt im zweiten Staatsrat Vorsitz und Stellvertretung, und wie sind die Geschäftsbereiche zugeschnitten?",
+      "status": "unresolved",
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "asOf": "2026-09-07",
+      "summary": "StAnzO. 2026 Nr. 42 belegt vier gewählte Mitglieder mit ihren Amtsbezeichnungen, nicht aber den Staatspräsidenten, die Stellvertretung, den behördlichen Zuschnitt der vier Geschäftsbereiche und den Fortbestand der elf Staatssekretariate. Zu Johanna Schwade sind nur Name und Amtsbezeichnung belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-second-staatsrat-2026-09-07",
+          "locator": "Abschnitt Nicht belegte Angaben",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "state-current-government",
+        "proceeding-second-staatsrat-formation",
+        "person-johanna-schwade",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "open-question",
+        "government",
+        "institutions"
+      ],
+      "notes": [],
+      "question": "Welche amtliche Quelle belegt den Staatspräsidenten und die Stellvertretung des zweiten Staatsrates, den Zuschnitt seiner Geschäftsbereiche und das Schicksal der bisherigen Staatssekretariate?",
+      "affectedIds": [
+        "state-current-government",
+        "proceeding-second-staatsrat-formation",
+        "person-johanna-schwade"
+      ],
+      "reason": "Die Bekanntmachung gibt nur die Listenwahl wieder. Vorsitz, Stellvertretung und Geschäftsbereiche beschließt der Staatsrat in eigenen Akten, die nicht vorliegen.",
+      "requiredSource": "Beschluss des Staatsrates über Staatspräsident, Stellvertretung und Geschäftsbereiche sowie ein Organisationsakt zu den Staatssekretariaten; für Johanna Schwade ein Personendatensatz mit Partei, Kurzbiografie und Kontakt.",
+      "publicContentImpact": "Bis zur Zuarbeit bleibt content/organisation/ auf dem Stand des ersten Staatsrates zum 6. September 2026; kein Staatspräsident, keine Stellvertretung und kein Ressortzuschnitt des zweiten Staatsrates wird öffentlich behauptet.",
+      "priority": "high",
       "questionStatus": "open"
     }
   ]

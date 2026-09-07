@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-06",
+  "asOf": "2026-09-07",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -461,72 +461,66 @@
     },
     {
       "id": "state-current-government",
-      "title": "Erster Staatsrat",
+      "title": "Zweiter Staatsrat",
       "status": "confirmed-official",
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-07",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Erster Staatsrat seit 21. Juli 2026 unter Vorsitz von Dr. Karl Honecker; Stellvertreter ist Dr. Mateo Delgado.",
+      "asOf": "2026-09-07",
+      "summary": "Seit 7. September 2026 besteht der zweite Staatsrat aus vier von der achten Volkskammer als Liste gewählten Mitgliedern: Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe) und Tim Dieter (Wahrheit). Mit dieser Wahl sind die Mitglieder des ersten Staatsrates nach Artikel 60 Absatz 2 Satz 2 abberufen. Wer den Vorsitz als Staatspräsident führt, wer die Stellvertretung wahrnimmt und wie die Geschäftsbereiche behördlich zugeschnitten sind, ist bislang nicht belegt.",
       "sourceRefs": [
         {
-          "sourceId": "source-organization-governments",
-          "locator": "governments[id=erster-staatsrat]",
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-second-staatsrat-2026-09-07",
+          "locator": "Abschnitte Belegte Feststellungen und Nicht belegte Angaben",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 59 Absatz 2 und 3, Artikel 60 Absatz 2 Satz 2 und Absatz 4, Artikel 68a Absatz 1",
+          "role": "corroborating"
         },
         {
           "sourceId": "source-organization-assignments",
           "locator": "assignments[governmentSlug=erster-staatsrat]",
-          "role": "primary"
+          "role": "conflicting"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
+        "inst-volkskammer",
         "person-karl-honecker",
-        "person-mateo-delgado",
-        "person-volker-bagdadi",
-        "person-tim-dieter",
         "person-yannik-schmaele",
-        "person-lucia-liebknecht",
-        "person-vincent-flick",
-        "person-carl-ulbricht",
-        "person-endo-meyer-raucht",
-        "person-max-peterson",
-        "person-emma-mueller"
+        "person-johanna-schwade",
+        "person-tim-dieter",
+        "person-emma-mueller",
+        "question-second-staatsrat-offices",
+        "event-second-staatsrat-formed-2026"
       ],
       "tags": [
         "current-state",
         "government"
       ],
-      "notes": [],
+      "notes": [
+        "Der Staatspräsident wird nach Artikel 60 Absatz 4 aus der Mitte des Staatsrates bestimmt; die Bekanntmachung führt Dr. Karl Honecker ausdrücklich als Staatsrat für Überfluss und nicht als Staatspräsident. Leitung und Stellvertretung bleiben deshalb offen.",
+        "Ob die elf Staatssekretariate des ersten Staatsrates fortbestehen, aufgehen oder umbenannt werden, ist nicht belegt; die Bekanntmachung nennt nur die vier Amtsbezeichnungen. stateSecretariatIds bleibt bis zur Zuarbeit leer.",
+        "Die Leitung der Staatskanzlei ist kein Amt im Staatsrat und von der Abberufung nicht erfasst; ein eigener Akt liegt nicht vor.",
+        "Der öffentliche Organisationsbestand unter content/organisation/ führt weiterhin den ersten Staatsrat zum redaktionellen Stichtag 6. September 2026; die Abweichung ist in CONTENT_GAPS.md und im Zuarbeitsformular festgehalten."
+      ],
       "governmentId": "inst-staatsrat",
-      "headPersonId": "person-karl-honecker",
-      "deputyPersonId": "person-mateo-delgado",
+      "headPersonId": null,
+      "deputyPersonId": null,
       "memberPersonIds": [
         "person-karl-honecker",
-        "person-mateo-delgado",
-        "person-volker-bagdadi",
-        "person-tim-dieter",
         "person-yannik-schmaele",
-        "person-lucia-liebknecht",
-        "person-vincent-flick",
-        "person-carl-ulbricht",
-        "person-endo-meyer-raucht",
-        "person-max-peterson"
+        "person-johanna-schwade",
+        "person-tim-dieter"
       ],
       "chiefOfChancelleryPersonId": "person-emma-mueller",
-      "stateSecretariatIds": [
-        "inst-sek-finanzen",
-        "inst-sek-inneres-wohnen",
-        "inst-sek-rechtsstaat-kultur",
-        "inst-sek-voelkerfreundschaft",
-        "inst-sek-nachhaltigkeit-energie",
-        "inst-sek-staats-grenzsicherheit",
-        "inst-sek-gesundheit-soziales",
-        "inst-sek-mobilitaet-regionen",
-        "inst-sek-volksbildung-wissenschaft",
-        "inst-sek-land-forst-kueste",
-        "inst-sek-wirtschaft-arbeit"
-      ]
+      "stateSecretariatIds": []
     },
     {
       "id": "state-current-volksbefragung-2026",
@@ -663,12 +657,12 @@
     },
     {
       "id": "state-current-parliament",
-      "title": "Siebte Volkskammer und Mehrheitsverhältnisse",
+      "title": "Achte Volkskammer und Mehrheitsverhältnisse",
       "status": "confirmed-official",
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-07",
       "validTo": null,
-      "asOf": "2026-09-06",
-      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort; sie wird seit 5. Juli 2026 von der Koalition aus Volksfront und DEMOS mit 11 von 15 Sitzen getragen. Die Wahl zur achten Volkskammer fand am 5. und 6. September 2026 statt; die Bundeswahlleitung stellte das Endergebnis am 6. September 2026 endgültig fest. Die gemeinsame Liste Roter Aufbruch erhielt 17 von 19 Stimmen (89,47 Prozent), alle drei Aktivitätspunkte und damit ein Gesamtergebnis von 92,63 Prozent sowie sämtliche 11 Sitze; die Regelanzahl von 15 Listensitzen war für die achte Volkskammer auf 11 abgesenkt worden.",
+      "asOf": "2026-09-07",
+      "summary": "Die achte Volkskammer ist am 7. September 2026 zu ihrer konstituierenden Sitzung zusammengetreten; Präsident der Volkskammer ist Dr. Mateo Delgado. Sie war am 5. und 6. September 2026 gewählt worden; die Bundeswahlleitung stellte das Endergebnis am 6. September 2026 endgültig fest. Die gemeinsame Liste Roter Aufbruch erhielt 17 von 19 Stimmen (89,47 Prozent), alle drei Aktivitätspunkte und damit ein Gesamtergebnis von 92,63 Prozent sowie sämtliche 11 Sitze; die Regelanzahl von 15 Listensitzen war für die achte Volkskammer auf 11 abgesenkt worden. Die siebte Volkskammer wurde bis dahin von der Koalition aus Volksfront und DEMOS mit 11 von 15 Sitzen getragen.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-governments",
@@ -694,6 +688,11 @@
           "sourceId": "source-bundeswahlleitung-endergebnis-2026-09-06",
           "locator": "Abschnitte I bis III und V",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; konstituierende Sitzung und Unterschriftszeile",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -704,7 +703,9 @@
         "event-volkskammer-election-2026",
         "event-volkskammer-election-result-2026",
         "proceeding-volksbefragung-2026",
-        "event-volksbefragung-2026"
+        "event-volksbefragung-2026",
+        "person-mateo-delgado",
+        "event-eighth-volkskammer-constituted-2026"
       ],
       "tags": [
         "current-state",
@@ -712,23 +713,21 @@
         "coalition"
       ],
       "notes": [
-        "Für die konstituierende Sitzung der achten Volkskammer, den Beginn der achten Wahlperiode und eine daraus folgende Regierungsbildung liegt noch keine Quelle vor; bis dahin bleibt die siebte Volkskammer der belegte aktuelle Parlamentsstand."
+        "Die Wahlperiode der achten Volkskammer beginnt mit ihrem Zusammentritt am 7. September 2026. Ausschussbildung, Geschäftsordnung und weitere Wahlen der konstituierenden Sitzung sind nicht belegt."
       ],
-      "legislature": "7. Volkskammer",
-      "totalSeats": 15,
+      "legislature": "8. Volkskammer",
+      "totalSeats": 11,
       "coalitionSeats": 11,
       "coalitionPartyIds": [
         "party-volksfront",
         "party-demos"
       ],
-      "seatCountAsOf": "2026-07-05",
+      "seatCountAsOf": "2026-09-07",
       "electionStartDate": "2026-09-05",
       "electionEndDate": "2026-09-06",
       "electionResultConfirmedOn": "2026-09-06",
       "electionTurnoutVotes": 19,
       "electionTurnoutPercent": 63.33,
-      "nextLegislature": "8. Volkskammer",
-      "nextLegislatureSeats": 11,
       "electedListName": "Roter Aufbruch (RA)",
       "electedListPartyIds": [
         "party-volksfront",
@@ -746,7 +745,11 @@
         "Carl Ulbricht",
         "Kilian Schmidt",
         "David König"
-      ]
+      ],
+      "previousLegislature": "7. Volkskammer",
+      "previousLegislatureSeats": 15,
+      "constitutiveSessionDate": "2026-09-07",
+      "presidentPersonId": "person-mateo-delgado"
     },
     {
       "id": "state-current-territory",

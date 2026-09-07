@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-04",
+  "asOf": "2026-09-07",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -286,8 +286,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Kollegial organisierte Spitze der vollziehenden Gewalt.",
+      "asOf": "2026-09-07",
+      "summary": "Kollegial organisierte Spitze der vollziehenden Gewalt. Seit dem 7. September 2026 amtiert der zweite Staatsrat mit vier von der achten Volkskammer gewählten Mitgliedern.",
       "sourceRefs": [
         {
           "sourceId": "source-constitution-current",
@@ -303,19 +303,27 @@
           "sourceId": "source-gmbl-2026-14",
           "locator": "Vertragspartner und Präambel",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-staatsregierung",
         "inst-staatspraesident",
         "inst-bundesministerium-innern-heimat",
-        "proceeding-grenzpolizei-bund"
+        "proceeding-grenzpolizei-bund",
+        "state-current-government"
       ],
       "tags": [
         "constitutional-organ",
         "executive"
       ],
-      "notes": [],
+      "notes": [
+        "Ob die elf Staatssekretariate des ersten Staatsrates fortbestehen, ist nach der Wahl des zweiten Staatsrates nicht belegt; siehe question-second-staatsrat-offices."
+      ],
       "aliases": [
         "Erster Staatsrat",
         "Staatsrat des Ostdeutschen Freistaates"

@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-06",
+  "generatedAt": "2026-09-07",
   "editorialAsOf": "2026-09-06",
-  "count": 1174,
+  "count": 1181,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -423,6 +423,20 @@
       ],
       "validFrom": "2026-07-16",
       "validTo": "2026-07-16",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-eighth-volkskammer-constituted-2026",
+      "title": "Achte Volkskammer konstituiert sich",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "parliament",
+        "government"
+      ],
+      "validFrom": "2026-09-07",
+      "validTo": "2026-09-07",
       "target": "knowledge/timeline.json"
     },
     {
@@ -987,6 +1001,20 @@
       ],
       "validFrom": "2026-08-16",
       "validTo": "2026-08-16",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-second-staatsrat-formed-2026",
+      "title": "Zweiter Staatsrat gewählt",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "government",
+        "parliament"
+      ],
+      "validFrom": "2026-09-07",
+      "validTo": "2026-09-07",
       "target": "knowledge/timeline.json"
     },
     {
@@ -11574,6 +11602,19 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-johanna-schwade",
+      "title": "Johanna Schwade",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-karl-honecker",
       "title": "Dr. Karl Honecker",
       "type": "person",
@@ -12020,6 +12061,22 @@
       ],
       "validFrom": "2026-03-24",
       "validTo": "2026-03-24",
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-second-staatsrat-formation",
+      "title": "Bildung des zweiten Staatsrates",
+      "type": "proceeding",
+      "aliases": [
+        "Formation des zweiten Staatsrates"
+      ],
+      "tags": [
+        "proceeding",
+        "government",
+        "parliament"
+      ],
+      "validFrom": "2026-09-07",
+      "validTo": null,
       "target": "knowledge/proceedings.json"
     },
     {
@@ -12612,6 +12669,20 @@
         "consolidation"
       ],
       "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-second-staatsrat-offices",
+      "title": "Wer führt im zweiten Staatsrat Vorsitz und Stellvertretung, und wie sind die Geschäftsbereiche zugeschnitten?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "government",
+        "institutions"
+      ],
+      "validFrom": "2026-09-07",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -13217,6 +13288,21 @@
         "ndr"
       ],
       "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarification-second-staatsrat-2026-09-07",
+      "title": "Redaktionelle Bewertung der Bekanntmachung über die Formation des zweiten Staatsrates",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "parliament",
+        "institutions",
+        "editorial"
+      ],
+      "validFrom": "2026-09-07",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -15189,6 +15275,22 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-stanzo-2026-42",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 42",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "parliament",
+        "institutions",
+        "persons",
+        "constitution"
+      ],
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-steelworks-valuation-2026-03-14",
       "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
       "type": "source",
@@ -15371,14 +15473,14 @@
     },
     {
       "id": "state-current-government",
-      "title": "Erster Staatsrat",
+      "title": "Zweiter Staatsrat",
       "type": "current-state",
       "aliases": [],
       "tags": [
         "current-state",
         "government"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-07",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },
@@ -15466,7 +15568,7 @@
     },
     {
       "id": "state-current-parliament",
-      "title": "Siebte Volkskammer und Mehrheitsverhältnisse",
+      "title": "Achte Volkskammer und Mehrheitsverhältnisse",
       "type": "current-state",
       "aliases": [],
       "tags": [
@@ -15474,7 +15576,7 @@
         "parliament",
         "coalition"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-07",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

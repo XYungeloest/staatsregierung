@@ -107,14 +107,34 @@ OVertrBl. 2026 Nr. 4.
 
 Durchführung, amtliches Endergebnis der Volksbefragung, amtliches Wahlergebnis und der politische
 Auswertungsbericht des Staatsrates sind durch das amtliche Endergebnis der Bundeswahlleitung vom
-6. September 2026 und StAnzO. 2026 Nr. 41 belegt und eingepflegt. Weiterhin benötigt werden nur:
+6. September 2026 und StAnzO. 2026 Nr. 41 belegt und eingepflegt; die konstituierende Sitzung der
+achten Volkskammer am 7. September 2026 durch StAnzO. 2026 Nr. 42. Weiterhin benötigt werden nur:
 
 - [ ] gesonderter Beschluss des Staatsrates über organisatorische Grundlagen und nächste Schritte
       der Olympiabewerbung
-- [ ] konstituierende Sitzung der achten Volkskammer (Datum und Sitzungsdokument)
 - [ ] Gesetzentwürfe, Einbringungen und Verkündungen der angekündigten Folgevorhaben, insbesondere
       Sozialistische Verfassungsnovelle sowie Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz
 - [ ] Errichtungsakte für Staatsplankommission Ost und Landeswirtschaftsrat
+
+### V-01a – Ämter und Geschäftsbereiche des zweiten Staatsrates
+
+StAnzO. 2026 Nr. 42 belegt die Wahl von vier Mitgliedern des Staatsrates, ihre Amtsbezeichnungen,
+die Vereidigung und die Ernennung. Solange die folgenden vier Angaben fehlen, bleibt der
+öffentliche Organisationsbestand auf dem Stand des ersten Staatsrates zum 6. September 2026; die
+Begründung steht in `CONTENT_GAPS.md` und in
+`knowledge/clarifications/2026-09-07-zweiter-staatsrat.md`.
+
+- [ ] Bestimmung des Staatspräsidenten aus der Mitte des Staatsrates (Artikel 60 Absatz 4):
+      Person, Datum, Fundstelle
+- [ ] Stellvertretung innerhalb des Staatsrates (Artikel 68a Absatz 1): Person, Datum, Fundstelle
+- [ ] Beschluss über die Geschäftsbereiche (Artikel 59 Absatz 3): Zuschnitt der vier
+      Geschäftsbereiche Überfluss, Frieden, Liebe und Wahrheit sowie Fortbestand, Aufgehen oder
+      Umbenennung der elf Staatssekretariate; je Geschäftsbereich Bezeichnung, Kurzname, Aufgaben
+      und dienstliche Kontaktangabe
+- [ ] Personenangaben zu Johanna Schwade: Kurzbiografie, Partei, Porträt mit Bildnachweis und
+      dienstliche E-Mail-Adresse auf `freistaat-ostdeutschland.de`
+- [ ] Fortführung oder Ende der Leitung der Staatskanzlei durch Emma Müller, falls die
+      konstituierende Sitzung sie berührt hat
 
 ### V-02 – Boom Europe Leipzig/Halle
 

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-06",
+  "asOf": "2026-09-07",
   "events": [
     {
       "id": "event-off-holdings-succession-2026",
@@ -2978,6 +2978,91 @@
         {
           "normSlug": "bekanntmachung-beschaffung-anfangsflotte-interflug",
           "versionId": "2026-09-03"
+        }
+      ]
+    },
+    {
+      "id": "event-eighth-volkskammer-constituted-2026",
+      "title": "Achte Volkskammer konstituiert sich",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-07",
+      "validTo": "2026-09-07",
+      "asOf": "2026-09-07",
+      "summary": "Die achte Ostdeutsche Volkskammer tritt zu ihrer konstituierenden Sitzung zusammen. Die Bekanntmachung der Sitzungsergebnisse zeichnet Dr. Mateo Delgado als Präsident der Volkskammer.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026; Einleitungssatz und Unterschriftszeile",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "person-mateo-delgado",
+        "proceeding-eighth-volkskammer-election",
+        "state-current-parliament"
+      ],
+      "tags": [
+        "timeline",
+        "parliament",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-07",
+      "eventType": "parliamentary-session",
+      "normRefs": [
+        {
+          "normSlug": "bekanntmachung-formation-zweiter-staatsrat",
+          "versionId": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "event-second-staatsrat-formed-2026",
+      "title": "Zweiter Staatsrat gewählt",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-07",
+      "validTo": "2026-09-07",
+      "asOf": "2026-09-07",
+      "summary": "Die achte Volkskammer wählt Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe) und Tim Dieter (Wahrheit) als Liste in den Staatsrat; die Gewählten werden vereidigt und ernannt. Mit der Listenwahl sind die bisherigen Mitglieder des Staatsrates abberufen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-42",
+          "locator": "Bekanntmachung vom 7. September 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-second-staatsrat-2026-09-07",
+          "locator": "Abschnitt Belegte Feststellungen",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer",
+        "person-karl-honecker",
+        "person-yannik-schmaele",
+        "person-johanna-schwade",
+        "person-tim-dieter",
+        "state-current-government",
+        "question-second-staatsrat-offices"
+      ],
+      "tags": [
+        "timeline",
+        "government",
+        "parliament"
+      ],
+      "notes": [
+        "Staatspräsident, Stellvertretung und Geschäftsbereichszuschnitt des zweiten Staatsrates sind nicht belegt."
+      ],
+      "aliases": [],
+      "date": "2026-09-07",
+      "eventType": "government-formation",
+      "normRefs": [
+        {
+          "normSlug": "bekanntmachung-formation-zweiter-staatsrat",
+          "versionId": "2026-09-07"
         }
       ]
     }
