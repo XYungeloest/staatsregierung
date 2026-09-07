@@ -24,7 +24,7 @@ import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/rou
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/norm-portal-content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases, isAmendmentRecord } from '@ostrecht/recht-search/search.ts';
 
-import { isEmptyScope, metaIdentityChanged, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
+import { isEmptyScope, metaIdentityChanged, NORM_TARGETS, normsCitingPublications, REFERENCE_DATE_PATH, scopeFromChangedPaths, scopeSignature } from './lib/d1-sync-scope.mjs';
 import { assertIsoDate, referenceDateAffectedSlugs } from './lib/d1-reference-date.mjs';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 import { FULL_SCOPE, fixtureScope, portalProjectionChangedSince, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
@@ -317,29 +317,44 @@ export function keywordQueries(norm, identity, registerKeywords = []) {
  * Anweisungen einer Norm. Inkrementell werden zuerst die eigenen Zeilen der Norm über
  * Indizes gelöscht; in der Vollprojektion sind alle Tabellen bereits leer, dann entfallen
  * die Löschungen vollständig.
+ *
+ * `targets` beschränkt den Lauf auf die Ziele, die eine Änderung überhaupt berühren kann
+ * (scripts/lib/d1-sync-scope.mjs, NORM_TARGETS): `null` schreibt wie bisher alle Zeilen der Norm,
+ * eine Liste nur die genannten. Die Anweisungen selbst sind in beiden Fällen dieselben – der
+ * Metadata-only-Umfang wählt aus, er rechnet nichts anders.
  */
-export function normQueries(norm, context, now, { full = false, registerKeywords = [] } = {}) {
+export function normQueries(norm, context, now, { full = false, registerKeywords = [], targets = null } = {}) {
   const { meta, history, versions } = norm;
+  const wants = (target) => targets === null || targets.includes(target);
+  const wantsSearchUnits = wants('searchUnits');
+  const wantsMetadataUnit = wantsSearchUnits || wants('searchMetadataUnit');
+  const wantsSearch = wantsMetadataUnit || wants('searchDocuments');
   // Der Stichtag der Projektion kommt aus dem Ableitungskontext (Standard: editorial.json).
   const asOf = context.asOf ?? EDITORIAL_REFERENCE_DATE;
   const current = getApplicableVersion(norm, asOf);
   const currentIdentity = getNormVersionIdentity(norm, current);
-  const derived = deriveNorm(norm, context);
   const sourceOf = (version) => (version.sourceReferences ?? []).find((source) => source.kind === 'revosax-snapshot') ?? (version.sourceReferences ?? [])[0] ?? null;
   const lawId = [...(current.sourceReferences ?? []), ...(meta.sourceReferences ?? [])].map((source) => source.lawId).find(Boolean) ?? null;
   const sourceKind = [...(current.sourceReferences ?? []), ...(meta.sourceReferences ?? [])].some((source) => source.kind === 'revosax-snapshot') ? 'revosax-baseline' : 'repository';
   const queries = full ? [] : [
-    q('DELETE FROM law_search_units WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_norm_subjects WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_norm_keywords WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_norm_history WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_source_objects WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_version_blocks WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_versions WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_norm_derived WHERE norm_id = ?', [meta.id]),
+    // Die Metadateneinheit wird gezielt gelöscht, wenn nur sie neu geschrieben wird; ihre
+    // fortlaufende id ist eine Surrogatnummer und geht nicht in den Vergleich ein.
+    ...(wantsSearchUnits ? [q('DELETE FROM law_search_units WHERE norm_id = ?', [meta.id])]
+      : wantsMetadataUnit ? [q("DELETE FROM law_search_units WHERE norm_id = ? AND block_type = 'metadata'", [meta.id])] : []),
+    ...(wants('subjects') ? [q('DELETE FROM law_norm_subjects WHERE norm_id = ?', [meta.id])] : []),
+    ...(wants('keywords') ? [q('DELETE FROM law_norm_keywords WHERE norm_id = ?', [meta.id])] : []),
+    ...(wants('history') ? [q('DELETE FROM law_norm_history WHERE norm_id = ?', [meta.id])] : []),
+    ...(wants('versions') ? [
+      q('DELETE FROM law_source_objects WHERE norm_id = ?', [meta.id]),
+      q('DELETE FROM law_version_blocks WHERE norm_id = ?', [meta.id]),
+      q('DELETE FROM law_versions WHERE norm_id = ?', [meta.id]),
+    ] : []),
+    ...(wants('derived') ? [q('DELETE FROM law_norm_derived WHERE norm_id = ?', [meta.id])] : []),
   ];
+  if (targets && targets.length === 0) return queries;
+  const derived = deriveNorm(norm, context);
   const updates = NORM_COLUMNS.filter((column) => column !== 'id').map((column) => `${column}=excluded.${column}`).join(', ');
-  queries.push(q(`INSERT INTO law_norms (${NORM_COLUMNS.join(', ')}) VALUES (${NORM_COLUMNS.map(() => '?').join(', ')})
+  if (wants('norm')) queries.push(q(`INSERT INTO law_norms (${NORM_COLUMNS.join(', ')}) VALUES (${NORM_COLUMNS.map(() => '?').join(', ')})
     ON CONFLICT(id) DO UPDATE SET ${updates}`, [
     meta.id, meta.slug, currentIdentity.title, currentIdentity.shortTitle, currentIdentity.abbr ?? null, meta.type, meta.status,
     lawId, current.versionId, meta.documentDate ?? null, meta.publicationDate ?? null,
@@ -359,7 +374,7 @@ export function normQueries(norm, context, now, { full = false, registerKeywords
     meta.fundingArea ?? null,
   ]));
 
-  for (const version of versions) {
+  if (wants('versions')) for (const version of versions) {
     const primarySource = sourceOf(version);
     const publicationReference = context.publicationReferences.get(`${meta.slug}:${version.versionId}`) ?? null;
     queries.push(q(`INSERT INTO law_versions (
@@ -400,7 +415,7 @@ export function normQueries(norm, context, now, { full = false, registerKeywords
     }
   }
 
-  queries.push(q(`INSERT INTO law_norm_derived (
+  if (wants('derived')) queries.push(q(`INSERT INTO law_norm_derived (
     norm_id, relations_json, recommendations_json, origin_json, text_references_json, portal_links_json, updated_at
   ) VALUES (?, ?, ?, ?, ?, ?, ?)`, [
     meta.id, JSON.stringify(derived.relations), JSON.stringify(derived.recommendations), JSON.stringify(derived.origin),
@@ -408,14 +423,14 @@ export function normQueries(norm, context, now, { full = false, registerKeywords
   ]));
 
   const subjectSlugs = new Set();
-  for (const subject of meta.subjects) {
+  if (wants('subjects')) for (const subject of meta.subjects) {
     const subjectSlug = getSubjectSlug(subject);
     if (subjectSlugs.has(subjectSlug)) continue;
     subjectSlugs.add(subjectSlug);
     queries.push(q('INSERT INTO law_norm_subjects (norm_id, subject, subject_slug) VALUES (?, ?, ?)', [meta.id, subject, subjectSlug]));
   }
-  queries.push(...keywordQueries(norm, currentIdentity, registerKeywords));
-  for (const [entryIndex, entry] of history.entries.entries()) {
+  if (wants('keywords')) queries.push(...keywordQueries(norm, currentIdentity, registerKeywords));
+  if (wants('history')) for (const [entryIndex, entry] of history.entries.entries()) {
     queries.push(q(`INSERT INTO law_norm_history (
       norm_id, entry_index, change_date, change_type, title, citation, note, affecting_version_id, related_norm
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
@@ -427,11 +442,14 @@ export function normQueries(norm, context, now, { full = false, registerKeywords
   // Suchindex: nur die geltende Fassung, provisionsgenau. Die Metadaten des
   // Suchdokuments werden je Fassung gespeichert, damit historische und künftige
   // Fassungen weiterhin über Titel, Fundstelle und Metadaten auffindbar bleiben.
-  for (const version of versions) {
+  if (wantsSearch) for (const version of versions) {
     const { metadata, units } = searchUnits(norm, version, context);
-    queries.push(searchDocumentQuery(meta.id, version.versionId, metadata, now));
-    if (version.versionId !== current.versionId) continue;
+    if (wants('searchDocuments')) queries.push(searchDocumentQuery(meta.id, version.versionId, metadata, now));
+    if (version.versionId !== current.versionId || !wantsMetadataUnit) continue;
+    // Metadata-only: nur die Metadateneinheit; sie traegt Kurzfassung, Stichwoerter, Sachgebiete,
+    // Ressort und Zitate, waehrend die Trefferstellen am Fassungstext haengen.
     for (const unit of units) {
+      if (!wantsSearchUnits && unit.blockType !== 'metadata') continue;
       // Der Volltextindex folgt per Trigger (scripts/lib/d1-search-schema.mjs).
       queries.push(q(`INSERT INTO law_search_units (${SEARCH_UNIT_COLUMNS.join(', ')}) VALUES (${SEARCH_UNIT_COLUMNS.map(() => '?').join(', ')})`, [
         meta.id, current.versionId, `${unit.unitIndex}`, unit.anchor, unit.blockType, unit.references ? JSON.stringify(unit.references) : null,
@@ -943,6 +961,17 @@ async function gitShowJson(ref, path) {
   }
 }
 
+/**
+ * Namen der meta.json-Felder, deren Wert sich zwischen zwei Repositorystaenden unterscheidet,
+ * oder `null`, wenn einer der beiden Staende fehlt. Verglichen wird die Vereinigung der
+ * Schluessel; die Schluesselreihenfolge der Datei spielt keine Rolle.
+ */
+export function changedMetaFields(previous, current) {
+  if (!previous || !current || typeof previous !== 'object' || typeof current !== 'object') return null;
+  const keys = new Set([...Object.keys(previous), ...Object.keys(current)]);
+  return [...keys].filter((key) => JSON.stringify(previous[key] ?? null) !== JSON.stringify(current[key] ?? null)).sort();
+}
+
 async function gitChangedPaths(base, head) {
   const { stdout } = await execFileAsync('git', ['diff', '--name-only', base, head], { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 });
   return stdout.split(/\r?\n/u).filter(Boolean);
@@ -974,15 +1003,16 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
   const modes = [args.includes('--full'), requestedSlugs.length > 0 || deleteSlugs.length > 0 || args.includes('--publications'), args.includes('--git-diff'), args.includes('--changed-paths')].filter(Boolean).length;
   if (modes === 0) throw new Error('Kein Umfang angegeben: --full, --slug/--delete/--publications, --git-diff <base> <head> oder --changed-paths <Datei> ist erforderlich');
   if (modes > 1) throw new Error('Nur eine Umfangsangabe ist zulässig (--full | --slug/--delete/--publications | --git-diff | --changed-paths)');
-  if (args.includes('--full')) return { mode: 'full', slugs: [], deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, reasons: ['--full'] };
+  if (args.includes('--full')) return { mode: 'full', slugs: [], metadataOnly: {}, deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, reasons: ['--full'] };
   if (requestedSlugs.length > 0 || deleteSlugs.length > 0 || args.includes('--publications')) {
     for (const slug of requestedSlugs) if (!existingSlugs.has(slug)) throw new Error(`Norm ${slug} nicht gefunden`);
     for (const slug of deleteSlugs) if (existingSlugs.has(slug)) throw new Error(`Norm ${slug} existiert noch im Repository; --delete nur für entfernte Normen`);
-    return { mode: 'incremental', slugs: [...new Set(requestedSlugs)].sort(), deletedSlugs: [...new Set(deleteSlugs)].sort(), publicationSlugs: args.includes('--publications') ? [...existingPublications].sort() : [], deletedPublications: [], derivedRebuild: deleteSlugs.length > 0, reasons: ['explizite Auswahl'] };
+    return { mode: 'incremental', slugs: [...new Set(requestedSlugs)].sort(), metadataOnly: {}, deletedSlugs: [...new Set(deleteSlugs)].sort(), publicationSlugs: args.includes('--publications') ? [...existingPublications].sort() : [], deletedPublications: [], derivedRebuild: deleteSlugs.length > 0, reasons: ['explizite Auswahl'] };
   }
   let paths;
   let identityChanged = () => true;
   let portalProjectionChanged = () => true;
+  let metaFieldsChanged = () => null;
   // Bisheriger Stichtag für eine Stichtagsfortschreibung: aus dem Basis-Ref (--git-diff) oder
   // ausdrücklich (--reference-date-from); ohne Angabe bleibt editorial.json ein Full-Trigger.
   let previousReferenceDate = valueAfter(args, '--reference-date-from') ?? null;
@@ -993,14 +1023,21 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
     if (!base || !head) throw new Error('--git-diff braucht <base> <head>');
     paths = await gitChangedPaths(base, head);
     const metaCache = new Map();
+    const fieldCache = new Map();
     const currentMeta = (slug) => norms.find((norm) => norm.meta.slug === slug)?.meta ?? null;
     const candidateSlugs = new Set(paths.map((path) => path.match(/^content\/normen\/([^/]+)\//u)?.[1]).filter(Boolean));
     for (const slug of candidateSlugs) {
       if (!existingSlugs.has(slug)) continue;
-      const previous = await gitShowJson(base, `content/normen/${slug}/meta.json`);
+      const file = `content/normen/${slug}/meta.json`;
+      const previous = await gitShowJson(base, file);
       metaCache.set(slug, metaIdentityChanged(previous, currentMeta(slug)));
+      // Feldgenauer Vergleich für den Metadata-only-Umfang: beide Seiten aus dem Repositorystand,
+      // damit Normalisierungen des Laders nicht als Feldänderung erscheinen. Fehlt eine Seite
+      // (neue Norm, unlesbare Datei), bleibt die Angabe `null` und der Umfang fällt zurück.
+      fieldCache.set(slug, changedMetaFields(previous, await gitShowJson(head, file)));
     }
     identityChanged = (slug) => metaCache.get(slug) ?? true;
+    metaFieldsChanged = (slug) => fieldCache.get(slug) ?? null;
     // Themen und Presse: nur ein geänderter projektionsrelevanter Auszug (Slug, Titel, Datum,
     // Normbezüge) erneuert die abgeleiteten Daten; Hervorhebungen, Teaser usw. lösen nichts aus.
     const portalCache = new Map();
@@ -1020,7 +1057,7 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
     ? () => referenceDateAffectedSlugs(norms, previousReferenceDate, EDITORIAL_REFERENCE_DATE)
     : null;
   if (args.includes('--assume-narrow-logic-change')) throw new Error('--assume-narrow-logic-change gibt es nicht mehr: eine enge Logikprojektion wird mit --prove-equivalence oder --equivalence-proof <Datei> nachgewiesen, nicht angenommen');
-  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, logicPaths, logicChange, portalProjectionChanged });
+  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged, referenceDateSlugs, logicPaths, logicChange, portalProjectionChanged, metaFieldsChanged });
   if (referenceDateSlugs && paths.includes(REFERENCE_DATE_PATH)) scope.referenceDate = { from: previousReferenceDate, to: EDITORIAL_REFERENCE_DATE };
   if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) {
     for (const slug of normsCitingPublications(publications, scope.publicationSlugs)) {
@@ -1037,6 +1074,24 @@ export async function resolveScope(args, { norms, publications, logicPaths = nul
  * geladenen Bestand; Tests prüfen damit Umfang und Kostenpfad ohne Datenbank. `context` darf
  * nur fehlen, wenn der Umfang leer ist (Metadata-only-Lauf, planRun).
  */
+/**
+ * Ziele einer ausgewählten Norm: `null` schreibt alle Zeilen der Norm (bisheriges Verhalten),
+ * eine Liste beschränkt den Lauf auf die Ziele des Metadata-only-Umfangs. Ein bestandsweiter
+ * Rebuild (Stichwortregister, Portalgrundlagen, enge Logikänderung) ergänzt die dafür nötigen
+ * Ziele, damit eine metadata-only projizierte Norm nicht mit veralteten abgeleiteten Zeilen,
+ * Suchdokumenten oder Stichworteinträgen zurückbleibt.
+ */
+export function normTargets(scope, slug) {
+  const base = scope.metadataOnly?.[slug];
+  if (!Array.isArray(base)) return null;
+  const targets = new Set(base);
+  // Abgeleitete Zeilen und die abgeleiteten Spalten von law_norms gehören zusammen.
+  if (scope.derivedRebuild) targets.add('derived').add('norm');
+  if (scope.refreshSearchDocuments) targets.add('searchDocuments');
+  if (scope.refreshKeywords) targets.add('keywords');
+  return NORM_TARGETS.filter((target) => targets.has(target));
+}
+
 export function buildSyncPlan({ scope, norms, publications, context, now, fingerprint, identity = fingerprint, writeIdentity = true, register = new Map() }) {
   const full = scope.mode === 'full';
   const selectedSlugs = new Set(scope.slugs);
@@ -1051,8 +1106,11 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
   else if (writeIdentity) groups.push({ slug: '(identität entwerten)', queries: incrementalStartQueries(now) });
   for (const slug of scope.deletedSlugs) groups.push({ slug: `(löschen ${slug})`, queries: deleteNormQueries(slug) });
   let searchUnitCount = 0;
+  let metadataOnlyCount = 0;
   for (const norm of selected) {
-    const queries = normQueries(norm, context, now, { full, registerKeywords: register.get(norm.meta.slug) ?? [] });
+    const targets = full ? null : normTargets(scope, norm.meta.slug);
+    if (targets) metadataOnlyCount += 1;
+    const queries = normQueries(norm, context, now, { full, registerKeywords: register.get(norm.meta.slug) ?? [], targets });
     searchUnitCount += queries.filter((query) => query.sql.startsWith('INSERT INTO law_search_units')).length;
     groups.push({ slug: norm.meta.slug, queries });
   }
@@ -1090,6 +1148,7 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
     selected,
     derivedCount,
     documentRefreshCount,
+    metadataOnlyCount,
     publicationCount: publicationSelection.length,
     searchUnitCount,
     statementCount: all.length,

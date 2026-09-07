@@ -324,8 +324,16 @@ geschrieben, wenn sich identitätsrelevante Metadaten einer Norm geändert haben
 hinzukamen bzw. entfielen.
 
 **Äquivalenznachweis statt Vollprojektion** (`scripts/lib/d1-projection-proof.mjs`,
-`npm run norms:runtime:d1-prove`). Ändert sich die Projektionslogik, wird nicht angenommen,
-sondern gerechnet: Basis (Code und Bestand des Basis-Commits) und Ziel (Arbeitsbaum) werden
+`npm run norms:runtime:d1-prove`). Die Projektion hat vier Eingaben: Normen, Verkündungen,
+Ableitungskontext und das **Stichwortregister**. Alle Wege — echter Sync, Vollseed, Verifikation,
+Momentaufnahme und Nachweis — laden dieselben vier; `loadProjectionInputs()` liefert sie, und
+`applyScopeToCopy()` weist Eingaben ohne Register fail-closed zurück. Ohne diese Regel verglich
+der Nachweis einen Vollseed *mit* Register gegen eine inkrementelle Simulation *ohne*: die
+fachlichen Tabellen stimmten, nur `law_runtime_meta.corpus_hash` wich ab und erzwang eine
+Vollprojektion. `corpus_hash` bleibt dabei eine geprüfte Verifikationsmetrik und steht nicht unter
+den normalisierten Schlüsseln — eine veraltete Prüfsumme soll auffallen, nicht durchrutschen.
+
+Ändert sich die Projektionslogik, wird nicht angenommen, sondern gerechnet: Basis (Code und Bestand des Basis-Commits) und Ziel (Arbeitsbaum) werden
 vollständig projiziert – aus dem Seed-Cache (`.cache/d1-seed`, Manifest mit Projektionsidentität)
 oder lokal (Basis in einem temporären Worktree mit ihrem eigenen Code) – und semantisch verglichen
 (`scripts/lib/d1-projection-compare.mjs`: alle Projektionstabellen zeilenweise über den

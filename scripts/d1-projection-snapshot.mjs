@@ -42,7 +42,7 @@ async function project(args) {
   const into = valueAfter(args, '--into');
   if (Boolean(out) === Boolean(into)) throw new Error('project braucht genau eines von --out <neue Datei> oder --into <vorhandene Datei>');
   const startedAt = Date.now();
-  const { norms, publications, context } = await loadProjectionInputs(ROOT, { sync });
+  const { norms, publications, context, register } = await loadProjectionInputs(ROOT, { sync });
   console.log(`${norms.length} Normen und ${publications.length} Verkündungen geladen (${Math.round((Date.now() - startedAt) / 1000)} s)`);
   const identity = await projectionIdentity({ root: ROOT, scope: FULL_SCOPE });
   console.log(`Projektionsidentität ${identity.fingerprint.slice(0, 16)}… (Logik ${identity.logic.slice(0, 12)}…, Bestand ${identity.corpus.slice(0, 12)}…, Portal ${identity.portal.slice(0, 12)}…)`);
@@ -50,7 +50,7 @@ async function project(args) {
   const scope = await sync.resolveScope(scopeArgs, { norms, publications, logicPaths: identity.closureUncertain ? null : new Set(identity.logicFiles) });
   console.log(`Umfang: ${scope.mode}${scope.mode === 'incremental' ? ` – ${scope.slugs.length} Norm(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.refreshSearchDocuments ? ', Suchdokumente aller Normen' : ''}` : ''}${scope.reasons?.length ? ` – ${scope.reasons.slice(0, 4).join('; ')}` : ''}`);
   const now = valueAfter(args, '--now') ?? '2026-01-01T00:00:00.000Z';
-  const plan = sync.buildSyncPlan({ scope, norms, publications, context, now, fingerprint: identity, identity, writeIdentity: true });
+  const plan = sync.buildSyncPlan({ scope, norms, publications, context, now, fingerprint: identity, identity, writeIdentity: true, register });
   console.log(`Plan: ${plan.selected.length} Normen, ${plan.derivedCount} abgeleitete Datensätze, ${plan.documentRefreshCount ?? 0} Normen mit erneuerten Suchdokumenten, ${plan.publicationCount} Verkündungen, ${plan.statementCount} Anweisungen (${Math.round((Date.now() - startedAt) / 1000)} s)`);
   const db = await openDatabase(out ?? into, { create: Boolean(out), root: ROOT });
   const executed = executePlan(db, plan);
