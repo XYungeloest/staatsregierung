@@ -102,6 +102,18 @@ Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
 
 ## Staatsportal
 
+### Regierungsarchiv
+
+- [ ] Archivstände für das Kabinett Honecker II und den ersten Staatsrat nachziehen. Für einen
+  Regierungswechsel verlangt `docs/EINPFLEGE_PLAYBOOK.md` (4.5) einen Archivstand unter
+  `content/regierung/archiv/` und eine Seite unter
+  `apps/portal/src/pages/staatsregierung/fruehere-kabinette/`. Beide fehlen seit dem Übergang vom
+  20. Juli 2026 und erneut seit dem 7. September 2026; die Übersichtsseite
+  `fruehere-kabinette/index.astro` bindet nur `kabinett-honecker-i.json` fest ein und listet
+  deshalb genau eine Regierung. Fertig, wenn beide Regierungen einen Archivdatensatz und einen
+  Eintrag in der Übersicht haben und die Seite ihre Einträge nicht mehr einzeln importiert.
+
+
 ### Lange Seiten und Datenansichten
 
 - [ ] Aufbau der Kreisreformseite als Invarianten sichern statt über eine Seitenhöhe. Erledigt sind

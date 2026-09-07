@@ -308,6 +308,11 @@
           "sourceId": "source-stanzo-2026-42",
           "locator": "Bekanntmachung vom 7. September 2026",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -322,7 +327,7 @@
         "executive"
       ],
       "notes": [
-        "Ob die elf Staatssekretariate des ersten Staatsrates fortbestehen, ist nach der Wahl des zweiten Staatsrates nicht belegt; siehe question-second-staatsrat-offices."
+        "Der Organisationserlass 09/2026 gliedert den Staatsrat in die Geschäftsbereiche Überfluss, Frieden, Liebe und Wahrheit und ordnet ihnen zehn Staatssekretariate zu."
       ],
       "aliases": [
         "Erster Staatsrat",
@@ -472,12 +477,12 @@
     },
     {
       "id": "inst-staatskanzlei",
-      "title": "Staatskanzlei",
+      "title": "Büro des Staatspräsidenten",
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Zentrale Koordinierungsstelle der früheren Staatsregierung und des heutigen Staatsrates.",
+      "asOf": "2026-09-07",
+      "summary": "Dem Staatspräsidenten unmittelbar unterstellte Stelle; sie unterstützt ihn bei seinen verfassungsmäßigen Aufgaben und koordiniert die Tätigkeit des Staatsrates. Keinem Geschäftsbereich zugeordnet.",
       "sourceRefs": [
         {
           "sourceId": "source-site-config",
@@ -493,6 +498,11 @@
           "sourceId": "source-pm-helsinki-2025-10-06",
           "locator": "Seite 2: unmittelbare Zuordnung des Bevollmächtigten zur Staatskanzlei",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -508,7 +518,8 @@
       ],
       "notes": [],
       "aliases": [
-        "Staatskanzlei des Ostdeutschen Freistaates"
+        "Staatskanzlei des Ostdeutschen Freistaates",
+        "Büro des Staatspräsidenten"
       ],
       "type": "central-office",
       "predecessorId": null,
@@ -552,12 +563,12 @@
     },
     {
       "id": "inst-sek-inneres-wohnen",
-      "title": "Staatssekretariat des Innern und für Wohnungswirtschaft",
+      "title": "Staatssekretariat des Innern und für Staats- und Grenzsicherheit",
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Inneres und Wohnungswirtschaft.",
+      "asOf": "2026-09-07",
+      "summary": "Oberste Landesbehörde für Inneres, Kommunalwesen, öffentliche Sicherheit, Volks- und Grenzpolizei sowie Bevölkerungsschutz; dem Geschäftsbereich Frieden beigeordnet.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -568,6 +579,11 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -580,7 +596,8 @@
       ],
       "notes": [],
       "aliases": [
-        "Staatsministerium des Innern und für Wohnungswirtschaft"
+        "Staatsministerium des Innern und für Wohnungswirtschaft",
+        "Staatssekretariat des Innern und für Staats- und Grenzsicherheit"
       ],
       "type": "state-secretariat",
       "predecessorId": null,
@@ -588,12 +605,12 @@
     },
     {
       "id": "inst-sek-rechtsstaat-kultur",
-      "title": "Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation",
+      "title": "Staatssekretariat für Rechtsstaatlichkeit und Justiz",
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Rechtsstaatlichkeit und kulturelle Emanzipation.",
+      "asOf": "2026-09-07",
+      "summary": "Oberste Landesbehörde für Justiz, Rechtsstaatlichkeit, Transparenz und Antidiskriminierung; dem Geschäftsbereich Liebe beigeordnet.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -604,6 +621,11 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -616,7 +638,8 @@
       ],
       "notes": [],
       "aliases": [
-        "Staatsministerium für Rechtsstaatlichkeit und kulturelle Emanzipation"
+        "Staatsministerium für Rechtsstaatlichkeit und kulturelle Emanzipation",
+        "Staatssekretariat für Rechtsstaatlichkeit und Justiz"
       ],
       "type": "state-secretariat",
       "predecessorId": null,
@@ -660,12 +683,12 @@
     },
     {
       "id": "inst-sek-nachhaltigkeit-energie",
-      "title": "Staatssekretariat für Nachhaltigkeit und Energie",
+      "title": "Staatssekretariat für Nachhaltigkeit, Energie und Land-, Forst- und Küstenwirtschaft",
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Nachhaltigkeit und Energie.",
+      "asOf": "2026-09-07",
+      "summary": "Oberste Landesbehörde für Energie, Umwelt- und Klimaschutz, Kreislaufwirtschaft sowie Land-, Forst- und Küstenwirtschaft; dem Geschäftsbereich Überfluss beigeordnet.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -676,6 +699,11 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -688,7 +716,8 @@
       ],
       "notes": [],
       "aliases": [
-        "Staatsministerium für Nachhaltigkeit und Energie"
+        "Staatsministerium für Nachhaltigkeit und Energie",
+        "Staatssekretariat für Nachhaltigkeit, Energie und Land-, Forst- und Küstenwirtschaft"
       ],
       "type": "state-secretariat",
       "predecessorId": null,
@@ -699,8 +728,8 @@
       "title": "Staatssekretariat für Staats- und Grenzsicherheit",
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
-      "validTo": null,
-      "asOf": "2026-07-29",
+      "validTo": "2026-09-06",
+      "asOf": "2026-09-07",
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Staats- und Grenzsicherheit.",
       "sourceRefs": [
         {
@@ -722,6 +751,11 @@
           "sourceId": "source-gmbl-2026-14",
           "locator": "Präambel und Unterschriftszeile",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -732,18 +766,20 @@
       ],
       "tags": [
         "administration",
-        "state-secretariat"
+        "state-secretariat",
+        "historical"
       ],
       "notes": [
         "Die kanonische aktuelle Amtsbezeichnung lautet „Staatssekretariat für Staats- und Grenzsicherheit“.",
-        "GMBl. 2026 Nr. 14 verwendet quellentreu in der Präambel „Staatsrat für Staats- und Grenzssicherheit“ und in der Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“; beide Formen sind als Druck- oder Schreibabweichungen dokumentiert."
+        "GMBl. 2026 Nr. 14 verwendet quellentreu in der Präambel „Staatsrat für Staats- und Grenzssicherheit“ und in der Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“; beide Formen sind als Druck- oder Schreibabweichungen dokumentiert.",
+        "Nach Abschnitt VII des Organisationserlasses 09/2026 zum 7. September 2026 in das nachfolgende Staatssekretariat eingegliedert."
       ],
       "aliases": [
         "Staatsministerium für Staats- und Grenzsicherheit"
       ],
       "type": "state-secretariat",
       "predecessorId": null,
-      "successorId": null
+      "successorId": "inst-sek-inneres-wohnen"
     },
     {
       "id": "inst-sek-gesundheit-soziales",
@@ -858,8 +894,8 @@
       "title": "Staatssekretariat für Land-, Forst- und Küstenwirtschaft",
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
-      "validTo": null,
-      "asOf": "2026-07-21",
+      "validTo": "2026-09-06",
+      "asOf": "2026-09-07",
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Land-, Forst- und Küstenwirtschaft.",
       "sourceRefs": [
         {
@@ -871,6 +907,11 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -879,24 +920,27 @@
       ],
       "tags": [
         "administration",
-        "state-secretariat"
+        "state-secretariat",
+        "historical"
       ],
-      "notes": [],
+      "notes": [
+        "Nach Abschnitt VII des Organisationserlasses 09/2026 zum 7. September 2026 in das nachfolgende Staatssekretariat eingegliedert."
+      ],
       "aliases": [
         "Staatsministerium für Land-, Forst- und Küstenwirtschaft"
       ],
       "type": "state-secretariat",
       "predecessorId": null,
-      "successorId": null
+      "successorId": "inst-sek-nachhaltigkeit-energie"
     },
     {
       "id": "inst-sek-wirtschaft-arbeit",
-      "title": "Staatssekretariat für Wirtschaft und Arbeit",
+      "title": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Wirtschaft und Arbeit.",
+      "asOf": "2026-09-07",
+      "summary": "Oberste Landesbehörde für Wirtschaft, Arbeit, Wohnungswirtschaft und Tourismus; dem Geschäftsbereich Überfluss beigeordnet.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -907,6 +951,11 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis VII",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -919,7 +968,8 @@
       ],
       "notes": [],
       "aliases": [
-        "Staatsministerium für Wirtschaft und Arbeit"
+        "Staatsministerium für Wirtschaft und Arbeit",
+        "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft"
       ],
       "type": "state-secretariat",
       "predecessorId": null,
@@ -2141,6 +2191,38 @@
       ],
       "type": "public-law-institution",
       "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-kultur-medien",
+      "title": "Staatssekretariat für Kultur, Medien und kulturelle Emanzipation",
+      "status": "confirmed-official",
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "asOf": "2026-09-07",
+      "summary": "Oberste Landesbehörde für Kunst und Kultur, Kulturräume, Medien, Archive, Erinnerungspolitik, Kulturgutschutz und die Angelegenheiten der Sorben; dem Geschäftsbereich Wahrheit beigeordnet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte V und VII",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-sek-rechtsstaat-kultur",
+        "person-tim-dieter"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [
+        "Aus der Teilung des bisherigen Staatssekretariats für Rechtsstaatlichkeit und kulturelle Emanzipation neu gebildet."
+      ],
+      "aliases": [],
+      "type": "state-secretariat",
+      "predecessorId": "inst-sek-rechtsstaat-kultur",
       "successorId": null
     }
   ]

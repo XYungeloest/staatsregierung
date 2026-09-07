@@ -351,47 +351,45 @@
       "questionStatus": "open"
     },
     {
-      "id": "question-second-staatsrat-offices",
-      "title": "Wer führt im zweiten Staatsrat Vorsitz und Stellvertretung, und wie sind die Geschäftsbereiche zugeschnitten?",
+      "id": "question-second-staatsrat-personnel-records",
+      "title": "Welche Personendaten fehlen zu Johanna Schwade und zu den drei Staatssekretären?",
       "status": "unresolved",
       "validFrom": "2026-09-07",
       "validTo": null,
       "asOf": "2026-09-07",
-      "summary": "StAnzO. 2026 Nr. 42 belegt vier gewählte Mitglieder mit ihren Amtsbezeichnungen, nicht aber den Staatspräsidenten, die Stellvertretung, den behördlichen Zuschnitt der vier Geschäftsbereiche und den Fortbestand der elf Staatssekretariate. Zu Johanna Schwade sind nur Name und Amtsbezeichnung belegt.",
+      "summary": "Amt, Geschäftsbereich und Partei von Johanna Schwade sind belegt; Lebenslauf, Kontaktangaben und Porträt fehlen, das öffentliche Profil führt deshalb ein Ansichtsbild statt eines Porträts. Die Ernennung der drei Staatssekretäre ist durch den Ernennungsakt vom 7. September 2026 belegt; die Originaldatei ist noch zu archivieren, Porträts und Kontaktangaben fehlen, und das Organisationsmodell des Portals kennt keine Ebene unterhalb der Ressortleitung.",
       "sourceRefs": [
         {
-          "sourceId": "source-stanzo-2026-42",
-          "locator": "Bekanntmachung vom 7. September 2026",
+          "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+          "locator": "Ernennungsakt vom 7. September 2026",
           "role": "primary"
         },
         {
-          "sourceId": "source-editorial-clarification-second-staatsrat-2026-09-07",
-          "locator": "Abschnitt Nicht belegte Angaben",
+          "sourceId": "source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07",
+          "locator": "Abschnitte Mitglieder des Staatsrates und Staatssekretäre",
           "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "state-current-government",
-        "proceeding-second-staatsrat-formation",
         "person-johanna-schwade",
-        "inst-staatsrat"
+        "state-current-government",
+        "proceeding-second-staatsrat-formation"
       ],
       "tags": [
         "open-question",
         "government",
-        "institutions"
+        "persons"
       ],
       "notes": [],
-      "question": "Welche amtliche Quelle belegt den Staatspräsidenten und die Stellvertretung des zweiten Staatsrates, den Zuschnitt seiner Geschäftsbereiche und das Schicksal der bisherigen Staatssekretariate?",
+      "question": "Welche Personendaten, Porträts und Originaldateien liegen für Johanna Schwade und die drei Staatssekretäre vor?",
       "affectedIds": [
-        "state-current-government",
-        "proceeding-second-staatsrat-formation",
-        "person-johanna-schwade"
+        "person-johanna-schwade",
+        "state-current-government"
       ],
-      "reason": "Die Bekanntmachung gibt nur die Listenwahl wieder. Vorsitz, Stellvertretung und Geschäftsbereiche beschließt der Staatsrat in eigenen Akten, die nicht vorliegen.",
-      "requiredSource": "Beschluss des Staatsrates über Staatspräsident, Stellvertretung und Geschäftsbereiche sowie ein Organisationsakt zu den Staatssekretariaten; für Johanna Schwade ein Personendatensatz mit Partei, Kurzbiografie und Kontakt.",
-      "publicContentImpact": "Bis zur Zuarbeit bleibt content/organisation/ auf dem Stand des ersten Staatsrates zum 6. September 2026; kein Staatspräsident, keine Stellvertretung und kein Ressortzuschnitt des zweiten Staatsrates wird öffentlich behauptet.",
-      "priority": "high",
+      "reason": "Der Ernennungsakt wurde als Bildschirmfoto zugearbeitet; der Wikiauszug kam ohne Revisionspermalink. Für Personenprofile fehlen Biografie, Kontakt und Bild.",
+      "requiredSource": "Originaldatei des Ernennungsaktes für context/amtliche-dokumente/2026-09-07/, Personendatensätze und Porträts für Johanna Schwade sowie die drei Staatssekretäre, Permalink des Wikiartikels.",
+      "publicContentImpact": "Bis dahin nennt das Portal die Staatssekretäre in Chronologie und Zeitachse, führt aber keine eigenen Profile; für Johanna Schwade erscheint ein Ansichtsbild statt eines Porträts.",
+      "priority": "medium",
       "questionStatus": "open"
     }
   ]

@@ -116,25 +116,22 @@ achten Volkskammer am 7. September 2026 durch StAnzO. 2026 Nr. 42. Weiterhin ben
       Sozialistische Verfassungsnovelle sowie Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz
 - [ ] Errichtungsakte für Staatsplankommission Ost und Landeswirtschaftsrat
 
-### V-01a – Ämter und Geschäftsbereiche des zweiten Staatsrates
+### V-01a – Personenbelege zum zweiten Staatsrat
 
-StAnzO. 2026 Nr. 42 belegt die Wahl von vier Mitgliedern des Staatsrates, ihre Amtsbezeichnungen,
-die Vereidigung und die Ernennung. Solange die folgenden vier Angaben fehlen, bleibt der
-öffentliche Organisationsbestand auf dem Stand des ersten Staatsrates zum 6. September 2026; die
-Begründung steht in `CONTENT_GAPS.md` und in
-`knowledge/clarifications/2026-09-07-zweiter-staatsrat.md`.
+Wahl, Konstituierung, Staatspräsident, Stellvertretung und der Zuschnitt der vier Geschäftsbereiche
+sind durch StAnzO. 2026 Nr. 42, OGVBl. 2026 Nr. 75 und die Zuarbeit vom 7. September 2026 belegt und
+eingepflegt. Weiterhin benötigt werden nur:
 
-- [ ] Bestimmung des Staatspräsidenten aus der Mitte des Staatsrates (Artikel 60 Absatz 4):
-      Person, Datum, Fundstelle
-- [ ] Stellvertretung innerhalb des Staatsrates (Artikel 68a Absatz 1): Person, Datum, Fundstelle
-- [ ] Beschluss über die Geschäftsbereiche (Artikel 59 Absatz 3): Zuschnitt der vier
-      Geschäftsbereiche Überfluss, Frieden, Liebe und Wahrheit sowie Fortbestand, Aufgehen oder
-      Umbenennung der elf Staatssekretariate; je Geschäftsbereich Bezeichnung, Kurzname, Aufgaben
-      und dienstliche Kontaktangabe
-- [ ] Personenangaben zu Johanna Schwade: Kurzbiografie, Partei, Porträt mit Bildnachweis und
-      dienstliche E-Mail-Adresse auf `freistaat-ostdeutschland.de`
-- [ ] Fortführung oder Ende der Leitung der Staatskanzlei durch Emma Müller, falls die
-      konstituierende Sitzung sie berührt hat
+- [ ] Personendatensatz Johanna Schwade: Kurzbiografie, Werdegang und dienstliche Kontaktangabe
+- [ ] Porträt von Johanna Schwade als JPEG oder PNG für `public/images/regierung/`; bis dahin führt
+      das Profil ein Ansichtsbild
+- [ ] Originaldatei des Ernennungsaktes vom 7. September 2026 für
+      `context/amtliche-dokumente/2026-09-07/`; der Wortlaut ist bereits transkribiert
+- [ ] Personendatensätze, Kontaktangaben und Porträts für Finn Bonnano, Kilian Schmidt und Lukas
+      Schmidt, falls die Staatssekretäre eigene Profile erhalten sollen; das Organisationsmodell
+      braucht dafür zusätzlich ein eigenes Amt unterhalb der Ressortleitung
+- [ ] Revisionspermalink des Wikiartikels „Kabinett Honecker III“ auf
+      `https://politiksim.miraheze.org/wiki/`
 
 ### V-02 – Boom Europe Leipzig/Halle
 

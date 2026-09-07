@@ -131,10 +131,10 @@ function staticRoutes(): StaticRoute[] {
     },
     {
       path: getCabinetUrl(),
-      title: 'Erster Staatsrat',
+      title: 'Staatsrat und Geschäftsbereiche',
       section: 'government',
-      description: 'Die Staatssekretariate des Ersten Staatsrates mit Leitung und Aufgaben.',
-      searchText: 'Kabinett Staatssekretariate Ressorts Geschäftsbereiche Leitung Aufgaben Erster Staatsrat',
+      description: 'Die Staatssekretariate des Staatsrates mit Leitung und Aufgaben.',
+      searchText: 'Kabinett Staatssekretariate Ressorts Geschäftsbereiche Leitung Aufgaben Staatsrat',
     },
     {
       path: getHoldingsUrl(),

@@ -466,7 +466,7 @@
       "validFrom": "2026-09-07",
       "validTo": null,
       "asOf": "2026-09-07",
-      "summary": "Seit 7. September 2026 besteht der zweite Staatsrat aus vier von der achten Volkskammer als Liste gewählten Mitgliedern: Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe) und Tim Dieter (Wahrheit). Mit dieser Wahl sind die Mitglieder des ersten Staatsrates nach Artikel 60 Absatz 2 Satz 2 abberufen. Wer den Vorsitz als Staatspräsident führt, wer die Stellvertretung wahrnimmt und wie die Geschäftsbereiche behördlich zugeschnitten sind, ist bislang nicht belegt.",
+      "summary": "Seit 7. September 2026 besteht der zweite Staatsrat aus vier von der achten Volkskammer als Liste gewählten Mitgliedern: Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe) und Tim Dieter (Wahrheit). Der Staatsrat bestimmte Honecker zum Staatspräsidenten und Schmäle zu dessen Stellvertreter. Der Organisationserlass 09/2026 ordnet den vier Geschäftsbereichen zehn Staatssekretariate zu; das Büro des Staatspräsidenten gehört zu keinem Geschäftsbereich.",
       "sourceRefs": [
         {
           "sourceId": "source-stanzo-2026-42",
@@ -474,45 +474,51 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-editorial-clarification-second-staatsrat-2026-09-07",
-          "locator": "Abschnitte Belegte Feststellungen und Nicht belegte Angaben",
-          "role": "corroborating"
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis VII und Unterschriftszeile",
+          "role": "primary"
         },
         {
-          "sourceId": "source-constitution-current",
-          "locator": "Artikel 59 Absatz 2 und 3, Artikel 60 Absatz 2 Satz 2 und Absatz 4, Artikel 68a Absatz 1",
+          "sourceId": "source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07",
+          "locator": "Abschnitte Konstituierung des Staatsrates und Mitglieder des Staatsrates",
           "role": "corroborating"
         },
         {
           "sourceId": "source-organization-assignments",
-          "locator": "assignments[governmentSlug=erster-staatsrat]",
-          "role": "conflicting"
+          "locator": "assignments[governmentSlug=zweiter-staatsrat]",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+          "locator": "Ernennungsakt vom 7. September 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
         "inst-volkskammer",
+        "inst-staatspraesident",
         "person-karl-honecker",
         "person-yannik-schmaele",
         "person-johanna-schwade",
         "person-tim-dieter",
         "person-emma-mueller",
-        "question-second-staatsrat-offices",
-        "event-second-staatsrat-formed-2026"
+        "event-second-staatsrat-formed-2026",
+        "proceeding-second-staatsrat-formation"
       ],
       "tags": [
         "current-state",
         "government"
       ],
       "notes": [
-        "Der Staatspräsident wird nach Artikel 60 Absatz 4 aus der Mitte des Staatsrates bestimmt; die Bekanntmachung führt Dr. Karl Honecker ausdrücklich als Staatsrat für Überfluss und nicht als Staatspräsident. Leitung und Stellvertretung bleiben deshalb offen.",
-        "Ob die elf Staatssekretariate des ersten Staatsrates fortbestehen, aufgehen oder umbenannt werden, ist nicht belegt; die Bekanntmachung nennt nur die vier Amtsbezeichnungen. stateSecretariatIds bleibt bis zur Zuarbeit leer.",
-        "Die Leitung der Staatskanzlei ist kein Amt im Staatsrat und von der Abberufung nicht erfasst; ein eigener Akt liegt nicht vor.",
-        "Der öffentliche Organisationsbestand unter content/organisation/ führt weiterhin den ersten Staatsrat zum redaktionellen Stichtag 6. September 2026; die Abweichung ist in CONTENT_GAPS.md und im Zuarbeitsformular festgehalten."
+        "Die Geschäftsbereiche Überfluss, Frieden, Liebe und Wahrheit lösen die bisherige Ressortgliederung ab. Zwei Staatssekretariate sind eingegliedert, eines ist neu gebildet.",
+        "Das Büro des Staatspräsidenten tritt an die Stelle der Staatskanzlei und untersteht dem Staatspräsidenten unmittelbar.",
+        "Drei Staatssekretäre sind dem Staatsrat für Frieden beigeordnet; ihr Amt endet nach Artikel 68 Absatz 1 Satz 2 auch mit dessen Mitgliedschaft. Das öffentliche Organisationsmodell führt keine Ebene unterhalb der Ressortleitung.",
+        "Zu Johanna Schwade sind Amt, Geschäftsbereich und Partei belegt; Lebenslauf und Porträt fehlen."
       ],
       "governmentId": "inst-staatsrat",
-      "headPersonId": null,
-      "deputyPersonId": null,
+      "headPersonId": "person-karl-honecker",
+      "deputyPersonId": "person-yannik-schmaele",
       "memberPersonIds": [
         "person-karl-honecker",
         "person-yannik-schmaele",
@@ -520,7 +526,38 @@
         "person-tim-dieter"
       ],
       "chiefOfChancelleryPersonId": "person-emma-mueller",
-      "stateSecretariatIds": []
+      "stateSecretariatIds": [
+        "inst-sek-finanzen",
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-mobilitaet-regionen",
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-sek-inneres-wohnen",
+        "inst-sek-voelkerfreundschaft",
+        "inst-sek-rechtsstaat-kultur",
+        "inst-sek-gesundheit-soziales",
+        "inst-sek-volksbildung-wissenschaft",
+        "inst-sek-kultur-medien"
+      ],
+      "stateSecretaries": [
+        {
+          "name": "Finn Bonnano",
+          "responsibility": "Überwachung und Instandhaltung der ostdeutschen Grenzsicherungsanlagen sowie Migration",
+          "businessArea": "Frieden",
+          "assignedTo": "person-yannik-schmaele"
+        },
+        {
+          "name": "Kilian Schmidt",
+          "responsibility": "Bevölkerungsschutz",
+          "businessArea": "Frieden",
+          "assignedTo": "person-yannik-schmaele"
+        },
+        {
+          "name": "Lukas Schmidt",
+          "responsibility": "Volkspolizei",
+          "businessArea": "Frieden",
+          "assignedTo": "person-yannik-schmaele"
+        }
+      ]
     },
     {
       "id": "state-current-volksbefragung-2026",

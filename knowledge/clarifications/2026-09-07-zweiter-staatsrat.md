@@ -1,54 +1,52 @@
-# Redaktionelle Bewertung der Bekanntmachung über die Formation des zweiten Staatsrates
+# Redaktionelle Bewertung der Bildung des zweiten Staatsrates
 
 **Stand:** 7. September 2026
 
 ## Anlass
 
-`StAnzO. 2026 Nr. 42` vom 7. September 2026 macht bekannt, dass die achte Ostdeutsche Volkskammer
-am 7. September 2026 in ihrer konstituierenden Sitzung nach Artikel 60 Absatz 1 in Verbindung mit
-Artikel 60 Absatz 2 Satz 2 der Staatsverfassung vier Mitglieder des Staatsrates gewählt hat. Die
-Ausgabe ist damit zugleich der erste Beleg für die Konstituierung der achten Volkskammer, die
-bisher als offene Zuarbeit geführt wurde.
+Am 7. September 2026 sind drei Vorgänge zusammengefallen: die konstituierende Sitzung der achten
+Ostdeutschen Volkskammer, die Wahl und Konstituierung des zweiten Staatsrates und dessen erster
+Organisationsbeschluss. Sie sind durch zwei amtliche Ausgaben und eine Zuarbeit belegt.
 
-## Belegte Feststellungen
+## Quellenlage
 
-- Die achte Volkskammer ist am 7. September 2026 zusammengetreten. Die Ausgabe ist von
-  Dr. Mateo Delgado als Präsident der Volkskammer gezeichnet; das belegt sein Amt an diesem Tag.
-- Gewählt wurden Dr. Karl Honecker als Staatsrat für Überfluss, Yannik Schmäle als Staatsrat für
-  Frieden, Johanna Schwade als Staatsrätin für Liebe und Tim Dieter als Staatsrat für Wahrheit.
-- Die Gewählten wurden vor der Volkskammer vereidigt und in ihrem Amt ernannt (Artikel 61).
-- Die Wahl erfolgte als Listenwahl. Nach Artikel 60 Absatz 2 Satz 2 sind die bisherigen Mitglieder
-  des Staatsrates damit abberufen. Der erste Staatsrat endet folglich mit Ablauf des
-  6. September 2026.
-- Johanna Schwade ist im Bestand neu. Über sie ist außer Name und Amtsbezeichnung nichts belegt.
+| Feststellung | Beleg |
+| --- | --- |
+| Konstituierende Sitzung der achten Volkskammer am 7. September 2026 | `StAnzO. 2026 Nr. 42` |
+| Wahl von vier Mitgliedern des Staatsrates als Liste, Vereidigung und Ernennung | `StAnzO. 2026 Nr. 42` |
+| Abberufung der bisherigen Mitglieder nach Artikel 60 Absatz 2 Satz 2 | `StAnzO. 2026 Nr. 42` in Verbindung mit der Staatsverfassung |
+| Dr. Mateo Delgado als Präsident der Volkskammer | Unterschriftszeile von `StAnzO. 2026 Nr. 42` |
+| Dr. Karl Honecker als Staatspräsident | Unterschriftszeile von `OGVBl. 2026 Nr. 75` |
+| Yannik Schmäle als Stellvertreter des Staatspräsidenten | Zuarbeit vom 7. September 2026 |
+| Vier Geschäftsbereiche, zehn Staatssekretariate, Stellung des Büros des Staatspräsidenten | `OGVBl. 2026 Nr. 75`, Abschnitte I bis VII |
+| Wahlergebnis der Listenwahl, Parteizugehörigkeit, drei Staatssekretäre | Zuarbeit vom 7. September 2026 |
 
-## Nicht belegte Angaben
+## Zwei Entscheidungen, die der Erlass nicht ausdrücklich trifft
 
-Die Ausgabe trifft zu vier Punkten keine Aussage; sie werden deshalb weder abgeleitet noch
-angenommen:
+**Die Staatskanzlei geht im Büro des Staatspräsidenten auf.** Der Organisationserlass nennt die
+Staatskanzlei nicht, weist dem Büro des Staatspräsidenten in Abschnitt VI aber genau die Aufgaben
+zu, die den Bestand der Staatskanzlei ausmachten: Sitzungen des Staatsrates, Koordinierung der
+Richtlinien der Regierungspolitik, ressortübergreifende Staatsplanung, Beziehungen zwischen
+Staatsrat und Volkskammer, allgemeine Presse- und Öffentlichkeitsarbeit sowie zentrale
+Verwaltungsdienste. Abschnitt XII setzt entgegenstehende Organisationsanordnungen des ersten
+Staatsrates außer Kraft. Der Bestand führt das Ressort deshalb unter seinem stabilen Slug
+`staatskanzlei` mit dem neuen Namen fort; die Leitung durch Emma Müller bleibt bestehen, weil kein
+Akt sie beendet.
 
-1. Wer nach Artikel 60 Absatz 4 aus der Mitte des Staatsrates zum Staatspräsidenten bestimmt
-   wurde. Die Wahl der Liste erfasst dieses Amt nicht; Dr. Karl Honecker ist in der Bekanntmachung
-   ausdrücklich als Staatsrat für Überfluss und nicht als Staatspräsident aufgeführt.
-2. Wer nach Artikel 68a Absatz 1 die Stellvertretung innerhalb des Staatsrates führt.
-3. Wie der Staatsrat nach Artikel 59 Absatz 3 die Geschäftsbereiche seiner Mitglieder zuschneidet
-   und ob die elf bisherigen Staatssekretariate fortbestehen, aufgehen oder umbenannt werden. Die
-   Bekanntmachung nennt nur die vier Amtsbezeichnungen, keine Behördenorganisation.
-4. Ob und wie sich das Amt der Leitung der Staatskanzlei ändert. Es ist kein Amt im Staatsrat und
-   von der Abberufung nach Artikel 60 Absatz 2 Satz 2 nicht erfasst; ein eigener Akt liegt nicht
-   vor.
+**Historische Zuordnungen aufgelöster Staatssekretariate bleiben erhalten.** Die Staatssekretariate
+für Staats- und Grenzsicherheit sowie für Land-, Forst- und Küstenwirtschaft verlieren mit
+Abschnitt VII ihr Ressortprofil. Ihre abgeschlossenen Zuordnungen werden nicht gelöscht, sondern
+tragen den damaligen Namen als `historicalMinistryLabel`; `validateOrganization` lässt eine
+beendete Zuordnung auf ein aufgelöstes Ressort nur mit diesem Feld zu.
 
-## Folgen für den Bestand
+## Was weiterhin fehlt
 
-Der Wissenshub bildet den belegten Stand ab: `state-current-government` führt den zweiten Staatsrat
-mit seinen vier belegten Mitgliedern, ohne Staatspräsident, ohne Stellvertretung und ohne
-Geschäftsbereichszuschnitt; `state-current-parliament` führt die achte Volkskammer.
+- Lebenslauf, Partei- und Kontaktangaben sowie ein Porträt von Johanna Schwade. Das öffentliche
+  Profil führt bis dahin ein Ansichtsbild.
+- Eine amtliche Veröffentlichung zur Ernennung von Finn Bonnano, Kilian Schmidt und Lukas Schmidt
+  zu Staatssekretären im Geschäftsbereich Frieden. Der Wissenshub führt sie als Zuarbeit; das
+  Portal führt keine Staatssekretäre.
+- Der Revisionspermalink des Wikiartikels „Kabinett Honecker III“.
 
-Der öffentliche Organisationsbestand unter `content/organisation/` bleibt unverändert, und der
-redaktionelle Stichtag bleibt auf dem 6. September 2026. Grund ist keine Zurückhaltung, sondern die
-Datenform: Die Organisationsprüfung verlangt am Stichtag genau eine Leitung, genau eine
-Stellvertretung und für jedes Ressortprofil genau eine aktive Leitung. Der zweite Staatsrat ließe
-sich nur eintragen, indem ein Staatspräsident, eine Stellvertretung und vier Ressortprofile
-erfunden würden. Bis zur Zuarbeit zu den vier offenen Punkten beschreibt das Staatsportal deshalb
-ausdrücklich den Stand vom 6. September 2026; die Ausgabe selbst ist über das Rechtsportal
-vollständig zugänglich.
+Die offenen Punkte stehen als `question-second-staatsrat-personnel-records` und im
+Zuarbeitsformular unter V-01a.

@@ -63,42 +63,28 @@ ostdeutsche Setzung kennt:
   REVOSax-Quelle noch eine eigene Ausgangsfassung. Ohne amtliche Quelle der 1996er Verordnung bleibt
   die Herkunft ungeklärt.
 
-## Zweiter Staatsrat (StAnzO. 2026 Nr. 42)
+## Zweiter Staatsrat (StAnzO. 2026 Nr. 42, OGVBl. 2026 Nr. 75)
 
-Die Bekanntmachung der Formation des zweiten Staatsrates vom 7. September 2026 ist vollständig
-eingepflegt: HTML und PDF stimmen überein, die Norm und der Ausgabedatensatz sind erzeugt, der
-Wissenshub führt den zweiten Staatsrat mit seinen vier belegten Mitgliedern. Der öffentliche
-Organisationsbestand unter `content/organisation/` bleibt dagegen auf dem Stand des ersten
-Staatsrates zum redaktionellen Stichtag 6. September 2026, weil vier Angaben fehlen und ohne sie
-nur erfunden werden könnten:
+Bekanntmachung, Organisationserlass und Zuarbeit vom 7. September 2026 sind eingepflegt; der
+Organisationsbestand, der Stichtag und die öffentlichen Seiten führen den zweiten Staatsrat. Offen
+bleiben drei Belege:
 
-- **Staatspräsident** — Artikel 60 Absatz 4 der Staatsverfassung verlangt eine Bestimmung aus der
-  Mitte des Staatsrates. Die Bekanntmachung führt Dr. Karl Honecker ausdrücklich als Staatsrat für
-  Überfluss; ein Beschluss über den Vorsitz liegt nicht vor. `validateOrganization` verlangt am
-  Stichtag genau eine Leitung.
-- **Stellvertretung** — Artikel 68a Absatz 1 überlässt sie dem Staatsrat; ein Beschluss liegt nicht
-  vor. Die Organisationsprüfung verlangt am Stichtag genau eine Stellvertretung.
-- **Geschäftsbereiche** — die Bekanntmachung nennt die vier Amtsbezeichnungen Überfluss, Frieden,
-  Liebe und Wahrheit, aber keinen Behördenzuschnitt. Ob die elf Staatssekretariate fortbestehen,
-  aufgehen oder umbenannt werden, ist offen; jedes Profil unter `content/ressorts/` braucht am
-  Stichtag genau eine aktive Leitung.
-- **Johanna Schwade** — belegt sind nur Name und Amtsbezeichnung. Ein Personenprofil verlangt
-  zusätzlich Kurzbiografie, Porträt mit Bildnachweis und dienstliche Kontaktangabe.
+- **Johanna Schwade** — Amt, Geschäftsbereich und Partei sind belegt; Lebenslauf, Kontaktangaben
+  und ein Porträt fehlen. Das Profil führt bis dahin ein Ansichtsbild statt eines Porträts.
+- **Staatssekretäre des Geschäftsbereichs Frieden** — die Ernennung von Finn Bonnano, Kilian
+  Schmidt und Lukas Schmidt nach Artikel 59 Absatz 2 Satz 2 ist durch den Ernennungsakt des
+  Staatspräsidenten vom 7. September 2026 belegt und transkribiert; die Originaldatei fehlt noch
+  unter `context/amtliche-dokumente/2026-09-07/`. Das Portal nennt die drei Ämter in Chronologie
+  und Zeitachse, führt aber keine eigenen Profile: Das Organisationsmodell kennt keine Ebene
+  unterhalb der Ressortleitung, und Porträts sowie Kontaktangaben fehlen.
+- **Wikirevision** — der Auszug des Artikels „Kabinett Honecker III“ wurde ohne Permalink
+  bereitgestellt. `knowledge/SOURCE_POLICY.md` verlangt für externe Wikiquellen eine konkrete
+  Revision.
 
-Solange der Stichtag auf dem 6. September 2026 steht, weist die Normseite die Bekanntmachung als
-„Verkündet; tritt am 7. September 2026 in Kraft und gehört bis dahin nicht zum geltenden
-Rechtsstand“ aus. Das ist zum Stichtag richtig und wird mit dessen Fortschreibung zu
-„Abgeschlossener einmaliger Rechtsakt mit Wirkung vom 7. September 2026“.
-
-Die benötigte Zuarbeit steht in `docs/ZUARBEITSFORMULAR.md` unter V-01a, die Bewertung der Quelle in
-`knowledge/clarifications/2026-09-07-zweiter-staatsrat.md`, die offene Frage als
-`question-second-staatsrat-offices`. Mit der Zuarbeit werden in einem Vorgang nachgezogen:
-`content/organisation/` samt Snapshot, die Personen- und Ressortprofile, der redaktionelle
-Stichtag, der Satz „Bis zum Zusammentritt der achten Volkskammer bleibt die siebte Volkskammer im
-Amt“ und die Angaben zu Staatspräsident und Stellvertretung in `content/freistaat/staatsaufbau.json`,
-die Zeitachse unter `content/dashboard/timeline.json` sowie die Verknüpfung der Ausgabe in
-`content/themen/staatsreform-und-verfassung.json`. Bis dahin beschreiben diese Seiten
-widerspruchsfrei den Stand vom 6. September 2026.
+Die Zuarbeit steht in `docs/ZUARBEITSFORMULAR.md` unter V-01a, die Quellenbewertung in
+`knowledge/clarifications/2026-09-07-zweiter-staatsrat.md` und in
+`knowledge/clarifications/2026-09-07-kabinett-honecker-iii.md`, die offene Frage als
+`question-second-staatsrat-personnel-records`.
 
 ## Bekanntmachungen zur Interflug (StAnzO. 2026 Nr. 39 und 40)
 

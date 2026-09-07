@@ -3032,7 +3032,7 @@
       "id": "source-editorial-clarification-second-staatsrat-2026-09-07",
       "type": "editorial-decision",
       "path": "knowledge/clarifications/2026-09-07-zweiter-staatsrat.md",
-      "title": "Redaktionelle Bewertung der Bekanntmachung über die Formation des zweiten Staatsrates",
+      "title": "Redaktionelle Bewertung der Bildung des zweiten Staatsrates",
       "date": "2026-09-07",
       "status": "primary",
       "scope": [
@@ -3041,7 +3041,64 @@
         "institutions",
         "editorial"
       ],
-      "notes": "Hält fest, welche Folgen aus StAnzO. 2026 Nr. 42 belegt sind, welche Angaben fehlen und warum der öffentliche Organisationsbestand und der redaktionelle Stichtag bis zur Zuarbeit unverändert bleiben."
+      "notes": "Hält fest, welche Feststellung aus welcher Quelle stammt, warum die Staatskanzlei im Büro des Staatspräsidenten aufgeht, wie abgeschlossene Zuordnungen aufgelöster Staatssekretariate erhalten bleiben und was weiterhin fehlt."
+    },
+    {
+      "id": "source-ogvbl-2026-75",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 75.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 75.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 75.pdf"
+      },
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 75",
+      "date": "2026-09-07",
+      "documentDate": "2026-09-07",
+      "publicationDate": "2026-09-07",
+      "pages": "2–10",
+      "status": "primary",
+      "scope": [
+        "government",
+        "administration",
+        "institutions",
+        "state"
+      ],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "PDF: amtliche Veröffentlichungsfassung der Ausgabe",
+        "HTML: vollständige strukturtragende Transkription derselben Ausgabe"
+      ],
+      "notes": "Organisationserlass 09/2026 des Staatsrates über die Abgrenzung der Geschäftsbereiche und die Zuordnung der Staatssekretariate vom 7. September 2026, gezeichnet von Dr. Karl Honecker als Staatspräsident. Alle zehn PDF-Seiten geprüft; HTML-Transkription und PDF stimmen überein. Maßgebliche Quelle für die vier Geschäftsbereiche, die zehn beigeordneten Staatssekretariate, Umbenennung, Eingliederung, Zusammenführung und Teilung der bisherigen Staatssekretariate sowie für die Stellung des Büros des Staatspräsidenten. Die Unterschriftszeile belegt zugleich, dass Karl Honecker am 7. September 2026 Staatspräsident ist."
+    },
+    {
+      "id": "source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07",
+      "type": "editorial-clarification",
+      "path": "knowledge/clarifications/2026-09-07-kabinett-honecker-iii.md",
+      "title": "Zuarbeit vom 7. September 2026 zum Kabinett Honecker III",
+      "date": "2026-09-07",
+      "status": "corroborating",
+      "scope": [
+        "government",
+        "parliament",
+        "persons",
+        "editorial"
+      ],
+      "notes": "Vom Benutzer bereitgestellter Auszug des Wikiartikels „Kabinett Honecker III“ des PolitikSim-Wikis, ohne Revisionspermalink. Belegt die Bestimmung von Staatspräsident und Stellvertreter nach der Konstituierung des Staatsrates, das Wahlergebnis der Listenwahl (9 Ja, 0 Nein, 1 Enthaltung, 1 Nichtteilnahme von 11 Stimmen), die Parteizugehörigkeit der vier Mitglieder sowie die Ernennung von drei Staatssekretären im Geschäftsbereich Frieden. Für den Staatspräsidenten liegt mit der Unterschriftszeile von OGVBl. 2026 Nr. 75 zusätzlich eine amtliche Quelle vor; die übrigen Angaben sind bis zur Nachreichung des Permalinks nur redaktionell belegt."
+    },
+    {
+      "id": "source-appointment-staatssekretaere-2026-09-07",
+      "type": "appointment-certificate",
+      "path": "knowledge/clarifications/2026-09-07-ernennung-staatssekretaere.md",
+      "title": "Ernennung von drei Staatssekretären beim Staatsrat für Frieden",
+      "date": "2026-09-07",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government",
+        "security",
+        "migration"
+      ],
+      "notes": "Ernennungsakt des Staatspräsidenten vom 7. September 2026 nach Artikel 59 Absatz 2 Satz 2 der Staatsverfassung, gezeichnet von Dr. Karl Honecker. Der Akt wurde als Bildschirmfoto zugearbeitet; die verlinkte Datei hält den Wortlaut fest, die Originaldatei ist unter context/amtliche-dokumente/2026-09-07/ noch zu archivieren."
     }
   ]
 }

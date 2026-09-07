@@ -1124,7 +1124,7 @@
       "validFrom": "2026-09-07",
       "validTo": null,
       "asOf": "2026-09-07",
-      "summary": "Die achte Volkskammer hat am 7. September 2026 vier Mitglieder des Staatsrates als Liste gewählt, vereidigt und ernannt. Die Bestimmung des Staatspräsidenten nach Artikel 60 Absatz 4, die Stellvertretung nach Artikel 68a Absatz 1 und der Geschäftsbereichszuschnitt nach Artikel 59 Absatz 3 stehen aus.",
+      "summary": "Die achte Volkskammer wählte am 7. September 2026 vier Mitglieder des Staatsrates als Liste, vereidigte und ernannte sie. Der Staatsrat bestimmte anschließend Dr. Karl Honecker zum Staatspräsidenten und Yannik Schmäle zu dessen Stellvertreter und beschloss den Organisationserlass 09/2026 über Geschäftsbereiche und Staatssekretariate.",
       "sourceRefs": [
         {
           "sourceId": "source-stanzo-2026-42",
@@ -1140,6 +1140,16 @@
           "sourceId": "source-editorial-clarification-second-staatsrat-2026-09-07",
           "locator": "Abschnitt Nicht belegte Angaben",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitte I bis XII",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07",
+          "locator": "Abschnitt Konstituierung des Staatsrates",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -1147,7 +1157,7 @@
         "inst-volkskammer",
         "state-current-government",
         "event-second-staatsrat-formed-2026",
-        "question-second-staatsrat-offices"
+        "event-organisationserlass-09-2026"
       ],
       "tags": [
         "proceeding",
@@ -1155,13 +1165,13 @@
         "parliament"
       ],
       "notes": [
-        "Der öffentliche Organisationsbestand kann erst fortgeschrieben werden, wenn Leitung, Stellvertretung und Geschäftsbereiche belegt sind."
+        "Für Johanna Schwade fehlen Lebenslauf und Porträt; die drei Staatssekretäre des Geschäftsbereichs Frieden sind bisher nur redaktionell belegt."
       ],
       "aliases": [
         "Formation des zweiten Staatsrates"
       ],
       "proceedingType": "government-formation",
-      "stage": "partially-documented",
+      "stage": "completed",
       "participantIds": [
         "inst-volkskammer",
         "inst-staatsrat"
@@ -1170,13 +1180,15 @@
         {
           "normSlug": "bekanntmachung-formation-zweiter-staatsrat",
           "versionId": "2026-09-07"
+        },
+        {
+          "normSlug": "organisationserlass-09-2026",
+          "versionId": "2026-09-07"
         }
       ],
-      "decision": "Gewählt: Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe), Tim Dieter (Wahrheit); die bisherigen Mitglieder sind abberufen.",
-      "nextAction": "Beschluss über Staatspräsident, Stellvertretung und Geschäftsbereiche beschaffen.",
-      "openQuestionIds": [
-        "question-second-staatsrat-offices"
-      ]
+      "decision": "Gewählt: Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe), Tim Dieter (Wahrheit); Staatspräsident Honecker, Stellvertreter Schmäle; zehn Staatssekretariate in vier Geschäftsbereichen.",
+      "nextAction": null,
+      "openQuestionIds": []
     }
   ]
 }
