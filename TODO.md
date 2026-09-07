@@ -28,31 +28,15 @@ Weiterentwicklung. Der Ablauf, der sie künftig verhindert, steht in
   `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` und ist ein bewusster Produktionsvorgang.
   Fertig, wenn `d1_sync` auf `main` grün ist, `deploy` gelaufen ist und
   `npm run test:deployment:production` beide Ziele mit dem aktuellen `main`-Commit bestätigt.
-- [ ] Prüfen, ob eine reine Stichtagsfortschreibung das Release-Gate auslösen soll: Der
-  Klassifikator behandelt `editorial.json` ausdrücklich nicht als Full-Trigger
-  (`scripts/lib/d1-sync-scope.mjs`), der Äquivalenznachweis verlangt wegen der einen abweichenden
-  Zeile in `law_runtime_meta` aber eine Vollprojektion. Damit führt jede Stichtagsfortschreibung
-  in das Gate, obwohl sich nur Metadaten ändern. Fertig, wenn entweder der Nachweis eine allein in
-  `law_runtime_meta` abweichende Projektion als inkrementellen Umfang ausweist und der Sync sie
-  schreibt, oder in `docs/REVOSAX_BULK_IMPORT.md` steht, dass die Stichtagsfortschreibung
-  bewusst ein Release-Gate ist.
-- [ ] Linux-Screenshot-Baselines erneuern: Die Inventur 34106802597 (visual-extended, 88e46b76d)
-  meldet 50 fehlgeschlagene Aufnahmen von 228. Ursache sind die Oberflächenänderungen der Commits
-  582c09147 (Wegweiserschrift, `foundation.css`) und 88e46b76d (`section-system.css`,
-  `TopicModule.astro`, vorgerückter Stichtag), zu denen keine Baselines erneuert wurden. Der Lauf
-  „Screenshot-Baselines erneuern“ 34062347773 hält bereits ein Artefakt für genau diesen Stand
-  bereit; es verfällt am 20. September 2026. Fertig, wenn die erneuerten
-  `tests/visual.spec.ts-snapshots/*-linux.png` nach Sichtprüfung jeder geänderten Aufnahme
-  committet sind und `visual-extended` auf `main` grün läuft.
-- [ ] Themen-Hervorhebung über den 10. September 2026 hinaus sicherstellen:
-  `content/portal/topic-coverage.json` verlangt unter `discoverability.minimumActiveHighlights`
-  mindestens eine am Stichtag laufende Hervorhebung. `volksbefragung-2026` ist die einzige mit
-  laufendem Fenster (9. August bis 10. September 2026); `kommunen-regionen-und-berlin` und
-  `wohnen-und-vergesellschaftung` sind abgelaufen. Jeder Stichtag ab dem 11. September lässt
-  deshalb `content:check` und `check-topic-coverage` fehlschlagen. Fertig, wenn mindestens ein
-  Thema am fortgeschriebenen Stichtag ein laufendes Hervorhebungsfenster trägt,
-  `discoverability.editorialLead` darauf zeigt und der Audit
-  `npm run norms:advance-reference-date -- --to <Zieldatum>` laufende Hervorhebungen meldet.
+- [ ] Klären, warum der Äquivalenznachweis in Lauf 34057455994 eine Vollprojektion verlangte: Er
+  meldete „abweichende Tabellen: `law_runtime_meta`“ für die Stichtagsfortschreibung vom
+  6. September. Derselbe Vorgang — Stichtag plus neue Normen — ist auf dem Branch
+  `eingang/stanzo-2026-42-zweiter-staatsrat` mit `npm run norms:runtime:d1-prove -- --base
+  origin/main` dagegen als inkrementell nachgewiesen worden („inkrementeller Umfang genügt,
+  Logikänderung datenneutral“). Die Stichtagsfortschreibung ist also kein genereller Full-Trigger;
+  der Unterschied liegt im Umfang des jeweiligen Laufs. Fertig, wenn feststeht, welcher
+  Umfangsunterschied die Abweichung in `law_runtime_meta` erzeugt hat, und die Regel in
+  `docs/REVOSAX_BULK_IMPORT.md` diesen Fall benennt.
 
 ## OstRecht
 
