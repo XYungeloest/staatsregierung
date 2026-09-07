@@ -5,7 +5,7 @@ import { buildDerivedContext } from '@ostrecht/shared/lib/norms/derived.ts';
 
 import { scopeSignature } from '../scripts/lib/d1-sync-scope.mjs';
 import {
-  D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, classifyStoredIdentityError, decideSyncAction, estimatePlanCost,
+  BULK_METADATA_PROFILE, D1_FILE_ATTEMPTS, SyncBaseMismatch, SyncBudgetExceeded, assertBulkMetadataScope, assertEstimateWithinBudget, assessSyncDecision, buildSyncPlan, classifyStoredIdentityError, decideSyncAction, estimatePlanCost,
   identityMetaValues, incrementalStartQueries, isMetadataOnlyRun, isTransientD1Error, planRun, renderStatement, resolveBudget, runtimeMetaQueries,
 } from '../scripts/sync-recht-d1.mjs';
 import { fixtureCorpus } from './helpers/fixture-corpus.ts';
@@ -299,4 +299,96 @@ test('jeder nicht leere oder nicht eindeutig datenneutrale Umfang nimmt den norm
   const { readFile } = await import('node:fs/promises');
   const source = await readFile(new URL('../scripts/sync-recht-d1.mjs', import.meta.url), 'utf8');
   assert.equal((source.match(/buildDerivedContext\(/gu) ?? []).length, 1);
+});
+
+/**
+ * Das Profil `bulk-metadata` ist die Freigabe für eine bewusste Bestandspflege reiner
+ * `meta.json`-Felder — nicht mehr. Es hebt weder `incremental` noch `full` an und autorisiert
+ * niemals eine Vollprojektion; der Guard prüft den Umfang fail-closed, bevor gerechnet wird.
+ */
+const bulkBudgets = {
+  profiles: {
+    incremental: { maxRowsRead: 60000, maxRowsWritten: 120000 },
+    'bulk-metadata': { maxRowsRead: 150000, maxRowsWritten: 200000 },
+    full: { maxRowsRead: 500000, maxRowsWritten: 900000 },
+  },
+  estimate: { writtenPerStatement: 1.25, writtenPerSearchUnit: 14, readPerStatementFull: 1, readPerStatementIncremental: 2 },
+};
+
+/** Umfang wie bei der Metadatenpflege von 5.115 Vorschriften: klassifiziert, ohne Löschungen. */
+function bulkScope(overrides = {}) {
+  const slugs = Array.from({ length: 12 }, (unused, index) => `norm-${index}`);
+  return {
+    mode: 'incremental',
+    slugs,
+    metadataOnly: Object.fromEntries(slugs.map((slug) => [slug, ['norm', 'keywords', 'searchDocuments', 'searchMetadataUnit']])),
+    deletedSlugs: [],
+    publicationSlugs: [],
+    deletedPublications: [],
+    derivedRebuild: true,
+    refreshSearchDocuments: false,
+    refreshKeywords: false,
+    portalRebuild: false,
+    reasons: [],
+    ...overrides,
+  };
+}
+
+const incrementalDecision = { action: 'incremental', reason: 'Basiszustand verifiziert' };
+
+const bulkPlanLike = (statementCount, searchUnitCount) => ({ statementCount, searchUnitCount, full: false, byStatement: { 'insert law_norms': statementCount } });
+
+test('ein Metadata-only-Umfang dieser Größe scheitert unter incremental und passt unter bulk-metadata', () => {
+  // Reale Schätzung des Laufs über 5.115 Vorschriften: 47.880 Anweisungen, 5.115 Suchprovisionen.
+  const cost = estimatePlanCost(bulkPlanLike(47880, 5115), bulkBudgets.estimate);
+  assert.throws(
+    () => assertEstimateWithinBudget(cost, resolveBudget('incremental', bulkBudgets)),
+    (error) => error instanceof SyncBudgetExceeded && /rows_read|rows_written/u.test(error.message),
+    'unter incremental muss der Lauf scheitern',
+  );
+  assert.doesNotThrow(() => assertEstimateWithinBudget(cost, resolveBudget(BULK_METADATA_PROFILE, bulkBudgets)));
+  // Das Profil bleibt weit unter `full` und hebt die anderen Profile nicht an.
+  assert.deepEqual(resolveBudget('incremental', bulkBudgets), { maxRowsRead: 60000, maxRowsWritten: 120000, profile: 'incremental' });
+  assert.deepEqual(resolveBudget('full', bulkBudgets), { maxRowsRead: 500000, maxRowsWritten: 900000, profile: 'full' });
+});
+
+test('bulk-metadata trägt keine Vollprojektion und keine Recovery', () => {
+  for (const action of ['full', 'recovery']) {
+    assert.throws(
+      () => assertBulkMetadataScope({ budgetProfile: BULK_METADATA_PROFILE, decision: { action }, scope: bulkScope() }),
+      (error) => error instanceof SyncBudgetExceeded && new RegExp(`die Entscheidung ist ${action}`, 'u').test(error.message),
+      `${action} muss abgewiesen werden`,
+    );
+  }
+  assert.throws(
+    () => assertBulkMetadataScope({ budgetProfile: BULK_METADATA_PROFILE, decision: incrementalDecision, scope: bulkScope({ mode: 'full', slugs: [], metadataOnly: {} }) }),
+    (error) => error instanceof SyncBudgetExceeded && /der Umfang ist full/u.test(error.message),
+  );
+  // Und das Profil erlaubt einer Vollprojektion auch über assessSyncDecision keinen Weg.
+  const assessment = assessSyncDecision({ decision: { action: 'full', reason: 'Schemaänderung' }, scope: bulkScope({ mode: 'full' }), budgetProfile: BULK_METADATA_PROFILE, limits: resolveBudget(BULK_METADATA_PROFILE, bulkBudgets) });
+  assert.equal(assessment.ok, false);
+  assert.equal(assessment.code, 'full-gate');
+});
+
+test('bulk-metadata weist jeden unklassifizierten oder erweiterten Umfang ab', () => {
+  const abgewiesen = [
+    [bulkScope({ metadataOnly: {} }), /ohne klassifizierten Metadata-only-Umfang/u],
+    [bulkScope({ slugs: [], metadataOnly: {} }), /nennt keine Norm/u],
+    [bulkScope({ deletedSlugs: ['weg'] }), /Normlöschung/u],
+    [bulkScope({ publicationSlugs: ['ogvbl-2026-1'] }), /geänderte Verkündung/u],
+    [bulkScope({ deletedPublications: ['ogvbl-2026-2'] }), /gelöschte Verkündung/u],
+    [bulkScope({ refreshKeywords: true }), /Register-Rebuild/u],
+    [bulkScope({ refreshSearchDocuments: true }), /enge Logikprojektion/u],
+    [bulkScope({ portalRebuild: true }), /Portal-Rebuild/u],
+  ];
+  for (const [scope, muster] of abgewiesen) {
+    assert.throws(
+      () => assertBulkMetadataScope({ budgetProfile: BULK_METADATA_PROFILE, decision: incrementalDecision, scope }),
+      (error) => error instanceof SyncBudgetExceeded && muster.test(error.message),
+      `abgewiesen erwartet: ${muster}`,
+    );
+  }
+  // Der zulässige Fall bleibt zulässig, und ohne das Profil greift der Guard überhaupt nicht.
+  assert.doesNotThrow(() => assertBulkMetadataScope({ budgetProfile: BULK_METADATA_PROFILE, decision: incrementalDecision, scope: bulkScope() }));
+  assert.doesNotThrow(() => assertBulkMetadataScope({ budgetProfile: 'incremental', decision: { action: 'full' }, scope: bulkScope({ mode: 'full' }) }));
 });
