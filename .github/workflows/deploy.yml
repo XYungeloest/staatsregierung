@@ -7,7 +7,9 @@ name: Deploy to Cloudflare Workers
 #             └─ d1_seed (Vollbestand)┼─ d1_sync ───────┘
 #             │                        (Cloudflare D1, inkrementell; bei geänderter Projektions-
 #             │                         logik mit Äquivalenznachweis statt Vollprojektion)
-#             └─ visual (breite Screenshot-Inventur, kein Gate)
+#
+# Screenshots laufen nicht im Deploy: Pull Requests prüfen die kritische Auswahl, die vollständige
+# Inventur läuft geplant und manuell (visual-extended.yml).
 #
 # Der lokale D1-Seed des Vollbestands entsteht parallel zum Build (Job d1_seed) und nur,
 # wenn die Änderung Laufzeit, Projektion oder den Bestand in größerem Umfang berührt;
@@ -145,7 +147,7 @@ jobs:
             echo "- D1-Projektion (Cloudflare, OstRecht-Laufzeitdaten): $(yes_no "$(output_value run_d1_sync)")"
             echo "- UI-Smoke: $(target_label "$UI_TARGETS")"
             echo "- OstRecht-Smoke-Bestand: $(corpus_label "$(output_value run_full_corpus_smoke)")"
-            echo "- Screenshot-Suite (breit): $(yes_no "$(output_value run_visual)")"
+            echo "- Oberflächenänderung (Screenshot-Inventur läuft geplant, nicht hier): $(yes_no "$(output_value run_visual)")"
           } >> "$GITHUB_STEP_SUMMARY"
 
   docs_check:
@@ -445,63 +447,9 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           echo "Laufzeiten: seed=${SEED_STATUS:-übersprungen}/${SEED_BUILD:-0}s $( [ -f "$RUNNER_TEMP/timings.txt" ] && paste -sd ',' "$RUNNER_TEMP/timings.txt" )"
 
-  # Breite Screenshot-Inventur (visual-extended) bei Oberflächenänderungen im festen Playwright-
-  # Container, strikt gegen die committeten Linux-Baselines (Fixture-Bestand). Kein Deployment-
-  # Gate; Baselines entstehen nur bewusst (npm run test:visual:update:linux oder Workflow
-  # „Screenshot-Baselines erneuern“).
-  visual:
-    needs:
-      - classify
-      - build
-    if: ${{ needs.classify.outputs.run_visual == 'true' && needs.classify.outputs.build_targets != '' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    container:
-      image: mcr.microsoft.com/playwright:v${{ needs.classify.outputs.playwright_version }}-noble
-    env:
-      OSTRECHT_D1_FIXTURE: data/recht/runtime-fixture.json
-      HOME: /root
-    steps:
-      - name: Git im Container sicherstellen (Seed-Fingerabdruck liest Git-Blob-Kennungen)
-        run: command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends git)
-      - uses: actions/checkout@v7
-      - name: Arbeitsbaum für Git im Container freigeben (Checkout gehört einem anderen Benutzer)
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: Abhängigkeiten (Node.js des Containers)
-        uses: ./.github/actions/setup-node-modules
-        with:
-          node-version: ''
-      - uses: actions/download-artifact@v8
-        with:
-          name: site-build-${{ github.sha }}
-          path: apps
-      - name: OstRecht-Worker mit dem Testfixture vorbereiten
-        if: ${{ contains(needs.classify.outputs.build_targets, 'law') }}
-        uses: ./.github/actions/d1-seed
-        with:
-          fixture: data/recht/runtime-fixture.json
-          cache: 'false'
-      - name: Breite Screenshot-Suite strikt gegen die committeten Linux-Baselines prüfen
-        env:
-          SITE_TARGETS: ${{ needs.classify.outputs.build_targets }}
-        run: |
-          # Kein Bootstrap: fehlende Baselines sind ein Fehler. Neue oder geänderte Linux-Baselines
-          # entstehen nur bewusst (npm run test:visual:update:linux oder Workflow „Screenshot-
-          # Baselines erneuern“), nach Sichtprüfung und Commit.
-          if ! ls tests/visual.spec.ts-snapshots/*-linux.png >/dev/null 2>&1; then
-            echo "::error::Keine Linux-Screenshot-Baselines im Repository (tests/visual.spec.ts-snapshots/*-linux.png). Baselines mit npm run test:visual:update:linux oder dem Workflow „Screenshot-Baselines erneuern“ erzeugen, sichten und committen."
-            exit 1
-          fi
-          npm run test:visual:extended
-      - name: Testbericht bereitstellen
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: visual-report-${{ github.sha }}
-          path: |
-            playwright-report
-            test-results
-          retention-days: 14
+  # Die Screenshot-Inventur läuft nicht mehr im Deploy: Pull Requests prüfen die kritische Auswahl
+  # (pull-request.yml), die vollständige Inventur läuft geplant und manuell (visual-extended.yml).
+  # Ein veraltetes Bild färbte sonst den Release-Workflow rot, ohne ein Deployment-Gate zu sein.
 
   # OstRecht liest Normen, Fassungen, Verkündungen und den Suchindex zur Laufzeit
   # aus Cloudflare D1. Änderungen an content/normen und content/verkuendungen

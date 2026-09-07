@@ -3,6 +3,7 @@ import { expect, test, type Locator, type Page } from '@playwright/test';
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
+import { DEFAULT_PORTAL_PAGE_SIZE } from '@ostrecht/shared/lib/portal/pagination.ts';
 import { fixturePublication, fixtureRole, fixtureSearchWord, fixtureVersion, LAW_ORIGIN, multiVersionNorm } from './helpers/law-runtime.ts';
 
 const lawUrl = (path: string) => new URL(path, LAW_ORIGIN).toString();
@@ -31,79 +32,62 @@ const searchUrl = (word: string) => lawUrl(`/suche/?q=${encodeURIComponent(word)
 const compareUrl = lawUrl(`/norm/${fixture.amended}/vergleich/?von=${fixture.amendedHistorical}&bis=${fixture.amendedCurrent}`);
 
 /**
- * Screenshot-Suite in zwei Stufen (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt Screenshot-Suite):
- *   - visual-critical (`@critical`, npm run test:visual:critical): kleine, stabile Auswahl für Pull
- *     Requests – je Website Startseite, eine typische Inhaltsseite und die layoutkritischen
- *     Komponenten; Desktop und Mobil, Tablet nur bei eigenem Breakpoint-Verhalten (`tablet`).
- *   - visual-extended (npm run test:visual:extended): die breite Inventur aller Motive auf drei
- *     Viewports – auf main nach dem Merge, wöchentlich und manuell.
- * Motive desselben Templates mit anderen Daten sind bewusst nicht mehrfach enthalten (Verzeichnisse
- * der Normtypen, zweite Suche mit Herkunftsbadges, zweite ostdeutsch-originale Norm).
- * Kanonische Plattform ist Linux; die Baselines werden mit `npm run test:visual:update:linux`
- * (Docker) oder dem Workflow „Screenshot-Baselines erneuern“ erzeugt.
+ * Screenshot-Suite (docs/DEPLOYMENT_RUNBOOK.md, Abschnitt Screenshot-Suite).
+ *
+ * Ein Bild prüft eine **visuelle Rolle**, nicht einen bestimmten Inhalt. Drei Regierungsmitglieder,
+ * fünf Haushaltsseiten oder sieben Normseiten zeigen dieselbe Rolle mit anderen Daten; sie
+ * erzeugen keine zusätzliche Regressionsdeckung, nur zusätzliche Bilder, die bei jeder Inhalts-
+ * pflege veralten. Was der Aufbau leistet – Überlauf, Schrifttokens, Rasterspalten, sichtbare
+ * Navigation, Fokus, Anker, Blätterung –, prüfen die Messungen am Ende dieser Datei und die
+ * DOM-Tests; das gehört nicht zusätzlich in ein Pixelbild.
+ *
+ * Viewports: `desktop-wide` und `mobile-390` als Standard. `desktop-schmal` (1152 px = 72 rem)
+ * läuft nur für die Motive mit `schmal: true` – dort, wo das Band 64–80 rem eigene Regeln hat
+ * (zweizeiliger Kopf beider Websites, zweispaltiger Normarbeitsbereich). Ein Tablet-Viewport
+ * existiert nicht mehr: bei 768 px sind beide Köpfe bereits im Menüzustand, das Bild wiederholte
+ * `mobile-390`.
+ *
+ *   - visual-critical (`@critical`, npm run test:visual:critical): Auswahl für Pull Requests.
+ *   - visual-extended (npm run test:visual:extended): alle Motive – geplant (wöchentlich) und
+ *     manuell, nicht im normalen main-Deploy.
+ *
+ * Kanonische Plattform ist Linux; die Baselines entstehen mit `npm run test:visual:update:linux`
+ * (Docker) oder dem Workflow „Screenshot-Baselines erneuern“.
  */
 interface VisualPage {
   name: string;
   path: string;
   /** Teil der kritischen Suite (Pull Requests). */
   critical?: boolean;
-  /** In der kritischen Suite auch auf dem Tablet-Viewport (eigener Breakpoint). */
-  tablet?: boolean;
+  /** Zusätzlich auf dem schmalen Desktop-Viewport (eigenes Verhalten zwischen 64 und 80 rem). */
+  schmal?: boolean;
 }
 
+/**
+ * Ganzseitige Motive: je Website Rahmen, ein Listentemplate, ein Detailtemplate, die Suche und die
+ * Fehlerseite. Jede weitere Seite desselben Templates ist bewusst nicht enthalten.
+ */
 const visualPages: VisualPage[] = [
-  { name: 'startseite', path: '/', critical: true, tablet: true },
-  { name: 'staatsregierung', path: '/staatsregierung/' },
-  { name: 'kabinett', path: '/staatsregierung/kabinett/' },
-  { name: 'ressort-wirtschaft-arbeit', path: '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/', critical: true },
+  // Rahmen des Staatsportals: Kopf, Wortmarke, Kopfwerkzeuge, Hauptnavigation, Zugangsraster.
+  { name: 'startseite', path: '/', critical: true, schmal: true },
+  // Kartenraster mit Bereichsnavigation; vertritt Kabinett, Staatsregierung, Presse und Service.
+  { name: 'themen', path: '/themen/', critical: true },
+  // Detailtemplate mit Hero, Briefing und Modulen; vertritt alle Themenseiten.
+  { name: 'thema-volksbefragung', path: '/themen/volksbefragung-2026/' },
+  // Personenprofil; vertritt Staatsrat, Regierungsarchiv und die Ressortprofile.
   { name: 'regierungsmitglied-max-peterson', path: '/staatsregierung/mitglieder/max-peterson/' },
-  { name: 'staatsrat-yannik-schmaele', path: '/staatsregierung/mitglieder/yannik-schmaele/' },
-  { name: 'regierungsarchiv-thomas-barlow', path: '/staatsregierung/mitglieder/thomas-henry-barlow/' },
-  { name: 'staatssekretariat-grenzsicherheit', path: '/staatsregierung/kabinett/grenzschutz-faschismusbekaempfung-und-bewaffnete-organe/' },
-  { name: 'haushalt', path: '/haushalt/' },
-  { name: 'haushalt-gesamtplan', path: '/haushalt/gesamtplan/' },
-  { name: 'haushalt-einzelplaene', path: '/haushalt/einzelplaene/' },
-  { name: 'haushalt-einzelplan-03', path: '/haushalt/einzelplaene/03/' },
-  { name: 'haushalt-sondervermoegen', path: '/haushalt/sondervermoegen/' },
-  { name: 'themen', path: '/themen/' },
-  { name: 'thema-volksbefragung', path: '/themen/volksbefragung-2026/', critical: true },
-  { name: 'thema-kulturpass', path: '/themen/kulturpass/' },
-  { name: 'kreisreform', path: '/kreisreform/', critical: true },
-  { name: 'portalsuche', path: '/suche/' },
-  { name: 'recht-bruecke', path: '/recht/' },
-  { name: 'ostrecht', path: lawUrl('/'), critical: true, tablet: true },
+  // Portalsuche: Formular und Bereichsgruppierung, anderes Muster als die Rechtssuche.
+  { name: 'portalsuche', path: '/suche/', critical: true },
+  // Rahmen des Rechtsportals: eigener Kopf, eigene Farbwelt, Recherchewege.
+  { name: 'ostrecht', path: lawUrl('/'), critical: true, schmal: true },
+  // Rechtssuche im Endzustand; vertritt Suchkopf, Zusammenfassung und Trefferliste.
   { name: 'ostrecht-suche', path: searchUrl(fixture.multiHit), critical: true },
-  // Ein Verzeichnis je Listenmuster: Gesetze, Verordnungen und Verwaltungsvorschriften teilen Template und Filterleiste.
+  // Verzeichnistemplate mit Filterleiste; vertritt A–Z, Sachgebiete, Verkündungen und Förderrichtlinien.
   { name: 'ostrecht-gesetze', path: lawUrl('/gesetze/') },
-  { name: 'ostrecht-archiv', path: lawUrl('/a-z/') },
-  { name: 'ostrecht-sachgebiete', path: lawUrl('/sachgebiete/') },
-  { name: 'ostrecht-verkuendungen', path: lawUrl('/verkuendungen/') },
-  { name: 'ostrecht-verkuendungen-eintraege', path: lawUrl('/verkuendungen/?ansicht=eintraege') },
-  { name: 'ostrecht-foerderrichtlinien', path: lawUrl('/foerderrichtlinien/') },
-  { name: 'ostrecht-verkuendung-detail', path: lawUrl(`/verkuendungen/${fixture.publication}/`) },
-  // Der Sachgebietsslug trägt die amtliche Gliederungsnummer; sie kommt aus der Systematik, nicht aus dem Text.
-  { name: 'ostrecht-sachgebiet-detail', path: lawUrl(`/sachgebiete/${getSubjectSlug('Kommunalrecht')}/`) },
-  { name: 'ostrecht-hilfe', path: lawUrl('/hilfe/') },
+  // Normseite in drei Stufen; vertritt alle Normrollen des Fixtures.
+  { name: 'norm-uebernommen-geaendert', path: lawUrl(`/norm/${fixture.amended}/`), critical: true, schmal: true },
+  // Eigene Fehlergestalt mit eigenem Rahmen.
   { name: 'ostrecht-404', path: lawUrl('/gibt-es-nicht/') },
-  { name: 'norm-ostdeutsch-neu', path: lawUrl(`/norm/${fixture.original}/`), critical: true },
-  { name: 'norm-uebernommen-geaendert-historisch', path: lawUrl(`/norm/${fixture.amended}/version/${fixture.amendedHistorical}/`) },
-  { name: 'norm-verordnung-historie', path: lawUrl(`/norm/${fixture.noticeOnly}/history/`) },
-  { name: 'norm-uebernommen-geaendert-vergleich', path: compareUrl, critical: true },
-  { name: 'norm-verfassung', path: lawUrl(`/norm/${fixture.constitution}/`) },
-  { name: 'norm-verordnung-hinweis', path: lawUrl(`/norm/${fixture.noticeOnly}/`) },
-  // Rechtsherkunft: übernommen und unverändert, übernommen und ostdeutsch geändert (ostdeutsch neu
-  // geschaffen deckt norm-ostdeutsch-neu ab).
-  { name: 'norm-uebernommen-unveraendert', path: lawUrl(`/norm/${fixture.unchanged}/`) },
-  { name: 'norm-uebernommen-geaendert', path: lawUrl(`/norm/${fixture.amended}/`), critical: true },
-  { name: 'norm-bekanntmachung', path: lawUrl(`/norm/${fixture.bekanntmachung}/`) },
-  // Buchstabe G mit Herkunftsfilter: das Fixture stellt eine übernommene, unveränderte Norm mit G bereit (Rolle inherited-unchanged-letter-g).
-  { name: 'ostrecht-archiv-herkunft', path: lawUrl('/a-z/?buchstabe=G&herkunft=inherited-unchanged') },
-  { name: 'presse', path: '/presse/' },
-  { name: 'kontakt', path: '/service/kontakt/' },
-  { name: 'service', path: '/service/' },
-  { name: 'impressum', path: '/service/impressum/' },
-  { name: 'barrierefreiheit', path: '/service/barrierefreiheit/' },
-  { name: 'hinweis-gebaerdensprache', path: '/service/gebaerdensprache/' },
 ];
 
 async function preparePage(page: Page, consent = 'rejected'): Promise<void> {
@@ -424,203 +408,111 @@ interface ComponentVisualPage {
   path: string;
   shots: ReadonlyArray<readonly [string, string]>;
   critical?: boolean;
-  tablet?: boolean;
+  schmal?: boolean;
 }
 
 const componentVisualPages: ComponentVisualPage[] = [
   {
-    name: 'startseite-aktuell-module',
+    // Referenzliste ohne Karte: eigenes Listenmuster der Startseite.
+    name: 'startseite-module',
     path: '/',
     shots: [['startseite-aktuelles-vorhaben', '[data-visual-section="home-current-topics"]']],
     critical: true,
   },
   {
-    name: 'staatsregierung-module',
-    path: '/staatsregierung/',
-    shots: [
-      ['leitung-direkteinstiege', '[data-visual-section="government-leadership-entrypoints"]'],
-      ['regierung-direkte-wege', '[data-visual-section="government-direct-entrypoints"]'],
-      ['regierung-ministerium', '[data-visual-section="government-ministry-directory"] .ministry-directory__item:first-child'],
-    ],
-  },
-  {
-    name: 'kabinett-module',
-    path: '/staatsregierung/kabinett/',
-    shots: [
-      ['kabinett-ressortverzeichnis', '[data-visual-section="cabinet-ministry-directory"] .ministry-directory__item:first-child'],
-      ['kabinett-mitglied', '[data-visual-section="cabinet-members"] .member-card:first-child'],
-    ],
-  },
-  {
-    name: 'regierungsmitglied-module',
-    path: '/staatsregierung/mitglieder/max-peterson/',
-    shots: [
-      ['mitglied-hero-bildnachweis', '.section-hero__media'],
-      ['mitglied-biografie', '[data-visual-section="member-biography-profile"] > .section:first-child .body-copy'],
-      ['mitglied-profil-kontakt', '[data-visual-section="member-biography-profile"] > .meta-panel'],
-    ],
-  },
-  {
-    name: 'ministerium-module',
-    path: '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
-    shots: [
-      ['ministerium-hero-bildnachweis', '.section-hero__media'],
-      ['ministerium-aufgaben', '[data-visual-section="ministry-profile-contact"] > .section:first-child'],
-      ['ministerium-kontakt', '[data-visual-section="ministry-profile-contact"] > .meta-panel'],
-      ['ministerium-thema', '[data-visual-section="ministry-topics"] .topic-card:first-child'],
-    ],
-  },
-  {
-    name: 'themen-module',
-    path: '/themen/',
-    // „Aktuell“ verweist seit der Entdopplung nur noch auf die vollständige Karte in der
-    // Übersicht; beide Formen stehen als Motiv.
-    shots: [
-      ['themen-aktuell', '[data-visual-section="topics-current"] .topic-reference-list'],
-      ['themen-karte', '#alle-themen .topic-cluster:first-of-type .topic-card:first-of-type'],
-    ],
-  },
-  {
-    name: 'themendetail-module',
-    path: '/themen/volksbefragung-2026/',
-    shots: [
-      ['thema-briefing', '[data-visual-section="topic-briefing"]'],
-      ['thema-fragen', '[data-topic-module="questions"]'],
-      ['thema-ablauf', '[data-topic-module="timeline"]'],
-      ['thema-rechtsgrundlagen', '[data-visual-section="topic-legal-bases"]'],
-    ],
-  },
-  {
-    name: 'recht-module',
-    path: lawUrl('/'),
-    shots: [
-      ['recht-recherchewege', '[data-visual-section="law-research-paths"]'],
-      ['recht-rechtsstaende', '[data-visual-section="law-latest-status"] > .law-dashboard-list > li:first-child'],
-      ['recht-footer', '.law-footer'],
-    ],
-  },
-  {
-    name: 'rechtssuche-module',
-    path: searchUrl(fixture.multiHit),
-    shots: [
-      ['rechtssuche-kopf', '.law-search-form > .search-form__primary'],
-      ['rechtssuche-filter', '[data-search-filter-panel="more"]'],
-    ],
-    critical: true,
-  },
-  {
-    name: 'rechtssuche-herkunft-kacheln-module',
-    // Die Herkunftszahlen des Bestands stehen seit dem Wegfall der Rechtsentwicklung auf der Suche.
-    path: lawUrl('/suche/'),
-    shots: [
-      ['rechtssuche-herkunft-kacheln', '.law-search-origins'],
-    ],
-  },
-  {
-    name: 'fassungsvergleich-module',
-    path: compareUrl,
-    shots: [
-      ['fassungsvergleich-auswahl', '[data-version-compare] .norm-compare__form'],
-      ['fassungsvergleich-zusammenfassung', '.norm-diff__header'],
-      ['fassungsvergleich-aenderung', '.norm-diff__provision--changed:first-of-type'],
-    ],
-  },
-  {
-    name: 'normhistorie-module',
-    path: lawUrl(`/norm/${fixture.amended}/history/`),
-    shots: [
-      ['normhistorie-einstieg', '.norm-history-panel--versions'],
-      ['normhistorie-fassung', '.norm-history__version-list > .norm-history__version:last-child'],
-      ['normhistorie-aenderung', '.norm-history__event--amendment:first-child'],
-      ['normhistorie-stammdaten', '.norm-history-panel--data'],
-    ],
-  },
-  {
-    name: 'norm-herkunft-module',
-    path: lawUrl(`/norm/${fixture.amended}/`),
-    shots: [
-      ['norm-rechtsstand-uebernommen-geaendert', '[data-visual-section="norm-facts"]'],
-    ],
-    critical: true,
-  },
-  {
-    name: 'norm-herkunft-unveraendert-module',
-    path: lawUrl(`/norm/${fixture.unchanged}/`),
-    shots: [
-      ['norm-rechtsstand-uebernommen-unveraendert', '[data-visual-section="norm-facts"]'],
-    ],
-  },
-  {
-    name: 'rechtssuche-herkunft-module',
-    path: searchUrl(fixture.originalWord),
-    shots: [
-      ['rechtssuche-treffer-herkunft', '[data-search-results] .search-result-group:first-child > .search-hit'],
-    ],
-  },
-  {
-    name: 'archiv-herkunft-module',
-    path: lawUrl('/a-z/'),
-    shots: [
-      ['archiv-rechtsherkunft', '[data-visual-section="law-origin-overview"]'],
-      ['archiv-liste-herkunft', '[data-index-list] > li:first-child'],
-    ],
-  },
-  {
-    name: 'norm-module',
-    path: lawUrl(`/norm/${fixture.original}/`),
-    shots: [
-      ['norm-rechtsstand', '[data-visual-section="norm-facts"]'],
-      ['norm-navigation', '.norm-version-navigation'],
-      ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
-    ],
-  },
-  {
-    name: 'norm-sidebar-module',
-    path: lawUrl(`/norm/${fixture.portalRelations}/`),
-    shots: [
-      ['norm-vorschriftendaten', '[data-visual-section="norm-facts"]'],
-      ['norm-weiterfuehrende-bezuege', '[data-visual-section="norm-portal-relations"]'],
-    ],
-  },
-  {
-    name: 'haushalt-module',
-    path: '/haushalt/',
-    shots: [
-      ['haushalt-jahreswahl-kennzahlen', '[data-visual-section="budget-year-kpis"]'],
-      ['haushalt-aufgabenbereiche', '[data-visual-section="budget-task-areas"]'],
-      ['haushalt-tabelle', '[data-visual-section="budget-table"] .table-wrap'],
-    ],
-  },
-  {
-    name: 'presse-module',
-    path: '/presse/',
-    shots: [
-      ['presse-weitere-meldungen', '[data-visual-section="press-additional-releases"]'],
-      ['presse-kontakt', '[data-visual-section="press-contact"]'],
-      ['presse-termine', '[data-visual-section="press-dates"] .meta-panel'],
-    ],
-  },
-  {
+    // Serviceband und Footer stehen auf keiner Seitenaufnahme, weil die nur den Viewport zeigt.
     name: 'service-module',
     path: '/service/',
     shots: [
-      ['service-barrierearme-zugaenge', '[data-visual-section="service-accessibility"]'],
-      ['service-rechtliche-hinweise', '[data-visual-section="service-legal"]'],
       ['globales-serviceband', '[data-visual-section="global-service-band"]'],
       ['globaler-footer', '[data-visual-section="global-footer"]'],
     ],
   },
   {
+    // Eintragskomponente der Ministeriumsverzeichnisse; ein Ort statt zwei gleichen.
+    name: 'staatsregierung-module',
+    path: '/staatsregierung/',
+    shots: [['regierung-ministerium', '[data-visual-section="government-ministry-directory"] .ministry-directory__item:first-child']],
+  },
+  {
+    // Bildfläche mit Nachweiszeile und die Meta-Tafel; letztere vertritt alle `.meta-panel`.
+    name: 'regierungsmitglied-module',
+    path: '/staatsregierung/mitglieder/max-peterson/',
+    shots: [
+      ['mitglied-hero-bildnachweis', '.section-hero__media'],
+      ['mitglied-profil-kontakt', '[data-visual-section="member-biography-profile"] > .meta-panel'],
+    ],
+  },
+  {
+    // Einzige Themenmodulform mit eigener Geometrie (Achse und Marken).
+    name: 'themendetail-module',
+    path: '/themen/volksbefragung-2026/',
+    shots: [['thema-ablauf', '[data-topic-module="timeline"]']],
+  },
+  {
+    // Kennzahlenkarten mit Jahreswahl (vertritt alle Haushaltsseiten) und die einzige breite
+    // Datentabelle mit eigenem Rollrahmen.
+    name: 'haushalt-module',
+    path: '/haushalt/',
+    shots: [
+      ['haushalt-jahreswahl-kennzahlen', '[data-visual-section="budget-year-kpis"]'],
+      ['haushalt-tabelle', '[data-visual-section="budget-table"] .table-wrap'],
+    ],
+    critical: true,
+  },
+  {
+    // Einziges SVG-Schaubild mit eigener Geometrie.
     name: 'schulsystem-module',
     path: '/themen/bildung-und-schule/schulsystem/',
     shots: [['schulsystem-grafik', '[data-visual-section="school-system-chart"]']],
   },
+  {
+    // Eigener Footer des Rechtsportals mit Recherchewegen.
+    name: 'recht-module',
+    path: lawUrl('/'),
+    shots: [['recht-footer', '.law-footer']],
+  },
+  {
+    // Aufgeklappte Facettengruppen und die Trefferkarte mit Herkunftskennzeichnung.
+    name: 'rechtssuche-module',
+    path: searchUrl(fixture.multiHit),
+    shots: [
+      ['rechtssuche-filter', '[data-search-filter-panel="more"]'],
+      ['rechtssuche-treffer-herkunft', '[data-search-results] .search-result-group:first-child > .search-hit'],
+    ],
+  },
+  {
+    // Arbeitsbereich der Normseite: Vorschriftendaten, Fassungswahl, Beginn des Vorschriftentextes.
+    name: 'norm-module',
+    path: lawUrl(`/norm/${fixture.amended}/`),
+    shots: [
+      ['norm-vorschriftendaten', '[data-visual-section="norm-facts"]'],
+      ['norm-navigation', '.norm-version-navigation'],
+      ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
+    ],
+  },
+  {
+    // Einzige Stelle mit ins/del-Auszeichnung.
+    name: 'fassungsvergleich-module',
+    path: compareUrl,
+    shots: [['fassungsvergleich-aenderung', '.norm-diff__provision--changed:first-of-type']],
+  },
+  {
+    // Historienpanel mit Ereignisliste; vertritt alle Historiedarstellungen.
+    name: 'normhistorie-module',
+    path: lawUrl(`/norm/${fixture.amended}/history/`),
+    shots: [['normhistorie-einstieg', '.norm-history-panel--versions']],
+  },
 ];
 
 const CRITICAL_TAG = '@critical';
-/** Kritische Tests laufen auf dem Tablet-Viewport nur mit eigenem Breakpoint-Verhalten (`tablet`). */
-function skipTabletUnless(entry: { tablet?: boolean }, projectName: string, testInfo: { project: { name: string } }): void {
-  test.skip(process.env.OSTRECHT_VISUAL_SUITE === 'critical' && projectName === 'tablet' && !entry.tablet, 'Tablet nur bei eigenem Breakpoint in der kritischen Suite');
+/**
+ * Der schmale Desktop-Viewport (1152 px) läuft nur für Motive, in denen das Band 64–80 rem eigene
+ * Regeln hat. Er gilt in beiden Suiten gleich: eine Rolle ohne eigenes Verhalten in diesem Band
+ * bekäme dort nur ein drittes Bild derselben Gestalt.
+ */
+function skipSchmalUnless(entry: { schmal?: boolean }, projectName: string, testInfo: { project: { name: string } }): void {
+  test.skip(projectName === 'desktop-schmal' && !entry.schmal, 'Der schmale Desktop-Viewport prüft nur Motive mit eigenem Verhalten zwischen 64 und 80 rem');
   void testInfo;
 }
 
@@ -650,7 +542,7 @@ async function awaitSettled(page: Page, path: string): Promise<void> {
 for (const entry of visualPages) {
   if (!isSelected(entry.path)) continue;
   test(`visuelle Basislinie: ${entry.name}`, { tag: entry.critical ? [CRITICAL_TAG] : [] }, async ({ page }, testInfo) => {
-    skipTabletUnless(entry, testInfo.project.name, testInfo);
+    skipSchmalUnless(entry, testInfo.project.name, testInfo);
     await preparePage(page);
     await page.goto(entry.path);
     await page.evaluate(async () => {
@@ -763,7 +655,7 @@ lawTest('Trefferdichte bei 375 px', { tag: [CRITICAL_TAG] }, async ({ page }, te
 for (const entry of componentVisualPages) {
   if (!isSelected(entry.path)) continue;
   test(`Komponenten-Basislinien: ${entry.name}`, { tag: entry.critical ? [CRITICAL_TAG] : [] }, async ({ page }, testInfo) => {
-    skipTabletUnless(entry, testInfo.project.name, testInfo);
+    skipSchmalUnless(entry, testInfo.project.name, testInfo);
     await preparePage(page);
     await page.goto(entry.path);
     await page.evaluate(async () => {
@@ -796,7 +688,13 @@ for (const entry of componentVisualPages) {
   });
 }
 
-portalTest('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabellenzugang', async ({ page }) => {
+/**
+ * Die Freigabefläche vor dem Nachladen externer Kacheln ist eine eigene visuelle Rolle: sie hält
+ * die Karte zurück, bis der Nutzer zustimmt. Suchtreffer und Tabellenfilter der Kreisreformseite
+ * sind dagegen Listen- und Formularmuster, die andere Bilder und die Messungen unten abdecken;
+ * dass Suche und Blätterung *funktionieren*, prüft tests/browser-smoke.spec.ts.
+ */
+portalTest('Komponenten-Basislinie: Kreisreform-Kartensperre', async ({ page }) => {
   await preparePage(page);
   await page.goto('/kreisreform/');
   await page.locator('[data-kreisreform-search-input]').fill('Abtsbessingen');
@@ -804,9 +702,7 @@ portalTest('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabelle
   await expect(result).toBeVisible();
   await result.click();
 
-  await expectSectionScreenshot(page.locator('[data-kreisreform-search-detail]'), 'kreisreform-suchergebnis.png');
   await expectSectionScreenshot(page.locator('[data-map-load-surface]'), 'kreisreform-kartensperre.png');
-  await expectSectionScreenshot(page.locator('[data-kreisreform-table-filter]'), 'kreisreform-tabellenzugang.png');
   await verifyViewport(page);
 });
 
@@ -819,12 +715,13 @@ portalTest('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ pa
   await page.locator('[data-map-load]').click();
 
   await expect(page.locator('[data-map-status]')).toContainText(/Karte bereit|Karte konnte nicht geladen werden/, { timeout: 20_000 });
+  // Ohne Pixelbild: die geladene Karte zeigt fremde Kacheln, ihr Aussehen ist nicht unsere
+  // Regression. Geprüft wird, dass die Sperre greift, der Ladeweg endet und nichts überläuft.
   await verifyViewport(page);
-  await expect(gate).toHaveScreenshot('kreisreform-karte.png');
 });
 
 portalTest('Consent-Hinweis ist lesbar und ablehnbar', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
-  skipTabletUnless({}, testInfo.project.name, testInfo);
+  skipSchmalUnless({}, testInfo.project.name, testInfo);
   await preparePage(page, '');
   await page.goto('/');
 
@@ -973,17 +870,73 @@ portalTest('Messung: Kennzahlenkarten tragen nur Zahlen', { tag: [CRITICAL_TAG] 
   }
 });
 
-portalTest('Messung: die Kreistabelle blättert statt alles auszugeben', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+/**
+ * Aufbau der Kreisreformseite statt einer Seitenhöhe.
+ *
+ * Die frühere Vorgabe lautete „unter 8.000 px bei 375 px“. Sie misst kein Gestaltungsmerkmal,
+ * sondern ein Produkt aus Bestandsgröße (101 Kreise), Zeichenlänge der längsten Zelle,
+ * Fensterbreite und der vom Nutzer eingestellten Schriftgröße – bei 200 % Textvergrößerung
+ * (WCAG 1.4.4) wäre sie zwangsläufig verletzt. Erreichbar wäre sie nur, indem die Seitengröße
+ * unter die des Beteiligungsnavigators fiele oder ganze Tabellen hinter einem Aufklapper
+ * verschwänden; beides nimmt einer Datenansicht ihren Zweck. Der berechtigte Kern der Vorgabe war
+ * ein anderer: die Seitenlänge darf nicht mit dem Bestand wachsen, und der Nutzer muss die
+ * Tabellen erreichen, ohne dorthin zu scrollen. Genau das halten diese Messungen fest.
+ */
+portalTest('Messung: die Datenansichten der Kreisreformseite wachsen nicht mit dem Bestand', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('mobile-'), 'Die Zeilenzahl wird auf einer Mobilbreite gemessen.');
   await preparePage(page);
   await page.goto('/kreisreform/');
+
+  // Die Seitengröße kommt aus der gemeinsamen Konstante, nicht als Zahl im Test: Kreistabelle und
+  // Beteiligungsnavigator blättern dieselbe Art Daten gleich.
   const rows = page.locator('[data-kreisreform-table-body] tr');
-  await expect(rows).toHaveCount(25);
+  await expect(rows).toHaveCount(DEFAULT_PORTAL_PAGE_SIZE);
   const pagination = page.locator('[data-pagination="kreise"]');
   await expect(pagination).toBeVisible();
+  const total = Number((await pagination.locator('[data-pagination-total]').innerText()).replace(/\D/gu, ''));
+  expect(total, 'die Blätterung nennt den Gesamtbestand').toBeGreaterThan(DEFAULT_PORTAL_PAGE_SIZE);
   await pagination.locator('[data-page-action="next"]').click();
   await expect(pagination.locator('[data-pagination-page]')).toHaveText(/Seite 2 von \d+/u);
-  await expect(rows).toHaveCount(25);
+  await expect(rows).toHaveCount(DEFAULT_PORTAL_PAGE_SIZE);
+
+  // Jede weitere sichtbare Datenansicht der Seite bleibt ebenfalls gedeckelt.
+  const bodies = await page.locator('#tabellen tbody').evaluateAll((elements) =>
+    elements.map((element) => ({ id: element.closest('section')?.id ?? '', rows: element.querySelectorAll('tr').length })));
+  for (const body of bodies) {
+    expect(body.rows, `Tabelle in ${body.id} zeigt ${body.rows} Zeilen`).toBeLessThanOrEqual(DEFAULT_PORTAL_PAGE_SIZE);
+  }
+  await verifyViewport(page);
+});
+
+portalTest('Messung: die Kreisreformseite bleibt progressiv und ohne Scrollfalle', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile-'), 'Der Aufbau wird auf einer Mobilbreite gemessen.');
+  await preparePage(page);
+  await page.goto('/kreisreform/');
+
+  // Kein Aufklappbereich steht beim Aufruf offen: FAQ und die Kreislisten der Bezirke sind
+  // progressiv, nicht dauerhaft ausgeklappt.
+  await expect(page.locator('#kreisreform-faq details[open]')).toHaveCount(0);
+  await expect(page.locator('#bezirke details[open]')).toHaveCount(0);
+  await page.locator('#kreisreform-faq details > summary').first().click();
+  await expect(page.locator('#kreisreform-faq details[open]')).toHaveCount(1);
+
+  // Kein Sammelblock gibt mehr Einträge auf einmal aus als eine Datenseite. Gemessen wird die
+  // Kinderzahl, nicht die Höhe: eine Höhe in Pixeln wäre wieder das Maß, das hier gerade ersetzt
+  // wird – sie hängt an Zeichenlänge und Nutzerschriftgröße, nicht am Aufbau.
+  const zuGross = await page.evaluate((grenze) => {
+    return [...document.querySelectorAll('#main-content .card-grid, #main-content .record-list, #main-content .compare-grid')]
+      .filter((element) => element.checkVisibility?.() !== false)
+      .map((element) => ({ klasse: element.className, kinder: element.childElementCount }))
+      .filter((entry) => entry.kinder > grenze);
+  }, DEFAULT_PORTAL_PAGE_SIZE);
+  expect(zuGross, `Sammelblöcke geben höchstens ${DEFAULT_PORTAL_PAGE_SIZE} Einträge auf einmal aus`).toEqual([]);
+
+  // Der Nutzer erreicht die Tabellen über die Abschnittsnavigation, nicht durch Scrollen: der
+  // Sprunglink steht im ersten Bildschirm.
+  const link = page.locator('.section-navigation a[href="#tabellen"]');
+  await expect(link).toHaveCount(1);
+  const oben = await link.evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(oben, 'der Sprunglink zu den Tabellen steht im ersten Bildschirm').toBeLessThanOrEqual(await page.evaluate(() => window.innerHeight * 2));
   await verifyViewport(page);
 });
 

@@ -50,9 +50,10 @@ Drei weitere Flags bestimmen den Prüfumfang unabhängig vom Deploymentziel:
   diesen Tests selbst. Reine
   Inhaltsänderungen prüfen die Content-Audits (`run_content_check`) und der D1-Sync; die
   schnellen Unit-Tests (`tests/*.test.*`) laufen bei jeder Codeänderung.
-- **`run_visual`** – die Screenshot-Suite läuft bei Oberflächen-, Layout-, Style- und
-  Portalinhaltsänderungen, nicht bei reinem Normcontent, Dokumentation oder Workflows: in Pull
-  Requests die kritische Auswahl, auf `main` die breite Inventur (siehe Screenshot-Suite).
+- **`run_visual`** – die kritische Screenshot-Auswahl läuft bei Oberflächen-, Layout-, Style- und
+  Portalinhaltsänderungen in Pull Requests, nicht bei reinem Normcontent, Dokumentation oder
+  Workflows. Der Deploy prüft keine Bilder; die vollständige Inventur läuft geplant und manuell
+  (siehe Screenshot-Suite).
 
 Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie für Suche,
 Fundstellen und die Rechtsbrücke einliest; ihre Änderung löst kein OstRecht-Deployment aus,
@@ -67,8 +68,10 @@ classify ─┬─ build ───────────────┬─ run
           ├─ d1_seed (Vollbestand)┼─ d1_sync ───────┘
           │                        (Cloudflare D1; bei geänderter Projektionslogik
           │                         Äquivalenznachweis statt Vollprojektion)
-          └─ visual (breite Screenshot-Inventur, kein Gate)
 ```
+
+Screenshots laufen nicht im Deploy: Pull Requests prüfen die kritische Auswahl, die vollständige
+Inventur läuft geplant und manuell (`visual-extended.yml`).
 
 1. `classify` bestimmt Deployment- und Verifikationswirkung (mit `node_modules`, weil der
    Code-Abschluss der Projektion esbuild braucht).
@@ -369,16 +372,28 @@ Einzelaufrufe gedacht, nicht für Sammelprüfungen.
 ## Screenshot-Suite
 
 Die Screenshot-Suite prüft Layout und Design – CSS-Regressionen, falsche Abstände, verschwundene
-Elemente, Überläufe, kaputte Breakpoints –, nichts, was Browser-Smoke oder Barrierefreiheitstest
-bereits sehen. Sie hat zwei Stufen (`tests/visual.spec.ts`):
+Elemente, Überläufe, kaputte Breakpoints –, nichts, was Browser-Smoke, Barrierefreiheitstest oder
+die Messungen am Ende von `tests/visual.spec.ts` bereits sehen.
 
-- **visual-critical** (`npm run test:visual:critical`, Tag `@critical`): je Website Startseite,
-  eine typische Inhaltsseite und die layoutkritischen Komponenten (Portal: Startseite mit
-  Aktuelles-Modul, Ministerium, Thema, Kreisreform, Consent; OstRecht: Startseite, Suche mit
-  Suchkopf und Filtern, Normseite, Rechtsstand/Herkunft, Fassungsvergleich, mobile Navigation) auf
-  Desktop und Mobil, Tablet nur bei eigenem Breakpoint (Startseiten). Läuft in Pull Requests.
-- **visual-extended** (`npm run test:visual:extended`): alle Motive auf drei Viewports. Läuft auf
-  `main` bei Oberflächenänderungen, wöchentlich und manuell (`visual-extended.yml`).
+**Ein Bild prüft eine visuelle Rolle, nicht einen bestimmten Inhalt.** Drei Regierungsmitglieder,
+fünf Haushaltsseiten oder sieben Normseiten zeigen dieselbe Rolle mit anderen Daten; sie erzeugen
+keine zusätzliche Regressionsdeckung, nur Bilder, die bei jeder Inhaltspflege veralten. Wer ein
+Motiv aufnimmt, benennt deshalb, welche eigene visuelle Regression nur dieses Bild zeigt. Was der
+Aufbau leistet – Überlauf, Schrifttokens, Rasterspalten, sichtbare Navigation, Fokus, Anker,
+Blätterung –, gehört in eine Messung oder einen DOM-Test, nicht zusätzlich in ein Pixelbild.
+
+Viewports: `desktop-wide` (1440) und `mobile-390` als Standard, `desktop-schmal` (1152 = 72 rem) nur
+für Motive mit eigenem Verhalten im Band 64–80 rem (zweizeiliger Kopf beider Websites, zweispaltiger
+Normarbeitsbereich). Ein Tablet-Viewport existiert nicht: bei 768 px sind beide Köpfe im
+Menüzustand, das Bild wiederholte `mobile-390`.
+
+Zwei Stufen (`tests/visual.spec.ts`):
+
+- **visual-critical** (`npm run test:visual:critical`, Tag `@critical`): die Auswahl für Pull
+  Requests – je Website Rahmen, Suche und eine Rolle mit eigenem Verhalten im schmalen Band.
+- **visual-extended** (`npm run test:visual:extended`): alle Motive. Läuft **ausschließlich**
+  geplant (wöchentlich) und manuell über `visual-extended.yml`, nicht im Deploy: ein veraltetes
+  Bild ist kein Grund, den Release-Workflow rot zu färben.
 
 Kanonische Plattform ist Linux: versioniert sind nur `-linux.png`-Baselines aus dem
 Playwright-Container. Auf macOS laufen dieselben Tests funktional (Seitenaufbau, Überlauf,

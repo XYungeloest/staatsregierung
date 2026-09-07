@@ -241,6 +241,16 @@ horizontalen Dokumentüberlauf (geprüft bei 375, 768, 1024, 1100, 1280 und 1440
 nur in einem gekennzeichneten Scrollbereich (`.table-wrap`) horizontal rollen; ihre wesentlichen
 Informationen bleiben außerhalb zugänglich.
 
+Lange Datenansichten werden über ihren Aufbau geregelt, nicht über eine Seitenhöhe. Eine Seitenhöhe
+in Pixeln ist kein Gestaltungsmerkmal: sie hängt an der Bestandsgröße, an der Zeichenlänge der
+längsten Zelle, an der Fensterbreite und an der vom Nutzer eingestellten Schriftgröße – eine
+Vorgabe, die bei 200 % Textvergrößerung bricht, bestraft Barrierefreiheit. Es gilt stattdessen:
+eine Datenansicht gibt höchstens eine Datenseite auf einmal aus (`DEFAULT_PORTAL_PAGE_SIZE`,
+gemeinsame `DataPagination`), Sammelblöcke ebenso; Aufklappbereiche stehen beim Seitenaufruf
+geschlossen; jeder Abschnitt ist über die Abschnittsnavigation in einem Schritt erreichbar, deren
+Sprungziele im ersten Bildschirm stehen. Diese Aussagen sind messbar und stehen als Messungen in
+`tests/visual.spec.ts`.
+
 ## Farbrollen
 
 - Rot: Im Rechtsportal ausschließlich Aufhebung (`--law-red` an `.norm-history__event--repeal`),

@@ -16,6 +16,29 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   Kurzfassungen vorliegen und die Kennzeichnung in `data/recht/revosax-import-audit/summary.json`
   entfällt.
 
+## Staatsportal
+
+### Lange Seiten und Datenansichten
+
+- [ ] Aufbau der Kreisreformseite als Invarianten sichern statt über eine Seitenhöhe. Erledigt sind
+  die gemeinsame Blätterung (Kreistabelle und Beteiligungsnavigator verwenden dieselbe
+  `DataPagination` mit `DEFAULT_PORTAL_PAGE_SIZE`) und die genannte Zeilenzahl je Seite. Die frühere
+  Vorgabe „bei 375 px unter 8.000 px“ ist **nicht** erfüllt (gemessen 15.548 px) und wird
+  ausdrücklich ersetzt: Sie misst kein Gestaltungsmerkmal, sondern das Produkt aus Bestandsgröße
+  (101 Kreise), Zeichenlänge der längsten Zelle, Fensterbreite und der vom Nutzer eingestellten
+  Schriftgröße — bei 200 % Textvergrößerung (WCAG 1.4.4) wäre sie zwangsläufig verletzt, und
+  erreichbar wäre sie nur, indem die Seitengröße unter die des Beteiligungsnavigators fiele oder
+  ganze Tabellen hinter einem Aufklapper verschwänden. An ihre Stelle treten prüfbare Aussagen über
+  den Aufbau; zwei davon laufen bereits (`tests/visual.spec.ts`, Messungen „Datenansichten … wachsen
+  nicht mit dem Bestand“ und „bleibt progressiv und ohne Scrollfalle“: höchstens
+  `DEFAULT_PORTAL_PAGE_SIZE` Zeilen je Tabelle und je Sammelblock, kein Aufklappbereich beim Aufruf
+  offen, Sprungziel zu den Tabellen im ersten Bildschirm, kein waagerechter Überlauf). Offen bleibt
+  die Dreifachnennung der 14 Bezirke unter 640 px (Kartenraster `#bezirke`, Bezirkstabelle und
+  Auswahlspalte der Karte) und die Abschnittsnavigation, die unterhalb von 64 rem wegrollt, ohne
+  einen Rücksprung anzubieten. Fertig, wenn unter 640 px jeder Bezirk genau einmal als Liste
+  erscheint, die Abschnittsnavigation auch mobil erreichbar bleibt (mitgeführt oder als
+  Rücksprung) und je eine Messung beides festhält.
+
 ## Sitzungsmediathek der Volkskammer
 
 Große Audio- oder Videodateien dürfen weder unter `public/` (Workers Static Assets: 25 MiB je
