@@ -25,6 +25,7 @@ export const CANONICAL_DOCUMENTS = [
   'CONTENT_GAPS.md',
   'DESIGN.md',
   'TODO.md',
+  'docs/EINPFLEGE_PLAYBOOK.md',
   'docs/DEPLOYMENT_RUNBOOK.md',
   'docs/NORM_WORKFLOW.md',
   'docs/REVOSAX_BULK_IMPORT.md',

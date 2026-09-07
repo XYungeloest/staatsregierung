@@ -127,6 +127,7 @@ ausschließlich über den Workflow `Deploy to Cloudflare Workers` aus dem geprü
 | `CONTENT_GAPS.md` | tatsächlich offene Quellenlücken und Quellenkonflikte |
 | `TODO.md` | offene technische Arbeiten |
 | `DESIGN.md` | dauerhafte Gestaltungsregeln beider Anwendungen |
+| `docs/EINPFLEGE_PLAYBOOK.md` | vollständiger Eingangsablauf „`temp-neu` einpflegen“ für alle Inhaltsarten |
 | `docs/DEPLOYMENT_RUNBOOK.md` | CI/CD, Änderungsscope, D1-Seed-Cache, Deployment, Expand/Contract, Nachkontrolle |
 | `docs/NORM_WORKFLOW.md` | Redaktionsworkflow für Normen und Stichtagsfortschreibung |
 | `docs/REVOSAX_BULK_IMPORT.md` | REVOSax-Import, D1-Synchronisation, Budgets, Recovery |

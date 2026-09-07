@@ -219,21 +219,29 @@ Normfassungen. Norm-JSONs bleiben dadurch unabhängig von später gepflegten Amt
 ## Eingang aus `temp-neu/`
 
 Die kurze Arbeitsanweisung „`temp-neu` einpflegen“ bezeichnet den vollständigen redaktionellen
-Eingangsablauf. Dazu gehören ohne weitere Einzelerklärung: Dateien inventarisieren, HTML und PDF
-gegeneinander prüfen, amtliche Quellen nach `Gesetze/` und öffentliche PDFs nach
-`public/assets/recht/` übernehmen, Normen und Verkündungen gezielt importieren, mitgelieferte
-Pressemitteilungen in `content/presse/mitteilungen/` übertragen, belastbare Bilder unter
-`public/images/` ablegen, Beziehungen zu Normen, Themen und Pressemitteilungen pflegen sowie
-betroffene Gegenwartsstände und den redaktionellen Stichtag aktualisieren. Anschließend sind
-für jede übernommene Normquelle der kanonische Ablauf aus `docs/NORM_WORKFLOW.md` mit
-`npm run norms:workflow -- --file "…html" --write` auszuführen. Er verbindet den gezielten
-Import, die Konsolidierungs- und Metadatenprüfungen, den Wissenshub sowie die technische
-Content-, Build-, Link- und SEO-QA. Repräsentative Browser- und Accessibility-Smokes gehören
-zum Release-Gate; die Screenshot-Suite läuft in CI bei Oberflächenänderungen und lokal gezielt,
-breite Browsermatrizen bleiben manuelle Werkzeuge. `--quick` ist nur für Zwischenprüfungen zulässig.
-Geänderte Screenshot-Baselines werden nur nach Sichtprüfung übernommen. Widersprüchliche oder
-fehlerhafte Bildmotive werden nicht als amtliche Darstellung veröffentlicht. `temp-neu/` bleibt
-unverändert als Benutzereingang bestehen.
+Eingangsablauf. Er ist vollständig und verbindlich in
+[`docs/EINPFLEGE_PLAYBOOK.md`](docs/EINPFLEGE_PLAYBOOK.md) beschrieben; dieses Playbook ist bei
+jedem Eingang zu befolgen, unabhängig davon, ob er Normquellen enthält.
+
+Die tragenden Regeln in Kurzform:
+
+- `temp-neu/` bleibt unverändert als Benutzereingang bestehen. Quellen werden kopiert, nie
+  verschoben; kein Datensatz und kein Link zeigt je dorthin.
+- Der Eingang wird zuerst klassifiziert. Eine Amtsblattausgabe ohne Rechtsvorschrift wird vom
+  Importer erkannt und **nicht** geschrieben; ihr Verkündungsdatensatz entsteht von Hand.
+- Für jede Normquelle gilt der kanonische Ablauf aus
+  [`docs/NORM_WORKFLOW.md`](docs/NORM_WORKFLOW.md): erst
+  `npm run norms:workflow -- --file "…html" --quick`, dann derselbe Lauf mit `--write`. `--quick`
+  ist nur eine Zwischenprüfung.
+- `norms:workflow` deckt `docs:check`, `norms:publications:pdf-sync`, die Screenshot-Suite, jede
+  D1-Prüfung und den Organisations-Snapshot **nicht** ab. Diese Schritte gehören zusätzlich in
+  jeden Eingang; die Befehlsketten stehen im Playbook.
+- Der redaktionelle Stichtag wird nur als geschlossene Kette fortgeschrieben: Audit, laufende
+  Themen-Hervorhebung sicherstellen, Schreiblauf, Organisations-Snapshot, Fixture-Stichtag,
+  Wissenshub neu erzeugen.
+- Geänderte Screenshot-Baselines werden nur nach Sichtprüfung übernommen; ein lokaler Lauf auf
+  macOS vergleicht keine Pixel. Widersprüchliche oder fehlerhafte Bildmotive werden nicht als
+  amtliche Darstellung veröffentlicht.
 
 ## UI-Stil
 
