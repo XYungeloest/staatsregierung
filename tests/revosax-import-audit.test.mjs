@@ -73,7 +73,7 @@ test('der Import-Audit ist deterministisch und seine Bilanz geht exakt auf', asy
   // Bezeichnung der Trefferliste, Kurzfassungen schreibt der Massenimport keine mehr.
   assert.deepEqual(first.summary.derivedMetadata.fields, ['subjects']);
   assert.equal(first.summary.derivedMetadata.norms, 3);
-  assert.deepEqual(first.summary.derivedMetadata.subjects, { official: 0, derived: 0 }, 'ohne lesbare meta.json zählt der Audit keine Zuordnung');
+  assert.deepEqual(first.summary.derivedMetadata.subjects, { total: 0, official: 0, derived: 0 }, 'ohne lesbare meta.json zählt der Audit keine Zuordnung');
   // Ohne nachstichtaglichen Rechtsakt bleiben alle Zähler auf null.
   assert.deepEqual(first.summary.postCutoff, {
     baselineDate: '2023-11-01',
