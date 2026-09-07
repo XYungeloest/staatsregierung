@@ -410,10 +410,15 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
       norms: actions.CREATE + actions.MATCH - existingMatched,
       fields: ['subjects'],
       subjects: {
+        // Zählrahmen: die eindeutigen Zielnormen der Planeinträge CREATE und MATCH – also alle
+        // Vorschriften, die diese Baseline angelegt oder zugeordnet hat. `norms` daneben zählt
+        // dieselbe Menge ohne die sieben redaktionell schon vorhandenen Normen; die beiden Zahlen
+        // sind deshalb absichtlich nicht gleich.
+        total: subjectCoverage.official + subjectCoverage.derived,
         official: subjectCoverage.official,
         derived: subjectCoverage.derived,
       },
-      source: 'Schlagwörter: amtliche Bezeichnung der REVOSax-Trefferliste (scripts/lib/revosax-metadata.mjs: inferKeywords). Kurzfassungen: keine; ohne redaktionelle Kurzbeschreibung bleibt das Feld leer, der Arbeitsvorrat steht in data/recht/norm-summary-review.json. Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)',
+      source: 'Schlagwörter: amtliche Bezeichnung der REVOSax-Trefferliste, ersatzweise eine fassungsspezifische Bezeichnung; vorhandene Schlagwörter bleiben erhalten, sind aber nicht amtlich belegt (scripts/refine-revosax-derived-metadata.mjs). Kurzfassungen: keine; ohne redaktionelle Kurzbeschreibung bleibt das Feld leer, der Arbeitsvorrat steht in data/recht/norm-summary-review.json. Erlassorgan der Quelle als originEnactingBody (Provenienz); Sachgebiete nach der amtlichen Gliederungsnummer, ersatzweise nach der Ableitungskette (inferSubjectAssignment)',
     },
     residualBacklog: residualBacklog ? { norms: residualBacklog.normCount, residuals: residualBacklog.residualCount } : null,
   };
