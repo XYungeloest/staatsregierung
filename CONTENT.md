@@ -1401,29 +1401,23 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 
 ### Vollständiger Eingang aus `temp-neu/`
 
-Die Anweisung „`temp-neu` einpflegen“ genügt künftig als Kurzform für den gesamten Ablauf:
+Die Anweisung „`temp-neu` einpflegen“ ist die Kurzform für den vollständigen Eingangsablauf. Er ist
+verbindlich in [`docs/EINPFLEGE_PLAYBOOK.md`](docs/EINPFLEGE_PLAYBOOK.md) beschrieben: Klassifikation
+des Eingangs, ein Fachzweig je Materialart, die Querschnittspflichten (Beziehungen, Wissenshub,
+Coverage, Sprache, Titel-Eindeutigkeit), der Stichtagsblock, die D1-Wirkung, die Abschlussketten,
+die Screenshot-Baselines und der Commit-Umfang.
 
-1. Neue Dateien inventarisieren und zusammengehörige HTML-, PDF-, Markdown- und Bildquellen erkennen.
-2. Amtliche PDFs vollständig rendern und gegen Überschriften, Gliederung, Listenfortsetzungen,
-   Seitenzahlen, Tabellen, Anlagen und Signaturen der strukturtragenden HTML-Quelle prüfen.
-3. Geprüfte amtliche Quellen nach `Gesetze/` übernehmen; öffentlich verlinkte PDFs zusätzlich unter
-   `public/assets/recht/` ablegen.
-4. Für jede neue Ausgabe eine stabile Importkonfiguration ergänzen und den kanonischen Ablauf aus
-   [`docs/NORM_WORKFLOW.md`](docs/NORM_WORKFLOW.md) verwenden: zunächst mit
-   `npm run norms:workflow -- --file "…html" --quick` auditieren, danach mit
-   `npm run norms:workflow -- --file "…html" --write` gezielt importieren, konsolidieren und
-   vollständig prüfen. Der Workflow aktualisiert vorhandene Normen inkrementell; `--quick` ist
-   nur eine Zwischenprüfung und kein Abschlusslauf.
-5. Pressemitteilungen aus dem Eingang in das Content-Schema übertragen, redaktionell kürzen oder
-   gliedern und mit Themen, Normen sowie verwandten Meldungen verbinden.
-6. Bilder nur bei inhaltlicher Übereinstimmung und ohne sichtbare Beschriftungsfehler veröffentlichen;
-   andernfalls im Eingang belassen und den Konflikt melden.
-7. Betroffene Themen-, Timeline-, Dashboard- und andere Gegenwartsangaben sowie den zentralen
-   redaktionellen Stichtag gemeinsam fortschreiben.
-8. Für Eingänge ohne Normquelle die entsprechenden Content-, Wissenshub-, Build-, Link- und
-   SEO-Prüfungen sowie die repräsentativen Browser- und Accessibility-Smokes separat ausführen.
-   Bei Normquellen übernimmt der vollständige `norms:workflow`-Lauf diese Prüfungen. Visuelle
-   Baselines nur bei tatsächlich betroffenen Oberflächen und erst nach Sichtprüfung aktualisieren.
+Die vier Punkte, an denen dieser Ablauf erfahrungsgemäß scheitert:
+
+1. **Eine Ausgabe ohne Rechtsvorschrift** wird vom Importer als `recognized-non-normative` erkannt
+   und **nicht** geschrieben. Der grüne Lauf bedeutet „nichts getan“; der Verkündungsdatensatz
+   entsteht von Hand.
+2. **`npm run norms:workflow` ist kein Abschlusslauf.** Er enthält weder `docs:check` noch
+   `norms:publications:pdf-sync` noch eine Screenshot- oder D1-Prüfung.
+3. **Der Stichtag ist eine Kette.** Ohne den neuen `content/organisation/snapshots/<Stichtag>.json`
+   und ohne eine am neuen Stichtag laufende Themen-Hervorhebung wird `content:check` rot.
+4. **Generierte Dateien gehören in den Commit** — `knowledge/generated/**` und
+   `content/regierung/beteiligungsinventar.json` werden in der CI byteweise verglichen.
 
 Dieser Ablauf verändert oder leert `temp-neu/` nicht. Das Verzeichnis bleibt der wiederverwendbare
 Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
