@@ -184,6 +184,29 @@ Projektionsidentität, gibt es drei Fälle:
 | Inhalte (Normen, Verkündungen, Stichtag, Normbezüge von Themen/Presse) | `d1_token_check`: inkrementell | nichts zu tun; `d1_sync` schreibt inkrementell mit verifizierter Basis |
 | Projektionslogik ohne Schemaänderung | `d1_token_check`: Remote-State Exit 3 → Äquivalenznachweis | automatisch: Nachweis `identity` (nur Identität und Metadaten, ohne korpusweite Ableitungsberechnung) oder `incremental` (nachgewiesener Umfang, z. B. abgeleitete Daten und Suchdokumente aller Normen) → grün; Nachweis `full` (abweichende Tabellen werden genannt) → wie Schemaänderung |
 | Schemaänderung (`data/recht/d1/`) oder Nachweis `full` | `d1_token_check` rot | Zielprojektion vor dem Merge herstellen, nie danach (unten) |
+| Große Inhaltsänderung: Nachweis `incremental`, aber der Umfang sprengt das Budget `incremental` | `d1_sync` bricht mit `SyncBudgetExceeded` ab, bevor etwas geschrieben wird | bewusster Lauf vor dem Merge (unten) — **keine** Vollprojektion, **kein** angehobenes Budget |
+
+### Bewusster Lauf: nachgewiesen inkrementell, aber über dem Budget
+
+Eine Bestandspflege kann Tausende Vorschriften berühren, ohne die Projektionslogik zu ändern. Der
+Äquivalenznachweis sagt dann „inkrementell genügt“, und der Umfang ist trotzdem zu groß für das
+Profil des automatischen Laufs. Das Budget wird deswegen **nicht** angehoben — es ist die Bremse,
+die einen Fehlgriff (etwa einen Vollscan des Suchindex) stoppt, bevor er das Tageskontingent
+verbraucht. Stattdessen:
+
+1. Umfang so klein wie fachlich möglich halten. Für reine `meta.json`-Änderungen tut das der
+   Metadata-only-Umfang von selbst (`META_FIELD_TARGETS`, scripts/lib/d1-sync-scope.mjs): er
+   schreibt nur die Ziele, die die geänderten Felder berühren können. Was danach übrig bleibt,
+   gehört benannt — Tabelle für Tabelle, mit Zeilenzahlen.
+2. Nachweis führen und die Schätzung gegen beide Profile rechnen
+   (`estimatePlanCost` + `assertEstimateWithinBudget`, dieselben Funktionen wie im Sync).
+3. Ist der Lauf im Profil `full` (500.000 / 900.000), aber nicht in `incremental`: **kein
+   `--full`**, sondern derselbe nachgewiesene inkrementelle Umfang mit `--budget full`. Das ist
+   keine Vollprojektion — keine Tabelle wird geleert, Fassungen, Normkörper, Quellobjekte,
+   Historie und Sachgebiete bleiben unberührt.
+4. Reihenfolge wie bei der Vollprojektion: erst Staging, `d1-verify --fts-integrity`, Kernrouten
+   prüfen; dann Produktion außerhalb der Nutzungszeiten mit demselben Lauf; danach
+   `d1_token_check` erneut starten (No-op) und erst dann mergen.
 
 Der Nachweis ist keine Annahme: er projiziert Basis und Ziel vollständig (Seed-Cache oder lokale
 Projektion), vergleicht alle Tabellen semantisch (`scripts/lib/d1-projection-compare.mjs`) und

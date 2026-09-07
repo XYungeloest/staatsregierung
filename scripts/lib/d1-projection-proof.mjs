@@ -99,9 +99,17 @@ export async function loadProjectionInputs(root, { sync }) {
   const { EDITORIAL_REFERENCE_DATE } = await import('@ostrecht/shared/lib/norms/versions.ts');
   const { loadPressReleases, loadTopics } = await import('@ostrecht/shared/lib/portal/content.ts');
   const { getPressReleaseUrl, getTopicUrl } = await import('@ostrecht/shared/lib/portal/routes.ts');
-  const [norms, publications, topics, pressReleases] = await Promise.all([loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases()]);
+  // Das Stichwortregister ist eine Eingabe der Projektion: es liefert die Stichworteinträge der
+  // Art `register` (law_norm_keywords) und geht in den Bestandsfingerabdruck ein (corpus_hash).
+  // Der echte Sync, der Vollseed und die Verifikation laden es; ohne dieselbe Eingabe verglichen
+  // Nachweis und Momentaufnahme zwei verschiedene Projektionen.
+  const { loadKeywordRegister, registerKeywordsBySlug } = await import('@ostrecht/shared/lib/norms/register.ts');
+  const [norms, publications, topics, pressReleases, keywordRegister] = await Promise.all([
+    loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(), loadKeywordRegister(),
+  ]);
+  const register = registerKeywordsBySlug(keywordRegister);
   const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl, asOf: EDITORIAL_REFERENCE_DATE });
-  return { sync, norms, publications, topics, pressReleases, context };
+  return { sync, norms, publications, topics, pressReleases, context, register };
 }
 
 /** Vollbestands-Seed mit einer der Projektionsidentitäten im Seed-Cache (Manifest und Datenbank geprüft). */
@@ -172,11 +180,23 @@ export async function projectRef({ root, ref, out, log = console.log }) {
   }
 }
 
+/**
+ * Das Stichwortregister der Projektionseingaben, fail-closed. Fehlt es, hat ein Aufrufer die
+ * Eingaben selbst gebaut und würde eine registerlose Projektion gegen eine mit Register
+ * vergleichen — genau der Fehler, den `corpus_hash` sonst still als Abweichung meldet.
+ */
+function requireRegister(inputs) {
+  if (!(inputs.register instanceof Map)) {
+    throw new Error('Projektionseingaben ohne Stichwortregister: loadProjectionInputs() liefert `register`; ohne es weicht corpus_hash vom Vollseed und vom echten Sync ab (fail-closed)');
+  }
+  return inputs.register;
+}
+
 /** Wendet einen inkrementellen Umfang (Code des Arbeitsbaums) auf eine Kopie der Basisprojektion an. */
 export async function applyScopeToCopy({ root, basePath, out, scope, inputs, identity, now = PROOF_PROJECTION_NOW }) {
   await rm(out, { force: true });
   await copyFile(basePath, out);
-  const plan = inputs.sync.buildSyncPlan({ scope, norms: inputs.norms, publications: inputs.publications, context: inputs.context, now, fingerprint: identity, identity, writeIdentity: true });
+  const plan = inputs.sync.buildSyncPlan({ scope, norms: inputs.norms, publications: inputs.publications, context: inputs.context, now, fingerprint: identity, identity, writeIdentity: true, register: requireRegister(inputs) });
   const db = await openDatabase(out, { create: false, root });
   try {
     executePlan(db, plan);
