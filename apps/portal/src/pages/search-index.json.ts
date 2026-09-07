@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { buildPortalSearchPayload } from '@ostrecht/shared/lib/portal/search.ts';
+import { buildPortalSearchPayload } from '../lib/search-index.ts';
 
 export const GET: APIRoute = async () => {
   const payload = await buildPortalSearchPayload();

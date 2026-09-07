@@ -29,7 +29,7 @@
    scripts/build-sign-font.py, Herkunft und Lizenzstand: assets/fonts/README.md. */
 @font-face {
   font-family: 'Ost Grotesk';
-  src: url('../assets/fonts/OstGrotesk-Regular.woff') format('woff');
+  src: url('../assets/fonts/OstGrotesk-Regular.woff2') format('woff2');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -37,7 +37,7 @@
 
 @font-face {
   font-family: 'Ost Grotesk';
-  src: url('../assets/fonts/OstGrotesk-Bold.woff') format('woff');
+  src: url('../assets/fonts/OstGrotesk-Bold.woff2') format('woff2');
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -109,10 +109,30 @@
   --color-seal: #8f2e2f;
   --color-seal-hover: #641e21;
   --color-gold: #c39a3b;
+  /* Goldfamilie: helles Gold auf dunklem Grund (Eyebrow, Leitkarte), sehr helle Goldfläche für
+     ganze Bänder, dazu Hover und Innentrenner darauf. Zusammen mit --color-gold,
+     --color-info-gold und --color-info-gold-border deckt sie jede Goldstelle beider Portale ab. */
+  --color-gold-bright: #f1d58f;
   --color-ink: #102a45;
+  /* Tiefstes Blau: Fußbereich. Dunkler als --color-primary-hover, damit der Fuß abschließt. */
+  --color-ink-deep: #061c35;
   --color-info-blue: #e6eef6;
   --color-info-green: #e6f2e8;
   --color-info-gold: #fbf2d9;
+  --color-info-gold-soft: #fffaf0;
+  --color-info-gold-hover: #f8efd8;
+  /* Je Informationsfläche ein Rahmen, ein Innentrenner und eine Textfarbe. */
+  --color-info-blue-border: #a8bdd8;
+  --color-info-blue-hover: #dde8f5;
+  --color-info-green-border: #9ac492;
+  --color-info-gold-border: #d4b063;
+  --color-info-gold-divider: #e5d6ad;
+  --color-info-gold-ink: #72530d;
+  /* Trefferhervorhebung der Suche. */
+  --color-highlight: #fff1a8;
+  /* Hoheitszeichen: die beiden Farben der Flagge des Freistaates. */
+  --color-flag-blue: #0b247f;
+  --color-flag-green: #00996d;
   --color-accent: var(--color-primary);
   --color-accent-hover: var(--color-primary-hover);
   --color-accent-soft: var(--color-info-blue);
@@ -135,6 +155,11 @@
   --font-document: 'Source Serif 4', 'Source Serif 4 Fallback Georgia', 'Source Serif 4 Fallback Noto', 'Source Serif 4 Fallback DejaVu', 'Source Serif 4 Fallback Liberation', serif;
   --content-width: 84rem;
   --content-width-narrow: 60rem;
+  /* Seitenrand des Inhaltscontainers und Lesemaß des Fließtexts. Beide sind Tokens, damit das
+     Staatsportal sie unter `.portal-site` eigenständig setzen kann, ohne die Geometrie von
+     OstRecht zu verändern. */
+  --page-gutter: var(--space-4);
+  --measure-body: 78ch;
   --lh-display: 1.12;
   --lh-heading: 1.28;
   /* Kompakte Bedienzeilen (Etiketten, Menüs) und Lesetext. */
@@ -153,6 +178,11 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4rem;
+  /* Zwei ergänzte Zwischenstufen für die dichten Bereiche der Skala: zwischen 16 und 24 px lagen
+     im Staatsportal 57 Einzelwerte (17,6 bis 22,4), zwischen 32 und 48 px weitere 14 (33,6 bis
+     40). Ohne sie müssten Kartenpolster und Bandabstände um bis zu 8 px springen. */
+  --space-4-plus: 1.25rem;
+  --space-6-plus: 2.5rem;
   /* Typoskala für Fließ-, Bedien- und Hilfstexte. Seitentitel und Wortmarken bleiben
      `clamp()`-Ausdrücke; sie skalieren mit dem Viewport und gehören nicht in eine feste Stufe. */
   --text-2xs: 0.72rem;
@@ -166,11 +196,18 @@
      lg-plus für die Abschnitts-H2 des Staatsportals (24 px). */
   --text-base-plus: 1.0625rem;
   --text-lg-plus: 1.5rem;
-  /* Titelstufen – eine H1-Größe je Seitenfamilie: Startseiten-Hero, Bereichs- und Dokumentseiten,
-     Langtitel (Normen, Personen, Beteiligungen). */
-  --text-display: clamp(2.05rem, 4vw, 3.15rem);
+  /* Zwei Titelstufen: `--text-title` trägt jede H1 beider Portale – Startseiten-Hero,
+     Bereichs-, Such- und Hilfeseiten –, `--text-title-long` die Langtitel (Normen, Personen,
+     Beteiligungen, Leitkarte). Eine dritte Stufe für den Hero gab es einmal; sie unterschied
+     sich bei 1280 px um 0,8 px von `--text-title` und ist darum aufgegangen. */
   --text-title: clamp(2rem, 4vw, 3.25rem);
   --text-title-long: clamp(1.65rem, 3.2vw, 2.65rem);
+  /* Drei skalierende Zwischenrollen, damit keine Datei eigene clamp()-Schriftgrößen bildet:
+     `--text-band` trägt die Überschrift eines Startseiten- oder Modulbandes, `--text-card-title`
+     den hervorgehobenen Kartentitel, `--text-metric` die Kennzahl eines Kopfbereichs. */
+  --text-band: clamp(1.5rem, 2.6vw, 2rem);
+  --text-card-title: clamp(1.18rem, 1.7vw, 1.4rem);
+  --text-metric: clamp(1.15rem, 2vw, 1.5rem);
   /* Pillenform: ein Idiom statt 999px neben 99rem. */
   --radius-pill: 999px;
   --rule-gradient: var(--color-primary);
@@ -242,7 +279,7 @@ summary:focus-visible {
 p,
 li,
 dd {
-  max-width: 78ch;
+  max-width: var(--measure-body);
   overflow-wrap: anywhere;
 }
 
@@ -256,11 +293,19 @@ dd {
   max-width: none;
 }
 
+/* Bedienelemente erben die Hausschrift. Ohne diese Regel setzen Browser ihre eigene Familie und
+   13,333 px – im Staatsportal traf das die Suchknöpfe des Kopfes (Arial). `small` ist eine
+   Nebenangabe und bekommt dieselbe Stufe wie Datum und Kennzeichnung. */
 button,
 input,
 select,
 textarea {
+  font: inherit;
   max-width: 100%;
+}
+
+small {
+  font-size: var(--text-xs);
 }
 
 h1,
@@ -308,7 +353,7 @@ h2 {
 }
 
 .container {
-  width: min(calc(100% - 2rem), var(--content-width));
+  width: min(calc(100% - 2 * var(--page-gutter)), var(--content-width));
   margin: 0 auto;
 }
 
@@ -367,7 +412,7 @@ h2 {
   justify-content: center;
   min-width: 2.2rem;
   min-height: 1.55rem;
-  padding: 0 0.35rem;
+  padding: 0 var(--space-xs);
   border: 1px solid currentColor;
   font-size: var(--text-2xs);
   font-weight: 700;
@@ -383,15 +428,15 @@ h2 {
 .site-footer__inner {
   display: flex;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: var(--space-5);
   align-items: flex-end;
-  padding: 1.1rem 0 1rem;
+  padding: var(--space-4) 0;
 }
 
 .site-header__main {
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 25rem);
-  gap: 1.25rem;
-  padding: 0.35rem 0;
+  gap: var(--space-4-plus);
+  padding: var(--space-xs) 0;
 }
 
 .site-kicker,
@@ -407,14 +452,14 @@ h2 {
 
 .module-section {
   display: grid;
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
   min-width: 0;
 }
 
 .module-toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: var(--space-4);
   align-items: end;
 }
 
@@ -425,14 +470,6 @@ h2 {
 
 .module-card-grid {
   align-items: stretch;
-}
-
-.module-card-grid.card-grid--three {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
-}
-
-.module-card-grid.card-grid--two {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
 }
 
 .module-card {
@@ -449,23 +486,23 @@ h2 {
 .module-card__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  gap: var(--space-2);
   align-items: flex-start;
   min-width: 0;
 }
 
 .module-card__links {
-  margin-top: 0.2rem;
+  margin-top: var(--space-1);
 }
 
 .module-status-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: var(--space-xs);
   max-width: 100%;
   min-width: 0;
   min-height: 2rem;
-  padding: 0.35rem 0.7rem;
+  padding: var(--space-xs) var(--space-3);
   border: 1px solid rgba(47, 123, 61, 0.28);
   border-radius: var(--radius-sm);
   background: var(--color-info-green);
@@ -484,14 +521,37 @@ h2 {
 
 .module-empty {
   margin: 0;
-  padding: 1rem 1.1rem;
+  padding: var(--space-4);
   border: 1px dashed var(--color-border-strong);
   border-radius: var(--radius-md);
   background: var(--color-surface-alt);
   color: var(--color-text-muted);
 }
 
-.meta-grid--compact .meta-card {
+.meta-grid--compact /* Beschreibungsliste für Textangaben. Kennzahlenkarten (.meta-card) bleiben nach DESIGN.md
+   quantitativen Werten vorbehalten; „Dresden“ oder „Erster Staatsrat“ stehen hier. */
+.fact-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-3) var(--space-5);
+  margin: var(--space-4) 0 0;
+}
+
+.fact-list dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 720;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fact-list dd {
+  margin: var(--space-hairline) 0 0;
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.meta-card {
   min-height: auto;
 }
 
@@ -508,7 +568,7 @@ h2 {
 .timeline {
   position: relative;
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
   min-width: 0;
 }
 
@@ -526,7 +586,7 @@ h2 {
   position: relative;
   display: grid;
   grid-template-columns: 7rem minmax(0, 1fr);
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
   align-items: start;
   min-width: 0;
 }
@@ -539,7 +599,7 @@ h2 {
   z-index: 2;
   width: 0.8rem;
   height: 0.8rem;
-  border: 0.25rem solid #f4f8f5;
+  border: 0.25rem solid var(--color-surface-alt);
   border-radius: 999px;
   background: var(--color-seal);
   box-shadow: 0 0 0 1px rgba(143, 46, 47, 0.18);
@@ -555,7 +615,7 @@ h2 {
 
 .timeline__body {
   min-width: 0;
-  padding: 1rem 1.1rem;
+  padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-left: 0.25rem solid var(--color-secondary);
   border-radius: var(--radius-md);
@@ -564,7 +624,7 @@ h2 {
 }
 
 .timeline__body h3 {
-  margin: 0.1rem 0 0.55rem;
+  margin: var(--space-hairline) 0 var(--space-2);
   font-size: var(--text-md);
   line-height: var(--lh-heading);
 }
@@ -574,7 +634,7 @@ h2 {
 }
 
 .timeline__type {
-  margin: 0 0 0.3rem;
+  margin: 0 0 var(--space-1);
   color: var(--color-seal);
   font-size: var(--text-xs);
   font-weight: 760;
@@ -588,13 +648,13 @@ h2 {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .stage-chain__item {
   min-width: 0;
   flex: 1 1 8.5rem;
-  padding: 0.65rem 0.55rem;
+  padding: var(--space-3) var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface-alt);
@@ -606,7 +666,7 @@ h2 {
 }
 
 .stage-chain__item--done {
-  border-color: #9ac492;
+  border-color: var(--color-info-green-border);
   background: var(--color-info-green);
   color: var(--color-secondary-hover);
 }
@@ -633,13 +693,13 @@ h2 {
 
 .segmented-control {
   display: inline-flex;
-  gap: 0.5rem;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
 .segmented-control__button {
   min-height: 2.5rem;
-  padding: 0.55rem 1rem;
+  padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
@@ -657,7 +717,7 @@ h2 {
 
 .budget-breakdown-list {
   display: grid;
-  gap: 0.55rem;
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -666,8 +726,8 @@ h2 {
 .budget-breakdown-list li {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.25rem 0.75rem;
-  padding-top: 0.55rem;
+  gap: var(--space-1) var(--space-3);
+  padding-top: var(--space-2);
   border-top: 1px solid var(--color-border);
 }
 
@@ -703,7 +763,7 @@ h2 {
 
 .data-table th,
 .data-table td {
-  padding: 1rem 1.15rem;
+  padding: var(--space-4) var(--space-4-plus);
   border-bottom: 1px solid var(--color-border);
   text-align: left;
   vertical-align: top;
@@ -727,7 +787,7 @@ h2 {
 
 .data-table td > span {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
   color: var(--color-text-muted);
   line-height: var(--lh-compact);
   overflow-wrap: anywhere;
@@ -741,19 +801,19 @@ h2 {
 
 .budget-dashboard {
   display: grid;
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
 }
 
 .section-header--with-control {
   display: flex;
   align-items: end;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
 }
 
 .budget-year-selector {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-xs);
   flex: 0 0 auto;
 }
 
@@ -765,22 +825,22 @@ h2 {
 
 .budget-year-content {
   display: grid;
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
 }
 
 .budget-kpi-grid--six {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr));
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .budget-kpi-grid--six .budget-kpi-card,
 .budget-plan-kpis article,
 .budget-comparison-grid article {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-xs);
   min-width: 0;
-  padding: 1rem;
+  padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-top: 3px solid var(--color-primary);
   border-radius: var(--radius-md);
@@ -792,7 +852,7 @@ h2 {
 .budget-plan-kpis strong,
 .budget-comparison-grid strong {
   color: var(--color-primary);
-  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-size: var(--text-metric);
   font-variant-numeric: tabular-nums;
   line-height: var(--lh-display);
 }
@@ -813,12 +873,12 @@ h2 {
 .budget-structure-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .budget-explanation-card,
 .budget-structure-card {
-  padding: 1.1rem 1.2rem;
+  padding: var(--space-4) var(--space-4-plus);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -828,6 +888,7 @@ h2 {
 .budget-explanation-card h3,
 .budget-structure-card h3 {
   margin-top: 0;
+  font-size: var(--text-md);
 }
 
 .budget-explanation-card p:last-child {
@@ -835,7 +896,7 @@ h2 {
 }
 
 .budget-structure-card__total {
-  margin: 0.2rem 0 0.85rem;
+  margin: var(--space-1) 0 var(--space-3);
   color: var(--color-primary);
   font-size: var(--text-lg-plus);
   font-weight: 750;
@@ -845,7 +906,7 @@ h2 {
 .budget-comparison-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .budget-comparison-grid article > span:nth-of-type(1) {
@@ -854,9 +915,9 @@ h2 {
 
 .budget-context-note {
   display: grid;
-  gap: 0.25rem;
-  margin-top: 1rem;
-  padding: 0.9rem 1rem;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+  padding: var(--space-4);
   border-left: 0.32rem solid var(--color-secondary);
   background: var(--color-info-green);
 }
@@ -881,13 +942,13 @@ h2 {
 .budget-category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  gap: 0.65rem;
+  gap: var(--space-3);
 }
 
 .budget-category-grid article {
   display: grid;
-  gap: 0.2rem;
-  padding: 0.85rem;
+  gap: var(--space-1);
+  padding: var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
@@ -901,15 +962,15 @@ h2 {
 
 .budget-plan-table {
   display: grid;
-  gap: 0.85rem;
+  gap: var(--space-3);
 }
 
 .budget-plan-table__tools {
   display: grid;
   grid-template-columns: minmax(14rem, 1fr) minmax(22rem, 1.45fr);
-  gap: 1rem;
+  gap: var(--space-4);
   align-items: end;
-  padding: 1rem;
+  padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface-alt);
@@ -927,7 +988,7 @@ h2 {
 .budget-plan-table__filters {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
+  gap: var(--space-3);
 }
 
 .budget-plan-data-table th[scope='row'] {
@@ -936,7 +997,7 @@ h2 {
 
 .budget-plan-data-table th[scope='row'] > span {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
   color: var(--color-text-muted);
   font-size: var(--text-xs);
   font-weight: 400;
@@ -946,17 +1007,17 @@ h2 {
 .budget-plan-kpis {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.85rem;
+  gap: var(--space-3);
 }
 
 .budget-instrument-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .budget-instrument-card {
-  padding: 1.35rem;
+  padding: var(--space-4-plus);
   border: 1px solid var(--color-border);
   border-top: 3px solid var(--color-secondary);
   border-radius: var(--radius-md);
@@ -965,7 +1026,7 @@ h2 {
 }
 
 .budget-instrument-card h3 {
-  margin-top: 0.15rem;
+  margin-top: var(--space-hairline);
 }
 
 .budget-instrument-card .meta-list {
@@ -974,7 +1035,7 @@ h2 {
 
 .faq-accordion {
   display: grid;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .faq-accordion__item {
@@ -986,7 +1047,7 @@ h2 {
 }
 
 .faq-accordion__summary {
-  padding: 1rem 1.15rem;
+  padding: var(--space-4) var(--space-4-plus);
   cursor: pointer;
   font-weight: 600;
   color: var(--color-heading);
@@ -1010,7 +1071,7 @@ h2 {
 }
 
 .faq-accordion__body {
-  padding: 0 1.15rem 1rem;
+  padding: 0 var(--space-4-plus) var(--space-4);
 }
 
 .faq-accordion__body p {
@@ -1018,7 +1079,7 @@ h2 {
 }
 
 .faq-accordion__link-row {
-  margin-top: 0.75rem !important;
+  margin-top: var(--space-3) !important;
 }
 
 .site-branding {
@@ -1028,7 +1089,7 @@ h2 {
 .site-wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: var(--space-3);
   max-width: 100%;
   min-width: 0;
   text-decoration: none;
@@ -1055,7 +1116,7 @@ h2 {
 
 .site-wordmark__text {
   display: grid;
-  gap: 0.12rem;
+  gap: var(--space-hairline);
   flex: 1 1 auto;
   min-width: 0;
   max-width: 100%;
@@ -1079,20 +1140,20 @@ h2 {
 
 .header-search {
   display: grid;
-  gap: 0.45rem;
+  gap: var(--space-2);
 }
 
 .header-search__control {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.5rem;
+  gap: var(--space-2);
   align-items: center;
 }
 
 .header-search__control input {
   width: 100%;
   min-height: 2.45rem;
-  padding: 0.62rem 0.75rem;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
@@ -1105,9 +1166,7 @@ h2 {
   color: #708090;
 }
 
-.header-search__control input:focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+.header-search__control input:focus-visible {
   border-color: var(--color-accent);
 }
 
@@ -1121,7 +1180,7 @@ h2 {
 .footer-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+  gap: var(--space-3) var(--space-4);
 }
 
 .site-nav {
@@ -1139,7 +1198,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   min-height: 2.85rem;
-  padding: 0.35rem 0.55rem;
+  padding: var(--space-xs) var(--space-2);
   border-radius: 0;
   border-bottom: 3px solid transparent;
   color: #fff;
@@ -1179,7 +1238,7 @@ h2 {
 }
 
 .mobile-nav[open] {
-  padding-bottom: 0.85rem;
+  padding-bottom: var(--space-3);
 }
 
 .mobile-nav__summary {
@@ -1188,7 +1247,7 @@ h2 {
   justify-content: space-between;
   width: 100%;
   min-height: 3.2rem;
-  padding: 0.75rem 0;
+  padding: var(--space-3) 0;
   color: var(--color-accent);
   font-weight: 700;
   cursor: pointer;
@@ -1212,23 +1271,23 @@ h2 {
 
 .mobile-nav__panel {
   display: grid;
-  gap: 1rem;
-  padding-top: 0.15rem;
+  gap: var(--space-4);
+  padding-top: var(--space-hairline);
 }
 
 .mobile-nav__group {
   display: grid;
-  gap: 0.45rem;
+  gap: var(--space-2);
 }
 
 .mobile-nav__links {
   display: grid;
-  gap: 0.2rem;
+  gap: var(--space-1);
 }
 
 .mobile-nav__links a {
   display: block;
-  padding: 0.55rem 0.7rem;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
@@ -1257,7 +1316,7 @@ h2 {
 }
 
 .media-credit {
-  margin: 0.7rem 0 0;
+  margin: var(--space-3) 0 0;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
 }
@@ -1281,21 +1340,25 @@ h2 {
   position: relative;
   overflow: hidden;
   border-top: 0;
-  padding: 2rem;
+  padding: var(--space-6);
   border-left: 0.35rem solid var(--color-primary);
   color: var(--color-text);
 }
 
 .hero h1,
-.section h2,
-.panel h3 {
+.section h2 {
   margin: 0;
   font-family: var(--font-display);
   line-height: var(--lh-display);
 }
 
+.panel h3 {
+  margin: 0;
+  font-family: var(--font-display);
+}
+
 .hero h1 {
-  margin-top: 0.4rem;
+  margin-top: var(--space-xs);
   max-width: 18ch;
   color: var(--color-heading);
   font-size: var(--text-title);
@@ -1331,7 +1394,7 @@ article.panel > p:last-child > a.inline-link::after {
 
 article.panel > p:last-child > a.inline-link:hover {
   border-color: var(--color-primary);
-  background: #dde8f5;
+  background: var(--color-info-blue-hover);
   text-decoration: none;
 }
 
@@ -1386,19 +1449,19 @@ article.panel > p:last-child > a.inline-link:hover {
 .meta-grid,
 .card-grid {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .fact-grid,
 .spotlight-grid {
   display: grid;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
 }
 
 .meta-grid {
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  margin-top: 2rem;
+  margin-top: var(--space-6);
 }
 
 .fact-grid {
@@ -1412,7 +1475,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .meta-card {
   position: relative;
   overflow: hidden;
-  padding: 1.05rem 1.15rem;
+  padding: var(--space-4) var(--space-4-plus);
   border: 1px solid var(--color-border);
   border-top: 3px solid var(--color-primary);
   border-radius: var(--radius-md);
@@ -1429,7 +1492,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .meta-card strong {
   display: block;
-  margin-top: 0.4rem;
+  margin-top: var(--space-xs);
   font-family: var(--font-display);
   font-size: var(--text-md);
   color: var(--color-heading);
@@ -1443,8 +1506,8 @@ article.panel > p:last-child > a.inline-link:hover {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 1.5rem;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 
 .button-link {
@@ -1584,7 +1647,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .breadcrumbs__item {
   display: inline-flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: var(--space-3);
 }
 
 .breadcrumbs__item:not(:last-child)::after {
@@ -1662,32 +1725,53 @@ article.panel > p:last-child > a.inline-link:hover {
   margin-bottom: 1rem;
 }
 
-.section-header--compact h2 {
+/* Der Abschnittskopf trägt seine Größe unabhängig von der Überschriftenebene: eine h3 in einem
+   Modul soll nicht auf die Browsergröße 1,17em zurückfallen. */
+.section-header--compact :is(h2, h3) {
   font-size: var(--text-md);
 }
 
+.section-header :is(h3, h4) {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg-plus);
+  line-height: var(--lh-display);
+}
+
+/* Der Modifikator legt die Spaltenzahl fest, nicht die Kartenzahl: `--two` bedeutet zwei
+   Spalten, `--three` drei. Eine einzelne Karte behält damit die Breite ihrer Spalte und wird
+   nicht zum Vollbreitenband; `auto-fit` machte daraus früher je nach Kartenzahl eine bis fünf
+   Spalten. Der Zusammenbruch auf schmalere Bildschirme steht bei den Breakpoints. */
 .card-grid {
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: var(--space-5);
 }
 
 .card-grid--two {
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .card-grid--three {
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .card-grid--four {
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.panel {
+/* Kartenbasis beider Portale. Polster, Rahmen, Radius, Hover und Titelgröße stehen genau hier;
+   `EventCard`, `GovernmentMemberCard`, `JobOfferCard`, `MinistryCard`, `PressReleaseCard`,
+   `ServiceCard`, `SpeechCard` und `TopicCard` bestimmen nur noch ihren Inhalt. `.panel` ist der
+   eingeführte Name derselben Rolle. */
+.portal-card,
+.panel,
+.press-tile,
+.service-card {
   position: relative;
   overflow: hidden;
   min-width: 0;
-  padding: clamp(1.35rem, 2.2vw, 1.7rem);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   transition:
@@ -1708,18 +1792,25 @@ article.panel > p:last-child > a.inline-link:hover {
   position: relative;
 }
 
-.panel:hover {
+.portal-card:hover,
+.panel:hover,
+.press-tile:hover,
+.service-card:hover {
   border-color: var(--color-border-strong);
   box-shadow: var(--shadow-card);
 }
 
-.panel h3 {
-  font-size: var(--text-lg);
+.portal-card :is(h2, h3, h4),
+.panel h3,
+.press-tile__body h3,
+.service-card h3 {
+  font-size: var(--text-md);
   line-height: var(--lh-heading);
 }
 
+.portal-card p,
 .panel p {
-  margin: 0.75rem 0 0;
+  margin: var(--space-3) 0 0;
   overflow-wrap: anywhere;
 }
 
@@ -1740,27 +1831,27 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .status-badge--green {
-  border-color: #9ac492;
+  border-color: var(--color-info-green-border);
   background: var(--color-info-green);
   color: var(--color-secondary-hover);
 }
 
 .status-badge--blue {
-  border-color: #a8bdd8;
+  border-color: var(--color-info-blue-border);
   background: var(--color-info-blue);
   color: var(--color-primary);
 }
 
 .status-badge--amber {
-  border-color: #d5c18d;
-  background: #faf4e6;
-  color: #7a5a16;
+  border-color: var(--color-info-gold-border);
+  background: var(--color-info-gold);
+  color: var(--color-info-gold-ink);
 }
 
 .fact-card {
   position: relative;
   overflow: hidden;
-  padding: 1.15rem 1.2rem;
+  padding: var(--space-4-plus);
   border: 1px solid var(--color-border);
   border-top: 3px solid var(--color-secondary);
   border-radius: var(--radius-md);
@@ -1770,26 +1861,26 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .fact-card strong {
   display: block;
-  margin-top: 0.4rem;
+  margin-top: var(--space-xs);
   font-size: var(--text-md);
   color: var(--color-heading);
 }
 
 .fact-card p {
-  margin: 0.75rem 0 0;
+  margin: var(--space-3) 0 0;
   color: var(--color-text-muted);
 }
 
 .topic-card {
   display: grid;
-  gap: 0.9rem;
+  gap: var(--space-4);
   min-width: 0;
 }
 
 .topic-card__header {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem 0.85rem;
+  gap: var(--space-2) var(--space-3);
   align-items: flex-start;
   min-width: 0;
 }
@@ -1812,15 +1903,15 @@ article.panel > p:last-child > a.inline-link:hover {
 .topic-orientation__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.9rem;
+  gap: var(--space-4);
 }
 
 .topic-orientation__item {
   display: grid;
   align-content: start;
-  gap: 0.65rem;
+  gap: var(--space-3);
   min-width: 0;
-  padding: 1rem;
+  padding: var(--space-4);
 }
 
 .topic-orientation__item p {
@@ -1837,16 +1928,16 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .accessibility-audit-list dd ul {
   display: grid;
-  gap: 0.45rem;
+  gap: var(--space-2);
   margin: 0;
-  padding-left: 1.1rem;
+  padding-left: var(--space-4);
 }
 
 .portal-home-header {
   display: grid;
-  gap: 0.95rem;
-  padding-top: 1.75rem;
-  padding-bottom: 1.65rem;
+  gap: var(--space-4);
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-5);
 }
 
 .portal-home-header .lead {
@@ -1862,13 +1953,13 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .portal-home-header__actions {
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
 }
 
 .portal-home-header__notice {
   max-width: 70ch;
   margin: 0;
-  padding: 0.75rem 0.9rem;
+  padding: var(--space-3) var(--space-4);
   border-left: 0.25rem solid var(--color-seal);
   background: var(--color-info-gold);
   color: var(--color-heading);
@@ -1889,8 +1980,8 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .portal-current-news {
-  margin-top: 1rem;
-  padding: 1rem 1.2rem;
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-4-plus);
   border: 1px solid var(--color-border);
   border-left: 0.3rem solid var(--color-primary);
   border-radius: var(--radius-md);
@@ -1899,12 +1990,12 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .portal-current-news h3,
 .portal-law-current h3 {
-  margin: 0.25rem 0 0;
+  margin: var(--space-1) 0 0;
   line-height: var(--lh-heading);
 }
 
 .portal-current-news p {
-  margin: 0.65rem 0 0;
+  margin: var(--space-3) 0 0;
 }
 
 .portal-home-secondary {
@@ -1918,9 +2009,9 @@ article.panel > p:last-child > a.inline-link:hover {
 .reform-priority-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(15rem, 22rem);
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
   align-items: center;
-  padding: 1.35rem;
+  padding: var(--space-4-plus);
   border: 1px solid var(--color-primary);
   border-left: 0.4rem solid var(--color-seal);
   border-radius: var(--radius-md);
@@ -1929,8 +2020,8 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .reform-priority-card h2 {
-  margin: 0.25rem 0 0;
-  font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-band);
   line-height: var(--lh-display);
 }
 
@@ -1941,14 +2032,14 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .reform-priority-card__actions {
   display: grid;
-  gap: 0.7rem;
+  gap: var(--space-3);
   align-content: center;
 }
 
 .profile-card,
 .press-card {
   display: grid;
-  gap: 1.1rem;
+  gap: var(--space-4);
   align-items: start;
 }
 
@@ -1979,8 +2070,8 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .quote-card {
-  margin: 1rem 0 0;
-  padding: 1rem 1.1rem;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-4);
   border-radius: var(--radius-sm);
   border-left: 4px solid var(--color-secondary);
   background: var(--color-info-green);
@@ -1990,14 +2081,9 @@ article.panel > p:last-child > a.inline-link:hover {
 .press-tile {
   display: grid;
   grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
-  gap: 1.2rem;
+  gap: var(--space-4-plus);
   align-items: start;
   margin-top: 0;
-  padding: clamp(1.3rem, 2vw, 1.6rem);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-card);
 }
 
 .press-tile--compact {
@@ -2032,14 +2118,13 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .press-tile__body h3 {
-  margin: 0.35rem 0 0;
-  line-height: var(--lh-display);
+  margin: var(--space-xs) 0 0;
 }
 
 .speech-card {
   display: grid;
   grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
-  gap: 1.1rem;
+  gap: var(--space-4);
   align-items: start;
 }
 
@@ -2059,12 +2144,12 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .speech-card__body h3,
 .event-card__body h3 {
-  margin: 0.35rem 0 0;
+  margin: var(--space-xs) 0 0;
 }
 
 .event-card {
   display: grid;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .member-card,
@@ -2072,7 +2157,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .job-card,
 .service-card {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .member-card {
@@ -2122,11 +2207,11 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .body-copy {
-  margin-top: 1rem;
+  margin-top: var(--space-4);
 }
 
 .body-copy p + p {
-  margin-top: 1rem;
+  margin-top: var(--space-4);
 }
 
 .status-line,
@@ -2156,13 +2241,13 @@ article.panel > p:last-child > a.inline-link:hover {
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
   align-items: start;
 }
 
 .compare-grid > article {
   min-width: 0;
-  padding: 1.1rem;
+  padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -2177,7 +2262,7 @@ article.panel > p:last-child > a.inline-link:hover {
   position: sticky;
   top: 1.5rem;
   margin-top: 0;
-  padding: 1.15rem;
+  padding: var(--space-4-plus);
   border: 1px solid rgba(23, 59, 107, 0.22);
   border-radius: var(--radius-md);
   background: var(--color-surface-muted);
@@ -2236,7 +2321,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .meta-panel h3 {
-  margin: 1.25rem 0 0.7rem;
+  margin: var(--space-4-plus) 0 var(--space-3);
   font-size: var(--text-sm);
   color: var(--color-heading);
 }
@@ -2273,7 +2358,7 @@ article.panel > p:last-child > a.inline-link:hover {
   min-width: 0;
   padding: 0.35rem 0.7rem;
   border-radius: var(--radius-sm);
-  border: 1px solid #9dc8bb;
+  border: 1px solid var(--color-info-green-border);
   background: var(--color-info-green);
   color: var(--color-secondary);
   text-decoration: none;
@@ -2365,14 +2450,14 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .norm-jump-nav {
-  margin-top: 1rem;
+  margin-top: var(--space-4);
 }
 
 .norm-jump-nav a {
   min-height: 2.5rem;
   display: inline-flex;
   align-items: center;
-  padding: 0.35rem 0.65rem;
+  padding: var(--space-xs) var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface-alt);
@@ -2415,9 +2500,16 @@ article.panel > p:last-child > a.inline-link:hover {
 .timeline-list li {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  padding: 0.95rem 0;
+  gap: var(--space-xs);
+  padding: var(--space-4) 0;
   border-top: 1px solid var(--color-border);
+}
+
+/* Der Eintrag selbst trägt Layout und darf die Spaltenbreite nutzen; sein Beschreibungstext ist
+   Fließtext und hält das Lesemaß. */
+.record-list__item > span,
+.timeline-list li > span {
+  max-width: var(--measure-body);
 }
 
 .record-list__item:first-child,
@@ -2440,16 +2532,16 @@ article.panel > p:last-child > a.inline-link:hover {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
   align-items: start;
-  gap: 0.75rem;
-  margin-top: 1.4rem;
-  padding: 0.9rem 0;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding: var(--space-4) 0;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
 
 .education-path-nav h2 {
   margin: 0;
-  padding-top: 0.45rem;
+  padding-top: var(--space-2);
   color: var(--color-heading);
   font-family: var(--font-display);
   font-size: var(--text-base);
@@ -2459,7 +2551,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .education-path-nav ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: var(--space-xs);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2469,7 +2561,7 @@ article.panel > p:last-child > a.inline-link:hover {
   display: inline-flex;
   align-items: center;
   min-height: 2.5rem;
-  padding: 0.42rem 0.65rem;
+  padding: var(--space-xs) var(--space-3);
   border: 1px solid rgba(23, 59, 107, 0.18);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
@@ -2488,7 +2580,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .school-system-section-muted {
-  padding: 1.65rem;
+  padding: var(--space-5);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface-muted);
@@ -2496,7 +2588,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .school-system-intro {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .school-system-status {
@@ -2510,12 +2602,12 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .school-system-figure {
   min-width: 0;
-  margin: 1.5rem 0 0;
+  margin: var(--space-5) 0 0;
 }
 
 .school-system-figure--image {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .school-system-chart__desktop {
@@ -2537,7 +2629,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .school-system-chart__summary {
-  margin: 1rem 0 0;
+  margin: var(--space-4) 0 0;
   color: var(--color-text);
   line-height: var(--lh-body);
 }
@@ -2555,13 +2647,13 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .data-table caption {
-  padding: 0.9rem 1rem 0;
+  padding: var(--space-4) var(--space-4) 0;
   color: var(--color-text-muted);
   text-align: left;
 }
 
 .school-type-grid {
-  margin-top: 1.2rem;
+  margin-top: var(--space-4-plus);
 }
 
 .school-type-card h3 {
@@ -2569,7 +2661,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .school-system-facts {
-  margin-top: 1.2rem;
+  margin-top: var(--space-4-plus);
 }
 
 @media (max-width: 48rem) {
@@ -2579,24 +2671,24 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .school-system-chart__mobile {
     display: grid;
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 
   .school-path-card {
-    padding: 1rem;
+    padding: var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-surface);
   }
 
   .school-path-card--pos {
-    border-color: #78a986;
-    background: #eef7ef;
+    border-color: var(--color-info-green-border);
+    background: var(--color-info-green);
   }
 
   .school-path-card--eos {
     border-color: rgba(23, 59, 107, 0.45);
-    background: #eef3fa;
+    background: var(--color-info-blue);
   }
 
   .school-path-card h3,
@@ -2616,12 +2708,12 @@ article.panel > p:last-child > a.inline-link:hover {
   .school-path-card__stages {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-    margin-top: 0.85rem;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
   }
 
   .school-path-card__stages p {
-    padding: 0.75rem;
+    padding: var(--space-3);
     border: 1px solid rgba(57, 122, 74, 0.35);
     border-radius: var(--radius-sm);
     background: var(--color-surface);
@@ -2629,21 +2721,21 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .school-path-card__stages span {
     display: block;
-    margin-top: 0.2rem;
+    margin-top: var(--space-1);
   }
 
   .school-path-card__note,
   .school-path-card__result {
-    margin-top: 0.85rem;
-    padding: 0.65rem 0.75rem;
+    margin-top: var(--space-3);
+    padding: var(--space-3);
     border-radius: var(--radius-sm);
     background: rgba(255, 255, 255, 0.75);
     font-weight: 650;
   }
 
   .school-path-card ul {
-    margin-top: 0.85rem;
-    padding-inline-start: 1.25rem;
+    margin-top: var(--space-3);
+    padding-inline-start: var(--space-4-plus);
   }
 
   .school-path-arrow {
@@ -2656,15 +2748,15 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .school-path-bridge {
     margin: 0;
-    padding: 0.75rem 0.9rem;
+    padding: var(--space-3) var(--space-4);
     border-inline-start: 0.3rem solid var(--color-primary);
     background: var(--color-surface-muted);
   }
 
   .school-path-card-grid {
     display: grid;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
   }
 }
 
@@ -2672,55 +2764,63 @@ article.panel > p:last-child > a.inline-link:hover {
   margin-top: 1.5rem;
 }
 
+/* Ein Formularmuster für alle Such- und Filterleisten des Staatsportals. `.filter-field` trägt
+   Beschriftung, Feldhöhe, Rahmen und Fokus; `.search-field` ist derselbe Baustein unter seinem
+   eingeführten Namen. Die Leiste `.filter-bar` setzt nur das Raster – kompakt im Kopf, breit im
+   Hero, mehrspaltig als Filter. Vorbild ist `DirectoryFilterBar` des Rechtsportals. */
+.filter-bar,
 .search-form {
   display: grid;
-  gap: 0.9rem;
-  margin-top: 1.5rem;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
 }
 
+.filter-bar--hero,
 .search-form--hero {
   max-width: var(--content-width-narrow);
 }
 
+.filter-bar__fields,
 .search-form__primary,
 .search-form__filters {
   display: grid;
-  gap: 0.85rem;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  align-items: end;
 }
 
-.search-form__primary {
-  grid-template-columns: minmax(0, 1.6fr) minmax(13rem, 0.8fr);
-}
-
+.filter-bar__actions,
 .search-form__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
-.search-form__filters {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-}
-
+.filter-field,
 .search-field {
   display: grid;
-  gap: 0.45rem;
+  gap: var(--space-2);
+  min-width: 0;
 }
 
+.filter-field--wide {
+  grid-column: span 2;
+}
+
+.filter-field > span,
 .search-field span {
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-heading);
 }
 
-.search-field input,
-.search-field select,
-.search-field textarea {
+.filter-field :is(input, select, textarea),
+.search-field :is(input, select, textarea) {
   width: 100%;
   min-width: 0;
-  min-height: 2.85rem;
-  padding: 0.8rem 0.9rem;
-  border: 1px solid var(--color-border);
+  min-height: 2.75rem;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   color: var(--color-text);
@@ -2728,11 +2828,10 @@ article.panel > p:last-child > a.inline-link:hover {
   resize: vertical;
 }
 
-.search-field input:focus,
-.search-field select:focus,
-.search-field textarea:focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+.filter-field input:focus-visible,
+.filter-field select:focus-visible,
+.filter-field textarea:focus-visible {
+  border-color: var(--color-accent);
 }
 
 .search-feedback {
@@ -2752,7 +2851,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .search-feedback--examples {
-  margin-top: 0.55rem;
+  margin-top: var(--space-2);
   color: var(--color-text-muted);
   font-size: var(--text-sm);
 }
@@ -2772,12 +2871,12 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .search-results__more {
-  margin-top: 1.25rem;
+  margin-top: var(--space-4-plus);
 }
 
 .search-hit mark {
   padding: 0 0.08em;
-  background: #fff1a8;
+  background: var(--color-highlight);
   color: inherit;
 }
 
@@ -2788,6 +2887,35 @@ article.panel > p:last-child > a.inline-link:hover {
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
   padding: 1rem 1.1rem;
+}
+
+.search-group + .search-group {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.search-group__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: baseline;
+  margin-bottom: var(--space-4);
+}
+
+.search-group__header h2 {
+  margin: 0;
+  font-size: var(--text-lg-plus);
+}
+
+.search-group__header p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.search-group__more {
+  margin-top: var(--space-4);
 }
 
 .search-hit__header {
@@ -2970,7 +3098,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .norm-division--section,
 .norm-division--subsection {
-  margin-left: 0.25rem;
+  margin-left: var(--space-1);
 }
 
 .norm-text {
@@ -3091,7 +3219,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .norm-quoted-unit + .norm-quoted-unit {
-  margin-top: 1.25rem;
+  margin-top: var(--space-4-plus);
 }
 
 .norm-quoted-unit__header {
@@ -3119,16 +3247,16 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .site-footer {
   border-top: 5px solid var(--color-secondary);
-  margin-top: 2rem;
+  margin-top: var(--space-6);
   background: var(--color-primary);
   color: #fff;
 }
 
 .site-footer__inner {
   display: grid;
-  gap: 0.9rem;
+  gap: var(--space-4);
   align-items: start;
-  padding: 1rem 0 1.2rem;
+  padding: var(--space-4) 0 var(--space-4-plus);
 }
 
 .site-footer p,
@@ -3154,14 +3282,14 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .site-footer__meta {
   display: grid;
-  gap: 0.2rem;
+  gap: var(--space-1);
   max-width: none;
 }
 
 .site-footer__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1.15fr);
-  gap: 1rem 1.6rem;
+  gap: var(--space-4) var(--space-5);
   width: 100%;
   align-items: start;
 }
@@ -3169,16 +3297,16 @@ article.panel > p:last-child > a.inline-link:hover {
 .site-footer__section {
   display: grid;
   align-content: start;
-  gap: 0.35rem;
+  gap: var(--space-xs);
 }
 
 .site-footer__section h2 {
-  margin: 0 0 0.1rem;
+  margin: 0 0 var(--space-hairline);
 }
 
 .site-footer__section .footer-nav {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.3rem 0.9rem;
+  gap: var(--space-1) var(--space-4);
   align-content: start;
 }
 
@@ -3187,7 +3315,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .site-footer__settings {
-  margin-top: 1rem;
+  margin-top: var(--space-4);
 }
 
 .site-footer .text-link-button {
@@ -3219,6 +3347,12 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 @media (max-width: 64rem) {
+  .card-grid,
+  .card-grid--three,
+  .card-grid--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .portal-path-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3277,10 +3411,6 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 @media (max-width: 48rem) {
-  .container {
-    width: min(calc(100% - 1.2rem), var(--content-width));
-  }
-
   .site-notice__inner,
   .site-footer__inner,
   .header-search__control {
@@ -3295,7 +3425,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .site-header__main {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .site-branding,
@@ -3326,11 +3456,11 @@ article.panel > p:last-child > a.inline-link:hover {
   }
 
   .site-main {
-    padding-top: 1rem;
+    padding-top: var(--space-4);
   }
 
   .hero {
-    padding: 1.6rem;
+    padding: var(--space-5);
   }
 
   .hero h1,
@@ -3364,7 +3494,7 @@ article.panel > p:last-child > a.inline-link:hover {
   }
 
   .reform-priority-card {
-    padding: 1.1rem;
+    padding: var(--space-4);
   }
 
   .reform-priority-card__actions {
@@ -3387,13 +3517,21 @@ article.panel > p:last-child > a.inline-link:hover {
   .content-grid,
   .content-grid--wide,
   .compare-grid,
+  .filter-bar__fields,
   .search-form__primary,
   .search-form__filters,
   .card-grid,
+  .card-grid--two,
+  .card-grid--three,
+  .card-grid--four,
   .meta-grid,
   .fact-grid,
   .spotlight-grid {
     grid-template-columns: 1fr;
+  }
+
+  .filter-field--wide {
+    grid-column: auto;
   }
 
   .portal-path-grid {
@@ -3437,16 +3575,16 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .timeline__item {
     grid-template-columns: 1fr;
-    gap: 0.6rem;
+    gap: var(--space-2);
     padding-left: 0;
   }
 
   .timeline__body {
-    padding: 0.9rem 1rem;
+    padding: var(--space-4);
   }
 
   .timeline__date time {
-    padding: 0.25rem 0.55rem;
+    padding: var(--space-1) var(--space-2);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     background: var(--color-surface-muted);
@@ -3555,8 +3693,8 @@ article.panel > p:last-child > a.inline-link:hover {
   .meta-panel,
   .search-hit {
     box-shadow: none !important;
-    border-color: #999 !important;
-    background: #fff !important;
+    border-color: var(--color-border-strong) !important;
+    background: var(--color-surface) !important;
   }
 
   .content-grid,

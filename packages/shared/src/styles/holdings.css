@@ -3,15 +3,15 @@
 .holdings-case-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .holdings-country-card {
   display: grid;
   align-content: start;
-  gap: 0.5rem;
+  gap: var(--space-2);
   min-height: 100%;
-  padding: 1.15rem;
+  padding: var(--space-4-plus);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -39,7 +39,7 @@
 
 .holdings-country-card__action {
   align-self: end;
-  margin-top: 0.35rem;
+  margin-top: var(--space-xs);
   color: var(--color-primary);
   font-weight: 700;
   text-decoration: underline;
@@ -54,7 +54,7 @@
   display: flex;
   align-items: end;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: var(--space-4-plus);
 }
 
 .holdings-navigator__header > div {
@@ -65,14 +65,14 @@
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  gap: var(--space-2);
 }
 
 .holdings-filter-form {
   display: grid;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding: clamp(1rem, 2.5vw, 1.5rem);
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding: clamp(var(--space-4), 2.5vw, var(--space-5));
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -83,7 +83,7 @@
 .holdings-filter-grid label,
 .holdings-list-controls label {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-xs);
 }
 
 .holdings-search-field > label,
@@ -97,7 +97,7 @@
 .holdings-search-field__control {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 0.6rem;
+  gap: var(--space-2);
 }
 
 .holdings-search-field input,
@@ -105,7 +105,7 @@
 .holdings-list-controls select {
   width: 100%;
   min-height: 2.85rem;
-  padding: 0.65rem 0.8rem;
+  padding: var(--space-3);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
@@ -115,7 +115,7 @@
 
 .holdings-filter-panel {
   border-top: 1px solid var(--color-border);
-  padding-top: 1rem;
+  padding-top: var(--space-4);
 }
 
 .holdings-filter-panel > summary {
@@ -134,28 +134,28 @@
 .holdings-filter-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.85rem;
+  gap: var(--space-3);
 }
 
 .holdings-filter-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 0.9rem;
+  margin-top: var(--space-4);
 }
 
 .holdings-active-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-top: 1rem;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
 }
 
 .holdings-active-filters button,
 .holdings-view-tabs button,
 .holdings-sort-direction,
-.holdings-pagination button {
+.data-pagination button {
   min-height: 2.55rem;
-  padding: 0.45rem 0.75rem;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
@@ -168,29 +168,29 @@
 .holdings-active-filters button {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: var(--space-2);
   border-radius: 999px;
   background: var(--color-info-blue);
 }
 
 .holdings-active-filters button:hover,
 .holdings-sort-direction:hover,
-.holdings-pagination button:hover:not(:disabled) {
+.data-pagination button:hover:not(:disabled) {
   border-color: var(--color-primary);
   background: var(--color-info-blue);
 }
 
 .holdings-results-toolbar,
 .holdings-list-controls,
-.holdings-pagination {
+.data-pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .holdings-results-toolbar {
-  margin-top: 1.5rem;
+  margin-top: var(--space-5);
 }
 
 .holdings-result-count {
@@ -203,7 +203,7 @@
 
 .holdings-view-tabs {
   display: inline-flex;
-  padding: 0.2rem;
+  padding: var(--space-1);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface-alt);
@@ -222,7 +222,7 @@
 
 .holdings-list-controls {
   justify-content: flex-end;
-  margin-top: 1rem;
+  margin-top: var(--space-4);
 }
 
 .holdings-list-controls label {
@@ -232,7 +232,7 @@
 
 .holdings-list-controls select {
   min-height: 2.55rem;
-  padding-block: 0.45rem;
+  padding-block: var(--space-2);
 }
 
 .holdings-table {
@@ -263,7 +263,7 @@
 
 .holdings-table th[aria-sort='ascending'] button::after,
 .holdings-table th[aria-sort='descending'] button::after {
-  margin-left: 0.35rem;
+  margin-left: var(--space-xs);
   content: '↑';
 }
 
@@ -277,7 +277,7 @@
 }
 
 .holding-position-details {
-  margin-top: 0.45rem;
+  margin-top: var(--space-2);
 }
 
 .holding-position-details summary {
@@ -292,10 +292,10 @@
 .holding-position-details dl {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem;
+  gap: var(--space-2);
   min-width: min(32rem, 70vw);
-  margin: 0.7rem 0 0;
-  padding: 0.8rem;
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3);
   border-left: 3px solid var(--color-secondary);
   background: var(--color-surface-alt);
 }
@@ -313,7 +313,7 @@
 }
 
 .holding-position-details dd {
-  margin: 0.1rem 0 0;
+  margin: var(--space-hairline) 0 0;
   color: var(--color-text);
 }
 
@@ -325,11 +325,11 @@
   display: inline-flex !important;
   width: fit-content;
   margin: 0 !important;
-  padding: 0.22rem 0.55rem;
-  border: 1px solid #9bb8a2;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-info-green-border);
   border-radius: 999px;
   background: var(--color-info-green);
-  color: #174f25 !important;
+  color: var(--color-secondary-hover) !important;
   font-size: var(--text-xs);
   font-weight: 720;
   line-height: var(--lh-heading) !important;
@@ -337,13 +337,13 @@
 
 .holdings-status--liquidation,
 .holdings-status--insolvency {
-  border-color: #d4b063;
+  border-color: var(--color-info-gold-border);
   background: var(--color-info-gold);
-  color: #634407 !important;
+  color: var(--color-info-gold-ink) !important;
 }
 
 .holdings-status--succeeded-to-off {
-  border-color: #9fb3ca;
+  border-color: var(--color-info-blue-border);
   background: var(--color-info-blue);
   color: var(--color-primary) !important;
 }
@@ -352,25 +352,25 @@
   display: none;
 }
 
-.holdings-pagination {
-  margin-top: 1rem;
-  padding-top: 1rem;
+.data-pagination {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
 }
 
-.holdings-pagination p {
+.data-pagination p {
   margin: 0;
   color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
-.holdings-pagination > div {
+.data-pagination > div {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: var(--space-3);
 }
 
-.holdings-pagination button:disabled {
+.data-pagination button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -378,7 +378,7 @@
 .holdings-empty,
 .holdings-noscript,
 .holdings-tree-intro {
-  padding: 0.85rem 1rem;
+  padding: var(--space-3) var(--space-4);
   border: 1px solid var(--color-border);
   background: var(--color-surface-alt);
   color: var(--color-text-muted);
@@ -386,8 +386,8 @@
 
 .holdings-tree {
   display: grid;
-  gap: 0.8rem;
-  margin-top: 1rem;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .holdings-tree-origin,
@@ -404,13 +404,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.75rem 0.9rem;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
 }
 
 .holdings-tree details > summary {
   position: relative;
-  padding-left: 2.45rem;
+  padding-left: var(--space-6-plus);
 }
 
 .holdings-tree details > summary::before {
@@ -441,7 +441,7 @@
 .holdings-tree summary > span:first-child,
 .holdings-tree-node > span:first-child {
   display: grid;
-  gap: 0.1rem;
+  gap: var(--space-hairline);
 }
 
 .holdings-tree small {
@@ -451,9 +451,9 @@
 
 .holdings-tree ul {
   display: grid;
-  gap: 0.55rem;
+  gap: var(--space-2);
   margin: 0;
-  padding: 0.65rem 0.65rem 0.65rem 1.8rem;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-6);
   list-style: none;
 }
 
@@ -467,18 +467,18 @@
 }
 
 .holdings-tree .holding-position-details {
-  margin: 0 0.9rem 0.8rem;
+  margin: 0 var(--space-4) var(--space-3);
 }
 
 .holdings-shared-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .holdings-shared-card,
 .holdings-case-card {
-  padding: 1.15rem;
+  padding: var(--space-4-plus);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -489,7 +489,7 @@
   display: flex;
   align-items: start;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .holdings-shared-card h3,
@@ -508,7 +508,7 @@
 
 .holdings-share-bar {
   height: 0.55rem;
-  margin-top: 0.8rem;
+  margin-top: var(--space-3);
   overflow: hidden;
   border-radius: 999px;
   background: var(--color-surface-muted);
@@ -523,9 +523,9 @@
 .holdings-shared-card__facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin: 0.9rem 0 0;
-  padding-top: 0.75rem;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-3);
   border-top: 1px solid var(--color-border);
 }
 
@@ -537,7 +537,7 @@
 }
 
 .holdings-shared-card__facts dd {
-  margin: 0.15rem 0 0;
+  margin: var(--space-hairline) 0 0;
 }
 
 .holdings-new-grid {
@@ -545,7 +545,7 @@
 }
 
 .holdings-new-card {
-  padding: 1.1rem;
+  padding: var(--space-4);
 }
 
 .holdings-case-grid {
@@ -567,9 +567,9 @@
 .holdings-timeline__item {
   display: grid;
   grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
-  gap: 1rem;
+  gap: var(--space-4);
   position: relative;
-  padding: 0 0 1.4rem 1.6rem;
+  padding: 0 0 var(--space-5) var(--space-5);
   border-left: 3px solid var(--color-border-strong);
 }
 
@@ -596,7 +596,7 @@
 }
 
 .holdings-timeline article {
-  padding: 0 0 1rem;
+  padding: 0 0 var(--space-4);
 }
 
 .holdings-timeline h3 {
@@ -604,7 +604,7 @@
 }
 
 .holdings-timeline article > p:not(.eyebrow, .section-link-row, .detail-line) {
-  margin: 0.4rem 0 0;
+  margin: var(--space-xs) 0 0;
 }
 
 @media (max-width: 64rem) {
@@ -646,9 +646,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: var(--space-3);
     min-height: 2.9rem;
-    padding: 0.65rem 0.8rem;
+    padding: var(--space-3);
   }
 
   .holdings-filter-panel[open] > summary {
@@ -657,7 +657,7 @@
 
   .holdings-filter-grid,
   .holdings-filter-actions {
-    margin: 0.8rem;
+    margin: var(--space-3);
   }
 
   .holdings-results-toolbar {
@@ -689,12 +689,12 @@
 
   .holdings-mobile-results {
     display: grid;
-    gap: 0.75rem;
-    margin-top: 1rem;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
   }
 
   .holdings-result-card {
-    padding: 1rem;
+    padding: var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-surface);
@@ -703,7 +703,7 @@
 
   .holdings-result-card__heading {
     display: grid;
-    gap: 0.55rem;
+    gap: var(--space-2);
   }
 
   .holdings-result-card h3 {
@@ -712,15 +712,15 @@
   }
 
   .holdings-result-card > p {
-    margin: 0.35rem 0 0;
+    margin: var(--space-xs) 0 0;
     color: var(--color-text-muted);
   }
 
   .holdings-result-card > dl {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
-    margin: 0.75rem 0 0;
+    gap: var(--space-2);
+    margin: var(--space-3) 0 0;
   }
 
   .holdings-result-card > dl div:last-child {
@@ -729,13 +729,13 @@
 
   .holdings-result-card dt {
     color: var(--color-text-muted);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     font-weight: 700;
     text-transform: uppercase;
   }
 
   .holdings-result-card dd {
-    margin: 0.1rem 0 0;
+    margin: var(--space-hairline) 0 0;
   }
 
   .holding-position-details dl {
@@ -747,18 +747,18 @@
     grid-column: auto;
   }
 
-  .holdings-pagination,
-  .holdings-pagination > div {
+  .data-pagination,
+  .data-pagination > div {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .holdings-pagination > div {
+  .data-pagination > div {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
-  .holdings-pagination > div span {
+  .data-pagination > div span {
     grid-column: 1 / -1;
     grid-row: 1;
     text-align: center;
@@ -772,7 +772,7 @@
   }
 
   .holdings-tree ul {
-    padding-left: 0.8rem;
+    padding-left: var(--space-3);
   }
 
   .holdings-shared-card__heading,
@@ -783,6 +783,6 @@
 
   .holdings-timeline__item {
     grid-template-columns: 1fr;
-    gap: 0.35rem;
+    gap: var(--space-xs);
   }
 }

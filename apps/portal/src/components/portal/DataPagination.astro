@@ -1,0 +1,32 @@
+---
+import { DEFAULT_PORTAL_PAGE_SIZE, getPageState } from '@ostrecht/shared/lib/portal/pagination.ts';
+
+/**
+ * Blätterleiste der langen Datenansichten. Beteiligungsnavigator und Kreistabelle verwenden
+ * dieselbe Rechnung, denselben Wortlaut und dieselben Datenattribute; das Skript der jeweiligen
+ * Ansicht schreibt nur die Werte fort.
+ */
+interface Props {
+  label: string;
+  total: number;
+  perPage?: number;
+  /** Datenpräfix der Ansicht, etwa „holdings“ oder „kreise“. */
+  scope: string;
+  unit: string;
+}
+
+const { label, total, perPage = DEFAULT_PORTAL_PAGE_SIZE, scope, unit } = Astro.props as Props;
+const state = getPageState(total, 1, perPage);
+---
+
+<nav class="data-pagination" aria-label={label} data-pagination={scope}>
+  <p>
+    <span data-pagination-range>{state.rangeLabel}</span> von
+    <span data-pagination-total>{state.total}</span> {unit}
+  </p>
+  <div>
+    <button type="button" data-page-action="previous" disabled>Zurück</button>
+    <span data-pagination-page aria-live="polite">{state.pageLabel}</span>
+    <button type="button" data-page-action="next" disabled={!state.hasNext}>Weiter</button>
+  </div>
+</nav>

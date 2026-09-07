@@ -66,7 +66,9 @@ export default defineConfig({
   projects: [
     { name: 'desktop-wide', use: { viewport: { width: 1440, height: 1000 } } },
     { name: 'desktop-compact', use: { viewport: { width: 1024, height: 900 } } },
-    { name: 'tablet', use: { viewport: { width: 768, height: 1024 } } },
+    // 1152 px = 72 rem: Mitte des Bandes 64–80 rem, in dem Kopf und Normarbeitsbereich eigene
+    // Regeln haben. Ein Tablet-Viewport (768 px) zeigte dieselbe Gestalt wie mobile-390.
+    { name: 'desktop-schmal', use: { viewport: { width: 1152, height: 1000 } } },
     { name: 'mobile-390', use: { viewport: { width: 390, height: 844 } } },
     { name: 'mobile-360', use: { viewport: { width: 360, height: 800 } } },
   ],

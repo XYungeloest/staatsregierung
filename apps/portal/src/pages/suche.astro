@@ -1,14 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { getHomeUrl, getLawSearchUrl, getPortalSearchUrl } from '@ostrecht/shared/lib/portal/index.ts';
 
 const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
+const lawIndexUrl = `${import.meta.env.BASE_URL}search-index-recht.json`;
+const sectionOptions = siteConfig.sections.filter((section) => section.key !== 'home' && section.key !== 'law');
 ---
 
 <BaseLayout
   title="Suche"
-  description="Durchsuchen Sie Themen, Gesetze, Pressemitteilungen, Personen, Ressorts und Servicehinweise im Ostdeutschen Freistaat."
+  description="Durchsuchen Sie Themen, Pressemitteilungen, Personen, Haushalt, Service und das Rechtsportal des Ostdeutschen Freistaates."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Suche', href: getPortalSearchUrl() },
@@ -21,75 +24,75 @@ const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
     <p class="eyebrow">Portalsuche</p>
     <h1>Wonach suchen Sie?</h1>
     <p class="lead">
-      Durchsuchen Sie Themen, Gesetze, Pressemitteilungen, Personen, Ressorts und Servicehinweise.
+      Die Suche findet Seiten des Staatsportals und Vorschriften des Rechtsportals. Beide werden
+      getrennt ausgewiesen; der Bereichsfilter grenzt auf einen von beiden ein.
     </p>
   </section>
 
-  <section class="section search-shell" data-portal-search-root data-index-url={indexUrl}>
-    <form class="search-form" method="get" action={getPortalSearchUrl()} data-portal-search-form>
-      <div class="search-form__primary">
-        <label class="search-field">
-          <span>Suchbegriff eingeben</span>
+  <section
+    class="section search-shell"
+    data-portal-search-root
+    data-index-url={indexUrl}
+    data-law-index-url={lawIndexUrl}
+    data-law-search-url={getLawSearchUrl()}
+  >
+    <form class="filter-bar" method="get" action={getPortalSearchUrl()} data-portal-search-form>
+      <div class="filter-bar__fields">
+        <label class="filter-field filter-field--wide" for="portal-search-query">
+          <span>Suchbegriff</span>
           <input
+            id="portal-search-query"
             type="search"
             name="q"
             autocomplete="off"
-            placeholder="Suchbegriff eingeben, z. B. Kreisreform, Kulturpass, Wohnvergesellschaftung"
+            placeholder="z. B. Kreisreform, Haushalt, Wohnvergesellschaftung, OstSchulG"
             data-portal-search-query
           />
         </label>
-      </div>
-      <div class="search-form__filters">
-        <label class="search-field">
+        <label class="filter-field" for="portal-search-area">
           <span>Bereich</span>
-          <select name="type" data-portal-search-type>
+          <select id="portal-search-area" name="bereich" data-portal-search-area>
             <option value="">Alle Bereiche</option>
-            <option value="government">Staatsrat</option>
-            <option value="ministry">Staatssekretariate</option>
-            <option value="topic">Themen</option>
-            <option value="press">Pressemitteilungen</option>
-            <option value="speech">Reden</option>
-            <option value="event">Termine</option>
-            <option value="legislation">Gesetzgebung</option>
-            <option value="budget">Haushalt</option>
-            <option value="freestate">Über den Freistaat</option>
-            <option value="service">Service</option>
-            <option value="job">Karriere</option>
-            <option value="law">Recht</option>
+            <option value="portal">Nur Staatsportal</option>
+            {sectionOptions.map((section) => (
+              <option value={`portal:${section.key}`}>&nbsp;&nbsp;{section.label}</option>
+            ))}
+            <option value="law">Nur Recht</option>
           </select>
         </label>
-        <label class="search-field">
+        <label class="filter-field" for="portal-search-sort">
           <span>Sortierung</span>
-          <select name="sort" data-portal-search-sort>
+          <select id="portal-search-sort" name="sort" data-portal-search-sort>
             <option value="relevance">Relevanz</option>
             <option value="latest">Aktualität</option>
           </select>
         </label>
       </div>
-      <div class="search-form__actions">
+      <div class="filter-bar__actions">
         <button class="button-link" type="submit">Suchen</button>
-        <a class="button-link button-link--secondary" href={getLawSearchUrl()}>Nur im Recht suchen</a>
+        <button class="button-link button-link--secondary" type="reset" data-portal-search-reset>
+          Zurücksetzen
+        </button>
       </div>
     </form>
 
     <p class="search-feedback search-feedback--hint" data-portal-search-status role="status" aria-live="polite">
-      Wonach suchen Sie? Geben Sie einen Begriff ein, zum Beispiel Kreisreform, Haushalt, Kabinett, Kultur, Gesetz oder Bezirk.
+      Geben Sie einen Begriff ein, zum Beispiel Kreisreform, Haushalt, Kabinett oder eine
+      Gesetzesabkürzung.
     </p>
     <p class="search-feedback search-feedback--examples" data-portal-search-examples>
-      Beispiele: Kreisreform, Kulturpass, Wohnvergesellschaftung, Kabinett, OGVBl.
+      Beispiele: Kreisreform, Bildungsreform, Wohnvergesellschaftung, Kabinett, OGVBl.
     </p>
     <p class="search-feedback search-feedback--warning" data-portal-search-empty hidden>
-      Keine Treffer gefunden. Prüfen Sie die Schreibweise oder suchen Sie nur in einem bestimmten Bereich.
+      Keine Treffer gefunden. Prüfen Sie die Schreibweise oder wählen Sie einen anderen Bereich.
     </p>
     <p class="search-feedback search-feedback--warning" data-portal-search-error hidden>
-      Die Suche ist derzeit nicht erreichbar. Nutzen Sie vorübergehend die Bereiche Recht, Themen, Presse und Service.
+      Die Suche ist derzeit nicht erreichbar. Nutzen Sie vorübergehend die Bereiche Recht, Themen,
+      Presse und Service.
     </p>
-    <h2 id="portal-search-results-heading" class="visually-hidden">Suchergebnisse</h2>
-    <ol
-      class="record-list search-results__list"
-      data-portal-search-results
-      aria-labelledby="portal-search-results-heading"
-    ></ol>
+
+    <div class="search-groups" data-portal-search-groups></div>
+
     <p class="search-results__more" data-portal-search-more-wrap hidden>
       <button class="button-link button-link--secondary" type="button" data-portal-search-more>
         Weitere Treffer laden
