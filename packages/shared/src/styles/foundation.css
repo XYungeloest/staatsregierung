@@ -1823,7 +1823,7 @@ article.panel > p:last-child > a.inline-link:hover {
   padding: 0.25rem 0.7rem;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: var(--lh-heading);
@@ -2357,6 +2357,7 @@ article.panel > p:last-child > a.inline-link:hover {
   max-width: 100%;
   min-width: 0;
   padding: 0.35rem 0.7rem;
+  font-size: var(--text-sm);
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-info-green-border);
   background: var(--color-info-green);
@@ -3704,24 +3705,30 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 /* Wegweiserebene. Eine Regel für beide Portale, damit die Ausnahmen an einer Stelle stehen und
-   sich zurücknehmen lassen. Ost Grotesk steht hier für Orientierung, nicht für Überschriften:
-   Wortzeichen, Ordnungsnummern (§, Artikel), Buchstabenleiste, Abkürzungen und Sigel,
-   Kennzahlen, Zugangskarten und Ortsnamen der Gebietstabellen. Überschriften, Fließtext,
-   Normtext, Trefferlisten, Formulare und Metadaten bleiben bei Jost beziehungsweise Source
-   Serif 4. Die tz-Ligatur ist eine discretionary Ligatur und wird nur hier angefordert. */
-.site-title,
-.law-wordmark strong,
-.letter-nav a,
-.letter-nav span[aria-disabled],
-.norm-label,
-.norm-unit__label,
-.norm-quoted-unit__label,
-.directory-entry__abbr,
-.norm-page-header__abbr,
-.search-hit__abbr,
-.section-hero__facts dd,
-.portal-access-card__title,
+   sich zurücknehmen lassen. Ost Grotesk trägt, wie eine Vorschrift heißt und in welchem Zustand
+   sie ist: den Titel in Verzeichnissen und Trefferlisten, das Etikett des Normtyps, das
+   Herkunfts- und Statusabzeichen, das Sachgebiet und die Ortsnamen der Gebietstabellen. Das
+   sind die Stellen, an denen ihre Eigenheiten überhaupt vorkommen — „Gesetz“ trägt ein tz,
+   „Straße“ und „außer Kraft“ ein ß; 55 Prozent aller Normtitel enthalten das eine oder das
+   andere. Wortzeichen, Überschriften, Ordnungsnummern, Abkürzungen, Kennzahlen und die
+   Buchstabenleiste gehören ausdrücklich nicht dazu: dort kommen weder ß noch tz vor, und in
+   Versalien fällt das ß ohnehin zu SS zusammen. Fließtext, Normtext, Formulare und Metadaten
+   bleiben bei Jost beziehungsweise Source Serif 4. Die Etiketten stehen eine Stufe größer als
+   die übrige Kleinschrift (siehe .law-type-label, .origin-badge, .status-badge, .tag), weil die
+   schmale Grotesk bei gleicher Punktgröße weniger Weiß trägt. Die tz-Ligatur ist eine
+   discretionary Ligatur und wird nur hier angefordert. */
+.law-type-label,
+.origin-badge__label,
+.status-badge,
+.tag,
+.directory-entry__title a,
+.search-hit__title h3 a,
 .data-table--orte tbody th {
   font-family: var(--font-sign);
   font-feature-settings: 'dlig' 1;
+}
+
+/* Gebietstabellen ohne Versalien: „Straße“ und „Görlitz“ verlieren darin ß und Ligatur. */
+.data-table--orte tbody th {
+  text-transform: none;
 }
