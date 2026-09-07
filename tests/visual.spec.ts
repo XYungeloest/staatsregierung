@@ -941,6 +941,47 @@ portalTest('Messung: die Kreisreformseite bleibt progressiv und ohne Scrollfalle
   await verifyViewport(page);
 });
 
+/**
+ * Waagerechter Überlauf auf **jeder** Portalseite, nicht nur auf den abgebildeten.
+ *
+ * Bis zur Entdopplung der Screenshot-Inventur lief `verifyViewport` beiläufig in jedem der
+ * damals 69 Bildtests mit; mit 31 Motiven wäre diese Abdeckung geschrumpft. Sie hängt jetzt an
+ * der Quelle, aus der auch Sitemap, Übersichtsseite und Suchindex entstehen
+ * (`buildPortalRouteInventory`), und wächst damit von selbst mit dem Portal — ein Pixelbild je
+ * Seite hätte das nie geleistet.
+ */
+portalTest('Messung: keine Portalseite erzeugt waagerechten Überlauf', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-390', 'Der Überlauf wird auf der schmalsten geprüften Breite gemessen.');
+  test.setTimeout(600_000);
+  // Die Seitenliste kommt aus der gebauten Sitemap – sie entsteht aus demselben Routeninventar
+  // wie Übersichtsseite und Suchindex (apps/portal/src/lib/route-inventory.ts), ist aber ohne
+  // Astro-Auflösung lesbar.
+  const { readFile } = await import('node:fs/promises');
+  const sitemap = await readFile('apps/portal/dist/client/sitemap.xml', 'utf8');
+  const paths = [...new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].map((match) => new URL(match[1]).pathname))];
+  expect(paths.length, 'die Sitemap liefert Seiten').toBeGreaterThan(50);
+
+  await preparePage(page);
+  const overflowing: string[] = [];
+  for (const path of paths) {
+    const response = await page.goto(path);
+    if (!response || response.status() >= 400) continue;
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+    const dimensions = await page.evaluate(() => ({
+      viewport: window.innerWidth,
+      document: document.documentElement.scrollWidth,
+      body: document.body.scrollWidth,
+    }));
+    // Ein Pixel Toleranz: subpixelgenaue Layoutbreiten runden in Chromium gelegentlich auf.
+    if (dimensions.document > dimensions.viewport + 1 || dimensions.body > dimensions.viewport + 1) {
+      overflowing.push(`${path}: Dokument ${dimensions.document} px, Body ${dimensions.body} px bei ${dimensions.viewport} px`);
+    }
+  }
+  expect(overflowing, `${overflowing.length} von ${paths.length} Seiten laufen waagerecht über`).toEqual([]);
+});
+
 portalTest('Messung: die Themenübersicht führt jedes Thema genau einmal als Karte', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop-wide', 'Die Übersicht wird einmal geprüft.');
   await preparePage(page);
