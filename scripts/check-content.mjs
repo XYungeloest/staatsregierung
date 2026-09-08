@@ -58,6 +58,7 @@ const allowedNormStatuses = new Set([
 ]);
 const allowedEmailDomains = new Set(['freistaat-ostdeutschland.de']);
 const allowedNormMinistries = new Set([
+  'Staatsrat für Frieden',
   'Staatsregierung des Freistaates Ostdeutschland',
   'Staatsrat des Freistaates Ostdeutschland',
   'Staatskanzlei des Freistaates Ostdeutschland',
@@ -89,6 +90,7 @@ const allowedNormMinistries = new Set([
   'Ostdeutscher Verkehrsverbund',
 ]);
 const allowedEnactingBodies = new Set([
+  'Staatsrat für Frieden',
   'Sächsischer Landtag',
   'Sächsische Staatsregierung',
   'Sächsisches Staatsministerium für Kultus',
