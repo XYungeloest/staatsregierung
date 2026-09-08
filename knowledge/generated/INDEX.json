@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-07",
+  "generatedAt": "2026-09-08",
   "editorialAsOf": "2026-09-08",
-  "count": 1195,
+  "count": 1198,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -12065,6 +12065,20 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-kritis-schutz-2026",
+      "title": "Schutz kritischer Infrastruktur und Aufklärung des Vorfalls am Flughafen Leipzig/Halle Carl Ulbricht",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "security",
+        "critical-infrastructure",
+        "drones"
+      ],
+      "validFrom": "2026-09-08",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-law-consolidation",
       "title": "Konsolidierung übernommener und geänderter Stammnormen",
       "type": "proceeding",
@@ -15487,6 +15501,32 @@
         "constitution"
       ],
       "validFrom": "2026-09-07",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-44",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 44",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security"
+      ],
+      "validFrom": "2026-09-08",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-45",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 45",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security"
+      ],
+      "validFrom": "2026-09-08",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

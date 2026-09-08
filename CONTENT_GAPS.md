@@ -81,6 +81,15 @@ ostdeutsche Setzung kennt:
   Datierungshinweis der Norm dokumentiert und wird nicht redaktionell korrigiert, solange keine
   amtliche Berichtigung vorliegt. HTML und PDF beider Ausgaben stimmen überein.
 
+## Ressortbezeichnung im Sicherheitserlass KRITIS 09/2026
+
+- **StAnzO. 2026 Nr. 45, Nummer 9** — HTML und PDF nennen übereinstimmend das
+  „Staatssekretariat für Landespolizei“ als berichtspflichtige Stelle. Der Organisationserlass
+  09/2026 (OGVBl. 2026 Nr. 75) ordnet die Polizeiaufgaben dem Staatssekretariat des Innern und
+  für Staats- und Grenzsicherheit zu; ein eigenständiges Staatssekretariat für Landespolizei
+  ist dort nicht vorgesehen. Der verkündete Wortlaut bleibt unverändert. Für eine abweichende
+  Organisationszuordnung fehlt eine amtliche Klarstellung oder ein weiterer Organisationsakt.
+
 ## Rechtskonsolidierung
 
 `npm run norms:consolidation:audit` erzeugt `data/recht/consolidation-report.md` mit den offenen
