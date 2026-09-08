@@ -686,8 +686,16 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen 
   expect(currentDates.length).toBeGreaterThanOrEqual(3);
   expect(currentDates.every((date) => date <= referenceDate)).toBeTruthy();
   expect(currentDates.every((date, index) => index === 0 || currentDates[index - 1] >= date)).toBeTruthy();
-  const newest = (await currentDocuments(request))[0];
-  expect(currentDates[0]).toBe(newest.lastChangeDate);
+  // Die Liste zeigt Rechtsereignisse, nicht geltende Fassungen: eine am Stichtag verkündete, erst
+  // danach wirksame Vorschrift ist das jüngste Ereignis, ohne geltend zu sein (getNormLastChangeDate
+  // zählt Historieneinträge bis zum Stichtag). Verglichen wird deshalb mit dem jüngsten Ereignis des
+  // Bestands, nicht mit der jüngsten geltenden Fassung.
+  const newestEvent = (await searchApi(request, '?versionScope=all')).hits
+    .map((hit) => hit.lastChangeDate)
+    .filter((date): date is string => Boolean(date))
+    .sort()
+    .at(-1);
+  expect(currentDates[0]).toBe(newestEvent);
   const currentLinks = await currentEntries.locator('h3 a').evaluateAll((links) => links.map((link) => link.getAttribute('href') ?? ''));
   expect(new Set(currentLinks).size).toBe(currentLinks.length);
   const futureDates = await page

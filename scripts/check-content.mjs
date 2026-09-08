@@ -4,6 +4,8 @@ import {
   isAbbreviationLikeLabel,
   isDerivedSummary,
   isTitleFormulaSummary,
+  keywordCore,
+  titleWords,
   UNVERIFIED_GENERATED_ABBREVIATIONS as unverifiedGeneratedAbbreviations,
 } from './lib/norm-title-rules.mjs';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
@@ -767,6 +769,28 @@ for (const { file, json } of records) {
       for (const keyword of json.keywords) {
         if (typeof keyword === 'string' && designations.has(keyword.trim())) {
           addProblem(file, `keywords wiederholt Titel, Kurzbezeichnung oder Abkürzung: ${keyword}`);
+        }
+      }
+
+      // Ein Titelbestandteil ab fünf Zeichen ist ebenso wenig ein Schlagwort: Titel und
+      // Kurzbezeichnung stehen im Volltextindex als eigene Spalten (law_search); „Erstes“,
+      // „Änderung“ oder „Freistaat“ ist kein Begriff, unter dem jemand sucht. Dieselbe Regel hat
+      // den übernommenen Bestand bereinigt (scripts/refine-revosax-derived-metadata.mjs) und den
+      // eigenen (scripts/migrate-own-norm-keywords.mjs); scripts/import-normen.mjs bildet solche
+      // Wörter nicht mehr. Übernommene Vorschriften bleiben ausgenommen: dort ist das Schlagwort
+      // die amtliche Bezeichnung der REVOSax-Trefferliste, die im Langtitel in Klammern
+      // wiederkehrt und in data/recht/revosax-baseline-2023-11-01.json belegt ist. Maßgeblich ist
+      // die Herkunft, nicht die Wortform.
+      const hasRevosaxProvenance = (json.sourceReferences ?? [])
+        .some((reference) => typeof reference?.lawId === 'string' && reference.lawId);
+      if (!hasRevosaxProvenance) {
+        const words = titleWords(json);
+        for (const keyword of json.keywords) {
+          if (typeof keyword !== 'string') continue;
+          const value = keywordCore(keyword);
+          if (value && words.has(value)) {
+            addProblem(file, `keywords wiederholt einen Titelbestandteil ab fünf Zeichen: ${keyword}`);
+          }
         }
       }
     }

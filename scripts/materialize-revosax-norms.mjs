@@ -4,7 +4,7 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
-import { abbreviationProblem, isAbbreviationLikeLabel } from './lib/norm-title-rules.mjs';
+import { abbreviationProblem, isAbbreviationLikeLabel, retainFsnNumber } from './lib/norm-title-rules.mjs';
 import { inferSubjectAssignment } from './lib/revosax-metadata.mjs';
 
 const ROOT = process.cwd();
@@ -28,7 +28,12 @@ async function writeJson(path, value) {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
-function sourceReference(source) {
+/**
+ * Die Quellenangabe wird deterministisch aus der Konfiguration gebaut. Eine redaktionell gepflegte
+ * Fundstellennummer der amtlichen Quelle bildet kein Erzeuger; sie wird deshalb aus der bisherigen
+ * Angabe übernommen, statt bei jedem Schreiblauf verlorenzugehen.
+ */
+function sourceReference(source, previous) {
   return {
     kind: 'revosax-snapshot',
     label: source.sourceValidTo
@@ -43,6 +48,7 @@ function sourceReference(source) {
     sourceValidFrom: source.sourceValidFrom,
     ...(source.sourceValidTo ? { sourceValidTo: source.sourceValidTo } : {}),
     sourceRole: 'official-snapshot',
+    ...(previous?.fsnNumber ? { fsnNumber: previous.fsnNumber } : {}),
   };
 }
 
@@ -163,7 +169,6 @@ async function materialize(slug, configured, config) {
     sourceCitation: seed.source.citation,
     context: slug,
   });
-  const reference = sourceReference(seed.source);
   let existingMeta = null;
   let existingHistory = null;
   let existingVersion = null;
@@ -189,6 +194,9 @@ async function materialize(slug, configured, config) {
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
   }
+  const snapshotReferenceOf = (references) => (references ?? [])
+    .find((entry) => entry.kind === 'revosax-snapshot' && entry.localSource === seed.source.snapshot);
+  const reference = sourceReference(seed.source, snapshotReferenceOf(existingMeta?.sourceReferences));
   const inferred = inferredMeta(parsed, configured, slug, citation);
   const retainedMetaReferences = (existingMeta?.sourceReferences ?? [])
     .filter((entry) => entry.kind !== 'revosax-snapshot');
@@ -223,18 +231,25 @@ async function materialize(slug, configured, config) {
     entries: [initialEntry],
   };
   // Die Fassung spiegelt die Bezeichnungen der Norm (Titelmodell: shortTitle und abbr optional).
+  // Eine bereits gespeicherte Fassung trägt ihre eigene, redaktionell gepflegte Bezeichnung; die
+  // Neumaterialisierung erneuert Text und Provenienz, nicht die Identität.
   const versionIdentity = identityFields(parsed, configured, meta.title);
+  const versionReference = sourceReference(seed.source, snapshotReferenceOf(existingVersion?.sourceReferences));
+  const storedShortTitle = existingVersion
+    ? existingVersion.shortTitle
+    : (meta.shortTitle ?? versionIdentity.shortTitle);
+  const storedAbbr = existingVersion ? existingVersion.abbr : (meta.abbr ?? versionIdentity.abbr);
   const version = {
     versionId: seed.versionId,
-    title: meta.title,
-    ...(meta.shortTitle ?? versionIdentity.shortTitle ? { shortTitle: meta.shortTitle ?? versionIdentity.shortTitle } : {}),
-    ...(meta.abbr ?? versionIdentity.abbr ? { abbr: meta.abbr ?? versionIdentity.abbr } : {}),
+    title: existingVersion?.title ?? meta.title,
+    ...(storedShortTitle ? { shortTitle: storedShortTitle } : {}),
+    ...(storedAbbr ? { abbr: storedAbbr } : {}),
     validFrom: seed.versionId,
     validTo: existingVersion?.validTo ?? null,
     isCurrent: existingVersion?.isCurrent ?? true,
     citation,
     changeNote: seed.changeNote,
-    sourceReferences: [reference],
+    sourceReferences: [versionReference],
     sourceNotes: parsed.sourceNotes,
     body: parsed.body,
   };

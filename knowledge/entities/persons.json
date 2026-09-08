@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-07",
+  "asOf": "2026-09-08",
   "persons": [
     {
       "id": "person-karl-honecker",
@@ -2013,6 +2013,195 @@
           "appointmentSource": {
             "sourceId": "source-stanzo-2026-42",
             "locator": "Bekanntmachung vom 7. September 2026; gewählt als Staatsrätin für Liebe"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-finn-bonnano",
+      "title": "Finn Bonnano",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "asOf": "2026-09-08",
+      "summary": "Seit 7. September 2026 Staatssekretär für Grenzsicherungsanlagen und Migration beim Staatsrat für Frieden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+          "locator": "Ernennungsakt vom 7. September 2026, Artikel 59 Absatz 2 Satz 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07",
+          "locator": "Staatssekretäre des Geschäftsbereichs Frieden",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-personen-2026-09-08",
+          "locator": "Parteizugehörigkeit und Personenprofile",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "party-demos",
+        "inst-sek-inneres-wohnen"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [
+        "Staatssekretär beim Staatsrat für Frieden, nicht Mitglied des Staatsrates. Das Amt endet nach Artikel 68 Absatz 1 Satz 2 auch mit der Mitgliedschaft des beigeordneten Staatsrates.",
+        "Die Parteizugehörigkeit beruht auf der redaktionellen Auskunft vom 8. September 2026, nicht auf einer Primärquelle."
+      ],
+      "aliases": [],
+      "name": "Finn Bonnano",
+      "nameVariants": [],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsrat",
+          "officeTitle": "Staatssekretär für Grenzsicherungsanlagen und Migration",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+            "locator": "Ernennungsakt vom 7. September 2026, Artikel 59 Absatz 2 Satz 2"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-kilian-schmidt",
+      "title": "Kilian Schmidt",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "asOf": "2026-09-08",
+      "summary": "Seit 7. September 2026 Staatssekretär für Bevölkerungsschutz beim Staatsrat für Frieden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+          "locator": "Ernennungsakt vom 7. September 2026, Artikel 59 Absatz 2 Satz 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07",
+          "locator": "Staatssekretäre des Geschäftsbereichs Frieden",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-personen-2026-09-08",
+          "locator": "Parteizugehörigkeit und Personenprofile",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "party-demos",
+        "inst-sek-inneres-wohnen"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [
+        "Staatssekretär beim Staatsrat für Frieden, nicht Mitglied des Staatsrates. Das Amt endet nach Artikel 68 Absatz 1 Satz 2 auch mit der Mitgliedschaft des beigeordneten Staatsrates.",
+        "Die Parteizugehörigkeit beruht auf der redaktionellen Auskunft vom 8. September 2026, nicht auf einer Primärquelle."
+      ],
+      "aliases": [],
+      "name": "Kilian Schmidt",
+      "nameVariants": [],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsrat",
+          "officeTitle": "Staatssekretär für Bevölkerungsschutz",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+            "locator": "Ernennungsakt vom 7. September 2026, Artikel 59 Absatz 2 Satz 2"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-lukas-schmidt",
+      "title": "Lukas Schmidt",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "asOf": "2026-09-08",
+      "summary": "Seit 7. September 2026 Staatssekretär für Volkspolizei beim Staatsrat für Frieden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+          "locator": "Ernennungsakt vom 7. September 2026, Artikel 59 Absatz 2 Satz 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07",
+          "locator": "Staatssekretäre des Geschäftsbereichs Frieden",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-personen-2026-09-08",
+          "locator": "Parteizugehörigkeit und Personenprofile",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "party-demos",
+        "inst-sek-inneres-wohnen"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [
+        "Staatssekretär beim Staatsrat für Frieden, nicht Mitglied des Staatsrates. Das Amt endet nach Artikel 68 Absatz 1 Satz 2 auch mit der Mitgliedschaft des beigeordneten Staatsrates.",
+        "Die Parteizugehörigkeit beruht auf der redaktionellen Auskunft vom 8. September 2026, nicht auf einer Primärquelle."
+      ],
+      "aliases": [],
+      "name": "Lukas Schmidt",
+      "nameVariants": [],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsrat",
+          "officeTitle": "Staatssekretär für Volkspolizei",
+          "validFrom": "2026-09-07",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-appointment-staatssekretaere-2026-09-07",
+            "locator": "Ernennungsakt vom 7. September 2026, Artikel 59 Absatz 2 Satz 2"
           },
           "terminationSource": null,
           "acting": false,

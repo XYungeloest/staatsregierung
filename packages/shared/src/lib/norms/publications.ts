@@ -46,6 +46,7 @@ export function publicationEntryTypeForNormType(
   if (normType === 'zustimmungsgesetz') return 'gesetz';
   if (normType === 'aenderungsvorschrift') {
     if (publication?.publication === 'StAnzO.') return 'verwaltungsvorschrift';
+    if (/^Staatsvertrag\b/u.test(publication?.initialCitation ?? '')) return 'staatsvertrag';
     return /^Verordnung\b/u.test(publication?.initialCitation ?? '') ? 'verordnung' : 'gesetz';
   }
   return normType;
@@ -55,6 +56,9 @@ const COMPATIBLE_NORM_TYPES: Partial<Record<PublicationEntryType, readonly NormT
   gesetz: ['gesetz', 'zustimmungsgesetz', 'aenderungsvorschrift'],
   verordnung: ['verordnung', 'aenderungsvorschrift'],
   verwaltungsvorschrift: ['verwaltungsvorschrift', 'aenderungsvorschrift'],
+  // Ein Änderungsstaatsvertrag wird als Staatsvertrag verkündet und trägt nach der
+  // Konsolidierung den Normtyp der Änderungsvorschrift.
+  staatsvertrag: ['staatsvertrag', 'aenderungsvorschrift'],
 };
 
 /** Passt der Typ eines Verkündungseintrags zum Typ der verkündeten Norm? */

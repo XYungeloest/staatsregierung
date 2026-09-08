@@ -3,6 +3,8 @@ export {
   loadBudgetPages,
   loadBeteiligungsInventar,
   loadBeteiligungsUebersicht,
+  loadCabinetArchiveDetailSlugs,
+  loadCabinetArchives,
   loadCabinetPageContent,
   loadCurrentJobOffers,
   loadCurrentGovernmentMembers,
@@ -31,4 +33,5 @@ export {
   loadSpeeches,
   loadTopicBySlug,
   loadTopics,
+  type Kabinettsarchiv,
 } from '@ostrecht/shared/lib/portal/loader.ts';

@@ -411,7 +411,10 @@ async function main() {
     )].sort();
     const introducedStem = enactingActs.length > 0;
     const adoptedPrimarySource = source.adoptedSources?.find((entry) => entry.snapshot && entry.sourceSha256);
-    const sourceAvailable = Boolean(source.snapshot || adoptedPrimarySource);
+    // Eine unverändert archivierte, redaktionell versionierte Ausgangsfassung (existingVersionSeed)
+    // ist eine vorhandene Ausgangsquelle wie ein Snapshot: sie liegt als Fassungsdatensatz vor,
+    // ihre Provenienz steht in den Quellenangaben der Norm.
+    const sourceAvailable = Boolean(source.snapshot || adoptedPrimarySource || source.existingVersionSeed);
     const knownBaseline = Boolean(source.baselineUrl || source.baselineCitation);
     const requiredBaseline = source.baselineVersionDate ?? (introducedStem
       ? stem?.versions.map((version) => version.validFrom).sort()[0] ?? stem?.meta.effectiveDate ?? BASELINE_DATE
