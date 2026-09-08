@@ -47,7 +47,6 @@ if (root && body && pagination) {
   const previous = pagination.querySelector<HTMLButtonElement>('[data-page-action="previous"]');
   const next = pagination.querySelector<HTMLButtonElement>('[data-page-action="next"]');
   const districtRows = Array.from(document.querySelectorAll<HTMLTableRowElement>('[data-kreisreform-table-row][data-kind="bezirk"]'));
-  const districtCards = Array.from(document.querySelectorAll<HTMLElement>('[data-kreisreform-bezirk-card]'));
   const baseUrl = root.dataset.baseUrl ?? '/';
   const dataUrl = `${baseUrl.replace(/\/?$/u, '/')}data/kreisreform/neue-kreise.geojson`;
 
@@ -86,13 +85,6 @@ if (root && body && pagination) {
       const visible = (!term || normalize(row.dataset.name ?? '').includes(term)) && (!selected || name === selected);
       row.hidden = !visible;
       if (visible) visibleDistricts += 1;
-    }
-
-    // Unter 640 px steht die Bezirksliste ohne Karte an Stelle der Tabelle; sie folgt demselben
-    // Filter. Gezählt wird weiter an den Tabellenzeilen, damit die Statuszeile eine Zahl nennt.
-    for (const card of districtCards) {
-      const name = card.dataset.bezirk ?? '';
-      card.hidden = !((!term || normalize(card.dataset.name ?? '').includes(term)) && (!selected || name === selected));
     }
 
     if (range) range.textContent = state.rangeLabel;
