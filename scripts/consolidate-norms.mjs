@@ -7,6 +7,7 @@ import { applyPatchRecipe, previousIsoDate } from './lib/consolidation-engine.mj
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
 import { adaptBodyBlocks, adaptSaxonText } from './lib/revosax-ost-adapter.mjs';
+import { resolveIdentityFields, retainFsnNumber } from './lib/norm-title-rules.mjs';
 
 /**
  * Rechtsüberleitung des konsolidierten Ergebnisses. Die Patch-Rezepte werden auf den
@@ -319,6 +320,7 @@ async function consolidate(slug, config) {
 
   let meta;
   let existingHistory;
+  let metaExisted = true;
   try {
     [meta, existingHistory] = await Promise.all([
       readJson(join(normDirectory, 'meta.json')),
@@ -326,6 +328,7 @@ async function consolidate(slug, config) {
     ]);
   } catch (error) {
     if (error.code !== 'ENOENT' || !source.createMeta) throw error;
+    metaExisted = false;
     meta = {
       id: slug,
       slug,
@@ -347,6 +350,24 @@ async function consolidate(slug, config) {
     };
     existingHistory = { initialVersionId: null, entries: [] };
   }
+  // Titel, Kurzbezeichnung und Abkürzung gehören zur redaktionellen Metadatenebene. Steht ein
+  // Stammnormdatensatz, gewinnt er; die Quellenkonfiguration legt die Identität nur bei der
+  // Neuanlage an. Das Titelmodell entscheidet, ob Kurzbezeichnung und Abkürzung überhaupt bestehen.
+  const identity = resolveIdentityFields({
+    title: (metaExisted ? meta.title : undefined) ?? source.resultTitle ?? parsed.sourceTitle,
+    shortTitle: (metaExisted ? meta.shortTitle : undefined) ?? source.resultShortTitle,
+    abbr: (metaExisted ? meta.abbr : undefined) ?? source.resultAbbr,
+  });
+  // Neu entstehende Fassungsdatensätze folgen der Konfiguration, aber ebenfalls dem Titelmodell.
+  const versionIdentity = (versionTitle) => resolveIdentityFields({
+    title: versionTitle,
+    shortTitle: source.resultShortTitle,
+    abbr: source.resultAbbr,
+  });
+  // Die redaktionell gepflegte Fundstellennummer überlebt die Neuerzeugung der Quellenangabe.
+  const previousSnapshotReferences = new Map((metaExisted ? meta.sourceReferences ?? [] : [])
+    .filter((reference) => reference.kind === 'revosax-snapshot' && typeof reference.localSource === 'string')
+    .map((reference) => [reference.localSource, reference]));
   let state = { title: parsed.sourceTitle, body: parsed.body };
   const versions = existingVersionSeed
     ? await versionRecordsThrough(normDirectory, baselineVersionDate)
@@ -451,8 +472,8 @@ async function consolidate(slug, config) {
         changeNote: group.map((recipe) => recipe.changeNote).join(' '),
         sourceReferences: group.flatMap((recipe) => recipe.sourceReferences ?? []),
         title: state.title,
-        ...(source.resultShortTitle ? { shortTitle: source.resultShortTitle } : {}),
-        ...(source.resultAbbr ? { abbr: source.resultAbbr } : {}),
+        ...(versionIdentity(state.title).shortTitle ? { shortTitle: versionIdentity(state.title).shortTitle } : {}),
+        ...(versionIdentity(state.title).abbr ? { abbr: versionIdentity(state.title).abbr } : {}),
         body: state.body,
       });
     }
@@ -471,9 +492,9 @@ async function consolidate(slug, config) {
     ...meta,
     // Die öffentliche Normbezeichnung gehört zur redaktionellen Metadatenebene.
     // Der REVOSax-Ausgangstitel darf sie bei einer erneuten Konsolidierung nicht überschreiben.
-    title: source.resultTitle ?? state.title ?? meta.title,
-    ...(source.resultShortTitle ? { shortTitle: source.resultShortTitle } : {}),
-    ...(source.resultAbbr ? { abbr: source.resultAbbr } : {}),
+    title: identity.title,
+    ...(identity.shortTitle ? { shortTitle: identity.shortTitle } : {}),
+    ...(identity.abbr ? { abbr: identity.abbr } : {}),
     initialCitation: existingVersionSeed ? meta.initialCitation : baselineCitation,
     ...((source.documentDate ?? parsed.documentDate)
       ? { documentDate: source.documentDate ?? parsed.documentDate }
@@ -487,14 +508,20 @@ async function consolidate(slug, config) {
     ...(repealRecipe ? { expiryDate: previousIsoDate(repealRecipe.effectiveDate) } : {}),
     affectedByNorms: [...new Set([...(meta.affectedByNorms ?? []), ...recipes.map((recipe) => recipe.amendmentAct)])],
     sourceReferences: uniqueSourceReferences([
-      ...(existingVersionSeed ? (meta.sourceReferences ?? []) : [snapshotReference(baselineSource)]),
-      ...adoptedSources.map(({ source: adoptedSource }) => snapshotReference(adoptedSource)),
+      ...(existingVersionSeed
+        ? (meta.sourceReferences ?? [])
+        : [retainFsnNumber(snapshotReference(baselineSource), previousSnapshotReferences)]),
+      ...adoptedSources.map(({ source: adoptedSource }) =>
+        retainFsnNumber(snapshotReference(adoptedSource), previousSnapshotReferences)),
       ...recipes.flatMap((recipe) => recipe.sourceReferences ?? []),
     ]),
     editorialResolutions: publicEditorialResolutions(source).length
       ? publicEditorialResolutions(source)
       : meta.editorialResolutions,
   };
+  // Eine vom Titelmodell verworfene Bezeichnung darf nicht über den Spread von `meta` stehen bleiben.
+  if (!identity.shortTitle) delete updatedMeta.shortTitle;
+  if (!identity.abbr) delete updatedMeta.abbr;
   if (source.dropAbbr) delete updatedMeta.abbr;
   for (const field of ['documentDate', 'publicationDate', 'effectiveDate', 'expiryDate']) {
     if (updatedMeta[field] === null) delete updatedMeta[field];
@@ -536,11 +563,14 @@ async function consolidate(slug, config) {
     console.error('Prüflauf: Schreiben erfordert --write.');
     return;
   }
-  const versionsWithMetadata = await Promise.all(versions.map(async (version) => ({
-    versionId: version.versionId,
-    ...await existingVersionMetadata(normDirectory, version.versionId),
-    ...version,
-  })));
+  const versionsWithMetadata = await Promise.all(versions.map(async (version) => {
+    // Eine gespeicherte Fassung trägt ihre eigene, redaktionell gepflegte Bezeichnung. Der doppelte
+    // Spread ist Absicht: JavaScript nimmt die Schlüsselreihenfolge vom ersten Vorkommen, den Wert
+    // vom letzten. Eine „Vereinfachung“ zu `{ ...version, ...preserved }` erzeugt eine andere
+    // Schlüsselreihenfolge und damit hunderte Byte-Diffs, ohne dass ein Test anschlägt.
+    const preserved = await existingVersionMetadata(normDirectory, version.versionId);
+    return { versionId: version.versionId, ...preserved, ...version, ...preserved };
+  }));
   // Rechtsüberleitung erst auf dem konsolidierten Ergebnis (siehe applyRechtsueberleitung).
   const transitioned = applyRechtsueberleitung({ meta: updatedMeta, history, versions: versionsWithMetadata });
   await Promise.all([
@@ -564,6 +594,10 @@ if (!isMain) {
   if (blocked.length) console.error(`Gesperrte Ziele werden höchstens bis vor den Konflikt fortgeschrieben: ${blocked.join(', ')}`);
   for (const [slug, source] of Object.entries(config.targets)) {
     if (config.blockedTargets?.[slug] && !config.blockedTargets[slug].effectiveDate) continue;
+    // Ziele mit redaktionell versionierter Ausgangsfassung (existingVersionSeed) laufen bewusst
+    // nur über --target: die Rechtsüberleitung des Ergebnisses (applyRechtsueberleitung) ist auf
+    // übernommenes sächsisches Recht gemünzt und würde in eigenen ostdeutschen Vorschriften auch
+    // Eigennamen überschreiben (Bezirk „Sachsen“ → „Ostdeutschland“).
     if (!source.snapshot && !(source.adoptedSources ?? []).some((entry) => entry.snapshot)) {
       console.error(`${slug}: kein REVOSax-Ausgangssnapshot, Konsolidierung übersprungen`);
       continue;

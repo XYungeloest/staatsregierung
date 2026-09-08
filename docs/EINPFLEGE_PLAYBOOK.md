@@ -136,7 +136,8 @@ Feldsatz je Eintrag:
 | Feld | Pflicht | Wirkung |
 | --- | --- | --- |
 | `slug` | ja | Verzeichnisname unter `content/normen/` |
-| `shortTitle` | faktisch ja | speist die abgeleiteten `keywords` (`shortTitle.split(/\s+/u)`); fehlt es, fehlen die Schlagwörter |
+| `shortTitle` | faktisch ja | öffentliche Kurzbezeichnung; bildet **keine** Schlagwörter mehr — Schlagwörter kommen allein aus `keywords` |
+| `keywords` | optional | redaktionelle Zweitbezeichnungen und Nutzerbegriffe; ein Titelbestandteil ab fünf Zeichen wird von `scripts/check-content.mjs` zurückgewiesen |
 | `type` | ja | Normart; zulässige Werte siehe Schema, nicht CONTENT.md (dort veraltet) |
 | `summary` | ja | redaktionell, mindestens 24 Zeichen; keine Formelsätze außer bei übernommenen REVOSax-Normen |
 | `responsibleMinistry` | ja | muss in `allowedNormMinistries` (`scripts/check-content.mjs:58-83`) stehen |
@@ -415,9 +416,13 @@ Leitung“ ab und erzeugt zudem die andere ID-Form. `assignments.json` wird reda
 
 **Regierungswechsel** ist etwas anderes als eine Umbildung: alle Zuordnungen der alten Regierung
 bekommen `validTo`, jedes Mitglied eine neue Zeile, dazu ein Archivstand unter
-`content/regierung/archiv/`, eine Seite unter
-`apps/portal/src/pages/staatsregierung/fruehere-kabinette/` und `importantItems[].governmentSlug`
-in `content/portal/home.json`.
+`content/regierung/archiv/<slug>.json` samt `<slug>/mitglieder/` und `<slug>/ressorts/` sowie
+`importantItems[].governmentSlug` in `content/portal/home.json`. Der Slug des Archivstands ist
+zugleich Dateiname, Verzeichnisname und letzter Adressbestandteil; Übersichtskarte, Detailseite,
+Routeninventar, Sitemap und Suchindex entstehen daraus automatisch
+(`packages/shared/src/lib/portal/cabinet-archive.ts`). Eine Detailseite entsteht genau dann, wenn
+ein `mitglieder/`-Verzeichnis existiert — ein Archivstand ohne Mitgliederliste erscheint als Karte
+ohne Verweis.
 
 Schließlich: `content/regierung/cabinet-page.json` (Chronologie) fortschreiben und den Wissenshub
 nachziehen (Kapitel 5.2).
@@ -540,6 +545,10 @@ niemals Bildvarianten. `ResponsivePicture.astro` erwartet die Varianten `-240/-3
 - Das Skript benötigt `sharp`. Das Paket ist in keinem `package.json` deklariert und heute nur
   transitiv vorhanden; nach einem `npm ci` kann es fehlen. Läuft der Befehl nicht, ist das zu
   melden, nicht zu umgehen.
+- **Der Lauf ist heute nicht reproduzierbar.** Mit `sharp` 0.35.4 weichen 144 der eingecheckten
+  `.avif`-Varianten byteweise ab (`.webp` und `.jpg` sind identisch). Nach dem Lauf gehören deshalb
+  nur die Varianten der tatsächlich geänderten Motive in den Commit; alles andere wird
+  zurückgesetzt. Der offene Punkt steht in [`TODO.md`](../TODO.md).
 - Der `/images/`-Existenzcheck greift nur bei den Feldnamen `bild`, `image` und `hero`
   (`scripts/check-content.mjs:188-190`); ein Bildpfad in einem anders benannten Feld wird nicht
   geprüft.
@@ -666,7 +675,7 @@ Zusätzlich verlangt der Check genau ein `h1` je Seite.
 ## 6 Der Stichtagsblock
 
 Der redaktionelle Stichtag ist **ein** Wert: `referenceDate` in
-`packages/shared/src/config/editorial.json` (heute `2026-09-06`). Er wird in beide Builds
+`packages/shared/src/config/editorial.json` (heute `2026-09-08`). Er wird in beide Builds
 einkompiliert und kommt zur Laufzeit **nicht** aus D1.
 
 **Er wird ausschließlich vorwärts geschrieben.** Eine Rückdatierung lehnt
@@ -755,14 +764,19 @@ npm run norms:runtime:d1-sync -- --changed-paths <datei> --reference-date-from <
 `discoverability.editorialLead` verlangt, dass ein bestimmtes Thema im genannten Zeitraum das
 höchstpriorisierte aktive Thema ist (Reihenfolge: `priority` desc, `updatedAt` desc, `title` de asc).
 
-**Ist-Stand am 2026-09-07:** genau eine aktive Hervorhebung — `volksbefragung-2026`, Fenster
-`2026-08-09` bis `2026-09-10`. `kommunen-regionen-und-berlin` (bis `2026-08-31`) und
-`wohnen-und-vergesellschaftung` (bis `2026-09-01`) sind abgelaufen.
+**Ist-Stand am 2026-09-08:** zwei aktive Hervorhebungen — `volksbefragung-2026`, Fenster
+`2026-08-09` bis `2026-09-10`, und `staatsreform-und-verfassung`, Fenster `2026-09-08` bis
+`2026-12-31`. `kommunen-regionen-und-berlin` (bis `2026-08-31`) und
+`wohnen-und-vergesellschaftung` (bis `2026-09-01`) sind abgelaufen. `discoverability.editorialLead`
+steht auf `staatsreform-und-verfassung` mit dem Zeitraum `2026-09-11` bis `2026-12-31` — der Beginn
+liegt bewusst nach dem Ende des Volksbefragungsfensters, weil jenes Thema mit `priority: 100`
+bis dahin das höchstpriorisierte aktive Vorhaben bleibt.
 
-**Daraus folgt: jeder Stichtag ab dem 2026-09-11 lässt `content:check` und
-`check-topic-coverage` mit dem heutigen Bestand fehlschlagen.** Wer den Stichtag über den
-2026-09-10 hinaus zieht, muss im selben Commit ein Thema mit laufendem Hervorhebungsfenster
-versehen und `discoverability.editorialLead` darauf umstellen.
+**Daraus folgt: jeder Stichtag ab dem 2026-11-01 lässt `content:check` und
+`check-topic-coverage` mit dem heutigen Bestand fehlschlagen, sobald das letzte Fenster abgelaufen
+ist.** Wer den Stichtag über das Ende der laufenden Fenster hinaus zieht, muss im selben Commit ein
+Thema mit laufendem Hervorhebungsfenster versehen und `discoverability.editorialLead` darauf
+umstellen.
 
 `editorialLead` schlägt nur fehl, wenn ein **zweites** Thema mit laufendem Fenster in der
 Reihenfolge davor liegt. Solange `volksbefragung-2026` die einzige aktive Hervorhebung ist, ist
@@ -814,9 +828,10 @@ Ergebnis `identity` oder `incremental` = grün. Ergebnis `full` = echtes D1-Rele
 Schema-Release wird **nie** vom Workflow eingespielt: lokal → Staging → Produktion, jeweils
 Migration zuerst, dann Vollprojektion, dann Verifikation.
 
-**Verboten:** `--stamp-fingerprint` als Abkürzung, `--assume-narrow-logic-change` ohne lokalen
-Äquivalenznachweis, jede Fingerabdruck-Manipulation, um einen nötigen Sync zu überspringen, ein
-produktives `--full` außerhalb des Release-Gates.
+**Verboten:** `--stamp-fingerprint` als Abkürzung, jede Fingerabdruck-Manipulation, um einen
+nötigen Sync zu überspringen, ein produktives `--full` außerhalb des Release-Gates. Der Nachweis
+läuft über `--prove-equivalence` beziehungsweise `--equivalence-proof <Datei>`; einen frei setzbaren
+Bypass gibt es nicht.
 
 ---
 

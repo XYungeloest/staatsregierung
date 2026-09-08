@@ -35,3 +35,14 @@ Die Ernennung bestätigt damit die entsprechende Angabe der Zuarbeit zum Kabinet
 ersetzt sie als Beleg. Das öffentliche Organisationsmodell des Portals kennt bislang keine Ebene
 unterhalb der Ressortleitung; die drei Ämter werden deshalb im Wissenshub, in der Chronologie der
 Kabinettsseite und in der Zeitachse geführt, nicht als eigene Personenprofile.
+
+## Nachtrag vom 8. September 2026
+
+Nach der redaktionellen Auskunft vom 8. September 2026 gibt es keine amtliche Originaldatei des
+Ernennungsaktes; Ernennungen von Kabinettmitgliedern werden in dieser Staatspraxis nicht mit einem
+eigenen Dokument belegt. Der oben festgehaltene Wortlaut bleibt damit die maßgebliche Fassung, und
+`context/amtliche-dokumente/2026-09-07/` wird nicht angelegt.
+
+Das Organisationsmodell führt seit dem 8. September 2026 ein eigenes Amt `staatssekretaer`
+unterhalb der Ressortleitung. Die drei Staatssekretäre haben eigene Personenprofile; sie sind keine
+Mitglieder des Staatsrates und zählen nicht in dessen Mitgliederzahl.

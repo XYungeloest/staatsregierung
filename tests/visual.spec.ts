@@ -932,12 +932,113 @@ portalTest('Messung: die Kreisreformseite bleibt progressiv und ohne Scrollfalle
   }, DEFAULT_PORTAL_PAGE_SIZE);
   expect(zuGross, `Sammelblöcke geben höchstens ${DEFAULT_PORTAL_PAGE_SIZE} Einträge auf einmal aus`).toEqual([]);
 
-  // Der Nutzer erreicht die Tabellen über die Abschnittsnavigation, nicht durch Scrollen: der
+  // Der Nutzer erreicht die Tabellen über die Bereichsnavigation, nicht durch Scrollen: der
   // Sprunglink steht im ersten Bildschirm.
   const link = page.locator('.section-navigation a[href="#tabellen"]');
   await expect(link).toHaveCount(1);
   const oben = await link.evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
   expect(oben, 'der Sprunglink zu den Tabellen steht im ersten Bildschirm').toBeLessThanOrEqual(await page.evaluate(() => window.innerHeight * 2));
+  await verifyViewport(page);
+});
+
+/**
+ * Jeder Bezirk genau einmal.
+ *
+ * Unter 640 px standen die Liste ohne Karte und die Bezirkstabelle gleichzeitig auf dem Schirm und
+ * nannten dieselben Bezirke zweimal; der Bezirksfilter nennt sie ein drittes Mal, bleibt aber ein
+ * Bedienelement der Filterleiste und keine Aufzählung. Gemessen wird deshalb die Zahl der
+ * sichtbaren Listeneinträge je Bezirk – und dass der Darstellungstausch keine Angabe verliert.
+ * Die Bezirksnamen kommen aus der Seite, nicht als Liste in den Test: der Bestand darf wachsen.
+ */
+portalTest('Messung: unter 640 px nennt die Kreisreformseite jeden Bezirk genau einmal', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile-'), 'Die Doppelnennung entsteht unterhalb von 640 px.');
+  await preparePage(page);
+  await page.goto('/kreisreform/');
+
+  const bezirke = await page.locator('#kreisreform-table-bezirk option').evaluateAll((options) =>
+    options.map((option) => (option as HTMLOptionElement).value).filter((value) => value.length > 0));
+  expect(bezirke.length, 'der Bezirksfilter führt jeden Bezirk als Option').toBeGreaterThan(1);
+
+  const mehrfach = await page.evaluate((namen) => {
+    const eintraege = [...document.querySelectorAll(
+      '#bezirke .card-grid > article > h3, [data-kreisreform-table-row][data-kind="bezirk"] > th[scope="row"]',
+    )]
+      .filter((element) => element.checkVisibility?.() !== false)
+      .map((element) => (element.textContent ?? '').trim());
+    return namen
+      .map((name) => ({ name, sichtbar: eintraege.filter((eintrag) => eintrag === name).length }))
+      .filter((eintrag) => eintrag.sichtbar !== 1);
+  }, bezirke);
+  expect(mehrfach, 'jeder Bezirk steht genau einmal als Listeneintrag auf dem Schirm').toEqual([]);
+
+  // Kein Informationsverlust: der sichtbare Eintrag trägt jede Angabe der ausgeblendeten
+  // Tabellenzeile. Werte und Trennung stammen aus der Seite, nicht aus dem Test.
+  const luecken = await page.evaluate(() => {
+    const fehlend: Array<{ bezirk: string; fehlt: string }> = [];
+    for (const zeile of document.querySelectorAll<HTMLElement>('[data-kreisreform-table-row][data-kind="bezirk"]')) {
+      const name = zeile.dataset.bezirk ?? '';
+      const eintrag = [...document.querySelectorAll('#bezirke .card-grid > article')]
+        .find((karte) => (karte.querySelector('h3')?.textContent ?? '').trim() === name);
+      if (!eintrag) {
+        fehlend.push({ bezirk: name, fehlt: 'Eintrag in der Liste ohne Karte' });
+        continue;
+      }
+      const text = (eintrag.textContent ?? '').replace(/\s+/gu, ' ');
+      for (const zelle of zeile.querySelectorAll('td')) {
+        for (const angabe of (zelle.textContent ?? '').trim().split(', ')) {
+          if (angabe && !text.includes(angabe)) fehlend.push({ bezirk: name, fehlt: angabe });
+        }
+      }
+    }
+    return fehlend;
+  });
+  expect(luecken, 'die sichtbare Bezirksliste trägt jede Angabe der Bezirkstabelle').toEqual([]);
+  await verifyViewport(page);
+});
+
+/**
+ * Die Bereichsnavigation bleibt mobil erreichbar.
+ *
+ * Sie klebt erst ab 64 rem (DESIGN.md), damit sie darunter keine Bildschirmhöhe kostet – auf der
+ * längsten Portalseite war sie dadurch nach dem ersten Bildschirm nicht mehr zu erreichen. Statt
+ * sie mobil klebend zu machen, trägt jeder Abschnitt einen Rücksprung zu ihr. Sprungziel und
+ * Abschnittsliste kommen aus der Seite, nicht als Zeichenketten aus dem Test.
+ */
+portalTest('Messung: die Bereichsnavigation der Kreisreformseite bleibt mobil erreichbar', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile-'), 'Der Rücksprung wird auf einer Mobilbreite gemessen.');
+  await preparePage(page);
+  await page.goto('/kreisreform/');
+
+  const navigation = page.locator('.section-navigation');
+  const position = await navigation.evaluate((element) => getComputedStyle(element).position);
+  expect(position, 'unterhalb von 64 rem klebt die Bereichsnavigation nicht').toBe('static');
+  const sprungziel = (await navigation.getAttribute('id')) ?? '';
+  expect(sprungziel, 'die Bereichsnavigation trägt ein Sprungziel').not.toBe('');
+
+  const ohneRuecksprung = await page.evaluate((id) => {
+    const sichtbar = (element: Element) => element.checkVisibility?.() !== false;
+    return [...document.querySelectorAll('#main-content section[id]')]
+      .filter(sichtbar)
+      .filter((abschnitt) => ![...abschnitt.querySelectorAll(`a[href="#${id}"]`)].some(sichtbar))
+      .map((abschnitt) => abschnitt.id);
+  }, sprungziel);
+  expect(ohneRuecksprung, 'jeder sichtbare Abschnitt führt in einem Schritt zur Bereichsnavigation zurück').toEqual([]);
+
+  // Und der Rücksprung führt wirklich dorthin: aus dem letzten Abschnitt ein Schritt zurück.
+  // Gewartet wird auf die Lage im Bild, nicht auf eine Zeitspanne – der weiche Bildlauf über die
+  // ganze Seite braucht je nach Seitenlänge unterschiedlich lange.
+  await page.locator('#main-content section[id]').last().locator(`a[href="#${sprungziel}"]`).click();
+  await expect
+    .poll(
+      () => page.evaluate((id) => {
+        const rect = document.getElementById(id)!.getBoundingClientRect();
+        return rect.top >= -1 && rect.bottom <= window.innerHeight;
+      }, sprungziel),
+      // Großzügiger Rahmen statt fester Wartezeit: der weiche Bildlauf (scroll-behavior: smooth)
+      // legt je nach Seitenlänge über tausend Pixel zurück.
+      { message: 'der Rücksprung bringt die Bereichsnavigation ins Bild', timeout: 15_000 },
+    )
+    .toBe(true);
   await verifyViewport(page);
 });
 

@@ -8,6 +8,8 @@ import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
+import { isActiveInterval } from '@ostrecht/shared/lib/portal/organization.ts';
 import {
   getGovernmentMembersUrl,
   getGovernmentUrl,
@@ -19,18 +21,29 @@ import {
   loadCurrentGovernment,
   loadCabinetPageContent,
   loadMinistries,
+  loadOrganizationData,
   loadTopics,
 } from '@ostrecht/shared/lib/portal/content.ts';
 
-const [members, ministries, topics, currentGovernment, cabinetPage] = await Promise.all([
+const [members, ministries, topics, currentGovernment, cabinetPage, organization] = await Promise.all([
   loadCurrentGovernmentMembers(),
   loadMinistries(),
   loadTopics(),
   loadCurrentGovernment(),
   loadCabinetPageContent(),
+  loadOrganizationData(),
 ]);
-const stateCouncilMembers = members.filter((member) => member.slug !== 'emma-mueller');
+// Die Mitgliederzahl folgt der Mitgliedschaft aus dem Organisationsmodell: Staatssekretäre und die
+// Leitung des Büros des Staatspräsidenten sind dem Staatsrat beigeordnet, aber keine Mitglieder.
+const memberSlugs = new Set(currentGovernment.memberPersonSlugs);
+const stateSecretarySlugs = new Set(
+  organization.assignments
+    .filter((entry) => entry.officeSlug === 'staatssekretaer' && isActiveInterval(entry.validFrom, entry.validTo, PORTAL_REFERENCE_DATE))
+    .map((entry) => entry.personSlug),
+);
+const stateCouncilMembers = members.filter((member) => memberSlugs.has(member.slug));
 const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
+const stateSecretaries = members.filter((member) => stateSecretarySlugs.has(member.slug));
 const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
@@ -145,6 +158,19 @@ const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
     </div>
     <div class="card-grid card-grid--two">
       {chancelleryLeadership.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Staatssekretäre</h2>
+      <p>
+        Nach Artikel 59 Absatz 2 Satz 2 der Staatsverfassung sind dem Geschäftsbereich Frieden drei
+        Staatssekretäre beigeordnet. Sie gehören dem Staatsrat nicht als Mitglieder an.
+      </p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {stateSecretaries.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
     </div>
   </section>
 

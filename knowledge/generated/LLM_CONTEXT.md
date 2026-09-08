@@ -2,7 +2,7 @@
 
 > Diese Datei ist ein generierter Überblick. Für rechtliche Detailfragen sind die verknüpften Primärquellen und Normfassungen maßgeblich.
 
-**Redaktioneller Stand:** 2026-09-07
+**Redaktioneller Stand:** 2026-09-08
 
 ## Quellenregeln
 
@@ -125,7 +125,6 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 - **Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?**: Ohne versionierten Ausgangssnapshot darf keine freie Konsolidierung erfolgen.
 - **Welche EAG-bestätigten Vergaben und Beschaffungen wurden tatsächlich ausgeliefert oder in Betrieb genommen?**: Der Discordverlauf endet bei Zuschlag, Bestellung oder angenommener Ansiedlung und enthält keine eindeutigen Vollzugsbelege.
 - **Welche bestätigten EAG-Vorgänge benötigen noch einen Vollzugs- oder Detailbeleg?**: Die EAG bestätigte Grundentscheidungen, der Export enthält aber nicht in allen Fällen Abschluss, Enddatum oder genaue Rechtsfolge.
-- **Welche Personendaten fehlen zu Johanna Schwade und zu den drei Staatssekretären?**: Der Ernennungsakt wurde als Bildschirmfoto zugearbeitet; der Wikiauszug kam ohne Revisionspermalink. Für Personenprofile fehlen Biografie, Kontakt und Bild.
 
 ## Detaildateien
 

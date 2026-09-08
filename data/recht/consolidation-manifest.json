@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-06T13:32:36.805Z",
+  "generatedAt": "2026-09-08T08:35:54.300Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
     "recognizedAmendmentActs": 66,
     "recognizedTargetNorms": 89,
-    "completeTargetNorms": 84,
+    "completeTargetNorms": 85,
     "blockedSourceConflicts": 4,
-    "missingPrimarySources": 1
+    "missingPrimarySources": 0
   },
   "templateProblems": [],
   "ambiguousFindings": [
@@ -1335,11 +1335,12 @@
       "title": "NDR-Staatsvertrag",
       "aliases": [
         "NDR-Staatsvertrages (Vertragsparteien, Gremien, Finanzierung)",
+        "Staatsvertrag über den Norddeutschen Rundfunk",
         "Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom 4./9. März 2021 (GVOBl. M-V S. 797)"
       ],
       "revosaxLawId": null,
       "baselineUrl": "https://www.ndr.de/der_ndr/zahlen_und_daten/staatsvertrag202.pdf",
-      "baselineSnapshotDate": "2023-11-01",
+      "baselineSnapshotDate": "2021-09-01",
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
@@ -1359,17 +1360,31 @@
             "content/verkuendungen/overtrbl-2026-04.json",
             "content/normen/staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt/versions/2026-03-08.json"
           ]
+        },
+        {
+          "id": "ndr-anlage-1-reichweite-2026-09-08",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-09-08",
+          "issue": "Artikel 1 Absatz 1 Nummer 1 des Änderungsstaatsvertrages ordnet an, die Nennung Mecklenburg-Vorpommerns in allen Bestimmungen zu streichen. Anlage 1 setzt das für die Präambel, § 1 Absatz 1, § 2 Absatz 2, § 18 Absatz 1, § 20 Absatz 3, § 25 Absatz 1, § 28 Absatz 6 und § 39 Absatz 1 um; § 49 Absatz 4 bleibt unberührt und nennt Mecklenburg-Vorpommern weiterhin.",
+          "publishedText": "Die konkreten Textänderungen ergeben sich aus Anlage 1 zu diesem Staatsvertrag und sind Bestandteil dieses Staatsvertrags.",
+          "resolvedApplication": "Maßgeblich sind ausschließlich die in Anlage 1 einzeln verkündeten Änderungsbefehle. § 49 Absatz 4 wird unverändert wiedergegeben; eine über die Anlage hinausgehende Streichung wird nicht abgeleitet.",
+          "rationale": "Artikel 1 Absatz 2 bestimmt ausdrücklich, dass sich die konkreten Textänderungen aus Anlage 1 ergeben. Eine Vorschrift ohne Änderungsbefehl heuristisch umzuschreiben, wäre eine Auslegung ohne Primärquelle; sie unterbliebe bei einer späteren amtlichen Berichtigung nachträglich zu Recht.",
+          "evidence": [
+            "Gesetze/OVertrBl. 2026 Nr. 4.html",
+            "content/normen/staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt/versions/2026-03-08.json",
+            "content/normen/ndr-staatsvertrag/versions/2026-09-03.json"
+          ]
         }
       ],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ndr-staatsvertrag",
       "enactingActs": [],
       "amendmentActs": [
         {
           "slug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
           "title": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
           "effectiveDate": "2026-09-03",
-          "detectedType": "staatsvertrag",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-03"
         }
       ],
@@ -1377,11 +1392,9 @@
       "effectiveDates": [
         "2026-09-03"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Maßgebliche amtliche Ausgangsfassung ist bekannt, aber noch nicht unverändert versioniert."
-      ],
-      "nextAction": "Bekannte maßgebliche amtliche Ausgangsfassung unverändert archivieren und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "oberstufen-und-abiturprufungsverordnung",

@@ -1,6 +1,8 @@
 import { siteConfig, type PortalSectionKey } from '@ostrecht/shared/config/site.ts';
 import {
   loadBudgetPages,
+  loadCabinetArchiveDetailSlugs,
+  loadCabinetArchives,
   loadEvents,
   loadFreestatePages,
   loadGovernmentMembers,
@@ -163,14 +165,6 @@ function staticRoutes(): StaticRoute[] {
       section: 'government',
       description: 'Übersicht der früheren Kabinette des Freistaates.',
       searchText: 'Frühere Kabinette Regierungsarchiv Honecker historische Regierungen',
-    },
-    {
-      path: `${getPreviousCabinetsUrl()}honecker-i/`,
-      title: 'Kabinett Honecker I',
-      section: 'government',
-      description: 'Zusammensetzung und Geschäftsbereiche des Kabinetts Honecker I.',
-      searchText: 'Kabinett Honecker I Regierungsarchiv frühere Ressorts',
-      overview: false,
     },
 
     {
@@ -348,18 +342,31 @@ const BUDGET_PAGE_SEARCH_TEXT: Record<string, string> = {
  * Inhaltsquellen abgeleiteten Detailseiten. Sortiert nach Bereich und Adresse.
  */
 export async function buildPortalRouteInventory(): Promise<PortalRoute[]> {
-  const [members, ministries, topics, pressReleases, speeches, events, budgetPages, freestatePages, jobOffers] =
-    await Promise.all([
-      loadGovernmentMembers(),
-      loadMinistries(),
-      loadTopics(),
-      loadPressReleases(),
-      loadSpeeches(),
-      loadEvents(),
-      loadBudgetPages(),
-      loadFreestatePages(),
-      loadJobOffers(),
-    ]);
+  const [
+    members,
+    ministries,
+    topics,
+    pressReleases,
+    speeches,
+    events,
+    budgetPages,
+    freestatePages,
+    jobOffers,
+    cabinetArchives,
+    cabinetArchiveDetailSlugs,
+  ] = await Promise.all([
+    loadGovernmentMembers(),
+    loadMinistries(),
+    loadTopics(),
+    loadPressReleases(),
+    loadSpeeches(),
+    loadEvents(),
+    loadBudgetPages(),
+    loadFreestatePages(),
+    loadJobOffers(),
+    loadCabinetArchives(),
+    loadCabinetArchiveDetailSlugs(),
+  ]);
 
   const dynamic: StaticRoute[] = [
     ...freestatePages.map((page) => ({
@@ -379,6 +386,17 @@ export async function buildPortalRouteInventory(): Promise<PortalRoute[]> {
           : member.amt,
       overview: false,
     })),
+    // Archivstände mit Mitgliederverzeichnis: dieselbe Quelle wie Übersicht und Detailseite.
+    ...cabinetArchives
+      .filter((archive) => cabinetArchiveDetailSlugs.has(archive.slug))
+      .map((archive) => ({
+        path: `${getPreviousCabinetsUrl()}${archive.slug}/`,
+        title: archive.cabinetName,
+        section: 'government' as const,
+        description: archive.summary,
+        searchText: `${archive.cabinetName} Regierungsarchiv frühere Ressorts ${archive.coalition} ${archive.headOfGovernment}`,
+        overview: false,
+      })),
     ...ministries.map((ministry) => ({
       path: getMinistryUrl(ministry.slug),
       title: ministry.name,

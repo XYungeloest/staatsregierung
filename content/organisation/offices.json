@@ -71,6 +71,15 @@
       "exclusive": true,
       "canLeadMinistry": false,
       "requiresMinistry": false
+    },
+    {
+      "slug": "staatssekretaer",
+      "label": "Staatssekretär:in",
+      "role": "other",
+      "membership": "leadership-outside",
+      "exclusive": false,
+      "canLeadMinistry": false,
+      "requiresMinistry": false
     }
   ]
 }

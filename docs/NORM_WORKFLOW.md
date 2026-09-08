@@ -64,6 +64,26 @@ einschließlich der Schritte, die `npm run norms:workflow` nicht ausführt (`doc
 Mehrere `--file`-Argumente sind zulässig. `--quick` lässt Build und UI-Smokes bewusst aus und ist
 nur für lokale Zwischenprüfungen gedacht.
 
+Ein Schreiblauf verändert außer den Dateien der eingepflegten Quelle nichts. Der Materialisierer und
+die Konsolidierung erzeugen übernommene Normen zwar vollständig neu, übernehmen dabei aber die
+redaktionelle Metadatenebene aus dem gespeicherten Datensatz: Titel, Kurzbezeichnung und Abkürzung
+folgen dem Titelmodell (`resolveIdentityFields` in `scripts/lib/norm-title-rules.mjs`), und die
+gepflegte Fundstellennummer der amtlichen Quelle (`fsnNumber`) überlebt die Neuerzeugung der
+Quellenangabe (`retainFsnNumber`). **Daraus folgt: eine Vorschrift wird in
+`content/normen/<slug>/meta.json` umbenannt, nicht in `data/recht/consolidation-sources.json`.**
+`resultTitle`, `resultShortTitle` und `resultAbbr` legen die Bezeichnung nur bei der Neuanlage an
+und bleiben für vorhandene Normen wirkungslos. Nach jedem Schreiblauf gegenprüfen:
+
+```sh
+git status --porcelain -- content/normen   # nur die Verzeichnisse der eingepflegten Quelle
+```
+
+Ziele mit redaktionell versionierter Ausgangsfassung (`existingVersionSeed` in
+`data/recht/consolidation-sources.json`) laufen bewusst nur über `--target`, nicht über `--all`:
+die Rechtsüberleitung des Ergebnisses ist auf übernommenes sächsisches Recht gemünzt und würde in
+eigenen ostdeutschen Vorschriften auch Eigennamen überschreiben. Nach einer Änderung an einem
+solchen Ziel ist `data/recht/consolidation-manifest.json` gegenzuprüfen.
+
 Nach einer Änderung am HTML- oder Markdown-Parser werden die betroffenen eigenen Verkündungen
 gezielt neu eingelesen:
 

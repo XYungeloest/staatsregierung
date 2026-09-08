@@ -3,6 +3,8 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
 
+import { keywordCore, titleWords } from '../../scripts/lib/norm-title-rules.mjs';
+
 /**
  * Die beiden Arbeitslisten der Metadatenpflege sind committete Dateien; sie veralten sonst
  * unbemerkt gegen den Bestand. Geprüft wird ihre innere Stimmigkeit und ihr Bezug zum Bestand,
@@ -100,4 +102,25 @@ test('kein Schlagwort einer übernommenen Vorschrift ist ihre eigene Bezeichnung
   // Titel, Kurzbezeichnung und Abkürzung stehen im Suchindex als eigene Spalten; als Schlagwort
   // wären sie doppelt.
   assert.deepEqual(treffer, [], 'Bezeichnungen gehören nicht zusätzlich in die Schlagwörter');
+});
+
+test('kein Schlagwort des eigenen Bestands ist ein Titelbestandteil ab fünf Zeichen', () => {
+  // Der eigene ostdeutsche Bestand trug die Titelwörter aus dem früheren Kurztitel-Zweig von
+  // scripts/import-normen.mjs. Der Erzeuger bildet sie nicht mehr, die Bestandsbereinigung
+  // (scripts/migrate-own-norm-keywords.mjs) hat sie entfernt — dieser Test hält den Zustand.
+  // Übernommene Vorschriften sind ausgenommen: dort ist das Schlagwort die amtliche Bezeichnung
+  // der REVOSax-Trefferliste, die im Langtitel in Klammern wiederkehrt.
+  const treffer = [];
+  for (const slug of slugs) {
+    const meta = metaOf.get(slug);
+    const fromRevosax = (meta.sourceReferences ?? [])
+      .some((reference) => typeof reference?.lawId === 'string' && reference.lawId);
+    if (fromRevosax) continue;
+    const words = titleWords(meta);
+    for (const keyword of meta.keywords ?? []) {
+      const value = keywordCore(String(keyword));
+      if (value && words.has(value)) treffer.push(`${slug}: ${keyword}`);
+    }
+  }
+  assert.deepEqual(treffer, [], 'Titelbestandteile sind keine Schlagwörter');
 });

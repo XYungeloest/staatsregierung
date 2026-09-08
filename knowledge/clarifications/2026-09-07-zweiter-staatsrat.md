@@ -41,12 +41,16 @@ beendete Zuordnung auf ein aufgelöstes Ressort nur mit diesem Feld zu.
 
 ## Was weiterhin fehlt
 
-- Lebenslauf, Partei- und Kontaktangaben sowie ein Porträt von Johanna Schwade. Das öffentliche
-  Profil führt bis dahin ein Ansichtsbild.
-- Eine amtliche Veröffentlichung zur Ernennung von Finn Bonnano, Kilian Schmidt und Lukas Schmidt
-  zu Staatssekretären im Geschäftsbereich Frieden. Der Wissenshub führt sie als Zuarbeit; das
-  Portal führt keine Staatssekretäre.
-- Der Revisionspermalink des Wikiartikels „Kabinett Honecker III“.
+Zum Stand dieses Dokuments fehlten Lebenslauf, Kontaktangaben und Porträt von Johanna Schwade, eine
+amtliche Veröffentlichung zur Ernennung der drei Staatssekretäre und der Revisionspermalink des
+Wikiartikels „Kabinett Honecker III“.
 
-Die offenen Punkte stehen als `question-second-staatsrat-personnel-records` und im
-Zuarbeitsformular unter V-01a.
+## Nachtrag vom 8. September 2026
+
+Die Zuarbeit vom 8. September 2026 schließt diese Punkte
+(`knowledge/clarifications/2026-09-08-zuarbeit-personen-und-wikiabzuege.md`): Johanna Schwade führt
+ein Porträt, weitere Personendaten liegen nicht vor und werden auch für die übrigen Mitglieder nicht
+geführt; für Ernennungen von Kabinettmitgliedern gibt es keine amtlichen Dokumente; die drei
+Wikiartikel tragen dauerhafte Adressen ohne Revisionsangabe und sind als datierte Abzüge unter
+`context/` archiviert. Die offene Frage `question-second-staatsrat-personnel-records` ist damit
+gegenstandslos und entfernt.

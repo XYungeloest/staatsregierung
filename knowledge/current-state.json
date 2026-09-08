@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-07",
+  "asOf": "2026-09-08",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -465,7 +465,7 @@
       "status": "confirmed-official",
       "validFrom": "2026-09-07",
       "validTo": null,
-      "asOf": "2026-09-07",
+      "asOf": "2026-09-08",
       "summary": "Seit 7. September 2026 besteht der zweite Staatsrat aus vier von der achten Volkskammer als Liste gewählten Mitgliedern: Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe) und Tim Dieter (Wahrheit). Der Staatsrat bestimmte Honecker zum Staatspräsidenten und Schmäle zu dessen Stellvertreter. Der Organisationserlass 09/2026 ordnet den vier Geschäftsbereichen zehn Staatssekretariate zu; das Büro des Staatspräsidenten gehört zu keinem Geschäftsbereich.",
       "sourceRefs": [
         {
@@ -492,6 +492,11 @@
           "sourceId": "source-appointment-staatssekretaere-2026-09-07",
           "locator": "Ernennungsakt vom 7. September 2026",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-zuarbeit-personen-2026-09-08",
+          "locator": "Personenprofile der Staatssekretäre, Porträts und Parteizugehörigkeit",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -504,7 +509,10 @@
         "person-tim-dieter",
         "person-emma-mueller",
         "event-second-staatsrat-formed-2026",
-        "proceeding-second-staatsrat-formation"
+        "proceeding-second-staatsrat-formation",
+        "person-finn-bonnano",
+        "person-kilian-schmidt",
+        "person-lukas-schmidt"
       ],
       "tags": [
         "current-state",
@@ -513,8 +521,8 @@
       "notes": [
         "Die Geschäftsbereiche Überfluss, Frieden, Liebe und Wahrheit lösen die bisherige Ressortgliederung ab. Zwei Staatssekretariate sind eingegliedert, eines ist neu gebildet.",
         "Das Büro des Staatspräsidenten tritt an die Stelle der Staatskanzlei und untersteht dem Staatspräsidenten unmittelbar.",
-        "Drei Staatssekretäre sind dem Staatsrat für Frieden beigeordnet; ihr Amt endet nach Artikel 68 Absatz 1 Satz 2 auch mit dessen Mitgliedschaft. Das öffentliche Organisationsmodell führt keine Ebene unterhalb der Ressortleitung.",
-        "Zu Johanna Schwade sind Amt, Geschäftsbereich und Partei belegt; Lebenslauf und Porträt fehlen."
+        "Drei Staatssekretäre sind dem Staatsrat für Frieden beigeordnet; ihr Amt endet nach Artikel 68 Absatz 1 Satz 2 auch mit dessen Mitgliedschaft. Das Organisationsmodell führt sie seit dem 8. September 2026 als eigenes Amt „staatssekretaer“ unterhalb der Ressortleitung; sie sind keine Mitglieder des Staatsrates und zählen nicht in die Mitgliederzahl.",
+        "Zu Johanna Schwade sind Amt, Geschäftsbereich und Partei belegt; ein Porträt liegt seit dem 8. September 2026 vor. Weitere Personendaten werden auch für die übrigen Mitglieder nicht geführt."
       ],
       "governmentId": "inst-staatsrat",
       "headPersonId": "person-karl-honecker",
@@ -541,18 +549,21 @@
       "stateSecretaries": [
         {
           "name": "Finn Bonnano",
+          "personId": "person-finn-bonnano",
           "responsibility": "Überwachung und Instandhaltung der ostdeutschen Grenzsicherungsanlagen sowie Migration",
           "businessArea": "Frieden",
           "assignedTo": "person-yannik-schmaele"
         },
         {
           "name": "Kilian Schmidt",
+          "personId": "person-kilian-schmidt",
           "responsibility": "Bevölkerungsschutz",
           "businessArea": "Frieden",
           "assignedTo": "person-yannik-schmaele"
         },
         {
           "name": "Lukas Schmidt",
+          "personId": "person-lukas-schmidt",
           "responsibility": "Volkspolizei",
           "businessArea": "Frieden",
           "assignedTo": "person-yannik-schmaele"

@@ -32,8 +32,11 @@ const [members, topics, ministries, currentGovernment] = await Promise.all([
   loadCurrentGovernment(),
 ]);
 const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
-const headOfGovernment = members[0];
-const featuredMembers = members.slice(0, 6);
+const headOfGovernment = members.find((member) => member.slug === currentGovernment.headPersonSlug);
+// Die Auswahl folgt der Mitgliedschaft aus dem Organisationsmodell: Beigeordnete Ämter wie die
+// Staatssekretäre stehen sonst unter der Überschrift „Mitglieder des Staatsrates“.
+const memberSlugs = new Set(currentGovernment.memberPersonSlugs);
+const featuredMembers = members.filter((member) => memberSlugs.has(member.slug)).slice(0, 6);
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const flagshipTopics = [
   'wohnen-und-vergesellschaftung',

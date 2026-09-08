@@ -10,7 +10,11 @@ import {
   isDerivedSummary,
   isTitleFormulaSummary,
   isTitleInitialism,
+  keywordCore,
+  resolveIdentityFields,
+  retainFsnNumber,
   splitParentheticalTitle,
+  titleWords,
 } from '../scripts/lib/norm-title-rules.mjs';
 
 test('eine echte Abkürzung besteht die Regel, Titel- und Kurztitelwiederholungen nicht', () => {
@@ -94,4 +98,53 @@ test('die Klammerform wird in Langtitel, Kurzbezeichnung und Abkürzung geteilt'
     splitParentheticalTitle('Ostdeutsches Testgesetz'),
     { title: 'Ostdeutsches Testgesetz', separator: null },
   );
+});
+
+test('das Titelmodell verwirft eine Kurzbezeichnung, die den Titel wiederholt', () => {
+  const identity = resolveIdentityFields({
+    title: 'Gesetz über die Prüfung von Testfällen',
+    shortTitle: 'Gesetz über die Prüfung von Testfällen',
+    abbr: 'TestPrG',
+  });
+  assert.equal(identity.shortTitle, undefined);
+  assert.equal(identity.abbr, 'TestPrG');
+});
+
+test('das Titelmodell verwirft eine Abkürzung, die den Kurztitel wiederholt', () => {
+  const identity = resolveIdentityFields({
+    title: 'Verwaltungsvorschrift über die Tätigkeit von Testpersonen an Teststellen',
+    shortTitle: 'VwV Testpersonen',
+    abbr: 'VwV Testpersonen',
+  });
+  assert.equal(identity.shortTitle, 'VwV Testpersonen');
+  assert.equal(identity.abbr, undefined);
+});
+
+test('der gepflegte Langtitel gewinnt gegen die Kurzform der Quellenkonfiguration', () => {
+  const gepflegt = 'Gesetz über den Vollzug der Prüfung von Testfällen im Freistaat Ostdeutschland';
+  const identity = resolveIdentityFields({ title: gepflegt ?? 'Ostdeutsches Testprüfgesetz' });
+  assert.equal(identity.title, gepflegt);
+});
+
+test('die Fundstellennummer der amtlichen Quelle überlebt eine neu gebaute Quellenangabe', () => {
+  const previous = new Map([['data/recht/sources/revosax/test/1.1.html', {
+    kind: 'revosax-snapshot',
+    localSource: 'data/recht/sources/revosax/test/1.1.html',
+    fsnNumber: '270-7',
+  }]]);
+  const neu = { kind: 'revosax-snapshot', localSource: 'data/recht/sources/revosax/test/1.1.html' };
+  assert.equal(retainFsnNumber(neu, previous).fsnNumber, '270-7');
+  assert.equal(retainFsnNumber({ localSource: 'anders.html' }, previous).fsnNumber, undefined);
+});
+
+test('Titelbestandteile ab fünf Zeichen sind keine Schlagwörter', () => {
+  const words = titleWords({
+    title: 'Verordnung über die Prüfung von Testfällen',
+    shortTitle: 'Abendgymnasien- und Kollegverordnung',
+  });
+  assert.equal(words.has('Verordnung'), true);
+  assert.equal(words.has('Testfällen'), true);
+  assert.equal(words.has('Abendgymnasien'), true);
+  assert.equal(words.has('über'), false, 'kürzer als fünf Zeichen');
+  assert.equal(keywordCore('-Abendgymnasien-'), 'Abendgymnasien');
 });

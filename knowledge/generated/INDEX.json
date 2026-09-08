@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-09-07",
-  "editorialAsOf": "2026-09-07",
-  "count": 1187,
+  "editorialAsOf": "2026-09-08",
+  "count": 1195,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -11593,6 +11593,19 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-finn-bonnano",
+      "title": "Finn Bonnano",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-freya-warnecke",
       "title": "Freya Warnecke",
       "type": "person",
@@ -11678,6 +11691,19 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-kilian-schmidt",
+      "title": "Kilian Schmidt",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "validFrom": "2026-09-07",
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-liam-fluesterbein",
       "title": "Liam Flüsterbein",
       "type": "person",
@@ -11713,6 +11739,19 @@
         "government"
       ],
       "validFrom": "2026-05-04",
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
+      "id": "person-lukas-schmidt",
+      "title": "Lukas Schmidt",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "validFrom": "2026-09-07",
       "validTo": null,
       "target": "knowledge/entities/persons.json"
     },
@@ -12721,20 +12760,6 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-second-staatsrat-personnel-records",
-      "title": "Welche Personendaten fehlen zu Johanna Schwade und zu den drei Staatssekretären?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question",
-        "government",
-        "persons"
-      ],
-      "validFrom": "2026-09-07",
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "source-abschiebe-aussetzungsverordnung-2024-03-01",
       "title": "Abschiebe-Aussetzungsverordnung in der Fassung der Bekanntmachung vom 1. März 2024",
       "type": "source",
@@ -13444,6 +13469,20 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-editorial-zuarbeit-personen-2026-09-08",
+      "title": "Zuarbeit vom 8. September 2026 zu Personen und Wikiabzügen",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "persons",
+        "government",
+        "history"
+      ],
+      "validFrom": "2026-09-08",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-eex-geschaeftsbericht-2023",
       "title": "Jahresabschluss der European Energy Exchange AG 2023",
       "type": "source",
@@ -13563,6 +13602,19 @@
         "parliament"
       ],
       "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-erster-staatsrat",
+      "title": "Erster Staatsrat",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "history"
+      ],
+      "validFrom": "2026-09-06",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -13841,6 +13893,61 @@
         "history"
       ],
       "validFrom": "2026-05-04",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-kabinett-honecker-i-wiki-2026-09-08",
+      "title": "Kabinett Honecker I, Wikiabzug vom 8. September 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-kabinett-honecker-ii",
+      "title": "Kabinett Honecker II",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "history"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-kabinett-honecker-ii-wiki-2026-09-08",
+      "title": "Kabinett Honecker II und erster Staatsrat, Wikiabzug vom 8. September 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-kabinett-honecker-iii-wiki-2026-09-08",
+      "title": "Kabinett Honecker III, Wikiabzug vom 8. September 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "validFrom": null,
       "validTo": null,
       "target": "knowledge/sources.json"
     },

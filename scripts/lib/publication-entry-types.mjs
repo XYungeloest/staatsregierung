@@ -39,12 +39,16 @@ const COMPATIBLE_NORM_TYPES = {
   gesetz: ['gesetz', 'zustimmungsgesetz', 'aenderungsvorschrift'],
   verordnung: ['verordnung', 'aenderungsvorschrift'],
   verwaltungsvorschrift: ['verwaltungsvorschrift', 'aenderungsvorschrift'],
+  // Ein Änderungsstaatsvertrag wird als Staatsvertrag verkündet und trägt nach der
+  // Konsolidierung den Normtyp der Änderungsvorschrift.
+  staatsvertrag: ['staatsvertrag', 'aenderungsvorschrift'],
 };
 
 export function publicationEntryTypeForNormType(normType, publication = {}) {
   if (normType === 'zustimmungsgesetz') return 'gesetz';
   if (normType === 'aenderungsvorschrift') {
     if (publication.publication === 'StAnzO.') return 'verwaltungsvorschrift';
+    if (/^Staatsvertrag\b/u.test(publication.initialCitation ?? '')) return 'staatsvertrag';
     return /^Verordnung\b/u.test(publication.initialCitation ?? '') ? 'verordnung' : 'gesetz';
   }
   return normType;
@@ -71,7 +75,7 @@ const CITATION_LABELS_BY_NORM_TYPE = {
   staatsvertrag: ['Staatsvertrag', 'Übereinkommen', 'Abkommen', 'Vertrag'],
   verwaltungsabkommen: ['Verwaltungsabkommen', 'Abkommen'],
   zustimmungsgesetz: ['Gesetz'],
-  aenderungsvorschrift: ['Gesetz', 'Verordnung', 'Verwaltungsvorschrift'],
+  aenderungsvorschrift: ['Gesetz', 'Verordnung', 'Verwaltungsvorschrift', 'Staatsvertrag'],
 };
 
 export function citationLabelsForNormType(normType) {

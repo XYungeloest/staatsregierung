@@ -1,0 +1,95 @@
+{
+  "id": "ndr-staatsvertrag",
+  "slug": "ndr-staatsvertrag",
+  "title": "Staatsvertrag über den Norddeutschen Rundfunk",
+  "shortTitle": "NDR-Staatsvertrag",
+  "shortTitleSource": "official",
+  "type": "staatsvertrag",
+  "subjects": [
+    "Presse-, Rundfunk-, Filmwesen",
+    "Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen"
+  ],
+  "primarySubject": "Presse-, Rundfunk-, Filmwesen",
+  "keywords": [
+    "NDR",
+    "NDR-StV",
+    "Norddeutscher Rundfunk",
+    "Rundfunkrat",
+    "Verwaltungsrat",
+    "Landesfunkhaus"
+  ],
+  "initialCitation": "Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom 4./9. März 2021 (GVOBl. M-V S. 797)",
+  "predecessor": null,
+  "successor": null,
+  "summary": "Errichtet den Norddeutschen Rundfunk als gemeinsame Anstalt des öffentlichen Rechts der vertragschließenden Länder und regelt Auftrag, Angebote, Rundfunkrat, Verwaltungsrat, Intendanz, Wirtschaftsführung, Aufsicht und Datenschutz.",
+  "status": "in-force",
+  "documentDate": "2021-03-09",
+  "dateNote": "Am 4. März 2021 (Hamburg), 5. März 2021 (Niedersachsen), 8. März 2021 (Schleswig-Holstein) und 9. März 2021 (Mecklenburg-Vorpommern) unterzeichnet und amtlich als „vom 4./9. März 2021“ zitiert. Nach § 52 Absatz 1 am 1. September 2021 in Kraft getreten.",
+  "effectiveDate": "2021-09-01",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Unveränderte amtliche Verkündungsfassung des Niedersächsischen Vorschrifteninformationssystems",
+      "availability": "versioned",
+      "localSource": "Gesetze/NDR-Staatsvertrag.html",
+      "sha256": "0d6aec03a0855b329af0aa2d74b028f7e4c140a154e16f97364b94273ccea6aa",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-09-08",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche Vertragsfassung des Norddeutschen Rundfunks",
+      "availability": "versioned",
+      "localSource": "Gesetze/NDR-Staatsvertrag.pdf",
+      "url": "https://www.ndr.de/der_ndr/zahlen_und_daten/staatsvertrag202.pdf",
+      "sha256": "91f1bef329acdfc74735a7bf8607783bdd3a0b9af805892934e693fc1735907a",
+      "mediaType": "application/pdf",
+      "pageCount": 30,
+      "pageRange": "1–30",
+      "verifiedAt": "2026-09-08",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/NDR-Staatsvertrag.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OVertrBl. 2026 Nr. 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OVertrBl. 2026 Nr. 4.html"
+    }
+  ],
+  "affectedByNorms": [
+    "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "ndr-vertragsblatt-4-quellenkorrektur-2026-09-02",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-09-02",
+      "issue": "Die zuvor versionierte und gesperrte Fassung von OVertrBl. 2026 Nr. 4 enthielt in Anlage 1 einen fehlerhaften unausgefüllten Mustergesetz-Platzhalter anstelle der tatsächlich geänderten Ausgangsnorm.",
+      "publishedText": "Der Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom 4./9. März 2021 (GVOBl. M-V S. 797) wird wie folgt geändert:",
+      "resolvedApplication": "Für die Erfassung des Änderungsstaatsvertrags ist ausschließlich die korrigierte Fassung von OVertrBl. 2026 Nr. 4 maßgeblich. Der frühere Mustergesetz-Platzhalter wird nicht als eigene Zielnorm ausgewertet.",
+      "rationale": "Die frühere Fassung beruhte auf einem Fehler in den Quellen. Die korrigierte strukturtragende HTML-Fassung und die dazugehörige PDF-Fassung bezeichnen übereinstimmend den NDR-Staatsvertrag als Zielnorm und ersetzen die gesperrte fehlerhafte Ausgabe.",
+      "evidence": [
+        "Gesetze/OVertrBl. 2026 Nr. 4.html",
+        "Gesetze/OVertrBl. 2026 Nr. 4.pdf",
+        "content/verkuendungen/overtrbl-2026-04.json",
+        "content/normen/staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt/versions/2026-03-08.json"
+      ]
+    },
+    {
+      "id": "ndr-anlage-1-reichweite-2026-09-08",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-09-08",
+      "issue": "Artikel 1 Absatz 1 Nummer 1 des Änderungsstaatsvertrages ordnet an, die Nennung Mecklenburg-Vorpommerns in allen Bestimmungen zu streichen. Anlage 1 setzt das für die Präambel, § 1 Absatz 1, § 2 Absatz 2, § 18 Absatz 1, § 20 Absatz 3, § 25 Absatz 1, § 28 Absatz 6 und § 39 Absatz 1 um; § 49 Absatz 4 bleibt unberührt und nennt Mecklenburg-Vorpommern weiterhin.",
+      "publishedText": "Die konkreten Textänderungen ergeben sich aus Anlage 1 zu diesem Staatsvertrag und sind Bestandteil dieses Staatsvertrags.",
+      "resolvedApplication": "Maßgeblich sind ausschließlich die in Anlage 1 einzeln verkündeten Änderungsbefehle. § 49 Absatz 4 wird unverändert wiedergegeben; eine über die Anlage hinausgehende Streichung wird nicht abgeleitet.",
+      "rationale": "Artikel 1 Absatz 2 bestimmt ausdrücklich, dass sich die konkreten Textänderungen aus Anlage 1 ergeben. Eine Vorschrift ohne Änderungsbefehl heuristisch umzuschreiben, wäre eine Auslegung ohne Primärquelle; sie unterbliebe bei einer späteren amtlichen Berichtigung nachträglich zu Recht.",
+      "evidence": [
+        "Gesetze/OVertrBl. 2026 Nr. 4.html",
+        "content/normen/staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt/versions/2026-03-08.json",
+        "content/normen/ndr-staatsvertrag/versions/2026-09-03.json"
+      ]
+    }
+  ]
+}

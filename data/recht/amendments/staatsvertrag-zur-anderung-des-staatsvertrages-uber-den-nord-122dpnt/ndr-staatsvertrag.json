@@ -1,0 +1,365 @@
+{
+  "amendmentAct": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
+  "effectiveDate": "2026-09-03",
+  "versionId": "2026-09-03",
+  "amendmentCitation": "Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)",
+  "resultCitation": "Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom 4./9. März 2021 (GVOBl. M-V S. 797), geändert durch Artikel 1 des Staatsvertrages vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)",
+  "changeNote": "Die Präambel, das Sendegebiet, die Landesfunkhäuser, die Zusammensetzung von Rundfunkrat und Verwaltungsrat, der Vorsitzwechsel und die Rechtsaufsicht wurden auf das Land Niedersachsen-Holstein umgestellt; die Mitträgerschaft Mecklenburg-Vorpommerns entfällt.",
+  "commandCoverage": [
+    "Anlage 1 Nummern 1 bis 8"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OVertrBl. 2026 Nr. 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OVertrBl. 2026 Nr. 4.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Freie und Hansestadt Hamburg, vertreten durch den Senat, das Land Mecklenburg-Vorpommern, vertreten durch die Ministerpräsidentin, das Land Niedersachsen, vertreten durch den Ministerpräsidenten, und das Land Schleswig-Holstein, vertreten durch den Ministerpräsidenten, - zusammen in diesem Staatsvertrag \"die Länder\" genannt - schließen vorbehaltlich der Zustimmung ihrer verfassungsmäßig berufenen Organe den nachstehenden Staatsvertrag:"
+      },
+      "field": "text",
+      "expectedOld": "Die Freie und Hansestadt Hamburg, vertreten durch den Senat, das Land Mecklenburg-Vorpommern, vertreten durch die Ministerpräsidentin, das Land Niedersachsen, vertreten durch den Ministerpräsidenten, und das Land Schleswig-Holstein, vertreten durch den Ministerpräsidenten, - zusammen in diesem Staatsvertrag \"die Länder\" genannt - schließen vorbehaltlich der Zustimmung ihrer verfassungsmäßig berufenen Organe den nachstehenden Staatsvertrag:",
+      "value": "Das Land Niedersachsen-Holstein, vertreten durch den Ministerpräsidenten, vertreten durch den Ministerpräsidenten, – zusammen in diesem Staatsvertrag „die Länder“ genannt – schließt vorbehaltlich der Zustimmung seiner verfassungsmäßig berufenen Organe den nachstehenden Staatsvertrag:",
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 1",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "expectedHash": "e7acbb94f9a7e98ac28a4cee20e934311a2efb87b4451059815775c227c44e12",
+      "value": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Der Norddeutsche Rundfunk (NDR) ist eine gemeinnützige, rechtsfähige Anstalt des öffentlichen Rechts zur Herstellung und Verbreitung von Rundfunkprogrammen und Telemedien in der ehemaligen Freien und Hansestadt Hamburg und den ehemaligen Ländern Niedersachsen und Schleswig-Holstein (Sendegebiet).",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 2",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 2"
+      },
+      "expectedHash": "7d6b7e27a759b592621f461ad1ca443e7b804d797e66e7a5bb446d74d46a3801",
+      "value": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Der NDR unterhält Funkhäuser in Hamburg, Hannover und Kiel (Landesfunkhäuser) sowie Regionalstudios in Niedersachsen und Schleswig-Holstein. Die Regionalstudios sind dem Funkhaus des Landes zugeordnet, in dem sie betrieben werden.",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 3",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 20"
+      },
+      "expectedHash": "0764b2d1892d62c0c2b05b51cd39c6529044d13d96d10302b5cf7af939ed3b95",
+      "value": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "text": "Der Rundfunkrat wählt jeweils ein Mitglied für die Funktionen Vorsitz sowie erste, zweite und dritte Stellvertretung für die Dauer von 15 Monaten. Die Mitglieder sollen möglichst verschiedenen Ländern angehören; dabei darf kein Land mit mehr als zwei Funktionen vertreten sein. Der Vorsitz muss gleichermaßen aus Frauen und Männern bestehen. Der Vorsitz wechselt nach Ländern in der Reihenfolge Schleswig-Holstein – Niedersachsen – Hamburg.",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 5",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 25"
+      },
+      "expectedHash": "4068d530200d6fafef832efc21ab7b7418bdede88058295d678523ceca631757",
+      "value": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Der Verwaltungsrat besteht aus zwölf Mitgliedern, die vom Rundfunkrat gewählt werden, und zwar sieben Mitgliedern aus Niedersachsen, zwei Mitgliedern aus Hamburg und drei Mitgliedern aus Schleswig-Holstein, wovon jeweils die Hälfte Frauen sein sollen. Von den in den Verwaltungsrat gewählten Mitgliedern müssen auf Frauen und Männer jeweils fünfzig vom Hundert entfallen. § 18 Absatz 2 Satz 6 gilt entsprechend.",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 6",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "a)"
+      },
+      "expectedHash": "c2c379a86fdea10558da0530330903171af3f4a4e84461bbfcdb531f7b2082a2",
+      "value": {
+        "type": "item",
+        "label": "a)",
+        "text": "neun Mitglieder die in den gesetzgebenden Körperschaften der Länder vertretenen Parteien, davon vier aus Niedersachsen, zwei aus Hamburg und drei aus Schleswig-Holstein, entsprechend ihrem Stärkeverhältnis nach dem Höchstzahlverfahren d’Hondt, sowie",
+        "level": 1,
+        "numberingStyle": "lower-latin",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe a",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "da072471b9f3391e8abb1c6ea5532d68cc83c5c8e115cc55c7d79e137b5d95b1",
+      "value": {
+        "type": "item",
+        "label": "2.",
+        "text": "zwei Mitglieder die evangelischen Kirchen und zwei Mitglieder die römisch-katholische Kirche, davon ein Mitglied aus Hamburg, zwei Mitglieder aus Niedersachsen und ein Mitglied aus Schleswig-Holstein,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe b",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "4.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "a8e2076c8a11f7dd51e18ba32dd1a614e0b8020891104ef25a7df654d83e45db",
+      "value": {
+        "type": "item",
+        "label": "4.",
+        "text": "vier Mitglieder der Deutsche Gewerkschaftsbund, ein Mitglied die Vereinte Dienstleistungsgewerkschaft (Ver.di), ein Mitglied der Deutsche Beamtenbund, davon vier aus Niedersachsen und je eines aus Hamburg und Schleswig-Holstein,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe c",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "5.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "2b24988351814e90d2345959cac9584341e4b4c036685e5715abcbb053045096",
+      "value": {
+        "type": "item",
+        "label": "5.",
+        "text": "drei Mitglieder die Arbeitgeberverbände, davon zwei aus dem Bereich der Industrie und eines aus dem Bereich des Handels, ein Mitglied die Handwerksverbände, ein Mitglied die Verbände der Freien Berufe, und zwar drei aus Niedersachsen und je eines aus Hamburg und Schleswig-Holstein, dabei im Falle Hamburgs für Industrie, Handel und Handwerk an Stelle der Landesvereinigungen jeweils die Kammer,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe d",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "6.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "7b604ff1534319afbc0ef04c3e0196d372ef6aad856d26e80ead424c9091b3d7",
+      "value": {
+        "type": "item",
+        "label": "6.",
+        "text": "ein Mitglied ein Bauernverband aus Niedersachsen,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe e",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "8.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "09c161a445dad69eacf0630ae08f67d65fdba0c2fe179203b855a558fa75e14c",
+      "value": {
+        "type": "item",
+        "label": "8.",
+        "text": "je ein Mitglied der Landessportbund aus Niedersachsen und der Landessportbund aus Schleswig-Holstein,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe f",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "10.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "fad96d5ae7da99485441e79e983acbc3727ba8053e164a1eb68f515fbfb33aa2",
+      "value": {
+        "type": "item",
+        "label": "10.",
+        "text": "ein Mitglied ein Haus- und Grundeigentümerverein e. V. aus Niedersachsen, ein Mitglied der Deutsche Mieterbund, Landesverband Schleswig-Holstein e. V., sowie ein Mitglied die in Hamburg mit der Verbraucherberatung betraute Institution,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe g",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "11.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "b9be3aefc653dcfa3c8dcef027b2763b7587e811adb4358da50c41dc14f26c1e",
+      "value": {
+        "type": "item",
+        "label": "11.",
+        "text": "ein Mitglied die Landesarbeitsgemeinschaft der Freien Wohlfahrtspflege in Niedersachsen, ein Mitglied die Arbeiterwohlfahrt, Landesverband Schleswig-Holstein e. V., ein Mitglied das Diakonische Werk aus Hamburg und ein Mitglied der Deutsche Caritasverband e. V. aus Niedersachsen,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe h",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "13.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "dd7504122273452a84abe0a982eaa3f88aaea3a86e5f0804f9d2b6f538ebe518",
+      "value": {
+        "type": "item",
+        "label": "13.",
+        "text": "ein Mitglied Robin Wood e. V. aus Hamburg, ein Mitglied der BUND aus Niedersachsen, ein Mitglied der Landesnaturschutzverband Schleswig-Holstein e. V. und ein Mitglied der Landesverband Bürgerinitiativen Umweltschutz aus Niedersachsen, ein Mitglied ein Heimatverband aus Schleswig-Holstein,",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe i",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "item",
+        "label": "16.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "74120ae3d7bf7d578efbadc52b8d9d4cc415ec803121d1ec73581923c81a8294",
+      "value": {
+        "type": "item",
+        "label": "16.",
+        "text": "ein Mitglied der Verband der Opfer des Stalinismus aus Niedersachsen und ein Mitglied die Aktion Sühnezeichen aus Niedersachsen.",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 4 Buchstabe j",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 28"
+      },
+      "field": "text",
+      "expectedOld": "Der Verwaltungsrat wählt seinen Vorsitzenden oder seine Vorsitzende und dessen oder deren Stellvertreter oder Stellvertreterin für die Dauer von 15 Monaten. Der Vorsitz wechselt nach Ländern in der Reihenfolge Niedersachsen - Hamburg - Mecklenburg-Vorpommern - Schleswig-Holstein. Für die Wahl des oder der stellvertretenden Vorsitzenden gilt die umgekehrte Reihenfolge.",
+      "value": "Der Verwaltungsrat wählt seinen Vorsitzenden oder seine Vorsitzende und dessen oder deren Stellvertreter oder Stellvertreterin für die Dauer von 15 Monaten. Der Vorsitz wechselt nach Ländern in der Reihenfolge Niedersachsen – Hamburg – Schleswig-Holstein. Für die Wahl des oder der stellvertretenden Vorsitzenden gilt die umgekehrte Reihenfolge.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 7",
+      "effectiveDate": "2026-09-03"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 39"
+      },
+      "field": "text",
+      "expectedOld": "Die Regierungen der Länder führen die Aufsicht über den NDR hinsichtlich der Einhaltung der Bestimmungen dieses Staatsvertrages und der allgemeinen Rechtsvorschriften. Sie nehmen diese Aufgabe durch die Regierung eines der Länder im Wechsel von 18 Monaten wahr. Der Wechsel erfolgt in der Reihenfolge Hamburg - Niedersachsen - Schleswig-Holstein - Mecklenburg-Vorpommern. Die jeweils aufsichtsführende Regierung beteiligt die anderen Regierungen vor der Einleitung von Maßnahmen und bemüht sich um ein Einvernehmen.",
+      "value": "Die Regierungen der Länder führen die Aufsicht über den NDR hinsichtlich der Einhaltung der Bestimmungen dieses Staatsvertrages und der allgemeinen Rechtsvorschriften. Sie nehmen diese Aufgabe durch die Regierung eines der Länder im Wechsel von 18 Monaten wahr. Der Wechsel erfolgt in der Reihenfolge Hamburg – Niedersachsen – Schleswig-Holstein. Die jeweils aufsichtsführende Regierung beteiligt die anderen Regierungen vor der Einleitung von Maßnahmen und bemüht sich um ein Einvernehmen.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OVertrBl. 2026 Nr. 4.html",
+      "sourceProvision": "Anlage 1 Nummer 8",
+      "effectiveDate": "2026-09-03"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getActionPlanUrl,
+  getCabinetUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getPreviousCabinetsUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import {
+  loadCabinetArchiveDetailSlugs,
+  loadCabinetArchives,
+  type Kabinettsarchiv,
+} from '@ostrecht/shared/lib/portal/content.ts';
+
+// Ein Glob über alle Archivverzeichnisse statt eines je Kabinett: der Verzeichnisname ist der
+// Slug des Archivstands und zugleich der letzte Adressbestandteil.
+const memberModules = import.meta.glob('../../../../../../content/regierung/archiv/*/mitglieder/*.json', {
+  eager: true,
+  import: 'default',
+});
+const ministryModules = import.meta.glob('../../../../../../content/regierung/archiv/*/ressorts/*.json', {
+  eager: true,
+  import: 'default',
+});
+
+const segmentOf = (key: string): string =>
+  key.match(/\/archiv\/([^/]+)\/(?:mitglieder|ressorts)\//u)?.[1] ?? '';
+
+function entriesOf<T>(modules: Record<string, unknown>, slug: string): T[] {
+  return Object.entries(modules)
+    .filter(([key]) => segmentOf(key) === slug)
+    .map(([, value]) => value as T);
+}
+
+export async function getStaticPaths() {
+  const [archives, detailSlugs] = await Promise.all([
+    loadCabinetArchives(),
+    loadCabinetArchiveDetailSlugs(),
+  ]);
+
+  return archives
+    .filter((archive) => detailSlugs.has(archive.slug))
+    .map((archive) => ({
+      params: { slug: archive.slug },
+      props: { archive },
+    }));
+}
+
+const { archive } = Astro.props as { archive: Kabinettsarchiv };
+
+const members = entriesOf<{ name: string; amt: string; ressort: string; reihenfolge: number }>(
+  memberModules,
+  archive.slug,
+).sort((left, right) => left.reihenfolge - right.reihenfolge);
+const ministries = entriesOf<{ name: string; kurzname: string; leitung: string }>(
+  ministryModules,
+  archive.slug,
+).sort((left, right) => left.name.localeCompare(right.name, 'de'));
+---
+
+<BaseLayout
+  title={archive.cabinetName}
+  description={`Historischer Archivstand: ${archive.cabinetName} mit Amtszeit, Mitgliedern und Geschäftsbereichen.`}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Frühere Kabinette', href: getPreviousCabinetsUrl() },
+      { label: archive.cabinetName },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Archivierte Staatsregierung</p>
+    <h1>{archive.cabinetName}</h1>
+    <p class="lead">{archive.summary}</p>
+    <nav class="hero-actions" aria-label="Archivnavigation">
+      <a class="button-link" href={getCabinetUrl()}>Zum aktuellen Staatsrat</a>
+      <a class="button-link button-link--secondary" href={getActionPlanUrl()}>Aktueller 15-Punkte-Plan II</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Mitglieder</span>
+        <strong>{members.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Geschäftsbereiche</span>
+        <strong>{ministries.length}</strong>
+      </div>
+    </div>
+    <dl class="fact-list">
+      <div>
+        <dt>Amtszeit</dt>
+        <dd><time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time></dd>
+      </div>
+      <div><dt>Koalition</dt><dd>{archive.coalition}</dd></div>
+      <div><dt>Leitung</dt><dd>{archive.headOfGovernment}</dd></div>
+      <div><dt>Stellvertretung</dt><dd>{archive.deputyHead}</dd></div>
+    </dl>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Historische Einordnung</h2>
+      <p>
+        Der Bestand gibt den Stand zum Ende der Amtszeit am
+        <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time> wieder. Er wird
+        nicht fortgeschrieben; die laufende Regierungsarbeit steht beim aktuellen Staatsrat.
+      </p>
+    </div>
+    <div class="body-copy">
+      <p>
+        Getragen wurde diese Regierung von einer Koalition aus {archive.coalition}.
+        {archive.headOfGovernment} führte sie; die Stellvertretung lag bei {archive.deputyHead}.
+      </p>
+      <p>
+        Die folgenden Verzeichnisse führen die damalige Zusammensetzung und die Geschäftsbereiche mit
+        ihren seinerzeitigen Bezeichnungen. Personenprofile und Ressortseiten des laufenden Betriebs
+        bleiben davon unberührt.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Mitglieder im Archivstand</h2>
+      <p>Die Liste zeigt die Zusammensetzung mit den damaligen Amtsbezeichnungen.</p>
+    </div>
+    <ul class="record-list">
+      {members.map((member) => (
+        <li class="record-list__item">
+          <strong>{member.name}</strong>
+          <span>{member.amt}</span>
+          <span>{member.ressort}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Geschäftsbereiche im Archivstand</h2>
+      <p>Die Bezeichnungen entsprechen dem Stand am Ende der Amtszeit.</p>
+    </div>
+    <ul class="record-list">
+      {ministries.map((ministry) => (
+        <li class="record-list__item">
+          <strong>{ministry.name}</strong>
+          <span>Leitung: {ministry.leitung}</span>
+          <span>Kurzbezeichnung: {ministry.kurzname}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

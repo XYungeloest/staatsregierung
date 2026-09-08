@@ -4,6 +4,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
+import { keywordCore, titleWords } from './lib/norm-title-rules.mjs';
 import { adaptSaxonText, hasSaxonResidual } from './lib/revosax-ost-adapter.mjs';
 import { resolveRepositoryRoot } from '../packages/shared/src/lib/repository-root.ts';
 
@@ -88,34 +89,20 @@ function lawIdsOf(meta) {
 }
 
 /**
- * Genau die Wörter, die der Massenimport als Schlagwort erzeugt hätte: Titel und Kurztitel an
- * Nicht-Wortzeichen zerlegt, mindestens fünf Zeichen, ohne die Füll- und Gattungswörter der
- * Stoppliste. Die Regel ist die des früheren `inferKeywords` (scripts/lib/revosax-metadata.mjs vor
- * dieser Änderung) und die des Kurztitel-Zweigs in scripts/import-normen.mjs — wer entfernt, muss
- * dasselbe Muster treffen, das erzeugt wurde, sonst verschwinden redaktionelle Begriffe mit.
+ * Die Regel, welche Schlagwörter bloße Titelbestandteile sind, steht als gemeinsame Regel in
+ * scripts/lib/norm-title-rules.mjs (`titleWords`, `keywordCore`, `TITLE_WORD_MIN_LENGTH`). Sie
+ * trifft beide Erzeuger: den REVOSax-Massenimport (Zerlegung an Nicht-Wortzeichen unter Erhalt des
+ * Bindestrichs) und den früheren Kurztitel-Zweig von scripts/import-normen.mjs (Zerlegung an
+ * Leerzeichen). Wer entfernt oder prüft, muss dasselbe Muster treffen, das erzeugt wurde, sonst
+ * verschwinden redaktionelle Begriffe mit — deshalb hält dieses Werkzeug keine eigene Kopie mehr.
+ * Die Stoppliste des Erzeugers bleibt dabei außen vor: ein Titelbestandteil ist ein
+ * Titelbestandteil, gleich ob der Erzeuger ihn seinerzeit übersprungen hätte.
  */
-const MASS_IMPORT_MIN_WORD_LENGTH = 5;
 
 function designationNames(meta) {
   return new Set([meta.title, meta.shortTitle, meta.abbr]
     .map((value) => (typeof value === 'string' ? value.trim() : ''))
     .filter(Boolean));
-}
-
-function massImportTitleWords(meta) {
-  const words = new Set();
-  for (const source of [meta.title, meta.shortTitle]) {
-    const text = String(source ?? '');
-    // Beide Zerlegungen der beiden Erzeuger: an Nicht-Wortzeichen unter Erhalt des Bindestrichs
-    // (REVOSax-Massenimport) und an Leerzeichen (Kurztitel-Zweig des HTML-Importers). Die
-    // Stoppliste des Erzeugers bleibt hier außen vor: ein Titelbestandteil ist ein
-    // Titelbestandteil, gleich ob der Erzeuger ihn seinerzeit übersprungen hätte.
-    for (const raw of [...text.split(/[^\p{L}\p{N}-]+/u), ...text.split(/\s+/u)]) {
-      const value = raw.trim().replace(/^-+|-+$/gu, '');
-      if (value.length >= MASS_IMPORT_MIN_WORD_LENGTH) words.add(value);
-    }
-  }
-  return words;
 }
 
 /**
@@ -177,15 +164,15 @@ function versionDesignationsOf(slug, meta) {
  */
 export function keywordsWithProvenance(slug, meta, labels) {
   const names = designationNames(meta);
-  const titleWords = massImportTitleWords(meta);
-  // Verglichen wird die randbereinigte Form: „Abendgymnasien-“ ist derselbe Titelbestandteil wie
-  // „Abendgymnasien“, nur mit dem Bindestrich einer aufgetrennten Wortverbindung.
-  const kern = (value) => value.replace(/^-+|-+$/gu, '');
+  const titleWordSet = titleWords(meta);
+  // Verglichen wird die randbereinigte Form (`keywordCore`): „Abendgymnasien-“ ist derselbe
+  // Titelbestandteil wie „Abendgymnasien“, nur mit dem Bindestrich einer aufgetrennten
+  // Wortverbindung.
   const kept = (meta.keywords ?? [])
     .map((value) => String(value ?? '').trim())
     // Ein Wert mit Bindestrich am Rand ist die Hälfte einer aufgetrennten Wortverbindung
     // („Land- und Forstwirtschaft“ → „Land-“) und nie eine Bezeichnung, unter der jemand sucht.
-    .filter((value) => value && !names.has(value) && !titleWords.has(kern(value)) && !/^-|-$/u.test(value));
+    .filter((value) => value && !names.has(value) && !titleWordSet.has(keywordCore(value)) && !/^-|-$/u.test(value));
   const manifest = manifestDesignations(meta, labels);
   const versions = versionDesignationsOf(slug, meta);
   const seen = new Set();

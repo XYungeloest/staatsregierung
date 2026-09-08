@@ -58,8 +58,18 @@ content/
   regierung/
     cabinet-page.json
     archiv/
-      kabinett-honecker-i.json
+      honecker-i.json
+      honecker-ii.json
+      erster-staatsrat.json
+      delgado.json
+      schmidt.json
       honecker-i/
+        mitglieder/*.json
+        ressorts/*.json
+      honecker-ii/
+        mitglieder/*.json
+        ressorts/*.json
+      erster-staatsrat/
         mitglieder/*.json
         ressorts/*.json
     mitglieder/*.json
@@ -223,6 +233,10 @@ Titel gebildete Initialenfolge. `abbr` darf ausschließlich aus einer Primärque
 Redaktionelle Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht; ohne
 `shortTitle` entfällt auch dieses Feld. Die gemeinsamen Regeln stehen in
 `scripts/lib/norm-title-rules.mjs` und werden von Import, Materialisierung und `content:check` genutzt.
+Schlagwörter (`keywords`) sind Zweitbezeichnungen und Nutzerbegriffe. Ein Titelbestandteil ab fünf
+Zeichen ist kein Schlagwort: Titel und Kurzbezeichnung stehen im Volltextindex als eigene Spalten.
+`content:check` weist ein solches Schlagwort zurück; übernommene Vorschriften bleiben ausgenommen,
+weil dort die amtliche Bezeichnung der REVOSax-Trefferliste im Langtitel in Klammern wiederkehrt.
 
 Öffentlich gilt überall derselbe Titelblock (`getNormTitleBlock`): Überschrift ist die
 Kurzbezeichnung, sonst der Titel; der Langtitel steht darunter, wenn er von der Überschrift abweicht;
@@ -516,6 +530,7 @@ Optionale Felder:
 - `bildAlt`
 - `kontakt`
 - `zitat`
+- `party`
 
 Format:
 
@@ -541,14 +556,20 @@ Format:
 Pfade:
 
 ```text
-content/regierung/archiv/kabinett-honecker-i.json
-content/regierung/archiv/honecker-i/mitglieder/[slug].json
-content/regierung/archiv/honecker-i/ressorts/[slug].json
+content/regierung/archiv/[slug].json
+content/regierung/archiv/[slug]/mitglieder/[person].json
+content/regierung/archiv/[slug]/ressorts/[ressort].json
 ```
+
+Der `slug` ist zugleich Dateiname, Verzeichnisname und letzter Bestandteil der Adresse unter
+`/staatsregierung/fruehere-kabinette/`. Übersicht, Detailseite, Routeninventar, Sitemap und
+Suchindex entstehen aus dem Verzeichnis; eine Detailseite gibt es genau dann, wenn ein
+`mitglieder/`-Verzeichnis vorliegt. Ein Archivstand ohne Mitgliederliste erscheint als Karte ohne
+Verweis.
 
 Archivierte Kabinette dokumentieren abgeschlossene Regierungsstände. Sie sind inhaltlich eigenständige Archivstände und werden nicht automatisch aus dem aktuellen Kabinett abgeleitet. Änderungen am aktuellen Kabinett müssen deshalb nicht rückwirkend in Archivdateien übernommen werden.
 
-`kabinett-honecker-i.json` beschreibt den Archivstand als Ganzes.
+Die Datei `[slug].json` beschreibt den Archivstand als Ganzes.
 
 Pflichtfelder:
 

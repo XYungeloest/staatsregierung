@@ -55,6 +55,14 @@ export {
   loadTopics,
 } from '@ostrecht/shared/lib/portal/norm-portal-content.ts';
 
+// Archivstände früherer Regierungen: eigener Parser außerhalb von schema.ts, weil schema.ts im
+// Code-Abschluss der D1-Projektion liegt (Begründung in cabinet-archive.ts).
+export {
+  loadCabinetArchives,
+  loadCabinetArchiveDetailSlugs,
+  type Kabinettsarchiv,
+} from '@ostrecht/shared/lib/portal/cabinet-archive.ts';
+
 export async function loadGovernmentProfiles(): Promise<RegierungProfil[]> {
   return loadCollection(
     portalCollections.regierungMitglied.directorySegments,

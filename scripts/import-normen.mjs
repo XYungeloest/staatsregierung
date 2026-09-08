@@ -409,7 +409,7 @@ const NEW_PUBLICATION_CONFIG = {
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
     subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
-    keywords: ['Interflug', 'Gründungsvorstand', 'Joachim Hunold', 'Ralf Teckentrup', 'Klaus Wowereit'],
+    keywords: ['Gründungsvorstand', 'Joachim Hunold', 'Ralf Teckentrup', 'Klaus Wowereit'],
     summary: 'Bestellt Joachim Hunold, Ralf Teckentrup und Klaus Wowereit mit Wirkung vom 3. September 2026 zu Mitgliedern des Gründungsvorstandes der Interflug und begrenzt die Bestellung auf die Gründungsphase.',
     effectiveOverride: '2026-09-03',
     relatedNorms: ['interflug-gesetz', 'gesetz-zur-errichtung-der-interflug', 'bekanntmachung-beschaffung-anfangsflotte-interflug'],
@@ -426,7 +426,7 @@ const NEW_PUBLICATION_CONFIG = {
     enactingBody: 'Gründungsvorstand der Interflug',
     responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
     subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
-    keywords: ['Interflug', 'Anfangsflotte', 'Löschflugzeuge', 'AT-802F Fire Boss', 'Dash 8-400AT', 'Boeing 737-700 FireLiner', 'Beschaffungsprogramm'],
+    keywords: ['Löschflugzeuge', 'AT-802F Fire Boss', 'Dash 8-400AT', 'Boeing 737-700 FireLiner', 'Beschaffungsprogramm'],
     summary: 'Macht die nach § 21 des Interflug-Gesetzes beschlossene Beschaffung der Anfangsflotte aus zehn Löschflugzeugen mit einem Beschaffungsvolumen von bis zu 105,5 Millionen Euro bekannt.',
     effectiveOverride: '2026-09-03',
     relatedNorms: ['interflug-gesetz', 'gesetz-zur-errichtung-der-interflug', 'bekanntmachung-bestellung-gruendungsvorstand-interflug'],
@@ -448,6 +448,23 @@ const NEW_PUBLICATION_CONFIG = {
     effectiveOverride: '2026-09-07',
     relatedNorms: ['staatsverfassung-des-freistaates-ostdeutschland', 'erstes-gesetz-zur-grossen-staatsreform'],
     dateNote: 'Am 7. September 2026 verkündet. Die Bekanntmachung des Präsidenten der Volkskammer dokumentiert die Wahl des Staatsrates als Liste nach Artikel 60 Absatz 1 in Verbindung mit Artikel 60 Absatz 2 Satz 2 der Staatsverfassung; mit dieser Wahl sind die bisherigen Mitglieder des Staatsrates abberufen. Sie begründet keine fortgeltende Regelung.',
+  }],
+  'StAnzO.|2026|43': [{
+    slug: 'vwv-ddr-reimport-kleinkraftraeder',
+    shortTitle: 'VwV DDR-Reimport-Kleinkrafträder',
+    abbr: 'VwV DDR-Reimport-Kleinkrafträder',
+    type: 'verwaltungsvorschrift',
+    pageCount: 6,
+    pdfFileName: 'StAnzO. 2026 Nr. 43.pdf',
+    verifiedAt: '2026-09-08',
+    enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
+    responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung',
+    subjects: ['Verkehr'],
+    keywords: ['Kleinkraftrad', 'Fahrrad mit Hilfsmotor', 'Betriebserlaubnis', 'Einigungsvertrag', 'Bestandsschutz', 'Landesamt für Straßenbau und Verkehr'],
+    summary: 'Regelt, unter welchen Voraussetzungen die zuständigen Behörden für reimportierte Kleinkrafträder und Fahrräder mit Hilfsmotor aus Produktion der Deutschen Demokratischen Republik eine Betriebserlaubnis erteilen, welches Gutachten dafür nötig ist und welche Angaben die Betriebserlaubnis enthalten muss.',
+    effectiveOverride: '2026-09-09',
+    relatedNorms: ['ostdeutsches-strassenverkehrsrechtsgesetz', 'ostdeutsche-strassenverkehrsrechtsverordnung'],
+    dateNote: 'Am 8. September 2026 verkündet; nach Nummer 9 tritt die Verwaltungsvorschrift am Tag nach ihrer Veröffentlichung, also am 9. September 2026, in Kraft.',
   }],
   'OGVBl.|2026|75': [{
     slug: 'organisationserlass-09-2026',
@@ -619,7 +636,11 @@ const NEW_PUBLICATION_CONFIG = {
   'OVertrBl.|2026|4': [{
     slug: 'staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt',
     shortTitle: 'Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk',
-    type: 'staatsvertrag',
+    // Der Staatsvertrag wird als Staatsvertrag verkündet, ändert aber eine Stammnorm: seit der
+    // Konsolidierung des NDR-Staatsvertrages trägt er den Normtyp der Änderungsvorschrift. Der
+    // Verkündungseintrag bleibt davon unberührt (scripts/lib/publication-entry-types.mjs).
+    type: 'aenderungsvorschrift',
+    affectedNorms: ['ndr-staatsvertrag'],
     pageCount: 9,
     pdfFileName: 'OVertrBl. 2026 Nr. 4.pdf',
     verifiedAt: '2026-09-02',
@@ -1226,7 +1247,14 @@ function buildRecords(parsed) {
       // Kurzbezeichnung und Abkürzung stehen im Suchindex als eigene Spalten und gehören deshalb
       // nicht zusätzlich hierher; eine vom Titelmodell *nicht* übernommene Abkürzung oder
       // Kurzbezeichnung bleibt hier auffindbar.
-      keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? []), ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)]
+      // Aus der Kurzbezeichnung werden keine Titelbestandteile mehr gebildet: „Erstes“, „Grossen“
+      // oder „Staatsreform“ ist kein Begriff, unter dem jemand sucht, und der Zugang über diese
+      // Wörter besteht ohnehin, weil Titel und Kurzbezeichnung eigene Spalten des Volltextindex
+      // sind. Dieselbe Regel steht als `titleWords` in scripts/lib/norm-title-rules.mjs; sie hat
+      // den übernommenen Bestand bereinigt (scripts/refine-revosax-derived-metadata.mjs) und den
+      // eigenen (scripts/migrate-own-norm-keywords.mjs), und scripts/check-content.mjs weist einen
+      // Titelbestandteil ab fünf Zeichen als Schlagwort zurück.
+      keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? [])]
         .filter(Boolean)
         .filter((keyword) => keyword !== officialTitle && keyword !== resultShortTitle && keyword !== resultAbbr))]
         .slice(0, 16),
@@ -1253,8 +1281,6 @@ function buildRecords(parsed) {
         ],
         keywords: [
           'VBefrVO 2026',
-          'Volksbefragung',
-          'Volkskammerwahl',
           '5. September 2026',
           '6. September 2026',
           'Bundeswahlleiter',
@@ -1314,8 +1340,6 @@ function buildGmblAgreementRecord(parsed) {
       'Staatsverträge, Abkommen, Durchführung völkerrechtlicher und zwischenstaatlicher Vereinbarungen, Auslandsbeziehungen',
     ],
     keywords: [
-      'Verwaltungsabkommen',
-      'Grenzpolizei',
       'GMBl. 2026 Nr. 14',
       'Bundespolizei',
       'grenzpolizeilicher Einzeldienst',
@@ -1502,7 +1526,7 @@ function buildConstitutionRecord(parsed) {
       type: 'gesetz',
       responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
       subjects: ['Verfassungsrecht'],
-      keywords: ['Verfassung', 'Volkskammer', 'Staatsrat', 'Staatspräsident', 'Grundrechte', 'Staatsziele'],
+      keywords: ['Volkskammer', 'Staatsrat', 'Staatspräsident', 'Grundrechte', 'Staatsziele'],
       initialCitation: citation,
       predecessor: null,
       successor: null,

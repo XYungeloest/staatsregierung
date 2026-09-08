@@ -172,3 +172,59 @@ export function splitParentheticalTitle(value) {
   if (isAbbreviation(inner, { title })) return { title, abbr: inner, separator: 'single' };
   return { title, ...(inner !== title ? { shortTitle: inner } : {}), separator: 'single' };
 }
+
+/**
+ * Identität einer Vorschrift nach dem Titelmodell: die Kurzbezeichnung besteht nur, wenn sie sich
+ * vom Titel unterscheidet und keine Abkürzungsform ist; die Abkürzung nur, wenn sie die gemeinsame
+ * Regel besteht. Materialisierer, Konsolidierung und Importer tragen dieselbe Regel, damit ein
+ * erneuter Schreiblauf eine gepflegte Bezeichnung nicht in die Kurzform der Quellenkonfiguration
+ * zurückdreht.
+ */
+export function resolveIdentityFields({ title, shortTitle, abbr } = {}) {
+  const resolvedTitle = text(title);
+  const candidate = text(shortTitle);
+  const resolvedShortTitle = candidate && candidate !== resolvedTitle && !isAbbreviationLikeLabel(candidate)
+    ? candidate
+    : undefined;
+  const resolvedAbbr = abbreviationProblem(abbr, { title: resolvedTitle, shortTitle: resolvedShortTitle }) === null
+    ? (abbr ?? undefined)
+    : undefined;
+  return { title: resolvedTitle, shortTitle: resolvedShortTitle, abbr: resolvedAbbr };
+}
+
+/**
+ * Die gepflegte Fundstellennummer der amtlichen Quelle überlebt eine Neuerzeugung der
+ * Quellenangabe. Sie wird redaktionell gesetzt (scripts/migrate-subject-systematics.mjs) und von
+ * keinem Erzeuger neu gebildet; ohne diese Übernahme verliert jeder Schreiblauf sie stillschweigend.
+ */
+export function retainFsnNumber(reference, previousByLocalSource) {
+  const previous = previousByLocalSource?.get?.(reference?.localSource);
+  return previous?.fsnNumber ? { ...reference, fsnNumber: previous.fsnNumber } : reference;
+}
+
+/** Ein Titelbestandteil ab dieser Länge ist kein Schlagwort. */
+export const TITLE_WORD_MIN_LENGTH = 5;
+
+/**
+ * Genau die Wörter, die ein Erzeuger als Schlagwort aus dem Titel gebildet hätte: Langtitel und
+ * Kurzbezeichnung an Nicht-Wortzeichen unter Erhalt des Bindestrichs (REVOSax-Massenimport) und an
+ * Leerzeichen (Kurztitel-Zweig von scripts/import-normen.mjs) zerlegt, mindestens
+ * TITLE_WORD_MIN_LENGTH Zeichen, Randbindestriche entfernt. Wer entfernt oder prüft, muss dasselbe
+ * Muster treffen, das erzeugt wurde, sonst verschwinden redaktionelle Begriffe mit.
+ */
+export function titleWords({ title, shortTitle } = {}) {
+  const words = new Set();
+  for (const source of [title, shortTitle]) {
+    const value = text(source);
+    for (const raw of [...value.split(/[^\p{L}\p{N}-]+/u), ...value.split(/\s+/u)]) {
+      const word = raw.trim().replace(/^-+|-+$/gu, '');
+      if (word.length >= TITLE_WORD_MIN_LENGTH) words.add(word);
+    }
+  }
+  return words;
+}
+
+/** Kernform eines Schlagworts für den Vergleich: ohne Randbindestriche. */
+export function keywordCore(value) {
+  return text(value).replace(/^-+|-+$/gu, '');
+}
