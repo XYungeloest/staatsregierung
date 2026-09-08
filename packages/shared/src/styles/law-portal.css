@@ -2429,12 +2429,13 @@
 }
 
 /* Der Titel eines Treffers ist der Hauptzeigerpunkt der Trefferliste. Das Kästchen eines
-   inline-Links folgt der Schriftmetrik, nicht der Zeilenhöhe: bei --text-md sind das 23,5 px und
-   damit weniger als die 24 px aus WCAG 2.5.8. Das Innenmaß vergrößert das Zeigerziel, ohne die
-   Zeilenhöhe zu verändern — der Umbruch langer Titel bleibt erhalten, anders als bei
-   display: inline-block. */
+   inline-Links folgt der Schriftmetrik und nicht der Zeilenhöhe; mit der Wegweiserschrift bleibt es
+   bei --text-md unter den 24 px aus WCAG 2.5.8, und wie weit, hängt an den Metriken der geladenen
+   Schrift (gemessen: 23,5 px mit der Ersatzschrift, 19 px mit „Ost Grotesk“). Das Innenmaß
+   vergrößert das Zeigerziel in beiden Fällen deutlich über die Schwelle, ohne die Zeilenhöhe zu
+   verändern — der Umbruch langer Titel bleibt erhalten, anders als bei display: inline-block. */
 .search-hit__title h3 a {
-  padding-block: var(--space-hairline);
+  padding-block: var(--space-1);
   text-decoration: none;
 }
 
