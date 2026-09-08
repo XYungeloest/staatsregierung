@@ -144,14 +144,9 @@ const kreisreformFaq = [
     </div>
     <div class="card-grid card-grid--two">
       {neueBezirke.map((bezirk) => (
-        <article
-          class="panel"
-          data-kreisreform-bezirk-card
-          data-name={bezirk.name.toLocaleLowerCase('de-DE')}
-          data-bezirk={bezirk.name}
-        >
+        <article class="panel">
           <h3>{bezirk.name}</h3>
-          <p class="detail-line">Sitz: {bezirk.sitz} · {formatInteger(bezirk.einwohner)} Einwohner · {formatArea(bezirk.flaecheKm2)}</p>
+          <p class="detail-line">Sitz: {bezirk.sitz} · {formatInteger(bezirk.einwohner)} Einwohner</p>
           <details class="faq-accordion__item">
             <summary class="faq-accordion__summary">Zugeordnete Kreise anzeigen</summary>
             <div class="faq-accordion__body"><ul>{bezirk.kreise.map((kreis) => <li>{kreis}</li>)}</ul></div>
@@ -159,9 +154,6 @@ const kreisreformFaq = [
         </article>
       ))}
     </div>
-    <p class="section-link-row kreisreform-backlink">
-      <a class="inline-link" href="#bereichsnavigation">Zurück zur Bereichsnavigation</a>
-    </p>
   </section>
 
   <section id="karte" class="section section-muted" aria-labelledby="kartenueberschrift" data-visual-section="reform-map-gate">
@@ -261,9 +253,6 @@ const kreisreformFaq = [
         Die Karte konnte nicht geladen werden. Nutzen Sie die tabellarische Übersicht oder die Suche.
       </p>
     </noscript>
-    <p class="section-link-row kreisreform-backlink">
-      <a class="inline-link" href="#bereichsnavigation">Zurück zur Bereichsnavigation</a>
-    </p>
   </section>
 
   <section id="aenderungen" class="section" aria-labelledby="aenderungen-ueberschrift">
@@ -307,9 +296,6 @@ const kreisreformFaq = [
         dieser Datenfassung noch nicht veröffentlicht.
       </p>
     ) : null}
-    <p class="section-link-row kreisreform-backlink">
-      <a class="inline-link" href="#bereichsnavigation">Zurück zur Bereichsnavigation</a>
-    </p>
   </section>
 
   <section id="tabellen" class="section section-muted" aria-labelledby="tabellenueberschrift" data-visual-section="reform-tables">
@@ -345,16 +331,10 @@ const kreisreformFaq = [
       </p>
     </form>
 
-    <div class="body-copy kreisreform-mobile-hint">
-      <p>
-        Die Bezirksübersicht steht auf kleinen Bildschirmen im Abschnitt
-        <a class="inline-link" href="#bezirke">Bezirke und Kreise ohne Karte</a>.
-      </p>
-    </div>
-    <p class="table-scroll-hint kreisreform-desktop-table" id="bezirke-scroll-hint">
+    <p class="table-scroll-hint" id="bezirke-scroll-hint">
       Auf kleinen Bildschirmen können Sie die Tabelle innerhalb dieses Bereichs horizontal verschieben.
     </p>
-    <div class="table-wrap kreisreform-desktop-table" tabindex="0" role="region" aria-label="Tabelle der geltenden Bezirke" aria-describedby="bezirke-scroll-hint">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der geltenden Bezirke" aria-describedby="bezirke-scroll-hint">
       <table class="data-table data-table--orte">
         <caption>Geltende Bezirke</caption>
         <thead>
@@ -426,9 +406,6 @@ const kreisreformFaq = [
         bereit; Filter und Blätterung benötigen JavaScript.
       </p>
     </noscript>
-    <p class="section-link-row kreisreform-backlink">
-      <a class="inline-link" href="#bereichsnavigation">Zurück zur Bereichsnavigation</a>
-    </p>
   </section>
 
   <section id="rechtsgrundlagen" class="section" aria-labelledby="rechtsgrundlagen-ueberschrift">
@@ -466,9 +443,6 @@ const kreisreformFaq = [
       <span aria-hidden="true"> · </span>
       <a class="inline-link" href={getFreestateUrl()}>Über den Freistaat</a>
     </p>
-    <p class="section-link-row kreisreform-backlink">
-      <a class="inline-link" href="#bereichsnavigation">Zurück zur Bereichsnavigation</a>
-    </p>
   </section>
 
   <section id="kreisreform-faq" class="section section-muted" aria-labelledby="kreisreform-faq-ueberschrift">
@@ -486,9 +460,6 @@ const kreisreformFaq = [
         </details>
       ))}
     </div>
-    <p class="section-link-row kreisreform-backlink">
-      <a class="inline-link" href="#bereichsnavigation">Zurück zur Bereichsnavigation</a>
-    </p>
   </section>
 
   <script>
@@ -786,26 +757,6 @@ const kreisreformFaq = [
       color: var(--color-heading);
     }
 
-    /* Unter 640 px trägt die Liste ohne Karte den Bezirksbestand, darüber die Bezirkstabelle.
-       Beide Darstellungen führen dieselben Angaben – Sitz, Einwohner, Fläche und die zugeordneten
-       Kreise –, deshalb ist der Tausch kein Informationsverlust, sondern das Ende einer doppelten
-       Aufzählung auf demselben Bildschirm. Der Hinweis nennt die jeweils andere Darstellung. */
-    .kreisreform-mobile-hint {
-      display: none;
-    }
-
-    /* Die Bereichsnavigation klebt erst ab 64 rem (DESIGN.md); darunter trägt jeder Abschnitt
-       einen Rücksprung zu ihr, statt sie mitzuführen und Bildschirmhöhe zu kosten. */
-    .kreisreform-backlink {
-      display: none;
-    }
-
-    @media (max-width: 64rem) {
-      .kreisreform-backlink {
-        display: block;
-      }
-    }
-
     @media (max-width: 980px) {
       .kreisreform-map-layout,
       .kreisreform-map-toolbar {
@@ -831,14 +782,6 @@ const kreisreformFaq = [
       }
 
       .kreisreform-mobile-alternative {
-        display: block;
-      }
-
-      .kreisreform-desktop-table {
-        display: none;
-      }
-
-      .kreisreform-mobile-hint {
         display: block;
       }
 
