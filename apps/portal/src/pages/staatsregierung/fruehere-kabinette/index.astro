@@ -10,11 +10,25 @@ import {
   getHomeUrl,
   getPreviousCabinetsUrl,
 } from '@ostrecht/shared/lib/portal/index.ts';
-import { loadCurrentGovernment } from '@ostrecht/shared/lib/portal/content.ts';
+import {
+  loadCabinetArchiveDetailSlugs,
+  loadCabinetArchives,
+  loadCurrentGovernment,
+} from '@ostrecht/shared/lib/portal/content.ts';
 
-import archive from '../../../../../../content/regierung/archiv/kabinett-honecker-i.json';
+// Die Übersicht liest den Archivbestand, statt einen einzelnen Stand fest zu verdrahten. Eine
+// Detailseite entsteht genau dort, wo ein Mitgliederverzeichnis liegt; Stände ohne Verzeichnis
+// erscheinen als Karte ohne Link, damit kein Link ins Leere führt.
+const [currentGovernment, archives, detailSlugs] = await Promise.all([
+  loadCurrentGovernment(),
+  loadCabinetArchives(),
+  loadCabinetArchiveDetailSlugs(),
+]);
 
-const currentGovernment = await loadCurrentGovernment();
+const newest = archives[0];
+const oldest = archives.at(-1);
+const newestWithDetail = archives.find((entry) => detailSlugs.has(entry.slug));
+const archiveUrl = (slug: string) => `${getPreviousCabinetsUrl()}${slug}/`;
 ---
 
 <BaseLayout
@@ -36,10 +50,17 @@ const currentGovernment = await loadCurrentGovernment();
     variant="government"
     facts={[
       { label: 'Aktuelles Kabinett', value: currentGovernment.title, href: getCabinetUrl() },
-      { label: 'Archivierter Bestand', value: archive.cabinetName },
-      { label: 'Amtszeit', value: `${siteConfig.date.formatLong(archive.formedOn)} bis ${siteConfig.date.formatLong(archive.endedOn)}` },
+      { label: 'Archivierte Bestände', value: String(archives.length) },
+      ...(newest && oldest
+        ? [{
+            label: 'Erfasster Zeitraum',
+            value: `${siteConfig.date.formatLong(oldest.formedOn)} bis ${siteConfig.date.formatLong(newest.endedOn)}`,
+          }]
+        : []),
     ]}
-    actions={[{ label: archive.cabinetName, href: `${getPreviousCabinetsUrl()}honecker-i/`, primary: true }]}
+    actions={newestWithDetail
+      ? [{ label: newestWithDetail.cabinetName, href: archiveUrl(newestWithDetail.slug), primary: true }]
+      : []}
   />
   <GovernmentNavigation />
 
@@ -48,18 +69,24 @@ const currentGovernment = await loadCurrentGovernment();
       <h2>Archivierte Staatsregierungen</h2>
       <p>
         Historische Kabinettsseiten zeigen frühere Koalitionen, Mitglieder, Ressorts und
-        Programmstände ohne sie mit der aktuellen Regierungsarbeit zu vermischen.
+        Programmstände ohne sie mit der aktuellen Regierungsarbeit zu vermischen. Der jüngste
+        Bestand steht oben.
       </p>
     </div>
     <div class="card-grid card-grid--two">
-      <article class="panel">
-        <h3>{archive.cabinetName}</h3>
-        <p>{archive.summary}</p>
-        <p class="detail-line">
-          <time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time>
-        </p>
-        <p><a class="inline-link" href={`${getPreviousCabinetsUrl()}honecker-i/`}>Zum Archivstand</a></p>
-      </article>
+      {archives.map((archive) => (
+        <article class="panel">
+          <h3>{archive.cabinetName}</h3>
+          <p>{archive.summary}</p>
+          <p class="detail-line">
+            <time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time>
+          </p>
+          <p class="detail-line">Leitung: {archive.headOfGovernment}</p>
+          {detailSlugs.has(archive.slug) ? (
+            <p><a class="inline-link" href={archiveUrl(archive.slug)}>Zum Archivstand</a></p>
+          ) : null}
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>

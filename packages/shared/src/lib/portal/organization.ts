@@ -1,4 +1,5 @@
 import type {
+  GovernmentOfficeTerm,
   Ministerium,
   MinisteriumProfil,
   RegierungMitglied,
@@ -450,6 +451,44 @@ function assignmentMinistryName(assignment: GovernmentAssignment, ministryBySlug
   return ministryBySlug.get(assignment.ministrySlug)?.name;
 }
 
+/**
+ * Ein Amt, das für mehrere Ressorts zugleich besteht, ist ein Amt und keine Aufzählung.
+ * Der Bestand führt je Ressort eine eigene Zuordnung (der Staatsrat für Überfluss leitet vier
+ * Staatssekretariate); die Ämterliste fasst gleichnamige Zuordnungen deshalb zu einem Eintrag
+ * zusammen und nennt die Ressorts gesammelt. Ohne diese Zusammenfassung nennt die Kabinettsseite
+ * dasselbe Amt viermal.
+ */
+function officeTerms(
+  assignments: GovernmentAssignment[],
+  ministryBySlug: Map<string, MinisteriumProfil>,
+): GovernmentOfficeTerm[] {
+  const byTitle = new Map<string, { title: string; ministries: string[]; servingFrom: string; servingTo?: string }>();
+  for (const entry of assignments) {
+    const ministry = assignmentMinistryName(entry, ministryBySlug);
+    const collected = byTitle.get(entry.title);
+    if (!collected) {
+      byTitle.set(entry.title, {
+        title: entry.title,
+        ministries: ministry ? [ministry] : [],
+        servingFrom: entry.validFrom,
+        servingTo: entry.validTo ?? undefined,
+      });
+      continue;
+    }
+    if (ministry && !collected.ministries.includes(ministry)) collected.ministries.push(ministry);
+    if (entry.validFrom < collected.servingFrom) collected.servingFrom = entry.validFrom;
+    // Ein noch laufender Abschnitt desselben Amtes hält es offen.
+    if (entry.validTo === null) collected.servingTo = undefined;
+    else if (collected.servingTo !== undefined && entry.validTo > collected.servingTo) collected.servingTo = entry.validTo;
+  }
+  return [...byTitle.values()].map((entry) => ({
+    title: entry.title,
+    ministry: entry.ministries.length > 0 ? entry.ministries.join('; ') : undefined,
+    servingFrom: entry.servingFrom,
+    servingTo: entry.servingTo,
+  }));
+}
+
 export function deriveGovernmentMember(
   profile: PersonProfile,
   organization: OrganizationData,
@@ -465,24 +504,14 @@ export function deriveGovernmentMember(
   const servingTo = state.isActive ? undefined : relevantAssignments.map((entry) => entry.validTo).filter((entry): entry is string => Boolean(entry)).sort().at(-1);
   return {
     ...profile,
-    amt: displayAssignments.map((entry) => entry.title).join(' sowie '),
+    amt: [...new Set(displayAssignments.map((entry) => entry.title))].join(' sowie '),
     ressort: displayAssignments.map((entry) => assignmentMinistryName(entry, ministryBySlug)).filter((entry): entry is string => Boolean(entry)).join('; '),
     reihenfolge: Math.min(...displayAssignments.map((entry) => entry.sortOrder), 999),
     current: state.isActive,
     servingFrom,
     servingTo,
-    currentOffices: state.activeAssignments.map((entry) => ({
-      title: entry.title,
-      ministry: assignmentMinistryName(entry, ministryBySlug),
-      servingFrom: entry.validFrom,
-      servingTo: entry.validTo ?? undefined,
-    })),
-    formerOffices: state.formerAssignments.map((entry) => ({
-      title: entry.title,
-      ministry: assignmentMinistryName(entry, ministryBySlug),
-      servingFrom: entry.validFrom,
-      servingTo: entry.validTo ?? undefined,
-    })),
+    currentOffices: officeTerms(state.activeAssignments, ministryBySlug),
+    formerOffices: officeTerms(state.formerAssignments, ministryBySlug),
     appointmentSource: state.activeAssignments.flatMap((entry) => entry.sourceRefs)[0] ?? relevantAssignments.flatMap((entry) => entry.sourceRefs)[0],
   };
 }

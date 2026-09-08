@@ -1232,6 +1232,11 @@
       ],
       "baselineUrl": "https://www.ndr.de/der_ndr/zahlen_und_daten/staatsvertrag202.pdf",
       "baselineCitation": "Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom 4./9. März 2021 (GVOBl. M-V S. 797)",
+      "baselineVersionDate": "2021-09-01",
+      "baselineSnapshotDate": "2021-09-01",
+      "existingVersionSeed": {
+        "versionId": "2021-09-01"
+      },
       "editorialResolutions": [
         {
           "id": "ndr-vertragsblatt-4-quellenkorrektur-2026-09-02",
@@ -1246,6 +1251,20 @@
             "Gesetze/OVertrBl. 2026 Nr. 4.pdf",
             "content/verkuendungen/overtrbl-2026-04.json",
             "content/normen/staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt/versions/2026-03-08.json"
+          ]
+        },
+        {
+          "id": "ndr-anlage-1-reichweite-2026-09-08",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-09-08",
+          "issue": "Artikel 1 Absatz 1 Nummer 1 des Änderungsstaatsvertrages ordnet an, die Nennung Mecklenburg-Vorpommerns in allen Bestimmungen zu streichen. Anlage 1 setzt das für die Präambel, § 1 Absatz 1, § 2 Absatz 2, § 18 Absatz 1, § 20 Absatz 3, § 25 Absatz 1, § 28 Absatz 6 und § 39 Absatz 1 um; § 49 Absatz 4 bleibt unberührt und nennt Mecklenburg-Vorpommern weiterhin.",
+          "publishedText": "Die konkreten Textänderungen ergeben sich aus Anlage 1 zu diesem Staatsvertrag und sind Bestandteil dieses Staatsvertrags.",
+          "resolvedApplication": "Maßgeblich sind ausschließlich die in Anlage 1 einzeln verkündeten Änderungsbefehle. § 49 Absatz 4 wird unverändert wiedergegeben; eine über die Anlage hinausgehende Streichung wird nicht abgeleitet.",
+          "rationale": "Artikel 1 Absatz 2 bestimmt ausdrücklich, dass sich die konkreten Textänderungen aus Anlage 1 ergeben. Eine Vorschrift ohne Änderungsbefehl heuristisch umzuschreiben, wäre eine Auslegung ohne Primärquelle; sie unterbliebe bei einer späteren amtlichen Berichtigung nachträglich zu Recht.",
+          "evidence": [
+            "Gesetze/OVertrBl. 2026 Nr. 4.html",
+            "content/normen/staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt/versions/2026-03-08.json",
+            "content/normen/ndr-staatsvertrag/versions/2026-09-03.json"
           ]
         }
       ]

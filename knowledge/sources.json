@@ -374,7 +374,7 @@
     {
       "id": "source-kabinett-delgado",
       "type": "structured-content",
-      "path": "content/regierung/archiv/kabinett-delgado.json",
+      "path": "content/regierung/archiv/delgado.json",
       "title": "Kabinett Delgado",
       "date": "2025-09-04",
       "status": "historical",
@@ -1119,7 +1119,7 @@
     {
       "id": "source-kabinett-honecker-i",
       "type": "official-document",
-      "path": "content/regierung/archiv/kabinett-honecker-i.json",
+      "path": "content/regierung/archiv/honecker-i.json",
       "title": "Kabinett Honecker I",
       "date": "2026-05-04",
       "status": "historical",
@@ -2773,7 +2773,7 @@
     {
       "id": "source-kabinett-schmidt",
       "type": "structured-government-archive",
-      "path": "content/regierung/archiv/kabinett-schmidt.json",
+      "path": "content/regierung/archiv/schmidt.json",
       "title": "Historischer Archivdatensatz zum Kabinett Schmidt",
       "date": "2025-04-14",
       "status": "historical",
@@ -3098,7 +3098,89 @@
         "security",
         "migration"
       ],
-      "notes": "Ernennungsakt des Staatspräsidenten vom 7. September 2026 nach Artikel 59 Absatz 2 Satz 2 der Staatsverfassung, gezeichnet von Dr. Karl Honecker. Der Akt wurde als Bildschirmfoto zugearbeitet; die verlinkte Datei hält den Wortlaut fest, die Originaldatei ist unter context/amtliche-dokumente/2026-09-07/ noch zu archivieren."
+      "notes": "Ernennungsakt des Staatspräsidenten vom 7. September 2026 nach Artikel 59 Absatz 2 Satz 2 der Staatsverfassung, gezeichnet von Dr. Karl Honecker. Der Akt wurde als Bildschirmfoto zugearbeitet; die verlinkte Datei hält den Wortlaut fest. Nach der redaktionellen Auskunft vom 8. September 2026 gibt es keine amtliche Originaldatei — Ernennungen von Kabinettmitgliedern werden nicht mit einem eigenen Dokument belegt. Der transkribierte Wortlaut bleibt maßgeblich."
+    },
+    {
+      "id": "source-kabinett-honecker-i-wiki-2026-09-08",
+      "type": "historical-wiki-export",
+      "path": "context/kabinett_honecker_i.wiki",
+      "title": "Kabinett Honecker I, Wikiabzug vom 8. September 2026",
+      "date": null,
+      "status": "historical",
+      "scope": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "notes": "Abzug von https://politiksim.miraheze.org/wiki/Kabinett_Honecker_I, abgerufen am 8. September 2026. Neuere Fassung von context/kabinett_honecker.wiki; ergänzt das Amtsende am 4. Mai 2026 und den Nachfolger. Ein Revisionspermalink liegt nicht vor; der archivierte Abzug trägt die Reproduzierbarkeit."
+    },
+    {
+      "id": "source-kabinett-honecker-ii-wiki-2026-09-08",
+      "type": "historical-wiki-export",
+      "path": "context/kabinett_honecker_ii.wiki",
+      "title": "Kabinett Honecker II und erster Staatsrat, Wikiabzug vom 8. September 2026",
+      "date": null,
+      "status": "historical",
+      "scope": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "notes": "Abzug von https://politiksim.miraheze.org/wiki/Kabinett_Honecker_II, abgerufen am 8. September 2026. Belegt beide Phasen, die Überleitung nach Artikel 121a Absatz 2 am 21. Juli 2026, die Entlassung Thomas Henry Barlows am 20. Juli 2026 und Yannik Schmäles zweiten Geschäftsbereich. Die dortige Angabe „Chefin des Büros des Staatspräsidenten“ für Emma Müller widerspricht dem Organisationserlass 09/2026 und wird nicht übernommen; das genannte Amtsende 7. September 2026 bleibt nach knowledge/clarifications/2026-09-07-kabinett-honecker-iii.md auf den 6. September 2026 abgebildet."
+    },
+    {
+      "id": "source-kabinett-honecker-iii-wiki-2026-09-08",
+      "type": "historical-wiki-export",
+      "path": "context/kabinett_honecker_iii.wiki",
+      "title": "Kabinett Honecker III, Wikiabzug vom 8. September 2026",
+      "date": null,
+      "status": "historical",
+      "scope": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "notes": "Abzug von https://politiksim.miraheze.org/wiki/Kabinett_Honecker_III, abgerufen am 8. September 2026. Bestätigt die Angaben aus source-editorial-zuarbeit-kabinett-honecker-iii-2026-09-07 und belegt zusätzlich, dass die Amtszeit des ersten Staatsrates mit der Konstituierung des zweiten endete."
+    },
+    {
+      "id": "source-kabinett-honecker-ii",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/honecker-ii.json",
+      "title": "Kabinett Honecker II",
+      "date": "2026-07-20",
+      "status": "historical",
+      "scope": [
+        "government",
+        "history"
+      ],
+      "notes": "Strukturierter historischer Kabinettsdatensatz des Archivstands."
+    },
+    {
+      "id": "source-erster-staatsrat",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/erster-staatsrat.json",
+      "title": "Erster Staatsrat",
+      "date": "2026-09-06",
+      "status": "historical",
+      "scope": [
+        "government",
+        "history"
+      ],
+      "notes": "Strukturierter historischer Datensatz des Archivstands zum ersten Staatsrat."
+    },
+    {
+      "id": "source-editorial-zuarbeit-personen-2026-09-08",
+      "type": "editorial-clarification",
+      "path": "knowledge/clarifications/2026-09-08-zuarbeit-personen-und-wikiabzuege.md",
+      "title": "Zuarbeit vom 8. September 2026 zu Personen und Wikiabzügen",
+      "date": "2026-09-08",
+      "status": "editorial",
+      "scope": [
+        "persons",
+        "government",
+        "history"
+      ],
+      "notes": "Redaktionelle Auskunft des Auftraggebers: Parteizugehörigkeit der drei Staatssekretäre, Porträts, erfundene Kontaktangaben, das Fehlen einer amtlichen Ernennungsurkunde und die dauerhaften Artikeladressen der drei Wikiartikel. Rangstufe 10 der Quellenhierarchie; sie ersetzt keine Primärquelle."
     }
   ]
 }

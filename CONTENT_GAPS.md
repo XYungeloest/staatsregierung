@@ -37,7 +37,7 @@ bleibt ein Fall:
 
 Die Herkunftsklasse wird aus Quellen, Fundstellen und Historie abgeleitet
 (`packages/shared/src/lib/norms/origin.ts`); `npm run test:unit -- tests/norm-origin-metadata.test.ts`
-zählt die Klassen. Vier Normen lassen sich nach den geltenden Regeln nicht zuordnen, weil das
+zählt die Klassen. Fünf Normen lassen sich nach den geltenden Regeln nicht zuordnen, weil das
 Herkunftsmodell nur die Übernahme des sächsischen Rechtsstands zum 1. November 2023 und die eigene
 ostdeutsche Setzung kennt:
 
@@ -57,34 +57,18 @@ ostdeutsche Setzung kennt:
   ostdeutsche Änderung durch OGVBl. 2026 Nr. 12; die Übernahme ist wie beim
   Zweckentfremdungsverbotsgesetz in `data/recht/revosax-post-cutoff-decisions.json` als `adopted`
   belegt, die Herkunftsklasse bleibt offen.
+- **NDR-Staatsvertrag** (`ndr-staatsvertrag`) — Staatsvertrag der vier norddeutschen Länder vom
+  4./9. März 2021, in Kraft seit dem 1. September 2021; die Ausgangsfassung ist unverändert unter
+  `Gesetze/NDR-Staatsvertrag.html` und `Gesetze/NDR-Staatsvertrag.pdf` archiviert und durch den
+  ostdeutschen Änderungsstaatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4) geändert. Er ist
+  weder zum 1. November 2023 aus dem sächsischen Rechtsstand übernommen noch eine eigene
+  ostdeutsche Setzung; das Herkunftsmodell kennt für einen mitgetragenen Staatsvertrag eines
+  anderen Landes keine Klasse.
 - **Oberstufen- und Abiturprüfungsverordnung** (`oberstufenund-abiturprufungsverordnung`) — die
   2024 geänderte Verordnung war bereits seit dem 1. August 2008 außer Kraft
   (`knowledge/clarifications/2026-08-27-zuarbeit-pdfnachtrag.md`); der Datensatz trägt weder eine
   REVOSax-Quelle noch eine eigene Ausgangsfassung. Ohne amtliche Quelle der 1996er Verordnung bleibt
   die Herkunft ungeklärt.
-
-## Zweiter Staatsrat (StAnzO. 2026 Nr. 42, OGVBl. 2026 Nr. 75)
-
-Bekanntmachung, Organisationserlass und Zuarbeit vom 7. September 2026 sind eingepflegt; der
-Organisationsbestand, der Stichtag und die öffentlichen Seiten führen den zweiten Staatsrat. Offen
-bleiben drei Belege:
-
-- **Johanna Schwade** — Amt, Geschäftsbereich und Partei sind belegt; Lebenslauf, Kontaktangaben
-  und ein Porträt fehlen. Das Profil führt bis dahin ein Ansichtsbild statt eines Porträts.
-- **Staatssekretäre des Geschäftsbereichs Frieden** — die Ernennung von Finn Bonnano, Kilian
-  Schmidt und Lukas Schmidt nach Artikel 59 Absatz 2 Satz 2 ist durch den Ernennungsakt des
-  Staatspräsidenten vom 7. September 2026 belegt und transkribiert; die Originaldatei fehlt noch
-  unter `context/amtliche-dokumente/2026-09-07/`. Das Portal nennt die drei Ämter in Chronologie
-  und Zeitachse, führt aber keine eigenen Profile: Das Organisationsmodell kennt keine Ebene
-  unterhalb der Ressortleitung, und Porträts sowie Kontaktangaben fehlen.
-- **Wikirevision** — der Auszug des Artikels „Kabinett Honecker III“ wurde ohne Permalink
-  bereitgestellt. `knowledge/SOURCE_POLICY.md` verlangt für externe Wikiquellen eine konkrete
-  Revision.
-
-Die Zuarbeit steht in `docs/ZUARBEITSFORMULAR.md` unter V-01a, die Quellenbewertung in
-`knowledge/clarifications/2026-09-07-zweiter-staatsrat.md` und in
-`knowledge/clarifications/2026-09-07-kabinett-honecker-iii.md`, die offene Frage als
-`question-second-staatsrat-personnel-records`.
 
 ## Bekanntmachungen zur Interflug (StAnzO. 2026 Nr. 39 und 40)
 
@@ -100,15 +84,11 @@ Die Zuarbeit steht in `docs/ZUARBEITSFORMULAR.md` unter V-01a, die Quellenbewert
 ## Rechtskonsolidierung
 
 `npm run norms:consolidation:audit` erzeugt `data/recht/consolidation-report.md` mit den offenen
-Zielnormen. Derzeit blockieren vier Quellenkonflikte und eine fehlende Ausgangsfassung:
+Zielnormen. Derzeit blockieren vier Quellenkonflikte:
 
 - **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
   Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
   keine Folgefassung erzeugt.
-- **NDR-Staatsvertrag** — `missing-baseline`: Die maßgebliche Ausgangsfassung ist durch die
-  korrigierte Ausgabe als NDR-Staatsvertrag vom 4./9. März 2021 (GVOBl. M-V S. 797) eindeutig
-  bezeichnet; sie ist jedoch noch nicht unverändert im Repository versioniert und damit noch keine
-  Konsolidierungsbaseline (Zuarbeit Q-01 in `docs/ZUARBEITSFORMULAR.md`).
 - **Ostdeutsche Gemeindeordnung** — `blocked-source-conflict`: Artikel 1 des Gesetzes zur
   Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die ausdrücklich
   als zuletzt geändert bezeichnete Fassung vom 20. Juli 2026 enthält jedoch bereits § 71b bis § 71g;

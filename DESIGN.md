@@ -251,9 +251,12 @@ längsten Zelle, an der Fensterbreite und an der vom Nutzer eingestellten Schrif
 Vorgabe, die bei 200 % Textvergrößerung bricht, bestraft Barrierefreiheit. Es gilt stattdessen:
 eine Datenansicht gibt höchstens eine Datenseite auf einmal aus (`DEFAULT_PORTAL_PAGE_SIZE`,
 gemeinsame `DataPagination`), Sammelblöcke ebenso; Aufklappbereiche stehen beim Seitenaufruf
-geschlossen; jeder Abschnitt ist über die Abschnittsnavigation in einem Schritt erreichbar, deren
-Sprungziele im ersten Bildschirm stehen. Diese Aussagen sind messbar und stehen als Messungen in
-`tests/visual.spec.ts`.
+geschlossen; jeder Abschnitt ist über die Bereichsnavigation in einem Schritt erreichbar, deren
+Sprungziele im ersten Bildschirm stehen. Wo eine Tabelle eine nicht-tabellarische Zweitdarstellung
+hat, steht auf jeder Breite genau eine der beiden: unter 640 px die Liste ohne Karte, darüber die
+Tabelle; beide führen dieselben Angaben, und der jeweils sichtbare Weg verweist auf den anderen.
+Eine Filterauswahl ist Bedienelement, keine zweite Aufzählung. Diese Aussagen sind messbar und
+stehen als Messungen in `tests/visual.spec.ts`.
 
 ## Farbrollen
 
@@ -586,7 +589,9 @@ Lange Datenansichten blättern zu 25 Zeilen (`DEFAULT_PORTAL_PAGE_SIZE`). Beteil
 Kreistabelle teilen Rechnung (`getPageState`), Wortlaut und Leiste (`DataPagination.astro`); beide
 geben die erste Seite im HTML aus, laden den Rest aus ihrer Datendatei und nennen ohne JavaScript
 den vollständigen Datensatz. Die Bereichsnavigation (`SectionNavigation`) bleibt ab 64 rem klebend;
-ihre Sprungziele werden gegen die vorhandenen `id`-Attribute geprüft.
+ihre Sprungziele werden gegen die vorhandenen `id`-Attribute geprüft. Unterhalb von 64 rem klebt sie
+nicht; auf langen Seiten führt stattdessen jeder Abschnitt am Ende einen Rücksprung zu ihr
+(`#bereichsnavigation`).
 
 Die Kreisreform-Seite liefert die Gebietssuche als Text; die interaktive Karte wird erst nach
 ausdrücklicher Freigabe geladen. Die Behördennummer 115 ist ein Orientierungsbegriff aus der
