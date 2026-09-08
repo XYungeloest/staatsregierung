@@ -51,6 +51,15 @@ Für Ernennungen von Kabinettmitgliedern gibt es keine amtlichen Dokumente; der 
 Wortlaut des Ernennungsaktes bleibt die maßgebliche Quelle. Weitere Angaben zu den Personen liegen
 nicht vor und werden auch für die übrigen Kabinettmitglieder nicht geführt.
 
+### V-01b – Ressortbezeichnung im Sicherheitserlass KRITIS 09/2026
+
+Nummer 9 des Sicherheitserlasses (StAnzO. 2026 Nr. 45) nennt ein „Staatssekretariat für
+Landespolizei“. Der Organisationserlass 09/2026 ordnet die Polizeiaufgaben dem Staatssekretariat
+des Innern und für Staats- und Grenzsicherheit zu.
+
+- [ ] amtliche Klarstellung, ob Nummer 9 das bestehende Innenressort meint, oder weiterer
+      Organisationsakt als Beleg für eine abweichende Zuordnung
+
 ### V-02 – Boom Europe Leipzig/Halle
 
 Für einen weitergehenden Umsetzungsstatus werden benötigt:

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-07",
+  "asOf": "2026-09-08",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment",
@@ -1188,6 +1188,54 @@
       ],
       "decision": "Gewählt: Dr. Karl Honecker (Überfluss), Yannik Schmäle (Frieden), Johanna Schwade (Liebe), Tim Dieter (Wahrheit); Staatspräsident Honecker, Stellvertreter Schmäle; zehn Staatssekretariate in vier Geschäftsbereichen.",
       "nextAction": null,
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-kritis-schutz-2026",
+      "title": "Schutz kritischer Infrastruktur und Aufklärung des Vorfalls am Flughafen Leipzig/Halle Carl Ulbricht",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-08",
+      "validTo": null,
+      "asOf": "2026-09-08",
+      "summary": "Der Staatsrat beschließt ein erhöhtes Sicherheitsniveau, eine ergebnisoffene Aufklärung des versuchten Anschlags und eine Überprüfung der Sicherheitsarchitektur. Der Staatsrat für Frieden konkretisiert die vorläufigen Schutzmaßnahmen durch den Sicherheitserlass KRITIS 09/2026. Zusätzliche gesetzliche Befugnisse zur Drohnenabwehr sind erst auszuarbeiten.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-44",
+          "locator": "Beschluss vom 8. September 2026, Abschnitte I–V, S. 2–5",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-45",
+          "locator": "Sicherheitserlass KRITIS 09/2026, Nummern 1–10, S. 2–5",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-yannik-schmaele"
+      ],
+      "tags": [
+        "security",
+        "critical-infrastructure",
+        "drones"
+      ],
+      "notes": [
+        "Eine politische, extremistische, ausländische oder sonstige Urheberschaft ist nicht festgestellt. Ermittlungsansätze sind keine Täterzuordnung.",
+        "Nummer 9 des Erlasses nennt ein Staatssekretariat für Landespolizei; der Organisationserlass 09/2026 führt stattdessen das Staatssekretariat des Innern und für Staats- und Grenzsicherheit mit Polizeizuständigkeit. Aus dem Sicherheitserlass wird keine unbelegte Ressortneugründung oder Personaländerung abgeleitet.",
+        "Die Berichtspflichten sind Aufträge, kein Nachweis bereits vorgelegter Berichte oder abgeschlossener Schutzmaßnahmen."
+      ],
+      "proceedingType": "security-implementation",
+      "stage": "implementation",
+      "participantIds": [
+        "person-yannik-schmaele"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "sicherheitserlass-kritis-09-2026",
+          "versionId": "2026-09-08"
+        }
+      ],
+      "decision": "Vorläufige Schutzmaßnahmen innerhalb bestehender Befugnisse; der Sicherheitserlass gilt bis zum Ablauf des 8. Dezember 2026.",
+      "nextAction": "Erster Bericht nach Nummer 9 innerhalb von vier Wochen; Bericht zur Sicherheitsarchitektur nach Abschnitt III innerhalb von sechs Wochen ab 8. September 2026; Entwurf für zusätzliche Drohnenabwehrbefugnisse vorbereiten.",
       "openQuestionIds": []
     }
   ]

@@ -6,22 +6,25 @@
   "cluster": "staat-demokratie",
   "priority": 82,
   "featured": false,
-  "updatedAt": "2026-07-29",
-  "knowledgeProjectRefs": ["project-grenzpolizei"],
+  "updatedAt": "2026-09-08",
+  "knowledgeProjectRefs": [
+    "project-grenzpolizei"
+  ],
   "hero": "Sicherheitspolitik wird als Schutzaufgabe mit demokratischer Kontrolle und rechtlicher Verantwortlichkeit verbunden. Die Kasernierte Grenzpolizei ist gesetzlich errichtet; ihr organisatorischer Aufbau läuft.",
   "beschlossen": [
     "Eine unabhängige Polizei-Beschwerde- und Ermittlungsstelle wurde eingerichtet.",
     "Schmerzgriffe wurden landesrechtlich neu geregelt.",
     "Antidiskriminierung und Gleichstellung wurden durch gesetzliche Anpassungen gestärkt.",
     "Das Errichtungsgesetz und das Fachgesetz der Kasernierten Grenzpolizei wurden am 20. Juli 2026 verkündet und sind seit 21. Juli 2026 in Kraft.",
-    "Das Verwaltungsabkommen zur Wahrnehmung grenzpolizeilicher Aufgaben wurde am 28. Juli 2026 in Leipzig geschlossen und am 29. Juli 2026 im Gemeinsamen Ministerialblatt veröffentlicht."
+    "Das Verwaltungsabkommen zur Wahrnehmung grenzpolizeilicher Aufgaben wurde am 28. Juli 2026 in Leipzig geschlossen und am 29. Juli 2026 im Gemeinsamen Ministerialblatt veröffentlicht.",
+    "Seit dem 8. September 2026 gilt für besonders gefährdete kritische Infrastruktur ein erhöhtes Sicherheitsniveau. Der Sicherheitserlass KRITIS 09/2026 konkretisiert die vorläufigen Schutzmaßnahmen und ist bis zum Ablauf des 8. Dezember 2026 befristet."
   ],
   "umgesetzt": [
     "Die wesentlichen gesetzlichen Grundlagen sind im Rechtsportal als aktuelle Fassungen zugänglich.",
     "Die Themenfelder polizeiliche Kontrolle, Diskriminierungsschutz und Gleichstellung sind bereits normativ abgesichert.",
     "Die Kasernierte Grenzpolizei ist gesetzlich als Landesbehörde errichtet.",
     "Der organisatorische Aufbau der Kasernierten Grenzpolizei läuft.",
-    "Federführend zuständig ist das Staatssekretariat für Staats- und Grenzsicherheit.",
+    "Federführend zuständig ist das Staatssekretariat des Innern und für Staats- und Grenzsicherheit.",
     "Das Verwaltungsabkommen ist als verbundene Rechtsgrundlage im Rechtsportal zugänglich. Es regelt Aufgabenübertragung, fachliche Steuerung, Zusammenarbeit und Kontrolle; eine bereits vollständig abgeschlossene praktische Übernahme aller Aufgaben ist damit nicht behauptet."
   ],
   "naechsteSchritte": [
@@ -30,7 +33,9 @@
     "Die gesetzlich zulässigen System- und Registerzugänge sowie das abgestimmte Vorgehen technisch umsetzen.",
     "Die operative Aufgabenwahrnehmung auf Grundlage des Verwaltungsabkommens schrittweise umsetzen.",
     "Fortlaufende Evaluation der Kontroll- und Beschwerdestrukturen.",
-    "Weiterentwicklung von Aus- und Fortbildung in sicherheitsrelevanten Bereichen."
+    "Weiterentwicklung von Aus- und Fortbildung in sicherheitsrelevanten Bereichen.",
+    "Schutzlücken bei kritischer Infrastruktur prüfen und dem Staatsrat innerhalb von sechs Wochen nach dem Beschluss vom 8. September 2026 berichten.",
+    "Vorschläge für zusätzliche gesetzliche Befugnisse zur Drohnenabwehr erarbeiten; ein erster Bericht zum Sicherheitserlass ist innerhalb von vier Wochen vorzulegen."
   ],
   "rechtsgrundlagen": [
     {
@@ -49,11 +54,35 @@
       "label": "Ostdeutsches Polizeivollzugsdienstgesetz",
       "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz"
     },
-    { "label": "Gesetz über die unabhängige Polizei-Beschwerde- und Ermittlungsstelle", "normSlug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo" },
-    { "label": "Schmerzgriffe-Gesetz", "normSlug": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe" },
-    { "label": "Ostdeutsches Landesantidiskriminierungsgesetz", "normSlug": "ostdeutsches-landesantidiskriminierungsgesetz" },
-    { "label": "Gesetz zur Änderung des Gleichstellungsgesetzes", "normSlug": "gesetz-zur-anderung-des-gleichstellungsgesetzes" },
-    { "label": "Änderungsverordnung für die Fachrichtung Polizei", "normSlug": "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k" }
+    {
+      "label": "Gesetz über die unabhängige Polizei-Beschwerde- und Ermittlungsstelle",
+      "normSlug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo"
+    },
+    {
+      "label": "Schmerzgriffe-Gesetz",
+      "normSlug": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe"
+    },
+    {
+      "label": "Ostdeutsches Landesantidiskriminierungsgesetz",
+      "normSlug": "ostdeutsches-landesantidiskriminierungsgesetz"
+    },
+    {
+      "label": "Gesetz zur Änderung des Gleichstellungsgesetzes",
+      "normSlug": "gesetz-zur-anderung-des-gleichstellungsgesetzes"
+    },
+    {
+      "label": "Änderungsverordnung für die Fachrichtung Polizei",
+      "normSlug": "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k"
+    },
+    {
+      "label": "Beschluss zum Schutz kritischer Infrastruktur",
+      "publicationSlug": "stanzo-2026-44",
+      "note": "Beschluss vom 8. September 2026 zur Aufklärung des Vorfalls am Flughafen Leipzig/Halle Carl Ulbricht und zur Überprüfung der Sicherheitsarchitektur."
+    },
+    {
+      "label": "Sicherheitserlass KRITIS 09/2026",
+      "normSlug": "sicherheitserlass-kritis-09-2026"
+    }
   ],
   "faq": [
     {
@@ -79,6 +108,10 @@
     {
       "question": "Warum ist Antidiskriminierung hier eingeordnet?",
       "answer": "Weil demokratische Sicherheitspolitik im Verständnis des Portals nicht nur Schutz, sondern auch rechtliche Gleichbehandlung und institutionelle Verantwortlichkeit umfasst."
+    },
+    {
+      "question": "Schaffen die vorläufigen Schutzmaßnahmen zusätzliche Polizeibefugnisse?",
+      "answer": "Nein. Beschluss und Erlass binden die Maßnahmen an die bestehenden gesetzlichen Befugnisse. Zusätzliche Eingriffsbefugnisse müssen durch Gesetz geschaffen werden. Die Ermittlungen zum Vorfall am Flughafen Leipzig/Halle Carl Ulbricht bleiben ergebnisoffen; eine Urheberschaft wird nicht vorweggenommen."
     }
   ],
   "federfuehrendesRessort": "inneres-bau-und-kommunale-angelegenheiten",

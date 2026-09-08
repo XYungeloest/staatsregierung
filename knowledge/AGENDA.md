@@ -2,7 +2,7 @@
 
 > **Arbeitsübersicht für die nächste Wahlperiode.** Kanonische strukturierte Planungsdaten stehen in `knowledge/agenda.json`. Für den geltenden Rechtsstand sind ausschließlich `content/normen/`, `content/verkuendungen/`, `knowledge/current-state.json` und förmliche Verfahren in `knowledge/proceedings.json` maßgeblich.
 
-Stand: 6. September 2026
+Stand: 8. September 2026
 
 ## Politischer Rahmen
 
@@ -41,6 +41,7 @@ Der vollständige Programmtext liegt unter `context/programme/roter-aufbruch-202
 | **Rohstoffwirtschafts- und Generationenfondsgesetz** | Konzept | Ostdeutsche Rohstoffholding; öffentliches Bergbauunternehmen; Beteiligungen an strategischen Rohstoffvorhaben; langfristiger Zukunfts-/Generationenfonds aus gemeinwirtschaftlichen Rohstofferträgen. Das Zinnwaldgesetz bleibt gesondert. |
 | **Neuordnung des Sparkassen- und Landesbankwesens** | Konzept | Ostdeutsche Gesamtordnung des Sparkassenrechts; Landesbank an der Elbe als Landesbank, Sparkassenzentralbank, Girozentrale und Kommunalbank; Fortentwicklung des Ostdeutschen Sparkassenverbands; Bereinigung überkommener Mehrländerstrukturen. |
 | **Nachrichtendienst- und Staatsschutzreform** | Konzept | Neuordnung des Nachrichtendienstrechts; parlamentarische, gerichtliche und demokratische Kontrolle; klare Aufgabenabgrenzung zum polizeilichen Staatsschutz; Sabotage- und Spionageabwehr; Sicherheitsüberprüfungsrecht. |
+| **Zusätzliche Drohnenabwehrbefugnisse** | Entwurfsauftrag | Beschluss vom 8. September 2026 (StAnzO. Nr. 44, IV–V): Der Staatsrat für Frieden soll zusätzliche gesetzliche Befugnisse vorbereiten. Noch kein Entwurf oder parlamentarisches Verfahren belegt; der bereits geltende Sicherheitserlass KRITIS 09/2026 bleibt auf bestehende Befugnisse beschränkt. |
 | **Kommunales Hinweisgebermeldestellengesetz** | verkündet (OGVBl. 2026 Nr. 72), Inkrafttreten 1. Oktober 2026 | Meldestellen bei Gemeinden, Bezirken, Zweckverbänden und kommunalen Unternehmen; Beschäftigtenschwelle; gemeinsame Meldestellen; Verweisung auf Bundesrecht im Übrigen. |
 | **Waldschutz- und Waldumbau-Novelle** | Idee/Konzept | Novelle des bestehenden Ostdeutschen Waldgesetzes: klimaresilienter Waldumbau; Mischwald; natürliche Waldentwicklung; Kohlenstoffsenken; Verbindung zu Klimaanpassung und Schutz des Naturvermögens. |
 | **Waldorf- und Privatschulreform** | Konzept | Überprüfung von Waldorf-Sonderregelungen; Privatschulfreiheit erhalten; Sonderungsverbot stärken; soziale Schulgeldregeln; Transparenz und soziale Zugänglichkeit. |
