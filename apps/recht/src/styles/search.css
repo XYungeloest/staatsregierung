@@ -181,6 +181,13 @@
   font-weight: 500;
 }
 
+/* Suchhinweise sind ein Abschnitt der Filterspalte, kein Kasten: dieselbe Grammatik wie die
+   Facettengruppen darüber. */
+.r-search__tips {
+  padding-top: var(--space-4);
+  border-top: var(--line) solid var(--border-hairline);
+}
+
 .r-search__tips h2 {
   margin-bottom: var(--space-2);
 }
@@ -439,7 +446,7 @@
   color: var(--text-muted);
 }
 
-@media (max-width: 60rem) {
+@media (max-width: 59.99rem) {
   .r-search__advanced-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -454,7 +461,9 @@
   }
 }
 
-@media (max-width: 48rem) {
+/* Filterspalte und Trefferliste stehen ab 60 rem nebeneinander; darunter wird die Filterspalte
+   zur Aufklappzeile über der Liste (dieselbe Stufe prüft search-page.ts). */
+@media (max-width: 59.99rem) {
   .r-search__layout {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
@@ -503,6 +512,21 @@
   .r-search__tips {
     display: none;
   }
+}
+
+/* Filtergruppen der erweiterten Suche sind ab 48 rem offene Abschnitte; darunter klappen sie
+   einzeln auf (dieselbe Stufe prüft sheets.ts). */
+.r-filter-group > summary {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  .r-filter-group > summary {
+    display: list-item;
+    padding: var(--space-3);
+    font-weight: 600;
+    cursor: pointer;
+  }
 
   .r-search__advanced-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -527,12 +551,9 @@
   }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 39.99rem) {
   .r-search__bar {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-.r-filter-group > summary { display: none; }
-@media (max-width: 48rem) {
-  .r-filter-group > summary { display: list-item; cursor: pointer; padding: var(--space-3); font-weight: 600; }
-}
+

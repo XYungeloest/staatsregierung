@@ -5,8 +5,10 @@
    weil CSS sie nicht als Variablen kennt:
      30rem (480 px) – Kleinstbreiten, 40rem (640 px) – Suche hinter Symbol, Wortmarke ohne Subline,
      48rem (768 px) – Tablet, 60rem (960 px) – schmales Suchfeld, 80rem (1280 px) – volle Breite.
-   Die Stufen gelten „ab“ der Breite; Abfragen darunter schreiben max-width: 79.99rem, damit
-   1280 px bereits zur vollen Breite zählt. */
+   Die Stufen gelten „ab“ der Breite: Abfragen unterhalb einer Stufe enden 0,01 rem darunter
+   (79.99rem, 59.99rem, 47.99rem, 39.99rem, 29.99rem), damit 1280, 960, 768, 640 und 480 px
+   jeweils schon zur größeren Stufe zählen. Einzige begründete Ausnahme ist das Amtsband in
+   shell.css. */
 :root {
   color-scheme: light;
 
@@ -127,10 +129,11 @@
   --space-9: 4rem;
 
   /* Breiten */
-  --page-max: 90rem;          /* 1440 px */
+  --page-max: 80rem;          /* 1280 px – Standardbreite aller Seiten und Bänder */
   --page-gutter: 2.5rem;      /* 40 px auf großen Breiten */
   --measure-legal: 66ch;
   --measure-copy: 72ch;
+  --measure-panel: 56rem;     /* 896 px – allein stehender Bereich (Vorschriftendaten, Beziehungen) */
   --col-outline: 16.25rem;    /* 260 px */
   --col-aside: 15.625rem;     /* 250 px */
   --col-filter: 18.75rem;     /* 300 px */
@@ -156,13 +159,13 @@
   --control-height-lg: 2.875rem; /* 46 px */
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 47.99rem) {
   :root {
     --page-gutter: 1.25rem;
   }
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 29.99rem) {
   :root {
     --page-gutter: 1rem;
   }

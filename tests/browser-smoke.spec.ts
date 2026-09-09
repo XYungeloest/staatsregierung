@@ -782,7 +782,9 @@ siteTest(['law'])('OstRecht-Navigation bleibt mobil nutzbar', async ({ page }) =
   await mobileNavigation.locator('summary').click();
   await expect(mobileNavigation.locator('.law-mobile-nav__panel')).toBeVisible();
   await expect(mobileNavigation.getByRole('link', { name: 'Rechtssuche', exact: true })).toBeVisible();
-  await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Recherchewege im Footer' }).getByRole('link')).not.toHaveCount(0);
+  // Der Fuß wiederholt die Recherchewege nicht; er schließt mit Hilfe, rechtlichen Hinweisen und
+  // dem Staatsportal ab. Die Recherchewege stehen im Menü „Bereiche“ darüber.
+  await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Hilfe, rechtliche Hinweise und Staatsportal' }).getByRole('link')).not.toHaveCount(0);
 });
 
 siteTest(['law'])('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inhaltsanker', async ({ page, request }) => {

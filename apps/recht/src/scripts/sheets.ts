@@ -2,7 +2,7 @@
 for (const selector of ['[data-outline-sheet]', '[data-search-advanced]']) {
   const details = document.querySelector<HTMLDetailsElement>(selector);
   if (!details) continue;
-  const media = window.matchMedia(selector === '[data-outline-sheet]' ? '(max-width: 79.99rem)' : '(max-width: 48rem)');
+  const media = window.matchMedia(selector === '[data-outline-sheet]' ? '(max-width: 79.99rem)' : '(max-width: 47.99rem)');
   const dialog = document.createElement('dialog');
   dialog.className = selector === '[data-outline-sheet]' ? 'r-sheet r-sheet--outline' : 'r-sheet r-sheet--filters';
   dialog.setAttribute('aria-label', selector === '[data-outline-sheet]' ? 'Inhalt der Vorschrift' : 'Erweiterte Suche');
@@ -31,7 +31,7 @@ for (const selector of ['[data-outline-sheet]', '[data-search-advanced]']) {
 }
 
 // Auf dem Smartphone lassen sich Filtergruppen einzeln öffnen; Labels und Fieldsets bleiben erhalten.
-const smallScreen = window.matchMedia('(max-width: 48rem)');
+const smallScreen = window.matchMedia('(max-width: 47.99rem)');
 for (const fieldset of document.querySelectorAll<HTMLFieldSetElement>('.r-search__advanced-grid > fieldset')) {
   const legend = fieldset.querySelector('legend');
   if (!legend) continue;

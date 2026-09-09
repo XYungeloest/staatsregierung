@@ -28,7 +28,8 @@ import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
 import type { NormChange } from '../lib/runtime/store.ts';
 import { formatCount, formatNormCount } from '../lib/counts.ts';
-import { describeChange } from '../lib/history-labels.ts';
+import { describeChange, describeChangeCause } from '../lib/history-labels.ts';
+import { shortCitation } from '../lib/norm-head.ts';
 import { countNormTypes } from '../lib/type-counts.ts';
 import { referenceDateLabel } from '../lib/vocabulary.ts';
 import { formatShortDate } from '../lib/dates.ts';
@@ -62,33 +63,42 @@ const [stats, subjectAreas, inForceChanges, futureChanges, repealChanges, latest
 
 const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 
-/** Direktzugriffe: Verfassung und die Normtypen mit eigener Übersicht; weitere Typen als Suchfilter. */
-const typeAccess: Array<{ type: NormType; href: string }> = [
+/**
+ * Direktzugriffe: die Verfassung und die vier Normtypen mit eigener Übersicht. Die übrigen
+ * Normtypen (Staatsvertrag, Bekanntmachung, Zustimmungsgesetz …) bleiben über Suchfilter,
+ * Sachgebiete und A–Z erreichbar; die Zeile bleibt dadurch ein kuratierter Einstieg statt einer
+ * Liste des Bestands.
+ */
+const directTypes: Array<{ type: NormType; href: string }> = [
   { type: 'gesetz', href: getLawsUrl() },
   { type: 'verordnung', href: getRegulationsUrl() },
   { type: 'verwaltungsvorschrift', href: getAdministrativeRulesUrl() },
   { type: 'foerderrichtlinie', href: getFundingUrl() },
 ];
-const furtherTypes = stats.types
-  .filter((type) => !typeAccess.some((entry) => entry.type === type) && type !== 'aenderungsvorschrift' && type !== 'berichtigung')
-  .map((type) => ({ type, href: `${getSearchUrl()}?type=${encodeURIComponent(type)}` }));
-const directTypes = [...typeAccess, ...furtherTypes].filter((entry) => (typeCounts[entry.type] ?? 0) > 0 || typeAccess.includes(entry));
 
-/** Wortlaut einer Änderungszeile: das Ereignis, die Änderungsvorschrift mit Fundstelle. */
+/**
+ * Ereigniswort einer Zeile: die Rechtswirkung, nicht die Art der Vorschrift. Eingetretene und
+ * künftige Wirkung bilden ein Wortpaar („erstmals in Kraft“ / „tritt in Kraft“), damit die
+ * Spalten dieselbe Aussage in derselben Reihenfolge treffen.
+ */
 function eventLabel(change: NormChange): string {
-  if (change.changeType === 'initial') return change.type === 'aenderungsvorschrift' ? 'verkündet' : `neue ${formatNormType(change.type)}`;
   if (change.changeType === 'repeal') return 'aufgehoben';
-  return 'geändert';
+  return change.changeType === 'initial' ? 'erstmals in Kraft' : 'geändert';
 }
 function futureEventLabel(change: NormChange): string {
   if (change.changeType === 'repeal') return 'tritt außer Kraft';
   return change.changeType === 'initial' ? 'tritt in Kraft' : 'wird geändert';
 }
+/**
+ * Detailzeile: die Ursache ohne das Ereigniswort und die Fundstelle. Auf der Startseite steht
+ * die Fundstelle allein, wo der Eintragstitel nur das Vollzitat wiederholt; der vollständige
+ * Wortlaut steht im Änderungsverlauf der Vorschrift.
+ */
 function changeDetail(change: NormChange): string {
-  const description = describeChange(change);
-  const citation = toDisplayText(change.citation ?? '').trim();
-  if (description && citation && !description.includes(citation)) return `${description} · ${citation}`;
-  return description || citation;
+  const cause = describeChangeCause(change);
+  const reference = shortCitation(change.citation);
+  if (cause && reference && !cause.includes(reference)) return `${cause} · ${reference}`;
+  return cause || reference || describeChange(change);
 }
 
 const publicationRows = listPublicationEntries(latestPublications).slice(0, HOME_PUBLICATION_ENTRY_LIMIT);
@@ -191,20 +201,19 @@ const columns = [
   <section class="r-home-publications" aria-labelledby="home-publications-title">
     <div class="r-container">
       <div class="r-section-head">
-        <h2 id="home-publications-title" class="r-label">Neueste amtliche Veröffentlichungen{seriesLabels.length > 0 ? ` · ${seriesLabels.join(' · ')}` : ''}</h2>
-        <a class="r-meta" href={getPublicationsUrl()}>Alle amtlichen Veröffentlichungen</a>
+        <h2 id="home-publications-title">Neueste amtliche Veröffentlichungen</h2>
+        <span class="r-meta">{seriesLabels.length > 0 ? <>{seriesLabels.join(' · ')} · </> : null}<a href={getPublicationsUrl()}>Alle amtlichen Veröffentlichungen</a></span>
       </div>
       {publicationRows.length > 0 ? (
         <div class="r-table-wrap">
           <table class="r-table r-table--meta r-table--dense r-home-publications__table">
-            <caption class="visually-hidden">Neueste amtliche Veröffentlichungen mit Datum, Gegenstand, Dokumentart, herausgebender Stelle und Fundstelle</caption>
+            <caption class="visually-hidden">Neueste amtliche Veröffentlichungen mit Datum, Gegenstand, Dokumentart und Fundstelle</caption>
             <tbody>
               {publicationRows.map(({ publication, entry }) => (
                 <tr>
                   <td class="r-muted r-nowrap"><time datetime={publication.date}>{formatShortDate(publication.date)}</time></td>
                   <td><a href={`${getPublicationUrl(publication.slug)}#${entry.id}`}>{toDisplayText(entry.title)}</a></td>
                   <td class="r-nowrap r-muted">{formatPublicationEntryType(entry.type)}</td>
-                  <td class="r-muted">{toDisplayText(publication.publisher ?? '')}</td>
                   <td class="r-right r-nowrap"><a href={getPublicationUrl(publication.slug)}>{getPublicationLabel(publication)}</a></td>
                 </tr>
               ))}
