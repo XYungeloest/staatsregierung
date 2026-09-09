@@ -20,7 +20,7 @@ import { getNormStore } from '../../../lib/runtime/context.ts';
 import { describeChange, displayChangeNote, displayHistoryTitle } from '../../../lib/history-labels.ts';
 import { buildNormHeadModel, latestAmendment, shortCitation } from '../../../lib/norm-head.ts';
 import { formatShortDate } from '../../../lib/dates.ts';
-import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL, referenceDateLabel, versionKindLabel } from '../../../lib/vocabulary.ts';
+import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL, versionKindLabel } from '../../../lib/vocabulary.ts';
 
 // Fassungen und Änderungen (P4): Zeitachse, Änderungsprotokoll, Fassungen, Vergleich und
 // „Fassung zu einem Datum“ – alles lokal an dieser Vorschrift, ohne Normkörper.
@@ -121,7 +121,7 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
     </nav>
 
     <section class="norm-axis" id="fassungen" aria-labelledby="norm-axis-title">
-      <h2 id="norm-axis-title" class="r-label">Fassungen · Zeitachse (nicht maßstäblich)</h2>
+      <h2 id="norm-axis-title" class="norm-history__title">Zeitachse der Fassungen</h2>
       <div class="norm-axis__track">
         {versions.map((version) => {
           const kind = kindOf(version);
@@ -136,13 +136,13 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
           );
         })}
       </div>
-      <p class="norm-axis__legend">Grau: frühere Fassungen · Grün: übernommener Ausgangsrechtsstand · Blau: geltend · Gestrichelt: verkündet, noch nicht in Kraft · {referenceDateLabel()} · jede Fläche öffnet die Fassung.</p>
+      <p class="norm-axis__legend">Nicht maßstäblich · Grau: frühere Fassung · Grün: übernommener Ausgangsrechtsstand · Blau: geltend · Gestrichelt: verkündet, noch nicht in Kraft · jede Fläche öffnet ihre Fassung.</p>
     </section>
 
     <div class="norm-history__grid">
       <div class="norm-history__main">
         <section aria-labelledby="norm-protocol-title" id="historieneintraege">
-          <h2 id="norm-protocol-title" class="r-label">Änderungen · Protokoll der Vorschrift</h2>
+          <h2 id="norm-protocol-title" class="norm-history__title">Änderungen · Protokoll der Vorschrift</h2>
           {protocol.length > 0 ? (
             <div class="r-table-wrap">
               <table class="r-table norm-protocol">
@@ -173,7 +173,7 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
         </section>
 
         <section aria-labelledby="norm-version-list-title">
-          <h2 id="norm-version-list-title" class="r-label">Fassungen im Wortlaut</h2>
+          <h2 id="norm-version-list-title" class="norm-history__title">Fassungen im Wortlaut</h2>
           <div class="r-table-wrap">
             <table class="r-table norm-version-list">
               <caption class="visually-hidden">Fassungen im Wortlaut mit Gültigkeit, Fassungsart, Änderungsstand und Vollzitat</caption>
@@ -201,7 +201,7 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
 
         {versions.length >= 2 && compareDefaultFrom ? (
           <section aria-labelledby="norm-compare-title" id="fassungsvergleich">
-            <h2 id="norm-compare-title" class="r-label">{NORM_COMPARE_LABEL}</h2>
+            <h2 id="norm-compare-title" class="norm-history__title">{NORM_COMPARE_LABEL}</h2>
             <form class="norm-compare__form" action={getNormCompareUrl(slug)} method="get" aria-label="Zu vergleichende Fassungen">
               <label class="r-field"><span>Von Fassung</span>
                 <select class="r-select" name="von">{versions.map((version) => <option value={version.versionId} selected={version.versionId === compareDefaultFrom.versionId}>{formatShortDate(version.validFrom)}{version.validTo ? ` – ${formatShortDate(version.validTo)}` : ''} · {versionKindLabel(kindOf(version), 'adjective')}</option>)}</select>
@@ -217,7 +217,7 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
       </div>
 
       <aside class="norm-history__aside" aria-label="Fassung zu einem Datum und Änderungsvorschrift">
-        <section class="r-box r-box--muted" id="fassung-zu-datum" aria-labelledby="norm-date-title">
+        <section id="fassung-zu-datum" aria-labelledby="norm-date-title">
           <h2 id="norm-date-title" class="r-label">Fassung zu einem Datum</h2>
           <p class="r-meta">Welche Fassung dieser Vorschrift galt an einem bestimmten Tag? Öffnet nur diese Vorschrift in der damaligen Fassung – kein Zustand des Portals.</p>
           <form class="norm-compare__form" method="get" action={`${getNormUrl(slug)}history/`}>
@@ -228,7 +228,7 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
         </section>
 
         {amendment ? (
-          <section class="r-box" aria-labelledby="norm-amendment-title">
+          <section aria-labelledby="norm-amendment-title">
             <h2 id="norm-amendment-title" class="r-label">Änderungsvorschrift zum {formatShortDate(amendment.date)}</h2>
             <p class="r-serif norm-aside__cite-text">{relatedLabel(amendment.relatedNorm) ?? describeChange(amendment)}</p>
             <dl class="r-dl r-dl--compact">

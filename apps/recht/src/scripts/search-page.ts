@@ -781,7 +781,7 @@ async function setupSearch(): Promise<void> {
   const initialParams = new URLSearchParams(window.location.search);
   if (advancedPanel && (initialParams.get('filter') === 'erweitert' || window.location.hash === '#erweiterte-suche')) advancedPanel.open = true;
   // Auf kleinen Bildschirmen beginnt die Filterspalte geschlossen; aktive Filter öffnen sie.
-  if (filtersSheet && window.matchMedia('(max-width: 48rem)').matches && collectActiveFilters(Array.from(filtersSheet.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-search-filter]'))).length === 0) {
+  if (filtersSheet && window.matchMedia('(max-width: 59.99rem)').matches && collectActiveFilters(Array.from(filtersSheet.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-search-filter]'))).length === 0) {
     filtersSheet.open = false;
   }
   openPanelsWithActiveFilters();

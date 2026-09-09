@@ -131,7 +131,7 @@ const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startP
     </section>
 
     <aside class="r-research__aside" aria-label="Ausgabe und Quellen">
-      <section class="r-box r-box--muted" data-copy-group aria-labelledby="issue-data-title">
+      <section data-copy-group aria-labelledby="issue-data-title">
         <h2 id="issue-data-title" class="r-label">Ausgabe</h2>
         <dl class="r-dl r-dl--compact">
           <dt>Amtliche Bezeichnung</dt><dd id="issue-designation">{publication.originalIssueDesignation ? toDisplayText(publication.originalIssueDesignation) : label}</dd>
@@ -148,7 +148,7 @@ const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startP
         </div>
         <p class="r-feedback" aria-live="polite" data-copy-feedback></p>
       </section>
-      <section class="r-box" aria-labelledby="issue-sources-title">
+      <section aria-labelledby="issue-sources-title">
         <h2 id="issue-sources-title" class="r-label">Quellen dieser Ausgabe</h2>
         <ul class="norm-aside__source-list">
           {publication.pdf ? <li><a href={publication.pdf}>Original-PDF der Ausgabe</a> <span class="r-muted">· amtliche Ausgabe</span></li> : <li class="r-muted">Für diese Ausgabe liegt kein Original-PDF vor.</li>}

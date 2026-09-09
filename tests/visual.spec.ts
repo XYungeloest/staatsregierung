@@ -390,15 +390,6 @@ async function prepareLocator(locator: Locator): Promise<void> {
 }
 
 async function expectSectionScreenshot(locator: Locator, name: string): Promise<void> {
-  if (name === 'recht-footer.png') {
-    await locator.evaluate((element) => {
-      const footer = element as HTMLElement;
-      footer.style.position = 'absolute';
-      footer.style.inset = '0 0 auto';
-      footer.style.width = '100%';
-      footer.style.zIndex = '2147483647';
-    });
-  }
   await prepareLocator(locator);
   await expect(locator).toHaveScreenshot(name);
 }
@@ -467,7 +458,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     shots: [['schulsystem-grafik', '[data-visual-section="school-system-chart"]']],
   },
   {
-    // Eigener Footer des Rechtsportals mit Recherchewegen.
+    // Eigener Fuß des Rechtsportals: Rechtsstand, rechtliche Hinweise, Simulationshinweis.
     name: 'recht-module',
     path: lawUrl('/'),
     shots: [['recht-footer', '.law-footer']],

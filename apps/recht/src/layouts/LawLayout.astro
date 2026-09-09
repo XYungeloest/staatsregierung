@@ -12,23 +12,15 @@ import {
   getPrivacyUrl,
 } from '@ostrecht/shared/lib/portal/routes.ts';
 import {
-  getAdministrativeRulesUrl,
-  getFundingUrl,
   getHelpUrl,
-  getIndexUrl,
-  getLawConstitutionUrl,
   getLawPortalUrl,
-  getLawsUrl,
-  getPublicationsUrl,
-  getRegulationsUrl,
   getSearchUrl,
-  getSubjectsUrl,
 } from '@ostrecht/shared/lib/norms/routes.ts';
 import { referenceDateLabel } from '../lib/vocabulary.ts';
 
 /**
- * Hülle von OstRecht (Richtung E „Rechtsstand“): Hinweiszeile, Amtsband mit Wortmarke, Suche und
- * fünf Bereichen, Hauptbereich, Fuß. Die Gestaltung liegt vollständig in apps/recht/src/styles;
+ * Hülle von OstRecht (Richtung E „Rechtsstand“): Amtsband mit Wortmarke, Suche und fünf
+ * Bereichen, Hauptbereich, Fuß mit dem Hinweis zur Simulation. Die Gestaltung liegt vollständig in apps/recht/src/styles;
  * vom Staatsportal werden nur Schriften, Kopfmetadaten und Analytik geteilt.
  */
 interface Props {
@@ -90,19 +82,12 @@ const mainNavLinks = lawSiteConfig.mainNavigation.map((entry) => {
   return { href, label: entry.label, isActive, key: pathKey };
 });
 
-const footerResearchLinks = [
-  { href: getSearchUrl(), label: lawSiteConfig.targetLabels.search },
-  { href: getSubjectsUrl(), label: lawSiteConfig.targetLabels.subjects },
-  { href: getIndexUrl(), label: lawSiteConfig.targetLabels.index },
-  { href: getPublicationsUrl(), label: lawSiteConfig.targetLabels.publications },
-  { href: getLawsUrl(), label: lawSiteConfig.targetLabels.laws },
-  { href: getRegulationsUrl(), label: lawSiteConfig.targetLabels.regulations },
-  { href: getAdministrativeRulesUrl(), label: lawSiteConfig.targetLabels.administrativeRules },
-  { href: getFundingUrl(), label: lawSiteConfig.targetLabels.funding },
-  { href: getLawConstitutionUrl(), label: lawSiteConfig.targetLabels.constitution },
+/**
+ * Der Fuß schließt die Seite ab und wiederholt die Recherchewege nicht: sie stehen im Amtsband
+ * und – auf kleinen Bildschirmen – im Menü „Bereiche“.
+ */
+const footerLinks = [
   { href: getHelpUrl(), label: lawSiteConfig.targetLabels.help },
-];
-const footerStateLinks = [
   { href: getImprintUrl(), label: 'Impressum' },
   { href: getPrivacyUrl(), label: 'Datenschutz' },
   { href: getAccessibilityUrl(), label: 'Barrierefreiheit' },
@@ -117,10 +102,6 @@ const footerStateLinks = [
   </head>
   <body class:list={['law-site', bodyClass]}>
     <div class="law-shell">
-      <div class="law-notice" role="note" aria-label="Hinweis zum Rechtsportal">
-        <div class="r-container"><p>{lawSiteConfig.simulationNotice}</p></div>
-      </div>
-
       <header class="law-header">
         <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
         <div class="r-container law-header__bar">
@@ -175,11 +156,8 @@ const footerStateLinks = [
       <footer class="law-footer">
         <div class="r-container law-footer__inner">
           <p data-print-url={Astro.url.href} data-print-date={referenceDateLabel()}>{lawSiteConfig.authorityName} · {referenceDateLabel()} · {lawSiteConfig.officialNote}</p>
-          <nav aria-label="Staatsportal und rechtliche Hinweise">
-            {footerStateLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-          </nav>
-          <nav aria-label="Recherchewege im Footer">
-            {footerResearchLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+          <nav aria-label="Hilfe, rechtliche Hinweise und Staatsportal">
+            {footerLinks.map((link) => <a href={link.href}>{link.label}</a>)}
           </nav>
           <p class="law-footer__simulation">{lawSiteConfig.simulationNotice}{analyticsEnabled ? <> · <button type="button" class="r-link-btn" data-analytics-consent-reset>Datenschutzeinstellungen</button></> : null}</p>
         </div>

@@ -74,3 +74,25 @@ export function describeChange(change: { title?: string | null; citation?: strin
   if (title) return title;
   return citationOpening(change.citation) || toDisplayText(change.citation ?? '').trim();
 }
+
+/** Führendes Ereigniswort eines Eintragstitels: „Änderung durch …“, „Aufhebung durch …“. */
+const CAUSE_PREFIX = /^(?:Änderung|Aufhebung|Neufassung|Berichtigung|Erlass|Einführung)\s+(?=durch\s)/u;
+
+/**
+ * Ursache eines Änderungseintrags für Listen, die das Ereignis schon in eigenen Worten nennen
+ * (Änderungsdienst der Startseite): Der Titel ohne das führende Ereigniswort, damit die Zeile
+ * „geändert“ nicht als „Änderung durch …“ wiederholt. Platzhaltertitel liefern nichts; die
+ * Fundstelle steht in solchen Fällen für sich.
+ */
+export function describeChangeCause(change: { title?: string | null }): string {
+  const title = displayHistoryTitle(change.title);
+  return title ? title.replace(CAUSE_PREFIX, '') : '';
+}
+
+/**
+ * Verursachende Vorschrift ohne einleitendes „durch“ – für Zeilen, die das Wort selbst tragen
+ * („zuletzt geändert durch …“, „abgelöst durch …“).
+ */
+export function describeChangeAgent(change: { title?: string | null }): string {
+  return describeChangeCause(change).replace(/^durch\s+/u, '');
+}
