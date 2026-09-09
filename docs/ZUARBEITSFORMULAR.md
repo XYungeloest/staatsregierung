@@ -25,6 +25,14 @@ offene Quellenfragen in `../CONTENT_GAPS.md`; der redaktionelle Stichtag steht z
 
 ## V. Künftige Vollzugsbelege
 
+### V-00 – Hoheitszeichenrecht: amtliche Klarstellung
+
+- [ ] Berichtigung des Verweises auf § 17 OHzG in OGVBl. 2026 Nr. 70, Artikel 2 Absatz 2,
+      oder amtlicher Beleg, wie der Verweis trotz der Verordnungsermächtigung in § 19 zu lesen ist.
+- [ ] Eindeutige Zuordnung der fortgeltenden Verweise der Hoheitszeichenverordnung zu den neuen
+      Vorschriften oder eine neue Durchführungsverordnung. Die belegten Übergangsfristen sind
+      bereits erfasst; ein neuer Normwortlaut wird daraus nicht ohne Beleg gebildet.
+
 ### V-01 – Folgebelege zur Volksbefragung und zur achten Volkskammerwahl
 
 Durchführung, amtliches Endergebnis der Volksbefragung, amtliches Wahlergebnis und der politische

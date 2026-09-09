@@ -6,7 +6,7 @@ Stand: 8. September 2026
 
 ## Politischer Rahmen
 
-Volksfront und Bündnis Demokratie Europa (DEMOS) sind zur Wahl der 8. Ostdeutschen Volkskammer am 5. und 6. September 2026 gemeinsam als **Roter Aufbruch (RA)** angetreten. Beide Parteien behalten ihre eigenständigen politischen Identitäten. Die Bundeswahlleitung hat das Endergebnis am 6. September 2026 endgültig festgestellt: Roter Aufbruch erreicht 92,63 Prozent und alle 11 Sitze bei 63,33 Prozent Wahlbeteiligung. Die konstituierende Sitzung der 8. Volkskammer ist noch nicht belegt.
+Volksfront und Bündnis Demokratie Europa (DEMOS) sind zur Wahl der 8. Ostdeutschen Volkskammer am 5. und 6. September 2026 gemeinsam als **Roter Aufbruch (RA)** angetreten. Beide Parteien behalten ihre eigenständigen politischen Identitäten. Die Bundeswahlleitung hat das Endergebnis am 6. September 2026 endgültig festgestellt: Roter Aufbruch erreicht 92,63 Prozent und alle 11 Sitze bei 63,33 Prozent Wahlbeteiligung. Die konstituierende Sitzung fand am 7. September 2026 statt; Wahl, Vereidigung und Ernennung des zweiten Staatsrates sind durch StAnzO. 2026 Nr. 42 belegt.
 
 Die gleichzeitig durchgeführte Volksbefragung 2026 ist abgeschlossen. Alle fünf Fragen wurden mehrheitlich befürwortet (88,89 / 76,47 / 82,35 / 88,24 / 58,82 Prozent Ja). Der Staatsrat hat seinen Bericht nach § 8 VBefrVO 2026 am 6. September 2026 im **StAnzO. 2026 Nr. 41** veröffentlicht; er ist damit die amtliche Grundlage für die politischen Schlussfolgerungen in dieser Agenda. Weder die Befragung noch der Bericht begründen unmittelbar geltende Rechte oder Pflichten.
 
