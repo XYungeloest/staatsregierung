@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-08T21:03:12.943Z",
+  "generatedAt": "2026-09-09T05:25:15.782Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
     "recognizedAmendmentActs": 66,
-    "recognizedTargetNorms": 89,
+    "recognizedTargetNorms": 90,
     "completeTargetNorms": 85,
-    "blockedSourceConflicts": 4,
+    "blockedSourceConflicts": 5,
     "missingPrimarySources": 0
   },
   "templateProblems": [],
@@ -1234,6 +1234,44 @@
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "hoheitszeichenverordnung",
+      "title": "Hoheitszeichenverordnung",
+      "aliases": [
+        "Hoheitszeichenverordnung",
+        "Verordnung über die Hoheitszeichen des Ostdeutschen Freistaates"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "hoheitszeichenverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
+          "title": "Besonderes Gesetz zur Neuregelung des Hoheitszeichenrechts des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-09-02",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-02"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-09-02"
+      ],
+      "status": "blocked-source-conflict",
+      "problems": [
+        "Artikel 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts ordnet eine Fortgeltung unter Maßgaben an, verweist für die Durchführungsverordnung jedoch auf § 17 OHzG (Ordnungswidrigkeiten) statt auf die Verordnungsermächtigung in § 19. Auch die Verweise auf entsprechende neue Vorschriften werden nicht einzeln zugeordnet. Die unstreitige Nichtanwendung der Regeln über das große Staatswappen und die Höchstfrist 31. Dezember 2026 sind als Anwendungshinweis erfasst; eine vollständig konsolidierte Fassung wird bis zur Quellenklärung nicht erzeugt.",
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     },
     {
       "canonicalSlug": "kommunalwahlgesetz",

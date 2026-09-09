@@ -1,18 +1,18 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-09-08T21:03:12.943Z
+**Erzeugt:** 2026-09-09T05:25:15.782Z
 
 - Erkannte Änderungsvorschriften: 66
-- Erkannte Zielnormen: 89
+- Erkannte Zielnormen: 90
 - Vollständig konsolidiert: 85
-- Aktuell offene Zielnormen: 4
+- Aktuell offene Zielnormen: 5
 
 ## Offener Handlungsbedarf
 
 - Fehlende Stammnormdatensätze: 0
 - Unvollständige Platzhalterbestände: 0
-- Blockierte Quellenkonflikte: 4
+- Blockierte Quellenkonflikte: 5
 - Fehlende Primärquellen: 0
 
 Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solange eine Zielnorm noch nicht vollständig umgesetzt ist, bleibt sie mit Problem und nächstem Schritt hier sichtbar. Der vollständige maschinenlesbare Status steht zusätzlich in `data/recht/consolidation-manifest.json`; redaktionelle Quellenfragen werden in `CONTENT_GAPS.md` gebündelt.
@@ -24,6 +24,14 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - Datensatz: `ostdeutsches-personennahverkehrsgesetz`
 - Status: `blocked-source-conflict`
 - Problem: Artikel 9 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes ordnet zum 21. Juli 2026 Ergänzungen in § 3 Absatz 1 nach den Wörtern „Landkreise und kreisfreien Städte“ an. Die am 24. März 2026 in Kraft getretene Neufassung des § 3 Absatz 1 enthält diese Wörter nicht mehr; sie stehen nur in Absatz 2. Eine Umdeutung des ausdrücklich bezeichneten Absatzes ist ohne Berichtigung oder andere Primärquelle unzulässig. Die gleichzeitig vorgesehenen weiteren Änderungen werden bis zur Klärung nicht als vollständige Folgefassung ausgegeben.
+- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
+
+### Hoheitszeichenverordnung
+
+- Datensatz: `hoheitszeichenverordnung`
+- Status: `blocked-source-conflict`
+- Problem: Artikel 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts ordnet eine Fortgeltung unter Maßgaben an, verweist für die Durchführungsverordnung jedoch auf § 17 OHzG (Ordnungswidrigkeiten) statt auf die Verordnungsermächtigung in § 19. Auch die Verweise auf entsprechende neue Vorschriften werden nicht einzeln zugeordnet. Die unstreitige Nichtanwendung der Regeln über das große Staatswappen und die Höchstfrist 31. Dezember 2026 sind als Anwendungshinweis erfasst; eine vollständig konsolidierte Fassung wird bis zur Quellenklärung nicht erzeugt.
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 - Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 

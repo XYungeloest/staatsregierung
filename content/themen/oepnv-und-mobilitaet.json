@@ -6,15 +6,23 @@
   "cluster": "infrastruktur-wohnen",
   "priority": 85,
   "featured": true,
-  "updatedAt": "2026-09-01",
-  "relatedTopicSlugs": ["oeffentliche-wirtschaft-und-strukturwandel", "kommunen-regionen-und-berlin"],
-  "knowledgeProjectRefs": ["project-eisenbahn-verkehr", "project-ovv-ticket", "project-boom-europe"],
+  "updatedAt": "2026-09-08",
+  "relatedTopicSlugs": [
+    "oeffentliche-wirtschaft-und-strukturwandel",
+    "kommunen-regionen-und-berlin"
+  ],
+  "knowledgeProjectRefs": [
+    "project-eisenbahn-verkehr",
+    "project-ovv-ticket",
+    "project-boom-europe"
+  ],
   "hero": "Der Freistaat verbindet bezahlbare Tarife mit öffentlicher Verkehrsproduktion, verbindlicher Anschlusssicherung und einem landesweit abgestimmten Taktfahrplan.",
   "beschlossen": [
     "Mobilität und Infrastruktur wurden als eigenständiger Schwerpunkt der Regierungsarbeit verankert.",
     "Planungs- und Finanzierungsfragen werden ressortübergreifend mit Landesentwicklung und Haushaltssteuerung gekoppelt.",
     "Der Ausbau eines stärkeren öffentlichen Verkehrsnetzes wurde politisch priorisiert.",
-    "Die Gesetze zur Ostdeutschen Eisenbahn, Verkehrsvergesellschaftung und Hochgeschwindigkeitsluftfahrt wurden am 20. Juli 2026 verkündet."
+    "Die Gesetze zur Ostdeutschen Eisenbahn, Verkehrsvergesellschaftung und Hochgeschwindigkeitsluftfahrt wurden am 20. Juli 2026 verkündet.",
+    "Für reimportierte DDR-Kleinkrafträder ist eine Verwaltungsvorschrift verkündet, die am 9. September 2026 in Kraft tritt. Sie regelt den Nachweis der ersten Inbetriebnahme, das erforderliche Gutachten und die Erteilung der Betriebserlaubnis."
   ],
   "umgesetzt": [
     "Die Ressortstruktur für Mobilität, Infrastruktur und Landesentwicklung ist eingerichtet.",
@@ -64,6 +72,11 @@
     }
   ],
   "rechtsgrundlagen": [
+    {
+      "label": "VwV DDR-Reimport-Kleinkrafträder",
+      "normSlug": "vwv-ddr-reimport-kleinkraftraeder",
+      "note": "Gilt ab 9. September 2026."
+    },
     {
       "label": "Leitlinie gemeinwirtschaftlicher Eisenbahnbetrieb",
       "normSlug": "bekanntmachung-ode-betriebsgrundsaetze"
@@ -128,6 +141,10 @@
     {
       "question": "Welche Rolle spielt Dresden dabei?",
       "answer": "Dresden ist Regierungssitz und ein zentraler politischer Knoten für die Koordinierung landesweiter Mobilitätsachsen."
+    },
+    {
+      "question": "Wie wird eine Betriebserlaubnis für ein DDR-Reimport-Kleinkraftrad beantragt?",
+      "answer": "Ab 9. September 2026 kann der Antrag unmittelbar mit dem Gutachten nach § 21 StVZO gestellt werden; eine vorherige Zweitschrift oder Ablehnung des Kraftfahrt-Bundesamtes ist nicht erforderlich. Die Verwaltungsvorschrift erfasst Fahrzeuge, die spätestens am 28. Februar 1992 erstmals in Betrieb genommen wurden. Für den Bestandsschutz müssen die weiteren technischen und sicherheitsbezogenen Voraussetzungen erfüllt sein."
     }
   ],
   "federfuehrendesRessort": "mobilitaet-infrastruktur-und-landesentwicklung",

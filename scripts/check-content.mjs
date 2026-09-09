@@ -90,6 +90,7 @@ const allowedNormMinistries = new Set([
   'Ostdeutscher Verkehrsverbund',
 ]);
 const allowedEnactingBodies = new Set([
+  'Staatsrat für Überfluss',
   'Staatsrat für Frieden',
   'Sächsischer Landtag',
   'Sächsische Staatsregierung',

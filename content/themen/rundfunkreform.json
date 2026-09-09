@@ -6,9 +6,13 @@
   "cluster": "staat-demokratie",
   "priority": 69,
   "featured": false,
-  "updatedAt": "2026-09-01",
-  "relatedTopicSlugs": ["kultur-erinnerung-und-medien"],
-  "knowledgeProjectRefs": ["project-rundfunk"],
+  "updatedAt": "2026-09-08",
+  "relatedTopicSlugs": [
+    "kultur-erinnerung-und-medien"
+  ],
+  "knowledgeProjectRefs": [
+    "project-rundfunk"
+  ],
   "hero": "Die Neuordnung des Rundfunks gehört zu den sichtbarsten institutionellen Reformprojekten des Freistaates und verbindet Medienpolitik mit staatsvertraglichen Übergängen.",
   "beschlossen": [
     "Die Errichtung des Ostdeutschen Fernsehfunks wurde gesetzlich verankert.",
@@ -25,10 +29,22 @@
     "Weitere Schritte zur medienpolitischen Zusammenarbeit und öffentlichen Information."
   ],
   "rechtsgrundlagen": [
-    { "label": "Ostdeutsches Fernsehfunkgesetz", "normSlug": "ostdeutsches-fernsehfunkgesetz" },
-    { "label": "NDR-Änderungs- und Überleitungsstaatsvertrag", "normSlug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt" },
-    { "label": "Bekanntmachung über das Inkrafttreten des NDR-Änderungs- und Überleitungsstaatsvertrags", "normSlug": "bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages" },
-    { "label": "Errichtungsgesetz und Zustimmungspaket", "normSlug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w" }
+    {
+      "label": "Ostdeutsches Fernsehfunkgesetz",
+      "normSlug": "ostdeutsches-fernsehfunkgesetz"
+    },
+    {
+      "label": "NDR-Änderungs- und Überleitungsstaatsvertrag",
+      "normSlug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt"
+    },
+    {
+      "label": "Bekanntmachung über das Inkrafttreten des NDR-Änderungs- und Überleitungsstaatsvertrags",
+      "normSlug": "bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages"
+    },
+    {
+      "label": "Errichtungsgesetz und Zustimmungspaket",
+      "normSlug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w"
+    }
   ],
   "faq": [
     {
@@ -40,5 +56,6 @@
       "answer": "Die Reform verbindet Landesgesetzgebung mit staatsvertraglichen Übergängen und medienrechtlicher Bereinigung."
     }
   ],
-  "federfuehrendesRessort": "staatskanzlei"
+  "federfuehrendesRessort": "kultur-medien-und-kulturelle-emanzipation",
+  "mitzeichnungsressorts": []
 }

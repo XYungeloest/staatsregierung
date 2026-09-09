@@ -413,6 +413,7 @@ const NEW_PUBLICATION_CONFIG = {
     summary: 'Bestellt Joachim Hunold, Ralf Teckentrup und Klaus Wowereit mit Wirkung vom 3. September 2026 zu Mitgliedern des Gründungsvorstandes der Interflug und begrenzt die Bestellung auf die Gründungsphase.',
     effectiveOverride: '2026-09-03',
     relatedNorms: ['interflug-gesetz', 'gesetz-zur-errichtung-der-interflug', 'bekanntmachung-beschaffung-anfangsflotte-interflug'],
+    expiryDate: '2027-03-03',
     dateNote: 'Am 3. September 2026 verkündet; die Bestellung wirkt vom 3. September 2026 an und endet mit dem Amtsantritt des ersten vom Verwaltungsrat bestellten Vorstandes, spätestens mit Ablauf des 3. März 2027. Die Bekanntmachung zitiert § 24 Absatz 3 und 4 sowie § 10 Absatz 2 des Interflug-Gesetzes; im verkündeten Gesetz (OGVBl. 2026 Nr. 74) regeln § 23 Absatz 3 und 4 den Gründungsvorstand und § 14 Absatz 2 die Bestellung des Vorstandes durch den Verwaltungsrat. Der Wortlaut wird unverändert wiedergegeben.',
   }],
   'StAnzO.|2026|40': [{
@@ -473,7 +474,7 @@ const NEW_PUBLICATION_CONFIG = {
     pageCount: 6,
     pdfFileName: 'StAnzO. 2026 Nr. 43.pdf',
     verifiedAt: '2026-09-08',
-    enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
+    enactingBody: 'Staatsrat für Überfluss',
     responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung',
     subjects: ['Verkehr'],
     keywords: ['Kleinkraftrad', 'Fahrrad mit Hilfsmotor', 'Betriebserlaubnis', 'Einigungsvertrag', 'Bestandsschutz', 'Landesamt für Straßenbau und Verkehr'],
@@ -1014,6 +1015,12 @@ function legacyEntryCitation(previous, meta, publication, documentDate) {
  * (Kurzbezeichnung, Abkürzung, Kurzfassung, Sachgebiete) aus dem Bestand behält.
  */
 const PUBLICATION_EXPIRY_CONFIG = {
+  'hoheitszeichenverordnung': {
+    expiryDate: '2026-12-31',
+    basis: 'nach Artikel 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts vom 2. September 2026 (OGVBl. 2026 Nr. 70) längstens bis zum Ablauf des 31. Dezember 2026; eine neue Durchführungsverordnung kann sie zuvor ablösen',
+    citation: 'Besonderes Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70), Artikel 2 Absatz 2',
+    dateNote: 'Seit 2. September 2026 gilt diese Verordnung nur nach den Maßgaben des Artikels 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts: Verweise auf das kleine Staatswappen bezeichnen das Staatswappen nach § 3 OHzG; Vorschriften über das große Staatswappen finden keine Anwendung mehr. Verweise auf das bisherige Gesetz und bisherige Behördenbezeichnungen richten sich nach den entsprechenden neuen Vorschriften und Zuständigkeiten. Die Verordnung tritt mit einer neuen Durchführungsverordnung, spätestens mit Ablauf des 31. Dezember 2026 außer Kraft. Der gespeicherte Wortlaut ist die ursprüngliche Fassung; eine vollständig konsolidierte Fassung liegt nicht vor. Die Ermächtigungsverweisung auf § 17 in Artikel 2 Absatz 2 widerspricht § 19 OHzG und bleibt ungeklärt.',
+  },
   'allgemeinverfugung-zur-beschrankung-des-gemeingebrauchs-von-hp0whs': {
     expiryDate: '2026-01-01',
     basis: 'vom 31. Dezember 2025, 18:00 Uhr, bis zum 1. Januar 2026, 06:00 Uhr',
@@ -1022,11 +1029,16 @@ const PUBLICATION_EXPIRY_CONFIG = {
 };
 
 function applyPublicationExpiry(record) {
+  if (record.meta.slug === 'gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes') {
+    record = { ...record, meta: { ...record.meta,
+      dateNote: 'Das durch Artikel 4 eingeführte Gesetz über die Hoheitszeichen wurde mit Wirkung vom 2. September 2026 durch Artikel 2 Absatz 1 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts (OGVBl. 2026 Nr. 70) aufgehoben. Die übrigen Bestandteile dieses Einführungsgesetzes werden dadurch nicht insgesamt aufgehoben. Der gespeicherte Text dokumentiert den ursprünglichen Verkündungsakt.',
+    } };
+  }
   const config = PUBLICATION_EXPIRY_CONFIG[record.meta.slug];
   if (!config) return record;
   const repealed = config.expiryDate <= asOf;
   const version = record.versions.at(-1);
-  const citation = version?.citation ?? record.meta.initialCitation;
+  const citation = config.citation ?? version?.citation ?? record.meta.initialCitation;
   const entries = (record.history?.entries ?? []).filter((entry) =>
     !(entry.type === 'repeal' && entry.date === config.expiryDate));
   return {

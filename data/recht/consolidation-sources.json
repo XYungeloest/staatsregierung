@@ -1545,6 +1545,15 @@
           "sourceSha256": "30483510f31c57b67bf7a5a0efcb05878db0d5d44717b2bf6e33107b2341e416"
         }
       ]
+    },
+    "hoheitszeichenverordnung": {
+      "title": "Hoheitszeichenverordnung",
+      "aliases": [
+        "Hoheitszeichenverordnung"
+      ],
+      "existingVersionSeed": {
+        "versionId": "2026-03-28"
+      }
     }
   },
   "blockedTargets": {
@@ -1563,6 +1572,10 @@
     "zehntes-ostdeutsches-kostenverzeichnis": {
       "reason": "Artikel 3 Nummer 2 des Gesetzes zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes ordnet an, nach Tarifstelle 2 eine neue Tarifstelle 3 anzufügen. Die amtliche, im Änderungsgesetz selbst zitierte Ausgangsfassung des Zehnten Sächsischen Kostenverzeichnisses enthält im einschlägigen Abschnitt bereits eine Tarifstelle 3. Ob Ersetzung, Umnummerierung oder eine zusätzliche Tarifstelle beabsichtigt war, ist aus der Primärquelle nicht eindeutig bestimmbar.",
       "effectiveDate": "2026-07-01"
+    },
+    "hoheitszeichenverordnung": {
+      "reason": "Artikel 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts ordnet eine Fortgeltung unter Maßgaben an, verweist für die Durchführungsverordnung jedoch auf § 17 OHzG (Ordnungswidrigkeiten) statt auf die Verordnungsermächtigung in § 19. Auch die Verweise auf entsprechende neue Vorschriften werden nicht einzeln zugeordnet. Die unstreitige Nichtanwendung der Regeln über das große Staatswappen und die Höchstfrist 31. Dezember 2026 sind als Anwendungshinweis erfasst; eine vollständig konsolidierte Fassung wird bis zur Quellenklärung nicht erzeugt.",
+      "effectiveDate": "2026-09-02"
     }
   }
 }

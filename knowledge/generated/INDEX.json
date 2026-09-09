@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-09-08",
   "editorialAsOf": "2026-09-08",
-  "count": 1198,
+  "count": 1202,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -1383,6 +1383,19 @@
         "public-economy"
       ],
       "validFrom": "2023-12-31",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-interflug",
+      "title": "Interflug AöR",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-03",
       "validTo": null,
       "target": "knowledge/holdings.json"
     },
@@ -10446,6 +10459,19 @@
       "target": "knowledge/holdings.json"
     },
     {
+      "id": "holding-zinnwald-lithium",
+      "title": "Zinnwald Lithium GmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
       "id": "inst-50hertz",
       "title": "50Hertz Transmission",
       "type": "institution",
@@ -11961,6 +11987,19 @@
       ],
       "validFrom": "2026-03-24",
       "validTo": "2026-03-24",
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-ddr-reimport-kleinkraftraeder",
+      "title": "Betriebserlaubnisse für DDR-Reimport-Kleinkrafträder",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "transport",
+        "administration"
+      ],
+      "validFrom": "2026-09-08",
+      "validTo": null,
       "target": "knowledge/proceedings.json"
     },
     {
@@ -13817,14 +13856,14 @@
     },
     {
       "id": "source-hoheitszeichenrecht-current",
-      "title": "Hoheitszeichengesetz in der verkündeten Fassung vom 23. März 2026",
+      "title": "Ostdeutsches Hoheitszeichengesetz vom 2. September 2026",
       "type": "source",
       "aliases": [],
       "tags": [
         "law",
         "state-symbols"
       ],
-      "validFrom": "2026-03-23",
+      "validFrom": "2026-09-02",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -15501,6 +15540,19 @@
         "constitution"
       ],
       "validFrom": "2026-09-07",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-43",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 43",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "transport"
+      ],
+      "validFrom": "2026-09-08",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
