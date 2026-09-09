@@ -61,7 +61,7 @@ document.addEventListener('click', async (event) => {
   let done = '';
   let failed = '';
   if (button.hasAttribute('data-copy-url')) {
-    const url = new URL(window.location.href);
+    const url = new URL(button.dataset.copyHref ?? window.location.href, window.location.href);
     url.search = url.searchParams.size > 0 && button.dataset.copyKeepQuery === 'true' ? url.search : '';
     url.hash = button.dataset.copyUrl ?? '';
     text = url.toString();
@@ -77,3 +77,5 @@ document.addEventListener('click', async (event) => {
   const ok = text ? await copy(text) : false;
   if (feedback) feedback.textContent = ok ? done : failed;
 });
+
+import './sheets.ts';

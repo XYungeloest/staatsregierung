@@ -92,7 +92,7 @@ const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startP
         <button class="r-btn" type="button" data-print-page>Drucken</button>
       </div>
     </div>
-    <p class="r-caption">Quellen: {publication.pdf ? 'Original-PDF der Ausgabe' : 'kein Original-PDF hinterlegt'}{sourceLinks.length > 0 ? ` · ${sourceLinks.map((source) => toDisplayText(source.label)).join(' · ')}` : ''}. {publication.pdf ? '' : 'Fehlt das PDF einer Ausgabe, wird nur die geprüfte Transkription genannt.'}</p>
+    <p class="r-caption">Quellen: {publication.pdf ? 'Original-PDF der Ausgabe' : 'kein Original-PDF hinterlegt'}{sourceLinks.length > 0 ? ` · ${sourceLinks.map((source) => toDisplayText(source.label)).join(' · ')}` : ''}. {publication.pdf ? '' : 'Weitere verfügbare Quellen finden Sie unter „Quellen dieser Ausgabe“.'}</p>
   </header>
 
   <div class="r-research r-issue">
@@ -127,7 +127,7 @@ const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startP
           </tbody>
         </table>
       </div>
-      <p class="r-caption r-issue__note">Die Spalte „Geltendes Recht“ trennt amtliche Veröffentlichung und konsolidierte Perspektive: „Als Vorschrift öffnen“ (Änderungsvorschrift selbst), „Geltende Fassung“ (Stammnorm) oder die entstandene Fassung. Bei Bekanntmachungen ohne Normbezug entfällt der Link.</p>
+      <p class="r-caption r-issue__note">Verknüpfte Vorschriften führen zur geltenden oder zur durch diese Veröffentlichung entstandenen Fassung.</p>
     </section>
 
     <aside class="r-research__aside" aria-label="Ausgabe und Quellen">
@@ -151,12 +151,12 @@ const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startP
       <section class="r-box" aria-labelledby="issue-sources-title">
         <h2 id="issue-sources-title" class="r-label">Quellen dieser Ausgabe</h2>
         <ul class="norm-aside__source-list">
-          {publication.pdf ? <li><a href={publication.pdf}>Original-PDF der Ausgabe</a> <span class="r-muted">· amtliche visuelle Kontrollquelle</span></li> : <li class="r-muted">Für diese Ausgabe liegt kein Original-PDF vor.</li>}
+          {publication.pdf ? <li><a href={publication.pdf}>Original-PDF der Ausgabe</a> <span class="r-muted">· amtliche Ausgabe</span></li> : <li class="r-muted">Für diese Ausgabe liegt kein Original-PDF vor.</li>}
           {sourceLinks.map((source) => <li><a href={source.url}>{toDisplayText(source.label)}</a>{source.pageRange ? <span class="r-muted"> · Seiten {source.pageRange}</span> : null}</li>)}
         </ul>
         {publisherLine ? <p class="r-caption">{toDisplayText(publisherLine)}</p> : null}
       </section>
-      <p class="r-caption">Ausgabe und Veröffentlichung sind eine gemeinsame Ressource: die Fundstelle führt zur Zeile in der Ausgabe, die Ausgabe zeigt alle Fundstellen.</p>
+      <p class="r-caption">Die Fundstellen verweisen auf die einzelnen Veröffentlichungen dieser Ausgabe.</p>
     </aside>
   </div>
 </LawLayout>

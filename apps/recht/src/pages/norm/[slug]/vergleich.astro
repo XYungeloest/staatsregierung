@@ -80,7 +80,7 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
   <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} active="versions" /></div>
 
   <section class="norm-compare" data-version-compare aria-labelledby="norm-compare-title">
-    <div class="norm-compare__head">
+    <div class="norm-compare__head" data-copy-group><button class="r-btn" type="button" data-copy-url data-copy-keep-query="true">Link zum Vergleich kopieren</button><span class="r-feedback" aria-live="polite" data-copy-feedback></span>
       <h2 id="norm-compare-title">{NORM_COMPARE_LABEL} · {formatShortDate(defaultFrom.validFrom)} → {formatShortDate(defaultTo.validFrom)}</h2>
       <div class="r-segmented" role="group" aria-label="Darstellung">
         <button type="button" data-compare-mode="inline" aria-pressed="true">Im Text</button>

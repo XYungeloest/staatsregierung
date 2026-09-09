@@ -69,8 +69,8 @@ function renderValue(
 ): string {
   const value = valueOf(node, side);
   if (!value) return '';
-  const fallback = value[field];
-  if (!fallback) return '';
+  const fallback = value[field] ?? '';
+  if (!fallback && side !== 'inline') return '';
   const chunks = field === 'label' ? node.labelDiff : field === 'title' ? node.titleDiff : node.textDiff;
   if (side === 'inline' && !chunks && node.before && node.after) {
     const beforeField = node.before[field] ?? '';

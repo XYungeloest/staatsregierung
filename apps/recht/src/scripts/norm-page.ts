@@ -98,3 +98,63 @@ if (window.location.hash) {
   const id = decodeURIComponent(window.location.hash.slice(1));
   if (document.getElementById(id)) setActive(id);
 }
+
+// Bereiche bleiben ohne JavaScript als verlinkte Dokumentabschnitte erreichbar.
+const workspace = document.querySelector<HTMLElement>('.norm-workspace');
+const facts = document.querySelector<HTMLElement>('.norm-facts');
+const relations = document.querySelector<HTMLElement>('.norm-relations');
+const detailsArea = document.querySelector<HTMLElement>('.norm-details');
+const mobileOutline = document.querySelector<HTMLElement>('.norm-outline-mobile');
+const tabs = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-norm-tab]'));
+const mobile = window.matchMedia('(max-width: 47.99rem)');
+const factsDisclosure = document.createElement('details');
+factsDisclosure.className = 'norm-facts-disclosure';
+const factsSummary = document.createElement('summary');
+factsSummary.textContent = 'Vorschriftendaten';
+factsDisclosure.append(factsSummary);
+if (facts) { facts.before(factsDisclosure); factsDisclosure.append(facts); }
+
+const timeline = document.querySelector<HTMLElement>('.norm-aside__versions');
+const aside = timeline?.parentElement;
+function updateNormView(): void {
+  const section = location.hash === '#vorschriftendaten' ? 'facts' : location.hash === '#rechtsbeziehungen' ? 'relations' : 'text';
+  if (workspace) workspace.hidden = section !== 'text';
+  if (mobileOutline) mobileOutline.hidden = section !== 'text';
+  if (detailsArea) detailsArea.hidden = section === 'text' && !mobile.matches;
+  if (facts) facts.hidden = section === 'relations';
+  factsDisclosure.hidden = section === 'relations';
+  factsDisclosure.open = !mobile.matches || section === 'facts';
+  if (relations) relations.hidden = section === 'facts';
+  tabs.forEach((tab) => {
+    if (tab.dataset.normTab === section) tab.setAttribute('aria-current', 'page');
+    else tab.removeAttribute('aria-current');
+  });
+  if (timeline && workspace && aside) {
+    if (mobile.matches) workspace.prepend(timeline);
+    else aside.prepend(timeline);
+    const selected = timeline.querySelector<HTMLElement>('.norm-timeline__entry--shown');
+    const track = timeline.querySelector<HTMLElement>('.norm-timeline');
+    if (mobile.matches && track && selected) track.scrollLeft = selected.offsetLeft - track.offsetLeft - (track.clientWidth - selected.clientWidth) / 2;
+  }
+}
+for (const tab of tabs) {
+  if (tab.dataset.normTab === 'versions') continue;
+  tab.addEventListener('click', (event) => {
+    event.preventDefault();
+    history.pushState(null, '', tab.href);
+    updateNormView();
+    const target = tab.dataset.normTab === 'facts' ? facts : tab.dataset.normTab === 'relations' ? relations : workspace;
+    target?.setAttribute('tabindex', '-1');
+    target?.focus({ preventScroll: true });
+  });
+}
+window.addEventListener('hashchange', updateNormView);
+window.addEventListener('popstate', updateNormView);
+mobile.addEventListener('change', updateNormView);
+updateNormView();
+
+window.addEventListener('beforeprint', () => {
+  for (const element of [workspace, detailsArea, facts, relations, factsDisclosure]) if (element) element.hidden = false;
+  factsDisclosure.open = true;
+});
+window.addEventListener('afterprint', updateNormView);

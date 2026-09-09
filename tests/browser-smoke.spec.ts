@@ -574,7 +574,8 @@ siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilt
   await searchSettled(page);
   await expect(page.locator('[data-search-filter="includeAmendments"]')).not.toBeChecked();
   await expect(page).not.toHaveURL(/includeAmendments=1/u);
-  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
+  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toBeVisible();
+  await mainQuery.press('Escape');
   await expect(page.locator('[data-search-results] .search-hit__title', { hasText: amendment!.title }).first()).toBeVisible();
 });
 
@@ -643,7 +644,7 @@ siteTest(['law'])('Alle Verzeichnisse verwenden dieselbe Eintragskomponente und 
  * beim Laden zu). Die Prüfungen öffnen ihn wie eine Leserin, statt eine Bildschirmbreite anzunehmen.
  */
 async function openNormFacts(page: Page): Promise<Locator> {
-  // Die Vorschriftendaten sind ein Bereich der Vorschriftsseite (P3c) und auf jeder Breite offen.
+  await page.locator('[data-norm-tab="facts"]').click();
   const facts = page.locator('[data-visual-section="norm-facts"]');
   await expect(facts).toHaveCount(1);
   await facts.scrollIntoViewIfNeeded();
@@ -710,7 +711,7 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und Rechtsereignisse folgen 
   expect(futureDates.every((date) => date > referenceDate)).toBeTruthy();
 });
 
-siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page, request }) => {
+siteTest(['law'])('Einstiegssuchen und Hauptsuche bieten Normvorschläge', async ({ page, request }) => {
   const suggestion = await currentSuggestion(request, { match: (entry) => Boolean(entry.abbr) && /^[A-Za-zÄÖÜäöü]{4,}$/u.test(entry.abbr) });
   expect(suggestion, 'Vorschlag mit Abkürzung').toBeTruthy();
   const [startNorm] = await currentDocuments(request, '&type=gesetz');
@@ -736,7 +737,8 @@ siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt
   await searchSettled(page);
   const mainQuery = page.locator('[data-search-query]');
   await mainQuery.fill(suggestion!.abbr);
-  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
+  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toBeVisible();
+  await mainQuery.press('Escape');
   await expect(page.locator('[data-search-results] .search-hit').first()).toContainText(suggestion!.title);
 });
 
@@ -756,6 +758,7 @@ siteTest(['law'])('Normkopf unterscheidet allgemeinen und fassungsspezifischen L
   await expect(page.locator('[data-visual-section="norm-legal-status"], [data-visual-section="norm-citation-status"], [data-visual-section="norm-metadata"]')).toHaveCount(0);
   await expect(page.getByRole('navigation', { name: 'Werkzeuge zur Vorschrift' })).toHaveCount(1);
 
+  await page.locator('[data-norm-tab="relations"]').click();
   const portalRelations = page.locator('[data-visual-section="norm-portal-relations"]');
   await expect(portalRelations.getByRole('heading', { name: 'Im Staatsportal' })).toBeVisible();
   await expect(portalRelations.locator('a[href^="https://freistaat-ostdeutschland.de/"]').first()).toBeVisible();
@@ -1649,4 +1652,58 @@ siteTest(['portal'])('Portalsuche gruppiert nach Bereichen und lädt den Rechtsb
   await page.locator('[data-portal-search-area]').selectOption('portal');
   await expect(page.locator('#search-group-law')).toHaveCount(0);
   await expect(page.locator('[data-portal-search-status]')).toContainText('0 im Recht');
+});
+
+siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersicht', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  const norm = await multiVersionNorm(request);
+  await page.goto(lawUrl(norm.current.currentUrl));
+  await page.locator('[data-norm-tab="facts"]').click();
+  await expect(page.locator('.norm-facts')).toBeVisible();
+  await expect(page.locator('.norm-workspace')).toBeHidden();
+  await expect(page.locator('[data-norm-tab="facts"]')).toHaveAttribute('aria-current', 'page');
+  await page.goBack();
+  await expect(page.locator('.norm-workspace')).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  const position = await page.evaluate(() => ({
+    versions: document.querySelector('.norm-aside__versions')!.getBoundingClientRect().top,
+    text: document.querySelector('.norm-document')!.getBoundingClientRect().top,
+  }));
+  expect(position.versions).toBeLessThan(position.text);
+  await page.locator('[data-outline-open]').click();
+  await expect(page.getByRole('dialog', { name: 'Inhalt der Vorschrift' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toBeHidden();
+});
+
+siteTest(['law'])('Zentrale Suche bietet Tastaturvorschläge und ein mobiles Filterblatt', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.goto(lawUrl('/suche/'));
+  const field = page.locator('[data-search-query]');
+  await field.fill(await currentSearchWord(request));
+  await expect(field).toHaveAttribute('aria-expanded', 'true');
+  await field.press('ArrowDown');
+  await expect(field).toHaveAttribute('aria-activedescendant', /option/u);
+  await field.press('Escape');
+  await expect(field).toHaveAttribute('aria-expanded', 'false');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('[data-search-advanced] > summary').click();
+  const dialog = page.getByRole('dialog', { name: 'Erweiterte Suche' });
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Schließen', exact: true }).click();
+  await expect(dialog).toBeHidden();
+});
+
+siteTest(['law'])('Kopierte Fassungs- und Vergleichslinks behalten ihr genaues Ziel', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText: async (text: string) => { document.documentElement.dataset.copied = text; } } });
+  });
+  const norm = await multiVersionNorm(request);
+  await page.goto(lawUrl(norm.historical.url));
+  await page.locator('.norm-page-header__tools [data-copy-url]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-copied', new RegExp(`/version/${norm.historical.versionId}/$`, 'u'));
+  await page.goto(lawUrl(`/norm/${norm.slug}/vergleich/?von=${norm.historical.versionId}&bis=${norm.current.versionId}`));
+  await page.getByRole('button', { name: 'Link zum Vergleich kopieren' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-copied', new RegExp(`von=${norm.historical.versionId}&bis=${norm.current.versionId}$`, 'u'));
 });

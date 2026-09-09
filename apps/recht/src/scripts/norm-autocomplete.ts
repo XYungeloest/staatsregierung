@@ -146,7 +146,7 @@ for (const input of inputs) {
   const select = (index: number) => {
     const selected = current[index];
     if (!selected) return;
-    if (selected.kind === 'Suche' && !selected.url) {
+    if (selected.kind === 'Suche' && (!selected.url || input.hasAttribute('data-search-query'))) {
       form?.requestSubmit();
       return;
     }

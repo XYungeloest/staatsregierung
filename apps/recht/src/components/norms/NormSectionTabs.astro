@@ -25,5 +25,5 @@ const tabs = [
 ---
 
 <nav class="r-tabs norm-tabs" aria-label="Bereiche der Vorschrift">
-  {tabs.map((tab) => <a href={tab.href} aria-current={tab.key === active ? 'page' : undefined}>{tab.label}</a>)}
+  {tabs.map((tab) => <a data-norm-tab={tab.key} href={tab.href} aria-current={tab.key === active ? 'page' : undefined}>{tab.label}</a>)}
 </nav>

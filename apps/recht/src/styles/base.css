@@ -793,3 +793,27 @@ input[type='search'].r-input {
     margin-top: 0;
   }
 }
+
+[data-sheet-close] { display: none; }
+.r-sheet {
+  border: 0;
+  background: var(--paper-0);
+  color: var(--text-body);
+  padding: var(--space-4);
+  max-width: 100vw;
+  max-height: 100dvh;
+  height: 100dvh;
+  margin: 0;
+  overflow: auto;
+}
+.r-sheet::backdrop { background: rgb(0 0 0 / 45%); }
+.r-sheet [data-sheet-close] { display: inline-flex; margin-bottom: var(--space-4); }
+.r-sheet--outline { width: min(26rem, 90vw); }
+.r-sheet--filters { width: 100vw; }
+.r-sheet--filters .r-search__advanced-actions {
+  position: sticky;
+  bottom: calc(-1 * var(--space-4));
+  background: var(--paper-0);
+  padding: var(--space-3);
+  border-top: var(--line) solid var(--border-default);
+}

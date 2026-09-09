@@ -239,7 +239,7 @@ der Kopf bei 1280 px bereits umbrechen).
   Seitenrand des Staatsportals geht von `--space-6` auf `--space-5`. Das Band der Startseite geht
   auf zwei Spalten, die Funktionskarte nimmt die volle Breite. Der Normarbeitsbereich geht von
   drei auf zwei Spalten: Text und Seitenspalte nebeneinander, die Inhaltsübersicht öffnet über
-  „Inhalt“ im Kopf als Aufklappbereich über dem Text; im A–Z rücken die Wortlisten unter die
+  „Inhalt“ im Kopf als modales Seitenblatt; im A–Z rücken die Wortlisten unter die
   Tabelle.
 - bis 64 rem (Tablet quer, Staatsportal): die Navigationszeile bleibt sichtbar, der Seitenrand
   geht auf `--space-4`, Kartenraster gehen auf zwei Spalten und die Bereichsnavigation klebt nicht
@@ -405,10 +405,10 @@ Ansichten verändert den Kopf nicht.
 Alle Angaben zur Vorschrift stehen genau einmal in `NormFacts.astro` („Vorschriftendaten“):
 Vollzitat, Fundstelle, Rechtsstand, Geltung, Herkunft mit den verlinkten Änderungsvorschriften,
 Quelle, Sachgebiete, Ressort und Vertragsdaten. Der Block ist ein Bereich der Vorschriftsseite
-(`#vorschriftendaten`) und auf jeder Breite offen; auf dem Smartphone folgt er dem Text.
+(`#vorschriftendaten`). Mit JavaScript wechseln die Reiter zwischen Text, Daten und Beziehungen; ohne JavaScript bleiben alle Abschnitte erreichbar. Auf dem Smartphone folgen die Daten als aufklappbarer Bereich dem Text.
 
 Die Fassungen stehen in der Seitenspalte der Vorschrift (`NormAside.astro`, „Fassungen dieser
-Vorschrift“) als senkrechte Zeitleiste: je Fassung Datum, Art (geltend, historisch, künftig,
+Vorschrift“) als senkrechte Zeitleiste (auf Smartphones vor dem Normtext als horizontaler Streifen): je Fassung Datum, Art (geltend, historisch, künftig,
 Inkrafttreten nicht belegt, Ausgangsfassung) in Wort und Marke, Fundstelle; die angezeigte Fassung
 ist hervorgehoben. Darunter Zitieren (Normzitat, Link zur Vorschrift oder zur Fassung kopieren),
 Vollzitat und Amtliche Quelle. Die Seite „Fassungen und Änderungen“ (P4) führt Zeitachse,
@@ -434,7 +434,7 @@ Text; die Adresse ist der Anker des Absatzes. Je Einheit stehen in der Kopfzeile
 Anlagen tragen sprechende, deterministische Anker; alte Anker bleiben unsichtbare Sprungziele.
 Zitierte Bestimmungen (`quotedProvision`) erscheinen als amtlich zitierter Text mit Linie, nicht
 als dekoratives Zitat; Unterschriftenblöcke stehen im Fluss. Die Inhaltsübersicht (ab 80 rem als
-haftende Spalte links mit Filterfeld und Umfangszeile, darunter als Aufklappbereich) hebt die
+haftende Spalte links mit Filterfeld und Umfangszeile, darunter als modales Seitenblatt) hebt die
 gelesene Stelle hervor. Tabellen und Anlagen nutzen die volle Textspalte und rollen erst darüber
 hinaus in `.norm-table-wrap`.
 
@@ -679,3 +679,5 @@ Vorschriftentext beginnt spätestens bei 700 px.
 - öffentliche Texte mit technischen Architekturbegriffen
 - wiederholte Erklärungen der politischen Simulation außerhalb der festgelegten Hinweise
 - Layouts mit abgeschnittenen Inhalten oder ungeplantem horizontalem Scrollen
+
+Mobile Recherche: Die erweiterte Suche öffnet als natives modales Vollbild-Blatt mit aufklappbaren Filtergruppen und haftenden Aktionen. Escape schließt das Blatt; ohne JavaScript bleibt die Filterfläche ein gewöhnlicher Aufklappbereich.

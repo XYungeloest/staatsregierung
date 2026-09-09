@@ -91,7 +91,7 @@ function entryNote(entry: (typeof entries)[number]): string {
     <p class="norm-aside__cite-text r-serif" id="norm-cite-text" data-cite-text>{abbr}{citeSuffix}</p>
     <div class="norm-aside__actions">
       <button class="r-btn r-btn--block" type="button" data-copy-text="norm-cite-text" data-copy-done="Zitat wurde kopiert.">Normzitat kopieren</button>
-      <button class="r-btn r-btn--block" type="button" data-copy-url data-cite-link data-copy-done="Link wurde kopiert.">{immutable ? 'Link zu dieser Fassung kopieren' : 'Link zur Vorschrift kopieren'}</button>
+      <button class="r-btn r-btn--block" type="button" data-copy-url data-copy-href={immutable ? getNormVersionUrl(norm.meta.slug, version.versionId) : getNormUrl(norm.meta.slug)} data-cite-link data-copy-done="Link wurde kopiert.">{immutable ? 'Link zu dieser Fassung kopieren' : 'Link zur Vorschrift kopieren'}</button>
     </div>
     <p class="r-feedback" aria-live="polite" data-copy-feedback></p>
     <p class="r-caption">{normLinkHint}</p>

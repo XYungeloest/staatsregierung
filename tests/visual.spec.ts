@@ -608,7 +608,7 @@ lawTest('Messung: mobil beginnt der Vorschriftentext oberhalb von 700 Pixeln', {
   // Reihenfolge auf dem Smartphone (Production Board): Kopf → Übersicht (geschlossen) → Normtext →
   // Seitenspalte → Vorschriftendaten. Die Vorschriftendaten folgen dem Text.
   await expect(page.locator('.norm-outline-mobile')).not.toHaveAttribute('open', /.*/u);
-  const factsTop = await page.locator('.norm-facts').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  const factsTop = await page.locator('.norm-facts-disclosure').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
   expect(factsTop, 'Vorschriftendaten folgen dem Text').toBeGreaterThan(textTop);
   await verifyViewport(page);
 });
@@ -681,7 +681,14 @@ for (const entry of componentVisualPages) {
     }
 
     for (const [name, selector] of entry.shots) {
-      await expectSectionScreenshot(page.locator(selector), `${name}.png`);
+      if (entry.name === 'norm-module') await page.locator(`[data-norm-tab="${name === 'norm-vorschriftendaten' ? 'facts' : 'text'}"]`).click();
+      if (entry.name === 'rechtssuche-module') {
+        const panel = page.locator('[data-search-advanced]');
+        await panel.evaluate((element, open) => { (element as HTMLDetailsElement).open = open; }, name === 'rechtssuche-erweitert');
+        if (name === 'rechtssuche-erweitert') await page.locator('.r-filter-group').evaluateAll((groups) => groups.forEach((group) => { (group as HTMLDetailsElement).open = true; }));
+      }
+      const target = name === 'rechtssuche-erweitert' && testInfo.project.name.startsWith('mobile') ? page.locator('.r-sheet--filters') : page.locator(selector);
+      await expectSectionScreenshot(target, `${name}.png`);
     }
     await verifyViewport(page);
   });

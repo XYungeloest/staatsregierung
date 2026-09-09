@@ -160,7 +160,7 @@ const scope = [
   </dl>
 
   <div class="norm-facts__link-tools r-meta">
-    <button class="r-link-btn" type="button" data-copy-url data-copy-done={immutableVersion ? 'Link zu dieser Fassung wurde kopiert.' : 'Link zur Vorschrift wurde kopiert.'} data-copy-norm-link>
+    <button class="r-link-btn" type="button" data-copy-url data-copy-href={immutableVersion ? getNormVersionUrl(norm.meta.slug, version.versionId) : getNormUrl(norm.meta.slug)} data-copy-done={immutableVersion ? 'Link zu dieser Fassung wurde kopiert.' : 'Link zur Vorschrift wurde kopiert.'} data-copy-norm-link>
       {immutableVersion ? 'Link zu dieser Fassung kopieren' : 'Link zur Vorschrift kopieren'}
     </button>
     <span class="r-muted">{immutableVersion ? 'Dieser Link führt dauerhaft zu dieser Fassung.' : 'Dieser allgemeine Link führt zur jeweils als geltend ausgewiesenen Fassung.'}</span>

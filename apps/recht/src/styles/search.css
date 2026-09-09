@@ -532,3 +532,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+.r-filter-group > summary { display: none; }
+@media (max-width: 48rem) {
+  .r-filter-group > summary { display: list-item; cursor: pointer; padding: var(--space-3); font-weight: 600; }
+}

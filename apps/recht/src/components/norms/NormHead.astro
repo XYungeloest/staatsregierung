@@ -2,7 +2,7 @@
 import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormTitleBlock } from '@ostrecht/shared/lib/norms/display.ts';
 import { getNormVersionIdentity, formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
-import { getSubjectUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { getNormUrl, getNormVersionUrl, getSubjectUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 import StatusMark from '../ui/StatusMark.astro';
 import type { NormHeadModel } from '../../lib/norm-head.ts';
@@ -66,7 +66,7 @@ const bandLabels = { historical: 'HISTORISCHE FASSUNG', future: 'KÜNFTIGE FASSU
     <nav class="norm-page-header__tools" aria-label="Werkzeuge zur Vorschrift">
       <a class="r-btn norm-page-header__outline-link" href={outlineHref} data-outline-open>Inhalt</a>
       <button class="r-btn" type="button" data-copy-text="norm-full-citation" data-copy-done="Vollzitat wurde kopiert.">Vollzitat</button>
-      <button class="r-btn" type="button" data-copy-url data-copy-done={linkDone}>{linkLabel}</button>
+      <button class="r-btn" type="button" data-copy-url data-copy-href={immutable ? getNormVersionUrl(norm.meta.slug, version.versionId) : getNormUrl(norm.meta.slug)} data-copy-done={linkDone}>{linkLabel}</button>
       <button class="r-btn" type="button" data-print-page>Drucken</button>
       {officialPdf ? <a class="r-btn" href={officialPdf}>Amtliches PDF</a> : <a class="r-btn" href={getNormVersionPdfPath(norm.meta.slug, version.versionId)} type="application/pdf">Als PDF</a>}
     </nav>

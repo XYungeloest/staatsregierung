@@ -826,7 +826,7 @@ a.norm-timeline__date:hover {
   }
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 47.99rem) {
   .norm-workspace {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -951,4 +951,16 @@ a.norm-timeline__date:hover {
     margin: 0;
     overflow: hidden;
   }
+}
+
+/* Fachbereiche teilen den Kopf, erscheinen aber als getrennte Ansichten. */
+.norm-details:has(.norm-facts[hidden]),
+.norm-details:has(.norm-relations[hidden]) { grid-template-columns: minmax(0, 1fr); }
+[hidden] { display: none !important; }
+@media (max-width: 47.99rem) {
+  .norm-workspace > .norm-aside__versions { min-width: 0; padding-top: var(--space-3); }
+}
+.norm-facts-disclosure > summary { display: none; }
+@media (max-width: 47.99rem) {
+  .norm-facts-disclosure > summary { display: list-item; padding: var(--space-3); cursor: pointer; border-block: var(--line) solid var(--border-default); }
 }

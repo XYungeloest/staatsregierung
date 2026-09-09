@@ -18,7 +18,7 @@ const { items, summary } = Astro.props;
   <details class="norm-outline-mobile" id="norm-inhalt-mobil" data-outline-sheet>
     <summary>Inhalt der Vorschrift</summary>
     <div class="norm-outline-mobile__body">
-      <NormOutline items={items} summary={summary} variant="sheet" />
+      <button class="r-btn" type="button" data-sheet-close>Schließen</button><NormOutline items={items} summary={summary} variant="sheet" />
     </div>
   </details>
 ) : null}

@@ -150,3 +150,14 @@ test('Quellenbezeichnungen schreiben maschinenlesbare Daten aus', () => {
   assert.equal(formatSourceLabel('Amtliche Ausgabe ohne Datum'), 'Amtliche Ausgabe ohne Datum');
   assert.equal(formatSourceLabel(undefined), '');
 });
+
+test('Historischer Kopf aufgehobener Normen behauptet keine fortdauernde Geltung', () => {
+  const records = buildFixtureNorms();
+  for (const record of records.filter((entry) => ['repealed', 'historical'].includes(entry.meta.status))) {
+    for (const entry of record.versions) {
+      const line = statusLine(headModel(record, entry, records));
+      assert.doesNotMatch(line, /weiterhin in Kraft/u);
+      assert.match(line, /außer Kraft/u);
+    }
+  }
+});

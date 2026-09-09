@@ -154,7 +154,7 @@ export function buildNormHeadModel(
     mark = { status, label: `Vorschrift ${validityLabel(status)}` };
     primary = `Angezeigt: historische Fassung ${versionFrom}${version.validTo ? ` – ${formatShortDate(version.validTo)}` : ''}`;
     if (since) parts.push({ text: `Vorschrift in Kraft seit ${formatShortDate(since)}` });
-    parts.push({ text: 'Die Vorschrift selbst ist weiterhin in Kraft; nur der angezeigte Wortlaut ist überholt.', tone: 'muted' });
+    parts.push({ text: status === 'in-force' ? 'Die Vorschrift selbst ist weiterhin in Kraft; nur der angezeigte Wortlaut ist überholt.' : status === 'repealed' || status === 'historical' ? 'Die Vorschrift ist außer Kraft; der Wortlaut bleibt zu Dokumentationszwecken verfügbar.' : 'Der angezeigte Wortlaut ist historisch und bleibt zu Dokumentationszwecken verfügbar.', tone: 'muted' });
     const successor = classified
       .map((entry) => entry.version)
       .filter((entry) => entry.validFrom > version.validFrom)
