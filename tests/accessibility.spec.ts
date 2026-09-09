@@ -138,23 +138,24 @@ lawA11yTest('Normtext gibt seine Einheiten als Überschriften aus, nicht in eine
     const units = text.locator('.norm-unit[data-norm-unit]');
     const unitCount = await units.count();
     expect(unitCount, url).toBeGreaterThan(0);
-    // Jede Einheit trägt genau eine echte Überschrift (h3 oder tiefer) und nennt sie als ihren Namen;
-    // jeder Schalter nennt den Bereich, den er auf- und zuklappt.
+    // Jede Einheit trägt genau eine echte Überschrift (h3 oder tiefer) und nennt sie als ihren
+    // Namen; daneben stehen nur die Werkzeuge „Link“ und „Drucken“ – keine Ein- oder Ausklappfunktion
+    // (Richtung E: der Rechtstext bleibt ein kontinuierlich lesbares Dokument).
     const unitHeadings = await units.evaluateAll((elements) => elements.map((element) => {
       const heading = element.querySelector(':scope > .norm-unit__head > h3, :scope > .norm-unit__head > h4, :scope > .norm-unit__head > h5, :scope > .norm-unit__head > h6');
       return {
         level: heading ? Number.parseInt(heading.tagName.slice(1), 10) : 0,
         headingId: heading?.id ?? null,
         labelledby: element.getAttribute('aria-labelledby'),
-        controls: element.querySelector(':scope > .norm-unit__head > [data-unit-toggle]')?.getAttribute('aria-controls') ?? null,
+        toggles: element.querySelectorAll('[aria-expanded]').length,
         bodyId: element.querySelector(':scope > .norm-unit__body')?.id ?? null,
       };
     }));
     for (const unit of unitHeadings) {
       expect(unit.level, url).toBeGreaterThanOrEqual(3);
       expect(unit.headingId, url).toBe(unit.labelledby);
-      expect(unit.controls, url).toBe(unit.bodyId);
-      expect(unit.controls, url).toBeTruthy();
+      expect(unit.toggles, url).toBe(0);
+      expect(unit.bodyId, url).toBeTruthy();
     }
     expect(await text.getByRole('heading').count(), url).toBeGreaterThanOrEqual(unitCount);
   }
@@ -333,8 +334,6 @@ for (const target of selected(targetSizeTargets)) {
     const url = await openTarget(page, request, target);
     if (target.name === 'Rechtssuche mit Treffern') {
       await page.locator('.search-hit').first().waitFor();
-      // Die weiteren Angaben tragen die Listenlinks; sie stehen in einem Aufklappbereich.
-      for (const summary of await page.locator('.search-hit__details > summary').all()) await summary.click();
     }
     const small = await page.evaluate(() => {
       const label = (el: Element): string => {

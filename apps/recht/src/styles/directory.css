@@ -1,0 +1,409 @@
+/* OstRecht – Verzeichnisse (P6/P6b): A–Z und Register, Sachgebiete, Typseiten, Förderrichtlinien,
+   Hilfe und Fehlerseite. Eine Grammatik: Tabelle, Buchstabenleiste, Filter, Blätterung. */
+.r-norm-table td:first-child {
+  min-width: 16rem;
+}
+
+.r-norm-table__title {
+  text-decoration: none;
+}
+
+.r-norm-table__title:hover {
+  text-decoration: underline;
+}
+
+/* Verzeichnisabschnitt */
+.r-directory {
+  margin-top: var(--space-5);
+}
+
+.r-directory--aside {
+  display: grid;
+  grid-template-columns: var(--col-filter) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.r-directory__aside {
+  font-size: var(--fs-meta);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-4);
+  background: var(--surface-muted);
+  border-right: var(--line) solid var(--border-default);
+}
+
+.r-directory__bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.r-directory__count {
+  margin-left: auto;
+}
+
+/* Typseiten */
+.r-type-search {
+  display: flex;
+  gap: var(--space-3);
+  align-items: end;
+  margin-top: var(--space-4);
+  max-width: 44rem;
+}
+
+.r-type-search__field {
+  flex: 1;
+}
+
+/* A–Z und Register */
+.r-az {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 22.5rem;
+  gap: var(--space-8);
+  align-items: start;
+  margin-top: var(--space-5);
+}
+
+.r-az__bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+}
+
+.r-az__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--space-3);
+  font-size: var(--fs-meta);
+}
+
+.r-az__filter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+}
+
+.r-az__filter .r-select {
+  width: auto;
+}
+
+.r-az__count {
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.r-az__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface-muted);
+  font-size: var(--fs-meta);
+}
+
+.r-az__aside h2 {
+  margin-bottom: var(--space-3);
+}
+
+.r-az__register-form {
+  display: flex;
+  gap: var(--space-2);
+  align-items: end;
+}
+
+.r-az__register-form .r-field {
+  flex: 1;
+}
+
+.r-az__aside .r-caption,
+.r-az__aside .r-meta {
+  margin-top: var(--space-2);
+}
+
+.r-az__register {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.r-az__register li {
+  display: grid;
+  gap: 1px;
+}
+
+.r-az__abbr {
+  margin-top: var(--space-3);
+  display: block;
+}
+
+.r-az__abbr dd {
+  overflow-wrap: normal;
+}
+
+.r-az__abbr-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-1) 0;
+  border-bottom: var(--line) solid var(--border-hairline);
+}
+
+/* Sachgebiete */
+.r-subjects__jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.r-subjects__jump a {
+  text-decoration: none;
+}
+
+.r-subjects__jump a:hover {
+  text-decoration: underline;
+}
+
+.r-subjects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-7) var(--space-8);
+  margin-top: var(--space-6);
+}
+
+.r-subjects__area-head {
+  margin-bottom: var(--space-2);
+}
+
+.r-subjects__area-head h2 {
+  font-size: var(--fs-ui-lg);
+  font-weight: 500;
+  color: var(--text-strong);
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.r-subjects__number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  color: var(--blue-800);
+  line-height: 1;
+}
+
+.r-subjects__table td:first-child {
+  width: 3rem;
+}
+
+.r-subjects__table a {
+  text-decoration: none;
+}
+
+.r-subjects__table a:hover {
+  text-decoration: underline;
+}
+
+.r-subject__title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin: var(--space-2) 0;
+}
+
+.r-subject__number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: 1;
+  letter-spacing: var(--ls-display);
+  color: var(--blue-800);
+}
+
+.r-subject__name {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  color: var(--text-strong);
+}
+
+.r-page-head .r-subject__title {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.r-subject__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.r-subject__meta > span + span::before {
+  content: '·';
+  margin-right: var(--space-3);
+  color: var(--text-muted);
+}
+
+.r-subject__links {
+  margin-left: auto;
+}
+
+.r-subject__links::before {
+  content: '' !important;
+  margin: 0 !important;
+}
+
+.r-subject__siblings ol {
+  margin-top: var(--space-2);
+}
+
+.r-subject__siblings a {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: 2.25rem;
+  padding: var(--space-1) var(--space-2);
+  color: var(--text-body);
+  text-decoration: none;
+}
+
+.r-subject__siblings a:hover {
+  background: var(--surface-hover);
+}
+
+.r-subject__siblings a[aria-current='page'] {
+  color: var(--text-strong);
+  font-weight: 500;
+  background: var(--surface-selected);
+  box-shadow: inset 3px 0 0 var(--blue-800);
+}
+
+.r-subject__types {
+  padding-top: var(--space-3);
+  border-top: var(--line) solid var(--border-hairline);
+}
+
+.r-subject__neighbours {
+  padding-top: var(--space-3);
+  border-top: var(--line) solid var(--border-hairline);
+}
+
+/* Förderrichtlinien */
+.r-funding-area {
+  margin-top: var(--space-6);
+}
+
+.r-funding-area .r-section-head {
+  margin-bottom: var(--space-2);
+}
+
+/* Hilfe und Fehlerseite */
+.r-help {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  gap: var(--space-8);
+  align-items: start;
+  margin-top: var(--space-5);
+}
+
+.r-help__main section + section {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: var(--line) solid var(--border-hairline);
+}
+
+.r-help__main h2 {
+  font-size: var(--fs-ui-lg);
+  font-weight: 500;
+  color: var(--text-strong);
+  margin-bottom: var(--space-2);
+}
+
+.r-help__main .r-home-search {
+  max-width: 44rem;
+  margin-bottom: var(--space-6);
+}
+
+.r-help__aside {
+  font-size: var(--fs-meta);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.r-help__links {
+  display: grid;
+  gap: 2px;
+}
+
+.r-help__links a {
+  display: flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding-block: 0;
+  text-decoration: none;
+}
+
+.r-help__links a:hover {
+  text-decoration: underline;
+}
+
+/* Sechs Tabellenspalten neben dem Register brauchen die volle Breite: unterhalb der
+   breiten Desktopstufe rückt das Register unter die Tabelle. */
+@media (max-width: 79.99rem) {
+  .r-az {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 60rem) {
+  .r-directory--aside,
+  .r-subjects,
+  .r-help {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .r-directory__aside {
+    border-right: 0;
+    border-bottom: var(--line) solid var(--border-default);
+  }
+
+  .r-norm-table td:first-child {
+    min-width: 12rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .r-norm-table th:nth-child(6),
+  .r-norm-table td:nth-child(6),
+  .r-norm-table th:nth-child(3),
+  .r-norm-table td:nth-child(3) {
+    display: none;
+  }
+
+  .r-norm-table .r-nowrap {
+    white-space: normal;
+  }
+
+  .r-type-search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .r-subject__links {
+    margin-left: 0;
+  }
+}

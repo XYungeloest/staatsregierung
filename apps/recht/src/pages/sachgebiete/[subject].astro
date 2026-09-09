@@ -1,21 +1,23 @@
 ---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import NormDirectoryListing from '../../components/directory/NormDirectoryListing.astro';
 import {
   formatNormType,
   getLawPortalUrl,
   getSearchUrl,
+  getSubjectSlug,
+  getSubjectUrl,
   getSubjectsUrl,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { loadNormDirectory } from '../../lib/runtime/directory.ts';
+import { formatNormCount } from '../../lib/counts.ts';
 
-// Sachgebietsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut: Kopf und Verteilung
-// aus Metadatenzeilen, die Vorschriften seitenweise über das gemeinsame Verzeichnismuster.
+// Sachgebietsseite (P6b): Kopf mit amtlicher Nummer, links die Untergliederung der Hauptgruppe
+// und die Filter, rechts die Vorschriften im Listenmuster von P6.
 export const prerender = false;
 
 const store = await getNormStore(Astro.locals);
@@ -32,69 +34,79 @@ const view = await loadNormDirectory(store, {
   fields: ['q', 'type', 'status', 'origin', 'aenderungen'],
   filterOptions: { types: filters.types },
 });
-// Verteilung nach Normtyp aus den Buchstabenzählern des Sachgebiets ist nicht ableitbar; sie
-// kommt aus der Sachgebietsübersicht, die nur Zähler trägt – ohne den Bestand zu laden.
-// Sie beschreibt die Grundmenge, also dieselbe Liste, die darunter steht.
-const typeCounts = (await store.listNormSummaries({ subjectSlug: subject.slug }))
-  .reduce((map: Map<string, number>, norm) => map.set(norm.type, (map.get(norm.type) ?? 0) + 1), new Map<string, number>());
+// Verteilung nach Normtyp und Geltung aus der Grundmenge des Sachgebiets (Übersichtszeilen).
+const summaries = await store.listNormSummaries({ subjectSlug: subject.slug });
+const typeCounts = summaries.reduce((map: Map<string, number>, norm) => map.set(norm.type, (map.get(norm.type) ?? 0) + 1), new Map<string, number>());
 const typeRows = [...typeCounts.entries()].sort(([left], [right]) => formatNormType(left as NormType).localeCompare(formatNormType(right as NormType), 'de'));
+const inForce = summaries.filter((norm) => norm.status === 'in-force').length;
+const ministries = summaries.reduce((map: Map<string, number>, norm) => norm.responsibleMinistry ? map.set(norm.responsibleMinistry, (map.get(norm.responsibleMinistry) ?? 0) + 1) : map, new Map<string, number>());
+const leadMinistry = [...ministries.entries()].sort((left, right) => right[1] - left[1])[0]?.[0];
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const title = toDisplayText(subject.name);
-// Eyebrow und Einleitung nennen die amtliche Gliederungsnummer und die Hauptgruppe.
-const eyebrow = subject.number ? `Sachgebiet ${subject.number}` : 'Sachgebiet';
-const areaLead = area ? ` Es gehört zur Hauptgruppe ${area.number ? `${area.number} ` : ''}${area.name}.` : '';
 const pageTitle = view.result.page > 1 ? `Sachgebiet ${title} (Seite ${view.result.page} von ${view.result.pageCount})` : `Sachgebiet ${title}`;
+const siblings = area?.subjects ?? [];
+const neighbours = siblings.filter((entry) => entry.slug !== subject.slug).slice(0, 3);
 ---
 
 <LawLayout
   title={pageTitle}
-  description={`Sachgebiet ${title} im Rechtsbereich des Freistaates Ostdeutschland.`}
+  description={`Sachgebiet ${subject.number ? `${subject.number} ` : ''}${title} im Rechtsbereich des Freistaates Ostdeutschland: Vorschriften nach Titel, Normtyp, Geltung und Herkunft.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Sachgebiete', href: getSubjectsUrl() },
+    { label: lawSiteConfig.targetLabels.subjects, href: getSubjectsUrl() },
     { label: title },
   ]}
   canonical={view.canonical}
   noindex={view.noindex}
   prev={view.pagination.prev}
   next={view.pagination.next}
+  activeSection="subjects"
 >
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: 'Sachgebiete', href: getSubjectsUrl() },
-      { label: title },
-    ]}
-  />
+  <header class="r-page-head r-subject__head" data-copy-group>
+    <p class="r-kicker">
+      <span>Sachgebiet</span>
+      <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
+      {area ? <a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.number ? `${area.number} ` : ''}{area.name}</a> : null}
+      {subject.number ? <span>{subject.number}</span> : null}
+    </p>
+    <h1 class="r-subject__title">{subject.number ? <span class="r-subject__number">{subject.number}</span> : null}<span class="r-subject__name">{title}</span></h1>
+    <div class="r-subject__meta r-meta">
+      <span><strong class="r-strong">{formatNormCount(inForce)}</strong> in Kraft</span>
+      {summaries.length - inForce > 0 ? <span>{summaries.length - inForce} künftig in Kraft oder außer Kraft</span> : null}
+      {leadMinistry ? <span>Zuständig überwiegend: {toDisplayText(leadMinistry)}</span> : null}
+      <span>Amtliche Systematik</span>
+      <span class="r-subject__links"><a href={`${getSearchUrl()}?subject=${encodeURIComponent(subject.name)}`}>Suche in diesem Sachgebiet</a> · <button class="r-link-btn" type="button" data-copy-url data-copy-done="Link zum Sachgebiet wurde kopiert.">Link kopieren</button><span class="r-feedback" aria-live="polite" data-copy-feedback></span></span>
+    </div>
+  </header>
 
-  <SectionHero
-    eyebrow={eyebrow}
-    title={title}
-    lead={`Vorschriften dieses Sachgebiets nach Titel, Normtyp, Rechtsstand und Herkunft.${areaLead}`}
-    variant="law"
-    actions={[
-      { label: 'Sachgebiet durchsuchen', href: `${getSearchUrl()}?subject=${encodeURIComponent(subject.name)}`, primary: true },
-      { label: 'Alle Sachgebiete', href: getSubjectsUrl() },
-    ]}
-  />
-
-  {typeRows.length > 1 ? (
-    <section class="law-subject-overview" aria-labelledby="subject-overview-title">
-      <div class="law-subject-overview__intro">
-        <span class="section-eyebrow">Verteilung</span>
-        <h2 id="subject-overview-title">Normtypen in diesem Sachgebiet</h2>
-        <p>Die Vorschriften sind nach ihrem geltenden Titel erschlossen und führen direkt zum aktuellen Rechtsstand.</p>
-      </div>
-      <dl class="law-subject-stats">
-        {typeRows.map(([type, count]) => (
-          <div>
-            <dt>{formatNormType(type as NormType)}</dt>
-            <dd>{count}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-  ) : null}
-
-  <NormDirectoryListing view={view} heading="Vorschriften" filterLabel="Vorschriften des Sachgebiets filtern" />
+  <NormDirectoryListing view={view} heading="Vorschriften" filterLabel="Vorschriften des Sachgebiets filtern" filterLayout="aside" caption={`Vorschriften des Sachgebiets ${title}`}>
+    <Fragment slot="aside-top">
+      {area && siblings.length > 0 ? (
+        <nav class="r-subject__siblings" aria-label="Untergliederung">
+          <span class="r-label">Sachgebiete der Hauptgruppe {area.number ?? ''}</span>
+          <ol class="r-num">
+            {siblings.map((entry) => (
+              <li>
+                <a href={getSubjectUrl(entry.name)} aria-current={entry.slug === subject.slug ? 'page' : undefined}>
+                  <span class="r-muted">{entry.number ?? ''}</span>
+                  <span>{toDisplayText(entry.shortTitle ?? entry.name)}</span>
+                  <span class="r-muted">{entry.normCount}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      ) : null}
+      {typeRows.length > 1 ? (
+        <dl class="r-subject__types r-dl r-dl--compact">
+          {typeRows.map(([type, count]) => <><dt>{formatNormType(type as NormType)}</dt><dd class="r-num">{count}</dd></>)}
+        </dl>
+      ) : null}
+    </Fragment>
+    <Fragment slot="aside-bottom">
+      {neighbours.length > 0 ? (
+        <p class="r-caption r-subject__neighbours">Benachbart: {neighbours.map((entry, index) => <>{index > 0 ? ' · ' : ''}<a href={getSubjectUrl(entry.name)}>{entry.number ? `${entry.number} ` : ''}{toDisplayText(entry.shortTitle ?? entry.name)}</a></>)}</p>
+      ) : null}
+    </Fragment>
+  </NormDirectoryListing>
 </LawLayout>

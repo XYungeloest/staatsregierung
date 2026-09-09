@@ -1,69 +1,78 @@
 ---
 import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/display.ts';
 
+/**
+ * Inhaltsübersicht (P3): Teile, Kapitel, Abschnitte, §§/Artikel und Anlagen als flache Liste mit
+ * Einrückung, Filterfeld und Paragraphenspanne je Gliederungsebene. Auf großen Breiten die feste
+ * linke Spalte, darunter ein Aufklappbereich unter der Reiterzeile (Schaltfläche „Inhalt“).
+ */
 interface Props {
   items: NormOutlineItem[];
-  nested?: boolean;
+  /** Zahl der §§/Artikel und Anlagen für die Fußzeile. */
+  summary?: string;
+  /** `desktop`: feste linke Spalte; `sheet`: Inhalt des mobilen Aufklappbereichs. */
+  variant?: 'desktop' | 'sheet';
 }
 
-const { items, nested = false } = Astro.props;
+interface FlatItem {
+  anchor: string;
+  text: string;
+  level: number;
+  range?: string;
+  kind: 'division' | 'unit' | 'annex';
+}
+
+const { items, summary, variant = 'desktop' } = Astro.props;
+
+function unitLabels(entry: NormOutlineItem): string[] {
+  const own = entry.label && /^(§|Art\.|Artikel)/u.test(entry.label) ? [entry.label] : [];
+  return [...own, ...entry.children.flatMap(unitLabels)];
+}
+
+function rangeOf(entry: NormOutlineItem): string | undefined {
+  const labels = unitLabels(entry).filter((label) => !/^Anlage/u.test(label));
+  if (labels.length === 0) return undefined;
+  const first = labels[0];
+  const last = labels[labels.length - 1];
+  if (first === last) return first;
+  const prefix = /^§/u.test(first) ? '§§ ' : '';
+  const strip = (label: string) => label.replace(/^(§§?|Art\.|Artikel)\s*/u, '');
+  return `${prefix}${strip(first)}–${strip(last)}`;
+}
+
+function flatten(entries: NormOutlineItem[], level = 0): FlatItem[] {
+  return entries.flatMap((entry) => {
+    const isUnit = Boolean(entry.label && /^(§|Art\.|Artikel)/u.test(entry.label));
+    const isAnnex = /^Anlage/u.test(entry.label ?? entry.title);
+    const text = entry.label && entry.label !== entry.title ? `${entry.label} ${entry.title}` : entry.title;
+    const item: FlatItem = { anchor: entry.anchor, text, level, kind: isAnnex ? 'annex' : isUnit ? 'unit' : 'division' };
+    if (!isUnit && !isAnnex) item.range = rangeOf(entry);
+    return [item, ...flatten(entry.children, level + 1)];
+  });
+}
+
+const flat = flatten(items);
+const hasDivisions = flat.some((entry) => entry.kind === 'division');
 ---
 
-{items.length > 0 ? (
-  nested ? (
-    <ul class="outline-list">
-      {items.map((item) => (
-        <li>
-          <a href={`#${item.anchor}`} data-outline-link={item.anchor}>
-            {item.label && item.label !== item.title ? <span class="outline-label">{item.label}</span> : null}
-            <span>{item.title}</span>
+{flat.length > 0 ? (
+  <nav class:list={['norm-outline', `norm-outline--${variant}`]} aria-label={variant === 'sheet' ? 'Inhaltsübersicht (mobil)' : 'Inhaltsübersicht'} data-norm-outline>
+    <div class="norm-outline__filter">
+      <label>
+        <span class="visually-hidden">§ oder Stichwort in der Übersicht</span>
+        <input class="r-input" type="search" placeholder="§ oder Stichwort in der Übersicht" data-outline-search />
+      </label>
+    </div>
+    <ol class="norm-outline__list r-num">
+      {flat.map((entry) => (
+        <li class:list={[`norm-outline__item--${entry.kind}`, hasDivisions ? `norm-outline__item--level-${Math.min(entry.level, 3)}` : 'norm-outline__item--level-0']}>
+          <a href={`#${entry.anchor}`} data-outline-link={entry.anchor}>
+            <span>{entry.text}</span>
+            {entry.range ? <span class="r-muted">{entry.range}</span> : null}
           </a>
-          {item.children.length > 0 ? <Astro.self items={item.children} nested={true} /> : null}
         </li>
       ))}
-    </ul>
-  ) : (
-    <>
-      <nav class="norm-outline norm-outline--desktop" aria-label="Inhaltsübersicht">
-        <div class="norm-outline__heading"><h2>Inhaltsübersicht</h2></div>
-        <label class="norm-outline__search"><span class="visually-hidden">Inhaltsübersicht durchsuchen</span><input type="search" placeholder="Inhalt durchsuchen" data-outline-search /></label>
-        <Astro.self items={items} nested={true} />
-      </nav>
-      <details class="norm-outline-mobile">
-        <summary>Inhalt der Vorschrift</summary>
-        <nav aria-label="Mobile Inhaltsübersicht">
-          <label class="norm-outline__search"><span class="visually-hidden">Inhaltsübersicht durchsuchen</span><input type="search" placeholder="Inhalt durchsuchen" data-outline-search /></label>
-          <Astro.self items={items} nested={true} />
-        </nav>
-      </details>
-    </>
-  )
-) : null}
-
-{!nested ? (
-  <script>
-    const outlineInputs = Array.from(document.querySelectorAll<HTMLInputElement>('[data-outline-search]'));
-    outlineInputs.forEach((input) => input.addEventListener('input', () => {
-      const nav = input.closest('nav');
-      const query = input.value.trim().toLocaleLowerCase('de-DE');
-      nav?.querySelectorAll<HTMLLIElement>('.outline-list li').forEach((item) => {
-        item.hidden = Boolean(query) && !(item.textContent ?? '').toLocaleLowerCase('de-DE').includes(query);
-      });
-    }));
-
-    const outlineLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-outline-link]'));
-    const targets = [...new Set(outlineLinks.map((link) => link.dataset.outlineLink).filter(Boolean))]
-      .map((id) => document.getElementById(id!))
-      .filter((entry): entry is HTMLElement => Boolean(entry));
-    const activate = (id: string) => outlineLinks.forEach((link) => {
-      if (link.dataset.outlineLink === id) link.setAttribute('aria-current', 'location');
-      else link.removeAttribute('aria-current');
-    });
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top)[0];
-      if (visible?.target.id) activate(visible.target.id);
-    }, { rootMargin: '-18% 0px -70% 0px' });
-    targets.forEach((target) => observer.observe(target));
-    outlineLinks.forEach((link) => link.addEventListener('click', () => activate(link.dataset.outlineLink ?? '')));
-  </script>
+    </ol>
+    {summary ? <p class="norm-outline__summary r-caption">{summary}</p> : null}
+  </nav>
 ) : null}

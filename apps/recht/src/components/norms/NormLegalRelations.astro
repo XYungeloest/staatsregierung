@@ -1,18 +1,29 @@
 ---
-import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import type { NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
 import type { NormRelationKind, NormRelationView } from '@ostrecht/shared/lib/norms/relations.ts';
+import type { NormDerivedData } from '@ostrecht/shared/lib/norms/derived.ts';
+import { getPressReleaseIndexUrl, getTopicsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { formatShortDate } from '../../lib/dates.ts';
+import { shortCitation } from '../../lib/norm-head.ts';
+import { NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
+import { getNormHistoryUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 
+/**
+ * Rechtsbeziehungen (P3c, Seitenspalte): strukturelle Beziehungen zwischen Rechtsakten mit Titel,
+ * Datum, Fundstelle und entstandener Fassung; nicht belegte Typen entfallen, ohne Beziehungen der
+ * ganze Bereich. Dazu die verwandten Vorschriften und die Bezüge im Staatsportal.
+ */
 interface Props {
   norm: NormRecord;
-  /** Serialisierte Beziehungssicht aus der Runtime-Projektion (siehe toNormRelationViews). */
   relations: NormRelationView[];
+  recommendations?: NormDerivedData['recommendations'];
+  portalLinks?: NormDerivedData['portalLinks'];
 }
 
-const { norm, relations } = Astro.props;
-const sections: Array<{ kind: NormRelationKind; heading: string; empty?: string }> = [
+const { norm, relations, recommendations = [], portalLinks } = Astro.props;
+const sections: Array<{ kind: NormRelationKind; heading: string }> = [
   { kind: 'amended-by', heading: 'Geändert durch' },
   { kind: 'amends', heading: 'Ändert' },
   { kind: 'enacted-by', heading: 'Erlassen durch' },
@@ -27,33 +38,60 @@ const sections: Array<{ kind: NormRelationKind; heading: string; empty?: string 
 const visibleSections = sections
   .map((section) => ({ ...section, entries: relations.filter((entry) => entry.kind === section.kind) }))
   .filter((section) => section.entries.length > 0);
-
+const topics = portalLinks?.topics ?? [];
+const pressReleases = portalLinks?.pressReleases ?? [];
+const hasPortal = topics.length > 0 || pressReleases.length > 0;
+const hasAnything = visibleSections.length > 0 || recommendations.length > 0 || hasPortal;
 ---
 
-{visibleSections.length > 0 ? (
-  <section class="section norm-relations" id="normrelationen" aria-labelledby={`norm-relations-${norm.meta.slug}`}>
-    <div class="section-header section-header--compact">
-      <h2 id={`norm-relations-${norm.meta.slug}`}>Rechtsbeziehungen</h2>
-      <p>Belegte Beziehungen zwischen Stammnormen, Änderungsakten und entstandenen Fassungen.</p>
-    </div>
-    <div class="norm-relations__groups">
-      {visibleSections.map((section) => (
-        <section aria-labelledby={`norm-relation-${norm.meta.slug}-${section.kind}`}>
-          <h3 id={`norm-relation-${norm.meta.slug}-${section.kind}`}>{section.heading}</h3>
-          <ul class="timeline-list">
-            {section.entries.map((relation) => (
-              <li>
-                <strong><a class="inline-link" href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle)}</a></strong>
-                {relation.date ? <span>Rechtsänderung am <time datetime={relation.date}>{formatDate(relation.date)}</time></span> : null}
-                {relation.citation ? <span>Fundstelle: {toDisplayText(relation.citation)}</span> : null}
-                {relation.resultingVersionUrl && relation.resultingVersionValidFrom ? (
-                  <span>Entstandene Fassung: <a class="inline-link" href={relation.resultingVersionUrl}><time datetime={relation.resultingVersionValidFrom}>{formatDate(relation.resultingVersionValidFrom)}</time></a></span>
-                ) : null}
-              </li>
-            ))}
+{hasAnything ? (
+  <aside class="norm-relations" id="rechtsbeziehungen" aria-labelledby="norm-relations-title">
+    <h2 id="norm-relations-title" class="r-label r-label--rule">Rechtsbeziehungen</h2>
+    {visibleSections.map((section) => (
+      <section class="norm-relations__group" aria-labelledby={`norm-relation-${norm.meta.slug}-${section.kind}`}>
+        <h3 id={`norm-relation-${norm.meta.slug}-${section.kind}`} class="r-label">{section.heading}</h3>
+        <ul class="norm-relations__list">
+          {section.entries.map((relation) => (
+            <li>
+              <a class="norm-relations__title" href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle || relation.title)}</a>
+              <span class="r-meta norm-relations__detail">
+                {relation.date ? <span>Rechtsänderung am <time datetime={relation.date}>{formatShortDate(relation.date)}</time></span> : null}
+                {relation.citation ? <span>{shortCitation(relation.citation) || toDisplayText(relation.citation)}</span> : null}
+                {relation.resultingVersionUrl && relation.resultingVersionValidFrom ? <span>Entstandene Fassung: <a href={relation.resultingVersionUrl}><time datetime={relation.resultingVersionValidFrom}>{formatShortDate(relation.resultingVersionValidFrom)}</time></a></span> : null}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+    {recommendations.length > 0 ? (
+      <section class="norm-relations__group" aria-labelledby="norm-related-title">
+        <h3 id="norm-related-title" class="r-label">Verwandte Vorschriften</h3>
+        <ul class="norm-relations__list">
+          {recommendations.map((entry) => (
+            <li>
+              <a class="norm-relations__title" href={getNormUrl(entry.slug)}>{toDisplayText(entry.shortTitle || entry.title)}</a>
+              <span class="r-meta norm-relations__detail"><span>{entry.relation}</span></span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null}
+    {hasPortal ? (
+      <section class="norm-relations__group" data-visual-section="norm-portal-relations" aria-labelledby="norm-portal-title">
+        <h3 id="norm-portal-title" class="r-label">Im Staatsportal</h3>
+        {topics.length > 0 ? (
+          <ul class="norm-relations__list">
+            {topics.map((topic) => <li><a class="norm-relations__title" href={topic.url}>{topic.title}</a><span class="r-meta norm-relations__detail"><span>Thema · <a href={getTopicsUrl()}>Themen und Projekte</a></span></span></li>)}
           </ul>
-        </section>
-      ))}
-    </div>
-  </section>
+        ) : null}
+        {pressReleases.length > 0 ? (
+          <ul class="norm-relations__list">
+            {pressReleases.map((release) => <li><a class="norm-relations__title" href={release.url}>{release.title}</a><span class="r-meta norm-relations__detail"><span>Pressemitteilung vom <time datetime={release.date}>{formatShortDate(release.date)}</time> · <a href={getPressReleaseIndexUrl()}>Alle Pressemitteilungen</a></span></span></li>)}
+          </ul>
+        ) : null}
+      </section>
+    ) : null}
+    <p class="r-caption norm-relations__note">Rechtsbeziehungen verknüpfen Rechtsakte strukturell. Die zeitliche Entwicklung steht unter <a href={getNormHistoryUrl(norm.meta.slug)}>{NORM_HISTORY_LABEL}</a>.</p>
+  </aside>
 ) : null}

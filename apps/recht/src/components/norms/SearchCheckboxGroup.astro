@@ -9,26 +9,31 @@ interface Props {
   name: string;
   facet: string;
   options: Option[];
+  /** Versal-Etikett (erweiterte Suche) statt fetter Gruppenüberschrift (Seitenspalte). */
+  caps?: boolean;
+  /** Vorbelegte Werte (etwa der Standard „in Kraft“ der Geltung). */
+  checked?: string[];
 }
 
-const { legend, name, facet, options } = Astro.props;
+const { legend, name, facet, options, caps = false, checked = [] } = Astro.props;
 ---
 
-<fieldset class="search-filter-group">
+<fieldset class:list={['r-fieldset', caps ? 'r-fieldset--caps' : undefined, 'search-filter-group']} data-search-facet-group={facet}>
   <legend>{legend}</legend>
   <div class="search-filter-group__options">
     {options.map((option) => (
-      <label class="search-filter-option">
+      <label class="r-check search-filter-option">
         <input
           type="checkbox"
           name={name}
           value={option.value}
+          checked={checked.includes(option.value)}
           data-search-filter={name}
           data-search-facet={facet}
           data-base-label={option.label}
         />
         <span data-search-facet-label>{option.label}</span>
-        <span class="search-filter-option__count" data-search-facet-count aria-hidden="true"></span>
+        <span class="r-muted" data-search-facet-count aria-hidden="true"></span>
       </label>
     ))}
   </div>

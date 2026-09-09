@@ -1,94 +1,3 @@
-/* Schriften: Jost trägt die Oberfläche, Source Serif 4 das Dokument. Beide liegen lokal als
-   untersetzte woff2 (Latin, Latin Extended-A, Interpunktion, § † ‡ – — „ “ ‚ ‘ » « › ‹ … · →,
-   ff-Ligaturen; Bestand geprüft). Source Serif 4: Gewichtsachse 400–700, Optical-Size-Achse
-   12–48 – Lesetext läuft mit opsz 16, Überschriften bis 48 automatisch mit der Titelform
-   (font-optical-sizing: auto). Erzeugt mit fonttools (pyftsubset, varLib.instancer), siehe
-   assets/fonts/README.md. Der Familienwechsel ist eine Änderung an --font-document. */
-@font-face {
-  font-family: 'Jost';
-  src: url('../assets/fonts/Jost-Variable.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Source Serif 4';
-  src: url('../assets/fonts/SourceSerif4Variable-Roman.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-}
-
-/* Ost Grotesk trägt die Wegweiserebene: Wortzeichen, Ordnungsnummern, Buchstabenleiste,
-   Sigel und Kennzahlen. Abgeleitet aus Neu5Land von Uwe Borchert nach der Schmalen
-   Erbar-Grotesk (1926), der Schrift der ostdeutschen Schilder; ergänzt um eine tz-Ligatur
-   nach dem Vorbild der Berliner Straßenschilder, bei der Querbalken des t und oberer Balken
-   des z zu einem durchgehenden Strich verschmelzen. Zwei feste Schnitte, keine
-   Gewichtsachse. Erzeugt mit
-   scripts/build-sign-font.py, Herkunft und Lizenzstand: assets/fonts/README.md. */
-@font-face {
-  font-family: 'Ost Grotesk';
-  src: url('../assets/fonts/OstGrotesk-Regular.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Ost Grotesk';
-  src: url('../assets/fonts/OstGrotesk-Bold.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-/* Rückfallschnitte nur für die Dokumentschrift. Jost (33 KB) wird auf jeder Seite vorgeladen und
-   war in jeder Messung – lokal wie gegen die Produktion auf Cloudflare, bis Slow 3G – vor dem
-   ersten Anstrich fertig; ein Rückfallschnitt hätte dort nichts zu tun, deshalb folgt system-ui
-   direkt. Source Serif 4 (86 KB, Preload nur auf den Normseiten) kommt bei Fast 3G rund 170 ms und
-   bei Slow 3G rund 1 s nach dem ersten Anstrich; bis dahin setzt je Plattformfamilie eine dort
-   vorhandene Serife in gleicher Breite und Zeilenbox. Ein Schnitt je Familie, weil local() nur
-   tatsächlich vorhandene Namen auflöst und ein size-adjust nicht für Georgia und DejaVu Serif
-   zugleich stimmen kann. Werte im Browser gemessen (Fließtextbreite bei 16 px mit Kerning,
-   Ascent/Descent des Webfonts 1036/335 je 1000 durch size-adjust); Herleitung, Zahlen und
-   Messskript: assets/fonts/README.md. */
-@font-face {
-  font-family: 'Source Serif 4 Fallback Georgia'; /* Windows, macOS, iOS */
-  src: local('Georgia');
-  size-adjust: 104.2%;
-  ascent-override: 99.4%;
-  descent-override: 32.1%;
-  line-gap-override: 0%;
-}
-
-@font-face {
-  font-family: 'Source Serif 4 Fallback Noto'; /* Android */
-  src: local('Noto Serif'), local('NotoSerif');
-  size-adjust: 96.7%;
-  ascent-override: 107.1%;
-  descent-override: 34.6%;
-  line-gap-override: 0%;
-}
-
-@font-face {
-  font-family: 'Source Serif 4 Fallback DejaVu'; /* Linux */
-  src: local('DejaVu Serif'), local('DejaVuSerif');
-  size-adjust: 89.9%;
-  ascent-override: 115.2%;
-  descent-override: 37.3%;
-  line-gap-override: 0%;
-}
-
-@font-face {
-  font-family: 'Source Serif 4 Fallback Liberation'; /* Linux ohne DejaVu */
-  src: local('Liberation Serif'), local('LiberationSerif');
-  size-adjust: 114.5%;
-  ascent-override: 90.5%;
-  descent-override: 29.3%;
-  line-gap-override: 0%;
-}
-
 :root {
   color-scheme: light;
   --color-page: #f2f5f7;
@@ -286,10 +195,7 @@ dd {
 /* Listenelemente tragen im Portal ueberwiegend Layout (Karten, Raster,
    Trefferzeilen). Dort gilt die Lesebreite des Fliesstexts nicht; sonst
    endet jede Verzeichniskarte bei 78ch statt an der Spaltenkante. */
-.directory-list > li,
-.law-dashboard-list > li,
-.record-list > li,
-.norm-version-picker__content ul > li {
+.record-list > li {
   max-width: none;
 }
 
@@ -683,12 +589,6 @@ h2 {
 
 .budget-kpi-card {
   border-top: 3px solid var(--color-primary);
-}
-
-.search-field__label {
-  color: var(--color-heading);
-  font-size: var(--text-sm);
-  font-weight: 600;
 }
 
 .segmented-control {
@@ -1830,18 +1730,6 @@ article.panel > p:last-child > a.inline-link:hover {
   overflow-wrap: anywhere;
 }
 
-.status-badge--green {
-  border-color: var(--color-info-green-border);
-  background: var(--color-info-green);
-  color: var(--color-secondary-hover);
-}
-
-.status-badge--blue {
-  border-color: var(--color-info-blue-border);
-  background: var(--color-info-blue);
-  color: var(--color-primary);
-}
-
 .status-badge--amber {
   border-color: var(--color-info-gold-border);
   background: var(--color-info-gold);
@@ -2269,51 +2157,6 @@ article.panel > p:last-child > a.inline-link:hover {
   box-shadow: var(--shadow-card);
 }
 
-.norm-sidebar__portal-links h3 {
-  margin: 1rem 0 0.6rem;
-  font-size: var(--text-sm);
-}
-
-.section.norm-sidebar__portal-links {
-  margin-top: 0;
-  padding: 1.15rem;
-  border: 1px solid rgba(23, 59, 107, 0.22);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-card);
-}
-
-.norm-sidebar__link-list {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.norm-sidebar__link-list li {
-  display: grid;
-  gap: 0.2rem;
-  padding: 0.7rem 0;
-  border-top: 1px solid var(--color-border);
-}
-
-.norm-sidebar__link-list li:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
-
-.norm-sidebar__link-list time {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-}
-
-.norm-sidebar__link-list span {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  line-height: var(--lh-compact);
-}
-
 .meta-list {
   display: grid;
   gap: 1rem;
@@ -2424,9 +2267,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .inline-link,
 .link-list a,
-.text-link-button,
-.letter-nav a,
-.outline-list a {
+.text-link-button {
   color: var(--color-accent);
   overflow-wrap: anywhere;
   text-decoration: none;
@@ -2443,32 +2284,9 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .inline-link:hover,
 .link-list a:hover,
-.text-link-button:hover,
-.letter-nav a:hover,
-.outline-list a:hover {
+.text-link-button:hover {
   color: var(--color-accent-hover);
   text-decoration: underline;
-}
-
-.norm-jump-nav {
-  margin-top: var(--space-4);
-}
-
-.norm-jump-nav a {
-  min-height: 2.5rem;
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-xs) var(--space-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface-alt);
-  text-decoration: none;
-}
-
-.norm-jump-nav a:hover {
-  border-color: var(--color-primary);
-  background: var(--color-info-blue);
-  text-decoration: none;
 }
 
 .text-link-button {
@@ -2480,16 +2298,8 @@ article.panel > p:last-child > a.inline-link:hover {
   cursor: pointer;
 }
 
-.letter-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.25rem;
-}
-
 .record-list,
-.timeline-list,
-.outline-list {
+.timeline-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -2520,8 +2330,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .record-list__item span,
-.timeline-list span,
-.outline-label {
+.timeline-list span {
   color: var(--color-text-muted);
 }
 
@@ -2768,7 +2577,7 @@ article.panel > p:last-child > a.inline-link:hover {
 /* Ein Formularmuster für alle Such- und Filterleisten des Staatsportals. `.filter-field` trägt
    Beschriftung, Feldhöhe, Rahmen und Fokus; `.search-field` ist derselbe Baustein unter seinem
    eingeführten Namen. Die Leiste `.filter-bar` setzt nur das Raster – kompakt im Kopf, breit im
-   Hero, mehrspaltig als Filter. Vorbild ist `DirectoryFilterBar` des Rechtsportals. */
+   Hero, mehrspaltig als Filter. Das Rechtsportal folgt demselben Muster mit `FilterForm.astro`. */
 .filter-bar,
 .search-form {
   display: grid;
@@ -2776,22 +2585,18 @@ article.panel > p:last-child > a.inline-link:hover {
   margin-top: var(--space-5);
 }
 
-.filter-bar--hero,
-.search-form--hero {
+.filter-bar--hero {
   max-width: var(--content-width-narrow);
 }
 
-.filter-bar__fields,
-.search-form__primary,
-.search-form__filters {
+.filter-bar__fields {
   display: grid;
   gap: var(--space-3);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
   align-items: end;
 }
 
-.filter-bar__actions,
-.search-form__actions {
+.filter-bar__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
@@ -2940,33 +2745,6 @@ article.panel > p:last-child > a.inline-link:hover {
   line-height: var(--lh-body);
 }
 
-.search-hit__facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem 1rem;
-  margin: 0.9rem 0 0;
-}
-
-.search-hit__facts div {
-  display: grid;
-  gap: 0.2rem;
-}
-
-.search-hit__facts dt {
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: 650;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.search-hit__facts dd {
-  margin: 0;
-  line-height: var(--lh-compact);
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
 .search-hit__meta {
   color: var(--color-text-muted);
 }
@@ -2988,262 +2766,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .error-page {
   max-width: var(--content-width-narrow);
-}
-
-.norm-outline {
-  margin-top: 0;
-  padding: 1.2rem 1.2rem 1.2rem 1rem;
-  border: 1px solid var(--color-border);
-  border-left: 0.25rem solid rgba(23, 59, 107, 0.28);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-card);
-}
-
-.norm-outline .section-header {
-  margin-bottom: 1rem;
-}
-
-.norm-outline .section-header h2 {
-  font-size: var(--text-md);
-}
-
-.outline-list a {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  line-height: var(--lh-compact);
-}
-
-.outline-list .outline-list {
-  margin-top: 0.55rem;
-  padding-left: 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-.norm-division + .norm-division,
-.norm-unit + .norm-unit,
-.norm-annex + .norm-annex {
-  margin-top: 1.5rem;
-}
-
-.norm-division__header,
-.norm-unit__head {
-  margin-bottom: 0.85rem;
-}
-
-.norm-unit {
-  border-top: 1px solid rgba(23, 59, 107, 0.14);
-  padding-top: 1.15rem;
-}
-
-.norm-unit:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-/* Kopfzeile einer Einheit: Überschrift, Aufklappschalter und Werkzeuge in einer Zeile. */
-.norm-unit__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-2) var(--space-3);
-}
-
-.norm-division__header h3,
-.norm-division__header h4,
-.norm-division__header h5,
-.norm-division__header h6,
-.norm-annex h3,
-.norm-annex h4,
-.norm-annex h5,
-.norm-annex h6,
-.norm-unit__head h3,
-.norm-unit__head h4,
-.norm-unit__head h5,
-.norm-unit__head h6 {
-  margin: 0;
-  font-family: var(--font-document);
-  line-height: var(--lh-heading);
-}
-
-.norm-division__heading,
-.norm-unit__heading,
-.norm-quoted-unit__heading {
-  display: grid;
-  gap: 0.15rem;
-}
-
-.norm-unit__heading {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.norm-label,
-.norm-unit__label,
-.norm-quoted-unit__label {
-  display: block;
-  margin: 0;
-  color: var(--color-heading);
-  font-weight: 750;
-}
-
-.norm-title {
-  display: block;
-}
-
-.norm-division--part,
-.norm-annex {
-  padding-top: 0.25rem;
-}
-
-.norm-division--section,
-.norm-division--subsection {
-  margin-left: var(--space-1);
-}
-
-.norm-text {
-  margin: 0.65rem 0 0;
-  line-height: var(--lh-body);
-  max-width: 82ch;
-  color: var(--color-ink);
-}
-
-/* Querverweise im Normwortlaut bleiben auch ohne Farbwahrnehmung erkennbar. */
-.norm-text .inline-link,
-.norm-subparagraph .inline-link,
-.norm-amendment-item__content .inline-link,
-.norm-table .inline-link {
-  font-weight: 650;
-  text-decoration: underline;
-  text-decoration-thickness: 0.11em;
-  text-underline-offset: 0.16em;
-}
-
-.norm-subparagraph {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.7rem;
-  max-width: 82ch;
-  margin: 0.65rem 0 0;
-  color: var(--color-ink);
-  line-height: var(--lh-body);
-}
-
-.norm-subparagraph__label {
-  min-width: 2rem;
-  color: var(--color-ink);
-  font-weight: 400;
-  font-variant-numeric: tabular-nums;
-}
-
-.norm-text__children,
-.norm-subparagraph__children {
-  margin-inline-start: 2.7rem;
-}
-
-.norm-table-wrap {
-  margin-top: 1rem;
-}
-
-.norm-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.norm-table th,
-.norm-table td {
-  padding: 0.55rem 0.7rem;
-  border: 1px solid var(--color-border);
-  vertical-align: top;
-  text-align: left;
-}
-
-.norm-table th {
-  background: var(--color-surface-muted);
-  color: var(--color-primary);
-  font-weight: 700;
-}
-
-.norm-amendment-list {
-  margin: 0.85rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.8rem;
-}
-
-.norm-amendment-item {
-  display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  column-gap: 0.75rem;
-  line-height: var(--lh-body);
-  max-width: 82ch;
-  min-width: 0;
-}
-
-.norm-amendment-item__label {
-  color: var(--color-ink);
-  font-weight: 400;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.norm-amendment-item__content {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.norm-amendment-item__children {
-  margin-top: 0.75rem;
-}
-
-.norm-amendment-item__children .norm-amendment-list {
-  margin-top: 0;
-}
-
-.norm-amendment-item__children .norm-amendment-item__label {
-  color: var(--color-ink);
-  font-weight: 400;
-}
-
-.norm-amendment-item__children .norm-amendment-item__children .norm-amendment-item__label {
-  font-weight: 400;
-}
-
-.norm-quoted-provision {
-  max-width: 82ch;
-  margin: 1rem 0;
-  padding: 1.1rem 1.25rem;
-  border-inline-start: 0.2rem solid var(--color-border-strong);
-  background: var(--color-surface-muted);
-}
-
-.norm-quoted-unit + .norm-quoted-unit {
-  margin-top: var(--space-4-plus);
-}
-
-.norm-quoted-unit__header {
-  margin-bottom: 0.75rem;
-}
-
-.norm-quoted-unit__header h3,
-.norm-quoted-unit__header h4,
-.norm-quoted-unit__header h5,
-.norm-quoted-unit__header h6 {
-  margin: 0;
-  font-family: var(--font-document);
-  line-height: var(--lh-heading);
-}
-
-.norm-quoted-unit__label {
-  margin: 0;
-}
-
-.norm-quoted-provision .norm-unit,
-.norm-quoted-unit {
-  border-top: 0;
-  padding-top: 0;
 }
 
 .site-footer {
@@ -3341,12 +2863,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
 }
 
-@media (max-width: 80rem) {
-  .norm-detail-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
 @media (max-width: 64rem) {
   .card-grid,
   .card-grid--three,
@@ -3406,9 +2922,6 @@ article.panel > p:last-child > a.inline-link:hover {
   .reform-priority-card__actions {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
-
-@media (max-width: 64rem) {
 }
 
 @media (max-width: 48rem) {
@@ -3519,8 +3032,6 @@ article.panel > p:last-child > a.inline-link:hover {
   .content-grid--wide,
   .compare-grid,
   .filter-bar__fields,
-  .search-form__primary,
-  .search-form__filters,
   .card-grid,
   .card-grid--two,
   .card-grid--three,
@@ -3623,17 +3134,9 @@ article.panel > p:last-child > a.inline-link:hover {
     position: static;
   }
 
-  .norm-sidebar__portal-links {
-    padding: 1rem;
-  }
-
   .search-hit__header {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .search-hit__facts {
-    grid-template-columns: 1fr;
   }
 
   .header-search__control {
@@ -3656,22 +3159,6 @@ article.panel > p:last-child > a.inline-link:hover {
   .budget-kpi-grid--six {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .norm-amendment-item {
-    grid-template-columns: 2.25rem minmax(0, 1fr);
-    column-gap: 0.55rem;
-  }
-
-
-  .norm-text__children,
-  .norm-subparagraph__children {
-    margin-inline-start: 1.35rem;
-  }
-
-  .norm-quoted-provision {
-    margin-inline: 0;
-    padding: 0.9rem 0.85rem;
-  }
 }
 
 @media print {
@@ -3681,7 +3168,6 @@ article.panel > p:last-child > a.inline-link:hover {
   .breadcrumbs,
   .hero-actions,
   .link-list,
-  .norm-outline,
   .status-notice,
   .meta-panel .link-list,
   .text-link-button {
@@ -3717,12 +3203,9 @@ article.panel > p:last-child > a.inline-link:hover {
    die übrige Kleinschrift (siehe .law-type-label, .origin-badge, .status-badge, .tag), weil die
    schmale Grotesk bei gleicher Punktgröße weniger Weiß trägt. Die tz-Ligatur ist eine
    discretionary Ligatur und wird nur hier angefordert. */
-.law-type-label,
-.origin-badge__label,
 .status-badge,
 .tag,
 .directory-entry__title a,
-.search-hit__title h3 a,
 .data-table--orte tbody th {
   font-family: var(--font-sign);
   font-feature-settings: 'dlig' 1;

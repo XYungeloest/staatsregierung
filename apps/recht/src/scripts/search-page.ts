@@ -18,6 +18,7 @@ import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts';
 
 import { countNoun } from '../lib/counts.ts';
+import { formatShortDate } from '../lib/dates.ts';
 import { NORM_HISTORY_LABEL, referenceDateLabel, VALIDITY_FIELD_LABEL, VERSION_FIELD_LABEL, versionKindLabel } from '../lib/vocabulary.ts';
 
 /**
@@ -41,10 +42,14 @@ const resultsContainer = document.querySelector<HTMLElement>('[data-search-resul
 const moreButton = document.querySelector<HTMLButtonElement>('[data-search-more]');
 const activeFilters = document.querySelector<HTMLElement>('[data-search-active-filters]');
 const activeFilterList = document.querySelector<HTMLElement>('[data-search-active-list]');
-const clearFiltersButton = document.querySelector<HTMLButtonElement>('[data-search-clear-filters]');
 const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
 const searchApiUrl = root?.dataset.searchApi ?? '';
 const indexUrl = root?.dataset.indexUrl ?? '';
+const subjectsUrl = root?.dataset.subjectsUrl ?? '';
+const advancedPanel = document.querySelector<HTMLDetailsElement>('[data-search-advanced]');
+const filtersSheet = document.querySelector<HTMLDetailsElement>('[data-search-filters]');
+/** Anzahl der Zeichen eines Textausschnitts in der Trefferliste. */
+const SNIPPET_CHARS = 220;
 
 let activeRequest: AbortController | undefined;
 // Redaktioneller Stichtag der Anzeige; die Such-API liefert ihn mit jeder Antwort.
@@ -328,11 +333,11 @@ function collectActiveFilters(elements: Array<HTMLInputElement | HTMLSelectEleme
 function createFilterChip(label: string, name: string, value: string, intent = false): HTMLButtonElement {
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = 'search-filter-chip';
+  button.className = 'r-chip search-filter-chip';
   button.dataset.searchRemoveFilter = name;
   button.dataset.searchRemoveValue = value;
   if (intent) button.dataset.searchRemoveIntent = 'type';
-  button.textContent = `${label} ×`;
+  button.textContent = label;
   button.setAttribute('aria-label', `${intent ? 'Automatisch erkannten Normtyp entfernen' : 'Filter entfernen'}: ${label}`);
   return button;
 }
@@ -418,20 +423,26 @@ function writeStateToUrl(state: NormSearchState, push = false): void {
 }
 
 /**
- * Bezeichnung der Fassung eines Treffers aus der Wortliste: „Geltende Fassung, Rechtsstand vom …“
- * für die geltende, sonst die Fassungsart mit ihrem Beginn.
+ * Statusmarke eines Treffers: Geltung der Vorschrift als Wort im Rahmen (Farbe nur unterstützend).
  */
-function versionLabel(hit: SearchHit): string {
-  if (hit.versionKind === 'current') return `${versionKindLabel('current')}, ${referenceDateLabel(referenceDate)}`;
-  if (hit.versionKind === 'future') return `${versionKindLabel('future')} ab ${formatDate(hit.validFrom)}`;
-  if (hit.versionKind === 'historical') return `${versionKindLabel('historical')} vom ${formatDate(hit.validFrom)}`;
-  return versionKindLabel('unknown-effective');
+function statusRole(status: string): string {
+  if (status === 'in-force') return 'in-force';
+  if (status === 'future-effective') return 'future';
+  if (status === 'repealed' || status === 'historical') return 'repealed';
+  if (status === 'one-time-act') return 'one-time';
+  return 'pending';
 }
 
-function badgeClass(hit: SearchHit): string {
-  if (hit.versionKind === 'current') return 'status-badge--green';
-  if (hit.versionKind === 'future' || hit.versionKind === 'unknown-effective') return 'status-badge--blue';
-  return 'status-badge--amber';
+function statusMarkup(hit: SearchHit): string {
+  return `<span class="r-status r-status--sm r-status--${statusRole(hit.status)}">${escapeHtml(hit.statusLabel)}</span>`;
+}
+
+/** Fassungsangabe eines Treffers: geltend seit, oder Art und Zeitraum einer anderen Fassung. */
+function versionText(hit: SearchHit): string {
+  if (hit.versionKind === 'current') return `geltende Fassung seit ${formatShortDate(hit.validFrom)}`;
+  if (hit.versionKind === 'future') return `${versionKindLabel('future')} ab ${formatShortDate(hit.validFrom)}`;
+  if (hit.versionKind === 'historical') return `${versionKindLabel('historical')} ${formatShortDate(hit.validFrom)}${hit.validTo ? ` – ${formatShortDate(hit.validTo)}` : ''}`;
+  return versionKindLabel('unknown-effective');
 }
 
 /**
@@ -443,72 +454,60 @@ function originOf(hit: SearchHit): NormOriginKind {
   return (NORM_ORIGIN_KINDS as readonly string[]).includes(hit.origin) ? hit.origin as NormOriginKind : 'origin-unresolved';
 }
 
-/**
- * Herkunftszeichen in der kompakten Listenform (origin-presentation.ts): die Metazeile bleibt
- * damit auch auf kleinen Bildschirmen einzeilig; die ausführliche Bedeutung steht als Titel am
- * Zeichen und auf der Vorschriftenseite.
- */
-function originBadgeMarkup(origin: NormOriginKind): string {
-  return `<span class="origin-badge origin-badge--${escapeHtml(origin)}" data-origin-kind="${escapeHtml(origin)}" title="${escapeHtml(describeNormOriginKind(origin))}"><span class="origin-badge__dot" aria-hidden="true"></span><span class="origin-badge__label">${escapeHtml(formatNormOriginBadge(origin, 'compact'))}</span></span>`;
+/** Herkunft als Textangabe in der Metazeile (Richtung E: kein Abzeichen, ein Wort). */
+function originMarkup(origin: NormOriginKind): string {
+  return `<span class="r-muted" title="${escapeHtml(describeNormOriginKind(origin))}">${escapeHtml(formatNormOriginBadge(origin, 'full'))}</span>`;
 }
 
-/** Gültigkeitszeitraum der Fassung in Worten. */
-function validityRange(hit: SearchHit): string {
-  const from = formatDate(hit.validFrom);
-  if (hit.validTo) return `${from} bis ${formatDate(hit.validTo)}`;
-  return `ab ${from}; Ende offen`;
+function trimSnippet(value: string): string {
+  if (value.length <= SNIPPET_CHARS) return value;
+  const cut = value.slice(0, SNIPPET_CHARS);
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), SNIPPET_CHARS - 30))} …`;
 }
 
 /**
- * Textausschnitt mit der Trefferstelle als Präfix. Ohne Trefferstelle im Text nennt das Präfix
- * die Art des Treffers (etwa „Treffer im Titel“).
+ * Trefferstelle: Adresse (§ 12 Abs. 3) links, Ausschnitt in der Serife rechts. Ohne Textstelle
+ * nennt die Adresse die Art des Treffers (etwa „Treffer im Titel“).
  */
-function contextMarkup(hit: SearchHit): string {
-  const prefixLabel = [hit.unitLabel, hit.unitTitle].filter(Boolean).join(' ') || hit.matchLabel;
+function placesMarkup(hit: SearchHit): string {
   if (!hit.snippet && !hit.unitAnchor) return '';
+  const prefixLabel = [hit.unitLabel, hit.unitTitle].filter(Boolean).join(' ') || hit.matchLabel;
   const prefix = hit.unitAnchor
-    ? `<a class="search-hit__context-prefix" href="${escapeHtml(`${hit.url}#${hit.unitAnchor}`)}">${escapeHtml(prefixLabel)}</a>`
-    : `<span class="search-hit__context-prefix">${escapeHtml(prefixLabel)}</span>`;
-  return `<p class="search-hit__context" data-search-match-kind="${escapeHtml(hit.matchKind)}">${prefix}${hit.snippet ? `<span class="search-hit__context-separator" aria-hidden="true">:</span> <span>${escapeHtml(hit.snippet)}</span>` : ''}</p>`;
+    ? `<a class="search-hit__place" href="${escapeHtml(`${hit.url}#${hit.unitAnchor}`)}">${escapeHtml(prefixLabel)}</a>`
+    : `<span class="search-hit__place r-muted">${escapeHtml(prefixLabel)}</span>`;
+  return `<ul class="search-hit__places"><li data-search-match-kind="${escapeHtml(hit.matchKind)}">${prefix}<span class="search-hit__context">${hit.snippet ? escapeHtml(trimSnippet(hit.snippet)) : ''}</span></li></ul>`;
 }
 
 /**
- * Ein Treffer: Bezeichnungen nach der gemeinsamen Titelregel (getNormTitleBlock), eine Metazeile
- * aus Normtyp und Herkunft beziehungsweise Fundstelle, der Ausschnitt und die weiteren Angaben.
+ * Ein Treffer (P2): Bezeichnung nach der gemeinsamen Titelregel, Metazeile mit Geltung, Fassung,
+ * letzter Rechtsänderung, Fundstelle und Herkunft, darunter die Trefferstelle und die Wege zu den
+ * Fassungen. Nicht jede Angabe steht an jedem Treffer.
  */
 function renderHit(hit: SearchHit, state: NormSearchState): string {
   const block = getNormTitleBlock({ title: hit.title, shortTitle: hit.shortTitle, abbr: hit.abbr });
   const publication = hit.publicationTitle && hit.publicationUrl
-    ? `<a class="inline-link" href="${escapeHtml(hit.publicationUrl)}">${escapeHtml(hit.publicationTitle)}</a>`
+    ? `<a href="${escapeHtml(hit.publicationUrl)}">${escapeHtml(hit.publicationTitle)}</a>`
     : escapeHtml(hit.publication);
   const origin = originOf(hit);
-  // Übernommenes, unverändertes Recht ist der Regelfall: dort steht die Fundstelle statt eines
-  // Hinweises auf die Herkunft; eigene und geänderte Vorschriften tragen das Herkunftszeichen.
-  const originOrPublication = origin === 'inherited-unchanged'
-    ? (hit.publication ? `<span class="search-hit__publication"><span>Fundstelle</span> ${publication}</span>` : '')
-    : originBadgeMarkup(origin);
-  // Die Fassungspille wiederholt sonst nur den aktiven Fassungsfilter: nur zeigen, wenn sie abweicht.
-  const showVersionBadge = state.versionScope === 'all' || hit.versionKind !== state.versionScope;
+  const ident = [block.abbr, hit.typeLabel].filter(Boolean).join(' · ');
+  const meta = [
+    statusMarkup(hit),
+    `<span>${escapeHtml(versionText(hit))}</span>`,
+    hit.lastChangeDate && hit.lastChangeDate !== hit.validFrom ? `<span>zuletzt geändert mit Wirkung vom ${escapeHtml(formatShortDate(hit.lastChangeDate))}</span>` : '',
+    hit.publication ? `<span>Fundstelle ${publication}</span>` : '',
+    origin !== 'inherited-unchanged' ? originMarkup(origin) : '',
+  ].filter(Boolean).join('');
+  void state;
   return `
     <article class="search-hit">
-      <div class="search-hit__header">
-        <div class="search-hit__title">
-          <h3><a class="inline-link" href="${escapeHtml(hit.url)}">${escapeHtml(block.heading)}</a>${block.abbr ? ` <span class="search-hit__abbr">${escapeHtml(block.abbr)}</span>` : ''}</h3>
-          ${block.longTitle ? `<p class="search-hit__long-title">${escapeHtml(block.longTitle)}</p>` : ''}
-          <p class="search-hit__meta-line"><span class="law-type-label">${escapeHtml(hit.typeLabel ?? '')}</span>${originOrPublication ? `<span class="search-hit__meta-separator" aria-hidden="true">·</span>${originOrPublication}` : ''}</p>
-        </div>
-        ${showVersionBadge ? `<span class="status-badge ${badgeClass(hit)}">${escapeHtml(versionLabel(hit))}</span>` : ''}
+      <div class="search-hit__title">
+        <h3><a href="${escapeHtml(hit.url)}">${escapeHtml(block.heading)}</a></h3>
+        ${ident ? `<span class="search-hit__ident">${escapeHtml(ident)}</span>` : ''}
+        ${block.longTitle ? `<span class="search-hit__long r-meta">${escapeHtml(block.longTitle)}</span>` : ''}
       </div>
-      ${contextMarkup(hit)}
-      <details class="search-hit__details">
-        <summary>Weitere Angaben</summary>
-        <dl class="search-hit__facts">
-          <div><dt>Vollzitat</dt><dd>${escapeHtml(hit.citation)}</dd></div>
-          <div><dt>Fassung gültig</dt><dd>${escapeHtml(validityRange(hit))}</dd></div>
-          ${hit.ministry ? `<div><dt>Ressort</dt><dd>${escapeHtml(hit.ministry)}</dd></div>` : ''}
-          <div><dt>${escapeHtml(NORM_HISTORY_LABEL)}</dt><dd><a class="inline-link" href="${escapeHtml(`${hit.currentUrl}history/`)}">${escapeHtml(NORM_HISTORY_LABEL)}</a></dd></div>
-        </dl>
-      </details>
+      <div class="search-hit__meta">${meta}</div>
+      ${placesMarkup(hit)}
+      <div class="search-hit__links"><a href="${escapeHtml(`${hit.currentUrl}history/`)}">${escapeHtml(NORM_HISTORY_LABEL)}</a>${hit.ministry ? ` · <span class="r-muted">${escapeHtml(hit.ministry)}</span>` : ''}</div>
     </article>
   `;
 }
@@ -517,29 +516,24 @@ function renderHit(hit: SearchHit, state: NormSearchState): string {
 function otherVersionsMarkup(hit: SearchHit): string {
   if (hit.otherVersions.length === 0) return '';
   const label = countNoun(hit.otherVersions.length, 'Fassung', 'Fassungen');
-  return `<details class="search-result-group__versions"><summary>${hit.otherVersions.length} weitere passende ${label}</summary>${hit.otherVersions.map((version) => `
-    <article class="search-hit">
-      <div class="search-hit__header">
-        <div class="search-hit__title">
-          <h4><a class="inline-link" href="${escapeHtml(version.url)}">Fassung vom ${escapeHtml(formatDate(version.validFrom))}</a></h4>
-        </div>
-        <span class="status-badge ${version.versionKind === 'current' ? 'status-badge--green' : version.versionKind === 'historical' ? 'status-badge--amber' : 'status-badge--blue'}">${escapeHtml(versionKindLabel(version.versionKind))}</span>
-      </div>
-    </article>`).join('')}</details>`;
+  return `<details class="search-result-group__versions"><summary>${hit.otherVersions.length} weitere passende ${label}</summary><ul>${hit.otherVersions.map((version) => `
+    <li><span class="r-status r-status--sm r-status--${version.versionKind === 'current' ? 'in-force' : version.versionKind === 'historical' ? 'historical' : version.versionKind === 'future' ? 'future' : 'pending'}">${escapeHtml(versionKindLabel(version.versionKind, 'adjective'))}</span><a href="${escapeHtml(version.url)}">Fassung vom ${escapeHtml(formatShortDate(version.validFrom))}</a></li>`).join('')}</ul></details>`;
 }
 
-/** Echter Leerzustand im Ergebnisbereich: Anfrage zitieren, drei konkrete Auswege. */
+/** Leerzustand (P2): Anfrage zitieren, Auswahl nennen, konkrete Auswege. */
 function renderEmptyState(state: NormSearchState): string {
-  const activeCount = collectActiveFilters().length;
+  const active = collectActiveFilters();
   const query = state.q.trim();
+  const selection = active.map((entry) => entry.label).join(' · ');
   const ways = [
-    activeCount > 0 ? `<li><button class="text-link-button" type="button" data-search-empty-clear>Aktive Filter zurücksetzen (${activeCount})</button></li>` : '',
-    state.versionScope !== 'all' ? `<li><button class="text-link-button" type="button" data-search-empty-all-versions>Suche auf alle Fassungen erweitern</button></li>` : '',
-    indexUrl ? `<li><a class="inline-link" href="${escapeHtml(indexUrl)}">Vorschriften A–Z öffnen</a></li>` : '',
+    active.length > 0 ? `<li><button class="r-link-btn" type="button" data-search-empty-clear>Filter zurücksetzen (${active.length})</button></li>` : '',
+    state.versionScope !== 'all' ? `<li><button class="r-link-btn" type="button" data-search-empty-all-versions>Außer Kraft getretene und künftige Fassungen einbeziehen</button></li>` : '',
+    indexUrl ? `<li>Im <a href="${escapeHtml(indexUrl)}">Stichwortregister</a> oder über <a href="${escapeHtml(indexUrl)}">A–Z</a> nachsehen.</li>` : '',
+    subjectsUrl ? `<li>Über die <a href="${escapeHtml(subjectsUrl)}">Sachgebiete</a> systematisch einsteigen.</li>` : '',
   ].join('');
   const reason = query
-    ? `Zu „${escapeHtml(query)}“ passt keine Vorschrift${activeCount > 0 ? ' in der aktuellen Auswahl' : ''}.`
-    : 'Zur aktuellen Auswahl passt keine Vorschrift.';
+    ? `Zu „${escapeHtml(query)}“ passt keine Vorschrift${active.length > 0 ? ` in der aktuellen Auswahl (${escapeHtml(selection)})` : ''}.`
+    : `Zur aktuellen Auswahl${active.length > 0 ? ` (${escapeHtml(selection)})` : ''} passt keine Vorschrift.`;
   return `<section class="search-empty" data-search-empty aria-labelledby="search-empty-title">
     <h3 id="search-empty-title">Keine Vorschrift gefunden</h3>
     <p>${reason}</p>
@@ -563,19 +557,20 @@ function updateFacetCounts(): void {
     input.setAttribute('aria-label', counts ? `${label}, ${count} passende Vorschriften in der aktuellen Auswahl` : label);
     // Facetten ohne Treffer sind ausgegraut und nicht anklickbar.
     input.disabled = Boolean(counts) && count === 0 && !input.checked && !groupsWithSelection.has(facet);
-    input.closest('label')?.classList.toggle('search-filter-option--empty', input.disabled);
+    const option = input.closest<HTMLElement>('label');
+    option?.classList.toggle('r-check--empty', input.disabled);
+    // Lange Facetten (Normtyp, Sachgebiet, Ressort, Reihe, Jahr) zeigen nur belegte Werte; die
+    // Geltung bleibt vollständig sichtbar, damit der Standard „in Kraft“ erklärbar bleibt.
+    if (option && facet !== 'status' && facet !== 'origin') option.hidden = input.disabled;
   });
 }
 
 function renderPublicationDirectHit(): string {
   if (!directHit) return '';
   return `<article class="search-publication-direct-hit">
-    <span class="law-type-label">Verkündungsblatt</span>
-    <div>
-      <h3><a class="inline-link" href="${escapeHtml(directHit.url)}">${escapeHtml(directHit.designation)}</a></h3>
-      <p>${escapeHtml(directHit.title)}</p>
-    </div>
-    <a class="inline-link" href="${escapeHtml(directHit.url)}">Ausgabe öffnen</a>
+    <span class="r-label">Ausgabe</span>
+    <h3><a href="${escapeHtml(directHit.url)}">${escapeHtml(directHit.designation)}</a></h3>
+    <span class="r-muted">${escapeHtml(directHit.title)}</span>
   </article>`;
 }
 
@@ -593,12 +588,13 @@ function sortLabel(state: NormSearchState): string {
 /** Überschrift der Trefferliste: die Gesamtzahl steht fest, weil die Suche vollständig zählt. */
 function summaryText(state: NormSearchState): string {
   if (lastTotal === 0) return 'Keine Treffer für die aktuelle Suchanfrage.';
-  return `${lastTotal} Treffer. Sortiert nach ${sortLabel(state)}.`;
+  const scope = state.versionScope === 'current' ? 'geltende Fassungen' : state.versionScope === 'all' ? 'alle Fassungen' : versionKindLabel(state.versionScope, 'many');
+  return `${lastTotal} Treffer · ${countNoun(lastTotal, 'Vorschrift', 'Vorschriften')} · ${scope} · ${referenceDateLabel(referenceDate)} · sortiert nach ${sortLabel(state)}`;
 }
 
 function renderResults(state: NormSearchState): void {
   if (!summary || !resultsContainer || !moreButton) return;
-  summary.textContent = summaryText(state);
+  summary.innerHTML = summaryText(state).replace(/^(\d+ Treffer)/u, '<strong>$1</strong>');
   const remaining = Math.max(0, lastTotal - loadedHits.length);
   moreButton.hidden = remaining === 0;
   if (remaining > 0) moreButton.textContent = `Weitere Treffer laden (${remaining} verbleibend)`;
@@ -606,7 +602,7 @@ function renderResults(state: NormSearchState): void {
     resultsContainer.innerHTML = `${renderPublicationDirectHit()}${renderEmptyState(state)}`;
     return;
   }
-  resultsContainer.innerHTML = `${renderPublicationDirectHit()}<ol class="record-list search-results__list">${loadedHits.map((hit) => `<li class="record-list__item search-result-group">
+  resultsContainer.innerHTML = `${renderPublicationDirectHit()}<ol class="search-results__list">${loadedHits.map((hit) => `<li class="search-result-group">
       ${renderHit(hit, state)}
       ${otherVersionsMarkup(hit)}
     </li>`).join('')}</ol>`;
@@ -743,10 +739,11 @@ async function setupSearch(): Promise<void> {
     clearFilter(name, value);
     void run(true);
   });
-  clearFiltersButton?.addEventListener('click', () => {
+  document.querySelectorAll<HTMLElement>('[data-search-clear-filters], [data-search-reset-link]').forEach((control) => control.addEventListener('click', (event) => {
+    event.preventDefault();
     clearAllFilters();
     void run(true);
-  });
+  }));
   // Auswege des Leerzustands: Filter zurücksetzen oder auf alle Fassungen erweitern.
   resultsContainer.addEventListener('click', (event) => {
     if (!(event.target instanceof HTMLElement)) return;
@@ -774,6 +771,19 @@ async function setupSearch(): Promise<void> {
     openPanelsWithActiveFilters();
     void run();
   });
+  document.querySelectorAll<HTMLElement>('[data-search-open-advanced]').forEach((link) => link.addEventListener('click', (event) => {
+    if (!advancedPanel) return;
+    event.preventDefault();
+    advancedPanel.open = true;
+    advancedPanel.scrollIntoView({ block: 'start' });
+    advancedPanel.querySelector<HTMLElement>('input, select, button')?.focus();
+  }));
+  const initialParams = new URLSearchParams(window.location.search);
+  if (advancedPanel && (initialParams.get('filter') === 'erweitert' || window.location.hash === '#erweiterte-suche')) advancedPanel.open = true;
+  // Auf kleinen Bildschirmen beginnt die Filterspalte geschlossen; aktive Filter öffnen sie.
+  if (filtersSheet && window.matchMedia('(max-width: 48rem)').matches && collectActiveFilters(Array.from(filtersSheet.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-search-filter]'))).length === 0) {
+    filtersSheet.open = false;
+  }
   openPanelsWithActiveFilters();
   void run();
 }

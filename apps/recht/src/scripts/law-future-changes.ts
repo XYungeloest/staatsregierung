@@ -1,45 +1,50 @@
 import { EDITORIAL_REFERENCE_DATE, partitionDatedEntries } from '@ostrecht/shared/lib/norms/versions.ts';
 
-const currentChanges = document.querySelector<HTMLElement>('[data-visual-section="law-latest-status"]');
-const currentList = document.querySelector<HTMLOListElement>('[data-law-current-change-list]');
-const futureChanges = document.querySelector<HTMLElement>('[data-visual-section="law-future-changes"]');
-const futureList = document.querySelector<HTMLOListElement>('[data-law-future-change-list]');
+/**
+ * Änderungsdienst der Startseite: Maßgeblich ist der redaktionelle Stichtag (Rechtsstand), nicht
+ * die Uhr des Browsers. Einträge werden nach Datum auf die drei Spalten verteilt: Ereignisse nach
+ * dem Stichtag stehen unter „Verkündet, noch nicht in Kraft“, Aufhebungen bis zum Stichtag unter
+ * „Außer Kraft getreten“, alles andere unter „Neu in Kraft getreten“.
+ */
+const LIMIT = 5;
+const lists = {
+  current: document.querySelector<HTMLOListElement>('[data-law-change-list="current"]'),
+  future: document.querySelector<HTMLOListElement>('[data-law-change-list="future"]'),
+  repealed: document.querySelector<HTMLOListElement>('[data-law-change-list="repealed"]'),
+};
 
-if (currentChanges && currentList) {
+if (lists.current && lists.future && lists.repealed) {
   const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-law-change]'))
     .flatMap((element) => {
       const date = element.dataset.effectiveDate;
       return date ? [{ date, element }] : [];
     });
-  // Maßgeblich ist der redaktionelle Stichtag (Rechtsstand), nicht die Uhr des Browsers.
   const { current, future } = partitionDatedEntries(entries, EDITORIAL_REFERENCE_DATE);
-  const placeEntries = (
-    candidates: typeof entries,
-    list: HTMLOListElement,
-    isFuture: boolean,
-    limit: number,
-  ) => {
+  const repealed = current.filter((entry) => entry.element.dataset.changeType === 'repeal');
+  const inForce = current.filter((entry) => entry.element.dataset.changeType !== 'repeal');
+
+  const place = (candidates: typeof entries, list: HTMLOListElement, isFuture: boolean) => {
     candidates
-      .sort((left, right) => isFuture
-        ? left.date.localeCompare(right.date)
-        : right.date.localeCompare(left.date))
+      .sort((left, right) => (isFuture ? left.date.localeCompare(right.date) : right.date.localeCompare(left.date)))
       .forEach(({ element }, index) => {
         const label = element.querySelector<HTMLElement>('[data-law-change-label]');
         const labelText = isFuture ? element.dataset.futureLabel : element.dataset.currentLabel;
-        if (label && labelText) {
-          label.textContent = labelText;
-          label.classList.toggle('law-type-label--future', isFuture);
+        if (label && labelText) label.textContent = labelText;
+        const time = element.querySelector<HTMLTimeElement>('time');
+        if (time) {
+          const short = time.dateTime.split('-').reverse().join('.');
+          time.textContent = isFuture ? `ab ${short}` : short;
+          time.classList.toggle('r-future-text', isFuture);
+          time.classList.toggle('r-muted', !isFuture);
         }
-        element.hidden = index >= limit;
+        element.hidden = index >= LIMIT;
         list.append(element);
       });
+    const empty = list.parentElement?.querySelector<HTMLElement>('[data-law-change-empty]');
+    if (empty) empty.hidden = candidates.length > 0;
   };
 
-  // Beide Spalten zeigen dieselbe Anzahl Einträge (Startseite: HOME_CURRENT_CHANGE_LIMIT/HOME_FUTURE_CHANGE_LIMIT).
-  placeEntries(current, currentList, false, 4);
-  if (futureList) placeEntries(future, futureList, true, 4);
-
-  currentChanges.hidden = current.length === 0;
-  const futureEmpty = document.querySelector<HTMLElement>('[data-law-future-empty]');
-  if (futureEmpty) futureEmpty.hidden = future.length > 0;
+  place(inForce, lists.current, false);
+  place(future, lists.future, true);
+  place(repealed, lists.repealed, false);
 }

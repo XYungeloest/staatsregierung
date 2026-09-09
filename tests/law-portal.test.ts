@@ -1155,3 +1155,12 @@ test('abgeleitete Zusammenfassungen bleiben unveröffentlicht, redaktionelle nic
     'eine fassungseigene Zusammenfassung gilt als redaktionell',
   );
 });
+
+test('Inline-Vergleich erhält vollständig gestrichene Überschriften', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].title = 'Bisherige Voraussetzungen';
+  const after = version('b', '2026-07-01', null);
+  after.body[0].title = '';
+  const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom, 'paragraph', 'inline');
+  assert.match(html, /<del>Bisherige Voraussetzungen<\/del>/u);
+});

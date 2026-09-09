@@ -1,36 +1,26 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import NormBody from '../../../components/norms/NormBody.astro';
 import NormFacts from '../../../components/norms/NormFacts.astro';
-import NormOutline from '../../../components/norms/NormOutline.astro';
+import NormHead from '../../../components/norms/NormHead.astro';
 import NormLegalRelations from '../../../components/norms/NormLegalRelations.astro';
-import NormDocumentTools from '../../../components/norms/NormDocumentTools.astro';
-import NormPrintSources from '../../../components/norms/NormPrintSources.astro';
-import NormVersionNavigation from '../../../components/norms/NormVersionNavigation.astro';
-import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
-import NormHistorySummary from '../../../components/norms/NormHistorySummary.astro';
-import { getPressReleaseIndexUrl, getTopicsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
-import { buildNormOutline, formatDate } from '@ostrecht/shared/lib/norms/display.ts';
-import {
-  formatNormStatus,
-  formatNormType,
-  toDisplayText,
-} from '@ostrecht/shared/lib/norms/presentation.ts';
-import {
-  getLawPortalUrl,
-  getNormUrl,
-  getNormVersionIdentity,
-} from '@ostrecht/shared/lib/norms/index.ts';
+import NormOutline from '../../../components/norms/NormOutline.astro';
+import NormOutlineSheet from '../../../components/norms/NormOutlineSheet.astro';
+import NormSectionTabs from '../../../components/norms/NormSectionTabs.astro';
+import NormAside from '../../../components/norms/NormAside.astro';
+import { buildNormOutline } from '@ostrecht/shared/lib/norms/display.ts';
+import { formatNormStatus, formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getLawPortalUrl, getNormUrl, getNormVersionIdentity, getNormVersionUrl } from '@ostrecht/shared/lib/norms/index.ts';
 import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
-import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { buildLegislationJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
 import { displayChangeNote } from '../../../lib/history-labels.ts';
-import { normHeaderState } from '../../../lib/norm-header.ts';
+import { buildNormHeadModel } from '../../../lib/norm-head.ts';
+import { loadNormView, outlineSummary } from '../../../lib/norm-view.ts';
+import { formatShortDate } from '../../../lib/dates.ts';
 
-// Normseiten werden zur Laufzeit aus der D1-Projektion ausgeliefert; sie werden
-// nicht mehr für jede Norm beim Build vorgerendert.
+// Vorschrift in der geltenden Fassung (P3): zur Laufzeit aus der D1-Projektion, nur der
+// angezeigte Normkörper wird geladen.
 export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
@@ -38,28 +28,21 @@ const store = await getNormStore(Astro.locals);
 const norm = await store.getNorm(slug, 'current');
 if (!norm) return Astro.rewrite('/404');
 const currentVersion = getCurrentVersion(norm);
-const [derived, fullCitation, publicationReference] = await Promise.all([
-  store.getDerived(slug),
-  store.getFullCitation(slug, currentVersion.versionId),
-  store.getPublicationReference(slug, currentVersion.versionId),
-]);
-if (!derived) return Astro.rewrite('/404');
-// Bezeichnungen der Änderungsvorschriften: die Vorschriftendaten verlinken sie mit Titel und Datum.
-const [publication, amendmentLabels] = await Promise.all([
-  publicationReference ? store.getPublication(publicationReference.publicationSlug) : Promise.resolve(null),
-  store.getNormLabels(derived.origin.ownChanges.map((entry) => entry.relatedNormSlug).filter((entry): entry is string => Boolean(entry))),
-]);
+const view = await loadNormView(store, norm, currentVersion);
+if (!view) return Astro.rewrite('/404');
+const { derived, fullCitation, publicationReference, publication, amendmentLabels, nextFutureReference } = view;
+const model = buildNormHeadModel(norm, currentVersion, { origin: derived.origin, publicationReference, amendmentLabels, nextFutureReference });
 const outline = buildNormOutline(currentVersion.body);
+const summary = outlineSummary(outline);
 const identity = getNormVersionIdentity(norm, currentVersion);
 const normTitle = toDisplayText(identity.title);
 const normLabel = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
-const normStatusLabel = formatNormStatus(norm.meta.status);
 const responsibility = toDisplayText(norm.meta.responsibleMinistry);
-const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${normStatusLabel}.${responsibility ? ` Zuständiger Geschäftsbereich: ${responsibility}.` : ''}`;
+const description = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${formatNormStatus(norm.meta.status)}.${responsibility ? ` Zuständiger Geschäftsbereich: ${responsibility}.` : ''}`;
 const structuredData = buildLegislationJsonLd({
   name: normTitle,
   alternateName: toDisplayText(identity.shortTitle),
-  identifier: toDisplayText(fullCitation ?? currentVersion.citation),
+  identifier: toDisplayText(fullCitation),
   description: toDisplayText(identity.summary),
   url: getNormUrl(norm.meta.slug),
   legislationType: formatNormType(norm.meta.type),
@@ -67,128 +50,47 @@ const structuredData = buildLegislationJsonLd({
   datePublished: norm.meta.publicationDate,
   effectiveDate: norm.meta.effectiveDate,
 });
-const relatedNorms = derived.recommendations;
-const relatedTopics = derived.portalLinks.topics;
-const relatedPressReleases = derived.portalLinks.pressReleases;
+const changeNote = displayChangeNote(currentVersion.changeNote);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
-const header = normHeaderState(norm, currentVersion);
 ---
 
 <LawLayout
   documentFont
+  mainWidth="full"
   title={normLabel}
-  description={currentDescription}
+  description={description}
   structuredData={structuredData}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
     { label: toDisplayText(identity.shortTitle || identity.title), href: getNormUrl(norm.meta.slug) },
   ]}
 >
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: toDisplayText(identity.shortTitle || identity.title) },
-    ]}
-  />
+  <NormHead norm={norm} version={currentVersion} model={model} officialPdf={publication?.pdf} fullCitation={fullCitation} />
+  <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} active="text" /></div>
+  <NormOutlineSheet items={outline} summary={summary} />
 
-  <NormPageHeader
-    norm={norm}
-    version={currentVersion}
-    eyebrow={header.eyebrow}
-    status={header.status}
-    officialPdf={publication?.pdf}
-  />
-  <NormVersionNavigation norm={norm} version={currentVersion} />
   <div class="norm-workspace">
-    <aside class="norm-toc-column" id="norm-inhalt"><NormOutline items={outline} /></aside>
+    <div class="norm-workspace__outline"><NormOutline items={outline} summary={summary} /></div>
 
-    <article class="norm-document-column">
-      <section class="section" id="normtext" data-visual-section="norm-text">
-        <div class="section-header">
-          <h2>Vorschriftentext</h2>
-          <p>{displayChangeNote(currentVersion.changeNote)}</p>
-        </div>
-        <NormDocumentTools unitKind={getNormUnitKind(currentVersion.body)} />
+    <article class="norm-document" id="normtext" data-visual-section="norm-text" aria-labelledby="normtext-title">
+      <h2 id="normtext-title" class="visually-hidden">Vorschriftentext</h2>
+      {changeNote ? <p class="norm-document__lead">{changeNote}</p> : null}
+      <div class="norm-body">
         <NormBody blocks={currentVersion.body} references={derived.textReferences} />
-      </section>
-      <NormPrintSources
-        norm={norm}
-        version={currentVersion}
-        publicationReference={publicationReference}
-        publication={publication ?? undefined}
-      />
-      <NormLegalRelations norm={norm} relations={derived.relations} />
+      </div>
+      {model.nextFuture ? (
+        <p class="r-note r-note--future">
+          <span>Diese Vorschrift wird zum {formatShortDate(model.nextFuture.version.validFrom)} geändert{model.nextFuture.citation ? ` – ${model.nextFuture.publicationHref ? '' : ''}` : ''}{model.nextFuture.citation ? <>{model.nextFuture.publicationHref ? <a href={model.nextFuture.publicationHref}>{model.nextFuture.citation}</a> : model.nextFuture.citation}</> : null}, verkündet, noch nicht in Kraft. <a href={getNormVersionUrl(norm.meta.slug, model.nextFuture.version.versionId)}>Künftige Fassung anzeigen</a></span>
+        </p>
+      ) : null}
     </article>
 
-    <aside class="norm-info-column" data-visual-section="norm-sidebar">
-      <NormFacts
-        norm={norm}
-        version={currentVersion}
-        origin={derived.origin}
-        fullCitation={fullCitation ?? currentVersion.citation}
-        publicationReference={publicationReference}
-        amendmentLabels={amendmentLabels}
-      />
-    </aside>
-
-    <aside class="norm-related-column">
-      <div class="content-stack">
-        <NormHistorySummary norm={norm} />
-        {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
-          <section class="section norm-sidebar__portal-links" data-visual-section="norm-portal-relations">
-        <div class="section-header section-header--compact">
-          <h2>Weiterführende Bezüge</h2>
-        </div>
-        {relatedNorms.length > 0 ? (
-          <>
-            <h3 id="normverwandt">Verwandte Vorschriften</h3>
-            <ul class="norm-sidebar__link-list">
-              {relatedNorms.map((entry) => (
-                <li>
-                  <a class="inline-link" href={getNormUrl(entry.slug)}>
-                    {toDisplayText(entry.shortTitle || entry.title)}
-                  </a>
-                  <span>{entry.relation}</span>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : null}
-        {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? <h3 class="norm-sidebar__portal-heading">Im Staatsportal</h3> : null}
-        {relatedTopics.length > 0 ? (
-          <>
-            <h4>Themen und Projekte</h4>
-            <ul class="norm-sidebar__link-list">
-              {relatedTopics.map((topic) => (
-                <li>
-                  <a class="inline-link" href={topic.url}>{topic.title}</a>
-                </li>
-              ))}
-            </ul>
-            <p class="section-link-row">
-              <a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a>
-            </p>
-          </>
-        ) : null}
-        {relatedPressReleases.length > 0 ? (
-          <>
-            <h4>Pressemitteilungen</h4>
-            <ul class="norm-sidebar__link-list">
-              {relatedPressReleases.map((release) => (
-                <li>
-                  <a class="inline-link" href={release.url}>{release.title}</a>
-                  <time datetime={release.date}>{formatDate(release.date)}</time>
-                </li>
-              ))}
-            </ul>
-            <p class="section-link-row">
-              <a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a>
-            </p>
-          </>
-        ) : null}
-          </section>
-        ) : null}
-      </div>
-    </aside>
+    <NormAside norm={norm} version={currentVersion} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} publication={publication} />
   </div>
+
+  <div class="norm-details">
+    <NormFacts norm={norm} version={currentVersion} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} amendmentLabels={amendmentLabels} />
+    <NormLegalRelations norm={norm} relations={derived.relations} recommendations={derived.recommendations} portalLinks={derived.portalLinks} />
+  </div>
+  <script>import '../../../scripts/norm-page.ts';</script>
 </LawLayout>

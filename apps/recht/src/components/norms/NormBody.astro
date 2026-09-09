@@ -1,12 +1,24 @@
 ---
 import { getHeadingTag, getLegacyBlockAnchorId, renderLinkedDisplayText } from '@ostrecht/shared/lib/norms/display.ts';
 import {
+  anchorSlug,
   buildNormAnchorMap,
   getResolvedBlockAnchorId,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormAnchorMap, TextLinkReference } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';
+
+/**
+ * Normkörper (P3): ein kontinuierlich lesbares Dokument. Gliederungsebenen als Abschnitte mit
+ * Überschrift, §§/Artikel als Einheiten mit Link-Anker, Absätze im Adressraster (§ 12 (3) links,
+ * Wortlaut rechts), Nummern und Buchstaben im Listenraster, zitierter Normtext mit Linie, Tabellen
+ * in einem rollbaren Bereich, Unterschriften im Dokumentfluss. Keine Ein- oder Ausklappfunktion.
+ */
+interface UnitContext {
+  anchor: string;
+  label: string;
+}
 
 interface Props {
   blocks: NormBodyBlock[];
@@ -15,11 +27,16 @@ interface Props {
   headingLevel?: number;
   quoted?: boolean;
   anchorMap?: NormAnchorMap;
+  /** Umgebende Einheit (§/Artikel) für Absatzadressen und Absatzanker. */
+  unit?: UnitContext;
+  /** Vergebene Absatzanker der Seite (Eindeutigkeit über die Rekursion hinweg). */
+  usedIds?: Set<string>;
 }
 
 type BlockRun =
   | { kind: 'block'; block: NormBodyBlock; index: number }
-  | { kind: 'list'; items: Array<{ block: NormBodyBlock; index: number }> };
+  | { kind: 'list'; items: Array<{ block: NormBodyBlock; index: number }> }
+  | { kind: 'signatures'; items: Array<{ block: NormBodyBlock; index: number }> };
 
 const {
   blocks,
@@ -28,33 +45,63 @@ const {
   headingLevel = 2,
   quoted = false,
   anchorMap: providedAnchorMap,
+  unit,
+  usedIds = new Set<string>(),
 } = Astro.props;
 const anchorMap = providedAnchorMap ?? buildNormAnchorMap(blocks);
 
 function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
   const runs: BlockRun[] = [];
   let listBuffer: Array<{ block: NormBodyBlock; index: number }> = [];
+  let signatureBuffer: Array<{ block: NormBodyBlock; index: number }> = [];
 
-  function flushList() {
-    if (listBuffer.length > 0) {
-      runs.push({ kind: 'list', items: listBuffer });
-      listBuffer = [];
-    }
+  function flush() {
+    if (listBuffer.length > 0) runs.push({ kind: 'list', items: listBuffer });
+    if (signatureBuffer.length > 0) runs.push({ kind: 'signatures', items: signatureBuffer });
+    listBuffer = [];
+    signatureBuffer = [];
   }
 
   entries.forEach((block, index) => {
     if (block.type === 'item' || block.type === 'subitem') {
+      if (signatureBuffer.length > 0) flush();
       listBuffer.push({ block, index });
       return;
     }
-
-    flushList();
+    if (block.type === 'signature') {
+      if (listBuffer.length > 0) flush();
+      signatureBuffer.push({ block, index });
+      return;
+    }
+    flush();
     runs.push({ kind: 'block', block, index });
   });
-
-  flushList();
+  flush();
   return runs;
 }
+
+/** Absatzanker: Einheitenanker plus Absatzbezeichnung, eindeutig innerhalb der Seite. */
+function subparagraphId(label: string | undefined, index: number): string | undefined {
+  if (!unit) return undefined;
+  const base = `${unit.anchor}-abs-${anchorSlug(label ?? '') || String(index + 1)}`;
+  let id = base;
+  let counter = 2;
+  while (usedIds.has(id)) {
+    id = `${base}-${counter}`;
+    counter += 1;
+  }
+  usedIds.add(id);
+  return id;
+}
+
+function unitTitle(block: NormBodyBlock): string {
+  return toDisplayText([block.label, block.title].filter(Boolean).join(' '));
+}
+
+const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefined => {
+  const places = [...new Set(items.map(({ block }) => toDisplayText(block.label ?? '')).filter(Boolean))];
+  return places.length === 1 ? places[0] : undefined;
+};
 ---
 
 {groupBlocks(blocks).map((run) => (
@@ -77,15 +124,13 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               block.type === 'subsection' ? (
                 <section id={anchorId} class={`norm-division norm-division--${block.type}`} aria-labelledby={headingId}>
                   {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
-                  <header class="norm-division__header">
-                    <HeadingTag id={headingId} class="norm-division__heading">
-                      {block.label ? <span class="norm-label">{toDisplayText(block.label)}</span> : null}
-                      {block.label && block.title ? ' ' : null}
-                      {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
-                    </HeadingTag>
-                  </header>
+                  <HeadingTag id={headingId} class="norm-division__heading">
+                    {block.label ? <span class="norm-label">{toDisplayText(block.label)}</span> : null}
+                    {block.label && block.title ? ' ' : null}
+                    {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
+                  </HeadingTag>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} usedIds={usedIds} />
                   ) : null}
                 </section>
               ) : null}
@@ -93,19 +138,17 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               {block.type === 'paragraph' || block.type === 'article' ? (
                 quoted ? (
                   <section id={anchorId} class={`norm-quoted-unit norm-quoted-unit--${block.type}`} aria-labelledby={headingId}>
-                    <header class="norm-quoted-unit__header">
-                      <HeadingTag id={headingId} class="norm-quoted-unit__heading">
-                        {block.label ? <span class="norm-quoted-unit__label">{toDisplayText(block.label)}</span> : null}
-                        {block.label && block.title ? ' ' : null}
-                        {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
-                      </HeadingTag>
-                    </header>
+                    <HeadingTag id={headingId} class="norm-quoted-unit__heading">
+                      {block.label ? <span class="norm-quoted-unit__label">{toDisplayText(block.label)}</span> : null}
+                      {block.label && block.title ? ' ' : null}
+                      {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
+                    </HeadingTag>
                     {block.children && block.children.length > 0 ? (
-                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={true} anchorMap={anchorMap} />
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={true} anchorMap={anchorMap} unit={{ anchor: anchorId, label: toDisplayText(block.label ?? '') }} usedIds={usedIds} />
                     ) : null}
                   </section>
                 ) : (
-                  <section id={anchorId} class={`norm-unit norm-unit--${block.type}`} aria-labelledby={headingId} data-norm-unit>
+                  <section id={anchorId} class={`norm-unit norm-unit--${block.type}`} aria-labelledby={headingId} data-norm-unit data-unit-label={toDisplayText(block.label ?? '')}>
                     {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
                     <div class="norm-unit__head">
                       <HeadingTag id={headingId} class="norm-unit__heading">
@@ -113,34 +156,15 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                         {block.label && block.title ? ' ' : null}
                         {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                       </HeadingTag>
-                      <button
-                        type="button"
-                        class="norm-unit__toggle"
-                        aria-expanded="true"
-                        aria-controls={`${anchorId}-inhalt`}
-                        data-unit-toggle
-                        data-collapse-label="einklappen"
-                        data-expand-label="ausklappen"
-                      >
-                        <span class="visually-hidden">{toDisplayText([block.label, block.title].filter(Boolean).join(' '))}{' '}</span>
-                        <span data-unit-toggle-label>einklappen</span>
-                      </button>
-                      <nav class="norm-unit__tools" aria-label={`Werkzeuge für ${toDisplayText([block.label, block.title].filter(Boolean).join(' '))}`}>
-                        <details class="norm-unit__tools-menu" data-unit-tools>
-                          <summary>
-                            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="5" cy="12" r="1.8" fill="currentColor" /><circle cx="12" cy="12" r="1.8" fill="currentColor" /><circle cx="19" cy="12" r="1.8" fill="currentColor" /></svg>
-                            <span class="norm-unit__tools-label">Werkzeuge</span>
-                          </summary>
-                          <div class="norm-unit__tools-list">
-                            <a href={`#${anchorId}`} data-copy-anchor={anchorId}>Link zu dieser Stelle kopieren</a>
-                            <button type="button" data-print-unit={anchorId}>Einzeldruck</button>
-                          </div>
-                        </details>
-                      </nav>
+                      <span class="norm-unit__tools" data-copy-group>
+                        <span class="r-feedback norm-unit__feedback" aria-live="polite" data-copy-feedback></span>
+                        <a href={`#${anchorId}`} data-copy-url={anchorId} data-copy-done={`Link zu ${unitTitle(block) || 'dieser Stelle'} wurde kopiert.`} title={`Link zu ${unitTitle(block)} kopieren`}>Link</a>
+                        <button type="button" data-print-unit={anchorId} title={`Nur ${unitTitle(block)} drucken`}>Drucken</button>
+                      </span>
                     </div>
                     <div id={`${anchorId}-inhalt`} class="norm-unit__body">
                       {block.children && block.children.length > 0 ? (
-                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} />
+                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} unit={{ anchor: anchorId, label: toDisplayText(block.label ?? '') }} usedIds={usedIds} />
                       ) : null}
                     </div>
                   </section>
@@ -150,7 +174,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               {block.type === 'quotedProvision' ? (
                 <blockquote class="norm-quoted-provision">
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={true} anchorMap={anchorMap} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={true} anchorMap={anchorMap} usedIds={usedIds} />
                   ) : null}
                 </blockquote>
               ) : null}
@@ -158,55 +182,68 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               {block.type === 'annex' ? (
                 <section id={anchorId} class="norm-annex" aria-labelledby={headingId}>
                   {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
-                  <header class="norm-division__header">
-                    <HeadingTag id={headingId} class="norm-division__heading">
-                      {block.label ? <span class="norm-label">{toDisplayText(block.label)}</span> : null}
+                  <div class="norm-unit__head">
+                    <HeadingTag id={headingId} class="norm-unit__heading">
+                      {block.label ? <span class="norm-unit__label">{toDisplayText(block.label)}</span> : null}
                       {block.label && block.title ? ' ' : null}
                       {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                     </HeadingTag>
-                  </header>
+                    <span class="norm-unit__tools" data-copy-group>
+                      <span class="r-feedback norm-unit__feedback" aria-live="polite" data-copy-feedback></span>
+                      <a href={`#${anchorId}`} data-copy-url={anchorId} data-copy-done={`Link zu ${unitTitle(block) || 'dieser Anlage'} wurde kopiert.`} title={`Link zu ${unitTitle(block)} kopieren`}>Link</a>
+                    </span>
+                  </div>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} unit={{ anchor: anchorId, label: toDisplayText(block.label ?? '') }} usedIds={usedIds} />
                   ) : null}
                 </section>
               ) : null}
 
               {block.type === 'paragraphText' ? (
-                <Fragment>
-                  <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
-                  {block.children && block.children.length > 0 ? (
-                    <div class="norm-text__children">
-                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                block.label ? (() => {
+                  const absId = subparagraphId(block.label, run.index);
+                  return (
+                  <div class="norm-abs" id={absId}>
+                    {absId ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a> : <span class="norm-abs__addr"><span class="norm-abs__label">{toDisplayText(block.label)}</span></span>}
+                    <div class="norm-abs__body">
+                      <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
+                      {block.children && block.children.length > 0 ? (
+                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} unit={unit} usedIds={usedIds} />
+                      ) : null}
                     </div>
-                  ) : null}
-                </Fragment>
+                  </div>
+                  );
+                })() : (
+                  <Fragment>
+                    <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
+                    {block.children && block.children.length > 0 ? (
+                      <div class="norm-text__children">
+                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} unit={unit} usedIds={usedIds} />
+                      </div>
+                    ) : null}
+                  </Fragment>
+                )
               ) : null}
 
-              {block.type === 'signature' ? (
-                <p class="norm-signature">
-                  {block.text ? <span class="norm-signature__name">{toDisplayText(block.text)}</span> : null}
-                  {block.title ? <span class="norm-signature__office">{toDisplayText(block.title)}</span> : null}
-                  {block.label ? <span class="norm-signature__place">{toDisplayText(block.label)}</span> : null}
-                </p>
-              ) : null}
-
-              {block.type === 'subparagraph' ? (
-                <div class="norm-subparagraph-wrap">
-                  <p class="norm-subparagraph">
-                    {block.label ? <span class="norm-subparagraph__label">{toDisplayText(block.label)}</span> : null}
-                    {block.label ? ' ' : null}
-                    <span set:html={renderLinkedDisplayText(block.text, references)} />
-                  </p>
-                  {block.children && block.children.length > 0 ? (
-                    <div class="norm-subparagraph__children">
-                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
-                    </div>
-                  ) : null}
+              {block.type === 'subparagraph' ? (() => {
+                const absId = subparagraphId(block.label, run.index);
+                return (
+                <div class:list={['norm-abs', block.label ? undefined : 'norm-abs--unlabeled']} id={absId}>
+                  {absId && block.label
+                    ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a>
+                    : <span class="norm-abs__addr">{block.label ? <span class="norm-abs__label">{toDisplayText(block.label)}</span> : null}</span>}
+                  <div class="norm-abs__body">
+                    <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
+                    {block.children && block.children.length > 0 ? (
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} unit={unit} usedIds={usedIds} />
+                    ) : null}
+                  </div>
                 </div>
-              ) : null}
+                );
+              })() : null}
 
               {block.type === 'table' ? (
-                <div class="table-wrap norm-table-wrap" tabindex="0" role="region" aria-label={block.title ?? 'Tabelle im Normtext'}>
+                <div class="norm-table-wrap" tabindex="0" role="region" aria-label={block.title ?? 'Tabelle im Normtext'}>
                   <table class="norm-table">
                     <caption class="visually-hidden">{block.title ?? 'Tabelle im Normtext'}</caption>
                     {block.children?.map((row, rowIndex) => (
@@ -215,13 +252,13 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                           cell.type === 'tableHeaderCell' ? (
                             <th scope={cell.scope} rowspan={cell.rowspan} colspan={cell.colspan}>
                               {cell.children?.length ? (
-                                <Astro.self blocks={cell.children} path={[...currentPath, rowIndex, cellIndex]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                                <Astro.self blocks={cell.children} path={[...currentPath, rowIndex, cellIndex]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} usedIds={usedIds} />
                               ) : <span set:html={renderLinkedDisplayText(cell.text ?? '', references)} />}
                             </th>
                           ) : (
                             <td rowspan={cell.rowspan} colspan={cell.colspan}>
                               {cell.children?.length ? (
-                                <Astro.self blocks={cell.children} path={[...currentPath, rowIndex, cellIndex]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                                <Astro.self blocks={cell.children} path={[...currentPath, rowIndex, cellIndex]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} usedIds={usedIds} />
                               ) : <span set:html={renderLinkedDisplayText(cell.text ?? '', references)} />}
                             </td>
                           )
@@ -239,20 +276,32 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
     {run.kind === 'list' ? (
       <ol class:list={['norm-amendment-list', quoted ? 'norm-amendment-list--quoted' : undefined]}>
         {run.items.map(({ block, index }) => (
-          <li class="norm-amendment-item">
-            {block.label ? <span class="norm-amendment-item__label">{toDisplayText(block.label)}</span> : null}
-            {block.label ? ' ' : null}
+          <li class:list={['norm-amendment-item', `norm-amendment-item--${block.type}`]}>
+            <span class="norm-amendment-item__label">{block.label ? toDisplayText(block.label) : ''}</span>
             <div class="norm-amendment-item__content">
               <span set:html={renderLinkedDisplayText(block.text, references)} />
               {block.children && block.children.length > 0 ? (
                 <div class="norm-amendment-item__children">
-                  <Astro.self blocks={block.children} path={[...path, index]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                  <Astro.self blocks={block.children} path={[...path, index]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} unit={unit} usedIds={usedIds} />
                 </div>
               ) : null}
             </div>
           </li>
         ))}
       </ol>
+    ) : null}
+
+    {run.kind === 'signatures' ? (
+      <div class:list={['norm-signatures', run.items.length >= 3 ? 'norm-signatures--columns' : undefined]}>
+        {signaturePlace(run.items) ? <p class="norm-signatures__place">{signaturePlace(run.items)}</p> : null}
+        {run.items.map(({ block }) => (
+          <p class="norm-signature">
+            {!signaturePlace(run.items) && block.label ? <span class="norm-signature__place">{toDisplayText(block.label)}</span> : null}
+            {block.title ? <span class="norm-signature__office">{toDisplayText(block.title)}</span> : null}
+            {block.text ? <span class="norm-signature__name">{toDisplayText(block.text)}</span> : null}
+          </p>
+        ))}
+      </div>
     ) : null}
   </Fragment>
 ))}

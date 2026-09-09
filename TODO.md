@@ -7,6 +7,8 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## OstRecht
 
+- [ ] Linux-Screenshot-Baselines für Richtung E erneuern: Nach Sichtprüfung mit dem Production Board die OstRecht-Bilder einschließlich Normbereiche und mobiler Dialoge im Playwright-Container erzeugen und strikt vergleichen (`npm run test:visual:update:linux -- --site law`). Fertig, wenn alle aktuellen OstRecht-Motive geprüfte Linux-Baselines besitzen und die vollständige visuelle Suite gegen diese besteht.
+
 - [ ] Redaktionelle Kurzfassungen nachtragen: 4.981 der 5.204 Vorschriften tragen keine
   Kurzbeschreibung, seit die aus dem Titel gebildeten Formeln des Massenimports entfernt sind. Die
   Oberfläche lässt die Zeile dort leer; `summary` ist ein freiwilliges Feld, und das Verzeichnis

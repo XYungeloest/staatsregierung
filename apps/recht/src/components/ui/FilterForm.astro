@@ -1,0 +1,53 @@
+---
+/**
+ * GET-Filterformular der Verzeichnisse und Recherchen: Felder im Slot, Aktionen an derselben
+ * Stelle, „Zurücksetzen“ vorhanden und inaktiv, solange kein Filter wirkt; die Ergebniszahl in
+ * einem Satz darunter. Auswahländerungen senden sofort; ohne JavaScript wirkt die Schaltfläche.
+ */
+interface Props {
+  action: string;
+  label: string;
+  hidden?: Record<string, string | undefined>;
+  active: boolean;
+  resetHref: string;
+  count?: string;
+  /** Anordnung: `stack` (Filterspalte) oder `row` (Leiste über einer Tabelle). */
+  layout?: 'stack' | 'row';
+  attrs?: Record<string, string | undefined>;
+  countAttrs?: Record<string, string | undefined>;
+  heading?: string;
+}
+
+const { action, label, hidden = {}, active, resetHref, count, layout = 'stack', attrs = {}, countAttrs = {}, heading = 'Eingrenzen' } = Astro.props;
+const hiddenEntries = Object.entries(hidden).filter((entry): entry is [string, string] => Boolean(entry[1]));
+---
+
+<form class:list={['r-filter', `r-filter--${layout}`]} method="get" action={action} aria-label={label} data-directory-filter {...attrs}>
+  {hiddenEntries.map(([name, value]) => <input type="hidden" name={name} value={value} />)}
+  <div class="r-filter__head">
+    <span class="r-label">{heading}</span>
+    {active
+      ? <a class="r-caption" href={resetHref} data-directory-reset>Zurücksetzen</a>
+      : <span class="r-caption r-filter__reset--inactive" aria-disabled="true" data-directory-reset>Zurücksetzen</span>}
+  </div>
+  <div class="r-filter__fields">
+    <slot />
+  </div>
+  <div class="r-filter__actions">
+    <button class="r-btn r-btn--primary" type="submit">Filtern</button>
+  </div>
+</form>
+{count ? <p class="r-filter__count r-meta" aria-live="polite" data-directory-count {...countAttrs}>{count}</p> : null}
+
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-directory-filter]')) {
+    form.addEventListener('submit', () => {
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[name], select[name]').forEach((field) => {
+        if (!field.value.trim()) field.disabled = true;
+      });
+    });
+    for (const select of form.querySelectorAll<HTMLSelectElement>('select')) {
+      select.addEventListener('change', () => form.requestSubmit());
+    }
+  }
+</script>

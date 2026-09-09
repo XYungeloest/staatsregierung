@@ -3,9 +3,3 @@ document.addEventListener('click', (event) => {
     window.print();
   }
 });
-
-if (window.matchMedia('(max-width: 56rem)').matches) {
-  document.querySelectorAll<HTMLDetailsElement>('.law-search-filters-panel[open]').forEach((panel) => {
-    panel.open = false;
-  });
-}

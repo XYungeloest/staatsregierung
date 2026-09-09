@@ -1,0 +1,169 @@
+/* OstRecht – Design Tokens (Richtung E „Rechtsstand“).
+   Eine Quelle für Farben, Flächen, Linien, Typografie, Abstände, Breiten, Radien und Fokus.
+   Werte stammen aus docs/design (Design System und Production Detail Board); Komponenten
+   verwenden ausschließlich diese Tokens. Breakpoints (Media Queries) stehen als Kommentar,
+   weil CSS sie nicht als Variablen kennt:
+     30rem (480 px) – Kleinstbreiten, 40rem (640 px) – Suche hinter Symbol, Wortmarke ohne Subline,
+     48rem (768 px) – Tablet, 60rem (960 px) – schmales Suchfeld, 80rem (1280 px) – volle Breite.
+   Die Stufen gelten „ab“ der Breite; Abfragen darunter schreiben max-width: 79.99rem, damit
+   1280 px bereits zur vollen Breite zählt. */
+:root {
+  color-scheme: light;
+
+  /* Marke und Struktur */
+  --blue-950: #020b2b;
+  --blue-900: #061853;
+  --blue-800: #051f7e;
+  --blue-700: #17348f;
+  --blue-500: #3a56b5;
+  --blue-100: #dfe4f2;
+  --blue-50: #f1f3f9;
+  --gold-700: #8a6e00;
+  --gold-600: #c9a000;
+  --gold-500: #e0b400;
+  --gold-400: #f0cf3a;
+  --gold-50: #fdf8e3;
+  --red-700: #b3261e;
+  --red-50: #fbe9e7;
+  --green-700: #006e4e;
+  --green-50: #e7f4ee;
+
+  /* Neutrale Skala (Ink) */
+  --ink-900: #0c0e11;
+  --ink-800: #1f2329;
+  --ink-700: #3a3f47;
+  --ink-600: #4e535b;
+  --ink-500: #666b74;
+  --ink-400: #8a8f97;
+  --ink-300: #b8bcc3;
+  --ink-200: #dfe2e6;
+  --ink-100: #eceef1;
+
+  /* Papier */
+  --paper-0: #ffffff;
+  --paper-25: #fafaf8;
+  --paper-50: #f5f5f2;
+
+  /* Rollen: Text */
+  --text-strong: var(--ink-900);
+  --text-body: #1a1d22;
+  --text-secondary: var(--ink-600);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-400);
+  --text-link: var(--blue-800);
+  --text-link-hover: var(--blue-700);
+  --text-invert: var(--paper-0);
+
+  /* Rollen: Linien und Flächen */
+  --border-hairline: #e3e5e9;
+  --border-default: #c9ccd2;
+  --border-strong: #6f7480;
+  --border-ink: var(--ink-900);
+  --surface-page: var(--paper-0);
+  --surface-muted: var(--paper-25);
+  --surface-hover: #f2f3f5;
+  --surface-selected: #eef1f8;
+  --surface-band: var(--blue-950);
+  --surface-band-field: var(--blue-900);
+  --surface-band-border: var(--blue-500);
+
+  /* Rollen: Status (nie allein durch Farbe) */
+  --status-in-force: var(--green-700);
+  --status-in-force-bg: var(--green-50);
+  --status-future: var(--gold-700);
+  --status-future-bg: var(--gold-50);
+  --status-repealed: var(--red-700);
+  --status-repealed-bg: var(--red-50);
+  --status-pending: var(--ink-700);
+  --status-pending-bg: var(--ink-100);
+  --status-historical: var(--ink-800);
+  --status-historical-bg: var(--ink-100);
+  --status-amended: var(--blue-800);
+  --status-amended-bg: var(--blue-50);
+
+  /* Markierungen */
+  --mark-search: #fff3b0;
+  --mark-change: #ddf3e6;
+  --mark-deletion: #fbe1df;
+
+  /* Schriften */
+  --font-sans: 'Jost', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Ost Grotesk', var(--font-sans);
+  --font-serif: 'Source Serif 4', 'Source Serif 4 Fallback Georgia', 'Source Serif 4 Fallback Noto', 'Source Serif 4 Fallback DejaVu', 'Source Serif 4 Fallback Liberation', serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Schriftgrößen */
+  --fs-micro: 0.6875rem;   /* 11 px – Etiketten in Versalien */
+  --fs-caption: 0.75rem;   /* 12 px – Kopfzeilen, Absatzadressen */
+  --fs-meta: 0.8125rem;    /* 13 px – Metadaten, Tabellen, Filter */
+  --fs-ui: 0.9375rem;      /* 15 px – Oberfläche, Listen */
+  --fs-ui-lg: 1.0625rem;   /* 17 px – Einleitungen, Treffertitel */
+  --fs-body: 1.0625rem;    /* 17 px – Normtext (Serife) */
+  --fs-h4: 1.25rem;        /* 20 px – Paragraphenüberschrift */
+  --fs-h3: 1.4375rem;      /* 23 px */
+  --fs-h2: 1.6875rem;      /* 27 px – Vorschriftstitel (Serife) */
+  --fs-h1: 2.125rem;       /* 34 px – Seitentitel (Display) */
+  --fs-display-lg: 2.75rem;/* 44 px */
+
+  /* Zeilenhöhen und Laufweiten */
+  --lh-tight: 1.1;
+  --lh-heading: 1.25;
+  --lh-snug: 1.35;
+  --lh-ui: 1.45;
+  --lh-body: 1.55;
+  --lh-legal: 1.6;
+  --ls-label: 0.08em;
+  --ls-display: -0.01em;
+
+  /* Abstände */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+
+  /* Breiten */
+  --page-max: 90rem;          /* 1440 px */
+  --page-gutter: 2.5rem;      /* 40 px auf großen Breiten */
+  --measure-legal: 66ch;
+  --measure-copy: 72ch;
+  --col-outline: 16.25rem;    /* 260 px */
+  --col-aside: 15.625rem;     /* 250 px */
+  --col-filter: 18.75rem;     /* 300 px */
+  --col-facts-aside: 23.75rem;/* 380 px */
+
+  /* Linien, Radien, Ebenen */
+  --line: 1px;
+  --line-strong: 2px;
+  --line-mark: 3px;
+  --radius: 2px;
+  --radius-none: 0;
+  --shadow-sheet: 0 12px 32px rgba(2, 11, 43, 0.18);
+
+  /* Fokus: 2 px Staatsblau auf hellem Grund, Wappengold auf dem Amtsband */
+  --focus-color: var(--blue-800);
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
+  /* Bedienziele */
+  --target-dense: 1.875rem;  /* 30 px */
+  --target-main: 2.75rem;    /* 44 px */
+  --control-height: 1.875rem;
+  --control-height-lg: 2.875rem; /* 46 px */
+}
+
+@media (max-width: 48rem) {
+  :root {
+    --page-gutter: 1.25rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  :root {
+    --page-gutter: 1rem;
+  }
+}

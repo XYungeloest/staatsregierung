@@ -1,77 +1,70 @@
 ---
-import DirectoryEntry from './DirectoryEntry.astro';
-import DirectoryFilterBar from './DirectoryFilterBar.astro';
-import DirectoryPagination from './DirectoryPagination.astro';
+import FilterForm from '../ui/FilterForm.astro';
+import Pagination from '../ui/Pagination.astro';
 import LetterNav from './LetterNav.astro';
-import { formatDate, formatNormType, getNormTitleBlock, getNormUrl, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
-import { directoryDescription, type DirectoryNormSummary } from '../../lib/norm-summary.ts';
-import { LEGAL_STATUS_FIELD_LABEL, VALIDITY_FIELD_LABEL, validityLabel } from '../../lib/vocabulary.ts';
+import NormTable from './NormTable.astro';
 import type { NormDirectoryView } from '../../lib/runtime/directory.ts';
 
 /**
- * Verzeichnisabschnitt der Normübersichten: Filterleiste, Ergebniszahl, Buchstabenleiste,
- * Einträge im gemeinsamen Listenmuster und Seitennavigation – auf allen Seiten in dieser Folge.
+ * Verzeichnisabschnitt der Normübersichten: Filterleiste, Buchstabenleiste, Tabelle im gemeinsamen
+ * Muster und Seitennavigation. `filterLayout` stellt die Filter als Leiste (Typseiten) oder als
+ * Spalte (Sachgebiet, Slot `aside`) dar.
  */
 interface Props {
   view: NormDirectoryView;
   heading?: string;
   headingId?: string;
   filterLabel?: string;
+  filterLayout?: 'row' | 'aside';
+  showType?: boolean;
+  caption?: string;
 }
 
-const { view, heading, headingId = 'directory-heading', filterLabel = 'Verzeichnis filtern' } = Astro.props;
+const { view, heading, headingId = 'directory-heading', filterLabel = 'Verzeichnis filtern', filterLayout = 'row', showType = true, caption = 'Vorschriften mit Abkürzung, Normtyp, Geltung, Rechtsstand und Herkunft' } = Astro.props;
 const { result } = view;
+const range = result.total > 0 ? `${view.firstIndex}–${view.lastIndex} von ${result.total}` : undefined;
 ---
 
-<section class="directory" aria-labelledby={heading ? headingId : undefined} aria-label={heading ? undefined : filterLabel} data-directory>
-  {heading ? <h2 id={headingId} class="directory__heading">{heading}</h2> : null}
-  <DirectoryFilterBar action={view.basePath} label={filterLabel} hidden={view.hidden} active={view.active} resetHref={view.resetHref} count={view.count}>
-    {view.fields.map((field) => (
-      <label class="search-field">
-        <span>{field.label}</span>
-        {field.options
-          ? (
-            <select name={field.name}>
-              <option value="" selected={!field.value}>{field.allLabel}</option>
-              {field.options.map((option) => <option value={option.value} selected={option.value === field.value}>{option.label}</option>)}
-            </select>
-          )
-          : <input type="search" name={field.name} value={field.value} autocomplete="off" maxlength="200" placeholder={field.placeholder} />}
-      </label>
-    ))}
-  </DirectoryFilterBar>
-
-  <LetterNav letters={view.letters} current={view.letter} hrefFor={view.hrefForLetter} />
-
-  {result.items.length > 0 ? (
-    <ol class="directory-list" start={view.firstIndex} data-directory-list>
-      {result.items.map((item) => {
-        const norm = item as DirectoryNormSummary;
-        const block = getNormTitleBlock(norm);
-        return (
-          <DirectoryEntry
-            title={block.heading}
-            href={getNormUrl(norm.slug)}
-            abbr={block.abbr}
-            longTitle={block.longTitle}
-            lead={{ label: LEGAL_STATUS_FIELD_LABEL, text: formatDate(norm.currentValidFrom), datetime: norm.currentValidFrom }}
-            description={directoryDescription(norm)}
-            typeLabel={formatNormType(norm.type)}
-            originKind={norm.originKind ?? null}
-            facts={[
-              { label: VALIDITY_FIELD_LABEL, value: validityLabel(norm.status) },
-              ...(norm.responsibleMinistry ? [{ label: 'Ressort', value: toDisplayText(norm.responsibleMinistry) }] : []),
-            ]}
-            attrs={{ 'data-directory-entry': '', 'data-origin': norm.originKind ?? 'origin-unresolved', 'data-type': norm.type, 'data-status': norm.status }}
-          />
-        );
-      })}
-    </ol>
-  ) : (
-    <p class="directory-empty" data-directory-empty>
-      Passen Sie die Filter an oder <a class="inline-link" href={view.resetHref}>setzen Sie die Auswahl zurück</a>.
-    </p>
-  )}
-
-  <DirectoryPagination pagination={view.pagination} label="Seiten des Verzeichnisses" attrs={{ 'data-directory-pagination': '' }} />
+<section class:list={['r-directory', filterLayout === 'aside' ? 'r-directory--aside' : undefined]} aria-labelledby={heading ? headingId : undefined} aria-label={heading ? undefined : filterLabel} data-directory>
+  {filterLayout === 'aside' ? (
+    <aside class="r-directory__aside">
+      <slot name="aside-top" />
+      <FilterForm action={view.basePath} label={filterLabel} hidden={view.hidden} active={view.active} resetHref={view.resetHref}>
+        {view.fields.map((field) => (
+          <label class="r-field">
+            <span>{field.label}</span>
+            {field.options
+              ? <select class="r-select" name={field.name}><option value="" selected={!field.value}>{field.allLabel}</option>{field.options.map((option) => <option value={option.value} selected={option.value === field.value}>{option.label}</option>)}</select>
+              : <input class="r-input" type="search" name={field.name} value={field.value} autocomplete="off" maxlength="200" placeholder={field.placeholder} />}
+          </label>
+        ))}
+      </FilterForm>
+      <slot name="aside-bottom" />
+    </aside>
+  ) : null}
+  <div class="r-directory__main">
+    {heading ? <h2 id={headingId} class="visually-hidden">{heading}</h2> : null}
+    {filterLayout === 'row' ? (
+      <FilterForm action={view.basePath} label={filterLabel} hidden={view.hidden} active={view.active} resetHref={view.resetHref} layout="row">
+        {view.fields.map((field) => (
+          <label class="r-field">
+            <span>{field.label}</span>
+            {field.options
+              ? <select class="r-select" name={field.name}><option value="" selected={!field.value}>{field.allLabel}</option>{field.options.map((option) => <option value={option.value} selected={option.value === field.value}>{option.label}</option>)}</select>
+              : <input class="r-input" type="search" name={field.name} value={field.value} autocomplete="off" maxlength="200" placeholder={field.placeholder} />}
+          </label>
+        ))}
+      </FilterForm>
+    ) : null}
+    <div class="r-directory__bar">
+      <LetterNav letters={view.letters} current={view.letter} hrefFor={view.hrefForLetter} />
+      <p class="r-meta r-directory__count" aria-live="polite" data-directory-count>{view.count}</p>
+    </div>
+    {result.items.length > 0 ? (
+      <NormTable items={result.items} showType={showType} caption={caption} attrs={{ 'data-directory-list': '' }} />
+    ) : (
+      <p class="r-note" data-directory-empty>Passen Sie die Filter an oder <a href={view.resetHref}>setzen Sie die Auswahl zurück</a>.</p>
+    )}
+    <Pagination pagination={view.pagination} label="Seiten des Verzeichnisses" range={range ? `Vorschriften ${range}` : undefined} attrs={{ 'data-directory-pagination': '' }} />
+  </div>
 </section>
