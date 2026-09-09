@@ -8,7 +8,7 @@ import type { NormHistoryEntry, NormRecord, NormVersion } from '@ostrecht/shared
 import { classifyNormVersion, classifyNormVersions, EDITORIAL_REFERENCE_DATE, type VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
 
 import { formatShortDate } from './dates.ts';
-import { describeChange } from './history-labels.ts';
+import { describeChange, describeChangeAgent } from './history-labels.ts';
 import { validityLabel } from './vocabulary.ts';
 
 /**
@@ -125,7 +125,9 @@ export function buildNormHeadModel(
 
   const amendment = latestAmendment(norm);
   const amendmentText = amendment
-    ? (amendment.relatedNorm && amendmentLabels?.get(amendment.relatedNorm)?.shortTitle) || describeChange(amendment)
+    // Ohne bekannten Kurztitel trägt der Eintragstitel die Ursache; das Ereigniswort steht schon
+    // in der Zeile („zuletzt geändert durch …“) und wird nicht wiederholt.
+    ? (amendment.relatedNorm && amendmentLabels?.get(amendment.relatedNorm)?.shortTitle) || describeChangeAgent(amendment) || describeChange(amendment)
     : '';
   const publicationHref = publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined;
 
@@ -163,7 +165,7 @@ export function buildNormHeadModel(
     band = {
       kind: 'historical',
       title: 'Historische Fassung',
-      text: `gültig vom ${versionFrom}${version.validTo ? ` bis ${formatShortDate(version.validTo)}` : '; Gültigkeitsende nicht belegt'}${replacedBy ? ` · abgelöst durch ${(replacedBy.relatedNorm && amendmentLabels?.get(replacedBy.relatedNorm)?.shortTitle) || describeChange(replacedBy)}` : ''}`,
+      text: `gültig vom ${versionFrom}${version.validTo ? ` bis ${formatShortDate(version.validTo)}` : '; Gültigkeitsende nicht belegt'}${replacedBy ? ` · abgelöst durch ${(replacedBy.relatedNorm && amendmentLabels?.get(replacedBy.relatedNorm)?.shortTitle) || describeChangeAgent(replacedBy) || describeChange(replacedBy)}` : ''}`,
       links: current ? [{ text: `Zur geltenden Fassung (seit ${formatShortDate(current.validFrom)}) →`, href: getNormUrl(norm.meta.slug) }] : [],
     };
   } else if (temporalKind === 'future') {

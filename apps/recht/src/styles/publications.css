@@ -81,10 +81,12 @@
   gap: var(--space-3);
 }
 
+/* Als Leiste über einer Tabelle trägt das Formular dieselbe Grammatik wie als Spalte daneben:
+   Linien statt Fläche, damit Verzeichnisse mit Leiste und mit Spalte gleich aussehen. */
 .r-filter--row {
-  padding: var(--space-3) var(--space-4);
-  border: var(--line) solid var(--border-default);
-  background: var(--surface-muted);
+  padding: var(--space-3) 0;
+  border-top: var(--line) solid var(--border-strong);
+  border-bottom: var(--line) solid var(--border-hairline);
 }
 
 .r-filter--row .r-filter__head {
@@ -153,17 +155,36 @@
   margin-top: var(--space-3);
 }
 
-@media (max-width: 60rem) {
+/* Seitenspalte der Ausgabe: dieselbe Grammatik wie die Seitenspalten der Vorschriftsseiten –
+   linke Linie, Abschnitte durch Haarlinien getrennt, keine Kästen. */
+.r-issue > .r-research__aside {
+  gap: 0;
+  border-left: var(--line) solid var(--border-default);
+  padding-left: var(--space-5);
+}
+
+.r-issue > .r-research__aside > section + section {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: var(--line) solid var(--border-hairline);
+}
+
+@media (max-width: 59.99rem) {
+  .r-issue > .r-research__aside {
+    border-left: 0;
+    padding-left: 0;
+    border-top: var(--line) solid var(--border-default);
+    padding-top: var(--space-5);
+  }
+}
+
+@media (max-width: 59.99rem) {
   .r-publications__table .r-publications__publisher {
     display: none;
   }
 }
 
-@media (max-width: 48rem) {
-  .r-issue {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
+@media (max-width: 47.99rem) {
   .r-issue__actions {
     margin-left: 0;
     width: 100%;

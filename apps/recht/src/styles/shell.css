@@ -14,18 +14,6 @@
   padding-right: var(--page-gutter);
 }
 
-/* Hinweiszeile zur Simulation: knapp, über dem Amtsband (Redaktionsregel). */
-.law-notice {
-  background: var(--surface-muted);
-  border-bottom: var(--line) solid var(--border-hairline);
-  font-size: var(--fs-caption);
-  color: var(--text-muted);
-}
-
-.law-notice p {
-  padding: var(--space-1) 0;
-}
-
 /* Amtsband */
 .law-header {
   --focus-color: var(--gold-400);
@@ -310,9 +298,10 @@
   text-decoration: underline;
 }
 
-.r-kicker > *:not(:first-child)::before {
+/* Trenner am vorangehenden Teil (siehe Vorschriftskopf): kein Zeilenbeginn mit „·“. */
+.r-kicker > *:not(:last-child)::after {
   content: '·';
-  margin-right: var(--space-2);
+  margin-left: var(--space-2);
 }
 
 /* Zweispaltiges Rechercheraster: Inhalt und Filterspalte */
@@ -460,6 +449,8 @@
 }
 
 /* Responsiv: Amtsband */
+/* Ausnahme der Stufenkonvention: Das Amtsband trägt Wortmarke, Suchfeld und fünf Bereiche und
+   braucht die zweite Zeile bereits bei genau 1280 px, sonst läuft die Zeile über. */
 @media (max-width: 80rem) {
   .law-header__bar {
     flex-wrap: wrap;
@@ -476,7 +467,7 @@
   }
 }
 
-@media (max-width: 60rem) {
+@media (max-width: 59.99rem) {
   .law-header-search {
     display: none;
   }
@@ -490,7 +481,9 @@
   }
 }
 
-@media (max-width: 48rem) {
+/* Inhalt und Seitenspalte des Rechercheraster brauchen zusammen mehr als 60 rem; darunter
+   stehen sie untereinander, die Filterspalte über der Liste. */
+@media (max-width: 59.99rem) {
   .r-research,
   .r-research--filter-left {
     grid-template-columns: minmax(0, 1fr);
@@ -499,13 +492,16 @@
   .r-research--filter-left > :first-child {
     order: 2;
   }
+}
+
+@media (max-width: 47.99rem) {
 
   .law-footer__inner {
     flex-direction: column;
   }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 39.99rem) {
   .law-wordmark small {
     display: none;
   }

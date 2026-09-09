@@ -3,26 +3,33 @@
 .norm-history {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: var(--space-5) var(--page-gutter) var(--space-8);
+  padding: var(--space-4) var(--page-gutter) var(--space-8);
 }
 
+/* Abschnittszeile: schließt an die Reiterzeile an und trägt rechts den Umfang der Vorschrift. */
 .norm-history__sections {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2) var(--space-4);
   align-items: baseline;
+  padding-bottom: var(--space-3);
+  border-bottom: var(--line) solid var(--border-hairline);
   font-size: var(--fs-meta);
 }
 
 .norm-history__sections .r-meta {
   margin-left: auto;
+  color: var(--text-muted);
 }
 
+/* Protokoll und Seitenspalte sind ein Arbeitsbereich: eine gemeinsame Linie, gleicher Anfang. */
 .norm-history__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--col-facts-aside);
-  gap: var(--space-8);
-  margin-top: var(--space-5);
+  gap: var(--space-7);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: var(--line) solid var(--border-default);
   align-items: start;
 }
 
@@ -33,8 +40,17 @@
 .norm-history__aside {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  border-left: var(--line) solid var(--border-default);
+  padding-left: var(--space-5);
   font-size: var(--fs-meta);
+}
+
+/* Dieselbe Grammatik wie die Seitenspalte der Normseite: Abschnitte durch Haarlinien getrennt,
+   keine Kästen. */
+.norm-history__aside > section + section {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: var(--line) solid var(--border-hairline);
 }
 
 .norm-history__aside h2 {
@@ -45,17 +61,32 @@
   margin-top: var(--space-2);
 }
 
-/* Zeitachse (nicht maßstäblich): jede Fläche öffnet die Fassung */
+.norm-history__aside .norm-compare__form {
+  margin-top: var(--space-3);
+}
+
+/* Zwei Ebenen statt einer: Die Abschnitte des Arbeitsbereichs tragen eine gesetzte Überschrift,
+   die Rubriken der Seitenspalte bleiben Etiketten in Versalien. */
+.norm-history__title {
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  color: var(--text-strong);
+  margin-bottom: var(--space-3);
+}
+
+/* Zeitachse (nicht maßstäblich): Beschriftung über der Fläche, alle Flächen auf einer Grundlinie;
+   jede Fläche öffnet ihre Fassung. */
 .norm-axis {
-  margin-top: var(--space-5);
+  margin-top: var(--space-6);
 }
 
 .norm-axis__track {
   display: flex;
+  align-items: end;
   gap: 2px;
-  margin-top: var(--space-2);
-  padding-top: var(--space-3);
-  border-top: var(--line-strong) solid var(--border-strong);
+  margin-top: var(--space-4);
+  padding-bottom: var(--space-1);
+  border-bottom: var(--line-strong) solid var(--border-strong);
 }
 
 .norm-axis__segment {
@@ -64,18 +95,22 @@
   display: grid;
   gap: var(--space-2);
   font-size: var(--fs-caption);
+  line-height: var(--lh-ui);
   color: var(--text-secondary);
   text-decoration: none;
 }
 
 .norm-axis__segment strong {
+  display: block;
+  margin-bottom: 2px;
   color: var(--text-strong);
   font-weight: 500;
+  font-size: var(--fs-meta);
 }
 
 .norm-axis__bar {
   display: block;
-  height: 1.375rem;
+  height: 0.875rem;
   background: var(--ink-200);
   border: var(--line) solid var(--ink-300);
 }
@@ -114,7 +149,7 @@
 }
 
 .norm-axis__legend {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
   font-size: var(--fs-caption);
   color: var(--text-muted);
 }
@@ -350,24 +385,54 @@
   color: var(--text-strong);
 }
 
-@media (max-width: 48rem) {
+/* Protokolltabelle und Seitenspalte brauchen zusammen mehr als 60 rem; darunter rückt die
+   Seitenspalte unter den Arbeitsbereich und trägt dort eine Linie über sich. */
+@media (max-width: 59.99rem) {
   .norm-history__grid {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
   }
 
+  .norm-history__aside {
+    border-left: 0;
+    padding-left: 0;
+    border-top: var(--line) solid var(--border-default);
+    padding-top: var(--space-5);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  /* Die Zeitachse steht senkrecht: Fläche links, Beschriftung rechts, volle Breite je Fassung. */
   .norm-axis__track {
     flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+    padding-bottom: 0;
+    border-bottom: 0;
   }
 
+  /* Die Fläche steht links neben ihrer Beschriftung; im Quelltext folgt sie ihr, deshalb die
+     ausdrückliche Platzierung. */
   .norm-axis__segment {
     grid-template-columns: 1.375rem minmax(0, 1fr);
+    gap: var(--space-3);
     align-items: center;
   }
 
+  .norm-axis__segment > span:first-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .norm-axis__segment strong {
+    margin-bottom: 0;
+  }
+
   .norm-axis__bar {
+    grid-column: 1;
+    grid-row: 1;
     height: 100%;
-    min-height: 2rem;
+    min-height: 2.5rem;
   }
 
   .norm-history__sections .r-meta {

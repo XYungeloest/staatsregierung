@@ -188,6 +188,13 @@ Weg geht das Lesemaß: `--measure-body` steht im Fundament auf 78ch, im Staatspo
 `p`, `li`, `dd`, die Beschreibungszeile einer Eintragsliste und der Einleitungssatz einer Seite
 lesen es.
 
+OstRecht rechnet mit einer eigenen Skala: `--page-max` steht auf 80 rem (1280 px) und gilt für
+Kopf, Bänder, Arbeitsbereiche und Fuß gleichermaßen; `--page-gutter` geht von 2,5 rem über
+1,25 rem (unter 48 rem) auf 1 rem (unter 30 rem). Es gibt keine zweite, breitere Seitenklasse: der
+dreispaltige Normarbeitsbereich passt in dieselbe Breite, und auf großen Bildschirmen bleibt der
+Rand außen statt den Text auseinanderzuziehen. Ein allein stehender Bereich (Vorschriftendaten,
+Rechtsbeziehungen) nimmt `--measure-panel` (56 rem) statt der vollen Spalte.
+
 Das Staatsportal verwendet `apps/portal/src/layouts/BaseLayout.astro` mit den Hauptvarianten
 `contained` (begrenzter Hauptcontainer) und `full` (vollbreite Bänder mit innen begrenzten
 Containern). OstRecht verwendet `apps/recht/src/layouts/LawLayout.astro` mit denselben Varianten;
@@ -213,26 +220,29 @@ die Staatsverfassung das Organ an der Spitze der vollziehenden Gewalt so nennt; 
 bleibt `/staatsregierung/`, weil sie das Politikfeld benennt, eingeführt ist und in
 `site-routing.ts` innerhalb des D1-Projektionsabschlusses liegt.
 
-OstRecht führt eine dunkle Hinweisleiste (`.law-notice`), die Wortmarke „OstRecht – Rechtsportal des
-Ostdeutschen Freistaates“, die Hauptnavigation zu Gesetzen, Verordnungen, Verwaltungsvorschriften,
-Verfassung, Verkündungen und Sachgebieten, ein kompaktes Suchfeld und die Servicewege
-Barrierefreiheit und Staatsportal. Verkündungen bleiben ein eigener Navigationspunkt. Politische
-Teaser- und Pressenavigation gehören nicht in diese Navigation.
+OstRecht führt das Amtsband (`.law-header`): Wappen und Wortmarke „OstRecht · Rechtsportal des
+Freistaates“, ein kompaktes Suchfeld und die fünf Bereiche Sachgebiete, A–Z und Register, Amtliche
+Veröffentlichungen, Änderungsdienst und Hilfe mit `aria-current`. Über dem Band steht keine
+Hinweiszeile; der Hinweis zur Simulation schließt die Seite im Fuß ab, damit der Einstieg mit dem
+Hoheitszeichen beginnt. Politische Teaser- und Pressenavigation gehören nicht in diese Navigation.
 
-Der OstRecht-Kopf kennt drei Stufen. Über 80 rem steht alles in einer Zeile. Zwischen 64 und 80 rem
-wird der Kopf zweizeilig: Wortmarke, Suchfeld und Servicewege bleiben oben, die sieben
-Navigationspunkte stehen darunter als eigene Zeile mit Trennlinie und 2,75 rem hohen Zielen.
-Erst ab 64 rem abwärts weichen Servicewege und Navigationsliste gemeinsam in das Menü. Die Höhe der
-haftenden Kopfleiste steht als `--law-header-offset` auf `.law-site` (6,5 rem, in der zweizeiligen
-Stufe 8,75 rem); alle haftenden Seitenspalten setzen dort an, statt die Höhe zu wiederholen.
+Das Amtsband kennt drei Stufen: über 80 rem eine Zeile; bei 80 rem und darunter zweizeilig, mit den
+Bereichen als eigener Zeile; unter 60 rem weichen Suche und Bereiche in das Menü „Bereiche“.
+
+Der Fuß wiederholt die Recherchewege nicht. Er trägt die Angabe des Rechtsstands, die Wege Hilfe,
+Impressum, Datenschutz, Barrierefreiheit und Staatsportal und darunter, durch eine Haarlinie
+getrennt, den Hinweis zur Simulation.
 
 ## Responsives Verhalten
 
 Das Staatsportal hat vier Breakpoints, alle als `max-width` in rem: **80 rem**, **64 rem**,
 **48 rem**, **30 rem**. OstRecht (Richtung E) nutzt die Stufen **80 rem**, **60 rem**, **48 rem**,
-**40 rem** und **30 rem**; sie gelten „ab“ der Breite, Abfragen darunter schreiben deshalb
-`max-width: 79.99rem`, damit 1280 px bereits zur vollen Breite zählt (Amtsband: `80rem`, dort darf
-der Kopf bei 1280 px bereits umbrechen).
+**40 rem** und **30 rem**. Sie gelten „ab“ der Breite: Abfragen unterhalb einer Stufe enden
+0,01 rem darunter (`79.99rem`, `59.99rem`, `47.99rem`, `39.99rem`, `29.99rem`), damit 1280, 960,
+768, 640 und 480 px schon zur größeren Stufe zählen. Dieselben Grenzen prüfen die Skripte
+(`sheets.ts`, `search-page.ts`, `norm-page.ts`), damit Gestaltung und Verhalten nicht an
+verschiedenen Punkten umschalten. Einzige begründete Ausnahme ist das Amtsband: es wird bei genau
+1280 px zweizeilig, weil Wortmarke, Suchfeld und fünf Bereiche sonst überlaufen.
 
 - bis 80 rem (kleiner Desktop): in beiden Portalen wird der Kopf zweizeilig – Wortmarke und
   Suchfeld oben, die Navigationsliste als zweite Zeile; das Menü bleibt geschlossen. Der
@@ -245,7 +255,11 @@ der Kopf bei 1280 px bereits umbrechen).
   geht auf `--space-4`, Kartenraster gehen auf zwei Spalten und die Bereichsnavigation klebt nicht
   mehr; der Schnellzugriff geht auf drei Spalten (3 + 2, keine allein stehende Karte).
 - bis 60 rem (OstRecht): Suche und Bereiche weichen in das Menü „Bereiche“ des Amtsbands, dort
-  bleiben sie erreichbar; Filterspalten der Recherchen stehen als Aufklappbereich über der Liste.
+  bleiben sie erreichbar. Alle zweispaltigen Arbeitsbereiche mit Seitenspalte werden einspaltig:
+  Filterspalte der Rechtssuche und der Verzeichnisse als Aufklappbereich über der Liste,
+  Vorschriftendaten und Rechtsbeziehungen untereinander, Protokoll und Seitenspalte der Seite
+  „Fassungen und Änderungen“ untereinander. Eine Tabelle neben einer 380 px breiten Seitenspalte
+  braucht mehr als 768 px; deshalb liegt diese Grenze bei 60 rem und nicht bei 48 rem.
 - bis 48 rem (Tablet hoch): im Staatsportal weichen Navigation und Kopfwerkzeuge in das Menü, die
   Kartenraster werden einspaltig, der Seitenrand geht auf `--space-3`; in OstRecht wird der
   Normarbeitsbereich einspaltig (Kopf → Inhaltsübersicht geschlossen → Text → Seitenspalte →
@@ -400,7 +414,10 @@ unter der Statuszeile (auf dem Smartphone nur in den Vorschriftendaten). Werkzeu
 (kopieren mit Rückmeldung), „Drucken“, „Amtliches PDF“ oder „Als PDF“ (Portalfassung). Darunter
 führen die „Bereiche der Vorschrift“ (`NormSectionTabs.astro`) als Reiterzeile zu Text,
 Vorschriftendaten, Fassungen und Änderungen sowie Rechtsbeziehungen. Der Wechsel zwischen den
-Ansichten verändert den Kopf nicht.
+Ansichten verändert den Kopf nicht. Ein allein gezeigter Bereich schließt ohne zweite Linie an die
+Reiterzeile an, nimmt die Lesebreite `--measure-panel` und wiederholt seinen Namen nicht als
+Etikett – der Reiter nennt ihn; für Vorlesen, Druck und Betrieb ohne JavaScript bleibt die
+Überschrift im Baum. Ohne JavaScript stehen alle Bereiche als verlinkte Abschnitte untereinander.
 
 Alle Angaben zur Vorschrift stehen genau einmal in `NormFacts.astro` („Vorschriftendaten“):
 Vollzitat, Fundstelle, Rechtsstand, Geltung, Herkunft mit den verlinkten Änderungsvorschriften,
@@ -456,13 +473,22 @@ Zeile gilt als geändert, eine gestrichene als entfallen.
 
 ### Startseite
 
-Keine Hero-Fläche (Richtung E, P1): Suchfeld mit Erläuterung und Direktzugriffen (Gesetze,
-Verordnungen, Verwaltungsvorschriften, Förderrichtlinien, Verfassung mit Bestandszahlen aus
-`countNormTypes`), darunter die Sachgebiete als nummerierte Liste der amtlichen Systematik, A–Z
-und Register, dann der Änderungsdienst als drei Spalten mit Linien: „Neu in Kraft getreten“,
-„Verkündet, noch nicht in Kraft“ und „Außer Kraft getreten“ (je fünf Einträge mit Datum,
-Normtyp und Fundstelle; leere Spalten zeigen einen Hinweis) und darunter die Tabelle der jüngsten
-amtlichen Veröffentlichungen. Kein Bedienziel unter 24 px.
+Keine Hero-Fläche (Richtung E, P1): Suchfeld mit Erläuterung und einer kuratierten Zeile
+„Direkt“ – Verfassung, Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien mit
+Bestandszahlen aus `countNormTypes`. Die Zeile ist ein Einstieg, keine Liste des Bestands: weitere
+Normtypen (Staatsvertrag, Bekanntmachung, Zustimmungsgesetz …) bleiben über Suchfilter,
+Sachgebiete und A–Z erreichbar. Daneben die Sachgebiete als nummerierte Liste der amtlichen
+Systematik samt A–Z und Register, darunter der Änderungsdienst als drei Spalten mit Linien: „Neu in
+Kraft getreten“, „Verkündet, noch nicht in Kraft“ und „Außer Kraft getreten“ (je fünf Einträge;
+leere Spalten zeigen einen Hinweis), zuletzt die Tabelle der jüngsten amtlichen
+Veröffentlichungen mit Datum, Gegenstand, Dokumentart und Fundstelle.
+
+Eine Zeile des Änderungsdiensts ist knapper als der Änderungsverlauf der Vorschrift: Datum,
+Vorschrift, ein Ereigniswort der Rechtswirkung („erstmals in Kraft“ / „geändert“ / „aufgehoben“,
+künftig „tritt in Kraft“ / „wird geändert“ / „tritt außer Kraft“) und darunter die Ursache ohne
+das wiederholte Ereigniswort samt Fundstelle (`describeChangeCause`, `shortCitation`). Wo der
+Eintragstitel nur das Vollzitat wiederholt, steht die Fundstelle allein. Kein Bedienziel unter
+24 px.
 
 ### Rechtssuche
 

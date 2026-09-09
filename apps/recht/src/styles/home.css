@@ -171,7 +171,7 @@
   }
 }
 
-@media (max-width: 60rem) {
+@media (max-width: 59.99rem) {
   .r-home-entry__grid {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
@@ -183,12 +183,13 @@
     gap: var(--space-5);
   }
 
-  .r-home-publications__table td:nth-child(4) {
+  /* Zuerst entfällt die Dokumentart; Datum, Gegenstand und Fundstelle tragen die Übersicht. */
+  .r-home-publications__table td:nth-child(3) {
     display: none;
   }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 39.99rem) {
   .r-home-search {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -200,10 +201,6 @@
   .r-home-changes__list li {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
-  }
-
-  .r-home-publications__table td:nth-child(3) {
-    display: none;
   }
 
   .r-home-publications__table td:first-child {
