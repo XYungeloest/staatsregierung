@@ -574,8 +574,13 @@ siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilt
   await searchSettled(page);
   await expect(page.locator('[data-search-filter="includeAmendments"]')).not.toBeChecked();
   await expect(page).not.toHaveURL(/includeAmendments=1/u);
+  // Das Hauptsuchfeld bietet Vorschläge, sobald es mit mindestens zwei Zeichen den Fokus erhält;
+  // Escape schließt die Liste, die Trefferliste bleibt.
+  const mainQuery = page.locator('[data-search-query]');
+  await mainQuery.focus();
   await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toBeVisible();
   await mainQuery.press('Escape');
+  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
   await expect(page.locator('[data-search-results] .search-hit__title', { hasText: amendment!.title }).first()).toBeVisible();
 });
 
@@ -1115,7 +1120,7 @@ siteTest(['law'])('Verzeichniszahlen und Suchtreffer zählen denselben Bestand',
   for (const origin of ['inherited-unchanged', 'ostdeutsch-original']) {
     let listed = 0;
     for (const letter of letters) {
-      await page.goto(lawUrl(`/a-z/?buchstabe=${letter}&herkunft=${origin}`));
+      await page.goto(lawUrl(`/a-z/?buchstabe=${encodeURIComponent(letter)}&herkunft=${origin}`));
       const text = (await page.locator('[data-index-count]').textContent()) ?? '';
       listed += Number(text.match(/(\d+)/u)?.[1] ?? 0);
     }
