@@ -6,6 +6,17 @@ Lösung fehlt. Gelöste Fälle werden entfernt; der maschinenlesbare Einzelstand
 Normkonsolidierung steht in `data/recht/consolidation-manifest.json`, die Bilanz der
 REVOSax-Übernahme in `data/recht/revosax-import-audit/summary.json`.
 
+## Hoheitszeichenrecht: Ermächtigungsverweis und Fortgeltungsmaßgaben
+
+OGVBl. 2026 Nr. 70, Artikel 2 Absatz 2 (HTML und PDF S. 13), verweist für die neue
+Durchführungsverordnung auf § 17 OHzG. Dieser regelt Ordnungswidrigkeiten; die
+Verordnungsermächtigung steht in § 19. Eine amtliche Berichtigung fehlt. Die Vorschrift verweist
+außerdem pauschal auf die entsprechenden neuen Gesetzesvorschriften. Für eine vollständige
+Konsolidierung der Hoheitszeichenverordnung fehlen eindeutige Einzelzuordnungen. Bis zur Klärung
+bleibt dieses Ziel gesperrt. Die eindeutig verkündeten Fortgeltungsmaßgaben, die Nichtanwendung
+der Vorschriften über das große Staatswappen und das späteste Außerkrafttreten am 31. Dezember
+2026 sind als Anwendungshinweise und Frist erfasst; die Originalquellen bleiben unverändert.
+
 ## REVOSax-Übernahme (Ausgangsbestand 1. November 2023)
 
 - **Europäisches Übereinkommen über das grenzüberschreitende Fernsehen (REVOSax 1018)** —

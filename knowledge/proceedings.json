@@ -240,7 +240,7 @@
           "noVotes": 2,
           "noPercent": 11.11,
           "votesCast": 18,
-          "turnoutPercent": 60.0,
+          "turnoutPercent": 60,
           "outcome": "approved"
         },
         {
@@ -1236,6 +1236,42 @@
       ],
       "decision": "Vorläufige Schutzmaßnahmen innerhalb bestehender Befugnisse; der Sicherheitserlass gilt bis zum Ablauf des 8. Dezember 2026.",
       "nextAction": "Erster Bericht nach Nummer 9 innerhalb von vier Wochen; Bericht zur Sicherheitsarchitektur nach Abschnitt III innerhalb von sechs Wochen ab 8. September 2026; Entwurf für zusätzliche Drohnenabwehrbefugnisse vorbereiten.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-ddr-reimport-kleinkraftraeder",
+      "title": "Betriebserlaubnisse für DDR-Reimport-Kleinkrafträder",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-08",
+      "validTo": null,
+      "asOf": "2026-09-08",
+      "summary": "Die am 8. September 2026 verkündete Verwaltungsvorschrift tritt am 9. September 2026 in Kraft. Sie vereinheitlicht Betriebserlaubnisse für DDR-Reimport-Kleinkrafträder mit erster Inbetriebnahme bis einschließlich 28. Februar 1992 und erlaubt die unmittelbare Antragstellung mit dem Gutachten nach § 21 StVZO ohne vorherige KBA-Zweitschrift oder Ablehnung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-43",
+          "locator": "Nummern 1–9, S. 2–6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "transport",
+        "administration"
+      ],
+      "notes": [
+        "Am redaktionellen Stichtag 8. September 2026 noch nicht in Kraft. Ein bereits erfolgter Vollzug wird nicht behauptet."
+      ],
+      "proceedingType": "administrative-implementation",
+      "stage": "implementation",
+      "participantIds": [],
+      "normRefs": [
+        {
+          "normSlug": "vwv-ddr-reimport-kleinkraftraeder",
+          "versionId": "2026-09-09"
+        }
+      ],
+      "decision": "Einheitliche Erlaubnispraxis unter Koordinierung des Landesamtes für Straßenbau und Verkehr.",
+      "nextAction": "Verwaltungsvorschrift ab 9. September 2026 anwenden.",
       "openQuestionIds": []
     }
   ]

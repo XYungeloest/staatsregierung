@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-25",
+  "asOf": "2026-09-08",
   "holdings": [
     {
       "id": "holding-rechtsnachfolge-2023",
@@ -1238,6 +1238,59 @@
       "kind": "acquisition-in-progress",
       "stakePercent": null,
       "targetStakePercent": 80,
+      "direct": true
+    },
+    {
+      "id": "holding-interflug",
+      "title": "Interflug AöR",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "asOf": "2026-09-08",
+      "summary": "Seit 3. September 2026 rechtsfähige Anstalt des öffentlichen Rechts des Freistaates für gemeinwirtschaftliche Luftverkehrsaufgaben, insbesondere Brandbekämpfung und Katastrophenschutz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1, §§ 1–3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-interflug",
+        "project-interflug"
+      ],
+      "tags": [
+        "holding",
+        "public-economy"
+      ],
+      "notes": [],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-zinnwald-lithium",
+      "title": "Zinnwald Lithium GmbH",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "asOf": "2026-09-08",
+      "summary": "Sämtliche Geschäftsanteile gingen am 2. September 2026 kraft Gesetzes auf den Freistaat über. Die Gesellschaft besteht als Rechtsträgerin fort; ein späterer Übertragungsakt ist für diesen Eigentumsübergang nicht erforderlich.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-73",
+          "locator": "Artikel 1, §§ 1–5",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy"
+      ],
+      "notes": [],
+      "kind": "company",
+      "stakePercent": 100,
       "direct": true
     }
   ]
