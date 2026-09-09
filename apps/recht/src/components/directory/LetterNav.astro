@@ -3,23 +3,19 @@ import { formatCount, NORM_UNIT } from '../../lib/counts.ts';
 import type { IndexLetterCount } from '../../lib/runtime/store.ts';
 
 /**
- * Buchstabenleiste als Sprungnavigation zwischen den Seiten eines Verzeichnisses. Sie zeigt
- * immer alle Buchstaben; nicht belegte Gruppen sind sichtbar inaktiv statt entfernt (Befund A2).
+ * Buchstabenleiste: Sprungnavigation zwischen den Buchstabengruppen eines Verzeichnisses. Alle
+ * Buchstaben stehen da; nicht belegte Gruppen sind sichtbar inaktiv statt entfernt.
  */
 interface Props {
   letters: IndexLetterCount[];
-  /** Aktuell gewählter Buchstabe; leer = alle Einträge. */
   current?: string;
-  /** Adresse einer Buchstabengruppe; leerer Buchstabe = ungefilterte Liste. */
   hrefFor: (letter: string) => string;
   label?: string;
-  /** Link „Alle“ vor den Buchstaben anbieten. */
   withAll?: boolean;
-  /** Einheit für den Titel-Hinweis in Einzahl und Mehrzahl, z. B. Vorschrift/Vorschriften. */
   unit?: { one: string; many: string };
 }
 
-const { letters, current = '', hrefFor, label = 'Buchstaben-Navigation', withAll = true, unit = NORM_UNIT } = Astro.props;
+const { letters, current = '', hrefFor, label = 'Anfangsbuchstabe', withAll = true, unit = NORM_UNIT } = Astro.props;
 const counts = new Map(letters.map((entry) => [entry.letter, entry.count]));
 const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '#'];
 const total = letters.reduce((sum, entry) => sum + entry.count, 0);

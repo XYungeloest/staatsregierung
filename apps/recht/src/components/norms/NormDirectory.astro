@@ -1,7 +1,5 @@
 ---
 import LawLayout from '../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import NormDirectoryListing from '../directory/NormDirectoryListing.astro';
 import { getLawPortalUrl, getSearchUrl } from '@ostrecht/shared/lib/norms/index.ts';
 import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
@@ -9,9 +7,8 @@ import { getNormStore } from '../../lib/runtime/context.ts';
 import { loadNormDirectory } from '../../lib/runtime/directory.ts';
 
 /**
- * Normtyp-Verzeichnis (Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien):
- * Bereichskopf mit Volltextsuche, darunter das gemeinsame Verzeichnismuster. Filter und Seiten
- * laufen serverseitig; ein Aufruf liefert höchstens eine Seite.
+ * Typseite (Gesetze, Verordnungen, Verwaltungsvorschriften): das Listenmuster von P6b als
+ * vorgefilterte Variante ohne Untergliederungsspalte; der Kopf nennt den Normtyp.
  */
 interface Props {
   title: string;
@@ -31,25 +28,28 @@ const view = await loadNormDirectory(store, {
   filterOptions: { subjects: filters.subjects },
 });
 const pageTitle = view.result.page > 1 ? `${title} (Seite ${view.result.page} von ${view.result.pageCount})` : title;
+const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 ---
 
 <LawLayout
   title={pageTitle}
-  description={`${title} des Ostdeutschen Freistaates alphabetisch, nach Sachgebiet und Rechtsstand recherchieren.`}
+  description={`${title} des Ostdeutschen Freistaates alphabetisch, nach Sachgebiet, Geltung und Herkunft recherchieren.`}
   breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: title, href }]}
   canonical={view.canonical}
   noindex={view.noindex}
   prev={view.pagination.prev}
   next={view.pagination.next}
 >
-  <Breadcrumbs items={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: title }]} />
-  <SectionHero eyebrow="Rechtsportal" title={title} lead={lead} variant="law">
-    <form class="law-directory-search" action={getSearchUrl()} method="get">
+  <header class="r-page-head r-page-head--type">
+    <p class="r-kicker"><span>Normtyp</span><span>{title}</span></p>
+    <h1>{title}</h1>
+    <p class="r-lead">{lead}</p>
+    <form class="r-type-search" action={getSearchUrl()} method="get" role="search">
       <input type="hidden" name="type" value={type} />
-      <label class="search-field"><span>Volltextsuche in diesem Normtyp</span><input type="search" name="q" placeholder={`${title} durchsuchen`} autocomplete="off" data-law-norm-autocomplete data-law-suggestions-url={`${import.meta.env.BASE_URL}search-suggestions.json`} /></label>
-      <button class="button-link" type="submit">Suchen</button>
+      <label class="r-field r-type-search__field"><span>Volltextsuche in diesem Normtyp</span><input class="r-input" type="search" name="q" placeholder={`${title} durchsuchen`} autocomplete="off" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} data-law-search-url={getSearchUrl()} /></label>
+      <button class="r-btn r-btn--primary" type="submit">Suchen</button>
     </form>
-  </SectionHero>
+  </header>
 
-  <NormDirectoryListing view={view} heading={`${title} im Verzeichnis`} filterLabel={`${title} filtern`} />
+  <NormDirectoryListing view={view} heading={`${title} im Verzeichnis`} filterLabel={`${title} filtern`} showType={false} caption={`${title} mit Abkürzung, Geltung, Rechtsstand und Herkunft`} />
 </LawLayout>

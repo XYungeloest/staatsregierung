@@ -204,6 +204,10 @@ export const siteConfig = {
 export const lawSiteConfig = {
   brand: 'OstRecht',
   subtitle: 'Rechtsportal des Ostdeutschen Freistaates',
+  /** Kurze Unterzeile der Wortmarke im Amtsband. */
+  bandSubline: 'Rechtsportal des Freistaates',
+  /** Amtlichkeitshinweis im Fuß jeder Seite. */
+  officialNote: 'Amtlich ist allein die in den Verkündungsblättern veröffentlichte Fassung.',
   authorityName: siteConfig.authorityName,
   seo: {
     siteName: 'OstRecht – Rechtsportal des Ostdeutschen Freistaates',
@@ -238,12 +242,14 @@ export const lawSiteConfig = {
     laws: 'Gesetze',
     regulations: 'Verordnungen',
     administrativeRules: 'Verwaltungsvorschriften',
-    index: 'Vorschriften A–Z',
+    index: 'A–Z und Register',
     subjects: 'Sachgebiete',
     funding: 'Förderrichtlinien',
-    publications: 'Verkündungen',
+    publications: 'Amtliche Veröffentlichungen',
     constitution: 'Verfassung',
     help: 'Hilfe',
+    /** Änderungsdienst: Bereich der Startseite (Rechtswirkung), kein eigener Pfad. */
+    changes: 'Änderungsdienst',
   },
   /**
    * Eine Wortliste für Geltung, Fassung und Rechtsstand. Dieselbe Sache heißt überall gleich:
@@ -288,13 +294,17 @@ export const lawSiteConfig = {
     normCompare: 'Fassungsvergleich',
     normCurrent: 'Aktuelle Fassung',
   },
+  /**
+   * Amtsband: fünf Einstiege (Richtung E). Normtypen sind Direktzugriffe und Filter, keine
+   * Navigationspunkte. Der Änderungsdienst ist der Bereich der Startseite und trägt deshalb einen
+   * Anker statt eines Pfads.
+   */
   mainNavigation: [
-    { label: 'Gesetze', pathKey: 'laws' },
-    { label: 'Verordnungen', pathKey: 'regulations' },
-    { label: 'Verwaltungsvorschriften', pathKey: 'administrativeRules' },
-    { label: 'Verfassung', pathKey: 'constitution' },
-    { label: 'Verkündungen', pathKey: 'publications' },
     { label: 'Sachgebiete', pathKey: 'subjects' },
+    { label: 'A–Z und Register', pathKey: 'index' },
+    { label: 'Amtliche Veröffentlichungen', pathKey: 'publications' },
+    { label: 'Änderungsdienst', pathKey: 'changes', anchor: 'aenderungsdienst' },
+    { label: 'Hilfe', pathKey: 'help' },
   ],
 } as const;
 

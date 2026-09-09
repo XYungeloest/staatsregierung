@@ -24,6 +24,8 @@ const LIMITS = {
 };
 
 const STYLES_DIR = fileURLToPath(new URL('../packages/shared/src/styles/', import.meta.url));
+/** Stylesheets des OstRecht-Redesigns (Richtung E); hier steht seit dem Umbau die Inhaltsübersicht. */
+const RECHT_STYLES_DIR = fileURLToPath(new URL('../apps/recht/src/styles/', import.meta.url));
 const SPACING_OR_TEXT_PROP = /^(?:(?:margin|padding)(?:-(?:top|right|bottom|left|inline|block)(?:-(?:start|end))?)?|gap|row-gap|column-gap|font-size)$/u;
 const HEX_COLOR = /#(?:[0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{3,4})(?![0-9a-z])/iu;
 const RAW_REM = /(?<![\w.-])\d*\.?\d+rem(?![\w-])/u;
@@ -59,12 +61,31 @@ export interface StylesheetMetrics {
  * damit „mindestens diese Stufe“ prüfbar ist.
  */
 const TEXT_SCALE = ['--text-2xs', '--text-xs', '--text-sm', '--text-base', '--text-base-plus', '--text-md', '--text-lg', '--text-lg-plus', '--text-xl'];
+/** Typoskala aus apps/recht/src/styles/tokens.css (Richtung E), ebenfalls aufsteigend. */
+const RECHT_TEXT_SCALE = ['--fs-micro', '--fs-caption', '--fs-meta', '--fs-ui', '--fs-ui-lg', '--fs-body', '--fs-h4', '--fs-h3', '--fs-h2', '--fs-h1', '--fs-display-lg'];
+const SCALES = [TEXT_SCALE, RECHT_TEXT_SCALE];
 
-/** Untergrenzen der Inhaltsübersicht (Befund E9): Listeneinträge und Gliederungszeichen. */
+/**
+ * Untergrenzen der Inhaltsübersicht (Befund E9): Listeneinträge und Gliederungszeichen. Die
+ * Inhaltsübersicht der Normseite (Richtung E, P3) steht in der Metaskala des Boards: Einträge
+ * mindestens --fs-meta (13 px), Kopf- und Fußzeilen der Spalte mindestens --fs-caption (12 px).
+ */
 const OUTLINE_MINIMUMS: Array<{ match: RegExp; minimum: string; what: string }> = [
   { match: /\.outline-list\s+a$/u, minimum: '--text-sm', what: 'Einträge der Inhaltsübersicht' },
   { match: /\.outline-label$/u, minimum: '--text-xs', what: 'Gliederungszeichen der Inhaltsübersicht' },
+  { match: /^\.norm-outline(?:--desktop|--sheet|__list(?:\s+a)?)$/u, minimum: '--fs-meta', what: 'Einträge der Inhaltsübersicht' },
+  { match: /^\.norm-outline__(?:summary|filter)$/u, minimum: '--fs-caption', what: 'Kopf- und Fußzeile der Inhaltsübersicht' },
 ];
+
+/** Stufe einer Schriftgrößen-Variable innerhalb ihrer Skala; -1, wenn keine Skala sie kennt. */
+function scaleRank(token: string | undefined): { scale: string[]; index: number } | undefined {
+  if (!token) return undefined;
+  for (const scale of SCALES) {
+    const index = scale.indexOf(token);
+    if (index >= 0) return { scale, index };
+  }
+  return undefined;
+}
 
 function insideAtRule(node: ChildNode, names: string[]): boolean {
   let parent: Container | Document | undefined = node.parent;
@@ -168,14 +189,17 @@ test('Stilwächter: keine neuen rohen rem-Werte in Abstands- und Schriftgrößen
   assert.ok(metrics.rawRem.length <= LIMITS.rawRem, `Gemessen ${metrics.rawRem.length}, erlaubt ${LIMITS.rawRem}. Abstände kommen aus var(--space-*), Schriftgrößen aus var(--text-*):\n${describeFindings(metrics.rawRem)}`);
 });
 
-test('Stilwächter: die Inhaltsübersicht bleibt lesbar (Einträge mindestens --text-sm, Gliederungszeichen --text-xs)', () => {
-  assert.ok(metrics.outlineFontSizes.length > 0, 'Die Schriftgröße der Inhaltsübersicht muss ausdrücklich gesetzt sein.');
-  const problems = metrics.outlineFontSizes.flatMap((entry) => {
+test('Stilwächter: die Inhaltsübersicht bleibt lesbar (Einträge mindestens --fs-meta, Kopf- und Fußzeilen --fs-caption)', () => {
+  // Die Inhaltsübersicht der Normseite liegt seit Richtung E in apps/recht/src/styles; die
+  // Portal-Stylesheets kennen keine mehr. Beide Bestände werden geprüft, gefunden werden muss sie einmal.
+  const outlineFontSizes = [...metrics.outlineFontSizes, ...measureStylesheets(RECHT_STYLES_DIR).outlineFontSizes];
+  assert.ok(outlineFontSizes.length > 0, 'Die Schriftgröße der Inhaltsübersicht muss ausdrücklich gesetzt sein.');
+  const problems = outlineFontSizes.flatMap((entry) => {
     const rule = OUTLINE_MINIMUMS.find(({ match }) => entry.selector.split(',').map((part) => part.replace(/\s+/gu, ' ').trim()).some((part) => match.test(part)));
     if (!rule) return [];
-    const token = entry.value.match(/--text-[a-z-]+/u)?.[0];
-    const index = token ? TEXT_SCALE.indexOf(token) : -1;
-    if (index >= 0 && index >= TEXT_SCALE.indexOf(rule.minimum)) return [];
+    const rank = scaleRank(entry.value.match(/--(?:text|fs)-[a-z0-9-]+/u)?.[0]);
+    const minimum = scaleRank(rule.minimum);
+    if (rank && minimum && rank.scale === minimum.scale && rank.index >= minimum.index) return [];
     return [`  ${entry.file}:${entry.line} ${entry.selector} { font-size: ${entry.value} } – ${rule.what} brauchen mindestens var(${rule.minimum})`];
   });
   assert.deepEqual(problems, [], `Navigations- und Listeneinträge stehen nie unter der Lesegrenze:\n${problems.join('\n')}`);

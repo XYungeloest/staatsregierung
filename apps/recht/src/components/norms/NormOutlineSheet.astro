@@ -1,0 +1,24 @@
+---
+import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/display.ts';
+import NormOutline from './NormOutline.astro';
+
+/**
+ * Inhaltsübersicht für kleine Bildschirme: Aufklappbereich unter der Reiterzeile, geöffnet über
+ * die Schaltfläche „Inhalt“ im Kopf; ohne JavaScript ein gewöhnliches details-Element.
+ */
+interface Props {
+  items: NormOutlineItem[];
+  summary?: string;
+}
+
+const { items, summary } = Astro.props;
+---
+
+{items.length > 0 ? (
+  <details class="norm-outline-mobile" id="norm-inhalt-mobil" data-outline-sheet>
+    <summary>Inhalt der Vorschrift</summary>
+    <div class="norm-outline-mobile__body">
+      <button class="r-btn" type="button" data-sheet-close>Schließen</button><NormOutline items={items} summary={summary} variant="sheet" />
+    </div>
+  </details>
+) : null}

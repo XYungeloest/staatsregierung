@@ -1,0 +1,521 @@
+/* OstRecht – Hülle: Hinweiszeile, Amtsband, mobile Bereiche, Seitenraster, Seitenköpfe, Fuß. */
+.law-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--surface-page);
+}
+
+.r-container {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+
+/* Hinweiszeile zur Simulation: knapp, über dem Amtsband (Redaktionsregel). */
+.law-notice {
+  background: var(--surface-muted);
+  border-bottom: var(--line) solid var(--border-hairline);
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
+
+.law-notice p {
+  padding: var(--space-1) 0;
+}
+
+/* Amtsband */
+.law-header {
+  --focus-color: var(--gold-400);
+  position: relative;
+  background: var(--surface-band);
+  color: var(--text-invert);
+}
+
+.law-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: 3.75rem;
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+}
+
+.law-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--target-main);
+  color: var(--text-invert);
+  text-decoration: none;
+  flex: none;
+}
+
+.law-wordmark img {
+  width: 2rem;
+  height: 2.375rem;
+  object-fit: contain;
+}
+
+.law-wordmark span {
+  display: grid;
+  gap: 1px;
+  border-left: var(--line) solid var(--surface-band-border);
+  padding-left: var(--space-3);
+}
+
+.law-wordmark strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-ui-lg);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.law-wordmark small {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--ink-300);
+}
+
+.law-header-search {
+  display: flex;
+  align-items: center;
+  width: 23.75rem;
+  max-width: 100%;
+  height: 2.25rem;
+  border: var(--line) solid var(--surface-band-border);
+  border-radius: var(--radius);
+  background: var(--surface-band-field);
+  flex: none;
+}
+
+.law-header-search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 var(--space-3);
+  border: 0;
+  background: transparent;
+  color: var(--text-invert);
+  font: inherit;
+  font-size: var(--fs-ui);
+}
+
+.law-header-search input::placeholder {
+  color: var(--ink-300);
+}
+
+.law-header-search input:focus-visible {
+  outline-offset: -2px;
+}
+
+.law-header-search button {
+  height: 100%;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-left: var(--line) solid var(--surface-band-border);
+  background: transparent;
+  color: var(--text-invert);
+  font: inherit;
+  font-size: var(--fs-ui);
+  cursor: pointer;
+}
+
+.law-header-search button:hover {
+  background: var(--blue-800);
+}
+
+.law-main-nav {
+  display: flex;
+  gap: var(--space-5);
+  font-size: var(--fs-ui);
+  white-space: nowrap;
+  flex: none;
+}
+
+.law-main-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-main);
+  color: var(--text-invert);
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+
+.law-main-nav a:hover {
+  color: var(--gold-400);
+}
+
+.law-main-nav a[aria-current='page'] {
+  font-weight: 500;
+  box-shadow: inset 0 -2px 0 var(--gold-400);
+}
+
+/* Mobile Bereiche: natives Aufklappmenü, Suche und dieselben fünf Einträge. */
+.law-mobile-nav {
+  display: none;
+  position: relative;
+  flex: none;
+}
+
+.law-mobile-nav > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-main);
+  padding: 0 var(--space-3);
+  border: var(--line) solid var(--surface-band-border);
+  border-radius: var(--radius);
+  color: var(--text-invert);
+  font-size: var(--fs-ui);
+  list-style: none;
+  cursor: pointer;
+}
+
+.law-mobile-nav > summary::-webkit-details-marker {
+  display: none;
+}
+
+.law-mobile-nav > summary::after {
+  content: '▾';
+  font-size: var(--fs-caption);
+}
+
+.law-mobile-nav[open] > summary::after {
+  content: '▴';
+}
+
+.law-mobile-nav__panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--space-2));
+  z-index: 60;
+  width: min(22rem, calc(100vw - 2 * var(--page-gutter)));
+  padding: var(--space-4);
+  background: var(--paper-0);
+  color: var(--text-body);
+  border: var(--line) solid var(--border-strong);
+  box-shadow: var(--shadow-sheet);
+  --focus-color: var(--blue-800);
+}
+
+.law-mobile-nav__panel form {
+  display: grid;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--line) solid var(--border-hairline);
+}
+
+.law-mobile-nav__panel form > div {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.law-mobile-nav__panel form label {
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.law-mobile-nav__panel nav {
+  display: grid;
+}
+
+.law-mobile-nav__panel nav a {
+  display: flex;
+  align-items: center;
+  min-height: var(--target-main);
+  padding: 0 var(--space-2);
+  color: var(--text-strong);
+  text-decoration: none;
+  border-bottom: var(--line) solid var(--border-hairline);
+}
+
+.law-mobile-nav__panel nav a:last-child {
+  border-bottom: 0;
+}
+
+.law-mobile-nav__panel nav a[aria-current='page'] {
+  font-weight: 500;
+  box-shadow: inset 3px 0 0 var(--blue-800);
+  background: var(--surface-selected);
+}
+
+.law-mobile-nav__panel nav .r-label {
+  padding: var(--space-3) var(--space-2) var(--space-1);
+}
+
+/* Hauptbereich */
+.law-main {
+  flex: 1;
+  width: 100%;
+}
+
+.law-main--contained {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-5) var(--page-gutter) var(--space-8);
+}
+
+/* Bereichskopf einer Liste oder Recherche */
+.r-page-head {
+  padding: var(--space-5) 0 var(--space-4);
+  border-bottom: var(--line) solid var(--border-default);
+}
+
+.r-page-head h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-tight);
+  color: var(--text-strong);
+  margin-bottom: var(--space-2);
+}
+
+.r-page-head .r-lead {
+  max-width: 96ch;
+}
+
+.r-page-head .r-tabs {
+  margin-top: var(--space-4);
+  margin-bottom: calc(-1 * var(--space-4) - var(--line));
+}
+
+/* Kopfzeile (Einordnung) über einem Detailtitel */
+.r-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
+
+.r-kicker a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.r-kicker a:hover {
+  text-decoration: underline;
+}
+
+.r-kicker > *:not(:first-child)::before {
+  content: '·';
+  margin-right: var(--space-2);
+}
+
+/* Zweispaltiges Rechercheraster: Inhalt und Filterspalte */
+.r-research {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--col-filter);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.r-research--filter-left {
+  grid-template-columns: var(--col-filter) minmax(0, 1fr);
+}
+
+.r-research__aside {
+  font-size: var(--fs-meta);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* Abschnittsüberschrift mit Zeile rechts */
+.r-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.r-section-head h2 {
+  font-size: var(--fs-ui-lg);
+  font-weight: 500;
+  color: var(--text-strong);
+}
+
+.r-section-head .r-meta a {
+  color: var(--text-link);
+}
+
+/* Fuß */
+.law-footer {
+  --focus-color: var(--blue-800);
+  border-top: var(--line) solid var(--border-hairline);
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
+
+.law-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-5);
+}
+
+.law-footer__inner p {
+  max-width: 90ch;
+}
+
+.law-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+}
+
+.law-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  padding-block: 0;
+  color: var(--text-secondary);
+}
+
+.law-footer a:hover {
+  color: var(--text-link);
+}
+
+.law-footer__simulation {
+  padding-top: var(--space-3);
+  border-top: var(--line) solid var(--border-hairline);
+  width: 100%;
+}
+
+/* Einwilligungsbanner der Webanalyse (gemeinsame Komponente, eigene OstRecht-Gestalt) */
+.consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  background: var(--paper-0);
+  border-top: var(--line-strong) solid var(--blue-800);
+  box-shadow: var(--shadow-sheet);
+  font-size: var(--fs-meta);
+}
+
+.consent-banner__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-3) var(--page-gutter);
+}
+
+.consent-banner__title {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.consent-banner__text {
+  color: var(--text-secondary);
+  max-width: 70ch;
+}
+
+.consent-banner__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.consent-banner__choice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--target-main);
+  padding: 0 var(--space-3);
+  border: var(--line) solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--paper-0);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.consent-banner__choice:hover {
+  background: var(--surface-hover);
+}
+
+/* Responsiv: Amtsband */
+@media (max-width: 80rem) {
+  .law-header__bar {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .law-header-search {
+    width: 16.25rem;
+  }
+
+  .law-main-nav {
+    margin-left: auto;
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 60rem) {
+  .law-header-search {
+    display: none;
+  }
+
+  .law-main-nav {
+    display: none;
+  }
+
+  .law-mobile-nav {
+    display: block;
+  }
+}
+
+@media (max-width: 48rem) {
+  .r-research,
+  .r-research--filter-left {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .r-research--filter-left > :first-child {
+    order: 2;
+  }
+
+  .law-footer__inner {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 40rem) {
+  .law-wordmark small {
+    display: none;
+  }
+
+  .law-wordmark img {
+    width: 1.75rem;
+    height: 2rem;
+  }
+
+  .law-header__bar {
+    min-height: 3.5rem;
+  }
+}

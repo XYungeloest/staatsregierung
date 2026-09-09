@@ -1,35 +1,33 @@
 ---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import DirectoryEntry from '../../components/directory/DirectoryEntry.astro';
-import DirectoryFilterBar from '../../components/directory/DirectoryFilterBar.astro';
-import DirectoryPagination from '../../components/directory/DirectoryPagination.astro';
-import NormOriginBadge from '../../components/norms/NormOriginBadge.astro';
+import FilterForm from '../../components/ui/FilterForm.astro';
+import Pagination from '../../components/ui/Pagination.astro';
 import {
   comparePublicationsNewestFirst,
-  formatDate,
   formatPublicationEntryType,
   getLawPortalUrl,
+  getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
   getPublicationLabel,
   getPublicationSearchAliases,
   getPublicationUrl,
   getPublicationsUrl,
+  hasNumberedIssue,
   listPublicationEntries,
   toDisplayText,
-  type NormOriginKind,
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { VERSION_FIELD_LABEL } from '../../lib/vocabulary.ts';
+import { formatShortDate } from '../../lib/dates.ts';
 import { formatCount } from '../../lib/counts.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { DEFAULT_PAGE_SIZE, normalizePage, normalizeQueryText } from '../../lib/runtime/store.ts';
 import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
 
-// Verkündungen sind eine Metadatentabelle (law_publications, keine Normen); Filter, Ansicht und
-// Seiten laufen serverseitig über GET-Parameter, die Antwort enthält höchstens eine Seite.
+// Amtliche Veröffentlichungen (P5): eine Recherche über alle Publikationsreihen. Standardansicht
+// sind die einzelnen Veröffentlichungen mit Fundstelle und Ausgabe; die Ausgaben bleiben als
+// zweite Ansicht erreichbar (`ansicht=ausgaben`). Filter und Seiten laufen serverseitig.
 export const prerender = false;
 
 const store = await getNormStore(Astro.locals);
@@ -40,42 +38,46 @@ const publications = await store.listPublications();
 const years = [...new Set(publications.map((publication) => publication.year))].sort((left, right) => right - left);
 const publicationNames = [...new Set(publications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));
 const entryTypes = [...new Set(publications.flatMap((publication) => publication.entries.map((entry) => entry.type)))].sort();
+const publishers = [...new Set(publications.map((publication) => (publication.publisher ?? '').trim()).filter(Boolean))].sort((left, right) => left.localeCompare(right, 'de'));
 
 const params = Astro.url.searchParams;
 const clean = (value: string | null, allowed?: string[]): string => {
   const text = (value ?? '').trim().slice(0, 100);
   return !text || (allowed && !allowed.includes(text)) ? '' : text;
 };
-const view = params.get('ansicht') === 'eintraege' ? 'eintraege' : 'ausgaben';
+const view = params.get('ansicht') === 'ausgaben' ? 'ausgaben' : 'eintraege';
 const state = {
   publication: clean(params.get('publication'), publicationNames),
   year: clean(params.get('year'), years.map(String)),
   issue: clean(params.get('issue')),
   type: clean(params.get('type'), entryTypes),
+  herausgeber: clean(params.get('herausgeber'), publishers),
+  normbezug: clean(params.get('normbezug'), ['mit', 'ohne']),
   q: clean(params.get('q')),
   sortierung: clean(params.get('sortierung'), ['aelteste']),
 };
 const oldestFirst = state.sortierung === 'aelteste';
 const query = normalizeQueryText(state.q);
 
-// Beide Ansichten folgen derselben Reihenfolge: jüngste Ausgabe zuerst, innerhalb eines Tages
-// nach Blatt und Ausgabennummer. Die Seite ordnet selbst, damit Datei- und D1-Variante gleich sind.
 const ordered = [...publications].sort(comparePublicationsNewestFirst);
 const sortedPublications = oldestFirst ? [...ordered].reverse() : ordered;
 
 const matchesIssue = (publication: Verkuendung): boolean =>
   (!state.publication || publication.publication === state.publication)
   && (!state.year || String(publication.year) === state.year)
-  && (!state.issue || publication.issue === state.issue);
+  && (!state.issue || publication.issue === state.issue)
+  && (!state.herausgeber || (publication.publisher ?? '').trim() === state.herausgeber);
 
 const filteredPublications = sortedPublications.filter((publication) =>
   matchesIssue(publication)
   && (!state.type || publication.entries.some((entry) => entry.type === state.type))
+  && (!state.normbezug || publication.entries.some((entry) => state.normbezug === 'mit' ? Boolean(entry.normSlug) : !entry.normSlug))
   && (!query || [publication.title, ...getPublicationSearchAliases(publication), ...publication.entries.map((entry) => entry.title)].join(' ').toLocaleLowerCase('de-DE').includes(query)));
 
 const filteredEntries = listPublicationEntries(sortedPublications).filter(({ publication, entry }) =>
   matchesIssue(publication)
   && (!state.type || entry.type === state.type)
+  && (!state.normbezug || (state.normbezug === 'mit' ? Boolean(entry.normSlug) : !entry.normSlug))
   && (!query || `${entry.title} ${entry.citation}`.toLocaleLowerCase('de-DE').includes(query)));
 
 const total = view === 'eintraege' ? filteredEntries.length : filteredPublications.length;
@@ -86,20 +88,19 @@ const from = (current - 1) * DEFAULT_PAGE_SIZE;
 const issueItems = view === 'ausgaben' ? filteredPublications.slice(from, from + DEFAULT_PAGE_SIZE) : [];
 const entryItems = view === 'eintraege' ? filteredEntries.slice(from, from + DEFAULT_PAGE_SIZE) : [];
 
-const filterParams = { publication: state.publication, year: state.year, issue: state.issue, type: state.type, q: state.q, sortierung: state.sortierung };
-const viewParams = { ...filterParams, ansicht: view === 'eintraege' ? 'eintraege' : '' };
+const filterParams = { publication: state.publication, year: state.year, issue: state.issue, type: state.type, herausgeber: state.herausgeber, normbezug: state.normbezug, q: state.q, sortierung: state.sortierung };
+const viewParams = { ...filterParams, ansicht: view === 'ausgaben' ? 'ausgaben' : '' };
 const active = Object.values(filterParams).some(Boolean);
 const pagination = buildPagination({ page: current, pageCount, basePath, params: viewParams });
 const firstIndex = total === 0 ? 0 : from + 1;
 const lastIndex = Math.min(current * DEFAULT_PAGE_SIZE, total);
-const unit = view === 'eintraege'
-  ? { one: 'Eintrag', many: 'Einträge' }
-  : { one: 'Ausgabe', many: 'Ausgaben' };
+const unit = view === 'eintraege' ? { one: 'Veröffentlichung', many: 'Veröffentlichungen' } : { one: 'Ausgabe', many: 'Ausgaben' };
+const selection = [state.year, state.q ? `„${state.q}“` : '', state.publication || 'alle Reihen'].filter(Boolean).join(' · ');
 const count = total === 0
   ? `Keine ${unit.many} passen zur Auswahl.`
-  : `${formatCount(total, unit.one, unit.many)}${active ? ' passen zur Auswahl' : ''}${total > DEFAULT_PAGE_SIZE ? `; angezeigt ${firstIndex}–${lastIndex}` : ''}.`;
+  : `${formatCount(total, unit.one, unit.many)} · ${selection}${total > DEFAULT_PAGE_SIZE ? ` · angezeigt ${firstIndex}–${lastIndex}` : ''}`;
 
-// Nur die Normen der aktuellen Seite: Rechtsherkunft der Ausgaben, Fassungen der Einträge.
+// Nur die Normen der aktuellen Seite: Fassungen der Einträge für die Spalte „Geltendes Recht“.
 const pageSlugs = [...new Set([
   ...issueItems.flatMap((publication) => publication.entries.map((entry) => entry.normSlug)),
   ...entryItems.map(({ entry }) => entry.normSlug),
@@ -109,155 +110,147 @@ const [normSummaries, versionSummaries] = await Promise.all([
   view === 'eintraege' ? store.listVersionSummaries({ slugs: pageSlugs }) : Promise.resolve([]),
 ]);
 const versionKinds = new Map(versionSummaries.map((version) => [`${version.slug}:${version.versionId}`, version.temporalKind]));
-const versionDates = new Map(versionSummaries.map((version) => [`${version.slug}:${version.versionId}`, version.validFrom]));
 
-const originsOf = (slugs: Array<string | undefined>): NormOriginKind[] => [...new Set(slugs
-  .filter((slug): slug is string => Boolean(slug))
-  .map((slug) => normSummaries.get(slug)?.originKind)
-  .filter((kind): kind is NormOriginKind => Boolean(kind)))];
-
-function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
+/** Normbezug einer Veröffentlichung: Link zur geltenden bzw. entstandenen Fassung, sonst kein Link. */
+function normLink(normSlug: string | undefined, versionId: string | undefined): { href: string; label: string; history?: string } | undefined {
   if (!normSlug || !normSummaries.has(normSlug)) return undefined;
+  const summary = normSummaries.get(normSlug)!;
   const kind = versionId ? versionKinds.get(`${normSlug}:${versionId}`) : undefined;
-  return !kind || kind === 'current' ? getNormUrl(normSlug) : getNormVersionUrl(normSlug, versionId as string);
+  if (summary.type === 'aenderungsvorschrift') return { href: getNormUrl(normSlug), label: 'Als Vorschrift öffnen', history: getNormHistoryUrl(normSlug) };
+  if (!kind || kind === 'current') return { href: getNormUrl(normSlug), label: 'Geltende Fassung' };
+  if (kind === 'future') return { href: getNormVersionUrl(normSlug, versionId as string), label: 'Künftige Fassung' };
+  return { href: getNormVersionUrl(normSlug, versionId as string), label: 'Entstandene Fassung' };
 }
 
-const yearCounts = new Map(years.map((year) => [
-  year,
-  view === 'eintraege'
-    ? listPublicationEntries(publications).filter(({ publication }) => publication.year === year).length
-    : publications.filter((publication) => publication.year === year).length,
-]));
-const heading = view === 'eintraege' ? 'Einträge' : 'Ausgaben';
-const pageTitle = `Verkündungen${view === 'eintraege' ? ' – Einträge' : ''}${current > 1 ? ` (Seite ${current} von ${pageCount})` : ''}`;
-const views = [
-  { value: 'ausgaben', label: 'Ausgaben' },
-  { value: 'eintraege', label: 'Einträge' },
-] as const;
+/** Übersicht je Reihe: Ausgaben und Jahrgänge aus den Daten, keine feste Liste. */
+const series = publicationNames.map((name) => {
+  const issues = publications.filter((publication) => publication.publication === name);
+  const seriesYears = [...new Set(issues.map((publication) => publication.year))].sort((left, right) => left - right);
+  const numbered = issues.filter(hasNumberedIssue);
+  return {
+    name,
+    count: issues.length,
+    years: seriesYears.length > 1 ? `${seriesYears[0]}–${seriesYears[seriesYears.length - 1]}` : String(seriesYears[0] ?? ''),
+    documentTypes: [...new Set(issues.flatMap((publication) => publication.entries.map((entry) => formatPublicationEntryType(entry.type))))].slice(0, 4).join(', '),
+    numbered: numbered.length > 0,
+  };
+});
+const showPublisher = publishers.length > 0;
+const pageTitle = `${lawSiteConfig.targetLabels.publications}${view === 'ausgaben' ? ' – Ausgaben' : ''}${current > 1 ? ` (Seite ${current} von ${pageCount})` : ''}`;
 ---
 
 <LawLayout
   title={pageTitle}
-  description="Ausgaben der Verkündungsblätter und ihre Einträge mit Fundstelle, Datum und verlinkter Fassung."
-  breadcrumbs={[
-    { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Verkündungen', href: basePath },
-  ]}
+  description="Alle amtlichen Publikationsreihen des Ostdeutschen Freistaates in einer Recherche: Veröffentlichungen mit Datum, Dokumentart, herausgebender Stelle, Fundstelle und Ausgabe."
+  breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: lawSiteConfig.targetLabels.publications, href: basePath }]}
   canonical={pageUrl(basePath, { ...viewParams, seite: current })}
   noindex={active}
   prev={pagination.prev}
   next={pagination.next}
 >
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: 'Verkündungen' },
-    ]}
-  />
-
-  <SectionHero
-    eyebrow="Rechtsportal"
-    title="Verkündungen"
-    lead="Ausgaben der Verkündungsblätter und ihre Einträge: Datum, Fundstelle, verlinkte Fassung und die Rechtsherkunft der verkündeten Vorschriften."
-    variant="law"
-    facts={[
-      { label: 'Verkündungsblätter', value: String(publicationNames.length) },
-      { label: 'Jahrgänge', value: String(years.length) },
-    ]}
-  />
-
-  <section class="directory" aria-labelledby="verkuendungen-heading" data-directory>
-    <h2 id="verkuendungen-heading" class="directory__heading">{heading}</h2>
-    <nav class="law-view-switch" aria-label="Ansicht" data-view-switch>
-      {views.map((entry) => (
-        <a
-          href={pageUrl(basePath, { ...filterParams, ansicht: entry.value === 'ausgaben' ? '' : entry.value })}
-          aria-current={view === entry.value ? 'page' : undefined}
-          data-view={entry.value}
-        >{entry.label}</a>
-      ))}
-    </nav>
-
-    <DirectoryFilterBar action={basePath} label={`${heading} filtern`} hidden={{ ansicht: view === 'eintraege' ? 'eintraege' : undefined }} active={active} resetHref={pageUrl(basePath, { ansicht: view === 'eintraege' ? 'eintraege' : '' })} count={count}>
-      <label class="search-field"><span>Verkündungsblatt</span><select name="publication"><option value="" selected={!state.publication}>Alle Verkündungsblätter</option>{publicationNames.map((entry) => <option value={entry} selected={entry === state.publication}>{entry}</option>)}</select></label>
-      <label class="search-field"><span>Jahr</span><select name="year"><option value="" selected={!state.year}>Alle Jahre</option>{years.map((entry) => <option value={String(entry)} selected={String(entry) === state.year}>{entry}</option>)}</select></label>
-      <label class="search-field"><span>Ausgabennummer</span><input name="issue" inputmode="numeric" value={state.issue} /></label>
-      <label class="search-field"><span>Normtyp</span><select name="type"><option value="" selected={!state.type}>Alle Normtypen</option>{entryTypes.map((entry) => <option value={entry} selected={entry === state.type}>{formatPublicationEntryType(entry)}</option>)}</select></label>
-      <label class="search-field"><span>Titel oder Suchbegriff</span><input type="search" name="q" value={state.q} autocomplete="off" maxlength="100" /></label>
-      <label class="search-field"><span>Reihenfolge</span><select name="sortierung"><option value="" selected={!oldestFirst}>Neueste Ausgabe zuerst</option><option value="aelteste" selected={oldestFirst}>Älteste Ausgabe zuerst</option></select></label>
-    </DirectoryFilterBar>
-
-    <nav class="letter-nav" aria-label="Jahrgänge">
-      <a href={pageUrl(basePath, { ...viewParams, year: '' })} aria-current={state.year ? undefined : 'page'}>Alle</a>
-      {years.map((year) => {
-        const yearCount = yearCounts.get(year) ?? 0;
-        return (
-          <a href={pageUrl(basePath, { ...viewParams, year: String(year) })} aria-current={String(year) === state.year ? 'page' : undefined} title={`${yearCount} ${yearCount === 1 ? unit.one : unit.many}`}>{year}</a>
-        );
-      })}
-    </nav>
-
-    {view === 'ausgaben' && issueItems.length > 0 ? (
-      <ol class="directory-list" start={firstIndex} data-directory-list>
-        {issueItems.map((publication) => {
-          const origins = originsOf(publication.entries.map((entry) => entry.normSlug));
-          const preview = publication.entries.slice(0, 3).map((entry) => toDisplayText(entry.title)).join('; ');
-          return (
-            <DirectoryEntry
-              title={toDisplayText(publication.title)}
-              href={getPublicationUrl(publication.slug)}
-              lead={{ label: 'Ausgabe vom', text: formatDate(publication.date), datetime: publication.date }}
-              description={publication.entries.length > 3 ? `${preview} …` : preview}
-              facts={[
-                { label: 'Kurzzitat', value: getPublicationLabel(publication) },
-                { label: 'Einträge', value: String(publication.entries.length) },
-              ]}
-              attrs={{ 'data-directory-entry': '', 'data-year': String(publication.year), 'data-publication': publication.publication }}
-            >
-              <Fragment slot="badges">
-                {origins.length > 0
-                  ? origins.map((kind) => <NormOriginBadge kind={kind} />)
-                  : <NormOriginBadge kind={null} />}
-              </Fragment>
-            </DirectoryEntry>
-          );
-        })}
-      </ol>
+  <header class="r-page-head">
+    <h1>{lawSiteConfig.targetLabels.publications}</h1>
+    <p class="r-lead">Alle amtlichen Publikationsreihen des Freistaates in einer Recherche. Nicht jede Veröffentlichung ist eine Rechtsnorm; wo eine Veröffentlichung geltendes Recht erlässt, ändert oder aufhebt, führt ein zweiter Link zur konsolidierten Darstellung. Veränderungen des Rechtsbestands weist der <a href={`${getLawPortalUrl()}#aenderungsdienst`}>Änderungsdienst</a> aus.</p>
+    {series.length > 0 ? (
+      <ul class="r-series">
+        {series.map((entry) => (
+          <li class="r-series__item">
+            <span class="r-series__name">{entry.name}</span>
+            {entry.documentTypes ? <span class="r-meta">{entry.documentTypes}</span> : null}
+            <span class="r-caption">{entry.years} · {formatCount(entry.count, 'Ausgabe', 'Ausgaben')} · <a href={pageUrl(basePath, { publication: entry.name, ansicht: 'ausgaben' })}>Ausgaben</a></span>
+          </li>
+        ))}
+      </ul>
     ) : null}
+  </header>
 
-    {view === 'eintraege' && entryItems.length > 0 ? (
-      <ol class="directory-list" start={firstIndex} data-directory-list>
-        {entryItems.map(({ publication, entry }) => {
-          const normUrl = getEntryNormUrl(entry.normSlug, entry.versionId);
-          const summary = entry.normSlug ? normSummaries.get(entry.normSlug) : undefined;
-          const versionDate = entry.normSlug && entry.versionId
-            ? versionDates.get(`${entry.normSlug}:${entry.versionId}`) ?? (/^\d{4}-\d{2}-\d{2}$/u.test(entry.versionId) ? entry.versionId : undefined)
-            : undefined;
-          return (
-            <DirectoryEntry
-              title={toDisplayText(entry.title)}
-              href={`${getPublicationUrl(publication.slug)}#${entry.id}`}
-              lead={{ label: 'Verkündet am', text: formatDate(publication.date), datetime: publication.date }}
-              subtitle={toDisplayText(entry.citation)}
-              typeLabel={formatPublicationEntryType(entry.type)}
-              originKind={summary ? (summary.originKind ?? null) : undefined}
-              facts={[
-                { label: 'Ausgabe', value: getPublicationLabel(publication), href: getPublicationUrl(publication.slug) },
-                normUrl
-                  ? { label: VERSION_FIELD_LABEL, value: versionDate ? formatDate(versionDate) : 'Vorschrift öffnen', href: normUrl }
-                  : { label: VERSION_FIELD_LABEL, value: 'nicht im Rechtsportal enthalten' },
-              ]}
-              attrs={{ 'data-directory-entry': '', 'data-year': String(publication.year), 'data-type': entry.type }}
-            />
-          );
-        })}
-      </ol>
-    ) : null}
+  <div class="r-research r-research--filter-left r-publications">
+    <aside class="r-research__aside r-publications__filter" aria-label="Filter">
+      <FilterForm action={basePath} label="Veröffentlichungen eingrenzen" hidden={{ ansicht: view === 'ausgaben' ? 'ausgaben' : undefined }} active={active} resetHref={pageUrl(basePath, { ansicht: view === 'ausgaben' ? 'ausgaben' : '' })}>
+        <label class="r-field"><span>Suchbegriff</span><input class="r-input" type="search" name="q" value={state.q} autocomplete="off" maxlength="100" /></label>
+        <label class="r-field"><span>Publikationsreihe</span><select class="r-select" name="publication"><option value="" selected={!state.publication}>Alle Reihen</option>{publicationNames.map((entry) => <option value={entry} selected={entry === state.publication}>{entry}</option>)}</select></label>
+        <label class="r-field"><span>Jahr</span><select class="r-select" name="year"><option value="" selected={!state.year}>Alle Jahrgänge</option>{years.map((entry) => <option value={String(entry)} selected={String(entry) === state.year}>{entry}</option>)}</select></label>
+        <label class="r-field"><span>Ausgabennummer</span><input class="r-input" name="issue" inputmode="numeric" value={state.issue} /></label>
+        <label class="r-field"><span>Dokumentart</span><select class="r-select" name="type"><option value="" selected={!state.type}>Alle Dokumentarten</option>{entryTypes.map((entry) => <option value={entry} selected={entry === state.type}>{formatPublicationEntryType(entry)}</option>)}</select></label>
+        {publishers.length > 1 ? <label class="r-field"><span>Herausgebende Stelle</span><select class="r-select" name="herausgeber"><option value="" selected={!state.herausgeber}>Alle Stellen</option>{publishers.map((entry) => <option value={entry} selected={entry === state.herausgeber}>{entry}</option>)}</select></label> : null}
+        <fieldset class="r-fieldset"><legend>Normbezug</legend>
+          <div class="r-fieldset__body">
+            <label class="r-check"><input type="radio" name="normbezug" value="" checked={!state.normbezug} /><span>Alle Veröffentlichungen</span></label>
+            <label class="r-check"><input type="radio" name="normbezug" value="mit" checked={state.normbezug === 'mit'} /><span>Nur mit konsolidiertem Normtext</span></label>
+            <label class="r-check"><input type="radio" name="normbezug" value="ohne" checked={state.normbezug === 'ohne'} /><span>Nur ohne Normbezug</span></label>
+          </div>
+        </fieldset>
+        <label class="r-field"><span>Reihenfolge</span><select class="r-select" name="sortierung"><option value="" selected={!oldestFirst}>Neueste zuerst</option><option value="aelteste" selected={oldestFirst}>Älteste zuerst</option></select></label>
+      </FilterForm>
+    </aside>
 
-    {total === 0 ? (
-      <p class="directory-empty" data-directory-empty>Passen Sie die Filter an oder <a class="inline-link" href={pageUrl(basePath, { ansicht: view === 'eintraege' ? 'eintraege' : '' })}>setzen Sie die Auswahl zurück</a>.</p>
-    ) : null}
+    <section class="r-publications__main" aria-labelledby="verkuendungen-heading" data-directory>
+      <div class="r-section-head">
+        <h2 id="verkuendungen-heading" class="r-meta"><strong class="r-strong" data-directory-count>{count}</strong></h2>
+        <nav class="r-segmented r-publications__views" aria-label="Ansicht" data-view-switch>
+          <a href={pageUrl(basePath, { ...filterParams })} aria-current={view === 'eintraege' ? 'page' : undefined} data-view="eintraege">Veröffentlichungen</a>
+          <a href={pageUrl(basePath, { ...filterParams, ansicht: 'ausgaben' })} aria-current={view === 'ausgaben' ? 'page' : undefined} data-view="ausgaben">Ausgaben</a>
+        </nav>
+      </div>
 
-    <DirectoryPagination pagination={pagination} label={`Seiten der ${view === 'eintraege' ? 'Eintragsliste' : 'Ausgabenliste'}`} attrs={{ 'data-directory-pagination': '' }} />
-  </section>
+      {view === 'eintraege' && entryItems.length > 0 ? (
+        <div class="r-table-wrap">
+          <table class="r-table r-publications__table">
+            <caption class="visually-hidden">Amtliche Veröffentlichungen mit Datum, Gegenstand, Dokumentart, herausgebender Stelle, Fundstelle und Ausgabe</caption>
+            <thead><tr><th scope="col">Datum</th><th scope="col">Gegenstand</th><th scope="col">Dokumentart</th>{showPublisher ? <th scope="col" class="r-publications__publisher">Herausgebende Stelle</th> : null}<th scope="col" class="r-right">Fundstelle · Ausgabe</th></tr></thead>
+            <tbody>
+              {entryItems.map(({ publication, entry }) => {
+                const link = normLink(entry.normSlug, entry.versionId);
+                return (
+                  <tr data-directory-entry data-year={String(publication.year)} data-type={entry.type} data-publication={publication.publication}>
+                    <td class="r-muted r-nowrap r-meta"><time datetime={publication.date}>{formatShortDate(publication.date)}</time></td>
+                    <td>
+                      <a class="r-strong" href={`${getPublicationUrl(publication.slug)}#${entry.id}`}>{toDisplayText(entry.title)}</a>
+                      <div class="r-meta">{link ? <>{link.label === 'Als Vorschrift öffnen' ? 'Rechtsnorm · ändert geltendes Recht' : 'Rechtsnorm'} · <a href={link.href}>{link.label}</a>{link.history ? <> · <a href={link.history}>Auswirkungen auf geltendes Recht</a></> : null}</> : 'Kein konsolidierter Normtext'}</div>
+                    </td>
+                    <td class="r-nowrap">{formatPublicationEntryType(entry.type)}</td>
+                    {showPublisher ? <td class="r-muted r-publications__publisher">{toDisplayText(publication.publisher ?? '')}</td> : null}
+                    <td class="r-right r-nowrap">
+                      <a href={getPublicationUrl(publication.slug)}>{getPublicationLabel(publication)}{entry.pages ? ` S. ${toDisplayText(entry.pages)}` : entry.startPage ? ` S. ${toDisplayText(entry.startPage)}` : ''}</a>
+                      <div class="r-meta">{hasNumberedIssue(publication) ? `Ausgabe Nr. ${publication.issue} · ` : ''}{formatShortDate(publication.date)}</div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+
+      {view === 'ausgaben' && issueItems.length > 0 ? (
+        <div class="r-table-wrap">
+          <table class="r-table r-publications__table">
+            <caption class="visually-hidden">Ausgaben der Verkündungsblätter mit Datum, Bezeichnung, Reihe und Zahl der Veröffentlichungen</caption>
+            <thead><tr><th scope="col">Datum</th><th scope="col">Ausgabe</th><th scope="col">Reihe</th>{showPublisher ? <th scope="col" class="r-publications__publisher">Herausgebende Stelle</th> : null}<th scope="col" class="r-right">Veröffentlichungen</th></tr></thead>
+            <tbody>
+              {issueItems.map((publication) => (
+                <tr data-directory-entry data-year={String(publication.year)} data-publication={publication.publication}>
+                  <td class="r-muted r-nowrap r-meta"><time datetime={publication.date}>{formatShortDate(publication.date)}</time></td>
+                  <td>
+                    <a class="r-strong" href={getPublicationUrl(publication.slug)}>{getPublicationLabel(publication)}</a>
+                    <div class="r-meta">{toDisplayText(publication.title)}{publication.entries.length > 0 ? ` · ${publication.entries.slice(0, 2).map((entry) => toDisplayText(entry.title)).join('; ')}${publication.entries.length > 2 ? ' …' : ''}` : ''}</div>
+                  </td>
+                  <td class="r-nowrap">{publication.publication}</td>
+                  {showPublisher ? <td class="r-muted r-publications__publisher">{toDisplayText(publication.publisher ?? '')}</td> : null}
+                  <td class="r-right r-nowrap">{publication.entries.length}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+
+      {total === 0 ? (
+        <p class="r-note" data-directory-empty>Passen Sie die Filter an oder <a href={pageUrl(basePath, { ansicht: view === 'ausgaben' ? 'ausgaben' : '' })}>setzen Sie die Auswahl zurück</a>.</p>
+      ) : null}
+
+      <Pagination pagination={pagination} label={`Seiten der ${view === 'eintraege' ? 'Veröffentlichungen' : 'Ausgabenliste'}`} range={total > 0 ? `${unit.many} ${firstIndex}–${lastIndex} von ${total}` : undefined} attrs={{ 'data-directory-pagination': '' }} />
+      <p class="r-caption r-publications__hint">Eine Fundstelle in der Suche (z. B. „{publicationNames[0] ?? 'OGVBl.'} {years[0] ?? ''} Nr. 1“) öffnet direkt die Ausgabe. Ausgaben ohne Nummer werden mit ihrem Datum bezeichnet.</p>
+    </section>
+  </div>
 </LawLayout>

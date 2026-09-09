@@ -1,14 +1,11 @@
 ---
 import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
   getFundingUrl,
   getHelpUrl,
   getIndexUrl,
   getLawPortalUrl,
-  getPublicationEntriesUrl,
   getPublicationsUrl,
   getSearchUrl,
   getSubjectsUrl,
@@ -16,158 +13,66 @@ import {
 ---
 
 <LawLayout
-  title="Hilfe zum Rechtsbereich"
-  description="Hinweise zur Nutzung von Suche, Trefferliste, Vorschriftentexten, Fassungen und Sachgebieten im Rechtsbereich."
-  breadcrumbs={[
-    { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Hilfe', href: getHelpUrl() },
-  ]}
+  title={lawSiteConfig.targetLabels.help}
+  description="Hinweise zur Nutzung von OstRecht: Suche, Trefferliste, Vorschriftentext, Fassungen und Änderungen, amtliche Veröffentlichungen, Drucken und Zitieren."
+  breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: lawSiteConfig.targetLabels.help, href: getHelpUrl() }]}
 >
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: 'Hilfe' },
-    ]}
-  />
+  <header class="r-page-head">
+    <h1>Hilfe</h1>
+    <p class="r-lead">Wie OstRecht das geltende Recht zeigt und seinen Weg dorthin sichtbar macht: Suche, Vorschriftentext, Fassungen, amtliche Veröffentlichungen, Zitieren und Drucken.</p>
+  </header>
 
-  <SectionHero
-    eyebrow="Rechtsportal"
-    title="Hilfe"
-    lead="Hinweise zur Recherche im Rechtsportal, zu aktuellen und historischen Fassungen sowie zur Einordnung nach Sachgebieten."
-    variant="law"
-  />
-
-  <section class="law-help-start" aria-labelledby="help-start-title">
-    <div>
-      <span class="section-eyebrow">Direkt zum Ziel</span>
-      <h2 id="help-start-title">Was möchten Sie tun?</h2>
-      <p>Die wichtigsten Recherchewege führen unmittelbar in den passenden Bereich.</p>
-    </div>
-    <nav class="law-help-paths" aria-label="Direkte Recherchewege">
-      <a href={getSearchUrl()}><span>01</span><strong>Norm suchen</strong><small>Titel, Abkürzung oder Begriff eingeben</small></a>
-      <a href={getIndexUrl()}><span>02</span><strong>Alphabetisch stöbern</strong><small>Vorschriften von A bis Z öffnen</small></a>
-      <a href={getPublicationsUrl()}><span>03</span><strong>Verkündung finden</strong><small>Amtliche Ausgaben und Fundstellen prüfen</small></a>
-      <a href={getSubjectsUrl()}><span>04</span><strong>Thema eingrenzen</strong><small>Recht nach Sachgebieten erschließen</small></a>
-    </nav>
-  </section>
-
-  <div class="law-help-layout">
-    <div class="law-help-guide">
-      <div class="law-help-guide__heading">
-        <span class="section-eyebrow">Schritt für Schritt</span>
-        <h2>OstRecht sicher nutzen</h2>
-      </div>
-      <section class="law-help-card">
-        <div class="law-help-card__number">01</div>
-        <div><h3>Suche</h3>
-        <p>
-          Die einfache Suche findet Begriffe in Titel, Kurztitel, Abkürzung, Metadaten und
-          Normtext. Die erweiterten Filter grenzen Treffer nach Normtyp, Ressort, Sachgebiet,
-          Geltung, Fassungsart, Geltungsdatum und Fundstelle ein. Mehrere Werte innerhalb einer
-          Filtergruppe werden alternativ berücksichtigt; verschiedene Filtergruppen grenzen die
-          Suche gemeinsam ein.
-        </p>
-        <p>
-          Ein Stern am Ende eines Wortstamms dient als Präfix-Platzhalter:
-          <code>Kranken*</code> findet beispielsweise Wörter, die mit „Kranken“ beginnen. Ohne Stern bleibt die
-          gewohnte Teilwortsuche erhalten.
-        </p>
-        <p class="section-link-row"><a class="inline-link" href={getSearchUrl()}>Zur Normensuche</a></p>
-        </div>
+  <div class="r-help">
+    <div class="r-help__main r-copy">
+      <section id="hilfe-suche" aria-labelledby="hilfe-suche-title">
+        <h2 id="hilfe-suche-title">Suche</h2>
+        <p>Die Suche findet Begriffe in Titel, Kurztitel, Abkürzung, Metadaten und Normtext; Standard ist das aktuell geltende Recht. Abkürzungen (etwa „VwV“ oder ein amtliches Kürzel), Fundstellen („OGVBl. 2026 Nr. 16“) und Normadressen („§ 12“) führen ohne Umweg zum Ziel. Anführungszeichen suchen die exakte Wortgruppe, ein Stern am Wortende findet Wortanfänge.</p>
+        <p>Die Spalte „Eingrenzen“ neben der Trefferliste führt Geltung, Normtyp und Sachgebiet mit Zählern. Unter „Weitere Filter · Erweiterte Suche“ stehen exakte Wortfolge, Ausschlussbegriffe, Ressort, Rechtsherkunft, Fassungsbereich, Geltungstag, Gültigkeitszeitraum, Publikationsreihe, Jahr, Ausgabennummer und Seite. Aktive Filter erscheinen als Zeile über den Treffern; jede Suchanfrage liegt vollständig in der Adresse.</p>
+        <p><a href={getSearchUrl()}>Zur Suche</a></p>
       </section>
-
-      <section class="law-help-card">
-        <div class="law-help-card__number">02</div>
-        <div><h3>Trefferliste</h3>
-        <p>
-          Treffer zeigen Vollzitat, Gültigkeitszeitraum, Vorschriftentyp, Ressort, Sachgebiete
-          und einen Textausschnitt. Soweit der Treffer einem Paragraphen, Artikel oder Abschnitt
-          zugeordnet werden kann, wird diese Stelle zusätzlich genannt und direkt verlinkt.
-        </p>
-        </div>
+      <section id="hilfe-treffer" aria-labelledby="hilfe-treffer-title">
+        <h2 id="hilfe-treffer-title">Trefferliste</h2>
+        <p>Ein Treffer nennt Titel, Abkürzung und Normtyp, die Geltung als Marke, den Beginn der geltenden Fassung, die letzte Rechtsänderung, die Fundstelle und – wo sie von der übernommenen, unveränderten Regel abweicht – die Rechtsherkunft. Die Trefferstelle steht mit ihrer Adresse und einem Ausschnitt darunter und führt direkt an die Stelle im Text.</p>
       </section>
-
-      <section class="law-help-card">
-        <div class="law-help-card__number">03</div>
-        <div><h3>Fundstellen und Verkündungen</h3>
-        <p>
-          Verkündungen sind als eigene Ausgaben geführt. Die Fundstellennachweise zeigen, in
-          welcher Ausgabe ein Eintrag steht und welche Fassung einer Vorschrift dazu gehört.
-        </p>
-        <p class="section-link-row">
-          <a class="inline-link" href={getPublicationsUrl()}>Zu den Verkündungen</a>
-        </p>
-        </div>
+      <section id="hilfe-vorschrift" aria-labelledby="hilfe-vorschrift-title">
+        <h2 id="hilfe-vorschrift-title">Vorschrift lesen</h2>
+        <p>Der Vorschriftenkopf nennt Titel, Abkürzung, Geltung, Beginn der geltenden Fassung, die letzte Änderung und eine bereits verkündete künftige Änderung. Die Inhaltsübersicht links führt zu Teilen, Kapiteln, Abschnitten, Paragraphen oder Artikeln und Anlagen; ein Filterfeld grenzt sie ein. Auf kleinen Bildschirmen öffnet die Schaltfläche „Inhalt“ dieselbe Übersicht.</p>
+        <p>Der Text ist ein durchgehend lesbares Dokument. Absätze tragen ihre Adresse am Rand; „Link“ an jedem Paragraphen kopiert einen dauerhaften Verweis auf die Stelle. In der Seitenspalte stehen die Fassungen dieser Vorschrift, das Zitat der aktuellen Stelle, das Vollzitat und die amtliche Quelle. Die Bereiche „Vorschriftendaten“ und „Rechtsbeziehungen“ folgen unter dem Text.</p>
       </section>
-
-      <section class="law-help-card">
-        <div class="law-help-card__number">04</div>
-        <div><h3>Fassungen und Änderungen</h3>
-        <p>
-          Der allgemeine Normlink zeigt dynamisch die zum redaktionellen Stichtag geltende
-          Fassung. Ist eine Norm noch nicht in Kraft, werden Veröffentlichung und künftiges oder
-          noch nicht belegtes Inkrafttreten ausdrücklich ausgewiesen. Jede Fassung besitzt
-          zusätzlich einen unveränderlichen Fassungslink. Künftige Fassungen werden nicht als
-          historische Fassungen bezeichnet.
-        </p>
-        </div>
+      <section id="hilfe-fassungen" aria-labelledby="hilfe-fassungen-title">
+        <h2 id="hilfe-fassungen-title">Fassungen und Änderungen</h2>
+        <p>Der allgemeine Vorschriftenlink zeigt stets die geltende Fassung. Jede Fassung hat zusätzlich einen dauerhaften Fassungslink; historische und künftige Fassungen tragen ein Statusband über dem Kopf. Die Wahl einer Fassung wirkt nur auf diese Vorschrift; Verweise auf andere Vorschriften öffnen deren geltende Fassung.</p>
+        <p>Der Bereich „Fassungen und Änderungen“ führt Zeitachse, Änderungsprotokoll mit Wirksamkeits- und Verkündungsdatum, die Fassungen im Wortlaut, den Wortlautvergleich (Neu, Geändert, Entfallen) und die Recherche „Fassung zu einem Datum“. Geltung und Änderungsinformation bleiben getrennte Angaben.</p>
       </section>
-
-      <section class="law-help-card">
-        <div class="law-help-card__number">05</div>
-        <div><h3>Vorschriftentext</h3>
-        <p>
-          Vorschriftentexte werden mit Inhaltsübersicht, einzeln auf- und zuklappbaren Einheiten
-          und einem Block „Vorschriftendaten“ dargestellt. Jede Einheit trägt ihre Überschrift und
-          daneben einen Schalter zum Ein- und Ausklappen sowie den Knopf „Werkzeuge“ mit Link auf
-          die Stelle und Einzeldruck. Der Umschalter über dem Text nennt die Einheitenart der
-          Vorschrift („Alle Artikel schließen“, „Alle Paragraphen schließen“). Ein Link zu einer
-          konkreten Stelle bleibt dauerhaft direkt aufrufbar.
-        </p>
-        <p>
-          Eindeutige Verweise auf Vorschriften im eigenen Rechtsbereich werden im Text verlinkt.
-          Ausgewählte Verweise auf Bundesrecht führen zu den amtlichen Texten bei
-          gesetze-im-internet.de.
-        </p>
-        </div>
+      <section id="hilfe-veroeffentlichungen" aria-labelledby="hilfe-veroeffentlichungen-title">
+        <h2 id="hilfe-veroeffentlichungen-title">Amtliche Veröffentlichungen</h2>
+        <p>Alle Publikationsreihen des Freistaates stehen in einer Recherche: jede Zeile nennt Datum, Gegenstand, Dokumentart, herausgebende Stelle, Fundstelle und Ausgabe. Wo eine Veröffentlichung geltendes Recht erlässt, ändert oder aufhebt, führt ein zweiter Link zur konsolidierten Darstellung; Bekanntmachungen ohne Normbezug erhalten keinen solchen Link. Jede Ausgabe ist als eigene Seite mit Inhalt, Original-PDF und Quellen erreichbar.</p>
+        <p><a href={getPublicationsUrl()}>Zu den amtlichen Veröffentlichungen</a></p>
       </section>
-
-      <section class="law-help-card">
-        <div class="law-help-card__number">06</div>
-        <div><h3>Drucken und Quellen</h3>
-        <p>
-          Es gibt zwei Arten von PDF-Dateien: „Fassung als PDF“ wird für jede angezeigte Fassung
-          aus dem Vorschriftentext erzeugt und enthält Vollzitat, Rechtsstand und Seitenzahlen;
-          diese Portalfassung ist keine amtliche Verkündung. Die „Amtliche Ausgabe (PDF)“ ist die
-          unveränderte Datei des Verkündungsblatts; sie liegt nur für einen Teil der Vorschriften
-          vor.
-        </p>
-        <p>
-          Die Druckansicht ist eine aufbereitete Portalansicht und keine eigenständige amtliche
-          Verkündung. Soweit eine amtliche Ausgabe als belegte PDF-Datei vorhanden ist, wird sie
-          gesondert verlinkt. Andernfalls bleibt die zugehörige Verkündungsseite mit Fundstelle
-          erreichbar. Das Vollzitat wird aus dem nachgewiesenen Vorschriftentitel, der
-          Stammfundstelle und der letzten Änderung gebildet, die der jeweils angezeigten Fassung
-          zugeordnet ist. Die zugrunde liegenden Fundstellen bleiben in Historie und
-          Verkündungsnachweisen getrennt sichtbar.
-        </p>
-        </div>
+      <section id="hilfe-zitieren" aria-labelledby="hilfe-zitieren-title">
+        <h2 id="hilfe-zitieren-title">Zitieren, Drucken, PDF</h2>
+        <p>„Vollzitat“ kopiert das Vollzitat der Vorschrift, „Link“ die dauerhafte Adresse. „Drucken“ gibt Titel, Normidentität, Fassungsstand, Fundstelle, Normtext und Abrufhinweis aus; Navigation und Werkzeuge entfallen im Ausdruck. Es gibt zwei Arten von PDF-Dateien: „Amtliches PDF“ ist die unveränderte Ausgabe des Verkündungsblatts und liegt nur für einen Teil der Vorschriften vor; „Fassung als PDF“ wird aus dem Vorschriftentext erzeugt und ist keine amtliche Verkündung.</p>
       </section>
     </div>
-
-    <aside class="law-help-aside">
-      <section>
-        <span class="section-eyebrow">Weitere Wege</span>
-        <h2>Rechtsbestand erkunden</h2>
-        <nav aria-label="Hilfenavigation">
-          <a href={getSearchUrl()}>Normensuche</a>
-          <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
-          <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
-          <a href={getPublicationEntriesUrl()}>Fundstellen</a>
-          <a href={getPublicationsUrl()}>Verkündungen</a>
-          <a href={getFundingUrl()}>Förderrichtlinien</a>
-        </nav>
-      </section>
+    <aside class="r-help__aside" aria-label="Weitere Zugänge">
+      <h2 class="r-label r-label--rule">Zugänge</h2>
+      <nav class="r-help__links">
+        <a href={getSearchUrl()}>{lawSiteConfig.targetLabels.search}</a>
+        <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
+        <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
+        <a href={getPublicationsUrl()}>{lawSiteConfig.targetLabels.publications}</a>
+        <a href={getFundingUrl()}>{lawSiteConfig.targetLabels.funding}</a>
+        <a href={`${getLawPortalUrl()}#aenderungsdienst`}>{lawSiteConfig.targetLabels.changes}</a>
+      </nav>
+      <h2 class="r-label r-label--rule">Abschnitte</h2>
+      <nav class="r-help__links">
+        <a href="#hilfe-suche">Suche</a>
+        <a href="#hilfe-treffer">Trefferliste</a>
+        <a href="#hilfe-vorschrift">Vorschrift lesen</a>
+        <a href="#hilfe-fassungen">Fassungen und Änderungen</a>
+        <a href="#hilfe-veroeffentlichungen">Amtliche Veröffentlichungen</a>
+        <a href="#hilfe-zitieren">Zitieren, Drucken, PDF</a>
+      </nav>
     </aside>
   </div>
 </LawLayout>

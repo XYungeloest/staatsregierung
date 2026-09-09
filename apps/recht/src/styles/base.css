@@ -1,0 +1,826 @@
+/* OstRecht – Basis: Elemente, Typografierollen, Fokus, Bedienelemente, Tabellen, Statusmarken.
+   Keine seitenspezifischen Regeln; alle Werte aus tokens.css. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 100%;
+  line-height: var(--lh-ui);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-size: var(--fs-ui);
+  background: var(--surface-page);
+  color: var(--text-body);
+}
+
+main,
+header,
+footer,
+section,
+article,
+aside,
+nav {
+  min-width: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote,
+table {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+  /* Zeigerziele (WCAG 2.5.8): senkrechtes Padding verändert an Inline-Links den Zeilenumbruch
+     nicht, hebt alleinstehende Links in Tabellen, Listen und Kopfzeilen aber auf 24 px Höhe.
+     Blockartige Links (Schaltflächen, Navigation, Register) setzen ihre Maße selbst. */
+  padding-block: var(--space-1);
+}
+
+a:hover {
+  color: var(--text-link-hover);
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
+small {
+  font-size: var(--fs-meta);
+}
+
+code,
+kbd {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+}
+
+kbd {
+  display: inline-block;
+  padding: 0 var(--space-1);
+  border: var(--line) solid var(--border-default);
+  border-radius: var(--radius);
+  line-height: 1.5;
+}
+
+mark {
+  background: var(--mark-search);
+  color: inherit;
+}
+
+/* Fokus: 2 px Staatsblau, auf dem Amtsband Wappengold (siehe shell.css). */
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hilfsklassen */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Der Sprunglink liegt im Amtsband (position: relative am Kopf), damit sein Fokusring
+   vollständig auf der dunklen Fläche steht und die Goldfarbe des Kopfs erbt. */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-2) var(--space-3);
+  background: var(--paper-0);
+  color: var(--text-link);
+  border: var(--line) solid var(--border-ink);
+  font-weight: 500;
+}
+
+/* Ohne Tastaturfokus unsichtbar und ohne Fläche (kein Versatz über die Hinweiszeile),
+   für Screenreader weiterhin erreichbar. */
+.skip-link:not(:focus-visible) {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Typografierollen */
+.r-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.r-label--rule {
+  display: block;
+  padding-bottom: var(--space-2);
+  border-bottom: var(--line) solid var(--border-strong);
+  margin-bottom: var(--space-3);
+}
+
+.r-caption {
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
+
+.r-meta {
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+.r-muted {
+  color: var(--text-muted);
+}
+
+.r-strong {
+  color: var(--text-strong);
+  font-weight: 500;
+}
+
+.r-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.r-serif {
+  font-family: var(--font-serif);
+}
+
+.r-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-tight);
+  color: var(--text-strong);
+}
+
+.r-lead {
+  font-size: var(--fs-ui-lg);
+  line-height: var(--lh-ui);
+  color: var(--text-secondary);
+  max-width: var(--measure-copy);
+}
+
+.r-lead a {
+  color: var(--text-link);
+}
+
+.r-copy {
+  font-size: var(--fs-ui);
+  line-height: var(--lh-body);
+  max-width: var(--measure-copy);
+}
+
+.r-copy p + p {
+  margin-top: var(--space-3);
+}
+
+/* Schaltflächen */
+.r-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: 0 var(--space-3);
+  border: var(--line) solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--paper-0);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.r-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text-strong);
+}
+
+.r-btn--primary {
+  background: var(--blue-800);
+  border-color: var(--blue-800);
+  color: var(--text-invert);
+}
+
+.r-btn--primary:hover {
+  background: var(--blue-700);
+  border-color: var(--blue-700);
+  color: var(--text-invert);
+}
+
+.r-btn--quiet {
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-link);
+}
+
+.r-btn--lg {
+  min-height: var(--control-height-lg);
+  padding: 0 var(--space-5);
+  font-size: var(--fs-ui);
+}
+
+.r-btn--block {
+  width: 100%;
+}
+
+.r-btn[aria-disabled='true'] {
+  color: var(--text-faint);
+  border-color: var(--border-default);
+  cursor: default;
+}
+
+.r-link-btn {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--text-link);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  cursor: pointer;
+}
+
+.r-link-btn:hover {
+  color: var(--text-link-hover);
+}
+
+/* Formularfelder */
+.r-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  font-size: var(--fs-meta);
+}
+
+.r-field > span:first-child {
+  color: var(--text-secondary);
+}
+
+.r-field--label-caps > span:first-child {
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.r-input,
+.r-select {
+  width: 100%;
+  min-height: var(--control-height);
+  padding: 0 var(--space-2);
+  border: var(--line) solid var(--border-default);
+  border-radius: var(--radius);
+  background: var(--paper-0);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: var(--fs-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+.r-input::placeholder {
+  color: var(--text-faint);
+}
+
+.r-input--lg {
+  min-height: var(--control-height-lg);
+  padding: 0 var(--space-3);
+  font-size: var(--fs-ui-lg);
+}
+
+.r-select--lg {
+  min-height: var(--control-height-lg);
+}
+
+.r-input:focus-visible,
+.r-select:focus-visible {
+  outline-offset: 0;
+  border-color: var(--blue-800);
+}
+
+input[type='search'].r-input {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.r-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-dense);
+  font-size: var(--fs-meta);
+  color: var(--text-body);
+}
+
+.r-check input {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  accent-color: var(--blue-800);
+  flex: none;
+}
+
+.r-check--empty {
+  color: var(--text-faint);
+}
+
+.r-fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.r-fieldset > legend {
+  padding: 0;
+  margin-bottom: var(--space-1);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  color: var(--text-strong);
+}
+
+.r-fieldset--caps > legend {
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.r-fieldset__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.r-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 1.75rem;
+  padding: 0 var(--space-2);
+  border: var(--line) solid var(--border-default);
+  border-radius: var(--radius);
+  background: var(--paper-0);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: var(--fs-meta);
+  cursor: pointer;
+}
+
+.r-chip:hover {
+  background: var(--surface-hover);
+}
+
+.r-chip::after {
+  content: '×';
+  color: var(--text-muted);
+  font-size: var(--fs-ui);
+  line-height: 1;
+}
+
+/* Tabellen: Linie oben und unten stark, Haarlinien dazwischen. */
+.r-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-ui);
+  font-variant-numeric: tabular-nums;
+}
+
+.r-table th,
+.r-table td {
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.r-table th:last-child,
+.r-table td:last-child {
+  padding-right: 0;
+}
+
+.r-table thead tr {
+  border-top: var(--line) solid var(--border-strong);
+  border-bottom: var(--line) solid var(--border-strong);
+}
+
+.r-table thead th {
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.r-table tbody tr {
+  border-bottom: var(--line) solid var(--border-hairline);
+}
+
+.r-table tbody tr:last-child {
+  border-bottom: var(--line) solid var(--border-strong);
+}
+
+.r-table--meta {
+  font-size: var(--fs-meta);
+}
+
+.r-table--dense th,
+.r-table--dense td {
+  padding-top: var(--space-1);
+  padding-bottom: var(--space-1);
+}
+
+.r-table .r-nowrap,
+.r-nowrap {
+  white-space: nowrap;
+}
+
+.r-table .r-right,
+.r-right {
+  text-align: right;
+}
+
+.r-table tr[aria-current='true'],
+.r-table tr.is-selected {
+  background: var(--surface-selected);
+}
+
+.r-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Statusmarke: Wort plus Rahmen, Farbe nur unterstützend. */
+.r-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 1.375rem;
+  padding: 0 var(--space-2);
+  border: var(--line) solid currentColor;
+  border-radius: var(--radius);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--status-pending);
+  background: var(--paper-0);
+}
+
+.r-status--sm {
+  min-height: 1.125rem;
+  font-size: var(--fs-micro);
+  padding: 0 var(--space-1);
+}
+
+.r-status--in-force {
+  color: var(--status-in-force);
+  background: var(--status-in-force-bg);
+}
+
+.r-status--future {
+  color: var(--status-future);
+  background: var(--status-future-bg);
+}
+
+.r-status--repealed {
+  color: var(--status-repealed);
+  background: var(--status-repealed-bg);
+}
+
+.r-status--pending,
+.r-status--one-time {
+  color: var(--status-pending);
+  background: var(--status-pending-bg);
+}
+
+.r-status--historical {
+  color: var(--status-historical);
+  background: var(--status-historical-bg);
+}
+
+.r-status--amended {
+  color: var(--status-amended);
+  background: var(--paper-0);
+}
+
+.r-status--added {
+  color: var(--status-in-force);
+  background: var(--paper-0);
+}
+
+.r-status--removed {
+  color: var(--status-repealed);
+  background: var(--paper-0);
+}
+
+.r-future-text {
+  color: var(--status-future);
+}
+
+/* Hinweis- und Rückmeldezeilen */
+.r-note {
+  padding: var(--space-3) var(--space-4);
+  border: var(--line) solid var(--border-default);
+  background: var(--surface-muted);
+  font-size: var(--fs-meta);
+  line-height: var(--lh-ui);
+}
+
+.r-note--future {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  border-color: var(--gold-500);
+  background: var(--gold-50);
+  color: var(--text-strong);
+}
+
+.r-note--future::before {
+  content: '';
+  flex: none;
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--gold-600);
+  position: relative;
+  top: 1px;
+}
+
+.r-feedback {
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+  min-height: 1.2em;
+}
+
+/* Rahmenkasten (sparsam: Seitenspaltenblöcke) */
+.r-box {
+  border: var(--line) solid var(--border-default);
+  padding: var(--space-4);
+}
+
+.r-box--muted {
+  background: var(--surface-muted);
+}
+
+/* Blätterung */
+.r-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-3);
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+}
+
+.r-pagination ol {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.r-pagination a,
+.r-pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--target-dense);
+  min-height: var(--target-dense);
+  padding: 0 var(--space-1);
+}
+
+.r-pagination a[aria-current='page'] {
+  background: var(--blue-800);
+  color: var(--text-invert);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.r-pagination [aria-disabled='true'] {
+  color: var(--text-faint);
+}
+
+/* Buchstabenleiste */
+.letter-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.letter-nav a,
+.letter-nav span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--target-dense);
+  min-height: var(--target-dense);
+  padding: 0 var(--space-1);
+  text-decoration: none;
+  font-size: var(--fs-ui);
+}
+
+.letter-nav span[aria-disabled='true'] {
+  color: var(--text-faint);
+}
+
+.letter-nav a[aria-current='page'] {
+  background: var(--blue-800);
+  color: var(--text-invert);
+  font-weight: 500;
+}
+
+.letter-nav a:hover {
+  background: var(--surface-hover);
+}
+
+/* Reiter (Bereiche) */
+.r-tabs {
+  display: flex;
+  overflow-x: auto;
+  font-size: var(--fs-meta);
+  scrollbar-width: thin;
+}
+
+.r-tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.5rem;
+  padding: 0 var(--space-4);
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.r-tabs a:hover {
+  color: var(--text-strong);
+}
+
+.r-tabs a[aria-current] {
+  color: var(--text-strong);
+  font-weight: 500;
+  box-shadow: inset 0 -2px 0 var(--blue-800);
+  background: var(--paper-0);
+}
+
+.r-tabs a .r-muted {
+  font-weight: 400;
+}
+
+/* Definitionslisten in zwei Spalten */
+.r-dl {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12.5rem) minmax(0, 1fr);
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--fs-ui);
+  line-height: var(--lh-ui);
+}
+
+/* Alleinstehende Links in Definitionslisten nehmen ihre 24 px im Fluss ein, damit sich die
+   Zeigerziele gestapelter Zeilen nicht überlagern. */
+.r-dl dd > a:only-child {
+  display: inline-block;
+  min-height: 1.5rem;
+  line-height: 1.5rem;
+  padding-block: 0;
+}
+
+.r-dl dt {
+  color: var(--text-muted);
+}
+
+.r-dl dd {
+  color: var(--text-strong);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.r-dl--compact {
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+  font-size: var(--fs-meta);
+}
+
+@media (max-width: 30rem) {
+  .r-dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .r-dl dt {
+    margin-top: var(--space-2);
+  }
+
+  .r-dl--compact {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .r-dl--compact dt {
+    margin-top: 0;
+  }
+}
+
+[data-sheet-close] { display: none; }
+.r-sheet {
+  border: 0;
+  background: var(--paper-0);
+  color: var(--text-body);
+  padding: var(--space-4);
+  max-width: 100vw;
+  max-height: 100dvh;
+  height: 100dvh;
+  margin: 0;
+  overflow: auto;
+}
+.r-sheet::backdrop { background: rgb(0 0 0 / 45%); }
+.r-sheet [data-sheet-close] { display: inline-flex; margin-bottom: var(--space-4); }
+.r-sheet--outline { width: min(26rem, 90vw); }
+.r-sheet--filters { width: 100vw; }
+.r-sheet--filters .r-search__advanced-actions {
+  position: sticky;
+  bottom: calc(-1 * var(--space-4));
+  background: var(--paper-0);
+  padding: var(--space-3);
+  border-top: var(--line) solid var(--border-default);
+}
