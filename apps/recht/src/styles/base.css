@@ -157,11 +157,18 @@ mark {
   color: var(--text-link);
   border: var(--line) solid var(--border-ink);
   font-weight: 500;
-  transform: translateY(-200%);
 }
 
-.skip-link:focus-visible {
-  transform: none;
+/* Ohne Tastaturfokus unsichtbar und ohne Fläche (kein Versatz über die Hinweiszeile),
+   für Screenreader weiterhin erreichbar. */
+.skip-link:not(:focus-visible) {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Typografierollen */
