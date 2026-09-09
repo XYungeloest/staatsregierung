@@ -1,0 +1,182 @@
+/* OstRecht – Amtliche Veröffentlichungen (P5) und einzelne Ausgabe (P5b). */
+.r-series {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.r-series__item {
+  display: grid;
+  gap: 2px;
+  padding-top: var(--space-2);
+  border-top: var(--line-strong) solid var(--blue-800);
+  font-size: var(--fs-meta);
+}
+
+.r-series__name {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.r-publications {
+  margin-top: var(--space-5);
+}
+
+.r-publications__filter .r-fieldset {
+  margin-top: var(--space-2);
+}
+
+.r-publications__main .r-section-head {
+  margin-bottom: var(--space-2);
+}
+
+.r-publications__table td:first-child {
+  width: 5.5rem;
+}
+
+.r-publications__table td a.r-strong {
+  text-decoration: none;
+}
+
+.r-publications__table td a.r-strong:hover {
+  text-decoration: underline;
+}
+
+.r-publications__hint {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: var(--line) solid var(--border-hairline);
+}
+
+/* Filter- und Blätterelemente */
+.r-filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: var(--fs-meta);
+}
+
+.r-filter__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--space-2);
+  border-bottom: var(--line) solid var(--border-strong);
+}
+
+.r-filter__reset--inactive {
+  color: var(--text-faint);
+}
+
+.r-filter__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.r-filter--row .r-filter__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3);
+}
+
+.r-filter--row {
+  padding: var(--space-3) var(--space-4);
+  border: var(--line) solid var(--border-default);
+  background: var(--surface-muted);
+}
+
+.r-filter--row .r-filter__head {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.r-filter__count {
+  margin-top: var(--space-3);
+}
+
+/* Einzelne Ausgabe */
+.r-issue__title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  color: var(--text-strong);
+  margin: var(--space-2) 0;
+  letter-spacing: 0;
+}
+
+.r-issue__number {
+  color: var(--text-secondary);
+}
+
+.r-issue__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.r-issue__meta > span + span::before {
+  content: '·';
+  margin-right: var(--space-3);
+  color: var(--text-muted);
+}
+
+.r-issue__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.r-issue__head .r-caption {
+  margin-top: var(--space-2);
+}
+
+.r-issue {
+  margin-top: var(--space-5);
+  grid-template-columns: minmax(0, 1fr) 21.25rem;
+}
+
+.r-issue__table td:first-child {
+  width: 4.5rem;
+}
+
+.r-issue__table tr:target {
+  background: var(--surface-selected);
+  box-shadow: inset 3px 0 0 var(--blue-800);
+}
+
+.r-issue__note {
+  margin-top: var(--space-3);
+}
+
+@media (max-width: 60rem) {
+  .r-publications__table .r-publications__publisher {
+    display: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .r-issue {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .r-issue__actions {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .r-publications__table td:nth-child(3),
+  .r-publications__table th:nth-child(3),
+  .r-issue__table td:nth-child(3),
+  .r-issue__table th:nth-child(3) {
+    display: none;
+  }
+
+  .r-publications__table td:first-child {
+    width: auto;
+  }
+}

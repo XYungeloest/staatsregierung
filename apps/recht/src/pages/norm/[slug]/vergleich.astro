@@ -1,9 +1,7 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
-import NormVersionNavigation from '../../../components/norms/NormVersionNavigation.astro';
-import { normHeaderState } from '../../../lib/norm-header.ts';
+import NormHead from '../../../components/norms/NormHead.astro';
+import NormSectionTabs from '../../../components/norms/NormSectionTabs.astro';
 import { buildProvisionVersionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
 import {
@@ -15,11 +13,15 @@ import {
   getNormUrl,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
+import { buildNormHeadModel } from '../../../lib/norm-head.ts';
+import { formatShortDate } from '../../../lib/dates.ts';
+import { NORM_COMPARE_LABEL, versionKindLabel } from '../../../lib/vocabulary.ts';
 
-// Der Vergleich lädt nur die beiden angezeigten Fassungen aus D1.
+// Fassungsvergleich (P4): lädt nur die beiden verglichenen Fassungen; Darstellung im Text
+// (Streichung und Einfügung in einem Wortlaut) oder nebeneinander.
 export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
@@ -27,92 +29,99 @@ const store = await getNormStore(Astro.locals);
 const skeleton = await store.getNorm(slug, 'none');
 if (!skeleton || skeleton.versions.length < 2) return Astro.rewrite('/404');
 const orderedVersions = [...skeleton.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
-const defaultToSkeleton = getCurrentVersion(skeleton);
+const requestedFrom = Astro.url.searchParams.get('von');
+const requestedTo = Astro.url.searchParams.get('bis');
+const defaultToSkeleton = orderedVersions.find((version) => version.versionId === requestedTo) ?? getCurrentVersion(skeleton);
 const defaultToIndex = orderedVersions.findIndex((version) => version.versionId === defaultToSkeleton.versionId);
-const defaultFromSkeleton = orderedVersions[Math.max(0, defaultToIndex - 1)] ?? orderedVersions[0];
+const defaultFromSkeleton = orderedVersions.find((version) => version.versionId === requestedFrom && version.versionId !== defaultToSkeleton.versionId)
+  ?? orderedVersions[Math.max(0, defaultToIndex - 1)] ?? orderedVersions[0];
 const norm = await store.getNorm(slug, [defaultFromSkeleton.versionId, defaultToSkeleton.versionId]);
 if (!norm) return Astro.rewrite('/404');
 const versions = [...norm.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
 const defaultTo = versions.find((version) => version.versionId === defaultToSkeleton.versionId) ?? versions.at(-1)!;
 const defaultFrom = versions.find((version) => version.versionId === defaultFromSkeleton.versionId) ?? versions[0];
 const defaultProvisions = buildProvisionVersionDiff(defaultFrom, defaultTo);
-// Der Zähler nennt die Einheitenart beider verglichener Fassungen („132 geänderte Artikel“).
 const defaultUnitKind = getNormUnitKind([...defaultFrom.body, ...defaultTo.body]);
+const [derived, publicationReference, fullCitation] = await Promise.all([
+  store.getDerived(slug),
+  store.getPublicationReference(slug, getCurrentVersion(norm).versionId),
+  store.getFullCitation(slug, getCurrentVersion(norm).versionId),
+]);
+if (!derived) return Astro.rewrite('/404');
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
-const currentIdentity = getNormVersionIdentity(norm, defaultTo);
+const headerVersion = getCurrentVersion(norm);
+const model = buildNormHeadModel(norm, headerVersion, { origin: derived.origin, publicationReference });
+const currentIdentity = getNormVersionIdentity(norm, headerVersion);
 const normTitle = toDisplayText(currentIdentity.title);
 const normShortTitle = toDisplayText(currentIdentity.shortTitle || currentIdentity.title);
 const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
 const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
-// Kopf wie auf Fassungs- und Historienseite: die geltende Fassung ist maßgeblich, nicht das Vergleichspaar.
-const headerVersion = versions.find((version) => version.versionId === defaultToSkeleton.versionId) ?? defaultTo;
-const header = normHeaderState(norm, headerVersion);
+const counts = {
+  changed: defaultProvisions.filter((entry) => entry.kind === 'changed').length,
+  added: defaultProvisions.filter((entry) => entry.kind === 'added').length,
+  removed: defaultProvisions.filter((entry) => entry.kind === 'removed').length,
+};
+const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(version.validFrom)}${version.validTo ? ` – ${formatShortDate(version.validTo)}` : ''} · ${versionKindLabel(classifyNormVersion(norm, version), 'adjective')}`;
 ---
 
 <LawLayout
   documentFont
-  title={`${normSeoTitle} vergleichen`}
+  mainWidth="full"
+  title={`${normSeoTitle} – ${NORM_COMPARE_LABEL}`}
   description={`Fassungen von ${normTitle} paragraphenweise vergleichen.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
     { label: normShortTitle, href: getNormUrl(norm.meta.slug) },
-    { label: 'Fassungsvergleich' },
+    { label: NORM_COMPARE_LABEL },
   ]}
+  noindex={Boolean(requestedFrom || requestedTo)}
 >
-  <Breadcrumbs items={[
-    { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: normShortTitle, href: getNormUrl(norm.meta.slug) },
-    { label: 'Fassungsvergleich' },
-  ]} />
+  <NormHead norm={norm} version={headerVersion} model={model} fullCitation={fullCitation ?? headerVersion.citation} outlineHref={getNormUrl(norm.meta.slug)} />
+  <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} active="versions" /></div>
 
-  <NormPageHeader
-    norm={norm}
-    version={headerVersion}
-    eyebrow={header.eyebrow}
-    status={header.status}
-    textHref={getNormUrl(norm.meta.slug)}
-  />
-  <NormVersionNavigation norm={norm} currentPage="compare" showPicker={false} />
-
-  <section class="norm-compare" data-version-compare>
+  <section class="norm-compare" data-version-compare aria-labelledby="norm-compare-title">
+    <div class="norm-compare__head">
+      <h2 id="norm-compare-title">{NORM_COMPARE_LABEL} · {formatShortDate(defaultFrom.validFrom)} → {formatShortDate(defaultTo.validFrom)}</h2>
+      <div class="r-segmented" role="group" aria-label="Darstellung">
+        <button type="button" data-compare-mode="inline" aria-pressed="true">Im Text</button>
+        <button type="button" data-compare-mode="columns" aria-pressed="false">Nebeneinander</button>
+      </div>
+    </div>
     <form class="norm-compare__form" action={getNormCompareUrl(norm.meta.slug)} method="get" data-compare-form aria-label="Zu vergleichende Fassungen">
-      <label class="norm-compare__field">
-        <span>Ausgangsfassung</span>
-        <select name="von" data-compare-from>
+      <label class="r-field">
+        <span>Von Fassung</span>
+        <select class="r-select" name="von" data-compare-from>
           {versions.map((version) => (
-            <option value={version.versionId} selected={version.versionId === defaultFrom.versionId} data-diff-prefix={getNormCompareDataUrl(norm.meta.slug, version.versionId, '__TO__')}>
-              {formatDate(version.validFrom)} · {toDisplayText(getNormVersionIdentity(norm, version).shortTitle)}
-            </option>
+            <option value={version.versionId} selected={version.versionId === defaultFrom.versionId} data-diff-prefix={getNormCompareDataUrl(norm.meta.slug, version.versionId, '__TO__')}>{optionLabel(version)}</option>
           ))}
         </select>
       </label>
-      <span class="norm-compare__direction" aria-hidden="true">→</span>
-      <label class="norm-compare__field">
-        <span>Vergleichsfassung</span>
-        <select name="bis" data-compare-to>
+      <label class="r-field">
+        <span>Nach Fassung</span>
+        <select class="r-select" name="bis" data-compare-to>
           {versions.map((version) => (
-            <option value={version.versionId} selected={version.versionId === defaultTo.versionId}>
-              {formatDate(version.validFrom)} · {toDisplayText(getNormVersionIdentity(norm, version).shortTitle)}
-            </option>
+            <option value={version.versionId} selected={version.versionId === defaultTo.versionId}>{optionLabel(version)}</option>
           ))}
         </select>
       </label>
-      <button class="button-link norm-compare__submit" type="submit">Anzeigen</button>
+      <button class="r-btn" type="submit">Vergleichen</button>
+      <span class="norm-compare__count r-meta" data-compare-count>{counts.changed} geändert · {counts.added} neu · {counts.removed} entfallen</span>
     </form>
 
-    <p class="status-line" data-compare-feedback aria-live="polite"></p>
+    <p class="r-feedback" data-compare-feedback aria-live="polite"></p>
 
     <section
       class="norm-diff"
       data-compare-output
       data-compare-pair={defaultPairKey}
+      data-compare-mode="inline"
       aria-label={`Vergleich ${formatDate(defaultFrom.validFrom)} mit ${formatDate(defaultTo.validFrom)}`}
-      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom, defaultUnitKind)}
+      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom, defaultUnitKind, 'inline')}
     ></section>
   </section>
 
   <script>
-    import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
+    import { renderNormDiffDocument, type NormDiffRenderMode } from '@ostrecht/shared/lib/norms/diff-render.ts';
     import type { NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
     import type { NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
     type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: NormProvisionDiff[]; unitKind?: NormUnitKind };
@@ -122,12 +131,32 @@ const header = normHeaderState(norm, headerVersion);
     const toSelect = root?.querySelector<HTMLSelectElement>('[data-compare-to]');
     const feedback = root?.querySelector<HTMLElement>('[data-compare-feedback]');
     const output = root?.querySelector<HTMLElement>('[data-compare-output]');
+    const count = root?.querySelector<HTMLElement>('[data-compare-count]');
+    const modeButtons = Array.from(root?.querySelectorAll<HTMLButtonElement>('[data-compare-mode]') ?? []);
     const dateFormatter = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    let payloadCache: DiffPayload | undefined;
+    let mode: NormDiffRenderMode = 'inline';
+
     const renderPayload = (payload: DiffPayload) => {
       if (!output) return;
+      payloadCache = payload;
       output.dataset.comparePair = `${payload.fromVersion.versionId}::${payload.toVersion.versionId}`;
+      output.dataset.compareMode = mode;
       output.setAttribute('aria-label', `Vergleich ${dateFormatter.format(new Date(`${payload.fromVersion.validFrom}T00:00:00Z`))} mit ${dateFormatter.format(new Date(`${payload.toVersion.validFrom}T00:00:00Z`))}`);
-      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom, payload.unitKind ?? 'none');
+      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom, payload.unitKind ?? 'none', mode);
+      if (count) {
+        const changed = payload.provisions.filter((entry) => entry.kind === 'changed').length;
+        const added = payload.provisions.filter((entry) => entry.kind === 'added').length;
+        const removed = payload.provisions.filter((entry) => entry.kind === 'removed').length;
+        count.textContent = `${changed} geändert · ${added} neu · ${removed} entfallen`;
+      }
+    };
+    const fetchPair = async (): Promise<DiffPayload | undefined> => {
+      if (!fromSelect || !toSelect) return undefined;
+      const prefix = fromSelect.selectedOptions[0]?.dataset.diffPrefix ?? '';
+      const response = await fetch(prefix.replace('__TO__', encodeURIComponent(toSelect.value)));
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return await response.json() as DiffPayload;
     };
     const loadPair = async (updateUrl = false) => {
       if (!fromSelect || !toSelect || !output) return;
@@ -136,10 +165,8 @@ const header = normHeaderState(norm, headerVersion);
       try {
         const pairKey = `${fromSelect.value}::${toSelect.value}`;
         if (output.dataset.comparePair !== pairKey) {
-          const prefix = fromSelect.selectedOptions[0]?.dataset.diffPrefix ?? '';
-          const response = await fetch(prefix.replace('__TO__', encodeURIComponent(toSelect.value)));
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          renderPayload(await response.json() as DiffPayload);
+          const payload = await fetchPair();
+          if (payload) renderPayload(payload);
         }
         if (feedback) feedback.textContent = '';
         if (updateUrl) {
@@ -158,10 +185,23 @@ const header = normHeaderState(norm, headerVersion);
       if (from && Array.from(fromSelect.options).some((option) => option.value === from)) fromSelect.value = from;
       if (to && Array.from(toSelect.options).some((option) => option.value === to)) toSelect.value = to;
     };
+    const setMode = async (next: NormDiffRenderMode) => {
+      mode = next;
+      modeButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.compareMode === next)));
+      if (!output) return;
+      if (output.dataset.compareMode === next) return;
+      if (feedback) feedback.textContent = 'Darstellung wird umgestellt.';
+      try {
+        const payload = payloadCache ?? await fetchPair();
+        if (payload) renderPayload(payload);
+        if (feedback) feedback.textContent = '';
+      } catch { if (feedback) feedback.textContent = 'Die Darstellung konnte nicht umgestellt werden.'; }
+    };
     if (form && fromSelect && toSelect) {
       applyUrlSelection(); void loadPair();
       form.addEventListener('submit', (event) => { event.preventDefault(); void loadPair(true); });
       window.addEventListener('popstate', () => { applyUrlSelection(); void loadPair(); });
+      modeButtons.forEach((button) => button.addEventListener('click', () => { void setMode(button.dataset.compareMode === 'columns' ? 'columns' : 'inline'); }));
     }
   </script>
 </LawLayout>

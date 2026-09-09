@@ -1,0 +1,29 @@
+---
+import { getNormHistoryUrl, getNormUrl, getNormVersionUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
+
+/**
+ * Bereiche der Vorschrift (Reiterzeile): Text, Vorschriftendaten, Fassungen und Änderungen,
+ * Rechtsbeziehungen. Text, Daten und Beziehungen liegen auf der Vorschriftsseite; die
+ * Fassungen haben ihre eigene Adresse (dauerhafte Fassungslinks).
+ */
+interface Props {
+  slug: string;
+  /** Angezeigte Fassung, wenn sie nicht die geltende ist (Fassungslink als Textziel). */
+  versionId?: string;
+  active: 'text' | 'facts' | 'versions' | 'relations';
+}
+
+const { slug, versionId, active } = Astro.props;
+const textHref = versionId ? getNormVersionUrl(slug, versionId) : getNormUrl(slug);
+const tabs = [
+  { key: 'text', label: 'Text', href: textHref },
+  { key: 'facts', label: 'Vorschriftendaten', href: `${textHref}#vorschriftendaten` },
+  { key: 'versions', label: NORM_HISTORY_LABEL, href: getNormHistoryUrl(slug) },
+  { key: 'relations', label: 'Rechtsbeziehungen', href: `${textHref}#rechtsbeziehungen` },
+] as const;
+---
+
+<nav class="r-tabs norm-tabs" aria-label="Bereiche der Vorschrift">
+  {tabs.map((tab) => <a href={tab.href} aria-current={tab.key === active ? 'page' : undefined}>{tab.label}</a>)}
+</nav>

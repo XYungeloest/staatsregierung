@@ -1,0 +1,40 @@
+---
+import type { NormStatus } from '@ostrecht/shared/lib/norms/schema.ts';
+import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
+import { validityLabel, versionKindLabel } from '../../lib/vocabulary.ts';
+
+/**
+ * Statusmarke: ein Wort in einem Rahmen, Farbe nur unterstützend. Entweder die Geltung einer
+ * Vorschrift (`status`) oder die Fassungsart (`versionKind`); ein eigener Text (`label`) ersetzt
+ * das Wort, die Farbrolle bleibt.
+ */
+interface Props {
+  status?: NormStatus;
+  versionKind?: VersionTemporalKind;
+  label?: string;
+  size?: 'sm' | 'md';
+  class?: string;
+}
+
+const { status, versionKind, label, size = 'md', class: className } = Astro.props;
+
+const roleByStatus: Record<NormStatus, string> = {
+  'in-force': 'in-force',
+  'future-effective': 'future',
+  'pending-effective': 'pending',
+  repealed: 'repealed',
+  historical: 'repealed',
+  'one-time-act': 'one-time',
+  planned: 'pending',
+};
+const roleByKind: Record<VersionTemporalKind, string> = {
+  current: 'in-force',
+  future: 'future',
+  historical: 'historical',
+  'unknown-effective': 'pending',
+};
+const role = status ? roleByStatus[status] : versionKind ? roleByKind[versionKind] : 'pending';
+const text = label ?? (status ? validityLabel(status) : versionKind ? versionKindLabel(versionKind, 'adjective') : '');
+---
+
+<span class:list={['r-status', `r-status--${role}`, size === 'sm' ? 'r-status--sm' : undefined, className]}>{text}</span>

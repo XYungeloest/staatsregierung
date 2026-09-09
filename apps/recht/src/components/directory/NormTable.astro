@@ -1,0 +1,70 @@
+---
+import { formatNormType, getNormTitleBlock, getNormUrl } from '@ostrecht/shared/lib/norms/index.ts';
+import type { NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+import StatusMark from '../ui/StatusMark.astro';
+import { formatShortDate } from '../../lib/dates.ts';
+import type { NormSummary } from '../../lib/runtime/store.ts';
+
+/**
+ * Vorschriftentabelle (P6/P6b): Titel, Abkürzung, Normtyp, Geltung, Rechtsstand und – wo gewünscht –
+ * Rechtsherkunft. Dasselbe Muster für A–Z, Sachgebiete, Typseiten und Förderrichtlinien.
+ */
+interface Props {
+  items: NormSummary[];
+  showOrigin?: boolean;
+  showType?: boolean;
+  caption: string;
+  attrs?: Record<string, string | undefined>;
+  /** Zusätzliche Attribute je Zeile (etwa die Buchstabengruppe des Ordnungsworts). */
+  rowAttrs?: (norm: NormSummary) => Record<string, string | undefined>;
+}
+
+const { items, showOrigin = true, showType = true, caption, attrs = {}, rowAttrs } = Astro.props;
+const originWords: Record<NormOriginKind, string> = {
+  'inherited-unchanged': 'übernommen, unverändert',
+  'inherited-amended': 'übernommen, geändert',
+  'ostdeutsch-original': 'ostdeutsch',
+  'origin-unresolved': 'Herkunft ungeklärt',
+};
+
+function legalStatus(norm: NormSummary): string {
+  if (norm.status === 'future-effective') return `ab ${formatShortDate(norm.currentValidFrom)}`;
+  if (norm.status === 'pending-effective') return 'Inkrafttreten nicht belegt';
+  const since = `Fassung seit ${formatShortDate(norm.currentValidFrom)}`;
+  return norm.lastChangeDate && norm.lastChangeDate > norm.currentValidFrom ? `${since} · Änderung ${formatShortDate(norm.lastChangeDate)}` : since;
+}
+---
+
+<div class="r-table-wrap">
+  <table class="r-table r-norm-table" {...attrs}>
+    <caption class="visually-hidden">{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Titel</th>
+        <th scope="col">Abkürzung</th>
+        {showType ? <th scope="col">Normtyp</th> : null}
+        <th scope="col">Geltung</th>
+        <th scope="col">Rechtsstand</th>
+        {showOrigin ? <th scope="col">Herkunft</th> : null}
+      </tr>
+    </thead>
+    <tbody>
+      {items.map((norm) => {
+        const block = getNormTitleBlock(norm);
+        return (
+          <tr data-directory-entry data-origin={norm.originKind ?? 'origin-unresolved'} data-type={norm.type} data-status={norm.status} {...(rowAttrs ? rowAttrs(norm) : {})}>
+            <td>
+              <a class="r-strong r-norm-table__title" href={getNormUrl(norm.slug)}>{block.heading}</a>
+              {block.longTitle ? <div class="r-meta">{block.longTitle}</div> : null}
+            </td>
+            <td class="r-nowrap">{block.abbr ?? '—'}</td>
+            {showType ? <td class="r-nowrap r-muted">{formatNormType(norm.type)}</td> : null}
+            <td class="r-nowrap"><StatusMark status={norm.status} size="sm" /></td>
+            <td class="r-meta">{legalStatus(norm)}</td>
+            {showOrigin ? <td class="r-meta r-muted">{originWords[norm.originKind ?? 'origin-unresolved']}</td> : null}
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

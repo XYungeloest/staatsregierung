@@ -477,7 +477,8 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'rechtssuche-module',
     path: searchUrl(fixture.multiHit),
     shots: [
-      ['rechtssuche-filter', '[data-search-filter-panel="more"]'],
+      ['rechtssuche-filter', '.r-search__aside'],
+      ['rechtssuche-erweitert', '[data-search-filter-panel="more"]'],
       ['rechtssuche-treffer-herkunft', '[data-search-results] .search-result-group:first-child > .search-hit'],
     ],
   },
@@ -486,8 +487,9 @@ const componentVisualPages: ComponentVisualPage[] = [
     name: 'norm-module',
     path: lawUrl(`/norm/${fixture.amended}/`),
     shots: [
+      ['norm-kopf', '.norm-page-header'],
       ['norm-vorschriftendaten', '[data-visual-section="norm-facts"]'],
-      ['norm-navigation', '.norm-version-navigation'],
+      ['norm-fassungen', '[data-visual-section="norm-versions"]'],
       ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
     ],
   },
@@ -501,7 +503,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     // Historienpanel mit Ereignisliste; vertritt alle Historiedarstellungen.
     name: 'normhistorie-module',
     path: lawUrl(`/norm/${fixture.amended}/history/`),
-    shots: [['normhistorie-einstieg', '.norm-history-panel--versions']],
+    shots: [['normhistorie-einstieg', '.norm-axis'], ['normhistorie-protokoll', '.norm-protocol']],
   },
 ];
 
@@ -563,25 +565,31 @@ const lawTest = isSelected(`${LAW_ORIGIN}/`) ? test : test.skip;
  * Höhe des mobilen Kopfs in Zahlen, laufen also auch dort, wo kein Pixelvergleich stattfindet.
  * Die Vorschrift wird zur Laufzeit aus der Kandidaten-API abgeleitet, nicht fest verdrahtet.
  */
-lawTest('Messung: Normarbeitsbereich ist zwischen 64 und 80 rem zweispaltig', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop-wide', 'Die 64–80-rem-Stufe wird einmal bei 1280 Pixeln gemessen.');
+lawTest('Messung: Normarbeitsbereich ist ab 80 rem dreispaltig und zwischen 48 und 80 rem zweispaltig', { tag: [CRITICAL_TAG] }, async ({ page, request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Stufen werden einmal bei 1280 und 1152 Pixeln gemessen.');
   await preparePage(page);
+  const url = lawUrl((await multiVersionNorm(request)).current.currentUrl);
+  // 80 rem: Inhaltsübersicht, Text und Seitenspalte nebeneinander (Production Board P3).
   await page.setViewportSize({ width: 1280, height: 1000 });
-  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.goto(url);
   await page.evaluate(async () => {
     await document.fonts.ready;
   });
-
-  const columns = await page.locator('.norm-workspace').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length);
-  expect(columns, 'Inhaltsübersicht und Text stehen nebeneinander').toBe(2);
+  const wide = await page.locator('.norm-workspace').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+  expect(wide, 'Inhaltsübersicht, Text und Seitenspalte stehen nebeneinander').toBe(3);
   await expect(page.locator('.norm-outline--desktop')).toBeVisible();
   await expect(page.locator('.norm-outline-mobile')).toBeHidden();
-  // Die Vorschriftendaten stehen darunter über beide Spalten.
-  const spans = await page.locator('.norm-info-column').evaluate((element) => {
-    const workspace = element.closest('.norm-workspace')!;
-    return element.getBoundingClientRect().width / workspace.getBoundingClientRect().width;
-  });
-  expect(spans, 'Vorschriftendaten spannen über beide Spalten').toBeGreaterThan(0.9);
+  await expect(page.locator('.norm-page-header__outline-link')).toBeHidden();
+  await verifyViewport(page);
+  // Unter 80 rem: Text und Seitenspalte; die Übersicht öffnet über die Schaltfläche „Inhalt“ im Kopf.
+  await page.setViewportSize({ width: 1152, height: 1000 });
+  await page.goto(url);
+  const narrow = await page.locator('.norm-workspace').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+  expect(narrow, 'Text und Seitenspalte stehen nebeneinander').toBe(2);
+  await expect(page.locator('.norm-outline--desktop')).toBeHidden();
+  await expect(page.locator('.norm-page-header__outline-link')).toBeVisible();
+  await page.locator('.norm-page-header__outline-link').click();
+  await expect(page.locator('.norm-outline-mobile')).toHaveAttribute('open', /.*/u);
   await verifyViewport(page);
 });
 
@@ -597,11 +605,11 @@ lawTest('Messung: mobil beginnt der Vorschriftentext oberhalb von 700 Pixeln', {
   expect(headerHeight, 'Normkopf').toBeLessThanOrEqual(320);
   const textTop = await page.locator('#normtext').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
   expect(textTop, 'Beginn des Vorschriftentextes').toBeLessThanOrEqual(700);
-  // Die Angaben zur Vorschrift stehen als geschlossene Zeile vor Inhaltsübersicht und Text.
-  const facts = page.locator('.norm-facts');
-  await expect(facts).not.toHaveAttribute('open', /.*/u);
-  const factsTop = await facts.evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
-  expect(factsTop, 'Angaben zur Vorschrift stehen über dem Text').toBeLessThan(textTop);
+  // Reihenfolge auf dem Smartphone (Production Board): Kopf → Übersicht (geschlossen) → Normtext →
+  // Seitenspalte → Vorschriftendaten. Die Vorschriftendaten folgen dem Text.
+  await expect(page.locator('.norm-outline-mobile')).not.toHaveAttribute('open', /.*/u);
+  const factsTop = await page.locator('.norm-facts').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(factsTop, 'Vorschriftendaten folgen dem Text').toBeGreaterThan(textTop);
   await verifyViewport(page);
 });
 
@@ -642,13 +650,15 @@ lawTest('Trefferdichte bei 375 px', { tag: [CRITICAL_TAG] }, async ({ page }, te
     if (hits.length > 1) break;
   }
   test.skip(hits.length < 2, `Das Fixture liefert zu „${used}“ nur ${hits.length} Treffer; die Dichte braucht mehrere Karten.`);
-  const tooTall = hits.filter((hit) => hit.height > 220);
+  // Richtung E zeigt je Treffer Titel, Metazeile und die Trefferstelle in der Serife; die Karte
+  // bleibt unter 300 Pixeln, damit auf einer Bildschirmhöhe mehr als zwei Treffer stehen.
+  const tooTall = hits.filter((hit) => hit.height > 300);
   if (tooTall.length > 0) {
     const report = [`Suchwort: ${used}`, `Treffer: ${hits.length}`, ...hits.map((hit) => `${String(hit.height).padStart(4)} px  ${hit.open ? 'offen ' : 'zu    '}${hit.text}`)].join('\n');
     await test.info().attach('trefferdichte.txt', { body: report, contentType: 'text/plain' });
     console.log(report);
   }
-  expect(tooTall.map((hit) => `${hit.height} px: ${hit.text}`), 'jede ungeöffnete Trefferkarte bleibt bei 375 px unter 220 px').toEqual([]);
+  expect(tooTall.map((hit) => `${hit.height} px: ${hit.text}`), 'jede Trefferkarte bleibt bei 375 px unter 300 px').toEqual([]);
   await verifyViewport(page);
 });
 
@@ -664,20 +674,9 @@ for (const entry of componentVisualPages) {
     await awaitSettled(page, entry.path);
 
     if (entry.name === 'rechtssuche-module') {
-      await page.locator('.law-search-filters-panel').evaluate((element) => {
-        (element as HTMLDetailsElement).open = true;
-      });
-      // Die aufklappbaren Filtergruppen (Norm und Zuständigkeit, Zeitraum und Fundstelle)
-      // werden für die Basislinie geöffnet, damit auch der Herkunftsfacet sichtbar ist.
-      await page.locator('[data-search-filter-panel]').evaluateAll((elements) => {
+      // Filterspalte und erweiterte Suche werden für die Basislinie geöffnet.
+      await page.locator('[data-search-filters], [data-search-filter-panel]').evaluateAll((elements) => {
         for (const element of elements) (element as HTMLDetailsElement).open = true;
-      });
-    }
-
-    // Die Vorschriftendaten sind unterhalb von 80 rem ein Aufklappbereich; die Baseline zeigt sie offen.
-    if (entry.shots.some(([, selector]) => selector.includes('norm-facts'))) {
-      await page.locator('.norm-facts').evaluate((element) => {
-        (element as HTMLDetailsElement).open = true;
       });
     }
 

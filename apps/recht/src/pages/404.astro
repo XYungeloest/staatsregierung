@@ -1,8 +1,6 @@
 ---
 import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
   getHelpUrl,
   getIndexUrl,
@@ -19,49 +17,44 @@ export const prerender = false;
 
 Astro.response.status = 404;
 Astro.response.headers.set('Cache-Control', 'no-store');
+const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 ---
 
 <LawLayout
   title="Seite nicht gefunden"
   description="Die angeforderte Adresse ist im Rechtsportal OstRecht nicht vorhanden."
-  breadcrumbs={[
-    { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Seite nicht gefunden' },
-  ]}
+  breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: 'Seite nicht gefunden' }]}
   noindex={true}
 >
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: 'Seite nicht gefunden' },
-    ]}
-  />
-
-  <SectionHero
-    eyebrow="Rechtsportal"
-    title="Seite nicht gefunden"
-    lead="Fehler 404: Die angeforderte Adresse ist nicht vorhanden, wurde verschoben oder die Vorschrift wird unter einer anderen Kennung geführt. Bitte nutzen Sie die Rechtssuche oder die Verzeichnisse."
-    variant="law"
-    actions={[
-      { label: 'Zur Rechtssuche', href: getSearchUrl(), primary: true },
-      { label: 'Zur OstRecht-Startseite', href: getLawPortalUrl() },
-    ]}
-  />
-
-  <section class="section error-page" aria-labelledby="error-paths-title">
-    <div class="section-header section-header--compact">
-      <p class="eyebrow">Weitere Zugänge</p>
-      <h2 id="error-paths-title">So finden Sie die gesuchte Vorschrift</h2>
-      <p>
-        Vorschriften sind über Titel, Abkürzung und Stichwörter erschlossen. Verkündungen führen
-        zu den amtlichen Ausgaben; die Rechtssuche ordnet den Bestand zusätzlich nach Herkunft.
-      </p>
+  <header class="r-page-head">
+    <p class="r-kicker"><span>Fehler 404</span></p>
+    <h1>Seite nicht gefunden</h1>
+    <p class="r-lead">Die angeforderte Adresse ist nicht vorhanden, wurde verschoben oder die Vorschrift wird unter einer anderen Kennung geführt. Die Suche und die Verzeichnisse führen zum geltenden Recht.</p>
+  </header>
+  <div class="r-help">
+    <div class="r-help__main">
+      <form class="r-home-search" action={getSearchUrl()} method="get" role="search" id="error-search">
+        <label class="r-field r-field--label-caps r-home-search__field">
+          <span>Gesetz, Verordnung, Abkürzung, Paragraph oder Fundstelle</span>
+          <input class="r-input r-input--lg" type="search" name="q" autocomplete="off" placeholder="z. B. Gesetz, Abkürzung, § 12 oder OGVBl. 2026 Nr. 16" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} data-law-search-url={getSearchUrl()} />
+        </label>
+        <button class="r-btn r-btn--primary r-btn--lg" type="submit">Suchen</button>
+      </form>
+      <section class="r-copy" aria-labelledby="error-paths-title">
+        <h2 id="error-paths-title">So finden Sie die gesuchte Vorschrift</h2>
+        <p>Vorschriften sind über Titel, Abkürzung und Stichwörter erschlossen. Amtliche Veröffentlichungen führen zu den Ausgaben der Verkündungsblätter; die Sachgebiete ordnen den Bestand systematisch.</p>
+      </section>
     </div>
-    <ul class="record-list">
-      <li class="record-list__item"><a class="inline-link" href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a></li>
-      <li class="record-list__item"><a class="inline-link" href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a></li>
-      <li class="record-list__item"><a class="inline-link" href={getPublicationsUrl()}>Verkündungen und Fundstellen</a></li>
-      <li class="record-list__item"><a class="inline-link" href={getHelpUrl()}>Hilfe zur Nutzung von OstRecht</a></li>
-    </ul>
-  </section>
+    <aside class="r-help__aside" aria-label="Weitere Zugänge">
+      <h2 class="r-label r-label--rule">Zugänge</h2>
+      <nav class="r-help__links">
+        <a href={getSearchUrl()}>Zur Rechtssuche</a>
+        <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
+        <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
+        <a href={getPublicationsUrl()}>{lawSiteConfig.targetLabels.publications}</a>
+        <a href={getHelpUrl()}>{lawSiteConfig.targetLabels.help}</a>
+        <a href={getLawPortalUrl()}>Startseite OstRecht</a>
+      </nav>
+    </aside>
+  </div>
 </LawLayout>

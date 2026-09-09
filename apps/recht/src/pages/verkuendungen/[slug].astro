@@ -1,39 +1,40 @@
 ---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
+  comparePublicationsNewestFirst,
   formatDate,
   formatPublicationEntryType,
   getLawPortalUrl,
+  getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
-  getPublicationEntriesUrl,
+  getPublicationLabel,
   getPublicationUrl,
   getPublicationsUrl,
+  hasNumberedIssue,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import {
-  formatIssueHeadline,
-  formatPublisherLine,
-  formatVersionDateLabel,
-  publicationSourceLinks,
-} from '../../lib/publication-presentation.ts';
+import { formatPublisherLine, publicationSourceLinks } from '../../lib/publication-presentation.ts';
+import { formatShortDate } from '../../lib/dates.ts';
+import { formatCount } from '../../lib/counts.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
+import { pageUrl } from '../../lib/runtime/pagination.ts';
 
-// Verkündungsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
+// Einzelne amtliche Ausgabe (P5b): Inhalt der Ausgabe, Original-PDF, Quellen und je Eintrag die
+// Verknüpfung zum geltenden Recht, soweit ein Normbezug besteht.
 export const prerender = false;
 
 const store = await getNormStore(Astro.locals);
 const publication = await store.getPublication(Astro.params.slug ?? '');
 if (!publication) return Astro.rewrite('/404');
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
-// Nur die in dieser Ausgabe zitierten Normen: ihre Fassungsübersicht und ihre in D1
-// vorberechneten Rechtsbeziehungen (law_norm_derived) statt des gesamten Bestands.
 const citedSlugs = [...new Set(publication.entries.map((entry) => entry.normSlug).filter((slug): slug is string => Boolean(slug)))];
-const [versionSummaries, derivedEntries] = await Promise.all([
+const [versionSummaries, derivedEntries, normSummaries, allPublications] = await Promise.all([
   store.listVersionSummaries({ slugs: citedSlugs }),
   Promise.all(citedSlugs.map(async (slug) => [slug, await store.getDerived(slug)] as const)),
+  store.getNormSummaries(citedSlugs),
+  store.listPublications(),
 ]);
 const knownSlugs = new Set(versionSummaries.map((version) => version.slug));
 const versionKinds = new Map(versionSummaries.map((version) => [`${version.slug}:${version.versionId}`, version.temporalKind]));
@@ -41,139 +42,121 @@ const versionDates = new Map(versionSummaries.map((version) => [`${version.slug}
 const relationLookup = new Map(derivedEntries.map(([slug, derived]) => [slug, derived?.relations ?? []]));
 const publisherLine = formatPublisherLine(publication.publisher);
 const sourceLinks = publicationSourceLinks(publication);
+const label = getPublicationLabel(publication);
 
-function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
-  if (!normSlug || !knownSlugs.has(normSlug)) {
-    return undefined;
-  }
+// Vorherige und nächste Ausgabe derselben Reihe.
+const siblings = allPublications.filter((entry) => entry.publication === publication.publication).sort(comparePublicationsNewestFirst);
+const index = siblings.findIndex((entry) => entry.slug === publication.slug);
+const next = index > 0 ? siblings[index - 1] : undefined;
+const previous = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : undefined;
 
+function normTarget(normSlug: string | undefined, versionId: string | undefined): { href: string; label: string; history?: string } | undefined {
+  if (!normSlug || !knownSlugs.has(normSlug)) return undefined;
+  const summary = normSummaries.get(normSlug);
   const kind = versionId ? versionKinds.get(`${normSlug}:${versionId}`) : undefined;
-  return !kind || kind === 'current'
-    ? getNormUrl(normSlug)
-    : getNormVersionUrl(normSlug, versionId as string);
+  const date = versionId ? versionDates.get(`${normSlug}:${versionId}`) : undefined;
+  if (summary?.type === 'aenderungsvorschrift') return { href: getNormUrl(normSlug), label: 'Als Vorschrift öffnen', history: getNormHistoryUrl(normSlug) };
+  if (!kind || kind === 'current') return { href: getNormUrl(normSlug), label: 'Geltende Fassung' };
+  if (kind === 'future') return { href: getNormVersionUrl(normSlug, versionId as string), label: `Künftige Fassung${date ? ` ab ${formatShortDate(date)}` : ''}` };
+  return { href: getNormVersionUrl(normSlug, versionId as string), label: `Fassung vom ${date ? formatShortDate(date) : ''}`.trim() };
 }
+const pageRange = publication.entries.map((entry) => entry.pages ?? entry.startPage).filter(Boolean);
 ---
 
 <LawLayout
-  title={publication.title}
-  description={`${publication.title} mit Fundstellen und verlinkten Fassungen.`}
+  title={label}
+  description={`${toDisplayText(publication.title)} vom ${formatDate(publication.date)} mit allen Veröffentlichungen, Fundstellen und verlinkten Fassungen.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Verkündungen', href: getPublicationsUrl() },
-    { label: publication.title, href: getPublicationUrl(publication.slug) },
+    { label: lawSiteConfig.targetLabels.publications, href: getPublicationsUrl() },
+    { label, href: getPublicationUrl(publication.slug) },
   ]}
 >
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: 'Verkündungen', href: getPublicationsUrl() },
-      { label: publication.title },
-    ]}
-  />
+  <header class="r-page-head r-issue__head" data-copy-group>
+    <p class="r-kicker">
+      <span>Verkündung</span>
+      <a href={getPublicationsUrl()}>{lawSiteConfig.targetLabels.publications}</a>
+      <a href={pageUrl(getPublicationsUrl(), { publication: publication.publication, year: String(publication.year), ansicht: 'ausgaben' })}>{publication.publication} {publication.year}</a>
+      {hasNumberedIssue(publication) ? <span>Nr. {publication.issue}</span> : null}
+    </p>
+    <h1 class="r-issue__title">{toDisplayText(publication.title)}{hasNumberedIssue(publication) && !publication.title.includes(`Nr. ${publication.issue}`) ? <span class="r-issue__number"> · {publication.year} Nr. {publication.issue}</span> : null}</h1>
+    <div class="r-issue__meta r-meta">
+      <span>Ausgabedatum <strong class="r-strong"><time datetime={publication.date}>{formatShortDate(publication.date)}</time></strong></span>
+      {publication.publisher ? <span>Herausgegeben von {toDisplayText(publication.publisher)}</span> : null}
+      {publication.place ? <span>Ausgabeort {toDisplayText(publication.place)}</span> : null}
+      <span>{formatCount(publication.entries.length, 'Veröffentlichung', 'Veröffentlichungen')}</span>
+      <div class="r-issue__actions">
+        {publication.pdf ? <a class="r-btn r-btn--primary" href={publication.pdf}>Original-PDF</a> : null}
+        {previous ? <a class="r-btn" href={getPublicationUrl(previous.slug)} rel="prev">Vorherige {hasNumberedIssue(previous) ? `Nr. ${previous.issue}` : 'Ausgabe'}</a> : null}
+        {next ? <a class="r-btn" href={getPublicationUrl(next.slug)} rel="next">Nächste {hasNumberedIssue(next) ? `Nr. ${next.issue}` : 'Ausgabe'}</a> : null}
+        <button class="r-btn" type="button" data-print-page>Drucken</button>
+      </div>
+    </div>
+    <p class="r-caption">Quellen: {publication.pdf ? 'Original-PDF der Ausgabe' : 'kein Original-PDF hinterlegt'}{sourceLinks.length > 0 ? ` · ${sourceLinks.map((source) => toDisplayText(source.label)).join(' · ')}` : ''}. {publication.pdf ? '' : 'Fehlt das PDF einer Ausgabe, wird nur die geprüfte Transkription genannt.'}</p>
+  </header>
 
-  <SectionHero
-    eyebrow="Verkündung"
-    title={toDisplayText(publication.title)}
-    lead={`${formatIssueHeadline(publication)} mit den verzeichneten Veröffentlichungen und den verlinkten Fassungen.`}
-    variant="law"
-    facts={[
-      { label: 'Ausgabedatum', value: formatDate(publication.date) },
-      { label: 'Einträge', value: String(publication.entries.length) },
-      ...(publication.place ? [{ label: 'Ausgabeort', value: toDisplayText(publication.place) }] : []),
-    ]}
-    actions={[
-      { label: 'Alle Verkündungen', href: getPublicationsUrl(), primary: true },
-      { label: 'Fundstellen', href: getPublicationEntriesUrl() },
-    ]}
-  >
-    {publisherLine ? <p>{toDisplayText(publisherLine)}</p> : null}
-    <button class="text-link-button" type="button" data-print-page>Seite drucken</button>
-  </SectionHero>
-
-  <div class="law-publication-detail">
-    <section class="law-publication-entries" aria-labelledby="publication-entries-heading">
-      <header>
-        <span class="section-eyebrow">Inhalt der Ausgabe</span>
-        <h2 id="publication-entries-heading">Veröffentlichungen</h2>
-        <p>Jeder Eintrag verbindet die amtliche Fundstelle mit der verlinkten Fassung.</p>
-      </header>
-      <ol>
-          {publication.entries.map((entry) => {
-            const normUrl = getEntryNormUrl(entry.normSlug, entry.versionId);
-            const legalRelations = entry.normSlug
-              ? (relationLookup.get(entry.normSlug) ?? []).filter((relation) => relation.kind === 'amends' || relation.kind === 'repeals')
-              : [];
-            const versionLabel = entry.normSlug && entry.versionId
-              ? formatVersionDateLabel(entry.versionId, versionDates.get(`${entry.normSlug}:${entry.versionId}`))
-              : undefined;
-
-            return (
-              <li id={entry.id}>
-                <div class="law-publication-entry__number" aria-hidden="true">{String(publication.entries.indexOf(entry) + 1).padStart(2, '0')}</div>
-                <div class="law-publication-entry__content">
-                  <span class="law-publication-entry__type">{formatPublicationEntryType(entry.type)}</span>
-                  <h3>{normUrl ? <a href={normUrl}>{toDisplayText(entry.title)}</a> : toDisplayText(entry.title)}</h3>
-                  <p class="law-publication-entry__citation"><strong>Fundstelle</strong>{toDisplayText(entry.citation)}
-                  {entry.pages
-                    ? <span> · Seiten {entry.pages}</span>
-                    : entry.startPage
-                      ? <span> · Beginn auf Seite {entry.startPage}</span>
-                      : null}
-                  </p>
-                  <div class="law-publication-entry__links">
-                  {normUrl ? (
-                    <>
-                      {versionLabel ? <span class="law-publication-entry__version">{versionLabel}</span> : null}
-                      {legalRelations.length > 0 ? (
-                        <ul class="publication-relation-list">
-                          {legalRelations.map((relation) => {
-                            const resultingUrl = relation.resultingVersionUrl;
-                            return (
-                              <li>
-                                {relation.kind === 'repeals' ? 'Hebt auf: ' : 'Ändert: '}
-                                <a class="inline-link" href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle)}</a>
-                                {resultingUrl ? <> · <a class="inline-link" href={resultingUrl}>entstandene Fassung</a></> : null}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      ) : null}
-                    </>
-                  ) : (
-                    <span>Text nicht im Rechtsportal enthalten</span>
-                  )}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-      </ol>
+  <div class="r-research r-issue">
+    <section class="r-issue__content" aria-labelledby="publication-entries-heading">
+      <h2 id="publication-entries-heading" class="r-label r-label--rule">Inhalt der Ausgabe</h2>
+      <div class="r-table-wrap">
+        <table class="r-table r-issue__table">
+          <caption class="visually-hidden">Veröffentlichungen dieser Ausgabe mit Seite, Gegenstand, Dokumentart und Verknüpfung zum geltenden Recht</caption>
+          <thead><tr><th scope="col">Seite</th><th scope="col">Veröffentlichung</th><th scope="col">Dokumentart</th><th scope="col" class="r-right">Geltendes Recht</th></tr></thead>
+          <tbody>
+            {publication.entries.map((entry) => {
+              const target = normTarget(entry.normSlug, entry.versionId);
+              const legalRelations = entry.normSlug ? (relationLookup.get(entry.normSlug) ?? []).filter((relation) => relation.kind === 'amends' || relation.kind === 'repeals') : [];
+              return (
+                <tr id={entry.id}>
+                  <td class="r-muted r-nowrap">{entry.startPage ? `S. ${toDisplayText(entry.startPage)}` : entry.pages ? `S. ${toDisplayText(entry.pages)}` : '—'}</td>
+                  <td>
+                    <span class="r-strong">{toDisplayText(entry.title)}</span>
+                    <div class="r-meta">
+                      {toDisplayText(entry.citation)}
+                      {entry.documentDate ? ` · vom ${formatShortDate(entry.documentDate)}` : ''}
+                      {legalRelations.length > 0 ? <> · {legalRelations.map((relation, relationIndex) => <>{relationIndex > 0 ? '; ' : ''}{relation.kind === 'repeals' ? 'hebt auf: ' : 'ändert: '}<a href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle)}</a>{relation.resultingVersionUrl ? <> (<a href={relation.resultingVersionUrl}>entstandene Fassung</a>)</> : null}</>)}</> : null}
+                    </div>
+                  </td>
+                  <td class="r-nowrap">{formatPublicationEntryType(entry.type)}</td>
+                  <td class="r-right r-meta">
+                    {target ? <><a href={target.href}>{target.label}</a>{target.history ? <> · <a href={target.history}>Auswirkungen auf geltendes Recht</a></> : null}</> : <span class="r-muted">kein Normbezug</span>}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p class="r-caption r-issue__note">Die Spalte „Geltendes Recht“ trennt amtliche Veröffentlichung und konsolidierte Perspektive: „Als Vorschrift öffnen“ (Änderungsvorschrift selbst), „Geltende Fassung“ (Stammnorm) oder die entstandene Fassung. Bei Bekanntmachungen ohne Normbezug entfällt der Link.</p>
     </section>
 
-    <aside class="law-publication-sources">
-      <span class="section-eyebrow">Dokumentnachweis</span>
-      <h2>Ausgabe und Quellen</h2>
-      <p>
-        Die verlinkte Fassung und die Fundstelle weisen die Ausgabe nach, in der die Vorschrift
-        oder Bekanntmachung geführt wird.
-      </p>
-    {publication.pdf ? (
-      <p class="section-link-row">
-        <a class="inline-link" href={publication.pdf}>Ausgabe als PDF öffnen</a>
-      </p>
-    ) : (
-      <p class="detail-line">Für diese Ausgabe liegt derzeit kein PDF vor.</p>
-    )}
-    {sourceLinks.length > 0 ? (
-      <ul class="link-list">
-        {sourceLinks.map((source) => (
-          <li>
-            <a class="inline-link" href={source.url}>{toDisplayText(source.label)}</a>
-            {source.pageRange ? ` · Seiten ${source.pageRange}` : ''}
-          </li>
-        ))}
-      </ul>
-    ) : null}
+    <aside class="r-research__aside" aria-label="Ausgabe und Quellen">
+      <section class="r-box r-box--muted" data-copy-group aria-labelledby="issue-data-title">
+        <h2 id="issue-data-title" class="r-label">Ausgabe</h2>
+        <dl class="r-dl r-dl--compact">
+          <dt>Amtliche Bezeichnung</dt><dd id="issue-designation">{publication.originalIssueDesignation ? toDisplayText(publication.originalIssueDesignation) : label}</dd>
+          {publication.alternativeIssueDesignation ? <><dt>Alternative</dt><dd>{toDisplayText(publication.alternativeIssueDesignation)}</dd></> : null}
+          <dt>Ausgabedatum</dt><dd><time datetime={publication.date}>{formatShortDate(publication.date)}</time></dd>
+          {pageRange.length > 0 ? <><dt>Seiten</dt><dd>{pageRange[0]}{pageRange.length > 1 ? ` – ${pageRange[pageRange.length - 1]}` : ''}</dd></> : null}
+          {publication.publisher ? <><dt>Herausgeber</dt><dd>{toDisplayText(publication.publisher)}</dd></> : null}
+          {publication.place ? <><dt>Ausgabeort</dt><dd>{toDisplayText(publication.place)}</dd></> : null}
+          <dt>Zitieren</dt><dd id="issue-citation">{label}</dd>
+        </dl>
+        <div class="norm-aside__actions">
+          <button class="r-btn r-btn--block" type="button" data-copy-text="issue-citation" data-copy-done="Fundstelle wurde kopiert.">Fundstelle kopieren</button>
+          <button class="r-btn r-btn--block" type="button" data-copy-url data-copy-done="Link zur Ausgabe wurde kopiert.">Link zur Ausgabe kopieren</button>
+        </div>
+        <p class="r-feedback" aria-live="polite" data-copy-feedback></p>
+      </section>
+      <section class="r-box" aria-labelledby="issue-sources-title">
+        <h2 id="issue-sources-title" class="r-label">Quellen dieser Ausgabe</h2>
+        <ul class="norm-aside__source-list">
+          {publication.pdf ? <li><a href={publication.pdf}>Original-PDF der Ausgabe</a> <span class="r-muted">· amtliche visuelle Kontrollquelle</span></li> : <li class="r-muted">Für diese Ausgabe liegt kein Original-PDF vor.</li>}
+          {sourceLinks.map((source) => <li><a href={source.url}>{toDisplayText(source.label)}</a>{source.pageRange ? <span class="r-muted"> · Seiten {source.pageRange}</span> : null}</li>)}
+        </ul>
+        {publisherLine ? <p class="r-caption">{toDisplayText(publisherLine)}</p> : null}
+      </section>
+      <p class="r-caption">Ausgabe und Veröffentlichung sind eine gemeinsame Ressource: die Fundstelle führt zur Zeile in der Ausgabe, die Ausgabe zeigt alle Fundstellen.</p>
     </aside>
   </div>
 </LawLayout>

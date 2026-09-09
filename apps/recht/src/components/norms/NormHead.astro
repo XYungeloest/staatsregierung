@@ -1,0 +1,81 @@
+---
+import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
+import { getNormTitleBlock } from '@ostrecht/shared/lib/norms/display.ts';
+import { getNormVersionIdentity, formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { getSubjectUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+import StatusMark from '../ui/StatusMark.astro';
+import type { NormHeadModel } from '../../lib/norm-head.ts';
+import { normKicker } from '../../lib/norm-head.ts';
+import { getNormVersionPdfPath } from '../../lib/norm-links.ts';
+
+/**
+ * Vorschriftskopf (P3): Kopfzeile, Titel mit Abkürzung, Statusmarke und Statuszeile, Werkzeuge,
+ * Herkunftszeile. Davor das Statusband für historische, künftige und ungeklärte Fassungen.
+ */
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  model: NormHeadModel;
+  /** Amtliche Ausgabe (PDF) der Verkündung dieser Fassung. */
+  officialPdf?: string;
+  /** Vollzitat für „Vollzitat kopieren“ (steht auch in den Vorschriftendaten). */
+  fullCitation: string;
+  /** Ziel des Links „Inhalt“ (mobile Inhaltsübersicht). */
+  outlineHref?: string;
+}
+
+const { norm, version, model, officialPdf, fullCitation, outlineHref = '#norm-inhalt-mobil' } = Astro.props;
+const identity = getNormVersionIdentity(norm, version);
+const title = getNormTitleBlock(identity);
+const kicker = normKicker(norm);
+const primarySubject = norm.meta.primarySubject ?? norm.meta.subjects[0];
+const immutable = model.temporalKind !== 'current';
+const linkLabel = immutable ? 'Fassungslink' : 'Link';
+const linkDone = immutable ? 'Link zu dieser Fassung wurde kopiert.' : 'Link zur Vorschrift wurde kopiert.';
+const bandLabels = { historical: 'HISTORISCHE FASSUNG', future: 'KÜNFTIGE FASSUNG', 'unknown-effective': 'INKRAFTTRETEN NICHT BELEGT' } as const;
+---
+
+{model.band ? (
+  <div class:list={['norm-band', `norm-band--${model.band.kind}`]} role="status">
+    <span class="norm-band__title">{bandLabels[model.band.kind]}</span>
+    <span class="norm-band__text">{model.band.text}</span>
+    {model.band.links.map((link) => <a class="norm-band__link" href={link.href}>{link.text}</a>)}
+  </div>
+) : null}
+
+<header class="norm-page-header" data-copy-group>
+  <p class="r-kicker">
+    <span>Vorschrift</span>
+    {primarySubject ? <a href={getSubjectUrl(primarySubject)}>{formatSubjectLabel(toDisplayText(primarySubject), { withNumber: true, short: true })}</a> : null}
+    <span>{formatNormType(norm.meta.type)}</span>
+    {kicker.documentDate ? <span>Ausfertigung {kicker.documentDate}</span> : null}
+    {kicker.initialCitation ? <span>Stammfundstelle {kicker.initialCitation}</span> : null}
+  </p>
+  <h1 class="norm-page-header__title">{title.heading}{title.abbr || title.longTitle ? <> <span class="norm-page-header__abbr">({[title.longTitle && title.longTitle !== title.heading ? title.longTitle : null, title.abbr].filter(Boolean).join(' – ')})</span></> : null}</h1>
+  <div class="norm-page-header__status">
+    <StatusMark status={model.mark.status} label={model.mark.label} />
+    <div class="norm-page-header__line">
+      <span class="r-strong">{model.primary}</span>
+      {model.parts.map((part) => (
+        <span class:list={[part.tone === 'future' ? 'r-future-text' : undefined, part.tone === 'muted' ? 'r-muted' : undefined]}>
+          {part.href ? <a href={part.href} class={part.tone === 'future' ? 'r-future-text' : undefined}>{part.text}</a> : part.text}
+        </span>
+      ))}
+    </div>
+    <nav class="norm-page-header__tools" aria-label="Werkzeuge zur Vorschrift">
+      <a class="r-btn norm-page-header__outline-link" href={outlineHref} data-outline-open>Inhalt</a>
+      <button class="r-btn" type="button" data-copy-text="norm-full-citation" data-copy-done="Vollzitat wurde kopiert.">Vollzitat</button>
+      <button class="r-btn" type="button" data-copy-url data-copy-done={linkDone}>{linkLabel}</button>
+      <button class="r-btn" type="button" data-print-page>Drucken</button>
+      {officialPdf ? <a class="r-btn" href={officialPdf}>Amtliches PDF</a> : <a class="r-btn" href={getNormVersionPdfPath(norm.meta.slug, version.versionId)} type="application/pdf">Als PDF</a>}
+    </nav>
+  </div>
+  <p class="r-feedback norm-page-header__feedback" aria-live="polite" data-copy-feedback></p>
+  <span id="norm-full-citation" hidden>{toDisplayText(fullCitation)}</span>
+  <p class="norm-page-header__origin">
+    <span class="r-label">Rechtsherkunft</span>
+    <span>{model.origin.text}</span>
+    {model.origin.links.map((link) => <a href={link.href}>{link.text}</a>)}
+  </p>
+</header>

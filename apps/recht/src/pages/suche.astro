@@ -1,215 +1,201 @@
 ---
 import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import LawLayout from '../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
 import SearchCheckboxGroup from '../components/norms/SearchCheckboxGroup.astro';
-import NormOriginBadge from '../components/norms/NormOriginBadge.astro';
 import {
-  describeNormOriginKind,
-  getFundingUrl,
   getIndexUrl,
   getLawPortalUrl,
-  getPublicationEntriesUrl,
-  getPublicationsUrl,
   getSearchUrl,
   getSubjectsUrl,
-  LEGAL_BASELINE_DATE,
-  type NormOriginKind,
   type NormStatus,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
-import { countNoun, NORM_UNIT } from '../lib/counts.ts';
 import { VALIDITY_FIELD_LABEL, VERSION_FIELD_LABEL, VERSION_SCOPE_OPTIONS, validityLabel } from '../lib/vocabulary.ts';
-import { pageUrl } from '../lib/runtime/pagination.ts';
 
-// Die Suchseite ist eine statische Hülle; Treffer liefert zur Laufzeit /api/suche.json aus D1.
+// Die Suchseite ist eine statische Hülle (P2/P2b); Treffer liefert zur Laufzeit /api/suche.json aus D1.
 const store = await getNormStore(Astro.locals);
-// Filteroptionen und Dokumentzahl kommen als vorberechnete Metadatenzeilen aus D1.
-const [{ filters, documentCount }, searchPublications, originCounts] = await Promise.all([
+const [{ filters, documentCount }, searchPublications] = await Promise.all([
   store.getSearchFilters(),
   store.listSearchPublications(),
-  store.countByOriginKind(),
 ]);
-// Reihenfolge der Herkunftsarten wie in der A–Z-Übersicht; die Zahlen zählen die Grundmenge.
-const originKinds: NormOriginKind[] = ['inherited-unchanged', 'inherited-amended', 'ostdeutsch-original', 'origin-unresolved'];
-const originOverview = originKinds.map((kind) => ({ kind, count: originCounts[kind] ?? 0 }));
 filters.publications = [...new Set(searchPublications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));
 filters.years = [...new Set(searchPublications.map((publication) => publication.year))].sort((left, right) => right.localeCompare(left));
-const searchPayload = { filters, documentCount };
 const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
+const statusOptions = filters.statuses.map((option) => ({ value: option.value, label: validityLabel(option.value as NormStatus) }));
+const subjectOptions = filters.subjects.map((option) => ({ value: option, label: formatSubjectLabel(option, { withNumber: true, short: true }) }));
+const sortOptions = [
+  { value: 'relevance', label: 'Relevanz' },
+  { value: 'title', label: 'Titel A–Z' },
+  { value: 'activity', label: 'Neueste Rechtsänderung' },
+  { value: 'rechtsstand', label: 'Neuester Rechtsstand' },
+  { value: 'publication', label: 'Neueste Verkündung' },
+];
 ---
 
 <LawLayout
-  title="Normensuche"
-  description="Suche nach Normtiteln, Sachgebieten, Fundstellen und Vorschriftentexten."
-  breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: 'Suche', href: getSearchUrl() }]}
+  title={lawSiteConfig.targetLabels.search}
+  description="Suche im Landesrecht des Ostdeutschen Freistaates: Titel, Abkürzungen, Fundstellen, Metadaten und Vorschriftentexte."
+  breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: lawSiteConfig.targetLabels.search, href: getSearchUrl() }]}
   noindex={true}
 >
-  <Breadcrumbs items={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: 'Suche' }]} />
-
-  <header class="law-search-intro">
-    <div>
-      <p class="eyebrow">Rechtssuche</p>
-      <h1>Gesetze und Vorschriften durchsuchen</h1>
-      <p>Titel, Fundstellen, Sachgebiete und die gegliederten Normtexte in {searchPayload.documentCount} Fassungen recherchieren.</p>
-    </div>
-  </header>
-
-  <section class="search-shell" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl} data-index-url={getIndexUrl()}>
+  <section class="r-search" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl} data-index-url={getIndexUrl()} data-subjects-url={getSubjectsUrl()}>
     <h2 class="visually-hidden" id="search-form-title">Suchanfrage und Filter</h2>
 
-    <form class="search-form law-search-form" action={getSearchUrl()} method="get" data-search-form>
-      <div class="search-form__primary search-form__primary--law">
-        <label class="law-search-query">
-          <span class="visually-hidden">Suchbegriff</span>
-          <PortalIcon name="search" />
-          <input type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-search-query />
-        </label>
-        <label class="law-search-scope">
-          <span class="visually-hidden">Suchbereich</span>
-          <select name="scope" data-search-filter="scope">
-            <option value="all">Alle Inhalte</option>
-            <option value="title">Nur Titel und Abkürzung</option>
-            <option value="metadata">Nur Metadaten und Fundstellen</option>
-            <option value="body">Nur Normtext</option>
-          </select>
-        </label>
-        <button class="button-link" type="submit">Suchen</button>
-      </div>
-
-      <div class="search-active-filters" data-search-active-filters hidden>
-        <strong>Aktive Filter</strong>
-        <div class="search-active-filters__list" data-search-active-list></div>
-        <button class="text-link-button" type="button" data-search-clear-filters>Alle Filter löschen</button>
-      </div>
-
-      <section class="law-search-origins" aria-labelledby="search-origin-heading">
-        <h2 id="search-origin-heading">Rechtsherkunft</h2>
-        <p>
-          Übernommenes sächsisches Recht trägt den Rechtsstand vom
-          <time datetime={LEGAL_BASELINE_DATE}>1. November 2023</time>; seitdem entwickelt der Freistaat
-          seinen Rechtsbestand eigenständig fort. Welche Fassung als geltend angezeigt wird, richtet sich
-          davon getrennt nach dem aktuellen Rechtsstand des Portals.
-        </p>
-        <ul class="law-origin-overview" data-origin-overview>
-          {originOverview.map((entry) => (
-            <li>
-              <a href={pageUrl(getSearchUrl(), { origin: entry.kind })} data-origin-kind={entry.kind}>
-                <NormOriginBadge kind={entry.kind} />
-                <strong>{entry.count}</strong>
-                <span>{countNoun(entry.count, NORM_UNIT.one, NORM_UNIT.many)} · {describeNormOriginKind(entry.kind)}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <div class="law-search-workspace">
-        <aside class="law-search-filters" aria-label="Suchfilter">
-          <details class="law-search-filters-panel" open>
-            <summary>Filter anzeigen</summary>
-            <div>
-              <div class="law-search-filters__heading">
-                <h2>Filtern</h2>
-                <a href={getSearchUrl()}>Zurücksetzen</a>
-              </div>
-
-              <div class="law-search-filter-basics">
-            <SearchCheckboxGroup legend="Normtypen" name="type" facet="type" options={searchPayload.filters.types} />
-            <label class="search-field">
-              <span>{VERSION_FIELD_LABEL}</span>
-              <select name="versionScope" data-search-filter="versionScope">
-                {VERSION_SCOPE_OPTIONS.map((option) => (
-                  <option value={option.value} selected={option.value === 'current'}>{option.label}</option>
-                ))}
+    <form class="r-search__form" action={getSearchUrl()} method="get" data-search-form>
+      <div class="r-search__layout">
+        <div class="r-search__main">
+          <h1 class="r-search__title">Suche im Landesrecht</h1>
+          <div class="r-search__bar">
+            <label class="r-search__query">
+              <span class="visually-hidden">Suchbegriff</span>
+              <input class="r-input r-input--lg" type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Abkürzung, Paragraph oder Fundstelle" data-search-query />
+            </label>
+            <label class="r-field r-search__scope">
+              <span>Suchbereich</span>
+              <select class="r-select r-select--lg" name="scope" data-search-filter="scope">
+                <option value="all">Alle Inhalte</option>
+                <option value="title">Titel und Abkürzung</option>
+                <option value="metadata">Metadaten und Fundstellen</option>
+                <option value="body">Normtext</option>
               </select>
             </label>
-            <label class="search-field">
-              <span>Sortierung</span>
-              <select name="sort" data-search-filter="sort">
-                <option value="activity">Neueste Rechtsänderung</option>
-                <option value="publication">Neueste Verkündung</option>
-                <option value="relevance">Relevanz</option>
-                <option value="title">Titel A–Z</option>
-                <option value="rechtsstand">Neuester Rechtsstand</option>
-              </select>
-            </label>
-            <label class="search-field search-field--checkbox">
-              <span>Änderungsvorschriften vollständig</span>
-              <span><input type="checkbox" name="includeAmendments" value="1" data-search-filter="includeAmendments" /> einbeziehen</span>
-            </label>
+            <button class="r-btn r-btn--primary r-btn--lg" type="submit">Suchen</button>
+          </div>
+
+          <div class="r-search__active" data-search-active-filters hidden>
+            <span class="r-strong">Aktive Filter</span>
+            <div class="r-search__active-list" data-search-active-list></div>
+            <button class="r-link-btn" type="button" data-search-clear-filters>Alle Filter löschen</button>
+          </div>
+
+          <details class="r-search__advanced" id="erweiterte-suche" data-search-filter-panel="more" data-search-advanced>
+            <summary><span>Weitere Filter · Erweiterte Suche</span><span class="r-muted" data-search-panel-count></span></summary>
+            <div class="r-search__advanced-grid" aria-label="Erweiterte Suche">
+              <fieldset class="r-fieldset r-fieldset--caps">
+                <legend>Textsuche</legend>
+                <div class="r-fieldset__body">
+                  <label class="r-field"><span>Exakte Wortfolge</span><input class="r-input" type="search" name="exact" autocomplete="off" placeholder="„schriftlichen und einem mündlichen Teil“" data-search-filter="exact" /></label>
+                  <label class="r-field"><span>Enthält nicht</span><input class="r-input" type="search" name="exclude" autocomplete="off" placeholder="z. B. Hochschule" data-search-filter="exclude" /></label>
+                  <label class="r-check"><input type="checkbox" name="includeAmendments" value="1" data-search-filter="includeAmendments" /><span>Änderungsvorschriften vollständig einbeziehen</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="r-fieldset r-fieldset--caps">
+                <legend>Norm und Zuständigkeit</legend>
+                <div class="r-fieldset__body">
+                  <SearchCheckboxGroup legend="Ressort" name="ministry" facet="ministry" options={filters.ministries.map((option) => ({ value: option, label: option }))} />
+                </div>
+              </fieldset>
+
+              <fieldset class="r-fieldset r-fieldset--caps">
+                <legend>Rechtsherkunft</legend>
+                <div class="r-fieldset__body">
+                  <SearchCheckboxGroup legend="Rechtsherkunft" name="origin" facet="origin" options={filters.origins} />
+                </div>
+              </fieldset>
+
+              <fieldset class="r-fieldset r-fieldset--caps">
+                <legend>{VERSION_FIELD_LABEL}</legend>
+                <div class="r-fieldset__body">
+                  <label class="r-field"><span class="visually-hidden">{VERSION_FIELD_LABEL}</span>
+                    <select class="r-select" name="versionScope" data-search-filter="versionScope">
+                      {VERSION_SCOPE_OPTIONS.map((option) => <option value={option.value} selected={option.value === 'current'}>{option.label}</option>)}
+                    </select>
+                  </label>
+                  <p class="r-caption">Historische Fassungen erscheinen als Fassungen ihrer Vorschrift, nicht als eigene Vorschriften.</p>
+                </div>
+              </fieldset>
+
+              <fieldset class="r-fieldset r-fieldset--caps">
+                <legend>Zeit</legend>
+                <div class="r-fieldset__body">
+                  <label class="r-field"><span>Geltungstag</span><input class="r-input" type="date" name="geltungstag" data-search-filter="geltungstag" /></label>
+                  <div class="r-search__pair">
+                    <label class="r-field"><span>Gültig ab</span><input class="r-input" type="date" name="validFrom" data-search-filter="validFrom" /></label>
+                    <label class="r-field"><span>Gültig bis</span><input class="r-input" type="date" name="validTo" data-search-filter="validTo" /></label>
+                  </div>
+                  <p class="r-caption">Der Geltungstag wirkt nur auf diese Suchanfrage.</p>
+                </div>
+              </fieldset>
+
+              <fieldset class="r-fieldset r-fieldset--caps">
+                <legend>Fundstelle</legend>
+                <div class="r-fieldset__body">
+                  <SearchCheckboxGroup legend="Verkündungsblatt" name="publicationSource" facet="publicationSource" options={filters.publications.map((option) => ({ value: option, label: option }))} />
+                  <SearchCheckboxGroup legend="Jahr" name="publicationYear" facet="publicationYear" options={filters.years.map((option) => ({ value: option, label: option }))} />
+                  <div class="r-search__pair">
+                    <label class="r-field"><span>Nr.</span><input class="r-input" type="text" name="publicationIssue" inputmode="numeric" data-search-filter="publicationIssue" /></label>
+                    <label class="r-field"><span>Seite</span><input class="r-input" type="text" name="publicationPage" inputmode="numeric" data-search-filter="publicationPage" /></label>
+                  </div>
+                  <label class="r-field"><span>Fundstelle (frei)</span><input class="r-input" type="search" name="citation" autocomplete="off" placeholder="z. B. OGVBl. 2026 Nr. 16" data-search-filter="citation" /></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="r-fieldset r-fieldset--caps">
+                <legend>Speichern</legend>
+                <div class="r-fieldset__body" data-copy-group>
+                  <p class="r-caption">Die Suchanfrage liegt vollständig in der Adresse. Der Link lässt sich teilen und als Lesezeichen sichern.</p>
+                  <button class="r-btn r-btn--block" type="button" data-copy-url data-copy-keep-query="true" data-copy-done="Link zur Suchanfrage wurde kopiert.">Link zur Suchanfrage kopieren</button>
+                  <p class="r-feedback" aria-live="polite" data-copy-feedback></p>
+                </div>
+              </fieldset>
+
+              <div class="r-search__advanced-actions">
+                <button class="r-btn r-btn--primary" type="submit">Filter anwenden</button>
+                <button class="r-btn" type="button" data-search-clear-filters>Zurücksetzen</button>
+                <span class="r-caption">Abweichungen vom Standard erscheinen über der Trefferliste als aktive Filter.</span>
               </div>
-
-              <details class="search-filter-panel" data-search-filter-panel="more">
-            <summary><span>Norm und Zuständigkeit</span><span class="search-filter-panel__count" data-search-panel-count></span></summary>
-            <div class="search-filter-panel__content">
-              <SearchCheckboxGroup legend="Sachgebiete" name="subject" facet="subject" options={searchPayload.filters.subjects.map((option) => ({ value: option, label: formatSubjectLabel(option, { withNumber: true, short: true }) }))} />
-              <SearchCheckboxGroup legend="Ressorts" name="ministry" facet="ministry" options={searchPayload.filters.ministries.map((option) => ({ value: option, label: option }))} />
-              <!-- Die Geltung heißt überall gleich; die Projektion liefert die Werte, die Wörter kommen aus der Wortliste. -->
-              <SearchCheckboxGroup legend={VALIDITY_FIELD_LABEL} name="status" facet="status" options={searchPayload.filters.statuses.map((option) => ({ value: option.value, label: validityLabel(option.value as NormStatus) }))} />
-              <SearchCheckboxGroup legend="Rechtsherkunft" name="origin" facet="origin" options={searchPayload.filters.origins} />
-            </div>
-              </details>
-
-              <details class="search-filter-panel" data-search-filter-panel="special">
-            <summary><span>Zeitraum und Fundstelle</span><span class="search-filter-panel__count" data-search-panel-count></span></summary>
-            <div class="search-filter-panel__content">
-              <label class="search-field"><span>Exakte Wortfolge</span><input type="search" name="exact" autocomplete="off" data-search-filter="exact" /></label>
-              <label class="search-field"><span>Enthält nicht</span><input type="search" name="exclude" autocomplete="off" data-search-filter="exclude" /></label>
-              <label class="search-field"><span>Fundstelle</span><input type="search" name="citation" autocomplete="off" placeholder="z. B. OGVBl. 2026 Nr. 16" data-search-filter="citation" /></label>
-              <label class="search-field"><span>Geltungstag</span><input type="date" name="geltungstag" data-search-filter="geltungstag" /></label>
-              <label class="search-field"><span>Gültig ab</span><input type="date" name="validFrom" data-search-filter="validFrom" /></label>
-              <label class="search-field"><span>Gültig bis</span><input type="date" name="validTo" data-search-filter="validTo" /></label>
-              <SearchCheckboxGroup legend="Verkündungsblatt" name="publicationSource" facet="publicationSource" options={searchPayload.filters.publications.map((option) => ({ value: option, label: option }))} />
-              <SearchCheckboxGroup legend="Jahr" name="publicationYear" facet="publicationYear" options={searchPayload.filters.years.map((option) => ({ value: option, label: option }))} />
-              <label class="search-field"><span>Ausgabennummer</span><input type="text" name="publicationIssue" inputmode="numeric" data-search-filter="publicationIssue" /></label>
-              <label class="search-field"><span>Seite</span><input type="text" name="publicationPage" inputmode="numeric" data-search-filter="publicationPage" /></label>
-            </div>
-              </details>
             </div>
           </details>
-        </aside>
 
-        <div class="law-search-results-column">
-          <div class="law-search-results-heading">
-            <div>
-              <p class="eyebrow">Trefferliste</p>
-              <h2>Suchergebnisse</h2>
-            </div>
-            <div class="search-feedback" aria-live="polite" data-search-summary>Treffer werden geladen.</div>
+          <div class="r-search__results-head">
+            <p class="r-meta" aria-live="polite" data-search-summary>Treffer werden geladen.</p>
+            <label class="r-field r-search__sort">
+              <span>Sortierung</span>
+              <select class="r-select" name="sort" data-search-filter="sort">
+                {sortOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
           </div>
-          <div class="search-results" data-search-results></div>
-          <button class="button-link button-link--secondary search-load-more" type="button" data-search-more hidden>Weitere Treffer laden</button>
+          <div class="r-search__results" data-search-results></div>
+          <div class="r-search__more">
+            <button class="r-btn" type="button" data-search-more hidden>Weitere Treffer laden</button>
+          </div>
         </div>
 
-        <aside class="law-search-tips" aria-label="Hinweise zur Suche">
-          <section>
-            <PortalIcon name="search" />
-            <h2>Suchtipps</h2>
-            <p>Mit Anführungszeichen suchen Sie nach einer exakten Wortgruppe.</p>
-            <p>Abkürzungen wie „SächsGemO“ führen direkt zu passenden Normen.</p>
-            <p>Ein Stern am Wortende findet Präfixe, etwa <code>schul*</code>.</p>
-          </section>
-          <section>
-            <h2>Weitere Zugänge</h2>
-            <nav>
-              <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
-              <a href={getSubjectsUrl()}>{lawSiteConfig.targetLabels.subjects}</a>
-              <a href={getPublicationEntriesUrl()}>Fundstellen</a>
-              <a href={getPublicationsUrl()}>Verkündungen</a>
-              <a href={getFundingUrl()}>Förderrichtlinien</a>
-            </nav>
-          </section>
+        <aside class="r-search__aside" aria-label="Suchfilter">
+          <details class="r-search__filters" data-search-filters open>
+            <summary class="r-search__filters-summary"><span class="r-label">Eingrenzen</span></summary>
+            <div class="r-search__filters-body">
+              <div class="r-search__filters-head">
+                <h2 class="r-label">Eingrenzen</h2>
+                <a class="r-caption" href={getSearchUrl()} data-search-reset-link>Zurücksetzen</a>
+              </div>
+              <SearchCheckboxGroup legend={VALIDITY_FIELD_LABEL} name="status" facet="status" options={statusOptions} />
+              <SearchCheckboxGroup legend="Normtyp" name="type" facet="type" options={filters.types} />
+              <SearchCheckboxGroup legend="Sachgebiet" name="subject" facet="subject" options={subjectOptions} />
+              <div class="r-search__more-filters">
+                <a href="#erweiterte-suche" data-search-open-advanced>Weitere Filter · Erweiterte Suche</a>
+                <p class="r-caption">Exakte Wortfolge, Ausschluss, Ressort, Rechtsherkunft, Fassungsbereich, Geltungstag, Fundstelle, Änderungsvorschriften.</p>
+              </div>
+            </div>
+          </details>
+          <div class="r-box r-box--muted r-search__tips">
+            <h2 class="r-label">Suchhinweise</h2>
+            <ul class="r-search__tips-list">
+              <li>„…“ sucht die exakte Wortgruppe.</li>
+              <li>schul* findet Wortanfänge.</li>
+              <li>Abkürzungen, Fundstellen (OGVBl. 2026 Nr. 16) und Normadressen (§ 12) führen direkt zum Ziel.</li>
+              <li>Der Bestand umfasst {documentCount} Fassungen.</li>
+            </ul>
+          </div>
         </aside>
       </div>
     </form>
 
     <noscript>
-      <div class="search-feedback search-feedback--warning">
-        <p>Für die freie Volltextsuche wird JavaScript benötigt. Die alphabetischen und systematischen Einstiege bleiben erreichbar.</p>
-      </div>
+      <p class="r-note">Für die freie Volltextsuche wird JavaScript benötigt. Die alphabetischen und systematischen Einstiege (<a href={getIndexUrl()}>A–Z und Register</a>, <a href={getSubjectsUrl()}>Sachgebiete</a>) bleiben erreichbar.</p>
     </noscript>
   </section>
   <script>import '../scripts/search-page.ts';</script>

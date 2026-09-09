@@ -1,0 +1,215 @@
+/* OstRecht – Druck: Titel, Normidentität, Fassungsstand, Fundstelle, Normtext, Quellen und
+   Abrufhinweis; keine Navigation, keine Werkzeuge, keine Seitenspalten. */
+@media print {
+  @page {
+    margin: 18mm 16mm;
+  }
+
+  body {
+    font-size: 11pt;
+    background: #fff;
+    color: #000;
+  }
+
+  .law-notice,
+  .law-header-search,
+  .law-main-nav,
+  .law-mobile-nav,
+  .law-footer nav,
+  .law-footer__simulation,
+  .skip-link,
+  .norm-tabs-row,
+  .norm-workspace__outline,
+  .norm-outline-mobile,
+  .norm-aside__cite,
+  .norm-aside__actions,
+  .norm-page-header__tools,
+  .norm-page-header__feedback,
+  .norm-unit__tools,
+  .norm-facts__link-tools,
+  .norm-relations,
+  .r-search__aside,
+  .r-search__advanced,
+  .r-search__more,
+  .r-pagination,
+  .letter-nav,
+  .r-btn,
+  .r-link-btn,
+  .r-ac,
+  .r-feedback,
+  .r-note--future a,
+  [data-print-page],
+  [data-copy-url],
+  [data-copy-text] {
+    display: none !important;
+  }
+
+  .law-header {
+    background: none;
+    color: #000;
+    border-bottom: 1pt solid #000;
+    padding: 0;
+  }
+
+  .law-header__bar {
+    min-height: 0;
+    padding: 0 0 4pt;
+  }
+
+  .law-wordmark,
+  .law-wordmark strong {
+    color: #000;
+  }
+
+  .law-wordmark small {
+    color: #444;
+  }
+
+  .law-wordmark img {
+    filter: grayscale(1);
+  }
+
+  .r-container,
+  .law-main--contained,
+  .norm-page-header,
+  .norm-workspace,
+  .norm-details {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .norm-band {
+    background: none;
+    color: #000;
+    border: 1pt solid #000;
+    padding: 4pt 8pt;
+    margin-top: 6pt;
+  }
+
+  .norm-page-header {
+    padding-top: 8pt;
+    padding-bottom: 6pt;
+    border-bottom: 1pt solid #000;
+  }
+
+  .norm-workspace {
+    display: block;
+  }
+
+  .norm-document {
+    padding: 8pt 0 0;
+  }
+
+  .norm-body {
+    max-width: none;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .norm-unit,
+  .norm-annex {
+    break-inside: auto;
+  }
+
+  .norm-unit__head,
+  .norm-division__heading {
+    break-after: avoid;
+  }
+
+  .norm-annex {
+    break-before: page;
+  }
+
+  .norm-table-wrap {
+    overflow: visible;
+    border: 0;
+  }
+
+  .norm-table {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .norm-table tr > :first-child {
+    position: static;
+  }
+
+  .norm-abs:target {
+    background: none;
+    box-shadow: none;
+    margin-left: 0;
+    padding: 0;
+  }
+
+  .norm-aside {
+    border: 0;
+    margin-top: 12pt;
+    padding-top: 6pt;
+    border-top: 1pt solid #000;
+  }
+
+  .norm-aside > section {
+    padding: 4pt 0;
+    border: 0;
+    background: none;
+  }
+
+  .norm-timeline {
+    border-left: 1pt solid #888;
+  }
+
+  .norm-details {
+    display: block;
+    border-top: 1pt solid #000;
+    padding-top: 8pt;
+    margin-top: 12pt;
+  }
+
+  .law-footer {
+    border-top: 1pt solid #000;
+    margin-top: 12pt;
+    font-size: 8.5pt;
+  }
+
+  .law-footer__inner {
+    padding: 6pt 0;
+  }
+
+  .law-footer__inner p[data-print-url]::after {
+    content: ' · Abruf unter ' attr(data-print-url);
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .norm-body a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 8pt;
+    color: #444;
+  }
+
+  /* Einzeldruck: nur die gewählte Einheit */
+  body.print-single-norm-unit .norm-body > *,
+  body.print-single-norm-unit .norm-division > *,
+  body.print-single-norm-unit .norm-details,
+  body.print-single-norm-unit .norm-aside {
+    display: none !important;
+  }
+
+  body.print-single-norm-unit .norm-body > .print-target,
+  body.print-single-norm-unit .norm-division:has(.print-target),
+  body.print-single-norm-unit .norm-division:has(.print-target) > .norm-division__heading,
+  body.print-single-norm-unit .norm-division > .print-target,
+  body.print-single-norm-unit .norm-division:has(.print-target) > .norm-division:has(.print-target) {
+    display: block !important;
+  }
+
+  /* Vergleich: beide Spalten untereinander */
+  .norm-diff__provision-columns {
+    display: block;
+  }
+}

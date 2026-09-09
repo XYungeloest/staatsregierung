@@ -1,29 +1,23 @@
 ---
 import LawLayout from '../../../../layouts/LawLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import NormBody from '../../../../components/norms/NormBody.astro';
 import NormFacts from '../../../../components/norms/NormFacts.astro';
+import NormHead from '../../../../components/norms/NormHead.astro';
+import NormLegalRelations from '../../../../components/norms/NormLegalRelations.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
-import NormDocumentTools from '../../../../components/norms/NormDocumentTools.astro';
-import NormPrintSources from '../../../../components/norms/NormPrintSources.astro';
-import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
-import NormPageHeader from '../../../../components/norms/NormPageHeader.astro';
-import NormHistorySummary from '../../../../components/norms/NormHistorySummary.astro';
+import NormOutlineSheet from '../../../../components/norms/NormOutlineSheet.astro';
+import NormSectionTabs from '../../../../components/norms/NormSectionTabs.astro';
+import NormAside from '../../../../components/norms/NormAside.astro';
 import { buildNormOutline, formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import {
-  getLawPortalUrl,
-  getNormUrl,
-  classifyNormVersion,
-  getNormVersionIdentity,
-} from '@ostrecht/shared/lib/norms/index.ts';
-import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
+import { classifyNormVersion, getLawPortalUrl, getNormUrl, getNormVersionIdentity } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../../../../lib/runtime/context.ts';
-import { versionHeaderState } from '../../../../lib/norm-header.ts';
 import { displayChangeNote } from '../../../../lib/history-labels.ts';
+import { buildNormHeadModel } from '../../../../lib/norm-head.ts';
+import { loadNormView, outlineSummary } from '../../../../lib/norm-view.ts';
 
-// Konkrete Fassungen werden zur Laufzeit aus D1 gelesen; nur der angefragte
-// Normkörper wird geladen.
+// Konkrete gespeicherte Fassung (P3b): historisch, künftig oder mit ungeklärtem Inkrafttreten.
+// Der Fassungslink ist dauerhaft; die Wahl wirkt nur auf diese Vorschrift.
 export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
@@ -32,30 +26,25 @@ const store = await getNormStore(Astro.locals);
 const norm = await store.getNorm(slug, [versionId]);
 const version = norm?.versions.find((entry) => entry.versionId === versionId);
 if (!norm || !version) return Astro.rewrite('/404');
-const [derived, fullCitation, publicationReference] = await Promise.all([
-  store.getDerived(slug),
-  store.getFullCitation(slug, versionId),
-  store.getPublicationReference(slug, versionId),
-]);
-if (!derived) return Astro.rewrite('/404');
-// Bezeichnungen der Änderungsvorschriften: die Vorschriftendaten verlinken sie mit Titel und Datum.
-const [publication, amendmentLabels] = await Promise.all([
-  publicationReference ? store.getPublication(publicationReference.publicationSlug) : Promise.resolve(null),
-  store.getNormLabels(derived.origin.ownChanges.map((entry) => entry.relatedNormSlug).filter((entry): entry is string => Boolean(entry))),
-]);
+const view = await loadNormView(store, norm, version);
+if (!view) return Astro.rewrite('/404');
+const { derived, fullCitation, publicationReference, publication, amendmentLabels, nextFutureReference } = view;
+const model = buildNormHeadModel(norm, version, { origin: derived.origin, publicationReference, amendmentLabels, nextFutureReference });
 const temporalKind = classifyNormVersion(norm, version);
 const outline = buildNormOutline(version.body);
+const summary = outlineSummary(outline);
 const identity = getNormVersionIdentity(norm, version);
 const currentIdentity = getNormVersionIdentity(norm, norm.versions.find((entry) => classifyNormVersion(norm, entry) === 'current') ?? version);
 const normTitle = toDisplayText(identity.title);
 const normSeoTitle = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
 const versionDescription = `${temporalKind === 'future' ? 'Künftige' : temporalKind === 'historical' ? 'Historische' : 'Veröffentlichte'} Fassung von ${normTitle} mit Stand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
+const changeNote = displayChangeNote(version.changeNote);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
-const header = versionHeaderState(norm, version);
 ---
 
 <LawLayout
   documentFont
+  mainWidth="full"
   title={`${normSeoTitle} – Fassung vom ${formatDate(version.validFrom)}`}
   description={versionDescription}
   breadcrumbs={[
@@ -64,56 +53,27 @@ const header = versionHeaderState(norm, version);
     { label: `Fassung vom ${formatDate(version.validFrom)}` },
   ]}
 >
-  <Breadcrumbs
-    items={[
-      { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
-      { label: `Fassung vom ${formatDate(version.validFrom)}` },
-    ]}
-  />
+  <NormHead norm={norm} version={version} model={model} officialPdf={publication?.pdf} fullCitation={fullCitation} />
+  <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} versionId={temporalKind === 'current' ? undefined : version.versionId} active="text" /></div>
+  <NormOutlineSheet items={outline} summary={summary} />
 
-  <NormPageHeader
-    norm={norm}
-    version={version}
-    eyebrow={header.eyebrow}
-    status={header.status}
-    officialPdf={publication?.pdf}
-  />
-  <NormVersionNavigation norm={norm} version={version} currentPage="history" />
   <div class="norm-workspace">
-    <aside class="norm-toc-column"><NormOutline items={outline} /></aside>
-    <article class="norm-document-column">
-      <section class="section" id="normtext">
-        <div class="section-header">
-          <h2>{temporalKind === 'future' ? 'Künftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
-          <p>{displayChangeNote(version.changeNote)}</p>
-        </div>
-        <NormDocumentTools unitKind={getNormUnitKind(version.body)} />
-        <NormBody blocks={version.body} references={derived.textReferences} />
-      </section>
-      <NormPrintSources
-        norm={norm}
-        version={version}
-        publicationReference={publicationReference}
-        publication={publication ?? undefined}
-      />
-    </article>
-    <aside class="norm-info-column" data-visual-section="norm-sidebar">
-      <NormFacts
-        norm={norm}
-        version={version}
-        origin={derived.origin}
-        fullCitation={fullCitation ?? version.citation}
-        publicationReference={publicationReference}
-        amendmentLabels={amendmentLabels}
-        immutableLink
-      />
-    </aside>
+    <div class="norm-workspace__outline"><NormOutline items={outline} summary={summary} /></div>
 
-    <aside class="norm-related-column">
-      <div class="content-stack">
-        <NormHistorySummary norm={norm} />
+    <article class="norm-document" id="normtext" data-visual-section="norm-text" aria-labelledby="normtext-title">
+      <h2 id="normtext-title" class="visually-hidden">{temporalKind === 'future' ? 'Künftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
+      {changeNote ? <p class="norm-document__lead">{changeNote}</p> : null}
+      <div class="norm-body">
+        <NormBody blocks={version.body} references={derived.textReferences} />
       </div>
-    </aside>
+    </article>
+
+    <NormAside norm={norm} version={version} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} publication={publication} />
   </div>
+
+  <div class="norm-details">
+    <NormFacts norm={norm} version={version} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} amendmentLabels={amendmentLabels} immutableLink />
+    <NormLegalRelations norm={norm} relations={derived.relations} recommendations={derived.recommendations} portalLinks={derived.portalLinks} />
+  </div>
+  <script>import '../../../../scripts/norm-page.ts';</script>
 </LawLayout>

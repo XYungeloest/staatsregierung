@@ -1,0 +1,120 @@
+---
+import { LEGAL_BASELINE_DATE, type NormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
+import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
+import { getNormCompareUrl, getNormHistoryUrl, getNormUrl, getNormVersionUrl, getPublicationUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+import { classifyNormVersions, getNormVersionIdentity } from '@ostrecht/shared/lib/norms/index.ts';
+import { formatShortDate } from '../../lib/dates.ts';
+import { getNormVersionPdfPath } from '../../lib/norm-links.ts';
+import { shortCitation } from '../../lib/norm-head.ts';
+import { formatSourceLabel } from '../../lib/source-labels.ts';
+import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
+
+/**
+ * Seitenspalte der Normansicht (P3): Fassungen dieser Vorschrift als Zeitleiste, Zitieren der
+ * aktuellen Stelle, Vollzitat und amtliche Quelle. Die Fassungswahl wirkt nur auf diese Vorschrift.
+ */
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  origin: NormOriginInfo;
+  fullCitation: string;
+  publicationReference?: NormPublicationReference;
+  publication?: Verkuendung;
+}
+
+const { norm, version, origin, fullCitation, publicationReference, publication } = Astro.props;
+const identity = getNormVersionIdentity(norm, version);
+const abbr = toDisplayText(identity.abbr ?? '') || toDisplayText(identity.shortTitle);
+const entries = classifyNormVersions(norm)
+  .map((entry) => ({ ...entry, isBaseline: entry.version.versionId === origin.baselineVersionId, isShown: entry.version.versionId === version.versionId }))
+  .sort((left, right) => right.version.validFrom.localeCompare(left.version.validFrom));
+const immutable = entries.find((entry) => entry.isShown)?.kind !== 'current';
+const citeSuffix = immutable
+  ? version.validTo
+    ? ` in der bis zum ${formatShortDate(version.validTo)} geltenden Fassung`
+    : ` in der Fassung vom ${formatShortDate(version.validFrom)}`
+  : '';
+const normLinkLabel = immutable ? 'Link zu dieser Fassung kopieren' : 'Link zur Vorschrift kopieren';
+const normLinkHint = immutable
+  ? 'Der Fassungslink führt dauerhaft genau zu dieser Fassung. Verweise auf andere Vorschriften öffnen deren geltende Fassung.'
+  : 'Der Vorschriftslink führt stets zur geltenden Fassung.';
+const sources = (version.sourceReferences ?? norm.meta.sourceReferences ?? []).filter((source) => source.url);
+
+function versionHref(entry: (typeof entries)[number]): string {
+  return entry.kind === 'current' ? getNormUrl(norm.meta.slug) : getNormVersionUrl(norm.meta.slug, entry.version.versionId);
+}
+
+function entryLabel(entry: (typeof entries)[number]): string {
+  const from = formatShortDate(entry.version.validFrom);
+  if (entry.isBaseline) return `${from} Ausgangsfassung (sächs.)`;
+  if (entry.kind === 'future' || entry.kind === 'current') return `ab ${from}`;
+  if (entry.kind === 'unknown-effective') return 'Inkrafttreten nicht belegt';
+  return entry.version.validTo ? `${from} – ${formatShortDate(entry.version.validTo)}` : `ab ${from}`;
+}
+
+function entryNote(entry: (typeof entries)[number]): string {
+  const parts: string[] = [];
+  if (entry.kind === 'future') parts.push('künftig · verkündet, noch nicht in Kraft');
+  else if (entry.kind === 'current') parts.push(entry.isShown ? 'geltend · angezeigt' : 'geltend');
+  else if (entry.kind === 'historical') parts.push(entry.isShown ? 'historisch · angezeigt' : '');
+  else parts.push(entry.isShown ? 'angezeigt' : '');
+  if (entry.isBaseline) parts.push(`übernommener Rechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}`);
+  return parts.filter(Boolean).join(' · ');
+}
+---
+
+<aside class="norm-aside" aria-label="Fassungen und Zitieren">
+  <section class="norm-aside__versions" data-visual-section="norm-versions" aria-labelledby="norm-versions-title">
+    <h2 id="norm-versions-title" class="r-label">Fassungen dieser Vorschrift</h2>
+    <ol class="norm-timeline r-num">
+      {entries.map((entry) => (
+        <li class:list={['norm-timeline__entry', `norm-timeline__entry--${entry.kind}`, entry.isShown ? 'norm-timeline__entry--shown' : undefined, entry.isBaseline ? 'norm-timeline__entry--baseline' : undefined]}>
+          <span class="norm-timeline__mark" aria-hidden="true"></span>
+          {entry.isShown
+            ? <span class="norm-timeline__date" aria-current="page">{entryLabel(entry)}</span>
+            : <a class="norm-timeline__date" href={versionHref(entry)}>{entryLabel(entry)}</a>}
+          {entryNote(entry) ? <span class:list={['norm-timeline__note', entry.kind === 'current' ? 'norm-timeline__note--current' : undefined]}>{entryNote(entry)}</span> : null}
+          {shortCitation(entry.version.citation) ? <span class="norm-timeline__citation r-caption">{shortCitation(entry.version.citation)}</span> : null}
+        </li>
+      ))}
+    </ol>
+    <p class="norm-aside__links r-meta">
+      <a href={getNormHistoryUrl(norm.meta.slug)}>{NORM_HISTORY_LABEL}</a>
+      {norm.versions.length >= 2 ? <> · <a href={getNormCompareUrl(norm.meta.slug)}>{NORM_COMPARE_LABEL}</a></> : null}
+    </p>
+  </section>
+
+  <section class="norm-aside__cite" aria-labelledby="norm-cite-title" data-copy-group data-norm-cite data-cite-abbr={abbr} data-cite-suffix={citeSuffix}>
+    <h2 id="norm-cite-title" class="r-label">{immutable ? 'Zitieren dieser Fassung' : 'Zitieren'}</h2>
+    <p class="norm-aside__cite-text r-serif" id="norm-cite-text" data-cite-text>{abbr}{citeSuffix}</p>
+    <div class="norm-aside__actions">
+      <button class="r-btn r-btn--block" type="button" data-copy-text="norm-cite-text" data-copy-done="Zitat wurde kopiert.">Normzitat kopieren</button>
+      <button class="r-btn r-btn--block" type="button" data-copy-url data-cite-link data-copy-done="Link wurde kopiert.">{immutable ? 'Link zu dieser Fassung kopieren' : 'Link zur Vorschrift kopieren'}</button>
+    </div>
+    <p class="r-feedback" aria-live="polite" data-copy-feedback></p>
+    <p class="r-caption">{normLinkHint}</p>
+  </section>
+
+  <section class="norm-aside__citation" aria-labelledby="norm-citation-title" data-copy-group>
+    <h2 id="norm-citation-title" class="r-label">Vollzitat</h2>
+    <p class="r-meta" id="norm-aside-full-citation">{toDisplayText(fullCitation)}</p>
+    <div class="norm-aside__actions">
+      <button class="r-btn r-btn--block" type="button" data-copy-text="norm-aside-full-citation" data-copy-done="Vollzitat wurde kopiert.">Vollzitat kopieren</button>
+      {immutable ? <a class="r-btn r-btn--quiet r-btn--block" href={getNormUrl(norm.meta.slug)}>Link zur Vorschrift (geltend)</a> : null}
+    </div>
+    <p class="r-feedback" aria-live="polite" data-copy-feedback></p>
+  </section>
+
+  <section class="norm-aside__source" aria-labelledby="norm-source-title">
+    <h2 id="norm-source-title" class="r-label">Amtliche Quelle</h2>
+    <ul class="norm-aside__source-list r-meta">
+      {publication?.pdf ? <li><a href={publication.pdf}>{publicationReference ? toDisplayText(publicationReference.publicationTitle) : toDisplayText(publication.title)} (PDF)</a> <span class="r-muted">· amtliche Ausgabe</span></li> : null}
+      {publicationReference && !publication?.pdf ? <li><a href={getPublicationUrl(publicationReference.publicationSlug)}>{toDisplayText(publicationReference.publicationTitle)}</a> <span class="r-muted">· Verkündung dieser Fassung, ohne hinterlegte PDF-Datei</span></li> : null}
+      {publicationReference && publication?.pdf ? <li><a href={getPublicationUrl(publicationReference.publicationSlug)}>Amtliche Veröffentlichung</a> <span class="r-muted">· Inhalt der Ausgabe</span></li> : null}
+      {sources.map((source) => <li><a href={source.url}>{formatSourceLabel(source.label)}</a>{source.pageRange ? <span class="r-muted"> · Seiten {source.pageRange}</span> : null}</li>)}
+      <li><a href={getNormVersionPdfPath(norm.meta.slug, version.versionId)} type="application/pdf">Fassung als PDF</a> <span class="r-muted">· Portalfassung mit Vollzitat, keine amtliche Verkündung</span></li>
+    </ul>
+  </section>
+</aside>

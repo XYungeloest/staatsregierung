@@ -1,0 +1,34 @@
+---
+import type { Pagination } from '../../lib/runtime/pagination.ts';
+
+/** Seitennavigation der serverseitig geblätterten Listen: Zahlen, Vorherige/Nächste, Bereich. */
+interface Props {
+  pagination: Pagination;
+  label: string;
+  /** Satz vor den Seitenzahlen, etwa „Vorschriften 1–20 von 94“. */
+  range?: string;
+  pageWord?: string;
+  prevLabel?: string;
+  nextLabel?: string;
+  attrs?: Record<string, string | undefined>;
+}
+
+const { pagination, label, range, pageWord = 'Seite', prevLabel = 'Vorherige Seite', nextLabel = 'Nächste Seite', attrs = {} } = Astro.props;
+---
+
+{pagination.pages.length > 1 ? (
+  <nav class="r-pagination" aria-label={label} {...attrs}>
+    {range ? <span>{range}</span> : null}
+    {pagination.prev ? <a rel="prev" href={pagination.prev}>{prevLabel}</a> : <span aria-disabled="true">{prevLabel}</span>}
+    <ol>
+      {pagination.pages.map((entry) => (
+        <li>
+          {entry.kind === 'gap'
+            ? <span aria-hidden="true">…</span>
+            : <a href={entry.href} aria-current={entry.current ? 'page' : undefined} aria-label={`${pageWord} ${entry.page}`}>{entry.page}</a>}
+        </li>
+      ))}
+    </ol>
+    {pagination.next ? <a rel="next" href={pagination.next}>{nextLabel}</a> : <span aria-disabled="true">{nextLabel}</span>}
+  </nav>
+) : range ? <p class="r-pagination" {...attrs}><span>{range}</span></p> : null}
