@@ -1,6 +1,9 @@
 /* OstRecht – Druck: Titel, Normidentität, Fassungsstand, Fundstelle, Normtext, Quellen und
    Abrufhinweis; keine Navigation, keine Werkzeuge, keine Seitenspalten. */
 @media print {
+  .law-back-to-top {
+    display: none !important;
+  }
   @page {
     margin: 18mm 16mm;
   }

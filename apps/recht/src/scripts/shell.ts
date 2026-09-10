@@ -79,3 +79,75 @@ document.addEventListener('click', async (event) => {
 });
 
 import './sheets.ts';
+
+/** Das Amtsband bleibt im Fluss. Nur seine Transformation folgt der Leserichtung. */
+const header = document.querySelector<HTMLElement>('.law-header');
+const backToTop = document.querySelector<HTMLButtonElement>('[data-back-to-top]');
+if (header && backToTop) {
+  const root = document.documentElement;
+  const menu = header.querySelector<HTMLDetailsElement>('.law-mobile-nav');
+  const consent = document.querySelector<HTMLElement>('.consent-banner');
+  const footer = document.querySelector<HTMLElement>('.law-footer');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const hideAfter = 100;
+  const directionThreshold = 12;
+  let lastY = Math.max(0, window.scrollY);
+  let movement = 0;
+  let frame = 0;
+  let footerVisible = false;
+
+  const showHeader = (visible: boolean) => {
+    header.classList.toggle('is-scroll-hidden', !visible);
+    header.classList.toggle('is-scroll-visible', visible);
+  };
+  const update = () => {
+    frame = 0;
+    const y = Math.max(0, window.scrollY);
+    const delta = y - lastY;
+    lastY = y;
+    const interacting = header.contains(document.activeElement) || Boolean(menu?.open)
+      || Boolean(header.querySelector('[aria-expanded="true"]'));
+    if (y <= hideAfter || interacting) {
+      showHeader(true);
+      movement = 0;
+    } else if (delta !== 0) {
+      movement = Math.sign(delta) === Math.sign(movement) ? movement + delta : delta;
+      if (Math.abs(movement) >= directionThreshold) {
+        showHeader(movement < 0);
+        movement = 0;
+      }
+    }
+    const blocked = Boolean(menu?.open) || Boolean(consent && !consent.hidden)
+      || Boolean(document.querySelector('dialog[open]')) || footerVisible;
+    const hideButton = y < Math.max(600, window.innerHeight) || blocked;
+    if (backToTop.hidden !== hideButton) backToTop.hidden = hideButton;
+  };
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+  const measureHeader = () => {
+    root.style.setProperty('--law-header-height', `${header.offsetHeight}px`);
+    schedule();
+  };
+  new ResizeObserver(measureHeader).observe(header);
+  measureHeader();
+  showHeader(true);
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  header.addEventListener('focusin', () => { showHeader(true); movement = 0; schedule(); });
+  header.addEventListener('focusout', schedule);
+  menu?.addEventListener('toggle', () => { movement = 0; schedule(); });
+  // Menüs, native Dialoge und Einwilligung können sich ohne Scroll-Ereignis ändern.
+  new MutationObserver(schedule).observe(document.body, {
+    subtree: true, attributes: true, attributeFilter: ['open', 'hidden', 'aria-expanded'],
+  });
+  if (footer) new IntersectionObserver(([entry]) => {
+    footerVisible = entry.isIntersecting;
+    schedule();
+  }).observe(footer);
+  backToTop.addEventListener('click', () => {
+    showHeader(true);
+    // Der verschwindende Knopf lässt den Tastaturfokus am erreichbaren Seitenanfang zurück.
+    header.querySelector<HTMLElement>('.law-wordmark')?.focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+  });
+  schedule();
+}

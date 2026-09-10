@@ -316,7 +316,7 @@ test('Whitespace-only changes erzeugen keinen Vergleichsblock', () => {
 
 /**
  * Absatzfolge ohne Gliederungszeichen vor der ersten Einheit, wie sie Präambeln und Vorsprüche
- * bilden: jeder Absatz ist im Vergleich eine eigene Änderungseinheit.
+ * bilden: stabile Absätze begrenzen zusammengehörige Änderungsläufe.
  */
 function unlabeledParagraphs(target: NormVersion, texts: string[]): void {
   target.body = [
@@ -353,7 +353,7 @@ test('Fassungsvergleich paart eingefügte Absätze ohne Gliederungszeichen inhal
   assert.ok(changed.textDiff?.some((chunk) => chunk.kind === 'insert' && chunk.text.includes('obersten')));
 });
 
-test('Fassungsvergleich meldet neu formulierte Absätze ohne Gliederungszeichen als entfallen und neu', () => {
+test('Fassungsvergleich bündelt freie Ersatzläufe zwischen unveränderten Absätzen', () => {
   const before = version('a', '2026-01-01', '2026-06-30');
   unlabeledParagraphs(before, [
     'Der erste Vorspruchabsatz beschreibt eine längst überholte Ausgangslage im Einzelnen.',
@@ -375,15 +375,15 @@ test('Fassungsvergleich meldet neu formulierte Absätze ohne Gliederungszeichen 
   ]);
 
   const provisions = buildProvisionVersionDiff(before, after);
-  // Drei wortgleiche Zeilen bleiben unverändert und werden nicht gelistet; aus acht mal fünf
-  // Absätzen werden sechs Einträge statt der positionsweisen fünf „Geändert“ und drei „Entfallen“.
-  assert.equal(provisions.length, 6);
-  assert.equal(provisions.filter((entry) => entry.kind === 'changed').length, 1);
-  assert.equal(provisions.filter((entry) => entry.kind === 'added').length, 1);
-  assert.equal(provisions.filter((entry) => entry.kind === 'removed').length, 4);
+  // Zwei Lücken zwischen unveränderten Ankern enthalten auf beiden Seiten Text.
+  assert.equal(provisions.length, 2);
+  assert.ok(provisions.every((entry) => entry.kind === 'changed'));
+  const children = provisions.flatMap((entry) => entry.children);
+  assert.equal(children.filter((entry) => entry.kind === 'removed').length, 4);
+  assert.equal(children.filter((entry) => entry.kind === 'added').length, 1);
   // Kein Absatz erscheint zugleich als entfallen und als geändert.
   assert.equal(new Set(provisions.map((entry) => entry.beforeText ?? entry.afterText)).size, provisions.length);
-  const [changed] = provisions.filter((entry) => entry.kind === 'changed');
+  const changed = provisions[1];
   assert.ok(changed.beforeText?.includes('Willen der Bürgerinnen'));
   assert.ok(changed.afterText?.includes('Willen aller Bürgerinnen'));
 });

@@ -7,15 +7,18 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## OstRecht
 
-- [ ] Nächste Ausbaustufe der Normansicht (E36–E38, fachliche Entscheidungen offen): Änderungen
-  direkt am betroffenen Absatz markieren (braucht je Absatz eine belegte Änderungszuordnung aus
-  dem Diff-Modell), mitlaufendes Zitieren nach aktueller Leseposition und ein haftender
-  Minimalkopf mit aktuellem Paragraphen (Interaktionsentscheidung zu Scrollverhalten und
-  Platzbedarf), RSS-/E-Mail-Abonnement des Änderungsdiensts und Vorschriften-Abonnements
-  (Datenschutz, Versand, Betrieb). Keine Platzhalter-Oberfläche vorab. Fertig, wenn je Punkt eine
-  fachliche Festlegung vorliegt und die Umsetzung mit Test im Bestand ist.
+- [ ] Änderungen am Ort der Änderung (E36): Erst nach belegter Zuordnung von Änderungen zu
+  konkreten Normeinheiten oder Absätzen eine Markierung anbieten. Keine Platzhalter-UI.
+  Fertig, wenn Zuordnung und Darstellung fachlich geprüft und durch Tests abgesichert sind.
 
-- [ ] Linux-Screenshot-Baselines für Richtung E erneuern: Nach Sichtprüfung mit dem Production Board die OstRecht-Bilder einschließlich Normbereiche und mobiler Dialoge im Playwright-Container erzeugen und strikt vergleichen (`npm run test:visual:update:linux -- --site law`). Fertig, wenn alle aktuellen OstRecht-Motive geprüfte Linux-Baselines besitzen und die vollständige visuelle Suite gegen diese besteht.
+- [ ] Optionaler haftender Norm-Minimalkopf mit aktueller Normeinheit (Rest E37): Nach Einführung
+  des smarten Amtsbands zunächst den Bedarf und Platzverbrauch neu bewerten. Mitlaufendes
+  Zitieren ist bereits Bestandteil der Normansicht. Fertig, wenn die gesonderte Produktentscheidung
+  getroffen und ein gegebenenfalls benötigter Minimalkopf zugänglich umgesetzt und getestet ist.
+
+- [ ] Abonnements (E38): RSS, E-Mail- und Vorschriften-Abonnements fachlich festlegen, einschließlich
+  Datenschutz, Versand und Betrieb. Keine Platzhalter-UI. Fertig, wenn die freigegebenen
+  Abonnementwege samt Betriebskonzept umgesetzt und getestet sind.
 
 - [ ] Redaktionelle Kurzfassungen nachtragen: 4.981 der 5.204 Vorschriften tragen keine
   Kurzbeschreibung, seit die aus dem Titel gebildeten Formeln des Massenimports entfernt sind. Die
