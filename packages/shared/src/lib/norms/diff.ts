@@ -645,11 +645,26 @@ function isProvision(block: NormDiffBlock): boolean {
   return block.type === 'paragraph' || block.type === 'article';
 }
 
+function containsProvisionUnit(block: NormDiffBlock): boolean {
+  return isProvision(block) || block.children.some(containsProvisionUnit);
+}
+
+const TEXT_CONTAINER_TYPES = new Set<StructureType>(['part', 'chapter', 'section', 'subsection', 'annex']);
+
+/** Ein benannter Freitextabschnitt ist eine Einheit; Abschnitte mit §§/Artikeln sind es nicht. */
+function isLogicalComparisonContainer(block: NormDiffBlock): boolean {
+  const named = block.before?.label || block.before?.title || block.after?.label || block.after?.title;
+  const hasText = (entry: NormDiffBlock): boolean => Boolean(entry.before?.text || entry.after?.text) || entry.children.some(hasText);
+  return TEXT_CONTAINER_TYPES.has(block.type) && Boolean(named) && !containsProvisionUnit(block) && hasText(block);
+}
+
 function toProvision(block: NormDiffBlock): NormProvisionDiff {
   if (block.kind === 'unchanged') throw new Error(`Unveränderte Vorschrift ${block.key} darf nicht als Änderung ausgegeben werden`);
   const beforeText = summaryText(block, 'before');
   const afterText = summaryText(block, 'after');
-  const textDiff = beforeText && afterText ? diffWords(beforeText, afterText) : undefined;
+  // Freitextcontainer rendern ihre strukturierten Kinder. Kein quadratischer Gesamtwortdiff
+  // über möglicherweise sehr lange Anlagen; die Markierungen liegen bereits an den Kindern.
+  const textDiff = beforeText && afterText && !isLogicalComparisonContainer(block) ? diffWords(beforeText, afterText) : undefined;
   return {
     key: block.key,
     type: block.type,
@@ -674,16 +689,62 @@ export function buildProvisionVersionDiff(
 
   function collect(block: NormDiffBlock): number {
     if (block.kind === 'unchanged') return 0;
-    if (isProvision(block)) {
+    if (isProvision(block) || isLogicalComparisonContainer(block)) {
       provisions.push(toProvision(block));
       return 1;
     }
-    const nested = block.children.reduce((count, child) => count + collect(child), 0);
+    const nested = collectList(block.children);
     if (nested > 0) return nested;
     provisions.push(toProvision(block));
     return 1;
   }
 
-  root.forEach(collect);
+  /** Unbenannte Textlücken enden an jedem stabilen Absatz oder Strukturknoten. Die einzelnen
+   * Paarungen bleiben unverändert; nur die sichtbare Karte bündelt den zusammenhängenden Lauf. */
+  function collectList(blocks: NormDiffBlock[]): number {
+    const isFreeChange = (block: NormDiffBlock) => block.type === 'paragraphText'
+      && !block.before?.label && !block.after?.label && !block.before?.title && !block.after?.title
+      && block.kind !== 'unchanged';
+    const anchors = blocks.filter((block) => !isFreeChange(block));
+    const gapOnSide = (block: NormDiffBlock, side: 'beforeIndex' | 'afterIndex'): string | undefined => {
+      const index = block[side];
+      if (index === undefined) return undefined;
+      const ordered = anchors.filter((entry) => entry[side] !== undefined).sort((a, b) => a[side]! - b[side]!);
+      const previous = ordered.filter((entry) => entry[side]! < index).at(-1);
+      const next = ordered.find((entry) => entry[side]! > index);
+      return `${previous?.key ?? '^'}|${next?.key ?? '$'}`;
+    };
+    const gaps = new Map<string, NormDiffBlock[]>();
+    const gapKeys = new Map<NormDiffBlock, string>();
+    for (const block of blocks.filter(isFreeChange)) {
+      const beforeGap = gapOnSide(block, 'beforeIndex');
+      const afterGap = gapOnSide(block, 'afterIndex');
+      // Verschobene Textstücke über eine Strukturgrenze hinweg bleiben eigenständig.
+      const key = beforeGap && afterGap && beforeGap !== afterGap ? `${block.key}/separate` : (beforeGap ?? afterGap)!;
+      gaps.set(key, [...(gaps.get(key) ?? []), block]);
+      gapKeys.set(block, key);
+    }
+    let count = 0;
+    for (const block of blocks) {
+      const gapKey = gapKeys.get(block);
+      if (!gapKey) { count += collect(block); continue; }
+      const run = gaps.get(gapKey);
+      if (!run) continue;
+      gaps.delete(gapKey);
+      if (run.length === 1) { count += collect(block); continue; }
+      const before = run.some((entry) => entry.before);
+      const after = run.some((entry) => entry.after);
+      count += collect({
+        key: `${run[0].key}/text-run`, type: 'section',
+        kind: before && after ? 'changed' : before ? 'removed' : 'added',
+        ...(before ? { before: { type: 'section' as const, title: 'Textstelle' } } : {}),
+        ...(after ? { after: { type: 'section' as const, title: 'Textstelle' } } : {}),
+        children: run,
+      });
+    }
+    return count;
+  }
+
+  collectList(root);
   return provisions;
 }

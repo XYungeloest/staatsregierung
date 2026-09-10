@@ -1814,6 +1814,93 @@ siteTest(['law'])('Kopierte Fassungs- und Vergleichslinks behalten ihr genaues Z
   await expect(page.locator('html')).toHaveAttribute('data-copied', new RegExp(`von=${norm.historical.versionId}&bis=${norm.current.versionId}$`, 'u'));
 });
 
+siteTest(['law'])('Smartes Amtsband und Seitenanfang reagieren ruhig auf Scrollen und Bedienung', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  // Verlässlicher Scrollraum unabhängig von der Länge des jeweils verwendeten Testkorpus.
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '5000px'; });
+  const header = page.locator('.law-header');
+  const top = page.getByRole('button', { name: 'Zum Seitenanfang', exact: true });
+  const scroll = async (y: number) => { await page.evaluate((position) => window.scrollTo({ top: position, behavior: 'instant' }), y); };
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await expect(top).toBeHidden();
+  await scroll(1400);
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  await expect(top).toBeVisible();
+  await scroll(1396);
+  await page.waitForTimeout(50);
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  await scroll(1340);
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await scroll(1600);
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  await page.locator('#law-header-search').focus();
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await scroll(1900);
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await page.locator('#law-header-search').evaluate((element) => (element as HTMLElement).blur());
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('.law-mobile-nav summary').click();
+  await scroll(2100);
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await expect(top).toBeHidden();
+  await page.locator('.law-mobile-nav summary').click();
+  await page.locator('.law-mobile-nav summary').evaluate((element) => (element as HTMLElement).blur());
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await scroll(2400);
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  expect(await header.evaluate((element) => getComputedStyle(element).transitionDuration)).toBe('0s');
+  await expect(top).toBeVisible();
+  await page.evaluate(() => history.replaceState(null, '', `#${document.querySelector('.norm-unit[id]')!.id}`));
+  const url = page.url();
+  await top.focus();
+  await page.keyboard.press('Enter');
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await expect(top).toBeHidden();
+  expect(page.url()).toBe(url);
+  await expect(page.locator('.law-wordmark')).toBeFocused();
+  // Am Footer werden dessen eigene Links nicht von einem schwebenden Werkzeug überdeckt.
+  await page.locator('.law-wordmark').evaluate((element) => (element as HTMLElement).blur());
+  await page.locator('.law-footer').scrollIntoViewIfNeeded();
+  await expect(top).toBeHidden();
+});
+
+siteTest(['law'])('Mitlaufendes Zitat folgt der gelesenen Normeinheit', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  // Zusätzlicher Raum hinter dem Text erlaubt auch beim kurzen Fixture eine freie Leseposition.
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.paddingBottom = '1000px'; });
+  const units = page.locator('[data-norm-unit][id]');
+  expect(await units.count()).toBeGreaterThan(0);
+  for (const unit of [units.first(), units.last()]) {
+    const id = await unit.getAttribute('id');
+    const label = await unit.getAttribute('data-unit-label');
+    await unit.evaluate((element) => window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - window.innerHeight * 0.12 - 4, behavior: 'instant' }));
+    await expect(page.locator('[data-cite-text]')).toContainText(label!);
+    await expect(page.locator('[data-cite-link]')).toHaveAttribute('data-copy-url', id!);
+    if (label) await expect(page.locator('[data-cite-link]')).toHaveText(`Link zu ${label} kopieren`);
+  }
+});
+
+siteTest(['law'])('Tiefe Normanker bleiben unter dem gemessenen Amtsband erreichbar', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  const norm = await multiVersionNorm(request);
+  for (const width of [1440, 960, 698, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(lawUrl(norm.current.currentUrl));
+    const id = await page.locator('.norm-unit[id]').last().getAttribute('id');
+    expect(id).toBeTruthy();
+    await expect.poll(() => page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--law-header-height')))).toBeGreaterThan(0);
+    await page.evaluate((target) => { location.hash = target!; }, id);
+    await expect.poll(() => page.evaluate((target) => {
+      const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--law-header-height'));
+      return document.getElementById(target!)!.getBoundingClientRect().top >= headerHeight - 1;
+    }, id)).toBe(true);
+  }
+});
+
 siteTest(['law'])('Qualitätspass Richtung E: Fassungen als Aufklappbereich, 2×2-Reiter und Kopf ohne schmale Statusspalte', async ({ page, request }) => {
   const norm = await multiVersionNorm(request);
   // Smartphone: die Fassungsliste ist ein geschlossener Aufklappbereich ohne waagerechtes Rollen.

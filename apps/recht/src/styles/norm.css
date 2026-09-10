@@ -134,8 +134,8 @@
 
 .norm-outline--desktop {
   position: sticky;
-  top: 0;
-  max-height: 100vh;
+  top: var(--law-header-height, 0px);
+  max-height: calc(100vh - var(--law-header-height, 0px));
   overflow-y: auto;
   display: flex;
   flex-direction: column;

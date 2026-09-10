@@ -122,6 +122,23 @@ for (const target of selected(auditTargets)) {
  */
 const lawA11yTest = selectedSiteTargets.includes('law') ? test : test.skip;
 
+lawA11yTest('Zum Seitenanfang ist im gescrollten Zustand zugänglich', async ({ page, request }) => {
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  const consent = page.locator('[data-analytics-consent-reject]');
+  if (await consent.isVisible()) await consent.click();
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '5000px'; });
+  await page.evaluate(() => window.scrollTo(0, 1400));
+  const button = page.getByRole('button', { name: 'Zum Seitenanfang', exact: true });
+  await expect(button).toBeVisible();
+  await button.focus();
+  await expect(button).toBeFocused();
+  const size = await button.boundingBox();
+  expect(size!.width).toBeGreaterThanOrEqual(44);
+  expect(size!.height).toBeGreaterThanOrEqual(44);
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  expect(results.violations).toEqual([]);
+});
+
 lawA11yTest('Normtext gibt seine Einheiten als Überschriften aus, nicht in einem Aufklappzeichen', async ({ page, request }) => {
   for (const url of [
     lawUrl((await currentStructuredNormOfOrigin(request, 'ostdeutsch-original')).currentUrl),

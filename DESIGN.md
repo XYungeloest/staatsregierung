@@ -470,7 +470,38 @@ haftende Spalte links mit Filterfeld und Umfangszeile, darunter als modales Seit
 gelesene Stelle hervor. Tabellen und Anlagen nutzen die volle Textspalte und rollen erst darüber
 hinaus in `.norm-table-wrap`.
 
+### Scrollwerkzeuge des Rechtsportals
+
+Das globale Amtsband bleibt mit `position: sticky` im Dokumentfluss. Ab 100 px Seitenposition
+blendet es sich bei mindestens 12 px kumulierter Abwärtsbewegung per Transformation nach oben
+aus; entsprechende Aufwärtsbewegung blendet es wieder ein. Kleine Richtungswechsel lösen keinen
+Zustandswechsel aus. Am Seitenanfang, bei Fokus im Kopf, offenem mobilen Menü oder geöffneten
+Suchvorschlägen bleibt es sichtbar. Tastaturfokus blendet es sofort ein. Bei reduzierter Bewegung
+bleibt die Funktion ohne Transition erhalten. `shell.ts` bündelt passive Scrollereignisse pro
+Animationsframe; ein ResizeObserver setzt `--law-header-height`. Diese gemessene Höhe bestimmt
+zentral `scroll-padding-top` und den Abstand der haftenden Inhaltsübersicht.
+
+„Zum Seitenanfang“ ist ein sekundäres globales Werkzeug als kleine eckige Schaltfläche mit Pfeil
+und mindestens 44 × 44 px Bedienziel. Es erscheint nach einer Bildschirmhöhe (mindestens 600 px),
+schreibt keinen URL-Hash und scrollt bei reduzierter Bewegung sofort. Am Seitenanfang ist es
+verborgen und nicht fokussierbar; nach Aktivierung geht der Fokus zur Wortmarke. Bei offenem
+Bereichsmenü, Dialog, Einwilligungsbanner oder sichtbarem Footer wird es ausgeblendet, um keine
+Bedienelemente zu verdecken.
+
+Das mitlaufende Normzitat nach aktueller Leseposition gehört bereits zur Normansicht. Ein
+zusätzlicher kontextueller Norm-Minimalkopf (E37) ist eine getrennte spätere Produktentscheidung;
+nach Einführung des smarten Amtsbands wird zunächst sein zusätzlicher Nutzen bewertet.
+
 ### Fassungsvergleich
+
+Sichtbare Vergleichseinheiten sind Paragraphen und Artikel, sofern die Struktur solche Einheiten
+enthält. Andernfalls bildet ein sinnvoll benannter struktureller Textcontainer die gemeinsame
+Einheit, etwa eine Präambel. Seine Textabsätze erscheinen strukturiert innerhalb einer Synopse,
+nicht als Folge eigenständiger Neu-/Entfallen-Karten. Unbenannte Freitextläufe werden nur innerhalb
+derselben Lücke zwischen stabilen Absatz- oder Strukturankern gebündelt: ausschließlich links
+bedeutet „Entfallen“, ausschließlich rechts „Neu“, auf beiden Seiten „Geändert“. Die Paarung und
+die Markierungen der enthaltenen Absätze bleiben erhalten; echte Artikel werden nie zu einem
+ganzen Abschnitt zusammengezogen.
 
 Geänderte Einheiten tragen die Marke „Neu“, „Geändert“ oder „Entfallen“ (`.r-status`) und
 stehen in genau einer Darstellung nebeneinander: links „Fassung vom <Datum>“ der älteren, rechts
