@@ -494,7 +494,7 @@ const componentVisualPages: ComponentVisualPage[] = [
     // Historienpanel mit Ereignisliste; vertritt alle Historiedarstellungen.
     name: 'normhistorie-module',
     path: lawUrl(`/norm/${fixture.amended}/history/`),
-    shots: [['normhistorie-einstieg', '.norm-axis'], ['normhistorie-protokoll', '.norm-protocol']],
+    shots: [['normhistorie-einstieg', '.norm-history__sections'], ['normhistorie-protokoll', '.norm-protocol']],
   },
 ];
 

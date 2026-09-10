@@ -181,6 +181,15 @@ mark {
   color: var(--text-muted);
 }
 
+/* Umbrechende Metadaten: der Abstand trennt, kein Zeichen. Nach einem Umbruch beginnt oder endet
+   keine Zeile mit einem Mittelpunkt. */
+.r-inline-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  align-items: baseline;
+}
+
 .r-label--rule {
   display: block;
   padding-bottom: var(--space-2);
@@ -215,6 +224,8 @@ mark {
   font-family: var(--font-serif);
 }
 
+/* Überschriftenrollen: H1 in der Wegweiserschrift, H2 und H3 in Jost; Etiketten in Versalien
+   (`.r-label`) sind keine tragenden Seitenüberschriften. */
 .r-h1 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -222,6 +233,43 @@ mark {
   letter-spacing: var(--ls-display);
   line-height: var(--lh-tight);
   color: var(--text-strong);
+}
+
+.r-h2 {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  color: var(--text-strong);
+}
+
+.r-h2--sub {
+  font-size: var(--fs-h4);
+}
+
+.r-h3 {
+  font-size: var(--fs-ui-lg);
+  font-weight: 500;
+  line-height: var(--lh-heading);
+  color: var(--text-strong);
+}
+
+.r-h2--rule,
+.r-h3--rule {
+  display: block;
+  padding-bottom: var(--space-2);
+  border-bottom: var(--line) solid var(--border-strong);
+  margin-bottom: var(--space-3);
+}
+
+/* Die Wegweiserschrift trägt die tz-Ligatur („Gesetze“); eine Regel für alle Stellen, die
+   --font-display verwenden. */
+.r-h1,
+.r-page-head h1,
+.law-wordmark strong,
+.norm-band__title,
+.r-subjects__number,
+.r-subject__number {
+  font-feature-settings: 'dlig' 1;
 }
 
 .r-lead {
@@ -335,11 +383,9 @@ mark {
 }
 
 .r-field--label-caps > span:first-child {
-  font-size: var(--fs-micro);
+  font-size: var(--fs-meta);
   font-weight: 500;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .r-input,

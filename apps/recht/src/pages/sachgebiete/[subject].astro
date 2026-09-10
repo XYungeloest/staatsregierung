@@ -75,7 +75,7 @@ const neighbours = siblings.filter((entry) => entry.slug !== subject.slug).slice
       {summaries.length - inForce > 0 ? <span>{summaries.length - inForce} künftig in Kraft oder außer Kraft</span> : null}
       {leadMinistry ? <span>Zuständig überwiegend: {toDisplayText(leadMinistry)}</span> : null}
       <span>Amtliche Systematik</span>
-      <span class="r-subject__links"><a href={`${getSearchUrl()}?subject=${encodeURIComponent(subject.name)}`}>Suche in diesem Sachgebiet</a> · <button class="r-link-btn" type="button" data-copy-url data-copy-done="Link zum Sachgebiet wurde kopiert.">Link kopieren</button><span class="r-feedback" aria-live="polite" data-copy-feedback></span></span>
+      <span class="r-subject__links r-inline-list"><a href={`${getSearchUrl()}?subject=${encodeURIComponent(subject.name)}`}>Suche in diesem Sachgebiet</a><button class="r-link-btn" type="button" data-copy-url data-copy-done="Link zum Sachgebiet wurde kopiert.">Link kopieren</button><span class="r-feedback" aria-live="polite" data-copy-feedback></span></span>
     </div>
   </header>
 
@@ -105,7 +105,7 @@ const neighbours = siblings.filter((entry) => entry.slug !== subject.slug).slice
     </Fragment>
     <Fragment slot="aside-bottom">
       {neighbours.length > 0 ? (
-        <p class="r-caption r-subject__neighbours">Benachbart: {neighbours.map((entry, index) => <>{index > 0 ? ' · ' : ''}<a href={getSubjectUrl(entry.name)}>{entry.number ? `${entry.number} ` : ''}{toDisplayText(entry.shortTitle ?? entry.name)}</a></>)}</p>
+        <p class="r-caption r-subject__neighbours r-inline-list"><span>Benachbart:</span>{neighbours.map((entry) => <a href={getSubjectUrl(entry.name)}>{entry.number ? `${entry.number} ` : ''}{toDisplayText(entry.shortTitle ?? entry.name)}</a>)}</p>
       ) : null}
     </Fragment>
   </NormDirectoryListing>

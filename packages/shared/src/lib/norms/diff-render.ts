@@ -3,14 +3,14 @@ import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormDiffBlock, NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import { formatChangedUnitCount, type NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 
-/** `before`/`after`: je eine Spalte; `inline`: ein Wortlaut mit Streichungen und Einfügungen. */
-type DiffSide = 'before' | 'after' | 'inline';
-export type NormDiffRenderMode = 'columns' | 'inline';
+/**
+ * Der Vergleich hat genau eine Darstellung: zwei Spalten, links der Wortlaut der älteren, rechts
+ * der der jüngeren Fassung. Jede Spalte zeigt nur ihre Seite eines Änderungslaufs.
+ */
+type DiffSide = 'before' | 'after';
 
 function valueOf(node: NormDiffBlock, side: DiffSide): NormDiffBlock['before'] | NormDiffBlock['after'] {
-  if (side === 'before') return node.before;
-  if (side === 'after') return node.after;
-  return node.after ?? node.before;
+  return side === 'before' ? node.before : node.after;
 }
 
 function escapeHtml(value: string | number | undefined): string {
@@ -52,7 +52,7 @@ function renderChunks(
   }
 
   return chunks
-    .filter((chunk) => side === 'inline' || chunk.kind === 'same' || (side === 'before' ? chunk.kind === 'delete' : chunk.kind === 'insert'))
+    .filter((chunk) => chunk.kind === 'same' || (side === 'before' ? chunk.kind === 'delete' : chunk.kind === 'insert'))
     .map((chunk) => {
       const text = escapeHtml(display(chunk.text));
       if (chunk.kind === 'delete') return `<del>${text}</del>`;
@@ -70,18 +70,8 @@ function renderValue(
   const value = valueOf(node, side);
   if (!value) return '';
   const fallback = value[field] ?? '';
-  if (!fallback && side !== 'inline') return '';
+  if (!fallback) return '';
   const chunks = field === 'label' ? node.labelDiff : field === 'title' ? node.titleDiff : node.textDiff;
-  if (side === 'inline' && !chunks && node.before && node.after) {
-    const beforeField = node.before[field] ?? '';
-    const afterField = node.after[field] ?? '';
-    const changed = field === 'text'
-      ? beforeField.replace(/\s+/gu, ' ').trim() !== afterField.replace(/\s+/gu, ' ').trim()
-      : beforeField !== afterField;
-    if (changed) return `${beforeField ? `<del>${escapeHtml(display(beforeField))}</del> ` : ''}${afterField ? `<ins>${escapeHtml(display(afterField))}</ins>` : ''}`;
-  }
-  if (side === 'inline' && !node.before) return `<ins>${escapeHtml(display(fallback))}</ins>`;
-  if (side === 'inline' && !node.after) return `<del>${escapeHtml(display(fallback))}</del>`;
   const ownFieldChanged = node.before && node.after && (() => {
     const beforeField = node.before?.[field] ?? '';
     const afterField = node.after?.[field] ?? '';
@@ -199,6 +189,11 @@ function renderNode(node: NormDiffBlock, side: DiffSide, level: number, quoted: 
   return `${renderValue(node, side, 'text')}${children}`;
 }
 
+/**
+ * Eine Spalte des Vergleichs. Der Eintrag trägt neben der Struktur auch den geglätteten Gesamttext
+ * (`beforeText`/`afterText`, `textDiff`) für die Erkennung; der wird hier nicht übernommen, sonst
+ * stünde der Wortlaut zweimal – einmal als Fließtext, einmal gegliedert.
+ */
 function renderSide(provision: NormProvisionDiff, side: DiffSide, date: string): string {
   const node: NormDiffBlock = {
     key: provision.key,
@@ -207,14 +202,10 @@ function renderSide(provision: NormProvisionDiff, side: DiffSide, date: string):
     ...(provision.before ? { before: provision.before } : {}),
     ...(provision.after ? { after: provision.after } : {}),
     children: provision.children,
-    ...(provision.beforeText ? { beforeText: provision.beforeText } : {}),
-    ...(provision.afterText ? { afterText: provision.afterText } : {}),
     ...(provision.titleDiff ? { titleDiff: provision.titleDiff } : {}),
     ...(provision.labelDiff ? { labelDiff: provision.labelDiff } : {}),
-    ...(provision.textDiff ? { textDiff: provision.textDiff } : {}),
   };
-  const heading = side === 'inline' ? '' : `<h3>Fassung vom ${escapeHtml(formatDate(date))}</h3>`;
-  return `<section class="norm-diff__side norm-diff__side--${side}">${heading}<div class="norm-diff-structure">${renderNode(node, side, 3, false)}</div></section>`;
+  return `<section class="norm-diff__side norm-diff__side--${side}"><h3>Fassung vom ${escapeHtml(formatDate(date))}</h3><div class="norm-diff-structure">${renderNode(node, side, 3, false)}</div></section>`;
 }
 
 function statusLabel(kind: NormProvisionDiff['kind']): string {
@@ -236,18 +227,13 @@ export function renderNormDiffDocument(
   fromDate: string,
   toDate: string,
   unitKind: NormUnitKind = 'none',
-  mode: NormDiffRenderMode = 'columns',
 ): string {
   const count = provisions.length;
   const provisionMarkup = provisions.map((provision) => {
-    const columns = mode === 'inline'
-      ? renderSide(provision, 'inline', toDate)
-      : `${provision.before ? renderSide(provision, 'before', fromDate) : ''}${provision.after ? renderSide(provision, 'after', toDate) : ''}`;
+    const columns = `${provision.before ? renderSide(provision, 'before', fromDate) : ''}${provision.after ? renderSide(provision, 'after', toDate) : ''}`;
     const title = provisionTitle(provision);
     return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}"><span class="norm-diff__status">${title ? `<span class="norm-diff__status-label">${escapeHtml(title)}</span>` : ''}<span class="r-status r-status--sm r-status--${statusRole(provision.kind)}">${statusLabel(provision.kind)}</span></span><div class="norm-diff__provision-columns">${columns}</div></li>`;
   }).join('');
-  const legend = mode === 'inline'
-    ? `<p class="norm-diff__legend"><del>gestrichen</del> = Wortlaut der Fassung vom ${escapeHtml(formatDate(fromDate))} · <ins>eingefügt</ins> = Wortlaut der Fassung vom ${escapeHtml(formatDate(toDate))} · Kennzeichnung zusätzlich durch Durchstreichung, Unterlegung und Textmarke je Einheit.</p>`
-    : `<p class="norm-diff__legend"><del>gestrichen</del> links = Wortlaut der Fassung vom ${escapeHtml(formatDate(fromDate))} · <ins>eingefügt</ins> rechts = Wortlaut der Fassung vom ${escapeHtml(formatDate(toDate))} · Textmarke Neu / Geändert / Entfallen je Einheit.</p>`;
+  const legend = `<p class="norm-diff__legend"><span><del>gestrichen</del> links: Wortlaut der Fassung vom ${escapeHtml(formatDate(fromDate))}</span><span><ins>eingefügt</ins> rechts: Wortlaut der Fassung vom ${escapeHtml(formatDate(toDate))}</span><span>Textmarke Neu, Geändert oder Entfallen je Einheit</span></p>`;
   return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${escapeHtml(formatChangedUnitCount(count, unitKind))}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p class="r-meta">Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : legend}`;
 }

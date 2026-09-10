@@ -42,8 +42,21 @@
   margin-top: var(--space-3);
 }
 
-.r-home-direct__sep {
-  color: var(--text-faint);
+.r-home-direct + .r-home-direct {
+  margin-top: var(--space-2);
+}
+
+/* Die Tastenhilfe „/“ erscheint, sobald das Suchfeld den Fokus trägt. */
+.r-home-search__key {
+  display: none;
+}
+
+.r-home-search:focus-within + .r-home-search__hint .r-home-search__key {
+  display: inline;
+}
+
+.r-home-subjects__more {
+  margin-top: var(--space-3);
 }
 
 .r-home-subjects__list {
@@ -85,6 +98,7 @@
   padding-bottom: var(--space-2);
   border-bottom: var(--line-strong) solid var(--border-strong);
   margin-bottom: var(--space-1);
+  font-size: var(--fs-ui);
 }
 
 .r-home-changes__heading--in-force {
@@ -113,12 +127,19 @@
 }
 
 .r-home-changes__norm {
+  color: var(--text-link);
   font-weight: 500;
   text-decoration: none;
 }
 
 .r-home-changes__norm:hover {
   text-decoration: underline;
+}
+
+/* Die Detailzeile ist eine Flex-Liste: ihr Link trägt sein Zeigerpadding im Layout. Der Abstand
+   hält seine Trefferfläche frei vom Normtitel darüber (WCAG 2.5.8). */
+.r-home-changes__list .r-caption {
+  margin-top: var(--space-2);
 }
 
 .r-home-changes__event {

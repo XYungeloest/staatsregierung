@@ -119,20 +119,16 @@ Die Serife trägt das Dokument, Jost die Oberfläche – nicht „Serife für Ü
 - Grenzfälle: die Werkzeuge vor dem Text und je Einheit sowie die Überschrift „Vorschriftentext“
   sind Oberfläche (Jost), obwohl sie im Dokumentbereich stehen; die Spaltenlabels „Fassung vom …“ des
   Vergleichs sind Jost, der verglichene Text darunter Serife.
-- Ost Grotesk (`--font-sign`): wie eine Vorschrift heißt und in welchem Zustand sie ist — der
-  Titel in Verzeichnissen und Trefferlisten, das Etikett des Normtyps („Gesetz“,
-  „Zustimmungsgesetz“), das Herkunfts- und das Statusabzeichen, das Sachgebiet und die Ortsnamen
-  der Gebietstabellen. Die Auswahl folgt den Zeichen: „Gesetz“ trägt ein tz, „Straße“ und
-  „außer Kraft“ ein ß, und 55 Prozent aller Normtitel enthalten das eine oder das andere. Alle
-  Stellen stehen als eine Regel am Ende von `foundation.css`; wer sie zurücknimmt, löscht dort
-  eine Zeile. Weil die schmale Grotesk bei gleicher Punktgröße weniger Weiß trägt, stehen die
-  Etiketten eine Stufe größer als die übrige Kleinschrift. Die tz-Ligatur (`dlig`) wird nur in
-  dieser Regel angefordert.
-- Nicht Ost Grotesk: Wortzeichen und Überschriften (eine schmale Grotesk über geometrischem
-  Fließtext liest sich als zusammengedrückte Oberflächenschrift, nicht als zweite Stimme),
-  Ordnungsnummern und Abkürzungen, Kennzahlen und Buchstabenleiste — dort kommen weder ß noch tz
-  vor. Versalien schließen die Schrift ebenfalls aus: in Großbuchstaben fällt das ß zu SS
-  zusammen und die Ligatur entfällt, deshalb setzen die Gebietstabellen ihre Ortsnamen gemischt.
+- Ost Grotesk (`--font-display` in OstRecht): die Wegweiserebene – die H1 jeder Seite
+  (`.r-h1`, `.r-page-head h1`, „Suche im Landesrecht“, „Gesetze“), die Wortmarke im Amtsband und
+  im Fuß, die Sachgebietsnummern (`.r-subjects__number`, `.r-subject__number`) und die Bandtitel
+  („Historische Fassung“). Sie wird nicht auf Titel in Listen, Zustände oder Etiketten verteilt;
+  Normtitel, Statusmarken und Herkunftsangaben bleiben Jost. Alle Stellen mit `--font-display`
+  fordern die tz-Ligatur an: eine zentrale Regel in `base.css` setzt `font-feature-settings:
+  'dlig' 1` für genau diese Selektoren („Gesetze“ zeigt das verbundene tz).
+- Versalien (`.r-label`, 11 px) bleiben Etiketten: Metadatenrubriken, Seitenspaltenrubriken,
+  Tabellenköpfe, kurze Kennzeichnungen. Tragende H1/H2/H3 einer Seite stehen nie in dieser Rolle:
+  H1 in Ost Grotesk (34 px), H2 in `.r-h2` (23 px, Untervariante 20 px), H3 in `.r-h3` (17 px).
 
 ### Skalen
 
@@ -229,9 +225,12 @@ Hoheitszeichen beginnt. Politische Teaser- und Pressenavigation gehören nicht i
 Das Amtsband kennt drei Stufen: über 80 rem eine Zeile; bei 80 rem und darunter zweizeilig, mit den
 Bereichen als eigener Zeile; unter 60 rem weichen Suche und Bereiche in das Menü „Bereiche“.
 
-Der Fuß wiederholt die Recherchewege nicht. Er trägt die Angabe des Rechtsstands, die Wege Hilfe,
-Impressum, Datenschutz, Barrierefreiheit und Staatsportal und darunter, durch eine Haarlinie
-getrennt, den Hinweis zur Simulation.
+Der Fuß ist ein moderater Abschluss in drei Bereichen: Marke (kleines Wappen, Wortmarke,
+Rechtsstand und amtlicher Hinweis), „Recherchieren“ (Rechtssuche, Sachgebiete, A–Z und Register,
+die vier Normtypen, Amtliche Veröffentlichungen, Änderungsdienst als Sprung zur Startseite) und
+„Service“ (Hilfe, Impressum, Datenschutz, Barrierefreiheit, Staatsportal); darunter, durch eine
+Haarlinie getrennt, der Hinweis zur Simulation. Die Normtypen sind keine Punkte des Amtsbands,
+aber von jeder Seite sekundär erreichbar – im Fuß und im Menü „Bereiche“ unter „Weitere Zugänge“.
 
 ## Responsives Verhalten
 
@@ -320,7 +319,9 @@ verwenden dieselben Bausteine aus `apps/recht/src/components/directory/` und `ui
 - `NormTable.astro`: eine Zeile je Vorschrift (`data-directory-entry`) mit Titel aus
   `getNormTitleBlock` (Kurztitel als Link, Langtitel in Metaschrift darunter), Abkürzung, Normtyp,
   Geltung als Statusmarke (`StatusMark.astro`, Wort mit Rahmen), Rechtsstand (Fassung seit,
-  Änderung) und Rechtsherkunft in Worten. Die Herkunft ist Text, kein Zeichen.
+  Änderung) und Rechtsherkunft in Kurzform („Übernommen · geändert“). Die Herkunft ist Text, kein
+  Zeichen; unter 60 rem entfällt ihre Spalte (Filter und Vorschriftendaten tragen sie weiter),
+  Typseiten wiederholen den Normtyp nicht, unter 40 rem entfällt er auch im A–Z.
 - `FilterForm.astro`: GET-Formular (`data-directory-filter`) als Filterspalte oder Leiste über der
   Tabelle, „Zurücksetzen“ immer vorhanden und ohne aktiven Filter ausgegraut (`aria-disabled`),
   die Ergebniszahl in einem Satz (`data-directory-count`); Auswahländerungen senden sofort, ohne
@@ -355,9 +356,8 @@ id="bereich-55x">` mit den gemeinsamen Einträgen. Der Filter kennt zusätzlich 
 ohne Auswahl zeigt jeder Abschnitt höchstens eine Seite und verweist auf den vollständigen Bereich.
 
 Die Rechtsentwicklung ist keine eigene Übersicht mehr: Herkunft, Normtyp, Sachgebiet und Geltung
-sind Filter der Rechtssuche. Die Herkunftszahlen des Bestands stehen als Kachelreihe
-(`.law-origin-overview`) über der Trefferliste; `/rechtsentwicklung/` leitet mit denselben
-Parameternamen dorthin weiter.
+sind Filter der Rechtssuche; `/rechtsentwicklung/` leitet mit denselben Parameternamen dorthin
+weiter. Einen Zählerblock je Herkunftsart gibt es nicht mehr.
 
 ### Grundmenge und Bestandszahl
 
@@ -435,10 +435,15 @@ Die Fassungen stehen in der Seitenspalte der Vorschrift (`NormAside.astro`, „F
 Vorschrift“) als senkrechte Zeitleiste (auf Smartphones vor dem Normtext als horizontaler Streifen): je Fassung Datum, Art (geltend, historisch, künftig,
 Inkrafttreten nicht belegt, Ausgangsfassung) in Wort und Marke, Fundstelle; die angezeigte Fassung
 ist hervorgehoben. Darunter Zitieren (Normzitat, Link zur Vorschrift oder zur Fassung kopieren),
-Vollzitat und Amtliche Quelle. Die Seite „Fassungen und Änderungen“ (P4) führt Zeitachse,
-Änderungsprotokoll, Fassungen im Wortlaut, Fassungsvergleich und die Recherche „Fassung zu einem
-Datum“ (nur für diese Vorschrift; es gibt keine portalweite Stichtagswahl). Die geltende Fassung
+Vollzitat und Amtliche Quelle. Die Seite „Fassungen und Änderungen“ (P4) führt Abschnittszeile,
+Änderungsprotokoll (die Spalte „Verkündet“ nur mit belegten Daten), Fassungen im Wortlaut,
+Fassungsvergleich und die Recherche „Fassung zu einem Datum“ (nur für diese Vorschrift; es gibt keine portalweite Stichtagswahl). Die geltende Fassung
 heißt überall „Rechtsstand vom <Datum>“.
+
+Umbrechende Metadatenzeilen (Kopfzeile, Statuszeile, Trefferzeilen, Angabenlisten `.r-inline-list`)
+trennen ihre Teile allein durch den Abstand des Flex-Rasters; ein Mittelpunkt „·“ steht nur noch
+innerhalb eines einzelnen, nicht umbrechenden Wortes („Übernommen · geändert“). So beginnt oder
+endet nach einem Umbruch keine Zeile mit einem Trenner.
 
 ### Normtext
 
@@ -452,8 +457,11 @@ Buchstabenkennzeichnungen gehören zum Fließtext mit fester Adressspalte.
 
 Der Vorschriftentext ist ein durchlaufendes Dokument (Richtung E, P3): jede nicht zitierte
 Einheit ist ein `section` mit echter Überschrift, nichts wird auf- oder zugeklappt, es gibt keinen
-globalen Umschalter. Absätze stehen mit ihrer Adresse („§ 12 (1)“) in einer festen Spalte links vom
-Text; die Adresse ist der Anker des Absatzes. Je Einheit stehen in der Kopfzeile die Textlinks
+globalen Umschalter. Absätze stehen mit ihrer Adresse in einer schmalen Spalte (`--col-addr`, 3 rem) links vom
+Text; sichtbar ist nur das Absatzzeichen „(1)“, das Gliederungszeichen der Einheit steht in der
+Überschrift darüber und bleibt im zugänglichen Namen und im Anker („§ 12 (1)“). Innenpolster und
+Adressspalte sind so bemessen, dass reiner Absatztext bei 1440 px rund 70 Zeichen je Zeile trägt
+(540–590 px) – die Seitenbreite bleibt 80 rem. Je Einheit stehen in der Kopfzeile die Textlinks
 „Link“ (kopiert die Adresse der Stelle) und „Drucken“ (Einzeldruck). Paragraphen, Artikel und
 Anlagen tragen sprechende, deterministische Anker; alte Anker bleiben unsichtbare Sprungziele.
 Zitierte Bestimmungen (`quotedProvision`) erscheinen als amtlich zitierter Text mit Linie, nicht
@@ -465,9 +473,12 @@ hinaus in `.norm-table-wrap`.
 ### Fassungsvergleich
 
 Geänderte Einheiten tragen die Marke „Neu“, „Geändert“ oder „Entfallen“ (`.r-status`) und
-stehen in der Standardansicht als ein Text mit `ins`/`del` (P4); ein Umschalter zeigt sie
-wahlweise nebeneinander als „Bisher“ und „Neu“ (`renderNormDiffDocument`, `mode`). Marken,
-Klartextlabels und unterschiedliche Flächen ergänzen sich, Farbe ist nie die einzige Angabe. Der
+stehen in genau einer Darstellung nebeneinander: links „Fassung vom <Datum>“ der älteren, rechts
+der jüngeren Fassung (`renderNormDiffDocument`). Streichungen links sind durchgestrichen auf
+roter Fläche, Einfügungen rechts stehen auf grüner Fläche mit grünem Unterstrich; Farbe ist nie
+die einzige Angabe. Jede geänderte Einheit erscheint je Spalte genau einmal gegliedert; der
+geglättete Gesamttext des Eintrags dient nur der Erkennung und wird nicht gerendert. Einen
+Umschalter „Im Text / Nebeneinander“ gibt es nicht mehr. Der
 Vergleich zeigt dieselbe Gliederungstiefe, dieselben Leerzeichen und dieselbe Dokumentschrift wie die
 Normseite. Er wird von `packages/shared/src/lib/norms/diff-render.ts` erzeugt, einem eigenen Renderer
 neben `NormBody.astro`; beide bleiben bewusst getrennt, weil der eine Astro-Templates aus dem
@@ -480,12 +491,12 @@ Zeile gilt als geändert, eine gestrichene als entfallen.
 
 ### Startseite
 
-Keine Hero-Fläche (Richtung E, P1): Suchfeld mit Erläuterung und einer kuratierten Zeile
-„Direkt“ – Verfassung, Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien mit
-Bestandszahlen aus `countNormTypes`. Die Zeile ist ein Einstieg, keine Liste des Bestands: weitere
-Normtypen (Staatsvertrag, Bekanntmachung, Zustimmungsgesetz …) bleiben über Suchfilter,
-Sachgebiete und A–Z erreichbar. Daneben die Sachgebiete als nummerierte Liste der amtlichen
-Systematik samt A–Z und Register, darunter der Änderungsdienst als drei Spalten mit Linien: „Neu in
+Keine Hero-Fläche (Richtung E, P1): Suchfeld mit Beschriftung in gemischter Schreibweise
+(`--fs-meta`), darunter zwei kompakte Zeilen ohne Bestandszahlen – „Schnellzugriff“ auf
+redaktionell hervorgehobene Vorschriften (Verfassung und im Bestand vorhandene Kernvorschriften,
+nicht „meistgenutzt“, weil keine Nutzungsstatistik vorliegt) und „Nach Normtyp“ mit den vier
+Übersichten. Daneben die Sachgebiete als nummerierte Liste der amtlichen Systematik und darunter
+eine ruhige Zeile „Alle Sachgebiete · A–Z und Register“ (A–Z ist kein Sachgebiet), darunter der Änderungsdienst als drei Spalten mit Linien: „Neu in
 Kraft getreten“, „Verkündet, noch nicht in Kraft“ und „Außer Kraft getreten“ (je fünf Einträge;
 leere Spalten zeigen einen Hinweis), zuletzt die Tabelle der jüngsten amtlichen
 Veröffentlichungen mit Datum, Gegenstand, Dokumentart und Fundstelle.
@@ -499,11 +510,16 @@ Eintragstitel nur das Vollzitat wiederholt, steht die Fundstelle allein. Kein Be
 
 ### Rechtssuche
 
-Suchzeile mit Suchbereich, aktive Filter als Chips, „Weitere Filter · Erweiterte Suche“ als
+Sichtbare H1 „Suche im Landesrecht“ in der Wegweiserschrift, Suchzeile mit Suchbereich, aktive Filter als Chips, „Weitere Filter · Erweiterte Suche“ als
 Aufklappbereich (P2b: exakte Wortfolge, Ausschluss, Ressort, Rechtsherkunft, Fassungsbereich,
 Geltungstag, Fundstelle, Änderungsvorschriften; alle bisherigen Parameter bleiben) und rechts die
-Filterspalte „Eingrenzen“ (Geltung, Normtyp, Sachgebiet mit Zählern; unter 60 rem als
-Aufklappbereich über der Liste). Ein Treffer ist ein Eintrag mit Linien, keine Karte: Kurztitel
+Filterspalte „Eingrenzen“ (Geltung, Normtyp, Sachgebiet mit Zählern). Die Geltung zeigt je Wort
+eine Option: „außer Kraft“ filtert `repealed` und `historical` gemeinsam (`validityOptions`,
+`data-search-facet-values`); Facettengruppen ohne Option werden nicht gerendert. Die Quelltextfolge
+Anfrage → Trefferkopf → Filterspalte → Trefferliste ist zugleich die Reihenfolge unter 60 rem
+(Filter als Aufklappbereich vor der Liste). Treffertitel sind Links in Staatsblau (`--text-link`),
+der Auszug steht in `--fs-ui` unter dem Titel; ein Langtitel, der nur Überschrift plus
+Klammer-Abkürzung wiederholt, entfällt (`getNormTitleBlock`). Ein Treffer ist ein Eintrag mit Linien, keine Karte: Kurztitel
 mit Kennung (Abkürzung · Normtyp), Langtitel darunter, eine Metazeile aus Statusmarke,
 Fassungsangabe, Fundstelle und Rechtsherkunft in Worten, dann der Auszug (bis 220 Zeichen) mit der
 Trefferstelle als Etikett und die Wege „Fassungen und Änderungen“ sowie weitere passende
@@ -525,7 +541,7 @@ Rechtsherkunft ist auf allen Rechtsseiten in Worten sichtbar, nie als Zeichen od
 ausschließlich aus `packages/shared/src/lib/norms/origin-presentation.ts`; die erklärende Langform
 ist `formatNormOriginKind` aus `origin.ts`) in genau zwei Formen: kurz in Tabellen und Trefferzeilen
 („Übernommen · unverändert“, „Übernommen · geändert“, „Ostdeutsch neu“, „Herkunft ungeklärt“; die
-erklärende Fassung steht dort als Titel am Zeichen) und erklärend auf Normseite, in Filtern und
+Tabellen nutzen dieselbe Kurzform mit Mittelpunkt als Teil des Wortes) und erklärend auf Normseite, in Filtern und
 Zählern („Übernommen und unverändert“,
 „Übernommen und ostdeutsch geändert“, „Ostdeutsch neu geschaffen“, „Herkunft ungeklärt“). Die
 Normseite führt Rechtsstand und Herkunft in `NormFacts.astro` mit allen übrigen Angaben zur
@@ -672,7 +688,8 @@ Volltexttreffer zeigt einen Ausschnitt um die Fundstelle mit hervorgehobenem Beg
 ## Barrierefreiheit
 
 - genau eine H1 pro Seite, semantische Landmarken, nachvollziehbare Überschriftenfolge
-- Skip-Link, sichtbarer Tastaturfokus mit mindestens 3 : 1 gegen seine Bezugsfläche (siehe Farbrollen)
+- Skip-Link, sichtbarer Tastaturfokus mit mindestens 3 : 1 gegen seine Bezugsfläche und 3 px Umriss
+  (`--focus-width`, dieselbe Stärke wie im Staatsportal; Staatsblau auf hellen Flächen, Gold im Amtsband)
 - `aria-current` für den aktiven Hauptnavigationspunkt; native `details` für Menüs und
   Aufklappbereiche. Die Einheiten des Vorschriftentextes sind Abschnitte mit echter Überschrift
   und werden nicht auf- oder zugeklappt.

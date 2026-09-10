@@ -1156,11 +1156,17 @@ test('abgeleitete Zusammenfassungen bleiben unveröffentlicht, redaktionelle nic
   );
 });
 
-test('Inline-Vergleich erhält vollständig gestrichene Überschriften', () => {
+test('der Spaltenvergleich streicht eine entfallene Überschrift links und zeigt jede Einheit genau einmal', () => {
   const before = version('a', '2026-01-01', '2026-06-30');
   before.body[0].title = 'Bisherige Voraussetzungen';
   const after = version('b', '2026-07-01', null);
   after.body[0].title = '';
-  const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom, 'paragraph', 'inline');
-  assert.match(html, /<del>Bisherige Voraussetzungen<\/del>/u);
+  const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom, 'paragraph');
+  assert.match(html, /norm-diff__side--before[\s\S]*<del>Bisherige Voraussetzungen<\/del>/u);
+  // Genau eine linke und eine rechte Darstellung, kein zusätzlicher Wortlaut außerhalb der Struktur.
+  assert.equal(html.match(/norm-diff__side--before/gu)?.length, 1);
+  assert.equal(html.match(/norm-diff__side--after/gu)?.length, 1);
+  assert.doesNotMatch(html, /norm-diff__side--inline|data-compare-mode/u);
+  // Der geglättete Gesamttext des Eintrags (mit Überschrift) erscheint nicht als eigener Absatz.
+  assert.equal(html.match(/Bisherige Voraussetzungen/gu)?.length, 1);
 });

@@ -1,19 +1,34 @@
 /* OstRecht – Suche (P2/P2b): Suchzeile, aktive Filter, erweiterte Suche, Trefferliste, Filterspalte,
    Vorschlagsliste. */
+/* Raster: Anfrage und Trefferkopf links oben, Filterspalte rechts über beide Zeilen, Trefferliste
+   links darunter. Die Quelltextfolge (Anfrage → Trefferkopf → Filter → Liste) ist zugleich die
+   Lese- und Tastaturreihenfolge auf schmalen Bildschirmen. */
 .r-search__layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--col-filter);
-  gap: var(--space-8);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--space-4) var(--space-8);
   align-items: start;
 }
 
+.r-search__main {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.r-search__aside {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.r-search__results-wrap {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+}
+
 .r-search__title {
-  font-size: var(--fs-micro);
-  font-weight: 500;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-4);
 }
 
 .r-search__bar {
@@ -151,7 +166,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  padding-top: 3.75rem;
+  padding-top: var(--space-2);
 }
 
 .r-search__filters > summary {
@@ -232,7 +247,7 @@
 
 .search-hit__title h3 a,
 .search-hit__title h4 a {
-  color: var(--text-strong);
+  color: var(--text-link);
   text-decoration: none;
 }
 
@@ -254,21 +269,10 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-1) var(--space-3);
+  gap: var(--space-1) var(--space-4);
   margin-top: var(--space-2);
   font-size: var(--fs-meta);
   color: var(--text-secondary);
-}
-
-.search-hit__meta > * + *::before {
-  content: '·';
-  margin-right: var(--space-3);
-  color: var(--text-muted);
-}
-
-.search-hit__meta > .r-status + *::before {
-  content: '';
-  margin-right: 0;
 }
 
 .search-hit__places {
@@ -277,8 +281,9 @@
   flex-direction: column;
   gap: var(--space-2);
   font-family: var(--font-serif);
-  font-size: var(--fs-ui-lg);
-  line-height: 1.5;
+  font-size: var(--fs-ui);
+  line-height: var(--lh-body);
+  color: var(--text-body);
 }
 
 .search-hit__places li {
@@ -466,11 +471,18 @@
 @media (max-width: 59.99rem) {
   .r-search__layout {
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
     gap: var(--space-4);
   }
 
+  .r-search__main,
+  .r-search__aside,
+  .r-search__results-wrap {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .r-search__aside {
-    order: -1;
     padding-top: 0;
     gap: var(--space-3);
   }

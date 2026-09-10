@@ -153,7 +153,7 @@ const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many:
       <LetterNav letters={[]} allAvailable current={letter} hrefFor={(target) => pageUrl(basePath, { buchstabe: target || letter })} withAll={false} />
       {section === 'register' ? (
       <section id="stichwortregister" aria-labelledby="register-heading">
-        <h2 id="register-heading" class="r-label r-label--rule">Stichwortregister {heading}</h2>
+        <h2 id="register-heading" class="r-h2 r-h2--sub r-h2--rule">Stichwortregister {heading}</h2>
         <form class="r-az__register-form" method="get" action={basePath} data-register-filter-form>
           <input type="hidden" name="buchstabe" value={letter} />
           <label class="r-field"><span>Stichwort filtern</span><input class="r-input" type="search" name="stichwort" value={registerFilter} autocomplete="off" maxlength="100" placeholder="z. B. Kultur, Energie, Wohnen" data-register-filter /></label>
@@ -166,7 +166,7 @@ const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many:
             {register.entries.map((entry) => (
               <li data-register-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
                 <strong class="r-strong">{entry.keyword}</strong>
-                <span class="r-meta">{entry.norms.map((norm, index) => <>{index > 0 ? ' · ' : ''}<a href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a></>)}</span>
+                <span class="r-meta r-inline-list">{entry.norms.map((norm) => <a href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a>)}</span>
               </li>
             ))}
           </ul>
@@ -176,7 +176,7 @@ const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many:
 
       ) : (
       <section id="abkuerzungen" aria-labelledby="keyword-index-heading">
-        <h2 id="keyword-index-heading" class="r-label r-label--rule">Abkürzungen und Kurztitel {heading}</h2>
+        <h2 id="keyword-index-heading" class="r-h2 r-h2--sub r-h2--rule">Abkürzungen und Kurztitel {heading}</h2>
         <form class="r-az__register-form" method="get" action={basePath} data-keyword-filter-form>
           <input type="hidden" name="buchstabe" value={letter} />
           <label class="r-field"><span>Abkürzung oder Kurztitel filtern</span><input class="r-input" type="search" name="abkuerzung" value={abbreviationFilter} autocomplete="off" maxlength="100" placeholder="z. B. VwV, Schulgesetz" data-index-filter /></label>
@@ -188,7 +188,7 @@ const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many:
             {abbreviations.entries.map((entry) => (
               <div class="r-az__abbr-entry" data-index-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
                 <dt class="r-strong">{entry.keyword}</dt>
-                <dd>{entry.norms.map((norm, index) => <>{index > 0 ? ' · ' : ''}<a href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a></>)}</dd>
+                <dd class="r-inline-list">{entry.norms.map((norm) => <a href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a>)}</dd>
               </div>
             ))}
           </dl>

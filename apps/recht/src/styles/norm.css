@@ -76,15 +76,8 @@
 .norm-page-header__line {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) var(--space-3);
+  gap: var(--space-1) var(--space-5);
   align-items: baseline;
-}
-
-/* Der Trenner hängt am vorangehenden Teil: bricht die Zeile um, beginnt sie nie mit „·“. */
-.norm-page-header__line > *:not(:last-child)::after {
-  content: '·';
-  margin-left: var(--space-3);
-  color: var(--text-muted);
 }
 
 .norm-page-header__tools {
@@ -181,29 +174,61 @@
   box-shadow: inset 3px 0 0 var(--blue-800);
 }
 
-.norm-outline__item--division > a {
-  color: var(--text-strong);
-}
-
-.norm-outline__item--level-0 > a {
-  padding-left: var(--space-4);
-}
-
-.norm-outline__item--level-1 > a {
-  padding-left: calc(var(--space-4) + 0.75rem);
-  color: var(--text-secondary);
-}
-
-.norm-outline__item--level-2 > a {
-  padding-left: calc(var(--space-4) + 1.5rem);
-}
-
-.norm-outline__item--level-3 > a {
-  padding-left: calc(var(--space-4) + 2.25rem);
-}
-
+.norm-outline__item--division > a,
 .norm-outline__item--annex > a {
   color: var(--text-strong);
+}
+
+/* Gliederungsgruppen: Summary mit Bezeichnung, Titel und Normspanne; die Einträge darunter rücken
+   je Ebene ein. */
+.norm-outline__group-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-4) var(--space-1) var(--space-5);
+  min-height: 1.75rem;
+  color: var(--text-strong);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+
+.norm-outline__group-summary::-webkit-details-marker {
+  display: none;
+}
+
+.norm-outline__group-summary::before {
+  content: '▸';
+  position: absolute;
+  left: var(--space-2);
+  color: var(--text-muted);
+}
+
+.norm-outline__group[open] > .norm-outline__group-summary::before {
+  content: '▾';
+}
+
+.norm-outline__group-summary:hover {
+  background: var(--surface-hover);
+}
+
+.norm-outline__group-range {
+  flex: none;
+  font-weight: 400;
+}
+
+.norm-outline__group-body {
+  padding-left: var(--space-3);
+}
+
+.norm-outline__group-link {
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+}
+
+.norm-outline__group-body .norm-outline__group-summary {
+  font-weight: 400;
 }
 
 .norm-outline__summary {
@@ -260,8 +285,10 @@
 }
 
 /* Normtext */
+/* Innenpolster und Adressspalte sind so bemessen, dass reiner Absatztext bei 1440 px rund 70
+   Zeichen je Zeile trägt (Zielbereich 540–590 px); die Seitenbreite bleibt 80 rem. */
 .norm-document {
-  padding: var(--space-5) var(--space-7) var(--space-8);
+  padding: var(--space-5) var(--space-5) var(--space-8);
   min-width: 0;
 }
 
@@ -322,9 +349,12 @@
   margin-left: var(--space-2);
 }
 
+.norm-unit {
+  margin-top: var(--space-6);
+}
+
 .norm-unit,
 .norm-annex {
-  margin-top: var(--space-6);
   padding-top: var(--space-4);
   border-top: var(--line) solid var(--border-hairline);
 }
@@ -400,10 +430,11 @@
   height: 0;
 }
 
-/* Absätze im Adressraster */
+/* Absätze im Adressraster: sichtbar nur das Absatzzeichen „(1)“, das Gliederungszeichen der Einheit
+   steht in der Überschrift darüber und bleibt im zugänglichen Namen und im Anker. */
 .norm-abs {
   display: grid;
-  grid-template-columns: 6rem minmax(0, 1fr);
+  grid-template-columns: var(--col-addr) minmax(0, 1fr);
   gap: var(--space-3);
   margin-bottom: var(--space-2);
 }
@@ -612,6 +643,11 @@ a.norm-abs__addr:hover {
   margin-bottom: var(--space-3);
 }
 
+/* Die Fassungsliste ist auf großen Breiten immer offen; die Aufklappzeile gehört dem Smartphone. */
+.norm-versions__summary {
+  display: none;
+}
+
 .norm-timeline {
   margin-left: var(--space-2);
   padding-left: var(--space-3);
@@ -683,6 +719,7 @@ a.norm-timeline__date:hover {
 
 .norm-timeline__note {
   color: var(--text-secondary);
+  gap: var(--space-1) var(--space-2);
 }
 
 .norm-timeline__note--current {
@@ -813,11 +850,9 @@ a.norm-timeline__date:hover {
 }
 
 .norm-relations__detail {
-  display: block;
-}
-
-.norm-relations__detail > * + *::before {
-  content: ' · ';
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
 }
 
 .norm-relations__note {
@@ -829,6 +864,19 @@ a.norm-timeline__date:hover {
 .norm-document .r-note--future {
   margin-top: var(--space-5);
   max-width: var(--measure-legal);
+}
+
+/* Zwischen 48 und 60 rem stehen die Werkzeuge unter der Statuszeile: sie bekommt die ganze Breite
+   statt einer schmalen Mittelspalte. */
+@media (max-width: 59.99rem) {
+  .norm-page-header__status {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .norm-page-header__tools {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
 }
 
 /* Responsiv: 80 rem → zwei Spalten, 48 rem → eine Spalte */
@@ -880,7 +928,7 @@ a.norm-timeline__date:hover {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Die Fassungsleiste wandert als waagerechter Streifen über den Text. */
+  /* Die Fassungsliste steht als geschlossener Aufklappbereich über dem Text. */
   .norm-workspace > .norm-aside__versions {
     min-width: 0;
     padding-top: var(--space-3);
@@ -907,34 +955,47 @@ a.norm-timeline__date:hover {
     padding-top: var(--space-3);
   }
 
-  .norm-timeline {
-    flex-direction: row;
-    overflow-x: auto;
-    gap: var(--space-5);
-    margin-left: 0;
-    padding: var(--space-3) 0 var(--space-3) var(--space-2);
-    border-left: 0;
-    border-top: var(--line-strong) solid var(--border-default);
-    scrollbar-width: thin;
+  .norm-aside__versions h2 {
+    margin-bottom: var(--space-2);
   }
 
-  .norm-timeline__entry {
-    flex: 0 0 auto;
-    min-width: 9rem;
-    padding-top: var(--space-2);
+  .norm-versions__summary {
+    display: flex;
+    min-height: var(--target-main);
+    align-items: center;
+    padding: 0 var(--space-3);
+    border: var(--line) solid var(--border-default);
+    color: var(--text-strong);
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
   }
 
-  .norm-timeline__mark,
-  .norm-timeline__entry--shown .norm-timeline__mark {
-    left: 0;
-    top: calc(-1 * var(--space-3) - 0.375rem);
+  .norm-versions__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .norm-versions__summary::after {
+    content: '▾';
+    margin-left: auto;
+    color: var(--text-muted);
+  }
+
+  .norm-versions[open] > .norm-versions__summary::after {
+    content: '▴';
+  }
+
+  .norm-versions[open] > .norm-timeline {
+    margin-top: var(--space-4);
   }
 
   .norm-page-header__status {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-items: start;
   }
 
   .norm-page-header__tools {
+    grid-column: 1 / -1;
     justify-content: flex-start;
   }
 
@@ -965,6 +1026,30 @@ a.norm-timeline__date:hover {
 }
 
 @media (max-width: 39.99rem) {
+  /* Die vier Bereiche der Vorschrift als festes 2×2-Raster: gleiche Zellen, volle Bezeichnungen,
+     kein Rollen und kein freier Umbruch. */
+  .norm-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--line);
+    padding: 0;
+    background: var(--border-hairline);
+    border-bottom: var(--line) solid var(--border-default);
+  }
+
+  .norm-tabs a {
+    justify-content: center;
+    min-height: var(--target-main);
+    padding: var(--space-2) var(--space-2);
+    background: var(--surface-muted);
+    text-align: center;
+    white-space: normal;
+  }
+
+  .norm-tabs a[aria-current] {
+    background: var(--paper-0);
+  }
+
   /* Schmaler Kopf (Production Board: Kopf → Übersicht → Text): Rechtsherkunft und die
      nachgeordneten Statusangaben stehen auf dem Smartphone in den Vorschriftendaten; im Kopf
      bleiben Marke, erste Angabe und ein künftiger Änderungshinweis. */
@@ -974,11 +1059,6 @@ a.norm-timeline__date:hover {
 
   .norm-page-header__line > span:not(:first-child):not(.r-future-text) {
     display: none;
-  }
-
-  /* Ohne die nachgeordneten Angaben bleibt kein Trenner am Zeilenende stehen. */
-  .norm-page-header__line > *::after {
-    content: none;
   }
 
   .norm-page-header__title {

@@ -20,8 +20,8 @@ import { buildNormHeadModel } from '../../../lib/norm-head.ts';
 import { formatShortDate } from '../../../lib/dates.ts';
 import { NORM_COMPARE_LABEL, versionKindLabel } from '../../../lib/vocabulary.ts';
 
-// Fassungsvergleich (P4): lädt nur die beiden verglichenen Fassungen; Darstellung im Text
-// (Streichung und Einfügung in einem Wortlaut) oder nebeneinander.
+// Fassungsvergleich (P4): lädt nur die beiden verglichenen Fassungen und stellt sie nebeneinander
+// dar – links die ältere, rechts die jüngere Fassung; jede geänderte Einheit genau einmal.
 export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
@@ -80,12 +80,9 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
   <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} active="versions" /></div>
 
   <section class="norm-compare" data-version-compare aria-labelledby="norm-compare-title">
-    <div class="norm-compare__head" data-copy-group><button class="r-btn" type="button" data-copy-url data-copy-keep-query="true">Link zum Vergleich kopieren</button><span class="r-feedback" aria-live="polite" data-copy-feedback></span>
-      <h2 id="norm-compare-title">{NORM_COMPARE_LABEL} · {formatShortDate(defaultFrom.validFrom)} → {formatShortDate(defaultTo.validFrom)}</h2>
-      <div class="r-segmented" role="group" aria-label="Darstellung">
-        <button type="button" data-compare-mode="inline" aria-pressed="true">Im Text</button>
-        <button type="button" data-compare-mode="columns" aria-pressed="false">Nebeneinander</button>
-      </div>
+    <div class="norm-compare__head" data-copy-group>
+      <h2 id="norm-compare-title" class="r-h2">{NORM_COMPARE_LABEL} {formatShortDate(defaultFrom.validFrom)} → {formatShortDate(defaultTo.validFrom)}</h2>
+      <span class="r-inline-list"><button class="r-btn" type="button" data-copy-url data-copy-keep-query="true">Link zum Vergleich kopieren</button><span class="r-feedback" aria-live="polite" data-copy-feedback></span></span>
     </div>
     <form class="norm-compare__form" action={getNormCompareUrl(norm.meta.slug)} method="get" data-compare-form aria-label="Zu vergleichende Fassungen">
       <label class="r-field">
@@ -105,7 +102,7 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
         </select>
       </label>
       <button class="r-btn" type="submit">Vergleichen</button>
-      <span class="norm-compare__count r-meta" data-compare-count>{counts.changed} geändert · {counts.added} neu · {counts.removed} entfallen</span>
+      <span class="norm-compare__count r-meta" data-compare-count>{counts.changed} geändert, {counts.added} neu, {counts.removed} entfallen</span>
     </form>
 
     <p class="r-feedback" data-compare-feedback aria-live="polite"></p>
@@ -114,14 +111,13 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
       class="norm-diff"
       data-compare-output
       data-compare-pair={defaultPairKey}
-      data-compare-mode="inline"
       aria-label={`Vergleich ${formatDate(defaultFrom.validFrom)} mit ${formatDate(defaultTo.validFrom)}`}
-      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom, defaultUnitKind, 'inline')}
+      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom, defaultUnitKind)}
     ></section>
   </section>
 
   <script>
-    import { renderNormDiffDocument, type NormDiffRenderMode } from '@ostrecht/shared/lib/norms/diff-render.ts';
+    import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
     import type { NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
     import type { NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
     type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: NormProvisionDiff[]; unitKind?: NormUnitKind };
@@ -132,23 +128,18 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
     const feedback = root?.querySelector<HTMLElement>('[data-compare-feedback]');
     const output = root?.querySelector<HTMLElement>('[data-compare-output]');
     const count = root?.querySelector<HTMLElement>('[data-compare-count]');
-    const modeButtons = Array.from(root?.querySelectorAll<HTMLButtonElement>('[data-compare-mode]') ?? []);
     const dateFormatter = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-    let payloadCache: DiffPayload | undefined;
-    let mode: NormDiffRenderMode = 'inline';
 
     const renderPayload = (payload: DiffPayload) => {
       if (!output) return;
-      payloadCache = payload;
       output.dataset.comparePair = `${payload.fromVersion.versionId}::${payload.toVersion.versionId}`;
-      output.dataset.compareMode = mode;
       output.setAttribute('aria-label', `Vergleich ${dateFormatter.format(new Date(`${payload.fromVersion.validFrom}T00:00:00Z`))} mit ${dateFormatter.format(new Date(`${payload.toVersion.validFrom}T00:00:00Z`))}`);
-      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom, payload.unitKind ?? 'none', mode);
+      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom, payload.unitKind ?? 'none');
       if (count) {
         const changed = payload.provisions.filter((entry) => entry.kind === 'changed').length;
         const added = payload.provisions.filter((entry) => entry.kind === 'added').length;
         const removed = payload.provisions.filter((entry) => entry.kind === 'removed').length;
-        count.textContent = `${changed} geändert · ${added} neu · ${removed} entfallen`;
+        count.textContent = `${changed} geändert, ${added} neu, ${removed} entfallen`;
       }
     };
     const fetchPair = async (): Promise<DiffPayload | undefined> => {
@@ -185,23 +176,10 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
       if (from && Array.from(fromSelect.options).some((option) => option.value === from)) fromSelect.value = from;
       if (to && Array.from(toSelect.options).some((option) => option.value === to)) toSelect.value = to;
     };
-    const setMode = async (next: NormDiffRenderMode) => {
-      mode = next;
-      modeButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.compareMode === next)));
-      if (!output) return;
-      if (output.dataset.compareMode === next) return;
-      if (feedback) feedback.textContent = 'Darstellung wird umgestellt.';
-      try {
-        const payload = payloadCache ?? await fetchPair();
-        if (payload) renderPayload(payload);
-        if (feedback) feedback.textContent = '';
-      } catch { if (feedback) feedback.textContent = 'Die Darstellung konnte nicht umgestellt werden.'; }
-    };
     if (form && fromSelect && toSelect) {
       applyUrlSelection(); void loadPair();
       form.addEventListener('submit', (event) => { event.preventDefault(); void loadPair(true); });
       window.addEventListener('popstate', () => { applyUrlSelection(); void loadPair(); });
-      modeButtons.forEach((button) => button.addEventListener('click', () => { void setMode(button.dataset.compareMode === 'columns' ? 'columns' : 'inline'); }));
     }
   </script>
 </LawLayout>

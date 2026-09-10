@@ -1,10 +1,13 @@
 ---
 import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/display.ts';
+import NormOutlineGroup from './NormOutlineGroup.astro';
 
 /**
- * Inhaltsübersicht (P3): Teile, Kapitel, Abschnitte, §§/Artikel und Anlagen als flache Liste mit
- * Einrückung, Filterfeld und Paragraphenspanne je Gliederungsebene. Auf großen Breiten die feste
- * linke Spalte, darunter ein Aufklappbereich unter der Reiterzeile (Schaltfläche „Inhalt“).
+ * Inhaltsübersicht (P3): Teile, Kapitel und Abschnitte als zugängliche Aufklappgruppen mit
+ * Bezeichnung, Titel und Normspanne („§§ 21–37“), darin die einzelnen §§/Artikel; Anlagen am
+ * Ende. Sehr lange Vorschriften erscheinen so nicht als flache Liste. Auf großen Breiten die feste
+ * linke Spalte, darunter der Aufklappbereich unter der Reiterzeile (Schaltfläche „Inhalt“).
+ * Die erste Gruppe steht beim Laden offen; die Gruppe der gelesenen Stelle öffnet norm-page.ts.
  */
 interface Props {
   items: NormOutlineItem[];
@@ -14,49 +17,12 @@ interface Props {
   variant?: 'desktop' | 'sheet';
 }
 
-interface FlatItem {
-  anchor: string;
-  text: string;
-  level: number;
-  range?: string;
-  kind: 'division' | 'unit' | 'annex';
-}
-
 const { items, summary, variant = 'desktop' } = Astro.props;
-
-function unitLabels(entry: NormOutlineItem): string[] {
-  const own = entry.label && /^(§|Art\.|Artikel)/u.test(entry.label) ? [entry.label] : [];
-  return [...own, ...entry.children.flatMap(unitLabels)];
-}
-
-function rangeOf(entry: NormOutlineItem): string | undefined {
-  const labels = unitLabels(entry).filter((label) => !/^Anlage/u.test(label));
-  if (labels.length === 0) return undefined;
-  const first = labels[0];
-  const last = labels[labels.length - 1];
-  if (first === last) return first;
-  const prefix = /^§/u.test(first) ? '§§ ' : '';
-  const strip = (label: string) => label.replace(/^(§§?|Art\.|Artikel)\s*/u, '');
-  return `${prefix}${strip(first)}–${strip(last)}`;
-}
-
-function flatten(entries: NormOutlineItem[], level = 0): FlatItem[] {
-  return entries.flatMap((entry) => {
-    const isUnit = Boolean(entry.label && /^(§|Art\.|Artikel)/u.test(entry.label));
-    const isAnnex = /^Anlage/u.test(entry.label ?? entry.title);
-    const text = entry.label && entry.label !== entry.title ? `${entry.label} ${entry.title}` : entry.title;
-    const item: FlatItem = { anchor: entry.anchor, text, level, kind: isAnnex ? 'annex' : isUnit ? 'unit' : 'division' };
-    if (!isUnit && !isAnnex) item.range = rangeOf(entry);
-    return [item, ...flatten(entry.children, level + 1)];
-  });
-}
-
-const flat = flatten(items);
-const hasDivisions = flat.some((entry) => entry.kind === 'division');
+const hasDivisions = items.some((entry) => entry.children.length > 0 && !/^(§|Art\.|Artikel|Anlage)/u.test(entry.label ?? ''));
 ---
 
-{flat.length > 0 ? (
-  <nav class:list={['norm-outline', `norm-outline--${variant}`]} aria-label={variant === 'sheet' ? 'Inhaltsübersicht (mobil)' : 'Inhaltsübersicht'} data-norm-outline>
+{items.length > 0 ? (
+  <nav class:list={['norm-outline', `norm-outline--${variant}`, hasDivisions ? 'norm-outline--grouped' : undefined]} aria-label={variant === 'sheet' ? 'Inhaltsübersicht (mobil)' : 'Inhaltsübersicht'} data-norm-outline>
     <div class="norm-outline__filter">
       <label>
         <span class="visually-hidden">§ oder Stichwort in der Übersicht</span>
@@ -64,14 +30,7 @@ const hasDivisions = flat.some((entry) => entry.kind === 'division');
       </label>
     </div>
     <ol class="norm-outline__list r-num">
-      {flat.map((entry) => (
-        <li class:list={[`norm-outline__item--${entry.kind}`, hasDivisions ? `norm-outline__item--level-${Math.min(entry.level, 3)}` : 'norm-outline__item--level-0']}>
-          <a href={`#${entry.anchor}`} data-outline-link={entry.anchor}>
-            <span>{entry.text}</span>
-            {entry.range ? <span class="r-muted">{entry.range}</span> : null}
-          </a>
-        </li>
-      ))}
+      <NormOutlineGroup items={items} level={0} openFirst={true} />
     </ol>
     {summary ? <p class="norm-outline__summary r-caption">{summary}</p> : null}
   </nav>

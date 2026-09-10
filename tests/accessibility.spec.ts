@@ -182,6 +182,8 @@ interface FocusReport {
   checked: number;
   withoutFocusVisible: number;
   violations: FocusFinding[];
+  /** Elemente mit sichtbarem, aber zu schmalem Umriss (unter 3 px). */
+  thin: string[];
 }
 
 const focusPages = [
@@ -243,7 +245,7 @@ function measureFocusIndicators(): FocusReport {
     }
     return null;
   };
-  const report: FocusReport = { checked: 0, withoutFocusVisible: 0, violations: [] };
+  const report: FocusReport = { checked: 0, withoutFocusVisible: 0, violations: [], thin: [] };
   const focusables = Array.from(document.querySelectorAll<HTMLElement>('a[href], button, input, select, textarea, summary, [tabindex]'))
     .filter((el) => !el.matches('[disabled], [tabindex="-1"], input[type="hidden"]') && el.getClientRects().length > 0);
   for (const el of focusables) {
@@ -256,6 +258,8 @@ function measureFocusIndicators(): FocusReport {
     const width = Number.parseFloat(style.outlineWidth) || 0;
     const offset = Number.parseFloat(style.outlineOffset) || 0;
     const outline = style.outlineStyle !== 'none' && width > 0 ? parseColor(style.outlineColor) : null;
+    // Sichtbare Stärke (WCAG 2.4.13, Befund A3): mindestens 3 px Umriss; ein Schein zählt nicht.
+    if (outline && width < 3) report.thin.push(`${describe(el)}: Umriss ${style.outlineWidth}`);
     const halo = parseHalo(style.boxShadow);
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -318,6 +322,7 @@ for (const target of selected(focusTargets)) {
     expect(report.withoutFocusVisible, `${url}: Elemente ohne :focus-visible`).toBe(0);
     const message = report.violations.map((v) => `${v.element}: ${v.contrast}:1 gegen ${v.surface} (${v.indicator})`).join('\n');
     expect(report.violations, `${url}: Fokusindikator unter 3:1\n${message}`).toEqual([]);
+    expect(report.thin, `${url}: Fokusumriss schmaler als 3 px\n${report.thin.join('\n')}`).toEqual([]);
   });
 }
 

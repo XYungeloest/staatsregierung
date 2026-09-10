@@ -41,6 +41,15 @@ const normLinkHint = immutable
   ? 'Der Fassungslink führt dauerhaft genau zu dieser Fassung. Verweise auf andere Vorschriften öffnen deren geltende Fassung.'
   : 'Der Vorschriftslink führt stets zur geltenden Fassung.';
 const sources = (version.sourceReferences ?? norm.meta.sourceReferences ?? []).filter((source) => source.url);
+const shownEntry = entries.find((entry) => entry.isShown);
+const currentEntry = entries.find((entry) => entry.kind === 'current');
+/** Zusammenfassung der Fassungsliste (Aufklappzeile auf dem Smartphone): Zahl und Stand. */
+const versionsSummary = [
+  `${entries.length} ${entries.length === 1 ? 'Fassung' : 'Fassungen'}`,
+  shownEntry && shownEntry.kind !== 'current'
+    ? `angezeigt: ${shownEntry.kind === 'future' ? 'künftige' : 'historische'} Fassung vom ${formatShortDate(shownEntry.version.validFrom)}`
+    : currentEntry ? `geltend seit ${formatShortDate(currentEntry.version.validFrom)}` : '',
+].filter(Boolean);
 
 function versionHref(entry: (typeof entries)[number]): string {
   return entry.kind === 'current' ? getNormUrl(norm.meta.slug) : getNormVersionUrl(norm.meta.slug, entry.version.versionId);
@@ -54,20 +63,22 @@ function entryLabel(entry: (typeof entries)[number]): string {
   return entry.version.validTo ? `${from} – ${formatShortDate(entry.version.validTo)}` : `ab ${from}`;
 }
 
-function entryNote(entry: (typeof entries)[number]): string {
+function entryNote(entry: (typeof entries)[number]): string[] {
   const parts: string[] = [];
-  if (entry.kind === 'future') parts.push('künftig · verkündet, noch nicht in Kraft');
-  else if (entry.kind === 'current') parts.push(entry.isShown ? 'geltend · angezeigt' : 'geltend');
-  else if (entry.kind === 'historical') parts.push(entry.isShown ? 'historisch · angezeigt' : '');
+  if (entry.kind === 'future') parts.push('künftig, verkündet, noch nicht in Kraft');
+  else if (entry.kind === 'current') parts.push('geltend', entry.isShown ? 'angezeigt' : '');
+  else if (entry.kind === 'historical') parts.push('historisch', entry.isShown ? 'angezeigt' : '');
   else parts.push(entry.isShown ? 'angezeigt' : '');
   if (entry.isBaseline) parts.push(`übernommener Rechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}`);
-  return parts.filter(Boolean).join(' · ');
+  return parts.filter(Boolean);
 }
 ---
 
 <aside class="norm-aside" aria-label="Fassungen und Zitieren">
   <section class="norm-aside__versions" data-visual-section="norm-versions" aria-labelledby="norm-versions-title">
     <h2 id="norm-versions-title" class="r-label">Fassungen dieser Vorschrift</h2>
+    <details class="norm-versions" data-versions-details open>
+      <summary class="norm-versions__summary r-inline-list">{versionsSummary.map((part) => <span>{part}</span>)}</summary>
     <ol class="norm-timeline r-num">
       {entries.map((entry) => (
         <li class:list={['norm-timeline__entry', `norm-timeline__entry--${entry.kind}`, entry.isShown ? 'norm-timeline__entry--shown' : undefined, entry.isBaseline ? 'norm-timeline__entry--baseline' : undefined]}>
@@ -75,15 +86,16 @@ function entryNote(entry: (typeof entries)[number]): string {
           {entry.isShown
             ? <span class="norm-timeline__date" aria-current="page">{entryLabel(entry)}</span>
             : <a class="norm-timeline__date" href={versionHref(entry)}>{entryLabel(entry)}</a>}
-          {entryNote(entry) ? <span class:list={['norm-timeline__note', entry.kind === 'current' ? 'norm-timeline__note--current' : undefined]}>{entryNote(entry)}</span> : null}
+          {entryNote(entry).length > 0 ? <span class:list={['norm-timeline__note', 'r-inline-list', entry.kind === 'current' ? 'norm-timeline__note--current' : undefined]}>{entryNote(entry).map((part) => <span>{part}</span>)}</span> : null}
           {shortCitation(entry.version.citation) ? <span class="norm-timeline__citation r-caption">{shortCitation(entry.version.citation)}</span> : null}
         </li>
       ))}
     </ol>
-    <p class="norm-aside__links r-meta">
+    <p class="norm-aside__links r-meta r-inline-list">
       <a href={getNormHistoryUrl(norm.meta.slug)}>{NORM_HISTORY_LABEL}</a>
-      {norm.versions.length >= 2 ? <> · <a href={getNormCompareUrl(norm.meta.slug)}>{NORM_COMPARE_LABEL}</a></> : null}
+      {norm.versions.length >= 2 ? <a href={getNormCompareUrl(norm.meta.slug)}>{NORM_COMPARE_LABEL}</a> : null}
     </p>
+    </details>
   </section>
 
   <section class="norm-aside__cite" aria-labelledby="norm-cite-title" data-copy-group data-norm-cite data-cite-abbr={abbr} data-cite-suffix={citeSuffix}>

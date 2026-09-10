@@ -200,9 +200,14 @@ export function getNormTitleBlock(identity: { title: string; shortTitle?: string
   const shortTitle = identity.shortTitle ? toDisplayText(identity.shortTitle).trim() : '';
   const heading = shortTitle && shortTitle !== title ? shortTitle : title;
   const abbr = identity.abbr ? toDisplayText(identity.abbr).trim() : '';
+  // Ein Langtitel, der nur die Überschrift mit angehängter Klammer-Abkürzung wiederholt
+  // („… im Freistaat Ostdeutschland (FRL IndiFö)“), ist keine zweite Angabe.
+  const normalize = (value: string) => value.replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de-DE');
+  const titleWithoutAbbr = title.replace(/\s*\(([^()]*)\)\s*$/u, (match, inner: string) => (abbr && normalize(inner) === normalize(abbr) ? '' : match)).trim();
+  const longTitleRepeatsHeading = normalize(titleWithoutAbbr) === normalize(heading) || normalize(title) === normalize(`${heading} (${abbr})`);
   return {
     heading,
-    ...(heading !== title ? { longTitle: title } : {}),
+    ...(heading !== title && !longTitleRepeatsHeading ? { longTitle: title } : {}),
     ...(abbr && abbr !== heading && abbr !== title ? { abbr } : {}),
   };
 }
