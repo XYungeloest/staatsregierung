@@ -155,7 +155,8 @@ function renderNode(node: NormDiffBlock, side: DiffSide, level: number, quoted: 
   const children = renderRuns(node.children, side, level + 1, quoted || node.type === 'quotedProvision');
 
   if (node.type === 'part' || node.type === 'chapter' || node.type === 'section' || node.type === 'subsection' || node.type === 'annex') {
-    return `<section class="norm-division norm-diff-structure__division norm-division--${node.type}"><header class="norm-division__header">${renderHeading(node, side, level, 'norm-division__heading')}</header>${children}</section>`;
+    const text = renderValue(node, side, 'text');
+    return `<section class="norm-division norm-diff-structure__division norm-division--${node.type}"><header class="norm-division__header">${renderHeading(node, side, level, 'norm-division__heading')}</header>${text ? `<p class="norm-text">${text}</p>` : ''}${children}</section>`;
   }
 
   if (node.type === 'paragraph' || node.type === 'article') {
@@ -229,11 +230,15 @@ export function renderNormDiffDocument(
   unitKind: NormUnitKind = 'none',
 ): string {
   const count = provisions.length;
+  const freeTextCount = provisions.filter((entry) => entry.type !== 'paragraph' && entry.type !== 'article').length;
+  const countLabel = unitKind !== 'none' && freeTextCount > 0
+    ? [count > freeTextCount ? formatChangedUnitCount(count - freeTextCount, unitKind) : '', formatChangedUnitCount(freeTextCount, 'none')].filter(Boolean).join(' · ')
+    : formatChangedUnitCount(count, unitKind);
   const provisionMarkup = provisions.map((provision) => {
     const columns = `${provision.before ? renderSide(provision, 'before', fromDate) : ''}${provision.after ? renderSide(provision, 'after', toDate) : ''}`;
     const title = provisionTitle(provision);
     return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}"><span class="norm-diff__status">${title ? `<span class="norm-diff__status-label">${escapeHtml(title)}</span>` : ''}<span class="r-status r-status--sm r-status--${statusRole(provision.kind)}">${statusLabel(provision.kind)}</span></span><div class="norm-diff__provision-columns">${columns}</div></li>`;
   }).join('');
   const legend = `<p class="norm-diff__legend"><span><del>gestrichen</del> links: Wortlaut der Fassung vom ${escapeHtml(formatDate(fromDate))}</span><span><ins>eingefügt</ins> rechts: Wortlaut der Fassung vom ${escapeHtml(formatDate(toDate))}</span><span>Textmarke Neu, Geändert oder Entfallen je Einheit</span></p>`;
-  return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${escapeHtml(formatChangedUnitCount(count, unitKind))}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p class="r-meta">Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : legend}`;
+  return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${escapeHtml(countLabel)}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p class="r-meta">Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : legend}`;
 }
