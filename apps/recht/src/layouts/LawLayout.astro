@@ -12,9 +12,16 @@ import {
   getPrivacyUrl,
 } from '@ostrecht/shared/lib/portal/routes.ts';
 import {
+  getAdministrativeRulesUrl,
+  getFundingUrl,
   getHelpUrl,
+  getIndexUrl,
   getLawPortalUrl,
+  getLawsUrl,
+  getPublicationsUrl,
+  getRegulationsUrl,
   getSearchUrl,
+  getSubjectsUrl,
 } from '@ostrecht/shared/lib/norms/routes.ts';
 import { referenceDateLabel } from '../lib/vocabulary.ts';
 
@@ -82,10 +89,25 @@ const mainNavLinks = lawSiteConfig.mainNavigation.map((entry) => {
 });
 
 /**
- * Der Fuß schließt die Seite ab und wiederholt die Recherchewege nicht: sie stehen im Amtsband
- * und – auf kleinen Bildschirmen – im Menü „Bereiche“.
+ * Normtypen sind keine Punkte des Amtsbands (fünf Bereiche, Richtung E), aber von jeder Seite
+ * sekundär erreichbar: im Menü „Bereiche“ unter „Weitere Zugänge“ und im Fuß unter „Recherchieren“.
  */
-const footerLinks = [
+const typeLinks = [
+  { href: getLawsUrl(), label: lawSiteConfig.targetLabels.laws },
+  { href: getRegulationsUrl(), label: lawSiteConfig.targetLabels.regulations },
+  { href: getAdministrativeRulesUrl(), label: lawSiteConfig.targetLabels.administrativeRules },
+  { href: getFundingUrl(), label: lawSiteConfig.targetLabels.funding },
+];
+/** Fuß: Marke, Recherchewege und Service – moderater Abschluss, kein zweites Portal. */
+const footerResearchLinks = [
+  { href: getSearchUrl(), label: lawSiteConfig.targetLabels.search },
+  { href: getSubjectsUrl(), label: lawSiteConfig.targetLabels.subjects },
+  { href: getIndexUrl(), label: lawSiteConfig.targetLabels.index },
+  ...typeLinks,
+  { href: getPublicationsUrl(), label: lawSiteConfig.targetLabels.publications },
+  { href: `${homeUrl}#aenderungsdienst`, label: lawSiteConfig.targetLabels.changes },
+];
+const footerServiceLinks = [
   { href: getHelpUrl(), label: lawSiteConfig.targetLabels.help },
   { href: getImprintUrl(), label: 'Impressum' },
   { href: getPrivacyUrl(), label: 'Datenschutz' },
@@ -140,6 +162,7 @@ const footerLinks = [
                 ))}
                 <span class="r-label">Weitere Zugänge</span>
                 <a href={getSearchUrl()} aria-current={isActivePath(lawSiteConfig.paths.search) ? 'page' : undefined}>{lawSiteConfig.targetLabels.search}</a>
+                {typeLinks.map((link) => <a href={link.href} aria-current={isActivePath(link.href) ? 'page' : undefined}>{link.label}</a>)}
                 <a href={getAccessibilityUrl()}>Barrierefreiheit</a>
                 <a href={getHomeUrl()}>Staatsportal</a>
               </nav>
@@ -154,11 +177,24 @@ const footerLinks = [
 
       <footer class="law-footer">
         <div class="r-container law-footer__inner">
-          <p data-print-url={Astro.url.href} data-print-date={referenceDateLabel()}>{lawSiteConfig.authorityName} · {referenceDateLabel()} · {lawSiteConfig.officialNote}</p>
-          <nav aria-label="Hilfe, rechtliche Hinweise und Staatsportal">
-            {footerLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+          <div class="law-footer__brand">
+            <a class="law-footer__wordmark" href={homeUrl}>
+              <img src={coatOfArmsAssetUrl} alt="" width="596" height="694" />
+              <span><strong>{lawSiteConfig.brand}</strong><small>{lawSiteConfig.bandSubline}</small></span>
+            </a>
+            <p class="law-footer__note r-inline-list" data-print-url={Astro.url.href} data-print-date={referenceDateLabel()}><span>{lawSiteConfig.authorityName}</span><span>{referenceDateLabel()}</span><span>{lawSiteConfig.officialNote}</span></p>
+          </div>
+          <nav class="law-footer__group law-footer__group--research" aria-label="Recherchieren">
+            <h2 class="r-label">Recherchieren</h2>
+            <ul>{footerResearchLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
           </nav>
-          <p class="law-footer__simulation">{lawSiteConfig.simulationNotice}{analyticsEnabled ? <> · <button type="button" class="r-link-btn" data-analytics-consent-reset>Datenschutzeinstellungen</button></> : null}</p>
+          <nav class="law-footer__group" aria-label="Service">
+            <h2 class="r-label">Service</h2>
+            <ul>{footerServiceLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+          </nav>
+        </div>
+        <div class="r-container">
+          <p class="law-footer__simulation r-inline-list"><span>{lawSiteConfig.simulationNotice}</span>{analyticsEnabled ? <button type="button" class="r-link-btn" data-analytics-consent-reset>Datenschutzeinstellungen</button> : null}</p>
         </div>
       </footer>
     </div>

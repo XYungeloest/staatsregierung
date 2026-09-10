@@ -82,7 +82,10 @@ const amendmentTitle = (slug: string | undefined, fallback: string): string => {
   return identity ? getNormTitleBlock(identity).heading : toDisplayText(fallback);
 };
 
-const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.citation.trim();
+/** Stammfundstelle nur, wenn sie nach Normalisierung von der Fundstelle abweicht (keine Doppelung). */
+const normalizeCitation = (value: string) => (shortCitation(value) || toDisplayText(value)).replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de-DE');
+const hasDistinctInitialCitation = Boolean(norm.meta.initialCitation.trim()) && normalizeCitation(norm.meta.initialCitation) !== normalizeCitation(version.citation)
+  && !(publicationReference && normalizeCitation(norm.meta.initialCitation) === normalizeCitation(`${publicationReference.publicationTitle}${publicationReference.startPage ? ` S. ${publicationReference.startPage}` : ''}`));
 const sourceReference = version.sourceReferences?.[0] ?? norm.meta.sourceReferences?.[0];
 const isAgreement = norm.meta.type === 'verwaltungsabkommen' || norm.meta.type === 'staatsvertrag';
 const documentDateLabel = isAgreement ? 'Abschlussdatum' : 'Normdatum';
@@ -133,11 +136,11 @@ const scope = [
       {publicationReference ? (
         <>
           <a href={getPublicationUrl(publicationReference.publicationSlug)}>{toDisplayText(publicationReference.publicationTitle)}</a>
-          {' · '}<time datetime={publicationReference.publicationDate}>{formatShortDate(publicationReference.publicationDate)}</time>
-          {publicationReference.pages ? ` · Seiten ${toDisplayText(publicationReference.pages)}` : publicationReference.startPage ? ` · Beginn auf Seite ${toDisplayText(publicationReference.startPage)}` : ''}
+          {', '}<time datetime={publicationReference.publicationDate}>{formatShortDate(publicationReference.publicationDate)}</time>
+          {publicationReference.pages ? `, Seiten ${toDisplayText(publicationReference.pages)}` : publicationReference.startPage ? `, Beginn auf Seite ${toDisplayText(publicationReference.startPage)}` : ''}
         </>
       ) : shortCitation(version.citation) || toDisplayText(version.citation)}
-      {hasDistinctInitialCitation ? <span class="r-muted"> · Stammfundstelle: {shortCitation(norm.meta.initialCitation) || toDisplayText(norm.meta.initialCitation)}</span> : null}
+      {hasDistinctInitialCitation ? <span class="r-muted norm-facts__initial">Stammfundstelle: {shortCitation(norm.meta.initialCitation) || toDisplayText(norm.meta.initialCitation)}</span> : null}
     </dd>
     {showDocumentDate ? <><dt>{documentDateLabel}</dt><dd><time datetime={norm.meta.documentDate}>{formatDate(norm.meta.documentDate!)}</time></dd></> : null}
     {showPublicationDate ? <><dt>Veröffentlicht</dt><dd><time datetime={norm.meta.publicationDate}>{formatDate(norm.meta.publicationDate!)}</time></dd></> : null}
@@ -146,10 +149,10 @@ const scope = [
     <dt>Rechtsherkunft</dt>
     <dd>
       <span class="r-strong">{formatNormOriginKind(origin.kind)}.</span> {originText}
-      {originLinks.length > 0 ? <span class="norm-facts__links r-meta">{originLinks.map((link, index) => <>{index > 0 ? ' · ' : ''}<a href={link.href}>{link.label}</a></>)}</span> : null}
+      {originLinks.length > 0 ? <span class="norm-facts__links r-meta r-inline-list">{originLinks.map((link) => <a href={link.href}>{link.label}</a>)}</span> : null}
     </dd>
     {norm.meta.subjects.length > 0 ? (
-      <><dt>Sachgebiete</dt><dd>{norm.meta.subjects.map((subject, index) => <>{index > 0 ? ' · ' : ''}<a href={getSubjectUrl(subject)}>{formatSubjectLabel(toDisplayText(subject), { withNumber: true, short: true })}</a></>)}</dd></>
+      <><dt>Sachgebiete</dt><dd class="r-inline-list">{norm.meta.subjects.map((subject) => <a href={getSubjectUrl(subject)}>{formatSubjectLabel(toDisplayText(subject), { withNumber: true, short: true })}</a>)}</dd></>
     ) : null}
     {norm.meta.responsibleMinistry ? <><dt>Zuständiger Geschäftsbereich</dt><dd>{toDisplayText(norm.meta.responsibleMinistry)}</dd></> : null}
     {norm.meta.enactingBody ? <><dt>Erlassendes Organ</dt><dd>{toDisplayText(norm.meta.enactingBody)}</dd></> : null}
@@ -198,7 +201,7 @@ const scope = [
         <dt>Vertragspartner</dt><dd>{norm.meta.agreementDetails.parties.map((party) => toDisplayText(party.name)).join(' · ')}</dd>
         <dt>Unterzeichner:innen</dt><dd>{norm.meta.agreementDetails.signatories.map((signatory) => `${toDisplayText(signatory.name)} (${toDisplayText(signatory.office)})`).join(' · ')}</dd>
         <dt>Rechtsgrundlage</dt>
-        <dd>{norm.meta.agreementDetails.legalBases.map((basis, index) => <>{index > 0 ? ' · ' : ''}{basis.url ? <a href={basis.url}>{toDisplayText(basis.label)} – {toDisplayText(basis.title)}</a> : `${toDisplayText(basis.label)} – ${toDisplayText(basis.title)}`}</>)}</dd>
+        <dd class="r-inline-list">{norm.meta.agreementDetails.legalBases.map((basis) => <span>{basis.url ? <a href={basis.url}>{toDisplayText(basis.label)} – {toDisplayText(basis.title)}</a> : `${toDisplayText(basis.label)} – ${toDisplayText(basis.title)}`}</span>)}</dd>
       </dl>
     </div>
   ) : null}

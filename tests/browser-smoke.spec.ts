@@ -528,7 +528,8 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
   await page.goto(lawUrl('/suche/?type=gesetz'));
   await searchSettled(page);
 
-  await expect(page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' })).toBeVisible();
+  // Die Suche ist ein Bereich mit sichtbarer H1; sie benennt ihn.
+  await expect(page.getByLabel('Suche im Landesrecht').getByRole('button', { name: 'Suchen' })).toBeVisible();
   await expect(page.getByLabel('Suchbereich')).toBeVisible();
   const lawType = page.locator('input[name="type"][value="gesetz"]');
   await expect(lawType).toBeChecked();
@@ -785,7 +786,10 @@ siteTest(['law'])('OstRecht-Navigation bleibt mobil nutzbar', async ({ page }) =
   await expect(mobileNavigation.getByRole('link', { name: 'Rechtssuche', exact: true })).toBeVisible();
   // Der Fuß wiederholt die Recherchewege nicht; er schließt mit Hilfe, rechtlichen Hinweisen und
   // dem Staatsportal ab. Die Recherchewege stehen im Menü „Bereiche“ darüber.
-  await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Hilfe, rechtliche Hinweise und Staatsportal' }).getByRole('link')).not.toHaveCount(0);
+  await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Service' }).getByRole('link')).not.toHaveCount(0);
+  // Normtypen bleiben sekundär von jeder Seite erreichbar: im Menü „Bereiche“ und im Fuß.
+  await expect(mobileNavigation.getByRole('link', { name: 'Gesetze', exact: true })).toBeVisible();
+  await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Recherchieren' }).getByRole('link', { name: 'Förderrichtlinien' })).toHaveCount(1);
 });
 
 siteTest(['law'])('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inhaltsanker', async ({ page, request }) => {
@@ -889,9 +893,21 @@ siteTest(['law'])('Fassungsvergleich zeigt jeden geänderten Paragraphen einmal 
   await expect(page.locator('[data-compare-output]')).toHaveAttribute('data-compare-pair', `${norm.historical.versionId}::${norm.current.versionId}`);
   const changedProvisions = page.locator('.norm-diff__provision--changed');
   expect(await changedProvisions.count()).toBeGreaterThan(0);
+  // Genau eine Darstellung: nebeneinander, ohne Umschalter und ohne Wortlaut im Text.
+  await expect(page.locator('[data-compare-mode], [data-version-compare] .r-segmented')).toHaveCount(0);
   for (const provision of await changedProvisions.all()) {
     const marks = await provision.locator('.norm-diff__side del, .norm-diff__side ins').count();
     expect(marks, 'jede geänderte Vorschrift markiert Streichung oder Einfügung').toBeGreaterThan(0);
+    // Jede geänderte Einheit steht genau einmal links und einmal rechts, nie zusätzlich als
+    // geglätteter Wortlaut.
+    await expect(provision.locator('.norm-diff__side--before')).toHaveCount(1);
+    await expect(provision.locator('.norm-diff__side--after')).toHaveCount(1);
+    await expect(provision.locator('.norm-diff__side')).toHaveCount(2);
+    await expect(provision.locator('.norm-diff__side--before > h3')).toHaveText(/^Fassung vom /u);
+    await expect(provision.locator('.norm-diff__side--after > h3')).toHaveText(/^Fassung vom /u);
+    // Der gegliederte Text erscheint je Spalte einmal: keine zwei Vorkommen desselben Absatzlabels.
+    const labels = await provision.locator('.norm-diff__side--after .norm-subparagraph__label, .norm-diff__side--after .norm-text__label').allTextContents();
+    expect(new Set(labels).size, 'kein Absatz doppelt in einer Spalte').toBe(labels.length);
   }
   await expect(page.locator('.norm-diff__context')).toHaveCount(0);
   // Der Vergleich ohne Paar zeigt die Auswahl und keinen Zwischenstand.
@@ -1796,4 +1812,155 @@ siteTest(['law'])('Kopierte Fassungs- und Vergleichslinks behalten ihr genaues Z
   await page.goto(lawUrl(`/norm/${norm.slug}/vergleich/?von=${norm.historical.versionId}&bis=${norm.current.versionId}`));
   await page.getByRole('button', { name: 'Link zum Vergleich kopieren' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-copied', new RegExp(`von=${norm.historical.versionId}&bis=${norm.current.versionId}$`, 'u'));
+});
+
+siteTest(['law'])('Qualitätspass Richtung E: Fassungen als Aufklappbereich, 2×2-Reiter und Kopf ohne schmale Statusspalte', async ({ page, request }) => {
+  const norm = await multiVersionNorm(request);
+  // Smartphone: die Fassungsliste ist ein geschlossener Aufklappbereich ohne waagerechtes Rollen.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(lawUrl(norm.current.currentUrl));
+  const details = page.locator('[data-versions-details]');
+  await expect(details).not.toHaveAttribute('open', /.*/u);
+  await expect(details.locator('summary')).toContainText(/\d+ Fassung/u);
+  await details.locator('summary').click();
+  await expect(details).toHaveAttribute('open', /.*/u);
+  const scroll = await page.locator('.norm-timeline').evaluate((element) => element.scrollWidth - element.clientWidth);
+  expect(scroll, 'die Fassungsliste rollt nicht waagerecht').toBeLessThanOrEqual(1);
+  expect(await page.locator('.norm-timeline__entry').count()).toBeGreaterThanOrEqual(2);
+  // Die vier Bereiche stehen als 2×2-Raster mit gleichen Zellen und vollen Bezeichnungen.
+  const tabs = page.locator('.norm-tabs');
+  expect(await tabs.evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length)).toBe(2);
+  const widths = await tabs.locator('a').evaluateAll((links) => links.map((link) => Math.round(link.getBoundingClientRect().width)));
+  expect(widths).toHaveLength(4);
+  expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
+  for (const link of await tabs.locator('a').all()) await expect(link).toBeInViewport();
+  const tabsScroll = await tabs.evaluate((element) => element.scrollWidth - element.clientWidth);
+  expect(tabsScroll).toBeLessThanOrEqual(1);
+  // Absatzadressen zeigen nur das Absatzzeichen; das Gliederungszeichen bleibt vorlesbar.
+  const firstAddress = page.locator('.norm-abs__addr').first();
+  await expect(firstAddress.locator('.norm-abs__label')).toHaveText(/^\(\d+[a-z]?\)$|^\S+$/u);
+  await expect(firstAddress.locator('.norm-abs__unit')).toHaveClass(/visually-hidden/u);
+
+  // Zwischen 48 und 60 rem stehen die Werkzeuge unter der Statuszeile.
+  await page.setViewportSize({ width: 800, height: 900 });
+  await page.goto(lawUrl(norm.current.currentUrl));
+  const line = await page.locator('.norm-page-header__line').evaluate((element) => element.getBoundingClientRect());
+  const tools = await page.locator('.norm-page-header__tools').evaluate((element) => element.getBoundingClientRect());
+  expect(tools.top, 'Werkzeuge unter der Statuszeile').toBeGreaterThanOrEqual(line.bottom - 1);
+  expect(line.width, 'Statuszeile trägt die Breite').toBeGreaterThan(400);
+});
+
+siteTest(['law'])('Qualitätspass Richtung E: Suche mit sichtbarer H1, logischer Reihenfolge und bereinigten Facetten', async ({ page }) => {
+  await page.goto(lawUrl('/suche/?q=gesetz'));
+  await searchSettled(page);
+  const heading = page.getByRole('heading', { level: 1, name: 'Suche im Landesrecht' });
+  await expect(heading).toBeVisible();
+  expect(await heading.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(30);
+  // Genau eine öffentliche Option „außer Kraft“, obwohl das Datenmodell zwei Zustände kennt.
+  await expect(page.locator('[data-search-facet="status"] + [data-search-facet-label]', { hasText: /^außer Kraft$/u })).toHaveCount(1);
+  const merged = page.locator('[data-search-facet="status"][data-search-facet-values]');
+  await expect(merged).toHaveCount(1);
+  await expect(merged).toHaveAttribute('data-search-facet-values', /repealed|historical/u);
+  // Keine leere Facettengruppe: jede gerenderte Gruppe hat mindestens eine Option.
+  for (const group of await page.locator('[data-search-facet-group]').all()) {
+    expect(await group.locator('input').count(), 'Facettengruppe ohne Option').toBeGreaterThan(0);
+  }
+  // Treffertitel sind erkennbare Links in Staatsblau, kein Langtitel wiederholt die Überschrift.
+  const firstTitle = page.locator('.search-hit__title h3 a').first();
+  expect(await firstTitle.evaluate((element) => getComputedStyle(element).color)).toBe('rgb(5, 31, 126)');
+  for (const hit of await page.locator('.search-hit').all()) {
+    const long = hit.locator('.search-hit__long');
+    if (await long.count() === 0) continue;
+    const headingText = (await hit.locator('h3').textContent())?.trim() ?? '';
+    expect((await long.textContent())?.trim().replace(/\s*\([^()]*\)\s*$/u, '')).not.toBe(headingText);
+  }
+  // Der Auszug steht in der Oberflächengröße unter dem Titel.
+  const excerpt = page.locator('.search-hit__context').first();
+  if (await excerpt.count() > 0) expect(await excerpt.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeLessThanOrEqual(15.5);
+
+  // Smartphone: H1 → Suchfeld → Suchbereich → Trefferkopf → Eingrenzen → Liste, als Quelltextfolge.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(lawUrl('/suche/?q=gesetz'));
+  await searchSettled(page);
+  const order = await page.evaluate(() => {
+    const nodes = ['h1', '[data-search-form] input[name="q"]', 'select[name="scope"]', '[data-search-summary]', '.r-search__filters > summary', '[data-search-results] .search-hit']
+      .map((selector) => document.querySelector(selector));
+    return nodes.every((node, index) => node && (index === 0 || Boolean(nodes[index - 1]!.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)));
+  });
+  expect(order, 'Reihenfolge der Suchseite auf dem Smartphone').toBe(true);
+  const firstHitTop = await page.locator('[data-search-results] .search-hit').first().evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
+  expect(firstHitTop, 'der erste Treffer steht früh').toBeLessThan(900);
+});
+
+siteTest(['law'])('Qualitätspass Richtung E: Vorschriftendaten ohne doppelte Fundstelle, Verzeichnisse mit blauen Titeln und ohne leere Verkündungsspalte', async ({ page, request }) => {
+  const norm = await multiVersionNorm(request);
+  await page.goto(lawUrl(`/norm/${norm.slug}/daten/`));
+  const citationCell = page.locator('.norm-facts dt', { hasText: /^Fundstelle$/u }).locator('+ dd');
+  const text = ((await citationCell.textContent()) ?? '').replace(/\s+/gu, ' ').trim();
+  const primary = text.split('Stammfundstelle:')[0].trim();
+  if (text.includes('Stammfundstelle:')) expect(text.split('Stammfundstelle:')[1].trim().toLowerCase()).not.toBe(primary.toLowerCase());
+  // Keine hängenden Mittelpunkte in umbrechenden Metadatenzeilen.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(lawUrl(norm.current.currentUrl));
+  const hanging = await page.evaluate(() => {
+    const blocks = Array.from(document.querySelectorAll<HTMLElement>('.r-kicker, .norm-page-header__line, .search-hit__meta, .r-inline-list'));
+    return blocks.filter((block) => /^\s*·|·\s*$/u.test(block.innerText ?? '')).map((block) => block.className);
+  });
+  expect(hanging).toEqual([]);
+
+  await page.goto(lawUrl('/gesetze/'));
+  const title = page.locator('.r-norm-table__title').first();
+  expect(await title.evaluate((element) => getComputedStyle(element).color)).toBe('rgb(5, 31, 126)');
+  // Typseiten wiederholen den Normtyp nicht; unter 60 rem entfällt die Herkunftsspalte.
+  await expect(page.locator('.r-norm-table__type')).toHaveCount(0);
+  await page.setViewportSize({ width: 800, height: 900 });
+  await page.goto(lawUrl('/a-z/'));
+  await expect(page.locator('.r-norm-table__origin').first()).toBeHidden();
+  const overflow = await page.locator('.r-norm-table').first().evaluate((element) => element.scrollWidth - element.clientWidth);
+  expect(overflow, 'A–Z rollt bei 800 px nicht waagerecht').toBeLessThanOrEqual(1);
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(lawUrl(`/norm/${norm.slug}/history/`));
+  await expect(page.locator('.norm-axis')).toHaveCount(0);
+  const headers = await page.locator('.norm-protocol thead th').allTextContents();
+  const hasPublishedColumn = headers.includes('Verkündet');
+  const cells = await page.locator('.norm-protocol tbody tr').evaluateAll((rows, column) => rows.map((row) => row.children[column]?.textContent?.trim() ?? ''), hasPublishedColumn ? 1 : -1);
+  if (hasPublishedColumn) expect(cells.some((cell) => cell !== '—' && cell !== ''), 'Spalte „Verkündet“ nur mit belegten Daten').toBe(true);
+});
+
+siteTest(['law'])('Qualitätspass Richtung E: die Inhaltsübersicht gliedert lange Vorschriften in Aufklappgruppen', async ({ page, request }) => {
+  // Das Testfixture kennt keine Teile und Abschnitte; gegen den Vollbestand wird die erste
+  // Vorschrift mit Gliederungsgruppen geprüft.
+  const documents = await currentDocuments(request, '&type=gesetz');
+  let url = '';
+  for (const document of documents.slice(0, 12)) {
+    const response = await request.get(lawUrl(document.currentUrl));
+    if ((await response.text()).includes('data-outline-group')) { url = document.currentUrl; break; }
+  }
+  test.skip(!url, 'Keine Vorschrift mit Gliederungsgruppen im Bestand (Testfixture).');
+  await page.goto(lawUrl(url));
+  const groups = page.locator('.norm-outline--desktop [data-outline-group]');
+  expect(await groups.count()).toBeGreaterThan(0);
+  // Die erste Gruppe steht offen, die Summary nennt Bezeichnung und Normspanne.
+  await expect(groups.first()).toHaveAttribute('open', /.*/u);
+  await expect(groups.first().locator('summary')).toContainText(/§§?|Art\./u);
+  const closed = page.locator('.norm-outline--desktop [data-outline-group]:not([open])');
+  if (await closed.count() > 0) {
+    // Eine geschlossene Gruppe öffnet sich, sobald ihr Eintrag gelesen wird.
+    const target = await closed.first().locator('a[data-outline-link]').last().getAttribute('data-outline-link');
+    // An die Oberkante des Lesefensters (12 % der Höhe) scrollen: die vorige Einheit liegt dann
+    // oberhalb, die Zieleinheit ist die oberste sichtbare.
+    await page.evaluate((id) => {
+      const top = document.getElementById(id!)?.getBoundingClientRect().top ?? 0;
+      window.scrollTo(0, window.scrollY + top - window.innerHeight * 0.12 - 4);
+    }, target);
+    await expect(page.locator(`.norm-outline--desktop [data-outline-link="${target}"]`)).toHaveAttribute('aria-current', 'location');
+    await expect(page.locator(`.norm-outline--desktop [data-outline-link="${target}"]`).locator('xpath=ancestor::details[1]')).toHaveAttribute('open', /.*/u);
+  }
+  // Der Filter öffnet Gruppen mit Treffern und blendet Gruppen ohne Treffer aus.
+  const lastLink = page.locator('.norm-outline--desktop a[data-outline-link]').last();
+  const word = ((await lastLink.textContent()) ?? '').trim().split(/\s+/u).at(-1) ?? '';
+  await page.locator('.norm-outline--desktop [data-outline-search]').fill(word);
+  await expect(lastLink).toBeVisible();
+  await expect(lastLink.locator('xpath=ancestor::details[1]')).toHaveAttribute('open', /.*/u);
 });

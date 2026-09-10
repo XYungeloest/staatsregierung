@@ -2,6 +2,8 @@
 interface Option {
   value: string;
   label: string;
+  /** Interne Werte, die diese Option gemeinsam filtert (etwa `repealed` und `historical` als „außer Kraft“). */
+  values?: string[];
 }
 
 interface Props {
@@ -18,6 +20,7 @@ interface Props {
 const { legend, name, facet, options, caps = false, checked = [] } = Astro.props;
 ---
 
+{options.length > 0 ? (
 <fieldset class:list={['r-fieldset', caps ? 'r-fieldset--caps' : undefined, 'search-filter-group']} data-search-facet-group={facet}>
   <legend>{legend}</legend>
   <div class="search-filter-group__options">
@@ -30,6 +33,7 @@ const { legend, name, facet, options, caps = false, checked = [] } = Astro.props
           checked={checked.includes(option.value)}
           data-search-filter={name}
           data-search-facet={facet}
+          data-search-facet-values={option.values && option.values.length > 1 ? option.values.join(' ') : undefined}
           data-base-label={option.label}
         />
         <span data-search-facet-label>{option.label}</span>
@@ -38,3 +42,4 @@ const { legend, name, facet, options, caps = false, checked = [] } = Astro.props
     ))}
   </div>
 </fieldset>
+) : null}

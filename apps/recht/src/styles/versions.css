@@ -22,14 +22,12 @@
   color: var(--text-muted);
 }
 
-/* Protokoll und Seitenspalte sind ein Arbeitsbereich: eine gemeinsame Linie, gleicher Anfang. */
+/* Protokoll und Seitenspalte sind ein Arbeitsbereich: gleicher Anfang unter der Abschnittszeile. */
 .norm-history__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--col-facts-aside);
   gap: var(--space-7);
-  margin-top: var(--space-6);
-  padding-top: var(--space-5);
-  border-top: var(--line) solid var(--border-default);
+  margin-top: var(--space-5);
   align-items: start;
 }
 
@@ -65,93 +63,14 @@
   margin-top: var(--space-3);
 }
 
-/* Zwei Ebenen statt einer: Die Abschnitte des Arbeitsbereichs tragen eine gesetzte Überschrift,
+/* Zwei Ebenen statt einer: Die Abschnitte des Arbeitsbereichs tragen eine gesetzte H2,
    die Rubriken der Seitenspalte bleiben Etiketten in Versalien. */
 .norm-history__title {
-  font-size: var(--fs-ui);
+  font-size: var(--fs-h4);
   font-weight: 500;
+  line-height: var(--lh-heading);
   color: var(--text-strong);
   margin-bottom: var(--space-3);
-}
-
-/* Zeitachse (nicht maßstäblich): Beschriftung über der Fläche, alle Flächen auf einer Grundlinie;
-   jede Fläche öffnet ihre Fassung. */
-.norm-axis {
-  margin-top: var(--space-6);
-}
-
-.norm-axis__track {
-  display: flex;
-  align-items: end;
-  gap: 2px;
-  margin-top: var(--space-4);
-  padding-bottom: var(--space-1);
-  border-bottom: var(--line-strong) solid var(--border-strong);
-}
-
-.norm-axis__segment {
-  flex: 1 1 0;
-  min-width: 0;
-  display: grid;
-  gap: var(--space-2);
-  font-size: var(--fs-caption);
-  line-height: var(--lh-ui);
-  color: var(--text-secondary);
-  text-decoration: none;
-}
-
-.norm-axis__segment strong {
-  display: block;
-  margin-bottom: 2px;
-  color: var(--text-strong);
-  font-weight: 500;
-  font-size: var(--fs-meta);
-}
-
-.norm-axis__bar {
-  display: block;
-  height: 0.875rem;
-  background: var(--ink-200);
-  border: var(--line) solid var(--ink-300);
-}
-
-.norm-axis__segment--current .norm-axis__bar {
-  background: var(--blue-800);
-  border-color: var(--blue-800);
-}
-
-.norm-axis__segment--future .norm-axis__bar {
-  background: var(--gold-50);
-  border: var(--line) dashed var(--gold-700);
-}
-
-.norm-axis__segment--future strong {
-  color: var(--status-future);
-}
-
-.norm-axis__segment--baseline .norm-axis__bar {
-  background: var(--green-50);
-  border-color: var(--green-700);
-}
-
-.norm-axis__segment--baseline strong {
-  color: var(--green-700);
-}
-
-.norm-axis__segment--shown .norm-axis__bar {
-  outline: var(--line-strong) solid var(--text-strong);
-  outline-offset: 1px;
-}
-
-.norm-axis__segment:hover .norm-axis__bar {
-  outline: var(--line-strong) solid var(--blue-800);
-  outline-offset: 1px;
-}
-
-.norm-axis__legend {
-  margin-top: var(--space-3);
-  font-size: var(--fs-caption);
-  color: var(--text-muted);
 }
 
 /* Änderungsprotokoll */
@@ -361,9 +280,12 @@
   margin-right: var(--space-2);
 }
 
+/* Einfügungen rechts: grüne Fläche und grüner Unterstrich, Streichungen links: Durchstreichung
+   auf roter Fläche – Farbe ist nie die einzige Kennzeichnung. */
 .norm-diff ins {
   background: var(--mark-change);
   text-decoration: none;
+  border-bottom: var(--line-strong) solid var(--green-700);
 }
 
 .norm-diff del {
@@ -373,6 +295,9 @@
 }
 
 .norm-diff__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
   margin-top: var(--space-3);
   font-size: var(--fs-meta);
   color: var(--text-muted);
@@ -402,39 +327,6 @@
 }
 
 @media (max-width: 47.99rem) {
-  /* Die Zeitachse steht senkrecht: Fläche links, Beschriftung rechts, volle Breite je Fassung. */
-  .norm-axis__track {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-2);
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-
-  /* Die Fläche steht links neben ihrer Beschriftung; im Quelltext folgt sie ihr, deshalb die
-     ausdrückliche Platzierung. */
-  .norm-axis__segment {
-    grid-template-columns: 1.375rem minmax(0, 1fr);
-    gap: var(--space-3);
-    align-items: center;
-  }
-
-  .norm-axis__segment > span:first-child {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .norm-axis__segment strong {
-    margin-bottom: 0;
-  }
-
-  .norm-axis__bar {
-    grid-column: 1;
-    grid-row: 1;
-    height: 100%;
-    min-height: 2.5rem;
-  }
-
   .norm-history__sections .r-meta {
     margin-left: 0;
   }

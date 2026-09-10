@@ -284,7 +284,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--space-1) var(--space-2);
+  gap: var(--space-1) var(--space-4);
   font-size: var(--fs-caption);
   color: var(--text-muted);
 }
@@ -296,12 +296,6 @@
 
 .r-kicker a:hover {
   text-decoration: underline;
-}
-
-/* Trenner am vorangehenden Teil (siehe Vorschriftskopf): kein Zeilenbeginn mit „·“. */
-.r-kicker > *:not(:last-child)::after {
-  content: '·';
-  margin-left: var(--space-2);
 }
 
 /* Zweispaltiges Rechercheraster: Inhalt und Filterspalte */
@@ -345,28 +339,70 @@
 /* Fuß */
 .law-footer {
   --focus-color: var(--blue-800);
-  border-top: var(--line) solid var(--border-hairline);
+  border-top: var(--line) solid var(--border-default);
+  font-size: var(--fs-meta);
+  color: var(--text-secondary);
+}
+
+/* Drei Bereiche: Marke mit amtlichem Hinweis, Recherchewege, Service. Ruhiger Abschluss im
+   Stil der Seite, keine dunkle Fläche. */
+.law-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-6) var(--space-8);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+.law-footer__wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+.law-footer__wordmark img {
+  width: 1.5rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
+
+.law-footer__wordmark span {
+  display: grid;
+  gap: 1px;
+}
+
+.law-footer__wordmark strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-ui);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.law-footer__wordmark small {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.law-footer__note {
+  margin-top: var(--space-3);
+  max-width: 48ch;
   font-size: var(--fs-caption);
   color: var(--text-muted);
 }
 
-.law-footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-3) var(--space-6);
-  padding-top: var(--space-4);
-  padding-bottom: var(--space-5);
+.law-footer__group h2 {
+  margin-bottom: var(--space-2);
 }
 
-.law-footer__inner p {
-  max-width: 90ch;
-}
-
-.law-footer nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1) var(--space-4);
+.law-footer__group ul {
+  display: grid;
+  gap: var(--space-1);
 }
 
 .law-footer a {
@@ -383,8 +419,10 @@
 
 .law-footer__simulation {
   padding-top: var(--space-3);
+  padding-bottom: var(--space-5);
   border-top: var(--line) solid var(--border-hairline);
-  width: 100%;
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
 }
 
 /* Einwilligungsbanner der Webanalyse (gemeinsame Komponente, eigene OstRecht-Gestalt) */
@@ -497,7 +535,12 @@
 @media (max-width: 47.99rem) {
 
   .law-footer__inner {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .law-footer__group--research ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

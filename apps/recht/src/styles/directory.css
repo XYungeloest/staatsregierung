@@ -4,7 +4,9 @@
   min-width: 16rem;
 }
 
+/* Vorschriftstitel sind die primären Links der Tabellen: Staatsblau, Unterstreichung bei Hover. */
 .r-norm-table__title {
+  color: var(--text-link);
   text-decoration: none;
 }
 
@@ -259,13 +261,7 @@
 .r-subject__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
-}
-
-.r-subject__meta > span + span::before {
-  content: '·';
-  margin-right: var(--space-3);
-  color: var(--text-muted);
+  gap: var(--space-2) var(--space-5);
 }
 
 .r-subject__links {
@@ -383,6 +379,12 @@
 }
 
 @media (max-width: 59.99rem) {
+  /* Die Herkunft ist eine sekundäre Spalte: unter 60 rem bleibt sie über Filter und
+     Vorschriftendaten erreichbar, die Tabelle muss nicht ihretwegen rollen. */
+  .r-norm-table__origin {
+    display: none;
+  }
+
   .r-directory--aside,
   .r-subjects,
   .r-help {
@@ -401,10 +403,7 @@
 }
 
 @media (max-width: 39.99rem) {
-  .r-norm-table th:nth-child(6),
-  .r-norm-table td:nth-child(6),
-  .r-norm-table th:nth-child(3),
-  .r-norm-table td:nth-child(3) {
+  .r-norm-table__type {
     display: none;
   }
 

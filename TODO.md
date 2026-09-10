@@ -7,6 +7,14 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## OstRecht
 
+- [ ] Nächste Ausbaustufe der Normansicht (E36–E38, fachliche Entscheidungen offen): Änderungen
+  direkt am betroffenen Absatz markieren (braucht je Absatz eine belegte Änderungszuordnung aus
+  dem Diff-Modell), mitlaufendes Zitieren nach aktueller Leseposition und ein haftender
+  Minimalkopf mit aktuellem Paragraphen (Interaktionsentscheidung zu Scrollverhalten und
+  Platzbedarf), RSS-/E-Mail-Abonnement des Änderungsdiensts und Vorschriften-Abonnements
+  (Datenschutz, Versand, Betrieb). Keine Platzhalter-Oberfläche vorab. Fertig, wenn je Punkt eine
+  fachliche Festlegung vorliegt und die Umsetzung mit Test im Bestand ist.
+
 - [ ] Linux-Screenshot-Baselines für Richtung E erneuern: Nach Sichtprüfung mit dem Production Board die OstRecht-Bilder einschließlich Normbereiche und mobiler Dialoge im Playwright-Container erzeugen und strikt vergleichen (`npm run test:visual:update:linux -- --site law`). Fertig, wenn alle aktuellen OstRecht-Motive geprüfte Linux-Baselines besitzen und die vollständige visuelle Suite gegen diese besteht.
 
 - [ ] Redaktionelle Kurzfassungen nachtragen: 4.981 der 5.204 Vorschriften tragen keine

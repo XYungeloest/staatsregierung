@@ -11,10 +11,18 @@ const citeAbbr = cite?.dataset.citeAbbr ?? '';
 const citeSuffix = cite?.dataset.citeSuffix ?? '';
 const citeLinkDefault = citeLink?.textContent ?? '';
 
+/** Öffnet alle Gliederungsgruppen, in denen ein Eintrag liegt (nur geschlossene). */
+function openGroupsOf(element: Element): void {
+  for (let group = element.closest<HTMLDetailsElement>('[data-outline-group]'); group; group = group.parentElement?.closest<HTMLDetailsElement>('[data-outline-group]') ?? null) {
+    if (!group.open) group.open = true;
+  }
+}
+
 function setActive(id: string): void {
   for (const link of outlineLinks) {
     if (link.dataset.outlineLink === id) {
       link.setAttribute('aria-current', 'location');
+      openGroupsOf(link);
       const container = link.closest<HTMLElement>('.norm-outline--desktop');
       if (container) {
         const box = link.getBoundingClientRect();
@@ -41,10 +49,13 @@ const targets = [...new Set(outlineLinks.map((link) => link.dataset.outlineLink)
 
 if (targets.length > 0 && 'IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
+    // Gliederungsabschnitte umschließen ihre Paragraphen und schneiden das Lesefenster daher
+    // fast immer: Ein Ziel, das ein anderes sichtbares Ziel enthält, tritt zurück.
+    const visible = entries.filter((entry) => entry.isIntersecting);
+    const active = visible
+      .filter((entry) => !visible.some((other) => other !== entry && entry.target.contains(other.target)))
       .sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top)[0];
-    if (visible?.target.id) setActive(visible.target.id);
+    if (active?.target.id) setActive(active.target.id);
   }, { rootMargin: '-12% 0px -72% 0px' });
   targets.forEach((target) => observer.observe(target));
 }
@@ -57,14 +68,25 @@ for (const link of outlineLinks) {
   });
 }
 
-// Filter der Inhaltsübersicht: blendet Einträge aus, die den Text nicht enthalten.
+// Filter der Inhaltsübersicht: blendet Einträge aus, die den Text nicht enthalten; Gruppen mit
+// Treffern öffnen sich, Gruppen ohne Treffer verschwinden. Ohne Filter bleibt der Zustand.
 for (const input of document.querySelectorAll<HTMLInputElement>('[data-outline-search]')) {
   input.addEventListener('input', () => {
     const nav = input.closest('nav');
     const query = input.value.trim().toLocaleLowerCase('de-DE');
+    const groups = Array.from(nav?.querySelectorAll<HTMLDetailsElement>('[data-outline-group]') ?? []);
     nav?.querySelectorAll<HTMLLIElement>('.norm-outline__list li').forEach((item) => {
-      item.hidden = Boolean(query) && !(item.textContent ?? '').toLocaleLowerCase('de-DE').includes(query);
+      const own = item.querySelector(':scope > a, :scope > details > summary');
+      item.hidden = Boolean(query) && !(own?.textContent ?? '').toLocaleLowerCase('de-DE').includes(query)
+        && !Array.from(item.querySelectorAll('li > a')).some((link) => (link.textContent ?? '').toLocaleLowerCase('de-DE').includes(query));
     });
+    for (const group of groups) {
+      if (!query) continue;
+      const hasMatch = Array.from(group.querySelectorAll<HTMLLIElement>('li')).some((item) => !item.hidden);
+      const item = group.closest<HTMLLIElement>('li');
+      if (item) item.hidden = !hasMatch && !(group.querySelector('summary')?.textContent ?? '').toLocaleLowerCase('de-DE').includes(query);
+      if (hasMatch) group.open = true;
+    }
   });
 }
 
@@ -99,18 +121,18 @@ if (window.location.hash) {
   if (document.getElementById(id)) setActive(id);
 }
 
-// Die Fassungsfolge wechselt nur ihre Position im responsiven Leseraster.
+// Die Fassungsfolge wechselt ihre Position im responsiven Leseraster: auf dem Smartphone steht
+// sie als geschlossener Aufklappbereich über dem Text, sonst offen in der Seitenspalte.
 const workspace = document.querySelector<HTMLElement>('.norm-workspace');
 const mobile = window.matchMedia('(max-width: 47.99rem)');
 const timeline = document.querySelector<HTMLElement>('.norm-aside__versions');
+const versionsDetails = timeline?.querySelector<HTMLDetailsElement>('[data-versions-details]');
 const aside = timeline?.parentElement;
 function positionTimeline(): void {
   if (!timeline || !workspace || !aside) return;
   if (mobile.matches) workspace.prepend(timeline);
   else aside.prepend(timeline);
-  const selected = timeline.querySelector<HTMLElement>('.norm-timeline__entry--shown');
-  const track = timeline.querySelector<HTMLElement>('.norm-timeline');
-  if (mobile.matches && track && selected) track.scrollLeft = selected.offsetLeft - track.offsetLeft - (track.clientWidth - selected.clientWidth) / 2;
+  if (versionsDetails) versionsDetails.open = !mobile.matches;
 }
 mobile.addEventListener('change', positionTimeline);
 positionTimeline();
