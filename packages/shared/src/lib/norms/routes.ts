@@ -32,6 +32,22 @@ export function getNormUrl(slug: string): string {
   return getLawUrl(`/norm/${slug}/`);
 }
 
+export function getNormFactsUrl(slug: string): string {
+  return getLawUrl(`/norm/${slug}/daten/`);
+}
+
+export function getNormRelationsUrl(slug: string): string {
+  return getLawUrl(`/norm/${slug}/beziehungen/`);
+}
+
+export function getNormVersionFactsUrl(slug: string, versionId: string): string {
+  return getLawUrl(`/norm/${slug}/version/${versionId}/daten/`);
+}
+
+export function getNormVersionRelationsUrl(slug: string, versionId: string): string {
+  return getLawUrl(`/norm/${slug}/version/${versionId}/beziehungen/`);
+}
+
 export function getNormHistoryUrl(slug: string): string {
   return getLawUrl(`/norm/${slug}/history/`);
 }
@@ -62,6 +78,14 @@ export function getAdministrativeRulesUrl(): string {
 
 export function getIndexUrl(): string {
   return getLawIndexUrl();
+}
+
+export function getKeywordIndexUrl(): string {
+  return getLawUrl('/a-z/stichwortregister/');
+}
+
+export function getAbbreviationIndexUrl(): string {
+  return getLawUrl('/a-z/abkuerzungen/');
 }
 
 export function getSubjectsUrl(): string {

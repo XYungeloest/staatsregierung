@@ -7,6 +7,26 @@ Workers ist kein Wiederherstellungsweg. `main` ist durch das Ruleset „main ges
 Requests mit den Pflichtchecks `classify`, `quality`, `accessibility_smoke` und `browser_smoke`
 veränderbar.
 
+## Öffentliche Rechtsrouten
+
+Primäre Bereiche besitzen eigene URLs; Hash-Anker dienen ausschließlich sekundären Sprüngen innerhalb einer Ansicht.
+Die fünf Hauptnavigationseinträge sind Sachgebiete, A–Z und Register, Amtliche Veröffentlichungen,
+Verfassung (`lawPaths.constitution`, auch auf Fassungsunterseiten aktiv) und Hilfe.
+Der Änderungsdienst bleibt als Abschnitt der Startseite mit dem sekundären Ziel `/#aenderungsdienst` erhalten.
+
+- Normtext: `/norm/<slug>/`; Daten: `/norm/<slug>/daten/`; Beziehungen: `/norm/<slug>/beziehungen/`.
+- Konkrete Fassung: `/norm/<slug>/version/<versionId>/`, mit den Unterseiten `daten/` und `beziehungen/`.
+  Die Version-ID bleibt beim Wechsel erhalten, auch für die momentan geltende Fassung.
+- Fassungen und Änderungen: `/norm/<slug>/history/`, unabhängig von einer einzelnen Fassung.
+- Register: `/a-z/`, `/a-z/stichwortregister/`, `/a-z/abkuerzungen/`. Nur der Buchstabe wird zwischen
+  Ansichten übernommen; Suchfilter und Seitenzahlen gelten jeweils für eine Ansicht.
+
+Die zentralen Helfer liegen in `packages/shared/src/lib/norms/routes.ts`. Neue und interne Links
+verwenden diese Ziele. Alte Primärfragmente werden nicht per JavaScript umgeleitet und rechtfertigen
+keine duplizierten Inhalte auf der Textseite. Sekundäre Norm-, Absatz- und Publikationsanker bleiben erhalten.
+Die Sitemap führt die neuen Ansichten und die nicht geltenden Fassungen entsprechend der bestehenden
+Indexierung auf. Explizite Fassungsadressen bleiben unabhängig von ihrem aktuellen Status erreichbar.
+
 ## Änderungsscope
 
 Die zentrale Zuordnung liegt in `scripts/classify-change-scope.mjs`

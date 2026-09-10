@@ -1,9 +1,7 @@
 ---
 import LawLayout from '../../../../layouts/LawLayout.astro';
 import NormBody from '../../../../components/norms/NormBody.astro';
-import NormFacts from '../../../../components/norms/NormFacts.astro';
 import NormHead from '../../../../components/norms/NormHead.astro';
-import NormLegalRelations from '../../../../components/norms/NormLegalRelations.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormOutlineSheet from '../../../../components/norms/NormOutlineSheet.astro';
 import NormSectionTabs from '../../../../components/norms/NormSectionTabs.astro';
@@ -54,7 +52,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
   ]}
 >
   <NormHead norm={norm} version={version} model={model} officialPdf={publication?.pdf} fullCitation={fullCitation} />
-  <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} versionId={temporalKind === 'current' ? undefined : version.versionId} active="text" /></div>
+  <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} versionId={version.versionId} active="text" /></div>
   <NormOutlineSheet items={outline} summary={summary} />
 
   <div class="norm-workspace">
@@ -71,9 +69,5 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
     <NormAside norm={norm} version={version} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} publication={publication} />
   </div>
 
-  <div class="norm-details">
-    <NormFacts norm={norm} version={version} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} amendmentLabels={amendmentLabels} immutableLink />
-    <NormLegalRelations norm={norm} relations={derived.relations} recommendations={derived.recommendations} portalLinks={derived.portalLinks} />
-  </div>
   <script>import '../../../../scripts/norm-page.ts';</script>
 </LawLayout>

@@ -77,6 +77,20 @@
   gap: var(--space-3) var(--space-4);
 }
 
+/* Die drei Registerzugänge sind eigene Ansichten im bestehenden Seitenraster. */
+.r-az.r-az--section {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.r-az__register-view {
+  max-width: var(--measure-panel);
+  min-width: 0;
+}
+
+.r-az__register-view > .letter-nav {
+  margin-bottom: var(--space-5);
+}
+
 .r-az__filters {
   display: flex;
   flex-wrap: wrap;

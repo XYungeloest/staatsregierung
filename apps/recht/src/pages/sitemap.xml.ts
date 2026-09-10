@@ -3,6 +3,12 @@ import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import {
   getNormCompareUrl,
   getNormHistoryUrl,
+  getNormFactsUrl,
+  getNormRelationsUrl,
+  getNormVersionFactsUrl,
+  getNormVersionRelationsUrl,
+  getKeywordIndexUrl,
+  getAbbreviationIndexUrl,
   getNormUrl,
   getNormVersionUrl,
   getPublicationUrl,
@@ -36,13 +42,20 @@ export const GET: APIRoute = async ({ site, locals }) => {
     lawSiteConfig.paths.home, lawSiteConfig.paths.index, lawSiteConfig.paths.subjects,
     lawSiteConfig.paths.funding, lawSiteConfig.paths.publications,
     lawSiteConfig.paths.constitution, lawSiteConfig.paths.help,
+    getKeywordIndexUrl(), getAbbreviationIndexUrl(),
   ];
   const dynamicPaths = [
     ...norms.flatMap((norm) => [
       getNormUrl(norm.slug),
+      getNormFactsUrl(norm.slug),
+      getNormRelationsUrl(norm.slug),
       getNormHistoryUrl(norm.slug),
       ...(norm.versionCount > 1 ? [getNormCompareUrl(norm.slug)] : []),
-      ...(versionsBySlug.get(norm.slug) ?? []).filter((version) => version.temporalKind !== 'current').map((version) => getNormVersionUrl(norm.slug, version.versionId)),
+      ...(versionsBySlug.get(norm.slug) ?? []).filter((version) => version.temporalKind !== 'current').flatMap((version) => [
+        getNormVersionUrl(norm.slug, version.versionId),
+        getNormVersionFactsUrl(norm.slug, version.versionId),
+        getNormVersionRelationsUrl(norm.slug, version.versionId),
+      ]),
     ]),
     ...publications.map((publication) => getPublicationUrl(publication.slug)),
     ...subjects.map((subject) => getSubjectUrl(subject.name)),
@@ -55,10 +68,14 @@ export const GET: APIRoute = async ({ site, locals }) => {
     const lastmod = norm.lastActivityDate ?? norm.lastChangeDate;
     if (!lastmod) continue;
     lastmodByPath.set(getNormUrl(norm.slug), lastmod);
+    lastmodByPath.set(getNormFactsUrl(norm.slug), lastmod);
+    lastmodByPath.set(getNormRelationsUrl(norm.slug), lastmod);
     lastmodByPath.set(getNormHistoryUrl(norm.slug), lastmod);
     if (norm.versionCount > 1) lastmodByPath.set(getNormCompareUrl(norm.slug), lastmod);
     for (const version of (versionsBySlug.get(norm.slug) ?? []).filter((entry) => entry.temporalKind !== 'current')) {
       lastmodByPath.set(getNormVersionUrl(norm.slug, version.versionId), version.validFrom);
+      lastmodByPath.set(getNormVersionFactsUrl(norm.slug, version.versionId), lastmod);
+      lastmodByPath.set(getNormVersionRelationsUrl(norm.slug, version.versionId), lastmod);
     }
   }
 

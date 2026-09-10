@@ -4,6 +4,7 @@ import LawLayout from '../layouts/LawLayout.astro';
 import SearchCheckboxGroup from '../components/norms/SearchCheckboxGroup.astro';
 import {
   getIndexUrl,
+  getKeywordIndexUrl,
   getLawPortalUrl,
   getSearchUrl,
   getSubjectsUrl,
@@ -39,7 +40,7 @@ const sortOptions = [
   breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: lawSiteConfig.targetLabels.search, href: getSearchUrl() }]}
   noindex={true}
 >
-  <section class="r-search" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl} data-index-url={getIndexUrl()} data-subjects-url={getSubjectsUrl()}>
+  <section class="r-search" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl} data-index-url={getIndexUrl()} data-keyword-index-url={getKeywordIndexUrl()} data-subjects-url={getSubjectsUrl()}>
     <h2 class="visually-hidden" id="search-form-title">Suchanfrage und Filter</h2>
 
     <form class="r-search__form" action={getSearchUrl()} method="get" data-search-form>

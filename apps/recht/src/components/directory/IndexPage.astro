@@ -1,0 +1,234 @@
+---
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
+import LawLayout from '../../layouts/LawLayout.astro';
+import LetterNav from './LetterNav.astro';
+import NormTable from './NormTable.astro';
+import Pagination from '../ui/Pagination.astro';
+import {
+  formatNormOriginKind,
+  getGermanIndexLetter,
+  getIndexUrl,
+  getKeywordIndexUrl,
+  getAbbreviationIndexUrl,
+  getLawPortalUrl,
+  getNormUrl,
+  toDisplayText,
+  type NormOriginKind,
+} from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
+import { DEFAULT_PAGE_SIZE, KEYWORD_PAGE_SIZE, normalizePage, type KeywordIndexPage } from '../../lib/runtime/store.ts';
+import { DIRECTORY_STATUS_OPTIONS, INHERITED_AMENDMENT_FIELD, INHERITED_AMENDMENT_VALUE } from '../../lib/runtime/directory.ts';
+import { formatCount, formatNormCount, NORM_UNIT } from '../../lib/counts.ts';
+import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
+import { VALIDITY_FIELD_LABEL } from '../../lib/vocabulary.ts';
+
+// Gemeinsame Seitenfamilie; jede Ansicht lädt ausschließlich ihre eigene Ergebnisliste.
+interface Props { section: 'norms' | 'register' | 'abbreviations' }
+const { section } = Astro.props;
+const sectionLabel = section === 'norms' ? 'Vorschriften A–Z' : section === 'register' ? 'Stichwortregister' : 'Abkürzungen und Kurztitel';
+const store = await getNormStore(Astro.locals);
+
+const basePath = section === 'norms' ? getIndexUrl() : section === 'register' ? getKeywordIndexUrl() : getAbbreviationIndexUrl();
+const originKinds: NormOriginKind[] = ['inherited-unchanged', 'inherited-amended', 'ostdeutsch-original', 'origin-unresolved'];
+const includeInheritedAmendments = section === 'norms' && (Astro.url.searchParams.get('aenderungen') ?? '').trim() === INHERITED_AMENDMENT_VALUE;
+const [letters, stats] = await Promise.all([
+  section === 'norms' ? store.listIndexLetters({ includeInheritedAmendments }) : Promise.resolve([]),
+  store.getCorpusStats(),
+]);
+const requestedLetter = (Astro.url.searchParams.get('buchstabe') ?? '').trim().toLocaleUpperCase('de-DE').slice(0, 1);
+const availableLetters = section === 'norms' ? letters.map((entry) => entry.letter) : [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '#'];
+const letter = availableLetters.includes(requestedLetter) ? requestedLetter : (availableLetters.includes('A') ? 'A' : availableLetters[0] ?? 'A');
+const requestedOrigin = section === 'norms' ? (Astro.url.searchParams.get('herkunft') ?? '').trim() : '';
+const originKind: NormOriginKind | '' = (originKinds as string[]).includes(requestedOrigin) ? (requestedOrigin as NormOriginKind) : '';
+const requestedValidity = section === 'norms' ? (Astro.url.searchParams.get('geltung') ?? '').trim() : '';
+const validityOption = DIRECTORY_STATUS_OPTIONS.find((option) => option.value === requestedValidity);
+const validity = validityOption ? validityOption.value : '';
+const { page: requestedPage } = normalizePage(Astro.url.searchParams.get('seite'));
+const result = section === 'norms' ? await store.queryNormSummaries({ letter, originKind: originKind || undefined, statuses: validityOption?.statuses, includeInheritedAmendments, page: requestedPage, pageSize: DEFAULT_PAGE_SIZE, sort: 'title' }) : { items: [], total: 0, page: 1, pageCount: 1, pageSize: DEFAULT_PAGE_SIZE };
+const registerFilter = section === 'register' ? (Astro.url.searchParams.get('stichwort') ?? '').trim().slice(0, 100) : '';
+const { page: requestedRegisterPage } = normalizePage(Astro.url.searchParams.get('stichwortseite'), KEYWORD_PAGE_SIZE);
+const abbreviationFilter = section === 'abbreviations' ? (Astro.url.searchParams.get('abkuerzung') ?? '').trim().slice(0, 100) : '';
+const { page: requestedAbbreviationPage } = normalizePage(Astro.url.searchParams.get('abkuerzungsseite'), KEYWORD_PAGE_SIZE);
+const emptyKeywords: KeywordIndexPage = { entries: [], total: 0, page: 1, pageCount: 1, pageSize: KEYWORD_PAGE_SIZE };
+const [register, abbreviations] = await Promise.all([
+  section === 'register' ? store.listKeywordIndex(letter, { kinds: ['register'], q: registerFilter || undefined, page: requestedRegisterPage, pageSize: KEYWORD_PAGE_SIZE }) : Promise.resolve(emptyKeywords),
+  section === 'abbreviations' ? store.listKeywordIndex(letter, { kinds: ['abbr', 'short-title'], q: abbreviationFilter || undefined, page: requestedAbbreviationPage, pageSize: KEYWORD_PAGE_SIZE }) : Promise.resolve(emptyKeywords),
+]);
+const stateParams = {
+  buchstabe: letter,
+  herkunft: originKind,
+  geltung: validity,
+  aenderungen: includeInheritedAmendments ? INHERITED_AMENDMENT_VALUE : '',
+  seite: result.page > 1 ? String(result.page) : '',
+  stichwort: registerFilter,
+  stichwortseite: register.page > 1 ? String(register.page) : '',
+  abkuerzung: abbreviationFilter,
+  abkuerzungsseite: abbreviations.page > 1 ? String(abbreviations.page) : '',
+};
+const listParams = { buchstabe: letter, herkunft: originKind, geltung: validity, aenderungen: stateParams.aenderungen };
+const pagination = buildPagination({ page: result.page, pageCount: result.pageCount, basePath, params: listParams, pageParam: 'seite' });
+const registerPagination = buildPagination({ page: register.page, pageCount: register.pageCount, basePath, params: { buchstabe: letter, stichwort: registerFilter }, pageParam: 'stichwortseite' });
+const abbreviationPagination = buildPagination({ page: abbreviations.page, pageCount: abbreviations.pageCount, basePath, params: { buchstabe: letter, abkuerzung: abbreviationFilter }, pageParam: 'abkuerzungsseite' });
+const activePagination = section === 'norms' ? pagination : section === 'register' ? registerPagination : abbreviationPagination;
+const activeResult = section === 'norms' ? result : section === 'register' ? register : abbreviations;
+const heading = letter === '#' ? 'Ziffern und Sonderzeichen' : letter;
+const originHeading = originKind ? ` · ${formatNormOriginKind(originKind)}` : '';
+const pageTitle = `${sectionLabel} – ${letter === '#' ? heading : `Buchstabe ${letter}`}${originHeading}${activeResult.page > 1 ? ` (Seite ${activeResult.page} von ${activeResult.pageCount})` : ''}`;
+const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
+const lastIndex = Math.min(result.page * result.pageSize, result.total);
+const filtersActive = Boolean(originKind) || Boolean(validity) || includeInheritedAmendments;
+const indexCount = result.total === 0
+  ? (filtersActive ? 'In dieser Buchstabengruppe passen keine Vorschriften zur Auswahl.' : 'In dieser Buchstabengruppe sind keine Vorschriften verzeichnet.')
+  : `${formatNormCount(result.total)}${validityOption ? ` ${validityOption.label}` : ''}${filtersActive ? ' · Auswahl aktiv' : ''}`;
+const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many: string, emptyFiltered: string, empty: string): string => {
+  if (list.total === 0) return filter ? `${emptyFiltered} „${filter}“.` : empty;
+  const from = (list.page - 1) * list.pageSize + 1;
+  const to = Math.min(list.page * list.pageSize, list.total);
+  return `${formatCount(list.total, one, many)}${filter ? ` passen zu „${filter}“` : ''}${list.total > list.pageSize ? ` · angezeigt ${from}–${to}` : ''}.`;
+};
+---
+
+<LawLayout
+  title={pageTitle}
+  description={`${sectionLabel} im Rechtsportal OstRecht: ${letter === '#' ? heading : `Buchstabe ${letter}`}${originHeading}.`}
+  breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: lawSiteConfig.targetLabels.index, href: getIndexUrl() }, ...(section === 'norms' ? [] : [{ label: sectionLabel }])]}
+  canonical={pageUrl(basePath, stateParams)}
+  noindex={Boolean(registerFilter) || Boolean(abbreviationFilter) || filtersActive}
+  prev={activePagination.prev}
+  next={activePagination.next}
+>
+  <header class="r-page-head">
+    <h1>{lawSiteConfig.targetLabels.index}</h1>
+    <p class="r-lead">Vorschriften finden: nach Ordnungswort, redaktionellem Stichwort oder Abkürzung und Kurztitel.</p>
+    <nav class="r-tabs" aria-label="Zugänge">
+      <a href={pageUrl(getIndexUrl(), { buchstabe: letter })} aria-current={section === 'norms' ? 'page' : undefined}>Vorschriften A–Z <span class="r-muted">{stats.normCount}</span></a>
+      <a href={pageUrl(getKeywordIndexUrl(), { buchstabe: letter })} aria-current={section === 'register' ? 'page' : undefined}>Stichwortregister <span class="r-muted">{heading}</span></a>
+      <a href={pageUrl(getAbbreviationIndexUrl(), { buchstabe: letter })} aria-current={section === 'abbreviations' ? 'page' : undefined}>Abkürzungen und Kurztitel <span class="r-muted">{heading}</span></a>
+    </nav>
+  </header>
+
+  <div class="r-az r-az--section">
+    {section === 'norms' ? (
+    <section class="r-az__main" id="vorschriften" aria-labelledby="index-letter-heading" data-directory>
+      <div class="r-az__bar">
+        <LetterNav letters={letters} current={letter} hrefFor={(target) => pageUrl(basePath, { ...listParams, buchstabe: target || letter })} withAll={false} unit={NORM_UNIT} />
+        <form class="r-az__filters" method="get" action={basePath} aria-label="Vorschriften eingrenzen" data-directory-filter data-origin-filter-form>
+          <input type="hidden" name="buchstabe" value={letter} />
+          <label class="r-az__filter"><span>{VALIDITY_FIELD_LABEL}</span>
+            <select class="r-select" name="geltung">
+              <option value="" selected={!validity}>{lawSiteConfig.vocabulary.validity.any}</option>
+              {DIRECTORY_STATUS_OPTIONS.map((option) => <option value={option.value} selected={validity === option.value}>{option.label}</option>)}
+            </select>
+          </label>
+          <label class="r-az__filter"><span>Rechtsherkunft</span>
+            <select class="r-select" name="herkunft" data-origin-filter>
+              <option value="" selected={!originKind}>Alle Herkunftsarten</option>
+              {originKinds.map((kind) => <option value={kind} selected={originKind === kind}>{formatNormOriginKind(kind)}</option>)}
+            </select>
+          </label>
+          <label class="r-az__filter"><span>{INHERITED_AMENDMENT_FIELD.label}</span>
+            <select class="r-select" name="aenderungen" data-amendment-filter>
+              <option value="" selected={!includeInheritedAmendments}>{INHERITED_AMENDMENT_FIELD.allLabel}</option>
+              {INHERITED_AMENDMENT_FIELD.options.map((option) => <option value={option.value} selected={includeInheritedAmendments}>{option.label}</option>)}
+            </select>
+          </label>
+          <button class="r-btn" type="submit">Anwenden</button>
+        </form>
+      </div>
+      <div class="r-section-head r-az__count">
+        <h2 id="index-letter-heading" class="r-meta" data-directory-count><strong class="r-strong">{heading}</strong> · <span data-index-count>{indexCount}</span></h2>
+        {filtersActive
+          ? <a class="r-caption" href={pageUrl(basePath, { buchstabe: letter })} data-directory-reset>Auswahl zurücksetzen</a>
+          : <span class="r-caption r-filter__reset--inactive" aria-disabled="true" data-directory-reset>Auswahl zurücksetzen</span>}
+      </div>
+      {result.items.length > 0 ? (
+        <NormTable items={result.items} caption={`Vorschriften ${heading} mit Abkürzung, Normtyp, Geltung, Rechtsstand und Herkunft`} attrs={{ 'data-index-list': '', 'data-directory-list': '' }} rowAttrs={(norm) => ({ 'data-index-letter': getGermanIndexLetter(toDisplayText(norm.sortWord)) })} />
+      ) : null}
+      <Pagination pagination={pagination} label={`Seiten der Buchstabengruppe ${letter}`} range={result.total > 0 ? `${heading} · ${firstIndex}–${lastIndex} von ${result.total}` : undefined} attrs={{ 'data-index-pagination': '' }} />
+    </section>
+
+    ) : null}
+    {section !== 'norms' ? (
+    <div class="r-az__register-view">
+      <LetterNav letters={[]} allAvailable current={letter} hrefFor={(target) => pageUrl(basePath, { buchstabe: target || letter })} withAll={false} />
+      {section === 'register' ? (
+      <section id="stichwortregister" aria-labelledby="register-heading">
+        <h2 id="register-heading" class="r-label r-label--rule">Stichwortregister {heading}</h2>
+        <form class="r-az__register-form" method="get" action={basePath} data-register-filter-form>
+          <input type="hidden" name="buchstabe" value={letter} />
+          <label class="r-field"><span>Stichwort filtern</span><input class="r-input" type="search" name="stichwort" value={registerFilter} autocomplete="off" maxlength="100" placeholder="z. B. Kultur, Energie, Wohnen" data-register-filter /></label>
+          <button class="r-btn" type="submit">Filtern</button>
+        </form>
+        <p class="r-caption">Redaktionelle Stichwörter in gebräuchlicher Sprache führen zu den Vorschriften, die eine Frage regeln. Das Register wird redaktionell ausgebaut.</p>
+        <p class="r-meta" aria-live="polite" data-register-count>{keywordCount(register, registerFilter, 'Stichwort', 'Stichwörter', 'Kein Stichwort passt zu', 'Für diese Buchstabengruppe sind noch keine Stichwörter verzeichnet.')}</p>
+        {register.entries.length > 0 ? (
+          <ul class="r-az__register" data-register-group={letter}>
+            {register.entries.map((entry) => (
+              <li data-register-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
+                <strong class="r-strong">{entry.keyword}</strong>
+                <span class="r-meta">{entry.norms.map((norm, index) => <>{index > 0 ? ' · ' : ''}<a href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a></>)}</span>
+              </li>
+            ))}
+          </ul>
+        ) : <p class="r-caption" data-register-empty>Wählen Sie eine andere Buchstabengruppe oder suchen Sie im Volltext.</p>}
+        <Pagination pagination={registerPagination} label={`Seiten des Stichwortregisters ${letter}`} pageWord="Stichwortseite" prevLabel="Vorherige Stichwörter" nextLabel="Nächste Stichwörter" attrs={{ 'data-register-pagination': '' }} />
+      </section>
+
+      ) : (
+      <section id="abkuerzungen" aria-labelledby="keyword-index-heading">
+        <h2 id="keyword-index-heading" class="r-label r-label--rule">Abkürzungen und Kurztitel {heading}</h2>
+        <form class="r-az__register-form" method="get" action={basePath} data-keyword-filter-form>
+          <input type="hidden" name="buchstabe" value={letter} />
+          <label class="r-field"><span>Abkürzung oder Kurztitel filtern</span><input class="r-input" type="search" name="abkuerzung" value={abbreviationFilter} autocomplete="off" maxlength="100" placeholder="z. B. VwV, Schulgesetz" data-index-filter /></label>
+          <button class="r-btn" type="submit">Filtern</button>
+        </form>
+        <p class="r-meta" aria-live="polite" data-index-filter-status>{keywordCount(abbreviations, abbreviationFilter, 'Eintrag', 'Einträge', 'Kein Eintrag passt zu', 'Für diese Buchstabengruppe sind keine Abkürzungen und Kurztitel verzeichnet.')}</p>
+        {abbreviations.entries.length > 0 ? (
+          <dl class="r-az__abbr r-dl r-dl--compact" data-index-group={letter}>
+            {abbreviations.entries.map((entry) => (
+              <div class="r-az__abbr-entry" data-index-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
+                <dt class="r-strong">{entry.keyword}</dt>
+                <dd>{entry.norms.map((norm, index) => <>{index > 0 ? ' · ' : ''}<a href={getNormUrl(norm.slug)}>{toDisplayText(norm.shortTitle)}</a></>)}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : <p class="r-caption" data-index-empty>Passen Sie den Filter an oder wählen Sie eine andere Buchstabengruppe.</p>}
+        <Pagination pagination={abbreviationPagination} label={`Seiten der Abkürzungen und Kurztitel ${letter}`} prevLabel="Vorherige Einträge" nextLabel="Nächste Einträge" attrs={{ 'data-keyword-pagination': '' }} />
+      </section>
+      )}
+    </div>
+    ) : null}
+  </div>
+  <script>
+    // Komfort ohne Pflicht: der Filter wirkt sofort auf die geladene Seite; das GET-Formular
+    // liefert die vollständige, serverseitig gefilterte Liste.
+    const localFilters: Array<[string, string, string]> = [
+      ['[data-register-filter]', '[data-register-entry]', '[data-register-count]'],
+      ['[data-index-filter]', '[data-index-entry]', '[data-index-filter-status]'],
+    ];
+    for (const form of document.querySelectorAll<HTMLFormElement>('[data-register-filter-form], [data-keyword-filter-form], [data-origin-filter-form]')) {
+      form.addEventListener('submit', () => {
+        form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[name], select[name]').forEach((field) => {
+          if (!field.value.trim()) field.disabled = true;
+        });
+      });
+      for (const select of form.querySelectorAll<HTMLSelectElement>('select')) select.addEventListener('change', () => form.requestSubmit());
+    }
+    for (const [inputSelector, entrySelector, statusSelector] of localFilters) {
+      const input = document.querySelector<HTMLInputElement>(inputSelector);
+      const status = document.querySelector<HTMLElement>(statusSelector);
+      const entries = Array.from(document.querySelectorAll<HTMLElement>(entrySelector));
+      const initialStatus = status?.textContent ?? '';
+      input?.addEventListener('input', () => {
+        const query = input.value.trim().toLocaleLowerCase('de-DE');
+        let visible = 0;
+        entries.forEach((entry) => {
+          const value = entry.dataset.registerEntry ?? entry.dataset.indexEntry ?? '';
+          entry.hidden = Boolean(query) && !value.includes(query);
+          if (!entry.hidden) visible += 1;
+        });
+        if (status) status.textContent = query ? `${visible} Einträge dieser Seite passen zum Filter; „Filtern“ durchsucht die ganze Buchstabengruppe.` : initialStatus;
+      });
+    }
+  </script>
+</LawLayout>

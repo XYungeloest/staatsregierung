@@ -222,7 +222,7 @@ bleibt `/staatsregierung/`, weil sie das Politikfeld benennt, eingeführt ist un
 
 OstRecht führt das Amtsband (`.law-header`): Wappen und Wortmarke „OstRecht · Rechtsportal des
 Freistaates“, ein kompaktes Suchfeld und die fünf Bereiche Sachgebiete, A–Z und Register, Amtliche
-Veröffentlichungen, Änderungsdienst und Hilfe mit `aria-current`. Über dem Band steht keine
+Veröffentlichungen, Verfassung und Hilfe mit `aria-current`. Über dem Band steht keine
 Hinweiszeile; der Hinweis zur Simulation schließt die Seite im Fuß ab, damit der Einstieg mit dem
 Hoheitszeichen beginnt. Politische Teaser- und Pressenavigation gehören nicht in diese Navigation.
 
@@ -249,21 +249,20 @@ verschiedenen Punkten umschalten. Einzige begründete Ausnahme ist das Amtsband:
   Seitenrand des Staatsportals geht von `--space-6` auf `--space-5`. Das Band der Startseite geht
   auf zwei Spalten, die Funktionskarte nimmt die volle Breite. Der Normarbeitsbereich geht von
   drei auf zwei Spalten: Text und Seitenspalte nebeneinander, die Inhaltsübersicht öffnet über
-  „Inhalt“ im Kopf als modales Seitenblatt; im A–Z rücken die Wortlisten unter die
-  Tabelle.
+  „Inhalt“ im Kopf als modales Seitenblatt. Die Registeransichten bleiben einspaltig.
 - bis 64 rem (Tablet quer, Staatsportal): die Navigationszeile bleibt sichtbar, der Seitenrand
   geht auf `--space-4`, Kartenraster gehen auf zwei Spalten und die Bereichsnavigation klebt nicht
   mehr; der Schnellzugriff geht auf drei Spalten (3 + 2, keine allein stehende Karte).
 - bis 60 rem (OstRecht): Suche und Bereiche weichen in das Menü „Bereiche“ des Amtsbands, dort
   bleiben sie erreichbar. Alle zweispaltigen Arbeitsbereiche mit Seitenspalte werden einspaltig:
   Filterspalte der Rechtssuche und der Verzeichnisse als Aufklappbereich über der Liste,
-  Vorschriftendaten und Rechtsbeziehungen untereinander, Protokoll und Seitenspalte der Seite
+  Protokoll und Seitenspalte der Seite
   „Fassungen und Änderungen“ untereinander. Eine Tabelle neben einer 380 px breiten Seitenspalte
   braucht mehr als 768 px; deshalb liegt diese Grenze bei 60 rem und nicht bei 48 rem.
 - bis 48 rem (Tablet hoch): im Staatsportal weichen Navigation und Kopfwerkzeuge in das Menü, die
   Kartenraster werden einspaltig, der Seitenrand geht auf `--space-3`; in OstRecht wird der
-  Normarbeitsbereich einspaltig (Kopf → Inhaltsübersicht geschlossen → Text → Seitenspalte →
-  Vorschriftendaten), die Fassungsleiste wird zum waagerechten Streifen, Filterleisten und
+  Normarbeitsbereich einspaltig (Kopf → Inhaltsübersicht geschlossen → Fassungsleiste → Text →
+  Seitenspalte), die Fassungsleiste wird zum waagerechten Streifen, Filterleisten und
   Formularzeilen stapeln sich.
 - bis 40 rem (OstRecht): die Subline der Wortmarke entfällt; im Normkopf bleiben Marke, erste
   Statusangabe und ein künftiger Änderungshinweis, Rechtsherkunft und weitere Angaben stehen in
@@ -384,18 +383,21 @@ Präposition und Artikel („Gesetz über die Landesregulierungsbehörde“ steh
 die Projektion legt den Vergleichsschlüssel als `law_norms.sort_word` ab, die Buchstabengruppe als
 `index_letter`. Die Überschrift eines Verzeichniseintrags bleibt der Titelblock; das Ordnungswort
 erscheint als beschriftete Angabe nur dort, wo sein Anfangsbuchstabe von dem der Überschrift
-abweicht. Die Einleitung des A–Z sagt einmal, dass der Buchstabe dem Ordnungswort folgt.
+abweicht. Die Buchstabengruppe der Vorschriften folgt dem Ordnungswort.
 
-### A–Z unter `/a-z/`
+### A–Z und Register
 
-Der alphabetische Zugang liegt unter `/a-z/`; `/archiv/` bleibt als dauerhafte Weiterleitung (301)
-mit Buchstabe, Herkunft, Seite und Stichwortstand erreichbar. Die Seite führt Vorschriften A–Z,
-„Stichwortregister“ (redaktionelle Stichwörter aus `content/stichwortregister.json`) und
-„Abkürzungen und Kurztitel“ auf einer Seite (P6): links die Buchstabenleiste mit der Tabelle,
-daneben (unter 80 rem darunter) die beiden Wortlisten derselben Buchstabengruppe. Geltung,
-Rechtsherkunft und übernommene Änderungsvorschriften sind Filter der Tabelle (`geltung`,
-`herkunft`, `aenderungen`); einen Zählerblock je Herkunftsart gibt es nicht mehr. Abgeleitete
-Titelwörter erscheinen in den Wortlisten nicht; sie bleiben durchsuchbar.
+Primäre Bereiche besitzen eigene URLs; Hash-Anker dienen ausschließlich sekundären Sprüngen innerhalb einer Ansicht.
+Die gemeinsame Seitenfamilie umfasst `/a-z/` (Vorschriften A–Z),
+`/a-z/stichwortregister/` (redaktionelle Stichwörter aus `content/stichwortregister.json`) und
+`/a-z/abkuerzungen/` (Abkürzungen und Kurztitel). Die Reiter verwenden diese URLs und markieren
+genau eine Ansicht mit `aria-current="page"`. Nur `buchstabe` wird zwischen Ansichten übertragen.
+Jede Ansicht lädt ihre eigene paginierte Liste; Such- und Seitenparameter bleiben beim Reload erhalten.
+Die Buchstabenleiste der Vorschriften zählt Normen nach Ordnungswort; Register bieten alle Buchstaben
+an, auch wenn dort keine Stichwörter verzeichnet sind.
+Geltung, Rechtsherkunft und übernommene Änderungsvorschriften sind ausschließlich Filter der
+Vorschriftentabelle (`geltung`, `herkunft`, `aenderungen`). Abgeleitete Titelwörter erscheinen in den
+Wortlisten nicht; sie bleiben durchsuchbar. `/archiv/` bleibt eine dauerhafte Weiterleitung nach `/a-z/`.
 
 ### Normkopf und Bereiche der Vorschrift
 
@@ -417,12 +419,17 @@ Vorschriftendaten, Fassungen und Änderungen sowie Rechtsbeziehungen. Der Wechse
 Ansichten verändert den Kopf nicht. Ein allein gezeigter Bereich schließt ohne zweite Linie an die
 Reiterzeile an, nimmt die Lesebreite `--measure-panel` und wiederholt seinen Namen nicht als
 Etikett – der Reiter nennt ihn; für Vorlesen, Druck und Betrieb ohne JavaScript bleibt die
-Überschrift im Baum. Ohne JavaScript stehen alle Bereiche als verlinkte Abschnitte untereinander.
+Überschrift im Baum. Alle Reiter funktionieren auch ohne JavaScript als reguläre Seitennavigation.
 
 Alle Angaben zur Vorschrift stehen genau einmal in `NormFacts.astro` („Vorschriftendaten“):
 Vollzitat, Fundstelle, Rechtsstand, Geltung, Herkunft mit den verlinkten Änderungsvorschriften,
-Quelle, Sachgebiete, Ressort und Vertragsdaten. Der Block ist ein Bereich der Vorschriftsseite
-(`#vorschriftendaten`). Mit JavaScript wechseln die Reiter zwischen Text, Daten und Beziehungen; ohne JavaScript bleiben alle Abschnitte erreichbar. Auf dem Smartphone folgen die Daten als aufklappbarer Bereich dem Text.
+Quelle, Sachgebiete, Ressort und Vertragsdaten. Sie stehen unter `/norm/<slug>/daten/`, die
+Rechtsbeziehungen mit Empfehlungen und Portalbezügen unter `/norm/<slug>/beziehungen/`.
+Konkrete Fassungen besitzen dieselben Unterseiten unter `/norm/<slug>/version/<versionId>/`;
+beim Reiterwechsel bleibt die Version-ID erhalten. „Fassungen und Änderungen“ führt stets auf
+`/norm/<slug>/history/`. Die Textseite enthält ausschließlich Lesebereiche und Seitenspalte,
+keine angehängten vollständigen Daten- oder Beziehungsbereiche. Seitennavigation verwendet keine
+Hash-Umschaltung oder künstliche Übernahme der Scrollposition.
 
 Die Fassungen stehen in der Seitenspalte der Vorschrift (`NormAside.astro`, „Fassungen dieser
 Vorschrift“) als senkrechte Zeitleiste (auf Smartphones vor dem Normtext als horizontaler Streifen): je Fassung Datum, Art (geltend, historisch, künftig,

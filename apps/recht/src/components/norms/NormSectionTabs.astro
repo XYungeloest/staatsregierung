@@ -1,15 +1,15 @@
 ---
-import { getNormHistoryUrl, getNormUrl, getNormVersionUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { getNormHistoryUrl, getNormUrl, getNormVersionUrl, getNormFactsUrl, getNormRelationsUrl, getNormVersionFactsUrl, getNormVersionRelationsUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { NORM_HISTORY_LABEL } from '../../lib/vocabulary.ts';
 
 /**
  * Bereiche der Vorschrift (Reiterzeile): Text, Vorschriftendaten, Fassungen und Änderungen,
- * Rechtsbeziehungen. Text, Daten und Beziehungen liegen auf der Vorschriftsseite; die
- * Fassungen haben ihre eigene Adresse (dauerhafte Fassungslinks).
+ * Rechtsbeziehungen. Primäre Bereiche besitzen eigene URLs; Hash-Anker dienen ausschließlich
+ * sekundären Sprüngen innerhalb einer Ansicht. Konkrete Fassungen behalten ihre Version-ID.
  */
 interface Props {
   slug: string;
-  /** Angezeigte Fassung, wenn sie nicht die geltende ist (Fassungslink als Textziel). */
+  /** Konkrete angezeigte Fassung, auch wenn diese momentan die geltende ist. */
   versionId?: string;
   active: 'text' | 'facts' | 'versions' | 'relations';
 }
@@ -18,9 +18,9 @@ const { slug, versionId, active } = Astro.props;
 const textHref = versionId ? getNormVersionUrl(slug, versionId) : getNormUrl(slug);
 const tabs = [
   { key: 'text', label: 'Text', href: textHref },
-  { key: 'facts', label: 'Vorschriftendaten', href: `${textHref}#vorschriftendaten` },
+  { key: 'facts', label: 'Vorschriftendaten', href: versionId ? getNormVersionFactsUrl(slug, versionId) : getNormFactsUrl(slug) },
   { key: 'versions', label: NORM_HISTORY_LABEL, href: getNormHistoryUrl(slug) },
-  { key: 'relations', label: 'Rechtsbeziehungen', href: `${textHref}#rechtsbeziehungen` },
+  { key: 'relations', label: 'Rechtsbeziehungen', href: versionId ? getNormVersionRelationsUrl(slug, versionId) : getNormRelationsUrl(slug) },
 ] as const;
 ---
 
