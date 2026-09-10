@@ -724,35 +724,23 @@ a.norm-timeline__date:hover {
   border-top: var(--line) solid var(--border-default);
 }
 
-/* Die Reiterzeile zeigt je einen Bereich. Steht ein Bereich allein, trägt er die Fläche in
-   Lesebreite statt in halber Spalte, und die Linie der Reiterzeile wird nicht verdoppelt. */
-.norm-workspace[hidden] + .norm-details {
+/* Eigene Bereichsseiten behalten die Lesebreite der bisherigen Reiteransichten. */
+.norm-details.norm-details--section {
+  grid-template-columns: minmax(0, 1fr);
   border-top: 0;
   padding-top: var(--space-5);
 }
-
-/* Die Vorschriftendaten hängen auf kleinen Breiten in einer Aufklappzeile; die Auswahl der
-   Bereiche wird deshalb am Bereich selbst geprüft, nicht an der Position im Raster. */
-.norm-details:has(.norm-facts[hidden]),
-.norm-details:has(.norm-relations[hidden]) {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.norm-details:has(.norm-facts[hidden]) .norm-relations,
-.norm-details:has(.norm-relations[hidden]) .norm-facts {
+.norm-details--section .norm-facts,
+.norm-details--section .norm-relations {
   max-width: var(--measure-panel);
 }
-
-.norm-details:has(.norm-facts[hidden]) .norm-relations {
-  border-left: 0;
-  padding-left: 0;
+.norm-details--section .norm-relations {
+  border: 0;
+  padding: 0;
   gap: var(--space-6);
 }
-
-/* Der Reiter nennt den Bereich bereits; die Wiederholung als Etikett entfällt und die Gruppen
-   tragen die Gliederung. Für Vorlesen, Druck und Betrieb ohne JavaScript bleibt die Überschrift. */
-.norm-details:has(.norm-facts[hidden]) > .norm-relations > h2,
-.norm-details:has(.norm-relations[hidden]) .norm-facts > h2 {
+/* Der aktive Reiter nennt den Bereich; die semantische Überschrift bleibt erhalten. */
+.norm-details--section > :is(.norm-facts, .norm-relations) > h2 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -763,8 +751,7 @@ a.norm-timeline__date:hover {
   clip-path: inset(50%);
   white-space: nowrap;
 }
-
-.norm-details:has(.norm-facts[hidden]) .norm-relations__group > h3 {
+.norm-details--section .norm-relations__group > h3 {
   padding-bottom: var(--space-1);
   border-bottom: var(--line) solid var(--border-hairline);
 }
@@ -844,12 +831,6 @@ a.norm-timeline__date:hover {
   max-width: var(--measure-legal);
 }
 
-/* Auf dem Smartphone stehen die Vorschriftendaten hinter einer Aufklappzeile unter dem Text;
-   ab 48 rem ist der Bereich offen und braucht keine Zeile. */
-.norm-facts-disclosure > summary {
-  display: none;
-}
-
 /* Responsiv: 80 rem → zwei Spalten, 48 rem → eine Spalte */
 @media (max-width: 79.99rem) {
   .norm-workspace {
@@ -903,13 +884,6 @@ a.norm-timeline__date:hover {
   .norm-workspace > .norm-aside__versions {
     min-width: 0;
     padding-top: var(--space-3);
-  }
-
-  .norm-facts-disclosure > summary {
-    display: list-item;
-    padding: var(--space-3);
-    border-block: var(--line) solid var(--border-default);
-    cursor: pointer;
   }
 
   .norm-document {

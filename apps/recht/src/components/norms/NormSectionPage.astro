@@ -1,0 +1,43 @@
+---
+import LawLayout from '../../layouts/LawLayout.astro';
+import NormHead from './NormHead.astro';
+import NormSectionTabs from './NormSectionTabs.astro';
+import NormFacts from './NormFacts.astro';
+import NormLegalRelations from './NormLegalRelations.astro';
+import { buildNormHeadModel } from '../../lib/norm-head.ts';
+import type { loadNormSection } from '../../lib/norm-view.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
+import { getLawPortalUrl, getNormUrl, getNormVersionUrl, getNormVersionIdentity, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+
+interface Props {
+  data: NonNullable<Awaited<ReturnType<typeof loadNormSection>>>;
+  section: 'facts' | 'relations';
+  versionId?: string;
+}
+const { data: { norm, version, view }, section, versionId } = Astro.props;
+const { derived, fullCitation, publicationReference, publication, amendmentLabels, nextFutureReference } = view;
+const model = buildNormHeadModel(norm, version, { origin: derived.origin, publicationReference, amendmentLabels, nextFutureReference });
+const identity = getNormVersionIdentity(norm, version);
+const label = toDisplayText(identity.shortTitle || identity.title);
+const sectionLabel = section === 'facts' ? 'Vorschriftendaten' : 'Rechtsbeziehungen';
+const versionLabel = `Fassung vom ${formatDate(version.validFrom)}`;
+---
+
+<LawLayout documentFont mainWidth="full"
+  title={`${sectionLabel} – ${label}${versionId ? ` – ${versionLabel}` : ''}`}
+  description={`${sectionLabel} zu ${label}${versionId ? `, ${versionLabel}` : ''} im Rechtsportal OstRecht.`}
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label, href: getNormUrl(norm.meta.slug) },
+    ...(versionId ? [{ label: versionLabel, href: getNormVersionUrl(norm.meta.slug, versionId) }] : []),
+    { label: sectionLabel },
+  ]}
+>
+  <NormHead norm={norm} version={version} model={model} outlineHref={`${versionId ? getNormVersionUrl(norm.meta.slug, versionId) : getNormUrl(norm.meta.slug)}#norm-inhalt-mobil`} officialPdf={publication?.pdf} fullCitation={fullCitation} />
+  <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} versionId={versionId} active={section} /></div>
+  <div class="norm-details norm-details--section">
+    {section === 'facts'
+      ? <NormFacts norm={norm} version={version} origin={derived.origin} fullCitation={fullCitation} publicationReference={publicationReference} amendmentLabels={amendmentLabels} immutableLink={Boolean(versionId)} />
+      : <NormLegalRelations norm={norm} relations={derived.relations} recommendations={derived.recommendations} portalLinks={derived.portalLinks} standalone />}
+  </div>
+</LawLayout>

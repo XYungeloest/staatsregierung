@@ -75,10 +75,9 @@ function isActivePath(path: string): boolean {
 
 const mainNavLinks = lawSiteConfig.mainNavigation.map((entry) => {
   const pathKey = entry.pathKey;
-  const anchor = 'anchor' in entry ? entry.anchor : undefined;
-  const path = pathKey in lawSiteConfig.paths ? lawSiteConfig.paths[pathKey as keyof typeof lawSiteConfig.paths] : undefined;
-  const href = path ? `${base}${path.replace(/^\//, '')}` : `${homeUrl}#${anchor ?? ''}`;
-  const isActive = activeSection ? activeSection === pathKey : Boolean(path && isActivePath(path));
+  const path = lawSiteConfig.paths[pathKey];
+  const href = `${base}${path.replace(/^\//, '')}`;
+  const isActive = isActivePath(path) || activeSection === pathKey;
   return { href, label: entry.label, isActive, key: pathKey };
 });
 

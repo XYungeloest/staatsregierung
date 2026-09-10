@@ -95,7 +95,7 @@ Pflegewege stehen in `CONTENT.md`. Ämter, Mitgliedschaften und Ressortleitungen
 
 Normen liegen unter `content/normen/[slug]/` (`meta.json`, `history.json`, `versions/*.json`),
 Verkündungen unter `content/verkuendungen/[slug].json`, das redaktionelle Stichwortregister des
-alphabetischen Zugangs `/a-z/` unter `content/stichwortregister.json`. Historische Fassungen sind gespeicherte,
+alphabetischen Zugangs `/a-z/stichwortregister/` unter `content/stichwortregister.json`. Historische Fassungen sind gespeicherte,
 unveränderliche Fassungen. Reguläre Importquellen sind die HTML-Dateien unter `Gesetze/`; PDFs
 dienen der visuellen Gegenprüfung. Für übernommene Stammnormen ist der sächsische Rechtsstand am
 1. November 2023 die Ausgangsfassung; Folgefassungen entstehen nur über geprüfte Patch-Rezepte.

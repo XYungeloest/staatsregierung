@@ -11,6 +11,12 @@ import {
 } from '@ostrecht/shared/lib/portal/routes.ts';
 import {
   getNormHistoryUrl,
+  getNormFactsUrl,
+  getNormRelationsUrl,
+  getNormVersionFactsUrl,
+  getNormVersionRelationsUrl,
+  getKeywordIndexUrl,
+  getAbbreviationIndexUrl,
   getNormUrl,
   getNormVersionUrl,
   getPublicationEntriesUrl,
@@ -18,6 +24,15 @@ import {
 } from '@ostrecht/shared/lib/norms/routes.ts';
 
 const lawOrigin = 'https://recht.freistaat-ostdeutschland.de';
+
+test('primäre Norm- und Registeransichten besitzen eigene, fassungsstabile URLs', () => {
+  assert.equal(getNormFactsUrl('beispielgesetz'), `${lawOrigin}/norm/beispielgesetz/daten/`);
+  assert.equal(getNormRelationsUrl('beispielgesetz'), `${lawOrigin}/norm/beispielgesetz/beziehungen/`);
+  assert.equal(getNormVersionFactsUrl('beispielgesetz', '2026-08-01'), `${lawOrigin}/norm/beispielgesetz/version/2026-08-01/daten/`);
+  assert.equal(getNormVersionRelationsUrl('beispielgesetz', '2026-08-01'), `${lawOrigin}/norm/beispielgesetz/version/2026-08-01/beziehungen/`);
+  assert.equal(getKeywordIndexUrl(), `${lawOrigin}/a-z/stichwortregister/`);
+  assert.equal(getAbbreviationIndexUrl(), `${lawOrigin}/a-z/abkuerzungen/`);
+});
 
 test('Portal-Routen verweisen zentral und ohne altes Präfix auf OstRecht', () => {
   assert.equal(getLawHomeUrl(), `${lawOrigin}/`);

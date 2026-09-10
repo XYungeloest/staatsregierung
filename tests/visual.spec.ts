@@ -596,11 +596,9 @@ lawTest('Messung: mobil beginnt der Vorschriftentext oberhalb von 700 Pixeln', {
   expect(headerHeight, 'Normkopf').toBeLessThanOrEqual(320);
   const textTop = await page.locator('#normtext').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
   expect(textTop, 'Beginn des Vorschriftentextes').toBeLessThanOrEqual(700);
-  // Reihenfolge auf dem Smartphone (Production Board): Kopf → Übersicht (geschlossen) → Normtext →
-  // Seitenspalte → Vorschriftendaten. Die Vorschriftendaten folgen dem Text.
+  // Sekundäre Fachansichten hängen auch mobil nicht am Ende des Rechtstexts.
   await expect(page.locator('.norm-outline-mobile')).not.toHaveAttribute('open', /.*/u);
-  const factsTop = await page.locator('.norm-facts-disclosure').evaluate((element) => element.getBoundingClientRect().top + window.scrollY);
-  expect(factsTop, 'Vorschriftendaten folgen dem Text').toBeGreaterThan(textTop);
+  await expect(page.locator('.norm-facts, .norm-relations')).toHaveCount(0);
   await verifyViewport(page);
 });
 

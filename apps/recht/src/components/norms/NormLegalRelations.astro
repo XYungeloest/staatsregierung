@@ -20,9 +20,10 @@ interface Props {
   relations: NormRelationView[];
   recommendations?: NormDerivedData['recommendations'];
   portalLinks?: NormDerivedData['portalLinks'];
+  standalone?: boolean;
 }
 
-const { norm, relations, recommendations = [], portalLinks } = Astro.props;
+const { norm, relations, recommendations = [], portalLinks, standalone = false } = Astro.props;
 const sections: Array<{ kind: NormRelationKind; heading: string }> = [
   { kind: 'amended-by', heading: 'Geändert durch' },
   { kind: 'amends', heading: 'Ändert' },
@@ -44,9 +45,10 @@ const hasPortal = topics.length > 0 || pressReleases.length > 0;
 const hasAnything = visibleSections.length > 0 || recommendations.length > 0 || hasPortal;
 ---
 
-{hasAnything ? (
+{hasAnything || standalone ? (
   <aside class="norm-relations" id="rechtsbeziehungen" aria-labelledby="norm-relations-title">
     <h2 id="norm-relations-title" class="r-label r-label--rule">Rechtsbeziehungen</h2>
+    {!hasAnything ? <p class="r-meta">Zu dieser Vorschrift sind keine Rechtsbeziehungen verzeichnet.</p> : null}
     {visibleSections.map((section) => (
       <section class="norm-relations__group" aria-labelledby={`norm-relation-${norm.meta.slug}-${section.kind}`}>
         <h3 id={`norm-relation-${norm.meta.slug}-${section.kind}`} class="r-label">{section.heading}</h3>
