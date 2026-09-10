@@ -4,7 +4,6 @@ import LawLayout from '../layouts/LawLayout.astro';
 import {
   EDITORIAL_REFERENCE_DATE,
   LEGAL_CHANGE_ENTRY_TYPES,
-  formatNormType,
   formatPublicationEntryType,
   getAdministrativeRulesUrl,
   getFundingUrl,
@@ -30,7 +29,6 @@ import type { NormChange } from '../lib/runtime/store.ts';
 import { formatCount, formatNormCount } from '../lib/counts.ts';
 import { describeChange, describeChangeCause } from '../lib/history-labels.ts';
 import { shortCitation } from '../lib/norm-head.ts';
-import { countNormTypes } from '../lib/type-counts.ts';
 import { referenceDateLabel } from '../lib/vocabulary.ts';
 import { formatShortDate } from '../lib/dates.ts';
 
@@ -48,7 +46,7 @@ const HOME_PUBLICATION_ENTRY_LIMIT = 6;
 const HOME_CHANGE_TYPES = [...LEGAL_CHANGE_ENTRY_TYPES];
 const IN_FORCE_TYPES = HOME_CHANGE_TYPES.filter((type) => type !== 'repeal');
 
-const [stats, subjectAreas, inForceChanges, futureChanges, repealChanges, latestPublications, typeCounts] = await Promise.all([
+const [stats, subjectAreas, inForceChanges, futureChanges, repealChanges, latestPublications] = await Promise.all([
   store.getCorpusStats(),
   store.listSubjectAreas(),
   // Neu in Kraft getreten: Erlass und Änderung bis zum Stichtag, je Norm das jüngste Ereignis.
@@ -58,22 +56,28 @@ const [stats, subjectAreas, inForceChanges, futureChanges, repealChanges, latest
   // Außer Kraft getreten: Aufhebungen bis zum Stichtag.
   store.listChanges({ changeTypes: ['repeal'], until: EDITORIAL_REFERENCE_DATE, order: 'desc', limit: HOME_CHANGE_CANDIDATE_LIMIT, distinctNorms: true }),
   store.listPublications({ limit: 6 }),
-  countNormTypes(store),
 ]);
 
 const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 
 /**
- * Direktzugriffe: die Verfassung und die vier Normtypen mit eigener Übersicht. Die übrigen
- * Normtypen (Staatsvertrag, Bekanntmachung, Zustimmungsgesetz …) bleiben über Suchfilter,
- * Sachgebiete und A–Z erreichbar; die Zeile bleibt dadurch ein kuratierter Einstieg statt einer
- * Liste des Bestands.
+ * Schnellzugriff: redaktionell hervorgehobene Vorschriften (Production Board P1) – keine
+ * Nutzungsstatistik, deshalb nicht „meistgenutzt“. Nur Vorschriften, die der Bestand kennt,
+ * werden verlinkt; die Verfassung hat ihre feste Adresse.
  */
-const directTypes: Array<{ type: NormType; href: string }> = [
-  { type: 'gesetz', href: getLawsUrl() },
-  { type: 'verordnung', href: getRegulationsUrl() },
-  { type: 'verwaltungsvorschrift', href: getAdministrativeRulesUrl() },
-  { type: 'foerderrichtlinie', href: getFundingUrl() },
+const QUICK_ACCESS_SLUGS = ['ostdeutsches-schulgesetz', 'saechsische-gemeindeordnung', 'ostdeutsches-polizeivollzugsdienstgesetz'] as const;
+const quickAccessLabels = await store.getNormLabels([...QUICK_ACCESS_SLUGS]);
+const quickAccess = QUICK_ACCESS_SLUGS.flatMap((slug) => {
+  const identity = quickAccessLabels.get(slug);
+  return identity ? [{ href: getNormUrl(slug), label: toDisplayText(identity.shortTitle || identity.title) }] : [];
+});
+
+/** Zugänge nach Normtyp: die vier Übersichten ohne Bestandszahlen (die Zahlen tragen die Übersichten selbst). */
+const typeAccess: Array<{ type: NormType; href: string; label: string }> = [
+  { type: 'gesetz', href: getLawsUrl(), label: lawSiteConfig.targetLabels.laws },
+  { type: 'verordnung', href: getRegulationsUrl(), label: lawSiteConfig.targetLabels.regulations },
+  { type: 'verwaltungsvorschrift', href: getAdministrativeRulesUrl(), label: lawSiteConfig.targetLabels.administrativeRules },
+  { type: 'foerderrichtlinie', href: getFundingUrl(), label: lawSiteConfig.targetLabels.funding },
 ];
 
 /**
@@ -94,11 +98,11 @@ function futureEventLabel(change: NormChange): string {
  * die Fundstelle allein, wo der Eintragstitel nur das Vollzitat wiederholt; der vollständige
  * Wortlaut steht im Änderungsverlauf der Vorschrift.
  */
-function changeDetail(change: NormChange): string {
+function changeDetail(change: NormChange): string[] {
   const cause = describeChangeCause(change);
   const reference = shortCitation(change.citation);
-  if (cause && reference && !cause.includes(reference)) return `${cause} · ${reference}`;
-  return cause || reference || describeChange(change);
+  if (cause && reference && !cause.includes(reference)) return [cause, reference];
+  return [cause || reference || describeChange(change)];
 }
 
 const publicationRows = listPublicationEntries(latestPublications).slice(0, HOME_PUBLICATION_ENTRY_LIMIT);
@@ -124,25 +128,26 @@ const columns = [
         <form class="r-home-search" action={getSearchUrl()} method="get" role="search" data-search-shell>
           <label class="r-field r-field--label-caps r-home-search__field">
             <span>Gesetz, Verordnung, Abkürzung, Paragraph oder Fundstelle</span>
-            <input class="r-input r-input--lg" id="law-home-search" type="search" name="q" autocomplete="off" placeholder="z. B. Gesetz, Abkürzung, § 12 oder OGVBl. 2026 Nr. 16" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} data-law-search-url={getSearchUrl()} />
+            <input class="r-input r-input--lg" id="law-home-search" type="search" name="q" autocomplete="off" placeholder="z. B. Gesetz, Abkürzung, § 12 oder OGVBl." data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} data-law-search-url={getSearchUrl()} />
           </label>
           <button class="r-btn r-btn--primary r-btn--lg" type="submit">Suchen</button>
         </form>
         <div class="r-home-search__hint r-meta">
-          <span>Vorschlagsliste ab dem 2. Zeichen: Abkürzungen, Kurztitel, Fundstellen. <kbd>/</kbd> fokussiert die Suche.</span>
+          <span>Vorschlagsliste ab dem 2. Zeichen: Abkürzungen, Kurztitel, Fundstellen.<span class="r-home-search__key"> <kbd>/</kbd> fokussiert die Suche.</span></span>
           <a href={`${getSearchUrl()}?filter=erweitert`}>Erweiterte Suche</a>
         </div>
-        <div class="r-home-direct r-meta">
-          <span class="r-muted">Direkt:</span>
+        <nav class="r-home-direct r-meta" aria-label="Schnellzugriff">
+          <span class="r-muted">Schnellzugriff:</span>
           <a href={getLawConstitutionUrl()}>{lawSiteConfig.targetLabels.constitution}</a>
-          <span class="r-home-direct__sep" aria-hidden="true">|</span>
-          {directTypes.map((entry) => (
-            <a href={entry.href}>{formatNormType(entry.type)}{typeCounts[entry.type] !== undefined ? ` (${typeCounts[entry.type]})` : ''}</a>
-          ))}
-        </div>
+          {quickAccess.map((entry) => <a href={entry.href}>{entry.label}</a>)}
+        </nav>
+        <nav class="r-home-direct r-meta" aria-label="Zugänge nach Normtyp">
+          <span class="r-muted">Nach Normtyp:</span>
+          {typeAccess.map((entry) => <a href={entry.href}>{entry.label}</a>)}
+        </nav>
       </div>
       <div class="r-home-subjects">
-        <h2 class="r-label r-label--rule">{lawSiteConfig.targetLabels.subjects}</h2>
+        <h2 class="r-h2 r-h2--sub r-h2--rule">{lawSiteConfig.targetLabels.subjects}</h2>
         <ol class="r-home-subjects__list r-num">
           {subjectAreas.map((area) => (
             <li>
@@ -151,12 +156,11 @@ const columns = [
               <span class="r-muted">{area.normCount}</span>
             </li>
           ))}
-          <li>
-            <span></span>
-            <a href={getIndexUrl()}>A–Z · Stichwortregister · Abkürzungen</a>
-            <span></span>
-          </li>
         </ol>
+        <p class="r-home-subjects__more r-meta r-inline-list">
+          <a href={getSubjectsUrl()}>Alle Sachgebiete</a>
+          <a href={getIndexUrl()}>{lawSiteConfig.targetLabels.index}</a>
+        </p>
       </div>
     </div>
   </section>
@@ -164,13 +168,13 @@ const columns = [
   <section class="r-home-changes" id="aenderungsdienst" aria-labelledby="aenderungsdienst-title">
     <div class="r-container">
       <div class="r-section-head">
-        <h2 id="aenderungsdienst-title">Änderungsdienst</h2>
-        <span class="r-meta">Veränderung des Rechtsbestands · Verkündung und Rechtswirkung getrennt · <a href={`${getSearchUrl()}?sort=activity`}>Vollständiges Protokoll</a></span>
+        <h2 id="aenderungsdienst-title" class="r-h2">Änderungsdienst</h2>
+        <span class="r-meta r-inline-list"><span>Veränderung des Rechtsbestands</span><span>Verkündung und Rechtswirkung getrennt</span><a href={`${getSearchUrl()}?sort=activity`}>Vollständiges Protokoll</a></span>
       </div>
       <div class="r-home-changes__grid">
         {columns.map((column) => (
           <section class="r-home-changes__column" data-visual-section={column.key === 'current' ? 'law-latest-status' : column.key === 'future' ? 'law-future-changes' : 'law-repealed'}>
-            <h3 class:list={['r-label', 'r-home-changes__heading', `r-home-changes__heading--${column.tone}`]}>{column.heading}</h3>
+            <h3 class:list={['r-h3', 'r-home-changes__heading', `r-home-changes__heading--${column.tone}`]}>{column.heading}</h3>
             <ol class="r-home-changes__list" data-law-change-list={column.key} data-law-current-change-list={column.key === 'current' ? '' : undefined} data-law-future-change-list={column.key === 'future' ? '' : undefined}>
               {column.entries.map((change, index) => (
                 <li
@@ -185,7 +189,7 @@ const columns = [
                   <div>
                     <a class="r-home-changes__norm" href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a>
                     {' '}<span class="r-home-changes__event" data-law-change-label>{column.key === 'future' ? futureEventLabel(change) : eventLabel(change)}</span>
-                    <div class="r-caption">{changeDetail(change)} · <a href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a></div>
+                    <div class="r-caption r-inline-list">{changeDetail(change).map((part) => <span>{part}</span>)}<a href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a></div>
                   </div>
                 </li>
               ))}
@@ -200,8 +204,8 @@ const columns = [
   <section class="r-home-publications" aria-labelledby="home-publications-title">
     <div class="r-container">
       <div class="r-section-head">
-        <h2 id="home-publications-title">Neueste amtliche Veröffentlichungen</h2>
-        <span class="r-meta">{seriesLabels.length > 0 ? <>{seriesLabels.join(' · ')} · </> : null}<a href={getPublicationsUrl()}>Alle amtlichen Veröffentlichungen</a></span>
+        <h2 id="home-publications-title" class="r-h2">Neueste amtliche Veröffentlichungen</h2>
+        <span class="r-meta r-inline-list">{seriesLabels.map((label) => <span>{label}</span>)}<a href={getPublicationsUrl()}>Alle amtlichen Veröffentlichungen</a></span>
       </div>
       {publicationRows.length > 0 ? (
         <div class="r-table-wrap">

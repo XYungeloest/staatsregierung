@@ -20,10 +20,11 @@ interface Props {
 }
 
 const { items, showOrigin = true, showType = true, caption, attrs = {}, rowAttrs } = Astro.props;
+/** Kurzform der Rechtsherkunft für Tabellen (DESIGN.md, „Rechtsherkunft und Benennungen“). */
 const originWords: Record<NormOriginKind, string> = {
-  'inherited-unchanged': 'übernommen, unverändert',
-  'inherited-amended': 'übernommen, geändert',
-  'ostdeutsch-original': 'ostdeutsch',
+  'inherited-unchanged': 'Übernommen · unverändert',
+  'inherited-amended': 'Übernommen · geändert',
+  'ostdeutsch-original': 'Ostdeutsch neu',
   'origin-unresolved': 'Herkunft ungeklärt',
 };
 
@@ -42,10 +43,10 @@ function legalStatus(norm: NormSummary): string {
       <tr>
         <th scope="col">Titel</th>
         <th scope="col">Abkürzung</th>
-        {showType ? <th scope="col">Normtyp</th> : null}
+        {showType ? <th scope="col" class="r-norm-table__type">Normtyp</th> : null}
         <th scope="col">Geltung</th>
         <th scope="col">Rechtsstand</th>
-        {showOrigin ? <th scope="col">Herkunft</th> : null}
+        {showOrigin ? <th scope="col" class="r-norm-table__origin">Herkunft</th> : null}
       </tr>
     </thead>
     <tbody>
@@ -58,10 +59,10 @@ function legalStatus(norm: NormSummary): string {
               {block.longTitle ? <div class="r-meta">{block.longTitle}</div> : null}
             </td>
             <td class="r-nowrap">{block.abbr ?? '—'}</td>
-            {showType ? <td class="r-nowrap r-muted">{formatNormType(norm.type)}</td> : null}
+            {showType ? <td class="r-nowrap r-muted r-norm-table__type">{formatNormType(norm.type)}</td> : null}
             <td class="r-nowrap"><StatusMark status={norm.status} size="sm" /></td>
             <td class="r-meta">{legalStatus(norm)}</td>
-            {showOrigin ? <td class="r-meta r-muted">{originWords[norm.originKind ?? 'origin-unresolved']}</td> : null}
+            {showOrigin ? <td class="r-meta r-muted r-nowrap r-norm-table__origin">{originWords[norm.originKind ?? 'origin-unresolved']}</td> : null}
           </tr>
         );
       })}

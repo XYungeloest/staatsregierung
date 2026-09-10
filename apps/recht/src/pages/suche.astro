@@ -12,7 +12,7 @@ import {
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { formatSubjectLabel } from '@ostrecht/shared/config/law-subjects.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
-import { VALIDITY_FIELD_LABEL, VERSION_FIELD_LABEL, VERSION_SCOPE_OPTIONS, validityLabel } from '../lib/vocabulary.ts';
+import { VALIDITY_FIELD_LABEL, VERSION_FIELD_LABEL, VERSION_SCOPE_OPTIONS, validityOptions } from '../lib/vocabulary.ts';
 
 // Die Suchseite ist eine statische Hülle (P2/P2b); Treffer liefert zur Laufzeit /api/suche.json aus D1.
 const store = await getNormStore(Astro.locals);
@@ -23,7 +23,8 @@ const [{ filters, documentCount }, searchPublications] = await Promise.all([
 filters.publications = [...new Set(searchPublications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));
 filters.years = [...new Set(searchPublications.map((publication) => publication.year))].sort((left, right) => right.localeCompare(left));
 const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
-const statusOptions = filters.statuses.map((option) => ({ value: option.value, label: validityLabel(option.value as NormStatus) }));
+// Gleiche Wörter der Wortliste werden zu einer Option („außer Kraft“ filtert repealed und historical).
+const statusOptions = validityOptions(filters.statuses.map((option) => option.value as NormStatus)).map((option) => ({ value: option.value, label: option.label, values: option.statuses }));
 const subjectOptions = filters.subjects.map((option) => ({ value: option, label: formatSubjectLabel(option, { withNumber: true, short: true }) }));
 const sortOptions = [
   { value: 'relevance', label: 'Relevanz' },
@@ -40,13 +41,12 @@ const sortOptions = [
   breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: lawSiteConfig.targetLabels.search, href: getSearchUrl() }]}
   noindex={true}
 >
-  <section class="r-search" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl} data-index-url={getIndexUrl()} data-keyword-index-url={getKeywordIndexUrl()} data-subjects-url={getSubjectsUrl()}>
-    <h2 class="visually-hidden" id="search-form-title">Suchanfrage und Filter</h2>
+  <section class="r-search" aria-labelledby="search-title" data-search-root data-search-api={searchApiUrl} data-index-url={getIndexUrl()} data-keyword-index-url={getKeywordIndexUrl()} data-subjects-url={getSubjectsUrl()}>
 
     <form class="r-search__form" action={getSearchUrl()} method="get" data-search-form>
       <div class="r-search__layout">
         <div class="r-search__main">
-          <h1 class="r-search__title">Suche im Landesrecht</h1>
+          <h1 class="r-search__title r-h1" id="search-title">Suche im Landesrecht</h1>
           <div class="r-search__bar">
             <label class="r-search__query">
               <span class="visually-hidden">Suchbegriff</span>
@@ -82,19 +82,23 @@ const sortOptions = [
                 </div>
               </fieldset>
 
-              <fieldset class="r-fieldset r-fieldset--caps">
-                <legend>Norm und Zuständigkeit</legend>
-                <div class="r-fieldset__body">
-                  <SearchCheckboxGroup legend="Ressort" name="ministry" facet="ministry" options={filters.ministries.map((option) => ({ value: option, label: option }))} />
-                </div>
-              </fieldset>
+              {filters.ministries.length > 0 ? (
+                <fieldset class="r-fieldset r-fieldset--caps">
+                  <legend>Norm und Zuständigkeit</legend>
+                  <div class="r-fieldset__body">
+                    <SearchCheckboxGroup legend="Ressort" name="ministry" facet="ministry" options={filters.ministries.map((option) => ({ value: option, label: option }))} />
+                  </div>
+                </fieldset>
+              ) : null}
 
-              <fieldset class="r-fieldset r-fieldset--caps">
-                <legend>Rechtsherkunft</legend>
-                <div class="r-fieldset__body">
-                  <SearchCheckboxGroup legend="Rechtsherkunft" name="origin" facet="origin" options={filters.origins} />
-                </div>
-              </fieldset>
+              {filters.origins.length > 0 ? (
+                <fieldset class="r-fieldset r-fieldset--caps">
+                  <legend>Rechtsherkunft</legend>
+                  <div class="r-fieldset__body">
+                    <SearchCheckboxGroup legend="Rechtsherkunft" name="origin" facet="origin" options={filters.origins} />
+                  </div>
+                </fieldset>
+              ) : null}
 
               <fieldset class="r-fieldset r-fieldset--caps">
                 <legend>{VERSION_FIELD_LABEL}</legend>
@@ -159,18 +163,14 @@ const sortOptions = [
               </select>
             </label>
           </div>
-          <div class="r-search__results" data-search-results></div>
-          <div class="r-search__more">
-            <button class="r-btn" type="button" data-search-more hidden>Weitere Treffer laden</button>
-          </div>
         </div>
 
         <aside class="r-search__aside" aria-label="Suchfilter">
           <details class="r-search__filters" data-search-filters open>
-            <summary class="r-search__filters-summary"><span class="r-label">Eingrenzen</span></summary>
+            <summary class="r-search__filters-summary"><span class="r-h3">Eingrenzen</span></summary>
             <div class="r-search__filters-body">
               <div class="r-search__filters-head">
-                <h2 class="r-label">Eingrenzen</h2>
+                <h2 class="r-h3">Eingrenzen</h2>
                 <a class="r-caption" href={getSearchUrl()} data-search-reset-link>Zurücksetzen</a>
               </div>
               <SearchCheckboxGroup legend={VALIDITY_FIELD_LABEL} name="status" facet="status" options={statusOptions} />
@@ -183,7 +183,7 @@ const sortOptions = [
             </div>
           </details>
           <div class="r-search__tips">
-            <h2 class="r-label">Suchhinweise</h2>
+            <h2 class="r-h3">Suchhinweise</h2>
             <ul class="r-search__tips-list">
               <li>„…“ sucht die exakte Wortgruppe.</li>
               <li>schul* findet Wortanfänge.</li>
@@ -192,6 +192,13 @@ const sortOptions = [
             </ul>
           </div>
         </aside>
+
+        <div class="r-search__results-wrap">
+          <div class="r-search__results" data-search-results></div>
+          <div class="r-search__more">
+            <button class="r-btn" type="button" data-search-more hidden>Weitere Treffer laden</button>
+          </div>
+        </div>
       </div>
     </form>
 

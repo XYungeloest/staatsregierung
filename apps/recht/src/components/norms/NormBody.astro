@@ -204,7 +204,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                   const absId = subparagraphId(block.label, run.index);
                   return (
                   <div class="norm-abs" id={absId}>
-                    {absId ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a> : <span class="norm-abs__addr"><span class="norm-abs__label">{toDisplayText(block.label)}</span></span>}
+                    {absId ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit visually-hidden">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a> : <span class="norm-abs__addr"><span class="norm-abs__label">{toDisplayText(block.label)}</span></span>}
                     <div class="norm-abs__body">
                       <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
                       {block.children && block.children.length > 0 ? (
@@ -230,7 +230,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                 return (
                 <div class:list={['norm-abs', block.label ? undefined : 'norm-abs--unlabeled']} id={absId}>
                   {absId && block.label
-                    ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a>
+                    ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit visually-hidden">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a>
                     : <span class="norm-abs__addr">{block.label ? <span class="norm-abs__label">{toDisplayText(block.label)}</span> : null}</span>}
                   <div class="norm-abs__body">
                     <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />

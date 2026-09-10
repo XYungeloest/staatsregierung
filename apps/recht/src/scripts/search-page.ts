@@ -112,6 +112,25 @@ function normalizeSort(value: string): SortKey {
   return value === 'relevance' || value === 'title' || value === 'rechtsstand' || value === 'publication' ? value : 'activity';
 }
 
+/**
+ * Werte einer Facette, die eine Option gemeinsam filtert (`data-search-facet-values`, etwa
+ * „außer Kraft“ = repealed und historical). Ohne Gruppe ist der Wert die Option selbst.
+ */
+function facetValuesOf(input: HTMLInputElement): string[] {
+  return input.dataset.searchFacetValues?.split(' ').filter(Boolean) ?? [input.value];
+}
+
+/** Gruppenwerte einer Facette im Formular aufgelöst; alte Adressen mit Einzelwerten bleiben lesbar. */
+function expandFacetValues(name: string, values: string[]): string[] {
+  const inputs = Array.from(document.querySelectorAll<HTMLInputElement>(`input[type="checkbox"][name="${name}"]`));
+  const expanded = new Set<string>();
+  for (const value of values) {
+    const group = inputs.find((input) => facetValuesOf(input).includes(value));
+    for (const member of group ? facetValuesOf(group) : [value]) expanded.add(member);
+  }
+  return [...expanded];
+}
+
 function formValues(data: FormData, name: string): string[] {
   return [...new Set(data.getAll(name).map(String).map((value) => value.trim()).filter(Boolean))];
 }
@@ -178,7 +197,7 @@ function getFormState(): NormSearchState {
     types: formValues(data, 'type'),
     ministries: formValues(data, 'ministry'),
     subjects: formValues(data, 'subject'),
-    statuses: formValues(data, 'status'),
+    statuses: expandFacetValues('status', formValues(data, 'status')),
     origins: formValues(data, 'origin'),
     versionScope: normalizeVersionScope(String(data.get('versionScope') ?? 'current')),
     versionScopeExplicit: versionScopeIsExplicit(),
@@ -204,7 +223,7 @@ function readStateFromUrl(): NormSearchState {
     types: params.getAll('type'),
     ministries: params.getAll('ministry'),
     subjects: params.getAll('subject'),
-    statuses: params.getAll('status'),
+    statuses: expandFacetValues('status', params.getAll('status')),
     // Wie die Such-API: unbekannte Herkunftsarten werden verworfen, nicht als leerer Filter gezählt.
     origins: params.getAll('origin').filter((value) => (NORM_ORIGIN_KINDS as readonly string[]).includes(value)),
     versionScope: normalizeVersionScope(params.get('versionScope') ?? 'current'),
@@ -251,7 +270,7 @@ function applyStateToForm(state: NormSearchState): void {
     if (!(element instanceof HTMLInputElement || element instanceof HTMLSelectElement) || !element.name) continue;
     const value = values[element.name];
     if (element instanceof HTMLInputElement && element.type === 'checkbox') {
-      element.checked = value === true || (Array.isArray(value) && value.includes(element.value));
+      element.checked = value === true || (Array.isArray(value) && facetValuesOf(element).some((member) => value.includes(member)));
     } else if (element instanceof HTMLSelectElement && element.multiple) {
       const selected = Array.isArray(value) ? value : [];
       Array.from(element.options).forEach((option) => {
@@ -374,7 +393,7 @@ function clearFilter(name: string, value: string): void {
   for (const element of Array.from(form.elements)) {
     if (!(element instanceof HTMLInputElement || element instanceof HTMLSelectElement) || element.name !== name) continue;
     if (element instanceof HTMLInputElement && element.type === 'checkbox') {
-      if (element.value === value) element.checked = false;
+      if (facetValuesOf(element).includes(value)) element.checked = false;
     } else {
       element.value = filterDefaults[name] ?? '';
     }
@@ -508,7 +527,7 @@ function renderHit(hit: SearchHit, state: NormSearchState): string {
       </div>
       <div class="search-hit__meta">${meta}</div>
       ${placesMarkup(hit)}
-      <div class="search-hit__links"><a href="${escapeHtml(`${hit.currentUrl}history/`)}">${escapeHtml(NORM_HISTORY_LABEL)}</a>${hit.ministry ? ` · <span class="r-muted">${escapeHtml(hit.ministry)}</span>` : ''}</div>
+      <div class="search-hit__links r-inline-list"><a href="${escapeHtml(`${hit.currentUrl}history/`)}">${escapeHtml(NORM_HISTORY_LABEL)}</a>${hit.ministry ? `<span class="r-muted">${escapeHtml(hit.ministry)}</span>` : ''}</div>
     </article>
   `;
 }
@@ -551,7 +570,7 @@ function updateFacetCounts(): void {
     const facet = input.dataset.searchFacet ?? '';
     if (!(SEARCH_FACETS as readonly string[]).includes(facet)) return;
     const counts = loadedFacets?.[facet as SearchFacet];
-    const count = counts?.[input.value] ?? 0;
+    const count = facetValuesOf(input).reduce((sum, member) => sum + (counts?.[member] ?? 0), 0);
     const countElement = input.closest('label')?.querySelector<HTMLElement>('[data-search-facet-count]');
     if (countElement) countElement.textContent = counts ? `(${count})` : '';
     const label = input.dataset.baseLabel ?? input.value;

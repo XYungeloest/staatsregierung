@@ -8,7 +8,7 @@ import type { NormHistoryEntry, NormRecord, NormVersion } from '@ostrecht/shared
 import { classifyNormVersion, classifyNormVersions, EDITORIAL_REFERENCE_DATE, type VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
 
 import { formatShortDate } from './dates.ts';
-import { describeChange, describeChangeAgent } from './history-labels.ts';
+import { describeChangeAgent } from './history-labels.ts';
 import { validityLabel } from './vocabulary.ts';
 
 /**
@@ -72,12 +72,12 @@ function originText(origin: NormOriginInfo, version: NormVersion): string {
   const versionKind = classifyNormOriginVersion(origin, version);
   const count = origin.ownAmendmentCount;
   const changes = count === 1 ? '1 ostdeutsche Änderung' : `${count} ostdeutsche Änderungen`;
-  if (versionKind === 'ostdeutsch-original') return 'Ostdeutsch neu geschaffen · kein übernommenes sächsisches Ausgangsrecht';
+  if (versionKind === 'ostdeutsch-original') return 'Ostdeutsch neu geschaffen, kein übernommenes sächsisches Ausgangsrecht';
   if (versionKind === 'origin-unresolved') return 'Rechtsherkunft noch nicht sicher zugeordnet';
-  if (origin.kind === 'inherited-unchanged') return `Übernommen und unverändert · sächsischer Rechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}`;
-  if (versionKind === 'baseline') return `Übernommen und ostdeutsch geändert · diese Fassung ist der sächsische Ausgangsrechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}`;
-  if (versionKind === 'inherited-intermediate') return `Übernommen und ostdeutsch geändert · übernommener sächsischer Rechtsstand vor der ersten ostdeutschen Änderung`;
-  return `Übernommen und ostdeutsch geändert · sächsischer Rechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}, seitdem ${changes}`;
+  if (origin.kind === 'inherited-unchanged') return `Übernommen und unverändert: sächsischer Rechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}`;
+  if (versionKind === 'baseline') return `Übernommen und ostdeutsch geändert: diese Fassung ist der sächsische Ausgangsrechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}`;
+  if (versionKind === 'inherited-intermediate') return `Übernommen und ostdeutsch geändert: übernommener sächsischer Rechtsstand vor der ersten ostdeutschen Änderung`;
+  return `Übernommen und ostdeutsch geändert: sächsischer Rechtsstand vom ${formatShortDate(LEGAL_BASELINE_DATE)}, seitdem ${changes}`;
 }
 
 function originLinks(norm: NormRecord, version: NormVersion, origin: NormOriginInfo): HeadLink[] {
@@ -124,10 +124,10 @@ export function buildNormHeadModel(
   let band: NormHeadBand | undefined;
 
   const amendment = latestAmendment(norm);
+  // Ohne bekannten Kurztitel nennt describeChangeAgent die ändernde Vorschrift aus Titel oder
+  // Vollzitat; Sätze und Änderungsnotizen kommen dort nicht durch.
   const amendmentText = amendment
-    // Ohne bekannten Kurztitel trägt der Eintragstitel die Ursache; das Ereigniswort steht schon
-    // in der Zeile („zuletzt geändert durch …“) und wird nicht wiederholt.
-    ? (amendment.relatedNorm && amendmentLabels?.get(amendment.relatedNorm)?.shortTitle) || describeChangeAgent(amendment) || describeChange(amendment)
+    ? (amendment.relatedNorm && amendmentLabels?.get(amendment.relatedNorm)?.shortTitle) || describeChangeAgent(amendment)
     : '';
   const publicationHref = publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined;
 
@@ -148,7 +148,7 @@ export function buildNormHeadModel(
       primary = validityLabel(status);
     }
     if (amendment && status !== 'one-time-act') {
-      parts.push({ text: `zuletzt geändert durch ${amendmentText} mit Wirkung vom ${formatShortDate(amendment.date)}`, href: amendment.relatedNorm ? getNormUrl(amendment.relatedNorm) : undefined });
+      parts.push({ text: amendmentText ? `zuletzt geändert durch ${amendmentText} mit Wirkung vom ${formatShortDate(amendment.date)}` : `zuletzt geändert mit Wirkung vom ${formatShortDate(amendment.date)}`, href: amendment.relatedNorm ? getNormUrl(amendment.relatedNorm) : undefined });
       const citation = shortCitation(amendment.citation);
       if (citation) parts.push({ text: citation, href: publicationHref });
     }
@@ -165,7 +165,7 @@ export function buildNormHeadModel(
     band = {
       kind: 'historical',
       title: 'Historische Fassung',
-      text: `gültig vom ${versionFrom}${version.validTo ? ` bis ${formatShortDate(version.validTo)}` : '; Gültigkeitsende nicht belegt'}${replacedBy ? ` · abgelöst durch ${(replacedBy.relatedNorm && amendmentLabels?.get(replacedBy.relatedNorm)?.shortTitle) || describeChangeAgent(replacedBy) || describeChange(replacedBy)}` : ''}`,
+      text: `gültig vom ${versionFrom}${version.validTo ? ` bis ${formatShortDate(version.validTo)}` : '; Gültigkeitsende nicht belegt'}${replacedBy ? (() => { const agent = (replacedBy.relatedNorm && amendmentLabels?.get(replacedBy.relatedNorm)?.shortTitle) || describeChangeAgent(replacedBy); return agent ? `, abgelöst durch ${agent}` : ''; })() : ''}`,
       links: current ? [{ text: `Zur geltenden Fassung (seit ${formatShortDate(current.validFrom)}) →`, href: getNormUrl(norm.meta.slug) }] : [],
     };
   } else if (temporalKind === 'future') {

@@ -205,6 +205,46 @@ test('Stilwächter: die Inhaltsübersicht bleibt lesbar (Einträge mindestens --
   assert.deepEqual(problems, [], `Navigations- und Listeneinträge stehen nie unter der Lesegrenze:\n${problems.join('\n')}`);
 });
 
+/**
+ * OstRecht (apps/recht/src/styles) hat seit Richtung E einen eigenen Grenzensatz. Die Stufen sind
+ * die fünf aus tokens.css (29.99, 39.99, 47.99, 59.99, 79.99 rem) plus die begründete Ausnahme des
+ * Amtsbands (80rem); Hexfarben sind nur den Druckregeln erlaubt (print.css setzt Schwarz und Grau
+ * für Papier); rohe rem-Werte bleiben bei den drei gemessenen Fällen; keine Regel setzt eine
+ * Eigenschaft zweimal; der Fokusring ist mindestens 3 px breit (gleiche Stärke wie das Staatsportal).
+ */
+const RECHT_LIMITS = {
+  breakpoints: ['29.99rem', '39.99rem', '47.99rem', '59.99rem', '79.99rem', '80rem'],
+  hexOutsidePrint: 0,
+  rawRem: 3,
+  duplicateProperties: 0,
+  focusWidthPx: 3,
+};
+const rechtMetrics = measureStylesheets(RECHT_STYLES_DIR);
+
+test('Stilwächter OstRecht: nur die geplanten Stufen als max-width-Grenzen', () => {
+  const unplanned = rechtMetrics.breakpoints.filter((entry) => !RECHT_LIMITS.breakpoints.includes(entry));
+  assert.deepEqual(unplanned, [], `Ungeplante Stufen: ${unplanned.join(', ')}. Neue Stufen brauchen einen Platz in tokens.css und DESIGN.md (Responsives Verhalten).`);
+});
+
+test('Stilwächter OstRecht: Hexfarben in border*- und background*-Deklarationen nur in print.css', () => {
+  const outsidePrint = rechtMetrics.hexInBorderBackground.filter((entry) => entry.file !== 'print.css');
+  assert.ok(outsidePrint.length <= RECHT_LIMITS.hexOutsidePrint, `Gemessen ${outsidePrint.length}, erlaubt ${RECHT_LIMITS.hexOutsidePrint}. Farben kommen aus tokens.css:\n${describeFindings(outsidePrint)}`);
+});
+
+test('Stilwächter OstRecht: keine wachsende Zahl roher rem-Werte in Abstands- und Schriftgrößen-Deklarationen', () => {
+  assert.ok(rechtMetrics.rawRem.length <= RECHT_LIMITS.rawRem, `Gemessen ${rechtMetrics.rawRem.length}, erlaubt ${RECHT_LIMITS.rawRem}. Abstände kommen aus var(--space-*), Schriftgrößen aus var(--fs-*):\n${describeFindings(rechtMetrics.rawRem)}`);
+});
+
+test('Stilwächter OstRecht: kein Selektor setzt dieselbe Eigenschaft zweimal mit unterschiedlichem Wert', () => {
+  assert.ok(rechtMetrics.duplicateProperties.length <= RECHT_LIMITS.duplicateProperties, `Gemessen ${rechtMetrics.duplicateProperties.length}, erlaubt ${RECHT_LIMITS.duplicateProperties}:\n${describeDuplicates(rechtMetrics.duplicateProperties)}`);
+});
+
+test('Stilwächter OstRecht: der Fokusring ist mindestens 3 px breit', () => {
+  const tokens = readFileSync(`${RECHT_STYLES_DIR}tokens.css`, 'utf8');
+  const width = Number.parseFloat(tokens.match(/--focus-width:\s*([\d.]+)px/u)?.[1] ?? '0');
+  assert.ok(width >= RECHT_LIMITS.focusWidthPx, `--focus-width ist ${width}px, mindestens ${RECHT_LIMITS.focusWidthPx}px (Fokusstärke beider Portale).`);
+});
+
 test('Stilwächter: kein Selektor setzt dieselbe Eigenschaft außerhalb von Media Queries zweimal mit unterschiedlichem Wert', () => {
   assert.ok(metrics.duplicateProperties.length <= LIMITS.duplicateProperties, `Gemessen ${metrics.duplicateProperties.length} Selektor/Eigenschaft-Paare mit mehreren Werten, erlaubt ${LIMITS.duplicateProperties}. Eine Eigenschaft je Selektor genau einmal setzen (spätere Regel gewinnt sonst still):\n${describeDuplicates(metrics.duplicateProperties)}`);
 });

@@ -90,9 +90,22 @@ export function describeChangeCause(change: { title?: string | null }): string {
 }
 
 /**
- * Verursachende Vorschrift ohne einleitendes „durch“ – für Zeilen, die das Wort selbst tragen
- * („zuletzt geändert durch …“, „abgelöst durch …“).
+ * Ein Eintragstitel, der einen Satz oder eine Änderungsnotiz trägt („… wurde neu gefasst.“,
+ * „… berücksichtigt.“), bezeichnet keine Vorschrift. Er bleibt als Ursache lesbar, taugt aber
+ * nicht als Einschub in „zuletzt geändert durch …“.
  */
-export function describeChangeAgent(change: { title?: string | null }): string {
-  return describeChangeCause(change).replace(/^durch\s+/u, '');
+function isSentence(text: string): boolean {
+  return /\b(?:wurde|wurden|wird|werden|ist|sind|berücksichtigt|gefasst|ergänzt|gestrichen|aufgehoben|eingefügt)\b/u.test(text) || /[.;]\s*\S/u.test(text);
+}
+
+/**
+ * Verursachende Vorschrift für Zeilen, die das Wort „durch“ selbst tragen („zuletzt geändert
+ * durch …“, „abgelöst durch …“): der Titel ohne Ereigniswort und ohne „durch“, ohne Schlusspunkt.
+ * Ist der Titel ein Satz, steht stattdessen der Anfang des Vollzitats („Gesetz vom …“); fehlt
+ * auch der, bleibt die Angabe leer, und die Zeile nennt nur das Datum.
+ */
+export function describeChangeAgent(change: { title?: string | null; citation?: string | null }): string {
+  const cause = describeChangeCause(change).replace(/^durch\s+/u, '').replace(/\.\s*$/u, '').trim();
+  if (cause && !isSentence(cause)) return cause;
+  return citationOpening(change.citation);
 }

@@ -138,6 +138,7 @@
   --col-aside: 15.625rem;     /* 250 px */
   --col-filter: 18.75rem;     /* 300 px */
   --col-facts-aside: 23.75rem;/* 380 px */
+  --col-addr: 3rem;           /* 48 px – Absatzadresse „(1)“ neben dem Normtext */
 
   /* Linien, Radien, Ebenen */
   --line: 1px;
@@ -149,7 +150,7 @@
 
   /* Fokus: 2 px Staatsblau auf hellem Grund, Wappengold auf dem Amtsband */
   --focus-color: var(--blue-800);
-  --focus-width: 2px;
+  --focus-width: 3px;
   --focus-offset: 2px;
 
   /* Bedienziele */
