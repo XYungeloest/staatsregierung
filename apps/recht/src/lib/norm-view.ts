@@ -1,10 +1,20 @@
 import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/display.ts';
 import type { NormPublicationReference } from '@ostrecht/shared/lib/norms/publications.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
-import { classifyNormVersions } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersions, getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 
 import { latestAmendment } from './norm-head.ts';
 import type { NormStore } from './runtime/store.ts';
+
+/** Gemeinsame Daten für die eigenständigen Daten- und Beziehungsansichten. */
+export async function loadNormSection(store: NormStore, slug: string, versionId?: string) {
+  const norm = await store.getNorm(slug, versionId ? [versionId] : 'current');
+  if (!norm) return null;
+  const version = versionId ? norm.versions.find((entry) => entry.versionId === versionId) : getCurrentVersion(norm);
+  if (!version) return null;
+  const view = await loadNormView(store, norm, version);
+  return view ? { norm, version, view } : null;
+}
 
 /**
  * Gemeinsame Ladeschritte der Normansichten (Text, Fassung): abgeleitete Daten, Vollzitat,

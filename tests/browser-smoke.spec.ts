@@ -1,6 +1,7 @@
 import { expect, test, type APIRequestContext, type Locator, type Page } from '@playwright/test';
 
 import { legacyRoutes } from '../apps/portal/src/config/legacy-routes.mjs';
+import { lawPaths } from '../packages/shared/src/config/site-routing.ts';
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
 import {
   currentDocuments,
@@ -1250,7 +1251,7 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und führt
   let keyword = '';
   let keywordLetter = letter;
   for (const candidate of [letter, ...(await page.locator('.letter-nav a[data-index-letter]:not([data-index-letter=""])').evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-index-letter') ?? '')))]) {
-    await page.goto(lawUrl(`/a-z/?buchstabe=${candidate}`));
+    await page.goto(lawUrl(`/a-z/abkuerzungen/?buchstabe=${candidate}`));
     const first = page.locator('[data-index-entry] > dt').first();
     if (await first.count() === 0) continue;
     keyword = ((await first.textContent()) ?? '').trim();
@@ -1258,7 +1259,7 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und führt
     if (keyword.length > 2) break;
   }
   expect(keyword.length, 'Buchstabengruppe mit Abkürzungen und Kurztiteln').toBeGreaterThan(2);
-  await page.goto(lawUrl(`/a-z/?buchstabe=${keywordLetter}&abkuerzung=${encodeURIComponent(keyword)}`));
+  await page.goto(lawUrl(`/a-z/abkuerzungen/?buchstabe=${keywordLetter}&abkuerzung=${encodeURIComponent(keyword)}`));
   // Verglichen wird der gelesene Parameter, nicht die Schreibweise der Adresse: das Formular
   // schreibt Leerzeichen als `+`, eine gebaute Adresse als `%20`.
   await expect.poll(() => new URL(page.url()).searchParams.get('abkuerzung')).toBe(keyword);
@@ -1273,7 +1274,8 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und führt
   await expect.poll(() => new URL(page.url()).searchParams.get('abkuerzung')).toBe(keyword);
   await expect(page.locator('[data-index-filter-status]')).toContainText(`passen zu „${keyword}“`);
 
-  // Das Stichwortregister ist ein eigener Abschnitt mit eigenem Zustand; es darf leer sein.
+  // Das Stichwortregister ist eine eigene Seite mit eigenem Zustand; es darf leer sein.
+  await page.getByRole('navigation', { name: 'Zugänge' }).getByRole('link', { name: /^Stichwortregister/u }).click();
   await expect(page.locator('[data-register-count]')).toBeVisible();
 
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
@@ -1423,31 +1425,35 @@ siteTest(['law'])('A–Z bietet Herkunftsfilter und hält den Buchstabenwechsel 
 });
 
 
-siteTest(['law'])('A–Z hält Vorschriften- und Abkürzungsseite unabhängig (mehrseitige Buchstabengruppe)', async ({ page }) => {
-  // Zwei gleichzeitig paginierte Dimensionen gibt es erst ab 50 Vorschriften und 50 Einträgen je
-  // Buchstabe – also nur mit dem Vollbestand. Ohne zweite Seite wird übersprungen statt geraten.
-  await page.goto(lawUrl('/a-z/?buchstabe=G'));
-  const indexPages = await page.locator('[data-index-pagination] a[aria-label^="Seite "]').count();
-  const keywordPages = await page.locator('[data-keyword-pagination] a[aria-label^="Seite "]').count();
-  test.skip(indexPages < 2 || keywordPages < 2, `Buchstabe G hat ${indexPages} Vorschriften- und ${keywordPages} Abkürzungsseiten; die Unabhängigkeit beider Paginierungen wird mit dem Vollbestand geprüft.`);
-
-  // Beide Paginierungen derselben Seite behalten den jeweils anderen Zustand.
-  await page.goto(lawUrl('/a-z/?buchstabe=G&seite=2&abkuerzungsseite=2'));
-  await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
-  await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
-  const normLinks = await page.locator('[data-index-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
-  expect(normLinks.length).toBeGreaterThan(0);
-  expect(normLinks.every((href) => href.includes('abkuerzungsseite=2'))).toBe(true);
-  const keywordLinks = await page.locator('[data-keyword-pagination] a[href]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLAnchorElement).getAttribute('href') ?? ''));
-  expect(keywordLinks.length).toBeGreaterThan(0);
-  expect(keywordLinks.every((href) => /[?&]seite=2/u.test(href))).toBe(true);
-  await page.locator('[data-keyword-pagination] a[rel], [data-keyword-pagination] a').filter({ hasText: 'Nächste Einträge' }).click();
-  await expect(page).toHaveURL(/seite=2/u);
-  await expect(page).toHaveURL(/abkuerzungsseite=3/u);
-  await expect(page.locator('[data-index-pagination] a[aria-current="page"]')).toHaveText('2');
-  await page.goBack();
-  await expect(page).toHaveURL(/abkuerzungsseite=2/u);
-  await expect(page.locator('[data-keyword-pagination] a[aria-current="page"]')).toHaveText('2');
+siteTest(['law'])('Registerseiten bewahren den Buchstaben bei Wechsel und Reload, ohne fremde Filter', async ({ page, request }) => {
+  for (const path of ['/a-z/', '/a-z/stichwortregister/', '/a-z/abkuerzungen/']) {
+    const response = await request.get(lawUrl(path));
+    expect(response.status()).toBe(200);
+    expect(response.headers()['cache-control']).toBe('public, max-age=300, s-maxage=3600');
+  }
+  await page.goto(lawUrl('/a-z/?buchstabe=A&herkunft=inherited-unchanged&seite=2'));
+  const tabs = page.getByRole('navigation', { name: 'Zugänge' });
+  await tabs.getByRole('link', { name: /^Stichwortregister/u }).click();
+  expect(new URL(page.url()).pathname).toBe('/a-z/stichwortregister/');
+  expect(new URL(page.url()).search).toBe('?buchstabe=A');
+  await page.locator('.letter-nav a[data-index-letter="S"]').click();
+  await page.reload();
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('S');
+  await expect(tabs.locator('[aria-current="page"]')).toHaveCount(1);
+  await expect(tabs.locator('[aria-current="page"]')).toContainText('Stichwortregister');
+  await expect(page.locator('[data-register-count]')).toBeVisible();
+  await page.locator('[data-register-filter]').fill('Test');
+  await page.locator('[data-register-filter-form] button').click();
+  await tabs.getByRole('link', { name: /^Abkürzungen/u }).click();
+  expect(new URL(page.url()).pathname).toBe('/a-z/abkuerzungen/');
+  expect(new URL(page.url()).search).toBe('?buchstabe=S');
+  await page.reload();
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('S');
+  await expect(tabs.locator('[aria-current="page"]')).toContainText('Abkürzungen und Kurztitel');
+  expect(new URL(page.url()).hash).toBe('');
+  await expect(page.locator('[data-directory-list], [data-register-count]')).toHaveCount(0);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/a-z\/abkuerzungen\/\?buchstabe=S$/u);
+  await expect(page).toHaveTitle(/Abkürzungen und Kurztitel/u);
 });
 
 siteTest(['law'])('Rechtsentwicklung und Fundstellen bleiben als Adressen gültig und führen an ihren neuen Ort', async ({ request }) => {
@@ -1661,6 +1667,83 @@ siteTest(['portal'])('Portalsuche gruppiert nach Bereichen und lädt den Rechtsb
   await expect(page.locator('[data-portal-search-status]')).toContainText('0 im Recht');
 });
 
+siteTest(['law'])('Primäre Navigation öffnet eigenständige Ansichten und bewahrt konkrete Fassungen', async ({ page, request }) => {
+  await page.goto(lawUrl('/'));
+  const mainNav = page.getByRole('navigation', { name: 'Hauptnavigation', exact: true });
+  await expect(mainNav.getByRole('link')).toHaveText(['Sachgebiete', 'A–Z und Register', 'Amtliche Veröffentlichungen', 'Verfassung', 'Hilfe']);
+  await expect(page.locator('#aenderungsdienst')).toBeVisible();
+  await expect(mainNav.locator('a[href*="#"]')).toHaveCount(0);
+
+  const norm = await multiVersionNorm(request);
+  const sitemap = await (await request.get(lawUrl('/sitemap.xml'))).text();
+  for (const path of ['/a-z/stichwortregister/', '/a-z/abkuerzungen/', `/norm/${norm.slug}/daten/`, `/norm/${norm.slug}/beziehungen/`, `/norm/${norm.slug}/version/${norm.historical.versionId}/daten/`, `/norm/${norm.slug}/version/${norm.historical.versionId}/beziehungen/`]) {
+    expect(sitemap).toContain(`${path}</loc>`);
+  }
+  for (const [section, segment, content] of [['facts', 'daten', '.norm-facts'], ['relations', 'beziehungen', '.norm-relations']] as const) {
+    await page.goto(lawUrl(`/norm/${norm.slug}/history/`));
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await expect(page.locator('.norm-tabs a[href*="#"]')).toHaveCount(0);
+    await page.locator(`[data-norm-tab="${section}"]`).click();
+    expect(new URL(page.url()).pathname).toBe(`/norm/${norm.slug}/${segment}/`);
+    expect(new URL(page.url()).hash).toBe('');
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+    await expect(page.locator(content)).toBeVisible();
+    await expect(page.locator('.norm-tabs [aria-current="page"]')).toHaveCount(1);
+    await expect(page.locator(`[data-norm-tab="${section}"]`)).toHaveAttribute('aria-current', 'page');
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', new RegExp(`/norm/${norm.slug}/${segment}/$`, 'u'));
+    await expect(page).toHaveTitle(section === 'facts' ? /Vorschriftendaten/u : /Rechtsbeziehungen/u);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.+/u);
+    await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
+
+    await page.goto(lawUrl(norm.historical.url));
+    const head = await page.locator('.norm-page-header').textContent();
+    await page.locator(`[data-norm-tab="${section}"]`).click();
+    expect(new URL(page.url()).pathname).toBe(`/norm/${norm.slug}/version/${norm.historical.versionId}/${segment}/`);
+    expect(await page.locator('.norm-page-header').textContent()).toBe(head);
+    await expect(page.locator('.norm-band')).toContainText('HISTORISCHE FASSUNG');
+    await expect(page.locator('[data-norm-tab="text"]')).toHaveAttribute('href', new RegExp(`/version/${norm.historical.versionId}/$`, 'u'));
+    await expect(page.locator('[data-norm-tab="versions"]')).toHaveAttribute('href', new RegExp(`/norm/${norm.slug}/history/$`, 'u'));
+    if (section === 'facts') await expect(page.locator('.norm-facts')).toContainText('Historische Fassung');
+  }
+  // Auch ein expliziter Link auf die derzeit geltende Fassung bleibt unveränderlich.
+  await page.goto(lawUrl(`/norm/${norm.slug}/version/${norm.current.versionId}/`));
+  await page.locator('[data-norm-tab="facts"]').click();
+  expect(new URL(page.url()).pathname).toBe(`/norm/${norm.slug}/version/${norm.current.versionId}/daten/`);
+  const constitution = await page.goto(lawUrl(lawPaths.constitution));
+  expect(constitution?.status()).toBe(200);
+  await expect(mainNav.getByRole('link', { name: 'Verfassung' })).toHaveAttribute('aria-current', 'page');
+  const constitutionVersion = await page.locator('.norm-timeline a[href*="/version/"]').first().getAttribute('href');
+  expect(constitutionVersion).toBeTruthy();
+  await page.goto(lawUrl(constitutionVersion!));
+  await page.locator('[data-norm-tab="relations"]').click();
+  await expect(mainNav.getByRole('link', { name: 'Verfassung' })).toHaveAttribute('aria-current', 'page');
+});
+
+siteTest(['law'])('Bereichsseiten funktionieren ohne JavaScript und unbekannte Fassungen bleiben 404', async ({ browser, request }) => {
+  const norm = await multiVersionNorm(request);
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  try {
+    await page.goto(lawUrl(norm.historical.url));
+    await page.locator('[data-norm-tab="facts"]').click();
+    await expect(page.locator('.norm-facts')).toContainText('Historische Fassung');
+    await page.locator('[data-norm-tab="relations"]').click();
+    await expect(page.locator('.norm-relations')).toBeVisible();
+    expect(new URL(page.url()).pathname).toBe(`/norm/${norm.slug}/version/${norm.historical.versionId}/beziehungen/`);
+    await page.goto(lawUrl('/a-z/stichwortregister/?buchstabe=S'));
+    await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('S');
+    await page.getByRole('navigation', { name: 'Zugänge' }).getByRole('link', { name: /^Abkürzungen/u }).click();
+    expect(new URL(page.url()).pathname).toBe('/a-z/abkuerzungen/');
+    expect(new URL(page.url()).search).toBe('?buchstabe=S');
+    for (const section of ['daten', 'beziehungen']) {
+      const response = await request.get(lawUrl(`/norm/${norm.slug}/version/nicht-vorhanden/${section}/`));
+      expect(response.status()).toBe(404);
+    }
+  } finally {
+    await context.close();
+  }
+});
+
 siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersicht', async ({ page, request }) => {
   await prepareFunctionalPage(page);
   const norm = await multiVersionNorm(request);
@@ -1672,11 +1755,11 @@ siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersic
   await page.goBack();
   await expect(page.locator('.norm-workspace')).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
-  const position = await page.evaluate(() => ({
-    versions: document.querySelector('.norm-aside__versions')!.getBoundingClientRect().top,
-    text: document.querySelector('.norm-document')!.getBoundingClientRect().top,
-  }));
-  expect(position.versions).toBeLessThan(position.text);
+  // Der Browser meldet den Media-Query-Wechsel asynchron nach der Größenänderung.
+  await expect.poll(() => page.evaluate(() =>
+    document.querySelector('.norm-aside__versions')!.getBoundingClientRect().top
+      < document.querySelector('.norm-document')!.getBoundingClientRect().top,
+  )).toBe(true);
   await page.locator('[data-outline-open]').click();
   await expect(page.getByRole('dialog', { name: 'Inhalt der Vorschrift' })).toBeVisible();
   await page.keyboard.press('Escape');

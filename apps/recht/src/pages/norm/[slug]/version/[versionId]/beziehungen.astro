@@ -1,0 +1,12 @@
+---
+import NormSectionPage from '../../../../../components/norms/NormSectionPage.astro';
+import { getNormStore } from '../../../../../lib/runtime/context.ts';
+import { loadNormSection } from '../../../../../lib/norm-view.ts';
+
+export const prerender = false;
+const versionId = Astro.params.versionId;
+const data = await loadNormSection(await getNormStore(Astro.locals), Astro.params.slug ?? '', versionId);
+if (!data) return Astro.rewrite('/404');
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+---
+<NormSectionPage data={data} section="relations" versionId={versionId} />

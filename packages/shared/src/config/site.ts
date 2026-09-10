@@ -296,14 +296,14 @@ export const lawSiteConfig = {
   },
   /**
    * Amtsband: fünf Einstiege (Richtung E). Normtypen sind Direktzugriffe und Filter, keine
-   * Navigationspunkte. Der Änderungsdienst ist der Bereich der Startseite und trägt deshalb einen
-   * Anker statt eines Pfads.
+   * Navigationspunkte. Primäre Bereiche besitzen eigene URLs; Hash-Anker dienen ausschließlich
+   * sekundären Sprüngen innerhalb einer Ansicht. Der Änderungsdienst bleibt auf der Startseite.
    */
   mainNavigation: [
     { label: 'Sachgebiete', pathKey: 'subjects' },
     { label: 'A–Z und Register', pathKey: 'index' },
     { label: 'Amtliche Veröffentlichungen', pathKey: 'publications' },
-    { label: 'Änderungsdienst', pathKey: 'changes', anchor: 'aenderungsdienst' },
+    { label: 'Verfassung', pathKey: 'constitution' },
     { label: 'Hilfe', pathKey: 'help' },
   ],
 } as const;

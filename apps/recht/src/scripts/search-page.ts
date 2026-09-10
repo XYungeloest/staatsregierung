@@ -45,6 +45,7 @@ const activeFilterList = document.querySelector<HTMLElement>('[data-search-activ
 const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
 const searchApiUrl = root?.dataset.searchApi ?? '';
 const indexUrl = root?.dataset.indexUrl ?? '';
+const keywordIndexUrl = root?.dataset.keywordIndexUrl ?? '';
 const subjectsUrl = root?.dataset.subjectsUrl ?? '';
 const advancedPanel = document.querySelector<HTMLDetailsElement>('[data-search-advanced]');
 const filtersSheet = document.querySelector<HTMLDetailsElement>('[data-search-filters]');
@@ -528,7 +529,7 @@ function renderEmptyState(state: NormSearchState): string {
   const ways = [
     active.length > 0 ? `<li><button class="r-link-btn" type="button" data-search-empty-clear>Filter zurücksetzen (${active.length})</button></li>` : '',
     state.versionScope !== 'all' ? `<li><button class="r-link-btn" type="button" data-search-empty-all-versions>Außer Kraft getretene und künftige Fassungen einbeziehen</button></li>` : '',
-    indexUrl ? `<li>Im <a href="${escapeHtml(indexUrl)}">Stichwortregister</a> oder über <a href="${escapeHtml(indexUrl)}">A–Z</a> nachsehen.</li>` : '',
+    indexUrl && keywordIndexUrl ? `<li>Im <a href="${escapeHtml(keywordIndexUrl)}">Stichwortregister</a> oder über <a href="${escapeHtml(indexUrl)}">A–Z</a> nachsehen.</li>` : '',
     subjectsUrl ? `<li>Über die <a href="${escapeHtml(subjectsUrl)}">Sachgebiete</a> systematisch einsteigen.</li>` : '',
   ].join('');
   const reason = query
