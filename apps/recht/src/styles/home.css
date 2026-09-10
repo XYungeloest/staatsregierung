@@ -136,6 +136,12 @@
   text-decoration: underline;
 }
 
+/* Die Detailzeile ist eine Flex-Liste: ihr Link trägt sein Zeigerpadding im Layout. Der Abstand
+   hält seine Trefferfläche frei vom Normtitel darüber (WCAG 2.5.8). */
+.r-home-changes__list .r-caption {
+  margin-top: var(--space-2);
+}
+
 .r-home-changes__event {
   color: var(--text-secondary);
 }
