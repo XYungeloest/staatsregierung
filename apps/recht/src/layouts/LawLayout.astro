@@ -4,6 +4,7 @@ import AnalyticsConsentBanner from '@ostrecht/shared/components/analytics/Analyt
 import PageHead from '@ostrecht/shared/components/PageHead.astro';
 import { isAnalyticsEnabled } from '@ostrecht/shared/config/analytics.ts';
 import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
+import { CHANGE_FEED_PATH, CHANGE_FEED_TITLE } from '../lib/change-service.ts';
 import type { SeoBreadcrumbItem, SeoImage, StructuredData } from '@ostrecht/shared/lib/seo/index.ts';
 import {
   getAccessibilityUrl,
@@ -98,12 +99,15 @@ const typeLinks = [
   { href: getAdministrativeRulesUrl(), label: lawSiteConfig.targetLabels.administrativeRules },
   { href: getFundingUrl(), label: lawSiteConfig.targetLabels.funding },
 ];
-/** Fuß: Marke, Recherchewege und Service – moderater Abschluss, kein zweites Portal. */
+/**
+ * Fuß: Marke, Recherchewege und Service – moderater Abschluss, kein zweites Portal. Die vier
+ * Normtypen stehen als eigene Gruppe „Nach Normtyp“ unter „Recherchieren“ und bleiben so auch in
+ * der zweispaltigen Tablet-Stufe beieinander.
+ */
 const footerResearchLinks = [
   { href: getSearchUrl(), label: lawSiteConfig.targetLabels.search },
   { href: getSubjectsUrl(), label: lawSiteConfig.targetLabels.subjects },
   { href: getIndexUrl(), label: lawSiteConfig.targetLabels.index },
-  ...typeLinks,
   { href: getPublicationsUrl(), label: lawSiteConfig.targetLabels.publications },
   { href: `${homeUrl}#aenderungsdienst`, label: lawSiteConfig.targetLabels.changes },
 ];
@@ -120,6 +124,7 @@ const footerServiceLinks = [
 <html lang="de" class="law-document">
   <head>
     <PageHead {title} {description} {breadcrumbs} {structuredData} {noindex} {ogType} {ogImage} {canonical} {prev} {next} {documentFont} />
+    <link rel="alternate" type="application/rss+xml" title={CHANGE_FEED_TITLE} href={CHANGE_FEED_PATH} />
   </head>
   <body class:list={['law-site', bodyClass]}>
     <div class="law-shell">
@@ -187,6 +192,10 @@ const footerServiceLinks = [
           <nav class="law-footer__group law-footer__group--research" aria-label="Recherchieren">
             <h2 class="r-label">Recherchieren</h2>
             <ul>{footerResearchLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+            <div class="law-footer__types">
+              <h3 class="r-label">Nach Normtyp</h3>
+              <ul>{typeLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+            </div>
           </nav>
           <nav class="law-footer__group" aria-label="Service">
             <h2 class="r-label">Service</h2>

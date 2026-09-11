@@ -1,0 +1,30 @@
+---
+import { getNormTitleBlock } from '@ostrecht/shared/lib/norms/display.ts';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/index.ts';
+import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+
+/**
+ * Verdichteter Normkopf beim Scrollen (E37), nur unter 48 rem, wo die Inhaltsübersicht nicht
+ * neben dem Text steht: eine 44-px-Zeile mit Kurztitel, Abkürzung, der gelesenen Einheit
+ * („Artikel 12“, gesetzt von norm-page.ts) und der Schaltfläche „Inhalt“, die das vorhandene
+ * Seitenblatt öffnet. Erscheint, sobald der Vorschriftskopf nach oben aus dem Bild ist; bis dahin
+ * ist die Zeile `hidden` und nicht fokussierbar. Orientierung, keine Meldung – keine Live-Region.
+ */
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  outlineHref?: string;
+}
+
+const { norm, version, outlineHref = '#norm-inhalt-mobil' } = Astro.props;
+const title = getNormTitleBlock(getNormVersionIdentity(norm, version));
+---
+
+<div class="norm-mini-head" data-norm-mini-head hidden>
+  <p class="norm-mini-head__text">
+    <span class="norm-mini-head__title">{title.heading}</span>
+    {title.abbr ? <span class="norm-mini-head__abbr">{title.abbr}</span> : null}
+    <span class="norm-mini-head__unit" data-mini-unit></span>
+  </p>
+  <a class="r-btn norm-mini-head__outline" href={outlineHref} data-outline-open>Inhalt</a>
+</div>

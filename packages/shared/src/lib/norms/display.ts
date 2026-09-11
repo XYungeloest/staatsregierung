@@ -199,12 +199,16 @@ export function getNormTitleBlock(identity: { title: string; shortTitle?: string
   const title = toDisplayText(identity.title).trim();
   const shortTitle = identity.shortTitle ? toDisplayText(identity.shortTitle).trim() : '';
   const heading = shortTitle && shortTitle !== title ? shortTitle : title;
-  const abbr = identity.abbr ? toDisplayText(identity.abbr).trim() : '';
-  // Ein Langtitel, der nur die Überschrift mit angehängter Klammer-Abkürzung wiederholt
-  // („… im Freistaat Ostdeutschland (FRL IndiFö)“), ist keine zweite Angabe.
   const normalize = (value: string) => value.replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de-DE');
-  const titleWithoutAbbr = title.replace(/\s*\(([^()]*)\)\s*$/u, (match, inner: string) => (abbr && normalize(inner) === normalize(abbr) ? '' : match)).trim();
-  const longTitleRepeatsHeading = normalize(titleWithoutAbbr) === normalize(heading) || normalize(title) === normalize(`${heading} (${abbr})`);
+  // Eine Klammer am Ende des Langtitels („… im Freistaat Ostdeutschland (FRL IndiFö)“) wird
+  // immer abgetrennt: Ist der Rest die Überschrift, wiederholt der Langtitel nichts und entfällt;
+  // ohne hinterlegte Abkürzung tritt der Klammerinhalt an ihre Stelle.
+  const trailing = title.match(/^(.*?)\s*\(([^()]*)\)\s*$/u);
+  const titleWithoutParenthesis = trailing ? trailing[1].trim() : title;
+  const parenthesis = trailing ? trailing[2].trim() : '';
+  const longTitleRepeatsHeading = normalize(titleWithoutParenthesis) === normalize(heading);
+  const storedAbbr = identity.abbr ? toDisplayText(identity.abbr).trim() : '';
+  const abbr = storedAbbr || (longTitleRepeatsHeading ? parenthesis : '');
   return {
     heading,
     ...(heading !== title && !longTitleRepeatsHeading ? { longTitle: title } : {}),

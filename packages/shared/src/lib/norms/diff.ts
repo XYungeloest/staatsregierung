@@ -680,6 +680,17 @@ function toProvision(block: NormDiffBlock): NormProvisionDiff {
   };
 }
 
+/**
+ * Strukturbaum des Vergleichs zweier Fassungen: je Block Art der Änderung, Kinder und Position in
+ * beiden Fassungen. Grundlage der Marken am Ort der Änderung (change-marks.ts) und des Vergleichs.
+ */
+export function buildVersionDiffTree(
+  before: Pick<NormVersion, 'body'>,
+  after: Pick<NormVersion, 'body'>,
+): NormDiffBlock[] {
+  return pairBlockLists(before.body, after.body, 'body');
+}
+
 export function buildProvisionVersionDiff(
   before: Pick<NormVersion, 'body'>,
   after: Pick<NormVersion, 'body'>,

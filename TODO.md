@@ -7,18 +7,10 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
 
 ## OstRecht
 
-- [ ] Änderungen am Ort der Änderung (E36): Erst nach belegter Zuordnung von Änderungen zu
-  konkreten Normeinheiten oder Absätzen eine Markierung anbieten. Keine Platzhalter-UI.
-  Fertig, wenn Zuordnung und Darstellung fachlich geprüft und durch Tests abgesichert sind.
-
-- [ ] Optionaler haftender Norm-Minimalkopf mit aktueller Normeinheit (Rest E37): Nach Einführung
-  des smarten Amtsbands zunächst den Bedarf und Platzverbrauch neu bewerten. Mitlaufendes
-  Zitieren ist bereits Bestandteil der Normansicht. Fertig, wenn die gesonderte Produktentscheidung
-  getroffen und ein gegebenenfalls benötigter Minimalkopf zugänglich umgesetzt und getestet ist.
-
-- [ ] Abonnements (E38): RSS, E-Mail- und Vorschriften-Abonnements fachlich festlegen, einschließlich
-  Datenschutz, Versand und Betrieb. Keine Platzhalter-UI. Fertig, wenn die freigegebenen
-  Abonnementwege samt Betriebskonzept umgesetzt und getestet sind.
+- [ ] E-Mail- und Vorschriften-Abonnements (Rest E38): Der Änderungsdienst ist als ein RSS-Feed
+  abonnierbar (`/aenderungsdienst/rss.xml`). E-Mail-Versand und Abonnements je Vorschrift sind
+  fachlich festzulegen, einschließlich Datenschutz, Versand und Betrieb. Keine Platzhalter-UI.
+  Fertig, wenn die freigegebenen Abonnementwege samt Betriebskonzept umgesetzt und getestet sind.
 
 - [ ] Redaktionelle Kurzfassungen nachtragen: 4.981 der 5.204 Vorschriften tragen keine
   Kurzbeschreibung, seit die aus dem Titel gebildeten Formeln des Massenimports entfernt sind. Die

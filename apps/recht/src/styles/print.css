@@ -1,7 +1,8 @@
 /* OstRecht – Druck: Titel, Normidentität, Fassungsstand, Fundstelle, Normtext, Quellen und
    Abrufhinweis; keine Navigation, keine Werkzeuge, keine Seitenspalten. */
 @media print {
-  .law-back-to-top {
+  .law-back-to-top,
+  .norm-mini-head {
     display: none !important;
   }
   @page {
@@ -137,7 +138,9 @@
     position: static;
   }
 
-  .norm-abs:target {
+  /* Marken am Ort der Änderung: das Textzeichen bleibt, Flächen entfallen. */
+  .norm-abs:target,
+  .norm-abs--changed {
     background: none;
     box-shadow: none;
     margin-left: 0;

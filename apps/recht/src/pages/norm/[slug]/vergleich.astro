@@ -17,6 +17,7 @@ import { classifyNormVersion, getCurrentVersion } from '@ostrecht/shared/lib/nor
 import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
 import { buildNormHeadModel } from '../../../lib/norm-head.ts';
+import { loadNormView } from '../../../lib/norm-view.ts';
 import { formatShortDate } from '../../../lib/dates.ts';
 import { NORM_COMPARE_LABEL, versionKindLabel } from '../../../lib/vocabulary.ts';
 
@@ -42,15 +43,14 @@ const defaultTo = versions.find((version) => version.versionId === defaultToSkel
 const defaultFrom = versions.find((version) => version.versionId === defaultFromSkeleton.versionId) ?? versions[0];
 const defaultProvisions = buildProvisionVersionDiff(defaultFrom, defaultTo);
 const defaultUnitKind = getNormUnitKind([...defaultFrom.body, ...defaultTo.body]);
-const [derived, publicationReference, fullCitation] = await Promise.all([
-  store.getDerived(slug),
-  store.getPublicationReference(slug, getCurrentVersion(norm).versionId),
-  store.getFullCitation(slug, getCurrentVersion(norm).versionId),
-]);
-if (!derived) return Astro.rewrite('/404');
-Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+// Der Kopf kommt aus denselben Ladeschritten wie Text- und Datenseite (Bezeichnungen der
+// Änderungsvorschriften, Fundstelle der nächsten künftigen Fassung): eine Quelle für alle Ansichten.
 const headerVersion = getCurrentVersion(norm);
-const model = buildNormHeadModel(norm, headerVersion, { origin: derived.origin, publicationReference });
+const view = await loadNormView(store, norm, headerVersion);
+if (!view) return Astro.rewrite('/404');
+const { derived, fullCitation, publicationReference, amendmentLabels, nextFutureReference } = view;
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+const model = buildNormHeadModel(norm, headerVersion, { origin: derived.origin, publicationReference, amendmentLabels, nextFutureReference });
 const currentIdentity = getNormVersionIdentity(norm, headerVersion);
 const normTitle = toDisplayText(currentIdentity.title);
 const normShortTitle = toDisplayText(currentIdentity.shortTitle || currentIdentity.title);
@@ -76,7 +76,7 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
   ]}
   noindex={Boolean(requestedFrom || requestedTo)}
 >
-  <NormHead norm={norm} version={headerVersion} model={model} fullCitation={fullCitation ?? headerVersion.citation} outlineHref={getNormUrl(norm.meta.slug)} />
+  <NormHead norm={norm} version={headerVersion} model={model} fullCitation={fullCitation} outlineHref={getNormUrl(norm.meta.slug)} />
   <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} active="versions" /></div>
 
   <section class="norm-compare" data-version-compare aria-labelledby="norm-compare-title">

@@ -1,5 +1,7 @@
 ---
+import type { NormChangeMarks } from '@ostrecht/shared/lib/norms/change-marks.ts';
 import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/display.ts';
+import { formatShortDate } from '../../lib/dates.ts';
 
 /**
  * Ebene der Inhaltsübersicht: Gliederungseinheiten (Teil, Kapitel, Abschnitt) als `details` mit
@@ -11,9 +13,19 @@ interface Props {
   level: number;
   /** Die erste Gruppe dieser Ebene steht beim Laden offen (kein Zustand ohne JavaScript verloren). */
   openFirst?: boolean;
+  /** Marken am Ort der Änderung: Einträge geänderter oder neuer Einheiten tragen „geänd.“/„neu“. */
+  changes?: { marks: NormChangeMarks; validFrom: string };
 }
 
-const { items, level, openFirst = false } = Astro.props;
+const { items, level, openFirst = false, changes } = Astro.props;
+
+/** Kurzmarke und vollständiger Text der Marke eines Eintrags; die Gruppe zählt ihre Marken nicht. */
+function changeMark(entry: NormOutlineItem): { short: string; text: string } | undefined {
+  const mark = changes?.marks.get(entry.anchor);
+  if (!mark || !changes) return undefined;
+  const text = `${mark.kind === 'added' ? 'neu' : 'geändert'} mit Wirkung vom ${formatShortDate(changes.validFrom)}`;
+  return { short: mark.kind === 'added' ? 'neu' : 'geänd.', text };
+}
 
 function isUnit(entry: NormOutlineItem): boolean {
   return Boolean(entry.label && /^(§|Art\.|Artikel)/u.test(entry.label));
@@ -51,7 +63,7 @@ let firstGroupSeen = false;
   if (isUnit(entry) || isAnnex(entry) || entry.children.length === 0) {
     return (
       <li class:list={[isAnnex(entry) ? 'norm-outline__item--annex' : isUnit(entry) ? 'norm-outline__item--unit' : 'norm-outline__item--division']}>
-        <a href={`#${entry.anchor}`} data-outline-link={entry.anchor}><span>{textOf(entry)}</span></a>
+        <a href={`#${entry.anchor}`} data-outline-link={entry.anchor}><span>{textOf(entry)}</span>{changeMark(entry) ? <span class="norm-outline__mark" title={changeMark(entry)!.text}><span aria-hidden="true">{changeMark(entry)!.short}</span><span class="visually-hidden">{changeMark(entry)!.text}</span></span> : null}</a>
       </li>
     );
   }
@@ -68,7 +80,7 @@ let firstGroupSeen = false;
         <div class="norm-outline__group-body">
           <a class="norm-outline__group-link" href={`#${entry.anchor}`} data-outline-link={entry.anchor}>Zum Anfang der Gliederungseinheit</a>
           <ol class="norm-outline__sublist r-num">
-            <Astro.self items={entry.children} level={level + 1} />
+            <Astro.self items={entry.children} level={level + 1} changes={changes} />
           </ol>
         </div>
       </details>

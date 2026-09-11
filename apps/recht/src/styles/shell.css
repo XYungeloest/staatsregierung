@@ -14,9 +14,10 @@
   padding-right: var(--page-gutter);
 }
 
-/* Amtsband */
+/* Amtsband: Ankerziele stehen unter dem sichtbaren Band (--law-header-offset, bei ausgeblendetem
+   Band 0); das Bereichsmenü rechnet weiter mit der gemessenen Kopfhöhe (--law-header-height). */
 .law-document {
-  scroll-padding-top: calc(var(--law-header-height, 0px) + var(--space-3));
+  scroll-padding-top: calc(var(--law-header-offset, 0px) + var(--space-3));
 }
 
 .law-header {
@@ -366,12 +367,8 @@
   flex-wrap: wrap;
 }
 
-.r-section-head h2 {
-  font-size: var(--fs-ui-lg);
-  font-weight: 500;
-  color: var(--text-strong);
-}
-
+/* Die Überschrift eines Abschnittskopfs trägt ihre Stufe selbst (.r-h2, .r-h2--sub): der Kopf
+   setzt keine zweite Größe dagegen. */
 .r-section-head .r-meta a {
   color: var(--text-link);
 }
@@ -436,13 +433,19 @@
   color: var(--text-muted);
 }
 
-.law-footer__group h2 {
+.law-footer__group h2,
+.law-footer__group h3 {
   margin-bottom: var(--space-2);
 }
 
 .law-footer__group ul {
   display: grid;
   gap: var(--space-1);
+}
+
+/* „Nach Normtyp“: die vier Verzeichnisse als eigene Gruppe unter den Recherchewegen. */
+.law-footer__types {
+  margin-top: var(--space-4);
 }
 
 .law-footer a {
@@ -579,8 +582,20 @@
     gap: var(--space-5);
   }
 
-  .law-footer__group--research ul {
+  /* Tablet und Smartphone: Recherchewege links, „Nach Normtyp“ als eigene Spalte rechts – die
+     vier Verzeichnisse stehen untereinander statt zeilenweise verteilt. */
+  .law-footer__group--research {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-4);
+  }
+
+  .law-footer__group--research h2 {
+    grid-column: 1 / -1;
+  }
+
+  .law-footer__types {
+    margin-top: 0;
   }
 }
 

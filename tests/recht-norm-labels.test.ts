@@ -7,7 +7,7 @@ import { EDITORIAL_REFERENCE_DATE } from '@ostrecht/shared/lib/norms/versions.ts
 import { formatSearchResultLabel } from '@ostrecht/recht-search/search-query.ts';
 
 import { formatShortDate } from '../apps/recht/src/lib/dates.ts';
-import { buildNormHeadModel, normKicker, type NormHeadModel } from '../apps/recht/src/lib/norm-head.ts';
+import { amendingCitation, buildNormHeadModel, normKicker, type NormHeadModel } from '../apps/recht/src/lib/norm-head.ts';
 import { formatSourceLabel } from '../apps/recht/src/lib/source-labels.ts';
 import { referenceDateLabel } from '../apps/recht/src/lib/vocabulary.ts';
 import { buildFixtureNorms, FIXTURE_REFERENCE_DATE } from './helpers/fixture-corpus.ts';
@@ -160,4 +160,30 @@ test('Historischer Kopf aufgehobener Normen behauptet keine fortdauernde Geltung
       assert.match(line, /außer Kraft/u);
     }
   }
+});
+
+test('die verkündete künftige Änderung nennt die Fundstelle der Änderungsvorschrift, nicht die Stammfundstelle', () => {
+  // Konsolidiertes Vollzitat: erste Klammer Stammfundstelle, letzte Klammer die ändernde Vorschrift.
+  const consolidated = 'Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99), die zuletzt durch Artikel 3 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2) geändert worden ist';
+  assert.equal(amendingCitation(consolidated), 'OGVBl. 2026 Nr. 46 S. 2');
+  assert.equal(amendingCitation('Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2)'), 'OGVBl. 2026 Nr. 70 S. 2', 'mit einer Klammer sind beide Fundstellen dieselbe');
+  assert.equal(amendingCitation('Gesetz ohne Klammer'), 'Gesetz ohne Klammer');
+
+  const current = version('2018-03-09', '2018-03-09', '2026-09-30');
+  current.citation = 'Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99)';
+  const future = version('2026-10-01', '2026-10-01');
+  future.citation = consolidated;
+  const record = norm({ versions: [current, future], initialVersionId: current.versionId, effectiveDate: '2018-03-09' });
+  const model = headModel(record, current);
+  const futurePart = model.parts.find((part) => part.tone === 'future');
+  assert.ok(futurePart, 'die Statuszeile kündigt die verkündete Änderung an');
+  assert.equal(futurePart?.text, `Änderung zum ${formatShortDate('2026-10-01')} verkündet (OGVBl. 2026 Nr. 46 S. 2)`);
+  assert.ok(!statusLine(model).includes('SächsGVBl. S. 99'), 'die Stammfundstelle steht nur in der Kopfzeile');
+
+  // Liegt die Verkündung der künftigen Fassung vor, geht ihre Fundstelle vor.
+  const withReference = buildNormHeadModel(record, current, {
+    origin: getNormOriginInfo(record, [record]),
+    nextFutureReference: { publicationSlug: 'ogvbl-2026-72', publicationTitle: 'OGVBl. 2026 Nr. 72', publicationDate: '2026-09-15', publication: 'OGVBl.', issue: '72', entryId: 'x', entryTitle: 'Gesetz', citation: 'Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 72 S. 2)' },
+  });
+  assert.equal(withReference.parts.find((part) => part.tone === 'future')?.text, `Änderung zum ${formatShortDate('2026-10-01')} verkündet (OGVBl. 2026 Nr. 72 S. 2)`);
 });

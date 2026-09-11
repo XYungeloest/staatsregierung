@@ -1126,6 +1126,22 @@ test('der Titelblock zeigt die Kurzbezeichnung als Überschrift und den Langtite
     { heading: 'Ostdeutsches Testprüfgesetz' },
     'Wiederholungen erzeugen weder eine zweite Zeile noch eine Abkürzung',
   );
+  // Ein Langtitel, der die Überschrift nur um eine Klammer verlängert, entfällt – auch ohne
+  // hinterlegte Abkürzung; der Klammerinhalt tritt dann an die Stelle der Abkürzung.
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Richtlinie zur individuellen Förderung im Freistaat Ostdeutschland (FRL IndiFö)', shortTitle: 'Richtlinie zur individuellen Förderung im Freistaat Ostdeutschland', abbr: null }),
+    { heading: 'Richtlinie zur individuellen Förderung im Freistaat Ostdeutschland', abbr: 'FRL IndiFö' },
+  );
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Richtlinie zur individuellen Förderung im Freistaat Ostdeutschland (FRL IndiFö)', shortTitle: 'Richtlinie zur individuellen Förderung im Freistaat Ostdeutschland', abbr: 'IndiFöRL' }),
+    { heading: 'Richtlinie zur individuellen Förderung im Freistaat Ostdeutschland', abbr: 'IndiFöRL' },
+    'die hinterlegte Abkürzung geht dem Klammerinhalt vor',
+  );
+  assert.deepEqual(
+    getNormTitleBlock({ title: 'Gesetz über die Prüfung von Testfällen (Prüfgesetz)', shortTitle: 'Ostdeutsches Testprüfgesetz', abbr: 'TestPrG' }),
+    { heading: 'Ostdeutsches Testprüfgesetz', longTitle: 'Gesetz über die Prüfung von Testfällen (Prüfgesetz)', abbr: 'TestPrG' },
+    'weicht der Rest ab, bleibt der Langtitel samt Klammer',
+  );
 });
 
 test('die Identität einer Fassung kommt ohne Kurzbezeichnung der Norm aus', () => {

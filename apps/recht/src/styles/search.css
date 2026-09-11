@@ -569,3 +569,98 @@
   }
 }
 
+
+/* Unter 48 rem verdichtet sich die Anfrage zu zwei Zweierzeilen unter dem Suchfeld: Suchbereich
+   neben Sortierung, darunter „Weitere Filter · Erweiterte Suche“ neben „Eingrenzen“; ein
+   geöffneter Bereich nimmt die volle Breite darunter. Die Hüllen der Anfrage werden durchsichtig
+   (display: contents), die Quelltextfolge bleibt; die Zeilen sind ausdrücklich gesetzt, deshalb
+   trägt der Rand den Abstand und leere Zeilen kosten nichts. */
+@media (max-width: 47.99rem) {
+  .r-search__layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--space-3);
+  }
+
+  .r-search__main,
+  .r-search__bar,
+  .r-search__results-head {
+    display: contents;
+  }
+
+  .r-search__title {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .r-search__query {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .r-search__bar > .r-btn {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: var(--space-3);
+  }
+
+  .r-search__scope {
+    grid-column: 1;
+    grid-row: 4;
+    margin-top: var(--space-3);
+  }
+
+  .r-search__sort {
+    grid-column: 2;
+    grid-row: 4;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+  }
+
+  .r-search__sort .r-select {
+    width: 100%;
+  }
+
+  .r-search__active {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+
+  .r-search__advanced {
+    grid-column: 1;
+    grid-row: 6;
+  }
+
+  .r-search__advanced > summary {
+    min-height: var(--target-main);
+    align-items: center;
+  }
+
+  .r-search__aside {
+    grid-column: 2;
+    grid-row: 6;
+    margin-top: var(--space-3);
+  }
+
+  .r-search__advanced[open] {
+    grid-column: 1 / -1;
+    grid-row: 7;
+  }
+
+  .r-search__aside:has(.r-search__filters[open]) {
+    grid-column: 1 / -1;
+    grid-row: 8;
+  }
+
+  .r-search__results-head > .r-meta {
+    grid-column: 1 / -1;
+    grid-row: 9;
+    margin-top: var(--space-3);
+  }
+
+  .r-search__results-wrap {
+    grid-column: 1 / -1;
+    grid-row: 10;
+  }
+}

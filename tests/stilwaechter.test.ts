@@ -248,3 +248,22 @@ test('Stilwächter OstRecht: der Fokusring ist mindestens 3 px breit', () => {
 test('Stilwächter: kein Selektor setzt dieselbe Eigenschaft außerhalb von Media Queries zweimal mit unterschiedlichem Wert', () => {
   assert.ok(metrics.duplicateProperties.length <= LIMITS.duplicateProperties, `Gemessen ${metrics.duplicateProperties.length} Selektor/Eigenschaft-Paare mit mehreren Werten, erlaubt ${LIMITS.duplicateProperties}. Eine Eigenschaft je Selektor genau einmal setzen (spätere Regel gewinnt sonst still):\n${describeDuplicates(metrics.duplicateProperties)}`);
 });
+
+/**
+ * Überschriftenelemente stehen nie in --fs-micro: Rubriken der Seitenspalten und des Fußes bleiben
+ * Etiketten (.r-label), aber ein h1/h2/h3 setzt mindestens --fs-caption (base.css `h2.r-label`).
+ * Geprüft werden alle font-size-Deklarationen, deren Selektor ein Überschriftenelement nennt.
+ */
+test('Stilwächter OstRecht: kein Überschriftenselektor setzt --fs-micro', () => {
+  const findings: string[] = [];
+  for (const file of readdirSync(RECHT_STYLES_DIR).filter((name) => name.endsWith('.css')).sort()) {
+    const root = postcss.parse(readFileSync(`${RECHT_STYLES_DIR}${file}`, 'utf8'), { from: file }) as Root;
+    root.walkDecls('font-size', (decl) => {
+      const rule = decl.parent;
+      if (!rule || rule.type !== 'rule' || !decl.value.includes('--fs-micro')) return;
+      const heading = (rule as Rule).selectors.filter((selector) => /(^|[\s>+~,])h[1-3](?![\w-])/u.test(selector));
+      if (heading.length > 0) findings.push(`${file}:${decl.source?.start?.line ?? 0} ${heading.join(', ')}`);
+    });
+  }
+  assert.deepEqual(findings, [], `Überschriften stehen mindestens in --fs-caption:\n${findings.join('\n')}`);
+});

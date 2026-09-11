@@ -1,4 +1,5 @@
 ---
+import type { NormChangeMarks } from '@ostrecht/shared/lib/norms/change-marks.ts';
 import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/display.ts';
 import NormOutlineGroup from './NormOutlineGroup.astro';
 
@@ -15,9 +16,11 @@ interface Props {
   summary?: string;
   /** `desktop`: feste linke Spalte; `sheet`: Inhalt des mobilen Aufklappbereichs. */
   variant?: 'desktop' | 'sheet';
+  /** Marken am Ort der Änderung (Kurzmarke „geänd.“/„neu“ am Eintrag). */
+  changes?: { marks: NormChangeMarks; validFrom: string };
 }
 
-const { items, summary, variant = 'desktop' } = Astro.props;
+const { items, summary, variant = 'desktop', changes } = Astro.props;
 const hasDivisions = items.some((entry) => entry.children.length > 0 && !/^(§|Art\.|Artikel|Anlage)/u.test(entry.label ?? ''));
 ---
 
@@ -30,7 +33,7 @@ const hasDivisions = items.some((entry) => entry.children.length > 0 && !/^(§|A
       </label>
     </div>
     <ol class="norm-outline__list r-num">
-      <NormOutlineGroup items={items} level={0} openFirst={true} />
+      <NormOutlineGroup items={items} level={0} openFirst={true} changes={changes} />
     </ol>
     {summary ? <p class="norm-outline__summary r-caption">{summary}</p> : null}
   </nav>

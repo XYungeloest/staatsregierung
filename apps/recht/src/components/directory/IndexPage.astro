@@ -136,7 +136,7 @@ const keywordCount = (list: KeywordIndexPage, filter: string, one: string, many:
         </form>
       </div>
       <div class="r-section-head r-az__count">
-        <h2 id="index-letter-heading" class="r-meta" data-directory-count><strong class="r-strong">{heading}</strong> · <span data-index-count>{indexCount}</span></h2>
+        <h2 id="index-letter-heading" class="r-h2 r-h2--sub" data-directory-count><strong class="r-strong">{heading}</strong> · <span data-index-count>{indexCount}</span></h2>
         {filtersActive
           ? <a class="r-caption" href={pageUrl(basePath, { buchstabe: letter })} data-directory-reset>Auswahl zurücksetzen</a>
           : <span class="r-caption r-filter__reset--inactive" aria-disabled="true" data-directory-reset>Auswahl zurücksetzen</span>}

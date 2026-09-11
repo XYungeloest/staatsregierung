@@ -68,6 +68,18 @@ export function shortCitation(citation: string | null | undefined): string {
   return (inner ?? text).trim();
 }
 
+/**
+ * Fundstelle der ändernden Vorschrift aus einem Vollzitat: die letzte Klammer. Bei konsolidierten
+ * Fassungen nennt die erste Klammer die Stammfundstelle („… in der Fassung der Bekanntmachung vom
+ * 9. März 2018 (SächsGVBl. S. 99), die zuletzt durch Artikel 3 des Gesetzes vom 20. Juli 2026
+ * (OGVBl. 2026 Nr. 46 S. 2) geändert worden ist“ → „OGVBl. 2026 Nr. 46 S. 2“).
+ */
+export function amendingCitation(citation: string | null | undefined): string {
+  const text = toDisplayText(citation ?? '').trim();
+  const inner = [...text.matchAll(/\(([^()]*)\)/gu)].at(-1)?.[1];
+  return (inner ?? text).trim();
+}
+
 function originText(origin: NormOriginInfo, version: NormVersion): string {
   const versionKind = classifyNormOriginVersion(origin, version);
   const count = origin.ownAmendmentCount;
@@ -191,10 +203,12 @@ export function buildNormHeadModel(
     };
   }
 
+  // Die verkündete Änderung zitiert die Fundstelle der Änderungsvorschrift: die Verkündung der
+  // künftigen Fassung, sonst die letzte Klammer ihres Vollzitats – nie die Stammfundstelle.
   const nextFuture = nextFutureVersion
     ? {
         version: nextFutureVersion,
-        citation: shortCitation(nextFutureVersion.citation) || undefined,
+        citation: (nextFutureReference ? amendingCitation(nextFutureReference.citation) : '') || amendingCitation(nextFutureVersion.citation) || undefined,
         publicationHref: nextFutureReference ? getPublicationUrl(nextFutureReference.publicationSlug) : undefined,
       }
     : undefined;

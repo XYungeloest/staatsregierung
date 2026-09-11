@@ -46,7 +46,10 @@ if (!derived) return Astro.rewrite('/404');
 const referenceOf = new Map(versions.map((version, index) => [version.versionId, references[index]]));
 const citationOf = new Map(versions.map((version, index) => [version.versionId, citations[index] ?? version.citation]));
 const currentReference = referenceOf.get(currentVersion.versionId);
-const model = buildNormHeadModel(norm, currentVersion, { origin: derived.origin, publicationReference: currentReference, amendmentLabels: labels });
+// Die Fundstelle der nächsten künftigen Fassung liegt hier bereits vor (Verkündungen aller
+// Fassungen); der Kopf nennt dieselbe Änderungsfundstelle wie Text- und Datenseite.
+const nextFutureVersion = versions.find((version) => classifyNormVersion(norm, version) === 'future' && version.validFrom > currentVersion.validFrom);
+const model = buildNormHeadModel(norm, currentVersion, { origin: derived.origin, publicationReference: currentReference, amendmentLabels: labels, nextFutureReference: nextFutureVersion ? referenceOf.get(nextFutureVersion.versionId) : undefined });
 const currentIdentity = getNormVersionIdentity(norm, currentVersion);
 const normTitle = toDisplayText(currentIdentity.title);
 const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;

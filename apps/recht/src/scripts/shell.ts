@@ -96,19 +96,46 @@ if (header && backToTop) {
   let frame = 0;
   let footerVisible = false;
 
+  // Während der Fahrt zum Seitenanfang halten andere Skripte still (die Inhaltsübersicht in
+  // norm-page.ts rollt dann nicht mit); das Ende meldet ein Ereignis am Dokument.
+  const rideAttribute = 'data-law-scroll-to-top';
+  let rideTimer = 0;
+  let jumpPending = false;
+  const endRide = () => {
+    if (!root.hasAttribute(rideAttribute)) return;
+    root.removeAttribute(rideAttribute);
+    window.clearTimeout(rideTimer);
+    document.dispatchEvent(new CustomEvent('law:scroll-to-top-end'));
+  };
+  const beginRide = () => {
+    root.setAttribute(rideAttribute, '');
+    window.addEventListener('scrollend', endRide, { once: true });
+    rideTimer = window.setTimeout(endRide, 2000);
+  };
+  // Die Kopfhöhe gilt als Versatz nur, solange das Band sichtbar ist; ausgeblendet steht der
+  // Versatz auf 0, damit Inhaltsübersicht und Ankerpolster den gewonnenen Platz nutzen.
+  const applyOffset = (visible: boolean) => {
+    root.style.setProperty('--law-header-offset', visible ? `${header.offsetHeight}px` : '0px');
+  };
   const showHeader = (visible: boolean) => {
     header.classList.toggle('is-scroll-hidden', !visible);
     header.classList.toggle('is-scroll-visible', visible);
+    applyOffset(visible);
   };
   const update = () => {
     frame = 0;
     const y = Math.max(0, window.scrollY);
     const delta = y - lastY;
     lastY = y;
+    if (root.hasAttribute(rideAttribute) && y === 0) endRide();
     const interacting = header.contains(document.activeElement) || Boolean(menu?.open)
       || Boolean(header.querySelector('[aria-expanded="true"]'));
     if (y <= hideAfter || interacting) {
       showHeader(true);
+      movement = 0;
+    } else if (jumpPending) {
+      // Ein Sprung zu einem Anker ist keine Leserichtung: das Band bleibt, wie es war.
+      jumpPending = false;
       movement = 0;
     } else if (delta !== 0) {
       movement = Math.sign(delta) === Math.sign(movement) ? movement + delta : delta;
@@ -119,14 +146,20 @@ if (header && backToTop) {
     }
     const blocked = Boolean(menu?.open) || Boolean(consent && !consent.hidden)
       || Boolean(document.querySelector('dialog[open]')) || footerVisible;
-    const hideButton = y < Math.max(600, window.innerHeight) || blocked;
+    // Erst nach zwei Bildschirmhöhen: kurze Vorschriften brauchen den Knopf nicht.
+    const hideButton = y < 2 * window.innerHeight || blocked;
     if (backToTop.hidden !== hideButton) backToTop.hidden = hideButton;
   };
   const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
   const measureHeader = () => {
     root.style.setProperty('--law-header-height', `${header.offsetHeight}px`);
+    applyOffset(!header.classList.contains('is-scroll-hidden'));
     schedule();
   };
+  document.addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href*="#"]') : null;
+    if (link && link.hash && link.origin === location.origin && link.pathname === location.pathname) jumpPending = true;
+  }, true);
   new ResizeObserver(measureHeader).observe(header);
   measureHeader();
   showHeader(true);
@@ -147,7 +180,9 @@ if (header && backToTop) {
     showHeader(true);
     // Der verschwindende Knopf lässt den Tastaturfokus am erreichbaren Seitenanfang zurück.
     header.querySelector<HTMLElement>('.law-wordmark')?.focus({ preventScroll: true });
+    beginRide();
     window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    schedule();
   });
   schedule();
 }
