@@ -98,12 +98,15 @@ const typeLinks = [
   { href: getAdministrativeRulesUrl(), label: lawSiteConfig.targetLabels.administrativeRules },
   { href: getFundingUrl(), label: lawSiteConfig.targetLabels.funding },
 ];
-/** Fuß: Marke, Recherchewege und Service – moderater Abschluss, kein zweites Portal. */
+/**
+ * Fuß: Marke, Recherchewege und Service – moderater Abschluss, kein zweites Portal. Die vier
+ * Normtypen stehen als eigene Gruppe „Nach Normtyp“ unter „Recherchieren“ und bleiben so auch in
+ * der zweispaltigen Tablet-Stufe beieinander.
+ */
 const footerResearchLinks = [
   { href: getSearchUrl(), label: lawSiteConfig.targetLabels.search },
   { href: getSubjectsUrl(), label: lawSiteConfig.targetLabels.subjects },
   { href: getIndexUrl(), label: lawSiteConfig.targetLabels.index },
-  ...typeLinks,
   { href: getPublicationsUrl(), label: lawSiteConfig.targetLabels.publications },
   { href: `${homeUrl}#aenderungsdienst`, label: lawSiteConfig.targetLabels.changes },
 ];
@@ -187,6 +190,10 @@ const footerServiceLinks = [
           <nav class="law-footer__group law-footer__group--research" aria-label="Recherchieren">
             <h2 class="r-label">Recherchieren</h2>
             <ul>{footerResearchLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+            <div class="law-footer__types">
+              <h3 class="r-label">Nach Normtyp</h3>
+              <ul>{typeLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+            </div>
           </nav>
           <nav class="law-footer__group" aria-label="Service">
             <h2 class="r-label">Service</h2>

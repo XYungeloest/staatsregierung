@@ -1099,3 +1099,28 @@ lawTest('Messung: der Absatztext trägt bei 1440 px rund 70 Zeichen je Zeile', {
   expect(measure!.right, 'Text bleibt in der Textspalte').toBeLessThanOrEqual(measure!.columnContentRight + 0.5);
   expect(measure!.columnWidth, 'Textspalte des Rasters').toBeCloseTo(690, -1);
 });
+
+/**
+ * Verdichtete Suche auf dem Smartphone (N7): Suchbereich und Sortierung teilen eine Zeile,
+ * „Weitere Filter“ und „Eingrenzen“ die nächste; der erste Treffer beginnt bei 390 px spätestens
+ * bei 460 px. Die Quelltextfolge bleibt (Smoke-Test „logischer Reihenfolge“).
+ */
+lawTest('Messung: der erste Treffer beginnt bei 390 px spätestens bei 460 px', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-390', 'Die Verdichtung wird einmal bei 390 Pixeln gemessen.');
+  await preparePage(page);
+  await page.goto(searchUrl(fixture.multiHit));
+  await page.evaluate(async () => { await document.fonts.ready; });
+  await awaitSettled(page, searchUrl(fixture.multiHit));
+  const rows = await page.evaluate(() => {
+    const top = (selector: string) => Math.round(document.querySelector(selector)!.getBoundingClientRect().top + window.scrollY);
+    return {
+      scope: top('.r-search__scope'), sort: top('.r-search__sort'),
+      advanced: top('.r-search__advanced > summary'), filters: top('.r-search__filters > summary'),
+      hit: top('[data-search-results] .search-hit'),
+    };
+  });
+  expect(Math.abs(rows.scope - rows.sort), 'Suchbereich und Sortierung in einer Zeile').toBeLessThanOrEqual(2);
+  expect(Math.abs(rows.advanced - rows.filters), 'Weitere Filter und Eingrenzen in einer Zeile').toBeLessThanOrEqual(2);
+  expect(rows.hit, 'Beginn des ersten Treffers').toBeLessThanOrEqual(460);
+  await verifyViewport(page);
+});

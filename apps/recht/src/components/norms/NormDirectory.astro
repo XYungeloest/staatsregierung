@@ -41,7 +41,7 @@ const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json
   next={view.pagination.next}
 >
   <header class="r-page-head r-page-head--type">
-    <p class="r-kicker"><span>Normtyp</span><span>{title}</span></p>
+    <p class="r-kicker"><a href={getLawPortalUrl()}>OstRecht</a><span>{title}</span></p>
     <h1>{title}</h1>
     <p class="r-lead">{lead}</p>
     <form class="r-type-search" action={getSearchUrl()} method="get" role="search">

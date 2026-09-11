@@ -2149,3 +2149,24 @@ siteTest(['law'])('Restpunkte Richtung E: der Normkopf nennt den Änderungsakteu
   expect(lines[0]).toMatch(/zuletzt geändert durch \S/u);
   expect(new Set(lines).size, lines.join('\n')).toBe(1);
 });
+
+siteTest(['law'])('Restpunkte Richtung E: Verzeichnisköpfe führen als Brotkrume zur Startseite, der Fuß hält die Normtypen beieinander', async ({ page }) => {
+  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/']) {
+    await page.goto(lawUrl(path));
+    const kicker = page.locator('.r-page-head .r-kicker').first();
+    await expect(kicker.locator('a').first(), path).toHaveAttribute('href', '/');
+    await expect(kicker.locator('a').first(), path).toHaveText('OstRecht');
+    expect((await kicker.textContent()) ?? '', path).not.toMatch(/Normtyp/u);
+  }
+  // Tablet-Stufe: Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien untereinander in einer Spalte.
+  await page.setViewportSize({ width: 698, height: 900 });
+  await page.goto(lawUrl('/'));
+  const boxes = await page.locator('.law-footer__types a').evaluateAll((elements) => elements.map((element) => {
+    const box = element.getBoundingClientRect();
+    return { text: element.textContent?.trim() ?? '', left: Math.round(box.left), top: Math.round(box.top) };
+  }));
+  expect(boxes.map((box) => box.text)).toEqual(['Gesetze', 'Verordnungen', 'Verwaltungsvorschriften', 'Förderrichtlinien']);
+  expect(new Set(boxes.map((box) => box.left)).size, 'eine Spalte').toBe(1);
+  for (let index = 1; index < boxes.length; index += 1) expect(boxes[index].top).toBeGreaterThan(boxes[index - 1].top);
+  await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Recherchieren' }).getByRole('heading', { name: 'Nach Normtyp' })).toBeVisible();
+});

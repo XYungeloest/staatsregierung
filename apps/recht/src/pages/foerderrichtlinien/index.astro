@@ -96,7 +96,7 @@ const pageTitle = `${lawSiteConfig.targetLabels.funding}${current > 1 ? ` (Seite
   next={pagination.next}
 >
   <header class="r-page-head">
-    <p class="r-kicker"><span>Normtyp</span><span>{lawSiteConfig.targetLabels.funding}</span></p>
+    <p class="r-kicker"><a href={getLawPortalUrl()}>OstRecht</a><span>{lawSiteConfig.targetLabels.funding}</span></p>
     <h1>{lawSiteConfig.targetLabels.funding}</h1>
     <p class="r-lead">{formatCount(all.length, FUNDING_UNIT.one, FUNDING_UNIT.many)}, davon {inForce} in Kraft. Die Gliederung folgt den amtlichen Förderbereichen {lawFundingAreas[0]?.number}–{lawFundingAreas[lawFundingAreas.length - 1]?.number}; jeder Abschnitt führt zu den Richtlinien dieses Bereichs.</p>
     <nav class="r-subjects__jump r-meta" aria-label="Förderbereiche">

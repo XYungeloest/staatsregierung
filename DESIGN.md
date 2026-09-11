@@ -235,10 +235,14 @@ Bereichen als eigener Zeile; unter 60 rem weichen Suche und Bereiche in das Men�
 
 Der Fuß ist ein moderater Abschluss in drei Bereichen: Marke (kleines Wappen, Wortmarke,
 Rechtsstand und amtlicher Hinweis), „Recherchieren“ (Rechtssuche, Sachgebiete, A–Z und Register,
-die vier Normtypen, Amtliche Veröffentlichungen, Änderungsdienst als Sprung zur Startseite) und
-„Service“ (Hilfe, Impressum, Datenschutz, Barrierefreiheit, Staatsportal); darunter, durch eine
-Haarlinie getrennt, der Hinweis zur Simulation. Die Normtypen sind keine Punkte des Amtsbands,
-aber von jeder Seite sekundär erreichbar – im Fuß und im Menü „Bereiche“ unter „Weitere Zugänge“.
+Amtliche Veröffentlichungen, Änderungsdienst als Sprung zur Startseite, darunter die Gruppe
+„Nach Normtyp“ mit den vier Verzeichnissen) und „Service“ (Hilfe, Impressum, Datenschutz,
+Barrierefreiheit, Staatsportal); darunter, durch eine Haarlinie getrennt, der Hinweis zur
+Simulation. Unter 48 rem wird der Fuß einspaltig und „Recherchieren“ zweispaltig – Recherchewege
+links, „Nach Normtyp“ rechts, sodass die vier Verzeichnisse untereinander bleiben. Die Normtypen
+sind keine Punkte des Amtsbands, aber von jeder Seite sekundär erreichbar – im Fuß und im Menü
+„Bereiche“ unter „Weitere Zugänge“. Die Verzeichnisse der Normtypen tragen über der H1 eine
+Brotkrume „OstRecht · <Verzeichnis>“ mit Link zur Startseite (kein Systemwort „Normtyp“).
 
 ## Responsives Verhalten
 
@@ -573,7 +577,12 @@ Filterspalte „Eingrenzen“ (Geltung, Normtyp, Sachgebiet mit Zählern). Die G
 eine Option: „außer Kraft“ filtert `repealed` und `historical` gemeinsam (`validityOptions`,
 `data-search-facet-values`); Facettengruppen ohne Option werden nicht gerendert. Die Quelltextfolge
 Anfrage → Trefferkopf → Filterspalte → Trefferliste ist zugleich die Reihenfolge unter 60 rem
-(Filter als Aufklappbereich vor der Liste). Treffertitel sind Links in Staatsblau (`--text-link`),
+(Filter als Aufklappbereich vor der Liste). Unter 48 rem verdichtet sich die Anfrage zu zwei
+Zweierzeilen unter Suchfeld und Schaltfläche: Suchbereich neben Sortierung, darunter „Weitere
+Filter · Erweiterte Suche“ neben „Eingrenzen“; ein geöffneter Bereich nimmt die volle Breite
+darunter, ohne JavaScript bleiben beide gewöhnliche Aufklappbereiche. Die Hüllen der Anfrage
+werden dafür durchsichtig (`display: contents`), die Quelltextfolge bleibt; der erste Treffer
+beginnt bei 390 px spätestens bei 460 px (Messung in `tests/visual.spec.ts`). Treffertitel sind Links in Staatsblau (`--text-link`),
 der Auszug steht in `--fs-ui` unter dem Titel; ein Langtitel, der nur Überschrift plus
 Klammer-Abkürzung wiederholt, entfällt (`getNormTitleBlock`). Ein Treffer ist ein Eintrag mit Linien, keine Karte: Kurztitel
 mit Kennung (Abkürzung · Normtyp), Langtitel darunter, eine Metazeile aus Statusmarke,
