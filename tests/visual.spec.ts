@@ -1050,3 +1050,77 @@ portalTest('Messung: Stände tragen die Wörter der Wortliste', { tag: [CRITICAL
     expect(hit?.[0], `${path}: Begriff außerhalb der Wortliste (${vocabulary.join(', ')})`).toBeUndefined();
   }
 });
+
+/**
+ * Überschriftenstufen (Richtung E, Restpunkte): Die Abschnitts-H2 der Startseite tragen dieselbe
+ * Stufe (.r-h2 .r-h2--sub); keine Regel eines Abschnittskopfs setzt eine zweite Größe dagegen.
+ */
+lawTest('Messung: alle sichtbaren H2 der Startseite haben dieselbe Schriftgröße', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Überschriftenstufe wird einmal auf dem breiten Desktop gemessen.');
+  await preparePage(page);
+  await page.goto(lawUrl('/'));
+  await page.evaluate(async () => { await document.fonts.ready; });
+  const sizes = await page.locator('main h2').evaluateAll((elements) => elements
+    .filter((element) => element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden' && !element.classList.contains('visually-hidden'))
+    .map((element) => `${(element.textContent ?? '').trim().slice(0, 40)}: ${getComputedStyle(element).fontSize}`));
+  expect(sizes.length, 'sichtbare H2 der Startseite').toBeGreaterThanOrEqual(3);
+  expect(new Set(sizes.map((entry) => entry.split(': ').at(-1))), sizes.join('\n')).toHaveProperty('size', 1);
+  // Die Spaltenrubriken des Änderungsdiensts stehen eine Stufe darunter (.r-h3, 17 px).
+  const h3 = await page.locator('.r-home-changes__heading').first().evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize));
+  expect(h3).toBeCloseTo(17, 0);
+});
+
+/**
+ * Lesebreite des Normtexts (E13): Das Maß gilt für den Textkörper rechts der Adressspalte. Bei
+ * 1440 px trägt ein Absatz mindestens 560 px (≈ 70 Zeichen Source Serif 4 bei 17 px) und bleibt
+ * innerhalb der Textspalte des Rasters 260/690/250.
+ */
+lawTest('Messung: der Absatztext trägt bei 1440 px rund 70 Zeichen je Zeile', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-wide', 'Die Lesebreite wird einmal bei 1440 px gemessen.');
+  await preparePage(page);
+  await page.goto(lawUrl(`/norm/${fixture.amended}/`));
+  await page.evaluate(async () => { await document.fonts.ready; });
+  const measure = await page.evaluate(() => {
+    const paragraph = document.querySelector('.norm-abs__body p');
+    const column = document.querySelector('.norm-document');
+    if (!paragraph || !column) return null;
+    const columnStyle = getComputedStyle(column);
+    const text = paragraph.getBoundingClientRect();
+    const box = column.getBoundingClientRect();
+    return {
+      width: text.width,
+      right: text.right,
+      columnContentRight: box.right - Number.parseFloat(columnStyle.paddingRight),
+      columnWidth: box.width,
+    };
+  });
+  expect(measure, 'Absatz mit Adressspalte im Fixture').not.toBeNull();
+  expect(measure!.width, 'Breite des Absatztextes').toBeGreaterThanOrEqual(560);
+  expect(measure!.right, 'Text bleibt in der Textspalte').toBeLessThanOrEqual(measure!.columnContentRight + 0.5);
+  expect(measure!.columnWidth, 'Textspalte des Rasters').toBeCloseTo(690, -1);
+});
+
+/**
+ * Verdichtete Suche auf dem Smartphone (N7): Suchbereich und Sortierung teilen eine Zeile,
+ * „Weitere Filter“ und „Eingrenzen“ die nächste; der erste Treffer beginnt bei 390 px spätestens
+ * bei 460 px. Die Quelltextfolge bleibt (Smoke-Test „logischer Reihenfolge“).
+ */
+lawTest('Messung: der erste Treffer beginnt bei 390 px spätestens bei 460 px', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-390', 'Die Verdichtung wird einmal bei 390 Pixeln gemessen.');
+  await preparePage(page);
+  await page.goto(searchUrl(fixture.multiHit));
+  await page.evaluate(async () => { await document.fonts.ready; });
+  await awaitSettled(page, searchUrl(fixture.multiHit));
+  const rows = await page.evaluate(() => {
+    const top = (selector: string) => Math.round(document.querySelector(selector)!.getBoundingClientRect().top + window.scrollY);
+    return {
+      scope: top('.r-search__scope'), sort: top('.r-search__sort'),
+      advanced: top('.r-search__advanced > summary'), filters: top('.r-search__filters > summary'),
+      hit: top('[data-search-results] .search-hit'),
+    };
+  });
+  expect(Math.abs(rows.scope - rows.sort), 'Suchbereich und Sortierung in einer Zeile').toBeLessThanOrEqual(2);
+  expect(Math.abs(rows.advanced - rows.filters), 'Weitere Filter und Eingrenzen in einer Zeile').toBeLessThanOrEqual(2);
+  expect(rows.hit, 'Beginn des ersten Treffers').toBeLessThanOrEqual(460);
+  await verifyViewport(page);
+});

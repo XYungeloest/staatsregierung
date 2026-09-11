@@ -1,6 +1,7 @@
 import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
-import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { getBlockAnchorId, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormDiffBlock, NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
+import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';
 import { formatChangedUnitCount, type NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 
 /**
@@ -234,10 +235,18 @@ export function renderNormDiffDocument(
   const countLabel = unitKind !== 'none' && freeTextCount > 0
     ? [count > freeTextCount ? formatChangedUnitCount(count - freeTextCount, unitKind) : '', formatChangedUnitCount(freeTextCount, 'none')].filter(Boolean).join(' · ')
     : formatChangedUnitCount(count, unitKind);
+  // Jede Einheit trägt einen Anker („vergleich-paragraph-2“), auf den die Marken am Ort der
+  // Änderung im Normtext verweisen; derselbe Anker wie dort, eindeutig je Seite.
+  const usedIds = new Set<string>();
   const provisionMarkup = provisions.map((provision) => {
     const columns = `${provision.before ? renderSide(provision, 'before', fromDate) : ''}${provision.after ? renderSide(provision, 'after', toDate) : ''}`;
     const title = provisionTitle(provision);
-    return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}"><span class="norm-diff__status">${title ? `<span class="norm-diff__status-label">${escapeHtml(title)}</span>` : ''}<span class="r-status r-status--sm r-status--${statusRole(provision.kind)}">${statusLabel(provision.kind)}</span></span><div class="norm-diff__provision-columns">${columns}</div></li>`;
+    const value = provision.after ?? provision.before;
+    const base = `vergleich-${getBlockAnchorId([], { type: provision.type, label: value?.label, title: value?.title } as NormBodyBlock)}`;
+    let id = base;
+    for (let counter = 2; usedIds.has(id); counter += 1) id = `${base}-${counter}`;
+    usedIds.add(id);
+    return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}" id="${escapeHtml(id)}"><span class="norm-diff__status">${title ? `<span class="norm-diff__status-label">${escapeHtml(title)}</span>` : ''}<span class="r-status r-status--sm r-status--${statusRole(provision.kind)}">${statusLabel(provision.kind)}</span></span><div class="norm-diff__provision-columns">${columns}</div></li>`;
   }).join('');
   const legend = `<p class="norm-diff__legend"><span><del>gestrichen</del> links: Wortlaut der Fassung vom ${escapeHtml(formatDate(fromDate))}</span><span><ins>eingefügt</ins> rechts: Wortlaut der Fassung vom ${escapeHtml(formatDate(toDate))}</span><span>Textmarke Neu, Geändert oder Entfallen je Einheit</span></p>`;
   return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${escapeHtml(countLabel)}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p class="r-meta">Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : legend}`;

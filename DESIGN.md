@@ -127,8 +127,15 @@ Die Serife trägt das Dokument, Jost die Oberfläche – nicht „Serife für Ü
   fordern die tz-Ligatur an: eine zentrale Regel in `base.css` setzt `font-feature-settings:
   'dlig' 1` für genau diese Selektoren („Gesetze“ zeigt das verbundene tz).
 - Versalien (`.r-label`, 11 px) bleiben Etiketten: Metadatenrubriken, Seitenspaltenrubriken,
-  Tabellenköpfe, kurze Kennzeichnungen. Tragende H1/H2/H3 einer Seite stehen nie in dieser Rolle:
-  H1 in Ost Grotesk (34 px), H2 in `.r-h2` (23 px, Untervariante 20 px), H3 in `.r-h3` (17 px).
+  Tabellenköpfe, kurze Kennzeichnungen. Trägt ein Überschriftenelement diese Rolle (Rubriken der
+  Seitenspalte und des Fußes, `h2.r-label`, `h3.r-label`), steht es in `--fs-caption` (12 px) –
+  kein h1/h2/h3 setzt `--fs-micro` (Stilwächter). Tragende H1/H2/H3 einer Seite stehen nie in
+  dieser Rolle: H1 in Ost Grotesk (34 px), H2 in `.r-h2` (23 px, Untervariante `.r-h2--sub`
+  20 px), H3 in `.r-h3` (17 px). Die Stufe steht als Klasse am Element; ein Abschnittskopf
+  (`.r-section-head`) setzt keine eigene Größe dagegen. Die drei Abschnitts-H2 der Startseite
+  (Sachgebiete, Änderungsdienst, Neueste amtliche Veröffentlichungen) tragen `.r-h2 .r-h2--sub`,
+  die Spaltenrubriken des Änderungsdiensts `.r-h3`; `tests/visual.spec.ts` misst, dass alle
+  sichtbaren H2 der Startseite dieselbe Schriftgröße haben.
 
 ### Skalen
 
@@ -159,8 +166,9 @@ Zeilenhöhen ausschließlich aus vier Tokens: `--lh-display` 1,12 (Titel), `--lh
 (Lesetext). Ausnahme ist `line-height: 1` auf Aufklappzeichen (`::before`/`::after`), der Wortmarke
 und dem Symbolknopf der Einheitenwerkzeuge – Geometrie, keine Typografie.
 
-Normtext: 16 px, `max-width: 72ch` (in der Serife rund 70 Zeichen je Zeile), Zeilenhöhe 1,65.
-Lange Ressort-, Amts- und Normtitel dürfen umbrechen; negative Laufweiten kommen nicht vor;
+Normtext (OstRecht): `--fs-body` (17 px) in Source Serif 4, Zeilenhöhe `--lh-legal`; das
+Lesemaß `--measure-legal` (66ch) gilt für den Textkörper rechts der Adressspalte (siehe
+„Normtext“). Lange Ressort-, Amts- und Normtitel dürfen umbrechen; negative Laufweiten kommen nicht vor;
 Personenbezeichnungen verwenden den Doppelpunkt.
 
 ## Abstände und Radien
@@ -220,17 +228,27 @@ OstRecht führt das Amtsband (`.law-header`): Wappen und Wortmarke „OstRecht �
 Freistaates“, ein kompaktes Suchfeld und die fünf Bereiche Sachgebiete, A–Z und Register, Amtliche
 Veröffentlichungen, Verfassung und Hilfe mit `aria-current`. Über dem Band steht keine
 Hinweiszeile; der Hinweis zur Simulation schließt die Seite im Fuß ab, damit der Einstieg mit dem
-Hoheitszeichen beginnt. Politische Teaser- und Pressenavigation gehören nicht in diese Navigation.
+Hoheitszeichen beginnt – eine bewusste Abweichung vom Staatsportal, das den Hinweis oben führt
+(Entscheidung zu E35). Die Familienzugehörigkeit beider Portale tragen drei gemeinsame Anker:
+dasselbe Wappen im Kopf, Gold als Markierung des aktiven Navigationspunkts (`aria-current`) und
+der 3 px breite Fokusring (`--focus-width`, Staatsblau auf hellen Flächen, Gold im Amtsband).
+Kopfstil, Radien und Symbole bleiben verschieden: OstRecht ist als eigenständiges Rechtsportal
+erkennbar, nicht als Unterseite. Politische Teaser- und Pressenavigation gehören nicht in diese
+Navigation.
 
 Das Amtsband kennt drei Stufen: über 80 rem eine Zeile; bei 80 rem und darunter zweizeilig, mit den
 Bereichen als eigener Zeile; unter 60 rem weichen Suche und Bereiche in das Menü „Bereiche“.
 
 Der Fuß ist ein moderater Abschluss in drei Bereichen: Marke (kleines Wappen, Wortmarke,
 Rechtsstand und amtlicher Hinweis), „Recherchieren“ (Rechtssuche, Sachgebiete, A–Z und Register,
-die vier Normtypen, Amtliche Veröffentlichungen, Änderungsdienst als Sprung zur Startseite) und
-„Service“ (Hilfe, Impressum, Datenschutz, Barrierefreiheit, Staatsportal); darunter, durch eine
-Haarlinie getrennt, der Hinweis zur Simulation. Die Normtypen sind keine Punkte des Amtsbands,
-aber von jeder Seite sekundär erreichbar – im Fuß und im Menü „Bereiche“ unter „Weitere Zugänge“.
+Amtliche Veröffentlichungen, Änderungsdienst als Sprung zur Startseite, darunter die Gruppe
+„Nach Normtyp“ mit den vier Verzeichnissen) und „Service“ (Hilfe, Impressum, Datenschutz,
+Barrierefreiheit, Staatsportal); darunter, durch eine Haarlinie getrennt, der Hinweis zur
+Simulation. Unter 48 rem wird der Fuß einspaltig und „Recherchieren“ zweispaltig – Recherchewege
+links, „Nach Normtyp“ rechts, sodass die vier Verzeichnisse untereinander bleiben. Die Normtypen
+sind keine Punkte des Amtsbands, aber von jeder Seite sekundär erreichbar – im Fuß und im Menü
+„Bereiche“ unter „Weitere Zugänge“. Die Verzeichnisse der Normtypen tragen über der H1 eine
+Brotkrume „OstRecht · <Verzeichnis>“ mit Link zur Startseite (kein Systemwort „Normtyp“).
 
 ## Responsives Verhalten
 
@@ -408,7 +426,13 @@ Kopfzeile (Bereich „Vorschrift“, Sachgebiet, Normtyp, Ausfertigung, Stammfun
 mit der Statusmarke: zuerst die angezeigte Fassung, danach die Vorschrift („Geltende Fassung seit …
 · Vorschrift in Kraft seit …“, bei gleichen Daten „Geltende Fassung · in Kraft seit …“, „zuletzt
 geändert durch … mit Wirkung vom …“ mit Fundstelle) und, falls verkündet, der künftige
-Änderungshinweis in Gold. Daten stehen im Kopf numerisch (dd.mm.yyyy). Historische, künftige und
+Änderungshinweis in Gold („Änderung zum <Datum> verkündet (<Fundstelle>)“). Seine Fundstelle ist
+die der Änderungsvorschrift: die Verkündung der künftigen Fassung, sonst die letzte Klammer ihres
+Vollzitats (`amendingCitation`) – nie die Stammfundstelle, die bei konsolidierten Fassungen in der
+ersten Klammer steht und nur in der Kopfzeile erscheint. Alle vier Ansichten (Text, Vorschriftendaten,
+Fassungen und Änderungen, Fassungsvergleich) laden den Kopf über `loadNormView`
+(`apps/recht/src/lib/norm-view.ts`) und nennen deshalb denselben Änderungsakteur („zuletzt
+geändert durch <Kurztitel der Änderungsvorschrift>“). Daten stehen im Kopf numerisch (dd.mm.yyyy). Historische, künftige und
 ungeklärte Fassungen tragen ein Statusband über dem Kopf, das mit Wort, Farbe und Weg zur
 geltenden Fassung unmissverständlich ist (P3b). Die Rechtsherkunft steht als nachgeordnete Zeile
 unter der Statuszeile (auf dem Smartphone nur in den Vorschriftendaten). Werkzeuge: „Inhalt“
@@ -416,7 +440,16 @@ unter der Statuszeile (auf dem Smartphone nur in den Vorschriftendaten). Werkzeu
 (kopieren mit Rückmeldung), „Drucken“, „Amtliches PDF“ oder „Als PDF“ (Portalfassung). Darunter
 führen die „Bereiche der Vorschrift“ (`NormSectionTabs.astro`) als Reiterzeile zu Text,
 Vorschriftendaten, Fassungen und Änderungen sowie Rechtsbeziehungen. Der Wechsel zwischen den
-Ansichten verändert den Kopf nicht. Ein allein gezeigter Bereich schließt ohne zweite Linie an die
+Ansichten verändert den Kopf nicht. Auf dem Smartphone (unter 48 rem, wo die Inhaltsübersicht
+nicht neben dem Text steht) begleitet ein verdichteter Normkopf das Lesen
+(`NormMiniHead.astro`): eine 44-px-Zeile mit Kurztitel, Abkürzung, der gelesenen Einheit
+(„Artikel 12“, gesetzt von `norm-page.ts` aus derselben Beobachtung wie das mitlaufende Zitat)
+und der Schaltfläche „Inhalt“, die das vorhandene Seitenblatt öffnet. Sie erscheint, sobald der
+Vorschriftskopf nach oben aus dem Bild ist, haftet unter dem sichtbaren Amtsband
+(`--law-header-offset`, bei ausgeblendetem Band bei 0), ist bis dahin `hidden` und nicht
+fokussierbar, weicht bei offenem Bereichsmenü und offenem Seitenblatt, fehlt im Druck und ab
+48 rem, blendet mit 180 ms ein (bei reduzierter Bewegung ohne Übergang) und ist Orientierung,
+keine Meldung – keine Live-Region. Ein allein gezeigter Bereich schließt ohne zweite Linie an die
 Reiterzeile an, nimmt die Lesebreite `--measure-panel` und wiederholt seinen Namen nicht als
 Etikett – der Reiter nennt ihn; für Vorlesen, Druck und Betrieb ohne JavaScript bleibt die
 Überschrift im Baum. Alle Reiter funktionieren auch ohne JavaScript als reguläre Seitennavigation.
@@ -459,9 +492,11 @@ Der Vorschriftentext ist ein durchlaufendes Dokument (Richtung E, P3): jede nich
 Einheit ist ein `section` mit echter Überschrift, nichts wird auf- oder zugeklappt, es gibt keinen
 globalen Umschalter. Absätze stehen mit ihrer Adresse in einer schmalen Spalte (`--col-addr`, 3 rem) links vom
 Text; sichtbar ist nur das Absatzzeichen „(1)“, das Gliederungszeichen der Einheit steht in der
-Überschrift darüber und bleibt im zugänglichen Namen und im Anker („§ 12 (1)“). Innenpolster und
-Adressspalte sind so bemessen, dass reiner Absatztext bei 1440 px rund 70 Zeichen je Zeile trägt
-(540–590 px) – die Seitenbreite bleibt 80 rem. Je Einheit stehen in der Kopfzeile die Textlinks
+Überschrift darüber und bleibt im zugänglichen Namen und im Anker („§ 12 (1)“). Das Lesemaß
+`--measure-legal` (66ch) gilt für den Textkörper rechts der Adressspalte: `.norm-body` ist
+Maß plus Adressspalte plus Lücke breit, sodass reiner Absatztext bei 1440 px rund 70 Zeichen je
+Zeile trägt (mindestens 560 px, gemessen in `tests/visual.spec.ts`) und innerhalb der 690 px
+breiten Textspalte bleibt – Raster 260/690/250 und Seitenbreite 80 rem bleiben. Je Einheit stehen in der Kopfzeile die Textlinks
 „Link“ (kopiert die Adresse der Stelle) und „Drucken“ (Einzeldruck). Paragraphen, Artikel und
 Anlagen tragen sprechende, deterministische Anker; alte Anker bleiben unsichtbare Sprungziele.
 Zitierte Bestimmungen (`quotedProvision`) erscheinen als amtlich zitierter Text mit Linie, nicht
@@ -469,6 +504,23 @@ als dekoratives Zitat; Unterschriftenblöcke stehen im Fluss. Die Inhaltsübersi
 haftende Spalte links mit Filterfeld und Umfangszeile, darunter als modales Seitenblatt) hebt die
 gelesene Stelle hervor. Tabellen und Anlagen nutzen die volle Textspalte und rollen erst darüber
 hinaus in `.norm-table-wrap`.
+
+Änderungen stehen am Ort der Änderung: Jede angezeigte Fassung wird gegen ihre unmittelbare
+Vorfassung verglichen (`buildNormChangeMarks`, `packages/shared/src/lib/norms/change-marks.ts`,
+derselbe strukturelle Textvergleich wie der Fassungsvergleich – kein Redaktionsfeld). Eine
+geänderte oder neue Einheit (§, Artikel, Anlage) trägt in ihrer Kopfzeile hinter dem Titel das
+Textzeichen „geändert mit Wirkung vom <Datum>“ bzw. „neu mit Wirkung vom <Datum>“ (Jost,
+`--fs-caption`, `--status-amended`), verlinkt auf den Vergleich Vorfassung → angezeigte Fassung
+mit dem Anker der Einheit (`#vergleich-<Anker>`; jede Vergleichseinheit trägt diesen Anker).
+Absätze mit neuem oder geändertem Wortlaut (`.norm-abs--changed`) tragen eine Randlinie
+(`--line-mark`) in `--status-amended` und die Fläche `--surface-selected`; ihre Adresse sagt
+Vorlesern „geändert“. In der Inhaltsübersicht steht am Eintrag die Kurzmarke „geänd.“ bzw. „neu“
+mit dem vollständigen Text als `title` und für Vorleser; Gruppen zählen ihre Marken nicht. Die
+Ausgangs- oder Erstfassung trägt keine Marken; entfallene Absätze haben in der angezeigten
+Fassung keinen Ort. Im Druck bleiben die Textzeichen, die Flächen entfallen. Der Vergleich kostet
+bei langen Vorschriften mehr als 50 ms (Verfassung 70–90 ms), deshalb bleiben die Marken je
+(Slug, Vorfassung, Fassung) im Speicher des Workers (`loadNormView`), nicht in der
+D1-Projektion.
 
 ### Scrollwerkzeuge des Rechtsportals
 
@@ -478,19 +530,30 @@ aus; entsprechende Aufwärtsbewegung blendet es wieder ein. Kleine Richtungswech
 Zustandswechsel aus. Am Seitenanfang, bei Fokus im Kopf, offenem mobilen Menü oder geöffneten
 Suchvorschlägen bleibt es sichtbar. Tastaturfokus blendet es sofort ein. Bei reduzierter Bewegung
 bleibt die Funktion ohne Transition erhalten. `shell.ts` bündelt passive Scrollereignisse pro
-Animationsframe; ein ResizeObserver setzt `--law-header-height`. Diese gemessene Höhe bestimmt
-zentral `scroll-padding-top` und den Abstand der haftenden Inhaltsübersicht.
+Animationsframe; ein ResizeObserver setzt `--law-header-height` (die gemessene Kopfhöhe, mit der
+das Bereichsmenü rechnet) und `--law-header-offset` (dieselbe Höhe, solange das Band sichtbar
+ist, und 0, sobald es ausgeblendet ist). Der Versatz bestimmt `scroll-padding-top` und `top`
+sowie `max-height` der haftenden Inhaltsübersicht; sie folgt dem Band mit demselben Übergang
+(180 ms, bei reduzierter Bewegung keiner) und nutzt den gewonnenen Platz. Ein Sprung zu einem
+Anker derselben Seite gilt nicht als Leserichtung: das Band bleibt, wie es war.
 
 „Zum Seitenanfang“ ist ein sekundäres globales Werkzeug als kleine eckige Schaltfläche mit Pfeil
-und mindestens 44 × 44 px Bedienziel. Es erscheint nach einer Bildschirmhöhe (mindestens 600 px),
-schreibt keinen URL-Hash und scrollt bei reduzierter Bewegung sofort. Am Seitenanfang ist es
-verborgen und nicht fokussierbar; nach Aktivierung geht der Fokus zur Wortmarke. Bei offenem
-Bereichsmenü, Dialog, Einwilligungsbanner oder sichtbarem Footer wird es ausgeblendet, um keine
-Bedienelemente zu verdecken.
+und mindestens 44 × 44 px Bedienziel. Es erscheint auf allen Breiten erst nach zwei
+Bildschirmhöhen (`2 × innerHeight`; kurze Vorschriften zeigen es nie), schreibt keinen URL-Hash
+und scrollt bei reduzierter Bewegung sofort. Am Seitenanfang ist es verborgen und nicht
+fokussierbar; nach Aktivierung geht der Fokus zur Wortmarke. Bei offenem Bereichsmenü, Dialog,
+Einwilligungsbanner oder sichtbarem Footer wird es ausgeblendet, um keine Bedienelemente zu
+verdecken. Während der Fahrt trägt das Dokument `data-law-scroll-to-top`; die Inhaltsübersicht
+hebt vorbeiziehende Einheiten zwar hervor, rollt aber nur ihren eigenen Container – nie das
+Fenster (`revealInOutline` in `norm-page.ts`, kein `scrollIntoView`). Am Ende der Fahrt
+(`scrollend` oder Seitenanfang, Ereignis `law:scroll-to-top-end`) bestimmt sie die gelesene
+Einheit neu aus den tatsächlichen Positionen (`syncActiveToViewport`: die letzte Einheit, die
+oberhalb der Leselinie bei 12 % der Höhe beginnt, sonst die erste), weil eine schnelle Fahrt
+Einheiten am Beobachter vorbeiziehen lässt. So kommt die Fahrt auch bei einer Übersicht an, die
+länger ist als ihr Container, und die Hervorhebung stimmt danach mit der Leseposition überein.
 
-Das mitlaufende Normzitat nach aktueller Leseposition gehört bereits zur Normansicht. Ein
-zusätzlicher kontextueller Norm-Minimalkopf (E37) ist eine getrennte spätere Produktentscheidung;
-nach Einführung des smarten Amtsbands wird zunächst sein zusätzlicher Nutzen bewertet.
+Das mitlaufende Normzitat nach aktueller Leseposition gehört zur Normansicht; der verdichtete
+Normkopf des Smartphones (siehe „Normkopf und Bereiche der Vorschrift“) liest dieselbe Stelle.
 
 ### Fassungsvergleich
 
@@ -537,7 +600,17 @@ Vorschrift, ein Ereigniswort der Rechtswirkung („erstmals in Kraft“ / „ge�
 künftig „tritt in Kraft“ / „wird geändert“ / „tritt außer Kraft“) und darunter die Ursache ohne
 das wiederholte Ereigniswort samt Fundstelle (`describeChangeCause`, `shortCitation`). Wo der
 Eintragstitel nur das Vollzitat wiederholt, steht die Fundstelle allein. Kein Bedienziel unter
-24 px.
+24 px. Startseite und Feed lesen dieselben drei Spalten und Wörter aus
+`apps/recht/src/lib/change-service.ts`.
+
+Der Änderungsdienst ist als RSS 2.0 abonnierbar (`/aenderungsdienst/rss.xml`, ein Feed für den
+gesamten Dienst – keine Feeds je Vorschrift, keine E-Mail): je Spalte höchstens fünf Einträge mit
+Titel „<Kurztitel> <Ereigniswort>“, Ursache und Fundstelle als Beschreibung, der Spalte als
+Kategorie, Link auf „Fassungen und Änderungen“ der Vorschrift, dem Datum der Rechtswirkung als
+`pubDate` (RFC 822) und einer stabilen Kennung aus Slug, Datum und Ereignisart;
+`lastBuildDate` ist der Rechtsstand. Der Link „RSS“ steht in der Kopfzeile des Änderungsdiensts
+neben „Vollständiges Protokoll“, jede Seite trägt `<link rel="alternate" type="application/rss+xml">`;
+die Sitemap führt den Feed nicht.
 
 ### Rechtssuche
 
@@ -548,7 +621,12 @@ Filterspalte „Eingrenzen“ (Geltung, Normtyp, Sachgebiet mit Zählern). Die G
 eine Option: „außer Kraft“ filtert `repealed` und `historical` gemeinsam (`validityOptions`,
 `data-search-facet-values`); Facettengruppen ohne Option werden nicht gerendert. Die Quelltextfolge
 Anfrage → Trefferkopf → Filterspalte → Trefferliste ist zugleich die Reihenfolge unter 60 rem
-(Filter als Aufklappbereich vor der Liste). Treffertitel sind Links in Staatsblau (`--text-link`),
+(Filter als Aufklappbereich vor der Liste). Unter 48 rem verdichtet sich die Anfrage zu zwei
+Zweierzeilen unter Suchfeld und Schaltfläche: Suchbereich neben Sortierung, darunter „Weitere
+Filter · Erweiterte Suche“ neben „Eingrenzen“; ein geöffneter Bereich nimmt die volle Breite
+darunter, ohne JavaScript bleiben beide gewöhnliche Aufklappbereiche. Die Hüllen der Anfrage
+werden dafür durchsichtig (`display: contents`), die Quelltextfolge bleibt; der erste Treffer
+beginnt bei 390 px spätestens bei 460 px (Messung in `tests/visual.spec.ts`). Treffertitel sind Links in Staatsblau (`--text-link`),
 der Auszug steht in `--fs-ui` unter dem Titel; ein Langtitel, der nur Überschrift plus
 Klammer-Abkürzung wiederholt, entfällt (`getNormTitleBlock`). Ein Treffer ist ein Eintrag mit Linien, keine Karte: Kurztitel
 mit Kennung (Abkürzung · Normtyp), Langtitel darunter, eine Metazeile aus Statusmarke,
@@ -610,7 +688,10 @@ Titel einer Vorschrift nur bei Abweichung, gekennzeichnet als „Damaliger Titel
 Für die Benennung einer Vorschrift gilt überall derselbe Titelblock aus `getNormTitleBlock`
 (`packages/shared/src/lib/norms/display.ts`): Überschrift ist die Kurzbezeichnung, sonst der
 Langtitel; der Langtitel steht klein darunter, sobald er von der Überschrift abweicht; die
-Abkürzung steht neben der Überschrift, wenn sie sich von ihr unterscheidet. Normkopf, Suchtreffer,
+Abkürzung steht neben der Überschrift, wenn sie sich von ihr unterscheidet. Eine Klammer am Ende
+des Langtitels („… im Freistaat Ostdeutschland (FRL IndiFö)“) wird immer abgetrennt: Ist der Rest
+die Überschrift, entfällt der Langtitel, und ohne hinterlegte Abkürzung tritt der Klammerinhalt an
+ihre Stelle – kein Titel steht zweimal untereinander. Normkopf, Suchtreffer,
 Verzeichniseinträge, Stichwortregister, Brotkrumen, Auswahllisten und Autocomplete verwenden diese
 eine Regel; keine Oberfläche bildet eigene Titelvarianten. Formelhafte Kurzbeschreibungen des
 Massenimports (`summarySource: "derived"`) werden nirgends als Beschreibung ausgespielt; ohne

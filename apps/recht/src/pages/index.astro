@@ -25,10 +25,8 @@ import {
 } from '@ostrecht/shared/lib/norms/index.ts';
 import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
-import type { NormChange } from '../lib/runtime/store.ts';
+import { CHANGE_FEED_PATH, CHANGE_SERVICE_LIMIT, changeDetail, columnEventLabel, eventLabel, futureEventLabel, loadChangeService } from '../lib/change-service.ts';
 import { formatCount, formatNormCount } from '../lib/counts.ts';
-import { describeChange, describeChangeCause } from '../lib/history-labels.ts';
-import { shortCitation } from '../lib/norm-head.ts';
 import { referenceDateLabel } from '../lib/vocabulary.ts';
 import { formatShortDate } from '../lib/dates.ts';
 
@@ -40,21 +38,14 @@ export const prerender = false;
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-const HOME_CHANGE_LIMIT = 5;
-const HOME_CHANGE_CANDIDATE_LIMIT = 12;
+const HOME_CHANGE_LIMIT = CHANGE_SERVICE_LIMIT;
 const HOME_PUBLICATION_ENTRY_LIMIT = 6;
-const HOME_CHANGE_TYPES = [...LEGAL_CHANGE_ENTRY_TYPES];
-const IN_FORCE_TYPES = HOME_CHANGE_TYPES.filter((type) => type !== 'repeal');
 
-const [stats, subjectAreas, inForceChanges, futureChanges, repealChanges, latestPublications] = await Promise.all([
+const [stats, subjectAreas, columns, latestPublications] = await Promise.all([
   store.getCorpusStats(),
   store.listSubjectAreas(),
-  // Neu in Kraft getreten: Erlass und Änderung bis zum Stichtag, je Norm das jüngste Ereignis.
-  store.listChanges({ changeTypes: IN_FORCE_TYPES, until: EDITORIAL_REFERENCE_DATE, order: 'desc', limit: HOME_CHANGE_CANDIDATE_LIMIT, distinctNorms: true }),
-  // Verkündet, noch nicht in Kraft: alle Rechtsereignisse nach dem Stichtag, nächstes zuerst.
-  store.listChanges({ changeTypes: HOME_CHANGE_TYPES, after: EDITORIAL_REFERENCE_DATE, order: 'asc', limit: HOME_CHANGE_CANDIDATE_LIMIT, distinctNorms: true }),
-  // Außer Kraft getreten: Aufhebungen bis zum Stichtag.
-  store.listChanges({ changeTypes: ['repeal'], until: EDITORIAL_REFERENCE_DATE, order: 'desc', limit: HOME_CHANGE_CANDIDATE_LIMIT, distinctNorms: true }),
+  // Die drei Spalten der Rechtswirkung; der RSS-Feed liest dieselben (change-service.ts).
+  loadChangeService(store),
   store.listPublications({ limit: 6 }),
 ]);
 
@@ -80,38 +71,8 @@ const typeAccess: Array<{ type: NormType; href: string; label: string }> = [
   { type: 'foerderrichtlinie', href: getFundingUrl(), label: lawSiteConfig.targetLabels.funding },
 ];
 
-/**
- * Ereigniswort einer Zeile: die Rechtswirkung, nicht die Art der Vorschrift. Eingetretene und
- * künftige Wirkung bilden ein Wortpaar („erstmals in Kraft“ / „tritt in Kraft“), damit die
- * Spalten dieselbe Aussage in derselben Reihenfolge treffen.
- */
-function eventLabel(change: NormChange): string {
-  if (change.changeType === 'repeal') return 'aufgehoben';
-  return change.changeType === 'initial' ? 'erstmals in Kraft' : 'geändert';
-}
-function futureEventLabel(change: NormChange): string {
-  if (change.changeType === 'repeal') return 'tritt außer Kraft';
-  return change.changeType === 'initial' ? 'tritt in Kraft' : 'wird geändert';
-}
-/**
- * Detailzeile: die Ursache ohne das Ereigniswort und die Fundstelle. Auf der Startseite steht
- * die Fundstelle allein, wo der Eintragstitel nur das Vollzitat wiederholt; der vollständige
- * Wortlaut steht im Änderungsverlauf der Vorschrift.
- */
-function changeDetail(change: NormChange): string[] {
-  const cause = describeChangeCause(change);
-  const reference = shortCitation(change.citation);
-  if (cause && reference && !cause.includes(reference)) return [cause, reference];
-  return [cause || reference || describeChange(change)];
-}
-
 const publicationRows = listPublicationEntries(latestPublications).slice(0, HOME_PUBLICATION_ENTRY_LIMIT);
 const seriesLabels = [...new Set(latestPublications.map((publication) => publication.publication))];
-const columns = [
-  { key: 'current', heading: 'Neu in Kraft getreten', tone: 'in-force', entries: inForceChanges, empty: 'Im Bestand ist keine neu in Kraft getretene Vorschrift verzeichnet.' },
-  { key: 'future', heading: 'Verkündet, noch nicht in Kraft', tone: 'future', entries: futureChanges, empty: 'Derzeit ist keine künftige Änderung verkündet.' },
-  { key: 'repealed', heading: 'Außer Kraft getreten', tone: 'repealed', entries: repealChanges, empty: 'Im Bestand ist keine Aufhebung verzeichnet.' },
-] as const;
 ---
 
 <LawLayout
@@ -168,8 +129,8 @@ const columns = [
   <section class="r-home-changes" id="aenderungsdienst" aria-labelledby="aenderungsdienst-title">
     <div class="r-container">
       <div class="r-section-head">
-        <h2 id="aenderungsdienst-title" class="r-h2">Änderungsdienst</h2>
-        <span class="r-meta r-inline-list"><span>Veränderung des Rechtsbestands</span><span>Verkündung und Rechtswirkung getrennt</span><a href={`${getSearchUrl()}?sort=activity`}>Vollständiges Protokoll</a></span>
+        <h2 id="aenderungsdienst-title" class="r-h2 r-h2--sub">Änderungsdienst</h2>
+        <span class="r-meta r-inline-list"><span>Veränderung des Rechtsbestands</span><span>Verkündung und Rechtswirkung getrennt</span><a href={`${getSearchUrl()}?sort=activity`}>Vollständiges Protokoll</a><a href={CHANGE_FEED_PATH} type="application/rss+xml" data-change-feed>RSS</a></span>
       </div>
       <div class="r-home-changes__grid">
         {columns.map((column) => (
@@ -188,7 +149,7 @@ const columns = [
                   <time class:list={['r-num', column.key === 'future' ? 'r-future-text' : 'r-muted']} datetime={change.date}>{column.key === 'future' ? `ab ${formatShortDate(change.date)}` : formatShortDate(change.date)}</time>
                   <div>
                     <a class="r-home-changes__norm" href={getNormUrl(change.slug)}>{toDisplayText(change.normShortTitle)}</a>
-                    {' '}<span class="r-home-changes__event" data-law-change-label>{column.key === 'future' ? futureEventLabel(change) : eventLabel(change)}</span>
+                    {' '}<span class="r-home-changes__event" data-law-change-label>{columnEventLabel(column.key, change)}</span>
                     <div class="r-caption r-inline-list">{changeDetail(change).map((part) => <span>{part}</span>)}<a href={getNormHistoryUrl(change.slug)}>Änderungsverlauf</a></div>
                   </div>
                 </li>
@@ -204,7 +165,7 @@ const columns = [
   <section class="r-home-publications" aria-labelledby="home-publications-title">
     <div class="r-container">
       <div class="r-section-head">
-        <h2 id="home-publications-title" class="r-h2">Neueste amtliche Veröffentlichungen</h2>
+        <h2 id="home-publications-title" class="r-h2 r-h2--sub">Neueste amtliche Veröffentlichungen</h2>
         <span class="r-meta r-inline-list">{seriesLabels.map((label) => <span>{label}</span>)}<a href={getPublicationsUrl()}>Alle amtlichen Veröffentlichungen</a></span>
       </div>
       {publicationRows.length > 0 ? (

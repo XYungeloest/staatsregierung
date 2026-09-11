@@ -1776,7 +1776,7 @@ siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersic
     document.querySelector('.norm-aside__versions')!.getBoundingClientRect().top
       < document.querySelector('.norm-document')!.getBoundingClientRect().top,
   )).toBe(true);
-  await page.locator('[data-outline-open]').click();
+  await page.locator('.norm-page-header [data-outline-open]').click();
   await expect(page.getByRole('dialog', { name: 'Inhalt der Vorschrift' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toBeHidden();
@@ -1818,36 +1818,42 @@ siteTest(['law'])('Smartes Amtsband und Seitenanfang reagieren ruhig auf Scrolle
   await prepareFunctionalPage(page);
   await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
   // Verlässlicher Scrollraum unabhängig von der Länge des jeweils verwendeten Testkorpus.
-  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '5000px'; });
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '6000px'; });
   const header = page.locator('.law-header');
   const top = page.getByRole('button', { name: 'Zum Seitenanfang', exact: true });
   const scroll = async (y: number) => { await page.evaluate((position) => window.scrollTo({ top: position, behavior: 'instant' }), y); };
+  // „Zum Seitenanfang“ erscheint erst nach zwei Bildschirmhöhen (auf allen Breiten).
+  const threshold = await page.evaluate(() => 2 * window.innerHeight);
+  const far = threshold + 100;
   await expect(header).toHaveClass(/is-scroll-visible/u);
   await expect(top).toBeHidden();
-  await scroll(1400);
+  await scroll(threshold - 200);
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  await expect(top).toBeHidden();
+  await scroll(far);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
   await expect(top).toBeVisible();
-  await scroll(1396);
+  await scroll(far - 4);
   await page.waitForTimeout(50);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
-  await scroll(1340);
+  await scroll(far - 60);
   await expect(header).toHaveClass(/is-scroll-visible/u);
-  await scroll(1600);
+  await scroll(far + 200);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
   await page.locator('#law-header-search').focus();
   await expect(header).toHaveClass(/is-scroll-visible/u);
-  await scroll(1900);
+  await scroll(far + 500);
   await expect(header).toHaveClass(/is-scroll-visible/u);
   await page.locator('#law-header-search').evaluate((element) => (element as HTMLElement).blur());
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('.law-mobile-nav summary').click();
-  await scroll(2100);
+  await scroll(far + 700);
   await expect(header).toHaveClass(/is-scroll-visible/u);
   await expect(top).toBeHidden();
   await page.locator('.law-mobile-nav summary').click();
   await page.locator('.law-mobile-nav summary').evaluate((element) => (element as HTMLElement).blur());
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await scroll(2400);
+  await scroll(far + 1000);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
   expect(await header.evaluate((element) => getComputedStyle(element).transitionDuration)).toBe('0s');
   await expect(top).toBeVisible();
@@ -1865,6 +1871,68 @@ siteTest(['law'])('Smartes Amtsband und Seitenanfang reagieren ruhig auf Scrolle
   await page.locator('.law-footer').scrollIntoViewIfNeeded();
   await expect(top).toBeHidden();
 });
+
+siteTest(['law'])('Restpunkte Richtung E: die Inhaltsübersicht folgt dem ausgeblendeten Amtsband', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '5000px'; });
+  const outline = page.locator('.norm-outline--desktop');
+  const header = page.locator('.law-header');
+  const headerHeight = await header.evaluate((element) => element.getBoundingClientRect().height);
+  expect(headerHeight).toBeGreaterThan(0);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).top)).toBe(`${headerHeight}px`);
+  // Abwärts: das Band blendet sich aus, Übersicht und Ankerpolster rücken an den oberen Rand.
+  await page.evaluate(() => window.scrollTo({ top: 1400, behavior: 'instant' }));
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).top)).toBe('0px');
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).maxHeight)).toBe('900px');
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollPaddingTop)).toBe('12px');
+  // Aufwärts: das Band kehrt zurück, die Übersicht nimmt wieder die Kopfhöhe als Abstand.
+  await page.evaluate(() => window.scrollTo({ top: 1300, behavior: 'instant' }));
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).top)).toBe(`${headerHeight}px`);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).maxHeight)).toBe(`${900 - headerHeight}px`);
+  // Das Bereichsmenü rechnet weiter mit der gemessenen Kopfhöhe.
+  expect(await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--law-header-height')))).toBe(headerHeight);
+});
+
+/**
+ * „Zum Seitenanfang“ kommt oben an (N10): Während der sanften Fahrt meldet der Beobachter jede
+ * vorbeiziehende Einheit; die Übersicht darf dabei nur ihren eigenen Container rollen, nie das
+ * Fenster. Der Fehler zeigte sich nur mit einer Übersicht, die länger ist als ihr Container –
+ * dafür bekommen die Einträge hier Höhe.
+ */
+for (const motion of ['no-preference', 'reduce'] as const) {
+  siteTest(['law'])(`Restpunkte Richtung E: „Zum Seitenanfang“ erreicht den Seitenanfang (${motion === 'reduce' ? 'reduzierte Bewegung' : 'sanfte Fahrt'})`, async ({ page, request }) => {
+    await prepareFunctionalPage(page);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.emulateMedia({ reducedMotion: motion });
+    await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+    // Auch das kurze Fixture (eine Einheit) überläuft so seinen Container.
+    await page.addStyleTag({ content: '.norm-outline__list a { min-height: 120vh; }' });
+    await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.paddingBottom = '5000px'; });
+    const outline = page.locator('.norm-outline--desktop');
+    expect(await outline.evaluate((element) => element.scrollHeight > element.clientHeight), 'die Übersicht rollt in ihrem Container').toBe(true);
+    // Ans Ende des Textes, den Fuß noch knapp außerhalb des Bildes (dort verbirgt sich der Knopf).
+    await page.evaluate(() => window.scrollTo({ top: document.querySelector('.law-footer')!.getBoundingClientRect().top + window.scrollY - window.innerHeight - 40, behavior: 'instant' }));
+    const top = page.getByRole('button', { name: 'Zum Seitenanfang', exact: true });
+    await expect(top).toBeVisible();
+    await top.click();
+    await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 8000 }).toBe(0);
+    await expect.poll(() => page.evaluate(() => document.documentElement.hasAttribute('data-law-scroll-to-top'))).toBe(false);
+    // Nach der Fahrt zeigt die Übersicht den ersten Eintrag (sein Anfang liegt im Container) und
+    // hebt die am Seitenanfang gelesene Einheit hervor – die erste, weil keine oberhalb der
+    // Leselinie beginnt.
+    const firstLink = page.locator('.norm-outline--desktop a[data-outline-link]').first();
+    await expect.poll(() => firstLink.evaluate((element) => {
+      const frame = element.closest('.norm-outline--desktop')!.getBoundingClientRect();
+      const box = element.getBoundingClientRect();
+      return box.top >= frame.top - 1 && box.top < frame.bottom;
+    })).toBe(true);
+    await expect(firstLink).toHaveAttribute('aria-current', 'location');
+  });
+}
 
 siteTest(['law'])('Mitlaufendes Zitat folgt der gelesenen Normeinheit', async ({ page, request }) => {
   await prepareFunctionalPage(page);
@@ -2050,4 +2118,146 @@ siteTest(['law'])('Qualitätspass Richtung E: die Inhaltsübersicht gliedert lan
   await page.locator('.norm-outline--desktop [data-outline-search]').fill(word);
   await expect(lastLink).toBeVisible();
   await expect(lastLink.locator('xpath=ancestor::details[1]')).toHaveAttribute('open', /.*/u);
+});
+
+siteTest(['law'])('Restpunkte Richtung E: die verkündete Änderung im Normkopf nennt die Fundstelle der Änderungsvorschrift', async ({ page, request }) => {
+  // Kandidat: eine geltende Vorschrift, deren Änderung verkündet, aber noch nicht wirksam ist –
+  // die Startseite führt sie unter „Verkündet, noch nicht in Kraft“ als „wird geändert“.
+  await page.goto(lawUrl('/'));
+  const entries = page.locator('[data-law-future-change-list] li[data-change-type="amendment"]');
+  test.skip(await entries.count() === 0, 'Der Bestand verkündet keine künftige Änderung einer geltenden Vorschrift (Testfixture).');
+  const href = await entries.first().locator('.r-home-changes__norm').getAttribute('href');
+  await page.goto(lawUrl(href!));
+  const slug = new URL(page.url()).pathname.split('/')[2];
+  const future = page.locator('.norm-page-header__line .r-future-text a');
+  await expect(future).toHaveCount(1);
+  const text = ((await future.textContent()) ?? '').replace(/\s+/gu, ' ').trim();
+  const cited = text.match(/verkündet \(([^()]*)\)$/u)?.[1];
+  expect(cited, text).toBeTruthy();
+  // Nicht die Stammfundstelle der Kopfzeile …
+  const stem = ((await page.locator('.r-kicker span', { hasText: /^Stammfundstelle/u }).textContent()) ?? '').replace(/^Stammfundstelle\s*/u, '').trim();
+  expect(cited).not.toBe(stem);
+  // … sondern die letzte Klammer des Vollzitats der künftigen Fassung (Such-API).
+  const hit = (await searchApi(request, '?versionScope=future&includeAmendments=1')).hits.find((entry) => entry.slug === slug);
+  expect(hit, `künftige Fassung von ${slug} in der Such-API`).toBeTruthy();
+  const lastParenthesis = [...hit!.citation.matchAll(/\(([^()]*)\)/gu)].at(-1)?.[1]?.trim();
+  expect(cited).toBe(lastParenthesis);
+});
+
+siteTest(['law'])('Restpunkte Richtung E: der Normkopf nennt den Änderungsakteur auf allen vier Ansichten gleich', async ({ page, request }) => {
+  const norm = await multiVersionNorm(request);
+  const lines: string[] = [];
+  for (const path of [norm.current.currentUrl, `${norm.current.currentUrl}daten/`, `/norm/${norm.slug}/history/`, `/norm/${norm.slug}/vergleich/`]) {
+    await page.goto(lawUrl(path));
+    lines.push(((await page.locator('.norm-page-header__line').textContent()) ?? '').replace(/\s+/gu, ' ').trim());
+  }
+  expect(lines[0]).toMatch(/zuletzt geändert durch \S/u);
+  expect(new Set(lines).size, lines.join('\n')).toBe(1);
+});
+
+siteTest(['law'])('Restpunkte Richtung E: Verzeichnisköpfe führen als Brotkrume zur Startseite, der Fuß hält die Normtypen beieinander', async ({ page }) => {
+  for (const path of ['/gesetze/', '/verordnungen/', '/verwaltungsvorschriften/', '/foerderrichtlinien/']) {
+    await page.goto(lawUrl(path));
+    const kicker = page.locator('.r-page-head .r-kicker').first();
+    await expect(kicker.locator('a').first(), path).toHaveAttribute('href', '/');
+    await expect(kicker.locator('a').first(), path).toHaveText('OstRecht');
+    expect((await kicker.textContent()) ?? '', path).not.toMatch(/Normtyp/u);
+  }
+  // Tablet-Stufe: Gesetze, Verordnungen, Verwaltungsvorschriften, Förderrichtlinien untereinander in einer Spalte.
+  await page.setViewportSize({ width: 698, height: 900 });
+  await page.goto(lawUrl('/'));
+  const boxes = await page.locator('.law-footer__types a').evaluateAll((elements) => elements.map((element) => {
+    const box = element.getBoundingClientRect();
+    return { text: element.textContent?.trim() ?? '', left: Math.round(box.left), top: Math.round(box.top) };
+  }));
+  expect(boxes.map((box) => box.text)).toEqual(['Gesetze', 'Verordnungen', 'Verwaltungsvorschriften', 'Förderrichtlinien']);
+  expect(new Set(boxes.map((box) => box.left)).size, 'eine Spalte').toBe(1);
+  for (let index = 1; index < boxes.length; index += 1) expect(boxes[index].top).toBeGreaterThan(boxes[index - 1].top);
+  await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Recherchieren' }).getByRole('heading', { name: 'Nach Normtyp' })).toBeVisible();
+});
+
+siteTest(['law'])('Restpunkte Richtung E: Änderungen stehen am Ort der Änderung – im Text, in der Kopfzeile der Einheit und in der Übersicht', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  // Eine geltende Vorschrift mit gespeicherter Vorfassung (übernommen und ostdeutsch geändert).
+  const norm = await currentNormOfOrigin(request, 'inherited-amended');
+  await page.goto(lawUrl(norm.currentUrl));
+  const marks = page.locator('.norm-unit__change');
+  expect(await marks.count(), 'geänderte oder neue Einheiten').toBeGreaterThan(0);
+  const first = marks.first();
+  await expect(first).toHaveText(/^(geändert|neu) mit Wirkung vom \d{2}\.\d{2}\.\d{4}$/u);
+  const href = (await first.getAttribute('href')) ?? '';
+  expect(href).toMatch(/\/vergleich\/\?von=[^&]+&bis=[^#]+#vergleich-/u);
+  // Der geänderte Absatz trägt Randlinie und Fläche und sagt Vorlesern „geändert“.
+  const changedAbs = page.locator('.norm-abs--changed');
+  if (await changedAbs.count() > 0) {
+    await expect(changedAbs.first().locator('.norm-abs__addr')).toContainText('geändert');
+    expect(await changedAbs.first().evaluate((element) => getComputedStyle(element).boxShadow)).not.toBe('none');
+  }
+  // Die Übersicht trägt die Kurzmarke mit vollständigem Text für Vorleser.
+  const unitId = await first.locator('xpath=ancestor::section[@data-norm-unit][1]').getAttribute('id');
+  const outlineMark = page.locator(`.norm-outline--desktop [data-outline-link="${unitId}"] .norm-outline__mark`);
+  await expect(outlineMark).toHaveCount(1);
+  await expect(outlineMark).toHaveAttribute('title', /mit Wirkung vom/u);
+  await expect(outlineMark.locator('[aria-hidden="true"]')).toHaveText(/^(geänd\.|neu)$/u);
+  // Der Link führt auf den Vergleich zur Vorfassung, dort trägt die Einheit denselben Anker.
+  await page.goto(lawUrl(href));
+  await expect(page.locator(`#${new URL(href, 'http://x').hash.slice(1)}`)).toBeVisible();
+  // Die Ausgangsfassung (älteste gespeicherte Fassung) hat keine Vorfassung und deshalb keine Marken.
+  const hit = (await searchApi(request, '?versionScope=all&includeAmendments=1')).hits.find((entry) => entry.slug === norm.slug);
+  const earliest = hit ? [{ validFrom: hit.validFrom, url: hit.url }, ...hit.otherVersions].sort((left, right) => left.validFrom.localeCompare(right.validFrom))[0] : undefined;
+  if (earliest) {
+    await page.goto(lawUrl(earliest.url));
+    await expect(page.locator('.norm-unit__change')).toHaveCount(0);
+  }
+});
+
+siteTest(['law'])('Restpunkte Richtung E: der verdichtete Normkopf begleitet das Lesen auf dem Smartphone', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  const miniHead = page.locator('[data-norm-mini-head]');
+  await expect(miniHead).toBeHidden();
+  // Zusätzlicher Raum hinter dem Text erlaubt auch beim kurzen Fixture eine freie Leseposition.
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.paddingBottom = '2000px'; });
+  const unit = page.locator('[data-norm-unit][id]').last();
+  const label = await unit.getAttribute('data-unit-label');
+  await unit.evaluate((element) => window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - window.innerHeight * 0.12 - 4, behavior: 'instant' }));
+  await expect(miniHead).toBeVisible();
+  await expect(miniHead.locator('[data-mini-unit]')).toHaveText(label!);
+  const box = await miniHead.boundingBox();
+  expect(Math.round(box!.height)).toBeGreaterThanOrEqual(44);
+  // „Inhalt“ öffnet das vorhandene Seitenblatt.
+  await miniHead.getByRole('link', { name: 'Inhalt' }).click();
+  await expect(page.locator('dialog.r-sheet--outline[open]')).toBeVisible();
+  await expect(miniHead).toBeHidden();
+  await page.locator('dialog.r-sheet--outline [data-sheet-close]').click();
+  // Zurück am Seitenanfang verschwindet die Zeile; ab 48 rem gibt es sie nicht.
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await expect(miniHead).toBeHidden();
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await unit.evaluate((element) => window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - 100, behavior: 'instant' }));
+  await expect(miniHead).toBeHidden();
+});
+
+siteTest(['law'])('Restpunkte Richtung E: der Änderungsdienst hat einen RSS-Feed', async ({ page, request }) => {
+  await page.goto(lawUrl('/'));
+  const link = page.locator('.r-home-changes .r-section-head a[data-change-feed]');
+  await expect(link).toHaveText('RSS');
+  const href = (await link.getAttribute('href'))!;
+  expect(href).toBe('/aenderungsdienst/rss.xml');
+  await expect(page.locator('head link[rel="alternate"][type="application/rss+xml"]')).toHaveAttribute('href', href);
+  const response = await request.get(lawUrl(href));
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toMatch(/application\/rss\+xml/u);
+  const xml = await response.text();
+  expect(xml).toMatch(/^<\?xml version="1\.0" encoding="UTF-8"\?>\n<rss version="2\.0"/u);
+  expect((xml.match(/<item>/gu) ?? []).length).toBeLessThanOrEqual(15);
+  expect((xml.match(/<item>/gu) ?? []).length).toBeGreaterThan(0);
+  for (const [, date] of xml.matchAll(/<pubDate>([^<]+)<\/pubDate>/gu)) expect(date).toMatch(/^[A-Z][a-z]{2}, \d{2} [A-Z][a-z]{2} \d{4} \d{2}:\d{2}:\d{2} GMT$/u);
+  // Jeder Eintrag führt auf den Änderungsverlauf einer Vorschrift.
+  for (const [, itemLink] of xml.matchAll(/<link>([^<]+)<\/link>/gu)) if (itemLink.includes('/norm/')) expect(itemLink).toMatch(/\/norm\/[^/]+\/history\/$/u);
+  // Kein Eintrag in der Sitemap.
+  const sitemap = await (await request.get(lawUrl('/sitemap.xml'))).text();
+  expect(sitemap).not.toContain('rss.xml');
 });

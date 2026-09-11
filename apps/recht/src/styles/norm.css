@@ -132,15 +132,24 @@
   background: var(--surface-muted);
 }
 
+/* Die Übersicht folgt dem sichtbaren Amtsband: --law-header-offset ist die Kopfhöhe, solange das
+   Band sichtbar ist, und 0, sobald es sich beim Abwärtsscrollen ausblendet (shell.ts). */
 .norm-outline--desktop {
   position: sticky;
-  top: var(--law-header-height, 0px);
-  max-height: calc(100vh - var(--law-header-height, 0px));
+  top: var(--law-header-offset, 0px);
+  max-height: calc(100vh - var(--law-header-offset, 0px));
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   font-size: var(--fs-meta);
   scrollbar-width: thin;
+  transition: top 180ms ease, max-height 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .norm-outline--desktop {
+    transition: none;
+  }
 }
 
 .norm-outline__filter {
@@ -300,12 +309,14 @@
   max-width: var(--measure-legal);
 }
 
+/* Das Lesemaß gilt für den Textkörper rechts der Adressspalte: Adressspalte und Lücke kommen zum
+   Maß hinzu, damit ein Absatz bei 1440 px rund 70 Zeichen je Zeile trägt (Raster 260/690/250). */
 .norm-body {
   font-family: var(--font-serif);
   font-size: var(--fs-body);
   line-height: var(--lh-legal);
   color: var(--text-body);
-  max-width: var(--measure-legal);
+  max-width: calc(var(--measure-legal) + var(--col-addr) + var(--space-3));
 }
 
 .norm-body p {
@@ -1078,5 +1089,103 @@ a.norm-timeline__date:hover {
     height: 0;
     margin: 0;
     overflow: hidden;
+  }
+}
+
+/* Änderungen am Ort der Änderung (E36): Textzeichen in der Kopfzeile der Einheit, verlinkt auf den
+   Vergleich mit der Vorfassung; geänderte Absätze mit Randlinie und Fläche – Farbe ist nie allein,
+   die Adresse trägt „geändert“ für Vorleser, die Übersicht die Kurzmarke. */
+.norm-unit__change {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  color: var(--status-amended);
+  text-decoration: none;
+}
+
+.norm-unit__change:hover {
+  text-decoration: underline;
+}
+
+.norm-abs--changed {
+  background: var(--surface-selected);
+  margin-left: calc(-1 * var(--space-3));
+  padding: var(--space-2) var(--space-3);
+  box-shadow: inset var(--line-mark) 0 0 var(--status-amended);
+}
+
+.norm-outline__mark {
+  flex-shrink: 0;
+  font-size: var(--fs-caption);
+  color: var(--status-amended);
+}
+
+/* Verdichteter Normkopf beim Scrollen (E37), nur unter 48 rem: Kurztitel, Abkürzung, gelesene
+   Einheit und „Inhalt“ in einer 44-px-Zeile unter dem sichtbaren Amtsband (--law-header-offset).
+   Bis der Vorschriftskopf aus dem Bild ist, bleibt die Zeile hidden und nicht fokussierbar. */
+.norm-mini-head {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  .norm-mini-head:not([hidden]) {
+    position: fixed;
+    top: var(--law-header-offset, 0px);
+    left: 0;
+    right: 0;
+    z-index: 55;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--target-main);
+    padding: 0 var(--page-gutter);
+    background: var(--paper-0);
+    border-bottom: var(--line) solid var(--border-default);
+    font-family: var(--font-sans);
+    font-size: var(--fs-meta);
+    transform: translateY(-100%);
+    transition: transform 180ms ease, top 180ms ease;
+  }
+
+  .norm-mini-head.is-visible {
+    transform: translateY(0);
+  }
+
+  .norm-mini-head__text {
+    display: flex;
+    gap: var(--space-2);
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .norm-mini-head__title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-strong);
+    font-weight: 500;
+  }
+
+  .norm-mini-head__abbr,
+  .norm-mini-head__unit {
+    flex-shrink: 0;
+    color: var(--text-secondary);
+  }
+
+  .norm-mini-head__unit:empty {
+    display: none;
+  }
+
+  /* Offenes Bereichsmenü und offenes Seitenblatt verdecken die Zeile nicht, sie weicht. */
+  body:has(.law-mobile-nav[open]) .norm-mini-head,
+  body:has(dialog[open]) .norm-mini-head {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .norm-mini-head {
+    transition: none;
   }
 }

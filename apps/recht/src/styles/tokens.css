@@ -131,7 +131,7 @@
   /* Breiten */
   --page-max: 80rem;          /* 1280 px – Standardbreite aller Seiten und Bänder */
   --page-gutter: 2.5rem;      /* 40 px auf großen Breiten */
-  --measure-legal: 66ch;
+  --measure-legal: 66ch;      /* Textkörper des Normtexts ohne Adressspalte (≈ 70 Zeichen Source Serif) */
   --measure-copy: 72ch;
   --measure-panel: 56rem;     /* 896 px – allein stehender Bereich (Vorschriftendaten, Beziehungen) */
   --col-outline: 16.25rem;    /* 260 px */
