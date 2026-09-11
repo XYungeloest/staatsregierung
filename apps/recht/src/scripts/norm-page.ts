@@ -29,7 +29,8 @@ function revealInOutline(link: HTMLElement): void {
   if (!container) return;
   const box = link.getBoundingClientRect();
   const frame = container.getBoundingClientRect();
-  if (box.top < frame.top) container.scrollTop += box.top - frame.top;
+  // Ein Eintrag, der höher ist als der Container, zeigt seinen Anfang.
+  if (box.top < frame.top || box.height > frame.height) container.scrollTop += box.top - frame.top;
   else if (box.bottom > frame.bottom) container.scrollTop += box.bottom - frame.bottom;
 }
 
@@ -58,14 +59,25 @@ function setActive(id: string): void {
   }
 }
 
-document.addEventListener('law:scroll-to-top-end', () => {
-  const active = outlineLinks.find((link) => link.hasAttribute('aria-current'));
-  if (active) revealInOutline(active);
-});
-
 const targets = [...new Set(outlineLinks.map((link) => link.dataset.outlineLink).filter(Boolean))]
   .map((id) => document.getElementById(id!))
   .filter((entry): entry is HTMLElement => Boolean(entry));
+
+/**
+ * Nach einer programmatischen Fahrt (Seitenanfang) stimmt die Hervorhebung nicht zwingend mit der
+ * Leseposition überein: eine schnelle Fahrt lässt Einheiten am Beobachter vorbeiziehen. Deshalb
+ * wird die gelesene Einheit aus den tatsächlichen Positionen bestimmt – die letzte, die oberhalb
+ * der Leselinie beginnt (12 % der Höhe wie der Beobachter), sonst die erste.
+ */
+function syncActiveToViewport(): void {
+  if (targets.length === 0) return;
+  const readingLine = window.innerHeight * 0.12;
+  const started = targets.filter((target) => target.getBoundingClientRect().top <= readingLine);
+  const active = started.at(-1) ?? targets[0];
+  if (active.id) setActive(active.id);
+}
+
+document.addEventListener('law:scroll-to-top-end', syncActiveToViewport);
 
 if (targets.length > 0 && 'IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {

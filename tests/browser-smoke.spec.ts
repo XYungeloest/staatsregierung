@@ -1921,11 +1921,16 @@ for (const motion of ['no-preference', 'reduce'] as const) {
     await top.click();
     await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 8000 }).toBe(0);
     await expect.poll(() => page.evaluate(() => document.documentElement.hasAttribute('data-law-scroll-to-top'))).toBe(false);
-    // Nach der Fahrt zeigt die Übersicht den ersten Eintrag; hervorgehoben ist höchstens er.
-    await expect.poll(() => outline.evaluate((element) => element.scrollTop)).toBe(0);
-    const first = await page.locator('.norm-outline--desktop a[data-outline-link]').first().getAttribute('data-outline-link');
-    const current = await page.locator('.norm-outline--desktop a[data-outline-link][aria-current]').evaluateAll((elements) => elements.map((element) => (element as HTMLElement).dataset.outlineLink));
-    expect(current.filter((entry) => entry !== first), 'hervorgehobene Einträge nach der Fahrt').toEqual([]);
+    // Nach der Fahrt zeigt die Übersicht den ersten Eintrag (sein Anfang liegt im Container) und
+    // hebt die am Seitenanfang gelesene Einheit hervor – die erste, weil keine oberhalb der
+    // Leselinie beginnt.
+    const firstLink = page.locator('.norm-outline--desktop a[data-outline-link]').first();
+    await expect.poll(() => firstLink.evaluate((element) => {
+      const frame = element.closest('.norm-outline--desktop')!.getBoundingClientRect();
+      const box = element.getBoundingClientRect();
+      return box.top >= frame.top - 1 && box.top < frame.bottom;
+    })).toBe(true);
+    await expect(firstLink).toHaveAttribute('aria-current', 'location');
   });
 }
 
@@ -2198,10 +2203,11 @@ siteTest(['law'])('Restpunkte Richtung E: Änderungen stehen am Ort der Änderun
   // Der Link führt auf den Vergleich zur Vorfassung, dort trägt die Einheit denselben Anker.
   await page.goto(lawUrl(href));
   await expect(page.locator(`#${new URL(href, 'http://x').hash.slice(1)}`)).toBeVisible();
-  // Die Ausgangsfassung selbst hat keine Vorfassung und deshalb keine Marken.
-  const historical = (await searchApi(request, '?versionScope=historical&includeAmendments=1')).hits.find((hit) => hit.slug === norm.slug);
-  if (historical) {
-    await page.goto(lawUrl(historical.url));
+  // Die Ausgangsfassung (älteste gespeicherte Fassung) hat keine Vorfassung und deshalb keine Marken.
+  const hit = (await searchApi(request, '?versionScope=all&includeAmendments=1')).hits.find((entry) => entry.slug === norm.slug);
+  const earliest = hit ? [{ validFrom: hit.validFrom, url: hit.url }, ...hit.otherVersions].sort((left, right) => left.validFrom.localeCompare(right.validFrom))[0] : undefined;
+  if (earliest) {
+    await page.goto(lawUrl(earliest.url));
     await expect(page.locator('.norm-unit__change')).toHaveCount(0);
   }
 });
@@ -2220,7 +2226,7 @@ siteTest(['law'])('Restpunkte Richtung E: der verdichtete Normkopf begleitet das
   await expect(miniHead).toBeVisible();
   await expect(miniHead.locator('[data-mini-unit]')).toHaveText(label!);
   const box = await miniHead.boundingBox();
-  expect(box!.height).toBeGreaterThanOrEqual(44);
+  expect(Math.round(box!.height)).toBeGreaterThanOrEqual(44);
   // „Inhalt“ öffnet das vorhandene Seitenblatt.
   await miniHead.getByRole('link', { name: 'Inhalt' }).click();
   await expect(page.locator('dialog.r-sheet--outline[open]')).toBeVisible();

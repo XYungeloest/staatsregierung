@@ -545,9 +545,12 @@ fokussierbar; nach Aktivierung geht der Fokus zur Wortmarke. Bei offenem Bereich
 Einwilligungsbanner oder sichtbarem Footer wird es ausgeblendet, um keine Bedienelemente zu
 verdecken. Während der Fahrt trägt das Dokument `data-law-scroll-to-top`; die Inhaltsübersicht
 hebt vorbeiziehende Einheiten zwar hervor, rollt aber nur ihren eigenen Container – nie das
-Fenster (`revealInOutline` in `norm-page.ts`, kein `scrollIntoView`) – und holt am Ende der
-Fahrt (`scrollend` oder Seitenanfang, Ereignis `law:scroll-to-top-end`) den gelesenen Eintrag
-nach. So kommt die Fahrt auch bei einer Übersicht an, die länger ist als ihr Container.
+Fenster (`revealInOutline` in `norm-page.ts`, kein `scrollIntoView`). Am Ende der Fahrt
+(`scrollend` oder Seitenanfang, Ereignis `law:scroll-to-top-end`) bestimmt sie die gelesene
+Einheit neu aus den tatsächlichen Positionen (`syncActiveToViewport`: die letzte Einheit, die
+oberhalb der Leselinie bei 12 % der Höhe beginnt, sonst die erste), weil eine schnelle Fahrt
+Einheiten am Beobachter vorbeiziehen lässt. So kommt die Fahrt auch bei einer Übersicht an, die
+länger ist als ihr Container, und die Hervorhebung stimmt danach mit der Leseposition überein.
 
 Das mitlaufende Normzitat nach aktueller Leseposition gehört zur Normansicht; der verdichtete
 Normkopf des Smartphones (siehe „Normkopf und Bereiche der Vorschrift“) liest dieselbe Stelle.
