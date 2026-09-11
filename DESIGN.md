@@ -408,7 +408,13 @@ Kopfzeile (Bereich „Vorschrift“, Sachgebiet, Normtyp, Ausfertigung, Stammfun
 mit der Statusmarke: zuerst die angezeigte Fassung, danach die Vorschrift („Geltende Fassung seit …
 · Vorschrift in Kraft seit …“, bei gleichen Daten „Geltende Fassung · in Kraft seit …“, „zuletzt
 geändert durch … mit Wirkung vom …“ mit Fundstelle) und, falls verkündet, der künftige
-Änderungshinweis in Gold. Daten stehen im Kopf numerisch (dd.mm.yyyy). Historische, künftige und
+Änderungshinweis in Gold („Änderung zum <Datum> verkündet (<Fundstelle>)“). Seine Fundstelle ist
+die der Änderungsvorschrift: die Verkündung der künftigen Fassung, sonst die letzte Klammer ihres
+Vollzitats (`amendingCitation`) – nie die Stammfundstelle, die bei konsolidierten Fassungen in der
+ersten Klammer steht und nur in der Kopfzeile erscheint. Alle vier Ansichten (Text, Vorschriftendaten,
+Fassungen und Änderungen, Fassungsvergleich) laden den Kopf über `loadNormView`
+(`apps/recht/src/lib/norm-view.ts`) und nennen deshalb denselben Änderungsakteur („zuletzt
+geändert durch <Kurztitel der Änderungsvorschrift>“). Daten stehen im Kopf numerisch (dd.mm.yyyy). Historische, künftige und
 ungeklärte Fassungen tragen ein Statusband über dem Kopf, das mit Wort, Farbe und Weg zur
 geltenden Fassung unmissverständlich ist (P3b). Die Rechtsherkunft steht als nachgeordnete Zeile
 unter der Statuszeile (auf dem Smartphone nur in den Vorschriftendaten). Werkzeuge: „Inhalt“
@@ -610,7 +616,10 @@ Titel einer Vorschrift nur bei Abweichung, gekennzeichnet als „Damaliger Titel
 Für die Benennung einer Vorschrift gilt überall derselbe Titelblock aus `getNormTitleBlock`
 (`packages/shared/src/lib/norms/display.ts`): Überschrift ist die Kurzbezeichnung, sonst der
 Langtitel; der Langtitel steht klein darunter, sobald er von der Überschrift abweicht; die
-Abkürzung steht neben der Überschrift, wenn sie sich von ihr unterscheidet. Normkopf, Suchtreffer,
+Abkürzung steht neben der Überschrift, wenn sie sich von ihr unterscheidet. Eine Klammer am Ende
+des Langtitels („… im Freistaat Ostdeutschland (FRL IndiFö)“) wird immer abgetrennt: Ist der Rest
+die Überschrift, entfällt der Langtitel, und ohne hinterlegte Abkürzung tritt der Klammerinhalt an
+ihre Stelle – kein Titel steht zweimal untereinander. Normkopf, Suchtreffer,
 Verzeichniseinträge, Stichwortregister, Brotkrumen, Auswahllisten und Autocomplete verwenden diese
 eine Regel; keine Oberfläche bildet eigene Titelvarianten. Formelhafte Kurzbeschreibungen des
 Massenimports (`summarySource: "derived"`) werden nirgends als Beschreibung ausgespielt; ohne

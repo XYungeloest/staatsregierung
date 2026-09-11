@@ -2051,3 +2051,38 @@ siteTest(['law'])('Qualitätspass Richtung E: die Inhaltsübersicht gliedert lan
   await expect(lastLink).toBeVisible();
   await expect(lastLink.locator('xpath=ancestor::details[1]')).toHaveAttribute('open', /.*/u);
 });
+
+siteTest(['law'])('Restpunkte Richtung E: die verkündete Änderung im Normkopf nennt die Fundstelle der Änderungsvorschrift', async ({ page, request }) => {
+  // Kandidat: eine geltende Vorschrift, deren Änderung verkündet, aber noch nicht wirksam ist –
+  // die Startseite führt sie unter „Verkündet, noch nicht in Kraft“ als „wird geändert“.
+  await page.goto(lawUrl('/'));
+  const entries = page.locator('[data-law-future-change-list] li[data-change-type="amendment"]');
+  test.skip(await entries.count() === 0, 'Der Bestand verkündet keine künftige Änderung einer geltenden Vorschrift (Testfixture).');
+  const href = await entries.first().locator('.r-home-changes__norm').getAttribute('href');
+  await page.goto(lawUrl(href!));
+  const slug = new URL(page.url()).pathname.split('/')[2];
+  const future = page.locator('.norm-page-header__line .r-future-text a');
+  await expect(future).toHaveCount(1);
+  const text = ((await future.textContent()) ?? '').replace(/\s+/gu, ' ').trim();
+  const cited = text.match(/verkündet \(([^()]*)\)$/u)?.[1];
+  expect(cited, text).toBeTruthy();
+  // Nicht die Stammfundstelle der Kopfzeile …
+  const stem = ((await page.locator('.r-kicker span', { hasText: /^Stammfundstelle/u }).textContent()) ?? '').replace(/^Stammfundstelle\s*/u, '').trim();
+  expect(cited).not.toBe(stem);
+  // … sondern die letzte Klammer des Vollzitats der künftigen Fassung (Such-API).
+  const hit = (await searchApi(request, '?versionScope=future&includeAmendments=1')).hits.find((entry) => entry.slug === slug);
+  expect(hit, `künftige Fassung von ${slug} in der Such-API`).toBeTruthy();
+  const lastParenthesis = [...hit!.citation.matchAll(/\(([^()]*)\)/gu)].at(-1)?.[1]?.trim();
+  expect(cited).toBe(lastParenthesis);
+});
+
+siteTest(['law'])('Restpunkte Richtung E: der Normkopf nennt den Änderungsakteur auf allen vier Ansichten gleich', async ({ page, request }) => {
+  const norm = await multiVersionNorm(request);
+  const lines: string[] = [];
+  for (const path of [norm.current.currentUrl, `${norm.current.currentUrl}daten/`, `/norm/${norm.slug}/history/`, `/norm/${norm.slug}/vergleich/`]) {
+    await page.goto(lawUrl(path));
+    lines.push(((await page.locator('.norm-page-header__line').textContent()) ?? '').replace(/\s+/gu, ' ').trim());
+  }
+  expect(lines[0]).toMatch(/zuletzt geändert durch \S/u);
+  expect(new Set(lines).size, lines.join('\n')).toBe(1);
+});
