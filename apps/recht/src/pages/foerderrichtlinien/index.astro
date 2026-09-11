@@ -123,7 +123,7 @@ const pageTitle = `${lawSiteConfig.targetLabels.funding}${current > 1 ? ` (Seite
         return (
           <section class="r-funding-area" id={area.id} aria-labelledby={`${area.id}-heading`} data-directory data-funding-section={area.number}>
             <div class="r-section-head">
-              <h2 id={`${area.id}-heading`}>{label}</h2>
+              <h2 id={`${area.id}-heading`} class="r-h2 r-h2--sub">{label}</h2>
               <span class="r-meta">{formatCount(areaCount, FUNDING_UNIT.one, FUNDING_UNIT.many)}{!state.bereich && areaCount > rows.length ? <> · <a href={pageUrl(basePath, { ...filterParams, bereich: area.number })}>alle anzeigen</a></> : null}</span>
             </div>
             <NormTable items={rows} showType={false} caption={`Förderrichtlinien im Förderbereich ${label}`} attrs={{ 'data-directory-list': '' }} />

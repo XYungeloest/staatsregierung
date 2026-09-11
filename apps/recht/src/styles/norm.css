@@ -300,12 +300,14 @@
   max-width: var(--measure-legal);
 }
 
+/* Das Lesemaß gilt für den Textkörper rechts der Adressspalte: Adressspalte und Lücke kommen zum
+   Maß hinzu, damit ein Absatz bei 1440 px rund 70 Zeichen je Zeile trägt (Raster 260/690/250). */
 .norm-body {
   font-family: var(--font-serif);
   font-size: var(--fs-body);
   line-height: var(--lh-legal);
   color: var(--text-body);
-  max-width: var(--measure-legal);
+  max-width: calc(var(--measure-legal) + var(--col-addr) + var(--space-3));
 }
 
 .norm-body p {

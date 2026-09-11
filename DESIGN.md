@@ -127,8 +127,15 @@ Die Serife trägt das Dokument, Jost die Oberfläche – nicht „Serife für Ü
   fordern die tz-Ligatur an: eine zentrale Regel in `base.css` setzt `font-feature-settings:
   'dlig' 1` für genau diese Selektoren („Gesetze“ zeigt das verbundene tz).
 - Versalien (`.r-label`, 11 px) bleiben Etiketten: Metadatenrubriken, Seitenspaltenrubriken,
-  Tabellenköpfe, kurze Kennzeichnungen. Tragende H1/H2/H3 einer Seite stehen nie in dieser Rolle:
-  H1 in Ost Grotesk (34 px), H2 in `.r-h2` (23 px, Untervariante 20 px), H3 in `.r-h3` (17 px).
+  Tabellenköpfe, kurze Kennzeichnungen. Trägt ein Überschriftenelement diese Rolle (Rubriken der
+  Seitenspalte und des Fußes, `h2.r-label`, `h3.r-label`), steht es in `--fs-caption` (12 px) –
+  kein h1/h2/h3 setzt `--fs-micro` (Stilwächter). Tragende H1/H2/H3 einer Seite stehen nie in
+  dieser Rolle: H1 in Ost Grotesk (34 px), H2 in `.r-h2` (23 px, Untervariante `.r-h2--sub`
+  20 px), H3 in `.r-h3` (17 px). Die Stufe steht als Klasse am Element; ein Abschnittskopf
+  (`.r-section-head`) setzt keine eigene Größe dagegen. Die drei Abschnitts-H2 der Startseite
+  (Sachgebiete, Änderungsdienst, Neueste amtliche Veröffentlichungen) tragen `.r-h2 .r-h2--sub`,
+  die Spaltenrubriken des Änderungsdiensts `.r-h3`; `tests/visual.spec.ts` misst, dass alle
+  sichtbaren H2 der Startseite dieselbe Schriftgröße haben.
 
 ### Skalen
 
@@ -159,8 +166,9 @@ Zeilenhöhen ausschließlich aus vier Tokens: `--lh-display` 1,12 (Titel), `--lh
 (Lesetext). Ausnahme ist `line-height: 1` auf Aufklappzeichen (`::before`/`::after`), der Wortmarke
 und dem Symbolknopf der Einheitenwerkzeuge – Geometrie, keine Typografie.
 
-Normtext: 16 px, `max-width: 72ch` (in der Serife rund 70 Zeichen je Zeile), Zeilenhöhe 1,65.
-Lange Ressort-, Amts- und Normtitel dürfen umbrechen; negative Laufweiten kommen nicht vor;
+Normtext (OstRecht): `--fs-body` (17 px) in Source Serif 4, Zeilenhöhe `--lh-legal`; das
+Lesemaß `--measure-legal` (66ch) gilt für den Textkörper rechts der Adressspalte (siehe
+„Normtext“). Lange Ressort-, Amts- und Normtitel dürfen umbrechen; negative Laufweiten kommen nicht vor;
 Personenbezeichnungen verwenden den Doppelpunkt.
 
 ## Abstände und Radien
@@ -465,9 +473,11 @@ Der Vorschriftentext ist ein durchlaufendes Dokument (Richtung E, P3): jede nich
 Einheit ist ein `section` mit echter Überschrift, nichts wird auf- oder zugeklappt, es gibt keinen
 globalen Umschalter. Absätze stehen mit ihrer Adresse in einer schmalen Spalte (`--col-addr`, 3 rem) links vom
 Text; sichtbar ist nur das Absatzzeichen „(1)“, das Gliederungszeichen der Einheit steht in der
-Überschrift darüber und bleibt im zugänglichen Namen und im Anker („§ 12 (1)“). Innenpolster und
-Adressspalte sind so bemessen, dass reiner Absatztext bei 1440 px rund 70 Zeichen je Zeile trägt
-(540–590 px) – die Seitenbreite bleibt 80 rem. Je Einheit stehen in der Kopfzeile die Textlinks
+Überschrift darüber und bleibt im zugänglichen Namen und im Anker („§ 12 (1)“). Das Lesemaß
+`--measure-legal` (66ch) gilt für den Textkörper rechts der Adressspalte: `.norm-body` ist
+Maß plus Adressspalte plus Lücke breit, sodass reiner Absatztext bei 1440 px rund 70 Zeichen je
+Zeile trägt (mindestens 560 px, gemessen in `tests/visual.spec.ts`) und innerhalb der 690 px
+breiten Textspalte bleibt – Raster 260/690/250 und Seitenbreite 80 rem bleiben. Je Einheit stehen in der Kopfzeile die Textlinks
 „Link“ (kopiert die Adresse der Stelle) und „Drucken“ (Einzeldruck). Paragraphen, Artikel und
 Anlagen tragen sprechende, deterministische Anker; alte Anker bleiben unsichtbare Sprungziele.
 Zitierte Bestimmungen (`quotedProvision`) erscheinen als amtlich zitierter Text mit Linie, nicht

@@ -181,6 +181,13 @@ mark {
   color: var(--text-muted);
 }
 
+/* Rubriken der Seitenspalten und des Fußes bleiben Überschriften im Etikettenstil, aber nie
+   unter 12 px: ein Überschriftenelement steht nicht in --fs-micro. */
+h2.r-label,
+h3.r-label {
+  font-size: var(--fs-caption);
+}
+
 /* Umbrechende Metadaten: der Abstand trennt, kein Zeichen. Nach einem Umbruch beginnt oder endet
    keine Zeile mit einem Mittelpunkt. */
 .r-inline-list {
@@ -268,7 +275,8 @@ mark {
 .law-wordmark strong,
 .norm-band__title,
 .r-subjects__number,
-.r-subject__number {
+.r-subject__number,
+.law-footer__wordmark strong {
   font-feature-settings: 'dlig' 1;
 }
 

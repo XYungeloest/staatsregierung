@@ -366,12 +366,8 @@
   flex-wrap: wrap;
 }
 
-.r-section-head h2 {
-  font-size: var(--fs-ui-lg);
-  font-weight: 500;
-  color: var(--text-strong);
-}
-
+/* Die Überschrift eines Abschnittskopfs trägt ihre Stufe selbst (.r-h2, .r-h2--sub): der Kopf
+   setzt keine zweite Größe dagegen. */
 .r-section-head .r-meta a {
   color: var(--text-link);
 }

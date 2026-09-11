@@ -168,7 +168,7 @@ const columns = [
   <section class="r-home-changes" id="aenderungsdienst" aria-labelledby="aenderungsdienst-title">
     <div class="r-container">
       <div class="r-section-head">
-        <h2 id="aenderungsdienst-title" class="r-h2">Änderungsdienst</h2>
+        <h2 id="aenderungsdienst-title" class="r-h2 r-h2--sub">Änderungsdienst</h2>
         <span class="r-meta r-inline-list"><span>Veränderung des Rechtsbestands</span><span>Verkündung und Rechtswirkung getrennt</span><a href={`${getSearchUrl()}?sort=activity`}>Vollständiges Protokoll</a></span>
       </div>
       <div class="r-home-changes__grid">
@@ -204,7 +204,7 @@ const columns = [
   <section class="r-home-publications" aria-labelledby="home-publications-title">
     <div class="r-container">
       <div class="r-section-head">
-        <h2 id="home-publications-title" class="r-h2">Neueste amtliche Veröffentlichungen</h2>
+        <h2 id="home-publications-title" class="r-h2 r-h2--sub">Neueste amtliche Veröffentlichungen</h2>
         <span class="r-meta r-inline-list">{seriesLabels.map((label) => <span>{label}</span>)}<a href={getPublicationsUrl()}>Alle amtlichen Veröffentlichungen</a></span>
       </div>
       {publicationRows.length > 0 ? (

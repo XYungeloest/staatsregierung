@@ -186,7 +186,7 @@ const pageTitle = `${lawSiteConfig.targetLabels.publications}${view === 'ausgabe
 
     <section class="r-publications__main" aria-labelledby="verkuendungen-heading" data-directory>
       <div class="r-section-head">
-        <h2 id="verkuendungen-heading" class="r-meta"><strong class="r-strong" data-directory-count>{count}</strong></h2>
+        <h2 id="verkuendungen-heading" class="r-h2 r-h2--sub"><strong class="r-strong" data-directory-count>{count}</strong></h2>
         <nav class="r-segmented r-publications__views" aria-label="Ansicht" data-view-switch>
           <a href={pageUrl(basePath, { ...filterParams })} aria-current={view === 'eintraege' ? 'page' : undefined} data-view="eintraege">Veröffentlichungen</a>
           <a href={pageUrl(basePath, { ...filterParams, ansicht: 'ausgaben' })} aria-current={view === 'ausgaben' ? 'page' : undefined} data-view="ausgaben">Ausgaben</a>
