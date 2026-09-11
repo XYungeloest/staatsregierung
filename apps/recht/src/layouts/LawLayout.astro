@@ -4,6 +4,7 @@ import AnalyticsConsentBanner from '@ostrecht/shared/components/analytics/Analyt
 import PageHead from '@ostrecht/shared/components/PageHead.astro';
 import { isAnalyticsEnabled } from '@ostrecht/shared/config/analytics.ts';
 import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
+import { CHANGE_FEED_PATH, CHANGE_FEED_TITLE } from '../lib/change-service.ts';
 import type { SeoBreadcrumbItem, SeoImage, StructuredData } from '@ostrecht/shared/lib/seo/index.ts';
 import {
   getAccessibilityUrl,
@@ -123,6 +124,7 @@ const footerServiceLinks = [
 <html lang="de" class="law-document">
   <head>
     <PageHead {title} {description} {breadcrumbs} {structuredData} {noindex} {ogType} {ogImage} {canonical} {prev} {next} {documentFont} />
+    <link rel="alternate" type="application/rss+xml" title={CHANGE_FEED_TITLE} href={CHANGE_FEED_PATH} />
   </head>
   <body class:list={['law-site', bodyClass]}>
     <div class="law-shell">

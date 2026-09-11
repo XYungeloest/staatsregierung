@@ -10,6 +10,8 @@ const citeLink = cite?.querySelector<HTMLButtonElement>('[data-cite-link]');
 const citeAbbr = cite?.dataset.citeAbbr ?? '';
 const citeSuffix = cite?.dataset.citeSuffix ?? '';
 const citeLinkDefault = citeLink?.textContent ?? '';
+const miniHead = document.querySelector<HTMLElement>('[data-norm-mini-head]');
+const miniUnit = miniHead?.querySelector<HTMLElement>('[data-mini-unit]');
 
 /** Öffnet alle Gliederungsgruppen, in denen ein Eintrag liegt (nur geschlossene). */
 function openGroupsOf(element: Element): void {
@@ -48,6 +50,7 @@ function setActive(id: string): void {
   const unit = document.getElementById(id);
   const label = unit?.matches('[data-norm-unit]') ? unit.dataset.unitLabel : unit?.closest<HTMLElement>('[data-norm-unit]')?.dataset.unitLabel;
   if (citeText) citeText.textContent = label ? `${label} ${citeAbbr}${citeSuffix}` : `${citeAbbr}${citeSuffix}`;
+  if (miniUnit) miniUnit.textContent = label ?? '';
   if (citeLink) {
     const unitId = unit?.matches('[data-norm-unit]') ? unit.id : unit?.closest<HTMLElement>('[data-norm-unit]')?.id;
     citeLink.dataset.copyUrl = unitId ?? '';
@@ -117,6 +120,29 @@ for (const opener of document.querySelectorAll<HTMLAnchorElement>('[data-outline
     sheet.scrollIntoView({ block: 'start' });
     sheet.querySelector<HTMLInputElement>('[data-outline-search]')?.focus();
   });
+}
+
+// Verdichteter Normkopf (nur unter 48 rem): erscheint, sobald der Vorschriftskopf nach oben aus
+// dem Bild ist, und verschwindet, sobald er zurückkehrt; die gelesene Einheit setzt setActive.
+const pageHeader = document.querySelector<HTMLElement>('.norm-page-header');
+if (miniHead && pageHeader && 'IntersectionObserver' in window) {
+  const smallScreen = window.matchMedia('(max-width: 47.99rem)');
+  let hideTimer = 0;
+  const showMiniHead = (visible: boolean) => {
+    window.clearTimeout(hideTimer);
+    if (visible) {
+      if (!miniHead.hidden) return;
+      miniHead.hidden = false;
+      requestAnimationFrame(() => miniHead.classList.add('is-visible'));
+    } else {
+      miniHead.classList.remove('is-visible');
+      hideTimer = window.setTimeout(() => { miniHead.hidden = true; }, 200);
+    }
+  };
+  new IntersectionObserver(([entry]) => {
+    showMiniHead(smallScreen.matches && !entry.isIntersecting && entry.boundingClientRect.bottom < 0);
+  }).observe(pageHeader);
+  smallScreen.addEventListener('change', () => { if (!smallScreen.matches) showMiniHead(false); });
 }
 
 // Einzeldruck: nur die gewählte Einheit.

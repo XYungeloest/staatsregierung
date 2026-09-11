@@ -1776,7 +1776,7 @@ siteTest(['law'])('Normbereiche, mobile Fassungsfolge und modale Inhaltsübersic
     document.querySelector('.norm-aside__versions')!.getBoundingClientRect().top
       < document.querySelector('.norm-document')!.getBoundingClientRect().top,
   )).toBe(true);
-  await page.locator('[data-outline-open]').click();
+  await page.locator('.norm-page-header [data-outline-open]').click();
   await expect(page.getByRole('dialog', { name: 'Inhalt der Vorschrift' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toBeHidden();
@@ -2169,4 +2169,89 @@ siteTest(['law'])('Restpunkte Richtung E: Verzeichnisköpfe führen als Brotkrum
   expect(new Set(boxes.map((box) => box.left)).size, 'eine Spalte').toBe(1);
   for (let index = 1; index < boxes.length; index += 1) expect(boxes[index].top).toBeGreaterThan(boxes[index - 1].top);
   await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Recherchieren' }).getByRole('heading', { name: 'Nach Normtyp' })).toBeVisible();
+});
+
+siteTest(['law'])('Restpunkte Richtung E: Änderungen stehen am Ort der Änderung – im Text, in der Kopfzeile der Einheit und in der Übersicht', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  // Eine geltende Vorschrift mit gespeicherter Vorfassung (übernommen und ostdeutsch geändert).
+  const norm = await currentNormOfOrigin(request, 'inherited-amended');
+  await page.goto(lawUrl(norm.currentUrl));
+  const marks = page.locator('.norm-unit__change');
+  expect(await marks.count(), 'geänderte oder neue Einheiten').toBeGreaterThan(0);
+  const first = marks.first();
+  await expect(first).toHaveText(/^(geändert|neu) mit Wirkung vom \d{2}\.\d{2}\.\d{4}$/u);
+  const href = (await first.getAttribute('href')) ?? '';
+  expect(href).toMatch(/\/vergleich\/\?von=[^&]+&bis=[^#]+#vergleich-/u);
+  // Der geänderte Absatz trägt Randlinie und Fläche und sagt Vorlesern „geändert“.
+  const changedAbs = page.locator('.norm-abs--changed');
+  if (await changedAbs.count() > 0) {
+    await expect(changedAbs.first().locator('.norm-abs__addr')).toContainText('geändert');
+    expect(await changedAbs.first().evaluate((element) => getComputedStyle(element).boxShadow)).not.toBe('none');
+  }
+  // Die Übersicht trägt die Kurzmarke mit vollständigem Text für Vorleser.
+  const unitId = await first.locator('xpath=ancestor::section[@data-norm-unit][1]').getAttribute('id');
+  const outlineMark = page.locator(`.norm-outline--desktop [data-outline-link="${unitId}"] .norm-outline__mark`);
+  await expect(outlineMark).toHaveCount(1);
+  await expect(outlineMark).toHaveAttribute('title', /mit Wirkung vom/u);
+  await expect(outlineMark.locator('[aria-hidden="true"]')).toHaveText(/^(geänd\.|neu)$/u);
+  // Der Link führt auf den Vergleich zur Vorfassung, dort trägt die Einheit denselben Anker.
+  await page.goto(lawUrl(href));
+  await expect(page.locator(`#${new URL(href, 'http://x').hash.slice(1)}`)).toBeVisible();
+  // Die Ausgangsfassung selbst hat keine Vorfassung und deshalb keine Marken.
+  const historical = (await searchApi(request, '?versionScope=historical&includeAmendments=1')).hits.find((hit) => hit.slug === norm.slug);
+  if (historical) {
+    await page.goto(lawUrl(historical.url));
+    await expect(page.locator('.norm-unit__change')).toHaveCount(0);
+  }
+});
+
+siteTest(['law'])('Restpunkte Richtung E: der verdichtete Normkopf begleitet das Lesen auf dem Smartphone', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  const miniHead = page.locator('[data-norm-mini-head]');
+  await expect(miniHead).toBeHidden();
+  // Zusätzlicher Raum hinter dem Text erlaubt auch beim kurzen Fixture eine freie Leseposition.
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.paddingBottom = '2000px'; });
+  const unit = page.locator('[data-norm-unit][id]').last();
+  const label = await unit.getAttribute('data-unit-label');
+  await unit.evaluate((element) => window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - window.innerHeight * 0.12 - 4, behavior: 'instant' }));
+  await expect(miniHead).toBeVisible();
+  await expect(miniHead.locator('[data-mini-unit]')).toHaveText(label!);
+  const box = await miniHead.boundingBox();
+  expect(box!.height).toBeGreaterThanOrEqual(44);
+  // „Inhalt“ öffnet das vorhandene Seitenblatt.
+  await miniHead.getByRole('link', { name: 'Inhalt' }).click();
+  await expect(page.locator('dialog.r-sheet--outline[open]')).toBeVisible();
+  await expect(miniHead).toBeHidden();
+  await page.locator('dialog.r-sheet--outline [data-sheet-close]').click();
+  // Zurück am Seitenanfang verschwindet die Zeile; ab 48 rem gibt es sie nicht.
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await expect(miniHead).toBeHidden();
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await unit.evaluate((element) => window.scrollTo({ top: window.scrollY + element.getBoundingClientRect().top - 100, behavior: 'instant' }));
+  await expect(miniHead).toBeHidden();
+});
+
+siteTest(['law'])('Restpunkte Richtung E: der Änderungsdienst hat einen RSS-Feed', async ({ page, request }) => {
+  await page.goto(lawUrl('/'));
+  const link = page.locator('.r-home-changes .r-section-head a[data-change-feed]');
+  await expect(link).toHaveText('RSS');
+  const href = (await link.getAttribute('href'))!;
+  expect(href).toBe('/aenderungsdienst/rss.xml');
+  await expect(page.locator('head link[rel="alternate"][type="application/rss+xml"]')).toHaveAttribute('href', href);
+  const response = await request.get(lawUrl(href));
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toMatch(/application\/rss\+xml/u);
+  const xml = await response.text();
+  expect(xml).toMatch(/^<\?xml version="1\.0" encoding="UTF-8"\?>\n<rss version="2\.0"/u);
+  expect((xml.match(/<item>/gu) ?? []).length).toBeLessThanOrEqual(15);
+  expect((xml.match(/<item>/gu) ?? []).length).toBeGreaterThan(0);
+  for (const [, date] of xml.matchAll(/<pubDate>([^<]+)<\/pubDate>/gu)) expect(date).toMatch(/^[A-Z][a-z]{2}, \d{2} [A-Z][a-z]{2} \d{4} \d{2}:\d{2}:\d{2} GMT$/u);
+  // Jeder Eintrag führt auf den Änderungsverlauf einer Vorschrift.
+  for (const [, itemLink] of xml.matchAll(/<link>([^<]+)<\/link>/gu)) if (itemLink.includes('/norm/')) expect(itemLink).toMatch(/\/norm\/[^/]+\/history\/$/u);
+  // Kein Eintrag in der Sitemap.
+  const sitemap = await (await request.get(lawUrl('/sitemap.xml'))).text();
+  expect(sitemap).not.toContain('rss.xml');
 });

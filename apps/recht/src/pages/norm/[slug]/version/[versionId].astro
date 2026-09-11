@@ -6,9 +6,10 @@ import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormOutlineSheet from '../../../../components/norms/NormOutlineSheet.astro';
 import NormSectionTabs from '../../../../components/norms/NormSectionTabs.astro';
 import NormAside from '../../../../components/norms/NormAside.astro';
+import NormMiniHead from '../../../../components/norms/NormMiniHead.astro';
 import { buildNormOutline, formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import { classifyNormVersion, getLawPortalUrl, getNormUrl, getNormVersionIdentity } from '@ostrecht/shared/lib/norms/index.ts';
+import { classifyNormVersion, getLawPortalUrl, getNormCompareSelectionUrl, getNormUrl, getNormVersionIdentity } from '@ostrecht/shared/lib/norms/index.ts';
 import { getNormStore } from '../../../../lib/runtime/context.ts';
 import { displayChangeNote } from '../../../../lib/history-labels.ts';
 import { buildNormHeadModel } from '../../../../lib/norm-head.ts';
@@ -26,8 +27,9 @@ const version = norm?.versions.find((entry) => entry.versionId === versionId);
 if (!norm || !version) return Astro.rewrite('/404');
 const view = await loadNormView(store, norm, version);
 if (!view) return Astro.rewrite('/404');
-const { derived, fullCitation, publicationReference, publication, amendmentLabels, nextFutureReference } = view;
+const { derived, fullCitation, publicationReference, publication, amendmentLabels, nextFutureReference, changeMarks } = view;
 const model = buildNormHeadModel(norm, version, { origin: derived.origin, publicationReference, amendmentLabels, nextFutureReference });
+const changes = changeMarks ? { marks: changeMarks.marks, validFrom: changeMarks.validFrom, compareHref: getNormCompareSelectionUrl(norm.meta.slug, changeMarks.previousVersionId, version.versionId) } : undefined;
 const temporalKind = classifyNormVersion(norm, version);
 const outline = buildNormOutline(version.body);
 const summary = outlineSummary(outline);
@@ -53,16 +55,17 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600'
 >
   <NormHead norm={norm} version={version} model={model} officialPdf={publication?.pdf} fullCitation={fullCitation} />
   <div class="norm-tabs-row"><NormSectionTabs slug={norm.meta.slug} versionId={version.versionId} active="text" /></div>
-  <NormOutlineSheet items={outline} summary={summary} />
+  <NormMiniHead norm={norm} version={version} />
+  <NormOutlineSheet items={outline} summary={summary} changes={changes} />
 
   <div class="norm-workspace">
-    <div class="norm-workspace__outline"><NormOutline items={outline} summary={summary} /></div>
+    <div class="norm-workspace__outline"><NormOutline items={outline} summary={summary} changes={changes} /></div>
 
     <article class="norm-document" id="normtext" data-visual-section="norm-text" aria-labelledby="normtext-title">
       <h2 id="normtext-title" class="visually-hidden">{temporalKind === 'future' ? 'Künftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
       {changeNote ? <p class="norm-document__lead">{changeNote}</p> : null}
       <div class="norm-body">
-        <NormBody blocks={version.body} references={derived.textReferences} />
+        <NormBody blocks={version.body} references={derived.textReferences} changes={changes} />
       </div>
     </article>
 

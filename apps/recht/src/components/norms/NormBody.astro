@@ -8,6 +8,8 @@ import {
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormAnchorMap, TextLinkReference } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';
+import type { NormChangeMarks } from '@ostrecht/shared/lib/norms/change-marks.ts';
+import { formatShortDate } from '../../lib/dates.ts';
 
 /**
  * Normkörper (P3): ein kontinuierlich lesbares Dokument. Gliederungsebenen als Abschnitte mit
@@ -18,6 +20,17 @@ import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';
 interface UnitContext {
   anchor: string;
   label: string;
+  /** Absatzbezeichnungen dieser Einheit mit geändertem oder neuem Wortlaut (Marke am Absatz). */
+  changedSubparagraphs?: ReadonlySet<string>;
+}
+
+/** Marken am Ort der Änderung gegen die Vorfassung samt Ziel des Vergleichs. */
+interface ChangeMarkContext {
+  marks: NormChangeMarks;
+  /** Wirksamkeitsdatum der angezeigten Fassung (yyyy-mm-dd). */
+  validFrom: string;
+  /** Vergleich Vorfassung → angezeigte Fassung; der Anker der Einheit wird angehängt. */
+  compareHref: string;
 }
 
 interface Props {
@@ -31,6 +44,8 @@ interface Props {
   unit?: UnitContext;
   /** Vergebene Absatzanker der Seite (Eindeutigkeit über die Rekursion hinweg). */
   usedIds?: Set<string>;
+  /** Änderungen am Ort der Änderung: Marken je Einheit und Absatz gegen die Vorfassung. */
+  changes?: ChangeMarkContext;
 }
 
 type BlockRun =
@@ -47,8 +62,23 @@ const {
   anchorMap: providedAnchorMap,
   unit,
   usedIds = new Set<string>(),
+  changes,
 } = Astro.props;
 const anchorMap = providedAnchorMap ?? buildNormAnchorMap(blocks);
+
+/** Textzeichen der Einheit („geändert mit Wirkung vom 25.03.2026“ / „neu mit Wirkung vom …“). */
+function changeMarkText(anchorId: string): string | undefined {
+  const mark = changes?.marks.get(anchorId);
+  if (!mark || !changes) return undefined;
+  return `${mark.kind === 'added' ? 'neu' : 'geändert'} mit Wirkung vom ${formatShortDate(changes.validFrom)}`;
+}
+
+function unitContext(anchorId: string, block: NormBodyBlock): UnitContext {
+  const mark = changes?.marks.get(anchorId);
+  return { anchor: anchorId, label: toDisplayText(block.label ?? ''), ...(mark && mark.subparagraphs.length > 0 ? { changedSubparagraphs: new Set(mark.subparagraphs) } : {}) };
+}
+
+const isChangedSubparagraph = (label: string | undefined): boolean => Boolean(label && unit?.changedSubparagraphs?.has(toDisplayText(label)));
 
 function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
   const runs: BlockRun[] = [];
@@ -130,7 +160,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                     {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                   </HeadingTag>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} usedIds={usedIds} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} usedIds={usedIds} changes={changes} />
                   ) : null}
                 </section>
               ) : null}
@@ -156,6 +186,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                         {block.label && block.title ? ' ' : null}
                         {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                       </HeadingTag>
+                      {changeMarkText(anchorId) ? <a class="norm-unit__change" href={`${changes!.compareHref}#vergleich-${anchorId}`}>{changeMarkText(anchorId)}</a> : null}
                       <span class="norm-unit__tools" data-copy-group>
                         <span class="r-feedback norm-unit__feedback" aria-live="polite" data-copy-feedback></span>
                         <a href={`#${anchorId}`} data-copy-url={anchorId} data-copy-done={`Link zu ${unitTitle(block) || 'dieser Stelle'} wurde kopiert.`} title={`Link zu ${unitTitle(block)} kopieren`}>Link</a>
@@ -164,7 +195,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                     </div>
                     <div id={`${anchorId}-inhalt`} class="norm-unit__body">
                       {block.children && block.children.length > 0 ? (
-                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} unit={{ anchor: anchorId, label: toDisplayText(block.label ?? '') }} usedIds={usedIds} />
+                        <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} unit={unitContext(anchorId, block)} usedIds={usedIds} changes={changes} />
                       ) : null}
                     </div>
                   </section>
@@ -188,13 +219,14 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                       {block.label && block.title ? ' ' : null}
                       {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                     </HeadingTag>
+                    {changeMarkText(anchorId) ? <a class="norm-unit__change" href={`${changes!.compareHref}#vergleich-${anchorId}`}>{changeMarkText(anchorId)}</a> : null}
                     <span class="norm-unit__tools" data-copy-group>
                       <span class="r-feedback norm-unit__feedback" aria-live="polite" data-copy-feedback></span>
                       <a href={`#${anchorId}`} data-copy-url={anchorId} data-copy-done={`Link zu ${unitTitle(block) || 'dieser Anlage'} wurde kopiert.`} title={`Link zu ${unitTitle(block)} kopieren`}>Link</a>
                     </span>
                   </div>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} unit={{ anchor: anchorId, label: toDisplayText(block.label ?? '') }} usedIds={usedIds} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} unit={unitContext(anchorId, block)} usedIds={usedIds} changes={changes} />
                   ) : null}
                 </section>
               ) : null}
@@ -203,8 +235,8 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                 block.label ? (() => {
                   const absId = subparagraphId(block.label, run.index);
                   return (
-                  <div class="norm-abs" id={absId}>
-                    {absId ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit visually-hidden">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a> : <span class="norm-abs__addr"><span class="norm-abs__label">{toDisplayText(block.label)}</span></span>}
+                  <div class:list={['norm-abs', isChangedSubparagraph(block.label) ? 'norm-abs--changed' : undefined]} id={absId}>
+                    {absId ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit visually-hidden">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span>{isChangedSubparagraph(block.label) ? <span class="visually-hidden"> geändert</span> : null}</a> : <span class="norm-abs__addr"><span class="norm-abs__label">{toDisplayText(block.label)}</span></span>}
                     <div class="norm-abs__body">
                       <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
                       {block.children && block.children.length > 0 ? (
@@ -228,9 +260,9 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
               {block.type === 'subparagraph' ? (() => {
                 const absId = subparagraphId(block.label, run.index);
                 return (
-                <div class:list={['norm-abs', block.label ? undefined : 'norm-abs--unlabeled']} id={absId}>
+                <div class:list={['norm-abs', block.label ? undefined : 'norm-abs--unlabeled', isChangedSubparagraph(block.label) ? 'norm-abs--changed' : undefined]} id={absId}>
                   {absId && block.label
-                    ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit visually-hidden">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span></a>
+                    ? <a class="norm-abs__addr" href={`#${absId}`}>{unit?.label ? <span class="norm-abs__unit visually-hidden">{unit.label} </span> : null}<span class="norm-abs__label">{toDisplayText(block.label)}</span>{isChangedSubparagraph(block.label) ? <span class="visually-hidden"> geändert</span> : null}</a>
                     : <span class="norm-abs__addr">{block.label ? <span class="norm-abs__label">{toDisplayText(block.label)}</span> : null}</span>}
                   <div class="norm-abs__body">
                     <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />

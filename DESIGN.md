@@ -434,7 +434,16 @@ unter der Statuszeile (auf dem Smartphone nur in den Vorschriftendaten). Werkzeu
 (kopieren mit Rückmeldung), „Drucken“, „Amtliches PDF“ oder „Als PDF“ (Portalfassung). Darunter
 führen die „Bereiche der Vorschrift“ (`NormSectionTabs.astro`) als Reiterzeile zu Text,
 Vorschriftendaten, Fassungen und Änderungen sowie Rechtsbeziehungen. Der Wechsel zwischen den
-Ansichten verändert den Kopf nicht. Ein allein gezeigter Bereich schließt ohne zweite Linie an die
+Ansichten verändert den Kopf nicht. Auf dem Smartphone (unter 48 rem, wo die Inhaltsübersicht
+nicht neben dem Text steht) begleitet ein verdichteter Normkopf das Lesen
+(`NormMiniHead.astro`): eine 44-px-Zeile mit Kurztitel, Abkürzung, der gelesenen Einheit
+(„Artikel 12“, gesetzt von `norm-page.ts` aus derselben Beobachtung wie das mitlaufende Zitat)
+und der Schaltfläche „Inhalt“, die das vorhandene Seitenblatt öffnet. Sie erscheint, sobald der
+Vorschriftskopf nach oben aus dem Bild ist, haftet unter dem sichtbaren Amtsband
+(`--law-header-offset`, bei ausgeblendetem Band bei 0), ist bis dahin `hidden` und nicht
+fokussierbar, weicht bei offenem Bereichsmenü und offenem Seitenblatt, fehlt im Druck und ab
+48 rem, blendet mit 180 ms ein (bei reduzierter Bewegung ohne Übergang) und ist Orientierung,
+keine Meldung – keine Live-Region. Ein allein gezeigter Bereich schließt ohne zweite Linie an die
 Reiterzeile an, nimmt die Lesebreite `--measure-panel` und wiederholt seinen Namen nicht als
 Etikett – der Reiter nennt ihn; für Vorlesen, Druck und Betrieb ohne JavaScript bleibt die
 Überschrift im Baum. Alle Reiter funktionieren auch ohne JavaScript als reguläre Seitennavigation.
@@ -490,6 +499,23 @@ haftende Spalte links mit Filterfeld und Umfangszeile, darunter als modales Seit
 gelesene Stelle hervor. Tabellen und Anlagen nutzen die volle Textspalte und rollen erst darüber
 hinaus in `.norm-table-wrap`.
 
+Änderungen stehen am Ort der Änderung: Jede angezeigte Fassung wird gegen ihre unmittelbare
+Vorfassung verglichen (`buildNormChangeMarks`, `packages/shared/src/lib/norms/change-marks.ts`,
+derselbe strukturelle Textvergleich wie der Fassungsvergleich – kein Redaktionsfeld). Eine
+geänderte oder neue Einheit (§, Artikel, Anlage) trägt in ihrer Kopfzeile hinter dem Titel das
+Textzeichen „geändert mit Wirkung vom <Datum>“ bzw. „neu mit Wirkung vom <Datum>“ (Jost,
+`--fs-caption`, `--status-amended`), verlinkt auf den Vergleich Vorfassung → angezeigte Fassung
+mit dem Anker der Einheit (`#vergleich-<Anker>`; jede Vergleichseinheit trägt diesen Anker).
+Absätze mit neuem oder geändertem Wortlaut (`.norm-abs--changed`) tragen eine Randlinie
+(`--line-mark`) in `--status-amended` und die Fläche `--surface-selected`; ihre Adresse sagt
+Vorlesern „geändert“. In der Inhaltsübersicht steht am Eintrag die Kurzmarke „geänd.“ bzw. „neu“
+mit dem vollständigen Text als `title` und für Vorleser; Gruppen zählen ihre Marken nicht. Die
+Ausgangs- oder Erstfassung trägt keine Marken; entfallene Absätze haben in der angezeigten
+Fassung keinen Ort. Im Druck bleiben die Textzeichen, die Flächen entfallen. Der Vergleich kostet
+bei langen Vorschriften mehr als 50 ms (Verfassung 70–90 ms), deshalb bleiben die Marken je
+(Slug, Vorfassung, Fassung) im Speicher des Workers (`loadNormView`), nicht in der
+D1-Projektion.
+
 ### Scrollwerkzeuge des Rechtsportals
 
 Das globale Amtsband bleibt mit `position: sticky` im Dokumentfluss. Ab 100 px Seitenposition
@@ -517,9 +543,8 @@ Fenster (`revealInOutline` in `norm-page.ts`, kein `scrollIntoView`) – und hol
 Fahrt (`scrollend` oder Seitenanfang, Ereignis `law:scroll-to-top-end`) den gelesenen Eintrag
 nach. So kommt die Fahrt auch bei einer Übersicht an, die länger ist als ihr Container.
 
-Das mitlaufende Normzitat nach aktueller Leseposition gehört bereits zur Normansicht. Ein
-zusätzlicher kontextueller Norm-Minimalkopf (E37) ist eine getrennte spätere Produktentscheidung;
-nach Einführung des smarten Amtsbands wird zunächst sein zusätzlicher Nutzen bewertet.
+Das mitlaufende Normzitat nach aktueller Leseposition gehört zur Normansicht; der verdichtete
+Normkopf des Smartphones (siehe „Normkopf und Bereiche der Vorschrift“) liest dieselbe Stelle.
 
 ### Fassungsvergleich
 
@@ -566,7 +591,17 @@ Vorschrift, ein Ereigniswort der Rechtswirkung („erstmals in Kraft“ / „ge�
 künftig „tritt in Kraft“ / „wird geändert“ / „tritt außer Kraft“) und darunter die Ursache ohne
 das wiederholte Ereigniswort samt Fundstelle (`describeChangeCause`, `shortCitation`). Wo der
 Eintragstitel nur das Vollzitat wiederholt, steht die Fundstelle allein. Kein Bedienziel unter
-24 px.
+24 px. Startseite und Feed lesen dieselben drei Spalten und Wörter aus
+`apps/recht/src/lib/change-service.ts`.
+
+Der Änderungsdienst ist als RSS 2.0 abonnierbar (`/aenderungsdienst/rss.xml`, ein Feed für den
+gesamten Dienst – keine Feeds je Vorschrift, keine E-Mail): je Spalte höchstens fünf Einträge mit
+Titel „<Kurztitel> <Ereigniswort>“, Ursache und Fundstelle als Beschreibung, der Spalte als
+Kategorie, Link auf „Fassungen und Änderungen“ der Vorschrift, dem Datum der Rechtswirkung als
+`pubDate` (RFC 822) und einer stabilen Kennung aus Slug, Datum und Ereignisart;
+`lastBuildDate` ist der Rechtsstand. Der Link „RSS“ steht in der Kopfzeile des Änderungsdiensts
+neben „Vollständiges Protokoll“, jede Seite trägt `<link rel="alternate" type="application/rss+xml">`;
+die Sitemap führt den Feed nicht.
 
 ### Rechtssuche
 
