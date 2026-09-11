@@ -228,7 +228,13 @@ OstRecht führt das Amtsband (`.law-header`): Wappen und Wortmarke „OstRecht �
 Freistaates“, ein kompaktes Suchfeld und die fünf Bereiche Sachgebiete, A–Z und Register, Amtliche
 Veröffentlichungen, Verfassung und Hilfe mit `aria-current`. Über dem Band steht keine
 Hinweiszeile; der Hinweis zur Simulation schließt die Seite im Fuß ab, damit der Einstieg mit dem
-Hoheitszeichen beginnt. Politische Teaser- und Pressenavigation gehören nicht in diese Navigation.
+Hoheitszeichen beginnt – eine bewusste Abweichung vom Staatsportal, das den Hinweis oben führt
+(Entscheidung zu E35). Die Familienzugehörigkeit beider Portale tragen drei gemeinsame Anker:
+dasselbe Wappen im Kopf, Gold als Markierung des aktiven Navigationspunkts (`aria-current`) und
+der 3 px breite Fokusring (`--focus-width`, Staatsblau auf hellen Flächen, Gold im Amtsband).
+Kopfstil, Radien und Symbole bleiben verschieden: OstRecht ist als eigenständiges Rechtsportal
+erkennbar, nicht als Unterseite. Politische Teaser- und Pressenavigation gehören nicht in diese
+Navigation.
 
 Das Amtsband kennt drei Stufen: über 80 rem eine Zeile; bei 80 rem und darunter zweizeilig, mit den
 Bereichen als eigener Zeile; unter 60 rem weichen Suche und Bereiche in das Menü „Bereiche“.
