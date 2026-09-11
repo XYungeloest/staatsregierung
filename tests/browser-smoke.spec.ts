@@ -1818,36 +1818,42 @@ siteTest(['law'])('Smartes Amtsband und Seitenanfang reagieren ruhig auf Scrolle
   await prepareFunctionalPage(page);
   await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
   // Verlässlicher Scrollraum unabhängig von der Länge des jeweils verwendeten Testkorpus.
-  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '5000px'; });
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '6000px'; });
   const header = page.locator('.law-header');
   const top = page.getByRole('button', { name: 'Zum Seitenanfang', exact: true });
   const scroll = async (y: number) => { await page.evaluate((position) => window.scrollTo({ top: position, behavior: 'instant' }), y); };
+  // „Zum Seitenanfang“ erscheint erst nach zwei Bildschirmhöhen (auf allen Breiten).
+  const threshold = await page.evaluate(() => 2 * window.innerHeight);
+  const far = threshold + 100;
   await expect(header).toHaveClass(/is-scroll-visible/u);
   await expect(top).toBeHidden();
-  await scroll(1400);
+  await scroll(threshold - 200);
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  await expect(top).toBeHidden();
+  await scroll(far);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
   await expect(top).toBeVisible();
-  await scroll(1396);
+  await scroll(far - 4);
   await page.waitForTimeout(50);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
-  await scroll(1340);
+  await scroll(far - 60);
   await expect(header).toHaveClass(/is-scroll-visible/u);
-  await scroll(1600);
+  await scroll(far + 200);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
   await page.locator('#law-header-search').focus();
   await expect(header).toHaveClass(/is-scroll-visible/u);
-  await scroll(1900);
+  await scroll(far + 500);
   await expect(header).toHaveClass(/is-scroll-visible/u);
   await page.locator('#law-header-search').evaluate((element) => (element as HTMLElement).blur());
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('.law-mobile-nav summary').click();
-  await scroll(2100);
+  await scroll(far + 700);
   await expect(header).toHaveClass(/is-scroll-visible/u);
   await expect(top).toBeHidden();
   await page.locator('.law-mobile-nav summary').click();
   await page.locator('.law-mobile-nav summary').evaluate((element) => (element as HTMLElement).blur());
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await scroll(2400);
+  await scroll(far + 1000);
   await expect(header).toHaveClass(/is-scroll-hidden/u);
   expect(await header.evaluate((element) => getComputedStyle(element).transitionDuration)).toBe('0s');
   await expect(top).toBeVisible();
@@ -1865,6 +1871,63 @@ siteTest(['law'])('Smartes Amtsband und Seitenanfang reagieren ruhig auf Scrolle
   await page.locator('.law-footer').scrollIntoViewIfNeeded();
   await expect(top).toBeHidden();
 });
+
+siteTest(['law'])('Restpunkte Richtung E: die Inhaltsübersicht folgt dem ausgeblendeten Amtsband', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+  await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '5000px'; });
+  const outline = page.locator('.norm-outline--desktop');
+  const header = page.locator('.law-header');
+  const headerHeight = await header.evaluate((element) => element.getBoundingClientRect().height);
+  expect(headerHeight).toBeGreaterThan(0);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).top)).toBe(`${headerHeight}px`);
+  // Abwärts: das Band blendet sich aus, Übersicht und Ankerpolster rücken an den oberen Rand.
+  await page.evaluate(() => window.scrollTo({ top: 1400, behavior: 'instant' }));
+  await expect(header).toHaveClass(/is-scroll-hidden/u);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).top)).toBe('0px');
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).maxHeight)).toBe('900px');
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollPaddingTop)).toBe('12px');
+  // Aufwärts: das Band kehrt zurück, die Übersicht nimmt wieder die Kopfhöhe als Abstand.
+  await page.evaluate(() => window.scrollTo({ top: 1300, behavior: 'instant' }));
+  await expect(header).toHaveClass(/is-scroll-visible/u);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).top)).toBe(`${headerHeight}px`);
+  await expect.poll(() => outline.evaluate((element) => getComputedStyle(element).maxHeight)).toBe(`${900 - headerHeight}px`);
+  // Das Bereichsmenü rechnet weiter mit der gemessenen Kopfhöhe.
+  expect(await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--law-header-height')))).toBe(headerHeight);
+});
+
+/**
+ * „Zum Seitenanfang“ kommt oben an (N10): Während der sanften Fahrt meldet der Beobachter jede
+ * vorbeiziehende Einheit; die Übersicht darf dabei nur ihren eigenen Container rollen, nie das
+ * Fenster. Der Fehler zeigte sich nur mit einer Übersicht, die länger ist als ihr Container –
+ * dafür bekommen die Einträge hier Höhe.
+ */
+for (const motion of ['no-preference', 'reduce'] as const) {
+  siteTest(['law'])(`Restpunkte Richtung E: „Zum Seitenanfang“ erreicht den Seitenanfang (${motion === 'reduce' ? 'reduzierte Bewegung' : 'sanfte Fahrt'})`, async ({ page, request }) => {
+    await prepareFunctionalPage(page);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.emulateMedia({ reducedMotion: motion });
+    await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));
+    // Auch das kurze Fixture (eine Einheit) überläuft so seinen Container.
+    await page.addStyleTag({ content: '.norm-outline__list a { min-height: 120vh; }' });
+    await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.paddingBottom = '5000px'; });
+    const outline = page.locator('.norm-outline--desktop');
+    expect(await outline.evaluate((element) => element.scrollHeight > element.clientHeight), 'die Übersicht rollt in ihrem Container').toBe(true);
+    // Ans Ende des Textes, den Fuß noch knapp außerhalb des Bildes (dort verbirgt sich der Knopf).
+    await page.evaluate(() => window.scrollTo({ top: document.querySelector('.law-footer')!.getBoundingClientRect().top + window.scrollY - window.innerHeight - 40, behavior: 'instant' }));
+    const top = page.getByRole('button', { name: 'Zum Seitenanfang', exact: true });
+    await expect(top).toBeVisible();
+    await top.click();
+    await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 8000 }).toBe(0);
+    await expect.poll(() => page.evaluate(() => document.documentElement.hasAttribute('data-law-scroll-to-top'))).toBe(false);
+    // Nach der Fahrt zeigt die Übersicht den ersten Eintrag; hervorgehoben ist höchstens er.
+    await expect.poll(() => outline.evaluate((element) => element.scrollTop)).toBe(0);
+    const first = await page.locator('.norm-outline--desktop a[data-outline-link]').first().getAttribute('data-outline-link');
+    const current = await page.locator('.norm-outline--desktop a[data-outline-link][aria-current]').evaluateAll((elements) => elements.map((element) => (element as HTMLElement).dataset.outlineLink));
+    expect(current.filter((entry) => entry !== first), 'hervorgehobene Einträge nach der Fahrt').toEqual([]);
+  });
+}
 
 siteTest(['law'])('Mitlaufendes Zitat folgt der gelesenen Normeinheit', async ({ page, request }) => {
   await prepareFunctionalPage(page);

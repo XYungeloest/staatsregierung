@@ -494,15 +494,24 @@ aus; entsprechende Aufwärtsbewegung blendet es wieder ein. Kleine Richtungswech
 Zustandswechsel aus. Am Seitenanfang, bei Fokus im Kopf, offenem mobilen Menü oder geöffneten
 Suchvorschlägen bleibt es sichtbar. Tastaturfokus blendet es sofort ein. Bei reduzierter Bewegung
 bleibt die Funktion ohne Transition erhalten. `shell.ts` bündelt passive Scrollereignisse pro
-Animationsframe; ein ResizeObserver setzt `--law-header-height`. Diese gemessene Höhe bestimmt
-zentral `scroll-padding-top` und den Abstand der haftenden Inhaltsübersicht.
+Animationsframe; ein ResizeObserver setzt `--law-header-height` (die gemessene Kopfhöhe, mit der
+das Bereichsmenü rechnet) und `--law-header-offset` (dieselbe Höhe, solange das Band sichtbar
+ist, und 0, sobald es ausgeblendet ist). Der Versatz bestimmt `scroll-padding-top` und `top`
+sowie `max-height` der haftenden Inhaltsübersicht; sie folgt dem Band mit demselben Übergang
+(180 ms, bei reduzierter Bewegung keiner) und nutzt den gewonnenen Platz. Ein Sprung zu einem
+Anker derselben Seite gilt nicht als Leserichtung: das Band bleibt, wie es war.
 
 „Zum Seitenanfang“ ist ein sekundäres globales Werkzeug als kleine eckige Schaltfläche mit Pfeil
-und mindestens 44 × 44 px Bedienziel. Es erscheint nach einer Bildschirmhöhe (mindestens 600 px),
-schreibt keinen URL-Hash und scrollt bei reduzierter Bewegung sofort. Am Seitenanfang ist es
-verborgen und nicht fokussierbar; nach Aktivierung geht der Fokus zur Wortmarke. Bei offenem
-Bereichsmenü, Dialog, Einwilligungsbanner oder sichtbarem Footer wird es ausgeblendet, um keine
-Bedienelemente zu verdecken.
+und mindestens 44 × 44 px Bedienziel. Es erscheint auf allen Breiten erst nach zwei
+Bildschirmhöhen (`2 × innerHeight`; kurze Vorschriften zeigen es nie), schreibt keinen URL-Hash
+und scrollt bei reduzierter Bewegung sofort. Am Seitenanfang ist es verborgen und nicht
+fokussierbar; nach Aktivierung geht der Fokus zur Wortmarke. Bei offenem Bereichsmenü, Dialog,
+Einwilligungsbanner oder sichtbarem Footer wird es ausgeblendet, um keine Bedienelemente zu
+verdecken. Während der Fahrt trägt das Dokument `data-law-scroll-to-top`; die Inhaltsübersicht
+hebt vorbeiziehende Einheiten zwar hervor, rollt aber nur ihren eigenen Container – nie das
+Fenster (`revealInOutline` in `norm-page.ts`, kein `scrollIntoView`) – und holt am Ende der
+Fahrt (`scrollend` oder Seitenanfang, Ereignis `law:scroll-to-top-end`) den gelesenen Eintrag
+nach. So kommt die Fahrt auch bei einer Übersicht an, die länger ist als ihr Container.
 
 Das mitlaufende Normzitat nach aktueller Leseposition gehört bereits zur Normansicht. Ein
 zusätzlicher kontextueller Norm-Minimalkopf (E37) ist eine getrennte spätere Produktentscheidung;

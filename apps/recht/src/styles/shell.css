@@ -14,9 +14,10 @@
   padding-right: var(--page-gutter);
 }
 
-/* Amtsband */
+/* Amtsband: Ankerziele stehen unter dem sichtbaren Band (--law-header-offset, bei ausgeblendetem
+   Band 0); das Bereichsmenü rechnet weiter mit der gemessenen Kopfhöhe (--law-header-height). */
 .law-document {
-  scroll-padding-top: calc(var(--law-header-height, 0px) + var(--space-3));
+  scroll-padding-top: calc(var(--law-header-offset, 0px) + var(--space-3));
 }
 
 .law-header {

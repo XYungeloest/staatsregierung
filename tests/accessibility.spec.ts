@@ -127,7 +127,8 @@ lawA11yTest('Zum Seitenanfang ist im gescrollten Zustand zugänglich', async ({ 
   const consent = page.locator('[data-analytics-consent-reject]');
   if (await consent.isVisible()) await consent.click();
   await page.locator('.norm-document').evaluate((element) => { (element as HTMLElement).style.minHeight = '5000px'; });
-  await page.evaluate(() => window.scrollTo(0, 1400));
+  // Der Knopf erscheint erst nach zwei Bildschirmhöhen.
+  await page.evaluate(() => window.scrollTo(0, 2 * window.innerHeight + 200));
   const button = page.getByRole('button', { name: 'Zum Seitenanfang', exact: true });
   await expect(button).toBeVisible();
   await button.focus();

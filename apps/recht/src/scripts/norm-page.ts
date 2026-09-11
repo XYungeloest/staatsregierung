@@ -18,17 +18,29 @@ function openGroupsOf(element: Element): void {
   }
 }
 
+/**
+ * Macht den Eintrag innerhalb der haftenden Übersicht sichtbar – nur ihr Container rollt, nie das
+ * Fenster (scrollIntoView rollte alle Vorfahren und brach so die Fahrt „Zum Seitenanfang“ ab).
+ */
+function revealInOutline(link: HTMLElement): void {
+  const container = link.closest<HTMLElement>('.norm-outline--desktop');
+  if (!container) return;
+  const box = link.getBoundingClientRect();
+  const frame = container.getBoundingClientRect();
+  if (box.top < frame.top) container.scrollTop += box.top - frame.top;
+  else if (box.bottom > frame.bottom) container.scrollTop += box.bottom - frame.bottom;
+}
+
+const rideAttribute = 'data-law-scroll-to-top';
+
 function setActive(id: string): void {
   for (const link of outlineLinks) {
     if (link.dataset.outlineLink === id) {
       link.setAttribute('aria-current', 'location');
       openGroupsOf(link);
-      const container = link.closest<HTMLElement>('.norm-outline--desktop');
-      if (container) {
-        const box = link.getBoundingClientRect();
-        const frame = container.getBoundingClientRect();
-        if (box.top < frame.top || box.bottom > frame.bottom) link.scrollIntoView({ block: 'nearest' });
-      }
+      // Während der Fahrt zum Seitenanfang (shell.ts) bleibt die Übersicht still; am Ende holt
+      // sie den dann gelesenen Eintrag nach.
+      if (!document.documentElement.hasAttribute(rideAttribute)) revealInOutline(link);
     } else {
       link.removeAttribute('aria-current');
     }
@@ -42,6 +54,11 @@ function setActive(id: string): void {
     citeLink.textContent = label ? `Link zu ${label} kopieren` : citeLinkDefault;
   }
 }
+
+document.addEventListener('law:scroll-to-top-end', () => {
+  const active = outlineLinks.find((link) => link.hasAttribute('aria-current'));
+  if (active) revealInOutline(active);
+});
 
 const targets = [...new Set(outlineLinks.map((link) => link.dataset.outlineLink).filter(Boolean))]
   .map((id) => document.getElementById(id!))

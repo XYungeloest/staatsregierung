@@ -132,15 +132,24 @@
   background: var(--surface-muted);
 }
 
+/* Die Übersicht folgt dem sichtbaren Amtsband: --law-header-offset ist die Kopfhöhe, solange das
+   Band sichtbar ist, und 0, sobald es sich beim Abwärtsscrollen ausblendet (shell.ts). */
 .norm-outline--desktop {
   position: sticky;
-  top: var(--law-header-height, 0px);
-  max-height: calc(100vh - var(--law-header-height, 0px));
+  top: var(--law-header-offset, 0px);
+  max-height: calc(100vh - var(--law-header-offset, 0px));
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   font-size: var(--fs-meta);
   scrollbar-width: thin;
+  transition: top 180ms ease, max-height 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .norm-outline--desktop {
+    transition: none;
+  }
 }
 
 .norm-outline__filter {
