@@ -1,15 +1,30 @@
 {
-  "generatedAt": "2026-09-09T05:25:15.782Z",
+  "generatedAt": "2026-09-12T08:31:18.663Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 66,
-    "recognizedTargetNorms": 90,
-    "completeTargetNorms": 85,
+    "recognizedAmendmentActs": 70,
+    "recognizedTargetNorms": 95,
+    "completeTargetNorms": 90,
     "blockedSourceConflicts": 5,
     "missingPrimarySources": 0
   },
   "templateProblems": [],
   "ambiguousFindings": [
+    {
+      "amendmentAct": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+      "candidate": "Gemeingut-Wohnen-Gesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+      "candidate": "Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "boden-und-naturvermoegensgesetz",
+      "candidate": "Nutzung",
+      "evidence": "Gliederungsüberschrift"
+    },
     {
       "amendmentAct": "erlass-lehrplan-geschichte-2026",
       "candidate": "Lehrplans Polytechnische Oberschule – Geschichte",
@@ -18,6 +33,66 @@
     {
       "amendmentAct": "erlass-lehrplan-geschichte-2026",
       "candidate": "Lehrplans Erweiterte Oberschule – Geschichte",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "candidate": "Ostdeutschen Daseinsvorsorgegesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "candidate": "Gemeingut-Wohnen-Gesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "candidate": "Ostdeutschen Landesantidiskriminierungsgesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "candidate": "Vergesellschaftungsrahmengesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
+      "candidate": "Nutzung",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+      "candidate": "Gemeingut-Wohnen-Gesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+      "candidate": "Energie- und Wärmevergesellschaftungsgesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+      "candidate": "Landesenergiewerke-Gesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+      "candidate": "Ostdeutsche-Netze-Gesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+      "candidate": "Ostdeutschen Eisenbahngesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+      "candidate": "Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+      "candidate": "Interflug-Gesetzes",
       "evidence": "Gliederungsüberschrift"
     },
     {
@@ -117,10 +192,104 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "boden-und-naturvermoegensgesetz",
+      "title": "Besonderes Gesetz über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+      "aliases": [
+        "Besonderes Gesetz über Boden, den Landesbodenfonds und das öffentliche Naturvermögen"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "boden-und-naturvermoegensgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "gemeinvermoegensschutzgesetz",
+      "title": "Besonderes Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums",
+      "aliases": [
+        "Besonderes Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "gemeinvermoegensschutzgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "soziale-grundversorgungsgesetz",
+      "title": "Besonderes Gesetz über die Gewährleistung von Wohnen, Gesundheit und Pflege",
+      "aliases": [
+        "Besonderes Gesetz über die Gewährleistung von Wohnen, Gesundheit und Pflege"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "soziale-grundversorgungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+          "title": "Besonderes Gesetz über Wohnen, Gesundheit und Pflege im Freistaat Ostdeutschland und zur Änderung weiterer Vorschriften",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-daseinsvorsorgegesetz",
       "title": "Besonderes Gesetz über die öffentliche Daseinsvorsorge des Freistaates Ostdeutschland",
       "aliases": [
-        "Besonderes Gesetz über die öffentliche Daseinsvorsorge des Freistaates Ostdeutschland"
+        "Besonderes Gesetz über die öffentliche Daseinsvorsorge des Freistaates Ostdeutschland",
+        "Ostdeutsches Daseinsvorsorgegesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -140,9 +309,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "title": "Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -205,6 +385,41 @@
       "amendmentActs": [],
       "correctionActs": [],
       "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "vergesellschaftungsrahmengesetz",
+      "title": "Gesetz über den allgemeinen Rahmen der Vergesellschaftung",
+      "aliases": [
+        "Gesetz über den allgemeinen Rahmen der Vergesellschaftung",
+        "Vergesellschaftungsrahmengesetz"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vergesellschaftungsrahmengesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "title": "Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -556,7 +771,8 @@
       "canonicalSlug": "interflug-gesetz",
       "title": "Gesetz über die Interflug",
       "aliases": [
-        "Gesetz über die Interflug"
+        "Gesetz über die Interflug",
+        "Interflug-Gesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -576,9 +792,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -680,7 +907,8 @@
       "canonicalSlug": "ostdeutsches-eisenbahngesetz",
       "title": "Gesetz über die Ostdeutsche Eisenbahn",
       "aliases": [
-        "Gesetz über die Ostdeutsche Eisenbahn"
+        "Gesetz über die Ostdeutsche Eisenbahn",
+        "Ostdeutsches Eisenbahngesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -700,9 +928,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -804,7 +1043,9 @@
       "canonicalSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
       "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland",
       "aliases": [
-        "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland"
+        "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland",
+        "Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetzes",
+        "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -824,9 +1065,28 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+          "title": "Besonderes Gesetz über Wohnen, Gesundheit und Pflege im Freistaat Ostdeutschland und zur Änderung weiterer Vorschriften",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -988,10 +1248,63 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "gemeingut-wohnen-gesetz",
+      "title": "Gesetz zur Errichtung der Anstalt öffentlichen Rechts „Gemeingut Wohnen“",
+      "aliases": [
+        "Gemeingut-Wohnen-Gesetz",
+        "Gemeingut-Wohnen-Gesetzes",
+        "Gesetz zur Errichtung der Anstalt öffentlichen Rechts „Gemeingut Wohnen“"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "gemeingut-wohnen-gesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+          "title": "Besonderes Gesetz über Wohnen, Gesundheit und Pflege im Freistaat Ostdeutschland und zur Änderung weiterer Vorschriften",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "title": "Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "landesenergiewerke-gesetz",
       "title": "Gesetz zur Errichtung der Landesenergiewerke Ost",
       "aliases": [
-        "Gesetz zur Errichtung der Landesenergiewerke Ost"
+        "Gesetz zur Errichtung der Landesenergiewerke Ost",
+        "Landesenergiewerke-Gesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -1011,9 +1324,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1022,7 +1346,8 @@
       "canonicalSlug": "ostdeutsche-netze-gesetz",
       "title": "Gesetz zur Errichtung der Ostdeutsche Netze",
       "aliases": [
-        "Gesetz zur Errichtung der Ostdeutsche Netze"
+        "Gesetz zur Errichtung der Ostdeutsche Netze",
+        "Ostdeutsche-Netze-Gesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -1042,9 +1367,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1053,7 +1389,9 @@
       "canonicalSlug": "ostdeutsches-landesantidiskriminierungsgesetz",
       "title": "Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln",
       "aliases": [
-        "Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln"
+        "Besonderes Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln",
+        "Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln",
+        "Ostdeutsches Landesantidiskriminierungsgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -1073,9 +1411,20 @@
           "typeCorrectionNeeded": true
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "title": "Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1146,6 +1495,7 @@
       "canonicalSlug": "energie-und-waermevergesellschaftungsgesetz",
       "title": "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum",
       "aliases": [
+        "Energie- und Wärmevergesellschaftungsgesetz",
         "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum"
       ],
       "revosaxLawId": null,
@@ -1166,9 +1516,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-09-12"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1830,6 +2191,7 @@
         "Gemeindeordnung für den Freistaat Ostdeutschland",
         "Gemeindeordnung für den Freistaat Sachsen",
         "Gemeindeordnung für den Ostdeutschen Freistaat",
+        "Ostdeutschen Gemeindeordnung",
         "Sächsische Gemeindeordnung"
       ],
       "revosaxLawId": "2754",
@@ -1868,6 +2230,14 @@
           "targetEffectiveDate": "2026-08-01"
         },
         {
+          "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
+        },
+        {
           "slug": "gesetz-zur-einfuehrung-von-hinweisgebermeldestellen",
           "title": "Gesetz zur Einführung von Hinweisgebermeldestellen",
           "effectiveDate": "2026-10-01",
@@ -1880,6 +2250,7 @@
       "effectiveDates": [
         "2026-03-25",
         "2026-08-01",
+        "2026-09-12",
         "2026-10-01"
       ],
       "status": "blocked-source-conflict",
@@ -1923,12 +2294,21 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-03"
+        },
+        {
+          "slug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "title": "Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-01-27",
-        "2026-09-03"
+        "2026-09-03",
+        "2026-09-12"
       ],
       "status": "complete",
       "problems": [],
@@ -2497,12 +2877,21 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-07-20"
+        },
+        {
+          "slug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+          "title": "Besonderes Gesetz über Wohnen, Gesundheit und Pflege im Freistaat Ostdeutschland und zur Änderung weiterer Vorschriften",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-04-01",
-        "2026-07-20"
+        "2026-07-20",
+        "2026-09-12"
       ],
       "status": "complete",
       "problems": [],
@@ -3183,6 +3572,7 @@
       "aliases": [
         "Ostdeutsche Staatsverfassung",
         "Staatsverfassung",
+        "Staatsverfassung des Freistaates Ostdeutschland",
         "Verfassung",
         "Verfassung des Freistaates Ostdeutschland",
         "Verfassung des Ostdeutschen Freistaates"
@@ -3261,14 +3651,30 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-07-21"
+        },
+        {
+          "slug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "title": "Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens",
+          "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-12"
         }
       ],
-      "correctionActs": [],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
+        }
+      ],
       "effectiveDates": [
         "2025-03-12",
         "2026-01-28",
         "2026-03-24",
-        "2026-07-21"
+        "2026-07-21",
+        "2026-09-12"
       ],
       "status": "complete",
       "problems": [],

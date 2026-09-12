@@ -8,20 +8,23 @@
   "featured": true,
   "highlightFrom": "2026-08-08",
   "highlightUntil": "2026-09-01",
-  "updatedAt": "2026-09-08",
+  "updatedAt": "2026-09-12",
   "relatedTopicSlugs": [
     "kommunen-regionen-und-berlin",
     "oeffentliche-wirtschaft-und-strukturwandel"
   ],
   "knowledgeProjectRefs": [
+    "project-soziale-grundversorgung",
     "project-wohnen"
   ],
   "hero": "Der Freistaat verfolgt das Ziel, bezahlbaren Wohnraum dauerhaft zu sichern und zentrale Wohnungsbestände schrittweise in gemeinwohlorientierte Strukturen zu überführen.",
   "beschlossen": [
+    "Seit dem 12. September 2026 gewährleistet die Staatsverfassung das Recht auf angemessenen, dauerhaft gesicherten und bezahlbaren Wohnraum; niemand darf durch eine staatliche Maßnahme oder eine Räumung wohnungslos gemacht werden. Das Soziale Grundversorgungsgesetz führt eine landesweite Wohnraumbedarfsplanung ein, bindet Gemeingut Wohnen an die festgestellten Bedarfe und verpflichtet die zuständigen Stellen zum Schutz vor Wohnungslosigkeit.",
     "Der Verwaltungsrat von Gemeingut Wohnen hat am 8. August 2026 eine Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung beschlossen. Sie senkt die Bestandsmieten seit 1. September 2026 von Amts wegen um 25 Prozent.",
     "Der allgemeine Rechtsrahmen der Vergesellschaftung wurde geschaffen und auf den Wohnungssektor konkretisiert.",
     "Mietpreisbegrenzung, Kappungsgrenze und Mieterhöhungsbegrenzung wurden in angespannten Wohnungsmärkten rechtlich abgesichert.",
-    "Kommunale Privatisierungsbremsen, Wohnraumschutz und Stadtbildfragen wurden in flankierende Landesregelungen überführt."
+    "Kommunale Privatisierungsbremsen, Wohnraumschutz und Stadtbildfragen wurden in flankierende Landesregelungen überführt.",
+    "Das Gemeingut-Wohnen-Gesetz wurde am 12. September 2026 dreifach angepasst: Ausnahmen vom Veräußerungsverbot setzen ein besonderes Einzelfallgesetz nach dem Gemeinvermögensschutzgesetz voraus, die Anstalt wirkt an der Gewährleistungsverantwortung mit. Das Vergesellschaftungsrahmengesetz lässt Vergesellschaftungen auch durch gesetzesvertretende Verordnung des Staatsrates zu."
   ],
   "umgesetzt": [
     "Das Wohnvergesellschaftungsgesetz und das Vergesellschaftungsrahmengesetz sind im Rechtsportal als aktuelle Fassungen verfügbar.",
@@ -30,6 +33,7 @@
     "Förderinstrumente wie das Landesbaukindergeld ergänzen die wohnungspolitische Gesamtstrategie."
   ],
   "naechsteSchritte": [
+    "Wohnungsbezogene Mindestversorgungsstandards, Wohnraumbedarfsplanung und Mindestanforderungen an die Unterbringung durch Rechtsverordnung ausgestalten.",
     "Jährliche Überprüfung der tatsächlichen Bewirtschaftungskosten und Weitergabe möglicher weiterer Entlastungen.",
     "Ausweitung gemeinwohlorientierter Steuerungsinstrumente auf weitere Bestände und Sektoren.",
     "Verstetigung der Trägerstrukturen und Ausbau der Vollzugspraxis in den Kommunen.",
@@ -44,9 +48,21 @@
       "date": "2026-09-01",
       "label": "Mietsenkung tritt in Kraft",
       "note": "Bestandsmieten von Gemeingut Wohnen werden von Amts wegen um 25 Prozent gesenkt."
+    },
+    {
+      "date": "2026-09-12",
+      "label": "Recht auf Wohnraum in der Verfassung, Soziale Grundversorgungsgesetz in Kraft"
     }
   ],
   "rechtsgrundlagen": [
+    {
+      "label": "Soziale Grundversorgungsgesetz",
+      "normSlug": "soziale-grundversorgungsgesetz"
+    },
+    {
+      "label": "Verfassung des Freistaates Ostdeutschland",
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+    },
     {
       "label": "Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung",
       "normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
@@ -114,6 +130,14 @@
     {
       "label": "Förderrichtlinie Landesbaukindergeld",
       "normSlug": "forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23"
+    },
+    {
+      "label": "Gemeinvermögensschutzgesetz",
+      "normSlug": "gemeinvermoegensschutzgesetz"
+    },
+    {
+      "label": "Boden- und Naturvermögensgesetz",
+      "normSlug": "boden-und-naturvermoegensgesetz"
     }
   ],
   "faq": [

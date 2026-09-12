@@ -1207,7 +1207,13 @@ function flattenBlocks(blocks, output = [], insideQuote = false) {
   return output;
 }
 
-function validateBody(fileName, title, body) {
+/**
+ * Prüft den Normkörper. `acceptedSequenceIssues` nennt wörtlich die Befunde der
+ * Sequenzvalidierung, die eine amtliche Quelle nachweislich selbst trägt (PDF und HTML
+ * stimmen überein, etwa eine übersprungene Nummer im Änderungsbefehl); nur diese Befunde
+ * lassen den Import zu, jeder andere bleibt ein Abbruchgrund.
+ */
+function validateBody(fileName, title, body, { acceptedSequenceIssues = [] } = {}) {
   const flat = flattenBlocks(body);
   const main = flat.filter(({ block, insideQuote }) => !insideQuote && [
     'part', 'chapter', 'section', 'subsection', 'article', 'paragraph', 'annex', 'item', 'subitem', 'table',
@@ -1223,7 +1229,7 @@ function validateBody(fileName, title, body) {
   if (spaced) {
     throw new NormHtmlParseError(fileName, `gesperrt gesetzter Text im Normkörper von „${title}“: Unterschriften gehören in einen Unterschriftenblock, Hervorhebungen werden ohne Sperrung gespeichert (${[spaced.block.label, spaced.block.title, spaced.block.text].filter(Boolean).join(' ').slice(0, 80)})`);
   }
-  const sequenceIssues = validateListSequences(body);
+  const sequenceIssues = validateListSequences(body).filter((issue) => !acceptedSequenceIssues.includes(issue));
   if (sequenceIssues.length > 0) {
     throw new NormHtmlParseError(fileName, `needs-review: ${sequenceIssues.join('; ')}`);
   }
@@ -1295,7 +1301,7 @@ function headingRanges(nodes, tocIndex, css, publicationDate) {
   return ranges;
 }
 
-function extractIntroducedNorms(tokens, publication, fileName) {
+function extractIntroducedNorms(tokens, publication, fileName, options = {}) {
   const introduced = [];
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
@@ -1323,7 +1329,7 @@ function extractIntroducedNorms(tokens, publication, fileName) {
       ? { title: replacementMatch[1].trim(), shortTitle: replacementMatch[1].trim(), abbr: replacementMatch[2].trim() }
       : parseIdentity(heading, rawIdentity);
     const body = parseTokens(segment.slice(firstStructure), fileName, { inQuote: false });
-    validateBody(fileName, identity.title, body);
+    validateBody(fileName, identity.title, body, options);
     introduced.push({
       kind: introduction?.[2] ? 'replacement' : 'introduced',
       heading,
@@ -1538,7 +1544,7 @@ function parseFederalMinisterialGazette(fileName, nodes, css, classification) {
   };
 }
 
-export function parsePublicationHtml(fileName, html) {
+export function parsePublicationHtml(fileName, html, options = {}) {
   const classification = classifyHtmlSource(fileName, html);
   if (classification.kind !== 'publication') throw new NormHtmlParseError(fileName, `Quelle ist kein Verkündungsblatt (${classification.reason})`);
   const { nodes, css } = parsedDocument(fileName, html);
@@ -1565,7 +1571,7 @@ export function parsePublicationHtml(fileName, html) {
   const body = parseTokens(rawTokens, fileName, {
     parseAmendmentQuotes: sourceTypeFromHeading(mainIdentity.heading, mainIdentity.title) !== 'berichtigung',
   });
-  validateBody(fileName, mainIdentity.title, body);
+  validateBody(fileName, mainIdentity.title, body, options);
   const effectiveDate = inferEffectiveDate(bodyNodes.map(textOf).join(' '), publicationDate);
   const publication = {
     kind: 'publication', fileName, issue: issueMatch[1], publication: classification.publication, year: Number(publicationDate.slice(0, 4)), publicationDate,
@@ -1573,14 +1579,14 @@ export function parsePublicationHtml(fileName, html) {
     type: sourceTypeFromHeading(mainIdentity.heading, mainIdentity.title),
     ...(startPage ? { startPage } : {}), body,
   };
-  publication.introducedNorms = extractIntroducedNorms(rawTokens, publication, fileName);
+  publication.introducedNorms = extractIntroducedNorms(rawTokens, publication, fileName, options);
   for (let rangeIndex = 1; rangeIndex < ranges.length; rangeIndex += 1) {
     const range = ranges[rangeIndex];
     const nextStart = ranges[rangeIndex + 1]?.start ?? nodes.length;
     const identity = preferTocTitle(parseHeadingRange(range, fileName), toc[rangeIndex]?.title);
     const secondaryNodes = sanitizeNormNodes(nodes.slice(range.end + 1, nextStart));
     const secondaryBody = parseTokens(makeAtomicTokens(secondaryNodes, css, fileName), fileName);
-    validateBody(fileName, identity.title, secondaryBody);
+    validateBody(fileName, identity.title, secondaryBody, options);
     publication.introducedNorms.push({
       kind: 'published',
       ...identity,

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-07",
+  "asOf": "2026-09-12",
   "events": [
     {
       "id": "event-off-holdings-succession-2026",
@@ -3141,6 +3141,239 @@
       "date": "2026-09-07",
       "eventType": "appointment",
       "normRefs": []
+    },
+    {
+      "id": "event-durchsuchungen-rechtsextreme-2026-09-10",
+      "title": "Durchsuchungen gegen rechtsextreme Strukturen",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-10",
+      "validTo": "2026-09-10",
+      "asOf": "2026-09-12",
+      "summary": "Staatsschutz, Landespolizei und Staatsanwaltschaften durchsuchen 31 Objekte der Gruppierungen Deutsche Jugend Zuerst, Nationalrevolutionäre Jugend und Chemnitz Revolte; 13 von 14 Haftbefehlen werden vollstreckt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-pm-2026-09-10-13",
+          "locator": "gesamte Pressemitteilung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsschutz",
+        "inst-staatsrat",
+        "person-yannik-schmaele",
+        "proceeding-durchsuchungen-rechtsextreme-2026-09"
+      ],
+      "tags": [
+        "timeline",
+        "security",
+        "law-enforcement"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-10",
+      "eventType": "official-announcement",
+      "normRefs": []
+    },
+    {
+      "id": "event-volkskammer-beschluss-verfassungsnovelle-2026-09-11",
+      "title": "Volkskammer beschließt Sozialistische Verfassungsnovelle und drei besondere Gesetze",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-11",
+      "validTo": "2026-09-11",
+      "asOf": "2026-09-12",
+      "summary": "Die achte Volkskammer beschließt das Fünfte Gesetz zur Großen Staatsreform, das Besondere Gesetz über Wohnen, Gesundheit und Pflege, das Boden- und Naturvermögensgesetz und das Gemeinvermögensschutzgesetz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Eingangsformel",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "project-staatsreform",
+        "project-soziale-grundversorgung",
+        "project-boden-volksacker",
+        "project-gemeinvermoegensschutz"
+      ],
+      "tags": [
+        "timeline",
+        "parliament",
+        "legislation"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-11",
+      "eventType": "parliamentary-session",
+      "normRefs": []
+    },
+    {
+      "id": "event-fuenftes-staatsreformgesetz-2026-09-12",
+      "title": "Fünftes Gesetz zur Großen Staatsreform verkündet und in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
+      "asOf": "2026-09-12",
+      "summary": "Ostdeutschland ist ein sozialistischer Freistaat; die Verfassung erhält Abschnitte über die sozialen und ökonomischen Grundlagen, Recht auf Arbeit, Volkseigentum, Gesellschafts- und Wirtschaftsplan, Wirtschaftsdemokratie und einen neu gefassten Privatisierungsschutz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Artikel 1 und 7",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-staatsreform",
+        "inst-volkskammer",
+        "inst-staatsrat",
+        "inst-staatspraesident"
+      ],
+      "tags": [
+        "timeline",
+        "constitution",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-12",
+      "eventType": "constitutional-change",
+      "normRefs": [
+        {
+          "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2026-09-12"
+        }
+      ]
+    },
+    {
+      "id": "event-soziale-grundversorgungsgesetz-2026-09-12",
+      "title": "Soziale Grundversorgungsgesetz verkündet und in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
+      "asOf": "2026-09-12",
+      "summary": "Das Besondere Gesetz über die Gewährleistung von Wohnen, Gesundheit und Pflege ordnet Mindestversorgungsstandards, Versorgungsmonitoring, Wohnraumbedarfsplanung, Schutz vor Wohnungslosigkeit, Pflegeinfrastrukturplanung, Gemeindepflege und ein Pflegenottelefon an.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Artikel 1 und 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-soziale-grundversorgung",
+        "inst-sek-gesundheit-soziales",
+        "inst-sek-inneres-wohnen"
+      ],
+      "tags": [
+        "timeline",
+        "housing",
+        "health",
+        "care",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-12",
+      "eventType": "law-enacted",
+      "normRefs": [
+        {
+          "normSlug": "soziale-grundversorgungsgesetz",
+          "versionId": "2026-09-12"
+        }
+      ]
+    },
+    {
+      "id": "event-landesbodenfonds-errichtet-2026-09-12",
+      "title": "Boden- und Naturvermögensgesetz in Kraft; Landesbodenfonds Ostdeutschland errichtet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
+      "asOf": "2026-09-12",
+      "summary": "Der Landesbodenfonds Ostdeutschland wird als rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Magdeburg errichtet; öffentlicher Boden wird an Erbbaurecht, Pacht und Gemeinwohlbindung gebunden, der Volksacker gebildet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Artikel 1 §§ 3 und 34, Artikel 2 und 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-boden-volksacker",
+        "inst-landesbodenfonds",
+        "inst-sek-finanzen"
+      ],
+      "tags": [
+        "timeline",
+        "land",
+        "institutions",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-12",
+      "eventType": "institution-created",
+      "normRefs": [
+        {
+          "normSlug": "boden-und-naturvermoegensgesetz",
+          "versionId": "2026-09-12"
+        }
+      ]
+    },
+    {
+      "id": "event-gemeinvermoegensschutzgesetz-2026-09-12",
+      "title": "Gemeinvermögensschutzgesetz verkündet und in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
+      "asOf": "2026-09-12",
+      "summary": "Das Besondere Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums führt Gemeinvermögensregister, Gemeinvermögensprüfung und das besondere Einzelfallgesetz für Privatisierungen ein und passt acht Gesetze an.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 1 bis 11",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-gemeinvermoegensschutz",
+        "inst-sek-finanzen",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "timeline",
+        "public-economy",
+        "public-assets",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-09-12",
+      "eventType": "law-enacted",
+      "normRefs": [
+        {
+          "normSlug": "gemeinvermoegensschutzgesetz",
+          "versionId": "2026-09-12"
+        }
+      ]
     }
   ]
 }

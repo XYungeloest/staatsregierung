@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-07",
+  "asOf": "2026-09-12",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -286,7 +286,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-09-07",
+      "asOf": "2026-09-12",
       "summary": "Kollegial organisierte Spitze der vollziehenden Gewalt. Seit dem 7. September 2026 amtiert der zweite Staatsrat mit vier von der achten Volkskammer gewählten Mitgliedern.",
       "sourceRefs": [
         {
@@ -313,6 +313,11 @@
           "sourceId": "source-ogvbl-2026-75",
           "locator": "Abschnitte I bis VII",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Artikel 1 Nummer 50",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -327,7 +332,8 @@
         "executive"
       ],
       "notes": [
-        "Der Organisationserlass 09/2026 gliedert den Staatsrat in die Geschäftsbereiche Überfluss, Frieden, Liebe und Wahrheit und ordnet ihnen zehn Staatssekretariate zu."
+        "Der Organisationserlass 09/2026 gliedert den Staatsrat in die Geschäftsbereiche Überfluss, Frieden, Liebe und Wahrheit und ordnet ihnen zehn Staatssekretariate zu.",
+        "Seit 12. September 2026 kann der Staatsrat nach Artikel 75a der Staatsverfassung gesetzesvertretende Rechtsverordnungen mit Gesetzeskraft erlassen, die die Verfassung und bestehende Gesetze weder ändern noch ihnen widersprechen dürfen."
       ],
       "aliases": [
         "Erster Staatsrat",
@@ -453,19 +459,29 @@
       "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Unabhängige Finanzkontrollinstitution; der Wissenshub enthält derzeit keine bestätigte Besetzungs- oder Organisationschronologie.",
+      "asOf": "2026-09-12",
+      "summary": "Unabhängige Finanzkontrollinstitution; der Wissenshub enthält derzeit keine bestätigte Besetzungs- oder Organisationschronologie. Die Verfassungsartikel 99 (Rechnungslegung) und 100 (Rechnungsprüfung; Rechnungshof) sind seit 12. September 2026 aufgehoben; der Rechnungshof besteht auf gesetzlicher Grundlage fort und wird etwa in § 12 des Boden- und Naturvermögensgesetzes als Prüfungsinstanz genannt.",
       "sourceRefs": [
         {
           "sourceId": "source-constitution-current",
-          "locator": "Vorschriften zum Rechnungshof",
+          "locator": "Fassung vom 12. September 2026 ohne Artikel 99 und 100",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Artikel 1 Nummern 41 und 42",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Artikel 1 § 12 Absatz 5",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [],
       "tags": [
-        "constitutional-organ",
-        "audit"
+        "audit",
+        "independent-body"
       ],
       "notes": [],
       "aliases": [
@@ -2223,6 +2239,78 @@
       "aliases": [],
       "type": "state-secretariat",
       "predecessorId": "inst-sek-rechtsstaat-kultur",
+      "successorId": null
+    },
+    {
+      "id": "inst-landesbodenfonds",
+      "title": "Landesbodenfonds Ostdeutschland",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Magdeburg, errichtet durch § 3 des Boden- und Naturvermögensgesetzes vom 12. September 2026. Sie erwirbt, bevorratet, entwickelt und bewirtschaftet Boden für öffentliche und gemeinwohlgebundene Nutzungen, hält den Volksacker, führt das Boden- und Naturvermögensregister und die Bodenmarktbeobachtung; Organe sind Verwaltungsrat (elf Mitglieder) und Vorstand (zwei Mitglieder), beraten vom Bodenbeirat. Sie untersteht der Rechtsaufsicht des Staatssekretariats der Finanzen; ihr Vermögen ist Volkseigentum und gemeinwirtschaftlich gebunden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Artikel 1 §§ 3 bis 13, 34, 44 bis 46, Artikel 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-boden-volksacker",
+        "inst-sek-finanzen",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "land",
+        "agriculture",
+        "public-economy"
+      ],
+      "notes": [
+        "Der vollständige Geschäftsbetrieb ist spätestens neun Monate nach dem 12. September 2026 aufzunehmen; bis zur Bestellung des Vorstandes handelt ein Gründungsbeauftragter des Staatssekretariats der Finanzen. Besetzungen sind am Stichtag nicht belegt."
+      ],
+      "aliases": [
+        "Landesbodenfonds",
+        "Landesbodenfonds Ostdeutschland AöR"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-staatsschutz",
+      "title": "Ostdeutscher Staatsschutz",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Sicherheitsbehörde des Freistaates, die nach der Pressemitteilung vom 10. September 2026 gemeinsam mit der Landespolizei und den Staatsanwaltschaften Durchsuchungen gegen rechtsextreme Strukturen geleitet hat und sichergestellte Materialien auswertet. Rechtsgrundlage, Organisation und Zuordnung zu einem Geschäftsbereich sind im Wissenshub nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-pm-2026-09-10-13",
+          "locator": "Absätze 1 und 7",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "proceeding-durchsuchungen-rechtsextreme-2026-09"
+      ],
+      "tags": [
+        "institution",
+        "security",
+        "law-enforcement"
+      ],
+      "notes": [
+        "Nur über die Pressemitteilung belegt; weder ein Errichtungsgesetz noch ein Organisationserlass nennt die Behörde. Die Staatsverfassung schließt in Artikel 83 Absatz 3 einen Geheimdienst mit polizeilichen Befugnissen aus."
+      ],
+      "aliases": [
+        "Staatsschutz"
+      ],
+      "type": "agency",
+      "predecessorId": null,
       "successorId": null
     }
   ]

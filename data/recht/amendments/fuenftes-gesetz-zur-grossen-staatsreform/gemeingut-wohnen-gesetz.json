@@ -1,0 +1,36 @@
+{
+  "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "sameDayOrder": 1,
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "resultCitation": "Gemeingut-Wohnen-Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16), zuletzt geändert durch Artikel 4 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "changeNote": "§ 3 Absatz 4 aufgehoben.",
+  "commandCoverage": [
+    "Artikel 4"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 76",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 76.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 3"
+      },
+      "expectedHash": "ca012a1f4950c399e21b54e3fed945392a02c6278289744047b9d624d152787c",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

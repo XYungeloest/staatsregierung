@@ -1,0 +1,115 @@
+{
+  "amendmentAct": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "sameDayOrder": 1,
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 77 S. 2)",
+  "resultCitation": "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz vom 23. März 2026 (OGVBl. 2026 Nr. 34), zuletzt geändert durch Artikel 5 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 77 S. 2)",
+  "changeNote": "Verfahren von Amts wegen bei festgestellter Unterdeckung (§ 13 Absatz 2), Beteiligung von Patienten- und Nutzerinteressen (§ 16 Absatz 4), Berichtspflicht gegenüber der Volkskammer (§ 18) und Verordnungsermächtigung (§ 20) angepasst; die wörtlich angeordneten Ersetzungen „Landtags“ → „Volkskammer“ und „Landtag“ → „Volkskammer“ sind unverändert übernommen.",
+  "commandCoverage": [
+    "Artikel 5 Nummern 1, 3, 4 und 5 (die amtliche Zählung überspringt die Nummer 2)"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 77",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 77.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedHash": "c912ff14adf315c11c973a2c928bce83ad36bcd2ae00f3cff05a7d00a66eddd5",
+      "expectedMatches": 1,
+      "value": "Das zuständige Staatssekretariat kann ein Verfahren von Amts wegen einleiten, wenn Tatsachen bekannt werden, die auf eine erhebliche Gefährdung eines versorgungsnotwendigen Krankenhauses, Standortes oder Leistungsbereiches schließen lassen. Ist nach § 5 des Soziale Grundversorgungsgesetzes eine bestehende oder drohende regionale Unterdeckung festgestellt worden, die mit der Gefährdung eines Krankenhauses, Standortes oder Leistungsbereiches zusammenhängt, ist ein Verfahren von Amts wegen einzuleiten, sofern eine Maßnahme nach diesem Gesetz nicht offensichtlich ungeeignet ist.",
+      "sourceProvision": "Artikel 5 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 16"
+      },
+      "expectedHash": "daad20ea6e1d919b2a25eff61bd322cb67e4b524f192c85940d7988a757a00a4",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Begünstigte haben während der Bindungsfrist bei wesentlichen strukturellen Entscheidungen, die den Standort, die Zugänglichkeit oder das Leistungsangebot betreffen, eine frühzeitige und angemessene Beteiligung der Patienten- und Nutzerinteressen sowie der Beschäftigten sicherzustellen. Bestehende gesetzliche, kollektivrechtliche oder satzungsmäßige Beteiligungs- und Mitbestimmungsrechte bleiben unberührt. Gleichwertige bestehende Beteiligungsstrukturen erfüllen die Anforderungen des Satzes 1.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 5 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 18"
+      },
+      "expectedHash": "9f5b1432ea2b7d9715c0c25f5d6207ed1354aecefdda19878cc2cf516a4487d8",
+      "expectedMatches": 1,
+      "value": "Berichtspflichten, Transparenz und Unterrichtung des Volkskammer",
+      "sourceProvision": "Artikel 5 Nummer 4 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "8535b6b5b47554740f7077037de1a1117e2ea685a2483b01f2fd30337e636a3f",
+      "expectedMatches": 1,
+      "value": "Das zuständige Staatssekretariat legt der Volkskammer jährlich einen Bericht über die Mittelverwendung, die geförderten Maßnahmen, die eingegangenen Beteiligungen, die Rückflüsse und die wesentlichen Wirkungen des Fonds vor. Der Bericht stellt zusätzlich dar, in welchen Fällen Fondsmaßnahmen der Beseitigung oder Verhinderung einer nach dem Soziale Grundversorgungsgesetz festgestellten regionalen Unterdeckung dienten.",
+      "sourceProvision": "Artikel 5 Nummer 4 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "b8ae1bedd363941565463481feab388168aadddf522b632231028939d12e3ab9",
+      "expectedMatches": 1,
+      "value": "Über Maßnahmen nach § 12 von besonderer finanzieller oder struktureller Bedeutung ist der Volkskammer unverzüglich zu unterrichten.",
+      "sourceProvision": "Artikel 5 Nummer 4 Buchstabe c",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "paragraph",
+        "parentLabel": "§ 20",
+        "text": "Das für das Gesundheitswesen zuständige Staatsministerium wird im Einvernehmen mit dem für die Finanzen zuständigen Staatsministerium ermächtigt, durch Rechtsverordnung das Nähere zu regeln über"
+      },
+      "expectedHash": "aec95ebc1c087298ed7ad0db3cb9857d683eea01b1e29fed6765ed5e36433a1d",
+      "expectedMatches": 1,
+      "value": "Das fachlich zuständige Staatssekretariat wird im Einvernehmen mit dem für die Finanzen zuständigen Staatssekretariat ermächtigt, durch Rechtsverordnung das Nähere zu regeln über",
+      "sourceProvision": "Artikel 5 Nummer 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

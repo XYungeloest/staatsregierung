@@ -79,10 +79,23 @@ git status --porcelain -- content/normen   # nur die Verzeichnisse der eingepfle
 ```
 
 Ziele mit redaktionell versionierter Ausgangsfassung (`existingVersionSeed` in
-`data/recht/consolidation-sources.json`) laufen bewusst nur über `--target`, nicht über `--all`:
-die Rechtsüberleitung des Ergebnisses ist auf übernommenes sächsisches Recht gemünzt und würde in
-eigenen ostdeutschen Vorschriften auch Eigennamen überschreiben. Nach einer Änderung an einem
-solchen Ziel ist `data/recht/consolidation-manifest.json` gegenzuprüfen.
+`data/recht/consolidation-sources.json`) laufen bewusst nur über `--target`, nicht über `--all`.
+Die Rechtsüberleitung des Ergebnisses (`applyRechtsueberleitung`) wird nur auf Ziele mit
+REVOSax-Provenienz angewandt (`usesRechtsueberleitung`); eigene ostdeutsche Vorschriften behalten
+ihre Eigennamen. Beginnt die Geltung der Ausgangsfassung nach ihrer Fassungskennung (verkündet am
+23. März, in Kraft am 25. März), nennt der Seed den Geltungsbeginn ausdrücklich
+(`existingVersionSeed: { versionId, validFrom }`), zusammen mit `baselineVersionDate` für den
+Vollständigkeitsnachweis der Fassungsfolge. Der Importer setzt beim erneuten Einlesen der
+Verkündungsquelle das Gültigkeitsende einer so fortgeschriebenen Ausgangsfassung nicht zurück
+(`reconcileVersionIntervals`). Nach einer Änderung an einem solchen Ziel ist
+`data/recht/consolidation-manifest.json` gegenzuprüfen.
+
+Trägt eine amtliche Ausgabe selbst eine Nummerierungslücke (HTML und PDF stimmen überein, etwa
+Artikel 5 in OGVBl. 2026 Nr. 77 mit den Nummern 1., 3., 4., 5.), lässt der Parser genau diesen
+wörtlich hinterlegten Befund zu: `ACCEPTED_SEQUENCE_ISSUES` in
+`scripts/lib/norm-parser-contract.mjs` nennt je Datei die Befunde und den PDF-Nachweis; jeder
+andere Nummerierungsbefund bleibt ein Abbruchgrund. Die Ausgabe erhält dazu einen
+`sourceNotes`-Hinweis in der Importkonfiguration.
 
 Nach einer Änderung am HTML- oder Markdown-Parser werden die betroffenen eigenen Verkündungen
 gezielt neu eingelesen:

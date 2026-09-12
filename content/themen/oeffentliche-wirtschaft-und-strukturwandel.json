@@ -6,20 +6,21 @@
   "cluster": "wirtschaft-arbeit",
   "priority": 84,
   "featured": true,
-  "updatedAt": "2026-09-08",
+  "updatedAt": "2026-09-12",
   "relatedTopicSlugs": [
     "energie-und-klima",
     "oepnv-und-mobilitaet",
     "wohnen-und-vergesellschaftung"
   ],
   "knowledgeProjectRefs": [
-    "project-boom-europe",
     "project-50hertz-acquisition",
-    "project-nvidia-settlement",
     "project-boden-volksacker",
+    "project-boom-europe",
+    "project-daseinsvorsorge",
+    "project-gemeinvermoegensschutz",
     "project-interflug",
-    "project-zinnwald-lithium",
-    "project-daseinsvorsorge"
+    "project-nvidia-settlement",
+    "project-zinnwald-lithium"
   ],
   "hero": "Der Freistaat will Strukturwandel aktiv gestalten. Öffentliche Beteiligungen, Gemeinwohlkriterien, Anwendungsgesetze und regionale Transformationspakete sollen wirtschaftliche Souveränität stärken.",
   "beschlossen": [
@@ -28,7 +29,9 @@
     "Förderung soll künftig stärker an Standort, Tarifbindung, Mitbestimmung und Gemeinwohl gebunden werden.",
     "Die Anwendungsgesetze für Mobilität sowie Energie- und Wärmeinfrastruktur sind seit dem 21. Juli 2026 in Kraft.",
     "Das Boom Europe Leipzig/Halle Agreement wurde am 14. Mai 2026 rechtskräftig unterzeichnet und trat am selben Tag in Kraft; das zugehörige Gesetzespaket gilt seit 21. Juli 2026.",
-    "NVIDIA nahm das ostdeutsche Ansiedlungsangebot an. Förderung und Gelände sind konkretisiert; eine Betriebsaufnahme ist nicht belegt."
+    "NVIDIA nahm das ostdeutsche Ansiedlungsangebot an. Förderung und Gelände sind konkretisiert; eine Betriebsaufnahme ist nicht belegt.",
+    "Seit dem 12. September 2026 bilden Volkseigentum, Gesellschafts- und Wirtschaftsplan und Wirtschaftsdemokratie die ökonomischen Grundlagen der Verfassung. Das Gemeinvermögensschutzgesetz führt ein öffentliches Gemeinvermögensregister ein, prüft erhebliche Vermögensmaßnahmen und lässt Privatisierungen nur durch ein besonderes Einzelfallgesetz zu; Veräußerungserlöse bleiben zweckgebunden.",
+    "Der Landesbodenfonds Ostdeutschland ist als Anstalt des öffentlichen Rechts mit Sitz in Magdeburg errichtet. Öffentlicher Boden wird grundsätzlich nicht veräußert, sondern im Erbbaurecht, durch Pacht oder in anderer gemeinwohlgebundener Form überlassen; die landwirtschaftlichen Flächen des Fonds bilden den Volksacker."
   ],
   "umgesetzt": [
     "Landesbank, Vergesellschaftungsrahmen und Vergaberecht bilden vorhandene finanz- und wirtschaftspolitische Grundlagen.",
@@ -38,6 +41,7 @@
     "Seit 2. und 3. September 2026 gelten das Zinnwald-Vergesellschaftungsgesetz, das Ostdeutsche Daseinsvorsorgegesetz und das Interflug-Gesetz; der Gründungsvorstand der Interflug ist bestellt und hat die Anfangsflotte aus zehn Löschflugzeugen beschafft."
   ],
   "naechsteSchritte": [
+    "Ersterhebung des gemeinwirtschaftlichen Vermögens innerhalb von sechs Monaten, Aufbau des Gemeinvermögensregisters und Aufbau des Landesbodenfonds binnen neun Monaten begleiten.",
     "Ressortübergreifende Umsetzung der neuen Anwendungsgesetze zum Vergesellschaftungsrahmen und Dokumentation der tatsächlichen Überführungen.",
     "Boom-Europe-Standortaufbau und NVIDIA-Ansiedlung nur anhand belastbarer Vertrags-, Bau- oder Betriebsnachweise fortschreiben.",
     "Erarbeitung eines Subventionsrückholgesetzes und eines Gemeinwohl-TÜV für Förderempfänger.",
@@ -70,6 +74,14 @@
     }
   ],
   "rechtsgrundlagen": [
+    {
+      "label": "Gemeinvermögensschutzgesetz",
+      "normSlug": "gemeinvermoegensschutzgesetz"
+    },
+    {
+      "label": "Boden- und Naturvermögensgesetz",
+      "normSlug": "boden-und-naturvermoegensgesetz"
+    },
     {
       "label": "Ostdeutsche-Eisenbahn-Neuordnungsgesetz",
       "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz"

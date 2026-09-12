@@ -1,0 +1,42 @@
+{
+  "amendmentAct": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "sameDayOrder": 2,
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 77 S. 2)",
+  "resultCitation": "Gemeingut-Wohnen-Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16), zuletzt geändert durch Artikel 3 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 77 S. 2)",
+  "changeNote": "§ 2 Absatz 5 zur Mitwirkung an der Gewährleistungsverantwortung nach dem Soziale Grundversorgungsgesetz angefügt.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 77",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 77.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 2"
+      },
+      "expectedHash": "c7b687e81246477a121802cb0f8534a7d547054fc8a1e18833e034fd2895843c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "text": "Die Anstalt wirkt im Rahmen ihrer gesetzlichen Aufgaben an der Erfüllung der Gewährleistungsverantwortung nach dem Soziale Grundversorgungsgesetz mit. Bei ihrer Investitions-, Neubau-, Erwerbs- und Bestandsplanung berücksichtigt sie die nach dem Soziale Grundversorgungsgesetz festgestellten regionalen Wohnraumbedarfe. Die gesetzlich gewährleisteten Selbstverwaltungs- und Mitbestimmungsrechte der Anstalt bleiben unberührt.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

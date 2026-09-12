@@ -10,6 +10,8 @@ import {
   validateListSequences,
 } from '../scripts/lib/norm-html-parser.mjs';
 import {
+  ACCEPTED_SEQUENCE_ISSUES,
+  acceptedSequenceIssuesFor,
   validateConstitutionParserContract,
   validatePublicationParserContract,
 } from '../scripts/lib/norm-parser-contract.mjs';
@@ -61,7 +63,7 @@ test('PDF-geprüfte Strukturfixtures sichern die amtlichen HTML-Quellen struktur
       continue;
     }
     assert.equal(classifyHtmlSource(fileName, html).kind, 'publication', fileName);
-    const parsed = parsePublicationHtml(fileName, html);
+    const parsed = parsePublicationHtml(fileName, html, { acceptedSequenceIssues: acceptedSequenceIssuesFor(fileName) });
     assert.deepEqual(validatePublicationParserContract(parsed), [], fileName);
     const summary = summarizeParsedSource(parsed);
     const flat = flatten(parsed.body);
@@ -102,8 +104,23 @@ test('PDF-geprüfte Strukturfixtures sichern die amtlichen HTML-Quellen struktur
     for (const [path, labels] of Object.entries(fixture.itemChildrenLabels ?? {})) assert.deepEqual(itemAt(parsed, path)?.children.filter((child) => child.type === 'item').map((child) => child.label), labels, `${fileName}: Unterpunkte von ${path}`);
     for (const path of fixture.itemsWithLeadingText ?? []) assert.equal(itemAt(parsed, path)?.children[0]?.type, 'paragraphText', `${fileName}: Fortsetzungstext unter ${path}`);
     for (const path of fixture.topLevelItems ?? []) assert.equal(itemAt(parsed, path)?.level, 0, `${fileName}: ${path} bleibt auf der Elternebene`);
-    assert.deepEqual(validateListSequences(parsed.body), [], `${fileName}: Listensequenzen`);
+    assert.deepEqual(validateListSequences(parsed.body), acceptedSequenceIssuesFor(fileName), `${fileName}: Listensequenzen`);
     for (const norm of [parsed, ...parsed.introducedNorms]) assert.doesNotMatch(bodyText(norm), IMPORT_ARTEFACTS, fileName);
+  }
+});
+
+test('eine amtlich belegte Nummerierungslücke wird nur mit wörtlich hinterlegtem Befund zugelassen', async () => {
+  for (const [fileName, acceptance] of Object.entries(ACCEPTED_SEQUENCE_ISSUES)) {
+    const html = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
+    assert.ok(acceptance.evidence.length > 20, `${fileName}: Nachweis fehlt`);
+    assert.throws(() => parsePublicationHtml(fileName, html), /needs-review/u, `${fileName}: ohne Freigabe bleibt der Befund ein Abbruchgrund`);
+    assert.throws(
+      () => parsePublicationHtml(fileName, html, { acceptedSequenceIssues: ['anderer Befund'] }),
+      /needs-review/u,
+      `${fileName}: ein abweichender Freigabetext lässt den Import nicht zu`,
+    );
+    const parsed = parsePublicationHtml(fileName, html, { acceptedSequenceIssues: acceptance.issues });
+    assert.deepEqual(validateListSequences(parsed.body), acceptance.issues, `${fileName}: genau die hinterlegten Befunde bleiben sichtbar`);
   }
 });
 

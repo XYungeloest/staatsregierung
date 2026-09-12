@@ -52,6 +52,26 @@ export const complexHtmlStructureFixtures = {
   'OGVBl. 2026 Nr. 58.html': {
     outerParagraphs: Array.from({ length: 35 }, (_, index) => `§ ${index + 1}`),
   },
+  'OGVBl. 2026 Nr. 76.html': {
+    outerArticles: Array.from({ length: 7 }, (_, index) => `Artikel ${index + 1}`),
+    quotedArticle: 'Artikel 95a',
+    quotedParagraphs: ['(1)', '(2)', '(3)', '(4)', '(5)', '(6)'],
+  },
+  'OGVBl. 2026 Nr. 77.html': {
+    introducedCount: 1,
+    introducedAbbreviations: ['SoGrVG'],
+    introducedLastStructures: ['§ 31'],
+  },
+  'OGVBl. 2026 Nr. 78.html': {
+    introducedCount: 1,
+    introducedAbbreviations: ['BodNatVG'],
+    introducedLastStructures: ['§ 53'],
+  },
+  'OGVBl. 2026 Nr. 79.html': {
+    introducedCount: 1,
+    introducedAbbreviations: ['GemVSchG'],
+    introducedLastStructures: ['§ 24'],
+  },
   // Altquellen-Transkriptionen: einfache und mehrstufige Legacy-Strukturen.
   'OABl. 2025 Nr. 1.html': {
     labelTypes: { '4.1': 'subsection' },

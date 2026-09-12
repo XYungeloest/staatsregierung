@@ -197,6 +197,17 @@ h3.r-label {
   align-items: baseline;
 }
 
+/* Im Änderungsprotokoll steht die Metazeile unter einem oft mehrzeiligen Änderungslink. Ihre
+   Ziele brauchen eigenen Abstand nach oben und mindestens 24 px Höhe (WCAG 2.2, Zielgröße). */
+.norm-protocol .r-inline-list {
+  margin-top: var(--space-2);
+}
+
+.norm-protocol .r-inline-list a {
+  display: inline-block;
+  padding-block: var(--space-1);
+}
+
 .r-label--rule {
   display: block;
   padding-bottom: var(--space-2);
