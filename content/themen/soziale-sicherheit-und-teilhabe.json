@@ -2,14 +2,17 @@
   "slug": "soziale-sicherheit-und-teilhabe",
   "title": "Soziale Sicherheit & Teilhabe",
   "teaser": "Öffentliche Infrastruktur und verbindliche Schutzinstrumente sollen Armut, Wohnungslosigkeit und Ausgrenzung wirksamer begegnen.",
-  "status": "geplant",
+  "status": "in-umsetzung",
   "cluster": "bildung-gesellschaft",
   "priority": 57,
   "featured": false,
-  "updatedAt": "2026-07-21",
-  "knowledgeProjectRefs": [],
-  "hero": "Soziale Sicherheit bedeutet mehr als Geldleistungen. Der Freistaat will soziale Rechte durchsetzbar machen und Teilhabe im Alltag sichern.",
+  "updatedAt": "2026-09-12",
+  "knowledgeProjectRefs": [
+    "project-soziale-grundversorgung"
+  ],
+  "hero": "Soziale Sicherheit bedeutet mehr als Geldleistungen. Seit dem 12. September 2026 gewährleistet die Staatsverfassung das Recht auf soziale Sicherheit, auf gesundheitliche und pflegerische Versorgung, auf Freizeit und Erholung und auf Gleichheit; das Soziale Grundversorgungsgesetz macht diese Rechte in Wohnen, Gesundheit und Pflege planbar und überprüfbar.",
   "beschlossen": [
+    "Das Soziale Grundversorgungsgesetz vom 12. September 2026 legt regionale Mindestversorgungsstandards, ein Versorgungsmonitoring, Pflegeinfrastrukturplanung, Pflegestützpunkte, Gemeindepflege und ein landesweites Pflegenottelefon fest und verpflichtet die Bezirke zu jährlichen Grundversorgungskonferenzen.",
     "Der 15-Punkte-Plan II sieht Sozialpass, Freie-Grundbedarf-Karte, Housing First und ein Landesklagewerk für soziale Rechte vor.",
     "Öffentliche Kantinen, Gebührenbremse und Notlagenhilfen sollen soziale Grundversorgung im Alltag stärken.",
     "Besondere ostdeutsche Renten- und Erwerbsbiografien sollen politisch anerkannt und praktisch unterstützt werden."
@@ -19,11 +22,20 @@
     "Bestehende Instrumente aus Krankenhausfonds, Familienentlastung und Kulturpass bilden erste Anknüpfungspunkte."
   ],
   "naechsteSchritte": [
+    "Mindestversorgungsstandards für Gesundheit, Pflege, Gemeindepflege und öffentlichen Gesundheitsdienst durch Rechtsverordnung festlegen; Pflegenottelefon und Gemeindepflege aufbauen.",
     "Vorbereitung eines Sozialpassgesetzes Ost und eines Housing-First-Gesetzes.",
     "Aufbau schneller Hilfen bei Energiearmut, Mietschulden, Krankheit, Pflegekrisen und familiären Notlagen.",
     "Ausbau kommunaler Sozialraumarbeit, Sorgezeit, Pflegeberatung und Teilhabeangebote."
   ],
   "rechtsgrundlagen": [
+    {
+      "label": "Soziale Grundversorgungsgesetz",
+      "normSlug": "soziale-grundversorgungsgesetz"
+    },
+    {
+      "label": "Verfassung des Freistaates Ostdeutschland",
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
+    },
     {
       "label": "Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
       "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz"

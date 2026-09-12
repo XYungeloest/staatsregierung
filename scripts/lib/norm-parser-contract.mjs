@@ -1,3 +1,22 @@
+/**
+ * Nummerierungsbefunde, die eine amtliche Quelle nachweislich selbst trägt. Der Parser lässt
+ * genau diese Befunde je Datei zu (`parsePublicationHtml(…, { acceptedSequenceIssues })`); der
+ * Nachweis nennt die PDF-Seite, auf der die Zählung sichtbar ist. Jeder andere Befund bleibt
+ * ein Abbruchgrund.
+ */
+export const ACCEPTED_SEQUENCE_ISSUES = {
+  'OGVBl. 2026 Nr. 77.html': {
+    issues: [
+      'Abschnitt 6 > Artikel 5 > 3.: lückenhafte Nummerierungsfolge oder nicht aufgelöster Listenwechsel (1. → 3.)',
+    ],
+    evidence: 'Artikel 5 zählt in HTML und PDF (S. 27–28) übereinstimmend 1., 3., 4. und 5.; eine Nummer 2 ist nicht verkündet.',
+  },
+};
+
+export function acceptedSequenceIssuesFor(fileName) {
+  return ACCEPTED_SEQUENCE_ISSUES[fileName]?.issues ?? [];
+}
+
 function flatten(blocks, output = []) {
   for (const block of blocks ?? []) {
     output.push(block);

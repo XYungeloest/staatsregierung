@@ -1,0 +1,104 @@
+{
+  "amendmentAct": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 77 S. 2)",
+  "resultCitation": "Ostdeutsches Krankenhausgesetz, zuletzt geändert durch Artikel 4 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 77 S. 2)",
+  "changeNote": "§ 10b zum Verfahren bei regionaler Unterdeckung eingefügt (Artikel 4 Nummer 1 betrifft die Inhaltsübersicht, die nicht Teil des gespeicherten Normtextes ist).",
+  "commandCoverage": [
+    "Artikel 4 Nummer 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 77",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 77.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 10a"
+      },
+      "field": "title",
+      "expectedOld": "Verfahren zur Sicherung versorgungsnotwendiger Standorte und Leistungsbereiche“.",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 10b",
+        "title": "Verfahren bei regionaler Unterdeckung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Wird nach § 5 des Gesetzes über die Gewährleistung von Wohnen, Gesundheit und Pflege für einen Krankenhausstandort oder Leistungsbereich eine bestehende oder drohende regionale Unterdeckung festgestellt, prüft die für die Krankenhausplanung zuständige Behörde unverzüglich, ob und in welchem Umfang der Krankenhausplan fortzuschreiben oder eine andere krankenhausplanerische Maßnahme zu treffen ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Prüfung erstreckt sich insbesondere darauf,",
+            "children": [
+              {
+                "type": "item",
+                "label": "1.",
+                "text": "welche Krankenhausstandorte und Leistungsbereiche für die Deckung des festgestellten Bedarfs erforderlich sind,",
+                "level": 1,
+                "numberingStyle": "decimal",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "2.",
+                "text": "ob bestehende Kapazitäten gesichert, verändert oder miteinander verbunden werden können,",
+                "level": 1,
+                "numberingStyle": "decimal",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "3.",
+                "text": "ob Maßnahmen nach § 10a erforderlich sind und",
+                "level": 1,
+                "numberingStyle": "decimal",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "4.",
+                "text": "ob die Voraussetzungen für ein Verfahren nach dem Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz vorliegen können.",
+                "level": 1,
+                "numberingStyle": "decimal",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Soweit Maßnahmen des Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfonds als geeignet erscheinen, unterrichtet die Krankenhausplanungsbehörde unverzüglich die für den Fonds zuständige Stelle und übermittelt ihr die für die Prüfung erforderlichen Unterlagen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die nach diesem Gesetz und dem Krankenhausfinanzierungsgesetz zu beteiligenden Stellen sowie die betroffenen kommunalen Gebietskörperschaften sind zu hören.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die Prüfung soll innerhalb von drei Monaten abgeschlossen werden. Bei einer unmittelbar drohenden erheblichen Beeinträchtigung der stationären Versorgung sind vorläufige Sicherungsmaßnahmen unverzüglich zu prüfen.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 4 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

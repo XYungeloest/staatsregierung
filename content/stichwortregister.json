@@ -1,31 +1,256 @@
 {
   "$schema": "stichwortregister/1",
   "eintraege": [
-    { "stichwort": "Anfangsflotte", "normen": ["bekanntmachung-beschaffung-anfangsflotte-interflug"] },
-    { "stichwort": "Beschaffungsprogramm", "normen": ["bekanntmachung-beschaffung-anfangsflotte-interflug"] },
-    { "stichwort": "Bestandsmieten", "normen": ["bekanntmachung-gemeingut-wohnen-mietpreisbildung"], "siehe": ["Nettokaltmiete"] },
-    { "stichwort": "Bundespolizei", "normen": ["verwaltungsabkommen-kasernierte-grenzpolizei"] },
-    { "stichwort": "Bundeswahlleiter", "normen": ["volksbefragungsverordnung-2026"] },
-    { "stichwort": "Gemeingut Wohnen", "normen": ["bekanntmachung-gemeingut-wohnen-mietpreisbildung"] },
-    { "stichwort": "Grenzpolizei", "normen": ["verwaltungsabkommen-kasernierte-grenzpolizei"] },
-    { "stichwort": "Grenzpolizeilicher Einzeldienst", "normen": ["verwaltungsabkommen-kasernierte-grenzpolizei"], "siehe": ["Grenzpolizei"] },
-    { "stichwort": "Grenzübergangsstellen", "normen": ["verwaltungsabkommen-kasernierte-grenzpolizei"] },
-    { "stichwort": "Grundrechte", "normen": ["staatsverfassung-des-freistaates-ostdeutschland"] },
-    { "stichwort": "Gründungsvorstand", "normen": ["bekanntmachung-bestellung-gruendungsvorstand-interflug"], "siehe": ["Interflug"] },
-    { "stichwort": "Interflug", "normen": ["bekanntmachung-bestellung-gruendungsvorstand-interflug", "bekanntmachung-beschaffung-anfangsflotte-interflug"] },
-    { "stichwort": "Kostenmiete", "normen": ["bekanntmachung-gemeingut-wohnen-mietpreisbildung"], "siehe": ["Nettokaltmiete"] },
-    { "stichwort": "Luft- und Wasserdienst", "normen": ["verwaltungsabkommen-kasernierte-grenzpolizei"] },
-    { "stichwort": "Löschflugzeuge", "normen": ["bekanntmachung-beschaffung-anfangsflotte-interflug"] },
-    { "stichwort": "Mietsenkung", "normen": ["bekanntmachung-gemeingut-wohnen-mietpreisbildung"], "siehe": ["Kostenmiete"] },
-    { "stichwort": "Nettokaltmiete", "normen": ["bekanntmachung-gemeingut-wohnen-mietpreisbildung"] },
-    { "stichwort": "Olympische und Paralympische Spiele", "normen": ["volksbefragungsverordnung-2026"] },
-    { "stichwort": "Politische Willensbildung", "normen": ["volksbefragungsverordnung-2026"] },
-    { "stichwort": "Staatspräsident", "normen": ["staatsverfassung-des-freistaates-ostdeutschland"] },
-    { "stichwort": "Staatsrat", "normen": ["staatsverfassung-des-freistaates-ostdeutschland"] },
-    { "stichwort": "Staatsziele", "normen": ["staatsverfassung-des-freistaates-ostdeutschland"] },
-    { "stichwort": "Volksbefragung", "normen": ["volksbefragungsverordnung-2026"] },
-    { "stichwort": "Volkskammer", "normen": ["staatsverfassung-des-freistaates-ostdeutschland"] },
-    { "stichwort": "Volkskammerwahl", "normen": ["volksbefragungsverordnung-2026"], "siehe": ["Volksbefragung"] },
-    { "stichwort": "Zollverwaltung", "normen": ["verwaltungsabkommen-kasernierte-grenzpolizei"] }
+    {
+      "stichwort": "Anfangsflotte",
+      "normen": [
+        "bekanntmachung-beschaffung-anfangsflotte-interflug"
+      ]
+    },
+    {
+      "stichwort": "Beschaffungsprogramm",
+      "normen": [
+        "bekanntmachung-beschaffung-anfangsflotte-interflug"
+      ]
+    },
+    {
+      "stichwort": "Besonderes Einzelfallgesetz",
+      "normen": [
+        "gemeinvermoegensschutzgesetz"
+      ],
+      "siehe": [
+        "Volkseigentum"
+      ]
+    },
+    {
+      "stichwort": "Bestandsmieten",
+      "normen": [
+        "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
+      ],
+      "siehe": [
+        "Nettokaltmiete"
+      ]
+    },
+    {
+      "stichwort": "Bundespolizei",
+      "normen": [
+        "verwaltungsabkommen-kasernierte-grenzpolizei"
+      ]
+    },
+    {
+      "stichwort": "Bundeswahlleiter",
+      "normen": [
+        "volksbefragungsverordnung-2026"
+      ]
+    },
+    {
+      "stichwort": "Gemeindepflege",
+      "normen": [
+        "soziale-grundversorgungsgesetz"
+      ]
+    },
+    {
+      "stichwort": "Gemeingut Wohnen",
+      "normen": [
+        "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
+      ]
+    },
+    {
+      "stichwort": "Gemeinvermögensregister",
+      "normen": [
+        "gemeinvermoegensschutzgesetz"
+      ]
+    },
+    {
+      "stichwort": "Gesellschafts- und Wirtschaftsplan",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Gesetzesvertretende Rechtsverordnung",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland",
+        "vergesellschaftungsrahmengesetz"
+      ]
+    },
+    {
+      "stichwort": "Grenzpolizei",
+      "normen": [
+        "verwaltungsabkommen-kasernierte-grenzpolizei"
+      ]
+    },
+    {
+      "stichwort": "Grenzpolizeilicher Einzeldienst",
+      "normen": [
+        "verwaltungsabkommen-kasernierte-grenzpolizei"
+      ],
+      "siehe": [
+        "Grenzpolizei"
+      ]
+    },
+    {
+      "stichwort": "Grenzübergangsstellen",
+      "normen": [
+        "verwaltungsabkommen-kasernierte-grenzpolizei"
+      ]
+    },
+    {
+      "stichwort": "Grundrechte",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Gründungsvorstand",
+      "normen": [
+        "bekanntmachung-bestellung-gruendungsvorstand-interflug"
+      ],
+      "siehe": [
+        "Interflug"
+      ]
+    },
+    {
+      "stichwort": "Interflug",
+      "normen": [
+        "bekanntmachung-bestellung-gruendungsvorstand-interflug",
+        "bekanntmachung-beschaffung-anfangsflotte-interflug"
+      ]
+    },
+    {
+      "stichwort": "Kostenmiete",
+      "normen": [
+        "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
+      ],
+      "siehe": [
+        "Nettokaltmiete"
+      ]
+    },
+    {
+      "stichwort": "Landesbodenfonds",
+      "normen": [
+        "boden-und-naturvermoegensgesetz"
+      ],
+      "siehe": [
+        "Volksacker"
+      ]
+    },
+    {
+      "stichwort": "Luft- und Wasserdienst",
+      "normen": [
+        "verwaltungsabkommen-kasernierte-grenzpolizei"
+      ]
+    },
+    {
+      "stichwort": "Löschflugzeuge",
+      "normen": [
+        "bekanntmachung-beschaffung-anfangsflotte-interflug"
+      ]
+    },
+    {
+      "stichwort": "Mietsenkung",
+      "normen": [
+        "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
+      ],
+      "siehe": [
+        "Kostenmiete"
+      ]
+    },
+    {
+      "stichwort": "Nettokaltmiete",
+      "normen": [
+        "bekanntmachung-gemeingut-wohnen-mietpreisbildung"
+      ]
+    },
+    {
+      "stichwort": "Olympische und Paralympische Spiele",
+      "normen": [
+        "volksbefragungsverordnung-2026"
+      ]
+    },
+    {
+      "stichwort": "Pflegenottelefon",
+      "normen": [
+        "soziale-grundversorgungsgesetz"
+      ]
+    },
+    {
+      "stichwort": "Politische Willensbildung",
+      "normen": [
+        "volksbefragungsverordnung-2026"
+      ]
+    },
+    {
+      "stichwort": "Recht auf Arbeit",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Staatspräsident",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Staatsrat",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Staatsziele",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Volksacker",
+      "normen": [
+        "boden-und-naturvermoegensgesetz",
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Volksbefragung",
+      "normen": [
+        "volksbefragungsverordnung-2026"
+      ]
+    },
+    {
+      "stichwort": "Volkseigentum",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland",
+        "gemeinvermoegensschutzgesetz"
+      ]
+    },
+    {
+      "stichwort": "Volkskammer",
+      "normen": [
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Volkskammerwahl",
+      "normen": [
+        "volksbefragungsverordnung-2026"
+      ],
+      "siehe": [
+        "Volksbefragung"
+      ]
+    },
+    {
+      "stichwort": "Wohnungslosigkeit",
+      "normen": [
+        "soziale-grundversorgungsgesetz",
+        "staatsverfassung-des-freistaates-ostdeutschland"
+      ]
+    },
+    {
+      "stichwort": "Zollverwaltung",
+      "normen": [
+        "verwaltungsabkommen-kasernierte-grenzpolizei"
+      ]
+    }
   ]
 }

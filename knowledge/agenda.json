@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-08",
+  "asOf": "2026-09-12",
   "purpose": "Kanonische interne Planungs- und Gesetzgebungsagenda für die nächste Wahlperiode. Sie dokumentiert politische Vorhaben getrennt vom geltenden Rechtsstand und von förmlichen Verfahren.",
   "programmeSource": "context/programme/roter-aufbruch-2026/regierungsprogramm-roter-aufbruch-2026.md",
   "humanOverview": "knowledge/AGENDA.md",
@@ -62,8 +62,8 @@
     },
     {
       "topic": "Große Staatsreform",
-      "currentState": "Die Große Staatsreform ist abgeschlossen und in Kraft. Die geschaffene Ordnung mit Volkskammer, Staatsrat und Staatspräsident wurde in der Volksbefragung 2026 mit 76,47 Prozent auch politisch bestätigt; eine Rückkehr zu den früheren Organisationsstrukturen wird nicht verfolgt.",
-      "openFollowUp": "Konsolidierung der neuen Institutionen und die noch erforderlichen Folgeanpassungen des Organisations-, Parlaments- und Verwaltungsrechts in der achten Wahlperiode (StAnzO. 2026 Nr. 41, Abschnitt V); die Sozialistische Verfassungsnovelle bleibt ein eigenes Folgevorhaben."
+      "currentState": "Die vier Gesetze zur Großen Staatsreform gelten seit 21. Juli 2026; die Sozialistische Verfassungsnovelle ist als Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens am 12. September 2026 verkündet worden und am selben Tag in Kraft getreten (OGVBl. 2026 Nr. 76).",
+      "openFollowUp": "Konsolidierung der neuen Institutionen, Folgeanpassungen des Organisations-, Parlaments- und Verwaltungsrechts sowie die von der Verfassung vorgesehenen besonderen Gesetze zu Gesellschafts- und Wirtschaftsplan, öffentlichen Unternehmen, Wirtschaftsdemokratie und Schlichtungsstellen."
     },
     {
       "topic": "Interflug",
@@ -74,20 +74,24 @@
       "topic": "Hinweisgebermeldestellen",
       "currentState": "Das Gesetz zur Einführung von Hinweisgebermeldestellen ist am 2. September 2026 verkündet und tritt am 1. Oktober 2026 in Kraft.",
       "openFollowUp": "Einrichtung der kommunalen Meldestellen nur nach Vollzugsnachweis dokumentieren."
+    },
+    {
+      "topic": "Soziale Grundversorgung",
+      "currentState": "Das Soziale Grundversorgungsgesetz ist seit 12. September 2026 in Kraft (OGVBl. 2026 Nr. 77) und regelt Mindestversorgungsstandards, Versorgungsmonitoring, Wohnraumbedarfsplanung, Schutz vor Wohnungslosigkeit, Krankenhaussicherung, Pflegeinfrastruktur, Gemeindepflege und Pflegenottelefon.",
+      "openFollowUp": "Rechtsverordnungen nach § 31, Fachteil Soziale Grundversorgung und erste Pflegeinfrastrukturpläne; Housing-First- und Ausbaugesetz bleiben eigene Vorhaben."
+    },
+    {
+      "topic": "Boden und Landesbodenfonds",
+      "currentState": "Das Boden- und Naturvermögensgesetz ist seit 12. September 2026 in Kraft (OGVBl. 2026 Nr. 78); der Landesbodenfonds Ostdeutschland ist errichtet, sein Aufbau läuft nach Artikel 2.",
+      "openFollowUp": "Verwaltungsrat, Vorstand, Bodenbevorratungsplan, Rechtsverordnungen nach § 52 und die Übernahmeprüfung landeseigener Grundstücke."
+    },
+    {
+      "topic": "Gemeinvermögensschutz",
+      "currentState": "Das Gemeinvermögensschutzgesetz ist seit 12. September 2026 in Kraft (OGVBl. 2026 Nr. 79) und füllt Artikel 95a der Staatsverfassung aus.",
+      "openFollowUp": "Ersterhebung innerhalb von sechs Monaten, Aufbau des Gemeinvermögensregisters, Rechtsverordnung nach § 24."
     }
   ],
   "first100Days": [
-    {
-      "id": "agenda-socialistische-verfassungsnovelle",
-      "title": "Sozialistische Verfassungsnovelle",
-      "stage": "programme",
-      "kind": "constitutional-amendment",
-      "targetInstrument": "Verfassungsänderungsgesetz",
-      "summary": "Demokratischer Sozialismus als dauerhafte Staatsausrichtung, demokratische und rechtsstaatliche Bindung wirtschaftlicher Macht, Wirtschaftsplanung als staatliche Aufgabe, Weiterentwicklung sozialer Grundrechte, stärkerer Schutz öffentlichen und gemeinwirtschaftlichen Eigentums sowie Beteiligungsrechte von Beschäftigten, Nutzer:innen und Kommunen.",
-      "resolvedCondition": "Mehrheitliches Ja zur ersten Frage der Volksbefragung 2026 – am 6. September 2026 mit 88,89 Prozent Zustimmung erfüllt.",
-      "politicalBasis": "Bericht des Staatsrates vom 6. September 2026 (StAnzO. 2026 Nr. 41, Abschnitt IV): Der Staatsrat unterstützt die Vorbereitung einer Sozialistischen Verfassungsnovelle.",
-      "note": "Verfassungsmäßige Ordnung, Grundrechte, freie demokratische Willensbildung und der Vorrang des Bundesrechts bleiben nach dem Bericht uneingeschränkt zu beachten. Ein Entwurf, eine Einbringung oder ein Beschluss sind nicht belegt."
-    },
     {
       "id": "agenda-wirtschaftsplanung-gemeinwirtschaft",
       "title": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
@@ -96,7 +100,7 @@
       "targetInstrument": "neues Stammgesetz",
       "summary": "Staatsplankommission Ost, Landeswirtschaftsrat, Perspektivplan 2040, Fünfjahr- und Jahreswirtschaftsplanung sowie Netz-, Speicher- und Standortplanung.",
       "politicalBasis": "Bericht des Staatsrates vom 6. September 2026 (StAnzO. 2026 Nr. 41, Abschnitt VII): Nach dem Ergebnis der vierten Frage (88,24 Prozent Ja) zieht der Staatsrat die Vorbereitung eines Wirtschaftsplanungs- und Gemeinwirtschaftsgesetzes, die Errichtung einer Staatsplankommission Ost, den Aufbau eines Landeswirtschaftsrates, mittel- und langfristige Wirtschaftsplanung, eine stärkere Abstimmung öffentlicher Investitionen sowie die aktive Sicherung industrieller Standorte als politische Konsequenzen.",
-      "note": "Wirtschaftsplanung bedeutet nach dem Bericht ausdrücklich keine zentrale Steuerung sämtlicher wirtschaftlicher Tätigkeit; kleine und mittlere Unternehmen, Handwerk, Handel, freie Berufe und private Gründungen bleiben Bestandteil der Wirtschaftsordnung. Staatsplankommission Ost und Landeswirtschaftsrat sind angekündigt, aber nicht errichtet."
+      "note": "Wirtschaftsplanung bedeutet nach dem Bericht ausdrücklich keine zentrale Steuerung sämtlicher wirtschaftlicher Tätigkeit; kleine und mittlere Unternehmen, Handwerk, Handel, freie Berufe und private Gründungen bleiben Bestandteil der Wirtschaftsordnung. Staatsplankommission Ost und Landeswirtschaftsrat sind angekündigt, aber nicht errichtet. Seit 12. September 2026 verlangt Artikel 13b der Staatsverfassung einen fünfjährigen Gesellschafts- und Wirtschaftsplan durch Gesetz und verweist für das Nähere auf ein besonderes Gesetz; Artikel 13e ordnet ein besonderes Gesetz für öffentliche und gemeinwirtschaftliche Unternehmen an."
     },
     {
       "id": "agenda-oeffentliche-hand-industrie",
@@ -104,14 +108,16 @@
       "stage": "programme",
       "kind": "law-and-programme",
       "targetInstrument": "Organisations- und Beteiligungsgesetz plus Vergesellschaftungsplan 2035",
-      "summary": "Landesbeteiligungsholding, Industriestiftung, strategische Beteiligungen, zweite Vergesellschaftungsagenda und gesellschaftliche Gegenleistungen bei Großsubventionen."
+      "summary": "Landesbeteiligungsholding, Industriestiftung, strategische Beteiligungen, zweite Vergesellschaftungsagenda und gesellschaftliche Gegenleistungen bei Großsubventionen.",
+      "note": "Der Schutz gemeinwirtschaftlichen Vermögens ist seit 12. September 2026 im Gemeinvermögensschutzgesetz geregelt; Beteiligungsholding und Industriestiftung bleiben offen."
     },
     {
       "id": "agenda-gute-arbeit-arbeitszeit",
       "title": "Gute-Arbeit- und Arbeitszeitgesetz",
       "stage": "programme",
       "kind": "law",
-      "summary": "Arbeiterkammer, Ausbildungsgarantie und -fonds, Tariftreue, Arbeitszeitverkürzung, Zukunftslohn, Nichterreichbarkeit, Schutz vor digitaler Dauerüberwachung und stärkere Mitbestimmung."
+      "summary": "Arbeiterkammer, Ausbildungsgarantie und -fonds, Tariftreue, Arbeitszeitverkürzung, Zukunftslohn, Nichterreichbarkeit, Schutz vor digitaler Dauerüberwachung und stärkere Mitbestimmung.",
+      "note": "Recht auf Arbeit (Artikel 7) und Wirtschaftsdemokratie (Artikel 26, 35a) sind seit 12. September 2026 verfassungsrechtlich verankert; das Nähere zur Mitbestimmung bestimmt ein besonderes Gesetz."
     },
     {
       "id": "agenda-wohnen-housing-first",
@@ -119,7 +125,8 @@
       "stage": "programme",
       "kind": "legislative-package",
       "targetInstrument": "Housing-First-Gesetz plus Änderungen des Wohnungs- und Aufsichtsrechts",
-      "summary": "Landeswohnungsaufsicht, Mietkataster, Leerstandsregime, Housing First, Schutz vor Wohnungslosigkeit, Mietbelastungsgrenze und öffentliches Wohnungsbaujahrzehnt."
+      "summary": "Landeswohnungsaufsicht, Mietkataster, Leerstandsregime, Housing First, Schutz vor Wohnungslosigkeit, Mietbelastungsgrenze und öffentliches Wohnungsbaujahrzehnt.",
+      "note": "Der Schutz vor Wohnungslosigkeit ist seit 12. September 2026 in Artikel 7b Absatz 2 der Staatsverfassung und § 11 des Soziale Grundversorgungsgesetzes geregelt; Landeswohnungsaufsicht, Mietkataster, Leerstandsregime und Housing First bleiben offen."
     },
     {
       "id": "agenda-grundversorgung-ii",
@@ -155,7 +162,8 @@
       "title": "Ausbaugesetz öffentliche Gesundheit und Pflege",
       "stage": "programme",
       "kind": "law",
-      "summary": "Polikliniken, Sorgezentren, Pflegestützpunkte, Landespflegewerk, Krankenhaus-Holding, öffentliche Apotheken und perspektivisch öffentliche Generika-Beschaffung oder -Produktion."
+      "summary": "Polikliniken, Sorgezentren, Pflegestützpunkte, Landespflegewerk, Krankenhaus-Holding, öffentliche Apotheken und perspektivisch öffentliche Generika-Beschaffung oder -Produktion.",
+      "note": "Pflegestützpunkte, Gemeindepflege, Pflegeinfrastrukturplanung und ein Pflegenottelefon sind seit 12. September 2026 im Soziale Grundversorgungsgesetz geregelt; Polikliniken, Landespflegewerk, Krankenhaus-Holding und öffentliche Apotheken bleiben offen."
     },
     {
       "id": "agenda-investitionsbank-vermoegensfonds",
@@ -303,6 +311,6 @@
   ],
   "maintenance": {
     "rule": "Sobald ein Vorhaben förmlich eingebracht wird, ist das konkrete Verfahren zusätzlich in proceedings.json zu dokumentieren. Nach Verkündung ist der Normbestand maßgeblich.",
-    "recommendedNextReview": "nach der Konstituierung der achten Volkskammer sowie nach dem angekündigten gesonderten Staatsratsbeschluss zur Olympia-Bewerbung"
+    "recommendedNextReview": "nach den ersten Rechtsverordnungen zum Soziale Grundversorgungsgesetz, nach der Konstituierung des Verwaltungsrates des Landesbodenfonds sowie nach dem angekündigten gesonderten Staatsratsbeschluss zur Olympia-Bewerbung"
   }
 }

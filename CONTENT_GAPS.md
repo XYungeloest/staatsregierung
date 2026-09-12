@@ -17,6 +17,13 @@ bleibt dieses Ziel gesperrt. Die eindeutig verkündeten Fortgeltungsmaßgaben, d
 der Vorschriften über das große Staatswappen und das späteste Außerkrafttreten am 31. Dezember
 2026 sind als Anwendungshinweise und Frist erfasst; die Originalquellen bleiben unverändert.
 
+## Eingang vom 12. September 2026: amtliche Wortlautbefunde ohne Berichtigung
+
+- **Zählung in OGVBl. 2026 Nr. 77 Artikel 5** — HTML und PDF (S. 27–28) zählen übereinstimmend 1., 3., 4. und 5.; eine Nummer 2 ist nicht verkündet. Der Import lässt genau diesen Befund zu (`ACCEPTED_SEQUENCE_ISSUES`); eine amtliche Berichtigung fehlt.
+- **Wörtliche Ersetzungen „Landtag“ → „Volkskammer“** — Artikel 5 Nummer 4 Buchstabe a der Ausgabe Nr. 77 ergibt in der Bezeichnung des § 18 OstKHFondsG „Unterrichtung des Volkskammer“, Artikel 5 Nummer 3 der Ausgabe Nr. 76 in § 3 Absatz 1 Satz 1 OLADG „für den Volkskammer“. Die Fassungen geben den angeordneten Wortlaut wieder; eine grammatische Glättung wäre eine Änderung ohne amtliche Grundlage.
+- **Artikel 75a Absatz 1 und Artikel 83 Absatz 3 der Staatsverfassung** — der neu gefasste Wortlaut endet in der Verkündung (OGVBl. 2026 Nr. 76) mit zwei Punkten beziehungsweise ohne Schlusspunkt und mit abweichendem Anführungszeichen; beides ist quellentreu gespeichert.
+- **§§ 5a und 10a des Ostdeutschen Krankenhausgesetzes** — die 2026 durch das Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern (OGVBl. 2026 Nr. 28) eingefügten Paragraphen liegen in der gespeicherten Fassung nur mit Überschrift vor; das damalige Rezept hat die Zeilen der Inhaltsübersicht statt der Vorschriftentexte eingefügt. Zu klären ist der Wortlaut aus der Quelle; bis dahin bleibt die Fassung unverändert (Artikel 4 Nummer 2 der Ausgabe Nr. 77 fügt § 10b hinter dem leeren § 10a ein).
+
 ## REVOSax-Übernahme (Ausgangsbestand 1. November 2023)
 
 - **Europäisches Übereinkommen über das grenzüberschreitende Fernsehen (REVOSax 1018)** —

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { access, copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { basename, join, relative, resolve } from 'node:path';
@@ -25,6 +25,7 @@ import {
   summarizeParsedSource as summarizeMarkdownSource,
 } from './lib/norm-markdown-parser.mjs';
 import {
+  acceptedSequenceIssuesFor,
   validateConstitutionParserContract,
   validatePublicationParserContract,
 } from './lib/norm-parser-contract.mjs';
@@ -483,6 +484,146 @@ const NEW_PUBLICATION_CONFIG = {
     relatedNorms: ['ostdeutsches-strassenverkehrsrechtsgesetz', 'ostdeutsche-strassenverkehrsrechtsverordnung'],
     dateNote: 'Am 8. September 2026 verkündet; nach Nummer 9 tritt die Verwaltungsvorschrift am Tag nach ihrer Veröffentlichung, also am 9. September 2026, in Kraft.',
   }],
+  'OGVBl.|2026|76': [{
+    slug: 'fuenftes-gesetz-zur-grossen-staatsreform',
+    shortTitle: 'Fünftes Gesetz zur Großen Staatsreform',
+    type: 'aenderungsvorschrift',
+    pageCount: 21,
+    pdfFileName: 'OGVBl. 2026 Nr. 76.pdf',
+    verifiedAt: '2026-09-12',
+    enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
+    responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und Justiz',
+    subjects: ['Verfassungsrecht'],
+    keywords: ['Sozialistische Staatsverfassung', 'Volkseigentum', 'Gesellschafts- und Wirtschaftsplan', 'Recht auf Arbeit', 'Privatisierungsschutz', 'Gesetzesvertretende Rechtsverordnung'],
+    summary: 'Ändert die Staatsverfassung im Anschluss an die Volksbefragung 2026: erklärt Ostdeutschland zum sozialistischen Freistaat, gliedert soziale und ökonomische Grundlagen als neue Abschnitte ein, verankert Recht auf Arbeit, Volkseigentum, Gesellschafts- und Wirtschaftsplan, Wirtschaftsdemokratie und den Privatisierungsschutz neu und passt das Daseinsvorsorgegesetz, die Haushaltsordnung, das Gemeingut-Wohnen-Gesetz, das Landesantidiskriminierungsgesetz und das Vergesellschaftungsrahmengesetz an.',
+    affectedNorms: [
+      'staatsverfassung-des-freistaates-ostdeutschland',
+      'ostdeutsches-daseinsvorsorgegesetz',
+      'saechsische-haushaltsordnung',
+      'gemeingut-wohnen-gesetz',
+      'ostdeutsches-landesantidiskriminierungsgesetz',
+      'vergesellschaftungsrahmengesetz',
+    ],
+    relatedNorms: ['erstes-gesetz-zur-grossen-staatsreform', 'zweites-gesetz-zur-grossen-staatsreform', 'drittes-gesetz-zur-grossen-staatsreform', 'viertes-gesetz-zur-grossen-staatsreform', 'volksbefragungsverordnung-2026'],
+    dateNote: 'Am 12. September 2026 verkündet und nach Artikel 7 am selben Tag in Kraft getreten.',
+  }],
+  'OGVBl.|2026|77': [
+    {
+      slug: 'besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege',
+      shortTitle: 'Einführungsgesetz Soziale Grundversorgung',
+      type: 'aenderungsvorschrift',
+      pageCount: 30,
+      pdfFileName: 'OGVBl. 2026 Nr. 77.pdf',
+      verifiedAt: '2026-09-12',
+      enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen',
+      subjects: ['Allgemeines zum Sozialwesen', 'Wohnungsbau, Wohnungswesen', 'Öffentlicher Gesundheitsdienst'],
+      keywords: ['Soziale Grundversorgung', 'Mindestversorgungsstandards', 'Versorgungssicherung'],
+      summary: 'Führt das Soziale Grundversorgungsgesetz ein, trifft Übergangsregeln für die erste Planung und ändert das Gemeingut-Wohnen-Gesetz, das Ostdeutsche Krankenhausgesetz und das Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz.',
+      affectedNorms: ['gemeingut-wohnen-gesetz', 'ostdeutsches-krankenhausgesetz', 'ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz'],
+      effectiveOverride: '2026-09-12',
+      sourceNotes: [{
+        label: 'Zählung in Artikel 5',
+        text: 'Artikel 5 zählt in der amtlichen Verkündung 1., 3., 4. und 5.; eine Nummer 2 ist weder in der HTML-Fassung noch im PDF verkündet. Die Zählung bleibt quellentreu erhalten.',
+      }],
+      dateNote: 'Am 12. September 2026 verkündet; nach Artikel 6 am Tag der Verkündung in Kraft getreten, weil Artikel 1 des Fünften Gesetzes zur Großen Staatsreform an demselben Tag in Kraft trat.',
+    },
+    {
+      slug: 'soziale-grundversorgungsgesetz',
+      shortTitle: 'Soziale Grundversorgungsgesetz',
+      abbr: 'SoGrVG',
+      type: 'gesetz',
+      pageCount: 30,
+      pdfFileName: 'OGVBl. 2026 Nr. 77.pdf',
+      verifiedAt: '2026-09-12',
+      enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen',
+      subjects: ['Allgemeines zum Sozialwesen', 'Wohnungsbau, Wohnungswesen', 'Öffentlicher Gesundheitsdienst', 'Behindertenfürsorge, Kriegsopferfürsorge, Pflege'],
+      keywords: ['Mindestversorgungsstandards', 'Versorgungsmonitoring', 'Unterdeckung', 'Wohnraumbedarfsplanung', 'Schutz vor Wohnungslosigkeit', 'Gemeindepflege', 'Pflegenottelefon', 'Grundversorgungskonferenz'],
+      summary: 'Konkretisiert die Gewährleistungen der Staatsverfassung für Wohnen, Gesundheit, Pflege und öffentlichen Gesundheitsdienst: Fachteil Soziale Grundversorgung im Landesrahmenplan, regionale Mindestversorgungsstandards, Versorgungsmonitoring, Feststellung von Unterdeckungen und Versorgungssicherungspläne, Wohnraumbedarfsplanung und Schutz vor Wohnungslosigkeit, Sicherung versorgungsnotwendiger Krankenhäuser, Pflegeinfrastrukturplanung, Gemeindepflege, Pflegenottelefon sowie Grundversorgungskonferenzen und Beteiligung.',
+      effectiveOverride: '2026-09-12',
+      relatedNorms: ['besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege', 'ostdeutsches-daseinsvorsorgegesetz', 'gemeingut-wohnen-gesetz', 'ostdeutsches-krankenhausgesetz', 'ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz'],
+      dateNote: 'Am 12. September 2026 verkündet und nach Artikel 6 des Einführungsgesetzes am selben Tag in Kraft getreten.',
+    },
+  ],
+  'OGVBl.|2026|78': [
+    {
+      slug: 'gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes',
+      shortTitle: 'Einführungsgesetz Boden- und Naturvermögen',
+      type: 'aenderungsvorschrift',
+      pageCount: 51,
+      pdfFileName: 'OGVBl. 2026 Nr. 78.pdf',
+      verifiedAt: '2026-09-12',
+      enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat der Finanzen',
+      subjects: ['Vermessungs- und Katasterwesen, Grundstücksverkehr', 'Landwirtschaft und Ernährungswirtschaft', 'Forstwirtschaft, Jagd, Fischerei, Naturschutz'],
+      keywords: ['Bodenfonds', 'Volksacker', 'Bodenpolitik'],
+      summary: 'Führt das Boden- und Naturvermögensgesetz ein, regelt den Aufbau des Landesbodenfonds und benennt die Einschränkung des Rechts auf Datenschutz.',
+      effectiveOverride: '2026-09-12',
+      dateNote: 'Am 12. September 2026 verkündet; nach Artikel 4 am Tag der Verkündung in Kraft getreten, weil das Gemeinvermögensschutzgesetz an demselben Tag in Kraft trat.',
+    },
+    {
+      slug: 'boden-und-naturvermoegensgesetz',
+      shortTitle: 'Boden- und Naturvermögensgesetz',
+      abbr: 'BodNatVG',
+      type: 'gesetz',
+      pageCount: 51,
+      pdfFileName: 'OGVBl. 2026 Nr. 78.pdf',
+      verifiedAt: '2026-09-12',
+      enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat der Finanzen',
+      subjects: ['Vermessungs- und Katasterwesen, Grundstücksverkehr', 'Landwirtschaft und Ernährungswirtschaft', 'Forstwirtschaft, Jagd, Fischerei, Naturschutz', 'Wohnungsbau, Wohnungswesen'],
+      keywords: ['Bodenfonds', 'Volksacker', 'Bodenbevorratungsplan', 'Erbbaurecht', 'Bodenbeirat', 'Boden- und Naturvermögensregister', 'Bodenmarktbeobachtung', 'Öffentlicher Wald', 'Moore'],
+      summary: 'Errichtet den Landesbodenfonds Ostdeutschland als Anstalt des öffentlichen Rechts mit Sitz in Magdeburg, bindet öffentlichen Boden und öffentliches Naturvermögen an Gemeinwohl und Volkseigentum, ordnet Erwerb, Bodenbevorratung, Erbbaurecht und Pacht statt Veräußerung, Vergabe nach sozialen, landwirtschaftlichen, ökologischen und gemeinwirtschaftlichen Kriterien, den Volksacker, den Schutz von Wald, Mooren und Gewässern sowie Register, Jahresbericht und Bodenmarktbeobachtung.',
+      effectiveOverride: '2026-09-12',
+      relatedNorms: ['gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes', 'gemeinvermoegensschutzgesetz', 'vergesellschaftungsrahmengesetz', 'gemeingut-wohnen-gesetz'],
+      dateNote: 'Am 12. September 2026 verkündet und nach Artikel 4 des Einführungsgesetzes am selben Tag in Kraft getreten.',
+    },
+  ],
+  'OGVBl.|2026|79': [
+    {
+      slug: 'gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes',
+      shortTitle: 'Einführungsgesetz Gemeinvermögensschutz',
+      type: 'aenderungsvorschrift',
+      pageCount: 31,
+      pdfFileName: 'OGVBl. 2026 Nr. 79.pdf',
+      verifiedAt: '2026-09-12',
+      enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat der Finanzen',
+      subjects: ['Haushaltwesen, Rechnungshof', 'Verfassungsrecht'],
+      keywords: ['Gemeinvermögen', 'Volkseigentum', 'Privatisierungsschutz'],
+      summary: 'Führt das Gemeinvermögensschutzgesetz ein, ordnet die Ersterhebung des gemeinwirtschaftlichen Vermögens an und passt das Gemeingut-Wohnen-Gesetz, das Energie- und Wärmevergesellschaftungsgesetz, das Landesenergiewerke-Gesetz, das Ostdeutsche-Netze-Gesetz, das Ostdeutsche Eisenbahngesetz, das Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz, die Gemeindeordnung und das Interflug-Gesetz an.',
+      affectedNorms: [
+        'gemeingut-wohnen-gesetz',
+        'energie-und-waermevergesellschaftungsgesetz',
+        'landesenergiewerke-gesetz',
+        'ostdeutsche-netze-gesetz',
+        'ostdeutsches-eisenbahngesetz',
+        'ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz',
+        'saechsische-gemeindeordnung',
+        'interflug-gesetz',
+      ],
+      effectiveOverride: '2026-09-12',
+      dateNote: 'Am 12. September 2026 verkündet; nach Artikel 11 am Tag der Verkündung in Kraft getreten, weil Artikel 1 des Fünften Gesetzes zur Großen Staatsreform an demselben Tag in Kraft trat.',
+    },
+    {
+      slug: 'gemeinvermoegensschutzgesetz',
+      shortTitle: 'Gemeinvermögensschutzgesetz',
+      abbr: 'GemVSchG',
+      type: 'gesetz',
+      pageCount: 31,
+      pdfFileName: 'OGVBl. 2026 Nr. 79.pdf',
+      verifiedAt: '2026-09-12',
+      enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat der Finanzen',
+      subjects: ['Haushaltwesen, Rechnungshof', 'Verfassungsrecht', 'Kommunales Vermögen'],
+      keywords: ['Gemeinwirtschaftliches Vermögen', 'Volkseigentum', 'Gemeinvermögensregister', 'Beherrschender öffentlicher Einfluss', 'Gemeinvermögensprüfung', 'Besonderes Einzelfallgesetz', 'Privatisierung', 'Veräußerungserlöse'],
+      summary: 'Bestimmt gemeinwirtschaftliches Vermögen, Volkseigentum und besonders geschütztes öffentliches Vermögen, führt ein öffentliches Gemeinvermögensregister ein, regelt Bewirtschaftung, Kreditaufnahme, Überlassung und das Umgehungsverbot, unterwirft erhebliche Vermögensmaßnahmen einer Gemeinvermögensprüfung mit parlamentarischer Beteiligung und verlangt für Privatisierungen nach Artikel 95a der Staatsverfassung ein besonderes Einzelfallgesetz; Veräußerungserlöse bleiben zweckgebunden.',
+      effectiveOverride: '2026-09-12',
+      relatedNorms: ['gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes', 'boden-und-naturvermoegensgesetz', 'ostdeutsches-daseinsvorsorgegesetz', 'vergesellschaftungsrahmengesetz'],
+      dateNote: 'Am 12. September 2026 verkündet und nach Artikel 11 des Einführungsgesetzes am selben Tag in Kraft getreten.',
+    },
+  ],
   'OGVBl.|2026|75': [{
     slug: 'organisationserlass-09-2026',
     shortTitle: 'Organisationserlass 09/2026',
@@ -1793,6 +1934,34 @@ async function readExistingRecord(slug) {
   }
 }
 
+/**
+ * Eine gespeicherte Ausgangsfassung, an die die Konsolidierung eine Folgefassung angeschlossen
+ * hat, trägt ihr Gültigkeitsende und ist nicht mehr die geltende Fassung. Die Verkündungsquelle
+ * kennt diese Folge nicht; maßgeblich sind die Intervalle der gespeicherten Fassungsfolge. Ein
+ * erneuter Import oder Audit derselben Quelle darf sie weder zurücksetzen noch als Abweichung
+ * melden.
+ */
+function reconcileVersionIntervals(record, existing) {
+  if (!existing?.directory) return record.versions;
+  let storedVersions;
+  try {
+    const directory = join(existing.directory, 'versions');
+    storedVersions = readdirSync(directory)
+      .filter((name) => name.endsWith('.json'))
+      .map((name) => JSON.parse(readFileSync(join(directory, name), 'utf8')));
+  } catch (error) {
+    if (error.code === 'ENOENT') return record.versions;
+    throw error;
+  }
+  return record.versions.map((version) => {
+    if (version.validTo !== null && version.validTo !== undefined) return version;
+    const stored = storedVersions.find((candidate) => candidate.versionId === version.versionId);
+    const hasLaterVersion = storedVersions.some((candidate) => candidate.validFrom > version.validFrom);
+    if (!stored || !hasLaterVersion || !stored.validTo) return version;
+    return { ...version, validTo: stored.validTo, isCurrent: stored.isCurrent };
+  });
+}
+
 function mergeWithExisting(record, existing) {
   if (!existing) return record;
   const inferredEnactingNorm = [
@@ -1872,6 +2041,7 @@ function mergeWithExisting(record, existing) {
   return {
     ...record,
     meta: preservedMeta,
+    versions: reconcileVersionIntervals(record, existing),
     history: {
       initialVersionId:
         existing.history.initialVersionId ??
@@ -2190,7 +2360,7 @@ for (const fileName of allHtmlFiles) {
   try {
     const html = await readFile(join(sourceDir, fileName), 'utf8');
     if (classifyHtmlSource(fileName, html).kind !== 'publication') continue;
-    const parsed = parsePublicationHtml(fileName, html);
+    const parsed = parsePublicationHtml(fileName, html, { acceptedSequenceIssues: acceptedSequenceIssuesFor(fileName) });
     htmlPublicationIdentities.add(publicationIdentityKey(parsed.publication, parsed.year, parsed.issue));
   } catch {
     // Eine fehlerhafte HTML-Datei darf keinen stillen Rückfall auf Markdown auslösen.
@@ -2272,7 +2442,7 @@ for (const fileName of htmlFiles) {
     continue;
   }
   try {
-    const parsed = parsePublicationHtml(fileName, html);
+    const parsed = parsePublicationHtml(fileName, html, { acceptedSequenceIssues: acceptedSequenceIssuesFor(fileName) });
     const parserContractIssues = validatePublicationParserContract(parsed);
     const summaries = summarizeParsedSource(parsed);
     const auditSummary = summarizeHtmlAudit(parsed);

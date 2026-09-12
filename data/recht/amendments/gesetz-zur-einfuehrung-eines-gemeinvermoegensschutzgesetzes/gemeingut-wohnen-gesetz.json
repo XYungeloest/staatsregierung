@@ -1,0 +1,37 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "sameDayOrder": 3,
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "resultCitation": "Gemeingut-Wohnen-Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16), zuletzt geändert durch Artikel 3 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "changeNote": "§ 3 Absatz 3 Satz 2 auf das besondere Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes bezogen.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 3"
+      },
+      "expectedHash": "20d90a30de0d9ad80bff2070fd391bac29a5405f0d931128d39276de525d4271",
+      "expectedMatches": 1,
+      "value": "Die Wohnungs- und Grundstücksbestände der Anstalt dürfen nicht veräußert oder belastet werden, soweit dies über das zur laufenden Bewirtschaftung Erforderliche hinausgeht. Ausnahmen von Satz 1 sind nur aufgrund eines Gesetzes zulässig, das den Umfang der zulässigen Veräußerung oder Belastung im Einzelnen bestimmt; soweit Artikel 95a der Ostdeutschen Staatsverfassung Anwendung findet, bedarf es eines besonderen Einzelfallgesetzes nach § 19 des Gemeinvermögensschutzgesetzes.",
+      "sourceProvision": "Artikel 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}
