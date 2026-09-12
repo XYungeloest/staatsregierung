@@ -1,0 +1,56 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "resultCitation": "Ostdeutsche-Netze-Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 49), geändert durch Artikel 6 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "changeNote": "§ 8 Absatz 3 neu gefasst und Absatz 6 zum Vorrang des Gemeinvermögensschutzgesetzes angefügt.",
+  "commandCoverage": [
+    "Artikel 6 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 8"
+      },
+      "expectedHash": "baffb09e3e707a67a1d23f558b2848f97e0eadabb27ff597a83e77f7da6090bf",
+      "expectedMatches": 1,
+      "value": "Die Veräußerung, Belastung, Ausgliederung oder sonstige Übertragung wesentlicher betriebsnotwendiger Vermögensgegenstände an private Dritte ist unzulässig. Eine Ausnahme ist nur zulässig, soweit Artikel 95a der Verfassung des Freistaates Ostdeutschland dies zulässt und ein besonderes Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes die konkrete Maßnahme ausdrücklich gestattet.",
+      "sourceProvision": "Artikel 6 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 8"
+      },
+      "expectedHash": "468d1ab483ee712661657173c42141ccb5b1c84edfc729d7869511cbf141454c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "text": "Das Gemeinvermögensschutzgesetz bleibt unberührt. Absatz 5 findet nur Anwendung, soweit die dort bezeichnete Maßnahme ein Rechtsgeschäft der ordnungsgemäßen Wirtschaftsführung im Sinne des § 10 des Gemeinvermögensschutzgesetzes darstellt.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 6 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

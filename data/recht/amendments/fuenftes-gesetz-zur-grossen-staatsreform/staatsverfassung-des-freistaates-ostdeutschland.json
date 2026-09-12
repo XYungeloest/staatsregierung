@@ -1,0 +1,2944 @@
+{
+  "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "resultCitation": "Verfassung des Freistaates Ostdeutschland vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5), zuletzt geändert durch Artikel 1 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "changeNote": "Fünftes Gesetz zur Großen Staatsreform: Ostdeutschland als sozialistischer Freistaat, neue Abschnitte zu den sozialen und ökonomischen Grundlagen (Artikel 3a, 7 bis 7e, 13a bis 13f), Wirtschaftsdemokratie (Artikel 26, 35a), Gesetzlichkeit und Schlichtung (Artikel 76a, 77a), gesetzesvertretende Rechtsverordnungen (Artikel 75a), Privatisierungsschutz (Artikel 95a) sowie Bildungs- und Weltanschauungsabschnitt neu gefasst; Artikel 8, 13 Absatz 4, 18, 38, 99, 100 und 101a Absatz 3 aufgehoben, Abschnitte neu gezählt.",
+  "commandCoverage": [
+    "Artikel 1 Nummern 1 bis 50"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 76",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 76.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "section",
+        "parentLabel": "Präambel",
+        "text": "von dem Willen geleitet, der Gerechtigkeit, dem Frieden und der Bewahrung der natürlichen Lebensgrundlagen zu dienen,"
+      },
+      "expectedHash": "40614662fca4b0a08f1ac474557bedb4133ce9e6fefdb277a94df1ced7f76bb9",
+      "expectedMatches": 1,
+      "value": "von dem Willen geleitet, der Gerechtigkeit, dem Frieden und der Bewahrung der natürlichen Lebensgrundlagen zu dienen, entschlossen, den Weg des demokratischen Sozialismus, des Friedens, der Demokratie, der internationalen Solidarität und der Völkerfreundschaft zu gehen,",
+      "sourceProvision": "Artikel 1 Nummer 1 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "section",
+        "parentLabel": "Präambel",
+        "text": "hat sich das ostdeutsche Volk diese Verfassung gegeben."
+      },
+      "expectedHash": "6202d83c0e59dbe03fdc005b3b847a7e4cdbb134da61e55a8c4dedae77e1f6f1",
+      "expectedMatches": 1,
+      "value": "hat sich das ostdeutsche Volk diese sozialistische Staatsverfassung gegeben.",
+      "sourceProvision": "Artikel 1 Nummer 1 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "section",
+        "label": "I. Abschnitt"
+      },
+      "expectedHash": "4e7278d11cef900f2cc828762e0516978bd9a9ad75690ea35238da133771b260",
+      "expectedMatches": 1,
+      "value": "Die politischen Grundlagen der sozialistischen Gesellschaft",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 1"
+      },
+      "expectedHash": "7985f56451bd2a976e8f38533754bb5a1efbfa5b3d413f58fac20e6feaf0ce8d",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 1",
+        "title": "Verfassungsgrundsätze",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Ostdeutschland ist ein sozialistischer Freistaat."
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 3"
+      },
+      "expectedHash": "76b4d0cba240d84a3d9401a363b79c546030540d60116f7dec99123d9ebfd1e1",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(1a)",
+        "text": "Sie sichert ein friedliches Leben, schützt die demokratisch-sozialistische Gesellschaft, gewährleistet die freie Entwicklung des Menschen, wahrt seine Würde und verwirklicht die in dieser Verfassung verbürgten Rechte.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 1 Nummer 4 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "article",
+        "parentLabel": "Artikel 3"
+      },
+      "expectedHash": "db42751b28dcef05600648d455e698cb13e3e32c37b7accd555bc2b9c8f91c65",
+      "expectedMatches": 1,
+      "value": "Die Gesetzgebung und die vollziehende Gewalt sind an die verfassungsmäßige Ordnung und die Rechtsprechung an Gesetz und Recht gebunden.",
+      "sourceProvision": "Artikel 1 Nummer 4 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "article",
+        "label": "Artikel 3"
+      },
+      "expectedHash": "880b7a998f5eb4902d3c2d8e16a64c811e1ed73c292ac0f6b36903a26fb0ec17",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 3a",
+        "title": "Grundlagen der sozialistischen Gesellschaft",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Mensch steht im Mittelpunkt aller Bemühungen der Gesellschaft und ihres Staates. Ziel staatlichen Handelns ist die fortschreitende Verbesserung der materiellen, sozialen und kulturellen Lebensbedingungen des gesamten Volkes.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die sozialistische Gesellschaft beruht auf dem demokratischen Zusammenwirken der arbeitenden Menschen, der Genossenschaften, der Angehörigen von Wissenschaft und Kultur, der selbständig Tätigen und aller anderen gesellschaftlichen Kräfte.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Volkseigentum, Genossenschaften und Gemeineigentum, wirtschaftliche Mitbestimmung sowie die demokratische und wissenschaftlich begründete Planung der gesellschaftlichen Entwicklung bilden dauerhafte Grundlagen der Verfassungsordnung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der Freistaat wirkt darauf hin, Ausbeutung, Unterdrückung, Armut und wirtschaftliche Abhängigkeit zu überwinden. Was des Volkes Hände schaffen, soll dem gesamten Volk zugutekommen.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 4"
+      },
+      "expectedHash": "69456d8252912135c68d5c1f4e5b61f72daa3cf46830323eb3be7ecdfbe20959",
+      "expectedMatches": 1,
+      "value": "Alle nach der Verfassung durch das Volk vorzunehmenden Wahlen und Abstimmungen sind allgemein, frei, gleich und geheim.",
+      "sourceProvision": "Artikel 1 Nummer 6 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "article",
+        "parentLabel": "Artikel 4"
+      },
+      "expectedHash": "7a0448571bf02e89fb1353c8b369aab9e877adef7b7d500aa42d7151db61b379",
+      "expectedMatches": 1,
+      "value": "Näheres bestimmt das Gesetz.",
+      "sourceProvision": "Artikel 1 Nummer 6 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "article",
+        "parentLabel": "Artikel 6"
+      },
+      "expectedHash": "eeff0028962b295ff5537ab52e47d3408d016810c34b1896bded13ddc82c9271",
+      "expectedMatches": 1,
+      "value": "Die Bürger sorbischer Volkszugehörigkeit haben das Recht in bestimmten Fragen mittels eigenständig eingesetzter demokratischer Institutionen unabhängige Entscheidungen zu treffen. Das Nähere regelt ein Gesetz.",
+      "sourceProvision": "Artikel 1 Nummer 7",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "section",
+        "label": "I. Abschnitt"
+      },
+      "throughTarget": {
+        "type": "section",
+        "label": "I. Abschnitt"
+      },
+      "expectedHash": "6b245038e05a833d77fd522682b7a1f87326a53ba55d8ef0f53bfcabe091449c",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "section",
+          "label": "I. Abschnitt",
+          "title": "Die politischen Grundlagen der sozialistischen Gesellschaft",
+          "children": [
+            {
+              "type": "article",
+              "label": "Artikel 1",
+              "title": "Verfassungsgrundsätze",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Ostdeutschland ist ein sozialistischer Freistaat."
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 2",
+              "title": "Hauptstadt; Landesfarben; Landeswappen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Hauptstadt des Freistaates ist Dresden.",
+                  "level": 0,
+                  "listId": "list_1",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Durch ein besonderes Gesetz werden die Hoheitszeichen des Freistaates bestimmt.",
+                  "level": 0,
+                  "listId": "list_1",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "(weggefallen)",
+                  "level": 0,
+                  "listId": "list_1",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Im Siedlungsgebiet der Sorben können neben den Landesfarben und dem Landeswappen Farben und Wappen der Sorben, im schlesischen Teil des Freistaates die Farben und das Wappen Niederschlesiens, gleichberechtigt geführt werden.",
+                  "level": 0,
+                  "listId": "list_1",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 3",
+              "title": "Ausübung und Teilung der Staatsgewalt",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Alle Staatsgewalt geht vom Volk aus. Sie wird vom Volk in Wahlen und Abstimmungen sowie durch besondere Organe der Gesetzgebung, der vollziehenden Gewalt und der Rechtsprechung ausgeübt.",
+                  "level": 0,
+                  "listId": "list_2",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(1a)",
+                  "text": "Sie sichert ein friedliches Leben, schützt die demokratisch-sozialistische Gesellschaft, gewährleistet die freie Entwicklung des Menschen, wahrt seine Würde und verwirklicht die in dieser Verfassung verbürgten Rechte.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Gesetzgebung und die vollziehende Gewalt sind an die verfassungsmäßige Ordnung und die Rechtsprechung an Gesetz und Recht gebunden.",
+                  "level": 0,
+                  "listId": "list_2",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 3a",
+              "title": "Grundlagen der sozialistischen Gesellschaft",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Mensch steht im Mittelpunkt aller Bemühungen der Gesellschaft und ihres Staates. Ziel staatlichen Handelns ist die fortschreitende Verbesserung der materiellen, sozialen und kulturellen Lebensbedingungen des gesamten Volkes.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die sozialistische Gesellschaft beruht auf dem demokratischen Zusammenwirken der arbeitenden Menschen, der Genossenschaften, der Angehörigen von Wissenschaft und Kultur, der selbständig Tätigen und aller anderen gesellschaftlichen Kräfte.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Volkseigentum, Genossenschaften und Gemeineigentum, wirtschaftliche Mitbestimmung sowie die demokratische und wissenschaftlich begründete Planung der gesellschaftlichen Entwicklung bilden dauerhafte Grundlagen der Verfassungsordnung.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Der Freistaat wirkt darauf hin, Ausbeutung, Unterdrückung, Armut und wirtschaftliche Abhängigkeit zu überwinden. Was des Volkes Hände schaffen, soll dem gesamten Volk zugutekommen.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 4",
+              "title": "Wahl- und Abstimmungsgrundsätze",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Alle nach der Verfassung durch das Volk vorzunehmenden Wahlen und Abstimmungen sind allgemein, frei, gleich und geheim.",
+                  "level": 0,
+                  "listId": "list_3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Wahl- und stimmberechtigt sind alle Bürger, die im Freistaat wohnen oder sich dort gewöhnlich aufhalten und am Tag der Wahl oder Abstimmung das 16. Lebensjahr vollendet haben.",
+                  "level": 0,
+                  "listId": "list_3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Dabei kann das Wahl- und Stimmrecht von einer bestimmten Dauer des Aufenthaltes im Freistaat und, wenn die Wahl- und Stimmberechtigten mehrere Wohnungen innehaben, auch davon abhängig gemacht werden, dass ihre Hauptwohnung im Freistaat liegt.",
+                  "level": 0,
+                  "listId": "list_3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Näheres bestimmt das Gesetz.",
+                  "level": 0,
+                  "listId": "list_3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 5",
+              "title": "Staatsvolk; Minderheiten",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Dem Volk des Freistaates Ostdeutschland gehören Bürger deutscher, sorbischer und anderer Volkszugehörigkeit an. Der Freistaat erkennt das Recht auf die Heimat an.",
+                  "level": 0,
+                  "listId": "list_4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat gewährleistet und schützt das Recht nationaler und ethnischer Minderheiten deutscher Staatsangehörigkeit auf Bewahrung ihrer Identität sowie auf Pflege ihrer Sprache, Religion, Kultur und Überlieferung.",
+                  "level": 0,
+                  "listId": "list_4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat achtet die Interessen ausländischer Minderheiten, deren Angehörige sich rechtmäßig im Freistaat aufhalten.",
+                  "level": 0,
+                  "listId": "list_4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 6",
+              "title": "Sorben",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die im Freistaat lebenden Bürger sorbischer Volkszugehörigkeit sind gleichberechtigter Teil des Staatsvolkes. Der Freistaat gewährleistet und schützt das Recht auf Bewahrung ihrer Identität sowie auf Pflege und Entwicklung ihrer angestammten Sprache, Kultur und Überlieferung, insbesondere durch Schulen, vorschulische und kulturelle Einrichtungen.",
+                  "level": 0,
+                  "listId": "list_5",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "In der Landes- und Kommunalplanung sind die Lebensbedürfnisse des sorbischen Volkes zu berücksichtigen. Der deutsch-sorbische Charakter des Siedlungsgebietes der sorbischen Volksgruppe ist zu erhalten.",
+                  "level": 0,
+                  "listId": "list_5",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die landesübergreifende Zusammenarbeit der Sorben, insbesondere in der Ober- und Niederlausitz, liegt im Interesse des Freistaates.",
+                  "level": 0,
+                  "listId": "list_5",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Die Bürger sorbischer Volkszugehörigkeit haben das Recht in bestimmten Fragen mittels eigenständig eingesetzter demokratischer Institutionen unabhängige Entscheidungen zu treffen. Das Nähere regelt ein Gesetz.",
+                  "level": 0,
+                  "listId": "list_5",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "(weggefallen)",
+                  "level": 0,
+                  "listId": "list_5",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "II. Abschnitt",
+          "title": "Die sozialen Grundlagen der sozialistischen Gesellschaft",
+          "children": [
+            {
+              "type": "article",
+              "label": "Artikel 7",
+              "title": "Menschenwürdiges Dasein als Staatsziel",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat erkennt das Recht eines jeden Menschen auf ein menschenwürdiges Dasein, insbesondere auf Arbeit, auf angemessenen Wohnraum, auf angemessenen Lebensunterhalt, auf soziale Sicherung, auf Bildung, auf gesundheitliche Versorgung und auf Teilhabe am gesellschaftlichen, kulturellen und politischen Leben als Staatsziel an.",
+                  "level": 0,
+                  "listId": "list_6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat bekennt sich zur Verpflichtung der Gemeinschaft, junge, alte, kranke, pflegebedürftige und behinderte Menschen zu unterstützen und auf die Gleichwertigkeit ihrer Lebensbedingungen hinzuwirken.",
+                  "level": 0,
+                  "listId": "list_6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Jeder Mensch hat Anspruch auf diskriminierungsfreien Zugang zu den öffentlichen Einrichtungen und Leistungen, die der Verwirklichung dieses Staatsziels dienen, nach Maßgabe der Gesetze.",
+                  "level": 0,
+                  "listId": "list_6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 7a",
+              "title": "Öffentliche Daseinsvorsorge",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Energie, Wärme, Wasser, Abwasser, Wohnen, Gesundheit, Pflege, Bildung, Mobilität, digitale Infrastruktur, Abfallwirtschaft, Kultur, Sport und öffentliche Sicherheit sind Aufgaben der öffentlichen Daseinsvorsorge.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat gewährleistet die flächendeckende, bezahlbare, gemeinwohlorientierte und nachhaltige Erbringung der öffentlichen Daseinsvorsorge.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Aufgaben der öffentlichen Daseinsvorsorge sollen vorrangig durch den Freistaat erfüllt werden. Der Freistaat darf Einrichtungen der öffentlichen Daseinsvorsorge nicht ohne gleichwertigen Ersatz aufgeben.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Die Übertragung wesentlicher Einrichtungen der öffentlichen Daseinsvorsorge auf privatwirtschaftliche Unternehmen bedarf eines besonderen Gesetzes.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 7b",
+              "title": "Wohnen; Gesundheit und Pflege",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat wirkt auf eine ausreichende Versorgung der Bevölkerung mit angemessenem, dauerhaft gesichertem und bezahlbarem Wohnraum hin.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Öffentliche Wohnungsbestände sind zu erhalten und zu mehren; sie sind dem Gemeinwohl verpflichtet. Ihre Veräußerung an renditeorientierte Erwerber bedarf der Ermächtigung durch ein besonderes Gesetz und darf die soziale Wohnraumversorgung nicht gefährden.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat gewährleistet eine wohnortnahe, bedarfsgerechte und gemeinwohlorientierte Gesundheits- und Pflegeversorgung.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Krankenhäuser der Grund- und Regelversorgung, Einrichtungen der Gemeindepflege und Einrichtungen des öffentlichen Gesundheitsdienstes sind Teil der öffentlichen Daseinsvorsorge.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 8",
+              "title": "Förderung der Gleichstellung aller Geschlechter",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Die Förderung der rechtlichen und tatsächlichen Gleichstellung aller Geschlechter ist Aufgabe des Freistaates."
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 9",
+              "title": "Kinder- und Jugendschutz",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat erkennt das Recht eines jeden Kindes auf eine gesunde seelische, geistige und körperliche Entwicklung an.",
+                  "level": 0,
+                  "listId": "list_7",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Jugend ist vor geistiger und körperlicher Gefährdung besonders zu schützen.",
+                  "level": 0,
+                  "listId": "list_7",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat fördert den vorbeugenden Gesundheitsschutz für Kinder und Jugendliche sowie Einrichtungen zu ihrer Betreuung, Bildung, Erholung, Beratung und Beteiligung.",
+                  "level": 0,
+                  "listId": "list_7",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 10",
+              "title": "Schutz der natürlichen Lebensgrundlagen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Schutz der Umwelt als Lebensgrundlage ist, auch in Verantwortung für kommende Generationen, Pflicht des Freistaates und Verpflichtung aller im Freistaat. Der Freistaat hat insbesondere den Boden, die Luft und das Wasser, Tiere und Pflanzen sowie die Landschaft als Ganzes einschließlich ihrer gewachsenen Siedlungsräume zu schützen. Er hat auf den sparsamen Gebrauch und die Rückgewinnung von Rohstoffen, die sparsame Nutzung von Energie und Wasser sowie den Schutz des Klimas und die Wiederherstellung geschädigter Natur hinzuwirken.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Anerkannte Naturschutzverbände haben das Recht, nach Maßgabe der Gesetze an umweltbedeutsamen Verwaltungsverfahren mitzuwirken. Ihnen ist Klagebefugnis in Umweltbelangen einzuräumen. Das Nähere bestimmt Gesetz.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat erkennt das Recht auf Genuss der Naturschönheiten und Erholung in der freien Natur an, soweit dem nicht die Ziele nach Absatz 1 entgegenstehen. Der Allgemeinheit ist in diesem Rahmen der Zugang zu Bergen, Wäldern, Feldern, Seen, Flüssen, Küsten und sonstigen Naturräumen zu ermöglichen.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Der Freistaat fördert eine ressourcenschonende Kreislaufwirtschaft. Wiederverwendung, Reparatur, Rücknahme, Aufarbeitung, Recycling und Sekundärrohstoffgewinnung haben Vorrang vor Entsorgung.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 10a",
+              "title": "Boden; Naturvermögen und Volksacker",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Grund und Boden, Wald, Moore, Gewässer, Naturschätze und sonstiges Naturvermögen stehen unter besonderer Verantwortung gegenüber der Allgemeinheit und künftigen Generationen.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat wirkt Bodenspekulation, marktbeherrschender Konzentration von Boden und der Entziehung von Boden aus gemeinwohlorientierter Nutzung entgegen.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat errichtet und unterhält einen Landesbodenfonds. Boden im Eigentum des Freistaates, des Landesbodenfonds oder anderer öffentlicher Träger soll grundsätzlich nicht veräußert, sondern im Erbbaurecht, durch Pacht oder in anderer gemeinwohlgebundener Form überlassen werden.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Landwirtschaftlicher Boden soll vorrangig der Ernährungssicherung, der bäuerlichen, genossenschaftlichen, gemeinwohlorientierten und ökologisch verantwortlichen Bewirtschaftung sowie dem Schutz der natürlichen Lebensgrundlagen dienen.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Die Veräußerung von Boden, Wald, Mooren, Gewässern oder Naturschätzen im öffentlichen Eigentum bedarf einer gesetzlichen Grundlage, soweit ihre Bedeutung über den Einzelfall hinausgeht.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(6)",
+                  "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 11",
+              "title": "Förderung von Kultur; Kunst; Wissenschaft und Sport",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat fördert das kulturelle, künstlerische und wissenschaftliche Schaffen, die sportliche Betätigung sowie den Austausch auf diesen Gebieten.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Teilnahme an der Kultur in ihrer Vielfalt und am Sport ist dem gesamten Volk zu ermöglichen. Zu diesem Zweck werden öffentlich zugängliche Museen, Bibliotheken, Archive, Gedenkstätten, Theater, Sportstätten, musikalische und weitere kulturelle Einrichtungen sowie allgemein zugängliche Universitäten, Hochschulen, Schulen und andere Bildungseinrichtungen unterhalten.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Denkmale und andere europäische Kulturgüter stehen unter dem Schutz und der Pflege des Freistaates. Für ihr Verbleiben im Landesgebiet setzt sich der Freistaat ein.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Der Freistaat fördert Breiten-, Schul-, Nachwuchs- und Spitzensport.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 12",
+              "title": "Grenzüberschreitende regionale Zusammenarbeit",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Der Freistaat strebt grenzüberschreitende regionale Zusammenarbeit an, die auf den Ausbau nachbarschaftlicher Beziehungen, auf das Zusammenwachsen Europas und auf eine friedliche Entwicklung in der Welt gerichtet ist. Die Zusammenarbeit in den sorbischen, lausitzischen, schlesischen, küstennahen und hauptstädtischen Räumen liegt im besonderen Interesse des Freistaates"
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 12a",
+              "title": "Antifaschismus und demokratische Erinnerung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat ist dem Antifaschismus, der Menschenwürde, der Demokratie, dem Frieden, der Völkerverständigung und der Bekämpfung von Rassismus, Antisemitismus und jeder Form gruppenbezogener Menschenfeindlichkeit verpflichtet.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat schützt die demokratische und rechtsstaatliche Ordnung gegen faschistische, rassistische, antisemitische und sonst verfassungsfeindliche Bestrebungen.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat fördert die Erinnerung an die nationalsozialistische und monarchistische Gewaltherrschaft, an Verfolgung, Widerstand und Befreiung, an die friedliche Revolution sowie an demokratische, soziale und antifaschistische Traditionen des Freistaates.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Öffentliche Förderung kann nach Maßgabe der Gesetze ausgeschlossen werden, wenn der Empfänger die Menschenwürde missachtet oder die freiheitliche demokratische Grundordnung oder den Bestand des Freistaates bekämpft oder leugnet.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das Nähere bestimmt ein Gesetz.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 12b",
+              "title": "Kritische Infrastruktur und Resilienz",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat schützt die öffentliche Sicherheit, die verfassungsmäßige Ordnung, die demokratische Willensbildung, die Funktionsfähigkeit seiner Einrichtungen und die kritische Infrastruktur.",
+                  "level": 0,
+                  "listId": "tbvdkicfjtws",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Grenzräume, Häfen, Flughäfen, Bahnknoten, Küsten, Energieanlagen und sonstige kritische Infrastruktur stehen unter besonderem Schutz des Freistaates. Zur grenznahen Gefahrenabwehr, zum Schutz kritischer Infrastruktur, zur Bekämpfung grenzüberschreitender Kriminalität und zur Unterstützung des Katastrophenschutzes kann der Freistaat besondere kasernierte Einheiten der Landespolizei vorhalten.",
+                  "level": 0,
+                  "listId": "tbvdkicfjtws",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Das Nähere bestimmt ein Gesetz.",
+                  "level": 0,
+                  "listId": "tbvdkicfjtws",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 13",
+              "title": "Pflicht zur Verwirklichung und Durchsetzung der Staatsziele",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die in dieser Verfassung niedergelegten Staatsziele binden Gesetzgebung, vollziehende Gewalt, Rechtsprechung, die Selbstverwaltungsträger und die öffentlichen Unternehmen des Freistaates.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat hat die Pflicht, die Staatsziele nach seinen Kräften zu verwirklichen, bei der Gesetzgebung, bei der Haushaltswirtschaft, bei der Verwaltung, bei der Planung, bei der öffentlichen Beschaffung und bei der Auslegung des Rechts zu berücksichtigen und sein Handeln danach auszurichten.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Soweit diese Verfassung eine Gewährleistungspflicht, eine Einrichtungsgarantie, ein Rückschrittsverbot oder einen Anspruch auf diskriminierungsfreien Zugang vorsieht, kann sich jeder Betroffene nach Maßgabe der Gesetze hierauf berufen.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Der erreichte Bestand an öffentlicher Schule, öffentlicher Daseinsvorsorge, strategischer Infrastruktur, öffentlichem Wohnungsbestand, Gesundheitsversorgung, natürlichem Gemeinvermögen, Kreislaufwirtschaft und weltanschaulicher Neutralität darf nur aus zwingenden Gründen des Gemeinwohls und nicht ohne gleichwertigen Ersatz abgebaut werden.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Anerkannte Verbände, Gemeinden, Landkreise, Bezirke und andere Träger der Selbstverwaltung können nach Maßgabe der Gesetze geltend machen, dass Staatsziele, Gewährleistungspflichten, Einrichtungsgarantien oder Rückschrittsverbote dieser Verfassung in ihrem Aufgabenbereich verletzt werden.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "sourceProvision": "Artikel 1 Nummer 8",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 7"
+      },
+      "expectedHash": "ecb74c7a6e6db5190d5a32dd5a14e197f5ff8b65fe40480f64952754bf6f3b16",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 7",
+        "title": "Recht auf Arbeit",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Jeder Mensch hat das Recht auf Arbeit, auf freie Wahl des Arbeitsplatzes sowie auf gerechte, sichere und gesundheitsgerechte Arbeitsbedingungen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Freistaat gewährleistet durch seine Politik und durch den öffentlichen und gemeinwirtschaftlichen Wirtschaftssektor einen hohen Beschäftigungsstand und wirkt darauf hin, dass jedem arbeitsfähigen Menschen eine seinen Fähigkeiten entsprechende gesellschaftlich nützliche Arbeit offensteht.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Jeder Mensch hat Anspruch auf gleichen Lohn für gleiche und gleichwertige Arbeit.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 9",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7a"
+      },
+      "expectedHash": "4b87c92ba77a5de2dc7398a8832c9c417647144b762f1e9fdfbaa69aec58356a",
+      "expectedMatches": 1,
+      "value": "Energie, Wärme, Wasser, Abwasser, Wohnen, Gesundheit, Pflege, Bildung, Mobilität, Telekommunikation, digitale Infrastruktur, Kreislaufwirtschaft, Kultur, Sport und öffentliche Sicherheit sind Aufgaben der öffentlichen Daseinsvorsorge und der gesellschaftlichen Grundversorgung.",
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7a"
+      },
+      "expectedHash": "5fa50f57b2bf09d7ef6020cf1220f734ef09c99ac34261234de310f613ad3f69",
+      "expectedMatches": 1,
+      "value": "Der Freistaat gewährleistet die flächendeckende, bedarfsgerechte, bezahlbare, hochwertige, gemeinwohlorientierte, diskriminierungsfreie und ökologisch nachhaltige Erbringung der öffentlichen Daseinsvorsorge. Diese Leistungen sind allen Menschen unabhängig von ihrer persönlichen Lebenslage zugänglich zu machen.",
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7a"
+      },
+      "expectedHash": "5202d3762f3ee9371a3fa9aeb41122ddb66be823b515f0f229e8679e5eb151d0",
+      "expectedMatches": 1,
+      "value": "Die öffentliche Daseinsvorsorge wird vorrangig durch öffentliche, kommunale, genossenschaftliche oder andere dauerhaft gemeinwohlgebundene Träger erfüllt. Der Freistaat darf Einrichtungen der öffentlichen Daseinsvorsorge nicht ohne gleichwertigen Ersatz aufgeben.",
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe c",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7a"
+      },
+      "expectedHash": "958bd2343a0e9e7a5f34d7f8ee849a422c74c6ffc3aee4737a95aae635df7446",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(3a)",
+        "text": "Wesentliche Einrichtungen und Infrastrukturen der öffentlichen Daseinsvorsorge sollen sich in Volkseigentum oder Gemeinwirtschaft befinden.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe d",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7a"
+      },
+      "expectedHash": "87733cf685c1722aad68412c82bb25a62cc794f3774efd5eb0879738c4180dec",
+      "expectedMatches": 1,
+      "value": "Für ihre Veräußerung, Privatisierung oder Übertragung auf privatwirtschaftliche Unternehmen gilt Artikel 95a.",
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe e",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7b"
+      },
+      "expectedHash": "d0993ab1ad69ec5cef6cb9fe254628ae698160627082b5d51a936a4603a48853",
+      "expectedMatches": 1,
+      "value": "Jeder Mensch hat das Recht auf angemessenen, dauerhaft gesicherten und bezahlbaren Wohnraum. Der Freistaat wirkt auf eine ausreichende und sozial ausgewogene Versorgung mit Wohnraum hin.",
+      "sourceProvision": "Artikel 1 Nummer 11 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7b"
+      },
+      "expectedHash": "b733d78a424cb0628f1ce1263c17a3e79c43208aa85fda0fc479046c222a8154",
+      "expectedMatches": 1,
+      "value": "Niemand darf durch eine staatliche Maßnahme oder die Vollstreckung eines Räumungstitels wohnungslos gemacht werden.",
+      "sourceProvision": "Artikel 1 Nummer 11 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 7b"
+      },
+      "expectedHash": "f74c4ebeb691cb91a14b94d12d3efe46a8f17c0fc1f290b2bbc9a06cfad113f8",
+      "expectedMatches": 1,
+      "value": "Jeder Mensch hat das Recht auf Zugang zu einer bedarfsgerechten gesundheitlichen und pflegerischen Versorgung. Die medizinische Grundversorgung darf nicht von der wirtschaftlichen Leistungsfähigkeit des Einzelnen abhängen.",
+      "sourceProvision": "Artikel 1 Nummer 11 Buchstabe c",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "article",
+        "label": "Artikel 7b"
+      },
+      "expectedHash": "7a815d0cacc40e577a3bb47cf44e83c5454e1805f9bf757856722a63812600e5",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 7c",
+        "title": "Gleichheit; Antidiskriminierung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Alle Menschen sind vor dem Gesetz gleich und mit gleichen Rechten und Pflichten für die Gesellschaft geboren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Niemand darf wegen seines Geschlechtes, seiner sexuellen Orientierung oder Identität, seiner Abstammung, aus rassistischen Gründen, seines Lebensalters seiner Sprache, seiner Heimat und Herkunft, seines Glaubens, seiner religiösen oder politischen Anschauungen benachteiligt oder bevorzugt werden. Niemand darf wegen seiner Behinderung benachteiligt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Freistaat gewährleistet durch ein besonderes Gesetz, dass alle Menschen einen diskriminierungsfreien Zugang zu seinen Dienstleistungen erhalten und niemand durch staatliche Gewalt diskriminiert wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Förderung der rechtlichen und tatsächlichen Gleichstellung aller Geschlechter ist Aufgabe des Freistaates.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 12",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "article",
+        "label": "Artikel 7c"
+      },
+      "expectedHash": "070aa87132fbdb748afb2031249d6cb8c6a943e4b4ad904dfdbc5d0f89e6c3be",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 7d",
+        "title": "Freizeit und Erholung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Jeder Mensch hat das Recht auf Freizeit und Erholung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Freistaat und die kommunalen Träger fördern allgemein zugängliche Erholungs- und Freizeitmöglichkeiten.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 12",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "article",
+        "label": "Artikel 7d"
+      },
+      "expectedHash": "1267df97123f4cd1a8ae607a7c3fbce8d297045ed0843eee48156c1b07da1c26",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 7e",
+        "title": "Soziale Sicherheit",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Jeder Mensch hat das Recht auf soziale Sicherheit und auf Unterstützung der Gemeinschaft in besonderen Lebenslagen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die soziale Sicherung muss ein menschenwürdiges, selbstbestimmtes Leben und gesellschaftliche Teilhabe ermöglichen.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 12",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 8"
+      },
+      "expectedHash": "485ed0b8fa1d5633e4065d05bd85584d37c38ce7b48f24ae5bbde73e24eeabd2",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 1 Nummer 13",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "parentType": "article",
+        "parentLabel": "Artikel 10a"
+      },
+      "expectedHash": "c2c8659228f9a410e2bc91eeb870c7fefc22456e5fffb33fd6d379a0ce5aeec2",
+      "expectedMatches": 1,
+      "value": "Für die Veräußerung von Boden, Wald, Mooren, Gewässern oder Naturschätzen im öffentlichen Eigentum gilt Artikel 95a.",
+      "sourceProvision": "Artikel 1 Nummer 14",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "article",
+        "label": "Artikel 11"
+      },
+      "expectedHash": "758b3168be95bb70b3ee67da61795cd15e2827a0d638f2e9877937d9fe2fb8af",
+      "expectedMatches": 1,
+      "value": "Förderung von Kultur; Kunst; Wissenschaft; Sport",
+      "sourceProvision": "Artikel 1 Nummer 15 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 11"
+      },
+      "expectedHash": "a503a709024211e6b7e055d665b7921ed0e04397006dd0bf48815c3c91209293",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(3a)",
+        "text": "Die demokratisch-sozialistische Kultur gehört zu den Grundlagen der Gesellschaft. Sie dient dem Frieden, dem Humanismus, der Solidarität, der freien Entwicklung des Menschen und der Teilhabe des gesamten Volkes am kulturellen Leben.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 1 Nummer 15 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "article",
+        "parentLabel": "Artikel 11"
+      },
+      "expectedHash": "3065d2f012a9f2abedd4909d68b02e0485d2460d7a9ddfe1c5dcaad5c72bc726",
+      "expectedMatches": 1,
+      "value": "Der Freistaat fördert Breiten-, Schul-, Nachwuchs- und Spitzensport und pflegt die humanistischen, demokratischen, antifaschistischen und sozialen Werte des regionalen, nationalen und internationalen Kulturerbes.",
+      "sourceProvision": "Artikel 1 Nummer 15 Buchstabe c",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 12"
+      },
+      "expectedHash": "9aba06dac813457eb065f7bcda7bcfa4da5488315a54ef36b17368572ce7a735",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 12",
+        "title": "Grenzüberschreitende regionale Zusammenarbeit",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Der Freistaat handelt im Rahmen seiner verfassungsmäßigen Zuständigkeiten nach den Grundsätzen des Friedens, der Völkerfreundschaft, der internationalen Solidarität und der Zusammenarbeit gleichberechtigter Völker. Er unterstützt den Kampf gegen Faschismus, Rassismus, Kolonialismus und Unterdrückung und wirkt auf Abrüstung sowie eine stabile Friedensordnung hin. Die Zusammenarbeit in den sorbischen, lausitzischen, schlesischen, küstennahen und hauptstädtischen Räumen liegt im besonderen Interesse des Freistaates."
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 16",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "article",
+        "parentLabel": "Artikel 13"
+      },
+      "expectedHash": "7686912a8fd07f1bfbd746e5087186b1f81240c508b1a7996f4ca12f0dff4149",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 1 Nummer 17",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "section",
+        "label": "II. Abschnitt",
+        "title": "Die sozialen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "throughTarget": {
+        "type": "section",
+        "label": "II. Abschnitt",
+        "title": "Die sozialen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "expectedHash": "e1cfbdc0fc4d12b1804ad6c434db972b62804dcbcb119d33e93a845efb5b0d37",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "section",
+          "label": "II. Abschnitt",
+          "title": "Die sozialen Grundlagen der sozialistischen Gesellschaft",
+          "children": [
+            {
+              "type": "article",
+              "label": "Artikel 7",
+              "title": "Recht auf Arbeit",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Jeder Mensch hat das Recht auf Arbeit, auf freie Wahl des Arbeitsplatzes sowie auf gerechte, sichere und gesundheitsgerechte Arbeitsbedingungen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat gewährleistet durch seine Politik und durch den öffentlichen und gemeinwirtschaftlichen Wirtschaftssektor einen hohen Beschäftigungsstand und wirkt darauf hin, dass jedem arbeitsfähigen Menschen eine seinen Fähigkeiten entsprechende gesellschaftlich nützliche Arbeit offensteht.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Jeder Mensch hat Anspruch auf gleichen Lohn für gleiche und gleichwertige Arbeit.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 7a",
+              "title": "Öffentliche Daseinsvorsorge",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Energie, Wärme, Wasser, Abwasser, Wohnen, Gesundheit, Pflege, Bildung, Mobilität, Telekommunikation, digitale Infrastruktur, Kreislaufwirtschaft, Kultur, Sport und öffentliche Sicherheit sind Aufgaben der öffentlichen Daseinsvorsorge und der gesellschaftlichen Grundversorgung.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat gewährleistet die flächendeckende, bedarfsgerechte, bezahlbare, hochwertige, gemeinwohlorientierte, diskriminierungsfreie und ökologisch nachhaltige Erbringung der öffentlichen Daseinsvorsorge. Diese Leistungen sind allen Menschen unabhängig von ihrer persönlichen Lebenslage zugänglich zu machen.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die öffentliche Daseinsvorsorge wird vorrangig durch öffentliche, kommunale, genossenschaftliche oder andere dauerhaft gemeinwohlgebundene Träger erfüllt. Der Freistaat darf Einrichtungen der öffentlichen Daseinsvorsorge nicht ohne gleichwertigen Ersatz aufgeben.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3a)",
+                  "text": "Wesentliche Einrichtungen und Infrastrukturen der öffentlichen Daseinsvorsorge sollen sich in Volkseigentum oder Gemeinwirtschaft befinden.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Für ihre Veräußerung, Privatisierung oder Übertragung auf privatwirtschaftliche Unternehmen gilt Artikel 95a.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+                  "level": 0,
+                  "listId": "1wdhwq95tl93",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 7b",
+              "title": "Wohnen; Gesundheit und Pflege",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Jeder Mensch hat das Recht auf angemessenen, dauerhaft gesicherten und bezahlbaren Wohnraum. Der Freistaat wirkt auf eine ausreichende und sozial ausgewogene Versorgung mit Wohnraum hin.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Niemand darf durch eine staatliche Maßnahme oder die Vollstreckung eines Räumungstitels wohnungslos gemacht werden.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Jeder Mensch hat das Recht auf Zugang zu einer bedarfsgerechten gesundheitlichen und pflegerischen Versorgung. Die medizinische Grundversorgung darf nicht von der wirtschaftlichen Leistungsfähigkeit des Einzelnen abhängen.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Krankenhäuser der Grund- und Regelversorgung, Einrichtungen der Gemeindepflege und Einrichtungen des öffentlichen Gesundheitsdienstes sind Teil der öffentlichen Daseinsvorsorge.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+                  "level": 0,
+                  "listId": "rscqshamqmiw",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 7c",
+              "title": "Gleichheit; Antidiskriminierung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Alle Menschen sind vor dem Gesetz gleich und mit gleichen Rechten und Pflichten für die Gesellschaft geboren.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Niemand darf wegen seines Geschlechtes, seiner sexuellen Orientierung oder Identität, seiner Abstammung, aus rassistischen Gründen, seines Lebensalters seiner Sprache, seiner Heimat und Herkunft, seines Glaubens, seiner religiösen oder politischen Anschauungen benachteiligt oder bevorzugt werden. Niemand darf wegen seiner Behinderung benachteiligt werden.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat gewährleistet durch ein besonderes Gesetz, dass alle Menschen einen diskriminierungsfreien Zugang zu seinen Dienstleistungen erhalten und niemand durch staatliche Gewalt diskriminiert wird.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Die Förderung der rechtlichen und tatsächlichen Gleichstellung aller Geschlechter ist Aufgabe des Freistaates.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 7d",
+              "title": "Freizeit und Erholung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Jeder Mensch hat das Recht auf Freizeit und Erholung.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat und die kommunalen Träger fördern allgemein zugängliche Erholungs- und Freizeitmöglichkeiten.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 7e",
+              "title": "Soziale Sicherheit",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Jeder Mensch hat das Recht auf soziale Sicherheit und auf Unterstützung der Gemeinschaft in besonderen Lebenslagen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die soziale Sicherung muss ein menschenwürdiges, selbstbestimmtes Leben und gesellschaftliche Teilhabe ermöglichen.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 8",
+              "title": "Förderung der Gleichstellung aller Geschlechter",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "(weggefallen)"
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 9",
+              "title": "Kinder- und Jugendschutz",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat erkennt das Recht eines jeden Kindes auf eine gesunde seelische, geistige und körperliche Entwicklung an.",
+                  "level": 0,
+                  "listId": "list_7",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Jugend ist vor geistiger und körperlicher Gefährdung besonders zu schützen.",
+                  "level": 0,
+                  "listId": "list_7",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat fördert den vorbeugenden Gesundheitsschutz für Kinder und Jugendliche sowie Einrichtungen zu ihrer Betreuung, Bildung, Erholung, Beratung und Beteiligung.",
+                  "level": 0,
+                  "listId": "list_7",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 10",
+              "title": "Schutz der natürlichen Lebensgrundlagen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Schutz der Umwelt als Lebensgrundlage ist, auch in Verantwortung für kommende Generationen, Pflicht des Freistaates und Verpflichtung aller im Freistaat. Der Freistaat hat insbesondere den Boden, die Luft und das Wasser, Tiere und Pflanzen sowie die Landschaft als Ganzes einschließlich ihrer gewachsenen Siedlungsräume zu schützen. Er hat auf den sparsamen Gebrauch und die Rückgewinnung von Rohstoffen, die sparsame Nutzung von Energie und Wasser sowie den Schutz des Klimas und die Wiederherstellung geschädigter Natur hinzuwirken.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Anerkannte Naturschutzverbände haben das Recht, nach Maßgabe der Gesetze an umweltbedeutsamen Verwaltungsverfahren mitzuwirken. Ihnen ist Klagebefugnis in Umweltbelangen einzuräumen. Das Nähere bestimmt Gesetz.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat erkennt das Recht auf Genuss der Naturschönheiten und Erholung in der freien Natur an, soweit dem nicht die Ziele nach Absatz 1 entgegenstehen. Der Allgemeinheit ist in diesem Rahmen der Zugang zu Bergen, Wäldern, Feldern, Seen, Flüssen, Küsten und sonstigen Naturräumen zu ermöglichen.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Der Freistaat fördert eine ressourcenschonende Kreislaufwirtschaft. Wiederverwendung, Reparatur, Rücknahme, Aufarbeitung, Recycling und Sekundärrohstoffgewinnung haben Vorrang vor Entsorgung.",
+                  "level": 0,
+                  "listId": "list_8",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 10a",
+              "title": "Boden; Naturvermögen und Volksacker",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Grund und Boden, Wald, Moore, Gewässer, Naturschätze und sonstiges Naturvermögen stehen unter besonderer Verantwortung gegenüber der Allgemeinheit und künftigen Generationen.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat wirkt Bodenspekulation, marktbeherrschender Konzentration von Boden und der Entziehung von Boden aus gemeinwohlorientierter Nutzung entgegen.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat errichtet und unterhält einen Landesbodenfonds. Boden im Eigentum des Freistaates, des Landesbodenfonds oder anderer öffentlicher Träger soll grundsätzlich nicht veräußert, sondern im Erbbaurecht, durch Pacht oder in anderer gemeinwohlgebundener Form überlassen werden.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Landwirtschaftlicher Boden soll vorrangig der Ernährungssicherung, der bäuerlichen, genossenschaftlichen, gemeinwohlorientierten und ökologisch verantwortlichen Bewirtschaftung sowie dem Schutz der natürlichen Lebensgrundlagen dienen.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Für die Veräußerung von Boden, Wald, Mooren, Gewässern oder Naturschätzen im öffentlichen Eigentum gilt Artikel 95a.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(6)",
+                  "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+                  "level": 0,
+                  "listId": "8v1ozhir9rke",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 11",
+              "title": "Förderung von Kultur; Kunst; Wissenschaft; Sport",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat fördert das kulturelle, künstlerische und wissenschaftliche Schaffen, die sportliche Betätigung sowie den Austausch auf diesen Gebieten.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Teilnahme an der Kultur in ihrer Vielfalt und am Sport ist dem gesamten Volk zu ermöglichen. Zu diesem Zweck werden öffentlich zugängliche Museen, Bibliotheken, Archive, Gedenkstätten, Theater, Sportstätten, musikalische und weitere kulturelle Einrichtungen sowie allgemein zugängliche Universitäten, Hochschulen, Schulen und andere Bildungseinrichtungen unterhalten.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Denkmale und andere europäische Kulturgüter stehen unter dem Schutz und der Pflege des Freistaates. Für ihr Verbleiben im Landesgebiet setzt sich der Freistaat ein.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3a)",
+                  "text": "Die demokratisch-sozialistische Kultur gehört zu den Grundlagen der Gesellschaft. Sie dient dem Frieden, dem Humanismus, der Solidarität, der freien Entwicklung des Menschen und der Teilhabe des gesamten Volkes am kulturellen Leben.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Der Freistaat fördert Breiten-, Schul-, Nachwuchs- und Spitzensport und pflegt die humanistischen, demokratischen, antifaschistischen und sozialen Werte des regionalen, nationalen und internationalen Kulturerbes.",
+                  "level": 0,
+                  "listId": "list_9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 12",
+              "title": "Grenzüberschreitende regionale Zusammenarbeit",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Der Freistaat handelt im Rahmen seiner verfassungsmäßigen Zuständigkeiten nach den Grundsätzen des Friedens, der Völkerfreundschaft, der internationalen Solidarität und der Zusammenarbeit gleichberechtigter Völker. Er unterstützt den Kampf gegen Faschismus, Rassismus, Kolonialismus und Unterdrückung und wirkt auf Abrüstung sowie eine stabile Friedensordnung hin. Die Zusammenarbeit in den sorbischen, lausitzischen, schlesischen, küstennahen und hauptstädtischen Räumen liegt im besonderen Interesse des Freistaates."
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 12a",
+              "title": "Antifaschismus und demokratische Erinnerung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat ist dem Antifaschismus, der Menschenwürde, der Demokratie, dem Frieden, der Völkerverständigung und der Bekämpfung von Rassismus, Antisemitismus und jeder Form gruppenbezogener Menschenfeindlichkeit verpflichtet.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat schützt die demokratische und rechtsstaatliche Ordnung gegen faschistische, rassistische, antisemitische und sonst verfassungsfeindliche Bestrebungen.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Freistaat fördert die Erinnerung an die nationalsozialistische und monarchistische Gewaltherrschaft, an Verfolgung, Widerstand und Befreiung, an die friedliche Revolution sowie an demokratische, soziale und antifaschistische Traditionen des Freistaates.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Öffentliche Förderung kann nach Maßgabe der Gesetze ausgeschlossen werden, wenn der Empfänger die Menschenwürde missachtet oder die freiheitliche demokratische Grundordnung oder den Bestand des Freistaates bekämpft oder leugnet.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das Nähere bestimmt ein Gesetz.",
+                  "level": 0,
+                  "listId": "1c4sxakhu0z6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 12b",
+              "title": "Kritische Infrastruktur und Resilienz",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Freistaat schützt die öffentliche Sicherheit, die verfassungsmäßige Ordnung, die demokratische Willensbildung, die Funktionsfähigkeit seiner Einrichtungen und die kritische Infrastruktur.",
+                  "level": 0,
+                  "listId": "tbvdkicfjtws",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Grenzräume, Häfen, Flughäfen, Bahnknoten, Küsten, Energieanlagen und sonstige kritische Infrastruktur stehen unter besonderem Schutz des Freistaates. Zur grenznahen Gefahrenabwehr, zum Schutz kritischer Infrastruktur, zur Bekämpfung grenzüberschreitender Kriminalität und zur Unterstützung des Katastrophenschutzes kann der Freistaat besondere kasernierte Einheiten der Landespolizei vorhalten.",
+                  "level": 0,
+                  "listId": "tbvdkicfjtws",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Das Nähere bestimmt ein Gesetz.",
+                  "level": 0,
+                  "listId": "tbvdkicfjtws",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "article",
+              "label": "Artikel 13",
+              "title": "Pflicht zur Verwirklichung und Durchsetzung der Staatsziele",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die in dieser Verfassung niedergelegten Staatsziele binden Gesetzgebung, vollziehende Gewalt, Rechtsprechung, die Selbstverwaltungsträger und die öffentlichen Unternehmen des Freistaates.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Freistaat hat die Pflicht, die Staatsziele nach seinen Kräften zu verwirklichen, bei der Gesetzgebung, bei der Haushaltswirtschaft, bei der Verwaltung, bei der Planung, bei der öffentlichen Beschaffung und bei der Auslegung des Rechts zu berücksichtigen und sein Handeln danach auszurichten.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Soweit diese Verfassung eine Gewährleistungspflicht, eine Einrichtungsgarantie, ein Rückschrittsverbot oder einen Anspruch auf diskriminierungsfreien Zugang vorsieht, kann sich jeder Betroffene nach Maßgabe der Gesetze hierauf berufen.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "(weggefallen)",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Anerkannte Verbände, Gemeinden, Landkreise, Bezirke und andere Träger der Selbstverwaltung können nach Maßgabe der Gesetze geltend machen, dass Staatsziele, Gewährleistungspflichten, Einrichtungsgarantien oder Rückschrittsverbote dieser Verfassung in ihrem Aufgabenbereich verletzt werden.",
+                  "level": 0,
+                  "listId": "iue5mcwb7r06",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "III. Abschnitt",
+          "title": "Die ökonomischen Grundlagen der sozialistischen Gesellschaft",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 1 Nummer 18",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "section",
+        "label": "III. Abschnitt",
+        "title": "Die ökonomischen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "expectedHash": "f56f2dbe63dbfc96a71b1ee59cdfbe1f7d3f6a75c1ac40889bffaad21f8c31b7",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 13a",
+        "title": "Volkswirtschaft",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Volkswirtschaft dient der fortschreitenden Befriedigung der materiellen, sozialen und kulturellen Bedürfnisse des Volkes, der freien Entfaltung der Persönlichkeit, dem Schutz der natürlichen Lebensgrundlagen und der Sicherung gleichwertiger Lebensverhältnisse.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die wirtschaftliche Entwicklung ist auf das Gemeinwohl auszurichten. Wirtschaftliche Macht ist demokratischer Kontrolle zu unterwerfen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der öffentliche und gemeinwirtschaftliche Teil der Volkswirtschaft bildet eine demokratische Planwirtschaft. Er ist mit der Eigenverantwortung der öffentlichen Unternehmen, der Gemeinden, der Genossenschaften und der Initiative der Beschäftigten zu verbinden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Private wirtschaftliche Betätigung bleibt im Rahmen der Gesetze gewährleistet. Sie ist an die Sozialbindung des Eigentums und an die Ziele dieser Verfassung gebunden.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 19",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "section",
+        "label": "III. Abschnitt",
+        "title": "Die ökonomischen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "expectedHash": "b39ec526eaf492360d6515d3c18560ad3269ddc940d9373b312e04b21ebabb92",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 13b",
+        "title": "Gesellschafts- und Wirtschaftsplan",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Volkskammer stellt durch Gesetz für einen Zeitraum von fünf Jahren einen Gesellschafts- und Wirtschaftsplan fest.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Plan bestimmt die grundlegenden Ziele der wirtschaftlichen, sozialen, ökologischen, wissenschaftlichen, kulturellen und räumlichen Entwicklung, die Schwerpunkte öffentlicher Investitionen sowie die Aufgaben des öffentlichen und gemeinwirtschaftlichen Teils der Volkswirtschaft.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Plan ist für den Staatsrat, die Landesverwaltung, die Sondervermögen und die Unternehmen des Freistaates verbindlich. Für Private können verbindliche Pflichten nur durch oder aufgrund eines Gesetzes oder durch freiwillig übernommene Bindungen begründet werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Gewerkschaften, Genossenschaften, Gemeinden, Bezirke, öffentliche Unternehmen, Wirtschaftsverbände, Wissenschaft und Bevölkerung wirken an der Aufstellung, Durchführung und Kontrolle des Plans mit.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Der Staatsrat erstattet der Volkskammer jährlich öffentlich Bericht über die Planerfüllung. Das Nähere bestimmt ein besonderes Gesetz.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 19",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "section",
+        "label": "III. Abschnitt",
+        "title": "Die ökonomischen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "expectedHash": "dc2b0c147cd0c5590e486807f98e29a993e98a3799b14dfef3d2a7c468ba4197",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 13c",
+        "title": "Volkseigentum",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Volkseigentum ist das Vermögen, das der Freistaat oder ein von ihm beherrschter öffentlicher Rechtsträger treuhänderisch für das gesamte Volk hält und dauerhaft zur Erfüllung gemeinschaftlicher Aufgaben verwendet.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Zum Volkseigentum gehören insbesondere Vermögenswerte von wesentlicher Bedeutung für die öffentliche Daseinsvorsorge, die strategische Infrastruktur und den Schutz der natürlichen Lebensgrundlagen, soweit sie im Eigentum des Freistaates oder eines von ihm beherrschten öffentlichen Rechtsträgers stehen und dauerhaft öffentlichen Aufgaben gewidmet sind.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Nutzung und Bewirtschaftung können öffentlichen, kommunalen, genossenschaftlichen oder anderen gemeinwirtschaftlichen Trägern übertragen werden, wenn die demokratische Verfügungsmacht und der gemeinnützige Zweck erhalten bleiben.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Erträge aus dem Volkseigentum sind vorrangig für seine Erhaltung und Mehrung, für gesellschaftliche Investitionen, die öffentliche Daseinsvorsorge und die Verbesserung der Lebensbedingungen der Bevölkerung zu verwenden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Volkseigentum ist grundsätzlich unveräußerlich. Artikel 95a bleibt unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 19",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "section",
+        "label": "III. Abschnitt",
+        "title": "Die ökonomischen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "expectedHash": "e4b3a53a2a1309c94d000c783de6c3ac498d0b025ec2e98499400b88e2b73990",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 13d",
+        "title": "Genossenschaften und selbständige Betriebe",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Genossenschaften sind freiwillige Vereinigungen zur gemeinschaftlichen wirtschaftlichen, sozialen oder kulturellen Tätigkeit. Ihre Selbstverwaltung wird gewährleistet.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Kleine und mittlere selbständige Betriebe, insbesondere des Handwerks, der Landwirtschaft und der Dienstleistungen, werden geschützt und gefördert.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 19",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "section",
+        "label": "III. Abschnitt",
+        "title": "Die ökonomischen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "expectedHash": "25484c447d585440e93731691967e8fea0dfe063cc002f888c89284b208dbfef",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 13e",
+        "title": "Öffentliche und gemeinwirtschaftliche Unternehmen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Öffentliche und gemeinwirtschaftliche Unternehmen dienen der Erfüllung öffentlicher Aufgaben, der Versorgung der Bevölkerung, der Entwicklung der Produktivkräfte und der Verwirklichung des Gesellschafts- und Wirtschaftsplanes. Sie sind wirtschaftlich und fachlich eigenverantwortlich zu führen, soweit ein Gesetz nichts anderes bestimmt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Beschäftigte, Nutzer und betroffene Gemeinden wirken nach Maßgabe der Gesetze an ihrer Leitung und Kontrolle mit.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Das Nähere, insbesondere zur Wirtschaftsführung, zur demokratischen Kontrolle und zur Verwendung der Überschüsse, bestimmt ein besonderes Gesetz.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 19",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "section",
+        "label": "III. Abschnitt",
+        "title": "Die ökonomischen Grundlagen der sozialistischen Gesellschaft"
+      },
+      "expectedHash": "81d0e1c689d06211ce7c907c22835be4928f1adaba2b16354702581feb4dfe57",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 13f",
+        "title": "Wissenschaftlich-technischer Fortschritt",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Wissenschaft, Forschung und technische Entwicklung dienen der Verbesserung des Lebens, der friedlichen Entwicklung, dem Schutz der natürlichen Lebensgrundlagen und der demokratisch-sozialistischen Gestaltung der Gesellschaft.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Freistaat verbindet den wissenschaftlich-technischen Fortschritt mit den Vorzügen der Gemeinwirtschaft und der demokratischen Planung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Forschung an und die Entwicklung von Angriffswaffen, die die Völkerfreundschaft und den Frieden stören, finden nicht statt.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 19",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "II. Abschnitt",
+        "title": "Die Grundrechte"
+      },
+      "expectedHash": "2574f053bcb896698b0ae542d381250d85640854eba5ba0a65c2b8a965b74670",
+      "expectedMatches": 1,
+      "value": "IV. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 20 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "section",
+        "label": "IV. Abschnitt",
+        "title": "Die Grundrechte"
+      },
+      "expectedHash": "74919cb199a1bd3a91c2eeffd054ad44ed4e32ae281faccb8eebd54f06a7e39c",
+      "expectedMatches": 1,
+      "value": "Die Grundrechte und die Mitwirkung in der sozialistischen Gesellschaft",
+      "sourceProvision": "Artikel 1 Nummer 20 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 18"
+      },
+      "expectedHash": "66c2e29a598d584886b6db01bc87e5cead057463d60bebf121fd2cb10f5e5a60",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 1 Nummer 21",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 26"
+      },
+      "expectedHash": "e21f7408ce9da74587c7b015157911ce14355348ff3f5a11e1f20e56abf5c1a7",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 26",
+        "title": "Wirtschaftsdemokratie; Mitbestimmung der Beschäftigten",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die arbeitenden Menschen haben das Recht, durch ihre gewählten Vertretungen an der Leitung, Planung und Gestaltung der Betriebe, Dienststellen und Einrichtungen mitzuwirken.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Vertretungen der Beschäftigten haben nach Maßgabe der Gesetze insbesondere Mitbestimmungsrechte in sozialen, personellen und wirtschaftlichen Angelegenheiten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "In öffentlichen und gemeinwirtschaftlichen Unternehmen wirken die Beschäftigten an der Leitung und Kontrolle des Unternehmens mit. Ihre Vertretung in den Aufsichts- und Kontrollorganen ist zu gewährleisten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Bei grundlegenden wirtschaftlichen Entscheidungen, die Bestand, Standort oder Struktur eines Betriebes wesentlich berühren, sind die Beschäftigten und ihre Vertretungen nach Maßgabe der Gesetze zu beteiligen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 22",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "article",
+        "label": "Artikel 31"
+      },
+      "expectedHash": "be0d42bffe5d42899fd8259add81509e682f917850ff66c7f78b1c73d52babfd",
+      "expectedMatches": 1,
+      "value": "Eigentum",
+      "sourceProvision": "Artikel 1 Nummer 23 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 31"
+      },
+      "expectedHash": "6aa800eb99001b1018af4b5289a01082dd550bfaa42aa72a62a21c3778aad2a6",
+      "expectedMatches": 1,
+      "value": "Das Eigentum wird gewährleistet. Inhalt und Schranken werden durch die Gesetze bestimmt.",
+      "sourceProvision": "Artikel 1 Nummer 23 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "article",
+        "label": "Artikel 35"
+      },
+      "expectedHash": "619696d43b0580a7b416acd4e9468ef4fe585f2b607043d907ba294fee145397",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 35a",
+        "title": "Mitbestimmung und Mitgestaltung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Jeder Bürger hat das Recht, das politische, wirtschaftliche, soziale und kulturelle Leben des Freistaates umfassend mitzugestalten. Es gilt der Grundsatz: „Arbeite mit, plane mit, regiere mit!“",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Dieses Recht umfasst insbesondere das Recht,",
+            "children": [
+              {
+                "type": "item",
+                "label": "a.",
+                "text": "an Wahlen und Abstimmungen teilzunehmen,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "b.",
+                "text": "an der Leitung, Planung und Gestaltung des gesellschaftlichen Lebens nach Maßgabe dieser Verfassung und der Gesetze mitzuwirken,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "c.",
+                "text": "von den Volksvertretungen, ihren Abgeordneten sowie den Leitungen öffentlicher Einrichtungen und Unternehmen Rechenschaft über ihre Tätigkeit zu verlangen,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "d.",
+                "text": "sich in Gewerkschaften, Genossenschaften und anderen gesellschaftlichen Vereinigungen zusammenzuschließen und durch diese an der gesellschaftlichen Willensbildung mitzuwirken,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "e.",
+                "text": "Vorschläge, Eingaben und Beschwerden an staatliche und wirtschaftliche Organe zu richten und eine begründete Antwort zu erhalten.",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Niemand darf wegen der rechtmäßigen Wahrnehmung dieser Rechte benachteiligt werden.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 24",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 38"
+      },
+      "expectedHash": "55f4354e9fd94445b66f8912317f0181540e617dbfef438022d4e9f49f727771",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 1 Nummer 25",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "III. Abschnitt",
+        "title": "Die Volkskammer"
+      },
+      "expectedHash": "5eb65b82a2a6ce051d1d88aef03fb32ce044b87df8dc204335c51efb55318413",
+      "expectedMatches": 1,
+      "value": "V. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 26",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "IV. Abschnitt",
+        "title": "Der Staatsrat"
+      },
+      "expectedHash": "3e92bf19735c8f161f55aabd4139fc65b243cd8c894c8a1a149b1f6858856974",
+      "expectedMatches": 1,
+      "value": "VI. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 27",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "V. Abschnitt",
+        "title": "Die Rechtsetzung"
+      },
+      "expectedHash": "c12b9a44ade60548b856cc509197fa17f1c60ae4d44a516add90f13fed129e20",
+      "expectedMatches": 1,
+      "value": "VII. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 28",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1a)",
+        "parentType": "article",
+        "parentLabel": "Artikel 76"
+      },
+      "expectedHash": "5f0b24d27fd72570485556ede2dc64ce0e09be58d837d309dc59ddb6e3d7c7e4",
+      "expectedMatches": 1,
+      "value": "Die Frist von vierzehn Tagen nach Absatz 1 Satz 1 sowie die Dringlichkeit nach Satz 2 gilt nicht, wenn die Umstände es nicht zulassen. In diesem Falle müssen jedoch Gesetze, so schnell es die Umstände erlauben, verkündet werden.",
+      "sourceProvision": "Artikel 1 Nummer 29 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "article",
+        "parentLabel": "Artikel 76"
+      },
+      "expectedHash": "1a2e6db68b32802492f10ad8b66d3a10604c67582a0f550b5949dce34c3e373a",
+      "expectedMatches": 1,
+      "value": "Näheres zur Ausfertigung und Verkündung nach den Absätzen 1 bis 3 wird durch Gesetz geregelt.",
+      "sourceProvision": "Artikel 1 Nummer 29 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "VI. Abschnitt",
+        "title": "Die Rechtsprechung"
+      },
+      "expectedHash": "bafc2b6fe160871fcc9f0f7b3b05cb0bddfab6ea8351018427404e8fffbf74c3",
+      "expectedMatches": 1,
+      "value": "VIII. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 30 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "section",
+        "label": "VIII. Abschnitt",
+        "title": "Die Rechtsprechung"
+      },
+      "expectedHash": "e1412e1316f7f4218c7874b121bf9338fdc8541c3e041f8c424b4602be964825",
+      "expectedMatches": 1,
+      "value": "Die Rechtspflege",
+      "sourceProvision": "Artikel 1 Nummer 30 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "article",
+        "label": "Artikel 76"
+      },
+      "expectedHash": "3550a9e710ce8bf5175662e4cafd3e52b3d9b097bb51788b896bb56d5b24c4ab",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 76a",
+        "title": "Grundlage der Gesetzlichkeit",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die demokratisch-sozialistische Staats- und Gesellschaftsordnung, die Bindung aller Staatsgewalt an Verfassung, Gesetz und Recht sowie der wirksame Schutz der Grundrechte bilden die Grundlage der Gesetzlichkeit.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Rechtsordnung ist im Geist der Gerechtigkeit, Gleichheit, Solidarität und Menschlichkeit anzuwenden.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 31",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 77"
+      },
+      "expectedHash": "cda63106f96927a8a14267a4b0b20d0778ab95d6da5a61fe03db2772fe85f1b7",
+      "expectedMatches": 1,
+      "value": "Die Rechtspflege dient dem Schutz der demokratisch-sozialistischen Verfassungsordnung, der Freiheit, des friedlichen Lebens, der Rechte und der Würde des Menschen.",
+      "sourceProvision": "Artikel 1 Nummer 32",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "article",
+        "label": "Artikel 77"
+      },
+      "expectedHash": "2624debc71090fc0fa287c6513e8e55dcd06d04b973db46a01b8016d00215cd3",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 77a",
+        "title": "Gesellschaftliche Schlichtung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Freistaat fördert gesellschaftliche Schlichtungsstellen in Gemeinden, Betrieben, Genossenschaften, Wohngebieten und öffentlichen Einrichtungen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Sie wirken auf freiwillige Streitbeilegung, sozialen Ausgleich und Wiederherstellung des Rechtsfriedens hin.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Ihre Entscheidungen bedürfen der Zustimmung der Beteiligten. Der Rechtsweg zu den staatlichen Gerichten bleibt jederzeit gewährleistet.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 33",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "VII. Abschnitt",
+        "title": "Die Verwaltung"
+      },
+      "expectedHash": "a5a5f721e8ee67ad1c86e0770cf79c890da8dc36eec654e2239ab873f9ea2798",
+      "expectedMatches": 1,
+      "value": "IX. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 34",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 83"
+      },
+      "expectedHash": "a7f9eb167b4dadcf5eb6483dd4b29b95515d4f4fbcc9ec8675009705d38dbfa7",
+      "expectedMatches": 1,
+      "value": "Maßnahmen eines Geheimdienstes, die die Grundrechte Dritter berühren bedürfen einer gesetzlichen Grundlage; Grundrechtseingriffe, die Leben, Gesundheit oder körperliche Integrität berühren bedürfen der besonderen gesetzlichen Grundlage. Behörden die polizeiliche Maßnahmen tätigen unterliegen der Nachprüfung durch ein unabhängiges Gremium, dessen Verfahren, Rechtsschutz und Bestellung ein besonderes Gesetz bestimmt. Eine parlamentarische Nachprüfung der Maßnahmen nach Satz 1 bedürfen der Grundlage durch ein besonderes Gesetz",
+      "sourceProvision": "Artikel 1 Nummer 35",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 84"
+      },
+      "expectedHash": "eac86720d61cf6aeae149d23a6e78ae4a0207417751457959c7ee5660f038e24",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Gemeinden, Landkreise und Bezirke wirken im Rahmen ihrer Selbstverwaltung an der staatlichen Gesellschafts- und Wirtschaftsplanung mit. Sie können für ihren Aufgabenbereich örtliche und regionale Entwicklungspläne beschließen.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 1 Nummer 36",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "article",
+        "parentLabel": "Artikel 87"
+      },
+      "expectedHash": "244f6185f6cbabc58a9b2669c01ee2e7d0351725bb9a1808a8a198eaa94e1cfd",
+      "expectedMatches": 1,
+      "value": "Die Gemeinden, Landkreise und Bezirke haben das Recht, eigene Steuern und andere Abgaben nach Maßgabe der Gesetze zu erheben.",
+      "sourceProvision": "Artikel 1 Nummer 37 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 87"
+      },
+      "expectedHash": "1d7fff6d9faccb19a6b4553f39e40f0bce684629e0b467e887307713ae5bccdb",
+      "expectedMatches": 1,
+      "value": "Die Gemeinden, Landkreise und Bezirke werden unter Berücksichtigung der Aufgaben des Freistaates im Rahmen des übergemeindlichen Finanzausgleichs an dessen Steuereinnahmen beteiligt.",
+      "sourceProvision": "Artikel 1 Nummer 37 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "VIII. Abschnitt",
+        "title": "Das Finanzwesen und Landesvermögen"
+      },
+      "expectedHash": "3154acb201903f5ea4237f72c4f734db96def523b83b54cb14d34e02d67983ef",
+      "expectedMatches": 1,
+      "value": "X. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 38 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "section",
+        "label": "X. Abschnitt",
+        "title": "Das Finanzwesen und Landesvermögen"
+      },
+      "expectedHash": "4b4dbaba7c083ed7b80f35bd0a602de3879d17cb63e7ae3ca568f0ce1f9a917d",
+      "expectedMatches": 1,
+      "value": "Das Finanzwesen und Staatsvermögen",
+      "sourceProvision": "Artikel 1 Nummer 38 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "article",
+        "parentLabel": "Artikel 94"
+      },
+      "expectedHash": "e3c3a8dc2e8060f1d6ed863c8ffd89cf16c348afa463f368c3724771cea4a230",
+      "expectedMatches": 1,
+      "value": "Bei Aufstellung und Ausführung des Haushaltsplanes sind der Gesellschafts- und Wirtschaftsplan, die sozialen und ökologischen Staatsziele, die Sicherung und Mehrung des Volkseigentums sowie die Grundsätze der Wirtschaftlichkeit und nachhaltigen Haushaltsführung zu berücksichtigen.",
+      "sourceProvision": "Artikel 1 Nummer 39",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 95a"
+      },
+      "expectedHash": "2ed838e00fb4aa6c87bac245fdcaf861e3e35c396e7d650b25822ec0006cd617",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 95a",
+        "title": "Gemeinwirtschaftliches Vermögen und Privatisierungsschutz",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Volkseigentum, gemeinwirtschaftliches Vermögen und andere durch Gesetz besonders geschützte öffentliche Vermögenswerte dienen dauerhaft dem Wohl der Allgemeinheit. Sie sind nachhaltig, wirtschaftlich, demokratisch kontrolliert und unter Wahrung ihres langfristigen Bestandes zu verwalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Veräußerung, Privatisierung, Teilprivatisierung, wesentliche Belastung oder sonstige Aufgabe des beherrschenden öffentlichen Einflusses auf in Absatz 1 bezeichnetes Vermögen von erheblicher Bedeutung bedarf eines besonderen Gesetzes. Rechtsgeschäfte der ordnungsgemäßen Wirtschaftsführung, durch die der öffentliche Einfluss, die Zweckbindung und die dauerhafte Aufgabenerfüllung nicht gefährdet werden, bleiben unberührt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Eine Maßnahme nach Absatz 2 ist unzulässig, wenn dadurch die öffentliche Daseinsvorsorge, die Versorgungssicherheit, die Bezahlbarkeit grundlegender Leistungen, der Schutz der natürlichen Lebensgrundlagen oder die langfristige Handlungsfähigkeit des Freistaates erheblich gefährdet wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Das besondere Gesetz kann bestimmte Vermögenswerte zum unveräußerlichen Kernbestand des Volkseigentums erklären. Die Aufhebung dieser Eigenschaft bedarf neben einem besonderen Gesetz der Zustimmung des Volkes.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Erlöse aus der Veräußerung gemeinwirtschaftlichen Vermögens sind grundsätzlich zur Erhaltung oder Mehrung öffentlichen und gemeinwirtschaftlichen Vermögens oder für Investitionen in die öffentliche Daseinsvorsorge zu verwenden. Eine Verwendung zur Deckung laufender konsumtiver Ausgaben ist unzulässig.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Das Nähere bestimmt ein besonderes Gesetz.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 1 Nummer 40",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 99"
+      },
+      "expectedHash": "31ca159127b44bcdce4ef4762c54a5781a901a35ada466a9793d56ee08eec57d",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 1 Nummer 41",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 100"
+      },
+      "expectedHash": "d243261aaf80279eae933e2e1ba7860d47c9bf5b8e7f1c28ef292437f52fb079",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 1 Nummer 42",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "IX. Abschnitt",
+        "title": "Das Bildungswesen"
+      },
+      "expectedHash": "6dd1c2255a135c17a227fc67bc8d1c00484ceebb8c4029b7051f9ebbe0db29b5",
+      "expectedMatches": 1,
+      "value": "XI. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 43 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "section",
+        "label": "XI. Abschnitt",
+        "title": "Das Bildungswesen"
+      },
+      "expectedHash": "dd0d8cf86bee36f8e541e280e509370cf8ea6552ee329d48b26a941bf853e4fd",
+      "expectedMatches": 1,
+      "value": "Das Bildungs- und Erziehungswesen in der sozialistischen Gesellschaft",
+      "sourceProvision": "Artikel 1 Nummer 43 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 101"
+      },
+      "expectedHash": "827d21c37c048172ab7faaa211197b803d8428516a2f11ea961610412837d332",
+      "expectedMatches": 1,
+      "value": "Das Bildungswesen dient der Entwicklung allseitig gebildeter, harmonisch entwickelter, selbständig urteilender, solidarischer und gesellschaftlich verantwortungsbewusster Persönlichkeiten. Es vermittelt demokratisches Verantwortungsbewusstsein, Internationalismus, Friedensliebe, Antifaschismus, wissenschaftliche Bildung, berufliches Können und Achtung vor der Arbeit.",
+      "sourceProvision": "Artikel 1 Nummer 44",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "article",
+        "parentLabel": "Artikel 101a"
+      },
+      "expectedHash": "024485454e302fa771421d16b3fe9495e00018536dc04c03e428a72556b6a6a8",
+      "expectedMatches": 1,
+      "value": "Polytechnische Bildung ist Bestandteil der allgemeinen Bildung. Sie verbindet wissenschaftliche, technische, gesellschaftliche und praktische Bildung und vermittelt Verständnis für Arbeits-, Wirtschafts- und Produktionsprozesse.",
+      "sourceProvision": "Artikel 1 Nummer 45 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "article",
+        "parentLabel": "Artikel 101a"
+      },
+      "expectedHash": "6f6c16a8fda880917c2e72bebb07f76ef08c8777df9d2fb81fc4c92e50b547c5",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 1 Nummer 45 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 102"
+      },
+      "expectedHash": "15c75d36935513e67e80d6351b9e94142c9e3779325d6c17c64e7b4cf225d3c4",
+      "expectedMatches": 1,
+      "value": "Der Freistaat gewährleistet das Recht auf Schulbildung. Es besteht allgemeine zehnjährige Schulpflicht.",
+      "sourceProvision": "Artikel 1 Nummer 46",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "X. Abschnitt",
+        "title": "Die Religionsgemeinschaften"
+      },
+      "expectedHash": "22626a1639f8767bfb65a16bed1e5221d7daf7f8d4c293f6c561f096835ee913",
+      "expectedMatches": 1,
+      "value": "XII. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 47 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "section",
+        "label": "XII. Abschnitt",
+        "title": "Die Religionsgemeinschaften"
+      },
+      "expectedHash": "d2b7bf1df347f7e0f4d661e0e3013933969951b3afa8dadef008b8a81c4242c7",
+      "expectedMatches": 1,
+      "value": "Die Weltanschauungsgemeinschaften",
+      "sourceProvision": "Artikel 1 Nummer 47 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "section",
+        "label": "XI. Abschnitt",
+        "title": "Übergangs- und Schlussbestimmungen"
+      },
+      "expectedHash": "99d8e104308e27dc3ba9827c6e876c684615d34874b3702bd9a32ad6853dbda9",
+      "expectedMatches": 1,
+      "value": "XIII. Abschnitt",
+      "sourceProvision": "Artikel 1 Nummer 48",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "article",
+        "parentLabel": "Artikel 32"
+      },
+      "expectedHash": "8a22f2a7cebb849fa5b9f91c31d938644857be2ade41063015bca3cea70f3e10",
+      "expectedMatches": 1,
+      "value": "Grund und Boden, Naturschätze und Produktionsmittel können zum Zweck der Vergesellschaftung durch eine Rechtsvorschrift mit Gesetzeskraft, die Art und Ausmaß der Entschädigung regelt, in Gemeineigentum oder in andere Formen der Gemeinwirtschaft überführt werden.",
+      "sourceProvision": "Artikel 1 Nummer 49",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "article",
+        "label": "Artikel 75a"
+      },
+      "expectedHash": "c08febac572d3900f8ca39b0419409ce7a2cf32245970f2715e1e1d97bdcbe85",
+      "expectedMatches": 1,
+      "value": "Gesetzesvertretende Rechtsverordnungen; Notverordnungen",
+      "sourceProvision": "Artikel 1 Nummer 50 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "article",
+        "parentLabel": "Artikel 75a"
+      },
+      "expectedHash": "f483b54340774283468d62f44a255a6d7aabc33cdae0af9449b8afb38eca0420",
+      "expectedMatches": 1,
+      "value": "Der Staatsrat kann in Angelegenheiten, die der Gesetzgebung des Freistaates unterliegen, gesetzesvertretende Rechtsverordnungen erlassen. Sie haben Gesetzeskraft und stehen, soweit diese Verfassung nichts anderes bestimmt, den Landesgesetzen in Rang, Bindungswirkung und Regelungsbefugnis gleich. Gesetzesvertretende Rechtsverordnungen dürfen die Verfassung oder bestehende Gesetze weder ändern, aufheben, außer Kraft setzen noch ihnen widersprechen. Sie können durch Gesetz geändert oder aufgehoben werden. Sie dürfen die Rechtsstellung eines Mitglieds eines Staatsorgans nicht berühren..",
+      "sourceProvision": "Artikel 1 Nummer 50 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

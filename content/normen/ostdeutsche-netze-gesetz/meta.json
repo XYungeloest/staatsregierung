@@ -45,8 +45,17 @@
       "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl. 2026 Nr. 49.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
     }
   ],
   "effectiveDate": "2026-07-21",
-  "enactingNorm": "energie-und-waermevergesellschaftungs-paketgesetz"
+  "enactingNorm": "energie-und-waermevergesellschaftungs-paketgesetz",
+  "affectedByNorms": [
+    "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes"
+  ]
 }

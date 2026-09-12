@@ -18,8 +18,11 @@ import { resolveIdentityFields, retainFsnNumber } from './lib/norm-title-rules.m
  * (sourceReferences, sourceNotes, enactingBody) bleiben unverändert; geschützte
  * Fundstellenkürzel (SächsGVBl., SächsABl., …) behält der Adapter bei.
  */
-export function applyRechtsueberleitung({ meta, history, versions }) {
-  const adaptText = (value) => (typeof value === 'string' ? adaptSaxonText(value) : value);
+export function applyRechtsueberleitung({ meta, history, versions }, { adapt = true } = {}) {
+  // Ohne `adapt` bleibt der Wortlaut unverändert; nur die Datensatzform ist dieselbe wie bei
+  // übergeleiteten Zielen (gleiche Schlüsselreihenfolge, keine Byte-Diffs bestehender Fassungen).
+  const adaptText = (value) => (adapt && typeof value === 'string' ? adaptSaxonText(value) : value);
+  const adaptBlocks = (body) => (adapt ? adaptBodyBlocks(body) : body);
   const adaptedVersions = versions.map((version) => ({
     ...version,
     ...(version.title !== undefined ? { title: adaptText(version.title) } : {}),
@@ -28,7 +31,7 @@ export function applyRechtsueberleitung({ meta, history, versions }) {
     ...(version.summary !== undefined ? { summary: adaptText(version.summary) } : {}),
     citation: adaptText(version.citation),
     changeNote: adaptText(version.changeNote),
-    body: adaptBodyBlocks(version.body),
+    body: adaptBlocks(version.body),
   }));
   const adaptedMeta = {
     ...meta,
@@ -51,6 +54,16 @@ export function applyRechtsueberleitung({ meta, history, versions }) {
     })),
   };
   return { meta: adaptedMeta, history: adaptedHistory, versions: adaptedVersions };
+}
+
+/**
+ * Die Rechtsüberleitung ist auf übernommenes sächsisches Recht gemünzt. Sie wird nur auf
+ * Ziele angewandt, deren Ausgangsfassung aus einem REVOSax-Snapshot stammt; eine redaktionell
+ * versionierte eigene Ausgangsfassung (existingVersionSeed) bleibt unverändert, weil der
+ * Adapter dort Eigennamen überschriebe (Bezirk „Sachsen“ → „Ostdeutschland“).
+ */
+export function usesRechtsueberleitung(source) {
+  return Boolean(source?.snapshot || (source?.adoptedSources ?? []).some((entry) => entry.snapshot));
 }
 
 const ROOT = process.cwd();
@@ -246,7 +259,11 @@ async function consolidate(slug, config) {
       readJson(join(normDirectory, 'versions', `${versionId}.json`)),
       readJson(join(normDirectory, 'meta.json')),
     ]);
-    if (existingVersionSeed.versionId !== versionId || existingVersionSeed.validFrom !== versionId) {
+    // Der Geltungsbeginn einer eigenen ostdeutschen Stammfassung kann nach ihrer Fassungskennung
+    // liegen (verkündet am 23. März, in Kraft am 25. März). Er wird dann ausdrücklich genannt und
+    // muss mit der gespeicherten Fassung übereinstimmen; ohne Angabe gilt die Kennung als Beginn.
+    const expectedValidFrom = source.existingVersionSeed.validFrom ?? versionId;
+    if (existingVersionSeed.versionId !== versionId || existingVersionSeed.validFrom !== expectedValidFrom) {
       throw new Error(`${slug}: bestehender Fassungs-Seed ${versionId} ist nicht als passende Ausgangsfassung gespeichert`);
     }
   }
@@ -571,8 +588,13 @@ async function consolidate(slug, config) {
     const preserved = await existingVersionMetadata(normDirectory, version.versionId);
     return { versionId: version.versionId, ...preserved, ...version, ...preserved };
   }));
-  // Rechtsüberleitung erst auf dem konsolidierten Ergebnis (siehe applyRechtsueberleitung).
-  const transitioned = applyRechtsueberleitung({ meta: updatedMeta, history, versions: versionsWithMetadata });
+  // Rechtsüberleitung erst auf dem konsolidierten Ergebnis (siehe applyRechtsueberleitung) und
+  // nur für Fassungen mit REVOSax-Provenienz; eigene ostdeutsche Vorschriften behalten ihre
+  // Eigennamen (siehe usesRechtsueberleitung).
+  const transitioned = applyRechtsueberleitung(
+    { meta: updatedMeta, history, versions: versionsWithMetadata },
+    { adapt: usesRechtsueberleitung(source) },
+  );
   await Promise.all([
     writeJson(join(normDirectory, 'meta.json'), transitioned.meta),
     writeJson(join(normDirectory, 'history.json'), transitioned.history),

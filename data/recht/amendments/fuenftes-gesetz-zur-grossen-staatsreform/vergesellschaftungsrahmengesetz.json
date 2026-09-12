@@ -1,0 +1,56 @@
+{
+  "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "resultCitation": "Vergesellschaftungsrahmengesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16), geändert durch Artikel 6 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "changeNote": "§ 1 Absatz 2 neu gefasst und Absatz 5 zur gesetzesvertretenden Vergesellschaftungsverordnung angefügt.",
+  "commandCoverage": [
+    "Artikel 6 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 76",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 76.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "expectedHash": "21f88875d1feea58e9128b65e864fd8211466fc16ccbc0ff2f7f224a51d31710",
+      "expectedMatches": 1,
+      "value": "Die Überführung von Grund und Boden, Naturschätzen und Produktionsmitteln in Gemeineigentum oder in andere Formen der Gemeinwirtschaft erfolgt nur durch ein gesondertes Vergesellschaftungsgesetz (Anwendungsgesetz) oder durch eine gesetzesvertretende Vergesellschaftungsverordnung nach Absatz 5.",
+      "sourceProvision": "Artikel 6 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "expectedHash": "cad3154106d62043cd34ebbc17f49fea5c2b19eead4e94d5681af8076386cbfd",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "text": "Eine gesetzesvertretende Vergesellschaftungsverordnung ist eine gesetzesvertretende Rechtsverordnung nach Artikel 75a Absatz 1 der Ostdeutschen Staatsverfassung, die eine Überführung nach Absatz 2 anordnet und Art und Ausmaß der Entschädigung regelt. Soweit dieses Gesetz für die Anordnung oder Ausgestaltung einer Vergesellschaftung ein Gesetz, Anwendungsgesetz oder Trägergesetz voraussetzt oder an eine gesetzliche Vergesellschaftung anknüpft, steht die gesetzesvertretende Vergesellschaftungsverordnung diesem gleich. Die für Anwendungsgesetze geltenden materiellen, verfahrensrechtlichen und rechtsstaatlichen Anforderungen dieses Gesetzes gelten für sie uneingeschränkt. Absatz 4 findet auf gesetzesvertretende Vergesellschaftungsverordnungen keine Anwendung. Eine gesetzesvertretende Vergesellschaftungsverordnung darf von diesem Gesetz nicht abweichen.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 6 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

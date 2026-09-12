@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-08",
+  "asOf": "2026-09-12",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment",
@@ -1272,6 +1272,180 @@
       ],
       "decision": "Einheitliche Erlaubnispraxis unter Koordinierung des Landesamtes für Straßenbau und Verkehr.",
       "nextAction": "Verwaltungsvorschrift ab 9. September 2026 anwenden.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-verfassungsnovelle-und-besondere-gesetze-2026-09",
+      "title": "Gesetzgebungsverfahren Sozialistische Verfassungsnovelle und besondere Gesetze vom 12. September 2026",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-11",
+      "validTo": "2026-09-12",
+      "asOf": "2026-09-12",
+      "summary": "Die achte Volkskammer beschloss am 11. September 2026 das Fünfte Gesetz zur Großen Staatsreform, das Besondere Gesetz über Wohnen, Gesundheit und Pflege, das Gesetz zur Einführung eines Boden- und Naturvermögensgesetzes und das Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes; alle vier wurden am 12. September 2026 verkündet und traten an diesem Tag in Kraft. Die drei besonderen Gesetze knüpfen ihr Inkrafttreten an das der Verfassungsnovelle beziehungsweise des Gemeinvermögensschutzgesetzes.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Eingangsformel, Inkrafttretensartikel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Eingangsformel, Inkrafttretensartikel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Eingangsformel, Inkrafttretensartikel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Eingangsformel, Inkrafttretensartikel",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "inst-staatsrat",
+        "inst-staatspraesident",
+        "project-staatsreform",
+        "project-soziale-grundversorgung",
+        "project-boden-volksacker",
+        "project-gemeinvermoegensschutz"
+      ],
+      "tags": [
+        "proceeding",
+        "legislation",
+        "constitution"
+      ],
+      "notes": [
+        "Drucksachen, Abstimmungsergebnisse und Plenarprotokolle liegen nicht vor; belegt sind Beschlussdatum, Verkündung und Inkrafttreten aus den Ausgaben."
+      ],
+      "aliases": [],
+      "proceedingType": "legislation",
+      "stage": "completed",
+      "participantIds": [
+        "inst-volkskammer",
+        "inst-staatsrat"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "versionId": "2026-09-12"
+        }
+      ],
+      "decision": "Verkündung im OGVBl. 2026 Nr. 76 bis 79 am 12. September 2026.",
+      "nextAction": "Folgeanpassungen des nachgeordneten Rechts und die in den Gesetzen vorgesehenen Rechtsverordnungen dokumentieren.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister",
+      "title": "Aufbau des Landesbodenfonds und Ersterhebung des Gemeinvermögens",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Nach Artikel 2 des Gesetzes zur Einführung eines Boden- und Naturvermögensgesetzes sind die vom Staatssekretariat zu benennenden Verwaltungsratsmitglieder innerhalb von zwei Monaten zu benennen, die Volkskammer soll ihre sechs Mitglieder innerhalb von drei Monaten wählen, der Vorstand ist innerhalb von sechs Monaten nach der konstituierenden Sitzung zu bestellen und der vollständige Geschäftsbetrieb spätestens nach neun Monaten aufzunehmen; bis dahin bestellt das Staatssekretariat der Finanzen einen Gründungsbeauftragten. Nach Artikel 2 des Gesetzes zur Einführung eines Gemeinvermögensschutzgesetzes sind alle Träger innerhalb von sechs Monaten erstmals zu erfassen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-landesbodenfonds",
+        "inst-sek-finanzen",
+        "inst-volkskammer",
+        "project-boden-volksacker",
+        "project-gemeinvermoegensschutz"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "land",
+        "public-assets"
+      ],
+      "notes": [
+        "Benennungen, Wahlen, Bestellungen und die Ersterhebung sind am Stichtag nicht belegt; ein Vollzug wird nicht behauptet."
+      ],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-sek-finanzen",
+        "inst-volkskammer"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "versionId": "2026-09-12"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Benennung und Wahl des Verwaltungsrates, Bestellung des Gründungsbeauftragten sowie Mitteilungen zur Ersterhebung nur bei amtlichem Nachweis fortschreiben.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-durchsuchungen-rechtsextreme-2026-09",
+      "title": "Durchsuchungen gegen Deutsche Jugend Zuerst, Nationalrevolutionäre Jugend und Chemnitz Revolte",
+      "status": "confirmed-official",
+      "validFrom": "2026-09-10",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Am 10. September 2026 durchsuchten der Ostdeutsche Staatsschutz, die Landespolizei und die zuständigen Staatsanwaltschaften ab 9.21 Uhr 31 Objekte; von 14 Haftbefehlen wurden 13 vollstreckt, eine Person ist flüchtig. An zwei Objekten kam es zu Widerstand, ein Polizist und ein Beschuldigter wurden leicht verletzt. Sichergestellte Mobiltelefone, Computer, Speichermedien und Unterlagen werden von Staatsanwaltschaften und Staatsschutz ausgewertet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-pm-2026-09-10-13",
+          "locator": "gesamte Pressemitteilung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsschutz",
+        "inst-staatsrat",
+        "person-yannik-schmaele",
+        "event-durchsuchungen-rechtsextreme-2026-09-10"
+      ],
+      "tags": [
+        "proceeding",
+        "security",
+        "law-enforcement"
+      ],
+      "notes": [
+        "Aktenzeichen, Tatvorwürfe im Einzelnen und gerichtliche Entscheidungen sind nicht belegt; die Pressemitteilung nennt weder Namen noch Orte."
+      ],
+      "aliases": [],
+      "proceedingType": "security-implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-staatsschutz",
+        "person-yannik-schmaele"
+      ],
+      "normRefs": [],
+      "decision": null,
+      "nextAction": "Auswertung der sichergestellten Materialien und Verfahrensstand nur aus amtlichen Quellen fortschreiben.",
       "openQuestionIds": []
     }
   ]

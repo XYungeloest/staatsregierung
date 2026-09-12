@@ -169,3 +169,11 @@ test('amtliche Berichtigungen ändern den Wortlaut ohne künstlichen Fassungswec
   assert.equal(second.record.versions.length, 1);
   assert.equal(second.record.history.entries.length, 1);
 });
+
+test('die Rechtsüberleitung gilt nur für Ziele mit REVOSax-Provenienz', async () => {
+  const { usesRechtsueberleitung } = await import('../scripts/consolidate-norms.mjs');
+  assert.equal(usesRechtsueberleitung({ snapshot: 'data/recht/sources/revosax/x/1.html', sourceSha256: 'a' }), true);
+  assert.equal(usesRechtsueberleitung({ adoptedSources: [{ id: 'a', snapshot: 'data/recht/sources/revosax/x/2.html' }] }), true);
+  assert.equal(usesRechtsueberleitung({ existingVersionSeed: { versionId: '2026-07-21' } }), false);
+  assert.equal(usesRechtsueberleitung({ title: 'Eigene Vorschrift', aliases: [] }), false);
+});

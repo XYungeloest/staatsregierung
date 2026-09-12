@@ -1,0 +1,36 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "resultCitation": "Gemeindeordnung für den Ostdeutschen Freistaat in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), zuletzt geändert durch Artikel 9 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "changeNote": "§ 90 Absatz 5 um die Sätze zum Vorrang des Artikels 95a der Staatsverfassung und des Gemeinvermögensschutzgesetzes ergänzt.",
+  "commandCoverage": [
+    "Artikel 9"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "paragraph",
+        "parentLabel": "§ 90",
+        "text": "Der Beschluss über eine solche Satzung bedarf der Mehrheit von zwei Dritteln der Gemeinderäte oder eines erfolgreichen Bürgerentscheids nach § 24. Sie tritt nicht vor Ablauf von sechs Monaten nach ihrer Bekanntgabe in Kraft. Als Veräußerung gilt jedes Rechtsgeschäft, welches den beherrschenden Einfluss der Gemeinde beseitigt. Auf kleine Kapitalgesellschaften im Sinne des § 267 Absatz 1 des Handelsgesetzbuchs findet diese Vorschrift keine Anwendung. Gleiches gilt, wenn die Veräußerung bei Entstehen der Beherrschung beabsichtigt war und zeitnah erfolgt."
+      },
+      "expectedOld": "Der Beschluss über eine solche Satzung bedarf der Mehrheit von zwei Dritteln der Gemeinderäte oder eines erfolgreichen Bürgerentscheids nach § 24. Sie tritt nicht vor Ablauf von sechs Monaten nach ihrer Bekanntgabe in Kraft. Als Veräußerung gilt jedes Rechtsgeschäft, welches den beherrschenden Einfluss der Gemeinde beseitigt. Auf kleine Kapitalgesellschaften im Sinne des § 267 Absatz 1 des Handelsgesetzbuchs findet diese Vorschrift keine Anwendung. Gleiches gilt, wenn die Veräußerung bei Entstehen der Beherrschung beabsichtigt war und zeitnah erfolgt.",
+      "expectedMatches": 1,
+      "value": "Der Beschluss über eine solche Satzung bedarf der Mehrheit von zwei Dritteln der Gemeinderäte oder eines erfolgreichen Bürgerentscheids nach § 24. Sie tritt nicht vor Ablauf von sechs Monaten nach ihrer Bekanntgabe in Kraft. Als Veräußerung gilt jedes Rechtsgeschäft, welches den beherrschenden Einfluss der Gemeinde beseitigt. Auf kleine Kapitalgesellschaften im Sinne des § 267 Absatz 1 des Handelsgesetzbuchs findet diese Vorschrift keine Anwendung. Gleiches gilt, wenn die Veräußerung bei Entstehen der Beherrschung beabsichtigt war und zeitnah erfolgt. Die Sätze 1 bis 6 begründen keine Ermächtigung zu einer Veräußerung, Privatisierung, Teilprivatisierung, wesentlichen Belastung oder sonstigen Aufgabe beherrschenden öffentlichen Einflusses, die nach Artikel 7a Absatz 3, Artikel 95a der Ostdeutschen Staatsverfassung oder nach dem Gemeinvermögensschutzgesetz unzulässig ist. Ein nach der Ostdeutschen Staatsverfassung erforderliches besonderes Gesetz kann weder durch Satzung noch durch Bürgerentscheid ersetzt werden. Die Ausnahmen nach den Sätzen 5 und 6 finden auf Volkseigentum, gemeinwirtschaftliches Vermögen und besonders geschütztes öffentliches Vermögen im Sinne des Gemeinvermögensschutzgesetzes nur Anwendung, soweit dieses Gesetz dies zulässt.",
+      "sourceProvision": "Artikel 9",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

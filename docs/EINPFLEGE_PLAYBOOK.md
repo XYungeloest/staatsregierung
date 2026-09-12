@@ -675,7 +675,7 @@ Zusätzlich verlangt der Check genau ein `h1` je Seite.
 ## 6 Der Stichtagsblock
 
 Der redaktionelle Stichtag ist **ein** Wert: `referenceDate` in
-`packages/shared/src/config/editorial.json` (heute `2026-09-08`). Er wird in beide Builds
+`packages/shared/src/config/editorial.json` (heute `2026-09-12`). Er wird in beide Builds
 einkompiliert und kommt zur Laufzeit **nicht** aus D1.
 
 **Er wird ausschließlich vorwärts geschrieben.** Eine Rückdatierung lehnt
@@ -764,13 +764,11 @@ npm run norms:runtime:d1-sync -- --changed-paths <datei> --reference-date-from <
 `discoverability.editorialLead` verlangt, dass ein bestimmtes Thema im genannten Zeitraum das
 höchstpriorisierte aktive Thema ist (Reihenfolge: `priority` desc, `updatedAt` desc, `title` de asc).
 
-**Ist-Stand am 2026-09-08:** zwei aktive Hervorhebungen — `volksbefragung-2026`, Fenster
-`2026-08-09` bis `2026-09-10`, und `staatsreform-und-verfassung`, Fenster `2026-09-08` bis
-`2026-12-31`. `kommunen-regionen-und-berlin` (bis `2026-08-31`) und
-`wohnen-und-vergesellschaftung` (bis `2026-09-01`) sind abgelaufen. `discoverability.editorialLead`
-steht auf `staatsreform-und-verfassung` mit dem Zeitraum `2026-09-11` bis `2026-12-31` — der Beginn
-liegt bewusst nach dem Ende des Volksbefragungsfensters, weil jenes Thema mit `priority: 100`
-bis dahin das höchstpriorisierte aktive Vorhaben bleibt.
+**Ist-Stand am 2026-09-12:** eine aktive Hervorhebung — `staatsreform-und-verfassung`, Fenster
+`2026-09-08` bis `2026-12-31`. `volksbefragung-2026` (bis `2026-09-10`),
+`kommunen-regionen-und-berlin` (bis `2026-08-31`) und `wohnen-und-vergesellschaftung` (bis
+`2026-09-01`) sind abgelaufen. `discoverability.editorialLead` steht auf
+`staatsreform-und-verfassung` mit dem Zeitraum `2026-09-11` bis `2026-12-31`.
 
 **Daraus folgt: jeder Stichtag ab dem 2026-11-01 lässt `content:check` und
 `check-topic-coverage` mit dem heutigen Bestand fehlschlagen, sobald das letzte Fenster abgelaufen

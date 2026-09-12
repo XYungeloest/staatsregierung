@@ -1,0 +1,41 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "resultCitation": "Interflug-Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 74), geändert durch Artikel 10 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "changeNote": "§ 10 Absatz 4 zum Vorrang des Artikels 95a der Staatsverfassung und des Gemeinvermögensschutzgesetzes angefügt.",
+  "commandCoverage": [
+    "Artikel 10"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 10"
+      },
+      "expectedHash": "5b9730596cb07892b7cd8e64a8142c5e7ab81a9c9828b54f317e5b9ea1b324d8",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Artikel 95a der Ostdeutschen Staatsverfassung und das Gemeinvermögensschutzgesetz bleiben unberührt. Die Absätze 1 bis 3 finden auf Vermögensmaßnahmen, die nach § 19 des Gemeinvermögensschutzgesetzes eines besonderen Einzelfallgesetzes bedürfen, nur nach Maßgabe dieses Gesetzes Anwendung.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 10",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

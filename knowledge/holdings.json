@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-08",
+  "asOf": "2026-09-12",
   "holdings": [
     {
       "id": "holding-rechtsnachfolge-2023",
@@ -1291,6 +1291,37 @@
       "notes": [],
       "kind": "company",
       "stakePercent": 100,
+      "direct": true
+    },
+    {
+      "id": "holding-landesbodenfonds",
+      "title": "Landesbodenfonds Ostdeutschland AöR",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Seit 12. September 2026 rechtsfähige Anstalt des öffentlichen Rechts des Freistaates mit Sitz in Magdeburg für Erwerb, Bevorratung und gemeinwohlgebundene Bewirtschaftung öffentlichen Bodens, den Volksacker und das öffentliche Naturvermögen; Vermögen ist Volkseigentum und dauerhaft gemeinwirtschaftlich gebunden, Ausschüttungen an den allgemeinen Haushalt sind unzulässig.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Artikel 1, §§ 3, 5 und 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-landesbodenfonds",
+        "project-boden-volksacker"
+      ],
+      "tags": [
+        "holding",
+        "public-economy",
+        "land"
+      ],
+      "notes": [
+        "Kapitalausstattung und Grundstücksbestand sind am Stichtag nicht belegt."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
       "direct": true
     }
   ]
