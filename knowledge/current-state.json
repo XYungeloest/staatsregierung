@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-08",
+  "asOf": "2026-09-12",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -387,10 +387,10 @@
       "id": "state-current-constitution",
       "title": "Geltende Verfassungsfassung",
       "status": "confirmed-primary",
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-12",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gespeicherte Fassung der Staatsverfassung vom 21. Juli 2026 unter Einbeziehung aller vier Gesetze zur Großen Staatsreform.",
+      "asOf": "2026-09-12",
+      "summary": "Gespeicherte Fassung der Staatsverfassung vom 12. September 2026: die Fassung vom 21. Juli 2026 (vier Gesetze zur Großen Staatsreform) geändert durch das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens. Ostdeutschland ist danach ein sozialistischer Freistaat; die Verfassung gliedert sich in dreizehn Abschnitte mit neuen Abschnitten über die sozialen und die ökonomischen Grundlagen der sozialistischen Gesellschaft.",
       "sourceRefs": [
         {
           "sourceId": "source-constitution-meta",
@@ -399,12 +399,17 @@
         },
         {
           "sourceId": "source-constitution-history",
-          "locator": "vier Einträge 2026-07-21",
+          "locator": "Einträge 2026-07-21 und 2026-09-12",
           "role": "primary"
         },
         {
           "sourceId": "source-constitution-current",
           "locator": "gesamte Fassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Artikel 1",
           "role": "primary"
         }
       ],
@@ -417,7 +422,7 @@
       ],
       "notes": [],
       "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
-      "versionId": "2026-07-21"
+      "versionId": "2026-09-12"
     },
     {
       "id": "state-current-organs",
@@ -425,8 +430,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Volkskammer, Staatsrat, Staatspräsident, Verfassungsgerichtshof und Rechnungshof bilden den belegten aktuellen Organkern.",
+      "asOf": "2026-09-12",
+      "summary": "Volkskammer, Staatsrat, Staatspräsident, Verfassungsgerichtshof und Rechnungshof bilden den belegten aktuellen Organkern. Seit 12. September 2026 sind die Verfassungsartikel 99 und 100 zu Rechnungslegung und Rechnungshof aufgehoben; der Rechnungshof besteht auf gesetzlicher Grundlage fort, seine Prüfungsrechte nennt unter anderem § 12 des Boden- und Naturvermögensgesetzes.",
       "sourceRefs": [
         {
           "sourceId": "source-constitution-current",
@@ -437,6 +442,11 @@
           "sourceId": "source-staatsaufbau",
           "locator": "gesamter Datensatz",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Artikel 1 Nummern 41 und 42",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -450,7 +460,9 @@
         "current-state",
         "institutions"
       ],
-      "notes": [],
+      "notes": [
+        "Artikel 100 der Staatsverfassung (Rechnungsprüfung; Rechnungshof) ist durch das Fünfte Gesetz zur Großen Staatsreform aufgehoben; eine Neufassung des Rechnungshofrechts ist nicht belegt."
+      ],
       "institutionIds": [
         "inst-volkskammer",
         "inst-staatsrat",
@@ -880,8 +892,8 @@
       "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-09-04",
-      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich des neuen öffentlichen Mobilitätspakets, der gemeinwirtschaftlichen Energie- und Wärmetarife, der extern betriebenen Transparenz- und Zuständigkeitsangebote, der schrittweisen 50Hertz-Übernahme und der angenommenen NVIDIA-Ansiedlung, der seit 2. und 3. September 2026 geltenden Gesetze zu Hoheitszeichen, Zinnwald-Vergesellschaftung, öffentlicher Daseinsvorsorge und Interflug sowie des in Kraft getretenen NDR-Überleitungsstaatsvertrags, ohne Normvolltexte zu duplizieren.",
+      "asOf": "2026-09-12",
+      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich des neuen öffentlichen Mobilitätspakets, der gemeinwirtschaftlichen Energie- und Wärmetarife, der extern betriebenen Transparenz- und Zuständigkeitsangebote, der schrittweisen 50Hertz-Übernahme und der angenommenen NVIDIA-Ansiedlung, der seit 2. und 3. September 2026 geltenden Gesetze zu Hoheitszeichen, Zinnwald-Vergesellschaftung, öffentlicher Daseinsvorsorge und Interflug, des in Kraft getretenen NDR-Überleitungsstaatsvertrags sowie der am 12. September 2026 in Kraft getretenen Sozialistischen Verfassungsnovelle, des Soziale Grundversorgungsgesetzes, des Boden- und Naturvermögensgesetzes mit dem Landesbodenfonds und des Gemeinvermögensschutzgesetzes, ohne Normvolltexte zu duplizieren.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -967,6 +979,26 @@
           "sourceId": "source-stanzo-2026-40",
           "locator": "gesamte Ausgabe",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -992,7 +1024,10 @@
         "project-hoheitszeichen",
         "project-zinnwald-lithium",
         "project-daseinsvorsorge",
-        "project-interflug"
+        "project-interflug",
+        "project-soziale-grundversorgung",
+        "project-gemeinvermoegensschutz",
+        "project-boden-volksacker"
       ],
       "tags": [
         "current-state",
@@ -1022,7 +1057,10 @@
         "project-hoheitszeichen",
         "project-zinnwald-lithium",
         "project-daseinsvorsorge",
-        "project-interflug"
+        "project-interflug",
+        "project-soziale-grundversorgung",
+        "project-gemeinvermoegensschutz",
+        "project-boden-volksacker"
       ]
     },
     {
@@ -1114,8 +1152,8 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-09",
-      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, Tarifdetails der OVV-/DB-Ticketanerkennung und weitere Normkonsolidierungen.",
+      "asOf": "2026-09-12",
+      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, Tarifdetails der OVV-/DB-Ticketanerkennung, weitere Normkonsolidierungen, der Aufbau des Landesbodenfonds, die Ersterhebung nach dem Gemeinvermögensschutzgesetz und die Auswertung der Durchsuchungen vom 10. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -1136,13 +1174,20 @@
           "sourceId": "source-eag-staatsregierung-ost-2024-2026",
           "locator": "OVV-/DB-Ticketdeal am 16. Juli 2026 ohne gesondertes Vertrags- oder Tarifdokument",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-pm-2026-09-10-13",
+          "locator": "gesamte Pressemitteilung",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "proceeding-kreisreform-transition",
         "proceeding-ovv-db-ticket-recognition",
         "question-ovv-ticket-chain",
-        "proceeding-law-consolidation"
+        "proceeding-law-consolidation",
+        "proceeding-durchsuchungen-rechtsextreme-2026-09",
+        "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister"
       ],
       "tags": [
         "current-state",
@@ -1152,7 +1197,9 @@
       "proceedingIds": [
         "proceeding-kreisreform-transition",
         "proceeding-ovv-db-ticket-recognition",
-        "proceeding-law-consolidation"
+        "proceeding-law-consolidation",
+        "proceeding-durchsuchungen-rechtsextreme-2026-09",
+        "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister"
       ]
     }
   ]

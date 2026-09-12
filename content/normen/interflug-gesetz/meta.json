@@ -50,9 +50,18 @@
       "verifiedAt": "2026-09-02",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl. 2026 Nr. 74.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
     }
   ],
   "effectiveDate": "2026-09-03",
   "dateNote": "Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.",
-  "enactingNorm": "gesetz-zur-errichtung-der-interflug"
+  "enactingNorm": "gesetz-zur-errichtung-der-interflug",
+  "affectedByNorms": [
+    "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes"
+  ]
 }

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-08",
+  "asOf": "2026-09-12",
   "sources": [
     {
       "id": "source-stanzo-2026-02",
@@ -1381,7 +1381,7 @@
       "type": "structured-content",
       "path": "content/normen/staatsverfassung-des-freistaates-ostdeutschland/meta.json",
       "title": "Metadaten der Staatsverfassung",
-      "date": "2026-07-21",
+      "date": "2026-09-12",
       "status": "primary",
       "scope": [
         "law",
@@ -1394,7 +1394,7 @@
       "type": "structured-content",
       "path": "content/normen/staatsverfassung-des-freistaates-ostdeutschland/history.json",
       "title": "Normenhistorie der Staatsverfassung",
-      "date": "2026-07-21",
+      "date": "2026-09-12",
       "status": "primary",
       "scope": [
         "law",
@@ -1406,9 +1406,9 @@
     {
       "id": "source-constitution-current",
       "type": "law",
-      "path": "content/normen/staatsverfassung-des-freistaates-ostdeutschland/versions/2026-07-21.json",
-      "title": "Staatsverfassung, Fassung vom 21. Juli 2026",
-      "date": "2026-07-21",
+      "path": "content/normen/staatsverfassung-des-freistaates-ostdeutschland/versions/2026-09-12.json",
+      "title": "Staatsverfassung, Fassung vom 12. September 2026",
+      "date": "2026-09-12",
       "status": "primary",
       "scope": [
         "law",
@@ -3226,6 +3226,154 @@
       "sourceRole": "official-publication",
       "notes": "Verwaltungsvorschrift über Betriebserlaubnisse für DDR-Reimport-Kleinkrafträder; Inkrafttreten am 9. September 2026.",
       "pages": "2–6"
+    },
+    {
+      "id": "source-ogvbl-2026-76",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 76.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 76.pdf"
+      },
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 76",
+      "date": "2026-09-12",
+      "documentDate": "2026-09-12",
+      "publicationDate": "2026-09-12",
+      "pages": "2–21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution",
+        "state",
+        "public-economy"
+      ],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "PDF: amtliche Veröffentlichungsfassung der Ausgabe",
+        "HTML: vollständige strukturtragende Transkription derselben Ausgabe"
+      ],
+      "notes": "Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens vom 12. September 2026, von der Volkskammer am 11. September 2026 beschlossen, gezeichnet von Dr. Karl Honecker als Staatspräsident; Artikel 1 ändert die Staatsverfassung in 50 Nummern, Artikel 2 bis 6 passen Daseinsvorsorgegesetz, Haushaltsordnung, Gemeingut-Wohnen-Gesetz, Landesantidiskriminierungsgesetz und Vergesellschaftungsrahmengesetz an; Inkrafttreten am Tag der Verkündung. Alle 21 PDF-Seiten geprüft; HTML und PDF stimmen überein."
+    },
+    {
+      "id": "source-ogvbl-2026-77",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 77.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 77.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 77.pdf"
+      },
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 77",
+      "date": "2026-09-12",
+      "documentDate": "2026-09-12",
+      "publicationDate": "2026-09-12",
+      "pages": "2–30",
+      "status": "primary",
+      "scope": [
+        "law",
+        "housing",
+        "health",
+        "care",
+        "social-policy"
+      ],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "PDF: amtliche Veröffentlichungsfassung der Ausgabe",
+        "HTML: vollständige strukturtragende Transkription derselben Ausgabe"
+      ],
+      "notes": "Besonderes Gesetz über Wohnen, Gesundheit und Pflege im Freistaat Ostdeutschland und zur Änderung weiterer Vorschriften vom 12. September 2026; Artikel 1 führt das Soziale Grundversorgungsgesetz (SoGrVG, 31 Paragraphen) ein, Artikel 3 bis 5 ändern Gemeingut-Wohnen-Gesetz, Ostdeutsches Krankenhausgesetz und Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz. Alle 30 PDF-Seiten geprüft; die Zählung in Artikel 5 lautet in HTML und PDF übereinstimmend 1., 3., 4., 5."
+    },
+    {
+      "id": "source-ogvbl-2026-78",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 78.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 78.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 78.pdf"
+      },
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 78",
+      "date": "2026-09-12",
+      "documentDate": "2026-09-12",
+      "publicationDate": "2026-09-12",
+      "pages": "2–51",
+      "status": "primary",
+      "scope": [
+        "law",
+        "land",
+        "agriculture",
+        "nature",
+        "public-economy",
+        "institutions"
+      ],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "PDF: amtliche Veröffentlichungsfassung der Ausgabe",
+        "HTML: vollständige strukturtragende Transkription derselben Ausgabe"
+      ],
+      "notes": "Gesetz zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen vom 12. September 2026; Artikel 1 führt das Boden- und Naturvermögensgesetz (BodNatVG, 53 Paragraphen) ein und errichtet den Landesbodenfonds Ostdeutschland mit Sitz in Magdeburg, Artikel 2 regelt den Aufbau, Artikel 3 die Einschränkung des Datenschutzgrundrechts. Alle 51 PDF-Seiten geprüft; HTML und PDF stimmen überein."
+    },
+    {
+      "id": "source-ogvbl-2026-79",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 79.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 79.pdf"
+      },
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 79",
+      "date": "2026-09-12",
+      "documentDate": "2026-09-12",
+      "publicationDate": "2026-09-12",
+      "pages": "2–31",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "public-assets",
+        "finance"
+      ],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "PDF: amtliche Veröffentlichungsfassung der Ausgabe",
+        "HTML: vollständige strukturtragende Transkription derselben Ausgabe"
+      ],
+      "notes": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes vom 12. September 2026; Artikel 1 führt das Gemeinvermögensschutzgesetz (GemVSchG, 24 Paragraphen) ein, Artikel 2 ordnet die Ersterhebung an, Artikel 3 bis 10 ändern Gemeingut-Wohnen-Gesetz, Energie- und Wärmevergesellschaftungsgesetz, Landesenergiewerke-Gesetz, Ostdeutsche-Netze-Gesetz, Ostdeutsches Eisenbahngesetz, Krankenhausfondsgesetz, Gemeindeordnung und Interflug-Gesetz. Alle 31 PDF-Seiten geprüft; HTML und PDF stimmen überein."
+    },
+    {
+      "id": "source-pm-2026-09-10-13",
+      "type": "press-release",
+      "path": "Gesetze/PM-10092026-13.md",
+      "paths": {
+        "markdown": "Gesetze/PM-10092026-13.md",
+        "pdf": "Gesetze/PM-10092026-13.pdf"
+      },
+      "title": "Umfangreiche Durchsuchungsmaßnahmen gegen rechtsextreme Strukturen",
+      "date": "2026-09-10",
+      "status": "primary",
+      "scope": [
+        "press",
+        "security",
+        "law-enforcement"
+      ],
+      "sourceRole": "official-press-release",
+      "verificationHierarchy": [
+        "Markdown: vollständige Textquelle der Pressemitteilung",
+        "PDF: visuelle Kontrollquelle"
+      ],
+      "notes": "Pressemitteilung des Ostdeutschen Staatsrates vom 10. September 2026, gezeichnet von Yannik Schmäle als stellvertretendem Staatspräsidenten: Durchsuchungen gegen Deutsche Jugend Zuerst, Nationalrevolutionäre Jugend und Chemnitz Revolte, 31 Objekte, 14 Haftbefehle, 13 vollstreckt. Beide PDF-Seiten geprüft."
+    },
+    {
+      "id": "source-editorial-clarification-eingang-2026-09-12",
+      "type": "editorial-clarification",
+      "path": "knowledge/clarifications/2026-09-12-eingang-ogvbl-76-79.md",
+      "title": "Redaktionelle Bewertung des Eingangs vom 12. September 2026 (OGVBl. 2026 Nr. 76 bis 79)",
+      "date": "2026-09-12",
+      "status": "editorial",
+      "scope": [
+        "law",
+        "constitution",
+        "editorial"
+      ],
+      "notes": "Dokumentiert die amtliche Zählungslücke in OGVBl. 2026 Nr. 77 Artikel 5, die wörtlich übernommenen Ersetzungen „Landtag“ → „Volkskammer“ mit grammatischen Folgen, die quellentreu belassene Zeichensetzung in Artikel 75a und 83 der Staatsverfassung sowie die Inhaltsübersicht des Krankenhausgesetzes."
     }
   ]
 }

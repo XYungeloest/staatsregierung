@@ -1,0 +1,68 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "sameDayOrder": 2,
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "resultCitation": "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz vom 23. März 2026 (OGVBl. 2026 Nr. 34), zuletzt geändert durch Artikel 8 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "changeNote": "§ 12 zur landeseigenen Sicherungsbeteiligung an Artikel 95a der Staatsverfassung und das Gemeinvermögensschutzgesetz angepasst (Weiterübertragung, Fortführung der Beteiligung, Unterrichtung der Ausschüsse der Volkskammer).",
+  "commandCoverage": [
+    "Artikel 8 Nummern 1 bis 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "4.",
+        "parentType": "subparagraph",
+        "parentLabel": "(2)",
+        "text": "Standorte oder Leistungsbereiche an kommunale oder gemeinwohlorientierte Träger weiterübertragen."
+      },
+      "expectedHash": "57c77bee066cf617cbd9f8745e7465b5ffcf9d975d7cdfd32add54a5432f7f9a",
+      "expectedMatches": 1,
+      "value": "Standorte oder Leistungsbereiche an kommunale oder sonstige öffentlich beherrschte gemeinwirtschaftliche Träger weiterübertragen; eine Weiterübertragung an einen nicht öffentlich beherrschten Träger ist nur nach Maßgabe des Artikels 7a Absatz 3 und des Artikels 95a der Ostdeutschen Staatsverfassung sowie der §§ 14 bis 20 des Gemeinvermögensschutzgesetzes zulässig.",
+      "sourceProvision": "Artikel 8 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 12"
+      },
+      "expectedHash": "297a578fc8785a467242d244945465dbe41871277d25620d7f9c32810ef0d732",
+      "expectedMatches": 1,
+      "value": "Die Beteiligung des Landes ist auf das zur Versorgungssicherung Erforderliche und grundsätzlich auf einen Zeitraum von bis zu fünf Jahren zu befristen. Eine einmalige Verlängerung um bis zu fünf weitere Jahre ist zulässig, wenn eine geordnete Rückübertragung andernfalls gefährdet wäre. Die Befristung der Beteiligung begründet weder eine Verpflichtung noch eine Ermächtigung zu einer nach der Verfassung des Freistaates Ostdeutschland oder dem Gemeinvermögensschutzgesetz unzulässigen Weiterübertragung. Ist bei Ablauf des nach Satz 1 oder 2 maßgeblichen Zeitraums eine rechtmäßige Weiterübertragung nicht möglich, darf die Beteiligung fortgeführt werden, soweit und solange dies zur Sicherung des versorgungsnotwendigen Standortes oder Leistungsbereiches erforderlich ist. Das Fortbestehen dieser Voraussetzungen ist jährlich zu überprüfen.",
+      "sourceProvision": "Artikel 8 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 12"
+      },
+      "expectedHash": "41e504795b1552a5408137698061fe97a645bf0c7ff9d9ecf5651a0c9dfceb37",
+      "expectedMatches": 1,
+      "value": "Vor Entscheidungen von besonderer finanzieller oder struktureller Bedeutung sind der für den Haushalt zuständige Ausschuss und der für das Gesundheitswesen zuständige Ausschuss der Volkskammer zu unterrichten. Die §§ 14 bis 19 des Gemeinvermögensschutzgesetzes bleiben unberührt.",
+      "sourceProvision": "Artikel 8 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

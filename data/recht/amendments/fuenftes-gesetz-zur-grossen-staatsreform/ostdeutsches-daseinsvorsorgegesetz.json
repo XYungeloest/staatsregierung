@@ -1,0 +1,84 @@
+{
+  "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "resultCitation": "Ostdeutsches Daseinsvorsorgegesetz vom 2. September 2026 (OGVBl. 2026 Nr. 71 S. 2), geändert durch Artikel 2 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 76 S. 2)",
+  "changeNote": "§ 4 auf den Vorrang öffentlicher und gemeinwohlgebundener Aufgabenerfüllung neu gefasst, § 14 Absatz 6 zur Beschäftigtenbeteiligung angefügt und § 15 Absatz 4 auf Artikel 95a der Staatsverfassung bezogen.",
+  "commandCoverage": [
+    "Artikel 2 Nummern 1 bis 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 76",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 76.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceHeading",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "2ec7ccb02ff896077b7b3a639f353b8e50f78e91ea1c76c02d78e0b2e4385e16",
+      "expectedMatches": 1,
+      "value": "Vorrang öffentlicher und gemeinwohlgebundener Aufgabenerfüllung",
+      "sourceProvision": "Artikel 2 Nummer 1 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 4"
+      },
+      "expectedHash": "b53973541281468a6666657cede20263f68c5bfc260bb84d0c4370d815669b18",
+      "expectedMatches": 1,
+      "value": "Leistungen der öffentlichen Daseinsvorsorge sollen vorrangig durch öffentliche, kommunale, genossenschaftliche oder andere dauerhaft gemeinwohlgebundene Träger erbracht werden. Der Freistaat soll eigene Einrichtungen und Unternehmen insbesondere dort vorhalten oder schaffen, wo dies zur Sicherung einer flächendeckenden, bedarfsgerechten, bezahlbaren und dauerhaft gemeinwohlgebundenen Versorgung erforderlich ist.",
+      "sourceProvision": "Artikel 2 Nummer 1 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "expectedHash": "0467edcd320053f0040ba3efe2e95ac2200801c8c4e1d315b1ecd52347425cb5",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "text": "Bei öffentlichen Einrichtungen und öffentlichen Unternehmen der Daseinsvorsorge ist eine wirksame Beteiligung der Beschäftigten an Leitung und Kontrolle nach Maßgabe der Staatsverfassung und der besonderen gesetzlichen Vorschriften sicherzustellen. Weitergehende Beteiligungs- und Mitbestimmungsrechte bleiben unberührt.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 15"
+      },
+      "expectedHash": "93dfdf3788da86c45688408f783b424e6fb051c37c08eeb61c61c2090242c668",
+      "expectedMatches": 1,
+      "value": "Die Einbeziehung eines nicht öffentlichen Trägers nach dieser Vorschrift stellt keine Ermächtigung für eine Maßnahme dar, die nach Artikel 95a der Staatsverfassung eines besonderen Gesetzes bedarf.",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 76.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

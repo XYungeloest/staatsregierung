@@ -6,15 +6,18 @@
   "cluster": "bildung-gesellschaft",
   "priority": 86,
   "featured": true,
-  "updatedAt": "2026-09-01",
-  "knowledgeProjectRefs": ["project-schulreform"],
+  "updatedAt": "2026-09-12",
+  "knowledgeProjectRefs": [
+    "project-schulreform"
+  ],
   "hero": "Das neue Schulrecht gilt: Polytechnische und Erweiterte Oberschule, zweiter Bildungsweg und die fachlichen Verwaltungsvorschriften bilden seit 1. September 2026 ein zusammenhängendes System.",
   "beschlossen": [
     "Das Schulsystem wurde gesetzlich neu geordnet und organisatorisch auf den Freistaat zugeschnitten.",
     "Die Abschaffung des Elternbeitrags in der Kindertagesbetreuung wurde beschlossen.",
     "Die Schulordnungen für POS, EOS, Abendoberschule, Abendgymnasium, Kolleg, sorbische Schulen sowie Ethik- und freiwilligen Religionsunterricht sind amtlich verkündet.",
     "Sechzehn Verwaltungsvorschriften regeln unter anderem Stundentafeln, Prüfungen, Zeugnisse, sonderpädagogische Formulare und das Schuljahr 2026/2027.",
-    "Das Vierte Gesetz zur Großen Staatsreform trat am 21. Juli 2026 in Kraft."
+    "Das Vierte Gesetz zur Großen Staatsreform trat am 21. Juli 2026 in Kraft.",
+    "Seit dem 12. September 2026 dient das Bildungswesen nach der Verfassung der Entwicklung allseitig gebildeter, solidarischer und verantwortungsbewusster Persönlichkeiten; die polytechnische Bildung verbindet wissenschaftliche, technische, gesellschaftliche und praktische Bildung, und die allgemeine Schulpflicht dauert zehn Jahre."
   ],
   "umgesetzt": [
     "Das Gesetz zur Neuordnung des Ostdeutschen Schulsystems ist als aktuelle Fassung verfügbar.",
@@ -33,21 +36,64 @@
       "normSlug": "viertes-gesetz-zur-grossen-staatsreform"
     },
     {
+      "label": "Fünftes Gesetz zur Großen Staatsreform",
+      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform"
+    },
+    {
       "label": "Verfassung des Freistaates Ostdeutschland",
       "normSlug": "staatsverfassung-des-freistaates-ostdeutschland"
     },
-    { "label": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems", "normSlug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems" },
-    { "label": "Gesetz zur Abschaffung des Elternbeitrags", "normSlug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w" },
-    { "label": "Schulordnung Polytechnische Oberschulen (SOPOS)", "normSlug": "schulordnung-polytechnische-oberschulen", "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026." },
-    { "label": "Schulordnung Erweiterte Oberschulen und Abiturprüfung (SOEOSA)", "normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung", "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026." },
-    { "label": "Schulordnung Abendoberschulen (SOAbO)", "normSlug": "schulordnung-abendoberschulen" },
-    { "label": "Abendgymnasien- und Kollegverordnung (AGyKoVO)", "normSlug": "abendgymnasien-und-kollegverordnung" },
-    { "label": "Sorbische Schulverordnung", "normSlug": "sorbische-schulverordnung" },
-    { "label": "Ethik und Religionsunterrichtverordnung", "normSlug": "ethik-und-religionsunterrichtverordnung" },
-    { "label": "Bereinigung des allgemeinbildenden Schulordnungsrechts", "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026" },
-    { "label": "Schulmilcherlass", "normSlug": "schulmilcherlass" },
-    { "label": "VwV Stundentafel EOS", "normSlug": "vwv-stundentafel-eos", "note": "Verkündet am 16. August 2026; Inkrafttreten am 1. September 2026." },
-    { "label": "Bildungsfreistellungsgesetz", "normSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland" }
+    {
+      "label": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems",
+      "normSlug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems"
+    },
+    {
+      "label": "Gesetz zur Abschaffung des Elternbeitrags",
+      "normSlug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w"
+    },
+    {
+      "label": "Schulordnung Polytechnische Oberschulen (SOPOS)",
+      "normSlug": "schulordnung-polytechnische-oberschulen",
+      "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026."
+    },
+    {
+      "label": "Schulordnung Erweiterte Oberschulen und Abiturprüfung (SOEOSA)",
+      "normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung",
+      "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026."
+    },
+    {
+      "label": "Schulordnung Abendoberschulen (SOAbO)",
+      "normSlug": "schulordnung-abendoberschulen"
+    },
+    {
+      "label": "Abendgymnasien- und Kollegverordnung (AGyKoVO)",
+      "normSlug": "abendgymnasien-und-kollegverordnung"
+    },
+    {
+      "label": "Sorbische Schulverordnung",
+      "normSlug": "sorbische-schulverordnung"
+    },
+    {
+      "label": "Ethik und Religionsunterrichtverordnung",
+      "normSlug": "ethik-und-religionsunterrichtverordnung"
+    },
+    {
+      "label": "Bereinigung des allgemeinbildenden Schulordnungsrechts",
+      "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026"
+    },
+    {
+      "label": "Schulmilcherlass",
+      "normSlug": "schulmilcherlass"
+    },
+    {
+      "label": "VwV Stundentafel EOS",
+      "normSlug": "vwv-stundentafel-eos",
+      "note": "Verkündet am 16. August 2026; Inkrafttreten am 1. September 2026."
+    },
+    {
+      "label": "Bildungsfreistellungsgesetz",
+      "normSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland"
+    }
   ],
   "faq": [
     {

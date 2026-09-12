@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-08",
-  "editorialAsOf": "2026-09-08",
-  "count": 1202,
+  "generatedAt": "2026-09-12",
+  "editorialAsOf": "2026-09-12",
+  "count": 1222,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -426,6 +426,20 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-durchsuchungen-rechtsextreme-2026-09-10",
+      "title": "Durchsuchungen gegen rechtsextreme Strukturen",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "security",
+        "law-enforcement"
+      ],
+      "validFrom": "2026-09-10",
+      "validTo": "2026-09-10",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-eighth-volkskammer-constituted-2026",
       "title": "Achte Volkskammer konstituiert sich",
       "type": "timeline-event",
@@ -483,6 +497,20 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-fuenftes-staatsreformgesetz-2026-09-12",
+      "title": "Fünftes Gesetz zur Großen Staatsreform verkündet und in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "constitution",
+        "law"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-future-territorial-reform",
       "title": "Neue Kreis- und Bezirksstruktur wird wirksam",
       "type": "timeline-event",
@@ -520,6 +548,21 @@
       ],
       "validFrom": "2026-09-01",
       "validTo": "2026-09-01",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-gemeinvermoegensschutzgesetz-2026-09-12",
+      "title": "Gemeinvermögensschutzgesetz verkündet und in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "public-economy",
+        "public-assets",
+        "law"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
       "target": "knowledge/timeline.json"
     },
     {
@@ -779,6 +822,21 @@
       ],
       "validFrom": "2026-09-03",
       "validTo": "2026-09-03",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-landesbodenfonds-errichtet-2026-09-12",
+      "title": "Boden- und Naturvermögensgesetz in Kraft; Landesbodenfonds Ostdeutschland errichtet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "land",
+        "institutions",
+        "law"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1044,6 +1102,22 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-soziale-grundversorgungsgesetz-2026-09-12",
+      "title": "Soziale Grundversorgungsgesetz verkündet und in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "housing",
+        "health",
+        "care",
+        "law"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": "2026-09-12",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-staatsreform-enacted",
       "title": "Vier Gesetze zur Großen Staatsreform werden verkündet",
       "type": "timeline-event",
@@ -1176,6 +1250,20 @@
       ],
       "validFrom": "2026-09-06",
       "validTo": "2026-09-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-volkskammer-beschluss-verfassungsnovelle-2026-09-11",
+      "title": "Volkskammer beschließt Sozialistische Verfassungsnovelle und drei besondere Gesetze",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "parliament",
+        "legislation"
+      ],
+      "validFrom": "2026-09-11",
+      "validTo": "2026-09-11",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1472,6 +1560,20 @@
         "key-holding"
       ],
       "validFrom": "2026-01-27",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-landesbodenfonds",
+      "title": "Landesbodenfonds Ostdeutschland AöR",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "land"
+      ],
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/holdings.json"
     },
@@ -10912,6 +11014,25 @@
       "target": "knowledge/entities/institutions.json"
     },
     {
+      "id": "inst-landesbodenfonds",
+      "title": "Landesbodenfonds Ostdeutschland",
+      "type": "institution",
+      "aliases": [
+        "Landesbodenfonds",
+        "Landesbodenfonds Ostdeutschland AöR"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "land",
+        "agriculture",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-landesenergiewerke-ost",
       "title": "Landesenergiewerke Ost",
       "type": "institution",
@@ -11057,8 +11178,8 @@
         "Ostdeutscher Rechnungshof"
       ],
       "tags": [
-        "constitutional-organ",
-        "audit"
+        "audit",
+        "independent-body"
       ],
       "validFrom": null,
       "validTo": null,
@@ -11323,6 +11444,22 @@
       ],
       "validFrom": null,
       "validTo": "2026-07-20",
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-staatsschutz",
+      "title": "Ostdeutscher Staatsschutz",
+      "type": "institution",
+      "aliases": [
+        "Staatsschutz"
+      ],
+      "tags": [
+        "institution",
+        "security",
+        "law-enforcement"
+      ],
+      "validFrom": null,
+      "validTo": null,
       "target": "knowledge/entities/institutions.json"
     },
     {
@@ -11961,6 +12098,21 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister",
+      "title": "Aufbau des Landesbodenfonds und Ersterhebung des Gemeinvermögens",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "land",
+        "public-assets"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-boom-implementation",
       "title": "Umsetzung Boom Europe Leipzig/Halle",
       "type": "proceeding",
@@ -11999,6 +12151,20 @@
         "administration"
       ],
       "validFrom": "2026-09-08",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-durchsuchungen-rechtsextreme-2026-09",
+      "title": "Durchsuchungen gegen Deutsche Jugend Zuerst, Nationalrevolutionäre Jugend und Chemnitz Revolte",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "security",
+        "law-enforcement"
+      ],
+      "validFrom": "2026-09-10",
       "validTo": null,
       "target": "knowledge/proceedings.json"
     },
@@ -12247,6 +12413,20 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-verfassungsnovelle-und-besondere-gesetze-2026-09",
+      "title": "Gesetzgebungsverfahren Sozialistische Verfassungsnovelle und besondere Gesetze vom 12. September 2026",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "legislation",
+        "constitution"
+      ],
+      "validFrom": "2026-09-11",
+      "validTo": "2026-09-12",
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-volksbefragung-2026",
       "title": "Allgemeine Volksbefragung anlässlich der achten Volkskammerwahl",
       "type": "proceeding",
@@ -12294,16 +12474,17 @@
     },
     {
       "id": "project-boden-volksacker",
-      "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
+      "title": "Landesbodenfonds, Volksacker und öffentliches Naturvermögen",
       "type": "project",
       "aliases": [],
       "tags": [
         "project",
         "land",
-        "not-established",
-        "historical"
+        "agriculture",
+        "nature",
+        "public-economy"
       ],
-      "validFrom": null,
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -12392,6 +12573,23 @@
         "law"
       ],
       "validFrom": "2024-03-08",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-gemeinvermoegensschutz",
+      "title": "Gemeinvermögensschutz und Volkseigentum",
+      "type": "project",
+      "aliases": [
+        "GemVSchG"
+      ],
+      "tags": [
+        "project",
+        "public-economy",
+        "public-assets",
+        "constitution"
+      ],
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -12605,8 +12803,27 @@
       "target": "knowledge/projects.json"
     },
     {
+      "id": "project-soziale-grundversorgung",
+      "title": "Soziale Grundversorgung: Wohnen, Gesundheit und Pflege",
+      "type": "project",
+      "aliases": [
+        "SoGrVG"
+      ],
+      "tags": [
+        "project",
+        "housing",
+        "health",
+        "care",
+        "social-policy",
+        "public-services"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "project-staatsreform",
-      "title": "Große Staatsreform",
+      "title": "Große Staatsreform und Sozialistische Verfassungsnovelle",
       "type": "project",
       "aliases": [],
       "tags": [
@@ -13190,14 +13407,14 @@
     },
     {
       "id": "source-constitution-current",
-      "title": "Staatsverfassung, Fassung vom 21. Juli 2026",
+      "title": "Staatsverfassung, Fassung vom 12. September 2026",
       "type": "source",
       "aliases": [],
       "tags": [
         "law",
         "constitution"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -13211,7 +13428,7 @@
         "constitution",
         "history"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -13224,7 +13441,7 @@
         "law",
         "constitution"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -13415,6 +13632,20 @@
         "transport"
       ],
       "validFrom": "2026-08-11",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarification-eingang-2026-09-12",
+      "title": "Redaktionelle Bewertung des Eingangs vom 12. September 2026 (OGVBl. 2026 Nr. 76 bis 79)",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "constitution",
+        "editorial"
+      ],
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -14589,6 +14820,69 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-ogvbl-2026-76",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 76",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "constitution",
+        "state",
+        "public-economy"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-77",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 77",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "housing",
+        "health",
+        "care",
+        "social-policy"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-78",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 78",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "land",
+        "agriculture",
+        "nature",
+        "public-economy",
+        "institutions"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-79",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 79",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "public-assets",
+        "finance"
+      ],
+      "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-ogvbl-53",
       "title": "OGVBl. 2026 Nr. 53",
       "type": "source",
@@ -14923,6 +15217,20 @@
         "public-economy"
       ],
       "validFrom": "2026-08-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-pm-2026-09-10-13",
+      "title": "Umfangreiche Durchsuchungsmaßnahmen gegen rechtsextreme Strukturen",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "security",
+        "law-enforcement"
+      ],
+      "validFrom": "2026-09-10",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -15729,7 +16037,7 @@
         "current-state",
         "constitution"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-09-12",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

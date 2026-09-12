@@ -6,14 +6,22 @@
   "cluster": "bildung-gesellschaft",
   "priority": 70,
   "featured": false,
-  "updatedAt": "2026-03-23",
-  "relatedTopicSlugs": ["familie-und-soziales", "soziale-sicherheit-und-teilhabe"],
-  "knowledgeProjectRefs": ["project-krankenhausfonds"],
+  "updatedAt": "2026-09-12",
+  "relatedTopicSlugs": [
+    "familie-und-soziales",
+    "soziale-sicherheit-und-teilhabe"
+  ],
+  "knowledgeProjectRefs": [
+    "project-krankenhausfonds",
+    "project-soziale-grundversorgung"
+  ],
   "hero": "Der Krankenhausfonds ist ein sozial- und strukturpolitisches Schlüsselvorhaben zur Sicherung der Gesundheitsversorgung im gesamten Freistaat.",
   "beschlossen": [
     "Ein Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern wurde gesetzlich geschaffen.",
     "Die Krankenhauspolitik wurde stärker auf öffentliche Steuerung und Versorgungssicherheit ausgerichtet.",
-    "Die zuvor erwogene flächendeckende unmittelbare Übernahme privater Krankenhäuser wurde zugunsten des Fondsmodells verworfen."
+    "Die zuvor erwogene flächendeckende unmittelbare Übernahme privater Krankenhäuser wurde zugunsten des Fondsmodells verworfen.",
+    "Seit dem 12. September 2026 verknüpft das Soziale Grundversorgungsgesetz die Krankenhausplanung mit regionalen Mindestversorgungsstandards: Wird eine bestehende oder drohende Unterdeckung festgestellt, prüft die Planungsbehörde nach dem neuen § 10b des Krankenhausgesetzes unverzüglich Sicherungsmaßnahmen, und der Fonds hat ein Verfahren von Amts wegen einzuleiten.",
+    "Das Fondsgesetz berichtet jährlich an die Volkskammer, verlangt bei strukturellen Entscheidungen die Beteiligung von Patienten- und Nutzerinteressen sowie der Beschäftigten und bindet Weiterübertragungen an nicht öffentlich beherrschte Träger an das Gemeinvermögensschutzgesetz."
   ],
   "umgesetzt": [
     "Das Ostdeutsche Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz ist im Rechtsportal verfügbar.",
@@ -24,8 +32,26 @@
     "Stärkere Verbindung mit regionaler Landesentwicklung und Fachkräftesicherung."
   ],
   "rechtsgrundlagen": [
-    { "label": "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz", "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz" },
-    { "label": "Einführungsgesetz zum Landesfonds", "normSlug": "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar" }
+    {
+      "label": "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
+      "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz"
+    },
+    {
+      "label": "Einführungsgesetz zum Landesfonds",
+      "normSlug": "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar"
+    },
+    {
+      "label": "Soziale Grundversorgungsgesetz",
+      "normSlug": "soziale-grundversorgungsgesetz"
+    },
+    {
+      "label": "Ostdeutsches Krankenhausgesetz",
+      "normSlug": "ostdeutsches-krankenhausgesetz"
+    },
+    {
+      "label": "Gemeinvermögensschutzgesetz",
+      "normSlug": "gemeinvermoegensschutzgesetz"
+    }
   ],
   "faq": [
     {

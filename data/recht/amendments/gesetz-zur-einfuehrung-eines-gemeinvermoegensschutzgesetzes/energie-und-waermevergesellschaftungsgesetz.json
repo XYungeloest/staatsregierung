@@ -1,0 +1,36 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+  "effectiveDate": "2026-09-12",
+  "versionId": "2026-09-12",
+  "amendmentCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "resultCitation": "Energie- und Wärmevergesellschaftungsgesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 49), geändert durch Artikel 4 des Gesetzes vom 12. September 2026 (OGVBl. 2026 Nr. 79 S. 2)",
+  "changeNote": "§ 12 Absatz 4 auf das besondere Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes neu gefasst.",
+  "commandCoverage": [
+    "Artikel 4"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 79",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 79.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 12"
+      },
+      "expectedHash": "8c4d947dbfdfe8073693e33398d81abe821a24a2eb3c74de003a57de0a900726",
+      "expectedMatches": 1,
+      "value": "Eine Ausnahme von Absatz 2 ist nur zulässig, soweit Artikel 95a der Ostdeutschen Staatsverfassung dies zulässt und ein besonderes Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes die konkrete Maßnahme ausdrücklich gestattet. Eine behördliche Genehmigung, Zustimmung oder sonstige Entscheidung kann das besondere Einzelfallgesetz nicht ersetzen. Absatz 3 begründet keine Befugnis zur Übertragung von Eigentums-, Nutzungs-, Beteiligungs- oder Herrschaftsrechten, die nach Artikel 95a der Ostdeutschen Staatsverfassung oder dem Gemeinvermögensschutzgesetz unzulässig ist.",
+      "sourceProvision": "Artikel 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 79.html",
+      "effectiveDate": "2026-09-12"
+    }
+  ]
+}

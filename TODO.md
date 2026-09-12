@@ -82,15 +82,3 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   `public/images/social/portal-preview.png` mit einem eingebauten Platzhalter. Fertig, wenn `sharp`
   mit fester Version deklariert ist, ein Lauf auf unverändertem Bestand keine Datei ändert und die
   Social-Vorschau nicht mehr überschrieben wird.
-
-## OstRecht-Werkzeuge
-
-- [ ] Rechtsüberleitung auf übernommenes Recht begrenzen: `applyRechtsueberleitung`
-  (`scripts/consolidate-norms.mjs`) läuft über jedes konsolidierte Ergebnis, auch über eigene
-  ostdeutsche Vorschriften. Dort ersetzt sie Eigennamen — bei der Ostdeutschen Bezirksordnung würde
-  der Bezirk „Sachsen“ zu „Ostdeutschland“ und die „Sächsische Schweiz-Osterzgebirge“ zur
-  „Ostdeutschen Schweiz-Osterzgebirge“. Heute fällt das nicht auf, weil `--all` Ziele ohne
-  REVOSax-Snapshot überspringt und die betroffenen Ziele nur über `--target` laufen; kein Check
-  schlägt an. Fertig, wenn der Adapter nur auf Fassungen mit REVOSax-Provenienz angewandt wird, ein
-  Test das festhält und die Sonderbehandlung von `existingVersionSeed` in der `--all`-Schleife
-  entfallen kann.
