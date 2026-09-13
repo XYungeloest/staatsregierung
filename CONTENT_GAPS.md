@@ -118,7 +118,9 @@ Zielnormen. Derzeit blockieren fünf Quellenkonflikte:
 
 - **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
   Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
-  keine Folgefassung erzeugt.
+  keine Folgefassung erzeugt. Das Rezept für die zum selben Tag wirksamen §§ 4b bis 4g aus Artikel 4 des
+  Ostdeutsche-Eisenbahn-Neuordnungsgesetzes (OGVBl. 2026 Nr. 47) liegt geprüft vor und greift nach
+  der Quellenklärung.
 - **Ostdeutsche Gemeindeordnung** — `blocked-source-conflict`: Artikel 1 des Gesetzes zur
   Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die ausdrücklich
   als zuletzt geändert bezeichnete Fassung vom 20. Juli 2026 enthält jedoch bereits § 71b bis § 71g;
