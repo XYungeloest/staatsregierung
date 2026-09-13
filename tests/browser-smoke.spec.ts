@@ -2363,3 +2363,13 @@ siteTest(['law'])('Restpunkte 2: der Verlauf einer Einheit nennt jede Fassung, d
     if (await history.count() > 0) await expect(history.locator('summary')).toHaveText(/^Verlauf · \d+$/u);
   }
 });
+
+siteTest(['law'])('Restpunkte 2: die Ansicht „Ausgaben“ nennt hinter der Ausgabennummer den Umfang', async ({ page }) => {
+  await page.goto(lawUrl('/verkuendungen/?ansicht=ausgaben'));
+  const extents = page.locator('[data-publication-extent]');
+  expect(await extents.count()).toBeGreaterThan(0);
+  for (const text of await extents.evaluateAll((elements) => elements.map((element) => element.textContent?.trim() ?? ''))) {
+    expect(text).toMatch(/^\d+ (Seite|Seiten|Eintrag|Einträge)$/u);
+  }
+  expect(await extents.first().evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeLessThanOrEqual(13.5);
+});

@@ -365,7 +365,11 @@ Verkündungen führen Ausgaben und Einträge in einer Seite. Ein Ansichtswechsel
 (`<nav class="law-view-switch" aria-label="Ansicht">`, zwei gleichwertige Links mit
 `aria-current="page"`) schaltet zwischen „Ausgaben“ und „Einträge“ (`ansicht=eintraege`); Filter,
 Jahrgangsleiste und Ergebniszahl gelten für beide Ansichten, beide beginnen mit der jüngsten
-Ausgabe. `/fundstellen/` ist eine dauerhafte Weiterleitung auf die Ansicht „Einträge“.
+Ausgabe. In der Ansicht „Ausgaben“ steht hinter der Ausgabennummer leise ihr Umfang (`--fs-meta`,
+`--text-muted`, `formatPublicationExtent` in `apps/recht/src/lib/publication-extent.ts`): die
+höchste Endseite aller Einträge („12 Seiten“), wenn jeder Eintrag `pages` oder `startPage`
+trägt, sonst die Zahl der Einträge („4 Einträge“). `/fundstellen/` ist eine dauerhafte
+Weiterleitung auf die Ansicht „Einträge“.
 
 Förderrichtlinien haben keine Buchstabenleiste, sondern die zehn amtlichen Förderbereiche: der
 Seitenkopf nennt Bestand und geltende Richtlinien, darunter stehen die belegten Förderbereiche als
