@@ -19,8 +19,7 @@ der Vorschriften über das große Staatswappen und das späteste Außerkrafttret
 
 ## Eingang vom 12. September 2026: amtliche Wortlautbefunde ohne Berichtigung
 
-- **Zählung in OGVBl. 2026 Nr. 77 Artikel 5** — HTML und PDF (S. 27–28) zählen übereinstimmend 1., 3., 4. und 5.; eine Nummer 2 ist nicht verkündet. Der Import lässt genau diesen Befund zu (`ACCEPTED_SEQUENCE_ISSUES`); eine amtliche Berichtigung fehlt.
-- **Wörtliche Ersetzungen „Landtag“ → „Volkskammer“** — Artikel 5 Nummer 4 Buchstabe a der Ausgabe Nr. 77 ergibt in der Bezeichnung des § 18 OstKHFondsG „Unterrichtung des Volkskammer“, Artikel 5 Nummer 3 der Ausgabe Nr. 76 in § 3 Absatz 1 Satz 1 OLADG „für den Volkskammer“. Die Fassungen geben den angeordneten Wortlaut wieder; eine grammatische Glättung wäre eine Änderung ohne amtliche Grundlage.
+- **Wörtliche Ersetzungen „Landtag“ → „Volkskammer“** — Artikel 5 Nummer 3 Buchstabe a der Ausgabe Nr. 77 ergibt in der Bezeichnung des § 18 OstKHFondsG „Unterrichtung des Volkskammer“, Artikel 5 Nummer 3 der Ausgabe Nr. 76 in § 3 Absatz 1 Satz 1 OLADG „für den Volkskammer“. Die Fassungen geben den angeordneten Wortlaut wieder; eine grammatische Glättung wäre eine Änderung ohne amtliche Grundlage.
 - **Artikel 75a Absatz 1 und Artikel 83 Absatz 3 der Staatsverfassung** — der neu gefasste Wortlaut endet in der Verkündung (OGVBl. 2026 Nr. 76) mit zwei Punkten beziehungsweise ohne Schlusspunkt und mit abweichendem Anführungszeichen; beides ist quellentreu gespeichert.
 - **§§ 5a und 10a des Ostdeutschen Krankenhausgesetzes** — die 2026 durch das Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern (OGVBl. 2026 Nr. 28) eingefügten Paragraphen liegen in der gespeicherten Fassung nur mit Überschrift vor; das damalige Rezept hat die Zeilen der Inhaltsübersicht statt der Vorschriftentexte eingefügt. Zu klären ist der Wortlaut aus der Quelle; bis dahin bleibt die Fassung unverändert (Artikel 4 Nummer 2 der Ausgabe Nr. 77 fügt § 10b hinter dem leeren § 10a ein).
 
@@ -94,43 +93,35 @@ kennt:
 ## Bekanntmachungen zur Interflug (StAnzO. 2026 Nr. 39 und 40)
 
 - **Bekanntmachung des Staatsrates über die Bestellung des Gründungsvorstandes der Interflug
-  (StAnzO. 2026 Nr. 39)** — der amtliche Text zitiert „§ 24 Absatz 3“, „§ 24 Absatz 4“ und
-  „§ 10 Absatz 2 des Interflug-Gesetzes“. Im verkündeten Interflug-Gesetz (OGVBl. 2026 Nr. 74)
-  regeln § 23 Absatz 3 und 4 den Gründungsvorstand und § 14 Absatz 2 die Bestellung des Vorstandes
-  durch den Verwaltungsrat; § 24 existiert nicht, § 10 betrifft das betriebsnotwendige Vermögen.
-  Der Wortlaut der Bekanntmachung wird unverändert wiedergegeben; die Abweichung ist im
-  Datierungshinweis der Norm dokumentiert und wird nicht redaktionell korrigiert, solange keine
-  amtliche Berichtigung vorliegt. HTML und PDF beider Ausgaben stimmen überein.
+  (StAnzO. 2026 Nr. 39)** — die maßgebliche Ausgabe stützt die Bekanntmachung in der
+  Eingangsformel auf „§ 23 Abs. 3 und 4 und § 14 Abs. 2.“ des Interflug-Gesetzes. Im Text nennt
+  sie für die Aufgaben des Gründungsvorstandes weiterhin „§ 24 Absatz 4“ und für die Bestellung
+  des ersten Vorstandes „§ 10 Absatz 2 des Interflug-Gesetzes“. Im verkündeten Interflug-Gesetz
+  (OGVBl. 2026 Nr. 74) regelt § 23 Absatz 4 die Aufgaben des Gründungsvorstandes und § 14
+  Absatz 2 die Bestellung des Vorstandes durch den Verwaltungsrat; § 24 existiert nicht, § 10
+  betrifft das betriebsnotwendige Vermögen. Der Wortlaut wird unverändert wiedergegeben; die
+  Abweichung ist im Datierungshinweis der Norm dokumentiert. HTML und PDF stimmen überein.
 
-## Ressortbezeichnung im Sicherheitserlass KRITIS 09/2026
+## Verweise im Gesetz zur Einführung von Hinweisgebermeldestellen (OGVBl. 2026 Nr. 72)
 
-- **StAnzO. 2026 Nr. 45, Nummer 9** — HTML und PDF nennen übereinstimmend das
-  „Staatssekretariat für Landespolizei“ als berichtspflichtige Stelle. Der Organisationserlass
-  09/2026 (OGVBl. 2026 Nr. 75) ordnet die Polizeiaufgaben dem Staatssekretariat des Innern und
-  für Staats- und Grenzsicherheit zu; ein eigenständiges Staatssekretariat für Landespolizei
-  ist dort nicht vorgesehen. Der verkündete Wortlaut bleibt unverändert. Für eine abweichende
-  Organisationszuordnung fehlt eine amtliche Klarstellung oder ein weiterer Organisationsakt.
+- **Artikel 2 (§ 60a Landkreisordnung) und Artikel 3 (§ 24a Bezirksordnung)** — beide
+  Vorschriften lassen Landkreise und Bezirke Hinweisgeberstellen „nach § 71b Absatz 2 und 3“
+  errichten. Die maßgebliche Ausgabe fügt die Hinweisgeberstellen in Artikel 1 jedoch als § 71h
+  in einen neuen Sechsten Abschnitt der Gemeindeordnung ein; § 71b der Gemeindeordnung regelt die
+  Bundeshauptstadt Berlin. HTML und PDF stimmen überein. Die Verweise werden unverändert
+  wiedergegeben, bis eine amtliche Berichtigung vorliegt.
 
 ## Rechtskonsolidierung
 
 `npm run norms:consolidation:audit` erzeugt `data/recht/consolidation-report.md` mit den offenen
-Zielnormen. Derzeit blockieren fünf Quellenkonflikte:
+Zielnormen. Derzeit blockieren zwei Quellenkonflikte:
 
-- **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
-  Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
-  keine Folgefassung erzeugt. Das Rezept für die zum selben Tag wirksamen §§ 4b bis 4g aus Artikel 4 des
-  Ostdeutsche-Eisenbahn-Neuordnungsgesetzes (OGVBl. 2026 Nr. 47) liegt geprüft vor und greift nach
-  der Quellenklärung.
-- **Ostdeutsche Gemeindeordnung** — `blocked-source-conflict`: Artikel 1 des Gesetzes zur
-  Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die ausdrücklich
-  als zuletzt geändert bezeichnete Fassung vom 20. Juli 2026 enthält jedoch bereits § 71b bis § 71g;
-  ohne Berichtigung ist keine Umnummerierung oder Verdrängung ableitbar.
-- **Schulordnung Förderschulen** — `blocked-source-conflict`: Artikel 1 Nummer 6 Buchstabe b
-  der OGVBl. 2026 Nr. 64 passt auch nach der Berichtigung in Nr. 68 nicht auf die verbindliche
-  Ausgangsfassung.
-- **Zehntes Sächsisches Kostenverzeichnis** — `blocked-source-conflict`: Der Änderungsbefehl zu
-  Tarifplatz 3 widerspricht dem vorhandenen Ausgangsbestand; der Zieltext ist nicht eindeutig
-  ableitbar.
+- **Schulordnung Förderschulen** — `blocked-source-conflict`: Artikel 1 Nummer 18 Buchstabe b der
+  OGVBl. 2026 Nr. 64 ersetzt in § 30 Absatz 4 die Wörter „Oberschule oder Gemeinschaftsschule“, die
+  dort nicht stehen; Artikel 1 Nummer 30 ersetzt in § 18 Absatz 3 Satz 3 die Wörter „Sächsischen
+  Schulgesetzes“, obwohl § 18 Absatz 3 nur einen Satz hat und die Wörter in Absatz 1 Satz 3 stehen.
+  Die übrigen Befehle sind in einem geprüften Rezept umgesetzt; ohne Berichtigung wird keine
+  Folgefassung erzeugt.
 - **Hoheitszeichenverordnung** — `blocked-source-conflict`: Artikel 2 Absatz 2 des Besonderen
   Gesetzes zur Neuregelung des Hoheitszeichenrechts (OGVBl. 2026 Nr. 70) ordnet die Fortgeltung als
   Vollziehungsverordnung „aufgrund des § 17“ OHzG an, obwohl § 17 Ordnungswidrigkeiten regelt und

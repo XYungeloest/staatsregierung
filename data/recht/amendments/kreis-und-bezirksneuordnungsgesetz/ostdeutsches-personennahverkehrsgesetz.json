@@ -1,0 +1,80 @@
+{
+  "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "sameDayOrder": 1,
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+  "resultCitation": "Ostdeutsches Personennahverkehrsgesetz, zuletzt geändert durch Artikel 9 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+  "changeNote": "§ 3 Absatz 1 Satz 3 wurde neu gefasst (Bezirke als Aufgabenträger des übrigen Personennahverkehrs, bezirkliche Nahverkehrsplanung nach § 5a) und § 5a über die bezirkliche Nahverkehrsplanung eingefügt.",
+  "commandCoverage": [
+    "Artikel 9 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 3"
+      },
+      "expectedOld": "Die Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs ist eine Aufgabe der Daseinsvorsorge. Aufgabenträger für den Schienenersonennahverkehr ist das zuständige Staatsministerium. Für den übrigen Personen- nahverkehr sind die Bezirke Aufgabenträger.",
+      "expectedMatches": 1,
+      "value": "Die Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs ist eine Aufgabe der Daseinsvorsorge. Aufgabenträger für den Schienenersonennahverkehr ist das zuständige Staatsministerium. Für den übrigen Personennahverkehr sind die Bezirke Aufgabenträger; die bezirkliche Nahverkehrsplanung richtet sich nach § 5a.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 9 Nummer 1",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "1b86aaac041332cd17afd1f5582bad6a6c8df6b1c99a145a4bac206d7c2937dc",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5a",
+        "title": "Bezirkliche Nahverkehrsplanung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Bezirke stellen für ihr Gebiet Bezirksnahverkehrspläne auf.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Bezirksnahverkehrsplan ergänzt die Nahverkehrspläne der Aufgabenträger nach § 3. Er enthält insbesondere Aussagen zu regional bedeutsamen Verbindungen, Verknüpfungspunkten, Mindeststandards der Erreichbarkeit, Barrierefreiheit, Investitionsprioritäten und bezirksübergreifender Abstimmung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Bezirksnahverkehrsplan ist mit den Landkreisen, kreisfreien Städten, Gemeinden, Verkehrsverbünden und Eisenbahninfrastrukturunternehmen im Bezirk abzustimmen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Landesweite, verbundbezogene und landesbedeutsame Aufgaben bleiben unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 9 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

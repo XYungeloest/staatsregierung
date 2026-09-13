@@ -1,0 +1,1276 @@
+{
+  "amendmentAct": "verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026",
+  "effectiveDate": "2026-09-01",
+  "versionId": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 64 S. 2)",
+  "resultCitation": "Schulordnung Förderschulen vom 3. August 2004 (SächsGVBl. S. 317), zuletzt geändert durch Artikel 1 der Verordnung vom 15. August 2026 (OGVBl. 2026 Nr. 64 S. 2)",
+  "changeNote": "Schulteile, Lehrplan-, Schulart- und Schulgesetzverweise, Datenverarbeitung, Ethikregelung, Notenskala sowie Versetzungs- und Abschlussregelungen wurden an das ostdeutsche Schulrecht angepasst, § 16 neu gefasst, § 20a eingefügt und § 34c aufgehoben; die Änderungen in § 8 Absatz 2 und § 9 Absatz 2 folgen der amtlichen Berichtigung OGVBl. 2026 Nr. 68 (Artikel 1 Nummer 1 betrifft die Inhaltsübersicht, die nicht Teil des gespeicherten Normtextes ist).",
+  "commandCoverage": [
+    "Artikel 1 Nummern 2 bis 17",
+    "Artikel 1 Nummer 18 Buchstabe a",
+    "Artikel 1 Nummern 19 bis 29",
+    "Artikel 1 Nummern 31 und 32"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 64",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 64.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Berichtigung OGVBl. 2026 Nr. 68",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceRole": "amendment-evidence"
+    }
+  ],
+  "operations": [
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "1.",
+        "text": "den Grundschulteil,",
+        "parentType": "paragraph",
+        "parentLabel": "§ 3"
+      },
+      "expectedOld": "Grundschulteil",
+      "expectedMatches": 1,
+      "value": "Primarstufenteil",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 2 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "text": "den Oberschulteil,",
+        "parentType": "paragraph",
+        "parentLabel": "§ 3"
+      },
+      "expectedOld": "Oberschulteil",
+      "expectedMatches": 1,
+      "value": "Sekundarstufenteil",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 2 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 3"
+      },
+      "throughTarget": {
+        "type": "paragraphText",
+        "parentType": "paragraph",
+        "parentLabel": "§ 3"
+      },
+      "expectedHash": "7da4ed60e1382eac8604624f011feb95a3bf1e55272aaf6f309b7ebc17bbaab4",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Primarstufenteil umfasst fünf Schuljahre: die Klassenstufen 1 bis 4 und ein Dehnungsjahr. Der Unterricht erfolgt grundsätzlich nach den Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule. Der Sekundarstufenteil umfasst die Klassenstufen 5 bis 10. Der Unterricht erfolgt grundsätzlich nach den Lehrplänen für die Klassenstufen 5 bis 10 der Polytechnischen Oberschule; deren Abschlüsse können erworben werden. Die oberste Schulaufsichtsbehörde kann für Unterrichtsinhalte, die sich aus der Spezifik des sonderpädagogischen Förderbedarfs ergeben, zusätzliche Lehrpläne festlegen. In Klassen gemäß Absatz 2 Nummer 3 erfolgt der Unterricht nach den Lehrplänen für die Schule mit dem Förderschwerpunkt Lernen. Für Klassen gemäß Absatz 2 Nummer 4 gilt § 5 Absatz 2 und 3 entsprechend.",
+          "children": []
+        }
+      ],
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 2 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "1.",
+        "text": "den Grundschulteil,",
+        "parentType": "paragraph",
+        "parentLabel": "§ 4"
+      },
+      "expectedOld": "Grundschulteil",
+      "expectedMatches": 1,
+      "value": "Primarstufenteil",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "text": "den Oberschulteil,",
+        "parentType": "paragraph",
+        "parentLabel": "§ 4"
+      },
+      "expectedOld": "Oberschulteil",
+      "expectedMatches": 1,
+      "value": "Sekundarstufenteil",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "1.",
+        "text": "den Grundschulteil,",
+        "parentType": "paragraph",
+        "parentLabel": "§ 6"
+      },
+      "expectedOld": "Grundschulteil",
+      "expectedMatches": 1,
+      "value": "Primarstufenteil",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 4 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "text": "den Oberschulteil,",
+        "parentType": "paragraph",
+        "parentLabel": "§ 6"
+      },
+      "expectedOld": "Oberschulteil",
+      "expectedMatches": 1,
+      "value": "Sekundarstufenteil",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 4 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 6"
+      },
+      "expectedOld": "§ 3 Absatz 3 gilt entsprechend.",
+      "expectedMatches": 1,
+      "value": "Im Primarstufenteil und im Sekundarstufenteil gilt § 3 Absatz 3 entsprechend.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 4 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 7"
+      },
+      "expectedOld": "Der Unterricht in den Klassenstufen H 8, H 9 und H 10 erfolgt grundsätzlich nach den Lehrplänen für die Klassenstufen 7 bis 9 der Oberschule. Davon abweichend wird bei Schülerinnen und Schülern, die einen dem Hauptschulabschluss gleichgestellten Abschluss anstreben, die Fremdsprache Englisch mit der Maßgabe unterrichtet, dass das Ziel der Klassenstufe 7 der Oberschule am Ende der Klassenstufe H 10 erreicht wird. § 23 bleibt unberührt.",
+      "expectedMatches": 1,
+      "value": "Der Unterricht in den Klassenstufen H 8, H 9 und H 10 erfolgt grundsätzlich nach den Lehrplänen für die Klassenstufen 7 bis 9 der Polytechnischen Oberschule. Davon abweichend wird bei Schüler:innen, die einen dem Abschluss der Polytechnischen Oberschule nach Klassenstufe 9 gleichgestellten Abschluss anstreben, die Fremdsprache Englisch mit der Maßgabe unterrichtet, dass das Ziel der Klassenstufe 7 der Polytechnischen Oberschule am Ende der Klassenstufe H 10 erreicht wird. § 23 bleibt unberührt.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 5",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 8"
+      },
+      "expectedOld": "Lehrplänen für die Grundschule",
+      "expectedMatches": 1,
+      "value": "Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 6 Buchstabe a in der durch Nummer 7 Buchstabe a der Berichtigung OGVBl. 2026 Nr. 68 festgestellten Fassung",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 8"
+      },
+      "expectedOld": "Lehrplänen für die Oberschule",
+      "expectedMatches": 1,
+      "value": "Lehrplänen für die Polytechnische Oberschule",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 6 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 9"
+      },
+      "expectedOld": "Lehrplänen für die Grundschule",
+      "expectedMatches": 1,
+      "value": "Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 7 Buchstabe a in der durch Nummer 7 Buchstabe b der Berichtigung OGVBl. 2026 Nr. 68 festgestellten Fassung",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 9"
+      },
+      "expectedOld": "Mit Zustimmung der Schulaufsichtsbehörde können an der Schule mit Förderschwerpunkt emotionale und soziale Entwicklung die Klassenstufen 5 bis 10 sowie Klassen der Klassenstufen 1 bis 9 für Schülerinnen und Schüler mit gleichzeitigem Förderbedarf im Förderschwerpunkt Lernen eingerichtet werden. Der Unterricht in den Klassenstufen 5 bis 10 erfolgt nach den Lehrplänen für die Oberschule; § 3 Absatz 3 Satz 5 gilt entsprechend. Die Abschlüsse der Oberschule können erworben werden. Der Unterricht in den Klassenstufen 1 bis 9 für Schülerinnen und Schüler mit gleichzeitigem Förderbedarf im Förderschwerpunkt Lernen erfolgt nach den Lehrplänen für die Schule mit dem Förderschwerpunkt Lernen.",
+      "expectedMatches": 1,
+      "value": "Mit Zustimmung der Schulaufsichtsbehörde können an der Schule mit Förderschwerpunkt emotionale und soziale Entwicklung die Klassenstufen 5 bis 10 sowie Klassen der Klassenstufen 1 bis 9 für Schüler:innen mit gleichzeitigem Förderbedarf im Förderschwerpunkt Lernen eingerichtet werden. Der Unterricht in den Klassenstufen 5 bis 10 erfolgt nach den Lehrplänen der Polytechnischen Oberschule; § 3 Absatz 3 Satz 5 gilt entsprechend. Die Abschlüsse der Polytechnischen Oberschule können erworben werden. Der Unterricht in den Klassenstufen 1 bis 9 für Schüler:innen mit gleichzeitigem Förderbedarf im Förderschwerpunkt Lernen erfolgt nach den Lehrplänen für die Schule mit dem Förderschwerpunkt Lernen.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 7 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "die Grundschule, die Oberschule+ oder die Gemeinschaftsschule",
+      "expectedMatches": 1,
+      "value": "die Polytechnische Oberschule",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe b Doppelbuchstabe aa",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "die Grundschule, die Oberschule+, die Gemeinschaftsschule",
+      "expectedMatches": 1,
+      "value": "die Polytechnische Oberschule",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe b Doppelbuchstabe bb",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "der Grund- und Oberschule, der Gemeinschaftsschule oder des Gymnasiums",
+      "expectedMatches": 1,
+      "value": "der Polytechnischen oder Erweiterten Oberschule",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe c",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "text": "eine Vertreterin oder ein Vertreter des öffentlichen Gesundheitsdienstes, insbesondere wenn diese die Untersuchungen nach § 4 Absatz 3 Satz 2 des Sächsischen Schulgesetzes durchführen.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe d",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "1.",
+        "text": "in welchem Förderschwerpunkt oder in welchen Förderschwerpunkten nach § 4c Absatz 2 des Sächsischen Schulgesetzes sonderpädagogischer Förderbedarf besteht,",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe e",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "3.",
+        "text": "ob er für die Schülerin oder den Schüler eine inklusive Unterrichtung gemäß § 4c Absatz 5 Satz 1 des Sächsischen Schulgesetzes empfiehlt.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe e",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(9)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 13"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 8 Buchstabe f",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "expectedOld": "Eltern, deren Kinder nicht auf Grund einer Entscheidung nach § 4c Absatz 5 Satz 1 in Verbindung mit Absatz 6 Satz 2 des Sächsischen Schulgesetzes eine andere Schule besuchen, melden ihr Kind an einer Förderschule des im Bescheid zur Feststellung von sonderpädagogischem Förderbedarf festgelegten Förderschwerpunktes oder an einer geeigneten Schule in freier Trägerschaft, die als Ersatzschule genehmigt ist, zum Schulbesuch an. Auch Kinder ohne sonderpädagogischen Förderbedarf können nach Maßgabe des § 13 Absatz 1 Satz 2 des Sächsischen Schulgesetzes von den Eltern zum Schulbesuch an einer Förderschule angemeldet werden; § 3 Absatz 2 der Schulordnung Grundschulen vom 3. August 2004 (SächsGVBl. S. 312), die zuletzt durch Artikel 2 der Verordnung vom 22. Juni 2021 (SächsGVBl. S. 713) geändert worden ist, in der jeweils geltenden Fassung, bleibt unberührt. Bei Aufnahme einer Schülerin oder eines Schülers an einer Förderschule werden die Schülerunterlagen unverzüglich bei der abgebenden Schule angefordert. Schülerunterlagen enthalten neben den Angaben nach Satz 6 die Noten der Halbjahresinformationen, Halbjahreszeugnisse und Jahreszeugnisse sowie Vermerke über Versetzungen und Versäumnisse. Soweit das Kind bislang noch keine Schule besucht hat, ist bei der Anmeldung die Geburtsurkunde oder ein entsprechender Nachweis zur Identität des Kindes vorzulegen. Folgende Daten werden verarbeitet:",
+      "expectedMatches": 1,
+      "value": "Eltern, deren Kinder nicht auf Grund einer Entscheidung nach § 4c Absatz 5 Satz 1 in Verbindung mit Absatz 6 Satz 2 des Ostdeutschen Schulgesetzes eine andere Schule besuchen, melden ihr Kind an einer Förderschule des im Bescheid zur Feststellung von sonderpädagogischem Förderbedarf festgelegten Förderschwerpunktes oder an einer geeigneten Schule in freier Trägerschaft, die als Ersatzschule genehmigt ist, zum Schulbesuch an. Auch Kinder ohne sonderpädagogischen Förderbedarf können nach Maßgabe des § 13 Absatz 1 Satz 2 des Sächsischen Schulgesetzes von den Eltern zum Schulbesuch an einer Förderschule angemeldet werden; § 3 Absatz 2 der Schulordnung Grundschulen vom 3. August 2004 (SächsGVBl. S. 312), die zuletzt durch Artikel 2 der Verordnung vom 22. Juni 2021 (SächsGVBl. S. 713) geändert worden ist, in der jeweils geltenden Fassung, bleibt unberührt. Bei Aufnahme einer Schülerin oder eines Schülers an einer Förderschule werden die Schülerunterlagen unverzüglich bei der abgebenden Schule angefordert. Schülerunterlagen enthalten neben den Angaben nach Satz 6 die Noten der Halbjahresinformationen, Halbjahreszeugnisse und Jahreszeugnisse sowie Vermerke über Versetzungen und Versäumnisse. Soweit das Kind bislang noch keine Schule besucht hat, ist bei der Anmeldung die Geburtsurkunde oder ein entsprechender Nachweis zur Identität des Kindes vorzulegen. Folgende Daten werden verarbeitet:",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "expectedOld": "Eltern, deren Kinder nicht auf Grund einer Entscheidung nach § 4c Absatz 5 Satz 1 in Verbindung mit Absatz 6 Satz 2 des Ostdeutschen Schulgesetzes eine andere Schule besuchen, melden ihr Kind an einer Förderschule des im Bescheid zur Feststellung von sonderpädagogischem Förderbedarf festgelegten Förderschwerpunktes oder an einer geeigneten Schule in freier Trägerschaft, die als Ersatzschule genehmigt ist, zum Schulbesuch an. Auch Kinder ohne sonderpädagogischen Förderbedarf können nach Maßgabe des § 13 Absatz 1 Satz 2 des Sächsischen Schulgesetzes von den Eltern zum Schulbesuch an einer Förderschule angemeldet werden; § 3 Absatz 2 der Schulordnung Grundschulen vom 3. August 2004 (SächsGVBl. S. 312), die zuletzt durch Artikel 2 der Verordnung vom 22. Juni 2021 (SächsGVBl. S. 713) geändert worden ist, in der jeweils geltenden Fassung, bleibt unberührt. Bei Aufnahme einer Schülerin oder eines Schülers an einer Förderschule werden die Schülerunterlagen unverzüglich bei der abgebenden Schule angefordert. Schülerunterlagen enthalten neben den Angaben nach Satz 6 die Noten der Halbjahresinformationen, Halbjahreszeugnisse und Jahreszeugnisse sowie Vermerke über Versetzungen und Versäumnisse. Soweit das Kind bislang noch keine Schule besucht hat, ist bei der Anmeldung die Geburtsurkunde oder ein entsprechender Nachweis zur Identität des Kindes vorzulegen. Folgende Daten werden verarbeitet:",
+      "expectedMatches": 1,
+      "value": "Eltern, deren Kinder nicht auf Grund einer Entscheidung nach § 4c Absatz 5 Satz 1 in Verbindung mit Absatz 6 Satz 2 des Ostdeutschen Schulgesetzes eine andere Schule besuchen, melden ihr Kind an einer Förderschule des im Bescheid zur Feststellung von sonderpädagogischem Förderbedarf festgelegten Förderschwerpunktes oder an einer geeigneten Schule in freier Trägerschaft, die als Ersatzschule genehmigt ist, zum Schulbesuch an. Auch Kinder ohne sonderpädagogischen Förderbedarf können nach Maßgabe des § 13 Absatz 1 Satz 2 des Ostdeutschen Schulgesetzes von den Eltern zum Schulbesuch an einer Förderschule angemeldet werden; § 5 der Schulordnung Polytechnische Oberschulen bleibt unberührt. Bei Aufnahme einer Schülerin oder eines Schülers an einer Förderschule werden die Schülerunterlagen unverzüglich bei der abgebenden Schule angefordert. Schülerunterlagen enthalten neben den Angaben nach Satz 6 die Noten der Halbjahresinformationen, Halbjahreszeugnisse und Jahreszeugnisse sowie Vermerke über Versetzungen und Versäumnisse. Soweit das Kind bislang noch keine Schule besucht hat, ist bei der Anmeldung die Geburtsurkunde oder ein entsprechender Nachweis zur Identität des Kindes vorzulegen. Folgende Daten werden verarbeitet:",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "deleteProvision",
+      "target": {
+        "type": "item",
+        "label": "8.",
+        "text": "Religionszugehörigkeit des Kindes;",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "field": "text",
+      "expectedOld": "Religionszugehörigkeit des Kindes;",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe c",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "item",
+        "label": "9.",
+        "text": "Art und Grad einer Behinderung sowie chronische Krankheiten, soweit sie für den Schulbesuch von Bedeutung sind;",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "field": "label",
+      "expectedOld": "9.",
+      "expectedMatches": 1,
+      "value": "8.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe d",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "item",
+        "label": "10.",
+        "text": "das förderpädagogische Gutachten;",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "field": "label",
+      "expectedOld": "10.",
+      "expectedMatches": 1,
+      "value": "9.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe d",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "item",
+        "label": "11.",
+        "text": "ob im Jahr vor der Schulaufnahme eine Kindertageseinrichtung besucht wird;",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "field": "label",
+      "expectedOld": "11.",
+      "expectedMatches": 1,
+      "value": "10.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe d",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "item",
+        "label": "12.",
+        "text": "Erklärung zum Sorgerecht; im Fall des alleinigen Sorgerechts eines Elternteils ist dieser Umstand nachzuweisen und",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "field": "label",
+      "expectedOld": "12.",
+      "expectedMatches": 1,
+      "value": "11.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe d",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": {
+        "type": "item",
+        "label": "13.",
+        "text": "Erklärung der Eltern zur Zwei- oder Mehrsprachigkeit des Kindes, falls die Herkunftssprache nicht oder nicht ausschließlich Deutsch ist.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "field": "label",
+      "expectedOld": "13.",
+      "expectedMatches": 1,
+      "value": "12.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe d",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "expectedOld": "Nummer 1 bis 6, 8 und 12",
+      "expectedMatches": 1,
+      "value": "Nummer 1 bis 6 und 11",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe e",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14"
+      },
+      "expectedOld": "Nummer 7, 10 und 13",
+      "expectedMatches": 1,
+      "value": "Nummer 7, 9 und 12",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 9 Buchstabe f",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14b"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14b"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14b"
+      },
+      "expectedHash": "6a33ba96de552b95c70f5181991fc9af5c8e3a79597dba64c9cd173b41fbc643",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "In den Klassenstufen 3 und 4 berät die Förderschule über Lernentwicklung, Fördermaßnahmen und den internen Übergang in die Klassenstufe 5 der Polytechnischen Oberschule oder des entsprechenden lernzielgleichen Förderschulbildungsgangs. Eine Bildungsempfehlung für eine andere allgemeinbildende Schulart wird nicht erteilt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "In Klassenstufe 10 berät die Förderschule bei lernzielgleicher Unterrichtung über den Übergang zur Erweiterten Oberschule und über berufliche Bildungsgänge. § 43 der Schulordnung Polytechnische Oberschulen gilt entsprechend.",
+          "children": []
+        }
+      ],
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14b"
+      },
+      "expectedHash": "af0a15faa091f5e40bfb823d2cfd7b9c264b9141d4fb4e999eb04cbb0fed0778",
+      "expectedMatches": 1,
+      "value": "(weggefallen)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 10 Buchstabe c",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 16"
+      },
+      "expectedHash": "5ed3c77b466c805a2a77b1edd8da4008d68697480bd9205dd1c55c254b1fb06a",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 16",
+        "title": "Wechsel an eine Polytechnische oder Erweiterte Oberschule; Bildungswegempfehlung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Entfällt der sonderpädagogische Förderbedarf, hebt die Schulaufsichtsbehörde die Feststellung auf. Bei einem Wechsel an eine Polytechnische oder Erweiterte Oberschule sind Klassenstufe, Fördermaßnahmen und Übergabe der erforderlichen Unterlagen vorab abzustimmen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Bei fortbestehendem sonderpädagogischem Förderbedarf berät die Schulaufsichtsbehörde über inklusive Unterrichtung. Eltern sowie die/der volljährige Schüler:in sind anzuhören.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Übergang von Klassenstufe 4 nach Klassenstufe 5 innerhalb eines lernzielgleichen Bildungsgangs der Polytechnischen Oberschule ist kein Schulartwechsel. Eine Bildungsempfehlung nach bisherigem Grundschulrecht wird nicht erteilt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Bei lernzielgleicher Unterrichtung wird in Klassenstufe 10 die Empfehlung nach § 43 der Schulordnung Polytechnische Oberschulen erteilt. Die Aufnahme in die Erweiterte Oberschule richtet sich nach der Schulordnung Erweiterte Oberschulen und Abiturprüfung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Für Schüler:innen mit dem Förderschwerpunkt Lernen kann eine Empfehlung für einen lernzielgleichen Abschlussbildungsgang für den Abschluss der Polytechnischen Oberschule nach Klassenstufe 9 nach der hierzu erlassenen Verwaltungsvorschrift erteilt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Beim Schulwechsel verbleiben die Schülerunterlagen an der abgebenden Schule, bis sie von der aufnehmenden Schule angefordert werden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 11",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 20"
+      },
+      "expectedHash": "bcf5356c215acd633aa6e8933677c49c947376981f787e11307d00eae00dd089",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 20a",
+        "title": "Private mobile Endgeräte",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "In den Klassenstufen 1 bis 4 gilt § 20 der Schulordnung Polytechnische Oberschulen entsprechend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "An Schulen mit dem Förderschwerpunkt geistige Entwicklung gilt Absatz 1 in der Unterstufe. Behinderungsbedingt erforderliche Kommunikations-, Assistenz- und Medizinprodukte sind vom Nutzungsverbot ausgenommen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Schulkonferenz kann behinderungsspezifische Ausnahmen beschließen. Eine vorübergehende Verwahrung muss verhältnismäßig sein.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 12",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 22"
+      },
+      "expectedHash": "c1d095f4f16ae9ab2425b2df85c52baaf21e83c1acff26809513a67a735aab7b",
+      "expectedMatches": 1,
+      "position": "end",
+      "value": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "text": "Ethik ist Pflichtfach. Religions- und Weltanschauungsunterricht kann nur freiwillig zusätzlich nach der Verordnung über Ethik sowie Religions- und Weltanschauungsunterricht besucht werden und ersetzt Ethik nicht.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 13",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(7)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 24"
+      },
+      "expectedOld": "Für Schülerinnen und Schüler in der Klassenstufe B 10 richtet sich die Leistungsermittlung und -bewertung nach Teil 3 Abschnitt 3 der Schulordnung Berufsschulen vom 14. März 2023 (SächsGVBl. S. 92), in der jeweils geltenden Fassung, soweit in dieser Verordnung nichts Abweichendes geregelt ist. Die Leistungsermittlung und -bewertung in den Klassenstufen B 9 und B 10 obliegt den unterrichtenden Lehrkräften der Schule mit dem Förderschwerpunkt Lernen und der kooperierenden Berufsschule.",
+      "expectedMatches": 1,
+      "value": "Für Schülerinnen und Schüler in der Klassenstufe B 10 richtet sich die Leistungsermittlung und -bewertung nach Teil 3 Abschnitt 3 der Schulordnung Berufsschulen vom 14. März 2023 (SächsGVBl. S. 92), in der jeweils geltenden Fassung, soweit in dieser Verordnung nichts Abweichendes geregelt ist. Für Schüler:innen der Klassenstufen B 9 und B 10 gilt abweichend von der Schulordnung Berufsschule die Notenskala nach § 25 Absatz 7. Die Leistungsermittlung und -bewertung in den Klassenstufen B 9 und B 10 obliegt den unterrichtenden Lehrkräften der Schule mit dem Förderschwerpunkt Lernen und der kooperierenden Berufsschule.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 14 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(8)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 24"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 14 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(8)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 24"
+      },
+      "expectedOld": "Dieser Abschnitt findet keine Anwendung auf Schülerinnen und Schüler gemäß § 13 Absatz 1 Satz 2 des Ostdeutschen Schulgesetzes. Die Leistungsermittlung und -bewertung dieser Schülerinnen und Schüler richtet sich in den Klassenstufen 1 bis 4 nach Abschnitt 5 der Schulordnung Grundschulen und in den Klassenstufen 5 bis 10 nach Teil 2 Abschnitt 5 der Schulordnung Ober- und Abendoberschulen, mit der Maßgabe, dass Halbjahresinformationen, Halbjahreszeugnisse und Zeugnisse jeweils die Bemerkung enthalten, dass bei der Schülerin oder dem Schüler kein sonderpädagogischer Förderbedarf besteht.",
+      "expectedMatches": 1,
+      "value": "Dieser Abschnitt findet keine Anwendung auf Schülerinnen und Schüler gemäß § 13 Absatz 1 Satz 2 des Ostdeutschen Schulgesetzes. Die Leistungsermittlung und -bewertung richtet sich in den Klassenstufen 1 bis 4 nach Abschnitt 4 und in den Klassenstufen 5 bis 10 nach Abschnitt 5 der Schulordnung Polytechnische Oberschulen; Halbjahresinformationen und Zeugnisse enthalten die Bemerkung, dass kein sonderpädagogischer Förderbedarf besteht.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 14 Buchstabe c",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(7)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 25"
+      },
+      "throughTarget": {
+        "type": "paragraphText",
+        "text": "2Notentendenzen können durch Hinzufügen der Zeichen „+“ oder „–“ ausgedrückt werden.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 25"
+      },
+      "expectedHash": "b69fdc75a36d173972f4cced705f14bc85cb3b65f6c4c2f241fb80902c71d7cd",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Schriftliche, mündliche und praktische Leistungsnachweise sowie die im Schuljahr erbrachten Leistungen werden mit folgenden Noten bewertet:",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "sehr gut (1), wenn die Leistung den Anforderungen in besonderem Maße entspricht,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "gut (2), wenn die Leistung den Anforderungen voll entspricht,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "befriedigend (3), wenn die Leistung den Anforderungen im Allgemeinen entspricht,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "genügend (4), wenn die Leistung trotz Mängeln den Anforderungen im Ganzen noch entspricht,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "ungenügend (5), wenn die Leistung den Anforderungen nicht entspricht.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Eine weitere Notenstufe wird nicht gebildet. Notentendenzen können bei einzelnen Leistungen durch „+“ oder „–“ ausgedrückt werden."
+        }
+      ],
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 15",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(11)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 25"
+      },
+      "throughTarget": {
+        "type": "table",
+        "parentType": "paragraph",
+        "parentLabel": "§ 25"
+      },
+      "expectedHash": "98fba5841104447f20cbd7f20382a9a811eb9ae01c64b7ae8ff8d204189bf3f9",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(11)",
+          "text": "Betragen, Fleiß, Mitarbeit und Ordnung werden mit den Noten 1 bis 5 bewertet; die Note 4 bezeichnet eine schwache und die Note 5 eine unzureichende Ausprägung.",
+          "children": []
+        }
+      ],
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 16",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 27a"
+      },
+      "expectedOld": "die Note „ungenügend“",
+      "expectedMatches": 1,
+      "value": "die Note 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 17 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 27a"
+      },
+      "expectedOld": "die Note „ungenügend“",
+      "expectedMatches": 1,
+      "value": "die Note 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 17 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 30"
+      },
+      "expectedOld": "In den Förderschulen oder Klassen in Förderschulen, die nach den Lehrplänen für die Grundschule oder Oberschule unterrichten, gelten die Versetzungsbestimmungen der letztgenannten Schularten.",
+      "expectedMatches": 1,
+      "value": "Bei lernzielgleicher Unterrichtung richtet sich die Versetzung in den Klassenstufen 1 bis 4 nach § 30 und in den Klassenstufen 5 bis 10 nach § 31 der Schulordnung Polytechnische Oberschulen.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 18 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 33"
+      },
+      "expectedOld": "Schulordnung Ober- und Abendoberschulen",
+      "expectedMatches": 1,
+      "value": "Schulordnung Polytechnische Oberschulen",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 19 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 33"
+      },
+      "expectedOld": "Dieser Abschnitt findet keine Anwendung auf Schülerinnen und Schüler gemäß § 13 Absatz 1 Satz 2 des Sächsischen Schulgesetzes. Der Erwerb von Abschlüssen richtet sich für diese Schülerinnen und Schüler nach Teil 2 Abschnitt 7 und 8 der Schulordnung Ober- und Abendoberschulen.",
+      "expectedMatches": 1,
+      "value": "Dieser Abschnitt findet keine Anwendung auf Schüler:innen gemäß § 13 Absatz 1 Satz 2 des Ostdeutschen Schulgesetzes. Der Erwerb von Abschlüssen richtet sich für diese Schüler:innen nach den Abschnitten 7 bis 9 der Schulordnung Polytechnische Oberschulen.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 19 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34"
+      },
+      "expectedOld": "von mindestens 2,2",
+      "expectedMatches": 1,
+      "value": "von 2,2 oder besser",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 20 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34"
+      },
+      "expectedOld": "Während des Besuchs einer Klassenstufe zur Erlangung des Hauptschulabschlusses an der Schule mit dem Förderschwerpunkt Lernen gilt § 28 Absatz 1 bis 3 und Absatz 6 der Schulordnung Ober- und Abendoberschulen mit der Maßgabe, dass die Schülerin oder der Schüler bei Nichterfüllung der dort genannten Versetzungsbestimmungen in der nächsthöheren Klassenstufe\nmit dem Ziel eines dem Hauptschulabschluss gleichgestellten Abschlusses unterrichtet wird.",
+      "expectedMatches": 1,
+      "value": "Während des Besuchs einer Klassenstufe zur Erlangung des Abschlusses der Polytechnischen Oberschule nach Klassenstufe 9 an der Schule mit dem Förderschwerpunkt Lernen gilt § 31 der Schulordnung Polytechnische Oberschulen mit der Maßgabe, dass die Schüler:in bei Nichterfüllung der dort genannten Versetzungsbestimmungen in der nächsthöheren Klassenstufe mit dem Ziel eines dem Abschluss der Polytechnischen Oberschule nach Klassenstufe 9 gleichgestellten Abschlusses unterrichtet wird.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 20 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34"
+      },
+      "expectedOld": "Den Hauptschulabschluss erwirbt eine Schülerin oder ein Schüler am Ende der Klassenstufe H 10, wenn sie oder er nach den für Schülerinnen und Schüler an Oberschulen geltenden Vorschriften der Schulordnung Ober- und Abendoberschulen an der Prüfung zum Erwerb des Hauptschulabschlusses teilgenommen und die dort genannten weiteren Anforderungen zu dessen Erwerb erfüllt hat.",
+      "expectedMatches": 1,
+      "value": "Den Abschluss der Polytechnischen Oberschule nach Klassenstufe 9 erwirbt ein:e Schüler:in am Ende der Klassenstufe H 10, wenn sie oder er nach §§ 34 und 35 der Schulordnung Polytechnische Oberschulen an der Abschlussprüfung teilgenommen und die dort bestimmten Anforderungen erfüllt hat.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 20 Buchstabe c",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(7)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(9)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34"
+      },
+      "expectedHash": "1c663e4c3da0fdff2735588f1b23414691a839b75c2fca1d566e66b1e22e2e56",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Den dem Abschluss der Polytechnischen Oberschule nach Klassenstufe 9 gleichgestellten Abschluss erwirbt, wer in allen Fächern mindestens die Note 4 erzielt hat oder Noten 5 nach den Absätzen 8 und 9 ausgleicht.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(8)",
+          "text": "Es dürfen höchstens zwei Noten 5 ausgeglichen werden. In Deutsche Literatur und Sprache, Mathematik, Informatik und Arbeitslehre darf höchstens eine Note 5 vorliegen; sie setzt mindestens die Note 2 in einem anderen dieser Fächer voraus. Eine Note 5 in einem sonstigen Fach setzt mindestens die Note 3 in einem weiteren Fach voraus.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(9)",
+          "text": "Dieselbe Fachnote darf nur einmal zum Ausgleich herangezogen werden.",
+          "children": []
+        }
+      ],
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 20 Buchstabe d",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34a"
+      },
+      "expectedOld": "mindestens die Note „ausreichend“ erzielt hat oder die Note „mangelhaft“",
+      "expectedMatches": 1,
+      "value": "mindestens die Note 4 erzielt hat oder eine Note 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 21 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34a"
+      },
+      "throughTarget": {
+        "type": "item",
+        "label": "2.",
+        "text": "mit den Noten der Fächer Evangelische Religion, Katholische Religion, Ethik oder Sport ein Notenausgleich nicht zulässig ist.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34a"
+      },
+      "expectedHash": "fe121959a422226eb8bb65acf165934c717bc7aeaff8c2a4b1f678963589b34b",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Im berufsübergreifenden und im berufsbezogenen Bereich darf jeweils höchstens eine Note 5 durch mindestens die Note 3 desselben Bereichs ausgeglichen werden; Ethik und Sport dürfen nicht zum Ausgleich herangezogen werden.",
+          "children": []
+        }
+      ],
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 21 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "1.",
+        "text": "die Komplexe Leistung gemäß § 26 Absatz 6 mit mindestens der Note „ausreichend“ erbracht hat und",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34b"
+      },
+      "expectedOld": "Note „ausreichend“",
+      "expectedMatches": 1,
+      "value": "Note 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 22 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "text": "am Ende der Klassenstufe 9 in allen Fächern mindestens die Note „ausreichend“ erzielt hat oder die Note „mangelhaft“ nach Maßgabe der Absätze 2 und 3 ausgleichen kann.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34b"
+      },
+      "expectedOld": "mindestens die Note „ausreichend“ erzielt hat oder die Note „mangelhaft“",
+      "expectedMatches": 1,
+      "value": "mindestens die Note 4 erzielt hat oder eine Note 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 22 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34b"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 34b"
+      },
+      "expectedHash": "49ec7d3e67cdd8daca96fe3347cba20c472ca0788b01ae0ec5e67086f59bb3b4",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Es dürfen höchstens zwei Noten 5 ausgeglichen werden. In Deutsche Literatur und Sprache, Mathematik, Informatik, Arbeitslehre und Hauswirtschaft darf höchstens eine Note 5 vorliegen; sie setzt mindestens die Note 2 in einem anderen dieser Fächer voraus. Eine Note 5 in einem sonstigen Fach setzt mindestens die Note 3 in einem weiteren Fach voraus.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Dieselbe Fachnote darf nur einmal zum Ausgleich herangezogen werden.",
+          "children": []
+        }
+      ],
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 22 Buchstabe c",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 34c"
+      },
+      "expectedHash": "ca7f6bbef9aa82550244135a139eccace371a30692170d9d5759c9c5372c1b71",
+      "expectedMatches": 1,
+      "value": "(weggefallen)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 23",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 35"
+      },
+      "expectedOld": "Diese Verordnung tritt mit Wirkung vom 1. August 2004 in Kraft, soweit in Absatz 2 Satz 1 nichts anderes bestimmt ist. Gleichzeitig tritt, soweit in Absatz 2 Satz 2 nichts anderes bestimmt ist, die\nVerordnung des Sächsischen Staatsministeriums für Kultus über Förderschulen im Freistaat Sachsen (Schulordnung Förderschulen – SOFS) vom 27. März 1996 (SächsGVBl. S. 167), zuletzt geändert durch Artikel 1 der Verordnung vom 8. Oktober 2003 (SächsGVBl. S. 641), außer Kraft.",
+      "expectedMatches": 1,
+      "value": "Diese Verordnung tritt in Kraft, soweit in Absatz 2 Satz 1 nichts anderes bestimmt ist. Gleichzeitig tritt, soweit in Absatz 2 Satz 2 nichts anderes bestimmt ist, die\nVerordnung des Sächsischen Staatsministeriums für Kultus über Förderschulen im Freistaat Sachsen (Schulordnung Förderschulen – SOFS) vom 27. März 1996 (SächsGVBl. S. 167), zuletzt geändert durch Artikel 1 der Verordnung vom 8. Oktober 2003 (SächsGVBl. S. 641), außer Kraft.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 24",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "expectedOld": "Freistaat Sachsen",
+      "expectedMatches": 1,
+      "value": "Freistaat Ostdeutschland",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 25",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 11"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 26",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 12"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 27",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14a"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 2,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 28 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "paragraph",
+        "parentLabel": "§ 14a"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 28 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "paragraphText",
+        "parentType": "paragraph",
+        "parentLabel": "§ 15"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 29",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 22"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 31",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 23"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 32 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 23"
+      },
+      "expectedOld": "Sächsischen Schulgesetzes",
+      "expectedMatches": 1,
+      "value": "Ostdeutschen Schulgesetzes",
+      "source": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "sourceProvision": "Artikel 1 Nummer 32 Buchstabe b",
+      "effectiveDate": "2026-09-01"
+    }
+  ]
+}

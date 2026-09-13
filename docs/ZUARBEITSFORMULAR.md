@@ -62,14 +62,20 @@ Für Ernennungen von Kabinettmitgliedern gibt es keine amtlichen Dokumente; der 
 Wortlaut des Ernennungsaktes bleibt die maßgebliche Quelle. Weitere Angaben zu den Personen liegen
 nicht vor und werden auch für die übrigen Kabinettmitglieder nicht geführt.
 
-### V-01b – Ressortbezeichnung im Sicherheitserlass KRITIS 09/2026
+### V-01b – Verweise und Änderungsbefehle in OGVBl. 2026 Nr. 64, Nr. 72 und StAnzO. 2026 Nr. 39
 
-Nummer 9 des Sicherheitserlasses (StAnzO. 2026 Nr. 45) nennt ein „Staatssekretariat für
-Landespolizei“. Der Organisationserlass 09/2026 ordnet die Polizeiaufgaben dem Staatssekretariat
-des Innern und für Staats- und Grenzsicherheit zu.
+Die maßgeblichen Ausgaben enthalten noch Verweise und Änderungsbefehle, die nicht auf die
+bezeichneten Vorschriften passen (Einzelheiten in `CONTENT_GAPS.md`):
 
-- [ ] amtliche Klarstellung, ob Nummer 9 das bestehende Innenressort meint, oder weiterer
-      Organisationsakt als Beleg für eine abweichende Zuordnung
+- [ ] amtliche Berichtigung der Verordnung zur Änderung der Schulordnung Förderschulen zu Artikel 1
+      Nummer 18 Buchstabe b (§ 30 Absatz 4) und Nummer 30 (§ 18 Absatz 3 Satz 3)
+- [ ] amtliche Berichtigung oder Klarstellung zu Artikel 2 (§ 60a Landkreisordnung) und Artikel 3
+      (§ 24a Bezirksordnung) des Gesetzes zur Einführung von Hinweisgebermeldestellen, die „nach
+      § 71b Absatz 2 und 3“ verweisen, während Artikel 1 die Hinweisgeberstellen als § 71h in die
+      Gemeindeordnung einfügt
+- [ ] amtliche Berichtigung oder Klarstellung zur Bekanntmachung über die Bestellung des
+      Gründungsvorstandes der Interflug, die im Text „§ 24 Absatz 4“ und „§ 10 Absatz 2“ des
+      Interflug-Gesetzes nennt
 
 ### V-02 – Boom Europe Leipzig/Halle
 
