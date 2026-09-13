@@ -17,7 +17,9 @@ import {
 import { getCurrentVersion, getVersionById } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormStore } from '../../../lib/runtime/context.ts';
 import { describeChange, displayChangeNote, displayHistoryTitle } from '../../../lib/history-labels.ts';
+import { formatAffectedUnits } from '@ostrecht/shared/lib/norms/affected-units.ts';
 import { buildNormHeadModel, latestAmendment, shortCitation } from '../../../lib/norm-head.ts';
+import { loadAffectedUnitsForVersions } from '../../../lib/norm-view.ts';
 import { formatShortDate } from '../../../lib/dates.ts';
 import { NORM_COMPARE_LABEL, NORM_HISTORY_LABEL, versionKindLabel } from '../../../lib/vocabulary.ts';
 
@@ -97,6 +99,23 @@ const initialVersion = norm.history.initialVersionId ? getVersionById(norm, norm
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 /** Die Spalte „Verkündet“ erscheint nur, wenn mindestens ein Eintrag ein Verkündungsdatum trägt. */
 const hasPublicationDates = protocol.some((row) => Boolean(row.reference));
+
+/**
+ * Spalte „Betroffen“ (REVOSax): je entstandener Fassung die geänderten, neuen und entfallenen
+ * Einheiten aus dem Vergleich mit der Vorfassung (Worker-Cache); die Ausgangsfassung betrifft die
+ * gesamte Vorschrift, Einträge ohne Fassungswechsel nichts. Mehrere Protokollzeilen derselben
+ * Fassung (mehrere Änderungsvorschriften an einem Tag) teilen sich eine Zelle (rowspan).
+ */
+const affectedByVersion = new Map([...await loadAffectedUnitsForVersions(store, norm, versions)].map(([versionId, loaded]) => [versionId, formatAffectedUnits(loaded.affected) || 'keine Einheit']));
+const affectedCell = (index: number): { text: string; rowspan: number } | undefined => {
+  const row = protocol[index];
+  const versionId = row.version?.versionId;
+  if (versionId && index > 0 && protocol[index - 1].version?.versionId === versionId) return undefined;
+  let rowspan = 1;
+  while (versionId && protocol[index + rowspan]?.version?.versionId === versionId) rowspan += 1;
+  const text = !row.version ? '—' : row.isBaseline || row.version.versionId === initialVersion?.versionId ? 'gesamte Vorschrift' : affectedByVersion.get(row.version.versionId) ?? '—';
+  return { text, rowspan };
+};
 const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions.findIndex((version) => version.versionId === currentVersion.versionId) - 1)] ?? versions[0]) : undefined;
 ---
 
@@ -135,10 +154,10 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
           {protocol.length > 0 ? (
             <div class="r-table-wrap">
               <table class="r-table norm-protocol">
-                <caption class="visually-hidden">Änderungsprotokoll mit Wirksamkeitstag, Verkündungsdatum, Änderungsvorschrift, Fundstelle und Art</caption>
-                <thead><tr><th scope="col">Wirksam</th>{hasPublicationDates ? <th scope="col">Verkündet</th> : null}<th scope="col">Änderungsvorschrift · Fundstelle</th><th scope="col">Art</th></tr></thead>
+                <caption class="visually-hidden">Änderungsprotokoll mit Wirksamkeitstag, Verkündungsdatum, Änderungsvorschrift, Fundstelle, betroffenen Einheiten und Art</caption>
+                <thead><tr><th scope="col">Wirksam</th>{hasPublicationDates ? <th scope="col">Verkündet</th> : null}<th scope="col">Änderungsvorschrift · Fundstelle</th><th scope="col">Betroffen</th><th scope="col">Art</th></tr></thead>
                 <tbody>
-                  {protocol.map((row) => (
+                  {protocol.map((row, index) => (
                     <tr class:list={[row.isFuture ? 'is-future' : undefined, row.isBaseline ? 'is-baseline' : undefined, row.version?.versionId === currentVersion.versionId ? 'is-selected' : undefined]}>
                       <td><time datetime={row.entry.date}>{formatShortDate(row.entry.date)}</time></td>
                       {hasPublicationDates ? <td class="r-meta">{row.reference ? <time datetime={row.reference.publicationDate}>{formatShortDate(row.reference.publicationDate)}</time> : '—'}</td> : null}
@@ -150,6 +169,7 @@ const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions
                           {row.entry.note && displayHistoryTitle(row.entry.title) ? <span>{toDisplayText(row.entry.note)}</span> : null}
                         </div>
                       </td>
+                      {(() => { const cell = affectedCell(index); return cell ? <td class="norm-protocol__affected r-meta" rowspan={cell.rowspan > 1 ? cell.rowspan : undefined} data-protocol-affected={row.version?.versionId}>{cell.text}</td> : null; })()}
                       <td class="r-nowrap">
                         {row.isFuture ? <StatusMark versionKind="future" label="Noch nicht in Kraft" size="sm" /> : row.isBaseline ? 'Ausgangsfassung' : typeLabels[row.entry.type] ?? row.entry.type}
                       </td>

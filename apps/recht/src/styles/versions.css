@@ -88,6 +88,12 @@
   color: var(--green-700);
 }
 
+/* Betroffene Einheiten: eine Zelle je entstandener Fassung, oben ausgerichtet, umbrechend. */
+.norm-protocol__affected {
+  vertical-align: top;
+  min-width: 12rem;
+}
+
 /* Fassungsliste */
 .norm-version-list td:first-child {
   white-space: nowrap;

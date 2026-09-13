@@ -469,7 +469,13 @@ Vorschrift“) als senkrechte Zeitleiste (auf Smartphones vor dem Normtext als h
 Inkrafttreten nicht belegt, Ausgangsfassung) in Wort und Marke, Fundstelle; die angezeigte Fassung
 ist hervorgehoben. Darunter Zitieren (Normzitat, Link zur Vorschrift oder zur Fassung kopieren),
 Vollzitat und Amtliche Quelle. Die Seite „Fassungen und Änderungen“ (P4) führt Abschnittszeile,
-Änderungsprotokoll (die Spalte „Verkündet“ nur mit belegten Daten), Fassungen im Wortlaut,
+Änderungsprotokoll (die Spalte „Verkündet“ nur mit belegten Daten; die Spalte „Betroffen“ nennt
+je entstandener Fassung die Einheiten aus dem Vergleich mit der Vorfassung – „Art. 1, 3, 4, 6
+geändert · Art. 3a, 7c–7e, 13a–13f neu · Art. 7 entfallen“, Gliederungszeichen wie in der
+Inhaltsübersicht mit Bereichen für zusammenhängende Folgen, `formatAffectedUnits` in
+`packages/shared/src/lib/norms/affected-units.ts`; die Ausgangsfassung „gesamte Vorschrift“,
+Einträge ohne Fassungswechsel „—“; mehrere Protokollzeilen derselben Fassung teilen sich eine
+Zelle per `rowspan`, damit die Angabe genau einmal steht), Fassungen im Wortlaut,
 Fassungsvergleich und die Recherche „Fassung zu einem Datum“ (nur für diese Vorschrift; es gibt keine portalweite Stichtagswahl). Die geltende Fassung
 heißt überall „Rechtsstand vom <Datum>“.
 

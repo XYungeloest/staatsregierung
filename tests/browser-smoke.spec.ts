@@ -2300,3 +2300,25 @@ siteTest(['law'])('Restpunkte 2: der Fassungsvergleich verwechselt gewanderte Ei
     if (regrouped >= 1) break;
   }
 });
+
+siteTest(['law'])('Restpunkte 2: das Änderungsprotokoll nennt je Fassung die betroffenen Einheiten', async ({ page, request }) => {
+  const norm = await currentNormOfOrigin(request, 'inherited-amended');
+  await page.goto(lawUrl(`/norm/${norm.slug}/history/`));
+  await expect(page.locator('.norm-protocol thead th', { hasText: /^Betroffen$/u })).toHaveCount(1);
+  const cells = page.locator('.norm-protocol [data-protocol-affected]');
+  expect(await cells.count()).toBeGreaterThan(0);
+  // Die entstandene Fassung nennt geänderte und neue Einheiten mit dem Gliederungszeichen des Normtexts …
+  const texts = await cells.evaluateAll((elements) => elements.map((element) => element.textContent?.replace(/\s+/gu, ' ').trim() ?? ''));
+  expect(texts.some((text) => /(geändert|neu|entfallen)/u.test(text)), texts.join(' | ')).toBe(true);
+  // … die Ausgangsfassung die gesamte Vorschrift.
+  expect(texts).toContain('gesamte Vorschrift');
+  // Der Endpunkt liefert dieselben Angaben je Fassung.
+  const response = await request.get(lawUrl(`/norm/${norm.slug}/betroffen.json`));
+  expect(response.ok()).toBe(true);
+  const payload = await response.json() as { versions: Array<{ versionId: string; text: string; changed: Array<{ anchor: string }>; added: unknown[]; amendments: string[] }> };
+  expect(payload.versions.length).toBeGreaterThan(0);
+  for (const version of payload.versions) {
+    const cell = page.locator(`[data-protocol-affected="${version.versionId}"]`);
+    if (await cell.count() > 0) await expect(cell).toHaveText(version.text || 'keine Einheit');
+  }
+});
