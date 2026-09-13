@@ -1,19 +1,25 @@
 {
-  "versionId": "2026-03-24",
-  "title": "Ostdeutsches Personennahverkehrsgesetz",
-  "validFrom": "2026-03-24",
-  "validTo": "2026-07-20",
-  "isCurrent": false,
-  "citation": "Ostdeutsches Personennahverkehrsgesetz, geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 29)",
-  "changeNote": "Aufgabenträgerschaft, Verkehrsplanung, ÖPNV-Finanzierung und Übergangsregelungen wurden neu gefasst.",
+  "versionId": "2026-07-21",
+  "validFrom": "2026-07-21",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Ostdeutsches Personennahverkehrsgesetz, zuletzt geändert durch Artikel 4 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 47 S. 2)",
+  "changeNote": "§ 3 Absatz 1 Satz 3 wurde neu gefasst (Bezirke als Aufgabenträger des übrigen Personennahverkehrs, bezirkliche Nahverkehrsplanung nach § 5a) und § 5a über die bezirkliche Nahverkehrsplanung eingefügt. Die Ostdeutsche Eisenbahn wurde Mitglied des Ostdeutschen Verkehrsverbundes; §§ 4b bis 4g über Ostdeutsche Eisenbahn, Landesnetz Ost, Systemintegration, Fahrzeug- und Infrastrukturpool, Direktvergabe sowie Daten-, Vertriebs- und Qualitätsstandards wurden eingefügt und § 7 um die Finanzierung der Ostdeutschen Eisenbahn ergänzt (Artikel 4 Nummer 1 betrifft die Inhaltsübersicht, die nicht Teil des gespeicherten Normtextes ist).",
   "sourceReferences": [
     {
       "kind": "amendment-source",
-      "label": "OGVBl. 2026 Nr. 29",
+      "label": "OGVBl. 2026 Nr. 46",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 29.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 47",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 47.html"
     }
   ],
+  "title": "Ostdeutsches Personennahverkehrsgesetz",
   "body": [
     {
       "type": "paragraphText",
@@ -101,7 +107,7 @@
         {
           "type": "subparagraph",
           "label": "(1)",
-          "text": "Die Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs ist eine Aufgabe der Daseinsvorsorge. Aufgabenträger für den Schienenersonennahverkehr ist das zuständige Staatsministerium. Für den übrigen Personen- nahverkehr sind die Bezirke Aufgabenträger.",
+          "text": "Die Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs ist eine Aufgabe der Daseinsvorsorge. Aufgabenträger für den Schienenersonennahverkehr ist das zuständige Staatsministerium. Für den übrigen Personennahverkehr sind die Bezirke Aufgabenträger; die bezirkliche Nahverkehrsplanung richtet sich nach § 5a.",
           "level": 0,
           "listId": "4pja3ejjgoyo",
           "numberingStyle": "decimal",
@@ -153,7 +159,7 @@
         {
           "type": "subparagraph",
           "label": "(2)",
-          "text": "Der Ostdeutsche Verkehrsverbund ist eine landesunmittelbare, rechtsfähige Körperschaft des öffentlichen Rechts. Mitglieder des Ostdeutschen Verkehrsverbundes sind der Ostdeutsche Freistaat, die Bezirke, die Landkreise und die kreisfreien Städte.",
+          "text": "Der Ostdeutsche Verkehrsverbund ist eine landesunmittelbare, rechtsfähige Körperschaft des öffentlichen Rechts. Mitglieder des Ostdeutschen Verkehrsverbundes sind der Ostdeutsche Freistaat, die Bezirke, die Landkreise und die kreisfreien Städte sowie die Ostdeutsche Eisenbahn.",
           "level": 0,
           "listId": "ee3icicmq8n5",
           "numberingStyle": "decimal",
@@ -431,6 +437,342 @@
     },
     {
       "type": "paragraph",
+      "label": "§ 4b",
+      "title": "Ostdeutsche Eisenbahn",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Ostdeutsche Eisenbahn ist die landesunmittelbare gemeinwirtschaftliche Betreiberin für öffentliche Verkehrsleistungen des Freistaates.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das zuständige Staatsministerium soll der Ostdeutschen Eisenbahn Verkehrsleistungen des Schienenpersonennahverkehrs direkt übertragen, soweit die Voraussetzungen des Unionsrechts erfüllt sind.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Bezirke können der Ostdeutschen Eisenbahn sonstige öffentliche Nahverkehrsleistungen direkt übertragen, soweit dies nach Unionsrecht und Landesrecht zulässig ist.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Wettbewerbliche Vergaben bleiben zulässig, soweit",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "eine Direktvergabe an die Ostdeutsche Eisenbahn rechtlich nicht zulässig ist,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Ostdeutsche Eisenbahn die Verkehrsleistung nicht in ausreichender Qualität, Kapazität oder Wirtschaftlichkeit erbringen kann oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "besondere Gründe des öffentlichen Verkehrsinteresses dies erfordern.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Das zuständige Staatsministerium berichtet dem Landtag jährlich über die Direktvergaben, die Leistungsfähigkeit der Ostdeutschen Eisenbahn, die Entwicklung des Fahrzeugpools und die verbleibenden wettbewerblichen Vergaben.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4c",
+      "title": "Landesnetz Ost",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Freistaat richtet ein Landesnetz Ost ein.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das Landesnetz Ost umfasst insbesondere",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "den Schienenpersonennahverkehr,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "landesbedeutsame PlusBus- und ExpressBus-Linien,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "landesbedeutsame RegioBus-Linien,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Ersatz- und Ergänzungsverkehre zum Schienenpersonennahverkehr,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Nacht-, Randzeiten- und Erschließungsverkehre von überbezirklicher Bedeutung,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Verkehrsleistungen zur Anbindung strukturschwacher und dünn besiedelter Räume.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das zuständige Staatsministerium bestimmt im Benehmen mit dem Ostdeutschen Verkehrsverbund und den Bezirken die Bestandteile des Landesnetzes Ost.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Verkehrsleistungen des Landesnetzes Ost sollen vorrangig durch die Ostdeutsche Eisenbahn erbracht oder aus dem öffentlichen Fahrzeug- und Infrastrukturpool ausgestattet werden.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4d",
+      "title": "Systemintegration kommunaler und öffentlicher Verkehrsunternehmen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Kommunale Verkehrsunternehmen bleiben in der Trägerschaft ihrer kommunalen Eigentümer.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Sie sind verpflichtet, im Rahmen ihrer öffentlichen Verkehrsleistungen an der Systemintegration des öffentlichen Nahverkehrs mitzuwirken.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Mitwirkung umfasst insbesondere",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Anwendung des einheitlichen Tarifs,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Teilnahme am gemeinsamen Vertrieb,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Teilnahme am Einnahmenclearing,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Bereitstellung von Echtzeitdaten,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Bereitstellung von Fahrplan-, Ausfall-, Störungs- und Anschlussdaten,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Mitwirkung an einheitlicher Fahrgastinformation,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Einhaltung der Qualitäts- und Barrierefreiheitsstandards,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Mitwirkung an der Anschlusskoordination,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "Anerkennung einheitlicher Kontroll- und Nachweissysteme.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Die Eigentumsrechte der kommunalen Träger bleiben unberührt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Das Nähere regeln Satzung und Beschlüsse des Ostdeutschen Verkehrsverbundes sowie öffentlich-rechtliche Vereinbarungen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4e",
+      "title": "Öffentlicher Fahrzeug- und Infrastrukturpool",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der öffentliche Fahrzeug-, Werkstatt- und Infrastrukturpool der Ostdeutschen Eisenbahn dient der Sicherung öffentlicher Verfügungsgewalt über betriebsnotwendige Verkehrsproduktionsmittel.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Freistaat, die Bezirke und der Ostdeutsche Verkehrsverbund sollen bei der Finanzierung neuer Fahrzeuge, Werkstätten, Ladeinfrastruktur, Vertriebsinfrastruktur und sonstiger betriebsnotwendiger Anlagen sicherstellen, dass diese dem Pool oder einem anderen öffentlichen Träger zugeordnet werden.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Verkehrsverträge und Förderbescheide haben Bestimmungen über Eigentum, Rückfallrechte, Herausgaberechte, Nutzungsrechte und Zweckbindung zu enthalten.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4f",
+      "title": "Direktvergabe und interne Betreiber",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Eine Direktvergabe an die Ostdeutsche Eisenbahn setzt voraus, dass der jeweilige Aufgabenträger über die Ostdeutsche Eisenbahn eine Kontrolle ausübt, die der Kontrolle über eigene Dienststellen entspricht.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Ostdeutsche Eisenbahn darf Tätigkeiten außerhalb des Zuständigkeitsbereichs der kontrollierenden Aufgabenträger nur ausüben, soweit dies die Eigenschaft als interner Betreiber nicht gefährdet.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Ostdeutsche Eisenbahn hat für direkt vergebene Verkehrsleistungen eine getrennte Rechnungslegung zu führen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Ausgleichsleistungen dürfen nicht zu einer Überkompensation führen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4g",
+      "title": "Daten-, Vertriebs- und Qualitätsstandards",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Ostdeutsche Verkehrsverbund legt verbindliche Standards für Daten, Vertrieb, Fahrgastinformation, Barrierefreiheit, Qualität, Kontrolle, Anschlusssicherung und Einnahmenclearing fest.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Standards gelten für alle Verkehrsunternehmen, die öffentliche Personenverkehrsleistungen im Gebiet des Freistaates erbringen, soweit sie hierfür öffentliche Mittel erhalten, am Verbundtarif teilnehmen oder Verkehrsleistungen im Auftrag eines Aufgabenträgers erbringen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Standards sind diskriminierungsfrei, transparent und verhältnismäßig auszugestalten.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Das zuständige Staatsministerium kann Mindeststandards durch Rechtsverordnung festlegen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
       "label": "§ 5",
       "title": "Nahverkehrsplan",
       "children": [
@@ -506,6 +848,37 @@
           "type": "subparagraph",
           "label": "(3)",
           "text": "Das Staatsministerium für Wirtschaft, Arbeit und Verkehr wird ermächtigt, durch Rechtsverordnung im Einvernehmen mit dem Staatsministerium des Innern, dem Staatsministerium der Finanzen und dem Staatsministerium für Umwelt und Landwirtschaft Einzelheiten zur Aufstellung von Nahverkehrsplänen und deren räumlicher Abgrenzung festzulegen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 5a",
+      "title": "Bezirkliche Nahverkehrsplanung",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Bezirke stellen für ihr Gebiet Bezirksnahverkehrspläne auf.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirksnahverkehrsplan ergänzt die Nahverkehrspläne der Aufgabenträger nach § 3. Er enthält insbesondere Aussagen zu regional bedeutsamen Verbindungen, Verknüpfungspunkten, Mindeststandards der Erreichbarkeit, Barrierefreiheit, Investitionsprioritäten und bezirksübergreifender Abstimmung.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Bezirksnahverkehrsplan ist mit den Landkreisen, kreisfreien Städten, Gemeinden, Verkehrsverbünden und Eisenbahninfrastrukturunternehmen im Bezirk abzustimmen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Landesweite, verbundbezogene und landesbedeutsame Aufgaben bleiben unberührt.",
           "children": []
         }
       ]
@@ -712,6 +1085,12 @@
         {
           "type": "subparagraph",
           "label": "(8)",
+          "text": "Der Freistaat kann Mittel zur Kapitalausstattung der Ostdeutschen Eisenbahn, zur Finanzierung des öffentlichen Fahrzeug- und Infrastrukturpools, zur Finanzierung von Direktvergaben, zur Systemintegration und zur Erfüllung von Entschädigungsverpflichtungen bereitstellen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(9)",
           "text": "Mit den Mitteln nach § 5 in Verbindung mit § 8 des Regionalisierungsgesetzes ist insbesondere der Schienenpersonennahverkehr zu finanzieren.",
           "children": []
         }

@@ -91,7 +91,7 @@ Verkündungsquelle das Gültigkeitsende einer so fortgeschriebenen Ausgangsfassu
 `data/recht/consolidation-manifest.json` gegenzuprüfen.
 
 Trägt eine amtliche Ausgabe selbst eine Nummerierungslücke (HTML und PDF stimmen überein, etwa
-Artikel 5 in OGVBl. 2026 Nr. 77 mit den Nummern 1., 3., 4., 5.), lässt der Parser genau diesen
+eine Artikelzählung 1., 3., 4.), lässt der Parser genau diesen
 wörtlich hinterlegten Befund zu: `ACCEPTED_SEQUENCE_ISSUES` in
 `scripts/lib/norm-parser-contract.mjs` nennt je Datei die Befunde und den PDF-Nachweis; jeder
 andere Nummerierungsbefund bleibt ein Abbruchgrund. Die Ausgabe erhält dazu einen

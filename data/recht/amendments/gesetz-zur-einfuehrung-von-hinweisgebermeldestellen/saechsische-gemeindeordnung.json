@@ -1,0 +1,73 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-von-hinweisgebermeldestellen",
+  "effectiveDate": "2026-10-01",
+  "versionId": "2026-10-01",
+  "amendmentCitation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 72 S. 2)",
+  "resultCitation": "Ostdeutsche Gemeindeordnung in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), zuletzt geändert durch Artikel 1 des Gesetzes vom 2. September 2026 (OGVBl. 2026 Nr. 72 S. 2)",
+  "changeNote": "Sechster Abschnitt mit § 71h zu Hinweisgeberstellen eingefügt.",
+  "commandCoverage": [
+    "Artikel 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 72",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 72.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "section",
+        "label": "Fünfter Abschnitt",
+        "parentType": "part",
+        "parentLabel": "Dritter Teil"
+      },
+      "expectedHash": "c47b7ff5e6de42293651dd6ebe6502875b2ceaa2de8fed8ec32b0c9e371e4134",
+      "expectedMatches": 1,
+      "value": {
+        "type": "section",
+        "label": "Sechster Abschnitt",
+        "title": "Hinweisgeberstellen",
+        "children": [
+          {
+            "type": "paragraph",
+            "label": "§ 71h",
+            "title": "Hinweisgeberstellen",
+            "children": [
+              {
+                "type": "subparagraph",
+                "label": "(1)",
+                "text": "Kommunale Gebietskörperschaften mit mindestens 50 Beschäftigten haben eine interne Meldestellen einzurichten. Kommunale Gebietsverbände können sich zur Erfüllung ihrer Aufgabe nach Satz 1 zusammenschließen.",
+                "level": 0,
+                "numberingStyle": "decimal",
+                "children": []
+              },
+              {
+                "type": "subparagraph",
+                "label": "(2)",
+                "text": "Die Tätigkeit der Stellen nach Absatz 1 richtet sich nach § 7 Absatz 2, §§ 8 bis 11, 13 bis 18 Hinweisgeberschutzgesetz; sie nehmen Meldungen bei Verstößen nach § 2 des Hinweisgeberschutzgesetzes entgegen. Sie behandeln, die entgegengenommenen Informationen vertraulich.",
+                "level": 0,
+                "numberingStyle": "decimal",
+                "children": []
+              },
+              {
+                "type": "subparagraph",
+                "label": "(3)",
+                "text": "Die nach diesem Gesetz verpflichteten Beschäftigungsgeber sollen die Abgabe von Meldungen in Textform und in mündlicher Form ermöglichen. Soweit technisch und organisatorisch möglich, sollen auch anonyme Meldungen entgegengenommen und bearbeitet werden.",
+                "level": 0,
+                "numberingStyle": "decimal",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 72.html",
+      "sourceProvision": "Artikel 1",
+      "effectiveDate": "2026-10-01"
+    }
+  ]
+}

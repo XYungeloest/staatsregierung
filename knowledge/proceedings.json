@@ -825,7 +825,7 @@
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-09-12",
-      "summary": "Der Audit vom 12. September 2026 erkennt 95 Zielnormen; 90 sind vollständig konsolidiert. Fünf Zieltextkonflikte sind gesperrt: Gesetz über den öffentlichen Personennahverkehr, Ostdeutsche Gemeindeordnung (der durch das Gesetz zur Einführung von Hinweisgebermeldestellen nach § 71a anzufügende § 71b kollidiert mit den bestehenden §§ 71b bis 71g), Schulordnung Förderschulen, Zehntes Sächsisches Kostenverzeichnis und die Hoheitszeichenverordnung, deren Fortgeltung nach Artikel 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts auf § 17 statt auf die Verordnungsermächtigung in § 19 des Ostdeutschen Hoheitszeichengesetzes verweist und längstens bis 31. Dezember 2026 reicht. Die NDR-Ausgangsfassung vom 4./9. März 2021 ist unverändert archiviert und als Fassung 2021-09-01 des NDR-Staatsvertrags verarbeitet; die geänderte Fassung gilt seit 3. September 2026.",
+      "summary": "Der Konsolidierungsaudit zum Stichtag 12. September 2026 erkennt 95 Zielnormen; 93 sind vollständig konsolidiert. Zwei Zieltextkonflikte sind gesperrt: die Schulordnung Förderschulen, bei der Artikel 1 Nummer 18 Buchstabe b und Nummer 30 der Änderungsverordnung (OGVBl. 2026 Nr. 64) nicht auf die Ausgangsfassung passen, und die Hoheitszeichenverordnung, deren Fortgeltung nach Artikel 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts auf § 17 statt auf die Verordnungsermächtigung in § 19 des Ostdeutschen Hoheitszeichengesetzes verweist und längstens bis 31. Dezember 2026 reicht. Die NDR-Ausgangsfassung vom 4./9. März 2021 ist unverändert archiviert und als Fassung 2021-09-01 des NDR-Staatsvertrags verarbeitet; die geänderte Fassung gilt seit 3. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-content-gaps",
@@ -834,7 +834,7 @@
         },
         {
           "sourceId": "source-consolidation-manifest",
-          "locator": "counts (95/90/5); targets saechsische-gemeindeordnung, hoheitszeichenverordnung, ndr-staatsvertrag",
+          "locator": "counts (95/93/2); targets schulordnung-foerderschulen, hoheitszeichenverordnung, ndr-staatsvertrag",
           "role": "corroborating"
         },
         {
@@ -843,16 +843,16 @@
           "role": "corroborating"
         },
         {
-          "sourceId": "source-ogvbl-2026-72",
-          "locator": "Artikel 1",
+          "sourceId": "source-ogvbl-2026-64",
+          "locator": "Artikel 1 Nummer 18 Buchstabe b und Nummer 30",
           "role": "corroborating"
         }
       ],
       "relatedIds": [
         "question-missing-revosax-snapshots",
-        "question-school-law-source-conflicts-2026",
         "proceeding-ndr-ratification",
-        "proceeding-hoheitszeichen-umstellung"
+        "proceeding-hoheitszeichen-umstellung",
+        "question-sofs-aenderungsbefehle-2026"
       ],
       "tags": [
         "proceeding",
@@ -866,9 +866,9 @@
       "participantIds": [],
       "normRefs": [],
       "decision": null,
-      "nextAction": "Die fünf gesperrten Zieltextkonflikte quellenbasiert klären und anschließend deterministisch konsolidieren.",
+      "nextAction": "Die zwei gesperrten Zieltextkonflikte quellenbasiert klären und anschließend deterministisch konsolidieren.",
       "openQuestionIds": [
-        "question-school-law-source-conflicts-2026"
+        "question-sofs-aenderungsbefehle-2026"
       ]
     },
     {
@@ -1245,7 +1245,7 @@
       ],
       "notes": [
         "Eine politische, extremistische, ausländische oder sonstige Urheberschaft ist nicht festgestellt. Ermittlungsansätze sind keine Täterzuordnung.",
-        "Nummer 9 des Erlasses nennt ein Staatssekretariat für Landespolizei; der Organisationserlass 09/2026 führt stattdessen das Staatssekretariat des Innern und für Staats- und Grenzsicherheit mit Polizeizuständigkeit. Aus dem Sicherheitserlass wird keine unbelegte Ressortneugründung oder Personaländerung abgeleitet.",
+        "Nummer 9 des Erlasses weist den ersten Bericht dem für die Landespolizei zuständigen Staatssekretariat zu; nach dem Organisationserlass 09/2026 liegen die Polizeiaufgaben beim Staatssekretariat des Innern und für Staats- und Grenzsicherheit.",
         "Die Berichtspflichten sind Aufträge, kein Nachweis bereits vorgelegter Berichte oder abgeschlossener Schutzmaßnahmen."
       ],
       "proceedingType": "security-implementation",
@@ -1748,7 +1748,7 @@
       "notes": [
         "Frist für die Bestellung der Verwaltungsratsmitglieder nach § 12 Absatz 2 Nummern 1 bis 6: 3. Oktober 2026; sie ist am Stichtag offen.",
         "Die Bekanntmachung vom 3. September 2026 über die Anfangsflotte nennt eine Zustimmung des Verwaltungsrates; daraus folgt ein handelndes Gremium, nicht dessen Besetzung oder Konstituierungsdatum.",
-        "Die Bekanntmachung über den Gründungsvorstand zitiert § 24 Absatz 3 und 4 sowie § 10 Absatz 2; im verkündeten Gesetz stehen Gründungsphase in § 23 und Vorstand in § 14. Der Wortlaut wird nicht angepasst."
+        "Die Bekanntmachung über den Gründungsvorstand stützt sich in der Eingangsformel auf § 23 Absatz 3 und 4 und § 14 Absatz 2 des Interflug-Gesetzes; im Text verweist sie weiterhin auf § 24 Absatz 4 und § 10 Absatz 2, die im verkündeten Gesetz § 23 Absatz 4 und § 14 Absatz 2 entsprechen. Der Wortlaut wird nicht redaktionell angepasst."
       ],
       "aliases": [],
       "proceedingType": "implementation",
