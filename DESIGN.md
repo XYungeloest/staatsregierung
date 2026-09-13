@@ -557,6 +557,24 @@ Normkopf des Smartphones (siehe „Normkopf und Bereiche der Vorschrift“) lies
 
 ### Fassungsvergleich
 
+Die Paarung ist dokumentweit (N11): Beschriftete Einheiten – Paragraphen, Artikel, Anlagen –
+werden über Art und normalisiertes Gliederungszeichen in der ganzen Vorschrift gepaart
+(`createPairingContext` in `packages/shared/src/lib/norms/diff.ts`), gleich in welcher
+Gliederungseinheit sie stehen; ein Zeichen zählt nur, wenn es je Fassung genau einmal vorkommt,
+sonst gilt für dieses Zeichen die Geschwisterregel. Gliederungsblöcke (Teil, Kapitel, Abschnitt,
+Unterabschnitt) werden danach nach Inhalt gepaart – bevorzugt der Block mit den meisten
+gemeinsamen Einheiten (Überdeckung mindestens die Hälfte der kleineren Menge), ersatzweise
+gleiche Überschrift, zuletzt gleiche Ordnungszahl –, nicht mehr über ihre Ordnungszahl. Ein
+umbenannter oder neu nummerierter Abschnitt mit demselben Inhalt ist „geändert“ und erscheint
+nur mit seinem Kastenkopf (`headingOnly`), nicht „entfallen + neu“. Eine Einheit, die in einen
+anderen Abschnitt gewandert ist, gilt bei gleichem Wortlaut als unverändert (keine Marke, kein
+Eintrag), bei anderem Wortlaut als geändert und steht unter ihrem neuen Abschnitt mit dem Zusatz
+„zuvor <Abschnitt>“ im Kastenkopf. Nur wirklich neue Einheiten sind „Neu“, nur wirklich
+entfallene „Entfallen“. Der Zähler nennt je Art der Änderung die Einheiten („5 geänderte
+Artikel · 13 neue Artikel“), Textstellen, umbenannte Gliederungseinheiten und – nur wenn
+Einheiten den Abschnitt gewechselt haben – „n Artikel neu gegliedert“ (`buildVersionComparison`,
+`formatComparisonCount`). Die Marken am Ort der Änderung lesen denselben Baum.
+
 Sichtbare Vergleichseinheiten sind Paragraphen und Artikel, sofern die Struktur solche Einheiten
 enthält. Andernfalls bildet ein sinnvoll benannter struktureller Textcontainer die gemeinsame
 Einheit, etwa eine Präambel. Seine Textabsätze erscheinen strukturiert innerhalb einer Synopse,

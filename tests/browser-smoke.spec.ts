@@ -2261,3 +2261,42 @@ siteTest(['law'])('Restpunkte Richtung E: der Änderungsdienst hat einen RSS-Fee
   const sitemap = await (await request.get(lawUrl('/sitemap.xml'))).text();
   expect(sitemap).not.toContain('rss.xml');
 });
+
+/**
+ * Dokumentweite Paarung (N11): Kein Vergleich nennt eine Einheit „entfallen“, die in der neuen
+ * Fassung steht, oder „neu“, die es in der alten schon gab. Geprüft an jeder Vorschrift mit
+ * mindestens zwei Fassungen, deren Vergleich eine Umgliederung meldet; ohne solche Vorschrift
+ * (Testfixture) bleibt die Invariante an einer beliebigen Vergleichspaarung geprüft.
+ */
+siteTest(['law'])('Restpunkte 2: der Fassungsvergleich verwechselt gewanderte Einheiten nicht mit neuen oder entfallenen', async ({ page, request }) => {
+  const hits = (await searchApi(request, '?versionScope=all&includeAmendments=1')).hits
+    .filter((hit) => [hit, ...hit.otherVersions].length >= 2);
+  const pairs = hits.slice(0, 40).map((hit) => {
+    const versions = [{ versionId: hit.versionId, validFrom: hit.validFrom }, ...hit.otherVersions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
+    return { slug: hit.slug, from: versions.at(-2)!.versionId, to: versions.at(-1)!.versionId };
+  });
+  test.skip(pairs.length === 0, 'Keine Vorschrift mit zwei Fassungen in der Such-API.');
+  let regrouped = 0;
+  for (const pair of pairs) {
+    const response = await request.get(lawUrl(`/norm/${pair.slug}/vergleich/${pair.from}/${pair.to}.json`));
+    if (!response.ok()) continue;
+    const payload = await response.json() as { provisions: Array<{ kind: string; type: string; headingOnly?: boolean; before?: { label?: string }; after?: { label?: string } }>; movedUnits?: number };
+    const labelsOf = async (versionId: string) => new Set(await page.locator('#normtext .norm-unit__label').evaluateAll((elements) => elements.map((element) => element.textContent?.replace(/\s+/gu, ' ').trim() ?? '')).catch(() => []));
+    await page.goto(lawUrl(`/norm/${pair.slug}/version/${pair.to}/`));
+    const afterLabels = await labelsOf(pair.to);
+    await page.goto(lawUrl(`/norm/${pair.slug}/version/${pair.from}/`));
+    const beforeLabels = await labelsOf(pair.from);
+    for (const entry of payload.provisions.filter((provision) => !provision.headingOnly && (provision.type === 'article' || provision.type === 'paragraph'))) {
+      const label = (entry.after ?? entry.before)?.label?.replace(/\s+/gu, ' ').trim() ?? '';
+      if (entry.kind === 'removed') expect(afterLabels.has(label), `${pair.slug}: „${label}“ gilt als entfallen, steht aber in der Fassung ${pair.to}`).toBe(false);
+      if (entry.kind === 'added') expect(beforeLabels.has(label), `${pair.slug}: „${label}“ gilt als neu, stand aber schon in der Fassung ${pair.from}`).toBe(false);
+    }
+    if ((payload.movedUnits ?? 0) > 0) {
+      regrouped += 1;
+      await page.goto(lawUrl(`/norm/${pair.slug}/vergleich/?von=${pair.from}&bis=${pair.to}`));
+      await expect(page.locator('.norm-diff__header p')).toContainText('neu gegliedert');
+      await expect(page.locator('[data-compare-count]')).toContainText('neu gegliedert');
+    }
+    if (regrouped >= 1) break;
+  }
+});

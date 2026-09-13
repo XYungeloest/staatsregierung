@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-import { buildProvisionVersionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
+import { buildVersionComparison } from '@ostrecht/shared/lib/norms/diff.ts';
 import { getNormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 
 import { getNormStore, notFound } from '../../../../../lib/runtime/context.ts';
@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
   const fromVersion = norm?.versions.find((version) => version.versionId === fromVersionId);
   const toVersion = norm?.versions.find((version) => version.versionId === toVersionId);
   if (!norm || !fromVersion || !toVersion) return notFound();
-  const provisions = buildProvisionVersionDiff(fromVersion, toVersion);
+  const { provisions, movedUnits, renamedDivisions } = buildVersionComparison(fromVersion, toVersion);
   const unitKind = getNormUnitKind([...fromVersion.body, ...toVersion.body]);
 
   return new Response(JSON.stringify({
@@ -25,6 +25,8 @@ export const GET: APIRoute = async ({ params, locals }) => {
     toVersion: { versionId: toVersion.versionId, validFrom: toVersion.validFrom },
     provisions,
     unitKind,
+    movedUnits,
+    renamedDivisions,
   }), {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',

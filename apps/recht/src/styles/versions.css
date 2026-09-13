@@ -331,3 +331,19 @@
     margin-left: 0;
   }
 }
+
+/* Gewanderte Einheiten nennen im Kastenkopf ihre frühere Gliederungseinheit; umbenannte oder neu
+   nummerierte Gliederungseinheiten erscheinen nur mit ihrer Überschrift (ihre Einheiten stehen
+   einzeln, gewanderte mit gleichem Wortlaut gar nicht). */
+.norm-diff__moved {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+.norm-diff__provision--heading .norm-diff__side {
+  padding-bottom: var(--space-3);
+}
+
+.norm-diff__provision--heading .norm-division {
+  margin-top: 0;
+}
