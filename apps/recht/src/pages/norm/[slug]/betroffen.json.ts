@@ -34,7 +34,8 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
     const loaded = affectedByVersion.get(version.versionId);
     if (!loaded) continue;
     const amendments = norm.history.entries
-      .filter((entry) => entry.affectingVersionId === version.versionId && entry.type !== 'initial')
+      // Nur ändernde Rechtsakte; Hinweise (Berichtigungen) bewirken keine Fassung.
+      .filter((entry) => entry.affectingVersionId === version.versionId && (entry.type === 'amendment' || entry.type === 'repeal'))
       .map((entry) => {
         const label = entry.relatedNorm ? labels.get(entry.relatedNorm) : undefined;
         return toDisplayText(label?.shortTitle || label?.title || '') || describeChangeAgent(entry);

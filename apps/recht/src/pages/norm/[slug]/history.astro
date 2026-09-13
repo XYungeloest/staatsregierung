@@ -107,13 +107,19 @@ const hasPublicationDates = protocol.some((row) => Boolean(row.reference));
  * Fassung (mehrere Änderungsvorschriften an einem Tag) teilen sich eine Zelle (rowspan).
  */
 const affectedByVersion = new Map([...await loadAffectedUnitsForVersions(store, norm, versions)].map(([versionId, loaded]) => [versionId, formatAffectedUnits(loaded.affected) || 'keine Einheit']));
+/** Ein Hinweis (Berichtigung) ohne eigene Fassung – seine Fassung gehört einer anderen Zeile – bewirkt keine Änderung. */
+const changesVersion = (row: (typeof protocol)[number]): boolean => Boolean(row.version)
+  && (row.entry.type !== 'notice' || !protocol.some((other) => other !== row && other.version?.versionId === row.version?.versionId));
 const affectedCell = (index: number): { text: string; rowspan: number } | undefined => {
   const row = protocol[index];
-  const versionId = row.version?.versionId;
-  if (versionId && index > 0 && protocol[index - 1].version?.versionId === versionId) return undefined;
+  // Zeilen ohne Fassungswechsel tragen „—“ und teilen sich keine Zelle.
+  if (!changesVersion(row)) return { text: '—', rowspan: 1 };
+  const versionId = row.version!.versionId;
+  const previous = protocol[index - 1];
+  if (previous && changesVersion(previous) && previous.version!.versionId === versionId) return undefined;
   let rowspan = 1;
-  while (versionId && protocol[index + rowspan]?.version?.versionId === versionId) rowspan += 1;
-  const text = !row.version ? '—' : row.isBaseline || row.version.versionId === initialVersion?.versionId ? 'gesamte Vorschrift' : affectedByVersion.get(row.version.versionId) ?? '—';
+  while (protocol[index + rowspan] && changesVersion(protocol[index + rowspan]) && protocol[index + rowspan].version!.versionId === versionId) rowspan += 1;
+  const text = row.isBaseline || versionId === initialVersion?.versionId ? 'gesamte Vorschrift' : affectedByVersion.get(versionId) ?? '—';
   return { text, rowspan };
 };
 const compareDefaultFrom = versions.length >= 2 ? (versions[Math.max(0, versions.findIndex((version) => version.versionId === currentVersion.versionId) - 1)] ?? versions[0]) : undefined;

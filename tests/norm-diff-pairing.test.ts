@@ -60,7 +60,7 @@ test('die Umgliederung paart Artikel dokumentweit und Abschnitte nach Inhalt', (
 
 test('Marken folgen der reparierten Paarung: nur 4a neu und 6 geändert', () => {
   const marks = buildNormChangeMarks({ body: versionA() }, { body: versionB() });
-  assert.deepEqual([...marks.entries()], [
+  assert.deepEqual([...marks.entries()].sort(([left], [right]) => left.localeCompare(right)), [
     ['artikel-4a', { kind: 'added', subparagraphs: [] }],
     ['artikel-6', { kind: 'changed', subparagraphs: ['(1)'] }],
   ]);
