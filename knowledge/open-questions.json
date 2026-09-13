@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-07",
+  "asOf": "2026-09-12",
   "questions": [
     {
       "id": "question-holdings-undisclosed-deeper-tiers",
@@ -233,11 +233,11 @@
     {
       "id": "question-missing-revosax-snapshots",
       "title": "Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?",
-      "status": "unresolved",
+      "status": "historical",
       "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-09-02",
-      "summary": "Die korrigierte Veröffentlichung bezeichnet die maßgebliche Ausgangsfassung des NDR-Staatsvertrags eindeutig. Offen ist nur noch, sie unverändert im Repository zu archivieren und als Konsolidierungsbaseline zu verarbeiten.",
+      "validTo": "2026-09-12",
+      "asOf": "2026-09-12",
+      "summary": "Die korrigierte Veröffentlichung bezeichnet die maßgebliche Ausgangsfassung des NDR-Staatsvertrags vom 4./9. März 2021 eindeutig. Diese Fassung ist unverändert als Fassung 2021-09-01 des NDR-Staatsvertrags archiviert und als Konsolidierungsbaseline verarbeitet; die durch den Änderungsstaatsvertrag geänderte Fassung gilt seit 3. September 2026. Der Konsolidierungsaudit vom 12. September 2026 führt den NDR-Staatsvertrag als vollständig konsolidiert.",
       "sourceRefs": [
         {
           "sourceId": "source-overtrbl-2026-04",
@@ -246,22 +246,36 @@
         },
         {
           "sourceId": "source-consolidation-manifest",
-          "locator": "target ndr-staatsvertrag",
+          "locator": "target ndr-staatsvertrag, status complete, baselineSnapshotDate 2021-09-01 (Stand 12. September 2026)",
           "role": "corroborating"
         },
         {
           "sourceId": "source-editorial-clarification-ndr-2026-09-02",
           "locator": "Abschnitt Verbindliche Quellenauflösung",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-05",
+          "locator": "Inkrafttreten des Änderungsstaatsvertrags zum 3. September 2026",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Abschnitt NDR-Staatsvertrag: Ausgangsfassung unverändert unter Gesetze/NDR-Staatsvertrag.html und .pdf archiviert",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "proceeding-law-consolidation"
+        "proceeding-law-consolidation",
+        "proceeding-ndr-ratification"
       ],
       "tags": [
         "open-question"
       ],
-      "notes": [],
+      "notes": [
+        "Erledigt durch die Archivierung der Ausgangsfassung (Gesetze/NDR-Staatsvertrag.html und .pdf) und die Fassung 2021-09-01; die Frage bleibt als erledigter Vorgang mit Provenienz erhalten.",
+        "Das Enddatum folgt aus dem Konsolidierungsaudit vom 12. September 2026; ein genaueres Archivierungsdatum ist in keiner Hub-Quelle belegt."
+      ],
       "question": "Wann kann die bekannte vollständige Fassung des NDR-Staatsvertrags einschließlich Anlagen unverändert archiviert und als Konsolidierungsbaseline verarbeitet werden?",
       "affectedIds": [
         "proceeding-law-consolidation"
@@ -270,7 +284,7 @@
       "requiredSource": "Unveränderte Archivkopie der bekannten, vor der Änderung vom 8. März 2026 geltenden Fassung des NDR-Staatsvertrags einschließlich Anlagen.",
       "publicContentImpact": "Vollständigkeit und historische Fassungen im Rechtsportal.",
       "priority": "high",
-      "questionStatus": "open"
+      "questionStatus": "resolved"
     },
     {
       "id": "question-eag-procurements-delivery",
@@ -348,6 +362,136 @@
       "requiredSource": "Datierte amtliche Vollzugsmitteilung, Bescheid oder Reisebericht je Vorgang.",
       "publicContentImpact": "Keine Fertigstellung, Reise, Sanktion oder über den belegten Umfang hinausgehende Beendigung behaupten.",
       "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-ode-ueberfuehrungsprogramm-2026",
+      "title": "Wurde das Überführungsprogramm zur Eisenbahnvergesellschaftung fristgerecht erstellt?",
+      "status": "unresolved",
+      "validFrom": "2026-08-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Artikel 6 des Ostdeutsche-Eisenbahn-Neuordnungsgesetzes verpflichtete die zuständige Behörde, innerhalb eines Monats nach dem 21. Juli 2026 ein Überführungsprogramm mit Zeitplan, Personalzuordnung, Fahrzeug- und Anlagenaufnahme, IT-Migration, Genehmigungsverfahren, Betriebsfortführung, Risikomanagement und Kommunikationsplan zu erstellen. Die Frist endete am 21. August 2026; ein Programm oder eine amtliche Mitteilung dazu liegt nicht vor.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Artikel 6 Absätze 1 bis 3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-36",
+          "locator": "Leitlinie des Verwaltungsrates vom 23. August 2026 (erwähnt kein Überführungsprogramm)",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-ode-aufbau-und-ueberfuehrung",
+        "project-eisenbahn-verkehr",
+        "inst-sek-mobilitaet-regionen"
+      ],
+      "tags": [
+        "open-question",
+        "transport",
+        "implementation",
+        "deadline"
+      ],
+      "notes": [
+        "Das Programm hat nach Artikel 6 Absatz 3 keine rechtsbegründende Wirkung für die Auswahl der Vergesellschaftungsgegenstände."
+      ],
+      "question": "Wurde das Überführungsprogramm nach Artikel 6 bis zum 21. August 2026 erstellt, und welchen Zeitplan enthält es?",
+      "affectedIds": [
+        "proceeding-ode-aufbau-und-ueberfuehrung",
+        "project-eisenbahn-verkehr"
+      ],
+      "reason": "Die gesetzliche Frist ist abgelaufen; weder Staatsanzeiger noch Pressemitteilungen enthalten einen Nachweis.",
+      "requiredSource": "Amtliche Mitteilung oder Veröffentlichung des Überführungsprogramms beziehungsweise ein Halbjahresbericht nach Artikel 7.",
+      "publicContentImpact": "Keine Aussage zum Stand der Überführung oder zu Zeitplänen der Vergesellschaftung ohne Beleg.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-kreisreform-uebergangsbeauftragte-wahltag-2026",
+      "title": "Wer sind die Übergangsbeauftragten der neuen Bezirke, und wann ist der Wahltag der ersten Bezirkstagswahl?",
+      "status": "unresolved",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "§ 17 des Ostdeutschen Kreis- und Bezirksneuordnungsgesetzes verpflichtet das für Inneres zuständige Staatsministerium, nach der Verkündung für jeden der dreizehn neuen Bezirke außerhalb Berlins einen Übergangsbeauftragten zu bestellen; § 16 Absatz 4 verlangt die erste Bezirkstagswahl spätestens am 31. März 2027 mit einem durch Rechtsverordnung bestimmten Wahltag; § 8 Absatz 2 erlaubt, den Übergang einzelner Aufgaben durch Rechtsverordnung bis 31. Dezember 2026 hinauszuschieben. Nach § 19 wird für jeden neuen Bezirk außerhalb Berlins bis zum Zusammentritt des Bezirkstags ein Übergangsbezirksrat gebildet. Bestellungen und Rechtsverordnungen sind nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Artikel 1 §§ 8, 16, 17 und 19",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-kreisreform-transition",
+        "project-kreisreform",
+        "state-current-territory"
+      ],
+      "tags": [
+        "open-question",
+        "local-government",
+        "implementation",
+        "elections"
+      ],
+      "notes": [
+        "Für Berlin wird kein Übergangsbeauftragter bestellt; die vorbereitenden Aufgaben nimmt der Oberbürgermeister wahr."
+      ],
+      "question": "Welche Übergangsbeauftragten wurden wann bestellt, wurde eine Rechtsverordnung zum Wahltag oder zu hinausgeschobenen Aufgabenübergängen erlassen, und wann tagten die Übergangsbezirksräte erstmals?",
+      "affectedIds": [
+        "proceeding-kreisreform-transition",
+        "project-kreisreform"
+      ],
+      "reason": "Die Bestellungspflicht besteht seit dem Inkrafttreten des § 17 am 21. Juli 2026; Rechtsverordnungen nach § 8 Absatz 2 und § 16 Absatz 4 wären im Gesetz- und Verordnungsblatt zu verkünden, ein solches Blatt liegt nicht vor.",
+      "requiredSource": "Bekanntmachung der Bestellungen, Rechtsverordnung im OGVBl., Protokoll oder Bekanntmachung der Übergangsbezirksräte.",
+      "publicContentImpact": "Keine Aussage zu Bezirksverwaltungen, Wahlterminen oder Aufgabenübergängen über den Gebietsstand hinaus.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-sport-stuetzpunkte-anerkennungsfrist-2026",
+      "title": "Wurde die vorläufige Anerkennung bestehender Stützpunkte über den 31. August 2026 hinaus verlängert?",
+      "status": "unresolved",
+      "validFrom": "2026-09-01",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Nach Artikel 12 Absatz 5 des Sportneuordnungsgesetzes galten bestehende Stützpunkte, Leistungszentren und vergleichbare Einrichtungen bis zum Ablauf des 31. August 2026 als vorläufig anerkannt; Absatz 6 erlaubt der obersten Sportbehörde eine einmalige Verlängerung um bis zu zwölf Monate durch Allgemeinverfügung. Eine Allgemeinverfügung oder Anerkennungen nach § 11 des Ostdeutschen Sportfördergesetzes sind nicht belegt. Übergangsbestimmungen durch Verwaltungsvorschrift und die Fortführung bestehender Förderungen nach bisherigem Recht sind bis 31. Dezember 2026 möglich.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-52",
+          "locator": "Sportneuordnungsgesetz, Artikel 12 Absätze 3 bis 6 und Artikel 13; Artikel 1 § 11",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-lasp-law",
+          "locator": "§ 2 (Aufgaben der Landesagentur Spitzensport Ost)",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-landesagentur-spitzensport-ost",
+        "holding-landesagentur-spitzensport-ost",
+        "project-sportneuordnung"
+      ],
+      "tags": [
+        "open-question",
+        "sport",
+        "implementation",
+        "deadline"
+      ],
+      "notes": [
+        "Artikel 12 Absatz 6 verweist auf „die Frist nach Absatz 6“; gemeint sein kann nur die Frist des Absatzes 5. Der Wortlaut wird nicht berichtigt."
+      ],
+      "question": "Hat die oberste Sportbehörde die vorläufige Anerkennung durch Allgemeinverfügung verlängert, oder wurden Stützpunkte nach § 11 des Ostdeutschen Sportfördergesetzes förmlich anerkannt?",
+      "affectedIds": [
+        "inst-landesagentur-spitzensport-ost",
+        "project-sportneuordnung"
+      ],
+      "reason": "Die gesetzliche Frist ist abgelaufen; Staatsanzeiger und Normbestand enthalten keine Allgemeinverfügung und keine Anerkennungsbekanntmachung.",
+      "requiredSource": "Allgemeinverfügung der obersten Sportbehörde im Staatsanzeiger oder Anerkennungsbescheide beziehungsweise -bekanntmachungen.",
+      "publicContentImpact": "Keine Aussage zum Status bestehender Stützpunkte und Leistungszentren.",
+      "priority": "low",
       "questionStatus": "open"
     }
   ]

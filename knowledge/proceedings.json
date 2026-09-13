@@ -367,12 +367,12 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Die Neuordnung ist seit 1. August 2026 wirksam. Übergangsorgane, Rechtsnachfolge und weitere organisatorische Vollzugsschritte werden umgesetzt.",
+      "asOf": "2026-09-12",
+      "summary": "Die Neuordnung ist seit 1. August 2026 wirksam. Das Ostdeutsche Kreis- und Bezirksneuordnungsgesetz ordnet befristete Vollzugsschritte an: Das für Inneres zuständige Staatsministerium kann den Übergang einzelner Kreisaufgaben durch Rechtsverordnung bis spätestens zum Ablauf des 31. Dezember 2026 hinausschieben; Auseinandersetzungsverträge sind innerhalb von sechs Monaten nach dem Wirksamwerden zu schließen, sonst trifft das Staatsministerium die erforderlichen Bestimmungen; abweichende Regelungen zu Zweckverbandsmitgliedschaften sind innerhalb von sechs Monaten nach Aufgabenübergang möglich; die ersten Haushalte werden als Rumpfhaushalte bis 31. Dezember 2026 geführt; Kreis- und Ortsrecht ist bis zum Ablauf des 31. Dezember 2027 zu bereinigen; für jeden neuen Bezirk außerhalb Berlins ist nach der Verkündung ein Übergangsbeauftragter zu bestellen (für Berlin nimmt der Oberbürgermeister die vorbereitenden Aufgaben wahr), und bis zum Zusammentritt der Bezirkstage werden Übergangsbezirksräte gebildet; für jeden neu errichteten Landkreis wird ein vorläufiger Kreisausschuss gebildet, dessen Besetzung das Staatsministerium durch Rechtsverordnung bestimmt; die erste Wahl der Bezirkstage findet spätestens am 31. März 2027 statt, den Wahltag bestimmt die Staatsregierung durch Rechtsverordnung, die ersten Kreistags- und Stadtratswahlen finden zugleich statt. Bestellungen von Übergangsbeauftragten, Rechtsverordnungen zum Aufgabenübergang, zu den vorläufigen Kreisausschüssen oder zum Wahltag, Auseinandersetzungsverträge und Rumpfhaushalte sind am Stichtag nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-kreis-norm",
-          "locator": "Inkrafttreten",
+          "locator": "Inkrafttreten; Artikel 1 §§ 8, 9, 11, 13 und 15 bis 19",
           "role": "primary"
         },
         {
@@ -383,13 +383,19 @@
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "inst-volkskammer"
+        "inst-volkskammer",
+        "project-kreisreform",
+        "state-current-territory",
+        "question-kreisreform-uebergangsbeauftragte-wahltag-2026"
       ],
       "tags": [
         "proceeding",
         "territory"
       ],
-      "notes": [],
+      "notes": [
+        "Fristen: Auseinandersetzungsverträge innerhalb von sechs Monaten nach dem Wirksamwerden am 1. August 2026, abweichende Zweckverbandsregelungen sechs Monate nach dem jeweiligen Aufgabenübergang, Aufgabenübergang spätestens mit Ablauf des 31. Dezember 2026, Rumpfhaushalte bis 31. Dezember 2026, Bezirkstagswahl spätestens 31. März 2027, Rechtsbereinigung bis 31. Dezember 2027; betriebsbedingte Kündigungen wegen der Neuordnung sind bis 31. Dezember 2028 ausgeschlossen; alle Fristen sind am Stichtag offen.",
+        "Ein Vollzug wird nicht behauptet; die frühere Formulierung ‚werden umgesetzt‘ hatte keinen Beleg."
+      ],
       "aliases": [],
       "proceedingType": "implementation",
       "stage": "implementation",
@@ -401,11 +407,17 @@
         {
           "normSlug": "kreis-und-bezirksneuordnungsgesetz",
           "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
+          "versionId": "2026-07-21"
         }
       ],
       "decision": "Wirksamwerden der neuen Gebietsstruktur zum 1. August 2026 belegt.",
-      "nextAction": "Übergangsorgane, Rechtsnachfolge und weitere organisatorische Vollzugsschritte dokumentieren.",
-      "openQuestionIds": []
+      "nextAction": "Bestellung der Übergangsbeauftragten, Rechtsverordnungen zum Aufgabenübergang, zu den vorläufigen Kreisausschüssen und zum Wahltag, genehmigte Auseinandersetzungsverträge (Bekanntmachung im Staatsanzeiger) und Rumpfhaushalte nur bei amtlichem Nachweis fortschreiben.",
+      "openQuestionIds": [
+        "question-kreisreform-uebergangsbeauftragte-wahltag-2026"
+      ]
     },
     {
       "id": "proceeding-grenzpolizei-bund",
@@ -812,8 +824,8 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-09-02",
-      "summary": "Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Vier Zieltextkonflikte sind gesperrt (Gesetz über den öffentlichen Personennahverkehr, Ostdeutsche Gemeindeordnung, Schulordnung Förderschulen und Zehntes Sächsisches Kostenverzeichnis); die bekannte NDR-Ausgangsfassung ist noch unverändert zu archivieren.",
+      "asOf": "2026-09-12",
+      "summary": "Der Audit vom 12. September 2026 erkennt 95 Zielnormen; 90 sind vollständig konsolidiert. Fünf Zieltextkonflikte sind gesperrt: Gesetz über den öffentlichen Personennahverkehr, Ostdeutsche Gemeindeordnung (der durch das Gesetz zur Einführung von Hinweisgebermeldestellen nach § 71a anzufügende § 71b kollidiert mit den bestehenden §§ 71b bis 71g), Schulordnung Förderschulen, Zehntes Sächsisches Kostenverzeichnis und die Hoheitszeichenverordnung, deren Fortgeltung nach Artikel 2 Absatz 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts auf § 17 statt auf die Verordnungsermächtigung in § 19 des Ostdeutschen Hoheitszeichengesetzes verweist und längstens bis 31. Dezember 2026 reicht. Die NDR-Ausgangsfassung vom 4./9. März 2021 ist unverändert archiviert und als Fassung 2021-09-01 des NDR-Staatsvertrags verarbeitet; die geänderte Fassung gilt seit 3. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-content-gaps",
@@ -822,12 +834,25 @@
         },
         {
           "sourceId": "source-consolidation-manifest",
-          "locator": "gesamter Datensatz",
+          "locator": "counts (95/90/5); targets saechsische-gemeindeordnung, hoheitszeichenverordnung, ndr-staatsvertrag",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-70",
+          "locator": "Artikel 2 Absatz 2",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-72",
+          "locator": "Artikel 1",
           "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "question-missing-revosax-snapshots"
+        "question-missing-revosax-snapshots",
+        "question-school-law-source-conflicts-2026",
+        "proceeding-ndr-ratification",
+        "proceeding-hoheitszeichen-umstellung"
       ],
       "tags": [
         "proceeding",
@@ -841,9 +866,9 @@
       "participantIds": [],
       "normRefs": [],
       "decision": null,
-      "nextAction": "Bekannte NDR-Ausgangsfassung sichern sowie die gesperrten Zieltextkonflikte quellenbasiert klären und anschließend deterministisch konsolidieren.",
+      "nextAction": "Die fünf gesperrten Zieltextkonflikte quellenbasiert klären und anschließend deterministisch konsolidieren.",
       "openQuestionIds": [
-        "question-missing-revosax-snapshots"
+        "question-school-law-source-conflicts-2026"
       ]
     },
     {
@@ -1357,16 +1382,16 @@
       "validFrom": "2026-09-12",
       "validTo": null,
       "asOf": "2026-09-12",
-      "summary": "Nach Artikel 2 des Gesetzes zur Einführung eines Boden- und Naturvermögensgesetzes sind die vom Staatssekretariat zu benennenden Verwaltungsratsmitglieder innerhalb von zwei Monaten zu benennen, die Volkskammer soll ihre sechs Mitglieder innerhalb von drei Monaten wählen, der Vorstand ist innerhalb von sechs Monaten nach der konstituierenden Sitzung zu bestellen und der vollständige Geschäftsbetrieb spätestens nach neun Monaten aufzunehmen; bis dahin bestellt das Staatssekretariat der Finanzen einen Gründungsbeauftragten. Nach Artikel 2 des Gesetzes zur Einführung eines Gemeinvermögensschutzgesetzes sind alle Träger innerhalb von sechs Monaten erstmals zu erfassen.",
+      "summary": "Nach Artikel 2 des Gesetzes zur Einführung eines Boden- und Naturvermögensgesetzes sind die von den Staatssekretariaten zu benennenden Verwaltungsratsmitglieder innerhalb von zwei Monaten zu benennen, die Volkskammer soll ihre sechs Mitglieder innerhalb von drei Monaten wählen, der Vorstand soll innerhalb von sechs Monaten nach der konstituierenden Sitzung bestellt werden und der vollständige Geschäftsbetrieb ist spätestens nach neun Monaten aufzunehmen; bis zum Amtsantritt des Vorstandes bestellt das Staatssekretariat der Finanzen einen Gründungsbeauftragten. Nach Artikel 2 des Gesetzes zur Einführung eines Gemeinvermögensschutzgesetzes sind alle Träger innerhalb von sechs Monaten erstmals zu erfassen. Der Verwaltungsrat tritt spätestens einen Monat nach Bestellung von mindestens neun seiner elf Mitglieder zusammen. Die betroffenen öffentlichen Stellen übermitteln dem zuständigen Staatssekretariat die für die Ersterhebung erforderlichen Angaben innerhalb von drei Monaten; die grundstücksverwaltenden Stellen des Freistaates prüfen nach § 16 des Boden- und Naturvermögensgesetzes innerhalb von zwölf Monaten ihren Grundstücksbestand auf Übernahmefähigkeit.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-78",
-          "locator": "Artikel 2",
+          "locator": "Artikel 1 § 9 Absatz 1 und § 16 Absatz 1; Artikel 2",
           "role": "primary"
         },
         {
           "sourceId": "source-ogvbl-2026-79",
-          "locator": "Artikel 2",
+          "locator": "Artikel 1 § 6 Absatz 1; Artikel 2 Absätze 1 und 3",
           "role": "primary"
         }
       ],
@@ -1375,7 +1400,10 @@
         "inst-sek-finanzen",
         "inst-volkskammer",
         "project-boden-volksacker",
-        "project-gemeinvermoegensschutz"
+        "project-gemeinvermoegensschutz",
+        "holding-landesbodenfonds",
+        "event-landesbodenfonds-errichtet-2026-09-12",
+        "event-gemeinvermoegensschutzgesetz-2026-09-12"
       ],
       "tags": [
         "proceeding",
@@ -1384,7 +1412,8 @@
         "public-assets"
       ],
       "notes": [
-        "Benennungen, Wahlen, Bestellungen und die Ersterhebung sind am Stichtag nicht belegt; ein Vollzug wird nicht behauptet."
+        "Benennungen, Wahlen, Bestellungen und die Ersterhebung sind am Stichtag nicht belegt; ein Vollzug wird nicht behauptet.",
+        "Kalenderfristen ab 12. September 2026: Benennung der Verwaltungsratsmitglieder bis 12. November 2026, Wahl durch die Volkskammer möglichst bis 12. Dezember 2026 (Sollvorschrift), Angaben für die Ersterhebung bis 12. Dezember 2026, Ersterhebung bis 12. März 2027, vollständiger Geschäftsbetrieb bis 12. Juni 2027, Grundstücksprüfung bis 12. September 2027; alle Fristen sind am Stichtag offen."
       ],
       "aliases": [],
       "proceedingType": "implementation",
@@ -1400,6 +1429,14 @@
         },
         {
           "normSlug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "boden-und-naturvermoegensgesetz",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "gemeinvermoegensschutzgesetz",
           "versionId": "2026-09-12"
         }
       ],
@@ -1446,6 +1483,489 @@
       "normRefs": [],
       "decision": null,
       "nextAction": "Auswertung der sichergestellten Materialien und Verfahrensstand nur aus amtlichen Quellen fortschreiben.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-ode-aufbau-und-ueberfuehrung",
+      "title": "Aufbau der Ostdeutschen Eisenbahn und Vorbereitung der Verkehrsüberführung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Nach Artikel 5 des Ostdeutsche-Eisenbahn-Neuordnungsgesetzes ist die konstituierende Sitzung des Verwaltungsrates innerhalb von zwei Monaten nach dem 21. Juli 2026 einzuberufen, der Vorstand innerhalb von drei Monaten nach dieser Sitzung zu bestellen und die Satzung innerhalb von sechs Monaten zu beschließen; nach Artikel 6 war innerhalb eines Monats ein Überführungsprogramm zu erstellen, nach Artikel 7 berichtet die Staatsregierung halbjährlich über Errichtung, Vergesellschaftung, Entschädigung, Personalübergang und Fahrzeugpool. Der Verwaltungsrat hat die mit Bekanntmachung vom 23. August 2026 veröffentlichte Leitlinie zu gemeinwirtschaftlichen Betriebsgrundsätzen beschlossen und darin Aufträge an den Vorstand erteilt. Ein Bestellungsakt für den Vorstand, die Satzung, das bis 21. August 2026 fällige Überführungsprogramm und ein erster Halbjahresbericht sind nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Artikel 5 bis 7 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 47)",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eisenbahn-procedure",
+          "locator": "Verkündung am 20. Juli 2026, Inkrafttreten am 21. Juli 2026",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-36",
+          "locator": "Einleitungssatz und Nummer 8 (Umsetzung durch den Vorstand)",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-ostdeutsche-eisenbahn",
+        "inst-sek-mobilitaet-regionen",
+        "inst-ostdeutscher-verkehrsverbund",
+        "project-eisenbahn-verkehr",
+        "holding-ostdeutsche-eisenbahn",
+        "event-odeg-socialisation",
+        "question-ode-ueberfuehrungsprogramm-2026"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "transport",
+        "public-law-institution"
+      ],
+      "notes": [
+        "Fristen: Einberufung der konstituierenden Sitzung bis 21. September 2026, Überführungsprogramm bis 21. August 2026 (abgelaufen, Erfüllung nicht belegt), Satzung bis 21. Januar 2027, Vorstand spätestens drei Monate nach der konstituierenden Sitzung; erster Umsetzungsbericht des Vorstandes an den Verwaltungsrat drei Monate nach dem Inkrafttreten der Leitlinie am 24. August 2026, also am 24. November 2026 (offen).",
+        "Der Beschluss belegt einen spätestens am 23. August 2026 handelnden Verwaltungsrat, nicht Datum, Einberufung und Teilnehmer seiner konstituierenden Sitzung. Dass die Leitlinie einen Vorstand adressiert, setzt dessen Bestellung voraus; ein Bestellungsakt nach § 8 Absatz 3 des Ostdeutschen Eisenbahngesetzes ist nicht veröffentlicht.",
+        "Artikel 7 nennt als Adressaten den Landtag und sieht halbjährliche Berichte vor; ein erster Bericht ist am Stichtag noch nicht fällig und nicht belegt."
+      ],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-sek-mobilitaet-regionen",
+        "inst-ostdeutsche-eisenbahn",
+        "inst-volkskammer"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-eisenbahngesetz",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "bekanntmachung-ode-betriebsgrundsaetze",
+          "versionId": "2026-08-24"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Vorstandsbestellung, Satzung, Überführungsprogramm und ersten Halbjahresbericht nur bei amtlichem Nachweis fortschreiben.",
+      "openQuestionIds": [
+        "question-ode-ueberfuehrungsprogramm-2026"
+      ]
+    },
+    {
+      "id": "proceeding-energie-anstalten-aufbau",
+      "title": "Aufbau der Ostdeutsche Netze und der Landesenergiewerke Ost und Vorbereitung der Energieüberführung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Artikel 5 des Energie- und Wärmevergesellschaftungs-Paketgesetzes verpflichtet das zuständige Staatsministerium, die konstituierenden Sitzungen der Verwaltungsräte der Ostdeutsche Netze und der Landesenergiewerke Ost innerhalb von zwei Monaten nach dem 21. Juli 2026 einzuberufen; die Verwaltungsräte bestellen innerhalb von drei Monaten nach ihrer konstituierenden Sitzung die Vorstände, die Satzungen sind innerhalb von sechs Monaten zu beschließen und zu genehmigen, und die Vergesellschaftungsbehörde erstellt innerhalb von drei Monaten ein Überführungsprogramm. Der Verwaltungsrat der Landesenergiewerke Ost hat die mit Bekanntmachungen vom 22. August 2026 veröffentlichten Strom- und Wärmepreisleitlinien beschlossen und damit gehandelt; für die Ostdeutsche Netze, die Vorstandsbestellungen, die Satzungen und das Überführungsprogramm liegt am Stichtag kein Beleg vor.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-49",
+          "locator": "Artikel 5 Absätze 1 bis 4 und 14 bis 16; Artikel 7 Absatz 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-law",
+          "locator": "§ 27 Abs. 1 (Vergesellschaftungsbehörde)",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-energy-procedure",
+          "locator": "Verkündung am 20. Juli 2026, Inkrafttreten am 21. Juli 2026",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-34",
+          "locator": "Einleitungssatz: Beschluss des Verwaltungsrates der Landesenergiewerke Ost",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-35",
+          "locator": "Einleitungssatz: Beschluss des Verwaltungsrates der Landesenergiewerke Ost",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-landesenergiewerke-ost",
+        "inst-ostdeutsche-netze",
+        "inst-sek-nachhaltigkeit-energie",
+        "project-energie-waerme",
+        "holding-landesenergiewerke-ost",
+        "holding-ostdeutsche-netze",
+        "event-energy-heat-price-guidelines-promulgated-2026"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "energy",
+        "public-law-institution"
+      ],
+      "notes": [
+        "Fristen: Einberufung der konstituierenden Sitzungen bis 21. September 2026, Überführungsprogramm bis 21. Oktober 2026, Satzungen bis 21. Januar 2027; alle drei Fristen sind am Stichtag offen.",
+        "Die Beschlüsse des Verwaltungsrates der Landesenergiewerke Ost, bekannt gemacht am 22. August 2026, belegen dessen Handlungsfähigkeit, nicht Datum und Teilnehmer der konstituierenden Sitzung und keine Vorstandsbestellung.",
+        "Für die Ostdeutsche Netze ist keine Sitzung, kein Organ und keine Satzung belegt; ein Vollzug wird nicht behauptet.",
+        "Die Vorstandsfristen nach Artikel 5 Absatz 2 laufen erst ab der jeweiligen konstituierenden Sitzung und sind daher kalendarisch nicht bestimmbar; bis zur vollständigen Herstellung der organisatorischen Handlungsfähigkeit beider Anstalten nimmt nach Artikel 5 Absatz 4 das zuständige Staatsministerium die Sicherungsaufgaben wahr."
+      ],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-landesenergiewerke-ost",
+        "inst-ostdeutsche-netze"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "landesenergiewerke-gesetz",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "ostdeutsche-netze-gesetz",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie",
+          "versionId": "2026-09-01"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Konstituierende Sitzung der Ostdeutsche Netze, Vorstandsbestellungen, Satzungsgenehmigungen und Überführungsprogramm nur bei amtlichem Nachweis fortschreiben.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-kko-gruendungsphase",
+      "title": "Gründungsphase des Kreislaufwirtschafts-Kombinats Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Nach § 34 der SERO-Verordnung bestellt der Staatsrat innerhalb von drei Monaten nach dem 21. Juli 2026 einen Gründungsvorstand, der Satzung, Wirtschaftsplan, die Errichtung der SERO-Bezirksbetriebe und den SERO-Aufbauplan vorbereitet; die Satzung ist innerhalb von sechs Monaten zu beschließen. Die Amtszeit des Gründungsvorstandes endet mit der Bestellung des Vorstandes nach § 7 Absatz 3, spätestens 24 Monate nach Inkrafttreten. Bis zur Einrichtung der Bezirksbetriebe nimmt das Kombinat die Aufgaben in Abstimmung mit den öffentlich-rechtlichen Entsorgungsträgern wahr. Eine Bestellung, eine Satzung oder ein Bezirksbetrieb ist am Stichtag nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sero",
+          "locator": "§ 34 Absätze 1 bis 5",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-58",
+          "locator": "Verordnung vom 20. Juli 2026, § 34 und § 35",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-kreislaufwirtschafts-kombinat-ost",
+        "inst-staatsrat",
+        "inst-sek-nachhaltigkeit-energie",
+        "project-sero",
+        "holding-kreislaufwirtschafts-kombinat-ost",
+        "event-sero"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "circular-economy",
+        "public-law-institution"
+      ],
+      "notes": [
+        "Fristen: Gründungsvorstand bis 21. Oktober 2026, Satzung bis 21. Januar 2027, Ende der Gründungsvorstandszeit spätestens 21. Juli 2028; alle Fristen sind am Stichtag offen.",
+        "Kein Vollzug wird behauptet; es liegt keine Bekanntmachung über eine Bestellung vor."
+      ],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-staatsrat",
+        "inst-kreislaufwirtschafts-kombinat-ost"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "sero-verordnung",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Bestellung des Gründungsvorstandes, Satzungsbeschluss und Errichtung der SERO-Bezirksbetriebe nur bei amtlichem Nachweis fortschreiben.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-interflug-gruendungsphase",
+      "title": "Gründungsphase der Interflug",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Nach § 23 des Interflug-Gesetzes bestellt der Staatsrat innerhalb eines Monats nach dem 3. September 2026 die sechs zu bestellenden Mitglieder des ersten Verwaltungsrates; das siebte, von den Beschäftigten zu wählende Mitglied ist unverzüglich nach Aufnahme eines regulären Beschäftigtenbestandes zu wählen. Der erste Verwaltungsrat beschließt die Satzung spätestens drei Monate nach seiner konstituierenden Sitzung. Der am 3. September 2026 bestellte Gründungsvorstand (Joachim Hunold als Vorsitzender, Ralf Teckentrup, Klaus Wowereit) bleibt bis zum Amtsantritt des ersten vom Verwaltungsrat bestellten Vorstandes, spätestens bis zum Ablauf des 3. März 2027, im Amt; er hat nach Zustimmung des Verwaltungsrates die Beschaffung der Anfangsflotte beschlossen und die Liefer- und Umrüstungsverträge abgeschlossen. Die personelle Zusammensetzung des Verwaltungsrates, seine konstituierende Sitzung, die Satzung, ein regulärer Vorstand sowie Auslieferung und Einsatzbereitschaft der Flugzeuge sind nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1, §§ 12, 14 und 23",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-39",
+          "locator": "Bekanntmachung vom 3. September 2026 über die Bestellung des Gründungsvorstandes",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-40",
+          "locator": "Bekanntmachung vom 3. September 2026; Zustimmung des Verwaltungsrates",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-interflug",
+        "inst-staatsrat",
+        "inst-sek-wirtschaft-arbeit",
+        "project-interflug",
+        "holding-interflug",
+        "event-interflug-law-effective-2026",
+        "event-interflug-founding-board-appointed-2026",
+        "event-interflug-initial-fleet-procured-2026",
+        "state-current-interflug-2026"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "aviation",
+        "public-law-institution"
+      ],
+      "notes": [
+        "Frist für die Bestellung der Verwaltungsratsmitglieder nach § 12 Absatz 2 Nummern 1 bis 6: 3. Oktober 2026; sie ist am Stichtag offen.",
+        "Die Bekanntmachung vom 3. September 2026 über die Anfangsflotte nennt eine Zustimmung des Verwaltungsrates; daraus folgt ein handelndes Gremium, nicht dessen Besetzung oder Konstituierungsdatum.",
+        "Die Bekanntmachung über den Gründungsvorstand zitiert § 24 Absatz 3 und 4 sowie § 10 Absatz 2; im verkündeten Gesetz stehen Gründungsphase in § 23 und Vorstand in § 14. Der Wortlaut wird nicht angepasst."
+      ],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-staatsrat",
+        "inst-interflug"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "interflug-gesetz",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "gesetz-zur-errichtung-der-interflug",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "bekanntmachung-bestellung-gruendungsvorstand-interflug",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "bekanntmachung-beschaffung-anfangsflotte-interflug",
+          "versionId": "2026-09-03"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Bestellung der Verwaltungsratsmitglieder, konstituierende Sitzung, Satzung, Beschäftigtenwahl und Amtsantritt des ersten Vorstandes nur bei amtlichem Nachweis fortschreiben.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-hoheitszeichen-umstellung",
+      "title": "Umstellung auf die Hoheitszeichen des Ostdeutschen Hoheitszeichengesetzes",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Artikel 2 des Besonderen Gesetzes zur Neuregelung des Hoheitszeichenrechts vom 2. September 2026 lässt vorhandene Staatsdienstflaggen, Standarten, Amtsschilder, Druck- und elektronische Vorlagen sowie Staatssiegel mit dem bisherigen Staatswappen nur bis zum Ablauf des auf die Verkündung folgenden Kalendermonats, also bis 31. Oktober 2026, weiterverwenden; nach bisherigem Recht erteilte Genehmigungen wirken längstens bis zu diesem Tag. Die Hoheitszeichenverordnung vom 28. März 2026 gilt, soweit sie dem Gesetz und der Staatsverfassung nicht widerspricht, mit Maßgaben als Vollziehungsverordnung fort und tritt mit dem Inkrafttreten einer neuen Vollziehungsverordnung, spätestens mit Ablauf des 31. Dezember 2026, außer Kraft. Eine neue Vollziehungsverordnung ist am Stichtag nicht verkündet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-70",
+          "locator": "Artikel 2 Absätze 2 und 3, Artikel 3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-hoheitszeichenrecht-current",
+          "locator": "§ 1, § 3, § 19",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-consolidation-manifest",
+          "locator": "target hoheitszeichenverordnung, status blocked-source-conflict",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-hoheitszeichen",
+        "inst-staatsrat",
+        "inst-sek-inneres-wohnen",
+        "event-hoheitszeichengesetz-ohzg-effective-2026",
+        "proceeding-law-consolidation"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "state-symbols"
+      ],
+      "notes": [
+        "Fristen: Weiterverwendung bisheriger Wappen, Siegel und Genehmigungen bis 31. Oktober 2026; Fortgeltung der Hoheitszeichenverordnung längstens bis 31. Dezember 2026; beide Fristen sind am Stichtag offen.",
+        "Ein Umstellungsvollzug bei einzelnen Stellen ist nicht belegt und wird nicht behauptet.",
+        "Artikel 2 Absatz 2 bezeichnet die fortgeltende Hoheitszeichenverordnung als Vollziehungsverordnung aufgrund des § 17 des Ostdeutschen Hoheitszeichengesetzes; § 17 regelt Ordnungswidrigkeiten, die Verordnungsermächtigung steht in § 19. Der Wortlaut wird nicht angepasst; das Konsolidierungsmanifest führt die Verordnung deshalb als gesperrten Quellenkonflikt (proceeding-law-consolidation)."
+      ],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-staatsrat",
+        "inst-sek-inneres-wohnen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
+          "versionId": "2026-09-02"
+        },
+        {
+          "normSlug": "ostdeutsches-hoheitszeichengesetz",
+          "versionId": "2026-09-02"
+        },
+        {
+          "normSlug": "hoheitszeichenverordnung",
+          "versionId": "2026-03-28"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Neue Vollziehungsverordnung auf Grundlage des § 19 OHzG bei Verkündung übernehmen; Außerkrafttreten der Hoheitszeichenverordnung spätestens mit Ablauf des 31. Dezember 2026 vormerken.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-zinnwald-entschaedigung",
+      "title": "Entschädigungsverfahren nach dem Zinnwald-Vergesellschaftungsgesetz",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Mit Inkrafttreten des Zinnwald-Vergesellschaftungsgesetzes am 2. September 2026 ist die Gesamtheit der Geschäftsanteile am Zinnwald-Projektunternehmen, im Zeitpunkt des Gesetzesbeschlusses der Zinnwald Lithium GmbH, auf den Freistaat übergegangen; die Gesellschafterrechte nimmt das Staatssekretariat für Wirtschaft und Arbeit wahr. Als Vergesellschaftungsbehörde hat es unverzüglich ein unabhängiges Unternehmenswertgutachten einzuholen und die Entschädigung von 80 Prozent des Verkehrswertes im Einvernehmen mit dem Staatssekretariat der Finanzen durch Bescheid festzusetzen; die Entschädigung ist innerhalb von dreißig Tagen nach Bekanntgabe zu zahlen und ab 2. September 2026 mit 2,5 Prozent jährlich zu verzinsen. Gutachten, Bescheid und Zahlung sind am Stichtag nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-73",
+          "locator": "Artikel 1, §§ 2, 5, 6 und 7; Artikel 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-zinnwald-lithium",
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen",
+        "holding-zinnwald-lithium",
+        "event-zinnwald-socialisation-law-effective-2026"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "socialisation",
+        "compensation"
+      ],
+      "notes": [
+        "Das Gesetz setzt für Gutachten und Bescheid keine kalendermäßige Frist (unverzüglich); der Rechtsweg zu den ordentlichen Gerichten wegen der Höhe bleibt offen.",
+        "Kein Vollzug wird behauptet; eine spätere Übertragung der Anteile auf einen gemeinwirtschaftlichen Rechtsträger bedarf nach § 5 Absatz 3 eines Gesetzes."
+      ],
+      "aliases": [],
+      "proceedingType": "administrative-implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "zinnwald-vergesellschaftungsgesetz",
+          "versionId": "2026-09-02"
+        },
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes",
+          "versionId": "2026-09-02"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Gutachten, Entschädigungsbescheid, Zahlung und etwaige gerichtliche Verfahren nur bei amtlichem Nachweis fortschreiben.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-landesrahmenplan-daseinsvorsorge",
+      "title": "Erstaufstellung des Landesrahmenplans der öffentlichen Daseinsvorsorge und der Planungen der Sozialen Grundversorgung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Nach Artikel 2 des Gesetzes zur Einführung eines besonderen Gesetzes über die öffentliche Daseinsvorsorge ist der erste Landesrahmenplan nach § 12 des Ostdeutschen Daseinsvorsorgegesetzes innerhalb von achtzehn Monaten nach dem 3. September 2026 vom Staatsrat zu beschließen; bestehende fachgesetzliche Planungen dürfen zugrunde gelegt werden. Nach Artikel 2 des Besonderen Gesetzes über Wohnen, Gesundheit und Pflege ist der Fachteil Soziale Grundversorgung erstmals innerhalb von 18 Monaten nach dem 12. September 2026 als Teil des Landesrahmenplans zu beschließen, die ersten Pflegeinfrastrukturpläne sind innerhalb von zwei Jahren vorzulegen, und die ersten regionalen Versorgungsberichte der Bezirke sind innerhalb von zwölf Monaten nach Inkrafttreten der Monitoring-Rechtsverordnung nach § 31 vorzulegen. Weder Rechtsverordnungen nach § 31 noch Planentwürfe sind am Stichtag belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-71",
+          "locator": "Artikel 1 § 12; Artikel 2 Absätze 1 und 2; Artikel 4",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Artikel 1 §§ 1, 2, 18 und 31; Artikel 2 Absätze 1 bis 4; Artikel 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-daseinsvorsorge",
+        "project-soziale-grundversorgung",
+        "inst-staatsrat",
+        "inst-sek-gesundheit-soziales",
+        "inst-sek-inneres-wohnen",
+        "event-daseinsvorsorgegesetz-effective-2026",
+        "event-soziale-grundversorgungsgesetz-2026-09-12"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "public-services",
+        "planning"
+      ],
+      "notes": [
+        "Fristen: Landesrahmenplan bis 3. März 2028, Fachteil Soziale Grundversorgung bis 12. März 2028, Pflegeinfrastrukturpläne bis 12. September 2028; die Frist für die Versorgungsberichte läuft erst mit der Monitoring-Verordnung an.",
+        "Bis zum Erlass der Rechtsverordnungen nach § 31 gelten für das Monitoring bestehende fachrechtliche Planungsmaßstäbe."
+      ],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "ongoing",
+      "participantIds": [
+        "inst-staatsrat",
+        "inst-sek-gesundheit-soziales",
+        "inst-sek-inneres-wohnen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
+          "versionId": "2026-09-03"
+        },
+        {
+          "normSlug": "ostdeutsches-daseinsvorsorgegesetz",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "soziale-grundversorgungsgesetz",
+          "versionId": "2026-09-12"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Rechtsverordnungen nach § 31 SoGrVG, Planentwürfe, Anhörungen und Beschlüsse nur bei Verkündung oder amtlicher Vorlage fortschreiben.",
       "openQuestionIds": []
     }
   ]

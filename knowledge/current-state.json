@@ -8,8 +8,8 @@
       "status": "derived",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-08-25",
-      "summary": "Der öffentlich belegte Ausgangsbestand umfasst 666 Positionszeilen, darunter 217 unmittelbare und 449 mittelbare oder tieferliegende Positionen. Seitdem wurden neun gesamtostdeutsche Rechtsträger und zwei Sondervermögen neu errichtet; MDR und rbb gingen am 1. Mai 2026 durch Gesamtrechtsnachfolge im Ostdeutschen Fernsehfunk auf. Der 50Hertz-Erwerb ist noch nicht als vollzogen belegt.",
+      "asOf": "2026-09-12",
+      "summary": "Der öffentlich belegte Ausgangsbestand umfasst 666 Positionszeilen, darunter 217 unmittelbare und 449 mittelbare oder tieferliegende Positionen. Seitdem wurden bis zum 25. August 2026 neun gesamtostdeutsche Rechtsträger und zwei Sondervermögen neu errichtet; MDR und rbb gingen am 1. Mai 2026 durch Gesamtrechtsnachfolge im Ostdeutschen Fernsehfunk auf. Seit 2. September 2026 hält der Freistaat kraft Gesetzes sämtliche Geschäftsanteile der Zinnwald Lithium GmbH (Gesellschafterrechte beim Staatssekretariat für Wirtschaft und Arbeit; eine Festsetzung der Entschädigung durch Bescheid nach § 7 ist nicht belegt); seit 3. September 2026 besteht die Interflug und seit 12. September 2026 der Landesbodenfonds Ostdeutschland als Anstalten des öffentlichen Rechts. Der 50Hertz-Erwerb ist noch nicht als vollzogen belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
@@ -20,6 +20,21 @@
           "sourceId": "source-broadcast-law",
           "locator": "Gesamtrechtsnachfolge einschließlich Beteiligungen",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-73",
+          "locator": "Artikel 1 § 1 Absatz 3, § 2 Absatz 1, § 5 Absätze 1 und 2 sowie § 7",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1 § 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Artikel 1 § 3",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -27,7 +42,12 @@
         "holding-gkl-traegerschaft",
         "holding-nordlb",
         "holding-iba-thueringen-abwicklung",
-        "holding-50hertz-erwerb"
+        "holding-50hertz-erwerb",
+        "holding-interflug",
+        "holding-zinnwald-lithium",
+        "holding-landesbodenfonds",
+        "inst-interflug",
+        "inst-landesbodenfonds"
       ],
       "tags": [
         "current-state",
@@ -108,12 +128,12 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-03",
       "validTo": null,
-      "asOf": "2026-09-04",
-      "summary": "Die Interflug besteht seit 3. September 2026 als Anstalt des öffentlichen Rechts. Der Gründungsvorstand (Joachim Hunold als Vorsitzender, Ralf Teckentrup, Klaus Wowereit) ist mit Wirkung vom 3. September 2026 bestellt und hat die Anfangsflotte aus zehn Löschflugzeugen mit einem Beschaffungsprogramm von bis zu 105,5 Millionen Euro vertraglich gebunden. Die Zustimmung des Verwaltungsrates ist belegt; seine personelle Zusammensetzung, der Amtsantritt eines regulären Vorstandes sowie die Auslieferung und Einsatzbereitschaft der Flugzeuge sind noch nicht belegt.",
+      "asOf": "2026-09-12",
+      "summary": "Die Interflug besteht seit 3. September 2026 als Anstalt des öffentlichen Rechts. Der Gründungsvorstand (Joachim Hunold als Vorsitzender, Ralf Teckentrup, Klaus Wowereit) ist mit Wirkung vom 3. September 2026 bestellt und hat die Liefer- und Umrüstungsverträge für die Anfangsflotte aus zehn Löschflugzeugen abgeschlossen; das Beschaffungsprogramm umfasst bis zu 105,5 Millionen Euro. Die Zustimmung des Verwaltungsrates ist belegt; seine personelle Zusammensetzung, der Amtsantritt eines regulären Vorstandes sowie die Auslieferung und Einsatzbereitschaft der Flugzeuge sind noch nicht belegt. Nach § 23 des Interflug-Gesetzes bestellt der Staatsrat die sechs Mitglieder des ersten Verwaltungsrates nach § 12 Absatz 2 Nummern 1 bis 6 innerhalb eines Monats nach Inkrafttreten, also bis zum 3. Oktober 2026; eine Bekanntmachung der Bestellungen liegt nicht vor. Der erste Verwaltungsrat beschließt die Satzung spätestens drei Monate nach seiner konstituierenden Sitzung, und die Amtszeit des Gründungsvorstandes endet spätestens mit Ablauf des 3. März 2027.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-74",
-          "locator": "Artikel 1, §§ 1, 21 und 23",
+          "locator": "Artikel 1, §§ 1, 12, 21 und 23",
           "role": "primary"
         },
         {
@@ -125,6 +145,11 @@
           "sourceId": "source-stanzo-2026-40",
           "locator": "Bekanntmachung vom 3. September 2026",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 10",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -132,7 +157,8 @@
         "inst-interflug",
         "event-interflug-law-effective-2026",
         "event-interflug-founding-board-appointed-2026",
-        "event-interflug-initial-fleet-procured-2026"
+        "event-interflug-initial-fleet-procured-2026",
+        "proceeding-interflug-gruendungsphase"
       ],
       "tags": [
         "current-state",
@@ -146,7 +172,7 @@
       "normRefs": [
         {
           "normSlug": "interflug-gesetz",
-          "versionId": "2026-09-03"
+          "versionId": "2026-09-12"
         },
         {
           "normSlug": "bekanntmachung-bestellung-gruendungsvorstand-interflug",
@@ -358,8 +384,8 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-09-04",
-      "summary": "Freistaat Ostdeutschland; der redaktionelle Stichtag wird aus packages/shared/src/config/editorial.json übernommen; Regierungssitz Dresden.",
+      "asOf": "2026-09-12",
+      "summary": "Freistaat Ostdeutschland, nach Artikel 1 der Staatsverfassung ein sozialistischer Freistaat; Hauptstadt ist nach Artikel 2 Absatz 1 Dresden, zugleich Regierungssitz. Die Hoheitszeichen bestimmt seit 2. September 2026 das Ostdeutsche Hoheitszeichengesetz. Der redaktionelle Stichtag wird aus packages/shared/src/config/editorial.json übernommen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -370,16 +396,38 @@
           "sourceId": "source-organization-governments",
           "locator": "governments[id=erster-staatsrat].seatOfGovernment",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 1 und Artikel 2 Absätze 1 und 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-hoheitszeichenrecht-current",
+          "locator": "§ 1",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "territory-freistaat"
+        "territory-freistaat",
+        "state-current-constitution",
+        "project-hoheitszeichen"
       ],
       "tags": [
         "current-state",
         "state"
       ],
       "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2026-09-12"
+        },
+        {
+          "normSlug": "ostdeutsches-hoheitszeichengesetz",
+          "versionId": "2026-09-02"
+        }
+      ],
       "stateId": "territory-freistaat",
       "capital": "Dresden"
     },
@@ -588,7 +636,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-06",
       "validTo": null,
-      "asOf": "2026-09-06",
+      "asOf": "2026-09-12",
       "summary": "Die freiwillige und rechtlich nicht bindende Volksbefragung wurde am 5. und 6. September 2026 gleichzeitig mit der Wahl zur achten Volkskammer durchgeführt. Die Bundeswahlleitung stellte das endgültige Ergebnis am 6. September 2026 fest; alle fünf Fragen wurden mehrheitlich befürwortet. Der Staatsrat hat seinen Bericht nach § 8 VBefrVO 2026 am selben Tag im StAnzO. 2026 Nr. 41 veröffentlicht. Das Verfahren einschließlich seiner politischen Auswertung ist damit abgeschlossen.",
       "sourceRefs": [
         {
@@ -610,6 +658,11 @@
           "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
           "locator": "Abstimmungszeitraum und fünf Fragen",
           "role": "context"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Eingangsformel, Artikel 1 und Artikel 7",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -619,7 +672,9 @@
         "proceeding-volksbefragung-2026",
         "event-volksbefragung-2026",
         "event-volksbefragung-result-2026",
-        "event-volksbefragung-report-2026"
+        "event-volksbefragung-report-2026",
+        "proceeding-verfassungsnovelle-und-besondere-gesetze-2026-09",
+        "event-fuenftes-staatsreformgesetz-2026-09-12"
       ],
       "tags": [
         "current-state",
@@ -629,7 +684,7 @@
       "notes": [
         "Die Befragung war kein Volksentscheid; sie entfaltet keine unmittelbare rechtliche Bindungswirkung, und ein Beteiligungs- oder Zustimmungsquorum bestand nicht.",
         "Auch der Bericht des Staatsrates begründet nach seinem Abschnitt IX selbst keine unmittelbar geltenden Rechte oder Pflichten.",
-        "Die im Bericht angekündigten Gesetzgebungs- und Vollzugsvorhaben sind eigenständige Folgevorhaben und in agenda.json geführt; sie sind weder beschlossen noch umgesetzt."
+        "Die im Bericht angekündigten Gesetzgebungs- und Vollzugsvorhaben sind eigenständige Folgevorhaben. Die Sozialistische Verfassungsnovelle wurde als Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens am 11. September 2026 von der Volkskammer beschlossen, am 12. September 2026 verkündet und ist seit diesem Tag in Kraft; am selben Tag traten das Besondere Gesetz über Wohnen, Gesundheit und Pflege, das Boden- und Naturvermögensgesetz und das Gemeinvermögensschutzgesetz in Kraft. Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz mit Staatsplankommission Ost und Landeswirtschaftsrat sowie das Olympia-Folgeprojekt sind in agenda.json geführt und weder beschlossen noch umgesetzt."
       ],
       "normRefs": [
         {
@@ -1153,7 +1208,7 @@
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-09-12",
-      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, Tarifdetails der OVV-/DB-Ticketanerkennung, weitere Normkonsolidierungen, der Aufbau des Landesbodenfonds, die Ersterhebung nach dem Gemeinvermögensschutzgesetz und die Auswertung der Durchsuchungen vom 10. September 2026.",
+      "summary": "Offen sind insbesondere die befristeten Vollzugsschritte der Kreisreform (Übergangsbeauftragte, Übergangsbezirksräte, Rumpfhaushalte bis 31. Dezember 2026, erste Bezirkstagswahl spätestens am 31. März 2027), Tarifdetails der OVV-/DB-Ticketanerkennung, fünf gesperrte Normkonsolidierungen, der Aufbau der Ostdeutschen Eisenbahn mit dem am 21. August 2026 fällig gewordenen Überführungsprogramm, die Gründungsphasen des Kreislaufwirtschafts-Kombinats Ost und der Interflug, die Weiterverwendung bisheriger Hoheitszeichendarstellungen bis 31. Oktober 2026 und die Ablösung der Hoheitszeichenverordnung spätestens mit Ablauf des 31. Dezember 2026, das Zinnwald-Entschädigungsverfahren, die Erstaufstellung des Landesrahmenplans der öffentlichen Daseinsvorsorge, der Aufbau des Landesbodenfonds, die Ersterhebung nach dem Gemeinvermögensschutzgesetz und die Auswertung der Durchsuchungen vom 10. September 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -1167,7 +1222,7 @@
         },
         {
           "sourceId": "source-consolidation-manifest",
-          "locator": "Gesamtstand",
+          "locator": "Gesamtstand, counts (95/90/5)",
           "role": "corroborating"
         },
         {
@@ -1179,6 +1234,46 @@
           "sourceId": "source-pm-2026-09-10-13",
           "locator": "gesamte Pressemitteilung",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Artikel 5 bis 7",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-sero",
+          "locator": "§ 34",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1 § 23",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-70",
+          "locator": "Artikel 2 Absätze 2 und 3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-73",
+          "locator": "Artikel 1 § 7",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-71",
+          "locator": "Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Artikel 1 §§ 8 und 15 bis 19",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -1187,7 +1282,15 @@
         "question-ovv-ticket-chain",
         "proceeding-law-consolidation",
         "proceeding-durchsuchungen-rechtsextreme-2026-09",
-        "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister"
+        "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister",
+        "proceeding-ode-aufbau-und-ueberfuehrung",
+        "proceeding-kko-gruendungsphase",
+        "proceeding-interflug-gruendungsphase",
+        "proceeding-hoheitszeichen-umstellung",
+        "proceeding-zinnwald-entschaedigung",
+        "proceeding-landesrahmenplan-daseinsvorsorge",
+        "question-ode-ueberfuehrungsprogramm-2026",
+        "question-kreisreform-uebergangsbeauftragte-wahltag-2026"
       ],
       "tags": [
         "current-state",
@@ -1199,7 +1302,13 @@
         "proceeding-ovv-db-ticket-recognition",
         "proceeding-law-consolidation",
         "proceeding-durchsuchungen-rechtsextreme-2026-09",
-        "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister"
+        "proceeding-aufbau-landesbodenfonds-gemeinvermoegensregister",
+        "proceeding-ode-aufbau-und-ueberfuehrung",
+        "proceeding-kko-gruendungsphase",
+        "proceeding-interflug-gruendungsphase",
+        "proceeding-hoheitszeichen-umstellung",
+        "proceeding-zinnwald-entschaedigung",
+        "proceeding-landesrahmenplan-daseinsvorsorge"
       ]
     }
   ]

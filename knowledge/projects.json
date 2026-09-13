@@ -75,7 +75,7 @@
       "validFrom": "2026-07-21",
       "validTo": null,
       "asOf": "2026-09-12",
-      "summary": "Vier Verfassungsänderungsgesetze ordneten Staatswesen, Finanzverfassung, Staatsziele, Bildungswesen und Religionsverfassung zum 21. Juli 2026 neu. Das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens vom 12. September 2026 erklärt Ostdeutschland zum sozialistischen Freistaat, gliedert soziale und ökonomische Grundlagen als eigene Abschnitte ein, verankert Recht auf Arbeit, Volkseigentum, Gesellschafts- und Wirtschaftsplan, Wirtschaftsdemokratie, gesetzesvertretende Rechtsverordnungen und den Privatisierungsschutz neu; es ist seit dem Tag seiner Verkündung in Kraft.",
+      "summary": "Vier Verfassungsänderungsgesetze ordneten Staatswesen, Finanzverfassung, Staatsziele, Bildungswesen und Religionsverfassung zum 21. Juli 2026 neu. Das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens vom 12. September 2026 erklärt Ostdeutschland zum sozialistischen Freistaat, gliedert soziale und ökonomische Grundlagen als eigene Abschnitte ein, verankert Recht auf Arbeit, Volkseigentum, Gesellschafts- und Wirtschaftsplan, Wirtschaftsdemokratie, gesetzesvertretende Rechtsverordnungen und den Privatisierungsschutz neu; es ist seit dem Tag seiner Verkündung in Kraft. Die Artikel 2 bis 6 ändern zugleich das Ostdeutsche Daseinsvorsorgegesetz, die Haushaltsordnung, das Gemeingut-Wohnen-Gesetz, das Ostdeutsche Landesantidiskriminierungsgesetz und das Vergesellschaftungsrahmengesetz.",
       "sourceRefs": [
         {
           "sourceId": "source-constitution-history",
@@ -104,7 +104,7 @@
         },
         {
           "sourceId": "source-ogvbl-2026-76",
-          "locator": "Artikel 1 Nummern 1 bis 50, Artikel 7",
+          "locator": "Artikel 1 Nummern 1 bis 50, Artikel 2 bis 7",
           "role": "primary"
         },
         {
@@ -118,7 +118,10 @@
         "inst-volkskammer",
         "project-boden-volksacker",
         "project-gemeinvermoegensschutz",
-        "project-soziale-grundversorgung"
+        "project-soziale-grundversorgung",
+        "proceeding-volksbefragung-2026",
+        "project-daseinsvorsorge",
+        "project-wohnen"
       ],
       "tags": [
         "project",
@@ -188,12 +191,12 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Die am 20. Juli 2026 verkündete Neuordnung ist seit 1. August 2026 wirksam. Vierzehn Bezirke und die neu geordnete Kreisstruktur bilden den geltenden Gebietsstand; organisatorische Übergangsarbeiten laufen weiter.",
+      "asOf": "2026-09-12",
+      "summary": "Die am 20. Juli 2026 verkündete Neuordnung ist seit 1. August 2026 wirksam: Die sieben bisherigen Bezirke Brandenburg, Mecklenburg-Vorpommern, Niederlausitz, Oberlausitz, Sachsen, Sachsen-Anhalt und Thüringen wurden mit Ablauf des 31. Juli 2026 aufgehoben, vierzehn Bezirke und die nach den Anlagen 1 und 2 bestimmten Landkreise und kreisfreien Städte bilden den geltenden Gebietsstand. Das Stammgesetz regelt Rechts- und Funktionsnachfolge, Personalübergang, Übergangsbeauftragte je Bezirk außerhalb Berlins, vorläufige Kreisausschüsse und Übergangsbezirksräte, Rumpfhaushalte vom 1. August bis 31. Dezember 2026, eine Anschubfinanzierung des Freistaates sowie die ersten Bezirkstags-, Kreistags- und Stadtratswahlen spätestens am 31. März 2027. Organisatorische Übergangsarbeiten laufen weiter.",
       "sourceRefs": [
         {
           "sourceId": "source-kreis-norm",
-          "locator": "Inkrafttreten und Gebietszuordnung",
+          "locator": "Inkrafttreten und Gebietszuordnung; Artikel 1 §§ 1, 2, 6 bis 22",
           "role": "primary"
         },
         {
@@ -203,7 +206,10 @@
         }
       ],
       "relatedIds": [
-        "inst-volkskammer"
+        "inst-volkskammer",
+        "inst-sek-inneres-wohnen",
+        "inst-staatsrat",
+        "proceeding-kreisreform-transition"
       ],
       "tags": [
         "project",
@@ -213,7 +219,8 @@
       "aliases": [],
       "projectStage": "in-implementation",
       "responsibleInstitutionIds": [
-        "inst-volkskammer"
+        "inst-sek-inneres-wohnen",
+        "inst-staatsrat"
       ],
       "normRefs": [
         {
@@ -223,6 +230,10 @@
         {
           "normSlug": "ostdeutsche-bezirksordnung",
           "versionId": "2026-08-01"
+        },
+        {
+          "normSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
+          "versionId": "2026-07-21"
         }
       ],
       "milestones": [
@@ -236,7 +247,12 @@
         }
       ],
       "nextSteps": [
-        "Übergangsorgane und Rechtsnachfolge umsetzen"
+        "Bestellung der Übergangsbeauftragten für die Bezirke außerhalb Berlins durch das für Inneres zuständige Staatsministerium (§ 17 Absatz 1) nur nach amtlichem Nachweis dokumentieren",
+        "Öffentlich-rechtliche Auseinandersetzungsverträge der betroffenen Körperschaften und deren Genehmigung durch das für Inneres zuständige Staatsministerium (§ 11 Absatz 1 und 2) nur nach Bekanntmachung im Staatsanzeiger dokumentieren; kommt bis zum Ablauf von sechs Monaten nach dem 1. August 2026 kein Vertrag zustande, entscheidet das für Inneres zuständige Staatsministerium durch Bescheid (§ 11 Absatz 3)",
+        "Rechtsverordnung zu einem hinausgeschobenen Aufgabenübergang (spätestens 31. Dezember 2026, § 8 Absatz 2) und Rumpfhaushalte bis 31. Dezember 2026 (§ 15 Absatz 2) beobachten",
+        "Wahltag der ersten Bezirkstags-, Kreistags- und Stadtratswahlen (spätestens 31. März 2027, § 16 Absatz 4 und 5) nur nach Verkündung der Rechtsverordnung übernehmen; das Gesetz nennt die Staatsregierung, deren Aufgaben seit 21. Juli 2026 beim Staatsrat liegen",
+        "Anpassung von Satzungen und Zweckvereinbarungen bis 30. Juni 2027 (§ 21 Absatz 4) und Bereinigung fortgeltenden Kreis- und Ortsrechts bis 31. Dezember 2027 (§ 9 Absatz 3) als offene Fristen führen; Kündigungsschutz übergegangener Beschäftigter bis 31. Dezember 2028 (§ 13 Absatz 3)",
+        "Höhe und Verteilung der Anschubfinanzierung (§ 22) nur nach Haushalts- oder Sondergesetz ergänzen"
       ],
       "dependencies": [
         "proceeding-kreisreform-transition"
@@ -249,12 +265,12 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Selbstständige Rechtsverordnung zur Sekundärrohstoff-Erfassung und landeseigenen Kreislaufwirtschaftsinfrastruktur.",
+      "asOf": "2026-09-12",
+      "summary": "Selbstständige Rechtsverordnung zur Sekundärrohstoff-Erfassung und landeseigenen Kreislaufwirtschaftsinfrastruktur. Sie errichtet das Kreislaufwirtschafts-Kombinat Ost als rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig unter Rechts- und Fachaufsicht des Staatssekretariats für Nachhaltigkeit und Energie. Das Kombinat errichtet in jedem Bezirk einen SERO-Bezirksbetrieb, erstellt einen landesweiten SERO-Aufbauplan und verwaltet einen Rohstofffonds als zweckgebundenes Sondervermögen; die Verordnung ist seit 21. Juli 2026 in Kraft. Der Staatsrat hat innerhalb von drei Monaten einen Gründungsvorstand zu bestellen, die Satzung ist innerhalb von sechs Monaten zu beschließen; beides ist bis zum Stichtag nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-sero",
-          "locator": "Metadaten",
+          "locator": "§§ 4, 10, 15, 16, 22, 34, 35",
           "role": "primary"
         },
         {
@@ -269,7 +285,10 @@
         }
       ],
       "relatedIds": [
-        "inst-sek-nachhaltigkeit-energie"
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-kreislaufwirtschafts-kombinat-ost",
+        "holding-kreislaufwirtschafts-kombinat-ost",
+        "inst-staatsrat"
       ],
       "tags": [
         "project",
@@ -282,7 +301,8 @@
       "aliases": [],
       "projectStage": "in-force",
       "responsibleInstitutionIds": [
-        "inst-sek-nachhaltigkeit-energie"
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-kreislaufwirtschafts-kombinat-ost"
       ],
       "normRefs": [
         {
@@ -294,10 +314,16 @@
         {
           "date": "2026-07-21",
           "title": "Inkrafttreten"
+        },
+        {
+          "date": "2026-07-21",
+          "title": "Kreislaufwirtschafts-Kombinat Ost als Anstalt des öffentlichen Rechts errichtet"
         }
       ],
       "nextSteps": [
-        "Vollzug und Infrastrukturaufbau dokumentieren"
+        "Bestellung des Gründungsvorstandes durch den Staatsrat (Frist bis 21. Oktober 2026, § 34 Absatz 1) nur nach amtlicher Bekanntmachung dokumentieren",
+        "Beschluss und Genehmigung der Satzung (Frist bis 21. Januar 2027, § 34 Absatz 4, § 11 Absatz 2) nur nach Nachweis ergänzen",
+        "Errichtung der SERO-Bezirksbetriebe und SERO-Aufbauplan (§§ 15, 16) nur bei Vollzugsnachweis erfassen; bis dahin Aufgabenwahrnehmung durch das Kombinat mit den Entsorgungsträgern (§ 34 Absatz 5)"
       ],
       "dependencies": [],
       "openQuestionIds": []
@@ -650,7 +676,8 @@
       "relatedIds": [
         "inst-landesenergiewerke-ost",
         "inst-sek-nachhaltigkeit-energie",
-        "project-gemeinvermoegensschutz"
+        "project-gemeinvermoegensschutz",
+        "proceeding-energie-anstalten-aufbau"
       ],
       "tags": [
         "project",
@@ -998,7 +1025,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-01",
+      "asOf": "2026-09-12",
       "summary": "Gesetzlich errichtete Grenzpolizei mit am 28. Juli 2026 geschlossenem und am 29. Juli 2026 veröffentlichtem Verwaltungsabkommen. Die technische, organisatorische und operative Umsetzung der übertragenen Aufgaben bleibt im Aufbau.",
       "sourceRefs": [
         {
@@ -1020,6 +1047,11 @@
           "sourceId": "source-gmbl-clarification-2026-07-29",
           "locator": "Abschnitte Abschluss und Veröffentlichung sowie Wirksamkeitsangabe",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-69",
+          "locator": "§ 1 Nummer 1",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -1033,7 +1065,9 @@
         "security",
         "agency"
       ],
-      "notes": [],
+      "notes": [
+        "Die Sicherheitsüberprüfungsfeststellungsverordnung vom 31. August 2026 (in Kraft seit 1. September 2026) stuft das zentrale Lage- und Analysezentrum der Kasernierten Grenzpolizei einschließlich der dort betriebenen Führungs-, Informations- und Analysesysteme, das nach § 11 Absatz 1 des Kasernierte-Grenzpolizei-Gesetzes einzurichten ist, als lebenswichtige Einrichtung ein; sie belegt die Einstufung, nicht die tatsächliche Einrichtung oder Betriebsaufnahme des Zentrums."
+      ],
       "aliases": [],
       "projectStage": "in-implementation",
       "responsibleInstitutionIds": [
@@ -1052,6 +1086,10 @@
         {
           "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
           "versionId": "2026-07-29"
+        },
+        {
+          "normSlug": "sicherheitsueberpruefungsfeststellungsverordnung",
+          "versionId": "2026-09-01"
         }
       ],
       "milestones": [
@@ -1086,7 +1124,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-03-23",
       "validTo": null,
-      "asOf": "2026-09-01",
+      "asOf": "2026-09-12",
       "summary": "Die Neuordnung mit Polytechnischer Oberschule, Erweiterter Oberschule, zweitem Bildungsweg und flankierendem Schulrecht ist gesetzlich beschlossen. Das zusammengehörige Verordnungs- und Verwaltungsvorschriftenpaket wurde vom 14. bis 16. August 2026 verkündet und gilt seit 1. September 2026 überwiegend.",
       "sourceRefs": [
         {
@@ -1122,6 +1160,41 @@
         {
           "sourceId": "source-stanzo-2026-31",
           "locator": "ÄndVwV Radfahrausbildung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-62",
+          "locator": "Schulordnung Abendoberschulen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-63",
+          "locator": "Abendgymnasien- und Kollegverordnung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-64",
+          "locator": "Verordnung zur Änderung der Schulordnung Förderschulen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-65",
+          "locator": "Sorbische Schulverordnung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-66",
+          "locator": "Ethik- und Religionsunterrichtverordnung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-23",
+          "locator": "ÄndVwV Schulformulare",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-30",
+          "locator": "ÄndVwV Beratungslehrer",
           "role": "primary"
         }
       ],
@@ -1170,6 +1243,22 @@
         {
           "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
           "versionId": "2026-08-31"
+        },
+        {
+          "normSlug": "verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-schulformulare-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-beratungslehrer-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-radfahrausbildung-2026",
+          "versionId": "2026-09-01"
         }
       ],
       "milestones": [
@@ -1324,8 +1413,8 @@
       "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit rechtskräftigem Boom Europe Leipzig/Halle Agreement, Standortgesetz, Sondervermögen und Umsetzungsgesetz. Das Agreement wurde am 14. Mai 2026 unterzeichnet und trat an diesem Tag in Kraft; eine spätere Standorteröffnung ist nicht belegt.",
+      "asOf": "2026-09-12",
+      "summary": "Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit rechtskräftigem Boom Europe Leipzig/Halle Agreement, Standortgesetz, Sondervermögen und Umsetzungsgesetz. Das Agreement wurde am 14. Mai 2026 unterzeichnet und trat an diesem Tag in Kraft; eine spätere Standorteröffnung ist nicht belegt. Das Standortgesetz richtet bei der Staatskanzlei eine Projektstelle Hochgeschwindigkeitsluftfahrt als Koordinierungsstelle ein und erlaubt dem Freistaat, für die Infrastruktur eine Kapitalgesellschaft zu errichten, sich an einer Kapitalgesellschaft zu beteiligen oder eine bestehende Landesgesellschaft zu beauftragen (§ 15). Aus dem Sondervermögen Hochgeschwindigkeitsluftfahrt Ost dürfen Ausgaben und Verpflichtungen bis zu 4,5 Milliarden Euro geleistet oder eingegangen werden, eine Erhöhung ist nur durch Gesetz zulässig; das Staatsministerium der Finanzen berichtet dem Landtag jährlich.",
       "sourceRefs": [
         {
           "sourceId": "source-boom-procedure",
@@ -1339,12 +1428,12 @@
         },
         {
           "sourceId": "source-boom-site-law",
-          "locator": "Gesetzesfassung",
+          "locator": "§§ 3, 4, 15",
           "role": "primary"
         },
         {
           "sourceId": "source-boom-fund",
-          "locator": "Gesetzesfassung",
+          "locator": "§ 1 Absatz 1, § 3 Absatz 2, § 9 Absatz 3",
           "role": "primary"
         },
         {
@@ -1413,7 +1502,7 @@
       ],
       "nextSteps": [
         "Standorteröffnung und operative Umsetzung nur anhand späterer Vollzugsquellen ergänzen",
-        "Projektorganisation, Finanzierung und Laufzeit anhand der geltenden Vollnormen erschließen"
+        "Jahresbericht des Staatsministeriums der Finanzen zum Sondervermögen (§ 9 Absatz 3 Sondervermögensgesetz) sowie Errichtung, Beteiligung oder Beauftragung einer Infrastrukturgesellschaft (§ 15 Standortgesetz) nur nach Vorlage beziehungsweise Nachweis dokumentieren"
       ],
       "dependencies": [],
       "openQuestionIds": [
@@ -2168,7 +2257,7 @@
         }
       ],
       "nextSteps": [
-        "Personelle Zusammensetzung des Verwaltungsrates und Amtsantritt des regulären Vorstandes nur mit datierter Quelle fortschreiben; die Zustimmung des Verwaltungsrates zur Anfangsflotte ist durch StAnzO. 2026 Nr. 40 belegt",
+        "Personelle Zusammensetzung des Verwaltungsrates (Bestellung durch den Staatsrat nach § 23 Absatz 1 des Interflug-Gesetzes innerhalb eines Monats nach Inkrafttreten, also bis 3. Oktober 2026) und Amtsantritt des regulären Vorstandes nur mit datierter Quelle fortschreiben; die Zustimmung des Verwaltungsrates zur Anfangsflotte ist durch StAnzO. 2026 Nr. 40 belegt; die Amtszeit des Gründungsvorstandes endet nach § 23 Absatz 3 spätestens mit Ablauf des 3. März 2027",
         "Lieferung und Betriebsaufnahme der Löschflugzeuge nur nach Vollzugsnachweis dokumentieren"
       ],
       "dependencies": [],
@@ -2180,18 +2269,20 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-02",
       "validTo": null,
-      "asOf": "2026-09-04",
-      "summary": "Das Zinnwald-Vergesellschaftungsgesetz vom 2. September 2026 überführt die Geschäftsanteile des Zinnwald-Projektunternehmens gegen Entschädigung in Gemeineigentum des Freistaates; es ist seit 2. September 2026 in Kraft.",
+      "asOf": "2026-09-12",
+      "summary": "Das Zinnwald-Vergesellschaftungsgesetz vom 2. September 2026 überführt die Geschäftsanteile des Zinnwald-Projektunternehmens gegen Entschädigung in Gemeineigentum des Freistaates; es ist seit 2. September 2026 in Kraft. Die Gesellschafterrechte nimmt das Staatssekretariat für Wirtschaft und Arbeit wahr, das zugleich Vergesellschaftungsbehörde ist; die Entschädigung beträgt 80 Prozent des Verkehrswertes der Geschäftsanteile, wird im Einvernehmen mit dem Staatssekretariat der Finanzen durch Bescheid festgesetzt und ist innerhalb von dreißig Tagen nach dessen Bekanntgabe zu zahlen, verzinst mit 2,5 Prozent jährlich ab Inkrafttreten. Ein Entschädigungsbescheid ist bis zum Stichtag nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-73",
-          "locator": "gesamte Ausgabe",
+          "locator": "Artikel 1 §§ 2 und 5 bis 7, Artikel 2",
           "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-sek-wirtschaft-arbeit",
-        "inst-staatsrat"
+        "inst-staatsrat",
+        "inst-sek-finanzen",
+        "holding-zinnwald-lithium"
       ],
       "tags": [
         "project",
@@ -2222,7 +2313,8 @@
         }
       ],
       "nextSteps": [
-        "Festsetzung und Leistung der Entschädigung nur mit amtlicher Quelle fortschreiben"
+        "Unabhängiges Unternehmenswertgutachten, Entschädigungsbescheid und Zahlung nur mit amtlicher Quelle fortschreiben",
+        "Spätere gesetzliche Übertragung der Geschäftsanteile auf einen öffentlich getragenen gemeinwirtschaftlichen Rechtsträger nur nach Verkündung dokumentieren"
       ],
       "dependencies": [],
       "openQuestionIds": []
@@ -2298,7 +2390,8 @@
         }
       ],
       "nextSteps": [
-        "Landesrahmenplan der öffentlichen Daseinsvorsorge nur nach Vorlage dokumentieren"
+        "Ersten Landesrahmenplan der öffentlichen Daseinsvorsorge (Beschluss des Staatsrates nach § 12 Absatz 1 OstDVG innerhalb von achtzehn Monaten nach Inkrafttreten, also bis 3. März 2028, Artikel 2 Absatz 1 des Einführungsgesetzes) nur nach Vorlage dokumentieren",
+        "Vollziehungsverordnungen der Staatsräte nach § 18 OstDVG zu den §§ 14 bis 16 nur nach Verkündung übernehmen"
       ],
       "dependencies": [],
       "openQuestionIds": []
@@ -2485,13 +2578,127 @@
         }
       ],
       "nextSteps": [
-        "Ersterhebung des gemeinwirtschaftlichen Vermögens und Aufbau des Gemeinvermögensregisters innerhalb von sechs Monaten beobachten",
+        "Übermittlung der Angaben der betroffenen öffentlichen Stellen an das zuständige Staatssekretariat bis 12. Dezember 2026 (Artikel 2 Absatz 3) und vollständige Ersterhebung sämtlicher Träger nach § 2 Absatz 2 bis 12. März 2027 (Artikel 2 Absatz 1 des Gesetzes zur Einführung eines Gemeinvermögensschutzgesetzes) als offene Fristen beobachten; Aufbau und Inhalt des Gemeinvermögensregisters nur nach Nachweis dokumentieren",
         "Rechtsverordnung des Staatsrates nach § 24 nur nach Verkündung dokumentieren"
       ],
       "dependencies": [
         "project-staatsreform"
       ],
       "openQuestionIds": []
+    },
+    {
+      "id": "project-sportneuordnung",
+      "title": "Sportneuordnung: Sportförderung, Landesagentur Spitzensport und Sportstiftung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Das Ostdeutsche Sportneuordnungsgesetz vom 20. Juli 2026 führt fünf Stammgesetze ein: das Ostdeutsche Sportfördergesetz (Landessportplan, Landessportpass Ost, Stützpunktsystem, Kaderförderung, Ombudsstelle Sport, Meldestelle Sportintegrität, Landessportrat Ost sowie Errichtung eines Landesamtes für Sport und Körperkultur, des Instituts für Angewandte Sportwissenschaft Ost und der Trainerakademie Ostdeutschland), das Landesagentur-Spitzensport-Gesetz (Landesagentur Spitzensport Ost als rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig), das Sportstiftungs- und Sportfondsgesetz (Sportstiftung Ostdeutschland als rechtsfähige Stiftung des öffentlichen Rechts mit Sitz in Magdeburg und Sportfonds Ost als unselbständiger Sonderfonds), das Athletenförder- und Versorgungsgesetz (Athletenversorgungswerk Ost bei der Landesagentur, Altersvorsorgezuschuss von mindestens 500 Euro monatlich ab dem Perspektivkader Ost) und das Betriebssportgemeinschaftengesetz; es ändert zugleich Schul-, Kindertagesbetreuungs-, Bezirks-, Hochschul-, Beamten- und Gesundheitsdienstrecht. Das Paket ist seit 21. Juli 2026 in Kraft; die Änderung der Bezirksordnung (Artikel 8) wird auf die ab 1. August 2026 geltende Neufassung angewendet, auf die auch die Berichtigung vom 14. August 2026 den Einleitungssatz des Artikels 8 bezieht. Bestehende Sportförderungen können bis zum Ablauf des 31. Dezember 2026 nach bisherigem Recht fortgeführt werden; bestehende Stützpunkte und Leistungszentren gelten nach Artikel 12 Absatz 5 bis zum Ablauf des 31. August 2026 als vorläufig anerkannt; eine Verlängerung durch Allgemeinverfügung nach Artikel 12 Absatz 6 ist bis zum Stichtag nicht belegt. Organe, Satzungen und Geschäftsaufnahme der neuen Träger sind bis zum Stichtag nicht amtlich belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-52",
+          "locator": "Artikel 1 bis 13",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-68",
+          "locator": "Nummer 6 (S. 4), Berichtigung des Einleitungssatzes von Artikel 8",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-lasp-law",
+          "locator": "§§ 1 bis 7",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-volksbildung-wissenschaft",
+        "inst-landesagentur-spitzensport-ost",
+        "holding-landesagentur-spitzensport-ost",
+        "project-schulreform",
+        "inst-sportstiftung-ostdeutschland",
+        "inst-landesamt-sport-koerperkultur"
+      ],
+      "tags": [
+        "project",
+        "sport",
+        "agency",
+        "public-economy"
+      ],
+      "notes": [
+        "Das Landesagentur-Spitzensport-Gesetz und das Ostdeutsche Sportfördergesetz verwenden den Begriff „oberste Sportbehörde“ ohne Legaldefinition. Das Sportstiftungs- und Sportfondsgesetz (§§ 5 bis 7) und Artikel 12 Absatz 3 des Sportneuordnungsgesetzes nennen das für Bildung zuständige Staatsministerium; die Zuordnung zum Staatssekretariat für Volksbildung und Wissenschaft folgt den Normmetadaten.",
+        "Das Athletenförder- und Versorgungsgesetz verweist in § 2 Absatz 1 auf eine Rechtsverordnung nach § 15, die Ermächtigung steht in § 13.",
+        "Artikel 12 Absatz 6 des Sportneuordnungsgesetzes verweist auf die Frist nach Absatz 6; gemeint ist Absatz 5.",
+        "Bis zum 12. September 2026 sind weder Satzungen noch Organe der Landesagentur Spitzensport Ost und der Sportstiftung Ostdeutschland noch Sitz, Leitung und Aufnahme des Dienstbetriebs des nach § 34 des Ostdeutschen Sportfördergesetzes errichteten Landesamtes für Sport und Körperkultur amtlich belegt."
+      ],
+      "aliases": [
+        "OstSportNOG",
+        "LASpO",
+        "Sportstiftung Ost"
+      ],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-sek-volksbildung-wissenschaft",
+        "inst-landesagentur-spitzensport-ost"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "sportneuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-sportfoerdergesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "landesagentur-spitzensport-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "sportstiftungs-und-sportfondsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "athletenfoerder-und-versorgungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "betriebssportgemeinschaftengesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "berichtigung-verschiedener-verkuendungen-2026",
+          "versionId": "2026-08-27"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-20",
+          "title": "Sportneuordnungsgesetz verkündet"
+        },
+        {
+          "date": "2026-07-21",
+          "title": "Inkrafttreten; Landesagentur Spitzensport Ost, Sportstiftung Ostdeutschland, Sportfonds Ost und Athletenversorgungswerk Ost gesetzlich errichtet"
+        },
+        {
+          "date": "2026-08-27",
+          "title": "Berichtigung vom 14. August 2026 zu Artikel 8 (Bezirksordnung) verkündet"
+        },
+        {
+          "date": "2026-08-31",
+          "title": "Ende der gesetzlichen Frist für die vorläufige Anerkennung bestehender Stützpunkte und Leistungszentren sowie der vorläufigen Ostdeutschen Sportschulen"
+        }
+      ],
+      "nextSteps": [
+        "Satzungen, Verwaltungsrat und Vorstand der Landesagentur Spitzensport Ost sowie Stiftungsrat und Vorstand der Sportstiftung Ostdeutschland nur nach amtlicher Bekanntmachung dokumentieren",
+        "Rechtsverordnungen nach den Ermächtigungen des Abschnitts 10 des Ostdeutschen Sportfördergesetzes und nach § 13 des Athletenförder- und Versorgungsgesetzes nur nach Verkündung übernehmen; § 13 nennt die Staatsregierung, deren Aufgaben seit 21. Juli 2026 beim Staatsrat liegen",
+        "Übergangsbestimmungen des Artikels 12 des Sportneuordnungsgesetzes beobachten: Fortführung bestehender Förderungen und Übergangsverwaltungsvorschriften bis zum Ablauf des 31. Dezember 2026, mögliche Verlängerung der vorläufigen Anerkennung von Stützpunkten durch Allgemeinverfügung",
+        "Sportschulentwicklungsplan der obersten Schulaufsichtsbehörde bis zum Ablauf des 31. Dezember 2028 (§ 6b Absatz 8 des Ostdeutschen Schulgesetzes) nur nach Vorlage dokumentieren"
+      ],
+      "dependencies": [],
+      "openQuestionIds": [
+        "question-sport-stuetzpunkte-anerkennungsfrist-2026"
+      ]
     }
   ]
 }
