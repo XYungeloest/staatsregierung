@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-09-12",
   "editorialAsOf": "2026-09-12",
-  "count": 1222,
+  "count": 1250,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -544,7 +544,7 @@
       "tags": [
         "timeline",
         "housing",
-        "scheduled"
+        "effective-date"
       ],
       "validFrom": "2026-09-01",
       "validTo": "2026-09-01",
@@ -648,6 +648,21 @@
       ],
       "validFrom": "2025-10-04",
       "validTo": "2025-10-04",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-hinweisgebermeldestellen-gesetz-verkuendet-2026-09-02",
+      "title": "Gesetz zur Einführung von Hinweisgebermeldestellen verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "law",
+        "promulgation",
+        "local-government"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": "2026-09-02",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1061,6 +1076,21 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-school-law-package-effective-2026-09-01",
+      "title": "Neues allgemeinbildendes Schulordnungsrecht in Kraft getreten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "education",
+        "law",
+        "effective-date"
+      ],
+      "validFrom": "2026-09-01",
+      "validTo": "2026-09-01",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-school-law-package-promulgated-2026",
       "title": "Schulrechtliches Umsetzungs- und Bereinigungspaket vollständig verkündet",
       "type": "timeline-event",
@@ -1102,6 +1132,35 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-sicherheitserlass-kritis-2026-09-08",
+      "title": "Sicherheitserlass KRITIS 09/2026 bekanntgegeben",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "security",
+        "critical-infrastructure"
+      ],
+      "validFrom": "2026-09-08",
+      "validTo": "2026-09-08",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-sicherheitsueberpruefungsfeststellungsverordnung-2026-08-31",
+      "title": "Sicherheitsüberprüfungsfeststellungsverordnung erlassen und verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "security",
+        "regulation",
+        "promulgation"
+      ],
+      "validFrom": "2026-08-31",
+      "validTo": "2026-08-31",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-soziale-grundversorgungsgesetz-2026-09-12",
       "title": "Soziale Grundversorgungsgesetz verkündet und in Kraft getreten",
       "type": "timeline-event",
@@ -1115,6 +1174,21 @@
       ],
       "validFrom": "2026-09-12",
       "validTo": "2026-09-12",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-sportneuordnung-effective-2026-07-21",
+      "title": "Sportneuordnungsgesetz in Kraft; Landesagentur Spitzensport Ost und Sportstiftung Ostdeutschland errichtet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "sport",
+        "institutions",
+        "law"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": "2026-07-21",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1498,6 +1572,21 @@
         "consolidated"
       ],
       "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-krankenhaussicherungsfonds",
+      "title": "Ostdeutscher Krankenhaussicherungs- und Rekommunalisierungsfonds",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "special-fund",
+        "health",
+        "public-economy"
+      ],
+      "validFrom": "2026-04-01",
       "validTo": null,
       "target": "knowledge/holdings.json"
     },
@@ -10978,6 +11067,20 @@
       "target": "knowledge/entities/institutions.json"
     },
     {
+      "id": "inst-landesamt-sport-koerperkultur",
+      "title": "Landesamt für Sport und Körperkultur",
+      "type": "institution",
+      "aliases": [],
+      "tags": [
+        "institution",
+        "agency",
+        "sport"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-landesanstalt-schienenfahrzeuge-berlin",
       "title": "Landesanstalt Schienenfahrzeuge Berlin",
       "type": "institution",
@@ -11380,6 +11483,23 @@
       "tags": [
         "administration",
         "state-secretariat"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-sportstiftung-ostdeutschland",
+      "title": "Sportstiftung Ostdeutschland",
+      "type": "institution",
+      "aliases": [
+        "Sportstiftung Ost"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "foundation",
+        "sport"
       ],
       "validFrom": "2026-07-21",
       "validTo": null,
@@ -12186,6 +12306,21 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-energie-anstalten-aufbau",
+      "title": "Aufbau der Ostdeutsche Netze und der Landesenergiewerke Ost und Vorbereitung der Energieüberführung",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "energy",
+        "public-law-institution"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-federal-council-access",
       "title": "Bundesratszugangs- oder Stimmrechtsstreit",
       "type": "proceeding",
@@ -12243,6 +12378,35 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-hoheitszeichen-umstellung",
+      "title": "Umstellung auf die Hoheitszeichen des Ostdeutschen Hoheitszeichengesetzes",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "state-symbols"
+      ],
+      "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-interflug-gruendungsphase",
+      "title": "Gründungsphase der Interflug",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "aviation",
+        "public-law-institution"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-israel-cooperation-end",
       "title": "Beendigung ostdeutscher Kooperationen mit Israel",
       "type": "proceeding",
@@ -12253,6 +12417,21 @@
         "cooperation"
       ],
       "validFrom": "2026-05-08",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-kko-gruendungsphase",
+      "title": "Gründungsphase des Kreislaufwirtschafts-Kombinats Ost",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "circular-economy",
+        "public-law-institution"
+      ],
+      "validFrom": "2026-07-21",
       "validTo": null,
       "target": "knowledge/proceedings.json"
     },
@@ -12284,6 +12463,21 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-landesrahmenplan-daseinsvorsorge",
+      "title": "Erstaufstellung des Landesrahmenplans der öffentlichen Daseinsvorsorge und der Planungen der Sozialen Grundversorgung",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "public-services",
+        "planning"
+      ],
+      "validFrom": "2026-09-03",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-law-consolidation",
       "title": "Konsolidierung übernommener und geänderter Stammnormen",
       "type": "proceeding",
@@ -12309,6 +12503,21 @@
       ],
       "validFrom": "2026-09-03",
       "validTo": "2026-09-03",
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-ode-aufbau-und-ueberfuehrung",
+      "title": "Aufbau der Ostdeutschen Eisenbahn und Vorbereitung der Verkehrsüberführung",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "transport",
+        "public-law-institution"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
       "target": "knowledge/proceedings.json"
     },
     {
@@ -12440,6 +12649,21 @@
         "historical"
       ],
       "validFrom": "2026-08-09",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-zinnwald-entschaedigung",
+      "title": "Entschädigungsverfahren nach dem Zinnwald-Vergesellschaftungsgesetz",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "socialisation",
+        "compensation"
+      ],
+      "validFrom": "2026-09-02",
       "validTo": null,
       "target": "knowledge/proceedings.json"
     },
@@ -12822,6 +13046,25 @@
       "target": "knowledge/projects.json"
     },
     {
+      "id": "project-sportneuordnung",
+      "title": "Sportneuordnung: Sportförderung, Landesagentur Spitzensport und Sportstiftung",
+      "type": "project",
+      "aliases": [
+        "OstSportNOG",
+        "LASpO",
+        "Sportstiftung Ost"
+      ],
+      "tags": [
+        "project",
+        "sport",
+        "agency",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "project-staatsreform",
       "title": "Große Staatsreform und Sozialistische Verfassungsnovelle",
       "type": "project",
@@ -12991,6 +13234,21 @@
       "target": "knowledge/open-questions.json"
     },
     {
+      "id": "question-kreisreform-uebergangsbeauftragte-wahltag-2026",
+      "title": "Wer sind die Übergangsbeauftragten der neuen Bezirke, und wann ist der Wahltag der ersten Bezirkstagswahl?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "local-government",
+        "implementation",
+        "elections"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
       "id": "question-missing-revosax-snapshots",
       "title": "Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?",
       "type": "open-question",
@@ -12999,6 +13257,21 @@
         "open-question"
       ],
       "validFrom": null,
+      "validTo": "2026-09-12",
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-ode-ueberfuehrungsprogramm-2026",
+      "title": "Wurde das Überführungsprogramm zur Eisenbahnvergesellschaftung fristgerecht erstellt?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "transport",
+        "implementation",
+        "deadline"
+      ],
+      "validFrom": "2026-08-21",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -13026,6 +13299,21 @@
         "consolidation"
       ],
       "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-sport-stuetzpunkte-anerkennungsfrist-2026",
+      "title": "Wurde die vorläufige Anerkennung bestehender Stützpunkte über den 31. August 2026 hinaus verlängert?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "sport",
+        "implementation",
+        "deadline"
+      ],
+      "validFrom": "2026-09-01",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -14599,6 +14887,119 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-ogvbl-2026-46",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 46",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "territory",
+        "administration"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-47",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 47",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "rail",
+        "transport",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-48",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 48",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "aviation",
+        "industry",
+        "special-fund"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-49",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 49",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "energy",
+        "heating",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-50",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 50",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-51",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 51",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "health",
+        "hospitals"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-52",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 52",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "sport",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-57",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 57",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-ogvbl-2026-59",
       "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 59",
       "type": "source",
@@ -14716,6 +15117,22 @@
         "education"
       ],
       "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-68",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland 2026 Nr. 68",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "constitution",
+        "security",
+        "sport",
+        "education"
+      ],
+      "validFrom": "2026-08-27",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

@@ -37,8 +37,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-03-23",
       "validTo": null,
-      "asOf": "2026-08-08",
-      "summary": "Anstalt des öffentlichen Rechts für die gemeinwirtschaftliche Bewirtschaftung vergesellschafteter Wohnungsbestände. Ihr Verwaltungsrat beschloss am 8. August 2026 die Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung.",
+      "asOf": "2026-09-12",
+      "summary": "Anstalt des öffentlichen Rechts für die gemeinwirtschaftliche Bewirtschaftung vergesellschafteter Wohnungsbestände. Ihr Verwaltungsrat beschloss am 8. August 2026 die Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung. Sie unterliegt nach § 6 Absatz 2 des Gemeingut-Wohnen-Gesetzes der Rechtsaufsicht des zuständigen Staatssekretariats, nach dem Organisationserlass 09/2026 seit 7. September 2026 des Staatssekretariats für Wirtschaft, Arbeit und Wohnungswirtschaft; eine Fachaufsicht findet nicht statt. Seit 12. September 2026 wirkt sie nach § 2 Absatz 5 im Rahmen ihrer gesetzlichen Aufgaben an der Gewährleistungsverantwortung nach dem Soziale Grundversorgungsgesetz mit und berücksichtigt die dort festgestellten regionalen Wohnraumbedarfe; nach § 27 Absatz 2 jenes Gesetzes ist sie zur Mitwirkung an der Landesgrundversorgungskonferenz vorgesehen. Ausnahmen vom Veräußerungs- und Belastungsverbot sind nach § 3 Absatz 3 nur aufgrund eines Gesetzes zulässig, das ihren Umfang im Einzelnen bestimmt; soweit Artikel 95a der Staatsverfassung Anwendung findet, bedarf es eines besonderen Einzelfallgesetzes nach § 19 des Gemeinvermögensschutzgesetzes. § 3 Absatz 4 ist aufgehoben.",
       "sourceRefs": [
         {
           "sourceId": "source-housing-law",
@@ -49,11 +49,38 @@
           "sourceId": "source-stanzo-2026-15",
           "locator": "Seiten 2–3",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-gemeingut-wohnen-law",
+          "locator": "Gemeingut-Wohnen-Gesetz § 6 Abs. 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Artikel 1 § 27 Abs. 2 Nr. 4, § 28 Abs. 5; Artikel 3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-76",
+          "locator": "Artikel 4",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt VII Absatz 2, Abschnitt IX",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "project-wohnen",
-        "inst-sek-inneres-wohnen"
+        "inst-sek-wirtschaft-arbeit",
+        "project-soziale-grundversorgung",
+        "project-gemeinvermoegensschutz"
       ],
       "tags": [
         "institution",
@@ -75,8 +102,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-09-01",
-      "summary": "Landesunmittelbare Anstalt des öffentlichen Rechts für gemeinwirtschaftliche Energie- und Wärmeversorgung. Ihr Verwaltungsrat beschloss die seit 1. September 2026 geltenden Strom- und Wärmepreisleitlinien.",
+      "asOf": "2026-09-12",
+      "summary": "Landesunmittelbare Anstalt des öffentlichen Rechts für gemeinwirtschaftliche Energie- und Wärmeversorgung. Ihr Verwaltungsrat beschloss die seit 1. September 2026 geltenden Strom- und Wärmepreisleitlinien. Errichtet durch das Landesenergiewerke-Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 49), steht sie nach § 1 Absatz 3 unter der Rechtsaufsicht des nach dem Organisationserlass 09/2026 zuständigen Staatssekretariats für Nachhaltigkeit, Energie und Land-, Forst- und Küstenwirtschaft. Sie führt das Landeswärmebüro als fachlich verselbständigten Geschäftsbereich; ein Energie- und Wärmebeirat ist vor wesentlichen Entscheidungen über Wärmeplanung, Erzeugungsstrategie, Investitionsplanung, Stilllegung fossiler Anlagen und erneuerbare Großanlagen anzuhören. Seit 12. September 2026 ist eine Übertragung wesentlicher betriebsnotwendiger Vermögensgegenstände an private Dritte nach § 8 Absatz 4 nur zulässig, soweit Artikel 95a der Staatsverfassung dies zulässt und ein besonderes Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes sie ausdrücklich gestattet.",
       "sourceRefs": [
         {
           "sourceId": "source-energy-law",
@@ -92,11 +119,28 @@
           "sourceId": "source-stanzo-2026-35",
           "locator": "Wärmepreisleitlinie, Abschnitte I und IX",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-landesenergiewerke-law",
+          "locator": "§ 1 Abs. 3, §§ 3, 7 und 8",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 5",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt VII Absatz 7, Abschnitt IX",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "project-energie-waerme",
-        "inst-sek-nachhaltigkeit-energie"
+        "inst-sek-nachhaltigkeit-energie",
+        "project-gemeinvermoegensschutz",
+        "inst-ostdeutsche-netze"
       ],
       "tags": [
         "institution",
@@ -547,8 +591,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Finanzen.",
+      "asOf": "2026-09-12",
+      "summary": "Oberste Landesbehörde für Finanzen; dem Geschäftsbereich Überfluss beigeordnet und nach Abschnitt VII des Organisationserlasses 09/2026 unverändert fortbestehend; nach Abschnitt X trifft es die zur haushaltsmäßigen Umsetzung des Erlasses erforderlichen Anordnungen. Es führt nach § 13 des Boden- und Naturvermögensgesetzes die Rechtsaufsicht über den Landesbodenfonds Ostdeutschland, bewirtschaftet das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost und verwaltet das Sondervermögen Energie- und Wärmevergesellschaftung.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -559,11 +603,34 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt II, Staatssekretariate Nr. 1; Abschnitt VII Absatz 8; Abschnitte IX und X",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-78",
+          "locator": "Artikel 1 § 13 Abs. 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-hsl-sondervermoegen-law",
+          "locator": "§ 6 Abs. 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-finance-law",
+          "locator": "§ 1 Abs. 2",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "person-karl-honecker"
+        "person-karl-honecker",
+        "inst-landesbodenfonds",
+        "holding-sondervermoegen-hochgeschwindigkeitsluftfahrt",
+        "holding-sondervermoegen-energie-waerme"
       ],
       "tags": [
         "administration",
@@ -667,8 +734,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Völkerfreundschaft und Nachbarschaftspolitik.",
+      "asOf": "2026-09-12",
+      "summary": "Oberste Landesbehörde für Völkerfreundschaft und Nachbarschaftspolitik; dem Geschäftsbereich Frieden beigeordnet, dem unter anderem die Beziehungen zum Bund, zu den Ländern, zur Europäischen Union und zu den Nachbarstaaten, die Zusammenarbeit mit Polen, Tschechien und den übrigen Nachbarn, die Ostsee- und Grenzraumpolitik sowie die Verbindungsbüros zugeordnet sind, und nach Abschnitt VII des Organisationserlasses 09/2026 unverändert fortbestehend. Die verfassungsmäßigen Befugnisse des Staatspräsidenten und seine Aufgaben als Vertreter des Freistaates nach außen bleiben unberührt.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -679,6 +746,11 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt III; Abschnitt VII Absatz 8",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -803,8 +875,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Gesundheits- und Sozialwesen.",
+      "asOf": "2026-09-12",
+      "summary": "Oberste Landesbehörde für das Gesundheits- und Sozialwesen; dem Geschäftsbereich Liebe beigeordnet und nach Abschnitt VII des Organisationserlasses 09/2026 unverändert fortbestehend. Als für Gesundheit und Pflege zuständiges Staatssekretariat ist es nach § 31 Absatz 2 des Soziale Grundversorgungsgesetzes ermächtigt, durch Rechtsverordnung das Nähere zu Mindestversorgungsstandards, Versorgungsmonitoring, Pflegeinfrastrukturplanung, Pflegestützpunkten und Gemeindepflege zu bestimmen; nach § 27 Absatz 1 berufen die fachlich zuständigen Staatssekretariate gemeinsam mindestens alle zwei Jahre eine Landesgrundversorgungskonferenz ein.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -815,11 +887,22 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt IV, Staatssekretariate Nr. 2; Abschnitt VII Absatz 8",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Artikel 1 § 27 Abs. 1, § 31 Abs. 2",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "person-lucia-liebknecht"
+        "person-lucia-liebknecht",
+        "project-soziale-grundversorgung"
       ],
       "tags": [
         "administration",
@@ -839,8 +922,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Mobilität und regionale Entwicklung.",
+      "asOf": "2026-09-12",
+      "summary": "Oberste Landesbehörde für Mobilität und regionale Entwicklung; dem Geschäftsbereich Überfluss beigeordnet und nach Abschnitt VII des Organisationserlasses 09/2026 unverändert fortbestehend. In seinem Geschäftsbereich ist die Ostdeutsche Eisenbahn errichtet, über die es die Rechtsaufsicht und, soweit gesetzlich nichts anderes bestimmt ist, die Fachaufsicht über die Erfüllung öffentlicher Aufgaben führt. Die Rechtsaufsicht über die Interflug liegt nach § 20 Absatz 1 des Interflug-Gesetzes beim für Mobilität zuständigen Mitglied des Staatsrates.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -851,11 +934,30 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt II, Staatssekretariate Nr. 3; Abschnitt VII Absatz 8; Abschnitt IX",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Artikel 1, Ostdeutsches Eisenbahngesetz § 1 Abs. 1, § 16",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-74",
+          "locator": "Artikel 1 § 20 Abs. 1",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "person-vincent-flick"
+        "person-vincent-flick",
+        "inst-ostdeutsche-eisenbahn",
+        "project-eisenbahn-verkehr",
+        "inst-interflug",
+        "project-interflug"
       ],
       "tags": [
         "administration",
@@ -875,8 +977,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Oberste Landesbehörde für den Geschäftsbereich Volksbildung und Wissenschaft.",
+      "asOf": "2026-09-12",
+      "summary": "Oberste Landesbehörde für Volksbildung und Wissenschaft; dem Geschäftsbereich Wahrheit beigeordnet, dem auch Sport und die Angelegenheiten des organisierten Sports zugeordnet sind, und nach Abschnitt VII des Organisationserlasses 09/2026 unverändert fortbestehend.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-assignments",
@@ -887,11 +989,19 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt V, Staatssekretariate Nr. 1 und Zuständigkeiten Nr. 13; Abschnitt VII Absatz 8",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "person-carl-ulbricht"
+        "person-carl-ulbricht",
+        "project-schulreform",
+        "inst-sportstiftung-ostdeutschland",
+        "inst-landesamt-sport-koerperkultur"
       ],
       "tags": [
         "administration",
@@ -1064,17 +1174,22 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Durch Gesetz errichtete Sicherheitsbehörde. Das am 28. Juli 2026 geschlossene und am 29. Juli 2026 veröffentlichte Verwaltungsabkommen regelt die übertragenen grenzpolizeilichen Aufgaben und die Zusammenarbeit mit Bundespolizei und Zoll; die praktische Umsetzung ist nicht als abgeschlossen belegt.",
+      "asOf": "2026-09-12",
+      "summary": "Durch § 1 des Kasernierte-Grenzpolizei-Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 50) im Geschäftsbereich des damaligen Staatsministeriums für Staats- und Grenzsicherheit errichtete Polizei, die keine Streitkraft ist und vollzugspolizeiliche Aufgaben insbesondere gegen grenzüberschreitende Kriminalität, zur Fahndung in Grenzräumen und zum Schutz grenznaher Infrastrukturen wahrnimmt. An ihrer Spitze steht ein:e Präsident:in. Nach dem Organisationserlass 09/2026 gehört die Grenzpolizei seit 7. September 2026 zum Geschäftsbereich Frieden; das bisherige Staatssekretariat für Staats- und Grenzsicherheit ist in das Staatssekretariat des Innern und für Staats- und Grenzsicherheit eingegliedert. Das am 28. Juli 2026 geschlossene und am 29. Juli 2026 veröffentlichte Verwaltungsabkommen regelt die übertragenen grenzpolizeilichen Aufgaben und die Zusammenarbeit mit Bundespolizei und Zoll; Aufbau und praktische Umsetzung sind nicht als abgeschlossen belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-grenzpolizei-law",
-          "locator": "Gesetzesfassung 2026-07-21",
+          "locator": "§ 1 Abs. 1 und 2, § 2 Abs. 1, § 5 Abs. 1",
           "role": "primary"
         },
         {
           "sourceId": "source-gmbl-2026-14",
           "locator": "Seiten 2–6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt III, Zuständigkeiten Nr. 5 und 6; Abschnitt VII Absatz 3; Abschnitt IX",
           "role": "primary"
         }
       ],
@@ -1082,13 +1197,16 @@
         "project-grenzpolizei",
         "proceeding-grenzpolizei-bund",
         "inst-bundesministerium-innern-heimat",
-        "inst-sek-staats-grenzsicherheit"
+        "inst-sek-staats-grenzsicherheit",
+        "inst-sek-inneres-wohnen"
       ],
       "tags": [
         "security",
         "agency"
       ],
-      "notes": [],
+      "notes": [
+        "Die Eingliederung des Staatssekretariats für Staats- und Grenzsicherheit in das Staatssekretariat des Innern und für Staats- und Grenzsicherheit folgt aus Abschnitt VII des Organisationserlasses 09/2026; nach Abschnitt IX tritt dieses an die Stelle der im Gesetz genannten Bezeichnung."
+      ],
       "aliases": [
         "Grenzpolizei"
       ],
@@ -1403,16 +1521,30 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für gemeinwirtschaftliche öffentliche Verkehrsleistungen und den öffentlichen Fahrzeug-, Werkstatt- und Infrastrukturpool.",
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für gemeinwirtschaftliche öffentliche Verkehrsleistungen und den öffentlichen Fahrzeug-, Werkstatt- und Infrastrukturpool. Sie ist nach § 1 Absatz 1 im Geschäftsbereich des Staatssekretariats für Mobilität und regionale Entwicklung errichtet, das nach § 16 die Rechtsaufsicht und, soweit gesetzlich nichts anderes bestimmt ist, die Fachaufsicht über die Erfüllung öffentlicher Aufgaben führt. Bei ihr werden Regionalbeiräte für die Bezirke sowie ein Fahrgastbeirat, ein Beirat für Barrierefreiheit und Inklusion und ein Beschäftigtenbeirat eingerichtet, die vor grundsätzlichen Entscheidungen anzuhören sind. Seit 12. September 2026 ist eine Übertragung wesentlicher betriebsnotwendiger Vermögensgegenstände an private Dritte nach § 4 Absatz 3 nur zulässig, soweit Artikel 95a der Staatsverfassung dies zulässt und ein besonderes Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes sie ausdrücklich gestattet.",
       "sourceRefs": [
         {
           "sourceId": "source-eisenbahn-law",
-          "locator": "Ostdeutsches Eisenbahngesetz §§ 1 bis 4",
+          "locator": "Artikel 1, Ostdeutsches Eisenbahngesetz §§ 1 bis 4, 9, 16",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 7",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt II, Staatssekretariate Nr. 3; Abschnitt VII Absatz 8; Abschnitt IX",
           "role": "primary"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "project-eisenbahn-verkehr",
+        "inst-sek-mobilitaet-regionen",
+        "project-gemeinvermoegensschutz"
+      ],
       "tags": [
         "institution",
         "public-law-entity",
@@ -1436,21 +1568,36 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Potsdam für öffentliche Energieinfrastruktur und als Trägerin überführter Netze.",
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Potsdam für öffentliche Energieinfrastruktur und als Trägerin überführter Netze. Errichtet durch das Ostdeutsche-Netze-Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 49), steht sie nach § 1 Absatz 4 unter der Rechtsaufsicht des nach dem Organisationserlass 09/2026 zuständigen Staatssekretariats für Nachhaltigkeit, Energie und Land-, Forst- und Küstenwirtschaft. Ein Netzbeirat aus Vertreter:innen der Bezirke, Kommunen, Verbraucher:innen, Beschäftigten, Gewerkschaften, Wirtschaft, Umwelt- und Sozialverbände, Wissenschaft und Energiegenossenschaften berät Vorstand und Verwaltungsrat und ist vor wesentlichen Entscheidungen über Netzausbau, Gasnetztransformation, Stilllegung, Investitionsplanung und Tarifstruktur anzuhören. Seit 12. September 2026 ist eine Übertragung wesentlicher betriebsnotwendiger Vermögensgegenstände an private Dritte nach § 8 Absatz 3 nur zulässig, soweit Artikel 95a der Staatsverfassung dies zulässt und ein besonderes Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes sie ausdrücklich gestattet.",
       "sourceRefs": [
         {
           "sourceId": "source-ostdeutsche-netze-law",
-          "locator": "§§ 1 und 2",
+          "locator": "§ 1 Abs. 4, §§ 2, 6 und 8",
           "role": "primary"
         },
         {
           "sourceId": "source-energy-law",
           "locator": "Trägerin des Gemeineigentums",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt VII Absatz 7, Abschnitt IX",
+          "role": "primary"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "project-energie-waerme",
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-landesenergiewerke-ost",
+        "project-gemeinvermoegensschutz"
+      ],
       "tags": [
         "institution",
         "public-law-entity",
@@ -1504,26 +1651,123 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für Aufgaben der Spitzensportförderung und des Athletenversorgungswerks.",
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig, errichtet durch § 1 des Landesagentur-Spitzensport-Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52). Sie verwaltet Förderverträge und Prämien, zahlt Kaderförderungen aus, betreibt oder fördert Sportinternate, stellt Trainer:innen an und setzt sie ein, koordiniert die sportmedizinische Betreuung, ist für Laufbahnberatung und Antidoping-Compliance zuständig und betreibt das Athletenversorgungswerk Ost. Organe sind der Verwaltungsrat mit acht Mitgliedern unter Vorsitz einer Vertretung der obersten Sportbehörde und der Vorstand, den der Verwaltungsrat mit Zustimmung der obersten Sportbehörde bestellt; die Anstalt untersteht der Rechtsaufsicht und, soweit sie staatliche Aufgaben wahrnimmt, der Fachaufsicht der obersten Sportbehörde.",
       "sourceRefs": [
         {
           "sourceId": "source-lasp-law",
-          "locator": "§§ 1 und 2",
+          "locator": "§§ 1 bis 7",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt V, Zuständigkeiten Nr. 13",
+          "role": "corroborating"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "holding-landesagentur-spitzensport-ost",
+        "inst-sportstiftung-ostdeutschland",
+        "inst-landesamt-sport-koerperkultur"
+      ],
       "tags": [
         "institution",
         "public-law-entity",
         "sport"
       ],
-      "notes": [],
+      "notes": [
+        "Die Landesagentur betreibt das Athletenversorgungswerk Ost nach Maßgabe des Athletenförder- und Versorgungsgesetzes (§ 2 Abs. 2 Nr. 11).",
+        "Das Gesetz bestimmt die oberste Sportbehörde nicht namentlich; Sport ist nach Abschnitt V des Organisationserlasses 09/2026 (Zuständigkeiten Nr. 13) dem Geschäftsbereich Wahrheit zugeordnet.",
+        "Satzung, Besetzung der Organe und Aufnahme des Geschäftsbetriebs sind am Stichtag nicht belegt."
+      ],
       "aliases": [
         "LASpO"
       ],
       "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sportstiftung-ostdeutschland",
+      "title": "Sportstiftung Ostdeutschland",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige Stiftung des öffentlichen Rechts mit Sitz in Magdeburg, errichtet durch § 1 des Sportstiftungs- und Sportfondsgesetzes vom 20. Juli 2026 (Artikel 3 des Sportneuordnungsgesetzes, OGVBl. 2026 Nr. 52). Sie finanziert und fördert Breiten-, Kinder-, Jugend-, Nachwuchsleistungs- und Spitzensport sowie Sportinfrastruktur; bei ihr wird der Sportfonds Ost als rechtlich unselbständiger Sonderfonds mit zweckgebundenen Mitteln und gesonderter Wirtschafts- und Vermögensrechnung geführt. Organe sind der Stiftungsrat, der den Vorstand überwacht und über die Grundsätze der Mittelverwendung beschließt und dem zwei Vertreter:innen des für Bildung zuständigen Staatssekretariats sowie je ein:e Vertreter:in der für Finanzen, Gesundheitswesen und Inneres zuständigen Stellen, des Ostdeutschen Sportbundes, der Athletenvertretung und der kommunalen Spitzenverbände angehören, und der Vorstand, den der Stiftungsrat mit Zustimmung des für Bildung zuständigen Staatssekretariats bestellt. Sie untersteht der Rechtsaufsicht des für Bildung zuständigen Staatssekretariats; Maßnahmen mit erheblicher finanzieller Bedeutung bedürfen des Einvernehmens mit dem Staatssekretariat der Finanzen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-52",
+          "locator": "Artikel 3 (Sportstiftungs- und Sportfondsgesetz) §§ 1 bis 7; Artikel 13",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt V, Zuständigkeiten Nr. 13; Abschnitt IX",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-volksbildung-wissenschaft",
+        "inst-sek-finanzen",
+        "inst-sek-gesundheit-soziales",
+        "inst-landesagentur-spitzensport-ost",
+        "project-sportneuordnung"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "foundation",
+        "sport"
+      ],
+      "notes": [
+        "Das Gesetz spricht von „Sportstiftung Ostdeutschland“ (§ 1) und „Sportstiftung Ost“ (§§ 2 bis 4, 6 und 7); beide Bezeichnungen sind amtlich.",
+        "Besetzung von Stiftungsrat und Vorstand, Satzung und Aufnahme des Geschäftsbetriebs sind am Stichtag nicht belegt.",
+        "Das Gesetz nennt die für Bildung, Finanzen, Gesundheitswesen und Inneres zuständigen Staatsministerien; nach Abschnitt IX des Organisationserlasses 09/2026 tritt die nach dem Erlass sachlich zuständige Stelle an deren Stelle."
+      ],
+      "aliases": [
+        "Sportstiftung Ost"
+      ],
+      "type": "public-law-foundation",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-landesamt-sport-koerperkultur",
+      "title": "Landesamt für Sport und Körperkultur",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Landesoberbehörde, errichtet durch § 34 des Ostdeutschen Sportfördergesetzes vom 20. Juli 2026 (Artikel 1 des Sportneuordnungsgesetzes, OGVBl. 2026 Nr. 52). Das Landesamt untersteht der Dienst- und Fachaufsicht der obersten Sportbehörde, führt das Sportanlagenkataster, für das Gemeinden, Landkreise, kreisfreie Städte und Bezirke die erforderlichen Daten übermitteln, erhält die Sportstättenpläne der Landkreise und kreisfreien Städte und ist im Landessportrat Ost vertreten.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-52",
+          "locator": "Artikel 1 (Ostdeutsches Sportfördergesetz) § 34, § 37 Abs. 2 Nr. 6, § 38, § 40 Abs. 1 und 3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Abschnitt V, Zuständigkeiten Nr. 13",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-volksbildung-wissenschaft",
+        "inst-landesagentur-spitzensport-ost",
+        "project-sportneuordnung"
+      ],
+      "tags": [
+        "institution",
+        "agency",
+        "sport"
+      ],
+      "notes": [
+        "Das Gesetz bestimmt die „oberste Sportbehörde“ nicht namentlich; Sport ist nach Abschnitt V Nr. 13 des Organisationserlasses 09/2026 dem Geschäftsbereich Wahrheit zugeordnet. Sitz, Leitung und Aufnahme des Dienstbetriebs sind am Stichtag nicht belegt.",
+        "Bei der obersten Sportbehörde sind außerdem der Landessportrat Ost (§ 37; Zusammensetzung und Verfahren durch Rechtsverordnung nach § 48 Abs. 1 Nr. 12), die Ombudsstelle Sport (§ 32) und die Meldestelle Sportintegrität (§ 33) vorgesehen; ihre Bildung oder Einrichtung ist am Stichtag nicht belegt."
+      ],
+      "aliases": [],
+      "type": "agency",
       "predecessorId": null,
       "successorId": null
     },
@@ -2167,12 +2411,12 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-03",
       "validTo": null,
-      "asOf": "2026-09-04",
-      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Schönefeld für öffentliche Spezialflugaufgaben (Wald- und Vegetationsbrandbekämpfung, Katastrophenschutz, Hilfs- und Beobachtungsflüge). Errichtet durch das Interflug-Gesetz vom 2. September 2026; seit 3. September 2026 führt ein vom Staatsrat bestellter Gründungsvorstand die Anstalt und hat die Anfangsflotte aus zehn Löschflugzeugen beschafft.",
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Schönefeld für öffentliche Spezialflugaufgaben (Wald- und Vegetationsbrandbekämpfung, Katastrophenschutz, Hilfs- und Beobachtungsflüge). Errichtet durch das Interflug-Gesetz vom 2. September 2026; seit 3. September 2026 führt ein vom Staatsrat bestellter Gründungsvorstand die Anstalt und hat die Anfangsflotte aus zehn Löschflugzeugen beschafft. Sie untersteht der Rechtsaufsicht des für Mobilität zuständigen Mitglieds des Staatsrates. Seit 12. September 2026 bestimmt § 10 Absatz 4 des Interflug-Gesetzes, dass Artikel 95a der Staatsverfassung und das Gemeinvermögensschutzgesetz unberührt bleiben und die Absätze 1 bis 3 auf Vermögensmaßnahmen, die nach § 19 des Gemeinvermögensschutzgesetzes eines besonderen Einzelfallgesetzes bedürfen, nur nach Maßgabe jenes Gesetzes anzuwenden sind.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-74",
-          "locator": "Artikel 1, §§ 1, 2, 21 und 23 des Interflug-Gesetzes",
+          "locator": "Artikel 1, §§ 1, 2, 12, 20 Abs. 1, 21 und 23 des Interflug-Gesetzes",
           "role": "primary"
         },
         {
@@ -2184,12 +2428,19 @@
           "sourceId": "source-stanzo-2026-40",
           "locator": "Bekanntmachung vom 3. September 2026",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 10",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "project-interflug",
         "inst-staatsrat",
-        "inst-sek-wirtschaft-arbeit"
+        "inst-sek-mobilitaet-regionen",
+        "holding-interflug",
+        "project-gemeinvermoegensschutz"
       ],
       "tags": [
         "institution",
@@ -2199,7 +2450,8 @@
         "public-economy"
       ],
       "notes": [
-        "Gründungsvorstand: Joachim Hunold (Vorsitzender), Ralf Teckentrup, Klaus Wowereit; die Bestellung endet mit dem Amtsantritt des ersten vom Verwaltungsrat bestellten Vorstandes, spätestens mit Ablauf des 3. März 2027."
+        "Gründungsvorstand: Joachim Hunold (Vorsitzender), Ralf Teckentrup, Klaus Wowereit; die Bestellung endet mit dem Amtsantritt des ersten vom Verwaltungsrat bestellten Vorstandes, spätestens mit Ablauf des 3. März 2027.",
+        "Nach StAnzO. 2026 Nr. 40 hat der Verwaltungsrat der Beschaffung der Anfangsflotte zugestimmt; eine Bekanntmachung über die Bestellung seiner Mitglieder nach § 23 Abs. 1 liegt im Bestand nicht vor, seine personelle Zusammensetzung ist nicht belegt. Die Frist zur Bestellung der Mitglieder nach § 12 Abs. 2 Nr. 1 bis 6 läuft bis 3. Oktober 2026; die Satzung ist spätestens drei Monate nach der konstituierenden Sitzung zu beschließen (§ 23 Abs. 5), deren Datum nicht belegt ist."
       ],
       "aliases": [
         "Interflug AöR",

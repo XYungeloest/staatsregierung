@@ -8,12 +8,12 @@
   "featured": false,
   "highlightFrom": "2026-08-09",
   "highlightUntil": "2026-09-10",
-  "updatedAt": "2026-09-06",
+  "updatedAt": "2026-09-12",
   "relatedTopicSlugs": [
     "staatsreform-und-verfassung"
   ],
   "knowledgeProjectRefs": [],
-  "hero": "Die Wahlberechtigten konnten am 5. und 6. September 2026 freiwillig zu fünf Fragen der weiteren politischen Entwicklung Stellung nehmen. Alle fünf Fragen wurden mehrheitlich befürwortet. Die Befragung war kein Volksentscheid und ist rechtlich nicht bindend; der Staatsrat hat seine politischen Schlussfolgerungen am 6. September 2026 veröffentlicht.",
+  "hero": "Die Wahlberechtigten konnten am 5. und 6. September 2026 freiwillig zu fünf Fragen der weiteren politischen Entwicklung Stellung nehmen. Alle fünf Fragen wurden mehrheitlich befürwortet. Die Befragung war kein Volksentscheid und ist rechtlich nicht bindend; der Staatsrat hat seine politischen Schlussfolgerungen am 6. September 2026 veröffentlicht. Die dort angekündigte Verfassungsnovelle hat die Volkskammer am 11. September 2026 beschlossen; sie gilt seit dem 12. September 2026.",
   "beschlossen": [
     "Die Befragung fand am Samstag, dem 5. September, und am Sonntag, dem 6. September 2026 gleichzeitig mit der Wahl zur achten Volkskammer statt.",
     "Die Verordnung legte fünf politische Grundsatzfragen fest. Eine nicht beantwortete Frage galt als nicht abgegebene Stimme; die anderen Antworten blieben davon unberührt.",
@@ -24,11 +24,11 @@
     "Die Bundeswahlleitung hat am 13. August 2026 den Abstimmungszeitraum von Samstag, 5. September, 18 Uhr, bis Sonntag, 6. September, 18 Uhr, bekannt gemacht und die fünf Fragen veröffentlicht.",
     "Die Befragung wurde in den Wahlräumen und zu den Abstimmungszeiten der Volkskammerwahl durchgeführt. Die Teilnahme war freiwillig; aus Teilnahme oder Nichtteilnahme entstanden keine Vor- oder Nachteile.",
     "Die Bundeswahlleitung hat das endgültige Ergebnis am 6. September 2026 festgestellt. Alle fünf Fragen wurden mehrheitlich mit Ja beantwortet.",
-    "Der Staatsrat hat seinen Bericht über die Ergebnisse und die daraus gezogenen politischen Schlussfolgerungen am 6. September 2026 im Staatsanzeiger Nr. 41 veröffentlicht. Damit ist auch die politische Auswertung abgeschlossen."
+    "Der Staatsrat hat seinen Bericht über die Ergebnisse und die daraus gezogenen politischen Schlussfolgerungen am 6. September 2026 im Staatsanzeiger Nr. 41 veröffentlicht. Damit ist auch die politische Auswertung abgeschlossen.",
+    "Die im Bericht angekündigte Sozialistische Verfassungsnovelle ist beschlossen: Die Volkskammer hat am 11. September 2026 das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens beschlossen. Es wurde am 12. September 2026 im OGVBl. 2026 Nr. 76 verkündet und trat am selben Tag in Kraft; nach Artikel 1 der Verfassung ist Ostdeutschland seither ein sozialistischer Freistaat."
   ],
   "naechsteSchritte": [
-    "Der Staatsrat unterstützt nach seinem Bericht die Vorbereitung einer Sozialistischen Verfassungsnovelle. Ein Entwurf liegt noch nicht vor.",
-    "Als Folge der vierten Frage sollen ein Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz vorbereitet, eine Staatsplankommission Ost errichtet und ein Landeswirtschaftsrat aufgebaut werden. Beschlossen ist davon noch nichts.",
+    "Als Folge der vierten Frage sieht die Verfassung seit dem 12. September 2026 einen Gesellschafts- und Wirtschaftsplan vor, den die Volkskammer durch Gesetz für einen Zeitraum von fünf Jahren feststellt; der Staatsrat berichtet ihr jährlich öffentlich über die Planerfüllung, das Nähere soll ein besonderes Gesetz bestimmen (Artikel 13b). Dieses Gesetz sowie das angekündigte Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz, eine Staatsplankommission Ost und ein Landeswirtschaftsrat sind noch nicht beschlossen.",
     "Über die organisatorischen Grundlagen und die nächsten Schritte einer Bewerbung um Olympische und Paralympische Spiele will der Staatsrat gesondert beschließen.",
     "Alle angekündigten Gesetzesvorhaben und Maßnahmen durchlaufen die dafür vorgesehenen Verfahren; die Volksbefragung selbst begründet keine Rechte oder Pflichten."
   ],
@@ -186,12 +186,17 @@
     {
       "label": "Verfassung des Freistaates Ostdeutschland",
       "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
-      "note": "Die Verordnung stützt sich auf Artikel 75a Absatz 1 und 4 sowie Artikel 83 Absatz 2."
+      "note": "Die Verordnung stützt sich auf Artikel 75a Absatz 1 und 4 sowie Artikel 83 Absatz 2 in der bei ihrem Erlass geltenden Fassung."
     },
     {
       "label": "Bericht des Staatsrates über die Ergebnisse der Volksbefragung 2026",
       "publicationSlug": "stanzo-2026-41",
       "note": "Der Bericht vom 6. September 2026 erfüllt die Berichtspflicht nach § 8 der Volksbefragungsverordnung. Er ist keine Rechtsnorm und begründet selbst keine Rechte oder Pflichten."
+    },
+    {
+      "label": "Fünftes Gesetz zur Großen Staatsreform",
+      "normSlug": "fuenftes-gesetz-zur-grossen-staatsreform",
+      "note": "Setzt nach seinem Titel den Volkswillen um; von der Volkskammer am 11. September 2026 beschlossen, am 12. September 2026 verkündet und seit diesem Tag in Kraft."
     }
   ],
   "faq": [
@@ -213,7 +218,7 @@
     },
     {
       "question": "Was folgt aus dem Ergebnis?",
-      "answer": "Der Staatsrat hat am 6. September 2026 einen Bericht mit seinen politischen Schlussfolgerungen veröffentlicht. Er unterstützt die Vorbereitung einer Sozialistischen Verfassungsnovelle, will Wirtschaftsplanung und öffentliche Daseinsvorsorge ausbauen und das Olympia-Bewerbungsprojekt unter sozialen Bedingungen weiterverfolgen. Beschlossen ist damit noch nichts; die Vorhaben durchlaufen die dafür vorgesehenen Verfahren."
+      "answer": "Der Staatsrat hat am 6. September 2026 einen Bericht mit seinen politischen Schlussfolgerungen veröffentlicht. Die darin angekündigte Sozialistische Verfassungsnovelle hat die Volkskammer am 11. September 2026 als Fünftes Gesetz zur Großen Staatsreform beschlossen; es gilt seit seiner Verkündung am 12. September 2026. Am selben Tag traten auch das Soziale Grundversorgungsgesetz, das Boden- und Naturvermögensgesetz und das Gemeinvermögensschutzgesetz in Kraft, die die Volkskammer ebenfalls am 11. September 2026 beschlossen hat. Weitere angekündigte Vorhaben, etwa das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz und die Olympiabewerbung, sind noch nicht beschlossen und durchlaufen die dafür vorgesehenen Verfahren. Die Volksbefragung selbst bleibt rechtlich nicht bindend."
     }
   ],
   "federfuehrendesRessort": "staatskanzlei",
