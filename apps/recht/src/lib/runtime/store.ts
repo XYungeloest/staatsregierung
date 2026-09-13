@@ -9,7 +9,7 @@ import {
   type NormType,
   type NormVersion,
 } from '@ostrecht/shared/lib/norms/schema.ts';
-import { classifyNormVersion, getApplicableVersion, getNormLastActivityDate, getNormLastChangeDate, validateVersionIntervals, type VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getApplicableVersion, getCurrentVersion, getNormLastActivityDate, getNormLastChangeDate, validateVersionIntervals, type VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
 import {
   buildDerivedContext,
   deriveNorm,
@@ -423,8 +423,10 @@ export function selectedVersionIds(record: NormRecord, bodies: BodySelection): S
 }
 
 function getCurrentVersionId(record: NormRecord): string | undefined {
-  // Die geltende Fassung bestimmt zentral versions.ts; hier nur der Zugriffspfad.
-  return record.versions.find((version) => version.isCurrent)?.versionId ?? record.versions.at(-1)?.versionId;
+  // Die geltende Fassung bestimmt zentral versions.ts (Gültigkeitsintervall und Stichtag);
+  // `isCurrent` ist nur ein kompatibles Bestandsfeld und kann auf eine verkündete künftige
+  // Fassung zeigen – dann lud der Normkörper eine andere Fassung als der Kopf zeigte.
+  return record.versions.length > 0 ? getCurrentVersion(record).versionId : undefined;
 }
 
 /**
