@@ -365,7 +365,11 @@ Verkündungen führen Ausgaben und Einträge in einer Seite. Ein Ansichtswechsel
 (`<nav class="law-view-switch" aria-label="Ansicht">`, zwei gleichwertige Links mit
 `aria-current="page"`) schaltet zwischen „Ausgaben“ und „Einträge“ (`ansicht=eintraege`); Filter,
 Jahrgangsleiste und Ergebniszahl gelten für beide Ansichten, beide beginnen mit der jüngsten
-Ausgabe. `/fundstellen/` ist eine dauerhafte Weiterleitung auf die Ansicht „Einträge“.
+Ausgabe. In der Ansicht „Ausgaben“ steht hinter der Ausgabennummer leise ihr Umfang (`--fs-meta`,
+`--text-muted`, `formatPublicationExtent` in `apps/recht/src/lib/publication-extent.ts`): die
+höchste Endseite aller Einträge („12 Seiten“), wenn jeder Eintrag `pages` oder `startPage`
+trägt, sonst die Zahl der Einträge („4 Einträge“). `/fundstellen/` ist eine dauerhafte
+Weiterleitung auf die Ansicht „Einträge“.
 
 Förderrichtlinien haben keine Buchstabenleiste, sondern die zehn amtlichen Förderbereiche: der
 Seitenkopf nennt Bestand und geltende Richtlinien, darunter stehen die belegten Förderbereiche als
@@ -469,7 +473,13 @@ Vorschrift“) als senkrechte Zeitleiste (auf Smartphones vor dem Normtext als h
 Inkrafttreten nicht belegt, Ausgangsfassung) in Wort und Marke, Fundstelle; die angezeigte Fassung
 ist hervorgehoben. Darunter Zitieren (Normzitat, Link zur Vorschrift oder zur Fassung kopieren),
 Vollzitat und Amtliche Quelle. Die Seite „Fassungen und Änderungen“ (P4) führt Abschnittszeile,
-Änderungsprotokoll (die Spalte „Verkündet“ nur mit belegten Daten), Fassungen im Wortlaut,
+Änderungsprotokoll (die Spalte „Verkündet“ nur mit belegten Daten; die Spalte „Betroffen“ nennt
+je entstandener Fassung die Einheiten aus dem Vergleich mit der Vorfassung – „Art. 1, 3, 4, 6
+geändert · Art. 3a, 7c–7e, 13a–13f neu · Art. 7 entfallen“, Gliederungszeichen wie in der
+Inhaltsübersicht mit Bereichen für zusammenhängende Folgen, `formatAffectedUnits` in
+`packages/shared/src/lib/norms/affected-units.ts`; die Ausgangsfassung „gesamte Vorschrift“,
+Einträge ohne Fassungswechsel „—“; mehrere Protokollzeilen derselben Fassung teilen sich eine
+Zelle per `rowspan`, damit die Angabe genau einmal steht), Fassungen im Wortlaut,
 Fassungsvergleich und die Recherche „Fassung zu einem Datum“ (nur für diese Vorschrift; es gibt keine portalweite Stichtagswahl). Die geltende Fassung
 heißt überall „Rechtsstand vom <Datum>“.
 
@@ -517,10 +527,23 @@ Absätze mit neuem oder geändertem Wortlaut (`.norm-abs--changed`) tragen eine 
 Vorlesern „geändert“. In der Inhaltsübersicht steht am Eintrag die Kurzmarke „geänd.“ bzw. „neu“
 mit dem vollständigen Text als `title` und für Vorleser; Gruppen zählen ihre Marken nicht. Die
 Ausgangs- oder Erstfassung trägt keine Marken; entfallene Absätze haben in der angezeigten
-Fassung keinen Ort. Im Druck bleiben die Textzeichen, die Flächen entfallen. Der Vergleich kostet
-bei langen Vorschriften mehr als 50 ms (Verfassung 70–90 ms), deshalb bleiben die Marken je
-(Slug, Vorfassung, Fassung) im Speicher des Workers (`loadNormView`), nicht in der
-D1-Projektion.
+Fassung keinen Ort. Im Druck bleiben die Textzeichen, die Flächen entfallen. Die betroffenen
+Einheiten je Fassungspaar bleiben im Speicher des Workers (`loadAffectedUnits` in
+`norm-view.ts`; die Marken sind eine Sicht darauf), nicht in der D1-Projektion.
+
+Der Änderungsvermerk je Einheit reicht über alle gespeicherten Fassungen (REVOSax-Fußnoten, gii
+„Textnachweis“): hinter der Marke steht das Aufklappzeichen „Verlauf“ (`details`/`summary` in
+der Kopfzeile, Jost, `--fs-caption`), das die Liste „neu: 21.07.2026 Erstes Gesetz zur Großen
+Staatsreform · geändert: 12.09.2026 Sozialistische Verfassungsnovelle“ öffnet – je Eintrag mit
+Link auf den Vergleich der beiden Fassungen samt Anker der Einheit; „neu“ ist der erste Eintrag,
+wenn die Einheit nicht in der ältesten Fassung stand. Bezeichnungen der Änderungsvorschriften wie
+im Kopf (`amendmentLabels`), Datum wie in der Statuszeile. Einheiten ohne Marke gegen die
+Vorfassung, aber mit früheren Änderungen, tragen „Verlauf · n“; Ausgangsfassungen und nie
+geänderte Einheiten tragen nichts. Die Textseite rechnet dafür keine weiteren Vergleiche: die
+Liste kommt aus `/norm/<slug>/betroffen.json` (`buildUnitHistory` in
+`apps/recht/src/lib/unit-history.ts`, geladen nach dem Aufbau der Seite); ohne JavaScript
+verweist „Verlauf“ auf das Änderungsprotokoll, dessen Spalte „Betroffen“ dieselbe Information
+trägt. Im Druck bleibt die Liste geschlossen.
 
 ### Scrollwerkzeuge des Rechtsportals
 
@@ -556,6 +579,24 @@ Das mitlaufende Normzitat nach aktueller Leseposition gehört zur Normansicht; d
 Normkopf des Smartphones (siehe „Normkopf und Bereiche der Vorschrift“) liest dieselbe Stelle.
 
 ### Fassungsvergleich
+
+Die Paarung ist dokumentweit (N11): Beschriftete Einheiten – Paragraphen, Artikel, Anlagen –
+werden über Art und normalisiertes Gliederungszeichen in der ganzen Vorschrift gepaart
+(`createPairingContext` in `packages/shared/src/lib/norms/diff.ts`), gleich in welcher
+Gliederungseinheit sie stehen; ein Zeichen zählt nur, wenn es je Fassung genau einmal vorkommt,
+sonst gilt für dieses Zeichen die Geschwisterregel. Gliederungsblöcke (Teil, Kapitel, Abschnitt,
+Unterabschnitt) werden danach nach Inhalt gepaart – bevorzugt der Block mit den meisten
+gemeinsamen Einheiten (Überdeckung mindestens die Hälfte der kleineren Menge), ersatzweise
+gleiche Überschrift, zuletzt gleiche Ordnungszahl –, nicht mehr über ihre Ordnungszahl. Ein
+umbenannter oder neu nummerierter Abschnitt mit demselben Inhalt ist „geändert“ und erscheint
+nur mit seinem Kastenkopf (`headingOnly`), nicht „entfallen + neu“. Eine Einheit, die in einen
+anderen Abschnitt gewandert ist, gilt bei gleichem Wortlaut als unverändert (keine Marke, kein
+Eintrag), bei anderem Wortlaut als geändert und steht unter ihrem neuen Abschnitt mit dem Zusatz
+„zuvor <Abschnitt>“ im Kastenkopf. Nur wirklich neue Einheiten sind „Neu“, nur wirklich
+entfallene „Entfallen“. Der Zähler nennt je Art der Änderung die Einheiten („5 geänderte
+Artikel · 13 neue Artikel“), Textstellen, umbenannte Gliederungseinheiten und – nur wenn
+Einheiten den Abschnitt gewechselt haben – „n Artikel neu gegliedert“ (`buildVersionComparison`,
+`formatComparisonCount`). Die Marken am Ort der Änderung lesen denselben Baum.
 
 Sichtbare Vergleichseinheiten sind Paragraphen und Artikel, sofern die Struktur solche Einheiten
 enthält. Andernfalls bildet ein sinnvoll benannter struktureller Textcontainer die gemeinsame

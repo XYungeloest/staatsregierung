@@ -2,7 +2,7 @@ import { formatDate } from '@ostrecht/shared/lib/norms/display.ts';
 import { getBlockAnchorId, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormDiffBlock, NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';
-import { formatChangedUnitCount, type NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
+import { formatChangedUnitCount, formatRegroupedUnitCount, formatUnitChangeCount, type NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
 
 /**
  * Der Vergleich hat genau eine Darstellung: zwei Spalten, links der Wortlaut der älteren, rechts
@@ -224,17 +224,36 @@ function provisionTitle(provision: NormProvisionDiff): string {
   return [value?.label, value?.title].filter(Boolean).map((entry) => display(entry)).join(' ');
 }
 
+/**
+ * Zähler des Vergleichs: je Art der Änderung die Einheiten („5 geänderte Artikel · 13 neue
+ * Artikel“), dazu Textstellen, umbenannte Gliederungseinheiten und – nur wenn mindestens ein
+ * Abschnitt seinen Inhalt gewechselt hat – die neu gegliederten Einheiten.
+ */
+export function formatComparisonCount(provisions: NormProvisionDiff[], unitKind: NormUnitKind = 'none', summary: { movedUnits?: number } = {}): string {
+  const isUnit = (entry: NormProvisionDiff) => entry.type === 'paragraph' || entry.type === 'article';
+  const units = provisions.filter((entry) => isUnit(entry) && !entry.headingOnly);
+  const texts = provisions.filter((entry) => !isUnit(entry) && !entry.headingOnly);
+  const headings = provisions.filter((entry) => entry.headingOnly).length;
+  const parts: string[] = [];
+  for (const change of ['changed', 'added', 'removed'] as const) {
+    const count = units.filter((entry) => entry.kind === change).length;
+    if (count > 0) parts.push(formatUnitChangeCount(count, change, unitKind === 'none' ? 'none' : unitKind));
+  }
+  if (texts.length > 0) parts.push(formatChangedUnitCount(texts.length, 'none'));
+  if (headings > 0) parts.push(`${headings} ${headings === 1 ? 'Gliederungseinheit' : 'Gliederungseinheiten'} umbenannt`);
+  if ((summary.movedUnits ?? 0) > 0) parts.push(formatRegroupedUnitCount(summary.movedUnits!, unitKind));
+  return parts.length > 0 ? parts.join(' · ') : formatChangedUnitCount(0, unitKind);
+}
+
 export function renderNormDiffDocument(
   provisions: NormProvisionDiff[],
   fromDate: string,
   toDate: string,
   unitKind: NormUnitKind = 'none',
+  summary: { movedUnits?: number } = {},
 ): string {
   const count = provisions.length;
-  const freeTextCount = provisions.filter((entry) => entry.type !== 'paragraph' && entry.type !== 'article').length;
-  const countLabel = unitKind !== 'none' && freeTextCount > 0
-    ? [count > freeTextCount ? formatChangedUnitCount(count - freeTextCount, unitKind) : '', formatChangedUnitCount(freeTextCount, 'none')].filter(Boolean).join(' · ')
-    : formatChangedUnitCount(count, unitKind);
+  const countLabel = formatComparisonCount(provisions, unitKind, summary);
   // Jede Einheit trägt einen Anker („vergleich-paragraph-2“), auf den die Marken am Ort der
   // Änderung im Normtext verweisen; derselbe Anker wie dort, eindeutig je Seite.
   const usedIds = new Set<string>();
@@ -246,7 +265,9 @@ export function renderNormDiffDocument(
     let id = base;
     for (let counter = 2; usedIds.has(id); counter += 1) id = `${base}-${counter}`;
     usedIds.add(id);
-    return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}" id="${escapeHtml(id)}"><span class="norm-diff__status">${title ? `<span class="norm-diff__status-label">${escapeHtml(title)}</span>` : ''}<span class="r-status r-status--sm r-status--${statusRole(provision.kind)}">${statusLabel(provision.kind)}</span></span><div class="norm-diff__provision-columns">${columns}</div></li>`;
+    // Eine gewanderte Einheit steht unter ihrem neuen Abschnitt; der Kastenkopf nennt den früheren.
+    const moved = provision.movedFrom ? `<span class="norm-diff__moved">zuvor ${escapeHtml(display(provision.movedFrom))}</span>` : '';
+    return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}${provision.headingOnly ? ' norm-diff__provision--heading' : ''}" id="${escapeHtml(id)}"><span class="norm-diff__status">${title ? `<span class="norm-diff__status-label">${escapeHtml(title)}</span>` : ''}${moved}<span class="r-status r-status--sm r-status--${statusRole(provision.kind)}">${statusLabel(provision.kind)}</span></span><div class="norm-diff__provision-columns">${columns}</div></li>`;
   }).join('');
   const legend = `<p class="norm-diff__legend"><span><del>gestrichen</del> links: Wortlaut der Fassung vom ${escapeHtml(formatDate(fromDate))}</span><span><ins>eingefügt</ins> rechts: Wortlaut der Fassung vom ${escapeHtml(formatDate(toDate))}</span><span>Textmarke Neu, Geändert oder Entfallen je Einheit</span></p>`;
   return `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(fromDate)}">${escapeHtml(formatDate(fromDate))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(toDate)}">${escapeHtml(formatDate(toDate))}</time></h2><p>${escapeHtml(countLabel)}</p></header><ol class="norm-diff__list">${provisionMarkup}</ol>${count === 0 ? '<p class="r-meta">Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : legend}`;

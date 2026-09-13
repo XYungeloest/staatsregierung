@@ -60,3 +60,24 @@ export function formatChangedUnitCount(count: number, kind: NormUnitKind = 'none
   const adjective = count === 1 && UNIT_WORDS[kind].genus === 'maskulin' ? 'geänderter' : 'geänderte';
   return `${count} ${adjective} ${formatNormUnitKind(kind, count)}`;
 }
+
+export type NormUnitChange = 'changed' | 'added' | 'removed';
+
+const CHANGE_ADJECTIVES: Record<NormUnitChange, { plural: string; maskulin: string; feminin: string }> = {
+  changed: { plural: 'geänderte', maskulin: 'geänderter', feminin: 'geänderte' },
+  added: { plural: 'neue', maskulin: 'neuer', feminin: 'neue' },
+  removed: { plural: 'entfallene', maskulin: 'entfallener', feminin: 'entfallene' },
+};
+
+/** Zähler je Art der Änderung: „13 neue Artikel“, „1 entfallener Paragraph“, „2 geänderte Textstellen“. */
+export function formatUnitChangeCount(count: number, change: NormUnitChange, kind: NormUnitKind = 'none'): string {
+  const words = CHANGE_ADJECTIVES[change];
+  const adjective = count === 1 ? words[UNIT_WORDS[kind].genus] : words.plural;
+  return `${count} ${adjective} ${formatNormUnitKind(kind, count)}`;
+}
+
+/** Zähler der Umgliederung: „128 Artikel neu gegliedert“, „3 Einheiten neu gegliedert“ (ohne bekannte Einheitenart). */
+export function formatRegroupedUnitCount(count: number, kind: NormUnitKind = 'none'): string {
+  const noun = kind === 'none' ? (count === 1 ? 'Einheit' : 'Einheiten') : formatNormUnitKind(kind, count);
+  return `${count} ${noun} neu gegliedert`;
+}

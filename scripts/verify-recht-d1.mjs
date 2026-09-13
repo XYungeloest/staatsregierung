@@ -5,7 +5,9 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { loadKeywordRegister, registerKeywordsBySlug } from '@ostrecht/shared/lib/norms/register.ts';
+import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 
 import { FULL_SCOPE, fixtureScope, projectionIdentity } from './lib/d1-projection-fingerprint.mjs';
 import { fixtureSlugList, isSyntheticFixture, loadFixtureCorpus, readFixtureManifest } from './lib/runtime-fixture.mjs';
@@ -94,7 +96,7 @@ const bySlug = new Map();
 const expectedPublications = [];
 if (synthetic) {
   const corpus = await loadFixtureCorpus(ROOT, fixtureManifest);
-  for (const norm of corpus.norms) bySlug.set(norm.meta.slug, { meta: norm.meta, versions: norm.versions });
+  for (const norm of corpus.norms) bySlug.set(norm.meta.slug, { meta: norm.meta, versions: norm.versions, history: norm.history });
   expectedPublications.push(...corpus.publications.map((publication) => ({ slug: publication.slug, date: publication.date })));
 } else {
   const fixtureSlugs = fixtureManifest ? new Set(fixtureSlugList(fixtureManifest)) : null;
@@ -190,11 +192,15 @@ for (const row of rows) {
   }
   const { meta } = expected;
   const versionCount = expected.versions.length;
+  // law_norms.title trägt wie die Projektion (normQueries) die Bezeichnung der zum Stichtag
+  // geltenden Fassung – ein fassungsspezifischer Titel geht dem Titel der Stammdaten vor.
+  const record = { meta, versions: expected.versions, history: expected.history ?? { entries: [] } };
+  const expectedTitle = expected.versions.length > 0 ? getNormVersionIdentity(record, getApplicableVersion(record)).title : meta.title;
   const relativePortalLink = /"(?:url|href)":"\/(?!\/)/u.test(row.portal_links_json ?? '');
-  const ok = meta.title === row.title && meta.type === row.type && meta.status === row.status
+  const ok = expectedTitle === row.title && meta.type === row.type && meta.status === row.status
     && versionCount === Number(row.versions) && Number(row.versions_with_blocks) === versionCount && !relativePortalLink;
   console.log(`${ok ? 'OK ' : 'ABWEICHUNG'} ${row.slug}: D1 ${row.versions} Fassungen (${row.versions_with_blocks} mit Blöcken, ${row.search_rows} Suchzeilen) | ${expectedLabel} ${versionCount} Fassungen | ${row.type}/${row.status}`);
-  if (!ok) problems.push(`${row.slug}: Titel/Typ/Status/Fassungen/Portalverweise weichen ab (D1 „${row.title}“ vs ${expectedLabel} „${meta.title}“${relativePortalLink ? ', relativer Portalverweis' : ''})`);
+  if (!ok) problems.push(`${row.slug}: Titel/Typ/Status/Fassungen/Portalverweise weichen ab (D1 „${row.title}“ vs ${expectedLabel} „${expectedTitle}“${relativePortalLink ? ', relativer Portalverweis' : ''})`);
 }
 const missing = sample.filter((slug) => !rows.some((row) => row.slug === slug));
 if (missing.length > 0) problems.push(`in D1 fehlen: ${missing.join(', ')}`);

@@ -1189,3 +1189,45 @@ a.norm-timeline__date:hover {
     transition: none;
   }
 }
+
+/* Änderungsvermerk je Einheit (REVOSax-Fußnoten): hinter der Marke ein Aufklappzeichen „Verlauf“,
+   die Liste der Fassungen darunter in voller Breite der Kopfzeile. */
+.norm-unit__history {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+.norm-unit__history > summary {
+  cursor: pointer;
+  color: var(--text-link);
+  list-style: none;
+}
+
+.norm-unit__history > summary::-webkit-details-marker {
+  display: none;
+}
+
+.norm-unit__history > summary::after {
+  content: ' ▾';
+  color: var(--text-muted);
+}
+
+.norm-unit__history[open] > summary::after {
+  content: ' ▴';
+}
+
+.norm-unit__history[open] {
+  flex-basis: 100%;
+}
+
+.norm-unit__history-body {
+  padding: var(--space-2) 0 var(--space-1);
+}
+
+.norm-unit__history-list {
+  display: grid;
+  gap: var(--space-1);
+  padding-left: 0;
+  list-style: none;
+}

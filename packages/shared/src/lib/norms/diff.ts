@@ -34,6 +34,10 @@ export interface NormProvisionDiff {
   before?: NormDiffValue;
   after?: NormDiffValue;
   children: NormDiffBlock[];
+  /** Überschrift der früheren Gliederungseinheit, wenn die Einheit in eine andere gewandert ist („II. Abschnitt Die Grundrechte“). */
+  movedFrom?: string;
+  /** Nur die Überschrift einer umbenannten, neuen oder entfallenen Gliederungseinheit – ihre Einheiten stehen einzeln. */
+  headingOnly?: boolean;
   /** Kompatibilitätsdarstellung für bestehende Verbraucher; die Vergleichsansicht nutzt children. */
   beforeText?: string;
   afterText?: string;
@@ -65,6 +69,8 @@ export interface NormDiffBlock {
   children: NormDiffBlock[];
   beforeIndex?: number;
   afterIndex?: number;
+  /** Überschrift der Gliederungseinheit, aus der die Einheit gewandert ist (dokumentweite Paarung). */
+  movedFrom?: string;
   label?: string;
   beforeTitle?: string;
   afterTitle?: string;
@@ -490,10 +496,137 @@ function pairUnlabeledBlocks(
   return pairs;
 }
 
+/**
+ * Dokumentweite Paarung (N11): Beschriftete Einheiten – Paragraphen, Artikel, Anlagen – werden
+ * über Art und normalisiertes Gliederungszeichen in der ganzen Vorschrift gepaart, gleich in
+ * welcher Gliederungseinheit sie stehen. Ein Gliederungszeichen zählt nur, wenn es je Fassung
+ * genau einmal vorkommt; sonst gilt für dieses Zeichen die Geschwisterregel. Gliederungsblöcke
+ * werden danach nach Inhalt gepaart, nicht nach Ordnungszahl.
+ */
+const UNIT_BLOCK_TYPES = new Set<NormBodyBlock['type']>(['paragraph', 'article', 'annex']);
+const DIVISION_BLOCK_TYPES = new Set<NormBodyBlock['type']>(['part', 'chapter', 'section', 'subsection']);
+
+interface UnitEntry {
+  block: NormBodyBlock;
+  parent?: NormBodyBlock;
+}
+
+interface PairingContext {
+  /** Dokumentweit eindeutige, in beiden Fassungen vorhandene Einheiten je Fassung. */
+  before: Map<string, UnitEntry>;
+  after: Map<string, UnitEntry>;
+  /** Einheiten, die in eine andere Gliederungseinheit gewandert sind. */
+  moved: number;
+  /** Schlüssel der dokumentweit gepaarten Einheiten je Gliederungsblock (Überdeckung). */
+  keysWithin: WeakMap<NormBodyBlock, Set<string>>;
+}
+
+function unitKey(block: NormBodyBlock): string | undefined {
+  if (!UNIT_BLOCK_TYPES.has(block.type) || !block.label) return undefined;
+  return `${block.type}|${block.label.replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de-DE')}`;
+}
+
+function collectUnits(blocks: NormBodyBlock[], parent: NormBodyBlock | undefined, into: Map<string, UnitEntry[]>): void {
+  for (const block of blocks) {
+    if (block.type === 'quotedProvision') continue;
+    const key = unitKey(block);
+    if (key) into.set(key, [...(into.get(key) ?? []), { block, parent }]);
+    if (block.children) collectUnits(block.children, block, into);
+  }
+}
+
+function createPairingContext(beforeBody: NormBodyBlock[], afterBody: NormBodyBlock[]): PairingContext {
+  const unique = (body: NormBodyBlock[]): Map<string, UnitEntry> => {
+    const all = new Map<string, UnitEntry[]>();
+    collectUnits(body, undefined, all);
+    return new Map([...all].filter(([, entries]) => entries.length === 1).map(([key, [entry]]) => [key, entry]));
+  };
+  const before = unique(beforeBody);
+  const after = unique(afterBody);
+  for (const key of [...before.keys()]) if (!after.has(key)) before.delete(key);
+  for (const key of [...after.keys()]) if (!before.has(key)) after.delete(key);
+  return { before, after, moved: 0, keysWithin: new WeakMap() };
+}
+
+/** Dokumentweit gepaarte Einheiten innerhalb eines Blocks (für die Überdeckung von Gliederungsblöcken). */
+function pairedKeysWithin(block: NormBodyBlock, context: PairingContext): Set<string> {
+  const cached = context.keysWithin.get(block);
+  if (cached) return cached;
+  const keys = new Set<string>();
+  const visit = (entries: NormBodyBlock[]): void => {
+    for (const entry of entries) {
+      if (entry.type === 'quotedProvision') continue;
+      const key = unitKey(entry);
+      if (key && context.before.has(key)) keys.add(key);
+      if (entry.children) visit(entry.children);
+    }
+  };
+  if (block.children) visit(block.children);
+  context.keysWithin.set(block, keys);
+  return keys;
+}
+
+function headingOf(block: NormBodyBlock | undefined): string {
+  return block ? [comparableText(block.label), comparableText(block.title)].filter(Boolean).join(' ') : '';
+}
+
+/**
+ * Gliederungsblöcke unter Geschwistern paaren: zuerst nach Inhalt (der Block mit den meisten
+ * gemeinsamen, dokumentweit gepaarten Einheiten; Überdeckung mindestens die Hälfte der kleineren
+ * Menge), dann nach gleicher Überschrift, zuletzt nach Ordnungszahl. Ein umbenannter oder neu
+ * nummerierter Abschnitt mit demselben Inhalt bleibt so „geändert“ statt „entfallen + neu“.
+ */
+function pairDivisions(
+  before: NormBodyBlock[],
+  after: NormBodyBlock[],
+  usedAfter: Set<number>,
+  context: PairingContext | undefined,
+): Map<number, number> {
+  const matches = new Map<number, number>();
+  const beforeIndexes = before.map((block, index) => ({ block, index })).filter(({ block }) => DIVISION_BLOCK_TYPES.has(block.type));
+  const afterIndexes = after.map((block, index) => ({ block, index })).filter(({ block, index }) => DIVISION_BLOCK_TYPES.has(block.type) && !usedAfter.has(index));
+  const open = () => beforeIndexes.filter(({ index }) => !matches.has(index));
+  const free = () => afterIndexes.filter(({ index }) => !usedAfter.has(index));
+  if (context) {
+    const candidates: Array<{ before: number; after: number; shared: number; ratio: number }> = [];
+    for (const left of open()) {
+      const leftKeys = pairedKeysWithin(left.block, context);
+      if (leftKeys.size === 0) continue;
+      for (const right of free()) {
+        if (right.block.type !== left.block.type) continue;
+        const rightKeys = pairedKeysWithin(right.block, context);
+        if (rightKeys.size === 0) continue;
+        let shared = 0;
+        for (const key of leftKeys) if (rightKeys.has(key)) shared += 1;
+        const ratio = shared / Math.min(leftKeys.size, rightKeys.size);
+        if (ratio >= 0.5) candidates.push({ before: left.index, after: right.index, shared, ratio });
+      }
+    }
+    candidates.sort((a, b) => b.shared - a.shared || b.ratio - a.ratio || a.before - b.before || a.after - b.after);
+    for (const candidate of candidates) {
+      if (matches.has(candidate.before) || usedAfter.has(candidate.after)) continue;
+      matches.set(candidate.before, candidate.after);
+      usedAfter.add(candidate.after);
+    }
+  }
+  for (const field of ['title', 'label'] as const) {
+    for (const left of open()) {
+      const value = comparableText(left.block[field]);
+      if (!value) continue;
+      const right = free().find((entry) => entry.block.type === left.block.type && comparableText(entry.block[field]) === value);
+      if (!right) continue;
+      matches.set(left.index, right.index);
+      usedAfter.add(right.index);
+    }
+  }
+  return matches;
+}
+
 function pairBlockLists(
   before: NormBodyBlock[],
   after: NormBodyBlock[],
   parentKey: string,
+  context?: PairingContext,
 ): NormDiffBlock[] {
   const beforeOccurrences = new Map<string, number>();
   const afterOccurrences = new Map<string, number>();
@@ -501,13 +634,34 @@ function pairBlockLists(
   const afterSegments = after.map((block) => blockSegment(block, afterOccurrences));
   const usedAfter = new Set<number>();
   const matches = new Map<number, number>();
-  const pairs: Array<{ before?: NormBodyBlock; after?: NormBodyBlock; beforeIndex?: number; afterIndex?: number; key: string }> = [];
+  const pairs: Array<{ before?: NormBodyBlock; after?: NormBodyBlock; beforeIndex?: number; afterIndex?: number; key: string; movedFrom?: string }> = [];
+
+  // Dokumentweit gepaarte Einheiten, deren Partner nicht in dieser Geschwisterliste steht: links
+  // gewandert (kein „entfallen“), rechts zugewandert (Paar mit dem Block aus der alten Stelle).
+  const beforeKeys = new Set(before.map(unitKey).filter(Boolean));
+  const afterKeys = new Set(after.map(unitKey).filter(Boolean));
+  const movedAway = new Set<number>();
+  before.forEach((block, index) => {
+    const key = unitKey(block);
+    if (key && context?.before.has(key) && !afterKeys.has(key)) movedAway.add(index);
+  });
+  after.forEach((block, index) => {
+    const key = unitKey(block);
+    if (!key || !context?.after.has(key) || beforeKeys.has(key)) return;
+    const origin = context.before.get(key)!;
+    usedAfter.add(index);
+    pairs.push({ before: origin.block, after: block, afterIndex: index, key: `${parentKey}/${afterSegments[index]}`, movedFrom: headingOf(origin.parent) });
+  });
+
+  // Gliederungsblöcke nach Inhalt, Überschrift, Ordnungszahl.
+  for (const [beforeIndex, afterIndex] of pairDivisions(before, after, usedAfter, context)) matches.set(beforeIndex, afterIndex);
 
   // Beschriftete Blöcke folgen ihrem Gliederungszeichen; nur der Rest wird inhaltlich gepaart.
   before.forEach((block, index) => {
-    if (!block.label) return;
+    if (!block.label || DIVISION_BLOCK_TYPES.has(block.type) || movedAway.has(index) || matches.has(index)) return;
+    const key = unitKey(block);
     const exact = after.findIndex((candidate, candidateIndex) =>
-      !usedAfter.has(candidateIndex) && candidate.type === block.type && candidate.label === block.label,
+      !usedAfter.has(candidateIndex) && candidate.type === block.type && (key ? unitKey(candidate) === key : candidate.label === block.label),
     );
     if (exact < 0) return;
     usedAfter.add(exact);
@@ -517,7 +671,7 @@ function pairBlockLists(
   const unlabeled = (blocks: NormBodyBlock[], used?: Set<number>) => blocks
     .map((block, index) => ({ block, index }))
     .filter(({ block, index }) => !block.label && !(used?.has(index) ?? false));
-  const openBefore = unlabeled(before).filter(({ index }) => !matches.has(index));
+  const openBefore = unlabeled(before).filter(({ index }) => !matches.has(index) && !movedAway.has(index));
   const openAfter = unlabeled(after, usedAfter);
   const types = [...new Set(openBefore.map(({ block }) => block.type))];
   for (const type of types) {
@@ -533,6 +687,7 @@ function pairBlockLists(
   }
 
   before.forEach((block, index) => {
+    if (movedAway.has(index)) return;
     const afterIndex = matches.get(index);
     if (afterIndex === undefined) {
       pairs.push({ before: block, beforeIndex: index, key: `${parentKey}/${beforeSegments[index]}` });
@@ -552,12 +707,11 @@ function pairBlockLists(
     pairs.push({ after: block, afterIndex: index, key: `${parentKey}/${afterSegments[index]}` });
   });
 
-  pairs.sort((left, right) =>
-    Math.min(left.beforeIndex ?? Number.POSITIVE_INFINITY, left.afterIndex ?? Number.POSITIVE_INFINITY) -
-    Math.min(right.beforeIndex ?? Number.POSITIVE_INFINITY, right.afterIndex ?? Number.POSITIVE_INFINITY),
-  );
+  // Reihenfolge der neuen Fassung; entfallene Blöcke stehen an ihrer alten Stelle.
+  const position = (pair: { beforeIndex?: number; afterIndex?: number }) => pair.afterIndex ?? pair.beforeIndex ?? Number.POSITIVE_INFINITY;
+  pairs.sort((left, right) => position(left) - position(right) || (left.afterIndex === undefined ? -1 : 0) - (right.afterIndex === undefined ? -1 : 0));
 
-  return pairs.map((pair) => buildDiffBlock(pair, parentKey));
+  return pairs.map((pair) => buildDiffBlock(pair, parentKey, context));
 }
 
 function primitiveFieldsChanged(before: NormDiffValue, after: NormDiffValue): boolean {
@@ -568,9 +722,11 @@ function primitiveFieldsChanged(before: NormDiffValue, after: NormDiffValue): bo
 }
 
 function buildDiffBlock(
-  pair: { before?: NormBodyBlock; after?: NormBodyBlock; beforeIndex?: number; afterIndex?: number; key: string },
+  pair: { before?: NormBodyBlock; after?: NormBodyBlock; beforeIndex?: number; afterIndex?: number; key: string; movedFrom?: string },
   parentKey: string,
+  context?: PairingContext,
 ): NormDiffBlock {
+  if (pair.movedFrom !== undefined && context) context.moved += 1;
   const before = pair.before;
   const after = pair.after;
   if (!before && !after) throw new Error(`Leerer Diff-Knoten ${parentKey}`);
@@ -583,7 +739,7 @@ function buildDiffBlock(
       type: block.type,
       kind,
       ...(before ? { before: diffValue(before) } : { after: diffValue(after!) }),
-      children: pairBlockLists(before?.children ?? [], after?.children ?? [], pair.key),
+      children: pairBlockLists(before?.children ?? [], after?.children ?? [], pair.key, context),
       ...(pair.beforeIndex === undefined ? {} : { beforeIndex: pair.beforeIndex }),
       ...(pair.afterIndex === undefined ? {} : { afterIndex: pair.afterIndex }),
       label: block.label,
@@ -596,7 +752,7 @@ function buildDiffBlock(
 
   const beforeValue = diffValue(before);
   const afterValue = diffValue(after);
-  const children = pairBlockLists(before.children ?? [], after.children ?? [], pair.key);
+  const children = pairBlockLists(before.children ?? [], after.children ?? [], pair.key, context);
   const textChanged = comparableText(before.text) !== comparableText(after.text);
   const titleChanged = before.title !== after.title;
   const labelChanged = before.label !== after.label;
@@ -617,6 +773,7 @@ function buildDiffBlock(
     children,
     ...(pair.beforeIndex === undefined ? {} : { beforeIndex: pair.beforeIndex }),
     ...(pair.afterIndex === undefined ? {} : { afterIndex: pair.afterIndex }),
+    ...(pair.movedFrom === undefined ? {} : { movedFrom: pair.movedFrom }),
     label: after.label ?? before.label,
     ...(before.title ? { beforeTitle: before.title } : {}),
     ...(after.title ? { afterTitle: after.title } : {}),
@@ -672,6 +829,7 @@ function toProvision(block: NormDiffBlock): NormProvisionDiff {
     ...(block.before ? { before: block.before } : {}),
     ...(block.after ? { after: block.after } : {}),
     children: block.children,
+    ...(block.movedFrom ? { movedFrom: block.movedFrom } : {}),
     ...(beforeText ? { beforeText } : {}),
     ...(afterText ? { afterText } : {}),
     ...(block.titleDiff ? { titleDiff: block.titleDiff } : {}),
@@ -688,15 +846,49 @@ export function buildVersionDiffTree(
   before: Pick<NormVersion, 'body'>,
   after: Pick<NormVersion, 'body'>,
 ): NormDiffBlock[] {
-  return pairBlockLists(before.body, after.body, 'body');
+  return pairBlockLists(before.body, after.body, 'body', createPairingContext(before.body, after.body));
 }
 
-export function buildProvisionVersionDiff(
+/** Ergebnis eines Fassungsvergleichs: die sichtbaren Einheiten und die Zähler der Umgliederung. */
+export interface NormVersionComparison {
+  provisions: NormProvisionDiff[];
+  /** Einheiten, die in eine andere Gliederungseinheit gewandert sind (mit oder ohne Wortlautänderung). */
+  movedUnits: number;
+  /** Gliederungseinheiten mit umbenannter, neuer oder entfallener Überschrift. */
+  renamedDivisions: number;
+}
+
+function headingChanged(block: NormDiffBlock): boolean {
+  if (block.kind === 'added' || block.kind === 'removed') return true;
+  return comparableText(block.before?.label) !== comparableText(block.after?.label) || comparableText(block.before?.title) !== comparableText(block.after?.title);
+}
+
+/** Kastenkopf einer Gliederungseinheit ohne ihre Einheiten (die stehen einzeln im Vergleich). */
+function headingProvision(block: NormDiffBlock): NormProvisionDiff {
+  const heading = (value: NormDiffValue | undefined) => [value?.label, value?.title].filter(Boolean).join(' ');
+  return {
+    key: `${block.key}/heading`,
+    type: block.type,
+    kind: block.kind === 'unchanged' ? 'changed' : block.kind,
+    ...(block.before ? { before: block.before } : {}),
+    ...(block.after ? { after: block.after } : {}),
+    children: [],
+    ...(block.before ? { beforeText: heading(block.before) } : {}),
+    ...(block.after ? { afterText: heading(block.after) } : {}),
+    ...(block.titleDiff ? { titleDiff: block.titleDiff } : {}),
+    ...(block.labelDiff ? { labelDiff: block.labelDiff } : {}),
+    headingOnly: true,
+  };
+}
+
+export function buildVersionComparison(
   before: Pick<NormVersion, 'body'>,
   after: Pick<NormVersion, 'body'>,
-): NormProvisionDiff[] {
-  const root = pairBlockLists(before.body, after.body, 'body');
+): NormVersionComparison {
+  const context = createPairingContext(before.body, after.body);
+  const root = pairBlockLists(before.body, after.body, 'body', context);
   const provisions: NormProvisionDiff[] = [];
+  let renamedDivisions = 0;
 
   function collect(block: NormDiffBlock): number {
     if (block.kind === 'unchanged') return 0;
@@ -704,8 +896,18 @@ export function buildProvisionVersionDiff(
       provisions.push(toProvision(block));
       return 1;
     }
+    // Eine Gliederungseinheit mit Einheiten erscheint nur mit ihrer Überschrift, wenn diese sich
+    // geändert hat (umbenannt, neu nummeriert, neu, entfallen); ihre Einheiten stehen einzeln,
+    // gewanderte mit unverändertem Wortlaut gar nicht.
+    let own = 0;
+    if (DIVISION_BLOCK_TYPES.has(block.type) && containsProvisionUnit(block) && headingChanged(block)) {
+      provisions.push(headingProvision(block));
+      renamedDivisions += 1;
+      own = 1;
+    }
     const nested = collectList(block.children);
-    if (nested > 0) return nested;
+    if (nested > 0 || own > 0) return nested + own;
+    if (containsProvisionUnit(block)) return 0;
     provisions.push(toProvision(block));
     return 1;
   }
@@ -757,5 +959,12 @@ export function buildProvisionVersionDiff(
   }
 
   collectList(root);
-  return provisions;
+  return { provisions, movedUnits: context.moved, renamedDivisions };
+}
+
+export function buildProvisionVersionDiff(
+  before: Pick<NormVersion, 'body'>,
+  after: Pick<NormVersion, 'body'>,
+): NormProvisionDiff[] {
+  return buildVersionComparison(before, after).provisions;
 }

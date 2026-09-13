@@ -2,7 +2,7 @@
 import LawLayout from '../../../layouts/LawLayout.astro';
 import NormHead from '../../../components/norms/NormHead.astro';
 import NormSectionTabs from '../../../components/norms/NormSectionTabs.astro';
-import { buildProvisionVersionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
+import { buildVersionComparison } from '@ostrecht/shared/lib/norms/diff.ts';
 import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
 import {
   formatDate,
@@ -41,7 +41,8 @@ if (!norm) return Astro.rewrite('/404');
 const versions = [...norm.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
 const defaultTo = versions.find((version) => version.versionId === defaultToSkeleton.versionId) ?? versions.at(-1)!;
 const defaultFrom = versions.find((version) => version.versionId === defaultFromSkeleton.versionId) ?? versions[0];
-const defaultProvisions = buildProvisionVersionDiff(defaultFrom, defaultTo);
+const defaultComparison = buildVersionComparison(defaultFrom, defaultTo);
+const defaultProvisions = defaultComparison.provisions;
 const defaultUnitKind = getNormUnitKind([...defaultFrom.body, ...defaultTo.body]);
 // Der Kopf kommt aus denselben Ladeschritten wie Text- und Datenseite (Bezeichnungen der
 // Änderungsvorschriften, Fundstelle der nächsten künftigen Fassung): eine Quelle für alle Ansichten.
@@ -56,10 +57,14 @@ const normTitle = toDisplayText(currentIdentity.title);
 const normShortTitle = toDisplayText(currentIdentity.shortTitle || currentIdentity.title);
 const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
 const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
+// Zähler der Formularzeile: nur Einheiten und Textstellen, keine Kastenköpfe von Gliederungseinheiten;
+// „neu gegliedert“ nur, wenn Einheiten den Abschnitt gewechselt haben.
+const counted = defaultProvisions.filter((entry) => !entry.headingOnly);
 const counts = {
-  changed: defaultProvisions.filter((entry) => entry.kind === 'changed').length,
-  added: defaultProvisions.filter((entry) => entry.kind === 'added').length,
-  removed: defaultProvisions.filter((entry) => entry.kind === 'removed').length,
+  changed: counted.filter((entry) => entry.kind === 'changed').length,
+  added: counted.filter((entry) => entry.kind === 'added').length,
+  removed: counted.filter((entry) => entry.kind === 'removed').length,
+  moved: defaultComparison.movedUnits,
 };
 const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(version.validFrom)}${version.validTo ? ` – ${formatShortDate(version.validTo)}` : ''} · ${versionKindLabel(classifyNormVersion(norm, version), 'adjective')}`;
 ---
@@ -102,7 +107,7 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
         </select>
       </label>
       <button class="r-btn" type="submit">Vergleichen</button>
-      <span class="norm-compare__count r-meta" data-compare-count>{counts.changed} geändert, {counts.added} neu, {counts.removed} entfallen</span>
+      <span class="norm-compare__count r-meta" data-compare-count>{counts.changed} geändert, {counts.added} neu, {counts.removed} entfallen{counts.moved > 0 ? `, ${counts.moved} neu gegliedert` : ''}</span>
     </form>
 
     <p class="r-feedback" data-compare-feedback aria-live="polite"></p>
@@ -112,7 +117,7 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
       data-compare-output
       data-compare-pair={defaultPairKey}
       aria-label={`Vergleich ${formatDate(defaultFrom.validFrom)} mit ${formatDate(defaultTo.validFrom)}`}
-      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom, defaultUnitKind)}
+      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom, defaultUnitKind, { movedUnits: defaultComparison.movedUnits })}
     ></section>
   </section>
 
@@ -120,7 +125,7 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
     import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
     import type { NormProvisionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
     import type { NormUnitKind } from '@ostrecht/shared/lib/norms/units.ts';
-    type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: NormProvisionDiff[]; unitKind?: NormUnitKind };
+    type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: NormProvisionDiff[]; unitKind?: NormUnitKind; movedUnits?: number };
     const root = document.querySelector<HTMLElement>('[data-version-compare]');
     const form = root?.querySelector<HTMLFormElement>('[data-compare-form]');
     const fromSelect = root?.querySelector<HTMLSelectElement>('[data-compare-from]');
@@ -134,12 +139,13 @@ const optionLabel = (version: (typeof versions)[number]) => `${formatShortDate(v
       if (!output) return;
       output.dataset.comparePair = `${payload.fromVersion.versionId}::${payload.toVersion.versionId}`;
       output.setAttribute('aria-label', `Vergleich ${dateFormatter.format(new Date(`${payload.fromVersion.validFrom}T00:00:00Z`))} mit ${dateFormatter.format(new Date(`${payload.toVersion.validFrom}T00:00:00Z`))}`);
-      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom, payload.unitKind ?? 'none');
+      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom, payload.unitKind ?? 'none', { movedUnits: payload.movedUnits });
       if (count) {
-        const changed = payload.provisions.filter((entry) => entry.kind === 'changed').length;
-        const added = payload.provisions.filter((entry) => entry.kind === 'added').length;
-        const removed = payload.provisions.filter((entry) => entry.kind === 'removed').length;
-        count.textContent = `${changed} geändert, ${added} neu, ${removed} entfallen`;
+        const counted = payload.provisions.filter((entry) => !entry.headingOnly);
+        const changed = counted.filter((entry) => entry.kind === 'changed').length;
+        const added = counted.filter((entry) => entry.kind === 'added').length;
+        const removed = counted.filter((entry) => entry.kind === 'removed').length;
+        count.textContent = `${changed} geändert, ${added} neu, ${removed} entfallen${(payload.movedUnits ?? 0) > 0 ? `, ${payload.movedUnits} neu gegliedert` : ''}`;
       }
     };
     const fetchPair = async (): Promise<DiffPayload | undefined> => {

@@ -1,4 +1,5 @@
-import { buildNormChangeMarks, type NormChangeMarks } from '@ostrecht/shared/lib/norms/change-marks.ts';
+import { summarizeAffectedUnits, type AffectedUnits } from '@ostrecht/shared/lib/norms/affected-units.ts';
+import { marksFromAffectedUnits, type NormChangeMarks } from '@ostrecht/shared/lib/norms/change-marks.ts';
 import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/display.ts';
 import type { NormPublicationReference } from '@ostrecht/shared/lib/norms/publications.ts';
 import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
@@ -32,32 +33,77 @@ export interface NormChangeMarkSet {
 }
 
 /**
- * Der Vergleich gegen die Vorfassung kostet bei langen Vorschriften deutlich mehr als 50 ms je
- * Anfrage (Verfassung: 70–90 ms); die Marken bleiben je (Slug, Vorfassung, Fassung) im Speicher
- * des Workers – nicht in der D1-Projektion. Fassungen sind unveränderlich, der Schlüssel reicht.
+ * Der Vergleich gegen die Vorfassung ist je Fassungspaar einmal zu rechnen (Verfassung nach der
+ * dokumentweiten Paarung rund 11 ms, zuvor 70–90 ms); die betroffenen Einheiten bleiben je
+ * (Slug, Vorfassung, Fassung) im Speicher des Workers – nicht in der D1-Projektion. Fassungen sind
+ * unveränderlich, der Schlüssel reicht. Marken, Protokollspalte „Betroffen“ und der Verlauf je
+ * Einheit lesen denselben Eintrag.
  */
-const MARK_CACHE_LIMIT = 200;
-const markCache = new Map<string, NormChangeMarks>();
+const AFFECTED_CACHE_LIMIT = 200;
+const affectedCache = new Map<string, AffectedUnits>();
 
-function cachedMarks(key: string, compute: () => NormChangeMarks): NormChangeMarks {
-  const hit = markCache.get(key);
-  if (hit) return hit;
-  const marks = compute();
-  if (markCache.size >= MARK_CACHE_LIMIT) markCache.delete(markCache.keys().next().value!);
-  markCache.set(key, marks);
-  return marks;
+/** Betroffene Einheiten einer Fassung gegenüber ihrer Vorfassung; lädt fehlende Normkörper nach. */
+export async function loadAffectedUnits(store: NormStore, norm: NormRecord, version: NormVersion): Promise<{ affected: AffectedUnits; previousVersionId: string } | undefined> {
+  const previous = previousVersionOf(norm, version);
+  if (!previous) return undefined;
+  const key = `${norm.meta.slug}|${previous.versionId}|${version.versionId}`;
+  const cached = affectedCache.get(key);
+  if (cached) return { affected: cached, previousVersionId: previous.versionId };
+  const bodies = new Map<string, NormVersion['body']>();
+  for (const entry of [previous, version]) if (entry.body.length > 0) bodies.set(entry.versionId, entry.body);
+  const missing = [previous, version].filter((entry) => !bodies.has(entry.versionId)).map((entry) => entry.versionId);
+  if (missing.length > 0) {
+    const loaded = await store.getNorm(norm.meta.slug, missing);
+    for (const entry of loaded?.versions ?? []) if (missing.includes(entry.versionId) && entry.body.length > 0) bodies.set(entry.versionId, entry.body);
+  }
+  const previousBody = bodies.get(previous.versionId);
+  const shownBody = bodies.get(version.versionId);
+  if (!previousBody || !shownBody) return undefined;
+  const affected = summarizeAffectedUnits({ body: previousBody }, { body: shownBody });
+  if (affectedCache.size >= AFFECTED_CACHE_LIMIT) affectedCache.delete(affectedCache.keys().next().value!);
+  affectedCache.set(key, affected);
+  return { affected, previousVersionId: previous.versionId };
+}
+
+/**
+ * Betroffene Einheiten für mehrere Fassungen einer Vorschrift (Protokoll, Endpunkt): Treffer aus
+ * dem Cache, die fehlenden Normkörper in einem Zugriff nachgeladen, jede Fassung einmal gerechnet.
+ */
+export async function loadAffectedUnitsForVersions(store: NormStore, norm: NormRecord, versions: NormVersion[]): Promise<Map<string, { affected: AffectedUnits; previousVersionId: string }>> {
+  const result = new Map<string, { affected: AffectedUnits; previousVersionId: string }>();
+  const pending: Array<{ version: NormVersion; previous: NormVersion; key: string }> = [];
+  for (const version of versions) {
+    const previous = previousVersionOf(norm, version);
+    if (!previous) continue;
+    const key = `${norm.meta.slug}|${previous.versionId}|${version.versionId}`;
+    const cached = affectedCache.get(key);
+    if (cached) result.set(version.versionId, { affected: cached, previousVersionId: previous.versionId });
+    else pending.push({ version, previous, key });
+  }
+  if (pending.length === 0) return result;
+  const bodies = new Map<string, NormVersion['body']>();
+  for (const entry of norm.versions) if (entry.body.length > 0) bodies.set(entry.versionId, entry.body);
+  const missing = [...new Set(pending.flatMap(({ version, previous }) => [version.versionId, previous.versionId]))].filter((id) => !bodies.has(id));
+  if (missing.length > 0) {
+    const loaded = await store.getNorm(norm.meta.slug, missing);
+    for (const entry of loaded?.versions ?? []) if (missing.includes(entry.versionId) && entry.body.length > 0) bodies.set(entry.versionId, entry.body);
+  }
+  for (const { version, previous, key } of pending) {
+    const previousBody = bodies.get(previous.versionId);
+    const shownBody = bodies.get(version.versionId);
+    if (!previousBody || !shownBody) continue;
+    const affected = summarizeAffectedUnits({ body: previousBody }, { body: shownBody });
+    if (affectedCache.size >= AFFECTED_CACHE_LIMIT) affectedCache.delete(affectedCache.keys().next().value!);
+    affectedCache.set(key, affected);
+    result.set(version.versionId, { affected, previousVersionId: previous.versionId });
+  }
+  return result;
 }
 
 async function loadChangeMarks(store: NormStore, norm: NormRecord, version: NormVersion): Promise<NormChangeMarkSet | undefined> {
-  const previous = previousVersionOf(norm, version);
-  if (!previous || version.body.length === 0) return undefined;
-  const key = `${norm.meta.slug}|${previous.versionId}|${version.versionId}`;
-  if (markCache.has(key)) return { marks: markCache.get(key)!, previousVersionId: previous.versionId, validFrom: version.validFrom };
-  const previousBody = previous.body.length > 0
-    ? previous.body
-    : (await store.getNorm(norm.meta.slug, [previous.versionId]))?.versions.find((entry) => entry.versionId === previous.versionId)?.body;
-  if (!previousBody) return undefined;
-  return { marks: cachedMarks(key, () => buildNormChangeMarks({ body: previousBody }, version)), previousVersionId: previous.versionId, validFrom: version.validFrom };
+  if (version.body.length === 0) return undefined;
+  const loaded = await loadAffectedUnits(store, norm, version);
+  return loaded ? { marks: marksFromAffectedUnits(loaded.affected), previousVersionId: loaded.previousVersionId, validFrom: version.validFrom } : undefined;
 }
 
 /**

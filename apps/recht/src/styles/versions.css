@@ -88,6 +88,12 @@
   color: var(--green-700);
 }
 
+/* Betroffene Einheiten: eine Zelle je entstandener Fassung, oben ausgerichtet, umbrechend. */
+.norm-protocol__affected {
+  vertical-align: top;
+  min-width: 12rem;
+}
+
 /* Fassungsliste */
 .norm-version-list td:first-child {
   white-space: nowrap;
@@ -330,4 +336,20 @@
   .norm-history__sections .r-meta {
     margin-left: 0;
   }
+}
+
+/* Gewanderte Einheiten nennen im Kastenkopf ihre frühere Gliederungseinheit; umbenannte oder neu
+   nummerierte Gliederungseinheiten erscheinen nur mit ihrer Überschrift (ihre Einheiten stehen
+   einzeln, gewanderte mit gleichem Wortlaut gar nicht). */
+.norm-diff__moved {
+  font-size: var(--fs-caption);
+  color: var(--text-secondary);
+}
+
+.norm-diff__provision--heading .norm-diff__side {
+  padding-bottom: var(--space-3);
+}
+
+.norm-diff__provision--heading .norm-division {
+  margin-top: 0;
 }

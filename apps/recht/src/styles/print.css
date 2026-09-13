@@ -138,6 +138,12 @@
     position: static;
   }
 
+  /* Der Verlauf je Einheit bleibt im Druck geschlossen. */
+  .norm-unit__history > summary::after,
+  .norm-unit__history[open] > .norm-unit__history-body {
+    display: none;
+  }
+
   /* Marken am Ort der Änderung: das Textzeichen bleibt, Flächen entfallen. */
   .norm-abs:target,
   .norm-abs--changed {
