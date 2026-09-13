@@ -140,6 +140,19 @@ lawA11yTest('Zum Seitenanfang ist im gescrollten Zustand zugänglich', async ({ 
   expect(results.violations).toEqual([]);
 });
 
+lawA11yTest('Der geöffnete Verlauf einer Einheit ist zugänglich', async ({ page, request }) => {
+  await page.goto(lawUrl((await currentNormOfOrigin(request, 'inherited-amended')).currentUrl));
+  const consent = page.locator('[data-analytics-consent-reject]');
+  if (await consent.isVisible()) await consent.click();
+  const details = page.locator('[data-unit-history]').first();
+  await expect(details).toHaveCount(1);
+  await details.locator('summary').click();
+  await expect(details.locator('.norm-unit__history-list li').first()).toBeVisible();
+  await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  expect(results.violations).toEqual([]);
+});
+
 lawA11yTest('Der verdichtete Normkopf auf dem Smartphone ist zugänglich', async ({ page, request }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(lawUrl((await multiVersionNorm(request)).current.currentUrl));

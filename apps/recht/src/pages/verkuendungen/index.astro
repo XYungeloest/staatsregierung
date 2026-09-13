@@ -21,6 +21,7 @@ import {
 } from '@ostrecht/shared/lib/norms/index.ts';
 import { formatShortDate } from '../../lib/dates.ts';
 import { formatCount } from '../../lib/counts.ts';
+import { formatPublicationExtent } from '../../lib/publication-extent.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 import { DEFAULT_PAGE_SIZE, normalizePage, normalizeQueryText } from '../../lib/runtime/store.ts';
 import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
@@ -232,7 +233,7 @@ const pageTitle = `${lawSiteConfig.targetLabels.publications}${view === 'ausgabe
                 <tr data-directory-entry data-year={String(publication.year)} data-publication={publication.publication}>
                   <td class="r-muted r-nowrap r-meta"><time datetime={publication.date}>{formatShortDate(publication.date)}</time></td>
                   <td>
-                    <a class="r-strong" href={getPublicationUrl(publication.slug)}>{getPublicationLabel(publication)}</a>
+                    <span class="r-inline-list"><a class="r-strong" href={getPublicationUrl(publication.slug)}>{getPublicationLabel(publication)}</a>{formatPublicationExtent(publication) ? <span class="r-meta r-muted" data-publication-extent>{formatPublicationExtent(publication)}</span> : null}</span>
                     <div class="r-meta">{toDisplayText(publication.title)}{publication.entries.length > 0 ? ` · ${publication.entries.slice(0, 2).map((entry) => toDisplayText(entry.title)).join('; ')}${publication.entries.length > 2 ? ' …' : ''}` : ''}</div>
                   </td>
                   <td class="r-nowrap">{publication.publication}</td>

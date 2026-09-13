@@ -191,3 +191,54 @@ function positionTimeline(): void {
 }
 mobile.addEventListener('change', positionTimeline);
 positionTimeline();
+
+// Änderungsvermerk je Einheit über alle Fassungen: eine Anfrage an /norm/<slug>/betroffen.json
+// (Worker-Cache), dann je Einheit die Liste „neu / geändert“ mit Link auf den passenden Vergleich;
+// Einheiten ohne Marke gegen die Vorfassung, aber mit früheren Änderungen, erhalten „Verlauf · n“.
+// Ohne JavaScript verweist „Verlauf“ auf das Änderungsprotokoll.
+import { buildUnitHistory, type AffectedVersionEntry } from '../lib/unit-history.ts';
+
+const documentNode = document.querySelector<HTMLElement>('.norm-document[data-affected-url]');
+if (documentNode && 'fetch' in window) {
+  const shortDate = (iso: string) => { const [year, month, day] = iso.split('-'); return `${day}.${month}.${year}`; };
+  const decorate = (versions: AffectedVersionEntry[]) => {
+    const compareBase = documentNode.dataset.compareBase ?? '';
+    const historyUrl = documentNode.dataset.historyUrl ?? '';
+    for (const unit of documentNode.querySelectorAll<HTMLElement>('[data-norm-unit][id], .norm-annex[id]')) {
+      const entries = buildUnitHistory(versions, unit.id);
+      if (entries.length === 0) continue;
+      const head = unit.querySelector<HTMLElement>(':scope > .norm-unit__head');
+      if (!head) continue;
+      let details = head.querySelector<HTMLDetailsElement>('[data-unit-history]');
+      const marked = Boolean(head.querySelector('.norm-unit__change'));
+      if (!details) {
+        details = document.createElement('details');
+        details.className = 'norm-unit__history';
+        details.dataset.unitHistory = unit.id;
+        details.innerHTML = `<summary>Verlauf · ${entries.length}</summary><div class="norm-unit__history-body"><a href="${historyUrl}">Änderungsprotokoll der Vorschrift</a></div>`;
+        head.querySelector('.norm-unit__tools')?.before(details);
+      } else if (!marked) {
+        details.querySelector('summary')!.textContent = `Verlauf · ${entries.length}`;
+      }
+      const body = details.querySelector<HTMLElement>('.norm-unit__history-body')!;
+      const list = document.createElement('ol');
+      list.className = 'norm-unit__history-list';
+      for (const entry of entries) {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `${compareBase}?von=${encodeURIComponent(entry.previousVersionId)}&bis=${encodeURIComponent(entry.versionId)}#vergleich-${unit.id}`;
+        link.textContent = `${shortDate(entry.validFrom)} ${entry.amendments.join(' · ') || 'Fassung'}`;
+        item.append(`${entry.kind === 'added' ? 'neu' : 'geändert'}: `, link);
+        list.append(item);
+      }
+      body.replaceChildren(list);
+    }
+  };
+  const load = () => fetch(documentNode.dataset.affectedUrl!, { headers: { Accept: 'application/json' } })
+    .then((response) => (response.ok ? response.json() : Promise.reject(new Error(String(response.status)))))
+    .then((payload: { versions: AffectedVersionEntry[] }) => decorate(payload.versions))
+    .catch(() => { /* ohne Verlauf bleibt der Verweis auf das Protokoll */ });
+  // Nach dem Aufbau der Seite, nicht davor: die Liste ist Beiwerk des Textes.
+  const schedule = typeof window.requestIdleCallback === 'function' ? window.requestIdleCallback.bind(window) : (callback: () => void) => window.setTimeout(callback, 200);
+  schedule(() => { void load(); });
+}

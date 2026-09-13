@@ -236,9 +236,11 @@ test('Body-Blöcke werden aus Teilen in Reihenfolge zusammengesetzt', () => {
     { block_index: 0, part_index: 0, block_json: json.slice(0, 30) },
   ];
   assert.deepEqual(assembleBlocks(rows), [block, { type: 'annex', label: 'Anlage', children: [] }]);
-  const record = { versions: [{ versionId: 'a', isCurrent: false }, { versionId: 'b', isCurrent: true }] } as never;
+  // „current“ folgt der zentralen Einordnung nach Gültigkeit und Stichtag, nicht dem Bestandsfeld
+  // isCurrent – das kann auf eine verkündete künftige Fassung zeigen.
+  const record = { meta: {}, history: { entries: [] }, versions: [{ versionId: 'a', validFrom: '2024-01-01', validTo: '2025-12-31', isCurrent: false }, { versionId: 'b', validFrom: '2026-01-01', validTo: '2099-12-31', isCurrent: false }, { versionId: 'c', validFrom: '2100-01-01', validTo: null, isCurrent: true }] } as never;
   assert.deepEqual([...selectedVersionIds(record, 'current')], ['b']);
-  assert.deepEqual([...selectedVersionIds(record, 'all')], ['a', 'b']);
+  assert.deepEqual([...selectedVersionIds(record, 'all')], ['a', 'b', 'c']);
   assert.deepEqual([...selectedVersionIds(record, ['a'])], ['a']);
   assert.deepEqual([...selectedVersionIds(record, 'none')], []);
 });

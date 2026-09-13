@@ -31,6 +31,8 @@ interface ChangeMarkContext {
   validFrom: string;
   /** Vergleich Vorfassung → angezeigte Fassung; der Anker der Einheit wird angehängt. */
   compareHref: string;
+  /** Änderungsprotokoll der Vorschrift – Ziel des Verlaufs ohne JavaScript. */
+  historyHref: string;
 }
 
 interface Props {
@@ -79,6 +81,15 @@ function unitContext(anchorId: string, block: NormBodyBlock): UnitContext {
 }
 
 const isChangedSubparagraph = (label: string | undefined): boolean => Boolean(label && unit?.changedSubparagraphs?.has(toDisplayText(label)));
+
+/**
+ * Änderungsvermerk je Einheit (REVOSax-Fußnoten): hinter der Marke ein Aufklappzeichen „Verlauf“.
+ * Ohne JavaScript führt es zum Änderungsprotokoll; norm-page.ts füllt die Liste aller Fassungen
+ * aus /norm/<slug>/betroffen.json und ergänzt den Verlauf auch an Einheiten ohne aktuelle Marke.
+ */
+function historyDetails(anchorId: string): string | undefined {
+  return changeMarkText(anchorId) && changes ? changes.historyHref : undefined;
+}
 
 function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
   const runs: BlockRun[] = [];
@@ -187,6 +198,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                         {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                       </HeadingTag>
                       {changeMarkText(anchorId) ? <a class="norm-unit__change" href={`${changes!.compareHref}#vergleich-${anchorId}`}>{changeMarkText(anchorId)}</a> : null}
+                      {historyDetails(anchorId) ? <details class="norm-unit__history" data-unit-history={anchorId}><summary>Verlauf</summary><div class="norm-unit__history-body"><a href={historyDetails(anchorId)}>Änderungsprotokoll der Vorschrift</a></div></details> : null}
                       <span class="norm-unit__tools" data-copy-group>
                         <span class="r-feedback norm-unit__feedback" aria-live="polite" data-copy-feedback></span>
                         <a href={`#${anchorId}`} data-copy-url={anchorId} data-copy-done={`Link zu ${unitTitle(block) || 'dieser Stelle'} wurde kopiert.`} title={`Link zu ${unitTitle(block)} kopieren`}>Link</a>
@@ -220,6 +232,7 @@ const signaturePlace = (items: Array<{ block: NormBodyBlock }>): string | undefi
                       {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
                     </HeadingTag>
                     {changeMarkText(anchorId) ? <a class="norm-unit__change" href={`${changes!.compareHref}#vergleich-${anchorId}`}>{changeMarkText(anchorId)}</a> : null}
+                    {historyDetails(anchorId) ? <details class="norm-unit__history" data-unit-history={anchorId}><summary>Verlauf</summary><div class="norm-unit__history-body"><a href={historyDetails(anchorId)}>Änderungsprotokoll der Vorschrift</a></div></details> : null}
                     <span class="norm-unit__tools" data-copy-group>
                       <span class="r-feedback norm-unit__feedback" aria-live="polite" data-copy-feedback></span>
                       <a href={`#${anchorId}`} data-copy-url={anchorId} data-copy-done={`Link zu ${unitTitle(block) || 'dieser Anlage'} wurde kopiert.`} title={`Link zu ${unitTitle(block)} kopieren`}>Link</a>
