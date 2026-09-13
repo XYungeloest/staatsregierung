@@ -1,0 +1,508 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+  "effectiveDate": "2026-07-01",
+  "versionId": "2026-07-01",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 32)",
+  "resultCitation": "Zehntes Ostdeutsches Kostenverzeichnis vom 16. August 2021 (SächsGVBl. S. 898), zuletzt geändert durch Artikel 3 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 32)",
+  "changeNote": "In der laufenden Nummer 55 der Anlage 1 wurde das Ostdeutsche Transparenz- und Informationsfreiheitsgesetz in den Wortlaut vor Tarifstelle 1 aufgenommen und Tarifstelle 3 neu gefasst.",
+  "commandCoverage": [
+    "Artikel 3 Nummern 1 und 2. Die neu gefasste Tarifstelle 3 steht in den Spalten der Tabelle zur laufenden Nummer 55: Tarifstelle „3.“, Gegenstand (Wortlaut vor dem Doppelpunkt), Gebühr (Wortlaut nach dem Doppelpunkt) und die Anmerkungen a) bis c) in einer eigenen Zeile; der verkündete Wortlaut ist unverändert."
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 32",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 32.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "tableCell",
+        "text": "Verbraucherinformationsgesetz (VIG)"
+      },
+      "expectedOld": "Verbraucherinformationsgesetz (VIG)",
+      "expectedMatches": 1,
+      "value": "Verbraucherinformationsgesetz (VIG), Ostdeutsches Transparenz- und Informationsfreiheitsgesetz (OstTranspIFG)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 32.html",
+      "sourceProvision": "Artikel 3 Nummer 1",
+      "effectiveDate": "2026-07-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "table",
+        "parentType": "section",
+        "parentLabel": "55"
+      },
+      "expectedHash": "02140fd56a165f7bd40cc9fcb55833338a8450e9407f00f13cb7cde7fb872105",
+      "expectedMatches": 1,
+      "value": {
+        "type": "table",
+        "columns": 5,
+        "children": [
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableHeaderCell",
+                "text": "Laufende Nummer",
+                "scope": "col"
+              },
+              {
+                "type": "tableHeaderCell",
+                "text": "Tarifstelle",
+                "scope": "col"
+              },
+              {
+                "type": "tableHeaderCell",
+                "text": "Gegenstand",
+                "scope": "col"
+              },
+              {
+                "type": "tableHeaderCell",
+                "text": "Gebühren",
+                "scope": "col"
+              },
+              {
+                "type": "tableHeaderCell",
+                "text": "Schlichthoheitliche Leistung",
+                "scope": "col"
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": "Lfd. Nr."
+              },
+              {
+                "type": "tableCell",
+                "text": "Tarif-\nstelle"
+              },
+              {
+                "type": "tableCell",
+                "text": "Gegenstand"
+              },
+              {
+                "type": "tableCell",
+                "text": "Gebühren\nEUR"
+              },
+              {
+                "type": "tableCell",
+                "text": "Schlicht-\nhoheit-\nliche\nLeis-\ntung"
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": "55"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Informationszugang"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Sächsisches Transparenzgesetz\n(SächsTranspG)"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Sächsisches Umweltinformationsgesetz (SächsUIG)"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Verbraucherinformationsgesetz (VIG), Ostdeutsches Transparenz- und Informationsfreiheitsgesetz (OstTranspIFG)"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "1."
+              },
+              {
+                "type": "tableCell",
+                "text": "Sächsisches Umweltinformationsgesetz"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "1.1"
+              },
+              {
+                "type": "tableCell",
+                "text": "Erteilung einer umfassenden schriftlichen Auskunft nach § 4 Abs. 2 Satz 1 SächsUIG"
+              },
+              {
+                "type": "tableCell",
+                "text": "10 bis 580"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "1.2"
+              },
+              {
+                "type": "tableCell",
+                "text": "Zurverfügungstellung von Akten oder sonstigen Informationsträgern nach § 4 Abs. 2 Satz 1 SächsUIG"
+              },
+              {
+                "type": "tableCell",
+                "text": "10 bis 560"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "1.3"
+              },
+              {
+                "type": "tableCell",
+                "text": "Übermittlung oder Zurverfügungstellung von Informationen in besonders aufwendigen Fällen, insbesondere wenn zum Schutz öffentlicher oder privater Belange Daten ausgesondert werden müssen, nach § 4 Abs. 2 Satz 1 SächsUIG"
+              },
+              {
+                "type": "tableCell",
+                "text": "400 bis 2 950"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "2."
+              },
+              {
+                "type": "tableCell",
+                "text": "Verbraucherinformationsgesetz"
+              },
+              {
+                "type": "tableCell",
+                "text": "Anmerkungen:\n(1) Gemäß § 7 Abs. 1 Satz 2 VIG ist der Zugang zu Informationen nach § 2 Abs. 1 Satz 1 Nr. 1 VIG bis zu einem Verwaltungsaufwand in Höhe von 1 000 EUR gebühren- und auslagenfrei; der Zugang zu sonstigen Informationen ist bis zu einem Verwaltungsaufwand in Höhe von 250 EUR gebühren- und auslagenfrei.\n(2) Sofern der Antrag nicht gebühren- und auslagenfrei bearbeitet wird, ist der Antragsteller / die Antragstellerin über die voraussichtliche Höhe der Gebühren und Auslagen vorab zu informieren und auf die Möglichkeit hinzuweisen, den Antrag zurücknehmen oder einschränken zu können (§ 7 Abs. 1 Satz 3 und 4 VIG)."
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "2.1"
+              },
+              {
+                "type": "tableCell",
+                "text": "Erteilung von Auskünften nach § 6 Abs. 1 Satz 1 VIG einschließlich der erforderlichen Vorbereitungsmaßnahmen"
+              },
+              {
+                "type": "tableCell",
+                "text": "14 bis 24\nje angefangene Viertelstunde"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Anmerkung:\nDie Gebühr wird auch erhoben, wenn Abschriften und Duplikate herausgegeben werden."
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "2.2"
+              },
+              {
+                "type": "tableCell",
+                "text": "Eröffnung des Informationszugangs durch Akteneinsicht oder in sonstiger Weise nach § 6 Abs. 1 Satz 1 VIG einschließlich der erforderlichen Vorbereitungsmaßnahmen"
+              },
+              {
+                "type": "tableCell",
+                "text": "14 bis 24\nje angefangene Viertelstunde"
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Anmerkung\nzu den Tarifstellen 2.1 und 2.2:\nFür die Ermittlung der Gebühr innerhalb dieses Gebührenrahmens gelten die in § 7 Abs. 1 Satz 1 VIG normierten Gebührenbemessungsgrundsätze."
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Anmerkung\nzu den Tarifstellen 2.1 und 2.2:\nFür die Ermittlung der Gebühr innerhalb dieses Gebührenrahmens gelten die in § 7 Abs. 1 Satz 1 VIG normierten Gebührenbemessungsgrundsätze."
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "3."
+              },
+              {
+                "type": "tableCell",
+                "text": "Erteilung von Informationen durch Auskunft oder durch Gewährung von Einsicht nach § 15 Absatz 3 in Verbindung mit § 12 Absatz 3 OstTranspIFG"
+              },
+              {
+                "type": "tableCell",
+                "text": "14 bis 24 Euro je angefangene Viertelstunde."
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "children": [
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              },
+              {
+                "type": "tableCell",
+                "text": "Anmerkungen:\na) Gebühren und Auslagen werden nur nach Maßgabe des § 17 OstTranspIFG erhoben.\nb) Vor Erhebung voraussichtlich entstehender Gebühren oder Auslagen ist die antragstellende Person auf deren voraussichtliche Höhe hinzuweisen und auf die Möglichkeit aufmerksam zu machen, den Antrag zurückzunehmen oder einzuschränken.\nc) Elektronische Übermittlungen vorhandener Informationen, einfache Auskünfte und Einsichtnahmen vor Ort bleiben gebührenfrei."
+              },
+              {
+                "type": "tableCell",
+                "text": ""
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 32.html",
+      "sourceProvision": "Artikel 3 Nummer 2",
+      "effectiveDate": "2026-07-01"
+    }
+  ]
+}

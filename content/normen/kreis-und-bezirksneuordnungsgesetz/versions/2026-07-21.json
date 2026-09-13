@@ -3443,28 +3443,19 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "§ 3 Absatz 1 wird wie folgt geändert:",
+          "text": "§ 3 Absatz 1 Satz 3 wird wie folgt gefasst:",
           "level": 0,
           "listId": "z42syrlzve60",
           "numberingStyle": "decimal",
           "children": [
             {
-              "type": "item",
-              "label": "a.",
-              "text": "In Satz 1 werden nach den Wörtern „Landkreise und kreisfreien Städte“ die Wörter „sowie die Bezirke nach Maßgabe des § 5a“ eingefügt.",
-              "level": 1,
-              "listId": "z42syrlzve60",
-              "numberingStyle": "lower-latin",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b.",
-              "text": "In Satz 2 werden nach den Wörtern „Landkreise und kreisfreien Städte“ die Wörter „sowie die Bezirke“ eingefügt.",
-              "level": 1,
-              "listId": "z42syrlzve60",
-              "numberingStyle": "lower-latin",
-              "children": []
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Für den übrigen Personennahverkehr sind die Bezirke Aufgabenträger; die bezirkliche Nahverkehrsplanung richtet sich nach § 5a.”"
+                }
+              ]
             }
           ]
         },

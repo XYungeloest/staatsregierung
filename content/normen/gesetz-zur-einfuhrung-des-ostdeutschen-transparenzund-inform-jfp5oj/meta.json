@@ -29,10 +29,10 @@
       "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 32.html",
-      "sha256": "2317b8d5cb7eec5ce88d760313fe213ccaccdac5bb4406a94f694118d957b903",
+      "sha256": "73df6ba5968cc768c3f96758f1f2add0fac51a03ffadd34204afd507632057bc",
       "mediaType": "text/html",
       "pageRange": "2-24",
-      "verifiedAt": "2026-08-28",
+      "verifiedAt": "2026-09-13",
       "sourceRole": "structure-bearing"
     },
     {
@@ -40,11 +40,11 @@
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 32.pdf",
-      "sha256": "b0912ddc79e62bcf7615da25093a70d4b82336920c89264ee9ffd1be19fdf710",
+      "sha256": "5abfd29f7042985ed5bf6c47a36090bdbc6ed267042a8a8eade2caef73d37927",
       "mediaType": "application/pdf",
       "pageCount": 24,
       "pageRange": "2-24",
-      "verifiedAt": "2026-08-28",
+      "verifiedAt": "2026-09-13",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl. 2026 Nr. 32.html"
     }
@@ -52,6 +52,7 @@
   "affectedNorms": [
     "archivgesetz",
     "ostdeutsches-normenkontrollratsgesetz",
-    "waldgesetz"
+    "waldgesetz",
+    "zehntes-ostdeutsches-kostenverzeichnis"
   ]
 }
