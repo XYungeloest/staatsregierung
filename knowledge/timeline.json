@@ -291,7 +291,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-08-16",
       "validTo": "2026-08-16",
-      "asOf": "2026-08-16",
+      "asOf": "2026-09-12",
       "summary": "Mit OGVBl. 2026 Nr. 60 bis 67 und StAnzO. 2026 Nr. 16 bis 31 ist das zusammengehörige Schulordnungs- und Verwaltungsvorschriftenpaket amtlich verkündet. Es tritt überwiegend am 1. September 2026 in Kraft; Artikel 4 der Bereinigungsverordnung tritt bereits am 31. August 2026 in Kraft.",
       "sourceRefs": [
         {
@@ -313,6 +313,46 @@
           "sourceId": "source-stanzo-2026-31",
           "locator": "gesamte Ausgabe",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-61",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-62",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-63",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-64",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-65",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-66",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-23",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-30",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -327,7 +367,8 @@
         "promulgation"
       ],
       "notes": [
-        "Die drei gesperrten Konsolidierungen ändern nichts an der amtlichen Verkündung der Änderungsvorschriften selbst."
+        "Die drei gesperrten Konsolidierungen ändern nichts an der amtlichen Verkündung der Änderungsvorschriften selbst.",
+        "Das Ereignisdatum bezeichnet den Abschluss der Verkündung; OGVBl. 2026 Nr. 60 und 61 erschienen am 14. August, Nr. 62 bis 66 am 15. August und Nr. 67 sowie StAnzO. 2026 Nr. 16 bis 31 am 16. August 2026."
       ],
       "aliases": [],
       "date": "2026-08-16",
@@ -351,6 +392,34 @@
         },
         {
           "normSlug": "aendvwv-radfahrausbildung-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "schulordnung-abendoberschulen",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "abendgymnasien-und-kollegverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "sorbische-schulverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "ethik-und-religionsunterrichtverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-schulformulare-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-beratungslehrer-2026",
           "versionId": "2026-09-01"
         }
       ]
@@ -659,12 +728,48 @@
       ]
     },
     {
+      "id": "event-sicherheitsueberpruefungsfeststellungsverordnung-2026-08-31",
+      "title": "Sicherheitsüberprüfungsfeststellungsverordnung erlassen und verkündet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-31",
+      "validTo": "2026-08-31",
+      "asOf": "2026-09-12",
+      "summary": "Der Staatsrat erlässt die Verordnung zur Feststellung lebens- und verteidigungswichtiger Einrichtungen (SÜFV-O); sie wird am 31. August 2026 in OGVBl. 2026 Nr. 69 verkündet. Sie bestimmt lebenswichtige und verteidigungswichtige Einrichtungen im Sinne des Sicherheitsüberprüfungsgesetzes, beschränkt deren Einstufung auf die als sicherheitsempfindliche Stellen bestimmten Bereiche und ist am 1. September 2026 in Kraft getreten.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-69",
+          "locator": "§§ 1 bis 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-sek-staats-grenzsicherheit"
+      ],
+      "tags": [
+        "timeline",
+        "security",
+        "regulation",
+        "promulgation"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-08-31",
+      "eventType": "ordinance-promulgated",
+      "normRefs": [
+        {
+          "normSlug": "sicherheitsueberpruefungsfeststellungsverordnung",
+          "versionId": "2026-09-01"
+        }
+      ]
+    },
+    {
       "id": "event-gemeingut-wohnen-rent-reduction-2026",
       "title": "Mietsenkung und Kostenmiete bei Gemeingut Wohnen treten in Kraft",
-      "status": "planned",
+      "status": "confirmed-primary",
       "validFrom": "2026-09-01",
       "validTo": "2026-09-01",
-      "asOf": "2026-08-08",
+      "asOf": "2026-09-12",
       "summary": "Zum 1. September 2026 sinken die Bestandsmieten von Amts wegen um 25 Prozent; zugleich gilt das Prinzip der gemeinwirtschaftlichen Kostenmiete.",
       "sourceRefs": [
         {
@@ -680,18 +785,143 @@
       "tags": [
         "timeline",
         "housing",
-        "scheduled"
+        "effective-date"
       ],
       "notes": [
-        "Am Wissensstand 8. August 2026 handelt es sich um einen fest bestimmten künftigen Wirksamkeitstermin."
+        "Der Geltungsbeginn 1. September 2026 ist eingetreten; die Bekanntmachung in StAnzO. 2026 Nr. 15 bestimmt ihn verbindlich. Ob und wie die Mietsenkung tatsächlich umgesetzt wurde, ist nicht gesondert belegt."
       ],
       "aliases": [],
       "date": "2026-09-01",
       "eventType": "effective-date",
-      "eventStatus": "scheduled",
+      "eventStatus": "completed",
       "normRefs": [
         {
           "normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung",
+          "versionId": "2026-09-01"
+        }
+      ]
+    },
+    {
+      "id": "event-school-law-package-effective-2026-09-01",
+      "title": "Neues allgemeinbildendes Schulordnungsrecht in Kraft getreten",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-01",
+      "validTo": "2026-09-01",
+      "asOf": "2026-09-12",
+      "summary": "Am 1. September 2026 sind die Schulordnungen Polytechnische Oberschulen, Erweiterte Oberschulen und Abiturprüfung sowie Abendoberschulen, die Abendgymnasien- und Kollegverordnung, die Sorbische Schulverordnung, die Ethik- und Religionsunterrichtverordnung, die Verordnung zur Änderung der Schulordnung Förderschulen und die Verwaltungsvorschriften aus StAnzO. 2026 Nr. 16 bis 31 in Kraft getreten. Von der Bereinigungsverordnung ist Artikel 4 bereits am 31. August 2026 in Kraft getreten, die übrigen Artikel am 1. September 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-60",
+          "locator": "§ 45",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-61",
+          "locator": "§ 45",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-62",
+          "locator": "§ 24",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-63",
+          "locator": "§ 17",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-64",
+          "locator": "Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-65",
+          "locator": "§ 15",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-66",
+          "locator": "§ 18",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-67",
+          "locator": "Artikel 6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-16",
+          "locator": "Inkrafttretensbestimmung",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-31",
+          "locator": "Inkrafttretensbestimmung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-schulreform",
+        "inst-sek-volksbildung-wissenschaft",
+        "event-school-law-package-promulgated-2026",
+        "question-school-law-source-conflicts-2026"
+      ],
+      "tags": [
+        "timeline",
+        "education",
+        "law",
+        "effective-date"
+      ],
+      "notes": [
+        "Die Verordnung zur Änderung der Schulordnung Förderschulen ist in Kraft; die konsolidierte Folgefassung der Schulordnung Förderschulen bleibt wegen eines Zieltextkonflikts gesperrt. Die Änderungen an VwV Beratungslehrer, VwV Schulformulare und VwV Radfahrausbildung sind in den Fassungen vom 1. September 2026 konsolidiert."
+      ],
+      "aliases": [],
+      "date": "2026-09-01",
+      "eventType": "effective-date",
+      "normRefs": [
+        {
+          "normSlug": "schulordnung-polytechnische-oberschulen",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "schulordnung-abendoberschulen",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "abendgymnasien-und-kollegverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "sorbische-schulverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "ethik-und-religionsunterrichtverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "versionId": "2026-08-31"
+        },
+        {
+          "normSlug": "aendvwv-beratungslehrer-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-schulformulare-2026",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-radfahrausbildung-2026",
           "versionId": "2026-09-01"
         }
       ]
@@ -1635,13 +1865,73 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-20",
       "validTo": "2026-07-20",
-      "asOf": "2026-07-21",
+      "asOf": "2026-09-12",
       "summary": "Die Ausgaben 46 bis 57 belegen zwölf verkündete Vorhaben; einzelne Abstimmungsergebnisse sind nicht belegt.",
       "sourceRefs": [
         {
+          "sourceId": "source-ogvbl-2026-46",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-47",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-48",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-49",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-50",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-51",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-52",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-53",
+          "locator": "Ausgabedatum und Verkündungseintrag",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-54",
+          "locator": "Ausgabedatum und Verkündungseintrag",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-55",
+          "locator": "Ausgabedatum und Verkündungseintrag",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-56",
+          "locator": "Ausgabedatum und Verkündungseintrag",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-57",
+          "locator": "Ausgabekopf und Eingangsformel",
+          "role": "primary"
+        },
+        {
           "sourceId": "source-government-timeline",
           "locator": "Ereignis dritte-plenarsitzung-gesetzespaket",
-          "role": "primary"
+          "role": "corroborating"
         },
         {
           "sourceId": "source-content-gaps",
@@ -1656,11 +1946,62 @@
       "tags": [
         "timeline"
       ],
-      "notes": [],
+      "notes": [
+        "Die zwölf Ausgaben OGVBl. 2026 Nr. 46 bis 57 sind auf den 20. Juli 2026 datiert; Stimmenzahlen und Plenarprotokoll bleiben offen (proceeding-third-plenary-evidence)."
+      ],
       "aliases": [],
       "date": "2026-07-20",
       "eventType": "parliamentary-event",
-      "normRefs": []
+      "normRefs": [
+        {
+          "normSlug": "kreis-und-bezirksneuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "boom-europe-umsetzungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "kasernierte-grenzpolizei-errichtungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung",
+          "versionId": "2026-07-20"
+        },
+        {
+          "normSlug": "sportneuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "erstes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "zweites-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "drittes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "viertes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht",
+          "versionId": "2026-07-20"
+        }
+      ]
     },
     {
       "id": "event-barlow-dismissal",
@@ -1701,7 +2042,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-20",
       "validTo": "2026-07-20",
-      "asOf": "2026-07-21",
+      "asOf": "2026-09-12",
       "summary": "Die vier Reformgesetze werden in OGVBl. 2026 Nr. 53 bis 56 verkündet.",
       "sourceRefs": [
         {
@@ -1732,11 +2073,34 @@
       "tags": [
         "timeline"
       ],
-      "notes": [],
+      "notes": [
+        "Alle vier Gesetze sind nach ihrer jeweiligen Inkrafttretensbestimmung am 21. Juli 2026, dem Tag nach der Verkündung, in Kraft getreten."
+      ],
       "aliases": [],
       "date": "2026-07-20",
       "eventType": "constitutional-change",
-      "normRefs": []
+      "normRefs": [
+        {
+          "normSlug": "erstes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "zweites-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "drittes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "viertes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2026-07-21"
+        }
+      ]
     },
     {
       "id": "event-first-state-council",
@@ -1822,8 +2186,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": "2026-07-21",
-      "asOf": "2026-07-21",
-      "summary": "Mehrere große Projektkomplexe erreichen den verkündeten Rechtsstand.",
+      "asOf": "2026-09-12",
+      "summary": "Am Tag nach der Verkündung treten das Ostdeutsche-Eisenbahn-Neuordnungsgesetz, das Energie- und Wärmevergesellschaftungspaket, das Kasernierte-Grenzpolizei-Errichtungsgesetz und das Boom-Europe-Umsetzungsgesetz in Kraft. Damit werden die Ostdeutsche Eisenbahn, die Ostdeutsche Netze, die Landesenergiewerke Ost und die Kasernierte Grenzpolizei als Einrichtungen sowie die Sondervermögen Energie- und Wärmevergesellschaftung und Hochgeschwindigkeitsluftfahrt Ost errichtet.",
       "sourceRefs": [
         {
           "sourceId": "source-eisenbahn-law",
@@ -1844,13 +2208,37 @@
           "sourceId": "source-boom-implementation",
           "locator": "Gesetzesfassung",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-landesenergiewerke-law",
+          "locator": "§ 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ostdeutsche-netze-law",
+          "locator": "§ 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-finance-law",
+          "locator": "§ 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-hsl-sondervermoegen-law",
+          "locator": "§ 1",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "project-eisenbahn-verkehr",
         "project-energie-waerme",
         "project-grenzpolizei",
-        "project-boom-europe"
+        "project-boom-europe",
+        "inst-ostdeutsche-eisenbahn",
+        "inst-ostdeutsche-netze",
+        "inst-landesenergiewerke-ost",
+        "inst-grenzpolizei"
       ],
       "tags": [
         "timeline"
@@ -1859,7 +2247,64 @@
       "aliases": [],
       "date": "2026-07-21",
       "eventType": "law-enacted",
-      "normRefs": []
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-eisenbahngesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "verkehrsbindungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "energie-und-waermevergesellschaftungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsche-netze-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "landesenergiewerke-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "energie-und-waermefinanzierungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "kasernierte-grenzpolizei-errichtungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "kasernierte-grenzpolizei-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "boom-europe-umsetzungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
+          "versionId": "2026-07-21"
+        }
+      ]
     },
     {
       "id": "event-future-territorial-reform",
@@ -2696,6 +3141,68 @@
       ]
     },
     {
+      "id": "event-sportneuordnung-effective-2026-07-21",
+      "title": "Sportneuordnungsgesetz in Kraft; Landesagentur Spitzensport Ost und Sportstiftung Ostdeutschland errichtet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": "2026-07-21",
+      "asOf": "2026-09-12",
+      "summary": "Das Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland (OGVBl. 2026 Nr. 52) tritt am Tag nach seiner Verkündung in Kraft. Es führt das Ostdeutsche Sportfördergesetz, das Landesagentur-Spitzensport-Gesetz, das Sportstiftungs- und Sportfondsgesetz, das Athletenförder- und Versorgungsgesetz und das Betriebssportgemeinschaftengesetz ein. Die Landesagentur Spitzensport Ost wird als rechtsfähige Anstalt des öffentlichen Rechts, die Sportstiftung Ostdeutschland als rechtsfähige Stiftung des öffentlichen Rechts errichtet; bei ihr wird der Sportfonds Ost als unselbständiger Sonderfonds eingerichtet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-52",
+          "locator": "Artikel 1 bis 13",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-lasp-law",
+          "locator": "§ 1",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-landesagentur-spitzensport-ost",
+        "inst-sek-volksbildung-wissenschaft",
+        "inst-sportstiftung-ostdeutschland"
+      ],
+      "tags": [
+        "timeline",
+        "sport",
+        "institutions",
+        "law"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-21",
+      "eventType": "law-enacted",
+      "normRefs": [
+        {
+          "normSlug": "sportneuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-sportfoerdergesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "landesagentur-spitzensport-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "sportstiftungs-und-sportfondsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "athletenfoerder-und-versorgungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "betriebssportgemeinschaftengesetz",
+          "versionId": "2026-07-21"
+        }
+      ]
+    },
+    {
       "id": "event-schmidt-government-formation",
       "title": "Wolfgang Schmidt übernimmt das Amt des Ministerpräsidenten",
       "status": "editorially-confirmed",
@@ -2835,13 +3342,51 @@
       ]
     },
     {
+      "id": "event-hinweisgebermeldestellen-gesetz-verkuendet-2026-09-02",
+      "title": "Gesetz zur Einführung von Hinweisgebermeldestellen verkündet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-02",
+      "validTo": "2026-09-02",
+      "asOf": "2026-09-12",
+      "summary": "In OGVBl. 2026 Nr. 72 wird das Gesetz zur Einführung von Hinweisgebermeldestellen vom 2. September 2026 verkündet. Es fügt § 71b in die Ostdeutsche Gemeindeordnung, § 60a in die Landkreisordnung und § 24a in die Ostdeutsche Bezirksordnung ein. Kommunale Gebietskörperschaften mit mindestens 50 Beschäftigten müssen danach eine interne Meldestelle einrichten; Landkreise und Bezirke errichten entsprechende Hinweisgeberstellen. Das Gesetz tritt am ersten Tag des ersten Monats nach der Verkündung in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-72",
+          "locator": "Artikel 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "inst-sek-inneres-wohnen"
+      ],
+      "tags": [
+        "timeline",
+        "law",
+        "promulgation",
+        "local-government"
+      ],
+      "notes": [
+        "Das Inkrafttreten am 1. Oktober 2026 liegt nach dem redaktionellen Stichtag 12. September 2026 und ist noch nicht eingetreten."
+      ],
+      "aliases": [],
+      "date": "2026-09-02",
+      "eventType": "promulgation",
+      "normRefs": [
+        {
+          "normSlug": "gesetz-zur-einfuehrung-von-hinweisgebermeldestellen",
+          "versionId": "2026-10-01"
+        }
+      ]
+    },
+    {
       "id": "event-daseinsvorsorgegesetz-effective-2026",
       "title": "Ostdeutsches Daseinsvorsorgegesetz in Kraft getreten",
       "status": "confirmed-primary",
       "validFrom": "2026-09-03",
       "validTo": "2026-09-03",
       "asOf": "2026-09-04",
-      "summary": "Das am 2. September 2026 verkündete Besondere Gesetz über die öffentliche Daseinsvorsorge (OstDVG) tritt am Tag nach seiner Verkündung in Kraft und ändert zugleich die Haushaltsordnung.",
+      "summary": "Das am 2. September 2026 verkündete Besondere Gesetz über die öffentliche Daseinsvorsorge (OstDVG) tritt am Tag nach seiner Verkündung in Kraft; Artikel 3 des Einführungsgesetzes ändert zugleich die Haushaltsordnung.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-71",
@@ -3141,6 +3686,49 @@
       "date": "2026-09-07",
       "eventType": "appointment",
       "normRefs": []
+    },
+    {
+      "id": "event-sicherheitserlass-kritis-2026-09-08",
+      "title": "Sicherheitserlass KRITIS 09/2026 bekanntgegeben",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-08",
+      "validTo": "2026-09-08",
+      "asOf": "2026-09-12",
+      "summary": "Auf Grundlage des Beschlusses des Staatsrates vom 8. September 2026 (StAnzO. 2026 Nr. 44) gibt der Staatsrat für Frieden in StAnzO. 2026 Nr. 45 den Erlass über vorläufige Maßnahmen zum verstärkten Schutz kritischer Infrastruktur bekannt. Der Erlass tritt mit seiner Bekanntgabe in Kraft und ist bis zum Ablauf des 8. Dezember 2026 befristet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-45",
+          "locator": "Sicherheitserlass KRITIS 09/2026, Nummern 1 bis 10",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-44",
+          "locator": "Beschluss vom 8. September 2026, Abschnitte I bis V",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "proceeding-kritis-schutz-2026",
+        "person-yannik-schmaele"
+      ],
+      "tags": [
+        "timeline",
+        "security",
+        "critical-infrastructure"
+      ],
+      "notes": [
+        "Der Erlass tritt nach Nummer 10 mit Ablauf des 8. Dezember 2026 außer Kraft, soweit er nicht verlängert oder ersetzt wird; dieser Termin liegt nach dem Stichtag und ist offen."
+      ],
+      "aliases": [],
+      "date": "2026-09-08",
+      "eventType": "official-announcement",
+      "normRefs": [
+        {
+          "normSlug": "sicherheitserlass-kritis-09-2026",
+          "versionId": "2026-09-08"
+        }
+      ]
     },
     {
       "id": "event-durchsuchungen-rechtsextreme-2026-09-10",

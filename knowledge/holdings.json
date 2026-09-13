@@ -953,17 +953,22 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-25",
-      "summary": "Rechtsfähige AöR für gemeinwirtschaftliche Energie- und Wärmeversorgung.",
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige AöR mit Sitz in Leipzig für gemeinwirtschaftliche Energie- und Wärmeversorgung unter Rechtsaufsicht des Staatsministeriums für Nachhaltigkeit und Energie; Trägerin des Gemeineigentums an Wärmeinfrastruktur, Erzeugungsanlagen sowie Speicher- und Systemdienstleistungsanlagen, die nach dem Energie- und Wärmevergesellschaftungsgesetz überführt werden.",
       "sourceRefs": [
         {
           "sourceId": "source-landesenergiewerke-law",
-          "locator": "§§ 1 bis 3",
+          "locator": "§§ 1 bis 3 und 8",
           "role": "primary"
         },
         {
           "sourceId": "source-energy-law",
-          "locator": "Trägerin des Gemeineigentums",
+          "locator": "§ 7 Absatz 2 mit § 4 Absätze 4 bis 6",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 5",
           "role": "corroborating"
         }
       ],
@@ -979,7 +984,8 @@
         "key-holding"
       ],
       "notes": [
-        "Operativer Aufbau und einzelne Infrastrukturüberführungen sind vom Bestehen der Anstalt zu unterscheiden."
+        "Operativer Aufbau und einzelne Infrastrukturüberführungen sind vom Bestehen der Anstalt zu unterscheiden.",
+        "Seit 12. September 2026 ist die Veräußerung, Belastung, Ausgliederung oder sonstige Übertragung wesentlicher betriebsnotwendiger Vermögensgegenstände an private Dritte unzulässig; eine Ausnahme setzt voraus, dass Artikel 95a der Verfassung sie zulässt und ein besonderes Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes die konkrete Maßnahme ausdrücklich gestattet. Das Gemeinvermögensschutzgesetz bleibt unberührt (§ 8 Absätze 4 und 7)."
       ],
       "kind": "public-law-carrier",
       "stakePercent": null,
@@ -991,21 +997,28 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-25",
-      "summary": "Rechtsfähige AöR und Trägerin der nach dem Energie- und Wärmevergesellschaftungsrecht überführten Netzinfrastruktur.",
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige AöR mit Sitz in Potsdam unter Rechtsaufsicht des Staatsministeriums für Nachhaltigkeit und Energie; Trägerin des Gemeineigentums an der nach dem Energie- und Wärmevergesellschaftungsrecht überführten Strom- und Gasnetzinfrastruktur.",
       "sourceRefs": [
         {
           "sourceId": "source-ostdeutsche-netze-law",
-          "locator": "§§ 1 und 2",
+          "locator": "§§ 1, 2 und 8",
           "role": "primary"
         },
         {
           "sourceId": "source-energy-law",
-          "locator": "Trägerin des Gemeineigentums",
+          "locator": "§ 7 Absatz 1 mit § 4 Absätze 2 und 3",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 6",
           "role": "corroborating"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "inst-ostdeutsche-netze"
+      ],
       "tags": [
         "holding",
         "public-law-entity",
@@ -1015,7 +1028,8 @@
         "key-holding"
       ],
       "notes": [
-        "Die Anstalt ist errichtet; einzelne Überführungen können weiterhin Vollzugsakte erfordern."
+        "Die Anstalt ist errichtet; einzelne Überführungen können weiterhin Vollzugsakte erfordern.",
+        "Seit 12. September 2026 ist die Veräußerung, Belastung, Ausgliederung oder sonstige Übertragung wesentlicher betriebsnotwendiger Vermögensgegenstände an private Dritte unzulässig; eine Ausnahme setzt voraus, dass Artikel 95a der Verfassung sie zulässt und ein besonderes Einzelfallgesetz nach § 19 des Gemeinvermögensschutzgesetzes die konkrete Maßnahme ausdrücklich gestattet. Das Gemeinvermögensschutzgesetz bleibt unberührt (§ 8 Absätze 3 und 6)."
       ],
       "kind": "public-law-carrier",
       "stakePercent": null,
@@ -1027,13 +1041,18 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-25",
-      "summary": "Rechtsfähige AöR des Freistaates und Trägerin des SERO-Systems.",
+      "asOf": "2026-09-12",
+      "summary": "Rechtsfähige AöR des Freistaates mit Sitz in Leipzig und Trägerin des SERO-Systems; Rechts- und Fachaufsicht führt das für Nachhaltigkeit und Energie zuständige Staatssekretariat, seit dem Organisationserlass vom 7. September 2026 das Staatssekretariat für Nachhaltigkeit, Energie und Land-, Forst- und Küstenwirtschaft.",
       "sourceRefs": [
         {
           "sourceId": "source-sero",
-          "locator": "§§ 1, 4 und 15",
+          "locator": "§§ 1, 4, 10, 13, 15 und 22",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-75",
+          "locator": "Organisationserlass 09/2026, Zusammenführung der Staatssekretariate",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [],
@@ -1044,7 +1063,9 @@
         "public-economy"
       ],
       "notes": [
-        "SERO-Bezirksbetriebe sind organisatorische Einheiten des KKO und keine selbstständigen Beteiligungen."
+        "SERO-Bezirksbetriebe sind organisatorische Einheiten des KKO und keine selbstständigen Beteiligungen.",
+        "Der Rohstofffonds nach § 22 ist ein zweckgebundenes Sondervermögen des KKO ohne eigene Rechtspersönlichkeit; er wird nicht als eigene Beteiligung geführt.",
+        "Beteiligungen an oder Gründung von Unternehmen sind nur mit Zustimmung des Verwaltungsrates und des zuständigen Staatssekretariats und nur soweit zur Aufgabenerfüllung erforderlich zulässig (§ 13 Absatz 3); keine Beteiligung belegt."
       ],
       "kind": "public-law-carrier",
       "stakePercent": null,
@@ -1056,23 +1077,28 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-25",
+      "asOf": "2026-09-12",
       "summary": "Rechtsfähige AöR mit Sitz in Leipzig für Aufgaben der landesweiten Spitzensportförderung.",
       "sourceRefs": [
         {
           "sourceId": "source-lasp-law",
-          "locator": "§§ 1 und 2",
+          "locator": "§§ 1, 2 und 7",
           "role": "primary"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "inst-landesagentur-spitzensport-ost"
+      ],
       "tags": [
         "holding",
         "public-law-entity",
         "sport",
         "public-economy"
       ],
-      "notes": [],
+      "notes": [
+        "Die Landesagentur betreibt das Athletenversorgungswerk Ost (§ 2 Absatz 2 Nummer 11); es wird nicht als gesonderte Beteiligung geführt.",
+        "Rechtsaufsicht und, soweit staatliche Aufgaben wahrgenommen werden, Fachaufsicht führt die oberste Sportbehörde (§ 7)."
+      ],
       "kind": "public-law-carrier",
       "stakePercent": null,
       "direct": true
@@ -1206,6 +1232,50 @@
       "direct": true
     },
     {
+      "id": "holding-krankenhaussicherungsfonds",
+      "title": "Ostdeutscher Krankenhaussicherungs- und Rekommunalisierungsfonds",
+      "status": "confirmed-primary",
+      "validFrom": "2026-04-01",
+      "validTo": null,
+      "asOf": "2026-09-12",
+      "summary": "Nicht rechtsfähiges Sondervermögen des Freistaates zur Sicherung versorgungsnotwendiger Krankenhausstandorte und zur Rekommunalisierung gefährdeter Krankenhäuser; Leistungen sind unter anderem als Zuschuss, Darlehen, Bürgschaft, stille Beteiligung sowie Erwerb von Anteilen oder Vermögensgegenständen zulässig (§ 11 Absatz 1). Bewirtschaftet vom für das Gesundheitswesen zuständigen Staatsministerium, verwaltet vom für Finanzen zuständigen Staatsministerium (§ 4 Absatz 2).",
+      "sourceRefs": [
+        {
+          "sourceId": "source-hospital-law",
+          "locator": "§§ 1, 4, 11, 12 und 17",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 2 Absatz 2 Nummer 4 und Artikel 8",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-77",
+          "locator": "Artikel 5 (§§ 13, 16, 18 und 20 OstKHFondsG)",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-krankenhausfonds"
+      ],
+      "tags": [
+        "holding",
+        "special-fund",
+        "health",
+        "public-economy"
+      ],
+      "notes": [
+        "Kein selbstständiges Beteiligungsunternehmen; Rückflüsse aus Beteiligungen, Veräußerungen, Tilgungen und Zinsen fließen dem Fonds zu (§ 17 Absatz 3).",
+        "§ 12 lässt eine vom Land beherrschte Beteiligungsgesellschaft zur vorübergehenden Sicherung versorgungsnotwendiger Standorte zu; eine Gründung oder eingegangene Beteiligung ist am Stichtag nicht belegt.",
+        "Seit 12. September 2026 ist eine Weiterübertragung an nicht öffentlich beherrschte Träger nur nach Artikel 7a Absatz 3 und Artikel 95a der Staatsverfassung sowie §§ 14 bis 20 des Gemeinvermögensschutzgesetzes zulässig; die Befristung der Landesbeteiligung begründet weder eine Verpflichtung noch eine Ermächtigung zu einer unzulässigen Weiterübertragung, und ist eine rechtmäßige Weiterübertragung nicht möglich, darf die Beteiligung fortgeführt werden, solange dies zur Versorgungssicherung erforderlich ist (§ 12 Absätze 2 und 3).",
+        "Seit 12. September 2026 berichtet das zuständige Staatssekretariat der Volkskammer jährlich unter anderem über eingegangene Beteiligungen und Rückflüsse (§ 18 Absatz 1)."
+      ],
+      "kind": "special-fund",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
       "id": "holding-50hertz-erwerb",
       "title": "Schrittweise Übernahme der Elia-Beteiligung an 50Hertz",
       "status": "confirmed-official",
@@ -1246,13 +1316,28 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-03",
       "validTo": null,
-      "asOf": "2026-09-08",
-      "summary": "Seit 3. September 2026 rechtsfähige Anstalt des öffentlichen Rechts des Freistaates für gemeinwirtschaftliche Luftverkehrsaufgaben, insbesondere Brandbekämpfung und Katastrophenschutz.",
+      "asOf": "2026-09-12",
+      "summary": "Seit 3. September 2026 rechtsfähige Anstalt des öffentlichen Rechts des Freistaates mit Sitz in Schönefeld für gemeinwirtschaftliche Luftverkehrsaufgaben, insbesondere Brandbekämpfung und Katastrophenschutz; Rechtsaufsicht führt der für Mobilität zuständige Staatsrat.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-74",
-          "locator": "Artikel 1, §§ 1–3",
+          "locator": "Artikel 1, §§ 1 bis 3, 7, 9 und 20",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-79",
+          "locator": "Artikel 10",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-39",
+          "locator": "Bestellung des Gründungsvorstandes",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-40",
+          "locator": "Beschaffung der Anfangsflotte",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -1263,7 +1348,11 @@
         "holding",
         "public-economy"
       ],
-      "notes": [],
+      "notes": [
+        "Gewerblicher Personen-, Post- und Frachtverkehr ist nach § 7 in einer GmbH zu führen, deren sämtliche Anteile unmittelbar der Interflug gehören müssen; eine unmittelbare oder mittelbare Beteiligung Privater ist unzulässig (§ 7 Absatz 2). Die Gründung dieser Tochtergesellschaft ist am Stichtag nicht belegt.",
+        "Gründungsvorstand mit Wirkung vom 3. September 2026 bestellt; nach Zustimmung des Verwaltungsrates Liefer- und Umrüstungsverträge für zehn Löschflugzeuge geschlossen; Auslieferung nicht belegt.",
+        "Seit 12. September 2026 bestimmt § 10 Absatz 4, dass Artikel 95a der Staatsverfassung und das Gemeinvermögensschutzgesetz unberührt bleiben."
+      ],
       "kind": "public-law-carrier",
       "stakePercent": null,
       "direct": true
@@ -1274,7 +1363,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-02",
       "validTo": null,
-      "asOf": "2026-09-08",
+      "asOf": "2026-09-12",
       "summary": "Sämtliche Geschäftsanteile gingen am 2. September 2026 kraft Gesetzes auf den Freistaat über. Die Gesellschaft besteht als Rechtsträgerin fort; ein späterer Übertragungsakt ist für diesen Eigentumsübergang nicht erforderlich.",
       "sourceRefs": [
         {
@@ -1283,12 +1372,17 @@
           "role": "primary"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "project-zinnwald-lithium",
+        "inst-sek-wirtschaft-arbeit"
+      ],
       "tags": [
         "holding",
         "public-economy"
       ],
-      "notes": [],
+      "notes": [
+        "Die Gesellschafterrechte des Freistaates nimmt das Staatssekretariat für Wirtschaft und Arbeit wahr. Bis zu einer anderweitigen gesetzlichen Regelung verbleiben die Geschäftsanteile unmittelbar beim Freistaat; ihre Veräußerung, Belastung oder Übertragung auf einen privaten Rechtsträger ist unzulässig, eine spätere Übertragung auf einen ausschließlich öffentlich getragenen gemeinwirtschaftlichen Rechtsträger bleibt einer gesetzlichen Regelung vorbehalten (§ 5)."
+      ],
       "kind": "company",
       "stakePercent": 100,
       "direct": true

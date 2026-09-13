@@ -20,8 +20,8 @@ keine eigenständige Quelle. Die Quellenhierarchie und das Verfahren bei echten 
 | Staat und Verfassungsordnung | aktuelle Verfassungsfassungen, Staatsaufbau und Staatsreform sind strukturiert | einzelne historische Verfassungsereignisse und Organübergänge weiter verdichten |
 | Regierung und Verwaltung | aktueller Staatsrat und jüngere Regierungsstände sind strukturiert | Regierungs- und Rollenchronologie vor Dezember 2025 vervollständigen |
 | Personen und Parteien | aktuelle Rollen und zahlreiche historische Profile sind vorhanden | einzelne Parteiwechsel, Parteifunktionen, DEMOS-Namenschronologie und frühere Amtsintervalle belegen |
-| Gesetzgebung und Rechtsordnung | 95 Zielnormen sind erkannt, 90 vollständig konsolidiert; 5 Zieltextkonflikte sind gesperrt und 1 bekannte Ausgangsfassung ist noch nicht technisch archiviert | die Konflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Ostdeutschen Gemeindeordnung, bei der Schulordnung Förderschulen und beim Zehnten Sächsischen Kostenverzeichnis quellenbasiert klären sowie die bekannte NDR-Ausgangsfassung unverändert versionieren |
-| Parlamentarische Geschichte | siebte Wahlperiode ist über Verfahren, Tagesordnungen und Verkündungen erschlossen | frühere Wahlperioden sowie nicht vorliegende Plenar- und Abstimmungsnachweise nur bei neuer Quelle ergänzen |
+| Gesetzgebung und Rechtsordnung | 95 Zielnormen sind erkannt, 90 vollständig konsolidiert; 5 Zieltextkonflikte sind gesperrt | die Konflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Ostdeutschen Gemeindeordnung, bei der Schulordnung Förderschulen, beim Zehnten Sächsischen Kostenverzeichnis und bei der Hoheitszeichenverordnung quellenbasiert klären |
+| Parlamentarische Geschichte | siebte Wahlperiode ist über Verfahren, Tagesordnungen und Verkündungen erschlossen; für die achte Wahlperiode sind Wahl (5. und 6. September 2026), Konstituierung (7. September 2026) und die Gesetzesbeschlüsse vom 11. September 2026 über Verfahren und Verkündungen erfasst | frühere Wahlperioden sowie nicht vorliegende Plenar- und Abstimmungsnachweise nur bei neuer Quelle ergänzen |
 | Gerichts- und Verfassungsverfahren | einzelne Vorgänge sind als Kandidaten oder Verfahren erfasst | Aktenzeichen, Entscheidungen und Verfahrensausgänge nur aus belastbaren Quellen übernehmen |
 | Politische Vorhaben und Vollzug | zentrale Reform- und Projektkomplexe sind verknüpft | operative Vollzugsstände unter anderem bei Boom Europe, OVV/DB und mehreren Beschaffungen belegen |
 | Beteiligungen und öffentliche Träger | Rechtsnachfolge und öffentlich belegte Beteiligungspositionen sind strukturiert | nicht öffentlich ausgewiesene tiefere Beteiligungsstufen sowie formale Anpassungen einzelner Mehrländer-Staatsverträge und Satzungen bleiben offen |
@@ -37,8 +37,7 @@ Die menschenlesbare Liste der tatsächlich noch relevanten Quellenfragen steht i
 
 Besonders relevant sind derzeit:
 
-- die technische Archivierung der bekannten vollständigen Ausgangsfassung des NDR-Staatsvertrags vor der Änderung vom 8. März 2026,
-- die Zieltextkonflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Ostdeutschen Gemeindeordnung, bei der Schulordnung Förderschulen und beim Zehnten Sächsischen Kostenverzeichnis,
+- die Zieltextkonflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Ostdeutschen Gemeindeordnung, bei der Schulordnung Förderschulen, beim Zehnten Sächsischen Kostenverzeichnis und bei der Hoheitszeichenverordnung (Ermächtigungsverweis in OGVBl. 2026 Nr. 70 Artikel 2 Absatz 2),
 - die abweichende Wahlterminangabe in Artikel 121a der Staatsverfassung,
 - fehlende Vollzugsbelege für mehrere politische und wirtschaftliche Vorhaben,
 - noch unvollständige politische Rollen- und Ereignischronologien vor Ende 2025,

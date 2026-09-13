@@ -50,12 +50,16 @@ content/
     offices.json
     assignments.json
     snapshots/[datum].json
-  portal/home.json
+  portal/
+    home.json
+    topic-coverage.json
   presse/
     mitteilungen/*.json
     reden/*.json
     termine/*.json
   regierung/
+    beteiligungen.json
+    beteiligungsinventar.json   # erzeugt aus knowledge/holding-positions.json (npm run knowledge:build), nicht von Hand pflegen
     cabinet-page.json
     archiv/
       honecker-i.json
@@ -77,6 +81,7 @@ content/
   service/
     seiten/*.json
     stellen/*.json
+  stichwortregister.json
   themen/*.json
   verkuendungen/*.json
 
@@ -285,8 +290,11 @@ gesetz
 verordnung
 verwaltungsvorschrift
 foerderrichtlinie
+allgemeinverfuegung
 bekanntmachung
+berichtigung
 staatsvertrag
+verwaltungsabkommen
 sonstiges
 ```
 
@@ -587,6 +595,47 @@ Die Archiv-Mitglieder verwenden grundsätzlich dieselben Felder wie aktuelle Reg
 
 Archivdateien dürfen frühere Ressortzuschnitte, frühere Amtsbezeichnungen und geschäftsführende Zuständigkeiten enthalten. Sie müssen aber weiterhin gültige Slugs, erreichbare Bildpfade und sachliche Archivtexte verwenden.
 
+### Beteiligungen und öffentliche Träger
+
+Pfad: `content/regierung/beteiligungen.json`
+
+Die Datei speist die Seite `/staatsregierung/beteiligungen/`. Sie beschreibt den zum
+Übernahmestichtag geerbten Bestand an Beteiligungen und öffentlichen Trägern, die seither durch
+ostdeutsches Recht errichteten, zusammengeführten oder aufgelösten Rechtsträger sowie das, was noch
+nicht als vollzogen belegt ist. `parseBeteiligungsUebersicht` in
+`packages/shared/src/lib/portal/schema.ts` prüft beim Laden Struktur, Slug- und Datumsformat.
+Unbekannte Quoten werden nicht geschätzt; eine politische Vereinbarung wird nicht mit einem
+Eigentumsübergang gleichgesetzt.
+
+Pflichtfelder:
+
+- `slug`, `title`, `lead`
+- `asOf` (fachliches Redaktionsdatum), `inheritanceDate` (Übernahmestichtag)
+- `facts`: Liste aus `label`, `value`, optional `note`
+- `introduction`: Liste von Absätzen
+- `sections`: je `id`, `title`, `intro`, `items`; ein Eintrag hat `title`, `text` und optional
+  `label`, `note`, `normSlug` und `dataKey`. `dataKey` verbindet den Eintrag mit einer gemeinsamen
+  Position des Beteiligungsinventars.
+- `changes`: je `date`, `label`, `title`, `text`, optional `note`, `normSlug`
+- `continuingTitle`, `continuingIntro`, `continuingItems`
+- `unresolvedTitle`, `unresolvedIntro`, `unresolvedItems`
+- `sourceNote`
+- `relatedNorms`: je `label`, `normSlug`
+
+Redaktionelle Pflichten, die die Content-QA nicht automatisch prüft und die vor dem Commit von Hand
+abgeglichen werden:
+
+- Jeder `normSlug` zeigt auf eine vorhandene Norm unter `content/normen/`.
+- `asOf` und jedes Datum in `changes` liegen nicht nach dem redaktionellen Stichtag.
+- Als geschehen wird nur aufgenommen, was belegt ist. Nicht belegte Quoten oder noch nicht
+  nachgewiesene Vollzugsschritte gehören in `unresolvedItems`, nicht in `facts` oder `changes`.
+- Handgeschriebene Zählwerte in `facts` werden bei neuen Trägern nachgezogen.
+
+Das Beteiligungsinventar `content/regierung/beteiligungsinventar.json` erzeugt
+`npm run holdings:build` (auch Teil von `npm run knowledge:build`) aus
+`knowledge/holding-positions.json`. Es wird nicht von Hand gepflegt. `npm run holdings:check`
+vergleicht es zu Beginn von `npm run content:check` byteweise.
+
 ### Pressemitteilungen
 
 Pfad: `content/presse/mitteilungen/[slug].json`
@@ -877,7 +926,9 @@ verwaltungsvorschrift
 foerderrichtlinie
 allgemeinverfuegung
 bekanntmachung
+berichtigung
 staatsvertrag
+verwaltungsabkommen
 zustimmungsgesetz
 aenderungsvorschrift
 ```
@@ -1113,13 +1164,19 @@ subsection
 paragraph
 article
 annex
+subparagraph
 paragraphText
 item
 subitem
+quotedProvision
+table
+tableRow
+tableHeaderCell
+tableCell
 signature
 ```
 
-Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `article` und `annex` brauchen mindestens `label` oder `title` und in der Regel `children`. Textblöcke `paragraphText`, `item` und `subitem` brauchen `text`.
+Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `article` und `annex` brauchen mindestens `label` oder `title`; `children` sind bei `part`, `chapter`, `section`, `subsection`, `annex`, `paragraph`, `article`, `table` und `tableRow` erforderlich. `subparagraph` bildet einen Absatz („(1)“) ab; `subparagraph`, `item` und `subitem` brauchen `label`, `text` oder untergeordnete Blöcke. `paragraphText` braucht `text`. `level`, `listId` und `numberingStyle` sind nur bei `item`, `subitem` und `subparagraph` zulässig. `quotedProvision` fasst den in einer Änderungsvorschrift zitierten neuen Wortlaut zusammen und braucht mindestens ein Kind. `table` enthält ausschließlich `tableRow`-Kinder mit `tableHeaderCell`- oder `tableCell`-Zellen; jede Zelle braucht `text`. `columns` ist nur an `table`, `rowspan` und `colspan` nur an Zellen und `scope` (`col`, `row`, `colgroup`, `rowgroup`) nur an Kopfzellen zulässig. Spaltenzahl und überlappungsfreies Raster werden beim Einlesen der Fassung geprüft.
 
 Der Blocktyp `signature` bildet den Unterschriftenblock am Ende einer eigenen Verkündung ab:
 `text` nennt die unterzeichnende Person, `title` die Amtsbezeichnung in Normalschreibung
@@ -1454,6 +1511,8 @@ Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
 | Startseite | `content/portal/home.json` | JSON-Objekt |
 | Themen-Coverage | `content/portal/topic-coverage.json` | JSON-Objekt |
 | Kabinettsseite | `content/regierung/cabinet-page.json` | JSON-Objekt |
+| Beteiligungen | `content/regierung/beteiligungen.json` | JSON-Objekt |
+| Beteiligungsinventar | `content/regierung/beteiligungsinventar.json` | erzeugtes JSON-Objekt (nicht von Hand pflegen) |
 | Pressemitteilung | `content/presse/mitteilungen/[slug].json` | JSON-Objekt |
 | Rede | `content/presse/reden/[slug].json` | JSON-Objekt |
 | Termin | `content/presse/termine/[slug].json` | JSON-Objekt |
