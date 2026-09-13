@@ -2176,12 +2176,22 @@ siteTest(['law'])('Restpunkte Richtung E: Verzeichnisköpfe führen als Brotkrum
   await expect(page.locator('.law-footer').getByRole('navigation', { name: 'Recherchieren' }).getByRole('heading', { name: 'Nach Normtyp' })).toBeVisible();
 });
 
+
+/** Erste geltende, übernommen und ostdeutsch geänderte Vorschrift, deren Fassung Marken gegen die Vorfassung trägt (die jüngste Fassung kann wortgleich sein, etwa nach einer Berichtigung). */
+async function markedNorm(page: Page, request: APIRequestContext): Promise<ApiDocument | undefined> {
+  for (const document of (await currentDocuments(request, '&origin=inherited-amended')).slice(0, 6)) {
+    await page.goto(lawUrl(document.currentUrl));
+    if (await page.locator('.norm-unit__change').count() > 0) return document;
+  }
+  return undefined;
+}
+
 siteTest(['law'])('Restpunkte Richtung E: Änderungen stehen am Ort der Änderung – im Text, in der Kopfzeile der Einheit und in der Übersicht', async ({ page, request }) => {
   await prepareFunctionalPage(page);
   await page.setViewportSize({ width: 1440, height: 900 });
   // Eine geltende Vorschrift mit gespeicherter Vorfassung (übernommen und ostdeutsch geändert).
-  const norm = await currentNormOfOrigin(request, 'inherited-amended');
-  await page.goto(lawUrl(norm.currentUrl));
+  const norm = await markedNorm(page, request);
+  test.skip(!norm, 'Keine übernommene, geänderte Vorschrift mit Marken gegen die Vorfassung im Bestand.');
   const marks = page.locator('.norm-unit__change');
   expect(await marks.count(), 'geänderte oder neue Einheiten').toBeGreaterThan(0);
   const first = marks.first();
@@ -2204,7 +2214,7 @@ siteTest(['law'])('Restpunkte Richtung E: Änderungen stehen am Ort der Änderun
   await page.goto(lawUrl(href));
   await expect(page.locator(`#${new URL(href, 'http://x').hash.slice(1)}`)).toBeVisible();
   // Die Ausgangsfassung (älteste gespeicherte Fassung) hat keine Vorfassung und deshalb keine Marken.
-  const hit = (await searchApi(request, '?versionScope=all&includeAmendments=1')).hits.find((entry) => entry.slug === norm.slug);
+  const hit = (await searchApi(request, '?versionScope=all&includeAmendments=1')).hits.find((entry) => entry.slug === norm!.slug);
   const earliest = hit ? [{ validFrom: hit.validFrom, url: hit.url }, ...hit.otherVersions].sort((left, right) => left.validFrom.localeCompare(right.validFrom))[0] : undefined;
   if (earliest) {
     await page.goto(lawUrl(earliest.url));
@@ -2320,5 +2330,36 @@ siteTest(['law'])('Restpunkte 2: das Änderungsprotokoll nennt je Fassung die be
   for (const version of payload.versions) {
     const cell = page.locator(`[data-protocol-affected="${version.versionId}"]`);
     if (await cell.count() > 0) await expect(cell).toHaveText(version.text || 'keine Einheit');
+  }
+});
+
+siteTest(['law'])('Restpunkte 2: der Verlauf einer Einheit nennt jede Fassung, die sie geändert oder eingefügt hat', async ({ page, request }) => {
+  await prepareFunctionalPage(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const norm = await markedNorm(page, request);
+  test.skip(!norm, 'Keine übernommene, geänderte Vorschrift mit Marken gegen die Vorfassung im Bestand.');
+  // Eine markierte Einheit trägt hinter der Marke das Aufklappzeichen „Verlauf“ …
+  const unit = page.locator('[data-norm-unit]:has(.norm-unit__change)').first();
+  const details = unit.locator('[data-unit-history]');
+  await expect(details).toHaveCount(1);
+  await expect(details.locator('summary')).toHaveText(/^Verlauf/u);
+  // … dessen Liste aus /norm/<slug>/betroffen.json kommt: je Fassung ein Eintrag mit Datum, Änderungsvorschrift und Vergleichslink samt Anker.
+  await details.locator('summary').click();
+  const items = details.locator('.norm-unit__history-list li');
+  await expect(items.first()).toBeVisible();
+  const unitId = await unit.getAttribute('id');
+  const validFrom = (await page.locator('.norm-page-header__line .r-strong').textContent())?.match(/\d{2}\.\d{2}\.\d{4}/u)?.[0];
+  await expect(items.last()).toContainText(validFrom!);
+  await expect(items.last().locator('a')).toHaveAttribute('href', new RegExp(`/vergleich/\\?von=[^&]+&bis=[^#]+#vergleich-${unitId}$`, 'u'));
+  expect(await items.last().textContent()).toMatch(/^(geändert|neu): /u);
+  // Der Vergleichslink führt zur Einheit im Vergleich.
+  await items.last().locator('a').click();
+  await expect(page.locator(`#vergleich-${unitId}`)).toBeVisible();
+  // Nie geänderte Einheiten tragen keinen Verlauf.
+  await page.goto(lawUrl(norm!.currentUrl));
+  await page.waitForTimeout(400);
+  for (const other of await page.locator('[data-norm-unit]:not(:has(.norm-unit__change))').all()) {
+    const history = other.locator('[data-unit-history]');
+    if (await history.count() > 0) await expect(history.locator('summary')).toHaveText(/^Verlauf · \d+$/u);
   }
 });

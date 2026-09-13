@@ -523,10 +523,23 @@ Absätze mit neuem oder geändertem Wortlaut (`.norm-abs--changed`) tragen eine 
 Vorlesern „geändert“. In der Inhaltsübersicht steht am Eintrag die Kurzmarke „geänd.“ bzw. „neu“
 mit dem vollständigen Text als `title` und für Vorleser; Gruppen zählen ihre Marken nicht. Die
 Ausgangs- oder Erstfassung trägt keine Marken; entfallene Absätze haben in der angezeigten
-Fassung keinen Ort. Im Druck bleiben die Textzeichen, die Flächen entfallen. Der Vergleich kostet
-bei langen Vorschriften mehr als 50 ms (Verfassung 70–90 ms), deshalb bleiben die Marken je
-(Slug, Vorfassung, Fassung) im Speicher des Workers (`loadNormView`), nicht in der
-D1-Projektion.
+Fassung keinen Ort. Im Druck bleiben die Textzeichen, die Flächen entfallen. Die betroffenen
+Einheiten je Fassungspaar bleiben im Speicher des Workers (`loadAffectedUnits` in
+`norm-view.ts`; die Marken sind eine Sicht darauf), nicht in der D1-Projektion.
+
+Der Änderungsvermerk je Einheit reicht über alle gespeicherten Fassungen (REVOSax-Fußnoten, gii
+„Textnachweis“): hinter der Marke steht das Aufklappzeichen „Verlauf“ (`details`/`summary` in
+der Kopfzeile, Jost, `--fs-caption`), das die Liste „neu: 21.07.2026 Erstes Gesetz zur Großen
+Staatsreform · geändert: 12.09.2026 Sozialistische Verfassungsnovelle“ öffnet – je Eintrag mit
+Link auf den Vergleich der beiden Fassungen samt Anker der Einheit; „neu“ ist der erste Eintrag,
+wenn die Einheit nicht in der ältesten Fassung stand. Bezeichnungen der Änderungsvorschriften wie
+im Kopf (`amendmentLabels`), Datum wie in der Statuszeile. Einheiten ohne Marke gegen die
+Vorfassung, aber mit früheren Änderungen, tragen „Verlauf · n“; Ausgangsfassungen und nie
+geänderte Einheiten tragen nichts. Die Textseite rechnet dafür keine weiteren Vergleiche: die
+Liste kommt aus `/norm/<slug>/betroffen.json` (`buildUnitHistory` in
+`apps/recht/src/lib/unit-history.ts`, geladen nach dem Aufbau der Seite); ohne JavaScript
+verweist „Verlauf“ auf das Änderungsprotokoll, dessen Spalte „Betroffen“ dieselbe Information
+trägt. Im Druck bleibt die Liste geschlossen.
 
 ### Scrollwerkzeuge des Rechtsportals
 
