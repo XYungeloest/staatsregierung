@@ -1,7 +1,7 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-09-12T08:31:18.663Z
+**Erzeugt:** 2026-09-13T07:27:02.650Z
 
 - Erkannte Änderungsvorschriften: 70
 - Erkannte Zielnormen: 95
@@ -23,7 +23,7 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 
 - Datensatz: `ostdeutsches-personennahverkehrsgesetz`
 - Status: `blocked-source-conflict`
-- Problem: Artikel 9 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes ordnet zum 21. Juli 2026 Ergänzungen in § 3 Absatz 1 nach den Wörtern „Landkreise und kreisfreien Städte“ an. Die am 24. März 2026 in Kraft getretene Neufassung des § 3 Absatz 1 enthält diese Wörter nicht mehr; sie stehen nur in Absatz 2. Eine Umdeutung des ausdrücklich bezeichneten Absatzes ist ohne Berichtigung oder andere Primärquelle unzulässig. Die gleichzeitig vorgesehenen weiteren Änderungen werden bis zur Klärung nicht als vollständige Folgefassung ausgegeben.
+- Problem: Artikel 9 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes ordnet zum 21. Juli 2026 Ergänzungen in § 3 Absatz 1 nach den Wörtern „Landkreise und kreisfreien Städte“ an. Die am 24. März 2026 in Kraft getretene Neufassung des § 3 Absatz 1 enthält diese Wörter nicht mehr; sie stehen nur in Absatz 2. Eine Umdeutung des ausdrücklich bezeichneten Absatzes ist ohne Berichtigung oder andere Primärquelle unzulässig. Die gleichzeitig vorgesehenen weiteren Änderungen werden bis zur Klärung nicht als vollständige Folgefassung ausgegeben. Das Rezept für Artikel 4 des Ostdeutsche-Eisenbahn-Neuordnungsgesetzes (OGVBl. 2026 Nr. 47; §§ 4b bis 4g, § 4 Absatz 2, § 7 Absatz 8) mit Wirkung vom 21. Juli 2026 liegt geprüft vor und wird mit Aufhebung der Sperre angewandt.
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 - Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 
