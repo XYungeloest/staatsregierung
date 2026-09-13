@@ -54,10 +54,12 @@ bleibt ein Fall:
 ## Rechtsherkunft nicht belegbar (`origin-unresolved`)
 
 Die Herkunftsklasse wird aus Quellen, Fundstellen und Historie abgeleitet
-(`packages/shared/src/lib/norms/origin.ts`); `npm run test:unit -- tests/norm-origin-metadata.test.ts`
-zählt die Klassen. Fünf Normen lassen sich nach den geltenden Regeln nicht zuordnen, weil das
-Herkunftsmodell nur die Übernahme des sächsischen Rechtsstands zum 1. November 2023 und die eigene
-ostdeutsche Setzung kennt:
+(`getNormOriginInfo` in `packages/shared/src/lib/norms/origin.ts`); sie lässt sich in der Rechtssuche
+über den Filter „Rechtsherkunft“ unter „Weitere Filter · Erweiterte Suche“ und im Verzeichnis
+„A–Z und Register“ über die Spalte „Herkunft“ und die Auswahl der Herkunftsart eingrenzen. Fünf
+Normen lassen sich nach den geltenden Regeln nicht zuordnen, weil das Herkunftsmodell nur die
+Übernahme des sächsischen Rechtsstands zum 1. November 2023 und die eigene ostdeutsche Setzung
+kennt:
 
 - **Ostdeutsches Zweckentfremdungsverbotsgesetz** (`zweckentfremdungsverbotsgesetz`) — sächsisches
   Gesetz vom 14. Februar 2024 (SächsGVBl. S. 167, REVOSax 20743.1, gültig ab 19. März 2024), also
@@ -83,10 +85,11 @@ ostdeutsche Setzung kennt:
   ostdeutsche Setzung; das Herkunftsmodell kennt für einen mitgetragenen Staatsvertrag eines
   anderen Landes keine Klasse.
 - **Oberstufen- und Abiturprüfungsverordnung** (`oberstufenund-abiturprufungsverordnung`) — die
-  2024 geänderte Verordnung war bereits seit dem 1. August 2008 außer Kraft
-  (`knowledge/clarifications/2026-08-27-zuarbeit-pdfnachtrag.md`); der Datensatz trägt weder eine
-  REVOSax-Quelle noch eine eigene Ausgangsfassung. Ohne amtliche Quelle der 1996er Verordnung bleibt
-  die Herkunft ungeklärt.
+  2024 geänderte Verordnung war nach der amtlichen Klarstellung in Artikel 5 Absatz 2 der Verordnung
+  zur Bereinigung des allgemeinbildenden Schulordnungsrechts (OGVBl. 2026 Nr. 67) bereits seit dem
+  1. August 2008 außer Kraft; der Akt von 2024 setzte sie weder neu noch wieder in Kraft. Der
+  Datensatz trägt weder eine REVOSax-Quelle noch eine eigene Ausgangsfassung. Ohne amtliche Quelle
+  der 1996er Verordnung bleibt die Herkunft ungeklärt.
 
 ## Bekanntmachungen zur Interflug (StAnzO. 2026 Nr. 39 und 40)
 
@@ -111,7 +114,7 @@ ostdeutsche Setzung kennt:
 ## Rechtskonsolidierung
 
 `npm run norms:consolidation:audit` erzeugt `data/recht/consolidation-report.md` mit den offenen
-Zielnormen. Derzeit blockieren vier Quellenkonflikte:
+Zielnormen. Derzeit blockieren fünf Quellenkonflikte:
 
 - **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
   Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
@@ -126,6 +129,12 @@ Zielnormen. Derzeit blockieren vier Quellenkonflikte:
 - **Zehntes Sächsisches Kostenverzeichnis** — `blocked-source-conflict`: Der Änderungsbefehl zu
   Tarifplatz 3 widerspricht dem vorhandenen Ausgangsbestand; der Zieltext ist nicht eindeutig
   ableitbar.
+- **Hoheitszeichenverordnung** — `blocked-source-conflict`: Artikel 2 Absatz 2 des Besonderen
+  Gesetzes zur Neuregelung des Hoheitszeichenrechts (OGVBl. 2026 Nr. 70) ordnet die Fortgeltung als
+  Vollziehungsverordnung „aufgrund des § 17“ OHzG an, obwohl § 17 Ordnungswidrigkeiten regelt und
+  die Ermächtigung in § 19 steht; die Verweise auf die entsprechenden neuen Vorschriften sind nicht
+  einzeln zuordenbar. Einzelheiten stehen im Abschnitt „Hoheitszeichenrecht: Ermächtigungsverweis
+  und Fortgeltungsmaßgaben“.
 
 ## Legacy-Transkriptionen
 
@@ -138,6 +147,10 @@ vollständige Fassung. Klassifikation und Blockierungsgründe stehen in
 ## Dauerhafte Quellenbegrenzung
 
 Für die dritte Plenarsitzung vom 20. Juli 2026 liegt kein Plenarprotokoll mit Redebeiträgen,
-Einzelabstimmungen und Stimmenzahlen vor. Die Verkündungen belegen Beschluss und Verkündung der
-betroffenen Vorhaben, nicht aber den Beratungsverlauf oder konkrete Abstimmungszahlen. Solche
-Details werden ohne zusätzliche Primärquelle nicht ergänzt.
+Einzelabstimmungen und Stimmenzahlen vor. Für die Gesetzesbeschlüsse des Ostdeutschen Landtages
+vom 2. September 2026 (OGVBl. 2026 Nr. 70 bis 74) und der achten Volkskammer vom 11. September
+2026 (OGVBl. 2026 Nr. 76 bis 79) liegen weder Plenarprotokolle noch Drucksachen vor. Die
+Verkündungen belegen Beschlussdatum, Verkündung und Inkrafttreten der betroffenen Vorhaben, nicht
+aber den Beratungsverlauf oder konkrete Abstimmungszahlen; bei den Beschlüssen vom 2. und
+11. September auch nicht die Einbringung. Solche Details werden ohne zusätzliche Primärquelle nicht
+ergänzt.

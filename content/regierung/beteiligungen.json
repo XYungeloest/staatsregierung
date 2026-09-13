@@ -1,13 +1,13 @@
 {
   "slug": "beteiligungen",
   "title": "Beteiligungen und öffentliche Träger",
-  "lead": "Die Übersicht zeigt den zum 1. Dezember 2023 übernommenen Bestand und ordnet ein, welche Rechtsträger bis zum 8. September 2026 neu errichtet, zusammengeführt, aufgelöst oder noch nicht vollständig vollzogen wurden.",
+  "lead": "Die Übersicht zeigt den zum 1. Dezember 2023 übernommenen Bestand und ordnet ein, welche Rechtsträger bis zum 12. September 2026 neu errichtet, zusammengeführt, aufgelöst oder noch nicht vollständig vollzogen wurden.",
   "asOf": "2026-09-12",
   "inheritanceDate": "2023-12-01",
   "facts": [
     {
       "label": "Neu seit dem Stichtag",
-      "value": "10 Träger + 2 Sondervermögen",
+      "value": "12 Träger + 3 Sondervermögen",
       "note": "Durch ostdeutsches Recht errichtet"
     }
   ],
@@ -174,7 +174,7 @@
     {
       "id": "neu-errichtet",
       "title": "Seitdem neu errichtet",
-      "intro": "Zehn gesamtostdeutsche Rechtsträger und zwei Sondervermögen wurden durch ostdeutsches Recht geschaffen. Ältere Einrichtungen enden nur bei ausdrücklicher Aufhebung oder Rechtsnachfolge.",
+      "intro": "Zwölf gesamtostdeutsche Rechtsträger und drei Sondervermögen wurden durch ostdeutsches Recht geschaffen. Ältere Einrichtungen enden nur bei ausdrücklicher Aufhebung oder Rechtsnachfolge.",
       "items": [
         {
           "title": "Landesbank an der Elbe",
@@ -193,6 +193,12 @@
           "label": "Seit 25. März 2026",
           "text": "Neue rechtsfähige Anstalt für vergesellschaftete Wohnungsbestände. Die sechs geerbten Berliner Wohnungsunternehmen bestehen daneben fort.",
           "normSlug": "gemeingut-wohnen-gesetz"
+        },
+        {
+          "title": "Krankenhaussicherungs- und Rekommunalisierungsfonds",
+          "label": "Seit 1. April 2026",
+          "text": "Nicht rechtsfähiges Sondervermögen zur Sicherung versorgungsnotwendiger Krankenhausstandorte und zur Rekommunalisierung gefährdeter Krankenhäuser. Leistungen sind unter anderem als Zuschuss, Darlehen, stille Beteiligung oder Erwerb von Anteilen möglich. Eine landeseigene Beteiligungsgesellschaft ist zulässig, aber nicht als gegründet belegt.",
+          "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz"
         },
         {
           "title": "Ostdeutscher Fernsehfunk",
@@ -221,13 +227,20 @@
         {
           "title": "Kreislaufwirtschafts-Kombinat Ost",
           "label": "Seit 21. Juli 2026",
-          "text": "Neue rechtsfähige Anstalt und Trägerin des SERO-Systems. Die SERO-Bezirksbetriebe sind unselbstständige Organisationseinheiten."
+          "text": "Neue rechtsfähige Anstalt mit Sitz in Leipzig und Trägerin des SERO-Systems unter Rechts- und Fachaufsicht des für Nachhaltigkeit und Energie zuständigen Staatssekretariats. Die SERO-Bezirksbetriebe sind unselbstständige Organisationseinheiten; der Rohstofffonds ist ein zweckgebundenes Sondervermögen der Anstalt ohne eigene Rechtspersönlichkeit.",
+          "normSlug": "sero-verordnung"
         },
         {
           "title": "Landesagentur Spitzensport Ost",
           "label": "Seit 21. Juli 2026",
           "text": "Neue rechtsfähige Anstalt für die landesweite Spitzensportförderung.",
           "normSlug": "landesagentur-spitzensport-gesetz"
+        },
+        {
+          "title": "Sportstiftung Ostdeutschland",
+          "label": "Seit 21. Juli 2026",
+          "text": "Neue rechtsfähige Stiftung des öffentlichen Rechts mit Sitz in Magdeburg zur Finanzierung von Breiten-, Nachwuchs- und Spitzensport sowie Sportinfrastruktur. Der Sportfonds Ost ist ein unselbständiger Sonderfonds der Stiftung.",
+          "normSlug": "sportstiftungs-und-sportfondsgesetz"
         },
         {
           "title": "Sondervermögen Energie und Wärme",
@@ -283,6 +296,13 @@
       "normSlug": "ostdeutsches-landesbankgesetz"
     },
     {
+      "date": "2026-04-01",
+      "label": "Neues Sondervermögen",
+      "title": "Krankenhaussicherungs- und Rekommunalisierungsfonds",
+      "text": "Der Landesfonds wurde als Sondervermögen ohne eigene Rechtspersönlichkeit errichtet; das Gesundheitsressort bewirtschaftet ihn, das Finanzressort verwaltet ihn.",
+      "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz"
+    },
+    {
       "date": "2026-05-01",
       "label": "Gesamtrechtsnachfolge und Auflösung",
       "title": "MDR und rbb",
@@ -292,8 +312,8 @@
     {
       "date": "2026-07-21",
       "label": "Neue Träger und Sondervermögen",
-      "title": "Verkehr, Energie, Netze, Kreislaufwirtschaft und Spitzensport",
-      "text": "Fünf neue Anstalten und zwei Sondervermögen wurden errichtet; geerbte Rechtsträger blieben ohne ausdrückliche Aufhebung bestehen."
+      "title": "Verkehr, Energie, Netze, Kreislaufwirtschaft und Sport",
+      "text": "Fünf neue Anstalten, eine Stiftung des öffentlichen Rechts und zwei Sondervermögen wurden errichtet; geerbte Rechtsträger blieben ohne ausdrückliche Aufhebung bestehen."
     },
     {
       "date": "2026-09-02",
@@ -308,6 +328,13 @@
       "title": "Interflug",
       "text": "Die öffentliche Anstalt ist errichtet; der Gründungsvorstand ist bestellt und die Beschaffung der Anfangsflotte vertraglich gebunden.",
       "normSlug": "interflug-gesetz"
+    },
+    {
+      "date": "2026-09-12",
+      "label": "Neu errichtet",
+      "title": "Landesbodenfonds Ostdeutschland",
+      "text": "Die Anstalt ist errichtet. Verwaltungsrat und Vorstand sind noch zu bestellen; bis zum Amtsantritt des Vorstandes bestellt das Finanzressort einen Gründungsbeauftragten für die Errichtungsgeschäfte. Den vollständigen Geschäftsbetrieb nimmt der Landesbodenfonds spätestens neun Monate nach Inkrafttreten auf.",
+      "normSlug": "boden-und-naturvermoegensgesetz"
     }
   ],
   "continuingTitle": "Was parallel fortbesteht",
@@ -325,7 +352,8 @@
     "Für den 80-Prozent-Erwerb an 50Hertz fehlt ein datierter Nachweis des vollständigen Eigentumsübergangs.",
     "Einzelne amtliche Berichte veröffentlichen nicht alle tieferen Beteiligungsstufen oder genaue Quoten; diese Werte bleiben offen.",
     "Für einzelne gemeinsame Träger ist die formale Anpassung von Staatsverträgen und Satzungen an den Freistaat noch nicht vollständig belegt.",
-    "Eine allgemeine Landesbeteiligungsholding, eine Industriestiftung Ost sowie Volksacker-, Flächen- oder Bodenfonds sind nicht als errichtete Rechtsträger belegt."
+    "Eine allgemeine Landesbeteiligungsholding und die im Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz für den Fall ihrer Errichtung genannte Industriestiftung Ost sind nicht als errichtete Rechtsträger belegt. Die im Interflug-Gesetz vorgeschriebene Tochtergesellschaft für den gewerblichen Luftverkehr und eine landeseigene Beteiligungsgesellschaft nach dem Krankenhausfondsgesetz sind nicht als gegründet belegt.",
+    "Die Ersterhebung aller Träger im Gemeinvermögensregister einschließlich ihrer Beteiligungsketten ist innerhalb von sechs Monaten nach dem Inkrafttreten am 12. September 2026 abzuschließen; die öffentlichen Stellen haben ihre Angaben innerhalb von drei Monaten zu übermitteln. Beide Fristen laufen noch."
   ],
   "sourceNote": "Grundlage sind die amtlichen Beteiligungsberichte der sechs Vorgängerländer, Geschäftsberichte der betroffenen Unternehmen und Rundfunkanstalten, Staatsverträge sowie die seit dem Stichtag geltenden ostdeutschen Rechts- und Vollzugsakte. Die Zahlen geben belegte Einzelpositionen wieder; sie sind wegen Mehrfachbeteiligungen und Beteiligungsketten nicht mit der Zahl unterschiedlicher Unternehmen gleichzusetzen.",
   "relatedNorms": [
@@ -336,6 +364,10 @@
     {
       "label": "Gemeingut-Wohnen-Gesetz",
       "normSlug": "gemeingut-wohnen-gesetz"
+    },
+    {
+      "label": "Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
+      "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz"
     },
     {
       "label": "Ostdeutsches Fernsehfunkgesetz",
@@ -352,6 +384,14 @@
     {
       "label": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
       "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz"
+    },
+    {
+      "label": "SERO-Verordnung",
+      "normSlug": "sero-verordnung"
+    },
+    {
+      "label": "Sportstiftungs- und Sportfondsgesetz",
+      "normSlug": "sportstiftungs-und-sportfondsgesetz"
     },
     {
       "label": "Boden- und Naturvermögensgesetz",

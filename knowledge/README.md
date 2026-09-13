@@ -32,6 +32,7 @@ Zusammenhänge und Zeiträume.
 | Welche Verfassungsfassung galt an einem Datum? | `timeline.json`, `current-state.json`, danach Normhistorie unter `content/normen/` |
 | Welche Normen gehören zu einem politischen Komplex? | `projects.json` |
 | Welche politischen und gesetzgeberischen Vorhaben sind für die nächste Wahlperiode geplant? | `agenda.json`, danach Rechtsabgleich in `projects.json` und `content/normen/` |
+| Welche Verordnungen, Verwaltungsvorschriften oder Errichtungsakte verlangt das geltende Recht noch? | `implementation-mandates.json`, Arbeitsansicht `VOLLZUGSAUFTRAEGE.md` |
 | Welcher Wahlkontext gilt für die 8. Volkskammerwahl? | `agenda.json` sowie `context/programme/roter-aufbruch-2026/README.md` |
 | Welche Beteiligungen, AöR und öffentlichen Wirtschafts- oder Vermögensträger bestehen? | `holdings.json` für die Einordnung, `holding-positions.json` für die vollständige Positionsinventur, danach `entities/institutions.json` und die referenzierten Primärquellen |
 | Wie entwickelte sich die Regierung seit 2025? | `timeline.json`, `entities/persons.json`, `entities/institutions.json` |
@@ -54,6 +55,11 @@ Arbeitsfelder.
 Wahlkontext des Roten Aufbruchs zur 8. Volkskammerwahl und einen Rechtsbestandsabgleich, damit
 bereits verkündete Normen oder bloß herangezogenes westdeutsches Vergleichsrecht nicht als offene
 ostdeutsche Gesetzesvorhaben erscheinen.  
+`implementation-mandates.json` enthält die Vollzugsaufträge aus dem geltenden eigenen Recht: Aufträge
+und Ermächtigungen zu Verordnungen, Verwaltungsvorschriften, Satzungen, besonderen Gesetzen und
+Abkommen sowie Errichtungs-, Bestellungs-, Plan- und Berichtspflichten, für die am Stichtag kein
+Rechts- oder Vollzugsakt belegt ist. Sie ist nach Dringlichkeit gestuft; die Arbeitsansicht ist
+`VOLLZUGSAUFTRAEGE.md`. Politische Vorhaben gehören weiterhin nur in `agenda.json`.  
 `holdings.json` enthält den rekonstruierten Beteiligungsbestand, Träger- und
 Gewährträgerpositionen, wichtige mittelbare Beteiligungen, Sondervermögen und die
 Rechtsnachfolgelogik seit dem 1. Dezember 2023.  

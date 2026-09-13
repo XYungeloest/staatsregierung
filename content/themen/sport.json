@@ -6,8 +6,10 @@
   "cluster": "bildung-gesellschaft",
   "priority": 65,
   "featured": false,
-  "updatedAt": "2026-07-21",
-  "knowledgeProjectRefs": [],
+  "updatedAt": "2026-09-12",
+  "knowledgeProjectRefs": [
+    "project-sportneuordnung"
+  ],
   "hero": "Die Neuordnung der Sportförderung verbindet Breiten-, Leistungs- und Nachwuchssport mit einer verlässlichen öffentlichen Förderung.",
   "beschlossen": [
     "Das Sportneuordnungsgesetz wurde am 20. Juli 2026 verkündet und trat am 21. Juli 2026 in Kraft.",
@@ -19,6 +21,22 @@
   "naechsteSchritte": [
     "Aufbau der Landesagentur für Spitzensport und der gesetzlich vorgesehenen Förderstrukturen.",
     "Umsetzung der neuen Förder- und Versorgungsinstrumente."
+  ],
+  "keyDates": [
+    {
+      "date": "2026-07-20",
+      "label": "Sportneuordnungsgesetz verkündet",
+      "note": "OGVBl. 2026 Nr. 52 mit fünf neuen Stammgesetzen."
+    },
+    {
+      "date": "2026-07-21",
+      "label": "Sportgesetze in Kraft"
+    },
+    {
+      "date": "2026-09-12",
+      "label": "Verfassung: Recht auf Freizeit und Erholung und neue Sportförderklausel",
+      "note": "Artikel 7d und Artikel 11 Absatz 4 in der Fassung des Fünften Gesetzes zur Großen Staatsreform."
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -36,6 +54,16 @@
     {
       "label": "Athletenförder- und Versorgungsgesetz",
       "normSlug": "athletenfoerder-und-versorgungsgesetz"
+    },
+    {
+      "label": "Sportstiftungs- und Sportfondsgesetz",
+      "normSlug": "sportstiftungs-und-sportfondsgesetz",
+      "note": "Errichtet die Sportstiftung Ostdeutschland mit Sitz in Magdeburg und bei ihr den Sportfonds Ost; in Kraft seit 21. Juli 2026."
+    },
+    {
+      "label": "Betriebssportgemeinschaftengesetz",
+      "normSlug": "betriebssportgemeinschaftengesetz",
+      "note": "Landesbehörden, landesunmittelbare juristische Personen des öffentlichen Rechts und landeseigene Unternehmen mit regelmäßig mindestens 50 Beschäftigten richten Betriebssportangebote ein oder beteiligen sich an überbetrieblichen Angeboten; für Präventionssport kann eine Arbeitszeitgutschrift von bis zu einer Stunde wöchentlich gewährt werden; der Freistaat fördert Betriebssportspiele. In Kraft seit 21. Juli 2026."
     }
   ],
   "faq": [

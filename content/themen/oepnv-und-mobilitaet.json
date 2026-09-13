@@ -30,6 +30,7 @@
     "Landesplanung, Vergabe und Haushaltsgrundlagen bieten bereits einen belastbaren Rahmen für Ausbauprogramme.",
     "Die gesetzlichen Grundlagen für die Ostdeutsche Eisenbahn und die Vergesellschaftung privater Verkehrsproduktionsmittel sind seit 21. Juli 2026 in Kraft.",
     "Die betriebsnotwendigen Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes zugunsten der Ostdeutschen Eisenbahn in Gemeineigentum überführt. Die ODEG wurde nicht als Unternehmen gekauft.",
+    "Nicht vergesellschaftete private Verkehrsunternehmen, die öffentlich finanzierte Verkehrsleistungen erbringen, sind seit 21. Juli 2026 an gemeinwirtschaftliche Pflichten gebunden: OVV-Tarif, gemeinsamer Vertrieb, offene Kosten- und Erlösrechnung, Gewinnobergrenze in öffentlichen Dienstleistungsaufträgen. Überwiegend öffentlich finanzierte Fahrzeuge, Werkstätten und Vertriebsinfrastrukturen sollen Eigentum der Ostdeutschen Eisenbahn oder eines öffentlichen Aufgabenträgers werden.",
     "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 landesweit 15 Euro im Monat; zu viel gezahlte Augustbeträge werden erstattet oder gutgeschrieben.",
     "Seit 1. September 2026 gelten der soziale Nulltarif und die grundsätzlich kostenfreie Fahrradmitnahme. Die Bekanntmachung regelt außerdem verbindliche Mindeststandards für Anschlusssicherung und Fahrgastinformation.",
     "Mit DB Fernverkehr ist die Anerkennung von OVV-Fahrausweisen in IC- und ICE-Verbindungen vereinbart. Die konkret freigegebenen Verbindungen und Bedingungen werden gesondert veröffentlicht.",
@@ -103,6 +104,11 @@
       "normSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz"
     },
     {
+      "label": "Verkehrsbindungsgesetz",
+      "normSlug": "verkehrsbindungsgesetz",
+      "note": "Gemeinwirtschaftliche Bindung nicht vergesellschafteter privater Verkehrsunternehmen; in Kraft seit 21. Juli 2026."
+    },
+    {
       "label": "Boom-Europe-Umsetzungsgesetz",
       "normSlug": "boom-europe-umsetzungsgesetz"
     },
@@ -113,6 +119,11 @@
     {
       "label": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
       "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz"
+    },
+    {
+      "label": "Interflug-Gesetz",
+      "normSlug": "interflug-gesetz",
+      "note": "Errichtet die Interflug als Anstalt des öffentlichen Rechts für öffentliche Spezialflugaufgaben wie Brandbekämpfung, Katastrophenschutz sowie Hilfs- und Versorgungsflüge; in Kraft seit 3. September 2026."
     },
     {
       "label": "Vergesellschaftungsrahmengesetz",
@@ -140,7 +151,7 @@
   ],
   "faq": [
     {
-      "question": "Welche Rolle spielt die geplante Ostdeutsche Eisenbahn?",
+      "question": "Welche Rolle spielt die Ostdeutsche Eisenbahn?",
       "answer": "Sie soll öffentliche Verkehrsleistungen, Fahrzeuge, Werkstätten und weitere betriebsnotwendige Mittel dauerhaft gemeinwirtschaftlich sichern. Die erfassten Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes überführt; ein Unternehmenskauf fand nicht statt."
     },
     {

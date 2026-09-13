@@ -8,6 +8,8 @@ Bei Fragen nach geplanten Gesetzen, noch nicht umgesetzten politischen Vorhaben,
 
 `agenda.json` ist die kanonische interne Planungsübersicht. `AGENDA.md` ist die kompakte, menschlich lesbare Arbeitsansicht derselben Themen. Bei Abweichungen ist `agenda.json` maßgeblich.
 
+Bei Fragen, welche Verordnungen, Verwaltungsvorschriften, Satzungen, Errichtungsakte, Bestellungen oder Berichte das geltende Recht noch verlangt, zuerst `implementation-mandates.json` lesen (Arbeitsansicht `VOLLZUGSAUFTRAEGE.md`). Einträge mit `duplicateOf` nicht doppelt zählen; `nicht-pruefbar` heißt nicht unerfüllt.
+
 Die Agenda ist ausdrücklich **kein Rechtsbestand**. Für die geltende Rechtslage anschließend `current-state.json`, `projects.json`, `proceedings.json`, `content/normen/` und `content/verkuendungen/` heranziehen.
 
 Vor einem neuen Gesetzesentwurf immer prüfen, ob das Vorhaben bereits ganz oder teilweise verkündet ist oder ob bereits eine einschlägige Stammnorm existiert. Bereits geltende Normen nicht als offene Gesetzesideen behandeln. Westdeutsches oder sächsisches Vergleichsrecht nicht ohne ausdrückliche ostdeutsche Festlegung als Agenda-Vorhaben übernehmen.

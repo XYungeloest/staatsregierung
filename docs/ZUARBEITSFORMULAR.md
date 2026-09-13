@@ -38,12 +38,15 @@ offene Quellenfragen in `../CONTENT_GAPS.md`; der redaktionelle Stichtag steht z
 Durchführung, amtliches Endergebnis der Volksbefragung, amtliches Wahlergebnis und der politische
 Auswertungsbericht des Staatsrates sind durch das amtliche Endergebnis der Bundeswahlleitung vom
 6. September 2026 und StAnzO. 2026 Nr. 41 belegt und eingepflegt; die konstituierende Sitzung der
-achten Volkskammer am 7. September 2026 durch StAnzO. 2026 Nr. 42. Weiterhin benötigt werden nur:
+achten Volkskammer am 7. September 2026 durch StAnzO. 2026 Nr. 42. Die Sozialistische
+Verfassungsnovelle ist als Fünftes Gesetz zur Großen Staatsreform in OGVBl. 2026 Nr. 76 verkündet.
+Weiterhin benötigt werden nur:
 
 - [ ] gesonderter Beschluss des Staatsrates über organisatorische Grundlagen und nächste Schritte
       der Olympiabewerbung
-- [ ] Gesetzentwürfe, Einbringungen und Verkündungen der angekündigten Folgevorhaben, insbesondere
-      Sozialistische Verfassungsnovelle sowie Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz
+- [ ] Gesetzentwurf, Einbringung und Verkündung des angekündigten Wirtschaftsplanungs- und
+      Gemeinwirtschaftsgesetzes; dabei Beleg, ob es das besondere Gesetz nach Artikel 13b Absatz 5
+      der Staatsverfassung (Gesellschafts- und Wirtschaftsplan) sein soll
 - [ ] Errichtungsakte für Staatsplankommission Ost und Landeswirtschaftsrat
 
 ### V-01a – Personenbelege zum zweiten Staatsrat
@@ -72,7 +75,10 @@ des Innern und für Staats- und Grenzsicherheit zu.
 
 Für einen weitergehenden Umsetzungsstatus werden benötigt:
 
-**Projektorganisation oder Betreibergesellschaft:**  
+**Projektorganisation oder Betreibergesellschaft des Projektträgers:**  
+**Einrichtung der Projektstelle Hochgeschwindigkeitsluftfahrt bei der Staatskanzlei (§ 3 Hochgeschwindigkeitsluftfahrt-Standortgesetz) und Verfahrensfahrplan (§ 6):**  
+**Errichtung, Beteiligung oder Beauftragung einer Gesellschaft nach § 15, falls erfolgt:**  
+**Standortvertrag nach § 16 (Anforderungen nach § 19) oder Beleg, ob das Agreement vom 14. Mai 2026 als solcher gilt:**  
 **Bau- oder Standortfreigabe und Baubeginn:**  
 **Betriebs- oder Standorteröffnung:**  
 **Dateien oder amtliche Mitteilungen:**
