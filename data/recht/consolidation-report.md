@@ -1,31 +1,23 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-09-13T07:27:02.650Z
+**Erzeugt:** 2026-09-13T11:49:30.560Z
 
 - Erkannte Änderungsvorschriften: 70
 - Erkannte Zielnormen: 95
-- Vollständig konsolidiert: 90
-- Aktuell offene Zielnormen: 5
+- Vollständig konsolidiert: 93
+- Aktuell offene Zielnormen: 2
 
 ## Offener Handlungsbedarf
 
 - Fehlende Stammnormdatensätze: 0
 - Unvollständige Platzhalterbestände: 0
-- Blockierte Quellenkonflikte: 5
+- Blockierte Quellenkonflikte: 2
 - Fehlende Primärquellen: 0
 
 Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solange eine Zielnorm noch nicht vollständig umgesetzt ist, bleibt sie mit Problem und nächstem Schritt hier sichtbar. Der vollständige maschinenlesbare Status steht zusätzlich in `data/recht/consolidation-manifest.json`; redaktionelle Quellenfragen werden in `CONTENT_GAPS.md` gebündelt.
 
 ## Offene Zielnormen
-
-### Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen
-
-- Datensatz: `ostdeutsches-personennahverkehrsgesetz`
-- Status: `blocked-source-conflict`
-- Problem: Artikel 9 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes ordnet zum 21. Juli 2026 Ergänzungen in § 3 Absatz 1 nach den Wörtern „Landkreise und kreisfreien Städte“ an. Die am 24. März 2026 in Kraft getretene Neufassung des § 3 Absatz 1 enthält diese Wörter nicht mehr; sie stehen nur in Absatz 2. Eine Umdeutung des ausdrücklich bezeichneten Absatzes ist ohne Berichtigung oder andere Primärquelle unzulässig. Die gleichzeitig vorgesehenen weiteren Änderungen werden bis zur Klärung nicht als vollständige Folgefassung ausgegeben. Das Rezept für Artikel 4 des Ostdeutsche-Eisenbahn-Neuordnungsgesetzes (OGVBl. 2026 Nr. 47; §§ 4b bis 4g, § 4 Absatz 2, § 7 Absatz 8) mit Wirkung vom 21. Juli 2026 liegt geprüft vor und wird mit Aufhebung der Sperre angewandt.
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 
 ### Hoheitszeichenverordnung
 
@@ -35,26 +27,11 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 - Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 
-### Sächsische Gemeindeordnung
-
-- Datensatz: `saechsische-gemeindeordnung`
-- Status: `blocked-source-conflict`
-- Problem: Artikel 1 des Gesetzes zur Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die in der ausdrücklich als zuletzt geändert bezeichneten Fassung vom 20. Juli 2026 bereits geltende Gemeindeordnung enthält jedoch § 71b bis § 71g. Eine Umnummerierung oder Verdrängung dieser Vorschriften ist aus der Primärquelle nicht ableitbar.
-- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
-
 ### Schulordnung Förderschulen
 
 - Datensatz: `schulordnung-foerderschulen`
 - Status: `blocked-source-conflict`
-- Problem: Verbleibender Quellenkonflikt trotz OGVBl. 2026 Nr. 68: Artikel 1 Nummer 6 Buchstabe b der Änderungsverordnung verlangt in § 8 Absatz 3 die Wörter „Klassenstufen 5 und 6 der Oberschule“. Die verbindliche REVOSax-Ausgangsfassung enthält dort stattdessen „Lehrplänen für die Oberschule“. Die Berichtigung Nr. 68 erfasst nur die Befehle zu § 8 Absatz 2 und § 9 Absatz 2; eine heuristische Umdeutung des nicht berichtigten Befehls ist unzulässig.
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
-
-### Zehntes Sächsisches Kostenverzeichnis
-
-- Datensatz: `zehntes-ostdeutsches-kostenverzeichnis`
-- Status: `blocked-source-conflict`
-- Problem: Artikel 3 Nummer 2 des Gesetzes zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes ordnet an, nach Tarifstelle 2 eine neue Tarifstelle 3 anzufügen. Die amtliche, im Änderungsgesetz selbst zitierte Ausgangsfassung des Zehnten Sächsischen Kostenverzeichnisses enthält im einschlägigen Abschnitt bereits eine Tarifstelle 3. Ob Ersetzung, Umnummerierung oder eine zusätzliche Tarifstelle beabsichtigt war, ist aus der Primärquelle nicht eindeutig bestimmbar.
+- Problem: Die maßgebliche Ausgabe OGVBl. 2026 Nr. 64 enthält zwei Änderungsbefehle, die nicht auf die Ausgangsfassung der Schulordnung Förderschulen passen: Artikel 1 Nummer 18 Buchstabe b ersetzt in § 30 Absatz 4 die Wörter „Oberschule oder Gemeinschaftsschule“, die dort nicht stehen; Artikel 1 Nummer 30 ersetzt in § 18 Absatz 3 Satz 3 die Wörter „Sächsischen Schulgesetzes“, obwohl § 18 Absatz 3 nur einen Satz hat und die Wörter in Absatz 1 Satz 3 stehen. Eine Umdeutung der ausdrücklich bezeichneten Stellen ist ohne Berichtigung oder andere Primärquelle unzulässig. Das Rezept für die übrigen Befehle der Änderungsverordnung liegt geprüft vor und wird mit Aufhebung der Sperre angewandt.
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 - Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 

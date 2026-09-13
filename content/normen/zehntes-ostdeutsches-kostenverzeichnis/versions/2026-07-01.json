@@ -1,41 +1,19 @@
 {
-  "versionId": "2023-11-01",
-  "title": "Zehnte Verordnung des Ostdeutschen Staatsministeriums der Finanzen über die Bestimmung der Verwaltungsgebühren und Auslagen",
-  "shortTitle": "Zehntes Ostdeutsches Kostenverzeichnis",
-  "abbr": "10. OstKVZ",
-  "validFrom": "2023-11-01",
-  "validTo": "2026-06-30",
-  "isCurrent": false,
-  "citation": "Zehntes Ostdeutsches Kostenverzeichnis vom 16. August 2021 (SächsGVBl. S. 898)",
-  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "versionId": "2026-07-01",
+  "validFrom": "2026-07-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Zehntes Ostdeutsches Kostenverzeichnis vom 16. August 2021 (SächsGVBl. S. 898), zuletzt geändert durch Artikel 3 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 32)",
+  "changeNote": "In der laufenden Nummer 55 der Anlage 1 wurde das Ostdeutsche Transparenz- und Informationsfreiheitsgesetz in den Wortlaut vor Tarifstelle 1 aufgenommen und Tarifstelle 3 neu gefasst.",
   "sourceReferences": [
     {
-      "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung, gültig 2023-03-31 bis 2023-12-30",
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 32",
       "availability": "versioned",
-      "localSource": "data/recht/sources/revosax/zehntes-ostdeutsches-kostenverzeichnis/19330.3.html",
-      "url": "https://www.revosax.sachsen.de/vorschrift/19330.3",
-      "retrievedAt": "2026-08-23",
-      "sha256": "ed8ecdf59e0edf3d09c7d1c649808d5db55b63c000f151adbe4239889c65b20a",
-      "lawId": "19330",
-      "sourceValidFrom": "2023-03-31",
-      "sourceValidTo": "2023-12-30"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 32.html"
     }
   ],
-  "sourceNotes": [
-    {
-      "label": "1",
-      "text": "Anlage 1 laufende Nummer 55 geändert durch Artikel 2 Absatz 1 des Gesetzes vom 19. August 2022 (SächsGVBl. S. 486), laufende Nummer 47 geändert durch Artikel 3 des Gesetzes vom 2. März 2023 (SächsGVBl. S. 74)"
-    },
-    {
-      "label": "2",
-      "text": "Bekanntmachung des Stundensatzes: ab 1. Januar 2022: 107 EUR siehe Bek vom 3. November 2021 (SächsABl. S. 1449) ab 1. Januar 2023: 107 EUR siehe Bek vom 9. November 2022 (SächsABl. S. 1357)"
-    },
-    {
-      "label": "3",
-      "text": "Tabelle der fortgeschriebenen durchschnittlichen Rohbauwerte mit Gültigkeit ab 1. Mai 2017: siehe Bek vom 22. März 2017 (SächsABl. S. 524), ab 1. Mai 2018: siehe Bek vom 22. März 2018 (SächsABl. S. 450) ab 1. Mai 2019: siehe Bek vom 25. März 2019 (SächsABl. S. 614) ab 1. Mai 2020: siehe Bek vom 1. April 2020 (SächsABl. S. 453) ab 1. Mai 2021: siehe Bek vom 10. März 2021 (SächsABl. S. 314) ab 1. Mai 2022: siehe Bek vom 8. April 2022 (SächsABl. S. 562) ab 1. Mai 2023: siehe Bek vom 2. März 2023 (SächsABl. S. 391)"
-    }
-  ],
+  "title": "Zehntes Ostdeutsches Kostenverzeichnis",
   "body": [
     {
       "type": "paragraphText",
@@ -44383,7 +44361,7 @@
                     },
                     {
                       "type": "tableCell",
-                      "text": "Verbraucherinformationsgesetz (VIG)"
+                      "text": "Verbraucherinformationsgesetz (VIG), Ostdeutsches Transparenz- und Informationsfreiheitsgesetz (OstTranspIFG)"
                     },
                     {
                       "type": "tableCell",
@@ -44654,15 +44632,15 @@
                     },
                     {
                       "type": "tableCell",
-                      "text": "3"
+                      "text": "3."
                     },
                     {
                       "type": "tableCell",
-                      "text": "Erteilung von Informationen durch Auskunft oder durch Gewährung von Einsicht nach § 12 Abs. 1 Satz 1 OstTranspG in Verbindung mit § 11 Abs. 1 oder Abs. 2 OstTranspG"
+                      "text": "Erteilung von Informationen durch Auskunft oder durch Gewährung von Einsicht nach § 15 Absatz 3 in Verbindung mit § 12 Absatz 3 OstTranspIFG"
                     },
                     {
                       "type": "tableCell",
-                      "text": "14 bis 24\nje angefangene Viertelstunde"
+                      "text": "14 bis 24 Euro je angefangene Viertelstunde."
                     },
                     {
                       "type": "tableCell",
@@ -44687,7 +44665,7 @@
                     },
                     {
                       "type": "tableCell",
-                      "text": "Anmerkungen:\n(1) Gemäß § 12 Abs. 5 Satz 2 OstTranspG ist der Zugang zu Informationen bis zu einem Aufwand von 600 Euro gebühren- und auslagenfrei. Das gilt nicht für öffentlich-rechtliche Leistungen der in § 4 Abs. 3 Satz 1 Nr. 8 OstTranspG genannten Stellen (§ 12 Abs. 5 Satz 4 OstTranspG). Betreffen mehrere Anträge einer Person an eine transparenzpflichtige Stelle denselben Lebenssachverhalt, sind sie insoweit als ein Antrag zu behandeln (§ 12 Abs. 5 Satz 5 OstTranspG). Abschriften oder lesbare Ausdrucke werden nicht gebühren- und auslagenfrei zur Verfügung gestellt, soweit die Informationen in zumutbarer Weise aus allgemein zugänglichen Quellen beschafft oder elektronisch übermittelt werden können (§ 12 Abs. 5 Satz 6 OstTranspG).\n(2) Sofern der Antrag nicht gebühren- und auslagenfrei bearbeitet wird, ist der Antragsteller/die Antragstellerin über die voraussichtliche Höhe der Gebühren und Auslagen vorab zu informieren und auf die Möglichkeit hinzuweisen, den Antrag zurücknehmen oder einschränken zu können (§ 12 Abs. 5 Satz 7 OstTranspG).\n(3) Für die Ermittlung der Gebühr innerhalb dieses Gebührenrahmens gelten die in § 12 Abs. 5 Satz 1 OstTranspG normierten Gebührenbemessungsgrundsätze."
+                      "text": "Anmerkungen:\na) Gebühren und Auslagen werden nur nach Maßgabe des § 17 OstTranspIFG erhoben.\nb) Vor Erhebung voraussichtlich entstehender Gebühren oder Auslagen ist die antragstellende Person auf deren voraussichtliche Höhe hinzuweisen und auf die Möglichkeit aufmerksam zu machen, den Antrag zurückzunehmen oder einzuschränken.\nc) Elektronische Übermittlungen vorhandener Informationen, einfache Auskünfte und Einsichtnahmen vor Ort bleiben gebührenfrei."
                     },
                     {
                       "type": "tableCell",

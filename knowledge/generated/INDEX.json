@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-09-12",
   "editorialAsOf": "2026-09-12",
-  "count": 1250,
+  "count": 1251,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -13288,8 +13288,8 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-school-law-source-conflicts-2026",
-      "title": "Zieltextkonflikt bei der Schulordnung Förderschulen",
+      "id": "question-sofs-aenderungsbefehle-2026",
+      "title": "Wie sind Artikel 1 Nummer 18 Buchstabe b und Nummer 30 der Änderungsverordnung zur Schulordnung Förderschulen zu verstehen?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -13298,7 +13298,7 @@
         "education",
         "consolidation"
       ],
-      "validFrom": "2026-08-16",
+      "validFrom": "2026-09-01",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -13948,6 +13948,20 @@
         "ndr"
       ],
       "validFrom": "2026-09-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarification-quellenersatz-2026-09-13",
+      "title": "Redaktionelle Quellenklärung: Ersatz fehlerhafter Ausgaben von Gesetz- und Verordnungsblatt und Staatsanzeiger",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "sources",
+        "consolidation"
+      ],
+      "validFrom": "2026-09-13",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

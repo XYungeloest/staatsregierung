@@ -76,9 +76,9 @@ if (strictMode && shouldWrite) {
 
 const ISSUE_CONFIG = {
   '46': [
-    { slug: 'kreis-und-bezirksneuordnungsgesetz', shortTitle: 'Kreis- und Bezirksneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Führt die Kreis- und Bezirksneuordnung ein, ersetzt die Bezirksordnung und passt kommunal- und verwaltungsrechtliche Vorschriften an.' },
-    { slug: 'ostdeutsches-kreis-und-bezirksneuordnungsgesetz', shortTitle: 'Ostdeutsches Kreis- und Bezirksneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Ordnet die Bezirke und Kreise neu und bestimmt deren Errichtung, Zuordnung, Rechtsnachfolge und Übergang zum 1. August 2026.' },
-    { slug: 'ostdeutsche-bezirksordnung', shortTitle: 'Ostdeutsche Bezirksordnung', effectiveOverride: '2026-08-01', replacesExistingStem: true, responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Bestimmt Rechtsstellung, Aufgaben, Organe, Verwaltung und Aufsicht der Bezirke.' },
+    { slug: 'kreis-und-bezirksneuordnungsgesetz', verifiedAt: '2026-09-13', shortTitle: 'Kreis- und Bezirksneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Führt die Kreis- und Bezirksneuordnung ein, ersetzt die Bezirksordnung und passt kommunal- und verwaltungsrechtliche Vorschriften an.' },
+    { slug: 'ostdeutsches-kreis-und-bezirksneuordnungsgesetz', verifiedAt: '2026-09-13', shortTitle: 'Ostdeutsches Kreis- und Bezirksneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Ordnet die Bezirke und Kreise neu und bestimmt deren Errichtung, Zuordnung, Rechtsnachfolge und Übergang zum 1. August 2026.' },
+    { slug: 'ostdeutsche-bezirksordnung', verifiedAt: '2026-09-13', shortTitle: 'Ostdeutsche Bezirksordnung', effectiveOverride: '2026-08-01', replacesExistingStem: true, responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Bestimmt Rechtsstellung, Aufgaben, Organe, Verwaltung und Aufsicht der Bezirke.' },
   ],
   '47': [
     { slug: 'ostdeutsche-eisenbahn-neuordnungsgesetz', shortTitle: 'Gesetz zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs', responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung', summary: 'Errichtet die Ostdeutsche Eisenbahn und schafft die gesetzlichen Grundlagen für Verkehrsvergesellschaftung und dauerhafte Gemeinwohlbindung.' },
@@ -202,11 +202,11 @@ const NEW_PUBLICATION_CONFIG = {
     dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die Abendgymnasien- und Kollegverordnung vom 8. September 2008 tritt mit Ablauf des 31. August 2026 außer Kraft.',
   }],
   'OGVBl.|2026|64': [{
-    slug: 'verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026', shortTitle: 'Änderungsverordnung Schulordnung Förderschulen 2026', type: 'aenderungsvorschrift', pageCount: 13,
+    slug: 'verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026', shortTitle: 'Änderungsverordnung Schulordnung Förderschulen 2026', type: 'aenderungsvorschrift', pageCount: 13, verifiedAt: '2026-09-13',
     responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
     summary: 'Passt die Schulordnung Förderschulen an das neue Schulrecht, die Polytechnische und Erweiterte Oberschule sowie die neue Abschluss- und Prüfungsstruktur an.',
     effectiveOverride: '2026-09-01',
-    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.',
+    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die konsolidierte Fassung der Schulordnung Förderschulen bleibt gesperrt, weil Artikel 1 Nummer 18 Buchstabe b und Nummer 30 nicht auf die Ausgangsfassung passen.',
   }],
   'OGVBl.|2026|65': [{
     slug: 'sorbische-schulverordnung', shortTitle: 'Sorbische Schulverordnung', abbr: 'SorbSchulVO', type: 'verordnung', pageCount: 5,
@@ -406,7 +406,7 @@ const NEW_PUBLICATION_CONFIG = {
     type: 'bekanntmachung',
     pageCount: 2,
     pdfFileName: 'StAnzO. 2026 Nr. 39.pdf',
-    verifiedAt: '2026-09-04',
+    verifiedAt: '2026-09-13',
     enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
     subjects: ['Gewerbe- und Berufsrecht', 'Verkehr'],
@@ -415,7 +415,7 @@ const NEW_PUBLICATION_CONFIG = {
     effectiveOverride: '2026-09-03',
     relatedNorms: ['interflug-gesetz', 'gesetz-zur-errichtung-der-interflug', 'bekanntmachung-beschaffung-anfangsflotte-interflug'],
     expiryDate: '2027-03-03',
-    dateNote: 'Am 3. September 2026 verkündet; die Bestellung wirkt vom 3. September 2026 an und endet mit dem Amtsantritt des ersten vom Verwaltungsrat bestellten Vorstandes, spätestens mit Ablauf des 3. März 2027. Die Bekanntmachung zitiert § 24 Absatz 3 und 4 sowie § 10 Absatz 2 des Interflug-Gesetzes; im verkündeten Gesetz (OGVBl. 2026 Nr. 74) regeln § 23 Absatz 3 und 4 den Gründungsvorstand und § 14 Absatz 2 die Bestellung des Vorstandes durch den Verwaltungsrat. Der Wortlaut wird unverändert wiedergegeben.',
+    dateNote: 'Am 3. September 2026 verkündet; die Bestellung wirkt vom 3. September 2026 an und endet mit dem Amtsantritt des ersten vom Verwaltungsrat bestellten Vorstandes, spätestens mit Ablauf des 3. März 2027. Die Eingangsformel stützt die Bekanntmachung auf § 23 Abs. 3 und 4 und § 14 Abs. 2 des Interflug-Gesetzes (OGVBl. 2026 Nr. 74). Im Text nennt sie für die Aufgaben des Gründungsvorstandes weiterhin § 24 Absatz 4 und für die Bestellung des Vorstandes § 10 Absatz 2; im verkündeten Gesetz stehen diese Regelungen in § 23 Absatz 4 und § 14 Absatz 2. Der Wortlaut wird unverändert wiedergegeben.',
   }],
   'StAnzO.|2026|40': [{
     slug: 'bekanntmachung-beschaffung-anfangsflotte-interflug',
@@ -457,7 +457,7 @@ const NEW_PUBLICATION_CONFIG = {
     type: 'verwaltungsvorschrift',
     pageCount: 5,
     pdfFileName: 'StAnzO. 2026 Nr. 45.pdf',
-    verifiedAt: '2026-09-08',
+    verifiedAt: '2026-09-13',
     enactingBody: 'Staatsrat für Frieden',
     responsibleMinistry: 'Staatsrat für Frieden',
     subjects: ['Sicherheitsrecht und Polizeirecht'],
@@ -514,7 +514,7 @@ const NEW_PUBLICATION_CONFIG = {
       type: 'aenderungsvorschrift',
       pageCount: 30,
       pdfFileName: 'OGVBl. 2026 Nr. 77.pdf',
-      verifiedAt: '2026-09-12',
+      verifiedAt: '2026-09-13',
       enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen',
       subjects: ['Allgemeines zum Sozialwesen', 'Wohnungsbau, Wohnungswesen', 'Öffentlicher Gesundheitsdienst'],
@@ -522,10 +522,6 @@ const NEW_PUBLICATION_CONFIG = {
       summary: 'Führt das Soziale Grundversorgungsgesetz ein, trifft Übergangsregeln für die erste Planung und ändert das Gemeingut-Wohnen-Gesetz, das Ostdeutsche Krankenhausgesetz und das Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz.',
       affectedNorms: ['gemeingut-wohnen-gesetz', 'ostdeutsches-krankenhausgesetz', 'ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz'],
       effectiveOverride: '2026-09-12',
-      sourceNotes: [{
-        label: 'Zählung in Artikel 5',
-        text: 'Artikel 5 zählt in der amtlichen Verkündung 1., 3., 4. und 5.; eine Nummer 2 ist weder in der HTML-Fassung noch im PDF verkündet. Die Zählung bleibt quellentreu erhalten.',
-      }],
       dateNote: 'Am 12. September 2026 verkündet; nach Artikel 6 am Tag der Verkündung in Kraft getreten, weil Artikel 1 des Fünften Gesetzes zur Großen Staatsreform an demselben Tag in Kraft trat.',
     },
     {
@@ -535,7 +531,7 @@ const NEW_PUBLICATION_CONFIG = {
       type: 'gesetz',
       pageCount: 30,
       pdfFileName: 'OGVBl. 2026 Nr. 77.pdf',
-      verifiedAt: '2026-09-12',
+      verifiedAt: '2026-09-13',
       enactingBody: 'Volkskammer des Freistaates Ostdeutschland',
       responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen',
       subjects: ['Allgemeines zum Sozialwesen', 'Wohnungsbau, Wohnungswesen', 'Öffentlicher Gesundheitsdienst', 'Behindertenfürsorge, Kriegsopferfürsorge, Pflege'],
@@ -723,7 +719,7 @@ const NEW_PUBLICATION_CONFIG = {
     type: 'aenderungsvorschrift',
     pageCount: 3,
     pdfFileName: 'OGVBl. 2026 Nr. 72.pdf',
-    verifiedAt: '2026-09-02',
+    verifiedAt: '2026-09-13',
     enactingBody: 'Landtag des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
     subjects: ['Kommunalrecht', 'Allgemeine Verwaltung'],
