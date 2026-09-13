@@ -24,9 +24,17 @@ export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
 const store = await getNormStore(Astro.locals);
-const norm = await store.getNorm(slug, 'current');
+let norm = await store.getNorm(slug, 'current');
 if (!norm) return Astro.rewrite('/404');
-const currentVersion = getCurrentVersion(norm);
+let currentVersion = getCurrentVersion(norm);
+// „current“ des Bestands folgt dem kompatiblen Feld isCurrent (so auch die D1-Projektion); zeigt
+// es auf eine verkündete künftige Fassung, fehlt der Körper der geltenden – dann gezielt nachladen,
+// sonst bliebe die Textseite leer, während der Kopf die geltende Fassung nennt.
+if (currentVersion.body.length === 0) {
+  const reloaded = await store.getNorm(slug, [currentVersion.versionId]);
+  const loadedVersion = reloaded?.versions.find((entry) => entry.versionId === currentVersion.versionId);
+  if (reloaded && loadedVersion) { norm = reloaded; currentVersion = loadedVersion; }
+}
 const view = await loadNormView(store, norm, currentVersion);
 if (!view) return Astro.rewrite('/404');
 const { derived, fullCitation, publicationReference, publication, amendmentLabels, nextFutureReference, changeMarks } = view;
