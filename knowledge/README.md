@@ -32,6 +32,8 @@ Zusammenhänge und Zeiträume.
 | Welche Verfassungsfassung galt an einem Datum? | `timeline.json`, `current-state.json`, danach Normhistorie unter `content/normen/` |
 | Welche Normen gehören zu einem politischen Komplex? | `projects.json` |
 | Welche politischen und gesetzgeberischen Vorhaben sind für die nächste Wahlperiode geplant? | `agenda.json`, danach Rechtsabgleich in `projects.json` und `content/normen/` |
+| Welche politische Grundlinie gilt bei Russland, NATO, Ukraine, hybriden Bedrohungen, Aufrüstung oder Friedenspolitik? | `POLITISCHE_GRUNDLINIEN.md`, danach bei konkreten Fällen Tatsachen- und Rechtsabgleich |
+| Wie ist der interne Ermittlungs- und Kommunikationsstand zum Drohnenvorfall Leipzig/Halle im September 2026? | `clarifications/2026-09-14-leipzig-halle-drohnenfall.md`, danach `POLITISCHE_GRUNDLINIEN.md`, `proceedings.json` und die einschlägigen Verkündungen |
 | Welche Verordnungen, Verwaltungsvorschriften oder Errichtungsakte verlangt das geltende Recht noch? | `implementation-mandates.json`, Arbeitsansicht `VOLLZUGSAUFTRAEGE.md` |
 | Welcher Wahlkontext gilt für die 8. Volkskammerwahl? | `agenda.json` sowie `context/programme/roter-aufbruch-2026/README.md` |
 | Welche Beteiligungen, AöR und öffentlichen Wirtschafts- oder Vermögensträger bestehen? | `holdings.json` für die Einordnung, `holding-positions.json` für die vollständige Positionsinventur, danach `entities/institutions.json` und die referenzierten Primärquellen |
@@ -46,6 +48,9 @@ Zusammenhänge und Zeiträume.
 `AUDIT.md` beschreibt den aktuellen Abdeckungsstand, dauerhafte Grenzen und noch offene
 Arbeitsfelder.  
 `SOURCE_POLICY.md` legt die Quellenhierarchie und das Konfliktverfahren fest.  
+`POLITISCHE_GRUNDLINIEN.md` hält redaktionell bestätigte politische Leitlinien fest, insbesondere
+für außen-, friedens- und sicherheitspolitische Reaktionsfragen; sie ist weder Rechtsbestand noch
+förmlicher Staatsratsbeschluss.  
 `schema.json` beschreibt gemeinsame Provenienz- und Rollenfelder.  
 `sources.json` enthält stabile Quellen-IDs.  
 `current-state.json` enthält ausschließlich den am Stichtag belegten aktuellen Stand.  
