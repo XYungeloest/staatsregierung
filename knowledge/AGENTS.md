@@ -26,6 +26,14 @@ Bei außen-, friedens- und sicherheitspolitischen Reaktionsfragen zuerst `POLITI
 
 Die dort festgehaltenen Aussagen sind redaktionell bestätigte politische Leitlinien und **kein geltendes Recht**. Bei konkreten Ereignissen sind Tatsachenlage, Attribution und aktuelle Rechtslage gesondert zu prüfen. Eine politische Bezugnahme auf die Friedensordnung der deutschen Einheit darf insbesondere nicht als nicht bestehende allgemeine Neutralitätspflicht Deutschlands oder Ostdeutschlands dargestellt werden.
 
+### Konkreter Fall Leipzig/Halle im September 2026
+
+Bei Fragen zum Drohnenvorfall am Flughafen Leipzig/Halle, zu den Ermittlungen gegen DJZ, NRJ und Chemnitz Revolte, zu möglichen rechtsextremen beziehungsweise ausländischen Bezügen, zur Zuständigkeit von ZESA und PTAZ oder zur Auseinandersetzung mit der Bundesregierung über die Russland-Attribution zusätzlich `clarifications/2026-09-14-leipzig-halle-drohnenfall.md` lesen.
+
+Dabei strikt zwischen gesicherten Tatsachen, bloßen Ermittlungsansätzen und politischer Bewertung unterscheiden. Das auffällige Russland-Reisemuster eines Beschuldigten ist nach aktuellem Stand ein interner Ermittlungsansatz und **kein Beweis** für Tatbeteiligung oder russische staatliche Steuerung. Dieser Hinweis soll nicht automatisch in öffentliche Formulierungen übernommen werden.
+
+Ebenso soll die fortbestehende Zuständigkeit ostdeutscher Ermittlungsbehörden nicht ohne konkreten Anlass zu einer öffentlichen Kompetenzdebatte mit dem Bund zugespitzt werden. Für öffentliche Kommunikation ist der Grundsatz maßgeblich: **Erst aufklären, dann bewerten.**
+
 ## Fortschreibung
 
 Wenn ein Agenda-Vorhaben in ein förmliches Verfahren übergeht, den konkreten Vorgang in `proceedings.json` ergänzen. Nach Verkündung bestimmt der Normbestand den Rechtsstatus. In der Agenda bleiben dann nur noch nicht erledigte Folge- oder Ausbauziele stehen.
