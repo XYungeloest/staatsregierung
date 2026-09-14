@@ -20,6 +20,12 @@ Zur Wahl zur 8. Ostdeutschen Volkskammer am 5. und 6. September 2026 treten Volk
 
 Der vollständige Programmtext liegt unter `../context/programme/roter-aufbruch-2026/regierungsprogramm-roter-aufbruch-2026.md`; die redaktionelle Erschließung unter `../context/programme/roter-aufbruch-2026/README.md`. Die gegen den Rechtsbestand bereinigte strukturierte Vorhabenliste steht in `agenda.json`, die Arbeitsübersicht in `AGENDA.md`.
 
+## Politische Grundlinien und Reaktionsfragen
+
+Bei außen-, friedens- und sicherheitspolitischen Reaktionsfragen zuerst `POLITISCHE_GRUNDLINIEN.md` lesen. Das gilt insbesondere für Russland, NATO und USA, den Ukrainekrieg, hybride Bedrohungen, militärische Nutzung ziviler Infrastruktur, Aufrüstung und Militarisierung, Zivil- und Katastrophenschutz sowie politische Bezugnahmen auf Einigungsvertrag und Zwei-plus-Vier-Vertrag.
+
+Die dort festgehaltenen Aussagen sind redaktionell bestätigte politische Leitlinien und **kein geltendes Recht**. Bei konkreten Ereignissen sind Tatsachenlage, Attribution und aktuelle Rechtslage gesondert zu prüfen. Eine politische Bezugnahme auf die Friedensordnung der deutschen Einheit darf insbesondere nicht als nicht bestehende allgemeine Neutralitätspflicht Deutschlands oder Ostdeutschlands dargestellt werden.
+
 ## Fortschreibung
 
 Wenn ein Agenda-Vorhaben in ein förmliches Verfahren übergeht, den konkreten Vorgang in `proceedings.json` ergänzen. Nach Verkündung bestimmt der Normbestand den Rechtsstatus. In der Agenda bleiben dann nur noch nicht erledigte Folge- oder Ausbauziele stehen.
