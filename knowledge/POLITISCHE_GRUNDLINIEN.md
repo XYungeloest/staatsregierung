@@ -52,21 +52,41 @@ Friedenspolitik bedeutet nicht Wehrlosigkeit. Der Freistaat unterstützt einen s
 
 Solche Maßnahmen sollen defensiv begründet und auf den Schutz der Bevölkerung ausgerichtet werden. Sie sollen nicht automatisch als Begründung für allgemeine Aufrüstung, militärische Gesellschaftspolitik oder eine Ausweitung offensiver Fähigkeiten dienen.
 
+### Laufende Ermittlungen, Attribution und öffentliche Kommunikation
+
+Bei hybriden Angriffen, Sabotage, Drohnenvorfällen und politisch aufgeladenen Sicherheitslagen trennt der Freistaat zwischen kriminalistischer Aufklärung, politischer Bewertung und außenpolitischer Attribution. Eine plausible Hypothese, ein Kontaktmuster oder eine Auslandsreise sind Ermittlungsansätze, aber noch kein Beweis für operative Täterschaft, Netzwerksteuerung oder staatliche Verantwortung.
+
+Gerade bei möglichen Verbindungen zwischen inländischen extremistischen Strukturen und ausländischen Akteuren sind mehrere Ebenen getrennt zu bewerten: die konkrete Tatbeteiligung einzelner Personen, die Rolle eines inländischen Netzwerks, ausländische Kontakte oder Unterstützung und schließlich eine etwaige staatliche Steuerung. Der Übergang von einer Ebene zur nächsten setzt jeweils belastbare Tatsachen voraus.
+
+Politische Zuschreibungen des Bundes oder ausländischer Partner ersetzen die eigene Tatsachenprüfung nicht. Umgekehrt soll eine mögliche ausländische Beteiligung nicht aus politischen Gründen ausgeschlossen werden. Maßgeblich bleibt, was die zuständigen Ermittlungsbehörden tatsächlich belegen können.
+
+Ermittlungsrelevante Hinweise müssen nicht allein deshalb öffentlich gemacht werden, weil sie politisch interessant sind. Soweit ihre Veröffentlichung laufende Auswertungen, unbekannte Kontaktpersonen oder weitere Ermittlungsmaßnahmen gefährden könnte, ist Zurückhaltung geboten. Öffentlich kann trotzdem transparent zwischen gesicherten Tatsachen, Ermittlungsansätzen und politischer Bewertung unterschieden werden.
+
+Wenn eine bereits getroffene außenpolitische Maßnahme nachträglich mit einem noch laufenden Ermittlungsverfahren begründet wird, soll der Freistaat die zeitliche Abfolge und die tatsächliche Beweislage kritisch prüfen. Die Kritik richtet sich dabei nicht darauf, eine bestimmte Täterschaft vorab auszuschließen, sondern gegen die Umkehrung des rechtsstaatlichen Grundsatzes, zuerst aufzuklären und danach zu bewerten.
+
+Kompetenzfragen zwischen Landes- und Bundesbehörden sollen in der öffentlichen Kommunikation nur dann hervorgehoben werden, wenn daraus ein konkreter politischer oder rechtlicher Handlungsbedarf folgt. Ein laufendes Verfahren soll nicht durch unnötige Zuständigkeitsdebatten politisiert werden.
+
 ## Reaktionsmaßstab für künftige Lagen
 
 Bei außen- oder sicherheitspolitischen Ereignissen ist grundsätzlich nach folgendem Maßstab zu reagieren:
 
 1. **Eigene Souveränität zuerst:** Eingriffe, Sabotage, Spionage, Cyberangriffe oder Gewalt auf ostdeutschem beziehungsweise deutschem Gebiet werden unabhängig vom Urheber klar zurückgewiesen.
 2. **Keine vorschnelle Zuschreibung:** Solange die Verantwortlichkeit nicht hinreichend belegt ist, keine spekulative politische Attribution übernehmen. Ermittlungen und belastbare Erkenntnisse haben Vorrang.
-3. **Keine automatische Bündnisgefolgschaft:** Auch bei belegter russischer Verantwortlichkeit folgt daraus nicht automatisch Zustimmung zu neuen Sanktionen, Aufrüstung, Waffenlieferungen oder NATO-Eskalation.
-4. **Deeskalation als strategisches Ziel:** Reaktionen sollen Sicherheit herstellen und Wiederholung verhindern, ohne eine unnötige Eskalationsspirale auszulösen.
-5. **Militärische Nutzung ziviler Infrastruktur kritisch prüfen:** Bei Häfen, Flughäfen, Bahn-, Energie- oder Logistikinfrastruktur sind rechtliche Zulässigkeit, zivile Schutzinteressen und das zusätzliche Gefährdungspotential getrennt zu bewerten.
-6. **Zivilschutz unterstützen:** Investitionen in Schutzräume, Krisenvorsorge, Resilienz und kritische Infrastruktur sind grundsätzlich zu begrüßen, sofern sie dem Bevölkerungsschutz und nicht einer allgemeinen Militarisierung dienen.
-7. **Europäische Eigenständigkeit betonen:** Weder russische Einflussnahme noch amerikanische oder NATO-geprägte Interessen sollen die ostdeutsche beziehungsweise deutsche Politik ungeprüft bestimmen.
-8. **Friedensordnung von 1990 als politischen Bezugspunkt nutzen:** Einigungsvertrag und Zwei-plus-Vier-Vertrag können als friedenspolitische und souveränistische Begründung herangezogen werden. Sie dürfen aber nicht zu einer nicht bestehenden allgemeinen Neutralitätspflicht oder zu pauschalen Rechtsverboten überdehnt werden.
+3. **Attribution stufenweise prüfen:** Tatbeteiligung, Netzwerkbezug, ausländische Kontakte und staatliche Steuerung sind getrennte Beweisfragen und dürfen nicht ineinander verkürzt werden.
+4. **Keine automatische Bündnisgefolgschaft:** Auch bei belegter russischer Verantwortlichkeit folgt daraus nicht automatisch Zustimmung zu neuen Sanktionen, Aufrüstung, Waffenlieferungen oder NATO-Eskalation.
+5. **Deeskalation als strategisches Ziel:** Reaktionen sollen Sicherheit herstellen und Wiederholung verhindern, ohne eine unnötige Eskalationsspirale auszulösen.
+6. **Militärische Nutzung ziviler Infrastruktur kritisch prüfen:** Bei Häfen, Flughäfen, Bahn-, Energie- oder Logistikinfrastruktur sind rechtliche Zulässigkeit, zivile Schutzinteressen und das zusätzliche Gefährdungspotential getrennt zu bewerten.
+7. **Zivilschutz unterstützen:** Investitionen in Schutzräume, Krisenvorsorge, Resilienz und kritische Infrastruktur sind grundsätzlich zu begrüßen, sofern sie dem Bevölkerungsschutz und nicht einer allgemeinen Militarisierung dienen.
+8. **Europäische Eigenständigkeit betonen:** Weder russische Einflussnahme noch amerikanische oder NATO-geprägte Interessen sollen die ostdeutsche beziehungsweise deutsche Politik ungeprüft bestimmen.
+9. **Ermittlungsinformationen schützen:** Nicht gesicherte oder operativ sensible Hinweise werden nicht aus politischem Interesse vorzeitig veröffentlicht.
+10. **Friedensordnung von 1990 als politischen Bezugspunkt nutzen:** Einigungsvertrag und Zwei-plus-Vier-Vertrag können als friedenspolitische und souveränistische Begründung herangezogen werden. Sie dürfen aber nicht zu einer nicht bestehenden allgemeinen Neutralitätspflicht oder zu pauschalen Rechtsverboten überdehnt werden.
 
 ## Kommunikative Kurzform
 
 Für öffentliche Reaktionen kann als Leitgedanke gelten:
 
 > Der Freistaat akzeptiert weder russische Eingriffe auf ostdeutschem Boden noch, dass Ostdeutschland zum Operations-, Aufmarsch- oder Logistikraum einer neuen europäischen Blockkonfrontation wird. Sicherheit bedeutet für uns Souveränität, Schutz der Bevölkerung, Deeskalation und eine Friedensordnung, die nicht von fremden Großmachtinteressen bestimmt wird.
+
+Für laufende Ermittlungen gilt ergänzend:
+
+> Erst aufklären, dann bewerten. Ermittlungen und Beweise haben Vorrang vor politischer Attribution.
