@@ -1,7 +1,7 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-10-14T08:14:53.656Z
+**Erzeugt:** 2026-10-14T08:20:14.214Z
 
 - Erkannte Änderungsvorschriften: 75
 - Erkannte Zielnormen: 109

@@ -212,7 +212,7 @@ function hasPlaceholder(record) {
   })) ?? false;
 }
 
-function completeIntervals(record, effectiveDates, baselineDate = BASELINE_DATE) {
+export function completeIntervals(record, effectiveDates, baselineDate = BASELINE_DATE) {
   if (!record) return false;
   const repealDates = record.history.entries
     .filter((entry) => entry.type === 'repeal')
@@ -221,6 +221,7 @@ function completeIntervals(record, effectiveDates, baselineDate = BASELINE_DATE)
   if (record.versions.length < amendmentDates.length + 1) return false;
   const versions = [...record.versions].sort((a, b) => a.validFrom.localeCompare(b.validFrom));
   if (versions[0].validFrom !== baselineDate) return false;
+  if (amendmentDates.some((date) => !versions.some((version) => version.validFrom === date))) return false;
   return versions.every((version, index) => {
     const next = versions[index + 1];
     if (!next) {
