@@ -96,7 +96,8 @@ Inventur läuft geplant und manuell (`visual-extended.yml`).
 1. `classify` bestimmt Deployment- und Verifikationswirkung (mit `node_modules`, weil der
    Code-Abschluss der Projektion esbuild braucht).
 2. `build` stellt `node_modules` aus dem Actions-Cache her (`.github/actions/setup-node-modules`,
-   Schlüssel aus Betriebssystem, Node-Version und `package-lock.json`; ohne Treffer `npm ci`), führt
+   Schlüssel aus Betriebssystem, Architektur, Linux-Distribution mit Versionsnummer, Node-Version
+   und `package-lock.json`; ohne Treffer `npm ci`), führt
    `npm audit` mit Wiederholung bei Registryfehlern aus (`scripts/npm-audit-retry.mjs`: nur
    HTTP 5xx, 429 und Netzfehler werden bis zu dreimal wiederholt; ein Befund ab Stufe `high` schlägt
    sofort fehl), prüft Dokumentationsstruktur, Inhalte, Wissenshub, Typen, schnelle Unit-Tests
@@ -262,6 +263,23 @@ dem Merge hergestellt:
 
 Ein Squash-Merge behält die Projektionsidentität des PR-Heads, weil sie nur aus Dateiinhalten
 berechnet wird.
+
+## CI-Laufzeitumgebung
+
+Alle GitHub-hosted Linux-Jobs verwenden explizit `ubuntu-26.04`. Ein Wechsel des beweglichen
+Labels `ubuntu-latest` ändert dadurch die Release-Umgebung nicht unbemerkt. Node.js wird über
+`actions/setup-node` installiert; die Workflows hängen nicht von der vorinstallierten Node-Version
+ab. Der `node_modules`-Cache unterscheidet Linux-Distribution und Versionsnummer zusätzlich zu
+Architektur, Node-Version und Lockdatei. Native Abhängigkeiten werden damit weder zwischen
+Ubuntu-Versionen noch zwischen Host und abweichendem Container wiederverwendet.
+
+Die Screenshot-Suite bleibt im exakt zur Lockdatei passenden Playwright-Container mit
+`-noble` (Ubuntu 24.04), auch auf einem Ubuntu-26.04-Host. Diese feste Rendering-Umgebung gehört
+zu den Linux-Baselines. Playwright wird exakt versioniert; vor einem Update muss das passende
+`v<Version>-noble`-Image für die Runner-Architektur veröffentlicht sein. Ein npm-Release allein
+ist dafür kein Nachweis. Ein Wechsel auf `-resolute` ist eine eigenständige Änderung mit Sichtprüfung
+und neuem striktem Vergleich; ein Runner-Upgrade ist dafür kein Anlass. Browser- und
+Accessibility-Smokes auf dem Host verwenden Playwright mit Ubuntu-26.04-Unterstützung.
 
 ## D1-Seed-Cache
 
