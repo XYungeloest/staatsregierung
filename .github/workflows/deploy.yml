@@ -57,7 +57,7 @@ concurrency:
 
 jobs:
   classify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       scope: ${{ steps.scope.outputs.scope }}
       deploy_portal: ${{ steps.scope.outputs.deploy_portal }}
@@ -153,7 +153,7 @@ jobs:
   docs_check:
     needs: classify
     if: ${{ needs.classify.outputs.scope == 'docs-only' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
@@ -179,7 +179,7 @@ jobs:
   build:
     needs: classify
     if: ${{ needs.classify.outputs.scope != 'docs-only' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       deploy_env: ${{ steps.deployment_meta.outputs.deploy_env }}
       portal_site_url: ${{ steps.deployment_meta.outputs.portal_site_url }}
@@ -358,7 +358,7 @@ jobs:
   d1_seed:
     needs: classify
     if: ${{ needs.classify.outputs.scope != 'docs-only' && needs.classify.outputs.run_full_corpus_smoke == 'true' && contains(needs.classify.outputs.ui_targets, 'law') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 40
     outputs:
       status: ${{ steps.seed.outputs.status }}
@@ -382,7 +382,7 @@ jobs:
       - build
       - d1_seed
     if: ${{ always() && needs.classify.outputs.run_ui_smoke == 'true' && needs.build.result == 'success' && (needs.d1_seed.result == 'success' || needs.d1_seed.result == 'skipped') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 60
     env:
       # Leer = Vollbestand (Seed aus dem Cache); sonst das Testfixture. (Ein leerer String ist im
@@ -469,7 +469,7 @@ jobs:
       - build
       - d1_seed
     if: ${{ always() && github.event_name == 'push' && needs.classify.outputs.run_d1_sync == 'true' && needs.build.result == 'success' && (needs.d1_seed.result == 'success' || needs.d1_seed.result == 'skipped') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
@@ -570,7 +570,7 @@ jobs:
       - runtime_smoke
       - d1_sync
     if: ${{ always() && needs.classify.outputs.deploy_targets != '' && needs.build.result == 'success' && (needs.runtime_smoke.result == 'success' || needs.runtime_smoke.result == 'skipped') && (needs.d1_sync.result == 'success' || needs.d1_sync.result == 'skipped') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Node.js und Abhängigkeiten
