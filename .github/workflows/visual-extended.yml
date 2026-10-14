@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   lockfile:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       playwright_version: ${{ steps.version.outputs.playwright_version }}
     steps:
@@ -38,7 +38,7 @@ jobs:
 
   visual_extended:
     needs: lockfile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 60
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.lockfile.outputs.playwright_version }}-noble

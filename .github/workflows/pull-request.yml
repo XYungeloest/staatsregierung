@@ -28,7 +28,7 @@ concurrency:
 jobs:
   classify:
     if: ${{ github.event.action != 'closed' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       scope: ${{ steps.scope.outputs.scope }}
       deploy_portal: ${{ steps.scope.outputs.deploy_portal }}
@@ -115,7 +115,7 @@ jobs:
       - classify
       - d1_seed
     if: ${{ always() && needs.classify.outputs.run_d1_sync == 'true' && github.event.pull_request.head.repo.full_name == github.repository && (needs.d1_seed.result == 'success' || needs.d1_seed.result == 'skipped') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 45
     steps:
       - name: Repository auschecken
@@ -203,7 +203,7 @@ jobs:
   docs_check:
     needs: classify
     if: ${{ needs.classify.outputs.scope == 'docs-only' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
@@ -224,7 +224,7 @@ jobs:
   quality:
     needs: classify
     if: ${{ needs.classify.outputs.scope != 'docs-only' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
@@ -328,7 +328,7 @@ jobs:
     needs:
       - classify
       - quality
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       # Pull Requests testen gegen das repräsentative D1-Fixture (siehe scripts/serve-law-worker.mjs).
       OSTRECHT_D1_FIXTURE: data/recht/runtime-fixture.json
@@ -359,7 +359,7 @@ jobs:
     needs:
       - classify
       - quality
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       # Pull Requests testen gegen das repräsentative D1-Fixture (siehe scripts/serve-law-worker.mjs).
       OSTRECHT_D1_FIXTURE: data/recht/runtime-fixture.json
@@ -390,7 +390,7 @@ jobs:
   d1_seed:
     needs: classify
     if: ${{ needs.classify.outputs.scope != 'docs-only' && needs.classify.outputs.run_full_corpus_smoke == 'true' && contains(needs.classify.outputs.ui_targets, 'law') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 40
     outputs:
       status: ${{ steps.seed.outputs.status }}
@@ -413,7 +413,7 @@ jobs:
       - quality
       - d1_seed
     if: ${{ needs.classify.outputs.run_full_corpus_smoke == 'true' && contains(needs.classify.outputs.ui_targets, 'law') && needs.quality.result == 'success' && needs.d1_seed.result == 'success' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
@@ -465,7 +465,7 @@ jobs:
       - classify
       - quality
     if: ${{ needs.classify.outputs.run_visual == 'true' && needs.classify.outputs.build_targets != '' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 45
     container:
       image: mcr.microsoft.com/playwright:v${{ needs.classify.outputs.playwright_version }}-noble
@@ -521,7 +521,7 @@ jobs:
       - quality
       - accessibility_smoke
       - browser_smoke
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
@@ -593,7 +593,7 @@ jobs:
 
   cleanup-preview:
     if: ${{ github.event.action == 'closed' && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Preview-Version ermitteln
         id: preview

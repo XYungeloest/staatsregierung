@@ -29,7 +29,7 @@ concurrency:
 
 jobs:
   corpus_audit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 45
     steps:
       - name: Repository auschecken
@@ -61,7 +61,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
   full_corpus_smoke:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 90
     steps:
       - name: Repository auschecken

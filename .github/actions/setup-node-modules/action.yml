@@ -1,7 +1,7 @@
 name: Node.js und Abhängigkeiten
 description: >-
-  Richtet Node.js ein und stellt node_modules aus dem Actions-Cache wieder her (Schlüssel: Betriebssystem,
-  Node-Version, package-lock.json). Nur ohne Cache-Treffer läuft npm ci. Der Cache ist ein reiner
+  Richtet Node.js ein und stellt node_modules aus dem Actions-Cache wieder her (Schlüssel: Betriebssystem einschließlich Distribution,
+  Architektur, Node-Version, package-lock.json). Nur ohne Cache-Treffer läuft npm ci. Der Cache ist ein reiner
   Beschleuniger – jeder Job kann ihn jederzeit verlieren und fällt dann auf npm ci zurück.
 inputs:
   node-version:
@@ -24,6 +24,19 @@ runs:
       id: node
       shell: bash
       run: echo "version=$(node --version)" >> "$GITHUB_OUTPUT"
+    - name: Plattform für native Abhängigkeiten bestimmen
+      id: platform
+      shell: bash
+      run: |
+        PLATFORM="${RUNNER_OS}-${RUNNER_ARCH}"
+        if [ "$RUNNER_OS" = "Linux" ]; then
+          # Der Container kann eine andere Distribution als der Host verwenden.
+          DISTRO_ID=$(awk -F= '$1 == "ID" {gsub(/"/, "", $2); print $2}' /etc/os-release)
+          DISTRO_VERSION=$(awk -F= '$1 == "VERSION_ID" {gsub(/"/, "", $2); print $2}' /etc/os-release)
+          test -n "$DISTRO_ID" && test -n "$DISTRO_VERSION"
+          PLATFORM="${PLATFORM}-${DISTRO_ID}-${DISTRO_VERSION}"
+        fi
+        echo "key=$PLATFORM" >> "$GITHUB_OUTPUT"
     - name: node_modules aus dem Cache wiederherstellen
       id: cache
       uses: actions/cache@v6
@@ -32,7 +45,7 @@ runs:
           node_modules
           apps/*/node_modules
           packages/*/node_modules
-        key: node-modules-${{ runner.os }}-${{ runner.arch }}-${{ steps.node.outputs.version }}-${{ hashFiles('package-lock.json') }}
+        key: node-modules-${{ steps.platform.outputs.key }}-${{ steps.node.outputs.version }}-${{ hashFiles('package-lock.json') }}
     - name: Abhängigkeiten installieren (nur ohne Cache-Treffer)
       if: ${{ steps.cache.outputs.cache-hit != 'true' }}
       shell: bash
@@ -43,4 +56,4 @@ runs:
     - name: Cache-Treffer melden
       if: ${{ steps.cache.outputs.cache-hit == 'true' }}
       shell: bash
-      run: echo "node_modules aus dem Cache (Schlüssel node-modules-${{ runner.os }}-${{ runner.arch }}-${{ steps.node.outputs.version }}-…); npm ci übersprungen."
+      run: echo "node_modules aus dem Cache (Schlüssel node-modules-${{ steps.platform.outputs.key }}-${{ steps.node.outputs.version }}-…); npm ci übersprungen."
