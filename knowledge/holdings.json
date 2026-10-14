@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-12",
+  "asOf": "2026-10-14",
   "holdings": [
     {
       "id": "holding-rechtsnachfolge-2023",
@@ -1363,12 +1363,17 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-02",
       "validTo": null,
-      "asOf": "2026-09-12",
+      "asOf": "2026-10-14",
       "summary": "Sämtliche Geschäftsanteile gingen am 2. September 2026 kraft Gesetzes auf den Freistaat über. Die Gesellschaft besteht als Rechtsträgerin fort; ein späterer Übertragungsakt ist für diesen Eigentumsübergang nicht erforderlich.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-73",
           "locator": "Artikel 1, §§ 1–5",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-82",
+          "locator": "Artikel 1 § 10 und Artikel 10",
           "role": "primary"
         }
       ],
@@ -1381,7 +1386,8 @@
         "public-economy"
       ],
       "notes": [
-        "Die Gesellschafterrechte des Freistaates nimmt das Staatssekretariat für Wirtschaft und Arbeit wahr. Bis zu einer anderweitigen gesetzlichen Regelung verbleiben die Geschäftsanteile unmittelbar beim Freistaat; ihre Veräußerung, Belastung oder Übertragung auf einen privaten Rechtsträger ist unzulässig, eine spätere Übertragung auf einen ausschließlich öffentlich getragenen gemeinwirtschaftlichen Rechtsträger bleibt einer gesetzlichen Regelung vorbehalten (§ 5)."
+        "Die Gesellschafterrechte des Freistaates nimmt das Staatssekretariat für Wirtschaft und Arbeit wahr. Bis zu einer anderweitigen gesetzlichen Regelung verbleiben die Geschäftsanteile unmittelbar beim Freistaat; ihre Veräußerung, Belastung oder Übertragung auf einen privaten Rechtsträger ist unzulässig, eine spätere Übertragung auf einen ausschließlich öffentlich getragenen gemeinwirtschaftlichen Rechtsträger bleibt einer gesetzlichen Regelung vorbehalten (§ 5).",
+        "Der verkündete Übergang auf die Ostdeutschen Rohstoffwerke erfolgt erst am 15. Oktober 2026. Am Stichtag 14. Oktober bleibt die Beteiligung unmittelbar beim Freistaat."
       ],
       "kind": "company",
       "stakePercent": 100,

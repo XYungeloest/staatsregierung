@@ -1,0 +1,36 @@
+{
+  "amendmentAct": "rohstoffwirtschafts-neuordnungsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "sameDayOrder": 2,
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "resultCitation": "Ostdeutsche Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), geändert durch Artikel 9 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "changeNote": "Änderungen nach Artikel 9 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 9"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 82, Artikel 9",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 82.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(9)",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "6754809347779b813250336b0afb4388cc71c96c14bd7ad048eb85ceaa8e734e",
+      "expectedMatches": 1,
+      "value": "Der Zeitpunkt der Kreditaufnahme ist nach der Kassenlage, den jeweiligen Kapitalmarktverhältnissen und den gesamtwirtschaftlichen Erfordernissen zu bestimmen. Liquiditätsbestände, insbesondere die Bestände der Rücklagen und Sondervermögen, können bis zu ihrer Inanspruchnahme im Rahmen der Liquiditätssteuerung des Gesamthaushalts eingesetzt werden. Satz 2 findet auf die Liquiditätsbestände des Zukunfts- und Generationenfonds Ost und des Versorgungsfonds Ost keine Anwendung.",
+      "sourceProvision": "Artikel 9",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

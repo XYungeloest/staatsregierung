@@ -2,6 +2,9 @@
 
 Stand: 12. September 2026. Vollständige Daten: `knowledge/implementation-mandates.json`. Diese Übersicht ist keine politische Agenda; geplante Vorhaben stehen in [AGENDA.md](AGENDA.md). Sie nennt, was das geltende eigene Recht an Verordnungen, Verwaltungsvorschriften, Satzungen, besonderen Gesetzen, Errichtungsakten, Bestellungen, Plänen und Berichten verlangt oder erlaubt und wofür am Stichtag kein Rechts- oder Vollzugsakt im Bestand belegt ist. Status „teilweise“ heißt: Nur ein Teil oder eine Vorstufe ist belegt.
 
+
+Die Einzelauswertung bezieht sich auf den Rechtsstand vom 12. September. Für OGVBl. 2026 Nr. 80 bis 84 ist die Verkündung vom 14. Oktober zusätzlich in `projects.json` mit den jeweiligen Folgeaufgaben erfasst; die neuen Vorschriften treten frühestens am 15. Oktober in Kraft. Die besonderen Gesetze nach Artikel 13b Absatz 5 und Artikel 13e Absatz 3 sind damit bereits verkündet. Die entsprechenden Zeilen unten sind kein weiterer Gesetzgebungsauftrag.
+
 | Kennzahl | Anzahl |
 | --- | ---: |
 | Aus 159 Normen ausgelesene Aufträge | 2231 |

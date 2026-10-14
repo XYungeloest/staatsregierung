@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "neuordnung-rechnungshofwesen",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 84 S. 2)",
+  "resultCitation": "Verordnung der Ostdeutschen Staatsregierung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter vom 19. Mai 1992 (SächsGVBl. S. 230), die durch die Verordnung vom 23. September 2004 (SächsGVBl. S. 532) geändert worden ist, geändert durch Artikel 3 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 84 S. 2)",
+  "changeNote": "Aufhebung durch Artikel 3 Absatz 2 des Rechnungshofneuordnungsgesetzes.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 84, Artikel 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 84.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "8358e975dae71ecd27223274ce2f184f95fa07f15f949b5d2e3aa64650b5e5dc",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 3 Absatz 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ],
+  "repealsLaw": true
+}

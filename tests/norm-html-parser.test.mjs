@@ -355,3 +355,27 @@ test('gesperrter Satz au\u00dferhalb eines Unterschriftenblocks bricht den Impor
   // Der Sperrsatz ist aufgel\u00f6st; im Normk\u00f6rper bleibt kein gesperrter Text zur\u00fcck.
   assert.doesNotMatch(bodyText(parsed), /(?<!\p{L})\p{L}(?: \p{L}){3,}(?!\p{L})/u);
 });
+
+test('Stammnormtitel direkt im Mantelartikel bilden eigenständige Normen und begrenzen ihre Gliederung', () => {
+  const html = `<!doctype html><html><body>
+    <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>
+    <p>Nr. 99</p><p>Ausgegeben zu Dresden am 14. Oktober 2026</p>
+    <p>Inhaltsverzeichnis</p><p>14. Oktober 2026 Gesetz zur Einführung einer Prüfregelung Seite 2</p>
+    <p>Gesetz<br>zur Einführung einer Prüfregelung<br>vom 14. Oktober 2026</p>
+    <h1>Artikel 1<br>Besonderes Gesetz über eine Prüfregelung<br>Prüfregelungsgesetz<br>(PrüfRG)</h1>
+    <h2>Abschnitt 1<br>Grundlagen</h2><h3>§ 1<br>Aufgabe</h3><p>Die Stelle prüft den Vorgang.</p>
+    <h1>Artikel 2<br>Gesetz über einen weiteren Prüfvorgang (Prüfvorgangsgesetz – PVG)</h1>
+    <h2>§ 1<br>Verfahren</h2><p>Die Stelle dokumentiert den Vorgang.</p>
+    <h1>Artikel 3<br>Änderung des Prüfregelungsgesetzes</h1><p>§ 1 wird aufgehoben.</p>
+    <h1>Artikel 4<br>Inkrafttreten</h1><p>Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.</p>
+    <p>Dresden, den 14. Oktober 2026</p></body></html>`;
+  const parsed = parsePublicationHtml('mantel-fixture.html', html);
+  assert.equal(parsed.introducedNorms.length, 2);
+  assert.equal(parsed.introducedNorms[0].title, 'Besonderes Gesetz über eine Prüfregelung');
+  assert.equal(parsed.introducedNorms[0].shortTitle, 'Prüfregelungsgesetz');
+  assert.equal(parsed.introducedNorms[0].abbr, 'PrüfRG');
+  assert.equal(parsed.introducedNorms[1].abbr, 'PVG');
+  assert.ok(parsed.body.find((b) => b.label === 'Artikel 1').children.some((b) => b.type === 'quotedProvision'));
+  assert.deepEqual(parsed.body.filter((b) => b.type === 'article').map((b) => b.label), ['Artikel 1', 'Artikel 2', 'Artikel 3', 'Artikel 4']);
+  assert.doesNotMatch(JSON.stringify(parsed.introducedNorms.map((n) => n.body)), /Änderung des Prüfregelungsgesetzes|Inkrafttreten/u);
+});

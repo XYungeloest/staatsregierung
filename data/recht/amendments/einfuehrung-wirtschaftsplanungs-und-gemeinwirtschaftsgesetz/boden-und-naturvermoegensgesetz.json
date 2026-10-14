@@ -1,0 +1,96 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 78), geändert durch Artikel 8 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 8 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 8"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 8",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 9"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Der Verwaltungsrat besteht aus elf Mitgliedern.",
+        "parentLabel": "§ 9"
+      },
+      "expectedHash": "8adf8aa34f34489b7f1bba0f673b5f0a7c441e40badd9838bfb6c89ce145963d",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Der Verwaltungsrat besteht aus fünfzehn Mitgliedern.",
+          "label": "(1)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 8 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "§ 9"
+      },
+      "throughTarget": {
+        "type": "paragraphText",
+        "text": "gewählt. Die übrigen drei Mitglieder werden ohne gebundenes Vorschlagsrecht gewählt. Bei der Wahl der sechs Mitglieder soll in ihrer Gesamtheit besondere Sachkunde auf den Gebieten kommunale Boden- und Liegenschaftspolitik, öffentliche Finanz- und Vermögenswirtschaft, soziale Wohnraumversorgung und Gemeinwirtschaft, Landwirtschaft und Genossenschaftswesen, Wald-, Natur-, Moor- und Gewässerschutz sowie Raum- und Regionalentwicklung berücksichtigt werden. Wiederwahl ist einmal zulässig. Besteht zum Zeitpunkt der Wahl noch keine Beschäftigtenvertretung, tritt an ihre Stelle die Versammlung der Beschäftigten.",
+        "parentLabel": "§ 9"
+      },
+      "expectedHash": "6a86f29bab2ce0f0d70d2e9533c8c8ae694f599f946b3168ba0436965e0cebb6",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Zehn weitere Mitglieder werden von der Volkskammer für fünf Jahre gewählt. Von ihnen werden",
+          "label": "(3)",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "fünf Mitglieder auf Vorschlag der Beschäftigtenvertretung des Landesbodenfonds,",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "ein Mitglied auf gemeinsamen Vorschlag der kommunalen Spitzenverbände und",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "ein Mitglied aus dem Kreis der Nutzer des Landesbodenfonds auf Grundlage von Vorschlägen der berufsständischen Vertretungen der Landwirtschaft, der Genossenschaftsverbände, der Interessenvertretungen sonstiger Nutzer und der anerkannten Naturschutzvereinigungen",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "gewählt. Die übrigen drei Mitglieder werden ohne gebundenes Vorschlagsrecht gewählt. Bei der Wahl der zehn Mitglieder soll in ihrer Gesamtheit besondere Sachkunde auf den Gebieten kommunale Boden- und Liegenschaftspolitik, öffentliche Finanz- und Vermögenswirtschaft, soziale Wohnraumversorgung und Gemeinwirtschaft, Landwirtschaft und Genossenschaftswesen, Wald-, Natur-, Moor- und Gewässerschutz sowie Raum- und Regionalentwicklung berücksichtigt werden. Wiederwahl ist einmal zulässig. Besteht zum Zeitpunkt der Wahl noch keine Beschäftigtenvertretung, tritt an ihre Stelle die Versammlung der Beschäftigten."
+        }
+      ],
+      "sourceProvision": "Artikel 8 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

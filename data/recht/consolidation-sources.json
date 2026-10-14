@@ -1686,7 +1686,8 @@
       "title": "Gesetz über die Ostdeutsche Eisenbahn",
       "aliases": [
         "Ostdeutsches Eisenbahngesetz",
-        "Gesetz über die Ostdeutsche Eisenbahn"
+        "Gesetz über die Ostdeutsche Eisenbahn",
+        "Ostdeutsche Eisenbahngesetz"
       ],
       "resultShortTitle": "Ostdeutsches Eisenbahngesetz",
       "resultAbbr": "OstEisG",
@@ -1707,6 +1708,148 @@
       "existingVersionSeed": {
         "versionId": "2026-09-03"
       }
+    },
+    "gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland": {
+      "title": "Gesetz über den Rechnungshof des Freistaates Sachsen",
+      "aliases": [
+        "Rechnungshofgesetz"
+      ],
+      "revosaxLawId": "3530",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3530.5",
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland/3530.5.html",
+      "retrievedAt": "2026-10-14",
+      "sourceSha256": "4a79f25a7a3bc5e8d5e46b6a5e4c5769887ab3c41e517b77a9e477f468c731b8",
+      "baselineSnapshotDate": "2023-11-01"
+    },
+    "vo-staatliche-rechnungspruefungsaemter": {
+      "title": "Verordnung der Sächsischen Staatsregierung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter",
+      "aliases": [
+        "Verordnung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter",
+        "Verordnung der Sächsischen Staatsregierung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter"
+      ],
+      "revosaxLawId": "1437",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1437.2",
+      "sourceValidFrom": "2005-01-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/vo-staatliche-rechnungspruefungsaemter/1437.2.html",
+      "retrievedAt": "2026-10-14",
+      "sourceSha256": "c47ea121d93d05a759972d6ca542d1c3845bd4acd32ec105e3ffed9f01b4110a",
+      "baselineSnapshotDate": "2023-11-01"
+    },
+    "boden-und-naturvermoegensgesetz": {
+      "title": "Besonderes Gesetz über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+      "aliases": [
+        "Besonderes Gesetz über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+        "Boden- und Naturvermögensgesetz"
+      ],
+      "baselineVersionDate": "2026-09-12",
+      "existingVersionSeed": {
+        "versionId": "2026-09-12",
+        "validFrom": "2026-09-12"
+      },
+      "resultShortTitle": "Boden- und Naturvermögensgesetz",
+      "resultAbbr": "BodNatVG"
+    },
+    "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes": {
+      "title": "Gesetz zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+      "aliases": [
+        "Gesetz zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+        "Einführungsgesetz Boden- und Naturvermögen"
+      ],
+      "baselineVersionDate": "2026-09-12",
+      "existingVersionSeed": {
+        "versionId": "2026-09-12",
+        "validFrom": "2026-09-12"
+      },
+      "resultShortTitle": "Einführungsgesetz Boden- und Naturvermögen"
+    },
+    "sero-verordnung": {
+      "title": "Verordnung des Staatsrates über die Sekundärrohstoff-Erfassung und die landeseigene Kreislaufwirtschaftsinfrastruktur im Freistaat Ostdeutschland",
+      "aliases": [
+        "Verordnung des Staatsrates über die Sekundärrohstoff-Erfassung und die landeseigene Kreislaufwirtschaftsinfrastruktur im Freistaat Ostdeutschland",
+        "SERO-Verordnung"
+      ],
+      "baselineVersionDate": "2026-07-21",
+      "existingVersionSeed": {
+        "versionId": "2026-07-21",
+        "validFrom": "2026-07-21"
+      },
+      "resultShortTitle": "SERO-Verordnung",
+      "resultAbbr": "SERO-VO"
+    },
+    "gemeinvermoegensschutzgesetz": {
+      "title": "Besonderes Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums",
+      "aliases": [
+        "Besonderes Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums",
+        "Gemeinvermögensschutzgesetz"
+      ],
+      "baselineVersionDate": "2026-09-12",
+      "existingVersionSeed": {
+        "versionId": "2026-09-12",
+        "validFrom": "2026-09-12"
+      },
+      "resultShortTitle": "Gemeinvermögensschutzgesetz",
+      "resultAbbr": "GemVSchG"
+    },
+    "ostdeutsches-landesbankgesetz": {
+      "title": "Gesetz über die Landesbank an der Elbe",
+      "aliases": [
+        "Gesetz über die Landesbank an der Elbe",
+        "Ostdeutsches Landesbankgesetz"
+      ],
+      "baselineVersionDate": "2026-01-27",
+      "existingVersionSeed": {
+        "versionId": "2026-01-26",
+        "validFrom": "2026-01-27"
+      },
+      "resultShortTitle": "Ostdeutsches Landesbankgesetz",
+      "resultAbbr": "OstLBGe"
+    },
+    "zinnwald-vergesellschaftungsgesetz": {
+      "title": "Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald",
+      "aliases": [
+        "Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald",
+        "Zinnwald-Vergesellschaftungsgesetz"
+      ],
+      "baselineVersionDate": "2026-09-02",
+      "existingVersionSeed": {
+        "versionId": "2026-09-02",
+        "validFrom": "2026-09-02"
+      },
+      "resultShortTitle": "Zinnwald-Vergesellschaftungsgesetz",
+      "resultAbbr": "ZinnVG"
+    },
+    "ostdeutsches-sportfoerdergesetz": {
+      "title": "Gesetz über die Sportförderung im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Sportförderung im Freistaat Ostdeutschland",
+        "Ostdeutsches Sportfördergesetz",
+        "Ostdeutsche Sportfördergesetz"
+      ],
+      "baselineVersionDate": "2026-07-21",
+      "existingVersionSeed": {
+        "versionId": "2026-07-21",
+        "validFrom": "2026-07-21"
+      },
+      "resultShortTitle": "Ostdeutsches Sportfördergesetz",
+      "resultAbbr": "OstSportFG"
+    },
+    "ostdeutsches-kulturpassgesetz": {
+      "title": "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland",
+        "Ostdeutsches Kulturpassgesetz",
+        "Ostdeutsche Kulturpassgesetz"
+      ],
+      "baselineVersionDate": "2026-04-03",
+      "existingVersionSeed": {
+        "versionId": "2026-03-23",
+        "validFrom": "2026-04-03"
+      },
+      "resultShortTitle": "Ostdeutsches Kulturpassgesetz",
+      "resultAbbr": "OstKulturPassG"
     }
   },
   "blockedTargets": {

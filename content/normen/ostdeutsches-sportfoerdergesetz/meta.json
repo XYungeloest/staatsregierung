@@ -44,8 +44,17 @@
       "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 83, Artikel 5",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 83.html"
     }
   ],
   "effectiveDate": "2026-07-21",
-  "enactingNorm": "sportneuordnungsgesetz"
+  "enactingNorm": "sportneuordnungsgesetz",
+  "affectedByNorms": [
+    "kostenfreie-kindheit-und-soziale-teilhabe"
+  ]
 }

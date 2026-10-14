@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-12",
-  "editorialAsOf": "2026-09-12",
-  "count": 1251,
+  "generatedAt": "2026-10-14",
+  "editorialAsOf": "2026-10-14",
+  "count": 1266,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -960,6 +960,71 @@
       ],
       "validFrom": "2026-05-01",
       "validTo": "2026-05-01",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-ogvbl-2026-80-promulgated",
+      "title": "Gesellschafts- und Wirtschaftsplanung und öffentliche Gemeinwirtschaft: Gesetzgebung verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": "2026-10-14",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-ogvbl-2026-81-promulgated",
+      "title": "Handelsorganisation Ost und Grundversorgungssortiment: Gesetzgebung verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": "2026-10-14",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-ogvbl-2026-82-promulgated",
+      "title": "Rohstoffwerke, Rohstoffvergesellschaftung und Generationenvermögen: Gesetzgebung verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": "2026-10-14",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-ogvbl-2026-83-promulgated",
+      "title": "Kostenfreie Kindheit, Teilhabepass und Sozialpass Ost: Gesetzgebung verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": "2026-10-14",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-ogvbl-2026-84-promulgated",
+      "title": "Neuordnung von Rechnungshof und Haushaltsprüfung: Gesetzgebung verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": "2026-10-14",
       "target": "knowledge/timeline.json"
     },
     {
@@ -12832,6 +12897,19 @@
       "target": "knowledge/projects.json"
     },
     {
+      "id": "project-handelsorganisation-ost",
+      "title": "Handelsorganisation Ost und Grundversorgungssortiment",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "law"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "project-haushalt-2025-2026",
       "title": "Doppelhaushalt 2025/2026",
       "type": "project",
@@ -12900,6 +12978,19 @@
         "public-economy"
       ],
       "validFrom": "2026-09-03",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-kostenfreie-kindheit-teilhabe",
+      "title": "Kostenfreie Kindheit, Teilhabepass und Sozialpass Ost",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "law"
+      ],
+      "validFrom": "2026-10-14",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -12983,6 +13074,32 @@
         "fare"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-rechnungshofneuordnung",
+      "title": "Neuordnung von Rechnungshof und Haushaltsprüfung",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "law"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-rohstoffwirtschaft-generationenfonds",
+      "title": "Rohstoffwerke, Rohstoffvergesellschaftung und Generationenvermögen",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "law"
+      ],
+      "validFrom": "2026-10-14",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -13104,6 +13221,19 @@
         "transparency"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-wirtschaftsplanung-gemeinwirtschaft",
+      "title": "Gesellschafts- und Wirtschaftsplanung und öffentliche Gemeinwirtschaft",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "law"
+      ],
+      "validFrom": "2026-10-14",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -15310,6 +15440,71 @@
         "finance"
       ],
       "validFrom": "2026-09-12",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-80",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 80",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "projects"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-81",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 81",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "projects"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-82",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 82",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "projects"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-83",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 83",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "projects"
+      ],
+      "validFrom": "2026-10-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-84",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 84",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "projects"
+      ],
+      "validFrom": "2026-10-14",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

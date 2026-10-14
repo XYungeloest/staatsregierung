@@ -1,0 +1,59 @@
+{
+  "slug": "ogvbl-2026-81",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 81",
+  "year": 2026,
+  "issue": "81",
+  "date": "2026-10-14",
+  "publication": "OGVBl.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/ogvbl-2026-81.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 81.html",
+      "sha256": "5162af88ee3c22e5504c01387626689f5e8846453302a680a31a96d4b171f429",
+      "mediaType": "text/html",
+      "pageRange": "2–13",
+      "verifiedAt": "2026-10-14",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 81.pdf",
+      "sha256": "e662b825b853ecca75ad0815517395349c2692d8417e261e693abfd9249c4fa7",
+      "mediaType": "application/pdf",
+      "pageCount": 13,
+      "pageRange": "2–13",
+      "verifiedAt": "2026-10-14",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 81.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "errichtung-handelsorganisation-ost",
+      "title": "Gesetz zur Errichtung der Handelsorganisation Ost und zur Änderung des Gemeinvermögensschutzgesetzes",
+      "type": "gesetz",
+      "citation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 81 S. 2)",
+      "pages": "2–13",
+      "documentDate": "2026-10-14",
+      "normSlug": "errichtung-handelsorganisation-ost",
+      "versionId": "2026-10-15"
+    },
+    {
+      "id": "handelsorganisationsgesetz",
+      "title": "Gesetz über die Handelsorganisation Ost",
+      "type": "gesetz",
+      "citation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 81)",
+      "pages": "2–13",
+      "documentDate": "2026-10-14",
+      "normSlug": "handelsorganisationsgesetz",
+      "versionId": "2026-10-15"
+    }
+  ]
+}

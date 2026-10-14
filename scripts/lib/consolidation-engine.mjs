@@ -253,3 +253,8 @@ export function previousIsoDate(isoDate) {
   date.setUTCDate(date.getUTCDate() - 1);
   return date.toISOString().slice(0, 10);
 }
+
+/** Eine Aufhebung wirkt ab ihrem Wirksamkeitsdatum; der Vortag bleibt geltend. */
+export function repealStatusAt(effectiveDate, referenceDate) {
+  return effectiveDate <= referenceDate ? 'repealed' : 'in-force';
+}

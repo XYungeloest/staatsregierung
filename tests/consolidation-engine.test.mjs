@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { applyPatchRecipe, sha256 } from '../scripts/lib/consolidation-engine.mjs';
+import { applyPatchRecipe, sha256, repealStatusAt } from '../scripts/lib/consolidation-engine.mjs';
 import { applyCorrectionToRecord } from '../scripts/lib/correction-engine.mjs';
 
 /**
@@ -176,4 +176,22 @@ test('die Rechtsüberleitung gilt nur für Ziele mit REVOSax-Provenienz', async 
   assert.equal(usesRechtsueberleitung({ adoptedSources: [{ id: 'a', snapshot: 'data/recht/sources/revosax/x/2.html' }] }), true);
   assert.equal(usesRechtsueberleitung({ existingVersionSeed: { versionId: '2026-07-21' } }), false);
   assert.equal(usesRechtsueberleitung({ title: 'Eigene Vorschrift', aliases: [] }), false);
+});
+
+test('eine verkündete Aufhebung lässt die Norm am letzten Geltungstag in Kraft', () => {
+  assert.equal(repealStatusAt('2030-06-02', '2030-06-01'), 'in-force');
+  assert.equal(repealStatusAt('2030-06-02', '2030-06-02'), 'repealed');
+  assert.equal(repealStatusAt('2030-06-02', '2030-06-03'), 'repealed');
+});
+
+import { completeIntervals } from '../scripts/audit-consolidation.mjs';
+
+test('das Konsolidierungsaudit verlangt für jeden gestaffelten Änderungstermin eine Fassung', () => {
+  const record = { history: { entries: [] }, versions: [
+    { validFrom: '2030-01-01', validTo: '2030-02-28' },
+    { validFrom: '2030-03-01', validTo: '2030-03-31' },
+    { validFrom: '2030-04-01', validTo: null },
+  ] };
+  assert.equal(completeIntervals(record, ['2030-03-01', '2030-04-01'], '2030-01-01'), true);
+  assert.equal(completeIntervals(record, ['2030-02-01', '2030-04-01'], '2030-01-01'), false);
 });
