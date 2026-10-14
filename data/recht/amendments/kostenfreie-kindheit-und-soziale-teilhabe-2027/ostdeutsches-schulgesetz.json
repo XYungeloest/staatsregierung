@@ -1,0 +1,245 @@
+{
+  "amendmentAct": "kostenfreie-kindheit-und-soziale-teilhabe",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "resultCitation": "Ostdeutsches Schulgesetz in der Fassung der Bekanntmachung vom 27. September 2018 (SächsGVBl. S. 648), geändert durch Artikel 3 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 83, Artikel 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 83.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 38f"
+      },
+      "expectedHash": "52c0f253755b4bb72252b3bf4ca032695d2b765a22a5ebe51bbced8321c55396",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 38f",
+        "title": "Finanzierung und Verordnungsermächtigung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Freistaat trägt die notwendigen Mehraufwendungen der Schulträger und der nach §§ 38c bis 38e einbezogenen Schulen in freier Trägerschaft, die unmittelbar durch die Erfüllung der §§ 38c bis 38e entstehen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Staatsrat wird ermächtigt, durch Rechtsverordnung das Nähere zu regeln über",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Mindestumfang und Qualitätsanforderungen der Schulverpflegung,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Berücksichtigung besonderer Ernährungsbedarfe,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "angemessene Höchstbeträge für Schulveranstaltungen,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Art und Mindestumfang der nach § 38e bereitzustellenden Hygieneartikel sowie",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Berechnung, Pauschalierung, Nachweis, Abrechnung und Erstattung der Aufwendungen nach Absatz 1.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 38b"
+      },
+      "expectedHash": "22621c0c7460edbdd169d3afccf4d43c89386aff66ebae92c8dad8243c633d82",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 38c",
+        "title": "Unentgeltliche Schulverpflegung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Schüler:innen öffentlicher Schulen haben Anspruch auf unentgeltliche Schulverpflegung nach Maßgabe der folgenden Absätze.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "An jedem Unterrichtstag ist ein angemessenes Schulfrühstück anzubieten. Erstreckt sich der Unterricht oder ein schulisches Betreuungsangebot regelmäßig über die Mittagszeit, ist zusätzlich mindestens ein vollwertiges warmes Mittagessen anzubieten. Trinkwasser ist während des gesamten Schultages unentgeltlich bereitzustellen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Teilnahme an der Schulverpflegung ist freiwillig. Mindestens ein vollwertiges veganes Angebot ist vorzuhalten. Medizinisch erforderliche besondere Ernährungsbedarfe sind im Rahmen des Zumutbaren zu berücksichtigen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Für die Leistungen nach den Absätzen 1 bis 3 dürfen von Schüler:innen oder deren Erziehungsberechtigten keine Entgelte erhoben werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die Absätze 1 bis 4 gelten für staatlich anerkannte Schulen in freier Trägerschaft entsprechend, soweit diese Finanzhilfe des Freistaates erhalten.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 38c"
+      },
+      "expectedHash": "460e0e9258370075f898e76eb9005999b86cf6e05822ba6fc7409bc0fa4ba5e6",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 38d",
+        "title": "Kostenfreiheit schulischer Veranstaltungen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Für die Teilnahme an verpflichtenden oder von der Schule als Schulveranstaltung genehmigten",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Wandertagen,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Exkursionen,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Museums-, Gedenkstätten-, Theater- und vergleichbaren Bildungsbesuchen,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Klassen- und Kursfahrten sowie",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "sonstigen außerunterrichtlichen Bildungsveranstaltungen",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "dürfen von Schüler:innen oder deren Erziehungsberechtigten keine Teilnahmeentgelte verlangt werden."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Kostenfreiheit umfasst die zur Durchführung der Schulveranstaltung notwendigen und angemessenen Fahrt-, Eintritts-, Übernachtungs- und Programmkosten. Die nach § 38f Absatz 2 Nummer 3 festgelegten Höchstbeträge sind bei der Planung und Genehmigung von Schulveranstaltungen zu beachten. Eine Schulveranstaltung, deren Kosten diese Höchstbeträge überschreiten, darf nur genehmigt werden, wenn die Deckung der Mehrkosten durch eine zusätzliche Erstattung oder durch andere hierfür verfügbare Mittel sichergestellt ist. Die Teilnahme darf weder von einer Zahlung noch von einer Spende der Schüler:innen oder ihrer Erziehungsberechtigten abhängig gemacht werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Persönliche Ausgaben, die nicht zur Durchführung der Schulveranstaltung erforderlich sind, werden nicht übernommen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Absätze 1 bis 3 gelten für staatlich anerkannte Schulen in freier Trägerschaft entsprechend, soweit diese Finanzhilfe des Freistaates erhalten.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 38d"
+      },
+      "expectedHash": "98e527df6ba156cccde23df35264e3c53094a46b3f5fcb20d80a0a8b11d39a9d",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 38e",
+        "title": "Unentgeltliche Hygieneartikel",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Öffentliche Schulen stellen Schüler:innen Menstruationsprodukte sowie grundlegende Hygieneartikel für den unmittelbaren persönlichen Bedarf unentgeltlich und in geeigneter Weise zugänglich zur Verfügung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Inanspruchnahme erfolgt ohne personenbezogene Erfassung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "§ 38c Absatz 5 gilt entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    }
+  ]
+}

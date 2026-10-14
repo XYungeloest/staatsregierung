@@ -1,0 +1,48 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 71), geändert durch Artikel 3 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "parentLabel": "§ 12"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "text": "Der Landesrahmenplan ist mit anderen übergreifenden Planungen des Freistaates abzustimmen. Soweit ein Gesellschafts- und Wirtschaftsplan besteht, bildet der Landesrahmenplan hinsichtlich der öffentlichen Daseinsvorsorge dessen fachliche Grundlage.",
+        "parentLabel": "§ 12"
+      },
+      "expectedHash": "faf82fad38805970306b9906fad02726d14fa96d83538b25703316f7e420f9d5",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Der Landesrahmenplan ist mit anderen übergreifenden Planungen des Freistaates abzustimmen. Soweit ein Gesellschafts- und Wirtschaftsplan besteht, bildet der Landesrahmenplan hinsichtlich der öffentlichen Daseinsvorsorge dessen fachliche Grundlage und konkretisiert dessen für die öffentliche Daseinsvorsorge geltende Vorgaben. Die gesetzlich bestimmten Zuständigkeiten und Rechtswirkungen des Landesrahmenplans bleiben unberührt.",
+          "label": "(5)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 3 ",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

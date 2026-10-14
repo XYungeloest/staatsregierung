@@ -1,0 +1,180 @@
+{
+  "amendmentAct": "kostenfreie-kindheit-und-soziale-teilhabe",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "resultCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 30), geändert durch Artikel 6 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "changeNote": "Änderungen nach Artikel 6 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 6"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 83, Artikel 6",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 83.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 1"
+      },
+      "expectedHash": "e86059328c57df28477db72976d81ec5ac854ed41917971b3a8f8caf970c6d90",
+      "expectedMatches": 1,
+      "value": "Personen, die im jeweiligen Kalenderjahr das 18. Lebensjahr vollenden und bei Freischaltung des Kulturpasses ihre Hauptwohnung im Freistaat Ostdeutschland haben, erhalten von Amts wegen einen Kulturpass nach diesem Gesetz.",
+      "sourceProvision": "Artikel 6 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01",
+      "expectedOld": "Personen, die im jeweiligen Kalenderjahr das 18. Lebensjahr vollenden und bei Freischaltung des Kulturpasses ihre Hauptwohnung im Freistaat Ostdeutschland haben, erhalten auf Antrag einen Kulturpass nach diesem Gesetz."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "§ 1"
+      },
+      "expectedHash": "7fe9bd96bc075cb99fa916b330910ed8fd70db23b9f614adf0157ea421ba67b2",
+      "expectedMatches": 1,
+      "value": "Ein Anspruch besteht nicht, soweit der anspruchsberechtigten Person bereits ein Kulturpass nach diesem Gesetz gewährt worden ist.",
+      "sourceProvision": "Artikel 6 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01",
+      "expectedOld": "Ein Anspruch besteht nicht, soweit der antragstellenden Person bereits ein Kulturpass nach diesem Gesetz gewährt worden ist."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 2"
+      },
+      "expectedHash": "685542e4cc89415c1ec8b55557f94490f1b38da026542fac107815045af5c93f",
+      "expectedMatches": 1,
+      "value": "Der Kulturpass wird als personengebundenes Guthaben in Höhe von 100 Euro gewährt. Der Kulturpass wird als Kulturmodul des Teilhabepasses Ost nach § 1 des Ostdeutschen Teilhabegesetzes bereitgestellt; auf Verlangen ist ein eigenständiger Nachweis auszugeben.",
+      "sourceProvision": "Artikel 6 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "a092b3eff10a434ecd5164eb69c7c212e296e481c94644e4291e8dc72464b67d",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5",
+        "title": "Freischaltung und Nachweis",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die zuständige Stelle stellt die Anspruchsvoraussetzungen nach § 1 von Amts wegen fest und schaltet den Kulturpass frei.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die zuständige Stelle darf die für die Feststellung der Anspruchsvoraussetzungen und die Freischaltung erforderlichen personenbezogenen Daten nach Maßgabe des § 8 verarbeiten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Soweit die Anspruchsvoraussetzungen nicht von Amts wegen festgestellt werden können, kann die betroffene Person die erforderlichen Angaben und Nachweise formlos übermitteln. Identität, Geburtsdatum und das Bestehen einer Hauptwohnung im Freistaat Ostdeutschland dürfen nur insoweit nachzuweisen verlangt werden, als die erforderlichen Angaben der zuständigen Stelle nicht bereits rechtmäßig vorliegen oder von einer anderen Behörde rechtmäßig abgerufen werden dürfen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Das Nähere zum Verfahren der Feststellung der Anspruchsvoraussetzungen und der Freischaltung sowie zu den Nachweisen regelt die Rechtsverordnung nach § 10.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 6 Nummer 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 7"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Die Bewilligung des Kulturpasses ist zurückzunehmen oder zu widerrufen, soweit sie durch unrichtige oder unvollständige Angaben erwirkt worden ist oder die Voraussetzungen des § 1 nicht vorgelegen haben oder weggefallen sind.",
+        "parentLabel": "§ 7"
+      },
+      "expectedHash": "660dbc330627ba9fb2f39367b023e78f81400a9caacacfeb605b6d1b4dadbe32",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Die Gewährung des Kulturpasses ist zurückzunehmen oder zu widerrufen, soweit die Voraussetzungen des § 1 nicht vorgelegen haben oder nachträglich weggefallen sind.",
+          "label": "(1)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 6 Nummer 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 8"
+      },
+      "expectedHash": "5a1f695cd396d3f55268fc6d6bf01862984e852aeca355fd9c4246f0ff9de60e",
+      "expectedMatches": 1,
+      "value": "Verarbeitet werden dürfen insbesondere Daten zur Identität, zum Geburtsdatum, zur Hauptwohnung, zur Feststellung der Anspruchsvoraussetzungen, zur Gewährung des Kulturpasses sowie zur Einlösung und Abrechnung des Guthabens.",
+      "sourceProvision": "Artikel 6 Nummer 6",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01",
+      "expectedOld": "Verarbeitet werden dürfen insbesondere Daten zur Identität, zum Geburtsdatum, zur Hauptwohnung, zur Antragstellung, zur Gewährung des Kulturpasses sowie zur Einlösung und Abrechnung des Guthabens."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "6.",
+        "parentLabel": "§ 10"
+      },
+      "expectedHash": "4b46d4e59c761fd2b49ecc6e47bfa737504dbc41ba419090671a1468b34877d4",
+      "expectedMatches": 1,
+      "value": "das Verfahren der Feststellung der Anspruchsvoraussetzungen und der Freischaltung,",
+      "sourceProvision": "Artikel 6 Nummer 7",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01",
+      "expectedOld": "das Antragsverfahren,"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "7.",
+        "parentLabel": "§ 10"
+      },
+      "expectedHash": "465253e0e6b9d21b4d18bec1bf3a26f759d5c14b49b5def49c7209acbbeb01ed",
+      "expectedMatches": 1,
+      "value": "Art und Weise des Nachweises nach § 5 Absatz 3,",
+      "sourceProvision": "Artikel 6 Nummer 8",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01",
+      "expectedOld": "Art und Weise des Nachweises nach § 5 Absatz 2,"
+    }
+  ]
+}

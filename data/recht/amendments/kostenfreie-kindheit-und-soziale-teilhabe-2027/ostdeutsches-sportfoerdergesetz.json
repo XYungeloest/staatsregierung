@@ -1,0 +1,137 @@
+{
+  "amendmentAct": "kostenfreie-kindheit-und-soziale-teilhabe",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "resultCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52), geändert durch Artikel 5 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "changeNote": "Änderungen nach Artikel 5 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 5"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 83, Artikel 5",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 83.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 7"
+      },
+      "expectedHash": "670bdadc03ba0da0509ae14954565644ee1c9e3099a4413cf572cdf8036e8bc0",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 7",
+        "title": "Landessportpass Ost",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Landessportpass Ost wird als Sportmodul des Teilhabepasses Ost nach § 1 des Ostdeutschen Teilhabegesetzes geführt. Personen, die keinen Teilhabepass Ost besitzen, erhalten das Sportmodul auf Verlangen als eigenständigen Nachweis.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Landessportpass Ost gewährt nach Maßgabe der verfügbaren Haushaltsmittel",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Zuschüsse zu Mitgliedsbeiträgen in gemeinnützigen Sportvereinen,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Zuschüsse zu notwendiger Sportausrüstung,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Übernahme von Nutzungsentgelten für kommunale Sportstätten,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "die Übernahme von Eintrittsentgelten für öffentliche Schwimmhallen und von Gebühren für Schwimmunterricht sowie",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Fahrtkostenzuschüsse zu anerkannten Sportangeboten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Anspruchsberechtigt sind Kinder und Jugendliche bis zur Vollendung des 18. Lebensjahres sowie Personen, die sich noch im ersten Bildungsweg befinden. Für Kinder und Jugendliche sind die Leistungen nach Absatz 2 Nummer 3 und 4 grundsätzlich vollständig zu übernehmen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der Staatsrat wird ermächtigt, durch Rechtsverordnung das Nähere, insbesondere zu Leistungsvoraussetzungen, Leistungsumfang, Höchstbeträgen, Verfahren, Nachweisen und Abrechnung, zu regeln.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Vor dem 1. Januar 2027 ausgegebene Landessportpässe Ost bleiben bis zum Ablauf ihrer Gültigkeit wirksam.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 5 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 42"
+      },
+      "expectedHash": "0522f464440a98d5f271110d917520f68d27fab66c34f154ed9edc70c4b4c8dc",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 42",
+        "title": "Kostenfreier Zugang für Kinder und Jugendliche",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Kinder und Jugendliche bis zur Vollendung des 18. Lebensjahres erhalten zu öffentlichen Sportstätten für die nichtkommerzielle sportliche Nutzung kostenfreien Zugang, soweit die Sportstätte durch Landesmittel nach diesem Gesetz gefördert wird. Der kostenfreie Zugang darf nicht von einer Vereinsmitgliedschaft abhängig gemacht werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Absatz 1 gilt nicht für Eintrittsentgelte zu kommerziellen Sportveranstaltungen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Freistaat erstattet den Trägern der Sportstätten die notwendigen Mindereinnahmen, soweit diese nicht bereits durch eine Förderung nach diesem Gesetz ausgeglichen sind. Das Nähere kann der Staatsrat durch Rechtsverordnung regeln.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 5 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    }
+  ]
+}

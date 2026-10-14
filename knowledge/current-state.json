@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-12",
+  "asOf": "2026-10-14",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -636,7 +636,7 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-06",
       "validTo": null,
-      "asOf": "2026-09-12",
+      "asOf": "2026-10-14",
       "summary": "Die freiwillige und rechtlich nicht bindende Volksbefragung wurde am 5. und 6. September 2026 gleichzeitig mit der Wahl zur achten Volkskammer durchgeführt. Die Bundeswahlleitung stellte das endgültige Ergebnis am 6. September 2026 fest; alle fünf Fragen wurden mehrheitlich befürwortet. Der Staatsrat hat seinen Bericht nach § 8 VBefrVO 2026 am selben Tag im StAnzO. 2026 Nr. 41 veröffentlicht. Das Verfahren einschließlich seiner politischen Auswertung ist damit abgeschlossen.",
       "sourceRefs": [
         {
@@ -663,6 +663,11 @@
           "sourceId": "source-ogvbl-2026-76",
           "locator": "Eingangsformel, Artikel 1 und Artikel 7",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-80",
+          "locator": "Artikel 1, Artikel 2 und Artikel 12",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -684,7 +689,7 @@
       "notes": [
         "Die Befragung war kein Volksentscheid; sie entfaltet keine unmittelbare rechtliche Bindungswirkung, und ein Beteiligungs- oder Zustimmungsquorum bestand nicht.",
         "Auch der Bericht des Staatsrates begründet nach seinem Abschnitt IX selbst keine unmittelbar geltenden Rechte oder Pflichten.",
-        "Die im Bericht angekündigten Gesetzgebungs- und Vollzugsvorhaben sind eigenständige Folgevorhaben. Die Sozialistische Verfassungsnovelle wurde als Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens am 11. September 2026 von der Volkskammer beschlossen, am 12. September 2026 verkündet und ist seit diesem Tag in Kraft; am selben Tag traten das Besondere Gesetz über Wohnen, Gesundheit und Pflege, das Boden- und Naturvermögensgesetz und das Gemeinvermögensschutzgesetz in Kraft. Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz mit Staatsplankommission Ost und Landeswirtschaftsrat sowie das Olympia-Folgeprojekt sind in agenda.json geführt und weder beschlossen noch umgesetzt."
+        "Die im Bericht angekündigten Gesetzgebungs- und Vollzugsvorhaben sind eigenständige Folgevorhaben. Die Sozialistische Verfassungsnovelle wurde als Fünftes Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens am 11. September 2026 von der Volkskammer beschlossen, am 12. September 2026 verkündet und ist seit diesem Tag in Kraft; am selben Tag traten das Besondere Gesetz über Wohnen, Gesundheit und Pflege, das Boden- und Naturvermögensgesetz und das Gemeinvermögensschutzgesetz in Kraft. Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz mit Staatsplankommission und Staatswirtschaftsrat ist durch OGVBl. 2026 Nr. 80 verkündet und gilt ab 15. Oktober 2026. Aufbau und erste Planbeschlüsse bleiben Vollzugsaufgaben. Das Olympia-Folgeprojekt bleibt eigenständig; sein Vollzug ist nicht belegt."
       ],
       "normRefs": [
         {
@@ -709,7 +714,7 @@
           "noVotes": 2,
           "noPercent": 11.11,
           "votesCast": 18,
-          "turnoutPercent": 60.0,
+          "turnoutPercent": 60,
           "outcome": "approved"
         },
         {

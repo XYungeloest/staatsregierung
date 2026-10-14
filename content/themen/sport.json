@@ -6,14 +6,16 @@
   "cluster": "bildung-gesellschaft",
   "priority": 65,
   "featured": false,
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-10-14",
   "knowledgeProjectRefs": [
-    "project-sportneuordnung"
+    "project-sportneuordnung",
+    "project-kostenfreie-kindheit-teilhabe"
   ],
   "hero": "Die Neuordnung der Sportförderung verbindet Breiten-, Leistungs- und Nachwuchssport mit einer verlässlichen öffentlichen Förderung.",
   "beschlossen": [
     "Das Sportneuordnungsgesetz wurde am 20. Juli 2026 verkündet und trat am 21. Juli 2026 in Kraft.",
-    "Mit dem Ostdeutschen Sportfördergesetz und den flankierenden Stammgesetzen bestehen neue Grundlagen für Sportförderung, Spitzensport, Athletenversorgung und Betriebssport."
+    "Mit dem Ostdeutschen Sportfördergesetz und den flankierenden Stammgesetzen bestehen neue Grundlagen für Sportförderung, Spitzensport, Athletenversorgung und Betriebssport.",
+    "Ab 1. Januar 2027 wird der Landessportpass Ost als Sportmodul des Teilhabepasses geführt. Der kostenfreie Zugang von Kindern und Jugendlichen zu landesgeförderten öffentlichen Sportstätten ist dann unabhängig von einer Vereinsmitgliedschaft."
   ],
   "umgesetzt": [
     "Die Aufgaben der Sportförderung werden durch das Staatssekretariat für Volksbildung und Wissenschaft wahrgenommen."
@@ -64,6 +66,16 @@
       "label": "Betriebssportgemeinschaftengesetz",
       "normSlug": "betriebssportgemeinschaftengesetz",
       "note": "Landesbehörden, landesunmittelbare juristische Personen des öffentlichen Rechts und landeseigene Unternehmen mit regelmäßig mindestens 50 Beschäftigten richten Betriebssportangebote ein oder beteiligen sich an überbetrieblichen Angeboten; für Präventionssport kann eine Arbeitszeitgutschrift von bis zu einer Stunde wöchentlich gewährt werden; der Freistaat fördert Betriebssportspiele. In Kraft seit 21. Juli 2026."
+    },
+    {
+      "label": "Ostdeutsches Teilhabegesetz",
+      "normSlug": "ostdeutsches-teilhabegesetz",
+      "note": "Gestaffeltes Inkrafttreten am 15. Oktober 2026 und 1. Januar 2027."
+    },
+    {
+      "label": "Gesetz über kostenfreie Kindheit und soziale Teilhabe",
+      "normSlug": "kostenfreie-kindheit-und-soziale-teilhabe",
+      "note": "Gestaffeltes Inkrafttreten am 15. Oktober 2026 und 1. Januar 2027."
     }
   ],
   "faq": [

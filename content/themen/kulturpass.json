@@ -6,17 +6,19 @@
   "cluster": "bildung-gesellschaft",
   "priority": 66,
   "featured": false,
-  "updatedAt": "2026-09-08",
+  "updatedAt": "2026-10-14",
   "relatedTopicSlugs": [
     "kultur-erinnerung-und-medien"
   ],
   "knowledgeProjectRefs": [
-    "project-kulturpass"
+    "project-kulturpass",
+    "project-kostenfreie-kindheit-teilhabe"
   ],
   "hero": "Der Kulturpass wird als Instrument kultureller Teilhabe fortgeführt und in die neue Zuständigkeit für Kultur, Erinnerung und Medien eingebunden.",
   "beschlossen": [
     "Ein landesrechtlicher Anspruch auf den Kulturpass für junge Erwachsene wurde eingeführt.",
-    "Kulturelle Teilhabe wurde als staatliches Förderziel ausdrücklich verankert."
+    "Kulturelle Teilhabe wurde als staatliches Förderziel ausdrücklich verankert.",
+    "Ab 1. Januar 2027 wird der Kulturpass von Amts wegen als Kulturmodul des Teilhabepasses bereitgestellt; auf Verlangen gibt es einen eigenständigen Nachweis. Bis dahin gelten die bisherigen Regeln."
   ],
   "umgesetzt": [
     "Das Ostdeutsche Kulturpassgesetz ist als aktuelle Fassung im Rechtsportal verfügbar.",
@@ -31,6 +33,16 @@
     {
       "label": "Ostdeutsches Kulturpassgesetz",
       "normSlug": "ostdeutsches-kulturpassgesetz"
+    },
+    {
+      "label": "Ostdeutsches Teilhabegesetz",
+      "normSlug": "ostdeutsches-teilhabegesetz",
+      "note": "Gestaffeltes Inkrafttreten am 15. Oktober 2026 und 1. Januar 2027."
+    },
+    {
+      "label": "Gesetz über kostenfreie Kindheit und soziale Teilhabe",
+      "normSlug": "kostenfreie-kindheit-und-soziale-teilhabe",
+      "note": "Gestaffeltes Inkrafttreten am 15. Oktober 2026 und 1. Januar 2027."
     }
   ],
   "faq": [

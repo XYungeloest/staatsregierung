@@ -888,7 +888,7 @@ siteTest(['law'])('Normtext bietet stabile Anker, Fassungszeitleiste und zugäng
 });
 
 siteTest(['law'])('Fassungsvergleich zeigt jeden geänderten Paragraphen einmal mit markiertem Wortlaut und ohne Kontextblöcke', async ({ page, request }) => {
-  const norm = await multiVersionNorm(request);
+  const norm = await multiVersionNorm(request, { oldestHistorical: true });
   await page.goto(lawUrl(`/norm/${norm.slug}/vergleich/?von=${norm.historical.versionId}&bis=${norm.current.versionId}`));
   await expect(page.locator('[data-compare-output]')).toHaveAttribute('data-compare-pair', `${norm.historical.versionId}::${norm.current.versionId}`);
   const changedProvisions = page.locator('.norm-diff__provision--changed');
@@ -1167,9 +1167,21 @@ siteTest(['law'])('Rechtsänderung und Aktivität bleiben getrennt: ein Hinweis 
   for (const [slug, change] of compared) {
     expect((lastmodBySlug.get(slug) ?? '') >= change, `${slug}: lastmod ${lastmodBySlug.get(slug)} < Rechtsänderung ${change}`).toBeTruthy();
   }
-  // Mindestens eine Vorschrift trägt einen reinen Hinweis: dort ist lastmod jünger als die
-  // Rechtsänderung. Fielen beide Begriffe wieder zusammen, gäbe es diesen Fall nicht mehr.
-  expect(compared.some(([slug, change]) => (lastmodBySlug.get(slug) ?? '') > change)).toBeTruthy();
+  // Der Vollbestand kann die Hinweisnorm hinter die erste Trefferseite schieben.
+  // Weitere Seiten lesen, bis der belegte Unterschied gefunden ist; keine Norm fest verdrahten.
+  let hasNotice = compared.some(([slug, change]) => (lastmodBySlug.get(slug) ?? '') > change);
+  for (let offset = payload.hits.length; !hasNotice && offset < payload.total;) {
+    const next = await searchApi(request, `?includeAmendments=1&versionScope=current&offset=${offset}`);
+    if (!next.hits.length) break;
+    for (const entry of next.hits.filter((hit) => hit.isCurrent)) {
+      if (!entry.lastChangeDate || !lastmodBySlug.has(entry.slug)) continue;
+      const lastmod = lastmodBySlug.get(entry.slug)!;
+      expect(lastmod >= entry.lastChangeDate, `${entry.slug}: lastmod vor Rechtsänderung`).toBeTruthy();
+      if (lastmod > entry.lastChangeDate) hasNotice = true;
+    }
+    offset += next.hits.length;
+  }
+  expect(hasNotice).toBeTruthy();
 
   // Die Sortierung folgt der Rechtsänderung, nicht dem Hinweis.
   await page.goto(lawUrl('/suche/'));
@@ -2098,7 +2110,7 @@ siteTest(['law'])('Qualitätspass Richtung E: die Inhaltsübersicht gliedert lan
   expect(await groups.count()).toBeGreaterThan(0);
   // Die erste Gruppe steht offen, die Summary nennt Bezeichnung und Normspanne.
   await expect(groups.first()).toHaveAttribute('open', /.*/u);
-  await expect(groups.first().locator('summary')).toContainText(/§§?|Art\./u);
+  await expect(groups.first().locator(':scope > summary')).toContainText(/§§?|Art\./u);
   const closed = page.locator('.norm-outline--desktop [data-outline-group]:not([open])');
   if (await closed.count() > 0) {
     // Eine geschlossene Gruppe öffnet sich, sobald ihr Eintrag gelesen wird.

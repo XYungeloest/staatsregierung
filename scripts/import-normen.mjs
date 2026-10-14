@@ -143,6 +143,298 @@ const ISSUE_SUBJECTS = {
 
 const SCHOOL_LAW_SUBJECTS = ['Bildungswesen'];
 const NEW_PUBLICATION_CONFIG = {
+  'OGVBl.|2026|80': [
+  {
+    "pageCount": 42,
+    "pdfFileName": "OGVBl. 2026 Nr. 80.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+    "shortTitle": "Einführungsgesetz Wirtschaftsplanung und Gemeinwirtschaft",
+    "type": "aenderungsvorschrift",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Gewerbe- und Berufsrecht",
+      "Haushaltwesen, Rechnungshof"
+    ],
+    "summary": "Führt die demokratische Gesellschafts- und Wirtschaftsplanung ein, regelt deren erstmaligen Aufbau und stärkt die Beschäftigtenbeteiligung in öffentlichen Unternehmen.",
+    "affectedNorms": [
+      "ostdeutsches-daseinsvorsorgegesetz",
+      "saechsische-haushaltsordnung",
+      "ostdeutsches-eisenbahngesetz",
+      "interflug-gesetz",
+      "gemeingut-wohnen-gesetz",
+      "boden-und-naturvermoegensgesetz",
+      "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
+      "sero-verordnung"
+    ]
+  },
+  {
+    "pageCount": 42,
+    "pdfFileName": "OGVBl. 2026 Nr. 80.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+    "shortTitle": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
+    "abbr": "WPGG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Gewerbe- und Berufsrecht",
+      "Haushaltwesen, Rechnungshof",
+      "Raumordnung, Landesplanung"
+    ],
+    "summary": "Regelt Perspektivplan, fünfjährigen Gesellschafts- und Wirtschaftsplan, Beteiligung und Berichterstattung sowie Staatsplankommission, Staatswirtschaftsrat und die Führung öffentlicher Unternehmen."
+  }
+],
+  'OGVBl.|2026|81': [
+  {
+    "pageCount": 13,
+    "pdfFileName": "OGVBl. 2026 Nr. 81.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "errichtung-handelsorganisation-ost",
+    "shortTitle": "Errichtungsgesetz Handelsorganisation Ost",
+    "type": "aenderungsvorschrift",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Gewerbe- und Berufsrecht"
+    ],
+    "summary": "Führt das Handelsorganisationsgesetz ein, ordnet den Gründungsvollzug an und ergänzt den Schutz des Gemeinvermögens um die Handelsorganisation Ost.",
+    "affectedNorms": [
+      "gemeinvermoegensschutzgesetz"
+    ]
+  },
+  {
+    "pageCount": 13,
+    "pdfFileName": "OGVBl. 2026 Nr. 81.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "handelsorganisationsgesetz",
+    "shortTitle": "Handelsorganisationsgesetz",
+    "abbr": "HOG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Gewerbe- und Berufsrecht"
+    ],
+    "summary": "Regelt die landeseigene Handelsorganisation Ost GmbH, ihr Grundversorgungssortiment, besondere Versorgungsaufträge, Unternehmensführung und Vermögensbindung."
+  }
+],
+  'OGVBl.|2026|82': [
+  {
+    "pageCount": 40,
+    "pdfFileName": "OGVBl. 2026 Nr. 82.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+    "shortTitle": "Rohstoffwirtschafts-Neuordnungsgesetz",
+    "type": "aenderungsvorschrift",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Bergbau, Energiewirtschaft, Wasserwirtschaft",
+      "Haushaltwesen, Rechnungshof"
+    ],
+    "summary": "Führt sechs Gesetze zu Rohstoffwerken, Kupfer- und Kalivergesellschaftung, Generationenfonds, Versorgungsfonds und Altersdividende ein und passt bestehende Wirtschafts- und Haushaltsvorschriften an.",
+    "affectedNorms": [
+      "vergesellschaftungsrahmengesetz",
+      "ostdeutsches-landesbankgesetz",
+      "saechsische-haushaltsordnung",
+      "zinnwald-vergesellschaftungsgesetz"
+    ]
+  },
+  {
+    "pageCount": 40,
+    "pdfFileName": "OGVBl. 2026 Nr. 82.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "ostdeutsches-rohstoffwerkegesetz",
+    "shortTitle": "Ostdeutsches Rohstoffwerkegesetz",
+    "abbr": "ORWG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Bergbau, Energiewirtschaft, Wasserwirtschaft"
+    ],
+    "summary": "Errichtet die Ostdeutschen Rohstoffwerke als Anstalt des öffentlichen Rechts in Freiberg und regelt Organisation, Beteiligungen, Rohstoffprojekte, Bergbaufolgenvorsorge und Überschussverwendung."
+  },
+  {
+    "pageCount": 40,
+    "pdfFileName": "OGVBl. 2026 Nr. 82.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "lausitzer-kupfervergesellschaftungsgesetz",
+    "shortTitle": "Lausitzer Kupfervergesellschaftungsgesetz",
+    "abbr": "LKVG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Bergbau, Energiewirtschaft, Wasserwirtschaft"
+    ],
+    "summary": "Überführt die Geschäftsanteile des Lausitzer Kupfer-Projektunternehmens und nach bergbehördlicher Zustimmung die bezeichneten Bergbauberechtigungen in Gemeineigentum und regelt Entschädigung und Vermögensbindung."
+  },
+  {
+    "pageCount": 40,
+    "pdfFileName": "OGVBl. 2026 Nr. 82.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "ohmgebirge-vergesellschaftungsgesetz",
+    "shortTitle": "Ohmgebirge-Vergesellschaftungsgesetz",
+    "abbr": "OhmVG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat für Wirtschaft, Arbeit und Wohnungswirtschaft",
+    "subjects": [
+      "Bergbau, Energiewirtschaft, Wasserwirtschaft"
+    ],
+    "summary": "Überträgt sämtliche Geschäftsanteile des Kali-Projektunternehmens Ohmgebirge auf die Ostdeutschen Rohstoffwerke und regelt Fortbestand, Entschädigung und gemeinwirtschaftliche Bindung."
+  },
+  {
+    "pageCount": 40,
+    "pdfFileName": "OGVBl. 2026 Nr. 82.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "generationenfondsgesetz-ost",
+    "shortTitle": "Generationenfondsgesetz Ost",
+    "abbr": "GenFOG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat der Finanzen",
+    "subjects": [
+      "Haushaltwesen, Rechnungshof"
+    ],
+    "summary": "Errichtet den Zukunfts- und Generationenfonds Ost, regelt Zuführungen und unabhängige Vermögensanlage sowie Anlageverbote, Aufbauphase bis 2035 und nachhaltige Entnahmen ab 2036."
+  },
+  {
+    "pageCount": 40,
+    "pdfFileName": "OGVBl. 2026 Nr. 82.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "versorgungsfondsgesetz-ost",
+    "shortTitle": "Versorgungsfondsgesetz Ost",
+    "abbr": "VersFOG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat der Finanzen",
+    "subjects": [
+      "Haushaltwesen, Rechnungshof",
+      "Recht der im öffentlichen Dienst stehenden Personen"
+    ],
+    "summary": "Errichtet den Versorgungsfonds Ost zur kapitalgedeckten Vorsorge für Versorgungs- und Beihilfeaufwendungen, mit getrenntem Vermögen, versicherungsmathematischer Bewertung und Entnahmen ab 2036."
+  },
+  {
+    "pageCount": 40,
+    "pdfFileName": "OGVBl. 2026 Nr. 82.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "altersdividendengesetz-ost",
+    "shortTitle": "Altersdividendengesetz Ost",
+    "abbr": "AltDivG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat der Finanzen",
+    "subjects": [
+      "Allgemeines zum Sozialwesen"
+    ],
+    "summary": "Regelt die jährliche Altersdividende aus Erträgen des Generationenfonds ab 2036, Anspruchsvoraussetzungen, gleichmäßige Verteilung und Feststellung von Amts wegen."
+  }
+],
+  'OGVBl.|2026|83': [
+  {
+    "pageCount": 20,
+    "pdfFileName": "OGVBl. 2026 Nr. 83.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "kostenfreie-kindheit-und-soziale-teilhabe",
+    "shortTitle": "Gesetz über kostenfreie Kindheit und soziale Teilhabe",
+    "type": "aenderungsvorschrift",
+    "responsibleMinistry": "Staatssekretariat für Gesundheits- und Sozialwesen",
+    "subjects": [
+      "Allgemeines zum Sozialwesen",
+      "Bildungswesen"
+    ],
+    "summary": "Führt Teilhabepass und Sozialpass ein und regelt kostenfreie Kindertagesbetreuung, Verpflegung, Schulveranstaltungen und Hygieneartikel sowie die Verzahnung von Kultur- und Sportpass.",
+    "affectedNorms": [
+      "kindertagesbetreuungsgesetz",
+      "ostdeutsches-schulgesetz",
+      "ostdeutsches-hochschulgesetz",
+      "ostdeutsches-sportfoerdergesetz",
+      "ostdeutsches-kulturpassgesetz"
+    ],
+    "dateNote": "Nach Artikel 8 treten die dort einzeln bezeichneten Vorbereitungs-, Datenschutz- und Ermächtigungsregelungen am 15. Oktober 2026 in Kraft; im Übrigen gilt das Gesetz ab 1. Januar 2027."
+  },
+  {
+    "pageCount": 20,
+    "pdfFileName": "OGVBl. 2026 Nr. 83.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "ostdeutsches-teilhabegesetz",
+    "shortTitle": "Ostdeutsches Teilhabegesetz",
+    "abbr": "OstTeilhG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat für Gesundheits- und Sozialwesen",
+    "subjects": [
+      "Allgemeines zum Sozialwesen"
+    ],
+    "summary": "Regelt Teilhabepass und Sozialpass Ost, kostenfreien Zugang zu Kultureinrichtungen, Familienservicestellen und Jugendorte sowie Datenschutz, Finanzierung und Durchführung.",
+    "dateNote": "§§ 3, 4, 9 und 10 treten am 15. Oktober 2026 in Kraft; die übrigen Vorschriften am 1. Januar 2027. Familienservicestellen sind spätestens ab 1. Juli 2027, Jugendorte spätestens ab 1. Januar 2028 bereitzustellen.",
+    "initialProvisionLabels": [
+      "§ 3",
+      "§ 4",
+      "§ 9",
+      "§ 10"
+    ],
+    "fullEffectiveDate": "2027-01-01"
+  }
+],
+  'OGVBl.|2026|84': [
+  {
+    "pageCount": 7,
+    "pdfFileName": "OGVBl. 2026 Nr. 84.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "neuordnung-rechnungshofwesen",
+    "shortTitle": "Rechnungshofneuordnungsgesetz",
+    "type": "aenderungsvorschrift",
+    "responsibleMinistry": "Staatssekretariat der Finanzen",
+    "subjects": [
+      "Haushaltwesen, Rechnungshof"
+    ],
+    "summary": "Führt ein neues Rechnungshofgesetz ein, ordnet die Haushaltsprüfung neu, hebt bisheriges Rechnungshofrecht auf und regelt den Übergang des Personals.",
+    "affectedNorms": [
+      "saechsische-haushaltsordnung",
+      "gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland",
+      "vo-staatliche-rechnungspruefungsaemter"
+    ]
+  },
+  {
+    "pageCount": 7,
+    "pdfFileName": "OGVBl. 2026 Nr. 84.pdf",
+    "verifiedAt": "2026-10-14",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "effectiveOverride": "2026-10-15",
+    "slug": "rechnungshofgesetz-2026",
+    "shortTitle": "Rechnungshofgesetz",
+    "abbr": "RHG",
+    "type": "gesetz",
+    "responsibleMinistry": "Staatssekretariat der Finanzen",
+    "subjects": [
+      "Haushaltwesen, Rechnungshof"
+    ],
+    "summary": "Regelt den unabhängigen Rechnungshof mit einer zwölfjährigen, nicht wiederholbaren Amtszeit seiner Leitung, Wahl und Abberufung durch die Volkskammer sowie Prüfungsentscheidungen in eigener Verantwortung.",
+    "predecessor": "Rechnungshofgesetz vom 11. Dezember 1991"
+  }
+],
   'OGVBl.|2026|68': [{
     slug: 'berichtigung-verschiedener-verkuendungen-2026',
     shortTitle: 'Berichtigung verschiedener Verkündungen',
@@ -1484,7 +1776,35 @@ function buildRecords(parsed) {
         ...(index > 0 ? { relatedNorm: outerSlug } : {}),
       }],
     };
-    return { meta, history, versions: [version], source: parsed.fileName, issue: parsed.issue, startPage };
+    const versions = [version];
+    if (config.initialProvisionLabels || config.fullEffectiveDate) {
+      if (!Array.isArray(config.initialProvisionLabels) || !config.initialProvisionLabels.length ||
+          !config.fullEffectiveDate || config.fullEffectiveDate <= validFrom) {
+        throw new Error(`${slug}: unvollständige Konfiguration des gestaffelten Inkrafttretens`);
+      }
+      const labels = new Set(config.initialProvisionLabels);
+      const found = new Set();
+      const select = (blocks) => blocks.flatMap((block) => {
+        if (block.type === 'paragraph') {
+          if (!labels.has(block.label)) return [];
+          found.add(block.label);
+          return [block];
+        }
+        const children = select(block.children ?? []);
+        return children.length ? [{ ...block, children }] : [];
+      });
+      const initialBody = select(version.body);
+      if (found.size !== labels.size) throw new Error(`${slug}: frühe Inkrafttretensregelung nennt unbekannte Paragraphen`);
+      const end = new Date(`${config.fullEffectiveDate}T00:00:00Z`);
+      end.setUTCDate(end.getUTCDate() - 1);
+      versions[0] = { ...version, body: initialBody, validTo: end.toISOString().slice(0, 10), isCurrent: false,
+        changeNote: 'Erste Teilfassung nach der Inkrafttretensregelung des Einführungsgesetzes.' };
+      versions.push({ ...version, versionId: config.fullEffectiveDate, validFrom: config.fullEffectiveDate,
+        changeNote: 'Vollständiges Inkrafttreten nach der Inkrafttretensregelung des Einführungsgesetzes.' });
+      history.entries.push({ date: config.fullEffectiveDate, type: 'amendment', title: 'Übrige Vorschriften treten in Kraft.',
+        citation, affectingVersionId: config.fullEffectiveDate, relatedNorm: outerSlug });
+    }
+    return { meta, history, versions, source: parsed.fileName, issue: parsed.issue, startPage };
   });
 }
 

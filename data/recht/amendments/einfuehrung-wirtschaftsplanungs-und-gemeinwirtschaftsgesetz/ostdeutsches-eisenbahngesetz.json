@@ -1,0 +1,51 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 47), geändert durch Artikel 5 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 5 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 5"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 5",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 7"
+      },
+      "expectedHash": "6e971eedba81a6b4fe32dafefa6b09fcf4320d65af2f79e3bb07220c0e027c24",
+      "expectedMatches": 1,
+      "value": "Der Verwaltungsrat besteht aus sechsunddreißig Mitgliedern. Ihm gehören an:",
+      "sourceProvision": "Artikel 5 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Der Verwaltungsrat besteht aus zweiunddreißig Mitgliedern. Ihm gehören an:"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "3.",
+        "text": "acht Vertreter:innen der Beschäftigten der Ostdeutschen Eisenbahn;",
+        "parentLabel": "§ 7"
+      },
+      "expectedHash": "3ba5bc96f47bda80828908163553437ad06c4b22f37e3113c8de3f5244bf7d0c",
+      "expectedMatches": 1,
+      "value": "zwölf Vertreter der Beschäftigten der Ostdeutschen Eisenbahn;",
+      "sourceProvision": "Artikel 5 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

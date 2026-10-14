@@ -133,13 +133,16 @@ export async function currentDocuments(request: APIRequestContext, query = ''): 
 }
 
 /** Norm mit mindestens zwei gespeicherten Fassungen, darunter eine geltende und eine historische. */
-export async function multiVersionNorm(request: APIRequestContext): Promise<{ slug: string; current: ApiDocument; historical: ApiDocument }> {
+export async function multiVersionNorm(request: APIRequestContext, { oldestHistorical = false }: { oldestHistorical?: boolean } = {}): Promise<{ slug: string; current: ApiDocument; historical: ApiDocument }> {
   const payload = await searchApi(request, '?versionScope=all&includeAmendments=1');
   for (const hit of payload.hits) {
     // Die weiteren passenden Fassungen einer Vorschrift stehen am Treffer selbst.
     const versions = [{ versionId: hit.versionId, versionKind: hit.versionKind, validFrom: hit.validFrom, url: hit.url }, ...hit.otherVersions];
     const current = versions.find((version) => version.versionKind === 'current');
-    const historical = versions.find((version) => version.versionKind === 'historical');
+    const historicalVersions = versions.filter((version) => version.versionKind === 'historical');
+    const historical = oldestHistorical
+      ? historicalVersions.sort((a, b) => a.validFrom.localeCompare(b.validFrom))[0]
+      : historicalVersions[0];
     if (!current || !historical) continue;
     return {
       slug: hit.slug,

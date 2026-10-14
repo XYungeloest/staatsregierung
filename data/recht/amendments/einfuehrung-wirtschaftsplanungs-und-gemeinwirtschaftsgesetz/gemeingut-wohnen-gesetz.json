@@ -1,0 +1,66 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16), geändert durch Artikel 7 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 7 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 7"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 7",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 8"
+      },
+      "expectedHash": "6fa12b33faf99f053dc90a15b36e256808687011032d3df35aaf913f77cc3a89",
+      "expectedMatches": 1,
+      "value": "Der Verwaltungsrat besteht aus 18 Mitgliedern:",
+      "sourceProvision": "Artikel 7 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Der Verwaltungsrat besteht aus 15 Mitgliedern:"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "text": "vier von der Gesamtheit der Beschäftigten der Anstalt gewählten Mitgliedern,",
+        "parentLabel": "§ 8"
+      },
+      "expectedHash": "32702e238cd02ae406ec86436308f9e939e3707621dfe91f0236b9e955d697eb",
+      "expectedMatches": 1,
+      "value": "sechs von der Gesamtheit der Beschäftigten der Anstalt gewählten Mitgliedern,",
+      "sourceProvision": "Artikel 7 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "3.",
+        "text": "vier von den im Freistaat Ostdeutschland wohnenden Wahlberechtigten direkt gewählten Mitgliedern (Vertretung der Landesgesellschaft),",
+        "parentLabel": "§ 8"
+      },
+      "expectedHash": "29f6f65d6fab6c6ce2e3b247cc7e4ee9d8fec63e59aafe17333f22a04f97aaa8",
+      "expectedMatches": 1,
+      "value": "fünf von den im Freistaat Ostdeutschland wohnenden Wahlberechtigten direkt gewählten Mitgliedern (Vertretung der Landesgesellschaft).",
+      "sourceProvision": "Artikel 7 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

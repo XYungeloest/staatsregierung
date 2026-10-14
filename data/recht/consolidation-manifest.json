@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-09-13T11:49:30.560Z",
+  "generatedAt": "2026-10-14T08:20:14.214Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 70,
-    "recognizedTargetNorms": 95,
-    "completeTargetNorms": 93,
+    "recognizedAmendmentActs": 75,
+    "recognizedTargetNorms": 109,
+    "completeTargetNorms": 107,
     "blockedSourceConflicts": 2,
     "missingPrimarySources": 0
   },
   "templateProblems": [],
   "ambiguousFindings": [
     {
-      "amendmentAct": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
-      "candidate": "Gemeingut-Wohnen-Gesetzes",
-      "evidence": "Gliederungsüberschrift"
-    },
-    {
-      "amendmentAct": "besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege",
-      "candidate": "Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetzes",
-      "evidence": "Gliederungsüberschrift"
-    },
-    {
       "amendmentAct": "boden-und-naturvermoegensgesetz",
       "candidate": "Nutzung",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "candidate": "Ostdeutschen Daseinsvorsorgegesetzes",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "candidate": "Gesetzes zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
       "evidence": "Gliederungsüberschrift"
     },
     {
@@ -42,11 +42,6 @@
     },
     {
       "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
-      "candidate": "Gemeingut-Wohnen-Gesetzes",
-      "evidence": "Gliederungsüberschrift"
-    },
-    {
-      "amendmentAct": "fuenftes-gesetz-zur-grossen-staatsreform",
       "candidate": "Ostdeutschen Landesantidiskriminierungsgesetzes",
       "evidence": "Gliederungsüberschrift"
     },
@@ -58,11 +53,6 @@
     {
       "amendmentAct": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
       "candidate": "Nutzung",
-      "evidence": "Gliederungsüberschrift"
-    },
-    {
-      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
-      "candidate": "Gemeingut-Wohnen-Gesetzes",
       "evidence": "Gliederungsüberschrift"
     },
     {
@@ -87,17 +77,17 @@
     },
     {
       "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
-      "candidate": "Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetzes",
-      "evidence": "Gliederungsüberschrift"
-    },
-    {
-      "amendmentAct": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
       "candidate": "Interflug-Gesetzes",
       "evidence": "Gliederungsüberschrift"
     },
     {
       "amendmentAct": "organisationserlass-aenderung-fachbereichszuteilung-2024",
       "candidate": "Fachbereichszuteilungen",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "rohstoffwirtschafts-neuordnungsgesetz",
+      "candidate": "Ostdeutschen Landesbankgesetzes",
       "evidence": "Gliederungsüberschrift"
     },
     {
@@ -195,7 +185,8 @@
       "canonicalSlug": "boden-und-naturvermoegensgesetz",
       "title": "Besonderes Gesetz über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
       "aliases": [
-        "Besonderes Gesetz über Boden, den Landesbodenfonds und das öffentliche Naturvermögen"
+        "Besonderes Gesetz über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+        "Boden- und Naturvermögensgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -215,9 +206,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-10-15"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -226,7 +228,8 @@
       "canonicalSlug": "gemeinvermoegensschutzgesetz",
       "title": "Besonderes Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums",
       "aliases": [
-        "Besonderes Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums"
+        "Besonderes Gesetz über den Schutz des gemeinwirtschaftlichen Vermögens und des Volkseigentums",
+        "Gemeinvermögensschutzgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -242,6 +245,48 @@
           "slug": "gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes",
           "title": "Gesetz zur Einführung eines Gemeinvermögensschutzgesetzes",
           "effectiveDate": "2026-09-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [
+        {
+          "slug": "errichtung-handelsorganisation-ost",
+          "title": "Gesetz zur Errichtung der Handelsorganisation Ost und zur Änderung des Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-10-15"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "title": "Besonderes Gesetz über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+      "aliases": [
+        "Besonderes Gesetz über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false
         }
@@ -317,11 +362,20 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-09-12"
+        "2026-09-12",
+        "2026-10-15"
       ],
       "status": "complete",
       "problems": [],
@@ -414,11 +468,20 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-09-12"
+        "2026-09-12",
+        "2026-10-15"
       ],
       "status": "complete",
       "problems": [],
@@ -459,7 +522,9 @@
       "canonicalSlug": "ostdeutsches-kulturpassgesetz",
       "title": "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland",
       "aliases": [
-        "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland"
+        "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland",
+        "Ostdeutsche Kulturpassgesetz",
+        "Ostdeutsches Kulturpassgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -479,9 +544,20 @@
           "typeCorrectionNeeded": true
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kostenfreie-kindheit-und-soziale-teilhabe",
+          "title": "Gesetz zur Gewährleistung kostenfreier Kindheit und sozialer Teilhabe",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2027-01-01"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -598,6 +674,165 @@
           "slug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
           "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungsund Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "rechnungshofgesetz-2026",
+      "title": "Gesetz über den Rechnungshof des Freistaates Ostdeutschland",
+      "aliases": [
+        "Gesetz über den Rechnungshof des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "rechnungshofgesetz-2026",
+      "enactingActs": [
+        {
+          "slug": "neuordnung-rechnungshofwesen",
+          "title": "Gesetz zur Neuordnung des Rechnungshofwesens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland",
+      "title": "Gesetz über den Rechnungshof des Freistaates Sachsen",
+      "aliases": [
+        "Gesetz über den Rechnungshof des Freistaates Ostdeutschland",
+        "Rechnungshofgesetz"
+      ],
+      "revosaxLawId": "3530",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3530.5",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": null,
+      "sourceSha256": "4a79f25a7a3bc5e8d5e46b6a5e4c5769887ab3c41e517b77a9e477f468c731b8",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "neuordnung-rechnungshofwesen",
+          "title": "Gesetz zur Neuordnung des Rechnungshofwesens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-10-15"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-teilhabegesetz",
+      "title": "Gesetz über den Teilhabepass und Teilhabeleistungen im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über den Teilhabepass und Teilhabeleistungen im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-teilhabegesetz",
+      "enactingActs": [
+        {
+          "slug": "kostenfreie-kindheit-und-soziale-teilhabe",
+          "title": "Gesetz zur Gewährleistung kostenfreier Kindheit und sozialer Teilhabe",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "versorgungsfondsgesetz-ost",
+      "title": "Gesetz über den Versorgungsfonds Ost",
+      "aliases": [
+        "Gesetz über den Versorgungsfonds Ost"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "versorgungsfondsgesetz-ost",
+      "enactingActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "generationenfondsgesetz-ost",
+      "title": "Gesetz über den Zukunfts- und Generationenfonds Ost",
+      "aliases": [
+        "Gesetz über den Zukunfts- und Generationenfonds Ost"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "generationenfondsgesetz-ost",
+      "enactingActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false
         }
@@ -734,6 +969,37 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "handelsorganisationsgesetz",
+      "title": "Gesetz über die Handelsorganisation Ost",
+      "aliases": [
+        "Gesetz über die Handelsorganisation Ost"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "handelsorganisationsgesetz",
+      "enactingActs": [
+        {
+          "slug": "errichtung-handelsorganisation-ost",
+          "title": "Gesetz zur Errichtung der Handelsorganisation Ost und zur Änderung des Gemeinvermögensschutzgesetzes",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-hoheitszeichengesetz",
       "title": "Gesetz über die Hoheitszeichen des Freistaates Ostdeutschland",
       "aliases": [
@@ -797,11 +1063,20 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-09-12"
+        "2026-09-12",
+        "2026-10-15"
       ],
       "status": "complete",
       "problems": [],
@@ -873,7 +1148,8 @@
       "canonicalSlug": "ostdeutsches-landesbankgesetz",
       "title": "Gesetz über die Landesbank an der Elbe",
       "aliases": [
-        "Gesetz über die Landesbank an der Elbe"
+        "Gesetz über die Landesbank an der Elbe",
+        "Ostdeutsches Landesbankgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -893,6 +1169,48 @@
           "typeCorrectionNeeded": false
         }
       ],
+      "amendmentActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-10-15"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "altersdividendengesetz-ost",
+      "title": "Gesetz über die Ostdeutsche Altersdividende",
+      "aliases": [
+        "Gesetz über die Ostdeutsche Altersdividende"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "altersdividendengesetz-ost",
+      "enactingActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
       "amendmentActs": [],
       "correctionActs": [],
       "effectiveDates": [],
@@ -905,6 +1223,7 @@
       "title": "Gesetz über die Ostdeutsche Eisenbahn",
       "aliases": [
         "Gesetz über die Ostdeutsche Eisenbahn",
+        "Ostdeutsche Eisenbahngesetz",
         "Ostdeutsches Eisenbahngesetz"
       ],
       "revosaxLawId": null,
@@ -933,12 +1252,52 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-09-12"
+        "2026-09-12",
+        "2026-10-15"
       ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-rohstoffwerkegesetz",
+      "title": "Gesetz über die Ostdeutschen Rohstoffwerke",
+      "aliases": [
+        "Gesetz über die Ostdeutschen Rohstoffwerke"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-rohstoffwerkegesetz",
+      "enactingActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -947,7 +1306,9 @@
       "canonicalSlug": "ostdeutsches-sportfoerdergesetz",
       "title": "Gesetz über die Sportförderung im Freistaat Ostdeutschland",
       "aliases": [
-        "Gesetz über die Sportförderung im Freistaat Ostdeutschland"
+        "Gesetz über die Sportförderung im Freistaat Ostdeutschland",
+        "Ostdeutsche Sportfördergesetz",
+        "Ostdeutsches Sportfördergesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -967,9 +1328,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kostenfreie-kindheit-und-soziale-teilhabe",
+          "title": "Gesetz zur Gewährleistung kostenfreier Kindheit und sozialer Teilhabe",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2027-01-01"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1124,12 +1496,26 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-07-21"
+        },
+        {
+          "slug": "kostenfreie-kindheit-und-soziale-teilhabe",
+          "title": "Gesetz zur Gewährleistung kostenfreier Kindheit und sozialer Teilhabe",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15",
+          "targetEffectiveDates": [
+            "2026-10-15",
+            "2027-01-01"
+          ]
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-01-27",
-        "2026-07-21"
+        "2026-07-21",
+        "2026-10-15",
+        "2027-01-01"
       ],
       "status": "complete",
       "problems": [],
@@ -1245,6 +1631,41 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
+      "title": "Gesetz zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen",
+      "aliases": [
+        "Einführungsgesetz Boden- und Naturvermögen",
+        "Gesetz zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-10-15"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "gemeingut-wohnen-gesetz",
       "title": "Gesetz zur Errichtung der Anstalt öffentlichen Rechts „Gemeingut Wohnen“",
       "aliases": [
@@ -1286,11 +1707,20 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-09-12"
+        "2026-09-12",
+        "2026-10-15"
       ],
       "status": "complete",
       "problems": [],
@@ -1532,10 +1962,73 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ohmgebirge-vergesellschaftungsgesetz",
+      "title": "Gesetz zur Vergesellschaftung des Kaliprojekts Ohmgebirge",
+      "aliases": [
+        "Gesetz zur Vergesellschaftung des Kaliprojekts Ohmgebirge"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ohmgebirge-vergesellschaftungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "lausitzer-kupfervergesellschaftungsgesetz",
+      "title": "Gesetz zur Vergesellschaftung des Lausitzer Kupferprojekts",
+      "aliases": [
+        "Gesetz zur Vergesellschaftung des Lausitzer Kupferprojekts"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "lausitzer-kupfervergesellschaftungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "zinnwald-vergesellschaftungsgesetz",
       "title": "Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald",
       "aliases": [
-        "Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald"
+        "Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald",
+        "Zinnwald-Vergesellschaftungsgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -1555,9 +2048,20 @@
           "typeCorrectionNeeded": false
         }
       ],
-      "amendmentActs": [],
+      "amendmentActs": [
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
       "correctionActs": [],
-      "effectiveDates": [],
+      "effectiveDates": [
+        "2026-10-15"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -2261,6 +2765,7 @@
         "Haushaltsordnung",
         "Haushaltsordnung des Ostdeutschen Freistaates",
         "Ostdeutsche Haushaltsordnung",
+        "Ostdeutschen Haushaltsordnung",
         "Sächsische Haushaltsordnung"
       ],
       "revosaxLawId": "4270",
@@ -2297,13 +2802,38 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-12"
+        },
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        },
+        {
+          "slug": "neuordnung-rechnungshofwesen",
+          "title": "Gesetz zur Neuordnung des Rechnungshofwesens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        },
+        {
+          "slug": "rohstoffwirtschafts-neuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der ostdeutschen Rohstoffwirtschaft und zur generationengerechten Sicherung des Rohstoffvermögens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-01-27",
         "2026-09-03",
-        "2026-09-12"
+        "2026-09-12",
+        "2026-10-15"
       ],
       "status": "complete",
       "problems": [],
@@ -2742,6 +3272,7 @@
         "Gesetz über die Hochschulen im Freistaat Ostdeutschland",
         "Gesetzes über die Hochschulen im Freistaat Ostdeutschland",
         "Hochschulgesetzes",
+        "Ostdeutsche Hochschulgesetz",
         "Sächsische Hochschulgesetz",
         "Sächsisches Hochschulgesetz"
       ],
@@ -2779,13 +3310,22 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-07-21"
+        },
+        {
+          "slug": "kostenfreie-kindheit-und-soziale-teilhabe",
+          "title": "Gesetz zur Gewährleistung kostenfreier Kindheit und sozialer Teilhabe",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-01-27",
         "2026-07-20",
-        "2026-07-21"
+        "2026-07-21",
+        "2027-01-01"
       ],
       "status": "complete",
       "problems": [],
@@ -3124,12 +3664,26 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
+        },
+        {
+          "slug": "kostenfreie-kindheit-und-soziale-teilhabe",
+          "title": "Gesetz zur Gewährleistung kostenfreier Kindheit und sozialer Teilhabe",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15",
+          "targetEffectiveDates": [
+            "2026-10-15",
+            "2027-01-01"
+          ]
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-07-21",
-        "2026-08-01"
+        "2026-08-01",
+        "2026-10-15",
+        "2027-01-01"
       ],
       "status": "complete",
       "problems": [],
@@ -3670,6 +4224,77 @@
         "2026-03-24",
         "2026-07-21",
         "2026-09-12"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "vo-staatliche-rechnungspruefungsaemter",
+      "title": "Verordnung der Sächsischen Staatsregierung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter",
+      "aliases": [
+        "Verordnung der Ostdeutschen Staatsregierung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter",
+        "Verordnung der Sächsischen Staatsregierung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter",
+        "Verordnung über den Sitz und die Bezeichnung der Staatlichen Rechnungsprüfungsämter"
+      ],
+      "revosaxLawId": "1437",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1437.2",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2005-01-01",
+      "sourceValidTo": null,
+      "sourceSha256": "c47ea121d93d05a759972d6ca542d1c3845bd4acd32ec105e3ffed9f01b4110a",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vo-staatliche-rechnungspruefungsaemter",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "neuordnung-rechnungshofwesen",
+          "title": "Gesetz zur Neuordnung des Rechnungshofwesens",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-10-15"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "sero-verordnung",
+      "title": "Verordnung des Staatsrates über die Sekundärrohstoff-Erfassung und die landeseigene Kreislaufwirtschaftsinfrastruktur im Freistaat Ostdeutschland",
+      "aliases": [
+        "SERO-Verordnung",
+        "Verordnung des Staatsrates über die Sekundärrohstoff-Erfassung und die landeseigene Kreislaufwirtschaftsinfrastruktur im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "sero-verordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "title": "Gesetz zur Einführung eines Besonderen Gesetzes über die Gesellschafts- und Wirtschaftsplanung und die öffentliche Gemeinwirtschaft des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-15"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-10-15"
       ],
       "status": "complete",
       "problems": [],

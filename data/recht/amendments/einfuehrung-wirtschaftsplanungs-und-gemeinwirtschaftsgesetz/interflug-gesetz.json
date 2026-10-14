@@ -1,0 +1,77 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 74), geändert durch Artikel 6 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 6 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 6"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 6",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 12"
+      },
+      "expectedHash": "9f20377b6e4476390b0cdf001c177a11ab2f7e860eade7c8da5ffb45415d441f",
+      "expectedMatches": 1,
+      "value": "Der Verwaltungsrat besteht aus neun Mitgliedern.",
+      "sourceProvision": "Artikel 6 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Der Verwaltungsrat besteht aus sieben Mitgliedern."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "7.",
+        "parentLabel": "(2)"
+      },
+      "expectedHash": "9cfdc1b20350cd31984f1908b020347ee5341d71793a599273a5d57c9706ffc3",
+      "expectedMatches": 1,
+      "value": "drei von den Beschäftigten gewählte Mitglieder.",
+      "sourceProvision": "Artikel 6 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 23"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Solange das Mitglied nach § 12 Absatz 2 Nummer 7 noch nicht gewählt werden kann, ist der Verwaltungsrat mit den bestellten Mitgliedern beschlussfähig. Die Wahl ist unverzüglich nach Aufnahme eines regulären Beschäftigtenbestandes durchzuführen.",
+        "parentLabel": "§ 23"
+      },
+      "expectedHash": "d5ae9fccf23810521cf58cc1aa28c8c491803605b66ab0517bca86fe23614824",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Solange die Mitglieder nach § 12 Absatz 2 Nummer 7 noch nicht gewählt werden können, ist der Verwaltungsrat mit den bestellten Mitgliedern beschlussfähig. Die Wahl ist unverzüglich nach Aufnahme eines regulären Beschäftigtenbestandes durchzuführen.",
+          "label": "(2)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 6 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 78 S. 2), geändert durch Artikel 9 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 9 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 9"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 9",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "Artikel 2"
+      },
+      "expectedHash": "b1cdbdeac76fcb0e15964100d31dc13358125efbbde97f659b1db93d00271c57",
+      "expectedMatches": 1,
+      "value": "Die Volkskammer wählt die Mitglieder nach § 9 Absatz 3 des Boden- und Naturvermögensgesetzes unverzüglich, spätestens innerhalb von drei Monaten nach Inkrafttreten des Wirtschaftsplanungs- und Gemeinwirtschaftsgesetzes. Besteht zu diesem Zeitpunkt noch keine Beschäftigtenvertretung, wird das Vorschlagsrecht nach § 9 Absatz 3 Nummer 1 durch eine vom Gründungsbeauftragten einzuberufende Versammlung der bereits beschäftigten Arbeitnehmer des Landesbodenfonds ausgeübt.",
+      "sourceProvision": "Artikel 9 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Die Volkskammer soll die Mitglieder nach § 9 Absatz 3 innerhalb von drei Monaten nach Inkrafttreten dieses Gesetzes wählen. Besteht zu diesem Zeitpunkt noch keine Beschäftigtenvertretung, wird das Vorschlagsrecht nach § 9 Absatz 3 Nummer 1 durch eine vom Gründungsbeauftragten einzuberufende Versammlung der bereits beschäftigten Arbeitnehmer des Landesbodenfonds ausgeübt."
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "Artikel 2"
+      },
+      "expectedHash": "a227da9803101e76869574c6807875464c6a0da82696a37a27cf3a2728c0c3e9",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "text": "Der Verwaltungsrat tritt spätestens einen Monat nach Bestellung von mindestens zwölf seiner Mitglieder zu seiner konstituierenden Sitzung zusammen.",
+        "label": "(3)",
+        "children": []
+      },
+      "sourceProvision": "Artikel 9 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Verordnung vom 20. Juli 2026 (OGVBl. 2026 Nr. 58 S. 2), geändert durch Artikel 10 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 10 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 10"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 10",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedMatches": 1,
+      "value": "Gesetzesvertretende Rechtsverordnung des Staatsrates über die Sekundärrohstoff-Erfassung und die landeseigene Kreislaufwirtschaftsinfrastruktur im Freistaat Ostdeutschland (SERO-Verordnung – SERO-VO)",
+      "sourceProvision": "Artikel 10 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Verordnung des Staatsrates über die Sekundärrohstoff-Erfassung und die landeseigene Kreislaufwirtschaftsinfrastruktur im Freistaat Ostdeutschland"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "8.",
+        "parentLabel": "§ 8"
+      },
+      "expectedHash": "e6eaf00a55b1f92f227506ea791eb2cc9d5800946cad6cda27b5fc0a6483fba6",
+      "expectedMatches": 1,
+      "value": "acht Vertreter der Beschäftigten des Kreislaufwirtschafts-Kombinats Ost,",
+      "sourceProvision": "Artikel 10 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

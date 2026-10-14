@@ -3,7 +3,7 @@
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 
-import { applyPatchRecipe, previousIsoDate } from './lib/consolidation-engine.mjs';
+import { applyPatchRecipe, previousIsoDate, repealStatusAt } from './lib/consolidation-engine.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
 import { adaptBodyBlocks, adaptSaxonText } from './lib/revosax-ost-adapter.mjs';
@@ -518,9 +518,7 @@ async function consolidate(slug, config) {
       : {}),
     type: meta.type,
     status: repealRecipe
-      ? previousIsoDate(repealRecipe.effectiveDate) <= editorialConfig.referenceDate
-        ? 'repealed'
-        : 'in-force'
+      ? repealStatusAt(repealRecipe.effectiveDate, editorialConfig.referenceDate)
       : meta.status,
     ...(repealRecipe ? { expiryDate: previousIsoDate(repealRecipe.effectiveDate) } : {}),
     affectedByNorms: [...new Set([...(meta.affectedByNorms ?? []), ...recipes.map((recipe) => recipe.amendmentAct)])],

@@ -1,0 +1,127 @@
+{
+  "amendmentAct": "rohstoffwirtschafts-neuordnungsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "resultCitation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 73), geändert durch Artikel 10 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "changeNote": "Änderungen nach Artikel 10 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 10"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 82, Artikel 10",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 82.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "§ 2"
+      },
+      "expectedHash": "8e85231714c262d09aa53a5c03afad267c7836508a14d25a2931a340aa1f7743",
+      "expectedMatches": 1,
+      "value": "Die Überführung erfolgt nach Artikel 15 des Grundgesetzes, Artikel 32 Absatz 2 der Verfassung des Freistaates Ostdeutschland und dem Vergesellschaftungsrahmengesetz. Die Ostdeutschen Rohstoffwerke sind Träger des Gemeineigentums.",
+      "sourceProvision": "Artikel 10 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Die Überführung erfolgt nach Artikel 15 des Grundgesetzes, Artikel 32 Absatz 2 der Verfassung des Freistaates Ostdeutschland und dem Vergesellschaftungsrahmengesetz. Der Freistaat Ostdeutschland ist Träger des Gemeineigentums."
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentLabel": "§ 2"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Abweichend von § 2 des Vergesellschaftungsrahmengesetzes ist die gemeinwirtschaftliche Gewinnung und Verarbeitung strategischer mineralischer Rohstoffe sowie die Sicherung einer langfristigen öffentlichen Verfügung über bedeutende heimische Naturschätze ein zulässiger Vergesellschaftungszweck.",
+        "parentLabel": "§ 2"
+      },
+      "expectedHash": "df276e8ecdb0124c252ee1756c09adda25bab1e5a5a15709bde37abb0ebe1a5a",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Die Überführung dient der gemeinwirtschaftlichen Gewinnung und Verarbeitung strategischer mineralischer Rohstoffe sowie der dauerhaften öffentlichen Verfügung über bedeutende heimische Naturschätze. Sie erfolgt zu einem Vergesellschaftungszweck nach § 2 Absatz 3 des Vergesellschaftungsrahmengesetzes.",
+          "label": "(4)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 10 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "df1fa07bf2a7db7140e2a003bfe7a9220af2032ca07a402dfa39dd31a9b94a39",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5",
+        "title": "Gemeinwirtschaftliche Zuordnung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Geschäftsanteile am Zinnwald-Projektunternehmen werden unmittelbar von den Ostdeutschen Rohstoffwerken gehalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Veräußerung oder Belastung der Geschäftsanteile sowie ihre Übertragung auf einen privaten Rechtsträger sind unzulässig.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Eine Übertragung auf einen anderen ausschließlich öffentlich getragenen öffentlich-rechtlichen Träger der Gemeinwirtschaft bedarf eines Gesetzes.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 10 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 7"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Vergesellschaftungsbehörde ist das Staatssekretariat für Wirtschaft und Arbeit. Es setzt die Entschädigung im Einvernehmen mit dem Staatssekretariat der Finanzen durch Bescheid fest.",
+        "parentLabel": "§ 7"
+      },
+      "expectedHash": "7d1a8c8249325e8ae957da9a1467665af1f6d0b6c84bc52e2e8dab4e16fd8959",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Vergesellschaftungsbehörde ist das für Wirtschaft zuständige Staatssekretariat. Es setzt die Entschädigung im Einvernehmen mit dem für Finanzen zuständigen Staatssekretariat durch Bescheid fest.",
+          "label": "(1)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 10 Nummer 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

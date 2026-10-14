@@ -1,0 +1,103 @@
+{
+  "amendmentAct": "einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "sameDayOrder": 1,
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "resultCitation": "Ostdeutsche Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), geändert durch Artikel 4 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 80 S. 2)",
+  "changeNote": "Änderungen nach Artikel 4 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 4"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 80, Artikel 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 80.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Bei Aufstellung und Ausführung des Haushaltsplans sind nur die Ausgaben und Ermächtigungen zum Eingehen von Verpflichtungen zur Leistung von Ausgaben in künftigen Jahren (Verpflichtungsermächtigungen) zu berücksichtigen, die zur Erfüllung der Aufgaben des Landes notwendig sind.",
+        "parentLabel": "§ 6"
+      },
+      "expectedHash": "493db0eb72c0830248bae5571b6d8009a1276b7af868e6825b215129c4420eb9",
+      "expectedMatches": 1,
+      "value": "Bei Aufstellung und Ausführung des Haushaltsplans sind nur die Ausgaben und Ermächtigungen zum Eingehen von Verpflichtungen zur Leistung von Ausgaben in künftigen Jahren (Verpflichtungsermächtigungen) zu berücksichtigen, die zur Erfüllung der Aufgaben des Landes notwendig sind. Der Haushaltsplan darf nicht so aufgestellt werden, dass die Erfüllung anderer Planungsentscheidungen unmöglich gemacht wird.",
+      "sourceProvision": "Artikel 4 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 14"
+      },
+      "expectedHash": "644214e93ace52c8cf692fbfb63aa26f269f99f67be8d7550a12a957c65a45c5",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 14a",
+        "title": "Planfinanzierungsübersicht",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Soweit ein Gesellschafts- und Wirtschaftsplan nach Artikel 13b der Ostdeutschen Staatsverfassung besteht, ist dem Entwurf des Haushaltsgesetzes eine Planfinanzierungsübersicht beizufügen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Planfinanzierungsübersicht stellt insbesondere dar,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "welche im Gesellschafts- und Wirtschaftsplan bestimmten Planaufträge im Haushaltsjahr finanziert werden,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "welche priorisierten Investitionen begonnen oder fortgeführt werden,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "welche Mittel aus dem Staatshaushalt, aus Sondervermögen und aus öffentlichen Unternehmen hierfür vorgesehen sind,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "in welchen wesentlichen Punkten der Haushaltsentwurf vom Gesellschafts- und Wirtschaftsplan abweicht und aus welchen Gründen und",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "wie noch nicht finanzierte Planaufträge voraussichtlich in den folgenden Haushaltsjahren berücksichtigt werden sollen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Planfinanzierungsübersicht begründet keine Ausgabeermächtigung und keinen Anspruch auf Bereitstellung von Haushaltsmitteln. Das Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz bleibt unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 4 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 80.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}
