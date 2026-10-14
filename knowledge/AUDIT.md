@@ -37,7 +37,7 @@ Die menschenlesbare Liste der tatsächlich noch relevanten Quellenfragen steht i
 
 Besonders relevant sind derzeit:
 
-- die Zieltextkonflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Ostdeutschen Gemeindeordnung, bei der Schulordnung Förderschulen, beim Zehnten Sächsischen Kostenverzeichnis und bei der Hoheitszeichenverordnung (Ermächtigungsverweis in OGVBl. 2026 Nr. 70 Artikel 2 Absatz 2),
+- die Zieltextkonflikte bei der Schulordnung Förderschulen und bei der Hoheitszeichenverordnung (Ermächtigungsverweis in OGVBl. 2026 Nr. 70 Artikel 2 Absatz 2),
 - die abweichende Wahlterminangabe in Artikel 121a der Staatsverfassung,
 - fehlende Vollzugsbelege für mehrere politische und wirtschaftliche Vorhaben,
 - noch unvollständige politische Rollen- und Ereignischronologien vor Ende 2025,

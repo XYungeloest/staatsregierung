@@ -1,0 +1,66 @@
+{
+  "amendmentAct": "rohstoffwirtschafts-neuordnungsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "resultCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16), geändert durch Artikel 7 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "changeNote": "Änderungen nach Artikel 7 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 7"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 82, Artikel 7",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 82.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 2"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Ziel der Vergesellschaftung ist die unmittelbare Deckung eines öffentlichen Bedarfs der Daseinsvorsorge ohne Gewinnabsicht.",
+        "parentLabel": "§ 2"
+      },
+      "expectedHash": "99631860ceffcc27406b17d7d74ae8f7ddf5e7d7897daf960bf5189945bf7b04",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Ziel der Vergesellschaftung ist die Ablösung privatnütziger Verfügungsmacht durch eine dauerhafte gemeinwirtschaftliche Verfügung, soweit diese der unmittelbaren Deckung eines öffentlichen Bedarfs der Daseinsvorsorge oder der nachhaltigen öffentlichen Verfügung über strategisch bedeutsame Naturschätze und Produktionsmittel dient.",
+          "label": "(1)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 7 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "dd15b8dfc458b041735f1096b782385e857fa96d1da98bd472d5959700d92a14",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "text": "Vergesellschaftungen können ferner zum Zweck der gemeinwirtschaftlichen Gewinnung, Aufbereitung und Verarbeitung strategisch bedeutsamer mineralischer Rohstoffe, der Sicherung der langfristigen Rohstoffversorgung sowie der dauerhaften öffentlichen Verfügung über bedeutende heimische Naturschätze erfolgen. Bei ihrer Bewirtschaftung sind die Interessen künftiger Generationen besonders zu berücksichtigen.",
+        "label": "(3)",
+        "children": []
+      },
+      "sourceProvision": "Artikel 7 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

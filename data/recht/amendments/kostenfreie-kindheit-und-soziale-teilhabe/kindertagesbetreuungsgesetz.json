@@ -1,0 +1,46 @@
+{
+  "amendmentAct": "kostenfreie-kindheit-und-soziale-teilhabe",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "resultCitation": "Gesetz über Kindertagesbetreuung in der Fassung der Bekanntmachung vom 15. Mai 2009 (SächsGVBl. S. 225), geändert durch Artikel 2 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "changeNote": "Änderungen nach Artikel 2 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 83, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 83.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 16"
+      },
+      "expectedHash": "3c8fb531d29149afee0e73a8a341cf3bc3617febf8dcc4cd11b332836cd6e94f",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 16a",
+        "title": "Unentgeltliche Verpflegung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der Staatsrat wird ermächtigt, durch Rechtsverordnung das Nähere über Umfang, Pauschalierung, Abrechnung und Erstattung der Aufwendungen zu regeln.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 3 in Verbindung mit Artikel 8 Absatz 1 (nur Verordnungsermächtigung)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

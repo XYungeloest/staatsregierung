@@ -1,0 +1,40 @@
+{
+  "amendmentAct": "kostenfreie-kindheit-und-soziale-teilhabe",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "resultCitation": "Ostdeutsches Hochschulgesetz vom 31. Mai 2023 (SächsGVBl. S. 329), geändert durch Artikel 4 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "changeNote": "Änderungen nach Artikel 4 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 4"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 83, Artikel 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 83.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentLabel": "§ 118"
+      },
+      "expectedHash": "b7c8d36e1d1677051f958efdb0dc7c4e415379f8eacb371a92619531e433fbcf",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "text": "Die Studentenwerke haben in ihren Mensen an jedem regulären Öffnungstag mindestens ein vollwertiges Grundgericht zu einem Entgelt von höchstens 2,50 Euro anzubieten. Für Inhaber:innen eines gültigen Sozialpasses Ost nach § 2 des Ostdeutschen Teilhabegesetzes ist ein Grundgericht je regulärem Öffnungstag unentgeltlich. Das nach Satz 2 gewährte Grundgericht darf sich hinsichtlich Menge und Qualität nicht von dem nach Satz 1 angebotenen Grundgericht unterscheiden. Trinkwasser ist in den Mensen unentgeltlich bereitzustellen. Der Freistaat gleicht den Studentenwerken die durch Satz 2 entstehenden notwendigen Mindereinnahmen aus. Der Staatsrat wird ermächtigt, durch Rechtsverordnung das Nähere über die Anforderungen an das Grundgericht, den Nachweis der Berechtigung sowie die Berechnung, Abrechnung und Erstattung der Mindereinnahmen zu regeln.",
+        "label": "(4a)",
+        "children": []
+      },
+      "sourceProvision": "Artikel 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    }
+  ]
+}

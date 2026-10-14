@@ -164,26 +164,30 @@ test('Historischer Kopf aufgehobener Normen behauptet keine fortdauernde Geltung
 
 test('die verkündete künftige Änderung nennt die Fundstelle der Änderungsvorschrift, nicht die Stammfundstelle', () => {
   // Konsolidiertes Vollzitat: erste Klammer Stammfundstelle, letzte Klammer die ändernde Vorschrift.
-  const consolidated = 'Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99), die zuletzt durch Artikel 3 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2) geändert worden ist';
+  const consolidated = 'Synthetisches Prüfgesetz in der Fassung der Bekanntmachung vom 9. März 2018 (Testblatt A S. 99), die zuletzt durch Artikel 3 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2) geändert worden ist';
   assert.equal(amendingCitation(consolidated), 'OGVBl. 2026 Nr. 46 S. 2');
   assert.equal(amendingCitation('Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 70 S. 2)'), 'OGVBl. 2026 Nr. 70 S. 2', 'mit einer Klammer sind beide Fundstellen dieselbe');
   assert.equal(amendingCitation('Gesetz ohne Klammer'), 'Gesetz ohne Klammer');
 
-  const current = version('2018-03-09', '2018-03-09', '2026-09-30');
-  current.citation = 'Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99)';
-  const future = version('2026-10-01', '2026-10-01');
+  const next = new Date(`${FIXTURE_REFERENCE_DATE}T00:00:00Z`);
+  next.setUTCDate(next.getUTCDate() + 30);
+  const futureDate = next.toISOString().slice(0, 10);
+  next.setUTCDate(next.getUTCDate() - 1);
+  const current = version('2018-03-09', '2018-03-09', next.toISOString().slice(0, 10));
+  current.citation = 'Synthetisches Prüfgesetz in der Fassung der Bekanntmachung vom 9. März 2018 (Testblatt A S. 99)';
+  const future = version(futureDate, futureDate);
   future.citation = consolidated;
   const record = norm({ versions: [current, future], initialVersionId: current.versionId, effectiveDate: '2018-03-09' });
   const model = headModel(record, current);
   const futurePart = model.parts.find((part) => part.tone === 'future');
   assert.ok(futurePart, 'die Statuszeile kündigt die verkündete Änderung an');
-  assert.equal(futurePart?.text, `Änderung zum ${formatShortDate('2026-10-01')} verkündet (OGVBl. 2026 Nr. 46 S. 2)`);
-  assert.ok(!statusLine(model).includes('SächsGVBl. S. 99'), 'die Stammfundstelle steht nur in der Kopfzeile');
+  assert.equal(futurePart?.text, `Änderung zum ${formatShortDate(futureDate)} verkündet (OGVBl. 2026 Nr. 46 S. 2)`);
+  assert.ok(!statusLine(model).includes('Testblatt A S. 99'), 'die Stammfundstelle steht nur in der Kopfzeile');
 
   // Liegt die Verkündung der künftigen Fassung vor, geht ihre Fundstelle vor.
   const withReference = buildNormHeadModel(record, current, {
     origin: getNormOriginInfo(record, [record]),
     nextFutureReference: { publicationSlug: 'ogvbl-2026-72', publicationTitle: 'OGVBl. 2026 Nr. 72', publicationDate: '2026-09-15', publication: 'OGVBl.', issue: '72', entryId: 'x', entryTitle: 'Gesetz', citation: 'Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 72 S. 2)' },
   });
-  assert.equal(withReference.parts.find((part) => part.tone === 'future')?.text, `Änderung zum ${formatShortDate('2026-10-01')} verkündet (OGVBl. 2026 Nr. 72 S. 2)`);
+  assert.equal(withReference.parts.find((part) => part.tone === 'future')?.text, `Änderung zum ${formatShortDate(futureDate)} verkündet (OGVBl. 2026 Nr. 72 S. 2)`);
 });

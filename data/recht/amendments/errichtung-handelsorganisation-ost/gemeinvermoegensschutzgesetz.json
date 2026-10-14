@@ -1,0 +1,56 @@
+{
+  "amendmentAct": "errichtung-handelsorganisation-ost",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 81 S. 2)",
+  "resultCitation": "Gesetz vom 12. September 2026 (OGVBl. 2026 Nr. 79), geändert durch Artikel 3 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 81 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 81, Artikel 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 81.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "6.",
+        "text": "öffentliche Grundstücke, Wälder, Moore, Gewässer, Naturschätze und sonstiges Naturvermögen, soweit sie nach Artikel 10a der Ostdeutschen Staatsverfassung, dem Boden- und Naturvermögensgesetz oder einer anderen Rechtsvorschrift einem besonderen Schutz unterliegen.",
+        "parentLabel": "§ 3"
+      },
+      "expectedHash": "d34950c72266c60f5b4dca1a5a150345b0c5e5e0a55f2505d0ffbbd5d1289e55",
+      "expectedMatches": 1,
+      "value": "öffentliche Grundstücke, Wälder, Moore, Gewässer, Naturschätze und sonstiges Naturvermögen, soweit sie nach Artikel 10a der Ostdeutschen Staatsverfassung, dem Boden- und Naturvermögensgesetz oder einer anderen Rechtsvorschrift einem besonderen Schutz unterliegen und",
+      "sourceProvision": "Artikel 3 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 81.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "item",
+        "label": "6.",
+        "text": "öffentliche Grundstücke, Wälder, Moore, Gewässer, Naturschätze und sonstiges Naturvermögen, soweit sie nach Artikel 10a der Ostdeutschen Staatsverfassung, dem Boden- und Naturvermögensgesetz oder einer anderen Rechtsvorschrift einem besonderen Schutz unterliegen und",
+        "parentLabel": "§ 3"
+      },
+      "expectedHash": "8192ef723131ae42deed464ad6819720307412c3dbc8143cffe976ef90748b3d",
+      "expectedMatches": 1,
+      "value": {
+        "type": "item",
+        "label": "7.",
+        "text": "die Geschäftsanteile des Freistaates an der Handelsorganisation Ost GmbH sowie die Vermögensgegenstände der Gesellschaft, die für die dauerhafte Erfüllung ihrer Aufgaben nach § 2 des Handelsorganisationsgesetzes wesentlich sind.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 3 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 81.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

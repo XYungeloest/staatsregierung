@@ -1,0 +1,59 @@
+{
+  "slug": "ogvbl-2026-84",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 84",
+  "year": 2026,
+  "issue": "84",
+  "date": "2026-10-14",
+  "publication": "OGVBl.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/ogvbl-2026-84.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "sha256": "0a8a73fa4e0a2c23a443f6a2157f1eb6b9c14c80a5ff6524ad3f6026f53040b0",
+      "mediaType": "text/html",
+      "pageRange": "2–7",
+      "verifiedAt": "2026-10-14",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 84.pdf",
+      "sha256": "b71305bf4bd528daa02dfee870d9d272c6f31d10ee5f38de07357677d7d73f22",
+      "mediaType": "application/pdf",
+      "pageCount": 7,
+      "pageRange": "2–7",
+      "verifiedAt": "2026-10-14",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 84.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "neuordnung-rechnungshofwesen",
+      "title": "Gesetz zur Neuordnung des Rechnungshofwesens",
+      "type": "gesetz",
+      "citation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 84 S. 2)",
+      "pages": "2–7",
+      "documentDate": "2026-10-14",
+      "normSlug": "neuordnung-rechnungshofwesen",
+      "versionId": "2026-10-15"
+    },
+    {
+      "id": "rechnungshofgesetz-2026",
+      "title": "Gesetz über den Rechnungshof des Freistaates Ostdeutschland",
+      "type": "gesetz",
+      "citation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 84)",
+      "pages": "2–7",
+      "documentDate": "2026-10-14",
+      "normSlug": "rechnungshofgesetz-2026",
+      "versionId": "2026-10-15"
+    }
+  ]
+}

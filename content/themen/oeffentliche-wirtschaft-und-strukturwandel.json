@@ -6,7 +6,7 @@
   "cluster": "wirtschaft-arbeit",
   "priority": 84,
   "featured": true,
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-10-14",
   "relatedTopicSlugs": [
     "energie-und-klima",
     "oepnv-und-mobilitaet",
@@ -20,7 +20,10 @@
     "project-gemeinvermoegensschutz",
     "project-interflug",
     "project-nvidia-settlement",
-    "project-zinnwald-lithium"
+    "project-zinnwald-lithium",
+    "project-wirtschaftsplanung-gemeinwirtschaft",
+    "project-handelsorganisation-ost",
+    "project-rohstoffwirtschaft-generationenfonds"
   ],
   "hero": "Der Freistaat will Strukturwandel aktiv gestalten. Öffentliche Beteiligungen, Gemeinwohlkriterien, Anwendungsgesetze und regionale Transformationspakete sollen wirtschaftliche Souveränität stärken.",
   "beschlossen": [
@@ -31,7 +34,8 @@
     "Das Boom Europe Leipzig/Halle Agreement wurde am 14. Mai 2026 rechtskräftig unterzeichnet und trat am selben Tag in Kraft; das zugehörige Gesetzespaket gilt seit 21. Juli 2026.",
     "NVIDIA nahm das ostdeutsche Ansiedlungsangebot an. Förderung und Gelände sind konkretisiert; eine Betriebsaufnahme ist nicht belegt.",
     "Seit dem 12. September 2026 bilden Volkseigentum, Gesellschafts- und Wirtschaftsplan und Wirtschaftsdemokratie die ökonomischen Grundlagen der Verfassung. Das Gemeinvermögensschutzgesetz führt ein öffentliches Gemeinvermögensregister ein, prüft erhebliche Vermögensmaßnahmen und lässt Privatisierungen nur durch ein besonderes Einzelfallgesetz zu; Veräußerungserlöse bleiben zweckgebunden.",
-    "Der Landesbodenfonds Ostdeutschland ist als Anstalt des öffentlichen Rechts mit Sitz in Magdeburg errichtet. Öffentlicher Boden wird grundsätzlich nicht veräußert, sondern im Erbbaurecht, durch Pacht oder in anderer gemeinwohlgebundener Form überlassen; die landwirtschaftlichen Flächen des Fonds bilden den Volksacker."
+    "Der Landesbodenfonds Ostdeutschland ist als Anstalt des öffentlichen Rechts mit Sitz in Magdeburg errichtet. Öffentlicher Boden wird grundsätzlich nicht veräußert, sondern im Erbbaurecht, durch Pacht oder in anderer gemeinwohlgebundener Form überlassen; die landwirtschaftlichen Flächen des Fonds bilden den Volksacker.",
+    "Die Gesetze über Wirtschaftsplanung, Handelsorganisation Ost und Rohstoffwirtschaft sind am 14. Oktober 2026 verkündet worden und treten am 15. Oktober 2026 in Kraft. Sie regeln Staatsplankommission und Staatswirtschaftsrat, die landeseigene Handelsorganisation Ost und die Ostdeutschen Rohstoffwerke."
   ],
   "umgesetzt": [
     "Landesbank, Vergesellschaftungsrahmen und Vergaberecht bilden vorhandene finanz- und wirtschaftspolitische Grundlagen.",
@@ -46,7 +50,7 @@
     "Boom-Europe-Standortaufbau und NVIDIA-Ansiedlung nur anhand belastbarer Vertrags-, Bau- oder Betriebsnachweise fortschreiben.",
     "Erarbeitung eines Subventionsrückholgesetzes und eines Gemeinwohl-TÜV für Förderempfänger.",
     "Vorbereitung eines Transformationsrates Ost für Strukturfördermittel.",
-    "Entwicklung eines Ostdeutschen Produktionsplans 2040 als indikative Planungsgrundlage."
+    "Den Aufbau der Planungsgremien, der Handelsorganisation und der Rohstoffwerke sowie den ersten Gesellschafts- und Wirtschaftsplan 2027–2031 vorbereiten. Der Perspektivplan Ost 2040 ist bis Ende 2027 vorgesehen."
   ],
   "modules": [
     {
@@ -121,6 +125,46 @@
     {
       "label": "Interflug-Gesetz",
       "normSlug": "interflug-gesetz"
+    },
+    {
+      "label": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
+      "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
+    },
+    {
+      "label": "Handelsorganisationsgesetz",
+      "normSlug": "handelsorganisationsgesetz",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
+    },
+    {
+      "label": "Ostdeutsches Rohstoffwerkegesetz",
+      "normSlug": "ostdeutsches-rohstoffwerkegesetz",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
+    },
+    {
+      "label": "Lausitzer Kupfervergesellschaftungsgesetz",
+      "normSlug": "lausitzer-kupfervergesellschaftungsgesetz",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
+    },
+    {
+      "label": "Ohmgebirge-Vergesellschaftungsgesetz",
+      "normSlug": "ohmgebirge-vergesellschaftungsgesetz",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
+    },
+    {
+      "label": "Generationenfondsgesetz Ost",
+      "normSlug": "generationenfondsgesetz-ost",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
+    },
+    {
+      "label": "Versorgungsfondsgesetz Ost",
+      "normSlug": "versorgungsfondsgesetz-ost",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
+    },
+    {
+      "label": "Altersdividendengesetz Ost",
+      "normSlug": "altersdividendengesetz-ost",
+      "note": "Verkündet; Inkrafttreten am 15. Oktober 2026."
     }
   ],
   "faq": [

@@ -1,0 +1,57 @@
+{
+  "amendmentAct": "rohstoffwirtschafts-neuordnungsgesetz",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "resultCitation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 8), geändert durch Artikel 8 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 82 S. 2)",
+  "changeNote": "Änderungen nach Artikel 8 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 8"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 82, Artikel 8",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 82.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "38d2c5691abbbaca287913050302ef39fba8a7af75127c06bba618b4bc47d295",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "text": "Die Landesbank nimmt die ihr durch Gesetz übertragenen Aufgaben der Verwaltung und Anlage von Vermögen des Freistaates und seiner Sondervermögen wahr. Sie kann hierzu insbesondere Wertpapiere und sonstige Finanzinstrumente erwerben, halten, verwalten und veräußern sowie die zur ordnungsgemäßen Vermögensverwaltung erforderlichen Geschäfte vornehmen.",
+        "label": "(8)",
+        "children": []
+      },
+      "sourceProvision": "Artikel 8",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "cdb2c531fd60214b11fe31a7dc2ef2fb41e67535c2428327dead38cbb3f80b85",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(9)",
+        "text": "Vermögenswerte, welche die Landesbank nach Absatz 8 für ein Sondervermögen verwaltet, sind vom Eigenvermögen der Landesbank und von den für andere Rechtsträger oder Sondervermögen verwalteten Vermögenswerten getrennt zu halten und zu verbuchen. Sie haften nicht für Verbindlichkeiten der Landesbank. Die Landesbank darf über sie nur nach Maßgabe des für das jeweilige Sondervermögen geltenden Gesetzes und des ihr erteilten Anlageauftrags verfügen.",
+        "children": []
+      },
+      "sourceProvision": "Artikel 8",
+      "source": "Gesetze/OGVBl. 2026 Nr. 82.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "amendmentAct": "kostenfreie-kindheit-und-soziale-teilhabe",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "resultCitation": "Gesetz über Kindertagesbetreuung in der Fassung der Bekanntmachung vom 15. Mai 2009 (SächsGVBl. S. 225), geändert durch Artikel 2 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 83 S. 2)",
+  "changeNote": "Änderungen nach Artikel 2 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 83, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 83.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "parentLabel": "§ 14"
+      },
+      "expectedHash": "5f8543a9d8a112a33215dc753abb1a8779cc764f847386d74b23bbbf014e030c",
+      "expectedMatches": 1,
+      "value": "Die Kosten für die Kindertagespflege werden durch die Gemeinde unter Einbeziehung des Landeszuschusses aufgebracht. Über die Finanzierung schließen die Gemeinde und die Kindertagespflegeperson eine Vereinbarung ab. Die Finanzierung schließt eine laufende Geldleistung an die Kindertagespflegeperson ein, die von der Gemeinde in Abstimmung mit dem örtlichen Träger der öffentlichen Jugendhilfe festgelegt wird. Die Finanzierung umfasst auch einen zusätzlichen monatlichen Betrag in Höhe eines Zwölftels des in § 18 Absatz 3 genannten Betrages je aufgenommenes Kind für mittelbare pädagogische Tätigkeiten nach § 12 Absatz 4 Satz 2. Satz 4 gilt entsprechend für einen zusätzlichen Landeszuschuss nach § 18 Absatz 2. Zudem erhält jede Kindertagespflegeperson, die mindestens ein Kind im Monat betreut, einen zusätzlichen monatlichen Betrag in Höhe von 120 Euro als Landespauschale zum Ausgleich unterjähriger Belegungsschwankungen der Kindertagespflegestelle.",
+      "sourceProvision": "Artikel 2 Nummer 1",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01",
+      "expectedOld": "Die Kosten für die Kindertagespflege werden aufgebracht durch die Gemeinde, einschließlich des Landeszuschusses, und Elternbeiträge. Über die Finanzierung schließen die Gemeinde und die Kindertagespflegeperson eine Vereinbarung ab. Die Finanzierung schließt eine laufende Geldleistung an die Kindertagespflegeperson ein, die von der Gemeinde in Abstimmung mit dem örtlichen Träger der öffentlichen Jugendhilfe festgelegt wird. Die Finanzierung umfasst auch einen zusätzlichen monatlichen Betrag in Höhe eines Zwölftels des in § 18 Absatz 3 genannten Betrages je aufgenommenes Kind für mittelbare pädagogische Tätigkeiten nach § 12 Absatz 4 Satz 2. Satz 4 gilt entsprechend für einen zusätzlichen Landeszuschuss nach § 18 Absatz 2. Zudem erhält jede Kindertagespflegeperson, die mindestens ein Kind im Monat betreut, einen zusätzlichen monatlichen Betrag in Höhe von 120 Euro als Landespauschale zum Ausgleich unterjähriger Belegungsschwankungen der Kindertagespflegestelle."
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 15"
+      },
+      "expectedHash": "aa3fb818c4dc3bab901a3739eb11a47ab2ba7f4c7c53c323e7a160c5fde3da08",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 15",
+        "title": "Beitragsfreiheit",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Für die Inanspruchnahme von Angeboten der Kindertagesbetreuung nach diesem Gesetz dürfen von den Erziehungsberechtigten keine Elternbeiträge, Benutzungsgebühren oder sonstigen Entgelte erhoben werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Abweichend von Absatz 1 dürfen Entgelte für zusätzliche Leistungen erhoben werden, die nicht Bestandteil des regelmäßigen Bildungs-, Erziehungs- und Betreuungsangebots sind und auf ausdrücklichen Wunsch der Erziehungsberechtigten zusätzlich erbracht werden. Die Aufnahme, Betreuung oder gleichberechtigte Teilnahme eines Kindes am regelmäßigen Angebot darf von der Inanspruchnahme einer zusätzlichen Leistung nicht abhängig gemacht werden. § 16a bleibt unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 16a"
+      },
+      "expectedHash": "0adb6011bffddbcc64825d309cb173ad01c05861dc9598bc4e9319e6249b078e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 16a",
+        "title": "Unentgeltliche Verpflegung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die während der vereinbarten Betreuungszeit im Rahmen des regelmäßigen Angebots bereitgestellte Verpflegung einschließlich der Getränke ist für die betreuten Kinder unentgeltlich.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Umfasst die Betreuung die Mittagszeit, ist ein altersangemessenes vollwertiges Mittagessen bereitzustellen. Soweit Frühstück oder Zwischenverpflegung Bestandteil des regelmäßigen Angebots sind, werden auch diese unentgeltlich bereitgestellt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Medizinisch erforderliche besondere Ernährungsbedarfe sind im Rahmen des Zumutbaren zu berücksichtigen. Für eine hiernach erforderliche besondere Verpflegung darf kein zusätzliches Entgelt verlangt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der Freistaat trägt die notwendigen Mehraufwendungen, die den Trägern der Kindertagesbetreuung durch die Absätze 1 bis 3 entstehen. Die Abrechnung erfolgt grundsätzlich über die örtlichen Träger der öffentlichen Jugendhilfe. Der Staatsrat wird ermächtigt, durch Rechtsverordnung das Nähere über Umfang, Pauschalierung, Abrechnung und Erstattung der Aufwendungen zu regeln.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 3 in Verbindung mit Artikel 8 Absatz 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "§ 17"
+      },
+      "expectedHash": "37a64b52e172ac4fb82a9af917d036e34b080c72f1c1cb67eef3bd7234674279",
+      "expectedMatches": 1,
+      "value": "Besucht ein Kind eine Kindertageseinrichtung außerhalb der Wohnortgemeinde, hat die Wohnortgemeinde der aufnehmenden Gemeinde anteilig die landesdurchschnittlichen, nicht durch Landeszuschuss abgedeckten Personal- und Sachkosten im Sinne von § 14 Absatz 1 abzüglich der Kosten gemäß § 14 Abs. 2 Satz 2 zu erstatten. Entsprechendes gilt bei Inanspruchnahme der Kindertagespflege außerhalb der Wohnortgemeinde. Wird der Landeszuschuss an die Wohnortgemeinde ausgezahlt, so ist er, begrenzt auf die Höhe des Betrages, die dem in der aufnehmenden Gemeinde in Anspruch genommenen Betreuungsangebot entspricht, an diese zu erstatten. Ein Erstattungsanspruch der aufnehmenden Gemeinde entsprechend Satz 3 besteht in allen Fällen, in denen der Landeszuschuss an eine Gemeinde ausgezahlt wird, die nicht mehr Betreuungsgemeinde ist. Die Sätze 3 und 4 gelten nicht für in den Hort aufgenommene Kinder, wenn in der Wohnortgemeinde oder einer anderen abgebenden Gemeinde kein Hort betrieben wird. Die Vorschriften des Zehnten Buches Sozialgesetzbuch über die Verjährung gelten entsprechend.",
+      "sourceProvision": "Artikel 2 Nummer 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01",
+      "expectedOld": "Besucht ein Kind eine Kindertageseinrichtung außerhalb der Wohnortgemeinde, hat die Wohnortgemeinde der aufnehmenden Gemeinde anteilig die landesdurchschnittlichen, nicht durch Landeszuschuss und Elternbeitrag abgedeckten Personal- und Sachkosten im Sinne von § 14 Absatz 1 abzüglich der Kosten gemäß § 14 Abs. 2 Satz 2 zu erstatten. Entsprechendes gilt bei Inanspruchnahme der Kindertagespflege außerhalb der Wohnortgemeinde. Wird der Landeszuschuss an die Wohnortgemeinde ausgezahlt, so ist er, begrenzt auf die Höhe des Betrages, die dem in der aufnehmenden Gemeinde in Anspruch genommenen Betreuungsangebot entspricht, an diese zu erstatten. Ein Erstattungsanspruch der aufnehmenden Gemeinde entsprechend Satz 3 besteht in allen Fällen, in denen der Landeszuschuss an eine Gemeinde ausgezahlt wird, die nicht mehr Betreuungsgemeinde ist. Die Sätze 3 und 4 gelten nicht für in den Hort aufgenommene Kinder, wenn in der Wohnortgemeinde oder einer anderen abgebenden Gemeinde kein Hort betrieben wird. Die Vorschriften des Zehnten Buches Sozialgesetzbuch über die Verjährung gelten entsprechend."
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 18"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Dieser Zuschuss, der seit dem 1. August 2024 41,5 Prozent der angemessenen Personalkosten beträgt, wird zur Senkung der Elternbeiträge (§ 15) so erhöht, dass er ab dem 1. August 2025 44 Prozent, ab dem 1. August 2026 46,5 Prozent, ab dem 1. August 2027 49 Prozent, ab dem 1. August 2028 51,5 Prozent und ab dem 1. Januar 2029 54 Prozent der angemessenen Personalkosten beträgt.”",
+        "parentLabel": "§ 18"
+      },
+      "expectedHash": "eb207c5159c87b3dabc4618ffec18149cca5601cc9f8864767532d72b5d89636",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Der Zuschuss beträgt 54 Prozent der angemessenen Personalkosten.",
+          "label": "(2)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 5",
+      "source": "Gesetze/OGVBl. 2026 Nr. 83.html",
+      "effectiveDate": "2027-01-01"
+    }
+  ]
+}

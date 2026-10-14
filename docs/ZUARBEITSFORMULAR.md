@@ -44,10 +44,14 @@ Weiterhin benötigt werden nur:
 
 - [ ] gesonderter Beschluss des Staatsrates über organisatorische Grundlagen und nächste Schritte
       der Olympiabewerbung
-- [ ] Gesetzentwurf, Einbringung und Verkündung des angekündigten Wirtschaftsplanungs- und
-      Gemeinwirtschaftsgesetzes; dabei Beleg, ob es das besondere Gesetz nach Artikel 13b Absatz 5
-      der Staatsverfassung (Gesellschafts- und Wirtschaftsplan) sein soll
-- [ ] Errichtungsakte für Staatsplankommission Ost und Landeswirtschaftsrat
+- [ ] Gesetz über den ersten Gesellschafts- und Wirtschaftsplan 2027 bis 2031 sowie der
+      Perspektivplan Ost 2040 nach dem in OGVBl. 2026 Nr. 80 verkündeten WPGG
+- [ ] Besetzungs- und Konstituierungsbelege für Staatsplankommission und Staatswirtschaftsrat;
+      ihre gesetzliche Grundlage gilt ab 15. Oktober 2026
+- [ ] Aufbau-, Organbestellungs- und Betriebsbelege für Handelsorganisation Ost und Ostdeutsche
+      Rohstoffwerke; notwendige bergrechtliche Zulassungen für Kupfer- und Kaliabbau
+- [ ] Durchführungsregelungen und Leistungsbelege zur kostenfreien Kindheit, zum Sozialpass und
+      zu den Teilhabemodulen ab 1. Januar 2027
 
 ### V-01a – Personenbelege zum zweiten Staatsrat
 

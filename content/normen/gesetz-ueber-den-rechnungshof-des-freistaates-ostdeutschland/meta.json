@@ -15,22 +15,29 @@
   "initialCitation": "Rechnungshofgesetz vom 11. Dezember 1991 (SächsGVBl. S. 409), das zuletzt durch Artikel 4 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130) geändert worden ist",
   "predecessor": null,
   "successor": null,
-  "status": "in-force",
+  "status": "repealed",
   "documentDate": "1991-12-11",
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 3530.5, gültig ab 2020-01-01",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/3530.html",
-      "url": "https://www.revosax.sachsen.de/vorschrift/3530",
-      "retrievedAt": "2026-09-03",
-      "sha256": "0f177d0ee63e308350478378d096bd96e9496b7095bb2066166f7f30baacf80d",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2020-01-01",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland/3530.5.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3530.5",
+      "retrievedAt": "2026-10-14",
+      "sha256": "4a79f25a7a3bc5e8d5e46b6a5e4c5769887ab3c41e517b77a9e477f468c731b8",
       "lawId": "3530",
-      "sourceValidFrom": "2020-01-01",
-      "fsnNumber": "523-1",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "sourceValidFrom": "2020-01-01"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 84, Artikel 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 84.html"
     }
+  ],
+  "expiryDate": "2026-10-14",
+  "affectedByNorms": [
+    "neuordnung-rechnungshofwesen"
   ]
 }

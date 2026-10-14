@@ -1,0 +1,975 @@
+{
+  "amendmentAct": "neuordnung-rechnungshofwesen",
+  "effectiveDate": "2026-10-15",
+  "versionId": "2026-10-15",
+  "sameDayOrder": 3,
+  "amendmentCitation": "Gesetz vom 14. Oktober 2026 (OGVBl. 2026 Nr. 84 S. 2)",
+  "resultCitation": "Ostdeutsche Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), geändert durch Artikel 2 des Gesetzes vom 14. Oktober 2026 (OGVBl. 2026 Nr. 84 S. 2)",
+  "changeNote": "Änderungen nach Artikel 2 des Gesetzes vom 14. Oktober 2026.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 84, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 84.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 7a"
+      },
+      "expectedHash": "0672e55a3f2237eb3e6f8ccfb0964476beb7a1ad2c4e08b6901370f9f3fd3340",
+      "expectedMatches": 1,
+      "value": "Eine Lockerung der Ressourcensteuerung und -kontrolle bei Einnahmen, Ausgaben und Verpflichtungsermächtigungen durch Übertragung dezentraler Finanzverantwortung auf einzelne Dienststellen (Budgetierung) ist nur zulässig, wenn über eine funktionsfähige Kosten- und Leistungsrechnung hinaus eine wirksame Ergebnissteuerung und -kontrolle mittels Produkthaushalt, Zielvereinbarung und kennzahlengestütztem Berichtswesen eingerichtet ist, die Steuerung und Kontrolle beim Einsatz öffentlicher Mittel garantieren und sicherstellen, dass das jeweils verfügbare Ausgabevolumen nicht überschritten wird. Bei besonders großen oder bedeutsamen Dienststellen soll, im Übrigen kann ein entsprechendes Aufsichtsorgan eingerichtet werden. Näheres regelt eine mit dem Staatsministerium der Finanzen abzuschließende Ressortvereinbarung, in der für die Einführungsphase von Budgetierungsverfahren auch Ausnahmen zugelassen werden können.",
+      "sourceProvision": "Artikel 2 Nummer 1 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Eine Lockerung der Ressourcensteuerung und -kontrolle bei Einnahmen, Ausgaben und Verpflichtungsermächtigungen durch Übertragung dezentraler Finanzverantwortung auf einzelne Dienststellen (Budgetierung) ist nur zulässig, wenn über eine funktionsfähige Kosten- und Leistungsrechnung hinaus eine wirksame Ergebnissteuerung und -kontrolle mittels Produkthaushalt, Zielvereinbarung und kennzahlengestütztem Berichtswesen eingerichtet ist, die Steuerung und Kontrolle beim Einsatz öffentlicher Mittel garantieren und sicherstellen, dass das jeweils verfügbare Ausgabevolumen nicht überschritten wird. Bei besonders großen oder bedeutsamen Dienststellen soll, im Übrigen kann ein entsprechendes Aufsichtsorgan eingerichtet werden. Näheres regelt eine mit dem Staatsministerium der Finanzen abzuschließende Ressortvereinbarung, in der für die Einführungsphase von Budgetierungsverfahren nach Anhörung des Sächsischen Rechnungshofes auch Ausnahmen zugelassen werden können."
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentLabel": "§ 7a"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Vor Einführung der Budgetierung in einzelnen Dienststellen der Staatsverwaltung ist der Sächsische Rechnungshof zu hören.",
+        "parentLabel": "§ 7a"
+      },
+      "expectedHash": "e4a83bb53c960f47e6ec9364e1c6d42ed485925b66389e1eab98e225620ad676",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 1 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 27"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Das für den Einzelplan zuständige Staatsministerium übersendet die Voranschläge auch dem Rechnungshof. Er kann zu ihnen Stellung nehmen.",
+        "parentLabel": "§ 27"
+      },
+      "expectedHash": "834b2b1845491a88028832479b961e06d94d21a58a5e85230cf0ca5fd4bcb523",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 44"
+      },
+      "expectedHash": "e1c4b788beb4900e5b6c0c9764c774e413f352987cef43cdf3fba90d84b856fb",
+      "expectedMatches": 1,
+      "value": "Zuwendungen dürfen nur unter den Voraussetzungen des § 23 gewährt werden. Dabei ist zu bestimmen, wie die zweckentsprechende Verwendung der Zuwendungen nachzuweisen ist. Außerdem ist ein Prüfungsrecht der zuständigen Dienststelle oder ihrer Beauftragten festzulegen. ",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Zuwendungen dürfen nur unter den Voraussetzungen des § 23 gewährt werden. Dabei ist zu bestimmen, wie die zweckentsprechende Verwendung der Zuwendungen nachzuweisen ist. Außerdem ist ein Prüfungsrecht der zuständigen Dienststelle oder ihrer Beauftragten festzulegen. Verwaltungsvorschriften, welche die Regelung des Verwendungsnachweises und die Prüfung durch den Rechnungshof (§ 91) betreffen, werden im Einvernehmen mit dem Rechnungshof erlassen."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 44"
+      },
+      "expectedHash": "cdb3115cb610c38f9f336ed73227ae01b408b545068d93fb9c1569a56ec141e6",
+      "expectedMatches": 1,
+      "value": "Zuwendungen dürfen nur unter den Voraussetzungen des § 23 gewährt werden. Dabei ist zu bestimmen, wie die zweckentsprechende Verwendung der Zuwendungen nachzuweisen ist. Außerdem ist ein Prüfungsrecht der zuständigen Dienststelle oder ihrer Beauftragten festzulegen.",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 66"
+      },
+      "expectedHash": "83b05c54572aa082e6e577b8ff82e334dbd5cdade82e22281138a8bd33d46c6a",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 4",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 68"
+      },
+      "expectedHash": "0f46d6c1e527cbafe10e99337b6ffc899ba0e8c1f7518e98fe527d1dd83ec888",
+      "expectedMatches": 1,
+      "value": "Die Rechte nach § 53 Abs. 1 des Haushaltsgrundsätzegesetzes übt das für die Beteiligung zuständige Staatsministerium aus. ",
+      "sourceProvision": "Artikel 2 Nummer 5 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Die Rechte nach § 53 Abs. 1 des Haushaltsgrundsätzegesetzes übt das für die Beteiligung zuständige Staatsministerium aus. Bei der Wahl oder Bestellung der Prüfer nach § 53 Abs. 1 Nr. 1 des Haushaltsgrundsätzegesetzes übt das zuständige Staatsministerium die Rechte des Staates im Einvernehmen mit dem Rechnungshof aus."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 68"
+      },
+      "expectedHash": "c9ab67631bf3aeefd8059a9f36387bb9559e1a791eb027d61d8ef617d52f5388",
+      "expectedMatches": 1,
+      "value": "Die Rechte nach § 53 Abs. 1 des Haushaltsgrundsätzegesetzes übt das für die Beteiligung zuständige Staatsministerium aus.",
+      "sourceProvision": "Artikel 2 Nummer 5 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 68"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Einen Verzicht auf die Ausübung der Rechte des § 53 Abs. 1 des Haushaltsgrundsätzegesetzes erklärt das zuständige Staatsministerium im Einvernehmen mit dem Rechnungshof, im Falle des § 65 Abs. 3 auch im Einvernehmen mit dem Staatsministerium der Finanzen.",
+        "parentLabel": "§ 68"
+      },
+      "expectedHash": "2e280d3e7a7d0722c61dbc963f6d4cdbbbd173b0f620d6609ba972a5a9339ee1",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Einen Verzicht auf die Ausübung der Rechte des § 53 Absatz 1 des Haushaltsgrundsätzegesetzes erklärt das zuständige Staatssekretariat. Im Falle des § 65 Absatz 3 bedarf der Verzicht der Einwilligung des Staatssekretariats der Finanzen.",
+          "label": "(2)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 5 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 69"
+      },
+      "expectedHash": "b587bbb8948fd5cca57648a847dee368317314a10e1a2c43aac5d77e7861c09f",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 6",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 71"
+      },
+      "expectedHash": "d5c49bd398a9a2dcd4dea27325356291fdaefd7193509142b4033b647df22c99",
+      "expectedMatches": 1,
+      "value": "Das Staatsministerium der Finanzen kann für eingegangene Verpflichtungen, Geldforderungen und andere Bewirtschaftungsvorgänge die Buchführung anordnen. Das Nähere regelt das Staatsministerium der Finanzen.",
+      "sourceProvision": "Artikel 2 Nummer 7",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Das Staatsministerium der Finanzen kann für eingegangene Verpflichtungen, Geldforderungen und andere Bewirtschaftungsvorgänge die Buchführung anordnen. Das Nähere regelt das Staatsministerium der Finanzen im Einvernehmen mit dem Rechnungshof."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 73"
+      },
+      "expectedHash": "be820b1b0be73673bfc35a5df9099361f3edb83bc1021db50d7b607935530278",
+      "expectedMatches": 1,
+      "value": "Über das Vermögen und die Schulden ist Buch zu führen oder ein anderer Nachweis zu erbringen. Das Nähere regelt das Staatsministerium der Finanzen.",
+      "sourceProvision": "Artikel 2 Nummer 8",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Über das Vermögen und die Schulden ist Buch zu führen oder ein anderer Nachweis zu erbringen. Das Nähere regelt das Staatsministerium der Finanzen im Einvernehmen mit dem Rechnungshof."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "parentLabel": "§ 79"
+      },
+      "expectedHash": "31564e0627b2ba24bea1338274837a0073303830016bf86e07a944686752e669",
+      "expectedMatches": 1,
+      "value": "über die Einrichtung der Bücher und Belege.",
+      "sourceProvision": "Artikel 2 Nummer 9 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "über die Einrichtung der Bücher und Belege im Einvernehmen mit dem Rechnungshof."
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentLabel": "§ 79"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Das Staatsministerium der Finanzen kann im Einvernehmen mit dem Rechnungshof Vereinfachungen für die Buchführung und die Belegung der Buchungen allgemein anordnen. Der Rechnungshof kann im Einvernehmen mit dem zuständigen Staatsministerium im Einzelfall Vereinfachungen zulassen.",
+        "parentLabel": "§ 79"
+      },
+      "expectedHash": "03e4e75fce52d3075568bb3aecdcf2cc14051574eb3f094a192b4145217e1810",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Das zuständige Staatssekretariat kann Vereinfachungen für die Buchführung und die Belegung der Buchungen allgemein oder im Einzelfall zulassen.",
+          "label": "(4)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 9 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 80"
+      },
+      "expectedHash": "b580c73f6a1816c6913157d2246402aba8c13657a232c041889f071c84d9dab8",
+      "expectedMatches": 1,
+      "value": "Die zuständigen Stellen haben für jedes Haushaltsjahr auf der Grundlage der abgeschlossenen Bücher Rechnung zu legen. ",
+      "sourceProvision": "Artikel 2 Nummer 10",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Die zuständigen Stellen haben für jedes Haushaltsjahr auf der Grundlage der abgeschlossenen Bücher Rechnung zu legen. Das Staatsministerium der Finanzen kann im Einvernehmen mit dem Rechnungshof bestimmen, dass für einen anderen Zeitraum Rechnung zu legen ist."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 80"
+      },
+      "expectedHash": "f7c0dd57d0d2fdfc419bad569ac5633237f2e3b604e3413cbfc4b4db38adeda8",
+      "expectedMatches": 1,
+      "value": "Die zuständigen Stellen haben für jedes Haushaltsjahr auf der Grundlage der abgeschlossenen Bücher Rechnung zu legen.",
+      "sourceProvision": "Artikel 2 Nummer 10",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 85"
+      },
+      "throughTarget": {
+        "type": "item",
+        "label": "3.",
+        "text": "die nicht veranschlagten Einnahmen aus der Veräußerung von Vermögensgegenständen.",
+        "parentLabel": "§ 85"
+      },
+      "expectedHash": "0576762631c38c40f1fb96159786c1236095ecf4705c57c816d3c88c1cc13a6d",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 11",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 87"
+      },
+      "expectedHash": "12427113e658794d93e1eb2dbf8e865ce023b8f88404abaaa392f5023e68d42a",
+      "expectedMatches": 1,
+      "value": "Ist eine Betriebsbuchführung (Kosten- und Leistungsrechnung) eingerichtet, so ist die Betriebsergebnisabrechnung dem Staatsministerium der Finanzen zu übersenden.",
+      "sourceProvision": "Artikel 2 Nummer 12",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Ist eine Betriebsbuchführung (Kosten- und Leistungsrechnung) eingerichtet, so ist die Betriebsergebnisabrechnung dem Staatsministerium der Finanzen und dem Rechnungshof zu übersenden."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 88"
+      },
+      "expectedHash": "618c034d7f363ea14269b0a781424e4ecf46d47708a2f248277c83c23c6d0a06",
+      "expectedMatches": 1,
+      "value": "Die gesamte Haushalts- und Wirtschaftsführung des Staates einschließlich seiner Sondervermögen und Betriebe wird vom Rechnungshof geprüft. ",
+      "sourceProvision": "Artikel 2 Nummer 13 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Die gesamte Haushalts- und Wirtschaftsführung des Staates einschließlich seiner Sondervermögen und Betriebe wird vom Rechnungshof geprüft. Der Rechnungshof nimmt die Prüfung entweder selbst vor oder lässt sie durch die Staatlichen Rechnungsprüfungsämter vornehmen."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 88"
+      },
+      "expectedHash": "90e4f0a6e64e20afee5f3c18706c5565b2e63e105a1e83c458ce6bc50c87641f",
+      "expectedMatches": 1,
+      "value": "Die gesamte Haushalts- und Wirtschaftsführung des Staates einschließlich seiner Sondervermögen und Betriebe wird vom Rechnungshof geprüft.",
+      "sourceProvision": "Artikel 2 Nummer 13 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 88"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Der Rechnungshof kann aufgrund von Prüfungserfahrungen den Landtag, die Staatsregierung und einzelne Staatsministerien beraten. Soweit der Rechnungshof den Landtag berät, unterrichtet er gleichzeitig die Staatsregierung.",
+        "parentLabel": "§ 88"
+      },
+      "expectedHash": "b0bf4b94ef52442c4ee43282926f8c7493b67628a19a0e35818f44c778565f48",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Aufgrund von Prüfungserfahrungen kann der Rechnungshof beraten.",
+          "label": "(2)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 13 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "§ 88"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "text": "Der Rechnungshof erstattet auf Ersuchen des Landtags, seines Haushalts- und Finanzausschusses oder der Staatsregierung Gutachten über Fragen, die für die Haushalts- und Wirtschaftsführung des Staates von Bedeutung sind. Absatz 2 Satz 2 gilt entsprechend.",
+        "parentLabel": "§ 88"
+      },
+      "expectedHash": "3cec4de69bd6866306b20326ffecbd29a659d0c40e061bfa5c43bda8044a96f9",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 13 Buchstabe c",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 89"
+      },
+      "throughTarget": {
+        "type": "item",
+        "label": "4.",
+        "text": "die Verwendung der Mittel, die zur Selbstbewirtschaftung zugewiesen sind.",
+        "parentLabel": "§ 89"
+      },
+      "expectedHash": "992291a1452431d2de99bb0bf34c0a0880173668cab82e30897a99b6e4c9da38",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Der Rechnungshof prüft insbesondere",
+          "label": "(1)",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Einnahmen, Ausgaben und Verpflichtungen zur Leistung von Ausgaben,",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Maßnahmen, die sich finanziell auswirken können, und",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "das Vermögen und die Schulden.",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 14",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 90"
+      },
+      "expectedHash": "3412eb4869886ae0973283c912a609245bb13cd0dc31af468d63f4d8cee9471e",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 15",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "deleteProvision",
+      "target": {
+        "type": "item",
+        "label": "4.",
+        "parentLabel": "§ 91"
+      },
+      "expectedHash": "e7d607caed52a28bd93ceb5298d948fc77ab6247bde4b830ec3e9173daf6b279",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 16 Buchstabe a Doppelbuchstabe i",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "deleteProvision",
+      "target": {
+        "type": "item",
+        "label": "5.",
+        "parentLabel": "§ 91"
+      },
+      "expectedHash": "4e8fa836ea691f3e4d29780f8be22c0c16ff3553ff9a92d31f1e4e287e2926e0",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 16 Buchstabe a Doppelbuchstabe i",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "3.",
+        "parentLabel": "§ 91"
+      },
+      "expectedHash": "61bc9513268ecc1d7740f13550e5255f191b343320840d3df441438026964beb",
+      "expectedMatches": 1,
+      "value": "vom Staat Zuwendungen erhalten.",
+      "sourceProvision": "Artikel 2 Nummer 16 Buchstabe a Doppelbuchstabe ii",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "vom Staat Zuwendungen erhalten oder"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Leiten diese Stellen die Mittel nach Nummern 1 bis 3 an Dritte weiter, kann der Rechnungshof auch bei diesen prüfen."
+      },
+      "expectedHash": "d73430215f24c423637c3b3f06ddeb4d5b4dbfb0421ce6b654eeacca49735e86",
+      "expectedMatches": 1,
+      "value": "Leiten diese Stellen die Mittel an Dritte weiter, kann der Rechnungshof auch bei diesen prüfen.",
+      "sourceProvision": "Artikel 2 Nummer 16 Buchstabe a Doppelbuchstabe iii",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Leiten diese Stellen die Mittel nach Nummern 1 bis 3 an Dritte weiter, kann der Rechnungshof auch bei diesen prüfen."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 91"
+      },
+      "expectedHash": "0cdd86b589fe59f54e4714161842020d7c58fca3031b0a051bd9b9cac04821ec",
+      "expectedMatches": 1,
+      "value": "Die Prüfung erstreckt sich auf die bestimmungsmäßige und wirtschaftliche Verwaltung und Verwendung. Bei Zuwendungen kann sie sich auch auf die sonstige Haushalts- und Wirtschaftsführung des Empfängers erstrecken, soweit es der Rechnungshof für seine Prüfung für notwendig hält.",
+      "sourceProvision": "Artikel 2 Nummer 16 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Die Prüfung erstreckt sich auf die bestimmungsmäßige und wirtschaftliche Verwaltung und Verwendung (Absatz 1 Nr. 1 bis 3) oder auf die vorschriftsmäßige Abführung (Absatz 1 Nr. 4). Bei Zuwendungen kann sie sich auch auf die sonstige Haushalts- und Wirtschaftsführung des Empfängers erstrecken, soweit es der Rechnungshof für seine Prüfung für notwendig hält."
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentLabel": "§ 91"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Bei den juristischen Personen im Sinne des Absatzes 1 Satz 1 Nr. 4 erstreckt sich die Prüfung auf die gesamte Haushalts- und Wirtschaftsführung. Handelt es sich bei der juristischen Person des privaten Rechts um ein Unternehmen, erfolgt die Prüfung unter Beachtung kaufmännischer Grundsätze.",
+        "parentLabel": "§ 91"
+      },
+      "expectedHash": "3e825ac92937132cba406f6a3a0527a2b3282b1199107cd6696d7f005eb7ef06",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 16 Buchstabe c",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "parentLabel": "§ 93"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "text": "Der Rechnungshof kann durch Vereinbarung auch Prüfungsaufgaben vom Bundesrechnungshof oder von einem anderen Landesrechnungshof übernehmen.",
+        "parentLabel": "§ 93"
+      },
+      "expectedHash": "d8decd1f8e4e08ebe2942b8f3508ac4f28249112f2c809a10510233088c70d56",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 17",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentLabel": "§ 93"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Der Rechnungshof kann durch Vereinbarung mit ausländischen oder über- oder zwischenstaatlichen Prüfungsbehörden Aufträge zur Durchführung einzelner Prüfungen erteilen oder übernehmen, wenn er durch Staatsvertrag, Verwaltungsabkommen oder durch die Staatsregierung dazu ermächtigt wird.",
+        "parentLabel": "§ 93"
+      },
+      "expectedHash": "ff5a50d8ecb5cc0d8758b00b674ff09290ca07c8c88a305d6379dd32dc201333",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 17",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 94"
+      },
+      "expectedHash": "84de17c4a10e06d9d1aa1b5fe792214984933e13dcd676f93b667e4bc76d21ab",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 94",
+        "title": "Sachverständige",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Der Rechnungshof kann Sachverständige hinzuziehen."
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 18",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 96"
+      },
+      "expectedHash": "cc36de2fe926f466982274c41cece0433a523d3743ba92142949c3c61a6fccc4",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 19",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentLabel": "§ 97"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Der Rechnungshof fasst das Ergebnis seiner Prüfung, soweit es für die Entlastung der Staatsregierung von Bedeutung sein kann, jährlich für den Landtag in einem Jahresbericht zusammen, die er dem Landtag und der Staatsregierung zuleitet.",
+        "parentLabel": "§ 97"
+      },
+      "expectedHash": "fc0977149394e1825e3d90978c352c852cab9585640bff4c47b74174ffbeeba1",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Der Rechnungshof fasst das Ergebnis seiner Prüfung, soweit es für die Entlastung des Staatsrates von Bedeutung sein kann, jährlich in einem Bericht für die Volkskammer zusammen.",
+          "label": "(1)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 20 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 97"
+      },
+      "throughTarget": {
+        "type": "item",
+        "label": "4.",
+        "text": "welche Maßnahmen für die Zukunft empfohlen werden.",
+        "parentLabel": "§ 97"
+      },
+      "expectedHash": "ad0175638867fe2ab1373b219d7607fc7e36054589c8b9a7aece2f7d669d0c2c",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 20 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentLabel": "§ 97"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "text": "Feststellungen zu geheimzuhaltenden Angelegenheiten werden dem Präsidenten des Landtags sowie dem Ministerpräsidenten, dem Staatsminister der Finanzen und den sonst betroffenen Staatsministern mitgeteilt.",
+        "parentLabel": "§ 97"
+      },
+      "expectedHash": "392d3575c92393ca2db0069d0543c67baa3131135d5b258c5b35b5910cd20d6e",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "(weggefallen)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 20 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 98"
+      },
+      "expectedHash": "dd9cabb2db28b8ffc3cb90a14a06dc1cc636bde4c4405c8b1565b9c5040b4120",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 21",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 99"
+      },
+      "expectedHash": "08e67157626663cb25772feb595266736807be1383146227087eb395baf594a0",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 99",
+        "title": "Angelegenheiten von besonderer Bedeutung",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Über Angelegenheiten von besonderer Bedeutung kann der Rechnungshof die Volkskammer und den Staatsrat jederzeit unterrichten."
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 22",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 100"
+      },
+      "expectedHash": "696f6c81070913a13ff94773423f6958643edab0e1a4a989dda5aa6ca853dc71",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 23",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 101"
+      },
+      "expectedHash": "88b2d392351ab6d7940510117a132388d5e8e09a94df2cf47d328e4dc301b675",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 101",
+        "title": "Rechnung des Rechnungshofes",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Die Rechnung des Rechnungshofes wird von der Volkskammer geprüft, die auch die Entlastung erteilt."
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 24",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 102"
+      },
+      "expectedHash": "a8f9ae4d928ec325d7122a8324bcb96b278b88d63a826a0c77ed331a587e5ef9",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 25",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 103"
+      },
+      "expectedHash": "93c5c0d98e4ca0d210bbb21bde30973991e1d24f0d36de9c0ae6510487d2c5f5",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 26",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 104"
+      },
+      "expectedHash": "848cd432a37979e713405e3b0e66fdbbec208fa56eff1bff1c3f841b77cbb902",
+      "expectedMatches": 1,
+      "sourceProvision": "Artikel 2 Nummer 27",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceSiblingRange",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 109"
+      },
+      "throughTarget": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Die Rechnung ist, unbeschadet einer Prüfung durch den Rechnungshof nach § 111, von der durch Gesetz oder Satzung bestimmten Stelle zu prüfen. Die Ergebnisse der Prüfung sind dem zuständigen Staatsministerium und dem Rechnungshof vorzulegen. Die Satzungsvorschrift über die Durchführung der Prüfung bedarf der Zustimmung des zuständigen Staatsministeriums im Einvernehmen mit dem Rechnungshof.",
+        "parentLabel": "§ 109"
+      },
+      "expectedHash": "246d25fd7794acc33ad70f81d14fc5cbc2f37621c93b17e0b525926e4a34d432",
+      "expectedMatches": 1,
+      "value": [
+        {
+          "type": "subparagraph",
+          "text": "Die Rechnung ist von der durch Gesetz oder Satzung bestimmten Stelle zu prüfen. Die Ergebnisse der Prüfung sind dem zuständigen Staatssekretariat vorzulegen. Die Satzungsvorschrift über die Durchführung der Prüfung bedarf der Zustimmung des zuständigen Staatssekretariats.",
+          "label": "(2)",
+          "children": []
+        }
+      ],
+      "sourceProvision": "Artikel 2 Nummer 28",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 111"
+      },
+      "expectedHash": "77019f4551be7c3281b33f4be467ccbfd49b8200d389f4f8f44e3f14fd0ccad7",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 111",
+        "title": "Prüfung durch den Rechnungshof",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Rechnungshof prüft die Haushalts- und Wirtschaftsführung landesunmittelbarer juristischer Personen des öffentlichen Rechts in den Fällen des § 55 Absatz 1 des Haushaltsgrundsätzegesetzes.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Im Übrigen entfällt die entsprechende Anwendung der §§ 42 bis 46 des Haushaltsgrundsätzegesetzes auf landesunmittelbare juristische Personen des öffentlichen Rechts.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 29",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 112"
+      },
+      "expectedHash": "473d096371e34e00e97c9db6d7e2eb5097eff06776a746f64c291ef07963d6ce",
+      "expectedMatches": 1,
+      "value": "Auf Unternehmen in der Rechtsform einer landesunmittelbaren juristischen Person des öffentlichen Rechts sind unabhängig von der Höhe der Beteiligung des Staates § 65 Abs. 1 Nr. 3 und 4 sowie Abs. 2, § 68 Abs. 1 entsprechend, § 111 unmittelbar anzuwenden. Für Unternehmen in der Rechtsform einer juristischen Person des privaten Rechts, an denen die in Satz 1 genannten Unternehmen unmittelbar oder mittelbar mit Mehrheit beteiligt sind, gelten die §§ 53 und 54 des Haushaltsgrundsätzegesetzes und die §§ 65 bis 69 entsprechend.",
+      "sourceProvision": "Artikel 2 Nummer 30 Buchstabe a",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Auf Unternehmen in der Rechtsform einer landesunmittelbaren juristischen Person des öffentlichen Rechts sind unabhängig von der Höhe der Beteiligung des Staates § 65 Abs. 1 Nr. 3 und 4 sowie Abs. 2, § 68 Abs. 1 und § 69 entsprechend, § 111 unmittelbar anzuwenden. Für Unternehmen in der Rechtsform einer juristischen Person des privaten Rechts, an denen die in Satz 1 genannten Unternehmen unmittelbar oder mittelbar mit Mehrheit beteiligt sind, gelten die §§ 53 und 54 des Haushaltsgrundsätzegesetzes und die §§ 65 bis 69 entsprechend."
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentLabel": "§ 112"
+      },
+      "expectedHash": "db983b692c243770d5b5b14ff3a9c478474f4b06905effb10a690471ff7024d3",
+      "expectedMatches": 1,
+      "value": "Auf Unternehmen in der Rechtsform einer landesunmittelbaren juristischen Person des öffentlichen Rechts sind unabhängig von der Höhe der Beteiligung des Staates § 65 Abs. 1 Nr. 3 und 4 sowie Abs. 2, § 68 Abs. 1 entsprechend, § 111 unmittelbar anzuwenden. Für Unternehmen in der Rechtsform einer juristischen Person des privaten Rechts, an denen die in Satz 1 genannten Unternehmen unmittelbar oder mittelbar mit Mehrheit beteiligt sind, gelten die §§ 53 und 54 des Haushaltsgrundsätzegesetzes und die §§ 65 bis 68 entsprechend.",
+      "sourceProvision": "Artikel 2 Nummer 30 Buchstabe b",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15",
+      "expectedOld": "Auf Unternehmen in der Rechtsform einer landesunmittelbaren juristischen Person des öffentlichen Rechts sind unabhängig von der Höhe der Beteiligung des Staates § 65 Abs. 1 Nr. 3 und 4 sowie Abs. 2, § 68 Abs. 1 entsprechend, § 111 unmittelbar anzuwenden. Für Unternehmen in der Rechtsform einer juristischen Person des privaten Rechts, an denen die in Satz 1 genannten Unternehmen unmittelbar oder mittelbar mit Mehrheit beteiligt sind, gelten die §§ 53 und 54 des Haushaltsgrundsätzegesetzes und die §§ 65 bis 69 entsprechend."
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 114"
+      },
+      "expectedHash": "fced1e4f94f87c62d99b3416e4a46cdbb66a4e6f016e8dfb9992c76db616db21",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 114",
+        "title": "Entlastung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Das zuständige Staatssekretariat legt der Volkskammer für jedes Haushaltsjahr die Haushaltsrechnung zur Entlastung des Staatsrates vor.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Volkskammer beschließt auf Grund der Haushaltsrechnung und des jährlichen Berichts des Rechnungshofes über die Entlastung des Staatsrates.",
+            "children": []
+          }
+        ]
+      },
+      "sourceProvision": "Artikel 2 Nummer 31",
+      "source": "Gesetze/OGVBl. 2026 Nr. 84.html",
+      "effectiveDate": "2026-10-15"
+    }
+  ]
+}

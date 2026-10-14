@@ -190,14 +190,16 @@ async function loadNorms() {
   return result;
 }
 
-function existingStemFor(target, norms) {
+function existingStemFor(target, norms, { allowAmendmentStem = false } = {}) {
   const candidates = norms.filter(({ meta }) =>
     meta.slug === target.canonicalSlug ||
     [meta.title, meta.shortTitle, meta.abbr].filter(Boolean).some((value) =>
       target.aliases.some((alias) => normalize(value) === normalize(alias))
     )
   );
-  const stems = candidates.filter(({ meta }) => !meta.affectedNorms?.length && meta.type !== 'aenderungsvorschrift');
+  const stems = candidates.filter(({ meta }) =>
+    (allowAmendmentStem && meta.slug === target.canonicalSlug) ||
+    (!meta.affectedNorms?.length && meta.type !== 'aenderungsvorschrift'));
   const canonicalStem = stems.find(({ meta }) => meta.slug === target.canonicalSlug);
   if (canonicalStem) return canonicalStem;
   return stems.length === 1 ? stems[0] : null;
@@ -302,7 +304,7 @@ async function main() {
       findings.push({
         title: targetRecord.meta.title,
         evidence: 'explizite Einführungsbeziehung',
-        canonical: canonicalFor(targetRecord.meta.title) ?? {
+        canonical: {
           canonicalSlug: targetRecord.meta.slug,
           title: targetRecord.meta.title,
         },
@@ -331,7 +333,14 @@ async function main() {
               known: true,
             }
           : null;
-        const canonical = editorialTarget ?? finding.canonical ?? canonicalFor(targetTitle);
+        const configuredMatches = Object.entries(config.targets).filter(([, source]) =>
+          [source.title, ...(source.aliases ?? [])].filter(Boolean).some((alias) => normalize(alias) === normalize(targetTitle)));
+        if (!finding.canonical && configuredMatches.length > 1) {
+          throw new Error(`Mehrdeutige konfigurierte Zielnorm: ${targetTitle}`);
+        }
+        const configuredTarget = configuredMatches.length === 1
+          ? { canonicalSlug: configuredMatches[0][0], title: configuredMatches[0][1].title, known: true } : null;
+        const canonical = editorialTarget ?? finding.canonical ?? configuredTarget ?? canonicalFor(targetTitle);
         if (!canonical) {
           pushUniqueFinding(ambiguousFindings, {
             amendmentAct: record.meta.slug,
@@ -385,7 +394,7 @@ async function main() {
     const source = config.targets[target.canonicalSlug] ?? {};
     const historicalNonConsolidatable = source.historicalNonConsolidatable === true;
     const blocked = config.blockedTargets[target.canonicalSlug];
-    const stem = existingStemFor(target, norms);
+    const stem = existingStemFor(target, norms, { allowAmendmentStem: Boolean(source.existingVersionSeed) });
     const enactingActs = stem?.meta.enactingNorm
       ? target.amendmentActs.filter((act) => act.slug === stem.meta.enactingNorm)
       : target.amendmentActs.filter((act) =>
@@ -397,17 +406,19 @@ async function main() {
       !enactingActs.some((enactingAct) => enactingAct.slug === act.slug)
     );
     const amendmentActsWithTargetDates = amendmentActs.map((act) => {
-      const historyEntry = stem?.history.entries.find((entry) =>
+      const historyEntries = stem?.history.entries.filter((entry) =>
         entry.relatedNorm === act.slug &&
         ['amendment', 'repeal'].includes(entry.type)
-      );
+      ) ?? [];
+      const targetDates = [...new Set(historyEntries.map((entry) => entry.date))].sort();
       return {
         ...act,
-        targetEffectiveDate: historyEntry?.date ?? blocked?.effectiveDate ?? act.effectiveDate,
+        targetEffectiveDate: targetDates[0] ?? blocked?.effectiveDate ?? act.effectiveDate,
+        ...(targetDates.length > 1 ? { targetEffectiveDates: targetDates } : {}),
       };
     });
     const effectiveDates = [...new Set(
-      amendmentActsWithTargetDates.map((act) => act.targetEffectiveDate).filter(Boolean),
+      amendmentActsWithTargetDates.flatMap((act) => act.targetEffectiveDates ?? [act.targetEffectiveDate]).filter(Boolean),
     )].sort();
     const introducedStem = enactingActs.length > 0;
     const adoptedPrimarySource = source.adoptedSources?.find((entry) => entry.snapshot && entry.sourceSha256);

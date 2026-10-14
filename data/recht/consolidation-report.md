@@ -1,11 +1,11 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-09-13T11:49:30.560Z
+**Erzeugt:** 2026-10-14T08:14:53.656Z
 
-- Erkannte Änderungsvorschriften: 70
-- Erkannte Zielnormen: 95
-- Vollständig konsolidiert: 93
+- Erkannte Änderungsvorschriften: 75
+- Erkannte Zielnormen: 109
+- Vollständig konsolidiert: 107
 - Aktuell offene Zielnormen: 2
 
 ## Offener Handlungsbedarf
@@ -37,22 +37,20 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 
 ## Redaktionell zu prüfende Erkennungsfunde
 
-- `besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege`: „Gemeingut-Wohnen-Gesetzes“ (Gliederungsüberschrift)
-- `besonderes-gesetz-ueber-wohnen-gesundheit-und-pflege`: „Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetzes“ (Gliederungsüberschrift)
 - `boden-und-naturvermoegensgesetz`: „Nutzung“ (Gliederungsüberschrift)
+- `einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz`: „Ostdeutschen Daseinsvorsorgegesetzes“ (Gliederungsüberschrift)
+- `einfuehrung-wirtschaftsplanungs-und-gemeinwirtschaftsgesetz`: „Gesetzes zur Einführung eines Besonderen Gesetzes über Boden, den Landesbodenfonds und das öffentliche Naturvermögen“ (Gliederungsüberschrift)
 - `erlass-lehrplan-geschichte-2026`: „Lehrplans Polytechnische Oberschule – Geschichte“ (Gliederungsüberschrift)
 - `erlass-lehrplan-geschichte-2026`: „Lehrplans Erweiterte Oberschule – Geschichte“ (Gliederungsüberschrift)
 - `fuenftes-gesetz-zur-grossen-staatsreform`: „Ostdeutschen Daseinsvorsorgegesetzes“ (Gliederungsüberschrift)
-- `fuenftes-gesetz-zur-grossen-staatsreform`: „Gemeingut-Wohnen-Gesetzes“ (Gliederungsüberschrift)
 - `fuenftes-gesetz-zur-grossen-staatsreform`: „Ostdeutschen Landesantidiskriminierungsgesetzes“ (Gliederungsüberschrift)
 - `fuenftes-gesetz-zur-grossen-staatsreform`: „Vergesellschaftungsrahmengesetzes“ (Gliederungsüberschrift)
 - `gesetz-zur-einfuehrung-eines-boden-und-naturvermoegensgesetzes`: „Nutzung“ (Gliederungsüberschrift)
-- `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Gemeingut-Wohnen-Gesetzes“ (Gliederungsüberschrift)
 - `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Energie- und Wärmevergesellschaftungsgesetzes“ (Gliederungsüberschrift)
 - `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Landesenergiewerke-Gesetzes“ (Gliederungsüberschrift)
 - `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Ostdeutsche-Netze-Gesetzes“ (Gliederungsüberschrift)
 - `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Ostdeutschen Eisenbahngesetzes“ (Gliederungsüberschrift)
-- `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetzes“ (Gliederungsüberschrift)
 - `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Interflug-Gesetzes“ (Gliederungsüberschrift)
 - `organisationserlass-aenderung-fachbereichszuteilung-2024`: „Fachbereichszuteilungen“ (Gliederungsüberschrift)
+- `rohstoffwirtschafts-neuordnungsgesetz`: „Ostdeutschen Landesbankgesetzes“ (Gliederungsüberschrift)
 - `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)

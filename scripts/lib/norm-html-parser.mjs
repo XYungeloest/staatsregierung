@@ -27,7 +27,7 @@ const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
 const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
 const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Besonderes|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Berichtigung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
 const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Folgeänderungen?|Neufassung|Übergangsbestimmungen?|Übergangsrecht|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Bereinigung|Rechtsbereinigung)/iu;
-const EMBEDDED_NORM_TITLE_PATTERN = /^(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
+const EMBEDDED_NORM_TITLE_PATTERN = /^(?:(?:Besonderes|Gemeinsames)\s+)?(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
 const TABLE_HEADER_SCOPES = new Set(['col', 'row', 'colgroup', 'rowgroup']);
 const LIST_INTRO_END_PATTERN = /(?:folgende(?:n|r|s)?|insbesondere|wenn|soweit|bei|durch|wie folgt)\s*:?\s*$/iu;
 
@@ -1312,13 +1312,18 @@ function extractIntroducedNorms(tokens, publication, fileName, options = {}) {
     const titleText = firstStructure >= 0
       ? segment.slice(0, firstStructure).filter((entry) => entry.kind === 'paragraph').map((entry) => entry.text).join(' ')
       : '';
-    const rawIdentity = titleText.replace(/^[„“”'`,.]+/u, '').trim();
+    // Ein Mantelartikel kann den vollständigen Stammnormtitel selbst tragen.
+    // Änderungsüberschriften sind ausgeschlossen; erforderlich bleibt eine eigene Gliederung.
+    const directArticleTitle = isOuterArticleToken(token) &&
+      EMBEDDED_NORM_TITLE_PATTERN.test(token.marker.title ?? '') && firstStructure === 0
+      ? token.marker.title : null;
+    const rawIdentity = (directArticleTitle ?? titleText).replace(/^[„“”'`,.]+/u, '').trim();
     const introduction = token.kind === 'paragraph' ? token.text.match(INTRODUCTION_PATTERN) : null;
     const articleIntroduction = token.kind === 'structure' && token.marker.type === 'article' &&
       /^Einführung\s+(?:eines|einer)\s+(?:besonderen\s+)?(?:[\p{L}-]*gesetzes|[\p{L}-]*verordnung|[\p{L}-]*satzung)/iu.test(token.marker.title ?? '') &&
       /^(?:(?:Besonderes|Gemeinsames)\s+)?(?:Gesetz|Verordnung|Satzung)\b/iu.test(rawIdentity) &&
       !segment.some((entry) => entry.kind === 'paragraph' && INTRODUCTION_PATTERN.test(entry.text));
-    if (!introduction && !articleIntroduction) continue;
+    if (!introduction && !articleIntroduction && !directArticleTitle) continue;
     if (firstStructure < 0) throw new NormHtmlParseError(fileName, `eingeführte Stammnorm nach „${token.text ?? token.marker.title}“ besitzt keine Hauptgliederung`);
     const heading = introduction?.[1] ?? (introduction?.[2]
       ? 'Gesetz'
@@ -1328,6 +1333,13 @@ function extractIntroducedNorms(tokens, publication, fileName, options = {}) {
     const identity = replacementMatch
       ? { title: replacementMatch[1].trim(), shortTitle: replacementMatch[1].trim(), abbr: replacementMatch[2].trim() }
       : parseIdentity(heading, rawIdentity);
+    const identityLines = directArticleTitle ? token.rawText.split('\n').slice(1).map((line) => line.trim()).filter(Boolean) : [];
+    // Eigenständige Zeilen für Langtitel, Kurzbezeichnung und (Abkürzung).
+    if (identityLines.length >= 3 && /^\([^()]+\)$/u.test(identityLines.at(-1))) {
+      identity.title = identityLines.slice(0, -2).join(' ');
+      identity.shortTitle = identityLines.at(-2);
+      identity.abbr = identityLines.at(-1).slice(1, -1);
+    }
     const body = parseTokens(segment.slice(firstStructure), fileName, { inQuote: false });
     validateBody(fileName, identity.title, body, options);
     introduced.push({
