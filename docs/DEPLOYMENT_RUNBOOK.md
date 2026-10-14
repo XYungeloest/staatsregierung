@@ -275,7 +275,9 @@ Ubuntu-Versionen noch zwischen Host und abweichendem Container wiederverwendet.
 
 Die Screenshot-Suite bleibt im exakt zur Lockdatei passenden Playwright-Container mit
 `-noble` (Ubuntu 24.04), auch auf einem Ubuntu-26.04-Host. Diese feste Rendering-Umgebung gehört
-zu den Linux-Baselines. Ein Wechsel auf `-resolute` ist eine eigenständige Änderung mit Sichtprüfung
+zu den Linux-Baselines. Playwright wird exakt versioniert; vor einem Update muss das passende
+`v<Version>-noble`-Image für die Runner-Architektur veröffentlicht sein. Ein npm-Release allein
+ist dafür kein Nachweis. Ein Wechsel auf `-resolute` ist eine eigenständige Änderung mit Sichtprüfung
 und neuem striktem Vergleich; ein Runner-Upgrade ist dafür kein Anlass. Browser- und
 Accessibility-Smokes auf dem Host verwenden Playwright mit Ubuntu-26.04-Unterstützung.
 
