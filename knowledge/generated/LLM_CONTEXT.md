@@ -10,7 +10,9 @@ Verkündete Normen und amtliche Primärquellen haben Vorrang. Gesprächswissen s
 
 ## Aktueller Staatsaufbau
 
-Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, Verfassungsgerichtshof und Rechnungshof geprägt. Die obersten Geschäftsbereiche werden als Staatssekretariate geführt. Historische Bezeichnungen bleiben in den Entitäten mit Gültigkeitszeiträumen erhalten.
+Volkskammer, Staatsrat, Staatspräsident, Verfassungsgerichtshof und Rechnungshof bilden den belegten aktuellen Organkern. Seit 12. September 2026 sind die Verfassungsartikel 99 und 100 zu Rechnungslegung und Rechnungshof aufgehoben; der Rechnungshof besteht auf gesetzlicher Grundlage fort, seine Prüfungsrechte nennt unter anderem § 12 des Boden- und Naturvermögensgesetzes.
+
+Das neue Rechnungshofgesetz ist mit OGVBl. 2026 Nr. 84 am 14. Oktober 2026 verkündet und tritt am 15. Oktober 2026 in Kraft. Gleichzeitig werden das bisherige Rechnungshofgesetz und die Verordnung über die Staatlichen Rechnungsprüfungsämter aufgehoben. Bis einschließlich 14. Oktober gilt die bisherige gesetzliche Grundlage; die tatsächliche Besetzung und der organisatorische Vollzug der Neuregelung sind nicht belegt.
 
 ## Aktueller Staatsrat
 
@@ -26,7 +28,9 @@ Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, V
 
 ## Geltende Verfassungsfassung
 
-`staatsverfassung-des-freistaates-ostdeutschland`, Version `2026-09-12`. Sie berücksichtigt alle vier Gesetze zur Großen Staatsreform und gilt seit 21. Juli 2026.
+`staatsverfassung-des-freistaates-ostdeutschland`, Version `2026-09-12`, gültig seit 2026-09-12.
+
+Gespeicherte Fassung der Staatsverfassung vom 12. September 2026: die Fassung vom 21. Juli 2026 (vier Gesetze zur Großen Staatsreform) geändert durch das Fünfte Gesetz zur Großen Staatsreform zur Umsetzung des Volkswillens. Ostdeutschland ist danach ein sozialistischer Freistaat; die Verfassung gliedert sich in dreizehn Abschnitte mit neuen Abschnitten über die sozialen und die ökonomischen Grundlagen der sozialistischen Gesellschaft.
 
 ## Gebiet
 

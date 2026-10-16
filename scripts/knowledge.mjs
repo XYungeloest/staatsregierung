@@ -161,6 +161,25 @@ function intervalsOverlap(a, b) {
   return aStart <= bEnd && bStart <= aEnd;
 }
 
+export function validateCurrentNormReference(section, version, sourceById, referenceDate) {
+  const location = `knowledge/current-state.json:${section.id}`;
+  const errors = [];
+  if (!version || version.versionId !== section.versionId) {
+    return [`${location}: gespeicherte Normfassung ${section.normSlug}/${section.versionId} fehlt.`];
+  }
+  if (version.validFrom > referenceDate || (version.validTo && version.validTo < referenceDate)) {
+    errors.push(`${location}: Normfassung ${section.versionId} gilt nicht am redaktionellen Stichtag ${referenceDate}.`);
+  }
+  if (section.validFrom !== version.validFrom || (section.validTo ?? null) !== version.validTo) {
+    errors.push(`${location}: Gültigkeitsintervall weicht von der gespeicherten Normfassung ab.`);
+  }
+  const expectedPath = `content/normen/${section.normSlug}/versions/${section.versionId}.json`;
+  if (!(section.sourceRefs ?? []).some((ref) => ref.role === 'primary' && sourceById.get(ref.sourceId)?.path === expectedPath)) {
+    errors.push(`${location}: Primärquelle für die gespeicherte Normfassung fehlt: ${expectedPath}.`);
+  }
+  return errors;
+}
+
 function validateModel(model, compareGenerated) {
   const errors = [];
   validateDate(model.editorial.referenceDate, 'packages/shared/src/config/editorial.json:referenceDate', errors);
@@ -263,6 +282,15 @@ function validateModel(model, compareGenerated) {
 
   const currentState = model.byType.get('current-state') ?? [];
   for (const section of currentState) {
+    if (section.normSlug || section.versionId) {
+      if (!/^[a-z0-9-]+$/.test(section.normSlug ?? '') || !/^[a-z0-9-]+$/.test(section.versionId ?? '')) {
+        errors.push(`knowledge/current-state.json:${section.id}: normSlug und versionId müssen gültige Kennungen sein.`);
+      } else {
+        const versionPath = `content/normen/${section.normSlug}/versions/${section.versionId}.json`;
+        const version = fs.existsSync(path.join(root, versionPath)) ? readJson(versionPath) : null;
+        errors.push(...validateCurrentNormReference(section, version, sourceById, model.editorial.referenceDate));
+      }
+    }
     if (['unverified', 'unresolved', 'planned', 'disputed'].includes(section.status)) {
       errors.push(`knowledge/current-state.json:${section.id}: unzulässiger Status ${section.status}.`);
     }
@@ -470,7 +498,7 @@ function buildIndex(model) {
   });
 }
 
-function buildContext(model) {
+export function buildContext(model) {
   const currentState = model.byType.get('current-state') ?? [];
   const persons = model.byType.get('person') ?? [];
   const projects = model.byType.get('project') ?? [];
@@ -485,6 +513,7 @@ function buildContext(model) {
   const government = currentState.find((entry) => entry.id === 'state-current-government');
   const parliament = currentState.find((entry) => entry.id === 'state-current-parliament');
   const constitution = currentState.find((entry) => entry.id === 'state-current-constitution');
+  const organs = currentState.find((entry) => entry.id === 'state-current-organs');
   const territoryState = currentState.find((entry) => entry.id === 'state-current-territory');
 
   const currentPeople = (government?.memberPersonIds ?? [])
@@ -505,7 +534,8 @@ function buildContext(model) {
   lines.push('');
   lines.push('## Aktueller Staatsaufbau');
   lines.push('');
-  lines.push('Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, Verfassungsgerichtshof und Rechnungshof geprägt. Die obersten Geschäftsbereiche werden als Staatssekretariate geführt. Historische Bezeichnungen bleiben in den Entitäten mit Gültigkeitszeiträumen erhalten.');
+  lines.push(organs?.summary ?? 'Der aktuelle Staatsaufbau ist in `knowledge/current-state.json` dokumentiert.');
+  for (const note of organs?.notes ?? []) lines.push('', note);
   lines.push('');
   lines.push('## Aktueller Staatsrat');
   lines.push('');
@@ -527,7 +557,10 @@ function buildContext(model) {
   lines.push('');
   lines.push('## Geltende Verfassungsfassung');
   lines.push('');
-  lines.push(`\`${constitution?.normSlug}\`, Version \`${constitution?.versionId}\`. Sie berücksichtigt alle vier Gesetze zur Großen Staatsreform und gilt seit 21. Juli 2026.`);
+  if (constitution) {
+    lines.push(`\`${constitution.normSlug}\`, Version \`${constitution.versionId}\`, gültig seit ${constitution.validFrom}.`);
+    lines.push('', constitution.summary);
+  }
   lines.push('');
   lines.push('## Gebiet');
   lines.push('');
@@ -603,21 +636,23 @@ function writeGenerated(model) {
   }
 }
 
-const command = process.argv[2] ?? 'check';
-if (!['check', 'build'].includes(command)) {
-  console.error('Verwendung: node scripts/knowledge.mjs <check|build>');
-  process.exit(2);
-}
-
-const model = loadModel();
-if (command === 'build') {
-  if (validateModel(model, false)) {
-    writeGenerated(model);
-    const reloaded = loadModel();
-    if (validateModel(reloaded, true)) {
-      console.log('Knowledge-Build erfolgreich.');
-    }
+if (import.meta.main) {
+  const command = process.argv[2] ?? 'check';
+  if (!['check', 'build'].includes(command)) {
+    console.error('Verwendung: node scripts/knowledge.mjs <check|build>');
+    process.exit(2);
   }
-} else if (validateModel(model, true)) {
-  console.log('Knowledge-Check erfolgreich.');
+
+  const model = loadModel();
+  if (command === 'build') {
+    if (validateModel(model, false)) {
+      writeGenerated(model);
+      const reloaded = loadModel();
+      if (validateModel(reloaded, true)) {
+        console.log('Knowledge-Build erfolgreich.');
+      }
+    }
+  } else if (validateModel(model, true)) {
+    console.log('Knowledge-Check erfolgreich.');
+  }
 }
