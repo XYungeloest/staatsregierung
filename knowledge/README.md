@@ -15,6 +15,12 @@ aktuelle Konflikte, die politische und gesetzgeberische Agenda und Suchkandidate
 Der Wissenshub ist keine zweite Website und kein Ersatz für das Rechtsportal. Normvolltexte und
 öffentliche Seiten werden nicht kopiert.
 
+Aktuelle Normverweise in `current-state.json` mit `normSlug` und `versionId` müssen am zentralen
+redaktionellen Stichtag gelten und die entsprechende gespeicherte Fassung als Primärquelle
+belegen. `knowledge:check` prüft auch das Gültigkeitsintervall. Historische Fassungsbezüge gehören
+in die Zeitleiste oder ausdrücklich datierte Detailzusammenhänge. Der generierte Gesamtkontext
+übernimmt Verfassungs- und Organisationszusammenfassungen aus `current-state.json`.
+
 Für das Gesamtprojekt gilt: ein Repository, ein gemeinsamer Daten- und Wissensbestand, zwei
 öffentliche Anwendungen. Das Staatsportal unter `freistaat-ostdeutschland.de` und OstRecht unter
 `recht.freistaat-ostdeutschland.de` referenzieren denselben Hub; weder Portal- noch Rechtsbuild

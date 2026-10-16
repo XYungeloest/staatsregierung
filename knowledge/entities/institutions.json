@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-12",
+  "asOf": "2026-10-14",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -503,7 +503,7 @@
       "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-09-12",
+      "asOf": "2026-10-14",
       "summary": "Unabhängige Finanzkontrollinstitution; der Wissenshub enthält derzeit keine bestätigte Besetzungs- oder Organisationschronologie. Die Verfassungsartikel 99 (Rechnungslegung) und 100 (Rechnungsprüfung; Rechnungshof) sind seit 12. September 2026 aufgehoben; der Rechnungshof besteht auf gesetzlicher Grundlage fort und wird etwa in § 12 des Boden- und Naturvermögensgesetzes als Prüfungsinstanz genannt.",
       "sourceRefs": [
         {
@@ -520,14 +520,23 @@
           "sourceId": "source-ogvbl-2026-78",
           "locator": "Artikel 1 § 12 Absatz 5",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-84",
+          "locator": "Artikel 1 §§ 1 und 2, Artikel 3 bis 5",
+          "role": "primary"
         }
       ],
-      "relatedIds": [],
+      "relatedIds": [
+        "project-rechnungshofneuordnung"
+      ],
       "tags": [
         "audit",
         "independent-body"
       ],
-      "notes": [],
+      "notes": [
+        "Die am 14. Oktober 2026 verkündete Neuordnung gilt ab 15. Oktober 2026. Das neue Rechnungshofgesetz sieht eine zwölfjährige Amtszeit der von der Volkskammer gewählten Leitung ohne Wiederwahl vor. Artikel 4 erhält die verbleibende Amtszeit einer beim Inkrafttreten amtierenden Leitung; ein konkreter Besetzungsakt ist damit nicht belegt."
+      ],
       "aliases": [
         "Ostdeutscher Rechnungshof"
       ],

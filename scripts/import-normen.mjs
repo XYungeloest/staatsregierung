@@ -2021,7 +2021,6 @@ function buildConstitutionRecord(parsed) {
       publicationDate: '2024-10-15',
       effectiveDate: '2024-10-15',
       sourceReferences: normSourceReferences(parsed.fileName),
-      dateNote: 'Redaktionelle Lesefassung vom 21. Juli 2026.',
     },
     history: {
       initialVersionId: null,
