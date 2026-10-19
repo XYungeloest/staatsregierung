@@ -17,7 +17,7 @@
     "deploy:staging": "node ../../scripts/write-staging-wrangler-config.mjs . && wrangler deploy --config dist/server/wrangler.staging.json --env=\"\""
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.3.4",
+    "@astrojs/cloudflare": "^14.4.0",
     "@ostrecht/recht-search": "^0.0.1",
     "@ostrecht/shared": "^0.0.1",
     "astro": "^7.3.8"
