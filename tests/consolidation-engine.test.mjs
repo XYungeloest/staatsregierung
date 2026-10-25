@@ -195,3 +195,19 @@ test('das Konsolidierungsaudit verlangt für jeden gestaffelten Änderungstermin
   assert.equal(completeIntervals(record, ['2030-03-01', '2030-04-01'], '2030-01-01'), true);
   assert.equal(completeIntervals(record, ['2030-02-01', '2030-04-01'], '2030-01-01'), false);
 });
+
+test('ein zitierter Eintrag der Inhaltsübersicht darf keine vollständige Vorschrift ersetzen', () => {
+  const state = { body: [{ type: 'paragraph', label: '§ 1', title: 'Aufgaben', children: [] }] };
+  const operation = {
+    op: 'insertProvisionAfter', target: { type: 'paragraph', label: '§ 1' },
+    expectedHash: sha256(state.body[0]), expectedMatches: 1,
+    value: { type: 'paragraph', label: '§ 1a', title: 'Förderung“.', children: [] },
+    source: 'Gesetze/Test.html', sourceProvision: 'Artikel 1 Nummer 2', effectiveDate: '2026-01-02',
+  };
+  const recipe = { amendmentAct: 'test-aenderung', effectiveDate: '2026-01-02', operations: [operation] };
+  assert.throws(() => applyPatchRecipe(state, recipe), /Inhaltsübersicht statt vollständiger Vorschrift/u);
+  operation.value = { type: 'paragraph', label: '§ 1a', title: 'Förderung', children: [
+    { type: 'subparagraph', label: '(1)', text: 'Die Förderung wird ermöglicht.', children: [] },
+  ] };
+  assert.deepEqual(applyPatchRecipe(state, recipe).body[1], operation.value);
+});

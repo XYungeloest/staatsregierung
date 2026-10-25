@@ -1,5 +1,6 @@
 {
   "versionId": "2026-09-12",
+  "title": "Ostdeutsches Krankenhausgesetz",
   "validFrom": "2026-09-12",
   "validTo": null,
   "isCurrent": true,
@@ -13,7 +14,6 @@
       "localSource": "Gesetze/OGVBl. 2026 Nr. 77.html"
     }
   ],
-  "title": "Ostdeutsches Krankenhausgesetz",
   "body": [
     {
       "type": "paragraphText",
@@ -557,8 +557,33 @@
         {
           "type": "paragraph",
           "label": "§ 5a",
-          "title": "Besonderer Sicherungs- und Transformationsbedarf“.",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Krankenhausplan kann Krankenhäuser, Krankenhausstandorte oder Leistungsbereiche als besonders sicherungsbedürftig ausweisen, wenn ihre Vorhaltung für die bedarfsgerechte Versorgung der Bevölkerung, insbesondere in dünn besiedelten oder strukturschwachen Räumen, wesentlich ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Krankenhausplan kann ferner Standorte oder Leistungsbereiche mit besonderem Transformationsbedarf ausweisen, wenn deren dauerhafte Sicherung nur durch Umstrukturierung, Verbundbildung, Trägerwechsel oder sektorenübergreifende Weiterentwicklung erreicht werden kann.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Besonders sicherungsbedürftige Leistungsbereiche sind insbesondere Geburtshilfe, Pädiatrie, Notfallversorgung und ländliche Grundversorgung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Festlegungen nach den Absätzen 1 bis 3 sind bei Entscheidungen nach dem Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz besonders zu berücksichtigen.",
+              "children": []
+            }
+          ],
+          "title": "Besonderer Sicherungs- und Transformationsbedarf"
         },
         {
           "type": "paragraph",
@@ -955,8 +980,69 @@
         {
           "type": "paragraph",
           "label": "§ 10a",
-          "title": "Verfahren zur Sicherung versorgungsnotwendiger Standorte und Leistungsbereiche“.",
-          "children": []
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ist ein Krankenhaus, ein Krankenhausstandort oder ein Leistungsbereich versorgungsnotwendig und liegen Anhaltspunkte für eine erhebliche Gefährdung vor, kann das zuständige Staatsministerium ein Verfahren zur Sicherung der Versorgung einleiten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Im Verfahren nach Absatz 1 sind insbesondere zu prüfen:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Fortführung durch den bisherigen Träger,",
+              "level": 0,
+              "listId": "2m6cziocskrn",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Übernahme durch kommunale oder gemeinwohlorientierte Träger,",
+              "level": 0,
+              "listId": "2m6cziocskrn",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Einbindung in einen interkommunalen oder regionalen Klinikverbund,",
+              "level": 0,
+              "listId": "2m6cziocskrn",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die vorübergehende Stabilisierung oder Übernahme nach dem Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz.",
+              "level": 0,
+              "listId": "2m6cziocskrn",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Das zuständige Staatsministerium kann hierzu die betroffenen Landkreise, kreisfreien Städte, kommunalen Zweckverbände und sonstigen geeigneten Träger beteiligen und koordinierende Gespräche führen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Feststellungen nach Absatz 1 und Entscheidungen im Verfahren nach den Absätzen 2 und 3 begründen für sich allein keinen Anspruch auf bestimmte Leistungen aus dem Ostdeutschen Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz; sie sind dort jedoch vorrangig zu berücksichtigen.",
+              "children": []
+            }
+          ],
+          "title": "Verfahren zur Sicherung versorgungsnotwendiger Standorte und Leistungsbereiche"
         },
         {
           "type": "paragraph",
