@@ -379,3 +379,22 @@ test('Stammnormtitel direkt im Mantelartikel bilden eigenständige Normen und be
   assert.deepEqual(parsed.body.filter((b) => b.type === 'article').map((b) => b.label), ['Artikel 1', 'Artikel 2', 'Artikel 3', 'Artikel 4']);
   assert.doesNotMatch(JSON.stringify(parsed.introducedNorms.map((n) => n.body)), /Änderung des Prüfregelungsgesetzes|Inkrafttreten/u);
 });
+
+test('ein zitierter Inhaltsübersichtseintrag mit Schlusspunkt endet vor einem neuen Listenbezeichner', () => {
+  const section = hierarchyFixture(`
+    <ol start="1"><li>In der Inhaltsübersicht wird folgende Angabe eingefügt:</li></ol>
+    <h3>„§ 1a Förderung“.</h3>
+    <ol start="2"><li>Nach § 1 wird folgender § 1a eingefügt:</li></ol>
+    <h3>„§ 1a<br>Förderung</h3>
+    <p>(1) Die Förderung wird ermöglicht.</p>
+    <p>(2) Die Voraussetzungen bleiben unberührt.“</p>
+  `);
+  const items = section.children.filter(block => block.type === 'item');
+  assert.deepEqual(items.map(block => block.label), ['1.', '2.']);
+  assert.equal(items[0].children[0].type, 'quotedProvision');
+  assert.equal(items[0].children[0].children[0].children.length, 0);
+  const provision = items[1].children[0].children[0];
+  assert.equal(provision.label, '§ 1a');
+  assert.equal(provision.title, 'Förderung');
+  assert.deepEqual(provision.children.map(block => block.label), ['(1)', '(2)']);
+});
