@@ -17,15 +17,15 @@
     "deploy:staging": "wrangler deploy --config wrangler.jsonc --env staging"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.3.4",
+    "@astrojs/cloudflare": "^14.4.2",
     "@ostrecht/shared": "^0.0.1",
     "astro": "^7.3.8",
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@types/leaflet": "^1.9.22",
-    "wrangler": "^4.151.0"
+    "wrangler": "^4.152.0"
   },
   "engines": {
     "node": ">=22.12.0"
