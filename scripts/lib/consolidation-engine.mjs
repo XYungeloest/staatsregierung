@@ -80,6 +80,11 @@ function assertOperationContract(operation) {
   if (!operation.expectedHash && operation.expectedOld === undefined && operation.op !== 'renameLaw') {
     throw new Error(`${operation.op}: expectedHash oder expectedOld fehlt`);
   }
+  // A quoted table-of-contents heading is not the provision being enacted.
+  // Keep this check on recipe values, so stale recipes cannot reintroduce a parser error.
+  if (operation.value?.type === 'paragraph' && /[“”]\.\s*$/u.test(operation.value.title ?? '')) {
+    throw new Error(`${operation.op}: Inhaltsübersicht statt vollständiger Vorschrift im Patch-Wert`);
+  }
   if (!Number.isInteger(operation.expectedMatches) || operation.expectedMatches < 1) {
     throw new Error(`${operation.op}: expectedMatches muss mindestens 1 sein`);
   }

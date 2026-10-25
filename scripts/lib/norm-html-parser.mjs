@@ -796,6 +796,14 @@ function groupIntroducedQuotes(tokens) {
   return grouped;
 }
 
+function endsAmendmentQuote(token) {
+  const text = token?.text ?? token?.rawText ?? '';
+  // A quoted contents entry may put the sentence's full stop outside the quote.
+  // Restrict this to headings: inner quotations in running text must stay inside the provision.
+  return CLOSING_QUOTE_PATTERN.test(text) ||
+    (token?.kind === 'structure' && /(?:“|”|’|''|")\s*\.\s*$/u.test(text));
+}
+
 function groupAmendmentQuotes(tokens) {
   const grouped = [];
   for (let index = 0; index < tokens.length; index += 1) {
@@ -812,7 +820,7 @@ function groupAmendmentQuotes(tokens) {
         candidate.kind === 'structure' &&
         ['article', 'paragraph'].includes(candidate.marker.type) &&
         (
-          CLOSING_QUOTE_PATTERN.test(tokens[end - 1]?.text ?? tokens[end - 1]?.rawText ?? '') ||
+          endsAmendmentQuote(tokens[end - 1]) ||
           OUTER_ARTICLE_TITLE_PATTERN.test(candidate.marker.title ?? '')
         )
       ) break;
@@ -821,7 +829,7 @@ function groupAmendmentQuotes(tokens) {
         candidate.kind === 'listItem' &&
         candidate.level <= token.level &&
         candidate.numberingStyle === 'decimal' &&
-        CLOSING_QUOTE_PATTERN.test(tokens[end - 1]?.text ?? tokens[end - 1]?.rawText ?? '')
+        endsAmendmentQuote(tokens[end - 1])
       ) break;
       sawContent = true;
       end += 1;
