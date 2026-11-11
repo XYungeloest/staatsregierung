@@ -1,0 +1,56 @@
+{
+ "allgemeine_ruecklage": [
+  {
+   "jahr": 2027,
+   "anfang": 500,
+   "entnahme": 0,
+   "zufuehrung": 0,
+   "ende": 500,
+   "mindestliquiditaet": 100,
+   "liquiditaetsruecklage_ende": 0
+  },
+  {
+   "jahr": 2028,
+   "anfang": 500,
+   "entnahme": 0,
+   "zufuehrung": 0,
+   "ende": 500,
+   "mindestliquiditaet": 100,
+   "liquiditaetsruecklage_ende": 0
+  },
+  {
+   "jahr": 2029,
+   "anfang": 500,
+   "entnahme": 0,
+   "zufuehrung": 0,
+   "ende": 500,
+   "mindestliquiditaet": 100,
+   "liquiditaetsruecklage_ende": 0
+  }
+ ],
+ "gegenposten": [
+  {
+   "asset_id": "TEST-fonds",
+   "year": "2027",
+   "chapter": "0102",
+   "hg": "6",
+   "title": "TG71",
+   "amount_eur": "300",
+   "name": "Testfonds",
+   "kind": "special_fund",
+   "origin": "S/D",
+   "counterparty": "Kernhaushalt",
+   "fund_expense_type": "Erstattung",
+   "core_revenue_title": "35930",
+   "consolidation_elimination_eur": "300",
+   "certificate": "False",
+   "legal_change": "True",
+   "new_target_chapters": "0101,0102"
+  }
+ ],
+ "lose": [
+  {
+   "intern": true
+  }
+ ]
+}

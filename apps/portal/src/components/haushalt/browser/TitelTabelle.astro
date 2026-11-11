@@ -1,0 +1,337 @@
+---
+/**
+ * Titel eines Kapitels für eine Seite (Einnahmen oder Ausgaben): je Titel Nummer mit stabilem
+ * Sprungziel (`titel-<nummer>`, Zeilenanker und Link-Knopf), Zweckbestimmung mit Gruppierung,
+ * Hauptgruppe, Titelgruppe, Vorhaben, Rechtsgrundlage und Mengenangaben, Beträge je Jahr mit
+ * Veränderung, Herkunft sowie Erläuterung und Haushaltsvermerk als ein- und ausblendbare
+ * Folgezeile. Titelgruppen sind Gruppenzeilen ohne eigene Beträge, damit nichts doppelt gezählt
+ * wird; die Summenzeile ist Σ Titel und muss der Kapitelsumme entsprechen (sonst Buildabbruch).
+ * Alle Freitexte erscheinen nur in ihrer öffentlichen Fassung (`lib/haushalt/oeffentlich.ts`).
+ */
+import Amount from '../Amount.astro';
+import CopyLinkButton from '../CopyLinkButton.astro';
+import DataTableFrame from '../DataTableFrame.astro';
+import FilterBar from '../FilterBar.astro';
+import OriginBadge from '../OriginBadge.astro';
+import { normalizeSearch, ORIGIN_LABELS, type OriginCode } from '../format.ts';
+import { betrag, formatDezimaltext, getProjektVerweis, nachTitelnummer, pruefeSumme, summe } from './kontext.ts';
+import { HAUPTGRUPPEN } from '../../../lib/haushalt/kennzahlen.ts';
+import {
+  formatKapitelnummer,
+  formatTitelnummer,
+  publicBezeichnung,
+  publicTiteltexte,
+  RECHTSBEZUG_ART_LABELS,
+  rechtsgrundlageBezuege,
+  type FreitextOverlay,
+} from '../../../lib/haushalt/oeffentlich.ts';
+import type { Kapitel, Projekt, Seite, Titel } from '../../../lib/haushalt/types.ts';
+import { getBudgetTitleAnchor } from '@ostrecht/shared/lib/portal/routes.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+
+interface Props {
+  id: string;
+  periode: string;
+  kapitel: Kapitel;
+  seite: Seite;
+  titel: Titel[];
+  jahre: string[];
+  freitexte: FreitextOverlay;
+  projekte: Map<string, Projekt>;
+  exportMeta: Record<string, string>;
+}
+
+const { id, periode, kapitel, seite, titel, jahre, freitexte, projekte, exportMeta } = Astro.props as Props;
+const [j1, j2] = jahre;
+const nummer = formatKapitelnummer(kapitel.kapitel);
+const seitenwort = seite === 'Einnahme' ? 'Einnahmetitel' : 'Ausgabetitel';
+const summenfeld = seite === 'Einnahme' ? 'einnahmen' : 'ausgaben';
+
+/** Gleiche Werte beider Jahre einmal, sonst je Jahr. */
+const jeJahr = (werte: Array<[string, string | null]>): string | null => {
+  const vorhanden = werte.filter((entry): entry is [string, string] => entry[1] !== null && entry[1] !== '');
+  if (vorhanden.length === 0) return null;
+  const verschieden = new Set(vorhanden.map(([, wert]) => wert));
+  if (verschieden.size === 1 && vorhanden.length === werte.length) return vorhanden[0][1];
+  return vorhanden.map(([jahr, wert]) => `${jahr}: ${wert}`).join('; ');
+};
+
+const zeilen = [...titel].sort(nachTitelnummer).map((eintrag) => {
+  const anker = getBudgetTitleAnchor(eintrag.titel);
+  const zweck = publicBezeichnung(eintrag.zweckbestimmung ?? '', freitexte);
+  const gruppeBezeichnung = publicBezeichnung(eintrag.gruppe_bezeichnung, freitexte);
+  const texte = jahre.map((jahr) => [jahr, publicTiteltexte(eintrag, jahr, freitexte)] as const);
+  const rechtsgrundlage = texte.find(([, text]) => text.rechtsgrundlage)?.[1].rechtsgrundlage ?? null;
+  const finanzierung = jeJahr(texte.map(([jahr, text]) => [jahr, text.finanzierung]));
+  const erlaeuterung = jeJahr(texte.map(([jahr, text]) => [jahr, text.erlaeuterung]));
+  const vermerk = jeJahr(texte.map(([jahr, text]) => [jahr, text.vermerk]));
+  const einheit = eintrag.einheit ? publicBezeichnung(eintrag.einheit, freitexte) : undefined;
+  const menge = jeJahr(jahre.map((jahr) => [jahr, eintrag.jahre[jahr as `${number}`]?.menge ? formatDezimaltext(eintrag.jahre[jahr as `${number}`]!.menge!) : null]));
+  const satz = jeJahr(jahre.map((jahr) => [jahr, eintrag.jahre[jahr as `${number}`]?.satz ? `${formatDezimaltext(eintrag.jahre[jahr as `${number}`]!.satz!)} €` : null]));
+  const vorhaben = eintrag.projekt_id ? getProjektVerweis(periode, projekte.get(eintrag.projekt_id)) : null;
+  const herkunft = (eintrag.herkunft ?? null) as OriginCode | null;
+  const a = betrag(eintrag, j1);
+  const b = betrag(eintrag, j2);
+  return {
+    eintrag,
+    anker,
+    nummer: formatTitelnummer(eintrag.titel),
+    zweck,
+    gruppeBezeichnung,
+    rechtsgrundlage,
+    finanzierung,
+    erlaeuterung,
+    vermerk,
+    einheit,
+    menge,
+    satz,
+    vorhaben,
+    herkunft,
+    a,
+    b,
+    search: normalizeSearch(
+      [
+        eintrag.titel,
+        formatTitelnummer(eintrag.titel),
+        zweck,
+        `Gruppe ${eintrag.gruppe}`,
+        gruppeBezeichnung,
+        `Hauptgruppe ${eintrag.hauptgruppe}`,
+        eintrag.titelgruppe ? `Titelgruppe ${eintrag.titelgruppe} TG ${eintrag.titelgruppe}` : '',
+        vorhaben?.titel ?? '',
+        rechtsgrundlage?.text ?? '',
+      ].join(' '),
+    ),
+  };
+});
+
+// Kontrollsummen: Σ Titel = Kapitelsumme je Jahr.
+const summen = Object.fromEntries(jahre.map((jahr) => [jahr, summe(titel.map((entry) => betrag(entry, jahr)))]));
+for (const jahr of jahre) pruefeSumme(`Kapitel ${kapitel.kapitel} ${seitenwort} ${jahr}`, summen[jahr], kapitel.jahre[jahr as `${number}`][summenfeld]);
+
+// Titelgruppen als Gruppen; Titel ohne Titelgruppe zuerst.
+const gruppenCodes = [...new Set(zeilen.map((zeile) => zeile.eintrag.titelgruppe).filter((code): code is string => Boolean(code)))].sort();
+const gruppen = [
+  { code: null as string | null, zeilen: zeilen.filter((zeile) => !zeile.eintrag.titelgruppe) },
+  ...gruppenCodes.map((code) => ({ code, zeilen: zeilen.filter((zeile) => zeile.eintrag.titelgruppe === code) })),
+].filter((gruppe) => gruppe.zeilen.length > 0);
+const mitGruppen = gruppenCodes.length > 0;
+const hauptgruppen = [...new Set(zeilen.map((zeile) => zeile.eintrag.hauptgruppe))].sort();
+const herkuenfte = (['O', 'D', 'S', 'P'] as OriginCode[]).filter((code) => zeilen.some((zeile) => zeile.herkunft === code));
+const mitFolgezeilen = zeilen.some((zeile) => zeile.erlaeuterung || zeile.vermerk);
+const spalten = 6;
+
+const yearOptions = [
+  { value: j1, label: j1 },
+  { value: j2, label: j2 },
+  { value: 'beide', label: `${j1} und ${j2}` },
+  { value: 'veraenderung', label: 'Veränderung' },
+];
+const filter = [
+  {
+    feld: 'hauptgruppe',
+    label: 'Hauptgruppe',
+    alleLabel: 'Alle Hauptgruppen',
+    options: hauptgruppen.map((hg) => ({ value: hg, label: `${hg} – ${HAUPTGRUPPEN[hg].kurz}` })),
+  },
+  ...(mitGruppen
+    ? [
+        {
+          feld: 'titelgruppe',
+          label: 'Titelgruppe',
+          alleLabel: 'Alle Titel',
+          options: [
+            ...(gruppen.some((gruppe) => gruppe.code === null) ? [{ value: 'ohne', label: 'ohne Titelgruppe' }] : []),
+            ...gruppenCodes.map((code) => ({ value: code, label: `Titelgruppe ${code}` })),
+          ],
+        },
+      ]
+    : []),
+  ...(herkuenfte.length > 1
+    ? [
+        {
+          feld: 'herkunft',
+          label: 'Herkunft',
+          alleLabel: 'Jede Herkunft',
+          options: herkuenfte.map((code) => ({ value: code, label: `${code} – ${ORIGIN_LABELS[code]}` })),
+        },
+      ]
+    : []),
+];
+const gruppenSummen = gruppenCodes.map((code) => {
+  const auswahl = titel.filter((entry) => entry.titelgruppe === code);
+  return { code, anzahl: auswahl.length, werte: Object.fromEntries(jahre.map((jahr) => [jahr, summe(auswahl.map((entry) => betrag(entry, jahr)))])) };
+});
+---
+
+<DataTableFrame
+  id={id}
+  label={`${seitenwort} des Kapitels ${nummer}`}
+  caption={`${seitenwort} des Kapitels ${nummer}, Beträge in Euro`}
+  nomenSingular="Titel"
+  nomenPlural="Titeln"
+  exportFilename={`kapitel-${kapitel.kapitel}-${seite === 'Einnahme' ? 'einnahmen' : 'ausgaben'}-${periode}.csv`}
+  exportMeta={{ ...exportMeta, Kapitel: kapitel.kapitel, Seite: seite }}
+  exportZeilenfelder={[
+    { key: 'gruppe', label: 'Gruppe' },
+    { key: 'gruppe-bezeichnung', label: 'Bezeichnung der Gruppe' },
+    { key: 'hauptgruppe', label: 'Hauptgruppe' },
+    { key: 'titelgruppe', label: 'Titelgruppe' },
+    { key: 'vorhaben', label: 'Vorhaben' },
+    { key: 'rechtsgrundlage', label: 'Rechtsgrundlage' },
+    { key: 'rechtsgrundlage-art', label: 'Art der Rechtsgrundlage' },
+    { key: 'herkunft-text', label: 'Herkunft (Bedeutung)' },
+    { key: 'einheit', label: 'Einheit' },
+    { key: `menge-${j1}`, label: `Menge ${j1}` },
+    { key: `menge-${j2}`, label: `Menge ${j2}` },
+    { key: `satz-${j1}`, label: `Satz je Einheit ${j1} (Euro)` },
+    { key: `satz-${j2}`, label: `Satz je Einheit ${j2} (Euro)` },
+    { key: 'erlaeuterung', label: 'Erläuterung' },
+    { key: 'vermerk', label: 'Haushaltsvermerk' },
+  ]}
+  jahresansicht="beide"
+  jahresansichtSchmal={j1}
+  breite="breit"
+  class="hh-browser-titel"
+>
+  <FilterBar
+    slot="werkzeuge"
+    id={id}
+    suche={{ label: 'Titel suchen', placeholder: 'Nummer, Zweckbestimmung oder Gruppe' }}
+    filter={filter}
+    jahresansicht={{ label: 'Ansicht', value: 'beide', options: yearOptions }}
+    erlaeuterungen={mitFolgezeilen ? { label: 'Erläuterungen und Haushaltsvermerke anzeigen', checked: true } : undefined}
+    export={{}}
+  />
+  <table class="data-table hh-datentabelle">
+    <thead>
+      <tr>
+        <th scope="col" class="hh-kennung" data-sort="text" data-export-key="titel" aria-sort="ascending">Titel</th>
+        <th scope="col" data-sort="text" data-export-key="zweckbestimmung">Zweckbestimmung</th>
+        <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`betrag-${j1}`} data-export-label={`Ansatz ${j1}`} data-year-col={`${j1} beide veraenderung`}>Ansatz <span>{j1}</span></th>
+        <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`betrag-${j2}`} data-export-label={`Ansatz ${j2}`} data-year-col={`${j2} beide veraenderung`}>Ansatz <span>{j2}</span></th>
+        <th scope="col" class="hh-zahl" data-sort="number" data-export-key="veraenderung" data-export-label={`Veränderung ${j2} gegenüber ${j1}`} data-year-col="veraenderung">Veränderung <span>{j2} zu {j1}</span></th>
+        <th scope="col" class="hh-browser-herkunft" data-sort="text" data-export-key="herkunft">Herkunft</th>
+      </tr>
+    </thead>
+    {gruppen.map((gruppe) => (
+      <tbody>
+        {mitGruppen ? (
+          <tr data-gruppenkopf>
+            <th scope="rowgroup" colspan={spalten}>{gruppe.code ? `Titelgruppe ${gruppe.code}` : 'Titel ohne Titelgruppe'}</th>
+          </tr>
+        ) : null}
+        {gruppe.zeilen.map((zeile) => (
+          <>
+            <tr
+              id={zeile.anker}
+              data-search={zeile.search}
+              data-hauptgruppe={zeile.eintrag.hauptgruppe}
+              data-titelgruppe={zeile.eintrag.titelgruppe ?? 'ohne'}
+              data-herkunft={zeile.herkunft ?? undefined}
+              data-export-gruppe={zeile.eintrag.gruppe}
+              data-export-gruppe-bezeichnung={zeile.gruppeBezeichnung}
+              data-export-hauptgruppe={zeile.eintrag.hauptgruppe}
+              data-export-titelgruppe={zeile.eintrag.titelgruppe ?? ''}
+              data-export-vorhaben={zeile.vorhaben?.titel ?? ''}
+              data-export-rechtsgrundlage={rechtsgrundlageBezuege(zeile.rechtsgrundlage).map((bezug) => bezug.text).join('; ')}
+              data-export-rechtsgrundlage-art={rechtsgrundlageBezuege(zeile.rechtsgrundlage).map((bezug) => (bezug.art ? RECHTSBEZUG_ART_LABELS[bezug.art] : '')).join('; ')}
+              data-export-herkunft-text={zeile.herkunft ? ORIGIN_LABELS[zeile.herkunft] : ''}
+              data-export-einheit={zeile.einheit ?? ''}
+              {...Object.fromEntries(
+                jahre.flatMap((jahr) => [
+                  [`data-export-menge-${jahr}`, zeile.eintrag.jahre[jahr as `${number}`]?.menge ?? ''],
+                  [`data-export-satz-${jahr}`, zeile.eintrag.jahre[jahr as `${number}`]?.satz ?? ''],
+                ]),
+              )}
+              data-export-erlaeuterung={zeile.erlaeuterung ?? ''}
+              data-export-vermerk={zeile.vermerk ?? ''}
+            >
+              <th scope="row" class="hh-kennung hh-browser-titelnummer" data-sort={zeile.eintrag.titel} data-export-value={zeile.eintrag.titel}>
+                <a class="hh-zeilenanker" href={`#${zeile.anker}`}>{zeile.nummer}</a>
+                <CopyLinkButton anker={zeile.anker} label={`Titel ${zeile.nummer}`} />
+              </th>
+              <td class="hh-browser-zweckzelle" data-export-value={zeile.zweck} data-sort={zeile.zweck}>
+                {zeile.zweck}
+                <span class="hh-browser-titelmeta">
+                  <span>Gruppe {zeile.eintrag.gruppe}{zeile.gruppeBezeichnung !== zeile.zweck ? `: ${zeile.gruppeBezeichnung}` : ''}</span>
+                  <span>Hauptgruppe {zeile.eintrag.hauptgruppe}</span>
+                  {zeile.eintrag.titelgruppe ? <span>Titelgruppe {zeile.eintrag.titelgruppe}</span> : null}
+                  {zeile.vorhaben ? (
+                    <span>
+                      Vorhaben:{' '}
+                      {zeile.vorhaben.href ? <a class="hh-browser-link" href={zeile.vorhaben.href}>{zeile.vorhaben.titel}</a> : zeile.vorhaben.titel}
+                      {zeile.vorhaben.overlay.betragshinweis ? <> ({zeile.vorhaben.overlay.betragshinweis})</> : null}
+                    </span>
+                  ) : null}
+                  {zeile.rechtsgrundlage ? (
+                    <span>
+                      Rechtsgrundlage:{' '}
+                      {rechtsgrundlageBezuege(zeile.rechtsgrundlage).map((bezug, index) => (
+                        <>
+                          {index > 0 ? '; ' : null}
+                          {bezug.normSlug ? <a class="hh-browser-link" href={getNormUrl(bezug.normSlug)}>{bezug.text}</a> : bezug.text}
+                          {bezug.art ? <> ({RECHTSBEZUG_ART_LABELS[bezug.art]})</> : null}
+                        </>
+                      ))}
+                    </span>
+                  ) : null}
+                  {zeile.finanzierung ? <span>Finanzierung: {zeile.finanzierung}</span> : null}
+                  {zeile.menge ? <span>Menge{zeile.einheit ? ` (${zeile.einheit})` : ''}: {zeile.menge}</span> : null}
+                  {zeile.satz ? <span>Satz je Einheit: {zeile.satz}</span> : null}
+                  {zeile.herkunft ? <span class="hh-browser-nur-schmal">Herkunft: {ORIGIN_LABELS[zeile.herkunft]}</span> : null}
+                </span>
+              </td>
+              <td class="hh-zahl" data-year-col={`${j1} beide veraenderung`} data-export-value={zeile.a}><Amount value={zeile.a} exakt /></td>
+              <td class="hh-zahl" data-year-col={`${j2} beide veraenderung`} data-export-value={zeile.b}><Amount value={zeile.b} exakt /></td>
+              <td class="hh-zahl" data-year-col="veraenderung" data-export-value={zeile.b - zeile.a}><Amount value={zeile.b - zeile.a} vorzeichen exakt /></td>
+              <td class="hh-browser-herkunft" data-export-value={zeile.herkunft ?? ''} data-sort={zeile.herkunft ?? ''}>
+                {zeile.herkunft ? <OriginBadge code={zeile.herkunft} /> : '–'}
+              </td>
+            </tr>
+            {zeile.erlaeuterung || zeile.vermerk ? (
+              <tr data-folgezeile data-erlaeuterung>
+                <td></td>
+                <td colspan={spalten - 1}>
+                  <dl class="hh-browser-erlaeuterung">
+                    {zeile.erlaeuterung ? (
+                      <div><dt>Erläuterung</dt><dd>{zeile.erlaeuterung}</dd></div>
+                    ) : null}
+                    {zeile.vermerk ? (
+                      <div><dt>Haushaltsvermerk</dt><dd>{zeile.vermerk}</dd></div>
+                    ) : null}
+                  </dl>
+                </td>
+              </tr>
+            ) : null}
+          </>
+        ))}
+      </tbody>
+    ))}
+    <tfoot>
+      <tr>
+        <th scope="row" colspan="2">Summe der {seitenwort} (entspricht dem Kapitel)</th>
+        <td class="hh-zahl" data-year-col={`${j1} beide veraenderung`}><Amount value={summen[j1]} exakt /></td>
+        <td class="hh-zahl" data-year-col={`${j2} beide veraenderung`}><Amount value={summen[j2]} exakt /></td>
+        <td class="hh-zahl" data-year-col="veraenderung"><Amount value={summen[j2] - summen[j1]} vorzeichen exakt /></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</DataTableFrame>
+
+{gruppenSummen.length > 0 ? (
+  <div class="hh-browser-titelgruppen">
+    <p class="hh-browser-titelgruppen__titel">Titelgruppen der {seitenwort} (nachrichtlich, in den Titeln enthalten)</p>
+    <ul>
+      {gruppenSummen.map((gruppe) => (
+        <li>
+          <strong>Titelgruppe {gruppe.code}</strong>
+          <span>{gruppe.anzahl} Titel</span>
+          <span>{j1}: <Amount value={gruppe.werte[j1]} exakt /></span>
+          <span>{j2}: <Amount value={gruppe.werte[j2]} exakt /></span>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : null}

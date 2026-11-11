@@ -30,6 +30,7 @@ export const CANONICAL_DOCUMENTS = [
   'docs/NORM_WORKFLOW.md',
   'docs/REVOSAX_BULK_IMPORT.md',
   'docs/KREISREFORM_KARTE.md',
+  'docs/HAUSHALT.md',
   'docs/ZUARBEITSFORMULAR.md',
   'knowledge/README.md',
   'knowledge/SOURCE_POLICY.md',

@@ -1,0 +1,58 @@
+---
+/**
+ * Haushaltsbezug einer Themenseite: die Vorhaben der im Build sichtbaren Snapshot-Perioden,
+ * deren Projekt-Overlay das Thema nennt (`topicSlugs`), kompakt mit Status, Beträgen und Link zur
+ * Projektseite. Ohne sichtbare Periode oder ohne passendes Vorhaben gibt die Komponente nichts
+ * aus; nicht freigegebene Perioden erscheinen damit nur in Vorschau-Builds. Der Haushaltsstatus
+ * der Periode steht immer als Wort dabei, damit ein Entwurf nie als geltender Haushalt wirkt.
+ */
+import ProjektBetraege from './projekte/ProjektBetraege.astro';
+import ProjektStatus from './projekte/ProjektStatus.astro';
+import { getProjekteZumThema } from './projekte/daten.ts';
+import { getBudgetPeriodPageUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import '../../styles/haushalt/projekte.css';
+
+interface Props {
+  topicSlug: string;
+  /** Kopf der Überschrift; Standard „Vorhaben im <Periode>“. */
+  titel?: string;
+}
+
+const { topicSlug, titel } = Astro.props as Props;
+const perioden = getProjekteZumThema(topicSlug);
+---
+
+{perioden.map(({ rahmen, projekte }) => {
+  const headingId = `haushalt-${rahmen.id}-${topicSlug}`;
+  return (
+    <section class="section hh-thema" aria-labelledby={headingId} data-haushalt-thema={rahmen.id}>
+      <div class="section-header">
+        <p class="eyebrow">Haushalt</p>
+        <h2 id={headingId}>{titel ?? `Vorhaben im ${rahmen.periodLabel}`}</h2>
+        <p class="hh-thema__status">
+          <strong class="hh-thema__statuslabel">{rahmen.statusLabel}</strong>
+          <span>{rahmen.statusText}</span>
+          {rahmen.preview ? <span class="hh-thema__vorschau">Vorschau – noch nicht zur Veröffentlichung freigegeben.</span> : null}
+        </p>
+      </div>
+      <ul class="hh-thema__liste" role="list">
+        {projekte.map((projekt) => (
+          <li class="hh-thema__eintrag">
+            <h3 class="hh-thema__titel">{projekt.href ? <a href={projekt.href}>{projekt.titel}</a> : projekt.titel}</h3>
+            <p class="hh-thema__meta">
+              <ProjektStatus status={projekt.status} />
+              <span>{projekt.fachbereich}</span>
+            </p>
+            <ProjektBetraege projekt={projekt} jahre={rahmen.jahre} />
+          </li>
+        ))}
+      </ul>
+      <p class="hh-thema__hinweis">
+        Ausgaben im Kernhaushalt, Stand: {rahmen.statusLabel}. Die Beträge sind in den Kapiteln des Haushalts enthalten.
+      </p>
+      <p class="hh-thema__weiter">
+        <a class="inline-link" href={getBudgetPeriodPageUrl(rahmen.id, 'projekte')}>Alle Vorhaben im {rahmen.periodLabel}</a>
+      </p>
+    </section>
+  );
+})}

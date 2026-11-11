@@ -3,7 +3,7 @@ import {
   getBudgetShare,
   type BudgetAmounts,
   type BudgetYear,
-} from '../../data/haushalt.ts';
+} from '../../lib/haushalt/legacy-2025-2026.ts';
 import { formatEuroCompact, formatPercent } from '@ostrecht/shared/lib/portal/modules.ts';
 
 interface Props {
@@ -16,9 +16,11 @@ const { year, amounts, specialInstrumentCount } = Astro.props as Props;
 const cards = [
   { label: 'Gesamtausgaben', amount: amounts.expenses, description: 'Summe der Ausgaben' },
   { label: 'Gesamteinnahmen', amount: amounts.revenue, description: 'Summe der Einnahmen' },
-  { label: 'Investitionen', amount: amounts.investments, description: getBudgetShare(amounts.investments, amounts.expenses) },
+  // Abgrenzung des Altbestands: nur Hauptgruppe 8; die zentrale Investitionskennzahl der
+  // Einstiegsseite (Hauptgruppen 7 und 8) ist eine andere Größe und trägt deshalb einen anderen Namen.
+  { label: 'Investitionsförderung und sonstige Investitionen (Hauptgruppe 8)', amount: amounts.investments, description: getBudgetShare(amounts.investments, amounts.expenses) },
   { label: 'Personalausgaben', amount: amounts.personnel, description: getBudgetShare(amounts.personnel, amounts.expenses) },
-  { label: 'Schuldendienst und Finanzierungen', amount: amounts.financingExpenses, description: 'Besondere Finanzierungsausgaben' },
+  { label: 'Besondere Finanzierungsausgaben (Hauptgruppe 9)', amount: amounts.financingExpenses, description: 'Rücklagenzuführungen, globale Ansätze und Verrechnungen' },
 ];
 ---
 

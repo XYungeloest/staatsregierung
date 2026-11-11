@@ -583,7 +583,11 @@ verpflichtend, nicht optional.
 - `content/dashboard/timeline.json` und `knowledge/timeline.json` sind **zwei getrennte Bestände**
   mit disjunkten ID-Namensräumen und ohne Konsistenzprüfung. Die Dashboard-Zeitachse ist eine
   redaktionelle Auswahl ohne Quellenbindung.
-- `content/haushalt/*.json` wird von keiner Seite gerendert, aber in die Sitemap geschrieben.
+- Die Altdateien `content/haushalt/gesamtplan.json`, `einzelplaene.json` und
+  `sondervermoegen.json` werden von keiner Seite gerendert, aber in die Sitemap geschrieben.
+  `content/haushalt/perioden.json` und die Overlays unter `content/haushalt/<periode>/` werden
+  gerendert und von `npm run haushalt:check` geprüft; ein Haushaltseingang folgt
+  [`HAUSHALT.md`](HAUSHALT.md).
 - `content/stichwortregister.json` ist als **einzige** Datei dieses Bereichs Teil von
   `CORPUS_ROOTS` und damit der D1-Projektionsidentität. Eine Registeränderung ergibt `scope=portal`
   mit `runD1Sync=true`, aber **ohne** `runVisual`. Ein Registerstichwort verdrängt ein gleichlautendes

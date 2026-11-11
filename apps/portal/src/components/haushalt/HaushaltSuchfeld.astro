@@ -1,0 +1,87 @@
+---
+/**
+ * Suchfeld der Haushaltssuche einer Periode: gewöhnliches GET-Formular auf
+ * /haushalt/<periode>/suche/ mit dem Feld `q`. Auf der Suchseite übernimmt
+ * scripts/haushalt-suche.ts das Formular (Treffer ohne Neuladen); überall sonst führt es zur
+ * Suchseite. Verwendbar auf jeder Haushaltsseite einer sichtbaren Snapshot-Periode.
+ */
+import { getBudgetSearchUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+interface Props {
+  /** Periodenkennung, z. B. "2027-2028". */
+  periode: string;
+  /** Eindeutige Feld-ID (Standard: haushalt-suche-<periode>). */
+  id?: string;
+  /** Sichtbare Beschriftung des Feldes. */
+  label?: string;
+  placeholder?: string;
+  /** Vorbelegung, z. B. aus ?q=. */
+  wert?: string;
+  /** Zugänglicher Name des Suchbereichs (Landmarke). */
+  bereichLabel?: string;
+}
+
+const {
+  periode,
+  id = `haushalt-suche-${periode}`,
+  label = 'Suchbegriff',
+  placeholder = 'z. B. Schulessen, Kita, Kapitel 0407 oder Titel 633 61',
+  wert,
+  bereichLabel = 'Haushaltssuche',
+} = Astro.props as Props;
+const hinweisId = `${id}-hinweis`;
+---
+
+<form class="hh-suchfeld" role="search" aria-label={bereichLabel} method="get" action={getBudgetSearchUrl(periode)} data-haushalt-suchfeld>
+  <label class="filter-field hh-suchfeld__feld" for={id}>
+    <span>{label}</span>
+    <input
+      id={id}
+      type="search"
+      name="q"
+      value={wert}
+      autocomplete="off"
+      spellcheck="false"
+      enterkeyhint="search"
+      placeholder={placeholder}
+      aria-describedby={hinweisId}
+      data-haushalt-suche-eingabe
+    />
+  </label>
+  <button class="button-link hh-suchfeld__knopf" type="submit">Suchen</button>
+  <p class="hh-suchfeld__hinweis" id={hinweisId}>Vorhaben, Einrichtungen, Zweckbestimmungen oder Nummern von Einzelplan, Kapitel, Titel, Gruppe und Funktion</p>
+</form>
+
+<style>
+  .hh-suchfeld {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3);
+    max-width: var(--content-width-narrow);
+    margin-top: var(--space-5);
+  }
+
+  .hh-suchfeld__feld {
+    flex: 1 1 18rem;
+  }
+
+  .hh-suchfeld__knopf {
+    flex: 0 0 auto;
+    min-height: 2.75rem;
+  }
+
+  .hh-suchfeld__hinweis {
+    flex: 1 1 100%;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--lh-compact);
+  }
+
+  @media (max-width: 29.99rem) {
+    .hh-suchfeld__knopf {
+      flex: 1 1 100%;
+    }
+  }
+</style>

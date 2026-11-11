@@ -1,0 +1,95 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "jahre": [
+    2027,
+    2028
+  ],
+  "quellbezeichnung": "Doppelhaushalt 2027/2028 des Freistaates Ostdeutschland – Regierungsentwurf (Simulation)",
+  "quellstatus": "Regierungsentwurf",
+  "stand": "2026-11-11",
+  "titel_datenstatus": "Entwurf 2027/2028 (Simulation)",
+  "haushaltsvolumen": {
+    "2027": 140900866242,
+    "2028": 140040550384
+  },
+  "haushaltsvolumen_basis": {
+    "2027": 141139043496,
+    "2028": 140254332224
+  },
+  "basis": "c0-20261108-v2",
+  "korrekturvorlagen": [
+    {
+      "id": "K-01",
+      "kurzbeschreibung": "Zinsausgaben vollständig im Kapitel 2005 (Schulden) veranschlagen",
+      "art": "Buchungstechnische Umgliederung zwischen Einzelplänen (Hauptgruppe 5)"
+    },
+    {
+      "id": "K-02",
+      "kurzbeschreibung": "Neuberechnung der Personal-, Besoldungs-, Beihilfe- und Versorgungsausgaben nach dem Entwurf eines Gesetzes zur Neuordnung des öffentlichen Dienstrechts (Drucksache 08/13)",
+      "art": "Politische Entscheidung mit Finanzwirkung (Personal-, Beihilfe- und Versorgungsausgaben) und summenneutrale Basisbereinigung HG 4"
+    }
+  ],
+  "legenden": {
+    "herkunft": [
+      {
+        "kennung": "O",
+        "bezeichnung": "amtliche Quelle"
+      },
+      {
+        "kennung": "D",
+        "bezeichnung": "rechnerisch abgeleitet"
+      },
+      {
+        "kennung": "S",
+        "bezeichnung": "Planungsannahme"
+      },
+      {
+        "kennung": "P",
+        "bezeichnung": "politische Festlegung"
+      }
+    ],
+    "qualitaet": [
+      {
+        "kennung": "D_belegt",
+        "bezeichnung": "belegt",
+        "herkunft": "D"
+      },
+      {
+        "kennung": "D_ableitung",
+        "bezeichnung": "abgeleitet aus Finanzrechnung oder Rechtsgrundlage",
+        "herkunft": "D"
+      },
+      {
+        "kennung": "D_quellgewicht",
+        "bezeichnung": "nach Herkunftsgewicht abgeleitet",
+        "herkunft": "D"
+      },
+      {
+        "kennung": "D_struktur",
+        "bezeichnung": "nach Haushaltssystematik gegliedert",
+        "herkunft": "D"
+      },
+      {
+        "kennung": "S_statusmodell",
+        "bezeichnung": "Personalansatz nach Statusmodell",
+        "herkunft": "S"
+      },
+      {
+        "kennung": "S_mengenmodell",
+        "bezeichnung": "Mengen- und Kostenmodell",
+        "herkunft": "S"
+      },
+      {
+        "kennung": "S_fachmodell",
+        "bezeichnung": "fachliches Aufgabenmodell",
+        "herkunft": "S"
+      },
+      {
+        "kennung": "S_rest",
+        "bezeichnung": "noch nicht untersetzter Restansatz",
+        "herkunft": "S"
+      }
+    ]
+  }
+}

@@ -15,9 +15,6 @@ import {
 import {
   getAccessibilityUrl,
   getActionPlanUrl,
-  getBudgetPageUrl,
-  getBudgetPlanUrl,
-  getBudgetUrl,
   getCabinetUrl,
   getCareerUrl,
   getContactUrl,
@@ -56,7 +53,8 @@ import {
   getTopicUrl,
   getTopicsUrl,
 } from '@ostrecht/shared/lib/portal/routes.ts';
-import { budgetPlans } from '../data/haushalt.ts';
+import { budgetPlans } from './haushalt/legacy-2025-2026.ts';
+import { buildHaushaltRoutes } from './haushalt/inventory.ts';
 
 /**
  * Ein Eintrag des Portalinventars.
@@ -203,15 +201,6 @@ function staticRoutes(): StaticRoute[] {
     },
 
     {
-      path: getBudgetUrl(),
-      title: 'Doppelhaushalt 2025/2026',
-      section: 'budget',
-      landing: true,
-      description: 'Eckwerte, Einzelpläne und Sondervermögen des Doppelhaushalts 2025/2026.',
-      searchText: 'Haushalt Doppelhaushalt Etat Einnahmen Ausgaben Einzelpläne Sondervermögen Finanzen Haushaltsplan Kernhaushalt',
-    },
-
-    {
       path: getPressUrl(),
       title: 'Presse & Aktuelles',
       section: 'press',
@@ -331,12 +320,6 @@ function staticRoutes(): StaticRoute[] {
   ];
 }
 
-const BUDGET_PAGE_SEARCH_TEXT: Record<string, string> = {
-  gesamtplan: 'Gesamtplan Haushalt Einnahmen Ausgaben Eckwerte Kernhaushalt',
-  einzelplaene: 'Einzelpläne Haushalt Kapitel Ressorts Ansätze',
-  sondervermoegen: 'Sondervermögen Fonds Rücklagen Haushalt Nebenhaushalte',
-};
-
 /**
  * Vollständiges Inventar der öffentlichen Portalseiten: statische Einstiege und die aus den
  * Inhaltsquellen abgeleiteten Detailseiten. Sortiert nach Bereich und Adresse.
@@ -412,21 +395,9 @@ export async function buildPortalRouteInventory(): Promise<PortalRoute[]> {
       overview: false,
       lastmod: topic.updatedAt,
     })),
-    ...budgetPages.map((page) => ({
-      path: getBudgetPageUrl(page.slug),
-      title: page.title,
-      section: 'budget' as const,
-      description: page.teaser,
-      searchText: BUDGET_PAGE_SEARCH_TEXT[page.slug],
-    })),
-    ...budgetPlans.map((plan) => ({
-      path: getBudgetPlanUrl(plan.number),
-      title: `Einzelplan ${plan.number}: ${plan.title}`,
-      section: 'budget' as const,
-      description: `Haushaltsansätze und Kapitel des Einzelplans ${plan.number} im Doppelhaushalt 2025/2026.`,
-      searchText: `Einzelplan ${plan.number} ${plan.title} ${plan.category} ${plan.responsibility} Haushalt Ansatz Kapitel`,
-      overview: false,
-    })),
+    // Haushaltsbereich: periodenübergreifende Seiten und alle sichtbaren Haushaltsperioden
+    // (Sichtbarkeit und Vorschau steuert lib/haushalt/perioden.ts).
+    ...buildHaushaltRoutes({ budgetPages, legacyPlans: budgetPlans }),
     ...pressReleases.map((entry) => ({
       path: getPressReleaseUrl(entry.slug),
       title: entry.title,

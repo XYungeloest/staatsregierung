@@ -1,0 +1,55 @@
+---
+/**
+ * Vergleich eines Ausgabenblocks nach Rechtsständen je Jahr: geltendes Recht, bisheriges
+ * Planniveau und Gesetzentwurf als eigene Spalten, dazu die Änderung des Entwurfs gegenüber dem
+ * Planniveau und gegenüber dem geltenden Recht (Differenzen der angezeigten Werte). Jahre nach
+ * den Haushaltsjahren sind als Finanzplanung gekennzeichnet.
+ */
+import Amount from '../Amount.astro';
+import DataTableFrame from '../DataTableFrame.astro';
+import type { RegimeBlock } from './daten.ts';
+
+interface Props {
+  id: string;
+  caption: string;
+  block: RegimeBlock;
+  labels: Record<string, string>;
+  haushaltsjahre: readonly string[];
+}
+
+const { id, caption, block, labels, haushaltsjahre } = Astro.props as Props;
+const hatR0 = Boolean(block.werte.R0);
+---
+
+<DataTableFrame id={id} label={caption} caption={`${caption}, Beträge in Euro`} nomenSingular="Jahr" nomenPlural="Jahren" seitengroesse={false} breite={hatR0 ? 'sehr-breit' : 'breit'}>
+  <table class="data-table hh-datentabelle">
+    <thead>
+      <tr>
+        <th scope="col">Jahr</th>
+        {hatR0 ? <th scope="col" class="hh-zahl">{labels.R0}</th> : null}
+        <th scope="col" class="hh-zahl">{labels.B}</th>
+        <th scope="col" class="hh-zahl">{labels.C}</th>
+        <th scope="col" class="hh-zahl">Änderung gegenüber dem bisherigen Planniveau</th>
+        {hatR0 ? <th scope="col" class="hh-zahl">Änderung gegenüber dem geltenden Recht</th> : null}
+      </tr>
+    </thead>
+    <tbody>
+      {block.jahre.map((jahr) => {
+        const b = block.werte.B[jahr];
+        const c = block.werte.C[jahr];
+        const r0 = block.werte.R0?.[jahr];
+        const projektion = !haushaltsjahre.includes(jahr);
+        return (
+          <tr class:list={[projektion && 'hh-zeile--projektion']}>
+            <th scope="row" class="hh-kennung">{jahr}{projektion ? <> <span>Finanzplanung</span></> : null}</th>
+            {hatR0 ? <td class="hh-zahl">{typeof r0 === 'number' ? <Amount value={r0} /> : '–'}</td> : null}
+            <td class="hh-zahl"><Amount value={b} /></td>
+            <td class="hh-zahl"><Amount value={c} /></td>
+            <td class="hh-zahl"><Amount value={c - b} vorzeichen /></td>
+            {hatR0 ? <td class="hh-zahl">{typeof r0 === 'number' ? <Amount value={c - r0} vorzeichen /> : '–'}</td> : null}
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</DataTableFrame>

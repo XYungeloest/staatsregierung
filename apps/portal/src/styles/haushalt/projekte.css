@@ -1,0 +1,587 @@
+/*
+ * Haushaltsinformationssystem: Vorhaben und Projekte (Projektübersicht, Projektseiten) und der
+ * Haushaltsbezug der Themenseiten (components/haushalt/ThemaHaushalt.astro). Farben, Abstände,
+ * Radien und Schriftgrößen ausschließlich aus den Tokens in foundation.css; Breakpoints wie im
+ * Staatsportal (63,99 / 47,99 / 29,99 rem). Die Datei wird auch auf Themenseiten ohne die
+ * Haushaltsgrundstile (base.css) geladen; Abzeichen und Beträge tragen deshalb eigene Regeln.
+ */
+
+/* ---------------------------------------------------------------- Projektstatus */
+
+.hh-projektstatus {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  max-width: 100%;
+  padding: var(--space-hairline) var(--space-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: var(--lh-compact);
+  overflow-wrap: anywhere;
+}
+
+.hh-projektstatus__zeichen {
+  flex: 0 0 auto;
+  width: var(--space-2);
+  height: var(--space-2);
+  border: 2px solid currentColor;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+}
+
+.hh-projektstatus.hh-projektstatus--beschlossen {
+  border-color: var(--color-info-green-border);
+  background: var(--color-info-green);
+  color: var(--color-secondary-hover);
+}
+
+.hh-projektstatus.hh-projektstatus--in-umsetzung {
+  border-color: var(--color-info-blue-border);
+  background: var(--color-info-blue);
+  color: var(--color-primary);
+}
+
+.hh-projektstatus--in-umsetzung .hh-projektstatus__zeichen {
+  border-radius: 0;
+}
+
+.hh-projektstatus.hh-projektstatus--geplant {
+  border-color: var(--color-info-gold-border);
+  background: var(--color-info-gold);
+  color: var(--color-info-gold-ink);
+}
+
+.hh-projektstatus--geplant .hh-projektstatus__zeichen,
+.hh-projektstatus--im-entwurf .hh-projektstatus__zeichen,
+.hh-projektstatus--optional .hh-projektstatus__zeichen {
+  background: transparent;
+}
+
+.hh-projektstatus.hh-projektstatus--im-entwurf {
+  border-style: dashed;
+  border-color: var(--color-info-gold-ink);
+  background: var(--color-info-gold-soft);
+  color: var(--color-info-gold-ink);
+}
+
+.hh-projektstatus.hh-projektstatus--optional {
+  border-style: dashed;
+  border-color: var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-heading);
+}
+
+.hh-projektstatus.hh-projektstatus--nicht-finanziert {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.hh-projektstatus--nicht-finanziert .hh-projektstatus__zeichen {
+  height: 0;
+  border-width: 1px;
+  border-radius: 0;
+}
+
+.data-table td > .hh-projektstatus {
+  display: inline-flex;
+  margin-top: 0;
+  color: var(--color-heading);
+}
+
+/* ---------------------------------------------------------------- Beträge eines Vorhabens */
+
+.hh-projektbetraege {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.hh-projektbetraege__zeile {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.hh-projektbetraege__zeile dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-projektbetraege__zeile dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+}
+
+.hh-projektbetraege__wert {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  color: var(--color-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.hh-projektbetraege__jahr {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.hh-projektbetraege__ohne {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+/* ---------------------------------------------------------------- Projektübersicht */
+
+.hh-projekte {
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.hh-projektfilter__felder {
+  grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+}
+
+.hh-projektfilter__aktionen {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.hh-projekte__status {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-projekte__status:empty {
+  display: none;
+}
+
+.hh-projekte__leer {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+}
+
+.hh-projekte__leer p {
+  margin: 0;
+}
+
+.hh-projektgruppe {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.hh-projektgruppe__kopf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hh-projektgruppe__kopf h3 {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.hh-projektgruppe__anzahl {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-projektliste {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-projekt {
+  display: grid;
+  min-width: 0;
+}
+
+.hh-projekte [hidden],
+.hh-projekt[hidden],
+.hh-projektgruppe[hidden] {
+  display: none;
+}
+
+.hh-projekt__inhalt {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.hh-projekt__titel {
+  margin: 0;
+  font-size: var(--text-base-plus);
+  line-height: var(--lh-heading);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.hh-projekt__status {
+  margin: 0;
+}
+
+.hh-projekt__angaben {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+.hh-projekt__angaben > div {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, auto) minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.hh-projekt__angaben dt {
+  color: var(--color-text-muted);
+}
+
+.hh-projekt__angaben dd {
+  margin: 0;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.hh-projekt__inhalt > .hh-projektbetraege,
+.hh-projekt__inhalt > .hh-projektbetraege__ohne {
+  align-self: end;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.hh-projekttabelle th[scope='row'] {
+  min-width: 14rem;
+}
+
+.hh-projekttabelle td > .hh-projektstatus {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.hh-projekttabelle__ohne {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-projekttabelle__zusatz {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------- Projektseite */
+
+.hh-projektkopf {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+}
+
+.hh-projektkopf__text {
+  margin: 0;
+  max-width: var(--measure-body);
+}
+
+.hh-projektfakten {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-4) var(--space-5);
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hh-projektfakten dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-projektfakten dd {
+  margin: var(--space-1) 0 0;
+  color: var(--color-heading);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.hh-projektfakten__liste {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-projekthinweis {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--color-info-gold-border);
+  border-radius: var(--radius-md);
+  background: var(--color-info-gold-soft);
+}
+
+.hh-projekthinweis .hh-projektbetraege__ohne {
+  color: var(--color-info-gold-ink);
+  font-size: var(--text-base);
+}
+
+.hh-projektfolge {
+  margin-top: var(--space-4);
+}
+
+.hh-projektblock {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.hh-projektblock:first-of-type {
+  margin-top: 0;
+}
+
+.hh-projektblock h3 {
+  margin: 0;
+  font-size: var(--text-md);
+}
+
+.hh-projektblock > p {
+  margin: 0;
+}
+
+.hh-projektposten {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.hh-projektposten > li {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hh-projektposten > li > a {
+  font-weight: 700;
+}
+
+.hh-projektposten__text {
+  color: var(--color-text);
+}
+
+.hh-projektposten__werte {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-projektposten__werte .hh-betrag {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.hh-rechtsbezuege {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-rechtsbezug {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.hh-rechtsbezug.hh-rechtsbezug--geltend { border-left-color: var(--color-secondary); }
+.hh-rechtsbezug.hh-rechtsbezug--verkuendet { border-left-color: var(--color-primary); }
+.hh-rechtsbezug.hh-rechtsbezug--entwurf { border-left-style: dashed; border-left-color: var(--color-info-gold-ink); }
+
+.hh-rechtsbezug__art {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-rechtsbezug__label {
+  margin: 0;
+  color: var(--color-heading);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.hh-rechtsbezuege__leer {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* ---------------------------------------------------------------- Themenseiten */
+
+.hh-thema__status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  align-items: baseline;
+}
+
+.hh-thema__statuslabel {
+  padding: var(--space-hairline) var(--space-2);
+  border: 1px dashed var(--color-info-gold-ink);
+  border-radius: var(--radius-sm);
+  background: var(--color-info-gold-soft);
+  color: var(--color-info-gold-ink);
+  font-size: var(--text-sm);
+}
+
+.hh-thema__vorschau {
+  color: var(--color-info-gold-ink);
+  font-weight: 700;
+}
+
+.hh-thema__liste {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.hh-thema__eintrag {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hh-thema__titel {
+  margin: 0;
+  font-size: var(--text-base-plus);
+  line-height: var(--lh-heading);
+}
+
+.hh-thema__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-thema .hh-betrag {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.hh-thema__hinweis {
+  margin: var(--space-4) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-thema__weiter {
+  margin: var(--space-2) 0 0;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- Breakpoints */
+
+@media (max-width: 63.99rem) {
+  .hh-projektliste {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hh-projektfilter__felder {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hh-projektfilter__suche {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .hh-projektliste,
+  .hh-rechtsbezuege,
+  .hh-thema__liste {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hh-projektfilter__felder {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media print {
+  .hh-projektfilter,
+  .hh-projekte__status,
+  .hh-projekte__leer {
+    display: none;
+  }
+
+  .hh-projekt__inhalt {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .hh-projektliste {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

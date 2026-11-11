@@ -160,7 +160,10 @@ OstRecht verwendet `npm run deploy:recht:staging` mit der fail-closed erzeugten
   Staging als Schreibnachweis des Tokens;
 - `preview` für Pull Requests mit Staatsportal-Wirkung, wenn `CLOUDFLARE_PREVIEWS_ENABLED=true`,
   `CLOUDFLARE_API_TOKEN` und `CLOUDFLARE_ACCOUNT_ID` gesetzt sind (Worker-Version mit
-  PR-Alias, durch Cloudflare Access zu schützen; Versionen werden beim Schließen gelöscht).
+  PR-Alias, durch Cloudflare Access zu schützen; Versionen werden beim Schließen gelöscht). Der
+  PR-Build läuft mit `HAUSHALT_VORSCHAU=1`; enthält er nicht freigegebene Haushaltsperioden
+  (Marker `apps/portal/dist/haushalt-vorschau.json`), wird keine Vorschau hochgeladen. Ohne solche
+  Perioden entsteht kein Marker und die Vorschau wird wie gewohnt hochgeladen.
 
 Actions-Caches eines PR-Branches sind nur für diesen Branch sichtbar; `main` liest eigene und
 Standardbranch-Caches. Nach dem Merge einer Änderung an den Seed-Eingaben projiziert `main` deshalb
@@ -385,7 +388,7 @@ wiederholt:
 | --- | --- | --- | --- |
 | schnell / Unit | `tests/*.test.{ts,mjs}` | reine Funktionen, Parser, Scope, Fingerabdruck, Abschluss, Nachweisbindung, Store- und Projektionsverhalten auf dem synthetischen Bestand (`tests/helpers/fixture-corpus.ts`) – kein Vollbestand, kein Worker | bei jeder Codeänderung, lokal in Sekunden (`npm run test:fast`) |
 | Korpus | `tests/corpus/` | Abnahmefälle der Projektionsidentität auf dem Fixture, Seed-Werkzeug gegen die lokale D1, Referenz- und Empfehlungsindex auf einer Stichprobe | bei Projektions-, Laufzeit- und Schemaänderungen, wöchentlich (`npm run test:corpus`) |
-| Content-Audit | `content:check` (Import-Audit, REVOSax-Audit, Konsolidierung, Schemas, Metadaten, Ableitungen, Reststellen, Themen, Wissenshub), `test:links:run`, `test:seo:run` | generische Invarianten des gesamten Rechtsbestands: Quellenhashes, Referenzen, Gültigkeitsintervalle, Vollzitate, Herkunft, keine Import-Artefakte | bei Inhalts- und Pipeline-Änderungen, wöchentlich; Links und SEO nach jedem Build |
+| Content-Audit | `content:check` (Import-Audit, REVOSax-Audit, Konsolidierung, Schemas, Metadaten, Ableitungen, Reststellen, Themen, Wissenshub, Haushalt), `test:links:run`, `test:seo:run` | generische Invarianten des gesamten Rechtsbestands: Quellenhashes, Referenzen, Gültigkeitsintervalle, Vollzitate, Herkunft, keine Import-Artefakte | bei Inhalts- und Pipeline-Änderungen, wöchentlich; Links und SEO nach jedem Build |
 | Laufzeit / Browser | `tests/browser-smoke.spec.ts`, `tests/holdings-navigator.spec.ts` | echte Nutzerwege gegen den gebauten Worker; Erwartungen aus Such-API, Vorschlägen, Verkündungsindex und ausgelieferten Daten (`tests/helpers/law-runtime.ts`). Dazu die Zählkonsistenz der Suche: die Überschrift nennt `total`, angezeigte und verbleibende Treffer ergeben zusammen dieselbe Zahl, je Suchzustand geht genau eine Anfrage hinaus, und die Verzeichniszahlen (`/gesetze/`, `/verordnungen/`, `/verwaltungsvorschriften/`, `/foerderrichtlinien/`, Herkunftsübersicht des A–Z) stimmen mit `total` derselben Grundmenge überein | Pflichtcheck (Fixture), wöchentlich Vollbestand |
 | Barrierefreiheit | `tests/accessibility.spec.ts` | axe und Fokusindikator auf Seitenrollen (Normseite je Herkunft, Vergleich, Historie, Suche, Verkündung, Fehlerseite) | Pflichtcheck |
 | Visual | `tests/visual.spec.ts` | Layout und Design (kritisch / breit) einschließlich horizontalem Überlauf, keine funktionalen Assertions | bei Oberflächenänderungen |
@@ -429,6 +432,11 @@ npm run test:pr       # Typen, schnelle Unit-Tests, ein Build, Links, SEO, A11y-
 npm run test:full     # zusätzlich docs:check, content:check, Korpus-Tests, breite Screenshot-Inventur
 SITE_TARGETS=law npm run test:pr   # nur OstRecht in den Build-nachgelagerten Prüfungen
 ```
+
+`test:pr`, `test:full`, `test:visual` und `test:a11y` bauen mit `HAUSHALT_VORSCHAU=1` (nicht
+freigegebene Haushaltsperioden mit `noindex` und Vorschauhinweis); `links:check`, `seo:check` und
+`test:browsers` bauen in Produktionsform. `deploy:assets:check` umfasst den Freigabe-Guard
+`scripts/check-haushalt-release.mjs` (`docs/HAUSHALT.md`).
 
 `test:pr` setzt `OSTRECHT_D1_FIXTURE` auf das Testfixture; ein kleiner Oberflächen-Change
 projiziert weder den Vollbestand noch erzeugt er Hunderte Screenshots. Die Komfortbefehle

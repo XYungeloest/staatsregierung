@@ -38,6 +38,51 @@ async function firstLink(request: APIRequestContext, path: string, pattern: RegE
   });
 }
 
+/**
+ * Seiten der ersten Haushaltsperiode mit eigenem Datenbestand (Periodenstart, Gesamtplan und
+ * eine Kapitelseite mit Titeln). Nicht freigegebene Perioden entstehen nur im Vorschau-Build (HAUSHALT_VORSCHAU,
+ * wie im PR-Build); fehlt eine solche Periode, liefert der Resolver '' und der Test wird
+ * übersprungen.
+ */
+type BudgetUnterseite =
+  | 'start'
+  | 'gesamtplan'
+  | 'einzelplaene'
+  | 'einzelplan'
+  | 'kapitel'
+  | 'projekte'
+  | 'projekt'
+  | 'personal'
+  | 'finanzierung'
+  | 'ruecklagen'
+  | 'finanzplanung'
+  | 'downloads'
+  | 'suche';
+
+async function budgetSnapshotPage(request: APIRequestContext, unterseite: BudgetUnterseite): Promise<string> {
+  return withWorkerRecovery(request, async () => {
+    const einstieg = await request.get('/haushalt/');
+    expect(einstieg.ok(), '/haushalt/').toBe(true);
+    const periode = (await einstieg.text()).match(/href="(\/haushalt\/\d{4}-\d{4}\/)projekte\/"/u)?.[1];
+    if (!periode) return '';
+    if (unterseite === 'start') return periode;
+    if (['gesamtplan', 'einzelplaene', 'projekte', 'personal', 'finanzierung', 'ruecklagen', 'finanzplanung', 'downloads'].includes(unterseite)) {
+      return `${periode}${unterseite}/`;
+    }
+    if (unterseite === 'projekt') return firstLink(request, `${periode}projekte/`, new RegExp(`href="${periode}projekte/[a-z0-9-]+/"`, 'u'));
+    if (unterseite === 'suche') {
+      // Suche mit Treffern: das Beispielwort der Seite (data-haushalt-suche-beispiel).
+      const response = await request.get(`${periode}suche/`);
+      expect(response.ok(), `${periode}suche/`).toBe(true);
+      const beispiel = (await response.text()).match(/data-haushalt-suche-beispiel="([^"]+)"/u)?.[1];
+      return beispiel ? `${periode}suche/?q=${encodeURIComponent(beispiel)}` : `${periode}suche/`;
+    }
+    const plan = await firstLink(request, `${periode}einzelplaene/`, new RegExp(`href="${periode}einzelplaene/\\d{2}/"`, 'u'));
+    if (unterseite === 'einzelplan') return plan;
+    return firstLink(request, plan, new RegExp(`href="${plan}kapitel/\\d{4}/"`, 'u'));
+  });
+}
+
 const auditTargets: AuditTarget[] = [
   { name: 'Startseite', site: 'portal', resolve: staticPage('/') },
   { name: 'Beteiligungsnavigator', site: 'portal', resolve: staticPage('/staatsregierung/beteiligungen/') },
@@ -45,6 +90,21 @@ const auditTargets: AuditTarget[] = [
   { name: 'Ressortseite', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/kabinett\/[a-z0-9-]+\/"/u) },
   { name: 'Regierungsmitglied', site: 'portal', resolve: (request) => firstLink(request, '/staatsregierung/kabinett/', /href="\/staatsregierung\/mitglieder\/[a-z0-9-]+\/"/u) },
   { name: 'Haushalt', site: 'portal', resolve: staticPage('/haushalt/') },
+  { name: 'Haushaltsperiode 2025/2026', site: 'portal', resolve: staticPage('/haushalt/2025-2026/') },
+  { name: 'Haushaltsperiode mit Datenbestand', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'start') },
+  { name: 'Gesamtplan einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'gesamtplan') },
+  { name: 'Haushaltskapitel mit Titeln', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'kapitel') },
+  { name: 'Einzelplanübersicht einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'einzelplaene') },
+  { name: 'Einzelplan einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'einzelplan') },
+  { name: 'Vorhaben einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'projekte') },
+  { name: 'Vorhabenseite', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'projekt') },
+  { name: 'Personal einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'personal') },
+  { name: 'Finanzierung einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'finanzierung') },
+  { name: 'Rücklagen und Fonds einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'ruecklagen') },
+  { name: 'Finanzplanung einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'finanzplanung') },
+  { name: 'Downloads einer Haushaltsperiode', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'downloads') },
+  { name: 'Haushaltssuche mit Treffern', site: 'portal', resolve: (request) => budgetSnapshotPage(request, 'suche') },
+  { name: 'Sondervermögen und Fonds', site: 'portal', resolve: staticPage('/haushalt/sondervermoegen/') },
   { name: 'Themenseite', site: 'portal', resolve: (request) => firstLink(request, '/themen/', /href="\/themen\/[a-z0-9-]+\/"/u) },
   { name: 'Kreisreform', site: 'portal', resolve: staticPage('/kreisreform/') },
   { name: 'Portalsuche', site: 'portal', resolve: staticPage('/suche/') },
@@ -86,13 +146,14 @@ const selected = (targets: AuditTarget[]) => targets.filter((target) => selected
 
 async function openTarget(page: Page, request: APIRequestContext, target: AuditTarget): Promise<string> {
   const url = await target.resolve(request);
+  test.skip(url === '', `${target.name}: in diesem Build nicht vorhanden`);
   await page.route('**://*.tile.openstreetmap.org/**', (route) => route.abort());
   await page.route('**://www.googletagmanager.com/**', (route) => route.abort());
   await withWorkerRecovery(request, () => page.goto(url));
   // Suchseiten laden Kandidaten und Treffer nach dem Seitenaufbau: erst der fertige Stand wird
   // geprüft, und keine laufende Antwort wird beim Schließen der Seite abgebrochen.
   if (url.includes('/suche/')) {
-    const status = page.locator('[data-search-summary], [data-portal-search-status]').first();
+    const status = page.locator('[data-search-summary], [data-portal-search-status], [data-haushalt-suche-status]').first();
     await expect(status).not.toContainText(/werden geladen/u, { timeout: 30_000 });
     await expect(status).toContainText(/Treffer|Geben Sie einen Begriff ein/u, { timeout: 30_000 });
   }

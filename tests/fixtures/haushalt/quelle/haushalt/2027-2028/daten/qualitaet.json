@@ -1,0 +1,32 @@
+{
+ "nachher": {
+  "2027": {
+   "S_statusmodell": 5000,
+   "S_rest": 3000,
+   "D_struktur": 9000,
+   "D_ableitung": 4000
+  },
+  "2028": {
+   "S_statusmodell": 5200,
+   "S_rest": 2900,
+   "D_struktur": 10000,
+   "D_ableitung": 4000
+  }
+ },
+ "vorher": {
+  "2027": {
+   "S_rest": 21000
+  },
+  "2028": {
+   "S_rest": 22100
+  }
+ },
+ "groesste_reste": [
+  {
+   "kapitel": "0101",
+   "titel": "54701",
+   "zweckbestimmung": "Sachausgaben – noch nicht untersetzter Rest",
+   "betrag_2027": 3000
+  }
+ ]
+}

@@ -1,0 +1,157 @@
+---
+/**
+ * Gruppierte horizontale Balken: Kategorien (z. B. Einzelpläne) × Serien (z. B. Jahre). Jeder
+ * Balken trägt seine Serie als Text; Projektionen tragen zusätzlich das Wort „Projektion“ an jedem
+ * Balken, sind schraffiert (dunkle Musterfarbe mit Rahmen) und in Legende und Tabelle benannt. Mit zwei Serien kann die Tabelle die Veränderung (letzte minus erste Serie) zeigen.
+ */
+import ChartData from './ChartData.astro';
+import {
+  cssPercent,
+  formatExact,
+  formatSigned,
+  formatValue,
+  linearScale,
+  PALETTE_SIZE,
+  YEAR_KIND_SHORT,
+  type ValueFormat,
+  type YearKind,
+} from './format.ts';
+
+interface Series {
+  label: string;
+  art?: YearKind;
+}
+
+interface Category {
+  label: string;
+  values: Array<number | null>;
+  href?: string;
+  note?: string;
+}
+
+interface Props {
+  id: string;
+  caption: string;
+  series: Series[];
+  categories: Category[];
+  format?: ValueFormat;
+  kategorieSpalte?: string;
+  veraenderung?: boolean;
+  tabelle?: 'aufklappbar' | 'sichtbar' | 'keine';
+  hinweis?: string;
+  /** Optionales Sprungziel des Hinweises (z. B. die Tabelle mit den exakten Werten). */
+  hinweisHref?: string;
+}
+
+const {
+  id,
+  caption,
+  series,
+  categories,
+  format = 'euro-compact',
+  kategorieSpalte = 'Bereich',
+  veraenderung = false,
+  tabelle = 'aufklappbar',
+  hinweis,
+  hinweisHref,
+} = Astro.props as Props;
+
+const allValues = categories.flatMap((category) => category.values.filter((value): value is number => typeof value === 'number'));
+const scale = linearScale(allValues);
+const showChange = veraenderung && series.length >= 2;
+const changeOf = (category: Category) => {
+  const first = category.values[0];
+  const last = category.values[series.length - 1];
+  return typeof first === 'number' && typeof last === 'number' ? last - first : null;
+};
+const colorClass = (index: number) => `hh-farbe-${(index % PALETTE_SIZE) + 1}`;
+const isProjection = (entry: Series) => entry.art === 'projektion';
+// Breite der Serienspalte in Zeichen: längste Serienbezeichnung bzw. „Projektion“ als zweite Zeile.
+const seriesWidth = Math.max(4, ...series.map((entry) => Math.max(entry.label.length, isProjection(entry) ? YEAR_KIND_SHORT.projektion.length : 0))) + 1;
+---
+
+<figure class="hh-diagramm hh-gruppen" id={id} style={`--hh-seriebreite: ${seriesWidth}ch`}>
+  <figcaption class="hh-diagramm__titel">{caption}</figcaption>
+  <ul class="hh-legende" aria-label="Legende">
+    {series.map((entry, index) => (
+      <li class="hh-legende__eintrag">
+        <span class:list={['hh-legende__muster', colorClass(index), isProjection(entry) && 'hh-muster--projektion']} aria-hidden="true"></span>
+        <span>{entry.label}{isProjection(entry) ? ` (${YEAR_KIND_SHORT.projektion})` : ''}</span>
+      </li>
+    ))}
+  </ul>
+  <ul class="hh-gruppen__liste">
+    {categories.map((category) => (
+      <li class="hh-gruppen__kategorie">
+        <p class="hh-gruppen__label">
+          {category.href ? <a class="inline-link" href={category.href}>{category.label}</a> : category.label}
+          {category.note ? <span class="hh-balken__notiz">{category.note}</span> : null}
+        </p>
+        <ul class="hh-gruppen__serien">
+          {series.map((entry, index) => {
+            const value = category.values[index];
+            const position = typeof value === 'number' ? scale.position(value) : null;
+            return (
+              <li class="hh-gruppen__zeile">
+                <span class="hh-gruppen__serie">
+                  {entry.label}{isProjection(entry) ? <span class="hh-gruppen__art"> {YEAR_KIND_SHORT.projektion}</span> : null}
+                </span>
+                <span class="hh-balken__spur" aria-hidden="true" style={`--hh-null: ${cssPercent(scale.zero)}`}>
+                  {position ? (
+                    <span
+                      class:list={['hh-balken__balken', colorClass(index), isProjection(entry) && 'hh-muster--projektion']}
+                      style={`--hh-start: ${cssPercent(position.start)}; --hh-groesse: ${cssPercent(position.size)}`}
+                    ></span>
+                  ) : null}
+                </span>
+                <span class="hh-balken__wert">
+                  {typeof value === 'number' ? (
+                    <data value={String(value)} title={formatExact(value, format)}>{formatValue(value, format)}</data>
+                  ) : (
+                    <span>keine Angabe</span>
+                  )}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </li>
+    ))}
+  </ul>
+  {hinweis ? <p class="hh-diagramm__hinweis">{hinweisHref ? <a class="inline-link" href={hinweisHref}>{hinweis}</a> : hinweis}</p> : null}
+  {tabelle !== 'keine' ? (
+    <ChartData label={`${caption} als Tabelle`} bezug={caption} modus={tabelle}>
+      <table class="data-table hh-datentabelle">
+        <caption>{caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{kategorieSpalte}</th>
+            {series.map((entry) => (
+              <th scope="col" class="hh-zahl">{entry.label}{isProjection(entry) ? <> <span>{YEAR_KIND_SHORT.projektion}</span></> : null}</th>
+            ))}
+            {showChange ? <th scope="col" class="hh-zahl">Veränderung {series[0].label} → {series[series.length - 1].label}</th> : null}
+          </tr>
+        </thead>
+        <tbody>
+          {categories.map((category) => {
+            const change = showChange ? changeOf(category) : null;
+            return (
+              <tr>
+                <th scope="row">{category.label}</th>
+                {series.map((_, index) => {
+                  const value = category.values[index];
+                  return (
+                    <td class="hh-zahl">{typeof value === 'number' ? <data value={String(value)}>{formatExact(value, format)}</data> : '–'}</td>
+                  );
+                })}
+                {showChange ? (
+                  <td class="hh-zahl">{change === null ? '–' : <data value={String(change)}>{formatSigned(change, format === 'euro-compact' ? 'euro' : format)}</data>}</td>
+                ) : null}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </ChartData>
+  ) : null}
+</figure>

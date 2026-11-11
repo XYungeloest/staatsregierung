@@ -1,0 +1,109 @@
+---
+/**
+ * Rahmen für Haushaltstabellen: kontrollierter Scrollbereich (`.table-wrap`, role="region"),
+ * optionale Beschriftung als <caption>, Werkzeugleiste (Slot `werkzeuge`), Statuszeile,
+ * Leerhinweis und Blätterleiste (`DataPagination`, 25 Zeilen je Seite). Der Rahmen ist zugleich
+ * die Wurzel des Tabellen-Enhancers (`apps/portal/src/scripts/haushalt-tabelle.ts`,
+ * Attributprotokoll im Dateikopf). Ohne JavaScript bleibt die Tabelle vollständig sichtbar.
+ */
+import DataPagination from '../portal/DataPagination.astro';
+import { DEFAULT_PORTAL_PAGE_SIZE } from '@ostrecht/shared/lib/portal/pagination.ts';
+
+interface ExportField {
+  key: string;
+  label: string;
+}
+
+interface Props {
+  id: string;
+  label: string;
+  caption?: string;
+  nomenSingular?: string;
+  nomenPlural?: string;
+  leerText?: string;
+  seitengroesse?: number | false;
+  exportFilename?: string;
+  exportMeta?: Record<string, string>;
+  exportZeilenfelder?: ExportField[];
+  jahresansicht?: string;
+  jahresansichtSchmal?: string;
+  urlParam?: string;
+  breite?: 'schmal' | 'mittel' | 'breit' | 'sehr-breit';
+  class?: string;
+}
+
+const {
+  id,
+  label,
+  caption,
+  nomenSingular = 'Eintrag',
+  nomenPlural = 'Einträgen',
+  leerText = 'Keine Einträge entsprechen der Auswahl.',
+  seitengroesse = DEFAULT_PORTAL_PAGE_SIZE,
+  exportFilename,
+  exportMeta,
+  exportZeilenfelder,
+  jahresansicht,
+  jahresansichtSchmal,
+  urlParam,
+  breite = 'mittel',
+  class: className,
+} = Astro.props as Props;
+
+const escapeHtml = (value: string) =>
+  value.replace(/&/gu, '&amp;').replace(/</gu, '&lt;').replace(/>/gu, '&gt;').replace(/"/gu, '&quot;');
+
+let tableHtml = await Astro.slots.render('default');
+if (caption && !/<caption[\s>]/iu.test(tableHtml)) {
+  tableHtml = tableHtml.replace(/<table\b[^>]*>/iu, (match) => `${match}<caption>${escapeHtml(caption)}</caption>`);
+}
+const hasTools = Astro.slots.has('werkzeuge');
+const werkzeugeHtml = hasTools ? await Astro.slots.render('werkzeuge') : '';
+// Die Auswahlmeldung („Auswahl: 3 von 20 …“) ist nur sichtbar, wenn Suche oder Filter die
+// Zeilen tatsächlich eingrenzen können; sonst bleibt sie für Vorlesende erhalten, aber unsichtbar.
+const hasSelection = /\sdata-tabelle-suche[\s>=]|\sdata-filter=/u.test(werkzeugeHtml);
+const pageSize = typeof seitengroesse === 'number' && seitengroesse > 0 ? Math.floor(seitengroesse) : 0;
+---
+
+<div
+  class:list={['hh-tabelle', `hh-tabelle--${breite}`, className]}
+  id={id}
+  data-haushalt-tabelle
+  data-nomen-singular={nomenSingular}
+  data-nomen-plural={nomenPlural}
+  data-seitengroesse={pageSize > 0 ? String(pageSize) : undefined}
+  data-export-filename={exportFilename}
+  data-export-meta={exportMeta ? JSON.stringify(exportMeta) : undefined}
+  data-export-zeilenfelder={exportZeilenfelder ? JSON.stringify(exportZeilenfelder) : undefined}
+  data-year-view={jahresansicht}
+  data-year-view-schmal={jahresansichtSchmal}
+  data-url-param={urlParam}
+>
+  {hasTools ? <div class="hh-tabelle__werkzeuge"><Fragment set:html={werkzeugeHtml} /></div> : null}
+  {/* Ohne Suche und Filter gibt es nichts auszuwählen: Die Statuszeile meldet dann nur
+      Sortierungen und Sprungziele und bleibt für Vorlesende erhalten, aber unsichtbar. */}
+  <p class:list={['hh-tabelle__status', { 'visually-hidden': !hasSelection }]} role="status" aria-live="polite" data-tabelle-status></p>
+  {/* Für Vorlesende: beschreibt den rollenden Tabellenbereich (aria-describedby); sichtbar
+      zeigen die Kantenschatten an, dass weitere Spalten folgen. */}
+  <p class="hh-tabelle__scrollhinweis visually-hidden" id={`${id}-scrollhinweis`} data-tabelle-scrollhinweis hidden>
+    Weitere Spalten erreichen Sie, indem Sie die Tabelle waagerecht verschieben.
+  </p>
+  <div class="hh-tabelle__rahmen" data-tabelle-rahmen>
+    <div class="table-wrap hh-tabelle__wrap" role="region" aria-label={label} tabindex="0">
+      <Fragment set:html={tableHtml} />
+    </div>
+  </div>
+  <div class="hh-tabelle__leer" data-tabelle-leer hidden>
+    <p>{leerText}</p>
+    <button type="button" class="button-link button-link--secondary" data-tabelle-zuruecksetzen>Auswahl zurücksetzen</button>
+  </div>
+  {pageSize > 0 ? (
+    <div class="hh-tabelle__blaettern" data-tabelle-blaettern hidden>
+      <DataPagination label={`Seiten: ${label}`} total={0} perPage={pageSize} scope={id} unit={nomenPlural} />
+    </div>
+  ) : null}
+</div>
+
+<script>
+  import '../../scripts/haushalt-tabelle.ts';
+</script>

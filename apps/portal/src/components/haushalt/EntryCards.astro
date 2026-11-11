@@ -1,0 +1,37 @@
+---
+/**
+ * Kartenraster für Wege in Bereiche. Die Spaltenzahl folgt `getBalancedColumnCount`, damit keine
+ * Karte allein in der letzten Reihe steht.
+ */
+import { getBalancedColumnCount } from '@ostrecht/shared/lib/portal/presentation.ts';
+
+interface Entry {
+  title: string;
+  text?: string;
+  href: string;
+  meta?: string;
+}
+
+interface Props {
+  items: Entry[];
+  headingLevel?: 2 | 3 | 4;
+  label?: string;
+}
+
+const { items, headingLevel = 3, label } = Astro.props as Props;
+const columns = getBalancedColumnCount(items.length, 3);
+const gridClass = columns <= 1 ? 'card-grid--two' : columns === 2 ? 'card-grid--two' : 'card-grid--three';
+const Heading = `h${headingLevel}` as 'h2' | 'h3' | 'h4';
+---
+
+{items.length > 0 ? (
+  <ul class:list={['card-grid', gridClass, 'hh-wege']} aria-label={label}>
+    {items.map((item) => (
+      <li class="portal-card hh-wege__karte">
+        {item.meta ? <p class="meta-label hh-wege__meta">{item.meta}</p> : null}
+        <Heading class="hh-wege__titel"><a href={item.href}>{item.title}</a></Heading>
+        {item.text ? <p>{item.text}</p> : null}
+      </li>
+    ))}
+  </ul>
+) : null}

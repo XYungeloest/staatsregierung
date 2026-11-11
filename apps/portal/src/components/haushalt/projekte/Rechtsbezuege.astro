@@ -1,0 +1,31 @@
+---
+/**
+ * Rechtsgrundlagen eines Vorhabens aus dem Projekt-Overlay. Je Eintrag die Bezeichnung (mit
+ * Link ins Rechtsportal, wenn die Vorschrift dort geführt wird) und die Art in Worten: geltendes
+ * Recht, verkündet und noch nicht in Kraft, Entwurf, haushaltsrechtliche Regelung oder
+ * Verwaltungsabkommen. Entwürfe tragen nie einen Normlink.
+ */
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import type { AngezeigterRechtsbezug } from './daten.ts';
+
+interface Props {
+  bezuege: AngezeigterRechtsbezug[];
+}
+
+const { bezuege } = Astro.props as Props;
+---
+
+{bezuege.length > 0 ? (
+  <ul class="hh-rechtsbezuege" role="list">
+    {bezuege.map((bezug) => (
+      <li class:list={['hh-rechtsbezug', `hh-rechtsbezug--${bezug.art}`]}>
+        <p class="hh-rechtsbezug__art">{bezug.artLabel}</p>
+        <p class="hh-rechtsbezug__label">
+          {bezug.normSlug && bezug.art !== 'entwurf' ? <a href={getNormUrl(bezug.normSlug)}>{bezug.label}</a> : bezug.label}
+        </p>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p class="hh-rechtsbezuege__leer">Für dieses Vorhaben ist keine gesonderte Rechtsgrundlage ausgewiesen.</p>
+)}

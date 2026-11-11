@@ -32,6 +32,12 @@ import {
 } from '@ostrecht/shared/lib/portal/index.ts';
 import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
 import {
+  getAllPeriods,
+  getMassgeblichePeriode,
+  getPeriodeStatusInfo,
+  isPeriodePublic,
+} from '../lib/haushalt/perioden.ts';
+import {
   loadCurrentJobOffers,
   loadCurrentGovernment,
   loadHomeContent,
@@ -62,6 +68,17 @@ const portalAccesses = homeContent.portalAccesses.map((item) => ({
   ...item,
   href: resolvePortalPath(item.href),
 }));
+
+// Haushaltskarte: nur freigegebene Perioden (auch im Vorschau-Build). Maßgeblich ist der geltende
+// bzw. beschlossene Haushalt; ein neuerer freigegebener Haushalt wird mit seinem Status genannt.
+const budgetPeriods = getAllPeriods().filter(isPeriodePublic);
+const budgetMainPeriod = getMassgeblichePeriode() ?? budgetPeriods[0];
+const budgetNewerPeriods = budgetMainPeriod
+  ? budgetPeriods.filter((periode) => periode.jahre[0] > budgetMainPeriod.jahre[0])
+  : [];
+const budgetNewerText = budgetNewerPeriods
+  .map((periode) => `${periode.bezeichnung} (${getPeriodeStatusInfo(periode).label})`)
+  .join(', ');
 
 const importantItems = homeContent.importantItems.map((item) => ({
   title: item.governmentSlug ? currentGovernment.title : item.title ?? '',
@@ -218,9 +235,12 @@ const importantItems = homeContent.importantItems.map((item) => ({
           </article>
           <article class="home-resource-card">
             <PortalIcon name="budget" />
-            <p class="eyebrow">Doppelhaushalt 2025/2026</p>
+            <p class="eyebrow">{budgetMainPeriod ? budgetMainPeriod.bezeichnung : 'Haushalt'}</p>
             <h3>Öffentliche Finanzen nachvollziehen</h3>
-            <p>Gesamtplan, Einzelpläne, Jahresvergleich, Sondervermögen und offene Datenausgabe.</p>
+            <p>
+              Gesamtplan, Einzelpläne, Jahresvergleich, Sondervermögen und offene Datenausgabe.
+              {budgetNewerText ? ` Außerdem: ${budgetNewerText}.` : null}
+            </p>
             <a href={getBudgetUrl()}>Zum Haushalt <PortalIcon name="arrow" /></a>
           </article>
           <article class="home-resource-card">

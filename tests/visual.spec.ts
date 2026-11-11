@@ -1,3 +1,5 @@
+import { existsSync, readdirSync } from 'node:fs';
+
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
 import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
@@ -402,6 +404,42 @@ interface ComponentVisualPage {
   schmal?: boolean;
 }
 
+/**
+ * Erste Kapitelseite der ersten Haushaltsperiode mit Datenbestand im gebauten Portal, abgeleitet
+ * aus dem Build (keine festen Nummern); fehlt sie, entfällt das Motiv.
+ */
+function ersteHaushaltsKapitelseite(): string | null {
+  const wurzel = 'apps/portal/dist/client/haushalt';
+  const sortiert = (pfad: string, muster: RegExp) => {
+    try {
+      return readdirSync(pfad, { withFileTypes: true }).filter((eintrag) => eintrag.isDirectory() && muster.test(eintrag.name)).map((eintrag) => eintrag.name).sort();
+    } catch {
+      return [];
+    }
+  };
+  for (const periode of sortiert(wurzel, /^\d{4}-\d{4}$/u)) {
+    for (const plan of sortiert(`${wurzel}/${periode}/einzelplaene`, /^\d{2}$/u)) {
+      const kapitel = sortiert(`${wurzel}/${periode}/einzelplaene/${plan}/kapitel`, /^\d{4}$/u)[0];
+      if (kapitel) return `/haushalt/${periode}/einzelplaene/${plan}/kapitel/${kapitel}/`;
+    }
+  }
+  return null;
+}
+
+/** Werkzeugseiten der Haushaltsperioden mit Datenbestand (nicht in der Sitemap). */
+function haushaltsSuchseiten(): string[] {
+  try {
+    return readdirSync('apps/portal/dist/client/haushalt', { withFileTypes: true })
+      .filter((eintrag) => eintrag.isDirectory() && /^\d{4}-\d{4}$/u.test(eintrag.name))
+      .map((eintrag) => `/haushalt/${eintrag.name}/suche/`)
+      .filter((pfad) => existsSync(`apps/portal/dist/client${pfad}index.html`));
+  } catch {
+    return [];
+  }
+}
+
+const haushaltsKapitelseite = ersteHaushaltsKapitelseite();
+
 const componentVisualPages: ComponentVisualPage[] = [
   {
     // Referenzliste ohne Karte: eigenes Listenmuster der Startseite.
@@ -441,8 +479,8 @@ const componentVisualPages: ComponentVisualPage[] = [
     shots: [['thema-ablauf', '[data-topic-module="timeline"]']],
   },
   {
-    // Kennzahlenkarten mit Jahreswahl (vertritt alle Haushaltsseiten) und die einzige breite
-    // Datentabelle mit eigenem Rollrahmen.
+    // Einstieg des Haushaltsbereichs: Kennzahlenkarten mit Jahreswahl (vertritt alle
+    // Haushaltsseiten) und die Eckwerttabelle aller sichtbaren Haushaltsjahre im Rollrahmen.
     name: 'haushalt-module',
     path: '/haushalt/',
     shots: [
@@ -451,6 +489,17 @@ const componentVisualPages: ComponentVisualPage[] = [
     ],
     critical: true,
   },
+  ...(haushaltsKapitelseite
+    ? [
+        {
+          // Haushaltstabelle mit Werkzeugleiste (Suche, Filter, Jahresansicht, Export) und
+          // Blätterung; vertritt die Tabellen aller Einzelplan- und Kapitelseiten.
+          name: 'haushalt-tabelle-werkzeuge',
+          path: haushaltsKapitelseite,
+          shots: [['haushalt-tabelle-werkzeuge', '#kapiteltitel-ausgaben']],
+        },
+      ]
+    : []),
   {
     // Einziges SVG-Schaubild mit eigener Geometrie.
     name: 'schulsystem-module',
@@ -854,7 +903,7 @@ portalTest('Messung: Sprungziele der Bereichsnavigation existieren', { tag: [CRI
 portalTest('Messung: Kennzahlenkarten tragen nur Zahlen', { tag: [CRITICAL_TAG] }, async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop-wide', 'Die Kennzahlen werden einmal geprüft.');
   await preparePage(page);
-  const metricSelector = '.meta-card strong, .fact-card strong, .budget-kpi-card strong, .budget-plan-kpis strong, .topic-data-grid__metric';
+  const metricSelector = '.meta-card strong, .fact-card strong, .budget-kpi-card strong, .budget-plan-kpis strong, .hh-kennzahl__wert, .topic-data-grid__metric';
   for (const path of ['/', '/haushalt/', '/freistaat/', '/staatsregierung/15-punkte-plan/', '/staatsregierung/fruehere-kabinette/honecker-i/']) {
     await page.goto(path);
     const values = await page.evaluate(
@@ -953,7 +1002,7 @@ portalTest('Messung: keine Portalseite erzeugt waagerechten Überlauf', async ({
   // Astro-Auflösung lesbar.
   const { readFile } = await import('node:fs/promises');
   const sitemap = await readFile('apps/portal/dist/client/sitemap.xml', 'utf8');
-  const paths = [...new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].map((match) => new URL(match[1]).pathname))];
+  const paths = [...new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].map((match) => new URL(match[1]).pathname)), ...haushaltsSuchseiten()];
   expect(paths.length, 'die Sitemap liefert Seiten').toBeGreaterThan(50);
 
   await preparePage(page);

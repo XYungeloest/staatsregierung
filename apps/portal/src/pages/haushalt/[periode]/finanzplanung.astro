@@ -1,0 +1,347 @@
+---
+/**
+ * Finanzplanung einer Snapshot-Periode (/haushalt/<periode>/finanzplanung/): Zeitreihen aus
+ * Finanzplan und Kreditfinanzierungsplan des Snapshots. Jahre nach dem letzten Haushaltsjahr der
+ * Periode sind Finanzplanung (Projektion, nicht bewilligt) und tragen diese Kennzeichnung in
+ * Diagrammen und Tabellen. Gezeigt werden nur Reihen, die im Snapshot eindeutig bezeichnet sind.
+ */
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import '../../../styles/haushalt/uebersicht.css';
+import '../../../styles/haushalt/gesamtplan.css';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../../components/haushalt/DefinitionNote.astro';
+import FilterBar from '../../../components/haushalt/FilterBar.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import TimeSeriesChart from '../../../components/haushalt/TimeSeriesChart.astro';
+import { getPeriodenKontext, getPeriodenPfade } from '../../../components/haushalt/gesamtplan/periode.ts';
+import { YEAR_KIND_LABELS, YEAR_KIND_SHORT, type YearKind } from '../../../components/haushalt/format.ts';
+import { getKennzahlen } from '../../../lib/haushalt/kennzahlen.ts';
+import { loadFinanzierung, loadGesamtplan, loadPersonal, loadRuecklagen } from '../../../lib/haushalt/snapshot.ts';
+import type { Finanzplanjahr, Kreditfinanzierungsjahr } from '../../../lib/haushalt/types.ts';
+import { getBudgetPeriodPageUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return getPeriodenPfade();
+}
+
+const { periode: id } = Astro.params as { periode: string };
+const ctx = getPeriodenKontext(id, 'finanzplanung');
+const { periode } = ctx;
+const haushaltsjahre = new Set(periode.jahre);
+const letztesHaushaltsjahr = Math.max(...periode.jahre);
+const finanzierung = loadFinanzierung(id);
+const finanzplan: Finanzplanjahr[] = [...finanzierung.finanzplan].sort((left, right) => left.jahr - right.jahr);
+const kreditplan: Kreditfinanzierungsjahr[] = [...finanzierung.kreditfinanzierungsplan].sort((left, right) => left.jahr - right.jahr);
+if (finanzplan.length === 0) throw new Error(`Finanzplanung ${id}: Der Finanzplan enthält keine Jahre.`);
+
+const art = (jahr: number): YearKind => (haushaltsjahre.has(jahr) ? 'haushaltsjahr' : 'projektion');
+const jahre = finanzplan.map((eintrag) => ({ jahr: eintrag.jahr, art: art(eintrag.jahr) }));
+const erstesJahr = finanzplan[0].jahr;
+const letztesJahr = finanzplan[finanzplan.length - 1].jahr;
+const projektionsJahre = finanzplan.filter((eintrag) => art(eintrag.jahr) === 'projektion').map((eintrag) => eintrag.jahr);
+const projektionText =
+  projektionsJahre.length > 0 ? `${Math.min(...projektionsJahre)} bis ${Math.max(...projektionsJahre)}` : null;
+const haushaltsjahrText = periode.jahre.join(' und ');
+
+// Die Ausgaben des Finanzplans sind die Ausgaben ohne Zuführung an die Liquiditätsrücklage; in den
+// Haushaltsjahren stimmen sie mit dem Gesamtplan überein (sonst Abbruch statt stiller Abweichung).
+const gesamtplan = loadGesamtplan(id);
+for (const eintrag of finanzplan.filter((wert) => haushaltsjahre.has(wert.jahr))) {
+  const kennzahlen = getKennzahlen(gesamtplan, String(eintrag.jahr));
+  if (kennzahlen.zahlungenOhneZufuehrung && kennzahlen.zahlungenOhneZufuehrung.betrag !== eintrag.ausgaben) {
+    throw new Error(`Finanzplanung ${id} ${eintrag.jahr}: Ausgaben ${eintrag.ausgaben} weichen vom Gesamtplan ohne Zuführung ab.`);
+  }
+  if (kennzahlen.einnahmen.betrag !== eintrag.einnahmen) {
+    throw new Error(`Finanzplanung ${id} ${eintrag.jahr}: Einnahmen ${eintrag.einnahmen} weichen vom Gesamtplan ab.`);
+  }
+}
+
+const AUSGABEN_LABEL = 'Ausgaben ohne Zuführung an die Liquiditätsrücklage';
+const reihe = (feld: (eintrag: Finanzplanjahr) => number | undefined) => finanzplan.map((eintrag) => feld(eintrag) ?? null);
+const kreditReihe = (feld: keyof Omit<Kreditfinanzierungsjahr, 'jahr'>) =>
+  finanzplan.map((eintrag) => kreditplan.find((kredit) => kredit.jahr === eintrag.jahr)?.[feld] ?? null);
+
+const ohneUngedeckt = finanzplan.every((eintrag) => eintrag.ungedeckt === 0);
+const volumenGleichAusgabenInProjektion = projektionsJahre.length > 0 && finanzplan
+  .filter((eintrag) => art(eintrag.jahr) === 'projektion')
+  .every((eintrag) => eintrag.haushaltsvolumen === eintrag.ausgaben);
+
+// Liquiditätsrücklage: nur so bezeichnen, wenn der Finanzplan mit der Rücklagenübersicht übereinstimmt.
+const ruecklagen = loadRuecklagen(id).allgemeine_ruecklage;
+const liquiditaetIstRuecklage = finanzplan.every((eintrag) => {
+  const vergleich = ruecklagen.find((wert) => wert.jahr === eintrag.jahr);
+  return vergleich ? vergleich.liquiditaetsruecklage_ende === eintrag.liquiditaet_ende : false;
+});
+const LIQUIDITAET_LABEL = liquiditaetIstRuecklage ? 'Liquiditätsrücklage am Jahresende' : 'Liquidität am Jahresende';
+
+// Nettoentlastung durch die Personalreform: Vorzeichen laut Datenbestand = −Nettowirkung der Reform.
+const mitPersonalreform = finanzplan.some((eintrag) => typeof eintrag.personalreform_netto === 'number');
+if (mitPersonalreform) {
+  const wirkung = loadPersonal(id).reformwirkung.jahre;
+  for (const eintrag of finanzplan) {
+    const vergleich = wirkung.find((wert) => wert.jahr === eintrag.jahr);
+    if (vergleich && typeof eintrag.personalreform_netto === 'number' && eintrag.personalreform_netto !== -vergleich.netto) {
+      throw new Error(`Finanzplanung ${id} ${eintrag.jahr}: Nettoentlastung der Personalreform passt nicht zur Reformwirkung.`);
+    }
+  }
+}
+const REFORMENTWURF = 'Entwurf eines Gesetzes zur Neuordnung des öffentlichen Dienstrechts (Drucksache 08/13)';
+
+const exportMeta = { Periode: id, Status: ctx.status.label, Datenstand: ctx.datenstand };
+const artZelle = (jahr: number) => (art(jahr) === 'projektion' ? YEAR_KIND_LABELS.projektion : YEAR_KIND_LABELS.haushaltsjahr);
+
+const finanzplanSpalten: Array<{ key: string; label: string; sub?: string; wert: (eintrag: Finanzplanjahr) => number | undefined }> = [
+  { key: 'einnahmen', label: 'Einnahmen', wert: (eintrag) => eintrag.einnahmen },
+  { key: 'ausgaben_ohne_zufuehrung', label: 'Ausgaben', sub: 'ohne Zuführung an die Liquiditätsrücklage', wert: (eintrag) => eintrag.ausgaben },
+  { key: 'haushaltsvolumen', label: 'Haushaltsvolumen', wert: (eintrag) => eintrag.haushaltsvolumen },
+  { key: 'ungedeckt', label: 'Ungedeckter Bedarf', wert: (eintrag) => eintrag.ungedeckt },
+  ...(mitPersonalreform
+    ? [{ key: 'personalreform_netto', label: 'Nettoentlastung Personalreform', sub: 'Planungsannahme des Reformentwurfs', wert: (eintrag: Finanzplanjahr) => eintrag.personalreform_netto }]
+    : []),
+];
+const bestandSpalten: Array<{ key: string; label: string; sub?: string; wert: (eintrag: Finanzplanjahr) => number | undefined }> = [
+  { key: 'zinsen', label: 'Zinsen', wert: (eintrag) => eintrag.zinsen },
+  { key: 'schuldenstand', label: 'Schuldenstand', sub: 'am Jahresende', wert: (eintrag) => eintrag.schuldenstand },
+  { key: 'ruecklage_ende', label: 'Allgemeine Rücklage', sub: 'am Jahresende', wert: (eintrag) => eintrag.ruecklage_ende },
+  { key: 'liquiditaet_ende', label: liquiditaetIstRuecklage ? 'Liquiditätsrücklage' : 'Liquidität', sub: 'am Jahresende', wert: (eintrag) => eintrag.liquiditaet_ende },
+];
+const kreditSpalten: Array<{ key: keyof Omit<Kreditfinanzierungsjahr, 'jahr'>; label: string; sub?: string }> = [
+  { key: 'kreditaufnahme', label: 'Kreditaufnahme' },
+  { key: 'umschuldung_nachrichtlich', label: 'Anschlussfinanzierung', sub: 'nachrichtlich' },
+  { key: 'tilgung', label: 'Tilgung' },
+  { key: 'nettokreditaufnahme', label: 'Nettokreditaufnahme', sub: 'negativ: Nettotilgung' },
+  { key: 'strukturelle_nka', label: 'Strukturelle Nettokreditaufnahme' },
+  { key: 'strukturgrenze', label: 'Strukturgrenze' },
+  { key: 'schuldenstand_ende', label: 'Schuldenstand', sub: 'am Jahresende' },
+];
+const tabellen = [
+  {
+    id: 'finanzplan-tabelle',
+    titel: `Einnahmen, Ausgaben und Haushaltsvolumen ${erstesJahr} bis ${letztesJahr}`,
+    spalten: finanzplanSpalten.map((spalte) => ({ ...spalte, werte: finanzplan.map((eintrag) => spalte.wert(eintrag) ?? null) })),
+  },
+  {
+    id: 'bestaende-tabelle',
+    titel: `Zinsen, Schuldenstand und Rücklagen ${erstesJahr} bis ${letztesJahr}`,
+    spalten: bestandSpalten.map((spalte) => ({ ...spalte, werte: finanzplan.map((eintrag) => spalte.wert(eintrag) ?? null) })),
+  },
+  ...(kreditplan.length > 0
+    ? [
+        {
+          id: 'kreditfinanzierungsplan-tabelle',
+          titel: `Kreditfinanzierungsplan ${erstesJahr} bis ${letztesJahr}`,
+          spalten: kreditSpalten.map((spalte) => ({ ...spalte, werte: kreditReihe(spalte.key) })),
+        },
+      ]
+    : []),
+];
+---
+
+<HaushaltLayout
+  title={`Finanzplanung – ${periode.bezeichnung}`}
+  description={`Finanzplanung ${erstesJahr} bis ${letztesJahr} zum ${periode.bezeichnung} (${ctx.status.label}): Einnahmen, Ausgaben, Zinsen, Schuldenstand und Rücklagen; Jahre nach ${letztesHaushaltsjahr} sind nicht bewilligt.`}
+  breadcrumbs={ctx.breadcrumbs('Finanzplanung')}
+  {...ctx.layout}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow={periode.bezeichnung}
+    title="Finanzplanung"
+    status={ctx.status.label}
+    lead={`Mittelfristige Entwicklung von Einnahmen, Ausgaben, Zinsen, Schuldenstand und Rücklagen von ${erstesJahr} bis ${letztesJahr}.`}
+    variant="budget"
+  />
+
+  <section class="section hh-ue" aria-labelledby="einordnung">
+    <div class="section-header">
+      <h2 id="einordnung">Haushaltsjahre und Planungsjahre</h2>
+    </div>
+    <div class="hh-fp-einordnung">
+      <p class="hh-fp-einordnung__eintrag">
+        <span class="hh-fp-art hh-fp-art--haushaltsjahr">{YEAR_KIND_SHORT.haushaltsjahr}</span>
+        <span>{haushaltsjahrText}: Haushaltsjahre im {periode.bezeichnung}. {ctx.status.text}</span>
+      </p>
+      {projektionText ? (
+        <p class="hh-fp-einordnung__eintrag">
+          <span class="hh-fp-art hh-fp-art--projektion">{YEAR_KIND_SHORT.projektion}</span>
+          <span>{projektionText}: Finanzplanung. Die Planungswerte sind eine Projektion und nicht bewilligt; über sie wird erst mit späteren Haushalten entschieden.</span>
+        </p>
+      ) : null}
+    </div>
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="einnahmen-ausgaben">
+    <div class="section-header">
+      <h2 id="einnahmen-ausgaben">Einnahmen und Ausgaben</h2>
+      <p>
+        Die Ausgaben des Finanzplans sind die {AUSGABEN_LABEL}. In den Haushaltsjahren
+        entsprechen sie den Ausgaben des Gesamtplans abzüglich dieser Zuführung.
+      </p>
+    </div>
+    <TimeSeriesChart
+      id="einnahmen-ausgaben-diagramm"
+      caption={`Einnahmen und ${AUSGABEN_LABEL} ${erstesJahr} bis ${letztesJahr}`}
+      jahre={jahre}
+      series={[
+        { label: 'Einnahmen', values: reihe((eintrag) => eintrag.einnahmen) },
+        { label: AUSGABEN_LABEL, values: reihe((eintrag) => eintrag.ausgaben) },
+      ]}
+    />
+    <div class="hh-ue__raster">
+      <TimeSeriesChart
+        id="haushaltsvolumen-diagramm"
+        caption={`Haushaltsvolumen ${erstesJahr} bis ${letztesJahr}`}
+        jahre={jahre}
+        series={[{ label: 'Haushaltsvolumen', values: reihe((eintrag) => eintrag.haushaltsvolumen) }]}
+        hinweis={volumenGleichAusgabenInProjektion
+          ? `In den Haushaltsjahren schließt das Haushaltsvolumen die Zuführung an die Liquiditätsrücklage ein; in den Planungsjahren entspricht es den ${AUSGABEN_LABEL}.`
+          : undefined}
+      />
+      {mitPersonalreform ? (
+        <TimeSeriesChart
+          id="personalreform-diagramm"
+          caption={`Nettoentlastung durch die Personalreform ${erstesJahr} bis ${letztesJahr}`}
+          jahre={jahre}
+          series={[{ label: 'Nettoentlastung durch die Personalreform', values: reihe((eintrag) => eintrag.personalreform_netto) }]}
+          hinweis={`Planungsannahme des Reformentwurfs (${REFORMENTWURF}); der Entwurf ist kein geltendes Recht. Positive Werte bedeuten eine Entlastung des Haushalts.`}
+        />
+      ) : null}
+    </div>
+    {ohneUngedeckt ? (
+      <p class="hh-gp-hinweis">In keinem Jahr von {erstesJahr} bis {letztesJahr} weist der Finanzplan einen ungedeckten Bedarf aus.</p>
+    ) : (
+      <TimeSeriesChart
+        id="ungedeckt-diagramm"
+        caption={`Ungedeckter Bedarf ${erstesJahr} bis ${letztesJahr}`}
+        jahre={jahre}
+        series={[{ label: 'Ungedeckter Bedarf', values: reihe((eintrag) => eintrag.ungedeckt) }]}
+      />
+    )}
+    {mitPersonalreform ? (
+      <p class="hh-gp-hinweis">
+        Einzelheiten zu Personalausgaben, Versorgung und Beihilfe stehen auf der Seite
+        {' '}<a class="inline-link" href={getBudgetPeriodPageUrl(id, 'personal')}>Personal</a>.
+      </p>
+    ) : null}
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="schulden">
+    <div class="section-header">
+      <h2 id="schulden">Zinsen, Tilgung und Schuldenstand</h2>
+      <p>
+        Zinsen und Schuldenstand laut Finanzplan, Tilgung laut Kreditfinanzierungsplan. Die
+        Anschlussfinanzierung fälliger Kredite wird nur nachrichtlich geführt; Einzelheiten stehen auf
+        der Seite <a class="inline-link" href={getBudgetPeriodPageUrl(id, 'finanzierung')}>Finanzierung</a>.
+      </p>
+    </div>
+    <div class="hh-ue__raster">
+      <TimeSeriesChart
+        id="zinsen-tilgung-diagramm"
+        caption={`Zinsen und Tilgung ${erstesJahr} bis ${letztesJahr}`}
+        jahre={jahre}
+        series={[
+          { label: 'Zinsen', values: reihe((eintrag) => eintrag.zinsen) },
+          ...(kreditplan.length > 0 ? [{ label: 'Tilgung', values: kreditReihe('tilgung') }] : []),
+        ]}
+      />
+      <TimeSeriesChart
+        id="schuldenstand-diagramm"
+        caption={`Schuldenstand am Jahresende ${erstesJahr} bis ${letztesJahr}`}
+        typ="linie"
+        jahre={jahre}
+        series={[{ label: 'Schuldenstand am Jahresende', values: reihe((eintrag) => eintrag.schuldenstand) }]}
+      />
+    </div>
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="ruecklagen">
+    <div class="section-header">
+      <h2 id="ruecklagen">Rücklage und Liquidität</h2>
+      <p>
+        Bestand der allgemeinen Rücklage und der {liquiditaetIstRuecklage ? 'Liquiditätsrücklage' : 'Liquidität'} am Ende des Jahres. Weitere
+        Angaben zu Rücklagen und Fonds stehen auf der Seite
+        {' '}<a class="inline-link" href={getBudgetPeriodPageUrl(id, 'ruecklagen')}>Rücklagen und Fonds</a>.
+      </p>
+    </div>
+    <TimeSeriesChart
+      id="ruecklagen-diagramm"
+      caption={`Allgemeine Rücklage und ${LIQUIDITAET_LABEL} ${erstesJahr} bis ${letztesJahr}`}
+      typ="linie"
+      jahre={jahre}
+      series={[
+        { label: 'Allgemeine Rücklage am Jahresende', values: reihe((eintrag) => eintrag.ruecklage_ende) },
+        { label: LIQUIDITAET_LABEL, values: reihe((eintrag) => eintrag.liquiditaet_ende) },
+      ]}
+    />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="tabellen">
+    <div class="section-header">
+      <h2 id="tabellen">Alle Werte der Finanzplanung</h2>
+      <p>Exakte Beträge je Jahr. Zeilen der Planungsjahre sind als Finanzplanung (Projektion) gekennzeichnet und nicht bewilligt.</p>
+    </div>
+    {tabellen.map((tabelle) => (
+      <div class="hh-fp-tabelle">
+        <h3 class="hh-ue__untertitel" id={`${tabelle.id}-titel`}>{tabelle.titel}</h3>
+        <DataTableFrame
+          id={tabelle.id}
+          label={tabelle.titel}
+          caption={`${tabelle.titel}, Beträge in Euro`}
+          nomenSingular="Jahr"
+          nomenPlural="Jahren"
+          seitengroesse={false}
+          exportFilename={`${tabelle.id.replace(/-tabelle$/u, '')}-${id}.csv`}
+          exportMeta={exportMeta}
+          exportZeilenfelder={[{ key: 'art', label: 'Art des Jahres' }]}
+          breite="sehr-breit"
+        >
+          <FilterBar slot="werkzeuge" id={tabelle.id} suche={false} export={{}} />
+          <table class="data-table hh-datentabelle hh-fp-werte">
+            <thead>
+              <tr>
+                <th scope="col" class="hh-kennung" data-export-key="jahr">Jahr <span>Art</span></th>
+                {tabelle.spalten.map((spalte) => (
+                  <th scope="col" class="hh-zahl" data-export-key={spalte.key} data-export-label={`${spalte.label}${spalte.sub ? ` (${spalte.sub})` : ''} (Euro)`}>
+                    {spalte.label}{spalte.sub ? <> <span>{spalte.sub}</span></> : null}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {finanzplan.map((eintrag, index) => (
+                <tr id={`${tabelle.id}-${eintrag.jahr}`} class:list={[art(eintrag.jahr) === 'projektion' && 'hh-zeile--projektion']} data-export-art={artZelle(eintrag.jahr)}>
+                  <th scope="row" class="hh-kennung" data-export-value={String(eintrag.jahr)}>
+                    {eintrag.jahr} <span>{art(eintrag.jahr) === 'projektion' ? 'Projektion' : 'Haushaltsjahr'}</span>
+                  </th>
+                  {tabelle.spalten.map((spalte) => {
+                    const wert = spalte.werte[index];
+                    return (
+                      <td class="hh-zahl" data-export-value={typeof wert === 'number' ? String(wert) : ''}>
+                        {typeof wert === 'number' ? <Amount value={wert} exakt /> : <abbr title="keine Angabe">–</abbr>}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTableFrame>
+      </div>
+    ))}
+    <DefinitionNote begriff="Finanzplanung">
+      <p>
+        Die Finanzplanung schreibt den Haushalt über die Haushaltsjahre hinaus fort. Ihre Werte für
+        {projektionText ? ` ${projektionText}` : ' die Folgejahre'} sind Planungswerte, keine Bewilligungen; die Ausgaben sind
+        die {AUSGABEN_LABEL}.
+      </p>
+    </DefinitionNote>
+    <SourceNote
+      datenstand={ctx.datenstand}
+      datenversion={ctx.datenversion}
+      quelle={ctx.quelle}
+      downloadsHref={getBudgetPeriodPageUrl(id, 'downloads')}
+    />
+  </section>
+</HaushaltLayout>

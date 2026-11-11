@@ -812,6 +812,24 @@ ausdrücklicher Freigabe geladen. Die Behördennummer 115 ist ein Orientierungsb
 zentralen Konfiguration und verweist auf den Kontaktbereich; ein `tel:`-Link erscheint nur bei
 ausdrücklich konfiguriertem Telefonweg.
 
+### Haushaltsbereich
+
+Jede Haushaltsseite nennt im Periodenkopf Periode, Statusabzeichen (Wort und Farbe) und
+Datenstand; ein Regierungsentwurf trägt immer das Abzeichen „Regierungsentwurf“, nie die Form eines
+geltenden Haushalts, ein Nachtragshaushalt ein eigenes Abzeichen. Beträge stehen sichtbar gerundet
+und exakt in `<data value>` sowie in Tabellen und Exporten. Kennzahlen mit Abgrenzung (z. B.
+Investitionen als Hauptgruppen 7 und 8) nennen ihre Definition sichtbar; eine anders abgegrenzte
+Größe trägt einen anderen Namen. Status von Vorhaben bezeichnen das Vorhaben („Vorhaben
+beschlossen“), nicht die Mittel.
+
+Haushaltstabellen (`DataTableFrame`) rollen im gekennzeichneten Bereich; Wörter bleiben ganz,
+Beträge und Kennungen ungeteilt. Tabellen mit schmaler Jahresansicht passen sich unter 48 rem der
+Breite an; alle übrigen halten Bezeichnungsspalten bei mindestens 8 rem, statt sie in Silben zu
+zerlegen. Die Auswahlmeldung ist nur sichtbar, wenn Suche oder Filter die Zeilen eingrenzen. Die
+Vorhabenübersicht ist eine nach Fachbereichen gruppierte Kartenansicht mit Suche und Filtern; sie
+blättert nicht, solange keine Gruppe mehr als 25 Karten hat. Die vollständige Vergleichstabelle
+der Vorhaben blättert zu 25 Zeilen.
+
 ### Wortliste für Stände
 
 `siteConfig.vocabulary` legt die Begriffe fest, und die Oberflächen lesen sie dort: **Stand** ist

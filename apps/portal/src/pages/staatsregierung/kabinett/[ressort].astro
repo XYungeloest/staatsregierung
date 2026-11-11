@@ -4,6 +4,7 @@ import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
+import RessortHaushalt from '../../../components/haushalt/RessortHaushalt.astro';
 import {
   getGovernmentUrl,
   getHomeUrl,
@@ -174,6 +175,8 @@ const legalReferences = Array.from(
         </nav>
       </aside>
     </div>
+
+    <RessortHaushalt ministrySlug={ministry.slug} ministryName={ministry.kurzname} />
 
     {relatedTopics.length > 0 ? (
       <section class="section section-muted" data-visual-section="ministry-topics">

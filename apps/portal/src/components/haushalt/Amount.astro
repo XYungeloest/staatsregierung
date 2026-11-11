@@ -1,0 +1,32 @@
+---
+/**
+ * Eurobetrag: sichtbar gerundet („140,9 Mrd. €“), exakt als <data value> (ganze Euro) und im
+ * title. Mit `exakt` steht der exakte Betrag auch sichtbar. `vorzeichen` setzt „+“/„−“ für
+ * Veränderungen. Zahl und Einheit sind durch geschützte Leerzeichen verbunden. `umbruch` erlaubt
+ * einen Umbruch nur zwischen Tausendergruppen (<wbr>), etwa in Kennzahlkarten; in Tabellen bleibt
+ * ein Betrag ungeteilt.
+ */
+import { formatEuroExact, formatEuroRounded } from './format.ts';
+
+interface Props {
+  value: number;
+  exakt?: boolean;
+  vorzeichen?: boolean;
+  umbruch?: boolean;
+  class?: string;
+}
+
+const { value, exakt = false, vorzeichen = false, umbruch = false, class: className } = Astro.props as Props;
+const exact = formatEuroExact(value);
+const shown = exakt ? exact : formatEuroRounded(value);
+const prefix = vorzeichen ? (value > 0 ? '+' : value === 0 ? '±' : '') : '';
+const isRounded = !exakt && shown !== exact;
+const text = `${prefix}${shown}`;
+const parts = umbruch ? text.split(/(?<=\d\.)(?=\d{3})/u) : [text];
+---
+
+<data
+  class:list={['hh-betrag', value < 0 && 'hh-betrag--negativ', className]}
+  value={String(Math.trunc(value))}
+  title={isRounded ? `${prefix}${exact}` : undefined}
+>{parts.map((part, index) => <>{index > 0 ? <wbr /> : null}{part}</>)}</data>

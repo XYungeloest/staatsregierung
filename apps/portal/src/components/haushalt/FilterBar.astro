@@ -1,0 +1,102 @@
+---
+/**
+ * Werkzeugleiste für den Tabellen-Enhancer: Suchfeld, Auswahlfilter, Jahresansicht,
+ * Erläuterungen und CSV-Export. Alle Felder sind beschriftet. Die Leiste braucht JavaScript und
+ * ist darum bis zur Initialisierung `hidden` (`data-tabelle-js`). Innerhalb von
+ * `DataTableFrame` (Slot `werkzeuge`) gehört sie automatisch zur Tabelle; außerhalb verbindet
+ * `ziel` sie mit der `id` des Rahmens. Ohne `label` benennt das Skript die Leiste nach dem
+ * Tabellenbereich („Suche und Filter: <Name>“), damit mehrere Leisten unterscheidbar bleiben.
+ */
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface SelectFilter {
+  feld: string;
+  label: string;
+  options: Option[];
+  alleLabel?: string;
+}
+
+interface Props {
+  id: string;
+  label?: string;
+  ziel?: string;
+  suche?: { label?: string; placeholder?: string } | false;
+  filter?: SelectFilter[];
+  jahresansicht?: { label?: string; options: Option[]; value: string };
+  erlaeuterungen?: { label?: string; checked?: boolean };
+  export?: { label?: string };
+}
+
+const {
+  id,
+  label,
+  ziel,
+  suche = {},
+  filter = [],
+  jahresansicht,
+  erlaeuterungen,
+  export: exportOption,
+} = Astro.props as Props;
+---
+
+<form
+  class="filter-bar hh-filter"
+  id={`${id}-filter`}
+  aria-label={label ?? 'Suche und Filter'}
+  data-label-auto={label ? undefined : ''}
+  data-tabelle-js
+  data-tabelle-werkzeuge
+  data-tabelle-ziel={ziel}
+  hidden
+>
+  <div class="filter-bar__fields hh-filter__felder">
+    {suche !== false ? (
+      <label class="filter-field hh-filter__suche" for={`${id}-suche`}>
+        <span>{suche.label ?? 'Suche'}</span>
+        <input id={`${id}-suche`} type="search" autocomplete="off" placeholder={suche.placeholder} data-tabelle-suche />
+      </label>
+    ) : null}
+    {filter.map((entry) => (
+      <label class="filter-field" for={`${id}-filter-${entry.feld}`}>
+        <span>{entry.label}</span>
+        <select id={`${id}-filter-${entry.feld}`} data-filter={entry.feld}>
+          <option value="">{entry.alleLabel ?? 'Alle'}</option>
+          {entry.options.map((option) => <option value={option.value}>{option.label}</option>)}
+        </select>
+      </label>
+    ))}
+  </div>
+  {jahresansicht || erlaeuterungen || exportOption ? (
+    <div class="hh-filter__optionen">
+      {jahresansicht ? (
+        <div class="hh-filter__jahre" role="group" aria-labelledby={`${id}-jahre-label`}>
+          <span class="hh-filter__gruppenlabel" id={`${id}-jahre-label`}>{jahresansicht.label ?? 'Ansicht'}</span>
+          <div class="segmented-control">
+            {jahresansicht.options.map((option) => (
+              <button
+                type="button"
+                class:list={['segmented-control__button', option.value === jahresansicht.value && 'is-active']}
+                aria-pressed={option.value === jahresansicht.value ? 'true' : 'false'}
+                data-year-view-value={option.value}
+              >{option.label}</button>
+            ))}
+          </div>
+        </div>
+      ) : null}
+      {erlaeuterungen ? (
+        <label class="hh-filter__schalter" for={`${id}-erlaeuterungen`}>
+          <input id={`${id}-erlaeuterungen`} type="checkbox" checked={erlaeuterungen.checked ?? true} data-erlaeuterungen-toggle />
+          <span>{erlaeuterungen.label ?? 'Erläuterungen anzeigen'}</span>
+        </label>
+      ) : null}
+      {exportOption ? (
+        <button type="button" class="button-link button-link--secondary hh-filter__export" data-tabelle-export>
+          {exportOption.label ?? 'Auswahl als CSV herunterladen'}
+        </button>
+      ) : null}
+    </div>
+  ) : null}
+</form>

@@ -1,15 +1,133 @@
 ---
+/**
+ * Sondervermögen und Fonds (/haushalt/sondervermoegen/), periodenübergreifend.
+ *
+ * Oben die rechtlich belegten Instrumente des Bestands (budgetSpecialInstruments). Darunter je
+ * sichtbarer Snapshot-Periode die tatsächlichen Haushaltsbeziehungen der Rücklagen, Fonds und
+ * Sondervermögen (Zweck, Rechtsgrundlage, Rechtsträger, Ausstattung, Entnahme, Zuführung,
+ * Verbindung zum Kernhaushalt, Status) mit Verweis auf die Seite „Rücklagen und Fonds“ der
+ * Periode. Ohne Vorschau erscheinen nicht freigegebene Perioden nicht; zeigt ein Vorschau-Build
+ * eine solche Periode, trägt die Seite `noindex` und den Vorschauhinweis.
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/haushalt/base.css';
+import '../../styles/haushalt/ruecklagen.css';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
+import PeriodNav from '../../components/haushalt/PeriodNav.astro';
+import { getHaushaltNavItems } from '../../lib/haushalt/seite.ts';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import { budgetSpecialInstruments } from '../../data/haushalt.ts';
+import Amount from '../../components/haushalt/Amount.astro';
+import StatusBadge from '../../components/haushalt/StatusBadge.astro';
+import Rechtsbezuege from '../../components/haushalt/ruecklagen/Rechtsbezuege.astro';
+import { budgetSpecialInstruments } from '../../lib/haushalt/legacy-2025-2026.ts';
 import { formatEuroAmount } from '@ostrecht/shared/lib/portal/modules.ts';
 import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
-import { getBudgetUrl, getHomeUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { getBudgetPeriodPageUrl, getBudgetUrl, getHomeUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import {
+  findeTitel,
+  getArtSummen,
+  getFondsZeilen,
+  INSTRUMENT_STATUS_LABELS,
+  loadFondsOverlay,
+  type OverlayRechtsbezug,
+  type InstrumentStatus,
+  type TitelInfo,
+} from '../../components/haushalt/ruecklagen/fonds.ts';
+import { getPeriodeStatusInfo, getVisibleSnapshotPeriods, isPreviewOnly } from '../../lib/haushalt/perioden.ts';
+import { loadGesamtplan, loadRuecklagen } from '../../lib/haushalt/snapshot.ts';
+
+interface Beziehung {
+  name: string;
+  art: string;
+  anker: string;
+  zweck: string;
+  rechtstraeger: string;
+  rechtsbezuege: readonly OverlayRechtsbezug[];
+  ausstattung: { jahr: string; betrag: number } | null;
+  entnahme: Array<number | null>;
+  zufuehrung: Array<number | null>;
+  kernhaushalt: string;
+  titel: TitelInfo[];
+  status: InstrumentStatus;
+  statusText: string;
+}
+
+const perioden = getVisibleSnapshotPeriods().map((periode) => {
+  const id = periode.id;
+  const jahre = periode.jahre.map(String);
+  const overlay = loadFondsOverlay(id);
+  const ruecklagen = loadRuecklagen(id);
+  const gesamtplan = loadGesamtplan(id);
+  const fonds = getFondsZeilen(id, jahre);
+  const summen = getArtSummen(fonds);
+  const allgemein = (jahr: string) => ruecklagen.allgemeine_ruecklage.find((eintrag) => String(eintrag.jahr) === jahr);
+  const gp = (jahr: string, feld: string) => {
+    const wert = gesamtplan.jahre[jahr as `${number}`]?.[feld];
+    return typeof wert === 'number' ? wert : null;
+  };
+  const allgemeineRuecklage = overlay.instrumente['allgemeine-ruecklage'];
+  const liquiditaetsruecklage = overlay.instrumente.liquiditaetsruecklage;
+  const beziehungen: Beziehung[] = [
+    {
+      name: allgemeineRuecklage.name,
+      art: 'Rücklage',
+      anker: 'allgemeine-ruecklage',
+      zweck: allgemeineRuecklage.zweck,
+      rechtstraeger: allgemeineRuecklage.rechtstraeger,
+      rechtsbezuege: allgemeineRuecklage.rechtsbezuege,
+      ausstattung: allgemein(jahre[0]) ? { jahr: jahre[0], betrag: allgemein(jahre[0])!.anfang } : null,
+      entnahme: jahre.map((jahr) => allgemein(jahr)?.entnahme ?? null),
+      zufuehrung: jahre.map((jahr) => allgemein(jahr)?.zufuehrung ?? null),
+      kernhaushalt: 'Entnahmen sind Einnahmen des Kernhaushalts.',
+      titel: findeTitel(id, allgemeineRuecklage.kernhaushaltTitel, jahre),
+      status: allgemeineRuecklage.status,
+      statusText: allgemeineRuecklage.statusText,
+    },
+    {
+      name: liquiditaetsruecklage.name,
+      art: 'Rücklage',
+      anker: 'liquiditaetsruecklage',
+      zweck: liquiditaetsruecklage.zweck,
+      rechtstraeger: liquiditaetsruecklage.rechtstraeger,
+      rechtsbezuege: liquiditaetsruecklage.rechtsbezuege,
+      ausstattung: null,
+      entnahme: jahre.map(() => null),
+      zufuehrung: jahre.map((jahr) => gp(jahr, 'zufuehrung_liquiditaetsruecklage')),
+      kernhaushalt: 'Zuführungen sind Ausgaben des Kernhaushalts.',
+      titel: findeTitel(id, liquiditaetsruecklage.kernhaushaltTitel, jahre),
+      status: liquiditaetsruecklage.status,
+      statusText: liquiditaetsruecklage.statusText,
+    },
+    ...summen.map((summe): Beziehung => {
+      const zeilen = fonds.filter((zeile) => zeile.overlay.art === summe.art);
+      const einzeln = summe.art === 'versorgungsfonds' && zeilen.length === 1 ? zeilen[0] : null;
+      const titel = new Map<string, TitelInfo>();
+      for (const zeile of zeilen) if (zeile.einnahmetitel) titel.set(`${zeile.einnahmetitel.kapitel}/${zeile.einnahmetitel.titel}`, zeile.einnahmetitel);
+      const rechtsaenderung = zeilen.some((zeile) => zeile.rechtsaenderung);
+      const alleMitRechtsaenderung = zeilen.every((zeile) => zeile.rechtsaenderung);
+      return {
+        name: einzeln ? einzeln.overlay.name : `${summe.overlay.plural} nach dem Verwendungsplan`,
+        art: einzeln ? summe.overlay.label : `${zeilen.length} Positionen`,
+        anker: summe.art === 'versorgungsfonds' ? 'versorgungsfonds' : 'positionen',
+        zweck: einzeln ? einzeln.overlay.zweck : `Finanzierung bereits veranschlagter zweckgleicher Ausgaben, unter anderem: ${[...new Set(zeilen.map((zeile) => zeile.overlay.bereich))].join(', ')}.`,
+        rechtstraeger: summe.overlay.rechtstraeger,
+        rechtsbezuege: summe.overlay.rechtsbezuege,
+        ausstattung: null,
+        entnahme: jahre.map((jahr) => summe.betraege[jahr] ?? 0),
+        zufuehrung: jahre.map(() => null),
+        kernhaushalt: 'Die Mittel fließen dem Kernhaushalt als Einnahmen zu und werden in den Fachkapiteln verausgabt; bei konsolidierter Betrachtung entfallen sie.',
+        titel: [...titel.values()].sort((left, right) => left.titel.localeCompare(right.titel)),
+        status: 'entwurf',
+        statusText: `${summe.overlay.statusText}${rechtsaenderung ? ` ${alleMitRechtsaenderung ? '' : 'Für einzelne Positionen gilt: '}${summe.overlay.rechtsaenderungText}` : ''}`,
+      };
+    }),
+  ];
+  return { periode, id, jahre, status: getPeriodeStatusInfo(periode), preview: isPreviewOnly(periode), beziehungen };
+});
+const vorschau = perioden.some((eintrag) => eintrag.preview);
 ---
 
-<BaseLayout title="Sondervermögen und Fonds" description="Sondervermögen und Fonds mit Zweck, Rechtsgrundlage, Zuständigkeit und Bezug zum Kernhaushalt.">
+<BaseLayout title="Sondervermögen und Fonds" description="Sondervermögen und Fonds mit Zweck, Rechtsgrundlage, Zuständigkeit und Bezug zum Kernhaushalt." noindex={vorschau}>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Sondervermögen und Fonds' }]} />
 
   <SectionHero
@@ -17,12 +135,12 @@ import { getBudgetUrl, getHomeUrl, getTopicUrl } from '@ostrecht/shared/lib/port
     title="Sondervermögen und Fonds"
     lead="Rechtlich bestimmte Finanzierungsinstrumente mit Zweck, Zuständigkeit und Bezug zum Kernhaushalt."
     variant="budget"
-    facts={[{ label: 'Instrumente', value: String(budgetSpecialInstruments.length) }]}
+    facts={[{ label: 'Rechtlich eingeordnete Instrumente', value: String(budgetSpecialInstruments.length) }]}
   />
-  <BudgetSectionNav current="sondervermoegen" />
+  <PeriodNav items={getHaushaltNavItems('sondervermoegen')} label="Haushalt" />
 
   <section class="section section-muted" aria-labelledby="abgrenzung-sondervermoegen">
-    <div class="section-header"><h2 id="abgrenzung-sondervermoegen">Klare Abgrenzung</h2><p>Die rechtliche Form entscheidet über die Einordnung. Das verhindert, dass Fondsvolumen und Ausgaben eines Einzelplans verwechselt werden.</p></div>
+    <div class="section-header"><h2 id="abgrenzung-sondervermoegen">Klare Abgrenzung</h2><p>Die rechtliche Form entscheidet über die Einordnung.</p></div>
     <div class="budget-explanation-grid">
       <article class="budget-explanation-card"><h3>Sondervermögen</h3><p>Ein vom übrigen Landesvermögen getrennt zu führendes Vermögen mit eigener Zweckbindung. Zuführungen können über den Haushalt erfolgen, seine Rechnung bleibt aber gesondert.</p></article>
       <article class="budget-explanation-card"><h3>Kooperationsfonds</h3><p>Ein gemeinsames Finanzierungsinstrument mit anderen Staaten oder Stellen. Eine im Vertrag genannte Mindestausstattung steht unter dem jeweiligen Haushaltsvorbehalt.</p></article>
@@ -51,7 +169,66 @@ import { getBudgetUrl, getHomeUrl, getTopicUrl } from '@ostrecht/shared/lib/port
     </div>
   </section>
 
+  {perioden.map((eintrag) => (
+    <section class="section hh-rl-abschnitt" aria-labelledby={`haushalt-${eintrag.id}`}>
+      <div class="section-header">
+        <h2 id={`haushalt-${eintrag.id}`}>Rücklagen und Fonds im {eintrag.periode.bezeichnung}</h2>
+        <p>Entnahmen, Zuführungen und Verwendungen laut Haushaltsplan der Periode. Einzelheiten zu allen Positionen, zum Abgleich mit dem Kernhaushalt und zu den Landesunternehmen enthält die Seite <a class="inline-link" href={getBudgetPeriodPageUrl(eintrag.id, 'ruecklagen')}>Rücklagen, Fonds und Landesunternehmen</a>.</p>
+      </div>
+      {eintrag.preview ? (
+        <div class="hh-vorschau" role="note" aria-label="Vorschauhinweis" data-haushalt-vorschau>
+          <p><strong>Vorschau – diese Haushaltsperiode ist noch nicht zur Veröffentlichung freigegeben.</strong></p>
+        </div>
+      ) : null}
+      <p class="hh-rl-periode__kopf">
+        <StatusBadge tone={eintrag.status.tone} label={eintrag.status.label} />
+        <span class="hh-rl-statustext">{eintrag.status.text}</span>
+      </p>
+      <div class="budget-instrument-grid">
+        {eintrag.beziehungen.map((beziehung) => (
+          <article class="budget-instrument-card">
+            <p class="eyebrow">{beziehung.art}</p>
+            <h3>{beziehung.name}</h3>
+            <p>{beziehung.zweck}</p>
+            <dl class="meta-list">
+              <div><dt>Rechtsgrundlage</dt><dd><Rechtsbezuege bezuege={beziehung.rechtsbezuege} /></dd></div>
+              <div><dt>Rechtsträger</dt><dd>{beziehung.rechtstraeger}</dd></div>
+              <div>
+                <dt>Ausstattung</dt>
+                <dd>{beziehung.ausstattung ? <>Bestand am Anfang {beziehung.ausstattung.jahr}: <Amount value={beziehung.ausstattung.betrag} exakt /></> : 'Im Haushaltsplan nicht ausgewiesen'}</dd>
+              </div>
+              {beziehung.entnahme.some((wert) => wert !== null) ? (
+                <div>
+                  <dt>Entnahme</dt>
+                  <dd>{eintrag.jahre.map((jahr, index) => <>{index > 0 ? '; ' : ''}{jahr}: <Amount value={beziehung.entnahme[index] ?? 0} exakt /></>)}</dd>
+                </div>
+              ) : null}
+              {beziehung.zufuehrung.some((wert) => wert !== null) ? (
+                <div>
+                  <dt>Zuführung</dt>
+                  <dd>{eintrag.jahre.map((jahr, index) => <>{index > 0 ? '; ' : ''}{jahr}: <Amount value={beziehung.zufuehrung[index] ?? 0} exakt /></>)}</dd>
+                </div>
+              ) : null}
+              <div>
+                <dt>Bezug zum Kernhaushalt</dt>
+                <dd>
+                  {beziehung.kernhaushalt}
+                  {beziehung.titel.length > 0 ? <> Titel: {beziehung.titel.map((titel, index) => <>{index > 0 ? ', ' : ''}<a class="inline-link" href={titel.href}>{titel.nummer} im Kapitel {titel.kapitelNummer}</a></>)}.</> : null}
+                </dd>
+              </div>
+              <div>
+                <dt>Status</dt>
+                <dd><StatusBadge tone={beziehung.status === 'option' ? 'vorschau' : 'entwurf'} label={INSTRUMENT_STATUS_LABELS[beziehung.status]} /> <span class="hh-rl-statustext">{beziehung.statusText}</span></dd>
+              </div>
+            </dl>
+            <p><a class="inline-link" href={`${getBudgetPeriodPageUrl(eintrag.id, 'ruecklagen')}#${beziehung.anker}`}>Einzelheiten im {eintrag.periode.bezeichnung}</a></p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+
   <section class="section" aria-labelledby="fonds-hinweis">
-    <div class="budget-context-note"><strong>Keine Doppelzählung</strong><span>Die hier beschriebenen Instrumente werden nicht zu den Ausgaben der Einzelpläne addiert. Ob und in welcher Höhe der Kernhaushalt Mittel zuführt, ergibt sich aus der jeweiligen Haushalts- oder Rechtsgrundlage.</span></div>
+    <div class="budget-context-note"><strong id="fonds-hinweis">Keine Doppelzählung</strong><span>Die hier beschriebenen Instrumente werden nicht zu den Ausgaben der Einzelpläne addiert. Ob und in welcher Höhe der Kernhaushalt Mittel zuführt, ergibt sich aus der jeweiligen Haushalts- oder Rechtsgrundlage.</span></div>
   </section>
 </BaseLayout>

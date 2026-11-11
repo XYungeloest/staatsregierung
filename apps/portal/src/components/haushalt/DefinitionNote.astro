@@ -1,0 +1,19 @@
+---
+/**
+ * Sichtbare Abgrenzung oder Definition einer Kennzahl. Der Text kommt als Slot; `begriff`
+ * nennt die Kennzahl, `titel` überschreibt die Kopfzeile.
+ */
+interface Props {
+  begriff?: string;
+  titel?: string;
+  id?: string;
+}
+
+const { begriff, titel, id } = Astro.props as Props;
+const heading = titel ?? (begriff ? `Abgrenzung: ${begriff}` : 'Abgrenzung');
+---
+
+<aside class="hh-definition" id={id} aria-label={heading}>
+  <p class="hh-definition__titel">{heading}</p>
+  <div class="hh-definition__text"><slot /></div>
+</aside>

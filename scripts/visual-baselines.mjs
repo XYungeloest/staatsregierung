@@ -13,7 +13,8 @@ import { normalizeSiteTargets } from './lib/site-targets.mjs';
  *
  *   update [--site portal|law|portal,law] [--grep <Muster>] [--critical] [--no-build]
  *     Führt die Suite im festen Playwright-Container (Docker, exakt die Version aus
- *     package-lock.json wie in CI) gegen das Testfixture aus, erzeugt nur die gewählten Baselines
+ *     package-lock.json wie in CI) gegen das Testfixture und wie die Visual-Workflows mit
+ *     HAUSHALT_VORSCHAU=1 aus, erzeugt nur die gewählten Baselines
  *     neu (--update-snapshots) und vergleicht anschließend strikt gegen die neuen Dateien. Node-
  *     Abhängigkeiten des Containers liegen in einem Docker-Volume (erster Lauf: npm ci), der
  *     Build und der Fixture-Seed entstehen im Container; das Repository ist eingehängt, die
@@ -91,6 +92,9 @@ async function update(args) {
     '-e', 'CI=1',
     '-e', 'OSTRECHT_VISUAL_STRICT=1',
     '-e', `OSTRECHT_D1_FIXTURE=${FIXTURE}`,
+    // Wie die Visual-Workflows und der PR-Build: nicht freigegebene Haushaltsperioden als
+    // Vorschau bauen, damit lokale und CI-Baselines denselben Seitenbestand zeigen.
+    '-e', 'HAUSHALT_VORSCHAU=1',
     '-e', `SITE_TARGETS=${sites.join(',')}`,
     image,
     'bash', '-lc', steps.join(' && '),

@@ -1,169 +1,1010 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
-import BudgetKpiCards from '../../components/portal/BudgetKpiCards.astro';
-import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
-import BudgetTaskAreaChart from '../../components/portal/BudgetTaskAreaChart.astro';
-import BudgetYearSelector from '../../components/portal/BudgetYearSelector.astro';
+/**
+ * Einstieg des Haushaltsbereichs (/haushalt/), periodenübergreifend.
+ *
+ * Zeigt alle im Build sichtbaren Haushaltsperioden (lib/haushalt/perioden.ts) mit
+ * Statuskennzeichnung, die Eckwerte aller sichtbaren Haushaltsjahre mit Jahreswahl und
+ * Vergleichen, die Schwerpunkte jeder Periode und die Wege in alle Bereiche. Nicht freigegebene
+ * Perioden erscheinen nur im Vorschau-Build; die Seite trägt dann `noindex` und den
+ * Vorschauhinweis. Alle Beträge stammen aus dem Haushaltsbestand der jeweiligen Periode; hier
+ * entstehen nur Anteile, Veränderungen und die definierten Sammelgrößen aus kennzahlen.ts.
+ * Periodenvergleiche bleiben auf Gesamt- und Hauptgruppenebene.
+ */
+import HaushaltLayout from '../../layouts/HaushaltLayout.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../components/haushalt/Amount.astro';
+import BarChart from '../../components/haushalt/BarChart.astro';
+import DataTableFrame from '../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../components/haushalt/DefinitionNote.astro';
+import EntryCards from '../../components/haushalt/EntryCards.astro';
+import GroupedBarChart from '../../components/haushalt/GroupedBarChart.astro';
+import KpiGrid from '../../components/haushalt/KpiGrid.astro';
+import SourceNote from '../../components/haushalt/SourceNote.astro';
+import StatusBadge from '../../components/haushalt/StatusBadge.astro';
+import { formatShare, type StatusTone } from '../../components/haushalt/format.ts';
+import {
+  formatPeriodenjahre,
+  getMassgeblichePeriode,
+  getPeriodeStatusInfo,
+  getRedaktionellerStichtag,
+  getVisiblePeriods,
+  isPeriodePublic,
+  isPreviewOnly,
+  type Haushaltsperiode,
+} from '../../lib/haushalt/perioden.ts';
+import { loadEinzelplaene, loadGesamtplan, loadImportManifest, loadPeriodMeta, loadProjekte } from '../../lib/haushalt/snapshot.ts';
+import {
+  AUSGABE_HAUPTGRUPPEN,
+  DEFINITION_INVESTITIONEN,
+  EINNAHME_HAUPTGRUPPEN,
+  HAUPTGRUPPEN,
+  getAnteil,
+  getInvestitionen,
+  getJahre,
+  getKennzahlen,
+  getPeriodenvergleich,
+  getVeraenderung,
+  legacyAmountsToHauptgruppen,
+  type Kennzahl,
+  type Kennzahlenblock,
+} from '../../lib/haushalt/kennzahlen.ts';
+import { PROJEKT_STATUS_LABELS, hasProjektseite, loadProjektOverlays } from '../../lib/haushalt/oeffentlich.ts';
 import {
   budgetPlans,
-  budgetSpecialInstruments,
   budgetTotals,
-  getBudgetShare,
   getBudgetTaskAreas,
-} from '../../data/haushalt.ts';
-import { formatEuroCompact, formatPercent } from '@ostrecht/shared/lib/portal/modules.ts';
-import { getBudgetPageUrl, getBudgetPlanUrl, getBudgetUrl, getHomeUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+  type BudgetYear,
+} from '../../lib/haushalt/legacy-2025-2026.ts';
+import type { Gesamtplan, Hauptgruppen, HauptgruppenSchluessel } from '../../lib/haushalt/types.ts';
+import { formatEuroCompact } from '@ostrecht/shared/lib/portal/modules.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import {
+  getBudgetPageUrl,
+  getBudgetPeriodPageUrl,
+  getBudgetPeriodUrl,
+  getBudgetProjectUrl,
+  getBudgetSearchUrl,
+  getBudgetUrl,
+  getHomeUrl,
+  getPortalSearchUrl,
+} from '@ostrecht/shared/lib/portal/routes.ts';
 import { buildDatasetJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
+import { getHaushaltNavItems, getPeriodenKurzname } from '../../lib/haushalt/seite.ts';
 
-const ressortPlans = budgetPlans
-  .filter((plan) => plan.category === 'Ressort')
-  .sort((left, right) => right.amounts['2026'].expenses - left.amounts['2026'].expenses);
-const financePlan = budgetPlans.find((plan) => plan.number === '20');
-const totalChange = budgetTotals['2026'].expenses - budgetTotals['2025'].expenses;
-const investmentChange = budgetTotals['2026'].investments - budgetTotals['2025'].investments;
-const taxChange = budgetTotals['2026'].tax - budgetTotals['2025'].tax;
-const taskAreas = getBudgetTaskAreas();
+interface Weg {
+  label: string;
+  href: string;
+}
+
+interface JahrDaten {
+  jahr: string;
+  einnahmen: number;
+  ausgaben: number;
+  hauptgruppen: Hauptgruppen;
+  /** Kennzahlen des Gesamtplans (nur Perioden mit vollständigem Gesamtplan). */
+  block?: Kennzahlenblock;
+}
+
+interface PeriodenDaten {
+  periode: Haushaltsperiode;
+  kurzname: string;
+  statusLabel: string;
+  statusTone: StatusTone;
+  statusText: string;
+  nachtrag?: { label: string; text: string; tone: StatusTone };
+  preview: boolean;
+  jahre: JahrDaten[];
+  bezugsjahr: string;
+  einzelplaene: number;
+  datenstand?: string;
+  datenversion?: string;
+  quelle: string;
+  wege: Weg[];
+  gesamtplan?: Gesamtplan;
+}
+
+const stichtag = getRedaktionellerStichtag();
+const stichtagJahr = Number(stichtag.slice(0, 4));
+
+/** Bezugsjahr einer Periode: das Jahr des Stichtags, sonst das nächstliegende Haushaltsjahr. */
+function bezugsjahr(periode: Haushaltsperiode): string {
+  const jahre = [...periode.jahre].sort();
+  if (jahre.includes(stichtagJahr)) return String(stichtagJahr);
+  return String(stichtagJahr < jahre[0] ? jahre[0] : jahre[jahre.length - 1]);
+}
+
+function pruefeJahre(periode: Haushaltsperiode, jahre: string[]): void {
+  const erwartet = periode.jahre.map(String).sort().join(',');
+  if (jahre.join(',') !== erwartet) {
+    throw new Error(`Haushaltseinstieg: Jahre der Periode ${periode.id} (${erwartet}) passen nicht zu den Haushaltsdaten (${jahre.join(',')}).`);
+  }
+}
+
+function legacyDaten(periode: Haushaltsperiode): PeriodenDaten {
+  const jahre = (Object.keys(budgetTotals) as BudgetYear[]).sort();
+  pruefeJahre(periode, jahre);
+  const status = getPeriodeStatusInfo(periode);
+  const start = getBudgetPeriodUrl(periode.id);
+  return {
+    periode,
+    kurzname: getPeriodenKurzname(periode),
+    statusLabel: status.label,
+    statusTone: status.tone,
+    statusText: status.text,
+    nachtrag: status.nachtrag,
+    preview: isPreviewOnly(periode),
+    jahre: jahre.map((jahr) => ({
+      jahr,
+      einnahmen: budgetTotals[jahr].revenue,
+      ausgaben: budgetTotals[jahr].expenses,
+      hauptgruppen: legacyAmountsToHauptgruppen(budgetTotals[jahr]),
+    })),
+    bezugsjahr: bezugsjahr(periode),
+    einzelplaene: budgetPlans.length,
+    datenstand: periode.freigabe.datum ?? undefined,
+    quelle: periode.freigabe.grundlage ?? periode.bezeichnung,
+    wege: [
+      { label: 'Überblick', href: start },
+      { label: 'Gesamtplan', href: getBudgetPeriodPageUrl(periode.id, 'gesamtplan') },
+      { label: 'Einzelpläne', href: getBudgetPeriodPageUrl(periode.id, 'einzelplaene') },
+      { label: 'Haushaltsdaten als CSV', href: `${start}daten.csv` },
+      ...(periode.rechtsgrundlage ? [{ label: periode.freigabe.grundlage ?? 'Haushaltsgesetz', href: getNormUrl(periode.rechtsgrundlage.normSlug) }] : []),
+    ],
+  };
+}
+
+function snapshotDaten(periode: Haushaltsperiode): PeriodenDaten {
+  const gesamtplan = loadGesamtplan(periode.id);
+  const meta = loadPeriodMeta(periode.id);
+  const manifest = loadImportManifest(periode.id);
+  const jahre = getJahre(gesamtplan);
+  pruefeJahre(periode, jahre);
+  const status = getPeriodeStatusInfo(periode);
+  const seite = (slug: string) => getBudgetPeriodPageUrl(periode.id, slug);
+  return {
+    periode,
+    kurzname: getPeriodenKurzname(periode),
+    statusLabel: status.label,
+    statusTone: status.tone,
+    statusText: status.text,
+    nachtrag: status.nachtrag,
+    preview: isPreviewOnly(periode),
+    jahre: jahre.map((jahr) => {
+      const daten = gesamtplan.jahre[jahr as `${number}`];
+      return { jahr, einnahmen: daten.einnahmen, ausgaben: daten.ausgaben, hauptgruppen: daten.hauptgruppen, block: getKennzahlen(gesamtplan, jahr) };
+    }),
+    bezugsjahr: bezugsjahr(periode),
+    einzelplaene: loadEinzelplaene(periode.id).length,
+    datenstand: meta.stand,
+    datenversion: manifest.quelle.commit_kurz,
+    quelle: `${periode.bezeichnung} (${status.label})`,
+    wege: [
+      { label: 'Überblick', href: getBudgetPeriodUrl(periode.id) },
+      { label: 'Gesamtplan', href: seite('gesamtplan') },
+      { label: 'Einzelpläne', href: seite('einzelplaene') },
+      { label: 'Vorhaben und Projekte', href: seite('projekte') },
+      { label: 'Personal', href: seite('personal') },
+      { label: 'Finanzierung', href: seite('finanzierung') },
+      { label: 'Rücklagen, Fonds und Landesunternehmen', href: seite('ruecklagen') },
+      { label: 'Finanzplanung', href: seite('finanzplanung') },
+      { label: 'Downloads', href: seite('downloads') },
+      { label: 'Haushaltssuche', href: getBudgetSearchUrl(periode.id) },
+    ],
+    gesamtplan,
+  };
+}
+
+const sichtbar = getVisiblePeriods();
+const perioden: PeriodenDaten[] = sichtbar.map((periode) =>
+  periode.datenquelle === 'legacy-2025-2026' ? legacyDaten(periode) : snapshotDaten(periode),
+);
+const chronologisch = [...perioden].sort((left, right) => left.periode.jahre[0] - right.periode.jahre[0]);
+const legacy = perioden.find((entry) => entry.periode.datenquelle === 'legacy-2025-2026');
+const snapshotPerioden = perioden.filter((entry) => entry.gesamtplan);
+
+// Statuskopf: die maßgebliche Periode, sonst die neueste öffentliche, sonst die neueste sichtbare.
+const massgeblich = getMassgeblichePeriode();
+const kopf =
+  perioden.find((entry) => entry.periode.id === massgeblich?.id) ??
+  perioden.find((entry) => isPeriodePublic(entry.periode)) ??
+  perioden[0];
+if (!kopf) throw new Error('Haushaltseinstieg: Es ist keine Haushaltsperiode sichtbar.');
+const vorschau = perioden.some((entry) => entry.preview);
+
+const alleJahre = chronologisch.flatMap((entry) => entry.jahre.map((jahr) => ({ ...jahr, daten: entry })));
+const startAnsicht = kopf.bezugsjahr;
+
+function eckwerte(jahr: JahrDaten) {
+  const investitionen = getInvestitionen(jahr.hauptgruppen);
+  return {
+    einnahmen: jahr.einnahmen,
+    ausgaben: jahr.ausgaben,
+    steuern: jahr.hauptgruppen['0'],
+    personal: jahr.hauptgruppen['4'],
+    investitionen: investitionen.betrag,
+    bestandteile: investitionen.bestandteile ?? [],
+    zuweisungen: jahr.hauptgruppen['6'],
+  };
+}
+
+const anteilText = (teil: number, ganzes: number, bezug: string) => {
+  const anteil = getAnteil(teil, ganzes);
+  return anteil === null ? undefined : `${formatShare(anteil)} ${bezug}`;
+};
+
+function kennzahlKarten(jahr: JahrDaten, vorjahr: JahrDaten | undefined) {
+  const werte = eckwerte(jahr);
+  const vorher = vorjahr ? eckwerte(vorjahr) : undefined;
+  const veraenderung = (feld: keyof Omit<ReturnType<typeof eckwerte>, 'bestandteile'>) =>
+    vorher && vorjahr ? { value: getVeraenderung(vorher[feld], werte[feld]).absolut, label: `gegenüber ${vorjahr.jahr}` } : undefined;
+  return [
+    { label: `Ausgaben ${jahr.jahr}`, value: werte.ausgaben, change: veraenderung('ausgaben') },
+    { label: `Einnahmen ${jahr.jahr}`, value: werte.einnahmen, change: veraenderung('einnahmen') },
+    { label: 'Steuern und steuerähnliche Abgaben', value: werte.steuern, hint: anteilText(werte.steuern, werte.einnahmen, 'der Einnahmen'), change: veraenderung('steuern') },
+    { label: 'Personalausgaben', value: werte.personal, hint: anteilText(werte.personal, werte.ausgaben, 'der Ausgaben'), change: veraenderung('personal') },
+    { label: 'Investitionen', value: werte.investitionen, hint: anteilText(werte.investitionen, werte.ausgaben, 'der Ausgaben'), change: veraenderung('investitionen') },
+    { label: 'Zuweisungen und Zuschüsse', value: werte.zuweisungen, hint: anteilText(werte.zuweisungen, werte.ausgaben, 'der Ausgaben'), change: veraenderung('zuweisungen') },
+  ];
+}
+
+function hauptgruppenBalken(jahr: JahrDaten, schluessel: readonly HauptgruppenSchluessel[]) {
+  return schluessel.map((hg) => ({ label: HAUPTGRUPPEN[hg].kurz, value: jahr.hauptgruppen[hg], note: `Hauptgruppe ${hg}` }));
+}
+
+/** Finanzierungskennzahlen des Gesamtplans (ohne leere Angaben). */
+function finanzierungsKennzahlen(block: Kennzahlenblock): Kennzahl[] {
+  return [
+    block.ruecklagenentnahme,
+    block.kreditaufnahmeBrutto,
+    block.nettotilgung,
+    block.zinsen,
+    block.zufuehrungLiquiditaetsruecklage,
+    block.strukturelleNettokreditaufnahme,
+  ].filter((kennzahl): kennzahl is Kennzahl => kennzahl !== null);
+}
+
+const VERGLEICH_FELDER = [
+  ['einnahmen', 'Einnahmen'],
+  ['ausgaben', 'Ausgaben'],
+  ['steuern', 'Steuern und steuerähnliche Abgaben'],
+  ['personal', 'Personalausgaben'],
+  ['investitionen', 'Investitionen'],
+  ['zuweisungen', 'Zuweisungen und Zuschüsse'],
+] as const;
+
+interface Ansicht {
+  id: string;
+  label: string;
+  versteckt?: string;
+  meldung: string;
+}
+
+interface AnsichtsGruppe {
+  id: string;
+  label: string;
+  ansichten: Ansicht[];
+}
+
+const vergleichId = (entry: PeriodenDaten) => `vergleich-${entry.periode.id}`;
+const periodenvergleiche = legacy
+  ? snapshotPerioden.map((neu) => ({
+      id: `periodenvergleich-${legacy.periode.id}-${neu.periode.id}`,
+      alt: legacy,
+      neu,
+      vergleich: getPeriodenvergleich(budgetTotals, neu.gesamtplan!),
+    }))
+  : [];
+
+const ansichtsGruppen: AnsichtsGruppe[] = [
+  ...chronologisch.map((entry) => ({
+    id: `jahreswahl-${entry.periode.id}`,
+    label: entry.kurzname,
+    ansichten: [
+      ...entry.jahre.map((jahr) => ({
+        id: jahr.jahr,
+        label: jahr.jahr,
+        meldung: `Angezeigt: Haushaltsjahr ${jahr.jahr} (${entry.kurzname}, ${entry.statusLabel}).`,
+      })),
+      ...(entry.jahre.length >= 2
+        ? [{
+            id: vergleichId(entry),
+            label: 'Vergleich',
+            versteckt: ` ${entry.jahre.map((jahr) => jahr.jahr).join(' und ')}`,
+            meldung: `Angezeigt: Vergleich der Haushaltsjahre ${entry.jahre.map((jahr) => jahr.jahr).join(' und ')}.`,
+          }]
+        : []),
+    ],
+  })),
+  ...(periodenvergleiche.length > 0
+    ? [{
+        id: 'jahreswahl-perioden',
+        label: 'Perioden',
+        ansichten: periodenvergleiche.map((entry) => ({
+          id: entry.id,
+          label: periodenvergleiche.length > 1 ? `${formatPeriodenjahre(entry.alt.periode)} und ${formatPeriodenjahre(entry.neu.periode)}` : 'Periodenvergleich',
+          versteckt: periodenvergleiche.length > 1 ? ' im Periodenvergleich' : ` ${formatPeriodenjahre(entry.alt.periode)} und ${formatPeriodenjahre(entry.neu.periode)}`,
+          meldung: `Angezeigt: Vergleich der Perioden ${formatPeriodenjahre(entry.alt.periode)} und ${formatPeriodenjahre(entry.neu.periode)} nach Hauptgruppen.`,
+        })),
+      }]
+    : []),
+];
+
+// Schwerpunkte: Aufgabenbereiche der Periode 2025/2026, Vorhaben der Snapshot-Perioden.
+const aufgabenbereiche = legacy ? getBudgetTaskAreas() : [];
+
+function groessteVorhaben(entry: PeriodenDaten) {
+  const overlays = loadProjektOverlays(entry.periode.id);
+  const [erstesJahr] = entry.jahre.map((jahr) => jahr.jahr);
+  return loadProjekte(entry.periode.id)
+    .map((projekt) => ({ projekt, overlay: overlays[projekt.id] }))
+    .filter(({ projekt, overlay }) =>
+      overlay &&
+      hasProjektseite(projekt, overlay) &&
+      !overlay.ohneSumme &&
+      overlay.status !== 'optional' &&
+      overlay.status !== 'nicht-finanziert' &&
+      (projekt.jahre[erstesJahr as `${number}`]?.kernhaushalt ?? 0) > 0,
+    )
+    .sort((left, right) =>
+      (right.projekt.jahre[erstesJahr as `${number}`]?.kernhaushalt ?? 0) - (left.projekt.jahre[erstesJahr as `${number}`]?.kernhaushalt ?? 0) ||
+      left.overlay!.titel.localeCompare(right.overlay!.titel, 'de'),
+    )
+    .slice(0, 6)
+    .map(({ projekt, overlay }) => ({
+      label: overlay!.titel,
+      href: getBudgetProjectUrl(entry.periode.id, overlay!.slug),
+      note: [PROJEKT_STATUS_LABELS[overlay!.status], overlay!.betragshinweis].filter(Boolean).join(' · '),
+      values: entry.jahre.map((jahr) => projekt.jahre[jahr.jahr as `${number}`]?.kernhaushalt ?? null),
+    }));
+}
+
+const vorhabenJePeriode = snapshotPerioden.map((entry) => ({ entry, vorhaben: groessteVorhaben(entry) }));
+
+const weitereWege = [
+  {
+    title: 'Sondervermögen und Fonds',
+    text: 'Zweck, Rechtsgrundlage, Zuständigkeit und Bezug zum Kernhaushalt.',
+    href: getBudgetPageUrl('sondervermoegen'),
+  },
+  ...perioden.map((entry) => entry.gesamtplan
+    ? { title: `Downloads ${formatPeriodenjahre(entry.periode)}`, text: `Haushaltsdaten des ${entry.statusLabel === 'Regierungsentwurf' ? 'Regierungsentwurfs' : 'Haushalts'} als Tabellen.`, href: getBudgetPeriodPageUrl(entry.periode.id, 'downloads'), meta: entry.statusLabel }
+    : { title: `Haushaltsdaten ${formatPeriodenjahre(entry.periode)}`, text: 'Einzelpläne mit Einnahmen, Ausgaben und Ausgabearten als CSV-Datei.', href: `${getBudgetPeriodUrl(entry.periode.id)}daten.csv`, meta: entry.statusLabel }),
+  ...snapshotPerioden.map((entry) => ({
+    title: `Haushaltssuche ${formatPeriodenjahre(entry.periode)}`,
+    text: 'Einzelpläne, Kapitel, Titel und Vorhaben nach Begriffen und Nummern durchsuchen.',
+    href: getBudgetSearchUrl(entry.periode.id),
+    meta: entry.statusLabel,
+  })),
+  {
+    title: 'Suche im Portal',
+    text: 'Haushaltsseiten, Ressorts, Themen und Rechtsvorschriften durchsuchen.',
+    href: `${getPortalSearchUrl()}?q=${encodeURIComponent('Haushalt')}`,
+  },
+];
+
+const heroFacts = [
+  ...perioden.map((entry) => {
+    const jahr = entry.jahre.find((item) => item.jahr === entry.bezugsjahr) ?? entry.jahre[0];
+    const zusatz = entry.statusTone === 'geltend' ? '' : ` (${entry.statusLabel})`;
+    return { label: `Ausgaben ${jahr.jahr}${zusatz}`, value: formatEuroCompact(jahr.ausgaben) };
+  }),
+  { label: 'Einzelpläne', value: String(kopf.einzelplaene) },
+];
+
+const navItems = getHaushaltNavItems('ueberblick');
+const weiterePerioden = perioden
+  .filter((entry) => entry !== kopf)
+  .map((entry) => ({ label: entry.kurzname, href: getBudgetPeriodUrl(entry.periode.id) }));
+
+const lead = perioden.length > 1
+  ? `Einnahmen, Ausgaben und Finanzierung des Ostdeutschen Freistaates: ${chronologisch.map((entry) => `${entry.periode.bezeichnung} (${entry.statusLabel})`).join(' und ')}.`
+  : `Einnahmen, Ausgaben und Finanzierung des Ostdeutschen Freistaates im ${kopf.periode.bezeichnung}.`;
+const strukturHinweis = periodenvergleiche[0]?.vergleich.hinweis;
 ---
 
-<BaseLayout
-  title="Doppelhaushalt 2025/2026"
-  description="Das Haushaltsportal zum Doppelhaushalt 2025/2026 mit Gesamtplan, Einzelplänen und Sondervermögen."
-  scripts={['portal-modules']}
-  structuredData={buildDatasetJsonLd({
-    name: 'Doppelhaushalt 2025/2026 des Ostdeutschen Freistaates',
-    description: 'Einnahmen, Ausgaben, Investitionen, Einzelpläne und Sondervermögen des Doppelhaushalts 2025/2026.',
-    url: getBudgetUrl(),
-    distributionUrl: '/haushalt/daten.csv',
-  }, Astro.site)}
+<HaushaltLayout
+  title="Haushalt"
+  description="Der Haushalt des Ostdeutschen Freistaates: Haushaltsperioden mit Status, Eckwerte je Haushaltsjahr, Einnahmen, Ausgaben, Finanzierung und Schwerpunkte."
+  breadcrumbs={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]}
+  structuredData={legacy
+    ? buildDatasetJsonLd({
+        name: 'Haushalt des Ostdeutschen Freistaates',
+        description: 'Einnahmen, Ausgaben, Investitionen und Einzelpläne der Haushaltsperioden des Ostdeutschen Freistaates.',
+        url: getBudgetUrl(),
+        distributionUrl: '/haushalt/daten.csv',
+      }, Astro.site)
+    : undefined}
+  periodLabel={kopf.periode.bezeichnung}
+  statusLabel={kopf.statusLabel}
+  statusTone={kopf.statusTone}
+  statusText={kopf.statusText}
+  datenstand={kopf.datenstand}
+  datenversion={kopf.datenversion}
+  preview={vorschau}
+  previewText="Vorschau – diese Seite enthält Angaben zu einer nicht freigegebenen Haushaltsperiode."
+  navItems={navItems}
+  navLabel="Haushalt"
+  otherPeriods={weiterePerioden}
 >
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
-
   <SectionHero
+    slot="hero"
     eyebrow="Haushaltsportal"
-    title="Doppelhaushalt 2025/2026"
-    lead="Einnahmen, Ausgaben, Investitionen, Einzelpläne und Sondervermögen des Ostdeutschen Freistaates."
+    title="Haushalt des Freistaates"
+    lead={lead}
     variant="budget"
-    facts={[
-      { label: 'Ausgaben 2026', value: formatEuroCompact(budgetTotals['2026'].expenses) },
-      { label: 'Investitionen 2026', value: formatEuroCompact(budgetTotals['2026'].investments) },
-      { label: 'Einzelpläne', value: String(budgetPlans.length) },
-      { label: 'Sonderinstrumente', value: String(budgetSpecialInstruments.length) },
-    ]}
-    actions={[{ label: 'Haushaltsdaten herunterladen', href: `${import.meta.env.BASE_URL}haushalt/daten.csv`, primary: true }]}
+    facts={heroFacts}
+    actions={[{ label: kopf.statusTone === 'geltend' ? `Geltender Haushalt ${formatPeriodenjahre(kopf.periode)}` : kopf.periode.bezeichnung, href: getBudgetPeriodUrl(kopf.periode.id), primary: true }]}
   />
-  <BudgetSectionNav current="portal" />
 
-  <section class="section budget-dashboard" data-budget-year-switcher data-visual-section="budget-year-kpis" aria-labelledby="haushaltsstand">
-    <div class="section-header section-header--with-control">
-      <div>
-        <h2 id="haushaltsstand">Haushaltsstand im Überblick</h2>
-        <p>Wählen Sie ein Haushaltsjahr oder den direkten Vergleich. Alle Kennzahlen beziehen sich auf den Kernhaushalt.</p>
-      </div>
-      <BudgetYearSelector id="portal-year" label="Haushaltsjahr" />
-    </div>
-    <p class="visually-hidden" data-budget-year-status role="status" aria-live="polite"></p>
-
-    {(['2025', '2026'] as const).map((year) => (
-      <div class="budget-year-content" data-budget-year-content={year} hidden={year !== '2026'}>
-        <BudgetKpiCards year={year} amounts={budgetTotals[year]} specialInstrumentCount={budgetSpecialInstruments.length} />
-        <div class="budget-explanation-grid">
-          <article class="budget-explanation-card">
-            <span class="meta-label">Einordnung {year}</span>
-            <h3>Was prägt diesen Haushalt?</h3>
-            <p>
-              Zuweisungen und Zuschüsse bilden mit {formatPercent(getBudgetShare(budgetTotals[year].transfers, budgetTotals[year].expenses) ?? 0)}
-              {' '}den größten Ausgabenblock. Die Investitionen und Investitionsförderung betragen
-              {' '}{formatPercent(getBudgetShare(budgetTotals[year].investments, budgetTotals[year].expenses) ?? 0)} der Gesamtausgaben.
-            </p>
-          </article>
-          <article class="budget-explanation-card">
-            <span class="meta-label">Haushaltsstruktur</span>
-            <h3>Was die Kennzahlen nicht zeigen</h3>
-            <p>
-              Die Einzelpläne ordnen Ausgaben nach Verwaltungsbereichen. Sie sind keine Rangfolge politischer Bedeutung.
-              Zentral gebündelte Mittel, etwa in der Allgemeinen Finanzverwaltung, werden daher gesondert eingeordnet.
-            </p>
-          </article>
-        </div>
-      </div>
-    ))}
-
-    <div class="budget-year-content" data-budget-year-content="vergleich" hidden>
-      <div class="budget-comparison-grid" aria-label="Vergleich zentraler Haushaltskennzahlen 2025 und 2026">
-        <article>
-          <span class="meta-label">Gesamtausgaben</span>
-          <strong>{formatEuroCompact(budgetTotals['2025'].expenses)}</strong>
-          <span>2025</span>
-          <strong>{formatEuroCompact(budgetTotals['2026'].expenses)}</strong>
-          <span>2026 · Veränderung {formatEuroCompact(totalChange)}</span>
-        </article>
-        <article>
-          <span class="meta-label">Investitionen und Investitionsförderung</span>
-          <strong>{formatEuroCompact(budgetTotals['2025'].investments)}</strong>
-          <span>2025</span>
-          <strong>{formatEuroCompact(budgetTotals['2026'].investments)}</strong>
-          <span>2026 · Veränderung {formatEuroCompact(investmentChange)}</span>
-        </article>
-        <article>
-          <span class="meta-label">Steuereinnahmen</span>
-          <strong>{formatEuroCompact(budgetTotals['2025'].tax)}</strong>
-          <span>2025</span>
-          <strong>{formatEuroCompact(budgetTotals['2026'].tax)}</strong>
-          <span>2026 · Veränderung {formatEuroCompact(taxChange)}</span>
-        </article>
-      </div>
-      <p class="detail-line">Der Vergleich zeigt absolute Ansätze. Die Ausgabenstruktur und alle Ausgabearten stehen im <a class="inline-link" href={getBudgetPageUrl('gesamtplan')}>Gesamtplan</a>.</p>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="aufgabenbereiche">
-    <BudgetTaskAreaChart areas={taskAreas} year="2026" />
-  </section>
-
-  <section class="section section-muted" aria-labelledby="ressortvergleich" data-visual-section="budget-table">
+  <section class="section" id="perioden" aria-labelledby="perioden-titel">
     <div class="section-header">
-      <h2 id="ressortvergleich">Ressortübergreifender Überblick</h2>
-      <p>Ausgaben der Ressort-Einzelpläne im Haushalt 2026. Die Tabelle zeigt den Anteil am Gesamthaushalt, keine Bewertung der politischen Priorität oder Mittelversorgung.</p>
+      <h2 id="perioden-titel">Haushaltsperioden</h2>
+      <p>Jeder Doppelhaushalt umfasst zwei Haushaltsjahre. Der Status zeigt, ob ein Haushalt gilt oder noch im Verfahren ist.</p>
     </div>
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Ressortausgaben im Haushalt 2026">
-      <table class="data-table budget-portal-table">
-        <caption>Ausgaben im Vergleich der Ressort-Einzelpläne</caption>
-        <thead>
-          <tr><th scope="col">Einzelplan</th><th scope="col">Ressort</th><th scope="col">Ausgaben 2026</th><th scope="col">Anteil am Gesamthaushalt</th><th scope="col">Details</th></tr>
-        </thead>
-        <tbody>
-          {ressortPlans.slice(0, 8).map((plan) => (
-            <tr>
-              <td>{plan.number}</td>
-              <td><strong>{plan.title}</strong></td>
-              <td>{formatEuroCompact(plan.amounts['2026'].expenses)}</td>
-              <td>{formatPercent(getBudgetShare(plan.amounts['2026'].expenses, budgetTotals['2026'].expenses) ?? 0)}</td>
-              <td><a class="inline-link" href={getBudgetPlanUrl(plan.number)}>Einzelplan öffnen</a></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    {financePlan ? (
-      <aside class="budget-context-note">
-        <strong>Allgemeine Finanzverwaltung getrennt betrachten</strong>
-        <span>Einzelplan 20 bündelt unter anderem Steuereinnahmen, kommunalen Finanzausgleich, Versorgung und Beteiligungen. Sein Volumen ist deshalb nicht mit einem Ressorthaushalt gleichzusetzen. <a class="inline-link" href={getBudgetPlanUrl(financePlan.number)}>Einordnung öffnen</a></span>
-      </aside>
-    ) : null}
-  </section>
-
-  <section class="section" aria-labelledby="zugang-haushalt">
-    <div class="section-header">
-      <h2 id="zugang-haushalt">Den Haushalt erschließen</h2>
-      <p>Die Bereiche folgen der Struktur der Haushaltsunterlagen und machen die jeweiligen Bezugsgrößen sichtbar.</p>
-    </div>
-    <ul class="direct-entry-list">
-      <li><strong>Gesamtplan</strong><span><a class="inline-link" href={getBudgetPageUrl('gesamtplan')}>Einnahmen, Ausgabenarten und Jahresvergleich</a></span></li>
-      <li><strong>Einzelpläne</strong><span><a class="inline-link" href={getBudgetPageUrl('einzelplaene')}>Verwaltungsbereiche, Veränderungen und Haushaltsanteile</a></span></li>
-      <li><strong>Sondervermögen und Fonds</strong><span><a class="inline-link" href={getBudgetPageUrl('sondervermoegen')}>Zweck, Zuständigkeit und Bezug zum Kernhaushalt</a></span></li>
+    <ul class="hh-einstieg-perioden">
+      {perioden.map((entry) => (
+        <li>
+          <article class="hh-einstieg-periode" aria-labelledby={`periode-${entry.periode.id}`} data-haushalt-periode-karte={entry.periode.id}>
+            <header class="hh-einstieg-periode__kopf">
+              <h3 id={`periode-${entry.periode.id}`}><a href={getBudgetPeriodUrl(entry.periode.id)}>{entry.periode.bezeichnung}</a></h3>
+              <StatusBadge tone={entry.statusTone} label={entry.statusLabel} />
+            </header>
+            <p class="hh-einstieg-periode__text">{entry.statusText}</p>
+            {entry.nachtrag ? (
+              <p class="hh-einstieg-periode__text" data-haushalt-nachtrag>
+                <StatusBadge tone={entry.nachtrag.tone} label={entry.nachtrag.label} /> {entry.nachtrag.text}
+              </p>
+            ) : null}
+            <dl class="hh-einstieg-periode__zahlen">
+              {entry.jahre.map((jahr) => (
+                <div>
+                  <dt>Ausgaben {jahr.jahr}</dt>
+                  <dd><Amount value={jahr.ausgaben} /></dd>
+                </div>
+              ))}
+              <div>
+                <dt>Einzelpläne</dt>
+                <dd>{entry.einzelplaene}</dd>
+              </div>
+            </dl>
+            <ul class="hh-einstieg-periode__wege" aria-label={`Bereiche: ${entry.periode.bezeichnung}`}>
+              {entry.wege.map((weg) => <li><a class="inline-link" href={weg.href}>{weg.label}</a></li>)}
+            </ul>
+          </article>
+        </li>
+      ))}
     </ul>
-    <p class="detail-line">{budgetSpecialInstruments.length} rechtlich belegte Instrumente sind im Bereich Sondervermögen und Fonds eingeordnet.</p>
+
+    <div class="hh-einstieg-eckwerte" data-visual-section="budget-table">
+      <h3 id="eckwerte-titel">Eckwerte nach Haushaltsjahren</h3>
+      <DataTableFrame
+        id="eckwerte"
+        label="Eckwerte nach Haushaltsjahren"
+        caption="Eckwerte nach Haushaltsjahren, Beträge in Euro"
+        nomenSingular="Haushaltsjahr"
+        nomenPlural="Haushaltsjahren"
+        seitengroesse={false}
+        breite="breit"
+      >
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col" class="hh-kennung" data-sort="number" aria-sort="ascending">Jahr</th>
+              <th scope="col" data-sort="text">Haushalt</th>
+              <th scope="col" data-sort="text">Status</th>
+              <th scope="col" class="hh-zahl" data-sort="number">Einnahmen</th>
+              <th scope="col" class="hh-zahl" data-sort="number">Ausgaben</th>
+              <th scope="col" class="hh-zahl" data-sort="number">Investitionen</th>
+              <th scope="col" class="hh-zahl" data-sort="number">Personal&shy;ausgaben</th>
+            </tr>
+          </thead>
+          <tbody>
+            {alleJahre.map((jahr) => {
+              const werte = eckwerte(jahr);
+              return (
+                <tr data-jahr={jahr.jahr}>
+                  <th scope="row" class="hh-kennung" data-sort={jahr.jahr}>{jahr.jahr}</th>
+                  <td><a class="inline-link" href={getBudgetPeriodUrl(jahr.daten.periode.id)}>{jahr.daten.kurzname}</a></td>
+                  <td><strong class="hh-einstieg-status">{jahr.daten.statusLabel}</strong></td>
+                  <td class="hh-zahl"><Amount value={werte.einnahmen} exakt /></td>
+                  <td class="hh-zahl"><Amount value={werte.ausgaben} exakt /></td>
+                  <td class="hh-zahl"><Amount value={werte.investitionen} exakt /></td>
+                  <td class="hh-zahl"><Amount value={werte.personal} exakt /></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </DataTableFrame>
+      {strukturHinweis ? <p class="hh-einstieg-hinweis" role="note"><strong>Strukturhinweis:</strong> {strukturHinweis}</p> : null}
+      <DefinitionNote begriff="Investitionen">
+        <p>{DEFINITION_INVESTITIONEN}</p>
+      </DefinitionNote>
+    </div>
   </section>
-</BaseLayout>
+
+  <section class="section section-muted" id="kennzahlen" aria-labelledby="kennzahlen-titel" data-haushalt-jahreswahl data-visual-section="budget-year-kpis">
+    <noscript><style is:inline>[data-jahreswahl-ansicht][hidden]{display:grid!important}[data-jahreswahl-steuerung]{display:none!important}</style></noscript>
+    <div class="section-header">
+      <h2 id="kennzahlen-titel">Einnahmen, Ausgaben und Finanzierung</h2>
+      <p>Zentrale Kennzahlen des gewählten Haushaltsjahres sowie die Vergleiche innerhalb und zwischen den Haushaltsperioden. Alle Angaben beziehen sich auf den Kernhaushalt.</p>
+    </div>
+
+    <div class="hh-jahreswahl" data-jahreswahl-steuerung>
+      {ansichtsGruppen.map((gruppe) => (
+        <div class="hh-jahreswahl__gruppe" role="group" aria-labelledby={`${gruppe.id}-label`}>
+          <span class="hh-jahreswahl__label" id={`${gruppe.id}-label`}>{gruppe.label}</span>
+          <div class="segmented-control">
+            {gruppe.ansichten.map((ansicht) => (
+              <button
+                type="button"
+                class:list={['segmented-control__button', ansicht.id === startAnsicht && 'is-active']}
+                aria-pressed={ansicht.id === startAnsicht ? 'true' : 'false'}
+                aria-controls={`ansicht-${ansicht.id}`}
+                data-jahreswahl-option={ansicht.id}
+                data-jahreswahl-meldung={ansicht.meldung}
+              >
+                {ansicht.label}{ansicht.versteckt ? <span class="visually-hidden">{ansicht.versteckt}</span> : null}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="visually-hidden" data-jahreswahl-status role="status" aria-live="polite"></p>
+
+    {alleJahre.map((jahr) => {
+      const entry = jahr.daten;
+      const vorjahr = entry.jahre[entry.jahre.findIndex((item) => item.jahr === jahr.jahr) - 1];
+      const finanzierung = jahr.block ? finanzierungsKennzahlen(jahr.block) : [];
+      const ausgeglichen = jahr.einnahmen === jahr.ausgaben;
+      return (
+        <div
+          class="hh-einstieg-ansicht"
+          id={`ansicht-${jahr.jahr}`}
+          data-jahreswahl-ansicht={jahr.jahr}
+          hidden={jahr.jahr !== startAnsicht}
+          aria-labelledby={`ansicht-${jahr.jahr}-titel`}
+          role="region"
+        >
+          <header class="hh-einstieg-ansicht__kopf">
+            <h3 id={`ansicht-${jahr.jahr}-titel`}>Haushaltsjahr {jahr.jahr}</h3>
+            <p class="hh-einstieg-ansicht__periode">{entry.periode.bezeichnung}</p>
+            <StatusBadge tone={entry.statusTone} label={entry.statusLabel} />
+          </header>
+          <KpiGrid label={`Kennzahlen ${jahr.jahr}`} items={kennzahlKarten(jahr, vorjahr)} />
+          <div class="hh-einstieg-struktur">
+            <div>
+              <h4>Woher die Einnahmen kommen</h4>
+              <BarChart
+                id={`einnahmen-${jahr.jahr}`}
+                caption={`Einnahmen ${jahr.jahr} nach Hauptgruppen`}
+                items={hauptgruppenBalken(jahr, EINNAHME_HAUPTGRUPPEN)}
+                total={jahr.einnahmen}
+                totalLabel={`Einnahmen ${jahr.jahr}`}
+                labelSpalte="Hauptgruppe"
+                wertSpalte={`Einnahmen ${jahr.jahr}`}
+              />
+            </div>
+            <div>
+              <h4>Wofür ausgegeben wird</h4>
+              <BarChart
+                id={`ausgaben-${jahr.jahr}`}
+                caption={`Ausgaben ${jahr.jahr} nach Hauptgruppen`}
+                items={hauptgruppenBalken(jahr, AUSGABE_HAUPTGRUPPEN)}
+                total={jahr.ausgaben}
+                totalLabel={`Ausgaben ${jahr.jahr}`}
+                labelSpalte="Hauptgruppe"
+                wertSpalte={`Ausgaben ${jahr.jahr}`}
+              />
+            </div>
+          </div>
+          <div class="hh-einstieg-finanzierung">
+            <h4>Wie sich der Haushalt finanziert</h4>
+            {ausgeglichen ? <p>Einnahmen und Ausgaben sind im Haushaltsjahr {jahr.jahr} mit jeweils <Amount value={jahr.ausgaben} exakt /> ausgeglichen.</p> : null}
+            {finanzierung.length > 0 ? (
+              <>
+                <KpiGrid
+                  label={`Finanzierungskennzahlen ${jahr.jahr}`}
+                  items={finanzierung.map((kennzahl) => ({ label: kennzahl.label, value: kennzahl.betrag }))}
+                />
+                <details class="hh-einstieg-abgrenzungen" data-haushalt-druck-oeffnen>
+                  <summary>Abgrenzungen der Kennzahlen {jahr.jahr}</summary>
+                  <dl>
+                    {[jahr.block!.ausgaben, ...finanzierung].map((kennzahl) => (
+                      <div>
+                        <dt>{kennzahl.label}</dt>
+                        <dd>{kennzahl.definition}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </details>
+              </>
+            ) : (
+              <>
+                <KpiGrid
+                  label={`Finanzierungskennzahlen ${jahr.jahr}`}
+                  spalten={2}
+                  items={(['3', '9'] as const).map((hg) => ({ label: `Hauptgruppe ${hg}`, value: jahr.hauptgruppen[hg], hint: HAUPTGRUPPEN[hg].kurz }))}
+                />
+                <p class="hh-einstieg-text">Hauptgruppe 3 umfasst Schuldenaufnahmen, Entnahmen aus Rücklagen sowie Zuweisungen und Zuschüsse für Investitionen; Hauptgruppe 9 unter anderem Zuführungen an Rücklagen.</p>
+              </>
+            )}
+          </div>
+          {entry.datenstand ? (
+            <SourceNote
+              datenstand={entry.datenstand}
+              datenversion={entry.datenversion}
+              quelle={entry.quelle}
+              downloadsHref={entry.gesamtplan ? getBudgetPeriodPageUrl(entry.periode.id, 'downloads') : `${getBudgetPeriodUrl(entry.periode.id)}daten.csv`}
+              downloadsLabel={entry.gesamtplan ? 'Daten und Downloads' : 'Haushaltsdaten als CSV'}
+            />
+          ) : null}
+        </div>
+      );
+    })}
+
+    {chronologisch.filter((entry) => entry.jahre.length >= 2).map((entry) => {
+      const [erstes, zweites] = entry.jahre;
+      const werte = [eckwerte(erstes), eckwerte(zweites)];
+      return (
+        <div
+          class="hh-einstieg-ansicht"
+          id={`ansicht-${vergleichId(entry)}`}
+          data-jahreswahl-ansicht={vergleichId(entry)}
+          hidden={vergleichId(entry) !== startAnsicht}
+          aria-labelledby={`ansicht-${vergleichId(entry)}-titel`}
+          role="region"
+        >
+          <header class="hh-einstieg-ansicht__kopf">
+            <h3 id={`ansicht-${vergleichId(entry)}-titel`}>Vergleich {erstes.jahr} und {zweites.jahr}</h3>
+            <p class="hh-einstieg-ansicht__periode">{entry.periode.bezeichnung}</p>
+            <StatusBadge tone={entry.statusTone} label={entry.statusLabel} />
+          </header>
+          <GroupedBarChart
+            id={`balken-${vergleichId(entry)}`}
+            caption={`Eckwerte ${erstes.jahr} und ${zweites.jahr} im Vergleich`}
+            series={[{ label: erstes.jahr }, { label: zweites.jahr }]}
+            categories={VERGLEICH_FELDER.map(([feld, label]) => ({ label, values: [werte[0][feld], werte[1][feld]] }))}
+            kategorieSpalte="Kennzahl"
+            veraenderung
+            tabelle="sichtbar"
+            hinweis="Der Vergleich zeigt die Ansätze beider Haushaltsjahre derselben Periode."
+          />
+        </div>
+      );
+    })}
+
+    {periodenvergleiche.map((entry) => {
+      const einnahmeZeilen = entry.vergleich.zeilen.filter((zeile) => zeile.seite === 'Einnahme');
+      const ausgabeZeilen = entry.vergleich.zeilen.filter((zeile) => zeile.seite === 'Ausgabe');
+      const serien = entry.vergleich.jahre.map((jahr) => ({ label: jahr }));
+      const titel = `${entry.alt.kurzname} und ${entry.neu.kurzname}`;
+      return (
+        <div
+          class="hh-einstieg-ansicht"
+          id={`ansicht-${entry.id}`}
+          data-jahreswahl-ansicht={entry.id}
+          hidden={entry.id !== startAnsicht}
+          aria-labelledby={`ansicht-${entry.id}-titel`}
+          role="region"
+        >
+          <header class="hh-einstieg-ansicht__kopf">
+            <h3 id={`ansicht-${entry.id}-titel`}>Periodenvergleich {entry.vergleich.jahre[0]} bis {entry.vergleich.jahre[entry.vergleich.jahre.length - 1]}</h3>
+            <p class="hh-einstieg-ansicht__periode">{entry.alt.periode.bezeichnung} ({entry.alt.statusLabel}) und {entry.neu.periode.bezeichnung} ({entry.neu.statusLabel})</p>
+          </header>
+          <p class="hh-einstieg-hinweis" role="note"><strong>Strukturhinweis:</strong> {entry.vergleich.hinweis}</p>
+          <GroupedBarChart
+            id={`balken-${entry.id}-einnahmen`}
+            caption={`Einnahmen nach Hauptgruppen: ${titel}`}
+            series={serien}
+            categories={[
+              { label: 'Einnahmen insgesamt', values: entry.vergleich.jahre.map((jahr) => entry.vergleich.einnahmen[jahr]) },
+              ...einnahmeZeilen.map((zeile) => ({ label: zeile.bezeichnung, values: entry.vergleich.jahre.map((jahr) => zeile.werte[jahr]), note: `Hauptgruppe ${zeile.hauptgruppe}` })),
+            ]}
+            kategorieSpalte="Hauptgruppe"
+          />
+          <GroupedBarChart
+            id={`balken-${entry.id}-ausgaben`}
+            caption={`Ausgaben nach Hauptgruppen: ${titel}`}
+            series={serien}
+            categories={[
+              { label: 'Ausgaben insgesamt', values: entry.vergleich.jahre.map((jahr) => entry.vergleich.ausgaben[jahr]) },
+              ...ausgabeZeilen.map((zeile) => ({ label: zeile.bezeichnung, values: entry.vergleich.jahre.map((jahr) => zeile.werte[jahr]), note: `Hauptgruppe ${zeile.hauptgruppe}` })),
+            ]}
+            kategorieSpalte="Hauptgruppe"
+          />
+        </div>
+      );
+    })}
+  </section>
+
+  <section class="section" id="schwerpunkte" aria-labelledby="schwerpunkte-titel">
+    <div class="section-header">
+      <h2 id="schwerpunkte-titel">Schwerpunkte</h2>
+      <p>Wofür die Haushaltsperioden die größten Mittel vorsehen: nach Aufgabenbereichen und nach einzelnen Vorhaben.</p>
+    </div>
+    <div class="hh-einstieg-schwerpunkte">
+      {vorhabenJePeriode.filter(({ vorhaben }) => vorhaben.length > 0).map(({ entry, vorhaben }) => (
+        <div class="hh-einstieg-schwerpunkt">
+          <header class="hh-einstieg-ansicht__kopf">
+            <h3>Größte Vorhaben: {entry.periode.bezeichnung}</h3>
+            <StatusBadge tone={entry.statusTone} label={entry.statusLabel} />
+          </header>
+          <GroupedBarChart
+            id={`vorhaben-${entry.periode.id}`}
+            caption={`Vorhaben mit den höchsten Ansätzen ${entry.jahre[0].jahr}`}
+            series={entry.jahre.map((jahr) => ({ label: jahr.jahr }))}
+            categories={vorhaben}
+            kategorieSpalte="Vorhaben"
+            hinweis="Vorhaben sind eine eigene Sicht auf Titel des Haushalts. Ihre Ansätze sind in den Ausgaben bereits enthalten und werden nicht hinzugerechnet."
+          />
+          <p><a class="inline-link" href={getBudgetPeriodPageUrl(entry.periode.id, 'projekte')}>Alle Vorhaben {formatPeriodenjahre(entry.periode)}</a></p>
+        </div>
+      ))}
+      {legacy ? (
+        <div class="hh-einstieg-schwerpunkt">
+          <header class="hh-einstieg-ansicht__kopf">
+            <h3>Aufgabenbereiche: {legacy.periode.bezeichnung}</h3>
+            <StatusBadge tone={legacy.statusTone} label={legacy.statusLabel} />
+          </header>
+          <BarChart
+            id={`aufgabenbereiche-${legacy.bezugsjahr}`}
+            caption={`Ausgaben ${legacy.bezugsjahr} nach Aufgabenbereichen`}
+            items={aufgabenbereiche.map((bereich) => ({
+              label: bereich.label,
+              value: bereich.amounts[legacy.bezugsjahr as BudgetYear],
+              note: `${bereich.planNumbers.length === 1 ? 'Einzelplan' : 'Einzelpläne'} ${bereich.planNumbers.join(', ')}`,
+            }))}
+            total={budgetTotals[legacy.bezugsjahr as BudgetYear].expenses}
+            totalLabel={`Ausgaben ${legacy.bezugsjahr}`}
+            labelSpalte="Aufgabenbereich"
+            wertSpalte={`Ausgaben ${legacy.bezugsjahr}`}
+            hinweis="Die Zuordnung der Einzelpläne zu Aufgabenbereichen dient der Orientierung; sie ist keine Rangfolge politischer Bedeutung."
+          />
+          <p><a class="inline-link" href={getBudgetPeriodPageUrl(legacy.periode.id, 'einzelplaene')}>Alle Einzelpläne {formatPeriodenjahre(legacy.periode)}</a></p>
+        </div>
+      ) : null}
+    </div>
+  </section>
+
+  <section class="section section-muted" id="bereiche" aria-labelledby="bereiche-titel">
+    <div class="section-header">
+      <h2 id="bereiche-titel">Weitere Wege</h2>
+      <p>Sondervermögen und Fonds, Haushaltsdaten zum Herunterladen und die Suche.</p>
+    </div>
+    <EntryCards items={weitereWege} label="Weitere Wege im Haushaltsbereich" />
+  </section>
+</HaushaltLayout>
+
+<script>
+  import '../../scripts/haushalt-jahreswahl.ts';
+</script>
+
+<style>
+  .hh-einstieg-perioden {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hh-einstieg-perioden > li {
+    max-width: none;
+  }
+
+  .hh-einstieg-periode {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-3) var(--space-5);
+    padding: var(--space-4) var(--space-4-plus);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .hh-einstieg-periode__kopf,
+  .hh-einstieg-ansicht__kopf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    align-items: center;
+  }
+
+  .hh-einstieg-periode__kopf {
+    grid-column: 1 / -1;
+  }
+
+  .hh-einstieg-periode__kopf h3,
+  .hh-einstieg-ansicht__kopf h3 {
+    margin: 0;
+  }
+
+  .hh-einstieg-periode__text {
+    grid-column: 1 / -1;
+    max-width: var(--measure-body);
+    margin: 0;
+  }
+
+  .hh-einstieg-periode__zahlen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    gap: var(--space-3);
+    align-content: start;
+    margin: 0;
+  }
+
+  .hh-einstieg-periode__zahlen dt {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hh-einstieg-periode__zahlen dd {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hh-einstieg-periode__wege {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    align-content: start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hh-einstieg-eckwerte {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .hh-einstieg-eckwerte h3 {
+    margin: 0;
+  }
+
+  /* Periodenname und Status bleiben in der rollenden Eckwerttabelle ungeteilt. */
+  .hh-einstieg-eckwerte td > .inline-link,
+  .hh-einstieg-status {
+    white-space: nowrap;
+  }
+
+  .hh-einstieg-status {
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .hh-einstieg-hinweis {
+    max-width: var(--measure-body);
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: var(--space-1) solid var(--color-secondary);
+    background: var(--color-info-green);
+  }
+
+  .hh-jahreswahl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-5);
+    align-items: end;
+    margin: var(--space-4) 0 var(--space-4-plus);
+  }
+
+  .hh-jahreswahl__gruppe {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .hh-jahreswahl__label {
+    color: var(--color-heading);
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .hh-jahreswahl .segmented-control__button[aria-pressed='true'] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: #fff;
+  }
+
+  .hh-einstieg-ansicht {
+    display: grid;
+    gap: var(--space-4-plus);
+  }
+
+  .hh-einstieg-ansicht[hidden] {
+    display: none;
+  }
+
+  .hh-einstieg-ansicht__periode {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .hh-einstieg-struktur {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  .hh-einstieg-struktur h4,
+  .hh-einstieg-finanzierung h4 {
+    margin: 0 0 var(--space-2);
+  }
+
+  .hh-einstieg-finanzierung {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .hh-einstieg-finanzierung p,
+  .hh-einstieg-text {
+    max-width: var(--measure-body);
+    margin: 0;
+  }
+
+  .hh-einstieg-abgrenzungen summary {
+    color: var(--color-primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .hh-einstieg-abgrenzungen dl {
+    display: grid;
+    gap: var(--space-2);
+    max-width: var(--measure-body);
+    margin: var(--space-3) 0 0;
+  }
+
+  .hh-einstieg-abgrenzungen dt {
+    font-weight: 700;
+  }
+
+  .hh-einstieg-abgrenzungen dd {
+    margin: 0;
+  }
+
+  .hh-einstieg-schwerpunkte {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .hh-einstieg-schwerpunkt {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .hh-einstieg-schwerpunkt > p {
+    margin: 0;
+  }
+
+  @media (max-width: 63.99rem) {
+    .hh-einstieg-struktur {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .hh-einstieg-periode {
+      grid-template-columns: 1fr;
+    }
+
+    .hh-jahreswahl {
+      display: grid;
+    }
+  }
+
+  @media print {
+    .hh-jahreswahl {
+      display: none;
+    }
+  }
+</style>

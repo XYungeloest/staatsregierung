@@ -1,0 +1,1 @@
+# Synthetisches Haushaltsrepo (Testfixture)

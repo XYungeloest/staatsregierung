@@ -1,0 +1,90 @@
+---
+/**
+ * Alle Vorhaben einer Periode als sortierbare Tabelle mit CSV-Export (Tabellen-Enhancer). Die
+ * Beträge sind Projektsichten derselben Haushaltstitel; eine Summenzeile gibt es bewusst nicht.
+ * Vorhaben ohne eigenen Projektbetrag tragen Text statt Betrag und stehen beim Sortieren nach
+ * Beträgen am Ende.
+ */
+import Amount from '../Amount.astro';
+import DataTableFrame from '../DataTableFrame.astro';
+import FilterBar from '../FilterBar.astro';
+import ProjektStatus from './ProjektStatus.astro';
+import { PROJEKT_STATUS_LABELS } from '../../../lib/haushalt/oeffentlich.ts';
+import { PROJEKT_STATUS_REIHENFOLGE, type ProjektSicht } from './daten.ts';
+
+interface Props {
+  id: string;
+  periode: string;
+  datenstand: string;
+  projekte: ProjektSicht[];
+  jahre: string[];
+}
+
+const { id, periode, datenstand, projekte, jahre } = Astro.props as Props;
+const collator = new Intl.Collator('de');
+const zeilen = [...projekte].sort((left, right) => collator.compare(left.titel, right.titel));
+const ohneBetrag = (projekt: ProjektSicht) =>
+  projekt.betragsArt === 'kein-ansatz' ? 'kein Ansatz' : projekt.betragsArt === 'ohne-summe' ? 'kein eigener Betrag' : 'kein eigener Ansatz';
+const statusOptionen = PROJEKT_STATUS_REIHENFOLGE.filter((status) => projekte.some((projekt) => projekt.status === status));
+---
+
+<DataTableFrame
+  id={id}
+  label="Vorhaben im Vergleich"
+  caption={`Vorhaben des Doppelhaushalts ${jahre.join('/')} mit Ausgaben und Einnahmen, Beträge in Euro`}
+  nomenSingular="Vorhaben"
+  nomenPlural="Vorhaben"
+  exportFilename={`vorhaben-${periode}.csv`}
+  exportMeta={{ Periode: periode, Datenstand: datenstand }}
+  breite="sehr-breit"
+>
+  <FilterBar
+    slot="werkzeuge"
+    id={id}
+    suche={{ label: 'Vorhaben in der Tabelle suchen', placeholder: 'Bezeichnung oder Fachbereich' }}
+    filter={[
+      { feld: 'status', label: 'Status', alleLabel: 'Jeder Status', options: statusOptionen.map((status) => ({ value: status, label: PROJEKT_STATUS_LABELS[status] })) },
+    ]}
+    export={{}}
+  />
+  <table class="data-table hh-datentabelle hh-projekttabelle">
+    <thead>
+      <tr>
+        <th scope="col" data-sort="text" data-export-key="vorhaben" aria-sort="ascending">Vorhaben</th>
+        <th scope="col" data-sort="text" data-export-key="fachbereich">Fachbereich</th>
+        <th scope="col" data-sort="text" data-export-key="status">Status</th>
+        <th scope="col" class="hh-kennung" data-sort="text" data-export-key="einzelplan">Einzelplan</th>
+        {jahre.map((jahr) => (
+          <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`ausgaben_${jahr}`} data-export-label={`Ausgaben ${jahr}`}>Ausgaben {jahr}</th>
+        ))}
+        {jahre.map((jahr) => (
+          <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`einnahmen_${jahr}`} data-export-label={`Einnahmen ${jahr}`}>Einnahmen {jahr}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {zeilen.map((projekt) => (
+        <tr data-search={projekt.suchtext} data-status={projekt.status}>
+          <th scope="row">{projekt.href ? <a href={projekt.href}>{projekt.titel}</a> : projekt.titel}</th>
+          <td>{projekt.fachbereich}</td>
+          <td data-export-value={projekt.statusLabel} data-sort={String(PROJEKT_STATUS_REIHENFOLGE.indexOf(projekt.status))}><ProjektStatus status={projekt.status} /></td>
+          <td class="hh-kennung">{projekt.einzelplaene.map((entry) => entry.ep).join(', ')}</td>
+          {jahre.map((jahr) =>
+            projekt.betragsArt === 'betraege' ? (
+              <td class="hh-zahl" data-export-value={projekt.ausgaben[jahr]}><Amount value={projekt.ausgaben[jahr]} /></td>
+            ) : (
+              <td class="hh-zahl hh-projekttabelle__ohne" data-sort="" data-export-value="">{ohneBetrag(projekt)}</td>
+            ),
+          )}
+          {jahre.map((jahr) =>
+            projekt.betragsArt === 'betraege' ? (
+              <td class="hh-zahl" data-export-value={projekt.einnahmen[jahr]}><Amount value={projekt.einnahmen[jahr]} /></td>
+            ) : (
+              <td class="hh-zahl hh-projekttabelle__ohne" data-sort="" data-export-value="">–</td>
+            ),
+          )}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</DataTableFrame>

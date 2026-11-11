@@ -1,0 +1,199 @@
+---
+/**
+ * Vorhaben einer Haushaltsperiode als Karten, gruppiert nach Fachbereich, mit Suche und
+ * Filtern nach Status, Fachbereich und Einzelplan. Ohne JavaScript sind alle Karten sichtbar
+ * und die Filterleiste bleibt verborgen; mit JavaScript filtert das Skript die Karten, blendet
+ * leere Gruppen aus und meldet die Trefferzahl in einer Statuszeile. Suche und Filter werden in
+ * der Adresse mitgeschrieben (`?q=`, `?status=`, `?fachbereich=`, `?einzelplan=`).
+ */
+import ProjektKarte from './ProjektKarte.astro';
+import { PROJEKT_STATUS_LABELS } from '../../../lib/haushalt/oeffentlich.ts';
+import { slugifyId } from '../format.ts';
+import { PROJEKT_STATUS_REIHENFOLGE, sortiereNachAusgaben, type ProjektSicht } from './daten.ts';
+
+interface Props {
+  id: string;
+  projekte: ProjektSicht[];
+  jahre: string[];
+  ressorts: Record<string, { name: string; href: string }>;
+}
+
+const { id, projekte, jahre, ressorts } = Astro.props as Props;
+const collator = new Intl.Collator('de');
+
+const fachbereiche = [...new Set(projekte.map((projekt) => projekt.fachbereich))].sort((left, right) => collator.compare(left, right));
+const gruppen = fachbereiche.map((fachbereich) => ({
+  fachbereich,
+  id: `${id}-${slugifyId(fachbereich)}`,
+  wert: slugifyId(fachbereich),
+  projekte: sortiereNachAusgaben(
+    projekte.filter((projekt) => projekt.fachbereich === fachbereich),
+    jahre[0],
+  ),
+}));
+const statusOptionen = PROJEKT_STATUS_REIHENFOLGE.filter((status) => projekte.some((projekt) => projekt.status === status));
+const einzelplaene = [
+  ...new Map(projekte.flatMap((projekt) => projekt.einzelplaene).map((entry) => [entry.ep, entry])).values(),
+].sort((left, right) => left.ep.localeCompare(right.ep));
+const vorhabenText = (anzahl: number) => (anzahl === 1 ? '1 Vorhaben' : `${anzahl} Vorhaben`);
+---
+
+<div class="hh-projekte" id={id} data-projekte data-gesamt={projekte.length}>
+  <form class="filter-bar hh-filter hh-projektfilter" data-projekte-filter aria-label="Vorhaben suchen und filtern" hidden>
+    <div class="filter-bar__fields hh-projektfilter__felder">
+      <label class="filter-field hh-projektfilter__suche" for={`${id}-suche`}>
+        <span>Suche</span>
+        <input id={`${id}-suche`} name="q" type="search" autocomplete="off" placeholder="z. B. Schulessen, Kita, Ostticket" data-projekte-suche />
+      </label>
+      <label class="filter-field" for={`${id}-status`}>
+        <span>Status</span>
+        <select id={`${id}-status`} name="status" data-projekte-auswahl="status">
+          <option value="">Jeder Status</option>
+          {statusOptionen.map((status) => <option value={status}>{PROJEKT_STATUS_LABELS[status]}</option>)}
+        </select>
+      </label>
+      <label class="filter-field" for={`${id}-fachbereich`}>
+        <span>Fachbereich</span>
+        <select id={`${id}-fachbereich`} name="fachbereich" data-projekte-auswahl="fachbereich">
+          <option value="">Alle Fachbereiche</option>
+          {gruppen.map((gruppe) => <option value={gruppe.wert}>{gruppe.fachbereich}</option>)}
+        </select>
+      </label>
+      <label class="filter-field" for={`${id}-einzelplan`}>
+        <span>Einzelplan</span>
+        <select id={`${id}-einzelplan`} name="einzelplan" data-projekte-auswahl="einzelplan">
+          <option value="">Alle Einzelpläne</option>
+          {einzelplaene.map((entry) => <option value={entry.ep}>{entry.ep} {entry.bezeichnung}</option>)}
+        </select>
+      </label>
+    </div>
+    <div class="hh-projektfilter__aktionen">
+      <button type="reset" class="button-link button-link--secondary" data-projekte-zuruecksetzen>Auswahl zurücksetzen</button>
+    </div>
+  </form>
+
+  <p class="hh-projekte__status" role="status" aria-live="polite" data-projekte-status></p>
+
+  <div class="hh-projekte__leer" data-projekte-leer hidden>
+    <p>Kein Vorhaben entspricht der Auswahl.</p>
+    <button type="button" class="button-link button-link--secondary" data-projekte-zuruecksetzen>Auswahl zurücksetzen</button>
+  </div>
+
+  {gruppen.map((gruppe) => (
+    <section class="hh-projektgruppe" aria-labelledby={gruppe.id} data-projekte-gruppe>
+      <div class="hh-projektgruppe__kopf">
+        <h3 id={gruppe.id}>{gruppe.fachbereich}</h3>
+        <p class="hh-projektgruppe__anzahl" data-projekte-gruppenanzahl>{vorhabenText(gruppe.projekte.length)}</p>
+      </div>
+      <ul class="hh-projektliste" role="list">
+        {gruppe.projekte.map((projekt) => (
+          <ProjektKarte
+            projekt={projekt}
+            jahre={jahre}
+            fachbereichId={gruppe.wert}
+            ressort={projekt.ministrySlug ? ressorts[projekt.ministrySlug] : undefined}
+          />
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<script>
+  const normalize = (value: string) =>
+    value
+      .toLocaleLowerCase('de-DE')
+      .replace(/ä/gu, 'ae')
+      .replace(/ö/gu, 'oe')
+      .replace(/ü/gu, 'ue')
+      .replace(/ß/gu, 'ss')
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/gu, '')
+      .replace(/\s+/gu, ' ')
+      .trim();
+
+  const PARAMS = ['q', 'status', 'fachbereich', 'einzelplan'] as const;
+  const vorhaben = (anzahl: number) => (anzahl === 1 ? '1 Vorhaben' : `${anzahl} Vorhaben`);
+
+  function init(root: HTMLElement) {
+    const form = root.querySelector<HTMLFormElement>('[data-projekte-filter]');
+    const status = root.querySelector<HTMLElement>('[data-projekte-status]');
+    const leer = root.querySelector<HTMLElement>('[data-projekte-leer]');
+    const suche = root.querySelector<HTMLInputElement>('[data-projekte-suche]');
+    if (!form || !status || !leer || !suche) return;
+    const auswahl = [...root.querySelectorAll<HTMLSelectElement>('[data-projekte-auswahl]')];
+    const karten = [...root.querySelectorAll<HTMLElement>('[data-projekt]')];
+    const gruppen = [...root.querySelectorAll<HTMLElement>('[data-projekte-gruppe]')];
+    const gesamt = karten.length;
+    let timer: number | undefined;
+
+    const url = new URL(window.location.href);
+    suche.value = url.searchParams.get('q') ?? '';
+    for (const select of auswahl) {
+      const wert = url.searchParams.get(select.name) ?? '';
+      if ([...select.options].some((option) => option.value === wert)) select.value = wert;
+    }
+
+    const schreibeAdresse = () => {
+      const ziel = new URL(window.location.href);
+      for (const name of PARAMS) ziel.searchParams.delete(name);
+      if (suche.value.trim() !== '') ziel.searchParams.set('q', suche.value.trim());
+      for (const select of auswahl) if (select.value !== '') ziel.searchParams.set(select.name, select.value);
+      window.history.replaceState(window.history.state, '', ziel);
+    };
+
+    const anwenden = (melden: boolean) => {
+      const woerter = normalize(suche.value).split(' ').filter(Boolean);
+      const filter = auswahl.map((select) => ({ feld: select.dataset.projekteAuswahl ?? '', wert: select.value }));
+      let sichtbar = 0;
+      for (const karte of karten) {
+        const text = karte.dataset.search ?? '';
+        const passt =
+          woerter.every((wort) => text.includes(wort)) &&
+          filter.every(({ feld, wert }) => {
+            if (wert === '') return true;
+            const werte = (karte.dataset[feld] ?? '').split(' ');
+            return werte.includes(wert);
+          });
+        karte.hidden = !passt;
+        if (passt) sichtbar += 1;
+      }
+      for (const gruppe of gruppen) {
+        const anzahl = gruppe.querySelectorAll('[data-projekt]:not([hidden])').length;
+        gruppe.hidden = anzahl === 0;
+        const zaehler = gruppe.querySelector<HTMLElement>('[data-projekte-gruppenanzahl]');
+        if (zaehler) zaehler.textContent = vorhaben(anzahl);
+      }
+      leer.hidden = sichtbar > 0;
+      const aktiv = woerter.length > 0 || filter.some(({ wert }) => wert !== '');
+      const text = aktiv ? `Auswahl: ${sichtbar} von ${vorhaben(gesamt)}.` : `${vorhaben(gesamt)} in ${gruppen.length} Fachbereichen.`;
+      window.clearTimeout(timer);
+      if (melden) timer = window.setTimeout(() => (status.textContent = text), 350);
+      else status.textContent = text;
+    };
+
+    const zuruecksetzen = () => {
+      suche.value = '';
+      for (const select of auswahl) select.value = '';
+      anwenden(true);
+      schreibeAdresse();
+      suche.focus();
+    };
+
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.addEventListener('input', () => {
+      anwenden(true);
+      schreibeAdresse();
+    });
+    form.addEventListener('reset', (event) => {
+      event.preventDefault();
+      zuruecksetzen();
+    });
+    leer.querySelector('[data-projekte-zuruecksetzen]')?.addEventListener('click', zuruecksetzen);
+
+    form.hidden = false;
+    anwenden(false);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-projekte]').forEach(init);
+</script>

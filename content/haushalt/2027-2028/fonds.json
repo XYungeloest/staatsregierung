@@ -1,0 +1,435 @@
+{
+  "instrumente": {
+    "allgemeine-ruecklage": {
+      "name": "Allgemeine Rücklage",
+      "zweck": "Gemeinsame Rücklage der frei verfügbaren Mittel, die aus den allgemeinen Rücklagen der Vorgängerländer auf den Freistaat übergegangen sind. Ein Mindestbestand sichert die Zahlungsfähigkeit (Mindestliquidität).",
+      "rechtstraeger": "Freistaat Ostdeutschland; Verwaltung durch das Staatssekretariat der Finanzen",
+      "rechtsbezuege": [
+        { "label": "Entwurf des Haushaltsgesetzes 2027/2028, § 4 Absatz 1", "art": "entwurf" },
+        { "label": "Entwurf des Rücklagen- und Fondsneuordnungsgesetzes, Artikel 1 § 3", "art": "entwurf" }
+      ],
+      "kernhaushaltTitel": [{ "kapitel": "2007", "titel": "35901" }],
+      "status": "entwurf",
+      "statusText": "Entnahme im Regierungsentwurf veranschlagt; sie ist nur nach haushaltsgesetzlicher Bewilligung und bis zur Höhe des festgestellten frei verfügbaren Bestands zulässig."
+    },
+    "liquiditaetsruecklage": {
+      "name": "Liquiditätsrücklage",
+      "zweck": "Rücklage, der die veranschlagten Planüberschüsse zugeführt werden. Die Zuführung dient zugleich als Vorsorge für Mehrausgaben, falls die Neuordnung des öffentlichen Dienstrechts nicht wie veranschlagt in Kraft tritt.",
+      "rechtstraeger": "Freistaat Ostdeutschland; Verwaltung durch das Staatssekretariat der Finanzen",
+      "rechtsbezuege": [
+        { "label": "Haushaltsgesetz 2027/2028, § 1 Absatz 2 und § 4 Absatz 5", "art": "entwurf" },
+        { "label": "Entwurf des Rücklagen- und Fondsneuordnungsgesetzes, Artikel 1 § 3 Absatz 3", "art": "entwurf" }
+      ],
+      "kernhaushaltTitel": [{ "kapitel": "2007", "titel": "91902" }],
+      "status": "entwurf",
+      "statusText": "Zuführung im Regierungsentwurf veranschlagt."
+    }
+  },
+  "arten": {
+    "zweckruecklage": {
+      "label": "Zweckrücklage",
+      "plural": "Zweckrücklagen",
+      "rechtstraeger": "Freistaat Ostdeutschland (Vermögen ohne eigene Rechtspersönlichkeit); Verwaltung durch das Staatssekretariat der Finanzen",
+      "rechtsbezuege": [
+        { "label": "Entwurf des Rücklagen- und Fondsneuordnungsgesetzes, Artikel 1 § 4 und Anlage 2 (Verwendungsplan)", "art": "entwurf" },
+        { "label": "Entwurf des Haushaltsgesetzes 2027/2028, § 4 Absatz 2", "art": "entwurf" }
+      ],
+      "statusText": "Verwendung nach dem Verwendungsplan des Entwurfs. Vor jeder Auszahlung sind Bestand, Verpflichtungen und Liquidität nachzuweisen; die Planbeträge sind keine Bestandsbestätigung.",
+      "rechtsaenderungText": "Die Verwendung setzt die Aufhebung der bisherigen landesrechtlichen Zweckbindung voraus (Artikel 1 § 5 des Entwurfs); die Freigabe bedarf der Zustimmung des Haushalts- und Finanzausschusses."
+    },
+    "sondervermoegen": {
+      "label": "Sondervermögen",
+      "plural": "Sondervermögen",
+      "rechtstraeger": "Freistaat Ostdeutschland (nicht rechtsfähiges Sondervermögen); Verwaltung durch das Staatssekretariat der Finanzen",
+      "rechtsbezuege": [
+        { "label": "Entwurf des Rücklagen- und Fondsneuordnungsgesetzes, Artikel 1 § 4 und Anlage 2 (Verwendungsplan)", "art": "entwurf" },
+        { "label": "Entwurf des Haushaltsgesetzes 2027/2028, § 4 Absatz 2", "art": "entwurf" }
+      ],
+      "statusText": "Verwendung nach dem Verwendungsplan des Entwurfs. Vor jeder Auszahlung sind Bestand, Verpflichtungen und Liquidität nachzuweisen; die Planbeträge sind keine Bestandsbestätigung.",
+      "rechtsaenderungText": "Die Verwendung setzt die Zusammenführung gleichartiger Finanzierungskreise im Sondervermögen „Öffentliche Infrastruktur Ost“ voraus (Artikel 1 § 4 Absatz 4 des Entwurfs)."
+    },
+    "versorgungsfonds": {
+      "label": "Versorgungsfonds",
+      "plural": "Versorgungsfonds",
+      "rechtstraeger": "Freistaat Ostdeutschland (nicht rechtsfähiges Sondervermögen); Verwaltung durch das für Finanzen zuständige Staatssekretariat",
+      "rechtsbezuege": [
+        { "normSlug": "versorgungsfondsgesetz-ost", "label": "Versorgungsfondsgesetz Ost", "art": "geltend" },
+        { "label": "Entwurf des Rücklagen- und Fondsneuordnungsgesetzes, Artikel 2 (Änderung des Versorgungsfondsgesetzes Ost)", "art": "entwurf" },
+        { "label": "Entwurf des Haushaltsgesetzes 2027/2028, § 4 Absatz 3", "art": "entwurf" }
+      ],
+      "statusText": "Zweckgleiche Erstattung laufender Versorgungs- und Beihilfeausgaben. Sie ist jährlich auf 750 Millionen Euro begrenzt und an ein versicherungsmathematisches Gutachten mit Sicherheitsmarge gebunden.",
+      "rechtsaenderungText": "Die Erstattung setzt die im Entwurf vorgesehene Änderung des Versorgungsfondsgesetzes Ost voraus; nach der verkündeten Fassung sind Entnahmen erst ab dem 1. Januar 2036 vorgesehen."
+    }
+  },
+  "fonds": {
+    "BB-budget": {
+      "name": "Zweckrücklage Personalbudget",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Brandenburg",
+      "bereich": "Personalausgaben",
+      "zweck": "Erstattung laufender Zahlungen an aktive Bedienstete; eine Entnahme für Versorgungsausgaben ist ausgeschlossen.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "BB-zukunft": {
+      "name": "Sondervermögen Zukunftsinvestitionen",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Brandenburg",
+      "bereich": "Kommunale Infrastruktur",
+      "zweck": "Finanzierung bereits veranschlagter Ausgaben für die bestehende kommunale Infrastruktur.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35601" }
+    },
+    "BE-SV-schule": {
+      "name": "Sondervermögen Schulbau",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Berlin",
+      "bereich": "Schulbau",
+      "zweck": "Finanzierung bereits geplanter Schulbaumaßnahmen.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35601" }
+    },
+    "BE-SV-siwa": {
+      "name": "Sondervermögen Infrastruktur",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Berlin",
+      "bereich": "Kommunale Infrastruktur",
+      "zweck": "Finanzierung bereits veranschlagter Ausgaben für die bestehende kommunale Infrastruktur.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35601" }
+    },
+    "BE-bau": {
+      "name": "Zweckrücklage Hochbau",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Berlin",
+      "bereich": "Staatlicher Hochbau",
+      "zweck": "Finanzierung bereits geplanter staatlicher Hochbaumaßnahmen.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "BE-bezirke": {
+      "name": "Zweckrücklage Bezirke",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Berlin",
+      "bereich": "Kommunale Infrastruktur",
+      "zweck": "Finanzierung bereits veranschlagter Ausgaben für die bestehende kommunale Infrastruktur.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "BE-energie": {
+      "name": "Zweckrücklage Klima und Energie",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Berlin",
+      "bereich": "Klima und Wärmewende",
+      "zweck": "Finanzierung bestehender Investitionen in Klimaschutz und Wärmewende.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "BE-iff": {
+      "name": "Zweckrücklage Innovationsförderung",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Berlin",
+      "bereich": "Wirtschafts- und Innovationsförderung",
+      "zweck": "Finanzierung der bestehenden Wirtschafts- und Innovationsförderung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "MV-SV-breitband": {
+      "name": "Sondervermögen Breitbandausbau",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Mecklenburg-Vorpommern",
+      "bereich": "Breitbandausbau",
+      "zweck": "Finanzierung des bereits geplanten öffentlichen Breitbandausbaus; verwendet werden nur förderfähige Teilprojekte.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35601" }
+    },
+    "MV-asyl": {
+      "name": "Zweckrücklage Leistungen für Geflüchtete",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Mecklenburg-Vorpommern",
+      "bereich": "Leistungen für Geflüchtete",
+      "zweck": "Finanzierung bestehender gesetzlicher Leistungen für Geflüchtete.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "MV-kommunal": {
+      "name": "Zweckrücklage kommunaler Ausgleich",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Mecklenburg-Vorpommern",
+      "bereich": "Kommunaler Ausgleich",
+      "zweck": "Finanzierung bestehender kommunaler Ausgleichsleistungen.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "MV-weitere": {
+      "name": "Weitere Zweckrücklagen",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Mecklenburg-Vorpommern",
+      "bereich": "Hochschulen",
+      "zweck": "Finanzierung bestehender Hochschulaufgaben.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "SN-gross-Krisen": {
+      "name": "Sondervermögen Krisenbewältigung",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Sachsen",
+      "bereich": "Wirtschafts- und Innovationsförderung",
+      "zweck": "Finanzierung der bestehenden Wirtschafts- und Innovationsförderung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35602" }
+    },
+    "SN-gross-Mittelstand": {
+      "name": "Sondervermögen Mittelstand",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Sachsen",
+      "bereich": "Wirtschafts- und Innovationsförderung",
+      "zweck": "Finanzierung der bestehenden Wirtschafts- und Innovationsförderung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35602" }
+    },
+    "SN-gross-Rettung": {
+      "name": "Sondervermögen Unternehmenshilfen",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Sachsen",
+      "bereich": "Wirtschafts- und Innovationsförderung",
+      "zweck": "Finanzierung der bestehenden Wirtschafts- und Innovationsförderung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35602" }
+    },
+    "ST-altlast": {
+      "name": "Sondervermögen Altlasten",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Sachsen-Anhalt",
+      "bereich": "Gewässer",
+      "zweck": "Finanzierung bestehender Gewässermaßnahmen.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35601" }
+    },
+    "ST-ausgleich": {
+      "name": "Zweckrücklage kommunaler Ausgleich",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Sachsen-Anhalt",
+      "bereich": "Kommunaler Ausgleich",
+      "zweck": "Finanzierung bestehender kommunaler Ausgleichsleistungen.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "ST-billigkeit": {
+      "name": "Zweckrücklage Billigkeitsleistungen",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Sachsen-Anhalt",
+      "bereich": "Wirtschafts- und Innovationsförderung",
+      "zweck": "Finanzierung der bestehenden Wirtschafts- und Innovationsförderung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "ST-regg": {
+      "name": "Zweckrücklage Regionalisierungsmittel",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Sachsen-Anhalt",
+      "bereich": "Schienenpersonennahverkehr",
+      "zweck": "Finanzierung des bestehenden Schienenpersonennahverkehrs und der Regionalisierung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "ST-sonst": {
+      "name": "Sonstige Zweckrücklagen",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Sachsen-Anhalt",
+      "bereich": "Hochschulen",
+      "zweck": "Finanzierung bestehender Hochschulaufgaben.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "TH-0201": {
+      "name": "Zweckrücklage Verwaltungsdigitalisierung (bisheriges Kapitel 02 01)",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Verwaltungsdigitalisierung",
+      "zweck": "Finanzierung der bestehenden Verwaltungsdigitalisierung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "TH-0206": {
+      "name": "Zweckrücklage Verwaltungsdigitalisierung (bisheriges Kapitel 02 06)",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Verwaltungsdigitalisierung",
+      "zweck": "Finanzierung der bestehenden Verwaltungsdigitalisierung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "TH-0207": {
+      "name": "Zweckrücklage Verwaltungsdigitalisierung (bisheriges Kapitel 02 07)",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Verwaltungsdigitalisierung",
+      "zweck": "Finanzierung der bestehenden Verwaltungsdigitalisierung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "TH-0208": {
+      "name": "Zweckrücklage Hochbau (bisheriges Kapitel 02 08)",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Staatlicher Hochbau",
+      "zweck": "Finanzierung bereits geplanter staatlicher Hochbaumaßnahmen.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "TH-1820": {
+      "name": "Zweckrücklage Hochschulen (bisheriges Kapitel 18 20)",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Hochschulen",
+      "zweck": "Finanzierung bestehender Hochschulaufgaben.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35903" }
+    },
+    "TH-SV-katastroph": {
+      "name": "Sondervermögen Katastrophenschutz",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Katastrophenschutz",
+      "zweck": "Finanzierung des bestehenden Katastrophenschutzes.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35601" }
+    },
+    "TH-SV-wohnen": {
+      "name": "Sondervermögen Wohnungsbau",
+      "art": "sondervermoegen",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Wohnungsbau",
+      "zweck": "Finanzierung des bereits geplanten Wohnungsbaus.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35601" }
+    },
+    "TH-hochschul": {
+      "name": "Zweckrücklage Hochschulen",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Hochschulen",
+      "zweck": "Finanzierung bestehender Hochschulaufgaben.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "TH-oegd": {
+      "name": "Zweckrücklage öffentlicher Gesundheitsdienst",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Öffentlicher Gesundheitsdienst",
+      "zweck": "Finanzierung des bestehenden öffentlichen Gesundheitsdienstes.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "TH-regg": {
+      "name": "Zweckrücklage Regionalisierungsmittel",
+      "art": "zweckruecklage",
+      "vorgaengerland": "Thüringen",
+      "bereich": "Schienenpersonennahverkehr",
+      "zweck": "Finanzierung des bestehenden Schienenpersonennahverkehrs und der Regionalisierung.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "35902" }
+    },
+    "VFO-Ost": {
+      "name": "Versorgungsfonds Ost",
+      "art": "versorgungsfonds",
+      "bereich": "Versorgung und Beihilfe",
+      "zweck": "Kapitalgedeckte Vorsorge für Versorgungs- und Beihilfeaufwendungen des Freistaates. Vorgesehen ist die zweckgleiche Erstattung laufender Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungsjahrgänge.",
+      "einnahmetitel": { "kapitel": "2007", "titel": "23401" }
+    }
+  },
+  "unternehmen": {
+    "housing": {
+      "name": "Gemeingut Wohnen",
+      "rechtsform": "Anstalt des öffentlichen Rechts",
+      "zweck": "Rechtsfähige Anstalt für vergesellschaftete Wohnungsbestände; Modernisierungs- und Neubauprogramm.",
+      "rechtsbezuege": [
+        { "normSlug": "gemeingut-wohnen-gesetz", "label": "Gemeingut-Wohnen-Gesetz", "art": "geltend" },
+        { "label": "Entwurf eines Beteiligungsfinanzierungsgesetzes (Artikel 4 des Entwurfs des Haushaltsbegleitgesetzes 2027/2028)", "art": "entwurf" }
+      ],
+      "kapitel": ["0704"],
+      "gegenbuchung": [
+        { "kapitel": "0704", "titel": "89101" },
+        { "kapitel": "0704", "titel": "89102" },
+        { "kapitel": "0704", "titel": "89174" }
+      ],
+      "projektId": "housing",
+      "status": "beschlussentwurf",
+      "statusText": "Genehmigung des Wirtschaftsplans mit Zuschuss aus dem Kernhaushalt und Eigenmitteln; die Entschädigungsanleihen werden aus eigenen Erträgen bedient."
+    },
+    "rail": {
+      "name": "Ostdeutsche Eisenbahn",
+      "rechtsform": "Anstalt des öffentlichen Rechts",
+      "zweck": "Anstalt für gemeinwirtschaftliche Verkehrsleistungen; Investitionen in Fahrzeuge, Werkstätten und Infrastruktur.",
+      "rechtsbezuege": [
+        { "normSlug": "ostdeutsches-eisenbahngesetz", "label": "Ostdeutsches Eisenbahngesetz", "art": "geltend" },
+        { "label": "Entwurf eines Beteiligungsfinanzierungsgesetzes (Artikel 4 des Entwurfs des Haushaltsbegleitgesetzes 2027/2028)", "art": "entwurf" }
+      ],
+      "kapitel": ["1008", "1009", "1010"],
+      "status": "beschlussentwurf",
+      "statusText": "Genehmigung des Investitionsplans aus Mitteln des Kernhaushalts; Projektkredite nimmt die Ostdeutsche Eisenbahn nicht auf."
+    },
+    "energy": {
+      "name": "Landesenergiewerke Ost",
+      "rechtsform": "Anstalt des öffentlichen Rechts",
+      "zweck": "Rechtsfähige Anstalt für gemeinwirtschaftliche Energie- und Wärmeversorgung; Wind-, Offshore- und Erneuerbaren-Projekte.",
+      "rechtsbezuege": [
+        { "normSlug": "landesenergiewerke-gesetz", "label": "Landesenergiewerke-Gesetz", "art": "geltend" },
+        { "label": "Entwurf eines Beteiligungsfinanzierungsgesetzes (Artikel 4 des Entwurfs des Haushaltsbegleitgesetzes 2027/2028)", "art": "entwurf" },
+        { "label": "Haushaltsgesetz 2027/2028, § 8 Absatz 2 (Kreditrahmen)", "art": "entwurf" }
+      ],
+      "kapitel": ["0904"],
+      "gegenbuchung": [{ "kapitel": "0904", "titel": "83191" }],
+      "projektId": "energy",
+      "status": "beschlussentwurf",
+      "statusText": "Genehmigung von Wirtschaftsplan und Kreditrahmen. Projektdarlehen ohne Bürgschaft des Freistaates; Voraussetzung ist ein Schuldendienstdeckungsgrad von mindestens 1,3 je Projekt und die Einordnung als Marktproduzent."
+    },
+    "bank": {
+      "name": "Landesbank an der Elbe (ElbeLB)",
+      "rechtsform": "Anstalt des öffentlichen Rechts",
+      "zweck": "Landesbank des Freistaates mit zusätzlichen Förderaufträgen.",
+      "rechtsbezuege": [
+        { "normSlug": "ostdeutsches-landesbankgesetz", "label": "Ostdeutsches Landesbankgesetz", "art": "geltend" },
+        { "label": "Entwurf eines Beteiligungsfinanzierungsgesetzes (Artikel 4 des Entwurfs des Haushaltsbegleitgesetzes 2027/2028)", "art": "entwurf" }
+      ],
+      "kapitel": ["0604"],
+      "projektId": "bank",
+      "status": "beschlussentwurf",
+      "statusText": "Ausschüttung von 40 Prozent des Bilanzgewinns nach Feststellung der Jahresabschlüsse, soweit die aufsichtsrechtlichen Anforderungen erfüllt sind; ein Anspruch des Haushalts entsteht erst mit dem Beschluss der Trägerversammlung. Eine Kapitalzuführung erfolgt nicht."
+    },
+    "ho": {
+      "name": "Handelsorganisation Ost (HO)",
+      "rechtsform": "Landesunternehmen",
+      "zweck": "Grundversorgung mit Waren des täglichen Bedarfs, insbesondere in unterversorgten Gemeinden.",
+      "rechtsbezuege": [
+        { "normSlug": "handelsorganisationsgesetz", "label": "Handelsorganisationsgesetz", "art": "geltend" },
+        { "label": "Entwurf eines Beteiligungsfinanzierungsgesetzes (Artikel 4 des Entwurfs des Haushaltsbegleitgesetzes 2027/2028)", "art": "entwurf" }
+      ],
+      "kapitel": ["0705", "0710", "0711", "0712"],
+      "projektId": "ho",
+      "status": "beschlussentwurf",
+      "statusText": "Einlage in das Stammkapital, Investitionszuschüsse für Logistik und Filialmodernisierung sowie Versorgungsaufträge. Ein Erwerb von Filialnetzen ist nicht veranschlagt und bedarf eines gesonderten Beschlusses der Volkskammer."
+    },
+    "raw": {
+      "name": "Ostdeutsche Rohstoffwerke",
+      "rechtsform": "Landesunternehmen",
+      "zweck": "Sicherung und Aufbau von Rohstoffvorhaben; Überschüsse dienen zuerst der Vorsorge für Bergbaufolgen und Investitionen.",
+      "rechtsbezuege": [
+        { "normSlug": "ostdeutsches-rohstoffwerkegesetz", "label": "Ostdeutsches Rohstoffwerkegesetz", "art": "geltend" },
+        { "label": "Entwurf eines Beteiligungsfinanzierungsgesetzes (Artikel 4 des Entwurfs des Haushaltsbegleitgesetzes 2027/2028)", "art": "entwurf" }
+      ],
+      "kapitel": ["0706"],
+      "projektId": "raw",
+      "status": "beschlussentwurf",
+      "statusText": "Investitionszuschüsse aus dem Kernhaushalt nach Projektzahlungsplänen."
+    },
+    "land": {
+      "name": "Landesbodenfonds Ostdeutschland",
+      "rechtsform": "Anstalt des öffentlichen Rechts",
+      "zweck": "Erwerb, Bevorratung und gemeinwohlgebundene Überlassung öffentlichen Bodens; Überschüsse bleiben zweckgebunden.",
+      "rechtsbezuege": [
+        { "normSlug": "boden-und-naturvermoegensgesetz", "label": "Boden- und Naturvermögensgesetz", "art": "geltend" }
+      ],
+      "kapitel": ["1903"],
+      "projektId": "land",
+      "status": "beschlussentwurf",
+      "statusText": "Zuführungen aus dem Kernhaushalt nach Projektzahlungsplänen."
+    },
+    "interflug": {
+      "name": "Interflug (Spezialflugdienst)",
+      "rechtsform": "Anstalt des öffentlichen Rechts",
+      "zweck": "Gemeinwirtschaftliche Luftverkehrsaufgaben, insbesondere Waldbrandbekämpfung aus der Luft.",
+      "rechtsbezuege": [
+        { "normSlug": "interflug-gesetz", "label": "Interflug-Gesetz", "art": "geltend" },
+        { "label": "Entwurf eines Beteiligungsfinanzierungsgesetzes (Artikel 4 des Entwurfs des Haushaltsbegleitgesetzes 2027/2028)", "art": "entwurf" }
+      ],
+      "kapitel": ["1004"],
+      "projektId": "interflug",
+      "status": "beschlussentwurf",
+      "statusText": "Investitionszuschüsse nach Projektzahlungsplänen; Fälligkeitsplan und Zahlungsstand des Vertrags über die Löschflugzeuge werden bis zum 31. März 2027 festgestellt."
+    },
+    "commercial-air": {
+      "name": "Interflug (gewerbliche Tochtergesellschaft)",
+      "rechtsform": "Gesellschaft mit beschränkter Haftung (Option)",
+      "zweck": "Getrennte gewerbliche Gesellschaft; eine Quersubventionierung aus dem Spezialflugdienst ist ausgeschlossen.",
+      "rechtsbezuege": [
+        { "normSlug": "interflug-gesetz", "label": "Interflug-Gesetz", "art": "geltend" }
+      ],
+      "kapitel": [],
+      "status": "option",
+      "statusText": "Option ohne Finanzierung im Regierungsentwurf; der Wirtschaftsplan weist keine Werte aus."
+    }
+  }
+}

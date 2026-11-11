@@ -1,4 +1,4 @@
-import { budgetPlans, budgetTotals, getBudgetShare } from '../../data/haushalt.ts';
+import { budgetPlans, budgetTotals, getBudgetShare } from '../../lib/haushalt/legacy-2025-2026.ts';
 import { formatPercent } from '@ostrecht/shared/lib/portal/modules.ts';
 
 export const prerender = true;
