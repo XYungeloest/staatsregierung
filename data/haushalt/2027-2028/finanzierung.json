@@ -1,0 +1,958 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "massnahmen": [
+    {
+      "id": "F04",
+      "bezeichnung": "ElbeLB: tragfähige Gewinnverwendung",
+      "bedingung": "Kein Kapitalrückfluss; 20MrdStartkapital bleibt. Mindest-CET1 15% der RWA70Mrd +2MrdPuffer; Aufsicht/Bilanzgewinnbeschluss",
+      "rechtsgrundlage": "ElbeLBG§8, WPGG54/55: nur ausschüttbarer Bilanzgewinn nach Vorrangaufgaben;75% Staatsanteil S",
+      "status": "S: konkrete Planungsprognose, kein vollzogenes Geschäft",
+      "jahre": {
+        "2027": {
+          "einnahmen": 63000000,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 63000000
+        },
+        "2028": {
+          "einnahmen": 66780000,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 66780000
+        },
+        "2029": {
+          "einnahmen": 70786800,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 70786800
+        },
+        "2030": {
+          "einnahmen": 75034008,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 75034008
+        },
+        "2031": {
+          "einnahmen": 79536048,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 79536048
+        },
+        "2032": {
+          "einnahmen": 81922130,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 81922130
+        },
+        "2033": {
+          "einnahmen": 84379794,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 84379794
+        },
+        "2034": {
+          "einnahmen": 86911188,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 86911188
+        },
+        "2035": {
+          "einnahmen": 89518523,
+          "einsparungen": 0,
+          "kosten": 0,
+          "nettoentlastung": 89518523
+        }
+      }
+    },
+    {
+      "id": "F06",
+      "bezeichnung": "Energie: abgestimmte Eigen-/Projektfinanzierung",
+      "bedingung": "Unabhängiger Marktproduzent, DSCR>=1.2, 25/35/45% echtes Eigenkapital; Markt-/Fördererlöse S; keine staatliche Rückzahlungsgarantie",
+      "rechtsgrundlage": "LEWG Wirtschaftsplan/Kreditbeschluss, HHG Einzelermächtigung; kein Kernkredit, keine staatliche Garantie",
+      "status": "S: konkrete Planungsprognose, kein vollzogenes Geschäft",
+      "jahre": {
+        "2027": {
+          "einnahmen": 0,
+          "einsparungen": 142500000,
+          "kosten": 0,
+          "nettoentlastung": 142500000
+        },
+        "2028": {
+          "einnahmen": 0,
+          "einsparungen": 240000000,
+          "kosten": 0,
+          "nettoentlastung": 240000000
+        },
+        "2029": {
+          "einnahmen": 0,
+          "einsparungen": 246000000,
+          "kosten": 0,
+          "nettoentlastung": 246000000
+        },
+        "2030": {
+          "einnahmen": 0,
+          "einsparungen": 252150000,
+          "kosten": 0,
+          "nettoentlastung": 252150000
+        },
+        "2031": {
+          "einnahmen": 0,
+          "einsparungen": 258453750,
+          "kosten": 0,
+          "nettoentlastung": 258453750
+        },
+        "2032": {
+          "einnahmen": 0,
+          "einsparungen": 264915094,
+          "kosten": 0,
+          "nettoentlastung": 264915094
+        },
+        "2033": {
+          "einnahmen": 0,
+          "einsparungen": 271537971,
+          "kosten": 0,
+          "nettoentlastung": 271537971
+        },
+        "2034": {
+          "einnahmen": 0,
+          "einsparungen": 278326420,
+          "kosten": 0,
+          "nettoentlastung": 278326420
+        },
+        "2035": {
+          "einnahmen": 0,
+          "einsparungen": 285284581,
+          "kosten": 0,
+          "nettoentlastung": 285284581
+        }
+      }
+    },
+    {
+      "id": "F09",
+      "bezeichnung": "Investive Drittmittel: fünf Herkunftsgebiete",
+      "bedingung": "Fortsetzung realer Investitionsprogramme im Simulationsbund; Programmverträge, Nachfolge und Kofinanzierung vor Abruf. Ohne diese Voraussetzung Einnahme0",
+      "rechtsgrundlage": "SimGG104b/c/d,91b nur soweit tatsächliche Programmgrundlage; reale Haushaltspläne begründen keinen Sim-Anspruch",
+      "status": "S: konkrete Planungsprognose, kein vollzogenes Geschäft",
+      "jahre": {
+        "2027": {
+          "einnahmen": 2242221952,
+          "einsparungen": 0,
+          "kosten": 33633329,
+          "nettoentlastung": 2208588623
+        },
+        "2028": {
+          "einnahmen": 2254342327,
+          "einsparungen": 0,
+          "kosten": 33815135,
+          "nettoentlastung": 2220527192
+        },
+        "2029": {
+          "einnahmen": 2254342327,
+          "einsparungen": 0,
+          "kosten": 33815135,
+          "nettoentlastung": 2220527192
+        },
+        "2030": {
+          "einnahmen": 2254342327,
+          "einsparungen": 0,
+          "kosten": 33815135,
+          "nettoentlastung": 2220527192
+        },
+        "2031": {
+          "einnahmen": 2254342327,
+          "einsparungen": 0,
+          "kosten": 33815135,
+          "nettoentlastung": 2220527192
+        },
+        "2032": {
+          "einnahmen": 2028908094,
+          "einsparungen": 0,
+          "kosten": 30433621,
+          "nettoentlastung": 1998474473
+        },
+        "2033": {
+          "einnahmen": 1826017285,
+          "einsparungen": 0,
+          "kosten": 27390259,
+          "nettoentlastung": 1798627026
+        },
+        "2034": {
+          "einnahmen": 1643415556,
+          "einsparungen": 0,
+          "kosten": 24651233,
+          "nettoentlastung": 1618764323
+        },
+        "2035": {
+          "einnahmen": 1479074001,
+          "einsparungen": 0,
+          "kosten": 22186110,
+          "nettoentlastung": 1456887891
+        }
+      }
+    },
+    {
+      "id": "F10",
+      "bezeichnung": "HG3: Brandenburg titelgenau",
+      "bedingung": "Fortsetzung realer Investitionsprogramme im Simulationsbund; Programmverträge, Nachfolge und Kofinanzierung vor Abruf. Ohne diese Voraussetzung Einnahme0",
+      "rechtsgrundlage": "SimGG104b/c/d,91b nur soweit tatsächliche Programmgrundlage; reale Haushaltspläne begründen keinen Sim-Anspruch",
+      "status": "S: konkrete Planungsprognose, kein vollzogenes Geschäft",
+      "jahre": {
+        "2027": {
+          "einnahmen": 158986847,
+          "einsparungen": 0,
+          "kosten": 2384803,
+          "nettoentlastung": 156602044
+        },
+        "2028": {
+          "einnahmen": 166668979,
+          "einsparungen": 0,
+          "kosten": 2500035,
+          "nettoentlastung": 164168944
+        },
+        "2029": {
+          "einnahmen": 166668979,
+          "einsparungen": 0,
+          "kosten": 2500035,
+          "nettoentlastung": 164168944
+        },
+        "2030": {
+          "einnahmen": 166668979,
+          "einsparungen": 0,
+          "kosten": 2500035,
+          "nettoentlastung": 164168944
+        },
+        "2031": {
+          "einnahmen": 166668979,
+          "einsparungen": 0,
+          "kosten": 2500035,
+          "nettoentlastung": 164168944
+        },
+        "2032": {
+          "einnahmen": 150002081,
+          "einsparungen": 0,
+          "kosten": 2250031,
+          "nettoentlastung": 147752050
+        },
+        "2033": {
+          "einnahmen": 135001873,
+          "einsparungen": 0,
+          "kosten": 2025028,
+          "nettoentlastung": 132976845
+        },
+        "2034": {
+          "einnahmen": 121501686,
+          "einsparungen": 0,
+          "kosten": 1822525,
+          "nettoentlastung": 119679161
+        },
+        "2035": {
+          "einnahmen": 109351517,
+          "einsparungen": 0,
+          "kosten": 1640273,
+          "nettoentlastung": 107711244
+        }
+      }
+    },
+    {
+      "id": "F12",
+      "bezeichnung": "Liquiditäts- und Zinssteuerung",
+      "bedingung": "Ausschreibung, Laufzeitmix ohne zusätzliche Nettoaufnahme; keine zweite Verwendung Mindestliquidität",
+      "rechtsgrundlage": "LHO Liquiditätssteuerung; keine Fondsleihe/VFO/GFO-Cashpool",
+      "status": "S: konkrete Planungsprognose, kein vollzogenes Geschäft",
+      "jahre": {
+        "2027": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 3000000,
+          "nettoentlastung": 4200000
+        },
+        "2028": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        },
+        "2029": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        },
+        "2030": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        },
+        "2031": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        },
+        "2032": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        },
+        "2033": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        },
+        "2034": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        },
+        "2035": {
+          "einnahmen": 0,
+          "einsparungen": 7200000,
+          "kosten": 1000000,
+          "nettoentlastung": 6200000
+        }
+      }
+    },
+    {
+      "id": "F13",
+      "bezeichnung": "Zusätzlicher Großbetriebs-Steuervollzug",
+      "bedingung": "Zusätzliche Kohorte gegenüber bereits finanzierten900G+-Stellen; Rekrutierung/IT; Ertrag nicht nochmals in W2-Steuerbasis",
+      "rechtsgrundlage": "Geltender Steuervollzug, keine Steuererhöhung; GG106 Landesanteile",
+      "status": "S: konkrete Planungsprognose, kein vollzogenes Geschäft",
+      "jahre": {
+        "2027": {
+          "einnahmen": 170000000,
+          "einsparungen": 0,
+          "kosten": 69000000,
+          "nettoentlastung": 101000000
+        },
+        "2028": {
+          "einnahmen": 346800000,
+          "einsparungen": 0,
+          "kosten": 100200000,
+          "nettoentlastung": 246600000
+        },
+        "2029": {
+          "einnahmen": 353736000,
+          "einsparungen": 0,
+          "kosten": 102455000,
+          "nettoentlastung": 251281000
+        },
+        "2030": {
+          "einnahmen": 360810720,
+          "einsparungen": 0,
+          "kosten": 104766375,
+          "nettoentlastung": 256044345
+        },
+        "2031": {
+          "einnahmen": 368026934,
+          "einsparungen": 0,
+          "kosten": 107135534,
+          "nettoentlastung": 260891400
+        },
+        "2032": {
+          "einnahmen": 375387473,
+          "einsparungen": 0,
+          "kosten": 109563923,
+          "nettoentlastung": 265823550
+        },
+        "2033": {
+          "einnahmen": 382895223,
+          "einsparungen": 0,
+          "kosten": 112053021,
+          "nettoentlastung": 270842202
+        },
+        "2034": {
+          "einnahmen": 390553127,
+          "einsparungen": 0,
+          "kosten": 114604346,
+          "nettoentlastung": 275948781
+        },
+        "2035": {
+          "einnahmen": 398364190,
+          "einsparungen": 0,
+          "kosten": 117219455,
+          "nettoentlastung": 281144735
+        }
+      }
+    },
+    {
+      "id": "F14",
+      "bezeichnung": "Schulverpflegung: Beschaffung jenseits G+",
+      "bedingung": "Gleiche Nährwert-, Personal- und Qualitätsvorgaben; gemeinsame Vergabe/Logistik, keine Leistungskürzung",
+      "rechtsgrundlage": "Vergabe- und Leistungsrecht; Zusatzkosten vollständig im Titel",
+      "status": "S: konkrete Planungsprognose, kein vollzogenes Geschäft",
+      "jahre": {
+        "2027": {
+          "einnahmen": 0,
+          "einsparungen": 56598750,
+          "kosten": 15000000,
+          "nettoentlastung": 41598750
+        },
+        "2028": {
+          "einnahmen": 0,
+          "einsparungen": 115461450,
+          "kosten": 5000000,
+          "nettoentlastung": 110461450
+        },
+        "2029": {
+          "einnahmen": 0,
+          "einsparungen": 117770679,
+          "kosten": 5000000,
+          "nettoentlastung": 112770679
+        },
+        "2030": {
+          "einnahmen": 0,
+          "einsparungen": 120126093,
+          "kosten": 5000000,
+          "nettoentlastung": 115126093
+        },
+        "2031": {
+          "einnahmen": 0,
+          "einsparungen": 122528614,
+          "kosten": 5000000,
+          "nettoentlastung": 117528614
+        },
+        "2032": {
+          "einnahmen": 0,
+          "einsparungen": 124979187,
+          "kosten": 5000000,
+          "nettoentlastung": 119979187
+        },
+        "2033": {
+          "einnahmen": 0,
+          "einsparungen": 127478770,
+          "kosten": 5000000,
+          "nettoentlastung": 122478770
+        },
+        "2034": {
+          "einnahmen": 0,
+          "einsparungen": 130028346,
+          "kosten": 5000000,
+          "nettoentlastung": 125028346
+        },
+        "2035": {
+          "einnahmen": 0,
+          "einsparungen": 132628913,
+          "kosten": 5000000,
+          "nettoentlastung": 127628913
+        }
+      }
+    },
+    {
+      "id": "P01",
+      "bezeichnung": "Neuordnung des öffentlichen Dienstrechts (Personal-, Beihilfe- und Versorgungsneuberechnung)",
+      "bedingung": "Inkrafttreten 01.01.2027; Vollzugsvorbehalte siehe K-02",
+      "rechtsgrundlage": "Entwurf Drs. 08/13",
+      "status": "P: Modellauftrag vom 09.11.2026; Entwurf Drs. 08/13 (nicht verkündet)",
+      "jahre": {
+        "2027": {
+          "einnahmen": -208945074,
+          "einsparungen": 3114134206,
+          "kosten": 1008448882,
+          "nettoentlastung": 1896740250
+        },
+        "2028": {
+          "einnahmen": -213781840,
+          "einsparungen": 3791234602,
+          "kosten": 1722172141,
+          "nettoentlastung": 1855280621
+        },
+        "2029": {
+          "einnahmen": -225604504,
+          "einsparungen": 4412849055,
+          "kosten": 2325879097,
+          "nettoentlastung": 1861365454
+        },
+        "2030": {
+          "einnahmen": -237155507,
+          "einsparungen": 4996630530,
+          "kosten": 2892302451,
+          "nettoentlastung": 1867172572
+        },
+        "2031": {
+          "einnahmen": -250831466,
+          "einsparungen": 5468119615,
+          "kosten": 3294806110,
+          "nettoentlastung": 1922482039
+        },
+        "2032": {
+          "einnahmen": -262122366,
+          "einsparungen": 5800989646,
+          "kosten": 3555825514,
+          "nettoentlastung": 1983041766
+        },
+        "2033": {
+          "einnahmen": -272074237,
+          "einsparungen": 6134030249,
+          "kosten": 3832008522,
+          "nettoentlastung": 2029947490
+        },
+        "2034": {
+          "einnahmen": -283579164,
+          "einsparungen": 6482839161,
+          "kosten": 4107927796,
+          "nettoentlastung": 2091332201
+        },
+        "2035": {
+          "einnahmen": -294833937,
+          "einsparungen": 6832208708,
+          "kosten": 4387065500,
+          "nettoentlastung": 2150309271
+        }
+      }
+    }
+  ],
+  "kreditfinanzierungsplan": [
+    {
+      "jahr": 2027,
+      "kreditaufnahme": 0,
+      "tilgung": 45922300,
+      "nettokreditaufnahme": -45922300,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 149954077700,
+      "zinsen": 3170260314
+    },
+    {
+      "jahr": 2028,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 149498477700,
+      "zinsen": 3442950653
+    },
+    {
+      "jahr": 2029,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 149042877700,
+      "zinsen": 3428143653
+    },
+    {
+      "jahr": 2030,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 148587277700,
+      "zinsen": 3413336653
+    },
+    {
+      "jahr": 2031,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 148131677700,
+      "zinsen": 3398529653
+    },
+    {
+      "jahr": 2032,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 147676077700,
+      "zinsen": 3227109703
+    },
+    {
+      "jahr": 2033,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 147220477700,
+      "zinsen": 3055689753
+    },
+    {
+      "jahr": 2034,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 146764877700,
+      "zinsen": 2884269803
+    },
+    {
+      "jahr": 2035,
+      "kreditaufnahme": 0,
+      "tilgung": 455600000,
+      "nettokreditaufnahme": -455600000,
+      "strukturelle_nka": 0,
+      "strukturgrenze": 0,
+      "umschuldung_nachrichtlich": 12000000000,
+      "schuldenstand_ende": 146309277700,
+      "zinsen": 2712849853
+    }
+  ],
+  "finanzplan": [
+    {
+      "jahr": 2027,
+      "einnahmen": 140900866242,
+      "ausgaben": 139032883149,
+      "haushaltsvolumen": 140900866242,
+      "ungedeckt": 0,
+      "zinsen": 3170260314,
+      "ruecklage_ende": 1000000000,
+      "liquiditaet_ende": 1867983093,
+      "schuldenstand": 149954077700,
+      "status": "Haushaltsjahr",
+      "personalreform_netto": 1896740250,
+      "haushaltsvolumen_baseline": 141139043496,
+      "liquiditaet_ende_baseline": 0,
+      "ruecklage_ende_baseline": 1000000000,
+      "schuldenstand_baseline": 149983309880
+    },
+    {
+      "jahr": 2028,
+      "einnahmen": 140040550384,
+      "ausgaben": 137873128411,
+      "haushaltsvolumen": 140040550384,
+      "ungedeckt": 0,
+      "zinsen": 3442950653,
+      "ruecklage_ende": 1000000000,
+      "liquiditaet_ende": 4035405066,
+      "schuldenstand": 149498477700,
+      "status": "Haushaltsjahr",
+      "personalreform_netto": 1855280621,
+      "haushaltsvolumen_baseline": 140254332224,
+      "liquiditaet_ende_baseline": 311191306,
+      "ruecklage_ende_baseline": 1000000000,
+      "schuldenstand_baseline": 149527709880
+    },
+    {
+      "jahr": 2029,
+      "einnahmen": 146768815856,
+      "ausgaben": 145873102097,
+      "haushaltsvolumen": 145873102097,
+      "ungedeckt": 0,
+      "zinsen": 3428143653,
+      "ruecklage_ende": 6039046889,
+      "liquiditaet_ende": 4931118825,
+      "schuldenstand": 149042877700,
+      "status": "Finanzplanung (Projektion)",
+      "personalreform_netto": 1861365454,
+      "haushaltsvolumen_baseline": 146994420360,
+      "liquiditaet_ende_baseline": 311191306,
+      "ruecklage_ende_baseline": 5072445148,
+      "schuldenstand_baseline": 149072109880
+    },
+    {
+      "jahr": 2030,
+      "einnahmen": 155109967358,
+      "ausgaben": 143951617599,
+      "haushaltsvolumen": 143951617599,
+      "ungedeckt": 0,
+      "zinsen": 3413336653,
+      "ruecklage_ende": 6039046889,
+      "liquiditaet_ende": 16089468584,
+      "schuldenstand": 148587277700,
+      "status": "Finanzplanung (Projektion)",
+      "personalreform_netto": 1867172572,
+      "haushaltsvolumen_baseline": 147023497465,
+      "liquiditaet_ende_baseline": 8634816706,
+      "ruecklage_ende_baseline": 6039046889,
+      "schuldenstand_baseline": 148616509880
+    },
+    {
+      "jahr": 2031,
+      "einnahmen": 163586463536,
+      "ausgaben": 147097919587,
+      "haushaltsvolumen": 147097919587,
+      "ungedeckt": 0,
+      "zinsen": 3398529653,
+      "ruecklage_ende": 6039046889,
+      "liquiditaet_ende": 32578012533,
+      "schuldenstand": 148131677700,
+      "status": "Finanzplanung (Projektion)",
+      "personalreform_netto": 1922482039,
+      "haushaltsvolumen_baseline": 149272183138,
+      "liquiditaet_ende_baseline": 23199928570,
+      "ruecklage_ende_baseline": 6039046889,
+      "schuldenstand_baseline": 148160909880
+    },
+    {
+      "jahr": 2032,
+      "einnahmen": 171890935627,
+      "ausgaben": 151111158165,
+      "haushaltsvolumen": 151111158165,
+      "ungedeckt": 0,
+      "zinsen": 3227109703,
+      "ruecklage_ende": 6039046889,
+      "liquiditaet_ende": 53357789995,
+      "schuldenstand": 147676077700,
+      "status": "Finanzplanung (Projektion)",
+      "personalreform_netto": 1983041766,
+      "haushaltsvolumen_baseline": 153357272343,
+      "liquiditaet_ende_baseline": 41995714220,
+      "ruecklage_ende_baseline": 6039046889,
+      "schuldenstand_baseline": 147705309880
+    },
+    {
+      "jahr": 2033,
+      "einnahmen": 180746052610,
+      "ausgaben": 155264033697,
+      "haushaltsvolumen": 155264033697,
+      "ungedeckt": 0,
+      "zinsen": 3055689753,
+      "ruecklage_ende": 6039046889,
+      "liquiditaet_ende": 78839808908,
+      "schuldenstand": 147220477700,
+      "status": "Finanzplanung (Projektion)",
+      "personalreform_netto": 2029947490,
+      "haushaltsvolumen_baseline": 157567005470,
+      "liquiditaet_ende_baseline": 65446835597,
+      "ruecklage_ende_baseline": 6039046889,
+      "schuldenstand_baseline": 147249709880
+    },
+    {
+      "jahr": 2034,
+      "einnahmen": 190178498830,
+      "ausgaben": 159529113424,
+      "haushaltsvolumen": 159529113424,
+      "ungedeckt": 0,
+      "zinsen": 2884269803,
+      "ruecklage_ende": 6039046889,
+      "liquiditaet_ende": 109489194314,
+      "schuldenstand": 146764877700,
+      "status": "Finanzplanung (Projektion)",
+      "personalreform_netto": 2091332201,
+      "haushaltsvolumen_baseline": 161904974835,
+      "liquiditaet_ende_baseline": 94003938756,
+      "ruecklage_ende_baseline": 6039046889,
+      "schuldenstand_baseline": 146794109880
+    },
+    {
+      "jahr": 2035,
+      "einnahmen": 200221844324,
+      "ausgaben": 163928791241,
+      "haushaltsvolumen": 163928791241,
+      "ungedeckt": 0,
+      "zinsen": 2712849853,
+      "ruecklage_ende": 6039046889,
+      "liquiditaet_ende": 145782247397,
+      "schuldenstand": 146309277700,
+      "status": "Finanzplanung (Projektion)",
+      "personalreform_netto": 2150309271,
+      "haushaltsvolumen_baseline": 166374884495,
+      "liquiditaet_ende_baseline": 128145732522,
+      "ruecklage_ende_baseline": 6039046889,
+      "schuldenstand_baseline": 146338509880
+    }
+  ],
+  "verpflichtungen": [
+    {
+      "projekt": "school-build",
+      "bezeichnung": "Schulbauprogramm POS/EOS",
+      "kapitel": "0408",
+      "titel": "88301",
+      "quote": 0.4,
+      "begruendung": "Mehrjährige Schulbauvorhaben: Bewilligungen 2027/28 für Bauabschnitte bis 2031",
+      "ve": {
+        "2027": 504402500,
+        "2028": 504402500
+      },
+      "faelligkeiten": {
+        "2029": 328000000,
+        "2030": 336200000,
+        "2031": 344605000
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "hospital",
+      "bezeichnung": "Krankenhausfonds und Rekommunalisierung",
+      "kapitel": "0804",
+      "titel": "88401",
+      "quote": 0.4,
+      "begruendung": "Einzelförderung großer Standort- und Verbundmaßnahmen (Jahresraten)",
+      "ve": {
+        "2027": 567452813,
+        "2028": 567452812
+      },
+      "faelligkeiten": {
+        "2029": 369000000,
+        "2030": 378225000,
+        "2031": 387680625
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "rail-vehicles",
+      "bezeichnung": "Ostdeutsche Eisenbahn – Fahrzeugbeschaffung",
+      "kapitel": "1008",
+      "titel": "89101",
+      "quote": 0.6,
+      "begruendung": "Fahrzeugbestellung mit Auslieferung 2029–2031",
+      "ve": {
+        "2027": 312099047,
+        "2028": 312099047
+      },
+      "faelligkeiten": {
+        "2029": 202950000,
+        "2030": 208023750,
+        "2031": 213224344
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "rail-works",
+      "bezeichnung": "Ostdeutsche Eisenbahn – Werkstätten",
+      "kapitel": "1009",
+      "titel": "89181",
+      "quote": 0.5,
+      "begruendung": "Werkstattneubauten",
+      "ve": {
+        "2027": 94575469,
+        "2028": 94575469
+      },
+      "faelligkeiten": {
+        "2029": 61500000,
+        "2030": 63037500,
+        "2031": 64613438
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "rail-network",
+      "bezeichnung": "Ostdeutsche Eisenbahn – Infrastruktur und Betriebsumstellung",
+      "kapitel": "1010",
+      "titel": "89181",
+      "quote": 0.4,
+      "begruendung": "Infrastrukturvorhaben",
+      "ve": {
+        "2027": 56745281,
+        "2028": 56745281
+      },
+      "faelligkeiten": {
+        "2029": 36900000,
+        "2030": 37822500,
+        "2031": 38768062
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "housing",
+      "bezeichnung": "Gemeingut Wohnen",
+      "kapitel": "0704",
+      "titel": "89101",
+      "quote": 0.3,
+      "begruendung": "Modernisierungs- und Neubauprogramm Gemeingut Wohnen",
+      "ve": {
+        "2027": 245896219,
+        "2028": 245896219
+      },
+      "faelligkeiten": {
+        "2029": 159900000,
+        "2030": 163897500,
+        "2031": 167994938
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "energy",
+      "bezeichnung": "Landesenergiewerke und öffentliche Windprojekte",
+      "kapitel": "0904",
+      "titel": "83191",
+      "quote": 0.5,
+      "begruendung": "Eigenkapitalzusagen für Wind-/Offshore-Projekte",
+      "ve": {
+        "2027": 165507071,
+        "2028": 165507070
+      },
+      "faelligkeiten": {
+        "2029": 107625000,
+        "2030": 110315625,
+        "2031": 113073516
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "regionalisierung",
+      "bezeichnung": "Schienenpersonennahverkehr und Regionalisierung",
+      "kapitel": "1002",
+      "titel": "54601",
+      "quote": 0.25,
+      "begruendung": "Fortführung und Neuvergabe von SPNV-Verkehrsverträgen",
+      "ve": {
+        "2027": 358319610,
+        "2028": 358319610
+      },
+      "faelligkeiten": {
+        "2029": 238879740,
+        "2030": 238879740,
+        "2031": 238879740
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "ho",
+      "bezeichnung": "Handelsorganisation Ost (HO)",
+      "kapitel": "0711",
+      "titel": "89175",
+      "quote": 0.3,
+      "begruendung": "Logistik- und IT-Aufbau HO",
+      "ve": {
+        "2027": 14186321,
+        "2028": 14186320
+      },
+      "faelligkeiten": {
+        "2029": 9225000,
+        "2030": 9455625,
+        "2031": 9692016
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    },
+    {
+      "projekt": "raw",
+      "bezeichnung": "Ostdeutsche Rohstoffwerke und Lithium Zinnwald",
+      "kapitel": "0706",
+      "titel": "89101",
+      "quote": 0.3,
+      "begruendung": "Rohstoffvorhaben Zinnwald",
+      "ve": {
+        "2027": 47287735,
+        "2028": 47287734
+      },
+      "faelligkeiten": {
+        "2029": 30750000,
+        "2030": 31518750,
+        "2031": 32306719
+      },
+      "herkunft": "S",
+      "hinweis": "Planansatz der Verpflichtungsermächtigung; keine Jahresausgabe, keine Bewilligung künftiger Haushaltsjahre."
+    }
+  ]
+}

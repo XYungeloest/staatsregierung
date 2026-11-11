@@ -4,7 +4,7 @@ import {
   getBudgetShare,
   type BudgetTaskArea,
   type BudgetYear,
-} from '../../data/haushalt.ts';
+} from '../../lib/haushalt/legacy-2025-2026.ts';
 import { formatEuroAmount, formatEuroCompact, formatPercent } from '@ostrecht/shared/lib/portal/modules.ts';
 
 interface Props {
@@ -60,7 +60,7 @@ const chartLabel = areas
     </ul>
   </div>
   <div class="table-wrap" tabindex="0" role="region" aria-label={`Aufgabenbereiche des Haushalts ${year} als Tabelle`}>
-    <table class="data-table">
+    <table class="data-table budget-task-area-table">
       <caption>Aufgabenbereiche im Haushalt {year}</caption>
       <thead><tr><th scope="col">Aufgabenbereich</th><th scope="col">Ausgaben</th><th scope="col">Anteil am Gesamthaushalt</th><th scope="col">Zugeordnete Einzelpläne</th></tr></thead>
       <tbody>

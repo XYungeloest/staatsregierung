@@ -1,0 +1,142 @@
+{
+  "rechtsstaende": {
+    "R0": {
+      "kurz": "Geltendes Recht",
+      "bezeichnung": "Geltendes Recht",
+      "erlaeuterung": "Besoldungs- und Versorgungsrecht des Freistaates in der am 31. Dezember 2026 geltenden Fassung; die Grundgehaltstabellen gelten unverändert seit dem 1. August 2023."
+    },
+    "B": {
+      "kurz": "Bisheriges Planniveau",
+      "bezeichnung": "Planniveau der bisherigen Haushalts- und Finanzplanung",
+      "erlaeuterung": "Vergleichsmaßstab ohne das Gesetz: die bisherigen Planwerte der Herkunftsländer einschließlich der dort beschlossenen Besoldungs- und Versorgungsanpassungen."
+    },
+    "C": {
+      "kurz": "Gesetzentwurf",
+      "bezeichnung": "Gesetzentwurf Drucksache 08/13",
+      "erlaeuterung": "Rechtslage nach dem Entwurf eines Gesetzes zur Neuordnung des öffentlichen Dienstrechts (Drucksache 08/13) mit dem vorgesehenen Inkrafttreten am 1. Januar 2027. Der Entwurf ist noch nicht beschlossen."
+    }
+  },
+  "bloecke": {
+    "Besoldung Bestandsbeamte": "Besoldung der vorhandenen Beamt:innen und Richter:innen",
+    "Anwärter/Vorbereitungsdienst": "Anwärter:innen im Vorbereitungsdienst",
+    "Versorgung": "Versorgung der Ruhestandsbeamt:innen und Hinterbliebenen (ohne Beihilfe)"
+  },
+  "versorgungsteile": {
+    "bestand_ruhegehalt": "Laufende Ruhegehälter",
+    "bestand_hinterbliebene": "Laufende Hinterbliebenenversorgung",
+    "zugaenge": "Neue Ruhestandsfälle ab 2027",
+    "neue_hinterbliebene": "Neue Hinterbliebenenfälle ab 2027"
+  },
+  "komponentengruppen": {
+    "besoldung": "Besoldung",
+    "arbeitsverhaeltnis": "Arbeitsverhältnis statt Beamtenverhältnis, Ausbildung und Nachversicherung",
+    "beihilfe": "Beihilfe",
+    "versorgung": "Versorgung",
+    "verwaltung": "Verwaltung"
+  },
+  "komponenten": {
+    "tabellen": { "gruppe": "besoldung", "bezeichnung": "Neue Grundgehalts-, Familienzuschlags- und Amtszulagentabellen für die vorhandenen Beamt:innen" },
+    "stufenstopp": { "gruppe": "besoldung", "bezeichnung": "Wegfall der Aufstiege in den Erfahrungsstufen ab 2027 (§ 94a Abs. 2 OstBesG-E)" },
+    "stellenzulagen": { "gruppe": "besoldung", "bezeichnung": "Wegfall der Stellenzulagen (§ 94b Abs. 2 OstBesG-E)" },
+    "familienzuschlag_ehe": { "gruppe": "besoldung", "bezeichnung": "Keine neuen ehebezogenen Familienzuschläge (§ 42b OstBesG-E)" },
+    "ergaenzungszuschlag": { "gruppe": "besoldung", "bezeichnung": "Keine Neubewilligung des Ergänzungszuschlags (§ 94b Abs. 1 OstBesG-E)" },
+    "einstellung_o": { "gruppe": "besoldung", "bezeichnung": "Neue Beamt:innen in der Besoldungsordnung O statt im Eingangsamt der Besoldungsordnung A" },
+    "einstellung_r": { "gruppe": "besoldung", "bezeichnung": "Neue Richter:innen und Staatsanwält:innen nach der Besoldungstabelle R des Entwurfs" },
+    "anwaerter": { "gruppe": "besoldung", "bezeichnung": "Einheitlicher Anwärtergrundbetrag (Anlage 9 OstBesG-E)" },
+    "ausbildung_bezuege": { "gruppe": "besoldung", "bezeichnung": "Vorbereitungsdienst im Ausbildungsverhältnis: Wegfall der Anwärterbezüge" },
+    "sonderfaelle": { "gruppe": "besoldung", "bezeichnung": "Staatssekretär:innen sowie Präsident:in des Rechnungshofs (Artikel 6 und 7 des Entwurfs)" },
+    "einstellung_tarif_beamte": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Wiederbesetzung im Arbeitsverhältnis: Wegfall von Beamtenbezügen" },
+    "einstellung_tarif_entgelt": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Wiederbesetzung im Arbeitsverhältnis: Entgelte einschließlich Arbeitgeberanteilen" },
+    "umwandlung_beamte": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Keine Verbeamtung angestellter Lehrkräfte: Wegfall der vorgesehenen Beamtenbezüge" },
+    "umwandlung_entgelt": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Keine Verbeamtung angestellter Lehrkräfte: Weiterzahlung der Entgelte" },
+    "statuswechsel_beamte": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Freiwilliger Wechsel vorhandener Beamt:innen in das Arbeitsverhältnis: Wegfall der Bezüge" },
+    "statuswechsel_entgelt": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Freiwilliger Wechsel vorhandener Beamt:innen in das Arbeitsverhältnis: Entgelte" },
+    "ausbildung_entgelt": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Vorbereitungsdienst im Ausbildungsverhältnis: Unterhaltsbeihilfe und Arbeitgeberanteile" },
+    "nachversicherung": { "gruppe": "arbeitsverhaeltnis", "bezeichnung": "Nachversicherung bei Statuswechsel und bei Entlassung in der verlängerten Probezeit" },
+    "beihilfe_eigenbeteiligung": { "gruppe": "beihilfe", "bezeichnung": "Eigenbeteiligung an der Beihilfe der aktiven Beamt:innen (§ 80 Abs. 12 OstBG-E)" },
+    "beihilfe_pauschal": { "gruppe": "beihilfe", "bezeichnung": "Pauschale Beihilfe für gesetzlich Versicherte auf Antrag (§ 80 Abs. 10 und 11 OstBG-E)" },
+    "beihilfe_tarif": { "gruppe": "beihilfe", "bezeichnung": "Wegfall der Beihilfe bei Wiederbesetzung im Arbeitsverhältnis" },
+    "beihilfe_versorgung": { "gruppe": "beihilfe", "bezeichnung": "Eigenbeteiligung an der Beihilfe der Versorgungsempfänger:innen" },
+    "versorgung_tabellen": { "gruppe": "versorgung", "bezeichnung": "Versorgung: Niveau der neuen Grundgehaltstabellen" },
+    "versorgung_p107_bestand": { "gruppe": "versorgung", "bezeichnung": "Versorgung: Neuberechnung der laufenden Ruhegehälter (§ 107 OstBeamtVG-E)" },
+    "versorgung_neuzugaenge": { "gruppe": "versorgung", "bezeichnung": "Versorgung: neue Ruhestandsfälle ab 2027" },
+    "versorgung_hinterbliebene": { "gruppe": "versorgung", "bezeichnung": "Versorgung: neue Hinterbliebenenfälle ab 2027" },
+    "umstellung": { "gruppe": "verwaltung", "bezeichnung": "Verwaltungs- und Umstellungskosten" }
+  },
+  "wirkungsarten": {
+    "besoldung": "Besoldung (vorhandene Beamt:innen, Anwärter:innen, Sonderfälle)",
+    "versorgung": "Versorgung gegenüber dem bisherigen Ansatz",
+    "beihilfe": "Beihilfe (aktive Beamt:innen und Versorgungsempfänger:innen)",
+    "tarif": "Tarifliche Gegenkosten (Arbeitsverhältnis statt Beamtenverhältnis, Lehrkräfte, Ausbildung, Statuswechsel, Nachversicherung)",
+    "verwaltung": "Verwaltungs- und Umstellungskosten",
+    "steuer": "Lohnsteuer, Landesanteil",
+    "fonds": "Erstattung aus dem Versorgungsfonds Ost"
+  },
+  "kennzahlen": {
+    "ruhestandszugaenge": "Ruhestandszugänge",
+    "einstellungen_beamte_b": "Wiederbesetzungen im Beamtenverhältnis nach bisherigem Recht (Vergleich)",
+    "einstellungen_o_c": "Einstellungen in der Besoldungsordnung O",
+    "einstellungen_tarif_statt_beamte": "Besetzungen im Arbeitsverhältnis statt Verbeamtung",
+    "umwandlungen_entfallen": "Nicht vollzogene Verbeamtungen angestellter Lehrkräfte",
+    "ausbildungsverhaeltnis": "Vorbereitungsdienst im öffentlich-rechtlichen Ausbildungsverhältnis",
+    "versorgungsempfaenger": "Versorgungsempfänger:innen"
+  },
+  "bereiche": {
+    "verwaltung": "Oberste Landesbehörden, allgemeine und Fachverwaltung",
+    "schule": "Schulen und Lehrerbildung",
+    "hochschule": "Hochschulen und Hochschulmedizin",
+    "justiz": "Gerichte, Staatsanwaltschaften und Rechtspflege",
+    "justizvollzug": "Justizvollzug und Abschiebungshaft",
+    "steuer": "Steuer- und Finanzverwaltung",
+    "polizei": "Polizeivollzug einschließlich Grenzpolizei und Verfassungsschutz",
+    "katastrophenschutz": "Brand-, Katastrophen- und Bevölkerungsschutz"
+  },
+  "besoldungstabellen": {
+    "geltend": {
+      "schluessel": "ost_2023",
+      "bezeichnung": "Geltendes Recht",
+      "erlaeuterung": "Ostdeutsches Besoldungsgesetz, Tabellen gültig seit dem 1. August 2023"
+    },
+    "entwurf": {
+      "schluessel": "reform_2027",
+      "bezeichnung": "Gesetzentwurf",
+      "erlaeuterung": "Drucksache 08/13, vorgesehen ab dem 1. Januar 2027"
+    },
+    "gruppen": [
+      { "ordnung": "A", "gruppe": "A 5" },
+      { "ordnung": "A", "gruppe": "A 9" },
+      { "ordnung": "A", "gruppe": "A 13" },
+      { "ordnung": "A", "gruppe": "A 16" },
+      { "ordnung": "B", "gruppe": "B 3" },
+      { "ordnung": "R", "gruppe": "R 1" },
+      { "ordnung": "R", "gruppe": "R 2" },
+      { "ordnung": "W", "gruppe": "W 2" },
+      { "ordnung": "W", "gruppe": "W 3" }
+    ],
+    "zuschlaege": [
+      { "tabelle": "familienzuschlag", "schluessel": "stufe1", "bezeichnung": "Familienzuschlag der Stufe 1" },
+      { "tabelle": "familienzuschlag", "schluessel": "kind1", "bezeichnung": "Familienzuschlag: Erhöhungsbetrag für das erste Kind" },
+      { "tabelle": "familienzuschlag", "schluessel": "kind3plus", "bezeichnung": "Familienzuschlag: Erhöhungsbetrag für das dritte und jedes weitere Kind" },
+      { "tabelle": "anwaerter", "schluessel": "A 5", "bezeichnung": "Anwärtergrundbetrag, Eingangsamt A 5" },
+      { "tabelle": "anwaerter", "schluessel": "A 9 bis A 11", "bezeichnung": "Anwärtergrundbetrag, Eingangsämter A 9 bis A 11" },
+      { "tabelle": "anwaerter", "schluessel": "A 13 oder R 1", "bezeichnung": "Anwärtergrundbetrag, Eingangsamt A 13 oder R 1" }
+    ],
+    "besoldungsordnungO": "Die Besoldungsordnung O mit festen Grundgehältern ohne Erfahrungsstufen ist neu; sie gilt nach dem Entwurf für neu eingestellte Beamt:innen."
+  },
+  "reformpunkte": [
+    "Bei Neu- und Wiederbesetzungen hat das Arbeitsverhältnis Vorrang; eine Verbeamtung setzt einen Funktionsvorbehalt voraus (§ 3a OstBG-E).",
+    "Der Vorbereitungsdienst wird grundsätzlich im öffentlich-rechtlichen Ausbildungsverhältnis abgeleistet (§ 18 OstBG-E).",
+    "Lehrkräfte werden nicht mehr erstmals verbeamtet (§ 144a OstBG-E).",
+    "Neu eingestellte Beamt:innen erhalten feste Grundgehälter der neuen Besoldungsordnung O (§§ 24a, 27a OstBesG-E).",
+    "Neue Grundgehaltstabellen A, B, R und W sowie neue Beträge für Familienzuschlag und Anwärtergrundbetrag; für die vorhandenen Beamt:innen entfallen weitere Stufenaufstiege und die Stellenzulagen (§§ 94a, 94b OstBesG-E).",
+    "Zur Beihilfe wird eine Eigenbeteiligung mit Belastungsgrenze eingeführt; gesetzlich Versicherte können eine pauschale Beihilfe beantragen (§ 80 Abs. 10 bis 12 OstBG-E).",
+    "Ruhegehälter betragen 1,5 Prozent der ruhegehaltfähigen Dienstbezüge je Dienstjahr, höchstens 60 Prozent; die Neuberechnung erfasst auch laufende Ruhegehälter (§ 107 OstBeamtVG-E)."
+  ],
+  "rechtsbezuege": [
+    { "normSlug": "landesbeamtengesetz", "label": "Ostdeutsches Beamtengesetz", "art": "geltend" },
+    { "normSlug": "ostdeutsches-besoldungsgesetz", "label": "Ostdeutsches Besoldungsgesetz", "art": "geltend" },
+    { "normSlug": "ostdeutsches-beamtenversorgungsgesetz", "label": "Ostdeutsches Beamtenversorgungsgesetz", "art": "geltend" },
+    { "normSlug": "ostdeutsche-beihilfeverordnung", "label": "Ostdeutsche Beihilfeverordnung", "art": "geltend" },
+    { "label": "Entwurf eines Gesetzes zur Neuordnung des öffentlichen Dienstrechts (Drucksache 08/13)", "art": "entwurf" }
+  ]
+}

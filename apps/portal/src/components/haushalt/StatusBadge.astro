@@ -1,0 +1,20 @@
+---
+/**
+ * Statusabzeichen einer Haushaltsperiode oder Angabe. Der Status steht immer als Wort; die Farbe
+ * ergänzt ihn nur.
+ */
+import type { StatusTone } from './format.ts';
+
+interface Props {
+  tone: StatusTone;
+  label: string;
+  class?: string;
+}
+
+const { tone, label, class: className } = Astro.props as Props;
+---
+
+<span class:list={['hh-status', `hh-status--${tone}`, className]} data-haushalt-status={tone}>
+  <span class="hh-status__zeichen" aria-hidden="true"></span>
+  <span class="hh-status__text">{label}</span>
+</span>

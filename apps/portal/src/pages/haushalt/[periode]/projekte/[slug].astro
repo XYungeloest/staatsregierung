@@ -1,0 +1,533 @@
+---
+/**
+ * Projektseite (/haushalt/<periode>/projekte/<slug>/): Stand, Ressort und Beschreibung eines
+ * Vorhabens aus dem Projekt-Overlay, die Beträge und Haushaltstitel aus dem Snapshot (mit
+ * Deep Links auf die Titel der Kapitelseiten), Finanzierungsquellen, Verpflichtungs-
+ * ermächtigungen mit Fälligkeiten, Folgejahre als Finanzplanung, Rechtsgrundlagen und Themen.
+ * Projektbeträge sind eine Sicht auf dieselben Titel und werden nie zum Gesamtplan addiert.
+ */
+import HaushaltLayout from '../../../../layouts/HaushaltLayout.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../../../components/haushalt/DefinitionNote.astro';
+import EntryCards from '../../../../components/haushalt/EntryCards.astro';
+import KpiGrid from '../../../../components/haushalt/KpiGrid.astro';
+import SourceNote from '../../../../components/haushalt/SourceNote.astro';
+import TimeSeriesChart from '../../../../components/haushalt/TimeSeriesChart.astro';
+import ProjektBetraege from '../../../../components/haushalt/projekte/ProjektBetraege.astro';
+import ProjektStatus from '../../../../components/haushalt/projekte/ProjektStatus.astro';
+import Rechtsbezuege from '../../../../components/haushalt/projekte/Rechtsbezuege.astro';
+import '../../../../styles/haushalt/projekte.css';
+import { formatEuroExact, formatGermanDate, formatShare, kuerzeBeschreibung, shareOf } from '../../../../components/haushalt/format.ts';
+import { getRedaktionellerStichtag } from '../../../../lib/haushalt/perioden.ts';
+import {
+  getBeschaffung,
+  getPeriodenRahmen,
+  getProjektMassnahmen,
+  getProjektseitenPfade,
+  getProjektSichten,
+  getProjektTitel,
+  getSichtbareSnapshotPeriode,
+  getVerpflichtungen,
+  jahreVon,
+  publicBegruendung,
+} from '../../../../components/haushalt/projekte/daten.ts';
+import { loadMinistries, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
+import { getBudgetPeriodPageUrl, getBudgetTitleUrl, getMinistryUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { formatKapitelnummer, formatTitelnummer } from '../../../../lib/haushalt/oeffentlich.ts';
+
+export function getStaticPaths() {
+  return getProjektseitenPfade();
+}
+
+const { periodeId, projektId } = Astro.props as { periodeId: string; projektId: string };
+const periode = getSichtbareSnapshotPeriode(periodeId);
+const rahmen = getPeriodenRahmen(periode, 'projekte');
+const { id, jahre } = rahmen;
+const projekt = getProjektSichten(periode).find((entry) => entry.id === projektId);
+if (!projekt) throw new Error(`Vorhaben ${projektId} fehlt in der Periode ${periodeId}.`);
+
+const [ministries, topics] = await Promise.all([loadMinistries(), loadTopics()]);
+const ministry = projekt.ministrySlug ? ministries.find((entry) => entry.slug === projekt.ministrySlug) : undefined;
+const themen = projekt.topicSlugs.flatMap((slug) => {
+  const topic = topics.find((entry) => entry.slug === slug);
+  return topic ? [topic] : [];
+});
+
+const [erstesJahr, letztesJahr] = [jahre[0], jahre[jahre.length - 1]];
+const mitBetraegen = projekt.betragsArt === 'betraege';
+const titel = getProjektTitel(id, projekt.projekt, jahre);
+const ausgabeTitel = titel.filter((zeile) => zeile.seite === 'Ausgabe');
+const einnahmeTitel = titel.filter((zeile) => zeile.seite === 'Einnahme');
+const summe = (zeilen: typeof titel, jahr: string) => zeilen.reduce((wert, zeile) => wert + zeile.betraege[jahr], 0);
+
+// Kennzahlen des Vorhabens (nur mit eigenem Projektbetrag).
+const beschaffung = getBeschaffung(projekt.projekt);
+const kpis = mitBetraegen
+  ? [
+      ...jahre.map((jahr, index) => ({
+        label: `Ausgaben ${jahr}`,
+        value: projekt.ausgaben[jahr],
+        hint: 'im Kernhaushalt',
+        ...(index > 0 ? { change: { value: projekt.ausgaben[jahr] - projekt.ausgaben[jahre[index - 1]], label: `gegenüber ${jahre[index - 1]}` } } : {}),
+      })),
+      ...(projekt.hatEinnahmen
+        ? jahre.map((jahr) => ({ label: `Einnahmen ${jahr}`, value: projekt.einnahmen[jahr], hint: 'dem Vorhaben zugeordnete Einnahmetitel' }))
+        : []),
+    ]
+  : [];
+const beschaffungsKpis = beschaffung?.gesamtkosten
+  ? [
+      {
+        label: 'Gesamtkosten der Beschaffung',
+        value: beschaffung.gesamtkosten,
+        hint: [beschaffung.gegenstand, beschaffung.stueckzahl ? `${beschaffung.stueckzahl} Stück` : undefined].filter(Boolean).join(', ') || undefined,
+      },
+    ]
+  : [];
+
+// Kapitel mit Ausgaben des Kapitels und Anteil des Vorhabens (nur mit eigenem Projektbetrag).
+const kapitelZeilen = projekt.kapitel.map((kapitel) => ({
+  ...kapitel,
+  projektAusgaben: Object.fromEntries(jahre.map((jahr) => [jahr, summe(ausgabeTitel.filter((zeile) => zeile.kapitel === kapitel.kapitel), jahr)])),
+}));
+
+// Finanzierung
+const massnahmen = getProjektMassnahmen(id, projekt.projekt);
+const zusatz = projekt.projekt.zusatz;
+const unternehmensJahre = [...new Set([...jahreVon(zusatz?.unternehmensinvestition), ...jahreVon(zusatz?.projektkredit)])].sort();
+const hatUnternehmensfinanzierung = unternehmensJahre.length > 0;
+
+// Verpflichtungsermächtigungen und Fälligkeiten
+const verpflichtungen = getVerpflichtungen(id, projekt.id).map((eintrag) => {
+  const ep = eintrag.kapitel.slice(0, 2);
+  const zeile = titel.find((entry) => entry.kapitel === eintrag.kapitel && entry.titel === eintrag.titel);
+  return {
+    ...eintrag,
+    nummer: `${formatKapitelnummer(eintrag.kapitel)} / ${formatTitelnummer(eintrag.titel)}`,
+    href: getBudgetTitleUrl(id, ep, eintrag.kapitel, eintrag.titel),
+    zweck: zeile?.zweck,
+    begruendungText: publicBegruendung(eintrag.begruendung),
+  };
+});
+const veJahre = [...new Set(verpflichtungen.flatMap((eintrag) => jahreVon(eintrag.ve)))].sort();
+const faelligkeitsJahre = [...new Set(verpflichtungen.flatMap((eintrag) => jahreVon(eintrag.faelligkeiten)))].sort();
+
+// Folgejahre (Finanzplanung)
+const folgejahre = jahreVon(projekt.projekt.folgejahre);
+const folgeWerte = folgejahre.map((jahr) => projekt.projekt.folgejahre[jahr as `${number}`] ?? 0);
+const investivWerte = folgejahre.map((jahr) => projekt.projekt.folgejahre_investiv[jahr as `${number}`] ?? null);
+const zeigeFolgejahre = mitBetraegen && folgejahre.length > 0 && folgeWerte.some((wert) => wert !== 0);
+const investivGleich = investivWerte.every((wert, index) => wert === folgeWerte[index]);
+const investivNull = investivWerte.every((wert) => wert === 0 || wert === null);
+
+const title = `${projekt.titel} – ${periode.bezeichnung}`;
+const description = kuerzeBeschreibung(`${projekt.titel} (${projekt.statusLabel}; Fachbereich ${projekt.fachbereich}): ${projekt.beschreibung}`);
+const breadcrumbs = [
+  ...rahmen.breadcrumbsBasis,
+  { label: 'Vorhaben und Projekte', href: getBudgetPeriodPageUrl(id, 'projekte') },
+  { label: projekt.titel },
+];
+---
+
+<HaushaltLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  periodLabel={rahmen.periodLabel}
+  statusLabel={rahmen.statusLabel}
+  statusTone={rahmen.statusTone}
+  statusText={rahmen.statusText}
+  datenstand={rahmen.datenstand}
+  datenversion={rahmen.datenversion}
+  preview={rahmen.preview}
+  navItems={rahmen.navItems}
+  otherPeriods={rahmen.otherPeriods}
+>
+  <SectionHero slot="hero" eyebrow={`Vorhaben im ${periode.bezeichnung}`} title={projekt.titel} titleSize="long" lead={projekt.beschreibung} variant="budget">
+    <div class="hh-projektkopf">
+      <ProjektStatus status={projekt.status} />
+      <p class="hh-projektkopf__text">{projekt.statusText}</p>
+    </div>
+  </SectionHero>
+
+  <section class="section" aria-labelledby="ueberblick">
+    <div class="section-header">
+      <h2 id="ueberblick">Überblick</h2>
+    </div>
+    <dl class="hh-projektfakten">
+      <div>
+        <dt>Fachbereich</dt>
+        <dd>{projekt.fachbereich}</dd>
+      </div>
+      <div>
+        <dt>Zuständiges Ressort</dt>
+        <dd>{ministry ? <a href={getMinistryUrl(ministry.slug)}>{ministry.kurzname}</a> : 'Ressortübergreifend'}</dd>
+      </div>
+      <div>
+        <dt>{projekt.einzelplaene.length === 1 ? 'Einzelplan' : 'Einzelpläne'}</dt>
+        <dd>
+          <ul class="hh-projektfakten__liste" role="list">
+            {projekt.einzelplaene.map((entry) => <li><a href={entry.href}>Einzelplan {entry.ep}: {entry.bezeichnung}</a></li>)}
+          </ul>
+        </dd>
+      </div>
+      {projekt.kapitel.length > 0 ? (
+        <div>
+          <dt>Kapitel</dt>
+          <dd>
+            <ul class="hh-projektfakten__liste" role="list">
+              {projekt.kapitel.map((entry) => <li><a href={entry.href}>{entry.nummer} {entry.bezeichnung}</a></li>)}
+            </ul>
+          </dd>
+        </div>
+      ) : null}
+    </dl>
+
+    {mitBetraegen ? (
+      <KpiGrid label={`Beträge des Vorhabens ${jahre.join(' und ')}`} items={[...kpis, ...beschaffungsKpis]} />
+    ) : (
+      <div class="hh-projekthinweis">
+        <ProjektBetraege projekt={projekt} jahre={jahre} hinweis="voll" />
+      </div>
+    )}
+
+    {titel.length > 0 ? (
+      <DefinitionNote begriff="Vorhaben und Gesamthaushalt">
+        <p>
+          Die Beträge des Vorhabens sind in den Ansätzen der genannten Kapitel enthalten und werden nicht zusätzlich zum
+          Gesamthaushalt gezählt. Ausgaben und Einnahmen sind getrennt ausgewiesen.
+        </p>
+      </DefinitionNote>
+    ) : null}
+  </section>
+
+  {titel.length > 0 ? (
+    <section class="section" aria-labelledby="haushaltstitel">
+      <div class="section-header">
+        <h2 id="haushaltstitel">Haushaltstitel</h2>
+        <p>Ansätze {jahre.join(' und ')} in Euro, getrennt nach Ausgaben und Einnahmen.</p>
+      </div>
+      <DataTableFrame
+        id="projekt-titel"
+        label={`Haushaltstitel: ${projekt.titel}`}
+        caption={`Haushaltstitel des Vorhabens „${projekt.titel}“, Ansätze in Euro`}
+        nomenSingular="Titel"
+        nomenPlural="Titeln"
+        seitengroesse={false}
+        breite="breit"
+      >
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col" class="hh-kennung" aria-sort="ascending">Kapitel / Titel</th>
+              <th scope="col">Zweckbestimmung</th>
+              {jahre.map((jahr) => <th scope="col" class="hh-zahl" data-sort="number">{jahr}</th>)}
+              {jahre.length === 2 ? <th scope="col" class="hh-zahl" data-sort="number">Veränderung</th> : null}
+            </tr>
+          </thead>
+          {[
+            { seite: 'Ausgabe', label: 'Ausgaben', zeilen: ausgabeTitel },
+            { seite: 'Einnahme', label: 'Einnahmen', zeilen: einnahmeTitel },
+          ]
+            .filter((gruppe) => gruppe.zeilen.length > 0)
+            .map((gruppe) => (
+              <tbody>
+                <tr data-gruppenkopf>
+                  <th scope="rowgroup" colspan={jahre.length + (jahre.length === 2 ? 3 : 2)}>{gruppe.label}</th>
+                </tr>
+                {gruppe.zeilen.map((zeile) => (
+                  <tr id={zeile.id}>
+                    <th scope="row" class="hh-kennung">
+                      <a href={zeile.href}>{zeile.kapitelNummer} / {zeile.nummer}</a>
+                    </th>
+                    <td>{zeile.zweck}</td>
+                    {jahre.map((jahr) => (
+                      <td class="hh-zahl" data-export-value={zeile.betraege[jahr]}><Amount value={zeile.betraege[jahr]} exakt /></td>
+                    ))}
+                    {jahre.length === 2 ? (
+                      <td class="hh-zahl" data-export-value={zeile.betraege[letztesJahr] - zeile.betraege[erstesJahr]}>
+                        <Amount value={zeile.betraege[letztesJahr] - zeile.betraege[erstesJahr]} vorzeichen exakt />
+                      </td>
+                    ) : null}
+                  </tr>
+                ))}
+              </tbody>
+            ))}
+          {mitBetraegen ? (
+            <tfoot>
+              {ausgabeTitel.length > 0 ? (
+                <tr>
+                  <th scope="row" colspan="2">Summe der Ausgabetitel</th>
+                  {jahre.map((jahr) => <td class="hh-zahl"><Amount value={summe(ausgabeTitel, jahr)} exakt /></td>)}
+                  {jahre.length === 2 ? <td class="hh-zahl"><Amount value={summe(ausgabeTitel, letztesJahr) - summe(ausgabeTitel, erstesJahr)} vorzeichen exakt /></td> : null}
+                </tr>
+              ) : null}
+              {einnahmeTitel.length > 0 ? (
+                <tr>
+                  <th scope="row" colspan="2">Summe der Einnahmetitel</th>
+                  {jahre.map((jahr) => <td class="hh-zahl"><Amount value={summe(einnahmeTitel, jahr)} exakt /></td>)}
+                  {jahre.length === 2 ? <td class="hh-zahl"><Amount value={summe(einnahmeTitel, letztesJahr) - summe(einnahmeTitel, erstesJahr)} vorzeichen exakt /></td> : null}
+                </tr>
+              ) : null}
+            </tfoot>
+          ) : null}
+        </table>
+      </DataTableFrame>
+    </section>
+  ) : null}
+
+  {mitBetraegen && kapitelZeilen.length > 0 ? (
+    <section class="section" aria-labelledby="kapitel">
+      <div class="section-header">
+        <h2 id="kapitel">Anteil an den Kapiteln</h2>
+        <p>Ausgaben der zugeordneten Kapitel und der Anteil, der auf die Ausgabetitel des Vorhabens entfällt.</p>
+      </div>
+      <DataTableFrame
+        id="projekt-kapitel"
+        label={`Kapitel: ${projekt.titel}`}
+        caption={`Kapitel des Vorhabens „${projekt.titel}“, Ausgaben in Euro`}
+        nomenSingular="Kapitel"
+        nomenPlural="Kapiteln"
+        seitengroesse={false}
+        breite="breit"
+      >
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col" class="hh-kennung">Kapitel</th>
+              <th scope="col">Bezeichnung</th>
+              {jahre.map((jahr) => <th scope="col" class="hh-zahl">Ausgaben des Kapitels {jahr}</th>)}
+              {jahre.map((jahr) => <th scope="col" class="hh-zahl">Anteil des Vorhabens {jahr}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {kapitelZeilen.map((kapitel) => (
+              <tr>
+                <th scope="row" class="hh-kennung"><a href={kapitel.href}>{kapitel.nummer}</a></th>
+                <td>{kapitel.bezeichnung}</td>
+                {jahre.map((jahr) => <td class="hh-zahl"><Amount value={kapitel.ausgaben[jahr]} /></td>)}
+                {jahre.map((jahr) => {
+                  const anteil = shareOf(kapitel.projektAusgaben[jahr], kapitel.ausgaben[jahr]);
+                  return (
+                    <td class="hh-zahl" data-export-value={anteil === null ? '' : String(anteil)}>
+                      {anteil === null ? '–' : <data value={String(anteil)} title={formatEuroExact(kapitel.projektAusgaben[jahr])}>{formatShare(anteil)}</data>}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </DataTableFrame>
+    </section>
+  ) : null}
+
+  {titel.length > 0 || massnahmen.length > 0 || hatUnternehmensfinanzierung ? (
+  <section class="section" aria-labelledby="finanzierung">
+    <div class="section-header">
+      <h2 id="finanzierung">Finanzierung</h2>
+    </div>
+    {einnahmeTitel.length > 0 ? (
+      <div class="hh-projektblock">
+        <h3>Zugeordnete Einnahmen</h3>
+        <ul class="hh-projektposten" role="list">
+          {einnahmeTitel.map((zeile) => (
+            <li>
+              <a href={zeile.href}>{zeile.kapitelNummer} / {zeile.nummer}</a>
+              <span class="hh-projektposten__text">{zeile.zweck}</span>
+              <span class="hh-projektposten__werte">
+                {jahre.map((jahr) => <span>{jahr}: <Amount value={zeile.betraege[jahr]} /></span>)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <p>Dem Vorhaben sind keine eigenen Einnahmetitel zugeordnet.</p>
+    )}
+
+    {massnahmen.length > 0 ? (
+      <div class="hh-projektblock">
+        <h3>Finanzierungsmaßnahmen</h3>
+        <ul class="hh-projektposten" role="list">
+          {massnahmen.map((massnahme) => (
+            <li>
+              <a href={getBudgetPeriodPageUrl(id, 'finanzierung')}>{massnahme.titel}</a>
+              {massnahme.erlaeuterung ? <span class="hh-projektposten__text">{massnahme.erlaeuterung}</span> : null}
+              <span class="hh-projektposten__werte">
+                {jahre.map((jahr) => (
+                  <span>Nettoentlastung {jahr}: <Amount value={massnahme.jahre[jahr as `${number}`]?.nettoentlastung ?? 0} /></span>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : null}
+
+    {hatUnternehmensfinanzierung ? (
+      <div class="hh-projektblock">
+        <h3>Investitionen und Kredite des Landesunternehmens</h3>
+        <p>
+          Investitionen und Projektkredite des Unternehmens stehen außerhalb des Kernhaushalts und sind nicht Teil der
+          Ausgaben des Freistaates. Die Jahre ab {Number(letztesJahr) + 1} sind Planungswerte und nicht bewilligt.
+        </p>
+        <DataTableFrame
+          id="projekt-unternehmen"
+          label="Investitionen und Kredite des Landesunternehmens"
+          caption="Investitionen und Projektkredite des Landesunternehmens, Beträge in Euro"
+          nomenSingular="Jahr"
+          nomenPlural="Jahren"
+          seitengroesse={false}
+          breite="mittel"
+        >
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col">Jahr</th>
+                <th scope="col">Art</th>
+                <th scope="col" class="hh-zahl">Investitionen des Unternehmens</th>
+                <th scope="col" class="hh-zahl">Projektkredite des Unternehmens</th>
+              </tr>
+            </thead>
+            <tbody>
+              {unternehmensJahre.map((jahr) => {
+                const projektion = Number(jahr) > Number(letztesJahr);
+                const investition = zusatz?.unternehmensinvestition?.[jahr as `${number}`];
+                const kredit = zusatz?.projektkredit?.[jahr as `${number}`];
+                return (
+                  <tr class:list={[projektion && 'hh-zeile--projektion']}>
+                    <th scope="row">{jahr}</th>
+                    <td>{projektion ? 'Planung (Projektion)' : 'Haushaltsjahr'}</td>
+                    <td class="hh-zahl">{typeof investition === 'number' ? <Amount value={investition} /> : '–'}</td>
+                    <td class="hh-zahl">{typeof kredit === 'number' ? <Amount value={kredit} /> : '–'}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </DataTableFrame>
+      </div>
+    ) : null}
+  </section>
+  ) : null}
+
+  {verpflichtungen.length > 0 ? (
+    <section class="section" aria-labelledby="verpflichtungen">
+      <div class="section-header">
+        <h2 id="verpflichtungen">Verpflichtungsermächtigungen und Fälligkeiten</h2>
+      </div>
+      <DefinitionNote begriff="Verpflichtungsermächtigung">
+        <p>
+          Verpflichtungsermächtigungen erlauben, im Haushaltsjahr Verpflichtungen für Ausgaben späterer Jahre einzugehen. Sie
+          sind keine Bewilligung künftiger Haushaltsjahre. Die Fälligkeiten nennen die voraussichtliche Belastung der
+          Folgejahre nach der Finanzplanung.
+        </p>
+      </DefinitionNote>
+      <DataTableFrame
+        id="projekt-verpflichtungen"
+        label={`Verpflichtungsermächtigungen: ${projekt.titel}`}
+        caption={`Verpflichtungsermächtigungen und voraussichtliche Fälligkeiten des Vorhabens „${projekt.titel}“, Beträge in Euro`}
+        nomenSingular="Titel"
+        nomenPlural="Titeln"
+        seitengroesse={false}
+        breite="sehr-breit"
+      >
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col" class="hh-kennung">Kapitel / Titel</th>
+              <th scope="col">Gegenstand</th>
+              {veJahre.map((jahr) => <th scope="col" class="hh-zahl">Ermächtigung {jahr}</th>)}
+              {faelligkeitsJahre.map((jahr) => <th scope="col" class="hh-zahl">Fällig {jahr} <span>Planung</span></th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {verpflichtungen.map((eintrag) => (
+              <tr>
+                <th scope="row" class="hh-kennung"><a href={eintrag.href}>{eintrag.nummer}</a></th>
+                <td>
+                  {eintrag.zweck ?? projekt.titel}
+                  {eintrag.begruendungText ? <p class="hh-projekttabelle__zusatz">{eintrag.begruendungText}</p> : null}
+                </td>
+                {veJahre.map((jahr) => {
+                  const wert = eintrag.ve[jahr as `${number}`];
+                  return <td class="hh-zahl">{typeof wert === 'number' ? <Amount value={wert} /> : '–'}</td>;
+                })}
+                {faelligkeitsJahre.map((jahr) => {
+                  const wert = eintrag.faelligkeiten[jahr as `${number}`];
+                  return <td class="hh-zahl">{typeof wert === 'number' ? <Amount value={wert} /> : '–'}</td>;
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </DataTableFrame>
+    </section>
+  ) : null}
+
+  {zeigeFolgejahre ? (
+    <section class="section" aria-labelledby="folgejahre">
+      <div class="section-header">
+        <h2 id="folgejahre">Folgejahre</h2>
+        <p>
+          Ansätze {jahre.join(' und ')} und die Planungswerte der Folgejahre {folgejahre[0]} bis {folgejahre[folgejahre.length - 1]}.
+          {investivGleich ? ' Die Planungswerte der Folgejahre sind vollständig Investitionen.' : investivNull ? ' In den Folgejahren sind keine Investitionen geplant.' : ''}
+        </p>
+      </div>
+      <TimeSeriesChart
+        id="projekt-folgejahre"
+        caption={`Ausgaben des Vorhabens ${erstesJahr} bis ${folgejahre[folgejahre.length - 1]}`}
+        jahre={[...jahre.map((jahr) => ({ jahr, art: 'haushaltsjahr' as const })), ...folgejahre.map((jahr) => ({ jahr, art: 'projektion' as const }))]}
+        series={[
+          { label: 'Ausgaben im Kernhaushalt', values: [...jahre.map((jahr) => projekt.ausgaben[jahr]), ...folgeWerte] },
+        ]}
+        hinweis={`Die Jahre ab ${folgejahre[0]} sind Finanzplanung (Projektion) und nicht bewilligt.`}
+      />
+      {!investivGleich && !investivNull ? (
+        <dl class="hh-projektbetraege hh-projektfolge">
+          <div class="hh-projektbetraege__zeile">
+            <dt>Darunter Investitionen (Planung)</dt>
+            <dd>
+              {folgejahre.map((jahr, index) => (
+                <span class="hh-projektbetraege__wert"><span class="hh-projektbetraege__jahr">{jahr}</span> {typeof investivWerte[index] === 'number' ? <Amount value={investivWerte[index] as number} /> : '–'}</span>
+              ))}
+            </dd>
+          </div>
+        </dl>
+      ) : null}
+    </section>
+  ) : null}
+
+  <section class="section" aria-labelledby="rechtsgrundlagen">
+    <div class="section-header">
+      <h2 id="rechtsgrundlagen">Rechtsgrundlagen</h2>
+      <p>Einordnung nach dem Rechtsstand vom {formatGermanDate(getRedaktionellerStichtag())}.</p>
+    </div>
+    <Rechtsbezuege bezuege={projekt.rechtsbezuege} />
+  </section>
+
+  <section class="section" aria-labelledby="bezuege">
+    <div class="section-header">
+      <h2 id="bezuege">Themen und weitere Wege</h2>
+    </div>
+    <EntryCards
+      headingLevel={3}
+      label="Themen und weitere Wege"
+      items={[
+        ...themen.map((topic) => ({ title: topic.title, text: topic.teaser, href: getTopicUrl(topic.slug), meta: 'Thema' })),
+        ...(ministry ? [{ title: ministry.kurzname, text: 'Zuständiges Ressort', href: getMinistryUrl(ministry.slug), meta: 'Ressort' }] : []),
+        { title: 'Alle Vorhaben', text: `Vorhaben und Projekte im ${periode.bezeichnung}`, href: getBudgetPeriodPageUrl(id, 'projekte'), meta: 'Haushalt' },
+      ]}
+    />
+  </section>
+
+  <SourceNote
+    datenstand={rahmen.datenstand}
+    datenversion={rahmen.datenversion}
+    quelle={rahmen.quelle}
+    downloadsHref={rahmen.downloadsHref}
+  />
+</HaushaltLayout>

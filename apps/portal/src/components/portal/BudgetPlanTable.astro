@@ -5,7 +5,7 @@ import {
   getBudgetShare,
   type BudgetPlan,
   type BudgetYear,
-} from '../../data/haushalt.ts';
+} from '../../lib/haushalt/legacy-2025-2026.ts';
 import { formatEuroAmount, formatPercent } from '@ostrecht/shared/lib/portal/modules.ts';
 import { getBudgetPlanUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 
@@ -33,7 +33,7 @@ const title = isComparison ? 'Vergleich der Einzelpl√§ne 2025/2026' : `Einzelpl√
     </div>
   </div>
   <p class="search-feedback" data-budget-plan-status role="status" aria-live="polite"></p>
-  <div class="table-wrap" tabindex="0" role="region" aria-label={title}>
+  <div class="table-wrap" tabindex="0" role="region" aria-label={`${title} als Tabelle`}>
     <table class="data-table budget-plan-data-table">
       <caption>{title}</caption>
       {isComparison ? (

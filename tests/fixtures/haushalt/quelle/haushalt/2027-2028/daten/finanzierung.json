@@ -1,0 +1,136 @@
+{
+ "massnahmen": [
+  {
+   "id": "F01",
+   "bezeichnung": "Testmaßnahme",
+   "jahr": 2027,
+   "einnahmen": 10,
+   "einsparungen": 5,
+   "kosten": 3,
+   "nettoentlastung": 12,
+   "bedingung": "Testbedingung",
+   "rechtsgrundlage": "Testgesetz",
+   "risiko": "internes Risiko",
+   "status": "S: Testprognose"
+  },
+  {
+   "id": "F01",
+   "bezeichnung": "Testmaßnahme",
+   "jahr": 2028,
+   "einnahmen": 10,
+   "einsparungen": 5,
+   "kosten": 3,
+   "nettoentlastung": 12,
+   "bedingung": "Testbedingung",
+   "rechtsgrundlage": "Testgesetz",
+   "risiko": "internes Risiko",
+   "status": "S: Testprognose"
+  },
+  {
+   "id": "F01",
+   "bezeichnung": "Testmaßnahme",
+   "jahr": 2029,
+   "einnahmen": 10,
+   "einsparungen": 5,
+   "kosten": 3,
+   "nettoentlastung": 12,
+   "bedingung": "Testbedingung",
+   "rechtsgrundlage": "Testgesetz",
+   "risiko": "internes Risiko",
+   "status": "S: Testprognose"
+  }
+ ],
+ "bruecke": [
+  {
+   "year": 2027,
+   "gap": 1
+  }
+ ],
+ "vergleich": [
+  {
+   "fall": "INTERN",
+   "jahr": 2027
+  }
+ ],
+ "kreditfinanzierungsplan": [
+  {
+   "jahr": 2027,
+   "kreditaufnahme": 0,
+   "tilgung": 100,
+   "nettokreditaufnahme": -100,
+   "strukturelle_nka": 0,
+   "strukturgrenze": 0,
+   "umschuldung_nachrichtlich": 50,
+   "schuldenstand_ende": 900,
+   "zinsen": 0
+  },
+  {
+   "jahr": 2028,
+   "kreditaufnahme": 0,
+   "tilgung": 100,
+   "nettokreditaufnahme": -100,
+   "strukturelle_nka": 0,
+   "strukturgrenze": 0,
+   "umschuldung_nachrichtlich": 50,
+   "schuldenstand_ende": 800,
+   "zinsen": 0
+  },
+  {
+   "jahr": 2029,
+   "kreditaufnahme": 0,
+   "tilgung": 100,
+   "nettokreditaufnahme": -100,
+   "strukturelle_nka": 0,
+   "strukturgrenze": 0,
+   "umschuldung_nachrichtlich": 50,
+   "schuldenstand_ende": 700,
+   "zinsen": 0
+  }
+ ],
+ "finanzplan": [
+  {
+   "jahr": 2027,
+   "einnahmen": 21000,
+   "ausgaben": 21000,
+   "haushaltsvolumen": 21000,
+   "ungedeckt": 0,
+   "zinsen": 0,
+   "ruecklage_ende": 500,
+   "liquiditaet_ende": 0,
+   "schuldenstand": 900,
+   "status": "Haushaltsjahr",
+   "personalreform_netto": 35
+  },
+  {
+   "jahr": 2028,
+   "einnahmen": 22100,
+   "ausgaben": 22100,
+   "haushaltsvolumen": 22100,
+   "ungedeckt": 0,
+   "zinsen": 0,
+   "ruecklage_ende": 500,
+   "liquiditaet_ende": 0,
+   "schuldenstand": 800,
+   "status": "Haushaltsjahr",
+   "personalreform_netto": 44
+  },
+  {
+   "jahr": 2029,
+   "einnahmen": 23000,
+   "ausgaben": 23000,
+   "haushaltsvolumen": 23000,
+   "ungedeckt": 0,
+   "zinsen": 0,
+   "ruecklage_ende": 500,
+   "liquiditaet_ende": 0,
+   "schuldenstand": 700,
+   "status": "Finanzplanung (Projektion)",
+   "personalreform_netto": 53
+  }
+ ],
+ "entscheidungen": [
+  {
+   "id": "Q01"
+  }
+ ]
+}

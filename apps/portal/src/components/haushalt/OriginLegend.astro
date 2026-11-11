@@ -1,0 +1,35 @@
+---
+/**
+ * Legende der Datenherkunft. Ohne `codes` erscheinen alle vier Kennzeichen; `beschreibungen`
+ * ergänzt je Kennzeichen eine kurze Erläuterung. Der Begriff (`dt`) ist das Kennzeichen selbst,
+ * die Bedeutung steht einmal im `dd` („O: Amtliche Quelle“).
+ */
+import { ORIGIN_LABELS, type OriginCode } from './format.ts';
+
+interface Props {
+  codes?: OriginCode[];
+  titel?: string;
+  beschreibungen?: Partial<Record<OriginCode, string>>;
+}
+
+const { codes = ['O', 'D', 'S', 'P'], titel = 'Herkunft der Angaben', beschreibungen = {} } = Astro.props as Props;
+---
+
+<div class="hh-herkunftslegende">
+  <p class="hh-herkunftslegende__titel">{titel}</p>
+  <dl class="hh-herkunftslegende__liste">
+    {codes.map((code) => (
+      <div class="hh-herkunftslegende__eintrag">
+        <dt>
+          <span class:list={['hh-herkunft', `hh-herkunft--${code.toLowerCase()}`]} data-herkunft={code}>
+            <span class="hh-herkunft__code">{code}</span>
+          </span>
+        </dt>
+        <dd>
+          <span class="hh-herkunftslegende__label">{ORIGIN_LABELS[code].charAt(0).toLocaleUpperCase('de-DE')}{ORIGIN_LABELS[code].slice(1)}</span>
+          {beschreibungen[code] ? <span class="hh-herkunftslegende__text">{beschreibungen[code]}</span> : null}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</div>

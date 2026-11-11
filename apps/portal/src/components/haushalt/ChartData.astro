@@ -1,0 +1,39 @@
+---
+/**
+ * Tabellenalternative eines Diagramms. `modus="aufklappbar"` (Standard) legt die Tabelle in
+ * einen geschlossenen Aufklappbereich, der im Druck geöffnet wird; `sichtbar` zeigt sie direkt.
+ * `bezug` (die Diagrammüberschrift) ergänzt die Beschriftung des Aufklappers für Vorlesende,
+ * damit mehrere Aufklapper einer Seite unterscheidbar bleiben. Ist die Tabelle breiter als ihr
+ * Bereich, zeigen Kantenschatten die verdeckten Spalten an (`data-tabelle-rahmen`, Skript
+ * `haushalt-tabelle.ts`).
+ */
+interface Props {
+  label: string;
+  bezug?: string;
+  modus?: 'aufklappbar' | 'sichtbar';
+  summary?: string;
+}
+
+const { label, bezug, modus = 'aufklappbar', summary = 'Daten als Tabelle' } = Astro.props as Props;
+---
+
+{modus === 'sichtbar' ? (
+  <div class="hh-tabelle__rahmen" data-tabelle-rahmen>
+    <div class="table-wrap hh-diagramm__tabelle" role="region" aria-label={label} tabindex="0">
+      <slot />
+    </div>
+  </div>
+) : (
+  <details class="hh-diagramm__daten" data-haushalt-druck-oeffnen>
+    <summary>{summary}{bezug ? <span class="visually-hidden">: {bezug}</span> : null}</summary>
+    <div class="hh-tabelle__rahmen" data-tabelle-rahmen>
+      <div class="table-wrap hh-diagramm__tabelle" role="region" aria-label={label} tabindex="0">
+        <slot />
+      </div>
+    </div>
+  </details>
+)}
+
+<script>
+  import '../../scripts/haushalt-tabelle.ts';
+</script>

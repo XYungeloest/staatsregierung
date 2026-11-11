@@ -1,0 +1,16 @@
+{
+ "aktiv": "haushalt-2027-2028",
+ "finanzrahmen": "test-basis-v1",
+ "versionen": [
+  {
+   "run_id": "test-alt",
+   "status": "historisch",
+   "pfad": "haushalt/alt"
+  },
+  {
+   "run_id": "haushalt-2027-2028",
+   "status": "aktiv",
+   "pfad": "haushalt/2027-2028"
+  }
+ ]
+}

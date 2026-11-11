@@ -1,0 +1,32 @@
+{
+  "perioden": [
+    {
+      "id": "2025-2026",
+      "bezeichnung": "Doppelhaushalt 2025/2026",
+      "jahre": [2025, 2026],
+      "status": "verkuendet",
+      "datenquelle": "legacy-2025-2026",
+      "freigabe": {
+        "oeffentlich": true,
+        "datum": "2026-03-24",
+        "grundlage": "Haushaltsgesetz 2025/2026"
+      },
+      "rechtsgrundlage": {
+        "normSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2"
+      }
+    },
+    {
+      "id": "2027-2028",
+      "bezeichnung": "Doppelhaushalt 2027/2028",
+      "jahre": [2027, 2028],
+      "status": "regierungsentwurf",
+      "datenquelle": "snapshot",
+      "freigabe": {
+        "oeffentlich": true,
+        "datum": "2026-11-11",
+        "grundlage": "Veröffentlichung des Regierungsentwurfs",
+        "hinweis": "Veröffentlicht wird der Regierungsentwurf mit Datenstand 11. November 2026; ein Beschluss der Volkskammer liegt nicht vor."
+      }
+    }
+  ]
+}

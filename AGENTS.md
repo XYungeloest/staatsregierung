@@ -23,7 +23,7 @@ Kanonische Dokumentation (Übersicht in `README.md`, Abschnitt „Dokumentation�
 - `CONTENT_GAPS.md` – nur tatsächlich offene Quellenlücken
 - `TODO.md` – nur offene technische Arbeiten
 - `DESIGN.md` – dauerhafte Gestaltungsregeln
-- `docs/` – Runbooks (Deployment, Normworkflow, REVOSax-Import und D1, Kreisreform-Karte, Zuarbeit)
+- `docs/` – Runbooks (Deployment, Normworkflow, REVOSax-Import und D1, Haushalt, Kreisreform-Karte, Zuarbeit)
 - `knowledge/README.md` für den internen Wissenshub
 - der tatsächliche Code- und Content-Zustand
 - `context/` als erhaltenes Ausgangs- und Simulationsmaterial
@@ -215,6 +215,16 @@ content/verkuendungen/[slug].json
 
 Sie verknüpfen Fundstellen über `entries[].normSlug` und `entries[].versionId` mit gespeicherten
 Normfassungen. Norm-JSONs bleiben dadurch unabhängig von später gepflegten Amtsblatt-Ausgaben.
+
+## Haushalt
+
+Das Haushaltsrepo rechnet, das Portal zeigt an (`docs/HAUSHALT.md`). Der Snapshot unter
+`data/haushalt/<periode>/` entsteht nur über `npm run haushalt:sync` und wird nicht von Hand
+gepflegt; Seiten, Komponenten und Overlays enthalten keine Beträge. Status und Freigabe einer
+Periode stehen nur in `content/haushalt/perioden.json`; ein Entwurf erscheint nie als geltender
+Haushalt, eine nicht freigegebene Periode nirgends öffentlich. Öffentliche Texte zu Titeln kommen
+nur über `content/haushalt/<periode>/freitexte.json`; PDF und Arbeitsmappe werden nur übernommen,
+wenn sie keinen dort unterdrückten Text und keine interne Kennung enthalten.
 
 ## Eingang aus `temp-neu/`
 

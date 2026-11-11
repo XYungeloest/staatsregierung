@@ -150,16 +150,107 @@ export function getEventUrl(slug: string): string {
   return getPortalUrl(`${portalPaths.pressDates}${slug}/`);
 }
 
+/**
+ * Haushaltsperiode, deren Seiten aus dem bisherigen Datenbestand stammen. Ihre Gesamtplan- und
+ * Einzelplanseiten liegen unter /haushalt/2025-2026/; die früheren Adressen ohne Periode leiten
+ * dorthin weiter.
+ */
+export const LEGACY_BUDGET_PERIOD_ID = '2025-2026';
+
+/** Seiten des bisherigen Bestands, die zur Periode 2025/2026 gehören (alle übrigen bleiben periodenübergreifend). */
+const LEGACY_BUDGET_PERIOD_PAGES = new Set(['gesamtplan', 'einzelplaene']);
+
+const BUDGET_PERIOD_PATTERN = /^\d{4}-\d{4}$/u;
+const BUDGET_SEGMENT_PATTERN = /^[a-z0-9][a-z0-9-]*$/u;
+const BUDGET_DATA_FILE_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._-]*$/u;
+
+function budgetPeriodPath(periodId: string): string {
+  if (!BUDGET_PERIOD_PATTERN.test(periodId)) {
+    throw new Error(`Ungültige Haushaltsperiode „${periodId}“ (erwartet JJJJ-JJJJ).`);
+  }
+  return `${portalPaths.budget}${periodId}/`;
+}
+
+function budgetSegment(value: string, label: string): string {
+  if (!BUDGET_SEGMENT_PATTERN.test(value)) throw new Error(`Ungültige ${label} „${value}“.`);
+  return value;
+}
+
+function budgetCode(value: string, length: number, label: string): string {
+  const code = value.padStart(length, '0');
+  if (!new RegExp(`^\\d{${length}}$`, 'u').test(code)) throw new Error(`Ungültige ${label} „${value}“.`);
+  return code;
+}
+
+/** Einstieg des Haushaltsbereichs (/haushalt/). */
 export function getBudgetUrl(): string {
   return getSiteUrl('budget');
 }
 
+/**
+ * Seite des Haushaltsbereichs. „gesamtplan“ und „einzelplaene“ gehören zur Periode 2025/2026
+ * (/haushalt/2025-2026/…/); alle übrigen (z. B. „sondervermoegen“) bleiben periodenübergreifend
+ * unter /haushalt/<slug>/.
+ */
 export function getBudgetPageUrl(slug: string): string {
+  if (LEGACY_BUDGET_PERIOD_PAGES.has(slug)) return getBudgetPeriodPageUrl(LEGACY_BUDGET_PERIOD_ID, slug);
   return getPortalUrl(`${portalPaths.budget}${slug}/`);
 }
 
+/** Einzelplanseite des Doppelhaushalts 2025/2026 (/haushalt/2025-2026/einzelplaene/<nr>/). */
 export function getBudgetPlanUrl(planNumber: string): string {
-  return getPortalUrl(`${portalPaths.budget}einzelplaene/${planNumber.padStart(2, '0')}/`);
+  return getBudgetPeriodPlanUrl(LEGACY_BUDGET_PERIOD_ID, planNumber);
+}
+
+/** Periodenstart, z. B. /haushalt/2027-2028/. */
+export function getBudgetPeriodUrl(periodId: string): string {
+  return getPortalUrl(budgetPeriodPath(periodId));
+}
+
+/** Unterseite einer Periode, z. B. getBudgetPeriodPageUrl('2027-2028', 'gesamtplan'). */
+export function getBudgetPeriodPageUrl(periodId: string, slug: string): string {
+  return getPortalUrl(`${budgetPeriodPath(periodId)}${budgetSegment(slug, 'Haushaltsseite')}/`);
+}
+
+/** Einzelplanseite einer Periode; die Nummer wird zweistellig geführt. */
+export function getBudgetPeriodPlanUrl(periodId: string, planNumber: string): string {
+  return getPortalUrl(`${budgetPeriodPath(periodId)}einzelplaene/${budgetCode(planNumber, 2, 'Einzelplannummer')}/`);
+}
+
+/** Kapitelseite: /haushalt/<periode>/einzelplaene/<ep>/kapitel/<kapitel>/. */
+export function getBudgetChapterUrl(periodId: string, planNumber: string, chapter: string): string {
+  const plan = budgetCode(planNumber, 2, 'Einzelplannummer');
+  const code = budgetCode(chapter, 4, 'Kapitelnummer');
+  if (!code.startsWith(plan)) throw new Error(`Kapitel ${code} gehört nicht zum Einzelplan ${plan}.`);
+  return getPortalUrl(`${budgetPeriodPath(periodId)}einzelplaene/${plan}/kapitel/${code}/`);
+}
+
+/** Anker eines Titels auf seiner Kapitelseite (je Kapitel eindeutig), z. B. „titel-63361“. */
+export function getBudgetTitleAnchor(title: string): string {
+  return `titel-${budgetCode(title, 5, 'Titelnummer')}`;
+}
+
+/** Titel auf seiner Kapitelseite: Kapitel-URL mit Anker #titel-<titelnummer>. */
+export function getBudgetTitleUrl(periodId: string, planNumber: string, chapter: string, title: string): string {
+  return `${getBudgetChapterUrl(periodId, planNumber, chapter)}#${getBudgetTitleAnchor(title)}`;
+}
+
+/** Projektseite: /haushalt/<periode>/projekte/<slug>/. */
+export function getBudgetProjectUrl(periodId: string, slug: string): string {
+  return getPortalUrl(`${budgetPeriodPath(periodId)}projekte/${budgetSegment(slug, 'Projektadresse')}/`);
+}
+
+/** Datendatei einer Periode ohne abschließenden Schrägstrich, z. B. …/daten/titel.csv. */
+export function getBudgetDataUrl(periodId: string, fileName: string): string {
+  if (!BUDGET_DATA_FILE_PATTERN.test(fileName)) throw new Error(`Ungültiger Dateiname „${fileName}“.`);
+  return getPortalUrl(`${budgetPeriodPath(periodId)}daten/${fileName}`);
+}
+
+/** Haushaltssuche einer Periode, optional mit Suchbegriff (?q=…). */
+export function getBudgetSearchUrl(periodId: string, query?: string): string {
+  const url = getPortalUrl(`${budgetPeriodPath(periodId)}suche/`);
+  const term = query?.trim();
+  return term ? `${url}?q=${encodeURIComponent(term)}` : url;
 }
 
 export function getFreestateUrl(): string {

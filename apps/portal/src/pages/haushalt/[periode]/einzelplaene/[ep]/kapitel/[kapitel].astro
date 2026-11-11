@@ -1,0 +1,357 @@
+---
+/**
+ * Kapitelseite einer Snapshot-Periode: Einordnung (Einzelplan, Ressort, Funktion), Einnahmen und
+ * Ausgaben je Jahr, Hauptgruppen, nicht untersetzter Ansatz, sämtliche Titel getrennt nach
+ * Einnahmen und Ausgaben mit stabilen Sprungzielen (#titel-<nummer>) sowie Herkunft und Art der
+ * Ansätze. Doppelte Sprungziele und Abweichungen Σ Titel ≠ Kapitel brechen den Build ab.
+ */
+import HaushaltLayout from '../../../../../../layouts/HaushaltLayout.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../../../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../../../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../../../../../components/haushalt/DefinitionNote.astro';
+import KpiGrid from '../../../../../../components/haushalt/KpiGrid.astro';
+import OriginBadge from '../../../../../../components/haushalt/OriginBadge.astro';
+import OriginLegend from '../../../../../../components/haushalt/OriginLegend.astro';
+import SourceNote from '../../../../../../components/haushalt/SourceNote.astro';
+import TitelTabelle from '../../../../../../components/haushalt/browser/TitelTabelle.astro';
+import { formatNumber, formatShare, ORIGIN_LABELS, type OriginCode } from '../../../../../../components/haushalt/format.ts';
+import {
+  getPlanName,
+  getPlanOverlays,
+  getProjekteNachId,
+  getProjektVerweis,
+  getQualitaetsZeilen,
+  getSeitenKontext,
+  getZustaendigkeit,
+  kapitelPfade,
+  planHref,
+  pruefeKapitelsummen,
+  pruefeSumme,
+  pruefeTitelanker,
+  type KapitelProps,
+  type ProjektVerweis,
+} from '../../../../../../components/haushalt/browser/kontext.ts';
+import { AUSGABE_HAUPTGRUPPEN, EINNAHME_HAUPTGRUPPEN, HAUPTGRUPPEN, getKapitelKennzahlen } from '../../../../../../lib/haushalt/kennzahlen.ts';
+import { formatKapitelnummer, publicBezeichnung } from '../../../../../../lib/haushalt/oeffentlich.ts';
+import { loadTitelForKapitel } from '../../../../../../lib/haushalt/snapshot.ts';
+import type { HauptgruppenSchluessel, Seite } from '../../../../../../lib/haushalt/types.ts';
+import { getBudgetPeriodPageUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import '../../../../../../styles/haushalt/browser.css';
+
+export function getStaticPaths() {
+  return kapitelPfade();
+}
+
+const { periode, plan, kapitel } = Astro.props as KapitelProps;
+const ctx = getSeitenKontext(periode, 'start');
+const { id, jahre, freitexte, meta } = ctx;
+if (jahre.length !== 2) throw new Error(`Periode ${id}: erwartet zwei Haushaltsjahre, gefunden ${jahre.join(', ')}.`);
+const [j1, j2] = jahre;
+const J = (jahr: string) => jahr as `${number}`;
+
+const nummer = formatKapitelnummer(kapitel.kapitel);
+const bezeichnung = publicBezeichnung(kapitel.bezeichnung, freitexte);
+const funktion = publicBezeichnung(kapitel.funktion_bezeichnung, freitexte);
+const overlay = getPlanOverlays(id)[plan.ep];
+const planName = getPlanName(plan, overlay, freitexte);
+const zustaendigkeit = await getZustaendigkeit(plan, overlay, freitexte);
+const kennzahlen = getKapitelKennzahlen(kapitel, plan);
+
+const titel = loadTitelForKapitel(id, kapitel.kapitel);
+// Sprungziele je Kapitel eindeutig; Σ Titel = Kapitel je Seite, Jahr und Hauptgruppe.
+pruefeTitelanker(kapitel.kapitel, titel);
+pruefeKapitelsummen(kapitel, titel, jahre);
+pruefeSumme(`Kapitel ${kapitel.kapitel} Titelanzahl`, titel.length, kapitel.titelanzahl);
+
+const einnahmeTitel = titel.filter((entry) => entry.seite === 'Einnahme');
+const ausgabeTitel = titel.filter((entry) => entry.seite === 'Ausgabe');
+const projekteNachId = getProjekteNachId(id);
+const vorhaben = [...new Set(titel.map((entry) => entry.projekt_id).filter((value): value is string => Boolean(value)))]
+  .map((projektId) => getProjektVerweis(id, projekteNachId.get(projektId)))
+  .filter((verweis): verweis is ProjektVerweis => verweis !== null)
+  .sort((left, right) => left.titel.localeCompare(right.titel, 'de'));
+
+const a = kennzahlen.jahre[j1];
+const b = kennzahlen.jahre[j2];
+const hatRest = jahre.some((jahr) => kennzahlen.jahre[jahr].rest !== 0);
+
+const hgZeilen = (schluessel: readonly HauptgruppenSchluessel[]) =>
+  schluessel
+    .filter((hg) => jahre.some((jahr) => kapitel.jahre[J(jahr)].hauptgruppen[hg] !== 0))
+    .map((hg) => ({ hg, werte: jahre.map((jahr) => kapitel.jahre[J(jahr)].hauptgruppen[hg]) }));
+const hgGruppen = [
+  { label: 'Einnahmen', zeilen: hgZeilen(EINNAHME_HAUPTGRUPPEN), summe: [a.einnahmen, b.einnahmen] },
+  { label: 'Ausgaben', zeilen: hgZeilen(AUSGABE_HAUPTGRUPPEN), summe: [a.ausgaben, b.ausgaben] },
+].filter((gruppe) => gruppe.zeilen.length > 0);
+for (const gruppe of hgGruppen) {
+  jahre.forEach((jahr, index) =>
+    pruefeSumme(`Kapitel ${kapitel.kapitel} ${gruppe.label} nach Hauptgruppen ${jahr}`, gruppe.zeilen.reduce((total, zeile) => total + zeile.werte[index], 0), gruppe.summe[index]),
+  );
+}
+
+// Ansatzarten ohne öffentliche Bezeichnung erscheinen zusammengefasst unter ihrer Herkunft.
+const sammelLabel = (herkunft: OriginCode) => `${ORIGIN_LABELS[herkunft].charAt(0).toLocaleUpperCase('de-DE')}${ORIGIN_LABELS[herkunft].slice(1)}`;
+const qualitaet = (['Ausgabe', 'Einnahme'] as Seite[])
+  .map((seite) => ({ seite, zeilen: getQualitaetsZeilen(titel, seite, jahre, meta, freitexte, sammelLabel) }))
+  .filter((gruppe) => gruppe.zeilen.length > 0);
+const herkunftCodes = (['O', 'D', 'S', 'P'] as OriginCode[]).filter((code) => titel.some((entry) => entry.herkunft === code));
+
+const exportMeta = {
+  Periode: id,
+  Status: ctx.layout.statusLabel,
+  Datenstand: meta.stand,
+  Datenversion: ctx.layout.datenversion,
+  Einzelplan: plan.ep,
+};
+const seitentitel = `Kapitel ${nummer}: ${bezeichnung} – ${periode.bezeichnung}`;
+const description = `Alle Titel des Kapitels ${nummer} (${bezeichnung}) im Einzelplan ${plan.ep} ${planName.kurz}, ${periode.bezeichnung} (${ctx.layout.statusLabel}).`;
+const hatEinnahmen = jahre.some((jahr) => kennzahlen.jahre[jahr].einnahmen !== 0);
+const hatAusgaben = jahre.some((jahr) => kennzahlen.jahre[jahr].ausgaben !== 0);
+const kpis = [
+  ...(hatEinnahmen
+    ? [
+        { label: `Einnahmen ${j1}`, value: a.einnahmen },
+        {
+          label: `Einnahmen ${j2}`,
+          value: b.einnahmen,
+          ...(kennzahlen.veraenderungEinnahmen ? { change: { value: kennzahlen.veraenderungEinnahmen.absolut, label: `gegenüber ${j1}` } } : {}),
+        },
+      ]
+    : []),
+  ...(hatAusgaben || !hatEinnahmen ? [
+  { label: `Ausgaben ${j1}`, value: a.ausgaben, hint: a.anteilAusgaben === null ? undefined : `${formatShare(a.anteilAusgaben)} der Ausgaben des Einzelplans` },
+  {
+    label: `Ausgaben ${j2}`,
+    value: b.ausgaben,
+    hint: b.anteilAusgaben === null ? undefined : `${formatShare(b.anteilAusgaben)} der Ausgaben des Einzelplans`,
+    ...(kennzahlen.veraenderungAusgaben ? { change: { value: kennzahlen.veraenderungAusgaben.absolut, label: `gegenüber ${j1}` } } : {}),
+  },
+  ] : []),
+  ...(hatRest
+    ? [
+        { label: `Nicht untersetzter Ansatz ${j1}`, value: a.rest, hint: 'in den Ausgaben enthalten' },
+        { label: `Nicht untersetzter Ansatz ${j2}`, value: b.rest, hint: 'in den Ausgaben enthalten' },
+      ]
+    : []),
+];
+---
+
+<HaushaltLayout
+  title={seitentitel}
+  description={description}
+  breadcrumbs={[
+    ...ctx.brotkrume,
+    { label: 'Einzelpläne', href: getBudgetPeriodPageUrl(id, 'einzelplaene') },
+    { label: `Einzelplan ${plan.ep}`, href: planHref(id, plan.ep) },
+    { label: `Kapitel ${nummer}` },
+  ]}
+  {...ctx.layout}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow={`Kapitel ${nummer} · ${periode.bezeichnung}`}
+    title={bezeichnung}
+    titleSize="long"
+    lead={`Kapitel im Einzelplan ${plan.ep} ${planName.kurz}. Aufgabenbereich: ${funktion}.`}
+    variant="budget"
+  />
+
+  <section class="section hh-browser" aria-labelledby="einordnung">
+    <div class="section-header"><h2 id="einordnung">Einordnung</h2></div>
+    <dl class="fact-list hh-browser-fakten">
+      <div>
+        <dt>Kapitel</dt>
+        <dd>{nummer} {bezeichnung}</dd>
+      </div>
+      <div>
+        <dt>Einzelplan</dt>
+        <dd><a class="hh-browser-link" href={planHref(id, plan.ep)}>{plan.ep} {planName.kurz}</a></dd>
+      </div>
+      <div>
+        <dt>Zuständigkeit</dt>
+        <dd>
+          {zustaendigkeit.ressorts.length > 0 ? (
+            <ul class="hh-browser-verweise">
+              {zustaendigkeit.ressorts.map((ressort) => <li><a class="hh-browser-link" href={ressort.href}>{ressort.label}</a></li>)}
+            </ul>
+          ) : (
+            zustaendigkeit.text ?? '–'
+          )}
+        </dd>
+      </div>
+      <div>
+        <dt>Funktion</dt>
+        <dd>{kapitel.funktion} {funktion}</dd>
+      </div>
+      <div>
+        <dt>Titel</dt>
+        <dd>{formatNumber(einnahmeTitel.length)} Einnahmetitel, {formatNumber(ausgabeTitel.length)} Ausgabetitel</dd>
+      </div>
+      {vorhaben.length > 0 ? (
+        <div>
+          <dt>Vorhaben</dt>
+          <dd>
+            <ul class="hh-browser-verweise">
+              {vorhaben.map((verweis) => <li>{verweis.href ? <a class="hh-browser-link" href={verweis.href}>{verweis.titel}</a> : verweis.titel}</li>)}
+            </ul>
+          </dd>
+        </div>
+      ) : null}
+    </dl>
+  </section>
+
+  <section class="section hh-browser" aria-labelledby="kennzahlen">
+    <div class="section-header"><h2 id="kennzahlen">Kennzahlen</h2></div>
+    <KpiGrid label={`Kennzahlen des Kapitels ${nummer}`} items={kpis} />
+    {hatRest ? (
+      <DefinitionNote begriff="Nicht untersetzter Ansatz">
+        <p>
+          Ein nicht untersetzter Ansatz ist im Kapitel veranschlagt, aber noch nicht auf einzelne Zwecke aufgeteilt. Er ist
+          in den Ausgaben des Kapitels enthalten.
+        </p>
+      </DefinitionNote>
+    ) : null}
+  </section>
+
+  {hgGruppen.length > 0 ? (
+    <section class="section hh-browser" aria-labelledby="hauptgruppen">
+      <div class="section-header"><h2 id="hauptgruppen">Hauptgruppen</h2></div>
+      <DataTableFrame
+        id="hauptgruppen-tabelle"
+        label={`Hauptgruppen des Kapitels ${nummer}`}
+        caption={`Kapitel ${nummer}: Einnahmen und Ausgaben nach Hauptgruppen, Beträge in Euro`}
+        seitengroesse={false}
+        breite="mittel"
+      >
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col">Hauptgruppe</th>
+              <th scope="col" class="hh-zahl">{j1}</th>
+              <th scope="col" class="hh-zahl">{j2}</th>
+              <th scope="col" class="hh-zahl">Veränderung</th>
+            </tr>
+          </thead>
+          {hgGruppen.map((gruppe) => (
+            <tbody>
+              <tr data-gruppenkopf>
+                <th scope="rowgroup" colspan="4">{gruppe.label}</th>
+              </tr>
+              {gruppe.zeilen.map((zeile) => (
+                <tr>
+                  <th scope="row">{zeile.hg} {HAUPTGRUPPEN[zeile.hg].kurz}</th>
+                  <td class="hh-zahl"><Amount value={zeile.werte[0]} exakt /></td>
+                  <td class="hh-zahl"><Amount value={zeile.werte[1]} exakt /></td>
+                  <td class="hh-zahl"><Amount value={zeile.werte[1] - zeile.werte[0]} vorzeichen exakt /></td>
+                </tr>
+              ))}
+              <tr class="hh-browser-zwischensumme">
+                <th scope="row">{gruppe.label} insgesamt</th>
+                <td class="hh-zahl"><Amount value={gruppe.summe[0]} exakt /></td>
+                <td class="hh-zahl"><Amount value={gruppe.summe[1]} exakt /></td>
+                <td class="hh-zahl"><Amount value={gruppe.summe[1] - gruppe.summe[0]} vorzeichen exakt /></td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      </DataTableFrame>
+    </section>
+  ) : null}
+
+  <section class="section hh-browser" aria-labelledby="titel">
+    <div class="section-header">
+      <h2 id="titel">Titel</h2>
+      <p>Ansätze in Euro.</p>
+    </div>
+    {einnahmeTitel.length > 0 ? (
+      <div class="hh-browser-titelblock">
+        <h3 id="einnahmetitel">Einnahmen</h3>
+        <TitelTabelle
+          id="kapiteltitel-einnahmen"
+          periode={id}
+          kapitel={kapitel}
+          seite="Einnahme"
+          titel={einnahmeTitel}
+          jahre={jahre}
+          freitexte={freitexte}
+          projekte={projekteNachId}
+          exportMeta={exportMeta}
+        />
+      </div>
+    ) : (
+      <p>Das Kapitel enthält keine Einnahmetitel.</p>
+    )}
+    {ausgabeTitel.length > 0 ? (
+      <div class="hh-browser-titelblock">
+        <h3 id="ausgabetitel">Ausgaben</h3>
+        <TitelTabelle
+          id="kapiteltitel-ausgaben"
+          periode={id}
+          kapitel={kapitel}
+          seite="Ausgabe"
+          titel={ausgabeTitel}
+          jahre={jahre}
+          freitexte={freitexte}
+          projekte={projekteNachId}
+          exportMeta={exportMeta}
+        />
+      </div>
+    ) : (
+      <p>Das Kapitel enthält keine Ausgabetitel.</p>
+    )}
+  </section>
+
+  <section class="section hh-browser" aria-labelledby="herkunft">
+    <div class="section-header">
+      <h2 id="herkunft">Herkunft und Art der Ansätze</h2>
+      <p>
+        Die Ansätze der Titel beruhen auf amtlichen Quellen, rechnerischen Ableitungen, Planungsannahmen oder politischen
+        Festlegungen. Die Tabellen fassen die Titel des Kapitels nach der Art ihres Ansatzes zusammen.
+      </p>
+    </div>
+    <OriginLegend codes={herkunftCodes.length > 0 ? herkunftCodes : undefined} />
+    {qualitaet.map((gruppe) => (
+      <DataTableFrame
+        id={`ansatzarten-${gruppe.seite === 'Einnahme' ? 'einnahmen' : 'ausgaben'}`}
+        label={`${gruppe.seite === 'Einnahme' ? 'Einnahmen' : 'Ausgaben'} des Kapitels ${nummer} nach Art des Ansatzes`}
+        caption={`Kapitel ${nummer}: ${gruppe.seite === 'Einnahme' ? 'Einnahmen' : 'Ausgaben'} nach Art des Ansatzes, Beträge in Euro`}
+        seitengroesse={false}
+        breite="breit"
+        class="hh-browser-ansatzarten"
+      >
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col">Art des Ansatzes</th>
+              <th scope="col">Herkunft</th>
+              <th scope="col" class="hh-zahl">{j1}</th>
+              <th scope="col" class="hh-zahl">Anteil <span>{j1}</span></th>
+              <th scope="col" class="hh-zahl">{j2}</th>
+              <th scope="col" class="hh-zahl">Anteil <span>{j2}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {gruppe.zeilen.map((zeile) => (
+              <tr>
+                <th scope="row">{zeile.label}</th>
+                <td><OriginBadge code={zeile.herkunft} variante="lang" /></td>
+                <td class="hh-zahl"><Amount value={zeile.werte[j1]} exakt /></td>
+                <td class="hh-zahl">{zeile.anteile[j1] === null ? '–' : formatShare(zeile.anteile[j1]!)}</td>
+                <td class="hh-zahl"><Amount value={zeile.werte[j2]} exakt /></td>
+                <td class="hh-zahl">{zeile.anteile[j2] === null ? '–' : formatShare(zeile.anteile[j2]!)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </DataTableFrame>
+    ))}
+  </section>
+
+  <SourceNote
+    datenstand={meta.stand}
+    datenversion={ctx.layout.datenversion}
+    quelle={ctx.quelle}
+    downloadsHref={ctx.downloadsHref}
+  />
+</HaushaltLayout>

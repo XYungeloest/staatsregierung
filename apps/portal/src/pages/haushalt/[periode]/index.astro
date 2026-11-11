@@ -1,0 +1,362 @@
+---
+/**
+ * Periodenstart einer Snapshot-Periode (/haushalt/<periode>/): Status, Eckwerte je Haushaltsjahr
+ * mit Vergleich, Diagramme zu Einnahmen, Ausgaben, Aufgabenbereichen, Einzelplänen und
+ * Investitionen, politische Schwerpunkte, Haushaltssuche und Wege in alle Bereiche. Alle Beträge
+ * kommen aus dem Snapshot; abgeleitet werden nur Anteile, Veränderungen und die definierten
+ * Sammelgrößen aus `kennzahlen.ts`.
+ */
+import { getPeriodenGenitiv } from '../../../lib/haushalt/seite.ts';
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import '../../../styles/haushalt/uebersicht.css';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import DefinitionNote from '../../../components/haushalt/DefinitionNote.astro';
+import EntryCards from '../../../components/haushalt/EntryCards.astro';
+import GroupedBarChart from '../../../components/haushalt/GroupedBarChart.astro';
+import KpiGrid from '../../../components/haushalt/KpiGrid.astro';
+import ShareBar from '../../../components/haushalt/ShareBar.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import Abgrenzungen from '../../../components/haushalt/gesamtplan/Abgrenzungen.astro';
+import JahresTabelle from '../../../components/haushalt/gesamtplan/JahresTabelle.astro';
+import Schwerpunkte from '../../../components/haushalt/gesamtplan/Schwerpunkte.astro';
+import HaushaltSuchfeld from '../../../components/haushalt/HaushaltSuchfeld.astro';
+import { getPeriodenKontext, getPeriodenPfade } from '../../../components/haushalt/gesamtplan/periode.ts';
+import { formatEuroRounded } from '../../../components/haushalt/format.ts';
+import {
+  AUSGABE_HAUPTGRUPPEN,
+  DEFINITION_INVESTITIONEN,
+  EINNAHME_HAUPTGRUPPEN,
+  HAUPTGRUPPEN,
+  getEinnahmeKategorien,
+  getEinzelplanKennzahlen,
+  getHauptfunktionen,
+  getJahre,
+  getKennzahlen,
+  type Kennzahl,
+  type Kennzahlenblock,
+} from '../../../lib/haushalt/kennzahlen.ts';
+import { loadEinzelplanOverlays, loadFreitextOverlay, publicBezeichnung } from '../../../lib/haushalt/oeffentlich.ts';
+import { loadEinzelplaene, loadFinanzierung, loadGesamtplan } from '../../../lib/haushalt/snapshot.ts';
+import {
+  getBudgetPeriodPageUrl,
+  getBudgetPeriodPlanUrl,
+  getBudgetSearchUrl,
+} from '@ostrecht/shared/lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return getPeriodenPfade();
+}
+
+const { periode: id } = Astro.params as { periode: string };
+const ctx = getPeriodenKontext(id, null);
+const { periode, jahre } = ctx;
+const gesamtplan = loadGesamtplan(id);
+if (getJahre(gesamtplan).join() !== jahre.join()) {
+  throw new Error(`Haushaltsperiode ${id}: Jahre des Gesamtplans (${getJahre(gesamtplan).join(', ')}) passen nicht zum Register.`);
+}
+const erstesJahr = jahre[0];
+const letztesJahr = jahre[jahre.length - 1];
+const jahresText = jahre.length === 2 ? `${erstesJahr} und ${letztesJahr}` : jahre.join(', ');
+const bloecke = new Map<string, Kennzahlenblock>(jahre.map((jahr) => [jahr, getKennzahlen(gesamtplan, jahr)]));
+const block = (jahr: string) => bloecke.get(jahr)!;
+const freitexte = loadFreitextOverlay(id);
+const planOverlays = loadEinzelplanOverlays(id);
+const plaene = loadEinzelplaene(id);
+const planName = (ep: string, bezeichnung: string) => planOverlays[ep]?.kurztitel ?? publicBezeichnung(bezeichnung, freitexte);
+const istEntwurf = ['arbeitsentwurf', 'regierungsentwurf', 'parlamentarische-beratung'].includes(periode.status);
+
+// Kennzahlkarten je Haushaltsjahr; ab dem zweiten Jahr mit Veränderung gegenüber dem ersten.
+const teilText = (kennzahl: Kennzahl) =>
+  kennzahl.bestandteile?.map((teil) => `${teil.label} ${formatEuroRounded(teil.betrag)}`).join(', ');
+const karten = (jahr: string) => {
+  const aktuell = block(jahr);
+  const basis = jahr === erstesJahr ? null : block(erstesJahr);
+  const change = (wert: Kennzahl | null, alt: Kennzahl | null | undefined) =>
+    wert && alt ? { value: wert.betrag - alt.betrag, label: `gegenüber ${erstesJahr}` } : undefined;
+  const auswahl: Array<{ kennzahl: Kennzahl | null; alt: Kennzahl | null | undefined; label: string }> = [
+    { kennzahl: aktuell.haushaltsvolumen, alt: basis?.haushaltsvolumen, label: 'Haushaltsvolumen' },
+    { kennzahl: aktuell.steuern, alt: basis?.steuern, label: 'Steuereinnahmen' },
+    { kennzahl: aktuell.personal, alt: basis?.personal, label: 'Personalausgaben' },
+    { kennzahl: aktuell.investitionen, alt: basis?.investitionen, label: 'Investitionen' },
+    { kennzahl: aktuell.zuweisungen, alt: basis?.zuweisungen, label: 'Zuweisungen und Zuschüsse' },
+    { kennzahl: aktuell.schuldendienst, alt: basis?.schuldendienst, label: 'Schuldendienst' },
+  ];
+  return auswahl.flatMap(({ kennzahl, alt, label }) =>
+    kennzahl
+      ? [
+          {
+            label: `${label} ${jahr}`,
+            value: kennzahl.betrag,
+            hint: teilText(kennzahl) ? `darunter ${teilText(kennzahl)}` : undefined,
+            change: change(kennzahl, alt),
+          },
+        ]
+      : [],
+  );
+};
+
+const schuldendienstDefinition = jahre.map((jahr) => block(jahr).schuldendienst?.definition).find(Boolean);
+
+// Eckwerte im Vergleich: alle zentralen Kennzahlen; „darunter“-Zeilen für die Bestandteile.
+type Feld = Exclude<keyof Kennzahlenblock, 'jahr'>;
+const zeile = (feld: Feld, label?: string) => {
+  const muster = jahre.map((jahr) => block(jahr)[feld]).find((wert): wert is Kennzahl => wert !== null);
+  if (!muster) return [];
+  const werte = Object.fromEntries(jahre.map((jahr) => [jahr, block(jahr)[feld]?.betrag ?? null]));
+  const haupt = { id: muster.id, label: label ?? muster.label, werte };
+  const teile = (muster.bestandteile ?? []).map((teil, index) => ({
+    id: `${muster.id}-${index + 1}`,
+    label: teil.label,
+    ebene: 1 as const,
+    werte: Object.fromEntries(jahre.map((jahr) => [jahr, block(jahr)[feld]?.bestandteile?.[index]?.betrag ?? null])),
+  }));
+  return [haupt, ...teile];
+};
+const eckwertFelder: Array<[Feld, string?]> = [
+  ['einnahmen'],
+  ['ausgaben'],
+  ['haushaltsvolumen'],
+  ['finanzierungssaldo'],
+  ['steuern', 'Steuereinnahmen'],
+  ['personal'],
+  ['investitionen'],
+  ['zuweisungen'],
+  ['schuldendienst'],
+  ['ruecklagenentnahme'],
+  ['strukturelleNettokreditaufnahme'],
+  ['nettotilgung'],
+];
+const eckwertZeilen = eckwertFelder.flatMap(([feld, label]) => zeile(feld, label));
+const abgrenzungen = eckwertFelder.flatMap(([feld, label]) => {
+  const kennzahl = block(letztesJahr)[feld] ?? block(erstesJahr)[feld];
+  return kennzahl ? [{ begriff: label ?? kennzahl.label, definition: kennzahl.definition }] : [];
+});
+
+// Diagramme
+const series = jahre.map((jahr) => ({ label: jahr }));
+const hgKategorien = (gruppen: readonly (keyof typeof HAUPTGRUPPEN)[]) =>
+  gruppen.map((hg) => ({
+    label: `${HAUPTGRUPPEN[hg].kurz} (Hauptgruppe ${hg})`,
+    values: jahre.map((jahr) => gesamtplan.jahre[jahr as `${number}`].hauptgruppen[hg]),
+  }));
+const finanzierung = jahre.map((jahr) => ({
+  jahr,
+  einnahmen: block(jahr).einnahmen.betrag,
+  kategorien: getEinnahmeKategorien(gesamtplan, jahr),
+}));
+const funktionen = new Map(jahre.map((jahr) => [jahr, getHauptfunktionen(gesamtplan, jahr)]));
+const hauptfunktionCodes = [...new Set(jahre.flatMap((jahr) => funktionen.get(jahr)!.map((wert) => wert.hauptfunktion)))].sort();
+const aufgabenKategorien = hauptfunktionCodes.map((code) => {
+  const muster = jahre.map((jahr) => funktionen.get(jahr)!.find((wert) => wert.hauptfunktion === code)).find(Boolean)!;
+  return {
+    label: publicBezeichnung(muster.bezeichnung, freitexte),
+    values: jahre.map((jahr) => funktionen.get(jahr)!.find((wert) => wert.hauptfunktion === code)?.betrag ?? null),
+  };
+});
+
+const planKennzahlen = plaene.map((plan) => ({ plan, kennzahlen: getEinzelplanKennzahlen(plan, gesamtplan) }));
+const TOP = 8;
+const groessteAusgaben = [...planKennzahlen]
+  .sort((left, right) => right.kennzahlen.jahre[erstesJahr].ausgaben - left.kennzahlen.jahre[erstesJahr].ausgaben)
+  .slice(0, TOP);
+const groessteInvestitionen = [...planKennzahlen]
+  .filter((entry) => entry.kennzahlen.jahre[erstesJahr].investitionen > 0)
+  .sort((left, right) => right.kennzahlen.jahre[erstesJahr].investitionen - left.kennzahlen.jahre[erstesJahr].investitionen)
+  .slice(0, TOP);
+const planKategorie = (entry: (typeof planKennzahlen)[number], wert: 'ausgaben' | 'investitionen') => ({
+  label: `${entry.plan.ep} ${planName(entry.plan.ep, entry.plan.bezeichnung)}`,
+  href: getBudgetPeriodPlanUrl(id, entry.plan.ep),
+  values: jahre.map((jahr) => entry.kennzahlen.jahre[jahr][wert]),
+});
+const investitionenGesamt = block(erstesJahr).investitionen.betrag;
+const investitionenTop = groessteInvestitionen.reduce((summe, entry) => summe + entry.kennzahlen.jahre[erstesJahr].investitionen, 0);
+
+const planungsJahre = loadFinanzierung(id).finanzplan.map((eintrag) => eintrag.jahr);
+const planungsEnde = planungsJahre.length > 0 ? Math.max(...planungsJahre) : Number(letztesJahr);
+const wege = [
+  { slug: 'gesamtplan', title: 'Gesamtplan', text: 'Einnahmen und Ausgaben nach Arten, Hauptgruppen, Gruppen und Aufgabenbereichen mit Finanzierungsübersicht.' },
+  { slug: 'einzelplaene', title: 'Einzelpläne', text: 'Die Haushalte der Ressorts, Verfassungsorgane und der zentralen Verwaltung bis zum einzelnen Titel.' },
+  { slug: 'projekte', title: 'Vorhaben und Projekte', text: 'Programme und Investitionsvorhaben mit ihren Haushaltstiteln als eigene Sicht auf den Haushalt.' },
+  { slug: 'personal', title: 'Personal und Versorgung', text: 'Personalausgaben, Versorgung und die Wirkung der vorgesehenen Dienstrechtsreform.' },
+  { slug: 'finanzierung', title: 'Finanzierung und Schulden', text: 'Finanzierungsmaßnahmen, Kredite, Tilgung, Zinsen und Verpflichtungsermächtigungen.' },
+  { slug: 'ruecklagen', title: 'Rücklagen, Fonds und Landesunternehmen', text: 'Allgemeine Rücklage, Liquiditätsrücklage, Fonds, Sondervermögen und Landesunternehmen.' },
+  { slug: 'finanzplanung', title: 'Finanzplanung', text: `Entwicklung von Einnahmen, Ausgaben und Schuldenstand bis ${planungsEnde}; die Jahre nach ${letztesJahr} sind nicht bewilligt.`, meta: 'Mittelfristige Planung' },
+  { slug: 'downloads', title: 'Downloads', text: 'Haushaltsdaten zum Herunterladen.' },
+].map((weg) => ({ title: weg.title, text: weg.text, href: getBudgetPeriodPageUrl(id, weg.slug), meta: weg.meta }));
+wege.push({ title: 'Haushaltssuche', text: 'Titel, Kapitel, Einzelpläne und Vorhaben nach Stichworten finden.', href: getBudgetSearchUrl(id), meta: undefined });
+---
+
+<HaushaltLayout
+  title={periode.bezeichnung}
+  description={`${periode.bezeichnung} (${ctx.status.label}): Eckwerte ${jahresText}, Einnahmen und Ausgaben, Einzelpläne, Investitionen, Vorhaben und Finanzplanung.`}
+  breadcrumbs={ctx.breadcrumbs()}
+  {...ctx.layout}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow="Haushalt"
+    title={periode.bezeichnung}
+    status={ctx.status.label}
+    lead={`Einnahmen, Ausgaben und Schwerpunkte des Freistaates für die Haushaltsjahre ${jahresText}.`}
+    variant="budget"
+    facts={jahre.map((jahr) => ({ label: `Haushaltsvolumen ${jahr}`, value: formatEuroRounded(block(jahr).haushaltsvolumen.betrag) }))}
+  />
+
+  <section class="section hh-ue" aria-labelledby="eckwerte">
+    <div class="section-header">
+      <h2 id="eckwerte">Eckwerte {jahresText}</h2>
+      <p>
+        Die wichtigsten Größen des Gesamtplans je Haushaltsjahr.
+        {istEntwurf ? ' Die Angaben geben den Entwurf wieder; verbindlich wird der Haushalt erst mit dem Beschluss der Volkskammer und der Verkündung des Haushaltsgesetzes.' : null}
+      </p>
+    </div>
+    {jahre.map((jahr) => (
+      <div class="hh-ue__jahr">
+        <h3 class="hh-ue__jahrtitel" id={`eckwerte-${jahr}`}>Haushaltsjahr {jahr}</h3>
+        <KpiGrid items={karten(jahr)} label={`Eckwerte ${jahr}`} spalten={3} />
+      </div>
+    ))}
+
+    <DefinitionNote titel="Abgrenzung: Investitionen und Schuldendienst">
+      <p><strong>Investitionen:</strong> {block(erstesJahr).investitionen.definition}</p>
+      {schuldendienstDefinition ? <p><strong>Schuldendienst:</strong> {schuldendienstDefinition}</p> : null}
+    </DefinitionNote>
+
+    <h3 class="hh-ue__untertitel" id="eckwerte-vergleich">Eckwerte im Vergleich</h3>
+    <JahresTabelle
+      id="eckwerte-tabelle"
+      label={`Eckwerte ${jahresText} im Vergleich`}
+      caption={`Eckwerte ${jahresText}, gerundete Beträge; exakte Werte im Gesamtplan`}
+      jahre={jahre}
+      labelSpalte="Kennzahl"
+      abschnitte={[{ zeilen: eckwertZeilen }]}
+      jahresansicht
+      nomenSingular="Kennzahl"
+      nomenPlural="Kennzahlen"
+    />
+    <Abgrenzungen titel="Abgrenzungen der Eckwerte" eintraege={abgrenzungen} />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="einnahmen-ausgaben">
+    <div class="section-header">
+      <h2 id="einnahmen-ausgaben">Einnahmen und Ausgaben</h2>
+      <p>Hauptgruppen des Gruppierungsplans und die Finanzierung des Haushalts nach Einnahmearten.</p>
+    </div>
+    <div class="hh-ue__raster">
+      <GroupedBarChart
+        id="einnahmen-hauptgruppen"
+        caption={`Einnahmen nach Hauptgruppen ${jahresText}`}
+        series={series}
+        categories={hgKategorien(EINNAHME_HAUPTGRUPPEN)}
+        kategorieSpalte="Hauptgruppe"
+        veraenderung
+      />
+      <GroupedBarChart
+        id="ausgaben-hauptgruppen"
+        caption={`Ausgaben nach Hauptgruppen ${jahresText}`}
+        series={series}
+        categories={hgKategorien(AUSGABE_HAUPTGRUPPEN)}
+        kategorieSpalte="Hauptgruppe"
+        veraenderung
+      />
+    </div>
+    <h3 class="hh-ue__untertitel" id="finanzierung-haushalt">Finanzierung des Haushalts</h3>
+    <div class="hh-ue__raster">
+      {finanzierung.map((eintrag) => (
+        <ShareBar
+          id={`finanzierung-${eintrag.jahr}`}
+          caption={`Einnahmen ${eintrag.jahr} nach Einnahmearten`}
+          items={eintrag.kategorien.map((kategorie) => ({ label: kategorie.label, value: kategorie.betrag }))}
+          total={eintrag.einnahmen}
+          totalLabel={`Einnahmen ${eintrag.jahr}`}
+          labelSpalte="Einnahmeart"
+        />
+      ))}
+    </div>
+    <p class="hh-ue__verweis">
+      Abgrenzung der Einnahmearten und alle Gruppen im
+      {' '}<a class="inline-link" href={`${getBudgetPeriodPageUrl(id, 'gesamtplan')}#einnahmen`}>Gesamtplan</a>.
+    </p>
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="aufgabenbereiche">
+    <div class="section-header">
+      <h2 id="aufgabenbereiche">Ausgaben nach Aufgabenbereichen</h2>
+      <p>Die Ausgaben nach den Hauptfunktionen des Funktionenplans: wofür der Freistaat die Mittel einsetzt.</p>
+    </div>
+    <GroupedBarChart
+      id="aufgabenbereiche-diagramm"
+      caption={`Ausgaben nach Aufgabenbereichen ${jahresText}`}
+      series={series}
+      categories={aufgabenKategorien}
+      kategorieSpalte="Aufgabenbereich"
+      veraenderung
+    />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="einzelplaene">
+    <div class="section-header">
+      <h2 id="einzelplaene">Größte Einzelpläne</h2>
+      <p>Die {groessteAusgaben.length} Einzelpläne mit den höchsten Ausgaben {erstesJahr}; alle {plaene.length} Einzelpläne stehen in der <a class="inline-link" href={getBudgetPeriodPageUrl(id, 'einzelplaene')}>Übersicht der Einzelpläne</a>.</p>
+    </div>
+    <GroupedBarChart
+      id="einzelplaene-diagramm"
+      caption={`Ausgaben der größten Einzelpläne ${jahresText}`}
+      series={series}
+      categories={groessteAusgaben.map((entry) => planKategorie(entry, 'ausgaben'))}
+      kategorieSpalte="Einzelplan"
+      veraenderung
+    />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="investitionen">
+    <div class="section-header">
+      <h2 id="investitionen">Investitionsschwerpunkte</h2>
+      <p>
+        Die {groessteInvestitionen.length} Einzelpläne mit den höchsten Investitionen {erstesJahr}. Sie
+        umfassen <data value={String(investitionenTop)}>{formatEuroRounded(investitionenTop)}</data> der
+        Investitionen von <data value={String(investitionenGesamt)}>{formatEuroRounded(investitionenGesamt)}</data>.
+      </p>
+    </div>
+    <GroupedBarChart
+      id="investitionen-diagramm"
+      caption={`Investitionen der Einzelpläne ${jahresText}`}
+      series={series}
+      categories={groessteInvestitionen.map((entry) => planKategorie(entry, 'investitionen'))}
+      kategorieSpalte="Einzelplan"
+      veraenderung
+    />
+    <DefinitionNote begriff="Investitionen">
+      <p>{DEFINITION_INVESTITIONEN} Baumaßnahmen und sonstige Investitionen werden in den Einzelplänen und im Gesamtplan auch getrennt ausgewiesen.</p>
+    </DefinitionNote>
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="schwerpunkte">
+    <div class="section-header">
+      <h2 id="schwerpunkte">Politische Schwerpunkte</h2>
+      <p>Vorhaben mit den höchsten Ansätzen im Haushaltsjahr {erstesJahr}.</p>
+    </div>
+    <Schwerpunkte periode={id} jahre={jahre} />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="suche">
+    <div class="section-header">
+      <h2 id="suche">Im Haushalt suchen</h2>
+      <p>Suchen Sie nach Aufgaben, Einrichtungen, Vorhaben, Kapitel- oder Titelnummern.</p>
+    </div>
+    <HaushaltSuchfeld periode={id} />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="bereiche">
+    <div class="section-header">
+      <h2 id="bereiche">Alle Bereiche im Überblick</h2>
+    </div>
+    <EntryCards items={wege} label={`Bereiche des ${getPeriodenGenitiv(periode)}`} />
+    <SourceNote
+      datenstand={ctx.datenstand}
+      datenversion={ctx.datenversion}
+      quelle={ctx.quelle}
+      downloadsHref={getBudgetPeriodPageUrl(id, 'downloads')}
+    />
+  </section>
+</HaushaltLayout>

@@ -41,6 +41,8 @@ content/
   gesetzgebung/*.json
   freistaat/*.json
   haushalt/*.json
+  haushalt/perioden.json
+  haushalt/[periode]/*.json
   normen/[slug]/
     meta.json
     history.json
@@ -829,18 +831,26 @@ Format wie Service-Seiten. Diese Seiten beschreiben Grundlagen des fiktiven Frei
 
 ### Haushaltsbereich
 
-Die fachlichen Haushaltsseiten liegen unter `/haushalt/`, `/haushalt/gesamtplan/`,
-`/haushalt/einzelplaene/`, `/haushalt/einzelplaene/[nummer]/` und
-`/haushalt/sondervermoegen/`. Die zentrale Datenlogik ist `apps/portal/src/data/haushalt.ts`:
+Einstieg ist `/haushalt/` (alle sichtbaren Perioden mit Status, Eckwerten und Jahreswahl
+`?ansicht=`), dazu `/haushalt/sondervermoegen/`. Jede Periode hat eigene Seiten unter
+`/haushalt/<periode>/` (Gesamtplan, Einzelpläne mit Kapiteln und Titeln `#titel-<nummer>`,
+Vorhaben, Personal, Finanzierung, Rücklagen, Finanzplanung, Downloads, Suche). Import, Freigabe
+und Pflegewege beschreibt `docs/HAUSHALT.md`.
 
-- `context/Staatshaushalt 2025_2026 - Zusammenfassung.csv` liefert die Werte der beiden Jahre
-  für Gesamtplan und Einzelpläne.
-- `context/Staatshaushalt 2025_2026.zip` liefert die archivierten Einzelplan-Blätter für die
-  dargestellten Kapitel und Titel.
-- Summen, Anteile und Veränderungen werden aus diesen Werten berechnet; sie dürfen nicht in
-  Seiten oder Komponenten erneut hart codiert werden.
-- `content/haushalt/*.json` bleibt als Such- und Metadatenbestand erhalten. Dort keine von der
-  zentralen Datenquelle abweichenden Kennzahlen pflegen.
+- `content/haushalt/perioden.json`: Periodenregister mit Status, Freigabe und Datenquelle; nur
+  hier wird eine Periode freigegeben oder ihr Status geändert.
+- `content/haushalt/<periode>/*.json`: redaktionelle Overlays (`freitexte`, `einzelplaene`,
+  `projekte`, `finanzierung`, `fonds`, `personal`, `suchbegriffe`) ohne Beträge.
+- `data/haushalt/<periode>/`: Snapshot aus dem Haushaltsrepo (`npm run haushalt:sync`), nicht von
+  Hand pflegen.
+- Doppelhaushalt 2025/2026 (Altbestand): `apps/portal/src/lib/haushalt/legacy-2025-2026.ts` aus
+  `context/Staatshaushalt 2025_2026 - Zusammenfassung.csv` und den archivierten
+  Einzelplan-Blättern (`context/Staatshaushalt 2025_2026.zip`); Seiten unter `/haushalt/2025-2026/`.
+- Datenlogik: `apps/portal/src/lib/haushalt/` (`perioden`, `snapshot`, `oeffentlich`, `kennzahlen`,
+  `seite`, `legacy-2025-2026`). Summen, Anteile und Veränderungen werden aus den Daten berechnet,
+  nie in Seiten oder Komponenten hart codiert.
+- `content/haushalt/gesamtplan.json`, `einzelplaene.json` und `sondervermoegen.json` (Wurzel) sind
+  Such- und Metadatenbestand; dort keine abweichenden Kennzahlen pflegen.
 
 ## Rechtsportal und Normen
 
@@ -1237,7 +1247,7 @@ Häufig redigierte Dashboarddaten liegen als validiertes JSON vor:
 
 - `content/dashboard/action-plan.json`: 15-Punkte-Plan
 - `content/dashboard/timeline.json`: Zeitachse
-- `apps/portal/src/data/haushalt.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen
+- `apps/portal/src/lib/haushalt/legacy-2025-2026.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen des Doppelhaushalts 2025/2026
 
 Die gleichnamigen Dateien unter `apps/portal/src/data/dashboard/` laden nur das JSON. Die erlaubten Typen und
 Parser stehen in `packages/shared/src/lib/portal/dashboard-content.ts`.
@@ -1519,7 +1529,10 @@ Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
 | Stellenangebot | `content/service/stellen/[slug].json` | JSON-Objekt |
 | Service-Seite | `content/service/seiten/[slug].json` | JSON-Objekt |
 | Freistaat-Seite | `content/freistaat/[slug].json` | JSON-Objekt |
-| Haushaltsdaten | `apps/portal/src/data/haushalt.ts` | Buildzeitbasiertes TypeScript-Datenmodell aus CSV und Archivblättern |
+| Haushaltsperioden | `content/haushalt/perioden.json` | JSON-Objekt (Register) |
+| Haushalts-Overlays | `content/haushalt/[periode]/*.json` | JSON-Objekte ohne Beträge |
+| Haushaltssnapshot | `data/haushalt/[periode]/` | generiert (`npm run haushalt:sync`) |
+| Haushaltsdaten 2025/2026 | `apps/portal/src/lib/haushalt/legacy-2025-2026.ts` | Buildzeitbasiertes TypeScript-Datenmodell aus CSV und Archivblättern |
 | Norm | `content/normen/[slug]/` | `meta.json`, `history.json`, `versions/*.json` |
 | 15-Punkte-Plan | `content/dashboard/action-plan.json` | JSON-Objekt |
 | Gesetzgebungsverfahren | `content/gesetzgebung/[slug].json` | JSON-Objekt |

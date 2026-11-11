@@ -1,0 +1,27 @@
+---
+/**
+ * Datenstand einer Ansicht, optional mit lesbarer Fassungsangabe, Quellenhinweis und Weg zu den
+ * Downloads. Die Teile trennt der Abstand der Zeile, kein Trennzeichen. `datenversion` (die
+ * interne Kurzkennung des Datenbestands) erscheint nicht als Text, sondern nur im Attribut
+ * `data-haushalt-datenversion` zur Nachverfolgung; sichtbar ist allein `fassung`.
+ */
+import { formatGermanDate, isoDateOnly } from './format.ts';
+
+interface Props {
+  datenstand: string;
+  datenversion?: string;
+  fassung?: string;
+  quelle?: string;
+  downloadsHref?: string;
+  downloadsLabel?: string;
+}
+
+const { datenstand, datenversion, fassung, quelle, downloadsHref, downloadsLabel = 'Daten und Downloads' } = Astro.props as Props;
+---
+
+<p class="hh-quelle" data-haushalt-datenversion={datenversion}>
+  <span>Datenstand <time datetime={isoDateOnly(datenstand)}>{formatGermanDate(datenstand)}</time></span>
+  {fassung ? <span>Fassung: {fassung}</span> : null}
+  {quelle ? <span>Quelle: {quelle}</span> : null}
+  {downloadsHref ? <a class="inline-link hh-quelle__link" href={downloadsHref}>{downloadsLabel}</a> : null}
+</p>

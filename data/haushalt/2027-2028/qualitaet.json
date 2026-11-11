@@ -1,0 +1,824 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "klassen": {
+    "2027": {
+      "D_ableitung": 5238911462,
+      "D_quellgewicht": 6471370464,
+      "D_struktur": 24643371175,
+      "S_statusmodell": 16666230844,
+      "S_mengenmodell": 2209600000,
+      "S_fachmodell": 73216029968,
+      "S_rest": 12455352329
+    },
+    "2028": {
+      "D_ableitung": 5768340301,
+      "D_quellgewicht": 6147211617,
+      "D_struktur": 24224666512,
+      "S_statusmodell": 17264137975,
+      "S_mengenmodell": 2323180000,
+      "S_fachmodell": 73673120647,
+      "S_rest": 10639893332
+    }
+  },
+  "groesste_restansaetze": [
+    {
+      "kapitel": "2007",
+      "titel": "91901",
+      "zweckbestimmung": "Zuführungen an Rücklagen und Vorsorgemittel (fortgeführte Herkunftsansätze)",
+      "jahr": 2027,
+      "betrag": 2186200700
+    },
+    {
+      "kapitel": "0302",
+      "titel": "61301",
+      "zweckbestimmung": "Globalzuweisungen an die Bezirke für laufende Aufgaben (einschließlich Berliner Bezirke)",
+      "jahr": 2027,
+      "betrag": 1090358403
+    },
+    {
+      "kapitel": "2099",
+      "titel": "68601",
+      "zweckbestimmung": "Noch nicht zugeordnete laufende Leistungen aus Herkunftshaushalten (Zuordnungsvorbehalt)",
+      "jahr": 2027,
+      "betrag": 994534190
+    },
+    {
+      "kapitel": "1019",
+      "titel": "54701",
+      "zweckbestimmung": "Sachausgaben des Straßenwesens – noch nicht untersetzter Rest",
+      "jahr": 2027,
+      "betrag": 664590727
+    },
+    {
+      "kapitel": "0429",
+      "titel": "68601",
+      "zweckbestimmung": "Sachkosten- und Lastenausgleich an Schulträger (noch nicht untersetzt)",
+      "jahr": 2027,
+      "betrag": 567371671
+    },
+    {
+      "kapitel": "0504",
+      "titel": "68602",
+      "zweckbestimmung": "Sonstige laufende Leistungen des Justizvollzugs (Sicherungsverwahrung, Jugendarrest, Maßnahmen)",
+      "jahr": 2027,
+      "betrag": 292322703
+    },
+    {
+      "kapitel": "1102",
+      "titel": "89301",
+      "zweckbestimmung": "Investitionszuschüsse an Theater, Orchester und Museen (Bau und Ausstattung)",
+      "jahr": 2027,
+      "betrag": 244023069
+    },
+    {
+      "kapitel": "0707",
+      "titel": "89201",
+      "zweckbestimmung": "Investitionsförderung Tourismusinfrastruktur und Strukturwandel (GRW-Programme)",
+      "jahr": 2027,
+      "betrag": 228874709
+    },
+    {
+      "kapitel": "0401",
+      "titel": "68601",
+      "zweckbestimmung": "Allgemeine Bewilligungen Volksbildung – sonstige Zuschüsse",
+      "jahr": 2027,
+      "betrag": 225612260
+    },
+    {
+      "kapitel": "0707",
+      "titel": "68501",
+      "zweckbestimmung": "Tourismusförderung und regionaler Strukturwandel: Zuschüsse an Verbände, Marketing und Projekte",
+      "jahr": 2027,
+      "betrag": 208689993
+    },
+    {
+      "kapitel": "2099",
+      "titel": "89901",
+      "zweckbestimmung": "Noch nicht zugeordnete Investitionsleistungen aus Herkunftshaushalten (Zuordnungsvorbehalt)",
+      "jahr": 2027,
+      "betrag": 195337887
+    },
+    {
+      "kapitel": "0829",
+      "titel": "63301",
+      "zweckbestimmung": "Gesundheitsversorgung: weitere Zuweisungen (Programmreserve Sicherstellung)",
+      "jahr": 2027,
+      "betrag": 190696498
+    },
+    {
+      "kapitel": "0302",
+      "titel": "88301",
+      "zweckbestimmung": "Investitionszuweisungen an die Bezirke (Bezirksinfrastruktur)",
+      "jahr": 2027,
+      "betrag": 187236624
+    },
+    {
+      "kapitel": "0729",
+      "titel": "89301",
+      "zweckbestimmung": "Arbeitsmarktprogramme: weitere investive Förderung (Programmreserve)",
+      "jahr": 2027,
+      "betrag": 170785549
+    },
+    {
+      "kapitel": "1019",
+      "titel": "89901",
+      "zweckbestimmung": "Straßenbau-Programmreserve für Vorhaben der Bauliste (nicht einzeln veranschlagt)",
+      "jahr": 2027,
+      "betrag": 165440438
+    },
+    {
+      "kapitel": "0739",
+      "titel": "89201",
+      "zweckbestimmung": "Wirtschaftsförderung: weitere Investitionsförderung (Programmreserve GRW/EFRE)",
+      "jahr": 2027,
+      "betrag": 163481936
+    },
+    {
+      "kapitel": "0409",
+      "titel": "68601",
+      "zweckbestimmung": "Bestehende Zuschüsse für Schulfahrten und Schulveranstaltungen (angerechneter Bestand)",
+      "jahr": 2027,
+      "betrag": 150000000
+    },
+    {
+      "kapitel": "0739",
+      "titel": "68301",
+      "zweckbestimmung": "Wirtschaftsförderung: weitere Projektförderung (Programmreserve)",
+      "jahr": 2027,
+      "betrag": 149064282
+    },
+    {
+      "kapitel": "1002",
+      "titel": "71201",
+      "zweckbestimmung": "Baumaßnahmen an Verknüpfungspunkten und Park-and-Ride-Anlagen",
+      "jahr": 2027,
+      "betrag": 145188881
+    },
+    {
+      "kapitel": "0604",
+      "titel": "66201",
+      "zweckbestimmung": "Förderprogramme der ElbeLB: Zins- und Tilgungszuschüsse an Unternehmen",
+      "jahr": 2027,
+      "betrag": 141477837
+    },
+    {
+      "kapitel": "1403",
+      "titel": "68301",
+      "zweckbestimmung": "Staatsforst: Zuschüsse an private und kommunale Waldbesitzer für Waldumbau und Waldschutz",
+      "jahr": 2027,
+      "betrag": 138574678
+    },
+    {
+      "kapitel": "0905",
+      "titel": "68201",
+      "zweckbestimmung": "Öffentliche Netze: Zuschüsse an landeseigene Netz- und Breitbandgesellschaften",
+      "jahr": 2027,
+      "betrag": 128277242
+    },
+    {
+      "kapitel": "1104",
+      "titel": "68601",
+      "zweckbestimmung": "Sonstige Zuschüsse für laufende Zwecke",
+      "jahr": 2027,
+      "betrag": 126616216
+    },
+    {
+      "kapitel": "1404",
+      "titel": "63701",
+      "zweckbestimmung": "Küsten- und Hochwasserschutz: Zuweisungen an Wasser- und Bodenverbände",
+      "jahr": 2027,
+      "betrag": 124717210
+    },
+    {
+      "kapitel": "1703",
+      "titel": "63301",
+      "zweckbestimmung": "Verwaltungsdigitalisierung: Zuweisungen an Kommunen für OZG-Leistungen und Register",
+      "jahr": 2027,
+      "betrag": 120453129
+    },
+    {
+      "kapitel": "0729",
+      "titel": "68401",
+      "zweckbestimmung": "Arbeitsmarktprogramme: weitere Projektförderung (Programmreserve)",
+      "jahr": 2027,
+      "betrag": 119251426
+    },
+    {
+      "kapitel": "2005",
+      "titel": "54601",
+      "zweckbestimmung": "Kreditnebenkosten (Bonifikation, Disagio, Emission) und sonstige Ausgaben der Schuldenverwaltung",
+      "jahr": 2027,
+      "betrag": 116576979
+    },
+    {
+      "kapitel": "1403",
+      "titel": "89301",
+      "zweckbestimmung": "Waldumbau und Wiederbewaldung: Investitionszuschüsse",
+      "jahr": 2027,
+      "betrag": 113775633
+    },
+    {
+      "kapitel": "0202",
+      "titel": "68501",
+      "zweckbestimmung": "Staatsrat: Zuschüsse für staatliche Repräsentation, Ehrungen und gesellschaftliche Initiativen",
+      "jahr": 2027,
+      "betrag": 107487433
+    },
+    {
+      "kapitel": "1404",
+      "titel": "88701",
+      "zweckbestimmung": "Hochwasserschutzanlagen und Deichbau: Investitionszuweisungen an Verbände",
+      "jahr": 2027,
+      "betrag": 102398070
+    },
+    {
+      "kapitel": "1010",
+      "titel": "89101",
+      "zweckbestimmung": "Schieneninfrastruktur: weitere Vorhaben nach Investitionsplan der Ostdeutschen Eisenbahn",
+      "jahr": 2027,
+      "betrag": 100000000
+    },
+    {
+      "kapitel": "0701",
+      "titel": "89201",
+      "zweckbestimmung": "Allgemeine Bewilligungen Wirtschaft und Arbeit: Investitionszuschüsse",
+      "jahr": 2027,
+      "betrag": 98089161
+    },
+    {
+      "kapitel": "0806",
+      "titel": "89301",
+      "zweckbestimmung": "Investitionszuschüsse für Einrichtungen der Kinder- und Jugendhilfe und Jugendorte",
+      "jahr": 2027,
+      "betrag": 93134533
+    },
+    {
+      "kapitel": "0701",
+      "titel": "68501",
+      "zweckbestimmung": "Allgemeine Bewilligungen Wirtschaft und Arbeit: Zuschüsse an Kammern, Verbände und Projekte",
+      "jahr": 2027,
+      "betrag": 89438569
+    },
+    {
+      "kapitel": "0504",
+      "titel": "81201",
+      "zweckbestimmung": "Justizvollzug: Ausstattung, Sicherheitstechnik und Fahrzeuge",
+      "jahr": 2027,
+      "betrag": 89215923
+    },
+    {
+      "kapitel": "0906",
+      "titel": "68201",
+      "zweckbestimmung": "Kreislaufwirtschaft: Zuschüsse für das SERO-Rücknahme- und Sammelsystem",
+      "jahr": 2027,
+      "betrag": 85518161
+    },
+    {
+      "kapitel": "1101",
+      "titel": "68501",
+      "zweckbestimmung": "Allgemeine Bewilligungen Kultur: Zuschüsse an Kulturverbände und Kulturprojekte",
+      "jahr": 2027,
+      "betrag": 84264092
+    },
+    {
+      "kapitel": "1103",
+      "titel": "89301",
+      "zweckbestimmung": "Investitionszuschüsse für Medienstandorte und Rundfunktechnik",
+      "jahr": 2027,
+      "betrag": 81341023
+    },
+    {
+      "kapitel": "1703",
+      "titel": "81201",
+      "zweckbestimmung": "Investitionen der Verwaltungsdigitalisierung (E-Akte, Register, Fachverfahren)",
+      "jahr": 2027,
+      "betrag": 80741645
+    },
+    {
+      "kapitel": "1001",
+      "titel": "68501",
+      "zweckbestimmung": "Zuschüsse an Verkehrsverbünde, Mobilitätsberatung und Verkehrssicherheitsarbeit",
+      "jahr": 2027,
+      "betrag": 80397404
+    }
+  ],
+  "pruefungen": [
+    {
+      "name": "Baseline: run",
+      "ok": true
+    },
+    {
+      "name": "Baseline: massnahmen",
+      "ok": true
+    },
+    {
+      "name": "Baseline: quelle_sha256",
+      "ok": true
+    },
+    {
+      "name": "Baseline: titel_sha256",
+      "ok": true
+    },
+    {
+      "name": "Baseline: jahre",
+      "ok": true
+    },
+    {
+      "name": "Baseline: einzelplan_hauptgruppe_c0v2_eur",
+      "ok": true
+    },
+    {
+      "name": "Baseline: politische_entscheidungen",
+      "ok": true
+    },
+    {
+      "name": "Solver c0_v2.run reproduziert gespeicherte Finanzrechnung",
+      "ok": true
+    },
+    {
+      "name": "2027: Einnahmen = aktive Finanzrechnung (Einnahmen einschließlich Finanzierung)",
+      "ok": true
+    },
+    {
+      "name": "2027: Ausgaben = aktives Haushaltsvolumen",
+      "ok": true
+    },
+    {
+      "name": "2027: Einnahmen + ausgewiesene Deckungslücke = Ausgaben",
+      "ok": true
+    },
+    {
+      "name": "2027: Haushaltsvolumen = Baseline + Summe K-02-Journal (Ausgaben)",
+      "ok": true
+    },
+    {
+      "name": "2027: Einnahmen = Baseline + Summe K-02-Journal (Einnahmen)",
+      "ok": true
+    },
+    {
+      "name": "2027: ungedeckter Planbedarf null",
+      "ok": true
+    },
+    {
+      "name": "2027: strukturelle Nettokreditaufnahme null",
+      "ok": true
+    },
+    {
+      "name": "2027: Nettokreditaufnahme = Kreditaufnahme − Tilgung",
+      "ok": true
+    },
+    {
+      "name": "2027: Nettokreditaufnahme nicht positiv",
+      "ok": true
+    },
+    {
+      "name": "2027: Kredittitel 2007/325 01 = Anschlussaufnahme",
+      "ok": true
+    },
+    {
+      "name": "2027: Rücklagentitel 2007/359 01 = allgemeine Entnahme",
+      "ok": true
+    },
+    {
+      "name": "2027: Zinstitel 2005/575 01 = Zinsausgaben der Finanzrechnung",
+      "ok": true
+    },
+    {
+      "name": "2027: Zuführung Liquiditätsrücklage 2007/919 02",
+      "ok": true
+    },
+    {
+      "name": "2028: Einnahmen = aktive Finanzrechnung (Einnahmen einschließlich Finanzierung)",
+      "ok": true
+    },
+    {
+      "name": "2028: Ausgaben = aktives Haushaltsvolumen",
+      "ok": true
+    },
+    {
+      "name": "2028: Einnahmen + ausgewiesene Deckungslücke = Ausgaben",
+      "ok": true
+    },
+    {
+      "name": "2028: Haushaltsvolumen = Baseline + Summe K-02-Journal (Ausgaben)",
+      "ok": true
+    },
+    {
+      "name": "2028: Einnahmen = Baseline + Summe K-02-Journal (Einnahmen)",
+      "ok": true
+    },
+    {
+      "name": "2028: ungedeckter Planbedarf null",
+      "ok": true
+    },
+    {
+      "name": "2028: strukturelle Nettokreditaufnahme null",
+      "ok": true
+    },
+    {
+      "name": "2028: Nettokreditaufnahme = Kreditaufnahme − Tilgung",
+      "ok": true
+    },
+    {
+      "name": "2028: Nettokreditaufnahme nicht positiv",
+      "ok": true
+    },
+    {
+      "name": "2028: Kredittitel 2007/325 01 = Anschlussaufnahme",
+      "ok": true
+    },
+    {
+      "name": "2028: Rücklagentitel 2007/359 01 = allgemeine Entnahme",
+      "ok": true
+    },
+    {
+      "name": "2028: Zinstitel 2005/575 01 = Zinsausgaben der Finanzrechnung",
+      "ok": true
+    },
+    {
+      "name": "2028: Zuführung Liquiditätsrücklage 2007/919 02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Maßnahmenauswahl = Baseline + P01",
+      "ok": true
+    },
+    {
+      "name": "K-02: Finanzierungsmaßnahmen F04–F14 unverändert",
+      "ok": true
+    },
+    {
+      "name": "K-02 2027: Titeldeltas Ausgaben = Kosten − Einsparungen der Modellzeile P01",
+      "ok": true
+    },
+    {
+      "name": "K-02 2027: Titeldeltas Einnahmen = Einnahmewirkung der Modellzeile P01",
+      "ok": true
+    },
+    {
+      "name": "K-02 2027: Basisbereinigung summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-02 2028: Titeldeltas Ausgaben = Kosten − Einsparungen der Modellzeile P01",
+      "ok": true
+    },
+    {
+      "name": "K-02 2028: Titeldeltas Einnahmen = Einnahmewirkung der Modellzeile P01",
+      "ok": true
+    },
+    {
+      "name": "K-02 2028: Basisbereinigung summenneutral",
+      "ok": true
+    },
+    {
+      "name": "K-02 2027: Finanzfolge total_interest_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02 2027: Finanzfolge credit_cash_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02 2027: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02 2027: Finanzfolge reserve_draw_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02 2028: Finanzfolge total_interest_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02 2028: Finanzfolge credit_cash_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02 2028: Finanzfolge appropriation_surplus_to_liquidity_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02 2028: Finanzfolge reserve_draw_eur = Solverdifferenz",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (hochschule) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (justiz) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (justizvollzug) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (katastrophenschutz) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (polizei) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (schule) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (steuer) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "K-02: Kalibrierungsbasis 422 (verwaltung) = Titelplan vor K-02",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Nettowirkung 2027 innerhalb ±20 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Nettowirkung 2028 innerhalb ±20 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente einstellung_tarif_beamte 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente einstellung_tarif_entgelt 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente steuer 2027 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente steuer 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente tabellen 2027 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente tabellen 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente umwandlung_beamte 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente umwandlung_entgelt 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente versorgung_p107_bestand 2027 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente versorgung_p107_bestand 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente versorgung_tabellen 2027 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente versorgung_tabellen 2028 innerhalb ±30 %",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente versorgung_vorbuchung 2027 innerhalb ±30 % (Datenübernahme, keine unabhängige Rechnung)",
+      "ok": true
+    },
+    {
+      "name": "Gegenrechnung K-02: Komponente versorgung_vorbuchung 2028 innerhalb ±30 % (Datenübernahme, keine unabhängige Rechnung)",
+      "ok": true
+    },
+    {
+      "name": "Einzelplan × Hauptgruppe = c0-v2 + Umgliederungsjournal (K-01) + Korrekturjournal (K-02)",
+      "ok": true
+    },
+    {
+      "name": "Hauptgruppensummen = c0-v2 + dokumentierte K-02-Wirkung",
+      "ok": true
+    },
+    {
+      "name": "Umgliederungsjournal K-01 summenneutral",
+      "ok": true
+    },
+    {
+      "name": "Jede Aufteilung erhält ihren Ursprungsansatz exakt (Überleitungsbrücke)",
+      "ok": true
+    },
+    {
+      "name": "Alle c0-v2-Ursprungsansätze übergeleitet",
+      "ok": true
+    },
+    {
+      "name": "Keine negativen Titelbeträge",
+      "ok": true
+    },
+    {
+      "name": "Genau 20 Einzelpläne",
+      "ok": true
+    },
+    {
+      "name": "Eindeutige Titel-IDs",
+      "ok": true
+    },
+    {
+      "name": "Titelnummern je Kapitel und Jahr eindeutig",
+      "ok": true
+    },
+    {
+      "name": "Titelnummer fünfstellig, Gruppe im Gruppierungsplan, Hauptgruppe passt",
+      "ok": true
+    },
+    {
+      "name": "Seite passt zur Hauptgruppe",
+      "ok": true
+    },
+    {
+      "name": "Jedes Titelkonzept in beiden Haushaltsjahren",
+      "ok": true
+    },
+    {
+      "name": "Kapitel mit Bezeichnung",
+      "ok": true
+    },
+    {
+      "name": "Herkunft O/D/S/P gekennzeichnet",
+      "ok": true
+    },
+    {
+      "name": "Qualitätsklasse gekennzeichnet",
+      "ok": true
+    },
+    {
+      "name": "Jeder Titel mit Berechnungsmethode",
+      "ok": true
+    },
+    {
+      "name": "Kapitel und Einzelplan konsistent",
+      "ok": true
+    },
+    {
+      "name": "55 politische Entscheidungen unverändert",
+      "ok": true
+    },
+    {
+      "name": "Projekt meals im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt kita im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt school im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt mensa im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt sport im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt culture im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt youth im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt care im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt hospital im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt school-build im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt ticket im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt regionalisierung im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt interflug im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt zeppelin im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt rail-vehicles im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt rail-works im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt rail-network im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt housing im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt ho im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt raw im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt energy im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt land im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt bank im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt district im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt steuervollzug im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt digital im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "Projekt bergbau im Titelplan veranschlagt",
+      "ok": true
+    },
+    {
+      "name": "F04 2027: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "F04 2028: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "F09 2027: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "F10 2027: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "F13 2027: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "F09 2028: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "F10 2028: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "F13 2028: Einnahmewirkung im Titelplan",
+      "ok": true
+    },
+    {
+      "name": "Keine stillschweigend gestrichenen Projekte (Optionen ohne Ansatz gekennzeichnet)",
+      "ok": true
+    }
+  ],
+  "pruefstand": {
+    "bestanden": 128,
+    "gesamt": 128
+  }
+}

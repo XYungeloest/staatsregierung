@@ -1,0 +1,1726 @@
+/*
+ * Haushaltsinformationssystem: Stile des Baukastens unter apps/portal/src/components/haushalt/
+ * und des Layouts HaushaltLayout.astro. Farben, Abstände, Radien und Schriftgrößen kommen
+ * ausschließlich aus den Tokens in packages/shared/src/styles/foundation.css; Breakpoints sind
+ * die vier Stufen des Staatsportals (80, 64, 48, 30 rem, jeweils 0,01 rem darunter).
+ * Klassenpräfix: `hh-`.
+ */
+
+/* Diagrammpalette: acht Stufen aus den Portalfarben, abwechselnd dunkel und hell, damit
+   benachbarte Abschnitte sich auch ohne Farbsehen durch Helligkeit unterscheiden. Die
+   Textfarbe darauf steht als --hh-farbe-text bereit; --hh-farbe-kontur ist auf jeder Stufe
+   dunkel genug (mindestens 3:1 gegen Weiß und die Balkenspur) für Rahmen und die Schraffur
+   der Projektionen. */
+.hh-farbe-1 { --hh-farbe: var(--color-primary); --hh-farbe-text: #fff; --hh-farbe-kontur: var(--color-primary); }
+.hh-farbe-2 { --hh-farbe: var(--color-secondary); --hh-farbe-text: #fff; --hh-farbe-kontur: var(--color-secondary); }
+.hh-farbe-3 { --hh-farbe: var(--color-gold); --hh-farbe-text: var(--color-ink); --hh-farbe-kontur: var(--color-info-gold-ink); }
+.hh-farbe-4 { --hh-farbe: var(--color-focus); --hh-farbe-text: #fff; --hh-farbe-kontur: var(--color-focus); }
+.hh-farbe-5 { --hh-farbe: var(--color-info-green-border); --hh-farbe-text: var(--color-ink); --hh-farbe-kontur: var(--color-secondary-hover); }
+.hh-farbe-6 { --hh-farbe: var(--color-info-gold-ink); --hh-farbe-text: #fff; --hh-farbe-kontur: var(--color-info-gold-ink); }
+.hh-farbe-7 { --hh-farbe: var(--color-info-blue-border); --hh-farbe-text: var(--color-ink); --hh-farbe-kontur: var(--color-primary); }
+.hh-farbe-8 { --hh-farbe: var(--color-border-strong); --hh-farbe-text: var(--color-ink); --hh-farbe-kontur: var(--color-text-muted); }
+
+/* ---------------------------------------------------------------- Layout und Periodenkopf */
+
+.hh-vorschau {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-info-gold-border);
+  border-left: var(--space-1) solid var(--color-seal);
+  border-radius: var(--radius-sm);
+  background: var(--color-info-gold);
+  color: var(--color-info-gold-ink);
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+.hh-vorschau p {
+  margin: 0;
+  max-width: var(--measure-body);
+}
+
+/* Zwischenüberschriften ohne eigene Gestaltung stehen in der Stufe der Schriftskala statt in der
+   Browservorgabe (1,17 em); `:where` lässt jeder Komponentenregel den Vorrang. */
+:where(.hh-inhalt h3, .budget-instrument-card h3) {
+  font-size: var(--text-md);
+}
+
+/* Verweise im Fließtext der Haushaltsseiten sind unterstrichen, nicht nur farbig abgesetzt
+   (WCAG 1.4.1); Kartenverweise und Navigationen bleiben unberührt. */
+.hh-inhalt :is(p, li, dd, figcaption, td) > a.inline-link {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+/* Bereichsnavigation der Haushaltsseiten (PeriodNav, SectionNavigation `budget`): zehn Bereiche
+   je Periode passen ab 74 rem in eine Zeile. Dafür knappere Innenabstände und, solange der Platz
+   nicht reicht, kein sichtbares Etikett – die Periode steht unmittelbar darüber im Statuskopf;
+   als Name der Navigation bleibt das Etikett erhalten. Unter 64 rem steht es über der Liste. */
+.section-navigation--budget a {
+  padding-inline: var(--space-2);
+}
+
+.section-navigation--budget .section-navigation__inner {
+  gap: var(--space-3);
+}
+
+@media (min-width: 64.01rem) and (max-width: 89.99rem) {
+  .section-navigation--budget .section-navigation__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* Statuszeile der Periode: schmales Band unter dem Einstieg, in derselben Breite wie die
+   Bereichsnavigation darunter; keine eigene Akzentlinie. */
+.hh-periodenkopf {
+  display: grid;
+  grid-template-columns: minmax(0, min(calc(100% - 2 * var(--page-gutter)), var(--content-width)));
+  justify-content: center;
+  margin: 0 calc(50% - 50cqw);
+  border-bottom: 1px solid var(--color-border-soft);
+  background: var(--color-surface);
+}
+
+.hh-periodenkopf__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  min-width: 0;
+  padding: var(--space-3) 0;
+}
+
+.hh-periodenkopf__periode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  align-items: baseline;
+  margin: 0;
+  max-width: none;
+}
+
+.hh-periodenkopf__rubrik {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 720;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-periodenkopf__name {
+  color: var(--color-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.hh-periodenkopf__text {
+  flex: 1 1 24rem;
+  margin: 0;
+  max-width: none;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+.hh-periodenkopf__stand {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  max-width: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-periodenkopf__perioden {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  align-items: center;
+}
+
+.hh-periodenkopf__perioden ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-periodenkopf__perioden a {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.hh-periodenkopf__perioden a[aria-current='page'] {
+  color: var(--color-heading);
+  text-decoration: none;
+}
+
+.hh-inhalt {
+  display: grid;
+  min-width: 0;
+}
+
+.hh-inhalt > * {
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------- Statusabzeichen */
+
+.hh-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  max-width: 100%;
+  min-height: var(--space-6);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+  overflow-wrap: anywhere;
+}
+
+.hh-status__zeichen {
+  flex: 0 0 auto;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: currentColor;
+}
+
+.hh-status.hh-status--geltend {
+  border-color: var(--color-info-green-border);
+  background: var(--color-info-green);
+  color: var(--color-secondary-hover);
+}
+
+.hh-status.hh-status--beschlossen {
+  border-color: var(--color-secondary);
+  background: var(--color-surface);
+  color: var(--color-secondary-hover);
+}
+
+.hh-status.hh-status--entwurf {
+  border-color: var(--color-info-gold-border);
+  background: var(--color-info-gold);
+  color: var(--color-info-gold-ink);
+}
+
+.hh-status--entwurf .hh-status__zeichen {
+  border-radius: 0;
+  transform: rotate(45deg);
+}
+
+.hh-status.hh-status--beratung {
+  border-color: var(--color-info-blue-border);
+  background: var(--color-info-blue);
+  color: var(--color-primary);
+}
+
+.hh-status.hh-status--historisch {
+  border-color: var(--color-border);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}
+
+.hh-status--historisch .hh-status__zeichen {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.hh-status.hh-status--vorschau {
+  border-color: var(--color-seal);
+  background: var(--color-surface);
+  color: var(--color-seal);
+}
+
+.hh-status--vorschau .hh-status__zeichen {
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- Beträge und Zahlen */
+
+.hh-betrag,
+.hh-zahl,
+.hh-kennzahl__wert,
+.hh-balken__wert,
+.hh-anteile__werte,
+.hh-zeitreihe__tick,
+.hh-zeitreihe__jahr {
+  font-variant-numeric: tabular-nums;
+}
+
+.hh-betrag {
+  white-space: nowrap;
+}
+
+.hh-zahl,
+.data-table .hh-zahl {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Kennungen (Titel-, Kapitel-, Einzelplannummern) brechen nicht um. */
+.hh-kennung,
+.data-table .hh-kennung {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.hh-zahl > span {
+  white-space: normal;
+}
+
+/* ---------------------------------------------------------------- Kennzahlkarten */
+
+/* Spaltenzahl aus KpiGrid.astro (--hh-spalten, -mittel, -schmal): ausgewogen, ohne einzelne
+   Karte in der letzten Reihe. */
+.hh-kennzahlen {
+  display: grid;
+  grid-template-columns: repeat(var(--hh-spalten, 3), minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Gestalt der Haushaltskennzahlen des Portals (.budget-kpi-card). */
+.hh-kennzahl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+  max-width: none;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.hh-kennzahl p {
+  margin: 0;
+  max-width: none;
+}
+
+.hh-kennzahl__label {
+  line-height: var(--lh-compact);
+  /* Lange Komposita („Nettokreditaufnahme“) trennen statt mitten im Wort zu brechen. */
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.hh-kennzahl__label a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.11em;
+  text-underline-offset: 0.16em;
+}
+
+.hh-kennzahl__wert {
+  color: var(--color-primary);
+  font-size: var(--text-metric);
+  font-weight: 700;
+  line-height: var(--lh-display);
+}
+
+/* Exakte Beträge eine Stufe kleiner; brechen dürfen sie nur zwischen Tausendergruppen (<wbr>
+   aus Amount.astro), das Eurozeichen bleibt beim Betrag. */
+.hh-kennzahl__wert--exakt {
+  font-size: min(var(--text-metric), var(--text-lg));
+}
+
+.hh-kennzahl__wert .hh-betrag {
+  white-space: normal;
+}
+
+.hh-kennzahl__veraenderung {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-xs);
+  align-items: baseline;
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.hh-kennzahl__veraenderung data {
+  font-weight: 700;
+}
+
+.hh-kennzahl__pfeil {
+  color: var(--color-text-muted);
+}
+
+.hh-kennzahl__hinweis,
+.hh-kennzahl__definition {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--lh-compact);
+}
+
+.hh-kennzahl__definition {
+  margin-top: auto;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.hh-kennzahl__definition-label {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- Diagramme allgemein */
+
+.hh-diagramm {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: var(--space-5) 0 0;
+}
+
+.hh-diagramm__titel {
+  color: var(--color-heading);
+  font-size: var(--text-base-plus);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+}
+
+.hh-diagramm__hinweis {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+.hh-diagramm__daten {
+  min-width: 0;
+}
+
+.hh-diagramm__daten > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  color: var(--color-accent);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hh-diagramm__daten > summary:hover {
+  text-decoration: underline;
+}
+
+.hh-diagramm__daten > .hh-tabelle__rahmen {
+  margin-top: var(--space-2);
+}
+
+.hh-legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.hh-legende__eintrag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  line-height: var(--lh-compact);
+}
+
+.hh-legende__muster {
+  flex: 0 0 auto;
+  width: var(--space-4);
+  height: var(--space-3);
+  background: var(--hh-farbe, var(--color-text-muted));
+  box-shadow: inset 0 0 0 1px var(--hh-farbe-kontur, var(--hh-farbe, var(--color-text-muted)));
+}
+
+.hh-legende__kuerzel {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hh-legende__muster--neutral {
+  --hh-farbe: var(--color-text-muted);
+}
+
+.hh-legende__muster--ist {
+  --hh-farbe: var(--color-border-strong);
+}
+
+.hh-legende__muster--linie {
+  height: 3px;
+}
+
+.hh-legende__muster--gestrichelt {
+  height: 0;
+  border-top: 3px dashed var(--hh-farbe, var(--color-text-muted));
+  background: transparent;
+}
+
+/* ---------------------------------------------------------------- Balkendiagramm */
+
+.hh-balken__liste,
+.hh-gruppen__liste,
+.hh-gruppen__serien {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-balken__liste {
+  gap: var(--space-2);
+}
+
+/* Feste Wertspalte je Diagramm, damit alle Balkenspuren gleich lang und damit vergleichbar
+   sind; ein längerer Wert bricht innerhalb der Spalte um. */
+.hh-balken,
+.hh-gruppen {
+  --hh-wertbreite: 7.5rem;
+}
+
+.hh-balken--anteile {
+  --hh-wertbreite: 10rem;
+}
+
+.hh-balken__zeile {
+  display: grid;
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) var(--hh-wertbreite);
+  gap: var(--space-1) var(--space-3);
+  align-items: center;
+  max-width: none;
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.hh-balken__label {
+  min-width: 0;
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--lh-compact);
+  overflow-wrap: anywhere;
+}
+
+/* Verweise in Diagrammbeschriftungen sind ohne Farbwahrnehmung erkennbar (wie .body-copy). */
+.hh-balken__label a,
+.hh-gruppen__label a,
+.hh-anteile__label a,
+.hh-quelle__link {
+  text-decoration: underline;
+  text-decoration-thickness: 0.11em;
+  text-underline-offset: 0.16em;
+}
+
+.hh-balken__notiz {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+.hh-balken__spur {
+  position: relative;
+  display: block;
+  height: var(--space-4-plus);
+  background: var(--color-surface-muted);
+}
+
+.hh-balken__balken {
+  position: absolute;
+  inset-block: 0;
+  left: var(--hh-start, 0%);
+  width: var(--hh-groesse, 0%);
+  background: var(--hh-farbe, var(--color-primary));
+  box-shadow: inset 0 0 0 1px var(--hh-farbe-kontur, var(--hh-farbe, var(--color-primary)));
+}
+
+.hh-balken__balken--negativ {
+  --hh-farbe: var(--color-info-gold-ink);
+  --hh-farbe-kontur: var(--color-info-gold-ink);
+}
+
+/* Nulllinie, sobald negative Werte vorkommen. */
+.hh-balken--negativ .hh-balken__spur::after,
+.hh-gruppen .hh-balken__spur::after {
+  content: '';
+  position: absolute;
+  inset-block: calc(-1 * var(--space-1));
+  left: var(--hh-null, 0%);
+  width: var(--space-hairline);
+  background: var(--color-text-muted);
+}
+
+.hh-balken__wert {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
+  gap: 0 var(--space-2);
+  justify-content: flex-end;
+  align-items: baseline;
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-align: right;
+}
+
+.hh-balken__anteil {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------------- Gruppierte Balken */
+
+.hh-gruppen__liste {
+  gap: var(--space-3);
+}
+
+.hh-gruppen__kategorie {
+  display: grid;
+  gap: var(--space-1);
+  max-width: none;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.hh-gruppen__label {
+  margin: 0;
+  max-width: none;
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--lh-compact);
+}
+
+.hh-gruppen__serien {
+  gap: var(--space-1);
+}
+
+.hh-gruppen__zeile {
+  display: grid;
+  grid-template-columns: min(var(--hh-seriebreite, 5ch), 30%) minmax(0, 1fr) var(--hh-wertbreite);
+  gap: var(--space-3);
+  align-items: center;
+  max-width: none;
+}
+
+.hh-gruppen__serie {
+  min-width: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  overflow-wrap: anywhere;
+}
+
+/* „Projektion“ steht an jedem Projektionsbalken als zweite Zeile der Serienbezeichnung. */
+.hh-gruppen__art {
+  display: block;
+  font-size: var(--text-2xs);
+  font-weight: 500;
+}
+
+.hh-gruppen .hh-balken__spur {
+  height: var(--space-3);
+}
+
+/* ---------------------------------------------------------------- Zeitreihe */
+
+.hh-zeitreihe {
+  --hh-diagrammhoehe: calc(var(--space-8) * 4);
+}
+
+.hh-zeitreihe__flaeche {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto var(--hh-diagrammhoehe) auto;
+  column-gap: var(--space-2);
+  min-width: 0;
+}
+
+.hh-zeitreihe__einheit {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  padding-bottom: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.hh-zeitreihe__kopf {
+  display: grid;
+  grid-column: 2;
+  grid-row: 1;
+  grid-template-columns: repeat(var(--hh-jahre, 1), minmax(0, 1fr));
+  min-height: var(--space-6);
+  padding-bottom: var(--space-2);
+  align-items: end;
+}
+
+.hh-zeitreihe__bandlabel {
+  min-width: 0;
+  padding: 0 var(--space-2) var(--space-1);
+  border-left: 2px dashed var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: var(--lh-compact);
+  overflow-wrap: anywhere;
+}
+
+.hh-zeitreihe__yachse {
+  position: relative;
+  grid-column: 1;
+  grid-row: 2;
+  min-width: var(--space-6);
+}
+
+.hh-zeitreihe__tick {
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hh-zeitreihe__plot {
+  position: relative;
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+}
+
+.hh-zeitreihe__luecke {
+  position: absolute;
+  padding: 0 var(--space-hairline);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translate(-50%, calc(-100% - var(--space-1)));
+}
+
+.hh-zeitreihe__luecke--unten {
+  transform: translate(-50%, var(--space-1));
+}
+
+.hh-zeitreihe__luecke--senkrecht {
+  padding: var(--space-hairline) 0;
+  writing-mode: vertical-rl;
+}
+
+.hh-zeitreihe__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hh-zeitreihe__xachse {
+  display: grid;
+  grid-column: 2;
+  grid-row: 3;
+  grid-template-columns: repeat(var(--hh-jahre, 1), minmax(0, 1fr));
+  padding-top: var(--space-1);
+}
+
+.hh-zeitreihe__jahr {
+  min-width: 0;
+  color: var(--color-heading);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-align: center;
+}
+
+.hh-zeitreihe__jahr--projektion {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.hh-svg-band { fill: var(--color-surface-muted); }
+.hh-svg-grenze { stroke: var(--color-border-strong); stroke-width: 2; stroke-dasharray: 5 4; }
+.hh-svg-raster { stroke: var(--color-border); stroke-width: 1; }
+.hh-svg-null { stroke: var(--color-text-muted); stroke-width: 1.5; }
+.hh-svg-hell { fill: var(--color-surface); }
+.hh-svg-fuellung { fill: var(--hh-farbe-kontur, var(--hh-farbe)); }
+.hh-svg-saeule { fill: var(--hh-farbe); }
+.hh-svg-saeule--projektion { stroke: var(--hh-farbe-kontur, var(--hh-farbe)); stroke-width: 1.5; }
+.hh-svg-linie path { fill: none; stroke: var(--hh-farbe); stroke-width: 2.5; stroke-linejoin: round; }
+.hh-svg-linie .hh-svg-linie--projektion { stroke-dasharray: 6 5; }
+.hh-svg-linie .hh-svg-punkt { stroke-width: 8; stroke-linecap: round; }
+.hh-svg-linie .hh-svg-punkt--projektion { stroke-width: 6; }
+
+/* ---------------------------------------------------------------- Anteilsbalken */
+
+.hh-anteile__balken {
+  display: flex;
+  overflow: hidden;
+  height: var(--space-6-plus);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+}
+
+.hh-anteile__abschnitt {
+  display: flex;
+  flex: 0 0 var(--hh-groesse, 0%);
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  border-right: 2px solid var(--color-surface);
+  background: var(--hh-farbe);
+  color: var(--hh-farbe-text);
+  container-type: inline-size;
+}
+
+.hh-anteile__abschnitt:last-child {
+  border-right: 0;
+}
+
+.hh-anteile__nummer {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@container (max-width: 1.5rem) {
+  .hh-anteile__nummer {
+    display: none;
+  }
+}
+
+.hh-anteile__legende {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-anteile__eintrag {
+  display: grid;
+  grid-template-columns: var(--space-5) minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: baseline;
+  max-width: none;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.hh-anteile__farbe {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: var(--space-5);
+  height: var(--space-5);
+  background: var(--hh-farbe);
+  box-shadow: inset 0 0 0 1px var(--hh-farbe-kontur, var(--hh-farbe));
+  color: var(--hh-farbe-text);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.hh-anteile__label {
+  min-width: 0;
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.hh-anteile__werte {
+  display: grid;
+  justify-items: end;
+  font-size: var(--text-sm);
+}
+
+.hh-anteile__anteil {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.hh-anteile__werte .hh-betrag {
+  color: var(--color-text-muted);
+}
+
+/* ---------------------------------------------------------------- Quelle, Herkunft, Definition */
+
+.hh-quelle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: var(--space-4) 0 0;
+  max-width: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+.hh-quelle__link {
+  font-weight: 600;
+}
+
+.hh-herkunft {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  vertical-align: middle;
+  min-height: var(--space-5);
+  padding: 0 var(--space-xs);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  color: var(--color-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: var(--lh-compact);
+}
+
+.hh-herkunft__code {
+  min-width: var(--space-3);
+  text-align: center;
+}
+
+.hh-herkunft__text {
+  font-weight: 600;
+}
+
+.data-table td > .hh-herkunft,
+.data-table td > .hh-status {
+  display: inline-flex;
+  margin-top: 0;
+  line-height: var(--lh-compact);
+}
+
+/* Das lange Abzeichen („S Planungsannahme“) bleibt ungeteilt: die globale Regel
+   `.data-table td > span { overflow-wrap: anywhere }` würde es sonst Zeichen für Zeichen umbrechen. */
+.hh-herkunft--lang {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.hh-herkunft.hh-herkunft--o { border-color: var(--color-info-blue-border); background: var(--color-info-blue); color: var(--color-primary); }
+.hh-herkunft.hh-herkunft--d { border-color: var(--color-border-strong); background: var(--color-surface); color: var(--color-heading); }
+.hh-herkunft.hh-herkunft--s { border-color: var(--color-info-gold-border); background: var(--color-info-gold); color: var(--color-info-gold-ink); }
+.hh-herkunft.hh-herkunft--p { border-color: var(--color-info-green-border); background: var(--color-info-green); color: var(--color-secondary-hover); }
+
+.hh-herkunftslegende {
+  margin: var(--space-4) 0 0;
+}
+
+.hh-herkunftslegende__titel {
+  margin: 0 0 var(--space-2);
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.hh-herkunftslegende__liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+}
+
+.hh-herkunftslegende__eintrag {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+}
+
+.hh-herkunftslegende__eintrag dd {
+  display: grid;
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+.hh-herkunftslegende__label {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.hh-herkunftslegende__text {
+  color: var(--color-text-muted);
+}
+
+.hh-definition {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-left: var(--space-1) solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+}
+
+.hh-definition__titel {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.hh-definition__text {
+  font-size: var(--text-sm);
+  line-height: var(--lh-body);
+}
+
+.hh-definition__text > :first-child {
+  margin-top: var(--space-1);
+}
+
+.hh-definition__text > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------- Wege in Bereiche */
+
+.hh-wege {
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-wege__karte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: none;
+  padding: var(--space-4-plus);
+}
+
+.hh-wege__karte p {
+  margin: 0;
+}
+
+.hh-wege__titel {
+  margin: 0;
+}
+
+.hh-wege__titel a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.hh-wege__titel a:hover {
+  text-decoration: underline;
+}
+
+/* Die ganze Karte ist Klickfläche; der Fokus bleibt am Link sichtbar. */
+.hh-wege__titel a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------------------------------------------------------------- Tabellen */
+
+.hh-tabelle {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: var(--space-5) 0 0;
+}
+
+.hh-tabelle [hidden],
+.hh-tabelle__leer[hidden],
+[data-tabelle-js][hidden] {
+  display: none;
+}
+
+.hh-tabelle__werkzeuge > .filter-bar {
+  margin-top: 0;
+}
+
+.hh-tabelle__status,
+.hh-tabelle__scrollhinweis {
+  margin: 0;
+  max-width: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-tabelle__status:empty {
+  display: none;
+}
+
+/* Hülle des Scrollbereichs: Kantenschatten zeigen, auf welcher Seite Spalten verdeckt sind
+   (`data-scroll-links`/`data-scroll-rechts` setzt der Enhancer). */
+.hh-tabelle__rahmen {
+  position: relative;
+  min-width: 0;
+}
+
+.hh-tabelle__rahmen::before,
+.hh-tabelle__rahmen::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  z-index: 3;
+  width: var(--space-5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hh-tabelle__rahmen::before {
+  left: 0;
+  background: linear-gradient(to right, color-mix(in srgb, var(--color-ink) 24%, transparent), transparent);
+}
+
+.hh-tabelle__rahmen::after {
+  right: 0;
+  background: linear-gradient(to left, color-mix(in srgb, var(--color-ink) 24%, transparent), transparent);
+}
+
+.hh-tabelle__rahmen[data-scroll-links]::before,
+.hh-tabelle__rahmen[data-scroll-rechts]::after {
+  opacity: 1;
+}
+
+/* `position: relative` hält absolut gesetzte Kinder (z. B. `.visually-hidden`) im Scrollbereich;
+   sonst ragen sie über den Seitenrand und erzeugen Dokumentüberlauf. */
+.hh-tabelle .hh-tabelle__wrap,
+.hh-diagramm__tabelle.table-wrap {
+  position: relative;
+  margin-top: 0;
+  box-shadow: none;
+}
+
+/* Passt die Tabelle ohne waagerechtes Rollen in ihren Bereich, ist der Bereich kein
+   Scrollcontainer: dann haftet der Spaltenkopf unter der Bereichsnavigation. */
+.hh-tabelle .hh-tabelle__wrap.is-ohne-scroll {
+  overflow: visible;
+}
+
+.hh-tabelle .is-ohne-scroll .data-table thead th {
+  top: var(--hh-kopf-oben, 0px);
+}
+
+.hh-tabelle .is-ohne-scroll .data-table thead tr:first-child > :first-child {
+  border-top-left-radius: var(--radius-md);
+}
+
+.hh-tabelle .is-ohne-scroll .data-table thead tr:first-child > :last-child {
+  border-top-right-radius: var(--radius-md);
+}
+
+.hh-tabelle__leer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+}
+
+.hh-tabelle__leer p {
+  margin: 0;
+}
+
+.hh-tabelle__blaettern > .data-pagination {
+  margin-top: 0;
+}
+
+/* Mindestbreiten ab 48 rem: darunter wird gestapelt und getrennt statt gerollt; reicht der Platz
+   nicht, rollt die Tabelle kontrolliert im gekennzeichneten Bereich. */
+.hh-datentabelle {
+  min-width: min(100%, 30rem);
+}
+
+.hh-tabelle .data-table,
+.hh-tabelle--schmal .data-table {
+  min-width: 0;
+}
+
+.hh-tabelle--mittel .data-table { min-width: 36rem; }
+.hh-tabelle--breit .data-table { min-width: 44rem; }
+.hh-tabelle--sehr-breit .data-table { min-width: 60rem; }
+
+.data-table.hh-datentabelle :is(th, td),
+.hh-tabelle .data-table :is(th, td) {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+  /* Wörter bleiben ganz; nur überlange Zeichenketten brechen. */
+  overflow-wrap: break-word;
+}
+
+/* Verlinkte Bezeichnungen und Zusatzzeilen („Funktion 111: …“) folgen derselben Regel:
+   `.inline-link` (foundation.css), `.hh-browser-link` (browser.css) und
+   `.data-table td > span` (foundation.css) brechen sonst an beliebiger Stelle und drücken die
+   Spalte auf wenige Zeichen zusammen. */
+.data-table.hh-datentabelle :is(th, td) :is(.inline-link, .hh-browser-link),
+.hh-tabelle .data-table :is(th, td) :is(.inline-link, .hh-browser-link),
+.data-table.hh-datentabelle td > span,
+.hh-tabelle .data-table td > span {
+  overflow-wrap: break-word;
+}
+
+/* Auf Tablets trennen verlinkte Bezeichnungen und Zusatzzeilen mit Trennstrich nach Silben
+   („Volksbildungs-verwaltung“), damit ganze Wörter die Spalten nicht unnötig verbreitern; unter
+   48 rem gilt ohnehin die Silbentrennung der schmalen Tabellen. Getrennt wird erst ab vier
+   Buchstaben je Teil, damit keine Reste wie „Öf-fentliche“ entstehen. */
+@media (max-width: 63.99rem) {
+  .data-table.hh-datentabelle :is(th, td) :is(.inline-link, .hh-browser-link),
+  .hh-tabelle .data-table :is(th, td) :is(.inline-link, .hh-browser-link),
+  .data-table.hh-datentabelle td > span,
+  .hh-tabelle .data-table td > span {
+    hyphens: auto;
+    hyphenate-limit-chars: 10 4 4;
+  }
+}
+
+.data-table.hh-datentabelle thead th,
+.hh-tabelle .data-table thead th {
+  font-size: var(--text-xs);
+  vertical-align: bottom;
+}
+
+/* Zahlenköpfe dürfen umbrechen, die Zahlen darunter nicht. Getrennt wird nur an weichen
+   Trennstellen („Personal&shy;ausgaben“), damit Köpfe wie „Veränderung“ nicht mitten im Wort
+   zerfallen; unter 48 rem gilt die Silbentrennung der schmalen Tabellen. */
+.data-table.hh-datentabelle thead th.hh-zahl,
+.hh-tabelle .data-table thead th.hh-zahl {
+  white-space: normal;
+  hyphens: manual;
+}
+
+.hh-datentabelle tbody th,
+.hh-datentabelle tfoot th,
+.hh-tabelle .data-table tbody th,
+.hh-tabelle .data-table tfoot th {
+  background: var(--color-surface);
+  color: var(--color-heading);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Wie `.data-table tr:last-child td`: auch der Zeilenkopf der letzten Zeile ohne Linie. */
+.data-table.hh-datentabelle tr:last-child > th,
+.hh-tabelle .data-table tr:last-child > th,
+.hh-tabelle .data-table tr.is-letzte-zeile > :is(th, td) {
+  border-bottom: 0;
+}
+
+.hh-datentabelle tfoot :is(th, td),
+.hh-tabelle .data-table tfoot :is(th, td) {
+  border-top: 2px solid var(--color-border-strong);
+  border-bottom: 0;
+  font-weight: 700;
+}
+
+/* Unterzeile im Spaltenkopf (`<th>2028 <span>Projektion</span></th>`), auch im Sortierknopf. */
+.hh-datentabelle th > span,
+.hh-tabelle .data-table th > span,
+.hh-datentabelle th .hh-sortierknopf__text > span,
+.hh-tabelle .data-table th .hh-sortierknopf__text > span {
+  display: block;
+  margin-top: var(--space-hairline);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Projektionsjahre (Finanzplanung, nicht bewilligt): Zeile einschließlich Zeilenkopf hinterlegt. */
+.hh-datentabelle tr.hh-zeile--projektion > :is(th, td),
+.hh-tabelle .data-table tr.hh-zeile--projektion > :is(th, td) {
+  background: var(--color-surface-alt);
+}
+
+/* Gruppenköpfe (z. B. Kapitel, `<th scope="rowgroup">`) und Folgezeilen (Erläuterungen). */
+.hh-tabelle tr[data-gruppenkopf] > :is(th, td) {
+  background: var(--color-surface-muted);
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.hh-tabelle tr[data-folgezeile] > :is(th, td) {
+  padding-top: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-tabelle tr:has(+ tr[data-folgezeile]:not([hidden])) > :is(th, td) {
+  border-bottom-color: transparent;
+}
+
+/* Zeilenanker in der Kennung (`<a class="hh-zeilenanker" href="#titel-63361">633 61</a>`):
+   ein echter Link je Zeile, der ohne JavaScript funktioniert und die Adresse der Zeile trägt. */
+.hh-zeilenanker {
+  color: var(--color-accent);
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-thickness: 0.11em;
+  text-underline-offset: 0.16em;
+  white-space: nowrap;
+}
+
+.hh-zeilenanker:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Sprungziel einer Zeile (#titel-…): Hervorhebung, die nicht allein auf Farbe beruht. */
+.hh-tabelle tbody tr {
+  scroll-margin-block: calc(var(--hh-kopf-oben, 0px) + var(--space-8));
+}
+
+.hh-tabelle tbody tr:target > *,
+.hh-tabelle tbody tr.is-ziel > * {
+  background: var(--color-highlight);
+}
+
+.hh-tabelle tbody tr:target > :first-child,
+.hh-tabelle tbody tr.is-ziel > :first-child {
+  box-shadow: inset var(--space-1) 0 0 var(--color-primary);
+}
+
+.hh-tabelle tbody tr:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+/* Sortierknopf, vom Enhancer in sortierbare Spaltenköpfe gesetzt. */
+.hh-sortierknopf {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: var(--space-1);
+  min-height: var(--space-5);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.hh-zahl .hh-sortierknopf {
+  justify-content: flex-end;
+}
+
+.hh-sortierknopf:hover {
+  text-decoration: underline;
+}
+
+.hh-sortierknopf__text {
+  min-width: 0;
+}
+
+.hh-sortierknopf__zeichen {
+  flex: 0 0 auto;
+  min-width: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+th[aria-sort] .hh-sortierknopf__zeichen {
+  color: var(--color-primary);
+}
+
+/* Knopf „Link kopieren“ (CopyLinkButton) für einzelne Abschnitte oder Detailansichten. */
+.hh-linkknopf {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-6);
+  min-width: var(--space-6);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.hh-linkknopf:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-info-blue);
+}
+
+/* Werkzeugleiste */
+.hh-filter {
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+}
+
+.hh-filter__felder {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+
+.hh-filter__suche {
+  grid-column: span 2;
+}
+
+.hh-filter__optionen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  align-items: end;
+}
+
+.hh-filter__jahre {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.hh-filter__jahre .segmented-control__button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.hh-filter__gruppenlabel {
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.hh-filter__jahre .segmented-control__button[aria-pressed='true'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.hh-filter__schalter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hh-filter__schalter input {
+  width: var(--space-4-plus);
+  height: var(--space-4-plus);
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.hh-filter__export {
+  margin-left: auto;
+}
+
+/* ---------------------------------------------------------------- Fokus */
+
+.hh-diagramm__daten > summary:focus-visible,
+.hh-sortierknopf:focus-visible,
+.hh-linkknopf:focus-visible,
+.hh-filter__schalter input:focus-visible,
+.hh-tabelle .table-wrap:focus-visible,
+.hh-diagramm__tabelle:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.hh-tabelle .table-wrap:focus-visible,
+.hh-diagramm__tabelle:focus-visible {
+  outline-offset: -3px;
+}
+
+/* Schraffur für Projektionen (HTML-Balken und Legendenmuster). Das SVG der Zeitreihe nutzt
+   dasselbe Motiv als <pattern>. */
+.hh-muster--projektion,
+.hh-legende__muster.hh-muster--projektion,
+.hh-balken__balken.hh-muster--projektion {
+  --hh-muster: var(--hh-farbe-kontur, var(--hh-farbe, var(--color-text-muted)));
+  background-color: var(--color-surface);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--hh-muster) 0 var(--space-hairline),
+    transparent var(--space-hairline) var(--space-xs)
+  );
+  box-shadow: inset 0 0 0 var(--space-hairline) var(--hh-muster);
+}
+
+/* ---------------------------------------------------------------- Breakpoints */
+
+@media (max-width: 63.99rem) {
+  .hh-kennzahlen {
+    grid-template-columns: repeat(var(--hh-spalten-mittel, 2), minmax(0, 1fr));
+  }
+
+  .hh-balken__zeile {
+    grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) var(--hh-wertbreite);
+  }
+
+  .hh-anteile__legende {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .hh-kennzahlen {
+    grid-template-columns: repeat(var(--hh-spalten-schmal, 1), minmax(0, 1fr));
+  }
+
+  /* Statuszeile: Periode und Statusabzeichen vorn, die Bezeichnung „Haushaltsperiode“ entfällt. */
+  .hh-periodenkopf__periode > .hh-periodenkopf__rubrik {
+    display: none;
+  }
+
+  .hh-periodenkopf__inner {
+    gap: var(--space-2) var(--space-3);
+  }
+
+  /* Bezeichnung über dem Balken, Wert rechts daneben. */
+  .hh-balken__zeile {
+    grid-template-columns: minmax(0, 1fr) var(--hh-wertbreite);
+  }
+
+  .hh-balken__label {
+    grid-column: 1 / -1;
+  }
+
+  .hh-gruppen__zeile {
+    gap: var(--space-2);
+  }
+
+  .hh-filter__suche {
+    grid-column: auto;
+  }
+
+  .hh-filter__export {
+    margin-left: 0;
+  }
+
+  .hh-zeitreihe {
+    --hh-diagrammhoehe: calc(var(--space-8) * 3);
+  }
+
+  /* Tabellen passen sich der Breite an: keine Mindestbreite, knappere Zellen, Silbentrennung. */
+  .hh-tabelle .data-table,
+  .hh-tabelle--mittel .data-table,
+  .hh-tabelle--breit .data-table,
+  .hh-tabelle--sehr-breit .data-table {
+    min-width: 0;
+  }
+
+  .data-table.hh-datentabelle :is(th, td),
+  .hh-tabelle .data-table :is(th, td) {
+    padding: var(--space-2);
+    hyphens: auto;
+  }
+
+  .data-table.hh-datentabelle thead th.hh-zahl,
+  .hh-tabelle .data-table thead th.hh-zahl {
+    hyphens: auto;
+  }
+
+  .data-table.hh-datentabelle thead th,
+  .hh-tabelle .data-table thead th {
+    letter-spacing: 0.03em;
+  }
+
+  /* Tabellen ohne schmale Jahresansicht rollen bei vielen Zahlenspalten ohnehin; ihre
+     Zeilenbezeichnungen und Textspalten werden dabei nicht bis auf Silbenreste zusammengedrückt.
+     Tabellen mit schmaler Jahresansicht (`data-year-view-schmal`) passen sich stattdessen der
+     Breite an und bleiben ohne Mindestbreite. */
+  .hh-tabelle:not([data-year-view-schmal]) .data-table :is(tbody, tfoot) :is(th, td):not(.hh-zahl):not(.hh-kennung):not([colspan]),
+  .hh-diagramm:not(.hh-zeitreihe) .data-table.hh-datentabelle tbody th[scope='row'] {
+    min-width: calc(var(--space-8) * 2);
+  }
+
+  /* Kennungen (Jahr, Einzelplan-, Kapitel- und Titelnummer) bleiben ungeteilt. */
+  .data-table.hh-datentabelle .hh-kennung {
+    white-space: nowrap;
+  }
+
+}
+
+@media (max-width: 29.99rem) {
+  .hh-zeitreihe__jahr,
+  .hh-zeitreihe__tick {
+    font-size: var(--text-2xs);
+  }
+
+  .hh-zeitreihe__bandlabel {
+    padding-inline: var(--space-1);
+    font-size: var(--text-2xs);
+  }
+
+}
+
+/* Gegenstück zur globalen Regel in foundation.css (`@media (max-width: 48rem)`), die
+   `.table-wrap` um je 0,6 rem in den Seitenrand zieht, aber bei `width: 100%` belässt: der Bereich
+   säße sonst schief. Der Rahmen der Haushaltstabellen trägt den Anschnitt selbst, damit die
+   Kantenschatten an der sichtbaren Kante liegen; deshalb dieselbe Grenze wie dort. */
+@media (max-width: 48rem) {
+  .hh-tabelle__rahmen {
+    margin-inline: calc(-1 * var(--space-2));
+  }
+
+  .hh-tabelle__rahmen > .table-wrap {
+    width: auto;
+    margin-inline: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- Bewegung und Druck */
+
+@media (prefers-reduced-motion: no-preference) {
+  .hh-tabelle tbody tr > * {
+    transition: background-color 400ms ease;
+  }
+}
+
+@media print {
+  .hh-periodenkopf__perioden,
+  .hh-filter,
+  .hh-linkknopf,
+  .hh-tabelle__leer button,
+  .hh-tabelle__blaettern,
+  .hh-tabelle__status,
+  .hh-tabelle__scrollhinweis,
+  .hh-sortierknopf__zeichen,
+  .hh-diagramm__daten > summary,
+  [data-haushalt-suchfeld],
+  [data-tabelle-js] {
+    display: none !important;
+  }
+
+  .hh-tabelle__rahmen::before,
+  .hh-tabelle__rahmen::after {
+    display: none;
+  }
+
+  .hh-diagramm,
+  .hh-tabelle,
+  .hh-periodenkopf,
+  .hh-vorschau {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .hh-diagramm__daten::details-content {
+    content-visibility: visible;
+    display: block;
+  }
+
+  .hh-tabelle .table-wrap,
+  .hh-diagramm__tabelle.table-wrap {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .hh-tabelle .data-table,
+  .hh-datentabelle {
+    min-width: 0 !important;
+    width: 100%;
+  }
+
+  .hh-tabelle thead,
+  .hh-datentabelle thead {
+    display: table-header-group;
+  }
+
+  .hh-tabelle tr,
+  .hh-datentabelle tr,
+  .hh-kennzahl,
+  .hh-zeitreihe__flaeche,
+  .hh-anteile__balken {
+    break-inside: avoid;
+  }
+
+  .hh-zahl,
+  .hh-betrag {
+    white-space: normal;
+  }
+
+  .hh-tabelle .data-table thead th {
+    position: static;
+  }
+
+  /* Exakte Beträge bleiben ungeteilt; damit breite Tabellen auf die Druckseite passen, werden
+     Schrift und Zellabstände im Druck knapper. */
+  .hh-tabelle .data-table :is(th, td),
+  .data-table.hh-datentabelle :is(th, td) {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .hh-tabelle .data-table :is(th, td).hh-zahl,
+  .data-table.hh-datentabelle :is(th, td).hh-zahl {
+    padding-inline: var(--space-1);
+    font-size: var(--text-2xs);
+  }
+}
+
+/* Doppelhaushalt 2025/2026 (Altbestand): Die globale Tabellenregel `overflow-wrap: anywhere`
+   (foundation.css) drückt Spalten auf ein Zeichen zusammen („K/A/T/E/G/O/R/I/E“). In den
+   Tabellen des Altbestands bleiben Wörter und Beträge ganz; reicht der Platz nicht, rollt die
+   Tabelle im gekennzeichneten Bereich. */
+:is(.budget-plan-data-table, .budget-total-table, .budget-chapter-table, .budget-portal-table, .budget-task-area-table) :is(th, td),
+:is(.budget-plan-data-table, .budget-total-table, .budget-chapter-table, .budget-portal-table, .budget-task-area-table) td > span,
+:is(.budget-plan-data-table, .budget-total-table, .budget-chapter-table, .budget-portal-table, .budget-task-area-table) :is(th, td) a {
+  overflow-wrap: break-word;
+}
+
+/* Kennzahlbezeichnungen („Gesamtausgaben“) und Verweise („Einzelplan 01 ansehen“) trennen bei
+   Platzmangel nach Silben statt mitten im Wort. */
+.budget-kpi-card .meta-label {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+
+:is(.budget-plan-data-table, .budget-total-table, .budget-chapter-table, .budget-portal-table, .budget-task-area-table) :is(th, td) a {
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+
+:is(.budget-plan-data-table, .budget-total-table, .budget-chapter-table, .budget-portal-table, .budget-task-area-table) thead th {
+  hyphens: manual;
+}

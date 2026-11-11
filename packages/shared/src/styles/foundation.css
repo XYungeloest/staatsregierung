@@ -434,7 +434,7 @@ h2 {
   color: var(--color-text-muted);
 }
 
-.meta-grid--compact /* Beschreibungsliste für Textangaben. Kennzahlenkarten (.meta-card) bleiben nach DESIGN.md
+/* Beschreibungsliste für Textangaben. Kennzahlenkarten (.meta-card) bleiben nach DESIGN.md
    quantitativen Werten vorbehalten; „Dresden“ oder „Erster Staatsrat“ stehen hier. */
 .fact-list {
   display: grid;

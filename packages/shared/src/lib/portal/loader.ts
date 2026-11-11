@@ -174,9 +174,11 @@ export async function loadEventBySlug(slug: string): Promise<Termin | undefined>
 }
 
 export async function loadBudgetPages(): Promise<Haushaltsseite[]> {
+  // content/haushalt/perioden.json ist das Periodenregister, keine Haushaltsseite.
   const entries = await loadCollection(
     portalCollections.haushaltsseite.directorySegments,
     parseHaushaltsseite,
+    { excludeFileNames: ['perioden.json'] },
   );
   return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));
 }

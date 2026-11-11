@@ -1,0 +1,122 @@
+---
+/**
+ * Vorhaben und Projekte einer Snapshot-Periode (/haushalt/<periode>/projekte/): Karten nach
+ * Fachbereich mit Suche und Filtern, die größten Vorhaben im Jahresvergleich und alle Vorhaben
+ * als sortierbare Tabelle. Projektbeträge sind eine eigene Sicht auf dieselben Haushaltstitel
+ * und werden nie zu Gesamtsummen addiert.
+ */
+import HaushaltLayout from '../../../../layouts/HaushaltLayout.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import DefinitionNote from '../../../../components/haushalt/DefinitionNote.astro';
+import GroupedBarChart from '../../../../components/haushalt/GroupedBarChart.astro';
+import SourceNote from '../../../../components/haushalt/SourceNote.astro';
+import ProjektTabelle from '../../../../components/haushalt/projekte/ProjektTabelle.astro';
+import ProjektUebersicht from '../../../../components/haushalt/projekte/ProjektUebersicht.astro';
+import '../../../../styles/haushalt/projekte.css';
+import {
+  getPeriodenPfade,
+  getPeriodenRahmen,
+  getProjektSichten,
+  getSichtbareSnapshotPeriode,
+  sortiereNachAusgaben,
+} from '../../../../components/haushalt/projekte/daten.ts';
+import { loadMinistries } from '@ostrecht/shared/lib/portal/content.ts';
+import { getMinistryUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return getPeriodenPfade();
+}
+
+const { periodeId } = Astro.props as { periodeId: string };
+const periode = getSichtbareSnapshotPeriode(periodeId);
+const rahmen = getPeriodenRahmen(periode, 'projekte');
+const { jahre, jahreText } = rahmen;
+const projekte = getProjektSichten(periode);
+const ministries = await loadMinistries();
+const ressorts = Object.fromEntries(ministries.map((ministry) => [ministry.slug, { name: ministry.kurzname, href: getMinistryUrl(ministry.slug) }]));
+
+const mitBetraegen = projekte.filter((projekt) => projekt.betragsArt === 'betraege');
+const groesste = sortiereNachAusgaben(mitBetraegen, jahre[0]).slice(0, 10);
+const fachbereichAnzahl = new Set(projekte.map((projekt) => projekt.fachbereich)).size;
+
+const title = `Vorhaben und Projekte – ${periode.bezeichnung}`;
+const description = `Vorhaben und Programme im ${periode.bezeichnung} (${rahmen.statusLabel}): Status, Ressort, Haushaltstitel und Beträge ${jahreText} als eigene Sicht auf die Kapitel.`;
+const breadcrumbs = [...rahmen.breadcrumbsBasis, { label: 'Vorhaben und Projekte' }];
+---
+
+<HaushaltLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  periodLabel={rahmen.periodLabel}
+  statusLabel={rahmen.statusLabel}
+  statusTone={rahmen.statusTone}
+  statusText={rahmen.statusText}
+  datenstand={rahmen.datenstand}
+  datenversion={rahmen.datenversion}
+  preview={rahmen.preview}
+  navItems={rahmen.navItems}
+  otherPeriods={rahmen.otherPeriods}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow="Haushalt"
+    title="Vorhaben und Projekte"
+    lead={`${projekte.length} Vorhaben und Programme im ${periode.bezeichnung} aus ${fachbereichAnzahl} Fachbereichen – mit Stand, zuständigem Ressort, Haushaltstiteln und veranschlagten Beträgen.`}
+    variant="budget"
+  />
+
+  <section class="section" aria-labelledby="vorhaben-fachbereiche">
+    <div class="section-header">
+      <h2 id="vorhaben-fachbereiche">Vorhaben nach Fachbereichen</h2>
+      <p>
+        Ausgaben im Kernhaushalt für {jahre.join(' und ')}; Einnahmen eines Vorhabens werden getrennt ausgewiesen.
+      </p>
+    </div>
+    <DefinitionNote begriff="Vorhaben und Gesamthaushalt" id="abgrenzung-vorhaben">
+      <p>
+        Die Beträge der Vorhaben sind in den Ansätzen der Kapitel enthalten. Sie fassen dieselben Haushaltstitel unter einem
+        Vorhaben zusammen und werden nicht zusätzlich zum Gesamthaushalt gezählt. Vorhaben ohne eigenen Haushaltsansatz
+        erscheinen ohne Betrag.
+      </p>
+    </DefinitionNote>
+    <ProjektUebersicht id="vorhaben" projekte={projekte} jahre={jahre} ressorts={ressorts} />
+  </section>
+
+  {groesste.length > 0 ? (
+    <section class="section" aria-labelledby="groesste-vorhaben">
+      <div class="section-header">
+        <h2 id="groesste-vorhaben">Größte Vorhaben</h2>
+        <p>Die {groesste.length} Vorhaben mit den höchsten Ausgaben {jahre[0]} im Vergleich der Haushaltsjahre {jahre.join(' und ')}.</p>
+      </div>
+      <GroupedBarChart
+        id="vorhaben-groesste"
+        caption={`Vorhaben mit den höchsten Ausgaben ${jahre[0]}`}
+        series={jahre.map((jahr) => ({ label: jahr }))}
+        categories={groesste.map((projekt) => ({
+          label: projekt.titel,
+          values: jahre.map((jahr) => projekt.ausgaben[jahr]),
+          href: projekt.href,
+        }))}
+        kategorieSpalte="Vorhaben"
+        veraenderung
+        hinweis="Ausgaben im Kernhaushalt. Die Beträge sind in den Kapitelansätzen enthalten und werden nicht addiert."
+      />
+    </section>
+  ) : null}
+
+  <section class="section" aria-labelledby="vorhaben-vergleich">
+    <div class="section-header">
+      <h2 id="vorhaben-vergleich">Alle Vorhaben im Vergleich</h2>
+      <p>Alle Vorhaben mit Fachbereich, Status, Einzelplan sowie Ausgaben und Einnahmen je Haushaltsjahr.</p>
+    </div>
+    <ProjektTabelle id="vorhaben-tabelle" periode={rahmen.id} datenstand={rahmen.datenstand} projekte={projekte} jahre={jahre} />
+  </section>
+
+  <SourceNote
+    datenstand={rahmen.datenstand}
+    datenversion={rahmen.datenversion}
+    quelle={rahmen.quelle}
+    downloadsHref={rahmen.downloadsHref}
+  />
+</HaushaltLayout>

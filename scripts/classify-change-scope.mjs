@@ -21,8 +21,8 @@ import { isProjectionLogicPath } from './lib/d1-sync-scope.mjs';
  * fail-closed die konservative Obermenge aus scripts/lib/d1-sync-scope.mjs.
  *
  * Content-Pipeline-Skripte (Importer, Audits, Validatoren) werden aus package.json abgeleitet:
- * jedes Skript, das ein content:-, knowledge:-, holdings:-, norms:-, kreisreform:- oder
- * images:-Kommando aufruft, verlangt die Content-Prüfung; Bibliotheken unter scripts/lib/
+ * jedes Skript, das ein content:-, knowledge:-, holdings:-, norms:-, kreisreform:-, images:-
+ * oder haushalt:-Kommando aufruft, verlangt die Content-Prüfung; Bibliotheken unter scripts/lib/
  * ebenfalls (konservativ). Ein Werkzeug, das kein npm-Skript aufruft, kann Build, Inhalte oder
  * Laufzeit nicht beeinflussen und braucht nur die Unit-Tests.
  */
@@ -30,7 +30,7 @@ export const CHANGE_SCOPES = ['docs-only', 'ci-only', 'portal', 'law', 'shared']
 
 const SITE_TARGETS = ['portal', 'law'];
 const PACKAGE_SCRIPTS = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).scripts ?? {};
-const CONTENT_PIPELINE_PREFIXES = ['content:', 'knowledge:', 'holdings:', 'norms:', 'kreisreform:', 'images:'];
+const CONTENT_PIPELINE_PREFIXES = ['content:', 'knowledge:', 'holdings:', 'norms:', 'kreisreform:', 'images:', 'haushalt:'];
 
 /** Skripte, die ein npm-Kommando mit einem der Präfixe aufruft. */
 export function scriptsReferencedBy(prefixes, scripts = PACKAGE_SCRIPTS) {
@@ -247,6 +247,8 @@ function isPortalRuntimePath(path) {
     || path.startsWith('content/freistaat/')
     || path.startsWith('content/gesetzgebung/')
     || path.startsWith('content/haushalt/')
+    // Haushaltssnapshot: nur das Staatsportal liest ihn (apps/portal/src/lib/haushalt/snapshot.ts).
+    || path.startsWith('data/haushalt/')
     || path.startsWith('content/organisation/')
     || path.startsWith('content/portal/')
     || path.startsWith('content/presse/')
@@ -329,7 +331,9 @@ function pathImpact(path, logicPaths = null) {
   if (isLawRuntimePath(path)) return runtimeImpact(['law'], { d1Sync: isD1ProjectionCodePath(path, logicPaths), fullCorpus: isFullCorpusPath(path, logicPaths) });
   if (isPortalRuntimePath(path)) {
     return runtimeImpact(['portal'], {
-      content: path.startsWith('content/'),
+      // Haushaltsdaten und die Freigabe- und Darstellungslogik des Haushalts prüft haushalt:check
+      // (Teil von content:check) gegen Register, Overlays und Snapshot.
+      content: path.startsWith('content/') || path.startsWith('data/haushalt/') || path.startsWith('apps/portal/src/lib/haushalt/'),
       d1Sync: isDerivedPortalContentPath(path),
     });
   }

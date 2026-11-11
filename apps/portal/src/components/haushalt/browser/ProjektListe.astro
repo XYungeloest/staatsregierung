@@ -1,0 +1,89 @@
+---
+/**
+ * Vorhaben eines Einzelplans als Liste mit Status, Fachbereich und den zugeordneten Titeln dieses
+ * Einzelplans. Beträge sind die Ansätze dieser Titel (dieselben Titel wie in den Kapiteln, nicht
+ * zusätzlich zum Haushalt zu zählen); bei Vorhaben ohne eigene Summe steht nur der Betragshinweis.
+ */
+import Amount from '../Amount.astro';
+import StatusBadge from '../StatusBadge.astro';
+import type { StatusTone } from '../format.ts';
+import { PROJEKT_STATUS_LABELS, formatKapitelnummer, formatTitelnummer, type ProjektStatus } from '../../../lib/haushalt/oeffentlich.ts';
+import type { PlanProjekt } from './kontext.ts';
+import { getBudgetTitleUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+interface Props {
+  periode: string;
+  projekte: PlanProjekt[];
+  jahre: string[];
+}
+
+const { periode, projekte, jahre } = Astro.props as Props;
+const TONES: Record<ProjektStatus, StatusTone> = {
+  beschlossen: 'beschlossen',
+  geplant: 'beratung',
+  'im-entwurf': 'entwurf',
+  'in-umsetzung': 'beschlossen',
+  optional: 'vorschau',
+  'nicht-finanziert': 'historisch',
+};
+---
+
+<ul class="hh-browser-vorhaben">
+  {projekte.map((projekt) => {
+    const hatAusgaben = jahre.some((jahr) => projekt.ausgaben[jahr] !== 0);
+    const hatEinnahmen = jahre.some((jahr) => projekt.einnahmen[jahr] !== 0);
+    return (
+      <li class="hh-browser-vorhaben__eintrag">
+        <div class="hh-browser-vorhaben__kopf">
+          <h3 class="hh-browser-vorhaben__titel">
+            {projekt.href ? <a href={projekt.href}>{projekt.titel}</a> : projekt.titel}
+          </h3>
+          <StatusBadge tone={TONES[projekt.overlay.status]} label={PROJEKT_STATUS_LABELS[projekt.overlay.status]} />
+        </div>
+        <p class="hh-browser-vorhaben__fach">{projekt.overlay.fachbereich}</p>
+        {projekt.titel_im_plan.length > 0 ? (
+          <>
+            {projekt.overlay.ohneSumme ? (
+              <p class="hh-browser-vorhaben__hinweis">{projekt.overlay.betragshinweis}</p>
+            ) : hatAusgaben || hatEinnahmen ? (
+              <>
+              <p class="hh-browser-vorhaben__bezug">Ansätze der zugeordneten Titel in diesem Einzelplan</p>
+              <dl class="hh-browser-vorhaben__werte">
+                {hatAusgaben
+                  ? jahre.map((jahr) => (
+                      <div>
+                        <dt>Ausgaben {jahr}</dt>
+                        <dd><Amount value={projekt.ausgaben[jahr]} /></dd>
+                      </div>
+                    ))
+                  : null}
+                {hatEinnahmen
+                  ? jahre.map((jahr) => (
+                      <div>
+                        <dt>Einnahmen {jahr}</dt>
+                        <dd><Amount value={projekt.einnahmen[jahr]} /></dd>
+                      </div>
+                    ))
+                  : null}
+              </dl>
+              </>
+            ) : null}
+            {!projekt.overlay.ohneSumme && projekt.overlay.betragshinweis ? (
+              <p class="hh-browser-vorhaben__hinweis">{projekt.overlay.betragshinweis}</p>
+            ) : null}
+            <p class="hh-browser-vorhaben__titelliste">
+              <span>Titel in diesem Einzelplan:</span>
+              {projekt.titel_im_plan.map((titel) => (
+                <a class="hh-browser-link" href={getBudgetTitleUrl(periode, titel.kapitel.slice(0, 2), titel.kapitel, titel.titel)}>
+                  {formatTitelnummer(titel.titel)} (Kapitel {formatKapitelnummer(titel.kapitel)})
+                </a>
+              ))}
+            </p>
+          </>
+        ) : (
+          <p class="hh-browser-vorhaben__hinweis">{projekt.overlay.statusText}</p>
+        )}
+      </li>
+    );
+  })}
+</ul>

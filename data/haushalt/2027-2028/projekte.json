@@ -1,0 +1,1557 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "projekte": [
+    {
+      "id": "bank",
+      "name": "ElbeLB – Förderaufträge und Gewinnverwendung",
+      "art": "Unternehmen",
+      "einzelplan": "06",
+      "status": "beschlossen",
+      "traeger": "ElbeLB (Landesbank)",
+      "rechtsgrundlage": "LandesbankG §§ 1, 2, 4; WPGG §§ 52, 53",
+      "beschreibung": "Zusätzliche Förderauftragskosten 20 Mio. EUR; Gewinnverwendung F04 (Ausschüttung 40 % des Bilanzgewinns, Landesanteil 75 %). Keine erneute Kapitalausstattung.",
+      "suchbegriffe": [
+        "ElbeLB",
+        "Landesbank",
+        "Gewinnabführung",
+        "F04"
+      ],
+      "kapitel": [
+        "0604"
+      ],
+      "titel": [
+        {
+          "kapitel": "0604",
+          "titel": "12101",
+          "konzept_id": "T.0604/12101"
+        },
+        {
+          "kapitel": "0604",
+          "titel": "68201",
+          "konzept_id": "T.0604/68201"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 20000000,
+          "einnahmen": 63000000
+        },
+        "2028": {
+          "kernhaushalt": 20000000,
+          "einnahmen": 66780000
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "bergbau",
+      "name": "Bergbausanierung (BvS-Nachfolge)",
+      "art": "Programm",
+      "einzelplan": "07",
+      "status": "planung",
+      "traeger": "Ostdeutsche Rohstoffwerke / Sanierungsträger",
+      "rechtsgrundlage": "ORWG; Generalvertrag (Voraussetzung)",
+      "beschreibung": "Acht Sanierungslose zu je 5 Mio. EUR jährlich.",
+      "suchbegriffe": [
+        "BvS",
+        "Bergbausanierung",
+        "Altlasten"
+      ],
+      "kapitel": [
+        "0716"
+      ],
+      "titel": [
+        {
+          "kapitel": "0716",
+          "titel": "89101",
+          "konzept_id": "T.0716/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 40000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 40000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "care",
+      "name": "Grundversorgung Gesundheit und Pflege",
+      "art": "Programm",
+      "einzelplan": "08",
+      "status": "beschlossen",
+      "traeger": "Kommunale Gesundheitszentren, Pflegestützpunkte",
+      "rechtsgrundlage": "Grundversorgungsgesetz, OGVBl. 2026 Nr. 77",
+      "beschreibung": "100.000 zusätzliche regionale Beratungs- und Versorgungsfälle (4.500/5.500 EUR).",
+      "suchbegriffe": [
+        "Pflege",
+        "Gesundheitszentrum",
+        "Pflegestützpunkt",
+        "Grundversorgung",
+        "Polikliniken"
+      ],
+      "kapitel": [
+        "0803"
+      ],
+      "titel": [
+        {
+          "kapitel": "0803",
+          "titel": "63301",
+          "konzept_id": "T.0803/63301"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 200000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 250000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "commercial-air",
+      "name": "Interflug – gewerbliche Tochtergesellschaft",
+      "art": "Unternehmen",
+      "einzelplan": "10",
+      "status": "option",
+      "traeger": "Interflug GmbH (gesondert)",
+      "rechtsgrundlage": "Interflug-Gesetz §§ 7, 8",
+      "beschreibung": "Eigener Wirtschaftsplan ohne Quersubvention aus dem Spezialflugvermögen; Gründung und Geschäftsplan noch nicht nachgewiesen; kein Haushaltsansatz.",
+      "suchbegriffe": [
+        "Interflug GmbH",
+        "Linienflug"
+      ],
+      "kapitel": [],
+      "titel": [],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 0,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 0,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "folgejahre_investiv": {
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      }
+    },
+    {
+      "id": "culture",
+      "name": "Kulturpass und Kulturteilhabe",
+      "art": "Programm",
+      "einzelplan": "11",
+      "status": "beschlossen",
+      "traeger": "Kultureinrichtungen; Landesausgleich",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 1/6; KulturpassG §§ 1, 2, 5; TeilhabeG §§ 3–6",
+      "beschreibung": "Kulturpass für 0,5 Mio. Berechtigte (200 EUR Nettokostenäquivalent) einschließlich kostenfreier Museumssonntage in staatlichen Museen; bestehende Sozialermäßigungen 30 Mio. EUR angerechnet.",
+      "suchbegriffe": [
+        "Kulturpass",
+        "Museumssonntag",
+        "Museum",
+        "Kulturteilhabe",
+        "Theaterkarte"
+      ],
+      "kapitel": [
+        "1104"
+      ],
+      "titel": [
+        {
+          "kapitel": "1104",
+          "titel": "68401",
+          "konzept_id": "T.1104/68401.museumssonntag"
+        },
+        {
+          "kapitel": "1104",
+          "titel": "68466",
+          "konzept_id": "T.1104/68401.kulturpass"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 70000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 74000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "digital",
+      "name": "Verwaltungsdigitalisierung und gemeinsame Rechenzentren",
+      "art": "Programm",
+      "einzelplan": "17",
+      "status": "beschlossen",
+      "traeger": "Staatssekretariat für Digitalisierung (Querschnitt)",
+      "rechtsgrundlage": "Organisationserlass 09/2026; OZG",
+      "beschreibung": "Konsolidierung der sechs Landesrechenzentren und Netze (Q32), einheitliche Register- und E-Akte-Lösungen (Q33), Informationssicherheit.",
+      "suchbegriffe": [
+        "Digitalisierung",
+        "Rechenzentrum",
+        "E-Akte",
+        "IT",
+        "Register",
+        "Informationssicherheit"
+      ],
+      "kapitel": [
+        "0923"
+      ],
+      "titel": [
+        {
+          "kapitel": "0923",
+          "titel": "88301",
+          "konzept_id": "T.0923/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 50000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 32606644,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "district",
+      "name": "Bezirksreform – Aufbau der 14 Bezirke",
+      "art": "Programm",
+      "einzelplan": "03",
+      "status": "beschlossen",
+      "traeger": "Bezirksverwaltungen",
+      "rechtsgrundlage": "Kreis- und Bezirksneuordnungsgesetz, OGVBl. 2026 Nr. 46 Art. 1 §§ 22, 25; Organisationserlass 09/2026",
+      "beschreibung": "Zusätzlicher Vollzug für 13 neue Bezirksverwaltungen (50 VZÄ je Bezirk); 60 % aus bestehender Verwaltung gedeckt.",
+      "suchbegriffe": [
+        "Bezirke",
+        "Bezirksreform",
+        "Verwaltungsreform",
+        "Kreisreform"
+      ],
+      "kapitel": [
+        "0303"
+      ],
+      "titel": [
+        {
+          "kapitel": "0303",
+          "titel": "61301",
+          "konzept_id": "T.0303/68601"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 65000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 66300000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "energy",
+      "name": "Landesenergiewerke und öffentliche Windprojekte",
+      "art": "Unternehmen",
+      "einzelplan": "09",
+      "status": "beschlossen",
+      "traeger": "Landesenergiewerke (LEW)",
+      "rechtsgrundlage": "Landesenergiewerke-Gesetz; WPGG 2026",
+      "beschreibung": "Wind-/Offshore- und Erneuerbaren-Projekte 300/400 MW (1,5 Mio. EUR/MW): Investitionen 450/600 Mio. EUR, davon 35 % Eigenkapital aus dem Kernhaushalt (157,5/210 Mio. EUR), 50 Mio. EUR Eigenmittel und eigenwirtschaftliche Projektkredite 242,5/340 Mio. EUR (F06).",
+      "suchbegriffe": [
+        "Energie",
+        "Windpark",
+        "Offshore",
+        "Erneuerbare",
+        "Landesenergiewerke",
+        "F06"
+      ],
+      "kapitel": [
+        "0904"
+      ],
+      "titel": [
+        {
+          "kapitel": "0904",
+          "titel": "68291",
+          "konzept_id": "T.0904/68201"
+        },
+        {
+          "kapitel": "0904",
+          "titel": "83191",
+          "konzept_id": "T.0904/83101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 187500000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 245000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 215250000,
+        "2030": 220631250,
+        "2031": 226147031
+      },
+      "folgejahre_investiv": {
+        "2029": 215250000,
+        "2030": 220631250,
+        "2031": 226147031
+      },
+      "zusatz": {
+        "unternehmensinvestition": {
+          "2027": 450000000,
+          "2028": 600000000,
+          "2029": 615000000,
+          "2030": 630375000,
+          "2031": 646134375,
+          "2032": 662287734,
+          "2033": 678844928,
+          "2034": 695816051,
+          "2035": 713211452
+        },
+        "projektkredit": {
+          "2027": 242500000,
+          "2028": 340000000,
+          "2029": 349750000,
+          "2030": 359743750,
+          "2031": 369987344,
+          "2032": 380487027,
+          "2033": 391249203,
+          "2034": 402280433,
+          "2035": 413587444
+        }
+      }
+    },
+    {
+      "id": "grenzpolizei",
+      "name": "Kasernierte Grenzpolizei und Staatssicherheit",
+      "art": "Aufgabe",
+      "einzelplan": "13",
+      "status": "beschlossen",
+      "traeger": "Staatssekretariat für Innern und Staats- und Grenzsicherheit",
+      "rechtsgrundlage": "Polizeiorganisationsrecht des Freistaates",
+      "beschreibung": "Personal, Ausrüstung und Unterbringung der kasernierten Grenzpolizei im Kapitel 1303.",
+      "suchbegriffe": [
+        "Grenzpolizei",
+        "Grenzsicherheit",
+        "Grenze",
+        "Kaserne",
+        "Staatssicherheit"
+      ],
+      "kapitel": [
+        "1303"
+      ],
+      "titel": [
+        {
+          "kapitel": "1303",
+          "titel": "68601",
+          "konzept_id": "T.1303/68601"
+        },
+        {
+          "kapitel": "1303",
+          "titel": "81201",
+          "konzept_id": "T.1303/89901"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 92939027,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 91639069,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "ho",
+      "name": "Handelsorganisation Ost (HO)",
+      "art": "Unternehmen",
+      "einzelplan": "07",
+      "status": "beschlossen",
+      "traeger": "Handelsorganisation Ost (Landesunternehmen)",
+      "rechtsgrundlage": "HOG §§ 2, 9–12; WPGG §§ 52, 53",
+      "beschreibung": "Gründung und Kapitalbasis, Logistik und Warenwirtschaft, Filialmodernisierung sowie Versorgungsaufträge für 200 ländliche und mobile Verkaufsstellen. Eine etwaige tegut-Übernahme ist nicht vertraglich vereinbart und nicht veranschlagt (geplantes Geschäft, gesonderter Beschluss).",
+      "suchbegriffe": [
+        "HO",
+        "Handelsorganisation",
+        "Konsum",
+        "Nahversorgung",
+        "tegut",
+        "Laden"
+      ],
+      "kapitel": [
+        "0705",
+        "0710",
+        "0711",
+        "0712"
+      ],
+      "titel": [
+        {
+          "kapitel": "0705",
+          "titel": "68275",
+          "konzept_id": "T.0705/68201"
+        },
+        {
+          "kapitel": "0710",
+          "titel": "83175",
+          "konzept_id": "T.0710/89101"
+        },
+        {
+          "kapitel": "0711",
+          "titel": "89175",
+          "konzept_id": "T.0711/89101"
+        },
+        {
+          "kapitel": "0712",
+          "titel": "89175",
+          "konzept_id": "T.0712/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 40000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 55000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 56375000,
+        "2030": 57784375,
+        "2031": 59228985
+      },
+      "folgejahre_investiv": {
+        "2029": 30750000,
+        "2030": 31518750,
+        "2031": 32306719
+      }
+    },
+    {
+      "id": "hospital",
+      "name": "Krankenhausfonds und Rekommunalisierung",
+      "art": "Investitionsprogramm",
+      "einzelplan": "08",
+      "status": "beschlossen",
+      "traeger": "Krankenhaussicherungs- und Rekommunalisierungsfonds; kommunale Krankenhausträger",
+      "rechtsgrundlage": "KHSRKFG §§ 2, 4, 6; OGVBl. 2026 Nr. 34/77",
+      "beschreibung": "20 große Standort- und Verbundmaßnahmen (60/65 Mio. EUR); laufender Stabilisierungsanteil für rekommunalisierte Häuser. Bestehende Krankenhausinvestitionen 650/700 Mio. EUR enthalten.",
+      "suchbegriffe": [
+        "Krankenhaus",
+        "Krankenhausfonds",
+        "Rekommunalisierung",
+        "Klinik"
+      ],
+      "kapitel": [
+        "0804"
+      ],
+      "titel": [
+        {
+          "kapitel": "0804",
+          "titel": "63484",
+          "konzept_id": "T.0804/68201"
+        },
+        {
+          "kapitel": "0804",
+          "titel": "88401",
+          "konzept_id": "T.0804/89101.pauschal"
+        },
+        {
+          "kapitel": "0804",
+          "titel": "88484",
+          "konzept_id": "T.0804/89101.einzelfoerderung"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 1200000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 1300000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 1332500000,
+        "2030": 1365812500,
+        "2031": 1399957813
+      },
+      "folgejahre_investiv": {
+        "2029": 922500000,
+        "2030": 945562500,
+        "2031": 969201563
+      }
+    },
+    {
+      "id": "housing",
+      "name": "Gemeingut Wohnen",
+      "art": "Unternehmen/Programm",
+      "einzelplan": "07",
+      "status": "beschlossen",
+      "traeger": "Gemeingut Wohnen AöR",
+      "rechtsgrundlage": "GWG §§ 2, 4, 18; WoVergG § 11",
+      "beschreibung": "Sanierung und Verwaltung von 500.000 übertragenen bzw. zu übertragenden Wohnungen; Entschädigungen sind über AöR-Anleihen abgegolten (keine neue Kernhaushaltszahlung). Bestehende Wohnungsbauförderung angerechnet.",
+      "suchbegriffe": [
+        "Gemeingut Wohnen",
+        "Wohnungsbau",
+        "Vergesellschaftung",
+        "Wohnungen",
+        "Sozialer Wohnungsbau"
+      ],
+      "kapitel": [
+        "0704"
+      ],
+      "titel": [
+        {
+          "kapitel": "0704",
+          "titel": "89101",
+          "konzept_id": "T.0704/89101.neubau"
+        },
+        {
+          "kapitel": "0704",
+          "titel": "89102",
+          "konzept_id": "T.0704/89101.verwaltung"
+        },
+        {
+          "kapitel": "0704",
+          "titel": "89174",
+          "konzept_id": "T.0704/89101.modernisierung"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 187637573,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 247633573,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 717500000,
+        "2030": 735437500,
+        "2031": 753823438
+      },
+      "folgejahre_investiv": {
+        "2029": 533000000,
+        "2030": 546325000,
+        "2031": 559983125
+      }
+    },
+    {
+      "id": "interflug",
+      "name": "Interflug – staatlicher Spezialflugdienst und Löschflugzeuge",
+      "art": "Beschaffung",
+      "einzelplan": "10",
+      "status": "vertrag",
+      "traeger": "Interflug Spezialflug (Landesunternehmen)",
+      "rechtsgrundlage": "Interflug-Gesetz; LHO §§ 38, 65",
+      "beschreibung": "Zehn Löschflugzeuge und Bereitschaftsbetrieb: 6 AT-802F, 2 Dash 8-400AT, 2 Boeing 737 (Umbau). Vertragsrahmen 105,5 Mio. EUR (90,2 Mio. Flugzeuge, 10,8 Mio. Erstausstattung, 4,5 Mio. Risiko); bis 2026 geleistete Zahlungen nicht belegt; vorsichtige Restrate 70/35,5 Mio. EUR; Infrastruktur 15/10 Mio. EUR; EU-Mittel 2/1 Mio. EUR eingeplant.",
+      "suchbegriffe": [
+        "Interflug",
+        "Löschflugzeuge",
+        "Löschflugzeug",
+        "Waldbrand",
+        "Spezialflug",
+        "Flugzeug"
+      ],
+      "kapitel": [
+        "1004"
+      ],
+      "titel": [
+        {
+          "kapitel": "1004",
+          "titel": "68272",
+          "konzept_id": "T.1004/68201"
+        },
+        {
+          "kapitel": "1004",
+          "titel": "89101",
+          "konzept_id": "T.1004/89101.infrastruktur"
+        },
+        {
+          "kapitel": "1004",
+          "titel": "89172",
+          "konzept_id": "T.1004/89101.flugzeuge"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 108000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 74500000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 40750000,
+        "2030": 41518750,
+        "2031": 42306719
+      },
+      "folgejahre_investiv": {
+        "2029": 10000000,
+        "2030": 10000000,
+        "2031": 10000000
+      },
+      "zusatz": {
+        "gegenstand": "Löschflugzeuge (6 AT-802F, 2 Dash 8-400AT, 2 Boeing 737)",
+        "stueckzahl": 10,
+        "gesamtkosten": 105500000,
+        "bisher_gezahlt": "nicht belegt (Fälligkeitsplan fehlt)"
+      }
+    },
+    {
+      "id": "kita",
+      "name": "Kostenfreie Kindertagesbetreuung",
+      "art": "Programm",
+      "einzelplan": "04",
+      "status": "beschlossen",
+      "traeger": "Kommunale und freie Kita-Träger",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 2; KitaG §§ 15, 16a",
+      "beschreibung": "Erstattung der entfallenden Elternbeiträge für 780.000 betreute Kinder (Restbeitragsäquivalent 2.000 EUR); bestehende Beitragsfreiheit 650 Mio. EUR angerechnet.",
+      "suchbegriffe": [
+        "Kita",
+        "Beitragsfreiheit",
+        "Elternbeiträge",
+        "Kinderbetreuung",
+        "kostenfreie Kita"
+      ],
+      "kapitel": [
+        "0406"
+      ],
+      "titel": [
+        {
+          "kapitel": "0406",
+          "titel": "63362",
+          "konzept_id": "T.0406/63301"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 910000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 928200000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "land",
+      "name": "Landesbodenfonds und Naturvermögen",
+      "art": "Programm",
+      "einzelplan": "19",
+      "status": "beschlossen",
+      "traeger": "Landesbodenfonds",
+      "rechtsgrundlage": "BNVG §§ 3, 12–14, 50; OGVBl. 2026 Nr. 78/80",
+      "beschreibung": "Bodenbevorratung, Renaturierung und Vollzug; unbare Vermögensübergänge werden nicht als Einnahme oder Ausgabe gebucht.",
+      "suchbegriffe": [
+        "Bodenfonds",
+        "Boden",
+        "Naturvermögen",
+        "Flächen"
+      ],
+      "kapitel": [
+        "1903"
+      ],
+      "titel": [
+        {
+          "kapitel": "1903",
+          "titel": "63401",
+          "konzept_id": "T.1903/68201"
+        },
+        {
+          "kapitel": "1903",
+          "titel": "88401",
+          "konzept_id": "T.1903/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 120000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 150000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 153750000,
+        "2030": 157593750,
+        "2031": 161533594
+      },
+      "folgejahre_investiv": {
+        "2029": 133250000,
+        "2030": 136581250,
+        "2031": 139995781
+      }
+    },
+    {
+      "id": "meals",
+      "name": "Kostenfreie Kita- und Schulverpflegung",
+      "art": "Programm",
+      "einzelplan": "04",
+      "status": "beschlossen",
+      "traeger": "Kommunale und freie Träger von Kitas und Schulen; Landeserstattung",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 2/3; KitaG § 16a; SchulG §§ 38c, 38f",
+      "beschreibung": "Unentgeltliches Frühstück, Mittagessen und Getränke für 2,15 Mio. Kinder und Schüler an 195 Tagen; Paketpreis 6,00 EUR (2027) / 6,12 EUR (2028); bestehende Finanzierung 550 Mio. EUR und bereits gebuchte G+-Entlastung 201,24 Mio. EUR angerechnet; Beschaffungsoptimierung F14.",
+      "suchbegriffe": [
+        "Schulessen",
+        "Schulverpflegung",
+        "Mittagessen",
+        "Frühstück",
+        "Kitaessen",
+        "Verpflegung",
+        "F14"
+      ],
+      "kapitel": [
+        "0407"
+      ],
+      "titel": [
+        {
+          "kapitel": "0407",
+          "titel": "53361",
+          "konzept_id": "T.0407/54701"
+        },
+        {
+          "kapitel": "0407",
+          "titel": "63301",
+          "konzept_id": "T.0407/63302"
+        },
+        {
+          "kapitel": "0407",
+          "titel": "63302",
+          "konzept_id": "T.0407/63303"
+        },
+        {
+          "kapitel": "0407",
+          "titel": "63303",
+          "konzept_id": "T.0407/63304"
+        },
+        {
+          "kapitel": "0407",
+          "titel": "63304",
+          "konzept_id": "T.0407/63305"
+        },
+        {
+          "kapitel": "0407",
+          "titel": "63361",
+          "konzept_id": "T.0407/63301"
+        },
+        {
+          "kapitel": "0407",
+          "titel": "68661",
+          "konzept_id": "T.0407/68601"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 2272661250,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 2250083750,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "mensa",
+      "name": "Studentische Sozialverpflegung",
+      "art": "Programm",
+      "einzelplan": "04",
+      "status": "beschlossen",
+      "traeger": "Studierendenwerke",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 4; HochschulG § 118 Abs. 4a",
+      "beschreibung": "Grundgericht für 100.000 Berechtigte an 160 Tagen (2,50 EUR).",
+      "suchbegriffe": [
+        "Mensa",
+        "Studierendenwerk",
+        "Grundgericht"
+      ],
+      "kapitel": [
+        "0410"
+      ],
+      "titel": [
+        {
+          "kapitel": "0410",
+          "titel": "68401",
+          "konzept_id": "T.0410/68401"
+        },
+        {
+          "kapitel": "0410",
+          "titel": "68601",
+          "konzept_id": "T.0410/68601"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 50000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 51000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "planning",
+      "name": "Staatsplanung – Geschäftsstelle und Verfahren",
+      "art": "Programm",
+      "einzelplan": "02",
+      "status": "beschlossen",
+      "traeger": "Staatsplanung und Wirtschaftsrat",
+      "rechtsgrundlage": "WPGG; Einführungsgesetz OGVBl. 2026 Nr. 80 Art. 2 §§ 1–6",
+      "beschreibung": "Geschäftsstelle des Gesellschafts- und Wirtschaftsplans (250/300 Kostenäquivalente).",
+      "suchbegriffe": [
+        "Staatsplanung",
+        "Wirtschaftsplan",
+        "Wirtschaftsrat"
+      ],
+      "kapitel": [],
+      "titel": [],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 0,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 0,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "rail-network",
+      "name": "Ostdeutsche Eisenbahn – Infrastruktur und Betriebsumstellung",
+      "art": "Investitionsprojekt",
+      "einzelplan": "10",
+      "status": "planung",
+      "traeger": "Ostdeutsche Eisenbahn",
+      "rechtsgrundlage": "OstEisG §§ 2, 11",
+      "beschreibung": "Infrastrukturmaßnahmen und Betriebsumstellung; kein erneuter Grundstock 2026.",
+      "suchbegriffe": [
+        "Schieneninfrastruktur",
+        "Strecke",
+        "Betriebsumstellung"
+      ],
+      "kapitel": [
+        "1010"
+      ],
+      "titel": [
+        {
+          "kapitel": "1010",
+          "titel": "68281",
+          "konzept_id": "T.1010/68201"
+        },
+        {
+          "kapitel": "1010",
+          "titel": "89181",
+          "konzept_id": "T.1010/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 120000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 150000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 153750000,
+        "2030": 157593750,
+        "2031": 161533594
+      },
+      "folgejahre_investiv": {
+        "2029": 92250000,
+        "2030": 94556250,
+        "2031": 96920156
+      },
+      "zusatz": {
+        "hinweis_kredit": "Keine Projektkredite der Ostdeutschen Eisenbahn veranschlagt (c0-v2); Folgejahre ausschließlich Kernhaushaltsplanung."
+      }
+    },
+    {
+      "id": "rail-vehicles",
+      "name": "Ostdeutsche Eisenbahn – Fahrzeugbeschaffung",
+      "art": "Beschaffung",
+      "einzelplan": "10",
+      "status": "planung",
+      "traeger": "Ostdeutsche Eisenbahn (Landesunternehmen)",
+      "rechtsgrundlage": "OstEisG §§ 2, 11; OGVBl. 2026 Nr. 47/80",
+      "beschreibung": "Erneuerung und Erweiterung des Fahrzeugparks (Triebzüge für Regional- und S-Bahn-Verkehr); 280/330 Mio. EUR Investitionsfinanzierung plus 100/120 Mio. EUR umgewidmete Infrastrukturreste (keine Projektkredite). Fahrzeugtypen und Stückzahlen sind vor Vergabe festzulegen.",
+      "suchbegriffe": [
+        "Eisenbahn",
+        "Triebzug",
+        "Fahrzeuge",
+        "Züge",
+        "Fahrzeugbeschaffung"
+      ],
+      "kapitel": [
+        "1008"
+      ],
+      "titel": [
+        {
+          "kapitel": "1008",
+          "titel": "89101",
+          "konzept_id": "T.1008/89102"
+        },
+        {
+          "kapitel": "1008",
+          "titel": "89181",
+          "konzept_id": "T.1008/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 380000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 450000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 338250000,
+        "2030": 346706250,
+        "2031": 355373906
+      },
+      "folgejahre_investiv": {
+        "2029": 338250000,
+        "2030": 346706250,
+        "2031": 355373906
+      },
+      "zusatz": {
+        "gegenstand": "Elektro- und Batterietriebzüge",
+        "hinweis_kredit": "Keine Projektkredite der Ostdeutschen Eisenbahn veranschlagt (c0-v2); Folgejahre ausschließlich Kernhaushaltsplanung."
+      }
+    },
+    {
+      "id": "rail-works",
+      "name": "Ostdeutsche Eisenbahn – Werkstätten",
+      "art": "Investitionsprojekt",
+      "einzelplan": "10",
+      "status": "planung",
+      "traeger": "Ostdeutsche Eisenbahn",
+      "rechtsgrundlage": "OstEisG §§ 2, 11",
+      "beschreibung": "Instandhaltungswerkstätten für den landeseigenen Fahrzeugpark; Standorte und Bauvergaben offen.",
+      "suchbegriffe": [
+        "Werkstatt",
+        "Instandhaltung",
+        "Eisenbahnwerkstatt"
+      ],
+      "kapitel": [
+        "1009"
+      ],
+      "titel": [
+        {
+          "kapitel": "1009",
+          "titel": "89181",
+          "konzept_id": "T.1009/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 100000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 120000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 123000000,
+        "2030": 126075000,
+        "2031": 129226875
+      },
+      "folgejahre_investiv": {
+        "2029": 123000000,
+        "2030": 126075000,
+        "2031": 129226875
+      },
+      "zusatz": {
+        "hinweis_kredit": "Keine Projektkredite der Ostdeutschen Eisenbahn veranschlagt (c0-v2); Folgejahre ausschließlich Kernhaushaltsplanung."
+      }
+    },
+    {
+      "id": "raw",
+      "name": "Ostdeutsche Rohstoffwerke und Lithium Zinnwald",
+      "art": "Unternehmen",
+      "einzelplan": "07",
+      "status": "beschlossen",
+      "traeger": "Ostdeutsche Rohstoffwerke",
+      "rechtsgrundlage": "ORWG §§ 2, 15–17; OGVBl. 2026 Nr. 82",
+      "beschreibung": "Sicherungs-, Sanierungs- und Aufbaumaßnahmen; Lithiumprojekt Zinnwald; BvS-Sanierungslose (8 × 5 Mio. EUR). Keine unterstellten Rohstoffgewinne.",
+      "suchbegriffe": [
+        "Rohstoffe",
+        "Zinnwald",
+        "Lithium",
+        "Bergbau",
+        "BvS",
+        "Sanierung"
+      ],
+      "kapitel": [
+        "0706"
+      ],
+      "titel": [
+        {
+          "kapitel": "0706",
+          "titel": "68276",
+          "konzept_id": "T.0706/68201"
+        },
+        {
+          "kapitel": "0706",
+          "titel": "89101",
+          "konzept_id": "T.0706/89101.zinnwald"
+        },
+        {
+          "kapitel": "0706",
+          "titel": "89176",
+          "konzept_id": "T.0706/89101.sicherung"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 60000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 85000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 128125000,
+        "2030": 131328125,
+        "2031": 134611329
+      },
+      "folgejahre_investiv": {
+        "2029": 102500000,
+        "2030": 105062500,
+        "2031": 107689063
+      }
+    },
+    {
+      "id": "regionalisierung",
+      "name": "Schienenpersonennahverkehr und Regionalisierung",
+      "art": "Aufgabe",
+      "einzelplan": "10",
+      "status": "beschlossen",
+      "traeger": "Freistaat als SPNV-Aufgabenträger; Verkehrsunternehmen",
+      "rechtsgrundlage": "Regionalisierungsgesetz (Simulationsbund) § 5; OstPNVG",
+      "beschreibung": "Bestellung von Verkehrsleistungen im SPNV und S-Bahn-Verkehr aus Regionalisierungsmitteln und Landesmitteln.",
+      "suchbegriffe": [
+        "SPNV",
+        "Regionalisierung",
+        "Regionalverkehr",
+        "S-Bahn",
+        "Verkehrsvertrag",
+        "Bahn"
+      ],
+      "kapitel": [
+        "1002"
+      ],
+      "titel": [
+        {
+          "kapitel": "1002",
+          "titel": "23111",
+          "konzept_id": "T.1002/23101.regg"
+        },
+        {
+          "kapitel": "1002",
+          "titel": "54601",
+          "konzept_id": "T.1002/54701.besteller"
+        },
+        {
+          "kapitel": "1002",
+          "titel": "68301",
+          "konzept_id": "T.1002/68601.spnv"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 3624068623,
+          "einnahmen": 3182087162
+        },
+        "2028": {
+          "kernhaushalt": 3547461768,
+          "einnahmen": 3240734131
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "school",
+      "name": "Schulveranstaltungen und Hygiene",
+      "art": "Programm",
+      "einzelplan": "04",
+      "status": "beschlossen",
+      "traeger": "Schulträger",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 3; SchulG §§ 38d–38f",
+      "beschreibung": "Kostenfreie Schulfahrten und -veranstaltungen sowie Hygieneartikel für 1,6 Mio. Schülerinnen und Schüler (280/286 EUR je Kopf).",
+      "suchbegriffe": [
+        "Klassenfahrt",
+        "Schulveranstaltung",
+        "Hygiene",
+        "Menstruationsartikel"
+      ],
+      "kapitel": [
+        "0409"
+      ],
+      "titel": [
+        {
+          "kapitel": "0409",
+          "titel": "63301",
+          "konzept_id": "T.0409/63301"
+        },
+        {
+          "kapitel": "0409",
+          "titel": "68601",
+          "konzept_id": "T.0409/68601"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 448000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 457600000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "school-build",
+      "name": "Schulbauprogramm POS/EOS",
+      "art": "Investitionsprogramm",
+      "einzelplan": "04",
+      "status": "beschlossen",
+      "traeger": "Kommunale Schulträger; Landesförderung",
+      "rechtsgrundlage": "SchulG; Zuwendungsrecht (LHO §§ 23, 44)",
+      "beschreibung": "Neubau, Erweiterung und Sanierung polytechnischer und erweiterter Oberschulen; teilweise mit fortgeführten investiven Bundesmitteln (F09) finanziert.",
+      "suchbegriffe": [
+        "Schulbau",
+        "Schulsanierung",
+        "Schulneubau",
+        "POS",
+        "EOS"
+      ],
+      "kapitel": [
+        "0408"
+      ],
+      "titel": [
+        {
+          "kapitel": "0408",
+          "titel": "88301",
+          "konzept_id": "T.0408/89101.sanierung"
+        },
+        {
+          "kapitel": "0408",
+          "titel": "88363",
+          "konzept_id": "T.0408/89101.neubau"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 750000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 800000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 820000000,
+        "2030": 840500000,
+        "2031": 861512500
+      },
+      "folgejahre_investiv": {
+        "2029": 820000000,
+        "2030": 840500000,
+        "2031": 861512500
+      }
+    },
+    {
+      "id": "sport",
+      "name": "Kostenfreier Sportzugang und Teilhabepass",
+      "art": "Programm",
+      "einzelplan": "04",
+      "status": "beschlossen",
+      "traeger": "Sportvereine, Kommunen",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 1/5; TeilhabeG §§ 3–4; SportförderG § 7",
+      "beschreibung": "0,8 Mio. wirksame Sportberechtigungen zu 100 EUR je Jahr; bestehende Förderung 30 Mio. EUR angerechnet.",
+      "suchbegriffe": [
+        "Sport",
+        "Teilhabepass",
+        "Vereinsbeitrag"
+      ],
+      "kapitel": [
+        "0405"
+      ],
+      "titel": [
+        {
+          "kapitel": "0405",
+          "titel": "68465",
+          "konzept_id": "T.0405/68401"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 50000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 54000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "steuervollzug",
+      "name": "Großbetriebs-Steuervollzug (F13)",
+      "art": "Finanzierungsmaßnahme",
+      "einzelplan": "06",
+      "status": "beschlossen",
+      "traeger": "Steuerverwaltung",
+      "rechtsgrundlage": "Haushaltsbegleitgesetz Art. 1 § 2; geltendes Steuerverfahrensrecht",
+      "beschreibung": "Zusätzliches Prüfpersonal und Datenanalyse für wirtschaftlich bedeutende Unternehmen; prognostizierte Landesanteile 170/346,8 Mio. EUR.",
+      "suchbegriffe": [
+        "Steuerprüfung",
+        "Betriebsprüfung",
+        "Steuervollzug",
+        "F13"
+      ],
+      "kapitel": [
+        "0602"
+      ],
+      "titel": [
+        {
+          "kapitel": "0602",
+          "titel": "09901",
+          "konzept_id": "T.0602/09901"
+        },
+        {
+          "kapitel": "0602",
+          "titel": "42201",
+          "konzept_id": "T.0602/42901"
+        },
+        {
+          "kapitel": "0602",
+          "titel": "54702",
+          "konzept_id": "T.0602/54702"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 63758241,
+          "einnahmen": 170000000
+        },
+        "2028": {
+          "kernhaushalt": 88917387,
+          "einnahmen": 346800000
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "ticket",
+      "name": "Ostticket und unentgeltliche Tarife",
+      "art": "Programm",
+      "einzelplan": "10",
+      "status": "beschlossen",
+      "traeger": "Aufgabenträger und Verkehrsunternehmen des ÖPNV",
+      "rechtsgrundlage": "OstPNVG § 4a Abs. 2, 4, 5 und § 7 (Fassung 21.07.2026; OGVBl. Nr. 29/47); BGBl. I 2026 Nr. 55",
+      "beschreibung": "Deutschlandticket-Ausgleich (547 Mio. EUR), Schülerticket (660 Mio. EUR) und weitere Ost-Tarifansprüche (unentgeltliche Fahrt für 2,5 Mio. Berechtigte, Halbpreis für 1,5 Mio.). Bundesmittel 273,5 + 330 Mio. EUR.",
+      "suchbegriffe": [
+        "Ostticket",
+        "Ost-Ticket",
+        "Deutschlandticket",
+        "Schülerticket",
+        "Freifahrt",
+        "ÖPNV"
+      ],
+      "kapitel": [
+        "1007"
+      ],
+      "titel": [
+        {
+          "kapitel": "1007",
+          "titel": "23171",
+          "konzept_id": "T.1007/23101.dt"
+        },
+        {
+          "kapitel": "1007",
+          "titel": "23271",
+          "konzept_id": "T.1007/23101.schueler"
+        },
+        {
+          "kapitel": "1007",
+          "titel": "68201",
+          "konzept_id": "T.1007/68201.halbpreis"
+        },
+        {
+          "kapitel": "1007",
+          "titel": "68202",
+          "konzept_id": "T.1007/68201.schueler"
+        },
+        {
+          "kapitel": "1007",
+          "titel": "68203",
+          "konzept_id": "T.1007/68601.dt"
+        },
+        {
+          "kapitel": "1007",
+          "titel": "68271",
+          "konzept_id": "T.1007/68201.freifahrt"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 1837000000,
+          "einnahmen": 603500000
+        },
+        "2028": {
+          "kernhaushalt": 1849600000,
+          "einnahmen": 603500000
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "transrapid",
+      "name": "Transrapid Ost – Prüfauftrag",
+      "art": "Option",
+      "einzelplan": "10",
+      "status": "option",
+      "traeger": "Staatssekretariat für Mobilität",
+      "rechtsgrundlage": "15-Punkte-Plan II (politische Prüfgrundlage)",
+      "beschreibung": "Prüfung und rechtliche Vorbereitung eines Korridors bei nachgewiesener Wirtschaftlichkeit; kein Bau- oder Beschaffungsansatz im Doppelhaushalt; Machbarkeitsstudie aus den Planungsmitteln des Kapitels 1001.",
+      "suchbegriffe": [
+        "Transrapid",
+        "Magnetschwebebahn"
+      ],
+      "kapitel": [
+        "1001"
+      ],
+      "titel": [
+        {
+          "kapitel": "1001",
+          "titel": "52601",
+          "konzept_id": "T.1001/54701.planung"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 15000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 15000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "folgejahre_investiv": {
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      }
+    },
+    {
+      "id": "verwaltungsreform",
+      "name": "Staats- und Verwaltungsreform (Fusion, gemeinsame Dienste)",
+      "art": "Reform",
+      "einzelplan": "02",
+      "status": "beschlossen",
+      "traeger": "Staatsrat und Staatssekretariate",
+      "rechtsgrundlage": "Staatsorganisationsrecht 2026; Organisationserlass 09/2026",
+      "beschreibung": "Zusammenführung der Verwaltungsbudgets der Herkunftsländer (V01–V12), gemeinsame Dienste (Q-Entscheidungen) und Staatsplanung; 55 politische Konsolidierungsentscheidungen unverändert.",
+      "suchbegriffe": [
+        "Verwaltungsreform",
+        "Fusion",
+        "Staatsreform",
+        "Konsolidierung"
+      ],
+      "kapitel": [],
+      "titel": [],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 0,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 0,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "youth",
+      "name": "Jugendorte und Jugendberatung",
+      "art": "Programm",
+      "einzelplan": "08",
+      "status": "beschlossen",
+      "traeger": "Kommunen und freie Träger der Jugendhilfe",
+      "rechtsgrundlage": "OGVBl. 2026 Nr. 83 Art. 1; TeilhabeG §§ 6, 7, 10",
+      "beschreibung": "Laufender Betrieb von 500 Jugendorten (180.000 EUR je Ort) und Beratung; befristete Herrichtung neuer Standorte.",
+      "suchbegriffe": [
+        "Jugendorte",
+        "Jugendclub",
+        "Jugendhilfe",
+        "Jugendberatung"
+      ],
+      "kapitel": [
+        "0806"
+      ],
+      "titel": [
+        {
+          "kapitel": "0806",
+          "titel": "63301",
+          "konzept_id": "T.0806/63301"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 70000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 130000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {},
+      "folgejahre_investiv": {}
+    },
+    {
+      "id": "zeppelin",
+      "name": "Zeppelin NT – Beobachtungs- und Sonderluftfahrzeug",
+      "art": "Beschaffung",
+      "einzelplan": "10",
+      "status": "vertrag",
+      "traeger": "Interflug Spezialflug",
+      "rechtsgrundlage": "Bestehender Beschaffungsvertrag; LHO § 38",
+      "beschreibung": "Ein Zeppelin NT einschließlich Infrastruktur; Vertragsrahmen 15 Mio. EUR; kein zweites Luftschiff.",
+      "suchbegriffe": [
+        "Zeppelin",
+        "Luftschiff",
+        "Zeppelin NT"
+      ],
+      "kapitel": [
+        "1005"
+      ],
+      "titel": [
+        {
+          "kapitel": "1005",
+          "titel": "68273",
+          "konzept_id": "T.1005/68201"
+        },
+        {
+          "kapitel": "1005",
+          "titel": "89173",
+          "konzept_id": "T.1005/89101"
+        }
+      ],
+      "jahre": {
+        "2027": {
+          "kernhaushalt": 12000000,
+          "einnahmen": 0
+        },
+        "2028": {
+          "kernhaushalt": 8000000,
+          "einnahmen": 0
+        }
+      },
+      "folgejahre": {
+        "2029": 3075000,
+        "2030": 3151875,
+        "2031": 3230672
+      },
+      "folgejahre_investiv": {
+        "2029": 0,
+        "2030": 0,
+        "2031": 0
+      },
+      "zusatz": {
+        "gegenstand": "Luftschiff Zeppelin NT",
+        "stueckzahl": 1,
+        "gesamtkosten": 15000000,
+        "bisher_gezahlt": "nicht belegt"
+      }
+    }
+  ]
+}

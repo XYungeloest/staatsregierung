@@ -1,0 +1,820 @@
+---
+/**
+ * Rücklagen, Fonds und Landesunternehmen einer Snapshot-Periode (/haushalt/<periode>/ruecklagen/):
+ * allgemeine Rücklage und Liquiditätsrücklage, Rücklagenbewegungen im Kernhaushalt mit Abgleich,
+ * Zweckrücklagen und Sondervermögen nach dem Verwendungsplan, Versorgungsfonds und die
+ * Wirtschaftspläne der Landesunternehmen. Beträge stammen unverändert aus dem Snapshot; Namen,
+ * Zwecke, Rechtsträger, Rechtsbezüge und Status aus content/haushalt/<periode>/fonds.json.
+ * Fonds- und Unternehmenswerte werden nie zum Kernhaushalt addiert.
+ */
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import '../../../styles/haushalt/ruecklagen.css';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../../components/haushalt/DefinitionNote.astro';
+import FilterBar from '../../../components/haushalt/FilterBar.astro';
+import GroupedBarChart from '../../../components/haushalt/GroupedBarChart.astro';
+import KpiGrid from '../../../components/haushalt/KpiGrid.astro';
+import OriginBadge from '../../../components/haushalt/OriginBadge.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import StatusBadge from '../../../components/haushalt/StatusBadge.astro';
+import TimeSeriesChart from '../../../components/haushalt/TimeSeriesChart.astro';
+import Rechtsbezuege from '../../../components/haushalt/ruecklagen/Rechtsbezuege.astro';
+import { formatEuroRounded, normalizeSearch, slugifyId, type StatusTone } from '../../../components/haushalt/format.ts';
+import {
+  findeTitel,
+  getArtSummen,
+  getFondsZeilen,
+  getRuecklagentitel,
+  getUnternehmen,
+  INSTRUMENT_STATUS_LABELS,
+  loadFondsOverlay,
+  type InstrumentStatus,
+  type TitelInfo,
+} from '../../../components/haushalt/ruecklagen/fonds.ts';
+import { getPeriodenSeite, getSnapshotPeriodenPfade, jahresart } from '../../../components/haushalt/ruecklagen/seite.ts';
+import { loadGesamtplan, loadRuecklagen } from '../../../lib/haushalt/snapshot.ts';
+import { getBudgetPeriodPageUrl, getHoldingsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return getSnapshotPeriodenPfade();
+}
+
+const { periode: id } = Astro.params as { periode: string };
+const seite = getPeriodenSeite(id, 'ruecklagen', 'Rücklagen, Fonds und Landesunternehmen');
+const { periode, jahre, status } = seite;
+const [j1, j2] = [jahre[0], jahre[jahre.length - 1]];
+const jahrePaar = jahre.length === 2 ? `${j1} und ${j2}` : jahre.join(', ');
+
+const overlay = loadFondsOverlay(id);
+const ruecklagen = loadRuecklagen(id);
+const gesamtplan = loadGesamtplan(id);
+const gp = (jahr: string, feld: string): number | null => {
+  const wert = gesamtplan.jahre[jahr as `${number}`]?.[feld];
+  return typeof wert === 'number' ? wert : null;
+};
+
+const statusTon = (wert: InstrumentStatus): StatusTone => (wert === 'option' ? 'vorschau' : 'entwurf');
+const summeTitel = (titel: readonly TitelInfo[], jahr: string) => titel.reduce((summe, eintrag) => summe + (eintrag.betraege[jahr] ?? 0), 0);
+
+// ------------------------------------------------------------------ Allgemeine Rücklage
+const allgemein = [...ruecklagen.allgemeine_ruecklage].sort((left, right) => left.jahr - right.jahr);
+const allgemeinJahr = (jahr: string) => allgemein.find((eintrag) => String(eintrag.jahr) === jahr);
+const instrumentAllgemein = overlay.instrumente['allgemeine-ruecklage'];
+const instrumentLiquiditaet = overlay.instrumente.liquiditaetsruecklage;
+const titelAllgemein = findeTitel(id, instrumentAllgemein.kernhaushaltTitel, jahre);
+const titelLiquiditaet = findeTitel(id, instrumentLiquiditaet.kernhaushaltTitel, jahre);
+const reiheJahre = allgemein.map((eintrag) => ({ jahr: eintrag.jahr, art: jahresart(periode, eintrag.jahr) }));
+const erstesProjektionsjahr = reiheJahre.find((eintrag) => eintrag.art === 'projektion')?.jahr;
+const letztesJahr = allgemein[allgemein.length - 1]?.jahr;
+
+// ------------------------------------------------------------------ Fonds
+const fonds = getFondsZeilen(id, jahre);
+const artSummen = getArtSummen(fonds);
+const summeArt = (art: string, jahr: string) => artSummen.find((summe) => summe.art === art)?.betraege[jahr] ?? 0;
+const fondsVerwendung = (jahr: string) => summeArt('zweckruecklage', jahr) + summeArt('sondervermoegen', jahr);
+const versorgung = fonds.find((zeile) => zeile.overlay.art === 'versorgungsfonds');
+const versorgungJahre = versorgung
+  ? Object.keys(versorgung.betraege).sort().map((jahr) => ({ jahr: Number(jahr), art: jahresart(periode, jahr) }))
+  : [];
+const eliminierungGesamt = (jahr: string) => fonds.reduce((summe, zeile) => summe + (zeile.eliminierung[jahr] ?? 0), 0);
+const verwendungGesamt = (jahr: string) => fonds.reduce((summe, zeile) => summe + (zeile.betraege[jahr] ?? 0), 0);
+
+const bereiche = [...new Set(fonds.filter((zeile) => zeile.overlay.art !== 'versorgungsfonds').map((zeile) => zeile.overlay.bereich))]
+  .map((bereich) => ({
+    label: bereich,
+    values: jahre.map((jahr) =>
+      fonds.filter((zeile) => zeile.overlay.bereich === bereich && zeile.overlay.art !== 'versorgungsfonds').reduce((summe, zeile) => summe + (zeile.betraege[jahr] ?? 0), 0),
+    ),
+  }))
+  .sort((left, right) => right.values.reduce((a, b) => a + b, 0) - left.values.reduce((a, b) => a + b, 0) || left.label.localeCompare(right.label, 'de'));
+const zusammenhaengend = (liste: ReadonlyArray<{ kapitel: string }>) =>
+  liste.every((eintrag, index) => index === 0 || Number(eintrag.kapitel) === Number(liste[index - 1].kapitel) + 1);
+const laender = [...new Set(fonds.map((zeile) => zeile.overlay.vorgaengerland).filter((land): land is string => Boolean(land)))].sort((a, b) => a.localeCompare(b, 'de'));
+
+// ------------------------------------------------------------------ Kernhaushalt und Abgleich
+const ruecklagentitel = getRuecklagentitel(id, jahre);
+const fondsTitel = new Map<string, TitelInfo>();
+for (const zeile of fonds) if (zeile.einnahmetitel) fondsTitel.set(`${zeile.einnahmetitel.kapitel}/${zeile.einnahmetitel.titel}`, zeile.einnahmetitel);
+const titelNachArt = (art: string) => {
+  const map = new Map<string, TitelInfo>();
+  for (const zeile of fonds) if (zeile.overlay.art === art && zeile.einnahmetitel) map.set(`${zeile.einnahmetitel.kapitel}/${zeile.einnahmetitel.titel}`, zeile.einnahmetitel);
+  return [...map.values()];
+};
+const fondsTitelVollstaendig = (art: string) => fonds.filter((zeile) => zeile.overlay.art === art).every((zeile) => zeile.einnahmetitel !== null);
+const abgleich = [
+  {
+    label: 'Entnahme aus der allgemeinen Rücklage',
+    quelle: 'Rücklagenübersicht',
+    werte: jahre.map((jahr) => allgemeinJahr(jahr)?.entnahme ?? null),
+    vergleich: jahre.map((jahr) => (titelAllgemein.length > 0 ? summeTitel(titelAllgemein, jahr) : null)),
+    vergleichQuelle: titelAllgemein.map((titel) => `Titel ${titel.nummer} im Kapitel ${titel.kapitelNummer}`).join(', '),
+  },
+  {
+    label: 'Entnahme aus der allgemeinen Rücklage laut Gesamtplan',
+    quelle: 'Gesamtplan',
+    werte: jahre.map((jahr) => gp(jahr, 'ruecklagenentnahme')),
+    vergleich: jahre.map((jahr) => allgemeinJahr(jahr)?.entnahme ?? null),
+    vergleichQuelle: 'Rücklagenübersicht',
+  },
+  {
+    label: 'Verwendung von Zweckrücklagen und Sondervermögen',
+    quelle: 'Verwendungsplan',
+    werte: jahre.map((jahr) => fondsVerwendung(jahr)),
+    vergleich: jahre.map((jahr) =>
+      fondsTitelVollstaendig('zweckruecklage') && fondsTitelVollstaendig('sondervermoegen')
+        ? summeTitel([...titelNachArt('zweckruecklage'), ...titelNachArt('sondervermoegen')], jahr)
+        : null,
+    ),
+    vergleichQuelle: `Einnahmetitel ${[...titelNachArt('zweckruecklage'), ...titelNachArt('sondervermoegen')].map((titel) => titel.nummer).sort().join(', ')}`,
+  },
+  {
+    label: 'Erstattung aus dem Versorgungsfonds',
+    quelle: 'Verwendungsplan',
+    werte: jahre.map((jahr) => versorgung?.betraege[jahr] ?? null),
+    vergleich: jahre.map((jahr) => (versorgung?.einnahmetitel ? versorgung.einnahmetitel.betraege[jahr] ?? null : null)),
+    vergleichQuelle: versorgung?.einnahmetitel ? `Titel ${versorgung.einnahmetitel.nummer} im Kapitel ${versorgung.einnahmetitel.kapitelNummer}` : 'kein Titel',
+  },
+  {
+    label: 'Zuführung an die Liquiditätsrücklage',
+    quelle: 'Gesamtplan',
+    werte: jahre.map((jahr) => gp(jahr, 'zufuehrung_liquiditaetsruecklage')),
+    vergleich: jahre.map((jahr) => (titelLiquiditaet.length > 0 ? summeTitel(titelLiquiditaet, jahr) : null)),
+    vergleichQuelle: titelLiquiditaet.map((titel) => `Titel ${titel.nummer} im Kapitel ${titel.kapitelNummer}`).join(', '),
+  },
+].map((zeile) => ({
+  ...zeile,
+  stimmt: zeile.werte.every((wert, index) => wert !== null && zeile.vergleich[index] !== null && wert === zeile.vergleich[index]),
+}));
+
+// ------------------------------------------------------------------ Landesunternehmen
+const unternehmen = getUnternehmen(id, jahre);
+const planJahre = [...new Set(ruecklagen.wirtschaftsplaene.map((plan) => plan.jahr))].sort((a, b) => a - b);
+const planJahrArt = planJahre.map((jahr) => ({ jahr, art: jahresart(periode, jahr) }));
+const zufuehrungen = unternehmen
+  .filter((eintrag) => eintrag.jahre.some((plan) => plan.kernhaushalt !== 0))
+  .map((eintrag) => ({
+    label: eintrag.overlay.name,
+    values: planJahre.map((jahr) => eintrag.jahre.find((plan) => plan.jahr === jahr)?.kernhaushalt ?? null),
+  }));
+const unternehmenAnker = (unternehmenId: string) => `unternehmen-${slugifyId(overlay.unternehmen[unternehmenId].name)}`;
+
+// ------------------------------------------------------------------ Überblick
+const instrumente = [
+  {
+    name: instrumentAllgemein.name,
+    href: '#allgemeine-ruecklage',
+    wirkung: 'Einnahme (Entnahme)',
+    status: instrumentAllgemein.status,
+    werte: jahre.map((jahr) => allgemeinJahr(jahr)?.entnahme ?? 0),
+  },
+  {
+    name: instrumentLiquiditaet.name,
+    href: '#liquiditaetsruecklage',
+    wirkung: 'Ausgabe (Zuführung)',
+    status: instrumentLiquiditaet.status,
+    werte: jahre.map((jahr) => gp(jahr, 'zufuehrung_liquiditaetsruecklage') ?? 0),
+  },
+  ...artSummen.map((summe) => ({
+    name: summe.art === 'versorgungsfonds' ? (versorgung?.overlay.name ?? summe.overlay.plural) : `${summe.overlay.plural} (${summe.anzahl} Positionen)`,
+    href: summe.art === 'versorgungsfonds' ? '#versorgungsfonds' : '#fonds',
+    wirkung: summe.art === 'versorgungsfonds' ? 'Einnahme (Erstattung)' : 'Einnahme (Verwendung)',
+    status: 'entwurf' as InstrumentStatus,
+    werte: jahre.map((jahr) => summe.betraege[jahr] ?? 0),
+  })),
+];
+
+const kpis = [
+  {
+    label: `Entnahme aus der allgemeinen Rücklage ${j1}`,
+    value: allgemeinJahr(j1)?.entnahme ?? 0,
+    hint: `${j2}: ${formatEuroRounded(allgemeinJahr(j2)?.entnahme ?? 0)}`,
+    href: '#allgemeine-ruecklage',
+  },
+  {
+    label: `Zuführung an die Liquiditätsrücklage ${j1}`,
+    value: gp(j1, 'zufuehrung_liquiditaetsruecklage') ?? 0,
+    hint: `${j2}: ${formatEuroRounded(gp(j2, 'zufuehrung_liquiditaetsruecklage') ?? 0)}`,
+    href: '#liquiditaetsruecklage',
+  },
+  {
+    label: `Verwendung von Zweckrücklagen und Sondervermögen ${j1}`,
+    value: fondsVerwendung(j1),
+    hint: `${j2}: ${formatEuroRounded(fondsVerwendung(j2))}`,
+    href: '#fonds',
+  },
+  ...(versorgung
+    ? [
+        {
+          label: `Erstattung aus dem ${versorgung.overlay.name} ${j1}`,
+          value: versorgung.betraege[j1] ?? 0,
+          hint: `${j2}: ${formatEuroRounded(versorgung.betraege[j2] ?? 0)}`,
+          href: '#versorgungsfonds',
+        },
+      ]
+    : []),
+];
+
+const sprungziele = [
+  { href: '#ueberblick', label: 'Überblick' },
+  { href: '#allgemeine-ruecklage', label: 'Allgemeine Rücklage' },
+  { href: '#liquiditaetsruecklage', label: 'Liquiditätsrücklage' },
+  { href: '#kernhaushalt', label: 'Bezug zum Kernhaushalt' },
+  { href: '#fonds', label: 'Zweckrücklagen und Sondervermögen' },
+  ...(versorgung ? [{ href: '#versorgungsfonds', label: versorgung.overlay.name }] : []),
+  { href: '#landesunternehmen', label: 'Landesunternehmen' },
+];
+const downloadsHref = getBudgetPeriodPageUrl(id, 'downloads');
+const exportMeta = { Periode: id, Status: status.label, Datenversion: seite.datenversion };
+---
+
+<HaushaltLayout
+  title={`Rücklagen, Fonds und Landesunternehmen – ${periode.bezeichnung}`}
+  description={`Allgemeine Rücklage, Liquiditätsrücklage, Zweckrücklagen, Sondervermögen, Versorgungsfonds und Wirtschaftspläne der Landesunternehmen im ${periode.bezeichnung} (${status.label}).`}
+  breadcrumbs={seite.breadcrumbs}
+  periodLabel={periode.bezeichnung}
+  statusLabel={status.label}
+  statusTone={status.tone}
+  statusText={status.text}
+  datenstand={seite.datenstand}
+  datenversion={seite.datenversion}
+  preview={seite.preview}
+  navItems={seite.navItems}
+  otherPeriods={seite.otherPeriods}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow={periode.bezeichnung}
+    title="Rücklagen, Fonds und Landesunternehmen"
+    status={status.label}
+    lead={`Rücklagen, Zweckrücklagen, Sondervermögen und Versorgungsfonds mit ihrem Bezug zum Kernhaushalt sowie die Wirtschaftspläne der Landesunternehmen für ${jahrePaar}.`}
+    variant="budget"
+  />
+
+  <nav class="hh-rl-sprung" aria-label="Abschnitte dieser Seite">
+    <ul>
+      {sprungziele.map((ziel) => <li><a href={ziel.href}>{ziel.label}</a></li>)}
+    </ul>
+  </nav>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="ueberblick">
+    <div class="section-header">
+      <h2 id="ueberblick">Überblick</h2>
+      <p>Entnahmen aus Rücklagen und Fonds sind Einnahmen des Kernhaushalts, Zuführungen sind Ausgaben. Fonds- und Unternehmenswerte werden nicht zusätzlich zum Kernhaushalt gezählt.</p>
+    </div>
+    <KpiGrid items={kpis} label={`Rücklagen und Fonds ${jahrePaar}`} />
+
+    <DataTableFrame
+      id="tabelle-instrumente"
+      label="Instrumente und Status"
+      caption={`Instrumente mit Wirkung im Kernhaushalt und Status, Beträge ${jahrePaar} in Euro`}
+      nomenSingular="Instrument"
+      nomenPlural="Instrumenten"
+      seitengroesse={false}
+      breite="breit"
+    >
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Instrument <span>Wirkung im Kernhaushalt</span></th>
+            <th scope="col">Status</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl">{jahr}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {instrumente.map((instrument) => (
+            <tr>
+              <th scope="row"><a class="inline-link" href={instrument.href}>{instrument.name}</a> <span class="hh-rl-nebenzeile">{instrument.wirkung}</span></th>
+              <td><StatusBadge tone={statusTon(instrument.status)} label={INSTRUMENT_STATUS_LABELS[instrument.status]} /></td>
+              {instrument.werte.map((wert) => <td class="hh-zahl"><Amount value={wert} exakt /></td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </DataTableFrame>
+    <p class="hh-rl-hinweis">Die Zeilen werden nicht addiert: Entnahmen und Zuführungen wirken auf verschiedenen Seiten des Haushalts. Wirtschaftspläne der Landesunternehmen: <a class="inline-link" href="#landesunternehmen">Landesunternehmen und Beteiligungen</a>.</p>
+  </section>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="allgemeine-ruecklage">
+    <div class="section-header">
+      <h2 id="allgemeine-ruecklage">{instrumentAllgemein.name}</h2>
+      <p>{instrumentAllgemein.zweck}</p>
+    </div>
+    <dl class="hh-rl-fakten">
+      <div><dt>Rechtsträger</dt><dd>{instrumentAllgemein.rechtstraeger}</dd></div>
+      <div><dt>Rechtsgrundlage</dt><dd><Rechtsbezuege bezuege={instrumentAllgemein.rechtsbezuege} /></dd></div>
+      <div>
+        <dt>Status</dt>
+        <dd><StatusBadge tone={statusTon(instrumentAllgemein.status)} label={INSTRUMENT_STATUS_LABELS[instrumentAllgemein.status]} /> <span class="hh-rl-statustext">{instrumentAllgemein.statusText}</span></dd>
+      </div>
+      {titelAllgemein.length > 0 ? (
+        <div>
+          <dt>Titel im Kernhaushalt</dt>
+          <dd>{titelAllgemein.map((titel) => <a class="inline-link" href={titel.href}>Titel {titel.nummer} im Kapitel {titel.kapitelNummer}</a>)}</dd>
+        </div>
+      ) : null}
+    </dl>
+
+    <DataTableFrame
+      id="tabelle-allgemeine-ruecklage"
+      label="Allgemeine Rücklage und Liquiditätsrücklage nach Jahren"
+      caption={`Allgemeine Rücklage und Liquiditätsrücklage ${allgemein[0]?.jahr} bis ${letztesJahr}, Beträge in Euro`}
+      nomenSingular="Jahr"
+      nomenPlural="Jahren"
+      seitengroesse={false}
+      exportFilename={`ruecklagen-${id}.csv`}
+      exportMeta={exportMeta}
+      breite="sehr-breit"
+    >
+      <FilterBar slot="werkzeuge" id="tabelle-allgemeine-ruecklage" suche={false} export={{}} />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" data-sort="number" data-export-key="jahr" aria-sort="ascending">Jahr</th>
+            <th scope="col" data-export-key="jahresart">Jahresart</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="anfang">Anfangsbestand</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="entnahme">Entnahme</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="zufuehrung">Zuführung</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="ende">Endbestand</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="mindestbestand">Mindestbestand</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="liquiditaet_zufuehrung">Zuführung an die Liquiditäts&shy;rücklage</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="liquiditaet_ende">Liquiditäts&shy;rücklage am Jahresende</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allgemein.map((eintrag) => {
+            const art = jahresart(periode, eintrag.jahr);
+            const zufuehrung = art === 'haushaltsjahr' ? gp(String(eintrag.jahr), 'zufuehrung_liquiditaetsruecklage') : null;
+            return (
+              <tr class:list={[art === 'projektion' && 'hh-zeile--projektion']} data-export-jahresart={art}>
+                <th scope="row" class="hh-kennung" data-sort={String(eintrag.jahr)} data-export-value={String(eintrag.jahr)}>{eintrag.jahr}</th>
+                <td>{art === 'projektion' ? 'Finanzplanung (Projektion)' : 'Haushaltsjahr'}</td>
+                <td class="hh-zahl" data-export-value={eintrag.anfang}><Amount value={eintrag.anfang} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.entnahme}><Amount value={eintrag.entnahme} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.zufuehrung}><Amount value={eintrag.zufuehrung} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.ende}><Amount value={eintrag.ende} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.mindestliquiditaet}><Amount value={eintrag.mindestliquiditaet} exakt /></td>
+                <td class="hh-zahl" data-export-value={zufuehrung ?? ''} data-sort={zufuehrung ?? ''}>
+                  {zufuehrung !== null ? <Amount value={zufuehrung} exakt /> : <abbr title="keine Angabe">–</abbr>}
+                </td>
+                <td class="hh-zahl" data-export-value={eintrag.liquiditaetsruecklage_ende}><Amount value={eintrag.liquiditaetsruecklage_ende} exakt /></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </DataTableFrame>
+    {erstesProjektionsjahr ? (
+      <p class="hh-rl-hinweis">Die Jahre ab {erstesProjektionsjahr} sind Finanzplanung (Projektion) und nicht bewilligt. Die Zuführung an die Liquiditätsrücklage weist der Gesamtplan nur für die Haushaltsjahre aus.</p>
+    ) : null}
+
+    <TimeSeriesChart
+      id="diagramm-ruecklagenbestand"
+      caption={`Bestände am Jahresende ${allgemein[0]?.jahr} bis ${letztesJahr}`}
+      typ="linie"
+      jahre={reiheJahre}
+      series={[
+        { label: 'Allgemeine Rücklage', values: allgemein.map((eintrag) => eintrag.ende) },
+        { label: 'Liquiditätsrücklage', values: allgemein.map((eintrag) => eintrag.liquiditaetsruecklage_ende) },
+      ]}
+      tabelle="keine"
+      hinweis="Exakte Werte: Allgemeine Rücklage und Liquiditätsrücklage nach Jahren"
+      hinweisHref="#tabelle-allgemeine-ruecklage"
+    />
+  </section>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="liquiditaetsruecklage">
+    <div class="section-header">
+      <h2 id="liquiditaetsruecklage">{instrumentLiquiditaet.name}</h2>
+      <p>{instrumentLiquiditaet.zweck}</p>
+    </div>
+    <dl class="hh-rl-fakten">
+      <div><dt>Rechtsträger</dt><dd>{instrumentLiquiditaet.rechtstraeger}</dd></div>
+      <div><dt>Rechtsgrundlage</dt><dd><Rechtsbezuege bezuege={instrumentLiquiditaet.rechtsbezuege} /></dd></div>
+      <div>
+        <dt>Status</dt>
+        <dd><StatusBadge tone={statusTon(instrumentLiquiditaet.status)} label={INSTRUMENT_STATUS_LABELS[instrumentLiquiditaet.status]} /> <span class="hh-rl-statustext">{instrumentLiquiditaet.statusText}</span></dd>
+      </div>
+      {jahre.map((jahr) => (
+        <div>
+          <dt>Zuführung {jahr}</dt>
+          <dd><Amount value={gp(jahr, 'zufuehrung_liquiditaetsruecklage') ?? 0} exakt /></dd>
+        </div>
+      ))}
+      {jahre.map((jahr) => (
+        <div>
+          <dt>Bestand Ende {jahr}</dt>
+          <dd><Amount value={allgemeinJahr(jahr)?.liquiditaetsruecklage_ende ?? 0} exakt /></dd>
+        </div>
+      ))}
+      {titelLiquiditaet.length > 0 ? (
+        <div>
+          <dt>Titel im Kernhaushalt</dt>
+          <dd>{titelLiquiditaet.map((titel) => <a class="inline-link" href={titel.href}>Titel {titel.nummer} im Kapitel {titel.kapitelNummer}</a>)}</dd>
+        </div>
+      ) : null}
+    </dl>
+  </section>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="kernhaushalt">
+    <div class="section-header">
+      <h2 id="kernhaushalt">Bezug zum Kernhaushalt</h2>
+      <p>Diese Titel des Haushaltsplans verbuchen Entnahmen aus Rücklagen, Fonds und Sondervermögen (Einnahmen) sowie Zuführungen an Rücklagen (Ausgaben).</p>
+    </div>
+    <DataTableFrame
+      id="tabelle-ruecklagentitel"
+      label="Titel für Rücklagen und Fonds im Kernhaushalt"
+      caption={`Titel für Rücklagen, Fonds und Sondervermögen, Beträge ${jahrePaar} in Euro`}
+      nomenSingular="Titel"
+      nomenPlural="Titeln"
+      seitengroesse={false}
+      breite="breit"
+    >
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" class="hh-kennung">Kapitel</th>
+            <th scope="col" class="hh-kennung">Titel</th>
+            <th scope="col">Zweckbestimmung</th>
+            <th scope="col">Seite</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl" data-sort="number">{jahr}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {ruecklagentitel.map((titel) => (
+            <tr>
+              <td class="hh-kennung">{titel.kapitelNummer}</td>
+              <th scope="row" class="hh-kennung"><a class="inline-link" href={titel.href}>{titel.nummer}</a></th>
+              <td>{titel.zweckbestimmung}</td>
+              <td>{titel.seite}</td>
+              {jahre.map((jahr) => <td class="hh-zahl"><Amount value={titel.betraege[jahr] ?? 0} exakt /></td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </DataTableFrame>
+
+    <h3 class="hh-rl-h3" id="abgleich">Abgleich mit dem Kernhaushalt</h3>
+    <p class="hh-rl-hinweis">Die Beträge der Rücklagenübersicht und des Verwendungsplans werden mit dem Gesamtplan und den Titeln des Kernhaushalts verglichen.</p>
+    <DataTableFrame
+      id="tabelle-abgleich"
+      label="Abgleich mit dem Kernhaushalt"
+      caption={`Abgleich der Rücklagen- und Fondsbeträge mit dem Kernhaushalt, ${jahrePaar}, Beträge in Euro`}
+      nomenSingular="Abgleich"
+      nomenPlural="Abgleichen"
+      seitengroesse={false}
+      breite="sehr-breit"
+    >
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Größe</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl">{jahr}</th>)}
+            <th scope="col">Verglichen mit</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl">{jahr} <span>Vergleichswert</span></th>)}
+            <th scope="col">Ergebnis</th>
+          </tr>
+        </thead>
+        <tbody>
+          {abgleich.map((zeile) => (
+            <tr>
+              <th scope="row">{zeile.label} <span class="hh-rl-nebenzeile">{zeile.quelle}</span></th>
+              {zeile.werte.map((wert) => <td class="hh-zahl">{wert !== null ? <Amount value={wert} exakt /> : <abbr title="keine Angabe">–</abbr>}</td>)}
+              <td>{zeile.vergleichQuelle}</td>
+              {zeile.vergleich.map((wert) => <td class="hh-zahl">{wert !== null ? <Amount value={wert} exakt /> : <abbr title="keine Angabe">–</abbr>}</td>)}
+              <td><strong class:list={['hh-rl-ergebnis', zeile.stimmt ? 'hh-rl-ergebnis--gleich' : 'hh-rl-ergebnis--abweichend']}>{zeile.stimmt ? 'übereinstimmend' : 'abweichend'}</strong></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </DataTableFrame>
+  </section>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="fonds">
+    <div class="section-header">
+      <h2 id="fonds">Zweckrücklagen und Sondervermögen</h2>
+      <p>Mit dem Freistaat sind Zweckrücklagen und Sondervermögen der Vorgängerländer übergegangen. Der Verwendungsplan ordnet sie bereits veranschlagten zweckgleichen Ausgaben zu; die Planbeträge sind keine Bestandsbestätigung, Bestände der einzelnen Positionen weist der Haushaltsplan nicht aus.</p>
+    </div>
+
+    <DataTableFrame
+      id="tabelle-fondsarten"
+      label="Verwendung nach Art"
+      caption={`Verwendung nach Art, ${jahrePaar}, Beträge in Euro`}
+      nomenSingular="Art"
+      nomenPlural="Arten"
+      seitengroesse={false}
+      breite="breit"
+    >
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Art</th>
+            <th scope="col" class="hh-zahl">Positionen</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl">Verwendung {jahr}</th>)}
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl">bei Konsolidierung entfallend {jahr}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {artSummen.map((summe) => (
+            <tr>
+              <th scope="row">{summe.overlay.plural}</th>
+              <td class="hh-zahl">{summe.anzahl}</td>
+              {jahre.map((jahr) => <td class="hh-zahl"><Amount value={summe.betraege[jahr] ?? 0} exakt /></td>)}
+              {jahre.map((jahr) => <td class="hh-zahl"><Amount value={summe.eliminierung[jahr] ?? 0} exakt /></td>)}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Zusammen</th>
+            <td class="hh-zahl">{fonds.length}</td>
+            {jahre.map((jahr) => <td class="hh-zahl"><Amount value={verwendungGesamt(jahr)} exakt /></td>)}
+            {jahre.map((jahr) => <td class="hh-zahl"><Amount value={eliminierungGesamt(jahr)} exakt /></td>)}
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+
+    <DefinitionNote titel="Keine Doppelzählung" id="konsolidierung">
+      <p>Die Mittel der Zweckrücklagen, der Sondervermögen und des Versorgungsfonds fließen dem Kernhaushalt als Einnahmen zu und werden dort über die Fachkapitel verausgabt. Bei konsolidierter Betrachtung entfallen diese inneren Zahlungen ({jahre.map((jahr, index) => <>{index > 0 ? '; ' : ''}{jahr}: <Amount value={eliminierungGesamt(jahr)} /></>)}). Fondsmittel werden deshalb nicht zusätzlich zum Kernhaushalt gezählt.</p>
+    </DefinitionNote>
+
+    <GroupedBarChart
+      id="diagramm-fondsbereiche"
+      caption={`Verwendung von Zweckrücklagen und Sondervermögen nach Bereichen, ${jahrePaar}`}
+      series={jahre.map((jahr) => ({ label: jahr }))}
+      categories={bereiche}
+      kategorieSpalte="Bereich"
+      hinweis="Ohne Versorgungsfonds. Die Ausgaben selbst sind in den Fachkapiteln veranschlagt."
+    />
+
+    <h3 class="hh-rl-h3" id="positionen">Positionen des Verwendungsplans</h3>
+    <DataTableFrame
+      id="tabelle-fonds"
+      label="Positionen des Verwendungsplans"
+      caption={`Positionen des Verwendungsplans mit Verwendung ${jahrePaar}, Beträge in Euro`}
+      nomenSingular="Position"
+      nomenPlural="Positionen"
+      exportFilename={`fonds-${id}.csv`}
+      exportMeta={exportMeta}
+      exportZeilenfelder={[
+        { key: 'art', label: 'Art' },
+        { key: 'land', label: 'Übergegangen aus' },
+        { key: 'bereich', label: 'Bereich' },
+      ]}
+      breite="sehr-breit"
+    >
+      <FilterBar
+        slot="werkzeuge"
+        id="tabelle-fonds"
+        suche={{ label: 'Positionen durchsuchen', placeholder: 'Name, Bereich oder Kapitel' }}
+        filter={[
+          { feld: 'art', label: 'Art', alleLabel: 'Jede Art', options: artSummen.map((summe) => ({ value: summe.art, label: summe.overlay.plural })) },
+          { feld: 'land', label: 'Übergegangen aus', alleLabel: 'Alle Herkünfte', options: laender.map((land) => ({ value: slugifyId(land), label: land })) },
+        ]}
+        erlaeuterungen={{ label: 'Angaben je Position zeigen', checked: false }}
+        export={{}}
+      />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" data-sort="text" data-export-key="position">Position</th>
+            <th scope="col" data-sort="text" data-export-key="bereich_text">Bereich</th>
+            <th scope="col" data-export-key="fachkapitel">Fachkapitel</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`verwendung_${jahr}`}>{jahr}</th>)}
+            <th scope="col" data-export-key="status">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fonds.map((zeile) => (
+            <>
+              <tr
+                id={zeile.anker}
+                data-search={normalizeSearch([zeile.overlay.name, zeile.overlay.vorgaengerland ?? '', zeile.overlay.bereich, zeile.art.label, ...zeile.zielkapitel.flatMap((kapitel) => [kapitel.kapitel, kapitel.nummer])].join(' '))}
+                data-art={zeile.overlay.art}
+                data-land={zeile.overlay.vorgaengerland ? slugifyId(zeile.overlay.vorgaengerland) : ''}
+                data-export-art={zeile.art.label}
+                data-export-land={zeile.overlay.vorgaengerland ?? ''}
+                data-export-bereich={zeile.overlay.bereich}
+              >
+                <th scope="row" data-sort={zeile.overlay.name} data-export-value={zeile.overlay.name}>
+                  <a class="hh-zeilenanker" href={`#${zeile.anker}`}>{zeile.overlay.name}</a>
+                  <span class="hh-rl-nebenzeile">{zeile.art.label}{zeile.overlay.vorgaengerland ? `, übergegangen aus ${zeile.overlay.vorgaengerland}` : ''}</span>
+                </th>
+                <td>{zeile.overlay.bereich}</td>
+                <td data-export-value={zeile.zielkapitel.map((kapitel) => kapitel.kapitel).join(', ')}>
+                  {zeile.zielkapitel.length > 4 && zusammenhaengend(zeile.zielkapitel) ? (
+                    <>
+                      <a class="inline-link" href={zeile.zielkapitel[0].href}>{zeile.zielkapitel[0].nummer}</a> bis <a class="inline-link" href={zeile.zielkapitel[zeile.zielkapitel.length - 1].href}>{zeile.zielkapitel[zeile.zielkapitel.length - 1].nummer}</a>
+                      <span class="hh-rl-nebenzeile">{zeile.zielkapitel.length} Kapitel</span>
+                    </>
+                  ) : zeile.zielkapitel.length > 0 ? (
+                    <ul class="hh-rl-kapitelliste" role="list">
+                      {zeile.zielkapitel.map((kapitel) => <li><a class="inline-link" href={kapitel.href}>{kapitel.nummer}</a></li>)}
+                    </ul>
+                  ) : <abbr title="keine Angabe">–</abbr>}
+                </td>
+                {jahre.map((jahr) => (
+                  <td class="hh-zahl" data-export-value={zeile.betraege[jahr] ?? 0}><Amount value={zeile.betraege[jahr] ?? 0} exakt /></td>
+                ))}
+                <td data-export-value={`${INSTRUMENT_STATUS_LABELS.entwurf}${zeile.rechtsaenderung ? ', Rechtsänderung erforderlich' : ''}`}>
+                  <StatusBadge tone="entwurf" label={INSTRUMENT_STATUS_LABELS.entwurf} />
+                  {zeile.rechtsaenderung ? <strong class="hh-rl-merkmal">Rechtsänderung erforderlich</strong> : null}
+                </td>
+              </tr>
+              <tr data-folgezeile data-erlaeuterung class="hh-rl-folgezeile">
+                <td colspan={4 + jahre.length}>
+                  <dl class="hh-rl-details">
+                    <div><dt>Zweck</dt><dd>{zeile.overlay.zweck}</dd></div>
+                    {zeile.zielkapitel.length > 4 && zusammenhaengend(zeile.zielkapitel) ? (
+                      <div><dt>Fachkapitel</dt><dd><ul class="hh-rl-kapitelliste" role="list">{zeile.zielkapitel.map((kapitel) => <li><a class="inline-link" href={kapitel.href}>{kapitel.nummer}</a></li>)}</ul></dd></div>
+                    ) : null}
+                    <div><dt>Rechtsträger</dt><dd>{zeile.art.rechtstraeger}</dd></div>
+                    <div><dt>Rechtsgrundlage</dt><dd><Rechtsbezuege bezuege={zeile.art.rechtsbezuege} /></dd></div>
+                    <div>
+                      <dt>Verbindung zum Kernhaushalt</dt>
+                      <dd>
+                        {zeile.einnahmetitel ? (
+                          <>Einnahme beim <a class="inline-link" href={zeile.einnahmetitel.href}>Titel {zeile.einnahmetitel.nummer} im Kapitel {zeile.einnahmetitel.kapitelNummer}</a>, Ausgabe in den Fachkapiteln. </>
+                        ) : (
+                          <>Ausgabe in den Fachkapiteln. </>
+                        )}
+                        Bei Konsolidierung entfallend: {jahre.map((jahr, index) => <>{index > 0 ? '; ' : ''}{jahr} <Amount value={zeile.eliminierung[jahr] ?? 0} exakt /></>)}.
+                      </dd>
+                    </div>
+                    <div><dt>Status</dt><dd>{zeile.art.statusText}{zeile.rechtsaenderung ? ` ${zeile.art.rechtsaenderungText}` : ''}</dd></div>
+                    {zeile.herkunft.length > 0 ? (
+                      <div><dt>Herkunft der Angaben</dt><dd>{zeile.herkunft.map((code) => <OriginBadge code={code} variante="lang" />)}</dd></div>
+                    ) : null}
+                  </dl>
+                </td>
+              </tr>
+            </>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row" colspan="3">Summe aller Positionen</th>
+            {jahre.map((jahr) => <td class="hh-zahl"><Amount value={verwendungGesamt(jahr)} exakt /></td>)}
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+  </section>
+
+  {versorgung ? (
+    <section class="section hh-rl-abschnitt" aria-labelledby="versorgungsfonds">
+      <div class="section-header">
+        <h2 id="versorgungsfonds">{versorgung.overlay.name}</h2>
+        <p>{versorgung.overlay.zweck}</p>
+      </div>
+      <dl class="hh-rl-fakten">
+        <div><dt>Rechtsträger</dt><dd>{versorgung.art.rechtstraeger}</dd></div>
+        <div><dt>Rechtsgrundlage</dt><dd><Rechtsbezuege bezuege={versorgung.art.rechtsbezuege} /></dd></div>
+        <div>
+          <dt>Status</dt>
+          <dd><StatusBadge tone="entwurf" label={INSTRUMENT_STATUS_LABELS.entwurf} /> <span class="hh-rl-statustext">{versorgung.art.statusText}{versorgung.rechtsaenderung ? ` ${versorgung.art.rechtsaenderungText}` : ''}</span></dd>
+        </div>
+        {versorgung.einnahmetitel ? (
+          <div>
+            <dt>Titel im Kernhaushalt</dt>
+            <dd><a class="inline-link" href={versorgung.einnahmetitel.href}>Titel {versorgung.einnahmetitel.nummer} im Kapitel {versorgung.einnahmetitel.kapitelNummer}</a></dd>
+          </div>
+        ) : null}
+        {versorgung.zielkapitel.length > 0 ? (
+          <div>
+            <dt>Ausgaben in den Kapiteln</dt>
+            <dd><ul class="hh-rl-kapitelliste" role="list">{versorgung.zielkapitel.map((kapitel) => <li><a class="inline-link" href={kapitel.href}>{kapitel.nummer}</a></li>)}</ul></dd>
+          </div>
+        ) : null}
+      </dl>
+      <TimeSeriesChart
+        id="diagramm-versorgungsfonds"
+        caption={`Erstattung aus dem ${versorgung.overlay.name} an den Kernhaushalt ${versorgungJahre[0]?.jahr} bis ${versorgungJahre[versorgungJahre.length - 1]?.jahr}`}
+        jahre={versorgungJahre}
+        series={[{ label: 'Erstattung', values: versorgungJahre.map((eintrag) => versorgung.betraege[String(eintrag.jahr)] ?? null) }]}
+        hinweis="Die Jahre nach den Haushaltsjahren sind Finanzplanung (Projektion) und nicht bewilligt."
+      />
+    </section>
+  ) : null}
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="landesunternehmen">
+    <div class="section-header">
+      <h2 id="landesunternehmen">Landesunternehmen und Beteiligungen</h2>
+      <p>Die Wirtschaftspläne {planJahre[0]} bis {planJahre[planJahre.length - 1]} zeigen vereinfacht die Beziehungen der Landesunternehmen zum Kernhaushalt; sie sind keine Vollbilanz. Weitere Angaben zu Trägerschaft und Beteiligungen enthält die Übersicht <a class="inline-link" href={getHoldingsUrl()}>Beteiligungen und öffentliche Träger</a>.</p>
+    </div>
+
+    <DefinitionNote titel="Nicht mit dem Kernhaushalt addieren" id="abgrenzung-unternehmen">
+      <p>Umsatz, Investitionen, neue Kredite, Schuldenstand und Ausschüttung sind Werte der Unternehmen und keine Ansätze des Haushaltsplans. Im Kernhaushalt veranschlagt ist allein die Zuführung; sie ist in dessen Ausgaben bereits enthalten (Gegenbuchung). Zuführungen und Investitionen der Unternehmen werden nicht addiert. Werte nach {j2} sind Unternehmensplanung.</p>
+    </DefinitionNote>
+
+    {zufuehrungen.length > 0 ? (
+      <GroupedBarChart
+        id="diagramm-zufuehrungen"
+        caption={`Zuführungen aus dem Kernhaushalt laut Wirtschaftsplan, ${planJahre[0]} bis ${planJahre[planJahre.length - 1]}`}
+        series={planJahrArt.map((eintrag) => ({ label: String(eintrag.jahr), art: eintrag.art }))}
+        categories={zufuehrungen}
+        kategorieSpalte="Unternehmen"
+        hinweis={`Nur Unternehmen mit Zuführungen. Werte nach ${j2} sind Unternehmensplanung.`}
+      />
+    ) : null}
+
+    <h3 class="hh-rl-h3" id="wirtschaftsplaene">Wirtschaftspläne</h3>
+    <DataTableFrame
+      id="tabelle-wirtschaftsplaene"
+      label="Wirtschaftspläne der Landesunternehmen"
+      caption={`Wirtschaftspläne der Landesunternehmen ${planJahre[0]} bis ${planJahre[planJahre.length - 1]}, Beträge in Euro`}
+      nomenSingular="Planjahr"
+      nomenPlural="Planjahren"
+      exportFilename={`wirtschaftsplaene-${id}.csv`}
+      exportMeta={exportMeta}
+      exportZeilenfelder={[{ key: 'unternehmen', label: 'Unternehmen' }, { key: 'jahresart', label: 'Jahresart' }]}
+      breite="sehr-breit"
+    >
+      <FilterBar
+        slot="werkzeuge"
+        id="tabelle-wirtschaftsplaene"
+        suche={false}
+        filter={[
+          { feld: 'unternehmen', label: 'Unternehmen', alleLabel: 'Alle Unternehmen', options: unternehmen.map((eintrag) => ({ value: eintrag.id, label: eintrag.overlay.name })) },
+          { feld: 'jahresart', label: 'Jahre', alleLabel: 'Alle Jahre', options: [{ value: 'haushaltsjahr', label: 'Haushaltsjahre' }, { value: 'projektion', label: 'Unternehmensplanung' }] },
+        ]}
+        export={{}}
+      />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" data-export-key="jahr">Jahr</th>
+            <th scope="col" class="hh-zahl" data-export-key="umsatz">Umsatz</th>
+            <th scope="col" class="hh-zahl" data-export-key="investitionen">Investitionen</th>
+            <th scope="col" class="hh-zahl" data-export-key="zufuehrung">Zuführung aus dem Kern&shy;haushalt</th>
+            <th scope="col" class="hh-zahl" data-export-key="kredite">Neue Kredite</th>
+            <th scope="col" class="hh-zahl" data-export-key="schuldenstand">Schulden&shy;stand</th>
+            <th scope="col" class="hh-zahl" data-export-key="ausschuettung">Ausschüttung</th>
+          </tr>
+        </thead>
+        {unternehmen.map((eintrag) => (
+          <tbody>
+            <tr data-gruppenkopf>
+              <th scope="rowgroup" colspan="7">{eintrag.overlay.name}{eintrag.overlay.status === 'option' ? ` (${INSTRUMENT_STATUS_LABELS.option})` : ''}</th>
+            </tr>
+            {eintrag.jahre.map((plan) => {
+              const art = jahresart(periode, plan.jahr);
+              return (
+                <tr class:list={[art === 'projektion' && 'hh-zeile--projektion']} data-unternehmen={eintrag.id} data-jahresart={art} data-export-unternehmen={eintrag.overlay.name} data-export-jahresart={art === 'projektion' ? 'Unternehmensplanung' : 'Haushaltsjahr'}>
+                  <th scope="row" class="hh-kennung" data-export-value={String(plan.jahr)}>{plan.jahr}{art === 'projektion' ? <> <span class="hh-rl-nebenzeile">Planung</span></> : null}</th>
+                  <td class="hh-zahl" data-export-value={plan.umsatz}><Amount value={plan.umsatz} exakt /></td>
+                  <td class="hh-zahl" data-export-value={plan.investitionen}><Amount value={plan.investitionen} exakt /></td>
+                  <td class="hh-zahl" data-export-value={plan.kernhaushalt}><Amount value={plan.kernhaushalt} exakt /></td>
+                  <td class="hh-zahl" data-export-value={plan.neue_kredite}><Amount value={plan.neue_kredite} exakt /></td>
+                  <td class="hh-zahl" data-export-value={plan.schuldenstand}><Amount value={plan.schuldenstand} exakt /></td>
+                  <td class="hh-zahl" data-export-value={plan.ausschuettung}><Amount value={plan.ausschuettung} exakt /></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        ))}
+      </table>
+    </DataTableFrame>
+
+    <h3 class="hh-rl-h3" id="unternehmen-angaben">Rechtsgrundlagen und Status</h3>
+    <ul class="hh-rl-unternehmen" role="list">
+      {unternehmen.map((eintrag) => (
+        <li class="hh-rl-unternehmen__eintrag" id={unternehmenAnker(eintrag.id)}>
+          <h4 class="hh-rl-unternehmen__titel">{eintrag.overlay.name}</h4>
+          <p class="hh-rl-unternehmen__zweck">{eintrag.overlay.zweck}</p>
+          <dl class="hh-rl-details">
+            <div><dt>Rechtsform</dt><dd>{eintrag.overlay.rechtsform}</dd></div>
+            <div><dt>Rechtsgrundlage</dt><dd><Rechtsbezuege bezuege={eintrag.overlay.rechtsbezuege} /></dd></div>
+            <div>
+              <dt>Status</dt>
+              <dd><StatusBadge tone={statusTon(eintrag.overlay.status)} label={INSTRUMENT_STATUS_LABELS[eintrag.overlay.status]} /> <span class="hh-rl-statustext">{eintrag.overlay.statusText}</span></dd>
+            </div>
+            {eintrag.gegenbuchung ? (
+              <div>
+                <dt>Zuführung im Kernhaushalt</dt>
+                <dd>
+                  {eintrag.gegenbuchung.map((titel, index) => <>{index > 0 ? ', ' : ''}<a class="inline-link" href={titel.href}>Titel {titel.nummer} im Kapitel {titel.kapitelNummer}</a></>)}
+                  {' '}(entspricht der Zuführung laut Wirtschaftsplan {jahrePaar})
+                </dd>
+              </div>
+            ) : null}
+            {eintrag.kapitel.length > 0 ? (
+              <div>
+                <dt>Kapitel im Kernhaushalt</dt>
+                <dd><ul class="hh-rl-kapitelliste" role="list">{eintrag.kapitel.map((kapitel) => <li><a class="inline-link" href={kapitel.href}>{kapitel.nummer}</a></li>)}</ul></dd>
+              </div>
+            ) : null}
+            {eintrag.projekt ? (
+              <div><dt>Vorhaben</dt><dd><a class="inline-link" href={eintrag.projekt.href}>{eintrag.projekt.titel}</a></dd></div>
+            ) : null}
+          </dl>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <SourceNote datenstand={seite.datenstand} datenversion={seite.datenversion} quelle={seite.quelle} downloadsHref={downloadsHref} />
+</HaushaltLayout>

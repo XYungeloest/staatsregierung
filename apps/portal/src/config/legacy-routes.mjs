@@ -1,3 +1,9 @@
+/**
+ * Einzelplannummern des abgeschlossenen Doppelhaushalts 2025/2026 (context/Staatshaushalt
+ * 2025_2026 - Zusammenfassung.csv; tests/legacy-routes.test.ts gleicht die Liste ab).
+ */
+export const LEGACY_EINZELPLAENE_2025_2026 = Array.from({ length: 20 }, (_, index) => String(index + 1).padStart(2, '0'));
+
 export const legacyRoutes = [
   {
     source: '/uebersicht/',
@@ -26,6 +32,23 @@ export const legacyRoutes = [
     source: '/ministerien/[ressort]',
     target: '/staatsregierung/kabinett/[ressort]',
   },
+  // Gesamtplan und Einzelpläne des Doppelhaushalts 2025/2026 liegen unter der Adresse ihrer
+  // Haushaltsperiode; /haushalt/ ist der periodenübergreifende Einstieg.
+  {
+    source: '/haushalt/gesamtplan/',
+    target: '/haushalt/2025-2026/gesamtplan/',
+  },
+  {
+    source: '/haushalt/einzelplaene/',
+    target: '/haushalt/2025-2026/einzelplaene/',
+  },
+  // Einzelpläne statisch je Nummer: Astro erzeugt für statische Quellen die Form mit und ohne
+  // Schrägstrich, beide direkt auf die Zieladresse. Eine dynamische Quelle (:plan) greift im
+  // Cloudflare-Asset-Worker nicht für die bisher kanonische Form mit Schrägstrich.
+  ...LEGACY_EINZELPLAENE_2025_2026.map((plan) => ({
+    source: `/haushalt/einzelplaene/${plan}/`,
+    target: `/haushalt/2025-2026/einzelplaene/${plan}/`,
+  })),
   {
     source: '/presse/termine/einbringung-kreis-und-bezirksreform-2027/',
     target: '/presse/termine/einbringung-kreis-und-bezirksreform-2026/',

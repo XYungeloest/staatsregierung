@@ -1,0 +1,183 @@
+---
+/**
+ * Vollständige, filter- und sortierbare Gliederungstabelle (Gruppen, Obergruppen, Funktionen):
+ * je Gliederungsabschnitt ein eigener Tabellenkörper mit Gruppenkopf, je Zeile Kennziffer,
+ * Bezeichnung, Beträge der Haushaltsjahre und Veränderung. Suche, Auswahlfilter, Jahresansicht,
+ * Blätterung und CSV-Export übernimmt `haushalt-tabelle.ts`; ohne JavaScript ist die Tabelle
+ * vollständig sichtbar. Die Summenzeilen im Tabellenfuß sind Kontrollsummen, deren Gleichheit
+ * mit dem Gesamtplan die Seite vor der Ausgabe prüft.
+ */
+import Amount from '../Amount.astro';
+import DataTableFrame from '../DataTableFrame.astro';
+import FilterBar from '../FilterBar.astro';
+import { formatSigned, normalizeSearch } from '../format.ts';
+import { getVeraenderung } from '../../../lib/haushalt/kennzahlen.ts';
+
+export interface GliederungsZeile {
+  kennung: string;
+  label: string;
+  zusatz?: string;
+  /** Filterfelder der Zeile (data-<feld>). */
+  felder: Record<string, string>;
+  werte: Record<string, number>;
+  suchtext?: string;
+}
+
+export interface GliederungsAbschnitt {
+  titel: string;
+  zeilen: GliederungsZeile[];
+}
+
+interface SelectFilter {
+  feld: string;
+  label: string;
+  options: Array<{ value: string; label: string }>;
+  alleLabel?: string;
+}
+
+interface Props {
+  id: string;
+  label: string;
+  caption: string;
+  jahre: string[];
+  abschnitte: GliederungsAbschnitt[];
+  kennungSpalte: string;
+  labelSpalte?: string;
+  zusatzSpalte?: string;
+  filter?: SelectFilter[];
+  sucheLabel?: string;
+  summen?: Array<{ label: string; werte: Record<string, number> }>;
+  nomenSingular: string;
+  nomenPlural: string;
+  exportFilename: string;
+  exportMeta?: Record<string, string>;
+  zeilenPraefix: string;
+}
+
+const {
+  id,
+  label,
+  caption,
+  jahre,
+  abschnitte,
+  kennungSpalte,
+  labelSpalte = 'Bezeichnung',
+  zusatzSpalte,
+  filter = [],
+  sucheLabel = 'Suche',
+  summen = [],
+  nomenSingular,
+  nomenPlural,
+  exportFilename,
+  exportMeta,
+  zeilenPraefix,
+} = Astro.props as Props;
+
+const ersteJahr = jahre[0];
+const letztesJahr = jahre[jahre.length - 1];
+const mitVeraenderung = jahre.length > 1;
+const spalten = 2 + jahre.length + (mitVeraenderung ? 2 : 0);
+const optionen = [
+  ...jahre.map((jahr) => ({ value: jahr, label: jahr })),
+  ...(mitVeraenderung ? [{ value: 'veraenderung', label: `Vergleich ${ersteJahr} und ${letztesJahr}` }] : []),
+];
+const standard = mitVeraenderung ? 'veraenderung' : ersteJahr;
+const yearCol = (jahr: string) => `${jahr} veraenderung`;
+---
+
+<DataTableFrame
+  id={id}
+  label={label}
+  caption={caption}
+  nomenSingular={nomenSingular}
+  nomenPlural={nomenPlural}
+  exportFilename={exportFilename}
+  exportMeta={exportMeta}
+  exportZeilenfelder={zusatzSpalte ? [{ key: 'zusatz', label: zusatzSpalte }] : undefined}
+  jahresansicht={standard}
+  jahresansichtSchmal={ersteJahr}
+  breite="breit"
+>
+  <FilterBar
+    slot="werkzeuge"
+    id={id}
+    suche={{ label: sucheLabel, placeholder: 'Kennziffer oder Bezeichnung' }}
+    filter={filter}
+    jahresansicht={{ label: 'Spalten', value: standard, options: optionen }}
+    export={{}}
+  />
+  <table class="data-table hh-datentabelle hh-gliederung">
+    <thead>
+      <tr>
+        <th scope="col" class="hh-kennung" data-sort="text" data-export-key="kennziffer" aria-sort="ascending">{kennungSpalte}</th>
+        <th scope="col" data-sort="text" data-export-key="bezeichnung">{labelSpalte}</th>
+        {jahre.map((jahr) => (
+          <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`betrag_${jahr}`} data-export-label={`Betrag ${jahr} (Euro)`} data-year-col={yearCol(jahr)}>{jahr}</th>
+        ))}
+        {mitVeraenderung ? (
+          <>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="veraenderung" data-export-label="Veränderung (Euro)" data-year-col="veraenderung">Veränderung <span>{ersteJahr} zu {letztesJahr}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="veraenderung_prozent" data-export-label="Veränderung (Prozent)" data-year-col="veraenderung">Veränderung <span>in Prozent</span></th>
+          </>
+        ) : null}
+      </tr>
+    </thead>
+    {abschnitte.map((abschnitt) => (
+      <tbody>
+        <tr data-gruppenkopf>
+          <th scope="rowgroup" colspan={spalten}>{abschnitt.titel}</th>
+        </tr>
+        {abschnitt.zeilen.map((zeile) => {
+          const delta = mitVeraenderung ? getVeraenderung(zeile.werte[ersteJahr] ?? 0, zeile.werte[letztesJahr] ?? 0) : null;
+          const anker = `${zeilenPraefix}-${zeile.kennung}`;
+          const datenFelder = Object.fromEntries(Object.entries(zeile.felder).map(([feld, wert]) => [`data-${feld}`, wert]));
+          return (
+            <tr id={anker} data-search={normalizeSearch(zeile.suchtext ?? `${zeile.kennung} ${zeile.label} ${zeile.zusatz ?? ''}`)} data-export-zusatz={zusatzSpalte ? zeile.zusatz ?? '' : undefined} {...datenFelder}>
+              <th scope="row" class="hh-kennung" data-sort={zeile.kennung} data-export-value={zeile.kennung}>
+                <a class="hh-zeilenanker" href={`#${anker}`}>{zeile.kennung}</a>
+                {zusatzSpalte && zeile.zusatz ? <span>{zusatzSpalte} {zeile.zusatz}</span> : null}
+              </th>
+              <td>{zeile.label}</td>
+              {jahre.map((jahr) => (
+                <td class="hh-zahl" data-year-col={yearCol(jahr)} data-export-value={String(zeile.werte[jahr] ?? 0)}>
+                  <Amount value={zeile.werte[jahr] ?? 0} exakt />
+                </td>
+              ))}
+              {delta ? (
+                <>
+                  <td class="hh-zahl" data-year-col="veraenderung" data-export-value={String(delta.absolut)}>
+                    <Amount value={delta.absolut} exakt vorzeichen />
+                  </td>
+                  <td class="hh-zahl" data-year-col="veraenderung" data-export-value={delta.relativ === null ? '' : String(Math.round(delta.relativ * 1e6) / 1e6)}>
+                    {delta.relativ === null ? <abbr title="keine Angabe">–</abbr> : <data value={String(delta.relativ)}>{formatSigned(delta.relativ, 'percent')}</data>}
+                  </td>
+                </>
+              ) : null}
+            </tr>
+          );
+        })}
+      </tbody>
+    ))}
+    {summen.length > 0 ? (
+      <tfoot>
+        {summen.map((summe) => {
+          const delta = mitVeraenderung ? getVeraenderung(summe.werte[ersteJahr] ?? 0, summe.werte[letztesJahr] ?? 0) : null;
+          return (
+            <tr>
+              <th scope="row" colspan="2">{summe.label}</th>
+              {jahre.map((jahr) => (
+                <td class="hh-zahl" data-year-col={yearCol(jahr)}><Amount value={summe.werte[jahr] ?? 0} exakt /></td>
+              ))}
+              {delta ? (
+                <>
+                  <td class="hh-zahl" data-year-col="veraenderung"><Amount value={delta.absolut} exakt vorzeichen /></td>
+                  <td class="hh-zahl" data-year-col="veraenderung">{delta.relativ === null ? '–' : formatSigned(delta.relativ, 'percent')}</td>
+                </>
+              ) : null}
+            </tr>
+          );
+        })}
+      </tfoot>
+    ) : null}
+  </table>
+</DataTableFrame>

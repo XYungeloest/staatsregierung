@@ -1,0 +1,667 @@
+{
+  "projekte": {
+    "bank": {
+      "slug": "elbelb-foerderauftraege",
+      "titel": "ElbeLB – Förderaufträge und Gewinnverwendung",
+      "fachbereich": "Finanzen und Beteiligungen",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "haushalt-und-finanzen"
+      ],
+      "ministrySlug": "kapitalakkumulation-des-fiskus",
+      "beschreibung": "Die Landesbank ElbeLB übernimmt zusätzliche Förderaufträge. Der Freistaat erhält Einnahmen aus der Gewinnverwendung der Bank (Ausschüttung von 40 Prozent des Bilanzgewinns, Landesanteil 75 Prozent); eine erneute Kapitalausstattung ist nicht vorgesehen.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-landesbankgesetz",
+          "label": "Ostdeutsches Landesbankgesetz, §§ 1, 2 und 4",
+          "art": "geltend"
+        },
+        {
+          "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "label": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz, §§ 52 und 53",
+          "art": "verkuendet"
+        },
+        {
+          "label": "Entwurf des Haushaltsbegleitgesetzes 2027/2028, Artikel 4 § 2 (Gewinnverwendung der ElbeLB)",
+          "art": "entwurf"
+        }
+      ]
+    },
+    "bergbau": {
+      "slug": "bergbausanierung",
+      "titel": "Bergbausanierung (BvS-Nachfolge)",
+      "fachbereich": "Wirtschaft und Strukturwandel",
+      "status": "geplant",
+      "statusText": "In Planung; die Ausgaben setzen den Abschluss des Generalvertrags mit dem Sanierungsträger voraus.",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ],
+      "ministrySlug": "wirtschaft-arbeitsmarkt-und-beschaeftigung",
+      "beschreibung": "Sanierung von Bergbaualtlasten in Nachfolge der BvS in acht Sanierungslosen.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-rohstoffwerkegesetz",
+          "label": "Ostdeutsches Rohstoffwerkegesetz",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "care": {
+      "slug": "grundversorgung-gesundheit-und-pflege",
+      "titel": "Grundversorgung Gesundheit und Pflege",
+      "fachbereich": "Gesundheit, Pflege und Soziales",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "soziale-sicherheit-und-teilhabe"
+      ],
+      "ministrySlug": "soziale-und-gesundheitliche-fuersorge",
+      "beschreibung": "Zusätzliche regionale Beratungs- und Versorgungsfälle in kommunalen Gesundheitszentren und Pflegestützpunkten; vorgesehen sind 100.000 zusätzliche Fälle. Bestehende Leistungen werden angerechnet.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "soziale-grundversorgungsgesetz",
+          "label": "Besonderes Gesetz über die Gewährleistung von Wohnen, Gesundheit und Pflege (OGVBl. 2026 Nr. 77)",
+          "art": "geltend"
+        }
+      ]
+    },
+    "commercial-air": {
+      "slug": "interflug-gewerbliche-tochtergesellschaft",
+      "titel": "Interflug – gewerbliche Tochtergesellschaft",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "nicht-finanziert",
+      "statusText": "Kein Haushaltsansatz; die Tochtergesellschaft benötigt einen eigenen Wirtschaftsplan.",
+      "topicSlugs": [],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Gewerbliche Tochtergesellschaft der Interflug mit eigenem Wirtschaftsplan, ohne Quersubventionierung aus dem Vermögen des Spezialflugdienstes. Im Doppelhaushalt ist dafür kein Ansatz vorgesehen.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "interflug-gesetz",
+          "label": "Interflug-Gesetz, §§ 7 und 8",
+          "art": "geltend"
+        }
+      ]
+    },
+    "culture": {
+      "slug": "kulturpass-und-kulturteilhabe",
+      "titel": "Kulturpass und Kulturteilhabe",
+      "fachbereich": "Kultur und Sport",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "kulturpass",
+        "kultur-erinnerung-und-medien"
+      ],
+      "ministrySlug": "kultur-medien-und-kulturelle-emanzipation",
+      "beschreibung": "Kulturpass für rund 500.000 Berechtigte sowie kostenfreie Museumssonntage in den staatlichen Museen. Bestehende Sozialermäßigungen werden angerechnet.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-kulturpassgesetz",
+          "label": "Ostdeutsches Kulturpassgesetz, §§ 1, 2 und 5 in der ab 1. Januar 2027 geltenden Fassung (OGVBl. 2026 Nr. 83, Artikel 6)",
+          "art": "verkuendet"
+        },
+        {
+          "normSlug": "ostdeutsches-teilhabegesetz",
+          "label": "Ostdeutsches Teilhabegesetz, §§ 3 bis 6 (OGVBl. 2026 Nr. 83, Artikel 1)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "digital": {
+      "slug": "verwaltungsdigitalisierung-und-rechenzentren",
+      "titel": "Verwaltungsdigitalisierung und gemeinsame Rechenzentren",
+      "fachbereich": "Staat, Verwaltung und Sicherheit",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [],
+      "beschreibung": "Zusammenführung der sechs Landesrechenzentren und ihrer Netze, einheitliche Register- und E-Akte-Lösungen sowie Informationssicherheit.",
+      "rechtsbezuege": [],
+      "ohneSumme": true,
+      "betragshinweis": "Dem Vorhaben ist im Regierungsentwurf der Titel 883 01 im Kapitel 09 23 (Breitbandausbau) zugeordnet. Betrieb und Ausbau der gemeinsamen Rechenzentren, Register und Verwaltungsnetze sind in den Kapiteln 17 03, 17 10 und 17 11 veranschlagt."
+    },
+    "district": {
+      "slug": "aufbau-der-bezirke",
+      "titel": "Bezirksreform – Aufbau der 14 Bezirke",
+      "fachbereich": "Staat, Verwaltung und Sicherheit",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "kommunen-regionen-und-berlin"
+      ],
+      "ministrySlug": "inneres-bau-und-kommunale-angelegenheiten",
+      "beschreibung": "Aufbau der Verwaltungen für 13 neue Bezirke mit je 50 Vollzeitäquivalenten. 60 Prozent des Personals kommen aus der bestehenden Verwaltung.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
+          "label": "Ostdeutsches Kreis- und Bezirksneuordnungsgesetz, §§ 22 und 25 (OGVBl. 2026 Nr. 46, Artikel 1)",
+          "art": "geltend"
+        },
+        {
+          "normSlug": "organisationserlass-09-2026",
+          "label": "Organisationserlass 09/2026",
+          "art": "geltend"
+        }
+      ]
+    },
+    "energy": {
+      "slug": "landesenergiewerke-und-windprojekte",
+      "titel": "Landesenergiewerke und öffentliche Windprojekte",
+      "fachbereich": "Energie und Klima",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "energie-und-klima"
+      ],
+      "ministrySlug": "umwelt-energie-und-klimaschutz",
+      "beschreibung": "Eigenkapital für Wind-, Offshore- und weitere Erneuerbaren-Projekte der Landesenergiewerke mit 300 Megawatt (2027) und 400 Megawatt (2028). Der Freistaat trägt 35 Prozent der Investitionen als Eigenkapital; den übrigen Teil finanzieren die Landesenergiewerke aus Eigenmitteln und eigenen Projektkrediten.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "landesenergiewerke-gesetz",
+          "label": "Landesenergiewerke-Gesetz",
+          "art": "geltend"
+        },
+        {
+          "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "label": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
+          "art": "verkuendet"
+        },
+        {
+          "label": "Entwurf des Haushaltsbegleitgesetzes 2027/2028, Artikel 4 § 1 (Finanzierung der Landesenergiewerke)",
+          "art": "entwurf"
+        }
+      ]
+    },
+    "grenzpolizei": {
+      "slug": "kasernierte-grenzpolizei",
+      "titel": "Kasernierte Grenzpolizei und Staatssicherheit",
+      "fachbereich": "Staat, Verwaltung und Sicherheit",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "demokratie-und-sicherheit"
+      ],
+      "ministrySlug": "inneres-bau-und-kommunale-angelegenheiten",
+      "beschreibung": "Personal, Ausrüstung und Unterbringung der kasernierten Grenzpolizei.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "kasernierte-grenzpolizei-gesetz",
+          "label": "Kasernierte-Grenzpolizei-Gesetz",
+          "art": "geltend"
+        }
+      ]
+    },
+    "ho": {
+      "slug": "handelsorganisation-ost",
+      "titel": "Handelsorganisation Ost (HO)",
+      "fachbereich": "Wirtschaft und Strukturwandel",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ],
+      "ministrySlug": "wirtschaft-arbeitsmarkt-und-beschaeftigung",
+      "beschreibung": "Gründung und Kapitalbasis, Logistik und Warenwirtschaft sowie Filialmodernisierung der Handelsorganisation Ost; dazu Versorgungsaufträge für 200 ländliche und mobile Verkaufsstellen. Eine etwaige Übernahme bestehender Filialen ist weder vertraglich vereinbart noch veranschlagt.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "handelsorganisationsgesetz",
+          "label": "Handelsorganisationsgesetz, § 2 und §§ 9 bis 12",
+          "art": "verkuendet"
+        },
+        {
+          "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "label": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz, §§ 52 und 53",
+          "art": "verkuendet"
+        },
+        {
+          "label": "Entwurf des Haushaltsbegleitgesetzes 2027/2028, Artikel 4 § 3 (Handelsorganisation Ost)",
+          "art": "entwurf"
+        }
+      ]
+    },
+    "hospital": {
+      "slug": "krankenhausfonds-und-rekommunalisierung",
+      "titel": "Krankenhausfonds und Rekommunalisierung",
+      "fachbereich": "Gesundheit, Pflege und Soziales",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "krankenhausfonds"
+      ],
+      "ministrySlug": "soziale-und-gesundheitliche-fuersorge",
+      "beschreibung": "Jahresraten für 20 große Standort- und Verbundmaßnahmen sowie ein laufender Stabilisierungsanteil für rekommunalisierte Krankenhäuser. Die bestehenden Krankenhausinvestitionen sind enthalten.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
+          "label": "Ostdeutsches Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz, §§ 2, 4 und 6",
+          "art": "geltend"
+        }
+      ]
+    },
+    "housing": {
+      "slug": "gemeingut-wohnen",
+      "titel": "Gemeingut Wohnen",
+      "fachbereich": "Wohnen",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "wohnen-und-vergesellschaftung"
+      ],
+      "ministrySlug": "wirtschaft-arbeitsmarkt-und-beschaeftigung",
+      "beschreibung": "Sanierung und Verwaltung von 500.000 übertragenen oder zu übertragenden Wohnungen durch Gemeingut Wohnen. Entschädigungen sind über Anleihen der Anstalt abgegolten; der Kernhaushalt leistet dafür keine Zahlung.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "gemeingut-wohnen-gesetz",
+          "label": "Gemeingut-Wohnen-Gesetz, §§ 2, 4 und 18",
+          "art": "geltend"
+        },
+        {
+          "normSlug": "wohnvergesellschaftungsgesetz",
+          "label": "Wohnvergesellschaftungsgesetz, § 11 (Art der Entschädigung)",
+          "art": "geltend"
+        }
+      ]
+    },
+    "interflug": {
+      "slug": "interflug-spezialflugdienst-und-loeschflugzeuge",
+      "titel": "Interflug – staatlicher Spezialflugdienst und Löschflugzeuge",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "in-umsetzung",
+      "statusText": "Ein Beschaffungsvertrag besteht; die Raten sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Zehn Löschflugzeuge und Bereitschaftsbetrieb des staatlichen Spezialflugdienstes: sechs AT-802F, zwei Dash 8-400AT und zwei umgebaute Boeing 737. Hinzu kommen Hangar, Abfertigung und Wartungsausstattung an den Einsatzstandorten.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "interflug-gesetz",
+          "label": "Interflug-Gesetz",
+          "art": "geltend"
+        },
+        {
+          "normSlug": "saechsische-haushaltsordnung",
+          "label": "Ostdeutsche Haushaltsordnung, §§ 38 und 65",
+          "art": "haushaltsregelung"
+        },
+        {
+          "label": "Entwurf des Haushaltsbegleitgesetzes 2027/2028, Artikel 1 § 1 Absatz 3 (Vertragsraten der Interflug)",
+          "art": "entwurf"
+        }
+      ]
+    },
+    "kita": {
+      "slug": "kostenfreie-kindertagesbetreuung",
+      "titel": "Kostenfreie Kindertagesbetreuung",
+      "fachbereich": "Bildung",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "bildungsreform",
+        "familie-und-soziales"
+      ],
+      "ministrySlug": "bildung-und-sportliche-ertuechtigung",
+      "beschreibung": "Erstattung der entfallenden Elternbeiträge an kommunale und freie Träger für rund 780.000 betreute Kinder. Die bereits bestehende Beitragsfreiheit wird angerechnet.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "kindertagesbetreuungsgesetz",
+          "label": "Gesetz über Kindertagesbetreuung, §§ 15 und 16a in der ab 1. Januar 2027 geltenden Fassung (OGVBl. 2026 Nr. 83, Artikel 2)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "land": {
+      "slug": "landesbodenfonds-und-naturvermoegen",
+      "titel": "Landesbodenfonds und Naturvermögen",
+      "fachbereich": "Finanzen und Beteiligungen",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [],
+      "ministrySlug": "kapitalakkumulation-des-fiskus",
+      "beschreibung": "Bodenbevorratung, Renaturierung und Vollzug durch den Landesbodenfonds. Vermögensübergänge ohne Zahlung werden nicht als Einnahme oder Ausgabe gebucht.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "boden-und-naturvermoegensgesetz",
+          "label": "Boden- und Naturvermögensgesetz, §§ 3, 12 bis 14 und 50",
+          "art": "geltend"
+        }
+      ]
+    },
+    "meals": {
+      "slug": "kostenfreie-kita-und-schulverpflegung",
+      "titel": "Kostenfreie Kita- und Schulverpflegung",
+      "fachbereich": "Bildung",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "bildungsreform"
+      ],
+      "ministrySlug": "bildung-und-sportliche-ertuechtigung",
+      "beschreibung": "Unentgeltliches Frühstück, Mittagessen und Getränke für rund 2,15 Millionen Kinder und Schüler:innen an 195 Tagen im Jahr. Die bestehende Finanzierung wird angerechnet.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "kindertagesbetreuungsgesetz",
+          "label": "Gesetz über Kindertagesbetreuung, § 16a (OGVBl. 2026 Nr. 83, Artikel 2)",
+          "art": "verkuendet"
+        },
+        {
+          "normSlug": "ostdeutsches-schulgesetz",
+          "label": "Ostdeutsches Schulgesetz, §§ 38c und 38f (OGVBl. 2026 Nr. 83, Artikel 3)",
+          "art": "verkuendet"
+        },
+        {
+          "label": "Entwurf des Haushaltsbegleitgesetzes 2027/2028, Artikel 1 § 3 (Gemeinsame Beschaffung der Schulverpflegung)",
+          "art": "entwurf"
+        }
+      ]
+    },
+    "mensa": {
+      "slug": "studentische-sozialverpflegung",
+      "titel": "Studentische Sozialverpflegung",
+      "fachbereich": "Bildung",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [],
+      "ministrySlug": "bildung-und-sportliche-ertuechtigung",
+      "beschreibung": "Ein Grundgericht für rund 100.000 Berechtigte an 160 Tagen im Jahr über die Studierendenwerke.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-hochschulgesetz",
+          "label": "Ostdeutsches Hochschulgesetz, § 118 Absatz 4a in der ab 1. Januar 2027 geltenden Fassung (OGVBl. 2026 Nr. 83, Artikel 4)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "planning": {
+      "slug": "staatsplanung",
+      "titel": "Staatsplanung – Geschäftsstelle und Verfahren",
+      "fachbereich": "Staat, Verwaltung und Sicherheit",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; ein eigener Projektansatz ist nicht ausgebracht. Die Staatsplanung ist mit Kapitel 02 03 (Staatsplanung und Wirtschaftsrat) im Einzelplan 02 veranschlagt.",
+      "topicSlugs": [],
+      "ministrySlug": "staatskanzlei",
+      "beschreibung": "Geschäftsstelle für den Gesellschafts- und Wirtschaftsplan der Staatsplanung.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "wirtschaftsplanungs-und-gemeinwirtschaftsgesetz",
+          "label": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz (OGVBl. 2026 Nr. 80)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "rail-network": {
+      "slug": "ostdeutsche-eisenbahn-infrastruktur",
+      "titel": "Ostdeutsche Eisenbahn – Infrastruktur und Betriebsumstellung",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "geplant",
+      "statusText": "In Planung; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Infrastrukturmaßnahmen und Betriebsumstellung der Ostdeutschen Eisenbahn.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-eisenbahngesetz",
+          "label": "Ostdeutsches Eisenbahngesetz, §§ 2 und 11",
+          "art": "geltend"
+        }
+      ]
+    },
+    "rail-vehicles": {
+      "slug": "ostdeutsche-eisenbahn-fahrzeuge",
+      "titel": "Ostdeutsche Eisenbahn – Fahrzeugbeschaffung",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "geplant",
+      "statusText": "In Planung; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Erneuerung und Erweiterung des landeseigenen Fahrzeugparks mit Elektro- und Batterietriebzügen für den Regional- und S-Bahn-Verkehr. Fahrzeugtypen und Stückzahlen werden vor der Vergabe festgelegt.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-eisenbahngesetz",
+          "label": "Ostdeutsches Eisenbahngesetz, §§ 2 und 11",
+          "art": "geltend"
+        }
+      ]
+    },
+    "rail-works": {
+      "slug": "ostdeutsche-eisenbahn-werkstaetten",
+      "titel": "Ostdeutsche Eisenbahn – Werkstätten",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "geplant",
+      "statusText": "In Planung; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Instandhaltungswerkstätten für den landeseigenen Fahrzeugpark. Standorte und Bauvergaben werden mit dem Wirtschaftsplan der Ostdeutschen Eisenbahn festgelegt.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-eisenbahngesetz",
+          "label": "Ostdeutsches Eisenbahngesetz, §§ 2 und 11",
+          "art": "geltend"
+        }
+      ]
+    },
+    "raw": {
+      "slug": "rohstoffwerke-und-lithium-zinnwald",
+      "titel": "Ostdeutsche Rohstoffwerke und Lithium Zinnwald",
+      "fachbereich": "Wirtschaft und Strukturwandel",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oeffentliche-wirtschaft-und-strukturwandel"
+      ],
+      "ministrySlug": "wirtschaft-arbeitsmarkt-und-beschaeftigung",
+      "beschreibung": "Sicherungs-, Sanierungs- und Aufbaumaßnahmen der Ostdeutschen Rohstoffwerke einschließlich des Lithiumprojekts Zinnwald. Die Sanierung von Bergbaualtlasten ist ein eigenes Vorhaben (Bergbausanierung). Rohstofferlöse sind nicht eingeplant.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-rohstoffwerkegesetz",
+          "label": "Ostdeutsches Rohstoffwerkegesetz, § 2 und §§ 15 bis 17 (OGVBl. 2026 Nr. 82)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "regionalisierung": {
+      "slug": "schienenpersonennahverkehr",
+      "titel": "Schienenpersonennahverkehr und Regionalisierung",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Bestellung von Verkehrsleistungen im Schienenpersonennahverkehr und im S-Bahn-Verkehr aus Regionalisierungsmitteln und Landesmitteln.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-personennahverkehrsgesetz",
+          "label": "Ostdeutsches Personennahverkehrsgesetz",
+          "art": "geltend"
+        },
+        {
+          "label": "Regionalisierungsgesetz des Bundes, § 5",
+          "art": "geltend"
+        }
+      ]
+    },
+    "school": {
+      "slug": "schulveranstaltungen-und-hygiene",
+      "titel": "Schulveranstaltungen und Hygiene",
+      "fachbereich": "Bildung",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "bildungsreform"
+      ],
+      "ministrySlug": "bildung-und-sportliche-ertuechtigung",
+      "beschreibung": "Kostenfreie Schulfahrten und Schulveranstaltungen sowie Hygieneartikel für rund 1,6 Millionen Schüler:innen.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-schulgesetz",
+          "label": "Ostdeutsches Schulgesetz, §§ 38d bis 38f in der ab 1. Januar 2027 geltenden Fassung (OGVBl. 2026 Nr. 83, Artikel 3)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "school-build": {
+      "slug": "schulbauprogramm",
+      "titel": "Schulbauprogramm POS/EOS",
+      "fachbereich": "Bildung",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "bildungsreform"
+      ],
+      "ministrySlug": "bildung-und-sportliche-ertuechtigung",
+      "beschreibung": "Neubau, Erweiterung und Sanierung polytechnischer und erweiterter Oberschulen, teilweise aus fortgeführten investiven Bundesmitteln finanziert.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-schulgesetz",
+          "label": "Ostdeutsches Schulgesetz",
+          "art": "geltend"
+        },
+        {
+          "normSlug": "saechsische-haushaltsordnung",
+          "label": "Ostdeutsche Haushaltsordnung, §§ 23 und 44 (Zuwendungen)",
+          "art": "haushaltsregelung"
+        }
+      ]
+    },
+    "sport": {
+      "slug": "kostenfreier-sportzugang",
+      "titel": "Kostenfreier Sportzugang und Teilhabepass",
+      "fachbereich": "Kultur und Sport",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "sport"
+      ],
+      "ministrySlug": "bildung-und-sportliche-ertuechtigung",
+      "beschreibung": "Rund 800.000 Sportberechtigungen im Jahr für den kostenfreien Zugang zum Vereinssport. Bestehende Förderungen werden angerechnet.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-teilhabegesetz",
+          "label": "Ostdeutsches Teilhabegesetz, §§ 3 und 4 (OGVBl. 2026 Nr. 83, Artikel 1)",
+          "art": "verkuendet"
+        },
+        {
+          "normSlug": "ostdeutsches-sportfoerdergesetz",
+          "label": "Ostdeutsches Sportfördergesetz, § 7 (Landessportpass Ost) in der ab 1. Januar 2027 geltenden Fassung (OGVBl. 2026 Nr. 83, Artikel 5)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "steuervollzug": {
+      "slug": "steuervollzug-grossbetriebe",
+      "titel": "Steuervollzug bei Großbetrieben",
+      "fachbereich": "Finanzen und Beteiligungen",
+      "status": "im-entwurf",
+      "statusText": "Die Rechtsgrundlage ist Teil des Entwurfs des Haushaltsbegleitgesetzes 2027/2028; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "haushalt-und-finanzen"
+      ],
+      "ministrySlug": "kapitalakkumulation-des-fiskus",
+      "beschreibung": "Zusätzliches Prüfpersonal und Datenanalyse für die Besteuerung wirtschaftlich bedeutender Unternehmen. Erwartet werden zusätzliche Steuereinnahmen des Freistaates.",
+      "rechtsbezuege": [
+        {
+          "label": "Entwurf des Haushaltsbegleitgesetzes 2027/2028, Artikel 1 § 2 (Großbetriebs-Steuervollzug)",
+          "art": "entwurf"
+        }
+      ]
+    },
+    "ticket": {
+      "slug": "ostticket-und-unentgeltliche-tarife",
+      "titel": "Ostticket und unentgeltliche Tarife",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Ausgleich für das Deutschlandticket, das Schülerticket und weitere Tarifansprüche im Ostticket, darunter die unentgeltliche Fahrt für rund 2,5 Millionen Berechtigte und der Halbpreis für rund 1,5 Millionen Berechtigte. Der Bund beteiligt sich an Deutschlandticket und Schülerticket.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-personennahverkehrsgesetz",
+          "label": "Ostdeutsches Personennahverkehrsgesetz, § 4a Absätze 2, 4 und 5 sowie § 7",
+          "art": "geltend"
+        }
+      ]
+    },
+    "transrapid": {
+      "slug": "transrapid-pruefauftrag",
+      "titel": "Transrapid Ost – Prüfauftrag",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "optional",
+      "statusText": "Prüfauftrag; veranschlagt sind nur Mittel für die Prüfung, kein Bau- oder Beschaffungsansatz.",
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Prüfung und rechtliche Vorbereitung eines Transrapid-Korridors für den Fall nachgewiesener Wirtschaftlichkeit. Ein Bau- oder Beschaffungsansatz ist im Doppelhaushalt nicht vorgesehen.",
+      "rechtsbezuege": [],
+      "ohneSumme": true,
+      "betragshinweis": "Titel 526 01 im Kapitel 10 01 ist ein gemeinsamer Planungstitel für Landesverkehrsplan, Netzkonzeption Schiene 2035, Mobilitätsdatenplattform und die Transrapid-Prüfung. Auf die Prüfung des Transrapid-Korridors entfallen höchstens 1 Mio. EUR jährlich."
+    },
+    "verwaltungsreform": {
+      "slug": "staats-und-verwaltungsreform",
+      "titel": "Staats- und Verwaltungsreform (Fusion, gemeinsame Dienste)",
+      "fachbereich": "Staat, Verwaltung und Sicherheit",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; im Doppelhaushalt ist kein eigener Ansatz vorgesehen.",
+      "topicSlugs": [
+        "staatsreform-und-verfassung"
+      ],
+      "ministrySlug": "staatskanzlei",
+      "beschreibung": "Zusammenführung der Verwaltungsbudgets der Herkunftsländer, gemeinsame Dienste und Staatsplanung.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "organisationserlass-09-2026",
+          "label": "Organisationserlass 09/2026",
+          "art": "geltend"
+        }
+      ]
+    },
+    "youth": {
+      "slug": "jugendorte-und-jugendberatung",
+      "titel": "Jugendorte und Jugendberatung",
+      "fachbereich": "Gesundheit, Pflege und Soziales",
+      "status": "beschlossen",
+      "statusText": "Vorhaben beschlossen; die Mittel sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [
+        "familie-und-soziales",
+        "soziale-sicherheit-und-teilhabe"
+      ],
+      "ministrySlug": "soziale-und-gesundheitliche-fuersorge",
+      "beschreibung": "Laufender Betrieb von 500 Jugendorten und Jugendberatung; neue Standorte werden befristet hergerichtet.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "ostdeutsches-teilhabegesetz",
+          "label": "Ostdeutsches Teilhabegesetz, §§ 6, 7 und 10 (OGVBl. 2026 Nr. 83, Artikel 1)",
+          "art": "verkuendet"
+        }
+      ]
+    },
+    "zeppelin": {
+      "slug": "zeppelin-nt",
+      "titel": "Zeppelin NT – Beobachtungs- und Sonderluftfahrzeug",
+      "fachbereich": "Verkehr und Mobilität",
+      "status": "in-umsetzung",
+      "statusText": "Ein Beschaffungsvertrag besteht; die Raten sind im Regierungsentwurf veranschlagt.",
+      "topicSlugs": [],
+      "ministrySlug": "mobilitaet-infrastruktur-und-landesentwicklung",
+      "beschreibung": "Ein Zeppelin NT für Beobachtungs-, Mess- und Repräsentationsaufgaben einschließlich Infrastruktur. Ein zweites Luftschiff ist nicht vorgesehen.",
+      "rechtsbezuege": [
+        {
+          "normSlug": "saechsische-haushaltsordnung",
+          "label": "Ostdeutsche Haushaltsordnung, § 38 (Verpflichtungsermächtigungen)",
+          "art": "haushaltsregelung"
+        }
+      ]
+    }
+  }
+}

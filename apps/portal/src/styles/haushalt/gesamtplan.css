@@ -1,0 +1,128 @@
+/*
+ * Gesamtplan und Finanzplanung einer Haushaltsperiode: Sprungleiste der Abschnitte, Hinweise,
+ * Gliederungstabellen, Kontrollsummen und die Kennzeichnung von Haushalts- und Planungsjahren.
+ * Nur Tokens aus foundation.css; Breakpoints wie base.css (63,99 / 47,99 rem).
+ */
+
+/* ---------------------------------------------------------------- Sprungleiste */
+
+.hh-gp-sprung {
+  margin-top: var(--space-5);
+}
+
+.hh-gp-sprung ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-gp-sprung a {
+  display: inline-block;
+  padding: var(--space-1) 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- Hinweise */
+
+.hh-gp-hinweis {
+  max-width: var(--measure-body);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--lh-body);
+}
+
+/* ---------------------------------------------------------------- Gliederungstabellen */
+
+.hh-gliederung td:nth-child(2) {
+  min-width: 14rem;
+}
+
+.hh-gp-kontrolle td:nth-child(2) {
+  min-width: 12rem;
+}
+
+.hh-gp-kontrolle tfoot .hh-gp-kontrolle__abweichung :is(th, td) {
+  border-top-width: 1px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+@media (max-width: 47.99rem) {
+  .hh-gliederung td:nth-child(2),
+  .hh-gp-kontrolle td:nth-child(2) {
+    min-width: 8rem;
+  }
+}
+
+/* ---------------------------------------------------------------- Finanzplanung */
+
+.hh-fp-einordnung {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--content-width-narrow);
+}
+
+.hh-fp-einordnung__eintrag {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+  margin: 0;
+}
+
+.hh-fp-art {
+  justify-self: start;
+  padding: var(--space-hairline) var(--space-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-heading);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: var(--lh-compact);
+}
+
+.hh-fp-art--projektion {
+  border-style: dashed;
+  background: var(--color-surface-alt);
+}
+
+.hh-fp-tabelle + .hh-fp-tabelle {
+  margin-top: var(--space-6);
+}
+
+.hh-fp-tabelle > .hh-ue__untertitel {
+  margin-bottom: var(--space-3);
+}
+
+/* Spaltenköpfe brechen an Wortgrenzen um, nicht mitten im Wort. */
+.hh-tabelle .data-table:is(.hh-gliederung, .hh-gp-kontrolle, .hh-fp-werte) thead th.hh-zahl {
+  hyphens: manual;
+}
+
+/* Planungsjahre: die ganze Zeile einschließlich Zeilenkopf auf der abgesetzten Fläche. */
+.hh-tabelle .data-table.hh-fp-werte tr.hh-zeile--projektion > :is(th, td) {
+  background: var(--color-surface-alt);
+}
+
+/* Planungsjahre: Zeilenkopf mit Unterzeile „Projektion“ und gestrichelter Trennlinie. */
+.hh-fp-werte .hh-zeile--projektion > th {
+  border-left: 3px dashed var(--color-border-strong);
+}
+
+@media (max-width: 47.99rem) {
+  .hh-fp-einordnung__eintrag {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+}
+
+@media print {
+  .hh-gp-sprung {
+    display: none;
+  }
+}

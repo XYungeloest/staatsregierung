@@ -1,0 +1,205 @@
+{
+  "einzelplaene": {
+    "01": {
+      "kurztitel": "Volkskammer",
+      "kategorie": "Verfassungsorgan",
+      "beschreibung": "Der Einzelplan umfasst die Volkskammer und ihre Abgeordneten. Dazu gehören die Parlamentsverwaltung mit dem Wissenschaftlichen Dienst sowie das Petitionswesen und die parlamentarische Kontrolle.",
+      "ministrySlugs": [],
+      "topicSlugs": []
+    },
+    "02": {
+      "kurztitel": "Staatspräsident und Staatsrat",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan enthält das Büro des Staatspräsidenten, den Staatsrat mit seinen zentralen Diensten sowie Staatsprotokoll und Repräsentation. Außerdem sind hier die Staatsplanung und der Wirtschaftsrat veranschlagt.",
+      "ministrySlugs": [
+        "staatskanzlei"
+      ],
+      "topicSlugs": []
+    },
+    "03": {
+      "kurztitel": "Kommunales, Bezirke und Bauverwaltung",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan bündelt die Kommunal- und Bauverwaltung, die Finanzierung der Bezirke und den Aufbau der neuen Bezirksorganisation. Hinzu kommen Bauaufsicht und Raumordnung, Städtebauförderung und kommunale Infrastruktur sowie die Sozial- und Schulträgeraufgaben der Berliner Bezirke.",
+      "ministrySlugs": [
+        "inneres-bau-und-kommunale-angelegenheiten"
+      ],
+      "topicSlugs": [
+        "kommunen-regionen-und-berlin"
+      ]
+    },
+    "04": {
+      "kurztitel": "Volksbildung, Wissenschaft und Sport",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan umfasst die Schulen aller Stufen, die Kindertagesbetreuung, die Hochschulen und die Universitätsmedizin sowie die Sportförderung. Veranschlagt sind unter anderem die beitragsfreie Kindertagesbetreuung, die Verpflegung in Kita und Schule, das Schulbauprogramm und die Grundfinanzierung der Hochschulen.",
+      "ministrySlugs": [
+        "bildung-und-sportliche-ertuechtigung"
+      ],
+      "topicSlugs": [
+        "bildungsreform",
+        "sport"
+      ]
+    },
+    "05": {
+      "kurztitel": "Rechtsstaatlichkeit und Justiz",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan enthält die Justizverwaltung, die ordentlichen Gerichte und Staatsanwaltschaften sowie die Verwaltungs-, Arbeits-, Sozial- und Finanzgerichtsbarkeit. Hinzu kommen der Justizvollzug, die Rechtshilfe und die sozialen Dienste der Justiz.",
+      "ministrySlugs": [
+        "rechtsstaatlichkeit-und-angelegenheiten-des-staates"
+      ],
+      "topicSlugs": []
+    },
+    "06": {
+      "kurztitel": "Finanzen und zentrale Prüfverwaltung",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan umfasst die Finanzverwaltung mit den Finanzämtern, dem Landessteueramt und der Steuerprüfung sowie Ausbildung und Personalrecht. Außerdem sind die Förderaufträge der Landesbank ElbeLB veranschlagt.",
+      "ministrySlugs": [
+        "kapitalakkumulation-des-fiskus"
+      ],
+      "topicSlugs": [
+        "haushalt-und-finanzen"
+      ]
+    },
+    "07": {
+      "kurztitel": "Wirtschaft, Arbeit und Wohnungswirtschaft",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan bündelt Wirtschaftsförderung, Arbeitsmarktpolitik und berufliche Qualifizierung. Veranschlagt sind außerdem Gemeingut Wohnen, die Handelsorganisation Ost, die Ostdeutschen Rohstoffwerke mit dem Lithiumprojekt Zinnwald, die Bergbausanierung sowie Tourismus und regionaler Strukturwandel.",
+      "ministrySlugs": [
+        "wirtschaft-arbeitsmarkt-und-beschaeftigung"
+      ],
+      "topicSlugs": [
+        "gute-arbeit",
+        "oeffentliche-wirtschaft-und-strukturwandel",
+        "wohnen-und-vergesellschaftung"
+      ]
+    },
+    "08": {
+      "kurztitel": "Gesundheits- und Sozialwesen",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan enthält gesetzliche Sozialleistungen wie Sozialhilfe, Grundsicherung und Eingliederungshilfe, Leistungen für Geflüchtete sowie Pflege und regionale Gesundheitsversorgung. Hinzu kommen der Krankenhausfonds, der öffentliche Gesundheitsdienst und die Jugendhilfe mit den Jugendorten.",
+      "ministrySlugs": [
+        "soziale-und-gesundheitliche-fuersorge"
+      ],
+      "topicSlugs": [
+        "familie-und-soziales",
+        "soziale-sicherheit-und-teilhabe",
+        "krankenhausfonds"
+      ]
+    },
+    "09": {
+      "kurztitel": "Nachhaltigkeit, Umwelt und Energie",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan umfasst Klima- und Wärmewende, die Landesenergiewerke mit öffentlichen Windprojekten, die öffentlichen Netze und die Kreislaufwirtschaft. Hinzu kommen Naturschutz, Gewässerunterhaltung, Abwasserbaumaßnahmen und der Breitbandausbau.",
+      "ministrySlugs": [
+        "umwelt-energie-und-klimaschutz"
+      ],
+      "topicSlugs": [
+        "energie-und-klima",
+        "kreislaufwirtschaft"
+      ]
+    },
+    "10": {
+      "kurztitel": "Mobilität und regionale Entwicklung",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan enthält den Schienenpersonennahverkehr, das Ostticket mit dem Tarifausgleich und den Aufbau der Ostdeutschen Eisenbahn mit Fahrzeugen, Werkstätten und Infrastruktur. Hinzu kommen Bau, Sanierung und Unterhaltung von Straßen und Brücken sowie der öffentliche Spezialflugdienst.",
+      "ministrySlugs": [
+        "mobilitaet-infrastruktur-und-landesentwicklung"
+      ],
+      "topicSlugs": [
+        "oepnv-und-mobilitaet"
+      ]
+    },
+    "11": {
+      "kurztitel": "Kultur, Medien und kulturelle Emanzipation",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan umfasst Theater, Orchester und Museen, Denkmalschutz und Kulturbauten sowie Medien- und Rundfunkaufgaben. Außerdem sind der Kulturpass und weitere Angebote der Kulturteilhabe veranschlagt.",
+      "ministrySlugs": [
+        "kultur-medien-und-kulturelle-emanzipation"
+      ],
+      "topicSlugs": [
+        "kultur-erinnerung-und-medien",
+        "kulturpass"
+      ]
+    },
+    "12": {
+      "kurztitel": "Völkerfreundschaft und Nachbarschaftspolitik",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan enthält die Nachbarschaftspolitik, die grenzüberschreitende Zusammenarbeit und die internationalen Partnerschaften des Freistaates.",
+      "ministrySlugs": [
+        "voelkerfreundschaft-und-nachbarschaftspolitik"
+      ],
+      "topicSlugs": [
+        "nachbarschaft-und-europa"
+      ]
+    },
+    "13": {
+      "kurztitel": "Inneres, Staats- und Grenzsicherheit",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan umfasst die Innen- und Sicherheitsverwaltung, den Polizeivollzug mit Landeskriminalamt und Bereitschaftspolizei sowie die Staats- und Grenzsicherheit mit der kasernierten Grenzpolizei. Hinzu kommen Katastrophen- und Bevölkerungsschutz, Ausbildung und Leitstellen.",
+      "ministrySlugs": [
+        "inneres-bau-und-kommunale-angelegenheiten"
+      ],
+      "topicSlugs": [
+        "demokratie-und-sicherheit"
+      ]
+    },
+    "14": {
+      "kurztitel": "Land-, Forst- und Küstenwirtschaft",
+      "kategorie": "Ressort",
+      "beschreibung": "Der Einzelplan enthält die Agrar-, Forst- und Küstenverwaltung, den Staatsforst mit dem Waldumbau sowie den Küsten- und Hochwasserschutz. Hinzu kommen Fischerei und Tiergesundheit, Agrarumweltmaßnahmen und die Entwicklung ländlicher Räume.",
+      "ministrySlugs": [
+        "umwelt-energie-und-klimaschutz"
+      ],
+      "topicSlugs": []
+    },
+    "15": {
+      "kurztitel": "Rechnungshof",
+      "kategorie": "Unabhängige Stelle",
+      "beschreibung": "Der Einzelplan enthält die Leitung des Rechnungshofes sowie seine unabhängigen Prüfentscheidungen und Berichte.",
+      "ministrySlugs": [],
+      "topicSlugs": []
+    },
+    "16": {
+      "kurztitel": "Verfassungsgerichtshof",
+      "kategorie": "Verfassungsorgan",
+      "beschreibung": "Der Einzelplan umfasst die Ausgaben des Verfassungsgerichtshofes einschließlich seiner Gerichtsverwaltung und der Verfahren.",
+      "ministrySlugs": [],
+      "topicSlugs": []
+    },
+    "17": {
+      "kurztitel": "Digitalisierung und Informationstechnik",
+      "kategorie": "Querschnitt",
+      "beschreibung": "Der Einzelplan bündelt die Verwaltungsdigitalisierung mit den Registern und die Informationssicherheit sowie Betrieb und Ausbau der gemeinsamen Rechenzentren und Verwaltungsnetze.",
+      "ministrySlugs": [],
+      "topicSlugs": []
+    },
+    "18": {
+      "kurztitel": "Datenschutz und Transparenz",
+      "kategorie": "Unabhängige Stelle",
+      "beschreibung": "Der Einzelplan enthält die Datenschutzaufsicht sowie die Aufgaben für Informationsfreiheit und Transparenz einschließlich Beratung, Kontrolle und Verfahren.",
+      "ministrySlugs": [],
+      "topicSlugs": [
+        "transparenz-und-lobbyregister"
+      ]
+    },
+    "19": {
+      "kurztitel": "Staatlicher Hochbau, Boden und Liegenschaften",
+      "kategorie": "Zentrale Verwaltung",
+      "beschreibung": "Der Einzelplan umfasst die staatliche Bau- und Liegenschaftsverwaltung, Justiz-, Sicherheits-, Hochschul- und Forschungsbauten sowie Gebäudebetrieb, energetische Sanierung und Wärmeversorgung öffentlicher Gebäude. Außerdem ist der Landesbodenfonds veranschlagt.",
+      "ministrySlugs": [
+        "kapitalakkumulation-des-fiskus"
+      ],
+      "topicSlugs": []
+    },
+    "20": {
+      "kurztitel": "Allgemeine Finanzverwaltung",
+      "kategorie": "Querschnitt",
+      "beschreibung": "Der Einzelplan enthält die Steuereinnahmen, die Zuweisungen des Bundes, den Schuldendienst sowie Kredite und Rücklagen. Zentral veranschlagt sind außerdem Versorgung und Beihilfe der Versorgungsempfänger:innen, der kommunale Finanzausgleich, Kapitalbeteiligungen und Investitionszuweisungen.",
+      "ministrySlugs": [
+        "kapitalakkumulation-des-fiskus"
+      ],
+      "topicSlugs": [
+        "haushalt-und-finanzen"
+      ]
+    }
+  }
+}

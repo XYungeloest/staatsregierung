@@ -1,0 +1,138 @@
+{
+  "begriffe": [
+    {
+      "woerter": ["Schulessen", "Schulspeisung", "Schulmittagessen", "Mittagessen", "Kitaessen", "Kita-Essen", "Schulverpflegung", "Frühstück"],
+      "ziele": [{ "projekt": "meals" }, { "kapitel": "0407" }]
+    },
+    {
+      "woerter": ["Kita", "Kitas", "Kindergarten", "Kinderkrippe", "Krippe", "Kindertagesstätte", "Kinderbetreuung", "Elternbeiträge", "Kitabeitrag"],
+      "ziele": [{ "projekt": "kita" }, { "kapitel": "0406" }, { "kapitel": "0450" }, { "kapitel": "0451" }, { "kapitel": "0452" }]
+    },
+    {
+      "woerter": ["Lehrer", "Lehrerin", "Lehrkraft", "Lehrkräfte", "Lehrergehälter", "Lehrerbesoldung", "Lehrerstellen"],
+      "ziele": [
+        { "kapitel": "0418" },
+        { "kapitel": "0411", "titel": "42201" },
+        { "kapitel": "0411", "titel": "42801" },
+        { "kapitel": "0412", "titel": "42201" },
+        { "kapitel": "0412", "titel": "42801" },
+        { "kapitel": "0413", "titel": "42201" },
+        { "kapitel": "0413", "titel": "42801" },
+        { "kapitel": "0416", "titel": "42201" },
+        { "kapitel": "0416", "titel": "42801" },
+        { "kapitel": "0417", "titel": "42201" },
+        { "kapitel": "0417", "titel": "42801" },
+        { "kapitel": "0418", "titel": "42201" },
+        { "kapitel": "0418", "titel": "42801" }
+      ]
+    },
+    {
+      "woerter": ["Polizeibesoldung", "Polizeigehälter", "Polizeibeamte", "Polizeibeamter", "Polizeivollzugsbeamte"],
+      "ziele": [
+        { "gruppe": "422", "kapitel": ["1310", "1311", "1312", "1313"] },
+        { "kapitel": "1310" },
+        { "kapitel": "1311" },
+        { "kapitel": "1312" },
+        { "kapitel": "1313" }
+      ]
+    },
+    {
+      "woerter": ["Polizei", "Polizisten", "Polizistin"],
+      "ziele": [{ "kapitel": "1302" }, { "kapitel": "1310" }, { "kapitel": "1311" }, { "kapitel": "1312" }, { "kapitel": "1313" }]
+    },
+    {
+      "woerter": ["Besoldung", "Beamtenbesoldung", "Beamtengehälter", "Beamtenbezüge"],
+      "ziele": [{ "gruppe": "422" }]
+    },
+    {
+      "woerter": ["Pension", "Pensionen", "Beamtenpensionen", "Ruhegehalt", "Ruhegehälter", "Versorgungsbezüge"],
+      "ziele": [{ "kapitel": "2070" }, { "kapitel": "2071" }]
+    },
+    {
+      "woerter": ["Schulbau", "Schulsanierung", "Schulneubau", "Schulgebäude", "Schulbauprogramm"],
+      "ziele": [{ "projekt": "school-build" }, { "kapitel": "0408" }]
+    },
+    {
+      "woerter": ["Zinsen", "Zinsausgaben", "Schuldzinsen", "Kreditzinsen", "Zinslast"],
+      "ziele": [{ "gruppe": "575" }, { "kapitel": "2005" }]
+    },
+    {
+      "woerter": ["Windparks", "Windpark", "Windkraft", "Windenergie", "Windräder", "Windrad", "Offshore", "Energiegesellschaft"],
+      "ziele": [{ "projekt": "energy" }, { "kapitel": "0904" }]
+    },
+    {
+      "woerter": ["Löschflugzeuge", "Löschflugzeug", "Löschflieger", "Waldbrand", "Waldbrände", "Waldbrandbekämpfung"],
+      "ziele": [{ "projekt": "interflug" }, { "kapitel": "1004" }]
+    },
+    {
+      "woerter": ["Interflug"],
+      "ziele": [{ "projekt": "interflug" }, { "projekt": "commercial-air" }, { "kapitel": "1004" }]
+    },
+    {
+      "woerter": ["Ostticket", "Ost-Ticket", "Deutschlandticket", "Schülerticket", "Nahverkehrsticket", "Freifahrt"],
+      "ziele": [{ "projekt": "ticket" }, { "kapitel": "1007" }]
+    },
+    {
+      "woerter": ["HO", "Handelsorganisation", "Konsum", "Dorfladen", "Dorfläden", "Nahversorgung"],
+      "ziele": [{ "projekt": "ho" }, { "kapitel": "0705" }, { "kapitel": "0710" }, { "kapitel": "0711" }, { "kapitel": "0712" }]
+    },
+    {
+      "woerter": ["Gemeingut Wohnen", "Wohnungsneubau", "Sozialwohnungen", "öffentlicher Wohnungsbau", "Vergesellschaftung"],
+      "ziele": [{ "projekt": "housing" }, { "kapitel": "0704" }]
+    },
+    {
+      "woerter": ["Krankenhausfonds", "Krankenhaus", "Krankenhäuser", "Klinik", "Kliniken", "Rekommunalisierung"],
+      "ziele": [{ "projekt": "hospital" }, { "kapitel": "0804" }]
+    },
+    {
+      "woerter": ["Feuerwehr", "Feuerwehren", "Brandschutz", "Feuerwehrfahrzeuge"],
+      "ziele": [
+        { "kapitel": "1304" },
+        { "kapitel": "1304", "titel": "63301" },
+        { "kapitel": "1304", "titel": "88301" },
+        { "kapitel": "2091", "titel": "88309" }
+      ]
+    },
+    {
+      "woerter": ["Breitband", "Glasfaser", "schnelles Internet"],
+      "ziele": [{ "kapitel": "0923" }, { "kapitel": "0905", "titel": "68201" }]
+    },
+    {
+      "woerter": ["Schulden", "Kredite", "Staatsschulden"],
+      "ziele": [{ "kapitel": "2005" }, { "kapitel": "2007" }]
+    },
+    {
+      "woerter": ["Bahn", "Eisenbahn", "Züge", "Zug"],
+      "ziele": [
+        { "projekt": "regionalisierung" },
+        { "projekt": "rail-vehicles" },
+        { "projekt": "rail-works" },
+        { "projekt": "rail-network" },
+        { "kapitel": "1002" },
+        { "kapitel": "1008" },
+        { "kapitel": "1009" },
+        { "kapitel": "1010" }
+      ]
+    },
+    {
+      "woerter": ["Hochschulen", "Hochschule", "Universitäten", "Universität", "Uni", "Studium"],
+      "ziele": [{ "kapitel": "0404" }, { "kapitel": "0430" }]
+    },
+    {
+      "woerter": ["Kommunen", "Gemeinden", "Kommunaler Finanzausgleich", "Schlüsselzuweisungen"],
+      "ziele": [{ "kapitel": "0302" }, { "kapitel": "2080" }, { "kapitel": "2081" }]
+    },
+    {
+      "woerter": ["Theater", "Museen", "Museum", "Orchester"],
+      "ziele": [{ "kapitel": "1102" }, { "kapitel": "1110" }, { "kapitel": "1111" }, { "kapitel": "1112" }, { "kapitel": "1113" }]
+    },
+    {
+      "woerter": ["Straßen", "Straßenbau", "Brücken", "Winterdienst"],
+      "ziele": [{ "kapitel": "1012" }, { "kapitel": "1013" }, { "kapitel": "1014" }]
+    },
+    {
+      "woerter": ["Steuereinnahmen", "Steuern"],
+      "ziele": [{ "kapitel": "2001" }, { "einzelplan": "20" }]
+    }
+  ]
+}

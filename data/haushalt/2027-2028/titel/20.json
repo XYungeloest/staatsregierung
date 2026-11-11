@@ -1,0 +1,2526 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "einzelplan": "20",
+  "jahresfelder": [
+    "id",
+    "betrag",
+    "ve",
+    "menge",
+    "satz"
+  ],
+  "titel": [
+    {
+      "konzept_id": "T.2001/01101",
+      "kapitel": "2001",
+      "titel": "01101",
+      "zweckbestimmung": "Lohnsteuer – Landesanteil",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "011",
+      "gruppe_bezeichnung": "Lohnsteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/01101@2027",
+          "betrag": 30698580651
+        },
+        "2028": {
+          "id": "T.2001/01101@2028",
+          "betrag": 33778434898
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/01201",
+      "kapitel": "2001",
+      "titel": "01201",
+      "zweckbestimmung": "Veranlagte Einkommensteuer – Landesanteil",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "012",
+      "gruppe_bezeichnung": "Veranlagte Einkommensteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/01201@2027",
+          "betrag": 6733974388
+        },
+        "2028": {
+          "id": "T.2001/01201@2028",
+          "betrag": 7446200141
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09901",
+      "kapitel": "2001",
+      "titel": "01301",
+      "zweckbestimmung": "Nicht veranlagte Steuern vom Ertrag und Abgeltungsteuer (Landesanteil)",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "013",
+      "gruppe_bezeichnung": "Nicht veranlagte Steuern vom Ertrag",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09901@2027",
+          "betrag": 2003467966
+        },
+        "2028": {
+          "id": "T.2001/09901@2028",
+          "betrag": 2160073067
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/01401",
+      "kapitel": "2001",
+      "titel": "01401",
+      "zweckbestimmung": "Körperschaftsteuer – Landesanteil",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "014",
+      "gruppe_bezeichnung": "Körperschaftsteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/01401@2027",
+          "betrag": 5022431500
+        },
+        "2028": {
+          "id": "T.2001/01401@2028",
+          "betrag": 5534268817
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/01501",
+      "kapitel": "2001",
+      "titel": "01501",
+      "zweckbestimmung": "Umsatzsteuer (Landesanteil ohne Finanzkraftausgleich)",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "015",
+      "gruppe_bezeichnung": "Umsatzsteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/01501@2027",
+          "betrag": 21776072797
+        },
+        "2028": {
+          "id": "T.2001/01501@2028",
+          "betrag": 22452709431
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/01502",
+      "kapitel": "2001",
+      "titel": "01502",
+      "zweckbestimmung": "Umsatzsteueranteile aus dem Finanzkraftausgleich (Zuschläge)",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "015",
+      "gruppe_bezeichnung": "Umsatzsteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "P Herkunftsländerregel; Bundesrechtsumsetzung fehlt",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Zuschläge im Rahmen der Umsatzsteuerverteilung (Finanzkraftausgleich) nach dem Referenzvektor 2025 der Herkunftsländer; die Herkunftsländer-FAG-Methode bleibt als politische Planungsannahme bestehen. Eine Änderung setzt eine Regelung des Simulationsbundes voraus.",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/01502@2027",
+          "betrag": 14728000000
+        },
+        "2028": {
+          "id": "T.2001/01502@2028",
+          "betrag": 14728000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09902.g017",
+      "kapitel": "2001",
+      "titel": "01701",
+      "zweckbestimmung": "Gewerbesteuerumlage",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "017",
+      "gruppe_bezeichnung": "Gewerbesteuerumlage",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09902.g017@2027",
+          "betrag": 824023440
+        },
+        "2028": {
+          "id": "T.2001/09902.g017@2028",
+          "betrag": 886450331
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/05101",
+      "kapitel": "2001",
+      "titel": "05101",
+      "zweckbestimmung": "Vermögensteuer (Kassenprognose)",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "051",
+      "gruppe_bezeichnung": "Vermögensteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Vermögensteuergesetz (BT-Drs. 08/84, verkündet; Inkrafttreten 01.01.2027)",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Kassenprognose der Vermögensteuer nach Fallgruppenmodell (Halbvermögensbewertung, Freibeträge 2/4 Mio. EUR, Abschmelzung, Körperschafts-Freigrenze 200.000 EUR). Jahresforderung, Kasseneingang und Rückstände sind getrennt prognostiziert; Nachzahlungen werden nicht fortgeschrieben.",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/05101@2027",
+          "betrag": 1301402250
+        },
+        "2028": {
+          "id": "T.2001/05101@2028",
+          "betrag": 3632713288
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/05201",
+      "kapitel": "2001",
+      "titel": "05201",
+      "zweckbestimmung": "Erbschaft- und Schenkungsteuer",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "052",
+      "gruppe_bezeichnung": "Erbschaftsteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/05201@2027",
+          "betrag": 1602774372
+        },
+        "2028": {
+          "id": "T.2001/05201@2028",
+          "betrag": 1728058453
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/05301",
+      "kapitel": "2001",
+      "titel": "05301",
+      "zweckbestimmung": "Grunderwerbsteuer",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "053",
+      "gruppe_bezeichnung": "Grunderwerbsteuer",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/05301@2027",
+          "betrag": 3632221094
+        },
+        "2028": {
+          "id": "T.2001/05301@2028",
+          "betrag": 3935793749
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09902.g057",
+      "kapitel": "2001",
+      "titel": "05701",
+      "zweckbestimmung": "Lotteriesteuer",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "057",
+      "gruppe_bezeichnung": "Lotteriesteuer",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09902.g057@2027",
+          "betrag": 439028882
+        },
+        "2028": {
+          "id": "T.2001/09902.g057@2028",
+          "betrag": 471820337
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09902.g058",
+      "kapitel": "2001",
+      "titel": "05801",
+      "zweckbestimmung": "Andere Steuern nach dem Rennwett- und Lotteriegesetz",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "058",
+      "gruppe_bezeichnung": "Andere Steuern nach dem Rennwett- und Lotteriegesetz",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09902.g058@2027",
+          "betrag": 189120134
+        },
+        "2028": {
+          "id": "T.2001/09902.g058@2028",
+          "betrag": 200166204
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09902.g059",
+      "kapitel": "2001",
+      "titel": "05901",
+      "zweckbestimmung": "Feuerschutzsteuer",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "059",
+      "gruppe_bezeichnung": "Feuerschutzsteuer",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09902.g059@2027",
+          "betrag": 243154457
+        },
+        "2028": {
+          "id": "T.2001/09902.g059@2028",
+          "betrag": 264505341
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09902.g061",
+      "kapitel": "2001",
+      "titel": "06101",
+      "zweckbestimmung": "Biersteuer",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "06",
+      "gruppe": "061",
+      "gruppe_bezeichnung": "Biersteuer",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09902.g061@2027",
+          "betrag": 310697362
+        },
+        "2028": {
+          "id": "T.2001/09902.g061@2028",
+          "betrag": 321695685
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09902.g093",
+      "kapitel": "2001",
+      "titel": "09301",
+      "zweckbestimmung": "Abgaben von Spielbanken",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "09",
+      "gruppe": "093",
+      "gruppe_bezeichnung": "Abgaben von Spielbanken",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09902.g093@2027",
+          "betrag": 79700628
+        },
+        "2028": {
+          "id": "T.2001/09902.g093@2028",
+          "betrag": 90074792
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09902.g099",
+      "kapitel": "2001",
+      "titel": "09901",
+      "zweckbestimmung": "Sonstige steuerähnliche Abgaben",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "09",
+      "gruppe": "099",
+      "gruppe_bezeichnung": "Sonstige steuerähnliche Abgaben",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09902.g099@2027",
+          "betrag": 301241356
+        },
+        "2028": {
+          "id": "T.2001/09902.g099@2028",
+          "betrag": 325984960
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2001/09903",
+      "kapitel": "2001",
+      "titel": "09903",
+      "zweckbestimmung": "Gemeindesteueranteile Berlins (Stadtstaat: Gewerbe-, Grund- und Gemeindeanteile an Gemeinschaftsteuern)",
+      "seite": "Einnahme",
+      "hauptgruppe": "0",
+      "obergruppe": "09",
+      "gruppe": "099",
+      "gruppe_bezeichnung": "Sonstige steuerähnliche Abgaben",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "Simulations-GG Art.106; jeweiliges Steuergesetz; Prognose W2",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Die Berliner kommunalen Steuern (Gewerbesteuer abzüglich Umlage, Grundsteuer, Gemeindeanteile an Einkommen- und Umsatzsteuer) fließen nach der Staatsfusion dem Kernhaushalt zu, weil Berlin als Stadtstaat keinen getrennten Gemeindehaushalt führt. Fortschreibung nach Steuerschätzung W2; die Berliner Bezirke werden aus dem Kernhaushalt finanziert (Kapitel 0302/0310).\n",
+      "jahre": {
+        "2027": {
+          "id": "T.2001/09903@2027",
+          "betrag": 5733215000
+        },
+        "2028": {
+          "id": "T.2001/09903@2028",
+          "betrag": 6248591366
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2002/21101",
+      "kapitel": "2002",
+      "titel": "21101",
+      "zweckbestimmung": "Allgemeine Bundesergänzungszuweisungen",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "21",
+      "gruppe": "211",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Allgemeine BEZ nach dem Finanzausgleichsgesetz des Simulationsbundes; Fortführung der Ansprüche der Herkunftsländer für den gemeinsamen Empfänger (D-57, volle fiskalische Kontinuität).",
+      "jahre": {
+        "2027": {
+          "id": "T.2002/21101@2027",
+          "betrag": 6823617000
+        },
+        "2028": {
+          "id": "T.2002/21101@2028",
+          "betrag": 6845571000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2002/21102",
+      "kapitel": "2002",
+      "titel": "21102",
+      "zweckbestimmung": "Bundesergänzungszuweisungen wegen besonders geringer kommunaler Steuerkraft",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "21",
+      "gruppe": "211",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2002/21102@2027",
+          "betrag": 1410727000
+        },
+        "2028": {
+          "id": "T.2002/21102@2028",
+          "betrag": 1415034000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2002/21103",
+      "kapitel": "2002",
+      "titel": "21103",
+      "zweckbestimmung": "Bundesergänzungszuweisungen wegen geringer Forschungsförderung",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "21",
+      "gruppe": "211",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2002/21103@2027",
+          "betrag": 47334000
+        },
+        "2028": {
+          "id": "T.2002/21103@2028",
+          "betrag": 47334000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2002/21104",
+      "kapitel": "2002",
+      "titel": "21104",
+      "zweckbestimmung": "Sonderbedarfs-Bundesergänzungszuweisungen wegen struktureller Arbeitslosigkeit",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "21",
+      "gruppe": "211",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2002/21104@2027",
+          "betrag": 36000000
+        },
+        "2028": {
+          "id": "T.2002/21104@2028",
+          "betrag": 36000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2002/21105",
+      "kapitel": "2002",
+      "titel": "21105",
+      "zweckbestimmung": "Sonderbedarfs-Bundesergänzungszuweisungen für Kosten der politischen Führung",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "21",
+      "gruppe": "211",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Einschließlich der Führungs-Sonder-BEZ von 401,1 Mio. EUR (D-57): Bestandsschutz bis 2031 ist Verhandlungsziel gegenüber dem Simulationsbund, keine behauptete Bundeszusage.",
+      "jahre": {
+        "2027": {
+          "id": "T.2002/21105@2027",
+          "betrag": 428413000
+        },
+        "2028": {
+          "id": "T.2002/21105@2028",
+          "betrag": 428413000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2002/21106",
+      "kapitel": "2002",
+      "titel": "21106",
+      "zweckbestimmung": "Übergangsergänzungszuweisung zum Ausgleich von Liquiditätshilfen",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "21",
+      "gruppe": "211",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Reales FAG als Referenz; Überleitung im Simulationsbundesrecht nicht nachgewiesen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2002/21106@2027",
+          "betrag": 13474407
+        },
+        "2028": {
+          "id": "T.2002/21106@2028",
+          "betrag": 13474407
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2002/23101",
+      "kapitel": "2002",
+      "titel": "23101",
+      "zweckbestimmung": "Weitere laufende Zuweisungen des Bundes (Kompensations- und Erstattungsleistungen)",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Fortgeführte laufende Bundeszuweisungen der Herkunftsländer außerhalb der BEZ, insbesondere Kompensations- und Erstattungsleistungen; Einzelnachweis nach Bundesbescheiden.",
+      "jahre": {
+        "2027": {
+          "id": "T.2002/23101@2027",
+          "betrag": 720074041
+        },
+        "2028": {
+          "id": "T.2002/23101@2028",
+          "betrag": 656178122
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2003/11901",
+      "kapitel": "2003",
+      "titel": "11901",
+      "zweckbestimmung": "Erstattungen und Rückflüsse aus Bundes- und EU-Programmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2003/11901@2027",
+          "betrag": 75600000
+        },
+        "2028": {
+          "id": "T.2003/11901@2028",
+          "betrag": 80136000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2003/33101",
+      "kapitel": "2003",
+      "titel": "33101",
+      "zweckbestimmung": "Zuweisungen des Bundes für Investitionen – fortgeführte Programme der fünf Herkunftsgebiete (F09)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "33",
+      "gruppe": "331",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "politisch",
+      "rechtsgrundlage": "Verwaltungsvereinbarungen mit dem Simulationsbund (Entwurf, Anlage Gesetzgebungspaket)",
+      "erlaeuterung": "Prognose der investiven Bundesmittel aus fortgeführten Programmen der Herkunftsgebiete Berlin, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach Abzug bereits im Basishaushalt enthaltener Mittel (Altfinanzierung). Politisch akzeptierte Planungsgrundlage; die Zahlung setzt Verwaltungsvereinbarungen, Programmfortführung und förderfähige Mittelabrufe voraus (Verhandlungsrahmen im Gesetzgebungspaket). Den Einnahmen stehen bereits veranschlagte Investitionen gegenüber (Schulbau, Krankenhausfonds, Straßen); keine zweite Ausgabe.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.2003/33101@2027",
+          "betrag": 1729813129
+        },
+        "2028": {
+          "id": "T.2003/33101@2028",
+          "betrag": 1816388718
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2003/33102",
+      "kapitel": "2003",
+      "titel": "33102",
+      "zweckbestimmung": "Zuweisungen des Bundes für Investitionen – Programme Brandenburgs titelgenau (F10)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "33",
+      "gruppe": "331",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen vom Bund",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "politisch",
+      "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
+      "erlaeuterung": "Investive Bundesmittel aus den Brandenburger Originaltiteln (Gruppe 331) ohne Darlehen und ohne bereits im Basishaushalt verbliebene Anteile; titelgenaue Herleitung aus dem Regierungsentwurf 2027/28.",
+      "jahre": {
+        "2027": {
+          "id": "T.2003/33102@2027",
+          "betrag": 130876485
+        },
+        "2028": {
+          "id": "T.2003/33102@2028",
+          "betrag": 143352602
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2003/34901",
+      "kapitel": "2003",
+      "titel": "34601",
+      "zweckbestimmung": "Zuschüsse der EU und sonstiger Dritter für Investitionen – Herkunftsgebiete (F09)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "346",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen von der EU",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "politisch",
+      "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
+      "erlaeuterung": "EU- und Drittmittel (EFRE, ELER und sonstige Programme) der fünf Herkunftsgebiete nach Quellenmatrix; Abruf nach Programmvereinbarungen und Förderfähigkeitsnachweis.",
+      "jahre": {
+        "2027": {
+          "id": "T.2003/34901@2027",
+          "betrag": 512408823
+        },
+        "2028": {
+          "id": "T.2003/34901@2028",
+          "betrag": 437953609
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2003/34902",
+      "kapitel": "2003",
+      "titel": "34602",
+      "zweckbestimmung": "Zuschüsse der EU für Investitionen – Programme Brandenburgs titelgenau (F10)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "346",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen von der EU",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "politisch",
+      "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
+      "jahre": {
+        "2027": {
+          "id": "T.2003/34902@2027",
+          "betrag": 28110362
+        },
+        "2028": {
+          "id": "T.2003/34902@2028",
+          "betrag": 23316377
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2003/54701",
+      "kapitel": "2003",
+      "titel": "54701",
+      "zweckbestimmung": "Programmverwaltung und Mittelabruf der fortgeführten Investitionsprogramme (F09)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
+      "erlaeuterung": "Verwaltungs-, Prüf- und Abrechnungskosten für den Mittelabruf der fortgeführten Bundes- und EU-Programme (1,5 % der Bruttoeinnahme).",
+      "jahre": {
+        "2027": {
+          "id": "T.2003/54701@2027",
+          "betrag": 33633329
+        },
+        "2028": {
+          "id": "T.2003/54701@2028",
+          "betrag": 33815135
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2003/54702",
+      "kapitel": "2003",
+      "titel": "54702",
+      "zweckbestimmung": "Programmverwaltung und Mittelabruf der Brandenburger Programme (F10)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "821",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
+      "jahre": {
+        "2027": {
+          "id": "T.2003/54702@2027",
+          "betrag": 2384803
+        },
+        "2028": {
+          "id": "T.2003/54702@2028",
+          "betrag": 2500035
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2005/54701.nebenkosten",
+      "kapitel": "2005",
+      "titel": "54601",
+      "zweckbestimmung": "Kreditnebenkosten (Bonifikation, Disagio, Emission) und sonstige Ausgaben der Schuldenverwaltung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "546",
+      "gruppe_bezeichnung": "Sonstige sächliche Ausgaben",
+      "funktion": "831",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Verbleibender Sachausgabenanteil des Kapitels nach Veranschlagung der Zinsen. Er umfasst Kreditnebenkosten, Entgelte für Wertpapierverwahrung und Emission sowie die Zinsen für Kassenkredite. Im sächsischen Regierungsentwurf 2027/28 betragen allein die Zinsen für Kassenkredite und Darlehen öffentlicher Einrichtungen (Gruppe 571) rd. 8 % der Kreditmarktzinsen; der Ansatz ist im Einzelnen noch nicht nachgewiesen und darf nur für Ausgaben der Schuldenverwaltung verwendet werden.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.2005/54701.nebenkosten@2027",
+          "betrag": 116576979
+        },
+        "2028": {
+          "id": "T.2005/54701.nebenkosten@2028",
+          "betrag": 92237632
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2005/54702",
+      "kapitel": "2005",
+      "titel": "54702",
+      "zweckbestimmung": "Liquiditäts- und Zinssteuerung (F12): Umsetzungskosten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "831",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
+      "erlaeuterung": "Einmalige Umstellungskosten der gemeinsamen Anschlussfinanzierung und Laufzeitsteuerung (F12); die Zinsentlastung ist im Titel 575 01 enthalten.",
+      "jahre": {
+        "2027": {
+          "id": "T.2005/54702@2027",
+          "betrag": 3000000
+        },
+        "2028": {
+          "id": "T.2005/54702@2028",
+          "betrag": 1000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2005/54701.zinsen",
+      "kapitel": "2005",
+      "titel": "57501",
+      "zweckbestimmung": "Zinsen für Kreditmarktmittel",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "57",
+      "gruppe": "575",
+      "gruppe_bezeichnung": "Zinsausgaben an sonstigen inländischen Kreditmarkt",
+      "funktion": "831",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "vertraglich",
+      "rechtsgrundlage": "LHO § 18; bestehende Kreditverträge und Wertpapiere",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Zinsausgaben für die Kreditmarktverschuldung des Kernhaushalts (Schuldenstand Ende 2027 rd. 150,0 Mrd. EUR, Ende 2028 rd. 149,5 Mrd. EUR). Grundlage sind die Zinsausgaben der sechs Herkunftshaushalte (3,308/3,797 Mrd. EUR), vermindert um die Wirkung der im Plan vermiedenen Anschlusskredite und um die Einsparung aus der gemeinsamen Liquiditäts- und Zinssteuerung (F12: 7,2 Mio. EUR jährlich). Die Zinsen wurden bisher anteilig in den Sachausgaben der Fachressorts geführt und sind mit der Umgliederung K-01 vollständig hier veranschlagt.\nDer Anstieg 2028 beruht auf den Zinsprofilen der Herkunftsländer (Anschlussfinanzierung zu höheren Marktzinsen); strukturelle Neuverschuldung entsteht nicht.\n",
+      "vermerk": "Mehrausgaben dürfen aus Minderausgaben bei Titel 546 01 gedeckt werden; Einsparungen aus der Liquiditäts- und Zinssteuerung (F12) sind enthalten.",
+      "jahre": {
+        "2027": {
+          "id": "T.2005/54701.zinsen@2027",
+          "betrag": 3170260314
+        },
+        "2028": {
+          "id": "T.2005/54701.zinsen@2028",
+          "betrag": 3442950653
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/11901.g111",
+      "kapitel": "2007",
+      "titel": "11101",
+      "zweckbestimmung": "Gebühren, sonstige Entgelte",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "gruppe_bezeichnung": "Gebühren, sonstige Entgelte",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/11901.g111@2027",
+          "betrag": 346853324
+        },
+        "2028": {
+          "id": "T.2007/11901.g111@2028",
+          "betrag": 326622973
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/11901.g112",
+      "kapitel": "2007",
+      "titel": "11201",
+      "zweckbestimmung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "gruppe_bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/11901.g112@2027",
+          "betrag": 111299019
+        },
+        "2028": {
+          "id": "T.2007/11901.g112@2028",
+          "betrag": 105400133
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/11901.g119",
+      "kapitel": "2007",
+      "titel": "11901",
+      "zweckbestimmung": "Sonstige Verwaltungseinnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/11901.g119@2027",
+          "betrag": 204646583
+        },
+        "2028": {
+          "id": "T.2007/11901.g119@2028",
+          "betrag": 199350111
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/11901.g123",
+      "kapitel": "2007",
+      "titel": "12301",
+      "zweckbestimmung": "Einnahmen aus staatlichen Glücksspielen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "12",
+      "gruppe": "123",
+      "gruppe_bezeichnung": "Einnahmen aus staatlichen Glücksspielen",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/11901.g123@2027",
+          "betrag": 98498851
+        },
+        "2028": {
+          "id": "T.2007/11901.g123@2028",
+          "betrag": 95271150
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/23201",
+      "kapitel": "2007",
+      "titel": "23401",
+      "zweckbestimmung": "Zweckgleiche Erstattung des Versorgungsfonds Ost für laufende Versorgungsausgaben",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "234",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen von Sondervermögen",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Versorgungsfondsgesetz Ost § 6 Abs. 6 bis 8 in der Fassung des RFNG Art. 2",
+      "erlaeuterung": "Erstattung bereits im Kernhaushalt veranschlagter Versorgungs- und Beihilfeausgaben der dem Fonds zugeordneten Versorgungskohorten (611,5 Mio. EUR 2027, 598,8 Mio. EUR 2028); jährliche Obergrenze 750 Mio. EUR. Voraussetzung ist der Nachweis der auskömmlichen Kapitaldeckung einschließlich 10 % Sicherheitsmarge; die Versorgungsreform (1,5 % je Dienstjahr, höchstens 60 %) ist in der Bewertung berücksichtigt.\n",
+      "vermerk": "Die Einnahme ist mit den Titeln 432 01 und 446 01 des Kapitels 2070/2071 verbunden; Vollzug erst nach Vorlage des versicherungsmathematischen Gutachtens (§ 6 Abs. 7 VFOG-E).",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/23201@2027",
+          "betrag": 611477790
+        },
+        "2028": {
+          "id": "T.2007/23201@2028",
+          "betrag": 598759052
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/32501",
+      "kapitel": "2007",
+      "titel": "32501",
+      "zweckbestimmung": "Schuldenaufnahme am Kreditmarkt zur Anschlussfinanzierung fälliger Tilgungen",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "32",
+      "gruppe": "325",
+      "gruppe_bezeichnung": "Schuldenaufnahmen auf dem sonstigen Kreditmarkt im Inland",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Doppelhaushaltsgesetz 2027/2028 § 3 Abs. 2; LHO § 18",
+      "finanzierung": "Vermögensbestand / Refinanzierung",
+      "erlaeuterung": "Nur die tatsächlich erforderliche Anschlussaufnahme nach der aktiven Finanzrechnung. Im Finanzrahmen c0-20261108-v2 waren 29.232.180 EUR (2027) vorgesehen; mit der Personalneuberechnung (K-02) entfällt die Anschlussaufnahme 2027, 2028 ist keine vorgesehen. Die planmäßigen Tilgungen (45.922.300 EUR 2027; 455.600.000 EUR 2028) werden vollständig aus laufenden Mitteln geleistet (Nettotilgung). Eine strukturelle Nettokreditaufnahme ist nicht veranschlagt. Die gewöhnliche Umschuldung fälliger Altkredite (rd. 12 Mrd. EUR jährlich) wird nachrichtlich im Kreditfinanzierungsplan dargestellt und ist nicht Teil der Einnahmen.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/32501@2027",
+          "betrag": 0
+        },
+        "2028": {
+          "id": "T.2007/32501@2028",
+          "betrag": 0
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/35601",
+      "kapitel": "2007",
+      "titel": "35601",
+      "zweckbestimmung": "Erstattungen aus Sondervermögen nach Verwendungsplan (Anlage 2 RFNG)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "356",
+      "gruppe_bezeichnung": "Entnahmen aus Fonds und Stöcken",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "RFNG Art. 1 § 4 Abs. 3",
+      "finanzierung": "Vermögensbestand / Refinanzierung",
+      "erlaeuterung": "Erstattungen aus übergeleiteten Sondervermögen (u. a. Schulbau-, Investitions- und Breitbandsondervermögen) für zweckgleiche, im Kernhaushalt veranschlagte Ausgaben; doppelte Verausgabung ist durch Sperre des Kernhaushaltsansatzes bei unmittelbarer Zahlung ausgeschlossen.",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/35601@2027",
+          "betrag": 1343488317
+        },
+        "2028": {
+          "id": "T.2007/35601@2028",
+          "betrag": 609872935
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/35602",
+      "kapitel": "2007",
+      "titel": "35602",
+      "zweckbestimmung": "Entnahmen aus Sondervermögen nach Fondsneuordnung (§ 4 Abs. 4 RFNG)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "356",
+      "gruppe_bezeichnung": "Entnahmen aus Fonds und Stöcken",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "RFNG Art. 1 § 4 Abs. 4",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/35602@2027",
+          "betrag": 89516658
+        },
+        "2028": {
+          "id": "T.2007/35602@2028",
+          "betrag": 0
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/35901",
+      "kapitel": "2007",
+      "titel": "35901",
+      "zweckbestimmung": "Entnahme aus der allgemeinen Rücklage",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "359",
+      "gruppe_bezeichnung": "Entnahmen aus sonstigen Rücklagen",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Rücklagen- und Fondsneuordnungsgesetz Art. 1 § 3; Doppelhaushaltsgesetz § 4 Abs. 1",
+      "finanzierung": "Vermögensbestand / Refinanzierung",
+      "erlaeuterung": "Entnahme der übergeleiteten allgemeinen Rücklagen der Herkunftsländer bis auf die Mindestliquidität von 1 Mrd. EUR (Anfangsbestand 2027 nach Rücklagenrevision 6,039 Mrd. EUR). 2028 keine weitere Entnahme. Der Vollzug setzt den Bestands- und Verpflichtungsabgleich nach § 2 RFNG voraus; der Ansatz ist eine Planungsannahme, kein Ist-Kassenbestand.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/35901@2027",
+          "betrag": 5039046889
+        },
+        "2028": {
+          "id": "T.2007/35901@2028",
+          "betrag": 0
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/35902",
+      "kapitel": "2007",
+      "titel": "35902",
+      "zweckbestimmung": "Entnahmen aus zweckgebundenen Rücklagen nach Verwendungsplan (Anlage 2 RFNG)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "359",
+      "gruppe_bezeichnung": "Entnahmen aus sonstigen Rücklagen",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "RFNG Art. 1 § 4; Anlage 2",
+      "finanzierung": "Vermögensbestand / Refinanzierung",
+      "erlaeuterung": "Zweckgleiche Finanzierung bereits veranschlagter Ausgaben aus übergeleiteten Zweckrücklagen der Herkunftsländer; positionsgenau im Verwendungsplan (Anlage Rücklagen und Fonds) mit Zielkapitel und Gegenposten nachgewiesen.",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/35902@2027",
+          "betrag": 2027806969
+        },
+        "2028": {
+          "id": "T.2007/35902@2028",
+          "betrag": 550981658
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/35903",
+      "kapitel": "2007",
+      "titel": "35903",
+      "zweckbestimmung": "Entnahmen aus bereinigten landesrechtlichen Zweckrücklagen (§ 5 RFNG)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "359",
+      "gruppe_bezeichnung": "Entnahmen aus sonstigen Rücklagen",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "RFNG Art. 1 § 5",
+      "erlaeuterung": "Nach Aufhebung erledigter landesrechtlicher Zweckbindungen frei gewordene Reste (Fondsneuordnung); Freigabe nach schriftlicher Feststellung und Zustimmung des Haushaltsausschusses.",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/35903@2027",
+          "betrag": 908311037
+        },
+        "2028": {
+          "id": "T.2007/35903@2028",
+          "betrag": 2841070
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/91901",
+      "kapitel": "2007",
+      "titel": "91901",
+      "zweckbestimmung": "Zuführungen an Rücklagen und Vorsorgemittel (fortgeführte Herkunftsansätze)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "9",
+      "obergruppe": "91",
+      "gruppe": "919",
+      "gruppe_bezeichnung": "Zuführungen an sonstige Rücklagen",
+      "funktion": "851",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Besondere Finanzierungsausgaben der Herkunftshaushalte (überwiegend Berlin, Sachsen-Anhalt und Mecklenburg-Vorpommern): Zuführungen an Rücklagen und Vorsorgemittel sowie die Rücknahme nicht konkretisierter globaler Minderausgaben (D-34). 2027: 2,186 Mrd. EUR, 2028: 1,005 Mrd. EUR. Die Mittel werden der allgemeinen Rücklage zugeführt, soweit sie nicht für gesetzliche Vorsorgezuführungen benötigt werden; eine Verwendung für neue Ausgabeprogramme ist ausgeschlossen.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/91901@2027",
+          "betrag": 2186200700
+        },
+        "2028": {
+          "id": "T.2007/91901@2028",
+          "betrag": 1005024000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/91902",
+      "kapitel": "2007",
+      "titel": "91902",
+      "zweckbestimmung": "Zuführung an die Liquiditätsrücklage (Planüberschuss)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "9",
+      "obergruppe": "91",
+      "gruppe": "919",
+      "gruppe_bezeichnung": "Zuführungen an sonstige Rücklagen",
+      "funktion": "851",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "rechtsgrundlage": "Doppelhaushaltsgesetz § 4 Abs. 3, § 7 Abs. 4",
+      "erlaeuterung": "Zuführung des rechnerischen Planüberschusses an die Liquiditätsrücklage nach der Finanzierungsregel des Finanzrahmens (c0-v2: 311.191.306 EUR 2028). Die Entlastung aus der Personalneuberechnung (K-02) erhöht die Zuführung; sie dient bis zur verfassungsrechtlichen Klärung als Risikovorsorge und ist keine Einnahmefiktion. Über eine weitergehende Verwendung (Kürzung der Rücklagenentnahme, Tilgung) entscheidet die Volkskammer.",
+      "vermerk": "Die Zuführung vermindert sich um Mehrausgaben, die entstehen, wenn das Gesetz zur Neuordnung des öffentlichen Dienstrechts nicht wie veranschlagt in Kraft tritt (HG § 7 Abs. 4).",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/91902@2027",
+          "betrag": 1867983093
+        },
+        "2028": {
+          "id": "T.2007/91902@2028",
+          "betrag": 2167421973
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2070/43201",
+      "kapitel": "2070",
+      "titel": "43201",
+      "zweckbestimmung": "Versorgungsbezüge der Beamtinnen, Beamten, Richterinnen und Richter sowie ihrer Hinterbliebenen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "43",
+      "gruppe": "432",
+      "gruppe_bezeichnung": "Versorgungsbezüge der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "018",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Ostdeutsches Beamtenversorgungsgesetz; Entwurf Drs. 08/13 (§ 107: 1,5 % je Dienstjahr, höchstens 60 %, auch laufende Versorgung)",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Ruhegehälter und Hinterbliebenenbezüge der übergeleiteten Versorgungsempfängerinnen und -empfänger aller Herkunftsländer. Basis sind die Versorgungsansätze der Herkunftshaushalte (Basisbereinigung K-02a). Die Neuberechnung nach dem Entwurf Drs. 08/13 (neue Grundgehaltstabellen, § 107: 1,5 % je Dienstjahr, höchstens 60 %, Mindestversorgung, laufende Hinterbliebenenbezüge ohne Neuberechnung) ist im Versorgungsmodell enthalten (K-02b); die bisherige pauschale 60-%-Vorbuchung ist ersetzt, nicht zusätzlich abgezogen. Ein Teil wird zweckgleich aus dem Versorgungsfonds Ost erstattet (Kapitel 2007).\n",
+      "vermerk": "Mehreinnahmen aus der Erstattung des Versorgungsfonds (Kapitel 2007 Titel 234 01) dienen der Deckung dieses Titels.",
+      "jahre": {
+        "2027": {
+          "id": "T.2070/43201@2027",
+          "betrag": 4434139635
+        },
+        "2028": {
+          "id": "T.2070/43201@2028",
+          "betrag": 4768511190
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2071/44601",
+      "kapitel": "2071",
+      "titel": "44601",
+      "zweckbestimmung": "Beihilfen für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "446",
+      "gruppe_bezeichnung": "Beihilfen für Versorgungsempfängerinnen, Versorgungsempfänger und dergleichen",
+      "funktion": "018",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "P: 1,5% je Dienstjahr, höchstens60% auch Bestand; Beihilfe ungekürzt",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Beihilfen nach den Beihilfevorschriften für Versorgungsempfängerinnen und -empfänger. Basis sind die Beihilfeansätze der Herkunftshaushalte (Basisbereinigung K-02a); Eigenbeteiligung 20 % nach § 80 Abs. 12 OstBG-E mit Belastungshöchstbetrag (Modellannahme 1,5 % der Versorgungsbezüge, K-02b).",
+      "jahre": {
+        "2027": {
+          "id": "T.2071/44601@2027",
+          "betrag": 1091546615
+        },
+        "2028": {
+          "id": "T.2071/44601@2028",
+          "betrag": 1164107823
+        }
+      }
+    },
+    {
+      "konzept_id": "T.K-02.2072.44101",
+      "kapitel": "2072",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen für aktive Beamtinnen, Beamte, Richterinnen und Richter (zentral veranschlagter Anteil)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "019",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "rechtsgrundlage": "Entwurf Drs. 08/13 (nicht verkündet); Korrekturvorlage K-02",
+      "jahre": {
+        "2027": {
+          "id": "T.K-02.2072.44101@2027",
+          "betrag": 200668055
+        },
+        "2028": {
+          "id": "T.K-02.2072.44101@2028",
+          "betrag": 157967675
+        }
+      }
+    },
+    {
+      "konzept_id": "T.K-02.2072.45201",
+      "kapitel": "2072",
+      "titel": "45201",
+      "zweckbestimmung": "Nachversicherung ausscheidender Beamtinnen und Beamter in der gesetzlichen Rentenversicherung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "452",
+      "gruppe_bezeichnung": "Personalbezogene Zahlungen an die Sozialversicherungsträger, soweit nicht unter Obergruppen 41 bis 44 erfasst",
+      "funktion": "019",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Entwurf Drs. 08/13 (nicht verkündet); Korrekturvorlage K-02",
+      "jahre": {
+        "2027": {
+          "id": "T.K-02.2072.45201@2027",
+          "betrag": 18296781
+        },
+        "2028": {
+          "id": "T.K-02.2072.45201@2028",
+          "betrag": 19416593
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2072/42901.g461",
+      "kapitel": "2072",
+      "titel": "46102",
+      "zweckbestimmung": "Verstärkungsmittel für Personalausgaben (Tarif- und Besoldungsanpassung, Personalausgleich)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "46",
+      "gruppe": "461",
+      "gruppe_bezeichnung": "Globale Mehrausgaben für Personalausgaben",
+      "funktion": "881",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Noch nicht auf die Fachkapitel verteilte aktive Personalausgaben der Herkunftshaushalte. Der bisherige Ansatz (2,04/2,05 Mrd. EUR) war ein Mapping-Rest (Einzelplan-20-Personalausgaben der Länder abzüglich einer zu niedrigen Versorgungsschätzung). Mit der Basisbereinigung K-02a sind daraus die Versorgung, die Beihilfe der Versorgungsempfänger und die zentral veranschlagte Beihilfe der Aktiven auf die Planwerte der Herkunftshaushalte gesetzt worden (Doppelzählungsprüfung Q37). Der verbleibende Betrag umfasst vor allem die Brandenburger Vorsorge für Tarif- und Besoldungsanpassungen und dient der Verstärkung der Personalausgaben aller Einzelpläne. Veranschlagung nach dem Vorbild des sächsischen Titels 15 03/461 02; keine zusätzliche Stellenermächtigung.\n",
+      "vermerk": "Die Mittel dürfen zur Verstärkung der Personalausgaben (Hauptgruppe 4) in allen Einzelplänen verwendet werden. Neue Stellen werden dadurch nicht geschaffen; Stellenmehrungen bedürfen der Änderung der Stellenübersicht.",
+      "jahre": {
+        "2027": {
+          "id": "T.2072/42901.g461@2027",
+          "betrag": 737874513
+        },
+        "2028": {
+          "id": "T.2072/42901.g461@2028",
+          "betrag": 698652879
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-61301",
+      "kapitel": "2080",
+      "titel": "61301",
+      "zweckbestimmung": "Schlüsselzuweisungen an die kreisangehörigen Gemeinden",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "erlaeuterung": "Allgemeine Finanzzuweisungen nach Steuerkraft und Bedarf (Hauptansatz Einwohner). Die Gesamtmasse des Finanzausgleichs folgt den fortgeführten Ansätzen der Herkunftsländer; die Gliederung auf die Ausgleichsinstrumente entspricht der sächsischen Systematik.",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-61301@2027",
+          "betrag": 4123091065
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-61301@2028",
+          "betrag": 4113434780
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-61302",
+      "kapitel": "2080",
+      "titel": "61302",
+      "zweckbestimmung": "Schlüsselzuweisungen an die Bezirke",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "erlaeuterung": "Schlüsselzuweisungen an die 14 Bezirke als Träger der Kreisaufgaben (sächsisches Vorbild: Landkreise).",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-61302@2027",
+          "betrag": 2817825105
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-61302@2028",
+          "betrag": 2811225684
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-61303",
+      "kapitel": "2080",
+      "titel": "61303",
+      "zweckbestimmung": "Schlüsselzuweisungen an die kreisfreien Städte",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-61303@2027",
+          "betrag": 5208307489
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-61303@2028",
+          "betrag": 5196109650
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-61332",
+      "kapitel": "2080",
+      "titel": "61332",
+      "zweckbestimmung": "Zuweisungen zum Ausgleich besonderen Bedarfs (Bedarfszuweisungen)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-61332@2027",
+          "betrag": 145661073
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-61332@2028",
+          "betrag": 146023218
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-61338",
+      "kapitel": "2080",
+      "titel": "61338",
+      "zweckbestimmung": "Zuweisungen für herausgehobene Maßnahmen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-61338@2027",
+          "betrag": 70164291
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-61338@2028",
+          "betrag": 70225161
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-61305",
+      "kapitel": "2081",
+      "titel": "61305",
+      "zweckbestimmung": "Zuweisungen an Kommunen für übertragene Aufgaben (Mehrbelastungsausgleich)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-61305@2027",
+          "betrag": 902451268
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-61305@2028",
+          "betrag": 904694958
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-61336",
+      "kapitel": "2081",
+      "titel": "61336",
+      "zweckbestimmung": "Beteiligung der Kommunen an den Kosten der Verwaltungsdigitalisierung (OZG)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-61336@2027",
+          "betrag": 15375335
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-61336@2028",
+          "betrag": 15413562
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-63313",
+      "kapitel": "2081",
+      "titel": "63313",
+      "zweckbestimmung": "Zuweisungen an die Bezirke als Baulastträger der Kreisstraßen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-63313@2027",
+          "betrag": 103904899
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-63313@2028",
+          "betrag": 104163229
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-63314",
+      "kapitel": "2081",
+      "titel": "63314",
+      "zweckbestimmung": "Zuweisungen an Gemeinden und kreisfreie Städte als Baulastträger von Ortsdurchfahrten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-63314@2027",
+          "betrag": 10196275
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-63314@2028",
+          "betrag": 10221625
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-63316",
+      "kapitel": "2081",
+      "titel": "63316",
+      "zweckbestimmung": "Zuweisungen an Gemeinden als Baulastträger der Gemeindestraßen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-63316@2027",
+          "betrag": 251184428
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-63316@2028",
+          "betrag": 251808927
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-63318",
+      "kapitel": "2081",
+      "titel": "63318",
+      "zweckbestimmung": "Zuweisungen an Gemeinden für die Unterhaltung von Gewässern II. Ordnung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-63318@2027",
+          "betrag": 16184564
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-63318@2028",
+          "betrag": 16224802
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-63320",
+      "kapitel": "2081",
+      "titel": "63320",
+      "zweckbestimmung": "Zuweisungen für den Kulturlastenausgleich",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-63320@2027",
+          "betrag": 99300390
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-63320@2028",
+          "betrag": 99547272
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-63321",
+      "kapitel": "2081",
+      "titel": "63321",
+      "zweckbestimmung": "Zuweisungen für den Kurlastenausgleich",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-63321@2027",
+          "betrag": 11329194
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-63321@2028",
+          "betrag": 11357361
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.1530-63322",
+      "kapitel": "2081",
+      "titel": "63322",
+      "zweckbestimmung": "Zuweisungen für den Soziallastenausgleich",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost) in der Fassung des Haushaltsbegleitgesetzes",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.1530-63322@2027",
+          "betrag": 961363080
+        },
+        "2028": {
+          "id": "T.SN.kfa.1530-63322@2028",
+          "betrag": 963753237
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa.0304-63352",
+      "kapitel": "2081",
+      "titel": "63352",
+      "zweckbestimmung": "Erstattung der Leistungen für Geflüchtete während des Aufenthalts in den Bezirken und kreisfreien Städten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Flüchtlingsaufnahmegesetz Ost (OstFlüAG); AsylbLG",
+      "erlaeuterung": "Pauschalierte Erstattung der Unterbringungs- und Versorgungsleistungen nach dem Asylbewerberleistungsgesetz an die Bezirke und kreisfreien Städte (sächsisches Vorbild Kapitel 03 04 Titel 633 52).",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa.0304-63352@2027",
+          "betrag": 1168578904
+        },
+        "2028": {
+          "id": "T.SN.kfa.0304-63352@2028",
+          "betrag": 1140107749
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2082/63101",
+      "kapitel": "2082",
+      "titel": "63101",
+      "zweckbestimmung": "Erstattungen an den Bund für Sonderversorgungen der Angehörigen der Polizei, der Organe der Feuerwehr und des Strafvollzugs",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "631",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Bund",
+      "funktion": "229",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2082/63101@2027",
+          "betrag": 830874974
+        },
+        "2028": {
+          "id": "T.2082/63101@2028",
+          "betrag": 858067286
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2082/63102",
+      "kapitel": "2082",
+      "titel": "63102",
+      "zweckbestimmung": "Erstattungen an den Bund für Zusatzversorgungssysteme",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "631",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Bund",
+      "funktion": "229",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2082/63102@2027",
+          "betrag": 1287910785
+        },
+        "2028": {
+          "id": "T.2082/63102@2028",
+          "betrag": 1317288112
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/62401",
+      "kapitel": "2088",
+      "titel": "62401",
+      "zweckbestimmung": "Schuldendiensthilfen an Sondervermögen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "62",
+      "gruppe": "624",
+      "gruppe_bezeichnung": "Schuldendiensthilfen an Sondervermögen",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/62401@2027",
+          "betrag": 22630483
+        },
+        "2028": {
+          "id": "T.2088/62401@2028",
+          "betrag": 22571502
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/63201",
+      "kapitel": "2088",
+      "titel": "63201",
+      "zweckbestimmung": "Zuweisungen an Landesbetriebe für Geschäftsbesorgung der Finanzverwaltung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "632",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Länder",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/63201@2027",
+          "betrag": 293170070
+        },
+        "2028": {
+          "id": "T.2088/63201@2028",
+          "betrag": 400155075
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/63202",
+      "kapitel": "2088",
+      "titel": "63202",
+      "zweckbestimmung": "Erstattungen von Versorgungsbezügen an andere Länder (Versorgungslastenteilung)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "632",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Länder",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/63202@2027",
+          "betrag": 15666087
+        },
+        "2028": {
+          "id": "T.2088/63202@2028",
+          "betrag": 15625259
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/63601",
+      "kapitel": "2088",
+      "titel": "63601",
+      "zweckbestimmung": "Leistungen an Unfallversicherungsträger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "636",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Sozialversicherungsträger sowie an die Bundesagentur für Arbeit",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/63601@2027",
+          "betrag": 123316251
+        },
+        "2028": {
+          "id": "T.2088/63601@2028",
+          "betrag": 131746854
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/67101",
+      "kapitel": "2088",
+      "titel": "67101",
+      "zweckbestimmung": "Entgelte an das Förderinstitut der ElbeLB für Geschäftsbesorgung und Programmabwicklung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "67",
+      "gruppe": "671",
+      "gruppe_bezeichnung": "Erstattungen an Sonstige im Inland",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/67101@2027",
+          "betrag": 334172756
+        },
+        "2028": {
+          "id": "T.2088/67101@2028",
+          "betrag": 336831445
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/68201",
+      "kapitel": "2088",
+      "titel": "68201",
+      "zweckbestimmung": "Zuführungen an Landesbetriebe für laufende Zwecke",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/68201@2027",
+          "betrag": 45688521
+        },
+        "2028": {
+          "id": "T.2088/68201@2028",
+          "betrag": 41187866
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/68401",
+      "kapitel": "2088",
+      "titel": "68401",
+      "zweckbestimmung": "Zuschüsse für die politische Bildungsarbeit der parteinahen Stiftungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/68401@2027",
+          "betrag": 6061279
+        },
+        "2028": {
+          "id": "T.2088/68401@2028",
+          "betrag": 6045481
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/68402",
+      "kapitel": "2088",
+      "titel": "68402",
+      "zweckbestimmung": "Weitergabe von Einnahmen aus Glücksspielabgaben an Sport, Wohlfahrt und Kultur",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/68402@2027",
+          "betrag": 22416008
+        },
+        "2028": {
+          "id": "T.2088/68402@2028",
+          "betrag": 22357585
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2088/69801",
+      "kapitel": "2088",
+      "titel": "69801",
+      "zweckbestimmung": "Verwendung von Erbschaften des Fiskus",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "69",
+      "gruppe": "698",
+      "gruppe_bezeichnung": "Vermögensübertragungen an Sonstige im Inland, soweit nicht Investitionszuschüsse",
+      "funktion": "861",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2088/69801@2027",
+          "betrag": 9325044
+        },
+        "2028": {
+          "id": "T.2088/69801@2028",
+          "betrag": 9300741
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2090/82101",
+      "kapitel": "2090",
+      "titel": "82101",
+      "zweckbestimmung": "Erwerb von Grundstücken für Landeszwecke",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "82",
+      "gruppe": "821",
+      "gruppe_bezeichnung": "Erwerb von Grundstücken",
+      "funktion": "812",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2090/82101@2027",
+          "betrag": 72338554
+        },
+        "2028": {
+          "id": "T.2090/82101@2028",
+          "betrag": 0
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2090/83101",
+      "kapitel": "2090",
+      "titel": "83101",
+      "zweckbestimmung": "Erwerb von Beteiligungen und Kapitalzuführungen an Landesunternehmen (Herkunftsbestand)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "83",
+      "gruppe": "831",
+      "gruppe_bezeichnung": "Erwerb von Beteiligungen und dergleichen im Inland",
+      "funktion": "812",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Fortgeführte Kapitalzuführungen und Beteiligungserwerbe der Allgemeinen Finanzverwaltungen der Herkunftsländer (u. a. Flughafen- und Infrastrukturgesellschaften, Förderinstitute, Messe- und Wirtschaftsgesellschaften). Fortschreibung des Basisruns c0-v2; Einzelvorhaben werden mit der Beteiligungsanlage vorgelegt. Eine neue Kapitalausstattung der ElbeLB ist ausgeschlossen.\n",
+      "vermerk": "Ausgaben setzen einen Einzelbeschluss nach § 65 LHO und die Zustimmung des Haushaltsausschusses voraus. Kapitalzuführungen an ElbeLB, Landesenergiewerke, HO, Rohstoffwerke und Gemeingut Wohnen sind in den Fachkapiteln veranschlagt und werden hieraus nicht zusätzlich geleistet.",
+      "jahre": {
+        "2027": {
+          "id": "T.2090/83101@2027",
+          "betrag": 1922809151
+        },
+        "2028": {
+          "id": "T.2090/83101@2028",
+          "betrag": 1530689780
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2091/81201",
+      "kapitel": "2091",
+      "titel": "81201",
+      "zweckbestimmung": "Erwerb von Geräten und Ausstattung für zentrale Aufgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "81",
+      "gruppe": "812",
+      "gruppe_bezeichnung": "Erwerb von Geräten und sonstigen beweglichen Sachen",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2091/81201@2027",
+          "betrag": 7879441
+        },
+        "2028": {
+          "id": "T.2091/81201@2028",
+          "betrag": 0
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2091/82301",
+      "kapitel": "2091",
+      "titel": "82301",
+      "zweckbestimmung": "Erwerbsanteile im Rahmen von ÖPP-Projekten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "82",
+      "gruppe": "823",
+      "gruppe_bezeichnung": "Erwerb von sonstigem unbeweglichen Vermögen",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2091/82301@2027",
+          "betrag": 15747859
+        },
+        "2028": {
+          "id": "T.2091/82301@2028",
+          "betrag": 16062482
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2091/87101",
+      "kapitel": "2091",
+      "titel": "87101",
+      "zweckbestimmung": "Ausgaben für die Inanspruchnahme aus Gewährleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "87",
+      "gruppe": "871",
+      "gruppe_bezeichnung": "Ausgaben für die Inanspruchnahme aus Gewährleistungen an das Inland",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2091/87101@2027",
+          "betrag": 26264805
+        },
+        "2028": {
+          "id": "T.2091/87101@2028",
+          "betrag": 25786605
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa-investiv.0319-88309",
+      "kapitel": "2091",
+      "titel": "88309",
+      "zweckbestimmung": "Zuweisungen für Investitionen an die Kommunen für den Brandschutz",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost)",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa-investiv.0319-88309@2027",
+          "betrag": 121649222
+        },
+        "2028": {
+          "id": "T.SN.kfa-investiv.0319-88309@2028",
+          "betrag": 128813571
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa-investiv.1530-88313",
+      "kapitel": "2091",
+      "titel": "88313",
+      "zweckbestimmung": "Investive (zweckgebundene) Schlüsselzuweisungen an Gemeinden, kreisfreie Städte und Bezirke",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost)",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa-investiv.1530-88313@2027",
+          "betrag": 405514779
+        },
+        "2028": {
+          "id": "T.SN.kfa-investiv.1530-88313@2028",
+          "betrag": 401402329
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa-investiv.1530-88315",
+      "kapitel": "2091",
+      "titel": "88315",
+      "zweckbestimmung": "Investive Zuweisungen zum Ausgleich besonderen Bedarfs",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost)",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa-investiv.1530-88315@2027",
+          "betrag": 19741840
+        },
+        "2028": {
+          "id": "T.SN.kfa-investiv.1530-88315@2028",
+          "betrag": 19636215
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa-investiv.1530-88324",
+      "kapitel": "2091",
+      "titel": "88324",
+      "zweckbestimmung": "Pauschale Zuweisungen für den kommunalen Straßenbau",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost)",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa-investiv.1530-88324@2027",
+          "betrag": 236902087
+        },
+        "2028": {
+          "id": "T.SN.kfa-investiv.1530-88324@2028",
+          "betrag": 235634580
+        }
+      }
+    },
+    {
+      "konzept_id": "T.SN.kfa-investiv.1530-88325",
+      "kapitel": "2091",
+      "titel": "88325",
+      "zweckbestimmung": "Pauschale Zuweisungen für den kommunalen Straßen- und Brückenbau (Ergänzungspauschale)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Finanzausgleichsgesetz Ost (FAG Ost)",
+      "jahre": {
+        "2027": {
+          "id": "T.SN.kfa-investiv.1530-88325@2027",
+          "betrag": 454062334
+        },
+        "2028": {
+          "id": "T.SN.kfa-investiv.1530-88325@2028",
+          "betrag": 451632945
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2091/89101",
+      "kapitel": "2091",
+      "titel": "89101",
+      "zweckbestimmung": "Investitionszuschüsse an Landesbetriebe und öffentliche Einrichtungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2091/89101@2027",
+          "betrag": 405917316
+        },
+        "2028": {
+          "id": "T.2091/89101@2028",
+          "betrag": 360327075
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2091/89102",
+      "kapitel": "2091",
+      "titel": "89102",
+      "zweckbestimmung": "Schienenanbindung des Flughafens BER (Investitionszuschuss)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "821",
+      "herkunft": "D",
+      "qualitaet": "D_quellgewicht",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.2091/89102@2027",
+          "betrag": 22592460
+        },
+        "2028": {
+          "id": "T.2091/89102@2028",
+          "betrag": 5789607
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/79901.hochschule",
+      "kapitel": "2093",
+      "titel": "71201",
+      "zweckbestimmung": "Große Baumaßnahmen für Hochschulen, Forschung und Kultur (zentrale Veranschlagung)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "712",
+      "gruppe_bezeichnung": "Große Neu-, Um- und Erweiterungsbauten",
+      "funktion": "016",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Hochschul-, Forschungs- und Kulturbauten; Umsetzung nach Genehmigung der Bauunterlagen.",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/79901.hochschule@2027",
+          "betrag": 458894423
+        },
+        "2028": {
+          "id": "T.2007/79901.hochschule@2028",
+          "betrag": 340919419
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/79901.justiz",
+      "kapitel": "2093",
+      "titel": "71202",
+      "zweckbestimmung": "Große Baumaßnahmen für Justiz, Polizei und Sicherheit (zentrale Veranschlagung)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "712",
+      "gruppe_bezeichnung": "Große Neu-, Um- und Erweiterungsbauten",
+      "funktion": "016",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Neu-, Um- und Erweiterungsbauten für Gerichte, Justizvollzug, Polizei und Grenzsicherheit. Die Mittel werden nach Genehmigung der Bauunterlagen (LHO § 24) in die Fachkapitel umgesetzt.",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/79901.justiz@2027",
+          "betrag": 524450770
+        },
+        "2028": {
+          "id": "T.2007/79901.justiz@2028",
+          "betrag": 389622193
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2007/79901.verwaltung",
+      "kapitel": "2093",
+      "titel": "71203",
+      "zweckbestimmung": "Große Baumaßnahmen für Verwaltungsgebäude und Zusammenlegung von Standorten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "712",
+      "gruppe_bezeichnung": "Große Neu-, Um- und Erweiterungsbauten",
+      "funktion": "016",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Verwaltungsbauten, insbesondere Zusammenlegung frei gewordener Ministerial- und Behördengebäude nach der Staatsfusion (Q35/Q36).",
+      "jahre": {
+        "2027": {
+          "id": "T.2007/79901.verwaltung@2027",
+          "betrag": 327781731
+        },
+        "2028": {
+          "id": "T.2007/79901.verwaltung@2028",
+          "betrag": 243513870
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2099/68601.vorbehalt",
+      "kapitel": "2099",
+      "titel": "68601",
+      "zweckbestimmung": "Noch nicht zugeordnete laufende Leistungen aus Herkunftshaushalten (Zuordnungsvorbehalt)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "686",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für laufende Zwecke im Inland",
+      "funktion": "881",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Rest der aus den Allgemeinen Finanzverwaltungen der fünf weiteren Herkunftsländer übernommenen laufenden Leistungen, für die keine titelgenauen Originaldaten vorliegen. Inhaltlich handelt es sich nach der Struktur der Herkunftshaushalte überwiegend um kommunale Finanzausgleichsleistungen, Erstattungen an den Bund und sonstige gesetzliche Leistungen. Der Ansatz wurde gegenüber C0 v2 um 80 % auf die Fachkapitel aufgelöst; der verbleibende Betrag ist gesperrt.\n",
+      "vermerk": "Die Mittel sind gesperrt, bis die Zuordnung zu Rechtsansprüchen der Kapitel 2080 bis 2088 nachgewiesen ist (Freigabe durch den Haushaltsausschuss).",
+      "jahre": {
+        "2027": {
+          "id": "T.2099/68601.vorbehalt@2027",
+          "betrag": 994534190
+        },
+        "2028": {
+          "id": "T.2099/68601.vorbehalt@2028",
+          "betrag": 1000815180
+        }
+      }
+    },
+    {
+      "konzept_id": "T.2099/89901.vorbehalt",
+      "kapitel": "2099",
+      "titel": "89901",
+      "zweckbestimmung": "Noch nicht zugeordnete Investitionsleistungen aus Herkunftshaushalten (Zuordnungsvorbehalt)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "899",
+      "gruppe_bezeichnung": "Nicht aufteilbare Investitionsausgaben",
+      "funktion": "881",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Rest der investiven Zuweisungen und Kapitalzuführungen der Herkunfts-Finanzverwaltungen ohne titelgenaue Originaldaten; 80 % gegenüber C0 v2 aufgelöst, verbleibender Betrag gesperrt.",
+      "vermerk": "Gesperrt bis zum Nachweis der Zuordnung zu den Kapiteln 2090/2091.",
+      "jahre": {
+        "2027": {
+          "id": "T.2099/89901.vorbehalt@2027",
+          "betrag": 195337887
+        },
+        "2028": {
+          "id": "T.2099/89901.vorbehalt@2028",
+          "betrag": 167146063
+        }
+      }
+    }
+  ]
+}

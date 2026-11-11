@@ -1,0 +1,17 @@
+---
+/**
+ * Kopiert die Adresse einer Tabellenzeile oder eines Abschnitts (`#anker`). Braucht JavaScript
+ * und ist bis dahin `hidden`; der Enhancer meldet Erfolg in der Statuszeile.
+ */
+interface Props {
+  anker: string;
+  label: string;
+}
+
+const { anker, label } = Astro.props as Props;
+---
+
+<button type="button" class="hh-linkknopf" data-haushalt-link={anker} data-tabelle-js hidden>
+  <span aria-hidden="true">Link</span>
+  <span class="visually-hidden">Link zu {label} kopieren</span>
+</button>

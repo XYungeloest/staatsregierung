@@ -1,0 +1,84 @@
+---
+/**
+ * Kennzahlkarten in der Gestalt der Haushaltskennzahlen des Portals (`BudgetKpiCards`:
+ * Versal-Etikett, Wert in Staatsblau, Erläuterung klein). Jede Karte trägt eine Zahl (`value`) in
+ * einem der vier Formate; Euroformate zeigen gerundet und tragen den exakten Betrag als
+ * <data value>. `change` beschreibt eine Veränderung mit Vorzeichen und Bezug („gegenüber 2027“),
+ * `definition` die Abgrenzung. Ohne `spalten` folgt die Spaltenzahl ab 64 rem
+ * `getBalancedColumnCount` (höchstens vier); darunter werden drei beziehungsweise zwei Spalten
+ * nur verwendet, wenn dabei keine Karte allein in der letzten Reihe steht.
+ */
+import Amount from './Amount.astro';
+import { formatExact, formatSigned, formatValue, type ValueFormat } from './format.ts';
+import { getBalancedColumnCount } from '@ostrecht/shared/lib/portal/presentation.ts';
+
+interface KpiChange {
+  value: number;
+  format?: ValueFormat;
+  label: string;
+}
+
+interface KpiCard {
+  label: string;
+  value: number;
+  format?: ValueFormat;
+  hint?: string;
+  definition?: string;
+  change?: KpiChange;
+  href?: string;
+}
+
+interface Props {
+  items: KpiCard[];
+  label?: string;
+  spalten?: 2 | 3 | 4;
+}
+
+const { items, label, spalten } = Astro.props as Props;
+const count = items.length;
+const wide = Math.min(4, Math.max(1, spalten ?? getBalancedColumnCount(count, 4)));
+/** Erste Spaltenzahl aus `candidates`, bei der keine Karte allein in der letzten Reihe steht. */
+const withoutLoneCard = (candidates: number[], fallback: number) => {
+  for (const columns of candidates) {
+    if (count <= columns) return Math.max(1, count);
+    const rest = count % columns;
+    if (rest === 0 || rest >= 2) return columns;
+  }
+  return fallback;
+};
+const medium = Math.min(wide, withoutLoneCard([3, 2], wide));
+const narrow = withoutLoneCard([2], 1);
+---
+
+<ul
+  class="hh-kennzahlen"
+  style={`--hh-spalten: ${wide}; --hh-spalten-mittel: ${medium}; --hh-spalten-schmal: ${narrow}`}
+  aria-label={label}
+>
+  {items.map((item) => {
+    const format = item.format ?? 'euro-compact';
+    const isEuro = format === 'euro-compact' || format === 'euro';
+    const changeFormat = item.change?.format ?? format;
+    return (
+      <li class="hh-kennzahl">
+        <p class="meta-label hh-kennzahl__label">{item.href ? <a href={item.href}>{item.label}</a> : item.label}</p>
+        <p class:list={['hh-kennzahl__wert', format === 'euro' && 'hh-kennzahl__wert--exakt']}>
+          {isEuro ? (
+            <Amount value={item.value} exakt={format === 'euro'} umbruch />
+          ) : (
+            <data value={String(item.value)} title={formatExact(item.value, format)}>{formatValue(item.value, format)}</data>
+          )}
+        </p>
+        {item.change ? (
+          <p class:list={['hh-kennzahl__veraenderung', item.change.value < 0 ? 'is-negativ' : item.change.value > 0 ? 'is-positiv' : 'is-null']}>
+            <span class="hh-kennzahl__pfeil" aria-hidden="true">{item.change.value > 0 ? '↑' : item.change.value < 0 ? '↓' : '→'}</span>
+            <data value={String(item.change.value)} title={formatSigned(item.change.value, changeFormat === 'euro-compact' ? 'euro' : changeFormat)}>{formatSigned(item.change.value, changeFormat)}</data>
+            <span>{item.change.label}</span>
+          </p>
+        ) : null}
+        {item.hint ? <p class="hh-kennzahl__hinweis">{item.hint}</p> : null}
+        {item.definition ? <p class="hh-kennzahl__definition"><span class="hh-kennzahl__definition-label">Abgrenzung:</span> {item.definition}</p> : null}
+      </li>
+    );
+  })}
+</ul>
