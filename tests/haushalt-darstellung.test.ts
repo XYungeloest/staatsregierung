@@ -25,7 +25,9 @@ function deklarationen(css: string): Deklaration[] {
   postcss.parse(css).walkRules((rule: Rule) => {
     const media = rule.parent?.type === 'atrule' ? (rule.parent as AtRule).params : '';
     for (const selector of rule.selectors) {
-      rule.walkDecls((decl) => out.push({ selector: selector.replace(/\s+/gu, ' '), media, prop: decl.prop, value: decl.value }));
+      rule.walkDecls((decl) => {
+        out.push({ selector: selector.replace(/\s+/gu, ' '), media, prop: decl.prop, value: decl.value });
+      });
     }
   });
   return out;

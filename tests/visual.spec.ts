@@ -391,9 +391,28 @@ async function prepareLocator(locator: Locator): Promise<void> {
   });
 }
 
+/**
+ * Einen Abschnitt, der höher als das Fenster ist, nimmt Playwright verschoben auf; die haftende
+ * Bereichsnavigation und haftende Tabellenköpfe lägen dann mitten im Bild über dem Inhalt. Für
+ * solche Aufnahmen stehen sie im Fluss. Dass die Bereichsnavigation haftet, prüft die Messung
+ * „Sprungziele der Bereichsnavigation existieren“.
+ */
+const OHNE_HAFTUNG = '.section-navigation, .data-table thead th { position: static !important; }';
+
 async function expectSectionScreenshot(locator: Locator, name: string): Promise<void> {
   await prepareLocator(locator);
-  await expect(locator).toHaveScreenshot(name);
+  const page = locator.page();
+  const hoehe = (await locator.boundingBox())?.height ?? 0;
+  if (hoehe <= (page.viewportSize()?.height ?? Number.POSITIVE_INFINITY)) {
+    await expect(locator).toHaveScreenshot(name);
+    return;
+  }
+  const stil = await page.addStyleTag({ content: OHNE_HAFTUNG });
+  try {
+    await expect(locator).toHaveScreenshot(name);
+  } finally {
+    await stil.evaluate((element) => (element as HTMLStyleElement).remove());
+  }
 }
 
 interface ComponentVisualPage {
@@ -497,7 +516,7 @@ const componentVisualPages: ComponentVisualPage[] = [
           name: 'haushalt-tabelle-werkzeuge',
           path: haushaltsKapitelseite,
           shots: [['haushalt-tabelle-werkzeuge', '#kapiteltitel-ausgaben']],
-        },
+        } satisfies ComponentVisualPage,
       ]
     : []),
   {
