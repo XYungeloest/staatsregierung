@@ -1,0 +1,1780 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "jahre": {
+    "2027": {
+      "einnahmen": 140900866242,
+      "ausgaben": 140900866242,
+      "haushaltsvolumen": 140900866242,
+      "zahlungen_ohne_zufuehrung": 139032883149,
+      "zufuehrung_liquiditaetsruecklage": 1867983093,
+      "ungedeckt": 0,
+      "strukturelle_nka": 0,
+      "kredit_brutto": 0,
+      "tilgung": 45922300,
+      "nettotilgung": 45922300,
+      "zinsen": 3170260314,
+      "ruecklagenentnahme": 5039046889,
+      "einnahmen_vor_finanzierung": 135861819353,
+      "haushaltsvolumen_baseline": 141139043496,
+      "zufuehrung_baseline": 0,
+      "finanzierungssaldo_vor_ueberschussverwendung": 1867983093,
+      "hauptgruppen": {
+        "0": 95904507778,
+        "1": 4348796444,
+        "2": 27164229883,
+        "3": 13483332137,
+        "4": 32150907959,
+        "5": 14002662915,
+        "6": 69769571602,
+        "7": 2814394600,
+        "8": 18109145373,
+        "9": 4054183793
+      }
+    },
+    "2028": {
+      "einnahmen": 140040550384,
+      "ausgaben": 140040550384,
+      "haushaltsvolumen": 140040550384,
+      "zahlungen_ohne_zufuehrung": 137873128411,
+      "zufuehrung_liquiditaetsruecklage": 2167421973,
+      "ungedeckt": 0,
+      "strukturelle_nka": 0,
+      "kredit_brutto": 0,
+      "tilgung": 455600000,
+      "nettotilgung": 455600000,
+      "zinsen": 3442950653,
+      "ruecklagenentnahme": 0,
+      "einnahmen_vor_finanzierung": 140040550384,
+      "haushaltsvolumen_baseline": 140254332224,
+      "zufuehrung_baseline": 311191306,
+      "finanzierungssaldo_vor_ueberschussverwendung": 2167421973,
+      "hauptgruppen": {
+        "0": 104669683012,
+        "1": 4377289987,
+        "2": 25889769690,
+        "3": 5103807695,
+        "4": 33528993868,
+        "5": 13605400214,
+        "6": 70945194420,
+        "7": 2401397300,
+        "8": 16387118609,
+        "9": 3172445973
+      }
+    }
+  },
+  "gruppierung": [
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "011",
+      "bezeichnung": "Lohnsteuer",
+      "jahre": {
+        "2027": 30698580651,
+        "2028": 33778434898
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "012",
+      "bezeichnung": "Veranlagte Einkommensteuer",
+      "jahre": {
+        "2027": 6733974388,
+        "2028": 7446200141
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "013",
+      "bezeichnung": "Nicht veranlagte Steuern vom Ertrag",
+      "jahre": {
+        "2027": 2003467966,
+        "2028": 2160073067
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "014",
+      "bezeichnung": "Körperschaftsteuer",
+      "jahre": {
+        "2027": 5022431500,
+        "2028": 5534268817
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "015",
+      "bezeichnung": "Umsatzsteuer",
+      "jahre": {
+        "2027": 36504072797,
+        "2028": 37180709431
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "01",
+      "gruppe": "017",
+      "bezeichnung": "Gewerbesteuerumlage",
+      "jahre": {
+        "2027": 824023440,
+        "2028": 886450331
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "051",
+      "bezeichnung": "Vermögensteuer",
+      "jahre": {
+        "2027": 1301402250,
+        "2028": 3632713288
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "052",
+      "bezeichnung": "Erbschaftsteuer",
+      "jahre": {
+        "2027": 1602774372,
+        "2028": 1728058453
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "053",
+      "bezeichnung": "Grunderwerbsteuer",
+      "jahre": {
+        "2027": 3632221094,
+        "2028": 3935793749
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "057",
+      "bezeichnung": "Lotteriesteuer",
+      "jahre": {
+        "2027": 439028882,
+        "2028": 471820337
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "058",
+      "bezeichnung": "Andere Steuern nach dem Rennwett- und Lotteriegesetz",
+      "jahre": {
+        "2027": 189120134,
+        "2028": 200166204
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "05",
+      "gruppe": "059",
+      "bezeichnung": "Feuerschutzsteuer",
+      "jahre": {
+        "2027": 243154457,
+        "2028": 264505341
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "06",
+      "gruppe": "061",
+      "bezeichnung": "Biersteuer",
+      "jahre": {
+        "2027": 310697362,
+        "2028": 321695685
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "09",
+      "gruppe": "093",
+      "bezeichnung": "Abgaben von Spielbanken",
+      "jahre": {
+        "2027": 79700628,
+        "2028": 90074792
+      }
+    },
+    {
+      "hauptgruppe": "0",
+      "obergruppe": "09",
+      "gruppe": "099",
+      "bezeichnung": "Sonstige steuerähnliche Abgaben",
+      "jahre": {
+        "2027": 6319857857,
+        "2028": 7038718478
+      }
+    },
+    {
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "bezeichnung": "Gebühren, sonstige Entgelte",
+      "jahre": {
+        "2027": 2238016897,
+        "2028": 2246733176
+      }
+    },
+    {
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "jahre": {
+        "2027": 718139534,
+        "2028": 725013218
+      }
+    },
+    {
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "jahre": {
+        "2027": 1231141162,
+        "2028": 1243492443
+      }
+    },
+    {
+      "hauptgruppe": "1",
+      "obergruppe": "12",
+      "gruppe": "121",
+      "bezeichnung": "Einnahmen aus Gewinnen von Unternehmen und Beteiligungen",
+      "jahre": {
+        "2027": 63000000,
+        "2028": 66780000
+      }
+    },
+    {
+      "hauptgruppe": "1",
+      "obergruppe": "12",
+      "gruppe": "123",
+      "bezeichnung": "Einnahmen aus staatlichen Glücksspielen",
+      "jahre": {
+        "2027": 98498851,
+        "2028": 95271150
+      }
+    },
+    {
+      "hauptgruppe": "2",
+      "obergruppe": "21",
+      "gruppe": "211",
+      "bezeichnung": "Allgemeine Zuweisungen vom Bund",
+      "jahre": {
+        "2027": 8759565407,
+        "2028": 8785826407
+      }
+    },
+    {
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "jahre": {
+        "2027": 14772210590,
+        "2028": 13589521713
+      }
+    },
+    {
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "232",
+      "bezeichnung": "Sonstige Zuweisungen von Ländern",
+      "jahre": {
+        "2027": 330000000,
+        "2028": 330000000
+      }
+    },
+    {
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "234",
+      "bezeichnung": "Sonstige Zuweisungen von Sondervermögen",
+      "jahre": {
+        "2027": 611477790,
+        "2028": 598759052
+      }
+    },
+    {
+      "hauptgruppe": "2",
+      "obergruppe": "27",
+      "gruppe": "271",
+      "bezeichnung": "Erstattungen von der EU",
+      "jahre": {
+        "2027": 977449501,
+        "2028": 911273776
+      }
+    },
+    {
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "281",
+      "bezeichnung": "Sonstige Erstattungen aus dem Inland",
+      "jahre": {
+        "2027": 1409092937,
+        "2028": 1403950380
+      }
+    },
+    {
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "282",
+      "bezeichnung": "Sonstige Zuschüsse aus dem Inland",
+      "jahre": {
+        "2027": 304433658,
+        "2028": 270438362
+      }
+    },
+    {
+      "hauptgruppe": "3",
+      "obergruppe": "32",
+      "gruppe": "325",
+      "bezeichnung": "Schuldenaufnahmen auf dem sonstigen Kreditmarkt im Inland",
+      "jahre": {
+        "2027": 0,
+        "2028": 0
+      }
+    },
+    {
+      "hauptgruppe": "3",
+      "obergruppe": "33",
+      "gruppe": "331",
+      "bezeichnung": "Zuweisungen für Investitionen vom Bund",
+      "jahre": {
+        "2027": 2876295097,
+        "2028": 2948340274
+      }
+    },
+    {
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "342",
+      "bezeichnung": "Sonstige Zuschüsse für Investitionen aus dem Inland",
+      "jahre": {
+        "2027": 93362456,
+        "2028": 5347157
+      }
+    },
+    {
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "346",
+      "bezeichnung": "Zuschüsse für Investitionen von der EU",
+      "jahre": {
+        "2027": 832798593,
+        "2028": 746273408
+      }
+    },
+    {
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "349",
+      "bezeichnung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "jahre": {
+        "2027": 79936026,
+        "2028": 91712925
+      }
+    },
+    {
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "356",
+      "bezeichnung": "Entnahmen aus Fonds und Stöcken",
+      "jahre": {
+        "2027": 1433004975,
+        "2028": 609872935
+      }
+    },
+    {
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "359",
+      "bezeichnung": "Entnahmen aus sonstigen Rücklagen",
+      "jahre": {
+        "2027": 8167934990,
+        "2028": 702260996
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "41",
+      "gruppe": "411",
+      "bezeichnung": "Aufwendungen für Abgeordnete",
+      "jahre": {
+        "2027": 34619054,
+        "2028": 35650559
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "41",
+      "gruppe": "412",
+      "bezeichnung": "Aufwendungen für ehrenamtlich Tätige",
+      "jahre": {
+        "2027": 1976078,
+        "2028": 2061776
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "jahre": {
+        "2027": 12449183932,
+        "2028": 12409536821
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "jahre": {
+        "2027": 12476296431,
+        "2028": 13526252104
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "429",
+      "bezeichnung": "Nicht aufteilbare Bezüge, Entgelte und Nebenleistungen",
+      "jahre": {
+        "2027": 70317708,
+        "2028": 73092942
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "43",
+      "gruppe": "432",
+      "bezeichnung": "Versorgungsbezüge der Beamtinnen, Beamten, Richterinnen und Richter",
+      "jahre": {
+        "2027": 4434139635,
+        "2028": 4768511190
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "jahre": {
+        "2027": 554923762,
+        "2028": 547744123
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "446",
+      "bezeichnung": "Beihilfen für Versorgungsempfängerinnen, Versorgungsempfänger und dergleichen",
+      "jahre": {
+        "2027": 1091546615,
+        "2028": 1164107823
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "452",
+      "bezeichnung": "Personalbezogene Zahlungen an die Sozialversicherungsträger, soweit nicht unter Obergruppen 41 bis 44 erfasst",
+      "jahre": {
+        "2027": 18296781,
+        "2028": 19416593
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "jahre": {
+        "2027": 281733450,
+        "2028": 283967058
+      }
+    },
+    {
+      "hauptgruppe": "4",
+      "obergruppe": "46",
+      "gruppe": "461",
+      "bezeichnung": "Globale Mehrausgaben für Personalausgaben",
+      "jahre": {
+        "2027": 737874513,
+        "2028": 698652879
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "jahre": {
+        "2027": 455143075,
+        "2028": 439756092
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "jahre": {
+        "2027": 1471307687,
+        "2028": 1461523025
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "bezeichnung": "Mieten und Pachten",
+      "jahre": {
+        "2027": 457486239,
+        "2028": 446330231
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "jahre": {
+        "2027": 461179800,
+        "2028": 451798379
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "521",
+      "bezeichnung": "Unterhaltung des sonstigen unbeweglichen Vermögens",
+      "jahre": {
+        "2027": 1150000000,
+        "2028": 1173000000
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "jahre": {
+        "2027": 1156016976,
+        "2028": 1111942154
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "532",
+      "bezeichnung": "Ausgaben für Aufträge und Dienstleistungen",
+      "jahre": {
+        "2027": 4000000,
+        "2028": 4500000
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "533",
+      "bezeichnung": "Dienstleistungen Außenstehender",
+      "jahre": {
+        "2027": 37667019,
+        "2028": 25258123
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "jahre": {
+        "2027": 925994367,
+        "2028": 956598159
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "537",
+      "bezeichnung": "Gutachten, Untersuchungen und Planungen",
+      "jahre": {
+        "2027": 6500000,
+        "2028": 0
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "bezeichnung": "Besondere sächliche Fachausgaben",
+      "jahre": {
+        "2027": 851480611,
+        "2028": 736181354
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "546",
+      "bezeichnung": "Sonstige sächliche Ausgaben",
+      "jahre": {
+        "2027": 1189227386,
+        "2028": 1047756590
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "jahre": {
+        "2027": 2666399441,
+        "2028": 2307805454
+      }
+    },
+    {
+      "hauptgruppe": "5",
+      "obergruppe": "57",
+      "gruppe": "575",
+      "bezeichnung": "Zinsausgaben an sonstigen inländischen Kreditmarkt",
+      "jahre": {
+        "2027": 3170260314,
+        "2028": 3442950653
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "613",
+      "bezeichnung": "Allgemeine Zuweisungen an Gemeinden und Gemeindeverbände",
+      "jahre": {
+        "2027": 14763234029,
+        "2028": 14747844283
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "617",
+      "bezeichnung": "Allgemeine Zuweisungen an Zweckverbände",
+      "jahre": {
+        "2027": 36448832,
+        "2028": 37027754
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "62",
+      "gruppe": "624",
+      "bezeichnung": "Schuldendiensthilfen an Sondervermögen",
+      "jahre": {
+        "2027": 22630483,
+        "2028": 22571502
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "631",
+      "bezeichnung": "Sonstige Zuweisungen an Bund",
+      "jahre": {
+        "2027": 2118785759,
+        "2028": 2175355398
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "632",
+      "bezeichnung": "Sonstige Zuweisungen an Länder",
+      "jahre": {
+        "2027": 348836157,
+        "2028": 456580334
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "jahre": {
+        "2027": 28323654488,
+        "2028": 28994730343
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "634",
+      "bezeichnung": "Sonstige Zuweisungen an Sondervermögen",
+      "jahre": {
+        "2027": 420000000,
+        "2028": 420000000
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "636",
+      "bezeichnung": "Sonstige Zuweisungen an Sozialversicherungsträger sowie an die Bundesagentur für Arbeit",
+      "jahre": {
+        "2027": 123316251,
+        "2028": 131746854
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "637",
+      "bezeichnung": "Sonstige Zuweisungen an Zweckverbände",
+      "jahre": {
+        "2027": 1097607391,
+        "2028": 1111569420
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "66",
+      "gruppe": "662",
+      "bezeichnung": "Schuldendiensthilfen an private Unternehmen",
+      "jahre": {
+        "2027": 141477837,
+        "2028": 143993420
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "67",
+      "gruppe": "671",
+      "bezeichnung": "Erstattungen an Sonstige im Inland",
+      "jahre": {
+        "2027": 334172756,
+        "2028": 336831445
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "681",
+      "bezeichnung": "Renten, Unterstützungen und sonstige Geldleistungen an natürliche Personen",
+      "jahre": {
+        "2027": 143495993,
+        "2028": 145047479
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "jahre": {
+        "2027": 2766237136,
+        "2028": 2817239587
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "683",
+      "bezeichnung": "Zuschüsse für laufende Zwecke an private Unternehmen, soweit nicht Gruppe 662",
+      "jahre": {
+        "2027": 4433427983,
+        "2028": 4484000458
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "jahre": {
+        "2027": 6019412764,
+        "2028": 6105007508
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "685",
+      "bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Einrichtungen",
+      "jahre": {
+        "2027": 816390881,
+        "2028": 827440079
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "686",
+      "bezeichnung": "Sonstige Zuschüsse für laufende Zwecke im Inland",
+      "jahre": {
+        "2027": 7847117818,
+        "2028": 7974827815
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "687",
+      "bezeichnung": "Zuschüsse für laufende Zwecke im Ausland",
+      "jahre": {
+        "2027": 4000000,
+        "2028": 4080000
+      }
+    },
+    {
+      "hauptgruppe": "6",
+      "obergruppe": "69",
+      "gruppe": "698",
+      "bezeichnung": "Vermögensübertragungen an Sonstige im Inland, soweit nicht Investitionszuschüsse",
+      "jahre": {
+        "2027": 9325044,
+        "2028": 9300741
+      }
+    },
+    {
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "jahre": {
+        "2027": 525926329,
+        "2028": 499158203
+      }
+    },
+    {
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "712",
+      "bezeichnung": "Große Neu-, Um- und Erweiterungsbauten",
+      "jahre": {
+        "2027": 2016097913,
+        "2028": 1647583486
+      }
+    },
+    {
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "719",
+      "bezeichnung": "Bauunterhaltung größeren Umfangs und Sanierung",
+      "jahre": {
+        "2027": 164626780,
+        "2028": 150674790
+      }
+    },
+    {
+      "hauptgruppe": "7",
+      "obergruppe": "79",
+      "gruppe": "799",
+      "bezeichnung": "Nicht aufteilbare Baumaßnahmen",
+      "jahre": {
+        "2027": 107743578,
+        "2028": 103980821
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "81",
+      "gruppe": "812",
+      "bezeichnung": "Erwerb von Geräten und sonstigen beweglichen Sachen",
+      "jahre": {
+        "2027": 339082184,
+        "2028": 291228253
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "82",
+      "gruppe": "821",
+      "bezeichnung": "Erwerb von Grundstücken",
+      "jahre": {
+        "2027": 72338554,
+        "2028": 0
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "82",
+      "gruppe": "823",
+      "bezeichnung": "Erwerb von sonstigem unbeweglichen Vermögen",
+      "jahre": {
+        "2027": 15747859,
+        "2028": 16062482
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "83",
+      "gruppe": "831",
+      "bezeichnung": "Erwerb von Beteiligungen und dergleichen im Inland",
+      "jahre": {
+        "2027": 2085309151,
+        "2028": 1748189780
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "87",
+      "gruppe": "871",
+      "bezeichnung": "Ausgaben für die Inanspruchnahme aus Gewährleistungen an das Inland",
+      "jahre": {
+        "2027": 26264805,
+        "2028": 25786605
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "jahre": {
+        "2027": 4209326965,
+        "2028": 3867273035
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "884",
+      "bezeichnung": "Zuweisungen für Investitionen an Sondervermögen",
+      "jahre": {
+        "2027": 900000000,
+        "2028": 1030000000
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "887",
+      "bezeichnung": "Zuweisungen für Investitionen an Zweckverbände",
+      "jahre": {
+        "2027": 102398070,
+        "2028": 93436123
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "jahre": {
+        "2027": 4426070369,
+        "2028": 4186791103
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "892",
+      "bezeichnung": "Zuschüsse für Investitionen an private Unternehmen",
+      "jahre": {
+        "2027": 2187045169,
+        "2028": 1803866949
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "893",
+      "bezeichnung": "Zuschüsse für Investitionen an Sonstige im Inland",
+      "jahre": {
+        "2027": 2452573945,
+        "2028": 2302737398
+      }
+    },
+    {
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "899",
+      "bezeichnung": "Nicht aufteilbare Investitionsausgaben",
+      "jahre": {
+        "2027": 1292988302,
+        "2028": 1021746881
+      }
+    },
+    {
+      "hauptgruppe": "9",
+      "obergruppe": "91",
+      "gruppe": "919",
+      "bezeichnung": "Zuführungen an sonstige Rücklagen",
+      "jahre": {
+        "2027": 4054183793,
+        "2028": 3172445973
+      }
+    }
+  ],
+  "funktionen": [
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "011",
+      "bezeichnung": "Politische Führung",
+      "jahre": {
+        "2027": 383317736,
+        "2028": 387536427
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "012",
+      "bezeichnung": "Innere Verwaltung",
+      "jahre": {
+        "2027": 3221217603,
+        "2028": 3152024759
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "013",
+      "bezeichnung": "Informationswesen",
+      "jahre": {
+        "2027": 1267495945,
+        "2028": 1149881010
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "016",
+      "bezeichnung": "Hochbauverwaltung",
+      "jahre": {
+        "2027": 2998708867,
+        "2028": 2623160270
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "018",
+      "bezeichnung": "Versorgung einschließlich Beihilfen für Versorgungsempfängerinnen und Versorgungsempfänger, soweit nicht unter Funktion 038, 039, 048, 058, 068, 118 oder 138",
+      "jahre": {
+        "2027": 5525686250,
+        "2028": 5932619013
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "019",
+      "bezeichnung": "Sonstige allgemeine Staatsaufgaben",
+      "jahre": {
+        "2027": 359687016,
+        "2028": 319538871
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "029",
+      "bezeichnung": "Sonstige auswärtige Angelegenheiten",
+      "jahre": {
+        "2027": 42644674,
+        "2028": 43763690
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "042",
+      "bezeichnung": "Polizei",
+      "jahre": {
+        "2027": 4417666219,
+        "2028": 4497464963
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "043",
+      "bezeichnung": "Grenz- und Staatssicherheit (Simulationsfunktion)",
+      "jahre": {
+        "2027": 905023838,
+        "2028": 921859265
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "045",
+      "bezeichnung": "Bevölkerungs- und Katastrophenschutz",
+      "jahre": {
+        "2027": 847541092,
+        "2028": 846267646
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "051",
+      "bezeichnung": "Gerichte und Staatsanwaltschaften",
+      "jahre": {
+        "2027": 3160520242,
+        "2028": 3161031935
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "056",
+      "bezeichnung": "Justizvollzugsanstalten",
+      "jahre": {
+        "2027": 1582850892,
+        "2028": 1580334813
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "059",
+      "bezeichnung": "Sonstige Rechtsschutzaufgaben",
+      "jahre": {
+        "2027": 500623515,
+        "2028": 495557306
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "061",
+      "bezeichnung": "Steuer- und Zollverwaltung",
+      "jahre": {
+        "2027": 2317874068,
+        "2028": 2397003586
+      }
+    },
+    {
+      "hauptfunktion": "0",
+      "hauptfunktion_bezeichnung": "Allgemeine Dienste",
+      "funktion": "062",
+      "bezeichnung": "Schulden-, Vermögens- und sonstige Finanzverwaltung",
+      "jahre": {
+        "2027": 168778316,
+        "2028": 172419430
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "111",
+      "bezeichnung": "Unterrichtsverwaltung",
+      "jahre": {
+        "2027": 611489269,
+        "2028": 616903655
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "112",
+      "bezeichnung": "Öffentliche Grundschulen",
+      "jahre": {
+        "2027": 3631546944,
+        "2028": 3651690767
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "114",
+      "bezeichnung": "Öffentliche weiterführende allgemeinbildende Schulen (ohne Sonderschulen/Förderschulen)",
+      "jahre": {
+        "2027": 6758233944,
+        "2028": 6928043271
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "115",
+      "bezeichnung": "Private weiterführende allgemeinbildende Schulen (ohne Sonderschulen/Förderschulen)",
+      "jahre": {
+        "2027": 822397160,
+        "2028": 854027820
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "124",
+      "bezeichnung": "Öffentliche Sonderschulen/ Förderschulen des allgemeinbildenden Bereichs",
+      "jahre": {
+        "2027": 884248568,
+        "2028": 932059900
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "127",
+      "bezeichnung": "Öffentliche berufliche Schulen",
+      "jahre": {
+        "2027": 1378870124,
+        "2028": 1414192164
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "129",
+      "bezeichnung": "Sonstige schulische Aufgaben",
+      "jahre": {
+        "2027": 5378774016,
+        "2028": 5462189518
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "132",
+      "bezeichnung": "Hochschulkliniken",
+      "jahre": {
+        "2027": 2032184655,
+        "2028": 2067710609
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "133",
+      "bezeichnung": "Öffentliche Hochschulen und Berufsakademien",
+      "jahre": {
+        "2027": 8769329559,
+        "2028": 8922631952
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "142",
+      "bezeichnung": "Förderung für Studierende und wissenschaftlichen Nachwuchs",
+      "jahre": {
+        "2027": 50000000,
+        "2028": 51000000
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "154",
+      "bezeichnung": "Ausbildung der Lehrkräfte",
+      "jahre": {
+        "2027": 294230764,
+        "2028": 308851513
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "165",
+      "bezeichnung": "Forschung und experimentelle Entwicklung",
+      "jahre": {
+        "2027": 341233895,
+        "2028": 310511769
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "183",
+      "bezeichnung": "Museen, Sammlungen, Ausstellungen",
+      "jahre": {
+        "2027": 160000000,
+        "2028": 163200000
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "187",
+      "bezeichnung": "Sonstige Kulturpflege",
+      "jahre": {
+        "2027": 2096455727,
+        "2028": 2099614080
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "188",
+      "bezeichnung": "Verwaltung für kulturelle Angelegenheiten",
+      "jahre": {
+        "2027": 105630247,
+        "2028": 106462181
+      }
+    },
+    {
+      "hauptfunktion": "1",
+      "hauptfunktion_bezeichnung": "Bildungswesen, Wissenschaft, Forschung, kulturelle Angelegenheiten",
+      "funktion": "195",
+      "bezeichnung": "Denkmalschutz und -pflege",
+      "jahre": {
+        "2027": 335022731,
+        "2028": 336012149
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "219",
+      "bezeichnung": "Sonstige Verwaltung für soziale Angelegenheiten",
+      "jahre": {
+        "2027": 280406720,
+        "2028": 284452052
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "229",
+      "bezeichnung": "Sonstige Sozialversicherungen",
+      "jahre": {
+        "2027": 2118785759,
+        "2028": 2175355398
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "253",
+      "bezeichnung": "Aktive Arbeitsmarktpolitik",
+      "jahre": {
+        "2027": 3248730745,
+        "2028": 3195711982
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "261",
+      "bezeichnung": "Jugendarbeit und Jugendverbandsarbeit",
+      "jahre": {
+        "2027": 1017251026,
+        "2028": 1026977785
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "271",
+      "bezeichnung": "Kindertagesbetreuung nach dem SGB VIII",
+      "jahre": {
+        "2027": 5701727808,
+        "2028": 5845717885
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "286",
+      "bezeichnung": "Leistungen nach dem SGB XII - nur Flächenländer",
+      "jahre": {
+        "2027": 6008255071,
+        "2028": 6062536858
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "287",
+      "bezeichnung": "Leistungen nach dem Asylbewerberleistungsgesetz",
+      "jahre": {
+        "2027": 1201651011,
+        "2028": 1212507370
+      }
+    },
+    {
+      "hauptfunktion": "2",
+      "hauptfunktion_bezeichnung": "Soziale Sicherung, Familie und Jugend, Arbeitsmarktpolitik",
+      "funktion": "291",
+      "bezeichnung": "Sonstige soziale Angelegenheiten",
+      "jahre": {
+        "2027": 2391268769,
+        "2028": 2400428256
+      }
+    },
+    {
+      "hauptfunktion": "3",
+      "hauptfunktion_bezeichnung": "Gesundheit, Umwelt, Sport und Erholung",
+      "funktion": "312",
+      "bezeichnung": "Krankenhäuser und Heilstätten",
+      "jahre": {
+        "2027": 1200000000,
+        "2028": 1300000000
+      }
+    },
+    {
+      "hauptfunktion": "3",
+      "hauptfunktion_bezeichnung": "Gesundheit, Umwelt, Sport und Erholung",
+      "funktion": "314",
+      "bezeichnung": "Gesundheitsschutz",
+      "jahre": {
+        "2027": 1736874143,
+        "2028": 1785249322
+      }
+    },
+    {
+      "hauptfunktion": "3",
+      "hauptfunktion_bezeichnung": "Gesundheit, Umwelt, Sport und Erholung",
+      "funktion": "322",
+      "bezeichnung": "Sport",
+      "jahre": {
+        "2027": 715647422,
+        "2028": 717158345
+      }
+    },
+    {
+      "hauptfunktion": "3",
+      "hauptfunktion_bezeichnung": "Gesundheit, Umwelt, Sport und Erholung",
+      "funktion": "331",
+      "bezeichnung": "Umwelt- und Naturschutzverwaltung",
+      "jahre": {
+        "2027": 108351080,
+        "2028": 102868228
+      }
+    },
+    {
+      "hauptfunktion": "3",
+      "hauptfunktion_bezeichnung": "Gesundheit, Umwelt, Sport und Erholung",
+      "funktion": "332",
+      "bezeichnung": "Maßnahmen des Umwelt- und Naturschutzes",
+      "jahre": {
+        "2027": 731705668,
+        "2028": 701830511
+      }
+    },
+    {
+      "hauptfunktion": "4",
+      "hauptfunktion_bezeichnung": "Wohnungswesen, Städtebau, Raumordnung und kommunale Gemeinschaftsdienste",
+      "funktion": "411",
+      "bezeichnung": "Förderung des Wohnungsbaues",
+      "jahre": {
+        "2027": 187637573,
+        "2028": 247633573
+      }
+    },
+    {
+      "hauptfunktion": "4",
+      "hauptfunktion_bezeichnung": "Wohnungswesen, Städtebau, Raumordnung und kommunale Gemeinschaftsdienste",
+      "funktion": "422",
+      "bezeichnung": "Raumordnung und Landesplanung",
+      "jahre": {
+        "2027": 512387307,
+        "2028": 493742160
+      }
+    },
+    {
+      "hauptfunktion": "4",
+      "hauptfunktion_bezeichnung": "Wohnungswesen, Städtebau, Raumordnung und kommunale Gemeinschaftsdienste",
+      "funktion": "423",
+      "bezeichnung": "Städtebauförderung",
+      "jahre": {
+        "2027": 1090617470,
+        "2028": 1001424706
+      }
+    },
+    {
+      "hauptfunktion": "5",
+      "hauptfunktion_bezeichnung": "Ernährung, Landwirtschaft und Forsten",
+      "funktion": "511",
+      "bezeichnung": "Verwaltung für Ernährung und Landwirtschaft",
+      "jahre": {
+        "2027": 37495021,
+        "2028": 36059723
+      }
+    },
+    {
+      "hauptfunktion": "5",
+      "hauptfunktion_bezeichnung": "Ernährung, Landwirtschaft und Forsten",
+      "funktion": "521",
+      "bezeichnung": "Agrarstruktur und ländlicher Raum",
+      "jahre": {
+        "2027": 712056934,
+        "2028": 680741056
+      }
+    },
+    {
+      "hauptfunktion": "5",
+      "hauptfunktion_bezeichnung": "Ernährung, Landwirtschaft und Forsten",
+      "funktion": "523",
+      "bezeichnung": "Landwirtschaftliche Produktion, Tiergesundheit und Ernährung",
+      "jahre": {
+        "2027": 209644792,
+        "2028": 200862567
+      }
+    },
+    {
+      "hauptfunktion": "5",
+      "hauptfunktion_bezeichnung": "Ernährung, Landwirtschaft und Forsten",
+      "funktion": "531",
+      "bezeichnung": "Forstwirtschaft und Jagd",
+      "jahre": {
+        "2027": 422106941,
+        "2028": 407242369
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "611",
+      "bezeichnung": "Verwaltung für Energie- und Wasserwirtschaft, Gewerbe und Dienstleistungen",
+      "jahre": {
+        "2027": 247971388,
+        "2028": 229604116
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "623",
+      "bezeichnung": "Wasserwirtschaft und Kulturbau",
+      "jahre": {
+        "2027": 801182827,
+        "2028": 769695255
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "631",
+      "bezeichnung": "Kohlenbergbau",
+      "jahre": {
+        "2027": 40000000,
+        "2028": 40000000
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "632",
+      "bezeichnung": "Sonstiger Bergbau",
+      "jahre": {
+        "2027": 60000000,
+        "2028": 85000000
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "635",
+      "bezeichnung": "Handwerk und Kleingewerbe",
+      "jahre": {
+        "2027": 832195406,
+        "2028": 754858370
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "645",
+      "bezeichnung": "Abwasserentsorgung",
+      "jahre": {
+        "2027": 2000000,
+        "2028": 1500000
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "649",
+      "bezeichnung": "Sonstige Energie- und Wasserversorgung",
+      "jahre": {
+        "2027": 1150122701,
+        "2028": 1228752673
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "651",
+      "bezeichnung": "Handel",
+      "jahre": {
+        "2027": 40000000,
+        "2028": 55000000
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "652",
+      "bezeichnung": "Tourismus",
+      "jahre": {
+        "2027": 550660855,
+        "2028": 500994345
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "691",
+      "bezeichnung": "Betriebliche Investitionen",
+      "jahre": {
+        "2027": 1830829899,
+        "2028": 1660688409
+      }
+    },
+    {
+      "hauptfunktion": "6",
+      "hauptfunktion_bezeichnung": "Energie- und Wasserwirtschaft, Gewerbe, Dienstleistungen",
+      "funktion": "692",
+      "bezeichnung": "Verbesserung der Wirtschafts- und Infrastruktur",
+      "jahre": {
+        "2027": 970133731,
+        "2028": 873778677
+      }
+    },
+    {
+      "hauptfunktion": "7",
+      "hauptfunktion_bezeichnung": "Verkehrs- und Nachrichtenwesen",
+      "funktion": "711",
+      "bezeichnung": "Verwaltung für Straßen- und Brückenbau",
+      "jahre": {
+        "2027": 111382219,
+        "2028": 112572327
+      }
+    },
+    {
+      "hauptfunktion": "7",
+      "hauptfunktion_bezeichnung": "Verkehrs- und Nachrichtenwesen",
+      "funktion": "719",
+      "bezeichnung": "Sonstige Verkehrs- und Nachrichtenverwaltung",
+      "jahre": {
+        "2027": 174194474,
+        "2028": 175178734
+      }
+    },
+    {
+      "hauptfunktion": "7",
+      "hauptfunktion_bezeichnung": "Verkehrs- und Nachrichtenwesen",
+      "funktion": "723",
+      "bezeichnung": "Landesstraßen",
+      "jahre": {
+        "2027": 4064293308,
+        "2028": 3840595461
+      }
+    },
+    {
+      "hauptfunktion": "7",
+      "hauptfunktion_bezeichnung": "Verkehrs- und Nachrichtenwesen",
+      "funktion": "741",
+      "bezeichnung": "Öffentlicher Personennahverkehr",
+      "jahre": {
+        "2027": 1837000000,
+        "2028": 1849600000
+      }
+    },
+    {
+      "hauptfunktion": "7",
+      "hauptfunktion_bezeichnung": "Verkehrs- und Nachrichtenwesen",
+      "funktion": "742",
+      "bezeichnung": "Eisenbahnen",
+      "jahre": {
+        "2027": 6315938392,
+        "2028": 6363805485
+      }
+    },
+    {
+      "hauptfunktion": "7",
+      "hauptfunktion_bezeichnung": "Verkehrs- und Nachrichtenwesen",
+      "funktion": "751",
+      "bezeichnung": "Luftfahrt",
+      "jahre": {
+        "2027": 120000000,
+        "2028": 82500000
+      }
+    },
+    {
+      "hauptfunktion": "7",
+      "hauptfunktion_bezeichnung": "Verkehrs- und Nachrichtenwesen",
+      "funktion": "772",
+      "bezeichnung": "Rundfunk und Fernsehen",
+      "jahre": {
+        "2027": 656392294,
+        "2028": 659095059
+      }
+    },
+    {
+      "hauptfunktion": "8",
+      "hauptfunktion_bezeichnung": "Finanzwirtschaft",
+      "funktion": "811",
+      "bezeichnung": "Grundvermögen",
+      "jahre": {
+        "2027": 120000000,
+        "2028": 150000000
+      }
+    },
+    {
+      "hauptfunktion": "8",
+      "hauptfunktion_bezeichnung": "Finanzwirtschaft",
+      "funktion": "812",
+      "bezeichnung": "Kapitalvermögen",
+      "jahre": {
+        "2027": 2193261802,
+        "2028": 1726485013
+      }
+    },
+    {
+      "hauptfunktion": "8",
+      "hauptfunktion_bezeichnung": "Finanzwirtschaft",
+      "funktion": "821",
+      "bezeichnung": "Steuern und Finanzzuweisungen",
+      "jahre": {
+        "2027": 17657207635,
+        "2028": 17535711794
+      }
+    },
+    {
+      "hauptfunktion": "8",
+      "hauptfunktion_bezeichnung": "Finanzwirtschaft",
+      "funktion": "831",
+      "bezeichnung": "Schulden",
+      "jahre": {
+        "2027": 3289837293,
+        "2028": 3536188285
+      }
+    },
+    {
+      "hauptfunktion": "8",
+      "hauptfunktion_bezeichnung": "Finanzwirtschaft",
+      "funktion": "851",
+      "bezeichnung": "Rücklagen",
+      "jahre": {
+        "2027": 4054183793,
+        "2028": 3172445973
+      }
+    },
+    {
+      "hauptfunktion": "8",
+      "hauptfunktion_bezeichnung": "Finanzwirtschaft",
+      "funktion": "861",
+      "bezeichnung": "Sonstiges",
+      "jahre": {
+        "2027": 872446499,
+        "2028": 985821808
+      }
+    },
+    {
+      "hauptfunktion": "8",
+      "hauptfunktion_bezeichnung": "Finanzwirtschaft",
+      "funktion": "881",
+      "bezeichnung": "Globalposten",
+      "jahre": {
+        "2027": 1927746590,
+        "2028": 1866614122
+      }
+    }
+  ]
+}

@@ -1,0 +1,660 @@
+---
+/**
+ * Gesamtplan einer Snapshot-Periode (/haushalt/<periode>/gesamtplan/): Einnahmen und Ausgaben
+ * nach Arten mit Abgrenzungen, Hauptgruppen 0–9, Obergruppen und Gruppen, Funktionenplan,
+ * Finanzierungsübersicht, Kredite und Tilgung sowie die Kontrollsummen Einzelpläne = Gesamtplan.
+ * Alle Beträge stammen unverändert aus dem Snapshot; die Seite prüft die Summengleichheiten vor
+ * der Ausgabe und bricht bei einer Abweichung ab.
+ */
+import { getPeriodenGenitiv } from '../../../lib/haushalt/seite.ts';
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import '../../../styles/haushalt/uebersicht.css';
+import '../../../styles/haushalt/gesamtplan.css';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../components/haushalt/DataTableFrame.astro';
+import FilterBar from '../../../components/haushalt/FilterBar.astro';
+import GroupedBarChart from '../../../components/haushalt/GroupedBarChart.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import Abgrenzungen from '../../../components/haushalt/gesamtplan/Abgrenzungen.astro';
+import GliederungsTabelle from '../../../components/haushalt/gesamtplan/GliederungsTabelle.astro';
+import JahresTabelle from '../../../components/haushalt/gesamtplan/JahresTabelle.astro';
+import { getPeriodenKontext, getPeriodenPfade } from '../../../components/haushalt/gesamtplan/periode.ts';
+import { normalizeSearch } from '../../../components/haushalt/format.ts';
+import {
+  AUSGABE_HAUPTGRUPPEN,
+  EINNAHME_HAUPTGRUPPEN,
+  HAUPTGRUPPEN,
+  HAUPTGRUPPEN_SCHLUESSEL,
+  getAusgabeKategorien,
+  getBundesmittel,
+  getEinnahmeKategorien,
+  getEinzelplanKennzahlen,
+  getHauptfunktionen,
+  getJahre,
+  getKennzahlen,
+  type KategorieWert,
+  type Kennzahl,
+  type Kennzahlenblock,
+} from '../../../lib/haushalt/kennzahlen.ts';
+import { loadEinzelplanOverlays, loadFreitextOverlay, publicBezeichnung } from '../../../lib/haushalt/oeffentlich.ts';
+import { loadEinzelplaene, loadGesamtplan } from '../../../lib/haushalt/snapshot.ts';
+import type { HauptgruppenSchluessel } from '../../../lib/haushalt/types.ts';
+import { getBudgetPeriodPageUrl, getBudgetPeriodPlanUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return getPeriodenPfade();
+}
+
+const { periode: id } = Astro.params as { periode: string };
+const ctx = getPeriodenKontext(id, 'gesamtplan');
+const { periode, jahre } = ctx;
+const gesamtplan = loadGesamtplan(id);
+if (getJahre(gesamtplan).join() !== jahre.join()) {
+  throw new Error(`Haushaltsperiode ${id}: Jahre des Gesamtplans passen nicht zum Register.`);
+}
+const erstesJahr = jahre[0];
+const letztesJahr = jahre[jahre.length - 1];
+const jahresText = jahre.length === 2 ? `${erstesJahr} und ${letztesJahr}` : jahre.join(', ');
+const freitexte = loadFreitextOverlay(id);
+const jahrDaten = (jahr: string) => gesamtplan.jahre[jahr as `${number}`];
+const bloecke = new Map<string, Kennzahlenblock>(jahre.map((jahr) => [jahr, getKennzahlen(gesamtplan, jahr)]));
+const block = (jahr: string) => bloecke.get(jahr)!;
+const nachJahr = <T,>(wert: (jahr: string) => T) => Object.fromEntries(jahre.map((jahr) => [jahr, wert(jahr)])) as Record<string, T>;
+const exportMeta = { Periode: id, Status: ctx.status.label, Datenstand: ctx.datenstand };
+
+/** Prüft eine Summengleichheit je Jahr; eine Abweichung bricht die Ausgabe ab. */
+const pruefe = (bezeichnung: string, ist: Record<string, number>, soll: Record<string, number>) => {
+  for (const jahr of jahre) {
+    if (ist[jahr] !== soll[jahr]) {
+      throw new Error(`Gesamtplan ${id} ${jahr}: ${bezeichnung} ${ist[jahr]} weicht vom Gesamtplan ${soll[jahr]} ab.`);
+    }
+  }
+};
+const einnahmen = nachJahr((jahr) => jahrDaten(jahr).einnahmen);
+const ausgaben = nachJahr((jahr) => jahrDaten(jahr).ausgaben);
+
+// --------------------------------------------------------------------- Einnahme- und Ausgabearten
+const kategorienZeilen = (je: (jahr: string) => KategorieWert[]) => {
+  const proJahr = new Map(jahre.map((jahr) => [jahr, je(jahr)]));
+  const muster = proJahr.get(erstesJahr)!;
+  return muster
+    .map((kategorie) => ({
+      kategorie,
+      werte: nachJahr((jahr) => proJahr.get(jahr)!.find((eintrag) => eintrag.id === kategorie.id)?.betrag ?? 0),
+      umfaenge: [...new Set(jahre.map((jahr) => proJahr.get(jahr)!.find((eintrag) => eintrag.id === kategorie.id)?.umfang ?? ''))],
+    }))
+    .filter((zeile) => jahre.some((jahr) => zeile.werte[jahr] !== 0));
+};
+const einnahmeArten = kategorienZeilen((jahr) => getEinnahmeKategorien(gesamtplan, jahr, { mitLeeren: true }));
+const ausgabeArten = kategorienZeilen((jahr) => getAusgabeKategorien(gesamtplan, jahr, { mitLeeren: true }));
+const umfangText = (umfaenge: string[]) => umfaenge.filter((text) => text && text !== 'keine Gruppen veranschlagt').join('; ');
+const artZeilen = (arten: typeof einnahmeArten) =>
+  arten.map(({ kategorie, werte, umfaenge }) => ({ id: kategorie.id, label: kategorie.label, umfang: umfangText(umfaenge), werte }));
+const artAbgrenzungen = (arten: typeof einnahmeArten) =>
+  arten.map(({ kategorie }) => ({ begriff: kategorie.label, definition: kategorie.definition }));
+const bundesmittel = jahre.map((jahr) => getBundesmittel(gesamtplan, jahr));
+
+// Sammelgrößen (nachrichtlich): Investitionen und Schuldendienst mit Bestandteilen.
+type Feld = Exclude<keyof Kennzahlenblock, 'jahr'>;
+const kennzahlZeilen = (felder: Array<[Feld, string?]>) =>
+  felder.flatMap(([feld, label]) => {
+    const muster = jahre.map((jahr) => block(jahr)[feld]).find((wert): wert is Kennzahl => wert !== null);
+    if (!muster) return [];
+    return [
+      { id: muster.id, label: label ?? muster.label, werte: nachJahr((jahr) => block(jahr)[feld]?.betrag ?? null) },
+      ...(muster.bestandteile ?? []).map((teil, index) => ({
+        id: `${muster.id}-${index + 1}`,
+        label: teil.label,
+        ebene: 1 as const,
+        werte: nachJahr((jahr) => block(jahr)[feld]?.bestandteile?.[index]?.betrag ?? null),
+      })),
+    ];
+  });
+const kennzahlAbgrenzungen = (felder: Array<[Feld, string?]>) =>
+  felder.flatMap(([feld, label]) => {
+    const kennzahl = block(letztesJahr)[feld] ?? block(erstesJahr)[feld];
+    return kennzahl ? [{ begriff: label ?? kennzahl.label, definition: kennzahl.definition }] : [];
+  });
+const sammelFelder: Array<[Feld, string?]> = [['investitionen'], ['schuldendienst'], ['zufuehrungLiquiditaetsruecklage']];
+
+// --------------------------------------------------------------------- Hauptgruppen
+const hgZeilen = (gruppen: readonly HauptgruppenSchluessel[]) =>
+  gruppen.map((hg) => ({ id: `hg-${hg}`, kennung: hg, label: HAUPTGRUPPEN[hg].amtlich, werte: nachJahr((jahr) => jahrDaten(jahr).hauptgruppen[hg]) }));
+const summeHg = (gruppen: readonly HauptgruppenSchluessel[]) =>
+  nachJahr((jahr) => gruppen.reduce((summe, hg) => summe + jahrDaten(jahr).hauptgruppen[hg], 0));
+pruefe('Summe der Hauptgruppen 0 bis 3', summeHg(EINNAHME_HAUPTGRUPPEN), einnahmen);
+pruefe('Summe der Hauptgruppen 4 bis 9', summeHg(AUSGABE_HAUPTGRUPPEN), ausgaben);
+
+// --------------------------------------------------------------------- Obergruppen und Gruppen
+const gruppierung = [...gesamtplan.gruppierung].sort((left, right) => left.gruppe.localeCompare(right.gruppe));
+const gruppenWerte = (zeile: (typeof gruppierung)[number]) => nachJahr((jahr) => zeile.jahre[jahr as `${number}`] ?? 0);
+for (const hg of HAUPTGRUPPEN_SCHLUESSEL) {
+  const ist = nachJahr((jahr) => gruppierung.filter((zeile) => zeile.hauptgruppe === hg).reduce((summe, zeile) => summe + (zeile.jahre[jahr as `${number}`] ?? 0), 0));
+  pruefe(`Summe der Gruppen der Hauptgruppe ${hg}`, ist, nachJahr((jahr) => jahrDaten(jahr).hauptgruppen[hg]));
+}
+const hgOptionen = HAUPTGRUPPEN_SCHLUESSEL.filter((hg) => gruppierung.some((zeile) => zeile.hauptgruppe === hg)).map((hg) => ({
+  value: hg,
+  label: `${hg} – ${HAUPTGRUPPEN[hg].kurz}`,
+}));
+const hgTitel = (hg: HauptgruppenSchluessel) => `Hauptgruppe ${hg}: ${HAUPTGRUPPEN[hg].amtlich} (${HAUPTGRUPPEN[hg].seite === 'Einnahme' ? 'Einnahmen' : 'Ausgaben'})`;
+const gruppenAbschnitte = HAUPTGRUPPEN_SCHLUESSEL.filter((hg) => gruppierung.some((zeile) => zeile.hauptgruppe === hg)).map((hg) => ({
+  titel: hgTitel(hg),
+  zeilen: gruppierung
+    .filter((zeile) => zeile.hauptgruppe === hg)
+    .map((zeile) => {
+      const label = publicBezeichnung(zeile.bezeichnung, freitexte);
+      return {
+        kennung: zeile.gruppe,
+        label,
+        zusatz: zeile.obergruppe,
+        felder: { hauptgruppe: hg, obergruppe: zeile.obergruppe },
+        werte: gruppenWerte(zeile),
+        suchtext: `${zeile.gruppe} ${zeile.obergruppe} ${label}`,
+      };
+    }),
+}));
+const obergruppen = [...new Set(gruppierung.map((zeile) => zeile.obergruppe))].sort();
+const ogOptionen = obergruppen.map((og) => ({ value: og, label: `Obergruppe ${og}` }));
+const obergruppenAbschnitte = HAUPTGRUPPEN_SCHLUESSEL.filter((hg) => gruppierung.some((zeile) => zeile.hauptgruppe === hg)).map((hg) => ({
+  titel: hgTitel(hg),
+  zeilen: obergruppen
+    .filter((og) => gruppierung.some((zeile) => zeile.obergruppe === og && zeile.hauptgruppe === hg))
+    .map((og) => {
+      const enthalten = gruppierung.filter((zeile) => zeile.obergruppe === og && zeile.hauptgruppe === hg);
+      return {
+        kennung: og,
+        label: enthalten.map((zeile) => `${zeile.gruppe} ${publicBezeichnung(zeile.bezeichnung, freitexte)}`).join('; '),
+        felder: { hauptgruppe: hg },
+        werte: nachJahr((jahr) => enthalten.reduce((summe, zeile) => summe + (zeile.jahre[jahr as `${number}`] ?? 0), 0)),
+        suchtext: `${og} ${enthalten.map((zeile) => `${zeile.gruppe} ${publicBezeichnung(zeile.bezeichnung, freitexte)}`).join(' ')}`,
+      };
+    }),
+}));
+const summeGruppen = (seite: readonly HauptgruppenSchluessel[]) =>
+  nachJahr((jahr) => gruppierung.filter((zeile) => seite.includes(zeile.hauptgruppe)).reduce((summe, zeile) => summe + (zeile.jahre[jahr as `${number}`] ?? 0), 0));
+const gruppenSummen = [
+  { label: 'Summe der Einnahmegruppen = Einnahmen laut Gesamtplan', werte: summeGruppen(EINNAHME_HAUPTGRUPPEN) },
+  { label: 'Summe der Ausgabegruppen = Ausgaben laut Gesamtplan', werte: summeGruppen(AUSGABE_HAUPTGRUPPEN) },
+];
+pruefe('Summe der Einnahmegruppen', gruppenSummen[0].werte, einnahmen);
+pruefe('Summe der Ausgabegruppen', gruppenSummen[1].werte, ausgaben);
+
+// --------------------------------------------------------------------- Funktionenplan
+const hauptfunktionen = new Map(jahre.map((jahr) => [jahr, getHauptfunktionen(gesamtplan, jahr)]));
+const hfCodes = [...new Set(jahre.flatMap((jahr) => hauptfunktionen.get(jahr)!.map((wert) => wert.hauptfunktion)))].sort();
+const hfName = (code: string) => {
+  const muster = gesamtplan.funktionen.find((zeile) => zeile.hauptfunktion === code)!;
+  return publicBezeichnung(muster.hauptfunktion_bezeichnung, freitexte);
+};
+const hfWerte = (code: string) => nachJahr((jahr) => hauptfunktionen.get(jahr)!.find((wert) => wert.hauptfunktion === code)?.betrag ?? 0);
+const funktionenSortiert = [...gesamtplan.funktionen].sort((left, right) => left.funktion.localeCompare(right.funktion));
+const funktionenAbschnitte = hfCodes.map((code) => ({
+  titel: `Hauptfunktion ${code}: ${hfName(code)}`,
+  zeilen: funktionenSortiert
+    .filter((zeile) => zeile.hauptfunktion === code)
+    .map((zeile) => {
+      const label = publicBezeichnung(zeile.bezeichnung, freitexte);
+      return {
+        kennung: zeile.funktion,
+        label,
+        felder: { hauptfunktion: code },
+        werte: nachJahr((jahr) => zeile.jahre[jahr as `${number}`] ?? 0),
+        suchtext: `${zeile.funktion} ${label} ${hfName(code)}`,
+      };
+    }),
+}));
+const summeFunktionen = nachJahr((jahr) => gesamtplan.funktionen.reduce((summe, zeile) => summe + (zeile.jahre[jahr as `${number}`] ?? 0), 0));
+pruefe('Summe der Funktionen', summeFunktionen, ausgaben);
+
+// --------------------------------------------------------------------- Finanzierungsübersicht
+const quellfeld = (feld: string) => nachJahr((jahr) => {
+  const wert = jahrDaten(jahr)[feld];
+  return typeof wert === 'number' ? wert : null;
+});
+const vorFinanzierung = quellfeld('einnahmen_vor_finanzierung');
+const entnahme = quellfeld('ruecklagenentnahme');
+const ohneEntnahmeBelegt = jahre.every((jahr) => vorFinanzierung[jahr] !== null && entnahme[jahr] !== null && vorFinanzierung[jahr]! + entnahme[jahr]! === einnahmen[jahr]);
+const finanzierungZeilen = [
+  {
+    titel: 'Einnahmen',
+    zeilen: [
+      { id: 'einnahmen-vor-finanzierung', label: 'Einnahmen vor Finanzierung', werte: vorFinanzierung },
+      { id: 'ruecklagenentnahme', label: 'Entnahme aus der allgemeinen Rücklage', werte: entnahme },
+      { id: 'einnahmen', label: 'Einnahmen insgesamt', werte: einnahmen },
+    ],
+  },
+  {
+    titel: 'Ausgaben',
+    zeilen: [
+      { id: 'zahlungen-ohne-zufuehrung', label: 'Ausgaben ohne Zuführung an die Liquiditätsrücklage', werte: quellfeld('zahlungen_ohne_zufuehrung') },
+      { id: 'zufuehrung-liquiditaetsruecklage', label: 'Zuführung an die Liquiditätsrücklage', werte: quellfeld('zufuehrung_liquiditaetsruecklage') },
+      { id: 'ausgaben', label: 'Ausgaben insgesamt', werte: ausgaben },
+    ],
+  },
+  {
+    titel: 'Ergebnis',
+    zeilen: [
+      { id: 'finanzierungssaldo', label: 'Finanzierungssaldo vor Überschussverwendung', werte: quellfeld('finanzierungssaldo_vor_ueberschussverwendung') },
+      { id: 'ungedeckt', label: 'Ungedeckter Bedarf', werte: quellfeld('ungedeckt') },
+    ],
+  },
+].map((abschnitt) => ({ ...abschnitt, zeilen: abschnitt.zeilen.filter((zeile) => jahre.some((jahr) => zeile.werte[jahr] !== null)) }));
+const finanzierungAbgrenzungen = [
+  {
+    begriff: 'Einnahmen vor Finanzierung',
+    definition: ohneEntnahmeBelegt
+      ? 'Einnahmen laut Gesamtplan ohne die Entnahme aus der allgemeinen Rücklage; zusammen mit der Entnahme ergeben sie die Einnahmen insgesamt.'
+      : 'Einnahmen laut Gesamtplan vor Finanzierungsvorgängen wie der Entnahme aus der allgemeinen Rücklage.',
+  },
+  ...kennzahlAbgrenzungen([['ruecklagenentnahme'], ['zahlungenOhneZufuehrung'], ['zufuehrungLiquiditaetsruecklage'], ['finanzierungssaldo']]),
+  { begriff: 'Ungedeckter Bedarf', definition: 'Ausgaben, die laut Gesamtplan nicht durch Einnahmen gedeckt sind.' },
+];
+
+// --------------------------------------------------------------------- Kredite und Tilgung
+const kreditFelder: Array<[Feld, string?]> = [
+  ['kreditaufnahmeBrutto'],
+  ['tilgung'],
+  ['nettotilgung'],
+  ['strukturelleNettokreditaufnahme'],
+  ['zinsen'],
+];
+
+// --------------------------------------------------------------------- Rückverfolgbarkeit
+const plaene = loadEinzelplaene(id);
+const planOverlays = loadEinzelplanOverlays(id);
+const planName = (ep: string, bezeichnung: string) => planOverlays[ep]?.kurztitel ?? publicBezeichnung(bezeichnung, freitexte);
+const planSummen = {
+  einnahmen: nachJahr((jahr) => plaene.reduce((summe, plan) => summe + plan.jahre[jahr as `${number}`].einnahmen, 0)),
+  ausgaben: nachJahr((jahr) => plaene.reduce((summe, plan) => summe + plan.jahre[jahr as `${number}`].ausgaben, 0)),
+};
+for (const plan of plaene) getEinzelplanKennzahlen(plan, gesamtplan);
+pruefe('Summe der Einnahmen aller Einzelpläne', planSummen.einnahmen, einnahmen);
+pruefe('Summe der Ausgaben aller Einzelpläne', planSummen.ausgaben, ausgaben);
+const epOptionen = [...jahre.map((jahr) => ({ value: jahr, label: jahr })), { value: 'alle', label: 'Alle Jahre' }];
+
+const hfKategorien = hfCodes.map((code) => ({ label: hfName(code), values: jahre.map((jahr) => hfWerte(code)[jahr]) }));
+---
+
+<HaushaltLayout
+  title={`Gesamtplan – ${periode.bezeichnung}`}
+  description={`Gesamtplan des ${getPeriodenGenitiv(periode)} (${ctx.status.label}): Einnahmen und Ausgaben nach Arten, Hauptgruppen, Gruppen und Aufgabenbereichen, Finanzierungsübersicht und Kontrollsummen.`}
+  breadcrumbs={ctx.breadcrumbs('Gesamtplan')}
+  {...ctx.layout}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow={periode.bezeichnung}
+    title="Gesamtplan"
+    status={ctx.status.label}
+    lead={`Einnahmen und Ausgaben des Freistaates ${jahresText} nach Arten, Hauptgruppen, Gruppen und Aufgabenbereichen, mit Finanzierungsübersicht und Kontrollsummen.`}
+    variant="budget"
+  />
+
+  <nav class="hh-gp-sprung" aria-label="Abschnitte des Gesamtplans">
+    <ul>
+      <li><a href="#einnahmen">Einnahmen</a></li>
+      <li><a href="#ausgaben">Ausgaben</a></li>
+      <li><a href="#hauptgruppen">Hauptgruppen</a></li>
+      <li><a href="#gruppen">Obergruppen und Gruppen</a></li>
+      <li><a href="#funktionen">Aufgabenbereiche</a></li>
+      <li><a href="#finanzierungsuebersicht">Finanzierungsübersicht</a></li>
+      <li><a href="#kredite">Kredite und Tilgung</a></li>
+      <li><a href="#kontrollsummen">Kontrollsummen</a></li>
+    </ul>
+  </nav>
+
+  <section class="section hh-ue" aria-labelledby="einnahmen">
+    <div class="section-header">
+      <h2 id="einnahmen">Einnahmen</h2>
+      <p>Die Einnahmen nach Einnahmearten des Gruppierungsplans. Die Arten sind lückenlos und überschneiden sich nicht; ihre Summe sind die Einnahmen laut Gesamtplan.</p>
+    </div>
+    <JahresTabelle
+      id="einnahmearten"
+      label={`Einnahmen ${jahresText} nach Einnahmearten`}
+      caption={`Einnahmen ${jahresText} nach Einnahmearten, Beträge in Euro`}
+      jahre={jahre}
+      labelSpalte="Einnahmeart"
+      umfangSpalte="Umfang"
+      abschnitte={[{ zeilen: artZeilen(einnahmeArten), basis: einnahmen }]}
+      summen={[{ label: 'Einnahmen insgesamt', werte: einnahmen }]}
+      exakt
+      jahresansicht
+      exportFilename={`einnahmearten-${id}.csv`}
+      exportMeta={exportMeta}
+      nomenSingular="Einnahmeart"
+      nomenPlural="Einnahmearten"
+      breite="breit"
+    />
+    <Abgrenzungen titel="Abgrenzung der Einnahmearten" eintraege={artAbgrenzungen(einnahmeArten)} />
+
+    <h3 class="hh-ue__untertitel" id="bundesmittel">Nachrichtlich: Einnahmen vom Bund</h3>
+    <JahresTabelle
+      id="bundesmittel-tabelle"
+      label="Einnahmegruppen vom Bund"
+      caption={`Einnahmegruppen „vom Bund“ ${jahresText}, nachrichtlich, Beträge in Euro`}
+      jahre={jahre}
+      labelSpalte="Teilmenge"
+      abschnitte={[{ zeilen: [{ id: 'bundesmittel', label: 'Einnahmegruppen „vom Bund“', werte: nachJahr((jahr) => bundesmittel[jahre.indexOf(jahr)].betrag) }], basis: einnahmen }]}
+      anteilLabel="Anteil an den Einnahmen"
+      exakt
+      nomenSingular="Zeile"
+      nomenPlural="Zeilen"
+    />
+    <p class="hh-gp-hinweis">{bundesmittel[bundesmittel.length - 1].definition} Die Teilmenge ist in den Einnahmearten oben bereits enthalten.</p>
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="ausgaben">
+    <div class="section-header">
+      <h2 id="ausgaben">Ausgaben</h2>
+      <p>Die Ausgaben nach Ausgabearten des Gruppierungsplans, lückenlos und ohne Überschneidung; ihre Summe sind die Ausgaben laut Gesamtplan einschließlich der Zuführung an die Liquiditätsrücklage.</p>
+    </div>
+    <JahresTabelle
+      id="ausgabearten"
+      label={`Ausgaben ${jahresText} nach Ausgabearten`}
+      caption={`Ausgaben ${jahresText} nach Ausgabearten, Beträge in Euro`}
+      jahre={jahre}
+      labelSpalte="Ausgabeart"
+      umfangSpalte="Umfang"
+      abschnitte={[{ zeilen: artZeilen(ausgabeArten), basis: ausgaben }]}
+      summen={[{ label: 'Ausgaben insgesamt', werte: ausgaben }]}
+      exakt
+      jahresansicht
+      exportFilename={`ausgabearten-${id}.csv`}
+      exportMeta={exportMeta}
+      nomenSingular="Ausgabeart"
+      nomenPlural="Ausgabearten"
+      breite="breit"
+    />
+    <Abgrenzungen titel="Abgrenzung der Ausgabearten" eintraege={artAbgrenzungen(ausgabeArten)} />
+
+    <h3 class="hh-ue__untertitel" id="sammelgroessen">Nachrichtlich: Investitionen, Schuldendienst und Liquiditätsrücklage</h3>
+    <p class="hh-gp-hinweis">
+      Diese Größen fassen Beträge anders zusammen; sie sind keine zusätzlichen Ausgaben und werden
+      nicht zu den Ausgabearten addiert. Der Schuldendienst enthält die Tilgung laut Gesamtplan, die
+      nicht als Ausgabeart veranschlagt ist.
+    </p>
+    <JahresTabelle
+      id="sammelgroessen-tabelle"
+      label="Investitionen, Schuldendienst und Zuführung an die Liquiditätsrücklage"
+      caption={`Sammelgrößen ${jahresText}, nachrichtlich, Beträge in Euro`}
+      jahre={jahre}
+      labelSpalte="Größe"
+      abschnitte={[{ zeilen: kennzahlZeilen(sammelFelder) }]}
+      exakt
+      jahresansicht
+      nomenSingular="Größe"
+      nomenPlural="Größen"
+    />
+    <Abgrenzungen titel="Abgrenzung der Sammelgrößen" eintraege={kennzahlAbgrenzungen(sammelFelder)} offen />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="hauptgruppen">
+    <div class="section-header">
+      <h2 id="hauptgruppen">Hauptgruppen 0 bis 9</h2>
+      <p>Einnahmen (Hauptgruppen 0 bis 3) und Ausgaben (Hauptgruppen 4 bis 9) nach dem Gruppierungsplan, mit Anteilen an den Einnahmen beziehungsweise Ausgaben des Jahres.</p>
+    </div>
+    <JahresTabelle
+      id="hauptgruppen-tabelle"
+      label={`Hauptgruppen ${jahresText}`}
+      caption={`Hauptgruppen ${jahresText}, Beträge in Euro`}
+      jahre={jahre}
+      kennungSpalte="Hauptgruppe"
+      labelSpalte="Bezeichnung"
+      abschnitte={[
+        { titel: 'Einnahmen', zeilen: hgZeilen(EINNAHME_HAUPTGRUPPEN), basis: einnahmen },
+        { titel: 'Ausgaben', zeilen: hgZeilen(AUSGABE_HAUPTGRUPPEN), basis: ausgaben },
+      ]}
+      summen={[
+        { label: 'Einnahmen insgesamt (Hauptgruppen 0 bis 3)', werte: einnahmen },
+        { label: 'Ausgaben insgesamt (Hauptgruppen 4 bis 9)', werte: ausgaben },
+      ]}
+      exakt
+      jahresansicht
+      sortierbar
+      exportFilename={`hauptgruppen-${id}.csv`}
+      exportMeta={exportMeta}
+      nomenSingular="Hauptgruppe"
+      nomenPlural="Hauptgruppen"
+      breite="breit"
+    />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="gruppen">
+    <div class="section-header">
+      <h2 id="gruppen">Obergruppen und Gruppen</h2>
+      <p>Alle {gruppierung.length} Gruppen des Gruppierungsplans mit Ansätzen. Die Summen je Hauptgruppe entsprechen dem Gesamtplan.</p>
+    </div>
+    <GliederungsTabelle
+      id="gruppen-tabelle"
+      label={`Gruppen ${jahresText}`}
+      caption={`Gruppen des Gruppierungsplans ${jahresText}, Beträge in Euro`}
+      jahre={jahre}
+      abschnitte={gruppenAbschnitte}
+      kennungSpalte="Gruppe"
+      zusatzSpalte="Obergruppe"
+      sucheLabel="Gruppen durchsuchen"
+      filter={[
+        { feld: 'hauptgruppe', label: 'Hauptgruppe', options: hgOptionen, alleLabel: 'Alle Hauptgruppen' },
+        { feld: 'obergruppe', label: 'Obergruppe', options: ogOptionen, alleLabel: 'Alle Obergruppen' },
+      ]}
+      summen={gruppenSummen}
+      nomenSingular="Gruppe"
+      nomenPlural="Gruppen"
+      exportFilename={`gruppen-${id}.csv`}
+      exportMeta={exportMeta}
+      zeilenPraefix="gruppe"
+    />
+
+    <h3 class="hh-ue__untertitel" id="obergruppen">Obergruppen</h3>
+    <GliederungsTabelle
+      id="obergruppen-tabelle"
+      label={`Obergruppen ${jahresText}`}
+      caption={`Obergruppen ${jahresText} als Summe ihrer Gruppen, Beträge in Euro`}
+      jahre={jahre}
+      abschnitte={obergruppenAbschnitte}
+      kennungSpalte="Obergruppe"
+      labelSpalte="Enthaltene Gruppen"
+      sucheLabel="Obergruppen durchsuchen"
+      filter={[{ feld: 'hauptgruppe', label: 'Hauptgruppe', options: hgOptionen, alleLabel: 'Alle Hauptgruppen' }]}
+      summen={gruppenSummen}
+      nomenSingular="Obergruppe"
+      nomenPlural="Obergruppen"
+      exportFilename={`obergruppen-${id}.csv`}
+      exportMeta={exportMeta}
+      zeilenPraefix="obergruppe"
+    />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="funktionen">
+    <div class="section-header">
+      <h2 id="funktionen">Aufgabenbereiche nach dem Funktionenplan</h2>
+      <p>Die Ausgaben nach Hauptfunktionen und Funktionen. Die Summe aller Funktionen entspricht den Ausgaben laut Gesamtplan.</p>
+    </div>
+    <GroupedBarChart
+      id="hauptfunktionen-diagramm"
+      caption={`Ausgaben nach Hauptfunktionen ${jahresText}`}
+      series={jahre.map((jahr) => ({ label: jahr }))}
+      categories={hfKategorien}
+      kategorieSpalte="Hauptfunktion"
+      veraenderung
+    />
+    <JahresTabelle
+      id="hauptfunktionen-tabelle"
+      label={`Hauptfunktionen ${jahresText}`}
+      caption={`Ausgaben nach Hauptfunktionen ${jahresText}, Beträge in Euro`}
+      jahre={jahre}
+      kennungSpalte="Hauptfunktion"
+      abschnitte={[{ zeilen: hfCodes.map((code) => ({ id: `hf-${code}`, kennung: code, label: hfName(code), werte: hfWerte(code) })), basis: ausgaben }]}
+      summen={[{ label: 'Ausgaben insgesamt', werte: ausgaben }]}
+      anteilLabel="Anteil an den Ausgaben"
+      exakt
+      jahresansicht
+      sortierbar
+      exportFilename={`hauptfunktionen-${id}.csv`}
+      exportMeta={exportMeta}
+      nomenSingular="Hauptfunktion"
+      nomenPlural="Hauptfunktionen"
+      breite="breit"
+    />
+    <h3 class="hh-ue__untertitel" id="funktionen-einzeln">Funktionen</h3>
+    <GliederungsTabelle
+      id="funktionen-tabelle"
+      label={`Funktionen ${jahresText}`}
+      caption={`Ausgaben nach Funktionen ${jahresText}, Beträge in Euro`}
+      jahre={jahre}
+      abschnitte={funktionenAbschnitte}
+      kennungSpalte="Funktion"
+      sucheLabel="Funktionen durchsuchen"
+      filter={[{ feld: 'hauptfunktion', label: 'Hauptfunktion', options: hfCodes.map((code) => ({ value: code, label: `${code} – ${hfName(code)}` })), alleLabel: 'Alle Hauptfunktionen' }]}
+      summen={[{ label: 'Summe aller Funktionen = Ausgaben laut Gesamtplan', werte: summeFunktionen }]}
+      nomenSingular="Funktion"
+      nomenPlural="Funktionen"
+      exportFilename={`funktionen-${id}.csv`}
+      exportMeta={exportMeta}
+      zeilenPraefix="funktion"
+    />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="finanzierungsuebersicht">
+    <div class="section-header">
+      <h2 id="finanzierungsuebersicht">Haushaltsausgleich und Finanzierungsübersicht</h2>
+      <p>Wie Einnahmen und Ausgaben des Gesamtplans zusammenhängen: Einnahmen vor und nach der Rücklagenentnahme, Ausgaben mit und ohne Zuführung an die Liquiditätsrücklage und der Finanzierungssaldo.</p>
+    </div>
+    <JahresTabelle
+      id="finanzierungsuebersicht-tabelle"
+      label={`Finanzierungsübersicht ${jahresText}`}
+      caption={`Finanzierungsübersicht ${jahresText}, Beträge in Euro`}
+      jahre={jahre}
+      labelSpalte="Position"
+      abschnitte={finanzierungZeilen}
+      exakt
+      jahresansicht
+      exportFilename={`finanzierungsuebersicht-${id}.csv`}
+      exportMeta={exportMeta}
+      nomenSingular="Position"
+      nomenPlural="Positionen"
+    />
+    <Abgrenzungen titel="Abgrenzung der Positionen" eintraege={finanzierungAbgrenzungen} />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="kredite">
+    <div class="section-header">
+      <h2 id="kredite">Kredite, Tilgung und Zinsen</h2>
+      <p>
+        Kurzübersicht aus dem Gesamtplan. Kreditaufnahme, Tilgung, Nettotilgung und strukturelle
+        Nettokreditaufnahme sind getrennte Größen; Schuldenstand, Anschlussfinanzierung und
+        Kreditfinanzierungsplan stehen auf der Seite
+        {' '}<a class="inline-link" href={getBudgetPeriodPageUrl(id, 'finanzierung')}>Finanzierung</a>.
+      </p>
+    </div>
+    <JahresTabelle
+      id="kredite-tabelle"
+      label={`Kredite, Tilgung und Zinsen ${jahresText}`}
+      caption={`Kredite, Tilgung und Zinsen ${jahresText}, Beträge in Euro`}
+      jahre={jahre}
+      labelSpalte="Größe"
+      abschnitte={[{ zeilen: kennzahlZeilen(kreditFelder) }]}
+      exakt
+      jahresansicht
+      nomenSingular="Größe"
+      nomenPlural="Größen"
+    />
+    <Abgrenzungen titel="Abgrenzung der Kreditgrößen" eintraege={kennzahlAbgrenzungen(kreditFelder)} offen />
+  </section>
+
+  <section class="section hh-ue" aria-labelledby="kontrollsummen">
+    <div class="section-header">
+      <h2 id="kontrollsummen">Rückverfolgbarkeit und Kontrollsummen</h2>
+      <p>
+        Der Gesamtplan ist die Summe der {plaene.length} Einzelpläne. Jeder Einzelplan führt weiter zu
+        seinen Kapiteln und Titeln; dort sind die Summen ebenso nachgewiesen.
+      </p>
+    </div>
+    <DataTableFrame
+      id="kontrollsummen-tabelle"
+      label={`Einzelpläne und Gesamtplan ${jahresText}`}
+      caption={`Einnahmen und Ausgaben der Einzelpläne ${jahresText} mit Kontrollsumme, Beträge in Euro`}
+      nomenSingular="Einzelplan"
+      nomenPlural="Einzelplänen"
+      seitengroesse={false}
+      exportFilename={`einzelplaene-summen-${id}.csv`}
+      exportMeta={exportMeta}
+      jahresansicht="alle"
+      jahresansichtSchmal={erstesJahr}
+      breite="breit"
+    >
+      <FilterBar slot="werkzeuge" id="kontrollsummen-tabelle" suche={false} jahresansicht={{ label: 'Spalten', value: 'alle', options: epOptionen }} export={{}} />
+      <table class="data-table hh-datentabelle hh-gp-kontrolle">
+        <thead>
+          <tr>
+            <th scope="col" class="hh-kennung" data-sort="text" data-export-key="einzelplan" aria-sort="ascending">Einzelplan</th>
+            <th scope="col" data-sort="text" data-export-key="bezeichnung">Bezeichnung</th>
+            {jahre.map((jahr) => (
+              <>
+                <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`einnahmen_${jahr}`} data-export-label={`Einnahmen ${jahr} (Euro)`} data-year-col={jahr}>Einnahmen <span>{jahr}</span></th>
+                <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`ausgaben_${jahr}`} data-export-label={`Ausgaben ${jahr} (Euro)`} data-year-col={jahr}>Ausgaben <span>{jahr}</span></th>
+              </>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {plaene.map((plan) => {
+            const name = planName(plan.ep, plan.bezeichnung);
+            return (
+              <tr id={`einzelplan-${plan.ep}`} data-search={normalizeSearch(`${plan.ep} ${name}`)}>
+                <th scope="row" class="hh-kennung" data-export-value={plan.ep}>{plan.ep}</th>
+                <td data-export-value={name}><a href={getBudgetPeriodPlanUrl(id, plan.ep)}>{name}</a></td>
+                {jahre.map((jahr) => (
+                  <>
+                    <td class="hh-zahl" data-year-col={jahr} data-export-value={String(plan.jahre[jahr as `${number}`].einnahmen)}><Amount value={plan.jahre[jahr as `${number}`].einnahmen} exakt /></td>
+                    <td class="hh-zahl" data-year-col={jahr} data-export-value={String(plan.jahre[jahr as `${number}`].ausgaben)}><Amount value={plan.jahre[jahr as `${number}`].ausgaben} exakt /></td>
+                  </>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row" colspan="2">Summe der Einzelpläne</th>
+            {jahre.map((jahr) => (
+              <>
+                <td class="hh-zahl" data-year-col={jahr}><Amount value={planSummen.einnahmen[jahr]} exakt /></td>
+                <td class="hh-zahl" data-year-col={jahr}><Amount value={planSummen.ausgaben[jahr]} exakt /></td>
+              </>
+            ))}
+          </tr>
+          <tr>
+            <th scope="row" colspan="2">Gesamtplan</th>
+            {jahre.map((jahr) => (
+              <>
+                <td class="hh-zahl" data-year-col={jahr}><Amount value={einnahmen[jahr]} exakt /></td>
+                <td class="hh-zahl" data-year-col={jahr}><Amount value={ausgaben[jahr]} exakt /></td>
+              </>
+            ))}
+          </tr>
+          <tr class="hh-gp-kontrolle__abweichung">
+            <th scope="row" colspan="2">Abweichung</th>
+            {jahre.map((jahr) => (
+              <>
+                <td class="hh-zahl" data-year-col={jahr}><Amount value={planSummen.einnahmen[jahr] - einnahmen[jahr]} exakt /></td>
+                <td class="hh-zahl" data-year-col={jahr}><Amount value={planSummen.ausgaben[jahr] - ausgaben[jahr]} exakt /></td>
+              </>
+            ))}
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+    <p class="hh-gp-hinweis">
+      Ebenso geprüft: Die Gruppen ergeben je Hauptgruppe die Werte des Gesamtplans, und die
+      Funktionen ergeben zusammen die Ausgaben.
+    </p>
+    <SourceNote
+      datenstand={ctx.datenstand}
+      datenversion={ctx.datenversion}
+      quelle={ctx.quelle}
+      downloadsHref={getBudgetPeriodPageUrl(id, 'downloads')}
+    />
+  </section>
+</HaushaltLayout>

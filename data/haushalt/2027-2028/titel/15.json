@@ -1,0 +1,178 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "einzelplan": "15",
+  "jahresfelder": [
+    "id",
+    "betrag",
+    "ve",
+    "menge",
+    "satz"
+  ],
+  "titel": [
+    {
+      "konzept_id": "T.1501/42201",
+      "kapitel": "1501",
+      "titel": "42201",
+      "zweckbestimmung": "Fachpersonal für Präsident des Rechnungshofes",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "019",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1501/42201@2027",
+          "betrag": 146853,
+          "menge": "1.95",
+          "satz": "85000"
+        },
+        "2028": {
+          "id": "T.1501/42201@2028",
+          "betrag": 146032,
+          "menge": "1.99",
+          "satz": "85000"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1501/42901",
+      "kapitel": "1501",
+      "titel": "42901",
+      "zweckbestimmung": "Nicht aufteilbare Personalausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "429",
+      "gruppe_bezeichnung": "Nicht aufteilbare Bezüge, Entgelte und Nebenleistungen",
+      "funktion": "019",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1501/42901@2027",
+          "betrag": 29250
+        },
+        "2028": {
+          "id": "T.1501/42901@2028",
+          "betrag": 29835
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1501/54701",
+      "kapitel": "1501",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "019",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1501/54701@2027",
+          "betrag": 29250
+        },
+        "2028": {
+          "id": "T.1501/54701@2028",
+          "betrag": 29835
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1502/42201",
+      "kapitel": "1502",
+      "titel": "42201",
+      "zweckbestimmung": "Fachpersonal für Unabhängige Prüfentscheidung und Berichte",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "019",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1502/42201@2027",
+          "betrag": 79075,
+          "menge": "1.05",
+          "satz": "85000"
+        },
+        "2028": {
+          "id": "T.1502/42201@2028",
+          "betrag": 78632,
+          "menge": "1.07",
+          "satz": "85000"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1502/42901",
+      "kapitel": "1502",
+      "titel": "42901",
+      "zweckbestimmung": "Nicht aufteilbare Personalausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "429",
+      "gruppe_bezeichnung": "Nicht aufteilbare Bezüge, Entgelte und Nebenleistungen",
+      "funktion": "019",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1502/42901@2027",
+          "betrag": 15750
+        },
+        "2028": {
+          "id": "T.1502/42901@2028",
+          "betrag": 16065
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1502/54701",
+      "kapitel": "1502",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "019",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1502/54701@2027",
+          "betrag": 15750
+        },
+        "2028": {
+          "id": "T.1502/54701@2028",
+          "betrag": 16065
+        }
+      }
+    }
+  ]
+}

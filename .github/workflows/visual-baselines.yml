@@ -66,6 +66,8 @@ jobs:
       - name: Websites bauen
         env:
           PORTAL_BUILD_COMMIT: ${{ github.sha }}
+          # Wie der PR-Build: nicht freigegebene Haushaltsperioden als Vorschau (noindex; der Build wird nicht deployt).
+          HAUSHALT_VORSCHAU: '1'
         run: npm run build
       - name: OstRecht-Worker mit dem Testfixture vorbereiten
         uses: ./.github/actions/d1-seed

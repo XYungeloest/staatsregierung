@@ -1,0 +1,80 @@
+{
+ "jahreswerte": {
+  "2027": {
+   "besoldung": -50,
+   "versorgung": 0,
+   "beihilfe": 0,
+   "tarif": 10,
+   "verwaltung": 0,
+   "ausgaben": -40,
+   "steuer": -5,
+   "fonds": 0,
+   "einnahmen": -5,
+   "netto": -35
+  },
+  "2028": {
+   "besoldung": -60,
+   "versorgung": 0,
+   "beihilfe": 0,
+   "tarif": 10,
+   "verwaltung": 0,
+   "ausgaben": -50,
+   "steuer": -6,
+   "fonds": 0,
+   "einnahmen": -6,
+   "netto": -44
+  },
+  "2029": {
+   "besoldung": -70,
+   "versorgung": 0,
+   "beihilfe": 0,
+   "tarif": 10,
+   "verwaltung": 0,
+   "ausgaben": -60,
+   "steuer": -7,
+   "fonds": 0,
+   "einnahmen": -7,
+   "netto": -53
+  }
+ },
+ "regimevergleich": [
+  {
+   "2027": 100,
+   "2028": 101,
+   "2029": 102,
+   "block": "Versorgung",
+   "rechtsstand": "Geltendes Testrecht",
+   "code": "R0"
+  },
+  {
+   "2027": 90,
+   "2028": 91,
+   "2029": 92,
+   "block": "Versorgung",
+   "rechtsstand": "Testreformentwurf",
+   "code": "C"
+  }
+ ],
+ "versorgung": {
+  "vorbuchung": {
+   "2027": 7,
+   "2028": 8,
+   "2029": 9
+  },
+  "barwerte": {
+   "rechnungszins": "0.025",
+   "dynamik": "0.02",
+   "laufend_b": 100,
+   "laufend_c": 80,
+   "anwartschaften_b": 50,
+   "anwartschaften_c": 40,
+   "gesamt_b": 150,
+   "gesamt_c": 120,
+   "minderung": 30,
+   "hinweis": "Vereinfachte Testbewertung"
+  }
+ },
+ "intern": {
+  "notiz": "nicht übernehmen"
+ }
+}

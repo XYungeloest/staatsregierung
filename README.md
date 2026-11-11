@@ -27,7 +27,8 @@ Technischer Kern:
   `content/organisation/`, interner Wissenshub unter `knowledge/`
 - Cloudflare D1 (`ostrecht-recht`) als abgeleitete Laufzeitdatenbank von OstRecht, projiziert aus
   `content/normen` und `content/verkuendungen`; Cloudflare R2 (`ostrecht-recht-quellen`) als
-  unveränderliches Archiv amtlicher Rohquellen. Das Staatsportal liest nur `content/`.
+  unveränderliches Archiv amtlicher Rohquellen. Das Staatsportal liest `content/` und den
+  versionierten Haushaltssnapshot unter `data/haushalt/` (`docs/HAUSHALT.md`).
 - Git bleibt der fachliche Source of Truth; D1 und R2 sind keine Inhaltsquellen.
 
 Der redaktionelle Stichtag steht ausschließlich in `packages/shared/src/config/editorial.json`.
@@ -73,10 +74,10 @@ packages/        shared (gemeinsame Bausteine und Fachlogik), recht-search (Such
 content/         kanonische öffentliche Inhalte (Normen, Verkündungen, Themen, Presse, Organisation …)
 knowledge/       interner Wissenshub (nicht öffentlich ausgeliefert)
 Gesetze/         amtliche und redaktionell geprüfte Rechtsquellen (HTML, PDF, Legacy-Markdown)
-data/            fachliche Datenbestände: D1-Schema, Konsolidierung, REVOSax-Manifeste, Audits, Fixture
+data/            fachliche Datenbestände: D1-Schema, Konsolidierung, REVOSax-Manifeste, Audits, Fixture, Haushaltssnapshots
 context/         historische Ausgangstexte, Entwürfe, Programme und Simulationsmaterial
 public/          gemeinsame Assets (Rechts-PDFs, Kartendaten, Bilder)
-docs/            Runbooks für Betrieb, Normworkflow, REVOSax-Import und Kreisreform-Karte
+docs/            Runbooks für Betrieb, Normworkflow, REVOSax-Import, Haushalt und Kreisreform-Karte
 scripts/         repo-weite Import-, Build-, Seed- und Prüfwerkzeuge
 tests/           schnelle Unit-Tests auf synthetischen Fixtures, tests/corpus/ (Projektionsnachweis, Seed), Browser-, Accessibility- und Screenshot-Tests
 ```
@@ -108,6 +109,14 @@ npm run norms:metadata:audit
 npm run norms:advance-reference-date -- --to <Datum> --write
 ```
 
+Haushaltsdaten kommen aus dem Haushaltsrepo und werden nur als geprüfter Snapshot übernommen
+(`docs/HAUSHALT.md`):
+
+```sh
+npm run haushalt:sync -- --source <pfad zum Haushaltsrepo>   # Snapshot data/haushalt/<periode>/
+npm run haushalt:check                                      # Snapshot, Register und Overlays (Teil von content:check)
+```
+
 ## Qualitätssicherung und Veröffentlichung
 
 Pull Requests laufen gegen das synthetische Testfixture (`data/recht/runtime-fixture.json`,
@@ -137,6 +146,7 @@ ausschließlich über den Workflow `Deploy to Cloudflare Workers` aus dem geprü
 | `docs/DEPLOYMENT_RUNBOOK.md` | CI/CD, Änderungsscope, D1-Seed-Cache, Deployment, Expand/Contract, Nachkontrolle |
 | `docs/NORM_WORKFLOW.md` | Redaktionsworkflow für Normen und Stichtagsfortschreibung |
 | `docs/REVOSAX_BULK_IMPORT.md` | REVOSax-Import, D1-Synchronisation, Budgets, Recovery |
+| `docs/HAUSHALT.md` | Haushaltsinformationssystem: Import, Freigabe, Overlays, Ausgabedateien, Tests |
 | `docs/KREISREFORM_KARTE.md` | Kartenpipeline der Kreisreform |
 | `docs/ZUARBEITSFORMULAR.md` | benötigte externe Zuarbeit (Unterlagen, Entscheidungen) |
 | `knowledge/README.md` | interner Wissenshub, Quellenhierarchie in `knowledge/SOURCE_POLICY.md` |

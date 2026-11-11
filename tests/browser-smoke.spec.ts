@@ -413,13 +413,21 @@ siteTest(['portal'])('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig 
   await prepareFunctionalPage(page);
   await page.goto('/haushalt/');
 
-  const dashboard = page.locator('[data-budget-year-switcher]');
+  // Einstieg: Jahreswahl über alle sichtbaren Haushaltsjahre und Vergleiche; genau eine Ansicht
+  // ist sichtbar, die Statuszeile nennt die gewählte Ansicht.
+  const dashboard = page.locator('[data-haushalt-jahreswahl]');
   await expect(dashboard).toBeVisible();
-  await dashboard.getByRole('button', { name: 'Vergleich', exact: true }).click();
-  await expect(dashboard.locator('[data-budget-year-content="vergleich"]')).toBeVisible();
-  await expect(dashboard.locator('[data-budget-year-status]')).toContainText('Vergleich');
+  const sichtbareAnsichten = dashboard.locator('[data-jahreswahl-ansicht]:visible');
+  await expect(sichtbareAnsichten).toHaveCount(1);
+  const vergleich = dashboard.locator('button[data-jahreswahl-option^="vergleich-"]').first();
+  const ansicht = await vergleich.getAttribute('data-jahreswahl-option');
+  await vergleich.click();
+  await expect(vergleich).toHaveAttribute('aria-pressed', 'true');
+  await expect(dashboard.locator(`[data-jahreswahl-ansicht="${ansicht}"]`)).toBeVisible();
+  await expect(sichtbareAnsichten).toHaveCount(1);
+  await expect(dashboard.locator('[data-jahreswahl-status]')).toContainText('Vergleich');
 
-  await page.goto('/haushalt/einzelplaene/');
+  await page.goto('/haushalt/2025-2026/einzelplaene/');
   const plans = page.locator('[data-budget-year-switcher]');
   await plans.getByRole('button', { name: 'Vergleich', exact: true }).click();
   const table = plans.locator('[data-budget-year-content="vergleich"] [data-budget-plan-table]');
@@ -432,6 +440,78 @@ siteTest(['portal'])('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig 
   expect(visibleRows).toBeGreaterThanOrEqual(1);
   expect(visibleRows).toBeLessThan(totalRows);
   await expect(table.locator('[data-budget-plan-status]')).toContainText(`${visibleRows} von ${totalRows} Einzelplänen`);
+});
+
+siteTest(['portal'])('Haushalt: Tabellen, Titelanker, Suche und Fachseiten der Periode mit Datenbestand', async ({ page }) => {
+  await prepareFunctionalPage(page);
+  const fehler: string[] = [];
+  page.on('pageerror', (error) => fehler.push(error.message));
+  page.on('console', (message) => {
+    if (message.type() === 'error') fehler.push(message.text());
+  });
+
+  // Periode mit Datenbestand zur Laufzeit aus dem Einstieg ableiten (Link auf ihre Vorhaben).
+  await page.goto('/haushalt/');
+  const projekteLink = page.locator('a[href^="/haushalt/"][href$="/projekte/"]').first();
+  test.skip((await projekteLink.count()) === 0, 'keine Haushaltsperiode mit Datenbestand im Build');
+  const periode = ((await projekteLink.getAttribute('href')) ?? '').replace(/projekte\/$/u, '');
+
+  // (a) Einzelplanübersicht: Sortierung, Suche mit Statuszeile, Zurücksetzen, CSV-Export.
+  await page.goto(`${periode}einzelplaene/`);
+  const tabelle = page.locator('[data-haushalt-tabelle]').filter({ has: page.locator('[data-tabelle-werkzeuge]:not([hidden])') }).first();
+  await expect(tabelle).toBeVisible();
+  const zeilen = tabelle.locator('tbody tr:not([data-folgezeile])');
+  const gesamt = await zeilen.count();
+  expect(gesamt).toBeGreaterThan(1);
+  const sortierKopf = tabelle.locator('thead th[data-sort]').nth(1);
+  const sortierungVorher = await sortierKopf.getAttribute('aria-sort');
+  await sortierKopf.locator('button').click();
+  await expect(sortierKopf).not.toHaveAttribute('aria-sort', sortierungVorher ?? 'none');
+  const wort = searchWordOf((await zeilen.first().locator('th, td').nth(1).textContent()) ?? '');
+  await tabelle.locator('input[data-tabelle-suche]').fill(wort);
+  await expect.poll(async () => tabelle.locator('tbody tr:not([data-folgezeile]):visible').count()).toBeLessThan(gesamt);
+  await expect(tabelle.locator('[data-tabelle-status]')).toContainText(new RegExp(`von ${gesamt}\\b`, 'u'));
+  const zuruecksetzen = tabelle.locator('button[data-tabelle-zuruecksetzen]:visible').first();
+  if ((await zuruecksetzen.count()) > 0) await zuruecksetzen.click();
+  else await tabelle.locator('input[data-tabelle-suche]').fill('');
+  await expect.poll(async () => tabelle.locator('tbody tr:not([data-folgezeile]):visible').count()).toBe(gesamt);
+  const download = page.waitForEvent('download');
+  await tabelle.locator('button[data-tabelle-export]').click();
+  expect((await download).suggestedFilename()).toMatch(/\.csv$/u);
+
+  // (b) Titelanker: erster Verweis auf #titel-… einer Kapitelseite trifft eine sichtbare Zeile.
+  const ersterLink = async (muster: RegExp) => (await page.$$eval('a[href]', (links) => links.map((link) => link.getAttribute('href') ?? ''))).find((href) => muster.test(href));
+  const plan = await ersterLink(new RegExp(`^${periode}einzelplaene/\\d{2}/$`, 'u'));
+  expect(plan).toBeTruthy();
+  await page.goto(plan!);
+  const kapitel = await ersterLink(new RegExp(`^${plan}kapitel/\\d{4}/$`, 'u'));
+  expect(kapitel).toBeTruthy();
+  await page.goto(kapitel!);
+  const titelAnker = await page.locator('a[href^="#titel-"]').first().getAttribute('href');
+  expect(titelAnker).toBeTruthy();
+  await page.goto(`${kapitel}${titelAnker}`);
+  await expect(page.locator(titelAnker!)).toBeVisible();
+
+  // (c) Haushaltssuche: das Beispielwort der Seite liefert Treffer mit erreichbarem Ziel.
+  await page.goto(`${periode}suche/`);
+  const beispiel = page.locator('[data-haushalt-suche-beispiel]').first();
+  await beispiel.click();
+  await expect(page.locator('[data-haushalt-suche-status]')).toContainText(/Treffer/u, { timeout: 30_000 });
+  const ergebnis = await page.locator('[data-haushalt-suche-ergebnis] a[href^="/haushalt/"]').first().getAttribute('href');
+  expect(ergebnis).toBeTruthy();
+  const antwort = await page.request.get(ergebnis!.replace(/#.*$/u, ''));
+  expect(antwort.status(), ergebnis!).toBe(200);
+
+  // (d) Fachseiten laden ohne Skriptfehler.
+  await page.goto(`${periode}projekte/`);
+  const projekt = await ersterLink(new RegExp(`^${periode}projekte/[a-z0-9-]+/$`, 'u'));
+  for (const pfad of [projekt, `${periode}personal/`, `${periode}finanzierung/`, `${periode}ruecklagen/`, `${periode}finanzplanung/`, `${periode}downloads/`, '/haushalt/sondervermoegen/']) {
+    if (!pfad) continue;
+    const response = await page.goto(pfad);
+    expect(response?.status(), pfad).toBe(200);
+    await expect(page.locator('h1')).toBeVisible();
+  }
+  expect(fehler, fehler.join('\n')).toEqual([]);
 });
 
 siteTest(['portal'])('Lokale Bereichsnavigation und Ministeriumsverzeichnis sind vollständig zugänglich', async ({ page }) => {

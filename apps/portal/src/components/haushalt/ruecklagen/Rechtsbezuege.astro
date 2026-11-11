@@ -1,0 +1,25 @@
+---
+/**
+ * Rechtsbezüge eines Instruments (Rücklage, Fonds, Landesunternehmen) aus fonds.json: Bezeichnung,
+ * bei einer im Rechtsportal geführten Vorschrift mit Link, und die Art in Worten (geltendes
+ * Recht, verkündet und noch nicht in Kraft, Entwurf …). Entwürfe tragen nie einen Normlink.
+ */
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { zeigeRechtsbezuege, type OverlayRechtsbezug } from './fonds.ts';
+
+interface Props {
+  bezuege: readonly OverlayRechtsbezug[];
+}
+
+const bezuege = zeigeRechtsbezuege(Astro.props.bezuege as Props['bezuege']);
+---
+
+<ul class="hh-rl-rechtsbezuege" role="list">
+  {bezuege.map((bezug) => (
+    <li>
+      {bezug.normSlug && bezug.art !== 'entwurf' ? <a class="inline-link" href={getNormUrl(bezug.normSlug)}>{bezug.label}</a> : <span>{bezug.label}</span>}
+      {' '}<span class="visually-hidden">– Stand:</span>{' '}
+      <span class:list={['hh-rl-rechtsbezug__art', `hh-rl-rechtsbezug__art--${bezug.art}`]}>{bezug.artLabel}</span>
+    </li>
+  ))}
+</ul>

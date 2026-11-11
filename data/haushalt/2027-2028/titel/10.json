@@ -1,0 +1,2543 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "einzelplan": "10",
+  "jahresfelder": [
+    "id",
+    "betrag",
+    "ve",
+    "menge",
+    "satz"
+  ],
+  "titel": [
+    {
+      "konzept_id": "T.1001/11901",
+      "kapitel": "1001",
+      "titel": "11901",
+      "zweckbestimmung": "Vermischte Einnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/11901@2027",
+          "betrag": 1116974
+        },
+        "2028": {
+          "id": "T.1001/11901@2028",
+          "betrag": 1129016
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/23101",
+      "kapitel": "1001",
+      "titel": "23101",
+      "zweckbestimmung": "Zuweisungen und Erstattungen des Bundes und der EU für Verkehrsaufgaben",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/23101@2027",
+          "betrag": 111471924
+        },
+        "2028": {
+          "id": "T.1001/23101@2028",
+          "betrag": 104884887
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/35901.g331",
+      "kapitel": "1001",
+      "titel": "33101",
+      "zweckbestimmung": "Zuweisungen für Investitionen vom Bund",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "33",
+      "gruppe": "331",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen vom Bund",
+      "funktion": "719",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/35901.g331@2027",
+          "betrag": 4232233
+        },
+        "2028": {
+          "id": "T.1001/35901.g331@2028",
+          "betrag": 4319569
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/35901.g342",
+      "kapitel": "1001",
+      "titel": "34201",
+      "zweckbestimmung": "Sonstige Zuschüsse für Investitionen aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "342",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für Investitionen aus dem Inland",
+      "funktion": "719",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/35901.g342@2027",
+          "betrag": 556098
+        },
+        "2028": {
+          "id": "T.1001/35901.g342@2028",
+          "betrag": 33131
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/35901.g346",
+      "kapitel": "1001",
+      "titel": "34601",
+      "zweckbestimmung": "Zuschüsse für Investitionen von der EU",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "346",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen von der EU",
+      "funktion": "719",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/35901.g346@2027",
+          "betrag": 1740914
+        },
+        "2028": {
+          "id": "T.1001/35901.g346@2028",
+          "betrag": 1765862
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/35901.g349",
+      "kapitel": "1001",
+      "titel": "34901",
+      "zweckbestimmung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "349",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "funktion": "719",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/35901.g349@2027",
+          "betrag": 249917
+        },
+        "2028": {
+          "id": "T.1001/35901.g349@2028",
+          "betrag": 357810
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/42901.g422",
+      "kapitel": "1001",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/42901.g422@2027",
+          "betrag": 17924754
+        },
+        "2028": {
+          "id": "T.1001/42901.g422@2028",
+          "betrag": 17962274
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/42901.g428",
+      "kapitel": "1001",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/42901.g428@2027",
+          "betrag": 24985797
+        },
+        "2028": {
+          "id": "T.1001/42901.g428@2028",
+          "betrag": 26114337
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/42901.g441",
+      "kapitel": "1001",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/42901.g441@2027",
+          "betrag": 931851
+        },
+        "2028": {
+          "id": "T.1001/42901.g441@2028",
+          "betrag": 1019499
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/42901.g459",
+      "kapitel": "1001",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/42901.g459@2027",
+          "betrag": 741863
+        },
+        "2028": {
+          "id": "T.1001/42901.g459@2028",
+          "betrag": 745126
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/54701.geschaeftsbedarf",
+      "kapitel": "1001",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf, Kommunikation und Ausstattung der Mobilitätsverwaltung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/54701.geschaeftsbedarf@2027",
+          "betrag": 4100000
+        },
+        "2028": {
+          "id": "T.1001/54701.geschaeftsbedarf@2028",
+          "betrag": 4200000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/54701.bewirtschaftung",
+      "kapitel": "1001",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Dienstgebäude",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/54701.bewirtschaftung@2027",
+          "betrag": 2900000
+        },
+        "2028": {
+          "id": "T.1001/54701.bewirtschaftung@2028",
+          "betrag": 3000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/54701.miete",
+      "kapitel": "1001",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/54701.miete@2027",
+          "betrag": 4700000
+        },
+        "2028": {
+          "id": "T.1001/54701.miete@2028",
+          "betrag": 4800000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/54701.planung",
+      "kapitel": "1001",
+      "titel": "52601",
+      "zweckbestimmung": "Gutachten, Verkehrsentwicklungsplanung und Machbarkeitsstudien",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "transrapid",
+      "erlaeuterung": "Landesverkehrsplan, Netzkonzeption Schiene 2035, Mobilitätsdatenplattform sowie Machbarkeits- und Wirtschaftlichkeitsprüfung eines Transrapid-Korridors (Prüfauftrag aus dem 15-Punkte-Plan II, bis 1 Mio. EUR jährlich). Ein Bau- oder Beschaffungsansatz für den Transrapid ist nicht veranschlagt.",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/54701.planung@2027",
+          "betrag": 15000000
+        },
+        "2028": {
+          "id": "T.1001/54701.planung@2028",
+          "betrag": 15000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/68601",
+      "kapitel": "1001",
+      "titel": "68501",
+      "zweckbestimmung": "Zuschüsse an Verkehrsverbünde, Mobilitätsberatung und Verkehrssicherheitsarbeit",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "685",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Einrichtungen",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/68601@2027",
+          "betrag": 80397404
+        },
+        "2028": {
+          "id": "T.1001/68601@2028",
+          "betrag": 81550565
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/79901",
+      "kapitel": "1001",
+      "titel": "71101",
+      "zweckbestimmung": "Kleine Baumaßnahmen der Mobilitätsverwaltung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "gruppe_bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/79901@2027",
+          "betrag": 5006513
+        },
+        "2028": {
+          "id": "T.1001/79901@2028",
+          "betrag": 4754795
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1001/89901",
+      "kapitel": "1001",
+      "titel": "89301",
+      "zweckbestimmung": "Investitionszuschüsse für Mobilitätsstationen, Radverkehr und digitale Fahrgastinformation",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "893",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an Sonstige im Inland",
+      "funktion": "719",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1001/89901@2027",
+          "betrag": 17506292
+        },
+        "2028": {
+          "id": "T.1001/89901@2028",
+          "betrag": 16032138
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/11901.g111",
+      "kapitel": "1002",
+      "titel": "11101",
+      "zweckbestimmung": "Gebühren, sonstige Entgelte",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "gruppe_bezeichnung": "Gebühren, sonstige Entgelte",
+      "funktion": "742",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/11901.g111@2027",
+          "betrag": 27858871
+        },
+        "2028": {
+          "id": "T.1002/11901.g111@2028",
+          "betrag": 28141070
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/11901.g112",
+      "kapitel": "1002",
+      "titel": "11201",
+      "zweckbestimmung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "gruppe_bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "funktion": "742",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/11901.g112@2027",
+          "betrag": 8939413
+        },
+        "2028": {
+          "id": "T.1002/11901.g112@2028",
+          "betrag": 9081028
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/11901.g119",
+      "kapitel": "1002",
+      "titel": "11901",
+      "zweckbestimmung": "Sonstige Verwaltungseinnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "742",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/11901.g119@2027",
+          "betrag": 13465539
+        },
+        "2028": {
+          "id": "T.1002/11901.g119@2028",
+          "betrag": 13583600
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/23101.sonstige",
+      "kapitel": "1002",
+      "titel": "23101",
+      "zweckbestimmung": "Sonstige laufende Zuweisungen und Erstattungen des Bundes im öffentlichen Verkehr",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Weitere laufende Bundeszuweisungen der Herkunftshaushalte im öffentlichen Verkehr (u. a. Ausgleichs- und Erstattungsleistungen); Einzelnachweis nach Bundesbescheiden. Der Ansatz bleibt bis zum Nachweis als Sammelansatz gekennzeichnet.",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/23101.sonstige@2027",
+          "betrag": 1230649434
+        },
+        "2028": {
+          "id": "T.1002/23101.sonstige@2028",
+          "betrag": 875585764
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/23101.regg",
+      "kapitel": "1002",
+      "titel": "23111",
+      "zweckbestimmung": "Regionalisierungsmittel des Bundes (§ 5 RegG)",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "742",
+      "herkunft": "D",
+      "qualitaet": "D_ableitung",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "Regionalisierungsgesetz des Simulationsbundes § 5; BGBl. I 2026 Nr. 55",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "regionalisierung",
+      "erlaeuterung": "Summe der Länderanteile Berlin, Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen nach § 5 RegG (2027: 3,182 Mrd. EUR; 2028: 3,241 Mrd. EUR). Die Bundesmittel für Deutschlandticket und Schülerticket werden gesondert im Kapitel 1007 vereinnahmt.",
+      "vermerk": "Zweckgebunden für den öffentlichen Personennahverkehr (§ 6 RegG). Die Einnahmen sind mit den Titeln 546 01 und 683 01 dieses Kapitels verbunden.",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/23101.regg@2027",
+          "betrag": 3182087162
+        },
+        "2028": {
+          "id": "T.1002/23101.regg@2028",
+          "betrag": 3240734131
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/35901",
+      "kapitel": "1002",
+      "titel": "33101",
+      "zweckbestimmung": "Zuweisungen des Bundes für Investitionen im öffentlichen Verkehr (GVFG und Bundesprogramme)",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "33",
+      "gruppe": "331",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen vom Bund",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Investive Bundesmittel des öffentlichen Verkehrs aus den Herkunftshaushalten (Gemeindeverkehrsfinanzierung, Bundesprogramme); nicht identisch mit den fortgeführten Programmen F09/F10 im Kapitel 2003.",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/35901@2027",
+          "betrag": 305062268
+        },
+        "2028": {
+          "id": "T.1002/35901@2028",
+          "betrag": 291436737
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/42901.g422",
+      "kapitel": "1002",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/42901.g422@2027",
+          "betrag": 47655239
+        },
+        "2028": {
+          "id": "T.1002/42901.g422@2028",
+          "betrag": 48118642
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/42901.g428",
+      "kapitel": "1002",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/42901.g428@2027",
+          "betrag": 66427926
+        },
+        "2028": {
+          "id": "T.1002/42901.g428@2028",
+          "betrag": 69956985
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/42901.g441",
+      "kapitel": "1002",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/42901.g441@2027",
+          "betrag": 2477440
+        },
+        "2028": {
+          "id": "T.1002/42901.g441@2028",
+          "betrag": 2731104
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/42901.g459",
+      "kapitel": "1002",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/42901.g459@2027",
+          "betrag": 1972339
+        },
+        "2028": {
+          "id": "T.1002/42901.g459@2028",
+          "betrag": 1996098
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/54701.gutachten",
+      "kapitel": "1002",
+      "titel": "52601",
+      "zweckbestimmung": "Gutachten und Planungsleistungen für SPNV-Netze und Ausschreibungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/54701.gutachten@2027",
+          "betrag": 11333509
+        },
+        "2028": {
+          "id": "T.1002/54701.gutachten@2028",
+          "betrag": 10129061
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/54701.vergabe",
+      "kapitel": "1002",
+      "titel": "53301",
+      "zweckbestimmung": "Vergabeverfahren, Qualitätscontrolling und Fahrgastinformation im SPNV",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "533",
+      "gruppe_bezeichnung": "Dienstleistungen Außenstehender",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/54701.vergabe@2027",
+          "betrag": 22667019
+        },
+        "2028": {
+          "id": "T.1002/54701.vergabe@2028",
+          "betrag": 20258123
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/54701.besteller",
+      "kapitel": "1002",
+      "titel": "54601",
+      "zweckbestimmung": "Bestellerentgelte für Verkehrsleistungen im SPNV und S-Bahn-Verkehr (Verkehrsverträge)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "546",
+      "gruppe_bezeichnung": "Sonstige sächliche Ausgaben",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "vertraglich",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "regionalisierung",
+      "erlaeuterung": "Entgelte an Eisenbahnverkehrsunternehmen für bestellte Zugleistungen nach bestehenden Verkehrsverträgen (Brutto- und Nettoverträge), soweit die Herkunftshaushalte diese als sächliche Ausgaben führen; die als Betriebskostenausgleich gebuchten Verträge stehen bei Titel 683 01. Die Leistungen werden überwiegend aus Regionalisierungsmitteln finanziert (Titel 231 11). Die bestehenden Verträge laufen weiter; Verpflichtungsermächtigungen für Folgejahre werden mit der Anlage Verpflichtungsermächtigungen festgelegt.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/54701.besteller@2027",
+          "betrag": 1072650407
+        },
+        "2028": {
+          "id": "T.1002/54701.besteller@2028",
+          "betrag": 955518958
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/68601.schmalspur",
+      "kapitel": "1002",
+      "titel": "61701",
+      "zweckbestimmung": "Betriebshilfen für Schmalspurbahnen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "61",
+      "gruppe": "617",
+      "gruppe_bezeichnung": "Allgemeine Zuweisungen an Zweckverbände",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/68601.schmalspur@2027",
+          "betrag": 36448832
+        },
+        "2028": {
+          "id": "T.1002/68601.schmalspur@2028",
+          "betrag": 37027754
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/68601.ausbildungsverkehr",
+      "kapitel": "1002",
+      "titel": "63301",
+      "zweckbestimmung": "Ausgleichsleistungen an die kommunale Ebene für den Ausbildungsverkehr",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/68601.ausbildungsverkehr@2027",
+          "betrag": 182244158
+        },
+        "2028": {
+          "id": "T.1002/68601.ausbildungsverkehr@2028",
+          "betrag": 185138772
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/68601.plusbus",
+      "kapitel": "1002",
+      "titel": "63302",
+      "zweckbestimmung": "Erreichbarkeit im ländlichen Raum: PlusBus, TaktBus und Rufbusverkehre",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/68601.plusbus@2027",
+          "betrag": 72897663
+        },
+        "2028": {
+          "id": "T.1002/68601.plusbus@2028",
+          "betrag": 74055509
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/68601.zweckverbaende",
+      "kapitel": "1002",
+      "titel": "63701",
+      "zweckbestimmung": "Zuschüsse an Zweckverbände und Aufgabenträger des ÖPNV nach dem Regionalisierungsgesetz",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "637",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Zweckverbände",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Weitergabe von Regionalisierungsmitteln an die kommunalen Aufgabenträger für den übrigen ÖPNV (Bus, Straßenbahn) nach dem Vorbild der sächsischen Zuschüsse an die Zweckverbände (sächsischer Titel 10 11/637 05).",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/68601.zweckverbaende@2027",
+          "betrag": 801874296
+        },
+        "2028": {
+          "id": "T.1002/68601.zweckverbaende@2028",
+          "betrag": 814610598
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/68601.spnv",
+      "kapitel": "1002",
+      "titel": "68301",
+      "zweckbestimmung": "Betriebskostenausgleich an SPNV-Leistungserbringer (Verkehrsverträge, Regionalisierungsmittel)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "683",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an private Unternehmen, soweit nicht Gruppe 662",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "vertraglich",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "regionalisierung",
+      "erlaeuterung": "Ausgleich der Betriebskosten der Eisenbahnverkehrsunternehmen nach den als Nettoverträgen geschlossenen Verkehrsverträgen einschließlich der Ostdeutschen Eisenbahn; finanziert aus Regionalisierungsmitteln (Titel 231 11) und Landesmitteln.",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/68601.spnv@2027",
+          "betrag": 2551418216
+        },
+        "2028": {
+          "id": "T.1002/68601.spnv@2028",
+          "betrag": 2591942810
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/79901",
+      "kapitel": "1002",
+      "titel": "71201",
+      "zweckbestimmung": "Baumaßnahmen an Verknüpfungspunkten und Park-and-Ride-Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "712",
+      "gruppe_bezeichnung": "Große Neu-, Um- und Erweiterungsbauten",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/79901@2027",
+          "betrag": 145188881
+        },
+        "2028": {
+          "id": "T.1002/79901@2028",
+          "betrag": 137889065
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/89901.aufgabentraeger",
+      "kapitel": "1002",
+      "titel": "88301",
+      "zweckbestimmung": "Zuweisungen an Aufgabenträger für Investitionen in Straßenbahn, Bus und Verknüpfungsanlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/89901.aufgabentraeger@2027",
+          "betrag": 270307110
+        },
+        "2028": {
+          "id": "T.1002/89901.aufgabentraeger@2028",
+          "betrag": 231494403
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/89901.stationen",
+      "kapitel": "1002",
+      "titel": "89101",
+      "zweckbestimmung": "Zuschüsse für Investitionen an Stationen, Haltepunkten und Barrierefreiheit (Eisenbahninfrastruktur)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/89901.stationen@2027",
+          "betrag": 210238864
+        },
+        "2028": {
+          "id": "T.1002/89901.stationen@2028",
+          "betrag": 180051202
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1002/89901.fahrzeuge",
+      "kapitel": "1002",
+      "titel": "89201",
+      "zweckbestimmung": "Zuschüsse für Investitionen in Busse und Straßenbahnen mit emissionsfreien Antrieben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "892",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an private Unternehmen",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1002/89901.fahrzeuge@2027",
+          "betrag": 120136493
+        },
+        "2028": {
+          "id": "T.1002/89901.fahrzeuge@2028",
+          "betrag": 102886401
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1003/11901",
+      "kapitel": "1003",
+      "titel": "11901",
+      "zweckbestimmung": "Vermischte Einnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1003/11901@2027",
+          "betrag": 4467895
+        },
+        "2028": {
+          "id": "T.1003/11901@2028",
+          "betrag": 4516062
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1003/23101",
+      "kapitel": "1003",
+      "titel": "23101",
+      "zweckbestimmung": "Zuweisungen und Erstattungen des Bundes im Straßenwesen (u. a. Auftragsverwaltung der Bundesstraßen)",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1003/23101@2027",
+          "betrag": 445887698
+        },
+        "2028": {
+          "id": "T.1003/23101@2028",
+          "betrag": 419539546
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1003/35901",
+      "kapitel": "1003",
+      "titel": "35901",
+      "zweckbestimmung": "Zuweisungen für Investitionen im Straßenbau von Bund und Dritten",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "35",
+      "gruppe": "359",
+      "gruppe_bezeichnung": "Entnahmen aus sonstigen Rücklagen",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1003/35901@2027",
+          "betrag": 27116646
+        },
+        "2028": {
+          "id": "T.1003/35901@2028",
+          "betrag": 25905488
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1004/68201",
+      "kapitel": "1004",
+      "titel": "68272",
+      "titelgruppe": "72",
+      "zweckbestimmung": "Bereitschafts- und Einsatzauftrag Waldbrandbekämpfung aus der Luft (Betriebszuschuss Interflug)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "751",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "vertraglich",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; 6AT-802F,2Dash8-400AT,2B737;90,2Mio.Flugzeuge+10,8Erstausstattung+4,5Risiko=105,5. Modellzahlung70/35,5; Infrastruktur15/10; EU2/1 nur eingeplant. Kein Auslieferungsnachweis.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "interflug",
+      "erlaeuterung": "Vorhaltung der Besatzungen, Flugstunden, Wartung und Versicherung für den staatlichen Spezialflugdienst; ab 2029 laufender Betrieb rd. 30 Mio. EUR zuzüglich 10 Mio. EUR Ersatzinvestitionen.",
+      "jahre": {
+        "2027": {
+          "id": "T.1004/68201@2027",
+          "betrag": 25000000
+        },
+        "2028": {
+          "id": "T.1004/68201@2028",
+          "betrag": 30000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1004/89101.infrastruktur",
+      "kapitel": "1004",
+      "titel": "89101",
+      "titelgruppe": "72",
+      "zweckbestimmung": "Stationierungsinfrastruktur, Hangar und Löschmittelanlagen der Interflug",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "751",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; 6AT-802F,2Dash8-400AT,2B737;90,2Mio.Flugzeuge+10,8Erstausstattung+4,5Risiko=105,5. Modellzahlung70/35,5; Infrastruktur15/10; EU2/1 nur eingeplant. Kein Auslieferungsnachweis.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "interflug",
+      "erlaeuterung": "Hangar, Abfertigung, Löschmitteldepots und Wartungsausstattung an den Einsatzstandorten (15 Mio. EUR 2027, 10 Mio. EUR 2028).",
+      "jahre": {
+        "2027": {
+          "id": "T.1004/89101.infrastruktur@2027",
+          "betrag": 15000000
+        },
+        "2028": {
+          "id": "T.1004/89101.infrastruktur@2028",
+          "betrag": 10000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1004/89101.flugzeuge",
+      "kapitel": "1004",
+      "titel": "89172",
+      "titelgruppe": "72",
+      "zweckbestimmung": "Löschflugzeuge: 6 AT-802F, 2 Dash 8-400AT, 2 Boeing 737 – Vertragsraten (Investitionszuschuss an Interflug)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "751",
+      "herkunft": "S",
+      "qualitaet": "S_mengenmodell",
+      "bindung": "vertraglich",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; 6AT-802F,2Dash8-400AT,2B737;90,2Mio.Flugzeuge+10,8Erstausstattung+4,5Risiko=105,5. Modellzahlung70/35,5; Infrastruktur15/10; EU2/1 nur eingeplant. Kein Auslieferungsnachweis.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "interflug",
+      "einheit": "Luftfahrzeuge (Gesamtvertrag)",
+      "erlaeuterung": "Beschaffung von zehn Löschflugzeugen nach bestehendem Vertrag: sechs Agrar-/Löschflugzeuge AT-802F, zwei Dash 8-400AT (Mehrzweck-Löschflugzeuge) und zwei umgebaute Boeing 737. Gesamtkosten 105,5 Mio. EUR (Flugzeuge 90,2 Mio., Erstausstattung 10,8 Mio., Risikovorsorge 4,5 Mio. EUR). Bis 2026 geleistete Zahlungen sind nicht belegt; veranschlagt ist vorsichtig der volle Restbetrag (70 Mio. EUR 2027, 35,5 Mio. EUR 2028) abzüglich eingeplanter EU-Kofinanzierung. Nach 2028 entstehen keine weiteren Vertragsraten; eine zweite Erstbeschaffung ist ausgeschlossen.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.1004/89101.flugzeuge@2027",
+          "betrag": 68000000,
+          "menge": "10",
+          "satz": "6800000"
+        },
+        "2028": {
+          "id": "T.1004/89101.flugzeuge@2028",
+          "betrag": 34500000,
+          "menge": "10",
+          "satz": "3450000"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1005/68201",
+      "kapitel": "1005",
+      "titel": "68273",
+      "titelgruppe": "73",
+      "zweckbestimmung": "Betrieb des Zeppelin NT (Besatzung, Hallenmiete, Wartung)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "751",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Ein belegter15Mio.-Vertrag; Zahlungsreste unbekannt, Modell10/5. Kein zweiter Zeppelin, kein Wasserstoffprojekt.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "zeppelin",
+      "jahre": {
+        "2027": {
+          "id": "T.1005/68201@2027",
+          "betrag": 2000000
+        },
+        "2028": {
+          "id": "T.1005/68201@2028",
+          "betrag": 3000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1005/89101",
+      "kapitel": "1005",
+      "titel": "89173",
+      "titelgruppe": "73",
+      "zweckbestimmung": "Zeppelin NT: Restraten des Beschaffungsvertrags einschließlich Infrastruktur (ein Luftschiff)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "751",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "vertraglich",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Ein belegter15Mio.-Vertrag; Zahlungsreste unbekannt, Modell10/5. Kein zweiter Zeppelin, kein Wasserstoffprojekt.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "zeppelin",
+      "erlaeuterung": "Ein Zeppelin NT für Beobachtungs-, Mess- und Repräsentationsaufgaben; Vertragsrahmen 15 Mio. EUR, Restraten 10/5 Mio. EUR (Zahlungsstand bis 2026 nicht belegt). Kein zweites Luftschiff, keine Wasserstoffvariante.",
+      "jahre": {
+        "2027": {
+          "id": "T.1005/89101@2027",
+          "betrag": 10000000,
+          "menge": "1"
+        },
+        "2028": {
+          "id": "T.1005/89101@2028",
+          "betrag": 5000000,
+          "menge": "1"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1007/23101.dt",
+      "kapitel": "1007",
+      "titel": "23171",
+      "titelgruppe": "71",
+      "zweckbestimmung": "Bundesmittel zum Ausgleich des Deutschlandtickets",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "741",
+      "herkunft": "O",
+      "qualitaet": "D_ableitung",
+      "rechtsgrundlage": "BGBl. I 2026 Nr. 55",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "ticket",
+      "jahre": {
+        "2027": {
+          "id": "T.1007/23101.dt@2027",
+          "betrag": 273500000
+        },
+        "2028": {
+          "id": "T.1007/23101.dt@2028",
+          "betrag": 273500000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1007/23101.schueler",
+      "kapitel": "1007",
+      "titel": "23271",
+      "titelgruppe": "71",
+      "zweckbestimmung": "Bundesmittel für das Schülerticket",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "232",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen von Ländern",
+      "funktion": "741",
+      "herkunft": "O",
+      "qualitaet": "D_ableitung",
+      "rechtsgrundlage": "BGBl. I 2026 Nr. 55",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "ticket",
+      "jahre": {
+        "2027": {
+          "id": "T.1007/23101.schueler@2027",
+          "betrag": 330000000
+        },
+        "2028": {
+          "id": "T.1007/23101.schueler@2028",
+          "betrag": 330000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1007/68201.halbpreis",
+      "kapitel": "1007",
+      "titel": "68201",
+      "titelgruppe": "71",
+      "zweckbestimmung": "Ostticket: Ausgleich des Halbpreistarifs",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "741",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "OstPNVG § 4a Abs. 2, 4, 5 und § 7",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "ticket",
+      "erlaeuterung": "Ausgleich für 1,5 Mio. Halbpreiskunden (25 EUR je Monat); einschließlich des aus Titel 686 übergeleiteten bestehenden Landesausgleichs.",
+      "jahre": {
+        "2027": {
+          "id": "T.1007/68201.halbpreis@2027",
+          "betrag": 225000000
+        },
+        "2028": {
+          "id": "T.1007/68201.halbpreis@2028",
+          "betrag": 197100000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1007/68201.schueler",
+      "kapitel": "1007",
+      "titel": "68202",
+      "titelgruppe": "71",
+      "zweckbestimmung": "Schülerticket: unentgeltliche Schülerbeförderung im ÖPNV (Ausgleich an Verkehrsunternehmen)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "741",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "OstPNVG § 4a Abs. 2, 4, 5 und § 7",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "ticket",
+      "erlaeuterung": "Landesmindestanteil 330 Mio. EUR zuzüglich Bundesanteil 330 Mio. EUR (Titel 232 71); keine doppelte Freifahrt neben dem Ostticket.",
+      "jahre": {
+        "2027": {
+          "id": "T.1007/68201.schueler@2027",
+          "betrag": 660000000
+        },
+        "2028": {
+          "id": "T.1007/68201.schueler@2028",
+          "betrag": 660000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1007/68601.dt",
+      "kapitel": "1007",
+      "titel": "68203",
+      "titelgruppe": "71",
+      "zweckbestimmung": "Deutschlandticket: Verlustausgleich an Verkehrsunternehmen (Bundes- und Landesanteil)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "741",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "ticket",
+      "erlaeuterung": "Hälftiger Ausgleich der Mindereinnahmen aus dem Deutschlandticket: Bundesanteil 273,5 Mio. EUR (Titel 231 71) und Landesanteil 273,5 Mio. EUR.",
+      "jahre": {
+        "2027": {
+          "id": "T.1007/68601.dt@2027",
+          "betrag": 547000000
+        },
+        "2028": {
+          "id": "T.1007/68601.dt@2028",
+          "betrag": 547000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1007/68201.freifahrt",
+      "kapitel": "1007",
+      "titel": "68271",
+      "titelgruppe": "71",
+      "zweckbestimmung": "Ostticket: Ausgleich der unentgeltlichen Fahrt für Berechtigte (Kinder, Jugendliche, Rentner, Sozialberechtigte)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "741",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "gesetzlich",
+      "rechtsgrundlage": "OstPNVG § 4a Abs. 2, 4, 5 und § 7",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "ticket",
+      "erlaeuterung": "Erlös- und Mehrkostenausgleich für 2,5 Mio. aktive Freifahrtberechtigte (45 EUR je Monat und Berechtigtem als Erlösäquivalent); bestehende Kompensationen der Herkunftsländer sind angerechnet.",
+      "jahre": {
+        "2027": {
+          "id": "T.1007/68201.freifahrt@2027",
+          "betrag": 405000000
+        },
+        "2028": {
+          "id": "T.1007/68201.freifahrt@2028",
+          "betrag": 445500000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1008/89102",
+      "kapitel": "1008",
+      "titel": "89101",
+      "titelgruppe": "81",
+      "zweckbestimmung": "Triebzüge: zusätzliche Tranche aus umgewidmeten Infrastrukturmitteln (ohne Projektkredit)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Voraussetzungen der Finanzierungsakte",
+      "projekt_id": "rail-vehicles",
+      "erlaeuterung": "100/120 Mio. EUR werden aus dem ungebundenen Infrastrukturrest des Kapitels 1010 der Fahrzeugbeschaffung zugeordnet (Zweckpräzisierung bestehender Kernmittel, keine Einsparung, keine neue Kreditaufnahme).",
+      "vermerk": "Die Umwidmung darf nur aus nicht vertraglich gebundenen Mitteln des Kapitels 1010 vollzogen werden; bestehende Infrastrukturverträge gehen vor.",
+      "jahre": {
+        "2027": {
+          "id": "T.1008/89102@2027",
+          "betrag": 100000000
+        },
+        "2028": {
+          "id": "T.1008/89102@2028",
+          "betrag": 120000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1008/89101",
+      "kapitel": "1008",
+      "titel": "89181",
+      "titelgruppe": "81",
+      "zweckbestimmung": "Triebzüge für Regional- und S-Bahn-Verkehr: Investitionszuschuss an die Ostdeutsche Eisenbahn",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "bindung": "politisch",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Vorhandene Erneuerungsmittel und Reformkapital zusammen; zusätzliche Projektkredite nur indikativ, keine Kernhaushaltseinnahme.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "rail-vehicles",
+      "erlaeuterung": "Erneuerung und Erweiterung des landeseigenen Fahrzeugparks (Elektro- und Batterietriebzüge). Planungsgröße: rd. 9,5 Mio. EUR je Triebzug; die Jahresraten entsprechen damit rechnerisch etwa 30 (2027) bzw. 35 (2028) Fahrzeugen. Typen und Stückzahlen werden erst mit der Vergabe festgelegt; die Planungsgröße begründet keine Beschaffungsverpflichtung. Keine Projektkredite der Eisenbahn.\n",
+      "jahre": {
+        "2027": {
+          "id": "T.1008/89101@2027",
+          "betrag": 280000000
+        },
+        "2028": {
+          "id": "T.1008/89101@2028",
+          "betrag": 330000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1009/89101",
+      "kapitel": "1009",
+      "titel": "89181",
+      "titelgruppe": "81",
+      "zweckbestimmung": "Instandhaltungswerkstätten der Ostdeutschen Eisenbahn: Investitionszuschuss",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Standorte/Bauvergaben offen; aus bestehendem EP10-Investitionsrahmen.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "rail-works",
+      "erlaeuterung": "Neubau und Ertüchtigung von Werkstätten für den landeseigenen Fahrzeugpark; Standorte und Bauvergaben werden mit dem Wirtschaftsplan der Ostdeutschen Eisenbahn festgelegt.",
+      "jahre": {
+        "2027": {
+          "id": "T.1009/89101@2027",
+          "betrag": 100000000
+        },
+        "2028": {
+          "id": "T.1009/89101@2028",
+          "betrag": 120000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1010/68201",
+      "kapitel": "1010",
+      "titel": "68281",
+      "titelgruppe": "81",
+      "zweckbestimmung": "Betriebsumstellung der Ostdeutschen Eisenbahn (Übernahme von Verkehrsleistungen, Systemkosten)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Kein nochmaliger1Mrd.-Grundstock2026, Betrieb und Tarifausgleich getrennt.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "rail-network",
+      "jahre": {
+        "2027": {
+          "id": "T.1010/68201@2027",
+          "betrag": 50000000
+        },
+        "2028": {
+          "id": "T.1010/68201@2028",
+          "betrag": 60000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1010/89901",
+      "kapitel": "1010",
+      "titel": "89101",
+      "titelgruppe": "81",
+      "zweckbestimmung": "Schieneninfrastruktur: weitere Vorhaben nach Investitionsplan der Ostdeutschen Eisenbahn",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "vermerk": "Bestehende Verträge gehen vor; aus diesem Titel werden 100/120 Mio. EUR für die Fahrzeugtranche (Kapitel 1008 Titel 891 01) nicht nochmals verausgabt.",
+      "jahre": {
+        "2027": {
+          "id": "T.1010/89901@2027",
+          "betrag": 100000000
+        },
+        "2028": {
+          "id": "T.1010/89901@2028",
+          "betrag": 180000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1010/89101",
+      "kapitel": "1010",
+      "titel": "89181",
+      "titelgruppe": "81",
+      "zweckbestimmung": "Schieneninfrastruktur: Streckenertüchtigung, Leit- und Sicherungstechnik (Investitionszuschuss)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "742",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "Projekt-/Spezialrecht gemäß Projektregister; Kein nochmaliger1Mrd.-Grundstock2026, Betrieb und Tarifausgleich getrennt.",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "rail-network",
+      "jahre": {
+        "2027": {
+          "id": "T.1010/89101@2027",
+          "betrag": 70000000
+        },
+        "2028": {
+          "id": "T.1010/89101@2028",
+          "betrag": 90000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1012/42901.g422",
+      "kapitel": "1012",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1012/42901.g422@2027",
+          "betrag": 64334575
+        },
+        "2028": {
+          "id": "T.1012/42901.g422@2028",
+          "betrag": 64960169
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1012/42901.g428",
+      "kapitel": "1012",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1012/42901.g428@2027",
+          "betrag": 89677699
+        },
+        "2028": {
+          "id": "T.1012/42901.g428@2028",
+          "betrag": 94441929
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1012/42901.g441",
+      "kapitel": "1012",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1012/42901.g441@2027",
+          "betrag": 3344543
+        },
+        "2028": {
+          "id": "T.1012/42901.g441@2028",
+          "betrag": 3686992
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1012/42901.g459",
+      "kapitel": "1012",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1012/42901.g459@2027",
+          "betrag": 2662657
+        },
+        "2028": {
+          "id": "T.1012/42901.g459@2028",
+          "betrag": 2694732
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1012/68401",
+      "kapitel": "1012",
+      "titel": "63301",
+      "zweckbestimmung": "Zuweisungen an Bezirke und Gemeinden für den kommunalen Straßenbau (Straßenlastenausgleich)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1012/68401@2027",
+          "betrag": 144715326
+        },
+        "2028": {
+          "id": "T.1012/68401@2028",
+          "betrag": 146791017
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1012/71101",
+      "kapitel": "1012",
+      "titel": "71201",
+      "zweckbestimmung": "Landesstraßen: Aus- und Neubau nach Bauliste (Ortsumgehungen, Radwege an Landesstraßen)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "712",
+      "gruppe_bezeichnung": "Große Neu-, Um- und Erweiterungsbauten",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1012/71101@2027",
+          "betrag": 157705163
+        },
+        "2028": {
+          "id": "T.1012/71101@2028",
+          "betrag": 149776052
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1012/89101",
+      "kapitel": "1012",
+      "titel": "89101",
+      "zweckbestimmung": "Fahrbahnerneuerung von Landesstraßen (600 km jährlich)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Deckenerneuerung auf rd. 600 km Landesstraßen jährlich zu 1 Mio. EUR/km (2028: +2 % Baupreise). Teilweise aus fortgeführten investiven Bundesmitteln (F09/F10) finanziert; Mengen und Preise sind Planungsgrößen, keine vergebene Projektliste.",
+      "jahre": {
+        "2027": {
+          "id": "T.1012/89101@2027",
+          "betrag": 600000000,
+          "menge": "600",
+          "satz": "1000000"
+        },
+        "2028": {
+          "id": "T.1012/89101@2028",
+          "betrag": 612000000,
+          "menge": "600",
+          "satz": "1020000.00"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/42901.g422",
+      "kapitel": "1013",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/42901.g422@2027",
+          "betrag": 42889717
+        },
+        "2028": {
+          "id": "T.1013/42901.g422@2028",
+          "betrag": 43306781
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/42901.g428",
+      "kapitel": "1013",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/42901.g428@2027",
+          "betrag": 59785132
+        },
+        "2028": {
+          "id": "T.1013/42901.g428@2028",
+          "betrag": 62961286
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/42901.g441",
+      "kapitel": "1013",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/42901.g441@2027",
+          "betrag": 2229696
+        },
+        "2028": {
+          "id": "T.1013/42901.g441@2028",
+          "betrag": 2457993
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/42901.g459",
+      "kapitel": "1013",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/42901.g459@2027",
+          "betrag": 1775105
+        },
+        "2028": {
+          "id": "T.1013/42901.g459@2028",
+          "betrag": 1796489
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/52101",
+      "kapitel": "1013",
+      "titel": "52101",
+      "zweckbestimmung": "Brückenprüfung und laufende Bauwerksüberwachung (5.000 Bauwerke)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "521",
+      "gruppe_bezeichnung": "Unterhaltung des sonstigen unbeweglichen Vermögens",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/52101@2027",
+          "betrag": 50000000,
+          "menge": "5000",
+          "satz": "10000"
+        },
+        "2028": {
+          "id": "T.1013/52101@2028",
+          "betrag": 51000000,
+          "menge": "5000",
+          "satz": "10200.00"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/68401",
+      "kapitel": "1013",
+      "titel": "63301",
+      "zweckbestimmung": "Zuweisungen an Bezirke und Gemeinden für die Erhaltung kommunaler Brücken",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/68401@2027",
+          "betrag": 96476884
+        },
+        "2028": {
+          "id": "T.1013/68401@2028",
+          "betrag": 97860678
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/71101",
+      "kapitel": "1013",
+      "titel": "71201",
+      "zweckbestimmung": "Brücken: Ersatzneubauten nach Bauliste",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "712",
+      "gruppe_bezeichnung": "Große Neu-, Um- und Erweiterungsbauten",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/71101@2027",
+          "betrag": 105136775
+        },
+        "2028": {
+          "id": "T.1013/71101@2028",
+          "betrag": 99850701
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1013/89101",
+      "kapitel": "1013",
+      "titel": "89101",
+      "zweckbestimmung": "Brückenmodernisierungsprogramm: Sanierung von 100 Bauwerken jährlich",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Sanierung von rd. 100 Brückenbauwerken jährlich zu 4 Mio. EUR je Bauwerk; teilweise aus F09/F10-Bundesmitteln finanziert.",
+      "jahre": {
+        "2027": {
+          "id": "T.1013/89101@2027",
+          "betrag": 400000000,
+          "menge": "100",
+          "satz": "4000000"
+        },
+        "2028": {
+          "id": "T.1013/89101@2028",
+          "betrag": 408000000,
+          "menge": "100",
+          "satz": "4080000.00"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1014/42901.g422",
+      "kapitel": "1014",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1014/42901.g422@2027",
+          "betrag": 28593144
+        },
+        "2028": {
+          "id": "T.1014/42901.g422@2028",
+          "betrag": 28871185
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1014/42901.g428",
+      "kapitel": "1014",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1014/42901.g428@2027",
+          "betrag": 39856755
+        },
+        "2028": {
+          "id": "T.1014/42901.g428@2028",
+          "betrag": 41974191
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1014/42901.g441",
+      "kapitel": "1014",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1014/42901.g441@2027",
+          "betrag": 1486464
+        },
+        "2028": {
+          "id": "T.1014/42901.g441@2028",
+          "betrag": 1638662
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1014/42901.g459",
+      "kapitel": "1014",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1014/42901.g459@2027",
+          "betrag": 1183403
+        },
+        "2028": {
+          "id": "T.1014/42901.g459@2028",
+          "betrag": 1197659
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1014/52101",
+      "kapitel": "1014",
+      "titel": "52101",
+      "zweckbestimmung": "Straßenunterhaltung und Winterdienst (25.000 km Landesstraßen)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "521",
+      "gruppe_bezeichnung": "Unterhaltung des sonstigen unbeweglichen Vermögens",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Betriebliche Unterhaltung, Winterdienst und kleine Instandsetzungen auf rd. 25.000 km Landes- und übernommenen Kreisstraßen zu 36.000 EUR/km (2028: +2 %).",
+      "jahre": {
+        "2027": {
+          "id": "T.1014/52101@2027",
+          "betrag": 900000000,
+          "menge": "25000",
+          "satz": "36000"
+        },
+        "2028": {
+          "id": "T.1014/52101@2028",
+          "betrag": 918000000,
+          "menge": "25000",
+          "satz": "36720.00"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1014/68401",
+      "kapitel": "1014",
+      "titel": "68201",
+      "zweckbestimmung": "Zuführung an den Landesbetrieb Straßenwesen für den Betriebsdienst",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "682",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an öffentliche Unternehmen, soweit nicht Gruppe 661",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1014/68401@2027",
+          "betrag": 64317922
+        },
+        "2028": {
+          "id": "T.1014/68401@2028",
+          "betrag": 65240452
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1014/71101",
+      "kapitel": "1014",
+      "titel": "71101",
+      "zweckbestimmung": "Kleine Baumaßnahmen der Straßenmeistereien",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "gruppe_bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1014/71101@2027",
+          "betrag": 70091183
+        },
+        "2028": {
+          "id": "T.1014/71101@2028",
+          "betrag": 66567134
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1015/42901.g422",
+      "kapitel": "1015",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "711",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1015/42901.g422@2027",
+          "betrag": 7148285
+        },
+        "2028": {
+          "id": "T.1015/42901.g422@2028",
+          "betrag": 7217797
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1015/42901.g428",
+      "kapitel": "1015",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "711",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1015/42901.g428@2027",
+          "betrag": 9964188
+        },
+        "2028": {
+          "id": "T.1015/42901.g428@2028",
+          "betrag": 10493548
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1015/42901.g441",
+      "kapitel": "1015",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "711",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1015/42901.g441@2027",
+          "betrag": 371616
+        },
+        "2028": {
+          "id": "T.1015/42901.g441@2028",
+          "betrag": 409666
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1015/42901.g459",
+      "kapitel": "1015",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "711",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1015/42901.g459@2027",
+          "betrag": 295851
+        },
+        "2028": {
+          "id": "T.1015/42901.g459@2028",
+          "betrag": 299415
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1015/68401",
+      "kapitel": "1015",
+      "titel": "68401",
+      "zweckbestimmung": "Zuschüsse für Verkehrssicherheitsarbeit und Schulwegsicherung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "711",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1015/68401@2027",
+          "betrag": 16079482
+        },
+        "2028": {
+          "id": "T.1015/68401@2028",
+          "betrag": 16310115
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1015/71101",
+      "kapitel": "1015",
+      "titel": "71101",
+      "zweckbestimmung": "Kleine Baumaßnahmen für Verkehrssicherheit (Unfallschwerpunkte, Querungshilfen)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "gruppe_bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "funktion": "711",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1015/71101@2027",
+          "betrag": 17522797
+        },
+        "2028": {
+          "id": "T.1015/71101@2028",
+          "betrag": 16641786
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1015/81201",
+      "kapitel": "1015",
+      "titel": "81201",
+      "zweckbestimmung": "Verkehrssteuerung: Verkehrsrechner, Lichtsignal- und Verkehrsbeeinflussungsanlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "81",
+      "gruppe": "812",
+      "gruppe_bezeichnung": "Erwerb von Geräten und sonstigen beweglichen Sachen",
+      "funktion": "711",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Erneuerung und Digitalisierung von rd. 6.000 verkehrstechnischen Anlagen (10.000 EUR je Anlage und Jahr).",
+      "jahre": {
+        "2027": {
+          "id": "T.1015/81201@2027",
+          "betrag": 60000000,
+          "menge": "6000",
+          "satz": "10000"
+        },
+        "2028": {
+          "id": "T.1015/81201@2028",
+          "betrag": 61200000,
+          "menge": "6000",
+          "satz": "10200.00"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1019/54701.fremdleistung",
+      "kapitel": "1019",
+      "titel": "52101",
+      "zweckbestimmung": "Fremdleistungen des Straßenbetriebsdienstes (Grünpflege, Reinigung, Verkehrssicherung)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "521",
+      "gruppe_bezeichnung": "Unterhaltung des sonstigen unbeweglichen Vermögens",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_mengenmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "einheit": "km",
+      "jahre": {
+        "2027": {
+          "id": "T.1019/54701.fremdleistung@2027",
+          "betrag": 150000000,
+          "menge": "25000",
+          "satz": "6000"
+        },
+        "2028": {
+          "id": "T.1019/54701.fremdleistung@2028",
+          "betrag": 153000000,
+          "menge": "25000",
+          "satz": "6120"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1019/54701.markierung",
+      "kapitel": "1019",
+      "titel": "52102",
+      "zweckbestimmung": "Fahrbahnmarkierung und Beschilderung",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "521",
+      "gruppe_bezeichnung": "Unterhaltung des sonstigen unbeweglichen Vermögens",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_mengenmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "einheit": "km",
+      "jahre": {
+        "2027": {
+          "id": "T.1019/54701.markierung@2027",
+          "betrag": 50000000,
+          "menge": "25000",
+          "satz": "2000"
+        },
+        "2028": {
+          "id": "T.1019/54701.markierung@2028",
+          "betrag": 51000000,
+          "menge": "25000",
+          "satz": "2040"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1019/54701.planung",
+      "kapitel": "1019",
+      "titel": "52601",
+      "zweckbestimmung": "Ingenieur-, Planungs- und Gutachterleistungen für Straßen- und Brückenbauvorhaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1019/54701.planung@2027",
+          "betrag": 108000000
+        },
+        "2028": {
+          "id": "T.1019/54701.planung@2028",
+          "betrag": 110000000
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1019/54701.rest",
+      "kapitel": "1019",
+      "titel": "54701",
+      "zweckbestimmung": "Sachausgaben des Straßenwesens – noch nicht untersetzter Rest",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "erlaeuterung": "Sachausgabenanteil der Herkunftshaushalte im Straßenwesen, der noch keinem Leistungsbereich zugeordnet ist (u. a. Betriebsstoffe, Gerätevorhaltung, Fremdpersonal der Straßenmeistereien). Der Betrag ist gegenüber C0 v2 um die Zinsanteile und die modellierten Leistungsbereiche vermindert.",
+      "jahre": {
+        "2027": {
+          "id": "T.1019/54701.rest@2027",
+          "betrag": 664590727
+        },
+        "2028": {
+          "id": "T.1019/54701.rest@2028",
+          "betrag": 520471691
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1019/89901",
+      "kapitel": "1019",
+      "titel": "89901",
+      "zweckbestimmung": "Straßenbau-Programmreserve für Vorhaben der Bauliste (nicht einzeln veranschlagt)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "899",
+      "gruppe_bezeichnung": "Nicht aufteilbare Investitionsausgaben",
+      "funktion": "723",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "vermerk": "Gesperrt bis zur Vorlage der Bauliste; Freigabe durch das Staatssekretariat für Finanzen.",
+      "jahre": {
+        "2027": {
+          "id": "T.1019/89901@2027",
+          "betrag": 165440438
+        },
+        "2028": {
+          "id": "T.1019/89901@2028",
+          "betrag": 41049668
+        }
+      }
+    }
+  ]
+}

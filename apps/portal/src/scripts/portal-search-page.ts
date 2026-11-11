@@ -53,6 +53,27 @@ function formatCount(count: number): string {
   return `${count} Treffer`;
 }
 
+/** Haushaltsbezogene Anfrage: Fachbegriff des Haushalts oder Nummer im Stil einer Titelnummer. */
+const BUDGET_QUERY_PATTERN = /haushalt|etat|einzelplan|kapitel|titel|gruppierung|ansatz|ansätze|ansaetze|^\s*\d{3}\s?\d{2}\s*$/iu;
+
+/**
+ * Jüngste Haushaltsperiode mit eigener Haushaltssuche. Sie wird aus dem Portalindex abgeleitet,
+ * der nur sichtbare Perioden enthält: Kapitelseiten gibt es ausschließlich in Perioden mit
+ * Haushaltssuche. Liefert Adresse der Suche und Bezeichnung der Periode.
+ */
+function findBudgetSearch(entries: PortalEntry[]): { url: string; label: string } | null {
+  const periods = new Set<string>();
+  for (const entry of entries) {
+    const match = /\/haushalt\/(\d{4}-\d{4})\/einzelplaene\/\d{2}\/kapitel\/\d{4}\//u.exec(entry.url);
+    if (match) periods.add(match[1]);
+  }
+  const newest = [...periods].sort().pop();
+  if (!newest) return null;
+  const start = entries.find((entry) => new RegExp(`/haushalt/${newest}/$`, 'u').test(entry.url));
+  if (!start) return null;
+  return { url: `${start.url}suche/`, label: start.title };
+}
+
 if (root) {
   const form = root.querySelector<HTMLFormElement>('[data-portal-search-form]');
   const queryInput = root.querySelector<HTMLInputElement>('[data-portal-search-query]');
@@ -72,6 +93,7 @@ if (root) {
   const params = new URLSearchParams(window.location.search);
 
   let portalEntries: PortalEntry[] = [];
+  let budgetSearch: { url: string; label: string } | null = null;
   let lawEntries: RankableEntry[] = [];
   let lawState: LawIndexState = 'idle';
   let visibleCount = PAGE_SIZE;
@@ -229,6 +251,17 @@ if (root) {
             : `${hits.length} Treffer für „${query}“: ${portalCount} im Staatsportal, ${lawCount} im Recht.${note}`;
     }
     renderGroups(hits, terms, lawStatus);
+    if (groupsNode && budgetSearch && wantsPortal()) {
+      const budgetRelated =
+        BUDGET_QUERY_PATTERN.test(query) ||
+        hits.filter((hit) => hit.area === 'portal').slice(0, 3).some((hit) => (hit.entry as PortalEntry).section === 'budget');
+      if (budgetRelated) {
+        groupsNode.insertAdjacentHTML(
+          'afterbegin',
+          `<p class="search-feedback search-feedback--hint" data-portal-search-budget><a class="inline-link" href="${escapeHtml(budgetSearch.url)}?q=${encodeURIComponent(query)}">Im Haushalt suchen: Vorhaben, Kapitel und Titel im ${escapeHtml(budgetSearch.label)}</a></p>`,
+        );
+      }
+    }
 
     const nextParams = new URLSearchParams();
     if (query) nextParams.set('q', query);
@@ -250,6 +283,7 @@ if (root) {
     })
     .then((payload) => {
       portalEntries = payload.entries;
+      budgetSearch = findBudgetSearch(portalEntries);
 
       form?.addEventListener('submit', (event) => {
         event.preventDefault();

@@ -1,0 +1,20 @@
+---
+/**
+ * Sprungliste zu den Abschnitten einer Fachseite („Auf dieser Seite“), damit jeder Abschnitt aus
+ * dem ersten Bildschirm in einem Schritt erreichbar ist. Echte Ankerlinks, ohne JavaScript.
+ */
+interface Props {
+  items: Array<{ id: string; label: string }>;
+  label?: string;
+}
+
+const { items, label = 'Auf dieser Seite' } = Astro.props as Props;
+const headingId = `abschnitte-${items[0]?.id ?? 'liste'}`;
+---
+
+<nav class="hh-abschnitte" aria-labelledby={headingId}>
+  <p class="hh-abschnitte__titel" id={headingId}>{label}</p>
+  <ul class="hh-abschnitte__liste">
+    {items.map((item) => <li><a href={`#${item.id}`}>{item.label}</a></li>)}
+  </ul>
+</nav>

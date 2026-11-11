@@ -1,0 +1,352 @@
+---
+/**
+ * Haushalt eines Geschäftsbereichs auf der Ressortseite (/staatsregierung/kabinett/<ressort>/).
+ *
+ * Zeigt je sichtbarer Haushaltsperiode die zugeordneten Einzelpläne mit Ausgaben, Personalausgaben
+ * (Hauptgruppe 4) und Investitionen (Hauptgruppen 7 und 8) je Jahr sowie für Snapshot-Perioden die
+ * größten Vorhaben des Ressorts. Die Zuordnung ist redaktionell, nie aus Namensähnlichkeit
+ * abgeleitet: 2025/2026 über `ministrySlug` des bisherigen Datenbestands, Snapshot-Perioden über
+ * `ministrySlugs` in content/haushalt/<periode>/einzelplaene.json und `ministrySlug` der
+ * Projekt-Overlays. Nicht freigegebene Perioden erscheinen nur im Vorschau-Build.
+ */
+import '../../styles/haushalt/base.css';
+import Amount from './Amount.astro';
+import StatusBadge from './StatusBadge.astro';
+import {
+  getBudgetPeriodPageUrl,
+  getBudgetPeriodPlanUrl,
+  getBudgetPeriodUrl,
+  getBudgetPlanUrl,
+  getBudgetProjectUrl,
+  getBudgetUrl,
+} from '@ostrecht/shared/lib/portal/routes.ts';
+import { budgetPlans, type BudgetYear } from '../../lib/haushalt/legacy-2025-2026.ts';
+import { DEFINITION_INVESTITIONEN, getInvestitionen, getPeriodenvergleichHinweis, legacyAmountsToHauptgruppen } from '../../lib/haushalt/kennzahlen.ts';
+import {
+  PROJEKT_STATUS_LABELS,
+  hasProjektseite,
+  loadEinzelplanOverlays,
+  loadFreitextOverlay,
+  loadProjektOverlays,
+  publicBezeichnung,
+} from '../../lib/haushalt/oeffentlich.ts';
+import { getPeriodeStatusInfo, getVisiblePeriods, isPreviewOnly, type Haushaltsperiode } from '../../lib/haushalt/perioden.ts';
+import { hasSnapshot, loadEinzelplaene, loadProjekte } from '../../lib/haushalt/snapshot.ts';
+import type { Hauptgruppen } from '../../lib/haushalt/types.ts';
+
+interface Props {
+  ministrySlug: string;
+  /** Kurzname des Ressorts für die Einleitung. */
+  ministryName?: string;
+}
+
+interface PlanJahr {
+  jahr: string;
+  ausgaben: number;
+  personal: number;
+  investitionen: number;
+}
+
+interface PlanZeile {
+  ep: string;
+  titel: string;
+  href: string;
+  jahre: PlanJahr[];
+}
+
+interface Vorhaben {
+  titel: string;
+  href: string;
+  status: string;
+  betraege: Array<{ jahr: string; wert: number }> | null;
+  /** Angezeigter Grund, wenn keine Beträge genannt werden. */
+  ohneBetrag: string;
+  hinweis?: string;
+  gewicht: number;
+}
+
+interface PeriodenBlock {
+  periode: Haushaltsperiode;
+  status: ReturnType<typeof getPeriodeStatusInfo>;
+  vorschau: boolean;
+  href: string;
+  plaene: PlanZeile[];
+  vorhaben: Vorhaben[];
+  vorhabenHref?: string;
+}
+
+const { ministrySlug, ministryName } = Astro.props as Props;
+
+function planJahr(jahr: string, ausgaben: number, hauptgruppen: Hauptgruppen): PlanJahr {
+  return { jahr, ausgaben, personal: hauptgruppen['4'], investitionen: getInvestitionen(hauptgruppen).betrag };
+}
+
+function legacyBlock(periode: Haushaltsperiode): PeriodenBlock {
+  const jahre = periode.jahre.map(String) as BudgetYear[];
+  const plaene = budgetPlans
+    .filter((plan) => plan.ministrySlug === ministrySlug)
+    .map((plan): PlanZeile => ({
+      ep: plan.number,
+      titel: plan.title,
+      href: getBudgetPlanUrl(plan.number),
+      jahre: jahre.map((jahr) => planJahr(jahr, plan.amounts[jahr].expenses, legacyAmountsToHauptgruppen(plan.amounts[jahr]))),
+    }));
+  return {
+    periode,
+    status: getPeriodeStatusInfo(periode),
+    vorschau: isPreviewOnly(periode),
+    href: getBudgetPeriodUrl(periode.id),
+    plaene,
+    vorhaben: [],
+  };
+}
+
+function snapshotBlock(periode: Haushaltsperiode): PeriodenBlock {
+  const id = periode.id;
+  const jahre = periode.jahre.map(String);
+  const freitexte = loadFreitextOverlay(id);
+  const overlays = loadEinzelplanOverlays(id);
+  const plaene = loadEinzelplaene(id)
+    .filter((plan) => overlays[plan.ep]?.ministrySlugs.includes(ministrySlug))
+    .map((plan): PlanZeile => ({
+      ep: plan.ep,
+      titel: overlays[plan.ep]?.kurztitel ?? publicBezeichnung(plan.bezeichnung, freitexte),
+      href: getBudgetPeriodPlanUrl(id, plan.ep),
+      jahre: jahre.map((jahr) => {
+        const daten = plan.jahre[jahr as `${number}`];
+        if (!daten) throw new Error(`Einzelplan ${plan.ep}: Jahr ${jahr} fehlt.`);
+        return planJahr(jahr, daten.ausgaben, daten.hauptgruppen);
+      }),
+    }));
+  const projektOverlays = loadProjektOverlays(id);
+  const vorhaben = loadProjekte(id)
+    .flatMap((projekt): Vorhaben[] => {
+      const overlay = projektOverlays[projekt.id];
+      if (!overlay || overlay.ministrySlug !== ministrySlug || !hasProjektseite(projekt, overlay)) return [];
+      const ohneBetrag = overlay.ohneSumme === true || overlay.status === 'nicht-finanziert';
+      const betraege = ohneBetrag
+        ? null
+        : jahre.map((jahr) => ({ jahr, wert: projekt.jahre[jahr as `${number}`]?.kernhaushalt ?? 0 }));
+      const mitBetrag = betraege && betraege.some((eintrag) => eintrag.wert !== 0) ? betraege : null;
+      return [
+        {
+          titel: overlay.titel,
+          href: getBudgetProjectUrl(id, overlay.slug),
+          status: PROJEKT_STATUS_LABELS[overlay.status],
+          betraege: mitBetrag,
+          // Wie in der Vorhabenübersicht (ProjektTabelle): ohne Beträge den Grund nennen.
+          ohneBetrag: overlay.status === 'nicht-finanziert' ? 'kein Ansatz' : overlay.ohneSumme === true ? 'kein eigener Betrag' : 'kein eigener Ansatz',
+          ...(overlay.betragshinweis ? { hinweis: overlay.betragshinweis } : {}),
+          // Nur zur Reihung, nie angezeigt.
+          gewicht: mitBetrag ? mitBetrag.reduce((summe, eintrag) => summe + Math.abs(eintrag.wert), 0) : -1,
+        },
+      ];
+    })
+    .sort((left, right) => right.gewicht - left.gewicht || left.titel.localeCompare(right.titel, 'de'));
+  return {
+    periode,
+    status: getPeriodeStatusInfo(periode),
+    vorschau: isPreviewOnly(periode),
+    href: getBudgetPeriodUrl(id),
+    plaene,
+    vorhaben: vorhaben.slice(0, 4),
+    ...(vorhaben.length > 4 ? { vorhabenHref: getBudgetPeriodPageUrl(id, 'projekte') } : {}),
+  };
+}
+
+const bloecke = getVisiblePeriods()
+  .map((periode): PeriodenBlock | null => {
+    if (periode.datenquelle === 'legacy-2025-2026') return legacyBlock(periode);
+    if (periode.datenquelle === 'snapshot' && hasSnapshot(periode.id)) return snapshotBlock(periode);
+    return null;
+  })
+  .filter((block): block is PeriodenBlock => block !== null && block.plaene.length > 0);
+
+const snapshotPeriode = bloecke.find((block) => block.periode.datenquelle === 'snapshot')?.periode;
+const vergleichshinweis = bloecke.length > 1 && snapshotPeriode ? getPeriodenvergleichHinweis(snapshotPeriode.id) : null;
+const zeilen: Array<{ key: keyof Omit<PlanJahr, 'jahr'>; label: string }> = [
+  { key: 'ausgaben', label: 'Ausgaben' },
+  { key: 'personal', label: 'darunter Personalausgaben' },
+  { key: 'investitionen', label: 'darunter Investitionen' },
+];
+---
+
+{bloecke.length > 0 ? (
+  <section class="section hh-ressort" aria-labelledby="ressort-haushalt" data-ressort-haushalt>
+    <div class="section-header">
+      <h2 id="ressort-haushalt">Haushalt</h2>
+      <p>
+        Einzelpläne{ministryName ? ` im Geschäftsbereich ${ministryName}` : ' dieses Geschäftsbereichs'} mit ihren Ansätzen
+        je Haushaltsjahr.
+      </p>
+    </div>
+
+    <div class="hh-ressort__perioden">
+      {bloecke.map((block) => {
+        const headingId = `ressort-haushalt-${block.periode.id}`;
+        return (
+          <article class="hh-ressort__periode" aria-labelledby={headingId}>
+            <header class="hh-ressort__kopf">
+              <h3 id={headingId}><a class="inline-link" href={block.href}>{block.periode.bezeichnung}</a></h3>
+              <p class="hh-ressort__status">
+                <StatusBadge tone={block.status.tone} label={block.status.label} />
+                {block.vorschau ? <StatusBadge tone="vorschau" label="Vorschau, nicht veröffentlicht" /> : null}
+              </p>
+              <p class="hh-ressort__statustext">{block.status.text}</p>
+              {block.status.nachtrag ? (
+                <p class="hh-ressort__statustext" data-haushalt-nachtrag>
+                  <StatusBadge tone={block.status.nachtrag.tone} label={block.status.nachtrag.label} /> {block.status.nachtrag.text}
+                </p>
+              ) : null}
+            </header>
+
+            {block.plaene.map((plan) => (
+              <div class="table-wrap hh-ressort__tabelle">
+                <table class="data-table hh-datentabelle">
+                  <caption>
+                    <a class="inline-link" href={plan.href}><span class="hh-kennung">Einzelplan {plan.ep}</span>: {plan.titel}</a>
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Ansatz</th>
+                      {plan.jahre.map((jahr) => <th scope="col" class="hh-zahl">{jahr.jahr}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {zeilen.map((zeile) => (
+                      <tr>
+                        <th scope="row">{zeile.label}</th>
+                        {plan.jahre.map((jahr) => (
+                          <td class="hh-zahl"><Amount value={jahr[zeile.key]} /></td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+
+            {block.vorhaben.length > 0 ? (
+              <div class="hh-ressort__vorhaben">
+                <h4>{block.vorhaben.every((vorhaben) => vorhaben.betraege) ? 'Größte Vorhaben' : 'Vorhaben'}</h4>
+                <ul class="hh-ressort__vorhabenliste">
+                  {block.vorhaben.map((vorhaben) => (
+                    <li>
+                      <a class="inline-link" href={vorhaben.href}>{vorhaben.titel}</a>
+                      <span class="hh-ressort__meta">
+                        <span>{vorhaben.status}</span>
+                        {vorhaben.betraege ? vorhaben.betraege.map((eintrag) => (
+                          <span>{eintrag.jahr}: <Amount value={eintrag.wert} /></span>
+                        )) : <span>{vorhaben.ohneBetrag}</span>}
+                      </span>
+                      {vorhaben.betraege && vorhaben.hinweis ? <span class="hh-ressort__hinweis">{vorhaben.hinweis}</span> : null}
+                    </li>
+                  ))}
+                </ul>
+                {block.vorhabenHref ? (
+                  <p class="hh-ressort__mehr"><a class="inline-link" href={block.vorhabenHref}>Alle Vorhaben im {block.periode.bezeichnung}</a></p>
+                ) : null}
+              </div>
+            ) : null}
+          </article>
+        );
+      })}
+    </div>
+
+    <p class="hh-ressort__mehr"><a class="inline-link" href={getBudgetUrl()}>Kapitel, Titel und weitere Angaben im Bereich Haushalt</a></p>
+    <p class="hh-ressort__definition">Investitionen: {DEFINITION_INVESTITIONEN}</p>
+    {vergleichshinweis ? <p class="hh-ressort__definition">{vergleichshinweis}</p> : null}
+  </section>
+) : null}
+
+<style>
+  .hh-ressort__perioden {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .hh-ressort__periode {
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--color-border-strong);
+  }
+
+  .hh-ressort__kopf {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .hh-ressort__kopf h3 {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+
+  .hh-ressort__status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+  }
+
+  .hh-ressort__statustext {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hh-ressort__tabelle {
+    margin: 0;
+  }
+
+  .hh-ressort__tabelle caption {
+    padding-bottom: var(--space-2);
+    text-align: start;
+    font-weight: 600;
+  }
+
+  .hh-ressort__vorhaben h4 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-base-plus);
+  }
+
+  .hh-ressort__vorhabenliste {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hh-ressort__vorhabenliste li {
+    display: grid;
+    gap: var(--space-1);
+    max-width: none;
+  }
+
+  .hh-ressort__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-4);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hh-ressort__hinweis,
+  .hh-ressort__definition {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hh-ressort__mehr,
+  .hh-ressort__definition {
+    margin: var(--space-3) 0 0;
+  }
+
+  .hh-ressort__definition {
+    max-width: var(--measure-body);
+  }
+</style>

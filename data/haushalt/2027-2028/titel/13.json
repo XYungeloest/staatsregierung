@@ -1,0 +1,4073 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "einzelplan": "13",
+  "jahresfelder": [
+    "id",
+    "betrag",
+    "ve",
+    "menge",
+    "satz"
+  ],
+  "titel": [
+    {
+      "konzept_id": "T.1301/11901.g111",
+      "kapitel": "1301",
+      "titel": "11101",
+      "zweckbestimmung": "Gebühren, sonstige Entgelte",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "gruppe_bezeichnung": "Gebühren, sonstige Entgelte",
+      "funktion": "012",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/11901.g111@2027",
+          "betrag": 4638747
+        },
+        "2028": {
+          "id": "T.1301/11901.g111@2028",
+          "betrag": 4742407
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/11901.g112",
+      "kapitel": "1301",
+      "titel": "11201",
+      "zweckbestimmung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "gruppe_bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "funktion": "012",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/11901.g112@2027",
+          "betrag": 1488491
+        },
+        "2028": {
+          "id": "T.1301/11901.g112@2028",
+          "betrag": 1530359
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/11901.g119",
+      "kapitel": "1301",
+      "titel": "11901",
+      "zweckbestimmung": "Sonstige Verwaltungseinnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "012",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/11901.g119@2027",
+          "betrag": 2242130
+        },
+        "2028": {
+          "id": "T.1301/11901.g119@2028",
+          "betrag": 2289144
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/23101.g231",
+      "kapitel": "1301",
+      "titel": "23101",
+      "zweckbestimmung": "Sonstige Zuweisungen vom Bund",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "012",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/23101.g231@2027",
+          "betrag": 10562116
+        },
+        "2028": {
+          "id": "T.1301/23101.g231@2028",
+          "betrag": 9168614
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/23101.g271",
+      "kapitel": "1301",
+      "titel": "27101",
+      "zweckbestimmung": "Erstattungen von der EU",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "27",
+      "gruppe": "271",
+      "gruppe_bezeichnung": "Erstattungen von der EU",
+      "funktion": "012",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/23101.g271@2027",
+          "betrag": 1337372
+        },
+        "2028": {
+          "id": "T.1301/23101.g271@2028",
+          "betrag": 1194192
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/23101.g281",
+      "kapitel": "1301",
+      "titel": "28101",
+      "zweckbestimmung": "Sonstige Erstattungen aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "281",
+      "gruppe_bezeichnung": "Sonstige Erstattungen aus dem Inland",
+      "funktion": "012",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/23101.g281@2027",
+          "betrag": 1927958
+        },
+        "2028": {
+          "id": "T.1301/23101.g281@2028",
+          "betrag": 1839827
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/23101.g282",
+      "kapitel": "1301",
+      "titel": "28201",
+      "zweckbestimmung": "Sonstige Zuschüsse aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "282",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse aus dem Inland",
+      "funktion": "012",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/23101.g282@2027",
+          "betrag": 416534
+        },
+        "2028": {
+          "id": "T.1301/23101.g282@2028",
+          "betrag": 354400
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/35901",
+      "kapitel": "1301",
+      "titel": "34901",
+      "zweckbestimmung": "Zuschüsse für Investitionen von Bund, EU und Dritten",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "349",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/35901@2027",
+          "betrag": 42598
+        },
+        "2028": {
+          "id": "T.1301/35901@2028",
+          "betrag": 43471
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/42901.g422",
+      "kapitel": "1301",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/42901.g422@2027",
+          "betrag": 11478125
+        },
+        "2028": {
+          "id": "T.1301/42901.g422@2028",
+          "betrag": 11513012
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/42901.g428",
+      "kapitel": "1301",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/42901.g428@2027",
+          "betrag": 13090637
+        },
+        "2028": {
+          "id": "T.1301/42901.g428@2028",
+          "betrag": 13694825
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/42901.g441",
+      "kapitel": "1301",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/42901.g441@2027",
+          "betrag": 537039
+        },
+        "2028": {
+          "id": "T.1301/42901.g441@2028",
+          "betrag": 588107
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/42901.g459",
+      "kapitel": "1301",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/42901.g459@2027",
+          "betrag": 427548
+        },
+        "2028": {
+          "id": "T.1301/42901.g459@2028",
+          "betrag": 429833
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/54701",
+      "kapitel": "1301",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/54701@2027",
+          "betrag": 2233554
+        },
+        "2028": {
+          "id": "T.1301/54701@2028",
+          "betrag": 1937418
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/68601",
+      "kapitel": "1301",
+      "titel": "68601",
+      "zweckbestimmung": "Sonstige Zuschüsse für laufende Zwecke",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "686",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für laufende Zwecke im Inland",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/68601@2027",
+          "betrag": 20538922
+        },
+        "2028": {
+          "id": "T.1301/68601@2028",
+          "betrag": 20920344
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/79901",
+      "kapitel": "1301",
+      "titel": "79901",
+      "zweckbestimmung": "Nicht aufteilbare Baumaßnahmen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "79",
+      "gruppe": "799",
+      "gruppe_bezeichnung": "Nicht aufteilbare Baumaßnahmen",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/79901@2027",
+          "betrag": 178882
+        },
+        "2028": {
+          "id": "T.1301/79901@2028",
+          "betrag": 170238
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1301/89901",
+      "kapitel": "1301",
+      "titel": "89901",
+      "zweckbestimmung": "Nicht aufteilbare Investitionsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "899",
+      "gruppe_bezeichnung": "Nicht aufteilbare Investitionsausgaben",
+      "funktion": "012",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1301/89901@2027",
+          "betrag": 7342786
+        },
+        "2028": {
+          "id": "T.1301/89901@2028",
+          "betrag": 6571377
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/11901.g111",
+      "kapitel": "1302",
+      "titel": "11101",
+      "zweckbestimmung": "Gebühren, sonstige Entgelte",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "gruppe_bezeichnung": "Gebühren, sonstige Entgelte",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/11901.g111@2027",
+          "betrag": 30924978
+        },
+        "2028": {
+          "id": "T.1302/11901.g111@2028",
+          "betrag": 31616047
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/11901.g112",
+      "kapitel": "1302",
+      "titel": "11201",
+      "zweckbestimmung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "gruppe_bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/11901.g112@2027",
+          "betrag": 9923272
+        },
+        "2028": {
+          "id": "T.1302/11901.g112@2028",
+          "betrag": 10202392
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/11901.g119",
+      "kapitel": "1302",
+      "titel": "11901",
+      "zweckbestimmung": "Sonstige Verwaltungseinnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/11901.g119@2027",
+          "betrag": 14947537
+        },
+        "2028": {
+          "id": "T.1302/11901.g119@2028",
+          "betrag": 15260960
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/23101.g231",
+      "kapitel": "1302",
+      "titel": "23101",
+      "zweckbestimmung": "Sonstige Zuweisungen vom Bund",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/23101.g231@2027",
+          "betrag": 70414105
+        },
+        "2028": {
+          "id": "T.1302/23101.g231@2028",
+          "betrag": 61124094
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/23101.g271",
+      "kapitel": "1302",
+      "titel": "27101",
+      "zweckbestimmung": "Erstattungen von der EU",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "27",
+      "gruppe": "271",
+      "gruppe_bezeichnung": "Erstattungen von der EU",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/23101.g271@2027",
+          "betrag": 8915814
+        },
+        "2028": {
+          "id": "T.1302/23101.g271@2028",
+          "betrag": 7961280
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/23101.g281",
+      "kapitel": "1302",
+      "titel": "28101",
+      "zweckbestimmung": "Sonstige Erstattungen aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "281",
+      "gruppe_bezeichnung": "Sonstige Erstattungen aus dem Inland",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/23101.g281@2027",
+          "betrag": 12853054
+        },
+        "2028": {
+          "id": "T.1302/23101.g281@2028",
+          "betrag": 12265516
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/23101.g282",
+      "kapitel": "1302",
+      "titel": "28201",
+      "zweckbestimmung": "Sonstige Zuschüsse aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "282",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse aus dem Inland",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/23101.g282@2027",
+          "betrag": 2776894
+        },
+        "2028": {
+          "id": "T.1302/23101.g282@2028",
+          "betrag": 2362666
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1302/35901",
+      "kapitel": "1302",
+      "titel": "34901",
+      "zweckbestimmung": "Zuschüsse für Investitionen von Bund, EU und Dritten",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "349",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1302/35901@2027",
+          "betrag": 283984
+        },
+        "2028": {
+          "id": "T.1302/35901@2028",
+          "betrag": 289805
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/11901.g111",
+      "kapitel": "1303",
+      "titel": "11101",
+      "zweckbestimmung": "Gebühren, sonstige Entgelte",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "gruppe_bezeichnung": "Gebühren, sonstige Entgelte",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/11901.g111@2027",
+          "betrag": 15462489
+        },
+        "2028": {
+          "id": "T.1303/11901.g111@2028",
+          "betrag": 15808024
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/11901.g112",
+      "kapitel": "1303",
+      "titel": "11201",
+      "zweckbestimmung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "gruppe_bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/11901.g112@2027",
+          "betrag": 4961636
+        },
+        "2028": {
+          "id": "T.1303/11901.g112@2028",
+          "betrag": 5101196
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/11901.g119",
+      "kapitel": "1303",
+      "titel": "11901",
+      "zweckbestimmung": "Sonstige Verwaltungseinnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/11901.g119@2027",
+          "betrag": 7473768
+        },
+        "2028": {
+          "id": "T.1303/11901.g119@2028",
+          "betrag": 7630480
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/23101.g231",
+      "kapitel": "1303",
+      "titel": "23101",
+      "zweckbestimmung": "Sonstige Zuweisungen vom Bund",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/23101.g231@2027",
+          "betrag": 35207052
+        },
+        "2028": {
+          "id": "T.1303/23101.g231@2028",
+          "betrag": 30562047
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/23101.g271",
+      "kapitel": "1303",
+      "titel": "27101",
+      "zweckbestimmung": "Erstattungen von der EU",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "27",
+      "gruppe": "271",
+      "gruppe_bezeichnung": "Erstattungen von der EU",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/23101.g271@2027",
+          "betrag": 4457907
+        },
+        "2028": {
+          "id": "T.1303/23101.g271@2028",
+          "betrag": 3980640
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/23101.g281",
+      "kapitel": "1303",
+      "titel": "28101",
+      "zweckbestimmung": "Sonstige Erstattungen aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "281",
+      "gruppe_bezeichnung": "Sonstige Erstattungen aus dem Inland",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/23101.g281@2027",
+          "betrag": 6426527
+        },
+        "2028": {
+          "id": "T.1303/23101.g281@2028",
+          "betrag": 6132758
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/23101.g282",
+      "kapitel": "1303",
+      "titel": "28201",
+      "zweckbestimmung": "Sonstige Zuschüsse aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "282",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse aus dem Inland",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/23101.g282@2027",
+          "betrag": 1388447
+        },
+        "2028": {
+          "id": "T.1303/23101.g282@2028",
+          "betrag": 1181333
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/35901",
+      "kapitel": "1303",
+      "titel": "34901",
+      "zweckbestimmung": "Zuschüsse für Investitionen von Bund, EU und Dritten",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "349",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/35901@2027",
+          "betrag": 141992
+        },
+        "2028": {
+          "id": "T.1303/35901@2028",
+          "betrag": 144902
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/42901.g422",
+      "kapitel": "1303",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/42901.g422@2027",
+          "betrag": 550539177
+        },
+        "2028": {
+          "id": "T.1303/42901.g422@2028",
+          "betrag": 565406678
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/42901.g428",
+      "kapitel": "1303",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/42901.g428@2027",
+          "betrag": 113089466
+        },
+        "2028": {
+          "id": "T.1303/42901.g428@2028",
+          "betrag": 118963009
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/42901.g441",
+      "kapitel": "1303",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/42901.g441@2027",
+          "betrag": 15500407
+        },
+        "2028": {
+          "id": "T.1303/42901.g441@2028",
+          "betrag": 17091842
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/42901.g459",
+      "kapitel": "1303",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/42901.g459@2027",
+          "betrag": 12307752
+        },
+        "2028": {
+          "id": "T.1303/42901.g459@2028",
+          "betrag": 12388395
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g511",
+      "kapitel": "1303",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g511@2027",
+          "betrag": 6650053
+        },
+        "2028": {
+          "id": "T.1303/54701.g511@2028",
+          "betrag": 6515630
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g517",
+      "kapitel": "1303",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g517@2027",
+          "betrag": 23502824
+        },
+        "2028": {
+          "id": "T.1303/54701.g517@2028",
+          "betrag": 23678044
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g518",
+      "kapitel": "1303",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g518@2027",
+          "betrag": 7247139
+        },
+        "2028": {
+          "id": "T.1303/54701.g518@2028",
+          "betrag": 7167917
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g519",
+      "kapitel": "1303",
+      "titel": "51901",
+      "zweckbestimmung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "gruppe_bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g519@2027",
+          "betrag": 7381484
+        },
+        "2028": {
+          "id": "T.1303/54701.g519@2028",
+          "betrag": 7334613
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g526",
+      "kapitel": "1303",
+      "titel": "52601",
+      "zweckbestimmung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g526@2027",
+          "betrag": 16352711
+        },
+        "2028": {
+          "id": "T.1303/54701.g526@2028",
+          "betrag": 15857839
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g534",
+      "kapitel": "1303",
+      "titel": "53401",
+      "zweckbestimmung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "gruppe_bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g534@2027",
+          "betrag": 14733114
+        },
+        "2028": {
+          "id": "T.1303/54701.g534@2028",
+          "betrag": 15480962
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g545",
+      "kapitel": "1303",
+      "titel": "54501",
+      "zweckbestimmung": "Besondere sächliche Fachausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "gruppe_bezeichnung": "Besondere sächliche Fachausgaben",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g545@2027",
+          "betrag": 13628503
+        },
+        "2028": {
+          "id": "T.1303/54701.g545@2028",
+          "betrag": 11951361
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/54701.g547",
+      "kapitel": "1303",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "043",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/54701.g547@2027",
+          "betrag": 30555910
+        },
+        "2028": {
+          "id": "T.1303/54701.g547@2028",
+          "betrag": 27816447
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/68601",
+      "kapitel": "1303",
+      "titel": "68601",
+      "zweckbestimmung": "Zuschüsse und Erstattungen der Staats- und Grenzsicherheit (Unterbringung, Gemeinschaftsverpflegung)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "686",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für laufende Zwecke im Inland",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "grenzpolizei",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/68601@2027",
+          "betrag": 68463073
+        },
+        "2028": {
+          "id": "T.1303/68601@2028",
+          "betrag": 69734479
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/79901",
+      "kapitel": "1303",
+      "titel": "79901",
+      "zweckbestimmung": "Nicht aufteilbare Baumaßnahmen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "79",
+      "gruppe": "799",
+      "gruppe_bezeichnung": "Nicht aufteilbare Baumaßnahmen",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/79901@2027",
+          "betrag": 596271
+        },
+        "2028": {
+          "id": "T.1303/79901@2028",
+          "betrag": 567459
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1303/89901",
+      "kapitel": "1303",
+      "titel": "81201",
+      "zweckbestimmung": "Grenzpolizei: Ausrüstung, Fahrzeuge, Boote und Überwachungstechnik",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "81",
+      "gruppe": "812",
+      "gruppe_bezeichnung": "Erwerb von Geräten und sonstigen beweglichen Sachen",
+      "funktion": "043",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "projekt_id": "grenzpolizei",
+      "erlaeuterung": "Beschaffung von Einsatzfahrzeugen, Booten und Grenzüberwachungstechnik; Ersatzbeschaffung der im Althaushalt veranschlagten Griffon-Hovercraft (Kapitel 13 02 10/11) ist nicht erneut vorgesehen.",
+      "jahre": {
+        "2027": {
+          "id": "T.1303/89901@2027",
+          "betrag": 24475954
+        },
+        "2028": {
+          "id": "T.1303/89901@2028",
+          "betrag": 21904590
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/11901.g111",
+      "kapitel": "1304",
+      "titel": "11101",
+      "zweckbestimmung": "Gebühren, sonstige Entgelte",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "gruppe_bezeichnung": "Gebühren, sonstige Entgelte",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/11901.g111@2027",
+          "betrag": 92774935
+        },
+        "2028": {
+          "id": "T.1304/11901.g111@2028",
+          "betrag": 94848143
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/11901.g112",
+      "kapitel": "1304",
+      "titel": "11201",
+      "zweckbestimmung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "gruppe_bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/11901.g112@2027",
+          "betrag": 29769815
+        },
+        "2028": {
+          "id": "T.1304/11901.g112@2028",
+          "betrag": 30607176
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/11901.g119",
+      "kapitel": "1304",
+      "titel": "11901",
+      "zweckbestimmung": "Sonstige Verwaltungseinnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/11901.g119@2027",
+          "betrag": 44842610
+        },
+        "2028": {
+          "id": "T.1304/11901.g119@2028",
+          "betrag": 45782879
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/23101.g231",
+      "kapitel": "1304",
+      "titel": "23101",
+      "zweckbestimmung": "Sonstige Zuweisungen vom Bund",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/23101.g231@2027",
+          "betrag": 211242314
+        },
+        "2028": {
+          "id": "T.1304/23101.g231@2028",
+          "betrag": 183372282
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/23101.g271",
+      "kapitel": "1304",
+      "titel": "27101",
+      "zweckbestimmung": "Erstattungen von der EU",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "27",
+      "gruppe": "271",
+      "gruppe_bezeichnung": "Erstattungen von der EU",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/23101.g271@2027",
+          "betrag": 26747442
+        },
+        "2028": {
+          "id": "T.1304/23101.g271@2028",
+          "betrag": 23883841
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/23101.g281",
+      "kapitel": "1304",
+      "titel": "28101",
+      "zweckbestimmung": "Sonstige Erstattungen aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "281",
+      "gruppe_bezeichnung": "Sonstige Erstattungen aus dem Inland",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/23101.g281@2027",
+          "betrag": 38559161
+        },
+        "2028": {
+          "id": "T.1304/23101.g281@2028",
+          "betrag": 36796547
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/23101.g282",
+      "kapitel": "1304",
+      "titel": "28201",
+      "zweckbestimmung": "Sonstige Zuschüsse aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "282",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse aus dem Inland",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/23101.g282@2027",
+          "betrag": 8330683
+        },
+        "2028": {
+          "id": "T.1304/23101.g282@2028",
+          "betrag": 7087998
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/35901",
+      "kapitel": "1304",
+      "titel": "34901",
+      "zweckbestimmung": "Zuschüsse für Investitionen von Bund, EU und Dritten",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "349",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/35901@2027",
+          "betrag": 851953
+        },
+        "2028": {
+          "id": "T.1304/35901@2028",
+          "betrag": 869415
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/42901.g422",
+      "kapitel": "1304",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/42901.g422@2027",
+          "betrag": 74982064
+        },
+        "2028": {
+          "id": "T.1304/42901.g422@2028",
+          "betrag": 76738104
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/42901.g428",
+      "kapitel": "1304",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/42901.g428@2027",
+          "betrag": 162068993
+        },
+        "2028": {
+          "id": "T.1304/42901.g428@2028",
+          "betrag": 167892114
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/42901.g441",
+      "kapitel": "1304",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/42901.g441@2027",
+          "betrag": 5158419
+        },
+        "2028": {
+          "id": "T.1304/42901.g441@2028",
+          "betrag": 5667857
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/42901.g459",
+      "kapitel": "1304",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/42901.g459@2027",
+          "betrag": 4102584
+        },
+        "2028": {
+          "id": "T.1304/42901.g459@2028",
+          "betrag": 4129465
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g511",
+      "kapitel": "1304",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g511@2027",
+          "betrag": 2216684
+        },
+        "2028": {
+          "id": "T.1304/54701.g511@2028",
+          "betrag": 2171877
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g517",
+      "kapitel": "1304",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g517@2027",
+          "betrag": 7834275
+        },
+        "2028": {
+          "id": "T.1304/54701.g517@2028",
+          "betrag": 7892681
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g518",
+      "kapitel": "1304",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g518@2027",
+          "betrag": 2415713
+        },
+        "2028": {
+          "id": "T.1304/54701.g518@2028",
+          "betrag": 2389306
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g519",
+      "kapitel": "1304",
+      "titel": "51901",
+      "zweckbestimmung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "gruppe_bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g519@2027",
+          "betrag": 2460495
+        },
+        "2028": {
+          "id": "T.1304/54701.g519@2028",
+          "betrag": 2444871
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g526",
+      "kapitel": "1304",
+      "titel": "52601",
+      "zweckbestimmung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g526@2027",
+          "betrag": 5450904
+        },
+        "2028": {
+          "id": "T.1304/54701.g526@2028",
+          "betrag": 5285946
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g534",
+      "kapitel": "1304",
+      "titel": "53401",
+      "zweckbestimmung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "gruppe_bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g534@2027",
+          "betrag": 4911038
+        },
+        "2028": {
+          "id": "T.1304/54701.g534@2028",
+          "betrag": 5160321
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g545",
+      "kapitel": "1304",
+      "titel": "54501",
+      "zweckbestimmung": "Besondere sächliche Fachausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "gruppe_bezeichnung": "Besondere sächliche Fachausgaben",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g545@2027",
+          "betrag": 4542834
+        },
+        "2028": {
+          "id": "T.1304/54701.g545@2028",
+          "betrag": 3983787
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/54701.g547",
+      "kapitel": "1304",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "045",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/54701.g547@2027",
+          "betrag": 10185303
+        },
+        "2028": {
+          "id": "T.1304/54701.g547@2028",
+          "betrag": 9272149
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/68601.feuerwehr",
+      "kapitel": "1304",
+      "titel": "63301",
+      "zweckbestimmung": "Zuweisungen an Bezirke und Gemeinden für Brandschutz und Feuerwehren (Feuerschutzsteueranteil)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/68601.feuerwehr@2027",
+          "betrag": 225928140
+        },
+        "2028": {
+          "id": "T.1304/68601.feuerwehr@2028",
+          "betrag": 230123781
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/68601.rettung",
+      "kapitel": "1304",
+      "titel": "63302",
+      "zweckbestimmung": "Zuweisungen für Rettungsdienst und Integrierte Leitstellen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "63",
+      "gruppe": "633",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen an Gemeinden und Gemeindeverbände",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/68601.rettung@2027",
+          "betrag": 102694609
+        },
+        "2028": {
+          "id": "T.1304/68601.rettung@2028",
+          "betrag": 104601719
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/68601.hilfsorganisationen",
+      "kapitel": "1304",
+      "titel": "68401",
+      "zweckbestimmung": "Zuschüsse an Hilfsorganisationen im Katastrophenschutz",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/68601.hilfsorganisationen@2027",
+          "betrag": 82155688
+        },
+        "2028": {
+          "id": "T.1304/68601.hilfsorganisationen@2028",
+          "betrag": 83681375
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/79901",
+      "kapitel": "1304",
+      "titel": "79901",
+      "zweckbestimmung": "Nicht aufteilbare Baumaßnahmen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "79",
+      "gruppe": "799",
+      "gruppe_bezeichnung": "Nicht aufteilbare Baumaßnahmen",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/79901@2027",
+          "betrag": 3577628
+        },
+        "2028": {
+          "id": "T.1304/79901@2028",
+          "betrag": 3404752
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/89901.katschutz",
+      "kapitel": "1304",
+      "titel": "81201",
+      "zweckbestimmung": "Ausstattung des Landeskatastrophenschutzes (Fahrzeuge, Hochwasser- und Waldbrandausstattung)",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "81",
+      "gruppe": "812",
+      "gruppe_bezeichnung": "Erwerb von Geräten und sonstigen beweglichen Sachen",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/89901.katschutz@2027",
+          "betrag": 44056716
+        },
+        "2028": {
+          "id": "T.1304/89901.katschutz@2028",
+          "betrag": 39428262
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1304/89901.fahrzeuge",
+      "kapitel": "1304",
+      "titel": "88301",
+      "zweckbestimmung": "Investitionszuweisungen für Feuerwehrfahrzeuge und Gerätehäuser",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "88",
+      "gruppe": "883",
+      "gruppe_bezeichnung": "Zuweisungen für Investitionen an Gemeinden und Gemeindeverbände",
+      "funktion": "045",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1304/89901.fahrzeuge@2027",
+          "betrag": 102799005
+        },
+        "2028": {
+          "id": "T.1304/89901.fahrzeuge@2028",
+          "betrag": 91999279
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/11901.g111",
+      "kapitel": "1305",
+      "titel": "11101",
+      "zweckbestimmung": "Gebühren, sonstige Entgelte",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "111",
+      "gruppe_bezeichnung": "Gebühren, sonstige Entgelte",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/11901.g111@2027",
+          "betrag": 10823742
+        },
+        "2028": {
+          "id": "T.1305/11901.g111@2028",
+          "betrag": 11065617
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/11901.g112",
+      "kapitel": "1305",
+      "titel": "11201",
+      "zweckbestimmung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "112",
+      "gruppe_bezeichnung": "Geldstrafen, Geldbußen und Zwangsgelder (einschließlich der damit zusammenhängenden Gerichts- und Verwaltungskosten)",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/11901.g112@2027",
+          "betrag": 3473145
+        },
+        "2028": {
+          "id": "T.1305/11901.g112@2028",
+          "betrag": 3570837
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/11901.g119",
+      "kapitel": "1305",
+      "titel": "11901",
+      "zweckbestimmung": "Sonstige Verwaltungseinnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/11901.g119@2027",
+          "betrag": 5231638
+        },
+        "2028": {
+          "id": "T.1305/11901.g119@2028",
+          "betrag": 5341336
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/23101.g231",
+      "kapitel": "1305",
+      "titel": "23101",
+      "zweckbestimmung": "Sonstige Zuweisungen vom Bund",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "23",
+      "gruppe": "231",
+      "gruppe_bezeichnung": "Sonstige Zuweisungen vom Bund",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/23101.g231@2027",
+          "betrag": 24644936
+        },
+        "2028": {
+          "id": "T.1305/23101.g231@2028",
+          "betrag": 21393433
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/23101.g271",
+      "kapitel": "1305",
+      "titel": "27101",
+      "zweckbestimmung": "Erstattungen von der EU",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "27",
+      "gruppe": "271",
+      "gruppe_bezeichnung": "Erstattungen von der EU",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/23101.g271@2027",
+          "betrag": 3120535
+        },
+        "2028": {
+          "id": "T.1305/23101.g271@2028",
+          "betrag": 2786448
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/23101.g281",
+      "kapitel": "1305",
+      "titel": "28101",
+      "zweckbestimmung": "Sonstige Erstattungen aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "281",
+      "gruppe_bezeichnung": "Sonstige Erstattungen aus dem Inland",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/23101.g281@2027",
+          "betrag": 4498569
+        },
+        "2028": {
+          "id": "T.1305/23101.g281@2028",
+          "betrag": 4292931
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/23101.g282",
+      "kapitel": "1305",
+      "titel": "28201",
+      "zweckbestimmung": "Sonstige Zuschüsse aus dem Inland",
+      "seite": "Einnahme",
+      "hauptgruppe": "2",
+      "obergruppe": "28",
+      "gruppe": "282",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse aus dem Inland",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/23101.g282@2027",
+          "betrag": 971913
+        },
+        "2028": {
+          "id": "T.1305/23101.g282@2028",
+          "betrag": 826933
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/35901",
+      "kapitel": "1305",
+      "titel": "34901",
+      "zweckbestimmung": "Zuschüsse für Investitionen von Bund, EU und Dritten",
+      "seite": "Einnahme",
+      "hauptgruppe": "3",
+      "obergruppe": "34",
+      "gruppe": "349",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für Investitionen von anderen Bereichen",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/35901@2027",
+          "betrag": 99395
+        },
+        "2028": {
+          "id": "T.1305/35901@2028",
+          "betrag": 101432
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/42901.g422",
+      "kapitel": "1305",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/42901.g422@2027",
+          "betrag": 143776342
+        },
+        "2028": {
+          "id": "T.1305/42901.g422@2028",
+          "betrag": 141718684
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/42901.g428",
+      "kapitel": "1305",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/42901.g428@2027",
+          "betrag": 29533937
+        },
+        "2028": {
+          "id": "T.1305/42901.g428@2028",
+          "betrag": 29817973
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/42901.g441",
+      "kapitel": "1305",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/42901.g441@2027",
+          "betrag": 4048018
+        },
+        "2028": {
+          "id": "T.1305/42901.g441@2028",
+          "betrag": 4284056
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/42901.g459",
+      "kapitel": "1305",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/42901.g459@2027",
+          "betrag": 3214237
+        },
+        "2028": {
+          "id": "T.1305/42901.g459@2028",
+          "betrag": 3105140
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g511",
+      "kapitel": "1305",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g511@2027",
+          "betrag": 1955611
+        },
+        "2028": {
+          "id": "T.1305/54701.g511@2028",
+          "betrag": 1796996
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g517",
+      "kapitel": "1305",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g517@2027",
+          "betrag": 6911581
+        },
+        "2028": {
+          "id": "T.1305/54701.g517@2028",
+          "betrag": 6530352
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g518",
+      "kapitel": "1305",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g518@2027",
+          "betrag": 2131199
+        },
+        "2028": {
+          "id": "T.1305/54701.g518@2028",
+          "betrag": 1976896
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g519",
+      "kapitel": "1305",
+      "titel": "51901",
+      "zweckbestimmung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "gruppe_bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g519@2027",
+          "betrag": 2170706
+        },
+        "2028": {
+          "id": "T.1305/54701.g519@2028",
+          "betrag": 2022870
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g526",
+      "kapitel": "1305",
+      "titel": "52601",
+      "zweckbestimmung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g526@2027",
+          "betrag": 4808916
+        },
+        "2028": {
+          "id": "T.1305/54701.g526@2028",
+          "betrag": 4373557
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g534",
+      "kapitel": "1305",
+      "titel": "53401",
+      "zweckbestimmung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "gruppe_bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g534@2027",
+          "betrag": 4332633
+        },
+        "2028": {
+          "id": "T.1305/54701.g534@2028",
+          "betrag": 4269615
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g545",
+      "kapitel": "1305",
+      "titel": "54501",
+      "zweckbestimmung": "Besondere sächliche Fachausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "gruppe_bezeichnung": "Besondere sächliche Fachausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g545@2027",
+          "betrag": 4007795
+        },
+        "2028": {
+          "id": "T.1305/54701.g545@2028",
+          "betrag": 3296159
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/54701.g547",
+      "kapitel": "1305",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/54701.g547@2027",
+          "betrag": 8985714
+        },
+        "2028": {
+          "id": "T.1305/54701.g547@2028",
+          "betrag": 7671715
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/68601",
+      "kapitel": "1305",
+      "titel": "68601",
+      "zweckbestimmung": "Sonstige Zuschüsse für laufende Zwecke",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "686",
+      "gruppe_bezeichnung": "Sonstige Zuschüsse für laufende Zwecke im Inland",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/68601@2027",
+          "betrag": 47924151
+        },
+        "2028": {
+          "id": "T.1305/68601@2028",
+          "betrag": 48814135
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/79901",
+      "kapitel": "1305",
+      "titel": "79901",
+      "zweckbestimmung": "Nicht aufteilbare Baumaßnahmen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "79",
+      "gruppe": "799",
+      "gruppe_bezeichnung": "Nicht aufteilbare Baumaßnahmen",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/79901@2027",
+          "betrag": 417390
+        },
+        "2028": {
+          "id": "T.1305/79901@2028",
+          "betrag": 397221
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1305/89901",
+      "kapitel": "1305",
+      "titel": "89901",
+      "zweckbestimmung": "Nicht aufteilbare Investitionsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "899",
+      "gruppe_bezeichnung": "Nicht aufteilbare Investitionsausgaben",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1305/89901@2027",
+          "betrag": 17133167
+        },
+        "2028": {
+          "id": "T.1305/89901@2028",
+          "betrag": 15333213
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/42901.g422",
+      "kapitel": "1310",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/42901.g422@2027",
+          "betrag": 2169822431
+        },
+        "2028": {
+          "id": "T.1310/42901.g422@2028",
+          "betrag": 2228419239
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/42901.g428",
+      "kapitel": "1310",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/42901.g428@2027",
+          "betrag": 445715889
+        },
+        "2028": {
+          "id": "T.1310/42901.g428@2028",
+          "betrag": 468865097
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/42901.g441",
+      "kapitel": "1310",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/42901.g441@2027",
+          "betrag": 61091259
+        },
+        "2028": {
+          "id": "T.1310/42901.g441@2028",
+          "betrag": 67363528
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/42901.g459",
+      "kapitel": "1310",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/42901.g459@2027",
+          "betrag": 48508149
+        },
+        "2028": {
+          "id": "T.1310/42901.g459@2028",
+          "betrag": 48825986
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g511",
+      "kapitel": "1310",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g511@2027",
+          "betrag": 26209640
+        },
+        "2028": {
+          "id": "T.1310/51101.g511@2028",
+          "betrag": 25679842
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g517",
+      "kapitel": "1310",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g517@2027",
+          "betrag": 92630927
+        },
+        "2028": {
+          "id": "T.1310/51101.g517@2028",
+          "betrag": 93321517
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g518",
+      "kapitel": "1310",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g518@2027",
+          "betrag": 28562919
+        },
+        "2028": {
+          "id": "T.1310/51101.g518@2028",
+          "betrag": 28250683
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g519",
+      "kapitel": "1310",
+      "titel": "51901",
+      "zweckbestimmung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "gruppe_bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g519@2027",
+          "betrag": 29092406
+        },
+        "2028": {
+          "id": "T.1310/51101.g519@2028",
+          "betrag": 28907676
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g526",
+      "kapitel": "1310",
+      "titel": "52601",
+      "zweckbestimmung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g526@2027",
+          "betrag": 64450417
+        },
+        "2028": {
+          "id": "T.1310/51101.g526@2028",
+          "betrag": 62499994
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g534",
+      "kapitel": "1310",
+      "titel": "53401",
+      "zweckbestimmung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "gruppe_bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g534@2027",
+          "betrag": 58067148
+        },
+        "2028": {
+          "id": "T.1310/51101.g534@2028",
+          "betrag": 61014619
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g545",
+      "kapitel": "1310",
+      "titel": "54501",
+      "zweckbestimmung": "Besondere sächliche Fachausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "gruppe_bezeichnung": "Besondere sächliche Fachausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g545@2027",
+          "betrag": 53713583
+        },
+        "2028": {
+          "id": "T.1310/51101.g545@2028",
+          "betrag": 47103515
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/51101.g547",
+      "kapitel": "1310",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/51101.g547@2027",
+          "betrag": 120429030
+        },
+        "2028": {
+          "id": "T.1310/51101.g547@2028",
+          "betrag": 109632073
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/68401",
+      "kapitel": "1310",
+      "titel": "68401",
+      "zweckbestimmung": "Zuweisungen für Polizeidirektionen und örtlicher Vollzug",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/68401@2027",
+          "betrag": 110889581
+        },
+        "2028": {
+          "id": "T.1310/68401@2028",
+          "betrag": 112948877
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/71101",
+      "kapitel": "1310",
+      "titel": "71101",
+      "zweckbestimmung": "Bauausgaben Polizeidirektionen und örtlicher Vollzug",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "gruppe_bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/71101@2027",
+          "betrag": 965780
+        },
+        "2028": {
+          "id": "T.1310/71101@2028",
+          "betrag": 919112
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1310/89101",
+      "kapitel": "1310",
+      "titel": "89101",
+      "zweckbestimmung": "Investitionsförderung Polizeidirektionen und örtlicher Vollzug",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1310/89101@2027",
+          "betrag": 39643681
+        },
+        "2028": {
+          "id": "T.1310/89101@2028",
+          "betrag": 35478847
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/42901.g422",
+      "kapitel": "1311",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/42901.g422@2027",
+          "betrag": 247829051
+        },
+        "2028": {
+          "id": "T.1311/42901.g422@2028",
+          "betrag": 254521760
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/42901.g428",
+      "kapitel": "1311",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/42901.g428@2027",
+          "betrag": 50908012
+        },
+        "2028": {
+          "id": "T.1311/42901.g428@2028",
+          "betrag": 53552029
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/42901.g441",
+      "kapitel": "1311",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/42901.g441@2027",
+          "betrag": 6977616
+        },
+        "2028": {
+          "id": "T.1311/42901.g441@2028",
+          "betrag": 7694011
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/42901.g459",
+      "kapitel": "1311",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/42901.g459@2027",
+          "betrag": 5540420
+        },
+        "2028": {
+          "id": "T.1311/42901.g459@2028",
+          "betrag": 5576723
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g511",
+      "kapitel": "1311",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g511@2027",
+          "betrag": 2993568
+        },
+        "2028": {
+          "id": "T.1311/51101.g511@2028",
+          "betrag": 2933056
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g517",
+      "kapitel": "1311",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g517@2027",
+          "betrag": 10579960
+        },
+        "2028": {
+          "id": "T.1311/51101.g517@2028",
+          "betrag": 10658837
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g518",
+      "kapitel": "1311",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g518@2027",
+          "betrag": 3262350
+        },
+        "2028": {
+          "id": "T.1311/51101.g518@2028",
+          "betrag": 3226688
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g519",
+      "kapitel": "1311",
+      "titel": "51901",
+      "zweckbestimmung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "gruppe_bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g519@2027",
+          "betrag": 3322826
+        },
+        "2028": {
+          "id": "T.1311/51101.g519@2028",
+          "betrag": 3301727
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g526",
+      "kapitel": "1311",
+      "titel": "52601",
+      "zweckbestimmung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g526@2027",
+          "betrag": 7361287
+        },
+        "2028": {
+          "id": "T.1311/51101.g526@2028",
+          "betrag": 7138517
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g534",
+      "kapitel": "1311",
+      "titel": "53401",
+      "zweckbestimmung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "gruppe_bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g534@2027",
+          "betrag": 6632214
+        },
+        "2028": {
+          "id": "T.1311/51101.g534@2028",
+          "betrag": 6968863
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g545",
+      "kapitel": "1311",
+      "titel": "54501",
+      "zweckbestimmung": "Besondere sächliche Fachausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "gruppe_bezeichnung": "Besondere sächliche Fachausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g545@2027",
+          "betrag": 6134966
+        },
+        "2028": {
+          "id": "T.1311/51101.g545@2028",
+          "betrag": 5379988
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/51101.g547",
+      "kapitel": "1311",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/51101.g547@2027",
+          "betrag": 13754956
+        },
+        "2028": {
+          "id": "T.1311/51101.g547@2028",
+          "betrag": 12521768
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/68401",
+      "kapitel": "1311",
+      "titel": "68401",
+      "zweckbestimmung": "Zuweisungen für Landeskriminalamt",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/68401@2027",
+          "betrag": 12665395
+        },
+        "2028": {
+          "id": "T.1311/68401@2028",
+          "betrag": 12900600
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/71101",
+      "kapitel": "1311",
+      "titel": "71101",
+      "zweckbestimmung": "Bauausgaben Landeskriminalamt",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "gruppe_bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/71101@2027",
+          "betrag": 110307
+        },
+        "2028": {
+          "id": "T.1311/71101@2028",
+          "betrag": 104977
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1311/89101",
+      "kapitel": "1311",
+      "titel": "89101",
+      "zweckbestimmung": "Investitionsförderung Landeskriminalamt",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1311/89101@2027",
+          "betrag": 4527953
+        },
+        "2028": {
+          "id": "T.1311/89101@2028",
+          "betrag": 4052261
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/42901.g422",
+      "kapitel": "1312",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/42901.g422@2027",
+          "betrag": 194346186
+        },
+        "2028": {
+          "id": "T.1312/42901.g422@2028",
+          "betrag": 199594572
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/42901.g428",
+      "kapitel": "1312",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/42901.g428@2027",
+          "betrag": 39921783
+        },
+        "2028": {
+          "id": "T.1312/42901.g428@2028",
+          "betrag": 41995208
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/42901.g441",
+      "kapitel": "1312",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/42901.g441@2027",
+          "betrag": 5471809
+        },
+        "2028": {
+          "id": "T.1312/42901.g441@2028",
+          "betrag": 6033602
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/42901.g459",
+      "kapitel": "1312",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/42901.g459@2027",
+          "betrag": 4344768
+        },
+        "2028": {
+          "id": "T.1312/42901.g459@2028",
+          "betrag": 4373235
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g511",
+      "kapitel": "1312",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g511@2027",
+          "betrag": 2347539
+        },
+        "2028": {
+          "id": "T.1312/51101.g511@2028",
+          "betrag": 2300087
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g517",
+      "kapitel": "1312",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g517@2027",
+          "betrag": 8296747
+        },
+        "2028": {
+          "id": "T.1312/51101.g517@2028",
+          "betrag": 8358601
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g518",
+      "kapitel": "1312",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g518@2027",
+          "betrag": 2558317
+        },
+        "2028": {
+          "id": "T.1312/51101.g518@2028",
+          "betrag": 2530351
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g519",
+      "kapitel": "1312",
+      "titel": "51901",
+      "zweckbestimmung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "gruppe_bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g519@2027",
+          "betrag": 2605742
+        },
+        "2028": {
+          "id": "T.1312/51101.g519@2028",
+          "betrag": 2589196
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g526",
+      "kapitel": "1312",
+      "titel": "52601",
+      "zweckbestimmung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g526@2027",
+          "betrag": 5772681
+        },
+        "2028": {
+          "id": "T.1312/51101.g526@2028",
+          "betrag": 5597986
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g534",
+      "kapitel": "1312",
+      "titel": "53401",
+      "zweckbestimmung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "gruppe_bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g534@2027",
+          "betrag": 5200946
+        },
+        "2028": {
+          "id": "T.1312/51101.g534@2028",
+          "betrag": 5464944
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g545",
+      "kapitel": "1312",
+      "titel": "54501",
+      "zweckbestimmung": "Besondere sächliche Fachausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "gruppe_bezeichnung": "Besondere sächliche Fachausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g545@2027",
+          "betrag": 4811007
+        },
+        "2028": {
+          "id": "T.1312/51101.g545@2028",
+          "betrag": 4218957
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/51101.g547",
+      "kapitel": "1312",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/51101.g547@2027",
+          "betrag": 10786561
+        },
+        "2028": {
+          "id": "T.1312/51101.g547@2028",
+          "betrag": 9819502
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/68401",
+      "kapitel": "1312",
+      "titel": "68401",
+      "zweckbestimmung": "Zuweisungen für Bereitschaftspolizei",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/68401@2027",
+          "betrag": 9932134
+        },
+        "2028": {
+          "id": "T.1312/68401@2028",
+          "betrag": 10116580
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/71101",
+      "kapitel": "1312",
+      "titel": "71101",
+      "zweckbestimmung": "Bauausgaben Bereitschaftspolizei",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "gruppe_bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/71101@2027",
+          "betrag": 86502
+        },
+        "2028": {
+          "id": "T.1312/71101@2028",
+          "betrag": 82322
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1312/89101",
+      "kapitel": "1312",
+      "titel": "89101",
+      "zweckbestimmung": "Investitionsförderung Bereitschaftspolizei",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1312/89101@2027",
+          "betrag": 3550796
+        },
+        "2028": {
+          "id": "T.1312/89101@2028",
+          "betrag": 3177761
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/42901.g422",
+      "kapitel": "1313",
+      "titel": "42201",
+      "zweckbestimmung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/42901.g422@2027",
+          "betrag": 67292996
+        },
+        "2028": {
+          "id": "T.1313/42901.g422@2028",
+          "betrag": 69110267
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/42901.g428",
+      "kapitel": "1313",
+      "titel": "42801",
+      "zweckbestimmung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "428",
+      "gruppe_bezeichnung": "Entgelte der Arbeitnehmerinnen und Arbeitnehmer",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/42901.g428@2027",
+          "betrag": 13823046
+        },
+        "2028": {
+          "id": "T.1313/42901.g428@2028",
+          "betrag": 14540975
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/42901.g441",
+      "kapitel": "1313",
+      "titel": "44101",
+      "zweckbestimmung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "44",
+      "gruppe": "441",
+      "gruppe_bezeichnung": "Beihilfen, soweit nicht für Versorgungsempfängerinnen und Versorgungsempfänger",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/42901.g441@2027",
+          "betrag": 1894631
+        },
+        "2028": {
+          "id": "T.1313/42901.g441@2028",
+          "betrag": 2089155
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/42901.g459",
+      "kapitel": "1313",
+      "titel": "45901",
+      "zweckbestimmung": "Sonstige personalbezogene Ausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "45",
+      "gruppe": "459",
+      "gruppe_bezeichnung": "Sonstige personalbezogene Ausgaben",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_statusmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/42901.g459@2027",
+          "betrag": 1504390
+        },
+        "2028": {
+          "id": "T.1313/42901.g459@2028",
+          "betrag": 1514247
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g511",
+      "kapitel": "1313",
+      "titel": "51101",
+      "zweckbestimmung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "511",
+      "gruppe_bezeichnung": "Geschäftsbedarf und Kommunikation sowie Geräte, Ausstattungs- und Ausrüstungsgegenstände, sonstige Gebrauchsgegenstände",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g511@2027",
+          "betrag": 812843
+        },
+        "2028": {
+          "id": "T.1313/51101.g511@2028",
+          "betrag": 796412
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g517",
+      "kapitel": "1313",
+      "titel": "51701",
+      "zweckbestimmung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "517",
+      "gruppe_bezeichnung": "Bewirtschaftung der Grundstücke, Gebäude und Räume",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g517@2027",
+          "betrag": 2872776
+        },
+        "2028": {
+          "id": "T.1313/51101.g517@2028",
+          "betrag": 2894193
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g518",
+      "kapitel": "1313",
+      "titel": "51801",
+      "zweckbestimmung": "Mieten und Pachten",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "518",
+      "gruppe_bezeichnung": "Mieten und Pachten",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g518@2027",
+          "betrag": 885826
+        },
+        "2028": {
+          "id": "T.1313/51101.g518@2028",
+          "betrag": 876142
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g519",
+      "kapitel": "1313",
+      "titel": "51901",
+      "zweckbestimmung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "51",
+      "gruppe": "519",
+      "gruppe_bezeichnung": "Unterhaltung der Grundstücke und baulichen Anlagen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g519@2027",
+          "betrag": 902247
+        },
+        "2028": {
+          "id": "T.1313/51101.g519@2028",
+          "betrag": 896518
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g526",
+      "kapitel": "1313",
+      "titel": "52601",
+      "zweckbestimmung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "52",
+      "gruppe": "526",
+      "gruppe_bezeichnung": "Gerichts- und ähnliche Kosten, Sachverständige",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g526@2027",
+          "betrag": 1998809
+        },
+        "2028": {
+          "id": "T.1313/51101.g526@2028",
+          "betrag": 1938321
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g534",
+      "kapitel": "1313",
+      "titel": "53401",
+      "zweckbestimmung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "53",
+      "gruppe": "534",
+      "gruppe_bezeichnung": "Dienstleistungen Externer und IT-Dienstleistungen",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g534@2027",
+          "betrag": 1800844
+        },
+        "2028": {
+          "id": "T.1313/51101.g534@2028",
+          "betrag": 1892255
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g545",
+      "kapitel": "1313",
+      "titel": "54501",
+      "zweckbestimmung": "Besondere sächliche Fachausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "545",
+      "gruppe_bezeichnung": "Besondere sächliche Fachausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g545@2027",
+          "betrag": 1665827
+        },
+        "2028": {
+          "id": "T.1313/51101.g545@2028",
+          "betrag": 1460828
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/51101.g547",
+      "kapitel": "1313",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "042",
+      "herkunft": "D",
+      "qualitaet": "D_struktur",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/51101.g547@2027",
+          "betrag": 3734882
+        },
+        "2028": {
+          "id": "T.1313/51101.g547@2028",
+          "betrag": 3400035
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/68401",
+      "kapitel": "1313",
+      "titel": "68401",
+      "zweckbestimmung": "Zuweisungen für Zentrale Polizeiverwaltung und technische Dienste",
+      "seite": "Ausgabe",
+      "hauptgruppe": "6",
+      "obergruppe": "68",
+      "gruppe": "684",
+      "gruppe_bezeichnung": "Zuschüsse für laufende Zwecke an soziale oder ähnliche Einrichtungen (ohne öffentliche Einrichtungen)",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/68401@2027",
+          "betrag": 3439035
+        },
+        "2028": {
+          "id": "T.1313/68401@2028",
+          "betrag": 3502901
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/71101",
+      "kapitel": "1313",
+      "titel": "71101",
+      "zweckbestimmung": "Bauausgaben Zentrale Polizeiverwaltung und technische Dienste",
+      "seite": "Ausgabe",
+      "hauptgruppe": "7",
+      "obergruppe": "71",
+      "gruppe": "711",
+      "gruppe_bezeichnung": "Kleine Neu-, Um- und Erweiterungsbauten",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/71101@2027",
+          "betrag": 29954
+        },
+        "2028": {
+          "id": "T.1313/71101@2028",
+          "betrag": 28506
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1313/89101",
+      "kapitel": "1313",
+      "titel": "89101",
+      "zweckbestimmung": "Investitionsförderung Zentrale Polizeiverwaltung und technische Dienste",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "891",
+      "gruppe_bezeichnung": "Zuschüsse für Investitionen an öffentliche Unternehmen",
+      "funktion": "042",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1313/89101@2027",
+          "betrag": 1229477
+        },
+        "2028": {
+          "id": "T.1313/89101@2028",
+          "betrag": 1100312
+        }
+      }
+    }
+  ]
+}

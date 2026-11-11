@@ -111,6 +111,27 @@ kennt:
   Bundeshauptstadt Berlin. HTML und PDF stimmen überein. Die Verweise werden unverändert
   wiedergegeben, bis eine amtliche Berichtigung vorliegt.
 
+## Haushalt 2027/2028: Korrekturen im Haushaltsrepo
+
+Quelle ist der Snapshot `data/haushalt/2027-2028/` (Haushaltsrepo `osthaushalt-2027-2028`, Commit
+laut `import-manifest.json`). Offen und nur im Haushaltsrepo lösbar:
+
+- Vorhaben „Verwaltungsdigitalisierung und gemeinsame Rechenzentren“: In
+  `haushalt/2027-2028/redaktion/untersetzung/ep08_09.toml` ist dem Breitbandtitel 09 23/883 01
+  `projekt = "digital"` zugeordnet, das Vorhaben führt aber Einzelplan 17. Zur Lösung die
+  Zuordnung am Breitbandtitel entfernen und die Titel der Kapitel 17 03, 17 10 und 17 11
+  zuordnen. Bis dahin zeigt das Portal das Vorhaben ohne Projektbetrag mit erläuterndem Hinweis.
+- Ressortzuordnung einzelner Kapitel (03 05 Raumordnung, 09 23 Breitbandausbau) und Umfang des
+  Einzelplans 15 (Prüfdienste vermutlich in Kapitel 06 03): redaktionell mit dem Haushaltsrepo zu
+  klären; das Portal ordnet bis dahin nach Einzelplänen zu.
+- Unternehmensname beim Vorhaben „Handelsorganisation Ost“: Der Snapshot (`projekte.json`,
+  Beschreibung und Suchbegriffe des Vorhabens `ho`) nennt eine etwaige Übernahme von Filialen eines
+  namentlich bezeichneten realen Handelsunternehmens; weder `knowledge/` noch `context/` belegen ein
+  solches Vorhaben. Das Portal zeigt die neutrale Fassung „Übernahme bestehender Filialen“ und lässt
+  den Namen in der Suche weg; PDF und Arbeitsmappe sind neutral gefasst. Zur Lösung im Haushaltsrepo
+  die Vorhabendaten neutral fassen oder das Vorhaben mit Quelle belegen; danach
+  `npm run haushalt:sync`.
+
 ## Rechtskonsolidierung
 
 `npm run norms:consolidation:audit` erzeugt `data/recht/consolidation-report.md` mit den offenen

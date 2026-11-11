@@ -1,0 +1,412 @@
+/* Fachseiten des Haushaltsbereichs (Personal und Versorgung, Finanzierung und Schulden).
+   Ergänzt base.css; nur Tokens aus foundation.css, Präfix hh-. */
+
+/* ---------------------------------------------------------------- Abschnittsliste */
+
+.hh-abschnitte {
+  margin: var(--space-5) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.hh-abschnitte__titel {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-abschnitte__liste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-abschnitte__liste li {
+  max-width: none;
+  margin: 0;
+}
+
+.hh-abschnitte__liste a {
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---------------------------------------------------------------- Abschnitte und Text */
+
+.hh-fachabschnitt {
+  min-width: 0;
+  scroll-margin-top: var(--space-8);
+}
+
+.hh-fachabschnitt > .section-header {
+  margin-bottom: var(--space-4);
+}
+
+.hh-unterueberschrift {
+  margin: var(--space-6) 0 var(--space-3);
+  color: var(--color-heading);
+  font-size: var(--text-md);
+  line-height: var(--lh-heading);
+}
+
+.hh-zwischenueberschrift {
+  margin: var(--space-5) 0 var(--space-2);
+  color: var(--color-heading);
+  font-size: var(--text-base-plus);
+  line-height: var(--lh-heading);
+}
+
+.hh-fliesstext {
+  max-width: var(--measure-body);
+  margin: 0 0 var(--space-3);
+  line-height: var(--lh-body);
+}
+
+.hh-klein {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-aufzaehlung {
+  max-width: var(--measure-body);
+  margin: 0 0 var(--space-4);
+  padding-left: var(--space-5);
+  line-height: var(--lh-body);
+}
+
+.hh-aufzaehlung li + li {
+  margin-top: var(--space-1);
+}
+
+.hh-tabelle .data-table tbody th.hh-eingerueckt {
+  padding-left: var(--space-6);
+  font-weight: 400;
+}
+
+/* Zeilenköpfe von Projektionsjahren tragen dieselbe Fläche wie ihre Zellen. */
+.hh-tabelle .data-table tbody tr.hh-zeile--projektion > th {
+  background: var(--color-surface-alt);
+}
+
+/* Links im Fließtext und in Angaben sind unterstrichen, nicht nur farbig. */
+.hh-fliesstext a,
+.hh-aufzaehlung a,
+.hh-rechtsbezuege a,
+.hh-massnahme__verweis a,
+.hh-entwurfshinweis a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.hh-datentabelle .hh-zeile--summe > * {
+  border-top: 1px solid var(--color-border-strong);
+  font-weight: 700;
+}
+
+.hh-nachrichtlich {
+  color: var(--color-text-muted);
+}
+
+/* ---------------------------------------------------------------- Begriffslisten */
+
+.hh-begriffe {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+}
+
+.hh-begriffe dt {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.hh-begriffe dd {
+  max-width: var(--measure-body);
+  margin: 0;
+}
+
+.hh-wertliste {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-3) var(--space-5);
+  margin: 0 0 var(--space-3);
+}
+
+.hh-wertliste dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-wertliste dd {
+  margin: var(--space-hairline) 0 0;
+  color: var(--color-heading);
+  font-size: var(--text-md);
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- Entwurfshinweis */
+
+.hh-entwurfshinweis {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-info-gold-border);
+  border-left: var(--space-1) solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  background: var(--color-info-gold);
+  color: var(--color-info-gold-ink);
+}
+
+.hh-entwurfshinweis p {
+  max-width: var(--measure-body);
+  margin: 0;
+  line-height: var(--lh-body);
+}
+
+.hh-entwurfshinweis p + p,
+.hh-entwurfshinweis p + .hh-wertliste,
+.hh-entwurfshinweis .hh-wertliste + p {
+  margin-top: var(--space-2);
+}
+
+.hh-entwurfshinweis a {
+  color: var(--color-info-gold-ink);
+}
+
+.hh-dienstrecht {
+  margin-top: var(--space-6);
+}
+
+.hh-dienstrecht .hh-unterueberschrift {
+  margin-top: 0;
+}
+
+.hh-dienstrecht .hh-wertliste dt,
+.hh-dienstrecht .hh-wertliste dd {
+  color: var(--color-info-gold-ink);
+}
+
+/* ---------------------------------------------------------------- Vergleichsstände */
+
+.hh-vergleichsstaende {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-3);
+}
+
+.hh-vergleichsstand {
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-top: var(--space-1) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.hh-vergleichsstand--r0 {
+  border-top-color: var(--color-primary);
+}
+
+.hh-vergleichsstand--b {
+  border-top-color: var(--color-secondary);
+}
+
+.hh-vergleichsstand--c {
+  border-top-color: var(--color-gold);
+}
+
+.hh-vergleichsstand dt {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.hh-vergleichsstand dd {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+  line-height: var(--lh-body);
+}
+
+/* ---------------------------------------------------------------- Rechtsbezüge */
+
+.hh-rechtsbezuege {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-rechtsbezuege li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  max-width: none;
+  margin: 0;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.hh-rechtsbezuege__titel {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.hh-rechtsbezuege__art {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------- Finanzierungsmaßnahmen */
+
+.hh-massnahmen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-massnahmen > li {
+  display: flex;
+  max-width: none;
+  margin: 0;
+  min-width: 0;
+}
+
+.hh-massnahme {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-4-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.hh-massnahme__kategorie {
+  margin: 0;
+}
+
+.hh-massnahme__titel {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--text-base-plus);
+  line-height: var(--lh-heading);
+}
+
+.hh-massnahme__text {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--lh-body);
+}
+
+.hh-massnahme__betraege {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.hh-massnahme__tabelle {
+  width: 100%;
+  margin: 0;
+}
+
+.hh-massnahme__tabelle tfoot > tr > * {
+  font-weight: 700;
+}
+
+.hh-massnahme__angaben {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.hh-massnahme__angaben dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-massnahme__angaben dd {
+  margin: var(--space-hairline) 0 0;
+  line-height: var(--lh-body);
+}
+
+.hh-massnahme__verweis {
+  margin: auto 0 0;
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------- Responsiv */
+
+@media (max-width: 63.99rem) {
+  .hh-vergleichsstaende {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Zwei Karten nebeneinander ließen die Betragstabellen (bis zu neun Jahre) rollen. */
+  .hh-massnahmen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .hh-massnahmen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hh-massnahme {
+    padding: var(--space-4);
+  }
+
+  .hh-abschnitte__liste {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  /* Zeilenköpfe bleiben lesbar; breite Tabellen rollen dafür kontrolliert im Tabellenbereich. */
+  .hh-fachabschnitt .hh-tabelle .data-table :is(tbody, tfoot) th[scope='row'],
+  .hh-fachabschnitt .hh-tabelle .data-table thead th:first-child {
+    min-width: 9.5rem;
+    hyphens: manual;
+  }
+}
+
+/* ---------------------------------------------------------------- Druck */
+
+@media print {
+  .hh-abschnitte {
+    display: none;
+  }
+
+  .hh-massnahmen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hh-massnahme {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .hh-entwurfshinweis {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

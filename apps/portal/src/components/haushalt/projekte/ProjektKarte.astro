@@ -1,0 +1,62 @@
+---
+/**
+ * Karte eines Vorhabens in der Projektübersicht: Titel (mit Link zur Projektseite, sofern es
+ * eine gibt), Status als Abzeichen mit Wort, Fachbereich, Ressort, Einzelpläne und die Beträge
+ * des Regierungsentwurfs. Die Datenattribute tragen die Werte für Suche und Filter.
+ */
+import ProjektBetraege from './ProjektBetraege.astro';
+import ProjektStatus from './ProjektStatus.astro';
+import type { ProjektSicht } from './daten.ts';
+
+interface Props {
+  projekt: ProjektSicht;
+  jahre: string[];
+  fachbereichId: string;
+  ressort?: { name: string; href: string };
+}
+
+const { projekt, jahre, fachbereichId, ressort } = Astro.props as Props;
+const headingId = `vorhaben-${projekt.slug}`;
+---
+
+<li
+  class="hh-projekt"
+  data-projekt
+  data-status={projekt.status}
+  data-fachbereich={fachbereichId}
+  data-einzelplan={projekt.einzelplaene.map((entry) => entry.ep).join(' ')}
+  data-search={projekt.suchtext}
+>
+  <article class="hh-projekt__inhalt" aria-labelledby={headingId}>
+    <h4 class="hh-projekt__titel" id={headingId}>
+      {projekt.href ? <a href={projekt.href}>{projekt.titel}</a> : projekt.titel}
+    </h4>
+    <p class="hh-projekt__status">
+      <ProjektStatus status={projekt.status} />
+    </p>
+    <dl class="hh-projekt__angaben">
+      <div>
+        <dt>Fachbereich</dt>
+        <dd>{projekt.fachbereich}</dd>
+      </div>
+      {ressort ? (
+        <div>
+          <dt>Ressort</dt>
+          <dd><a href={ressort.href}>{ressort.name}</a></dd>
+        </div>
+      ) : null}
+      <div>
+        <dt>{projekt.einzelplaene.length === 1 ? 'Einzelplan' : 'Einzelpläne'}</dt>
+        <dd>
+          {projekt.einzelplaene.map((entry, index) => (
+            <>
+              {index > 0 ? ', ' : null}
+              <a href={entry.href}>{entry.ep} {entry.bezeichnung}</a>
+            </>
+          ))}
+        </dd>
+      </div>
+    </dl>
+    <ProjektBetraege projekt={projekt} jahre={jahre} />
+  </article>
+</li>

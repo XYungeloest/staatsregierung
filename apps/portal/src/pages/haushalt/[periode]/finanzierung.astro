@@ -1,0 +1,621 @@
+---
+/**
+ * Finanzierung und Schulden einer Snapshot-Periode: Finanzierungsstruktur der Einnahmen,
+ * Fondsverwendungen (nachrichtlich, mit Konsolidierungseliminierung), Finanzierungsmaßnahmen mit
+ * öffentlichen Texten aus content/haushalt/<periode>/finanzierung.json, Kredite und Schulden
+ * (Bruttokreditaufnahme, Tilgung, Nettokreditaufnahme, Anschlussfinanzierung, Zinsen,
+ * Schuldenstand, strukturelle Nettokreditaufnahme) und Verpflichtungsermächtigungen.
+ *
+ * Alle Beträge kommen aus dem Snapshot; die Seite gruppiert, vergleicht und beschriftet nur.
+ */
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import '../../../styles/haushalt/fachseiten.css';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../../components/haushalt/DefinitionNote.astro';
+import FilterBar from '../../../components/haushalt/FilterBar.astro';
+import GroupedBarChart from '../../../components/haushalt/GroupedBarChart.astro';
+import KpiGrid from '../../../components/haushalt/KpiGrid.astro';
+import OriginBadge from '../../../components/haushalt/OriginBadge.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import TimeSeriesChart from '../../../components/haushalt/TimeSeriesChart.astro';
+import Abschnittsliste from '../../../components/haushalt/personal/Abschnittsliste.astro';
+import MassnahmeKarte from '../../../components/haushalt/finanzierung/MassnahmeKarte.astro';
+import { formatShare, normalizeSearch, ORIGIN_LABELS, type OriginCode } from '../../../components/haushalt/format.ts';
+import { getFachseitenKontext, getFachseitenPfade, jahresart } from '../../../components/haushalt/personal/periodenseite.ts';
+import {
+  getFondsverwendungen,
+  getKreditplan,
+  getMassnahmen,
+  getVerpflichtungen,
+  loadFinanzierungOverlay,
+  summe,
+} from '../../../components/haushalt/finanzierung/daten.ts';
+import { getBundesmittel, getEinnahmeKategorien, getKennzahlen } from '../../../lib/haushalt/kennzahlen.ts';
+import { formatKapitelnummer, formatTitelnummer, loadFreitextOverlay, publicBezeichnung } from '../../../lib/haushalt/oeffentlich.ts';
+import { loadGesamtplan } from '../../../lib/haushalt/snapshot.ts';
+import { getBudgetPeriodPageUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return getFachseitenPfade();
+}
+
+const { periode: id } = Astro.params as { periode: string };
+const seitentitel = 'Finanzierung und Schulden';
+const ctx = getFachseitenKontext(id, 'finanzierung', seitentitel);
+const jahre = ctx.jahre;
+const [erstesJahr, letztesJahr] = [jahre[0], jahre[jahre.length - 1]];
+const periodenjahre = jahre.join('/');
+const overlay = loadFinanzierungOverlay(id);
+const freitexte = loadFreitextOverlay(id);
+const gesamtplan = loadGesamtplan(id);
+const kennzahlen = jahre.map((jahr) => getKennzahlen(gesamtplan, jahr));
+const exportMeta = { Periode: id, Datenstand: ctx.datenstand };
+
+// Finanzierungsstruktur
+const kategorienJe = jahre.map((jahr) => getEinnahmeKategorien(gesamtplan, jahr, { mitLeeren: true }));
+const kategorien = (kategorienJe[0] ?? [])
+  .map((kategorie) => ({
+    id: kategorie.id,
+    label: kategorie.label,
+    definition: kategorie.definition,
+    umfang: kategorie.umfang,
+    werte: jahre.map((_, index) => kategorienJe[index].find((wert) => wert.id === kategorie.id)?.betrag ?? 0),
+  }))
+  .filter((kategorie) => kategorie.werte.some((wert) => wert !== 0));
+const bundesmittel = jahre.map((jahr) => getBundesmittel(gesamtplan, jahr));
+const investitionszuweisungen = jahre.map((_, index) => kategorienJe[index].find((wert) => wert.id === 'investitionszuweisungen')?.betrag ?? 0);
+
+// Kredite und Schulden
+const kreditplan = getKreditplan(id, jahre);
+const kreditJahre = kreditplan.map((eintrag) => String(eintrag.jahr));
+const kreditHaushalt = kreditplan.filter((eintrag) => jahre.includes(String(eintrag.jahr)));
+const kreditAusHaushalt = (jahr: string) => kreditplan.find((eintrag) => String(eintrag.jahr) === jahr);
+const ohneBruttokredit = kreditHaushalt.every((eintrag) => eintrag.kreditaufnahme === 0);
+
+// Fonds
+const fonds = getFondsverwendungen(id, jahre, overlay);
+const fondsSumme = Object.fromEntries(
+  jahre.map((jahr) => [jahr, {
+    betrag: summe(fonds.map((gruppe) => gruppe.jahre[jahr].betrag)),
+    eliminierung: summe(fonds.map((gruppe) => gruppe.jahre[jahr].eliminierung)),
+  }]),
+);
+
+// Maßnahmen
+const { massnahmen, dienstrecht } = getMassnahmen(id, overlay);
+const massnahmenJahre = [...new Set(massnahmen.flatMap((massnahme) => massnahme.jahre))].sort((left, right) => Number(left) - Number(right));
+const massnahmenPlanungsjahre = massnahmenJahre.filter((jahr) => !jahre.includes(jahr));
+const jahrCol = (jahr: string) => (jahre.includes(jahr) ? 'haushalt' : 'planung');
+const jahresansichtOptionen = (planung: string[]) => [
+  { value: 'haushalt', label: `${erstesJahr} und ${letztesJahr}` },
+  ...(planung.length > 0 ? [{ value: 'planung', label: `${planung[0]} bis ${planung[planung.length - 1]}` }] : []),
+  { value: 'alle', label: 'Alle Jahre' },
+];
+const nachKategorie = (kategorie: string) => massnahmen.filter((massnahme) => massnahme.text.kategorie === kategorie);
+const anker = (massnahmeId: string) => `#massnahme-${massnahmeId.toLowerCase()}`;
+
+// Verpflichtungsermächtigungen
+const verpflichtungen = getVerpflichtungen(id);
+const veJahre = [...new Set(verpflichtungen.flatMap((eintrag) => Object.keys(eintrag.ve)))].sort();
+const faelligkeitsJahre = [...new Set(verpflichtungen.flatMap((eintrag) => Object.keys(eintrag.faelligkeiten)))].sort();
+const isOrigin = (code: string): code is OriginCode => code in ORIGIN_LABELS;
+
+const abschnitte = [
+  { id: 'struktur', label: 'Finanzierungsstruktur' },
+  { id: 'fonds', label: 'Fondsverwendungen' },
+  { id: 'massnahmen', label: 'Finanzierungsmaßnahmen' },
+  { id: 'schulden', label: 'Kredite und Schulden' },
+  { id: 'verpflichtungen', label: 'Verpflichtungsermächtigungen' },
+];
+---
+
+<HaushaltLayout
+  title={`${seitentitel} – ${ctx.periode.bezeichnung}`}
+  description={`Finanzierungsstruktur, Finanzierungsmaßnahmen, Kredite, Schuldenstand und Verpflichtungsermächtigungen im ${ctx.periode.bezeichnung} (${ctx.status.label}).`}
+  breadcrumbs={ctx.breadcrumbs}
+  {...ctx.layout}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow="Haushalt"
+    title={seitentitel}
+    lead={`Woraus sich der ${ctx.periode.bezeichnung} finanziert, welche Finanzierungsmaßnahmen vorgesehen sind und wie sich Kredite, Zinsen und Schuldenstand bis zum Ende der Finanzplanung entwickeln.`}
+    variant="budget"
+  />
+
+  <Abschnittsliste items={abschnitte} />
+
+  <section class="section hh-fachabschnitt" aria-labelledby="struktur">
+    <div class="section-header"><h2 id="struktur">Finanzierungsstruktur</h2></div>
+    <KpiGrid
+      label={`Einnahmen ${periodenjahre}`}
+      items={[
+        ...kennzahlen.map((block, index) => ({
+          label: `Einnahmen ${block.jahr}`,
+          value: block.einnahmen.betrag,
+          hint: 'Hauptgruppen 0 bis 3',
+          ...(index > 0 ? { change: { value: block.einnahmen.betrag - kennzahlen[index - 1].einnahmen.betrag, label: `gegenüber ${kennzahlen[index - 1].jahr}` } } : {}),
+        })),
+        ...kennzahlen.map((block, index) => ({
+          label: `Steuern ${block.jahr}`,
+          value: block.steuern.betrag,
+          hint: block.einnahmen.betrag === 0 ? 'Hauptgruppe 0' : `${formatShare(block.steuern.betrag / block.einnahmen.betrag)} der Einnahmen`,
+          ...(index > 0 ? { change: { value: block.steuern.betrag - kennzahlen[index - 1].steuern.betrag, label: `gegenüber ${kennzahlen[index - 1].jahr}` } } : {}),
+        })),
+      ]}
+    />
+
+    <h3 class="hh-unterueberschrift">Einnahmen nach Arten</h3>
+    <GroupedBarChart
+      id="einnahmen-arten"
+      caption={`Einnahmen nach Arten ${periodenjahre}`}
+      series={jahre.map((jahr) => ({ label: jahr, art: 'haushaltsjahr' as const }))}
+      categories={kategorien.map((kategorie) => ({ label: kategorie.label, values: kategorie.werte }))}
+      kategorieSpalte="Art"
+      veraenderung
+    />
+    <DefinitionNote titel="Abgrenzung der Einnahmearten">
+      <dl class="hh-begriffe">
+        {kategorien.map((kategorie) => (
+          <div><dt>{kategorie.label}</dt><dd>{kategorie.definition} Umfang: {kategorie.umfang}.</dd></div>
+        ))}
+      </dl>
+    </DefinitionNote>
+
+    <h3 class="hh-unterueberschrift">Zuweisungen des Bundes</h3>
+    <p class="hh-fliesstext">{bundesmittel[0].definition}</p>
+    <DataTableFrame id="finanzierung-bund" label="Einnahmegruppen „vom Bund“" caption="Einnahmegruppen „vom Bund“, Beträge in Euro" nomenSingular="Gruppe" nomenPlural="Gruppen" seitengroesse={false} breite="mittel">
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Gruppe</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl">{jahr}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {bundesmittel[0].gruppen.map((gruppe) => (
+            <tr>
+              <th scope="row"><span class="hh-kennung">{gruppe.gruppe}</span> {publicBezeichnung(gruppe.bezeichnung, freitexte)}</th>
+              {jahre.map((_, index) => {
+                const wert = bundesmittel[index].gruppen.find((eintrag) => eintrag.gruppe === gruppe.gruppe)?.betrag;
+                return <td class="hh-zahl">{typeof wert === 'number' ? <Amount value={wert} /> : '–'}</td>;
+              })}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Zusammen</th>
+            {bundesmittel.map((teilmenge) => <td class="hh-zahl"><Amount value={teilmenge.betrag} /></td>)}
+          </tr>
+          <tr>
+            <th scope="row">Anteil an den Einnahmen</th>
+            {bundesmittel.map((teilmenge) => <td class="hh-zahl">{teilmenge.anteil === null ? '–' : formatShare(teilmenge.anteil)}</td>)}
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+
+    <h3 class="hh-unterueberschrift">Rücklagenentnahme</h3>
+    {kennzahlen[0].ruecklagenentnahme ? <p class="hh-fliesstext">{kennzahlen[0].ruecklagenentnahme.definition}</p> : null}
+    <dl class="hh-wertliste">
+      {kennzahlen.map((block) => (
+        <div>
+          <dt>Entnahme aus der allgemeinen Rücklage {block.jahr}</dt>
+          <dd>{block.ruecklagenentnahme ? <Amount value={block.ruecklagenentnahme.betrag} /> : 'keine Angabe'}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="hh-fliesstext hh-klein">Bestand und Entwicklung der Rücklagen zeigt die Seite <a class="inline-link" href={getBudgetPeriodPageUrl(id, 'ruecklagen')}>Rücklagen und Fonds</a>.</p>
+
+    <h3 class="hh-unterueberschrift">Investitionsfinanzierung</h3>
+    <p class="hh-fliesstext">{kennzahlen[0].investitionen.definition} Ihnen stehen zweckgebundene Zuweisungen und Zuschüsse für Investitionen gegenüber; im Übrigen werden Investitionen aus den allgemeinen Deckungsmitteln finanziert.{ohneBruttokredit ? ` Eine Kreditaufnahme ist ${jahre.length > 1 ? 'in beiden Haushaltsjahren' : 'im Haushaltsjahr'} nicht veranschlagt.` : ''}</p>
+    <DataTableFrame id="finanzierung-investitionen" label="Investitionen und Investitionszuweisungen" caption="Investitionen und Investitionszuweisungen, Beträge in Euro" nomenSingular="Position" nomenPlural="Positionen" seitengroesse={false} breite="mittel">
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Position</th>
+            {jahre.map((jahr) => <th scope="col" class="hh-zahl">{jahr}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Investitionsausgaben (Hauptgruppen 7 und 8)</th>
+            {kennzahlen.map((block) => <td class="hh-zahl"><Amount value={block.investitionen.betrag} /></td>)}
+          </tr>
+          {(kennzahlen[0].investitionen.bestandteile ?? []).map((bestandteil, teilIndex) => (
+            <tr>
+              <th scope="row" class="hh-eingerueckt">darunter {bestandteil.label}</th>
+              {kennzahlen.map((block) => <td class="hh-zahl"><Amount value={block.investitionen.bestandteile?.[teilIndex]?.betrag ?? 0} /></td>)}
+            </tr>
+          ))}
+          <tr>
+            <th scope="row">Zuweisungen und Zuschüsse für Investitionen (Einnahmen, Obergruppen 33 und 34)</th>
+            {investitionszuweisungen.map((wert) => <td class="hh-zahl"><Amount value={wert} /></td>)}
+          </tr>
+          <tr>
+            <th scope="row">Bruttokreditaufnahme</th>
+            {jahre.map((jahr) => {
+              const eintrag = kreditAusHaushalt(jahr);
+              return <td class="hh-zahl">{eintrag ? <Amount value={eintrag.kreditaufnahme} /> : '–'}</td>;
+            })}
+          </tr>
+        </tbody>
+      </table>
+    </DataTableFrame>
+    {nachKategorie('investitionsfinanzierung').length > 0 ? (
+      <p class="hh-fliesstext hh-klein">Dazu gehören die Finanzierungsmaßnahmen {nachKategorie('investitionsfinanzierung').map((massnahme, index, liste) => (
+        <>{index > 0 ? (index === liste.length - 1 ? ' und ' : ', ') : ''}<a class="inline-link" href={anker(massnahme.id)}>{massnahme.text.titel}</a></>
+      ))}.</p>
+    ) : null}
+
+    {nachKategorie('unternehmensgewinne').length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Unternehmensgewinne</h3>
+        <p class="hh-fliesstext">Gewinne öffentlicher Unternehmen fließen dem Haushalt nur zu, soweit eine Gewinnverwendung als Finanzierungsmaßnahme vorgesehen ist:</p>
+        <ul class="hh-aufzaehlung">
+          {nachKategorie('unternehmensgewinne').map((massnahme) => (
+            <li>
+              <a class="inline-link" href={anker(massnahme.id)}>{massnahme.text.titel}</a>:
+              {jahre.map((jahr, index) => (
+                <>{index > 0 ? ', ' : ' '}{jahr} <Amount value={massnahme.daten.jahre[jahr as `${number}`]?.einnahmen ?? 0} /></>
+              ))}
+            </li>
+          ))}
+        </ul>
+      </>
+    ) : null}
+  </section>
+
+  {fonds.length > 0 ? (
+    <section class="section hh-fachabschnitt" aria-labelledby="fonds">
+      <div class="section-header"><h2 id="fonds">Fondsverwendungen</h2></div>
+      <p class="hh-fliesstext">Rücklagen, Fonds und Sondervermögen leisten Zahlungen an den Kernhaushalt, etwa Erstattungen bestehender Programmzahlungen. Diese Fondsverwendungen werden hier nachrichtlich gezeigt und nicht zu den Einnahmen oder Ausgaben des Kernhaushalts hinzugerechnet. Bei einer zusammengefassten Betrachtung von Kernhaushalt und Fonds entfällt der als Konsolidierung ausgewiesene Betrag, weil er nur zwischen beiden Bereichen fließt.</p>
+      <DataTableFrame
+        id="finanzierung-fonds"
+        label={`Fondsverwendungen mit Bezug zum Kernhaushalt ${periodenjahre}`}
+        caption={`Fondsverwendungen mit Bezug zum Kernhaushalt ${periodenjahre}, Beträge in Euro`}
+        nomenSingular="Art"
+        nomenPlural="Arten"
+        seitengroesse={false}
+        exportFilename={`fondsverwendungen-${id}.csv`}
+        exportMeta={exportMeta}
+        breite="breit"
+      >
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col" data-export-key="art">Art</th>
+              {jahre.map((jahr) => (
+                <>
+                  <th scope="col" class="hh-zahl" data-export-key={`verwendung_${jahr}`}>Verwendung {jahr}</th>
+                  <th scope="col" class="hh-zahl" data-export-key={`konsolidierung_${jahr}`}>Bei Konsolidierung entfallend {jahr}</th>
+                </>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {fonds.map((gruppe) => (
+              <tr>
+                <th scope="row">{gruppe.label}</th>
+                {jahre.map((jahr) => (
+                  <>
+                    <td class="hh-zahl"><Amount value={gruppe.jahre[jahr].betrag} /></td>
+                    <td class="hh-zahl"><Amount value={gruppe.jahre[jahr].eliminierung} /></td>
+                  </>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Zusammen (nachrichtlich)</th>
+              {jahre.map((jahr) => (
+                <>
+                  <td class="hh-zahl"><Amount value={fondsSumme[jahr].betrag} /></td>
+                  <td class="hh-zahl"><Amount value={fondsSumme[jahr].eliminierung} /></td>
+                </>
+              ))}
+            </tr>
+          </tfoot>
+        </table>
+      </DataTableFrame>
+      <p class="hh-fliesstext hh-klein">Einzelne Fonds und Sondervermögen sowie die Wirtschaftspläne der Landesunternehmen zeigt die Seite <a class="inline-link" href={getBudgetPeriodPageUrl(id, 'ruecklagen')}>Rücklagen und Fonds</a>.</p>
+    </section>
+  ) : null}
+
+  <section class="section hh-fachabschnitt" aria-labelledby="massnahmen">
+    <div class="section-header"><h2 id="massnahmen">Finanzierungsmaßnahmen</h2></div>
+    <p class="hh-fliesstext">Der Regierungsentwurf sieht Finanzierungsmaßnahmen vor, die zusätzliche Einnahmen erschließen oder Ausgaben senken. Die Beträge sind in den Haushaltsansätzen enthalten. Es handelt sich um Planungsannahmen: Die Einnahmen sind noch nicht eingegangen, und jede Maßnahme hängt von der genannten Voraussetzung ab. Die Nettoentlastung ergibt sich aus Einnahmen und Einsparungen abzüglich der Kosten.</p>
+    {massnahmen.length > 0 ? (
+      <ul class="hh-massnahmen">
+        {massnahmen.map((massnahme) => (
+          <li><MassnahmeKarte massnahme={massnahme} haushaltsjahre={jahre} planungsstatus={overlay.planungsstatus} kategorie={overlay.kategorien[massnahme.text.kategorie]} /></li>
+        ))}
+      </ul>
+    ) : null}
+
+    {massnahmen.length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Nettoentlastung bis {massnahmenJahre[massnahmenJahre.length - 1]}</h3>
+        <p class="hh-fliesstext">Die Jahre nach {letztesJahr} sind Finanzplanung und nicht bewilligt.</p>
+        <DataTableFrame
+          id="massnahmen-planung"
+          label="Nettoentlastung der Finanzierungsmaßnahmen je Jahr"
+          caption="Nettoentlastung der Finanzierungsmaßnahmen je Jahr, Beträge in Euro"
+          nomenSingular="Maßnahme"
+          nomenPlural="Maßnahmen"
+          seitengroesse={false}
+          jahresansicht="haushalt"
+          exportFilename={`finanzierungsmassnahmen-${id}.csv`}
+          exportMeta={exportMeta}
+          breite="breit"
+        >
+          <FilterBar slot="werkzeuge" id="massnahmen-planung" suche={false} jahresansicht={{ label: 'Jahre', value: 'haushalt', options: jahresansichtOptionen(massnahmenPlanungsjahre) }} export={{}} />
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col" data-sort="text" data-export-key="massnahme">Maßnahme</th>
+                {massnahmenJahre.map((jahr) => (
+                  <th scope="col" class="hh-zahl" data-sort="number" data-year-col={jahrCol(jahr)} data-export-key={`nettoentlastung_${jahr}`}>{jahr}{jahre.includes(jahr) ? null : <> <span>Finanzplanung</span></>}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {massnahmen.map((massnahme) => (
+                <tr>
+                  <th scope="row"><a class="inline-link" href={anker(massnahme.id)}>{massnahme.text.titel}</a></th>
+                  {massnahmenJahre.map((jahr) => {
+                    const wert = massnahme.daten.jahre[jahr as `${number}`]?.nettoentlastung;
+                    return <td class="hh-zahl" data-year-col={jahrCol(jahr)} data-export-value={wert ?? ''}>{typeof wert === 'number' ? <Amount value={wert} /> : '–'}</td>;
+                  })}
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Zusammen</th>
+                {massnahmenJahre.map((jahr) => (
+                  <td class="hh-zahl" data-year-col={jahrCol(jahr)}><Amount value={summe(massnahmen.map((massnahme) => massnahme.daten.jahre[jahr as `${number}`]?.nettoentlastung ?? 0))} /></td>
+                ))}
+              </tr>
+            </tfoot>
+          </table>
+        </DataTableFrame>
+      </>
+    ) : null}
+
+    {dienstrecht && overlay.dienstrecht ? (
+      <aside class="hh-entwurfshinweis hh-dienstrecht" aria-labelledby="dienstrecht-wirkung">
+        <h3 class="hh-unterueberschrift" id="dienstrecht-wirkung">{overlay.dienstrecht.titel}</h3>
+        <p>{overlay.dienstrecht.erlaeuterung}</p>
+        <dl class="hh-wertliste">
+          {jahre.map((jahr) => {
+            const wert = dienstrecht.jahre[jahr as `${number}`]?.nettoentlastung;
+            return (
+              <div>
+                <dt>Veranschlagte Nettoentlastung {jahr}</dt>
+                <dd>{typeof wert === 'number' ? <Amount value={wert} /> : 'keine Angabe'}</dd>
+              </div>
+            );
+          })}
+        </dl>
+        <p><a class="inline-link" href={`${getBudgetPeriodPageUrl(id, 'personal')}#dienstrecht`}>Wirkung des Gesetzentwurfs im Einzelnen</a></p>
+      </aside>
+    ) : null}
+  </section>
+
+  <section class="section hh-fachabschnitt" aria-labelledby="schulden">
+    <div class="section-header"><h2 id="schulden">Kredite und Schulden</h2></div>
+    <DefinitionNote titel="Begriffe">
+      <dl class="hh-begriffe">
+        <div><dt>Bruttokreditaufnahme</dt><dd>Neue Kredite am Kreditmarkt, die im Haushaltsjahr als Einnahme veranschlagt sind.</dd></div>
+        <div><dt>Tilgung</dt><dd>Planmäßige Rückzahlung von Kreditmarktschulden.</dd></div>
+        <div><dt>Nettokreditaufnahme</dt><dd>Bruttokreditaufnahme abzüglich Tilgung. Ein negativer Wert bedeutet, dass mehr getilgt als neu aufgenommen wird (Nettotilgung).</dd></div>
+        <div><dt>Anschlussfinanzierung (nachrichtlich)</dt><dd>Ablösung fällig werdender Kredite durch neue Kredite. Sie verändert den Schuldenstand nicht, ist nicht Teil der Bruttokreditaufnahme und wird nur nachrichtlich genannt.</dd></div>
+        <div><dt>Zinsausgaben</dt><dd>Zinsen für die Kreditmarktschulden laut Kreditfinanzierungsplan.</dd></div>
+        <div><dt>Schuldenstand</dt><dd>Kreditmarktschulden am Ende des Jahres.</dd></div>
+        <div><dt>Strukturelle Nettokreditaufnahme</dt><dd>Rechengröße der Schuldenregel, bereinigt um konjunkturelle Einflüsse und finanzielle Transaktionen. Sie ist keine Kreditbewegung des Jahres und wird mit der Strukturgrenze verglichen.</dd></div>
+      </dl>
+    </DefinitionNote>
+
+    <KpiGrid
+      label={`Schulden und Zinsen ${periodenjahre}`}
+      items={kreditHaushalt.flatMap((eintrag, index) => {
+        const vorjahr = index > 0 ? kreditHaushalt[index - 1] : null;
+        return [
+          {
+            label: `Schuldenstand Ende ${eintrag.jahr}`,
+            value: eintrag.schuldenstand_ende,
+            hint: 'Kreditmarktschulden am Jahresende',
+            ...(vorjahr ? { change: { value: eintrag.schuldenstand_ende - vorjahr.schuldenstand_ende, label: `gegenüber Ende ${vorjahr.jahr}` } } : {}),
+          },
+          {
+            label: `Zinsausgaben ${eintrag.jahr}`,
+            value: eintrag.zinsen,
+            ...(vorjahr ? { change: { value: eintrag.zinsen - vorjahr.zinsen, label: `gegenüber ${vorjahr.jahr}` } } : {}),
+          },
+          {
+            label: `Nettokreditaufnahme ${eintrag.jahr}`,
+            value: eintrag.nettokreditaufnahme,
+            hint: eintrag.nettokreditaufnahme < 0 ? 'negativ: Nettotilgung' : 'Bruttokreditaufnahme abzüglich Tilgung',
+          },
+        ];
+      })}
+      spalten={3}
+    />
+
+    <TimeSeriesChart
+      id="schuldenstand-diagramm"
+      caption={`Schuldenstand am Jahresende ${kreditJahre[0]} bis ${kreditJahre[kreditJahre.length - 1]}`}
+      jahre={kreditJahre.map((jahr) => ({ jahr, art: jahresart(jahr, jahre) }))}
+      series={[{ label: 'Schuldenstand am Jahresende', values: kreditplan.map((eintrag) => eintrag.schuldenstand_ende) }]}
+      typ="linie"
+      tabelle="keine"
+      hinweis="Exakte Werte: Kreditfinanzierungsplan"
+      hinweisHref="#kreditfinanzierungsplan"
+    />
+    <TimeSeriesChart
+      id="zinsen-diagramm"
+      caption={`Zinsausgaben ${kreditJahre[0]} bis ${kreditJahre[kreditJahre.length - 1]}`}
+      jahre={kreditJahre.map((jahr) => ({ jahr, art: jahresart(jahr, jahre) }))}
+      series={[{ label: 'Zinsausgaben', values: kreditplan.map((eintrag) => eintrag.zinsen) }]}
+      tabelle="keine"
+      hinweis="Exakte Werte: Kreditfinanzierungsplan"
+      hinweisHref="#kreditfinanzierungsplan"
+    />
+
+    {overlay.kassenkredite ? (
+      <div class="hh-kassenkredite" data-haushalt-kassenkredite>
+        <h3 class="hh-unterueberschrift">{overlay.kassenkredite.titel}</h3>
+        <p>{overlay.kassenkredite.text}</p>
+        <p class="hh-diagramm__hinweis">Rechtsgrundlage: {overlay.kassenkredite.rechtsbezug} (Entwurf)</p>
+      </div>
+    ) : null}
+
+    <h3 class="hh-unterueberschrift">Kreditfinanzierungsplan</h3>
+    <DataTableFrame
+      id="kreditfinanzierungsplan"
+      label={`Kreditfinanzierungsplan ${kreditJahre[0]} bis ${kreditJahre[kreditJahre.length - 1]}`}
+      caption={`Kreditfinanzierungsplan ${kreditJahre[0]} bis ${kreditJahre[kreditJahre.length - 1]}, Beträge in Euro`}
+      nomenSingular="Jahr"
+      nomenPlural="Jahren"
+      seitengroesse={false}
+      exportFilename={`kreditfinanzierungsplan-${id}.csv`}
+      exportMeta={exportMeta}
+      breite="sehr-breit"
+    >
+      <FilterBar slot="werkzeuge" id="kreditfinanzierungsplan" suche={false} export={{}} />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" data-export-key="jahr">Jahr</th>
+            <th scope="col" class="hh-zahl" data-export-key="bruttokreditaufnahme">Bruttokreditaufnahme</th>
+            <th scope="col" class="hh-zahl" data-export-key="tilgung">Tilgung</th>
+            <th scope="col" class="hh-zahl" data-export-key="nettokreditaufnahme">Nettokreditaufnahme</th>
+            <th scope="col" class="hh-zahl" data-export-key="zinsausgaben">Zinsausgaben</th>
+            <th scope="col" class="hh-zahl" data-export-key="schuldenstand_ende">Schuldenstand am Jahresende</th>
+            <th scope="col" class="hh-zahl" data-export-key="anschlussfinanzierung_nachrichtlich">Anschlussfinanzierung <span>nachrichtlich</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {kreditplan.map((eintrag) => {
+            const projektion = !jahre.includes(String(eintrag.jahr));
+            return (
+              <tr class:list={[projektion && 'hh-zeile--projektion']}>
+                <th scope="row" class="hh-kennung" data-export-value={eintrag.jahr}>{eintrag.jahr}{projektion ? <> <span>Finanzplanung</span></> : null}</th>
+                <td class="hh-zahl" data-export-value={eintrag.kreditaufnahme}><Amount value={eintrag.kreditaufnahme} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.tilgung}><Amount value={eintrag.tilgung} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.nettokreditaufnahme}><Amount value={eintrag.nettokreditaufnahme} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.zinsen}><Amount value={eintrag.zinsen} exakt /></td>
+                <td class="hh-zahl" data-export-value={eintrag.schuldenstand_ende}><Amount value={eintrag.schuldenstand_ende} exakt /></td>
+                <td class="hh-zahl hh-nachrichtlich" data-export-value={eintrag.umschuldung_nachrichtlich}><Amount value={eintrag.umschuldung_nachrichtlich} exakt /></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </DataTableFrame>
+
+    <h3 class="hh-unterueberschrift">Strukturelle Nettokreditaufnahme und Strukturgrenze</h3>
+    <p class="hh-fliesstext">Die Schuldenregel verlangt einen strukturell ausgeglichenen Haushalt. Die strukturelle Nettokreditaufnahme ist von der Nettokreditaufnahme im Kreditfinanzierungsplan zu unterscheiden.</p>
+    <DataTableFrame
+      id="strukturelle-nka"
+      label="Strukturelle Nettokreditaufnahme und Strukturgrenze"
+      caption="Strukturelle Nettokreditaufnahme und Strukturgrenze, Beträge in Euro"
+      nomenSingular="Jahr"
+      nomenPlural="Jahren"
+      seitengroesse={false}
+      breite="mittel"
+    >
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Jahr</th>
+            <th scope="col" class="hh-zahl">Strukturelle Nettokreditaufnahme</th>
+            <th scope="col" class="hh-zahl">Strukturgrenze</th>
+            <th scope="col">Grenze eingehalten</th>
+          </tr>
+        </thead>
+        <tbody>
+          {kreditplan.map((eintrag) => {
+            const projektion = !jahre.includes(String(eintrag.jahr));
+            return (
+              <tr class:list={[projektion && 'hh-zeile--projektion']}>
+                <th scope="row" class="hh-kennung">{eintrag.jahr}{projektion ? <> <span>Finanzplanung</span></> : null}</th>
+                <td class="hh-zahl"><Amount value={eintrag.strukturelle_nka} exakt /></td>
+                <td class="hh-zahl"><Amount value={eintrag.strukturgrenze} exakt /></td>
+                <td>{eintrag.strukturelle_nka <= eintrag.strukturgrenze ? 'ja' : 'nein'}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </DataTableFrame>
+  </section>
+
+  {verpflichtungen.length > 0 ? (
+    <section class="section hh-fachabschnitt" aria-labelledby="verpflichtungen">
+      <div class="section-header"><h2 id="verpflichtungen">Verpflichtungsermächtigungen</h2></div>
+      <p class="hh-fliesstext">Verpflichtungsermächtigungen erlauben es, im Haushaltsjahr Verträge und Bewilligungen einzugehen, die erst in späteren Jahren zu Zahlungen führen. Sie sind keine Jahresausgabe. Die Fälligkeiten nennen die voraussichtlichen Zahlungen späterer Jahre; diese Jahre sind Finanzplanung und noch nicht bewilligt.</p>
+      <DataTableFrame
+        id="verpflichtungsermaechtigungen"
+        label={`Verpflichtungsermächtigungen ${periodenjahre}`}
+        caption={`Verpflichtungsermächtigungen ${periodenjahre} und voraussichtliche Fälligkeiten, Beträge in Euro`}
+        nomenSingular="Verpflichtungsermächtigung"
+        nomenPlural="Verpflichtungsermächtigungen"
+        seitengroesse={false}
+        exportFilename={`verpflichtungsermaechtigungen-${id}.csv`}
+        exportMeta={exportMeta}
+        breite="sehr-breit"
+      >
+        <FilterBar slot="werkzeuge" id="verpflichtungsermaechtigungen" suche={{ label: 'Vorhaben suchen' }} export={{}} />
+        <table class="data-table hh-datentabelle">
+          <thead>
+            <tr>
+              <th scope="col" data-sort="text" data-export-key="vorhaben">Vorhaben</th>
+              <th scope="col" class="hh-kennung" data-sort="text" data-export-key="kapitel_titel">Kapitel und Titel</th>
+              {veJahre.map((jahr) => <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`ve_${jahr}`}>Ermächtigung {jahr}</th>)}
+              {faelligkeitsJahre.map((jahr) => <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`faellig_${jahr}`}>Fällig {jahr} <span>Finanzplanung</span></th>)}
+              <th scope="col" data-export-key="herkunft">Herkunft</th>
+            </tr>
+          </thead>
+          <tbody>
+            {verpflichtungen.map((eintrag) => (
+              <tr data-search={normalizeSearch(eintrag.titel)}>
+                <th scope="row">{eintrag.projektHref ? <a class="inline-link" href={eintrag.projektHref}>{eintrag.titel}</a> : eintrag.titel}</th>
+                <td class="hh-kennung" data-export-value={`${eintrag.kapitel}/${eintrag.titelnummer}`}>
+                  {eintrag.titelHref ? (
+                    <a class="inline-link" href={eintrag.titelHref}>{formatKapitelnummer(eintrag.kapitel)} / {formatTitelnummer(eintrag.titelnummer)}</a>
+                  ) : (
+                    <>{formatKapitelnummer(eintrag.kapitel)} / {formatTitelnummer(eintrag.titelnummer)}</>
+                  )}
+                </td>
+                {veJahre.map((jahr) => <td class="hh-zahl" data-export-value={eintrag.ve[jahr] ?? ''}>{typeof eintrag.ve[jahr] === 'number' ? <Amount value={eintrag.ve[jahr]} /> : '–'}</td>)}
+                {faelligkeitsJahre.map((jahr) => <td class="hh-zahl" data-export-value={eintrag.faelligkeiten[jahr] ?? ''}>{typeof eintrag.faelligkeiten[jahr] === 'number' ? <Amount value={eintrag.faelligkeiten[jahr]} /> : '–'}</td>)}
+                <td data-export-value={eintrag.herkunft}>{isOrigin(eintrag.herkunft) ? <OriginBadge code={eintrag.herkunft} variante="lang" /> : '–'}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="2">Zusammen</th>
+              {veJahre.map((jahr) => <td class="hh-zahl"><Amount value={summe(verpflichtungen.map((eintrag) => eintrag.ve[jahr] ?? 0))} /></td>)}
+              {faelligkeitsJahre.map((jahr) => <td class="hh-zahl"><Amount value={summe(verpflichtungen.map((eintrag) => eintrag.faelligkeiten[jahr] ?? 0))} /></td>)}
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </DataTableFrame>
+    </section>
+  ) : null}
+
+  <SourceNote
+    datenstand={ctx.datenstand}
+    datenversion={ctx.datenversion}
+    quelle={ctx.quelle}
+    downloadsHref={getBudgetPeriodPageUrl(id, 'downloads')}
+  />
+</HaushaltLayout>

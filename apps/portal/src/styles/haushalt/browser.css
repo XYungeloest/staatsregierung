@@ -1,0 +1,346 @@
+/*
+ * Einzelplan-, Kapitel- und Titelbrowser (/haushalt/<periode>/einzelplaene/…).
+ * Ergänzt base.css; nur Tokens aus foundation.css. Breakpoints wie im Staatsportal
+ * (63,99 / 47,99 / 29,99 rem).
+ */
+
+/* ---------------------------------------------------------------- Verweise */
+
+/* Links in Tabellen, Fakten und Listen sind unterstrichen und damit ohne Farbe erkennbar. */
+.hh-browser-link {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+  overflow-wrap: anywhere;
+}
+
+.hh-browser-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration-thickness: 0.14em;
+}
+
+.hh-browser-verweise {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-browser-verweise li {
+  margin: 0;
+}
+
+.hh-browser-bezuege {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 14rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-browser-nowrap {
+  white-space: nowrap;
+}
+
+.hh-browser-fakten dd {
+  overflow-wrap: anywhere;
+  /* Lange Komposita („Bundesergänzungszuweisungen“) zuerst nach Silben trennen. */
+  hyphens: auto;
+}
+
+/* Spaltenköpfe der Browsertabellen trennen nur an weichen Trennstellen („Personal­ausgaben“);
+   auf breiten Bildschirmen ist Platz genug, „Einnahmen“ oder „Titel“ nicht zu zerteilen. */
+@media (min-width: 48rem) {
+  .hh-browser .hh-tabelle .data-table thead th.hh-zahl {
+    hyphens: manual;
+  }
+}
+
+/* ---------------------------------------------------------------- Titeltabelle */
+
+.hh-browser-titelblock + .hh-browser-titelblock {
+  margin-top: var(--space-6);
+}
+
+.hh-browser-titelblock > h3 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-md);
+}
+
+.hh-browser-titelnummer {
+  vertical-align: top;
+}
+
+.hh-browser-titelnummer .hh-linkknopf {
+  display: flex;
+  margin-top: var(--space-1);
+}
+
+.hh-browser-titelnummer .hh-linkknopf[hidden] {
+  display: none;
+}
+
+/* Angaben unter der Zweckbestimmung: Teile umbrechen als Ganzes, getrennt durch den Abstand. */
+.data-table td > .hh-browser-titelmeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-hairline) var(--space-4);
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.hh-browser-titelmeta > span {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+/* Herkunft als Text unter der Zweckbestimmung nur dort, wo die Herkunftsspalte entfällt. */
+.hh-browser-titelmeta > .hh-browser-nur-schmal {
+  display: none;
+}
+
+.hh-browser-titel td,
+.hh-browser-titel th[scope='row'] {
+  vertical-align: top;
+}
+
+.hh-browser-herkunft {
+  width: 1%;
+  text-align: center;
+}
+
+.hh-browser-erlaeuterung {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.hh-browser-erlaeuterung > div {
+  display: grid;
+  gap: var(--space-hairline);
+}
+
+.hh-browser-erlaeuterung dt {
+  color: var(--color-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-browser-erlaeuterung dd {
+  margin: 0;
+  color: var(--color-text);
+  line-height: var(--lh-body);
+  max-width: var(--measure-body);
+  white-space: pre-line;
+}
+
+.hh-browser-titelgruppen {
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+  font-size: var(--text-sm);
+}
+
+.hh-browser-titelgruppen__titel {
+  margin: 0 0 var(--space-2);
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.hh-browser-titelgruppen ul {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-browser-titelgruppen li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-hairline) var(--space-4);
+}
+
+/* Zwischensumme in der Hauptgruppentabelle */
+.hh-tabelle .data-table tr.hh-browser-zwischensumme > :is(th, td) {
+  border-top: 1px solid var(--color-border-strong);
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- Vorhaben */
+
+.hh-browser-vorhaben {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-browser-vorhaben__eintrag {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4) var(--space-4-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.hh-browser-vorhaben__eintrag p {
+  margin: 0;
+}
+
+.hh-browser-vorhaben__kopf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+}
+
+.hh-browser-vorhaben__titel {
+  min-width: 0;
+  margin: 0;
+  font-size: var(--text-base-plus);
+  line-height: var(--lh-heading);
+}
+
+.hh-browser-vorhaben__titel a {
+  color: var(--color-heading);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.hh-browser-vorhaben__titel a:hover {
+  color: var(--color-accent-hover);
+}
+
+.hh-browser-vorhaben__fach,
+.hh-browser-vorhaben__bezug,
+.hh-browser-vorhaben__hinweis {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--lh-compact);
+}
+
+.hh-browser-vorhaben__werte {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+}
+
+.hh-browser-vorhaben__werte dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-browser-vorhaben__werte dd {
+  margin: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.hh-browser-vorhaben__titelliste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.hh-browser-vorhaben__titelliste > span {
+  color: var(--color-text-muted);
+}
+
+.hh-browser-vorhaben__titelliste a {
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- Breakpoints */
+
+@media (max-width: 63.99rem) {
+  .hh-browser-vorhaben {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  /* Zusatzspalten der Übersicht entfallen; die Angaben stehen auf der Einzelplanseite und im Download. */
+  .hh-browser-optional {
+    display: none;
+  }
+
+  .data-table td > .hh-browser-titelmeta {
+    flex-direction: column;
+    gap: var(--space-hairline);
+  }
+
+  /* Titeltabelle: Herkunft steht unter der Zweckbestimmung, damit diese Platz zum Lesen hat. */
+  .hh-browser-titel .hh-browser-herkunft {
+    display: none;
+  }
+
+  .hh-browser-titelmeta > .hh-browser-nur-schmal {
+    display: block;
+  }
+
+  .hh-tabelle .data-table td.hh-browser-zweckzelle {
+    min-width: 9rem;
+  }
+
+  /* Kapitelübersicht eines Einzelplans: Die Titelzahl entfällt auf schmalen Bildschirmen (sie
+     steht auf der Kapitelseite und im Export); die Bezeichnung behält eine lesbare Breite. */
+  .hh-tabelle .data-table .hh-browser-nur-breit {
+    display: none;
+  }
+
+  .hh-tabelle .data-table td.hh-browser-kapitelname {
+    min-width: 9rem;
+  }
+
+  /* Übersicht: Die Bezeichnung bleibt lesbar; weitere Spalten erreicht man durch waagerechtes Verschieben. */
+  .hh-tabelle .data-table td.hh-browser-name {
+    min-width: 10rem;
+    hyphens: manual;
+  }
+}
+
+@media (max-width: 29.99rem) {
+  .hh-browser-vorhaben__werte {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------------------------------------------------------- Druck */
+
+@media print {
+  .hh-browser-vorhaben {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hh-browser-vorhaben__eintrag,
+  .hh-browser-titelgruppen {
+    break-inside: avoid;
+  }
+
+  .hh-browser-link,
+  .hh-browser-vorhaben__titel a {
+    color: inherit;
+  }
+}

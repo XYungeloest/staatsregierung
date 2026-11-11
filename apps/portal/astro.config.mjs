@@ -1,6 +1,8 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig, sessionDrivers } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import { resolveBuildCommit } from '../../scripts/lib/build-commit.mjs';
+import { haushaltVorschauIntegration, parseHaushaltVorschau } from '../../scripts/lib/haushalt/vorschau.mjs';
 import { legacyRedirects } from './src/config/legacy-routes.mjs';
 
 const defaultPortalSiteUrl = 'https://freistaat-ostdeutschland.de';
@@ -8,6 +10,10 @@ const defaultLawSiteUrl = 'https://recht.freistaat-ostdeutschland.de';
 const portalSiteUrl = process.env.PORTAL_SITE_URL ?? defaultPortalSiteUrl;
 const lawSiteUrl = process.env.LAW_SITE_URL ?? defaultLawSiteUrl;
 const buildCommit = resolveBuildCommit();
+// Vorschau nicht freigegebener Haushaltsperioden (apps/portal/src/lib/haushalt/perioden.ts). Nur
+// lokale Prüfungen und CI-Builds setzen HAUSHALT_VORSCHAU; Produktions- und Staging-Deploys
+// verweigern Vorschau-Builds (scripts/check-haushalt-release.mjs). Unbekannte Werte brechen ab.
+const haushaltVorschau = parseHaushaltVorschau(process.env.HAUSHALT_VORSCHAU);
 
 function normalizeBasePath(value) {
   if (!value || value === '/') {
@@ -36,9 +42,16 @@ export default defineConfig({
       'import.meta.env.PORTAL_SITE_URL': JSON.stringify(portalSiteUrl),
       'import.meta.env.LAW_SITE_URL': JSON.stringify(lawSiteUrl),
       'import.meta.env.SITE_TARGET': JSON.stringify('portal'),
+      'import.meta.env.HAUSHALT_VORSCHAU': JSON.stringify(haushaltVorschau),
     },
   },
   redirects: legacyRedirects,
+  integrations: [
+    haushaltVorschauIntegration({
+      vorschau: haushaltVorschau,
+      contentRoot: fileURLToPath(new URL('../../content', import.meta.url)),
+    }),
+  ],
   session: {
     // Die statischen Seiten benötigen keine serverseitigen Sessions.
     driver: sessionDrivers.null(),

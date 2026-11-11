@@ -1,0 +1,24 @@
+---
+/**
+ * Navigation innerhalb einer Haushaltsperiode: dünne Hülle um die Bereichsnavigation des Portals
+ * (`SectionNavigation`, Variante `budget`), damit der Bereich Haushalt nur einen
+ * Navigationsstil hat. Echte Links mit `aria-current="page"`; ohne `current` wird der aktuelle
+ * Pfad verglichen. Ab 64 rem haftet die Leiste am oberen Rand.
+ */
+import SectionNavigation from '../portal/SectionNavigation.astro';
+
+interface NavItem {
+  label: string;
+  href: string;
+  current?: boolean;
+}
+
+interface Props {
+  items: NavItem[];
+  label?: string;
+}
+
+const { items, label = 'Haushaltsperiode' } = Astro.props as Props;
+---
+
+{items.length > 0 ? <SectionNavigation label={label} items={items} variant="budget" /> : null}

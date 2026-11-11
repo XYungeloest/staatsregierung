@@ -9,6 +9,7 @@ import SectionNavigation from '../../components/portal/SectionNavigation.astro';
 import TopicBriefing from '../../components/portal/TopicBriefing.astro';
 import TopicCard from '../../components/portal/TopicCard.astro';
 import TopicModule from '../../components/portal/TopicModule.astro';
+import ThemaHaushalt from '../../components/haushalt/ThemaHaushalt.astro';
 import { siteConfig } from '@ostrecht/shared/config/site.ts';
 import { formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import { getPublicNormSummary } from '@ostrecht/shared/lib/norms/identity.ts';
@@ -171,6 +172,8 @@ const heroActions = topic ? [
     />
 
     {topic.modules.map((module) => <TopicModule module={module} referenceDate={PORTAL_REFERENCE_DATE} />)}
+
+    <ThemaHaushalt topicSlug={topic.slug} />
 
     <section id="rechtsgrundlagen" class="section topic-legal-section" aria-labelledby="rechtsgrundlagen-title" data-visual-section="topic-legal-bases">
       <div class="section-header topic-section-heading">

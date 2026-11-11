@@ -1,0 +1,47 @@
+---
+/**
+ * Abgrenzungen mehrerer Kennzahlen als Beschreibungsliste. Standardmäßig ein geschlossener
+ * Aufklappbereich, der zum Drucken geöffnet wird; mit `offen` als sichtbare Liste.
+ */
+interface Eintrag {
+  begriff: string;
+  definition: string;
+  umfang?: string;
+}
+
+interface Props {
+  titel?: string;
+  eintraege: Eintrag[];
+  offen?: boolean;
+}
+
+const { titel = 'Abgrenzungen', eintraege, offen = false } = Astro.props as Props;
+---
+
+{eintraege.length > 0 ? (
+  offen ? (
+    <div class="hh-abgrenzungen">
+      <p class="hh-abgrenzungen__titel">{titel}</p>
+      <dl class="hh-abgrenzungen__liste">
+        {eintraege.map((eintrag) => (
+          <div>
+            <dt>{eintrag.begriff}</dt>
+            <dd>{eintrag.definition}{eintrag.umfang ? <> <span class="hh-abgrenzungen__umfang">Umfang: {eintrag.umfang}.</span></> : null}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  ) : (
+    <details class="hh-abgrenzungen" data-haushalt-druck-oeffnen>
+      <summary>{titel}</summary>
+      <dl class="hh-abgrenzungen__liste">
+        {eintraege.map((eintrag) => (
+          <div>
+            <dt>{eintrag.begriff}</dt>
+            <dd>{eintrag.definition}{eintrag.umfang ? <> <span class="hh-abgrenzungen__umfang">Umfang: {eintrag.umfang}.</span></> : null}</dd>
+          </div>
+        ))}
+      </dl>
+    </details>
+  )
+) : null}

@@ -1,0 +1,106 @@
+---
+/**
+ * Gestapelter Anteilsbalken einer Zusammensetzung (Summe = 100 %). Die Legende steht in derselben
+ * Reihenfolge wie die Abschnitte und nennt Bezeichnung, Anteil und Betrag als Text; die Tabelle
+ * trägt exakte Beträge. Nur nicht negative Werte bilden Abschnitte.
+ */
+import Amount from './Amount.astro';
+import ChartData from './ChartData.astro';
+import { cssPercent, formatExact, formatShare, formatValue, PALETTE_SIZE, shareOf, type ValueFormat } from './format.ts';
+
+interface ShareItem {
+  label: string;
+  value: number;
+  href?: string;
+  note?: string;
+}
+
+interface Props {
+  id: string;
+  caption: string;
+  items: ShareItem[];
+  total?: number;
+  totalLabel?: string;
+  format?: ValueFormat;
+  labelSpalte?: string;
+  wertSpalte?: string;
+  tabelle?: 'aufklappbar' | 'sichtbar' | 'keine';
+  hinweis?: string;
+}
+
+const {
+  id,
+  caption,
+  items,
+  total,
+  totalLabel = 'Insgesamt',
+  format = 'euro-compact',
+  labelSpalte = 'Bestandteil',
+  wertSpalte = 'Betrag',
+  tabelle = 'aufklappbar',
+  hinweis,
+} = Astro.props as Props;
+
+const isEuro = format === 'euro-compact' || format === 'euro';
+const base = total ?? items.reduce((sum, item) => sum + Math.max(0, item.value), 0);
+const shares = items.map((item) => (item.value > 0 ? shareOf(item.value, base) : null));
+const colorClass = (index: number) => `hh-farbe-${(index % PALETTE_SIZE) + 1}`;
+const summaryLabel = `${caption}: ${items
+  .map((item, index) => `${item.label} ${shares[index] === null ? formatValue(item.value, format) : formatShare(shares[index] ?? 0)}`)
+  .join(', ')}`;
+---
+
+<figure class="hh-diagramm hh-anteile" id={id}>
+  <figcaption class="hh-diagramm__titel">{caption}</figcaption>
+  <div class="hh-anteile__balken" role="img" aria-label={summaryLabel}>
+    {items.map((_, index) =>
+      shares[index] !== null && (shares[index] ?? 0) > 0 ? (
+        <span class:list={['hh-anteile__abschnitt', colorClass(index)]} style={`--hh-groesse: ${cssPercent((shares[index] ?? 0) * 100)}`}>
+          <span class="hh-anteile__nummer">{index + 1}</span>
+        </span>
+      ) : null,
+    )}
+  </div>
+  <ol class="hh-anteile__legende">
+    {items.map((item, index) => (
+      <li class="hh-anteile__eintrag">
+        <span class:list={['hh-anteile__farbe', colorClass(index)]} aria-hidden="true">{index + 1}</span>
+        <span class="hh-anteile__label">
+          {item.href ? <a class="inline-link" href={item.href}>{item.label}</a> : item.label}
+          {item.note ? <span class="hh-balken__notiz">{item.note}</span> : null}
+        </span>
+        <span class="hh-anteile__werte">
+          <span class="hh-anteile__anteil">{shares[index] === null ? '–' : formatShare(shares[index] ?? 0)}</span>
+          {isEuro ? <Amount value={item.value} exakt={format === 'euro'} /> : <data value={String(item.value)}>{formatValue(item.value, format)}</data>}
+        </span>
+      </li>
+    ))}
+  </ol>
+  {hinweis ? <p class="hh-diagramm__hinweis">{hinweis}</p> : null}
+  {tabelle !== 'keine' ? (
+    <ChartData label={`${caption} als Tabelle`} bezug={caption} modus={tabelle}>
+      <table class="data-table hh-datentabelle">
+        <caption>{caption}</caption>
+        <thead>
+          <tr><th scope="col">{labelSpalte}</th><th scope="col" class="hh-zahl">{wertSpalte}</th><th scope="col" class="hh-zahl">Anteil</th></tr>
+        </thead>
+        <tbody>
+          {items.map((item, index) => (
+            <tr>
+              <th scope="row">{item.label}</th>
+              <td class="hh-zahl"><data value={String(item.value)}>{formatExact(item.value, format)}</data></td>
+              <td class="hh-zahl">{shares[index] === null ? '–' : formatShare(shares[index] ?? 0)}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">{totalLabel}</th>
+            <td class="hh-zahl"><data value={String(base)}>{formatExact(base, format)}</data></td>
+            <td class="hh-zahl">{formatShare(1)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </ChartData>
+  ) : null}
+</figure>

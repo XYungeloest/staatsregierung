@@ -1,0 +1,282 @@
+{
+  "schema": "haushalt-snapshot/1",
+  "periode": "2027-2028",
+  "einzelplan": "16",
+  "jahresfelder": [
+    "id",
+    "betrag",
+    "ve",
+    "menge",
+    "satz"
+  ],
+  "titel": [
+    {
+      "konzept_id": "T.1601/11901",
+      "kapitel": "1601",
+      "titel": "11901",
+      "zweckbestimmung": "Vermischte Einnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1601/11901@2027",
+          "betrag": 1690
+        },
+        "2028": {
+          "id": "T.1601/11901@2028",
+          "betrag": 1724
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1601/41201",
+      "kapitel": "1601",
+      "titel": "41201",
+      "zweckbestimmung": "Richter- und Präsidialaufgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "41",
+      "gruppe": "412",
+      "gruppe_bezeichnung": "Aufwendungen für ehrenamtlich Tätige",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1601/41201@2027",
+          "betrag": 1976078,
+          "menge": "23.25",
+          "satz": "85000"
+        },
+        "2028": {
+          "id": "T.1601/41201@2028",
+          "betrag": 2061776,
+          "menge": "24.26",
+          "satz": "85000"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1601/42901",
+      "kapitel": "1601",
+      "titel": "42901",
+      "zweckbestimmung": "Nicht aufteilbare Personalausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "429",
+      "gruppe_bezeichnung": "Nicht aufteilbare Bezüge, Entgelte und Nebenleistungen",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1601/42901@2027",
+          "betrag": 348720
+        },
+        "2028": {
+          "id": "T.1601/42901@2028",
+          "betrag": 363843
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1601/54701",
+      "kapitel": "1601",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1601/54701@2027",
+          "betrag": 599623
+        },
+        "2028": {
+          "id": "T.1601/54701@2028",
+          "betrag": 590469
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1601/89901",
+      "kapitel": "1601",
+      "titel": "89901",
+      "zweckbestimmung": "Nicht aufteilbare Investitionsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "899",
+      "gruppe_bezeichnung": "Nicht aufteilbare Investitionsausgaben",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1601/89901@2027",
+          "betrag": 49218
+        },
+        "2028": {
+          "id": "T.1601/89901@2028",
+          "betrag": 36516
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1602/11901",
+      "kapitel": "1602",
+      "titel": "11901",
+      "zweckbestimmung": "Vermischte Einnahmen",
+      "seite": "Einnahme",
+      "hauptgruppe": "1",
+      "obergruppe": "11",
+      "gruppe": "119",
+      "gruppe_bezeichnung": "Sonstige Verwaltungseinnahmen",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1602/11901@2027",
+          "betrag": 298
+        },
+        "2028": {
+          "id": "T.1602/11901@2028",
+          "betrag": 304
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1602/42201",
+      "kapitel": "1602",
+      "titel": "42201",
+      "zweckbestimmung": "Fachpersonal für Gerichtsverwaltung und Verfahren",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "422",
+      "gruppe_bezeichnung": "Bezüge und Nebenleistungen der Beamtinnen, Beamten, Richterinnen und Richter",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_fachmodell",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1602/42201@2027",
+          "betrag": 443824,
+          "menge": "5.81",
+          "satz": "85000"
+        },
+        "2028": {
+          "id": "T.1602/42201@2028",
+          "betrag": 462417,
+          "menge": "6.06",
+          "satz": "85000"
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1602/42901",
+      "kapitel": "1602",
+      "titel": "42901",
+      "zweckbestimmung": "Nicht aufteilbare Personalausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "4",
+      "obergruppe": "42",
+      "gruppe": "429",
+      "gruppe_bezeichnung": "Nicht aufteilbare Bezüge, Entgelte und Nebenleistungen",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1602/42901@2027",
+          "betrag": 87180
+        },
+        "2028": {
+          "id": "T.1602/42901@2028",
+          "betrag": 90961
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1602/54701",
+      "kapitel": "1602",
+      "titel": "54701",
+      "zweckbestimmung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "5",
+      "obergruppe": "54",
+      "gruppe": "547",
+      "gruppe_bezeichnung": "Nicht aufteilbare sächliche Verwaltungsausgaben",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1602/54701@2027",
+          "betrag": 149906
+        },
+        "2028": {
+          "id": "T.1602/54701@2028",
+          "betrag": 147618
+        }
+      }
+    },
+    {
+      "konzept_id": "T.1602/89901",
+      "kapitel": "1602",
+      "titel": "89901",
+      "zweckbestimmung": "Nicht aufteilbare Investitionsausgaben",
+      "seite": "Ausgabe",
+      "hauptgruppe": "8",
+      "obergruppe": "89",
+      "gruppe": "899",
+      "gruppe_bezeichnung": "Nicht aufteilbare Investitionsausgaben",
+      "funktion": "051",
+      "herkunft": "S",
+      "qualitaet": "S_rest",
+      "rechtsgrundlage": "LHO §§11–17; Aufgabenrecht und Empfängeruntersetzung offen",
+      "finanzierung": "Gesamtdeckung; Deckungslücke gesondert ausgewiesen",
+      "jahre": {
+        "2027": {
+          "id": "T.1602/89901@2027",
+          "betrag": 8685
+        },
+        "2028": {
+          "id": "T.1602/89901@2028",
+          "betrag": 6444
+        }
+      }
+    }
+  ]
+}

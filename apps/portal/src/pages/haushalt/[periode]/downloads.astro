@@ -1,0 +1,170 @@
+---
+/**
+ * Downloads einer Snapshot-Periode (/haushalt/<periode>/downloads/): alle Datendateien unter
+ * /haushalt/<periode>/daten/ mit Beschreibung, Format, Größe, Datenstand, Status, Spalten und
+ * SHA-256-Prüfsumme. Die Dateien selbst erzeugt `components/haushalt/ruecklagen/downloads.ts`;
+ * PDF und XLSX erscheinen nur, wenn der Datenbestand sie enthält.
+ */
+import { getPeriodenGenitiv } from '../../../lib/haushalt/seite.ts';
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import '../../../styles/haushalt/ruecklagen.css';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import DataTableFrame from '../../../components/haushalt/DataTableFrame.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import StatusBadge from '../../../components/haushalt/StatusBadge.astro';
+import { formatGermanDate, formatNumber, isoDateOnly } from '../../../components/haushalt/format.ts';
+import { formatDateigroesse, getDatendateien } from '../../../components/haushalt/ruecklagen/downloads.ts';
+import { getPeriodenSeite, getSnapshotPeriodenPfade } from '../../../components/haushalt/ruecklagen/seite.ts';
+import { getBudgetDataUrl, getImprintUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return getSnapshotPeriodenPfade();
+}
+
+const { periode: id } = Astro.params as { periode: string };
+const seite = getPeriodenSeite(id, 'downloads', 'Downloads');
+const { periode, status } = seite;
+const dateien = getDatendateien(id);
+const tabellen = dateien.filter((datei) => datei.format === 'CSV');
+const datenstandText = formatGermanDate(seite.datenstand);
+const formate = new Set(dateien.map((datei) => datei.format));
+const zusatz = [formate.has('PDF') ? 'Haushaltsplan als PDF' : null, formate.has('XLSX') ? 'Arbeitsmappe (XLSX)' : null].filter(Boolean);
+const beschreibung = `Haushaltsdaten des ${getPeriodenGenitiv(periode)} (${status.label}) als CSV- und JSON-Dateien: Gesamtplan, Einzelpläne, Kapitel, Titel und Vorhaben${zusatz.length > 0 ? `; dazu ${zusatz.join(' und ')}` : ''}.`;
+const zeilenText = (zeilen: number | undefined, format: string) =>
+  zeilen === undefined ? '–' : `${formatNumber(zeilen)} ${format === 'JSON' ? (zeilen === 1 ? 'Eintrag' : 'Einträge') : zeilen === 1 ? 'Zeile' : 'Zeilen'}`;
+---
+
+<HaushaltLayout
+  title={`Downloads – ${periode.bezeichnung}`}
+  description={beschreibung}
+  breadcrumbs={seite.breadcrumbs}
+  periodLabel={periode.bezeichnung}
+  statusLabel={status.label}
+  statusTone={status.tone}
+  statusText={status.text}
+  datenstand={seite.datenstand}
+  datenversion={seite.datenversion}
+  preview={seite.preview}
+  navItems={seite.navItems}
+  otherPeriods={seite.otherPeriods}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow={periode.bezeichnung}
+    title="Downloads"
+    status={status.label}
+    lead={`Die Haushaltsdaten des ${getPeriodenGenitiv(periode)} als Tabellen zum Herunterladen und Weiterverarbeiten.`}
+    variant="budget"
+  />
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="dateien">
+    <div class="section-header">
+      <h2 id="dateien">Dateien</h2>
+      <p>Alle Dateien geben denselben Datenstand wieder. Beträge stehen in ganzen Euro.</p>
+    </div>
+    <dl class="hh-rl-fakten">
+      <div><dt>Haushaltsperiode</dt><dd>{periode.bezeichnung}</dd></div>
+      <div><dt>Status</dt><dd><StatusBadge tone={status.tone} label={status.label} /></dd></div>
+      <div><dt>Datenstand</dt><dd><time datetime={isoDateOnly(seite.datenstand)}>{datenstandText}</time></dd></div>
+      <div><dt>Datenversion</dt><dd>{seite.datenversion}</dd></div>
+    </dl>
+
+    <DataTableFrame
+      id="tabelle-dateien"
+      label="Dateien zum Herunterladen"
+      caption={`Dateien des ${getPeriodenGenitiv(periode)}, Datenstand ${datenstandText}, ${status.label}`}
+      nomenSingular="Datei"
+      nomenPlural="Dateien"
+      seitengroesse={false}
+      breite="breit"
+    >
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Datei <span>Format und Größe</span></th>
+            <th scope="col">Inhalt</th>
+            <th scope="col" class="hh-zahl">Umfang</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dateien.map((datei) => (
+            <tr id={`datei-${datei.name.replace(/[^a-z0-9]+/giu, '-').toLowerCase()}`}>
+              <th scope="row">
+                <a class="inline-link hh-rl-dateiname" href={getBudgetDataUrl(id, datei.name)} download={`haushalt-${id}-${datei.name}`} type={datei.contentType.split(';')[0]}>{datei.titel}</a>
+                <span class="hh-rl-nebenzeile">{datei.format}, <data value={String(datei.bytes)}>{formatDateigroesse(datei.bytes)}</data></span>
+              </th>
+              <td>{datei.beschreibung}</td>
+              <td class="hh-zahl">{zeilenText(datei.zeilen, datei.format)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </DataTableFrame>
+  </section>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="hinweise">
+    <div class="section-header">
+      <h2 id="hinweise">Hinweise zur Nutzung</h2>
+    </div>
+    <ul class="hh-rl-hinweisliste">
+      <li>Kennziffern mit führender Null, etwa das Kapitel „0407“ oder der Einzelplan „04“, beim Öffnen in einer Tabellenkalkulation als Text einlesen; sonst geht die führende Null verloren.</li>
+      <li>Die CSV-Dateien sind in UTF-8 gespeichert, Trennzeichen ist das Semikolon, die erste Zeile enthält die Spaltennamen. Beträge stehen in ganzen Euro ohne Tausendertrennzeichen.</li>
+      <li>Jede Zeile nennt Periode, Status und Datenversion. Die Dateien enthalten beide Haushaltsjahre untereinander; Summen nur innerhalb eines Jahres und derselben Ebene bilden.</li>
+      <li>Vorhaben sind eine eigene Sicht auf Titel des Haushaltsplans. Ihre Beträge sind in den Titeln bereits enthalten und werden nicht zum Gesamtplan addiert.</li>
+      <li>Die Metadaten des Datenpakets (JSON) nennen Herausgeber, Quelle, Status und Datenstand sowie Spalten, Größe und Prüfsumme jeder Datei. Hinweise zu den Nutzungsrechten enthält das <a class="inline-link" href={getImprintUrl()}>Impressum</a>.</li>
+    </ul>
+  </section>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="spalten">
+    <div class="section-header">
+      <h2 id="spalten">Spalten der Tabellen</h2>
+    </div>
+    {tabellen.map((datei) => (
+      <details class="hh-rl-spalten" data-haushalt-druck-oeffnen>
+        <summary>{datei.titel}: {datei.spalten.length} Spalten</summary>
+        <dl class="hh-rl-details">
+          {datei.spalten.map((spalte) => (
+            <div><dt>{spalte.name}</dt><dd>{spalte.beschreibung}</dd></div>
+          ))}
+        </dl>
+      </details>
+    ))}
+  </section>
+
+  <section class="section hh-rl-abschnitt" aria-labelledby="pruefsummen">
+    <div class="section-header">
+      <h2 id="pruefsummen">Prüfsummen</h2>
+      <p>Mit der SHA-256-Prüfsumme lässt sich prüfen, ob eine heruntergeladene Datei vollständig und unverändert ist.</p>
+    </div>
+    <DataTableFrame
+      id="tabelle-pruefsummen"
+      label="Prüfsummen der Dateien"
+      caption="SHA-256-Prüfsummen der Dateien"
+      nomenSingular="Datei"
+      nomenPlural="Dateien"
+      seitengroesse={false}
+      breite="breit"
+    >
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col">Datei</th>
+            <th scope="col" class="hh-zahl">Größe in Byte</th>
+            <th scope="col">SHA-256</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dateien.map((datei) => (
+            <tr>
+              <th scope="row">{datei.titel}</th>
+              <td class="hh-zahl"><data value={String(datei.bytes)}>{formatNumber(datei.bytes)}</data></td>
+              <td><code class="hh-rl-pruefsumme">{datei.sha256}</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </DataTableFrame>
+  </section>
+
+  <SourceNote datenstand={seite.datenstand} datenversion={seite.datenversion} quelle={seite.quelle} />
+</HaushaltLayout>

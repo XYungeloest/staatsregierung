@@ -1,0 +1,300 @@
+---
+/**
+ * Haushaltssuche einer Snapshot-Periode (/haushalt/<periode>/suche/). Werkzeugseite: nicht im
+ * Routeninventar, `noindex`. Die Treffer berechnet scripts/haushalt-suche.ts aus dem schlanken
+ * Suchindex /haushalt/<periode>/daten/suchindex.json; ohne Skript führt die Seite über die
+ * Einzelpläne zu allen Ansätzen.
+ */
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import HaushaltSuchfeld from '../../../components/haushalt/HaushaltSuchfeld.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import {
+  getBudgetDataUrl,
+  getBudgetPeriodPageUrl,
+  getBudgetPeriodPlanUrl,
+  getBudgetSearchUrl,
+} from '@ostrecht/shared/lib/portal/routes.ts';
+import { getPeriodenBrotkrume, getPeriodenQuelle, getPeriodNavItems, getWeiterePeriodenNav } from '../../../lib/haushalt/seite.ts';
+import {
+  getPeriodeStatusInfo,
+  getVisibleSnapshotPeriods,
+  isPreviewOnly,
+  type Haushaltsperiode,
+} from '../../../lib/haushalt/perioden.ts';
+import { formatKapitelnummer, formatTitelnummer, loadEinzelplanOverlays, loadFreitextOverlay, loadProjektOverlays, publicBezeichnung } from '../../../lib/haushalt/oeffentlich.ts';
+import { loadEinzelplaene, loadImportManifest, loadPeriodMeta, loadProjekte, loadTitelForKapitel, resolveHaushaltRepositoryRoot } from '../../../lib/haushalt/snapshot.ts';
+
+export function getStaticPaths() {
+  return getVisibleSnapshotPeriods().map((periode) => ({ params: { periode: periode.id }, props: { periode } }));
+}
+
+const { periode } = Astro.props as { periode: Haushaltsperiode };
+const id = periode.id;
+const status = getPeriodeStatusInfo(periode);
+const meta = loadPeriodMeta(id);
+const manifest = loadImportManifest(id);
+const freitexte = loadFreitextOverlay(id);
+const planOverlays = loadEinzelplanOverlays(id);
+const projektOverlays = loadProjektOverlays(id);
+const plaene = loadEinzelplaene(id).map((plan) => ({
+  ep: plan.ep,
+  titel: planOverlays[plan.ep]?.kurztitel ?? publicBezeichnung(plan.bezeichnung, freitexte),
+  href: getBudgetPeriodPlanUrl(id, plan.ep),
+}));
+
+// Beispielanfragen aus dem Bestand: Alltagsbegriffe der Suchzuordnungen und Nummern eines
+// Vorhabens mit Titelbezug, damit jedes Beispiel tatsächlich trifft.
+const suchbegriffePfad = join(resolveHaushaltRepositoryRoot(), 'content', 'haushalt', id, 'suchbegriffe.json');
+const zuordnungen = existsSync(suchbegriffePfad)
+  ? ((JSON.parse(readFileSync(suchbegriffePfad, 'utf8')) as { begriffe?: Array<{ woerter: string[]; ziele: Array<{ projekt?: string }> }> }).begriffe ?? [])
+  : [];
+const alltagsbegriffe = zuordnungen
+  .map((eintrag) => eintrag.woerter[0])
+  .filter((wort): wort is string => typeof wort === 'string' && wort.trim() !== '')
+  .slice(0, 4);
+const alltagsProjekte = zuordnungen.flatMap((eintrag) => eintrag.ziele.flatMap((ziel) => (ziel.projekt ? [ziel.projekt] : [])));
+// Nummernbeispiel: größter Ausgabetitel des ersten Vorhabens aus den Suchzuordnungen (sonst des
+// ersten Vorhabens mit Titelbezug).
+const projekte = loadProjekte(id).filter((projekt) => projekt.titel.length > 0 && projektOverlays[projekt.id]);
+const ersteZuordnung = alltagsProjekte[0];
+const beispielProjekt = projekte.find((projekt) => projekt.id === ersteZuordnung) ?? projekte[0];
+const erstesJahr = String(periode.jahre[0]) as `${number}`;
+const beispielTitel = beispielProjekt
+  ? beispielProjekt.kapitel
+      .flatMap((kapitel) => loadTitelForKapitel(id, kapitel))
+      .filter((titel) => titel.projekt_id === beispielProjekt.id && titel.seite === 'Ausgabe')
+      .sort((left, right) => (right.jahre[erstesJahr]?.betrag ?? 0) - (left.jahre[erstesJahr]?.betrag ?? 0))[0]
+  : undefined;
+const beispiele = [
+  ...alltagsbegriffe,
+  plaene[3] ? `Einzelplan ${plaene[3].ep}` : null,
+  beispielTitel ? `Kapitel ${formatKapitelnummer(beispielTitel.kapitel)}` : null,
+  beispielTitel ? `Titel ${formatTitelnummer(beispielTitel.titel)}` : null,
+].filter((wert): wert is string => Boolean(wert));
+
+const periodLabel = periode.bezeichnung;
+const navItems = getPeriodNavItems(periode, 'suche');
+const otherPeriods = getWeiterePeriodenNav(id, 'suche');
+const breadcrumbs = getPeriodenBrotkrume(periode, [{ label: 'Suche' }]);
+---
+
+<HaushaltLayout
+  title={`Haushaltssuche – ${periodLabel}`}
+  description={`Suche im ${periodLabel} nach Vorhaben, Einrichtungen, Zweckbestimmungen sowie Einzelplan-, Kapitel- und Titelnummern.`}
+  breadcrumbs={breadcrumbs}
+  noindex={true}
+  periodLabel={periodLabel}
+  statusLabel={status.label}
+  statusTone={status.tone}
+  statusText={status.text}
+  datenstand={meta.stand}
+  datenversion={manifest.quelle.commit_kurz}
+  preview={isPreviewOnly(periode)}
+  navItems={navItems}
+  otherPeriods={otherPeriods}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow="Haushalt"
+    title="Haushaltssuche"
+    lead={`Finden Sie im ${periodLabel} Vorhaben, Einrichtungen und einzelne Ansätze – mit Alltagsbegriffen oder mit der Nummer von Einzelplan, Kapitel, Titel, Gruppe und Funktion.`}
+    variant="budget"
+  />
+
+  <section class="section hh-suche" aria-labelledby="hh-suche-anfrage" data-haushalt-suche data-index-url={getBudgetDataUrl(id, 'suchindex.json')}>
+    <h2 class="visually-hidden" id="hh-suche-anfrage">Suchanfrage</h2>
+    <HaushaltSuchfeld periode={id} />
+    {beispiele.length > 0 ? (
+      <p class="hh-suche__beispiele">
+        <span>Beispiele:</span>
+        {beispiele.map((beispiel) => (
+          <a class="inline-link" href={getBudgetSearchUrl(id, beispiel)} data-haushalt-suche-beispiel={beispiel}>{beispiel}</a>
+        ))}
+      </p>
+    ) : null}
+
+    <p class="search-feedback search-feedback--hint hh-suche__status" role="status" aria-live="polite" data-haushalt-suche-status>
+      Geben Sie einen Suchbegriff ein, zum Beispiel ein Vorhaben, eine Einrichtung oder eine Titelnummer.
+    </p>
+    <p class="search-feedback search-feedback--warning" data-haushalt-suche-ohne-skript>
+      Die Trefferliste steht in Ihrem Browser nicht zur Verfügung. Alle Kapitel und Titel erreichen
+      Sie über die <a class="inline-link" href={getBudgetPeriodPageUrl(id, 'einzelplaene')}>Übersicht der Einzelpläne</a>{' '}
+      und die Einzelpläne unten.
+    </p>
+
+    <div class="hh-suche__ergebnis" data-haushalt-suche-ergebnis></div>
+  </section>
+
+  <section class="section hh-suche__einzelplaene" aria-labelledby="hh-suche-einzelplaene">
+    <div class="section-header">
+      <h2 id="hh-suche-einzelplaene">Einzelpläne</h2>
+      <p>Jeder Einzelplan führt zu seinen Kapiteln und Titeln.</p>
+    </div>
+    <ul class="hh-suche__planliste">
+      {plaene.map((plan) => (
+        <li><a class="inline-link" href={plan.href}><span class="hh-kennung">Einzelplan {plan.ep}</span>: {plan.titel}</a></li>
+      ))}
+    </ul>
+    <SourceNote datenstand={meta.stand} datenversion={manifest.quelle.commit_kurz} quelle={getPeriodenQuelle(periode)} downloadsHref={getBudgetPeriodPageUrl(id, 'downloads')} />
+  </section>
+
+  <script>
+    import '../../../scripts/haushalt-suche.ts';
+  </script>
+</HaushaltLayout>
+
+<style is:global>
+  .hh-suche__beispiele {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin: var(--space-3) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  [data-haushalt-suche-ohne-skript] a {
+    text-decoration: underline;
+  }
+
+  .hh-suche__status {
+    margin-top: var(--space-5);
+  }
+
+  .hh-suche__ergebnis {
+    margin-top: var(--space-4);
+  }
+
+  .hh-suche__kennung {
+    margin-bottom: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    border-inline-start: 0.25rem solid var(--color-primary);
+    background: var(--color-surface-muted);
+  }
+
+  .hh-suche__kennung p {
+    margin: 0;
+  }
+
+  .hh-suche__gruppe + .hh-suche__gruppe {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .hh-suche__gruppenkopf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    align-items: baseline;
+    margin-bottom: var(--space-3);
+  }
+
+  .hh-suche__gruppenkopf h2 {
+    margin: 0;
+    font-size: var(--text-lg-plus);
+  }
+
+  .hh-suche__gruppenkopf p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hh-suche__liste {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hh-suche__treffer {
+    display: grid;
+    gap: var(--space-1);
+    max-width: none;
+    padding: var(--space-3) 0;
+    border-top: 1px solid var(--color-border-soft);
+  }
+
+  .hh-suche__treffer:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .hh-suche__treffer p {
+    margin: 0;
+    max-width: none;
+  }
+
+  .hh-suche__titel {
+    font-size: var(--text-base-plus);
+    font-weight: 600;
+    line-height: var(--lh-heading);
+    overflow-wrap: anywhere;
+  }
+
+  .hh-suche__titel mark {
+    padding: 0 0.08em;
+    background: var(--color-highlight);
+    color: inherit;
+  }
+
+  .hh-suche__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-4);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--lh-compact);
+  }
+
+  .hh-suche__hinweis {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .hh-suche__betraege {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-5);
+    font-size: var(--text-sm);
+    line-height: var(--lh-compact);
+  }
+
+  .hh-suche__jahr {
+    color: var(--color-text-muted);
+  }
+
+  .hh-suche__betrag .hh-betrag {
+    font-weight: 600;
+    color: var(--color-heading);
+  }
+
+  .hh-suche__mehr {
+    margin: var(--space-3) 0 0;
+  }
+
+  .hh-suche__planliste {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hh-suche__planliste li {
+    max-width: none;
+  }
+
+  @media print {
+    .hh-suche .hh-suchfeld,
+    .hh-suche__beispiele,
+    .hh-suche__mehr {
+      display: none;
+    }
+  }
+</style>

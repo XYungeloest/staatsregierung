@@ -47,9 +47,11 @@ export async function listJsonFiles(directoryPath: string): Promise<string[]> {
 export async function loadCollection<T>(
   directorySegments: string[],
   parser: (value: unknown, path: string) => T,
+  options: { excludeFileNames?: readonly string[] } = {},
 ): Promise<T[]> {
   const directoryPath = join(CONTENT_ROOT, ...directorySegments);
-  const fileNames = await listJsonFiles(directoryPath);
+  const excluded = new Set(options.excludeFileNames ?? []);
+  const fileNames = (await listJsonFiles(directoryPath)).filter((fileName) => !excluded.has(fileName));
 
   const entries = await Promise.all(
     fileNames.map(async (fileName) => {

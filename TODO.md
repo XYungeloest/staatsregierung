@@ -70,6 +70,17 @@ Zuarbeit in `docs/ZUARBEITSFORMULAR.md`, wiederkehrende Pflegeregeln in
   erreichbar bleibt, je eine Messung beides festhält **und** die Zoom-Messung auf Linux grün ist —
   der Reflow ist vor der nächsten Umsetzung auf einem Linux-Läufer zu reproduzieren.
 
+### Haushalt
+
+- [ ] Linux-Screenshot-Baselines der Haushaltsmotive erneuern: `haushalt-jahreswahl-kennzahlen`
+  und `haushalt-tabelle` (Motiv `haushalt-module`, `/haushalt/`) zeigen noch den früheren
+  Haushaltseinstieg; für `haushalt-tabelle-werkzeuge` (erste Kapitelseite der ersten Periode mit
+  Snapshot) gibt es noch keine Baseline. Fertig, wenn die Baselines für `desktop-wide` und
+  `mobile-390` im Playwright-Container (`npm run test:visual:update:linux -- --site portal --grep
+  haushalt` oder Workflow `visual-baselines.yml` mit `test:visual:baselines:apply`) erzeugt, nach
+  Sichtprüfung übernommen sind und `test:visual:critical` auf dem Linux-Läufer ohne Abweichung
+  durchläuft.
+
 ## Bilder
 
 - [ ] Erzeugung der Bildvarianten reproduzierbar machen: `npm run images:generate` erzeugt mit dem

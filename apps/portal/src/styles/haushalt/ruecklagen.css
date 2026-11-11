@@ -1,0 +1,303 @@
+/*
+ * Rücklagen, Fonds und Landesunternehmen, Downloads und Sondervermögen (Haushaltsportal).
+ * Nur Tokens aus foundation.css; Präfix hh-rl-. Breakpoints wie im Haushaltsbaukasten.
+ */
+
+/* ---------------------------------------------------------------- Abschnittsnavigation */
+
+.hh-rl-sprung {
+  margin-top: var(--space-5);
+}
+
+.hh-rl-sprung ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-rl-sprung a {
+  display: inline-block;
+  padding: var(--space-1) 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------- Abschnitte */
+
+.hh-rl-abschnitt > * + * {
+  margin-top: var(--space-5);
+}
+
+.hh-rl-h3 {
+  margin-top: var(--space-6);
+  font-size: var(--text-lg);
+  line-height: var(--lh-heading);
+}
+
+.hh-rl-hinweis {
+  max-width: var(--measure-body);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--lh-body);
+}
+
+.hh-rl-statustext {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--color-text);
+  font-weight: 400;
+  line-height: var(--lh-body);
+}
+
+/* ---------------------------------------------------------------- Angabenlisten */
+
+.hh-rl-fakten {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0 0;
+}
+
+.hh-rl-fakten dt,
+.hh-rl-details dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hh-rl-fakten dd,
+.hh-rl-details dd {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text);
+  line-height: var(--lh-body);
+  overflow-wrap: anywhere;
+}
+
+.hh-rl-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-3) var(--space-5);
+  margin: 0;
+}
+
+.hh-rl-rechtsbezuege,
+.hh-rl-kapitelliste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-rl-rechtsbezuege {
+  flex-direction: column;
+}
+
+.hh-rl-rechtsbezug__art {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 0 var(--space-xs);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.hh-rl-rechtsbezug__art--entwurf {
+  border-color: var(--color-info-gold-border);
+  background: var(--color-info-gold-soft);
+  color: var(--color-info-gold-ink);
+}
+
+/* ---------------------------------------------------------------- Tabellen */
+
+.hh-rl-nebenzeile {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+.hh-rl-folgezeile td {
+  background: var(--color-surface-alt);
+}
+
+.hh-rl-merkmal {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+}
+
+.hh-rl-ergebnis--abweichend {
+  color: var(--color-seal);
+}
+
+.hh-rl-abschnitt .hh-zeile--projektion > th,
+.hh-rl-abschnitt .hh-zeile--projektion > td {
+  background: var(--color-surface-muted);
+}
+
+/* ---------------------------------------------------------------- Landesunternehmen */
+
+.hh-rl-unternehmen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-rl-unternehmen__eintrag {
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.hh-rl-unternehmen__titel {
+  margin: 0;
+  font-size: var(--text-base-plus);
+  line-height: var(--lh-heading);
+}
+
+.hh-rl-unternehmen__zweck {
+  margin: var(--space-2) 0 var(--space-4);
+  line-height: var(--lh-body);
+}
+
+/* ---------------------------------------------------------------- Downloads */
+
+.hh-rl-dateiname {
+  font-weight: 700;
+}
+
+.hh-rl-pruefsumme {
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+.hh-rl-hinweisliste {
+  max-width: var(--measure-body);
+  margin: 0;
+  padding-left: var(--space-5);
+  line-height: var(--lh-body);
+}
+
+.hh-rl-hinweisliste li + li {
+  margin-top: var(--space-2);
+}
+
+.hh-rl-spalten {
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.hh-rl-spalten:last-of-type {
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.hh-rl-spalten > summary {
+  padding: var(--space-3) 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hh-rl-spalten > .hh-rl-details {
+  padding: 0 0 var(--space-4);
+}
+
+.hh-rl-abschnitt > .hh-rl-spalten + .hh-rl-spalten {
+  margin-top: 0;
+}
+
+/* ---------------------------------------------------------------- Sondervermögen */
+
+.hh-rl-periode {
+  padding: var(--space-5);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.hh-rl-periode__kopf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.hh-rl-periode__kopf h3 {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+@media (max-width: 63.99rem) {
+  .hh-rl-unternehmen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  /* Bezeichnungen und Textspalten nicht bis auf Silbenreste zusammendrücken; breite Tabellen
+     rollen im gekennzeichneten Tabellenbereich. */
+  .hh-rl-abschnitt .hh-tabelle .data-table.hh-datentabelle tbody th[scope='row']:not(.hh-kennung):not([colspan]) {
+    min-width: 14rem;
+    max-width: 14rem;
+  }
+
+  /* Positionsnamen sind lange Bezeichnungen, keine Kennungen: sie brechen in der Spalte um,
+     statt über die Nachbarspalten zu laufen. */
+  .hh-rl-abschnitt .data-table.hh-datentabelle tbody th[scope='row'] > .hh-zeilenanker {
+    white-space: normal;
+  }
+
+  .hh-rl-abschnitt .data-table.hh-datentabelle td:not(.hh-zahl, .hh-kennung) {
+    min-width: 7.5rem;
+  }
+
+  .hh-rl-unternehmen__eintrag,
+  .hh-rl-periode {
+    padding: var(--space-4);
+  }
+
+  .hh-rl-rechtsbezug__art {
+    margin-left: 0;
+  }
+}
+
+@media print {
+  .hh-rl-sprung {
+    display: none;
+  }
+
+  .hh-rl-unternehmen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hh-rl-unternehmen__eintrag {
+    break-inside: avoid;
+  }
+}
+
+/* Verweise im Fließtext bleiben ohne Farbwahrnehmung erkennbar (wie .body-copy .inline-link). */
+.hh-rl-abschnitt .inline-link,
+.hh-rl-sprung a {
+  text-decoration: underline;
+  text-decoration-thickness: 0.11em;
+  text-underline-offset: 0.16em;
+}
+
+.hh-rl-abschnitt td .hh-status,
+.hh-rl-abschnitt dd .hh-status {
+  white-space: nowrap;
+}

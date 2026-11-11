@@ -1,0 +1,127 @@
+---
+/**
+ * Horizontales Balkendiagramm. Jede Zeile nennt Bezeichnung, Wert und optional Anteil als Text;
+ * die Balken sind nur Ergänzung (aria-hidden). Negative Werte laufen links von der Nulllinie.
+ * Die Tabellenalternative trägt exakte Beträge.
+ */
+import Amount from './Amount.astro';
+import ChartData from './ChartData.astro';
+import {
+  cssPercent,
+  formatExact,
+  formatShare,
+  formatValue,
+  linearScale,
+  shareOf,
+  type ValueFormat,
+} from './format.ts';
+
+interface BarItem {
+  label: string;
+  value: number;
+  href?: string;
+  note?: string;
+}
+
+interface Props {
+  id: string;
+  caption: string;
+  items: BarItem[];
+  total?: number;
+  totalLabel?: string;
+  anteile?: boolean;
+  anteilLabel?: string;
+  format?: ValueFormat;
+  labelSpalte?: string;
+  wertSpalte?: string;
+  tabelle?: 'aufklappbar' | 'sichtbar' | 'keine';
+  hinweis?: string;
+  /** Optionales Sprungziel des Hinweises (z. B. die Tabelle mit den exakten Werten). */
+  hinweisHref?: string;
+}
+
+const {
+  id,
+  caption,
+  items,
+  total,
+  totalLabel = 'Insgesamt',
+  anteile = total !== undefined,
+  anteilLabel = 'Anteil',
+  format = 'euro-compact',
+  labelSpalte = 'Bezeichnung',
+  wertSpalte = 'Betrag',
+  tabelle = 'aufklappbar',
+  hinweis,
+  hinweisHref,
+} = Astro.props as Props;
+
+const isEuro = format === 'euro-compact' || format === 'euro';
+const shareBase = total ?? items.reduce((sum, item) => sum + Math.max(0, item.value), 0);
+const scale = linearScale(items.map((item) => item.value));
+const hasNegative = items.some((item) => item.value < 0);
+---
+
+<figure class:list={['hh-diagramm', 'hh-balken', hasNegative && 'hh-balken--negativ', anteile && 'hh-balken--anteile']} id={id}>
+  <figcaption class="hh-diagramm__titel">{caption}</figcaption>
+  <ul class="hh-balken__liste">
+    {items.map((item) => {
+      const position = scale.position(item.value);
+      const share = anteile ? shareOf(item.value, shareBase) : null;
+      return (
+        <li class="hh-balken__zeile">
+          <span class="hh-balken__label">
+            {item.href ? <a class="inline-link" href={item.href}>{item.label}</a> : item.label}
+            {item.note ? <span class="hh-balken__notiz">{item.note}</span> : null}
+          </span>
+          <span class="hh-balken__spur" aria-hidden="true" style={`--hh-null: ${cssPercent(scale.zero)}`}>
+            <span
+              class:list={['hh-balken__balken', item.value < 0 && 'hh-balken__balken--negativ']}
+              style={`--hh-start: ${cssPercent(position.start)}; --hh-groesse: ${cssPercent(position.size)}`}
+            ></span>
+          </span>
+          <span class="hh-balken__wert">
+            {isEuro ? <Amount value={item.value} exakt={format === 'euro'} /> : <data value={String(item.value)}>{formatValue(item.value, format)}</data>}
+            {share !== null ? <span class="hh-balken__anteil">{formatShare(share)}</span> : null}
+          </span>
+        </li>
+      );
+    })}
+  </ul>
+  {hinweis ? <p class="hh-diagramm__hinweis">{hinweisHref ? <a class="inline-link" href={hinweisHref}>{hinweis}</a> : hinweis}</p> : null}
+  {tabelle !== 'keine' ? (
+    <ChartData label={`${caption} als Tabelle`} bezug={caption} modus={tabelle}>
+      <table class="data-table hh-datentabelle">
+        <caption>{caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{labelSpalte}</th>
+            <th scope="col" class="hh-zahl">{wertSpalte}</th>
+            {anteile ? <th scope="col" class="hh-zahl">{anteilLabel}</th> : null}
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((item) => {
+            const share = anteile ? shareOf(item.value, shareBase) : null;
+            return (
+              <tr>
+                <th scope="row">{item.label}{item.note ? <span>{item.note}</span> : null}</th>
+                <td class="hh-zahl"><data value={String(item.value)}>{formatExact(item.value, format)}</data></td>
+                {anteile ? <td class="hh-zahl">{share === null ? '–' : formatShare(share)}</td> : null}
+              </tr>
+            );
+          })}
+        </tbody>
+        {total !== undefined ? (
+          <tfoot>
+            <tr>
+              <th scope="row">{totalLabel}</th>
+              <td class="hh-zahl"><data value={String(total)}>{formatExact(total, format)}</data></td>
+              {anteile ? <td class="hh-zahl">{formatShare(1)}</td> : null}
+            </tr>
+          </tfoot>
+        ) : null}
+      </table>
+    </ChartData>
+  ) : null}
+</figure>

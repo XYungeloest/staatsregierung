@@ -1,0 +1,293 @@
+---
+/**
+ * Einzelplanübersicht einer Snapshot-Periode: alle Einzelpläne mit Zuständigkeit, Einnahmen,
+ * Ausgaben, Investitionen, Personalausgaben, Anteil am Gesamthaushalt und Veränderung; sortier-
+ * und filterbar mit Jahresansicht und CSV-Export. Die Kontrollzeile prüft Σ Einzelpläne =
+ * Gesamtplan (Abweichung bricht den Build ab).
+ */
+import { getPeriodenGenitiv } from '../../../../lib/haushalt/seite.ts';
+import HaushaltLayout from '../../../../layouts/HaushaltLayout.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import HaushaltSuchfeld from '../../../../components/haushalt/HaushaltSuchfeld.astro';
+import Amount from '../../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../../../components/haushalt/DefinitionNote.astro';
+import FilterBar from '../../../../components/haushalt/FilterBar.astro';
+import GroupedBarChart from '../../../../components/haushalt/GroupedBarChart.astro';
+import SourceNote from '../../../../components/haushalt/SourceNote.astro';
+import { formatNumber, formatShare, normalizeSearch } from '../../../../components/haushalt/format.ts';
+import {
+  getPlanName,
+  getPlanOverlays,
+  getSeitenKontext,
+  getZustaendigkeit,
+  periodenPfade,
+  planHref,
+  pruefeSumme,
+  summe,
+  type PeriodenProps,
+} from '../../../../components/haushalt/browser/kontext.ts';
+import { DEFINITION_INVESTITIONEN, getEinzelplanKennzahlen } from '../../../../lib/haushalt/kennzahlen.ts';
+import { EINZELPLAN_KATEGORIEN, publicBezeichnung } from '../../../../lib/haushalt/oeffentlich.ts';
+import { loadEinzelplaene, loadGesamtplan, loadKapitel } from '../../../../lib/haushalt/snapshot.ts';
+import { getBudgetPeriodPageUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import '../../../../styles/haushalt/browser.css';
+
+export function getStaticPaths() {
+  return periodenPfade();
+}
+
+const { periode } = Astro.props as PeriodenProps;
+const ctx = getSeitenKontext(periode, 'einzelplaene');
+const { id, jahre, freitexte } = ctx;
+if (jahre.length !== 2) throw new Error(`Periode ${id}: erwartet zwei Haushaltsjahre, gefunden ${jahre.join(', ')}.`);
+const [j1, j2] = jahre;
+
+const gesamtplan = loadGesamtplan(id);
+const plaene = [...loadEinzelplaene(id)].sort((left, right) => left.ep.localeCompare(right.ep));
+const kapitel = loadKapitel(id);
+const overlays = getPlanOverlays(id);
+
+const zeilen = await Promise.all(
+  plaene.map(async (plan) => {
+    const overlay = overlays[plan.ep];
+    const name = getPlanName(plan, overlay, freitexte);
+    const zustaendigkeit = await getZustaendigkeit(plan, overlay, freitexte);
+    const kennzahlen = getEinzelplanKennzahlen(plan, gesamtplan);
+    const kapitelNamen = kapitel.filter((entry) => entry.einzelplan === plan.ep).map((entry) => publicBezeichnung(entry.bezeichnung, freitexte));
+    const zustaendigText = zustaendigkeit.ressorts.length > 0 ? zustaendigkeit.ressorts.map((entry) => entry.label).join('; ') : (zustaendigkeit.text ?? '');
+    return {
+      plan,
+      overlay,
+      name,
+      zustaendigkeit,
+      zustaendigText,
+      kennzahlen,
+      kategorie: overlay?.kategorie ?? '',
+      search: normalizeSearch(
+        [`${plan.ep}`, `Einzelplan ${plan.ep}`, `EP ${Number(plan.ep)}`, name.kurz, name.amtlich, overlay?.kategorie, zustaendigText, ...kapitelNamen].filter(Boolean).join(' '),
+      ),
+    };
+  }),
+);
+
+// Kontrollsummen: Σ Einzelpläne = Gesamtplan je Jahr (Einnahmen, Ausgaben, Hauptgruppen 4, 7, 8).
+const gesamt = Object.fromEntries(
+  jahre.map((jahr) => {
+    const gp = gesamtplan.jahre[jahr as `${number}`];
+    const werte = {
+      einnahmen: summe(zeilen.map((zeile) => zeile.kennzahlen.jahre[jahr].einnahmen)),
+      ausgaben: summe(zeilen.map((zeile) => zeile.kennzahlen.jahre[jahr].ausgaben)),
+      personal: summe(zeilen.map((zeile) => zeile.kennzahlen.jahre[jahr].personal)),
+      investitionen: summe(zeilen.map((zeile) => zeile.kennzahlen.jahre[jahr].investitionen)),
+    };
+    pruefeSumme(`Einzelpläne Einnahmen ${jahr}`, werte.einnahmen, gp.einnahmen);
+    pruefeSumme(`Einzelpläne Ausgaben ${jahr}`, werte.ausgaben, gp.ausgaben);
+    pruefeSumme(`Einzelpläne Personalausgaben ${jahr}`, werte.personal, gp.hauptgruppen['4']);
+    pruefeSumme(`Einzelpläne Investitionen ${jahr}`, werte.investitionen, gp.hauptgruppen['7'] + gp.hauptgruppen['8']);
+    return [jahr, werte];
+  }),
+);
+const gesamtVeraenderung = gesamt[j2].ausgaben - gesamt[j1].ausgaben;
+const kapitelAnzahl = summe(plaene.map((plan) => plan.kapitelanzahl));
+const titelAnzahl = summe(plaene.map((plan) => plan.titelanzahl));
+const kategorien = EINZELPLAN_KATEGORIEN.filter((kategorie) => zeilen.some((zeile) => zeile.kategorie === kategorie));
+
+const anteilWert = (wert: number | null) => (wert === null ? '' : String(Math.round(wert * 1_000_000) / 1_000_000));
+const yearOptions = [
+  { value: j1, label: j1 },
+  { value: j2, label: j2 },
+  { value: 'beide', label: `${j1} und ${j2}` },
+  { value: 'veraenderung', label: 'Veränderung' },
+];
+const titel = `Einzelpläne – ${periode.bezeichnung}`;
+const description = `Alle ${plaene.length} Einzelpläne des ${getPeriodenGenitiv(periode)} (${ctx.layout.statusLabel}) mit Zuständigkeit, Einnahmen, Ausgaben, Investitionen, Personalausgaben und Anteil am Gesamthaushalt.`;
+---
+
+<HaushaltLayout
+  title={titel}
+  description={description}
+  breadcrumbs={[...ctx.brotkrume, { label: 'Einzelpläne' }]}
+  {...ctx.layout}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow={`Haushalt · ${periode.bezeichnung}`}
+    title="Einzelpläne"
+    lead={`Der ${periode.bezeichnung} gliedert sich in ${plaene.length} Einzelpläne mit ${formatNumber(kapitelAnzahl)} Kapiteln und ${formatNumber(titelAnzahl)} Titeln.`}
+    variant="budget"
+  />
+
+  <section class="section hh-browser" aria-labelledby="einzelplaene-tabelle">
+    <div class="section-header">
+      <h2 id="einzelplaene-tabelle">Alle Einzelpläne im Vergleich</h2>
+      <p>Beträge in Euro, gerundet. Der Anteil bezieht sich auf die Gesamtausgaben des jeweiligen Jahres.</p>
+    </div>
+    <DataTableFrame
+      id="einzelplaene"
+      label={`Einzelpläne ${ctx.jahreLabel}`}
+      caption={`Einzelpläne ${ctx.jahreLabel}: Einnahmen, Ausgaben, Investitionen und Personalausgaben in Euro`}
+      nomenSingular="Einzelplan"
+      nomenPlural="Einzelplänen"
+      seitengroesse={false}
+      exportFilename={`einzelplaene-${id}.csv`}
+      exportMeta={{ Periode: id, Status: ctx.layout.statusLabel, Datenstand: ctx.meta.stand, Datenversion: ctx.layout.datenversion }}
+      exportZeilenfelder={[
+        { key: 'amtliche-bezeichnung', label: 'Amtliche Bezeichnung' },
+        { key: 'kategorie', label: 'Kategorie' },
+      ]}
+      jahresansicht="beide"
+      jahresansichtSchmal={j1}
+      urlParam="q"
+      breite="sehr-breit"
+    >
+      <FilterBar
+        slot="werkzeuge"
+        id="einzelplaene"
+        suche={{ label: 'Einzelplan suchen', placeholder: 'Nummer, Bezeichnung, Ressort oder Kapitel' }}
+        filter={[
+          {
+            feld: 'kategorie',
+            label: 'Kategorie',
+            alleLabel: 'Alle Kategorien',
+            options: kategorien.map((kategorie) => ({ value: kategorie, label: kategorie })),
+          },
+        ]}
+        jahresansicht={{ label: 'Ansicht', value: 'beide', options: yearOptions }}
+        export={{}}
+      />
+      <table class="data-table hh-datentabelle hh-browser-uebersicht">
+        <thead>
+          <tr>
+            <th scope="col" class="hh-kennung" data-sort="text" data-export-key="einzelplan" aria-sort="ascending">Nr.</th>
+            <th scope="col" data-sort="text" data-export-key="bezeichnung" data-export-label="Einzelplan">Einzelplan</th>
+            <th scope="col" class="hh-browser-optional" data-sort="text" data-export-key="zustaendigkeit">Zuständigkeit</th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`einnahmen-${j1}`} data-export-label={`Einnahmen ${j1}`} data-year-col={`${j1} beide`}>Einnahmen <span>{j1}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`ausgaben-${j1}`} data-export-label={`Ausgaben ${j1}`} data-year-col={`${j1} beide veraenderung`}>Ausgaben <span>{j1}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`investitionen-${j1}`} data-export-label={`Investitionen ${j1}`} data-year-col={j1}>Investitionen <span>{j1}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`personal-${j1}`} data-export-label={`Personalausgaben ${j1}`} data-year-col={j1}>Personal&shy;ausgaben <span>{j1}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`anteil-${j1}`} data-export-label={`Anteil an den Gesamtausgaben ${j1}`} data-year-col={j1}>Anteil <span>{j1}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`einnahmen-${j2}`} data-export-label={`Einnahmen ${j2}`} data-year-col={`${j2} beide`}>Einnahmen <span>{j2}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`ausgaben-${j2}`} data-export-label={`Ausgaben ${j2}`} data-year-col={`${j2} beide veraenderung`}>Ausgaben <span>{j2}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`investitionen-${j2}`} data-export-label={`Investitionen ${j2}`} data-year-col={j2}>Investitionen <span>{j2}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`personal-${j2}`} data-export-label={`Personalausgaben ${j2}`} data-year-col={j2}>Personal&shy;ausgaben <span>{j2}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`anteil-${j2}`} data-export-label={`Anteil an den Gesamtausgaben ${j2}`} data-year-col={j2}>Anteil <span>{j2}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="veraenderung-ausgaben" data-export-label={`Veränderung der Ausgaben ${j2} gegenüber ${j1}`} data-year-col="beide veraenderung">Veränderung <span>Ausgaben {j2} zu {j1}</span></th>
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="veraenderung-ausgaben-prozent" data-export-label={`Veränderung der Ausgaben ${j2} gegenüber ${j1} (Anteil)`} data-year-col="veraenderung">Veränderung <span>in Prozent</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {zeilen.map((zeile) => {
+            const a = zeile.kennzahlen.jahre[j1];
+            const b = zeile.kennzahlen.jahre[j2];
+            const veraenderung = zeile.kennzahlen.veraenderungAusgaben;
+            return (
+              <tr
+                id={`einzelplan-${zeile.plan.ep}`}
+                data-search={zeile.search}
+                data-kategorie={zeile.kategorie}
+                data-export-amtliche-bezeichnung={zeile.name.amtlich}
+                data-export-kategorie={zeile.kategorie}
+              >
+                <th scope="row" class="hh-kennung" data-sort={zeile.plan.ep}>
+                  <a class="hh-zeilenanker" href={`#einzelplan-${zeile.plan.ep}`}>{zeile.plan.ep}</a>
+                </th>
+                <td class="hh-browser-name" data-export-value={zeile.name.kurz} data-sort={zeile.name.kurz}>
+                  <a class="hh-browser-link" href={planHref(id, zeile.plan.ep)}>{zeile.name.kurz}</a>
+                  <span>
+                    {zeile.name.amtlich !== zeile.name.kurz ? <>{zeile.name.amtlich}<br /></> : null}
+                    {zeile.kategorie}
+                  </span>
+                </td>
+                <td class="hh-browser-optional" data-export-value={zeile.zustaendigText} data-sort={zeile.zustaendigText}>
+                  {zeile.zustaendigkeit.ressorts.length > 0 ? (
+                    <ul class="hh-browser-verweise">
+                      {zeile.zustaendigkeit.ressorts.map((ressort) => (
+                        <li><a class="hh-browser-link" href={ressort.href}>{ressort.label}</a></li>
+                      ))}
+                    </ul>
+                  ) : (
+                    zeile.zustaendigkeit.text ?? '–'
+                  )}
+                </td>
+                <td class="hh-zahl" data-year-col={`${j1} beide`} data-export-value={a.einnahmen}><Amount value={a.einnahmen} /></td>
+                <td class="hh-zahl" data-year-col={`${j1} beide veraenderung`} data-export-value={a.ausgaben}><Amount value={a.ausgaben} /></td>
+                <td class="hh-zahl" data-year-col={j1} data-export-value={a.investitionen}><Amount value={a.investitionen} /></td>
+                <td class="hh-zahl" data-year-col={j1} data-export-value={a.personal}><Amount value={a.personal} /></td>
+                <td class="hh-zahl" data-year-col={j1} data-export-value={anteilWert(a.anteilAusgaben)}>{a.anteilAusgaben === null ? '–' : formatShare(a.anteilAusgaben)}</td>
+                <td class="hh-zahl" data-year-col={`${j2} beide`} data-export-value={b.einnahmen}><Amount value={b.einnahmen} /></td>
+                <td class="hh-zahl" data-year-col={`${j2} beide veraenderung`} data-export-value={b.ausgaben}><Amount value={b.ausgaben} /></td>
+                <td class="hh-zahl" data-year-col={j2} data-export-value={b.investitionen}><Amount value={b.investitionen} /></td>
+                <td class="hh-zahl" data-year-col={j2} data-export-value={b.personal}><Amount value={b.personal} /></td>
+                <td class="hh-zahl" data-year-col={j2} data-export-value={anteilWert(b.anteilAusgaben)}>{b.anteilAusgaben === null ? '–' : formatShare(b.anteilAusgaben)}</td>
+                <td class="hh-zahl" data-year-col="beide veraenderung" data-export-value={veraenderung?.absolut ?? ''}>
+                  {veraenderung ? <Amount value={veraenderung.absolut} vorzeichen /> : '–'}
+                </td>
+                <td class="hh-zahl" data-year-col="veraenderung" data-export-value={anteilWert(veraenderung?.relativ ?? null)}>
+                  {veraenderung?.relativ == null ? '–' : `${veraenderung.relativ > 0 ? '+' : ''}${formatShare(veraenderung.relativ)}`}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <th scope="row">Alle Einzelpläne (entspricht dem Gesamtplan)</th>
+            <td class="hh-browser-optional"></td>
+            <td class="hh-zahl" data-year-col={`${j1} beide`}><Amount value={gesamt[j1].einnahmen} /></td>
+            <td class="hh-zahl" data-year-col={`${j1} beide veraenderung`}><Amount value={gesamt[j1].ausgaben} /></td>
+            <td class="hh-zahl" data-year-col={j1}><Amount value={gesamt[j1].investitionen} /></td>
+            <td class="hh-zahl" data-year-col={j1}><Amount value={gesamt[j1].personal} /></td>
+            <td class="hh-zahl" data-year-col={j1}>{formatShare(1)}</td>
+            <td class="hh-zahl" data-year-col={`${j2} beide`}><Amount value={gesamt[j2].einnahmen} /></td>
+            <td class="hh-zahl" data-year-col={`${j2} beide veraenderung`}><Amount value={gesamt[j2].ausgaben} /></td>
+            <td class="hh-zahl" data-year-col={j2}><Amount value={gesamt[j2].investitionen} /></td>
+            <td class="hh-zahl" data-year-col={j2}><Amount value={gesamt[j2].personal} /></td>
+            <td class="hh-zahl" data-year-col={j2}>{formatShare(1)}</td>
+            <td class="hh-zahl" data-year-col="beide veraenderung"><Amount value={gesamtVeraenderung} vorzeichen /></td>
+            <td class="hh-zahl" data-year-col="veraenderung">
+              {gesamt[j1].ausgaben === 0 ? '–' : `${gesamtVeraenderung > 0 ? '+' : ''}${formatShare(gesamtVeraenderung / Math.abs(gesamt[j1].ausgaben))}`}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+    <DefinitionNote begriff="Investitionen">
+      <p>{DEFINITION_INVESTITIONEN} Personalausgaben sind die Hauptgruppe 4.</p>
+    </DefinitionNote>
+  </section>
+
+  <section class="section hh-browser" aria-labelledby="einzelplaene-diagramm">
+    <div class="section-header">
+      <h2 id="einzelplaene-diagramm">Ausgaben nach Einzelplänen</h2>
+    </div>
+    <GroupedBarChart
+      id="einzelplaene-ausgaben"
+      caption={`Ausgaben der Einzelpläne ${j1} und ${j2}`}
+      series={[{ label: j1, art: 'haushaltsjahr' }, { label: j2, art: 'haushaltsjahr' }]}
+      categories={zeilen.map((zeile) => ({
+        label: `${zeile.plan.ep} ${zeile.name.kurz}`,
+        values: [zeile.kennzahlen.jahre[j1].ausgaben, zeile.kennzahlen.jahre[j2].ausgaben],
+        href: planHref(id, zeile.plan.ep),
+      }))}
+      kategorieSpalte="Einzelplan"
+      veraenderung
+    />
+  </section>
+
+  <section class="section hh-browser" aria-labelledby="einzelplaene-suche">
+    <div class="section-header">
+      <h2 id="einzelplaene-suche">Kapitel und Titel finden</h2>
+      <p>Die Haushaltssuche findet Kapitel, Titel und Vorhaben in allen Einzelplänen.</p>
+    </div>
+    <HaushaltSuchfeld periode={id} id="einzelplaene-haushaltssuche" />
+  </section>
+
+  <SourceNote
+    datenstand={ctx.meta.stand}
+    datenversion={ctx.layout.datenversion}
+    quelle={ctx.quelle}
+    downloadsHref={getBudgetPeriodPageUrl(id, 'downloads')}
+  />
+</HaushaltLayout>

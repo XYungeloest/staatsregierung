@@ -1,0 +1,266 @@
+/*
+ * Übersichtsseiten einer Haushaltsperiode (Periodenstart, Gesamtplan, Finanzplanung):
+ * Abschnittsgliederung, Diagrammraster, Jahrestabellen, Abgrenzungen, Schwerpunkte und das
+ * Suchbereich. Nur Tokens aus foundation.css; Breakpoints wie base.css (63,99 / 47,99 rem).
+ */
+
+/* ---------------------------------------------------------------- Abschnitte */
+
+.hh-ue > * + * {
+  margin-top: var(--space-5);
+}
+
+.hh-ue > .section-header + * {
+  margin-top: var(--space-4);
+}
+
+.hh-ue__jahr + .hh-ue__jahr {
+  margin-top: var(--space-6);
+}
+
+.hh-ue__jahrtitel,
+.hh-ue__untertitel {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--text-lg);
+  line-height: var(--lh-heading);
+}
+
+.hh-ue > .hh-ue__untertitel {
+  margin-top: var(--space-6);
+}
+
+/* Verweise im Fließtext bleiben ohne Farbwahrnehmung erkennbar (wie `.body-copy .inline-link`). */
+.hh-ue :is(p, dd) > a.inline-link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 0.11em;
+  text-underline-offset: 0.16em;
+}
+
+.hh-ue__verweis {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Zwei Diagramme nebeneinander ab 64 rem; darunter untereinander. */
+.hh-ue__raster {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.hh-ue__raster > * {
+  min-width: 0;
+  margin: 0;
+}
+
+/* Kennzahlkarten je Jahr: auf Smartphones einspaltig, damit Etiketten nicht getrennt werden. */
+@media (max-width: 29.99rem) {
+  .hh-ue__jahr .hh-kennzahlen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 63.99rem) {
+  .hh-ue__raster {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+/* ---------------------------------------------------------------- Jahrestabellen */
+
+.hh-tabelle .data-table.hh-jt tr.hh-jt__darunter > :is(th, td) {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.hh-tabelle .data-table.hh-jt tr.hh-jt__darunter > th,
+.hh-tabelle .data-table.hh-jt tr.hh-jt__darunter > td:first-of-type:not(.hh-zahl) {
+  padding-left: var(--space-6);
+}
+
+/* Spaltenköpfe brechen an Wortgrenzen um, nicht mitten im Wort („Verände-rung“). */
+.hh-tabelle .data-table.hh-jt thead th.hh-zahl {
+  hyphens: manual;
+}
+
+.hh-jt__darunter-wort {
+  font-style: normal;
+}
+
+/* Bezeichnungen umbrechen an Wortgrenzen; auf schmalen Bildschirmen behalten sie eine
+   lesbare Mindestbreite, die Betragsspalten rollen dann im Tabellenbereich. */
+.hh-tabelle .data-table.hh-jt .hh-jt__label {
+  min-width: 13rem;
+  hyphens: manual;
+}
+
+.hh-tabelle .data-table.hh-jt .hh-jt__label > .hh-jt__umfang {
+  line-height: var(--lh-compact);
+}
+
+@media (max-width: 47.99rem) {
+  .hh-tabelle .data-table.hh-jt .hh-jt__label {
+    min-width: 9.5rem;
+  }
+}
+
+.hh-jt abbr[title] {
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------- Abgrenzungen */
+
+.hh-abgrenzungen {
+  max-width: 64rem;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.hh-abgrenzungen > summary,
+.hh-abgrenzungen__titel {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.hh-abgrenzungen > summary {
+  cursor: pointer;
+}
+
+.hh-abgrenzungen__liste {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.hh-abgrenzungen__liste > div {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr);
+  gap: var(--space-1) var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.hh-abgrenzungen__liste dt {
+  color: var(--color-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.hh-abgrenzungen__liste dd {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: var(--lh-body);
+}
+
+.hh-abgrenzungen__umfang {
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 47.99rem) {
+  .hh-abgrenzungen__liste > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------------------------------------------------------- Politische Schwerpunkte */
+
+.hh-schwerpunkte {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hh-schwerpunkte__eintrag {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4) var(--space-4-plus);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.hh-schwerpunkte__bereich {
+  margin: 0;
+}
+
+.hh-schwerpunkte__titel {
+  margin: 0;
+  font-size: var(--text-base-plus);
+  line-height: var(--lh-heading);
+}
+
+.hh-schwerpunkte__status,
+.hh-schwerpunkte__hinweis {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hh-schwerpunkte__betraege {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: auto 0 0;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.hh-schwerpunkte__betraege dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.hh-schwerpunkte__betraege dd {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.hh-schwerpunkte__fuss {
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 63.99rem) {
+  .hh-schwerpunkte {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .hh-schwerpunkte {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------------------------------------------------------------- Druck */
+
+@media print {
+  .hh-ue__raster,
+  .hh-schwerpunkte {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hh-schwerpunkte__eintrag {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}

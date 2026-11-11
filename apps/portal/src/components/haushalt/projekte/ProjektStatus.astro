@@ -1,0 +1,21 @@
+---
+/**
+ * Statusabzeichen eines Vorhabens (beschlossen, in Umsetzung, geplant, im Entwurf, Option,
+ * nicht finanziert). Der Status steht immer als Wort; Form und Farbe ergänzen ihn nur. Die
+ * Stile stehen in styles/haushalt/projekte.css, damit das Abzeichen auch außerhalb des
+ * Haushaltslayouts (Themenseiten) ohne die Haushaltsgrundstile auskommt.
+ */
+import { PROJEKT_STATUS_LABELS, type ProjektStatus } from '../../../lib/haushalt/oeffentlich.ts';
+
+interface Props {
+  status: ProjektStatus;
+  class?: string;
+}
+
+const { status, class: className } = Astro.props as Props;
+---
+
+<span class:list={['hh-projektstatus', `hh-projektstatus--${status}`, className]} data-projektstatus={status}>
+  <span class="hh-projektstatus__zeichen" aria-hidden="true"></span>
+  <span class="hh-projektstatus__text">{PROJEKT_STATUS_LABELS[status]}</span>
+</span>

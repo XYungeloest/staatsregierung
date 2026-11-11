@@ -1,0 +1,52 @@
+---
+/**
+ * Beträge eines Vorhabens in Kurzform: Ausgaben im Kernhaushalt je Jahr, Einnahmen getrennt
+ * darunter. Vorhaben ohne eigenen Projektbetrag (`ohneSumme`), ohne eigenen Ansatz oder ohne
+ * Finanzierung zeigen statt eines Betrags einen Text, damit nie ein Betrag von 0 € als
+ * Finanzierung erscheint.
+ */
+import Amount from '../Amount.astro';
+import type { ProjektSicht } from './daten.ts';
+
+interface Props {
+  projekt: ProjektSicht;
+  jahre: string[];
+  /** Betragshinweis bei `ohneSumme` vollständig ausgeben (Projektseite) oder kurz (Übersichten). */
+  hinweis?: 'kurz' | 'voll';
+}
+
+const { projekt, jahre, hinweis = 'kurz' } = Astro.props as Props;
+---
+
+{projekt.betragsArt === 'betraege' ? (
+  <dl class="hh-projektbetraege">
+    <div class="hh-projektbetraege__zeile">
+      <dt>Ausgaben</dt>
+      <dd>
+        {jahre.map((jahr) => (
+          <span class="hh-projektbetraege__wert"><span class="hh-projektbetraege__jahr">{jahr}</span> <Amount value={projekt.ausgaben[jahr]} /></span>
+        ))}
+      </dd>
+    </div>
+    {projekt.hatEinnahmen ? (
+      <div class="hh-projektbetraege__zeile">
+        <dt>Einnahmen</dt>
+        <dd>
+          {jahre.map((jahr) => (
+            <span class="hh-projektbetraege__wert"><span class="hh-projektbetraege__jahr">{jahr}</span> <Amount value={projekt.einnahmen[jahr]} /></span>
+          ))}
+        </dd>
+      </div>
+    ) : null}
+  </dl>
+) : (
+  <p class="hh-projektbetraege__ohne">
+    {projekt.betragsArt === 'kein-ansatz'
+      ? 'Kein Haushaltsansatz.'
+      : projekt.betragsArt === 'ohne-summe'
+        ? hinweis === 'voll' && projekt.betragshinweis
+          ? projekt.betragshinweis
+          : 'Kein eigener Projektbetrag; die Mittel sind in Titeln mit weiteren Zwecken veranschlagt.'
+        : 'Kein eigener Projektansatz im Doppelhaushalt.'}
+  </p>
+)}

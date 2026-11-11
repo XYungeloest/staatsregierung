@@ -1,0 +1,153 @@
+---
+/**
+ * Layout aller Seiten des Haushaltsinformationssystems. Umschließt `BaseLayout` (gleiche Props)
+ * und folgt der Unterseitenordnung aus `DESIGN.md`: Brotkrume, bei Vorschau der Vorschauhinweis,
+ * Einstieg mit der Überschrift (Slot `hero`, `SectionHero` mit `variant="budget"`), darunter die
+ * Statuszeile der Periode (Periode, Statusabzeichen, Statustext, Datenstand, weitere Perioden),
+ * die Bereichsnavigation der Periode und der Inhalt (Standardslot). Bei `preview` trägt die Seite
+ * `noindex` und den Vorschauhinweis (Marker `data-haushalt-vorschau`).
+ */
+import BaseLayout from './BaseLayout.astro';
+// Nach BaseLayout importiert, damit die Haushaltsstile nach den globalen Stilen stehen.
+import '../styles/haushalt/base.css';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import PeriodNav from '../components/haushalt/PeriodNav.astro';
+import StatusBadge from '../components/haushalt/StatusBadge.astro';
+import { formatGermanDate, isoDateOnly, type StatusTone } from '../components/haushalt/format.ts';
+import { getNachtragZurBezeichnung } from '../lib/haushalt/perioden.ts';
+import type { SeoBreadcrumbItem, SeoImage, StructuredData } from '@ostrecht/shared/lib/seo/index.ts';
+
+interface NavItem {
+  label: string;
+  href: string;
+  current?: boolean;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  scripts?: ('portal-modules' | 'holdings-navigator')[];
+  breadcrumbs?: SeoBreadcrumbItem[];
+  structuredData?: StructuredData | StructuredData[];
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  ogImage?: SeoImage;
+  mainWidth?: 'contained' | 'full';
+  periodLabel: string;
+  statusLabel: string;
+  statusTone: StatusTone;
+  statusText?: string;
+  /** Nachtragshaushalt der Periode; ohne Angabe aus dem Periodenregister ermittelt. */
+  nachtrag?: { label: string; text: string; tone: StatusTone };
+  datenstand?: string;
+  datenversion?: string;
+  fassung?: string;
+  preview?: boolean;
+  previewText?: string;
+  navItems?: NavItem[];
+  navLabel?: string;
+  otherPeriods?: NavItem[];
+}
+
+const {
+  title,
+  description,
+  scripts,
+  breadcrumbs = [],
+  structuredData,
+  noindex = false,
+  ogType,
+  ogImage,
+  mainWidth,
+  periodLabel,
+  statusLabel,
+  statusTone,
+  statusText,
+  nachtrag = getNachtragZurBezeichnung(Astro.props.periodLabel),
+  datenstand,
+  datenversion,
+  fassung,
+  preview = false,
+  previewText = 'Vorschau – diese Haushaltsperiode ist noch nicht zur Veröffentlichung freigegeben.',
+  navItems = [],
+  navLabel,
+  otherPeriods = [],
+} = Astro.props as Props;
+---
+
+<BaseLayout
+  {title}
+  {description}
+  {scripts}
+  {breadcrumbs}
+  {structuredData}
+  noindex={noindex || preview}
+  {ogType}
+  {ogImage}
+  {mainWidth}
+>
+  <Breadcrumbs items={breadcrumbs} />
+
+  {preview ? (
+    <div class="hh-vorschau" role="note" aria-label="Vorschauhinweis" data-haushalt-vorschau>
+      <p><strong>{previewText}</strong></p>
+    </div>
+  ) : null}
+
+  <slot name="hero" />
+
+  <div class="hh-periodenkopf" data-haushalt-periode data-haushalt-datenversion={datenversion}>
+    <div class="hh-periodenkopf__inner">
+      <p class="hh-periodenkopf__periode">
+        <span class="hh-periodenkopf__rubrik">Haushaltsperiode</span>
+        <span class="hh-periodenkopf__name">{periodLabel}</span>
+      </p>
+      <StatusBadge tone={statusTone} label={statusLabel} />
+      {statusText ? <p class="hh-periodenkopf__text">{statusText}</p> : null}
+      {nachtrag ? <StatusBadge tone={nachtrag.tone} label={nachtrag.label} /> : null}
+      {nachtrag ? <p class="hh-periodenkopf__text" data-haushalt-nachtrag>{nachtrag.text}</p> : null}
+      {datenstand || fassung ? (
+        <p class="hh-periodenkopf__stand">
+          {datenstand ? <span>Datenstand <time datetime={isoDateOnly(datenstand)}>{formatGermanDate(datenstand)}</time></span> : null}
+          {fassung ? <span>Fassung: {fassung}</span> : null}
+        </p>
+      ) : null}
+      {otherPeriods.length > 0 ? (
+        <nav class="hh-periodenkopf__perioden" aria-label="Haushaltsperioden">
+          <span class="hh-periodenkopf__rubrik">Weitere Perioden</span>
+          <ul>
+            {otherPeriods.map((period) => (
+              <li><a href={period.href} aria-current={period.current ? 'page' : undefined}>{period.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ) : null}
+    </div>
+  </div>
+
+  <PeriodNav items={navItems} label={navLabel ?? periodLabel} />
+
+  <div class="hh-inhalt">
+    <slot />
+  </div>
+</BaseLayout>
+
+<script>
+  // Diagrammtabellen in Aufklappbereichen werden für den Druck geöffnet und danach wieder
+  // geschlossen.
+  const reopen: HTMLDetailsElement[] = [];
+  window.addEventListener('beforeprint', () => {
+    document.querySelectorAll<HTMLDetailsElement>('details[data-haushalt-druck-oeffnen]').forEach((element) => {
+      if (!element.open) {
+        element.open = true;
+        reopen.push(element);
+      }
+    });
+  });
+  window.addEventListener('afterprint', () => {
+    while (reopen.length > 0) {
+      const element = reopen.pop();
+      if (element) element.open = false;
+    }
+  });
+</script>

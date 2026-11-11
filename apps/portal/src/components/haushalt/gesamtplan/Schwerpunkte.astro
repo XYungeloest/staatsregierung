@@ -1,0 +1,72 @@
+---
+/**
+ * Politische Schwerpunkte einer Periode: die nach dem Ansatz des ersten Haushaltsjahres größten
+ * Vorhaben mit eigener Projektseite. Titel, Fachbereich und Status kommen aus dem
+ * Projekt-Overlay; die Beträge sind die Projektsicht derselben Titel (`projekte.json`) und
+ * werden nie zu einer Summe zusammengefasst. Vorhaben ohne eigene Projektsumme (`ohneSumme`),
+ * nicht finanzierte Vorhaben und Optionen erscheinen hier nicht.
+ */
+import Amount from '../Amount.astro';
+import { getBudgetPeriodPageUrl, getBudgetProjectUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import {
+  hasProjektseite,
+  loadProjektOverlays,
+  PROJEKT_STATUS_LABELS,
+} from '../../../lib/haushalt/oeffentlich.ts';
+import { loadProjekte } from '../../../lib/haushalt/snapshot.ts';
+
+interface Props {
+  periode: string;
+  jahre: string[];
+  anzahl?: number;
+  headingLevel?: 3 | 4;
+}
+
+const { periode, jahre, anzahl = 6, headingLevel = 3 } = Astro.props as Props;
+const erstesJahr = jahre[0];
+const overlays = loadProjektOverlays(periode);
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+
+const vorhaben = loadProjekte(periode)
+  .flatMap((projekt) => {
+    const overlay = overlays[projekt.id];
+    if (!overlay || !hasProjektseite(projekt, overlay)) return [];
+    if (overlay.ohneSumme || overlay.status === 'nicht-finanziert' || overlay.status === 'optional') return [];
+    const ersterBetrag = projekt.jahre[erstesJahr as `${number}`]?.kernhaushalt ?? 0;
+    if (ersterBetrag <= 0) return [];
+    return [{ projekt, overlay, ersterBetrag }];
+  })
+  .sort((left, right) => right.ersterBetrag - left.ersterBetrag || left.overlay.titel.localeCompare(right.overlay.titel, 'de'))
+  .slice(0, anzahl);
+---
+
+{vorhaben.length > 0 ? (
+  <ul class="hh-schwerpunkte" aria-label="Vorhaben mit den höchsten Ansätzen">
+    {vorhaben.map(({ projekt, overlay }) => (
+      <li class="hh-schwerpunkte__eintrag">
+        <p class="meta-label hh-schwerpunkte__bereich">{overlay.fachbereich}</p>
+        <Heading class="hh-schwerpunkte__titel"><a href={getBudgetProjectUrl(periode, overlay.slug)}>{overlay.titel}</a></Heading>
+        <p class="hh-schwerpunkte__status">Status: {PROJEKT_STATUS_LABELS[overlay.status]}</p>
+        <dl class="hh-schwerpunkte__betraege">
+          {jahre.map((jahr) => {
+            const betrag = projekt.jahre[jahr as `${number}`]?.kernhaushalt;
+            return (
+              <div>
+                <dt>Ausgaben {jahr}</dt>
+                <dd>{typeof betrag === 'number' ? <Amount value={betrag} /> : <abbr title="keine Angabe">–</abbr>}</dd>
+              </div>
+            );
+          })}
+        </dl>
+        {overlay.betragshinweis ? <p class="hh-schwerpunkte__hinweis">{overlay.betragshinweis}</p> : null}
+      </li>
+    ))}
+  </ul>
+) : null}
+{vorhaben.length > 0 ? (
+  <p class="hh-schwerpunkte__fuss">
+    Die Beträge der Vorhaben sind in den Ansätzen der Einzelpläne enthalten; sie kommen nicht zum
+    Haushaltsvolumen hinzu und werden nicht zusammengezählt.
+    {' '}<a class="inline-link" href={getBudgetPeriodPageUrl(periode, 'projekte')}>Alle Vorhaben</a>
+  </p>
+) : null}

@@ -1,0 +1,27 @@
+---
+/**
+ * Kurzkennzeichen der Datenherkunft (O/D/S/P). Sichtbar steht der Buchstabe, Vorlesende hören
+ * die ausgeschriebene Herkunft; `variante="lang"` zeigt das Wort auch sichtbar.
+ */
+import { ORIGIN_LABELS, type OriginCode } from './format.ts';
+
+interface Props {
+  code: OriginCode;
+  variante?: 'kurz' | 'lang';
+}
+
+const { code, variante = 'kurz' } = Astro.props as Props;
+const label = ORIGIN_LABELS[code];
+---
+
+{variante === 'lang' ? (
+  <span class:list={['hh-herkunft', 'hh-herkunft--lang', `hh-herkunft--${code.toLowerCase()}`]} data-herkunft={code}>
+    <span class="hh-herkunft__code" aria-hidden="true">{code}</span>
+    <span class="hh-herkunft__text">{label.charAt(0).toLocaleUpperCase('de-DE')}{label.slice(1)}</span>
+  </span>
+) : (
+  <span class:list={['hh-herkunft', `hh-herkunft--${code.toLowerCase()}`]} data-herkunft={code} title={`Herkunft: ${label}`}>
+    <span class="hh-herkunft__code" aria-hidden="true">{code}</span>
+    <span class="visually-hidden">Herkunft: {label}</span>
+  </span>
+)}

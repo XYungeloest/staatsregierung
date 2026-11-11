@@ -1,0 +1,69 @@
+---
+/**
+ * Karte einer Finanzierungsmaßnahme: öffentlicher Titel und Texte aus dem Overlay, Beträge der
+ * Haushaltsjahre (Einnahmen, Einsparungen, Kosten, Nettoentlastung) aus dem Snapshot und der
+ * Planungsstatus. Interne Kennungen erscheinen nicht.
+ */
+import Amount from '../Amount.astro';
+import type { MassnahmeAnsicht } from './daten.ts';
+
+interface Props {
+  massnahme: MassnahmeAnsicht;
+  haushaltsjahre: readonly string[];
+  planungsstatus: string;
+  kategorie?: string;
+}
+
+const { massnahme, haushaltsjahre, planungsstatus, kategorie } = Astro.props as Props;
+const { text, daten } = massnahme;
+const headingId = `massnahme-${massnahme.id.toLowerCase()}`;
+const zeilen = [
+  { key: 'einnahmen', label: 'Einnahmen' },
+  { key: 'einsparungen', label: 'Einsparungen' },
+  { key: 'kosten', label: 'Kosten' },
+] as const;
+const jahre = haushaltsjahre.filter((jahr) => daten.jahre[jahr as `${number}`]);
+---
+
+<article class="hh-massnahme" aria-labelledby={headingId}>
+  {kategorie ? <p class="meta-label hh-massnahme__kategorie">{kategorie}</p> : null}
+  <h3 class="hh-massnahme__titel" id={headingId}>{text.titel}</h3>
+  <p class="hh-massnahme__text">{text.erlaeuterung}</p>
+  <div class="hh-massnahme__betraege" role="region" aria-label={`Beträge: ${text.titel}`} tabindex="0">
+    <table class="data-table hh-datentabelle hh-massnahme__tabelle">
+      <caption class="visually-hidden">Beträge: {text.titel}</caption>
+      <thead>
+        <tr>
+          <th scope="col">Position</th>
+          {jahre.map((jahr) => <th scope="col" class="hh-zahl">{jahr}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {zeilen
+          .filter((zeile) => jahre.some((jahr) => daten.jahre[jahr as `${number}`][zeile.key] !== 0))
+          .map((zeile) => (
+            <tr>
+              <th scope="row">{zeile.label}</th>
+              {jahre.map((jahr) => <td class="hh-zahl"><Amount value={daten.jahre[jahr as `${number}`][zeile.key]} /></td>)}
+            </tr>
+          ))}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Nettoentlastung</th>
+          {jahre.map((jahr) => <td class="hh-zahl"><Amount value={daten.jahre[jahr as `${number}`].nettoentlastung} /></td>)}
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <dl class="hh-massnahme__angaben">
+    <div><dt>Herkunft der Mittel</dt><dd>{text.herkunft}</dd></div>
+    <div><dt>Zweck</dt><dd>{text.zweck}</dd></div>
+    <div><dt>Voraussetzung</dt><dd>{text.voraussetzung}</dd></div>
+    {text.rechtsbezug ? <div><dt>Rechtsgrundlage</dt><dd>{text.rechtsbezug}</dd></div> : null}
+    <div><dt>Planungsstatus</dt><dd>{planungsstatus}</dd></div>
+  </dl>
+  {massnahme.projektHref ? (
+    <p class="hh-massnahme__verweis">Vorhaben: <a class="inline-link" href={massnahme.projektHref}>{massnahme.projektTitel}</a></p>
+  ) : null}
+</article>

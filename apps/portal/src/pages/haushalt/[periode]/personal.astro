@@ -1,0 +1,917 @@
+---
+/**
+ * Personal und Versorgung einer Snapshot-Periode: Personalausgaben (Hauptgruppe 4) nach Arten
+ * und Einzelplänen, Planäquivalente nach Personalbereichen, Bestand und Wiederbesetzung bis 2035,
+ * der Gesetzentwurf zur Neuordnung des öffentlichen Dienstrechts (Vergleich der Rechtsstände,
+ * Änderung nach Regelungen, veranschlagte Wirkung, Besoldungstabellen) und die Versorgung.
+ *
+ * Alle Beträge kommen aus dem Snapshot; die Seite gruppiert, vergleicht und beschriftet nur.
+ * Beschriftungen von Kennungen stammen aus content/haushalt/<periode>/personal.json (fail-closed).
+ */
+import HaushaltLayout from '../../../layouts/HaushaltLayout.astro';
+import '../../../styles/haushalt/fachseiten.css';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import Amount from '../../../components/haushalt/Amount.astro';
+import DataTableFrame from '../../../components/haushalt/DataTableFrame.astro';
+import DefinitionNote from '../../../components/haushalt/DefinitionNote.astro';
+import FilterBar from '../../../components/haushalt/FilterBar.astro';
+import GroupedBarChart from '../../../components/haushalt/GroupedBarChart.astro';
+import KpiGrid from '../../../components/haushalt/KpiGrid.astro';
+import SourceNote from '../../../components/haushalt/SourceNote.astro';
+import TimeSeriesChart from '../../../components/haushalt/TimeSeriesChart.astro';
+import Abschnittsliste from '../../../components/haushalt/personal/Abschnittsliste.astro';
+import RegimeTabelle from '../../../components/haushalt/personal/RegimeTabelle.astro';
+import { formatNumber, formatShare, normalizeSearch } from '../../../components/haushalt/format.ts';
+import { getFachseitenKontext, getFachseitenPfade, jahresart } from '../../../components/haushalt/personal/periodenseite.ts';
+import {
+  formatCent,
+  getBesoldungsordnungO,
+  getBesoldungsvergleich,
+  getKomponenten,
+  getPersonalArten,
+  getPersonalausgaben,
+  getPersonalNachEinzelplan,
+  getPersonalstrukturJahre,
+  getPlanaequivalente,
+  getRegimeBloecke,
+  getWirkungJahre,
+  getZuschlagsvergleich,
+  loadPersonal,
+  loadPersonalOverlay,
+  summe,
+  WIRKUNG_AUSGABEN,
+  WIRKUNG_EINNAHMEN,
+} from '../../../components/haushalt/personal/daten.ts';
+import { getNormStatus, RECHTSBEZUG_ART_LABELS } from '../../../lib/haushalt/oeffentlich.ts';
+import { getBudgetPeriodPageUrl, getBudgetPeriodPlanUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+
+export function getStaticPaths() {
+  return getFachseitenPfade();
+}
+
+const { periode: id } = Astro.params as { periode: string };
+const ctx = getFachseitenKontext(id, 'personal', 'Personal und Versorgung');
+const jahre = ctx.jahre;
+const [erstesJahr, letztesJahr] = [jahre[0], jahre[jahre.length - 1]];
+const personal = loadPersonal(id);
+const overlay = loadPersonalOverlay(id);
+const periodenjahre = jahre.join('/');
+
+// Personalausgaben
+const ausgaben = getPersonalausgaben(id, jahre);
+const arten = getPersonalArten(id, jahre);
+const plaene = getPersonalNachEinzelplan(id, jahre);
+const plaeneSortiert = [...plaene].sort((left, right) => right.werte[erstesJahr] - left.werte[erstesJahr]);
+const kpis = [
+  ...ausgaben.map((eintrag, index) => ({
+    label: `Personalausgaben ${eintrag.jahr}`,
+    value: eintrag.betrag,
+    hint: 'Hauptgruppe 4 des Gruppierungsplans',
+    ...(index > 0 ? { change: { value: eintrag.betrag - ausgaben[index - 1].betrag, label: `gegenüber ${ausgaben[index - 1].jahr}` } } : {}),
+  })),
+  ...ausgaben
+    .filter((eintrag) => eintrag.anteil !== null)
+    .map((eintrag) => ({
+      label: `Anteil an den Ausgaben ${eintrag.jahr}`,
+      value: eintrag.anteil ?? 0,
+      format: 'percent' as const,
+      hint: 'Personalausgaben im Verhältnis zu den Gesamtausgaben',
+    })),
+];
+
+// Planäquivalente
+const struktur = getPlanaequivalente(personal, overlay, jahre);
+const strukturSumme = Object.fromEntries(
+  jahre.map((jahr) => [jahr, {
+    beamte: summe(struktur.map((zeile) => zeile.jahre[jahr].beamte)),
+    anwaerter: summe(struktur.map((zeile) => zeile.jahre[jahr].anwaerter)),
+    arbeitnehmer: summe(struktur.map((zeile) => zeile.jahre[jahr].arbeitnehmer)),
+    auszubildende: summe(struktur.map((zeile) => zeile.jahre[jahr].auszubildende)),
+    summe: summe(struktur.map((zeile) => zeile.jahre[jahr].summe)),
+  }]),
+);
+const strukturJahre = getPersonalstrukturJahre(personal);
+
+// Dienstrecht
+const rechtsstaende = overlay.rechtsstaende;
+const regimeLabels = Object.fromEntries(Object.entries(rechtsstaende).map(([code, text]) => [code, text.kurz]));
+const bloecke = getRegimeBloecke(personal, overlay);
+const besoldungsBloecke = bloecke.filter((block) => block.block !== 'Versorgung');
+const versorgungsBlock = bloecke.find((block) => block.block === 'Versorgung');
+const wirkung = getWirkungJahre(personal);
+const wirkungsjahre = wirkung.map((eintrag) => String(eintrag.jahr));
+const planungsjahre = wirkungsjahre.filter((jahr) => !jahre.includes(jahr));
+const komponenten = getKomponenten(personal, overlay, wirkungsjahre);
+const komponentenSumme = Object.fromEntries(
+  wirkungsjahre.map((jahr) => [jahr, summe(komponenten.flatMap((gruppe) => gruppe.zeilen.map((zeile) => zeile.werte[jahr])))]),
+);
+const vorbuchung = personal.versorgung.vorbuchung as Record<string, number>;
+const jahrCol = (jahr: string) => (jahre.includes(jahr) ? 'haushalt' : 'planung');
+const jahresansichtOptionen = [
+  { value: 'haushalt', label: `${erstesJahr} und ${letztesJahr}` },
+  ...(planungsjahre.length > 0 ? [{ value: 'planung', label: `${planungsjahre[0]} bis ${planungsjahre[planungsjahre.length - 1]}` }] : []),
+  { value: 'alle', label: 'Alle Jahre' },
+];
+const wirkungsZeilen = [
+  ...WIRKUNG_AUSGABEN.map((feld) => ({ feld, label: overlay.wirkungsarten[feld] ?? null, seite: 'ausgabe' })),
+  ...WIRKUNG_EINNAHMEN.map((feld) => ({ feld, label: overlay.wirkungsarten[feld] ?? null, seite: 'einnahme' })),
+];
+const kennzahlenCodes = Object.keys(overlay.kennzahlen);
+const kennzahlZeilen = kennzahlenCodes
+  .map((code) => ({
+    code,
+    label: overlay.kennzahlen[code],
+    werte: Object.fromEntries(personal.kennzahlen.filter((eintrag) => eintrag.kennzahl === code).map((eintrag) => [String(eintrag.jahr), eintrag.wert])),
+  }))
+  .filter((zeile) => Object.keys(zeile.werte).length > 0);
+const kennzahlJahre = [...new Set(kennzahlZeilen.flatMap((zeile) => Object.keys(zeile.werte)))].sort();
+
+const besoldung = getBesoldungsvergleich(personal, overlay);
+const zuschlaege = getZuschlagsvergleich(personal, overlay);
+const ordnungO = getBesoldungsordnungO(personal, overlay);
+const tabellen = overlay.besoldungstabellen;
+
+// Versorgung
+const teile = Object.entries(overlay.versorgungsteile);
+const teilWert = (code: string, teil: string, jahr: string) =>
+  personal.versorgung.reihen.find((reihe) => reihe.rechtsstand === code && reihe.teil === teil)?.jahre[jahr as `${number}`];
+const versorgungJahreAuswahl = [erstesJahr, letztesJahr, versorgungsBlock?.jahre.at(-1)].filter(
+  (jahr, index, liste): jahr is string => typeof jahr === 'string' && liste.indexOf(jahr) === index,
+);
+const fondsErstattung = [...personal.versorgung.versorgungsfonds_erstattung].sort((left, right) => left.jahr - right.jahr);
+const barwerte = personal.versorgung.barwerte;
+const prozentAusDezimaltext = (text: string) => formatShare(Number(text), 1);
+
+// Rechtsbezüge: geltende Vorschriften nur verlinken, wenn sie im Rechtsbestand vorhanden und in Kraft sind.
+const rechtsbezuege = overlay.rechtsbezuege.map((bezug) => {
+  const status = bezug.normSlug ? getNormStatus(bezug.normSlug) : null;
+  const verlinkt = bezug.art === 'geltend' && bezug.normSlug && status === 'in-force';
+  return { ...bezug, href: verlinkt && bezug.normSlug ? getNormUrl(bezug.normSlug) : null, artLabel: RECHTSBEZUG_ART_LABELS[bezug.art] };
+});
+
+const abschnitte = [
+  { id: 'personalausgaben', label: 'Personalausgaben' },
+  { id: 'einzelplaene', label: 'Nach Einzelplänen' },
+  { id: 'personalstruktur', label: 'Personalstruktur' },
+  { id: 'dienstrecht', label: 'Gesetzentwurf zum Dienstrecht' },
+  { id: 'versorgung', label: 'Versorgung' },
+  { id: 'rechtsgrundlagen', label: 'Rechtsgrundlagen' },
+];
+const seitentitel = 'Personal und Versorgung';
+const exportMeta = { Periode: id, Datenstand: ctx.datenstand };
+---
+
+<HaushaltLayout
+  title={`${seitentitel} – ${ctx.periode.bezeichnung}`}
+  description={`Personalausgaben, Planäquivalente, Versorgung und die erwartete Wirkung des Gesetzentwurfs zur Neuordnung des öffentlichen Dienstrechts im ${ctx.periode.bezeichnung} (${ctx.status.label}).`}
+  breadcrumbs={ctx.breadcrumbs}
+  {...ctx.layout}
+>
+  <SectionHero
+    slot="hero"
+    eyebrow="Haushalt"
+    title={seitentitel}
+    lead={`Personalausgaben, Personalstruktur und Versorgung im ${ctx.periode.bezeichnung} sowie die erwartete Wirkung des Gesetzentwurfs zur Neuordnung des öffentlichen Dienstrechts.`}
+    variant="budget"
+  />
+
+  <Abschnittsliste items={abschnitte} />
+
+  <section class="section hh-fachabschnitt" aria-labelledby="personalausgaben">
+    <div class="section-header"><h2 id="personalausgaben">Personalausgaben</h2></div>
+    <p class="hh-fliesstext">Personalausgaben umfassen Bezüge und Entgelte der Beschäftigten, Versorgungsbezüge, Beihilfen und sonstige personalbezogene Ausgaben (Hauptgruppe 4 des Gruppierungsplans).</p>
+    <KpiGrid items={kpis} label={`Personalausgaben ${periodenjahre}`} />
+
+    <h3 class="hh-unterueberschrift">Personalausgaben nach Arten</h3>
+    <GroupedBarChart
+      id="personal-arten"
+      caption={`Personalausgaben nach Arten ${periodenjahre}`}
+      series={jahre.map((jahr) => ({ label: jahr, art: 'haushaltsjahr' as const }))}
+      categories={arten.map((art) => ({ label: art.label, values: jahre.map((jahr) => art.werte[jahr]) }))}
+      kategorieSpalte="Art"
+      veraenderung
+    />
+    <DefinitionNote titel="Abgrenzung der Arten">
+      <dl class="hh-begriffe">
+        {arten.map((art) => (
+          <div>
+            <dt>{art.label}</dt>
+            <dd>{art.definition} Umfang: {art.umfang}.</dd>
+          </div>
+        ))}
+      </dl>
+    </DefinitionNote>
+  </section>
+
+  <section class="section hh-fachabschnitt" aria-labelledby="einzelplaene">
+    <div class="section-header"><h2 id="einzelplaene">Personalausgaben nach Einzelplänen</h2></div>
+    <GroupedBarChart
+      id="personal-einzelplaene-diagramm"
+      caption={`Personalausgaben nach Einzelplänen ${periodenjahre}`}
+      series={jahre.map((jahr) => ({ label: jahr, art: 'haushaltsjahr' as const }))}
+      categories={plaeneSortiert.filter((plan) => jahre.some((jahr) => plan.werte[jahr] !== 0)).map((plan) => ({
+        label: `${plan.ep} ${plan.name}`,
+        values: jahre.map((jahr) => plan.werte[jahr]),
+        href: getBudgetPeriodPlanUrl(id, plan.ep),
+      }))}
+      kategorieSpalte="Einzelplan"
+      tabelle="keine"
+      hinweis="Exakte Beträge und Anteile an den Ausgaben: Personalausgaben nach Einzelplänen"
+      hinweisHref="#personal-einzelplaene"
+    />
+    <DataTableFrame
+      id="personal-einzelplaene"
+      label={`Personalausgaben nach Einzelplänen ${periodenjahre}`}
+      caption={`Personalausgaben nach Einzelplänen ${periodenjahre}, Beträge in Euro`}
+      nomenSingular="Einzelplan"
+      nomenPlural="Einzelplänen"
+      seitengroesse={false}
+      exportFilename={`personalausgaben-einzelplaene-${id}.csv`}
+      exportMeta={exportMeta}
+      breite="sehr-breit"
+    >
+      <FilterBar slot="werkzeuge" id="personal-einzelplaene" suche={{ label: 'Einzelplan suchen' }} export={{}} />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" class="hh-kennung" data-sort="text" data-export-key="einzelplan">Einzelplan</th>
+            <th scope="col" data-sort="text" data-export-key="bezeichnung">Bezeichnung</th>
+            {jahre.map((jahr, index) => (
+              <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`personalausgaben_${jahr}`} aria-sort={index === 0 ? 'descending' : undefined}>{jahr}</th>
+            ))}
+            <th scope="col" class="hh-zahl" data-sort="number" data-export-key="veraenderung">Veränderung {erstesJahr} → {letztesJahr}</th>
+            {jahre.map((jahr) => (
+              <th scope="col" class="hh-zahl" data-sort="number" data-export-key={`anteil_${jahr}`}>Anteil an den Ausgaben des Einzelplans {jahr}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {plaeneSortiert.map((plan) => (
+            <tr id={`personal-ep-${plan.ep}`} data-search={normalizeSearch(`${plan.ep} ${plan.name}`)}>
+              <th scope="row" class="hh-kennung"><a class="hh-zeilenanker" href={`#personal-ep-${plan.ep}`}>{plan.ep}</a></th>
+              <td><a class="inline-link" href={getBudgetPeriodPlanUrl(id, plan.ep)}>{plan.name}</a></td>
+              {jahre.map((jahr) => (
+                <td class="hh-zahl" data-export-value={plan.werte[jahr]}><Amount value={plan.werte[jahr]} exakt /></td>
+              ))}
+              <td class="hh-zahl" data-export-value={plan.werte[letztesJahr] - plan.werte[erstesJahr]}><Amount value={plan.werte[letztesJahr] - plan.werte[erstesJahr]} vorzeichen exakt /></td>
+              {jahre.map((jahr) => {
+                const anteil = plan.ausgaben[jahr] === 0 ? null : plan.werte[jahr] / plan.ausgaben[jahr];
+                return (
+                  <td class="hh-zahl" data-sort={anteil ?? -1} data-export-value={anteil === null ? '' : anteil.toFixed(4)}>{anteil === null ? '–' : formatShare(anteil)}</td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row" colspan="2">Insgesamt (Hauptgruppe 4)</th>
+            {ausgaben.map((eintrag) => <td class="hh-zahl"><Amount value={eintrag.betrag} exakt /></td>)}
+            <td class="hh-zahl"><Amount value={ausgaben[ausgaben.length - 1].betrag - ausgaben[0].betrag} vorzeichen exakt /></td>
+            {ausgaben.map((eintrag) => <td class="hh-zahl">{eintrag.anteil === null ? '–' : formatShare(eintrag.anteil)}</td>)}
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+  </section>
+
+  <section class="section hh-fachabschnitt" aria-labelledby="personalstruktur">
+    <div class="section-header"><h2 id="personalstruktur">Personalstruktur</h2></div>
+    <DefinitionNote titel="Methodik">
+      <p>Die Angaben sind modellierte Planäquivalente (Kostenäquivalente/VZÄ), keine gezählten Beschäftigten; Bestandsprognosen sind Schätzungen. Grundlage ist der tatsächliche Personalstand vom 30. Juni 2024, fortgeschrieben auf die Haushaltsjahre und nach Aufgabenbereichen auf die Kapitel verteilt. Planäquivalente sind keine Freigabe von Planstellen.</p>
+    </DefinitionNote>
+    <KpiGrid
+      label={`Planäquivalente ${periodenjahre}`}
+      items={jahre.map((jahr, index) => ({
+        label: `Planäquivalente ${jahr}`,
+        value: strukturSumme[jahr].summe,
+        format: 'number' as const,
+        hint: 'Vollzeitäquivalente, Schätzung',
+        ...(index > 0 ? { change: { value: strukturSumme[jahr].summe - strukturSumme[jahre[index - 1]].summe, format: 'number' as const, label: `gegenüber ${jahre[index - 1]}` } } : {}),
+      }))}
+    />
+
+    <h3 class="hh-unterueberschrift">Planäquivalente nach Personalbereichen</h3>
+    <DataTableFrame
+      id="personal-planaequivalente"
+      label={`Planäquivalente nach Personalbereichen ${periodenjahre}`}
+      caption={`Planäquivalente nach Personalbereichen ${periodenjahre} (Vollzeitäquivalente, Schätzung)`}
+      nomenSingular="Bereich"
+      nomenPlural="Bereichen"
+      seitengroesse={false}
+      jahresansicht={erstesJahr}
+      exportFilename={`planaequivalente-${id}.csv`}
+      exportMeta={exportMeta}
+      breite="breit"
+    >
+      <FilterBar
+        slot="werkzeuge"
+        id="personal-planaequivalente"
+        suche={false}
+        jahresansicht={{ label: 'Jahr', value: erstesJahr, options: [...jahre.map((jahr) => ({ value: jahr, label: jahr })), { value: 'alle', label: 'Beide Jahre' }] }}
+        export={{}}
+      />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" data-sort="text" data-export-key="bereich">Personalbereich</th>
+            {jahre.map((jahr) => (
+              <>
+                <th scope="col" class="hh-zahl" data-sort="number" data-year-col={jahr} data-export-key={`beamte_${jahr}`}>Beamt:innen und Richter:innen {jahr}</th>
+                <th scope="col" class="hh-zahl" data-sort="number" data-year-col={jahr} data-export-key={`anwaerter_${jahr}`}>darunter Anwärter:innen {jahr}</th>
+                <th scope="col" class="hh-zahl" data-sort="number" data-year-col={jahr} data-export-key={`arbeitnehmer_${jahr}`}>Arbeitnehmer:innen {jahr}</th>
+                <th scope="col" class="hh-zahl" data-sort="number" data-year-col={jahr} data-export-key={`auszubildende_${jahr}`}>Auszubildende {jahr}</th>
+                <th scope="col" class="hh-zahl" data-sort="number" data-year-col={jahr} data-export-key={`insgesamt_${jahr}`}>Insgesamt {jahr}</th>
+              </>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {struktur.map((zeile) => (
+            <tr>
+              <th scope="row">{zeile.label}</th>
+              {jahre.map((jahr) => (
+                <>
+                  <td class="hh-zahl" data-year-col={jahr}><data value={String(zeile.jahre[jahr].beamte)}>{formatNumber(zeile.jahre[jahr].beamte)}</data></td>
+                  <td class="hh-zahl" data-year-col={jahr}><data value={String(zeile.jahre[jahr].anwaerter)}>{formatNumber(zeile.jahre[jahr].anwaerter)}</data></td>
+                  <td class="hh-zahl" data-year-col={jahr}><data value={String(zeile.jahre[jahr].arbeitnehmer)}>{formatNumber(zeile.jahre[jahr].arbeitnehmer)}</data></td>
+                  <td class="hh-zahl" data-year-col={jahr}><data value={String(zeile.jahre[jahr].auszubildende)}>{formatNumber(zeile.jahre[jahr].auszubildende)}</data></td>
+                  <td class="hh-zahl" data-year-col={jahr}><strong><data value={String(zeile.jahre[jahr].summe)}>{formatNumber(zeile.jahre[jahr].summe)}</data></strong></td>
+                </>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Insgesamt</th>
+            {jahre.map((jahr) => (
+              <>
+                <td class="hh-zahl" data-year-col={jahr}>{formatNumber(strukturSumme[jahr].beamte)}</td>
+                <td class="hh-zahl" data-year-col={jahr}>{formatNumber(strukturSumme[jahr].anwaerter)}</td>
+                <td class="hh-zahl" data-year-col={jahr}>{formatNumber(strukturSumme[jahr].arbeitnehmer)}</td>
+                <td class="hh-zahl" data-year-col={jahr}>{formatNumber(strukturSumme[jahr].auszubildende)}</td>
+                <td class="hh-zahl" data-year-col={jahr}>{formatNumber(strukturSumme[jahr].summe)}</td>
+              </>
+            ))}
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+    <p class="hh-fliesstext hh-klein">Auszubildende sind Personen im Vorbereitungsdienst, die nach dem Gesetzentwurf im öffentlich-rechtlichen Ausbildungsverhältnis statt im Beamtenverhältnis auf Widerruf ausgebildet werden.</p>
+
+    {strukturJahre.length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Bestand und Wiederbesetzung bis {strukturJahre[strukturJahre.length - 1].jahr}</h3>
+        <p class="hh-fliesstext">Die vorhandenen Beamt:innen scheiden nach und nach in den Ruhestand aus. Nach dem Gesetzentwurf werden frei werdende Stellen in der Besoldungsordnung O, mit Richter:innen und Staatsanwält:innen oder im Arbeitsverhältnis wiederbesetzt. Alle Werte sind Schätzungen in Köpfen.</p>
+        <TimeSeriesChart
+          id="personal-bestand"
+          caption={`Vorhandene Beamt:innen im Dienst und Besetzungen im Arbeitsverhältnis ${strukturJahre[0].jahr} bis ${strukturJahre[strukturJahre.length - 1].jahr} (Schätzung)`}
+          jahre={strukturJahre.map((eintrag) => ({ jahr: eintrag.jahr, art: jahresart(eintrag.jahr, jahre) }))}
+          series={[
+            { label: 'Vorhandene Beamt:innen im Dienst', values: strukturJahre.map((eintrag) => eintrag.bestandsbeamte) },
+            { label: 'Besetzungen im Arbeitsverhältnis statt Verbeamtung, aufgelaufen', values: strukturJahre.map((eintrag) => eintrag.arbeitsverhaeltnisKumuliert) },
+          ]}
+          format="number"
+          typ="linie"
+        />
+        <DataTableFrame
+          id="personal-wiederbesetzung"
+          label="Bestand und Wiederbesetzung je Jahr"
+          caption="Bestand und Wiederbesetzung je Jahr, alle Personalbereiche (Köpfe, Schätzung)"
+          nomenSingular="Jahr"
+          nomenPlural="Jahren"
+          seitengroesse={false}
+          exportFilename={`wiederbesetzung-${id}.csv`}
+          exportMeta={exportMeta}
+          breite="sehr-breit"
+        >
+          <FilterBar slot="werkzeuge" id="personal-wiederbesetzung" suche={false} export={{}} />
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col" data-export-key="jahr">Jahr</th>
+                <th scope="col" class="hh-zahl" data-export-key="bestand">Vorhandene Beamt:innen im Dienst</th>
+                <th scope="col" class="hh-zahl" data-export-key="ruhestand">Ruhestandszugänge</th>
+                <th scope="col" class="hh-zahl" data-export-key="bisher">Wiederbesetzung im Beamtenverhältnis nach bisherigem Recht (Vergleich)</th>
+                <th scope="col" class="hh-zahl" data-export-key="o">Einstellungen in der Besoldungsordnung O</th>
+                <th scope="col" class="hh-zahl" data-export-key="r">Richter:innen und Staatsanwält:innen</th>
+                <th scope="col" class="hh-zahl" data-export-key="arbeitsverhaeltnis">Besetzungen im Arbeitsverhältnis</th>
+                <th scope="col" class="hh-zahl" data-export-key="arbeitsverhaeltnis_kumuliert">Besetzungen im Arbeitsverhältnis, aufgelaufen</th>
+              </tr>
+            </thead>
+            <tbody>
+              {strukturJahre.map((eintrag) => {
+                const projektion = !jahre.includes(eintrag.jahr);
+                return (
+                  <tr class:list={[projektion && 'hh-zeile--projektion']}>
+                    <th scope="row" class="hh-kennung" data-export-value={eintrag.jahr}>{eintrag.jahr}{projektion ? <> <span>Finanzplanung</span></> : null}</th>
+                    {[eintrag.bestandsbeamte, eintrag.ruhestandszugaenge, eintrag.wiederbesetzungBisher, eintrag.einstellungenO, eintrag.einstellungenR, eintrag.arbeitsverhaeltnis, eintrag.arbeitsverhaeltnisKumuliert].map((wert) => (
+                      <td class="hh-zahl"><data value={String(wert)}>{formatNumber(wert)}</data></td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </DataTableFrame>
+        <p class="hh-fliesstext hh-klein">Die Jahreswerte sind Summen der je Personalbereich gerundeten Schätzungen und können von den Gesamtangaben unter „Erwartete Personalbewegungen“ um wenige Köpfe abweichen.</p>
+      </>
+    ) : null}
+  </section>
+
+  <section class="section hh-fachabschnitt" aria-labelledby="dienstrecht">
+    <div class="section-header"><h2 id="dienstrecht">Gesetzentwurf zur Neuordnung des öffentlichen Dienstrechts</h2></div>
+    <div class="hh-entwurfshinweis" role="note" aria-label="Hinweis zum Gesetzentwurf">
+      <p><strong>Gesetzentwurf, noch nicht beschlossen; die Haushaltsansätze berücksichtigen die erwartete Wirkung.</strong></p>
+      <p>Der Entwurf eines Gesetzes zur Neuordnung des öffentlichen Dienstrechts (Drucksache 08/13) liegt der Volkskammer vor. Die hier genannten Rechtsfolgen und Beträge beschreiben den Entwurf, nicht geltendes Recht. Tritt das Gesetz nicht oder mit anderem Inhalt in Kraft, ändern sich die Beträge.</p>
+    </div>
+
+    {overlay.reformpunkte.length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Vorgesehene Regelungen</h3>
+        <ul class="hh-aufzaehlung">
+          {overlay.reformpunkte.map((punkt) => <li>{punkt}</li>)}
+        </ul>
+      </>
+    ) : null}
+
+    <h3 class="hh-unterueberschrift">Vergleichsstände</h3>
+    <dl class="hh-vergleichsstaende">
+      {(['R0', 'B', 'C'] as const).filter((code) => rechtsstaende[code]).map((code) => (
+        <div class:list={['hh-vergleichsstand', `hh-vergleichsstand--${code.toLowerCase()}`]}>
+          <dt>{rechtsstaende[code].bezeichnung}</dt>
+          <dd>{rechtsstaende[code].erlaeuterung}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="hh-fliesstext">Die erwartete Änderung ergibt sich als Unterschied zwischen dem Gesetzentwurf und dem bisherigen Planniveau. Allgemeine Besoldungsanpassungen ab 2028 sind in allen Vergleichsständen gleich angesetzt.</p>
+
+    {besoldungsBloecke.map((block) => (
+      <>
+        <h4 class="hh-zwischenueberschrift">{block.label}</h4>
+        <TimeSeriesChart
+          id={`regime-${block.block === 'Besoldung Bestandsbeamte' ? 'besoldung' : 'anwaerter'}-diagramm`}
+          caption={`${block.label}: Ausgaben nach Vergleichsständen ${block.jahre[0]} bis ${block.jahre[block.jahre.length - 1]}`}
+          jahre={block.jahre.map((jahr) => ({ jahr, art: jahresart(jahr, jahre) }))}
+          series={(['R0', 'B', 'C'] as const).filter((code) => block.werte[code]).map((code) => ({ label: regimeLabels[code], values: block.jahre.map((jahr) => block.werte[code][jahr]) }))}
+          typ="linie"
+          tabelle="keine"
+        />
+        <RegimeTabelle
+          id={`regime-${block.block === 'Besoldung Bestandsbeamte' ? 'besoldung' : 'anwaerter'}`}
+          caption={`${block.label} nach Vergleichsständen`}
+          block={block}
+          labels={regimeLabels}
+          haushaltsjahre={jahre}
+        />
+      </>
+    ))}
+
+    <h3 class="hh-unterueberschrift">Änderung gegenüber dem bisherigen Planniveau nach Regelungen</h3>
+    <p class="hh-fliesstext">Negative Beträge sind Minderausgaben, positive Beträge Mehrausgaben gegenüber dem bisherigen Planniveau. Die Jahre nach {letztesJahr} sind Finanzplanung und nicht bewilligt.</p>
+    <DataTableFrame
+      id="dienstrecht-regelungen"
+      label="Änderung gegenüber dem bisherigen Planniveau nach Regelungen"
+      caption="Änderung der Ausgaben gegenüber dem bisherigen Planniveau nach Regelungen des Gesetzentwurfs, Beträge in Euro"
+      nomenSingular="Regelung"
+      nomenPlural="Regelungen"
+      seitengroesse={false}
+      jahresansicht="haushalt"
+      exportFilename={`dienstrecht-regelungen-${id}.csv`}
+      exportMeta={exportMeta}
+      breite="breit"
+    >
+      <FilterBar slot="werkzeuge" id="dienstrecht-regelungen" suche={{ label: 'Regelung suchen' }} jahresansicht={{ label: 'Jahre', value: 'haushalt', options: jahresansichtOptionen }} export={{}} />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" data-export-key="regelung">Regelung</th>
+            {wirkungsjahre.map((jahr) => (
+              <th scope="col" class="hh-zahl" data-sort="number" data-year-col={jahrCol(jahr)} data-export-key={`aenderung_${jahr}`}>{jahr}{jahre.includes(jahr) ? null : <> <span>Finanzplanung</span></>}</th>
+            ))}
+          </tr>
+        </thead>
+        {komponenten.map((gruppe) => (
+          <tbody>
+            <tr data-gruppenkopf><th scope="rowgroup" colspan={wirkungsjahre.length + 1}>{gruppe.label}</th></tr>
+            {gruppe.zeilen.map((zeile) => (
+              <tr data-search={normalizeSearch(`${gruppe.label} ${zeile.label}`)}>
+                <th scope="row">{zeile.label}</th>
+                {wirkungsjahre.map((jahr) => (
+                  <td class="hh-zahl" data-year-col={jahrCol(jahr)} data-export-value={zeile.werte[jahr]}><Amount value={zeile.werte[jahr]} vorzeichen /></td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        ))}
+        <tfoot>
+          <tr>
+            <th scope="row">Ausgaben zusammen</th>
+            {wirkungsjahre.map((jahr) => (
+              <td class="hh-zahl" data-year-col={jahrCol(jahr)}><Amount value={komponentenSumme[jahr]} vorzeichen /></td>
+            ))}
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+
+    <h3 class="hh-unterueberschrift">Im Regierungsentwurf veranschlagte Wirkung</h3>
+    <p class="hh-fliesstext">Die Haushaltsansätze enthalten die erwartete Wirkung des Gesetzentwurfs als Veränderung gegenüber den bisherigen Ansätzen. Bei der Versorgung war im bisherigen Ansatz bereits eine pauschale Minderung berücksichtigt; die Neuberechnung ersetzt sie. Zusätzlich sinkt der Landesanteil an der Lohnsteuer, weil die Bezüge geringer ausfallen. Negative Beträge entlasten den Haushalt.</p>
+    <TimeSeriesChart
+      id="dienstrecht-wirkung-diagramm"
+      caption={`Veranschlagte Nettowirkung des Gesetzentwurfs ${wirkungsjahre[0]} bis ${wirkungsjahre[wirkungsjahre.length - 1]}`}
+      jahre={wirkungsjahre.map((jahr) => ({ jahr, art: jahresart(jahr, jahre) }))}
+      series={[{ label: 'Nettowirkung (negativ = Entlastung)', values: wirkung.map((eintrag) => eintrag.netto) }]}
+      tabelle="keine"
+    />
+    <DataTableFrame
+      id="dienstrecht-wirkung"
+      label="Veranschlagte Wirkung des Gesetzentwurfs je Jahr"
+      caption="Veranschlagte Wirkung des Gesetzentwurfs je Jahr, Beträge in Euro"
+      nomenSingular="Position"
+      nomenPlural="Positionen"
+      seitengroesse={false}
+      jahresansicht="haushalt"
+      exportFilename={`dienstrecht-wirkung-${id}.csv`}
+      exportMeta={exportMeta}
+      breite="breit"
+    >
+      <FilterBar slot="werkzeuge" id="dienstrecht-wirkung" suche={false} jahresansicht={{ label: 'Jahre', value: 'haushalt', options: jahresansichtOptionen }} export={{}} />
+      <table class="data-table hh-datentabelle">
+        <thead>
+          <tr>
+            <th scope="col" data-export-key="position">Position</th>
+            {wirkungsjahre.map((jahr) => (
+              <th scope="col" class="hh-zahl" data-year-col={jahrCol(jahr)} data-export-key={`wirkung_${jahr}`}>{jahr}{jahre.includes(jahr) ? null : <> <span>Finanzplanung</span></>}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-gruppenkopf><th scope="rowgroup" colspan={wirkungsjahre.length + 1}>Ausgaben</th></tr>
+          {wirkungsZeilen.filter((zeile) => zeile.seite === 'ausgabe' && zeile.label).map((zeile) => (
+            <tr>
+              <th scope="row">{zeile.label}</th>
+              {wirkung.map((eintrag) => <td class="hh-zahl" data-year-col={jahrCol(String(eintrag.jahr))}><Amount value={eintrag[zeile.feld] as number} vorzeichen /></td>)}
+            </tr>
+          ))}
+          <tr class="hh-zeile--summe">
+            <th scope="row">Ausgaben zusammen</th>
+            {wirkung.map((eintrag) => <td class="hh-zahl" data-year-col={jahrCol(String(eintrag.jahr))}><Amount value={eintrag.ausgaben} vorzeichen /></td>)}
+          </tr>
+        </tbody>
+        <tbody>
+          <tr data-gruppenkopf><th scope="rowgroup" colspan={wirkungsjahre.length + 1}>Einnahmen</th></tr>
+          {wirkungsZeilen.filter((zeile) => zeile.seite === 'einnahme' && zeile.label).map((zeile) => (
+            <tr>
+              <th scope="row">{zeile.label}</th>
+              {wirkung.map((eintrag) => <td class="hh-zahl" data-year-col={jahrCol(String(eintrag.jahr))}><Amount value={eintrag[zeile.feld] as number} vorzeichen /></td>)}
+            </tr>
+          ))}
+          <tr class="hh-zeile--summe">
+            <th scope="row">Einnahmen zusammen</th>
+            {wirkung.map((eintrag) => <td class="hh-zahl" data-year-col={jahrCol(String(eintrag.jahr))}><Amount value={eintrag.einnahmen} vorzeichen /></td>)}
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Nettowirkung auf den Haushalt (Ausgaben abzüglich Einnahmen)</th>
+            {wirkung.map((eintrag) => <td class="hh-zahl" data-year-col={jahrCol(String(eintrag.jahr))}><Amount value={eintrag.netto} vorzeichen /></td>)}
+          </tr>
+          <tr>
+            <th scope="row">Nachrichtlich: im bisherigen Versorgungsansatz bereits pauschal berücksichtigte Minderausgabe</th>
+            {wirkung.map((eintrag) => {
+              const wert = vorbuchung[String(eintrag.jahr)];
+              return <td class="hh-zahl" data-year-col={jahrCol(String(eintrag.jahr))}>{typeof wert === 'number' ? <Amount value={wert} /> : '–'}</td>;
+            })}
+          </tr>
+        </tfoot>
+      </table>
+    </DataTableFrame>
+    <p class="hh-fliesstext hh-klein">Die veranschlagte Nettowirkung erscheint auf der Seite <a class="inline-link" href={getBudgetPeriodPageUrl(id, 'finanzierung')}>Finanzierung</a> als eigene Position neben den Finanzierungsmaßnahmen.</p>
+
+    {kennzahlZeilen.length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Erwartete Personalbewegungen</h3>
+        <DataTableFrame
+          id="dienstrecht-mengen"
+          label="Erwartete Personalbewegungen nach dem Gesetzentwurf"
+          caption="Erwartete Personalbewegungen nach dem Gesetzentwurf (Köpfe, Schätzung)"
+          nomenSingular="Angabe"
+          nomenPlural="Angaben"
+          seitengroesse={false}
+          jahresansicht="haushalt"
+          breite="breit"
+        >
+          <FilterBar slot="werkzeuge" id="dienstrecht-mengen" suche={false} jahresansicht={{ label: 'Jahre', value: 'haushalt', options: jahresansichtOptionen }} />
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col">Angabe</th>
+                {kennzahlJahre.map((jahr) => (
+                  <th scope="col" class="hh-zahl" data-year-col={jahrCol(jahr)}>{jahr}{jahre.includes(jahr) ? null : <> <span>Finanzplanung</span></>}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {kennzahlZeilen.map((zeile) => (
+                <tr>
+                  <th scope="row">{zeile.label}</th>
+                  {kennzahlJahre.map((jahr) => (
+                    <td class="hh-zahl" data-year-col={jahrCol(jahr)}>{typeof zeile.werte[jahr] === 'number' ? <data value={String(zeile.werte[jahr])}>{formatNumber(zeile.werte[jahr])}</data> : '–'}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTableFrame>
+        <p class="hh-fliesstext hh-klein">Gesamtangaben der Schätzung; die Summen der je Personalbereich gerundeten Werte unter „Bestand und Wiederbesetzung“ können um wenige Köpfe abweichen.</p>
+      </>
+    ) : null}
+
+    {besoldung.length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Besoldungstabellen im Vergleich</h3>
+        <p class="hh-fliesstext">Monatliche Grundgehälter ausgewählter Besoldungsgruppen jeweils in der ersten und letzten Stufe, die in beiden Tabellen vorkommt. {tabellen.geltend.bezeichnung}: {tabellen.geltend.erlaeuterung}. {tabellen.entwurf.bezeichnung}: {tabellen.entwurf.erlaeuterung}.</p>
+        <DataTableFrame
+          id="besoldung-vergleich"
+          label="Grundgehälter ausgewählter Besoldungsgruppen"
+          caption="Grundgehälter ausgewählter Besoldungsgruppen, Monatsbeträge in Euro"
+          nomenSingular="Zeile"
+          nomenPlural="Zeilen"
+          seitengroesse={false}
+          breite="breit"
+        >
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col">Besoldungsgruppe</th>
+                <th scope="col">Stufe</th>
+                <th scope="col" class="hh-zahl">{tabellen.geltend.bezeichnung}</th>
+                <th scope="col" class="hh-zahl">{tabellen.entwurf.bezeichnung}</th>
+                <th scope="col" class="hh-zahl">Unterschied</th>
+                <th scope="col" class="hh-zahl">Unterschied in Prozent</th>
+              </tr>
+            </thead>
+            <tbody>
+              {besoldung.map((zeile) => {
+                const differenz = zeile.geltend !== null && zeile.entwurf !== null ? zeile.entwurf - zeile.geltend : null;
+                return (
+                  <tr>
+                    <th scope="row" class="hh-kennung">{zeile.gruppe}</th>
+                    <td>{zeile.stufe === '' ? 'fest' : zeile.stufe}</td>
+                    <td class="hh-zahl">{zeile.geltend === null ? '–' : <data value={(zeile.geltend / 100).toFixed(2)}>{formatCent(zeile.geltend)}</data>}</td>
+                    <td class="hh-zahl">{zeile.entwurf === null ? '–' : <data value={(zeile.entwurf / 100).toFixed(2)}>{formatCent(zeile.entwurf)}</data>}</td>
+                    <td class="hh-zahl">{differenz === null ? '–' : <data value={(differenz / 100).toFixed(2)}>{formatCent(differenz, true)}</data>}</td>
+                    <td class="hh-zahl">{differenz === null || !zeile.geltend ? '–' : `${differenz > 0 ? '+' : ''}${formatShare(differenz / zeile.geltend)}`}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </DataTableFrame>
+        {zuschlaege.length > 0 ? (
+          <DataTableFrame
+            id="besoldung-zuschlaege"
+            label="Familienzuschlag und Anwärtergrundbetrag"
+            caption="Familienzuschlag und Anwärtergrundbetrag, Monatsbeträge in Euro"
+            nomenSingular="Zeile"
+            nomenPlural="Zeilen"
+            seitengroesse={false}
+            breite="mittel"
+          >
+            <table class="data-table hh-datentabelle">
+              <thead>
+                <tr>
+                  <th scope="col">Bestandteil</th>
+                  <th scope="col" class="hh-zahl">{tabellen.geltend.bezeichnung}</th>
+                  <th scope="col" class="hh-zahl">{tabellen.entwurf.bezeichnung}</th>
+                  <th scope="col" class="hh-zahl">Unterschied</th>
+                </tr>
+              </thead>
+              <tbody>
+                {zuschlaege.map((zeile) => (
+                  <tr>
+                    <th scope="row">{zeile.bezeichnung}</th>
+                    <td class="hh-zahl"><data value={(zeile.geltend / 100).toFixed(2)}>{formatCent(zeile.geltend)}</data></td>
+                    <td class="hh-zahl"><data value={(zeile.entwurf / 100).toFixed(2)}>{formatCent(zeile.entwurf)}</data></td>
+                    <td class="hh-zahl"><data value={((zeile.entwurf - zeile.geltend) / 100).toFixed(2)}>{formatCent(zeile.entwurf - zeile.geltend, true)}</data></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </DataTableFrame>
+        ) : null}
+        {ordnungO.length > 0 ? (
+          <>
+            <h4 class="hh-zwischenueberschrift">Neue Besoldungsordnung O (nur im Gesetzentwurf)</h4>
+            {tabellen.besoldungsordnungO ? <p class="hh-fliesstext">{tabellen.besoldungsordnungO}</p> : null}
+            <DataTableFrame
+              id="besoldung-ordnung-o"
+              label="Grundgehälter der Besoldungsordnung O nach dem Gesetzentwurf"
+              caption="Grundgehälter der Besoldungsordnung O nach dem Gesetzentwurf, Monatsbeträge in Euro"
+              nomenSingular="Besoldungsgruppe"
+              nomenPlural="Besoldungsgruppen"
+              seitengroesse={false}
+              breite="schmal"
+            >
+              <table class="data-table hh-datentabelle">
+                <thead><tr><th scope="col">Besoldungsgruppe</th><th scope="col" class="hh-zahl">Grundgehalt (Entwurf)</th></tr></thead>
+                <tbody>
+                  {ordnungO.map((zeile) => (
+                    <tr><th scope="row" class="hh-kennung">{zeile.gruppe}</th><td class="hh-zahl"><data value={(zeile.betrag / 100).toFixed(2)}>{formatCent(zeile.betrag)}</data></td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </DataTableFrame>
+          </>
+        ) : null}
+      </>
+    ) : null}
+  </section>
+
+  <section class="section hh-fachabschnitt" aria-labelledby="versorgung">
+    <div class="section-header"><h2 id="versorgung">Versorgung</h2></div>
+    <p class="hh-fliesstext">Versorgungsbezüge erhalten Beamt:innen und Richter:innen im Ruhestand sowie ihre Hinterbliebenen. Die Angaben zeigen die Versorgungsausgaben ohne Beihilfe nach Vergleichsständen; die Jahre nach {letztesJahr} sind Finanzplanung.</p>
+    {versorgungsBlock ? (
+      <>
+        <TimeSeriesChart
+          id="versorgung-diagramm"
+          caption={`Versorgungsausgaben nach Vergleichsständen ${versorgungsBlock.jahre[0]} bis ${versorgungsBlock.jahre[versorgungsBlock.jahre.length - 1]}`}
+          jahre={versorgungsBlock.jahre.map((jahr) => ({ jahr, art: jahresart(jahr, jahre) }))}
+          series={(['R0', 'B', 'C'] as const).filter((code) => versorgungsBlock.werte[code]).map((code) => ({ label: regimeLabels[code], values: versorgungsBlock.jahre.map((jahr) => versorgungsBlock.werte[code][jahr]) }))}
+          typ="linie"
+          tabelle="keine"
+        />
+        <RegimeTabelle id="regime-versorgung" caption={`${versorgungsBlock.label} nach Vergleichsständen`} block={versorgungsBlock} labels={regimeLabels} haushaltsjahre={jahre} />
+      </>
+    ) : null}
+
+    {teile.length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Versorgungsausgaben nach Fallgruppen</h3>
+        <DataTableFrame
+          id="versorgung-fallgruppen"
+          label="Versorgungsausgaben nach Fallgruppen"
+          caption="Versorgungsausgaben nach Fallgruppen, bisheriges Planniveau und Gesetzentwurf, Beträge in Euro"
+          nomenSingular="Fallgruppe"
+          nomenPlural="Fallgruppen"
+          seitengroesse={false}
+          jahresansicht={versorgungJahreAuswahl[0]}
+          exportFilename={`versorgung-fallgruppen-${id}.csv`}
+          exportMeta={exportMeta}
+          breite="mittel"
+        >
+          <FilterBar
+            slot="werkzeuge"
+            id="versorgung-fallgruppen"
+            suche={false}
+            jahresansicht={{ label: 'Jahr', value: versorgungJahreAuswahl[0], options: [...versorgungJahreAuswahl.map((jahr) => ({ value: jahr, label: jahre.includes(jahr) ? jahr : `${jahr} (Finanzplanung)` })), { value: 'alle', label: 'Alle' }] }}
+            export={{}}
+          />
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col" data-export-key="fallgruppe">Fallgruppe</th>
+                {versorgungJahreAuswahl.map((jahr) => (
+                  <>
+                    <th scope="col" class="hh-zahl" data-year-col={jahr} data-export-key={`planniveau_${jahr}`}>{regimeLabels.B} {jahr}</th>
+                    <th scope="col" class="hh-zahl" data-year-col={jahr} data-export-key={`entwurf_${jahr}`}>{regimeLabels.C} {jahr}</th>
+                    <th scope="col" class="hh-zahl" data-year-col={jahr} data-export-key={`aenderung_${jahr}`}>Änderung {jahr}</th>
+                  </>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {teile.map(([teil, label]) => (
+                <tr>
+                  <th scope="row">{label}</th>
+                  {versorgungJahreAuswahl.map((jahr) => {
+                    const b = teilWert('B', teil, jahr);
+                    const c = teilWert('C', teil, jahr);
+                    return (
+                      <>
+                        <td class="hh-zahl" data-year-col={jahr}>{typeof b === 'number' ? <Amount value={b} /> : '–'}</td>
+                        <td class="hh-zahl" data-year-col={jahr}>{typeof c === 'number' ? <Amount value={c} /> : '–'}</td>
+                        <td class="hh-zahl" data-year-col={jahr}>{typeof b === 'number' && typeof c === 'number' ? <Amount value={c - b} vorzeichen /> : '–'}</td>
+                      </>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DataTableFrame>
+      </>
+    ) : null}
+
+    {fondsErstattung.length > 0 ? (
+      <>
+        <h3 class="hh-unterueberschrift">Erstattung aus dem Versorgungsfonds Ost</h3>
+        <p class="hh-fliesstext">Der Versorgungsfonds Ost erstattet dem Haushalt Versorgungsausgaben für die durch ihn gedeckten Jahrgänge. Die Erstattung folgt deren tatsächlichen Versorgungsausgaben. Sie bleibt nach dem Gesetzentwurf unverändert, solange diese Ausgaben über der geplanten Erstattung liegen.</p>
+        <DataTableFrame
+          id="versorgungsfonds"
+          label="Erstattung aus dem Versorgungsfonds Ost"
+          caption="Erstattung aus dem Versorgungsfonds Ost, Beträge in Euro"
+          nomenSingular="Jahr"
+          nomenPlural="Jahren"
+          seitengroesse={false}
+          breite="mittel"
+        >
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col">Jahr</th>
+                <th scope="col" class="hh-zahl">Bisher geplante Erstattung</th>
+                <th scope="col" class="hh-zahl">Erstattung nach dem Gesetzentwurf</th>
+                <th scope="col" class="hh-zahl">Minderung</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fondsErstattung.map((eintrag) => {
+                const projektion = !jahre.includes(String(eintrag.jahr));
+                return (
+                  <tr class:list={[projektion && 'hh-zeile--projektion']}>
+                    <th scope="row" class="hh-kennung">{eintrag.jahr}{projektion ? <> <span>Finanzplanung</span></> : null}</th>
+                    <td class="hh-zahl"><Amount value={eintrag.geplant} /></td>
+                    <td class="hh-zahl"><Amount value={eintrag.tatsaechlich} /></td>
+                    <td class="hh-zahl"><Amount value={eintrag.minderung} /></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </DataTableFrame>
+      </>
+    ) : null}
+
+    {rechtsstaende.B && rechtsstaende.C ? (
+      <>
+        <h3 class="hh-unterueberschrift">Barwert der Versorgungsverpflichtungen</h3>
+        <p class="hh-fliesstext">Vereinfachte versicherungsmathematische Bewertung zum 1. Januar 2027 (Schätzung) mit einem Rechnungszins von {prozentAusDezimaltext(barwerte.rechnungszins)} und einer jährlichen Dynamik von {prozentAusDezimaltext(barwerte.dynamik)}. Erfasst sind laufende Versorgungsfälle und die bis dahin erdienten Anwartschaften der vorhandenen Beamt:innen. Ein versicherungsmathematisches Gutachten liegt nicht vor.</p>
+        <DataTableFrame
+          id="versorgung-barwert"
+          label="Barwert der Versorgungsverpflichtungen zum 1. Januar 2027"
+          caption="Barwert der Versorgungsverpflichtungen zum 1. Januar 2027, Beträge in Euro"
+          nomenSingular="Position"
+          nomenPlural="Positionen"
+          seitengroesse={false}
+          breite="mittel"
+        >
+          <table class="data-table hh-datentabelle">
+            <thead>
+              <tr>
+                <th scope="col">Position</th>
+                <th scope="col" class="hh-zahl">{regimeLabels.B}</th>
+                <th scope="col" class="hh-zahl">{regimeLabels.C}</th>
+                <th scope="col" class="hh-zahl">Unterschied</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Laufende Versorgungsfälle</th>
+                <td class="hh-zahl"><Amount value={barwerte.laufend_b} /></td>
+                <td class="hh-zahl"><Amount value={barwerte.laufend_c} /></td>
+                <td class="hh-zahl"><Amount value={barwerte.laufend_c - barwerte.laufend_b} vorzeichen /></td>
+              </tr>
+              <tr>
+                <th scope="row">Erdiente Anwartschaften der vorhandenen Beamt:innen</th>
+                <td class="hh-zahl"><Amount value={barwerte.anwartschaften_b} /></td>
+                <td class="hh-zahl"><Amount value={barwerte.anwartschaften_c} /></td>
+                <td class="hh-zahl"><Amount value={barwerte.anwartschaften_c - barwerte.anwartschaften_b} vorzeichen /></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Zusammen</th>
+                <td class="hh-zahl"><Amount value={barwerte.gesamt_b} /></td>
+                <td class="hh-zahl"><Amount value={barwerte.gesamt_c} /></td>
+                <td class="hh-zahl"><Amount value={barwerte.gesamt_c - barwerte.gesamt_b} vorzeichen /></td>
+              </tr>
+            </tfoot>
+          </table>
+        </DataTableFrame>
+      </>
+    ) : null}
+  </section>
+
+  <section class="section hh-fachabschnitt" aria-labelledby="rechtsgrundlagen">
+    <div class="section-header"><h2 id="rechtsgrundlagen">Rechtsgrundlagen</h2></div>
+    <ul class="hh-rechtsbezuege">
+      {rechtsbezuege.map((bezug) => (
+        <li>
+          {bezug.href ? <a class="inline-link" href={bezug.href}>{bezug.label}</a> : <span class="hh-rechtsbezuege__titel">{bezug.label}</span>}
+          <span class="hh-rechtsbezuege__art">{bezug.artLabel}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <SourceNote
+    datenstand={ctx.datenstand}
+    datenversion={ctx.datenversion}
+    quelle={ctx.quelle}
+    downloadsHref={getBudgetPeriodPageUrl(id, 'downloads')}
+  />
+</HaushaltLayout>

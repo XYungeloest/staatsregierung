@@ -1,0 +1,53 @@
+[
+ {
+  "id": "testprogramm",
+  "name": "Testprogramm",
+  "art": "Programm",
+  "einzelplan": "01",
+  "traeger": "Testträger",
+  "rechtsgrundlage": "Testgesetz § 1",
+  "status": "beschlossen",
+  "beschreibung": "Synthetisches Programm",
+  "suchbegriffe": [
+   "Test"
+  ],
+  "kernhaushalt_2027": 9000,
+  "einnahmen_2027": 0,
+  "kernhaushalt_2028": 10000,
+  "einnahmen_2028": 0,
+  "titel": [
+   "0102/683 01",
+   "0102/893 01"
+  ],
+  "kapitel": [
+   "0102"
+  ],
+  "folgejahre_investiv": {
+   "2029": 2600
+  },
+  "folgejahre": {
+   "2029": 10200
+  }
+ },
+ {
+  "id": "testoption",
+  "name": "Testoption",
+  "art": "Option",
+  "einzelplan": "02",
+  "traeger": "Testträger",
+  "rechtsgrundlage": "keine",
+  "status": "option",
+  "beschreibung": "Option ohne Mittel",
+  "suchbegriffe": [],
+  "kernhaushalt_2027": 0,
+  "einnahmen_2027": 0,
+  "kernhaushalt_2028": 0,
+  "einnahmen_2028": 0,
+  "titel": [],
+  "kapitel": [],
+  "folgejahre_investiv": {},
+  "folgejahre": {},
+  "gegenstand": "Testgegenstand",
+  "stueckzahl": 2
+ }
+]

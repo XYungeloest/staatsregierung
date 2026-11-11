@@ -21,7 +21,7 @@ const state = getPageState(total, 1, perPage);
 
 <nav class="data-pagination" aria-label={label} data-pagination={scope}>
   <p>
-    <span data-pagination-range>{state.rangeLabel}</span> von
+    <span data-pagination-range>{state.rangeLabel}</span> von{' '}
     <span data-pagination-total>{state.total}</span> {unit}
   </p>
   <div>
