@@ -13,7 +13,7 @@ import CopyLinkButton from '../CopyLinkButton.astro';
 import DataTableFrame from '../DataTableFrame.astro';
 import FilterBar from '../FilterBar.astro';
 import OriginBadge from '../OriginBadge.astro';
-import { normalizeSearch, ORIGIN_LABELS, type OriginCode } from '../format.ts';
+import { bindeKennungen, normalizeSearch, ORIGIN_LABELS, type OriginCode } from '../format.ts';
 import { betrag, formatDezimaltext, getProjektVerweis, nachTitelnummer, pruefeSumme, summe } from './kontext.ts';
 import { HAUPTGRUPPEN } from '../../../lib/haushalt/kennzahlen.ts';
 import {
@@ -252,7 +252,7 @@ const gruppenSummen = gruppenCodes.map((code) => {
                 <CopyLinkButton anker={zeile.anker} label={`Titel ${zeile.nummer}`} />
               </th>
               <td class="hh-browser-zweckzelle" data-export-value={zeile.zweck} data-sort={zeile.zweck}>
-                {zeile.zweck}
+                {bindeKennungen(zeile.zweck)}
                 <span class="hh-browser-titelmeta">
                   <span>Gruppe {zeile.eintrag.gruppe}{zeile.gruppeBezeichnung !== zeile.zweck ? `: ${zeile.gruppeBezeichnung}` : ''}</span>
                   <span>Hauptgruppe {zeile.eintrag.hauptgruppe}</span>
@@ -270,13 +270,13 @@ const gruppenSummen = gruppenCodes.map((code) => {
                       {rechtsgrundlageBezuege(zeile.rechtsgrundlage).map((bezug, index) => (
                         <>
                           {index > 0 ? '; ' : null}
-                          {bezug.normSlug ? <a class="hh-browser-link" href={getNormUrl(bezug.normSlug)}>{bezug.text}</a> : bezug.text}
+                          {bezug.normSlug ? <a class="hh-browser-link" href={getNormUrl(bezug.normSlug)}>{bindeKennungen(bezug.text)}</a> : bindeKennungen(bezug.text)}
                           {bezug.art ? <> ({RECHTSBEZUG_ART_LABELS[bezug.art]})</> : null}
                         </>
                       ))}
                     </span>
                   ) : null}
-                  {zeile.finanzierung ? <span>Finanzierung: {zeile.finanzierung}</span> : null}
+                  {zeile.finanzierung ? <span>Finanzierung: {bindeKennungen(zeile.finanzierung)}</span> : null}
                   {zeile.menge ? <span>Menge{zeile.einheit ? ` (${zeile.einheit})` : ''}: {zeile.menge}</span> : null}
                   {zeile.satz ? <span>Satz je Einheit: {zeile.satz}</span> : null}
                   {zeile.herkunft ? <span class="hh-browser-nur-schmal">Herkunft: {ORIGIN_LABELS[zeile.herkunft]}</span> : null}
@@ -295,10 +295,10 @@ const gruppenSummen = gruppenCodes.map((code) => {
                 <td colspan={spalten - 1}>
                   <dl class="hh-browser-erlaeuterung">
                     {zeile.erlaeuterung ? (
-                      <div><dt>Erläuterung</dt><dd>{zeile.erlaeuterung}</dd></div>
+                      <div><dt>Erläuterung</dt><dd>{bindeKennungen(zeile.erlaeuterung)}</dd></div>
                     ) : null}
                     {zeile.vermerk ? (
-                      <div><dt>Haushaltsvermerk</dt><dd>{zeile.vermerk}</dd></div>
+                      <div><dt>Haushaltsvermerk</dt><dd>{bindeKennungen(zeile.vermerk)}</dd></div>
                     ) : null}
                   </dl>
                 </td>

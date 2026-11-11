@@ -26,6 +26,21 @@ function typographicMinus(value: string): string {
   return value.replace(/^-/u, '−');
 }
 
+/**
+ * Bindet Angaben, die beim Zeilenumbruch nicht zerfallen dürfen, durch geschützte Leerzeichen:
+ * Paragraf, Artikel, Absatz oder Nummer mit Zahl („§ 8“), Zahl mit Gesetzeskürzel („8 LHO“),
+ * Zahl mit Einheit („550 Mio. EUR“) sowie Kapitel- und Titelnummern („07 10“, „831 75“). Nur für
+ * die Anzeige; Export- und Suchtexte bleiben unverändert.
+ */
+export function bindeKennungen(text: string): string {
+  return text
+    .replace(/(§§?|Art\.|Artikel|Abs\.|Nr\.) (?=\d)/gu, '$1 ')
+    .replace(/(\d[a-z]?) (?=[A-ZÄÖÜ]{2,}[A-Za-zÄÖÜäöüß-]*\b)/gu, '$1 ')
+    .replace(/(\d) (?=(?:Mio\.|Mrd\.|EUR|€|%|Prozent)(?![\p{L}\p{N}]))/gu, '$1 ')
+    .replace(/(Mio\.|Mrd\.) (?=EUR|€)/gu, '$1 ')
+    .replace(/(?<![\d.,])(\d{2,3}) (?=\d{2}(?![\d.,]))/gu, '$1 ');
+}
+
 /** Exakter Eurobetrag mit Tausenderpunkten, z. B. „140.900.866.242 €“. */
 export function formatEuroExact(amount: number): string {
   return typographicMinus(formatEuroAmount(amount));

@@ -3,9 +3,9 @@
   "periode": "2027-2028",
   "quelle": {
     "repository": "osthaushalt-2027-2028",
-    "commit": "5038575a11082bb4c7d992d568c221815b975800",
-    "commit_kurz": "5038575",
-    "commitdatum": "2026-11-11T20:03:06+01:00",
+    "commit": "84f4e322ae0ed05a8fef34a6888efd10b3d65667",
+    "commit_kurz": "84f4e32",
+    "commitdatum": "2026-11-11T22:13:36+01:00",
     "fassung": "haushalt-2027-2028",
     "pfad": "haushalt/2027-2028",
     "basisrun": "c0-20261108-v2",
@@ -27,12 +27,12 @@
     },
     {
       "pfad": "haushalt/2027-2028/MANIFEST.json",
-      "sha256": "212622caa37e764600e5fe8c34b8b6a81caf2bdd6c537c24285cbde9b0d3b05d",
+      "sha256": "cbdc654c2693f041087145bb432fcdcc74f8817d85c813b47cb527ab6d6a99ab",
       "pruefung": "git"
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028.pdf",
-      "sha256": "331e702619a86071967a44a2300acb7ef9b71dff32bc7aa6d3e087ff93e848dd",
+      "sha256": "ad9807218be70b0057e4fbec7eb17c2c5c2a6be26e1357d661078474da6a0978",
       "pruefung": "MANIFEST.json"
     },
     {
@@ -42,12 +42,12 @@
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028_oeffentlich.pdf",
-      "sha256": "f8618f5d28ba98337e25ec54ce76200c284664dd53d58ebdec63dc6844bbc7ae",
+      "sha256": "72d2f15ef2e78d3f58d46bdc7da498a189ef854f5fc7e208b1d3502fd12a206e",
       "pruefung": "MANIFEST.json"
     },
     {
       "pfad": "haushalt/2027-2028/ausgabe/Haushalt_2027_2028_oeffentlich.xlsx",
-      "sha256": "7987db5670c32f485063dd0cdd5e306190bb4f208a735cb61970ed6e2fc8ede4",
+      "sha256": "38cd0f20e87eff5921789972d6816397982e70c14d87397f0956459af52be399",
       "pruefung": "MANIFEST.json"
     },
     {
@@ -344,13 +344,13 @@
   "snapshotdateien": [
     {
       "pfad": "ausgabe/Haushalt_2027_2028.pdf",
-      "sha256": "f8618f5d28ba98337e25ec54ce76200c284664dd53d58ebdec63dc6844bbc7ae",
-      "bytes": 646843
+      "sha256": "72d2f15ef2e78d3f58d46bdc7da498a189ef854f5fc7e208b1d3502fd12a206e",
+      "bytes": 658989
     },
     {
       "pfad": "ausgabe/Haushalt_2027_2028.xlsx",
-      "sha256": "7987db5670c32f485063dd0cdd5e306190bb4f208a735cb61970ed6e2fc8ede4",
-      "bytes": 364980
+      "sha256": "38cd0f20e87eff5921789972d6816397982e70c14d87397f0956459af52be399",
+      "bytes": 364251
     },
     {
       "pfad": "einzelplaene.json",
@@ -530,7 +530,7 @@
     {
       "quelldatei": "Haushalt_2027_2028.pdf",
       "status": "gesperrt",
-      "sha256": "331e702619a86071967a44a2300acb7ef9b71dff32bc7aa6d3e087ff93e848dd",
+      "sha256": "ad9807218be70b0057e4fbec7eb17c2c5c2a6be26e1357d661078474da6a0978",
       "grund": "enthält nicht öffentliche Abschnitte: Finanzierungsbrücke, Vergleichsrechnungen, Kurzfassung für den Staatsrat, Risiko- und Sensitivitätsanalyse, Auffälligkeiten der Reformtabellen, Quellenverzeichnis, Vollzugs- und Beschlussmatrix, Änderungsempfehlungen, Verweise auf interne Dateien des Datenpakets, Kennung des Finanzrahmens (C0), Kennungen des Entscheidungsprotokolls (D-…), Prüfkennungen (Q…), Kennungen von Korrekturvorlagen (K-0…), interne Maßnahmenkennungen (F…), Bezug auf das Simulationsbundesrecht, Herleitung aus dem sächsischen Vorbild, Verweis auf die Quellenmatrix, Verhandlungsposition, Modellannahme („Modell: …“), interner Nachweisstand („nicht belegt“), Begriff der Datenaufbereitung (Mapping), Referenzdaten (Referenzvektor), interne Rechenschritte (Basisrun, Basisbereinigung), unbelegter Staatsratsbeschluss zur Planungsfassung, Name eines realen Handelsunternehmens"
     },
     {
@@ -543,15 +543,15 @@
       "datei": "Haushalt_2027_2028.pdf",
       "quelldatei": "Haushalt_2027_2028_oeffentlich.pdf",
       "status": "uebernommen",
-      "sha256": "f8618f5d28ba98337e25ec54ce76200c284664dd53d58ebdec63dc6844bbc7ae",
-      "bytes": 646843
+      "sha256": "72d2f15ef2e78d3f58d46bdc7da498a189ef854f5fc7e208b1d3502fd12a206e",
+      "bytes": 658989
     },
     {
       "datei": "Haushalt_2027_2028.xlsx",
       "quelldatei": "Haushalt_2027_2028_oeffentlich.xlsx",
       "status": "uebernommen",
-      "sha256": "7987db5670c32f485063dd0cdd5e306190bb4f208a735cb61970ed6e2fc8ede4",
-      "bytes": 364980
+      "sha256": "38cd0f20e87eff5921789972d6816397982e70c14d87397f0956459af52be399",
+      "bytes": 364251
     }
   ],
   "befunde": [
