@@ -325,6 +325,25 @@
   .hh-browser-vorhaben__werte {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  /* Titeltabelle auf Smartphones: Titel, Zweckbestimmung und Ansatz stehen ohne waagerechtes
+     Verschieben nebeneinander; engere Zellränder und eine etwas kleinere Ziffernschrift. */
+  .hh-browser-titel .data-table.hh-datentabelle :is(th, td) {
+    padding-inline: var(--space-1);
+  }
+
+  .hh-browser-titel .data-table.hh-datentabelle td.hh-browser-zweckzelle {
+    min-width: 7.5rem;
+    hyphens: auto;
+  }
+
+  .hh-browser-titel .data-table.hh-datentabelle .hh-zahl {
+    font-size: var(--text-xs);
+  }
+
+  .hh-browser-titel .data-table.hh-datentabelle th.hh-zahl {
+    hyphens: manual;
+  }
 }
 
 /* ---------------------------------------------------------------- Druck */

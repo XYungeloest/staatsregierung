@@ -124,13 +124,55 @@ laut `import-manifest.json`). Offen und nur im Haushaltsrepo lösbar:
 - Ressortzuordnung einzelner Kapitel (03 05 Raumordnung, 09 23 Breitbandausbau) und Umfang des
   Einzelplans 15 (Prüfdienste vermutlich in Kapitel 06 03): redaktionell mit dem Haushaltsrepo zu
   klären; das Portal ordnet bis dahin nach Einzelplänen zu.
-- Unternehmensname beim Vorhaben „Handelsorganisation Ost“: Der Snapshot (`projekte.json`,
-  Beschreibung und Suchbegriffe des Vorhabens `ho`) nennt eine etwaige Übernahme von Filialen eines
-  namentlich bezeichneten realen Handelsunternehmens; weder `knowledge/` noch `context/` belegen ein
-  solches Vorhaben. Das Portal zeigt die neutrale Fassung „Übernahme bestehender Filialen“ und lässt
-  den Namen in der Suche weg; PDF und Arbeitsmappe sind neutral gefasst. Zur Lösung im Haushaltsrepo
-  die Vorhabendaten neutral fassen oder das Vorhaben mit Quelle belegen; danach
+- Unternehmensname beim Vorhaben „Handelsorganisation Ost“: Der Snapshot nennt eine etwaige
+  Übernahme von Filialen eines namentlich bezeichneten realen Handelsunternehmens, und zwar in
+  `projekte.json` (Beschreibung und Suchbegriffe des Vorhabens `ho`) und im Rohtext der Erläuterung
+  zu Kapitel 07 10 Titel 831 75 (`titel/07.json`, dort mit Modellannahmen zu Filialzahl und
+  Kaufpreis). Derselbe Rohtext steht zwangsläufig als Schlüssel der Klassifikation in
+  `content/haushalt/2027-2028/freitexte.json`. Weder `knowledge/` noch `context/` belegen ein
+  solches Vorhaben. Veröffentlicht wird keine dieser Stellen: Das Portal zeigt die freigegebene
+  neutrale Fassung („eine etwaige Übernahme bestehender Filialen“) und lässt den Namen in der Suche
+  weg; PDF und Arbeitsmappe sind neutral gefasst, die Artefaktprüfung sperrt den Namen. Zur Lösung
+  im Haushaltsrepo die Vorhabendaten und den Titeltext neutral fassen oder das Vorhaben mit Quelle
+  belegen; danach `npm run haushalt:sync` und den Klassifikationsschlüssel an den neuen Rohtext
+  anpassen.
+- Status der Wirtschaftspläne: In `wirtschaftsplaene.csv` (Spalte `status`) tragen ElbeLB,
+  Handelsorganisation Ost, Ostdeutsche Rohstoffwerke, Landesbodenfonds und beide
+  Interflug-Gesellschaften für 2027 bis 2031 den Status von Gemeingut Wohnen (Kopierfehler).
+  Veröffentlicht wird der Status nicht: Das Portal schließt das Feld aus, die Arbeitsmappe führt
+  die Spalte nicht. Zur Lösung im Haushaltsrepo den Status je Unternehmen berichtigen.
+- Kostenfreie Kita- und Schulverpflegung (Kapitel 04 07): Der Zusatzbedarf (Titel 633 01,
+  633 02, 633 03 und 633 61, 2027 zusammen 1.707,66 Mio. EUR) liegt um 201,24 Mio. EUR unter
+  Bruttobedarf (2,15 Mio. Nutzende × 195 Tage × 6,00 EUR) abzüglich bestehender Finanzierung
+  (Titel 633 04 und 686 61, 550 Mio. EUR) und Einsparung aus gemeinsamer Beschaffung
+  (56,6 Mio. EUR). Die Programmrechnung des Haushaltsrepos zieht den Sockel aus Titel 686 61
+  ein zweites Mal ab. Die öffentlichen Texte rechnen ihn nicht gesondert an. Zur Lösung im
+  Haushaltsrepo die Programmrechnung klären.
+- Wirtschaftspläne der Landesunternehmen (`ruecklagen.json`, `wirtschaftsplaene`): Die Spalte
+  `kernhaushalt` ist nicht mit den Einzelplänen abgestimmt. Für Gemeingut Wohnen (Titel 0704/891 01,
+  891 02, 891 74) und die Landesenergiewerke (0904/831 91) entspricht sie einzelnen Titeln; für die
+  Ostdeutsche Eisenbahn (Kapitel 10 08 bis 10 10), die Ostdeutschen Rohstoffwerke (07 06), den
+  Landesbodenfonds (19 03) und Interflug Spezialflug (10 04) steht 0, obwohl dort Mittel für diese
+  Unternehmen veranschlagt sind; Umsatz und Investitionen dieser Unternehmen außer der Eisenbahn
+  sind ebenfalls 0. Die Ausschüttung der ElbeLB 2027 (189 Mio. EUR) passt nicht zur Einnahme
+  0604/121 01 (63 Mio. EUR) und zur Gewinnverwendung des Vorhabens (40 % des Bilanzgewinns,
+  Landesanteil 75 %, rechnerisch 84 Mio. EUR Ausschüttung). PDF und Arbeitsmappe bezeichnen die
+  Spalte als „Zuführung laut Wirtschaftsplan“ und verweisen für die Ansätze auf die Einzelpläne.
+  Zur Lösung im Haushaltsrepo die Wirtschaftspläne mit den Titeln abstimmen; danach
   `npm run haushalt:sync`.
+- Rechtsgrundlage zu Kapitel 09 04 Titel 831 91 (Landesenergiewerke): Der Rohtext in `titel/09.json`
+  nennt „Haushaltsbegleitgesetz Art. 3 (Beteiligungsrecht)“. Nach dem Entwurf des
+  Haushaltsbegleitgesetzes ändert Artikel 3 das Finanzausgleichsgesetz Ost; die Finanzierung der
+  Landesenergiewerke regelt Artikel 4 § 1. Veröffentlicht wird die berichtigte Fassung aus
+  `freitexte.json`. Zur Lösung im Haushaltsrepo den Rohtext berichtigen und danach den
+  Klassifikationsschlüssel anpassen.
+- Bezeichnungen im Snapshot: Die Zuständigkeit für Einzelplan 18 lautet „Beauftragte für Datenschutz
+  und Informationsfreiheit (unabhängig)“; diese Bezeichnung ist weder in `content/` noch in
+  `knowledge/` belegt (das Ostdeutsche Transparenz- und Informationsfreiheitsgesetz nennt „die oder
+  der Ostdeutsche Datenschutz- und Transparenzbeauftragte“). Den Kapitelbezeichnungen 11 02,
+  13 05, 14 01 und 18 03 fehlen die Aufzählungskommas; Kapitel 20 71 heißt „Beihilfe für
+  Versorgungsempfänger“. Zur Lösung im Haushaltsrepo die Bezeichnungen berichtigen oder in
+  `freitexte.json` (`bezeichnungen`) eine öffentliche Fassung festlegen.
 
 ## Rechtskonsolidierung
 
