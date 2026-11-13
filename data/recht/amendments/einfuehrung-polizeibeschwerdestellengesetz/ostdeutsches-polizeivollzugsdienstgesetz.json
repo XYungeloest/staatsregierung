@@ -1,0 +1,45 @@
+{
+  "amendmentAct": "einfuehrung-polizeibeschwerdestellengesetz",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 88,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 88 S. 2)",
+  "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz, geändert durch Artikel 2 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 88 S. 2)",
+  "changeNote": "Änderungen nach Artikel 2 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 88, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 88.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 98"
+      },
+      "expectedHash": "458ec834cb5b7d13140560f0f22d2dc56e3145edb56fa4644f1e7d40ba84071b",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 98",
+        "title": "Unabhängige Polizei-Beschwerde- und Ermittlungsstelle",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Der Freistaat Ostdeutschland unterhält bei der Volkskammer eine unabhängige Polizei-Beschwerde- und Ermittlungsstelle. Ihre Rechtsstellung, Aufgaben, Befugnisse und ihr Verfahren richten sich nach dem Polizeibeschwerdestellengesetz."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 88.html",
+      "sourceProvision": "Artikel 2",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

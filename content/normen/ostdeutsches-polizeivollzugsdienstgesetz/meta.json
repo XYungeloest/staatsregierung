@@ -72,6 +72,30 @@
       "label": "OGVBl. 2026 Nr. 46",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 96, Artikel 1",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 96.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 85, Artikel 1",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 85.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 88, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 88.html"
     }
   ],
   "affectedByNorms": [
@@ -79,6 +103,25 @@
     "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
     "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
     "kasernierte-grenzpolizei-errichtungsgesetz",
-    "kreis-und-bezirksneuordnungsgesetz"
+    "kreis-und-bezirksneuordnungsgesetz",
+    "terrorismusabwehr-polizeivollzugsdienstgesetz",
+    "volkspolizei-bezeichnungsgesetz",
+    "volkspolizei-organisationsreform",
+    "einfuehrung-polizeibeschwerdestellengesetz"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "polizei-direktionen-nummer-6-2026",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-11-13",
+      "issue": "Nr. 46 nennt § 97 Absatz 1 Nummer 5, obwohl Nr. 50 diese Nummer ab 21. Juli der Kasernierten Grenzpolizei zuweist.",
+      "publishedText": "Absatz 1 Nummer 5 wird wie folgt gefasst: „5. die Polizeidirektionen als Bezirkspolizeidirektionen,“",
+      "resolvedApplication": "Die Bezeichnungsänderung wird auf die durch Nr. 50 auf Nummer 6 verschobenen Polizeidirektionen angewandt; Nummer 5 bleibt Kasernierte Grenzpolizei.",
+      "rationale": "Ausdrückliche redaktionelle Entscheidung des Benutzers vom 13. November 2026; der bezeichnete Gegenstand Polizeidirektionen ist eindeutig.",
+      "evidence": [
+        "Gesetze/OGVBl. 2026 Nr. 46.html",
+        "Gesetze/OGVBl. 2026 Nr. 50.html"
+      ]
+    }
   ]
 }

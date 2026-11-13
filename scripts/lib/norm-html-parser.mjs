@@ -768,6 +768,14 @@ function isOuterArticleToken(token) {
   return token?.kind === 'structure' && token.marker.type === 'article' && !token.opensQuote;
 }
 
+function introducedArticleTitle(token) {
+  if (!isOuterArticleToken(token)) return null;
+  const title = token.marker.title ?? '';
+  if (EMBEDDED_NORM_TITLE_PATTERN.test(title)) return title;
+  if (!/^Einführung\s+(?:eines|einer)\s+.*?(?:gesetzes|verordnung|satzung)\b/iu.test(title)) return null;
+  return token.rawText.split('\n').slice(2).map((line) => line.trim()).find((line) => EMBEDDED_NORM_TITLE_PATTERN.test(line)) ?? null;
+}
+
 function groupIntroducedQuotes(tokens) {
   const grouped = [];
   for (let index = 0; index < tokens.length; index += 1) {
@@ -775,7 +783,7 @@ function groupIntroducedQuotes(tokens) {
     grouped.push(token);
     if (
       isOuterArticleToken(token) &&
-      EMBEDDED_NORM_TITLE_PATTERN.test(token.marker.title ?? '') &&
+      introducedArticleTitle(token) &&
       tokens[index + 1]?.kind === 'structure' &&
       tokens[index + 1].marker.type !== 'article'
     ) {
@@ -785,7 +793,10 @@ function groupIntroducedQuotes(tokens) {
       index = end - 1;
       continue;
     }
-    if (token.kind !== 'paragraph' || !INTRODUCTION_PATTERN.test(token.text)) continue;
+    const followsIntroduction = token.kind === 'paragraph' && EMBEDDED_NORM_TITLE_PATTERN.test(token.text) &&
+      isOuterArticleToken(tokens[index - 1]) && /^Einführung\s/iu.test(tokens[index - 1].marker.title ?? '') &&
+      !/^Einführung\s+(?:eines|einer)\s+(?:besonderen\s+)?(?:[\p{L}-]*gesetzes|[\p{L}-]*verordnung|[\p{L}-]*satzung)/iu.test(tokens[index - 1].marker.title ?? '');
+    if (token.kind !== 'paragraph' || (!INTRODUCTION_PATTERN.test(token.text) && !followsIntroduction)) continue;
     let end = index + 1;
     while (end < tokens.length && !isOuterArticleToken(tokens[end])) end += 1;
     if (end > index + 1) {
@@ -1323,12 +1334,12 @@ function extractIntroducedNorms(tokens, publication, fileName, options = {}) {
     // Ein Mantelartikel kann den vollständigen Stammnormtitel selbst tragen.
     // Änderungsüberschriften sind ausgeschlossen; erforderlich bleibt eine eigene Gliederung.
     const directArticleTitle = isOuterArticleToken(token) &&
-      EMBEDDED_NORM_TITLE_PATTERN.test(token.marker.title ?? '') && firstStructure === 0
-      ? token.marker.title : null;
+      introducedArticleTitle(token) && firstStructure === 0
+      ? introducedArticleTitle(token) : null;
     const rawIdentity = (directArticleTitle ?? titleText).replace(/^[„“”'`,.]+/u, '').trim();
     const introduction = token.kind === 'paragraph' ? token.text.match(INTRODUCTION_PATTERN) : null;
     const articleIntroduction = token.kind === 'structure' && token.marker.type === 'article' &&
-      /^Einführung\s+(?:eines|einer)\s+(?:besonderen\s+)?(?:[\p{L}-]*gesetzes|[\p{L}-]*verordnung|[\p{L}-]*satzung)/iu.test(token.marker.title ?? '') &&
+      /^Einführung\s+(?:eines|einer)\s+.*?(?:gesetzes|verordnung|satzung)\b/iu.test(token.marker.title ?? '') &&
       /^(?:(?:Besonderes|Gemeinsames)\s+)?(?:Gesetz|Verordnung|Satzung)\b/iu.test(rawIdentity) &&
       !segment.some((entry) => entry.kind === 'paragraph' && INTRODUCTION_PATTERN.test(entry.text));
     if (!introduction && !articleIntroduction && !directArticleTitle) continue;

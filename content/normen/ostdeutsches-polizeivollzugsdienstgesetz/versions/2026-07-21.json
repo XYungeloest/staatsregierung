@@ -6137,7 +6137,7 @@
             {
               "type": "item",
               "label": "4.",
-              "text": "das Präsidium der Bereitschaftspolizei und",
+              "text": "das Präsidium der Bereitschaftspolizei,",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []
@@ -6145,6 +6145,14 @@
             {
               "type": "item",
               "label": "5.",
+              "text": "die Kasernierte Grenzpolizei und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
               "text": "die Polizeidirektionen.",
               "level": 0,
               "numberingStyle": "decimal",
@@ -6302,6 +6310,17 @@
             {
               "type": "paragraphText",
               "text": "Die Gliederung der Polizei in Polizeidienststellen und die Verteilung der Aufgaben auf die Polizeidienststellen wird durch das Staatsministerium des Innern durch Rechtsverordnung bestimmt."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 100a",
+          "title": "Kasernierte Grenzpolizei",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Aufbau, Organisation und Aufgaben der Kasernierten Grenzpolizei richten sich nach dem Kasernierte-Grenzpolizei-Gesetz."
             }
           ]
         },

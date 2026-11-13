@@ -1,0 +1,1293 @@
+{
+  "amendmentAct": "volkspolizei-organisationsreform",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 86,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz, geändert durch Artikel 2 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "changeNote": "Änderungen nach Artikel 2 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 21"
+      },
+      "expectedHash": "46ea51a1c78537180b361a1c519d3ba9a55f25e24e37a3a393ca513fd1a10158",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 21",
+        "title": "Aufenthaltsanordnung und Kontaktverbot",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann zum Zweck der Verhütung von Straftaten einer Person für höchstens drei Monate den Aufenthalt in einem Gemeindegebiet oder -gebietsteil untersagen, wenn Tatsachen die Annahme rechtfertigen, dass die Person dort innerhalb absehbarer Zeit eine ihrer Art nach konkretisierte Straftat von erheblicher Bedeutung begehen wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Für die Dauer von höchstens zwei Monaten kann einer Person zum Zweck der Verhütung von Straftaten untersagt werden, sich ohne Erlaubnis der zuständigen Polizeidienststelle von ihrem Wohn- oder Aufenthaltsort oder aus einem bestimmten Bereich zu entfernen (Aufenthaltsgebot) oder sich in bestimmten Bereichen aufzuhalten (Aufenthaltsverbot), wenn",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Tatsachen die Annahme rechtfertigen, dass die betroffene Person innerhalb absehbarer Zeit eine ihrer Art nach konkretisierte Straftat gegen den Bestand oder die Sicherheit des Bundes oder eines Landes, Leben, Gesundheit oder Freiheit einer Person oder Sachen von bedeutendem Wert, deren Erhaltung im öffentlichen Interesse geboten ist, begehen wird, oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "das Verhalten der betroffenen Person die konkrete Wahrscheinlichkeit begründet, dass sie in überschaubarer Zukunft eine terroristische Straftat begehen wird.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Unter den Voraussetzungen des Absatzes 2 Nummer 1 oder Nummer 2 kann zum Zweck der Verhütung von Straftaten einer Person für höchstens zwei Monate auch der Kontakt mit bestimmten Personen oder Personen einer bestimmten Gruppe untersagt werden, bei denen Tatsachen die Annahme rechtfertigen, dass diese von der Vorbereitung der drohenden Straftat Kenntnis haben, diese aus der Tat Vorteile ziehen werden oder die Person sich ihrer zur Begehung bedienen wird (Kontaktverbot).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Maßnahmen nach den Absätzen 2 und 3 bedürfen der Anordnung durch das Amtsgericht. Die Anordnung ist sofort vollziehbar. Bei Gefahr im Verzug kann die Anordnung durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten getroffen werden. In diesem Fall ist die gerichtliche Entscheidung unverzüglich nachzuholen. Soweit die Anordnung nicht binnen drei Tagen durch das Gericht bestätigt wird, tritt sie außer Kraft. Die Maßnahme ist zu beenden, wenn die Bestätigung durch den Richter abgelehnt wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Im Antrag nach Absatz 4 Satz 1 sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Person, gegen die sich die Maßnahme richtet, mit Name und Anschrift,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Art, Umfang und Dauer der Maßnahme, einschließlich",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": [
+              {
+                "type": "item",
+                "label": "a)",
+                "text": "im Fall des Aufenthaltsgebots nach Absatz 2 eine Bezeichnung der Bereiche, von denen sich die Person ohne Erlaubnis der zuständigen Polizeidienststelle nicht entfernen, oder im Fall des Aufenthaltsverbots nach Absatz 2 eine Bezeichnung der Bereiche, an denen sich die Person ohne Erlaubnis der zuständigen Polizeidienststelle nicht aufhalten darf, und",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "b)",
+                "text": "im Fall des Kontaktverbots nach Absatz 3 eine Bezeichnung der Personen oder der Gruppe, mit denen oder mit der der betroffenen Person der Kontakt untersagt ist, soweit möglich mit Name und Anschrift,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "der Sachverhalt und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "die Begründung.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Die Anordnung ergeht schriftlich. In ihr sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Person, gegen die sich die Maßnahme richtet, mit Name und Anschrift,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Art, Umfang und Dauer der Maßnahme, einschließlich",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": [
+              {
+                "type": "item",
+                "label": "a)",
+                "text": "im Fall des Aufenthaltsgebots nach Absatz 2 eine Bezeichnung der Bereiche, von denen sich die Person ohne Erlaubnis der zuständigen Polizeidienststelle nicht entfernen, oder im Fall des Aufenthaltsverbots nach Absatz 2 eine Bezeichnung der Bereiche, an denen sich die Person ohne Erlaubnis der zuständigen Polizeidienststelle nicht aufhalten darf, und",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "b)",
+                "text": "im Fall des Kontaktverbots nach Absatz 3 eine Bezeichnung der Personen oder der Gruppe, mit denen oder mit der der betroffenen Person der Kontakt untersagt ist, soweit möglich mit Name und Anschrift sowie",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die wesentlichen Gründe.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(7)",
+            "text": "Maßnahmen nach den Absätzen 1 bis 3 sind auf den zur Verhütung der Straftaten erforderlichen Umfang zu beschränken. Sie dürfen nicht den freien Zu- oder Abgang zur oder von der Wohnung der betroffenen Person oder die Wahrnehmung anderer berechtigter Interessen beschränken. Die Vorschriften des Versammlungsrechts bleiben unberührt. Die Maßnahmen sind zu befristen. Eine Verlängerung um jeweils nicht mehr als drei Monate ist möglich, soweit die Voraussetzungen fortbestehen. Liegen die Voraussetzungen nicht mehr vor, ist die Maßnahme unverzüglich zu beenden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(8)",
+            "text": "Die Erforderlichkeit, die praktische Anwendung und die Auswirkungen der Maßnahmen nach den Absätzen 2 und 3 werden nach einem Erfahrungszeitraum von drei Jahren, spätestens jedoch zum 31. Dezember 2024, durch die Staatsregierung geprüft. Die Staatsregierung berichtet dem Landtag über das Ergebnis der Evaluierung.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 27"
+      },
+      "expectedHash": "d5eae4f34c7be4946dfb180bf96dd856c4cb5a30365eb5462a0412a73b76fb41",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 27",
+        "title": "Durchsuchung und Untersuchung von Personen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann eine Person durchsuchen, wenn",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "sie nach diesem Gesetz oder anderen Rechtsvorschriften festgehalten oder in Gewahrsam genommen werden kann,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Tatsachen die Annahme rechtfertigen, dass sie Tiere oder Sachen mit sich führt, die nach § 31 sichergestellt werden dürfen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "sie sich erkennbar in einem die freie Willensbildung ausschließendem Zustand oder sonst in hilfloser Lage befindet und dies zur Feststellung und zur Abwehr einer sie betreffenden Gefahr erforderlich ist,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "sie sich an einem Ort im Sinne des § 15 Absatz 1 Nummer 2 aufhält,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "sie sich in einem Objekt im Sinne des § 15 Absatz 1 Nummer 3 oder in dessen unmittelbarer Nähe aufhält und Tatsachen die Annahme rechtfertigen, dass in oder an Objekten dieser Art Straftaten begangen werden sollen, oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "sie zur gezielten Kontrolle ausgeschrieben ist und die Maßnahme zur Verhütung der Straftat erforderlich ist.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Polizei kann eine Person, deren Identität nach diesem Gesetz oder anderen Rechtsvorschriften festgestellt werden soll, nach Waffen, Sprengmitteln und anderen gefährlichen Werkzeugen durchsuchen, wenn dies nach den Umständen zur Sicherung eines Polizeibediensteten oder zum Schutz eines Dritten gegen eine Gefahr für Leben oder Gesundheit erforderlich erscheint.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Personen dürfen nur von Personen gleichen Geschlechts oder Ärzten durchsucht werden; dies gilt nicht, wenn die sofortige Durchsuchung nach den Umständen zum Schutz gegen eine Gefahr für Leib oder Leben erforderlich erscheint.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Polizei kann eine Person körperlich untersuchen lassen, wenn Tatsachen die Annahme rechtfertigen, dass von ihr eine Gefahr für Leib oder Leben einer anderen Person ausgegangen ist, weil es zu einer Übertragung besonders gefährlicher Krankheitserreger gekommen sein kann und die Kenntnis des Untersuchungsergebnisses zur Abwehr der Gefahr erforderlich ist. Zu diesem Zweck sind Entnahmen von Blutproben oder andere, von der Intensität her vergleichbare körperliche Eingriffe, die von einem Arzt nach den Regeln der ärztlichen Kunst zu Untersuchungszwecken vorgenommen werden, ohne Einwilligung des Betroffenen zulässig, wenn kein Nachteil für die Gesundheit des Betroffenen zu befürchten ist. Besonders gefährliche Krankheitserreger sind insbesondere der Hepatitis B-, C- oder D-Virus, der Humane Immundefizienz-Virus (HIV), der Rabiesvirus (Tollwut), der Marburg-Virus, der Ebola-Virus oder der SARS-Erreger.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die körperliche Untersuchung bedarf der Anordnung durch das Amtsgericht. Die Anordnung ist sofort vollziehbar. Bei Gefahr im Verzug kann die Anordnung durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten getroffen werden. In diesem Fall ist die gerichtliche Entscheidung unverzüglich nachzuholen. Die bei der Untersuchung gewonnenen Daten dürfen zu einem anderen Zweck nur zur Abwehr von schwerwiegenden Gesundheitsgefährdungen verwendet werden. Sind die durch die Maßnahme erlangten personenbezogenen Daten nicht mehr erforderlich, sind sie unverzüglich zu löschen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 58"
+      },
+      "expectedHash": "33a421c566093a0ea5c361dc1f6cfe6ef41d39410659ad90fd505ba87d5992f9",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 58",
+        "title": "Anlassbezogene automatisierte Kennzeichenerkennung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann durch den Einsatz technischer Mittel zur automatisierten Kennzeichenerkennung Kraftfahrzeugkennzeichen sowie Informationen über Ort, Zeit und Fahrtrichtung erfassen und die Kraftfahrzeugkennzeichen sofort und unmittelbar mit polizeilichen Datenbeständen aus folgenden Anlässen automatisiert abgleichen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "zur Abwehr einer erheblichen Gefahr, soweit dokumentierte Erkenntnisse eine solche Gefahr begründen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "zur Stichprobenkontrolle mit dem Ziel der Sicherstellung gestohlener oder sonst abhanden gekommener Kraftfahrzeuge oder Kraftfahrzeugkennzeichen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "zur Stichprobenkontrolle mit dem Ziel der Verhinderung der Weiterfahrt von Kraftfahrzeugen ohne ausreichenden Pflichtversicherungsschutz,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "zur vorbeugenden Bekämpfung der grenzüberschreitenden Kriminalität in den Räumen und unter den Voraussetzungen des § 15 Absatz 1 Nummer 4 oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "zur Verhinderung von Straftaten an Kriminalitätsschwerpunkten im Sinne des § 57 Absatz 3 Satz 1 Nummer 2.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Einsatz technischer Mittel im Sinne des Absatzes 1 ist zeitlich und örtlich zu begrenzen. Durch technisch-organisatorische Maßnahmen ist sicherzustellen, dass der Einsatz solcher Mittel weder einzeln noch in der Kombination flächendeckend oder im Dauerbetrieb erfolgt. Die automatisierte Kennzeichenerkennung erfolgt offen, auf die Datenerhebung ist in geeigneter Weise hinzuweisen. In den Fällen des Absatzes 1 Nummer 1 darf ein Abgleich nur mit den zu diesen Zwecken gespeicherten personenbezogenen Daten erfolgen. In den Fällen des Absatzes 1 Nummer 2 bis 5 darf der Abgleich auch mit zu Zwecken der Sachfahndung im Informationssystem der Polizei und im Nationalen Schengener Informationssystem gespeicherten personenbezogenen Daten erfolgen, wobei die einzubeziehenden Fahndungsbestände auf solche beschränkt werden, die für den jeweiligen Zweck der Kennzeichenkontrolle Bedeutung haben können. In den Fällen des Absatzes 1 Nummer 2 und 3 muss der Datenbestand auf Kennzeichendaten von Kraftfahrzeugen beschränkt werden, die zu den Zwecken nach Absatz 1 Nummer 2 und 3 gespeichert wurden. Liegt für das vollständig erfasste Kraftfahrzeugkennzeichen keine Datenübereinstimmung vor, sind die erfassten Daten sofort, technisch spurenlos und automatisiert zu löschen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Bei Datenübereinstimmung können das betreffende Kraftfahrzeug angehalten und die Identität der Insassen festgestellt werden. § 15 Absatz 2 und 3 gilt entsprechend. Maßnahmen nach § 60 sind unzulässig. Die Zusammenführung von Daten zu Bewegungsbildern ist unzulässig. Sofern sie nicht bereits nach Absatz 2 gelöscht sind, sind Daten unverzüglich zu löschen, wenn sie nicht mehr für die Zweckerreichung im Sinne des Absatzes 1 oder zur Verfolgung von Straftaten von erheblicher Bedeutung erforderlich sind.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Maßnahmen nach Absatz 1 dürfen nur durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten angeordnet werden. Die Erkenntnisse, die der Maßnahme zugrunde liegen und die Fahndungsbestände, die zum Abgleich einbezogen werden, sind in der Anordnung zu dokumentieren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die Erforderlichkeit, die praktische Anwendung und die Auswirkungen des stationären Technikeinsatzes werden nach einem Erfahrungszeitraum von drei Jahren, spätestens jedoch zum 31. Dezember 2024, durch die Staatsregierung geprüft. Die Staatsregierung berichtet dem Landtag über das Ergebnis der Evaluierung.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 59"
+      },
+      "expectedHash": "fc9a6f08eb48fc7fabd79b8868d1eb95d7eea97726af23d58c3464617c1ec08f",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 59",
+        "title": "Einsatz technischer Mittel zur Verhütung schwerer grenzüberschreitender Kriminalität",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann zur Verhütung grenzüberschreitender Kriminalität durch die Begehung von Straftaten im Sinne des § 100a Absatz 2 Nummer 1 Buchstabe j, l und n, Nummer 2 Buchstabe b, Nummer 7 Buchstabe a und b der Strafprozessordnung sowie durch die Begehung von Straftaten nach den §§ 232, 232a und 249 des Strafgesetzbuches personenbezogene Daten durch den offenen Einsatz technischer Mittel zur Anfertigung von Bildaufzeichnungen des Verkehrs auf öffentlichen Straßen erheben sowie Informationen über Ort, Zeit und Verkehrsrichtung der Nutzung erfassen, um diese automatisiert mit anderen personenbezogenen Daten abzugleichen. Dies gilt an Straßenabschnitten im Grenzgebiet zur Republik Polen und zur Tschechischen Republik bis zu einer Tiefe von 30 Kilometern, soweit Tatsachen die Annahme rechtfertigen, dass der betreffende Straßenabschnitt von herausgehobener Bedeutung für die grenzüberschreitende Kriminalität ist, weil er regelmäßig als Begehungsort der Straftaten im Sinne des Satzes 1 oder für die Verbringung von Sach- oder Vermögenswerten aus diesen Straftaten genutzt wird. Die herausgehobene Bedeutung für die grenzüberschreitende Kriminalität muss sich aus polizeilich dokumentierten Tatsachen erschließen. Durch technisch-organisatorische Maßnahmen ist sicherzustellen, dass der Einsatz solcher Mittel weder einzeln noch in der Kombination flächendeckend oder im Dauerbetrieb erfolgt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Personenbezogene Daten nach Absatz 1 dürfen nur dahingehend weiterverarbeitet werden, dass sie mit personenbezogenen Daten konkret bestimmter Personen automatisiert abgeglichen werden, die zur Verhütung von Straftaten im Sinne des Absatzes 1 Satz 1 zur polizeilichen Beobachtung ausgeschrieben sind. Die erhobenen Daten sind spätestens nach 96 Stunden automatisiert zu löschen, soweit sich nicht bei dem automatisierten Abgleich eine Übereinstimmung ergab und die Daten zur Verhütung oder Verfolgung von Straftaten im Sinne des Absatzes 1 Satz 1 erforderlich sind.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Maßnahmen nach Absatz 1 einschließlich der Bestimmung jener Personen, deren zur Identifizierung unbedingt erforderliche Daten zum automatisierten Abgleich heranzuziehen sind, dürfen nur durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten angeordnet werden. Spätestens nach Ablauf von jeweils sechs Monaten hat die anordnende Polizeidienststelle zu prüfen, ob die Voraussetzungen für die Anordnung noch bestehen. Das Ergebnis der Prüfung ist zu dokumentieren. Die Entscheidungsgrundlagen einschließlich der Lageerkenntnisse nach Absatz 1 Satz 3, die zu dem jeweiligen Einsatz geführt haben, sind für jede Maßnahme zu dokumentieren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Erforderlichkeit, die praktische Anwendung und die Auswirkungen der Regelungen der Absätze 1 bis 3 sind durch die Staatsregierung zu prüfen. Die Staatsregierung berichtet dem Landtag drei Jahre nach Inkrafttreten dieses Gesetzes über das Ergebnis der Evaluierung.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 60"
+      },
+      "expectedHash": "857b12ae856149a3106a090e0c1d41d591f40869b5940200021d167c645d9f8f",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 60",
+        "title": "Ausschreibung zur polizeilichen Beobachtung und zur gezielten Kontrolle",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann Personalien einer Person, das amtliche Kennzeichen eines von ihr benutzten oder eingesetzten Kraftfahrzeugs oder die Identifizierungsnummer oder äußere Kennzeichnung eines von ihr eingesetzten Wasserfahrzeugs, Luftfahrzeugs oder Containers in Fahndungssystemen zur polizeilichen Beobachtung oder gezielten Kontrolle ausschreiben, damit die Polizei, die Polizei des Bundes oder der anderen Länder und, soweit sie Aufgaben der Grenzkontrolle wahrnehmen, die Zollbehörden das Antreffen der Person oder des Fahrzeugs melden können, wenn dies bei Gelegenheit einer Überprüfung aus anderem Anlass festgestellt wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Eine Ausschreibung zur polizeilichen Beobachtung darf erfolgen bei:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "einer Person, bei der Tatsachen die Annahme rechtfertigen, dass sie in absehbarer Zeit eine zumindest der Art nach konkretisierte Straftat von erheblicher Bedeutung begehen wird,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "einer Person, bei der das Verhalten die konkrete Wahrscheinlichkeit begründet, dass sie in überschaubarer Zukunft eine terroristische Straftat begehen wird, oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "einer Kontakt- und Begleitperson der Person nach den Nummern 1 und 2",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "und soweit die Maßnahme zur Verhütung der Straftat erforderlich ist."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Ausschreibung zur gezielten Kontrolle darf erfolgen bei:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "einer Person, bei der Tatsachen die Annahme rechtfertigen, dass sie in absehbarer Zeit eine zumindest der Art nach konkretisierte Straftat nach § 100a Absatz 2 der Strafprozessordnung begehen wird,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "einer Person, bei der das Verhalten die konkrete Wahrscheinlichkeit begründet, dass sie in überschaubarer Zukunft eine terroristische Straftat begehen wird, oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "einer Kontakt- und Begleitperson einer Person nach den Nummern 1 und 2",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "und soweit die Maßnahme zur Verhütung der Straftat erforderlich ist."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Beim Antreffen einer zur polizeilichen Beobachtung ausgeschriebenen Person oder der ausgeschriebenen Sache können erlangte Erkenntnisse über Ort und Zeit des Antreffens der Person, Anlass der Überprüfung, Reiseweg und Reiseziel, gemeinsam mit der ausgeschriebenen Person angetroffene Personen oder Insassen des Fahrzeugs und mitgeführte Sachen an die ausschreibende Polizeidienststelle übermittelt werden. Beim Antreffen einer zur gezielten Kontrolle ausgeschriebenen Person können zusätzlich zu den Erkenntnissen aus Satz 1 solche aus Maßnahmen nach den §§ 27 und 28 an die ausschreibende Polizeidienststelle übermittelt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die Ausschreibung darf für höchstens ein Jahr angeordnet werden. Eine Verlängerung um nicht mehr als jeweils ein Jahr ist zulässig, soweit die Voraussetzungen weiterhin vorliegen. Spätestens nach Ablauf von jeweils sechs Monaten hat die ausschreibende Polizeidienststelle zu prüfen, ob die Voraussetzungen für die Ausschreibung noch vorliegen. Das Ergebnis der Prüfung ist zu dokumentieren. Liegen die Voraussetzungen für die Ausschreibung nicht mehr vor, ist der Zweck der Ausschreibung erreicht oder kann er nicht erreicht werden, ist die Ausschreibung unverzüglich zu löschen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Maßnahmen nach Absatz 1 dürfen nur durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten angeordnet werden. In der schriftlichen Anordnung sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Angaben zur Person, gegen die sich die Maßnahme richtet, soweit möglich mit Name und Anschrift,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Art, Umfang und Dauer der Maßnahme,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "der Sachverhalt und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "die Begründung.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 61"
+      },
+      "expectedHash": "568def7fc6b35d85295506ac0c4533e8d524133f3e77aff6f79b116c6e50e3c2",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 61",
+        "title": "Elektronische Aufenthaltsüberwachung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann eine Person dazu verpflichten, ein technisches Mittel, mit dem der Aufenthaltsort dieser Person elektronisch überwacht werden kann, ständig in betriebsbereitem Zustand am Körper bei sich zu führen und dessen Funktionsfähigkeit nicht zu beeinträchtigen, wenn das Verhalten dieser Person die konkrete Wahrscheinlichkeit begründet, dass sie in überschaubarer Zukunft eine terroristische Straftat begehen wird, um diese Person durch die Überwachung und die Datenverwendung von der Begehung dieser Straftat abzuhalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Verpflichtung kann auch erfolgen, wenn gegen die Person eine Maßnahme nach § 21 Absatz 2 oder Absatz 3 angeordnet wird und Tatsachen die Annahme begründen, dass die elektronische Aufenthaltsüberwachung erforderlich ist, um diese Person durch die Überwachung und die Datenverwendung von der Begehung der anlassgebenden Straftaten abzuhalten und Verstöße gegen Aufenthaltsanordnungen nach § 21 Absatz 2 oder Kontaktverbote zu verhüten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Polizei kann mit Hilfe des von der Person mitgeführten technischen Mittels automatisiert Daten über deren Aufenthaltsort sowie über etwaige Beeinträchtigungen der Datenerhebung erheben und speichern. Soweit dies zur Erfüllung des Überwachungszwecks nach Absatz 1 erforderlich ist, dürfen die erhobenen Daten zu einem Bewegungsbild verbunden werden. Es ist, soweit dies technisch möglich ist, sicherzustellen, dass innerhalb der Wohnung der betroffenen Person keine über den Umstand ihrer Anwesenheit hinausgehenden Aufenthaltsdaten erhoben werden; dennoch erhobene Daten dürfen nicht verwendet werden und sind unverzüglich zu löschen. Die Tatsache ihrer Löschung ist zu dokumentieren. Die Dokumentation darf ausschließlich zum Zweck der Datenschutzkontrolle verwendet werden. Sie ist nach Abschluss der Datenschutzkontrolle nach § 94 zu löschen. Daten nach den Sätzen 1 und 2 dürfen nur verarbeitet werden, wenn dies zu folgenden Zwecken erforderlich ist:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "zur Verhütung oder zur Verfolgung von terroristischen Straftaten sowie von Straftaten gegen Rechtsgüter im Sinne des § 21 Absatz 2 Nummer 1,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "zur Feststellung von Verstößen gegen Aufenthaltsanordnungen nach § 21 Absatz 2 und Kontaktverbote nach § 21 Absatz 3,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "zur Verfolgung einer Straftat nach § 106,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "zur Abwehr einer gegenwärtigen Gefahr für Leib, Leben oder Freiheit einer Person oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "zur Aufrechterhaltung der Funktionsfähigkeit des technischen Mittels.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Zur Einhaltung der Zweckbindung nach Satz 7 hat die Verarbeitung der Standortdaten automatisiert zu erfolgen. Die Daten sind gegen unbefugte Kenntnisnahme und Verarbeitung besonders zu sichern. Die in Satz 1 genannten Daten sind spätestens zwei Monate nach Beendigung der Maßnahme zu löschen, soweit sie nicht zu Zwecken nach Satz 7 weiterverarbeitet werden. Jeder Abruf der Daten ist gemäß § 32 des Sächsischen Datenschutz-Umsetzungsgesetzes zu protokollieren. Die Protokolldaten sind nach Abschluss der Datenschutzkontrolle nach § 94 zu löschen."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Bei Durchführung der Maßnahme hat die zuständige Polizeidienststelle",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Daten des Aufenthaltsortes der betroffenen Person an die zuständigen Polizeidienststellen oder die Strafverfolgungsbehörden weiterzugeben, wenn dies zur Verhütung oder zur Verfolgung einer Straftat im Sinne des Absatzes 3 Satz 7 Nummer 1 erforderlich ist,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Daten des Aufenthaltsortes der betroffenen Person an andere Polizeidienststellen weiterzugeben, sofern dies zur Durchsetzung von Maßnahmen nach § 21 Absatz 2 und 3 erforderlich ist,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Daten des Aufenthaltsortes der betroffenen Person an die zuständige Strafverfolgungsbehörde zur Verfolgung einer Straftat nach § 106 weiterzugeben,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Daten des Aufenthaltsortes der betroffenen Person an andere Polizeidienststellen weiterzugeben, sofern dies zur Abwehr einer gegenwärtigen Gefahr im Sinne des Absatzes 3 Satz 7 Nummer 4 erforderlich ist,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "eingehende Systemmeldungen über Verstöße nach Absatz 3 Satz 7 Nummer 2 entgegenzunehmen und zu bewerten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "die Ursache einer Meldung zu ermitteln; hierzu kann die zuständige Polizeidienststelle Kontakt mit der betroffenen Person aufnehmen, sie befragen, sie auf den Verstoß hinweisen und ihr mitteilen, wie sie dessen Beendigung bewirken kann,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "eine Überprüfung der bei der Person vorhandenen technischen Geräte auf ihre Funktionsfähigkeit oder Manipulation und die zur Behebung einer Funktionsbeeinträchtigung erforderlichen Maßnahmen, insbesondere den Austausch der technischen Mittel oder von Teilen davon, vorzunehmen oder einzuleiten und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "Anfragen der betroffenen Person zum Umgang mit den technischen Mitteln zu beantworten.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Maßnahmen nach den Absätzen 1 und 2 bedürfen einer richterlichen Anordnung auf Antrag der Polizei. Bei Gefahr im Verzug kann die Anordnung durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten getroffen werden. In diesem Fall ist eine gerichtliche Entscheidung unverzüglich nachzuholen. Soweit die Anordnung nicht innerhalb von drei Tagen durch das Gericht bestätigt wird, tritt sie außer Kraft. Die Maßnahme ist zu beenden, wenn sie durch den Richter abgelehnt wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "In dem Antrag sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Person, gegen die sich die Maßnahme richtet, mit Name und Anschrift,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Art, Umfang und Dauer der Maßnahme, die Angabe, ob gegenüber der Person, gegen die sich die Maßnahme richtet, eine Aufenthaltsanordnung oder ein Kontaktverbot besteht,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "der Sachverhalt und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "die Begründung.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(7)",
+            "text": "Die Anordnung ergeht schriftlich. In ihr sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Person, gegen die sich die Maßnahme richtet, mit Name und Anschrift,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Art, Umfang und Dauer der Maßnahme sowie",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die wesentlichen Gründe.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Die Erstellung eines Bewegungsbildes ist nur zulässig, wenn dies richterlich in der Anordnung besonders gestattet wird."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(8)",
+            "text": "Die Anordnung ist sofort vollziehbar. Sie ist auf höchstens zwei Monate zu befristen; eine Verlängerung um jeweils nicht mehr als zwei Monate ist zulässig, sofern die Voraussetzungen für die Anordnung noch vorliegen. Die Maßnahme ist unverzüglich zu beenden, wenn die Voraussetzungen nicht mehr vorliegen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(9)",
+            "text": "Die Erforderlichkeit, die praktische Anwendung und die Auswirkungen dieser Vorschrift werden nach einem Erfahrungszeitraum von drei Jahren, spätestens jedoch zum 31. Dezember 2024, durch die Staatsregierung geprüft. Die Staatsregierung berichtet dem Landtag über das Ergebnis der Evaluierung.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 63"
+      },
+      "expectedHash": "7096f38602772fc6012f23648924606f3d43ff07906639db704e464cd0da0426",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 63",
+        "title": "Längerfristige Observation und Einsatz besonderer technischer Mittel",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann personenbezogene Daten erheben durch:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "eine voraussichtlich innerhalb eines Monats länger als 24 Stunden dauernde oder über den Zeitraum eines Monats hinaus stattfindende Observation (längerfristige Observation),",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "den verdeckten Einsatz technischer Mittel zur Anfertigung von Bildaufnahmen oder -aufzeichnungen außerhalb von Wohnungen und zum Abhören oder Aufzeichnen des außerhalb von Wohnungen nichtöffentlich gesprochenen Wortes und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "sonstige für Observationen bestimmte besondere technische Mittel, um Rückschlüsse auf den Aufenthaltsort oder die Bewegung einer Person nach Absatz 2 zu erlangen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Personenbezogene Daten dürfen durch Maßnahmen nach Absatz 1 nur erhoben werden über:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die für eine Gefahr Verantwortlichen nach § 6 oder § 7 oder unter den Voraussetzungen des § 9 über Personen, die für die Gefahr nicht verantwortlich sind, wenn dies zur Abwehr einer Gefahr für den Bestand oder die Sicherheit des Bundes oder eines Landes, für Leben, Gesundheit oder Freiheit einer Person oder für Sachen von bedeutendem Wert, deren Erhaltung im öffentlichen Interesse geboten ist, erforderlich ist,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Personen, bei denen Tatsachen die Annahme rechtfertigen, dass sie in absehbarer Zeit eine zumindest ihrer Art nach konkretisierte Straftat von erheblicher Bedeutung begehen werden,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Personen, bei denen das Verhalten die konkrete Wahrscheinlichkeit begründet, dass sie in überschaubarer Zukunft eine terroristische Straftat begehen werden, oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Kontakt- und Begleitpersonen der Personen nach den Nummern 2 und 3.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Die Maßnahmen dürfen auch durchgeführt werden, wenn Dritte unvermeidbar betroffen werden."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Maßnahmen nach Absatz 1 Nummer 1 und 2 sowie Maßnahmen nach Absatz 1 Nummer 3, bei denen die dort genannten, zu Observationszwecken bestimmten technischen Mittel durchgehend länger als 24 Stunden oder an mehr als zwei Tagen zum Einsatz kommen, bedürfen einer richterlichen Anordnung auf Antrag der Polizei. Im Antrag sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Angaben zur Person, gegen die sich die Maßnahme richtet, soweit möglich mit Name und Anschrift,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Art, Umfang und Dauer der Maßnahme,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "der Sachverhalt und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "die Begründung.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Maßnahmen nach Absatz 1 Nummer 3, die keiner richterlichen Anordnung nach Absatz 3 bedürfen, sind durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten anzuordnen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Werden technische Mittel nach Absatz 1 Nummer 2 ausschließlich zum Schutz der bei einem Einsatz tätigen Personen eingesetzt, kann die Maßnahme durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder durch einen von diesen hierzu beauftragten Bediensteten angeordnet werden. Eine Verwertung der hierbei erlangten Erkenntnisse zu anderen Zwecken ist unter den Voraussetzungen des § 79 Absatz 2 zulässig, wenn zuvor die Rechtmäßigkeit der Maßnahme richterlich festgestellt wurde; bei Gefahr im Verzug ist die richterliche Entscheidung unverzüglich nachzuholen. Andernfalls sind die Daten nach Beendigung des Einsatzes unverzüglich zu löschen. Die Löschungen sind zu dokumentieren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Soweit der Einsatz technischer Mittel nach Absatz 1 Nummer 2 richterlich angeordnet wurde, können Gegenstände, insbesondere Fahrzeuge, zur Durchführung der Maßnahme vorübergehend in polizeiliche Obhut genommen, verändert oder an einen anderen Ort verbracht werden. § 32 Absatz 1 gilt entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 65"
+      },
+      "expectedHash": "d7ace4c8207b65bcfca8db03b192af81af1d6b56f12548d162f4fac5afd84f1b",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 65",
+        "title": "Einsatz technischer Mittel zur Datenerhebung in oder aus Wohnungen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann zur Abwehr einer dringenden Gefahr für den Bestand oder die Sicherheit des Bundes oder eines Landes, für Leib, Leben oder Freiheit einer Person oder für solche Güter der Allgemeinheit, deren Bedrohung die Existenz der Menschen berührt, und wenn die Abwehr der Gefahr auf andere Weise aussichtslos oder wesentlich erschwert wäre, durch den verdeckten Einsatz technischer Mittel in oder aus Wohnungen das nichtöffentlich gesprochene Wort einer Person abhören und aufzeichnen sowie Lichtbilder und Bildaufzeichnungen über eine Person herstellen, die nach § 6 oder § 7 für die Gefahr verantwortlich ist. Die Maßnahme darf auch durchgeführt werden, wenn Dritte unvermeidbar betroffen werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Maßnahme darf in der Wohnung der Personen nach Absatz 1 Satz 1 durchgeführt werden. In Wohnungen anderer Personen ist die Maßnahme nur zulässig, wenn auf Grund von Tatsachen anzunehmen ist, dass",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "sich eine Person nach Absatz 1 Satz 1 dort aufhält,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "sie dort für die Erforschung des Sachverhaltes relevante Gespräche führt und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Maßnahme in der Wohnung der Person nach Nummer 1 allein nicht zur Gefahrenabwehr geeignet ist.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Sofern erforderlich, dürfen Wohnungen betreten werden, um die technischen Voraussetzungen für die Durchführung der Maßnahme zu schaffen."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Werden technische Mittel nach Absatz 1 ausschließlich zum Schutz der bei einem polizeilichen Einsatz in Wohnungen tätigen Personen eingesetzt, kann die Maßnahme durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion angeordnet werden. Eine Verwertung der hierbei erlangten Erkenntnisse zu anderen Zwecken ist unter den Voraussetzungen des § 79 Absatz 2 und 3 Satz 1 und nur dann zulässig, wenn zuvor die Rechtmäßigkeit der Maßnahme richterlich festgestellt wurde; bei Gefahr im Verzug ist die richterliche Entscheidung unverzüglich nachzuholen. Andernfalls sind die Daten nach Beendigung des Einsatzes unverzüglich zu löschen. Die Löschungen sind zu dokumentieren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Maßnahmen nach Absatz 1 bedürfen einer richterlichen Anordnung auf Antrag der Polizei. Im Antrag sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Angaben zur Person, gegen die sich die Maßnahme richtet, soweit möglich mit Name und Anschrift,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die zu überwachende Wohnung oder die zu überwachenden Wohnräume,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Art, Umfang und Dauer der Maßnahme,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "der Sachverhalt und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "die Begründung.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Die Anordnung ist auf höchstens einen Monat zu befristen. Eine Verlängerung um jeweils nicht mehr als einen Monat ist zulässig, soweit die in den Absätzen 1 und 2 bezeichneten Voraussetzungen unter Berücksichtigung der gewonnenen Erkenntnisse fortbestehen. Liegen die Voraussetzungen der Anordnung nicht mehr vor, sind die auf Grund der Anordnung ergriffenen Maßnahmen unverzüglich zu beenden."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71"
+      },
+      "expectedHash": "0b648f6cd80c6bfe8429a4241fc1ed8eec2ed178f66609bcf0c89a49600514c2",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71",
+        "title": "Standortermittlung von gefährdeten Personen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann zur Abwehr einer gegenwärtigen Gefahr für Leib oder Leben einer vermissten, hilflosen oder suizidgefährdeten Person oder einer Person, die einen Notruf auslöst (gefährdete Person) technische Mittel zur Standortermittlung eines ihr zuzuordnenden Endgerätes einsetzen, wenn die Ermittlung des Aufenthaltsortes auf andere Weise aussichtslos oder wesentlich erschwert wäre.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Unter den Voraussetzungen des Absatzes 1 kann die Polizei von jedem Diensteanbieter jederzeit Auskunft über die für die Ermittlung des Standortes des Endgerätes erforderlichen Daten sowie dessen netzseitige Teilnehmerkennung und Gerätenummer verlangen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Personenbezogene Daten Dritter dürfen anlässlich einer Maßnahme nach Absatz 1 nur erhoben werden, wenn dies aus technischen Gründen unvermeidbar ist. Über den Datenabgleich zur Ermittlung des Standorts des Endgerätes hinaus dürfen sie nicht verwendet werden. Nach Beendigung der Maßnahme sind diese unverzüglich zu löschen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Maßnahmen nach den Absätzen 1 und 2 ordnet der Präsident des Landeskriminalamtes oder einer Bezirkspolizeidirektion oder ein von diesen hierzu beauftragter Bediensteter an. Die Maßnahme ist schriftlich anzuordnen und zu begründen. In der Anordnung sind insbesondere, soweit möglich, die Identifizierung der gefährdeten Person und die Rufnummer oder eine andere spezifische Kennung des zu ortenden Endgerätes anzugeben.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 73"
+      },
+      "expectedHash": "c6f542dcac273be4ab0f16a11d5a087ec4ae54c9c4c5b6a71cac6b65a5ea0a5c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 73",
+        "title": "Anordnung, gerichtliche Zuständigkeit",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Für gerichtliche Entscheidungen nach diesem Gesetz gilt, soweit nichts anderes bestimmt ist:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Zuständig ist das Amtsgericht, in dessen Bezirk die zuständige Polizeidienststelle ihren Sitz hat. Für das Verfahren gelten die Vorschriften des Buches 1 des Gesetzes über das Verfahren in Familiensachen und in den Angelegenheiten der freiwilligen Gerichtsbarkeit entsprechend.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Anordnungen zu den Befugnissen nach den §§ 62 bis 69 ergehen schriftlich und müssen den zugrunde liegenden Sachverhalt und die wesentlichen Gründe enthalten. Sie haben die von der Maßnahme betroffenen Personen oder Gegenstände sowie Art, Dauer und Umfang der Maßnahme zu bestimmen. Die Maßnahmen sind auf höchstens drei Monate zu befristen; eine Verlängerung durch das zuständige Gericht um jeweils nicht mehr als den Anordnungszeitraum ist zulässig, sofern die Voraussetzungen für die Maßnahme noch vorliegen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Anordnungen nach Absatz 1 Nummer 2 können bei Gefahr im Verzug durch den Präsidenten des Landeskriminalamtes oder einer Bezirkspolizeidirektion getroffen werden; mit Ausnahme der Befugnis nach § 65 Absatz 4 auch durch einen von diesen hierzu beauftragten Bediensteten. Im Fall einer solchen Anordnung ist die richterliche Bestätigung unverzüglich nachzuholen. Die Maßnahme ist zu beenden, wenn die Bestätigung durch den Richter abgelehnt wird oder nicht innerhalb von drei Tagen erfolgt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Für polizeiliche Anordnungen nach den §§ 62 bis 69 gilt Absatz 1 Nummer 2 entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 97"
+      },
+      "expectedHash": "6df4a6d11220ba67a468d2c2e9f16889f0d7f107fd7cf1de372008afe0d0995e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 97",
+        "title": "Polizeidienststellen und Einrichtungen für den Polizeivollzugsdienst",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Polizeidienststellen im Sinne dieses Gesetzes sind die Polizeidienststellen der Volkspolizei nach § 2 Absatz 2 des Volkspolizeiorganisationsgesetzes und die Kasernierte Grenzpolizei. Aufbau, Gliederung und Zuständigkeiten der Volkspolizei bestimmen sich nach dem Volkspolizeiorganisationsgesetz. Für die Kasernierte Grenzpolizei gilt § 100a.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Freistaat unterhält die Hochschule der Volkspolizei (FH) als Einrichtung für die Aus- und Fortbildung nach Maßgabe des Ostdeutschen Polizeifachhochschulgesetzes.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 99"
+      },
+      "expectedHash": "e55ff341b2f06c43628629dedd45f336432ef5a72fb5d3e03f238607a385e753",
+      "expectedMatches": 1,
+      "value": "(weggefallen)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 4",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 100"
+      },
+      "expectedHash": "1e3b18b50a43d1d64dfdeb915387fa5d7476a3e9b33b992b01fa2743622b917a",
+      "expectedMatches": 1,
+      "value": "(weggefallen)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 4",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 100a"
+      },
+      "expectedHash": "90f706436142825cf1f356c24410979f3d945cf13f673f1a9dc950b1e1e9f9aa",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 100a",
+        "title": "Kasernierte Grenzpolizei",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Aufbau, Organisation und Aufgaben der Kasernierten Grenzpolizei richten sich nach dem Kasernierte-Grenzpolizei-Gesetz."
+          },
+          {
+            "type": "paragraphText",
+            "text": "Soweit nach § 21 Absatz 4, § 27 Absatz 5, § 58 Absatz 4, § 59 Absatz 3, § 60 Absatz 6, § 61 Absatz 5, § 63 Absatz 4 und 5, § 65 Absatz 3, § 71 Absatz 4 und § 73 Absatz 2 eine Anordnung durch die Leitung des Landeskriminalamtes oder einer Bezirkspolizeidirektion getroffen werden kann oder zu treffen ist, kann sie bei Maßnahmen der Kasernierten Grenzpolizei auch durch die Leitung der Kasernierten Grenzpolizei getroffen werden; lassen diese Vorschriften die Anordnung durch beauftragte Bedienstete zu, kann die Leitung der Kasernierten Grenzpolizei hierzu ebenfalls Bedienstete beauftragen."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 5",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 101"
+      },
+      "expectedHash": "f32b9cf2f9fce4c49629974451504290c5b95c9549bd1a0ba6c07dd5c6f88574",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 101",
+        "title": "Dienst- und Fachaufsicht",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Dienst- und Fachaufsicht über die Polizeidienststellen der Volkspolizei richtet sich nach § 3 Absatz 1 des Volkspolizeiorganisationsgesetzes. Die Dienst- und Fachaufsicht über die Kasernierte Grenzpolizei übt die oberste Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes aus. § 3 Absatz 2 des Volkspolizeiorganisationsgesetzes gilt auch für die Kasernierte Grenzpolizei.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Fachaufsicht über die kriminalpolizeiliche Tätigkeit der Polizeidienststellen wird, unbeschadet der Regelung in Absatz 1, vom Landeskriminalamt ausgeübt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die oberste Polizeibehörde kann Polizeidienststellen der Volkspolizei vorübergehend sich oder einer anderen Polizeidienststelle der Volkspolizei unmittelbar unterstellen, wenn die Erfüllung der polizeilichen Aufgaben dies erfordert. Ist bei Gefahr im Verzug ein rechtzeitiges Tätigwerden der obersten Polizeibehörde nicht zu erreichen, kann das Landeskriminalamt Maßnahmen nach Satz 1 treffen; die oberste Polizeibehörde ist unverzüglich zu unterrichten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die zur Dienstaufsicht oder zur Fachaufsicht zuständigen Stellen können den Polizeidienststellen im Rahmen ihrer Zuständigkeit Weisungen erteilen. Die Polizeidienststellen haben diesen Weisungen Folge zu leisten. Sie sind verpflichtet, die weisungsbefugten Stellen von allen sachdienlichen Wahrnehmungen zu unterrichten.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 2 Nummer 6",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

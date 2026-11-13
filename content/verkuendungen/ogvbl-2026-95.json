@@ -1,0 +1,59 @@
+{
+  "slug": "ogvbl-2026-95",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 95",
+  "year": 2026,
+  "issue": "95",
+  "date": "2026-11-13",
+  "publication": "OGVBl.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/ogvbl-2026-95.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 95.html",
+      "sha256": "7313b0b9fa0be057f440dd990f505f793fcfbf3a49249bd221044f21dfce2c2b",
+      "mediaType": "text/html",
+      "pageRange": "2–3",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 95.pdf",
+      "sha256": "d8ddc8a8e888f944e7d4ebe74e76801579de04553d1ad55dbc0dc942108b2496",
+      "mediaType": "application/pdf",
+      "pageCount": 3,
+      "pageRange": "2–3",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 95.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "einfuehrung-luftverkehrssicherungsgesetz",
+      "title": "Gesetz zur Einführung eines Luftverkehrssicherungsgesetzes",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 95 S. 2)",
+      "pages": "2–3",
+      "documentDate": "2026-11-13",
+      "normSlug": "einfuehrung-luftverkehrssicherungsgesetz",
+      "versionId": "2027-01-01"
+    },
+    {
+      "id": "ostdeutsches-luftverkehrssicherungsgesetz",
+      "title": "Gesetz zur Sicherung des Luftverkehrs im Freistaat Ostdeutschland",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 95)",
+      "pages": "2–3",
+      "documentDate": "2026-11-13",
+      "normSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
+      "versionId": "2027-01-01"
+    }
+  ]
+}

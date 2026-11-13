@@ -4,8 +4,8 @@
   "shortTitle": "Ostdeutsches Polizeivollzugsdienstgesetz",
   "abbr": "OstPVDG",
   "validFrom": "2026-08-01",
-  "validTo": null,
-  "isCurrent": true,
+  "validTo": "2026-11-13",
+  "isCurrent": false,
   "citation": "Ostdeutsches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), zuletzt geändert durch Artikel 11 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
   "changeNote": "Die Polizeidirektionen wurden als Bezirkspolizeidirektionen bezeichnet.",
   "sourceReferences": [
@@ -6137,7 +6137,7 @@
             {
               "type": "item",
               "label": "4.",
-              "text": "das Präsidium der Bereitschaftspolizei und",
+              "text": "das Präsidium der Bereitschaftspolizei,",
               "level": 0,
               "numberingStyle": "decimal",
               "children": []
@@ -6145,6 +6145,14 @@
             {
               "type": "item",
               "label": "5.",
+              "text": "die Kasernierte Grenzpolizei und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
               "text": "die Polizeidirektionen als Bezirkspolizeidirektionen,",
               "level": 0,
               "numberingStyle": "decimal",
@@ -6160,6 +6168,12 @@
               "type": "subparagraph",
               "label": "(3)",
               "text": "Für das Gebiet der Bundeshauptstadt Berlin ist eine Polizeidirektion Berlin einzurichten. Sie soll in ihrer inneren Organisation so gegliedert werden, dass eine flächendeckende Präsenz sowie eine wirksame Führung in Großschadenslagen, bei Großveranstaltungen und in kriminalitätsbelasteten Räumen gewährleistet sind.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Für jeden Bezirk nach der Ostdeutschen Bezirksordnung wird eine Bezirkspolizeidirektion eingerichtet. Ihr örtlicher Dienstbezirk entspricht dem Gebiet des Bezirks. Für den Bezirk Berlin bleibt Absatz 3 unberührt.",
               "children": []
             }
           ]
@@ -6300,8 +6314,27 @@
           "title": "Ermächtigung zur Regelung von Aufgaben und Gliederung der Polizeidienststellen",
           "children": [
             {
+              "type": "subparagraph",
+              "text": "Die Gliederung der Polizei in Polizeidienststellen und die Verteilung der Aufgaben auf die Polizeidienststellen wird durch das Staatsministerium des Innern durch Rechtsverordnung bestimmt.",
+              "label": "(1)",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Rechtsverordnung nach Absatz 1 bestimmt die Sitze, die örtlichen Dienstbezirke und die innere Gliederung der Bezirkspolizeidirektionen. Dabei sind die Bezirksgrenzen, die regionale Einsatzbelastung, die Erreichbarkeit und die besonderen Anforderungen der Bundeshauptstadt Berlin zu berücksichtigen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 100a",
+          "title": "Kasernierte Grenzpolizei",
+          "children": [
+            {
               "type": "paragraphText",
-              "text": "Die Gliederung der Polizei in Polizeidienststellen und die Verteilung der Aufgaben auf die Polizeidienststellen wird durch das Staatsministerium des Innern durch Rechtsverordnung bestimmt."
+              "text": "Aufbau, Organisation und Aufgaben der Kasernierten Grenzpolizei richten sich nach dem Kasernierte-Grenzpolizei-Gesetz."
             }
           ]
         },

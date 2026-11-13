@@ -11,7 +11,7 @@
   "keywords": [
     "LJHG"
   ],
-  "initialCitation": "Landesjugendhilfegesetz in der Fassung der Bekanntmachung vom 4. September 2008 (SächsGVBl. S. 578)",
+  "initialCitation": "Landesjugendhilfegesetz in der Fassung der Bekanntmachung vom 4. September 2008 (SächsGVBl. S. 578), das zuletzt durch Artikel 2 des Gesetzes vom 13. Juni 2024 (SächsGVBl. S. 516) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "status": "in-force",
@@ -19,18 +19,25 @@
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 1897.17, gültig 2023-01-01 bis 2024-06-28",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/1897.17.html",
+      "label": "Amtliche REVOSax-Fassung, gültig 2023-01-01 bis 2024-06-28",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/landesjugendhilfegesetz/1897.17.html",
       "url": "https://www.revosax.sachsen.de/vorschrift/1897.17",
       "retrievedAt": "2026-09-03",
       "sha256": "f2bd60bbd5bbfaa01f178d804d971b1cfb6da99b99fbd9531757fd567cc9133e",
       "lawId": "1897",
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-06-28",
-      "fsnNumber": "82-3",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "fsnNumber": "82-3"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 3 Absatz 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
     }
+  ],
+  "affectedByNorms": [
+    "volkspolizei-organisationsreform"
   ]
 }

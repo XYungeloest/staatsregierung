@@ -2229,10 +2229,13 @@ siteTest(['law'])('Restpunkte Richtung E: die verkündete Änderung im Normkopf 
   // Nicht die Stammfundstelle der Kopfzeile …
   const stem = ((await page.locator('.r-kicker span', { hasText: /^Stammfundstelle/u }).textContent()) ?? '').replace(/^Stammfundstelle\s*/u, '').trim();
   expect(cited).not.toBe(stem);
-  // … sondern die letzte Klammer des Vollzitats der künftigen Fassung (Such-API).
-  const hit = (await searchApi(request, '?versionScope=future&includeAmendments=1')).hits.find((entry) => entry.slug === slug);
-  expect(hit, `künftige Fassung von ${slug} in der Such-API`).toBeTruthy();
-  const lastParenthesis = [...hit!.citation.matchAll(/\(([^()]*)\)/gu)].at(-1)?.[1]?.trim();
+  // Die Suche kann bei mehreren künftigen Fassungen eine spätere Fassung liefern.
+  // Maßgeblich ist hier genau die im Normkopf verlinkte nächste Fassung.
+  const nextHref = await future.getAttribute('href');
+  expect(nextHref, `nächste Fassung von ${slug}`).toBeTruthy();
+  await page.goto(lawUrl(nextHref!));
+  const citation = (await page.locator('#norm-full-citation').textContent()) ?? '';
+  const lastParenthesis = [...citation.matchAll(/\(([^()]*)\)/gu)].at(-1)?.[1]?.trim();
   expect(cited).toBe(lastParenthesis);
 });
 
@@ -2441,11 +2444,13 @@ siteTest(['law'])('Restpunkte 2: der Verlauf einer Einheit nennt jede Fassung, d
   await expect(items.first()).toBeVisible();
   const unitId = await unit.getAttribute('id');
   const validFrom = (await page.locator('.norm-page-header__line .r-strong').textContent())?.match(/\d{2}\.\d{2}\.\d{4}/u)?.[0];
-  await expect(items.last()).toContainText(validFrom!);
-  await expect(items.last().locator('a')).toHaveAttribute('href', new RegExp(`/vergleich/\\?von=[^&]+&bis=[^#]+#vergleich-${unitId}$`, 'u'));
-  expect(await items.last().textContent()).toMatch(/^(geändert|neu): /u);
-  // Der Vergleichslink führt zur Einheit im Vergleich.
-  await items.last().locator('a').click();
+  // Der Verlauf umfasst auch bereits gespeicherte künftige Fassungen.
+  const currentItem = items.filter({ hasText: validFrom! }).last();
+  await expect(currentItem).toBeVisible();
+  await expect(currentItem.locator('a')).toHaveAttribute('href', new RegExp(`/vergleich/\\?von=[^&]+&bis=[^#]+#vergleich-${unitId}$`, 'u'));
+  expect(await currentItem.textContent()).toMatch(/^(geändert|neu): /u);
+  // Der Vergleichslink führt zur Einheit der angezeigten Fassung im Vergleich.
+  await currentItem.locator('a').click();
   await expect(page.locator(`#vergleich-${unitId}`)).toBeVisible();
   // Nie geänderte Einheiten tragen keinen Verlauf.
   await page.goto(lawUrl(norm!.currentUrl));

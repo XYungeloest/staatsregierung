@@ -1,0 +1,256 @@
+{
+  "amendmentAct": "polizeiausbildungsreformgesetz",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "sameDayOrder": 87,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 87 S. 2)",
+  "resultCitation": "Ostdeutsches Polizeifachhochschulgesetz, geändert durch Artikel 1 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 87 S. 2)",
+  "changeNote": "Änderungen nach Artikel 1 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 87, Artikel 1",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 87.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 22"
+      },
+      "expectedHash": "4fce3804331e07184a25f51d0554de86b3e779ce4a971f1ecc8eaa97a2bf1529",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 22a",
+        "title": "Pflichtkompetenzen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Studium und Ausbildung für die Laufbahnen der Fachrichtung Polizei vermitteln verbindlich folgende Kompetenzen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "sichere Anwendung der Grundrechte sowie des Staats- und Verfassungsrechts des Bundes und des Freistaates,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "sichere Anwendung des Polizei- und Eingriffsrechts, des Straf- und Strafverfahrensrechts und des Rechts der Anwendung unmittelbaren Zwangs,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "rechtssicherer Umgang mit personenbezogenen Daten und Informationssicherheit,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Kommunikation, Konfliktbewältigung und Deeskalation, auch in szenariobasiertem praktischem Training,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "angemessener Umgang mit Menschen in psychischen Ausnahmesituationen, mit Kindern und Jugendlichen sowie mit Opfern von Straftaten, insbesondere häuslicher und sexualisierter Gewalt,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "diskriminierungsfreies Handeln und interkulturelle Kompetenz,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "Kenntnis der Geschichte der Polizei in Deutschland, insbesondere ihrer Rolle in der nationalsozialistischen Diktatur und in der Deutschen Demokratischen Republik einschließlich der Deutschen Volkspolizei,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "Grundlagen der Bekämpfung digitaler Kriminalität und der Sicherung digitaler Beweismittel,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "9.",
+            "text": "Erkennen extremistischer, insbesondere rechtsextremer Bestrebungen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Kompetenzen nach Absatz 1 Nummer 1, 2 und 4 sind Kernkompetenzen. Sie sind in der Laufbahnprüfung gesondert nachzuweisen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Lehrkräfte für Einsatz- und Deeskalationstraining müssen eine entsprechende Trainerqualifikation besitzen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 87.html",
+      "sourceProvision": "Artikel 1",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 22a"
+      },
+      "expectedHash": "5b13c206da12bc6a3084af458c63f54700030ef84a093eab989a3d622dc9d727",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 22b",
+        "title": "Fortbildungspflicht",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Polizeivollzugsbeamt:innen der Volkspolizei und der Kasernierten Grenzpolizei sind zur regelmäßigen Fortbildung verpflichtet. Die Fortbildung umfasst insbesondere Einsatz- und Deeskalationstraining, wesentliche Rechtsänderungen und die Rechtsprechung zu Grundrechten im Polizeieinsatz.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Fortbildung ist Dienst. Die Teilnahme wird dokumentiert und ist bei Beförderungs- und Verwendungsentscheidungen zu berücksichtigen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 87.html",
+      "sourceProvision": "Artikel 1",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 22b"
+      },
+      "expectedHash": "8290ee75bf764d867b584fa7b821b4d5ba8eb8080cc318d5a38602374a23f42b",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 22c",
+        "title": "Führungsqualifizierung",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Eine Führungsfunktion in der Volkspolizei oder der Kasernierten Grenzpolizei darf nur übertragen werden, wenn eine Führungsqualifizierung an der Fachhochschule erfolgreich abgeschlossen wurde. Ist dies aus zwingenden dienstlichen Gründen nicht möglich, ist die Qualifizierung innerhalb eines Jahres nach der Übertragung nachzuholen."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 87.html",
+      "sourceProvision": "Artikel 1",
+      "effectiveDate": "2027-01-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 22c"
+      },
+      "expectedHash": "f2cfd4d875e3552840d5744dc532668af491800ac66640c766144a88b00fc0b6",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 22d",
+        "title": "Ausbildungs- und Prüfungsordnung, Evaluation",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Das Nähere regelt die Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei, insbesondere",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "den Mindestumfang der Pflichtkompetenzen nach § 22a Absatz 1,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Prüfungsgebiete, Prüfungsformen einschließlich einer praktischen Prüfung der Einsatzbewältigung, die Bewertung und den Ausgleich von Prüfungsleistungen sowie den Nachweis der Kernkompetenzen nach § 22a Absatz 2,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Zusammensetzung der Prüfungsausschüsse,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Umfang und Turnus der Fortbildung nach § 22b und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Inhalt, Dauer und Abschluss der Führungsqualifizierung nach § 22c.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Studium, Ausbildung und Fortbildung werden alle drei Jahre durch eine von der Volkspolizei und der Kasernierten Grenzpolizei unabhängige wissenschaftliche Einrichtung evaluiert. Der Bericht wird mit einer Stellungnahme des Staatsrates der Volkskammer zugeleitet und veröffentlicht.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 87.html",
+      "sourceProvision": "Artikel 1",
+      "effectiveDate": "2027-01-01"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "amendmentAct": "ost-sicherheitsreform-anpassungsgesetz",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "sameDayOrder": 99,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 99 S. 2)",
+  "resultCitation": "Sächsisches Besoldungsgesetz, geändert durch Artikel 4 Absatz 3 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 99 S. 2)",
+  "changeNote": "Änderungen nach Artikel 4 Absatz 3 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 4 Absatz 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 99, Artikel 4 Absatz 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 99.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Beamte in Ämtern der Besoldungsordnungen A und B, die beim Landesamt für Verfassungsschutz verwendet werden und dort überwiegend Aufgaben nach § 2 des\nSächsischen Verfassungsschutzgesetzes vom 16. Oktober 1992 (SächsGVBl. S. 459), das zuletzt durch Artikel 3 des Gesetzes vom 17. Dezember 2013 (SächsGVBl. S. 890) geändert worden ist, in der jeweils geltenden Fassung, wahrnehmen, erhalten eine Stellenzulage."
+      },
+      "expectedHash": "0eb8300b3fdfbf77b5cd559acf49a40819a77cb0a44baafed5989f34b46a7088",
+      "expectedMatches": 1,
+      "value": "Beamte in Ämtern der Besoldungsordnungen A und B, die beim Landesamt für Staatsschutz verwendet werden und dort überwiegend Aufgaben nach § 1 des Staatsschutz- und Nachrichtendienstgesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 92 S. 2), in der jeweils geltenden Fassung, wahrnehmen, erhalten eine Stellenzulage.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 99.html",
+      "sourceProvision": "Artikel 4 Absatz 3",
+      "effectiveDate": "2027-01-01"
+    }
+  ]
+}

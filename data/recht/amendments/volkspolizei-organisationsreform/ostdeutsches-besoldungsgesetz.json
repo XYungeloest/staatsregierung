@@ -1,0 +1,64 @@
+{
+  "amendmentAct": "volkspolizei-organisationsreform",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 86,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "resultCitation": "Sächsisches Besoldungsgesetz, geändert durch Artikel 3 Absatz 4 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 Absatz 4 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 3 Absatz 4"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 3 Absatz 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "deleteProvision",
+      "target": {
+        "type": "paragraphText",
+        "text": "Landespolizeipräsident"
+      },
+      "expectedHash": "af5d0e3bb2fcc6a6a399fe3992807d694804e393324428580614ca2d9ea63cd9",
+      "expectedMatches": 1,
+      "value": null,
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 4",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "deleteProvision",
+      "target": {
+        "type": "item",
+        "text": "als Abteilungsleiter im Staatsministerium des Innern –"
+      },
+      "expectedHash": "5162df6dae898e6a2b6827d555204c24646225a3726ed5abe58e3d0bbf26edbd",
+      "expectedMatches": 1,
+      "value": null,
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 4",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "item",
+        "text": "als Abteilungsleiter beim Rechnungshof des Freistaates Sachsen –"
+      },
+      "expectedHash": "71a6712c6c48728b529bbf404aaf9004ca0a50569f3914edd1705edc8320ece5",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraphText",
+        "text": "Volkspolizeipräsident:in – als Abteilungsleitung in der obersten Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes –"
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 4",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

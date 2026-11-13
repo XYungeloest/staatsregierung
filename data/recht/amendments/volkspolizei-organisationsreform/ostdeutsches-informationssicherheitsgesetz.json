@@ -1,0 +1,63 @@
+{
+  "amendmentAct": "volkspolizei-organisationsreform",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 86,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "resultCitation": "Ostdeutsches Informationssicherheitsgesetz, geändert durch Artikel 3 Absatz 3 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 Absatz 3 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 3 Absatz 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 3 Absatz 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "In jedem Staatsministerium, in der Staatskanzlei, dem Landespolizeipräsidium, der Leitstelle für Informationstechnologie der sächsischen Justiz, dem Staatsbetrieb Sächsische Informatik Dienste sowie bei dem Sächsischen Rechnungshof und dem Sächsischen Datenschutzbeauftragten werden je ein hauptamtlicher Beauftragter für Informationssicherheit und ein Vertreter ernannt. Der Beauftragte für Informationssicherheit berichtet dem Leiter der staatlichen Stelle und dem Beauftragten für Informationssicherheit des Landes mindestens einmal jährlich zum Stand der Informationssicherheit in seinem Zuständigkeitsbereich."
+      },
+      "expectedHash": "f48a10f42f7d6cc565db26016848f37c40bf4def275cff146d0a39017b342893",
+      "expectedMatches": 1,
+      "value": "In jedem Staatsministerium, in der Staatskanzlei, der obersten Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes für den Bereich der Volkspolizei, der Leitstelle für Informationstechnologie der sächsischen Justiz, dem Staatsbetrieb Sächsische Informatik Dienste sowie bei dem Sächsischen Rechnungshof und dem Sächsischen Datenschutzbeauftragten werden je ein hauptamtlicher Beauftragter für Informationssicherheit und ein Vertreter ernannt. Der Beauftragte für Informationssicherheit berichtet dem Leiter der staatlichen Stelle und dem Beauftragten für Informationssicherheit des Landes mindestens einmal jährlich zum Stand der Informationssicherheit in seinem Zuständigkeitsbereich.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 3",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "In jedem Staatsministerium, in der Staatskanzlei, dem Landespolizeipräsidium, der Leitstelle für Informationstechnologie der sächsischen Justiz, dem Staatsbetrieb Sächsische Informatik Dienste sowie bei dem Sächsischen Rechnungshof und dem Sächsischen Datenschutzbeauftragten sollen Informationssicherheitsmanagement-Teams im Rahmen des Informationssicherheitsmanagementsystems eingerichtet werden. In den anderen staatlichen Stellen können Informationssicherheitsmanagement-Teams im Rahmen des Informationssicherheitsmanagementsystems eingerichtet werden. Sie unterstützen den jeweiligen Beauftragten für Informationssicherheit bei seiner Arbeit."
+      },
+      "expectedHash": "2ba5d10e0f5e8ba0f0019093b9996571fd131af6a77222173e03dbe125163c92",
+      "expectedMatches": 1,
+      "value": "In jedem Staatsministerium, in der Staatskanzlei, der obersten Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes für den Bereich der Volkspolizei, der Leitstelle für Informationstechnologie der sächsischen Justiz, dem Staatsbetrieb Sächsische Informatik Dienste sowie bei dem Sächsischen Rechnungshof und dem Sächsischen Datenschutzbeauftragten sollen Informationssicherheitsmanagement-Teams im Rahmen des Informationssicherheitsmanagementsystems eingerichtet werden. In den anderen staatlichen Stellen können Informationssicherheitsmanagement-Teams im Rahmen des Informationssicherheitsmanagementsystems eingerichtet werden. Sie unterstützen den jeweiligen Beauftragten für Informationssicherheit bei seiner Arbeit.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 3",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Die Arbeitsgruppe Informationssicherheit berät den Beauftragten für Informationssicherheit des Landes in Fragen der Informationssicherheit. Sie besteht aus den Beauftragten für Informationssicherheit der Staatskanzlei, der Staatsministerien, des Sächsischen Rechnungshofs, des Sächsischen Datenschutzbeauftragten, des Landespolizeipräsidiums, der Leitstelle für Informationstechnologie der sächsischen Justiz und des Staatsbetriebes Sächsische Informatik Dienste sowie zwei Vertretern der Kommunen. Weitere Mitglieder können aufgenommen werden."
+      },
+      "expectedHash": "f929b8fd7648afddfee30d75fdfee1cc7055a884f52b219a6fafb05af1e27c5e",
+      "expectedMatches": 1,
+      "value": "Die Arbeitsgruppe Informationssicherheit berät den Beauftragten für Informationssicherheit des Landes in Fragen der Informationssicherheit. Sie besteht aus den Beauftragten für Informationssicherheit der Staatskanzlei, der Staatsministerien, des Sächsischen Rechnungshofs, des Sächsischen Datenschutzbeauftragten, der obersten Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes für den Bereich der Volkspolizei, der Leitstelle für Informationstechnologie der sächsischen Justiz und des Staatsbetriebes Sächsische Informatik Dienste sowie zwei Vertretern der Kommunen. Weitere Mitglieder können aufgenommen werden.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 3",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

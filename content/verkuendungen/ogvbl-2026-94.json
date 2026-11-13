@@ -1,0 +1,59 @@
+{
+  "slug": "ogvbl-2026-94",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 94",
+  "year": 2026,
+  "issue": "94",
+  "date": "2026-11-13",
+  "publication": "OGVBl.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/ogvbl-2026-94.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 94.html",
+      "sha256": "39909efa3f71112bbdb0e0b30142f9f798d165bdebe2603e37c790368c600e02",
+      "mediaType": "text/html",
+      "pageRange": "2–7",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 94.pdf",
+      "sha256": "f8f21afefd38d619bb4645be966da2a5fc726495454a6a6e8455e9d567fd57f9",
+      "mediaType": "application/pdf",
+      "pageCount": 7,
+      "pageRange": "2–7",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 94.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "einfuehrung-ostdeutsches-kritis-gesetz",
+      "title": "Gesetz zur Einführung eines Gesetzes zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 94 S. 2)",
+      "pages": "2–7",
+      "documentDate": "2026-11-13",
+      "normSlug": "einfuehrung-ostdeutsches-kritis-gesetz",
+      "versionId": "2026-11-14"
+    },
+    {
+      "id": "ostdeutsches-kritis-gesetz",
+      "title": "Gesetz zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 94)",
+      "pages": "2–7",
+      "documentDate": "2026-11-13",
+      "normSlug": "ostdeutsches-kritis-gesetz",
+      "versionId": "2026-11-14"
+    }
+  ]
+}

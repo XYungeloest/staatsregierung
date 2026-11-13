@@ -1,0 +1,498 @@
+{
+  "versionId": "2027-01-01",
+  "validFrom": "2027-01-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 89 S. 2)",
+  "changeNote": "Verkündete Fassung.",
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Die Volkskammer hat am 13. November 2026 das folgende Gesetz beschlossen:"
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Gesetz über die Digitalisierung der Volkspolizei des Freistaates Ostdeutschland (Polizeidigitalisierungsgesetz – PolDigG)",
+      "children": [
+        {
+          "type": "quotedProvision",
+          "children": [
+            {
+              "type": "section",
+              "label": "Abschnitt 1",
+              "title": "Allgemeine Bestimmungen",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 1",
+                  "title": "Begriffsbestimmungen",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Im Sinne dieses Gesetzes ist"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "elektronische Ermittlungsakte: die elektronisch geführte Gesamtheit der polizeilichen Unterlagen eines Ermittlungsvorgangs,",
+                      "level": 0,
+                      "listId": "lkw4aatq0rri",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Vorgangsbearbeitungssystem: das informationstechnische System, in dem die Volkspolizei Vorgänge anlegt, bearbeitet und dokumentiert,",
+                      "level": 0,
+                      "listId": "lkw4aatq0rri",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Leitstelle: eine Einrichtung zur Entgegennahme von Notrufen und Meldungen sowie zur Führung und Koordinierung von Einsätzen und",
+                      "level": 0,
+                      "listId": "lkw4aatq0rri",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Online-Wache: das elektronische Zugangsportal der Volkspolizei für Anzeigen, Hinweise und Mitteilungen.",
+                      "level": 0,
+                      "listId": "lkw4aatq0rri",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 2",
+                  "title": "Anwendungsbereich und Verhältnis zum Polizeivollzugsdienstgesetz",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Dieses Gesetz regelt die organisatorische und technische Gestaltung der polizeilichen Vorgangsbearbeitung, Aktenführung, Kommunikation und Informationsverarbeitung.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Befugnisse zur Erhebung, Speicherung, Veränderung, Übermittlung und Löschung personenbezogener Daten richten sich nach dem Ostdeutschen Polizeivollzugsdienstgesetz und den sonstigen hierfür geltenden Vorschriften. Dieses Gesetz erweitert diese Befugnisse nicht.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Dieses Gesetz begründet keine eigenständige Befugnis zur automatisierten Analyse personenbezogener Datenbestände oder zur biometrischen Fernidentifizierung von Personen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die §§ 9 bis 11, § 12 Absatz 1 und 3 bis 5 sowie § 15 Absatz 3 gelten für die informationstechnischen Systeme der Kasernierten Grenzpolizei entsprechend. § 11 Absatz 2 gilt mit der Maßgabe, dass an die Stelle der Online-Wache ein von der Kasernierten Grenzpolizei betriebenes elektronisches Zugangsportal für Anzeigen, Hinweise und Mitteilungen tritt. Soweit die §§ 9 und 12 an Systeme nach Abschnitt 2 anknüpfen, treten an die Stelle dieser Systeme die von der Kasernierten Grenzpolizei für entsprechende Zwecke eingesetzten Systeme. Die Leitung der Kasernierten Grenzpolizei bestellt eine:n Informationssicherheitsbeauftragte:n der Kasernierten Grenzpolizei; § 12 Absatz 2 Satz 2 gilt entsprechend. Die nach Satz 4 bestellte Person ist zugleich Beauftragte:r für Informationssicherheit der Kasernierten Grenzpolizei nach § 7 Absatz 2 des Ostdeutschen Informationssicherheitsgesetzes.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 3",
+                  "title": "Digitalisierungsplan; Zentrale Stelle",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Das zuständige Mitglied des Staatsrates stellt bis zum 30. September 2027 einen Digitalisierungsplan der Volkspolizei auf. Er bestimmt für jedes Vorhaben nach Abschnitt 2 Ziele, Zeitplan, Zuständigkeit, Finanzbedarf, Risiken und die Ergebnisse der Datenschutz-Folgenabschätzung. Der Plan wird jährlich fortgeschrieben und der Volkskammer zugeleitet.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Zentrale Stelle für Planung, Beschaffung und Betrieb der polizeilichen Informationstechnik ist das Polizeiverwaltungsamt nach § 5 des Volkspolizeiorganisationsgesetzes. Es kann den Betrieb einzelner Systeme durch öffentlich-rechtliche Vereinbarung einer anderen öffentlichen Stelle übertragen.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 2",
+              "title": "Digitale Polizeiarbeit",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 4",
+                  "title": "Elektronische Vorgangsbearbeitung und Ermittlungsakte",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Volkspolizei führt ihre Vorgänge in einem einheitlichen Vorgangsbearbeitungssystem. Ermittlungsakten werden elektronisch geführt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Übermittlung elektronischer Ermittlungsakten an Staatsanwaltschaften und Gerichte richtet sich nach den Vorschriften der Strafprozessordnung über die elektronische Aktenführung. Das Polizeiverwaltungsamt stellt die technische Anbindung an die elektronische Akte der Justiz des Freistaates sicher.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Aufzeichnungen nach den §§ 57 und 57a des Ostdeutschen Polizeivollzugsdienstgesetzes, die als Beweismittel verwendet werden, werden manipulationssicher in die elektronische Ermittlungsakte übernommen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "In Papierform eingehende Unterlagen werden in ein elektronisches Dokument übertragen. Das Original ist aufzubewahren, soweit es als Beweismittel in Betracht kommt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(5)",
+                      "text": "Die elektronische Ermittlungsakte ist so zu führen, dass Vollständigkeit, Integrität und Authentizität gewährleistet und jede Änderung nachvollziehbar sind.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 5",
+                  "title": "Online-Wache und mobile Anzeigenaufnahme",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Volkspolizei betreibt eine Online-Wache für Strafanzeigen, Strafanträge, soweit die Strafprozessordnung die elektronische Form zulässt, Hinweise und Verlustmeldungen. Der Eingang wird mit einem Aktenzeichen bestätigt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Online-Wache muss barrierefrei, in leichter Sprache und in den gebräuchlichsten Fremdsprachen sowie in den Sprachen der anerkannten Minderheiten nutzbar sein. Eine Pflicht zur Nutzung besteht nicht.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Polizeivollzugsbeamt:innen werden mit mobilen Endgeräten ausgestattet, mit denen Anzeigen, Personalien und Spuren am Einsatzort unmittelbar in das Vorgangsbearbeitungssystem aufgenommen werden können. Auf mobilen Endgeräten dürfen personenbezogene Daten nur verschlüsselt gespeichert werden; die Geräte müssen aus der Ferne gesperrt und gelöscht werden können.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die Nutzung privater Endgeräte und nicht vom Polizeiverwaltungsamt freigegebener Anwendungen zur Verarbeitung dienstlicher personenbezogener Daten ist unzulässig.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 6",
+                  "title": "Leitstellen",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Volkspolizei betreibt ständig besetzte Leitstellen mit einem einheitlichen Einsatzleitsystem, das georeferenzierte Lagedarstellung, Ortung der eingesetzten Kräfte und die Übergabe von Einsatzdaten an mobile Endgeräte ermöglicht.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Leitstellen sind mit den Leitstellen für Brandschutz, Rettungsdienst und Katastrophenschutz sowie mit der Kasernierten Grenzpolizei so zu vernetzen, dass Notrufe und Einsatzdaten ohne Medienbruch übergeben werden können. Gemeinsame Standorte sind zulässig.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Für die Aufzeichnung von Notrufen und Anrufen gilt § 86 des Ostdeutschen Polizeivollzugsdienstgesetzes. Aufzeichnungen dürfen der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle nach Maßgabe des Polizeibeschwerdestellengesetzes zugänglich gemacht werden.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 7",
+                  "title": "Interoperabilität",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Informationstechnische Systeme der Volkspolizei sind so zu gestalten, dass sie mit den Systemen der Polizeien des Bundes und der Länder, insbesondere dem polizeilichen Informationsverbund nach § 29 des Bundeskriminalamtgesetzes, mit den Systemen der Justiz des Freistaates, der Kasernierten Grenzpolizei und den Leitstellen nach § 6 Absatz 2 über offene, standardisierte Schnittstellen Daten austauschen können.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Bei der Beschaffung sind offene Standards und Anwendungen zu bevorzugen, die einen Anbieterwechsel ohne Datenverlust ermöglichen. Beschaffungsverträge müssen die Herausgabe der Daten in maschinenlesbarem Format sicherstellen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Übermittlungen richten sich nach den §§ 82 bis 90 des Ostdeutschen Polizeivollzugsdienstgesetzes.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 8",
+                  "title": "Sichere Kommunikation",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die dienstliche Sprach- und Datenkommunikation erfolgt über den Digitalfunk der Behörden und Organisationen mit Sicherheitsaufgaben oder über vom Polizeiverwaltungsamt freigegebene Dienste mit Ende-zu-Ende-Verschlüsselung nach dem Stand der Technik.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die elektronische Kommunikation mit Bürger:innen, Behörden und Gerichten erfolgt über sichere Übermittlungswege nach dem Stand der Technik.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 3",
+              "title": "Datenschutz und Informationssicherheit",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 9",
+                  "title": "Datenschutz durch Technikgestaltung, Folgenabschätzung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Informationstechnische Systeme der Volkspolizei sind so zu gestalten und voreinzustellen, dass Datenminimierung, Zweckbindung, Kennzeichnung nach § 81 des Ostdeutschen Polizeivollzugsdienstgesetzes und Speicherbegrenzung technisch umgesetzt werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Vor Inbetriebnahme eines Systems nach Abschnitt 2 und vor jeder wesentlichen Änderung ist eine Datenschutz-Folgenabschätzung durchzuführen; die:der Ostdeutsche Datenschutzbeauftragte:r ist vorher anzuhören. Errichtungsanordnungen nach § 93 des Ostdeutschen Polizeivollzugsdienstgesetzes bleiben unberührt. Die Ergebnisse werden zusammengefasst veröffentlicht, soweit die öffentliche Sicherheit nicht gefährdet wird.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 10",
+                  "title": "Zugriffskontrolle und Protokollierung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Der Zugriff auf personenbezogene Daten ist nach Rollen und Aufgaben zu beschränken. Bedienstete dürfen nur auf Daten zugreifen, die sie für ihre konkrete Aufgabe benötigen. Jeder Zugriff erfordert eine persönliche Authentifizierung mit mindestens zwei Faktoren.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Unbeschadet weitergehender Protokollierungspflichten nach dem Ostdeutschen Polizeivollzugsdienstgesetz wird jeder lesende und schreibende Zugriff auf personenbezogene Daten mit Zeitpunkt, Kennung der zugreifenden Person, betroffenem Datensatz und Anlass protokolliert.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Protokolldaten dürfen nur zur Datenschutzkontrolle, zur Sicherstellung der Integrität und Sicherheit der Daten, zur Aufklärung missbräuchlicher Zugriffe sowie für Straf- und Disziplinarverfahren verwendet werden. Sie sind bis zum Ende des zweiten auf ihre Erstellung folgenden Kalenderjahres aufzubewahren und danach zu löschen, soweit das Ostdeutsche Polizeivollzugsdienstgesetz keine längere Frist bestimmt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die behördlichen Datenschutzbeauftragten führen regelmäßig Stichprobenkontrollen der Protokolldaten durch. Missbräuchliche Zugriffe werden der Dienststellenleitung, der:dem Ostdeutschen Datenschutzbeauftragten und, soweit ein Strafverfahren in Betracht kommt, der Staatsanwaltschaft mitgeteilt.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 11",
+                  "title": "Technische Durchsetzung von Prüf- und Löschfristen",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die informationstechnischen Systeme der Volkspolizei sind so zu gestalten, dass die nach dem Ostdeutschen Polizeivollzugsdienstgesetz, insbesondere nach § 91, geltenden Prüf- und Löschfristen automatisch überwacht werden. Nach Ablauf einer Prüffrist wird der Datensatz der sachbearbeitenden Stelle zur Prüfung vorgelegt; erfolgt binnen drei Monaten keine begründete Entscheidung über die weitere Speicherung, wird der Datensatz gesperrt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Entwürfe und nicht abgeschlossene Eingaben in der Online-Wache sind nach 30 Tagen zu löschen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Gelöschte Daten sind so zu löschen, dass sie nicht wiederhergestellt werden können. Die Löschung wird protokolliert.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 12",
+                  "title": "Informationssicherheit",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Volkspolizei betreibt ein Informationssicherheitsmanagementsystem nach den Vorgaben des Ostdeutschen Informationssicherheitsgesetzes und nach den anerkannten Standards der Technik. Systeme nach Abschnitt 2 dürfen erst nach erfolgreicher Sicherheitsprüfung in Betrieb genommen werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Informationssicherheitsbeauftragte:r der Volkspolizei ist die Person, die nach § 7 Absatz 1 Satz 1 des Ostdeutschen Informationssicherheitsgesetzes bei der obersten Polizeibehörde für den Bereich der Volkspolizei zur Beauftragten für Informationssicherheit ernannt ist. Sie ist in dieser Funktion weisungsfrei und berichtet der obersten Polizeibehörde jährlich.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Personenbezogene Daten der Volkspolizei dürfen nur in Rechenzentren im Geltungsbereich der Verordnung (EU) 2016/679 verarbeitet werden. Auftragsverarbeiter dürfen nur eingesetzt werden, wenn vertraglich und technisch ausgeschlossen ist, dass Stellen außerhalb dieses Geltungsbereichs auf die Daten zugreifen können.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Erhebliche Sicherheitsvorfälle werden der obersten Polizeibehörde, der:dem Ostdeutschen Datenschutzbeauftragten und dem für Inneres zuständigen Ausschuss der Volkskammer mitgeteilt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(5)",
+                      "text": "Systeme nach Abschnitt 2 sind mindestens alle zwei Jahre durch unabhängige Stellen auf Schwachstellen zu prüfen.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 4",
+              "title": "Bericht und Schlussbestimmungen",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 13",
+                  "title": "Bericht",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Der Staatsrat berichtet der Volkskammer vierjährlich mit dem Digitalisierungsplan über Umsetzungsstand, Kosten, missbräuchliche Zugriffe nach § 10 Absatz 4 in zahlenmäßiger Form und erhebliche Sicherheitsvorfälle."
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 14",
+                  "title": "Verordnungsermächtigung",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Das zuständige Mitglied des Staatsrates wird ermächtigt, durch Rechtsverordnung"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "die technischen und organisatorischen Anforderungen an die elektronische Ermittlungsakte nach § 4,",
+                      "level": 0,
+                      "listId": "btfpj1tfr8m1",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Verfahren, Identifizierung und Sprachangebot der Online-Wache nach § 5 Absatz 1 und 2,",
+                      "level": 0,
+                      "listId": "btfpj1tfr8m1",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Zahl, Sitz und Zuständigkeitsbereiche der Leitstellen nach § 6 im Einvernehmen mit den übrigen zuständigen Mitgliedern des Staatsrates und",
+                      "level": 0,
+                      "listId": "btfpj1tfr8m1",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "das Rollen- und Berechtigungskonzept nach § 10 Absatz 1 in seinen Grundzügen",
+                      "level": 0,
+                      "listId": "btfpj1tfr8m1",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "zu regeln."
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 15",
+                  "title": "Übergangsbestimmungen",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "§ 4 Absatz 1 Satz 2 gilt für Ermittlungsvorgänge, die ab dem 1. Januar 2029 angelegt werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Online-Wache ist bis zum 31. Dezember 2027 in Betrieb zu nehmen; die Ausstattung nach § 5 Absatz 3 ist bis zum 31. Dezember 2029 abzuschließen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Bestehende Systeme sind bis zum 31. Dezember 2028 an die §§ 10 bis 12 anzupassen oder außer Betrieb zu nehmen.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Dieses Gesetz tritt am 1. Januar 2027 in Kraft."
+        }
+      ]
+    }
+  ]
+}

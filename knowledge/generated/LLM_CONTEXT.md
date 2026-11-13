@@ -2,7 +2,7 @@
 
 > Diese Datei ist ein generierter Überblick. Für rechtliche Detailfragen sind die verknüpften Primärquellen und Normfassungen maßgeblich.
 
-**Redaktioneller Stand:** 2026-10-14
+**Redaktioneller Stand:** 2026-11-13
 
 ## Quellenregeln
 

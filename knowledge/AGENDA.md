@@ -2,7 +2,7 @@
 
 > **Arbeitsübersicht für die nächste Wahlperiode.** Kanonische strukturierte Planungsdaten stehen in `knowledge/agenda.json`. Für den geltenden Rechtsstand sind ausschließlich `content/normen/`, `content/verkuendungen/`, `knowledge/current-state.json` und förmliche Verfahren in `knowledge/proceedings.json` maßgeblich.
 
-Stand: 14. Oktober 2026
+Stand: 13. November 2026
 
 ## Politischer Rahmen
 
@@ -39,8 +39,6 @@ Der vollständige Programmtext liegt unter `context/programme/roter-aufbruch-202
 | **Errichtungs- und Neuordnungsgesetz Duale Hochschule Ostdeutschland** | Konzept | Zusammenführung dualer Hochschulstrukturen; Rechtsnachfolge; einheitliche Hochschulordnung; dezentrale Studienakademien und spätere Studienzentren. |
 
 | **Neuordnung des Sparkassen- und Landesbankwesens** | Konzept | Ostdeutsche Gesamtordnung des Sparkassenrechts; Landesbank an der Elbe als Landesbank, Sparkassenzentralbank, Girozentrale und Kommunalbank; Fortentwicklung des Ostdeutschen Sparkassenverbands; Bereinigung überkommener Mehrländerstrukturen. |
-| **Nachrichtendienst- und Staatsschutzreform** | Konzept | Neuordnung des Nachrichtendienstrechts; parlamentarische, gerichtliche und demokratische Kontrolle; klare Aufgabenabgrenzung zum polizeilichen Staatsschutz; Sabotage- und Spionageabwehr; Sicherheitsüberprüfungsrecht. Nach Artikel 83 Absatz 3 der Verfassung bedürfen Maßnahmen eines Geheimdienstes, die Grundrechte Dritter berühren, seit 12. September 2026 einer gesetzlichen Grundlage, Eingriffe in Leben, Gesundheit oder körperliche Integrität einer besonderen gesetzlichen Grundlage; die parlamentarische Nachprüfung bedarf eines besonderen Gesetzes. |
-| **Zusätzliche Drohnenabwehrbefugnisse** | Entwurfsauftrag | Beschluss vom 8. September 2026 (StAnzO. Nr. 44, IV–V): Der Staatsrat für Frieden soll zusätzliche gesetzliche Befugnisse vorbereiten. Noch kein Entwurf oder parlamentarisches Verfahren belegt; der bereits geltende Sicherheitserlass KRITIS 09/2026 bleibt auf bestehende Befugnisse beschränkt. |
 | **Waldschutz- und Waldumbau-Novelle** | Idee/Konzept | Novelle des bestehenden Ostdeutschen Waldgesetzes: klimaresilienter Waldumbau; Mischwald; natürliche Waldentwicklung; Kohlenstoffsenken; Verbindung zu Klimaanpassung und Schutz des Naturvermögens. Für öffentlichen Wald gilt seit 12. September 2026 bereits § 40 des Boden- und Naturvermögensgesetzes; die Novelle betrifft vor allem den nicht öffentlichen Wald und die allgemeinen waldrechtlichen Instrumente. |
 | **Waldorf- und Privatschulreform** | Konzept | Überprüfung von Waldorf-Sonderregelungen; Privatschulfreiheit erhalten; Sonderungsverbot stärken; soziale Schulgeldregeln; Transparenz und soziale Zugänglichkeit. |
 | **Klimaschutz-/Klimarahmengesetz** | Programmauftrag, Normtechnik offen | Verbindliche Klimaschutz- und Anpassungsplanung; kommunale Klimaanpassungspläne; Hitzevorsorge; Renaturierung; Hochwasser-/Küstenschutz; Entsiegelung; Schwammstadt/-dorf; Netto-Null-Pfad bei Flächenversiegelung. |
@@ -89,3 +87,5 @@ Sobald ein Vorhaben förmlich in die Volkskammer eingebracht wird, wird der konk
 Was das geltende Recht bereits an Verordnungen, Verwaltungsvorschriften, Satzungen, Errichtungsakten, Bestellungen und Berichten verlangt, ist keine Agenda. Diese Vollzugsaufträge stehen in [VOLLZUGSAUFTRAEGE.md](VOLLZUGSAUFTRAEGE.md) mit den Daten in `implementation-mandates.json`.
 
 Die in OGVBl. 2026 Nr. 80 bis 84 verkündeten Gesetze sind kein weiterer Rechtsetzungsauftrag: Wirtschaftsplanung und Gemeinwirtschaft, Handelsorganisation Ost, Rohstoffwerke und Fonds, kostenfreie Kindheit und Teilhabe sowie das neue Rechnungshofrecht sind beschlossen. Am Stichtag sind die neuen Vorschriften noch nicht in Kraft; verbleibende Aufbau-, Plan-, Verordnungs- und Leistungsaufgaben stehen in den quellengebundenen Vorhabenseinträgen in `projects.json`.
+
+Die Gesetze zur Staatsschutzreform und zur Drohnenabwehr wurden am 13. November 2026 in OGVBl. Nr. 85–99 verkündet. Ihre gestaffelte Geltung und Umsetzung werden im Rechtsbestand und im Wissenshub geführt.

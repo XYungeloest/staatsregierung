@@ -1,0 +1,36 @@
+{
+  "amendmentAct": "ost-sicherheitsreform-anpassungsgesetz",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "sameDayOrder": 99,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 99 S. 2)",
+  "resultCitation": "Ostdeutsches Informationssicherheitsgesetz, geändert durch Artikel 4 Absatz 2 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 99 S. 2)",
+  "changeNote": "Änderungen nach Artikel 4 Absatz 2 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 4 Absatz 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 99, Artikel 4 Absatz 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 99.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "3.",
+        "text": "das Landesamt für Verfassungsschutz, wenn tatsächliche Anhaltspunkte für Bestrebungen nach § 2 Absatz 1 Nummer 2 des Sächsischen Verfassungsschutzgesetzes vom 16. Oktober 1992 (SächsGVBl. S. 459), das zuletzt durch Artikel 1 des Gesetzes vom 3. Mai 2019 (SächsGVBl. S. 312) geändert worden ist, oder für Bestrebungen vorliegen, die durch Anwendung von Gewalt oder darauf gerichtete Vorbereitungshandlungen gegen die in § 2 Absatz 1 Nummer 1, 3 und 3a des Sächsischen Verfassungsschutzgesetzes genannten Schutzgüter gerichtet sind. § 10 des Sächsischen Verfassungsschutzgesetzes bleibt unberührt."
+      },
+      "expectedHash": "eef7e80139a63ced0fd5b36a1f4b330628c4c1fc6f70ff20cb5e111be9a9ba3d",
+      "expectedMatches": 1,
+      "value": "das Landesamt für Verfassungsschutz, wenn tatsächliche Anhaltspunkte für Bestrebungen nach § 2 Absatz 1 Nummer 2 des Sächsischen Verfassungsschutzgesetzes vom 16. Oktober 1992 (SächsGVBl. S. 459), das zuletzt durch Artikel 1 des Gesetzes vom 3. Mai 2019 (SächsGVBl. S. 312) geändert worden ist, oder für Bestrebungen vorliegen, die durch Anwendung von Gewalt oder darauf gerichtete Vorbereitungshandlungen gegen die in § 2 Absatz 1 Nummer 1, 3 und 3a des Sächsischen Verfassungsschutzgesetzes genannten Schutzgüter gerichtet sind. § 2 des Sicherheitsbehörden-Zusammenarbeitsgesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 98 S. 2) bleibt unberührt.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 99.html",
+      "sourceProvision": "Artikel 4 Absatz 2",
+      "effectiveDate": "2027-01-01"
+    }
+  ]
+}

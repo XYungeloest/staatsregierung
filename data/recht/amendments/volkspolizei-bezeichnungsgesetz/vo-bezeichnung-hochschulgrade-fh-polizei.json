@@ -1,0 +1,45 @@
+{
+  "amendmentAct": "volkspolizei-bezeichnungsgesetz",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 85,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 85 S. 2)",
+  "resultCitation": "Verordnung des Sächsischen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Sächsischen Polizei (FH), geändert durch Artikel 3 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 85 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 85, Artikel 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 85.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Verordnung des Sächsischen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Sächsischen Polizei (FH)",
+      "expectedMatches": 1,
+      "value": "Verordnung über die Bezeichnung der Hochschulgrade an der Hochschule der Volkspolizei (FH)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 3 Nummer 1",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Der Diplomgrad der Hochschule der Sächsischen Polizei (FH) trägt die Bezeichnung „Diplom-Verwaltungswirt“."
+      },
+      "expectedHash": "2d95e20e64aab27866a9209913483b961ac6dde085f7d92bf67a171851745073",
+      "expectedMatches": 1,
+      "value": "Der Diplomgrad der Hochschule der Volkspolizei (FH) trägt die Bezeichnung „Diplom-Verwaltungswirt“.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 3 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

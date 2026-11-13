@@ -1,0 +1,31 @@
+{
+  "amendmentAct": "ost-sicherheitsreform-anpassungsgesetz",
+  "effectiveDate": "2027-01-01",
+  "versionId": "2027-01-01",
+  "sameDayOrder": 99,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 99 S. 2)",
+  "resultCitation": "Ostdeutsches Artikel-10-Gesetz-Ausführungsgesetz, geändert durch Artikel 2 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 99 S. 2)",
+  "changeNote": "Änderungen nach Artikel 2 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 99, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 99.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "6858e7c6cc8c3eb63067c89089c3bcdc80f6075c2e2121c7be391e5393e9f02a",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 99.html",
+      "sourceProvision": "Artikel 2",
+      "effectiveDate": "2027-01-01"
+    }
+  ],
+  "repealsLaw": true
+}

@@ -57,6 +57,7 @@ const CANONICAL_GROUPS = [
   ['finanzausgleichsgesetz', 'Finanzausgleichsgesetz', /Finanzausgleichsgesetz/iu],
   ['ostdeutsches-personennahverkehrsgesetz', 'Ostdeutsches Personennahverkehrsgesetz', /Personennahverkehrsgesetz|Gesetz(?:es)? über den öffentlichen Personennahverkehr/iu],
   ['kulturraumgesetz', 'Kulturraumgesetz', /Kulturraumgesetz|Gesetz(?:es)? über die Kulturräume/iu],
+  ['ostdeutsches-polizeifachhochschulgesetz', 'Ostdeutsches Polizeifachhochschulgesetz', /Polizeifachhochschulgesetz/iu],
   ['ostdeutsches-hochschulgesetz', 'Gesetz über die Hochschulen', /Hochschulgesetz|Gesetz(?:es)? über die Hochschulen/iu],
   ['fluechtlingsaufnahmegesetz', 'Flüchtlingsaufnahmegesetz', /Flüchtlingsaufnahmegesetz/iu],
   ['abschiebungshaftvollzugsgesetz', 'Abschiebungshaftvollzugsgesetz', /Abschiebungshaftvollzugsgesetz/iu],
@@ -141,6 +142,7 @@ function targetFromBlock(block) {
   const heading = `${block.title ?? ''}`.match(
     /^(?:Änderung|Neufassung|Anpassung)\s+(?:des|der)\s+(.+)$/iu,
   );
+  if (heading && /^Anpassung\s/iu.test(block.title ?? '') && /ist bis[\s\S]*anzupassen\./iu.test(JSON.stringify(block.children ?? []))) return null;
   if (heading && ['article', 'paragraph', 'section', 'chapter', 'part'].includes(block.type)) {
     return { title: heading[1].trim(), evidence: 'Gliederungsüberschrift' };
   }

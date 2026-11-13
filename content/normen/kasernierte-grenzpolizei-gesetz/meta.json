@@ -44,8 +44,17 @@
       "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl. 2026 Nr. 50.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 3 Absatz 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
     }
   ],
   "effectiveDate": "2026-07-21",
-  "enactingNorm": "kasernierte-grenzpolizei-errichtungsgesetz"
+  "enactingNorm": "kasernierte-grenzpolizei-errichtungsgesetz",
+  "affectedByNorms": [
+    "volkspolizei-organisationsreform"
+  ]
 }
