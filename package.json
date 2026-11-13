@@ -106,7 +106,7 @@
     "test:deployment:production": "node scripts/check-deployment.mjs"
   },
   "dependencies": {
-    "parse5": "^8.0.1"
+    "parse5": "^8.1.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
