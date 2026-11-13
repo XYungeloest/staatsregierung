@@ -154,7 +154,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "volkspolizei-bezeichnungsgesetz",
-    "shortTitle": "Volkspolizei-Bezeichnungsgesetz",
+    "shortTitle": "Gesetz über die Bezeichnung der Polizei des Freistaates Ostdeutschland als Volkspolizei",
     "type": "aenderungsvorschrift",
     "summary": "Ändert die amtliche Polizeibezeichnung und benennt die Hochschule der Polizei sowie ihre Hochschulgrade um.",
     "affectedNorms": [
@@ -175,7 +175,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "volkspolizei-organisationsreform",
-    "shortTitle": "Gesetz zur Organisation der Volkspolizei",
+    "shortTitle": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
     "type": "aenderungsvorschrift",
     "summary": "Ordnet Aufbau und Zuständigkeiten der Volkspolizei neu und stärkt örtliche Erreichbarkeit, Kennzeichnung und parlamentarische Berichte.",
     "affectedNorms": [
@@ -232,7 +232,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-polizeibeschwerdestellengesetz",
-    "shortTitle": "Gesetz zur Einführung der Polizei-Beschwerde- und Ermittlungsstelle",
+    "shortTitle": "Gesetz zur Einführung der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle",
     "type": "aenderungsvorschrift",
     "summary": "Regelt die unabhängige Beschwerdestelle und ihre Überleitung sowie die entsprechende Änderung des Polizeivollzugsdienstgesetzes.",
     "affectedNorms": [
@@ -266,7 +266,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-polizeidigitalisierungsgesetz",
-    "shortTitle": "Gesetz zur Digitalisierung der Volkspolizei",
+    "shortTitle": "Gesetz zur Digitalisierung der Volkspolizei des Freistaates Ostdeutschland",
     "type": "aenderungsvorschrift",
     "summary": "Führt Vorgaben zur digitalen Polizeiarbeit mit Datenschutz, Informationssicherheit und gestaffelten Umsetzungsfristen ein."
   },
@@ -297,7 +297,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-ostdeutsches-sicherheitsgesetz",
-    "shortTitle": "Gesetz zur Einführung des Ostdeutschen Sicherheitsgesetzes",
+    "shortTitle": "Gesetz über die Einführung eines Ostdeutschen Sicherheitsgesetzes",
     "type": "aenderungsvorschrift",
     "summary": "Schafft den gesetzlichen Rahmen für Sicherheitskabinett, gemeinsames Lagezentrum und die Bewältigung von Sicherheitskrisen."
   },
@@ -327,7 +327,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-staatsschutzamt-errichtungsgesetz",
-    "shortTitle": "Gesetz zur Einführung des Staatsschutzamt-Errichtungsgesetzes",
+    "shortTitle": "Gesetz zur Einführung eines Staatsschutzamt-Errichtungsgesetzes",
     "type": "aenderungsvorschrift",
     "summary": "Errichtet das Landesamt für Staatsschutz und regelt Organisation, Aufsicht, Befugnisse und den Übergang des Verfassungsschutzamtes."
   },
@@ -358,7 +358,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-staatsschutz-nachrichtendienstgesetz",
-    "shortTitle": "Gesetz zur Einführung des Staatsschutz- und Nachrichtendienstgesetzes",
+    "shortTitle": "Gesetz zur Einführung eines Staatsschutz- und Nachrichtendienstgesetzes",
     "type": "aenderungsvorschrift",
     "summary": "Bestimmt Aufgaben und nachrichtendienstliche Befugnisse des Staatsschutzes sowie Grenzen, Datenschutz und Kontrollverfahren."
   },
@@ -389,7 +389,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-staatsschutz-kontrollgesetz",
-    "shortTitle": "Gesetz zur Einführung des Staatsschutz-Kontrollgesetzes",
+    "shortTitle": "Gesetz über die Einführung eines Staatsschutz-Kontrollgesetzes",
     "type": "aenderungsvorschrift",
     "summary": "Führt die parlamentarische und unabhängige Kontrolle des Staatsschutzes einschließlich der Staatsschutzkommission ein."
   },
@@ -420,7 +420,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-ostdeutsches-kritis-gesetz",
-    "shortTitle": "Gesetz zur Einführung des Ostdeutschen KRITIS-Gesetzes",
+    "shortTitle": "Gesetz zur Einführung eines Gesetzes zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland",
     "type": "aenderungsvorschrift",
     "summary": "Regelt Bestimmung, Schutz und Widerstandsfähigkeit kritischer Infrastruktur mit Betreiberpflichten und behördlicher Aufsicht.",
     "effectiveOverride": "2026-11-14",
@@ -458,7 +458,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-luftverkehrssicherungsgesetz",
-    "shortTitle": "Gesetz zur Einführung des Luftverkehrssicherungsgesetzes",
+    "shortTitle": "Gesetz zur Einführung eines Luftverkehrssicherungsgesetzes",
     "type": "aenderungsvorschrift",
     "summary": "Regelt Luftsicherheitsbehörde, Zentralstelle Drohnenabwehr und die Zusammenarbeit an Verkehrsflughäfen."
   },
@@ -489,7 +489,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "terrorismusabwehr-polizeivollzugsdienstgesetz",
-    "shortTitle": "Gesetz zur Stärkung der Terrorismusabwehr",
+    "shortTitle": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Stärkung der Terrorismusabwehr",
     "type": "aenderungsvorschrift",
     "summary": "Ergänzt polizeiliche Schutzbereiche, richterlich angeordnete Meldeauflagen und Maßnahmen gegen unbemannte Fluggeräte.",
     "affectedNorms": [
@@ -508,7 +508,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "wehrhafte-demokratie-gesetz",
-    "shortTitle": "Gesetz zur Stärkung der wehrhaften Demokratie",
+    "shortTitle": "Gesetz zur Stärkung der wehrhaften Demokratie im Freistaat Ostdeutschland",
     "type": "aenderungsvorschrift",
     "summary": "Führt Verfassungstreueprüfungen für besonders sicherheitsrelevante Einstellungen und die Förderung von Demokratie und Extremismusprävention ein."
   },
@@ -554,7 +554,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "einfuehrung-sicherheitsbehoerden-zusammenarbeitsgesetz",
-    "shortTitle": "Gesetz zur Einführung des Sicherheitsbehörden-Zusammenarbeitsgesetzes",
+    "shortTitle": "Gesetz zur Einführung eines Sicherheitsbehörden-Zusammenarbeitsgesetzes",
     "type": "aenderungsvorschrift",
     "summary": "Regelt Informationsaustausch, gemeinsame Projektdateien und Fallkonferenzen der Sicherheitsbehörden unter verbindlichen Datenschutzanforderungen."
   },
@@ -585,7 +585,7 @@ const NEW_PUBLICATION_CONFIG = {
       "Sicherheitsrecht und Polizeirecht"
     ],
     "slug": "ost-sicherheitsreform-anpassungsgesetz",
-    "shortTitle": "Gesetz zur Einführung der Ost-Sicherheitsreform",
+    "shortTitle": "Gesetz zur Einführung der Ost-Sicherheitsreform und zur Anpassung des Landesrechts",
     "type": "aenderungsvorschrift",
     "summary": "Hebt bisheriges Verfassungsschutzrecht auf und regelt Folgeänderungen, Bezeichnungsanpassungen und die Überleitung laufender Maßnahmen.",
     "affectedNorms": [
