@@ -12,7 +12,7 @@
   ],
   "primarySubject": "Sicherheitsrecht und Polizeirecht",
   "keywords": [],
-  "initialCitation": "Ostdeutsches Sicherheitsüberprüfungsgesetz vom 19. Februar 2004 (SächsGVBl. S. 44)",
+  "initialCitation": "Ostdeutsches Sicherheitsüberprüfungsgesetz vom 19. Februar 2004 (SächsGVBl. S. 44), das zuletzt durch Artikel 2 Absatz 1 des Gesetzes vom 22. Juli 2024 (SächsGVBl. S. 706) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "status": "in-force",
@@ -20,18 +20,24 @@
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 1345.3, gültig 2012-03-01 bis 2025-08-15",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/1345.3.html",
+      "label": "Amtliche REVOSax-Fassung, gültig 2012-03-01 bis 2025-08-15",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-sicherheitsueberpruefungsgesetz/1345.3.html",
       "url": "https://www.revosax.sachsen.de/vorschrift/1345.3",
       "retrievedAt": "2026-09-03",
       "sha256": "5bec8b8324de4f7ec6002737b1ea01a5306c4ef1cc6c88fd7721c8a4679619b2",
       "lawId": "1345",
       "sourceValidFrom": "2012-03-01",
-      "sourceValidTo": "2025-08-15",
-      "fsnNumber": "22-7",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "sourceValidTo": "2025-08-15"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 99, Artikel 4 Absatz 1",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 99.html"
     }
+  ],
+  "affectedByNorms": [
+    "ost-sicherheitsreform-anpassungsgesetz"
   ]
 }

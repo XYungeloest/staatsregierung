@@ -143,6 +143,461 @@ const ISSUE_SUBJECTS = {
 
 const SCHOOL_LAW_SUBJECTS = ['Bildungswesen'];
 const NEW_PUBLICATION_CONFIG = {
+  'OGVBl.|2026|85': [
+  {
+    "pageCount": 4,
+    "pdfFileName": "OGVBl. 2026 Nr. 85.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "volkspolizei-bezeichnungsgesetz",
+    "shortTitle": "Volkspolizei-Bezeichnungsgesetz",
+    "type": "aenderungsvorschrift",
+    "summary": "Ändert die amtliche Polizeibezeichnung und benennt die Hochschule der Polizei sowie ihre Hochschulgrade um.",
+    "affectedNorms": [
+      "ostdeutsches-polizeivollzugsdienstgesetz",
+      "ostdeutsches-polizeifachhochschulgesetz",
+      "vo-bezeichnung-hochschulgrade-fh-polizei"
+    ]
+  }
+],
+  'OGVBl.|2026|86': [
+  {
+    "pageCount": 12,
+    "pdfFileName": "OGVBl. 2026 Nr. 86.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "volkspolizei-organisationsreform",
+    "shortTitle": "Gesetz zur Organisation der Volkspolizei",
+    "type": "aenderungsvorschrift",
+    "summary": "Ordnet Aufbau und Zuständigkeiten der Volkspolizei neu und stärkt örtliche Erreichbarkeit, Kennzeichnung und parlamentarische Berichte.",
+    "affectedNorms": [
+      "ostdeutsches-polizeivollzugsdienstgesetz",
+      "landesjugendhilfegesetz",
+      "ostdeutsches-informationssicherheitsgesetz",
+      "ostdeutsches-besoldungsgesetz",
+      "kasernierte-grenzpolizei-gesetz"
+    ]
+  },
+  {
+    "pageCount": 12,
+    "pdfFileName": "OGVBl. 2026 Nr. 86.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "volkspolizeiorganisationsgesetz",
+    "shortTitle": "Volkspolizeiorganisationsgesetz",
+    "abbr": "VPOG",
+    "type": "gesetz",
+    "summary": "Ordnet Aufbau und Zuständigkeiten der Volkspolizei neu und stärkt örtliche Erreichbarkeit, Kennzeichnung und parlamentarische Berichte."
+  }
+],
+  'OGVBl.|2026|87': [
+  {
+    "pageCount": 4,
+    "pdfFileName": "OGVBl. 2026 Nr. 87.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "polizeiausbildungsreformgesetz",
+    "shortTitle": "Gesetz zur Reform der Polizeiausbildung",
+    "type": "aenderungsvorschrift",
+    "summary": "Verankert Pflichtkompetenzen, Fortbildung, Führungsqualifizierung und unabhängige Evaluation in der Polizeiausbildung.",
+    "affectedNorms": [
+      "ostdeutsches-polizeifachhochschulgesetz"
+    ]
+  }
+],
+  'OGVBl.|2026|88': [
+  {
+    "pageCount": 10,
+    "pdfFileName": "OGVBl. 2026 Nr. 88.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-polizeibeschwerdestellengesetz",
+    "shortTitle": "Gesetz zur Einführung der Polizei-Beschwerde- und Ermittlungsstelle",
+    "type": "aenderungsvorschrift",
+    "summary": "Regelt die unabhängige Beschwerdestelle und ihre Überleitung sowie die entsprechende Änderung des Polizeivollzugsdienstgesetzes.",
+    "affectedNorms": [
+      "ostdeutsches-polizeivollzugsdienstgesetz"
+    ]
+  },
+  {
+    "pageCount": 10,
+    "pdfFileName": "OGVBl. 2026 Nr. 88.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "polizeibeschwerdestellengesetz",
+    "shortTitle": "Polizeibeschwerdestellengesetz",
+    "abbr": "PolBeschStG",
+    "type": "gesetz",
+    "summary": "Regelt die unabhängige Beschwerdestelle und ihre Überleitung sowie die entsprechende Änderung des Polizeivollzugsdienstgesetzes."
+  }
+],
+  'OGVBl.|2026|89': [
+  {
+    "pageCount": 9,
+    "pdfFileName": "OGVBl. 2026 Nr. 89.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-polizeidigitalisierungsgesetz",
+    "shortTitle": "Gesetz zur Digitalisierung der Volkspolizei",
+    "type": "aenderungsvorschrift",
+    "summary": "Führt Vorgaben zur digitalen Polizeiarbeit mit Datenschutz, Informationssicherheit und gestaffelten Umsetzungsfristen ein."
+  },
+  {
+    "pageCount": 9,
+    "pdfFileName": "OGVBl. 2026 Nr. 89.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "polizeidigitalisierungsgesetz",
+    "shortTitle": "Polizeidigitalisierungsgesetz",
+    "abbr": "PolDigG",
+    "type": "gesetz",
+    "summary": "Führt Vorgaben zur digitalen Polizeiarbeit mit Datenschutz, Informationssicherheit und gestaffelten Umsetzungsfristen ein."
+  }
+],
+  'OGVBl.|2026|90': [
+  {
+    "pageCount": 6,
+    "pdfFileName": "OGVBl. 2026 Nr. 90.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-ostdeutsches-sicherheitsgesetz",
+    "shortTitle": "Gesetz zur Einführung des Ostdeutschen Sicherheitsgesetzes",
+    "type": "aenderungsvorschrift",
+    "summary": "Schafft den gesetzlichen Rahmen für Sicherheitskabinett, gemeinsames Lagezentrum und die Bewältigung von Sicherheitskrisen."
+  },
+  {
+    "pageCount": 6,
+    "pdfFileName": "OGVBl. 2026 Nr. 90.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "ostdeutsches-sicherheitsgesetz",
+    "shortTitle": "Ostdeutsches Sicherheitsgesetz",
+    "type": "gesetz",
+    "summary": "Schafft den gesetzlichen Rahmen für Sicherheitskabinett, gemeinsames Lagezentrum und die Bewältigung von Sicherheitskrisen."
+  }
+],
+  'OGVBl.|2026|91': [
+  {
+    "pageCount": 8,
+    "pdfFileName": "OGVBl. 2026 Nr. 91.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-staatsschutzamt-errichtungsgesetz",
+    "shortTitle": "Gesetz zur Einführung des Staatsschutzamt-Errichtungsgesetzes",
+    "type": "aenderungsvorschrift",
+    "summary": "Errichtet das Landesamt für Staatsschutz und regelt Organisation, Aufsicht, Befugnisse und den Übergang des Verfassungsschutzamtes."
+  },
+  {
+    "pageCount": 8,
+    "pdfFileName": "OGVBl. 2026 Nr. 91.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "staatsschutzamt-errichtungsgesetz",
+    "shortTitle": "Staatsschutzamt-Errichtungsgesetz",
+    "abbr": "LfStErrG",
+    "type": "gesetz",
+    "summary": "Errichtet das Landesamt für Staatsschutz und regelt Organisation, Aufsicht, Befugnisse und den Übergang des Verfassungsschutzamtes."
+  }
+],
+  'OGVBl.|2026|92': [
+  {
+    "pageCount": 11,
+    "pdfFileName": "OGVBl. 2026 Nr. 92.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-staatsschutz-nachrichtendienstgesetz",
+    "shortTitle": "Gesetz zur Einführung des Staatsschutz- und Nachrichtendienstgesetzes",
+    "type": "aenderungsvorschrift",
+    "summary": "Bestimmt Aufgaben und nachrichtendienstliche Befugnisse des Staatsschutzes sowie Grenzen, Datenschutz und Kontrollverfahren."
+  },
+  {
+    "pageCount": 11,
+    "pdfFileName": "OGVBl. 2026 Nr. 92.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "staatsschutz-und-nachrichtendienstgesetz",
+    "shortTitle": "Staatsschutz- und Nachrichtendienstgesetz",
+    "abbr": "OstSNDG",
+    "type": "gesetz",
+    "summary": "Bestimmt Aufgaben und nachrichtendienstliche Befugnisse des Staatsschutzes sowie Grenzen, Datenschutz und Kontrollverfahren."
+  }
+],
+  'OGVBl.|2026|93': [
+  {
+    "pageCount": 6,
+    "pdfFileName": "OGVBl. 2026 Nr. 93.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-staatsschutz-kontrollgesetz",
+    "shortTitle": "Gesetz zur Einführung des Staatsschutz-Kontrollgesetzes",
+    "type": "aenderungsvorschrift",
+    "summary": "Führt die parlamentarische und unabhängige Kontrolle des Staatsschutzes einschließlich der Staatsschutzkommission ein."
+  },
+  {
+    "pageCount": 6,
+    "pdfFileName": "OGVBl. 2026 Nr. 93.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "staatsschutz-kontrollgesetz",
+    "shortTitle": "Staatsschutz-Kontrollgesetz",
+    "abbr": "OstSKG",
+    "type": "gesetz",
+    "summary": "Führt die parlamentarische und unabhängige Kontrolle des Staatsschutzes einschließlich der Staatsschutzkommission ein."
+  }
+],
+  'OGVBl.|2026|94': [
+  {
+    "pageCount": 7,
+    "pdfFileName": "OGVBl. 2026 Nr. 94.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-ostdeutsches-kritis-gesetz",
+    "shortTitle": "Gesetz zur Einführung des Ostdeutschen KRITIS-Gesetzes",
+    "type": "aenderungsvorschrift",
+    "summary": "Regelt Bestimmung, Schutz und Widerstandsfähigkeit kritischer Infrastruktur mit Betreiberpflichten und behördlicher Aufsicht.",
+    "effectiveOverride": "2026-11-14",
+    "dateNote": "Artikel 1 § 3 Absatz 2 tritt am 14. November 2026 in Kraft; im Übrigen gilt das Gesetz ab 1. Januar 2027."
+  },
+  {
+    "pageCount": 7,
+    "pdfFileName": "OGVBl. 2026 Nr. 94.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "ostdeutsches-kritis-gesetz",
+    "initialProvisionLabels": ["§ 3"],
+    "initialSubparagraphLabels": {"§ 3": ["(2)"]},
+    "fullEffectiveDate": "2027-01-01",
+    "shortTitle": "Ostdeutsches KRITIS-Gesetz",
+    "abbr": "OstKRITISG",
+    "type": "gesetz",
+    "summary": "Regelt Bestimmung, Schutz und Widerstandsfähigkeit kritischer Infrastruktur mit Betreiberpflichten und behördlicher Aufsicht.",
+    "effectiveOverride": "2026-11-14",
+    "dateNote": "Artikel 1 § 3 Absatz 2 tritt am 14. November 2026 in Kraft; im Übrigen gilt das Gesetz ab 1. Januar 2027."
+  }
+],
+  'OGVBl.|2026|95': [
+  {
+    "pageCount": 3,
+    "pdfFileName": "OGVBl. 2026 Nr. 95.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-luftverkehrssicherungsgesetz",
+    "shortTitle": "Gesetz zur Einführung des Luftverkehrssicherungsgesetzes",
+    "type": "aenderungsvorschrift",
+    "summary": "Regelt Luftsicherheitsbehörde, Zentralstelle Drohnenabwehr und die Zusammenarbeit an Verkehrsflughäfen."
+  },
+  {
+    "pageCount": 3,
+    "pdfFileName": "OGVBl. 2026 Nr. 95.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "ostdeutsches-luftverkehrssicherungsgesetz",
+    "shortTitle": "Ostdeutsches Luftverkehrssicherungsgesetz",
+    "abbr": "OstLVSG",
+    "type": "gesetz",
+    "summary": "Regelt Luftsicherheitsbehörde, Zentralstelle Drohnenabwehr und die Zusammenarbeit an Verkehrsflughäfen."
+  }
+],
+  'OGVBl.|2026|96': [
+  {
+    "pageCount": 5,
+    "pdfFileName": "OGVBl. 2026 Nr. 96.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "terrorismusabwehr-polizeivollzugsdienstgesetz",
+    "shortTitle": "Gesetz zur Stärkung der Terrorismusabwehr",
+    "type": "aenderungsvorschrift",
+    "summary": "Ergänzt polizeiliche Schutzbereiche, richterlich angeordnete Meldeauflagen und Maßnahmen gegen unbemannte Fluggeräte.",
+    "affectedNorms": [
+      "ostdeutsches-polizeivollzugsdienstgesetz"
+    ]
+  }
+],
+  'OGVBl.|2026|97': [
+  {
+    "pageCount": 6,
+    "pdfFileName": "OGVBl. 2026 Nr. 97.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "wehrhafte-demokratie-gesetz",
+    "shortTitle": "Gesetz zur Stärkung der wehrhaften Demokratie",
+    "type": "aenderungsvorschrift",
+    "summary": "Führt Verfassungstreueprüfungen für besonders sicherheitsrelevante Einstellungen und die Förderung von Demokratie und Extremismusprävention ein."
+  },
+  {
+    "pageCount": 6,
+    "pdfFileName": "OGVBl. 2026 Nr. 97.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "verfassungstreuepruefungsgesetz",
+    "shortTitle": "Verfassungstreueprüfungsgesetz",
+    "abbr": "VTPG",
+    "type": "gesetz",
+    "summary": "Führt Verfassungstreueprüfungen für besonders sicherheitsrelevante Einstellungen und die Förderung von Demokratie und Extremismusprävention ein."
+  },
+  {
+    "pageCount": 6,
+    "pdfFileName": "OGVBl. 2026 Nr. 97.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "demokratiefoerderungsgesetz",
+    "shortTitle": "Demokratieförderungsgesetz",
+    "abbr": "DemFG",
+    "type": "gesetz",
+    "summary": "Führt Verfassungstreueprüfungen für besonders sicherheitsrelevante Einstellungen und die Förderung von Demokratie und Extremismusprävention ein."
+  }
+],
+  'OGVBl.|2026|98': [
+  {
+    "pageCount": 5,
+    "pdfFileName": "OGVBl. 2026 Nr. 98.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "einfuehrung-sicherheitsbehoerden-zusammenarbeitsgesetz",
+    "shortTitle": "Gesetz zur Einführung des Sicherheitsbehörden-Zusammenarbeitsgesetzes",
+    "type": "aenderungsvorschrift",
+    "summary": "Regelt Informationsaustausch, gemeinsame Projektdateien und Fallkonferenzen der Sicherheitsbehörden unter verbindlichen Datenschutzanforderungen."
+  },
+  {
+    "pageCount": 5,
+    "pdfFileName": "OGVBl. 2026 Nr. 98.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
+    "shortTitle": "Sicherheitsbehörden-Zusammenarbeitsgesetz",
+    "abbr": "OstSZG",
+    "type": "gesetz",
+    "summary": "Regelt Informationsaustausch, gemeinsame Projektdateien und Fallkonferenzen der Sicherheitsbehörden unter verbindlichen Datenschutzanforderungen."
+  }
+],
+  'OGVBl.|2026|99': [
+  {
+    "pageCount": 5,
+    "pdfFileName": "OGVBl. 2026 Nr. 99.pdf",
+    "verifiedAt": "2026-11-13",
+    "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+    "responsibleMinistry": "Staatsrat für Frieden",
+    "subjects": [
+      "Sicherheitsrecht und Polizeirecht"
+    ],
+    "slug": "ost-sicherheitsreform-anpassungsgesetz",
+    "shortTitle": "Gesetz zur Einführung der Ost-Sicherheitsreform",
+    "type": "aenderungsvorschrift",
+    "summary": "Hebt bisheriges Verfassungsschutzrecht auf und regelt Folgeänderungen, Bezeichnungsanpassungen und die Überleitung laufender Maßnahmen.",
+    "affectedNorms": [
+      "ostdeutsches-verfassungsschutzgesetz",
+      "ostdeutsches-artikel-10-gesetz-ausfuehrungsgesetz",
+      "ostdeutsches-sicherheitsueberpruefungsgesetz",
+      "ostdeutsches-informationssicherheitsgesetz",
+      "ostdeutsches-besoldungsgesetz"
+    ]
+  }
+],
+
   'OGVBl.|2026|80': [
   {
     "pageCount": 42,
@@ -1788,6 +2243,12 @@ function buildRecords(parsed) {
         if (block.type === 'paragraph') {
           if (!labels.has(block.label)) return [];
           found.add(block.label);
+          const sublabels = config.initialSubparagraphLabels?.[block.label];
+          if (sublabels) {
+            const children = block.children.filter((child) => sublabels.includes(child.label));
+            if (children.length !== sublabels.length) throw new Error(`${slug}: unbekannter früher Absatz`);
+            return [{ ...block, children }];
+          }
           return [block];
         }
         const children = select(block.children ?? []);

@@ -1,0 +1,36 @@
+{
+  "amendmentAct": "volkspolizei-organisationsreform",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 86,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "resultCitation": "Landesjugendhilfegesetz, geändert durch Artikel 3 Absatz 2 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 Absatz 2 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 3 Absatz 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 3 Absatz 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "f)",
+        "text": "ein Vertreter der Polizei, der von der zuständigen Polizeidirektion gemäß § 97 Absatz 1 Nummer 5 des Sächsischen Polizeivollzugsdienstgesetzes vom 11. Mai 2019 (SächsGVBl. S. 358), in der jeweils geltenden Fassung, bestimmt wird,"
+      },
+      "expectedHash": "d105ad4c067871753869a711e3d8ec40fcc8ae5253f19a0f095d911ad9df12e9",
+      "expectedMatches": 1,
+      "value": "ein Vertreter der Polizei, der von der zuständigen Bezirkspolizeidirektion nach § 2 Absatz 2 Nummer 4 des Volkspolizeiorganisationsgesetzes bestimmt wird,",
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 2",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

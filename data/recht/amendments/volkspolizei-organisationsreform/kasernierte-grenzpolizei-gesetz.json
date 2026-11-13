@@ -1,0 +1,75 @@
+{
+  "amendmentAct": "volkspolizei-organisationsreform",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 86,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "resultCitation": "Kasernierte-Grenzpolizei-Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 50 S. 2), geändert durch Artikel 3 Absatz 5 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 86 S. 2)",
+  "changeNote": "Änderungen nach Artikel 3 Absatz 4 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 3 Absatz 5"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 86, Artikel 3 Absatz 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 86.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 9"
+      },
+      "expectedHash": "5ae0a7151e005cccaae211c45298cc8f9db87ebc918a9f60a3830e9e28ed1c17",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 9",
+        "title": "Küsten- und Wasserschutzdienst",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Kasernierte Grenzpolizei unterhält zur Unterstützung ihrer Aufgaben einen Küsten- und Wasserschutzdienst.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Küsten- und Wasserschutzdienst nimmt vollzugspolizeiliche Aufgaben insbesondere auf grenznahen Gewässern, in Häfen, an Umschlagstellen, auf Wasserstraßen, an Küstenabschnitten sowie an wasserbezogenen Anlagen kritischer Infrastruktur wahr, soweit nicht eine andere Polizeidienststelle zuständig ist.",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Auf grenznahen Gewässern sowie in den dort gelegenen Häfen und Umschlagstellen geht die Zuständigkeit der Kasernierten Grenzpolizei der Zuständigkeit des Präsidiums der Bereitschaftspolizei vor."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Küsten- und Wasserschutzdienst kann Wasserfahrzeuge, Tauchergruppen, Hafenfahndungsgruppen, Gefahrgutkontrollgruppen und technische Einsatzgruppen einsetzen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der Küsten- und Wasserschutzdienst nimmt keine Aufgaben der militärischen Seeraumüberwachung, der Küstenverteidigung oder der Seekriegführung wahr.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Kriegsschiffe, Seezielwaffen, Seeminen sowie sonstige nach Bauart und Zweckbestimmung für die militärische Seekriegführung bestimmte Einsatzmittel dürfen nicht beschafft, vorgehalten oder eingesetzt werden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 5",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

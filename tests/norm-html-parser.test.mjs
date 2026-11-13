@@ -398,3 +398,27 @@ test('ein zitierter Inhaltsübersichtseintrag mit Schlusspunkt endet vor einem n
   assert.equal(provision.title, 'Förderung');
   assert.deepEqual(provision.children.map(block => block.label), ['(1)', '(2)']);
 });
+
+test('mehrteilige Einführungstitel trennen Stammnorm und Schlussartikel bei beiden Überschriftenformen', () => {
+  for (const combined of [false, true]) {
+    const title = 'Gesetz über ein Prüfverfahren (Prüfverfahrensgesetz – PVG)';
+    const intro = combined
+      ? `<h1>Artikel 1<br>Einführung eines Prüf- und Verfahrensgesetzes<br>${title}</h1>`
+      : `<h1>Artikel 1<br>Einführung eines Prüf- und Verfahrensgesetzes</h1><p>${title}</p>`;
+    const html = `<!doctype html><html><body>
+      <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>
+      <p>Nr. 99</p><p>Ausgegeben zu Dresden am 14. Oktober 2026</p>
+      <p>Inhaltsverzeichnis</p><p>14. Oktober 2026 Gesetz zur Einführung einer Prüfregelung Seite 2</p>
+      <p>Gesetz<br>zur Einführung einer Prüfregelung<br>vom 14. Oktober 2026</p>
+      ${intro}<h2>Abschnitt 1<br>Grundlagen</h2><h3>§ 1<br>Prüfung</h3><p>Die Stelle prüft den Vorgang.</p>
+      <h1>Artikel 2<br>Inkrafttreten</h1><p>Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.</p>
+      <p>Dresden, den 14. Oktober 2026</p></body></html>`;
+    const parsed = parsePublicationHtml('einfuehrung-fixture.html', html);
+    assert.equal(parsed.introducedNorms.length, 1);
+    assert.equal(parsed.introducedNorms[0].title, 'Gesetz über ein Prüfverfahren');
+    assert.equal(parsed.introducedNorms[0].abbr, 'PVG');
+    assert.deepEqual(parsed.body.map(b => b.label).filter(Boolean), ['Artikel 1', 'Artikel 2']);
+    assert.doesNotMatch(JSON.stringify(parsed.introducedNorms[0].body), /Inkrafttreten/);
+    assert.ok(flatten(parsed.body).some(({block, insideQuote}) => block.label === '§ 1' && insideQuote));
+  }
+});

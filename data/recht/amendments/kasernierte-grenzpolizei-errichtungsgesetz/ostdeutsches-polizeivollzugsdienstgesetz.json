@@ -14,6 +14,114 @@
   ],
   "operations": [
     {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 97"
+      },
+      "expectedHash": "06cbef1996bc823ee5bbdf85d11ef7dfcfd40692828b0d707bbdd131d5a77ac4",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 97",
+        "title": "Polizeidienststellen und Einrichtungen für den Polizeivollzugsdienst",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Freistaat Sachsen unterhält für den Polizeivollzugsdienst folgende Polizeidienststellen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "das Landespolizeipräsidium im Staatsministerium des Innern,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "das Landeskriminalamt,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "das Polizeiverwaltungsamt,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "das Präsidium der Bereitschaftspolizei,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "die Kasernierte Grenzpolizei und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "die Polizeidirektionen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Freistaat Sachsen unterhält für den Polizeivollzugsdienst die erforderlichen Ausbildungs- und Fortbildungseinrichtungen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Für das Gebiet der Bundeshauptstadt Berlin ist eine Polizeidirektion Berlin einzurichten. Sie soll in ihrer inneren Organisation so gegliedert werden, dass eine flächendeckende Präsenz sowie eine wirksame Führung in Großschadenslagen, bei Großveranstaltungen und in kriminalitätsbelasteten Räumen gewährleistet sind.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 50.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 100"
+      },
+      "expectedHash": "9fc9d5276a437c875010f597a6544252b9d7ef65d429dcfe4594f09a9cb13f0a",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 100a",
+        "title": "Kasernierte Grenzpolizei",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Aufbau, Organisation und Aufgaben der Kasernierten Grenzpolizei richten sich nach dem Kasernierte-Grenzpolizei-Gesetz."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 50.html",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "effectiveDate": "2026-07-21"
+    },
+    {
       "op": "replaceText",
       "target": {
         "type": "subparagraph",
@@ -28,5 +136,11 @@
       "sourceProvision": "Artikel 2 Nummer 4",
       "effectiveDate": "2026-07-21"
     }
+  ],
+  "commandCoverage": [
+    "Artikel 2 Nummer 1",
+    "Artikel 2 Nummer 2",
+    "Artikel 2 Nummer 3",
+    "Artikel 2 Nummer 4"
   ]
 }

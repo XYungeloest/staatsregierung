@@ -1,0 +1,134 @@
+{
+  "amendmentAct": "volkspolizei-bezeichnungsgesetz",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 85,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 85 S. 2)",
+  "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz, geändert durch Artikel 1 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 85 S. 2)",
+  "changeNote": "Änderungen nach Artikel 1 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 85, Artikel 1",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 85.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 1"
+      },
+      "expectedHash": "b728e2b96b7b55686a4cc80c2fb0a180a8c57619870518cc7ab95efc67b090c2",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 1",
+        "title": "Anwendungsbereich",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Die Vorschriften dieses Gesetzes finden Anwendung für die Erfüllung von Aufgaben des Polizeivollzugsdienstes nach § 2 im Freistaat Sachsen. Polizei im Sinne dieses Gesetzes ist der Polizeivollzugsdienst mit den Bediensteten, die Aufgaben des Polizeivollzugs wahrnehmen."
+          },
+          {
+            "type": "paragraphText",
+            "text": "Die Polizeidienststellen nach § 2 Absatz 2 des Volkspolizeiorganisationsgesetzes führen die amtliche Bezeichnung ‚Volkspolizei des Freistaates Ostdeutschland‘ (Volkspolizei)."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Besondere Waffen dürfen gegen Personen nur in den Fällen des § 44 Absatz 1 Nummer 1, 2 und 5 und nur nach Freigabe des Landespolizeipräsidenten oder seines Vertreters im Amt gebraucht werden, wenn"
+      },
+      "expectedHash": "a805882c11d001946574114199df73db8b948ee4a42b56fac2c6da64408775e6",
+      "expectedMatches": 1,
+      "value": "Besondere Waffen dürfen gegen Personen nur in den Fällen des § 44 Absatz 1 Nummer 1, 2 und 5 und nur nach Freigabe der Volkspolizeipräsident:in oder ihrer Vertretung im Amt gebraucht werden, wenn",
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 46"
+      },
+      "expectedHash": "c7790508c29a81ffd117d718fdd82c6451c73b706957404482ae36c0d3e298be",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 46",
+        "title": "Besondere Waffen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Besondere Waffen dürfen gegen Personen nur in den Fällen des § 44 Absatz 1 Nummer 1, 2 und 5 und nur nach Freigabe der Volkspolizeipräsident:in oder ihrer Vertretung im Amt gebraucht werden, wenn",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "der Einsatz dieser Waffen erforderlich ist, um eine von den Personen ausgehende Gefahr für das Leben der eingesetzten Polizeibediensteten oder unbeteiligter Dritter abzuwehren oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "diese Personen von Schusswaffen oder Explosivmitteln Gebrauch gemacht haben und der vorherige Gebrauch anderer Schusswaffen erfolglos geblieben ist oder ungeeignet erscheint.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Beim Einsatz der Kasernierten Grenzpolizei tritt an die Stelle der Freigabe nach Satz 1 die Freigabe durch die Leitung der Kasernierten Grenzpolizei oder ihre Vertretung im Amt."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Besondere Waffen dürfen nur gebraucht werden, um einen Angriff abzuwehren. Sie dürfen gegen Personen in einer Menschenmenge nicht angewendet werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Vorschriften über Schusswaffen gelten auch für Maschinengewehre direkt und für Handgranaten entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(6)",
+        "text": "Die Polizei und die Hochschule der Sächsischen Polizei (FH) können gespeicherte personenbezogene Daten zur polizeilichen Aus- und Fortbildung oder zu statistischen Zwecken weiterverarbeiten, soweit eine Weiterverarbeitung anonymisierter Daten zu diesem Zweck nicht möglich ist und jeweils die berechtigten Interessen des Betroffenen an der Geheimhaltung der Daten nicht überwiegen."
+      },
+      "expectedHash": "c6099679869fdd9d03ff44db5cedbcac7a22f18f33d96ae0f58f1a65e9563dee",
+      "expectedMatches": 1,
+      "value": "Die Polizei und die Hochschule der Volkspolizei (FH) können gespeicherte personenbezogene Daten zur polizeilichen Aus- und Fortbildung oder zu statistischen Zwecken weiterverarbeiten, soweit eine Weiterverarbeitung anonymisierter Daten zu diesem Zweck nicht möglich ist und jeweils die berechtigten Interessen des Betroffenen an der Geheimhaltung der Daten nicht überwiegen.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

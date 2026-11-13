@@ -1,11 +1,11 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-10-14T08:20:14.214Z
+**Erzeugt:** 2026-11-13T16:34:09.117Z
 
-- Erkannte Änderungsvorschriften: 75
-- Erkannte Zielnormen: 109
-- Vollständig konsolidiert: 107
+- Erkannte Änderungsvorschriften: 90
+- Erkannte Zielnormen: 130
+- Vollständig konsolidiert: 128
 - Aktuell offene Zielnormen: 2
 
 ## Offener Handlungsbedarf
@@ -52,5 +52,7 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Ostdeutschen Eisenbahngesetzes“ (Gliederungsüberschrift)
 - `gesetz-zur-einfuehrung-eines-gemeinvermoegensschutzgesetzes`: „Interflug-Gesetzes“ (Gliederungsüberschrift)
 - `organisationserlass-aenderung-fachbereichszuteilung-2024`: „Fachbereichszuteilungen“ (Gliederungsüberschrift)
+- `ostdeutsches-besoldungsgesetz`: „Familienzuschlags“ (Gliederungsüberschrift)
 - `rohstoffwirtschafts-neuordnungsgesetz`: „Ostdeutschen Landesbankgesetzes“ (Gliederungsüberschrift)
 - `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)
+- `volkspolizei-bezeichnungsgesetz`: „Verordnung über die Bezeichnung der Hochschulgrade an der Hochschule der Ostdeutschen Polizei (FH)“ (Gliederungsüberschrift)

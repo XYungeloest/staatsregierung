@@ -1,0 +1,59 @@
+{
+  "slug": "ogvbl-2026-92",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 92",
+  "year": 2026,
+  "issue": "92",
+  "date": "2026-11-13",
+  "publication": "OGVBl.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/ogvbl-2026-92.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 92.html",
+      "sha256": "91797ac47ac4d930cbc35ff4108e03f14914207a153dbfe3afae989780351438",
+      "mediaType": "text/html",
+      "pageRange": "2–11",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 92.pdf",
+      "sha256": "f1d7e672c6798dff634e195ef3a6948fcb2a041a052b3e6bd3edc73de2d5e6e1",
+      "mediaType": "application/pdf",
+      "pageCount": 11,
+      "pageRange": "2–11",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 92.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "einfuehrung-staatsschutz-nachrichtendienstgesetz",
+      "title": "Gesetz zur Einführung eines Staatsschutz- und Nachrichtendienstgesetzes",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 92 S. 2)",
+      "pages": "2–11",
+      "documentDate": "2026-11-13",
+      "normSlug": "einfuehrung-staatsschutz-nachrichtendienstgesetz",
+      "versionId": "2027-01-01"
+    },
+    {
+      "id": "staatsschutz-und-nachrichtendienstgesetz",
+      "title": "Gesetz über den Staatsschutz und die nachrichtendienstliche Aufklärung im Freistaat Ostdeutschland",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 92)",
+      "pages": "2–11",
+      "documentDate": "2026-11-13",
+      "normSlug": "staatsschutz-und-nachrichtendienstgesetz",
+      "versionId": "2027-01-01"
+    }
+  ]
+}

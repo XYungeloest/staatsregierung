@@ -902,7 +902,22 @@
       "sourceValidTo": "2024-07-29",
       "snapshot": "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html",
       "retrievedAt": "2026-07-23",
-      "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501"
+      "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
+      "editorialResolutions": [
+        {
+          "id": "polizei-direktionen-nummer-6-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-13",
+          "issue": "Nr. 46 nennt § 97 Absatz 1 Nummer 5, obwohl Nr. 50 diese Nummer ab 21. Juli der Kasernierten Grenzpolizei zuweist.",
+          "publishedText": "Absatz 1 Nummer 5 wird wie folgt gefasst: „5. die Polizeidirektionen als Bezirkspolizeidirektionen,“",
+          "resolvedApplication": "Die Bezeichnungsänderung wird auf die durch Nr. 50 auf Nummer 6 verschobenen Polizeidirektionen angewandt; Nummer 5 bleibt Kasernierte Grenzpolizei.",
+          "rationale": "Ausdrückliche redaktionelle Entscheidung des Benutzers vom 13. November 2026; der bezeichnete Gegenstand Polizeidirektionen ist eindeutig.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 46.html",
+            "Gesetze/OGVBl. 2026 Nr. 50.html"
+          ]
+        }
+      ]
     },
     "finanzausgleichsgesetz": {
       "revosaxLawId": "5402",
@@ -1850,6 +1865,172 @@
       },
       "resultShortTitle": "Ostdeutsches Kulturpassgesetz",
       "resultAbbr": "OstKulturPassG"
+    },
+    "ostdeutsches-polizeifachhochschulgesetz": {
+      "title": "Gesetz über die Hochschule der Sächsischen Polizei (FH)",
+      "aliases": [
+        "Gesetz über die Hochschule der Sächsischen Polizei (FH)",
+        "Gesetz über die Hochschule der Ostdeutschen Polizei (FH)",
+        "Ostdeutsches Polizeifachhochschulgesetz"
+      ],
+      "resultTitle": "Gesetz über die Hochschule der Ostdeutschen Polizei (FH)",
+      "resultShortTitle": "Ostdeutsches Polizeifachhochschulgesetz",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19467.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-06-22",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-polizeifachhochschulgesetz/19467.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "8bf79219d1eea4b1530ffd7c90468fd3eb1d82ff458b9684cadf0cecb54183cb",
+      "revosaxLawId": "19467"
+    },
+    "vo-bezeichnung-hochschulgrade-fh-polizei": {
+      "title": "Verordnung des Sächsischen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Sächsischen Polizei (FH)",
+      "aliases": [
+        "Verordnung des Sächsischen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Sächsischen Polizei (FH)",
+        "Verordnung des Ostdeutschen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Ostdeutschen Polizei (FH)"
+      ],
+      "resultTitle": "Verordnung des Ostdeutschen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Ostdeutschen Polizei (FH)",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/10798.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2009-04-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/vo-bezeichnung-hochschulgrade-fh-polizei/10798.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "10bbbc9f3ca7b17b6a230028110edb78efac00894b41b55e2ee5381531391cb6",
+      "revosaxLawId": "10798"
+    },
+    "gesetz-zur-ausfuehrung-des-pass-und-personalausweisgesetzes-im-freistaat-ostdeutschland": {
+      "title": "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Sachsen",
+        "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Ostdeutschland (OstAGPassPAuswG)",
+        "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Ostdeutschland"
+      ],
+      "resultTitle": "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Ostdeutschland (OstAGPassPAuswG)",
+      "resultShortTitle": "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Ostdeutschland",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/11504.2",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/gesetz-zur-ausfuehrung-des-pass-und-personalausweisgesetzes-im-freistaat-ostdeutschland/11504.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "8be9bfe73332ffa534ab4f75ae86cfd4db807adaa6bb3c42e9e2ccd27e1b6822",
+      "revosaxLawId": "11504"
+    },
+    "landesjugendhilfegesetz": {
+      "title": "Landesjugendhilfegesetz",
+      "aliases": [
+        "Landesjugendhilfegesetz",
+        "Landesjugendhilfegesetz"
+      ],
+      "resultTitle": "Landesjugendhilfegesetz",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1897.17",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2024-06-28",
+      "snapshot": "data/recht/sources/revosax/landesjugendhilfegesetz/1897.17.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "f2bd60bbd5bbfaa01f178d804d971b1cfb6da99b99fbd9531757fd567cc9133e",
+      "revosaxLawId": "1897"
+    },
+    "ostdeutsches-informationssicherheitsgesetz": {
+      "title": "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Sachsen",
+        "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Ostdeutschland",
+        "Ostdeutsches Informationssicherheitsgesetz"
+      ],
+      "resultTitle": "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Ostdeutschland",
+      "resultShortTitle": "Ostdeutsches Informationssicherheitsgesetz",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18349.2",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-06-22",
+      "sourceValidTo": "2024-09-30",
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-informationssicherheitsgesetz/18349.2.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "95c21a8ee5511750ee4311f8204099a7a3e1dd56430fd81e48443b2288d5ea18",
+      "revosaxLawId": "18349"
+    },
+    "ostdeutsches-besoldungsgesetz": {
+      "title": "Sächsisches Besoldungsgesetz",
+      "aliases": [
+        "Sächsisches Besoldungsgesetz",
+        "Ostdeutsches Besoldungsgesetz"
+      ],
+      "resultTitle": "Ostdeutsches Besoldungsgesetz",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/13872.27",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": "2023-12-31",
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-besoldungsgesetz/13872.27.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "67f7821240952763b3c1b316fae3f949ce1063cfce669f9617507fdc85a2ee61",
+      "revosaxLawId": "13872"
+    },
+    "ostdeutsches-sicherheitsueberpruefungsgesetz": {
+      "title": "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Sachsen",
+        "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Ostdeutschland",
+        "Ostdeutsches Sicherheitsüberprüfungsgesetz"
+      ],
+      "resultTitle": "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Ostdeutschland",
+      "resultShortTitle": "Ostdeutsches Sicherheitsüberprüfungsgesetz",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1345.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2012-03-01",
+      "sourceValidTo": "2025-08-15",
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-sicherheitsueberpruefungsgesetz/1345.3.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "5bec8b8324de4f7ec6002737b1ea01a5306c4ef1cc6c88fd7721c8a4679619b2",
+      "revosaxLawId": "1345"
+    },
+    "ostdeutsches-verfassungsschutzgesetz": {
+      "title": "Gesetz über den Verfassungsschutz im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz über den Verfassungsschutz im Freistaat Sachsen",
+        "Gesetz über den Verfassungsschutz im Freistaat Ostdeutschland",
+        "Ostdeutsches Verfassungsschutzgesetz"
+      ],
+      "resultTitle": "Gesetz über den Verfassungsschutz im Freistaat Ostdeutschland",
+      "resultShortTitle": "Ostdeutsches Verfassungsschutzgesetz",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3288.6",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-06-01",
+      "sourceValidTo": "2024-09-30",
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-verfassungsschutzgesetz/3288.6.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "a2ea65772cdb7cf14a6781c1ecdb7c3227f9750c1c892371311fb65bab3c3b6d",
+      "revosaxLawId": "3288"
+    },
+    "ostdeutsches-artikel-10-gesetz-ausfuehrungsgesetz": {
+      "title": "Gesetz zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen",
+        "Gesetz zur Ausführung des Artikel 10-Gesetzes im Freistaat Ostdeutschland",
+        "Ostdeutsches Artikel-10-Gesetz-Ausführungsgesetz"
+      ],
+      "resultTitle": "Gesetz zur Ausführung des Artikel 10-Gesetzes im Freistaat Ostdeutschland",
+      "resultShortTitle": "Ostdeutsches Artikel-10-Gesetz-Ausführungsgesetz",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3346.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-06-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-artikel-10-gesetz-ausfuehrungsgesetz/3346.html",
+      "retrievedAt": "2026-09-03",
+      "sourceSha256": "42f2bc44f41ec0426424e2c348cbe2459467fc20b43b4339ee8b54510b79fcd2",
+      "revosaxLawId": "3346"
+    },
+    "kasernierte-grenzpolizei-gesetz": {
+      "title": "Kasernierte-Grenzpolizei-Gesetz",
+      "aliases": [
+        "Kasernierte-Grenzpolizei-Gesetz"
+      ],
+      "existingVersionSeed": {
+        "versionId": "2026-07-21"
+      },
+      "baselineVersionDate": "2026-07-21"
     }
   },
   "blockedTargets": {
