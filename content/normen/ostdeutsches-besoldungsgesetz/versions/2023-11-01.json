@@ -3,25 +3,23 @@
   "title": "Ostdeutsches Besoldungsgesetz",
   "abbr": "OstBesG",
   "validFrom": "2023-11-01",
-  "validTo": null,
-  "isCurrent": true,
+  "validTo": "2026-11-30",
+  "isCurrent": false,
   "citation": "Ostdeutsches Besoldungsgesetz vom 18. Dezember 2013 (SächsGVBl. S. 970, 1005)",
   "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 13872.27, gültig 2023-08-01 bis 2023-12-31",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/13872.27.html",
+      "label": "Amtliche REVOSax-Fassung, gültig 2023-08-01 bis 2023-12-31",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-besoldungsgesetz/13872.27.html",
       "url": "https://www.revosax.sachsen.de/vorschrift/13872.27",
       "retrievedAt": "2026-09-03",
       "sha256": "67f7821240952763b3c1b316fae3f949ce1063cfce669f9617507fdc85a2ee61",
       "lawId": "13872",
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2023-12-31",
-      "fsnNumber": "242-3/2",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "fsnNumber": "242-3/2"
     }
   ],
   "sourceNotes": [

@@ -1,0 +1,58 @@
+{
+  "amendmentAct": "volkspolizei-bezeichnungsgesetz",
+  "effectiveDate": "2026-12-01",
+  "versionId": "2026-12-01",
+  "sameDayOrder": 85,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 85 S. 2)",
+  "resultCitation": "Ostdeutsches Polizeifachhochschulgesetz, geändert durch Artikel 2 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 85 S. 2)",
+  "changeNote": "Änderungen nach Artikel 2 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 85, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 85.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsisches Polizeifachhochschulgesetz",
+      "expectedMatches": 1,
+      "value": "Gesetz über die Hochschule der Volkspolizei (Ostdeutsches Polizeifachhochschulgesetz – OstPolFHG)",
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 2 Nummer 1",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Dieses Gesetz gilt für die Hochschule der Sächsischen Polizei (FH), nachstehend Fachhochschule genannt."
+      },
+      "expectedHash": "8ed8e77f9123b41973747f13551946d8dedf1bfb1a321480937636f4234dd409",
+      "expectedMatches": 1,
+      "value": "Dieses Gesetz gilt für die Hochschule der Volkspolizei (FH), nachstehend Fachhochschule genannt.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "text": "die Landespolizeipräsidentin oder der Landespolizeipräsident,"
+      },
+      "expectedHash": "a05c8dd3c995d3a27ff63b12e1b184b3f01cde0d642c0dcc5390f79bf703fdbf",
+      "expectedMatches": 1,
+      "value": "die Volkspolizeipräsident:in,",
+      "source": "Gesetze/OGVBl. 2026 Nr. 85.html",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "effectiveDate": "2026-12-01"
+    }
+  ]
+}

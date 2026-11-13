@@ -20,17 +20,31 @@
   "sourceReferences": [
     {
       "kind": "revosax-snapshot",
-      "label": "Amtliche REVOSax-Fassung 19467.3, gültig ab 2023-06-22",
-      "availability": "r2-archived",
-      "objectKey": "revosax/2023-11-01/19467.html",
-      "url": "https://www.revosax.sachsen.de/vorschrift/19467",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2023-06-22",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-polizeifachhochschulgesetz/19467.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19467.3",
       "retrievedAt": "2026-09-03",
       "sha256": "8bf79219d1eea4b1530ffd7c90468fd3eb1d82ff458b9684cadf0cecb54183cb",
       "lawId": "19467",
       "sourceValidFrom": "2023-06-22",
-      "fsnNumber": "22-2/2",
-      "sourceRole": "official-snapshot",
-      "mediaType": "text/html"
+      "fsnNumber": "22-2/2"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 85, Artikel 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 85.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 87, Artikel 1",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 87.html"
     }
+  ],
+  "affectedByNorms": [
+    "volkspolizei-bezeichnungsgesetz",
+    "polizeiausbildungsreformgesetz"
   ]
 }

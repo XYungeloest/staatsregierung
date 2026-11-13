@@ -1,0 +1,177 @@
+{
+  "amendmentAct": "terrorismusabwehr-polizeivollzugsdienstgesetz",
+  "effectiveDate": "2026-11-14",
+  "versionId": "2026-11-14",
+  "sameDayOrder": 96,
+  "amendmentCitation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 96 S. 2)",
+  "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz, geändert durch Artikel 1 des Gesetzes vom 13. November 2026 (OGVBl. 2026 Nr. 96 S. 2)",
+  "changeNote": "Änderungen nach Artikel 1 des Gesetzes vom 13. November 2026.",
+  "commandCoverage": [
+    "Artikel 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 96, Artikel 1",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 96.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 15"
+      },
+      "expectedHash": "b9a2cb43393a890e988bc08436df617a406dbae0952638975f84f11c0d240595",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 15a",
+        "title": "Schutzbereiche um kritische Infrastruktur und Verkehrsflughäfen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann um einen Verkehrsflughafen sowie um Anlagen und Einrichtungen, deren Ausfall die Versorgung der Bevölkerung mit lebenswichtigen Gütern oder Dienstleistungen oder die Funktionsfähigkeit des Gemeinwesens erheblich beeinträchtigen könnte, einen Schutzbereich bestimmen, wenn Tatsachen die Annahme rechtfertigen, dass dort oder gegen den Verkehrsflughafen, die Anlage oder die Einrichtung eine Straftat nach § 129a Absatz 1 oder 2, § 88, § 316b oder § 317 des Strafgesetzbuches begangen werden soll.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Im Schutzbereich kann die Polizei die Identität einer Person feststellen, mitgeführte Sachen durchsuchen und Personen durchsuchen, wenn dies zur Verhütung einer Straftat nach Absatz 1 erforderlich ist. Die §§ 15, 27 und 28 gelten im Übrigen entsprechend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Bestimmung trifft die Leitung der Polizeidienststelle schriftlich. Sie ist auf höchstens 30 Tage zu befristen und kann mit Zustimmung des für die Polizei zuständigen Mitglieds des Staatsrates um jeweils höchstens 30 Tage verlängert werden. Der Schutzbereich ist örtlich auf das erforderliche Maß zu begrenzen und öffentlich bekannt zu machen, soweit dies den Zweck der Maßnahme nicht gefährdet.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 96.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-11-14"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 20"
+      },
+      "expectedHash": "11185daec8fcb7d998fd03ce03ffa7915cdb7e71d11613532025d7b86eca2630",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 20a",
+        "title": "Meldeauflage zur Abwehr terroristischer Gefahren",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann eine Person verpflichten, sich in bestimmten zeitlichen Abständen bei einer Polizeidienststelle zu melden, wenn bestimmte Tatsachen die Annahme rechtfertigen, dass sie innerhalb eines übersehbaren Zeitraums auf eine zumindest ihrer Art nach konkretisierte Weise eine Straftat nach § 129a Absatz 1 oder 2 des Strafgesetzbuches begehen wird, oder wenn ihr individuelles Verhalten die konkrete Wahrscheinlichkeit begründet, dass sie innerhalb eines übersehbaren Zeitraums eine solche Straftat begehen wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Maßnahme bedarf der Anordnung durch das Amtsgericht, in dessen Bezirk die zuständige Polizeidienststelle ihren Sitz hat. Die Anordnung ist sofort vollziehbar. Bei Gefahr im Verzug kann die Leitung der zuständigen Polizeidienststelle die Maßnahme anordnen; die richterliche Entscheidung ist unverzüglich nachzuholen. Wird die Anordnung der Leitung der zuständigen Polizeidienststelle nicht binnen drei Tagen durch das Gericht bestätigt, tritt sie außer Kraft.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Anordnung ist auf höchstens drei Monate zu befristen. Eine Verlängerung um jeweils höchstens drei Monate ist zulässig, soweit die Voraussetzungen fortbestehen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die §§ 20 und 21 bleiben unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 96.html",
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "effectiveDate": "2026-11-14"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 46"
+      },
+      "expectedHash": "8cd0e7df275bbdc962811068a605580c773a23027afd31ef9cd0190c663302fc",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 46a",
+        "title": "Maßnahmen gegen unbemannte Fluggeräte",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Polizei kann zur Abwehr einer Gefahr für Leib, Leben oder Freiheit einer Person, für Anlagen und Einrichtungen nach § 15a Absatz 1 oder für Sachen von bedeutendem Wert, die von einem unbemannten Fluggerät ausgeht, technische Mittel einsetzen, um",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "das Fluggerät, seine Steuerungseinheit und die steuernde Person zu erkennen und zu orten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Kontrolle über das Fluggerät zu übernehmen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Steuerungs-, Navigations- oder Datensignale zu stören oder zu unterbrechen oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "das Fluggerät zu Boden zu bringen oder unschädlich zu machen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Maßnahmen nach Absatz 1 Nummer 2 bis 4 ordnet die Leitung der Polizeidienststelle an, bei Gefahr im Verzug die Einsatzleitung. Telekommunikationsverbindungen Unbeteiligter dürfen nur in unvermeidbarem Umfang beeinträchtigt werden. Die Nutzung von Frequenzen erfolgt im Einvernehmen mit der Bundesnetzagentur, soweit dies bundesrechtlich vorgeschrieben ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Im Zuständigkeitsbereich der Bundespolizei werden Maßnahmen nur auf deren Ersuchen oder bei Gefahr im Verzug getroffen; dies gilt auch für Maßnahmen der Kasernierten Grenzpolizei bei der Wahrnehmung von Aufgaben nach § 3 des Kasernierte-Grenzpolizei-Gesetzes. Die Bundespolizei ist unverzüglich zu unterrichten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Bei Maßnahmen nach Absatz 1 Nummer 1 erhobene Daten sind unverzüglich zu löschen, soweit sie nicht zur Gefahrenabwehr oder zur Verfolgung von Straftaten oder Ordnungswidrigkeiten erforderlich sind.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 96.html",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-11-14"
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-14T08:20:14.214Z",
+  "generatedAt": "2026-11-13T16:58:40.677Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 75,
-    "recognizedTargetNorms": 109,
-    "completeTargetNorms": 107,
+    "recognizedAmendmentActs": 90,
+    "recognizedTargetNorms": 130,
+    "completeTargetNorms": 128,
     "blockedSourceConflicts": 2,
     "missingPrimarySources": 0
   },
@@ -86,6 +86,11 @@
       "evidence": "Gliederungsüberschrift"
     },
     {
+      "amendmentAct": "ostdeutsches-besoldungsgesetz",
+      "candidate": "Familienzuschlags",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
       "amendmentAct": "rohstoffwirtschafts-neuordnungsgesetz",
       "candidate": "Ostdeutschen Landesbankgesetzes",
       "evidence": "Gliederungsüberschrift"
@@ -93,6 +98,11 @@
     {
       "amendmentAct": "sachsisches-verwaltungsorganisationsgesetz",
       "candidate": "Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "volkspolizei-bezeichnungsgesetz",
+      "candidate": "Verordnung über die Bezeichnung der Hochschulgrade an der Hochschule der Ostdeutschen Polizei (FH)",
       "evidence": "Gliederungsüberschrift"
     }
   ],
@@ -377,6 +387,37 @@
         "2026-09-12",
         "2026-10-15"
       ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "polizeibeschwerdestellengesetz",
+      "title": "Gesetz über Aufgaben, Befugnisse und Verfahren der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle",
+      "aliases": [
+        "Gesetz über Aufgaben, Befugnisse und Verfahren der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "polizeibeschwerdestellengesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-polizeibeschwerdestellengesetz",
+          "title": "Gesetz zur Einführung der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -752,6 +793,37 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "staatsschutz-und-nachrichtendienstgesetz",
+      "title": "Gesetz über den Staatsschutz und die nachrichtendienstliche Aufklärung im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über den Staatsschutz und die nachrichtendienstliche Aufklärung im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "staatsschutz-und-nachrichtendienstgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-staatsschutz-nachrichtendienstgesetz",
+          "title": "Gesetz zur Einführung eines Staatsschutz- und Nachrichtendienstgesetzes",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-teilhabegesetz",
       "title": "Gesetz über den Teilhabepass und Teilhabeleistungen im Freistaat Ostdeutschland",
       "aliases": [
@@ -778,6 +850,42 @@
       "amendmentActs": [],
       "correctionActs": [],
       "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-verfassungsschutzgesetz",
+      "title": "Gesetz über den Verfassungsschutz im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz über den Verfassungsschutz im Freistaat Ostdeutschland",
+        "Gesetz über den Verfassungsschutz im Freistaat Sachsen",
+        "Ostdeutsches Verfassungsschutzgesetz"
+      ],
+      "revosaxLawId": "3288",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3288.6",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-06-01",
+      "sourceValidTo": "2024-09-30",
+      "sourceSha256": "a2ea65772cdb7cf14a6781c1ecdb7c3227f9750c1c892371311fb65bab3c3b6d",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-verfassungsschutzgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "ost-sicherheitsreform-anpassungsgesetz",
+          "title": "Gesetz zur Einführung der Ost-Sicherheitsreform und zur Anpassung des Landesrechts",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2027-01-01"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -907,6 +1015,37 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "polizeidigitalisierungsgesetz",
+      "title": "Gesetz über die Digitalisierung der Volkspolizei des Freistaates Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Digitalisierung der Volkspolizei des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "polizeidigitalisierungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-polizeidigitalisierungsgesetz",
+          "title": "Gesetz zur Digitalisierung der Volkspolizei des Freistaates Ostdeutschland",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
       "title": "Gesetz über die Feststellung des Haushaltsplanes des Freistaates Ostdeutschland für die Haushaltsjahre 2025 und 2026",
       "aliases": [
@@ -1000,6 +1139,53 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ostdeutsches-polizeifachhochschulgesetz",
+      "title": "Gesetz über die Hochschule der Sächsischen Polizei (FH)",
+      "aliases": [
+        "Gesetz über die Hochschule der Ostdeutschen Polizei (FH)",
+        "Gesetz über die Hochschule der Sächsischen Polizei (FH)",
+        "Ostdeutsche Polizeifachhochschulgesetz",
+        "Ostdeutschen Polizeifachhochschulgesetzes",
+        "Ostdeutsches Polizeifachhochschulgesetz"
+      ],
+      "revosaxLawId": "19467",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19467.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-06-22",
+      "sourceValidTo": null,
+      "sourceSha256": "8bf79219d1eea4b1530ffd7c90468fd3eb1d82ff458b9684cadf0cecb54183cb",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-polizeifachhochschulgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "volkspolizei-bezeichnungsgesetz",
+          "title": "Gesetz über die Bezeichnung der Polizei des Freistaates Ostdeutschland als Volkspolizei",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        },
+        {
+          "slug": "polizeiausbildungsreformgesetz",
+          "title": "Gesetz zur Reform der Polizeiausbildung",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-12-01",
+        "2027-01-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-hoheitszeichengesetz",
       "title": "Gesetz über die Hoheitszeichen des Freistaates Ostdeutschland",
       "aliases": [
@@ -1083,37 +1269,6 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
-      "canonicalSlug": "kasernierte-grenzpolizei-gesetz",
-      "title": "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates",
-      "aliases": [
-        "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates"
-      ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
-      "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
-      "existingStemNormSlug": "kasernierte-grenzpolizei-gesetz",
-      "enactingActs": [
-        {
-          "slug": "kasernierte-grenzpolizei-errichtungsgesetz",
-          "title": "Gesetz zur Errichtung der Kasernierten Grenzpolizei des Ostdeutschen Freistaates",
-          "effectiveDate": "2026-07-21",
-          "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
-        }
-      ],
-      "amendmentActs": [],
-      "correctionActs": [],
-      "effectiveDates": [],
-      "status": "complete",
-      "problems": [],
-      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
-    },
-    {
       "canonicalSlug": "landesagentur-spitzensport-gesetz",
       "title": "Gesetz über die Landesagentur Spitzensport Ost",
       "aliases": [
@@ -1183,6 +1338,37 @@
       "effectiveDates": [
         "2026-10-15"
       ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "volkspolizeiorganisationsgesetz",
+      "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "volkspolizeiorganisationsgesetz",
+      "enactingActs": [
+        {
+          "slug": "volkspolizei-organisationsreform",
+          "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1303,6 +1489,99 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "staatsschutz-kontrollgesetz",
+      "title": "Gesetz über die parlamentarische und unabhängige Kontrolle des Staatsschutzes",
+      "aliases": [
+        "Gesetz über die parlamentarische und unabhängige Kontrolle des Staatsschutzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "staatsschutz-kontrollgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-staatsschutz-kontrollgesetz",
+          "title": "Gesetz über die Einführung eines Staatsschutz-Kontrollgesetzes",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "verfassungstreuepruefungsgesetz",
+      "title": "Gesetz über die Prüfung der Verfassungstreue bei der Einstellung in besonders sicherheitsrelevante Bereiche",
+      "aliases": [
+        "Gesetz über die Prüfung der Verfassungstreue bei der Einstellung in besonders sicherheitsrelevante Bereiche"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "verfassungstreuepruefungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "wehrhafte-demokratie-gesetz",
+          "title": "Gesetz zur Stärkung der wehrhaften Demokratie im Freistaat Ostdeutschland",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-sicherheitsgesetz",
+      "title": "Gesetz über die Sicherheitsarchitektur und die Krisenbewältigung im Freistaat Ostdeutschland (Ostdeutsches Sicherheitsgesetz)",
+      "aliases": [
+        "Gesetz über die Sicherheitsarchitektur und die Krisenbewältigung im Freistaat Ostdeutschland (Ostdeutsches Sicherheitsgesetz)"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-sicherheitsgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-ostdeutsches-sicherheitsgesetz",
+          "title": "Gesetz über die Einführung eines Ostdeutschen Sicherheitsgesetzes",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-sportfoerdergesetz",
       "title": "Gesetz über die Sportförderung im Freistaat Ostdeutschland",
       "aliases": [
@@ -1397,6 +1676,73 @@
           "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
           "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
           "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-sicherheitsueberpruefungsgesetz",
+      "title": "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Ostdeutschland",
+        "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Sachsen",
+        "Ostdeutsches Sicherheitsüberprüfungsgesetz"
+      ],
+      "revosaxLawId": "1345",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1345.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2012-03-01",
+      "sourceValidTo": "2025-08-15",
+      "sourceSha256": "5bec8b8324de4f7ec6002737b1ea01a5306c4ef1cc6c88fd7721c8a4679619b2",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-sicherheitsueberpruefungsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "ost-sicherheitsreform-anpassungsgesetz",
+          "title": "Gesetz zur Einführung der Ost-Sicherheitsreform und zur Anpassung des Landesrechts",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2027-01-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
+      "title": "Gesetz über die Zusammenarbeit der Sicherheitsbehörden im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Zusammenarbeit der Sicherheitsbehörden im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-sicherheitsbehoerden-zusammenarbeitsgesetz",
+          "title": "Gesetz zur Einführung eines Sicherheitsbehörden-Zusammenarbeitsgesetzes",
+          "effectiveDate": "2027-01-01",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false
         }
@@ -1595,6 +1941,109 @@
       "amendmentActs": [],
       "correctionActs": [],
       "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-kritis-gesetz",
+      "title": "Gesetz zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-kritis-gesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-ostdeutsches-kritis-gesetz",
+          "title": "Gesetz zur Einführung eines Gesetzes zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-11-14",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-artikel-10-gesetz-ausfuehrungsgesetz",
+      "title": "Gesetz zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz zur Ausführung des Artikel 10-Gesetzes im Freistaat Ostdeutschland",
+        "Gesetz zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen",
+        "Ostdeutsches Artikel-10-Gesetz-Ausführungsgesetz"
+      ],
+      "revosaxLawId": "3346",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3346.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-06-01",
+      "sourceValidTo": null,
+      "sourceSha256": "42f2bc44f41ec0426424e2c348cbe2459467fc20b43b4339ee8b54510b79fcd2",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-artikel-10-gesetz-ausfuehrungsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "ost-sicherheitsreform-anpassungsgesetz",
+          "title": "Gesetz zur Einführung der Ost-Sicherheitsreform und zur Anpassung des Landesrechts",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2027-01-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "gesetz-zur-ausfuehrung-des-pass-und-personalausweisgesetzes-im-freistaat-ostdeutschland",
+      "title": "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Ostdeutschland",
+        "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Ostdeutschland (OstAGPassPAuswG)",
+        "Gesetz zur Ausführung des Pass- und Personalausweisgesetzes im Freistaat Sachsen"
+      ],
+      "revosaxLawId": "11504",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/11504.2",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": null,
+      "sourceSha256": "8be9bfe73332ffa534ab4f75ae86cfd4db807adaa6bb3c42e9e2ccd27e1b6822",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "gesetz-zur-ausfuehrung-des-pass-und-personalausweisgesetzes-im-freistaat-ostdeutschland",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "volkspolizei-organisationsreform",
+          "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-12-01"
+      ],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -1813,6 +2262,68 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "staatsschutzamt-errichtungsgesetz",
+      "title": "Gesetz zur Errichtung des Landesamtes für Staatsschutz des Freistaates Ostdeutschland",
+      "aliases": [
+        "Gesetz zur Errichtung des Landesamtes für Staatsschutz des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "staatsschutzamt-errichtungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-staatsschutzamt-errichtungsgesetz",
+          "title": "Gesetz zur Einführung eines Staatsschutzamt-Errichtungsgesetzes",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "demokratiefoerderungsgesetz",
+      "title": "Gesetz zur Förderung der Demokratie und zur Prävention von Extremismus",
+      "aliases": [
+        "Gesetz zur Förderung der Demokratie und zur Prävention von Extremismus"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "demokratiefoerderungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "wehrhafte-demokratie-gesetz",
+          "title": "Gesetz zur Stärkung der wehrhaften Demokratie im Freistaat Ostdeutschland",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-landesantidiskriminierungsgesetz",
       "title": "Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln",
       "aliases": [
@@ -1888,6 +2399,51 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ostdeutsches-informationssicherheitsgesetz",
+      "title": "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Sachsen",
+      "aliases": [
+        "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Ostdeutschland",
+        "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Sachsen",
+        "Ostdeutsches Informationssicherheitsgesetz"
+      ],
+      "revosaxLawId": "18349",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18349.2",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-06-22",
+      "sourceValidTo": "2024-09-30",
+      "sourceSha256": "95c21a8ee5511750ee4311f8204099a7a3e1dd56430fd81e48443b2288d5ea18",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-informationssicherheitsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "volkspolizei-organisationsreform",
+          "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        },
+        {
+          "slug": "ost-sicherheitsreform-anpassungsgesetz",
+          "title": "Gesetz zur Einführung der Ost-Sicherheitsreform und zur Anpassung des Landesrechts",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-12-01",
+        "2027-01-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
       "title": "Gesetz zur Neugliederung der Bezirke und zur Neuordnung der Kreise im Freistaat Ostdeutschland",
       "aliases": [
@@ -1907,6 +2463,37 @@
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
+      "title": "Gesetz zur Sicherung des Luftverkehrs im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz zur Sicherung des Luftverkehrs im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "einfuehrung-luftverkehrssicherungsgesetz",
+          "title": "Gesetz zur Einführung eines Luftverkehrssicherungsgesetzes",
+          "effectiveDate": "2027-01-01",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false
         }
@@ -2136,6 +2723,49 @@
       "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     },
     {
+      "canonicalSlug": "kasernierte-grenzpolizei-gesetz",
+      "title": "Kasernierte-Grenzpolizei-Gesetz",
+      "aliases": [
+        "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates",
+        "Kasernierte-Grenzpolizei-Gesetz"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "kasernierte-grenzpolizei-gesetz",
+      "enactingActs": [
+        {
+          "slug": "kasernierte-grenzpolizei-errichtungsgesetz",
+          "title": "Gesetz zur Errichtung der Kasernierten Grenzpolizei des Ostdeutschen Freistaates",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [
+        {
+          "slug": "volkspolizei-organisationsreform",
+          "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-12-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "kommunalwahlgesetz",
       "title": "Kommunalwahlgesetz",
       "aliases": [
@@ -2166,6 +2796,40 @@
       "correctionActs": [],
       "effectiveDates": [
         "2026-07-21"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "landesjugendhilfegesetz",
+      "title": "Landesjugendhilfegesetz",
+      "aliases": [
+        "Landesjugendhilfegesetz"
+      ],
+      "revosaxLawId": "1897",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1897.17",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2024-06-28",
+      "sourceSha256": "f2bd60bbd5bbfaa01f178d804d971b1cfb6da99b99fbd9531757fd567cc9133e",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "landesjugendhilfegesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "volkspolizei-organisationsreform",
+          "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-12-01"
       ],
       "status": "complete",
       "problems": [],
@@ -3086,6 +3750,50 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ostdeutsches-besoldungsgesetz",
+      "title": "Sächsisches Besoldungsgesetz",
+      "aliases": [
+        "Ostdeutsches Besoldungsgesetz",
+        "Sächsisches Besoldungsgesetz"
+      ],
+      "revosaxLawId": "13872",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/13872.27",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": "2023-12-31",
+      "sourceSha256": "67f7821240952763b3c1b316fae3f949ce1063cfce669f9617507fdc85a2ee61",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-besoldungsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "volkspolizei-organisationsreform",
+          "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        },
+        {
+          "slug": "ost-sicherheitsreform-anpassungsgesetz",
+          "title": "Gesetz zur Einführung der Ost-Sicherheitsreform und zur Anpassung des Landesrechts",
+          "effectiveDate": "2027-01-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2027-01-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-12-01",
+        "2027-01-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "saechsisches-bestattungsgesetz",
       "title": "Sächsisches Bestattungsgesetz",
       "aliases": [
@@ -3556,6 +4264,7 @@
       "aliases": [
         "Gesetz über die Aufgaben, Befugnisse, Datenverarbeitung und Organisation des Polizeivollzugsdienstes im Freistaat Ostdeutschland",
         "Ostdeutsche Polizeivollzugsdienstgesetz",
+        "Ostdeutschen Polizeivollzugsdienstgesetzes",
         "Ostdeutsches Polizeivollzugsdienstgesetz",
         "Sächsisches Polizeivollzugsdienstgesetz"
       ],
@@ -3566,7 +4275,21 @@
       "sourceValidTo": "2024-07-29",
       "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "polizei-direktionen-nummer-6-2026",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-11-13",
+          "issue": "Nr. 46 nennt § 97 Absatz 1 Nummer 5, obwohl Nr. 50 diese Nummer ab 21. Juli der Kasernierten Grenzpolizei zuweist.",
+          "publishedText": "Absatz 1 Nummer 5 wird wie folgt gefasst: „5. die Polizeidirektionen als Bezirkspolizeidirektionen,“",
+          "resolvedApplication": "Die Bezeichnungsänderung wird auf die durch Nr. 50 auf Nummer 6 verschobenen Polizeidirektionen angewandt; Nummer 5 bleibt Kasernierte Grenzpolizei.",
+          "rationale": "Ausdrückliche redaktionelle Entscheidung des Benutzers vom 13. November 2026; der bezeichnete Gegenstand Polizeidirektionen ist eindeutig.",
+          "evidence": [
+            "Gesetze/OGVBl. 2026 Nr. 46.html",
+            "Gesetze/OGVBl. 2026 Nr. 50.html"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -3609,6 +4332,38 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
+        },
+        {
+          "slug": "terrorismusabwehr-polizeivollzugsdienstgesetz",
+          "title": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Stärkung der Terrorismusabwehr",
+          "effectiveDate": "2026-11-14",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-11-14"
+        },
+        {
+          "slug": "einfuehrung-polizeibeschwerdestellengesetz",
+          "title": "Gesetz zur Einführung der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        },
+        {
+          "slug": "volkspolizei-bezeichnungsgesetz",
+          "title": "Gesetz über die Bezeichnung der Polizei des Freistaates Ostdeutschland als Volkspolizei",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        },
+        {
+          "slug": "volkspolizei-organisationsreform",
+          "title": "Gesetz über die Organisation der Volkspolizei des Freistaates Ostdeutschland und zur Stärkung der bürgernahen Polizeiarbeit",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
         }
       ],
       "correctionActs": [
@@ -3624,7 +4379,9 @@
         "2026-03-25",
         "2026-04-01",
         "2026-07-21",
-        "2026-08-01"
+        "2026-08-01",
+        "2026-11-14",
+        "2026-12-01"
       ],
       "status": "complete",
       "problems": [],
@@ -4260,6 +5017,41 @@
       "correctionActs": [],
       "effectiveDates": [
         "2026-10-15"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "vo-bezeichnung-hochschulgrade-fh-polizei",
+      "title": "Verordnung des Sächsischen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Sächsischen Polizei (FH)",
+      "aliases": [
+        "Verordnung des Ostdeutschen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Ostdeutschen Polizei (FH)",
+        "Verordnung des Sächsischen Staatsministeriums des Innern über die Bezeichnung der Hochschulgrade an der Hochschule der Sächsischen Polizei (FH)"
+      ],
+      "revosaxLawId": "10798",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/10798.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2009-04-01",
+      "sourceValidTo": null,
+      "sourceSha256": "10bbbc9f3ca7b17b6a230028110edb78efac00894b41b55e2ee5381531391cb6",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vo-bezeichnung-hochschulgrade-fh-polizei",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "volkspolizei-bezeichnungsgesetz",
+          "title": "Gesetz über die Bezeichnung der Polizei des Freistaates Ostdeutschland als Volkspolizei",
+          "effectiveDate": "2026-12-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-12-01"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-12-01"
       ],
       "status": "complete",
       "problems": [],

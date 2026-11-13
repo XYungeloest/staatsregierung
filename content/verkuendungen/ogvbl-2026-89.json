@@ -1,0 +1,59 @@
+{
+  "slug": "ogvbl-2026-89",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 89",
+  "year": 2026,
+  "issue": "89",
+  "date": "2026-11-13",
+  "publication": "OGVBl.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/ogvbl-2026-89.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 89.html",
+      "sha256": "af5e5ee3eecb5a801f6bce9cf25f645c1989a6b99a439e779889717134bcb18f",
+      "mediaType": "text/html",
+      "pageRange": "2–9",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 89.pdf",
+      "sha256": "55d3549a527e3f519b2bacb67455fa53ee1485b0e6ceaf30035f75843bf8e2e3",
+      "mediaType": "application/pdf",
+      "pageCount": 9,
+      "pageRange": "2–9",
+      "verifiedAt": "2026-11-13",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 89.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "einfuehrung-polizeidigitalisierungsgesetz",
+      "title": "Gesetz zur Digitalisierung der Volkspolizei des Freistaates Ostdeutschland",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 89 S. 2)",
+      "pages": "2–9",
+      "documentDate": "2026-11-13",
+      "normSlug": "einfuehrung-polizeidigitalisierungsgesetz",
+      "versionId": "2027-01-01"
+    },
+    {
+      "id": "polizeidigitalisierungsgesetz",
+      "title": "Gesetz über die Digitalisierung der Volkspolizei des Freistaates Ostdeutschland",
+      "type": "gesetz",
+      "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 89)",
+      "pages": "2–9",
+      "documentDate": "2026-11-13",
+      "normSlug": "polizeidigitalisierungsgesetz",
+      "versionId": "2027-01-01"
+    }
+  ]
+}

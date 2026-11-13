@@ -17,7 +17,7 @@
       "op": "replaceText",
       "target": {
         "type": "item",
-        "label": "5.",
+        "label": "6.",
         "parentType": "paragraph",
         "parentLabel": "§ 97"
       },
@@ -27,6 +27,131 @@
       "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
       "sourceProvision": "Artikel 11 Nummer 1 Buchstabe a",
       "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 97"
+      },
+      "expectedHash": "52413b11f6b35139fac696d160ba93c13efbaff0fd72819613e194d83d3d4fc2",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 97",
+        "title": "Polizeidienststellen und Einrichtungen für den Polizeivollzugsdienst",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Freistaat Sachsen unterhält für den Polizeivollzugsdienst folgende Polizeidienststellen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "das Landespolizeipräsidium im Staatsministerium des Innern,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "das Landeskriminalamt,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "das Polizeiverwaltungsamt,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "das Präsidium der Bereitschaftspolizei,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "die Kasernierte Grenzpolizei und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "die Polizeidirektionen als Bezirkspolizeidirektionen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Freistaat Sachsen unterhält für den Polizeivollzugsdienst die erforderlichen Ausbildungs- und Fortbildungseinrichtungen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Für das Gebiet der Bundeshauptstadt Berlin ist eine Polizeidirektion Berlin einzurichten. Sie soll in ihrer inneren Organisation so gegliedert werden, dass eine flächendeckende Präsenz sowie eine wirksame Führung in Großschadenslagen, bei Großveranstaltungen und in kriminalitätsbelasteten Räumen gewährleistet sind.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Für jeden Bezirk nach der Ostdeutschen Bezirksordnung wird eine Bezirkspolizeidirektion eingerichtet. Ihr örtlicher Dienstbezirk entspricht dem Gebiet des Bezirks. Für den Bezirk Berlin bleibt Absatz 3 unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 11 Nummer 1 Buchstabe b",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 100"
+      },
+      "expectedHash": "9fc9d5276a437c875010f597a6544252b9d7ef65d429dcfe4594f09a9cb13f0a",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 100",
+        "title": "Ermächtigung zur Regelung von Aufgaben und Gliederung der Polizeidienststellen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "text": "Die Gliederung der Polizei in Polizeidienststellen und die Verteilung der Aufgaben auf die Polizeidienststellen wird durch das Staatsministerium des Innern durch Rechtsverordnung bestimmt.",
+            "label": "(1)",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Rechtsverordnung nach Absatz 1 bestimmt die Sitze, die örtlichen Dienstbezirke und die innere Gliederung der Bezirkspolizeidirektionen. Dabei sind die Bezirksgrenzen, die regionale Einsatzbelastung, die Erreichbarkeit und die besonderen Anforderungen der Bundeshauptstadt Berlin zu berücksichtigen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 11 Nummer 2",
+      "effectiveDate": "2026-08-01"
     }
+  ],
+  "commandCoverage": [
+    "Artikel 11"
   ]
 }

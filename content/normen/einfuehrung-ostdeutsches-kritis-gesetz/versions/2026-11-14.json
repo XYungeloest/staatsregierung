@@ -1,0 +1,556 @@
+{
+  "versionId": "2026-11-14",
+  "validFrom": "2026-11-14",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Gesetz vom 13. November 2026 (OGVBl. 2026 Nr. 94 S. 2)",
+  "changeNote": "Verkündete Fassung.",
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Die Volkskammer hat am 13. November 2026 das folgende Gesetz beschlossen:"
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Gesetz zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland (Ostdeutsches KRITIS-Gesetz – OstKRITISG)",
+      "children": [
+        {
+          "type": "quotedProvision",
+          "children": [
+            {
+              "type": "section",
+              "label": "Abschnitt 1",
+              "title": "Allgemeine Bestimmungen",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 1",
+                  "title": "Anwendungsbereich",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Unterliegt ein:e Betreiber:in hinsichtlich einer Anlage Pflichten nach Bundesrecht, die den Pflichten nach den §§ 5 und 6 gleichwertig sind, insbesondere nach dem BSI-Gesetz, nach den bundesrechtlichen Vorschriften zur Umsetzung der Richtlinie (EU) 2022/2557 oder nach dem Luftsicherheitsgesetz, sind die §§ 5 und 6 auf diese Anlage nicht anzuwenden. Die Informationssicherheit der Landesverwaltung richtet sich nach dem Ostdeutschen Informationssicherheitsgesetz vom 2. August 2019 (SächsGVBl. S. 630)."
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 2",
+                  "title": "Begriffsbestimmungen",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Im Sinne dieses Gesetzes sind"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "kritische Infrastruktur: Anlagen, Einrichtungen und Systeme, die für die Versorgung der Bevölkerung oder das Funktionieren des Gemeinwesens im Freistaat von wesentlicher Bedeutung sind und deren Ausfall oder Beeinträchtigung erhebliche Versorgungsengpässe, Gefährdungen der öffentlichen Sicherheit oder vergleichbare Folgen nach sich ziehen würde;",
+                      "level": 0,
+                      "listId": "96i53edz00o5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Betreiber:innen natürliche oder juristische Personen des privaten oder öffentlichen Rechts, die bestimmenden Einfluss auf eine kritische Infrastruktur ausüben;",
+                      "level": 0,
+                      "listId": "96i53edz00o5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "erhebliche Störung: ein Ereignis, das die Funktionsfähigkeit einer kritischen Infrastruktur erheblich beeinträchtigt oder beeinträchtigen kann, insbesondere ein Angriff, eine Sabotagehandlung oder ein Ausfall von mehr als geringfügiger Dauer;",
+                      "level": 0,
+                      "listId": "96i53edz00o5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Resilienz: die Fähigkeit einer kritischen Infrastruktur, Störungen zu verhindern, abzuwehren, zu bewältigen und sich von ihnen zu erholen.",
+                      "level": 0,
+                      "listId": "96i53edz00o5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 3",
+                  "title": "Sektoren und Bestimmung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Kritische Infrastrukturen können in folgenden Sektoren bestimmt werden:",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Energie,",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Wasserversorgung und Abwasserbeseitigung,",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Ernährung,",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Gesundheit,",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "Transport und Verkehr,",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "Informationstechnik und Telekommunikation,",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "Abfallentsorgung und",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "8.",
+                      "text": "Staat und Verwaltung, einschließlich Justiz, Sicherheitsbehörden und Leitstellen.",
+                      "level": 0,
+                      "listId": "b40fxd89jgjb",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Das zuständige Mitglied des Staatsrates bestimmt im Einvernehmen mit den für die Sektoren fachlich zuständigen Mitgliedern des Staatsrates durch Rechtsverordnung die Arten von Anlagen, die kritische Infrastruktur sind, und die Schwellenwerte, ab denen eine Anlage erfasst ist. Maßstab sind die Zahl der versorgten Personen, die Bedeutung für andere Sektoren und die Folgen eines Ausfalls.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die Zentrale KRITIS-Stelle kann eine Anlage, die die Schwellenwerte nicht erreicht, im Einzelfall durch Verwaltungsakt als kritische Infrastruktur bestimmen, wenn ihr Ausfall wegen besonderer örtlicher Umstände erhebliche Folgen hätte.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 2",
+              "title": "Pflichten der Betreiber:innen",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 4",
+                  "title": "Registrierung und Kontaktstelle",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Betreiber:innen haben ihre kritische Infrastruktur innerhalb von drei Monaten nach ihrer Bestimmung bei der Zentralen KRITIS-Stelle unter Angabe einer Kontaktstelle zu registrieren."
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 5",
+                  "title": "Risikoanalyse",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Betreiber:innen erstellen für jede kritische Infrastruktur eine Risikoanalyse, die alle erheblichen natürlichen und vom Menschen verursachten Risiken berücksichtigt, insbesondere Angriffe, Sabotage, Terrorismus, Ausfälle anderer Infrastrukturen und Naturgefahren. Die Risikoanalyse ist innerhalb von sechs Monaten nach der Bestimmung der kritischen Infrastruktur zu erstellen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Risikoanalyse ist mindestens alle vier Jahre und nach jeder erheblichen Störung zu aktualisieren. Sie ist der Zentralen KRITIS-Stelle auf Verlangen vorzulegen.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 6",
+                  "title": "Resilienzmaßnahmen und Resilienzplan",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Betreiber:innen treffen auf Grundlage der Risikoanalyse angemessene technische, personelle und organisatorische Maßnahmen, um ihre kritische Infrastruktur zu schützen und ihre Resilienz zu gewährleisten. Dazu gehören insbesondere",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "der physische Schutz des Geländes, der Zugänge und der sicherheitsempfindlichen Bereiche,",
+                      "level": 0,
+                      "listId": "dc4z3mdebrc5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Notfall- und Wiederanlaufpläne einschließlich einer Notstromversorgung,",
+                      "level": 0,
+                      "listId": "dc4z3mdebrc5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "die Überprüfung der Zuverlässigkeit von Personen in sicherheitsempfindlichen Bereichen und",
+                      "level": 0,
+                      "listId": "dc4z3mdebrc5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die Schulung des Personals.",
+                      "level": 0,
+                      "listId": "dc4z3mdebrc5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Maßnahmen werden in einem Resilienzplan dokumentiert. Der Resilienzplan ist innerhalb von sechs Monaten nach der Bestimmung der kritischen Infrastruktur zu erstellen und der Zentralen KRITIS-Stelle auf Verlangen vorzulegen.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 7",
+                  "title": "Meldung erheblicher Störungen",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Betreiber:innen melden der Zentralen KRITIS-Stelle erhebliche Störungen unverzüglich, spätestens 24 Stunden nachdem sie davon Kenntnis erlangt haben. Innerhalb eines Monats ist ein Abschlussbericht vorzulegen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Besteht der Verdacht eines Angriffs oder einer Sabotage, ist zugleich die Volkspolizei zu unterrichten. Betrifft der Verdacht eine gefährdete grenznahe Infrastruktur im Sinne des § 2 Absatz 1 Nummer 3 des Kasernierte-Grenzpolizei-Gesetzes, ist auch die Kasernierte Grenzpolizei unverzüglich zu unterrichten.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 8",
+                  "title": "Übungen",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Betreiber:innen wirken an Übungen nach § 11 des Ostdeutschen Sicherheitsgesetzes und an Übungen der Zentralen KRITIS-Stelle mit, soweit ihre kritische Infrastruktur betroffen ist. Die Übungen sind so zu planen, dass der Betrieb nicht unverhältnismäßig beeinträchtigt wird."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 3",
+              "title": "Zentrale KRITIS-Stelle",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 9",
+                  "title": "Aufgaben",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Beim zuständigen Mitglied des Staatsrates wird eine Zentrale KRITIS-Stelle eingerichtet.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Zentrale KRITIS-Stelle",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "führt das Register nach § 4,",
+                      "level": 0,
+                      "listId": "qoewco4l7oaf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "wertet Meldungen aus und erstellt ein Lagebild kritischer Infrastrukturen als Teil des Landeslagebildes nach § 7 des Ostdeutschen Sicherheitsgesetzes,",
+                      "level": 0,
+                      "listId": "qoewco4l7oaf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "berät Betreiber:innen, insbesondere kommunale Betreiber:innen,",
+                      "level": 0,
+                      "listId": "qoewco4l7oaf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "überwacht die Einhaltung der Pflichten nach den §§ 4 bis 8 und",
+                      "level": 0,
+                      "listId": "qoewco4l7oaf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "arbeitet mit den zuständigen Behörden des Bundes und der Länder zusammen.",
+                      "level": 0,
+                      "listId": "qoewco4l7oaf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 10",
+                  "title": "Befugnisse",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Zentrale KRITIS-Stelle kann von Betreibern die zur Überwachung erforderlichen Auskünfte und Unterlagen verlangen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Ihre Beauftragten dürfen Grundstücke und Geschäftsräume der Betreiber:innen während der üblichen Betriebszeiten betreten und besichtigen, soweit dies zur Überwachung erforderlich ist.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Sie kann die zur Erfüllung der Pflichten nach den §§ 4 bis 8 erforderlichen Anordnungen treffen. Bei gegenwärtiger Gefahr für die Versorgung der Bevölkerung kann sie vorläufige Maßnahmen anordnen.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 11",
+                  "title": "Vertraulichkeit",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Risikoanalysen, Resilienzpläne, Meldungen und sonstige Angaben nach diesem Gesetz sind vertraulich zu behandeln. Sie dürfen nur zur Erfüllung von Aufgaben nach diesem Gesetz, nach dem Ostdeutschen Sicherheitsgesetz und zur Gefahrenabwehr verwendet werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Ein Anspruch auf Zugang zu diesen Informationen nach anderen Rechtsvorschriften besteht nicht, soweit ihr Bekanntwerden die Sicherheit kritischer Infrastruktur gefährden könnte.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 12",
+                  "title": "Förderung",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Der Freistaat kann Betreiber:innen, insbesondere Gemeinden, Landkreise, Bezirke und kommunale Unternehmen, bei der Erfüllung ihrer Pflichten nach Maßgabe des Staatshaushaltsplans fördern."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 4",
+              "title": "Schlussbestimmungen",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 13",
+                  "title": "Bußgeldvorschriften",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Ordnungswidrig handelt, wer vorsätzlich oder fahrlässig",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "entgegen § 4 eine kritische Infrastruktur nicht oder nicht rechtzeitig registriert,",
+                      "level": 0,
+                      "listId": "qpn5bvva0kve",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "entgegen § 5 Absatz 1 Satz 2 oder § 6 Absatz 2 Satz 2 eine Risikoanalyse oder einen Resilienzplan nicht oder nicht rechtzeitig erstellt oder entgegen § 5 Absatz 2 Satz 2 oder § 6 Absatz 2 Satz 2 eine Risikoanalyse oder einen Resilienzplan nicht vorlegt,",
+                      "level": 0,
+                      "listId": "qpn5bvva0kve",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "entgegen § 7 Absatz 1 eine Meldung nicht, nicht richtig oder nicht rechtzeitig macht oder",
+                      "level": 0,
+                      "listId": "qpn5bvva0kve",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "einer vollziehbaren Anordnung nach § 10 Absatz 3 zuwiderhandelt.",
+                      "level": 0,
+                      "listId": "qpn5bvva0kve",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Ordnungswidrigkeit kann in den Fällen des Absatzes 1 Nummer 3 und 4 mit einer Geldbuße bis zu 100 000 Euro, in den übrigen Fällen bis zu 50 000 Euro geahndet werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Verwaltungsbehörde im Sinne des § 36 Absatz 1 Nummer 1 des Gesetzes über Ordnungswidrigkeiten ist die Zentrale KRITIS-Stelle. Gegen Behörden und sonstige öffentliche Stellen werden keine Geldbußen verhängt.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 14",
+                  "title": "Krisenkommunikation",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Bei einer Sicherheitskrise nach dem Ostdeutschen Sicherheitsgesetz stellen Betreiber:innen auf Ersuchen des Landeskrisenstabes Verbindungspersonen und Lageinformationen zur Verfügung."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Übergangsbestimmung",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Für kritische Infrastrukturen, die bis zum 31. Dezember 2026 durch Rechtsverordnung bestimmt werden, sind die Risikoanalyse und der Resilienzplan abweichend von § 5 Absatz 1 Satz 2 und § 6 Absatz 2 Satz 2 des Gesetzes zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland erstmals bis zum 30. Juni 2027 zu erstellen."
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 3",
+      "title": "Einschränkung von Grundrechten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Durch § 10 Absatz 2 des Gesetzes zum Schutz kritischer Infrastrukturen im Freistaat Ostdeutschland wird das Grundrecht der Unverletzlichkeit der Wohnung (Artikel 13 des Grundgesetzes, Artikel 30 Absatz 1 der Verfassung des Freistaates Ostdeutschland) eingeschränkt."
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 4",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Dieses Gesetz tritt vorbehaltlich des Absatzes 2 am 1. Januar 2027 in Kraft.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Artikel 1 § 3 Absatz 2 tritt am Tag nach der Verkündung in Kraft.",
+          "children": []
+        }
+      ]
+    }
+  ]
+}
