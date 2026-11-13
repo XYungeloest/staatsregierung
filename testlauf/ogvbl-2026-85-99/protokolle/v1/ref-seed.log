@@ -1,0 +1,26 @@
+Seed full: 5227 Normen und 154 Verkündungen geladen (1 s); Seed-Fingerabdruck 2f6c440864490606…
+Plan: 5227 Normen, 154 Verkündungen, 117848 Anweisungen (228 s)
+Seed .cache/d1-seed/ostrecht-recht-full-2f6c440864490606685009e13d514eb1.sqlite geschrieben: 117848 Anweisungen, FTS5-Integrität geprüft (235 s).
+file://staatsregierung-testlauf-ogvbl-85-99/scripts/lib/d1-runtime-seed.mjs:291
+  if (problems.length > 0) throw new Error(`Seed ${relative(root, path)} abgelehnt:\n- ${problems.join('\n- ')}`);
+                                 ^
+
+Error: Seed .cache/d1-seed/ostrecht-recht-full-2f6c440864490606685009e13d514eb1.sqlite abgelehnt:
+- law_norms 5227 ≠ erwartet 5249
+- law_runtime_meta.norm_count 5227 ≠ erwartet 5249
+- law_norm_derived 5227 ≠ Normen 5249
+    at verifySeedSnapshot (file://staatsregierung-testlauf-ogvbl-85-99/scripts/lib/d1-runtime-seed.mjs:291:34)
+    at async ensureLocalSeed (file://staatsregierung-testlauf-ogvbl-85-99/scripts/lib/d1-runtime-seed.mjs:418:16)
+    at async file://staatsregierung-testlauf-ogvbl-85-99/scripts/d1-runtime-seed.mjs:132:20
+
+Node.js v26.12.0
+file://staatsregierung-testlauf-ogvbl-85-99/scripts/serve-law-worker.mjs:70
+      else reject(new Error(`${command} ${commandArgs.join(' ')} endete mit ${signal ?? code}`));
+                  ^
+
+Error: /opt/homebrew/Cellar/node/26.12.0/bin/node --experimental-strip-types scripts/d1-runtime-seed.mjs ensure --persist-to staatsregierung-testlauf-ogvbl-85-99/.cache/wrangler-ref endete mit 1
+    at ChildProcess.<anonymous> (file://staatsregierung-testlauf-ogvbl-85-99/scripts/serve-law-worker.mjs:70:19)
+    at ChildProcess.emit (node:events:514:20)
+    at ChildProcess._handle.onexit (node:internal/child_process:323:12)
+
+Node.js v26.12.0

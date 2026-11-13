@@ -1,0 +1,112 @@
+
+> ostrecht-portal@0.0.1 content:check
+> npm run holdings:check && node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/revosax-snapshot.mjs audit && node scripts/audit-consolidation.mjs --check && node --experimental-strip-types scripts/check-organization.ts && node scripts/check-content.mjs && node scripts/audit-norm-metadata.mjs && node --experimental-strip-types scripts/audit-norm-derivations.ts && node scripts/audit-ost-residuals.mjs --quiet && node scripts/check-topic-coverage.mjs && node scripts/knowledge.mjs check && npm run haushalt:check
+
+
+> ostrecht-portal@0.0.1 holdings:check
+> node scripts/build-public-holdings.mjs --check
+
+Öffentliche Beteiligungsprojektion geprüft: 666 Positionen.
+Normquellen-Audit: 171 erkannt, 7 redaktionell, 2 ohne Rechtsvorschrift, 0 nicht unterstützt, 2 mehrdeutig, 0 strikte Abweichungen.
+Prüflauf: Es wurden keine Dateien geschrieben. Gezielt schreiben mit --write --file <Datei>.
+abschiebe-aussetzungsverordnung: redaktionell geprüfte amtliche HTML-Primärquelle und Provenienz gültig
+oberstufen-und-abiturprufungsverordnung: redaktionelle Quellenauflösung ohne lokal versionierte Ausgangsfassung dokumentiert
+ostdeutsches-feiertagsgesetz: Snapshot und Provenienz gültig
+wappenverordnung: Snapshot und Provenienz gültig
+saechsisches-ladenoeffnungsgesetz: Snapshot und Provenienz gültig
+saechsische-bauordnung: Snapshot und Provenienz gültig
+saechsische-bauordnung/2024-03-19: Snapshot und Provenienz gültig
+saechsische-gemeindeordnung: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-06-27; historisch geprüfte Baseline-Zitierung wird verwendet
+saechsische-gemeindeordnung: Snapshot und Provenienz gültig
+saechsische-gemeindeordnung/2023-12-31: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-06-27; historisch geprüfte Baseline-Zitierung wird verwendet
+saechsische-gemeindeordnung/2023-12-31: Snapshot und Provenienz gültig
+saechsische-landkreisordnung: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-06-27; historisch geprüfte Baseline-Zitierung wird verwendet
+saechsische-landkreisordnung: Snapshot und Provenienz gültig
+saechsische-haushaltsordnung: Snapshot und Provenienz gültig
+saechsische-haushaltsordnung/2025-07-10: Snapshot und Provenienz gültig
+saechsisches-verwaltungskostengesetz: Snapshot und Provenienz gültig
+fluechtlingsaufnahmegesetz: Snapshot und Provenienz gültig
+abschiebungshaftvollzugsgesetz: Snapshot und Provenienz gültig
+archivgesetz: Snapshot und Provenienz gültig
+schulordnung-foerderschulen: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-06-24; historisch geprüfte Baseline-Zitierung wird verwendet
+schulordnung-foerderschulen: Snapshot und Provenienz gültig
+saechsische-klassenbildungsverordnung: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-03-07; historisch geprüfte Baseline-Zitierung wird verwendet
+saechsische-klassenbildungsverordnung: Snapshot und Provenienz gültig
+schulnetzplanungsverordnung: Snapshot und Provenienz gültig
+freie-trager-schulverordnung: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-07-10; historisch geprüfte Baseline-Zitierung wird verwendet
+freie-trager-schulverordnung: Snapshot und Provenienz gültig
+pruefungsverordnung-waldorfschulen: Snapshot und Provenienz gültig
+schulordnung-berufsschule: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-04-09; historisch geprüfte Baseline-Zitierung wird verwendet
+schulordnung-berufsschule: Snapshot und Provenienz gültig
+schulordnung-berufliche-gymnasien: Snapshot und Provenienz gültig
+vwv-schulformulare: Snapshot und Provenienz gültig
+vwv-schulformulare/anlage-2: Anlage und Provenienz gültig
+vwv-beratungslehrer: Snapshot und Provenienz gültig
+vwv-radfahrausbildung: Snapshot und Provenienz gültig
+schulordnung-grundschulen: Snapshot und Provenienz gültig
+schulordnung-ober-und-abendoberschulen: Snapshot und Provenienz gültig
+schulordnung-gemeinschaftsschulen: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-06-15; historisch geprüfte Baseline-Zitierung wird verwendet
+schulordnung-gemeinschaftsschulen: Snapshot und Provenienz gültig
+schulordnung-gymnasien-abiturpruefung: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-06-15; historisch geprüfte Baseline-Zitierung wird verwendet
+schulordnung-gymnasien-abiturpruefung: Snapshot und Provenienz gültig
+ostdeutsches-polizeivollzugsdienstgesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-06-24; historisch geprüfte Baseline-Zitierung wird verwendet
+ostdeutsches-polizeivollzugsdienstgesetz: Snapshot und Provenienz gültig
+finanzausgleichsgesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-06-27; historisch geprüfte Baseline-Zitierung wird verwendet
+finanzausgleichsgesetz: Snapshot und Provenienz gültig
+finanzausgleichsgesetz/2025-01-01: Snapshot und Provenienz gültig
+gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages: Snapshot und Provenienz gültig
+kommunalwahlgesetz: Snapshot und Provenienz gültig
+kulturraumgesetz: Snapshot und Provenienz gültig
+landesplanungsgesetz: Snapshot und Provenienz gültig
+saechsisches-bestattungsgesetz: Snapshot und Provenienz gültig
+ostdeutsches-schulgesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2024-07-17; historisch geprüfte Baseline-Zitierung wird verwendet
+ostdeutsches-schulgesetz: Snapshot und Provenienz gültig
+vermessungs-und-katastergesetz: Snapshot und Provenienz gültig
+vermessungs-und-katastergesetz/2024-07-30: Snapshot und Provenienz gültig
+sachsisches-verwaltungsorganisationsgesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-06-24; historisch geprüfte Baseline-Zitierung wird verwendet
+sachsisches-verwaltungsorganisationsgesetz: Snapshot und Provenienz gültig
+ostdeutsches-hochschulgesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2024-01-31; historisch geprüfte Baseline-Zitierung wird verwendet
+ostdeutsches-hochschulgesetz: Snapshot und Provenienz gültig
+ostdeutsche-arbeitszeitverordnung: Snapshot und Provenienz gültig
+ostdeutsche-lehrkraefte-arbeitszeitverordnung: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-04-02; historisch geprüfte Baseline-Zitierung wird verwendet
+ostdeutsche-lehrkraefte-arbeitszeitverordnung: Snapshot und Provenienz gültig
+ostdeutsches-justizgesetz: Snapshot und Provenienz gültig
+ostdeutsches-justizgesetz/2024-01-01: Snapshot und Provenienz gültig
+ostdeutsches-krankenhausgesetz: Snapshot und Provenienz gültig
+ostdeutsches-normenkontrollratsgesetz: Snapshot und Provenienz gültig
+ndr-staatsvertrag: redaktionelle Quellenauflösung ohne lokal versionierte Ausgangsfassung dokumentiert
+ostdeutsches-personennahverkehrsgesetz: Snapshot und Provenienz gültig
+ostdeutsches-polizeibehoerdengesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-06-24; historisch geprüfte Baseline-Zitierung wird verwendet
+ostdeutsches-polizeibehoerdengesetz: Snapshot und Provenienz gültig
+verschlusssachenanweisung: Snapshot und Provenienz gültig
+waldgesetz: Snapshot und Provenienz gültig
+zehntes-ostdeutsches-kostenverzeichnis: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-03-26; historisch geprüfte Baseline-Zitierung wird verwendet
+zehntes-ostdeutsches-kostenverzeichnis: Snapshot und Provenienz gültig
+gesundheitsdienstgesetz: Snapshot und Provenienz gültig
+gesundheitsdienstgesetz/2024-08-17: Snapshot und Provenienz gültig
+landesbeamtengesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-06-27; historisch geprüfte Baseline-Zitierung wird verwendet
+landesbeamtengesetz: Snapshot und Provenienz gültig
+vwv-stundentafeln: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2026-07-23; historisch geprüfte Baseline-Zitierung wird verwendet
+vwv-stundentafeln: Snapshot und Provenienz gültig
+vwv-stundentafeln/2024-08-02: Snapshot und Provenienz gültig
+kindertagesbetreuungsgesetz: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) 2025-06-27; historisch geprüfte Baseline-Zitierung wird verwendet
+kindertagesbetreuungsgesetz: Snapshot und Provenienz gültig
+kindertagesbetreuungsgesetz/2025-08-01: Snapshot und Provenienz gültig
+ausbildungs-und-pruefungsordnung-polizei/2025-09-01: Snapshot und Provenienz gültig
+saechsisches-gleichstellungsgesetz/2024-01-01: Snapshot und Provenienz gültig
+zweckentfremdungsverbotsgesetz/2024-03-19: Snapshot und Provenienz gültig
+gesetz-ueber-den-rechnungshof-des-freistaates-ostdeutschland: Snapshot und Provenienz gültig
+vo-staatliche-rechnungspruefungsaemter: Snapshot und Provenienz gültig
+{"recognizedAmendmentActs":86,"recognizedTargetNorms":121,"completeTargetNorms":116,"blockedSourceConflicts":2,"missingPrimarySources":1}
+Organisationsmodell und Snapshot 2026-10-14 erfolgreich geprüft.
+Startseite, Kabinettsseite und Dashboarddaten erfolgreich geprüft.
+Content-QA erfolgreich.
+Metadaten-Audit erfolgreich: alle Normseiten sind zum Stichtag 2026-10-14 widerspruchsfrei.
+Ableitungs-Audit erfolgreich: 5249 Normen, Vollzitate ausgeschrieben, Herkunft ostdeutsch-original 237, inherited-unchanged 4952, inherited-amended 55, origin-unresolved 5.
+Themen-Coverage erfolgreich geprüft: 21 Themen, 39 Projekte, 18 Gegenwartsstände, 1 aktuelle Hervorhebungen.
+Knowledge-Check erfolgreich.
+
+> ostrecht-portal@0.0.1 haushalt:check
+> node --experimental-strip-types scripts/haushalt-check.mjs
+
+Haushaltsprüfung bestanden (Snapshots: 2027-2028; Periodenregister und Overlays geprüft).

@@ -1,0 +1,5 @@
+
+> ostrecht-portal@0.0.1 norms:consolidation:audit
+> node scripts/audit-consolidation.mjs --check
+
+{"recognizedAmendmentActs":75,"recognizedTargetNorms":109,"completeTargetNorms":107,"blockedSourceConflicts":2,"missingPrimarySources":0}

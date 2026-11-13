@@ -1,0 +1,10 @@
+=== npm run content:check
+exit=0 dauer=25s
+=== npm run knowledge:check
+exit=0 dauer=0s
+=== npm run docs:check
+exit=0 dauer=1s
+=== npm run norms:consolidation:audit -- --check
+exit=0 dauer=5s
+=== npm run norms:ost:residual-audit -- --quiet
+exit=0 dauer=3s

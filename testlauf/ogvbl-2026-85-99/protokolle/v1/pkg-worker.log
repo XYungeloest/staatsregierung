@@ -1,0 +1,223 @@
+Lokale D1-Projektion ist aktuell (Seed 18a67472ed457d94…, 5249 Normen, full, eingesetzt 2026-11-13T08:44:29.429Z).
+D1-Seed: {"seed_status":"current","seed_fingerprint":"18a67472ed457d94a2219648397ff4f098d043807a31fef93890779d67ab2650","seed_scope":"full","seed_fingerprint_seconds":2,"seed_build_seconds":0,"seed_verify_seconds":0,"seed_install_seconds":0,"seed_total_seconds":2}
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+
+ ⛅️ wrangler 4.151.0
+────────────────────
+Your Worker has access to the following bindings:
+Binding                                                  Resource                  Mode
+env.ostrecht_recht (ostrecht-recht)                      D1 Database               local
+env.ostrecht_recht_quellen (ostrecht-recht-quellen)      R2 Bucket                 local
+env.ASSETS                                               Assets                    local
+env.APP_ENV ("production")                               Environment Variable      local
+
+Attaching additional modules:
+┌───────────────────────────────────────────────────────────┬──────┬─────────────┐
+│ Name                                                      │ Type │ Size        │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/404_BkIZ3TDI.mjs                                   │ esm  │ 3.85 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/FilterForm_Rrp8dG8a.mjs                            │ esm  │ 2.22 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/IndexPage_B33GruUD.mjs                             │ esm  │ 16.57 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/LawLayout_i_gzqDD3.mjs                             │ esm  │ 18.52 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/NormDirectoryListing_Dtbwexn9.mjs                  │ esm  │ 4.78 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/NormDirectory_tHxJ0c5w.mjs                         │ esm  │ 3.25 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/NormMiniHead_DuRTakYo.mjs                          │ esm  │ 32.64 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/NormSectionPage_C42a8n89.mjs                       │ esm  │ 24.87 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/NormSectionTabs_DWD-KEDc.mjs                       │ esm  │ 6.93 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/NormTable_CwlY-gIE.mjs                             │ esm  │ 3.32 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/Pagination_CRMkALpS.mjs                            │ esm  │ 1.88 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/StatusMark_BseGFHho.mjs                            │ esm  │ 1.54 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/_astro_assets_F7hlOdLK.mjs                         │ esm  │ 22.02 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/_slug__fg2TwpaW.mjs                                │ esm  │ 14.12 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/_subject__B_MA38jD.mjs                             │ esm  │ 7.47 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/_toVersionId__BHQMsn6c.mjs                         │ esm  │ 1.86 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/_versionId__DG09Qxbw.mjs                           │ esm  │ 6.56 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/_virtual_astro_server-island-manifest_q0HM18kM.mjs │ esm  │ 0.27 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/_virtual_astro_session-driver_CZnhHY3q.mjs         │ esm  │ 0.84 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/abkuerzungen_B7wKCZGg.mjs                          │ esm  │ 1.39 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/assets_BA31wHFz.mjs                                │ esm  │ 17.12 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/betroffen_Dob54JfQ.mjs                             │ esm  │ 2.62 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/beziehungen_BKGMSdri.mjs                           │ esm  │ 1.79 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/beziehungen_sy_GrPG-.mjs                           │ esm  │ 1.90 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/change-service_CjxqY1l3.mjs                        │ esm  │ 5.49 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/compiler_DyUSSebv.mjs                              │ esm  │ 3.35 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/console_Csymjxqa.mjs                               │ esm  │ 319.85 KiB  │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/content_C10Gzw-2.mjs                               │ esm  │ 68.67 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/context_CZPzSHGn.mjs                               │ esm  │ 116.93 KiB  │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/counts_BLHQXRs2.mjs                                │ esm  │ 1.18 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/daten_CLFTBQ6g.mjs                                 │ esm  │ 1.83 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/daten_T-bmE0Ar.mjs                                 │ esm  │ 1.72 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/diff_KvfQZzk_.mjs                                  │ esm  │ 24.63 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/directory_t1yFXzkX.mjs                             │ esm  │ 8.59 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/editorial_PoOK0Y2k.mjs                             │ esm  │ 0.21 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/entrypoints_BTAvBXWq.mjs                           │ esm  │ 275.51 KiB  │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/fassung_CA8AW3Y_.mjs                               │ esm  │ 29.73 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/history_hAJ9utqW.mjs                               │ esm  │ 20.54 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/image-passthrough-endpoint_DgCtR3F7.mjs            │ esm  │ 2.32 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_4XvRURm8.mjs                                 │ esm  │ 1.30 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_B9Y8IbX_.mjs                                 │ esm  │ 1.51 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_BeH4EZsN.mjs                                 │ esm  │ 1.52 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_BskSSSUy.mjs                                 │ esm  │ 4.08 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_BwQlp08H.mjs                                 │ esm  │ 10.71 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_CFn9QKvJ.mjs                                 │ esm  │ 1.75 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_CJZNjgB0.mjs                                 │ esm  │ 7.25 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_Ckodhd2n.mjs                                 │ esm  │ 10.38 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_DIUBa2hO.mjs                                 │ esm  │ 1.64 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_DyAE5u8J.mjs                                 │ esm  │ 19.83 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_Z6b_bcqm.mjs                                 │ esm  │ 1.49 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/index_maXmoyVb.mjs                                 │ esm  │ 1.59 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/loader_6zmnNV-u.mjs                                │ esm  │ 3.78 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/noop-entrypoint_BYLrzUxc.mjs                       │ esm  │ 0.15 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/noop_B2hAq4-Q.mjs                                  │ esm  │ 0.70 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/norm-head_BjLWqemi.mjs                             │ esm  │ 16.20 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/norm-view_B7vt8jJr.mjs                             │ esm  │ 12.86 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/norms_CP1gxs9h.mjs                                 │ esm  │ 0.09 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/origin_B3QY0WQ_.mjs                                │ esm  │ 5.64 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/pagination_Dr56Pf8o.mjs                            │ esm  │ 2.19 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/register_Bg9elaG7.mjs                              │ esm  │ 69.94 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/repository-root_BsUnGM4f.mjs                       │ esm  │ 0.96 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/rolldown-runtime_D7vh-g_o.mjs                      │ esm  │ 0.41 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/routes_tAjfFd3W.mjs                                │ esm  │ 15.79 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/rss_BhalnhOd.mjs                                   │ esm  │ 1.04 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/schema_CTyvaqWh.mjs                                │ esm  │ 31.82 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/search-suggestions_D3bRnCtm.mjs                    │ esm  │ 0.91 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/sequence_CwU-0xnM.mjs                              │ esm  │ 53.09 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/service_BN0yDxW3.mjs                               │ esm  │ 47.98 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/site_Nb0a-ViM.mjs                                  │ esm  │ 15.85 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/sitemap_CFyoSMuS.mjs                               │ esm  │ 4.12 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/source-labels__d3_F3Lp.mjs                         │ esm  │ 1.20 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/static-image-collection_DX_WiLnB.mjs               │ esm  │ 2.71 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/stichwortregister_BOZv2sME.mjs                     │ esm  │ 1.44 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/suche_Dn_AEeEs.mjs                                 │ esm  │ 14.01 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/units_CahM4VUk.mjs                                 │ esm  │ 2.81 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/vergleich_GYEvEyPn.mjs                             │ esm  │ 20.72 KiB   │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/verkuendungen_kEP6CCUR.mjs                         │ esm  │ 1.78 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ chunks/vocabulary_OI-s0eFU.mjs                            │ esm  │ 2.25 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ virtual_astro_middleware.mjs                              │ esm  │ 0.81 KiB    │
+├───────────────────────────────────────────────────────────┼──────┼─────────────┤
+│ Total (79 modules)                                        │      │ 1473.13 KiB │
+└───────────────────────────────────────────────────────────┴──────┴─────────────┘
+⎔ Starting local server...
+[wrangler:info] ✨ Parsed 139 valid redirect rules.
+[wrangler:info] ✨ Parsed 2 valid header rules.
+Wrangler detected this dev session is running in an AI agent.
+The Local Explorer API is available at http://127.0.0.1:4399/cdn-cgi/local/explorer/api
+Useful routes:
+  GET http://127.0.0.1:4399/cdn-cgi/local/explorer/api/local/workers - local Workers and bindings
+  POST http://127.0.0.1:4399/cdn-cgi/local/explorer/api/local/scheduled?worker=<name> - invoke a Worker's scheduled handler; cron is required (see the OpenAPI schema for the full request)
+  GET http://127.0.0.1:4399/cdn-cgi/local/explorer/api/storage/kv/namespaces - KV namespaces
+  GET http://127.0.0.1:4399/cdn-cgi/local/explorer/api/d1/database - D1 databases
+  GET http://127.0.0.1:4399/cdn-cgi/local/explorer/api/r2/buckets - R2 buckets
+  GET http://127.0.0.1:4399/cdn-cgi/local/explorer/api/workers/durable_objects/namespaces - Durable Object namespaces
+  GET http://127.0.0.1:4399/cdn-cgi/local/explorer/api/workflows - Workflows
+  POST http://127.0.0.1:4399/cdn-cgi/local/explorer/api/local/observability/query - run a read-only SQL query (SELECT/WITH only) over captured request traces and console logs. Tables: spans, logs (read attributes via json(attributes)). Example:
+    curl -X POST http://127.0.0.1:4399/cdn-cgi/local/explorer/api/local/observability/query -H 'Content-Type: application/json' -d '{"sql":"SELECT service, name, outcome, duration_ms FROM spans WHERE parent_id IS NULL LIMIT 20"}'
+  POST http://127.0.0.1:4399/cdn-cgi/local/explorer/api/local/observability/clear - clear all captured traces and logs
+If the routes above don't cover what you need, fetch the full OpenAPI schema (large - use only as a last resort):
+  GET http://127.0.0.1:4399/cdn-cgi/local/explorer/api - OpenAPI schema
+[wrangler:info] Ready on http://127.0.0.1:4399
+[wrangler:info] GET / 200 OK (38ms)
+[wrangler:info] GET /norm/ostdeutsches-polizeivollzugsdienstgesetz/ 200 OK (64ms)
+[wrangler:info] GET /norm/ostdeutsches-polizeivollzugsdienstgesetz/ 200 OK (45ms)
+[wrangler:info] GET /norm/ostdeutsches-polizeivollzugsdienstgesetz/version/2026-12-01/ 200 OK (55ms)
+[wrangler:info] GET /norm/ostdeutsches-polizeivollzugsdienstgesetz/beziehungen/ 200 OK (9ms)
+[wrangler:info] GET /norm/volkspolizeiorganisationsgesetz/ 200 OK (10ms)
+[wrangler:info] GET /norm/gesetz-einfuehrung-polizeibeschwerdestelle/ 200 OK (9ms)
+[wrangler:info] GET /norm/staatsschutzamt-errichtungsgesetz/ 200 OK (8ms)
+[wrangler:info] GET /norm/ostdeutsches-kritis-gesetz/ 200 OK (8ms)
+[wrangler:info] GET /norm/gesetz-einfuehrung-ostdeutsches-sicherheitsgesetz/ 200 OK (7ms)
+[wrangler:info] GET /norm/ostdeutsches-verfassungsschutzgesetz/ 200 OK (17ms)
+[wrangler:info] GET /norm/ostdeutsches-polizeifachhochschulgesetz/ 200 OK (10ms)
+[wrangler:info] GET /verkuendung/ogvbl-2026-85/ 404 Not Found (3ms)
+[wrangler:info] GET /verkuendung/ogvbl-2026-88/ 404 Not Found (3ms)
+[wrangler:info] GET /verkuendung/ogvbl-2026-90/ 404 Not Found (2ms)
+[wrangler:info] GET /verkuendung/ogvbl-2026-94/ 404 Not Found (2ms)
+[wrangler:info] GET /verkuendung/ogvbl-2026-99/ 404 Not Found (2ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-85/ 200 OK (11ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-86/ 200 OK (7ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-88/ 200 OK (7ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-90/ 200 OK (7ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-92/ 200 OK (7ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-94/ 200 OK (7ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-95/ 200 OK (6ms)
+[wrangler:info] GET /verkuendungen/ogvbl-2026-99/ 200 OK (6ms)

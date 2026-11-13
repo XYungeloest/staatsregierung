@@ -1,0 +1,14 @@
+=== node scripts/audit-consolidation.mjs
+exit=0 6s
+=== node scripts/audit-consolidation.mjs --check
+exit=0 5s
+=== node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet
+exit=0 7s
+=== npm run content:check
+exit=0 24s
+=== npm run knowledge:check
+exit=0 0s
+=== node scripts/audit-ost-residuals.mjs
+exit=0 3s
+=== npm run docs:check
+exit=0 0s

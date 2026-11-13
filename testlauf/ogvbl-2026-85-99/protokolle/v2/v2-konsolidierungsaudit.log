@@ -1,0 +1,9 @@
+file://staatsregierung-testlauf-ogvbl-85-99-v2/scripts/audit-consolidation.mjs:590
+      throw new Error(
+            ^
+
+Error: Konsolidierungsmanifest ist nicht aktuell. „npm run norms:consolidation:audit“ ausführen und den fachlichen Diff prüfen.
+    at main (file://staatsregierung-testlauf-ogvbl-85-99-v2/scripts/audit-consolidation.mjs:590:13)
+    at async file://staatsregierung-testlauf-ogvbl-85-99-v2/scripts/audit-consolidation.mjs:606:3
+
+Node.js v26.12.0

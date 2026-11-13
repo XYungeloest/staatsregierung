@@ -1,0 +1,69 @@
+
+> ostrecht-portal@0.0.1 build:recht
+> npm run build --workspace @ostrecht/recht
+
+
+> @ostrecht/recht@0.0.1 prebuild
+> npm run public
+
+
+> @ostrecht/recht@0.0.1 public
+> node ../../scripts/prepare-site-public.mjs law
+
+
+> @ostrecht/recht@0.0.1 build
+> astro build
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+12:55:18 [vite] Re-optimizing dependencies because vite config has changed
+12:55:18 [vite] Re-optimizing dependencies because vite config has changed
+12:55:18 [types] Generated 198ms
+12:55:18 [build] output: "static"
+12:55:18 [build] mode: "server"
+12:55:18 [build] directory: staatsregierung-testlauf-ogvbl-85-99-v2/apps/recht/dist/
+12:55:18 [build] adapter: @astrojs/cloudflare
+12:55:18 [build] Collecting build info...
+12:55:18 [build] ✓ Completed in 213ms.
+12:55:18 [build] Building server entrypoints...
+12:55:19 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0m../../packages/recht-search/src/search.ts is dynamically imported by src/lib/runtime/context.ts but also statically imported by src/lib/runtime/store.ts, dynamic import will not move module into another chunk.
+
+12:55:19 [vite] ✓ built in 242ms
+12:55:19 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0m../../packages/recht-search/src/search.ts is dynamically imported by src/lib/runtime/context.ts but also statically imported by src/lib/runtime/store.ts, dynamic import will not move module into another chunk.
+
+12:55:19 [vite] ✓ built in 160ms
+12:55:19 [vite] ✓ built in 55ms
+
+ prerendering static routes 
+12:55:19   ├─ /hilfe/index.html (+12ms) 
+12:55:19   ├─ /robots.txt (+1ms) 
+12:55:19   ├─ /suche/index.html12:55:19 [WARN] [vite] Unexpected Node.js imports for environment "ssr". Do you need to enable the "nodejs_compat" compatibility flag? Refer to https://developers.cloudflare.com/workers/runtime-apis/nodejs/ for more details.
+ - "node:fs/promises" imported from "../../packages/shared/src/lib/norms/loader.ts"
+ - "node:fs/promises" imported from "../../packages/shared/src/lib/norms/register.ts"
+ - "node:fs/promises" imported from "../../packages/shared/src/lib/norms/publications.ts"
+ - "node:fs/promises" imported from "../../packages/shared/src/lib/portal/json-collection.ts"
+ - "node:fs/promises" imported from "../../packages/shared/src/lib/portal/cabinet-archive.ts"
+ - "node:path" imported from "../../packages/shared/src/lib/norms/loader.ts"
+ - "node:path" imported from "../../packages/shared/src/lib/norms/register.ts"
+ - "node:path" imported from "../../packages/shared/src/lib/norms/publications.ts"
+ - "node:path" imported from "../../packages/shared/src/lib/repository-root.ts"
+ - "node:path" imported from "../../packages/shared/src/lib/portal/loader.ts"
+ - "node:path" imported from "../../packages/shared/src/lib/portal/json-collection.ts"
+ - "node:path" imported from "../../packages/shared/src/lib/portal/cabinet-archive.ts"
+ - "node:fs" imported from "../../packages/shared/src/lib/repository-root.ts"
+
+ (+23.52s) 
+12:55:42   ├─ /verfassung/index.html (+1ms) 
+12:55:42 ✓ Completed in 23.53s.
+
+12:55:42 [build] Rearranging server assets...
+12:55:42 [build] ✓ Completed in 24.02s.
+12:55:42 [@astrojs/cloudflare] Injected immutable Cache-Control for /_astro/* into _headers.
+12:55:42 [build] Server built in 24.23s
+12:55:42 [build] Complete!
+
+> @ostrecht/recht@0.0.1 postbuild
+> node ../../scripts/stamp-build.mjs law
+
+Buildkennung e611963b9bafb4199b41b4b86a3868a14bd2a6e7 in staatsregierung-testlauf-ogvbl-85-99-v2/apps/recht/dist/client/_headers eingetragen.
