@@ -41,7 +41,7 @@ export function runtimeCampaign(env: CampaignEnv): Campaign {
     result: phase === 'ergebnis' ? { title: 'Lokales Prüfergebnis', description: 'Ausschließlich synthetische Testdaten zur Prüfung der Ergebnisansicht.' } : null };
 }
 export function isConnected(env: CampaignEnv, c: Campaign): boolean {
-  return env.FRESSWUERFEL_ENABLED === 'true' && Boolean(env.FRESSWUERFEL_DB && env.FRESSWUERFEL_RATE_SALT && env.FRESSWUERFEL_RATE_SALT.length >= 32 && c.privacyContact && c.retentionDays);
+  return env.APP_ENV !== 'preview' && env.FRESSWUERFEL_ENABLED === 'true' && Boolean(env.FRESSWUERFEL_DB && env.FRESSWUERFEL_RATE_SALT && env.FRESSWUERFEL_RATE_SALT.length >= 32 && c.privacyContact && c.retentionDays);
 }
 export function uploadsConnected(env: CampaignEnv): boolean {
   return env.FRESSWUERFEL_UPLOADS_ENABLED === 'true' && Boolean(env.FRESSWUERFEL_SKETCHES);

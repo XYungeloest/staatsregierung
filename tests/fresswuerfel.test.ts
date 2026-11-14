@@ -46,6 +46,7 @@ test('Validierung, geschlossene Phase, fehlende Anbindung, Origin und Upload-Abl
   for (const phase of ['vorbereitet', 'sichtung', 'ergebnis']) assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_PREVIEW_PHASE: phase })).status, 409);
   assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_DB: undefined })).status, 503);
   assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_ENABLED: undefined })).status, 503);
+  assert.equal((await submitIdea(request(idea()), { ...env, APP_ENV: 'preview' })).status, 503);
   assert.equal((await submitIdea(request({ ...idea(), description: 'x'.repeat(25000) }), env)).status, 413);
   assert.equal(db.prepare('SELECT count(*) AS n FROM submissions').get()!.n, 0);
 });

@@ -115,7 +115,8 @@ npx wrangler secret put FRESSWUERFEL_REVIEW_TOKEN --config apps/portal/wrangler.
 ```
 
 Den Wert ausschließlich über stdin eingeben. Für Staging `--env staging` verwenden. Ohne
-Secret bleibt die Ansicht geschlossen (404). Der Browser kann den gültigen Link über
+Secret bleibt die Ansicht geschlossen (404). PR-Vorschauversionen laufen mit `APP_ENV=preview`;
+dort sind sowohl die Sichtungsansicht als auch das Speichern neuer Einreichungen geschlossen. Der Browser kann den gültigen Link über
 „Link kopieren“ übernehmen. In der lokalen Vorschau gilt ausschließlich der bekannte lokale
 Testlink unter `/fresswuerfel-sichtung/local-review-token-only-for-loopback-preview-0000000000000000/`;
 dieser Wert wird niemals in eine Releasekonfiguration übernommen.

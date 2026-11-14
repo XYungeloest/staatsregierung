@@ -39,6 +39,7 @@ function fixture() {
 test('Freigabelink ist zwingend, auch für Bilder; fehlende und falsche Tokens fragen keine Daten ab', async () => {
   const { env } = fixture();
   for (const value of [undefined, '', 'kurz', 'x'.repeat(token.length)]) assert.equal(hasReviewAccess(value, env), false);
+  assert.equal(hasReviewAccess(token, { ...env, APP_ENV: 'preview' }), false);
   assert.equal(hasReviewAccess(token, {}), false); assert.equal(hasReviewAccess(token, env), true);
   env.FRESSWUERFEL_DB!.prepare = () => { throw new Error('Darf bei fehlender Freigabe nicht abgefragt werden'); };
   const result = await getReviewImage(new Request('https://example.org/bild.webp'), 'x'.repeat(token.length), `FW-${crypto.randomUUID()}`, env);

@@ -14,6 +14,7 @@ export const reviewHeaders = {
   'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
 };
 export function hasReviewAccess(token: string | undefined, env: CampaignEnv): boolean {
+  if (env.APP_ENV === 'preview') return false;
   const expected = env.FRESSWUERFEL_REVIEW_TOKEN;
   if (!expected || !token || !/^[A-Za-z0-9_-]{43,128}$/.test(token) || token.length !== expected.length) return false;
   let difference = 0;
