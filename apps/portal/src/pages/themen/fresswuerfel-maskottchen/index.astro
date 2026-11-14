@@ -12,7 +12,7 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 const breadcrumbs = [{ label: 'Startseite', href: '/' }, { label: 'Themen & Projekte', href: '/themen/' }, { label: 'Fresswürfel-Maskottchen' }];
 const labels = { vorbereitet: 'In Vorbereitung', einreichung: 'Ideen gesucht', sichtung: 'Die HO sichtet die Ideen', ergebnis: 'Ergebnis' };
 ---
-<BaseLayout title={campaignTitle} description={campaignLead} {breadcrumbs} noindex={env.APP_ENV === 'local'}>
+<BaseLayout title={campaignTitle} description={campaignLead} {breadcrumbs} noindex={env.APP_ENV === 'local' || env.APP_ENV === 'preview'}>
   <Breadcrumbs items={breadcrumbs} />
   <div class="campaign">
     <section class="campaign-hero" aria-labelledby="campaign-title">

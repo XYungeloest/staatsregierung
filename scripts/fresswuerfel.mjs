@@ -24,7 +24,7 @@ function sql(query, capture = false) {
   return wrangler(['d1', 'execute', 'FRESSWUERFEL_DB', '--config', config, '--env', workerEnv, remote ? '--remote' : '--local', ...(!remote ? ['--persist-to', persist] : []), '--command', query, ...(capture ? ['--json'] : [])], capture);
 }
 function objectPath(key) {
-  if (!/^originals\/[0-9a-f-]{36}$/.test(key)) throw new Error('Ungültiger privater Objektschlüssel');
+  if (!/^originals\/[0-9a-f-]{36}$/.test(key) && !/^review\/FW-[0-9a-f-]{36}\.webp$/.test(key)) throw new Error('Ungültiger privater Objektschlüssel');
   return `${remote ? option('--bucket') ?? (workerEnv === 'staging' ? 'ostrecht-fresswuerfel-skizzen-staging' : 'ostrecht-fresswuerfel-skizzen') : 'fresswuerfel-local-sketches'}/${key}`;
 }
 async function downloadOriginal(key) {
@@ -50,7 +50,7 @@ if (command === 'preview') {
     await mkdir(resolve(root, 'apps/portal/dist/client/images/fresswuerfel/auswahl'), { recursive: true });
     await cp(resolve(root, '.cache/fresswuerfel/auswahl'), resolve(root, 'apps/portal/dist/client/images/fresswuerfel/auswahl'), { recursive: true });
   }
-  const preview = { ...built, name: 'fresswuerfel-local', main: resolve(dirname(builtPath), built.main), assets: { ...built.assets, directory: resolve(dirname(builtPath), built.assets.directory) }, vars: { APP_ENV: 'local', FRESSWUERFEL_ENABLED: 'true', FRESSWUERFEL_UPLOADS_ENABLED: 'true', FRESSWUERFEL_RATE_SALT: 'local-preview-salt-never-use-in-production', FRESSWUERFEL_PREVIEW_PHASE: phase, ...(approved ? { FRESSWUERFEL_PREVIEW_PUBLIC_JSON: JSON.stringify(approved) } : {}) }, d1_databases: [{ binding: 'FRESSWUERFEL_DB', database_name: 'fresswuerfel-local', database_id: '00000000-0000-4000-8000-000000000001' }], r2_buckets: [{ binding: 'FRESSWUERFEL_SKETCHES', bucket_name: 'fresswuerfel-local-sketches' }] };
+  const preview = { ...built, name: 'fresswuerfel-local', main: resolve(dirname(builtPath), built.main), assets: { ...built.assets, directory: resolve(dirname(builtPath), built.assets.directory) }, vars: { APP_ENV: 'local', FRESSWUERFEL_ENABLED: 'true', FRESSWUERFEL_UPLOADS_ENABLED: 'true', FRESSWUERFEL_RATE_SALT: 'local-preview-salt-never-use-in-production', FRESSWUERFEL_REVIEW_TOKEN: 'local-review-token-only-for-loopback-preview-0000000000000000', FRESSWUERFEL_PREVIEW_PHASE: phase, ...(approved ? { FRESSWUERFEL_PREVIEW_PUBLIC_JSON: JSON.stringify(approved) } : {}) }, d1_databases: [{ binding: 'FRESSWUERFEL_DB', database_name: 'fresswuerfel-local', database_id: '00000000-0000-4000-8000-000000000001' }], r2_buckets: [{ binding: 'FRESSWUERFEL_SKETCHES', bucket_name: 'fresswuerfel-local-sketches' }] };
   delete preview.configPath; delete preview.userConfigPath;
   await mkdir(dirname(localConfig), { recursive: true });
   await writeFile(localConfig, JSON.stringify(preview, null, 2));
@@ -99,14 +99,18 @@ if (command === 'preview') {
   const rows = JSON.parse(sql(`SELECT number, sketch_key FROM submissions WHERE expires_at <= ${Date.now()} LIMIT 1000`, true)).flatMap(r => r.results ?? []);
   for (const row of rows) {
     if (row.sketch_key) deleteOriginal(row.sketch_key);
+    deleteOriginal(`review/${row.number}.webp`);
     sql(`DELETE FROM submissions WHERE number = ${quote(row.number)}`);
   }
   sql(`DELETE FROM rate_limits WHERE expires_at <= ${Date.now()};`);
 } else if (command === 'delete') {
   const number = option('--number');
   if (!number) throw new Error('--number fehlt');
-  const rows = JSON.parse(sql(`SELECT sketch_key FROM submissions WHERE number = ${quote(number)}`, true)).flatMap(r => r.results ?? []);
-  for (const row of rows) if (row.sketch_key) deleteOriginal(row.sketch_key);
+  const rows = JSON.parse(sql(`SELECT number, sketch_key FROM submissions WHERE number = ${quote(number)}`, true)).flatMap(r => r.results ?? []);
+  for (const row of rows) {
+    if (row.sketch_key) deleteOriginal(row.sketch_key);
+    deleteOriginal(`review/${row.number}.webp`);
+  }
   sql(`DELETE FROM submissions WHERE number = ${quote(number)}`);
 } else {
   console.log('Aufruf: node scripts/fresswuerfel.mjs preview [--phase einreichung|sichtung|ergebnis|vorbereitet] [--port 4330]\nSichtung: list | approve --number FW-… --title "…" --description "…" | purge | delete --number FW-…\nStandard: nur lokal. Produktion explizit mit --remote --config apps/portal/wrangler.jsonc');
