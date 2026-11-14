@@ -33,7 +33,7 @@ const pageHref = (page: number) => `${base}?${new URLSearchParams({ sort: review
     </header>
     <main class="shell">
       <section class="intro" aria-labelledby="title">
-        <div><p class="eyebrow">Maskottchenwettbewerb der HO</p><h1 id="title">Eine Idee. Viele Möglichkeiten.</h1><p class="lead">Die eingereichten Vorschläge für das Fresswürfel-Maskottchen im Überblick. Zum gemeinsamen Ansehen, Vergleichen und Besprechen.</p><p>Diese Übersicht zeigt Einreichungen. Die HO hat daraus noch keine Auswahl getroffen. Kontaktadressen werden hier nicht angezeigt.</p></div>
+        <div><p class="eyebrow">Maskottchenwettbewerb der HO</p><h1 id="title">Eine Idee. Viele Möglichkeiten.</h1><p class="lead">Die eingereichten Vorschläge für das Fresswürfel-Maskottchen im Überblick. Zum gemeinsamen Ansehen, Vergleichen und Besprechen.</p><p>Diese Übersicht dient der gemeinsamen Sichtung und ist keine Ergebnisbekanntgabe. Das freiwillige Kontakt-E-Mail-Feld bleibt intern.</p></div>
         <div class="numbers" aria-label="Übersicht der Einreichungen"><div><strong>{review.total}</strong><span>Ideen insgesamt</span></div><div><strong>{review.withImages}</strong><span>mit Bild</span></div><div><strong>{review.total - review.withImages}</strong><span>in Worten</span></div></div>
       </section>
       <div class="toolbar">
