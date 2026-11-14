@@ -153,3 +153,5 @@ ausschließlich über den Workflow `Deploy to Cloudflare Workers` aus dem geprü
 
 `knowledge/generated/` und `data/recht/consolidation-report.md` werden erzeugt und nicht manuell
 gepflegt. `npm run docs:check` prüft kanonische Dokumente, Links und die TODO-Hygiene.
+
+Der lokale Teilnahme- und Redaktionsweg für den Maskottchenwettbewerb steht in [docs/FRESSWUERFEL.md](docs/FRESSWUERFEL.md).

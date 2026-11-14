@@ -385,6 +385,9 @@ jobs:
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
         run: npm run test:browsers:ci
+      - name: Fresswürfel-Einreichung und private Bildfreigabe prüfen
+        if: ${{ contains(needs.classify.outputs.ui_targets, 'portal') }}
+        run: npx playwright test --config playwright.fresswuerfel.config.ts
 
   # Vollbestand-Seed parallel zu quality, nur bei Laufzeit-/Projektions-/Bestandsänderungen:
   # Cache-Treffer → Verifikation, Cache-Miss → genau eine Projektion und neuer Cache-Eintrag.

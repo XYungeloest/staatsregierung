@@ -1,0 +1,52 @@
+{
+  "account_id": "28871b9b1c6753235a331544f7c68460",
+  "compatibility_date": "2026-04-15",
+  "d1_databases": [
+    {
+      "binding": "FRESSWUERFEL_DB",
+      "database_name": "ostrecht-fresswuerfel",
+      "database_id": "dbccd033-30e5-4499-8106-6973b2afeea7"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FRESSWUERFEL_SKETCHES",
+      "bucket_name": "ostrecht-fresswuerfel-skizzen"
+    }
+  ],
+  "name": "ostrecht-fresswuerfel-cleanup",
+  "main": "src/workers/fresswuerfel-cleanup.ts",
+  "workers_dev": false,
+  "preview_urls": false,
+  "triggers": {
+    "crons": [
+      "17 2 * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true
+  },
+  "env": {
+    "staging": {
+      "name": "ostrecht-fresswuerfel-cleanup-staging",
+      "d1_databases": [
+        {
+          "binding": "FRESSWUERFEL_DB",
+          "database_name": "ostrecht-fresswuerfel-staging",
+          "database_id": "95a87ed4-5c4d-4d27-92ba-06a8bc9675af"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "FRESSWUERFEL_SKETCHES",
+          "bucket_name": "ostrecht-fresswuerfel-skizzen-staging"
+        }
+      ],
+      "triggers": {
+        "crons": [
+          "17 2 * * *"
+        ]
+      }
+    }
+  }
+}

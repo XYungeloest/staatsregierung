@@ -70,7 +70,8 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - Rechtsportal: `recht.freistaat-ostdeutschland.de`, Build `npm run build:recht`, Worker `ostrecht-recht`
 - öffentliche Rechtsrouten liegen auf der Rechtsdomain ohne zusätzliches `/recht/`-Präfix
 - Cross-Site-Links werden über `packages/shared/src/lib/portal/routes.ts` und `packages/shared/src/lib/norms/routes.ts` erzeugt; die Origins stammen aus `PORTAL_SITE_URL` und `LAW_SITE_URL`
-- OstRecht liest Rechtsdaten zur Laufzeit aus Cloudflare D1 (`ostrecht_recht`, Projektion aus `content/` per `npm run norms:runtime:d1-sync`); R2 (`ostrecht_recht_quellen`) archiviert nur unveränderte Rohquellen; das Staatsportal hat keine D1/R2-Bindings
+- Der Maskottchenwettbewerb nutzt eine getrennte private D1 (`FRESSWUERFEL_DB`) und R2 (`FRESSWUERFEL_SKETCHES`); der tägliche Löschworker bereinigt abgelaufene Einreichungen samt Originalbildern. Ohne Anbindung bleibt die Einreichung geschlossen. Redaktion und Betrieb: `docs/FRESSWUERFEL.md`.
+- OstRecht liest Rechtsdaten zur Laufzeit aus Cloudflare D1 (`ostrecht_recht`, Projektion aus `content/` per `npm run norms:runtime:d1-sync`); R2 (`ostrecht_recht_quellen`) archiviert nur unveränderte Rohquellen; das Staatsportal nutzt für den Maskottchenwettbewerb getrennte D1/R2-Bindings
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
 - Build- und Content-Checks vor Abschluss ausführen, sofern möglich
 

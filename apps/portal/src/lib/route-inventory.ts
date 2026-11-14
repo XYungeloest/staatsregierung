@@ -1,3 +1,4 @@
+import { campaignPath, campaignTitle, campaignLead } from './fresswuerfel/config.ts';
 import { siteConfig, type PortalSectionKey } from '@ostrecht/shared/config/site.ts';
 import {
   loadBudgetPages,
@@ -88,6 +89,7 @@ type StaticRoute = Omit<PortalRoute, 'overview' | 'sitemap' | 'search'> &
  */
 function staticRoutes(): StaticRoute[] {
   return [
+    { path: campaignPath, title: campaignTitle, section: 'topics', description: campaignLead, searchText: 'Fresswürfel Maskottchen Wettbewerb HO Handelsorganisation Ost Ideen Kostüm' },
     {
       path: getHomeUrl(),
       title: 'Startseite',

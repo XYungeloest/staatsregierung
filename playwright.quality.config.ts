@@ -13,7 +13,7 @@ const webServer = [];
 
 if (selectedSiteTargets.includes('portal')) {
   webServer.push({
-    command: `node scripts/serve-site.mjs apps/portal/dist/client ${portalPort}`,
+    command: `node scripts/serve-portal-worker.mjs --port ${portalPort}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,

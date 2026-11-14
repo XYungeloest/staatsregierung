@@ -5,7 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 /**
- * Staging-Konfiguration für den gebauten OstRecht-Worker.
+ * Staging-Konfiguration für den gebauten Astro-Worker (Staatsportal oder OstRecht).
  *
  * Der Cloudflare-Adapter von Astro schreibt nach dem Build eine aufgelöste Konfiguration
  * (apps/recht/dist/server/wrangler.json) ohne `env`-Abschnitt. `wrangler deploy --env staging`
