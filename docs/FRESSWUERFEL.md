@@ -124,7 +124,8 @@ Datenschutzhinweise bleibt das Formular geschlossen; ohne R2-Anbindung bleibt da
 
 Veröffentlichungen erfolgen über den in [DEPLOYMENT_RUNBOOK.md](DEPLOYMENT_RUNBOOK.md)
 beschriebenen geprüften PR-/Main-Workflow. `deploy:portal` und `deploy:portal:staging`
-veröffentlichen jeweils auch den zugehörigen Löschworker. Eine Produktionsaktivierung ist vom
+veröffentlichen jeweils auch den zugehörigen Löschworker. Der Staging-Befehl erzeugt wie
+OstRecht eine eigene geprüfte Konfiguration; er darf nie auf Produktionsbindungen zurückfallen. Eine Produktionsaktivierung ist vom
 Betriebsbeginn der Restaurantkette unabhängig. Keine Testbilder oder Vorschaukonfigurationen
 in Release-Artefakte übernehmen. Nach Veröffentlichung Formular, ungültigen Upload, gespeicherte
 Einreichung und private Direktzugriffe prüfen; ausschließlich markierte technische Proben nutzen
@@ -144,7 +145,8 @@ npm run docs:check
 
 Unit-Tests prüfen echte SQLite-Abfragen, Bilddecoder, Wiederholung, Rate-Limit, Speicherfehler,
 Phasen und Löschung. Browserprüfungen prüfen Text und Bild, fehlerhafte Dateien, Originalschutz,
-Bildfreigabe ohne Metadaten, alle Phasen, Tastatur, mobile Breiten und WCAG. Screenshots liegen
+Bildfreigabe ohne Metadaten, alle Phasen, Tastatur, mobile Breiten und WCAG. Auch die allgemeinen Portal-Browsertests verwenden den gebauten
+Cloudflare-Worker, damit dynamische Themenseiten tatsächlich geprüft werden. Screenshots liegen
 im ignorierten `test-results/fresswuerfel/`.
 
 Technische Grundlagen: [Photon für Cloudflare Workers](https://silvia-odwyer.github.io/photon/guide/photon-cloudflare-workers/),

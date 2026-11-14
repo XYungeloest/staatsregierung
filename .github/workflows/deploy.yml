@@ -324,6 +324,8 @@ jobs:
         if: ${{ needs.classify.outputs.build_targets != '' }}
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.build_targets }}
+          PORTAL_SITE_URL: ${{ steps.deployment_meta.outputs.portal_site_url }}
+          LAW_SITE_URL: ${{ steps.deployment_meta.outputs.law_site_url }}
         run: |
           npm run test:links:run
           npm run test:seo:run
@@ -385,6 +387,8 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 60
     env:
+      PORTAL_SITE_URL: ${{ needs.build.outputs.portal_site_url }}
+      LAW_SITE_URL: ${{ needs.build.outputs.law_site_url }}
       # Leer = Vollbestand (Seed aus dem Cache); sonst das Testfixture. (Ein leerer String ist im
       # Ausdruck falsy, deshalb die Bedingung in dieser Reihenfolge.)
       OSTRECHT_D1_FIXTURE: ${{ needs.classify.outputs.run_full_corpus_smoke != 'true' && 'data/recht/runtime-fixture.json' || '' }}
