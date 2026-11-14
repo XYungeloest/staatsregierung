@@ -5,20 +5,55 @@
   "workers_dev": true,
   "preview_urls": true,
   "vars": {
-    "APP_ENV": "production"
+    "APP_ENV": "production",
+    "FRESSWUERFEL_ENABLED": "true",
+    "FRESSWUERFEL_UPLOADS_ENABLED": "true"
   },
   "assets": {
     "directory": "./dist/client",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "run_worker_first": [
+      "/themen/fresswuerfel-maskottchen",
+      "/themen/fresswuerfel-maskottchen/*",
+      "/api/fresswuerfel/*"
+    ]
   },
-
   "env": {
     "staging": {
       "name": "ostrecht-portal-staging",
       "workers_dev": true,
       "vars": {
-        "APP_ENV": "staging"
-      }
+        "APP_ENV": "staging",
+        "FRESSWUERFEL_ENABLED": "true",
+        "FRESSWUERFEL_UPLOADS_ENABLED": "true"
+      },
+      "d1_databases": [
+        {
+          "binding": "FRESSWUERFEL_DB",
+          "database_name": "ostrecht-fresswuerfel-staging",
+          "database_id": "95a87ed4-5c4d-4d27-92ba-06a8bc9675af"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "FRESSWUERFEL_SKETCHES",
+          "bucket_name": "ostrecht-fresswuerfel-skizzen-staging"
+        }
+      ]
     }
-  }
+  },
+  "account_id": "28871b9b1c6753235a331544f7c68460",
+  "d1_databases": [
+    {
+      "binding": "FRESSWUERFEL_DB",
+      "database_name": "ostrecht-fresswuerfel",
+      "database_id": "dbccd033-30e5-4499-8106-6973b2afeea7"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FRESSWUERFEL_SKETCHES",
+      "bucket_name": "ostrecht-fresswuerfel-skizzen"
+    }
+  ]
 }

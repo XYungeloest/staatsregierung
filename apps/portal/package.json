@@ -13,18 +13,21 @@
     "build": "astro build",
     "postbuild": "node ../../scripts/stamp-build.mjs portal",
     "preview": "astro preview",
-    "deploy": "node ../../scripts/check-haushalt-release.mjs --produktion && wrangler deploy --config wrangler.jsonc --env=\"\"",
-    "deploy:staging": "node ../../scripts/check-haushalt-release.mjs --staging && wrangler deploy --config wrangler.jsonc --env staging"
+    "deploy": "node ../../scripts/check-haushalt-release.mjs --produktion && wrangler deploy --config wrangler.jsonc --env=\"\" && wrangler deploy --config wrangler.fresswuerfel-cleanup.jsonc --env=\"\"",
+    "deploy:staging": "node ../../scripts/check-haushalt-release.mjs --staging && wrangler deploy --config wrangler.jsonc --env staging && wrangler deploy --config wrangler.fresswuerfel-cleanup.jsonc --env staging"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.6",
+    "@cf-wasm/photon": "^0.4.0",
     "@ostrecht/shared": "^0.0.1",
     "astro": "^7.3.8",
+    "image-size": "^2.1.0",
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@types/leaflet": "^1.9.22",
+    "sharp": "^0.35.5",
     "wrangler": "^4.151.0"
   },
   "engines": {

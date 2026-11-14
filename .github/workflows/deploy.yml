@@ -429,6 +429,9 @@ jobs:
           START=$(date +%s)
           npm run test:browsers:ci
           echo "browser=$(( $(date +%s) - START ))" >> "$RUNNER_TEMP/timings.txt"
+      - name: Fresswürfel-Einreichung und private Bildfreigabe prüfen
+        if: ${{ contains(needs.classify.outputs.ui_targets, 'portal') }}
+        run: npx playwright test --config playwright.fresswuerfel.config.ts
       - name: Laufzeiten festhalten
         if: ${{ always() }}
         env:

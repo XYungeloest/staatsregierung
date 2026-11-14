@@ -1,4 +1,5 @@
 ---
+import { campaign, campaignPath, showTeaser } from '../lib/fresswuerfel/config.ts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FreestateSummary from '../components/portal/FreestateSummary.astro';
 import HomeMinistryList from '../components/portal/HomeMinistryList.astro';
@@ -88,6 +89,11 @@ const importantItems = homeContent.importantItems.map((item) => ({
   href: resolvePortalPath(item.href),
   icon: item.icon,
 }));
+if (showTeaser(campaign, Date.now())) {
+  const campaignNotice = { title: 'Fresswürfel sucht ein Maskottchen.', description: 'Eine Idee in Worten oder als Skizze genügt.', href: campaignPath, icon: 'topics' as const, expiresAt: campaign.teaserUntil ?? undefined };
+  importantItems.push(campaignNotice);
+}
+
 ---
 
 <BaseLayout
