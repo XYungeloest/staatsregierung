@@ -77,6 +77,50 @@ Zum Phasenwechsel neu starten: `--phase vorbereitet`, `sichtung` oder `ergebnis`
 Vorschauphasen funktionieren ausschließlich bei `APP_ENV=local`. Die Ergebnisprobe ist als
 lokaler Test benannt. Kein Vorschaudatensatz wird in Produktionsdaten übernommen.
 
+## Teilbare Sichtungsansicht ohne Anmeldung
+
+Die zusätzliche Ansicht liegt unter `/fresswuerfel-sichtung/<Freigabeschlüssel>/`. Sie wird
+weder verlinkt noch in Suche/Sitemap aufgenommen. Jeder Aufruf – auch eines Vorschaubildes –
+benötigt den richtigen langen, zufälligen Schlüssel aus dem Worker-Secret
+`FRESSWUERFEL_REVIEW_TOKEN`. Produktion und Staging verwenden unterschiedliche Schlüssel.
+Der tatsächliche Link gehört nicht in Git, Tickets oder öffentliche Dokumentation.
+
+Wer den Link kennt, kann die Ansicht ohne Anmeldung öffnen und weitergeben. Angezeigt werden
+Namensvorschlag, Beschreibung, Eingangsdatum, Einreichungsnummer und gegebenenfalls eine
+Bildvorschau. Kontakt-E-Mails, Anfragebezeichner und Originaldateischlüssel werden nicht
+abgefragt oder ausgegeben. Neue Beiträge erscheinen beim erneuten Laden; abgelaufene und
+gelöschte Einreichungen verschwinden. Pro Seite werden maximal 24 Ideen geladen; Sortierung,
+Textfilter für die angezeigte Seite und eine Bild-Großansicht unterstützen den Vergleich.
+Die Ansicht ist eine gemeinsame Sichtung der Einreichungen, keine öffentliche HO-Auswahl.
+Die bestehenden Freigabe- und Ergebniswege bleiben bestehen.
+
+JPEG, PNG und WebP werden für diese Ansicht serverseitig in neue WebP-Bildkopien umgewandelt,
+auf maximal 1.400 Pixel je Seite verkleinert und von eingebetteten Metadaten befreit.
+JPEG-Ausrichtung wird dabei berücksichtigt. Originale bleiben privat. Vorschaubilder liegen
+nur im privaten R2-Bucket unter `review/`; eine Lebenszyklusregel entfernt sie nach einem Tag,
+bei Bedarf werden sie erneut erzeugt. Jeder Bildaufruf prüft trotzdem den Link und die noch
+bestehende, nicht abgelaufene Einreichung. Reguläre Löschläufe und Einzel-Löschungen entfernen
+zusätzlich die zugehörige Vorschau.
+
+Die Seite verwendet keine Webanalyse oder externen Ressourcen. `noindex`-Header und Metadaten
+verhindern reguläre Suchmaschinenaufnahme; `no-store` verhindert Browser-/Proxy-Caching und
+`Referrer-Policy: no-referrer` die Weitergabe des Links über Referrer-Header. Es gibt keine
+Bearbeitungs-, Freigabe- oder Löschaktionen in dieser teilbaren Ansicht.
+
+Zum Sperren eines bisher weitergegebenen Links das Secret durch einen neuen zufälligen Wert
+(mindestens 32 Zufallsbytes als Base64URL) ersetzen:
+
+```sh
+npx wrangler secret put FRESSWUERFEL_REVIEW_TOKEN --config apps/portal/wrangler.jsonc --env=""
+```
+
+Den Wert ausschließlich über stdin eingeben. Für Staging `--env staging` verwenden. Ohne
+Secret bleibt die Ansicht geschlossen (404). PR-Vorschauversionen laufen mit `APP_ENV=preview`;
+dort sind sowohl die Sichtungsansicht als auch das Speichern neuer Einreichungen geschlossen. Der Browser kann den gültigen Link über
+„Link kopieren“ übernehmen. In der lokalen Vorschau gilt ausschließlich der bekannte lokale
+Testlink unter `/fresswuerfel-sichtung/local-review-token-only-for-loopback-preview-0000000000000000/`;
+dieser Wert wird niemals in eine Releasekonfiguration übernommen.
+
 ## Sichtung, Freigabe und Löschung
 
 ```sh

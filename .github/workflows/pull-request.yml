@@ -556,7 +556,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          OUTPUT="$(npx wrangler versions upload --config apps/portal/wrangler.jsonc --env="" --preview-alias "pr-${PR_NUMBER}")"
+          OUTPUT="$(npx wrangler versions upload --config apps/portal/dist/server/wrangler.json --env="" --var APP_ENV:preview --preview-alias "pr-${PR_NUMBER}")"
           PREVIEW_URL="$(printf '%s\n' "$OUTPUT" | grep -Eo 'https://[^[:space:]]+' | tail -n 1 | sed 's/[),.]$//')"
           if [ -z "$PREVIEW_URL" ]; then
             printf '%s\n' "$OUTPUT" >&2

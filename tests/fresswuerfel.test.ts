@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
-import { submitIdea, runtimeCampaign, type CampaignEnv, type CampaignDB } from '../apps/portal/src/lib/fresswuerfel/server.ts';
+import { submitIdea, runtimeCampaign, isConnected, type CampaignEnv, type CampaignDB } from '../apps/portal/src/lib/fresswuerfel/server.ts';
 import { campaign, isSubmissionPhase, showTeaser, validateCampaign, formatCampaignDate } from '../apps/portal/src/lib/fresswuerfel/config.ts';
 
 function fixture() {
@@ -22,7 +22,7 @@ function fixture() {
   const env: CampaignEnv = { APP_ENV: 'local', FRESSWUERFEL_DB: adapter, FRESSWUERFEL_ENABLED: 'true', FRESSWUERFEL_RATE_SALT: 'a'.repeat(32), FRESSWUERFEL_PREVIEW_PHASE: 'einreichung' };
   const objects = new Map<string, Uint8Array>();
   env.FRESSWUERFEL_UPLOADS_ENABLED = 'true';
-  env.FRESSWUERFEL_SKETCHES = { put: async (key, bytes) => { objects.set(key, bytes); }, delete: async key => { for (const k of Array.isArray(key) ? key : [key]) objects.delete(k); } };
+  env.FRESSWUERFEL_SKETCHES = { get: async key => { const bytes = objects.get(key); return bytes ? { body: new Blob([new Uint8Array(bytes)]).stream(), arrayBuffer: async () => new Uint8Array(bytes).buffer } : null; }, put: async (key, bytes) => { objects.set(key, bytes); }, delete: async key => { for (const k of Array.isArray(key) ? key : [key]) objects.delete(k); } };
   return { db, env, objects };
 }
 const idea = () => ({ requestId: crypto.randomUUID(), name: 'Probe', description: 'Eine frei erfundene Figur mit einem würfelförmigen Hut.', email: 'intern@example.org', consent: true, website: '' });
@@ -46,6 +46,8 @@ test('Validierung, geschlossene Phase, fehlende Anbindung, Origin und Upload-Abl
   for (const phase of ['vorbereitet', 'sichtung', 'ergebnis']) assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_PREVIEW_PHASE: phase })).status, 409);
   assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_DB: undefined })).status, 503);
   assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_ENABLED: undefined })).status, 503);
+  assert.equal(isConnected({ ...env, APP_ENV: 'preview' }, runtimeCampaign(env)), false);
+  assert.equal((await submitIdea(request(idea()), { ...env, APP_ENV: 'preview' })).ok, false);
   assert.equal((await submitIdea(request({ ...idea(), description: 'x'.repeat(25000) }), env)).status, 413);
   assert.equal(db.prepare('SELECT count(*) AS n FROM submissions').get()!.n, 0);
 });
