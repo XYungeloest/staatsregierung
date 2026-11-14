@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { campaignTitle, campaignLead, formatCampaignDate, isSubmissionPhase } from '../../../lib/fresswuerfel/config.ts';
+import { getCampaignEnv, runtimeCampaign, isConnected, uploadsConnected } from '../../../lib/fresswuerfel/server.ts';
+export const prerender = false;
+const env = await getCampaignEnv();
+const c = runtimeCampaign(env);
+const uploads = uploadsConnected(env);
+const open = isSubmissionPhase(c) && isConnected(env, c);
+Astro.response.headers.set('Cache-Control', 'no-store');
+const breadcrumbs = [{ label: 'Startseite', href: '/' }, { label: 'Themen & Projekte', href: '/themen/' }, { label: 'Fresswürfel-Maskottchen' }];
+const labels = { vorbereitet: 'In Vorbereitung', einreichung: 'Ideen gesucht', sichtung: 'Die HO sichtet die Ideen', ergebnis: 'Ergebnis' };
+---
+<BaseLayout title={campaignTitle} description={campaignLead} {breadcrumbs} noindex={env.APP_ENV === 'local'}>
+  <Breadcrumbs items={breadcrumbs} />
+  <div class="campaign">
+    <section class="campaign-hero" aria-labelledby="campaign-title">
+      <div class="campaign-hero__copy">
+        <p class="eyebrow">HO · Maskottchenwettbewerb</p>
+        <p class="campaign-status">{labels[c.phase]}</p>
+        <h1 id="campaign-title">{campaignTitle}</h1>
+        <p class="campaign-lead">{campaignLead}</p>
+        {open ? <a class="button-link campaign-button" href="#idee">Idee einreichen <span aria-hidden="true">↗</span></a> : <a class="button-link button-link--secondary" href="#ablauf">So läuft der Wettbewerb</a>}
+      </div>
+      <div class="campaign-motif">
+        <img src="/images/fresswuerfel/logo.png" alt="Fresswürfel: gelber Würfel mit Biss und Schriftzug auf rotem Grund" width="2172" height="724" />
+        <p>Die Marke steht.<br /><strong>Die Figur kommt von Ihnen.</strong></p>
+        <div class="campaign-cubes" aria-hidden="true"><span>?</span><span>!</span><span>…</span></div>
+        <small>Gesucht: eine eigenständige Figur für Verpackungen, Filialen und ein tragbares Plüschkostüm.</small>
+      </div>
+    </section>
+    <section id="ablauf" class="section" aria-labelledby="ablauf-title">
+      <p class="eyebrow">Von der Idee zur Figur</p>
+      <h2 id="ablauf-title">Drei Schritte zum Maskottchen</h2>
+      <ol class="campaign-steps">
+        <li><span aria-hidden="true">01</span><h3>Ideen einreichen</h3><p>Eine Beschreibung genügt. Ein Name für die Figur ist freiwillig.</p></li>
+        <li><span aria-hidden="true">02</span><h3>Auswahl durch die HO</h3><p>Die HO prüft Wiedererkennbarkeit, Bezug zu Fresswürfel, Eigenständigkeit und Umsetzbarkeit als Kostüm.</p></li>
+        <li><span aria-hidden="true">03</span><h3>Ergebnis</h3><p>Die geprüfte Auswahl und das Ergebnis werden hier bekannt gegeben.</p></li>
+      </ol>
+      <p>Die Vorbereitung des Wettbewerbs ist unabhängig vom späteren Start der Restaurantkette.</p>
+      {!c.startsAt ? <p class="status-notice">Der Starttermin wird hier bekannt gegeben.</p> : <p>Einreichungsbeginn: <time datetime={c.startsAt}>{formatCampaignDate(c.startsAt)}</time> (Europe/Berlin).</p>}
+      {c.endsAt && <p>Einreichungsschluss: <time datetime={c.endsAt}>{formatCampaignDate(new Date(Date.parse(c.endsAt) - 60000).toISOString())}</time> (Europe/Berlin).</p>}
+    </section>
+    {c.phase === 'sichtung' && <section class="section section-muted"><h2>Jetzt ist die HO am Zug</h2><p>Die Einreichung ist beendet. Die HO sichtet die Ideen anhand der Auswahlkriterien. Anschließend wird die geprüfte Auswahl hier vorgestellt.</p></section>}
+    {c.phase === 'sichtung' && c.candidates.length > 0 && <section class="section" aria-labelledby="auswahl-title"><p class="eyebrow">Redaktionell freigegeben</p><h2 id="auswahl-title">Die Auswahl der HO</h2><div class="campaign-gallery">{c.candidates.map(item => <article class="panel"><h3>{item.title}</h3>{item.image && <img src={item.image.src} alt={item.image.alt} loading="lazy" />}<p>{item.description}</p></article>)}</div></section>}
+    {c.phase === 'ergebnis' && <section class="section section-muted" aria-labelledby="ergebnis-title"><p class="eyebrow">Maskottchenwettbewerb</p><h2 id="ergebnis-title">Ergebnis</h2>{c.result ? <><h3>{c.result.title}</h3><p>{c.result.description}</p>{c.result.explanation && <p>{c.result.explanation}</p>}</> : <p>Das geprüfte Ergebnis wird nach der Freigabe durch die HO hier bekannt gegeben.</p>}</section>}
+    <section id="idee" class="section campaign-entry" aria-labelledby="idee-title">
+      <div><p class="eyebrow">Ihre Idee zählt</p><h2 id="idee-title">{open ? 'Idee einreichen' : 'Einreichung'}</h2><p>Eine Beschreibung ohne Zeichnung genügt.</p><p>Wie sieht Ihre Figur aus? Was macht sie unverwechselbar? Und wie könnte sie als Plüschkostüm funktionieren?</p></div>
+      {open ? <form id="campaign-form" novalidate data-endpoint="/api/fresswuerfel/einreichungen">
+        <p>Pflichtfelder sind mit „Pflichtfeld“ gekennzeichnet. Eine Skizze oder ein Bild ist freiwillig.</p>
+        <div id="form-status" role="status" tabindex="-1"></div>
+        <label for="figure-name">Namensvorschlag für die Figur (optional)</label>
+        <input id="figure-name" name="name" maxlength="100" aria-describedby="name-error" />
+        <small id="name-error" class="field-error"></small>
+        <label for="figure-description">Beschreibung (Pflichtfeld)</label>
+        <p id="description-hint">20 bis 4.000 Zeichen. Bitte nennen Sie hier keine persönlichen Kontaktdaten.</p>
+        <textarea id="figure-description" name="description" rows="7" required minlength="20" maxlength="4000" aria-describedby="description-hint description-error"></textarea>
+        <small id="description-error" class="field-error"></small>
+        {uploads && <>
+          <label for="figure-sketch">Skizze oder Bild (optional)</label>
+          <p id="sketch-hint">JPEG, PNG oder WebP bis 5 MB. Höchstens 4 Megapixel und 4.096 Pixel je Seite. Das Original bleibt intern; veröffentlicht wird nur eine gesondert freigegebene Bildversion.</p>
+          <input id="figure-sketch" name="sketch" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="sketch-hint sketch-error" />
+          <small id="sketch-error" class="field-error"></small>
+        </>}
+        <label for="figure-email">Kontakt-E-Mail (optional)</label>
+        <p id="email-hint">Die HO nutzt Ihre Adresse ausschließlich für Rückfragen zur Idee. Sie wird nicht veröffentlicht.</p>
+        <input id="figure-email" name="email" type="email" maxlength="254" autocomplete="email" aria-describedby="email-hint email-error" />
+        <small id="email-error" class="field-error"></small>
+        <div class="campaign-honeypot" aria-hidden="true"><label for="figure-website">Website</label><input id="figure-website" name="website" tabindex="-1" autocomplete="off" /></div>
+        <label class="campaign-consent" for="figure-consent"><input id="figure-consent" name="consent" type="checkbox" required aria-describedby="consent-error" /><span>Ich reiche eigene Inhalte ein und habe die <a href="#teilnahme">Teilnahmehinweise</a> sowie die <a href="#datenschutz">Datenschutzhinweise</a> gelesen. (Pflichtfeld)</span></label>
+        <small id="consent-error" class="field-error"></small>
+        <button type="submit" class="button-link campaign-button">Idee einreichen</button>
+        <noscript><p>Bitte aktivieren Sie JavaScript, um Ihre Idee einzureichen.</p></noscript>
+      </form> : <div class="status-notice"><p>{c.phase === 'vorbereitet' ? 'Die Einreichung ist noch nicht geöffnet.' : c.phase === 'einreichung' ? 'Die Einreichung ist derzeit geschlossen. Sobald Sie teilnehmen können, finden Sie das Formular hier.' : 'Es können keine weiteren Ideen eingereicht werden.'}</p></div>}
+    </section>
+    <section id="teilnahme" class="section section-muted"><h2>Teilnahmehinweise</h2><p>Reichen Sie nur eigene Texte und Gestaltungen ein, über deren Rechte Sie verfügen. Der Name der Kette Fresswürfel steht fest; gesucht ist eine eigenständige Maskottchenfigur.</p><p>Die HO trifft eine redaktionelle Auswahl nach den genannten Kriterien. Ein Anspruch auf Veröffentlichung oder Verwendung besteht nicht. Veröffentlicht werden ausschließlich freigegebene Kurzbeschreibungen und gegebenenfalls gesondert freigegebene Bilder.</p><p>Die Figur soll auf Verpackungen, in Filialen und als tragbares Plüschkostüm bei Aktionen eingesetzt werden können. Die endgültige Gestaltung und die Nutzungsrechte klärt die HO mit den betreffenden Einreichenden.</p></section>
+    <section id="datenschutz" class="section"><h2>Datenschutz zur Einreichung</h2><p>Beschreibung, optionaler Namensvorschlag, freiwillig übermittelte Bilder und Kontakt-E-Mail werden zur Bearbeitung Ihres Wettbewerbsbeitrags gespeichert. Zugriff erhält ausschließlich die zuständige Redaktion. Ihre E-Mail-Adresse bleibt intern und dient ausschließlich Rückfragen zur Idee.</p>{c.retentionDays && <p>Die Einreichung samt Originalbildern und Kontaktangaben werden spätestens nach {c.retentionDays + 1} Tagen gelöscht. Für einen späteren Einsatz trifft die HO eine gesonderte Vereinbarung mit Ihnen.</p>}{c.privacyContact && <p>Kontakt für Datenschutzfragen und Löschwünsche: {c.privacyContact}</p>}<p>Zum Schutz vor Missbrauch wird vorübergehend eine nicht im Klartext gespeicherte Kennung aus Ihrer IP-Adresse verwendet. Sie wird spätestens nach zwei Tagen entfernt.</p><p>Weitere Informationen zu verantwortlicher Stelle, Hosting und Ihren Rechten stehen in den <a class="inline-link" href="/service/datenschutz/#fresswuerfel">Datenschutzhinweisen des Portals</a>.</p></section>
+  </div>
+</BaseLayout>
+<script>
+  import '../../../scripts/fresswuerfel-form.ts';
+</script>
+<style>
+  .campaign { --fw-red: #a80b13; --fw-yellow: #ffe000; }
+  .campaign-hero { display: grid; grid-template-columns: 1.25fr 1fr; margin: 1.5rem 0 0; border: 1px solid #d5dce2; }
+  .campaign-hero__copy { padding: clamp(1.4rem, 4vw, 3.5rem); }
+  .campaign h1 { font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.12; margin: 1rem 0 1.5rem; max-width: 16ch; }
+  .campaign-lead { font-size: 1.15rem; line-height: 1.65; margin-bottom: 1.6rem; }
+  .campaign-status { display: inline-block; background: #fff0ad; color: #5e3100; padding: .25rem .65rem; margin-top: .7rem; font-weight: 600; }
+  .campaign-motif { background: var(--fw-red); color: white; padding: clamp(1.5rem, 3vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; }
+  .campaign-motif img { width: 100%; height: auto; }
+  .campaign-motif p { font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.2; }
+  .campaign-motif small { font-size: 1rem; line-height: 1.5; }
+  .campaign-cubes { display: flex; gap: 1rem; padding: .5rem; }
+  .campaign-cubes span { display: grid; place-items: center; background: var(--fw-yellow); color: #780811; width: 3.5rem; height: 3.5rem; box-shadow: 6px 6px 0 #79050b; font-size: 2rem; font-weight: 700; }
+  .campaign-cubes span:nth-child(2) { transform: rotate(8deg); }
+  .campaign-button { background: var(--fw-red); color: white; border-color: var(--fw-red); gap: 1rem; }
+  .campaign-button:hover { background: #79050b; color: white; }
+  .campaign-steps { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem 0; }
+  .campaign-steps li { border-top: 4px solid var(--fw-yellow); padding-top: 1rem; }
+  .campaign-steps li > span { color: var(--fw-red); font-size: 1.4rem; font-weight: 700; }
+  .campaign-steps h3 { margin: .5rem 0; }
+  .campaign-entry { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; border-top: 1px solid #d5dce2; }
+  .campaign form { min-width: 0; background: #f4f6f7; padding: clamp(1.2rem, 3vw, 2rem); }
+  .campaign form label:not(.campaign-consent) { display: block; font-weight: 600; margin-top: 1.2rem; }
+  .campaign input:not([type=checkbox]), .campaign textarea { width: 100%; max-width: 100%; box-sizing: border-box; border: 1px solid #69747e; padding: .75rem; background: white; color: #182532; border-radius: 0; font: inherit; }
+  .campaign textarea { resize: vertical; }
+  .campaign form p { margin: .4rem 0 .7rem; }
+  .campaign-consent { display: flex; gap: .8rem; margin: 1.5rem 0 .5rem; align-items: start; }
+  .campaign-consent input { flex: 0 0 auto; margin-top: .25rem; width: 1.2rem; height: 1.2rem; }
+  .campaign button { margin-top: 1rem; cursor: pointer; font: inherit; }
+  .campaign p a, .campaign-consent a { text-decoration: underline; text-underline-offset: .15em; }
+  .campaign :focus-visible { outline: 3px solid #125ca5; outline-offset: 4px; }
+  .field-error { display: block; color: #940511; font-weight: 600; }
+  [aria-invalid=true] { border: 2px solid #940511 !important; }
+  .campaign-honeypot { display: none; }
+  #form-status:not(:empty) { padding: 1rem; background: #fff0ad; color: #182532; margin-bottom: 1rem; overflow-wrap: anywhere; }
+  .campaign-gallery img { max-width: 100%; height: auto; }
+  .campaign-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.5rem; }
+  @media (max-width: 700px) { .campaign-hero, .campaign-entry, .campaign-steps { grid-template-columns: 1fr; } .campaign-entry { gap: 1rem; } .campaign-motif { gap: 1rem; } .campaign h1 { max-width: none; } }
+</style>
