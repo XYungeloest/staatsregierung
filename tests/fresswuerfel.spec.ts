@@ -128,3 +128,62 @@ test('Vorbereitung, tatsächliche lokale Freigabe und Ergebnis; API bleibt gesch
     }
   }
 });
+
+test('Teilbare Sichtung: Linkzugriff, WebP, Großansicht, Filter und keine Kontaktdaten', async ({ page, request }) => {
+  const token = 'local-review-token-only-for-loopback-preview-0000000000000000';
+  const reviewPath = `/fresswuerfel-sichtung/${token}/`;
+  const bytes = await sharp({ create: { width: 80, height: 60, channels: 3, background: '#ffe000' } }).withMetadata({ exif: { IFD0: { Artist: 'PRIVATE-METADATEN' } } }).webp().toBuffer();
+  const submitted = await request.post('/api/fresswuerfel/einreichungen', { headers: { Origin: 'http://127.0.0.1:4340' }, multipart: { requestId: crypto.randomUUID(), name: 'WebP-Sichtungsprobe', description: 'Eine Würfelfigur als WebP-Probe. <script>window.reviewAttack = true</script>', email: 'private-sichtung@example.org', consent: 'on', website: '', sketch: { name: 'original.webp', mimeType: 'image/webp', buffer: bytes } } });
+  expect(submitted.status()).toBe(201);
+  const number = (await submitted.json()).number;
+  const missing = await request.get('/fresswuerfel-sichtung/');
+  expect(missing.status()).toBe(404);
+  const wrongPath = `/fresswuerfel-sichtung/x${token.slice(1)}/`;
+  const wrong = await request.get(wrongPath);
+  expect(wrong.status()).toBe(404); expect(await wrong.text()).not.toContain('WebP-Sichtungsprobe');
+  expect((await request.get(`${wrongPath}bild/${number}.webp`)).status()).toBe(404);
+  const seenRequests: string[] = [];
+  page.on('request', req => seenRequests.push(req.url()));
+  const response = await page.goto(reviewPath);
+  expect(response!.status()).toBe(200);
+  expect(response!.headers()['x-robots-tag']).toContain('noindex');
+  expect(response!.headers()['cache-control']).toContain('no-store');
+  expect(response!.headers()['referrer-policy']).toBe('no-referrer');
+  await expect(page.getByRole('heading', { name: 'WebP-Sichtungsprobe' })).toBeVisible();
+  await expect(page.locator('body')).not.toContainText('private-sichtung@example.org');
+  await expect(page.locator('body')).not.toContainText('streng-intern@example.org');
+  expect(await page.evaluate(() => (window as any).reviewAttack)).toBeUndefined();
+  const card = page.locator('[data-idea-card]').filter({ has: page.getByRole('heading', { name: 'WebP-Sichtungsprobe' }) });
+  const image = card.locator('img');
+  await image.scrollIntoViewIfNeeded();
+  await expect.poll(() => image.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBe(80);
+  const previewUrl = (await image.getAttribute('src'))!;
+  const preview = await request.get(previewUrl);
+  expect(preview.status()).toBe(200); expect(preview.headers()['content-type']).toBe('image/webp');
+  const metadata = await sharp(await preview.body()).metadata();
+  expect(metadata.exif).toBeUndefined(); expect(metadata.xmp).toBeUndefined(); expect(metadata.icc).toBeUndefined();
+  await card.locator('[data-full-image]').click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).not.toBeVisible();
+  await expect(card.locator('[data-full-image]')).toBeFocused();
+  await page.getByLabel('Ideen auf dieser Seite filtern').fill('WebP-Sichtungsprobe');
+  await expect(page.locator('[data-idea-card]:visible')).toHaveCount(1);
+  await page.getByLabel('Ideen auf dieser Seite filtern').fill('kein-passender-vorschlag');
+  await expect(page.locator('#filter-empty')).toBeVisible();
+  await page.getByLabel('Ideen auf dieser Seite filtern').fill('');
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()).violations).toEqual([]);
+  for (const width of [1440, 390, 320]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(reviewPath);
+    await page.evaluate(async () => {
+      await Promise.all([...document.images].map(image => { image.loading = 'eager'; return image.decode().catch(() => {}); }));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: `test-results/fresswuerfel/sichtung-link-${width}.png`, fullPage: true });
+  }
+  expect(seenRequests.every(url => new URL(url).origin === 'http://127.0.0.1:4340')).toBe(true);
+  const [index, sitemap, home] = await Promise.all(['/search-index.json', '/sitemap.xml', '/'].map(path => request.get(path).then(r => r.text())));
+  for (const html of [index, sitemap, home]) expect(html).not.toContain('fresswuerfel-sichtung/');
+});

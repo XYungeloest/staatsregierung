@@ -12,6 +12,7 @@ export interface CampaignDB {
   batch(statements: Statement[]): Promise<Array<{ success: boolean }>>;
 }
 export interface PrivateSketches {
+  get(key: string): Promise<{ body: ReadableStream | null; arrayBuffer(): Promise<ArrayBuffer> } | null>;
   put(key: string, value: Uint8Array, options?: object): Promise<unknown>;
   delete(key: string | string[]): Promise<void>;
 }
@@ -22,6 +23,7 @@ export interface CampaignEnv {
   FRESSWUERFEL_UPLOADS_ENABLED?: string;
   FRESSWUERFEL_ENABLED?: string;
   FRESSWUERFEL_RATE_SALT?: string;
+  FRESSWUERFEL_REVIEW_TOKEN?: string;
   FRESSWUERFEL_PREVIEW_PHASE?: string;
   FRESSWUERFEL_PREVIEW_PUBLIC_JSON?: string;
 }

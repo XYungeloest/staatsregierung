@@ -22,7 +22,7 @@ function fixture() {
   const env: CampaignEnv = { APP_ENV: 'local', FRESSWUERFEL_DB: adapter, FRESSWUERFEL_ENABLED: 'true', FRESSWUERFEL_RATE_SALT: 'a'.repeat(32), FRESSWUERFEL_PREVIEW_PHASE: 'einreichung' };
   const objects = new Map<string, Uint8Array>();
   env.FRESSWUERFEL_UPLOADS_ENABLED = 'true';
-  env.FRESSWUERFEL_SKETCHES = { put: async (key, bytes) => { objects.set(key, bytes); }, delete: async key => { for (const k of Array.isArray(key) ? key : [key]) objects.delete(k); } };
+  env.FRESSWUERFEL_SKETCHES = { get: async key => { const bytes = objects.get(key); return bytes ? { body: new Blob([new Uint8Array(bytes)]).stream(), arrayBuffer: async () => new Uint8Array(bytes).buffer } : null; }, put: async (key, bytes) => { objects.set(key, bytes); }, delete: async key => { for (const k of Array.isArray(key) ? key : [key]) objects.delete(k); } };
   return { db, env, objects };
 }
 const idea = () => ({ requestId: crypto.randomUUID(), name: 'Probe', description: 'Eine frei erfundene Figur mit einem würfelförmigen Hut.', email: 'intern@example.org', consent: true, website: '' });
