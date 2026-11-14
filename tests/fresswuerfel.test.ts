@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
-import { submitIdea, runtimeCampaign, type CampaignEnv, type CampaignDB } from '../apps/portal/src/lib/fresswuerfel/server.ts';
+import { submitIdea, runtimeCampaign, isConnected, type CampaignEnv, type CampaignDB } from '../apps/portal/src/lib/fresswuerfel/server.ts';
 import { campaign, isSubmissionPhase, showTeaser, validateCampaign, formatCampaignDate } from '../apps/portal/src/lib/fresswuerfel/config.ts';
 
 function fixture() {
@@ -46,7 +46,8 @@ test('Validierung, geschlossene Phase, fehlende Anbindung, Origin und Upload-Abl
   for (const phase of ['vorbereitet', 'sichtung', 'ergebnis']) assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_PREVIEW_PHASE: phase })).status, 409);
   assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_DB: undefined })).status, 503);
   assert.equal((await submitIdea(request(idea()), { ...env, FRESSWUERFEL_ENABLED: undefined })).status, 503);
-  assert.equal((await submitIdea(request(idea()), { ...env, APP_ENV: 'preview' })).status, 503);
+  assert.equal(isConnected({ ...env, APP_ENV: 'preview' }, runtimeCampaign(env)), false);
+  assert.equal((await submitIdea(request(idea()), { ...env, APP_ENV: 'preview' })).ok, false);
   assert.equal((await submitIdea(request({ ...idea(), description: 'x'.repeat(25000) }), env)).status, 413);
   assert.equal(db.prepare('SELECT count(*) AS n FROM submissions').get()!.n, 0);
 });
