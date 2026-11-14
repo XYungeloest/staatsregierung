@@ -38,8 +38,6 @@ const labels = { vorbereitet: 'In Vorbereitung', einreichung: 'Ideen gesucht', s
         <li><span aria-hidden="true">02</span><h3>Auswahl durch die HO</h3><p>Die HO prüft Wiedererkennbarkeit, Bezug zu Fresswürfel, Eigenständigkeit und Umsetzbarkeit als Kostüm.</p></li>
         <li><span aria-hidden="true">03</span><h3>Ergebnis</h3><p>Die geprüfte Auswahl und das Ergebnis werden hier bekannt gegeben.</p></li>
       </ol>
-      <p>Die Vorbereitung des Wettbewerbs ist unabhängig vom späteren Start der Restaurantkette.</p>
-      {!c.startsAt ? <p class="status-notice">Der Starttermin wird hier bekannt gegeben.</p> : <p>Einreichungsbeginn: <time datetime={c.startsAt}>{formatCampaignDate(c.startsAt)}</time> (Europe/Berlin).</p>}
       {c.endsAt && <p>Einreichungsschluss: <time datetime={c.endsAt}>{formatCampaignDate(new Date(Date.parse(c.endsAt) - 60000).toISOString())}</time> (Europe/Berlin).</p>}
     </section>
     {c.phase === 'sichtung' && <section class="section section-muted"><h2>Jetzt ist die HO am Zug</h2><p>Die Einreichung ist beendet. Die HO sichtet die Ideen anhand der Auswahlkriterien. Anschließend wird die geprüfte Auswahl hier vorgestellt.</p></section>}
