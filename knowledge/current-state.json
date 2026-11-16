@@ -1329,7 +1329,7 @@
       "asOf": "2026-11-13",
       "validFrom": "2026-11-13",
       "validTo": null,
-      "summary": "Die Sicherheitsreform ist in OGVBl. Nr. 85–99 verkündet. Die Terrorismusabwehr-Novelle gilt ab 14. November; am selben Tag tritt die Verordnungsermächtigung des KRITIS-Gesetzes in Kraft. Polizeibezeichnung, Polizeiorganisation und Beschwerdestelle folgen am 1. Dezember. Polizeiausbildung, Digitalisierung, Sicherheitsarchitektur, Staatsschutz, Kontrolle, Luftverkehrssicherung, Demokratieförderung und Behördenzusammenarbeit gelten überwiegend ab 1. Januar 2027. Verkündung und rechtliches Inkrafttreten belegen keinen abgeschlossenen organisatorischen Vollzug.",
+      "summary": "Die Sicherheitsreform ist in OGVBl. 2026 Nr. 85–99 verkündet. Die Terrorismusabwehr-Novelle gilt ab 14. November; am selben Tag tritt die Verordnungsermächtigung des KRITIS-Gesetzes in Kraft. Polizeibezeichnung, Polizeiorganisation und Beschwerdestelle folgen am 1. Dezember. Polizeiausbildung, Digitalisierung, Sicherheitsarchitektur, Staatsschutz, Kontrolle, Luftverkehrssicherung, Demokratieförderung und Behördenzusammenarbeit gelten überwiegend ab 1. Januar 2027. Verkündung und rechtliches Inkrafttreten belegen keinen abgeschlossenen organisatorischen Vollzug.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-85",
@@ -1405,15 +1405,28 @@
           "sourceId": "source-ogvbl-2026-99",
           "locator": "Verkündeter Gesetzestext und Inkrafttretensvorschrift",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-eingang-2026-11-13",
+          "locator": "Abschnitte Gestaffelte Wirksamkeit, Reihenfolge der Änderungen und Redaktionelle Quellenentscheidung",
+          "role": "context"
         }
       ],
-      "relatedIds": [],
-      "tags": [
-        "Sicherheit",
-        "Polizei",
-        "Staatsschutz"
+      "relatedIds": [
+        "proceeding-kritis-schutz-2026",
+        "inst-staatsschutz",
+        "inst-grenzpolizei"
       ],
-      "notes": "Die ältere Nummerierungskollision in § 97 OstPolVDG ist durch die ausdrücklich genehmigte redaktionelle Quellenentscheidung vom 13. November 2026 aufgelöst."
+      "tags": [
+        "current-state",
+        "security",
+        "police",
+        "state-protection"
+      ],
+      "notes": [
+        "Die Bezeichnungsänderung „Polizeidirektionen als Bezirkspolizeidirektionen“ aus OGVBl. 2026 Nr. 46 wird nach der redaktionellen Quellenentscheidung vom 13. November 2026 (polizei-direktionen-nummer-6-2026 in data/recht/consolidation-sources.json) auf die durch OGVBl. 2026 Nr. 50 nach § 97 Absatz 1 Nummer 6 OstPVDG verschobenen Polizeidirektionen angewandt; Nummer 5 bleibt die Kasernierte Grenzpolizei. Ab 1. Dezember 2026 fasst OGVBl. 2026 Nr. 86 Artikel 2 den § 97 neu.",
+        "Keine der Ausgaben bezeichnet sich als besonderes Gesetz nach Artikel 74a; mangels Beschlussunterlagen ist die Zweidrittelmehrheit nicht belegt."
+      ]
     }
   ]
 }

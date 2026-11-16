@@ -251,13 +251,20 @@ async function auditSnapshots() {
       if (parsed.sourceValidFrom !== configured.sourceValidFrom || parsed.sourceValidTo !== configured.sourceValidTo) {
         throw new Error('Quellgültigkeit weicht von der Konfiguration ab');
       }
+      const materializedVersionId = sourceId === 'baseline'
+        ? (configuredTarget.baselineSnapshotDate ?? config.baselineSnapshotDate)
+        : configured.versionDate;
+      // Wie scripts/consolidate-norms.mjs: Für die Ausgangsfassung ist der Rechtsstand am Stichtag
+      // maßgeblich. Eine ausdrücklich übernommene Zusatzquelle trägt das Zitat ihres Adoptionsbelegs.
+      const citationValidAt = sourceId === 'baseline' ? materializedVersionId : undefined;
       const pageFutureDates = futureAmendmentDates(
         parsed.pageFullCitation ?? parsed.fullCitation,
-        configured.sourceValidTo,
+        citationValidAt ?? configured.sourceValidTo,
       );
       const selectedCitation = historicalBaselineCitation({
         pageFullCitation: parsed.pageFullCitation ?? parsed.fullCitation,
         sourceValidTo: configured.sourceValidTo,
+        citationValidAt,
         baselineCitation: sourceId === 'baseline' ? configuredTarget.baselineCitation : undefined,
         sourceCitation: configured.citation,
         context: `${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}`,
@@ -268,9 +275,6 @@ async function auditSnapshots() {
           `${pageFutureDates.join(', ')}; historisch geprüfte Baseline-Zitierung wird verwendet`,
         );
       }
-      const materializedVersionId = sourceId === 'baseline'
-        ? (configuredTarget.baselineSnapshotDate ?? config.baselineSnapshotDate)
-        : configured.versionDate;
       try {
         const materialized = JSON.parse(await readFile(
           resolve(ROOT, 'content/normen', slug, 'versions', `${materializedVersionId}.json`),

@@ -97,6 +97,19 @@ async function existingVersionMetadata(normDirectory, versionId) {
   }
 }
 
+/** Die redaktionell gepflegte Fundstellennummer einer gespeicherten Fassung überlebt die Neuerzeugung. */
+async function existingVersionSourceReferences(normDirectory, versionId) {
+  try {
+    const existing = await readJson(join(normDirectory, 'versions', `${versionId}.json`));
+    return new Map((existing.sourceReferences ?? [])
+      .filter((reference) => typeof reference.localSource === 'string')
+      .map((reference) => [reference.localSource, reference]));
+  } catch (error) {
+    if (error.code === 'ENOENT') return new Map();
+    throw error;
+  }
+}
+
 async function writeJson(path, value) {
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
@@ -301,6 +314,9 @@ async function consolidate(slug, config) {
     : historicalBaselineCitation({
       pageFullCitation: parsed.pageFullCitation ?? parsed.fullCitation,
       sourceValidTo: baselineSource.sourceValidTo,
+      // Maßgeblich ist der übernommene Rechtsstand am Tag der Ausgangsfassung, nicht das Ende des
+      // REVOSax-Fassungszeitraums: Spätere sächsische Änderungsgesetze gehören nicht ins Zitat.
+      citationValidAt: baselineVersionDate,
       baselineCitation: source.baselineCitation,
       sourceCitation: baselineSource.citation,
       context: slug,
@@ -447,6 +463,7 @@ async function consolidate(slug, config) {
     });
   }
   let repealRecipe = null;
+  let renamed = false;
 
   for (const group of recipeGroups) {
     const effectiveDate = group[0].effectiveDate;
@@ -479,7 +496,10 @@ async function consolidate(slug, config) {
     }
 
     if (!group[0].repealsLaw) {
-      if (source.resultTitle) state.title = source.resultTitle;
+      // Die konfigurierte Bezeichnung gilt nur bis zu einer amtlichen Neufassung der Bezeichnung
+      // (renameLaw); danach führt die Fassung den verkündeten Titel.
+      if (group.some((recipe) => recipe.operations?.some((operation) => operation.op === 'renameLaw'))) renamed = true;
+      if (source.resultTitle && !renamed) state.title = source.resultTitle;
       versions.push({
         versionId,
         validFrom: effectiveDate,
@@ -584,7 +604,15 @@ async function consolidate(slug, config) {
     // vom letzten. Eine „Vereinfachung“ zu `{ ...version, ...preserved }` erzeugt eine andere
     // Schlüsselreihenfolge und damit hunderte Byte-Diffs, ohne dass ein Test anschlägt.
     const preserved = await existingVersionMetadata(normDirectory, version.versionId);
-    return { versionId: version.versionId, ...preserved, ...version, ...preserved };
+    const previousReferences = await existingVersionSourceReferences(normDirectory, version.versionId);
+    const sourceReferences = version.sourceReferences?.map((reference) => retainFsnNumber(reference, previousReferences));
+    return {
+      versionId: version.versionId,
+      ...preserved,
+      ...version,
+      ...(sourceReferences ? { sourceReferences } : {}),
+      ...preserved,
+    };
   }));
   // Rechtsüberleitung erst auf dem konsolidierten Ergebnis (siehe applyRechtsueberleitung) und
   // nur für Fassungen mit REVOSax-Provenienz; eigene ostdeutsche Vorschriften behalten ihre

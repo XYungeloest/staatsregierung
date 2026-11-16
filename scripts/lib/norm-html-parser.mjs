@@ -584,6 +584,28 @@ function textWithoutNestedLists(node) {
   return (node.childNodes ?? []).map(textWithoutNestedLists).join('');
 }
 
+// Gedruckte Buchstaben „a.“, „b.“ … als einfache Absätze unter einer Nummer, deren Text mit
+// einem Doppelpunkt endet: Sie bilden die Unterpunkte dieser Nummer. Erkannt wird nur die
+// lückenlose Folge ab „a.“ unmittelbar nach der Nummer; sonst bleibt der Absatz Fließtext.
+function printedLetterItem(text, previousToken) {
+  const match = normalizeHtmlText(text).match(/^([a-z])\.\s+(.+)$/u);
+  if (!match || previousToken?.kind !== 'listItem') return null;
+  const letter = match[1];
+  const opensPrintedSublist = letter === 'a' && previousToken.numberingStyle === 'decimal' &&
+    /:\s*$/u.test(previousToken.text ?? '');
+  const continuesPrintedSublist = previousToken.printedLetter &&
+    letter.charCodeAt(0) === previousToken.printedLetter.charCodeAt(0) + 1;
+  if (!opensPrintedSublist && !continuesPrintedSublist) return null;
+  return {
+    label: `${letter}.`,
+    text: match[2],
+    level: 1,
+    numberingStyle: 'lower-latin',
+    printedLetter: letter,
+    opensPrintedSublist,
+  };
+}
+
 function makeAtomicTokens(nodes, css, fileName) {
   const counters = new Map();
   const tokens = [];
@@ -739,12 +761,26 @@ function makeAtomicTokens(nodes, css, fileName) {
     const amendmentInstruction = QUOTE_TRIGGER_PATTERN.test(text);
     const amendmentReference = marker && ['article', 'paragraph'].includes(marker.type) && AMENDMENT_REFERENCE_PATTERN.test(marker.title ?? '');
     const printedItem = !markerLooksLikeHeading ? parsePrintedListItem(text) : null;
+    const printedLetter = !markerLooksLikeHeading && !printedItem ? printedLetterItem(text, tokens.at(-1)) : null;
     if (markerLooksLikeHeading && !amendmentReference && !(amendmentInstruction && ['article', 'paragraph'].includes(marker.type))) {
+      const embeddedTitle = embeddedIntroducedNormTitle(marker, rawText);
+      const headingText = embeddedTitle ? rawText.split('\n').slice(0, 2).join('\n') : rawText;
       tokens.push({
-        kind: 'structure', marker, text: rawText, rawText,
+        kind: 'structure',
+        marker: embeddedTitle ? { ...marker, title: embeddedTitle.articleTitle } : marker,
+        text: headingText, rawText: headingText,
         tagName: node.tagName, bold: isBold(node, css), centered: isCentered(node, css),
         opensQuote: OPENING_QUOTE_PATTERN.test(rawText),
       });
+      // Der in derselben Überschrift gesetzte Stammnormtitel bleibt eine eigene Titelzeile
+      // unter der Artikelüberschrift, wie bei getrennt gesetzten Einführungsartikeln.
+      if (embeddedTitle) {
+        tokens.push({
+          kind: 'paragraph', text: embeddedTitle.normTitle, rawText: embeddedTitle.normTitle, tagName: node.tagName,
+          bold: isBold(node, css), centered: isCentered(node, css),
+          indent: visualIndent(node, css),
+        });
+      }
     } else if (printedItem) {
       tokens.push({
         kind: 'listItem',
@@ -752,6 +788,14 @@ function makeAtomicTokens(nodes, css, fileName) {
         ...printedItem,
         startsList: printedItem.level === 0,
         indent: visualIndent(node, css, printedItem.level * 36),
+      });
+    } else if (printedLetter) {
+      tokens.push({
+        kind: 'listItem',
+        listId: 'printed-outline',
+        ...printedLetter,
+        startsList: printedLetter.opensPrintedSublist,
+        indent: visualIndent(node, css),
       });
     } else {
       tokens.push({
@@ -762,6 +806,17 @@ function makeAtomicTokens(nodes, css, fileName) {
     }
   }
   return tokens;
+}
+
+// „Artikel 1 / Einführung eines …gesetzes / Gesetz über …“ in einer einzigen Überschrift:
+// Artikelüberschrift und Titel der eingeführten Stammnorm werden getrennt.
+function embeddedIntroducedNormTitle(marker, rawText) {
+  if (marker?.type !== 'article' || OPENING_QUOTE_PATTERN.test(rawText)) return null;
+  const lines = rawText.split('\n').map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 3) return null;
+  if (!/^Einführung\s+(?:eines|einer)\s+.*?(?:gesetzes|verordnung|satzung)\b/iu.test(lines[1])) return null;
+  if (!EMBEDDED_NORM_TITLE_PATTERN.test(lines[2])) return null;
+  return { articleTitle: lines[1], normTitle: lines.slice(2).join(' ') };
 }
 
 function isOuterArticleToken(token) {
@@ -793,14 +848,21 @@ function groupIntroducedQuotes(tokens) {
       index = end - 1;
       continue;
     }
+    // Der Stammnormtitel steht als eigene Zeile unter dem Einführungsartikel; die
+    // zitierte Gliederung reicht bis zum nächsten äußeren Mantelartikel. Sie ist
+    // derselbe Ausschnitt, aus dem extractIntroducedNorms die Stammnorm bildet, und
+    // wird deshalb wie diese gegliedert (standalone), damit Zitat und Stammnorm übereinstimmen.
     const followsIntroduction = token.kind === 'paragraph' && EMBEDDED_NORM_TITLE_PATTERN.test(token.text) &&
       isOuterArticleToken(tokens[index - 1]) && /^Einführung\s/iu.test(tokens[index - 1].marker.title ?? '') &&
-      !/^Einführung\s+(?:eines|einer)\s+(?:besonderen\s+)?(?:[\p{L}-]*gesetzes|[\p{L}-]*verordnung|[\p{L}-]*satzung)/iu.test(tokens[index - 1].marker.title ?? '');
+      tokens[index + 1]?.kind === 'structure' && tokens[index + 1].marker.type !== 'article';
     if (token.kind !== 'paragraph' || (!INTRODUCTION_PATTERN.test(token.text) && !followsIntroduction)) continue;
     let end = index + 1;
     while (end < tokens.length && !isOuterArticleToken(tokens[end])) end += 1;
     if (end > index + 1) {
-      grouped.push({ kind: 'quotedGroup', tokens: tokens.slice(index + 1, end), attachToPrevious: false, introduction: true });
+      grouped.push({
+        kind: 'quotedGroup', tokens: tokens.slice(index + 1, end), attachToPrevious: false, introduction: true,
+        standalone: followsIntroduction,
+      });
       index = end - 1;
     }
   }
@@ -1044,7 +1106,14 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       }
       let semanticLevel = token.level - baseline;
       let destination = currentChildren(stack);
-      if (semanticLevel > 0) {
+      if (token.opensPrintedSublist && lastListState && lastBlock === lastListState.block) {
+        // Gedruckte Buchstabenfolge unter der unmittelbar vorangehenden Nummer.
+        semanticLevel = lastListState.semanticLevel + 1;
+        destination = lastListState.block.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.clear();
+        parents.set(semanticLevel - 1, lastListState.block);
+      } else if (semanticLevel > 0) {
         let parent;
         for (let parentLevel = semanticLevel - 1; parentLevel >= 0; parentLevel -= 1) {
           parent = parents.get(parentLevel);
@@ -1166,7 +1235,7 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       continue;
     }
     if (token.kind === 'quotedGroup') {
-      const children = parseTokens(token.tokens, fileName, { inQuote: true, parseAmendmentQuotes });
+      const children = parseTokens(token.tokens, fileName, { inQuote: !token.standalone, parseAmendmentQuotes });
       if (children.length === 0) throw new NormHtmlParseError(fileName, 'zitierte Neufassung besitzt keinen Inhalt');
       const quote = { type: 'quotedProvision', children };
       if (token.attachToPrevious) {

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-10-14",
+  "asOf": "2026-11-13",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -2546,18 +2546,30 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-09-12",
-      "summary": "Sicherheitsbehörde des Freistaates, die nach der Pressemitteilung vom 10. September 2026 gemeinsam mit der Landespolizei und den Staatsanwaltschaften Durchsuchungen gegen rechtsextreme Strukturen geleitet hat und sichergestellte Materialien auswertet. Rechtsgrundlage, Organisation und Zuordnung zu einem Geschäftsbereich sind im Wissenshub nicht belegt.",
+      "asOf": "2026-11-13",
+      "summary": "Sicherheitsbehörde des Freistaates, die nach der Pressemitteilung vom 10. September 2026 gemeinsam mit der Landespolizei und den Staatsanwaltschaften Durchsuchungen gegen rechtsextreme Strukturen geleitet hat und sichergestellte Materialien auswertet. Für diesen Stand sind Rechtsgrundlage, Organisation und Zuordnung zu einem Geschäftsbereich im Wissenshub nicht belegt. Am 13. November 2026 ist das Staatsschutzamt-Errichtungsgesetz (OGVBl. 2026 Nr. 91) verkündet; es errichtet ab 1. Januar 2027 das Landesamt für Staatsschutz des Freistaates Ostdeutschland als obere Landesbehörde im Geschäftsbereich Frieden mit Sitz in Dresden, in dem das Landesamt für Verfassungsschutz aufgeht. Das Staatsschutz- und Nachrichtendienstgesetz (OGVBl. 2026 Nr. 92) bezeichnet dieses Landesamt als „Staatsschutz“.",
       "sourceRefs": [
         {
           "sourceId": "source-pm-2026-09-10-13",
           "locator": "Absätze 1 und 7",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-91",
+          "locator": "Artikel 1 §§ 1, 2 und 12, Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-92",
+          "locator": "Artikel 1 § 1 Absatz 3, Artikel 3",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "proceeding-durchsuchungen-rechtsextreme-2026-09"
+        "proceeding-durchsuchungen-rechtsextreme-2026-09",
+        "state-sicherheitsreform-2026",
+        "event-ogvbl-2026-91-promulgated"
       ],
       "tags": [
         "institution",
@@ -2565,7 +2577,8 @@
         "law-enforcement"
       ],
       "notes": [
-        "Nur über die Pressemitteilung belegt; weder ein Errichtungsgesetz noch ein Organisationserlass nennt die Behörde. Die Staatsverfassung schließt in Artikel 83 Absatz 3 einen Geheimdienst mit polizeilichen Befugnissen aus."
+        "Für den Stand der Pressemitteilung nennt weder ein Errichtungsgesetz noch ein Organisationserlass die Behörde. Das Landesamt für Staatsschutz besteht erst ab 1. Januar 2027; ein eigener Institutionseintrag wird mit seiner Errichtung angelegt.",
+        "Seit 12. September 2026 bindet Artikel 83 Absatz 3 Satz 1 der Staatsverfassung Maßnahmen eines Geheimdienstes, die Grundrechte Dritter berühren, an eine gesetzliche Grundlage; der frühere Satz, nach dem der Freistaat keinen Geheimdienst mit polizeilichen Befugnissen unterhält, ist entfallen."
       ],
       "aliases": [
         "Staatsschutz"

@@ -13,8 +13,12 @@
     {
       "type": "article",
       "label": "Artikel 1",
-      "title": "Einführung eines Luftverkehrssicherungsgesetzes Gesetz zur Sicherung des Luftverkehrs im Freistaat Ostdeutschland (Ostdeutsches Luftverkehrssicherungsgesetz – OstLVSG)",
+      "title": "Einführung eines Luftverkehrssicherungsgesetzes",
       "children": [
+        {
+          "type": "paragraphText",
+          "text": "Gesetz zur Sicherung des Luftverkehrs im Freistaat Ostdeutschland (Ostdeutsches Luftverkehrssicherungsgesetz – OstLVSG)"
+        },
         {
           "type": "quotedProvision",
           "children": [

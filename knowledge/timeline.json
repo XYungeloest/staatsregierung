@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-10-14",
+  "asOf": "2026-11-13",
   "events": [
     {
       "id": "event-off-holdings-succession-2026",
@@ -4077,6 +4077,533 @@
         "publication"
       ],
       "notes": []
+    },
+    {
+      "id": "event-ogvbl-2026-85-promulgated",
+      "title": "Bezeichnung der Polizei als Volkspolizei: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Gesetz über die Bezeichnung der Polizei als Volkspolizei ist verkündet und tritt am 1. Dezember 2026 in Kraft. Die Polizeidienststellen nach dem Volkspolizeiorganisationsgesetz führen dann die Bezeichnung „Volkspolizei des Freistaates Ostdeutschland“, die Hochschule heißt Hochschule der Volkspolizei (FH). Beim Einsatz der Kasernierten Grenzpolizei gibt deren Leitung besondere Waffen frei.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-85",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-grenzpolizei"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "volkspolizei-bezeichnungsgesetz",
+          "versionId": "2026-12-01"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+          "versionId": "2026-12-01"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeifachhochschulgesetz",
+          "versionId": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-86-promulgated",
+      "title": "Organisation der Volkspolizei und bürgernahe Polizeiarbeit: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Volkspolizeiorganisationsgesetz ist verkündet und tritt am 1. Dezember 2026 in Kraft. Es sieht je Bezirk eine Bezirkspolizeidirektion und für Berlin die Bezirkspolizeidirektion Berlin vor, regelt Polizeireviere, Kontaktbereichsbeamt:innen, Erreichbarkeit und individuelle Kennzeichnung; § 97 Polizeivollzugsdienstgesetz wird neu gefasst, §§ 99 und 100 werden aufgehoben. Die Kontaktbereichsbeamt:innen sind bis 31. Dezember 2026 zu bestellen; die Polizeiorganisationsverordnung gilt bis zu ihrer Ablösung fort.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-86",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 §§ 7, 9, 16 und 17, Artikel 2 und 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-grenzpolizei"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "volkspolizei-organisationsreform",
+          "versionId": "2026-12-01"
+        },
+        {
+          "normSlug": "volkspolizeiorganisationsgesetz",
+          "versionId": "2026-12-01"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+          "versionId": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-87-promulgated",
+      "title": "Reform der Polizeiausbildung: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Gesetz zur Reform der Polizeiausbildung ist verkündet und tritt am 1. Januar 2027 in Kraft. Es fügt Pflichtkompetenzen, Fortbildungspflicht, Führungsqualifizierung und Evaluation in das Polizeifachhochschulgesetz ein (§§ 22a bis 22d). Die Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei ist bis 30. Juni 2027 anzupassen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-87",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "polizeiausbildungsreformgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeifachhochschulgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-88-promulgated",
+      "title": "Unabhängige Polizei-Beschwerde- und Ermittlungsstelle: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Polizeibeschwerdestellengesetz ist verkündet und tritt am 1. Dezember 2026 in Kraft. Es regelt Rechtsstellung, Wahl der Leitung durch die Volkskammer, Verfahren, Befugnisse und Jahresbericht der Beschwerdestelle bei der Volkskammer; § 98 Polizeivollzugsdienstgesetz verweist künftig darauf. Die bestehende Stelle nach § 98 besteht als Beschwerdestelle fort (Artikel 3 Absatz 1).",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-88",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-polizeibeschwerdestellengesetz",
+          "versionId": "2026-12-01"
+        },
+        {
+          "normSlug": "polizeibeschwerdestellengesetz",
+          "versionId": "2026-12-01"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+          "versionId": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-89-promulgated",
+      "title": "Digitalisierung der Volkspolizei: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Polizeidigitalisierungsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt Digitalisierungsplan, elektronische Vorgangsbearbeitung, Online-Wache, Leitstellen, Interoperabilität, Datenschutz durch Technikgestaltung und Informationssicherheit. Der Digitalisierungsplan ist bis 30. September 2027 aufzustellen, die Online-Wache bis 31. Dezember 2027 in Betrieb zu nehmen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-89",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 §§ 3, 5 und 15, Artikel 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-polizeidigitalisierungsgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "polizeidigitalisierungsgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-90-promulgated",
+      "title": "Sicherheitsarchitektur und Krisenbewältigung: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Ostdeutsche Sicherheitsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es bildet beim Staatsrat ein Sicherheitskabinett, errichtet das Gemeinsame Lage- und Abwehrzentrum Ost mit einem Landeslagebild innere Sicherheit und regelt Landeskrisenstab, Krisenkommunikation, Übungen, Sicherheitsbericht und die Unterrichtung der Volkskammer in der Krise.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-90",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-ostdeutsches-sicherheitsgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "ostdeutsches-sicherheitsgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-91-promulgated",
+      "title": "Errichtung des Landesamtes für Staatsschutz: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Staatsschutzamt-Errichtungsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es errichtet das Landesamt für Staatsschutz als obere Landesbehörde im Geschäftsbereich Frieden mit Sitz in Dresden und Verfassungsschutzbehörde des Freistaates; das Landesamt für Verfassungsschutz geht darin auf. Die bisherige Präsident:in nimmt die Leitung bis zur Ernennung nach § 7 Absatz 2 wahr, längstens bis 30. Juni 2027.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-91",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 §§ 1, 2, 7 und 12, Artikel 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-staatsschutz"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-staatsschutzamt-errichtungsgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "staatsschutzamt-errichtungsgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-92-promulgated",
+      "title": "Staatsschutz und nachrichtendienstliche Aufklärung: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Staatsschutz- und Nachrichtendienstgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt Aufgaben, Befugnisse, nachrichtendienstliche Mittel, Datenverarbeitung und Übermittlungen des Landesamtes für Staatsschutz sowie einen Staatsschutzbericht. Bestimmte Maßnahmen bedürfen einer Anordnung der Staatsschutzkommission (§ 5 Absatz 4).",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-92",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-staatsschutz"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-staatsschutz-nachrichtendienstgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "staatsschutz-und-nachrichtendienstgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-93-promulgated",
+      "title": "Parlamentarische und unabhängige Kontrolle des Staatsschutzes: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Staatsschutz-Kontrollgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt das Parlamentarische Kontrollgremium für den Staatsschutz und die Staatsschutzkommission. Die Volkskammer wählt und bestellt beide erstmals innerhalb eines Monats nach Inkrafttreten; bis dahin nehmen die nach bisherigem Recht gebildeten Gremien die Aufgaben wahr (§ 14).",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-93",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-staatsschutz",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-staatsschutz-kontrollgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "staatsschutz-kontrollgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-94-promulgated",
+      "title": "Schutz kritischer Infrastrukturen: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Ostdeutsche KRITIS-Gesetz ist verkündet. § 3 Absatz 2 (Verordnungsermächtigung zur Bestimmung kritischer Infrastrukturen) gilt ab 14. November 2026, im Übrigen gilt das Gesetz ab 1. Januar 2027. Es regelt Registrierung, Risikoanalyse, Resilienzplan und Störungsmeldungen der Betreiber:innen sowie eine Zentrale KRITIS-Stelle.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-94",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "proceeding-kritis-schutz-2026"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-ostdeutsches-kritis-gesetz",
+          "versionId": "2026-11-14"
+        },
+        {
+          "normSlug": "ostdeutsches-kritis-gesetz",
+          "versionId": "2026-11-14"
+        },
+        {
+          "normSlug": "ostdeutsches-kritis-gesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-95-promulgated",
+      "title": "Luftverkehrssicherung und Zentralstelle Drohnenabwehr: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Ostdeutsche Luftverkehrssicherungsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es bestimmt die Luftsicherheitsbehörde, richtet beim Landeskriminalamt eine Zentralstelle Drohnenabwehr ein (§ 2) und sieht Verwaltungsvereinbarungen zur Zusammenarbeit an Verkehrsflughäfen vor.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-95",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "proceeding-kritis-schutz-2026"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-luftverkehrssicherungsgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-96-promulgated",
+      "title": "Terrorismus- und Drohnenabwehr im Polizeirecht: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Gesetz zur Stärkung der Terrorismusabwehr ist verkündet und tritt am 14. November 2026 in Kraft. Es fügt Schutzbereiche um kritische Infrastruktur und Verkehrsflughäfen (§ 15a), Meldeauflagen zur Abwehr terroristischer Gefahren (§ 20a) und Maßnahmen gegen unbemannte Fluggeräte (§ 46a) in das Polizeivollzugsdienstgesetz ein.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-96",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "proceeding-kritis-schutz-2026",
+        "inst-grenzpolizei"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "terrorismusabwehr-polizeivollzugsdienstgesetz",
+          "versionId": "2026-11-14"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+          "versionId": "2026-11-14"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-97-promulgated",
+      "title": "Wehrhafte Demokratie und Demokratieförderung: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Gesetz zur Stärkung der wehrhaften Demokratie ist verkündet und tritt am 1. Januar 2027 in Kraft. Es führt das Verfassungstreueprüfungsgesetz für Einstellungen in besonders sicherheitsrelevante Bereiche und das Demokratieförderungsgesetz mit Landesprogramm, Förderung freier Träger, Ausstiegsprogramm und Beirat ein. Das Landesprogramm ist erstmals bis 30. Juni 2027 zu beschließen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-97",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "wehrhafte-demokratie-gesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "verfassungstreuepruefungsgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "demokratiefoerderungsgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-98-promulgated",
+      "title": "Zusammenarbeit der Sicherheitsbehörden: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Sicherheitsbehörden-Zusammenarbeitsgesetz ist verkündet und tritt am 1. Januar 2027 in Kraft. Es regelt Übermittlungen an den Staatsschutz, die Zusammenarbeit von Volkspolizei und Kasernierter Grenzpolizei, Ersuchen, gemeinsame Projektdateien, Fallkonferenzen sowie Protokollierung und Kontrolle.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-98",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-staatsschutz",
+        "inst-grenzpolizei"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "einfuehrung-sicherheitsbehoerden-zusammenarbeitsgesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "sicherheitsbehoerden-zusammenarbeitsgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
+    },
+    {
+      "id": "event-ogvbl-2026-99-promulgated",
+      "title": "Einführung der Ost-Sicherheitsreform und Anpassung des Landesrechts: Gesetzgebung verkündet",
+      "status": "confirmed-primary",
+      "date": "2026-11-13",
+      "asOf": "2026-11-13",
+      "summary": "Das Anpassungsgesetz zur Ost-Sicherheitsreform ist verkündet und tritt am 1. Januar 2027 in Kraft. Es hebt das Ostdeutsche Verfassungsschutzgesetz und das Artikel-10-Gesetz-Ausführungsgesetz mit Ablauf des 31. Dezember 2026 auf, passt Bezeichnungen und Verweisungen an und regelt die Überleitung. Fortgeführte Maßnahmen ohne Anordnung der Staatsschutzkommission sind längstens bis 31. März 2027 zulässig; Verwaltungsvorschriften sind bis 30. Juni 2027 an das Staatsschutz- und Nachrichtendienstgesetz anzupassen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-99",
+          "locator": "Gesetzesbeschluss und Verkündung vom 13. November 2026; Artikel 1 bis 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "state-sicherheitsreform-2026",
+        "inst-staatsschutz"
+      ],
+      "tags": [
+        "law",
+        "publication"
+      ],
+      "notes": [],
+      "normRefs": [
+        {
+          "normSlug": "ost-sicherheitsreform-anpassungsgesetz",
+          "versionId": "2027-01-01"
+        }
+      ]
     }
   ]
 }

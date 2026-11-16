@@ -875,7 +875,7 @@
       "sourceSha256": "2abcd4e8dde17af5e558f176463f4ac23959431b5302bb8f0511041e5b619053"
     },
     "ostdeutsches-polizeivollzugsdienstgesetz": {
-      "resultTitle": "Ostdeutsches Polizeivollzugsdienstgesetz",
+      "resultTitle": "Gesetz über die Aufgaben, Befugnisse, Datenverarbeitung und Organisation des Polizeivollzugsdienstes im Freistaat Ostdeutschland",
       "title": "Sächsisches Polizeivollzugsdienstgesetz",
       "resultShortTitle": "Ostdeutsches Polizeivollzugsdienstgesetz",
       "aliases": [
@@ -917,7 +917,8 @@
             "Gesetze/OGVBl. 2026 Nr. 50.html"
           ]
         }
-      ]
+      ],
+      "resultAbbr": "OstPVDG"
     },
     "finanzausgleichsgesetz": {
       "revosaxLawId": "5402",
@@ -1230,7 +1231,7 @@
       "revosaxLawId": "14060",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/14060.5",
       "sourceValidFrom": "2023-01-01",
-      "sourceValidTo": null,
+      "sourceValidTo": "2026-12-30",
       "snapshot": "data/recht/sources/revosax/ostdeutsches-normenkontrollratsgesetz/14060.5.html",
       "retrievedAt": "2026-08-23",
       "sourceSha256": "3a940a4ac1fb207b01703689efa1490180f055cbd9c1bcc5ea1ad6688c9dd125",
@@ -1894,7 +1895,7 @@
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/10798.1",
       "baselineSnapshotDate": "2023-11-01",
       "sourceValidFrom": "2009-04-01",
-      "sourceValidTo": null,
+      "sourceValidTo": "2024-08-31",
       "snapshot": "data/recht/sources/revosax/vo-bezeichnung-hochschulgrade-fh-polizei/10798.html",
       "retrievedAt": "2026-09-03",
       "sourceSha256": "10bbbc9f3ca7b17b6a230028110edb78efac00894b41b55e2ee5381531391cb6",
@@ -1932,7 +1933,8 @@
       "snapshot": "data/recht/sources/revosax/landesjugendhilfegesetz/1897.17.html",
       "retrievedAt": "2026-09-03",
       "sourceSha256": "f2bd60bbd5bbfaa01f178d804d971b1cfb6da99b99fbd9531757fd567cc9133e",
-      "revosaxLawId": "1897"
+      "revosaxLawId": "1897",
+      "baselineCitation": "Landesjugendhilfegesetz in der Fassung der Bekanntmachung vom 4. September 2008 (SächsGVBl. S. 578), das zuletzt durch die Verordnung vom 31. Januar 2023 (SächsGVBl. S. 64) geändert worden ist"
     },
     "ostdeutsches-informationssicherheitsgesetz": {
       "title": "Gesetz zur Gewährleistung der Informationssicherheit im Freistaat Sachsen",
@@ -1950,7 +1952,8 @@
       "snapshot": "data/recht/sources/revosax/ostdeutsches-informationssicherheitsgesetz/18349.2.html",
       "retrievedAt": "2026-09-03",
       "sourceSha256": "95c21a8ee5511750ee4311f8204099a7a3e1dd56430fd81e48443b2288d5ea18",
-      "revosaxLawId": "18349"
+      "revosaxLawId": "18349",
+      "baselineCitation": "Sächsisches Informationssicherheitsgesetz vom 2. August 2019 (SächsGVBl. S. 630), das durch Artikel 14 des Gesetzes vom 31. Mai 2023 (SächsGVBl. S. 329) geändert worden ist"
     },
     "ostdeutsches-besoldungsgesetz": {
       "title": "Sächsisches Besoldungsgesetz",
@@ -1966,7 +1969,8 @@
       "snapshot": "data/recht/sources/revosax/ostdeutsches-besoldungsgesetz/13872.27.html",
       "retrievedAt": "2026-09-03",
       "sourceSha256": "67f7821240952763b3c1b316fae3f949ce1063cfce669f9617507fdc85a2ee61",
-      "revosaxLawId": "13872"
+      "revosaxLawId": "13872",
+      "baselineCitation": "Sächsisches Besoldungsgesetz vom 18. Dezember 2013 (SächsGVBl. S. 970, 1005), das zuletzt durch die Artikel 1 und 3 des Gesetzes vom 6. Juli 2023 (SächsGVBl. S. 467) geändert worden ist"
     },
     "ostdeutsches-sicherheitsueberpruefungsgesetz": {
       "title": "Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Sachsen",
@@ -1984,7 +1988,8 @@
       "snapshot": "data/recht/sources/revosax/ostdeutsches-sicherheitsueberpruefungsgesetz/1345.3.html",
       "retrievedAt": "2026-09-03",
       "sourceSha256": "5bec8b8324de4f7ec6002737b1ea01a5306c4ef1cc6c88fd7721c8a4679619b2",
-      "revosaxLawId": "1345"
+      "revosaxLawId": "1345",
+      "baselineCitation": "Sächsisches Sicherheitsüberprüfungsgesetz vom 19. Februar 2004 (SächsGVBl. S. 44), das zuletzt durch Artikel 21 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130) geändert worden ist"
     },
     "ostdeutsches-verfassungsschutzgesetz": {
       "title": "Gesetz über den Verfassungsschutz im Freistaat Sachsen",
@@ -2002,7 +2007,8 @@
       "snapshot": "data/recht/sources/revosax/ostdeutsches-verfassungsschutzgesetz/3288.6.html",
       "retrievedAt": "2026-09-03",
       "sourceSha256": "a2ea65772cdb7cf14a6781c1ecdb7c3227f9750c1c892371311fb65bab3c3b6d",
-      "revosaxLawId": "3288"
+      "revosaxLawId": "3288",
+      "baselineCitation": "Sächsisches Verfassungsschutzgesetz vom 16. Oktober 1992 (SächsGVBl. S. 459), das zuletzt durch Artikel 1 des Gesetzes vom 3. Mai 2019 (SächsGVBl. S. 312) geändert worden ist"
     },
     "ostdeutsches-artikel-10-gesetz-ausfuehrungsgesetz": {
       "title": "Gesetz zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen",

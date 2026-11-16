@@ -564,7 +564,9 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
   const validFrom = parseGermanDate(quickbarText.match(/Fassung gültig ab:\s*.{0,80}?\d{4}/iu)?.[0])
     ?? validityDates[0]
     ?? null;
+  // Endet die Vorschrift selbst, nennt REVOSax statt „Fassung gültig bis“ den Ablauftag.
   const validTo = parseGermanDate(quickbarText.match(/Fassung gültig bis:\s*.{0,80}?\d{4}/iu)?.[0])
+    ?? parseGermanDate(quickbarText.match(/Vorschrift außer Kraft mit Ablauf des:\s*.{0,80}?\d{4}/iu)?.[0])
     ?? validityDates[1]
     ?? null;
 
