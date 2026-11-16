@@ -3,7 +3,7 @@
   "effectiveDate": "2026-03-25",
   "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
   "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), zuletzt geändert durch Artikel 3 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
-  "changeNote": "Für Berlin wurde eine Polizeidirektion mit großstadtspezifischer Organisation vorgesehen.",
+  "changeNote": "Für Berlin wurde eine Polizeidirektion mit großstadtspezifischer Organisation vorgesehen; die Verordnung über die Gliederung der Polizei hat die besonderen Anforderungen der Bundeshauptstadt zu berücksichtigen.",
   "sourceReferences": [
     {
       "kind": "amendment-source",
@@ -31,6 +31,25 @@
       "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
       "sourceProvision": "Artikel 3 Nummer 1",
       "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Gliederung der Polizei in Polizeidienststellen und die Verteilung der Aufgaben auf die Polizeidienststellen wird durch das Staatsministerium des Innern durch Rechtsverordnung bestimmt.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 100"
+      },
+      "expectedHash": "792b3d5758287e70ed07ffd306656ccc92d31edf7bf5a308d6c5058ce8cd7645",
+      "expectedMatches": 1,
+      "value": "Die Gliederung der Polizei in Polizeidienststellen und die Verteilung der Aufgaben auf die Polizeidienststellen wird durch das Staatsministerium des Innern durch Rechtsverordnung bestimmt. Dabei sind für die Bundeshauptstadt Berlin die besonderen Anforderungen nach § 97 Absatz 3 zu berücksichtigen; insbesondere sind eine stadtbezirksnahe Gliederung, eine stadtweite Führungs- und Einsatzorganisation sowie robuste Lage- und Führungsstrukturen für komplexe Einsatzlagen sicherzustellen.",
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 3 Nummer 2",
+      "effectiveDate": "2026-03-25"
     }
+  ],
+  "commandCoverage": [
+    "Artikel 3 Nummer 1",
+    "Artikel 3 Nummer 2"
   ]
 }

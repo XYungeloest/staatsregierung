@@ -422,3 +422,61 @@ test('mehrteilige Einführungstitel trennen Stammnorm und Schlussartikel bei bei
     assert.ok(flatten(parsed.body).some(({block, insideQuote}) => block.label === '§ 1' && insideQuote));
   }
 });
+
+function introductionFixture(intro, rest) {
+  return `<!doctype html><html><body>
+    <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>
+    <p>Nr. 99</p><p>Ausgegeben zu Dresden am 14. Oktober 2026</p>
+    <p>Inhaltsverzeichnis</p><p>14. Oktober 2026 Gesetz zur Einführung einer Prüfregelung Seite 2</p>
+    <p>Gesetz<br>zur Einführung einer Prüfregelung<br>vom 14. Oktober 2026</p>
+    ${intro}${rest}
+    <h1>Artikel 2<br>Inkrafttreten</h1><p>Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.</p>
+    <p>Dresden, den 14. Oktober 2026</p></body></html>`;
+}
+
+test('ein Einführungsartikel mit einwortigem Gesetzesnamen fasst die Stammnorm als Zitat und lässt den Schlussartikel oben', () => {
+  const title = 'Gesetz über ein Prüfverfahren (Prüfverfahrensgesetz – PVG)';
+  const sections = '<h2>Abschnitt 1<br>Grundlagen</h2><h3>§ 1<br>Prüfung</h3><p>Die Stelle prüft den Vorgang.</p>' +
+    '<h2>Abschnitt 2<br>Schlussbestimmungen</h2><h3>§ 2<br>Bericht</h3><p>Die Stelle berichtet jährlich.</p>';
+  for (const intro of [
+    `<h1>Artikel 1<br>Einführung eines Prüfverfahrensgesetzes</h1><p>${title}</p>`,
+    `<h1>Artikel 1<br>Einführung eines Prüfverfahrensgesetzes<br>${title}</h1>`,
+  ]) {
+    const parsed = parsePublicationHtml('einfuehrung-kompositum-fixture.html', introductionFixture(intro, sections));
+    assert.deepEqual(parsed.body.map((block) => block.label).filter(Boolean), ['Artikel 1', 'Artikel 2']);
+    const [article] = parsed.body.filter((block) => block.label === 'Artikel 1');
+    assert.equal(article.title, 'Einführung eines Prüfverfahrensgesetzes');
+    assert.deepEqual(article.children.map((block) => block.type), ['paragraphText', 'quotedProvision']);
+    assert.equal(article.children[0].text, title);
+    assert.deepEqual(article.children[1].children, parsed.introducedNorms[0].body);
+    assert.equal(parsed.introducedNorms[0].title, 'Gesetz über ein Prüfverfahren');
+    assert.doesNotMatch(JSON.stringify(parsed.introducedNorms[0].body), /Inkrafttreten/);
+    assert.ok(flatten(parsed.body).some(({ block, insideQuote }) => block.label === '§ 2' && insideQuote));
+  }
+});
+
+test('gedruckte Buchstaben unter einer HTML-Nummer werden deren Unterpunkte', () => {
+  const css = `
+    .lst-kix_amend-0>li:before{content:counter(lst-ctn-kix_amend-0,decimal) ". "}
+    ol.lst-kix_amend-0.start{counter-reset:lst-ctn-kix_amend-0 0}`;
+  const section = hierarchyFixture(`
+    <ol class="lst-kix_amend-0 start" start="1"><li style="margin-left:18pt">Die Inhaltsübersicht wird wie folgt geändert:</li></ol>
+    <p>a. Nach der Angabe zu § 1 wird die Angabe „§ 1a Prüfung“ eingefügt.</p>
+    <p>b. Nach der Angabe zu § 2 wird die Angabe „§ 2a Bericht“ eingefügt.</p>
+    <p>2. In § 3 wird das Wort „Stelle“ durch das Wort „Behörde“ ersetzt.</p>`, css);
+  const items = section.children.filter((block) => block.type === 'item');
+  assert.deepEqual(items.map((block) => block.label), ['1.', '2.']);
+  assert.deepEqual(items[0].children.map((block) => [block.label, block.level, block.numberingStyle]), [
+    ['a.', 1, 'lower-latin'],
+    ['b.', 1, 'lower-latin'],
+  ]);
+  assert.equal(items[0].children[0].text, 'Nach der Angabe zu § 1 wird die Angabe „§ 1a Prüfung“ eingefügt.');
+});
+
+test('gedruckte Buchstaben ohne vorangehende Nummer bleiben Fließtext', () => {
+  const section = hierarchyFixture(`
+    <p>(1) Die Stelle hat insbesondere das Recht,</p>
+    <p>a. Auskunft zu verlangen,</p>
+    <p>b. Unterlagen einzusehen.</p>`);
+  assert.ok(section.children.every((block) => block.type !== 'item'));
+});

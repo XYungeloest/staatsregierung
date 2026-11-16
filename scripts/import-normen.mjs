@@ -156,7 +156,7 @@ const NEW_PUBLICATION_CONFIG = {
     "slug": "volkspolizei-bezeichnungsgesetz",
     "shortTitle": "Gesetz über die Bezeichnung der Polizei des Freistaates Ostdeutschland als Volkspolizei",
     "type": "aenderungsvorschrift",
-    "summary": "Ändert die amtliche Polizeibezeichnung und benennt die Hochschule der Polizei sowie ihre Hochschulgrade um.",
+    "summary": "Führt die amtliche Bezeichnung Volkspolizei ein, benennt die Hochschule der Polizei in Hochschule der Volkspolizei (FH) um und regelt die Freigabe besonderer Waffen beim Einsatz der Kasernierten Grenzpolizei.",
     "affectedNorms": [
       "ostdeutsches-polizeivollzugsdienstgesetz",
       "ostdeutsches-polizeifachhochschulgesetz",
@@ -252,7 +252,7 @@ const NEW_PUBLICATION_CONFIG = {
     "shortTitle": "Polizeibeschwerdestellengesetz",
     "abbr": "PolBeschStG",
     "type": "gesetz",
-    "summary": "Regelt die unabhängige Beschwerdestelle und ihre Überleitung sowie die entsprechende Änderung des Polizeivollzugsdienstgesetzes."
+    "summary": "Regelt Rechtsstellung, Unabhängigkeit, Wahl und Abberufung der Leitung der unabhängigen Polizei-Beschwerde- und Ermittlungsstelle bei der Volkskammer sowie Beschwerden, Untersuchungen, Befugnisse, Datenverarbeitung und Berichtspflichten."
   }
 ],
   'OGVBl.|2026|89': [
@@ -312,6 +312,7 @@ const NEW_PUBLICATION_CONFIG = {
     ],
     "slug": "ostdeutsches-sicherheitsgesetz",
     "shortTitle": "Ostdeutsches Sicherheitsgesetz",
+    "shortTitleSource": "official",
     "type": "gesetz",
     "summary": "Schafft den gesetzlichen Rahmen für Sicherheitskabinett, gemeinsames Lagezentrum und die Bewältigung von Sicherheitskrisen."
   }
@@ -525,7 +526,7 @@ const NEW_PUBLICATION_CONFIG = {
     "shortTitle": "Verfassungstreueprüfungsgesetz",
     "abbr": "VTPG",
     "type": "gesetz",
-    "summary": "Führt Verfassungstreueprüfungen für besonders sicherheitsrelevante Einstellungen und die Förderung von Demokratie und Extremismusprävention ein."
+    "summary": "Regelt die Anfrage beim Landesamt für Staatsschutz zur Verfassungstreue vor Einstellungen und anlassbezogen in besonders sicherheitsrelevanten Bereichen mit Anhörung, Datenschutz und Berichtspflicht."
   },
   {
     "pageCount": 6,
@@ -540,7 +541,7 @@ const NEW_PUBLICATION_CONFIG = {
     "shortTitle": "Demokratieförderungsgesetz",
     "abbr": "DemFG",
     "type": "gesetz",
-    "summary": "Führt Verfassungstreueprüfungen für besonders sicherheitsrelevante Einstellungen und die Förderung von Demokratie und Extremismusprävention ein."
+    "summary": "Regelt das Landesprogramm „Wehrhafte Demokratie“, die Förderung freier Träger, ein Ausstiegsprogramm sowie Beirat und Berichtspflicht."
   }
 ],
   'OGVBl.|2026|98': [
@@ -2147,7 +2148,9 @@ function buildRecords(parsed) {
       title: officialTitle,
       ...(resultShortTitle ? { shortTitle: resultShortTitle } : {}),
       ...(resultShortTitle
-        ? { shortTitleSource: config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial' }
+        // Eine ohne Abkürzung im Klammerzusatz des amtlichen Titels vergebene Kurzbezeichnung
+        // erkennt der Parser nicht; die Konfiguration weist sie dann ausdrücklich als amtlich aus.
+        ? { shortTitleSource: config.shortTitleSource ?? (config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial') }
         : {}),
       ...(resultAbbr ? { abbr: resultAbbr } : {}),
       type: recordType,

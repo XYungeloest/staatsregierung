@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-09-12",
+  "asOf": "2026-11-13",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment",
@@ -1221,8 +1221,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-09-08",
       "validTo": null,
-      "asOf": "2026-09-08",
-      "summary": "Der Staatsrat beschließt ein erhöhtes Sicherheitsniveau, eine ergebnisoffene Aufklärung des versuchten Anschlags und eine Überprüfung der Sicherheitsarchitektur. Der Staatsrat für Frieden konkretisiert die vorläufigen Schutzmaßnahmen durch den Sicherheitserlass KRITIS 09/2026. Zusätzliche gesetzliche Befugnisse zur Drohnenabwehr sind erst auszuarbeiten.",
+      "asOf": "2026-11-13",
+      "summary": "Der Staatsrat beschließt ein erhöhtes Sicherheitsniveau, eine ergebnisoffene Aufklärung des versuchten Anschlags und eine Überprüfung der Sicherheitsarchitektur. Der Staatsrat für Frieden konkretisiert die vorläufigen Schutzmaßnahmen durch den Sicherheitserlass KRITIS 09/2026. Am 13. November 2026 sind Schutzbereiche, Meldeauflagen und Maßnahmen gegen unbemannte Fluggeräte (§§ 15a, 20a und 46a Polizeivollzugsdienstgesetz, OGVBl. 2026 Nr. 96, ab 14. November 2026), das KRITIS-Gesetz (OGVBl. 2026 Nr. 94; § 3 Absatz 2 ab 14. November 2026, im Übrigen ab 1. Januar 2027) und das Luftverkehrssicherungsgesetz mit einer Zentralstelle Drohnenabwehr beim Landeskriminalamt (OGVBl. 2026 Nr. 95, ab 1. Januar 2027) verkündet.",
       "sourceRefs": [
         {
           "sourceId": "source-stanzo-2026-44",
@@ -1233,10 +1233,29 @@
           "sourceId": "source-stanzo-2026-45",
           "locator": "Sicherheitserlass KRITIS 09/2026, Nummern 1–10, S. 2–5",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-94",
+          "locator": "Artikel 1 §§ 3 bis 9, Artikel 4",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-95",
+          "locator": "Artikel 1 § 2, Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-96",
+          "locator": "Artikel 1 Nummer 2 bis 4 (§§ 15a, 20a und 46a), Artikel 4",
+          "role": "primary"
         }
       ],
       "relatedIds": [
-        "person-yannik-schmaele"
+        "person-yannik-schmaele",
+        "state-sicherheitsreform-2026",
+        "event-ogvbl-2026-94-promulgated",
+        "event-ogvbl-2026-95-promulgated",
+        "event-ogvbl-2026-96-promulgated"
       ],
       "tags": [
         "security",
@@ -1246,7 +1265,8 @@
       "notes": [
         "Eine politische, extremistische, ausländische oder sonstige Urheberschaft ist nicht festgestellt. Ermittlungsansätze sind keine Täterzuordnung.",
         "Nummer 9 des Erlasses weist den ersten Bericht dem für die Landespolizei zuständigen Staatssekretariat zu; nach dem Organisationserlass 09/2026 liegen die Polizeiaufgaben beim Staatssekretariat des Innern und für Staats- und Grenzsicherheit.",
-        "Die Berichtspflichten sind Aufträge, kein Nachweis bereits vorgelegter Berichte oder abgeschlossener Schutzmaßnahmen."
+        "Die Berichtspflichten sind Aufträge, kein Nachweis bereits vorgelegter Berichte oder abgeschlossener Schutzmaßnahmen.",
+        "Ob und inwieweit die verkündeten Gesetze einzelne Regelungen des Sicherheitserlasses im Sinne seiner Nummer 10 Absatz 2 ersetzen, bestimmen sie nicht ausdrücklich."
       ],
       "proceedingType": "security-implementation",
       "stage": "implementation",
@@ -1257,10 +1277,30 @@
         {
           "normSlug": "sicherheitserlass-kritis-09-2026",
           "versionId": "2026-09-08"
+        },
+        {
+          "normSlug": "terrorismusabwehr-polizeivollzugsdienstgesetz",
+          "versionId": "2026-11-14"
+        },
+        {
+          "normSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+          "versionId": "2026-11-14"
+        },
+        {
+          "normSlug": "ostdeutsches-kritis-gesetz",
+          "versionId": "2026-11-14"
+        },
+        {
+          "normSlug": "ostdeutsches-kritis-gesetz",
+          "versionId": "2027-01-01"
+        },
+        {
+          "normSlug": "ostdeutsches-luftverkehrssicherungsgesetz",
+          "versionId": "2027-01-01"
         }
       ],
       "decision": "Vorläufige Schutzmaßnahmen innerhalb bestehender Befugnisse; der Sicherheitserlass gilt bis zum Ablauf des 8. Dezember 2026.",
-      "nextAction": "Erster Bericht nach Nummer 9 innerhalb von vier Wochen; Bericht zur Sicherheitsarchitektur nach Abschnitt III innerhalb von sechs Wochen ab 8. September 2026; Entwurf für zusätzliche Drohnenabwehrbefugnisse vorbereiten.",
+      "nextAction": "Erster Bericht nach Nummer 9 innerhalb von vier Wochen; Bericht zur Sicherheitsarchitektur nach Abschnitt III innerhalb von sechs Wochen ab 8. September 2026; Rechtsverordnung nach § 3 Absatz 2 des KRITIS-Gesetzes zur Bestimmung kritischer Infrastrukturen.",
       "openQuestionIds": []
     },
     {

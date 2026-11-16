@@ -497,3 +497,23 @@ test('Aufnahmeklauseln vor dem Stichtag und spätere Änderungen bleiben untersc
     'Testvorschrift vom 1. Januar 2015 (SächsABl. S. 5)',
   );
 });
+
+test('der Ablauftag einer außer Kraft getretenen Vorschrift beendet die Quellgültigkeit', () => {
+  const html = snapshot('<section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>Text.</p></section>').replace(
+    '<p>Fassung gültig ab: 1. Januar 2020</p>',
+    '<p>Fassung gültig ab: 1. Januar 2020</p><p>Vorschrift außer Kraft mit Ablauf des: 31. August 2024</p>',
+  );
+  const parsed = parseRevosaxSnapshot(html, { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+  assert.equal(parsed.sourceValidFrom, '2020-01-01');
+  assert.equal(parsed.sourceValidTo, '2024-08-31');
+});
+
+test('die historische Zitierung misst spätere Änderungen am Tag der Ausgangsfassung', () => {
+  const pageFullCitation = 'Testgesetz vom 1. Januar 2020 (SächsGVBl. S. 1), das zuletzt durch Artikel 2 des Gesetzes vom 22. Juli 2024 (SächsGVBl. S. 706) geändert worden ist';
+  // Bis zum Ende des Fassungszeitraums gemessen bliebe die Änderung von 2024 stehen.
+  assert.equal(historicalBaselineCitation({ pageFullCitation, sourceValidTo: '2024-09-30' }), pageFullCitation);
+  assert.equal(
+    historicalBaselineCitation({ pageFullCitation, sourceValidTo: '2024-09-30', citationValidAt: '2023-11-01' }),
+    'Testgesetz vom 1. Januar 2020 (SächsGVBl. S. 1)',
+  );
+});

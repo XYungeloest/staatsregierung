@@ -205,9 +205,13 @@ vollständige Fassung. Klassifikation und Blockierungsgründe stehen in
 Für die dritte Plenarsitzung vom 20. Juli 2026 liegt kein Plenarprotokoll mit Redebeiträgen,
 Einzelabstimmungen und Stimmenzahlen vor. Für die Gesetzesbeschlüsse des Ostdeutschen Landtages
 vom 2. September 2026 (OGVBl. 2026 Nr. 70 bis 74) und der achten Volkskammer vom 11. September
-2026 (OGVBl. 2026 Nr. 76 bis 79) sowie vom 12. Oktober 2026 (OGVBl. 2026 Nr. 80 bis 84)
-liegen weder Plenarprotokolle noch Drucksachen vor. Die
+2026 (OGVBl. 2026 Nr. 76 bis 79) sowie vom 12. Oktober 2026 (OGVBl. 2026 Nr. 80 bis 84) und
+vom 13. November 2026 (OGVBl. 2026 Nr. 85 bis 99) liegen weder Plenarprotokolle noch Drucksachen
+vor. Die
 Verkündungen belegen Beschlussdatum, Verkündung und Inkrafttreten der betroffenen Vorhaben, nicht
 aber den Beratungsverlauf oder konkrete Abstimmungszahlen; bei den Beschlüssen vom 2. und
-11. September und 12. Oktober auch nicht die Einbringung. Solche Details werden ohne zusätzliche Primärquelle nicht
+11. September, 12. Oktober und 13. November auch nicht die Einbringung. Damit ist für das
+Staatsschutz-Kontrollgesetz, das Staatsschutz- und Nachrichtendienstgesetz und das
+Polizeibeschwerdestellengesetz auch nicht belegt, dass sie als besondere Gesetze nach Artikel 74a
+der Staatsverfassung beschlossen wurden. Solche Details werden ohne zusätzliche Primärquelle nicht
 ergänzt.

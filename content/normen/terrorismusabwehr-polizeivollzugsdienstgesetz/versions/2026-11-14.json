@@ -26,19 +26,35 @@
           "level": 0,
           "listId": "uelof1wzfaaf",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "a. Nach der Angabe zu § 15 wird die Angabe „§ 15a Schutzbereiche um kritische Infrastruktur und Verkehrsflughäfen“ eingefügt."
-        },
-        {
-          "type": "paragraphText",
-          "text": "b. Nach der Angabe zu § 20 wird die Angabe „§ 20a Meldeauflage zur Abwehr terroristischer Gefahren“ eingefügt."
-        },
-        {
-          "type": "paragraphText",
-          "text": "c. Nach der Angabe zu § 46 wird die Angabe „§ 46a Maßnahmen gegen unbemannte Fluggeräte“ eingefügt."
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Nach der Angabe zu § 15 wird die Angabe „§ 15a Schutzbereiche um kritische Infrastruktur und Verkehrsflughäfen“ eingefügt.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Nach der Angabe zu § 20 wird die Angabe „§ 20a Meldeauflage zur Abwehr terroristischer Gefahren“ eingefügt.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Nach der Angabe zu § 46 wird die Angabe „§ 46a Maßnahmen gegen unbemannte Fluggeräte“ eingefügt.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",

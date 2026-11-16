@@ -88,4 +88,4 @@ Was das geltende Recht bereits an Verordnungen, Verwaltungsvorschriften, Satzung
 
 Die in OGVBl. 2026 Nr. 80 bis 84 verkündeten Gesetze sind kein weiterer Rechtsetzungsauftrag: Wirtschaftsplanung und Gemeinwirtschaft, Handelsorganisation Ost, Rohstoffwerke und Fonds, kostenfreie Kindheit und Teilhabe sowie das neue Rechnungshofrecht sind beschlossen. Am Stichtag sind die neuen Vorschriften noch nicht in Kraft; verbleibende Aufbau-, Plan-, Verordnungs- und Leistungsaufgaben stehen in den quellengebundenen Vorhabenseinträgen in `projects.json`.
 
-Die Gesetze zur Staatsschutzreform und zur Drohnenabwehr wurden am 13. November 2026 in OGVBl. Nr. 85–99 verkündet. Ihre gestaffelte Geltung und Umsetzung werden im Rechtsbestand und im Wissenshub geführt.
+Die Gesetze zur Staatsschutzreform und zur Drohnenabwehr wurden am 13. November 2026 in OGVBl. 2026 Nr. 85–99 verkündet. Ihre gestaffelte Geltung und Umsetzung werden im Rechtsbestand und im Wissenshub geführt.

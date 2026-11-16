@@ -54,7 +54,24 @@
       "expectedMatches": 1,
       "value": {
         "type": "paragraphText",
-        "text": "Volkspolizeipräsident:in – als Abteilungsleitung in der obersten Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes –"
+        "text": "Volkspolizeipräsident:in"
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
+      "sourceProvision": "Artikel 3 Absatz 4",
+      "effectiveDate": "2026-12-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraphText",
+        "text": "Volkspolizeipräsident:in"
+      },
+      "expectedHash": "53efcfbf77337ccdf6f5751d487fff9b3b78502115adea900a6914fba4355824",
+      "expectedMatches": 1,
+      "value": {
+        "type": "item",
+        "label": "–",
+        "text": "als Abteilungsleitung in der obersten Polizeibehörde nach § 2 Absatz 1 des Volkspolizeiorganisationsgesetzes –"
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 86.html",
       "sourceProvision": "Artikel 3 Absatz 4",
